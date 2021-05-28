@@ -1,6 +1,7 @@
+import { KeyEventData } from "@ckeditor/ckeditor5-engine/src/view/observer/keyobserver";
 import createElement from "@ckeditor/ckeditor5-utils/src/dom/createelement";
 import Locale from "@ckeditor/ckeditor5-utils/src/locale";
-import Emitter from "@ckeditor/ckeditor5-utils/src/emittermixin";
+import EmitterMixin, { Emitter } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import Rect from "@ckeditor/ckeditor5-utils/src/dom/rect";
 import getAncestors from "@ckeditor/ckeditor5-utils/src/dom/getancestors";
 import getBorderWidths from "@ckeditor/ckeditor5-utils/src/dom/getborderwidths";
@@ -23,7 +24,7 @@ import Collection from "@ckeditor/ckeditor5-utils/src/collection";
 import compareArrays from "@ckeditor/ckeditor5-utils/src/comparearrays";
 import Config from "@ckeditor/ckeditor5-utils/src/config";
 import count from "@ckeditor/ckeditor5-utils/src/count";
-import diff, { Change } from "@ckeditor/ckeditor5-utils/src/diff";
+import diff from "@ckeditor/ckeditor5-utils/src/diff";
 import diffToChanges from "@ckeditor/ckeditor5-utils/src/difftochanges";
 import ElementReplacer from "@ckeditor/ckeditor5-utils/src/elementreplacer";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
@@ -32,13 +33,7 @@ import fastDiff from "@ckeditor/ckeditor5-utils/src/fastdiff";
 import first from "@ckeditor/ckeditor5-utils/src/first";
 import FocusTracker from "@ckeditor/ckeditor5-utils/src/focustracker";
 import isIterable from "@ckeditor/ckeditor5-utils/src/isiterable";
-import {
-    getCode,
-    keyCodes,
-    getEnvKeystrokeText,
-    parseKeystroke,
-    KeystrokeInfo,
-} from "@ckeditor/ckeditor5-utils/src/keyboard";
+import { getCode, keyCodes, getEnvKeystrokeText, parseKeystroke } from "@ckeditor/ckeditor5-utils/src/keyboard";
 import KeystrokeHandler from "@ckeditor/ckeditor5-utils/src/keystrokehandler";
 import spy from "@ckeditor/ckeditor5-utils/src/spy";
 import mapsEqual from "@ckeditor/ckeditor5-utils/src/mapsequal";
@@ -62,12 +57,11 @@ import {
 
 declare const document: Document;
 declare const locale: Locale;
-declare let bool: boolean;
-declare let changes: Change[];
 declare let emitter: Emitter;
 declare let htmlElement: HTMLElement;
 declare let map: Map<string, number>;
 declare let num: number;
+declare let bool: boolean;
 declare let rect: Rect;
 declare let rectOrNull: Rect | null;
 declare let str: string;
@@ -176,11 +170,12 @@ str = toUnit("rem")(10);
 // utils/ckeditorerror ========================================================
 
 const regularError = new Error("foo");
-let ckeditorError: CKEditorError;
+let ckeditorError: CKEditorError<"foo">;
+let ckeditorErrorWithData: CKEditorError<"foo", { bar: number }>;
 
 const data = { bar: 1 };
 ckeditorError = new CKEditorError("foo");
-ckeditorError = new CKEditorError("foo", data);
+ckeditorErrorWithData = new CKEditorError("foo", data);
 
 ckeditorError.is(ckeditorError);
 ckeditorError.is(regularError);
@@ -384,7 +379,7 @@ num = count([1, 2, 3, 4, 5]);
 
 // utils/diff =================================================================
 
-changes = diff("aba", "acca");
+let changes = diff("aba", "acca");
 changes = diff(Array.from("aba"), Array.from("acca"));
 
 // utils/difftochanges ========================================================
@@ -411,7 +406,7 @@ replacer.restore();
 
 // utils/emittermixin
 
-emitter = Object.create(Emitter);
+emitter = Object.create(EmitterMixin);
 
 emitter.delegate("foo");
 emitter.delegate("foo", "bar");
@@ -421,7 +416,7 @@ emitter.delegate("foo").to(emitter, name => name + "-delegated");
 
 emitter.fire("foo");
 emitter.fire("foo", 1, "b", true);
-emitter.fire("getSelectedContent", (evt: EventInfo<any>) => {
+emitter.fire("getSelectedContent", (evt: EventInfo) => {
     evt.stop();
 });
 
@@ -433,10 +428,16 @@ emitter.off("foo");
 emitter.off("foo", () => {});
 
 emitter.on("foo", () => {});
+emitter.on("foo", (info, data) => {
+    info.stop();
+});
 emitter.on("foo", () => {}, { priority: 10 });
 emitter.on("foo", () => {}, { priority: "normal" });
 
 emitter.once("foo", () => {});
+emitter.once("foo", (info, data) => {
+    info.stop();
+});
 emitter.once("foo", () => {}, { priority: 10 });
 emitter.once("foo", () => {}, { priority: "lowest" });
 
@@ -456,8 +457,8 @@ bool = env.isMac;
 
 // utils/eventinfo ============================================================
 
-const event = new EventInfo({ a: 1 }, "test");
-num = event.source.a;
+const event = new EventInfo(EmitterMixin, "test");
+const emit: Emitter = event.source;
 str = event.name;
 
 event.path[0];
@@ -515,7 +516,7 @@ num = parseKeystroke(["shift", 33]);
 
 // utils/keystrokehandler =====================================================
 
-declare const keystroke: KeystrokeInfo;
+declare const keystroke: KeyEventData;
 const keystrokes = new KeystrokeHandler();
 
 const mySpy = spy();
@@ -524,7 +525,7 @@ keystrokes.set(["Ctrl", "A"], mySpy);
 keystrokes.set(["Ctrl", "A"], mySpy, { priority: "high" });
 keystrokes.set(["Ctrl", 33], mySpy, { priority: 10 });
 
-const emitterMixxin = Object.create(Emitter) as Emitter;
+const emitterMixxin = Object.create(EmitterMixin) as Emitter;
 keystrokes.listenTo(emitterMixxin);
 
 bool = keystrokes.press(keystroke);

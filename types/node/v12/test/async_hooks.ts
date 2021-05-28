@@ -6,7 +6,7 @@ import {
     executionAsyncResource,
     HookCallbacks,
     AsyncLocalStorage,
-} from 'node:async_hooks';
+} from 'async_hooks';
 
 {
     const hooks: HookCallbacks = {

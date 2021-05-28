@@ -139,10 +139,10 @@ namespace express_tests {
         },
     );
 
-    // Params defaults to dictionary
+    // Params defaults to typed object
     router.get('/:foo', req => {
         req.params.foo; // $ExpectType string
-        req.params[0]; // $ExpectType string
+        req.params[0]; // $ExpectError
     });
 
     // Params can used as an array

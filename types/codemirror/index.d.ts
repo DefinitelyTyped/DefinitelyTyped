@@ -1,5 +1,5 @@
-// Type definitions for codemirror
-// Project: https://github.com/marijnh/CodeMirror
+// Type definitions for codemirror 5.60
+// Project: https://github.com/codemirror/CodeMirror
 // Definitions by: mihailik <https://github.com/mihailik>
 //                 nrbernard <https://github.com/nrbernard>
 //                 Pr1st0n <https://github.com/Pr1st0n>
@@ -12,165 +12,167 @@
 //                 koddsson <https://github.com/koddsson>
 //                 ficristo <https://github.com/ficristo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.8
 
 export = CodeMirror;
 export as namespace CodeMirror;
 
-declare function CodeMirror(host: HTMLElement, options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
-declare function CodeMirror(
-    callback: (host: HTMLElement) => void,
-    options?: CodeMirror.EditorConfiguration,
-): CodeMirror.Editor;
+declare function CodeMirror(place: ParentNode | ((host: HTMLElement) => void), options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 
 declare namespace CodeMirror {
-    export var Doc: CodeMirror.DocConstructor;
-    export var Pos: CodeMirror.PositionConstructor;
-    export var StringStream: CodeMirror.StringStreamConstructor;
-    export var Pass: { toString(): 'CodeMirror.PASS' };
+    const Doc: DocConstructor;
+    const Pos: PositionConstructor;
+    const Pass: { toString(): 'CodeMirror.PASS' };
 
     /** Find the column position at a given string index using a given tabsize. */
     function countColumn(line: string, index: number | null, tabSize: number): number;
-    function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
+    function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): EditorFromTextArea;
 
     /** Split a string by new line. */
-    function splitLines(text: string): Array<string>;
+    function splitLines(text: string): string[];
 
     /** Check if a char is part of an alphabet. */
     function isWordChar(ch: string): boolean;
 
     /** Call startState of the mode if available, otherwise return true */
-    function startState(mode: CodeMirror.Mode<any>, a1?: any, a2?: any): any | boolean;
+    function startState<T>(mode: Mode<T>, a1?: any, a2?: any): T | boolean;
 
     /** Compare two positions, return 0 if they are the same, a negative number when a is less, and a positive number otherwise. */
     function cmpPos(a: Position, b: Position): number;
 
-    /** Utility function that computes an end position from a change (an object with from, to, and text properties, as passed to various event handlers).
-    The returned position will be the end of the changed range, after the change is applied. */
+    /**
+     * Utility function that computes an end position from a change (an object with from, to, and text properties, as passed to various event handlers).
+     * The returned position will be the end of the changed range, after the change is applied.
+     */
     function changeEnd(change: EditorChange): Position;
 
-    /** It contains a string that indicates the version of the library. This is a triple of integers "major.minor.patch",
-    where patch is zero for releases, and something else (usually one) for dev snapshots. */
-    var version: string;
+    /**
+     * It contains a string that indicates the version of the library. This is a triple of integers "major.minor.patch",
+     * where patch is zero for releases, and something else (usually one) for dev snapshots.
+     */
+    const version: string;
 
-    /** An object containing default values for all options.
-    You can assign to its properties to modify defaults (though this won't affect editors that have already been created). */
-    var defaults: any;
+    /**
+     * An object containing default values for all options.
+     * You can assign to its properties to modify defaults (though this won't affect editors that have already been created).
+     */
+    const defaults: {
+        [option: string]: any;
+    };
 
-    /** If you want to define extra methods in terms of the CodeMirror API, it is possible to use defineExtension.
-    This will cause the given value(usually a method) to be added to all CodeMirror instances created from then on. */
+    /**
+     * If you want to define extra methods in terms of the CodeMirror API, it is possible to use defineExtension.
+     * This will cause the given value(usually a method) to be added to all CodeMirror instances created from then on.
+     */
     function defineExtension(name: string, value: any): void;
 
     /** Like defineExtension, but the method will be added to the interface for Doc objects instead. */
     function defineDocExtension(name: string, value: any): void;
 
-    /** Similarly, defineOption can be used to define new options for CodeMirror.
-    The updateFunc will be called with the editor instance and the new value when an editor is initialized,
-    and whenever the option is modified through setOption. */
-    function defineOption(name: string, default_: any, updateFunc: Function): void;
+    /**
+     * Similarly, defineOption can be used to define new options for CodeMirror.
+     * The updateFunc will be called with the editor instance and the new value when an editor is initialized,
+     * and whenever the option is modified through setOption.
+     */
+    function defineOption(name: string, default_: any, updateFunc: (editor: Editor, val: any, old: any) => void): void;
 
-    /** If your extention just needs to run some code whenever a CodeMirror instance is initialized, use CodeMirror.defineInitHook.
-    Give it a function as its only argument, and from then on, that function will be called (with the instance as argument)
-    whenever a new CodeMirror instance is initialized. */
-    function defineInitHook(func: Function): void;
+    /**
+     * If your extension just needs to run some code whenever a CodeMirror instance is initialized, use CodeMirror.defineInitHook.
+     * Give it a function as its only argument, and from then on, that function will be called (with the instance as argument)
+     * whenever a new CodeMirror instance is initialized.
+     */
+    function defineInitHook(func: (editor: Editor) => void): void;
 
-    /** Registers a helper value with the given name in the given namespace (type). This is used to define functionality
-    that may be looked up by mode. Will create (if it doesn't already exist) a property on the CodeMirror object for
-    the given type, pointing to an object that maps names to values. I.e. after doing
-    CodeMirror.registerHelper("hint", "foo", myFoo), the value CodeMirror.hint.foo will point to myFoo. */
+    /**
+     * Registers a helper value with the given name in the given namespace (type). This is used to define functionality
+     * that may be looked up by mode. Will create (if it doesn't already exist) a property on the CodeMirror object for
+     * the given type, pointing to an object that maps names to values. I.e. after doing
+     * CodeMirror.registerHelper("hint", "foo", myFoo), the value CodeMirror.hint.foo will point to myFoo.
+     */
     function registerHelper(namespace: string, name: string, helper: any): void;
 
     /** Given a state object, returns a {state, mode} object with the inner mode and its state for the current position. */
     function innerMode(mode: Mode<any>, state: any): { state: any; mode: Mode<any> };
 
-    /** Sometimes, it is useful to add or override mode object properties from external code.
-    The CodeMirror.extendMode function can be used to add properties to mode objects produced for a specific mode.
-    Its first argument is the name of the mode, its second an object that specifies the properties that should be added.
-    This is mostly useful to add utilities that can later be looked up through getMode. */
-    function extendMode(name: string, properties: Mode<any>): void;
+    /**
+     * Sometimes, it is useful to add or override mode object properties from external code.
+     * The CodeMirror.extendMode function can be used to add properties to mode objects produced for a specific mode.
+     * Its first argument is the name of the mode, its second an object that specifies the properties that should be added.
+     * This is mostly useful to add utilities that can later be looked up through getMode.
+     */
+    function extendMode(name: string, properties: Partial<Mode<any>>): void;
 
-    function on(element: any, eventName: string, handler: Function): void;
-    function off(element: any, eventName: string, handler: Function): void;
+    interface EditorEventMap {
+        change: (instance: Editor, changeObj: EditorChange) => void;
+        changes: (instance: Editor, changes: EditorChange[]) => void;
+        beforeChange: (instance: Editor, changeObj: EditorChangeCancellable) => void;
+        cursorActivity: (instance: Editor) => void;
+        keyHandled: (instance: Editor, name: string, event: Event) => void;
+        inputRead: (instance: Editor, changeObj: EditorChange) => void;
+        electricInput: (instance: Editor, line: number) => void;
+        beforeSelectionChange: (instance: Editor, obj: EditorSelectionChange) => void;
+        viewportChange: (instance: Editor, from: number, to: number) => void;
+        swapDoc: (instance: Editor, oldDoc: Doc) => void;
+        gutterClick: (instance: Editor, line: number, gutter: string, clickEvent: Event) => void;
+        gutterContextMenu: (instance: Editor, line: number, gutter: string, contextMenuEvent: MouseEvent) => void;
+        focus: (instance: Editor, event: FocusEvent) => void;
+        blur: (instance: Editor, event: FocusEvent) => void;
+        scroll: (instance: Editor) => void;
+        refresh: (instance: Editor) => void;
+        optionChange: (instance: Editor, option: keyof EditorConfiguration) => void;
+        scrollCursorIntoView: (instance: Editor, event: Event) => void;
+        update: (instance: Editor) => void;
+        renderLine: (instance: Editor, lineHandle: LineHandle, element: HTMLElement) => void;
+        overwriteToggle: (instance: Editor, overwrite: boolean) => void;
+    }
 
-    /** Fired whenever a change occurs to the document. changeObj has a similar type as the object passed to the editor's "change" event,
-    but it never has a next property, because document change events are not batched (whereas editor change events are). */
-    function on(doc: Doc, eventName: 'change', handler: (instance: Doc, changeObj: EditorChange) => void): void;
-    function off(doc: Doc, eventName: 'change', handler: (instance: Doc, changeObj: EditorChange) => void): void;
+    interface DocEventMap {
+        change: (instance: Doc, changeObj: EditorChange) => void;
+        beforeChange: (instance: Doc, changeObj: EditorChangeCancellable) => void;
+        cursorActivity: (instance: Doc) => void;
+        beforeSelectionChange: (instance: Doc, obj: EditorSelectionChange) => void;
+    }
 
-    /** See the description of the same event on editor instances. */
-    function on(
-        doc: Doc,
-        eventName: 'beforeChange',
-        handler: (instance: Doc, change: EditorChangeCancellable) => void,
-    ): void;
-    function off(
-        doc: Doc,
-        eventName: 'beforeChange',
-        handler: (instance: Doc, change: EditorChangeCancellable) => void,
-    ): void;
+    interface LineHandleEventMap {
+        delete: () => void;
+        change: (instance: LineHandle, changeObj: EditorChange) => void;
+    }
 
-    /** Fired whenever the cursor or selection in this document changes. */
-    function on(doc: Doc, eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void): void;
-    function off(doc: Doc, eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void): void;
+    interface TextMarkerEventMap {
+        beforeCursorEnter: () => void;
+        clear: (from: Position, to: Position) => void;
+        hide: () => void;
+        unhide: () => void;
+    }
 
-    /** Equivalent to the event by the same name as fired on editor instances. */
-    function on(
-        doc: Doc,
-        eventName: 'beforeSelectionChange',
-        handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void,
-    ): void;
-    function off(
-        doc: Doc,
-        eventName: 'beforeSelectionChange',
-        handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void,
-    ): void;
+    interface LineWidgetEventMap {
+        redraw: () => void;
+    }
 
-    /** Will be fired when the line object is deleted. A line object is associated with the start of the line.
-    Mostly useful when you need to find out when your gutter markers on a given line are removed. */
-    function on(line: LineHandle, eventName: 'delete', handler: () => void): void;
-    function off(line: LineHandle, eventName: 'delete', handler: () => void): void;
+    function on<T extends keyof DocEventMap>(doc: Doc, eventName: T, handler: DocEventMap[T]): void;
+    function on<T extends keyof EditorEventMap>(cm: Editor, eventName: T, handler: EditorEventMap[T]): void;
+    function on<T extends keyof LineHandleEventMap>(lineHandle: LineHandle, eventName: T, handler: LineHandleEventMap[T]): void;
+    function on<T extends keyof TextMarkerEventMap>(textMarker: TextMarker<unknown>, eventName: T, handler: TextMarkerEventMap[T]): void;
+    function on<T extends keyof LineWidgetEventMap>(LineWidget: LineWidget, eventName: T, handler: LineWidgetEventMap[T]): void;
+    function on(element: any, eventName: string, handler: () => void): void;
 
-    /** Fires when the line's text content is changed in any way (but the line is not deleted outright).
-    The change object is similar to the one passed to change event on the editor object. */
-    function on(
-        line: LineHandle,
-        eventName: 'change',
-        handler: (line: LineHandle, changeObj: EditorChange) => void,
-    ): void;
-    function off(
-        line: LineHandle,
-        eventName: 'change',
-        handler: (line: LineHandle, changeObj: EditorChange) => void,
-    ): void;
+    function off<T extends keyof DocEventMap>(doc: Doc, eventName: T, handler: DocEventMap[T]): void;
+    function off<T extends keyof EditorEventMap>(cm: Editor, eventName: T, handler: EditorEventMap[T]): void;
+    function off<T extends keyof LineHandleEventMap>(lineHandle: LineHandle, eventName: T, handler: LineHandleEventMap[T]): void;
+    function off<T extends keyof TextMarkerEventMap>(textMarker: TextMarker<unknown>, eventName: T, handler: TextMarkerEventMap[T]): void;
+    function off<T extends keyof LineWidgetEventMap>(lineWidget: LineWidget, eventName: T, handler: LineWidgetEventMap[T]): void;
+    function off(element: any, eventName: string, handler: () => void): void;
 
-    /** Fired when the cursor enters the marked range. From this event handler, the editor state may be inspected but not modified,
-    with the exception that the range on which the event fires may be cleared. */
-    function on<T>(marker: TextMarker<T>, eventName: 'beforeCursorEnter', handler: () => void): void;
-    function off<T>(marker: TextMarker<T>, eventName: 'beforeCursorEnter', handler: () => void): void;
-
-    /** Fired when the range is cleared, either through cursor movement in combination with clearOnEnter or through a call to its clear() method.
-    Will only be fired once per handle. Note that deleting the range through text editing does not fire this event,
-    because an undo action might bring the range back into existence. */
-    function on<T>(marker: TextMarker<T>, eventName: 'clear', handler: () => void): void;
-    function off<T>(marker: TextMarker<T>, eventName: 'clear', handler: () => void): void;
-
-    /** Fired when the last part of the marker is removed from the document by editing operations. */
-    function on<T>(marker: TextMarker<T>, eventName: 'hide', handler: () => void): void;
-    function off<T>(marker: TextMarker<T>, eventName: 'hide', handler: () => void): void;
-
-    /** Fired when, after the marker was removed by editing, a undo operation brought the marker back. */
-    function on<T>(marker: TextMarker<T>, eventName: 'unhide', handler: () => void): void;
-    function off<T>(marker: TextMarker<T>, eventName: 'unhide', handler: () => void): void;
-
-    /** Fired whenever the editor re-adds the widget to the DOM. This will happen once right after the widget is added (if it is scrolled into view),
-    and then again whenever it is scrolled out of view and back in again, or when changes to the editor options
-    or the line the widget is on require the widget to be redrawn. */
-    function on(line: LineWidget, eventName: 'redraw', handler: () => void): void;
-    function off(line: LineWidget, eventName: 'redraw', handler: () => void): void;
-
-    /** Various CodeMirror-related objects emit events, which allow client code to react to various situations.
-    Handlers for such events can be registered with the on and off methods on the objects that the event fires on.
-    To fire your own events, use CodeMirror.signal(target, name, args...), where target is a non-DOM-node object. */
+    /**
+     * Various CodeMirror-related objects emit events, which allow client code to react to various situations.
+     * Handlers for such events can be registered with the on and off methods on the objects that the event fires on.
+     * To fire your own events, use CodeMirror.signal(target, name, args...), where target is a non-DOM-node object.
+     */
+    function signal<T extends keyof DocEventMap>(doc: Doc, eventName: T, ...args: Parameters<DocEventMap[T]>): void;
+    function signal<T extends keyof EditorEventMap>(cm: Editor, eventName: T, ...args: Parameters<EditorEventMap[T]>): void;
+    function signal<T extends keyof LineHandleEventMap>(lineHandle: LineHandle, eventName: T, ...args: Parameters<LineHandleEventMap[T]>): void;
+    function signal<T extends keyof TextMarkerEventMap>(textMarker: TextMarker<unknown>, eventName: T, ...args: Parameters<TextMarkerEventMap[T]>): void;
+    function signal<T extends keyof LineWidgetEventMap>(lineWidget: LineWidget, eventName: T, ...args: Parameters<LineWidgetEventMap[T]>): void;
     function signal(target: any, name: string, ...args: any[]): void;
 
     /** Modify a keymap to normalize modifier order and properly recognize multi-stroke bindings. */
@@ -212,34 +214,40 @@ declare namespace CodeMirror {
         [keyName: string]: false | string | ((instance: Editor) => void | typeof Pass);
     }
 
-    /** Methods prefixed with doc. can, unless otherwise specified, be called both on CodeMirror (editor) instances and
-    CodeMirror.Doc instances. Thus, the Editor interface extends Doc. **/
-    interface Editor extends Doc {
+    /**
+     * Methods prefixed with doc. can, unless otherwise specified, be called both on CodeMirror (editor) instances and
+     * CodeMirror.Doc instances. Thus, the Editor interface extends DocOrEditor defining the common API.
+     */
+    interface Editor extends DocOrEditor {
         /** Tells you whether the editor currently has focus. */
         hasFocus(): boolean;
 
-        /** Used to find the target position for horizontal cursor motion.start is a { line , ch } object,
-        amount an integer(may be negative), and unit one of the string "char", "column", or "word".
-        Will return a position that is produced by moving amount times the distance specified by unit.
-        When visually is true , motion in right - to - left text will be visual rather than logical.
-        When the motion was clipped by hitting the end or start of the document, the returned value will have a hitSide property set to true. */
+        /**
+         * Used to find the target position for horizontal cursor motion.start is a { line , ch } object,
+         * an integer(may be negative), and unit one of the string "char", "column", or "word".
+         * Will return a position that is produced by moving amount times the distance specified by unit.
+         * When visually is true , motion in right - to - left text will be visual rather than logical.
+         * When the motion was clipped by hitting the end or start of the document, the returned value will have a hitSide property set to true.
+         */
         findPosH(
-            start: CodeMirror.Position,
+            start: Position,
             amount: number,
             unit: string,
             visually: boolean,
         ): { line: number; ch: number; hitSide?: boolean };
 
-        /** Similar to findPosH , but used for vertical motion.unit may be "line" or "page".
-        The other arguments and the returned value have the same interpretation as they have in findPosH. */
+        /**
+         * Similar to findPosH , but used for vertical motion.unit may be "line" or "page".
+         * The other arguments and the returned value have the same interpretation as they have in findPosH.
+         */
         findPosV(
-            start: CodeMirror.Position,
+            start: Position,
             amount: number,
             unit: string,
         ): { line: number; ch: number; hitSide?: boolean };
 
         /** Returns the start and end of the 'word' (the stretch of letters, whitespace, or punctuation) at the given position. */
-        findWordAt(pos: CodeMirror.Position): CodeMirror.Range;
+        findWordAt(pos: Position): Range;
 
         /** Change the configuration of the editor. option should the name of an option, and value should be a valid value for that option. */
         setOption<K extends keyof EditorConfiguration>(option: K, value: EditorConfiguration[K]): void;
@@ -247,32 +255,38 @@ declare namespace CodeMirror {
         /** Retrieves the current value of the given option for this editor instance. */
         getOption<K extends keyof EditorConfiguration>(option: K): EditorConfiguration[K];
 
-        /** Attach an additional keymap to the editor.
-        This is mostly useful for add - ons that need to register some key handlers without trampling on the extraKeys option.
-        Maps added in this way have a higher precedence than the extraKeys and keyMap options, and between them,
-        the maps added earlier have a lower precedence than those added later, unless the bottom argument was passed,
-        in which case they end up below other keymaps added with this method. */
+        /**
+         * Attach an additional keymap to the editor.
+         * This is mostly useful for add - ons that need to register some key handlers without trampling on the extraKeys option.
+         * Maps added in this way have a higher precedence than the extraKeys and keyMap options, and between them,
+         * the maps added earlier have a lower precedence than those added later, unless the bottom argument was passed,
+         * in which case they end up below other keymaps added with this method.
+         */
         addKeyMap(map: string | KeyMap, bottom?: boolean): void;
 
-        /** Disable a keymap added with addKeyMap.Either pass in the keymap object itself , or a string,
-        which will be compared against the name property of the active keymaps. */
+        /**
+         * Disable a keymap added with addKeyMap.Either pass in the keymap object itself , or a string,
+         * which will be compared against the name property of the active keymaps.
+         */
         removeKeyMap(map: string | KeyMap): void;
 
-        /** Enable a highlighting overlay.This is a stateless mini - mode that can be used to add extra highlighting.
-        For example, the search add - on uses it to highlight the term that's currently being searched.
-        mode can be a mode spec or a mode object (an object with a token method). The options parameter is optional. If given, it should be an object.
-        Currently, only the opaque option is recognized. This defaults to off, but can be given to allow the overlay styling, when not null,
-        to override the styling of the base mode entirely, instead of the two being applied together. */
-        addOverlay(mode: any, options?: any): void;
+        /**
+         * Enable a highlighting overlay.This is a stateless mini-mode that can be used to add extra highlighting.
+         * For example, the search add - on uses it to highlight the term that's currently being searched.
+         * mode can be a mode spec or a mode object (an object with a token method). The options parameter is optional. If given, it should be an object.
+         * Currently, only the opaque option is recognized. This defaults to off, but can be given to allow the overlay styling, when not null,
+         * to override the styling of the base mode entirely, instead of the two being applied together.
+         */
+        addOverlay(mode: any, options?: {opaque?: boolean, priority?: number}): void;
 
         /** Pass this the exact argument passed for the mode parameter to addOverlay to remove an overlay again. */
         removeOverlay(mode: any): void;
 
         /** Retrieve the currently active document from an editor. */
-        getDoc(): CodeMirror.Doc;
+        getDoc(): Doc;
 
         /** Attach a new document to the editor. Returns the old document, which is now no longer associated with an editor. */
-        swapDoc(doc: CodeMirror.Doc): CodeMirror.Doc;
+        swapDoc(doc: Doc): Doc;
 
         /** Get the content of the current editor document. You can pass it an optional argument to specify the string to be used to separate lines (defaults to "\n"). */
         getValue(seperator?: string): string;
@@ -280,47 +294,61 @@ declare namespace CodeMirror {
         /** Set the content of the current editor document. */
         setValue(content: string): void;
 
-        /** start is a an optional string indicating which end of the selection to return.
-        It may be "from", "to", "head" (the side of the selection that moves when you press shift+arrow),
-        or "anchor" (the fixed side of the selection).Omitting the argument is the same as passing "head". A {line, ch} object will be returned. **/
-        getCursor(start?: string): CodeMirror.Position;
+        /**
+         * start is a an optional string indicating which end of the selection to return.
+         * It may be "from", "to", "head" (the side of the selection that moves when you press shift+arrow),
+         * or "anchor" (the fixed side of the selection).Omitting the argument is the same as passing "head". A {line, ch} object will be returned.
+         */
+        getCursor(start?: string): Position;
 
-        /** Set the cursor position. You can either pass a single {line, ch} object, or the line and the character as two separate parameters.
-        Will replace all selections with a single, empty selection at the given position.
-        The supported options are the same as for setSelection */
+        /**
+         * Set the cursor position. You can either pass a single {line, ch} object, or the line and the character as two separate parameters.
+         * Will replace all selections with a single, empty selection at the given position.
+         * The supported options are the same as for setSelection
+         */
         setCursor(
-            pos: CodeMirror.Position | number,
+            pos: Position | number,
             ch?: number,
             options?: { bias?: number; origin?: string; scroll?: boolean },
         ): void;
 
-        /** Sets the gutter marker for the given gutter (identified by its CSS class, see the gutters option) to the given value.
-        Value can be either null, to clear the marker, or a DOM element, to set it. The DOM element will be shown in the specified gutter next to the specified line. */
-        setGutterMarker(line: any, gutterID: string, value: HTMLElement | null): CodeMirror.LineHandle;
+        /**
+         * Sets the gutter marker for the given gutter (identified by its CSS class, see the gutters option) to the given value.
+         * Value can be either null, to clear the marker, or a DOM element, to set it. The DOM element will be shown in the specified gutter next to the specified line.
+         */
+        setGutterMarker(line: any, gutterID: string, value: HTMLElement | null): LineHandle;
 
         /** Remove all gutter markers in the gutter with the given ID. */
         clearGutter(gutterID: string): void;
 
-        /** Set a CSS class name for the given line.line can be a number or a line handle.
-        where determines to which element this class should be applied, can can be one of "text" (the text element, which lies in front of the selection),
-        "background"(a background element that will be behind the selection),
-        or "wrap" (the wrapper node that wraps all of the line's elements, including gutter elements).
-        class should be the name of the class to apply. */
-        addLineClass(line: any, where: string, _class_: string): CodeMirror.LineHandle;
+        /**
+         * Set a CSS class name for the given line.line can be a number or a line handle.
+         * where determines to which element this class should be applied, can can be one of "text" (the text element, which lies in front of the selection),
+         * "background"(a background element that will be behind the selection),
+         * or "wrap" (the wrapper node that wraps all of the line's elements, including gutter elements).
+         * class should be the name of the class to apply.
+         */
+        addLineClass(line: any, where: string, _class_: string): LineHandle;
 
-        /** Remove a CSS class from a line.line can be a line handle or number.
-        where should be one of "text", "background", or "wrap"(see addLineClass).
-        class can be left off to remove all classes for the specified node, or be a string to remove only a specific class. */
-        removeLineClass(line: any, where: string, class_?: string): CodeMirror.LineHandle;
+        /**
+         * Remove a CSS class from a line.line can be a line handle or number.
+         * where should be one of "text", "background", or "wrap"(see addLineClass).
+         * class can be left off to remove all classes for the specified node, or be a string to remove only a specific class.
+         */
+        removeLineClass(line: any, where: string, class_?: string): LineHandle;
 
-        /** Compute the line at the given pixel height. mode is the relative element
-        to use to compute this line, it may be "window", "page" (the default), or "local" */
+        /**
+         * Compute the line at the given pixel height. mode is the relative element
+         * to use to compute this line, it may be "window", "page" (the default), or "local"
+         */
         lineAtHeight(height: number, mode?: CoordsMode): number;
 
-        /** Computes the height of the top of a line, in the coordinate system specified by mode, it may be "window",
-        "page" (the default), or "local". When a line below the bottom of the document is specified, the returned value
-        is the bottom of the last line in the document. By default, the position of the actual text is returned.
-        If includeWidgets is true and the line has line widgets, the position above the first line widget is returned. */
+        /**
+         * Computes the height of the top of a line, in the coordinate system specified by mode, it may be "window",
+         * "page" (the default), or "local". When a line below the bottom of the document is specified, the returned value
+         * is the bottom of the last line in the document. By default, the position of the actual text is returned.
+         * If includeWidgets is true and the line has line widgets, the position above the first line widget is returned.
+         */
         heightAtLine(line: any, mode?: CoordsMode, includeWidgets?: boolean): number;
 
         /** Returns the line number, text content, and marker status of the given line, which can be either a number or a line handle. */
@@ -339,128 +367,147 @@ declare namespace CodeMirror {
             widgets: any;
         };
 
-        /** Puts node, which should be an absolutely positioned DOM node, into the editor, positioned right below the given { line , ch } position.
-        When scrollIntoView is true, the editor will ensure that the entire node is visible (if possible).
-        To remove the widget again, simply use DOM methods (move it somewhere else, or call removeChild on its parent). */
-        addWidget(pos: CodeMirror.Position, node: HTMLElement, scrollIntoView: boolean): void;
+        /**
+         * Puts node, which should be an absolutely positioned DOM node, into the editor, positioned right below the given { line , ch } position.
+         * When scrollIntoView is true, the editor will ensure that the entire node is visible (if possible).
+         * To remove the widget again, simply use DOM methods (move it somewhere else, or call removeChild on its parent).
+         */
+        addWidget(pos: Position, node: HTMLElement, scrollIntoView: boolean): void;
 
-        /** Adds a line widget, an element shown below a line, spanning the whole of the editor's width, and moving the lines below it downwards.
-        line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
-        options, when given, should be an object that configures the behavior of the widget.
-        Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
-        addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
+        /**
+         * Adds a line widget, an element shown below a line, spanning the whole of the editor's width, and moving the lines below it downwards.
+         * line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
+         * options, when given, should be an object that configures the behavior of the widget.
+         * Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it.
+         */
+        addLineWidget(line: any, node: HTMLElement, options?: LineWidgetOptions): LineWidget;
 
-        /** Programatically set the size of the editor (overriding the applicable CSS rules).
-        width and height height can be either numbers(interpreted as pixels) or CSS units ("100%", for example).
-        You can pass null for either of them to indicate that that dimension should not be changed. */
+        /**
+         * Programatically set the size of the editor (overriding the applicable CSS rules).
+         * width and height height can be either numbers(interpreted as pixels) or CSS units ("100%", for example).
+         * You can pass null for either of them to indicate that that dimension should not be changed.
+         */
         setSize(width: any, height: any): void;
 
         /** Scroll the editor to a given(pixel) position.Both arguments may be left as null or undefined to have no effect. */
         scrollTo(x?: number | null, y?: number | null): void;
 
-        /** Get an { left , top , width , height , clientWidth , clientHeight } object that represents the current scroll position, the size of the scrollable area,
-        and the size of the visible area(minus scrollbars). */
-        getScrollInfo(): CodeMirror.ScrollInfo;
+        /**
+         * Get an { left , top , width , height , clientWidth , clientHeight } object that represents the current scroll position, the size of the scrollable area,
+         * and the size of the visible area(minus scrollbars).
+         */
+        getScrollInfo(): ScrollInfo;
 
-        /** Scrolls the given element into view. pos is a { line , ch } position, referring to a given character, null, to refer to the cursor.
-        The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
-        scrollIntoView(pos: CodeMirror.Position | null, margin?: number): void;
+        /**
+         * Scrolls the given element into view.
+         * pos can be:
+         * - a { line , ch } position, referring to a given character
+         * - null, to refer to the cursor
+         * - a { left , top , right , bottom } object, in editor-local coordinates
+         * - a { from, to } object, in editor-local coordinates
+         * The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well.
+         */
+        scrollIntoView(
+            pos: Position | null | { line: number; ch: number } | { left: number; top: number; right: number; bottom: number } | { from: Position; to: Position },
+            margin?: number
+        ): void;
 
-        /** Scrolls the given element into view. pos is a { left , top , right , bottom } object, in editor-local coordinates.
-        The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
-        scrollIntoView(pos: { left: number; top: number; right: number; bottom: number }, margin?: number): void;
+        /**
+         * Returns an { left , top , bottom } object containing the coordinates of the cursor position.
+         * If mode is "local", they will be relative to the top-left corner of the editable document.
+         * If it is "page" or not given, they are relative to the top-left corner of the page.
+         * where specifies the position at which you want to measure. A boolean indicates either the start(true) or the end(false) of the selection.
+         */
+        cursorCoords(where?: boolean | Position | null, mode?: CoordsMode): { left: number; top: number; bottom: number };
 
-        /** Scrolls the given element into view. pos is a { line, ch } object, in editor-local coordinates.
-        The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
-        scrollIntoView(pos: { line: number; ch: number }, margin?: number): void;
-
-        /** Scrolls the given element into view. pos is a { from, to } object, in editor-local coordinates.
-        The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
-        scrollIntoView(pos: { from: CodeMirror.Position; to: CodeMirror.Position }, margin?: number): void;
-
-        /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
-        If mode is "local", they will be relative to the top-left corner of the editable document.
-        If it is "page" or not given, they are relative to the top-left corner of the page.
-        where is a boolean indicating whether you want the start(true) or the end(false) of the selection. */
-        cursorCoords(where?: boolean, mode?: CoordsMode): { left: number; top: number; bottom: number };
-
-        /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
-        If mode is "local", they will be relative to the top-left corner of the editable document.
-        If it is "page" or not given, they are relative to the top-left corner of the page.
-        where specifies the precise position at which you want to measure. */
-        cursorCoords(
-            where?: CodeMirror.Position | null,
-            mode?: CoordsMode,
-        ): { left: number; top: number; bottom: number };
-
-        /** Returns the position and dimensions of an arbitrary character. pos should be a { line , ch } object.
-        If mode is "local", they will be relative to the top-left corner of the editable document.
-        If it is "page" or not given, they are relative to the top-left corner of the page.
-        This differs from cursorCoords in that it'll give the size of the whole character,
-        rather than just the position that the cursor would have when it would sit at that position. */
+        /**
+         * Returns the position and dimensions of an arbitrary character. pos should be a { line , ch } object.
+         * If mode is "local", they will be relative to the top-left corner of the editable document.
+         * If it is "page" or not given, they are relative to the top-left corner of the page.
+         * This differs from cursorCoords in that it'll give the size of the whole character,
+         * rather than just the position that the cursor would have when it would sit at that position.
+         */
         charCoords(
-            pos: CodeMirror.Position,
+            pos: Position,
             mode?: CoordsMode,
         ): { left: number; right: number; top: number; bottom: number };
 
-        /** Given an { left , top } object , returns the { line , ch } position that corresponds to it.
-        The optional mode parameter determines relative to what the coordinates are interpreted.
-        It may be "window", "page" (the default), or "local". */
-        coordsChar(object: { left: number; top: number }, mode?: CoordsMode): CodeMirror.Position;
+        /**
+         * Given an { left , top } object , returns the { line , ch } position that corresponds to it.
+         * The optional mode parameter determines relative to what the coordinates are interpreted.
+         * It may be "window", "page" (the default), or "local".
+         */
+        coordsChar(object: { left: number; top: number }, mode?: CoordsMode): Position;
 
         /** Returns the line height of the default font for the editor. */
         defaultTextHeight(): number;
 
-        /** Returns the pixel width of an 'x' in the default font for the editor.
-        (Note that for non - monospace fonts , this is mostly useless, and even for monospace fonts, non - ascii characters might have a different width). */
+        /**
+         * Returns the pixel width of an 'x' in the default font for the editor.
+         * (Note that for non-monospace fonts, this is mostly useless, and even for monospace fonts, non-ascii characters might have a different width).
+         */
         defaultCharWidth(): number;
 
-        /** Returns a { from , to } object indicating the start (inclusive) and end (exclusive) of the currently rendered part of the document.
-        In big documents, when most content is scrolled out of view, CodeMirror will only render the visible part, and a margin around it.
-        See also the viewportChange event. */
+        /**
+         * Returns a { from , to } object indicating the start (inclusive) and end (exclusive) of the currently rendered part of the document.
+         * In big documents, when most content is scrolled out of view, CodeMirror will only render the visible part, and a margin around it.
+         * See also the viewportChange event.
+         */
         getViewport(): { from: number; to: number };
 
-        /** If your code does something to change the size of the editor element (window resizes are already listened for), or unhides it,
-        you should probably follow up by calling this method to ensure CodeMirror is still looking as intended. */
+        /**
+         * If your code does something to change the size of the editor element (window resizes are already listened for), or unhides it,
+         * you should probably follow up by calling this method to ensure CodeMirror is still looking as intended.
+         */
         refresh(): void;
 
         /** Gets the inner mode at a given position. This will return the same as getMode for simple modes, but will return an inner mode for nesting modes (such as htmlmixed). */
-        getModeAt(pos: Position): any;
+        getModeAt(pos: Position): Mode<unknown>;
 
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
-        getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;
+        getTokenAt(pos: Position, precise?: boolean): Token;
 
-        /** This is a (much) cheaper version of getTokenAt useful for when you just need the type of the token at a given position,
-        and no other information. Will return null for unstyled tokens, and a string, potentially containing multiple
-        space-separated style names, otherwise. */
-        getTokenTypeAt(pos: CodeMirror.Position): string;
+        /**
+         * This is a (much) cheaper version of getTokenAt useful for when you just need the type of the token at a given position,
+         * and no other information. Will return null for unstyled tokens, and a string, potentially containing multiple
+         * space-separated style names, otherwise.
+         */
+        getTokenTypeAt(pos: Position): string;
 
         /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
         getLineTokens(line: number, precise?: boolean): Token[];
 
-        /** Returns the mode's parser state, if any, at the end of the given line number.
-        If no line number is given, the state at the end of the document is returned.
-        This can be useful for storing parsing errors in the state, or getting other kinds of contextual information for a line. */
+        /**
+         * Returns the mode's parser state, if any, at the end of the given line number.
+         * If no line number is given, the state at the end of the document is returned.
+         * This can be useful for storing parsing errors in the state, or getting other kinds of contextual information for a line.
+         */
         getStateAfter(line?: number): any;
 
-        /** CodeMirror internally buffers changes and only updates its DOM structure after it has finished performing some operation.
-        If you need to perform a lot of operations on a CodeMirror instance, you can call this method with a function argument.
-        It will call the function, buffering up all changes, and only doing the expensive update after the function returns.
-        This can be a lot faster. The return value from this method will be the return value of your function. */
+        /**
+         * CodeMirror internally buffers changes and only updates its DOM structure after it has finished performing some operation.
+         * If you need to perform a lot of operations on a CodeMirror instance, you can call this method with a function argument.
+         * It will call the function, buffering up all changes, and only doing the expensive update after the function returns.
+         * This can be a lot faster. The return value from this method will be the return value of your function.
+         */
         operation<T>(fn: () => T): T;
 
-        /** In normal circumstances, use the above operation method. But if you want to buffer operations happening asynchronously, or that can't all be wrapped in a callback
-        function, you can call startOperation to tell CodeMirror to start buffering changes, and endOperation to actually render all the updates. Be careful: if you use this
-        API and forget to call endOperation, the editor will just never update. */
+        /**
+         * In normal circumstances, use the above operation method. But if you want to buffer operations happening asynchronously, or that can't all be wrapped in a callback
+         * function, you can call startOperation to tell CodeMirror to start buffering changes, and endOperation to actually render all the updates. Be careful: if you use this
+         * API and forget to call endOperation, the editor will just never update.
+         */
         startOperation(): void;
         endOperation(): void;
 
-        /** Adjust the indentation of the given line.
-        The second argument (which defaults to "smart") may be one of:
-        "prev" Base indentation on the indentation of the previous line.
-        "smart" Use the mode's smart indentation if available, behave like "prev" otherwise.
-        "add" Increase the indentation of the line by one indent unit.
-        "subtract" Reduce the indentation of the line. */
+        /**
+         * Adjust the indentation of the given line.
+         * The second argument (which defaults to "smart") may be one of:
+         * "prev" Base indentation on the indentation of the previous line.
+         * "smart" Use the mode's smart indentation if available, behave like "prev" otherwise.
+         * "add" Increase the indentation of the line by one indent unit.
+         * "subtract" Reduce the indentation of the line.
+         */
         indentLine(line: number, dir?: string): void;
 
         /** Indent a selection */
@@ -469,8 +516,10 @@ declare namespace CodeMirror {
         /** Tells you whether the editor's content can be edited by the user. */
         isReadOnly(): boolean;
 
-        /** Switches between overwrite and normal insert mode (when not given an argument),
-        or sets the overwrite mode to a specific state (when given an argument). */
+        /**
+         * Switches between overwrite and normal insert mode (when not given an argument),
+         * or sets the overwrite mode to a specific state (when given an argument).
+         */
         toggleOverwrite(value?: boolean): void;
 
         /** Runs the command with the given name on the editor. */
@@ -491,182 +540,27 @@ declare namespace CodeMirror {
         /** Fetches the DOM node that contains the editor gutters. */
         getGutterElement(): HTMLElement;
 
-        /** Fires every time the content of the editor is changed. */
-        on(
-            eventName: 'change',
-            handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeLinkedList) => void,
-        ): void;
-        off(
-            eventName: 'change',
-            handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeLinkedList) => void,
-        ): void;
-
-        /** Like the "change" event, but batched per operation, passing an
-         * array containing all the changes that happened in the operation.
-         * This event is fired after the operation finished, and display
-         * changes it makes will trigger a new operation. */
-        on(
-            eventName: 'changes',
-            handler: (instance: CodeMirror.Editor, changes: CodeMirror.EditorChangeLinkedList[]) => void,
-        ): void;
-        off(
-            eventName: 'changes',
-            handler: (instance: CodeMirror.Editor, changes: CodeMirror.EditorChangeLinkedList[]) => void,
-        ): void;
-
-        /** This event is fired before a change is applied, and its handler may choose to modify or cancel the change.
-        The changeObj never has a next property, since this is fired for each individual change, and not batched per operation.
-        Note: you may not do anything from a "beforeChange" handler that would cause changes to the document or its visualization.
-        Doing so will, since this handler is called directly from the bowels of the CodeMirror implementation,
-        probably cause the editor to become corrupted. */
-        on(
-            eventName: 'beforeChange',
-            handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => void,
-        ): void;
-        off(
-            eventName: 'beforeChange',
-            handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => void,
-        ): void;
-
-        /** Will be fired when the cursor or selection moves, or any change is made to the editor content. */
-        on(eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void): void;
-        off(eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void): void;
-
-        /** Fired after a key is handled through a key map. name is the name of the handled key (for example "Ctrl-X" or "'q'"), and event is the DOM keydown or keypress event. */
-        on(
-            eventName: 'keyHandled',
-            handler: (instance: CodeMirror.Editor, name: string, event: KeyboardEvent) => void,
-        ): void;
-        off(
-            eventName: 'keyHandled',
-            handler: (instance: CodeMirror.Editor, name: string, event: KeyboardEvent) => void,
-        ): void;
-
-        /** Fired whenever new input is read from the hidden textarea (typed or pasted by the user). */
-        on(eventName: 'inputRead', handler: (instance: CodeMirror.Editor, changeObj: EditorChange) => void): void;
-        off(eventName: 'inputRead', handler: (instance: CodeMirror.Editor, changeObj: EditorChange) => void): void;
-
-        /** Fired if text input matched the mode's electric patterns, and this caused the line's indentation to change. */
-        on(eventName: 'electricInput', handler: (instance: CodeMirror.Editor, line: number) => void): void;
-        off(eventName: 'electricInput', handler: (instance: CodeMirror.Editor, line: number) => void): void;
-
-        /** This event is fired before the selection is moved. Its handler may modify the resulting selection head and anchor.
-        Handlers for this event have the same restriction as "beforeChange" handlers they should not do anything to directly update the state of the editor. */
-        on(
-            eventName: 'beforeSelectionChange',
-            handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void,
-        ): void;
-        off(
-            eventName: 'beforeSelectionChange',
-            handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void,
-        ): void;
-
-        /** Fires whenever the view port of the editor changes (due to scrolling, editing, or any other factor).
-        The from and to arguments give the new start and end of the viewport. */
-        on(eventName: 'viewportChange', handler: (instance: CodeMirror.Editor, from: number, to: number) => void): void;
-        off(
-            eventName: 'viewportChange',
-            handler: (instance: CodeMirror.Editor, from: number, to: number) => void,
-        ): void;
-
-        /** This is signalled when the editor's document is replaced using the swapDoc method. */
-        on(eventName: 'swapDoc', handler: (instance: CodeMirror.Editor, oldDoc: CodeMirror.Doc) => void): void;
-        off(eventName: 'swapDoc', handler: (instance: CodeMirror.Editor, oldDoc: CodeMirror.Doc) => void): void;
-
-        /** Fires when the editor gutter (the line-number area) is clicked. Will pass the editor instance as first argument,
-        the (zero-based) number of the line that was clicked as second argument, the CSS class of the gutter that was clicked as third argument,
-        and the raw mousedown event object as fourth argument. */
-        on(
-            eventName: 'gutterClick',
-            handler: (instance: CodeMirror.Editor, line: number, gutter: string, clickEvent: MouseEvent) => void,
-        ): void;
-        off(
-            eventName: 'gutterClick',
-            handler: (instance: CodeMirror.Editor, line: number, gutter: string, clickEvent: MouseEvent) => void,
-        ): void;
-
-        /** Fires when the editor gutter (the line-number area) receives a contextmenu event. Will pass the editor instance as first argument,
-        the (zero-based) number of the line that was clicked as second argument, the CSS class of the gutter that was clicked as third argument,
-        and the raw contextmenu mouse event object as fourth argument. You can preventDefault the event, to signal that CodeMirror should do no
-        further handling. */
-        on(
-            eventName: 'gutterContextMenu',
-            handler: (instance: CodeMirror.Editor, line: number, gutter: string, contextMenu: MouseEvent) => void,
-        ): void;
-        off(
-            eventName: 'gutterContextMenu',
-            handler: (instance: CodeMirror.Editor, line: number, gutter: string, contextMenu: MouseEvent) => void,
-        ): void;
-
-        /** Fires whenever the editor is focused. */
-        on(eventName: 'focus', handler: (instance: CodeMirror.Editor, event: FocusEvent) => void): void;
-        off(eventName: 'focus', handler: (instance: CodeMirror.Editor, event: FocusEvent) => void): void;
-
-        /** Fires whenever the editor is unfocused. */
-        on(eventName: 'blur', handler: (instance: CodeMirror.Editor, event: FocusEvent) => void): void;
-        off(eventName: 'blur', handler: (instance: CodeMirror.Editor, event: FocusEvent) => void): void;
-
-        /** Fires when the editor is scrolled. */
-        on(eventName: 'scroll', handler: (instance: CodeMirror.Editor) => void): void;
-        off(eventName: 'scroll', handler: (instance: CodeMirror.Editor) => void): void;
-
-        /** Fires when the editor is refreshed or resized. Mostly useful to invalidate cached values that depend on the editor or character size. */
-        on(eventName: 'refresh', handler: (instance: CodeMirror.Editor) => void): void;
-        off(eventName: 'refresh', handler: (instance: CodeMirror.Editor) => void): void;
-
-        /** Dispatched every time an option is changed with setOption. */
-        on(eventName: 'optionChange', handler: (instance: CodeMirror.Editor, option: string) => void): void;
-        off(eventName: 'optionChange', handler: (instance: CodeMirror.Editor, option: string) => void): void;
-
-        /** Fires when the editor tries to scroll its cursor into view. Can be hooked into to take care of additional scrollable containers around the editor. When the event object has its preventDefault method called, CodeMirror will not itself try to scroll the window. */
-        on(eventName: 'scrollCursorIntoView', handler: (instance: CodeMirror.Editor, event: Event) => void): void;
-        off(eventName: 'scrollCursorIntoView', handler: (instance: CodeMirror.Editor, event: Event) => void): void;
-
-        /** Will be fired whenever CodeMirror updates its DOM display. */
-        on(eventName: 'update', handler: (instance: CodeMirror.Editor) => void): void;
-        off(eventName: 'update', handler: (instance: CodeMirror.Editor) => void): void;
-
-        /** Fired whenever a line is (re-)rendered to the DOM. Fired right after the DOM element is built, before it is added to the document.
-        The handler may mess with the style of the resulting element, or add event handlers, but should not try to change the state of the editor. */
-        on(
-            eventName: 'renderLine',
-            handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void,
-        ): void;
-        off(
-            eventName: 'renderLine',
-            handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void,
-        ): void;
-
-        /** Fires when one of the global DOM events fires. */
+        on<T extends keyof EditorEventMap>(eventName: T, handler: EditorEventMap[T]): void;
         on<K extends DOMEvent & keyof GlobalEventHandlersEventMap>(
             eventName: K,
-            handler: (instance: CodeMirror.Editor, event: GlobalEventHandlersEventMap[K]) => void,
+            handler: (instance: Editor, event: GlobalEventHandlersEventMap[K]) => void,
         ): void;
-        off<K extends DOMEvent & keyof GlobalEventHandlersEventMap>(
-            eventName: K,
-            handler: (instance: CodeMirror.Editor, event: GlobalEventHandlersEventMap[K]) => void,
-        ): void;
-
-        /** Fires when one of the clipboard DOM events fires. */
         on<K extends DOMEvent & keyof DocumentAndElementEventHandlersEventMap>(
             eventName: K,
-            handler: (instance: CodeMirror.Editor, event: DocumentAndElementEventHandlersEventMap[K]) => void,
+            handler: (instance: Editor, event: DocumentAndElementEventHandlersEventMap[K]) => void,
+        ): void;
+
+        off<T extends keyof EditorEventMap>(eventName: T, handler: EditorEventMap[T]): void;
+        off<K extends DOMEvent & keyof GlobalEventHandlersEventMap>(
+            eventName: K,
+            handler: (instance: Editor, event: GlobalEventHandlersEventMap[K]) => void,
         ): void;
         off<K extends DOMEvent & keyof DocumentAndElementEventHandlersEventMap>(
             eventName: K,
-            handler: (instance: CodeMirror.Editor, event: DocumentAndElementEventHandlersEventMap[K]) => void,
+            handler: (instance: Editor, event: DocumentAndElementEventHandlersEventMap[K]) => void,
         ): void;
 
-        /** Fires when the overwrite flag is flipped. */
-        on(eventName: 'overwriteToggle', handler: (instance: CodeMirror.Editor, overwrite: boolean) => void): void;
-
-        /** Events are registered with the on method (and removed with the off method).
-        These are the events that fire on the instance object. The name of the event is followed by the arguments that will be passed to the handler.
-        The instance argument always refers to the editor instance. */
-        on(eventName: string, handler: (instance: CodeMirror.Editor) => void): void;
-        off(eventName: string, handler: (instance: CodeMirror.Editor) => void): void;
-
-        /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
+        /** Expose the state object, so that the Editor.state.completionActive property is reachable */
         state: any;
     }
 
@@ -681,14 +575,18 @@ declare namespace CodeMirror {
         getTextArea(): HTMLTextAreaElement;
     }
 
+    type ModeSpec<T> = {
+        [P in keyof T]: T[P];
+    } & { name: string };
+
     interface DocConstructor {
-        new (text: string, mode?: any, firstLineNumber?: number, lineSep?: string): Doc;
-        (text: string, mode?: any, firstLineNumber?: number, lineSep?: string): Doc;
+        new (text: string, mode?: string | ModeSpec<unknown>, firstLineNumber?: number, lineSep?: string): Doc;
+        (text: string, mode?: string | ModeSpec<unknown>, firstLineNumber?: number, lineSep?: string): Doc;
     }
 
-    interface Doc {
-        /** Get the mode option **/
-        modeOption: any;
+    interface DocOrEditor {
+        /** Get the mode option */
+        modeOption: string | ModeSpec<unknown>;
 
         /** Get the current editor content. You can pass it an optional argument to specify the string to be used to separate lines (defaults to "\n"). */
         getValue(seperator?: string): string;
@@ -696,16 +594,20 @@ declare namespace CodeMirror {
         /** Set the editor content. */
         setValue(content: string): void;
 
-        /** Get the text between the given points in the editor, which should be {line, ch} objects.
-        An optional third argument can be given to indicate the line separator string to use (defaults to "\n"). */
-        getRange(from: Position, to: CodeMirror.Position, seperator?: string): string;
+        /**
+         * Get the text between the given points in the editor, which should be {line, ch} objects.
+         * An optional third argument can be given to indicate the line separator string to use (defaults to "\n").
+         */
+        getRange(from: Position, to: Position, seperator?: string): string;
 
-        /** Replace the part of the document between from and to with the given string.
-        from and to must be {line, ch} objects. to can be left off to simply insert the string at position from. */
+        /**
+         * Replace the part of the document between from and to with the given string.
+         * from and to must be {line, ch} objects. to can be left off to simply insert the string at position from.
+         */
         replaceRange(
             replacement: string | string[],
-            from: CodeMirror.Position,
-            to?: CodeMirror.Position,
+            from: Position,
+            to?: Position,
             origin?: string,
         ): void;
 
@@ -721,133 +623,163 @@ declare namespace CodeMirror {
         /** Get the number of lines in the editor. */
         lineCount(): number;
 
-        /** Get the first line of the editor. This will usually be zero but for linked sub-views,
-        or documents instantiated with a non-zero first line, it might return other values. */
+        /**
+         * Get the first line of the editor. This will usually be zero but for linked sub-views,
+         * or documents instantiated with a non-zero first line, it might return other values.
+         */
         firstLine(): number;
 
         /** Get the last line of the editor. This will usually be lineCount() - 1, but for linked sub-views, it might return other values. */
         lastLine(): number;
 
         /** Fetches the line handle for the given line number. */
-        getLineHandle(num: number): CodeMirror.LineHandle;
+        getLineHandle(num: number): LineHandle;
 
         /** Given a line handle, returns the current position of that line (or null when it is no longer in the document). */
-        getLineNumber(handle: CodeMirror.LineHandle): number | null;
+        getLineNumber(handle: LineHandle): number | null;
 
-        /** Iterate over the whole document, and call f for each line, passing the line handle.
-        This is a faster way to visit a range of line handlers than calling getLineHandle for each of them.
-        Note that line handles have a text property containing the line's content (as a string). */
-        eachLine(f: (line: CodeMirror.LineHandle) => void): void;
+        /**
+         * Iterate over the whole document, and call f for each line, passing the line handle.
+         * This is a faster way to visit a range of line handlers than calling getLineHandle for each of them.
+         * Note that line handles have a text property containing the line's content (as a string).
+         */
+        eachLine(f: (line: LineHandle) => void): void;
 
-        /** Iterate over the range from start up to (not including) end, and call f for each line, passing the line handle.
-        This is a faster way to visit a range of line handlers than calling getLineHandle for each of them.
-        Note that line handles have a text property containing the line's content (as a string). */
-        eachLine(start: number, end: number, f: (line: CodeMirror.LineHandle) => void): void;
+        /**
+         * Iterate over the range from start up to (not including) end, and call f for each line, passing the line handle.
+         * This is a faster way to visit a range of line handlers than calling getLineHandle for each of them.
+         * Note that line handles have a text property containing the line's content (as a string).
+         */
+        eachLine(start: number, end: number, f: (line: LineHandle) => void): void;
 
-        /** Set the editor content as 'clean', a flag that it will retain until it is edited, and which will be set again
-        when such an edit is undone again. Useful to track whether the content needs to be saved. This function is deprecated
-        in favor of changeGeneration, which allows multiple subsystems to track different notions of cleanness without interfering.*/
+        /**
+         * Set the editor content as 'clean', a flag that it will retain until it is edited, and which will be set again
+         * when such an edit is undone again. Useful to track whether the content needs to be saved. This function is deprecated
+         * in favor of changeGeneration, which allows multiple subsystems to track different notions of cleanness without interfering.
+         */
         markClean(): void;
 
-        /** Returns a number that can later be passed to isClean to test whether any edits were made (and not undone) in the
-        meantime. If closeEvent is true, the current history event will be ‘closed’, meaning it can't be combined with further
-        changes (rapid typing or deleting events are typically combined).*/
+        /**
+         * Returns a number that can later be passed to isClean to test whether any edits were made (and not undone) in the
+         * meantime. If closeEvent is true, the current history event will be ‘closed’, meaning it can't be combined with further
+         * changes (rapid typing or deleting events are typically combined).
+         */
         changeGeneration(closeEvent?: boolean): number;
 
-        /** Returns whether the document is currently clean — not modified since initialization or the last call to markClean if
-        no argument is passed, or since the matching call to changeGeneration if a generation value is given. */
+        /**
+         * Returns whether the document is currently clean — not modified since initialization or the last call to markClean if
+         * no argument is passed, or since the matching call to changeGeneration if a generation value is given.
+         */
         isClean(generation?: number): boolean;
 
         /** Get the currently selected code. */
         getSelection(): string;
 
         /** Returns an array containing a string for each selection, representing the content of the selections. */
-        getSelections(lineSep?: string): Array<string>;
+        getSelections(lineSep?: string): string[];
 
-        /** Replace the selection with the given string. By default, the new selection will span the inserted text.
-        The optional collapse argument can be used to change this -- passing "start" or "end" will collapse the selection to the start or end of the inserted text. */
+        /**
+         * Replace the selection with the given string. By default, the new selection will span the inserted text.
+         * The optional collapse argument can be used to change this -- passing "start" or "end" will collapse the selection to the start or end of the inserted text.
+         */
         replaceSelection(replacement: string, collapse?: string): void;
 
-        /** Replaces the content of the selections with the strings in the array.
-        The length of the given array should be the same as the number of active selections.
-        The collapse argument works the same as in replaceSelection. */
-        replaceSelections(replacements: Array<string>, collapse?: string): void;
+        /**
+         * Replaces the content of the selections with the strings in the array.
+         * The length of the given array should be the same as the number of active selections.
+         * The collapse argument works the same as in replaceSelection.
+         */
+        replaceSelections(replacements: string[], collapse?: string): void;
 
-        /** start is a an optional string indicating which end of the selection to return.
-        It may be "from", "to", "head" (the side of the selection that moves when you press shift+arrow),
-        or "anchor" (the fixed side of the selection).Omitting the argument is the same as passing "head". A {line, ch} object will be returned. **/
-        getCursor(start?: string): CodeMirror.Position;
+        /**
+         * start is a an optional string indicating which end of the selection to return.
+         * It may be "from", "to", "head" (the side of the selection that moves when you press shift+arrow),
+         * or "anchor" (the fixed side of the selection).Omitting the argument is the same as passing "head". A {line, ch} object will be returned.
+         */
+        getCursor(start?: string): Position;
 
-        /** Retrieves a list of all current selections. These will always be sorted, and never overlap (overlapping selections are merged).
-        Each object in the array contains anchor and head properties referring to {line, ch} objects. */
+        /**
+         * Retrieves a list of all current selections. These will always be sorted, and never overlap (overlapping selections are merged).
+         * Each object in the array contains anchor and head properties referring to {line, ch} objects.
+         */
         listSelections(): Range[];
 
         /** Return true if any text is selected. */
         somethingSelected(): boolean;
 
-        /** Set the cursor position. You can either pass a single {line, ch} object, or the line and the character as two separate parameters.
-        Will replace all selections with a single, empty selection at the given position.
-        The supported options are the same as for setSelection */
+        /**
+         * Set the cursor position. You can either pass a single {line, ch} object, or the line and the character as two separate parameters.
+         * Will replace all selections with a single, empty selection at the given position.
+         * The supported options are the same as for setSelection
+         */
         setCursor(
-            pos: CodeMirror.Position | number,
+            pos: Position | number,
             ch?: number,
             options?: { bias?: number; origin?: string; scroll?: boolean },
         ): void;
 
         /** Set a single selection range. anchor and head should be {line, ch} objects. head defaults to anchor when not given. */
         setSelection(
-            anchor: CodeMirror.Position,
-            head?: CodeMirror.Position,
+            anchor: Position,
+            head?: Position,
             options?: { bias?: number; origin?: string; scroll?: boolean },
         ): void;
 
-        /** Sets a new set of selections. There must be at least one selection in the given array. When primary is a
-        number, it determines which selection is the primary one. When it is not given, the primary index is taken from
-        the previous selection, or set to the last range if the previous selection had less ranges than the new one.
-        Supports the same options as setSelection. */
+        /**
+         * Sets a new set of selections. There must be at least one selection in the given array. When primary is a
+         * number, it determines which selection is the primary one. When it is not given, the primary index is taken from
+         * the previous selection, or set to the last range if the previous selection had less ranges than the new one.
+         * Supports the same options as setSelection.
+         */
         setSelections(
-            ranges: Array<{ anchor: CodeMirror.Position; head: CodeMirror.Position }>,
+            ranges: Array<{ anchor: Position; head: Position }>,
             primary?: number,
             options?: { bias?: number; origin?: string; scroll?: boolean },
         ): void;
 
-        /** Similar to setSelection , but will, if shift is held or the extending flag is set,
-        move the head of the selection while leaving the anchor at its current place.
-        pos2 is optional , and can be passed to ensure a region (for example a word or paragraph) will end up selected
-        (in addition to whatever lies between that region and the current anchor). */
-        extendSelection(from: CodeMirror.Position, to?: CodeMirror.Position): void;
+        /**
+         * Similar to setSelection , but will, if shift is held or the extending flag is set,
+         * move the head of the selection while leaving the anchor at its current place.
+         * pos2 is optional , and can be passed to ensure a region (for example a word or paragraph) will end up selected
+         * (in addition to whatever lies between that region and the current anchor).
+         */
+        extendSelection(from: Position, to?: Position): void;
 
-        /** Sets or clears the 'extending' flag , which acts similar to the shift key,
-        in that it will cause cursor movement and calls to extendSelection to leave the selection anchor in place. */
+        /**
+         * Sets or clears the 'extending' flag , which acts similar to the shift key,
+         * in that it will cause cursor movement and calls to extendSelection to leave the selection anchor in place.
+         */
         setExtending(value: boolean): void;
-
-        /** Retrieve the editor associated with a document. May return null. */
-        getEditor(): CodeMirror.Editor | null;
-
-        /** Create an identical copy of the given doc. When copyHistory is true , the history will also be copied.Can not be called directly on an editor. */
-        copy(copyHistory: boolean): CodeMirror.Doc;
 
         /** Create a new document that's linked to the target document. Linked documents will stay in sync (changes to one are also applied to the other) until unlinked. */
         linkedDoc(options: {
-            /** When turned on, the linked copy will share an undo history with the original.
-            Thus, something done in one of the two can be undone in the other, and vice versa. */
+            /**
+             * When turned on, the linked copy will share an undo history with the original.
+             * Thus, something done in one of the two can be undone in the other, and vice versa.
+             */
             sharedHist?: boolean;
             from?: number;
-            /** Can be given to make the new document a subview of the original. Subviews only show a given range of lines.
-            Note that line coordinates inside the subview will be consistent with those of the parent,
-            so that for example a subview starting at line 10 will refer to its first line as line 10, not 0. */
+            /**
+             * Can be given to make the new document a subview of the original. Subviews only show a given range of lines.
+             * Note that line coordinates inside the subview will be consistent with those of the parent,
+             * so that for example a subview starting at line 10 will refer to its first line as line 10, not 0.
+             */
             to?: number;
             /** By default, the new document inherits the mode of the parent. This option can be set to a mode spec to give it a different mode. */
-            mode: any;
-        }): CodeMirror.Doc;
+            mode?: string | ModeSpec<unknown>;
+        }): Doc;
 
-        /** Break the link between two documents. After calling this , changes will no longer propagate between the documents,
-        and, if they had a shared history, the history will become separate. */
-        unlinkDoc(doc: CodeMirror.Doc): void;
+        /**
+         * Break the link between two documents. After calling this , changes will no longer propagate between the documents,
+         * and, if they had a shared history, the history will become separate.
+         */
+        unlinkDoc(doc: Doc): void;
 
-        /** Will call the given function for all documents linked to the target document. It will be passed two arguments,
-        the linked document and a boolean indicating whether that document shares history with the target. */
-        iterLinkedDocs(fn: (doc: CodeMirror.Doc, sharedHist: boolean) => void): void;
+        /**
+         * Will call the given function for all documents linked to the target document. It will be passed two arguments,
+         * the linked document and a boolean indicating whether that document shares history with the target.
+         */
+        iterLinkedDocs(fn: (doc: Doc, sharedHist: boolean) => void): void;
 
         /** Undo one edit (if any undo events are stored). */
         undo(): void;
@@ -861,130 +793,152 @@ declare namespace CodeMirror {
         /** Clears the editor's undo history. */
         clearHistory(): void;
 
-        /** Get a(JSON - serializeable) representation of the undo history. */
+        /** Get a (JSON - serializeable) representation of the undo history. */
         getHistory(): any;
 
-        /** Replace the editor's undo history with the one provided, which must be a value as returned by getHistory.
-        Note that this will have entirely undefined results if the editor content isn't also the same as it was when getHistory was called. */
+        /**
+         * Replace the editor's undo history with the one provided, which must be a value as returned by getHistory.
+         * Note that this will have entirely undefined results if the editor content isn't also the same as it was when getHistory was called.
+         */
         setHistory(history: any): void;
 
         /** Can be used to mark a range of text with a specific CSS class name. from and to should be { line , ch } objects. */
         markText(
-            from: CodeMirror.Position,
-            to: CodeMirror.Position,
-            options?: CodeMirror.TextMarkerOptions,
+            from: Position,
+            to: Position,
+            options?: TextMarkerOptions,
         ): TextMarker<MarkerRange>;
 
-        /** Inserts a bookmark, a handle that follows the text around it as it is being edited, at the given position.
-        A bookmark has two methods find() and clear(). The first returns the current position of the bookmark, if it is still in the document,
-        and the second explicitly removes the bookmark. */
+        /**
+         * Inserts a bookmark, a handle that follows the text around it as it is being edited, at the given position.
+         * A bookmark has two methods find() and clear(). The first returns the current position of the bookmark, if it is still in the document,
+         * and the second explicitly removes the bookmark.
+         */
         setBookmark(
-            pos: CodeMirror.Position,
+            pos: Position,
             options?: {
                 /** Can be used to display a DOM node at the current location of the bookmark (analogous to the replacedWith option to markText). */
                 widget?: HTMLElement;
 
-                /** By default, text typed when the cursor is on top of the bookmark will end up to the right of the bookmark.
-            Set this option to true to make it go to the left instead. */
+                /**
+                 * By default, text typed when the cursor is on top of the bookmark will end up to the right of the bookmark.
+                 * Set this option to true to make it go to the left instead.
+                 */
                 insertLeft?: boolean;
 
-                /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents. By default, a marker appears only in its target document. */
+                /**
+                 * When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents.
+                 * By default, a marker appears only in its target document.
+                 */
                 shared?: boolean;
 
                 /** As with markText, this determines whether mouse events on the widget inserted for this bookmark are handled by CodeMirror. The default is false. */
                 handleMouseEvents?: boolean;
             },
-        ): CodeMirror.TextMarker<Position>;
+        ): TextMarker<Position>;
 
         /** Returns an array of all the bookmarks and marked ranges found between the given positions. */
-        findMarks(from: CodeMirror.Position, to: CodeMirror.Position): TextMarker[];
+        findMarks(from: Position, to: Position): TextMarker[];
 
         /** Returns an array of all the bookmarks and marked ranges present at the given position. */
-        findMarksAt(pos: CodeMirror.Position): TextMarker[];
+        findMarksAt(pos: Position): TextMarker[];
 
         /** Returns an array containing all marked ranges in the document. */
-        getAllMarks(): CodeMirror.TextMarker[];
+        getAllMarks(): TextMarker[];
 
-        /** Adds a line widget, an element shown below a line, spanning the whole of the editor's width, and moving the lines below it downwards.
-        line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
-        options, when given, should be an object that configures the behavior of the widget.
-        Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
-        addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
+        /**
+         * Adds a line widget, an element shown below a line, spanning the whole of the editor's width, and moving the lines below it downwards.
+         * line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
+         * options, when given, should be an object that configures the behavior of the widget.
+         * Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it.
+         */
+        addLineWidget(line: any, node: HTMLElement, options?: LineWidgetOptions): LineWidget;
 
         /** Remove the line widget */
-        removeLineWidget(widget: CodeMirror.LineWidget): void;
+        removeLineWidget(widget: LineWidget): void;
 
-        /** Gets the mode object for the editor. Note that this is distinct from getOption("mode"), which gives you the mode specification,
-        rather than the resolved, instantiated mode object. */
-        getMode(): any;
+        /**
+         * Gets the mode object for the editor. Note that this is distinct from getOption("mode"), which gives you the mode specification,
+         * rather than the resolved, instantiated mode object.
+         */
+        getMode(): Mode<unknown>;
 
         /** Returns the preferred line separator string for this document, as per the option by the same name. When that option is null, the string "\n" is returned. */
         lineSeparator(): string;
 
-        /** Calculates and returns a { line , ch } object for a zero-based index whose value is relative to the start of the editor's text.
-        If the index is out of range of the text then the returned object is clipped to start or end of the text respectively. */
-        posFromIndex(index: number): CodeMirror.Position;
+        /**
+         * Calculates and returns a { line , ch } object for a zero-based index whose value is relative to the start of the editor's text.
+         * If the index is out of range of the text then the returned object is clipped to start or end of the text respectively.
+         */
+        posFromIndex(index: number): Position;
 
         /** The reverse of posFromIndex. */
-        indexFromPos(object: CodeMirror.Position): number;
+        indexFromPos(object: Position): number;
 
-        /** Expose the state object, so that the Doc.state.completionActive property is reachable*/
+        /** Expose the state object, so that the Doc.state.completionActive property is reachable */
         state: any;
+    }
+
+    interface Doc extends DocOrEditor {
+        /** Retrieve the editor associated with a document. May return null. */
+        getEditor(): Editor | null;
+
+        /** Create an identical copy of the given doc. When copyHistory is true , the history will also be copied. */
+        copy(copyHistory: boolean): Doc;
+
+        on<T extends keyof DocEventMap>(eventName: T, handler: DocEventMap[T]): void;
+        off<T extends keyof DocEventMap>(eventName: T, handler: DocEventMap[T]): void;
     }
 
     interface LineHandle {
         text: string;
+        on<T extends keyof LineHandleEventMap>(eventName: T, handler: LineHandleEventMap[T]): void;
+        off<T extends keyof LineHandleEventMap>(leventName: T, handler: LineHandleEventMap[T]): void;
     }
 
     interface ScrollInfo {
-        left: any;
-        top: any;
-        width: any;
-        height: any;
-        clientWidth: any;
-        clientHeight: any;
+        left: number;
+        top: number;
+        width: number;
+        height: number;
+        clientWidth: number;
+        clientHeight: number;
     }
 
     interface MarkerRange {
-        from: CodeMirror.Position;
-        to: CodeMirror.Position;
+        from: Position;
+        to: Position;
     }
 
     interface TextMarker<T = MarkerRange | Position> extends Partial<TextMarkerOptions> {
         /** Remove the mark. */
         clear(): void;
 
-        /** Returns a {from, to} object (both holding document positions), indicating the current position of the marked range,
-        or undefined if the marker is no longer in the document. */
+        /**
+         * Returns a {from, to} object (both holding document positions), indicating the current position of the marked range,
+         * or undefined if the marker is no longer in the document.
+         */
         find(): T | undefined;
 
-        /**  Called when you've done something that might change the size of the marker and want to cheaply update the display*/
+        /** Called when you've done something that might change the size of the marker and want to cheaply update the display */
         changed(): void;
 
-        /** Fired when the cursor enters the marked range */
-        on(eventName: 'beforeCursorEnter', handler: () => void): void;
-        off(eventName: 'beforeCursorEnter', handler: () => void): void;
-
-        /** Fired when the range is cleared, either through cursor movement in combination with clearOnEnter or through a call to its clear() method */
-        on(eventName: 'clear', handler: (from: Position, to: Position) => void): void;
-        off(eventName: 'clear', handler: () => void): void;
-
-        /** Fired when the last part of the marker is removed from the document by editing operations */
-        on(eventName: 'hide', handler: () => void): void;
-        off(eventname: 'hide', handler: () => void): void;
-
-        /** Fired when, after the marker was removed by editing, a undo operation brough the marker back */
-        on(eventName: 'unhide', handler: () => void): void;
-        off(eventname: 'unhide', handler: () => void): void;
+        on<T extends keyof TextMarkerEventMap>(eventName: T, handler: TextMarkerEventMap[T]): void;
+        off<T extends keyof TextMarkerEventMap>(eventName: T, handler: TextMarkerEventMap[T]): void;
     }
 
     interface LineWidget {
         /** Removes the widget. */
         clear(): void;
 
-        /** Call this if you made some change to the widget's DOM node that might affect its height.
-        It'll force CodeMirror to update the height of the line that contains the widget. */
+        /**
+         * Call this if you made some change to the widget's DOM node that might affect its height.
+         * It'll force CodeMirror to update the height of the line that contains the widget.
+         */
         changed(): void;
+
+        on<T extends keyof LineWidgetEventMap>(eventName: T, handler: LineWidgetEventMap[T]): void;
+        off<T extends keyof LineWidgetEventMap>(eventName: T, handler: LineWidgetEventMap[T]): void;
     }
 
     interface LineWidgetOptions {
@@ -996,12 +950,16 @@ declare namespace CodeMirror {
         above?: boolean;
         /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
         showIfHidden?: boolean;
-        /** Determines whether the editor will capture mouse and drag events occurring in this widget.
-        Default is false—the events will be left alone for the default browser handler, or specific handlers on the widget, to capture. */
+        /**
+         * Determines whether the editor will capture mouse and drag events occurring in this widget.
+         * Default is false—the events will be left alone for the default browser handler, or specific handlers on the widget, to capture.
+         */
         handleMouseEvents?: boolean;
-        /** By default, the widget is added below other widgets for the line.
-        This option can be used to place it at a different position (zero for the top, N to put it after the Nth other widget).
-        Note that this only has effect once, when the widget is created. */
+        /**
+         * By default, the widget is added below other widgets for the line.
+         * This option can be used to place it at a different position (zero for the top, N to put it after the Nth other widget).
+         * Note that this only has effect once, when the widget is created.
+         */
         insertAt?: number;
         /** Add an extra CSS class name to the wrapper element created for the widget. */
         className?: string;
@@ -1009,26 +967,23 @@ declare namespace CodeMirror {
 
     interface EditorChange {
         /** Position (in the pre-change coordinate system) where the change started. */
-        from: CodeMirror.Position;
+        from: Position;
         /** Position (in the pre-change coordinate system) where the change ended. */
-        to: CodeMirror.Position;
+        to: Position;
         /** Array of strings representing the text that replaced the changed range (split by line). */
         text: string[];
         /**  Text that used to be between from and to, which is overwritten by this change. */
         removed?: string[];
-        /**  String representing the origin of the change event and wether it can be merged with history */
+        /**  String representing the origin of the change event and whether it can be merged with history */
         origin?: string;
     }
 
-    interface EditorChangeLinkedList extends CodeMirror.EditorChange {
-        /** Points to another change object (which may point to another, etc). */
-        next?: CodeMirror.EditorChangeLinkedList;
-    }
-
-    interface EditorChangeCancellable extends CodeMirror.EditorChange {
-        /** may be used to modify the change. All three arguments to update are optional, and can be left off to leave the existing value for that field intact.
-        If the change came from undo/redo, `update` is undefined and the change cannot be modified. */
-        update?(from?: CodeMirror.Position, to?: CodeMirror.Position, text?: string[]): void;
+    interface EditorChangeCancellable extends EditorChange {
+        /**
+         * may be used to modify the change. All three arguments to update are optional, and can be left off to leave the existing value for that field intact.
+         * If the change came from undo/redo, `update` is undefined and the change cannot be modified.
+         */
+        update?(from?: Position, to?: Position, text?: string[]): void;
 
         cancel(): void;
     }
@@ -1045,10 +1000,10 @@ declare namespace CodeMirror {
     }
 
     interface Range {
-        anchor: CodeMirror.Position;
-        head: CodeMirror.Position;
-        from(): CodeMirror.Position;
-        to(): CodeMirror.Position;
+        anchor: Position;
+        head: Position;
+        from(): Position;
+        to(): Position;
         empty(): boolean;
     }
 
@@ -1058,23 +1013,61 @@ declare namespace CodeMirror {
         sticky?: string;
     }
 
+    interface ScrollbarMeasure {
+        clientHeight: number;
+        viewHeight: number;
+        scrollWidth: number;
+        viewWidth: number;
+        barLeft: number;
+        docHeight: number;
+        scrollHeight: number;
+        nativeBarWidth: number;
+        gutterWidth: number;
+    }
+
+    interface ScrollbarModel {
+        update(measure: ScrollbarMeasure): { bottom: number, right: number };
+        clear(): void;
+        setScrollLeft(pos: number): void;
+        setScrollTop(pos: number): void;
+    }
+
+    interface ScrollbarModelConstructor {
+        new(place: (node: Element) => void, scroll: (pos: number, axis: 'horizontal' | 'vertical') => void): ScrollbarModel;
+    }
+
+    interface ScrollbarModels {
+        native: ScrollbarModelConstructor;
+        null: ScrollbarModelConstructor;
+    }
+
+    const scrollbarModel: ScrollbarModels;
+
     type InputStyle = 'textarea' | 'contenteditable';
 
     interface EditorConfiguration {
-        /** string| The starting value of the editor. Can be a string, or a document object. */
-        value?: any;
+        /** The starting value of the editor. Can be a string, or a document object. */
+        value?: string | Doc;
 
-        /** string|object. The mode to use. When not given, this will default to the first mode that was loaded.
-        It may be a string, which either simply names the mode or is a MIME type associated with the mode.
-        Alternatively, it may be an object containing configuration options for the mode,
-        with a name property that names the mode (for example {name: "javascript", json: true}). */
-        mode?: any;
+        /**
+         * string|object. The mode to use. When not given, this will default to the first mode that was loaded.
+         * It may be a string, which either simply names the mode or is a MIME type associated with the mode.
+         * Alternatively, it may be an object containing configuration options for the mode,
+         * with a name property that names the mode (for example {name: "javascript", json: true}).
+         */
+        mode?: string | ModeSpec<unknown>;
 
-        /** Explicitly set the line separator for the editor. By default (value null), the document will be split on CRLFs as well as lone CRs and LFs, and a single LF will be used as line separator in all output (such as getValue). When a specific string is given, lines will only be split on that string, and output will, by default, use that same separator. */
+        /**
+         * Explicitly set the line separator for the editor. By default (value null), the document will be split on CRLFs as well
+         * as lone CRs and LFs, and a single LF will be used as line separator in all output (such as getValue). When a specific
+         * string is given, lines will only be split on that string, and output will, by default, use that same separator.
+         */
         lineSeparator?: string | null;
 
-        /** The theme to style the editor with. You must make sure the CSS file defining the corresponding .cm-s-[name] styles is loaded.
-        The default is "default". */
+        /**
+         * The theme to style the editor with. You must make sure the CSS file defining the corresponding .cm-s-[name] styles is loaded.
+         * The default is "default".
+         */
         theme?: string;
 
         /** How many spaces a block (whatever that means in the edited language) should be indented. The default is 2. */
@@ -1089,27 +1082,45 @@ declare namespace CodeMirror {
         /** Whether, when indenting, the first N*tabSize spaces should be replaced by N tabs. Default is false. */
         indentWithTabs?: boolean;
 
-        /** Configures whether the editor should re-indent the current line when a character is typed
-        that might change its proper indentation (only works if the mode supports indentation). Default is true. */
+        /**
+         * Configures whether the editor should re-indent the current line when a character is typed
+         * that might change its proper indentation (only works if the mode supports indentation). Default is true.
+         */
         electricChars?: boolean;
 
-        /** A regular expression used to determine which characters should be replaced by a special placeholder. Mostly useful for non-printing special characters. The default is /[\u0000-\u001f\u007f-\u009f\u00ad\u061c\u200b-\u200f\u2028\u2029\ufeff\ufff9-\ufffc]/. */
+        /**
+         * A regular expression used to determine which characters should be replaced by a special placeholder. Mostly useful for non-printing
+         * special characters. The default is /[\u0000-\u001f\u007f-\u009f\u00ad\u061c\u200b-\u200f\u2028\u2029\ufeff\ufff9-\ufffc]/.
+         */
         specialChars?: RegExp;
 
-        /** A function that, given a special character identified by the specialChars option, produces a DOM node that is used to represent the character. By default, a red dot (•) is shown, with a title tooltip to indicate the character code. */
+        /**
+         * A function that, given a special character identified by the specialChars option, produces a DOM node that is used to
+         * represent the character. By default, a red dot (•) is shown, with a title tooltip to indicate the character code.
+         */
         specialCharPlaceholder?: (char: string) => HTMLElement;
 
-        /** Flips overall layout and selects base paragraph direction to be left-to-right or right-to-left. Default is "ltr". CodeMirror applies the Unicode Bidirectional Algorithm to each line, but does not autodetect base direction — it's set to the editor direction for all lines. The resulting order is sometimes wrong when base direction doesn't match user intent (for example, leading and trailing punctuation jumps to the wrong side of the line). Therefore, it's helpful for multilingual input to let users toggle this option. */
-        direction?: "ltr" | "rtl"
+        /**
+         * Flips overall layout and selects base paragraph direction to be left-to-right or right-to-left. Default is "ltr". CodeMirror
+         * applies the Unicode Bidirectional Algorithm to each line, but does not autodetect base direction — it's set to the editor
+         * direction for all lines. The resulting order is sometimes wrong when base direction doesn't match user intent (for example,
+         * leading and trailing punctuation jumps to the wrong side of the line). Therefore, it's helpful for multilingual input to let
+         * users toggle this option.
+         */
+        direction?: "ltr" | "rtl";
 
-        /** Determines whether horizontal cursor movement through right-to-left (Arabic, Hebrew) text
-        is visual (pressing the left arrow moves the cursor left)
-        or logical (pressing the left arrow moves to the next lower index in the string, which is visually right in right-to-left text).
-        The default is false on Windows, and true on other platforms. */
+        /**
+         * Determines whether horizontal cursor movement through right-to-left (Arabic, Hebrew) text
+         * is visual (pressing the left arrow moves the cursor left)
+         * or logical (pressing the left arrow moves to the next lower index in the string, which is visually right in right-to-left text).
+         * The default is false on Windows, and true on other platforms.
+         */
         rtlMoveVisually?: boolean;
 
-        /** Configures the keymap to use. The default is "default", which is the only keymap defined in codemirror.js itself.
-        Extra keymaps are found in the keymap directory. See the section on keymaps for more information. */
+        /**
+         * Configures the keymap to use. The default is "default", which is the only keymap defined in codemirror.js itself.
+         * Extra keymaps are found in the keymap directory. See the section on keymaps for more information.
+         */
         keyMap?: string;
 
         /** Can be used to specify extra keybindings for the editor, alongside the ones defined by keyMap. Should be either null, or a valid keymap value. */
@@ -1117,11 +1128,11 @@ declare namespace CodeMirror {
 
         /** Allows you to configure the behavior of mouse selection and dragging. The function is called when the left mouse button is pressed. */
         configureMouse?: (
-            cm: CodeMirror.Editor,
+            cm: Editor,
             repeat: 'single' | 'double' | 'triple',
             event: Event,
         ) => MouseSelectionConfiguration;
-        
+
         /** Whether CodeMirror should scroll or wrap for long lines. Defaults to false (scroll). */
         lineWrapping?: boolean;
 
@@ -1134,22 +1145,26 @@ declare namespace CodeMirror {
         /** A function used to format line numbers. The function is passed the line number, and should return a string that will be shown in the gutter. */
         lineNumberFormatter?: (line: number) => string;
 
-        /** Can be used to add extra gutters (beyond or instead of the line number gutter).
-        Should be an array of CSS class names, each of which defines a width (and optionally a background),
-        and which will be used to draw the background of the gutters.
-        May include the CodeMirror-linenumbers class, in order to explicitly set the position of the line number gutter
-        (it will default to be to the right of all other gutters). These class names are the keys passed to setGutterMarker. */
-        gutters?: (string | { className: string; style?: string })[];
+        /**
+         * Can be used to add extra gutters (beyond or instead of the line number gutter).
+         * Should be an array of CSS class names, each of which defines a width (and optionally a background),
+         * and which will be used to draw the background of the gutters.
+         * May include the CodeMirror-linenumbers class, in order to explicitly set the position of the line number gutter
+         * (it will default to be to the right of all other gutters). These class names are the keys passed to setGutterMarker.
+         */
+        gutters?: Array<string | { className: string; style?: string }>;
 
-        /** Determines whether the gutter scrolls along with the content horizontally (false)
-        or whether it stays fixed during horizontal scrolling (true, the default). */
+        /**
+         * Determines whether the gutter scrolls along with the content horizontally (false)
+         * or whether it stays fixed during horizontal scrolling (true, the default).
+         */
         fixedGutter?: boolean;
 
         /**
          * Chooses a scrollbar implementation. The default is "native", showing native scrollbars. The core library also
          * provides the "null" style, which completely hides the scrollbars. Addons can implement additional scrollbar models.
          */
-        scrollbarStyle?: string;
+        scrollbarStyle?: keyof ScrollbarModels;
 
         /**
          * When fixedGutter is on, and there is a horizontal scrollbar, by default the gutter will be visible to the left of this scrollbar.
@@ -1166,18 +1181,21 @@ declare namespace CodeMirror {
         inputStyle?: InputStyle;
 
         /** boolean|string. This disables editing of the editor content by the user. If the special value "nocursor" is given (instead of simply true), focusing of the editor is also disallowed. */
-        readOnly?: any;
+        readOnly?: boolean | 'nocursor';
 
         /** This label is read by the screenreaders when CodeMirror text area is focused. This is helpful for accessibility. */
         screenReaderLabel?: string;
 
-        /**Whether the cursor should be drawn when a selection is active. Defaults to false. */
+        /** Whether the cursor should be drawn when a selection is active. Defaults to false. */
         showCursorWhenSelecting?: boolean;
 
         /** When enabled, which is the default, doing copy or cut when there is no selection will copy or cut the whole lines that have cursors on them. */
         lineWiseCopyCut?: boolean;
 
-        /** When pasting something from an external source (not from the editor itself), if the number of lines matches the number of selection, CodeMirror will by default insert one line per selection. You can set this to false to disable that behavior. */
+        /**
+         * When pasting something from an external source (not from the editor itself), if the number of lines matches the number of selection,
+         * CodeMirror will by default insert one line per selection. You can set this to false to disable that behavior.
+         */
         pasteLinesPerSelection?: boolean;
 
         /** Determines whether multiple selections are joined as soon as they touch (the default) or only when they overlap (true). */
@@ -1192,34 +1210,42 @@ declare namespace CodeMirror {
         /** The tab index to assign to the editor. If not given, no tab index will be assigned. */
         tabindex?: number;
 
-        /** Can be used to make CodeMirror focus itself on initialization. Defaults to off.
-        When fromTextArea is used, and no explicit value is given for this option, it will be set to true when either the source textarea is focused,
-        or it has an autofocus attribute and no other element is focused. */
+        /**
+         * Can be used to make CodeMirror focus itself on initialization. Defaults to off.
+         * When fromTextArea is used, and no explicit value is given for this option, it will be set to true when either the source textarea is focused,
+         * or it has an autofocus attribute and no other element is focused.
+         */
         autofocus?: boolean;
 
         /** Controls whether drag-and - drop is enabled. On by default. */
         dragDrop?: boolean;
 
-        /** When set (default is null) only files whose type is in the array can be dropped into the editor.
-        The strings should be MIME types, and will be checked against the type of the File object as reported by the browser. */
-        allowDropFileTypes?: Array<string>;
+        /**
+         * When set (default is null) only files whose type is in the array can be dropped into the editor.
+         * The strings should be MIME types, and will be checked against the type of the File object as reported by the browser.
+         */
+        allowDropFileTypes?: string[] | null;
 
-        /** When given , this will be called when the editor is handling a dragenter , dragover , or drop event.
-        It will be passed the editor instance and the event object as arguments.
-        The callback can choose to handle the event itself , in which case it should return true to indicate that CodeMirror should not do anything further. */
-        onDragEvent?: (instance: CodeMirror.Editor, event: DragEvent) => boolean;
+        /**
+         * When given , this will be called when the editor is handling a dragenter , dragover , or drop event.
+         * It will be passed the editor instance and the event object as arguments.
+         * The callback can choose to handle the event itself , in which case it should return true to indicate that CodeMirror should not do anything further.
+         */
+        onDragEvent?: (instance: Editor, event: DragEvent) => boolean;
 
-        /** This provides a rather low - level hook into CodeMirror's key handling.
-        If provided, this function will be called on every keydown, keyup, and keypress event that CodeMirror captures.
-        It will be passed two arguments, the editor instance and the key event.
-        This key event is pretty much the raw key event, except that a stop() method is always added to it.
-        You could feed it to, for example, jQuery.Event to further normalize it.
-        This function can inspect the key event, and handle it if it wants to.
-        It may return true to tell CodeMirror to ignore the event.
-        Be wary that, on some browsers, stopping a keydown does not stop the keypress from firing, whereas on others it does.
-        If you respond to an event, you should probably inspect its type property and only do something when it is keydown
-        (or keypress for actions that need character data). */
-        onKeyEvent?: (instance: CodeMirror.Editor, event: KeyboardEvent) => boolean;
+        /**
+         * This provides a rather low-level hook into CodeMirror's key handling.
+         * If provided, this function will be called on every keydown, keyup, and keypress event that CodeMirror captures.
+         * It will be passed two arguments, the editor instance and the key event.
+         * This key event is pretty much the raw key event, except that a stop() method is always added to it.
+         * You could feed it to, for example, jQuery.Event to further normalize it.
+         * This function can inspect the key event, and handle it if it wants to.
+         * It may return true to tell CodeMirror to ignore the event.
+         * Be wary that, on some browsers, stopping a keydown does not stop the keypress from firing, whereas on others it does.
+         * If you respond to an event, you should probably inspect its type property and only do something when it is keydown
+         * (or keypress for actions that need character data).
+         */
+        onKeyEvent?: (instance: Editor, event: KeyboardEvent) => boolean;
 
         /** Half - period in milliseconds used for cursor blinking. The default blink rate is 530ms. */
         cursorBlinkRate?: number;
@@ -1230,46 +1256,62 @@ declare namespace CodeMirror {
          */
         cursorScrollMargin?: number;
 
-        /** Determines the height of the cursor. Default is 1 , meaning it spans the whole height of the line.
-        For some fonts (and by some tastes) a smaller height (for example 0.85),
-        which causes the cursor to not reach all the way to the bottom of the line, looks better */
+        /**
+         * Determines the height of the cursor. Default is 1 , meaning it spans the whole height of the line.
+         * For some fonts (and by some tastes) a smaller height (for example 0.85),
+         * which causes the cursor to not reach all the way to the bottom of the line, looks better
+         */
         cursorHeight?: number;
 
-        /** Controls whether, when the context menu is opened with a click outside of the current selection,
-        the cursor is moved to the point of the click. Defaults to true. */
+        /**
+         * Controls whether, when the context menu is opened with a click outside of the current selection,
+         * the cursor is moved to the point of the click. Defaults to true.
+         */
         resetSelectionOnContextMenu?: boolean;
 
-        /** Highlighting is done by a pseudo background - thread that will work for workTime milliseconds,
-        and then use timeout to sleep for workDelay milliseconds.
-        The defaults are 200 and 300, you can change these options to make the highlighting more or less aggressive. */
+        /**
+         * Highlighting is done by a pseudo background thread that will work for workTime milliseconds,
+         * and then use timeout to sleep for workDelay milliseconds.
+         * The defaults are 200 and 300, you can change these options to make the highlighting more or less aggressive.
+         */
         workTime?: number;
 
         /** See workTime. */
         workDelay?: number;
 
-        /** Indicates how quickly CodeMirror should poll its input textarea for changes(when focused).
-        Most input is captured by events, but some things, like IME input on some browsers, don't generate events that allow CodeMirror to properly detect it.
-        Thus, it polls. Default is 100 milliseconds. */
+        /**
+         * Indicates how quickly CodeMirror should poll its input textarea for changes(when focused).
+         * Most input is captured by events, but some things, like IME input on some browsers, don't generate events that allow CodeMirror to properly detect it.
+         * Thus, it polls. Default is 100 milliseconds.
+         */
         pollInterval?: number;
 
-        /** By default, CodeMirror will combine adjacent tokens into a single span if they have the same class.
-        This will result in a simpler DOM tree, and thus perform better. With some kinds of styling(such as rounded corners),
-        this will change the way the document looks. You can set this option to false to disable this behavior. */
+        /**
+         * By default, CodeMirror will combine adjacent tokens into a single span if they have the same class.
+         * This will result in a simpler DOM tree, and thus perform better. With some kinds of styling(such as rounded corners),
+         * this will change the way the document looks. You can set this option to false to disable this behavior.
+         */
         flattenSpans?: boolean;
 
-        /** When enabled (off by default), an extra CSS class will be added to each token, indicating the (inner) mode that produced it, prefixed with "cm-m-".
-        For example, tokens from the XML mode will get the cm-m-xml class. */
+        /**
+         * When enabled (off by default), an extra CSS class will be added to each token, indicating the (inner) mode that produced it, prefixed with "cm-m-".
+         * For example, tokens from the XML mode will get the cm-m-xml class.
+         */
         addModeClass?: boolean;
 
-        /** When highlighting long lines, in order to stay responsive, the editor will give up and simply style
-        the rest of the line as plain text when it reaches a certain position. The default is 10000.
-        You can set this to Infinity to turn off this behavior. */
+        /**
+         * When highlighting long lines, in order to stay responsive, the editor will give up and simply style
+         * the rest of the line as plain text when it reaches a certain position. The default is 10000.
+         * You can set this to Infinity to turn off this behavior.
+         */
         maxHighlightLength?: number;
 
-        /** Specifies the amount of lines that are rendered above and below the part of the document that's currently scrolled into view.
-        This affects the amount of updates needed when scrolling, and the amount of work that such an update does.
-        You should usually leave it at its default, 10. Can be set to Infinity to make sure the whole document is always rendered,
-        and thus the browser's text search works on it. This will have bad effects on performance of big documents. */
+        /**
+         * Specifies the amount of lines that are rendered above and below the part of the document that's currently scrolled into view.
+         * This affects the amount of updates needed when scrolling, and the amount of work that such an update does.
+         * You should usually leave it at its default, 10. Can be set to Infinity to make sure the whole document is always rendered,
+         * and thus the browser's text search works on it. This will have bad effects on performance of big documents.
+         */
         viewportMargin?: number;
 
         /** Specifies whether or not spellcheck will be enabled on the input. */
@@ -1280,9 +1322,6 @@ declare namespace CodeMirror {
 
         /** Specifies whether or not autocapitalization will be enabled on the input. */
         autocapitalize?: boolean;
-
-        /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
-        lint?: boolean | LintStateOptions | Linter | AsyncLinter;
     }
 
     interface TextMarkerOptions {
@@ -1301,35 +1340,45 @@ declare namespace CodeMirror {
         /** Like selectLeft, but for the right side. */
         selectRight?: boolean;
 
-        /** Atomic ranges act as a single unit when cursor movement is concerned — i.e. it is impossible to place the cursor inside of them.
-        You can control whether the cursor is allowed to be placed directly before or after them using selectLeft or selectRight.
-        If selectLeft (or right) is not provided, then inclusiveLeft (or right) will control this behavior. */
+        /**
+         * Atomic ranges act as a single unit when cursor movement is concerned — i.e. it is impossible to place the cursor inside of them.
+         * You can control whether the cursor is allowed to be placed directly before or after them using selectLeft or selectRight.
+         * If selectLeft (or right) is not provided, then inclusiveLeft (or right) will control this behavior.
+         */
         atomic?: boolean;
 
         /** Collapsed ranges do not show up in the display. Setting a range to be collapsed will automatically make it atomic. */
         collapsed?: boolean;
 
-        /** When enabled, will cause the mark to clear itself whenever the cursor enters its range.
-        This is mostly useful for text - replacement widgets that need to 'snap open' when the user tries to edit them.
-        The "clear" event fired on the range handle can be used to be notified when this happens. */
+        /**
+         * When enabled, will cause the mark to clear itself whenever the cursor enters its range.
+         * This is mostly useful for text - replacement widgets that need to 'snap open' when the user tries to edit them.
+         * The "clear" event fired on the range handle can be used to be notified when this happens.
+         */
         clearOnEnter?: boolean;
 
         /** Determines whether the mark is automatically cleared when it becomes empty. Default is true. */
         clearWhenEmpty?: boolean;
 
-        /** Use a given node to display this range. Implies both collapsed and atomic.
-        The given DOM node must be an inline element (as opposed to a block element). */
+        /**
+         * Use a given node to display this range. Implies both collapsed and atomic.
+         * The given DOM node must be an inline element (as opposed to a block element).
+         */
         replacedWith?: HTMLElement;
 
-        /** When replacedWith is given, this determines whether the editor will
+        /**
+         * When replacedWith is given, this determines whether the editor will
          * capture mouse and drag events occurring in this widget. Default is
          * false—the events will be left alone for the default browser handler,
-         * or specific handlers on the widget, to capture. */
+         * or specific handlers on the widget, to capture.
+         */
         handleMouseEvents?: boolean;
 
-        /** A read - only span can, as long as it is not cleared, not be modified except by calling setValue to reset the whole document.
-        Note: adding a read - only span currently clears the undo history of the editor,
-        because existing undo events being partially nullified by read - only spans would corrupt the history (in the current implementation). */
+        /**
+         * A read-only span can, as long as it is not cleared, not be modified except by calling setValue to reset the whole document.
+         * Note: adding a read-only span currently clears the undo history of the editor,
+         * because existing undo events being partially nullified by read - only spans would corrupt the history (in the current implementation).
+         */
         readOnly?: boolean;
 
         /** When set to true (default is false), adding this marker will create an event in the undo history that can be individually undone (clearing the marker). */
@@ -1350,16 +1399,15 @@ declare namespace CodeMirror {
         /** When given, add the attributes in the given object to the elements created for the marked text. Adding class or style attributes this way is not supported. */
         attributes?: { [name: string]: string };
 
-        /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents.
-        By default, a marker appears only in its target document. */
+        /**
+         * When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents.
+         * By default, a marker appears only in its target document.
+         */
         shared?: boolean;
     }
 
-    interface StringStreamConstructor {
-        new (text: string): StringStream;
-    }
-
-    interface StringStream {
+    class StringStream {
+        constructor(text: string);
         lastColumnPos: number;
         lastColumnValue: number;
         lineStart: number;
@@ -1409,16 +1457,12 @@ declare namespace CodeMirror {
          * If the next character in the stream 'matches' the given argument, it is consumed and returned.
          * Otherwise, undefined is returned.
          */
-        eat(match: string): string;
-        eat(match: RegExp): string;
-        eat(match: (char: string) => boolean): string;
+        eat(match: string | RegExp | ((char: string) => boolean)): string;
 
         /**
          * Repeatedly calls eat with the given argument, until it fails. Returns true if any characters were eaten.
          */
-        eatWhile(match: string): boolean;
-        eatWhile(match: RegExp): boolean;
-        eatWhile(match: (char: string) => boolean): boolean;
+        eatWhile(match: string | RegExp | ((char: string) => boolean)): boolean;
 
         /**
          * Shortcut for eatWhile when matching white-space.
@@ -1480,7 +1524,7 @@ declare namespace CodeMirror {
          * This function should read one token from the stream it is given as an argument, optionally update its state,
          * and return a style string, or null for tokens that do not have to be styled. Multiple styles can be returned, separated by spaces.
          */
-        token?: (stream: StringStream, state: T) => string | null;
+        token: (stream: StringStream, state: T) => string | null;
 
         /**
          * A function that produces a state object to be used at the start of a document.
@@ -1497,10 +1541,11 @@ declare namespace CodeMirror {
         copyState?: (state: T) => T;
 
         /**
-         * The indentation method should inspect the given state object, and optionally the textAfter string, which contains the text on
-         * the line that is being indented, and return an integer, the amount of spaces to indent.
+         * Returns the number of spaces of indentation that should be used if a newline were added after the given state. Optionally
+         * this can use the textAfter string (which is the text after the current position) or the line string, which is the whole
+         * text of the line.
          */
-        indent?: (state: T, textAfter: string) => number;
+        indent?: (state: T, textAfter: string, line: string) => number;
 
         /** The four below strings are used for working with the commenting addon. */
         /**
@@ -1534,7 +1579,7 @@ declare namespace CodeMirror {
      * A function that, given a CodeMirror configuration object and an optional mode configuration object, returns a mode object.
      */
     interface ModeFactory<T> {
-        (config: CodeMirror.EditorConfiguration, modeOptions?: any): Mode<T>;
+        (config: EditorConfiguration, modeOptions?: any): Mode<T>;
     }
 
     /**
@@ -1544,16 +1589,10 @@ declare namespace CodeMirror {
     function defineMode(id: string, modefactory: ModeFactory<any>): void;
 
     /**
-     * id will be the id for the defined mode. Typically, you should use this second argument to defineMode as your module scope function
-     * (modes should not leak anything into the global scope!), i.e. write your whole mode inside this function.
-     */
-    function defineMode<T>(id: string, modefactory: ModeFactory<T>): void;
-
-    /**
      * The first argument is a configuration object as passed to the mode constructor function, and the second argument
      * is a mode specification as in the EditorConfiguration mode option.
      */
-    function getMode<T>(config: CodeMirror.EditorConfiguration, mode: any): Mode<T>;
+    function getMode(config: EditorConfiguration, mode: string | ModeSpec<unknown>): Mode<unknown>;
 
     /**
      * Utility function from the overlay.js addon that allows modes to be combined. The mode given as the base argument takes care of
@@ -1561,7 +1600,7 @@ declare namespace CodeMirror {
      * Both modes get to parse all of the text, but when both assign a non-null style to a piece of code, the overlay wins, unless
      * the combine argument was true and not overridden, or state.overlay.combineTokens was true, in which case the styles are combined.
      */
-    function overlayMode<T, S>(base: Mode<T>, overlay: Mode<S>, combine?: boolean): Mode<any>;
+    function overlayMode(base: Mode<any>, overlay: Mode<any>, combine?: boolean): Mode<any>;
 
     interface ModeMap {
         [modeName: string]: ModeFactory<any>;
@@ -1570,157 +1609,163 @@ declare namespace CodeMirror {
     /**
      * Maps mode names to their constructors
      */
-    var modes: ModeMap;
+    const modes: ModeMap;
 
-    function defineMIME(mime: string, modeSpec: any): void;
+    function defineMIME(mime: string, modeSpec: string | ModeSpec<unknown>): void;
 
     interface MimeModeMap {
-        [mimeName: string]: any;
+        [mimeName: string]: string | ModeSpec<unknown>;
     }
 
     /**
      * Maps MIME types to mode specs.
      */
-    var mimeModes: MimeModeMap;
+    const mimeModes: MimeModeMap;
 
     interface CommandActions {
         /** Select the whole content of the editor. */
-        selectAll(cm: CodeMirror.Editor): void;
+        selectAll(cm: Editor): void;
 
         /** When multiple selections are present, this deselects all but the primary selection. */
-        singleSelection(cm: CodeMirror.Editor): void;
+        singleSelection(cm: Editor): void;
 
         /** Emacs-style line killing. Deletes the part of the line after the cursor. If that consists only of whitespace, the newline at the end of the line is also deleted. */
-        killLine(cm: CodeMirror.Editor): void;
+        killLine(cm: Editor): void;
 
         /** Deletes the whole line under the cursor, including newline at the end. */
-        deleteLine(cm: CodeMirror.Editor): void;
+        deleteLine(cm: Editor): void;
 
         /** Delete the part of the line before the cursor. */
-        delLineLeft(cm: CodeMirror.Editor): void;
+        delLineLeft(cm: Editor): void;
 
         /** Delete the part of the line from the left side of the visual line the cursor is on to the cursor. */
-        delWrappedLineLeft(cm: CodeMirror.Editor): void;
+        delWrappedLineLeft(cm: Editor): void;
 
         /** Delete the part of the line from the cursor to the right side of the visual line the cursor is on. */
-        delWrappedLineRight(cm: CodeMirror.Editor): void;
+        delWrappedLineRight(cm: Editor): void;
 
-        /** Undo the last change. Note that, because browsers still don't make it possible for scripts to react to or customize the context menu, selecting undo (or redo) from the context menu in a CodeMirror instance does not work. */
-        undo(cm: CodeMirror.Editor): void;
+        /**
+         * Undo the last change. Note that, because browsers still don't make it possible for scripts to react to
+         * or customize the context menu, selecting undo (or redo) from the context menu in a CodeMirror instance does not work.
+         */
+        undo(cm: Editor): void;
 
         /** Redo the last undone change. */
-        redo(cm: CodeMirror.Editor): void;
+        redo(cm: Editor): void;
 
         /** Undo the last change to the selection, or if there are no selection-only changes at the top of the history, undo the last change. */
-        undoSelection(cm: CodeMirror.Editor): void;
+        undoSelection(cm: Editor): void;
 
         /** Redo the last change to the selection, or the last text change if no selection changes remain. */
-        redoSelection(cm: CodeMirror.Editor): void;
+        redoSelection(cm: Editor): void;
 
         /** Move the cursor to the start of the document. */
-        goDocStart(cm: CodeMirror.Editor): void;
+        goDocStart(cm: Editor): void;
 
         /** Move the cursor to the end of the document. */
-        goDocEnd(cm: CodeMirror.Editor): void;
+        goDocEnd(cm: Editor): void;
 
         /** Move the cursor to the start of the line. */
-        goLineStart(cm: CodeMirror.Editor): void;
+        goLineStart(cm: Editor): void;
 
         /** Move to the start of the text on the line, or if we are already there, to the actual start of the line (including whitespace). */
-        goLineStartSmart(cm: CodeMirror.Editor): void;
+        goLineStartSmart(cm: Editor): void;
 
         /** Move the cursor to the end of the line. */
-        goLineEnd(cm: CodeMirror.Editor): void;
+        goLineEnd(cm: Editor): void;
 
         /** Move the cursor to the right side of the visual line it is on. */
-        goLineRight(cm: CodeMirror.Editor): void;
+        goLineRight(cm: Editor): void;
 
         /** Move the cursor to the left side of the visual line it is on. If this line is wrapped, that may not be the start of the line. */
-        goLineLeft(cm: CodeMirror.Editor): void;
+        goLineLeft(cm: Editor): void;
 
         /** Move the cursor to the left side of the visual line it is on. If that takes it to the start of the line, behave like goLineStartSmart. */
-        goLineLeftSmart(cm: CodeMirror.Editor): void;
+        goLineLeftSmart(cm: Editor): void;
 
         /** Move the cursor up one line. */
-        goLineUp(cm: CodeMirror.Editor): void;
+        goLineUp(cm: Editor): void;
 
         /** Move down one line. */
-        goLineDown(cm: CodeMirror.Editor): void;
+        goLineDown(cm: Editor): void;
 
         /** Move the cursor up one screen, and scroll up by the same distance. */
-        goPageUp(cm: CodeMirror.Editor): void;
+        goPageUp(cm: Editor): void;
 
         /** Move the cursor down one screen, and scroll down by the same distance. */
-        goPageDown(cm: CodeMirror.Editor): void;
+        goPageDown(cm: Editor): void;
 
         /** Move the cursor one character left, going to the previous line when hitting the start of line. */
-        goCharLeft(cm: CodeMirror.Editor): void;
+        goCharLeft(cm: Editor): void;
 
         /** Move the cursor one character right, going to the next line when hitting the end of line. */
-        goCharRight(cm: CodeMirror.Editor): void;
+        goCharRight(cm: Editor): void;
 
         /** Move the cursor one character left, but don't cross line boundaries. */
-        goColumnLeft(cm: CodeMirror.Editor): void;
+        goColumnLeft(cm: Editor): void;
 
         /** Move the cursor one character right, don't cross line boundaries. */
-        goColumnRight(cm: CodeMirror.Editor): void;
+        goColumnRight(cm: Editor): void;
 
         /** Move the cursor to the start of the previous word. */
-        goWordLeft(cm: CodeMirror.Editor): void;
+        goWordLeft(cm: Editor): void;
 
         /** Move the cursor to the end of the next word. */
-        goWordRight(cm: CodeMirror.Editor): void;
+        goWordRight(cm: Editor): void;
 
-        /** Move to the left of the group before the cursor. A group is a stretch of word characters, a stretch of punctuation characters, a newline, or a stretch of more than one whitespace character. */
-        goGroupLeft(cm: CodeMirror.Editor): void;
+        /**
+         * Move to the left of the group before the cursor. A group is a stretch of word characters, a stretch of punctuation
+         * characters, a newline, or a stretch of more than one whitespace character.
+         */
+        goGroupLeft(cm: Editor): void;
 
         /** Move to the right of the group after the cursor (see above). */
-        goGroupRight(cm: CodeMirror.Editor): void;
+        goGroupRight(cm: Editor): void;
 
         /** Delete the character before the cursor. */
-        delCharBefore(cm: CodeMirror.Editor): void;
+        delCharBefore(cm: Editor): void;
 
         /** Delete the character after the cursor. */
-        delCharAfter(cm: CodeMirror.Editor): void;
+        delCharAfter(cm: Editor): void;
 
         /** Delete up to the start of the word before the cursor. */
-        delWordBefore(cm: CodeMirror.Editor): void;
+        delWordBefore(cm: Editor): void;
 
         /** Delete up to the end of the word after the cursor. */
-        delWordAfter(cm: CodeMirror.Editor): void;
+        delWordAfter(cm: Editor): void;
 
         /** Delete to the left of the group before the cursor. */
-        delGroupBefore(cm: CodeMirror.Editor): void;
+        delGroupBefore(cm: Editor): void;
 
         /** Delete to the start of the group after the cursor. */
-        delGroupAfter(cm: CodeMirror.Editor): void;
+        delGroupAfter(cm: Editor): void;
 
         /** Auto-indent the current line or selection. */
-        indentAuto(cm: CodeMirror.Editor): void;
+        indentAuto(cm: Editor): void;
 
         /** Indent the current line or selection by one indent unit. */
-        indentMore(cm: CodeMirror.Editor): void;
+        indentMore(cm: Editor): void;
 
         /** Dedent the current line or selection by one indent unit. */
-        indentLess(cm: CodeMirror.Editor): void;
+        indentLess(cm: Editor): void;
 
         /** Insert a tab character at the cursor. */
-        insertTab(cm: CodeMirror.Editor): void;
+        insertTab(cm: Editor): void;
 
         /** Insert the amount of spaces that match the width a tab at the cursor position would have. */
-        insertSoftTab(cm: CodeMirror.Editor): void;
+        insertSoftTab(cm: Editor): void;
 
         /** If something is selected, indent it by one indent unit. If nothing is selected, insert a tab character. */
-        defaultTabTab(cm: CodeMirror.Editor): void;
+        defaultTabTab(cm: Editor): void;
 
         /** Swap the characters before and after the cursor. */
-        transposeChars(cm: CodeMirror.Editor): void;
+        transposeChars(cm: Editor): void;
 
         /** Insert a newline and auto-indent the new line. */
-        newlineAndIndent(cm: CodeMirror.Editor): void;
+        newlineAndIndent(cm: Editor): void;
 
         /** Flip the overwrite flag. */
-        toggleOverwrite(cm: CodeMirror.Editor): void;
+        toggleOverwrite(cm: Editor): void;
     }
 
     /**
@@ -1728,219 +1773,41 @@ declare namespace CodeMirror {
      * Their main use is for key bindings.
      * Commands are defined by adding properties to the CodeMirror.commands object.
      */
-    var commands: CommandActions;
-
-    interface LintStateOptions {
-        /** specifies that the lint process runs asynchronously */
-        async?: boolean;
-
-        /** debounce delay before linting onChange */
-        delay?: number;
-
-        /** callback to modify an annotation before display */
-        formatAnnotation?: (annotation: Annotation) => Annotation;
-
-        /** custom linting function provided by the user */
-        getAnnotations?: Linter | AsyncLinter;
-
-        /**
-         * specifies that lint errors should be displayed in the CodeMirror
-         * gutter, note that you must use this in conjunction with [ "CodeMirror-lint-markers" ] as an element in the gutters argument on
-         * initialization of the CodeMirror instance. */
-        hasGutters?: boolean;
-
-        /** whether to lint onChange event */
-        lintOnChange?: boolean;
-
-        /** callback after linter completes */
-        onUpdateLinting?: (annotationsNotSorted: Annotation[], annotations: Annotation[], codeMirror: Editor) => void;
-
-        /**
-         * Passing rules in `options` property prevents JSHint (and other linters) from complaining
-         * about unrecognized rules like `onUpdateLinting`, `delay`, `lintOnChange`, etc.
-         */
-        options?: any;
-
-        /** controls display of lint tooltips */
-        tooltips?: boolean | 'gutter';
-    }
-
-    /**
-     * A function that return errors found during the linting process.
-     */
-    interface Linter {
-        (content: string, options: LintStateOptions | any, codeMirror: Editor):
-            | Annotation[]
-            | PromiseLike<Annotation[]>;
-    }
-
-    /**
-     * A function that calls the updateLintingCallback with any errors found during the linting process.
-     */
-    interface AsyncLinter {
-        (
-            content: string,
-            updateLintingCallback: UpdateLintingCallback,
-            options: LintStateOptions | any,
-            codeMirror: Editor,
-        ): void;
-    }
-
-    /**
-     * A function that, given an array of annotations, updates the CodeMirror linting GUI with those annotations
-     */
-    interface UpdateLintingCallback {
-        (codeMirror: Editor, annotations: Annotation[]): void;
-    }
-
-    /**
-     * An annotation contains a description of a lint error, detailing the location of the error within the code, the severity of the error,
-     * and an explaination as to why the error was thrown.
-     */
-    interface Annotation {
-        from: Position;
-        message?: string;
-        severity?: string;
-        to?: Position;
-    }
-
-    /**
-     * A function that calculates either a two-way or three-way merge between different sets of content.
-     */
-    function MergeView(
-        element: HTMLElement,
-        options?: MergeView.MergeViewEditorConfiguration,
-    ): MergeView.MergeViewEditor;
-
-    namespace MergeView {
-        /**
-         * Options available to MergeView.
-         */
-        interface MergeViewEditorConfiguration extends EditorConfiguration {
-            /**
-             * Determines whether the original editor allows editing. Defaults to false.
-             */
-            allowEditingOriginals?: boolean;
-
-            /**
-             * When true stretches of unchanged text will be collapsed. When a number is given, this indicates the amount
-             * of lines to leave visible around such stretches (which defaults to 2). Defaults to false.
-             */
-            collapseIdentical?: boolean | number;
-
-            /**
-             * Sets the style used to connect changed chunks of code. By default, connectors are drawn. When this is set to "align",
-             * the smaller chunk is padded to align with the bigger chunk instead.
-             */
-            connect?: string;
-
-            /**
-             * Callback for when stretches of unchanged text are collapsed.
-             */
-            onCollapse?(mergeView: MergeViewEditor, line: number, size: number, mark: TextMarker<MarkerRange>): void;
-
-            /**
-             * Provides original version of the document to be shown on the right of the editor.
-             */
-            orig: any;
-
-            /**
-             * Provides original version of the document to be shown on the left of the editor.
-             * To create a 2-way (as opposed to 3-way) merge view, provide only one of origLeft and origRight.
-             */
-            origLeft?: any;
-
-            /**
-             * Provides original version of document to be shown on the right of the editor.
-             * To create a 2-way (as opposed to 3-way) merge view, provide only one of origLeft and origRight.
-             */
-            origRight?: any;
-
-            /**
-             * Determines whether buttons that allow the user to revert changes are shown. Defaults to true.
-             */
-            revertButtons?: boolean;
-
-            /**
-             * When true, changed pieces of text are highlighted. Defaults to true.
-             */
-            showDifferences?: boolean;
-        }
-
-        interface MergeViewEditor extends Editor {
-            /**
-             * Returns the editor instance.
-             */
-            editor(): Editor;
-
-            /**
-             * Left side of the merge view.
-             */
-            left: DiffView;
-            leftChunks(): MergeViewDiffChunk[];
-            leftOriginal(): Editor;
-
-            /**
-             * Right side of the merge view.
-             */
-            right: DiffView;
-            rightChunks(): MergeViewDiffChunk[];
-            rightOriginal(): Editor;
-
-            /**
-             * Sets whether or not the merge view should show the differences between the editor views.
-             */
-            setShowDifferences(showDifferences: boolean): void;
-        }
-
-        /**
-         * Tracks changes in chunks from oroginal to new.
-         */
-        interface MergeViewDiffChunk {
-            editFrom: number;
-            editTo: number;
-            origFrom: number;
-            origTo: number;
-        }
-
-        interface DiffView {
-            /**
-             * Forces the view to reload.
-             */
-            forceUpdate(): (mode: string) => void;
-
-            /**
-             * Sets whether or not the merge view should show the differences between the editor views.
-             */
-            setShowDifferences(showDifferences: boolean): void;
-        }
-    }
+    const commands: CommandActions;
 
     interface MouseSelectionConfiguration {
-        /** The unit by which to select. May be one of the built-in units
-        or a function that takes a position and returns a range around
-        that, for a custom unit. The default is to return "word" for
-        double clicks, "line" for triple clicks, "rectangle" for alt-clicks
-        (or, on Chrome OS, meta-shift-clicks), and "single" otherwise. */
+        /**
+         * The unit by which to select. May be one of the built-in units
+         * or a function that takes a position and returns a range around
+         * that, for a custom unit. The default is to return "word" for
+         * double clicks, "line" for triple clicks, "rectangle" for alt-clicks
+         * (or, on Chrome OS, meta-shift-clicks), and "single" otherwise.
+         */
         unit?:
             | 'char'
             | 'word'
             | 'line'
             | 'rectangle'
-            | ((cm: CodeMirror.Editor, pos: Position) => { from: Position; to: Position });
+            | ((cm: Editor, pos: Position) => { from: Position; to: Position });
 
-        /** Whether to extend the existing selection range or start
-        a new one. By default, this is enabled when shift clicking. */
+        /**
+         * Whether to extend the existing selection range or start
+         * a new one. By default, this is enabled when shift clicking.
+         */
         extend?: boolean;
 
-        /** When enabled, this adds a new range to the existing selection,
-        rather than replacing it. The default behavior is to enable this
-        for command-click on Mac OS, and control-click on other platforms. */
+        /**
+         * When enabled, this adds a new range to the existing selection,
+         * rather than replacing it. The default behavior is to enable this
+         * for command-click on Mac OS, and control-click on other platforms.
+         */
         addNew?: boolean;
 
-        /** When the mouse even drags content around inside the editor, this
-        controls whether it is copied (false) or moved (true). By default, this
-        is enabled by alt-clicking on Mac OS, and ctrl-clicking elsewhere. */
+        /**
+         * When the mouse even drags content around inside the editor, this
+         * controls whether it is copied (false) or moved (true). By default, this
+         * is enabled by alt-clicking on Mac OS, and ctrl-clicking elsewhere.
+         */
         moveOnDrag?: boolean;
     }
 }

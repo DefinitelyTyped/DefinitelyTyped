@@ -1,0 +1,1 @@
+export { LogoDelicious as default } from "./";

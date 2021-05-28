@@ -1,19 +1,21 @@
+import { Emitter } from "./emittermixin";
+
 /**
  * The event object passed to event callbacks. It is used to provide information about the event as well as a tool to
  * manipulate it.
  */
-export default class EventInfo<T> {
-    constructor(source: T, name: string);
+export default class EventInfo<S extends Emitter = Emitter, N extends string = ""> {
+    constructor(source: S, name: N);
     /**
      * The object that fired the event.
      *
      */
-    readonly source: T;
+    readonly source: S;
     /**
      * The event name.
      *
      */
-    readonly name: string;
+    readonly name: N;
     /**
      * Path this event has followed. See {@link module:utils/emittermixin~EmitterMixin#delegate}.
      *
@@ -35,4 +37,20 @@ export default class EventInfo<T> {
         (): void;
         called: boolean;
     };
+
+    /**
+     * The value which will be returned by {@link module:utils/emittermixin~EmitterMixin#fire}.
+     *
+     * It's `undefined` by default and can be changed by an event listener:
+     *
+     *    dataController.fire( 'getSelectedContent', ( evt ) => {
+     *      // This listener will make `dataController.fire( 'getSelectedContent' )`
+     *      // always return an empty DocumentFragment.
+     *      evt.return = new DocumentFragment();
+     *
+     *      // Make sure no other listeners are executed.
+     *      evt.stop();
+     *    } );
+     */
+    return?: unknown;
 }

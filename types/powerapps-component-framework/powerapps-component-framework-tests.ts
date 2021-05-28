@@ -146,3 +146,18 @@ const propertyTest: ComponentFramework.PropertyTypes.Property = {
     type: '',
     attributes: metadataTest,
 };
+
+const lookupValueTest: ComponentFramework.LookupValue = {
+    id: '',
+    name: '',
+    entityType: '',
+};
+
+const lookupPropertyTest: ComponentFramework.PropertyTypes.LookupProperty = {
+    error: false,
+    errorMessage: '',
+    type: '',
+    raw: [lookupValueTest],
+    getTargetEntityType: () => '',
+    getViewId: () => '',
+};

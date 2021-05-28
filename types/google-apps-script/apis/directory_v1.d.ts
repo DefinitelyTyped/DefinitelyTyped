@@ -839,7 +839,7 @@ declare namespace GoogleAppsScript {
         trustedApps?: AdminDirectory.Schema.TrustedAppId[];
       }
       interface User {
-        addresses?: object;
+        addresses?: object[];
         agreedToTerms?: boolean;
         aliases?: string[];
         archived?: boolean;
@@ -848,13 +848,13 @@ declare namespace GoogleAppsScript {
         customSchemas?: object;
         customerId?: string;
         deletionTime?: string;
-        emails?: object;
+        emails?: object[];
         etag?: string;
-        externalIds?: object;
+        externalIds?: object[];
         gender?: object;
         hashFunction?: string;
         id?: string;
-        ims?: object;
+        ims?: object[];
         includeInGlobalAddressList?: boolean;
         ipWhitelisted?: boolean;
         isAdmin?: boolean;
@@ -862,27 +862,27 @@ declare namespace GoogleAppsScript {
         isEnforcedIn2Sv?: boolean;
         isEnrolledIn2Sv?: boolean;
         isMailboxSetup?: boolean;
-        keywords?: object;
+        keywords?: object[];
         kind?: string;
-        languages?: object;
+        languages?: object[];
         lastLoginTime?: string;
-        locations?: object;
+        locations?: object[];
         name?: AdminDirectory.Schema.UserName;
         nonEditableAliases?: string[];
-        notes?: object;
+        notes?: object[];
         orgUnitPath?: string;
-        organizations?: object;
+        organizations?: object[];
         password?: string;
-        phones?: object;
-        posixAccounts?: object;
+        phones?: object[];
+        posixAccounts?: object[];
         primaryEmail?: string;
-        relations?: object;
-        sshPublicKeys?: object;
+        relations?: object[];
+        sshPublicKeys?: object[];
         suspended?: boolean;
         suspensionReason?: string;
         thumbnailPhotoEtag?: string;
         thumbnailPhotoUrl?: string;
-        websites?: object;
+        websites?: object[];
       }
       interface UserAbout {
         contentType?: string;

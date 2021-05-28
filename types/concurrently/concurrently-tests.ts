@@ -49,7 +49,7 @@ concurrently(['npm:watch-*', { command: 'nodemon', name: 'server' }], {
  * @description
  * example with returned exit information
  */
-// $ExpectType Promise<void | ExitInfos[]>
+// $ExpectType Promise<void>
 concurrently(['echo foo', 'npm:watch-*', { command: 'nodemon', name: 'server' }], {
     cwd: path.resolve(__dirname, 'scripts/watchers'),
     prefix: 'name',
@@ -57,8 +57,11 @@ concurrently(['echo foo', 'npm:watch-*', { command: 'nodemon', name: 'server' }]
     maxProcesses: 2,
     restartTries: 3,
 }).then(
-    // $ExpectType (results: ExitInfos[]) => ExitInfos[]
-    results => results,
+    // $ExpectType (results: ExitInfos[]) => void
+    results =>
+        results.forEach(exitInfo => {
+            exitInfo.killed; // $ExpectType boolean
+        }),
     // $ExpectType (reason: any) => void
     reason => {},
 );

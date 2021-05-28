@@ -1,4 +1,4 @@
-import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode, Quad_Graph } from 'rdf-js';
+import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode, Quad_Graph, Variable } from 'rdf-js';
 import Clownface = require('clownface/lib/Clownface');
 import clownface = require('clownface');
 import Context = require('clownface/lib/Context');
@@ -137,6 +137,9 @@ function testBlankNode() {
     const fromOther: clownface.AnyPointer<BlankNode, Dataset> = cf.blankNode(singleBlank);
     const fromMultipleOther: clownface.MultiPointer<BlankNode, Dataset> = cf.blankNode(multiBlankContext);
     const fromSet: clownface.MultiPointer<BlankNode, Dataset> = cf.blankNode(set);
+
+    const pointers: Array<clownface.GraphPointer<BlankNode, Dataset>> = <any> {};
+    const fromArray: clownface.MultiPointer<BlankNode, Dataset> = cf.blankNode(pointers);
 }
 
 function testDeleteIn() {
@@ -221,6 +224,19 @@ function testFilter() {
         const copy: never = quad;
         return true;
     });
+
+    const anyPointer: clownface.AnyPointer<clownface.AnyContext, Dataset> = <any> {};
+    function onlyVariables(ptr: clownface.GraphPointer): ptr is clownface.GraphPointer<Variable> {
+        return true;
+    }
+
+    const typeGuarded: clownface.AnyPointer<Variable, Dataset> = anyPointer.filter(onlyVariables);
+
+    function onlyNamedOrBlank(ptr: clownface.GraphPointer): ptr is clownface.GraphPointer<NamedNode> | clownface.GraphPointer<BlankNode> {
+        return true;
+    }
+
+    const multipleTypeGuarded: clownface.AnyPointer<NamedNode | BlankNode, Dataset> = anyPointer.filter<NamedNode | BlankNode>(onlyNamedOrBlank);
 }
 
 function testForEach() {
@@ -280,6 +296,9 @@ function testLiteral() {
 
     const set: Set<Literal> = <any> {};
     const fromSet: clownface.MultiPointer<Literal | NamedNode, Dataset> = cf.literal(set);
+
+    const pointers: Array<clownface.GraphPointer<Literal, Dataset>> = <any> {};
+    const fromArray: clownface.MultiPointer<Literal, Dataset> = cf.literal(pointers);
 }
 
 function testMap() {
@@ -302,6 +321,12 @@ function testNamedNode() {
     const fromOther: clownface.AnyPointer<NamedNode, Dataset> = cf.namedNode(cfSingleNamed);
     const fromMultipleOther: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(cfNamedMany);
     const fromSet: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(set);
+
+    const pointers: Array<clownface.GraphPointer<NamedNode, Dataset>> = <any> {};
+    const fromArray: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(pointers);
+
+    const foo: NamedNode<'foo'> = <any> {};
+    const preservedTypeArg: clownface.GraphPointer<NamedNode<'foo'>, Dataset> = cf.namedNode(foo);
 }
 
 function testNode() {
@@ -322,6 +347,9 @@ function testNode() {
 
     const set: Set<Literal | NamedNode> = <any> {};
     const fromSet: clownface.MultiPointer<Literal | NamedNode, Dataset> = cf.node(set);
+
+    const pointers: Array<clownface.GraphPointer<Literal | NamedNode, Dataset>> = <any> {};
+    const fromArray: clownface.MultiPointer<Literal | NamedNode, Dataset> = cf.node(pointers);
 }
 
 function testOut() {

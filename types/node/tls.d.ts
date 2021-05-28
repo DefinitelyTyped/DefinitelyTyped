@@ -1,9 +1,5 @@
-declare module 'node:tls' {
-    export * from 'tls';
-}
-
 declare module 'tls' {
-    import * as net from 'node:net';
+    import * as net from 'net';
 
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
@@ -557,6 +553,9 @@ declare module 'tls' {
         prependOnceListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
     }
 
+    /**
+     * @deprecated since v0.11.3 Use `tls.TLSSocket` instead.
+     */
     interface SecurePair {
         encrypted: TLSSocket;
         cleartext: TLSSocket;

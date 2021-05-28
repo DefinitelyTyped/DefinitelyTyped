@@ -1,7 +1,9 @@
-// Type definitions for postcss-safe-parser 4.0
+// Type definitions for postcss-safe-parser 5.0
 // Project: https://github.com/postcss/postcss-safe-parser#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Fabian van der Veen <https://github.com/fvanderveen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.6
 
 import { Parser } from 'postcss';
 

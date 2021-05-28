@@ -1,13 +1,11 @@
-declare module 'node:worker_threads' {
-    export * from 'worker_threads';
-}
-
 declare module 'worker_threads' {
-    import { Context } from 'node:vm';
-    import EventEmitter = require('node:events');
-    import { Readable, Writable } from 'node:stream';
-    import { URL } from 'node:url';
-    import { FileHandle } from 'node:fs/promises';
+    import { Context } from 'vm';
+    import { EventEmitter } from 'events';
+    import { EventLoopUtilityFunction } from 'perf_hooks';
+    import { FileHandle } from 'fs/promises';
+    import { Readable, Writable } from 'stream';
+    import { URL } from 'url';
+    import { X509Certificate } from 'crypto';
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
@@ -21,7 +19,11 @@ declare module 'worker_threads' {
         readonly port2: MessagePort;
     }
 
-    type TransferListItem = ArrayBuffer | MessagePort | FileHandle;
+    interface WorkerPerformance {
+        eventLoopUtilization: EventLoopUtilityFunction;
+    }
+
+    type TransferListItem = ArrayBuffer | MessagePort | FileHandle | X509Certificate;
 
     class MessagePort extends EventEmitter {
         close(): void;
@@ -91,6 +93,9 @@ declare module 'worker_threads' {
          * Additional data to send in the first worker message.
          */
         transferList?: TransferListItem[];
+        /**
+         * @default true
+         */
         trackUnmanagedFds?: boolean;
     }
 
@@ -120,6 +125,7 @@ declare module 'worker_threads' {
         readonly stderr: Readable;
         readonly threadId: number;
         readonly resourceLimits?: ResourceLimits;
+        readonly performance: WorkerPerformance;
 
         /**
          * @param filename  The path to the Worker’s main script or module.
@@ -202,6 +208,22 @@ declare module 'worker_threads' {
         off(event: "messageerror", listener: (error: Error) => void): this;
         off(event: "online", listener: () => void): this;
         off(event: string | symbol, listener: (...args: any[]) => void): this;
+    }
+
+    interface BroadcastChannel extends NodeJS.RefCounted {}
+
+    /**
+     * See https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel
+     */
+    class BroadcastChannel {
+        readonly name: string;
+        onmessage: (message: unknown) => void;
+        onmessageerror: (message: unknown) => void;
+
+        constructor(name: string);
+
+        close(): void;
+        postMessage(message: unknown): void;
     }
 
     /**

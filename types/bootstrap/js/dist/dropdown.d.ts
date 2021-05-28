@@ -2,7 +2,7 @@ import * as Popper from "@popperjs/core";
 import BaseComponent from "./base-component";
 
 declare class Dropdown extends BaseComponent {
-    constructor(element: Element, options?: Partial<Dropdown.Options>);
+    constructor(element: string | Element, options?: Partial<Dropdown.Options>);
 
     /**
      * Toggles the dropdown menu of a given navbar or tabbed navigation.

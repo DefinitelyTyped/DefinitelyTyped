@@ -1,7 +1,6 @@
 import { FeatureLike } from './Feature';
 import SimpleGeometry from './geom/SimpleGeometry';
 import { Pixel } from './pixel';
-import { FrameState } from './PluggableMap';
 import CanvasImmediateRenderer from './render/canvas/Immediate';
 import RenderEvent from './render/Event';
 import { Size } from './size';
@@ -32,12 +31,20 @@ export function getRenderPixel(event: RenderEvent, pixel: Pixel): Pixel;
  * Gets a vector context for drawing to the event's canvas.
  */
 export function getVectorContext(event: RenderEvent): CanvasImmediateRenderer;
-export function renderDeclutterItems(frameState: FrameState, declutterTree: any): any;
 /**
  * Binds a Canvas Immediate API to a canvas context, to allow drawing geometries
  * to the context's canvas.
  * The units for geometry coordinates are css pixels relative to the top left
  * corner of the canvas element.
+ * <code>import {toContext} from 'ol/render';
+ * import Fill from 'ol/style/Fill';
+ * import Polygon from 'ol/geom/Polygon';
  *
+ * var canvas = document.createElement('canvas');
+ * var render = toContext(canvas.getContext('2d'),
+ *     { size: [100, 100] });
+ * render.setFillStrokeStyle(new Fill({ color: blue }));
+ * render.drawPolygon(
+ *     new Polygon([[[0, 0], [100, 100], [100, 0], [0, 0]]]));</code>
  */
 export function toContext(context: CanvasRenderingContext2D, opt_options?: ToContextOptions): CanvasImmediateRenderer;

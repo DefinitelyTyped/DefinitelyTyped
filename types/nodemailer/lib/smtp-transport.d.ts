@@ -53,10 +53,10 @@ declare namespace SMTPTransport {
     }
 }
 
-declare class SMTPTransport extends EventEmitter implements Transport {
+declare class SMTPTransport extends EventEmitter implements Transport<SMTPTransport.SentMessageInfo> {
     options: SMTPTransport.Options;
 
-    mailer: Mail;
+    mailer: Mail<SMTPTransport.SentMessageInfo>;
     logger: shared.Logger;
 
     name: string;
@@ -72,7 +72,7 @@ declare class SMTPTransport extends EventEmitter implements Transport {
     getAuth(authOpts: SMTPConnection.AuthenticationTypeLogin | SMTPConnection.AuthenticationTypeOAuth2): SMTPTransport.AuthenticationType;
 
     /** Sends an e-mail using the selected settings */
-    send(mail: MailMessage, callback: (err: Error | null, info: SMTPTransport.SentMessageInfo) => void): void;
+    send(mail: MailMessage<SMTPTransport.SentMessageInfo>, callback: (err: Error | null, info: SMTPTransport.SentMessageInfo) => void): void;
 
     /** Verifies SMTP configuration */
     verify(callback: (err: Error | null, success: true) => void): void;

@@ -1,6 +1,6 @@
-import * as crypto from 'node:crypto';
-import assert = require('node:assert');
-import { promisify } from 'node:util';
+import * as crypto from 'crypto';
+import assert = require('assert');
+import { promisify } from 'util';
 
 {
     const copied: crypto.Hash = crypto.createHash('md5').copy();
@@ -959,4 +959,59 @@ import { promisify } from 'node:util';
 
 {
     crypto.createSecretKey(new Uint8Array([0])); // $ExpectType KeyObject
+}
+
+{
+    crypto.hkdf("sha256", Buffer.alloc(32, 0xFF), Buffer.alloc(16, 0x00), "SomeInfo", 42, (err, derivedKey) => {});
+}
+
+{
+    const derivedKey = crypto.hkdfSync("sha256", Buffer.alloc(32, 0xFF), Buffer.alloc(16, 0x00), "SomeInfo", 42);
+}
+
+{
+    const usage: crypto.SecureHeapUsage = crypto.secureHeapUsed();
+}
+
+{
+    crypto.randomUUID({});
+    crypto.randomUUID({ disableEntropyCache: true });
+    crypto.randomUUID({ disableEntropyCache: false });
+    crypto.randomUUID();
+}
+
+{
+    const cert = new crypto.X509Certificate('dummy');
+    cert.ca; // $ExpectType boolean
+    cert.fingerprint; // $ExpectType string
+    cert.fingerprint256; // $ExpectType string
+    cert.infoAccess; // $ExpectType string
+    cert.keyUsage; // $ExpectType string[]
+    cert.publicKey; // $ExpectType KeyObject
+    cert.raw; // $ExpectType Buffer
+    cert.serialNumber; // $ExpectType string
+    cert.subject; // $ExpectType string
+    cert.subjectAltName; // $ExpectType string
+    cert.validFrom; // $ExpectType string
+    cert.validTo; // $ExpectType string
+
+    const checkOpts: crypto.X509CheckOptions = {
+        multiLabelWildcards: true,
+        partialWildcards: true,
+        singleLabelSubdomains: true,
+        subject: 'always',
+        wildcards: true,
+    };
+
+    cert.checkEmail('test@test.com'); // $ExpectType string | undefined
+    cert.checkEmail('test@test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkHost('test.com'); // $ExpectType string | undefined
+    cert.checkHost('test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkIP('1.1.1.1'); // $ExpectType string | undefined
+    cert.checkIP('1.1.1.1', checkOpts); // $ExpectType string | undefined
+    cert.checkIssued(new crypto.X509Certificate('dummycert')); // $ExpectType boolean
+    cert.checkPrivateKey(crypto.createPrivateKey('dummy')); // $ExpectType boolean
+    cert.toLegacyObject(); // $ExpectType PeerCertificate
+    cert.toJSON(); // $ExpectType string
+    cert.toString(); // $ExpectType string
 }

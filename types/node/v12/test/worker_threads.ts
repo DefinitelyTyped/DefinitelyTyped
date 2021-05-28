@@ -1,6 +1,6 @@
-import * as workerThreads from 'node:worker_threads';
-import assert = require('node:assert');
-import { createContext } from 'node:vm';
+import * as workerThreads from 'worker_threads';
+import assert = require('assert');
+import { createContext } from 'vm';
 
 {
     if (workerThreads.isMainThread) {

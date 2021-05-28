@@ -258,6 +258,7 @@ const provider = new Provider('https://op.example.com', {
             interaction.returnTo.substring(0);
             JSON.stringify(interaction.params.foo);
             JSON.stringify(interaction.prompt.name);
+            interaction.grantId;
             return 'foo';
         },
         policy: [
@@ -525,6 +526,13 @@ provider.use(async (ctx, next) => {
     await next();
     //
 });
+
+const _clientJwtAuthExpectedAudience = provider.OIDCContext.prototype.clientJwtAuthExpectedAudience;
+provider.OIDCContext.prototype.clientJwtAuthExpectedAudience = function clientJwtAuthExpectedAudience() {
+    const acceptedAudiences = _clientJwtAuthExpectedAudience.call(this);
+    acceptedAudiences.add('https://as.example.com/token');
+    return acceptedAudiences;
+};
 
 (async () => {
     const client = await provider.Client.find('foo');

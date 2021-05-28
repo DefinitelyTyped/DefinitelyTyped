@@ -3,4 +3,7 @@
 // Definitions by: Mike Schultz <https://github.com/mike-schultz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
-export * from './es6';
+// Minimum TypeScript Version: 3.7
+import { zingchart } from './es6';
+
+export = zingchart;

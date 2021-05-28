@@ -24,4 +24,5 @@ const tail2 = new Tail('test2.txt', {
     useWatchFile: false,
     encoding: 'utf-8',
     flushAtEOF: false,
+    nLines: 10,
 });

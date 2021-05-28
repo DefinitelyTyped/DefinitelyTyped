@@ -1,17 +1,18 @@
 import findup = require('findup-sync');
 
-let str: string;
-
-str = findup('foo');
-str = findup(['foo', 'bar']);
-
-str = findup('foo', {
+// $ExpectType string | null
+findup('foo');
+// $ExpectType string | null
+findup(['foo', 'bar']);
+// $ExpectType string | null
+findup('foo', {
     matchBase: true,
 });
-
-str = findup('foo', {
+// $ExpectType string | null
+findup('foo', {
     cwd: 'c:\\',
 });
-
-str = findup('{a,b}*.txt');
-str = findup('{a,b}*.txt', { cwd: '/some/path', nocase: true });
+// $ExpectType string | null
+findup('{a,b}*.txt');
+// $ExpectType string | null
+findup('{a,b}*.txt', { cwd: '/some/path', nocase: true });

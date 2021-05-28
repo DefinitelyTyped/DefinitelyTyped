@@ -262,10 +262,10 @@ function sample4() {
 }
 
 interface CircleWithLineInfos extends fabric.Circle {
-    line1?: fabric.Line;
-    line2?: fabric.Line;
-    line3?: fabric.Line;
-    line4?: fabric.Line;
+  line1?: fabric.Line;
+  line2?: fabric.Line;
+  line3?: fabric.Line;
+  line4?: fabric.Line;
 }
 
 function sample5() {
@@ -307,14 +307,14 @@ function sample5() {
   canvas.add(line, line2, line3, line4, line5, line6);
 
   canvas.add(
-    makeCircle(line.x1, line.y1, null, line),
-    makeCircle(line.x2, line.y2, line, line2, line5, line6),
-    makeCircle(line2.x2, line2.y2, line2, line3, line4),
-    makeCircle(line3.x2, line3.y2, line3),
-    makeCircle(line4.x2, line4.y2, line4),
-    makeCircle(line5.x2, line5.y2, line5),
-    makeCircle(line6.x2, line6.y2, line6)
-    );
+      makeCircle(line.x1, line.y1, null, line),
+      makeCircle(line.x2, line.y2, line, line2, line5, line6),
+      makeCircle(line2.x2, line2.y2, line2, line3, line4),
+      makeCircle(line3.x2, line3.y2, line3),
+      makeCircle(line4.x2, line4.y2, line4),
+      makeCircle(line5.x2, line5.y2, line5),
+      makeCircle(line6.x2, line6.y2, line6)
+  );
 
   canvas.on('object:moving', e => {
     const p = <CircleWithLineInfos> e.target;
@@ -349,12 +349,12 @@ function sample6() {
       });
     });
   }, null, {
-      crossOrigin:'anonymous'
+    crossOrigin:'anonymous'
   });
 }
 
 interface ImageWithInfo extends fabric.Image {
-    movingLeft: boolean;
+  movingLeft: boolean;
 }
 
 function sample7() {
@@ -399,10 +399,10 @@ function sample8() {
 
   function getRandomColor() {
     return (
-      pad(getRandomInt(0, 255).toString(16), 2) +
-      pad(getRandomInt(0, 255).toString(16), 2) +
-      pad(getRandomInt(0, 255).toString(16), 2)
-      );
+        pad(getRandomInt(0, 255).toString(16), 2) +
+        pad(getRandomInt(0, 255).toString(16), 2) +
+        pad(getRandomInt(0, 255).toString(16), 2)
+    );
   }
 
   function getRandomNum(min: number, max: number): number {
@@ -636,8 +636,8 @@ function sample8() {
     if (activeObject) {
       activeObject.lockMovementX = !activeObject.lockMovementX;
       lockHorizontallyEl.innerHTML = activeObject.lockMovementX
-        ? 'Unlock horizontal movement'
-        : 'Lock horizontal movement';
+          ? 'Unlock horizontal movement'
+          : 'Lock horizontal movement';
     }
   };
 
@@ -647,8 +647,8 @@ function sample8() {
     if (activeObject) {
       activeObject.lockMovementY = !activeObject.lockMovementY;
       lockVerticallyEl.innerHTML = activeObject.lockMovementY
-        ? 'Unlock vertical movement'
-        : 'Lock vertical movement';
+          ? 'Unlock vertical movement'
+          : 'Lock vertical movement';
     }
   };
 
@@ -658,8 +658,8 @@ function sample8() {
     if (activeObject) {
       activeObject.lockScalingX = !activeObject.lockScalingX;
       lockScalingXEl.innerHTML = activeObject.lockScalingX
-        ? 'Unlock horizontal scaling'
-        : 'Lock horizontal scaling';
+          ? 'Unlock horizontal scaling'
+          : 'Lock horizontal scaling';
     }
   };
 
@@ -669,8 +669,8 @@ function sample8() {
     if (activeObject) {
       activeObject.lockScalingY = !activeObject.lockScalingY;
       lockScalingYEl.innerHTML = activeObject.lockScalingY
-        ? 'Unlock vertical scaling'
-        : 'Lock vertical scaling';
+          ? 'Unlock vertical scaling'
+          : 'Lock vertical scaling';
     }
   };
 
@@ -680,8 +680,8 @@ function sample8() {
     if (activeObject) {
       activeObject.lockRotation = !activeObject.lockRotation;
       lockRotationEl.innerHTML = activeObject.lockRotation
-        ? 'Unlock rotation'
-        : 'Lock rotation';
+          ? 'Unlock rotation'
+          : 'Lock rotation';
     }
   };
 
@@ -1021,9 +1021,9 @@ function sample10() {
 }
 
 function sample11() {
-   const canvas2dFilterBackend = new fabric.Canvas2dFilterBackend();
-   const webglFilterBackend = new fabric.WebglFilterBackend();
-   fabric.filterBackend = new fabric.Canvas2dFilterBackend();
+  const canvas2dFilterBackend = new fabric.Canvas2dFilterBackend();
+  const webglFilterBackend = new fabric.WebglFilterBackend();
+  fabric.filterBackend = new fabric.Canvas2dFilterBackend();
 }
 
 function sample12() {
@@ -1036,4 +1036,12 @@ function sample12() {
 function sample13() {
   const rectangle = new fabric.Rect({top: 0, left: 0, width: 10, height: 10});
   const rectangleAsHtmlCanvas: HTMLCanvasElement = rectangle.toCanvasElement();
+}
+
+function sample14() {
+  fabric.Object.prototype.controls.testControl = new fabric.Control({
+    mouseUpHandler(eventData: MouseEvent, transformData: fabric.Transform, x: number, y: number): boolean {
+      return false;
+    }
+  });
 }

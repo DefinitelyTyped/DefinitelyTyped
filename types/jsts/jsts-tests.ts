@@ -168,6 +168,8 @@ var wr: jsts.io.WKTReader = new jsts.io.WKTReader();
 g = wr.read(str);
 wr.reducePrecision(g);
 
+var wkt = wktWriter.write(ls);
+
 n = jsts.algorithm.Orientation.index(p, p, p);
 bool = jsts.algorithm.Orientation.isCCW([c]);
 
