@@ -24,12 +24,8 @@ export type Doc = doc.builders.Doc;
 
 // https://github.com/prettier/prettier/blob/main/src/common/ast-path.js
 
-declare var AstPath: {
-    prototype: AstPath;
-    new <T>(value: T): AstPath<T>;
-};
-
-export interface AstPath<T = any> {
+export class AstPath<T = any> {
+    constructor(value: T);
     stack: T[];
     getName(): PropertyKey | null;
     getValue(): T;
