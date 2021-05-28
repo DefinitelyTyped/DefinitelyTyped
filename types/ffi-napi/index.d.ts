@@ -128,7 +128,7 @@ export function errno(): number;
 export interface Function<
     TReturnType extends ref.Type = ref.Type,
     TArgTypes extends ref.Type[] = ref.Type[]
-> extends ref.Type<ForeignFunction<ref.UnderlyingType<TReturnType>, ref.UnderlyingTypes<TArgTypes>>> {
+> extends ref.Type<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>> {
     /** The type of return value. */
     retType: TReturnType;
     /** The type of arguments. */

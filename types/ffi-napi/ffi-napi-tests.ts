@@ -133,3 +133,13 @@ ffi.Library(null, { x: ["void", [], { abi: 0 }]}).x;
 ffi.Library(null, { x: ["void", [], { varargs: true }]}).x;
 // $ExpectType (args_0: (err: any, value: void) => void) => void
 ffi.Library(null, { x: ["void", [], { async: true }]}).x;
+
+{
+    // Ensure functions types are valid.
+    const PCALLBACK = ffi.Function("bool", ["int32"]);
+    const lib = ffi.Library(null, {
+        foo: ["void", [PCALLBACK]]
+    });
+    const callback = (x: number) => x > 0;
+    lib.foo(callback);
+}
