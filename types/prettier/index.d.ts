@@ -31,10 +31,10 @@ declare var AstPath: {
 
 export interface AstPath<T = any> {
     stack: T[];
-    getName(): null | PropertyKey;
+    getName(): PropertyKey | null;
     getValue(): T;
-    getNode(count?: number): null | T;
-    getParentNode(count?: number): null | T;
+    getNode(count?: number): T | null;
+    getParentNode(count?: number): T | null;
     call<U>(callback: (path: this) => U, ...names: PropertyKey[]): U;
     callParent<U>(callback: (path: this) => U, count?: number): U;
     each(callback: (path: this, index: number, value: any) => void, ...names: PropertyKey[]): void;
@@ -313,9 +313,9 @@ export interface ResolveConfigOptions {
  *
  * The promise will be rejected if there was an error parsing the configuration file.
  */
-export function resolveConfig(filePath: string, options?: ResolveConfigOptions): Promise<null | Options>;
+export function resolveConfig(filePath: string, options?: ResolveConfigOptions): Promise<Options | null>;
 export namespace resolveConfig {
-    function sync(filePath: string, options?: ResolveConfigOptions): null | Options;
+    function sync(filePath: string, options?: ResolveConfigOptions): Options | null;
 }
 
 /**
@@ -329,9 +329,9 @@ export namespace resolveConfig {
  *
  * The promise will be rejected if there was an error parsing the configuration file.
  */
-export function resolveConfigFile(filePath?: string): Promise<null | string>;
+export function resolveConfigFile(filePath?: string): Promise<string | null>;
 export namespace resolveConfigFile {
-    function sync(filePath?: string): null | string;
+    function sync(filePath?: string): string | null;
 }
 
 /**
