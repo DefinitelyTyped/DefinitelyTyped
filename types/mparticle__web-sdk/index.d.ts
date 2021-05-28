@@ -1,4 +1,6 @@
-// Type definitions for mParticle/web-sdk SDK 2.11
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+// Type definitions for mParticle/web-sdk SDK 2.12
 // Project: https://github.com/mParticle/mparticle-web-sdk
 // Definitions by: Alex Sapountzis <https://github.com/asap>
 //                 Robert Ing <https://github.com/rmi22186>
@@ -6,27 +8,11 @@
 
 export as namespace mParticle;
 
-export const CommerceEventType: {
-    ProductAddToCart: number;
-    ProductAddToWishlist: number;
-    ProductCheckout: number;
-    ProductCheckoutOption: number;
-    ProductClick: number;
-    ProductImpression: number;
-    ProductPurchase: number;
-    ProductRefund: number;
-    ProductRemoveFromCart: number;
-    ProductRemoveFromWishlist: number;
-    ProductViewDetail: number;
-    PromotionClick: number;
-    PromotionView: number;
-};
-
-export interface config {
+export interface MPConfiguration {
     isDevelopmentMode?: boolean;
     identifyRequest?: IdentifyRequest;
     identityCallback?: IdentityCallback;
-    dataPlan?: dataPlan;
+    dataPlan?: DataPlanConfig;
     appVersion?: string;
     appName?: string;
     logLevel?: 'verbose' | 'warning' | 'none';
@@ -34,7 +20,7 @@ export interface config {
     useCookieStorage?: boolean;
     maxCookieSize?: number;
     cookieDomain?: string;
-    customFlags?: object;
+    customFlags?: SDKEventCustomFlags;
     /**
      * @warning only change workspaceToken if you are absolutely sure you know what you are doing
      */
@@ -49,53 +35,121 @@ export interface config {
     minWebviewBridgeVersion?: 1 | 2;
 }
 
-export interface dataPlan {
+export interface SDKEventCustomFlags {
+    [key: string]:
+        | number
+        | string
+        | boolean
+        | unknown[]
+        | Record<string, unknown>;
+}
+export interface DataPlanConfig {
     planId: string;
     planVersion?: number;
 }
 
-export function endSession(): void;
-export function getAppName(): string;
-export function getAppVersion(): string;
-export function getDeviceId(): string;
-export function getVersion(): string;
+interface EndSession {
+    (): void;
+}
+interface GetAppName {
+    (): string;
+}
+interface GetAppVersion {
+    (): string;
+}
+interface GetDeviceId {
+    (): string;
+}
+interface GetVersion {
+    (): string;
+}
 
-/**
- * @warning You should only use mParticle.init if you are in a self-hosted environment.
- */
-export function init(apiKey: string, config?: config, instanceName?: string): void;
-export function logError(error: string | errorObject, attrs?: sdkEventAttrs): void;
-export function logEvent(eventName: string, eventType?: number, eventInfo?: sdkEventAttrs, customFlags?: sdkEventCustomFlags): void;
-export function logForm(selector: string | HTMLElement, eventName: string, eventType: number, eventInfo?: sdkEventAttrs): void;
-export function logLink(selector: string | HTMLElement, eventName: string, eventType: number, eventInfo?: sdkEventAttrs): void;
-export function logPageView(eventName: string, attrs?: sdkEventAttrs, customFlags?: sdkEventCustomFlags): void;
-export function ready(func: () => any): void;
-export function setAppName(name: string): void;
-export function setAppVersion(version: string): void;
-export function setLogLevel(newLogLevel: 'verbose' | 'warning' | 'none'): void;
-export function setOptOut(isOptingOut: boolean): void;
-export function setPosition(lat: number, lng: number): void;
-export function setSessionAttribute(key: string, value: string | number | boolean | null): void;
-export function startNewSession(): void;
-export function startTrackingLocation(callback?: TrackLocationCallback): void;
-export function stopTrackingLocation(): void;
-export function logBaseEvent(event: BaseEvent): void;
-export function upload(): void;
+interface Init {
+    (apiKey: string, config: MPConfiguration, instanceName?: string): void;
+}
 
-// Future optional changes once we migrate all core SDK files to TS
-// export function addForwarder
-// export function configurePixel
+interface LogError {
+    (error: string | errorObject, attrs?: SDKEventAttrs): void;
+}
 
-export namespace Consent {
-    function createConsentState(): ConsentState;
-    function createGDPRConsent(
-        consented: boolean,
-        timestamp: number,
-        consentDocument: string,
-        location: string,
-        hardwareId: string,
-    ): PrivacyConsentState;
-    function createCCPAConsent(
+interface LogEvent {
+    (
+        eventName: string,
+        eventType?: EventType,
+        eventInfo?: SDKEventAttrs,
+        customFlags?: SDKEventCustomFlags,
+    ): void;
+}
+
+interface LogForm {
+    (
+        selector: string | HTMLElement,
+        eventName: string,
+        eventType?: EventType,
+        eventInfo?: SDKEventAttrs,
+    ): void;
+}
+
+interface LogLink {
+    (
+        selector: string | HTMLElement,
+        eventName: string,
+        eventType?: EventType,
+        eventInfo?: SDKEventAttrs,
+    ): void;
+}
+
+interface LogPageView {
+    (
+        eventName?: string,
+        attrs?: SDKEventAttrs,
+        customFlags?: SDKEventCustomFlags,
+    ): void;
+}
+interface Ready {
+    (callback: () => void): void;
+}
+interface SetAppName {
+    (name: string): void;
+}
+interface SetAppVersion {
+    (version: string): void;
+}
+interface SetLogLevel {
+    (newLogLevel: 'verbose' | 'warning' | 'none'): void;
+}
+interface SetOptOut {
+    (isOptingOut: boolean): void;
+}
+interface SetPosition {
+    (lat: number, lng: number): void;
+}
+interface SetSessionAttribute {
+    (key: string, value: string | number | boolean | null): void;
+}
+interface StartNewSession {
+    (): void;
+}
+interface StartTrackingLocation {
+    (callback?: TrackLocationCallback): void;
+}
+
+interface StopTrackingLocation {
+    (): void;
+}
+
+interface LogBaseEvent {
+    (event: BaseEvent): void;
+}
+interface Upload {
+    (): void;
+}
+
+interface CreateConsentState {
+    (): ConsentState;
+}
+interface CreateGDPRConsent {
+    (
         consented: boolean,
         timestamp: number,
         consentDocument: string,
@@ -103,13 +157,203 @@ export namespace Consent {
         hardwareId: string,
     ): PrivacyConsentState;
 }
+interface CreateCCPAConsent {
+    (
+        consented: boolean,
+        timestamp: number,
+        consentDocument: string,
+        location: string,
+        hardwareId: string,
+    ): PrivacyConsentState;
+}
+interface AliasUsers {
+    (aliasRequest: UserAliasRequest, callback?: AliasUsersCallback): void;
+}
+interface CreateAliasRequest {
+    (sourceUser: User, destinationUser: User): UserAliasRequest;
+}
+
+interface GetCurrentUser {
+    (): User;
+}
+interface GetUser {
+    (mpid: MPID): User;
+}
+interface GetUsers {
+    (): User[];
+}
+interface Identify {
+    (identityApiData: IdentityApiData, callback?: IdentityCallback): void;
+}
+interface Login {
+    (identityApiData: IdentityApiData, callback?: IdentityCallback): void;
+}
+interface Logout {
+    (identityApiData: IdentityApiData, callback?: IdentityCallback): void;
+}
+interface Modify {
+    (identityApiData: IdentityApiData, callback?: IdentityCallback): void;
+}
+interface CreateImpression {
+    (name: string, product: Product | Product[]): Impression;
+}
+interface CreateProduct {
+    (
+        name: string,
+        sku: string,
+        price: number,
+        quantity?: number,
+        variant?: string,
+        category?: string,
+        brand?: string,
+        position?: number,
+        coupon?: string,
+        attributes?: SDKEventAttrs,
+    ): Product;
+}
+interface CreatePromotion {
+    (
+        id: string,
+        creative?: string,
+        name?: string,
+        position?: number,
+    ): Promotion;
+}
+interface CreateTransactionAttributes {
+    (
+        id: string | number,
+        affiliation?: string,
+        couponCode?: string,
+        revenue?: number,
+        shipping?: number,
+        tax?: number,
+    ): TransactionAttributes;
+}
+interface LogCheckout {
+    (
+        step: number,
+        options?: string,
+        attrs?: SDKEventAttrs,
+        customFlags?: SDKEventCustomFlags,
+    ): void;
+}
+interface LogImpression {
+    (
+        impression: Impression[] | Impression,
+        attrs?: Record<string, unknown>,
+        customFlags?: Record<string, unknown>,
+    ): void;
+}
+interface LogProductAction {
+    (
+        productActionType: ProductActionType,
+        product: Product[] | Product,
+        attrs?: SDKEventAttrs,
+        customFlags?: SDKEventCustomFlags,
+        transactionAttributes?: TransactionAttributes,
+    ): void;
+}
+interface LogPromotion {
+    (
+        type: number,
+        promotion: Promotion,
+        attrs?: SDKEventAttrs,
+        customFlags?: SDKEventCustomFlags,
+    ): void;
+}
+interface LogPurchase {
+    (
+        transactionAttributes: TransactionAttributes,
+        product: Product[] | Product,
+        clearCart: boolean,
+        attrs: Record<string, unknown>,
+        customFlags: Record<string, unknown>,
+    ): void;
+}
+interface LogRefund {
+    (
+        transactionAttributes: TransactionAttributes,
+        product: Product[] | Product,
+        clearCart: boolean,
+        attrs: Record<string, unknown>,
+        customFlags: Record<string, unknown>,
+    ): void;
+}
+interface SetCurrencyCode {
+    (code: string): void;
+}
+
+interface SetIntegrationAttribute {
+    (integrationId: number, attrs: Record<string, unknown>): void;
+}
+
+interface GetIntegrationAttributes {
+    (integrationId: number): Record<string, unknown>;
+}
+interface GetSession {
+    (): string;
+}
+
+export const endSession: EndSession;
+export const getAppName: GetAppName;
+export const getAppVersion: GetAppVersion;
+export const getDeviceId: GetDeviceId;
+export function getInstance(instanceName?: string): mParticleInstance;
+export const getVersion: GetVersion;
+/**
+ * @warning You should only use mParticle.init if you are in a self-hosted environment. https://docs.mparticle.com/developers/sdk/web/self-hosting/
+ */
+export const init: Init;
+export const logBaseEvent: LogBaseEvent;
+export const logError: LogError;
+export const logEvent: LogEvent;
+export const logForm: LogForm;
+export const logLink: LogLink;
+export const logPageView: LogPageView;
+export const ready: Ready;
+/**
+ * @warning You should only use mParticle.reset if you absolutely know what you are doing.
+ */
+export const reset: () => void;
+export const setAppName: SetAppName;
+export const setAppVersion: SetAppVersion;
+export const setIntegrationAttribute: SetIntegrationAttribute;
+export const getIntegrationAttributes: GetIntegrationAttributes;
+export const setLogLevel: SetLogLevel;
+export const setOptOut: SetOptOut;
+export const setPosition: SetPosition;
+export const setSessionAttribute: SetSessionAttribute;
+export const startNewSession: StartNewSession;
+export const startTrackingLocation: StartTrackingLocation;
+export const stopTrackingLocation: StopTrackingLocation;
+export const upload: Upload;
+
+// Future optional changes once we migrate all core SDK files to TS. These are used internally only and should not be used by consumers of mParticle
+// export function addForwarder
+// export function configurePixel
+// export function generateHash
+// export function _setIntegrationDelay
+// export function _getIntegrationDelay
+
+export namespace sessionManager {
+    const getSession: GetSession;
+}
+
+export namespace Consent {
+    const createConsentState: CreateConsentState;
+    const createGDPRConsent: CreateGDPRConsent;
+    const createCCPAConsent: CreateCCPAConsent;
+}
 
 export interface ConsentState {
     setGDPRConsentState: (gdprConsentState: GDPRConsentState) => ConsentState;
-    setCCPAConsentState: (ccpaConsentState: PrivacyConsentState) => ConsentState;
-    addGDPRConsentState: (purpose: string, gdprConsent: PrivacyConsentState) => ConsentState;
+    setCCPAConsentState: (ccpaConsentState: CCPAConsentState) => ConsentState;
+    addGDPRConsentState: (
+        purpose: string,
+        gdprConsent: PrivacyConsentState,
+    ) => ConsentState;
     getGDPRConsentState: () => GDPRConsentState;
-    getCCPAConsentState: () => PrivacyConsentState;
+    getCCPAConsentState: () => CCPAConsentState;
     removeGDPRConsentState: (purpose: string) => ConsentState;
     removeCCPAConsentState: () => ConsentState;
 }
@@ -124,72 +368,91 @@ export interface PrivacyConsentState {
     Location: string;
     HardwareId: string;
 }
+export type CCPAConsentState = PrivacyConsentState;
 
-export namespace EventType {
-    const Location: number;
-    const Navigation: number;
-    const Other: number;
-    const Search: number;
-    const Social: number;
-    const Transaction: number;
-    const Unknown: number;
-    const UserContent: number;
-    const UserPreference: number;
+export enum EventType {
+    Unknown = 0,
+    Navigation = 1,
+    Location = 2,
+    Search = 3,
+    Transaction = 4,
+    UserContent = 5,
+    UserPreference = 6,
+    Social = 7,
+    Other = 8,
+    Media = 9,
+}
+
+export enum IdentityType {
+    Other = 0,
+    CustomerId = 1,
+    Facebook = 2,
+    Twitter = 3,
+    Google = 4,
+    Microsoft = 5,
+    Yahoo = 6,
+    Email = 7,
+    FacebookCustomAudienceId = 9,
+    Other2 = 10,
+    Other3 = 11,
+    Other4 = 12,
+    Other5 = 13,
+    Other6 = 14,
+    Other7 = 15,
+    Other8 = 16,
+    Other9 = 17,
+    Other10 = 18,
+    MobileNumber = 19,
+    PhoneNumber2 = 20,
+    PhoneNumber3 = 21,
+}
+
+export enum CommerceEventType {
+    ProductAddToCart = 10,
+    ProductRemoveFromCart = 11,
+    ProductCheckout = 12,
+    ProductCheckoutOption = 13,
+    ProductClick = 14,
+    ProductViewDetail = 15,
+    ProductPurchase = 16,
+    ProductRefund = 17,
+    PromotionView = 18,
+    PromotionClick = 19,
+    ProductAddToWishlist = 20,
+    ProductRemoveFromWishlist = 21,
+    ProductImpression = 22,
 }
 
 export namespace Identity {
-    // FIX ALIAS USER CALLBACK
-    function aliasUsers(aliasRequest: UserAliasObject, callback?: AliasUsersCallback): void;
-    function createAliasRequest(sourceUser: User, destinationUser: User): any;
-    //
-    function getCurrentUser(): User;
-    function getUser(mpid: string): User;
-    function getUsers(): User[];
-    function identify(identityApiData: IdentityApiData, callback?: IdentityCallback): void;
-    function login(identityApiData: IdentityApiData, callback?: IdentityCallback): void;
-    function logout(identityApiData: IdentityApiData, callback?: IdentityCallback): void;
-    function modify(identityApiData: IdentityApiData, callback?: IdentityCallback): void;
-    const HTTPCODES: HTTPCodes;
+    const aliasUsers: AliasUsers;
+    const createAliasRequest: CreateAliasRequest;
+    const getCurrentUser: GetCurrentUser;
+    const getUser: GetUser;
+    const getUsers: GetUsers;
+    const identify: Identify;
+    const login: Login;
+    const logout: Logout;
+    const modify: Modify;
+    const HTTPCodes: {
+        noHttpCoverage: HTTPCodes.noHttpCoverage;
+        activeIdentityRequest: HTTPCodes.activeIdentityRequest;
+        activeSession: HTTPCodes.activeSession;
+        validationIssue: HTTPCodes.validationIssue;
+        nativeIdentityRequest: HTTPCodes.nativeIdentityRequest;
+        loggingDisabledOrMissingAPIKey: HTTPCodes.loggingDisabledOrMissingAPIKey;
+    };
 }
 
-export interface HTTPCodes {
-    noHttpCoverage: -1;
-    activeIdentityRequest: -2;
-    activeSession: -3;
-    validationIssue: -4;
-    nativeIdentityRequest: -5;
+export enum HTTPCodes {
+    noHttpCoverage = -1,
+    activeIdentityRequest = -2,
+    activeSession = -3,
+    validationIssue = -4,
+    nativeIdentityRequest = -5,
+    loggingDisabledOrMissingAPIKey = -6,
 }
 
-export namespace IdentityType {
-    const CustomerId: number;
-    const Email: number;
-    const Facebook: number;
-    const FacebookCustomAudienceId: number;
-    const Google: number;
-    const Microsoft: number;
-    const Other: number;
-    const Other2: number;
-    const Other3: number;
-    const Other4: number;
-    const Twitter: number;
-    const Yahoo: number;
-}
-
-export namespace ProductActionType {
-    const AddToCart: number;
-    const AddToWishlist: number;
-    const Checkout: number;
-    const CheckoutOption: number;
-    const Click: number;
-    const Purchase: number;
-    const Refund: number;
-    const RemoveFromCart: number;
-    const RemoveFromWishlist: number;
-    const Unknown: number;
-    const ViewDetail: number;
-}
-
-export enum ProductActionTypeEnums {
+export enum ProductActionType {
     Unknown = 0,
     AddToCart = 1,
     RemoveFromCart = 2,
@@ -203,97 +466,49 @@ export enum ProductActionTypeEnums {
     RemoveFromWishlist = 10,
 }
 
-export namespace PromotionType {
-    const PromotionClick: number;
-    const PromotionView: number;
-    const Unknown: number;
+export enum PromotionType {
+    Unknown = 0,
+    PromotionClick = 1,
+    PromotionView = 2,
 }
 
 export namespace eCommerce {
-    function createImpression(name: string, product: Product | Product[]): Impression;
-    function createProduct(
-        name: string,
-        sku: string,
-        price: number,
-        quantity?: number,
-        variant?: string,
-        category?: string,
-        brand?: string,
-        position?: number,
-        coupon?: string,
-        attributes?: sdkEventAttrs,
-    ): Product;
-    function createPromotion(id: string, creative?: string, name?: string, position?: number): Promotion;
-    function createTransactionAttributes(
-        id: string | number,
-        affiliation: string,
-        couponCode: string,
-        revenue: number,
-        shipping: number,
-        tax: number,
-    ): TransactionAttributes;
-    function logCheckout(
-        step: number,
-        options?: string,
-        attrs?: sdkEventAttrs,
-        customFlags?: sdkEventCustomFlags,
-    ): void;
-    function logImpression(impression: Impression[] | Impression, attrs?: object, customFlags?: object): void;
-    function logProductAction(
-        productActionType: ProductActionTypeEnums,
-        product: Product[] | Product,
-        attrs?: sdkEventAttrs,
-        customFlags?: sdkEventCustomFlags,
-    ): void;
-    function logPromotion(type: number, promotion: Promotion, attrs?: sdkEventAttrs, customFlags?: sdkEventCustomFlags): void;
-    function logPurchase(
-        transactionAttributes: object,
-        product: Product[] | Product,
-        clearCart: boolean,
-        attrs: object,
-        customFlags: object,
-    ): void;
-    function logRefund(
-        transactionAttributes: TransactionAttributes,
-        product: Product[] | Product,
-        clearCart: boolean,
-        attrs: object,
-        customFlags: object,
-    ): void;
-    function setCurrencyCode(code: string): void;
+    const createImpression: CreateImpression;
+    const createProduct: CreateProduct;
+    const createPromotion: CreatePromotion;
+    const createTransactionAttributes: CreateTransactionAttributes;
+    const logCheckout: LogCheckout;
+    const logImpression: LogImpression;
+    const logProductAction: LogProductAction;
+    const logPromotion: LogPromotion;
+    const logPurchase: LogPurchase;
+    /**
+     * @deprecated logRefund has been deprecated
+     */
+    const logRefund: LogRefund;
+    const setCurrencyCode: SetCurrencyCode;
+    // expandCommerceEvent function for internal use
 
-    namespace Cart {
-        /**
-         * @deprecated Cart persistence in mParticle has been deprecated. Please use mParticle.eCommerce.logProductAction(mParticle.ProductActionType.AddToCart, [products])
-         */
-        function add(product: object, logEventBoolean: boolean): void;
-        /**
-         * @deprecated Cart persistence in mParticle has been deprecated.
-         */
-        function clear(): void;
-        /**
-         * @deprecated Cart persistence in mParticle has been deprecated. Please use mParticle.eCommerce.logProductAction(mParticle.ProductActionType.RemoveFromCart, [products])
-         */
-        function remove(product: object, logEventBoolean: boolean): void;
-    }
+    const Cart: Cart;
 }
 
 export interface IdentifyRequest {
     userIdentities: UserIdentities;
 }
 
+export type MPID = string;
 export interface User {
     getUserIdentities: () => UserIdentities;
-    getMPID: () => string;
+    getMPID: () => MPID;
     setUserTag: (tag: string) => void;
     removeUserTag: (tag: string) => void;
     setUserAttribute: (key: string, value: string) => void;
-    setUserAttributes: (attributeObject: object) => void;
+    setUserAttributes: (attributeObject: Record<string, unknown>) => void;
     removeUserAttribute: (key: string) => void;
-    setUserAttributeList: (key: string, value: any[]) => void;
+    setUserAttributeList: (key: string, value: UserAttributesValue[]) => void;
     removeAllUserAttributes: () => void;
-    getUserAttributesLists: () => object;
-    getAllUserAttributes: () => object;
+    getUserAttributesLists: () => Record<string, UserAttributesValue[]>;
+    getAllUserAttributes: () => AllUserAttributesList; // TODO
     /**
      * @deprecated Cart persistence in mParticle has been deprecated
      */
@@ -304,7 +519,8 @@ export interface User {
     getLastSeenTime: () => number;
     getFirstSeenTime: () => number;
 }
-
+export type UserAttributesValue = string | number | boolean | null;
+export type AllUserAttributesList = Record<string, unknown[]>;
 export interface UserIdentities {
     customerid?: string;
     email?: string;
@@ -329,7 +545,7 @@ export interface UserIdentities {
     yahoo?: string;
 }
 
-export interface Cart {
+interface Cart {
     /**
      * @deprecated Cart persistence in mParticle has been deprecated. Please use mParticle.eCommerce.logProductAction(mParticle.ProductActionType.AddToCart, [products])
      */
@@ -342,10 +558,6 @@ export interface Cart {
      * @deprecated Cart persistence in mParticle has been deprecated.
      */
     clear: () => void;
-    /**
-     * @deprecated Cart persistence in mParticle has been deprecated.
-     */
-    getCartProducts: () => Product[];
 }
 
 export interface Product {
@@ -358,7 +570,7 @@ export interface Product {
     brand?: string;
     position?: number;
     coupon?: string;
-    attributes?: object;
+    attributes?: Record<string, unknown>;
 }
 
 export interface TransactionAttributes {
@@ -403,19 +615,17 @@ export interface TrackLocationCallback {
 }
 
 export interface BaseEvent {
-    data: object;
+    data: Record<string, unknown>;
     name: string;
     eventType: number;
     messageType: number;
-    toEventAPIObject?: () => object;
+    toEventAPIObject?: () => unknown;
 }
-export interface sdkEventAttrs {
-    [key: string]: number | string | boolean | null | undefined;
+export interface SDKEventAttrs {
+    [key: string]: SDKEventAttrTypes;
 }
 
-export interface sdkEventCustomFlags {
-    [key: string]: number | string | boolean | any[] | object;
-}
+type SDKEventAttrTypes = number | string | boolean | null | undefined;
 
 export interface integrationAttributeAttrs {
     [key: string]: string;
@@ -443,10 +653,10 @@ export interface IdentityResultBody {
     is_ephemeral: boolean;
     is_logged_in: boolean;
     // matched_identities should be UserIdentities + mpid, for not keep as object
-    matched_identities: object;
+    matched_identities: Record<string, unknown>;
 }
 
-export interface UserAliasObject {
+export interface UserAliasRequest {
     destinationMpid: string;
     sourceMpid: string;
     startTime: number;
@@ -454,8 +664,154 @@ export interface UserAliasObject {
 }
 
 export interface AliasUsersCallback {
-    (result: {
-        httpCode: number,
-        message: string
-    }): void;
+    (result: { httpCode: number; message: string }): void;
+}
+
+class mParticleInstance {
+    constructor(instanceName?: string);
+
+    endSession: EndSession;
+    getAppName: GetAppName;
+    getAppVersion: GetAppVersion;
+    getDeviceId: GetDeviceId;
+    getVersion: GetVersion;
+    init: Init;
+    logBaseEvent: LogBaseEvent;
+    logError: LogError;
+    logEvent: LogEvent;
+    logForm: LogForm;
+    logLink: LogLink;
+    logPageView: LogPageView;
+    ready: Ready;
+    /**
+     * @warning Calling mParticle.reset may have unintended consequences. This function is primarily used for tests. You should only use mParticle.reset if you absolutely know what you are doing.
+     */
+    reset: () => void;
+    setAppName: SetAppName;
+    setAppVersion: SetAppVersion;
+    setIntegrationAttribute: SetIntegrationAttribute;
+    getIntegrationAttributes: GetIntegrationAttributes;
+    setLogLevel: SetLogLevel;
+    setOptOut: SetOptOut;
+    setPosition: SetPosition;
+    setSessionAttribute: SetSessionAttribute;
+    startNewSession: StartNewSession;
+    startTrackingLocation: StartTrackingLocation;
+    stopTrackingLocation: StopTrackingLocation;
+    upload: Upload;
+    // Future optional changes once we migrate all core SDK files to TS. These are used internally only and should not be used by consumers of mParticle
+    // export function addForwarder
+    // export function configurePixel
+    // export function generateHash
+    // export function _setIntegrationDelay
+    // export function _getIntegrationDelay
+
+    Consent: {
+        createConsentState: CreateConsentState;
+        createGDPRConsent: CreateGDPRConsent;
+        createCCPAConsent: CreateCCPAConsent;
+    };
+    Identity: {
+        aliasUsers: AliasUsers;
+        createAliasRequest: CreateAliasRequest;
+        getCurrentUser: GetCurrentUser;
+        getUser: GetUser;
+        getUsers: GetUsers;
+        identify: Identify;
+        login: Login;
+        logout: Logout;
+        modify: Modify;
+        HTTPCodes: {
+            noHttpCoverage: HTTPCodes.noHttpCoverage;
+            activeIdentityRequest: HTTPCodes.activeIdentityRequest;
+            activeSession: HTTPCodes.activeSession;
+            validationIssue: HTTPCodes.validationIssue;
+            nativeIdentityRequest: HTTPCodes.nativeIdentityRequest;
+        };
+    };
+    eCommerce: {
+        createImpression: CreateImpression;
+        createProduct: CreateProduct;
+        createPromotion: CreatePromotion;
+        createTransactionAttributes: CreateTransactionAttributes;
+        logCheckout: LogCheckout;
+        logImpression: LogImpression;
+        logProductAction: LogProductAction;
+        logPromotion: LogPromotion;
+        logPurchase: LogPurchase;
+        logRefund: LogRefund;
+        setCurrencyCode: SetCurrencyCode;
+        Cart: Cart;
+    };
+    PromotionType: {
+        Unknown: PromotionType.Unknown;
+        PromotionClick: PromotionType.PromotionClick;
+        PromotionView: PromotionType.PromotionView;
+    };
+    ProductActionType: {
+        Unknown: ProductActionType.Unknown;
+        AddToCart: ProductActionType.AddToCart;
+        RemoveFromCart: ProductActionType.RemoveFromCart;
+        Checkout: ProductActionType.Checkout;
+        CheckoutOption: ProductActionType.CheckoutOption;
+        Click: ProductActionType.Click;
+        ViewDetail: ProductActionType.ViewDetail;
+        Purchase: ProductActionType.Purchase;
+        Refund: ProductActionType.Refund;
+        AddToWishlist: ProductActionType.AddToWishlist;
+        RemoveFromWishlist: ProductActionType.RemoveFromWishlist;
+    };
+    CommerceEventType: {
+        ProductAddToCart: CommerceEventType.ProductAddToCart;
+        ProductRemoveFromCart: CommerceEventType.ProductRemoveFromCart;
+        ProductCheckout: CommerceEventType.ProductCheckout;
+        ProductCheckoutOption: CommerceEventType.ProductCheckoutOption;
+        ProductClick: CommerceEventType.ProductClick;
+        ProductViewDetail: CommerceEventType.ProductViewDetail;
+        ProductPurchase: CommerceEventType.ProductPurchase;
+        ProductRefund: CommerceEventType.ProductRefund;
+        PromotionView: CommerceEventType.PromotionView;
+        PromotionClick: CommerceEventType.PromotionClick;
+        ProductAddToWishlist: CommerceEventType.ProductAddToWishlist;
+        ProductRemoveFromWishlist: CommerceEventType.ProductRemoveFromWishlist;
+        ProductImpression: CommerceEventType.ProductImpression;
+    };
+    IdentityType: {
+        Other: IdentityType.Other;
+        CustomerId: IdentityType.CustomerId;
+        Facebook: IdentityType.Facebook;
+        Twitter: IdentityType.Twitter;
+        Google: IdentityType.Google;
+        Microsoft: IdentityType.Microsoft;
+        Yahoo: IdentityType.Yahoo;
+        Email: IdentityType.Email;
+        FacebookCustomAudienceId: IdentityType.FacebookCustomAudienceId;
+        Other2: IdentityType.Other2;
+        Other3: IdentityType.Other3;
+        Other4: IdentityType.Other4;
+        Other5: IdentityType.Other5;
+        Other6: IdentityType.Other6;
+        Other7: IdentityType.Other7;
+        Other8: IdentityType.Other8;
+        Other9: IdentityType.Other9;
+        Other10: IdentityType.Other10;
+        MobileNumber: IdentityType.MobileNumber;
+        PhoneNumber2: IdentityType.PhoneNumber2;
+        PhoneNumber3: IdentityType.PhoneNumber3;
+    };
+    EventType: {
+        Unknown: EventType.Unknown;
+        Navigation: EventType.Navigation;
+        Location: EventType.Location;
+        Search: EventType.Search;
+        Transaction: EventType.Transaction;
+        UserContent: EventType.UserContent;
+        UserPreference: EventType.UserPreference;
+        Social: EventType.Social;
+        Other: EventType.Other;
+        Media: EventType.Media;
+    };
+    sessionManager: {
+        getSession: GetSession;
+    };
 }
