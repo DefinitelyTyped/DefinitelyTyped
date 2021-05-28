@@ -83,30 +83,30 @@ struct.defineProperty(string, typeLike);
 // $ExpectType string
 struct.toString();
 
-// $ExpectType Record<string, any>
+// $ExpectType StructObject<Record<string, any>>
 struct();
-// $ExpectType Record<string, any>
+// $ExpectType StructObject<Record<string, any>>
 struct(undefined);
-// $ExpectType Record<string, any>
+// $ExpectType StructObject<Record<string, any>>
 struct({ x: number });
-// $ExpectType Record<string, any>
+// $ExpectType StructObject<Record<string, any>>
 struct(buffer);
-// $ExpectType Record<string, any>
+// $ExpectType StructObject<Record<string, any>>
 struct(buffer, undefined);
-// $ExpectType Record<string, any>
+// $ExpectType StructObject<Record<string, any>>
 struct(buffer, { x: number });
 
-// $ExpectType Record<string, any>
+// $ExpectType StructObject<Record<string, any>>
 new struct();
-// $ExpectType Record<string, any>
+// $ExpectType StructObject<Record<string, any>>
 new struct(undefined);
-// $ExpectType Record<string, any>
+// $ExpectType StructObject<Record<string, any>>
 new struct({ x: number });
-// $ExpectType Record<string, any>
+// $ExpectType StructObject<Record<string, any>>
 new struct(buffer);
-// $ExpectType Record<string, any>
+// $ExpectType StructObject<Record<string, any>>
 new struct(buffer, undefined);
-// $ExpectType Record<string, any>
+// $ExpectType StructObject<Record<string, any>>
 new struct(buffer, { x: number });
 
 declare const Point: ref_struct.StructType<{ x: ref.Type<number>, y: ref.Type<number> }>;
@@ -114,28 +114,48 @@ declare const Point: ref_struct.StructType<{ x: ref.Type<number>, y: ref.Type<nu
 // $ExpectType { x: Field<number>; y: Field<number>; }
 Point.fields;
 
-// $ExpectType { x: number; y: number; }
+// $ExpectType StructObject<{ x: number; y: number; }>
 Point();
-// $ExpectType { x: number; y: number; }
+// $ExpectType StructObject<{ x: number; y: number; }>
 Point(undefined);
-// $ExpectType { x: number; y: number; }
+// $ExpectType StructObject<{ x: number; y: number; }>
 Point({ x: number });
-// $ExpectType { x: number; y: number; }
+// $ExpectType StructObject<{ x: number; y: number; }>
 Point(buffer);
-// $ExpectType { x: number; y: number; }
+// $ExpectType StructObject<{ x: number; y: number; }>
 Point(buffer, undefined);
-// $ExpectType { x: number; y: number; }
+// $ExpectType StructObject<{ x: number; y: number; }>
 Point(buffer, { x: number });
 
-// $ExpectType { x: number; y: number; }
+// $ExpectType StructObject<{ x: number; y: number; }>
 new Point();
-// $ExpectType { x: number; y: number; }
+// $ExpectType StructObject<{ x: number; y: number; }>
 new Point(undefined);
-// $ExpectType { x: number; y: number; }
+// $ExpectType StructObject<{ x: number; y: number; }>
 new Point({ x: number });
-// $ExpectType { x: number; y: number; }
+// $ExpectType StructObject<{ x: number; y: number; }>
 new Point(buffer);
-// $ExpectType { x: number; y: number; }
+// $ExpectType StructObject<{ x: number; y: number; }>
 new Point(buffer, undefined);
-// $ExpectType { x: number; y: number; }
+// $ExpectType StructObject<{ x: number; y: number; }>
 new Point(buffer, { x: number });
+
+declare const point: ReturnType<typeof Point>;
+
+// $ExpectType number
+point.x;
+
+// $ExpectType number
+point.y;
+
+// $ExpectType any
+point.toObject();
+
+// $ExpectType any
+point.toJSON();
+
+// $ExpectType string
+point.inspect();
+
+// $ExpectType Pointer<StructObject<{ x: number; y: number; }>>
+point.ref();

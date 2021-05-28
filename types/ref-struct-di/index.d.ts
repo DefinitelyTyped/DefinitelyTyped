@@ -108,11 +108,39 @@ declare namespace struct {
         { [P in keyof T]: Field<ref.UnderlyingType<T[P]>>; };
 
     /**
+     * The base type of any {@link StructObjectProperties}
+     */
+    interface StructObjectBase {
+        /**
+         * Flattens the Struct instance into a regular JavaScript Object. This function
+         * "gets" all the defined properties.
+         */
+        toObject(): any;
+        /**
+         * Basic `JSON.stringify(struct)` support.
+         */
+        toJSON(): any;
+        /**
+         * `.inspect()` override. For the REPL.
+         */
+        inspect(): string;
+        /**
+         * Returns a {@link Buffer} pointing to this struct data structure.
+         */
+        ref(): ref.Pointer<this>;
+    }
+
+    /**
      * Converts a {@link StructTypeDefinitionBase} into a an object type representing the runtime shape of a {@link StructType}.
      */
-    type StructObject<T extends StructTypeDefinitionBase> =
+    type StructObjectProperties<T extends StructTypeDefinitionBase> =
         [T] extends [never] | [0] ? Record<string, any> : // catches T extends never/any (since `0` doesn't overlap with our constraint)
         { [P in keyof T]: ref.UnderlyingType<T[P]>; };
+
+    /**
+     * Represents the instance type of a struct type.
+     */
+    type StructObject<T> = StructObjectBase & T;
 
     /**
      * Defines a field in a {@link StructType}.
@@ -132,14 +160,14 @@ declare namespace struct {
      *
      * @constructor
      */
-    interface StructType<TDefinition extends StructTypeDefinitionBase = any> extends ref.Type<StructObject<TDefinition>> {
+    interface StructType<TDefinition extends StructTypeDefinitionBase = any> extends ref.Type<StructObject<StructObjectProperties<TDefinition>>> {
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        new (arg: Buffer, data?: Partial<StructObject<TDefinition>>): StructObject<TDefinition>;
-        new (data?: Partial<StructObject<TDefinition>>): StructObject<TDefinition>;
+        new (arg: Buffer, data?: Partial<StructObjectProperties<TDefinition>>): StructObject<StructObjectProperties<TDefinition>>;
+        new (data?: Partial<StructObjectProperties<TDefinition>>): StructObject<StructObjectProperties<TDefinition>>;
 
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        (arg: Buffer, data?: Partial<StructObject<TDefinition>>): StructObject<TDefinition>;
-        (data?: Partial<StructObject<TDefinition>>): StructObject<TDefinition>;
+        (arg: Buffer, data?: Partial<StructObjectProperties<TDefinition>>): StructObject<StructObjectProperties<TDefinition>>;
+        (data?: Partial<StructObjectProperties<TDefinition>>): StructObject<StructObjectProperties<TDefinition>>;
 
         fields: StructFields<TDefinition>;
 
