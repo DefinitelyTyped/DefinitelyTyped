@@ -1,2 +1,16 @@
+doc.d.ts
 parser-angular.d.ts
+parser-angular.d.ts
+parser-babel.d.ts
+parser-espree.d.ts
 parser-flow.d.ts
+parser-flow.d.ts
+parser-glimmer.d.ts
+parser-graphql.d.ts
+parser-html.d.ts
+parser-markdown.d.ts
+parser-meriyah.d.ts
+parser-postcss.d.ts
+parser-typescript.d.ts
+parser-yaml.d.ts
+standalone.d.ts
