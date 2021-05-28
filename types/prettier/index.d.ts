@@ -22,16 +22,16 @@ export type LiteralUnion<T extends U, U = string> = T | (Pick<U, never> & { _?: 
 export type AST = any;
 export type Doc = doc.builders.Doc;
 
-// https://github.com/prettier/prettier/blob/master/src/common/fast-path.js
-export interface FastPath<T = any> {
+// https://github.com/prettier/prettier/blob/main/src/common/ast-path.js
+export interface AstPath<T = any> {
     stack: T[];
     getName(): null | PropertyKey;
     getValue(): T;
     getNode(count?: number): null | T;
     getParentNode(count?: number): null | T;
     call<U>(callback: (path: this) => U, ...names: PropertyKey[]): U;
-    each(callback: (path: this) => void, ...names: PropertyKey[]): void;
-    map<U>(callback: (path: this, index: number) => U, ...names: PropertyKey[]): U[];
+    each(callback: (path: this, index: number, value: any) => void, ...names: PropertyKey[]): void;
+    map<U>(callback: (path: this, index: number, value: any) => U, ...names: PropertyKey[]): U[];
 }
 
 export type BuiltInParser = (text: string, options?: any) => AST;
@@ -192,10 +192,10 @@ export interface Parser<T = any> {
 }
 
 export interface Printer<T = any> {
-    print(path: FastPath<T>, options: ParserOptions<T>, print: (path: FastPath<T>) => Doc): Doc;
+    print(path: AstPath<T>, options: ParserOptions<T>, print: (path: AstPath<T>) => Doc): Doc;
     embed?: (
-        path: FastPath<T>,
-        print: (path: FastPath<T>) => Doc,
+        path: AstPath<T>,
+        print: (path: AstPath<T>) => Doc,
         textToDoc: (text: string, options: Options) => Doc,
         options: ParserOptions<T>,
     ) => Doc | null;
@@ -206,10 +206,10 @@ export interface Printer<T = any> {
      * @returns anything if you want to replace the node with it
      */
     massageAstNode?: (node: any, newNode: any, parent: any) => any;
-    hasPrettierIgnore?: (path: FastPath<T>) => boolean;
+    hasPrettierIgnore?: (path: AstPath<T>) => boolean;
     canAttachComment?: (node: T) => boolean;
-    willPrintOwnComments?: (path: FastPath<T>) => boolean;
-    printComment?: (commentPath: FastPath<T>, options: ParserOptions<T>) => Doc;
+    willPrintOwnComments?: (path: AstPath<T>) => boolean;
+    printComment?: (commentPath: AstPath<T>, options: ParserOptions<T>) => Doc;
     handleComments?: {
         ownLine?: (
             commentNode: any,

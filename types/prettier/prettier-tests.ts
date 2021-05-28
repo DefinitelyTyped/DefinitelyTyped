@@ -128,8 +128,8 @@ const plugin: prettier.Plugin<PluginAST> = {
     printers: {
         lines: {
             print(path, options, print) {
-                path; // $ExpectType FastPath<PluginAST>
-                print; // $ExpectType (path: FastPath<PluginAST>) => Doc
+                path; // $ExpectType AstPath<PluginAST>
+                print; // $ExpectType (path: AstPath<PluginAST>) => Doc
 
                 const node = path.getValue();
                 node; // $ExpectType PluginAST
