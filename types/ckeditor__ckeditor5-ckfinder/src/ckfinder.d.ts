@@ -1,5 +1,5 @@
 import { Plugin } from "@ckeditor/ckeditor5-core";
-import { Link } from "@ckeditor/ckeditor5-link";
+import Link from "@ckeditor/ckeditor5-link/src/link";
 import CKFinderEditing from "./ckfinderediting";
 import CKFinderUI from "./ckfinderui";
 

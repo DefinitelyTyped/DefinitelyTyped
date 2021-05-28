@@ -1,16 +1,11 @@
 import { Editor } from "@ckeditor/ckeditor5-core";
-import {
-    SpecialCharacters,
-    SpecialCharactersLatin,
-    SpecialCharactersMathematical,
-    SpecialCharactersText,
-} from "@ckeditor/ckeditor5-special-characters";
+import SC from "@ckeditor/ckeditor5-special-characters";
 
 class MyEditor extends Editor {}
 
 let str = "";
 
-const specialCharacters = new SpecialCharacters(new MyEditor());
+const specialCharacters = new SC.SpecialCharacters(new MyEditor());
 specialCharacters.addItems(str, [{ title: "uppercase o", character: "O" }]);
 str = specialCharacters.getCharacter(str)!;
 const groups = specialCharacters.getGroups();
@@ -20,9 +15,9 @@ if (!next.done) {
 }
 specialCharacters.getCharactersForGroup(str)?.has(str);
 
-const specialCharactersText = new SpecialCharactersText(new MyEditor());
+const specialCharactersText = new SC.SpecialCharactersText(new MyEditor());
 specialCharactersText.init();
-const specialCharactersLatin = new SpecialCharactersLatin(new MyEditor());
+const specialCharactersLatin = new SC.SpecialCharactersLatin(new MyEditor());
 specialCharactersLatin.init();
-const specialCharactersMathematical = new SpecialCharactersMathematical(new MyEditor());
+const specialCharactersMathematical = new SC.SpecialCharactersMathematical(new MyEditor());
 specialCharactersMathematical.init();

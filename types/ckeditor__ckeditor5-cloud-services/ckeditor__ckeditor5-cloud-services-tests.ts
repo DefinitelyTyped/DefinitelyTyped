@@ -1,4 +1,4 @@
-import * as CloudServices from "@ckeditor/ckeditor5-cloud-services";
+import CloudServices from "@ckeditor/ckeditor5-cloud-services";
 import { Editor } from "@ckeditor/ckeditor5-core";
 import Token from "@ckeditor/ckeditor5-cloud-services/src/token/token";
 

@@ -1,10 +1,10 @@
-import { User, Users } from '@ckeditor/ckeditor5-collaboration-core';
+import Collaboration from '@ckeditor/ckeditor5-collaboration-core';
 
-let user = new User();
-user = new User({ id: 'foo', color: { foo: 'bar' } });
-user = new User({ id: 'foo', color: { foo: 'bar' }, name: 'John', avatar: '' });
+let user = new Collaboration.User();
+user = new Collaboration.User({ id: 'foo', color: { foo: 'bar' } });
+user = new Collaboration.User({ id: 'foo', color: { foo: 'bar' }, name: 'John', avatar: '' });
 
-const users = new Users();
+const users = new Collaboration.Users();
 users.addUser({ id: 'foo', color: { foo: 'bar' } });
 users.addUser({ id: 'foo', color: { foo: 'bar' }, name: 'John', avatar: '' });
 user = users.users.get(0)!;
