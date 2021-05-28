@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import mParticle from './index'
+
+import mParticle from './index';
 
 const instance = mParticle.getInstance('hi');
 
@@ -683,9 +684,19 @@ user5.setUserAttributes({
 user5.removeUserAttribute('attr');
 user5.setUserAttributeList('hi', ['hello']);
 user5.removeAllUserAttributes();
-const userAttributesList: mParticle.AllUserAttributesList =
+const userAttributesList: mParticle.AllUserAttributes =
     user5.getUserAttributesLists();
 const userAttributes = user5.getAllUserAttributes();
+const abc = 'abc';
+
+if (Array.isArray(userAttributes['hi'])) {
+    userAttributes['hi'].push('ok');
+} else if (typeof userAttributes['hi'] === 'number') {
+    userAttributes['hi'] += 1;
+} else if (typeof userAttributes['hi'] === 'string') {
+    userAttributes['hi'].slice();
+}
+
 const consent: mParticle.ConsentState = user5.getConsentState();
 user5.setConsentState(consent);
 const isLoggedIn: boolean = user5.isLoggedIn();

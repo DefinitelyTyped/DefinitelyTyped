@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import mParticle = require('@mparticle/web-sdk');
+
 const dataPlan: mParticle.DataPlanConfig = {
     planId: 'test',
     planVersion: 2,
@@ -47,14 +49,14 @@ const identifyRequest: mParticle.IdentifyRequest = {
     },
 };
 
-const identityCallback: mParticle.IdentityCallback = function (result) {
+const identityCallback: mParticle.IdentityCallback = (result) => {
     if (result.getUser()) {
-        //IDSync request succeeded, mutate attributes or query for the MPID as needed
+        // IDSync request succeeded, mutate attributes or query for the MPID as needed
         const user = result.getUser();
         return;
     }
     if (result.getPreviousUser()) {
-        //IDSync request succeeded, mutate attributes or query for the MPID as needed
+        // IDSync request succeeded, mutate attributes or query for the MPID as needed
         const user = result.getPreviousUser();
         return;
     }
@@ -81,9 +83,9 @@ const identityCallback: mParticle.IdentityCallback = function (result) {
 
 const config: mParticle.MPConfiguration = {
     isDevelopmentMode: true,
-    identifyRequest: identifyRequest,
-    identityCallback: identityCallback,
-    dataPlan: dataPlan,
+    identifyRequest: (identifyRequest),
+    identityCallback: (identityCallback),
+    dataPlan: (dataPlan),
     appVersion: '1.0.0',
     appName: 'testAppName',
     logLevel: 'warning',
@@ -682,9 +684,19 @@ user5.setUserAttributes({
 user5.removeUserAttribute('attr');
 user5.setUserAttributeList('hi', ['hello']);
 user5.removeAllUserAttributes();
-const userAttributesList: mParticle.AllUserAttributesList =
+const userAttributesList: mParticle.AllUserAttributes =
     user5.getUserAttributesLists();
 const userAttributes = user5.getAllUserAttributes();
+const abc = 'abc';
+
+if (Array.isArray(userAttributes['hi'])) {
+    userAttributes['hi'].push('ok');
+} else if (typeof userAttributes['hi'] === 'number') {
+    userAttributes['hi'] += 1;
+} else if (typeof userAttributes['hi'] === 'string') {
+    userAttributes['hi'].slice();
+}
+
 const consent: mParticle.ConsentState = user5.getConsentState();
 user5.setConsentState(consent);
 const isLoggedIn: boolean = user5.isLoggedIn();

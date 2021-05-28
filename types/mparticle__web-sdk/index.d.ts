@@ -1,13 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 // Type definitions for mParticle/web-sdk SDK 2.12
 // Project: https://github.com/mParticle/mparticle-web-sdk
 // Definitions by: Alex Sapountzis <https://github.com/asap>
 //                 Robert Ing <https://github.com/rmi22186>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.6
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 export as namespace mParticle;
-
+export {};
 export interface MPConfiguration {
     isDevelopmentMode?: boolean;
     identifyRequest?: IdentifyRequest;
@@ -108,6 +109,9 @@ interface LogPageView {
 }
 interface Ready {
     (callback: () => void): void;
+}
+interface Reset {
+    (): void;
 }
 interface SetAppName {
     (name: string): void;
@@ -314,7 +318,7 @@ export const ready: Ready;
 /**
  * @warning You should only use mParticle.reset if you absolutely know what you are doing.
  */
-export const reset: () => void;
+export const reset: Reset;
 export const setAppName: SetAppName;
 export const setAppVersion: SetAppVersion;
 export const setIntegrationAttribute: SetIntegrationAttribute;
@@ -508,7 +512,7 @@ export interface User {
     setUserAttributeList: (key: string, value: UserAttributesValue[]) => void;
     removeAllUserAttributes: () => void;
     getUserAttributesLists: () => Record<string, UserAttributesValue[]>;
-    getAllUserAttributes: () => AllUserAttributesList; // TODO
+    getAllUserAttributes: () => AllUserAttributes;
     /**
      * @deprecated Cart persistence in mParticle has been deprecated
      */
@@ -520,7 +524,10 @@ export interface User {
     getFirstSeenTime: () => number;
 }
 export type UserAttributesValue = string | number | boolean | null;
-export type AllUserAttributesList = Record<string, unknown[]>;
+export type AllUserAttributes = Record<
+    string,
+    UserAttributesValue | UserAttributesValue[]
+>;
 export interface UserIdentities {
     customerid?: string;
     email?: string;
@@ -667,7 +674,7 @@ export interface AliasUsersCallback {
     (result: { httpCode: number; message: string }): void;
 }
 
-class mParticleInstance {
+declare class mParticleInstance {
     constructor(instanceName?: string);
 
     endSession: EndSession;
@@ -686,7 +693,7 @@ class mParticleInstance {
     /**
      * @warning Calling mParticle.reset may have unintended consequences. This function is primarily used for tests. You should only use mParticle.reset if you absolutely know what you are doing.
      */
-    reset: () => void;
+    reset: Reset;
     setAppName: SetAppName;
     setAppVersion: SetAppVersion;
     setIntegrationAttribute: SetIntegrationAttribute;
