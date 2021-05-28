@@ -7,6 +7,7 @@ export namespace builders {
         | Align
         | BreakParent
         | Concat
+        | Cursor
         | Fill
         | Group
         | IfBreak
@@ -16,8 +17,7 @@ export namespace builders {
         | Line
         | LineSuffix
         | LineSuffixBoundary
-        | Trim
-        | Cursor;
+        | Trim;
     type Doc = string | Doc[] | DocCommand;
 
     interface Align {
@@ -30,11 +30,14 @@ export namespace builders {
         type: 'break-parent';
     }
 
-    /** @deprecated */
     interface Concat {
-        /** @deprecated */
         type: 'concat';
         parts: Doc[];
+    }
+
+    interface Cursor {
+        type: 'cursor';
+        placeholder: symbol;
     }
 
     interface Fill {
@@ -49,8 +52,8 @@ export namespace builders {
         expandedStates: Doc[];
     }
 
-    interface HardlineWithoutBreakParent {
-        type: 'hardline-without-break-parent';
+    interface HardlineWithoutBreakParent extends Line {
+        hard: true;
     }
 
     interface IfBreak {
@@ -88,17 +91,17 @@ export namespace builders {
         type: 'line-suffix-boundary';
     }
 
-    interface LiterallineWithoutBreakParent {
-        type: 'literalline-without-break-parent';
+    interface LiterallineWithoutBreakParent extends Line {
+        hard: true;
+        literal: true;
+    }
+
+    interface Softline extends Line {
+        soft: true;
     }
 
     interface Trim {
         type: 'trim';
-    }
-
-    interface Cursor {
-        type: 'cursor';
-        placeholder: symbol;
     }
 
     interface GroupOptions {
@@ -149,11 +152,11 @@ export namespace builders {
     /** @see [literalline](https://github.com/prettier/prettier/blob/main/commands.md#literalline) */
     const literalline: Concat;
     /** @see [literallineWithoutBreakParent](https://github.com/prettier/prettier/blob/main/commands.md#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) */
-    const literallineWithoutBreakParent: Line;
+    const literallineWithoutBreakParent: LiterallineWithoutBreakParent;
     /** @see [markAsRoot](https://github.com/prettier/prettier/blob/main/commands.md#markasroot) */
     function markAsRoot(doc: Doc): Align;
     /** @see [softline](https://github.com/prettier/prettier/blob/main/commands.md#softline) */
-    const softline: Line;
+    const softline: Softline;
     /** @see [trim](https://github.com/prettier/prettier/blob/main/commands.md#trim) */
     const trim: Trim;
     /** @see [cursor](https://github.com/prettier/prettier/blob/main/commands.md#cursor) */
@@ -195,17 +198,24 @@ export namespace printer {
 }
 
 export namespace utils {
+    function cleanDoc(...params: any[]): any;
+    function findInDoc(...params: any[]): any;
+    function getDocParts(...params: any[]): any;
+    function isConcat(...params: any[]): any;
     function isEmpty(doc: Doc): boolean;
     function isLineNext(doc: Doc): boolean;
-    function willBreak(doc: Doc): boolean;
+    function mapDoc<T>(doc: Doc, callback: (doc: Doc) => T): T;
+    function normalizeDoc(...params: any[]): any;
+    function normalizeParts(...params: any[]): any;
+    function propagateBreaks(doc: Doc): void;
+    function removeLines(doc: Doc): Doc;
+    function replaceNewlinesWithLiterallines(): any;
+    function stripTrailingHardline(doc: Doc): Doc;
     function traverseDoc(
         doc: Doc,
         onEnter?: (doc: Doc) => void | boolean,
         onExit?: (doc: Doc) => void,
         shouldTraverseConditionalGroups?: boolean,
     ): void;
-    function mapDoc<T>(doc: Doc, callback: (doc: Doc) => T): T;
-    function propagateBreaks(doc: Doc): void;
-    function removeLines(doc: Doc): Doc;
-    function stripTrailingHardline(doc: Doc): Doc;
+    function willBreak(doc: Doc): boolean;
 }

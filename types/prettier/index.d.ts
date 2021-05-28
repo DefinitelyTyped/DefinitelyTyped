@@ -471,14 +471,29 @@ export const version: string;
 
 // https://github.com/prettier/prettier/blob/main/src/common/util-shared.js
 export namespace util {
+    function addDanglingComment(node: any, commentNode: any): void;
+    function addLeadingComment(node: any, commentNode: any): void;
+    function addTrailingComment(node: any, commentNode: any): void;
+    function getAlignmentSize(...params: any[]): any;
+    function getIndentSize(...params: any[]): any;
+    function getMaxContinuousCount(...params: any[]): any;
+    function getNextNonSpaceNonCommentCharacterIndex(text: string, node: any, options: ParserOptions): number;
+    function getStringWidth(...params: any[]): any;
+    function hasNewline(...params: any[]): any;
+    function hasNewlineInRange(...params: any[]): any;
+    function hasSpaces(...params: any[]): any;
     function isNextLineEmpty(text: string, node: any, locEnd: (node: any) => number): boolean;
     function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
     function isPreviousLineEmpty(text: string, node: any, locStart: (node: any) => number): boolean;
-    function getNextNonSpaceNonCommentCharacterIndex(text: string, node: any, options: ParserOptions): number;
     function makeString(rawContent: string, enclosingQuote: "'" | '"', unescapeUnnecessaryEscapes: boolean): string;
-    function addLeadingComment(node: any, commentNode: any): void;
-    function addDanglingComment(node: any, commentNode: any): void;
-    function addTrailingComment(node: any, commentNode: any): void;
+    function skip(...params: any[]): any;
+    function skipEverythingButNewLine(...params: any[]): any;
+    function skipInlineComment(...params: any[]): any;
+    function skipNewline(...params: any[]): any;
+    function skipSpaces(...params: any[]): any;
+    function skipToLineEnd(...params: any[]): any;
+    function skipTrailingComment(...params: any[]): any;
+    function skipWhitespace(...params: any[]): any;
 }
 
 // https://github.com/prettier/prettier/blob/main/src/document/index.js
@@ -488,6 +503,7 @@ export namespace doc {
             | Align
             | BreakParent
             | Concat
+            | Cursor
             | Fill
             | Group
             | IfBreak
@@ -497,8 +513,7 @@ export namespace doc {
             | Line
             | LineSuffix
             | LineSuffixBoundary
-            | Trim
-            | Cursor;
+            | Trim;
         type Doc = string | Doc[] | DocCommand;
 
         interface Align {
@@ -511,11 +526,14 @@ export namespace doc {
             type: 'break-parent';
         }
 
-        /** @deprecated */
         interface Concat {
-            /** @deprecated */
             type: 'concat';
             parts: Doc[];
+        }
+
+        interface Cursor {
+            type: 'cursor';
+            placeholder: symbol;
         }
 
         interface Fill {
@@ -530,8 +548,8 @@ export namespace doc {
             expandedStates: Doc[];
         }
 
-        interface HardlineWithoutBreakParent {
-            type: 'hardline-without-break-parent';
+        interface HardlineWithoutBreakParent extends Line {
+            hard: true;
         }
 
         interface IfBreak {
@@ -569,17 +587,17 @@ export namespace doc {
             type: 'line-suffix-boundary';
         }
 
-        interface LiterallineWithoutBreakParent {
-            type: 'literalline-without-break-parent';
+        interface LiterallineWithoutBreakParent extends Line {
+            hard: true;
+            literal: true;
+        }
+
+        interface Softline extends Line {
+            soft: true;
         }
 
         interface Trim {
             type: 'trim';
-        }
-
-        interface Cursor {
-            type: 'cursor';
-            placeholder: symbol;
         }
 
         interface GroupOptions {
@@ -630,11 +648,11 @@ export namespace doc {
         /** @see [literalline](https://github.com/prettier/prettier/blob/main/commands.md#literalline) */
         const literalline: Concat;
         /** @see [literallineWithoutBreakParent](https://github.com/prettier/prettier/blob/main/commands.md#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) */
-        const literallineWithoutBreakParent: Line;
+        const literallineWithoutBreakParent: LiterallineWithoutBreakParent;
         /** @see [markAsRoot](https://github.com/prettier/prettier/blob/main/commands.md#markasroot) */
         function markAsRoot(doc: Doc): Align;
         /** @see [softline](https://github.com/prettier/prettier/blob/main/commands.md#softline) */
-        const softline: Line;
+        const softline: Softline;
         /** @see [trim](https://github.com/prettier/prettier/blob/main/commands.md#trim) */
         const trim: Trim;
         /** @see [cursor](https://github.com/prettier/prettier/blob/main/commands.md#cursor) */
@@ -673,18 +691,25 @@ export namespace doc {
         }
     }
     namespace utils {
+        function cleanDoc(...params: any[]): any;
+        function findInDoc(...params: any[]): any;
+        function getDocParts(...params: any[]): any;
+        function isConcat(...params: any[]): any;
         function isEmpty(doc: Doc): boolean;
         function isLineNext(doc: Doc): boolean;
-        function willBreak(doc: Doc): boolean;
+        function mapDoc<T>(doc: Doc, callback: (doc: Doc) => T): T;
+        function normalizeDoc(...params: any[]): any;
+        function normalizeParts(...params: any[]): any;
+        function propagateBreaks(doc: Doc): void;
+        function removeLines(doc: Doc): Doc;
+        function replaceNewlinesWithLiterallines(): any;
+        function stripTrailingHardline(doc: Doc): Doc;
         function traverseDoc(
             doc: Doc,
             onEnter?: (doc: Doc) => void | boolean,
             onExit?: (doc: Doc) => void,
             shouldTraverseConditionalGroups?: boolean,
         ): void;
-        function mapDoc<T>(doc: Doc, callback: (doc: Doc) => T): T;
-        function propagateBreaks(doc: Doc): void;
-        function removeLines(doc: Doc): Doc;
-        function stripTrailingHardline(doc: Doc): Doc;
+        function willBreak(doc: Doc): boolean;
     }
 }
