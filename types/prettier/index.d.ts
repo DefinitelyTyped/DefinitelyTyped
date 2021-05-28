@@ -484,7 +484,7 @@ export namespace util {
     function addDanglingComment(node: any, comment: any, marker: any): void;
     function addLeadingComment(node: any, comment: any): void;
     function addTrailingComment(node: any, comment: any): void;
-    function getAlignmentSize(value: string, tabWidth: number, startIndex?: number | undefined): number;
+    function getAlignmentSize(value: string, tabWidth: number, startIndex?: number): number;
     function getIndentSize(value: string, tabWidth: number): number;
     function getMaxContinuousCount(str: string, target: string): number;
     function getNextNonSpaceNonCommentCharacterIndex<N>(
@@ -493,9 +493,9 @@ export namespace util {
         locEnd: (node: N) => number,
     ): number | false;
     function getStringWidth(text: string): number;
-    function hasNewline(text: string, index: number, opts?: SkipOptions | undefined): boolean;
+    function hasNewline(text: string, index: number, opts?: SkipOptions): boolean;
     function hasNewlineInRange(text: string, start: number, end: number): boolean;
-    function hasSpaces(text: string, index: number, opts?: SkipOptions | undefined): boolean;
+    function hasSpaces(text: string, index: number, opts?: SkipOptions): boolean;
     function isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
     function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
     function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
@@ -503,7 +503,7 @@ export namespace util {
     function skip(chars: string | RegExp): (text: string, index: number | false, opts?: SkipOptions) => number | false;
     const skipEverythingButNewLine: (text: string, index: number | false, opts?: SkipOptions) => number | false;
     function skipInlineComment(text: string, index: number | false): number | false;
-    function skipNewline(text: string, index: number | false, opts?: SkipOptions | undefined): number | false;
+    function skipNewline(text: string, index: number | false, opts?: SkipOptions): number | false;
     const skipSpaces: (text: string, index: number | false, opts?: SkipOptions) => number | false;
     const skipToLineEnd: (text: string, index: number | false, opts?: SkipOptions) => number | false;
     function skipTrailingComment(text: string, index: number | false): number | false;
