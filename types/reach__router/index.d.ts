@@ -177,6 +177,6 @@ export function useLocation(): WindowLocation;
 
 export function useNavigate(): NavigateFn;
 
-export function useParams<TParams>(): TParams;
+export function useParams<TParams extends { [param: string]: string } = {}>(): TParams;
 
 export function useMatch(pathname: string): null | { uri: string; path: string; [param: string]: string };
