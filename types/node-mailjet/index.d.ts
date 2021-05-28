@@ -1,8 +1,10 @@
 // Type definitions for node-mailjet 3.3
 // Project: https://github.com/mailjet/mailjet-apiv3-nodejs
 // Definitions by: Nikola Andreev <https://github.com/Nikola-Andreev>
+//                Jordan Garvey <https://github.com/jordangarvey>
+
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 4.3
 
 export function connect(apiKey: string, apiSecret: string, options?: ConnectOptions): Email.Client;
 
@@ -36,7 +38,7 @@ export namespace Email {
 
     // resources
     interface PostResource {
-        id(value: string): PostResource;
+        id(value: number): PostResource;
 
         action(action: string): PostResource;
 
@@ -46,7 +48,7 @@ export namespace Email {
     }
 
     interface GetResource {
-        id(value: string): GetResource;
+        id(value: number): GetResource;
 
         action(action: string): GetResource;
 
@@ -54,7 +56,7 @@ export namespace Email {
     }
 
     interface PutResource {
-        id(value: string): PutResource;
+        id(value: number): PutResource;
 
         request(params: object, callback?: (error: Error, res: PutResponse) => void): Promise<PutResponse>;
     }
@@ -170,7 +172,7 @@ export namespace SMS {
 
     // resources
     interface GetResource {
-        id(value: string): GetResource;
+        id(value: number): GetResource;
 
         action(action: string): GetResourceAction;
 
@@ -186,7 +188,7 @@ export namespace SMS {
     }
 
     interface GetResourceAction {
-        id(value: string): GetResourceActionId;
+        id(value: number): GetResourceActionId;
 
         request(params?: GetParams): Promise<GetResponseAction>;
     }
