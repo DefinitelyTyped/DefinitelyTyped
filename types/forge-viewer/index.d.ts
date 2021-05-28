@@ -1656,7 +1656,8 @@ declare namespace Autodesk {
                     messageKey: string,
                     messageDefaultValue?: string,
                     buttonText?: string,
-                    checkboxChecked?: boolean
+                    checkboxChecked?: boolean,
+                    position?: string
                 }, closeCallback?: (event: any) => void, buttonCallback?: (event: any) => void, checkboxCallback?: (event: any) => void): void;
 
                 function dismiss(): boolean;
