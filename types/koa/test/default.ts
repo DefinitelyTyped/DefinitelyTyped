@@ -14,9 +14,7 @@ declare module 'koa' {
     }
 }
 
-const app = new Koa({
-    proxy: false
-});
+const app = new Koa();
 
 app.context.logger = {
     info: () => {},

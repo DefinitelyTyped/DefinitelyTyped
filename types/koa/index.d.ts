@@ -464,8 +464,8 @@ declare class Application<
      * @param {string[]} [options.keys] Signed cookie keys
      * @param {boolean} [options.proxy] Trust proxy headers
      * @param {number} [options.subdomainOffset] Subdomain offset
-     * @param {boolean} [options.proxyIpHeader] proxy ip header, default to X-Forwarded-For
-     * @param {boolean} [options.maxIpsCount] max ips read from proxy ip header, default to 0 (means infinity)
+     * @param {string} [options.proxyIpHeader] Proxy IP header, defaults to X-Forwarded-For
+     * @param {number} [options.maxIpsCount] Max IPs read from proxy IP header, default to 0 (means infinity)
      *
      */
     constructor(options?: {
@@ -473,8 +473,8 @@ declare class Application<
         keys?: string[],
         proxy?: boolean,
         subdomainOffset?: number,
-        proxyIpHeader?: boolean,
-        maxIpsCount?: boolean,
+        proxyIpHeader?: string,
+        maxIpsCount?: number
     });
 
     /**
