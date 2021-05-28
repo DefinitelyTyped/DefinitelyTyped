@@ -42,7 +42,7 @@ export class VizManager {
 }
 
 export class Viz {
-    constructor(parentElement: HTMLElement, url: string, options: Partial<VizCreateOptions>);
+    constructor(parentElement: HTMLElement, url: string, options: VizCreateOptions);
     // properties
     getAreTabsHidden(): boolean;
     getIsToolbarHidden(): boolean;
@@ -94,16 +94,16 @@ export class Viz {
 }
 
 export interface VizCreateOptions {
-    disableUrlActionsPopups: boolean;
-    hideTabs: boolean;
-    hideToolbar: boolean;
-    instanceIdToClone: string;
-    width: string;
-    height: string;
-    device: DeviceType;
-    onFirstInteractive: (event: TableauEvent) => void;
-    onFirstVizSizeKnown: (event: VizResizeEvent) => void;
-    toolbarPosition: ToolbarPosition;
+    disableUrlActionsPopups?: boolean;
+    hideTabs?: boolean;
+    hideToolbar?: boolean;
+    instanceIdToClone?: string;
+    width?: string;
+    height?: string;
+    device?: DeviceType;
+    onFirstInteractive?: (event: TableauEvent) => void;
+    onFirstVizSizeKnown?: (event: VizResizeEvent) => void;
+    toolbarPosition?: ToolbarPosition;
 }
 
 export class ToolbarState {

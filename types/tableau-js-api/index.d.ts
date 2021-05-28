@@ -1,4 +1,4 @@
-// Type definitions for Tableau Javascript API 2.8
+// Type definitions for non-npm package Tableau Javascript API 2.8
 // Project: https://github.com/tableau-developers/ts-types-tableau-js-api, https://help.tableau.com/current/api/js_api/en-us/JavaScriptAPI/js_api.htm
 // Definitions by: John Hegele <https://github.com/jhegele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,8 +9,8 @@
  * https://help.tableau.com/v2021.1/api/js_api/en-us/JavaScriptAPI/js_api_ref.htm
  *
  * Where possible, the structure of the type definition mirrors what is present
- * the documentation. The file structure also attempts to (largely) mirror the
- * structure of the documentation. The Viz Classes category is located in the
+ * in the documentation. The file structure also attempts to (largely) mirror the
+ * the structure of the documentation. The Viz Classes category is located in
  * viz.d.ts file and the Sheet Classes category is located in the sheet.d.ts
  * file, e.g.
  *
