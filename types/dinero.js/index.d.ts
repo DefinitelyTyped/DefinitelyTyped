@@ -274,5 +274,5 @@ declare namespace DineroFactory {
         'ZWL',
     ] as const;
 
-    type Currency = typeof Currencies[number]
+    type Currency = typeof Currencies[number];
 }
