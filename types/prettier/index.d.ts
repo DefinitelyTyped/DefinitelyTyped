@@ -501,13 +501,13 @@ export namespace util {
     function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
     function makeString(rawContent: string, enclosingQuote: Quote, unescapeUnnecessaryEscapes?: boolean): string;
     function skip(chars: string | RegExp): (text: string, index: number | false, opts?: SkipOptions) => number | false;
-    const skipEverythingButNewLine: (text: string, index: number | false, opts?: SkipOptions) => number | false;
+    function skipEverythingButNewLine(text: string, index: number | false, opts?: SkipOptions): number | false;
     function skipInlineComment(text: string, index: number | false): number | false;
     function skipNewline(text: string, index: number | false, opts?: SkipOptions): number | false;
-    const skipSpaces: (text: string, index: number | false, opts?: SkipOptions) => number | false;
-    const skipToLineEnd: (text: string, index: number | false, opts?: SkipOptions) => number | false;
+    function skipSpaces(text: string, index: number | false, opts?: SkipOptions): number | false;
+    function skipToLineEnd(text: string, index: number | false, opts?: SkipOptions): number | false;
     function skipTrailingComment(text: string, index: number | false): number | false;
-    const skipWhitespace: (text: string, index: number | false, opts?: SkipOptions) => number | false;
+    function skipWhitespace(text: string, index: number | false, opts?: SkipOptions): number | false;
 }
 
 // https://github.com/prettier/prettier/blob/main/src/document/index.js
