@@ -1,4 +1,3 @@
-doc.d.ts
 parser-angular.d.ts
 parser-angular.d.ts
 parser-babel.d.ts
