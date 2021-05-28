@@ -1,4 +1,4 @@
-// Type definitions for react-native-datawedge-intents 0.1.6
+// Type definitions for react-native-datawedge-intents 0.1
 // Project: https://github.com/darryncampbell/react-native-datawedge-intents#readme
 // Definitions by: DerZersaeger <https://github.com/DerZersaeger>
 //                 Frabanz <https://github.com/Frabanz>
