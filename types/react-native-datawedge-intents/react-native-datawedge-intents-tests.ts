@@ -34,5 +34,5 @@ function sendIntent(action: string, parameterValue: string) {
 registerReceiver('com.zebra.dwintents.ACTION', '');
 
 function registerReceiver(action: string, category: string) {
-DataWedgeIntents.registerReceiver(action, category);
+    DataWedgeIntents.registerReceiver(action, category);
 }
