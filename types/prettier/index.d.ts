@@ -34,6 +34,9 @@ export interface AstPath<T = any> {
     map<U>(callback: (path: this, index: number, value: any) => U, ...names: PropertyKey[]): U[];
 }
 
+/** @deprecated `FastPath` was renamed to `AstPath` */
+export type FastPath<T = any> = AstPath<T>;
+
 export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
     | 'angular'
