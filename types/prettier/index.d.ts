@@ -475,9 +475,9 @@ export const version: string;
 
 // https://github.com/prettier/prettier/blob/main/src/common/util-shared.js
 export namespace util {
-    type SkipOptions = {
+    interface SkipOptions {
         backwards?: boolean;
-    };
+    }
 
     type Quote = "'" | '"';
 
