@@ -20,9 +20,9 @@ declare namespace Gtag {
   }
 
   interface ConfigParams {
-    send_page_view?: boolean
+    send_page_view?: boolean;
   }
-    
+
   interface CustomParams {
     [key: string]: any;
   }
