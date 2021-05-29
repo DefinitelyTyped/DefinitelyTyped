@@ -103,7 +103,7 @@ export interface TailwindColorConfig {
 }
 
 export interface TailwindConfig {
-    readonly theme: Partial<{
+    theme: Partial<{
         readonly extend: Omit<TailwindConfig['theme'], 'extend'>
         readonly screens: {
             readonly sm: string;
@@ -938,7 +938,7 @@ export interface TailwindConfig {
             readonly auto: string;
         };
     }>;
-    readonly variants: Partial<{
+    variants: Partial<{
         readonly extend: Omit<TailwindConfig['variants'], 'extend'>
         readonly accessibility: Variant[];
         readonly alignContent: Variant[];
@@ -1059,7 +1059,7 @@ export interface TailwindConfig {
         readonly wordBreak: Variant[];
         readonly zIndex: Variant[];
     }>;
-    readonly corePlugins: [
+    corePlugins: [
         'preflight',
         'container',
         'space',
@@ -1180,12 +1180,12 @@ export interface TailwindConfig {
         'transitionDelay',
         'animation',
     ];
-    readonly plugins: any[];
-    readonly purge: any[];
-    readonly presets: any[];
+    plugins: any[];
+    purge: any[];
+    presets: any[];
     darkMode: false | 'media' | 'class';
-    readonly variantOrder: Variant[];
+    variantOrder: Variant[];
     prefix: string;
     important: boolean;
-    readonly separator: string;
+    separator: string;
 }
