@@ -255,8 +255,8 @@ export type StyledComponentInnerComponent<C extends React.ComponentType<any>> = 
     : C;
 export type StyledComponentPropsWithRef<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
-> = C extends AnyStyledComponent
-    ? React.ComponentPropsWithRef<StyledComponentInnerComponent<C>>
+> = C extends React.ComponentType<infer I>
+    ? React.ComponentPropsWithRef<StyledComponentInnerComponent<React.ComponentType<I>>>
     : React.ComponentPropsWithRef<C>;
 export type StyledComponentInnerOtherProps<C extends AnyStyledComponent> = C extends StyledComponent<
     any,
