@@ -90,7 +90,7 @@ import * as url from "url";
     wss.addListener("connection", (client, request) => {
         request.socket.remoteAddress;
 
-        // $ExpectError
+        // @ts-expect-error
         request.aborted === 10;
 
         client.terminate();
@@ -206,11 +206,11 @@ import * as url from "url";
 function f() {
     const ws = new WebSocket("ws://www.host.com/path");
 
-    // $ExpectError
+    // @ts-expect-error
     const a: 5 = ws.readyState;
 
     if (ws.readyState === ws.OPEN) {
-        // $ExpectError
+        // @ts-expect-error
         const a: 2 = ws.readyState;
         const x: 1 = ws.readyState;
         return;
