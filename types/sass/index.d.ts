@@ -1,4 +1,4 @@
-// Type definitions for sass 1.16
+// Type definitions for sass 1.34
 // Project: https://github.com/sass/dart-sass
 // Definitions by: Silas Rech <https://github.com/lenovouser>
 //                 Justin Leider <https://github.com/jleider>
