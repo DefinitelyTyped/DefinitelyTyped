@@ -2,6 +2,7 @@ import { AlignmentConfig } from '@ckeditor/ckeditor5-alignment/src/alignment';
 import { AutosaveConfig } from '@ckeditor/ckeditor5-autosave/src/autosave';
 import { CKFinderConfig } from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 import { CloudServicesConfig } from '@ckeditor/ckeditor5-cloud-services/src/cloudservices';
+import { CodeBlockConfig } from '@ckeditor/ckeditor5-code-block/src/codeblock';
 import { ExportPdfConfig } from '@ckeditor/ckeditor5-export-pdf/src/exportpdf';
 import { ExportWordConfig } from '@ckeditor/ckeditor5-export-word/src/exportword';
 import { HeadingConfig } from '@ckeditor/ckeditor5-heading/src/heading';
@@ -15,8 +16,6 @@ import { WordCountConfig } from '@ckeditor/ckeditor5-word-count/src/wordcount';
 import ContextPlugin from '../contextplugin';
 import Plugin, { PluginInterface } from '../plugin';
 
-// TODO: import {CodeBlockConfig} from "@ckeditor/ckeditor5-code-block/src/codeblock";
-type CodeBlockConfig = any;
 // TODO: import {RealTimeCollaborationConfig} from "@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativeediting";
 type RealTimeCollaborationConfig = any;
 // TODO: import {CommentsConfig} from "@ckeditor/ckeditor5-comments/src/comments";
