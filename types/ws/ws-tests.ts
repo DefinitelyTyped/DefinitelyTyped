@@ -90,7 +90,7 @@ import * as url from "url";
     wss.addListener("connection", (client, request) => {
         request.socket.remoteAddress;
 
-        // @ts-expect-error
+        // $ExpectError
         request.aborted === 10;
 
         client.terminate();
@@ -206,17 +206,17 @@ import * as url from "url";
 function f() {
     const ws = new WebSocket("ws://www.host.com/path");
 
-    // @ts-expect-error
+    // $ExpectError
     const a: 5 = ws.readyState;
 
-    // @ts-expect-error Because it's readonly
+    // $ExpectError
     ws.readyState = ws.OPEN;
 
-    // @ts-expect-error Because it's readonly
+    // $ExpectError
     ws.readyState = !ws.OPEN;
 
     if (ws.readyState === ws.OPEN) {
-        // @ts-expect-error
+        // $ExpectError
         const a: 2 = ws.readyState;
         const x: 1 = ws.readyState;
         return;
@@ -241,16 +241,16 @@ function f() {
 {
     const ws = new WebSocket("ws://www.host.com/path");
 
-    // @ts-expect-error Because it's readonly
+    // $ExpectError
     ws.CONNECTING = 123;
 
-    // @ts-expect-error Because it's readonly
+    // $ExpectError
     ws.OPEN = 123;
 
-    // @ts-expect-error Because it's readonly
+    // $ExpectError
     ws.CLOSING = 123;
 
-    // @ts-expect-error Because it's readonly
+    // $ExpectError
     ws.CLOSED = 123;
 }
 
@@ -261,11 +261,11 @@ function f() {
     ws.binaryType = "fragments";
     ws.binaryType = "nodebuffer";
 
-    // @ts-expect-error
+    // $ExpectError
     ws.binaryType = "";
-    // @ts-expect-error
+    // $ExpectError
     ws.binaryType = true;
-    // @ts-expect-error
+    // $ExpectError
     ws.binaryType = "invalid-value";
 }
 
@@ -279,18 +279,18 @@ function f() {
     // $ExpectType string
     ws.protocol;
 
-    // @ts-expect-error
+    // $ExpectError
     ws.bufferedAmount = 1;
-    // @ts-expect-error
+    // $ExpectError
     ws.bufferedAmount = true;
 
-    // @ts-expect-error
+    // $ExpectError
     ws.extensions = "a-value";
-    // @ts-expect-error
+    // $ExpectError
     ws.extensions = true;
 
-    // @ts-expect-error
+    // $ExpectError
     ws.protocol = "a-value";
-    // @ts-expect-error
+    // $ExpectError
     ws.protocol = true;
 }
