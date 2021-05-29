@@ -2595,3 +2595,9 @@ tailwindConfig.darkMode = "test-value";
 
 // $ExpectType boolean
 tailwindConfig.important;
+
+// $ExpectType string
+tailwindConfig.prefix;
+
+// @ts-expect-error
+tailwindConfig.prefix = 1000;
