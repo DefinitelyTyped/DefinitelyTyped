@@ -8,7 +8,6 @@
 //                 Bartosz Wojtkowiak <https://github.com/wojtkowiak>
 //                 Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
 
 /// <reference types="node" />
 
