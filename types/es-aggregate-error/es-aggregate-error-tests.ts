@@ -1,4 +1,4 @@
-import AggregateError from "es-aggregate-error";
+import AggregateError = require("es-aggregate-error");
 
 const oneError = new RangeError("hi!");
 const otherError = new EvalError("oops");
