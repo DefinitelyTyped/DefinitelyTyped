@@ -7,13 +7,7 @@
 
 import Document, { Props as DocumentProps, LoadingProcessData } from './dist/Document';
 import Outline, { Props as OutlineProps } from './dist/Outline';
-import Page, {
-    Props as PageProps,
-    PDFPageItem,
-    TextLayerItemInternal,
-    TextItem,
-    PDFPageProxy,
-} from './dist/Page';
+import Page, { Props as PageProps, PDFPageItem, TextLayerItemInternal, TextItem, PDFPageProxy } from './dist/Page';
 import pdfjs from './dist/pdfjs-dist';
 
 export {
