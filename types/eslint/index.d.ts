@@ -842,6 +842,7 @@ export namespace ESLint {
         // Cache-related
         cache?: boolean;
         cacheLocation?: string;
+        cacheStrategy?: "content" | "metadata";
     }
 
     interface LintResult {
