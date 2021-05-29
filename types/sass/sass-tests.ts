@@ -1,6 +1,8 @@
 import * as sass from 'sass';
+import Fiber = require("fibers");
 
 sass.renderSync({
+    fiber: Fiber,
     file: 'index.scss',
     sourceMap: true,
     outFile: 'index.css',

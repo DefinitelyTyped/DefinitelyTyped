@@ -6,12 +6,29 @@
 // TypeScript Version: 2.8
 
 /// <reference types="node" />
+import Fiber = require("fibers");
 
 export type ImporterReturnType = { file: string } | { contents: string } | Error | null;
 
 export type Importer = (url: string, prev: string, done: (data: ImporterReturnType) => void) => ImporterReturnType | void;
 
 export interface Options {
+    /**
+     * Reference to the `Fiber` class.
+     *
+     * When using Dart Sass, **renderSync() is more than twice as fast as
+     * render()**, due to the overhead of asynchronous callbacks. To avoid this
+     * performance hit, `render()` can use the [`fibers`](https://www.npmjs.com/package/fibers)
+     * package to call asynchronous importers from the synchronous code path.
+     * To enable this, pass the `Fiber` class to the `fiber` option.
+     *
+     * This option is allowed, but will have no effect, when using Node Sass or
+     * when using the `renderSync()` function.
+     *
+     * @default null
+     */
+    fiber?: typeof Fiber;
+
     /**
      * Path to a file to compile.
      *
