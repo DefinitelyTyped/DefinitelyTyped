@@ -1183,9 +1183,9 @@ export interface TailwindConfig {
     readonly plugins: any[];
     readonly purge: any[];
     readonly presets: any[];
-    readonly darkMode: false;
+    darkMode: false | 'media' | 'class';
     readonly variantOrder: Variant[];
     readonly prefix: string;
-    readonly important: false;
+    important: boolean;
     readonly separator: string;
 }
