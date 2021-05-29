@@ -17,7 +17,7 @@ new AggregateError([oneError, otherError]); // $ExpectType AggregateError
 // $ExpectType AggregateError
 const error = new AggregateError([oneError, otherError], 'this is two kinds of errors');
 
-AggregateError.shim; // $ExpectType () => void
+AggregateError.shim; // $ExpectType (() => void) & (() => typeof AggregateError)
 AggregateError.shim(); // $ExpectType: void
 
 error.errors; // $ExpectType: Array<unknown>
