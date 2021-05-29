@@ -6,7 +6,7 @@ import * as defaultTheme from 'tailwindcss/defaultTheme';
 
 import type { TailwindConfig } from 'tailwindcss/tailwind-config';
 
-import tailwindCss = require('tailwindcss');
+import tailwindCss from 'tailwindcss';
 
 // A typical TailwindCSS Config
 const configWithoutExtend: Omit<TailwindConfig, 'theme' | 'variants'> & {
