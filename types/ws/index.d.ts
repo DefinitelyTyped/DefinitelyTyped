@@ -331,10 +331,10 @@ declare namespace WebSocket {
         off(event: "close" | "listening", cb: (this: Server) => void): this;
         off(event: string | symbol, listener: (this: Server, ...args: any[]) => void): this;
 
-        addListener(event: 'connection', cb: (client: WebSocket, request: IncomingMessage) => void): this;
-        addListener(event: 'error', cb: (err: Error) => void): this;
-        addListener(event: 'headers', cb: (headers: string[], request: IncomingMessage) => void): this;
-        addListener(event: 'close' | 'listening', cb: () => void): this;
+        addListener(event: "connection", cb: (client: WebSocket, request: IncomingMessage) => void): this;
+        addListener(event: "error", cb: (err: Error) => void): this;
+        addListener(event: "headers", cb: (headers: string[], request: IncomingMessage) => void): this;
+        addListener(event: "close" | "listening", cb: () => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         removeListener(event: "connection", cb: (client: WebSocket) => void): this;
