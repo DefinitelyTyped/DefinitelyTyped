@@ -1,8 +1,4 @@
 import AggregateError = require('es-aggregate-error');
-import 'es-aggregate-error/auto';
-import 'es-aggregate-error/implementation';
-import 'es-aggregate-error/polyfill';
-import 'es-aggregate-error/shim';
 
 const oneError = new RangeError('hi!');
 const otherError = new EvalError('oops');
