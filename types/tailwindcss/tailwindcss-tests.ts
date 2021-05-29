@@ -2587,17 +2587,42 @@ tailwindConfig.presets;
 // $ExpectType false | "media" | "class"
 tailwindConfig.darkMode;
 
+tailwindConfig.darkMode = false;
+
 // @ts-expect-error
 tailwindConfig.darkMode = true;
 
 // @ts-expect-error
-tailwindConfig.darkMode = "test-value";
+tailwindConfig.darkMode = 'invalid-value';
 
-// $ExpectType boolean
-tailwindConfig.important;
+// $ExpectType Variant[]
+tailwindConfig.variantOrder;
+
+tailwindConfig.variantOrder = ['active', 'checked'];
+
+// @ts-expect-error
+tailwindConfig.variantOrder = false;
 
 // $ExpectType string
 tailwindConfig.prefix;
 
+tailwindConfig.prefix = 'tw-';
+
 // @ts-expect-error
 tailwindConfig.prefix = 1000;
+
+// $ExpectType boolean
+tailwindConfig.important;
+
+tailwindConfig.important = false;
+
+// @ts-expect-error
+tailwindConfig.important = 'false';
+
+// $ExpectType string
+tailwindConfig.separator;
+
+tailwindConfig.separator = '_';
+
+// @ts-expect-error
+tailwindConfig.separator = 1234;
