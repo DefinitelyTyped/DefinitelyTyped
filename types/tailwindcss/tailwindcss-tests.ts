@@ -2520,17 +2520,34 @@ const tailwindConfig = resolveConfig(config);
 tailwindCss(tailwindConfig);
 
 tailwindConfig.theme.height;
+
+// @ts-expect-error
 tailwindConfig.theme.colors.gray[100];
+
+// $ExpectType string | undefined
+tailwindConfig.theme.colors?.gray[100];
 
 // Examples from https://tailwindcss.com/docs/configuration#referencing-in-java-script
 
+// @ts-expect-error
 tailwindConfig.theme.width[4];
+
+// $ExpectType string | undefined
+tailwindConfig.theme.width?.[4];
 // => '1rem'
 
+// @ts-expect-error
 tailwindConfig.theme.screens.md;
+
+// $ExpectType string | undefined
+tailwindConfig.theme.screens?.md;
 // => '768px'
 
+// @ts-expect-error
 tailwindConfig.theme.boxShadow['2xl'];
+
+// $ExpectType string | undefined
+tailwindConfig.theme.boxShadow?.['2xl'];
 // => '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
 
 colors.red[500];
@@ -2551,4 +2568,30 @@ colors.blueGray[500];
 
 // @ts-expect-error
 defaultTheme.darkMode;
+
+// @ts-expect-error
 defaultTheme.colors.blue[800];
+
+// $ExpectType string | undefined
+defaultTheme.colors?.blue[800];
+
+// $ExpectType any[]
+tailwindConfig.plugins;
+
+// $ExpectType any[]
+tailwindConfig.purge;
+
+// $ExpectType any[]
+tailwindConfig.presets;
+
+// $ExpectType false | "media" | "class"
+tailwindConfig.darkMode;
+
+// @ts-expect-error
+tailwindConfig.darkMode = true;
+
+// @ts-expect-error
+tailwindConfig.darkMode = "test-value";
+
+// $ExpectType boolean
+tailwindConfig.important;
