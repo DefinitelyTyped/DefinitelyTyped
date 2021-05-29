@@ -1180,9 +1180,9 @@ export interface TailwindConfig {
         'transitionDelay',
         'animation',
     ];
-    readonly plugins: [];
-    readonly purge: [];
-    readonly presets: [];
+    readonly plugins: any[];
+    readonly purge: any[];
+    readonly presets: any[];
     readonly darkMode: false;
     readonly variantOrder: Variant[];
     readonly prefix: string;
