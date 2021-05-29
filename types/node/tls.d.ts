@@ -553,6 +553,9 @@ declare module 'tls' {
         prependOnceListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
     }
 
+    /**
+     * @deprecated since v0.11.3 Use `tls.TLSSocket` instead.
+     */
     interface SecurePair {
         encrypted: TLSSocket;
         cleartext: TLSSocket;

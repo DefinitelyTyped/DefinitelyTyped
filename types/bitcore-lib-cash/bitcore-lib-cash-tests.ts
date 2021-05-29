@@ -28,7 +28,14 @@ const tx = new bitcore.Transaction()
     .from(utxo)
     .change('bitcoinAddress')
     .addData(Buffer.from(''))
-    .sign('bitcoinAddressPrivateKey');
+    .sign('bitcoinAddressPrivateKey')
+    .sign('bitcoinAddressPrivateKey2',
+        bitcore.crypto.Signature.SIGHASH_ALL | bitcore.crypto.Signature.SIGHASH_FORKID
+    )
+    .sign('bitcoinAddressPrivateKey3',
+        null,
+        'schnorr'
+    );
 
 tx.verify();
 

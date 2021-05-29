@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Campaign Manager 360 API v3.4 3.4
+// Type definitions for non-npm package Campaign Manager 360 API v3.5 3.5
 // Project: https://developers.google.com/doubleclick-advertisers/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>

@@ -1,4 +1,4 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex } from 'stream';
+import { Readable, Writable, Transform, finished, pipeline, Duplex, addAbortSignal } from 'stream';
 import { promisify } from 'util';
 import { createReadStream, createWriteStream } from 'fs';
 import { createGzip, constants } from 'zlib';
@@ -25,7 +25,8 @@ function simplified_stream_ctor_test() {
             error;
             // $ExpectType (error: Error | null) => void
             cb;
-        }
+        },
+        signal: new AbortSignal(),
     });
 
     new Writable({
@@ -67,6 +68,7 @@ function simplified_stream_ctor_test() {
             cb;
         },
         defaultEncoding: 'utf8',
+        signal: new AbortSignal(),
     });
 
     new Duplex({
@@ -467,3 +469,5 @@ function stream_readable_pipe_test() {
     z.close();
     rs.close();
 }
+
+addAbortSignal(new AbortSignal(), new Readable());

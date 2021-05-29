@@ -78,6 +78,7 @@ import EventEmitter = require('events');
     const heapUsed: number = usage.heapUsed;
     const external: number = usage.external;
     const arrayBuffers: number = usage.arrayBuffers;
+    const rssFast: number = process.memoryUsage.rss();
 }
 {
     let strDict: NodeJS.Dict<string>;

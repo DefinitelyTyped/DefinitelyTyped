@@ -918,6 +918,8 @@ deviceEventEmitterStatic.addListener('keyboardWillShow', data => true, {});
 const androidEventEmitter = new NativeEventEmitter();
 const sub1 = androidEventEmitter.addListener('event', (event: object) => event);
 const sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
+androidEventEmitter.listenerCount('event'); // $ExpectType number
+sub2.remove();
 androidEventEmitter.removeAllListeners('event');
 androidEventEmitter.removeSubscription(sub1);
 
@@ -927,10 +929,12 @@ const nativeModule: NativeModule = {
     removeListeners(count: number) {},
 };
 const iosEventEmitter = new NativeEventEmitter(nativeModule);
-const sub3 = androidEventEmitter.addListener('event', (event: object) => event);
-const sub4 = androidEventEmitter.addListener('event', (event: object) => event, {});
-androidEventEmitter.removeAllListeners('event');
-androidEventEmitter.removeSubscription(sub3);
+const sub3 = iosEventEmitter.addListener('event', (event: object) => event);
+const sub4 = iosEventEmitter.addListener('event', (event: object) => event, {});
+iosEventEmitter.listenerCount('event');
+sub4.remove();
+iosEventEmitter.removeAllListeners('event');
+iosEventEmitter.removeSubscription(sub3);
 
 class CustomEventEmitter extends NativeEventEmitter {}
 

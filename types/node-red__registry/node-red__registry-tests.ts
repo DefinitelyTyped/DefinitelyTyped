@@ -85,6 +85,28 @@ function registryTests() {
                     topic: "topic"
                 });
 
+                // send messages to a subset of the outputs
+
+                send (
+                    [
+                        {
+                            payload: "payload",
+                            topic: "topic"
+                        },
+                        null
+                    ]
+                );
+
+                this.send (
+                    [
+                        {
+                            payload: "payload",
+                            topic: "topic"
+                        },
+                        null
+                    ]
+                );
+
                 done();
 
                 done(new Error('error'));

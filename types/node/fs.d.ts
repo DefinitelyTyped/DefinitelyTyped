@@ -1,6 +1,6 @@
 declare module 'fs' {
     import * as stream from 'stream';
-    import EventEmitter = require('events');
+    import { Abortable, EventEmitter } from 'events';
     import { URL } from 'url';
     import * as promises from 'fs/promises';
 
@@ -140,11 +140,6 @@ declare module 'fs' {
         prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         prependOnceListener(event: "error", listener: (error: Error) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
-    }
-
-    // TODO: Move this to a more central location
-    export interface Abortable {
-        signal?: AbortSignal;
     }
 
     export class ReadStream extends stream.Readable {
@@ -2067,15 +2062,10 @@ declare module 'fs' {
      */
     export function accessSync(path: PathLike, mode?: number): void;
 
-    /**
-     * Returns a new `ReadStream` object.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
-     */
-    export function createReadStream(path: PathLike, options?: string | {
+    interface StreamOptions {
         flags?: string;
         encoding?: BufferEncoding;
-        fd?: number;
+        fd?: number | promises.FileHandle;
         mode?: number;
         autoClose?: boolean;
         /**
@@ -2083,25 +2073,26 @@ declare module 'fs' {
          */
         emitClose?: boolean;
         start?: number;
-        end?: number;
         highWaterMark?: number;
-    }): ReadStream;
+    }
+
+    interface ReadStreamOptions extends StreamOptions {
+        end?: number;
+    }
+
+    /**
+     * Returns a new `ReadStream` object.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function createReadStream(path: PathLike, options?: string | ReadStreamOptions): ReadStream;
 
     /**
      * Returns a new `WriteStream` object.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    export function createWriteStream(path: PathLike, options?: string | {
-        flags?: string;
-        encoding?: BufferEncoding;
-        fd?: number;
-        mode?: number;
-        autoClose?: boolean;
-        emitClose?: boolean;
-        start?: number;
-        highWaterMark?: number;
-    }): WriteStream;
+    export function createWriteStream(path: PathLike, options?: string | StreamOptions): WriteStream;
 
     /**
      * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.

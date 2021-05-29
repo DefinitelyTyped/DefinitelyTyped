@@ -1,4 +1,4 @@
-import * as types from 'node:util/types';
+import * as types from 'util/types';
 
 const object: unknown = {};
 const readonlySetOrArray: ReadonlySet<any> | ReadonlyArray<any> = new Set();

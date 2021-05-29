@@ -1,7 +1,7 @@
 import EventInfo from "./eventinfo";
 import { PriorityString } from "./priorities";
 import { Emitter, EmitterMixinDelegateChain } from "./emittermixin";
-import * as engine from "@ckeditor/ckeditor5-engine";
+import DomEventData from "@ckeditor/ckeditor5-engine/src/view/observer/domeventdata";
 
 export interface CollectionBindTo<T, K> {
     as: (Class: { new (item: T): K }) => void;
@@ -228,28 +228,24 @@ export default class Collection<T> implements Iterable<T>, Emitter {
     [Symbol.iterator](): Iterator<T>;
 
     delegate(...events: string[]): EmitterMixinDelegateChain;
-    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority?: PriorityString | number },
     ): void;
-    off(event: string, callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void): void;
+    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ) => void;
     once(
         event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
-    stopListening(
-        emitter?: Emitter,
-        event?: string,
-        callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
-    ): void;
+    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
 }
