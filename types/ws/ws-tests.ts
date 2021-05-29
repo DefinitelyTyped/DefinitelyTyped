@@ -209,6 +209,12 @@ function f() {
     // @ts-expect-error
     const a: 5 = ws.readyState;
 
+    // @ts-expect-error Because it's readonly
+    ws.readyState = ws.OPEN;
+
+    // @ts-expect-error Because it's readonly
+    ws.readyState = !ws.OPEN;
+
     if (ws.readyState === ws.OPEN) {
         // @ts-expect-error
         const a: 2 = ws.readyState;
@@ -230,4 +236,61 @@ function f() {
 
     // $ExpectType never
     const x: never = ws.readyState;
+}
+
+{
+    const ws = new WebSocket("ws://www.host.com/path");
+
+    // @ts-expect-error Because it's readonly
+    ws.CONNECTING = 123;
+
+    // @ts-expect-error Because it's readonly
+    ws.OPEN = 123;
+
+    // @ts-expect-error Because it's readonly
+    ws.CLOSING = 123;
+
+    // @ts-expect-error Because it's readonly
+    ws.CLOSED = 123;
+}
+
+{
+    const ws = new WebSocket("ws://www.host.com/path");
+
+    ws.binaryType = "arraybuffer";
+    ws.binaryType = "fragments";
+    ws.binaryType = "nodebuffer";
+
+    // @ts-expect-error
+    ws.binaryType = "";
+    // @ts-expect-error
+    ws.binaryType = true;
+    // @ts-expect-error
+    ws.binaryType = "invalid-value";
+}
+
+{
+    const ws = new WebSocket("ws://www.host.com/path");
+
+    // $ExpectType number
+    ws.bufferedAmount;
+    // $ExpectType string
+    ws.extensions;
+    // $ExpectType string
+    ws.protocol;
+
+    // @ts-expect-error
+    ws.bufferedAmount = 1;
+    // @ts-expect-error
+    ws.bufferedAmount = true;
+
+    // @ts-expect-error
+    ws.extensions = "a-value";
+    // @ts-expect-error
+    ws.extensions = true;
+
+    // @ts-expect-error
+    ws.protocol = "a-value";
+    // @ts-expect-error
+    ws.protocol = true;
 }
