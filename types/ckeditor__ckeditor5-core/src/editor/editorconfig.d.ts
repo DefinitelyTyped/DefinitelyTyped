@@ -7,6 +7,7 @@ import { ExportWordConfig } from '@ckeditor/ckeditor5-export-word/src/exportword
 import { HeadingConfig } from '@ckeditor/ckeditor5-heading/src/heading';
 import { TitleConfig } from '@ckeditor/ckeditor5-heading/src/title';
 import { HighlightConfig } from '@ckeditor/ckeditor5-highlight/src/highlight';
+import { TextPartLanguageOption } from '@ckeditor/ckeditor5-language/src/textpartlanguage';
 import { LinkConfig } from '@ckeditor/ckeditor5-link/src/link';
 import { TrackChangesConfig } from '@ckeditor/ckeditor5-track-changes/src/trackchanges';
 import { TypingConfig } from '@ckeditor/ckeditor5-typing/src/typing';
@@ -47,8 +48,6 @@ type SidebarConfig = any;
 type SimpleUploadConfig = any;
 // TODO: import {TableConfig} from "@ckeditor/ckeditor5-table/src/table";
 type TableConfig = any;
-// TODO: import {TextPartLanguageOption} from "@ckeditor/ckeditor5-language/src/textpartlanguage";
-type TextPartLanguageOption = any;
 
 export interface EditorConfig {
     alignment?: AlignmentConfig;
