@@ -11,6 +11,7 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Ivan Sieder <https://github.com/ivansieder>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Adebayo Opesanya <https://github.com/OpesanyaAdebayo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -159,12 +160,12 @@ export function sign(
  * callback - Callback to get the encoded token on
  */
 export function sign(
-    payload: string | Buffer | object,
+    payload: string | Buffer | { [key: string]: any },
     secretOrPrivateKey: Secret,
     callback: SignCallback,
 ): void;
 export function sign(
-    payload: string | Buffer | object,
+    payload: string | Buffer | { [key: string]: any },
     secretOrPrivateKey: Secret,
     options: SignOptions,
     callback: SignCallback,
@@ -177,7 +178,7 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): object | string;
+export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): { [key: string]: any } | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
