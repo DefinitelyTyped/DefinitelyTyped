@@ -42,6 +42,9 @@ expect(element).toHaveDescription('some description');
 expect(element).toHaveDescription(/some description/);
 expect(element).toHaveDescription(expect.stringContaining('partial'));
 expect(element).toHaveDescription();
+expect(element).toHaveErrorMessage('Invalid time: the time must be between 9:00 AM and 5:00 PM');
+expect(element).toHaveErrorMessage(/invalid time/i);
+expect(element).toHaveErrorMessage(expect.stringContaining('Invalid time'));
 
 expect(element).not.toBeInTheDOM();
 expect(element).not.toBeInTheDOM(document.body);
@@ -83,3 +86,5 @@ expect(element).not.toBeChecked();
 expect(element).not.toHaveDescription('some description');
 expect(element).not.toHaveDescription();
 expect(element).not.toBePartiallyChecked();
+expect(element).not.toHaveErrorMessage();
+expect(element).not.toHaveErrorMessage('Pikachu!');
