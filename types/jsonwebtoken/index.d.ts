@@ -160,12 +160,12 @@ export function sign(
  * callback - Callback to get the encoded token on
  */
 export function sign(
-    payload: string | Buffer | { [key: string]: any },
+    payload: string | Buffer | { [key: string]: unknown },
     secretOrPrivateKey: Secret,
     callback: SignCallback,
 ): void;
 export function sign(
-    payload: string | Buffer | { [key: string]: any },
+    payload: string | Buffer | { [key: string]: unknown },
     secretOrPrivateKey: Secret,
     options: SignOptions,
     callback: SignCallback,
@@ -178,7 +178,7 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): { [key: string]: any } | string;
+export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): { [key: string]: unknown } | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
