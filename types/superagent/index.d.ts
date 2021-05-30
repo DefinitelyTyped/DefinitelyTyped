@@ -170,6 +170,7 @@ declare namespace request {
         set(field: object): this;
         set(field: string, val: string): this;
         set(field: "Cookie", val: string[]): this;
+        set(field: 'Authorization', val: string): this;
         timeout(ms: number | { deadline?: number; response?: number }): this;
         trustLocalhost(enabled?: boolean): this;
         type(val: string): this;
