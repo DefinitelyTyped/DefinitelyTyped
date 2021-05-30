@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "simple-markdown": "^0.7.3"
+    }
+}
