@@ -1,8 +1,8 @@
-import simpleIcons = require('simple-icons');
-import simpleicons = require('simple-icons/icons/simpleicons');
+import simpleicons = require('simple-icons');
+import dotnet = require('simple-icons/icons/dotnet');
 
 // fetch by name
-const icon = simpleIcons.get('Simple Icons'); // $ExpectType SimpleIcon
+const icon = simpleicons.Get('Simple Icons'); // $ExpectType SimpleIcon
 icon.title; // $ExpectType string
 icon.slug; // $ExpectType string
 icon.hex; // $ExpectType string
@@ -13,9 +13,10 @@ icon.guidelines; // $ExpectType string | undefined
 icon.license; // $ExpectType { type: string; url: string; } | undefined
 
 // iterate
-for (const title in simpleIcons) {
-    const icon = simpleIcons.get(title); // $ExpectType SimpleIcon
+for (const title in simpleicons) {
+    const icon = simpleicons.Get(title); // $ExpectType SimpleIcon
 }
 
 // direct import
-simpleicons; // $ExpectType SimpleIcon
+dotnet; // $ExpectType SimpleIcon
+simpleicons['dotnet']; // $ExpectType SimpleIcon

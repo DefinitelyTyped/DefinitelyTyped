@@ -1,4 +1,4 @@
-// Type definitions for simple-icons 4.17
+// Type definitions for simple-icons 5.0
 // Project: https://simpleicons.org
 // Definitions by: Eric Cornelissen <https://github.com/ericcornelissen>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -18,18 +18,17 @@ interface SimpleIcon {
     };
 }
 
-declare const icons: Record<string, SimpleIcon> & {
-    get(name: string): SimpleIcon;
-};
-
-declare const icon: SimpleIcon;
-
-// tslint:disable-next-line no-declare-current-package we cannot declare 1000+ exports
+// tslint:disable-next-line no-declare-current-package
 declare module 'simple-icons' {
+    const icons: Record<string, SimpleIcon> & {
+        Get(name: string): SimpleIcon;
+    };
+
     export = icons;
 }
 
-// tslint:disable-next-line no-declare-current-package we cannot declare 1000+ exports
+// tslint:disable-next-line no-declare-current-package
 declare module 'simple-icons/icons/*' {
+    const icon: SimpleIcon;
     export = icon;
 }
