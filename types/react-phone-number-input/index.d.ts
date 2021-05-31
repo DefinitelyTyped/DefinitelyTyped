@@ -183,9 +183,9 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * the user can fill in the rest of their phone number in the input field.
      */
     international?: boolean;
-    
-     /**
-     * If an initial value is passed, and initialValueFormat property is not set, then the initial value 
+
+    /**
+     * If an initial value is passed, and initialValueFormat property is not set, then the initial value
      * is formatted in international format.
      */
     initialValueFormat?: string;
