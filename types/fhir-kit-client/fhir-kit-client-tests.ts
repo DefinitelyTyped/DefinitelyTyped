@@ -17,6 +17,10 @@ client.customHeaders = {
     }
 };
 
+function isPatient(resource: fhir.Resource): resource is fhir.Patient {
+    return resource.resourceType === 'Patient';
+}
+
 export class OperationOutcomeError extends Error {
     readonly outcome: fhir.OperationOutcome;
 
@@ -26,7 +30,7 @@ export class OperationOutcomeError extends Error {
     }
 }
 
-function rejectOnOperationOutcome<ResultType extends fhir.ResourceBase>(promise: fhir.OperationOutcome | ResultType | Promise<fhir.OperationOutcome | ResultType>): Promise<ResultType> {
+function rejectOnOperationOutcome<ResultType extends fhir.Resource>(promise: fhir.OperationOutcome | ResultType | Promise<fhir.OperationOutcome | ResultType>): Promise<ResultType> {
     if (promise instanceof Promise) {
         return promise.then(result => {
             if ('issue' in result) {
@@ -50,6 +54,7 @@ headers["foo"] = "bar";
 client.create({
     resourceType: "Patient",
     body: {
+        resourceType: "Patient",
         name: [{
             text: "Jim Bean"
         }]
@@ -64,6 +69,7 @@ client.update({
     resourceType: "Basic",
     id: "abc122312341",
     body: {
+        resourceType: "Basic",
         code: {
             text: "Offer"
         },
@@ -81,6 +87,7 @@ client.update({
     resourceType: "QuestionnaireResponse",
     id: "1235",
     body: {
+        resourceType: "QuestionnaireResponse",
         status: "completed"
     }
 }).then(rejectOnOperationOutcome)
@@ -96,6 +103,7 @@ client.delete({
 
 client.batch({
     body: {
+        resourceType: "Bundle",
         type: "batch",
         total: 1234
     }
@@ -111,8 +119,10 @@ client.read({
     resourceType: "Patient",
     id: "1234"
 }).then(p => {
-    if (p.language === 'en') {
-        console.log('patient english');
+    if (isPatient(p)) {
+        if (p.language === 'en') {
+            console.log('patient english');
+        }
     }
 });
 
@@ -121,13 +131,16 @@ client.vread({
     id: "1234",
     version: "1"
 }).then(p => {
-    if (p.language === 'en') {
-        console.log('patient english');
+    if (isPatient(p)) {
+        if (p.language === 'en') {
+            console.log('patient english');
+        }
     }
 });
 
 client.transaction({
     body: {
+        resourceType: "Bundle",
         type: "transaction"
     }
 }).then(rejectOnOperationOutcome).then(r => {
@@ -139,6 +152,7 @@ client.transaction({
 client.resolve({
     reference: "#1234",
     context: {
+        resourceType: "Organization",
         contained: [ {
                 resourceType: "Patient",
                 id: "1235"
@@ -256,6 +270,7 @@ client.resourceHistory({
 
 client.prevPage({
     bundle: {
+        resourceType: "Bundle",
         type: "searchset"
     }
 }).then(() => {
@@ -263,6 +278,7 @@ client.prevPage({
 
 client.nextPage({
     bundle: {
+        resourceType: "Bundle",
         type: "searchset"
     }
 }).then(() => {
