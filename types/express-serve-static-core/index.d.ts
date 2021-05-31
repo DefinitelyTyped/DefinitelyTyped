@@ -96,17 +96,17 @@ export type RequestHandlerParams<
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
     | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
-type GetRouteParameter<T extends string> = T extends `${infer Char}${infer Rest}`
+type GetRouteParameter<RouteAfterColon extends string> = RouteAfterColon extends `${infer Char}${infer Rest}`
     ? Char extends '/' | '-' | '.'
         ? ''
         : `${Char}${GetRouteParameter<Rest>}`
-    : T;
+    : RouteAfterColon;
 
-export type RouteParameters<T extends string> = string extends T
+export type RouteParameters<Route extends string> = string extends Route
     ? ParamsDictionary
-    : T extends `${string}(${string}`
+    : Route extends `${string}(${string}`
         ? ParamsDictionary //TODO: handling for regex parameters
-        : T extends `${string}:${infer Rest}`
+        : Route extends `${string}:${infer Rest}`
             ? (
             GetRouteParameter<Rest> extends `${infer ParamName}?`
                 ? { [P in ParamName]?: string }
