@@ -17,7 +17,6 @@ export interface MeshMatcapMaterialParameters extends MaterialParameters {
     displacementScale?: number;
     displacementBias?: number;
     alphaMap?: Texture | null;
-    skinning?: boolean;
     morphTargets?: boolean;
     morphNormals?: boolean;
     flatShading?: boolean;
@@ -95,11 +94,6 @@ export class MeshMatcapMaterial extends Material {
      * @default null
      */
     alphaMap: Texture | null;
-
-    /**
-     * @default false
-     */
-    skinning: boolean;
 
     /**
      * @default false
