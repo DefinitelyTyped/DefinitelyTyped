@@ -31,6 +31,7 @@ sharp("input.png")
     .sharpen()
     .withMetadata()
     .withMetadata({
+        density: 96,
         orientation: 8,
         icc: "some/path",
         exif: { IFD0: { Copyright: "Wernham Hogg" } },
