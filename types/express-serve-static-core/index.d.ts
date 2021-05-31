@@ -29,6 +29,8 @@ import { EventEmitter } from 'events';
 import { Options as RangeParserOptions, Result as RangeParserResult, Ranges as RangeParserRanges } from 'range-parser';
 import { ParsedQs } from 'qs';
 
+export {}
+
 export type Query = ParsedQs;
 
 export interface NextFunction {
