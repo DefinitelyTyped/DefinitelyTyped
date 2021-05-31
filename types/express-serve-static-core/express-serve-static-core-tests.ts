@@ -114,7 +114,7 @@ app.get('/nextrouter', (req, res, next) => {
 
 // Next can receive a 'route' parameter to fall back to next route
 app.get('/nextroute', (req, res, next) => {
-  next('route'); // $ExpectType void
+    next('route'); // $ExpectType void
 });
 
 // Default types
