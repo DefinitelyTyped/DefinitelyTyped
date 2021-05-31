@@ -68,7 +68,7 @@ export interface AutocompleteProps<T> extends TextInputProps {
      * function
      * render custom TextInput. All props passed to this function.
      */
-    renderTextInput?(props: TextInput): ReactNode;
+    renderTextInput?(props: TextInputProps): ReactNode;
 
     /**
      * string | bool

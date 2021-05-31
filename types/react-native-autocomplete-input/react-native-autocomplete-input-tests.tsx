@@ -12,7 +12,7 @@ class AutocompleteExample extends React.Component {
     render() {
         const [value, setValue] = React.useState("")
         return (<Autocomplete
-            data={data}
+            data={data.filter(d => d.value.toLowerCase().includes(value.toLowerCase()))}
             value={value}
             flatListProps={{ keyExtractor: item => item.id, renderItem: ({ item }) => (
                 <TouchableOpacity onPress={() => setValue(item.value)}>
