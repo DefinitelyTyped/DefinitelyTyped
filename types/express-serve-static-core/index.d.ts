@@ -96,16 +96,21 @@ export type RequestHandlerParams<
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
     | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
-export type RouteParameterNames<Route extends string> =
-    string extends Route
-        ? string
-        : Route extends `${string}:${infer Param}/${infer Rest}`
-        ? (Param | RouteParameterNames<Rest>)
-        : (Route extends `${string}:${infer LastParam}` ? LastParam : never);
+type GetRouteParameter<T extends string> = T extends `${infer Char}${infer Rest}`
+    ? Char extends '/' | '-' | '.' | '('
+        ? ''
+        : `${Char}${GetRouteParameter<Rest>}`
+    : T;
 
-export type RouteParameters<T extends string> = {
-    [key in RouteParameterNames<T>]: string
-};
+export type RouteParameters<T extends string> = T extends `${string}:${infer Rest}`
+    ? (
+    GetRouteParameter<Rest> extends `${infer ParamName}?`
+        ? { [P in ParamName]?: string }
+        : { [P in GetRouteParameter<Rest>]: string }
+    ) & (Rest extends `${GetRouteParameter<Rest>}${infer Next}`
+    ? RouteParameters<Next>
+    : never)
+    : {  };
 
 export interface IRouterMatcher<
     T,
