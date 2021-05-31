@@ -1,4 +1,4 @@
-// Type definitions for react-native-autocomplete-input 5.0.0
+// Type definitions for react-native-autocomplete-input 5.0
 // Project: https://github.com/l-urence/react-native-autocomplete-input#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
@@ -75,7 +75,7 @@ export interface AutocompleteProps<T> extends TextInputProps {
      * Set `keyboardShouldPersistTaps` to true if RN version is <= 0.39.
      */
 
-    keyboardShouldPersistTaps?: 'always' | 'handeld' | 'never' | boolean
+    keyboardShouldPersistTaps?: 'always' | 'handeld' | 'never' | boolean;
 }
 
 export default class Autocomplete<T> extends Component<AutocompleteProps<T>> {}

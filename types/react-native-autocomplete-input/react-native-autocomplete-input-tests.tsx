@@ -6,11 +6,11 @@ import {
 } from 'react-native';
 
 interface Item { id: string; value: string; }
-const data:Item[] = [{id:"0",value:"test"}, {id:"1",value:"value"}, {id:"2",value:"prop"}];
+const data: Item[] = [{ id: "0", value: "test" }, { id: "1", value: "value" }, { id: "2", value: "prop" }];
 
 class AutocompleteExample extends React.Component {
     render() {
-        const [value, setValue] = React.useState("")
+        const [value, setValue] = React.useState("");
         return (<Autocomplete
             data={data.filter(d => d.value.toLowerCase().includes(value.toLowerCase()))}
             value={value}
