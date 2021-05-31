@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "importable-fonts.d.ts",
         "figlet-tests.ts"
     ]
 }

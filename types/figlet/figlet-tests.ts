@@ -127,3 +127,6 @@ figlet.textSync("test2", { whitespaceBreak: true });
 figlet.textSync("test3", { whitespaceBreak: false, width: 100 });
 // $ExpectType string
 figlet.textSync("test3", { width: 69 });
+
+import fontFile from 'figlet/importable-fonts/Standard.js';
+fontFile; // $ExceptType string
