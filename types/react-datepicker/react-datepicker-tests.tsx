@@ -94,6 +94,7 @@ const defaultLocale = getDefaultLocale();
     readOnly
     ref={handleRef}
     renderCustomHeader={({
+        monthDate,
         date,
         changeYear,
         changeMonth,

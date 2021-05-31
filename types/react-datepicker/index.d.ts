@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 3.1
+// Type definitions for react-datepicker 4.1
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -126,6 +126,7 @@ export interface ReactDatePickerProps {
     previousYearButtonLabel?: string;
     readOnly?: boolean;
     renderCustomHeader?(params: {
+        monthDate: Date;
         date: Date;
         changeYear(year: number): void;
         changeMonth(month: number): void;
