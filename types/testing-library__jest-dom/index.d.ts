@@ -531,7 +531,7 @@ declare namespace jest {
          *
          * Use the `aria-errormessage` attribute to reference another element that contains
          * custom error message text. Multiple ids is **NOT** allowed. Authors MUST use
-         * `aria-invalid` in conjunction with `aria-errormessage`. Leran more from
+         * `aria-invalid` in conjunction with `aria-errormessage`. Learn more from the
          * [`aria-errormessage` spec](https://www.w3.org/TR/wai-aria/#aria-errormessage).
          *
          * Whitespace is normalized.
