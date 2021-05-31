@@ -5,31 +5,21 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-interface Item { query: string; value: string; }
+interface Item { id: string; value: string; }
+const data:Item[] = [{id:"0",value:"test"}, {id:"1",value:"value"}, {id:"2",value:"prop"}];
 
-class AutocompleteExample extends React.Component<{}, {query: string}> {
-    state = {
-        query: ''
-    };
-
-    filterData(query: string): Item[] {
-        return [{query: '', value: 'here i am'}];
-    }
-
+class AutocompleteExample extends React.Component {
     render() {
-        const { query } = this.state;
-        const data = this.filterData(query);
+        const [value, setValue] = React.useState("")
         return (<Autocomplete
             data={data}
-            defaultValue={query}
-            flatListProps={{ onScroll: () => {} }}
-            keyExtractor={item => item.value}
-            onChangeText={text => this.setState({ query: text })}
-            renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => this.setState({ query: item.query })}>
+            value={value}
+            flatListProps={{ keyExtractor: item => item.id, renderItem: ({ item }) => (
+                <TouchableOpacity onPress={() => setValue(item.value)}>
                     <Text>{item.value}</Text>
                 </TouchableOpacity>
-            )}
+            ) }}
+            onChangeText={setValue}
         />);
     }
 }
