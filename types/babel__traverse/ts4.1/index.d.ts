@@ -224,7 +224,7 @@ export class NodePath<T = Node> {
     state: any;
     opts: object;
     skipKeys: object;
-    parentPath: NodePath;
+    parentPath: T extends t.Program ? null : NodePath;
     context: TraversalContext;
     container: object | object[];
     listKey: string;
