@@ -2521,7 +2521,7 @@ tailwindCss(tailwindConfig);
 
 tailwindConfig.theme.height;
 
-// @ts-expect-error
+// @ts-expect-error `colors` is possibly undefined
 tailwindConfig.theme.colors.gray[100];
 
 // $ExpectType string | undefined
@@ -2529,21 +2529,21 @@ tailwindConfig.theme.colors?.gray[100];
 
 // Examples from https://tailwindcss.com/docs/configuration#referencing-in-java-script
 
-// @ts-expect-error
+// @ts-expect-error `width` is possibly undefined
 tailwindConfig.theme.width[4];
 
 // $ExpectType string | undefined
 tailwindConfig.theme.width?.[4];
 // => '1rem'
 
-// @ts-expect-error
+// @ts-expect-error `screens` is possibly undefined
 tailwindConfig.theme.screens.md;
 
 // $ExpectType string | undefined
 tailwindConfig.theme.screens?.md;
 // => '768px'
 
-// @ts-expect-error
+// @ts-expect-error `boxShadow` is possibly undefined
 tailwindConfig.theme.boxShadow['2xl'];
 
 // $ExpectType string | undefined
@@ -2566,10 +2566,10 @@ colors.trueGray[500];
 colors.coolGray[500];
 colors.blueGray[500];
 
-// @ts-expect-error
+// @ts-expect-error `darkMode` isn't a property of `theme`
 defaultTheme.darkMode;
 
-// @ts-expect-error
+// @ts-expect-error `colors` is possibly undefined
 defaultTheme.colors.blue[800];
 
 // $ExpectType string | undefined
@@ -2589,10 +2589,10 @@ tailwindConfig.darkMode;
 
 tailwindConfig.darkMode = false;
 
-// @ts-expect-error
+// @ts-expect-error cannot assign `true`. `darkMode` isn't boolean
 tailwindConfig.darkMode = true;
 
-// @ts-expect-error
+// @ts-expect-error accepts only specific values
 tailwindConfig.darkMode = 'invalid-value';
 
 // $ExpectType Variant[]
@@ -2600,7 +2600,7 @@ tailwindConfig.variantOrder;
 
 tailwindConfig.variantOrder = ['active', 'checked'];
 
-// @ts-expect-error
+// @ts-expect-error value should be an array of Variant
 tailwindConfig.variantOrder = false;
 
 // $ExpectType string
@@ -2608,7 +2608,7 @@ tailwindConfig.prefix;
 
 tailwindConfig.prefix = 'tw-';
 
-// @ts-expect-error
+// @ts-expect-error value should be string
 tailwindConfig.prefix = 1000;
 
 // $ExpectType boolean
@@ -2616,7 +2616,7 @@ tailwindConfig.important;
 
 tailwindConfig.important = false;
 
-// @ts-expect-error
+// @ts-expect-error should be boolean
 tailwindConfig.important = 'false';
 
 // $ExpectType string
@@ -2624,5 +2624,5 @@ tailwindConfig.separator;
 
 tailwindConfig.separator = '_';
 
-// @ts-expect-error
+// @ts-expect-error should be string
 tailwindConfig.separator = 1234;
