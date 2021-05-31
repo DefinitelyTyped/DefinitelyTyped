@@ -102,17 +102,19 @@ type GetRouteParameter<T extends string> = T extends `${infer Char}${infer Rest}
         : `${Char}${GetRouteParameter<Rest>}`
     : T;
 
-export type RouteParameters<T extends string> = T extends `${string}(${string}`
-    ? ParamsDictionary //TODO: handling for regex parameters
-    : T extends `${string}:${infer Rest}`
-        ? (
-        GetRouteParameter<Rest> extends `${infer ParamName}?`
-            ? { [P in ParamName]?: string }
-            : { [P in GetRouteParameter<Rest>]: string }
-        ) & (Rest extends `${GetRouteParameter<Rest>}${infer Next}`
-        ? RouteParameters<Next>
-        : never)
-        : {};
+export type RouteParameters<T extends string> = string extends T
+    ? ParamsDictionary
+    : T extends `${string}(${string}`
+        ? ParamsDictionary //TODO: handling for regex parameters
+        : T extends `${string}:${infer Rest}`
+            ? (
+            GetRouteParameter<Rest> extends `${infer ParamName}?`
+                ? { [P in ParamName]?: string }
+                : { [P in GetRouteParameter<Rest>]: string }
+            ) & (Rest extends `${GetRouteParameter<Rest>}${infer Next}`
+            ? RouteParameters<Next>
+            : never)
+            : {};
 
 export interface IRouterMatcher<
     T,
