@@ -1,4 +1,4 @@
-import sassVars from "get-sass-vars";
+import sassVars = require("get-sass-vars");
 
 (async () => {
     // $ExpectType Record<string, unknown>

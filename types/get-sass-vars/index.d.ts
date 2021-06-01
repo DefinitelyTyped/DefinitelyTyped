@@ -4,8 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { Options } from "sass";
 
-declare namespace sassVars
-{
+declare namespace sassVars {
     /**
      * Provides options for the `get-sass-vars`-module.
      */
@@ -16,7 +15,7 @@ declare namespace sassVars
          * If enabled, the leading `$` will be removed and variable-names will be camelized (e.g. $foo-bar will become fooBar).
          */
         camelize?: boolean;
-    
+
         /**
          * The options to pass to `sass`.
          */
