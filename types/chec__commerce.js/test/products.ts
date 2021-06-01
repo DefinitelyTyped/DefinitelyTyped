@@ -27,8 +27,8 @@ commerce.products.retrieve(productId);
 // $ExpectType Promise<Product>
 commerce.products.retrieve(productPermalink, { type: 'permalink' });
 
-// $ExpectType Promise<VariantOptionCollection>
+// $ExpectType Promise<VariantCollection>
 commerce.products.getVariants(productId);
 
-// $ExpectType Promise<VariantOption>
+// $ExpectType Promise<Variant>
 commerce.products.getVariant(productId, variantId);

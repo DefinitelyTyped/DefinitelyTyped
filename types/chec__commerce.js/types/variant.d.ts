@@ -1,7 +1,7 @@
 import { Asset } from './asset';
 import { Price } from './price';
 
-export interface VariantOption {
+export interface Variant {
   id: string;
   sku: string | null;
   description: string | null;
