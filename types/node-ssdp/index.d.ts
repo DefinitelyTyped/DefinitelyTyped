@@ -131,7 +131,7 @@ export class Client extends Base {
      * Close UDP socket.
      */
     stop(): void;
-    search(serviceType: string): void | Promise<void>;
+    search(serviceType: string): void;
 
     on(event: 'response', listener: (headers: SsdpHeaders, statusCode: number, rinfo: dgram.RemoteInfo) => void): this;
     once(event: 'response', listener: (headers: SsdpHeaders, statusCode: number, rinfo: dgram.RemoteInfo) => void): this;
