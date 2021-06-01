@@ -472,7 +472,7 @@ export namespace eCommerce {
     const logPurchase: LogPurchase;
     /**
      *
-     * @deprecated Please use amplitude.getInstance().init(apiKey, opt_userId, opt_config, opt_callback);
+     * @deprecated logRefund has been deprecated
      */
     const logRefund: LogRefund;
     const setCurrencyCode: SetCurrencyCode;
@@ -500,7 +500,7 @@ export interface User {
     getAllUserAttributes: () => AllUserAttributes;
     /**
      *
-     * @deprecated Please use amplitude.getInstance().init(apiKey, opt_userId, opt_config, opt_callback);
+     * @deprecated Cart persistence in mParticle has been deprecated
      */
     getCart: () => Cart;
     getConsentState: () => ConsentState;
@@ -541,17 +541,17 @@ export interface UserIdentities {
 interface Cart {
     /**
      *
-     * @deprecated Please use amplitude.getInstance().init(apiKey, opt_userId, opt_config, opt_callback);
+     * @deprecated Cart persistence in mParticle has been deprecated. Please use mParticle.eCommerce.logProductAction(mParticle.ProductActionType.AddToCart, [products])
      */
     add: (product: Product, logEventBoolean?: boolean) => void;
     /**
      *
-     * @deprecated Please use amplitude.getInstance().init(apiKey, opt_userId, opt_config, opt_callback);
+     * @deprecated Cart persistence in mParticle has been deprecated. Please use mParticle.eCommerce.logProductAction(mParticle.ProductActionType.RemoveFromCart, [products])
      */
     remove: (product: Product, logEventBoolean?: boolean) => void;
     /**
      *
-     * @deprecated Please use amplitude.getInstance().init(apiKey, opt_userId, opt_config, opt_callback);
+     * @deprecated Cart persistence in mParticle has been deprecated.
      */
     clear: () => void;
 }
