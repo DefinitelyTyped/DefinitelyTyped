@@ -38,6 +38,7 @@ export interface NumberInputProps extends Omit<ReactInputAttr, ExcludedInputProp
     ariaLabel?: string,
     helperText?: React.ReactNode,
     hideLabel?: boolean,
+    hideSteppers?: boolean;
     iconDescription?: string,
     id: string,
     invalid?: boolean,
