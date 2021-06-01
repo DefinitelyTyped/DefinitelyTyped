@@ -25,7 +25,7 @@ export class Model<T> extends Item<T> implements Model<T> {
 
 export interface Model<T> {
     new (attrs: T): Model<T>;
-    attrs: Model<T>;
+    attrs: T;
     table: any;
     get(hashKey: string, rangeKey: string, options: object, callback: Callback<Model<T>>): void;
     get(data: object | string, options: object | string, callback: Callback<Model<T>>): void;
@@ -35,15 +35,18 @@ export interface Model<T> {
     update(item: any, options: Model.OperationOptions, callback: Callback<Model<T>>): void;
     update(item: any, callback: Callback<Model<T>>): void;
     update(item: any, options?: Model.OperationOptions): Promise<Model<T>>;
-    create(doc: any, params: Model.OperationOptions, callback: Callback<Model<T>>): void;
-    create(doc: any, callback: Callback<Model<T>>): void;
-    create(doc: any, params?: Model.OperationOptions): Promise<Model<T>>;
-    destroy(hashKey: string, rangeKey: string, options: Model.OperationOptions, callback: Callback<Model<T>>): void;
-    destroy(hashKey: string, rangeKey: string, callback: Callback<Model<T>>): void;
-    destroy(data: { [key: string]: any } | string, options: Model.OperationOptions, callback: Callback<Model<T>>): void;
-    destroy(data: { [key: string]: any } | string, callback: Callback<Model<T>>): void;
-    destroy(hashKey: string, rangeKey: string, options: Model.OperationOptions): Promise<Model<T>>;
-    destroy(hashKey: string, options?: Model.OperationOptions | string): Promise<Model<T>>;
+    create(doc: T, params: Model.OperationOptions, callback: Callback<Model<T>>): void;
+    create(doc: T, callback: Callback<Model<T>>): void;
+    create(doc: T, params?: Model.OperationOptions): Promise<Model<T>>;
+    create(doc: ReadonlyArray<T>, params: Model.OperationOptions, callback: Callback<Array<Model<T>>>): void;
+    create(doc: ReadonlyArray<T>, callback: Callback<Array<Model<T>>>): void;
+    create(doc: ReadonlyArray<T>, params?: Model.OperationOptions): Promise<Array<Model<T>>>;
+    destroy(hashKey: string, rangeKey: string, options: Model.OperationOptions, callback: Callback<any>): void;
+    destroy(hashKey: string, rangeKey: string, callback: Callback<any>): void;
+    destroy(data: { [key: string]: any } | string, options: Model.OperationOptions, callback: Callback<any>): void;
+    destroy(data: { [key: string]: any } | string, callback: Callback<any>): void;
+    destroy(hashKey: string, rangeKey: string, options: Model.OperationOptions): Promise<any>;
+    destroy(hashKey: string, options?: Model.OperationOptions | string): Promise<any>;
     getItems(keys: ReadonlyArray<any>, options: any, callback: Callback<Array<Model<T>>>): void;
     getItems(keys: ReadonlyArray<any>, callback: Callback<Array<Model<T>>>): void;
     getItems(keys: ReadonlyArray<any>, options?: any): Promise<Array<Model<T>>>;

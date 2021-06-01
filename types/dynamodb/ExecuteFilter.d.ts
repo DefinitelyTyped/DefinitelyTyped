@@ -3,7 +3,8 @@ import { Readable } from 'stream';
 import { Callback } from './Callback';
 
 export interface PromisedReadable<T> extends Readable {
-    promise(): Promise<T>;
+    // DevNote: Promise function in dynamodb wraps results in an array
+    promise(): Promise<Array<T>>;
 }
 
 export interface ExecuteFilter<T> {

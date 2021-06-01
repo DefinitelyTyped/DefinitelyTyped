@@ -32,7 +32,7 @@ export interface Scan<T> {
     lt: (...args: any[]) => Scan<T>;
     gte: (...args: any[]) => Scan<T>;
     gt: (...args: any[]) => Scan<T>;
-    exec: ExecuteFilter<Array<Page<T>>>;
+    exec: ExecuteFilter<Page<T>>;
     buildRequest(): any;
 }
 

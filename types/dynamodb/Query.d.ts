@@ -29,7 +29,7 @@ export interface Query<T> {
     contains(name: string): Query<T>;
     notContains(name: string): Query<T>;
     filter(keyName: string): Query<T>;
-    exec: ExecuteFilter<Array<Page<T>>>;
+    exec: ExecuteFilter<Page<T>>;
     buildKey(): string;
     buildRequest(): any;
     equals: (...args: any[]) => Query<T>;
