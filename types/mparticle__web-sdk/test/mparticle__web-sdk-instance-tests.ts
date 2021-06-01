@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import mParticle from './index';
+import mParticle = require('@mparticle/web-sdk');
 
 const instance = mParticle.getInstance('hi');
 
@@ -51,14 +51,14 @@ const identifyRequest: mParticle.IdentifyRequest = {
     },
 };
 
-const identityCallback: mParticle.IdentityCallback = function (result) {
+const identityCallback: mParticle.IdentityCallback = (result) => {
     if (result.getUser()) {
-        //IDSync request succeeded, mutate attributes or query for the MPID as needed
+        // IDSync request succeeded, mutate attributes or query for the MPID as needed
         const user = result.getUser();
         return;
     }
     if (result.getPreviousUser()) {
-        //IDSync request succeeded, mutate attributes or query for the MPID as needed
+        // IDSync request succeeded, mutate attributes or query for the MPID as needed
         const user = result.getPreviousUser();
         return;
     }
@@ -85,9 +85,9 @@ const identityCallback: mParticle.IdentityCallback = function (result) {
 
 const config: mParticle.MPConfiguration = {
     isDevelopmentMode: true,
-    identifyRequest: identifyRequest,
-    identityCallback: identityCallback,
-    dataPlan: dataPlan,
+    identifyRequest: (identifyRequest),
+    identityCallback: (identityCallback),
+    dataPlan: (dataPlan),
     appVersion: '1.0.0',
     appName: 'testAppName',
     logLevel: 'warning',

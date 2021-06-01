@@ -19,7 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "mparticle__web-sdk-tests.ts",
-        "mparticle__web-sdk-instance-tests.ts"
+        "test/mparticle__web-sdk-tests.ts",
+        "test/mparticle__web-sdk-instance-tests.ts"
     ]
 }
