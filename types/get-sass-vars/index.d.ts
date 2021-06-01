@@ -4,21 +4,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { Options } from "sass";
 
-/**
- * Provides options for the `get-sass-vars`-module.
- */
-export interface SassVarsOptions {
+declare namespace sassVars
+{
     /**
-     * A value indicating whether first-level object-keys in the resulting object should be camelized.
-     *
-     * If enabled, the leading `$` will be removed and variable-names will be camelized (e.g. $foo-bar will become fooBar).
+     * Provides options for the `get-sass-vars`-module.
      */
-    camelize?: boolean;
-
-    /**
-     * The options to pass to `sass`.
-     */
-    sassOptions?: Options;
+    interface SassVarsOptions {
+        /**
+         * A value indicating whether first-level object-keys in the resulting object should be camelized.
+         *
+         * If enabled, the leading `$` will be removed and variable-names will be camelized (e.g. $foo-bar will become fooBar).
+         */
+        camelize?: boolean;
+    
+        /**
+         * The options to pass to `sass`.
+         */
+        sassOptions?: Options;
+    }
 }
 
 /**
@@ -30,4 +33,6 @@ export interface SassVarsOptions {
  * @param options
  * The options for resolving the variables.
  */
-export default function sassVars(data: string, options?: SassVarsOptions): Promise<Record<string, unknown>>;
+declare function sassVars(data: string, options?: sassVars.SassVarsOptions): Promise<Record<string, unknown>>;
+
+export = sassVars;
