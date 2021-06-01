@@ -32,7 +32,7 @@ declare namespace IWshRuntimeLibrary {
     const enum IconType {
         Stop = 16,
         QuestionMark = 32,
-        ExclamationMakr = 48,
+        ExclamationMark = 48,
         InformationMark = 64,
     }
 

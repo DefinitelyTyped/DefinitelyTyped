@@ -1,5 +1,12 @@
 import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from 'video.js';
 
+// $ExpectType boolean
+window.HELP_IMPROVE_VIDEOJS;
+
+const videoElement = document.createElement('video');
+// $ExpectType VideoJsPlayer
+videojs(videoElement);
+
 const audioElement = document.createElement('audio');
 
 const playerOptions: VideoJsPlayerOptions = {

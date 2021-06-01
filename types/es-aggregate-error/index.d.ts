@@ -3,16 +3,21 @@
 // Definitions by: AverageHelper <https://github.com/AverageHelper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+import implementation = require('./implementation');
+import getPolyfill = require('./polyfill');
+import shim = require('./shim');
 
-declare class AggregateError extends Error implements NodeJS.ErrnoException {
-    readonly errors: ReadonlyArray<unknown>;
-    readonly name: "AggregateError";
-    readonly message: string;
+type ExportedImplementationType = typeof implementation & {
+    getPolyfill: typeof getPolyfill;
+    implementation: typeof implementation;
+    shim: typeof shim;
+};
 
-    constructor(errors: ReadonlyArray<unknown>, message?: string);
+declare const exportedImplementation: ExportedImplementationType;
 
-    static shim(): void;
+export = exportedImplementation;
+
+// This seems to be the only way to export these types here without colliding with the "export =" syntax.
+declare namespace exportedImplementation {
+    type AggregateError = implementation;
 }
-
-export = AggregateError;

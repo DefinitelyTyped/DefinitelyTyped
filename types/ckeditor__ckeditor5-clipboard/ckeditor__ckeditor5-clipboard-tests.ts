@@ -1,5 +1,5 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
-import * as Clipboard from '@ckeditor/ckeditor5-clipboard';
+import Clipboard from '@ckeditor/ckeditor5-clipboard';
 import plainTextToHTML from '@ckeditor/ckeditor5-clipboard/src/utils/plaintexttohtml';
 import normalizeClipboardData from '@ckeditor/ckeditor5-clipboard/src/utils/normalizeclipboarddata';
 import viewToPlainText from '@ckeditor/ckeditor5-clipboard/src/utils/viewtoplaintext';

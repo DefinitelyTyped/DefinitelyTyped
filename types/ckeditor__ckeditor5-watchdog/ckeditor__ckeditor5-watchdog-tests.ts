@@ -1,12 +1,12 @@
 import { Context, Editor } from "@ckeditor/ckeditor5-core";
-import { ContextWatchdog, EditorWatchdog } from "@ckeditor/ckeditor5-watchdog";
+import WD from "@ckeditor/ckeditor5-watchdog";
 import areconnected from "@ckeditor/ckeditor5-watchdog/src/utils/areconnectedthroughproperties";
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
-let editorWatchdog = new EditorWatchdog(editor, {});
-editorWatchdog = new EditorWatchdog(editor, { crashNumberLimit: 1, minimumNonErrorTimePeriod: 1, saveInterval: 4 });
+let editorWatchdog = new WD.EditorWatchdog(editor, {});
+editorWatchdog = new WD.EditorWatchdog(editor, { crashNumberLimit: 1, minimumNonErrorTimePeriod: 1, saveInterval: 4 });
 editorWatchdog.crashes.map(crash => {
     let num = crash.date;
     num = crash.lineno!;
@@ -17,7 +17,7 @@ editorWatchdog.create("foo", { placeholder: "foo" });
 editorWatchdog.create(document.createElement("div"), { placeholder: "foo" });
 editorWatchdog.create(document.createElement("div"));
 
-const contextWatchdog = new ContextWatchdog(new Context(), {
+const contextWatchdog = new WD.ContextWatchdog(new Context(), {
     crashNumberLimit: 1,
 });
 let str = contextWatchdog.state;

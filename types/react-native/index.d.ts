@@ -8581,6 +8581,10 @@ export interface SwitchPropsIOS extends ViewProps {
     tintColor?: ColorValue;
 }
 
+export interface SwitchChangeEvent extends React.SyntheticEvent {
+    value: boolean
+}
+
 export interface SwitchProps extends SwitchPropsIOS {
     /**
      * Color of the foreground switch grip.
@@ -8601,9 +8605,14 @@ export interface SwitchProps extends SwitchPropsIOS {
     disabled?: boolean;
 
     /**
+     * Invoked with the the change event as an argument when the value changes.
+     */
+    onChange?: ((event?: SwitchChangeEvent) => Promise<void> | void) | null;
+
+    /**
      * Invoked with the new value when the value changes.
      */
-    onValueChange?: (value: boolean) => void;
+    onValueChange?: ((value?: boolean) => Promise<void> | void) | null;
 
     /**
      * Used to locate this view in end-to-end tests.

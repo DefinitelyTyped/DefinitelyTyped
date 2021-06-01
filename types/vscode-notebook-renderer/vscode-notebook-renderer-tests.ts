@@ -26,7 +26,7 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
     }
 
     return {
-        renderCell(outputId, { value, mime, metadata, element, text, json, blob, bytes }) {
+        renderCell(outputId, { mime, metadata, element, text, json, blob, bytes }) {
             // $ExpectType string
             outputId;
             // $ExpectType HTMLElement
@@ -35,8 +35,6 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
             mime;
             // $ExpectType unknown
             metadata;
-            // $ExpectType unknown
-            value;
             // $ExpectType () => string
             text;
             // $ExpectType () => any

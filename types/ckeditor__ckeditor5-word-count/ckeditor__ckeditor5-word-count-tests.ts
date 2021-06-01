@@ -1,6 +1,6 @@
 import { Editor } from "@ckeditor/ckeditor5-core";
 import { Element } from "@ckeditor/ckeditor5-engine";
-import { WordCount } from "@ckeditor/ckeditor5-word-count";
+import WC from "@ckeditor/ckeditor5-word-count";
 import * as utils from "@ckeditor/ckeditor5-word-count/src/utils";
 import { WordCountConfig } from "@ckeditor/ckeditor5-word-count/src/wordcount";
 
@@ -9,7 +9,7 @@ const myEditor = new MyEditor();
 
 let num = 0;
 
-const wordCount = new WordCount(myEditor);
+const wordCount = new WC.WordCount(myEditor);
 wordCount.init();
 wordCount.destroy();
 num = wordCount.words;

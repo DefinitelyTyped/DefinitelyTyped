@@ -1,5 +1,5 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
-import * as HL from '@ckeditor/ckeditor5-horizontal-line';
+import HL from '@ckeditor/ckeditor5-horizontal-line';
 import HorizontalLineCommand from '@ckeditor/ckeditor5-horizontal-line/src/horizontallinecommand';
 
 class MyEditor extends Editor {}

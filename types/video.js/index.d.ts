@@ -12,14 +12,13 @@
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 KuanYu Chu <https://github.com/ckybonist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 // The Video.js API allows you to interact with the video through
 // Javascript, whether the browser is playing the video through HTML5
 // video, Flash, or any other supported playback technologies.
 
 /**
- * Doubles as the main function for users to create a inplayer instance and also
+ * Doubles as the main function for users to create a player instance and also
  * the main library object.
  * The `videojs` function can be used to initialize or retrieve a player.
  *
@@ -34,7 +33,7 @@
  *
  * @return A player instance
  */
-declare function videojs(id: any, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
+declare function videojs(id: string | Element, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
 export default videojs;
 export as namespace videojs;
 
@@ -6954,4 +6953,10 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
 
 export interface VideoJsPlayerPluginOptions {
     [pluginName: string]: any;
+}
+
+declare global {
+    interface Window {
+        HELP_IMPROVE_VIDEOJS: boolean;
+    }
 }
