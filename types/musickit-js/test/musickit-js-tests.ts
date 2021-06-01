@@ -1,4 +1,10 @@
-MusicKit.configure();
+MusicKit.configure({
+    app: {
+        build: "1.0",
+        name: "PLAYER_NAME",
+    },
+    developerToken: "devToken",
+});
 
 const player = MusicKit.getInstance();
 
@@ -8,14 +14,13 @@ const test = async () => {
     } = await player.api.song("");
 };
 
+player.addEventListener("playbackStateDidChange", (event) => null);
+player.addEventListener("playbackProgressDidChange", event => {});
 
-player.addEventListener("playbackStateDidChange", (event) => {
-  console.log("playbackStateDidChange", event);
+player.removeEventListener("playbackStateDidChange");
 
-  const { oldState, state } = event;
+player.pause();
+
+player.setQueue({
+    song: "trackId",
 });
-
-player.addEventListener("playbackProgressDidChange", (event) => {
-  console.log("playbackProgressDidChange", event);
-  console.log("player", player.player.currentPlaybackTime);
-})
