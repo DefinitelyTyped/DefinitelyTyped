@@ -316,7 +316,14 @@ export interface AsyncTypeaheadProps<T extends TypeaheadModel> extends Typeahead
     useCache?: boolean;
 }
 
-export class AsyncTypeahead<T extends TypeaheadModel> extends React.Component<AsyncTypeaheadProps<T>> {}
+export class AsyncTypeahead<T extends TypeaheadModel> extends React.Component<AsyncTypeaheadProps<T>> {
+    blur: () => void;
+    clear: () => void;
+    focus: () => void;
+    getInput: () => HTMLInputElement;
+    hideMenu: () => void;
+    toggleMenu: () => void;
+}
 
 /* ---------------------------------------------------------------------------
         TypeaheadInputSingle & TypeaheadInputMulti Props and Component
