@@ -1,11 +1,17 @@
+import { Asset } from './asset';
 import { Price } from './price';
 
 export interface VariantOption {
   id: string;
-  name: string;
-  is: {
-    quantity_limited: boolean;
-  };
-  price: Price;
-  quantity: number;
+  sku: string | null;
+  description: string | null;
+  inventory: number | null;
+  price: Price | null;
+  is_valid: boolean;
+  invalid_reason_code: string | null;
+  meta: any;
+  created?: number;
+  updated?: number;
+  options: { [name: string]: string };
+  assets: Asset[];
 }

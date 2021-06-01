@@ -1,5 +1,5 @@
 import { Price } from './price';
-import { Variant } from './variant';
+import { ProductVariantGroup } from './product-variant-group';
 import { Asset } from './asset';
 
 export interface Product {
@@ -15,7 +15,10 @@ export interface Product {
     managed: boolean;
     available: number;
   };
-  media: any; // todo
+  media: Array<{
+    type: string;
+    source: string;
+  }>;
   sku: string;
   sort_order: number;
   seo: {
@@ -65,8 +68,12 @@ export interface Product {
     display: string;
   };
   extra_fields: any[];
-  variant_groups: Variant[];
-  categories: any[];
+  variant_groups: ProductVariantGroup[];
+  categories: Array<{
+    id: string;
+    slug: string;
+    name: string;
+  }>;
   assets: Asset[];
   related_products: any[];
 }
