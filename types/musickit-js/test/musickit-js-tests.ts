@@ -14,8 +14,8 @@ const test = async () => {
     } = await player.api.song("");
 };
 
-player.addEventListener("playbackStateDidChange", (event) => null);
-player.addEventListener("playbackProgressDidChange", event => {});
+player.addEventListener("playbackStateDidChange", ({ oldState, state }) => ({ oldState, state }));
+player.addEventListener("playbackProgressDidChange", ({ progress }) => ({ progress }));
 
 player.removeEventListener("playbackStateDidChange");
 
