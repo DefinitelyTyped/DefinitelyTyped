@@ -31,6 +31,7 @@ declare class Sensor extends EventTarget {
 
 interface SensorOptions {
     frequency?: number;
+    referenceFrame?: string;
 }
 
 // Accelerometer: https://www.w3.org/TR/accelerometer/
