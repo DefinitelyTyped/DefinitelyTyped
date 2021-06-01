@@ -1,9 +1,15 @@
 declare namespace MusicKit {
     /**
      * @todo add types for Apple Music API Objects
-     * https://developer.apple.com/documentation/applemusicapi/apple_music_api_objects
      */
-    type Resource = Record<string, any>;
+    interface Resource {
+        attributes: {
+            albumName: string;
+            artistName: string;
+            durationInMillis: number;
+            name: string;
+        };
+    }
     type AddToLibraryParameters = any;
     type QueryParameters = Record<string, any>;
 
