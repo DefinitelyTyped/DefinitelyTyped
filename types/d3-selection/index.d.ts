@@ -911,20 +911,12 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * such as "input change"" or "click.foo click.bar".
      */
     on(typenames: string): ((this: GElement, event: any, d: Datum) => void) | undefined;
+  
+
     /**
-     * Remove a listener for the specified event type names. To remove all listeners for a given name,
+     * Add/Remove an event listener for the specified event type names. If an event listener was previously registered for the same typename
+     * on a selected element, the old listener is removed before the new listener is added. To remove all listeners for a given name,
      * pass null as the listener and ".foo" as the typename, where foo is the name; to remove all listeners with no name, specify "." as the typename.
-     *
-     * @param typenames The typenames is a string event type, such as click, mouseover, or submit; any DOM event type supported by your browser may be used.
-     * The type may be optionally followed by a period (.) and a name; the optional name allows multiple callbacks to be registered
-     * to receive events of the same type, such as click.foo and click.bar. To specify multiple typenames, separate typenames with spaces,
-     * such as "input change"" or "click.foo click.bar".
-     * @param listener null to indicate removal of listener
-     */
-    on(typenames: string, listener: null): this;
-    /**
-     * Add an event listener for the specified event type names. If an event listener was previously registered for the same typename
-     * on a selected element, the old listener is removed before the new listener is added.
      *
      * When a specified event is dispatched on a selected node, the specified listener will be evaluated for each selected element.
      *
@@ -934,12 +926,12 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * such as "input change"" or "click.foo click.bar".
      * @param listener A listener function which will be evaluated for each selected element,
      * being passed the current event (event) and the current datum (d), with this as the current DOM element (event.currentTarget).
-     * Listeners always see the latest datum for their element.
+     * Listeners always see the latest datum for their element. null to indicate removal of listener.
      * Note: while you can use event.pageX and event.pageY directly,
      * it is often convenient to transform the event position to the local coordinate system of that element that received the event using d3.pointer.
      * @param options An optional options object may specify characteristics about the event listener, such as wehether it is captures or passive; see element.addEventListener.
      */
-    on(typenames: string, listener: (this: GElement, event: any, d: Datum) => void, options?: any): this;
+    on(typenames: string, listener: null|((this: GElement, event: any, d: Datum) => void), options?: any): this;
 
     /**
      * Dispatches a custom event of the specified type to each selected element, in order.
