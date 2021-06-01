@@ -22,10 +22,11 @@ client.on('response', (headers, statusCode, rinfo) => {
 });
 
 // search for a service type
+// $ExpectType void
 client.search('urn:schemas-upnp-org:service:ContentDirectory:1');
 
 // Or get a list of all services on the network
-
+// $ExpectType void
 client.search('ssdp:all');
 
 const server = new Server({
