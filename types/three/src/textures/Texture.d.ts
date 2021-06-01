@@ -164,7 +164,7 @@ export class Texture extends EventDispatcher {
     static DEFAULT_IMAGE: any;
     static DEFAULT_MAPPING: any;
 
-    clone(): Texture;
+    clone(): this;
     copy(source: Texture): this;
     toJSON(meta: any): any;
     dispose(): void;

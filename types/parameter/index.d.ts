@@ -1,6 +1,7 @@
 // Type definitions for parameter 3.6
 // Project: https://github.com/node-modules/parameter#readme
 // Definitions by: Innpaul Zhang <https://github.com/zhyupe>
+//                 Runtu <https://github.com/Runtu4378>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -233,7 +234,10 @@ declare namespace Parameter {
         | ParameterRuleObject
         | ParameterRuleArray;
 
-    type ParameterRules = Record<string, ParameterRuleItem | ParameterRuleAbbr | undefined>;
+    type ParameterRule = ParameterRuleItem | ParameterRuleAbbr | undefined;
+    type ParameterRules<T = any> = {
+      [K in keyof T]: ParameterRule;
+    };
 
     interface ValidateError {
         code: string;

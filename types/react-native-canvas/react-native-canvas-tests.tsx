@@ -145,6 +145,10 @@ class CanvasTest extends React.Component {
         canvas.toDataURL().then((dataURL: string) => {
             void dataURL;
         });
+
+        canvas.toDataURL('image/jpeg', 0.7).then((dataURL: string) => {
+            void dataURL;
+        });
     }
 
     render() {

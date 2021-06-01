@@ -39,17 +39,17 @@ export class SSRPass extends Pass {
     opacity: number;
     output: number;
     maxDistance: number;
-    surfDist: number;
+    thickness: number;
     encoding: TextureEncoding;
     tempColor: Color;
 
     get selects(): Mesh[] | null;
     set selects(val: Mesh[] | null);
-    isSelective: boolean;
+    selective: boolean;
     get isBouncing(): boolean;
     set isBouncing(val: boolean);
 
-    isBlur: boolean;
+    blur: boolean;
 
     get isDistanceAttenuation(): boolean;
     set isDistanceAttenuation(val: boolean);

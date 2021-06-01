@@ -1,4 +1,4 @@
-// Type definitions for gestalt 20.1
+// Type definitions for gestalt 21.0
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -29,11 +29,12 @@ export type FourDirections = 'up' | 'right' | 'down' | 'left';
 
 export type EventHandlerType = (args: { readonly event: React.SyntheticEvent }) => void;
 
-export interface OnNavigationOptionsType {
-    readonly [key: string]: React.ReactNode | EventHandlerType;
+export interface OnNavigationArgs {
+    href: string;
+    target?: null | 'self' | 'blank';
 }
 
-export type OnNavigationType = (args: { href: string, onNavigationOptions?: OnNavigationOptionsType }) => EventHandlerType;
+export type OnNavigationType = (args: OnNavigationArgs) => EventHandlerType | null | undefined;
 
 /**
  * ActivationCard Props Interface
@@ -56,9 +57,9 @@ export interface ActivationCardProps {
             | React.MouseEvent<HTMLButtonElement>
             | React.MouseEvent<HTMLAnchorElement>
             | React.KeyboardEvent<HTMLAnchorElement>
-            | React.KeyboardEvent<HTMLButtonElement>
+            | React.KeyboardEvent<HTMLButtonElement>,
+            {disableOnNavigation?: () => void}
         >;
-        onNavigationOptions?: OnNavigationOptionsType;
         rel?: 'none' | 'nofollow';
         target?: null | 'self' | 'blank';
     };
@@ -101,11 +102,13 @@ export interface BadgeProps {
     position?: 'middle' | 'top';
 }
 
+export type BoxPassthroughProps = Omit<React.ComponentProps<'div'>, 'onClick' | 'className' | 'style'>;
+
 /**
  * Box Props Interface
  * https://gestalt.netlify.app/Box
  */
-export interface BoxProps {
+export interface BoxProps extends BoxPassthroughProps {
     alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
     alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
     alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
@@ -225,7 +228,8 @@ export interface ButtonProps {
         | React.MouseEvent<HTMLButtonElement>
         | React.MouseEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLAnchorElement>
-        | React.KeyboardEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
+        {disableOnNavigation?: () => void}
     >;
     rel?: 'none' | 'nofollow';
     role?: 'button' | 'link';
@@ -234,7 +238,6 @@ export interface ButtonProps {
     tabIndex?: -1 | 0;
     target?: null | 'self' | 'blank';
     type?: 'submit' | 'button';
-    onNavigationOptions?: OnNavigationOptionsType;
 }
 
 /**
@@ -253,9 +256,9 @@ export interface ActionData {
         | React.MouseEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLAnchorElement>
         | React.MouseEvent<HTMLButtonElement>
-        | React.KeyboardEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
+        {disableOnNavigation?: () => void}
     >;
-    onNavigationOptions?: OnNavigationOptionsType;
     rel?: 'none' | 'nofollow';
     target?: null | 'self' | 'blank';
 }
@@ -419,7 +422,11 @@ export interface DropdownItemProps {
      * used to determine when the "selected" icon appears on an item
      */
     selected?: DropdownOption | ReadonlyArray<DropdownOption>;
-    onNavigationOptions?: OnNavigationOptionsType;
+    onClick?: AbstractEventHandler<
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>,
+        {disableOnNavigation?: () => void}
+        >;
 }
 
 export interface DropdownSectionProps {
@@ -659,6 +666,7 @@ export type Icons =
     | 'view-type-list'
     | "visit"
     | 'workflow-status-all'
+    | 'workflow-status-canceled'
     | 'workflow-status-halted'
     | 'workflow-status-in-progress'
     | 'workflow-status-ok'
@@ -713,7 +721,13 @@ export interface IconButtonProps {
     href?: string;
     icon?: Icons;
     iconColor?: 'gray' | 'darkGray' | 'red' | 'white';
-    onClick?: AbstractEventHandler<React.MouseEvent<HTMLButtonElement>>;
+    onClick?: AbstractEventHandler<
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
+        {disableOnNavigation?: () => void}
+        >;
     padding?: 1 | 2 | 3 | 4 | 5;
     rel?: 'none' | 'nofollow';
     role?: 'button' | 'link';
@@ -721,7 +735,6 @@ export interface IconButtonProps {
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     tabIndex?: -1 | 0;
     target?: null | 'self' | 'blank';
-    onNavigationOptions?: OnNavigationOptionsType;
 }
 
 /**
@@ -787,14 +800,17 @@ export interface LinkProps {
     id?: string;
     inline?: boolean;
     onBlur?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>>;
-    onClick?: AbstractEventHandler<React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>>;
+    onClick?: AbstractEventHandler<
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>,
+        {disableOnNavigation?: () => void}
+        >;
     onFocus?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>>;
     rel?: 'none' | 'nofollow';
     role?: 'tab';
     rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
     tapStyle?: 'none' | 'compress';
     target?: null | 'self' | 'blank';
-    onNavigationOptions?: OnNavigationOptionsType;
 }
 
 /**
@@ -893,6 +909,18 @@ export interface ModuleExpandableProps {
 }
 
 /**
+ * PageHeader Props Interface
+ * https://gestalt.netlify.app/PageHeader
+ */
+export interface PageHeaderProps {
+    title: string;
+    maxWidth?: number | string;
+    primaryAction?: React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip>;
+    secondaryAction?: React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip>;
+    subtext?: string;
+}
+
+/**
  * Pog Props Interface
  * https://gestalt.netlify.app/Pog
  */
@@ -911,8 +939,8 @@ export interface PogProps {
 }
 
 /**
- * Flyout Props Interface
- * https://gestalt.netlify.app/Flyout
+ * Popover Props Interface
+ * https://gestalt.netlify.app/Popover
  */
 export interface PopoverProps {
     anchor: HTMLElement; // ideally a HTMLAnchorElement
@@ -996,6 +1024,7 @@ export interface SearchFieldProps {
     errorMessage?: string;
     onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement> }) => void;
     onFocus?: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
+    onKeyDown?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
     placeholder?: string;
     size?: 'md' | 'lg';
     value?: string;
@@ -1234,7 +1263,8 @@ export interface TapAreaProps {
         | React.MouseEvent<HTMLDivElement>
         | React.KeyboardEvent<HTMLDivElement>
         | React.MouseEvent<HTMLAnchorElement>
-        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>,
+        {disableOnNavigation?: () => void}
     >;
     rel?: 'none' | 'nofollow';
     role?: 'button' | 'link';
@@ -1242,7 +1272,6 @@ export interface TapAreaProps {
     tabIndex?: -1 | 0;
     tapStyle?: 'none' | 'compress';
     target?: null | 'self' | 'blank';
-    onNavigationOptions?: OnNavigationOptionsType;
 }
 
 /**
@@ -1544,6 +1573,7 @@ export const Modal: ReactForwardRef<HTMLDivElement, ModalProps>;
 export class Module extends React.Component<ModuleProps, any> {
     static Expandable: React.FC<ModuleExpandableProps>;
 }
+export class PageHeader extends React.Component<PageHeaderProps, any> {}
 export class Pog extends React.Component<PogProps, any> {}
 export class Popover extends React.Component<PopoverProps, any> {}
 export class Provider extends React.Component<ProviderProps, any> {}

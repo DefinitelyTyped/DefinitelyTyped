@@ -1,9 +1,9 @@
-// Type definitions for @ckeditor/ckeditor5-utils 25.0
+// Type definitions for @ckeditor/ckeditor5-utils 27.0
 // Project: https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-utils
 // Definitions by: Federico Panico <https://github.com/fedemp>
 //                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 4.2
 
 export { default as env } from "./src/env";
 export { default as diff } from "./src/diff";
@@ -13,7 +13,6 @@ export { default as ObservableMixin } from "./src/observablemixin";
 export { default as ElementReplacer } from "./src/elementreplacer";
 export { default as createElement } from "./src/dom/createelement";
 export { default as DomEmitterMixin } from "./src/dom/emittermixin";
-export { default as global } from "./src/dom/global";
 export { default as getDataFromElement } from "./src/dom/getdatafromelement";
 export { default as Rect } from "./src/dom/rect";
 export { default as ResizeObserver } from "./src/dom/resizeobserver";

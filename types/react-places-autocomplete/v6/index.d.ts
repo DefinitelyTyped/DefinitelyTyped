@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 //
-/// <reference types="googlemaps" />
+/// <reference types="google.maps" />
 
 import * as React from "react";
 

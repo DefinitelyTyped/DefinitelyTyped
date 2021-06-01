@@ -77,7 +77,7 @@ export namespace DS {
         async?: true;
     }
 
-    type AsyncBelongsTo<T extends Model> = PromiseObject<T>;
+    type AsyncBelongsTo<T extends Model | null> = PromiseObject<T>;
     /**
      * `DS.belongsTo` is used to define One-To-One and One-To-Many
      * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
@@ -86,15 +86,15 @@ export namespace DS {
         modelName: K,
         options: RelationshipOptions<ModelRegistry[K]> & Sync
     ): Ember.ComputedProperty<
-        ModelRegistry[K],
-        ModelRegistry[K] | PromiseObject<ModelRegistry[K]>
+        ModelRegistry[K] | null,
+        ModelRegistry[K] | PromiseObject<ModelRegistry[K] | null> | null
     >;
     function belongsTo<K extends keyof ModelRegistry>(
         modelName: K,
         options?: RelationshipOptions<ModelRegistry[K]> & Async
     ): Ember.ComputedProperty<
-        AsyncBelongsTo<ModelRegistry[K]>,
-        ModelRegistry[K] | PromiseObject<ModelRegistry[K]>
+        AsyncBelongsTo<ModelRegistry[K] | null>,
+        ModelRegistry[K] | PromiseObject<ModelRegistry[K] | null> | null
     >;
     type AsyncHasMany<T extends Model> = PromiseManyArray<T>;
     type SyncHasMany<T extends Model> = ManyArray<T>;
@@ -933,10 +933,9 @@ export namespace DS {
      * it easy to create data bindings with the `PromiseObject` that will
      * be updated when the promise resolves.
      */
-    interface PromiseObject<T extends object>
-        extends ObjectProxy<T>,
-            PromiseProxyMixin<T> {}
-    class PromiseObject<T> extends ObjectProxy<T> {}
+    interface PromiseObject<T extends object | null>
+        extends PromiseProxyMixin<T> {}
+    class PromiseObject<T> extends ObjectProxy<NonNullable<T>> {}
     /**
      * A PromiseManyArray is a PromiseArray that also proxies certain method calls
      * to the underlying manyArray.

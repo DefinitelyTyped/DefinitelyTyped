@@ -1,12 +1,21 @@
 // Type definitions for client-sessions 0.8
 // Project: https://github.com/mozilla/node-client-sessions
 // Definitions by: Aditya <https://github.com/netroy>
+//                 Ankit Malik <https://github.com/DiabolusGX>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 4.2
 
 /// <reference types="node" />
 
 import * as cookies from "cookies";
+
+interface CookieOptions extends cookies.IOptions {
+/**
+ * a boolean indicating whether the cookie will expire when browser closes or not
+ * (false by default).
+ */
+  ephemeral?: boolean;
+}
 
 declare namespace client_sessions {
   type NextFunction = (err?: Error) => void;
@@ -43,7 +52,7 @@ declare namespace client_sessions {
      */
     requestKey?: string;
 
-    cookie?: cookies.IOptions;
+    cookie?: CookieOptions;
   }
 
   interface DecodeResult {

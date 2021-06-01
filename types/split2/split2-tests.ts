@@ -1,11 +1,12 @@
-import split = require('split2');
-import * as fs from 'fs';
-import { Transform, TransformOptions } from 'stream';
+import split = require("split2");
+import fs = require("split2");
+import { Transform, TransformOptions } from "stream";
+import { Options } from "split2";
 
 let stream: Transform;
-let options: split.Options = {};
-let matcherString = '\t';
-let matcherRegex = /\r?\n/;
+let options: Options = {};
+const matcherString = "\t";
+const matcherRegex = /\r?\n/;
 
 stream = split();
 stream = split(JSON.parse);
@@ -21,9 +22,8 @@ stream = split(matcherRegex, options);
 stream = split(matcherRegex, JSON.parse, options);
 
 options = {
-  maxLength: 1000,
-  objectMode: true,
-  highWaterMark: 16,
-  encoding: 'utf8'
+    maxLength: 1000,
+    objectMode: true,
+    highWaterMark: 16,
+    encoding: "utf8",
 };
-

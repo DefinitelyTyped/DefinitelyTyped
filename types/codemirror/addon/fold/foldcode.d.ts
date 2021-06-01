@@ -1,13 +1,15 @@
-// Type definitions for codemirror
-// Project: https://github.com/codemirror/CodeMirror
-// Definitions by: ficristo <https://github.com/ficristo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // See docs https://codemirror.net/doc/manual.html#addon_foldcode
 
-import * as CodeMirror from 'codemirror';
+import * as CodeMirror from '../../';
 
-declare module 'codemirror' {
+export type FoldRangeFinder = (cm: CodeMirror.Editor, pos: CodeMirror.Position) => CodeMirror.FoldRange | undefined;
+
+export interface FoldHelpers {
+    combine: (...finders: FoldRangeFinder[]) => FoldRangeFinder;
+    auto: FoldRangeFinder;
+}
+
+declare module '../../' {
     interface Editor {
         /**
          * Helps with code folding. Adds a foldCode method to editor instances, which will try to do a code fold starting at the given line,
@@ -17,8 +19,11 @@ declare module 'codemirror' {
          */
         foldCode: (
             lineOrPos: number | Position,
-            rangeFindeOrFoldOptions?: ((cm: Editor, pos: Position) => FoldRange) | FoldOptions,
+            rangeFindeOrFoldOptions?: FoldRangeFinder | FoldOptions,
+            force?: 'fold' | 'unfold',
         ) => void;
+        isFolded(pos: Position): boolean | undefined;
+        foldOption<K extends keyof FoldOptions>(option: K): FoldOptions[K];
     }
 
     interface EditorConfiguration {
@@ -33,14 +38,14 @@ declare module 'codemirror' {
          * CodeMirror.fold.indent, for languages where indentation determines block structure (Python, Haskell), and CodeMirror.fold.xml, for XML-style languages,
          * and CodeMirror.fold.comment, for folding comment blocks.
          */
-        rangeFinder?: (cm: Editor, pos: Position) => FoldRange;
+        rangeFinder?: FoldRangeFinder;
 
         /**
          * The widget to show for folded ranges. Can be either a string, in which case it'll become a span with class CodeMirror-foldmarker, or a DOM node.
          * To dynamically generate the widget, this can be a function that returns a string or DOM node, which will then render as described.
          * The function will be invoked with parameters identifying the range to be folded.
          */
-        widget: string | Element | ((from: Position, to: Position) => string | Element);
+        widget?: string | Element | ((from: Position, to: Position) => string | Element);
 
         /**
          * When true (default is false), the addon will try to find foldable ranges on the lines above the current one if there isn't an eligible one on the given line.
@@ -51,6 +56,8 @@ declare module 'codemirror' {
          * The minimum amount of lines that a fold should span to be accepted. Defaults to 0, which also allows single-line folds.
          */
         minFoldSize?: number;
+
+        clearOnEnter?: boolean;
     }
 
     interface FoldRange {
@@ -65,4 +72,6 @@ declare module 'codemirror' {
         foldAll(cm: Editor): void;
         unfoldAll(cm: Editor): void;
     }
+
+    const fold: FoldHelpers;
 }

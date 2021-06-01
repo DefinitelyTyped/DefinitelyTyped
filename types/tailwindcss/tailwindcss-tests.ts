@@ -9,7 +9,10 @@ import type { TailwindConfig } from 'tailwindcss/tailwind-config';
 import tailwindCss = require('tailwindcss');
 
 // A typical TailwindCSS Config
-const config: TailwindConfig = {
+const configWithoutExtend: Omit<TailwindConfig, 'theme' | 'variants'> & {
+    theme: Omit<TailwindConfig['theme'], 'extend'>;
+    variants: Omit<TailwindConfig['variants'], 'extend'>;
+} = {
     theme: {
         screens: {
             sm: '640px',
@@ -2496,6 +2499,22 @@ const config: TailwindConfig = {
     separator: ':',
 };
 
+const config: TailwindConfig = {
+    ...configWithoutExtend,
+    theme: {
+        ...configWithoutExtend.theme,
+        extend: {
+            ...configWithoutExtend.theme,
+        },
+    },
+    variants: {
+        ...configWithoutExtend.variants,
+        extend: {
+            ...configWithoutExtend.variants,
+        },
+    },
+};
+
 const tailwindConfig = resolveConfig(config);
 
 tailwindCss(tailwindConfig);
@@ -2515,6 +2534,21 @@ tailwindConfig.theme.boxShadow['2xl'];
 // => '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
 
 colors.red[500];
+colors.rose[500];
+colors.fuchsia[500];
+colors.violet[500];
+colors.lightBlue[500];
+colors.cyan[500];
+colors.teal[500];
+colors.emerald[500];
+colors.lime[500];
+colors.amber[500];
+colors.orange[500];
+colors.warmGray[500];
+colors.trueGray[500];
+colors.coolGray[500];
+colors.blueGray[500];
 
+// @ts-expect-error
 defaultTheme.darkMode;
-defaultTheme.theme.colors.blue[800];
+defaultTheme.colors.blue[800];

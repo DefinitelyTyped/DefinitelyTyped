@@ -95,6 +95,8 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
         var testId: number = 0;
         var testString: string = 'test';
 
+        // checking default input/output methods
+
         requestStoredProcedureWithOutput.input("name", sql.VarChar, "abc");               // varchar(3)
         requestStoredProcedureWithOutput.input("name", sql.VarChar(50), "abc");           // varchar(MAX)
         requestStoredProcedureWithOutput.output("name", sql.VarChar);                     // varchar(8000)
@@ -106,6 +108,24 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
 
         requestStoredProcedureWithOutput.input("name", sql.DateTime2, new Date());        // datetime2(7)
         requestStoredProcedureWithOutput.input("name", sql.DateTime2(5), new Date());     // datetime2(5)
+
+        requestStoredProcedureWithOutput.input("name", "abc");
+
+        // checking replaceInput method
+
+        requestStoredProcedureWithOutput.replaceInput("name", sql.VarChar, "abc");               // varchar(3)
+        requestStoredProcedureWithOutput.replaceInput("name", sql.VarChar(50), "abc");           // varchar(MAX)
+
+        requestStoredProcedureWithOutput.replaceInput("name", sql.Decimal, 155.33);              // decimal(18, 0)
+        requestStoredProcedureWithOutput.replaceInput("name", sql.Decimal(10), 155.33);          // decimal(10, 0)
+        requestStoredProcedureWithOutput.replaceInput("name", sql.Decimal(10, 2), 155.33);       // decimal(10, 2)
+
+        requestStoredProcedureWithOutput.replaceInput("name", sql.DateTime2, new Date());        // datetime2(7)
+        requestStoredProcedureWithOutput.replaceInput("name", sql.DateTime2(5), new Date());     // datetime2(5)
+
+        requestStoredProcedureWithOutput.replaceInput("name", "abc");
+
+        // executing stored procedure
 
         requestStoredProcedure.execute('StoredProcedureName', function (err, recordsets, returnValue) {
             if (err != null) {

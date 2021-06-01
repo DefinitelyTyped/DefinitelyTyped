@@ -37,6 +37,54 @@ function test_dataTableAddRow() {
     dataTable.addRow(['row3', 0]);
 }
 
+function test_dataTableGetColumn() {
+    const dataTable = test_ctorDataTable();
+    dataTable.addColumn('number', 'x');
+    dataTable.addColumn('number', 'y');
+    dataTable.addRow([0, 0]);
+    dataTable.addRow([1, 1]);
+
+    // Check column 0 called 'x'.
+    let index: number = dataTable.getColumnIndex(0);
+    let label: string = dataTable.getColumnLabel(index);
+    let role: string = dataTable.getColumnRole(index);
+    let type: string = dataTable.getColumnType(index);
+
+    // Check column 1 called 'y'.
+    index = dataTable.getColumnIndex('y');
+    label = dataTable.getColumnLabel(index);
+    role = dataTable.getColumnRole(index);
+    type = dataTable.getColumnType(index);
+}
+
+function test_calendarChart() {
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'date', id: 'Date' });
+    dataTable.addColumn({ type: 'number', id: 'Value' });
+    dataTable.addRows([
+        [new Date(2021, 3, 15), 100],
+        [new Date(2021, 3, 16), -75],
+        [new Date(2021, 3, 17), 150],
+        [new Date(2021, 3, 18), -100],
+        [new Date(2021, 3, 19), 200]
+    ]);
+
+    var options = {
+        title: "Test Calendar",
+        height: 350,
+        colorAxis: { colors: ['red', 'white', 'green'], values: [-250, 0, 250] },
+        calendar: {
+            yearLabel: { color: 'black', bold: true, italic: false }
+        }
+    };
+
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.Calendar(container);
+        chart.draw(dataTable, options);
+    }
+}
+
 function test_geoChart() {
     var data = google.visualization.arrayToDataTable([
         ['Country',   'Population', 'Area Percentage'],
@@ -212,7 +260,7 @@ function test_steppedAreaChart() {
 }
 
 function test_lineChart() {
-    var data = google.visualization.arrayToDataTable([
+    const data = google.visualization.arrayToDataTable([
         ['Year', 'Sales', 'Expenses'],
         ['2004',  1000,      400],
         ['2005',  1170,      460],
@@ -220,13 +268,17 @@ function test_lineChart() {
         ['2007',  1030,      540]
     ]);
 
-    var options = {
-        title: 'Company Performance'
+    const options: google.visualization.LineChartOptions = {
+        title: 'Company Performance',
+        intervals: {
+            style: 'boxes',
+            boxWidth: 1,
+        },
     };
 
-    var container = document.getElementById('chart_div');
+    const container = document.getElementById('chart_div');
     if (container) {
-        var chart = new google.visualization.LineChart(container);
+        const chart = new google.visualization.LineChart(container);
         chart.draw(data, options);
     }
 }
@@ -994,5 +1046,63 @@ function test_Sankey() {
                 },
             },
         });
+    }
+}
+
+function test_dataNamespace() {
+    const month: number = google.visualization.data.month(new Date());
+
+    const exampleNumbers: ReadonlyArray<number> = [1, month];
+    let result: number;
+
+    result = google.visualization.data.sum(exampleNumbers);
+    result = google.visualization.data.avg(exampleNumbers);
+    result = google.visualization.data.count(exampleNumbers);
+
+    let minMax: number | string | Date | null;
+    minMax = google.visualization.data.min([1, 2]);
+    minMax = google.visualization.data.max(['1', '2']);
+
+    let dt = new google.visualization.DataTable();
+    dt.addColumn('number', 'x');
+    dt.addColumn('number', 'y');
+
+    dt = google.visualization.data.group(dt, [0],
+        [{column: 1, aggregation: google.visualization.data.sum, type: 'number'}]);
+
+    dt = google.visualization.data.join(dt, dt, 'inner', [['x', 0]], [1], ['y']);
+}
+
+function test_chartSelection() {
+    const data = new google.visualization.DataTable();
+    data.addColumn('string', 'Fruit');
+    data.addColumn('number', 'Calories');
+    data.addRows([
+        ['Apple', 95],
+        ['Banana', 105],
+        ['Kiwi', 42],
+    ]);
+    const container = document.getElementById('chart_div');
+    if (container) {
+        const chart = new google.visualization.BarChart(container);
+        google.visualization.events.addOneTimeListener(chart, 'ready', () => {
+            console.log('Fruit chart ready');
+            const button1 = document.getElementById('select_apple_button')!;
+            button1.addEventListener('click', () => {
+                chart.setSelection([{row: 0}]);
+            });
+            const button2 = document.getElementById('select_apple_button')!;
+            button2.addEventListener('click', () => {
+                chart.setSelection();
+            });
+        });
+        google.visualization.events.addListener(chart, 'select', () => {
+            const {row, column} = chart.getSelection()[0];
+            console.log(`Selection: row=${row} column=${column}`);
+            if (row != null && column != null) {
+                console.log(`Selected: ${data.getValue(row, column)}`);
+            }
+        });
+        chart.draw(data, {});
     }
 }

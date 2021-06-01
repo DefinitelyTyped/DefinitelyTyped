@@ -5,12 +5,10 @@
  *  createElement( document, 'p', { class: 'foo' } ); // <p class="foo">
  *  createElement( document, 'p', null, 'foo' ); // <p>foo</p>
  *  createElement( document, 'p', null, [ 'foo', createElement( document, 'img' ) ] ); // <p>foo<img></p>
- *
- * into Text nodes.
  */
 export default function createElement(
     doc: Document,
     name: string,
     attributes?: Record<string, unknown> | null,
     children?: Node | string | Array<Node | string>,
-): Element;
+): HTMLElement;

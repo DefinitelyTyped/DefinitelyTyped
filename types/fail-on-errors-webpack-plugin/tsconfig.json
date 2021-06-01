@@ -10,6 +10,14 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "typeRoots": ["../"],
+        "paths": {
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ]
+        },
         "types": []
     },
     "files": [

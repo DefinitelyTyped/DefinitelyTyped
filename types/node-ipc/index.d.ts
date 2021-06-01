@@ -196,6 +196,7 @@ declare namespace NodeIPC {
         emit(event: string, value: any): Client;
         emit(socket: Socket | SocketConfig, event: string, value?: any): Server;
         emit(socketConfig: Socket | SocketConfig, value?: any): Server;
+        broadcast(event: string, value?: any): Client;
     }
     interface SocketConfig {
         address?: string;

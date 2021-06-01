@@ -30,6 +30,7 @@ import {
     Masonry,
     Modal,
     Module,
+    PageHeader,
     Pog,
     Popover,
     Provider,
@@ -86,10 +87,6 @@ const CheckUseReducedMotion = () => {
         label: "foo",
         accessibilityLabel: "foo",
         onClick: (({ event }) => { event.stopPropagation(); }),
-        onNavigationOptions: {
-            foo: <div />,
-            bar: ({ event }) => { event.stopPropagation(); }
-        },
         rel: "nofollow",
         target: "blank"
     }}
@@ -110,11 +107,17 @@ const CheckUseReducedMotion = () => {
 />;
 <Badge text="Nicolas" />;
 <Box ref={React.createRef<HTMLDivElement>()} />;
+
+<Box aria-colspan={1} />;
+// $ExpectError
+<Box aria-colspan="foo" />;
+
+<Box onDrag={(event) => { event.movementX; }} />;
+// $ExpectError
+<Box onDrag={((event) => { event.__nonExistentProperty__; })} />;
+
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
-<Button text="" onNavigationOptions={{
-    foo: <div />,
-    bar: ({ event }) => { event.stopPropagation(); }
-}} />;
+<Button text="" />;
 <ButtonGroup>
     <Button text={'Click me'} />
     <Button text={'Click me'} />
@@ -185,11 +188,10 @@ const CheckUseReducedMotion = () => {
     expandedIndex={1}
     onExpandedChange={(index) => {}}
 ></Module.Expandable>;
+<PageHeader title='Home'/>;
 <Pog />;
 <Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
-<Provider colorScheme={'light'} id="docsExample" onNavigation={({ href, onNavigationOptions }) => {
-    return (event) => {};
-}} />;
+<Provider colorScheme={'light'} id="docsExample" />;
 <Pulsar />;
 <RadioButton id="id" onChange={() => {}} />;
 <Row gap={1}>

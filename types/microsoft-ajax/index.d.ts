@@ -2285,7 +2285,6 @@ declare namespace Sys {
 
             /**
             * Converts an ECMAScript (JavaScript) object graph into a JSON string. This member is static and can be invoked without creating an instance of the class.
-            * @static
             * @param value
             *           The JavaScript object graph to serialize.
             * @exception Sys.ArgumentException
@@ -2295,7 +2294,6 @@ declare namespace Sys {
 
             /**
             * Converts a JSON string into an ECMAScript (JavaScript) object graph. This member is static and can be invoked without creating an instance of the class.
-            * @static
             * @param value
             *           The JSON string to deserialize.
             */
@@ -3370,7 +3368,6 @@ declare namespace Sys {
 
             /**
             * Gets the postback element that initiated the asynchronous postback. This property is read-only.
-            * @readonly
             * @return An HTML DOM element.
             */
             get_postBackElement(): HTMLElement;

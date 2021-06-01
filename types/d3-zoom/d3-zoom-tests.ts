@@ -167,17 +167,15 @@ touchableFn = svgZoom.touchable();
 
 // wheelDelta() ----------------------------------------------------------------
 
-// chainable
-svgZoom = svgZoom.wheelDelta(function(d, i, group) {
-    // Cast d3 event to D3ZoomEvent to be used in filter logic
-    const e = event as WheelEvent;
+// chainable with function
+svgZoom = svgZoom.wheelDelta(function(this: SVGRectElement, e) {
     const that: SVGRectElement = this;
-    const datum: SVGDatum = d;
-    const index: number = i;
-    const g: SVGRectElement[] | ArrayLike<SVGRectElement> = group;
 
     return -e.deltaY * (e.deltaMode ? 100 : 1) / 600;
 });
+
+// chainable with number
+svgZoom = svgZoom.wheelDelta(1);
 
 let wheelDeltaFn: (this: SVGRectElement, d: SVGDatum, index: number, group: SVGRectElement[]) => number;
 wheelDeltaFn = svgZoom.wheelDelta();

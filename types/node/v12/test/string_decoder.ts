@@ -1,4 +1,4 @@
-import { StringDecoder } from 'node:string_decoder';
+import { StringDecoder } from 'string_decoder';
 
 const buffer = new Buffer('test');
 const decoder1 = new StringDecoder();

@@ -3,6 +3,7 @@
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin } from 'webpack';
 

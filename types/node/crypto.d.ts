@@ -1,11 +1,37 @@
-declare module 'node:crypto' {
-    export * from 'crypto';
-}
-
 declare module 'crypto' {
-    import * as stream from 'node:stream';
+    import * as stream from 'stream';
+    import { PeerCertificate } from 'tls';
 
     interface Certificate {
+        /**
+         * @deprecated
+         * @param spkac
+         * @returns The challenge component of the `spkac` data structure,
+         * which includes a public key and a challenge.
+         */
+        exportChallenge(spkac: BinaryLike): Buffer;
+        /**
+         * @deprecated
+         * @param spkac
+         * @param encoding The encoding of the spkac string.
+         * @returns The public key component of the `spkac` data structure,
+         * which includes a public key and a challenge.
+         */
+        exportPublicKey(spkac: BinaryLike, encoding?: string): Buffer;
+        /**
+         * @deprecated
+         * @param spkac
+         * @returns `true` if the given `spkac` data structure is valid,
+         * `false` otherwise.
+         */
+        verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
+    }
+    const Certificate: Certificate & {
+        /** @deprecated since v14.9.0 - Use static methods of `crypto.Certificate` instead. */
+        new(): Certificate;
+        /** @deprecated since v14.9.0 - Use static methods of `crypto.Certificate` instead. */
+        (): Certificate;
+
         /**
          * @param spkac
          * @returns The challenge component of the `spkac` data structure,
@@ -25,12 +51,6 @@ declare module 'crypto' {
          * `false` otherwise.
          */
         verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
-    }
-    const Certificate: Certificate & {
-        /** @deprecated since v14.9.0 - Use static methods of `crypto.Certificate` instead. */
-        new (): Certificate;
-        /** @deprecated since v14.9.0 - Use static methods of `crypto.Certificate` instead. */
-        (): Certificate;
     };
 
     namespace constants {
@@ -234,8 +254,8 @@ declare module 'crypto' {
         private constructor();
         update(data: BinaryLike): Buffer;
         update(data: string, input_encoding: Encoding): Buffer;
-        update(data: NodeJS.ArrayBufferView, input_encoding: undefined, output_encoding: BinaryToTextEncoding): string;
-        update(data: string, input_encoding: Encoding | undefined, output_encoding: BinaryToTextEncoding): string;
+        update(data: NodeJS.ArrayBufferView, input_encoding: undefined, output_encoding: Encoding): string;
+        update(data: string, input_encoding: Encoding | undefined, output_encoding: Encoding): string;
         final(): Buffer;
         final(output_encoding: BufferEncoding): string;
         setAutoPadding(auto_padding?: boolean): this;
@@ -279,9 +299,9 @@ declare module 'crypto' {
     class Decipher extends stream.Transform {
         private constructor();
         update(data: NodeJS.ArrayBufferView): Buffer;
-        update(data: string, input_encoding: BinaryToTextEncoding): Buffer;
+        update(data: string, input_encoding: Encoding): Buffer;
         update(data: NodeJS.ArrayBufferView, input_encoding: undefined, output_encoding: Encoding): string;
-        update(data: string, input_encoding: BinaryToTextEncoding | undefined, output_encoding: Encoding): string;
+        update(data: string, input_encoding: Encoding | undefined, output_encoding: Encoding): string;
         final(): Buffer;
         final(output_encoding: BufferEncoding): string;
         setAutoPadding(auto_padding?: boolean): this;
@@ -327,11 +347,11 @@ declare module 'crypto' {
         dsaEncoding?: DSAEncoding;
     }
 
-    interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions {}
+    interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions { }
     interface SignKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
-    interface VerifyPublicKeyInput extends PublicKeyInput, SigningOptions {}
+    interface VerifyPublicKeyInput extends PublicKeyInput, SigningOptions { }
     interface VerifyKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
@@ -1173,4 +1193,264 @@ declare module 'crypto' {
      * 'dh' (for Diffie-Hellman), 'ec' (for ECDH), 'x448', or 'x25519' (for ECDH-ES).
      */
     function diffieHellman(options: { privateKey: KeyObject; publicKey: KeyObject }): Buffer;
+
+    type CipherMode = 'cbc' | 'ccm' | 'cfb' | 'ctr' | 'ecb' | 'gcm' | 'ocb' | 'ofb' | 'stream' | 'wrap' | 'xts';
+
+    interface CipherInfoOptions {
+        /**
+         * A test key length.
+         */
+        keyLength?: number;
+        /**
+         * A test IV length.
+         */
+        ivLength?: number;
+    }
+
+    interface CipherInfo {
+        /**
+         * The name of the cipher.
+         */
+        name: string;
+        /**
+         * The nid of the cipher.
+         */
+        nid: number;
+        /**
+         * The block size of the cipher in bytes.
+         * This property is omitted when mode is 'stream'.
+         */
+        blockSize?: number;
+        /**
+         * The expected or default initialization vector length in bytes.
+         * This property is omitted if the cipher does not use an initialization vector.
+         */
+        ivLength?: number;
+        /**
+         * The expected or default key length in bytes.
+         */
+        keyLength: number;
+        /**
+         * The cipher mode.
+         */
+        mode: CipherMode;
+    }
+
+    /**
+     * Returns information about a given cipher.
+     *
+     * Some ciphers accept variable length keys and initialization vectors.
+     * By default, the `crypto.getCipherInfo()` method will return the default
+     * values for these ciphers. To test if a given key length or iv length
+     * is acceptable for given cipher, use the `keyLenth` and `ivLenth` options.
+     * If the given values are unacceptable, `undefined` will be returned.
+     * @param nameOrNid The name or nid of the cipher to query.
+     */
+    function getCipherInfo(nameOrNid: string | number, options?: CipherInfoOptions): CipherInfo | undefined;
+
+    /**
+     * HKDF is a simple key derivation function defined in RFC 5869.
+     * The given `key`, `salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
+     *
+     * The supplied `callback` function is called with two arguments: `err` and `derivedKey`.
+     * If an errors occurs while deriving the key, `err` will be set; otherwise `err` will be `null`.
+     * The successfully generated `derivedKey` will be passed to the callback as an [`ArrayBuffer`][].
+     * An error will be thrown if any of the input aguments specify invalid values or types.
+     */
+    function hkdf(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => any): void;
+
+    /**
+     * Provides a synchronous HKDF key derivation function as defined in RFC 5869.
+     * The given `key`, `salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
+     *
+     * The successfully generated `derivedKey` will be returned as an [`ArrayBuffer`][].
+     * An error will be thrown if any of the input aguments specify invalid values or types,
+     * or if the derived key cannot be generated.
+     */
+    function hkdfSync(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number): ArrayBuffer;
+
+    interface SecureHeapUsage {
+        /**
+         * The total allocated secure heap size as specified using the `--secure-heap=n` command-line flag.
+         */
+        total: number;
+
+        /**
+         * The minimum allocation from the secure heap as specified using the `--secure-heap-min` command-line flag.
+         */
+        min: number;
+
+        /**
+         * The total number of bytes currently allocated from the secure heap.
+         */
+        used: number;
+
+        /**
+         * The calculated ratio of `used` to `total` allocated bytes.
+         */
+        utilization: number;
+    }
+
+    function secureHeapUsed(): SecureHeapUsage;
+
+    // TODO: X509Certificate
+
+    interface RandomUUIDOptions {
+        /**
+         * By default, to improve performance,
+         * Node.js will pre-emptively generate and persistently cache enough
+         * random data to generate up to 128 random UUIDs. To generate a UUID
+         * without using the cache, set `disableEntropyCache` to `true`.
+         *
+         * @default `false`
+         */
+        disableEntropyCache?: boolean;
+    }
+
+    function randomUUID(options?: RandomUUIDOptions): string;
+
+    interface X509CheckOptions {
+        /**
+         * @default 'always'
+         */
+        subject: 'always' | 'never';
+
+        /**
+         * @default true
+         */
+        wildcards: boolean;
+
+        /**
+         * @default true
+         */
+        partialWildcards: boolean;
+
+        /**
+         * @default false
+         */
+        multiLabelWildcards: boolean;
+
+        /**
+         * @default false
+         */
+        singleLabelSubdomains: boolean;
+    }
+
+    class X509Certificate {
+        /**
+         * Will be `true` if this is a Certificate Authority (ca) certificate.
+         */
+        readonly ca: boolean;
+
+        /**
+         * The SHA-1 fingerprint of this certificate.
+         */
+        readonly fingerprint: string;
+
+        /**
+         * The SHA-256 fingerprint of this certificate.
+         */
+        readonly fingerprint256: string;
+
+        /**
+         * The complete subject of this certificate.
+         */
+        readonly subject: string;
+
+        /**
+         * The subject alternative name specified for this certificate.
+         */
+        readonly subjectAltName: string;
+
+        /**
+         * The information access content of this certificate.
+         */
+        readonly infoAccess: string;
+
+        /**
+         * An array detailing the key usages for this certificate.
+         */
+        readonly keyUsage: string[];
+
+        /**
+         * The public key for this certificate.
+         */
+        readonly publicKey: KeyObject;
+
+        /**
+         * A `Buffer` containing the DER encoding of this certificate.
+         */
+        readonly raw: Buffer;
+
+        /**
+         * The serial number of this certificate.
+         */
+        readonly serialNumber: string;
+
+        /**
+         * Returns the PEM-encoded certificate.
+         */
+        readonly validFrom: string;
+
+        /**
+         * The date/time from which this certificate is considered valid.
+         */
+        readonly validTo: string;
+
+        constructor(buffer: BinaryLike);
+
+        /**
+         * Checks whether the certificate matches the given email address.
+         *
+         * Returns `email` if the certificate matches,`undefined` if it does not.
+         */
+        checkEmail(email: string, options?: X509CheckOptions): string | undefined;
+
+        /**
+         * Checks whether the certificate matches the given host name.
+         *
+         * Returns `name` if the certificate matches, `undefined` if it does not.
+         */
+        checkHost(name: string, options?: X509CheckOptions): string | undefined;
+
+        /**
+         * Checks whether the certificate matches the given IP address (IPv4 or IPv6).
+         *
+         * Returns `ip` if the certificate matches, `undefined` if it does not.
+         */
+        checkIP(ip: string, options?: X509CheckOptions): string | undefined;
+
+        /**
+         * Checks whether this certificate was issued by the given `otherCert`.
+         */
+        checkIssued(otherCert: X509Certificate): boolean;
+
+        /**
+         * Checks whether this certificate was issued by the given `otherCert`.
+         */
+        checkPrivateKey(privateKey: KeyObject): boolean;
+
+        /**
+         * There is no standard JSON encoding for X509 certificates. The
+         * `toJSON()` method returns a string containing the PEM encoded
+         * certificate.
+         */
+        toJSON(): string;
+
+        /**
+         * Returns information about this certificate using the legacy [certificate object][] encoding.
+         */
+        toLegacyObject(): PeerCertificate;
+
+        /**
+         * Returns the PEM-encoded certificate.
+         */
+        toString(): string;
+
+        /**
+         * Verifies that this certificate was signed by the given public key.
+         * Does not perform any other validation checks on the certificate.
+         */
+        verify(publicKey: KeyObject): boolean;
+    }
 }

@@ -1,9 +1,5 @@
-declare module 'node:perf_hooks' {
-    export * from 'perf_hooks';
-}
-
 declare module 'perf_hooks' {
-    import { AsyncResource } from 'node:async_hooks';
+    import { AsyncResource } from 'async_hooks';
 
     type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
 
@@ -88,6 +84,12 @@ declare module 'perf_hooks' {
         utilization: number;
     }
 
+    /**
+     * @param util1 The result of a previous call to eventLoopUtilization()
+     * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
+     */
+    type EventLoopUtilityFunction = (util1?: EventLoopUtilization, util2?: EventLoopUtilization) => EventLoopUtilization;
+
     interface Performance {
         /**
          * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
@@ -148,11 +150,8 @@ declare module 'perf_hooks' {
          * eventLoopUtilization is similar to CPU utilization except that it is calculated using high precision wall-clock time.
          * It represents the percentage of time the event loop has spent outside the event loop's event provider (e.g. epoll_wait).
          * No other CPU idle time is taken into consideration.
-         *
-         * @param util1 The result of a previous call to eventLoopUtilization()
-         * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
          */
-        eventLoopUtilization(util1?: EventLoopUtilization, util2?: EventLoopUtilization): EventLoopUtilization;
+        eventLoopUtilization: EventLoopUtilityFunction;
     }
 
     interface PerformanceObserverEntryList {

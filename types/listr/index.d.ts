@@ -31,7 +31,7 @@ declare namespace Listr {
     interface ListrTask<Ctx = ListrContext> {
         title: string;
         task: (ctx: Ctx, task: ListrTaskWrapper<Ctx>) => void | ListrTaskResult<Ctx>;
-        skip?: (ctx: Ctx) => void | boolean | string | Promise<boolean>;
+        skip?: (ctx: Ctx) => void | boolean | string | Promise<undefined | boolean | string>;
         enabled?: (ctx: Ctx) => boolean | Promise<boolean> | Observable<boolean>;
     }
 
@@ -39,7 +39,7 @@ declare namespace Listr {
         title: string;
         output?: string;
         task: (ctx: Ctx, task: ListrTaskWrapper<Ctx>) => void | ListrTaskResult<Ctx>;
-        skip: (ctx: Ctx) => void | boolean | string | Promise<boolean>;
+        skip: (ctx: Ctx) => void | boolean | string | Promise<undefined | boolean | string>;
         subtasks: ReadonlyArray<ListrTaskWrapper<Ctx>>;
         state: string;
         check: (ctx: Ctx) => void;

@@ -31,13 +31,13 @@ import {
     createServer,
     constants,
     ServerOptions,
-} from 'node:http2';
-import EventEmitter = require('node:events');
-import { Stats } from 'node:fs';
-import { Socket, Server } from 'node:net';
-import { TLSSocket } from 'node:tls';
-import { Duplex, Readable } from 'node:stream';
-import { URL } from 'node:url';
+} from 'http2';
+import EventEmitter = require('events');
+import { Stats } from 'fs';
+import { Socket, Server } from 'net';
+import { TLSSocket } from 'tls';
+import { Duplex, Readable } from 'stream';
+import { URL } from 'url';
 
 // Headers & Settings
 {
@@ -237,6 +237,9 @@ import { URL } from 'node:url';
         server.on('request', (request: Http2ServerRequest, response: Http2ServerResponse) => {});
         server.on('timeout', () => {});
         server.setTimeout().setTimeout(5).setTimeout(5, () => {});
+        server.updateSettings({
+            enableConnectProtocol: true,
+        });
     });
 
     http2SecureServer.on('unknownProtocol', (socket: TLSSocket) => {});
@@ -324,6 +327,7 @@ import { URL } from 'node:url';
         response.end('', 'utf8', () => {});
         response.end(Buffer.from([]));
         response.end(Buffer.from([]), () => {});
+        const writable: boolean = response.writable;
 
         request.on('aborted', (hadError: boolean, code: number) => {});
         request.on('close', () => {});

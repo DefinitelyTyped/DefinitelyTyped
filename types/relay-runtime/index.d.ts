@@ -1,4 +1,4 @@
-// Type definitions for relay-runtime 10.1
+// Type definitions for relay-runtime 11.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Stephen Pittman <https://github.com/Stephen2>
@@ -183,6 +183,7 @@ export { applyOptimisticMutation } from './lib/mutations/applyOptimisticMutation
 export { commitLocalUpdate } from './lib/mutations/commitLocalUpdate';
 export { commitMutation } from './lib/mutations/commitMutation';
 export { fetchQuery } from './lib/query/fetchQuery';
+export { fetchQuery_DEPRECATED } from './lib/query/fetchQuery_DEPRECATED';
 export { isRelayModernEnvironment } from './lib/store/isRelayModernEnvironment';
 export { requestSubscription } from './lib/subscription/requestSubscription';
 

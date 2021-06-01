@@ -1,22 +1,18 @@
-declare module 'node:http2' {
-    export * from 'http2';
-}
-
 declare module 'http2' {
-    import EventEmitter = require('node:events');
-    import * as fs from 'node:fs';
-    import * as net from 'node:net';
-    import * as stream from 'node:stream';
-    import * as tls from 'node:tls';
-    import * as url from 'node:url';
+    import EventEmitter = require('events');
+    import * as fs from 'fs';
+    import * as net from 'net';
+    import * as stream from 'stream';
+    import * as tls from 'tls';
+    import * as url from 'url';
 
     import {
         IncomingHttpHeaders as Http1IncomingHttpHeaders,
         OutgoingHttpHeaders,
         IncomingMessage,
         ServerResponse,
-    } from 'node:http';
-    export { OutgoingHttpHeaders } from 'node:http';
+    } from 'http';
+    export { OutgoingHttpHeaders } from 'http';
 
     export interface IncomingHttpStatusHeader {
         ":status"?: number;
@@ -470,7 +466,16 @@ declare module 'http2' {
         origins?: string[];
     }
 
-    export interface Http2Server extends net.Server {
+    interface HTTP2ServerCommon {
+        setTimeout(msec?: number, callback?: () => void): this;
+        /**
+         * Throws ERR_HTTP2_INVALID_SETTING_VALUE for invalid settings values.
+         * Throws ERR_INVALID_ARG_TYPE for invalid settings argument.
+         */
+        updateSettings(settings: Settings): void;
+    }
+
+    export interface Http2Server extends net.Server, HTTP2ServerCommon {
         addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
@@ -518,11 +523,9 @@ declare module 'http2' {
         prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        setTimeout(msec?: number, callback?: () => void): this;
     }
 
-    export interface Http2SecureServer extends tls.Server {
+    export interface Http2SecureServer extends tls.Server, HTTP2ServerCommon {
         addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
@@ -576,8 +579,6 @@ declare module 'http2' {
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        setTimeout(msec?: number, callback?: () => void): this;
     }
 
     export class Http2ServerRequest extends stream.Readable {
@@ -652,7 +653,7 @@ declare module 'http2' {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    export class Http2ServerResponse extends stream.Stream {
+    export class Http2ServerResponse extends stream.Writable {
         constructor(stream: ServerHttp2Stream);
 
         readonly connection: net.Socket | tls.TLSSocket;
@@ -942,6 +943,12 @@ declare module 'http2' {
         const HTTP_STATUS_NOT_EXTENDED: number;
         const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
     }
+
+    /**
+     * This symbol can be set as a property on the HTTP/2 headers object with
+     * an array value in order to provide a list of headers considered sensitive.
+     */
+    export const sensitiveHeaders: symbol;
 
     export function getDefaultSettings(): Settings;
     export function getPackedSettings(settings: Settings): Buffer;

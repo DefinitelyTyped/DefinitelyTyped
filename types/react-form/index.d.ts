@@ -63,7 +63,7 @@ export interface UseFormOptions<
 export interface UseFormInstanceMeta<ErrorType> {
     error: ErrorType;
     isSubmitting: boolean;
-    isDirty: boolean;
+    isTouched: boolean;
     isSubmitted: boolean;
     submissionAttempts: number;
     fieldsAreValidating: boolean;

@@ -1347,6 +1347,10 @@ declare namespace SpotifyApi {
          */
         explicit: boolean;
         /**
+         * A description of the episode. This field may contain HTML tags.
+         */
+        html_description: string;
+        /**
          * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode.
          */
         id: string;

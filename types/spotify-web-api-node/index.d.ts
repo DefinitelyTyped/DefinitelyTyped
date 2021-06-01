@@ -1228,10 +1228,12 @@ interface AuthorizationCodeGrantResponse {
 /**
  * Response returned when requesting new access token (via refresh token)
  * https://developer.spotify.com/documentation/general/guides/authorization-guide/#4-requesting-a-refreshed-access-token-spotify-returns-a-new-access-token-to-your-app
+ * https://developer.spotify.com/documentation/general/guides/authorization-guide/#6-requesting-a-refreshed-access-token
  */
 interface RefreshAccessTokenResponse {
     access_token: string;
     expires_in: number;
+    refresh_token?: string;
     scope: string;
     token_type: string;
 }

@@ -25,6 +25,8 @@ declare namespace cheerio {
         prev: Element | null;
         parent: Element;
         data?: string;
+        startIndex?: number;
+        endIndex?: number;
     }
 
     interface TagElement {
@@ -47,6 +49,7 @@ declare namespace cheerio {
         nodeValue: string;
         data?: string;
         startIndex?: number;
+        endIndex?: number;
     }
 
     interface CommentElement {
@@ -55,6 +58,8 @@ declare namespace cheerio {
         prev: Element | null;
         parent: Element;
         data?: string;
+        startIndex?: number;
+        endIndex?: number;
     }
 
     type AttrFunction = (el: Element, i: number, currentValue: string) => any;
@@ -64,6 +69,7 @@ declare namespace cheerio {
         // Cheerio https://github.com/cheeriojs/cheerio
         // JQuery http://api.jquery.com
 
+        [Symbol.iterator](): IterableIterator<Element>;
         [index: number]: Element;
         cheerio: string;
         length: number;

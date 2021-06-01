@@ -106,17 +106,6 @@ declare module '.' {
      */
     export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    export interface SuspenseConfig {
-        busyDelayMs?: number;
-        busyMinDurationMs?: number;
-    }
-
-    // undocumented, considered for removal
-    export function unstable_withSuspenseConfig(
-        scope: () => VoidOrUndefinedOnly,
-        config: SuspenseConfig | null | undefined,
-    ): void;
-
     // must be synchronous
     export type TransitionFunction = () => VoidOrUndefinedOnly;
     // strange definition to allow vscode to show documentation on the invocation
@@ -153,8 +142,8 @@ declare module '.' {
      *
      * The `useTransition` hook returns two values in an array.
      *
-     * The first is a function that takes a callback. We can use it to tell React which state we want to defer.
-     * The seconda boolean. It’s React’s way of informing us whether we’re waiting for the transition to finish.
+     * The first is boolean, React’s way of informing us whether we’re waiting for the transition to finish.
+     * The seconda is a function that takes a callback. We can use it to tell React which state we want to defer.
      *
      * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**
      *
@@ -162,7 +151,7 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
      */
-    export function unstable_useTransition(config?: SuspenseConfig | null): [TransitionStartFunction, boolean];
+    export function unstable_useTransition(): [boolean, TransitionStartFunction];
 
     const opaqueIdentifierBranding: unique symbol;
     /**
