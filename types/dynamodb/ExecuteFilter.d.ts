@@ -4,7 +4,7 @@ import { Callback } from './Callback';
 
 export interface PromisedReadable<T> extends Readable {
     // DevNote: Promise function in dynamodb wraps results in an array
-    promise(): Promise<Array<T>>;
+    promise(): Promise<T[]>;
 }
 
 export interface ExecuteFilter<T> {

@@ -27,7 +27,7 @@ let Account = dynamo.define('Account', {
     },
 });
 
-let AccountTyped = dynamo.define<{
+const AccountTyped = dynamo.define<{
     email: string;
     name: string;
     age?: number;
