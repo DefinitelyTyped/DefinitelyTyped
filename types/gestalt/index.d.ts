@@ -218,7 +218,7 @@ export interface ButtonProps {
     accessibilityExpanded?: boolean;
     accessibilityHaspopup?: boolean;
     accessibilityLabel?: string;
-    color?: 'gray' | 'red' | 'blue' | 'transparent' | 'transparentWhiteText' | 'white';
+    color?: 'gray' | 'red' | 'blue' | 'transparent' | 'semiTransparentWhite' | 'transparentWhiteText' | 'white';
     disabled?: boolean;
     href?: string;
     iconEnd?: Icons;
@@ -487,7 +487,7 @@ export interface GroupAvatarProps {
  * https://gestalt.netlify.app/Heading
  */
 export interface HeaderProps {
-    accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+    accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6 | 'none';
     align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight';
     children?: React.ReactNode;
     color?:
@@ -882,7 +882,7 @@ export interface ModalProps {
      */
     closeOnOutsideClick?: boolean;
     footer?: React.ReactNode;
-    heading?: React.ReactNode;
+    heading?: React.ReactNode | string;
     role?: 'alertdialog' | 'dialog';
     size?: 'sm' | 'md' | 'lg' | number;
     /**
@@ -1219,7 +1219,13 @@ export interface TableSortableHeaderCellProps extends TableHeaderCellProps {
 export interface TabsProps {
     activeTabIndex: number;
     onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeTabIndex: number }) => void;
-    tabs: ReadonlyArray<{ text: any; href: string }>;
+    tabs: ReadonlyArray<{
+        text: any;
+        href: string;
+        id?: string;
+        indicator?: 'dot' | number;
+        ref?: { current?: HTMLElement };
+    }>;
     size?: 'md' | 'lg';
     wrap?: boolean;
 }
@@ -1273,6 +1279,7 @@ export interface TapAreaProps {
     mouseCursor?: 'copy' | 'grab' | 'grabbing' | 'move' | 'noDrop' | 'pointer' | 'zoomIn' | 'zoomOut';
     onBlur?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>>;
     onFocus?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onMouseDown?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>>;
     onMouseEnter?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>>;
     onMouseLeave?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>>;
     onTap?: AbstractEventHandler<
@@ -1331,7 +1338,7 @@ export interface TextAreaProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
     disabled?: boolean;
-    errorMessage?: string;
+    errorMessage?: React.ReactNode | string;
     helperText?: string;
     label?: string;
     name?: string;
@@ -1358,12 +1365,12 @@ export interface TextAreaProps {
 export interface TextFieldProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
-    autoComplete?: 'current-password' | 'on' | 'off' | 'username' | 'new-password';
+    autoComplete?: 'current-password' | 'on' | 'off' | 'username' | 'new-password' | 'email';
     /**
      * @default false
      */
     disabled?: boolean;
-    errorMessage?: string;
+    errorMessage?: React.ReactNode | string;
     /**
      * More information about how to complete the form field
      */
@@ -1524,7 +1531,12 @@ export interface VideoProps {
     onSeek?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
     onTimeChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { time: number }>;
     onVolumeChange?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>, { volume: number }>;
-
+    onError?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement> | React.SyntheticEvent<HTMLAnchorElement>>;
+    onLoadStart?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement> | React.SyntheticEvent<HTMLAnchorElement>>;
+    onPlaying?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement> | React.SyntheticEvent<HTMLAnchorElement>>;
+    onSeeking?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement> | React.SyntheticEvent<HTMLAnchorElement>>;
+    onStalled?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement> | React.SyntheticEvent<HTMLAnchorElement>>;
+    onWaiting?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement> | React.SyntheticEvent<HTMLAnchorElement>>;
     playsInline?: boolean;
     poster?: string;
 }
