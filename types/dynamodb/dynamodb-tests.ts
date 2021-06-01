@@ -522,7 +522,7 @@ GameScore.query('Galaxy Invaders')
     .gt(1000)
     .descending()
     .exec((err, data) => {
-        console.log(data.Items);
+        console.log(data[0].Items);
     });
 
 BlogPost = dynamo.define('Account', {
