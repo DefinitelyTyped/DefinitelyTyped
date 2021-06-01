@@ -24,6 +24,7 @@ export class Model<T> extends Item<T> implements Model<T> {
 }
 
 export interface Model<T> {
+    // tslint:disable-next-line:no-misused-new
     new (attrs: T): Model<T>;
     attrs: T;
     table: any;
