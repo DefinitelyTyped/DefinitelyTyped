@@ -437,23 +437,7 @@ export namespace Identity {
     const login: Login;
     const logout: Logout;
     const modify: Modify;
-    const HTTPCodes: {
-        noHttpCoverage: HTTPCodes.noHttpCoverage;
-        activeIdentityRequest: HTTPCodes.activeIdentityRequest;
-        activeSession: HTTPCodes.activeSession;
-        validationIssue: HTTPCodes.validationIssue;
-        nativeIdentityRequest: HTTPCodes.nativeIdentityRequest;
-        loggingDisabledOrMissingAPIKey: HTTPCodes.loggingDisabledOrMissingAPIKey;
-    };
-}
-
-export enum HTTPCodes {
-    noHttpCoverage = -1,
-    activeIdentityRequest = -2,
-    activeSession = -3,
-    validationIssue = -4,
-    nativeIdentityRequest = -5,
-    loggingDisabledOrMissingAPIKey = -6,
+    const HTTPCodes: any;
 }
 
 export enum ProductActionType {
@@ -654,7 +638,7 @@ export interface IdentityCallback {
 }
 
 export interface IdentityResult {
-    httpCode: HTTPCodes;
+    httpCode: any;
     getPreviousUser(): User;
     getUser(): User;
     body: IdentityResultBody;
@@ -733,13 +717,7 @@ declare class mParticleInstance {
         login: Login;
         logout: Logout;
         modify: Modify;
-        HTTPCodes: {
-            noHttpCoverage: HTTPCodes.noHttpCoverage;
-            activeIdentityRequest: HTTPCodes.activeIdentityRequest;
-            activeSession: HTTPCodes.activeSession;
-            validationIssue: HTTPCodes.validationIssue;
-            nativeIdentityRequest: HTTPCodes.nativeIdentityRequest;
-        };
+        HTTPCodes: any;
     };
     eCommerce: {
         createImpression: CreateImpression;
