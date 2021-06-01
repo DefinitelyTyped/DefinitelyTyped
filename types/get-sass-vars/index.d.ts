@@ -1,0 +1,33 @@
+// Type definitions for get-sass-vars 3.0
+// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Definitions by: Manuel Thalmann <https://github.com/manuth>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { Options } from "sass";
+
+/**
+ * Provides options for the `get-sass-vars`-module.
+ */
+export interface SassVarsOptions {
+    /**
+     * A value indicating whether first-level object-keys in the resulting object should be camelized.
+     *
+     * If enabled, the leading `$` will be removed and variable-names will be camelized (e.g. $foo-bar will become fooBar).
+     */
+    camelize?: boolean;
+
+    /**
+     * The options to pass to `sass`.
+     */
+    sassOptions?: Options;
+}
+
+/**
+ * Resolves the variables from the specified `sass`-code.
+ *
+ * @param data
+ * The source-code to process.
+ *
+ * @param options
+ * The options for resolving the variables.
+ */
+export default function sassVars(data: string, options?: SassVarsOptions): Promise<Record<string, unknown>>;
