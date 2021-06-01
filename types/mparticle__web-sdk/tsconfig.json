@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": ["es6", "dom"],
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "mparticle__web-sdk-tests.ts"
+        "mparticle__web-sdk-tests.ts",
+        "mparticle__web-sdk-instance-tests.ts"
     ]
 }
