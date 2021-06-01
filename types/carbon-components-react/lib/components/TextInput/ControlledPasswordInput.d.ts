@@ -3,6 +3,8 @@ import { ForwardRefReturn, TooltipAlignment, TooltipPosition } from "../../../ty
 import { TextInputSharedProps } from "./props";
 
 export interface ControlledPasswordInputProps extends TextInputSharedProps {
+    hidePasswordLabel?: string;
+    showPasswordLabel?: string;
     size?: string,
     togglePasswordVisibility?(event: React.MouseEvent<HTMLButtonElement>): void,
     tooltipAlignment?: TooltipAlignment;
