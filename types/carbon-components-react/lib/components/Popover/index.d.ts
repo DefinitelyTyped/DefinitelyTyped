@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from "../../../typings/shared";
+import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn, ForwardRefProps } from "../../../typings/shared";
 
 /*
  * Popover
@@ -79,12 +79,12 @@ export type PopoverContentCustomComponentProps<
       }
     : never;
 
-declare function PopoverContent(props: PopoverContentDefaultProps): FCReturn;
-declare function PopoverContent<T extends keyof JSX.IntrinsicElements>(
-    props: PopoverContentIntrinsicProps<T>,
+declare function PopoverContent(props: ForwardRefProps<HTMLDivElement, PopoverContentDefaultProps>): FCReturn;
+declare function PopoverContent<T extends keyof JSX.IntrinsicElements, R extends HTMLElement = HTMLDivElement>(
+    props: ForwardRefProps<R, PopoverContentIntrinsicProps<T>>
 ): FCReturn;
-declare function PopoverContent<T extends React.JSXElementConstructor<any>>(
-    props: PopoverContentCustomComponentProps<T>,
+declare function PopoverContent<T extends React.JSXElementConstructor<any>, R extends object = HTMLDivElement>(
+    props: ForwardRefProps<R, PopoverContentCustomComponentProps<T>>,
 ): FCReturn;
 
 export { Popover, PopoverContent };

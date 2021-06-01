@@ -630,19 +630,24 @@ const dropdownItemCanBeElement = (
 
 // Popover
 {
+    const popoverContentDivRef = React.useRef<HTMLDivElement | null>(null);
     const popoverT1 = (
         <Popover open align="bottom" caret>
-            <PopoverContent>Content</PopoverContent>
+            <PopoverContent ref={popoverContentDivRef}>Content</PopoverContent>
         </Popover>
     );
+
+    const popoverContentFieldSetRef = React.useRef<HTMLFieldSetElement | null>(null);
     const popoverIntrinsicT1 = (
         <Popover open={false}>
-            <PopoverContent as="fieldset" disabled form="test">Content</PopoverContent>
+            <PopoverContent as="fieldset" disabled form="test" ref={popoverContentFieldSetRef}>Content</PopoverContent>
         </Popover>
     );
+
+    const popoverContentCustomRef = React.useRef<{ someFn: () => void } | null>(null);
     const popoverCustomComponentT1 = (
         <Popover open>
-            <PopoverContent as={TestComp2} someProp={2}>Content</PopoverContent>
+            <PopoverContent as={TestComp2} someProp={2} ref={popoverContentCustomRef}>Content</PopoverContent>
         </Popover>
     );
 }
