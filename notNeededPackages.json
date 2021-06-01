@@ -2793,6 +2793,10 @@
             "libraryName": "mongodb-memory-server",
             "asOfVersion": "2.3.0"
         },
+        "mongoose": {
+            "libraryName": "mongoose",
+            "asOfVersion": "5.11.0"
+        },
         "monk": {
             "libraryName": "monk",
             "asOfVersion": "6.0.0"
