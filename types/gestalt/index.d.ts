@@ -58,7 +58,7 @@ export interface ActivationCardProps {
             | React.MouseEvent<HTMLAnchorElement>
             | React.KeyboardEvent<HTMLAnchorElement>
             | React.KeyboardEvent<HTMLButtonElement>,
-            {disableOnNavigation?: () => void}
+            { disableOnNavigation?: () => void }
         >;
         rel?: 'none' | 'nofollow';
         target?: null | 'self' | 'blank';
@@ -229,7 +229,7 @@ export interface ButtonProps {
         | React.MouseEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLButtonElement>,
-        {disableOnNavigation?: () => void}
+        { disableOnNavigation?: () => void }
     >;
     rel?: 'none' | 'nofollow';
     role?: 'button' | 'link';
@@ -257,7 +257,7 @@ export interface ActionData {
         | React.KeyboardEvent<HTMLAnchorElement>
         | React.MouseEvent<HTMLButtonElement>
         | React.KeyboardEvent<HTMLButtonElement>,
-        {disableOnNavigation?: () => void}
+        { disableOnNavigation?: () => void }
     >;
     rel?: 'none' | 'nofollow';
     target?: null | 'self' | 'blank';
@@ -423,10 +423,9 @@ export interface DropdownItemProps {
      */
     selected?: DropdownOption | ReadonlyArray<DropdownOption>;
     onClick?: AbstractEventHandler<
-        | React.MouseEvent<HTMLAnchorElement>
-        | React.KeyboardEvent<HTMLAnchorElement>,
-        {disableOnNavigation?: () => void}
-        >;
+        React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+        { disableOnNavigation?: () => void }
+    >;
 }
 
 export interface DropdownSectionProps {
@@ -462,7 +461,6 @@ export interface FlexProps {
     maxWidth?: number | string;
     minHeight?: number | string;
     minWidth?: number | string;
-    overflow?: 'visible' | 'hidden' | 'scroll' | 'scrollX' | 'scrollY' | 'auto';
     width?: number | string;
     wrap?: boolean;
 }
@@ -490,7 +488,7 @@ export interface GroupAvatarProps {
  */
 export interface HeaderProps {
     accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6;
-    align?: 'left' | 'right' | 'center' | 'justify';
+    align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight';
     children?: React.ReactNode;
     color?:
         | 'blue'
@@ -604,7 +602,7 @@ export type Icons =
     | 'heart'
     | 'heart-outline'
     | 'heart-broken'
-    | "history"
+    | 'history'
     | 'impressum'
     | 'info-circle'
     | 'key'
@@ -682,7 +680,7 @@ export type Icons =
     | 'view-type-default'
     | 'view-type-dense'
     | 'view-type-list'
-    | "visit"
+    | 'visit'
     | 'workflow-status-all'
     | 'workflow-status-canceled'
     | 'workflow-status-halted'
@@ -744,8 +742,8 @@ export interface IconButtonProps {
         | React.KeyboardEvent<HTMLAnchorElement>
         | React.MouseEvent<HTMLButtonElement>
         | React.KeyboardEvent<HTMLButtonElement>,
-        {disableOnNavigation?: () => void}
-        >;
+        { disableOnNavigation?: () => void }
+    >;
     padding?: 1 | 2 | 3 | 4 | 5;
     rel?: 'none' | 'nofollow';
     role?: 'button' | 'link';
@@ -819,10 +817,9 @@ export interface LinkProps {
     inline?: boolean;
     onBlur?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>>;
     onClick?: AbstractEventHandler<
-        | React.MouseEvent<HTMLAnchorElement>
-        | React.KeyboardEvent<HTMLAnchorElement>,
-        {disableOnNavigation?: () => void}
-        >;
+        React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+        { disableOnNavigation?: () => void }
+    >;
     onFocus?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>>;
     rel?: 'none' | 'nofollow';
     role?: 'tab';
@@ -903,7 +900,7 @@ export interface ModuleProps {
     icon?: Icons;
     iconAccessibilityLabel?: string;
     title?: string;
-    type?: "error" | "info";
+    type?: 'error' | 'info';
 }
 
 /**
@@ -1046,6 +1043,7 @@ export interface SearchFieldProps {
     placeholder?: string;
     size?: 'md' | 'lg';
     value?: string;
+    label?: string;
 }
 
 /**
@@ -1282,7 +1280,7 @@ export interface TapAreaProps {
         | React.KeyboardEvent<HTMLDivElement>
         | React.MouseEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLAnchorElement>,
-        {disableOnNavigation?: () => void}
+        { disableOnNavigation?: () => void }
     >;
     rel?: 'none' | 'nofollow';
     role?: 'button' | 'link';
@@ -1297,7 +1295,7 @@ export interface TapAreaProps {
  * https://gestalt.netlify.app/Text
  */
 export interface TextProps {
-    align?: 'left' | 'right' | 'center' | 'justify';
+    align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight';
     children?: React.ReactNode;
     color?:
         | 'blue'
