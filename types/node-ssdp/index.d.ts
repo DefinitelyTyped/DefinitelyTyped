@@ -1,6 +1,7 @@
 // Type definitions for node-ssdp 4.0
 // Project: https://github.com/diversario/node-ssdp#readme
 // Definitions by: Olivia Trewin <https://github.com/OrionNebula>
+//                 Daniel Cassidy <https://github.com/djcsdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
