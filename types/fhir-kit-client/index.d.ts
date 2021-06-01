@@ -9,11 +9,11 @@
 import { Options, Headers } from "request";
 import { OpPatch } from "json-patch";
 
-// type KnownResourceType = fhir.FhirResource;
+// Set to R4
+import fhir4 from "fhir/r4";
+import fhir = fhir4;
 
 type ResourceType = string;
-
-// type CustomResourceType = Exclude<ResourceType, KnownResourceType>;
 
 interface SmartAuthMetadata {
     authorizeUrl?: string;

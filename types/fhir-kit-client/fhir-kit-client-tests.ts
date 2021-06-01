@@ -2,6 +2,9 @@ import Client from "fhir-kit-client";
 import { Headers } from "request";
 import { OpPatch } from "json-patch";
 
+import fhir4 from "fhir/r4";
+import fhir = fhir4;
+
 const client: Client = new Client({
     baseUrl: "http://foo",
     customHeaders: {
