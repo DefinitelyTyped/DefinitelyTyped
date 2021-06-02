@@ -1,11 +1,11 @@
-import { Autosave } from "@ckeditor/ckeditor5-autosave";
+import Autosave from "@ckeditor/ckeditor5-autosave";
 import { AutosaveAdapter, AutosaveConfig } from "@ckeditor/ckeditor5-autosave/src/autosave";
 import { Editor } from "@ckeditor/ckeditor5-core";
 
 class MyEditor extends Editor {}
-const plugin = new Autosave(new MyEditor());
+const plugin = new Autosave.Autosave(new MyEditor());
 plugin.once("click", () => {});
-const isContext: boolean = Autosave.isContextPlugin;
+const isContext: boolean = Autosave.Autosave.isContextPlugin;
 const state: "synchronized" | "waiting" | "saving" = plugin.state;
 plugin.adapter.save(new MyEditor());
 

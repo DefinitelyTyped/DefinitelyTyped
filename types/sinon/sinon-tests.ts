@@ -302,6 +302,7 @@ function testAssert() {
     sinon.assert.callOrder(spy, spyTwo);
     sinon.assert.calledOn(spy, obj);
     sinon.assert.calledOn(spy.firstCall, obj);
+    sinon.assert.calledWith(spy, "a", "b", "c");
     sinon.assert.alwaysCalledOn(spy, obj);
     sinon.assert.alwaysCalledWith(spy, "a", "b", "c");
     sinon.assert.neverCalledWith(spy, "a", "b", "c");
@@ -342,11 +343,16 @@ function testAssert() {
     sinon.assert.callOrder(typedSpy, spyTwo);
     sinon.assert.calledOn(typedSpy, obj);
     sinon.assert.calledOn(typedSpy.firstCall, obj);
+    sinon.assert.calledWith(typedSpy, "a", true);
+    sinon.assert.calledWith(typedSpy, "a");
+    sinon.assert.calledWith(typedSpy, "a", "b"); // $ExpectError
     sinon.assert.alwaysCalledOn(typedSpy, obj);
     sinon.assert.alwaysCalledWith(typedSpy, "a", "b", "c"); // $ExpectError
     sinon.assert.alwaysCalledWith(typedSpy, "a", true);
+    sinon.assert.alwaysCalledWith(typedSpy, "a");
     sinon.assert.neverCalledWith(typedSpy, "a", false);
     sinon.assert.neverCalledWith(typedSpy, "a", "b"); // $ExpectError
+    sinon.assert.neverCalledWith(typedSpy, "a");
     sinon.assert.calledWithExactly(typedSpy, "a", true);
     sinon.assert.calledWithExactly(typedSpy, "a", "b"); // $ExpectError
     sinon.assert.alwaysCalledWithExactly(typedSpy, "a", true);

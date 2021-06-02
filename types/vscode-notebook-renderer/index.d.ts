@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
+import { VSCodeEvent } from './events';
+
 export interface CellInfo {
     /**
      * HTML element where the cell should be renderer.
@@ -11,16 +13,9 @@ export interface CellInfo {
     readonly element: HTMLElement;
 
     /**
-     * Mime type being renderer.
+     * Mime type being rendered.
      */
     readonly mime: string;
-
-    /**
-     * Render data for the cell.
-     * @todo This may eventually be just a Uint8Array
-     * @deprecated
-     */
-    readonly value: unknown;
 
     /**
      * The data as text. Note the a UTF-8 decoder is used is create
@@ -69,6 +64,24 @@ export interface RendererContext<T> {
      * activated yet.
      */
     getRenderer(id: string): RendererApi | undefined;
+
+    /**
+     * Method that may be present if `requiresMessaging` is set to `true`
+     * or `optional` in the renderer contribution point.
+     *
+     * Sends a message to a renderer listening via the `vscode.notebook.createRendererMessaging`
+     * object in the extension host.
+     */
+    postMessage?(message: unknown): void;
+
+    /**
+     * Event that may be present if `requiresMessaging` is set to `true`
+     * or `optional` in the renderer contribution point.
+     *
+     * Fires when a message is sent via the `vscode.notebook.createRendererMessaging`
+     * object in the extension host.
+     */
+    onDidReceiveMessage?: VSCodeEvent<any>;
 }
 
 export interface RendererApi {

@@ -331,7 +331,7 @@ declare namespace Assertions {
     type NotEqual = (found: any, notWanted: any, message?: string, extra?: Options.Assert) => boolean;
     type Match = (
         found: any,
-        pattern: string | RegExp | { [key: string]: RegExp },
+        pattern: any,
         message?: string,
         extra?: Options.Assert,
     ) => boolean;

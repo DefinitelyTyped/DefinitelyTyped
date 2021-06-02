@@ -1,10 +1,10 @@
-import { Autoformat } from "@ckeditor/ckeditor5-autoformat";
+import AF from "@ckeditor/ckeditor5-autoformat";
 import blockAutoformatEditing from "@ckeditor/ckeditor5-autoformat/src/blockautoformatediting";
 import inlineAutoformatEditing from "@ckeditor/ckeditor5-autoformat/src/inlineautoformatediting";
 import { Editor } from "@ckeditor/ckeditor5-core";
 
 class MyEditor extends Editor {}
-const autoformat = new Autoformat(new MyEditor());
+const autoformat = new AF.Autoformat(new MyEditor());
 autoformat.afterInit();
 
 blockAutoformatEditing(new MyEditor(), autoformat, /foo/, "foo");

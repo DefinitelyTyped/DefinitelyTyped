@@ -2693,6 +2693,10 @@
             "libraryName": "material-components-web",
             "asOfVersion": "1.0.0"
         },
+        "mathjs": {
+            "libraryName": "mathjs",
+            "asOfVersion": "9.4.1"
+        },
         "matrix-appservice-bridge": {
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
@@ -2792,6 +2796,10 @@
         "mongodb-memory-server": {
             "libraryName": "mongodb-memory-server",
             "asOfVersion": "2.3.0"
+        },
+        "mongoose": {
+            "libraryName": "mongoose",
+            "asOfVersion": "5.11.0"
         },
         "monk": {
             "libraryName": "monk",
@@ -2988,6 +2996,10 @@
         "notyf": {
             "libraryName": "notyf",
             "asOfVersion": "3.0.0"
+        },
+        "nouislider": {
+            "libraryName": "nouislider",
+            "asOfVersion": "15.0.0"
         },
         "npm-email": {
             "libraryName": "npm-email",
@@ -3889,6 +3901,10 @@
         "react-native-document-picker": {
             "libraryName": "react-native-document-picker",
             "asOfVersion": "3.1.0"
+        },
+        "react-native-draggable-flatlist": {
+            "libraryName": "react-native-draggable-flatlist",
+            "asOfVersion": "2.0.0"
         },
         "react-native-elements": {
             "libraryName": "react-native-elements",

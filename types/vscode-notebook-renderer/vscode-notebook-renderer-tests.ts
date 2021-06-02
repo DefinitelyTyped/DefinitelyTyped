@@ -15,8 +15,18 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
     // $ExpectError
     context.setState({ unknownProp: true });
 
+    if (context.postMessage) {
+        context.postMessage('hello world');
+    }
+    if (context.onDidReceiveMessage) {
+        context.onDidReceiveMessage(message => {
+            // $ExpectType any
+            message;
+        });
+    }
+
     return {
-        renderCell(outputId, { value, mime, metadata, element, text, json, blob, bytes }) {
+        renderCell(outputId, { mime, metadata, element, text, json, blob, bytes }) {
             // $ExpectType string
             outputId;
             // $ExpectType HTMLElement
@@ -25,8 +35,6 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
             mime;
             // $ExpectType unknown
             metadata;
-            // $ExpectType unknown
-            value;
             // $ExpectType () => string
             text;
             // $ExpectType () => any

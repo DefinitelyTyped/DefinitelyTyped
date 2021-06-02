@@ -334,6 +334,10 @@ declare namespace Office {
      * Represents the add-in.
      */
     const addin: Addin;
+    /**
+     * Represents the ribbon associated with the Office application.
+     */
+     const ribbon: Ribbon;
     // Enumerations
     /**
      * Provides options to determine the startup behavior of the add-in upon next start-up.

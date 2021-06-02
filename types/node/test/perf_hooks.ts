@@ -10,10 +10,12 @@ import {
 } from 'perf_hooks';
 
 performance.mark('start');
-(
-    () => {}
-)();
+(() => {})();
 performance.mark('end');
+
+performance.measure('name', 'startMark', 'endMark');
+performance.measure('name', 'startMark');
+performance.measure('name');
 
 const timeOrigin: number = performance.timeOrigin;
 
@@ -57,4 +59,7 @@ const exceeds: number = monitor.exceeds;
 
 const eventLoopUtilization1: EventLoopUtilization = performance.eventLoopUtilization();
 const eventLoopUtilization2: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization1);
-const eventLoopUtilization3: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization2, eventLoopUtilization1);
+const eventLoopUtilization3: EventLoopUtilization = performance.eventLoopUtilization(
+    eventLoopUtilization2,
+    eventLoopUtilization1,
+);

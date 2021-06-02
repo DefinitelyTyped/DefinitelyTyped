@@ -584,6 +584,8 @@ export namespace Rule {
 
         getFilename(): string;
 
+        getCwd(): string;
+
         getScope(): Scope.Scope;
 
         getSourceCode(): SourceCode;
@@ -840,6 +842,7 @@ export namespace ESLint {
         // Cache-related
         cache?: boolean;
         cacheLocation?: string;
+        cacheStrategy?: "content" | "metadata";
     }
 
     interface LintResult {
@@ -914,6 +917,7 @@ export namespace CLIEngine {
         cache?: boolean;
         cacheFile?: string;
         cacheLocation?: string;
+        cacheStrategy?: "content" | "metadata";
         configFile?: string;
         cwd?: string;
         envs?: string[];

@@ -7,11 +7,11 @@ export interface CheckoutCapture {
   discount_code?: string;
   extra_fields?: Extrafield[];
   customer: Partial<Omit<Customer, 'external_id'>>;
-  shipping?: Partial<Omit<Address, 'street_2'>>;
+  shipping?: Partial<Address>;
   fulfillment?: {
     shipping_method: string;
   };
-  billing?: Partial<Omit<Address, 'street_2'>>;
+  billing?: Partial<Address>;
   payment: {
     gateway: string;
     card?: {
