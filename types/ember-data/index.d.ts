@@ -22,10 +22,10 @@ import AdapterRegistry from 'ember-data/types/registries/adapter';
   The keys from the actual Model class, removing all the keys which come from
   the base class.
  */
-type ModelKeys<Model extends DS.Model> = Exclude<keyof Model, keyof DS.Model>;
+type ModelKeys<K> = Exclude<keyof K, keyof DS.Model>;
 
 type AttributesFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to attr properties only (TS 2.8)
-type RelationshipsFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)
+type RelationshipsFor<K extends keyof ModelRegistry> = ModelKeys<ModelRegistry[K]>;
 
 export interface ChangedAttributes {
     [key: string]: [any, any] | undefined;
@@ -39,18 +39,18 @@ interface AttributeMeta<Model extends DS.Model> {
 }
 
 interface RelationshipMetaOptions {
-    async?: boolean;
-    inverse?: string;
-    polymorphic?: boolean;
-    [k: string]: any;
+    async?: boolean; // unspecified defaults relationship to "true"
+    inverse?: string; // unspecified defaults to a lookup, which could be null but could find an inverse
+    polymorphic?: boolean; // unspecified defaults to false
+    [k: string]: unknown;
 }
-interface RelationshipMeta<Model extends DS.Model> {
-    key: RelationshipsFor<Model>;
+
+interface RelationshipMeta<K extends keyof ModelRegistry> {
+    key: RelationshipsFor<K>;
     kind: 'belongsTo' | 'hasMany';
     type: keyof ModelRegistry;
     options: RelationshipMetaOptions;
-    name: string;
-    parentType: Model;
+    name: RelationshipsFor<K>;
     isRelationship: true;
 }
 
