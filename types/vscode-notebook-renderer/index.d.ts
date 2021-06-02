@@ -67,11 +67,17 @@ export interface RendererContext<TState> {
     getState(): TState | undefined;
 
     /**
-     * Gets the return value of an already activated renderer. It returns
-     * undefined if the specified renderer is not available or has not been
-     * activated yet.
+     * Retrieve the API of another renderer.
+     *
+     * This allows the current renderer to extend another renderer.
+     *
+     * @param id Id of the renderer to retrieve. This is the `id` of the `notebookRenderer` contribution in
+     * the target renderer's `package.json`.
+     *
+     * @return The API of the requested renderer. This is the object returned from its `activate` method. Returns
+     * `undefined` if the requested renderer cannot be found.
      */
-    getRenderer(id: string): RendererApi | undefined;
+    getRenderer(id: string): Promise<RendererApi | undefined>;
 
     /**
      * Method that may be present if `requiresMessaging` is set to `true`
