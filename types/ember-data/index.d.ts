@@ -40,7 +40,7 @@ interface AttributeMeta<Model extends DS.Model> {
 
 interface RelationshipMetaOptions {
     async?: boolean; // unspecified defaults relationship to "true"
-    inverse?: string; // unspecified defaults to a lookup, which could be null but could find an inverse
+    inverse?: string | null; // unspecified defaults to a lookup, which could be null but could find an inverse
     polymorphic?: boolean; // unspecified defaults to false
     [k: string]: unknown;
 }
