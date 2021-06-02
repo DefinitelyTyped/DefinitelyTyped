@@ -19,7 +19,9 @@ type PLAY_BACK_RATE =
  * 播放器状态
  */
 type PLAY_STATE =
-    | 'ready' // 初始状态'loading'| // 加载中（1.播放，2.恢复播放，3.seek）引起的声音加载'playing'| // 播放中
+    | 'ready' // 初始状态
+    | 'loading' // 加载中（1.播放，2.恢复播放，3.seek）引起的声音加载
+    | 'playing' // 播放中
     | 'paused' // 暂停
     | 'stoped' // 停止
     | 'error'; // 播放器异常
