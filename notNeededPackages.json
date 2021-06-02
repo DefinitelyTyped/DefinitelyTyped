@@ -2693,6 +2693,10 @@
             "libraryName": "material-components-web",
             "asOfVersion": "1.0.0"
         },
+        "mathjs": {
+            "libraryName": "mathjs",
+            "asOfVersion": "9.4.1"
+        },
         "matrix-appservice-bridge": {
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
