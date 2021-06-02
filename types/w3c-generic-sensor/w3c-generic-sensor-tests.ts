@@ -17,7 +17,7 @@ const gravitySensor1 = () => {
     const sensor = new GravitySensor({ frequency: 5, referenceFrame: "screen" });
 
     sensor.onreading = () => {
-      if (sensor.y >= 9.8) {
+      if (sensor.y && sensor.y >= 9.8) {
         console.log("Web page is perpendicular to the ground.");
       }
     };
@@ -31,7 +31,7 @@ const linearAccelerationSensor1 = () => {
     const sensor = new LinearAccelerationSensor({ frequency: 60 });
 
     sensor.addEventListener("reading", () => {
-      if (sensor.x > shakeThreshold) {
+      if (sensor.x && sensor.x > shakeThreshold) {
         console.log("Shake detected.");
       }
     });
