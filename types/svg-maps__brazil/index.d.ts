@@ -1,4 +1,4 @@
-// Type definitions for @svg-maps/usa 1.0.1
+// Type definitions for @svg-maps/brazil 1.0.1
 // Project: https://github.com/VictorCazanave/svg-maps/tree/master/packages/brazil
 // Definitions by: Joao Sutel <https://github.com/joaosutel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
