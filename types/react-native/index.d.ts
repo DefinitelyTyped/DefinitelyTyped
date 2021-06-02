@@ -4138,7 +4138,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Styling for internal View for ListFooterComponent
      */
-    ListFooterComponentStyle?: ViewStyle | null;
+    ListFooterComponentStyle?: StyleProp<ViewStyle>;
 
     /**
      * Rendered at the very beginning of the list.
@@ -4148,7 +4148,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Styling for internal View for ListHeaderComponent
      */
-    ListHeaderComponentStyle?: ViewStyle | null;
+    ListHeaderComponentStyle?: StyleProp<ViewStyle>;
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
