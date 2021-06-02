@@ -99,7 +99,7 @@ const config: mParticle.MPConfiguration = {
     appVersion: '1.0.0',
     appName: 'testAppName',
     logLevel: 'warning',
-    logger: logger,
+    logger,
     sessionTimeout: 500,
     useCookieStorage: true,
     maxCookieSize: 300,
