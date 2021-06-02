@@ -1,8 +1,6 @@
-import Brazil, { Map } from '@svg-maps/brazil';
+import * as brazil from 'svg-maps__brazil';
 
-const map: Map = Brazil;
-
-const SVGMapContainer: Map = {
+const SVGMapContainer: brazil.Map = {
   viewBox: 'viewBox',
   locations: [{
     path: 'path',
@@ -12,7 +10,7 @@ const SVGMapContainer: Map = {
   label: 'label'
 };
 
-const SVGMapContainerNoOptional: Map = {
+const SVGMapContainerNoOptional: brazil.Map = {
   viewBox: 'vieweBox',
   locations: [{
   path: 'path',
