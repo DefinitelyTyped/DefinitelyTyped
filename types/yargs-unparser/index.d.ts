@@ -2,23 +2,26 @@
 // Project: https://github.com/yargs/yargs-unparser#readme
 // Definitions by: Anton Golub <https://github.com/antongolub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.7
 
-export type Argv = string[];
-export interface Arguments {
-    _: string[];
-    [argName: string]: any;
+// tslint:disable:strict-export-declare-modifiers
+declare namespace yargsUnparser {
+    type Argv = string[];
+    interface Arguments {
+        _: string[];
+        [argName: string]: any;
+    }
+
+    interface UnparserOptions {
+        alias?: Record<string, string[]>;
+        default?: Record<string, string>;
+        command?: string;
+    }
+
+    interface Unparser {
+        (args: Arguments, opts?: UnparserOptions): Argv;
+    }
 }
 
-export interface UnparserOptions {
-    alias?: Record<string, string[]>;
-    default?: Record<string, string>;
-    command?: string;
-}
-
-export interface Unparser {
-    (args: Arguments, opts?: UnparserOptions): Argv;
-}
-
-declare var yargsUnparser: Unparser;
-export { yargsUnparser as default };
+declare var yargsUnparser: yargsUnparser.Unparser;
+export = yargsUnparser;
