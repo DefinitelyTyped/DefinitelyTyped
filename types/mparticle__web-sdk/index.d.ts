@@ -5,8 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 export as namespace mParticle;
 export {};
 export interface MPConfiguration {
