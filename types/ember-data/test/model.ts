@@ -14,11 +14,11 @@ const Person = DS.Model.extend({
         return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
 
-    point: DS.attr('point', { defaultValue: () => Point.create({ x: 1, y: 2 })}),
-    oldPoint: DS.attr('oldPoint', { defaultValue: () => Point.create({ x: 1, y: 2 })}),
+    point: DS.attr('point', { defaultValue: () => Point.create({ x: 1, y: 2 }) }),
+    oldPoint: DS.attr('oldPoint', { defaultValue: () => Point.create({ x: 1, y: 2 }) }),
 
     // Can't have a non-primitive as default
-    anotherPoint: DS.attr('point', { defaultValue: Point.create({ x: 1, y: 2 })}) // $ExpectError
+    anotherPoint: DS.attr('point', { defaultValue: Point.create({ x: 1, y: 2 }) }), // $ExpectError
 });
 
 const person = Person.create();

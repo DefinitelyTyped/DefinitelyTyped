@@ -16,9 +16,9 @@ class PointTransform extends DS.Transform {
 }
 
 declare module 'ember-data/types/registries/transform' {
-  export default interface TransformRegistry {
-    point: PointTransform;
-    // This should really only contain transforms, but historically people have just put the return type directly in.
-    oldPoint: Point;
-  }
+    export default interface TransformRegistry {
+        point: PointTransform;
+        // This should really only contain transforms, but historically people have just put the return type directly in.
+        oldPoint: Point;
+    }
 }
