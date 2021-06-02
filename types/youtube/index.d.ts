@@ -218,7 +218,7 @@ declare namespace YT
     export type ListTypeUserUploads = "user_uploads";
 
     /**
-     * The user's uploads should load in the player.
+     * A playlist should be shown in the player.
      */
     export type ListTypePlaylist = "playlist";
 
