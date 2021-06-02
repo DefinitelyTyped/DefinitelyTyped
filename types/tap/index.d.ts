@@ -687,7 +687,7 @@ declare global {
              */
             rejects(
                 promiseOrFn: Promise<any> | ((...args: any[]) => Promise<any>),
-                expectedError: Error,
+                expectedError: any,
                 message?: string,
                 extra?: Options.Assert,
             ): Promise<void>;
