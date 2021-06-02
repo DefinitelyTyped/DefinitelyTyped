@@ -1,17 +1,32 @@
 import { Price } from './price';
-import { Variant } from './variant';
+import { ProductVariantGroup } from './product-variant-group';
 import { Asset } from './asset';
 
 export interface Product {
   id: string;
-  name: string;
-  sku: string;
-  permalink: string;
-  description: string;
+  created: number;
+  updated: number;
   active: boolean;
+  permalink: string;
+  name: string;
+  description: string;
   price: Price;
-  quantity: number;
-  media: any; // todo
+  inventory: {
+    managed: boolean;
+    available: number;
+  };
+  media: Array<{
+    type: string;
+    source: string;
+  }>;
+  sku: string;
+  sort_order: number;
+  seo: {
+    title: string;
+    description: string;
+  };
+  thank_you_url: string;
+  meta: any;
   conditionals: {
     is_active: boolean;
     is_free: boolean;
@@ -52,8 +67,13 @@ export interface Product {
     checkout: string;
     display: string;
   };
-  variants: Variant[];
+  extra_fields: any[];
+  variant_groups: ProductVariantGroup[];
+  categories: Array<{
+    id: string;
+    slug: string;
+    name: string;
+  }>;
   assets: Asset[];
-  created: number;
-  last_updated: number;
+  related_products: any[];
 }
