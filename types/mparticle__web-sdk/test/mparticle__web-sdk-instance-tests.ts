@@ -2,7 +2,7 @@
 
 import mParticle = require('@mparticle/web-sdk');
 
-const instance = mParticle.getInstance('hi');
+const instance = mParticle.getInstance('default');
 
 const dataPlan: mParticle.DataPlanConfig = {
     planId: 'test',
@@ -83,14 +83,27 @@ const identityCallback: mParticle.IdentityCallback = (result) => {
     }
 };
 
+const logger: mParticle.Logger = {
+    error: (error) => {
+        console.log(error);
+    },
+    warning: (error) => {
+        console.log(error);
+    },
+    verbose: (error) => {
+        console.log(error);
+    },
+};
+
 const config: mParticle.MPConfiguration = {
     isDevelopmentMode: true,
-    identifyRequest: (identifyRequest),
-    identityCallback: (identityCallback),
-    dataPlan: (dataPlan),
+    identifyRequest: identifyRequest,
+    identityCallback: identityCallback,
+    dataPlan: dataPlan,
     appVersion: '1.0.0',
     appName: 'testAppName',
     logLevel: 'warning',
+    logger: logger,
     sessionTimeout: 500,
     useCookieStorage: true,
     maxCookieSize: 300,

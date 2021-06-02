@@ -17,6 +17,7 @@ export interface MPConfiguration {
     appVersion?: string;
     appName?: string;
     logLevel?: 'verbose' | 'warning' | 'none';
+    logger?: Logger;
     sessionTimeout?: number;
     useCookieStorage?: boolean;
     maxCookieSize?: number;
@@ -36,6 +37,11 @@ export interface MPConfiguration {
     minWebviewBridgeVersion?: 1 | 2;
 }
 
+export interface Logger {
+    error?: (error: string) => void;
+    warning?: (error: string) => void;
+    verbose?: (error: string) => void;
+}
 export interface SDKEventCustomFlags {
     [key: string]:
         | number
