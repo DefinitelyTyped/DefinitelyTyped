@@ -13,6 +13,12 @@ export type QueriesObject = Record<string, string>;
 export interface BreakpointProps {
     breakpoints: BreakpointsObject;
 }
+
+export interface BreakpointProviderProps {
+    children: React.ReactNode;
+    queries: QueriesObject;
+}
+
 export interface BreakpointOptions {
     queries?: QueriesObject;
 }
@@ -27,4 +33,4 @@ export function withBreakpoints<P extends BreakpointProps>(Component: React.Comp
 
 export const BreakpointContext: React.Context<QueriesObject>;
 
-export const BreakpointProvider: React.Provider<QueriesObject>;
+export const BreakpointProvider: React.ProviderExoticComponent<BreakpointProviderProps>;
