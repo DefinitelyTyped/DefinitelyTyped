@@ -310,6 +310,11 @@ export class Object3D extends EventDispatcher {
     remove(...object: Object3D[]): this;
 
     /**
+     * Removes this object from its current parent.
+     */
+    removeFromParent(): this;
+
+    /**
      * Removes all child objects.
      */
     clear(): this;

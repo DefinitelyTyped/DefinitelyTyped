@@ -1,42 +1,43 @@
 import { ExecuteFilter } from './ExecuteFilter';
+import { Page } from './Model';
 
-export interface Query {
+export interface Query<T> {
     (hashKey: string, table: any, serializer: any): void;
-    limit(num: number): Query;
-    filterExpression(expression: any): Query;
-    expressionAttributeValues(data: any): Query;
-    expressionAttributeNames(data: any): Query;
-    projectionExpression(data: any): Query;
-    usingIndex(name: string): Query;
-    consistentRead(read: boolean): Query;
+    limit(num: number): Query<T>;
+    filterExpression(expression: any): Query<T>;
+    expressionAttributeValues(data: any): Query<T>;
+    expressionAttributeNames(data: any): Query<T>;
+    projectionExpression(data: any): Query<T>;
+    usingIndex(name: string): Query<T>;
+    consistentRead(read: boolean): Query<T>;
     addKeyCondition(condition: {
         attributeNames: any;
         attributeValues: any;
-    }): Query;
+    }): Query<T>;
     addFilterCondition(condition: {
         attributeNames: any;
         attributeValues: any;
-    }): Query;
-    startKey(hashKey: string, rangeKey: string): Query;
-    attributes(attrs: ReadonlyArray<string> | string): Query;
-    ascending(): Query;
-    descending(): Query;
-    select(value: string): Query;
-    returnConsumedCapacity(value?: string): Query;
-    loadAll(): Query;
-    where(keyName: string): Query;
-    contains(name: string): Query;
-    notContains(name: string): Query;
-    filter(keyName: string): Query;
-    exec: ExecuteFilter;
+    }): Query<T>;
+    startKey(hashKey: string, rangeKey: string): Query<T>;
+    attributes(attrs: ReadonlyArray<string> | string): Query<T>;
+    ascending(): Query<T>;
+    descending(): Query<T>;
+    select(value: string): Query<T>;
+    returnConsumedCapacity(value?: string): Query<T>;
+    loadAll(): Query<T>;
+    where(keyName: string): Query<T>;
+    contains(name: string): Query<T>;
+    notContains(name: string): Query<T>;
+    filter(keyName: string): Query<T>;
+    exec: ExecuteFilter<Page<T>>;
     buildKey(): string;
     buildRequest(): any;
-    equals: (...args: any[]) => Query;
-    eq: (...args: any[]) => Query;
-    lte: (...args: any[]) => Query;
-    lt: (...args: any[]) => Query;
-    gte: (...args: any[]) => Query;
-    gt: (...args: any[]) => Query;
-    beginsWith: (...args: any[]) => Query;
-    between: (...args: any[]) => Query;
+    equals: (...args: any[]) => Query<T>;
+    eq: (...args: any[]) => Query<T>;
+    lte: (...args: any[]) => Query<T>;
+    lt: (...args: any[]) => Query<T>;
+    gte: (...args: any[]) => Query<T>;
+    gt: (...args: any[]) => Query<T>;
+    beginsWith: (...args: any[]) => Query<T>;
+    between: (...args: any[]) => Query<T>;
 }
