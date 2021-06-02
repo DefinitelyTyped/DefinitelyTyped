@@ -5,26 +5,26 @@ import React = require('react');
 function useExperimentalHooks() {
     const [toggle, setToggle] = React.useState(false);
 
-    const [done, startTransition] = React.unstable_useTransition();
+    const [done, startTransition] = React.useTransition();
     // $ExpectType boolean
     done;
 
     // $ExpectType boolean
-    const deferredToggle = React.unstable_useDeferredValue(toggle);
+    const deferredToggle = React.useDeferredValue(toggle);
 
     const [func] = React.useState(() => () => 0);
 
     // $ExpectType () => number
     func;
     // $ExpectType () => number
-    const deferredFunc = React.unstable_useDeferredValue(func);
+    const deferredFunc = React.useDeferredValue(func);
 
     class Constructor {}
     // $ExpectType typeof Constructor
-    const deferredConstructor = React.unstable_useDeferredValue(Constructor);
+    const deferredConstructor = React.useDeferredValue(Constructor);
 
     // $ExpectType () => string
-    const deferredConstructible = React.unstable_useDeferredValue(Constructible);
+    const deferredConstructible = React.useDeferredValue(Constructible);
 
     return () => {
         startTransition(() => {
@@ -69,12 +69,12 @@ function InvalidOpaqueIdentifierUsage() {
 function startTransitionTest() {
     function transitionToPage(page: string) {}
 
-    React.unstable_startTransition(() => {
+    React.startTransition(() => {
         transitionToPage('/');
     });
 
     // $ExpectError
-    React.unstable_startTransition(async () => {});
+    React.startTransition(async () => {});
 }
 
 function suspenseTest() {

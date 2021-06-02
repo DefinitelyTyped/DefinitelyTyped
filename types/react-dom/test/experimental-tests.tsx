@@ -3,7 +3,7 @@ import ReactDOM = require('react-dom');
 import 'react-dom/experimental';
 
 function createRoot() {
-    const root = ReactDOM.unstable_createRoot(document);
+    const root = ReactDOM.createRoot(document);
 
     // NOTE: I don't know yet how to use this; this is just the type it expects
     // in reality it will do nothing because the root isn't hydrate: true
