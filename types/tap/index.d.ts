@@ -22,6 +22,11 @@ declare class DeprecatedAssertionSynonyms {
     assert: Assertions.Basic;
 
     /**
+     * @deprecated use teardown() instead.
+     */
+    tearDown(fn: () => void | Promise<void>): void;
+
+    /**
      * @deprecated use notOk() instead.
      */
     false: Assertions.Basic;
@@ -387,7 +392,6 @@ declare global {
              * @see {@link https://node-tap.org/docs/api/test-lifecycle-events}
              * @param fn
              */
-            tearDown(fn: () => void | Promise<void>): void;
             teardown(fn: () => void | Promise<void>): void;
 
             /**
