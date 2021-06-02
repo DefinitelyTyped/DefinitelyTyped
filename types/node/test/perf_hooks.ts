@@ -7,6 +7,9 @@ import {
     EntryType,
     constants,
     EventLoopUtilization,
+    IntervalHistogram,
+    RecordableHistogram,
+    createHistogram,
 } from 'perf_hooks';
 
 performance.mark('start');
@@ -41,7 +44,7 @@ obs.observe({
     buffered: true,
 });
 
-const monitor = monitorEventLoopDelay({
+const monitor: IntervalHistogram = monitorEventLoopDelay({
     resolution: 42,
 });
 
@@ -59,7 +62,15 @@ const exceeds: number = monitor.exceeds;
 
 const eventLoopUtilization1: EventLoopUtilization = performance.eventLoopUtilization();
 const eventLoopUtilization2: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization1);
-const eventLoopUtilization3: EventLoopUtilization = performance.eventLoopUtilization(
-    eventLoopUtilization2,
-    eventLoopUtilization1,
-);
+const eventLoopUtilization3: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization2, eventLoopUtilization1);
+
+let histogram: RecordableHistogram = createHistogram({
+    figures: 123,
+    min: 1,
+    max: 2,
+});
+histogram = createHistogram();
+
+histogram.record(123);
+histogram.record(123n);
+histogram.recordDelta();
