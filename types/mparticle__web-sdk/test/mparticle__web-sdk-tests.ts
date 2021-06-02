@@ -93,9 +93,9 @@ const logger: mParticle.Logger = {
 
 const config: mParticle.MPConfiguration = {
     isDevelopmentMode: true,
-    identifyRequest: identifyRequest,
-    identityCallback: identityCallback,
-    dataPlan: dataPlan,
+    identifyRequest,
+    identityCallback,
+    dataPlan,
     appVersion: '1.0.0',
     appName: 'testAppName',
     logLevel: 'warning',
