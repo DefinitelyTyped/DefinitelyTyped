@@ -21,6 +21,7 @@ import {
   DraftInlineStyleType,
   DraftEntityMutability,
   DraftEntityType,
+  EntityInstance,
   convertFromHTML,
   convertToRaw,
   DraftDecorator,
@@ -394,4 +395,9 @@ rawContentState.blocks.forEach((block: RawDraftContentBlock) => {
   if (block.type === 'code-block' && block.data.language) {
     console.log(block.data.language)
   }
+});
+
+const entities = contentState.getAllEntities();
+entities.forEach((entity: EntityInstance) => {
+  console.log(entity.getType(), entity.getData());
 });

@@ -1,8 +1,9 @@
-// Type definitions for css-minimizer-webpack-plugin 1.3
+// Type definitions for css-minimizer-webpack-plugin 3.0
 // Project: https://github.com/webpack-contrib/css-minimizer-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
+
 import { Compiler } from "webpack";
 import { CssNanoOptions } from "cssnano";
 import { ProcessOptions, SourceMapOptions } from "postcss";
@@ -18,16 +19,7 @@ declare class CssMinimizerPlugin {
 
 declare namespace CssMinimizerPlugin {
     interface Options {
-        minimizerOptions?: CssNanoOptions & {
-            processorOptions?: {
-                from?: ProcessOptions["from"];
-                map?: ProcessOptions["map"];
-                parser?: ProcessOptions["parser"] | string;
-                stringifier?: ProcessOptions["stringifier"] | string;
-                syntax?: ProcessOptions["syntax"] | string;
-                to?: ProcessOptions["to"];
-            };
-        };
+        minimizerOptions?: MinimizerOptions | MinimizerOptions[];
         /**
          * Test to match files against.
          */
@@ -64,12 +56,27 @@ declare namespace CssMinimizerPlugin {
          * Allows you to override default minify function.
          * By default plugin uses cssnano package. Useful for using and testing unpublished versions or forks.
          */
-        minify?: (data: any, inputMap: any, minimizerOptions: any) => any;
+        minify?: MinifyFunc | MinifyFunc[];
         /**
          * Allow to filter css-minimizer warnings (By default cssnano).
          * Return true to keep the warning, a falsy value (false/null/undefined) otherwise.
          */
         warningsFilter?: (warning: string, file: string, source: string) => boolean | undefined | null;
+    }
+
+    interface MinimizerOptions extends CssNanoOptions {
+        processorOptions?: {
+            from?: ProcessOptions["from"];
+            map?: ProcessOptions["map"];
+            parser?: ProcessOptions["parser"] | string;
+            stringifier?: ProcessOptions["stringifier"] | string;
+            syntax?: ProcessOptions["syntax"] | string;
+            to?: ProcessOptions["to"];
+        };
+    }
+
+    interface MinifyFunc {
+        (data: any, inputMap: any, minimizerOptions: any): any;
     }
 
     /**

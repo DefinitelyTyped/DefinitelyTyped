@@ -308,6 +308,8 @@ export namespace error {
   function encodeError(err: any): {error: string, message: string};
 }
 
+type ConditionFn<T> = (webdriver: WebDriver) => T | null | Promise<T | null>;
+
 /**
  * Defines a condition for use with WebDriver's WebDriver#wait wait command.
  */
@@ -319,13 +321,13 @@ export class Condition<T> {
    *     evaluate on each iteration of the wait loop.
    * @constructor
    */
-  constructor(message: string, fn: (webdriver: WebDriver) => T);
+  constructor(message: string, fn: ConditionFn<T>);
 
   /** @return {string} A description of this condition. */
   description(): string;
 
   /** @type {function(!WebDriver): OUT} */
-  fn(webdriver: WebDriver): T;
+  fn(webdriver: WebDriver): ConditionFn<T>;
 }
 
 /**

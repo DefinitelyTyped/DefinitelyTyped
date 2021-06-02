@@ -26,9 +26,9 @@ export interface CreateDummyCallback {
 }
 
 export class ActivityManager {
-    readonly idleTimeout: number;
-
     readonly service: Service;
+
+    idleTimeout: number;
 
     exitOnTimeout: boolean;
 

@@ -141,6 +141,11 @@ num = rightAxis.tickSizeOuter();
 rightAxis = rightAxis.tickPadding(5);
 num = rightAxis.tickPadding();
 
+// offset(...) ---------------------------------------------------------------------
+
+rightAxis = rightAxis.offset(5);
+num = rightAxis.offset();
+
 // --------------------------------------------------------------------------
 // Test Apply Axis
 // --------------------------------------------------------------------------

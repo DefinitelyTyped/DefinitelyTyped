@@ -49,7 +49,7 @@ declare global {
      *  sleep(3);
      * }
      */
-    function open(filePath: string, mode: 'b'): bytes;
+    function open(filePath: string, mode: 'b'): ArrayBuffer;
 
     // === Init context and VU logic ===
     // ---------------------------------

@@ -1,70 +1,56 @@
 /**
- * 声音类型
+ * 播放模式
  */
-export enum TRACK_TYPE {
-    FREE = 'free', // 免费声音
-    PAID = 'paid', // 付费声音
-    PAID_FREE_ALL = 'paid_free_all', // 付费 - 整条免费试听
-    PAID_FREE_FEW = 'paid_free_few', // 付费 - 部分免费试听
-}
-
-// 播放模式
-export enum PLAY_MODE {
-    ORDER = 'order', // 顺序播放（同列表循环，到最后一个会切到第一个继续播）
-    LOOP = 'loop', // 单曲循环播放
-    RANDOM = 'random', // 随机播放（到最后一个会切到第一个继续播）
-    SINGLE = 'single', // 单个播放（播完即止）
-}
+type PLAY_MODE =
+    | 'order' // 顺序播放（同列表循环，到最后一个会切到第一个继续播）
+    | 'loop' // 单曲循环播放
+    | 'random' // 随机播放（到最后一个会切到第一个继续播）
+    | 'single'; // 单个播放（播完即止）
 
 /**
  * 播放倍率
  */
-export enum PLAY_BACK_RATE {
-    HALF = 0.5, // 半速
-    ONE = 1,
-    DOUBLE = 2,
-}
+type PLAY_BACK_RATE =
+    | 0.5 // 半速
+    | 1
+    | 2; // 2倍速
 
 /**
  * 播放器状态
  */
-export enum PLAY_STATE {
-    READY = 'ready', // 初始状态
-    LOADING = 'loading', // 加载中（1.播放，2.恢复播放，3.seek）引起的声音加载
-    PLAYING = 'playing', // 播放中
-    PAUSED = 'paused', // 暂停
-    STOPED = 'stoped', // 停止
-    ERROR = 'error', // 播放器异常
-}
+type PLAY_STATE =
+    | 'ready' // 初始状态'loading'| // 加载中（1.播放，2.恢复播放，3.seek）引起的声音加载'playing'| // 播放中
+    | 'paused' // 暂停
+    | 'stoped' // 停止
+    | 'error'; // 播放器异常
 
 /**
  * 播放相关事件
  */
-export enum PLAY_EVENT {
-    PLAY = 'play', // 播放
-    CANPLAY = 'canplay', // 进入可播放状态
-    PAUSE = 'pause', // 暂停
-    RESUME = 'resume', // 续播
-    STOP = 'stop', // 停止
-    END = 'end', // 播放结束
-    NEXT = 'next', // 点击下一首, 或自动切换下一首
-    PREV = 'prev', // 点击上一首
-    LOADING = 'loading', // 因为加载阻塞播放触发
-    TIME_UPDATE = 'timeupdate', // 播放进度更新
-    SOUND_CHANGE = 'change.sound', // 声音切换
-    PLAYLIST_CHANGE = 'change.playlist', // 播放列表切换
-    PLAYSTATE_CHANGE = 'change.playState', // 播放状态切换
-    PLAYMODE_CHANGE = 'change.playMode', // 切换播放模式
-    PLAYBACKRATE_CHANGE = 'change.playbackRate', // 播放速率切换
-    ERROR = 'error', // 错误
-    ERROR_ACCESSTOKEN = 'error.accessToken', // access_token 过期、失效、不存在事件
-    NEED_PAY = 'sound.needPay', // 需要购买
-}
+type PLAY_EVENT =
+    | 'play' // 播放
+    | 'canplay' // 进入可播放状态
+    | 'pause' // 暂停
+    | 'resume' // 续播
+    | 'stop' // 停止
+    | 'end' // 播放结束
+    | 'next' // 点击下一首| 或自动切换下一首
+    | 'prev' // 点击上一首
+    | 'loading' // 因为加载阻塞播放触发
+    | 'timeupdate' // 播放进度更新
+    | 'change.sound' // 声音切换
+    | 'change.playlist' // 播放列表切换
+    | 'change.playState' // 播放状态切换
+    | 'change.playMode' // 切换播放模式
+    | 'change.playbackRate' // 播放速率切换
+    | 'error' // 错误
+    | 'error.accessToken' // access_token 过期、失效、不存在事件
+    | 'sound.needPay'; // 需要购买
 
 /**
  * 播放器通用声音, 可直接播放(用户传入的第三方声音、喜马声音解析后生成)
  */
-export interface Sound {
+interface Sound {
     id: number; // 音频 id
     src: string; // 播放地址（目前支持 m4a, aac, mp3, wav 格式）
     title: string; // 音频标题, 原生音频播放器中的分享功能，分享出去的卡片简介，也将使用该值。
@@ -94,7 +80,7 @@ declare class Event {
      * @param ctx 回调函数的执行上下文
      * @returns 返回this，支持链式调用
      */
-    on(name: string, callback: any): this;
+    on(name: PLAY_EVENT, callback: (...args: any) => void): this;
     /**
      * 绑定自定义事件（仅一次）
      * @param name 自定义事件名称
@@ -102,7 +88,7 @@ declare class Event {
      * @param ctx 回调函数的执行上下文
      * @returns 返回this，支持链式调用
      */
-    once(name: string, callback: any): this;
+    once(name: PLAY_EVENT, callback: (...args: any) => void): this;
     /**
      * 解除绑定的自定义事件
      *  1.funcInQueue参数缺省时，该自定义事件对应的整个回调队列都会被清空，否则仅移除事件的回调队列中的某一函数；
@@ -111,7 +97,7 @@ declare class Event {
      * @param funcInQueue 自定义事件对应的回调函数队列中某一函数
      * @returns 返回this，支持链式调用
      */
-    off(name: string, funcInQueue?: any): this;
+    off(name: PLAY_EVENT, funcInQueue?: (...args: any) => void): this;
     /**
      * 校验是否在指定的事件集合中
      * @param name 事件名
@@ -122,7 +108,7 @@ declare class Event {
      * @param args 参数列表，传参示例；obj.emit('eventName', param1, param2, ...)
      * @returns 返回this，支持链式调用
      */
-    emit(name: string, ...args: any[]): this;
+    emit(name: PLAY_EVENT, ...args: any): this;
 }
 
 export default class XMplayer extends Event {
@@ -253,7 +239,7 @@ export default class XMplayer extends Event {
     /**
      * 获取当前播放速度
      */
-    getPlaybackRate(): number;
+    getPlaybackRate(): PLAY_BACK_RATE;
     /**
      * 获取当前播放器状态
      */

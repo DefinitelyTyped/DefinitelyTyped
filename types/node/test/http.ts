@@ -55,7 +55,8 @@ import * as net from 'net';
     const res: http.ServerResponse = new http.ServerResponse(incoming);
 
     // test headers
-    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Type', 'text/plain')
+    .setHeader('Return-Type', 'this');
     const bool: boolean = res.hasHeader('Content-Type');
     const headers: string[] = res.getHeaderNames();
 
@@ -202,10 +203,12 @@ import * as net from 'net';
 // http request options
 {
     const requestOpts: http.RequestOptions = {
+        abort: new AbortSignal(),
         timeout: 30000
     };
 
     const clientArgs: http.ClientRequestArgs = {
+        abort: new AbortSignal(),
         timeout: 30000
     };
 }

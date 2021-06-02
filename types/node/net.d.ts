@@ -1,6 +1,6 @@
 declare module 'net' {
     import * as stream from 'stream';
-    import EventEmitter = require('events');
+    import { Abortable, EventEmitter } from 'events';
     import * as dns from 'dns';
 
     type LookupFunction = (
@@ -168,7 +168,7 @@ declare module 'net' {
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
 
-    interface ListenOptions {
+    interface ListenOptions extends Abortable {
         port?: number;
         host?: string;
         backlog?: number;
@@ -184,12 +184,14 @@ declare module 'net' {
 
     interface ServerOpts {
         /**
-         * Indicates whether half-opened TCP connections are allowed. __Default:__ `false`.
+         * Indicates whether half-opened TCP connections are allowed.
+         * @default false
          */
         allowHalfOpen?: boolean;
 
         /**
-         * Indicates whether the socket should be paused on incoming connections. __Default:__ `false`.
+         * Indicates whether the socket should be paused on incoming connections.
+         * @default false
          */
         pauseOnConnect?: boolean;
     }

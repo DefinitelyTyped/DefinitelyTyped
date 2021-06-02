@@ -44,6 +44,9 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
     },
 });
 
+// $ExpectType string | undefined
+webpackDevMiddlewareInstance.getFilenameFromUrl("/");
+
 // return value
 const app = express();
 app.use([webpackDevMiddlewareInstance]);
@@ -80,3 +83,15 @@ function bar(_: webpack.Watching) {}
 if (webpackDevMiddlewareInstance.context.watching) {
     bar(webpackDevMiddlewareInstance.context.watching);
 }
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    headers: () => {
+        return { "X-nonsense-1": "yes", "X-nonsense-2": "no" };
+    },
+});
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    headers: (req, res) => {
+        res.setHeader("X-nonsense-1", "yes");
+        res.setHeader("X-nonsense-2", "no");
+    },
+});

@@ -362,6 +362,17 @@ declare namespace sharp {
         normalize(normalize?: boolean): Sharp;
 
         /**
+         * Perform contrast limiting adaptive histogram equalization (CLAHE)
+         *
+         * This will, in general, enhance the clarity of the image by bringing out
+         * darker details. Please read more about CLAHE here:
+         * https://en.wikipedia.org/wiki/Adaptive_histogram_equalization#Contrast_Limited_AHE
+         *
+         * @param options clahe options
+         */
+        clahe(options: ClaheOptions): Sharp;
+
+        /**
          * Convolve the image with the specified kernel.
          * @param kernel the specified kernel
          * @throws {Error} Invalid parameters
@@ -714,6 +725,8 @@ declare namespace sharp {
         icc?: string;
         /** Object keyed by IFD0, IFD1 etc. of key/value string pairs to write as EXIF data. (optional, default {}) */
         exif?: Record<string, any>;
+        /** Number of pixels per inch (DPI) */
+        density?: number;
     }
 
     interface Metadata {
@@ -993,6 +1006,15 @@ declare namespace sharp {
         scale?: number;
         /** the offset of the kernel in pixels. (optional, default 0) */
         offset?: number;
+    }
+
+    interface ClaheOptions {
+      /** width of the region */
+      width: number;
+      /** height of the region */
+      height: number;
+      /** max slope of the cumulative contrast. (optional, default 3) */
+      maxSlope?: number;
     }
 
     interface ThresholdOptions {

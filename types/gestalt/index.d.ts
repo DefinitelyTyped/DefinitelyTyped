@@ -102,11 +102,13 @@ export interface BadgeProps {
     position?: 'middle' | 'top';
 }
 
+export type BoxPassthroughProps = Omit<React.ComponentProps<'div'>, 'onClick' | 'className' | 'style'>;
+
 /**
  * Box Props Interface
  * https://gestalt.netlify.app/Box
  */
-export interface BoxProps {
+export interface BoxProps extends BoxPassthroughProps {
     alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
     alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
     alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
@@ -433,6 +435,16 @@ export interface DropdownSectionProps {
 }
 
 /**
+ * Fieldset Props Interface
+ * https://gestalt.netlify.app/Fieldset
+ */
+export interface FieldsetProps {
+    children: React.ReactNode;
+    legend: string;
+    legendDisplay?: 'visible' | 'hidden';
+}
+
+/**
  * Flex Props Interface
  * https://gestalt.netlify.app/Flex
  */
@@ -442,7 +454,6 @@ export interface FlexProps {
     alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
     children?: React.ReactNode;
     direction?: 'row' | 'column';
-    fit?: boolean;
     flex?: 'grow' | 'shrink' | 'none';
     gap?: UnsignedUpTo12;
     height?: number | string;
@@ -451,7 +462,16 @@ export interface FlexProps {
     maxWidth?: number | string;
     minHeight?: number | string;
     minWidth?: number | string;
+    overflow?: 'visible' | 'hidden' | 'scroll' | 'scrollX' | 'scrollY' | 'auto';
+    width?: number | string;
     wrap?: boolean;
+}
+
+export interface FlexItemProps {
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    children?: React.ReactNode;
+    flex?: 'grow' | 'shrink' | 'none';
+    minWidth?: number | string;
 }
 
 /**
@@ -883,7 +903,7 @@ export interface ModuleProps {
     icon?: Icons;
     iconAccessibilityLabel?: string;
     title?: string;
-    type: "error" | "info";
+    type?: "error" | "info";
 }
 
 /**
@@ -1555,7 +1575,10 @@ export class Dropdown extends React.Component<DropdownProps, any> {
     static Item: React.FC<DropdownItemProps>;
     static Section: React.FC<DropdownSectionProps>;
 }
-export class Flex extends React.Component<FlexProps, any> {}
+export class Fieldset extends React.Component<FieldsetProps, any> {}
+export class Flex extends React.Component<FlexProps, any> {
+    static Item: React.FC<FlexItemProps>;
+}
 export class GroupAvatar extends React.Component<GroupAvatarProps, any> {}
 export class Heading extends React.Component<HeaderProps, any> {}
 export class Icon extends React.Component<IconProps, any> {}

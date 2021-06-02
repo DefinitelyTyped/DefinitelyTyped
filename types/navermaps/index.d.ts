@@ -113,6 +113,7 @@ declare namespace naver.maps {
     overlayZoomEffect?: null | string;
     tileSpare?: number;
     tileTransition?: boolean;
+    useStyleMap?: boolean;
     zoom?: number;
     zoomControl?: boolean;
     zoomControlOptions?: any;

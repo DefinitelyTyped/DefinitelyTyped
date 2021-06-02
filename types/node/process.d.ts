@@ -11,6 +11,18 @@ declare module 'process' {
             interface ReadStream extends tty.ReadStream {}
             interface WriteStream extends tty.WriteStream {}
 
+            interface MemoryUsageFn {
+                /**
+                 * The `process.memoryUsage()` method iterate over each page to gather informations about memory
+                 * usage which can be slow depending on the program memory allocations.
+                 */
+                (): MemoryUsage;
+                /**
+                 * method returns an integer representing the Resident Set Size (RSS) in bytes.
+                 */
+                rss(): number;
+            }
+
             interface MemoryUsage {
                 rss: number;
                 heapTotal: number;
@@ -289,7 +301,7 @@ declare module 'process' {
                 platform: Platform;
                 /** @deprecated since v14.0.0 - use `require.main` instead. */
                 mainModule?: Module;
-                memoryUsage(): MemoryUsage;
+                memoryUsage: MemoryUsageFn;
                 cpuUsage(previousValue?: CpuUsage): CpuUsage;
                 nextTick(callback: Function, ...args: any[]): void;
                 release: ProcessRelease;

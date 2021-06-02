@@ -1,4 +1,5 @@
 declare module 'fs/promises' {
+    import { Abortable } from 'events';
     import {
         Stats,
         BigIntStats,
@@ -143,7 +144,7 @@ declare module 'fs/promises' {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'w'` is used.
          */
-        writeFile(data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } | BufferEncoding | null): Promise<void>;
+        writeFile(data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } & Abortable | BufferEncoding | null): Promise<void>;
 
         /**
          * See `fs.writev` promisified version.
@@ -510,7 +511,7 @@ declare module 'fs/promises' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    function writeFile(path: PathLike | FileHandle, data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } | BufferEncoding | null): Promise<void>;
+    function writeFile(path: PathLike | FileHandle, data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } & Abortable | BufferEncoding | null): Promise<void>;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -533,7 +534,7 @@ declare module 'fs/promises' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | FileHandle, options?: { encoding?: null, flag?: OpenMode } | null): Promise<Buffer>;
+    function readFile(path: PathLike | FileHandle, options?: { encoding?: null, flag?: OpenMode } & Abortable | null): Promise<Buffer>;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -542,7 +543,7 @@ declare module 'fs/promises' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | FileHandle, options: { encoding: BufferEncoding, flag?: OpenMode } | BufferEncoding): Promise<string>;
+    function readFile(path: PathLike | FileHandle, options: { encoding: BufferEncoding, flag?: OpenMode } & Abortable | BufferEncoding): Promise<string>;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -551,7 +552,7 @@ declare module 'fs/promises' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | FileHandle, options?: BaseEncodingOptions & { flag?: OpenMode } | BufferEncoding | null): Promise<string | Buffer>;
+    function readFile(path: PathLike | FileHandle, options?: BaseEncodingOptions & Abortable & { flag?: OpenMode } | BufferEncoding | null): Promise<string | Buffer>;
 
     function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
 }

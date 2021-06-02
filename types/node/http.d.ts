@@ -77,6 +77,7 @@ declare module 'http' {
     }
 
     interface ClientRequestArgs {
+        abort?: AbortSignal;
         protocol?: string | null;
         host?: string | null;
         hostname?: string | null;
@@ -166,7 +167,7 @@ declare module 'http' {
         finished: boolean;
         headersSent: boolean;
         /**
-         * @deprecate Use `socket` instead.
+         * @deprecated Use `socket` instead.
          */
         connection: Socket | null;
         socket: Socket | null;
@@ -174,7 +175,7 @@ declare module 'http' {
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): this;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
@@ -373,7 +374,8 @@ declare module 'http' {
          */
         timeout?: number;
         /**
-         * Scheduling strategy to apply when picking the next free socket to use. Default: 'fifo'.
+         * Scheduling strategy to apply when picking the next free socket to use.
+         * @default `lifo`
          */
         scheduling?: 'fifo' | 'lifo';
     }

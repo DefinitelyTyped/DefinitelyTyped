@@ -1,4 +1,4 @@
-// Type definitions for @carbon/elements 10.33
+// Type definitions for @carbon/elements 10.34
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/elements
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -34,7 +34,7 @@ export const white: {
     inverse01: "#ffffff";
     inverse02: "#393939";
     support01: "#da1e28";
-    support02: "#24a148";
+    support02: "#198038";
     support03: "#f1c21b";
     support04: "#0043ce";
     inverseSupport01: "#fa4d56";
@@ -159,10 +159,22 @@ export const white: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    caption02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     label01: {
         fontSize: "0.75rem";
         fontWeight: 400;
         lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    label02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
         letterSpacing: "0.32px";
     };
     helperText01: {
@@ -945,6 +957,13 @@ export const caption01: {
     letterSpacing: "0.32px";
 };
 
+export const caption02: {
+    fontSize: "0.875rem";
+    fontWeight: 400;
+    lineHeight: 1.29;
+    letterSpacing: "0.32px";
+};
+
 export const label01: {
     fontSize: "0.75rem";
     fontWeight: 400;
@@ -952,9 +971,22 @@ export const label01: {
     letterSpacing: "0.32px";
 };
 
+export const label02: {
+    fontSize: "0.875rem";
+    fontWeight: 400;
+    lineHeight: 1.29;
+    letterSpacing: "0.32px";
+};
+
 export const helperText01: {
     fontSize: "0.75rem";
     lineHeight: 1.34;
+    letterSpacing: "0.32px";
+};
+
+export const helperText02: {
+    fontSize: "0.875rem";
+    lineHeight: 1.29;
     letterSpacing: "0.32px";
 };
 
@@ -1392,7 +1424,7 @@ export const g10: {
     inverse01: "#ffffff";
     inverse02: "#393939";
     support01: "#da1e28";
-    support02: "#24a148";
+    support02: "#198038";
     support03: "#f1c21b";
     support04: "#0043ce";
     inverseSupport01: "#fa4d56";
@@ -1517,15 +1549,32 @@ export const g10: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    caption02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     label01: {
         fontSize: "0.75rem";
         fontWeight: 400;
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    label02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     helperText01: {
         fontSize: "0.75rem";
         lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
         letterSpacing: "0.32px";
     };
     bodyShort01: {
@@ -2083,9 +2132,20 @@ export const g80: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    label02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     helperText01: {
         fontSize: "0.75rem";
         lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
         letterSpacing: "0.32px";
     };
     bodyShort01: {
@@ -2643,9 +2703,20 @@ export const g90: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    label02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     helperText01: {
         fontSize: "0.75rem";
         lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
         letterSpacing: "0.32px";
     };
     bodyShort01: {
@@ -3203,9 +3274,20 @@ export const g100: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    label02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     helperText01: {
         fontSize: "0.75rem";
         lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
         letterSpacing: "0.32px";
     };
     bodyShort01: {
@@ -3763,9 +3845,20 @@ export const v9: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    label02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     helperText01: {
         fontSize: "0.75rem";
         lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
         letterSpacing: "0.32px";
     };
     bodyShort01: {
@@ -4240,8 +4333,11 @@ export const tokens: {
     ];
     type: [
         "caption01",
+        "caption02",
         "label01",
+        "label02",
         "helperText01",
+        "helperText02",
         "bodyShort01",
         "bodyLong01",
         "bodyShort02",
@@ -4470,15 +4566,32 @@ export const themes: {
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        caption02: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         label01: {
             fontSize: "0.75rem";
             fontWeight: 400;
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        label02: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         helperText01: {
             fontSize: "0.75rem";
             lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        helperText02: {
+            fontSize: "0.875rem";
+            lineHeight: 1.29;
             letterSpacing: "0.32px";
         };
         bodyShort01: {
@@ -4953,15 +5066,32 @@ export const themes: {
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        caption02: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         label01: {
             fontSize: "0.75rem";
             fontWeight: 400;
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        label02: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         helperText01: {
             fontSize: "0.75rem";
             lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        helperText02: {
+            fontSize: "0.875rem";
+            lineHeight: 1.29;
             letterSpacing: "0.32px";
         };
         bodyShort01: {
@@ -5511,15 +5641,32 @@ export const themes: {
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        caption02: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         label01: {
             fontSize: "0.75rem";
             fontWeight: 400;
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        label02: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         helperText01: {
             fontSize: "0.75rem";
             lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        helperText02: {
+            fontSize: "0.875rem";
+            lineHeight: 1.29;
             letterSpacing: "0.32px";
         };
         bodyShort01: {
@@ -5996,15 +6143,32 @@ export const themes: {
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        caption02: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         label01: {
             fontSize: "0.75rem";
             fontWeight: 400;
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        label02: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         helperText01: {
             fontSize: "0.75rem";
             lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        helperText02: {
+            fontSize: "0.875rem";
+            lineHeight: 1.29;
             letterSpacing: "0.32px";
         };
         bodyShort01: {
@@ -6479,15 +6643,32 @@ export const themes: {
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        caption02: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         label01: {
             fontSize: "0.75rem";
             fontWeight: 400;
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        label02: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         helperText01: {
             fontSize: "0.75rem";
             lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        helperText02: {
+            fontSize: "0.875rem";
+            lineHeight: 1.29;
             letterSpacing: "0.32px";
         };
         bodyShort01: {
@@ -6962,15 +7143,32 @@ export const themes: {
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        caption02: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         label01: {
             fontSize: "0.75rem";
             fontWeight: 400;
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        label02: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         helperText01: {
             fontSize: "0.75rem";
             lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        helperText02: {
+            fontSize: "0.875rem";
+            lineHeight: 1.29;
             letterSpacing: "0.32px";
         };
         bodyShort01: {
@@ -7442,8 +7640,11 @@ export const hoverField: "#e5e5e5";
 export const danger: "#da1e28";
 export const unstable_tokens: [
     "caption01",
+    "caption02",
     "label01",
+    "label02",
     "helperText01",
+    "helperText02",
     "bodyShort01",
     "bodyLong01",
     "bodyShort02",
@@ -7607,15 +7808,32 @@ export const styles: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    caption02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     label01: {
         fontSize: "0.75rem";
         fontWeight: 400;
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    label02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     helperText01: {
         fontSize: "0.75rem";
         lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
         letterSpacing: "0.32px";
     };
     bodyShort01: {
