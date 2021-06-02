@@ -3624,7 +3624,7 @@
         },
         "rdf-js": {
             "libraryName": "rdf-js",
-            "asOfVersion": "2.0.0"
+            "asOfVersion": "4.0.2"
         },
         "rc-select": {
             "libraryName": "rc-select",
