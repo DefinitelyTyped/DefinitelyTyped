@@ -484,6 +484,7 @@ declare namespace Flexmonster {
         row?: number;
         column?: number;
         measureName?: string;
+        measure?: string;
         hierarchy?: string;
         member?: string;
         isTotal?: number;
