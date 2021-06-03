@@ -21,6 +21,7 @@ NProgress.configure({
     speed: 500,
     trickle: true,
     showSpinner: false,
+    trickleRate: 0.02,
     trickleSpeed: 250,
     parent: '#content',
     // $ExpectError
