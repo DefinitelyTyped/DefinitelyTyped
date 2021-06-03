@@ -574,9 +574,9 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
-                ListFooterComponentStyle={{ padding: 8 }}
+                ListFooterComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 ListHeaderComponent={null}
-                ListHeaderComponentStyle={{ padding: 8 }}
+                ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 CellRendererComponent={this._cellRenderer}
                 fadingEdgeLength={200}
             />
