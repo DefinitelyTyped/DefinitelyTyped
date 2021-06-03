@@ -2,6 +2,7 @@
 // Project: https://github.com/rebassjs/rebass#readme
 // Definitions by: Rafael Almeida <https://github.com/rafaelalmeidatk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 import * as React from 'react';
 import * as Rebass from 'rebass';
