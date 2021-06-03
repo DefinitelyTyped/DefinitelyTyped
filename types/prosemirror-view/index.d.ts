@@ -362,6 +362,10 @@ export class EditorView<S extends Schema = any> {
      */
     destroy(): void;
     /**
+     * Used for testing.
+     */
+    dispatchEvent(event: Event): void;
+    /**
      * Dispatch a transaction. Will call
      * [`dispatchTransaction`](#view.DirectEditorProps.dispatchTransaction)
      * when given, and otherwise defaults to applying the transaction to

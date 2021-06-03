@@ -92,3 +92,5 @@ const view1 = new state.Plugin({
         },
     },
 });
+
+new view.EditorView({} as any, {} as any).dispatchEvent; // $ExpectType (event: Event) => void
