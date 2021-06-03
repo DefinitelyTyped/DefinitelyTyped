@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Maps JavaScript API 3.44
+// Type definitions for non-npm package Google Maps JavaScript API 3.45
 // Project: https://developers.google.com/maps/
 // Definitions by: Justin Poehnelt <https://github.com/jpoehnelt>
 //                 Alex Muramoto <https://github.com/amuramoto>
@@ -7,7 +7,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.44
+// Google Maps JS API Version: 3.45
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -977,6 +977,11 @@ declare namespace google.maps.Data {
    */
   interface StyleOptions {
     /**
+     * The animation to play when marker is added to a map. Only applies to
+     * point geometries.
+     */
+    animation?: google.maps.Animation;
+    /**
      * If <code>true</code>, the marker receives mouse and touch events. Default
      * value is <code>true</code>.
      */
@@ -1013,6 +1018,21 @@ declare namespace google.maps.Data {
      * applies to point geometries.
      */
     icon?: string|google.maps.Icon|google.maps.Symbol;
+    /**
+     * The icons to be rendered along a polyline. Only applies to line
+     * geometries.
+     */
+    icons?: google.maps.IconSequence[];
+    /**
+     * Adds a label to the marker. The label can either be a string, or a
+     * <code>MarkerLabel</code> object. Only applies to point geometries.
+     */
+    label?: string|google.maps.MarkerLabel;
+    /**
+     * The marker&#39;s opacity between 0.0 and 1.0. Only applies to point
+     * geometries.
+     */
+    opacity?: number;
     /**
      * Defines the image map used for hit detection. Only applies to point
      * geometries.
@@ -1479,11 +1499,7 @@ declare namespace google.maps {
    */
   class DirectionsService {
     /**
-     * Issue a directions search request. <aside class="note">Note: <strong>For
-     * the beta release, <code>v=beta</code>, the callback is optional and a
-     * Promise is returned</strong>. More information is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * Issue a directions search request.
      */
     route(
         request: google.maps.DirectionsRequest,
@@ -1792,11 +1808,7 @@ declare namespace google.maps {
    */
   class DistanceMatrixService {
     /**
-     * Issues a distance matrix request. <aside class="note">Note: <strong>For
-     * the beta release, <code>v=beta</code>, the callback is optional and a
-     * Promise is returned</strong>. More information is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * Issues a distance matrix request.
      */
     getDistanceMatrix(
         request: google.maps.DistanceMatrixRequest,
@@ -1918,12 +1930,7 @@ declare namespace google.maps {
   class ElevationService {
     /**
      * Makes an elevation request along a path, where the elevation data are
-     * returned as distance-based samples along that path. <aside
-     * class="note">Note: <strong>A Promise is only returned for the beta
-     * release, <code>v=beta</code></strong>. More information is available in
-     * the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * returned as distance-based samples along that path.
      */
     getElevationAlongPath(
         request: google.maps.PathElevationRequest,
@@ -1932,12 +1939,7 @@ declare namespace google.maps {
              b: google.maps.ElevationStatus) => void):
         Promise<google.maps.PathElevationResponse>|null;
     /**
-     * Makes an elevation request for a list of discrete locations. <aside
-     * class="note">Note: <strong>For the beta release, <code>v=beta</code>, the
-     * callback is optional and a Promise is returned</strong>. More information
-     * is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * Makes an elevation request for a list of discrete locations.
      */
     getElevationForLocations(
         request: google.maps.LocationElevationRequest,
@@ -2008,11 +2010,7 @@ declare namespace google.maps {
    */
   class Geocoder {
     /**
-     * Geocode a request. <aside class="note">Note: <strong>A Promise is only
-     * returned for the beta release, <code>v=beta</code></strong>. More
-     * information is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * Geocode a request.
      */
     geocode(
         request: google.maps.GeocoderRequest,
@@ -2474,6 +2472,7 @@ declare namespace google.maps {
     /**
      * Sets the opacity level (<code>0</code> (transparent) to <code>1.0</code>)
      * of the <code>ImageMapType</code> tiles.
+     * @param opacity The new opacity.
      */
     setOpacity(opacity: number): void;
     tileSize: google.maps.Size|null;
@@ -2683,6 +2682,7 @@ declare namespace google.maps {
      * or GeoRSS file that is hosted on a publicly accessible web server. A
      * <code>KmlFeatureData</code> object is provided for each feature when
      * clicked.
+     * @param opts Options for this layer.
      */
     constructor(opts?: google.maps.KmlLayerOptions|null);
     /**
@@ -2722,6 +2722,7 @@ declare namespace google.maps {
     setUrl(url: string): void;
     /**
      * Sets the z-index of the KML Layer.
+     * @param zIndex The z-index to set.
      */
     setZIndex(zIndex: number): void;
   }
@@ -3264,10 +3265,11 @@ declare namespace google.maps {
      */
     getBounds(): google.maps.LatLngBounds|undefined;
     /**
-     * Returns the position displayed at the center of the map. Note that this
-     * <code>LatLng</code> object is <em>not</em> wrapped. See <code><a
-     * href="#LatLng">LatLng</a></code> for more information. If the center or
-     * bounds have not been set then the result is <code>undefined</code>.
+     * Returns the position displayed at the center of the map. Note that
+     * this {@link google.maps.LatLng} object is <em>not</em> wrapped. See
+     * <code><a href="#LatLng">LatLng</a></code> for more information. If the
+     * center or bounds have not been set then the result is
+     * <code>undefined</code>.
      */
     getCenter(): google.maps.LatLng|undefined;
     /**
@@ -3819,6 +3821,9 @@ declare namespace google.maps {
      * Returns a tile for the given tile coordinate (x, y) and zoom level. This
      * tile will be appended to the given ownerDocument. Not available for base
      * map types.
+     * @param tileCoord Tile coordinates.
+     * @param zoom Tile zoom.
+     * @param ownerDocument The document which owns this tile.
      */
     getTile(
         tileCoord: google.maps.Point|null, zoom: number,
@@ -3850,6 +3855,7 @@ declare namespace google.maps {
     /**
      * Releases the given tile, performing any necessary cleanup. The provided
      * tile will have already been removed from the document. Optional.
+     * @param tile Tile to release.
      */
     releaseTile(tile: Node|null): void;
     /**
@@ -3934,6 +3940,8 @@ declare namespace google.maps {
     /**
      * Sets the registry to associate the passed string identifier with the
      * passed MapType.
+     * @param id Identifier of the MapType to add to the registry.
+     * @param mapType MapType object to add to the registry.
      */
     set(id: string, mapType: any): void;
   }
@@ -4339,11 +4347,7 @@ declare namespace google.maps {
      * a particular <code>LatLng</code> for the <code>satellite</code> map type.
      * As this request is asynchronous, you must pass a <code>callback</code>
      * function which will be executed upon completion of the request, being
-     * passed a <code>MaxZoomResult</code>.<aside class="note">Note: <strong>For
-     * the beta release, <code>v=beta</code>, the callback is optional and a
-     * Promise is returned</strong>. More information is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * passed a <code>MaxZoomResult</code>.
      */
     getMaxZoomAtLatLng(
         latlng: google.maps.LatLng|null|google.maps.LatLngLiteral,
@@ -4436,6 +4440,8 @@ declare namespace google.maps {
     onRemove(): void;
     /**
      * Adds the overlay to the map or panorama.
+     * @param map The map or panorama. If <code>null</code>, the layer will be
+     *     removed.
      */
     setMap(map: google.maps.Map|null|google.maps.StreetViewPanorama): void;
     /**
@@ -5618,11 +5624,6 @@ declare namespace google.maps {
      * Retrieves the <code>StreetViewPanoramaData</code> for a panorama that
      * matches the supplied Street View query request. The
      * <code>StreetViewPanoramaData</code> is passed to the provided callback.
-     * <aside class="note">Note: <strong>For the beta release,
-     * <code>v=beta</code>, the callback is optional and a Promise is
-     * returned</strong>. More information is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
      */
     getPanorama(
         request: google.maps.StreetViewLocationRequest|
@@ -7393,11 +7394,7 @@ declare namespace google.maps.places {
   class AutocompleteService {
     /**
      * Retrieves place autocomplete predictions based on the supplied
-     * autocomplete request. <aside class="note">Note: <strong>For the beta
-     * release, <code>v=beta</code>, the callback is optional and a Promise is
-     * returned</strong>. More information is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * autocomplete request.
      */
     getPlacePredictions(
         request: google.maps.places.AutocompletionRequest,
