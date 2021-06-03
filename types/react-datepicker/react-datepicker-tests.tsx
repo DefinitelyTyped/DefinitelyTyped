@@ -9,7 +9,10 @@ const defaultLocale = getDefaultLocale();
 <DatePicker
     adjustDateOnChange
     allowSameDay
+    ariaDescribedBy=""
+    ariaInvalid=""
     ariaLabelledBy=""
+    ariaRequired=""
     ariaLabelClose=""
     autoComplete=""
     autoFocus
@@ -17,10 +20,12 @@ const defaultLocale = getDefaultLocale();
     calendarContainer={props => <div />}
     className=""
     clearButtonTitle=""
+    clearButtonClassName=""
     // closeOnScroll={false} // Or as function:
     closeOnScroll={e => e.target === document}
     customInput={<input />}
     customInputRef=""
+    calendarStartDay={1}
     chooseDayAriaLabelPrefix=""
     customTimeInput={<input />}
     dateFormat=""
@@ -62,7 +67,7 @@ const defaultLocale = getDefaultLocale();
     onBlur={event => null}
     onCalendarClose={() => null}
     onCalendarOpen={() => null}
-    onChange={(date: Date | [Date, Date] | null) => {}}
+    onChange={(date: Date | [Date | null, Date | null] | null) => {}}
     onChangeRaw={event => null}
     onClickOutside={event => null}
     onDayMouseEnter={(date: Date) => {}}
@@ -114,6 +119,7 @@ const defaultLocale = getDefaultLocale();
     selected={new Date()}
     selectsEnd
     selectsStart
+    selectsRange
     shouldCloseOnSelect
     showDisabledMonthNavigation
     showMonthDropdown
@@ -126,6 +132,7 @@ const defaultLocale = getDefaultLocale();
     showTimeSelect
     showTimeSelectOnly
     showTwoColumnMonthYearPicker
+    showFourColumnMonthYearPicker
     showWeekNumbers
     showYearDropdown
     showYearPicker
