@@ -7,13 +7,13 @@
 import { VSCodeEvent } from './events';
 
 /**
- * Information about a rendered cell.
+ * Information about a rendered cell output.
  */
-export interface CellInfo {
+export interface OutputItem {
     /**
-     * HTML element where the cell should be renderer.
+     * Unique id of the output item.
      */
-    readonly element: HTMLElement;
+    readonly id: string;
 
     /**
      * Mime type being rendered.
@@ -35,7 +35,7 @@ export interface CellInfo {
     /**
      * The data as bytes.
      */
-    bytes(): Uint8Array;
+    data(): Uint8Array;
 
     /**
      * The data as blob. The blob-type will be initialized the `mime`
@@ -44,7 +44,7 @@ export interface CellInfo {
     blob(): Blob;
 
     /**
-     * cell metadata.
+     * Output item metadata.
      */
     readonly metadata: unknown;
 }
@@ -99,25 +99,37 @@ export interface RendererContext<TState> {
 }
 
 /**
- * API returned by your renderer. This is invoked by the editor to manage the lifecycle of rendered cells.
+ * API returned by your renderer. This is invoked by the editor to manage the lifecycle of rendered output items.
  */
 export interface RendererApi {
     /**
-     * Method called by the editor to render a cell.
+     * Method called by the editor to render a output item.
+     *
+     * This is invoked by the editor when an output item is first renderered or when
+     * the output item is updated.
+     *
+     * @param outputItem Output item to render.
+     * @param element Html element to render into.
      */
-    renderCell(id: string, info: CellInfo): void;
+    renderOutputItem(outputItem: OutputItem, element: HTMLElement): void;
 
     /**
-     * Destroys a previously-rendered cell.
+     * Destroys a previously-rendered output item.
      *
-     * @param id the of the cell being removed. If undefined, all cells are
-     * being removed.
+     * Your renderer should implement this if you need to clean up anything that was registered
+     * during `renderOutputItem`. This would include global event listeners or any HTML elements outside of the
+     * output item's node.
+     *
+     * @param id The id of the item being removed. If `undefined`, all cells are being removed.
      */
-    destroyCell?(id?: string): void;
+    destroyOutputItem?(id?: string): void;
 
     /**
      * Additional properties may be returned for others to consume in
      * {@link RendererContext.getRenderer}.
+     *
+     * This lets your renderer expose hooks that other renderers can use to extend its behavior.
+     * For example,
      */
     [key: string]: unknown;
 }
