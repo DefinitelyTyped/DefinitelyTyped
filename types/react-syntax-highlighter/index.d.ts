@@ -47,7 +47,6 @@ declare module 'react-syntax-highlighter/dist/esm/light-async' {
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
-        static supportedLanguages: string[];
     }
 }
 
@@ -56,7 +55,6 @@ declare module 'react-syntax-highlighter/dist/esm/light' {
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
-        static supportedLanguages: string[];
     }
 }
 
@@ -65,7 +63,6 @@ declare module 'react-syntax-highlighter/dist/esm/prism-async-light' {
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
-        static supportedLanguages: string[];
     }
 }
 
@@ -73,7 +70,6 @@ declare module 'react-syntax-highlighter/dist/esm/prism-async' {
     import * as React from 'react';
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
-        static supportedLanguages: string[];
     }
 }
 
@@ -82,7 +78,6 @@ declare module 'react-syntax-highlighter/dist/esm/prism-light' {
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
-        static supportedLanguages: string[];
     }
 }
 
@@ -2966,7 +2961,6 @@ declare module 'react-syntax-highlighter/dist/cjs/light-async' {
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
-        static supportedLanguages: string[];
     }
 }
 
@@ -2975,7 +2969,6 @@ declare module 'react-syntax-highlighter/dist/cjs/light' {
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
-        static supportedLanguages: string[];
     }
 }
 
@@ -2984,7 +2977,6 @@ declare module 'react-syntax-highlighter/dist/cjs/prism-async-light' {
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
-        static supportedLanguages: string[];
     }
 }
 
@@ -2992,7 +2984,6 @@ declare module 'react-syntax-highlighter/dist/cjs/prism-async' {
     import * as React from 'react';
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
-        static supportedLanguages: string[];
     }
 }
 
@@ -3001,7 +2992,6 @@ declare module 'react-syntax-highlighter/dist/cjs/prism-light' {
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
-        static supportedLanguages: string[];
     }
 }
 

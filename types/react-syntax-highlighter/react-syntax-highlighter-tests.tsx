@@ -77,7 +77,6 @@ function primsLightHighlighter(): JSX.Element {
     }
 }
 `;
-    PrismLightHighlighter.supportedLanguages; // $ExpectType string[]
     PrismLightHighlighter.registerLanguage("jsx", jsx);
 
     return (
