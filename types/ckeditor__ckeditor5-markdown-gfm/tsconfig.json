@@ -1,8 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es6",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -14,10 +16,15 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@ckeditor/*": [
+                "ckeditor__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "json-pointer-tests.ts"
+        "ckeditor__ckeditor5-markdown-gfm-tests.ts"
     ]
 }

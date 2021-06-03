@@ -6,6 +6,9 @@
 
 import { VSCodeEvent } from './events';
 
+/**
+ * Information about a rendered cell.
+ */
 export interface CellInfo {
     /**
      * HTML element where the cell should be renderer.
@@ -18,7 +21,7 @@ export interface CellInfo {
     readonly mime: string;
 
     /**
-     * The data as text. Note the a UTF-8 decoder is used is create
+     * The data as text. Note that a UTF-8 decoder is used is create
      * the string from the underlying bytes.
      */
     text(): string;
@@ -46,24 +49,35 @@ export interface CellInfo {
     readonly metadata: unknown;
 }
 
-export interface RendererContext<T> {
+/**
+ * Collection of APIs provided to your renderer.
+ *
+ * @template TState Type of the renderer specific state persisted in the webview.
+ */
+export interface RendererContext<TState> {
     /**
      * Sets renderer-specific state that is persisted in the webview.
      */
-    setState(value: T): void;
+    setState(value: TState): void;
 
     /**
      * Gets any previously set renderer-specific state.
      * @see RendererContext.setState
      */
-    getState(): T | undefined;
+    getState(): TState | undefined;
 
     /**
-     * Gets the return value of an already activated renderer. It returns
-     * undefined if the specified renderer is not available or has not been
-     * activated yet.
+     * Retrieve the API of another renderer.
+     *
+     * This allows the current renderer to extend another renderer.
+     *
+     * @param id Id of the renderer to retrieve. This is the `id` of the `notebookRenderer` contribution in
+     * the target renderer's `package.json`.
+     *
+     * @return The API of the requested renderer. This is the object returned from its `activate` method. Returns
+     * `undefined` if the requested renderer cannot be found.
      */
-    getRenderer(id: string): RendererApi | undefined;
+    getRenderer(id: string): Promise<RendererApi | undefined>;
 
     /**
      * Method that may be present if `requiresMessaging` is set to `true`
@@ -84,6 +98,9 @@ export interface RendererContext<T> {
     onDidReceiveMessage?: VSCodeEvent<any>;
 }
 
+/**
+ * API returned by your renderer. This is invoked by the editor to manage the lifecycle of rendered cells.
+ */
 export interface RendererApi {
     /**
      * Method called by the editor to render a cell.
@@ -92,6 +109,7 @@ export interface RendererApi {
 
     /**
      * Destroys a previously-rendered cell.
+     *
      * @param id the of the cell being removed. If undefined, all cells are
      * being removed.
      */
@@ -105,7 +123,9 @@ export interface RendererApi {
 }
 
 /**
- * Describes the function that should be exported as "activate" from your
+ * Describes the function that should be exported as `activate` from your
  * renderer entrypoint.
+ *
+ * @template TState Type of the renderer specific state persisted in the webview.
  */
 export type ActivationFunction<TState = any> = (context: RendererContext<TState>) => RendererApi;

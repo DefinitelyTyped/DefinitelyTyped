@@ -1163,8 +1163,8 @@ declare module 'crypto' {
      * algorithm. If `algorithm` is `null` or `undefined`, then the algorithm is
      * dependent upon the key type (especially Ed25519 and Ed448).
      *
-     * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
-     * passed to [`crypto.createPrivateKey()`][].
+     * If `key` is not a `KeyObject`, this function behaves as if `key` had been
+     * passed to `crypto.createPrivateKey().
      */
     function sign(
         algorithm: string | null | undefined,
@@ -1177,8 +1177,8 @@ declare module 'crypto' {
      * algorithm. If `algorithm` is `null` or `undefined`, then the algorithm is
      * dependent upon the key type (especially Ed25519 and Ed448).
      *
-     * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
-     * passed to [`crypto.createPublicKey()`][].
+     * If `key` is not a `KeyObject`, this function behaves as if `key` had been
+     * passed to `crypto.createPublicKey()`.
      */
     function verify(
         algorithm: string | null | undefined,
@@ -1254,7 +1254,7 @@ declare module 'crypto' {
      *
      * The supplied `callback` function is called with two arguments: `err` and `derivedKey`.
      * If an errors occurs while deriving the key, `err` will be set; otherwise `err` will be `null`.
-     * The successfully generated `derivedKey` will be passed to the callback as an [`ArrayBuffer`][].
+     * The successfully generated `derivedKey` will be passed to the callback as an `ArrayBuffer`.
      * An error will be thrown if any of the input aguments specify invalid values or types.
      */
     function hkdf(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => any): void;
@@ -1263,7 +1263,7 @@ declare module 'crypto' {
      * Provides a synchronous HKDF key derivation function as defined in RFC 5869.
      * The given `key`, `salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
      *
-     * The successfully generated `derivedKey` will be returned as an [`ArrayBuffer`][].
+     * The successfully generated `derivedKey` will be returned as an `ArrayBuffer`.
      * An error will be thrown if any of the input aguments specify invalid values or types,
      * or if the derived key cannot be generated.
      */
@@ -1373,6 +1373,16 @@ declare module 'crypto' {
         readonly keyUsage: string[];
 
         /**
+         * The issuer identification included in this certificate.
+         */
+        readonly issuer: string;
+
+        /**
+         * The issuer certificate or `undefined` if the issuer certificate is not available.
+         */
+        readonly issuerCertificate?: X509Certificate;
+
+        /**
          * The public key for this certificate.
          */
         readonly publicKey: KeyObject;
@@ -1438,7 +1448,7 @@ declare module 'crypto' {
         toJSON(): string;
 
         /**
-         * Returns information about this certificate using the legacy [certificate object][] encoding.
+         * Returns information about this certificate using the legacy certificate object encoding.
          */
         toLegacyObject(): PeerCertificate;
 
@@ -1453,4 +1463,57 @@ declare module 'crypto' {
          */
         verify(publicKey: KeyObject): boolean;
     }
+
+    type LargeNumberLike = NodeJS.ArrayBufferView | SharedArrayBuffer | ArrayBuffer | bigint;
+
+    interface GeneratePrimeOptions {
+        add?: LargeNumberLike;
+        rem?: LargeNumberLike;
+        /**
+         * @default false
+         */
+        safe?: boolean;
+        bigint?: boolean;
+    }
+
+    interface GeneratePrimeOptionsBigInt extends GeneratePrimeOptions {
+        bigint: true;
+    }
+
+    interface GeneratePrimeOptionsArrayBuffer extends GeneratePrimeOptions {
+        bigint?: false;
+    }
+
+    function generatePrime(size: number, callback: (err: Error | null, prime: ArrayBuffer) => void): void;
+    function generatePrime(size: number, options: GeneratePrimeOptionsBigInt, callback: (err: Error | null, prime: bigint) => void): void;
+    function generatePrime(size: number, options: GeneratePrimeOptionsArrayBuffer, callback: (err: Error | null, prime: ArrayBuffer) => void): void;
+    function generatePrime(size: number, options: GeneratePrimeOptions, callback: (err: Error | null, prime: ArrayBuffer | bigint) => void): void;
+
+    function generatePrimeSync(size: number): ArrayBuffer;
+    function generatePrimeSync(size: number, options: GeneratePrimeOptionsBigInt): bigint;
+    function generatePrimeSync(size: number, options: GeneratePrimeOptionsArrayBuffer): ArrayBuffer;
+    function generatePrimeSync(size: number, options: GeneratePrimeOptions): ArrayBuffer | bigint;
+
+    interface CheckPrimeOptions {
+        /**
+         * The number of Miller-Rabin probabilistic primality iterations to perform.
+         * When the value is 0 (zero), a number of checks is used that yields a false positive rate of at most 2-64 for random input.
+         * Care must be used when selecting a number of checks.
+         * Refer to the OpenSSL documentation for the BN_is_prime_ex function nchecks options for more details.
+         *
+         * @default 0
+         */
+        checks?: number;
+    }
+
+    /**
+     * Checks the primality of the candidate.
+     */
+    function checkPrime(value: LargeNumberLike, callback: (err: Error | null, result: boolean) => void): void;
+    function checkPrime(value: LargeNumberLike, options: CheckPrimeOptions, callback: (err: Error | null, result: boolean) => void): void;
+
+    /**
+     * Checks the primality of the candidate.
+     */
+    function checkPrimeSync(value: LargeNumberLike, options?: CheckPrimeOptions): boolean;
 }

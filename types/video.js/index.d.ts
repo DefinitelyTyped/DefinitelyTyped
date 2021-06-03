@@ -6344,6 +6344,18 @@ export interface VideoJsPlayer extends videojs.Component {
     duration(): number;
 
     /**
+     * Get or set a flag indicating whether or not this player should fill out its container.
+     *
+     * @param [bool] Should be `true` if the player should fill its container; otherwise it should be false.
+     *
+     * @return Will be `true` if this player should fill its container;
+     * otherwise, will be `false`.
+     */
+
+    fill(bool: boolean): void;
+    fill(): boolean;
+
+    /**
      * A getter/setter/toggler for the vjs-fluid `className` on the `Player`.
      *
      * @param [bool]
@@ -6926,6 +6938,7 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     textTrackSettings?: videojs.TextTrackSettingsOptions;
     controls?: boolean;
     defaultVolume?: number;
+    fill?: boolean;
     fluid?: boolean;
     height?: number;
     html5?: any;
