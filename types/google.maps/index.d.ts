@@ -2544,13 +2544,33 @@ declare namespace google.maps {
      * the tip of the InfoWindow.
      */
     open(
-        map?: google.maps.Map|null|google.maps.StreetViewPanorama,
+        options?: google.maps.Map|null|google.maps.StreetViewPanorama|
+        google.maps.InfoWindowOpenOptions,
         anchor?: google.maps.MVCObject|null): void;
     setContent(content: string|Node|null): void;
     setOptions(options: google.maps.InfoWindowOptions|null): void;
     setPosition(position: google.maps.LatLng|null|
                 google.maps.LatLngLiteral): void;
     setZIndex(zIndex: number): void;
+  }
+}
+declare namespace google.maps {
+  /**
+   * Options for opening an InfoWindow
+   */
+  interface InfoWindowOpenOptions {
+    /**
+     * If anchor is non-null, position this InfoWindow at the top-center of the
+     * anchor, instead of at the given latlng. The InfoWindow will be rendered
+     * on the same Map or StreetView as the anchor.
+     */
+    anchor?: google.maps.MVCObject|null;
+    /**
+     * Whether or not focus should be moved inside the InfoWindow when it is
+     * opened. When unset or set to <code>null</code> or <code>undefined</code>,
+     * a heuristic will be used to decide whether focus should be moved or not.
+     */
+    shouldFocus?: boolean|null;
   }
 }
 declare namespace google.maps {
