@@ -57,7 +57,7 @@ export interface APIGatewayEventClientCertificate {
     validity: {
         notAfter: string;
         notBefore: string;
-    }
+    };
 }
 
 export interface APIGatewayEventIdentity {
