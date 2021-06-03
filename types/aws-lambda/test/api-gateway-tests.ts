@@ -5,6 +5,7 @@ import {
     APIGatewayAuthorizerWithContextHandler,
     APIGatewayAuthorizerWithContextResult,
     APIGatewayEvent,
+    APIGatewayEventClientCertificate,
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventLambdaAuthorizerContext,
     APIGatewayEventRequestContext,
@@ -113,6 +114,8 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     strOrNull = requestContext.identity.apiKey;
     strOrNull = requestContext.identity.apiKeyId;
     strOrNull = requestContext.identity.caller;
+    let clientCertOrNull: APIGatewayEventClientCertificate | null;
+    clientCertOrNull = requestContext.identity.clientCert;
     strOrNull = requestContext.identity.cognitoAuthenticationProvider;
     strOrNull = requestContext.identity.cognitoAuthenticationType;
     strOrNull = requestContext.identity.cognitoIdentityId;
