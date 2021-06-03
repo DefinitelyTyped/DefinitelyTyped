@@ -89,6 +89,7 @@ import {
     StyleSheet,
     Switch,
     SwitchIOS,
+    SwitchChangeEvent,
     Systrace,
     TabBarIOS,
     Text,
@@ -1323,6 +1324,16 @@ const SwitchColorOptionalFalseTest = () => <Switch trackColor={{ true: 'pink' }}
 const SwitchColorNullTest = () => <Switch trackColor={{ true: 'pink', false: null }} />;
 
 const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
+
+const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.log('test')} />;
+const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
+const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
+const SwitchOnChangePromiseTest = () => <Switch onChange={(event?: SwitchChangeEvent) => new Promise(() => event!.value)} />;
+
+const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
+const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
+const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
+const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value?: boolean) => new Promise(() => value)} />;
 
 const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
