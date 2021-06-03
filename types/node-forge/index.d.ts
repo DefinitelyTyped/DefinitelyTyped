@@ -17,6 +17,7 @@
 //                 Ligia Frangello     <https://github.com/frangello>
 //                 Dmitry Avezov       <https://github.com/avezov>
 //                 Jose Fuentes        <https://github.com/j-fuentes>
+//                 Anya Reyes          <https://github.com/darkade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -697,12 +698,14 @@ declare module "node-forge" {
             content?: string | util.ByteBuffer;
             contentInfo?: { value: any[] };
 
+            certificates: pki.Certificate[];
+
             addCertificate(certificate: pki.Certificate | string): void;
             addSigner(options: {
-                key: string;
+                key: pki.rsa.PrivateKey | string;
                 certificate: pki.Certificate | string;
                 digestAlgorithm: string;
-                authenticatedAttributes: { type: string; value?: string }[];
+                authenticatedAttributes?: { type: string; value?: string }[];
             }): void;
             sign(options?:{
                 detached?: boolean
@@ -720,6 +723,10 @@ declare module "node-forge" {
         }
 
         function createEnvelopedData(): PkcsEnvelopedData;
+
+        function messageToPem(msg: PkcsSignedData, maxline?: number): string;
+
+        function messageFromPem(pem: pki.PEM): PkcsEnvelopedData | PkcsSignedData;
     }
 
     namespace pkcs5 {
