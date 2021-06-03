@@ -103,7 +103,7 @@ export interface RendererContext<TState> {
  */
 export interface RendererApi {
     /**
-     * Method called by the editor to render a output item.
+     * Called by the editor to render an output item.
      *
      * This is invoked by the editor when an output item is first renderered or when
      * the output item is updated.
@@ -114,7 +114,7 @@ export interface RendererApi {
     renderOutputItem(outputItem: OutputItem, element: HTMLElement): void;
 
     /**
-     * Destroys a previously-rendered output item.
+     * Called by the editor when a previously-rendered output item is being disposed of.
      *
      * Your renderer should implement this if you need to clean up anything that was registered
      * during `renderOutputItem`. This would include global event listeners or any HTML elements outside of the
@@ -122,7 +122,7 @@ export interface RendererApi {
      *
      * @param id The id of the item being removed. If `undefined`, all cells are being removed.
      */
-    destroyOutputItem?(id?: string): void;
+    disposeOutputItem?(id?: string): void;
 
     /**
      * Additional properties may be returned for others to consume in
