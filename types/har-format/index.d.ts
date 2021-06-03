@@ -500,7 +500,7 @@ export interface Entry {
     /** _non-standard_  */
     _renderBlocking?: string | null;
     /** _non-standard_  */
-    _isLCP?: boolean | null;
+    _isLCP?: boolean | null;
 }
 /**
  * This object contains detailed info about performed request.
