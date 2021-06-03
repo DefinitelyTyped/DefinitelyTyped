@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-      "rdf-js": "^2.0"
+      "rdf-js": "^4.0.2"
     }
   }
