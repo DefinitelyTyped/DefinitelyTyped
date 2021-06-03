@@ -13,11 +13,12 @@ export default class Sample extends React.Component<{}, State> {
     onChange = (value: Date, e: React.ChangeEvent<HTMLInputElement>) => {
         e.stopPropagation();
         this.setState({ value });
-    };
+    }
+
     onRangeChange = (values: Date[], e: React.ChangeEvent<HTMLInputElement>) => {
         e.stopPropagation();
         this.setState({ value: values[0] });
-    };
+    }
 
     render() {
         const { value } = this.state;
