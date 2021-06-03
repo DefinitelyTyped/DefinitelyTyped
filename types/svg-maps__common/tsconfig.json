@@ -8,12 +8,12 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
+        "types": [],
         "paths": {
             "@svg-maps/*": ["svg-maps__*"]
         },
-        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "svg-maps__usa-tests.ts"]
+    "files": ["index.d.ts", "svg-maps__common-tests.ts"]
 }
