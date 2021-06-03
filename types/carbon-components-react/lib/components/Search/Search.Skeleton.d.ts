@@ -1,9 +1,9 @@
 import * as React from "react";
-import { SizingProps, ReactDivAttr } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr, SizingProps { }
-
-export interface SearchSkeletonProps extends InheritedProps { }
+export interface SearchSkeletonProps extends ReactDivAttr {
+    small?: boolean,
+}
 
 declare const SearchSkeleton: React.FC<SearchSkeletonProps>;
 

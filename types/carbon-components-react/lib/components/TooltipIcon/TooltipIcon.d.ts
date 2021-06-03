@@ -1,15 +1,12 @@
 import * as React from "react";
-import { Direction, ReactButtonAttr, RequiresChildrenProps, TooltipAlignment } from "../../../typings/shared";
+import { Direction, ReactButtonAttr, TooltipAlignment } from "../../../typings/shared";
 
-interface InheritedProps extends
-    Omit<ReactButtonAttr, "children">,
-    RequiresChildrenProps
-{ }
-
-export interface TooltipIconProps extends InheritedProps {
+type ExcludedAttributes = "aria-describedby" | "children" | "type";
+export interface TooltipIconProps extends Omit<ReactButtonAttr, ExcludedAttributes> {
     align?: TooltipAlignment,
+    children: NonNullable<React.ReactNode>,
     direction?: Direction, // required but has default value, should be bottom/top but the prop type has left/right
-    tooltipText: string,
+    tooltipText: NonNullable<React.ReactNode>;
 }
 
 declare const TooltipIcon: React.FC<TooltipIconProps>;

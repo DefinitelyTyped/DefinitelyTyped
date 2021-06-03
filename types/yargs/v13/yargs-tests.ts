@@ -938,7 +938,7 @@ function Argv$inferOptionTypes() {
     // $ExpectType boolean | undefined
     yargs.boolean("x").argv.x;
 
-    // $ExpectType "red" | "blue" | "green" | undefined
+    // $ExpectType "red" | "blue" | "green" | undefined || Color | undefined
     yargs.choices("x", colors).argv.x;
 
     // $ExpectType number | undefined
@@ -1146,10 +1146,10 @@ function Argv$inferRepeatedOptionTypes() {
     // $ExpectType boolean | undefined
     yargs.string("a").boolean("a").argv.a;
 
-    // $ExpectType string | undefined
+    // $ExpectType string | undefined || ToString<number | undefined>
     yargs.number("a").string("a").argv.a;
 
-    // $ExpectType number | undefined
+    // $ExpectType number | undefined || ToNumber<string | undefined>
     yargs.string("a").number("a").argv.a;
 
     // $ExpectType boolean | undefined

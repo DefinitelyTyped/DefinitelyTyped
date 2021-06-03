@@ -1,11 +1,16 @@
-// Type definitions for i18n-node 0.8
+// Type definitions for i18n-node 0.13
 // Project: http://github.com/mashpie/i18n-node
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 FindQ <https://github.com/FindQ>
+//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 4.1
 
 declare namespace i18n {
+    interface Response extends i18nAPI {
+        locals: Partial<i18nAPI>;
+    }
+
     interface ConfigurationOptions {
         /**
          * Setup some locales - other locales default to en silently
@@ -28,10 +33,22 @@ declare namespace i18n {
         defaultLocale?: string;
 
         /**
+         * Will return translation from defaultLocale in case current locale doesn't provide it
+         * @default false
+         */
+        retryInDefaultLocale?: boolean;
+
+        /**
          * Sets a custom cookie name to parse locale settings from
          * @default null
          */
         cookie?: string;
+
+        /**
+         * Sets a custom header name to read the language preference from - accept-language header by default
+         * @default 'accept-language'
+         */
+        header?: string;
 
         /**
          * Query parameter to switch locale (ie. /home?lang=ch)
@@ -112,6 +129,12 @@ declare namespace i18n {
         logErrorFn?: (msg: string) => void;
 
         /**
+         * Function to provide missing translations.
+         * @since 0.10.0
+         */
+        missingKeyFn?: (locale: string, value: string) => string;
+
+        /**
          * object or [obj1, obj2] to bind the i18n api and current locale to
          * @default null
          */
@@ -132,6 +155,28 @@ declare namespace i18n {
          * @default true
          */
         preserveLegacyCase?: boolean;
+
+        /**
+         * Static translation catalog. Setting this option overrides `locales`.
+         *
+         * **NOTE**: Enabling `staticCatalog` disables all other fs realated options such as `updateFiles`, `autoReload` and `syncFiles`.
+         * @since 0.10.0
+         */
+        staticCatalog?: GlobalCatalog;
+
+        /**
+         * Use mustache with customTags (https://www.npmjs.com/package/mustache#custom-delimiters) or disable mustache entirely
+         */
+        mustacheConfig?: {
+            /**
+             * @default ['{{', '}}']
+             */
+            tags?: [string, string];
+            /**
+             * @default false
+             */
+            disable?: boolean;
+        };
     }
     interface TranslateOptions {
         phrase: string;
@@ -271,7 +316,6 @@ declare namespace i18n {
      * @param locale - The locale to set as default
      * @param [inheritance=false] - Disables inheritance if true
      */
-    // tslint:disable-next-line:unified-signatures
     function setLocale(requestOrResponse: Express.Request | Express.Response, locale: string, inheritance?: boolean): void;
     /**
      * Change the current active locale for specified response
@@ -293,6 +337,10 @@ declare namespace i18n {
      * Get a list with all configured locales
      */
     function getLocales(): string[];
+
+    function addLocale(locale: string): void;
+
+    function removeLocale(locale: string): void;
 
     //#endregion
 
@@ -329,6 +377,56 @@ declare namespace i18n {
      * Get current i18n-node version
      */
     const version: string;
+
+    class I18n {
+        configure(options: ConfigurationOptions): void;
+
+        init(request: Express.Request, response: Express.Response, next?: () => void): void;
+
+        __(phraseOrOptions: string | TranslateOptions, ...replace: string[]): string;
+
+        __(phraseOrOptions: string | TranslateOptions, replacements: Replacements): string;
+
+        __n(phrase: string, count: number): string;
+
+        __n(options: PluralOptions, count?: number): string;
+
+        __n(singular: string, plural: string, count: number | string): string;
+
+        __mf(phraseOrOptions: string | TranslateOptions, ...replace: any[]): string;
+
+        __mf(phraseOrOptions: string | TranslateOptions, replacements: Replacements): string;
+
+        __l(phrase: string): string[];
+
+        __h(phrase: string): HashedList[];
+
+        setLocale(locale: string): void;
+
+        // tslint:disable-next-line:unified-signatures
+        setLocale(requestOrResponse: Express.Request | Express.Response, locale: string, inheritance?: boolean): void;
+
+        // tslint:disable-next-line:unified-signatures
+        setLocale(objects: any | any[], locale: string, inheritance?: boolean): void;
+
+        getLocale(request?: Express.Request): string;
+
+        getLocales(): string[];
+
+        addLocale(locale: string): void;
+
+        removeLocale(locale: string): void;
+
+        getCatalog(): GlobalCatalog;
+
+        getCatalog(locale: string): LocaleCatalog;
+
+        getCatalog(request: Express.Request, locale?: string): LocaleCatalog;
+
+        overrideLocaleFromQuery(request?: Express.Request): void;
+
+        version: string;
+    }
 }
 
 interface i18nAPI {
@@ -450,14 +548,11 @@ declare module "i18n" {
 }
 
 declare namespace Express {
+    // tslint:disable-next-line:no-empty-interface
     interface Request extends i18nAPI {
-        languages: string[];
-        regions: string[];
-        language: string;
-        region: string;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface Response extends i18nAPI {
-        locals: Partial<i18nAPI>;
     }
 }

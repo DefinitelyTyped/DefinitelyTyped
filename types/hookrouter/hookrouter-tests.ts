@@ -16,7 +16,7 @@ import {
     getBasepath,
     resolvePath,
     prepareRoute,
-    useQueryParams
+    useQueryParams,
 } from 'hookrouter';
 
 // $ExpectType AProps
@@ -34,7 +34,7 @@ useControlledInterceptor();
 // $ExpectType string[]
 interceptRoute('/route1', '/route2');
 
-// $ExpectType RouteObject | null
+// $ExpectType RouteObject<any> | null
 get(2);
 
 // $ExpectType void
@@ -75,3 +75,16 @@ getWorkingPath('id');
 
 // $ExpectType string
 getTitle();
+
+// $ExpectType number | null
+useRoutes({
+    '/': () => 42,
+});
+
+// $ExpectType (() => number) | null
+useRoutes({
+    '/': () => () => 1 + 1,
+});
+
+// $ExpectType any
+useRoutes({} as any);

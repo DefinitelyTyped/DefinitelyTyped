@@ -17,12 +17,37 @@ export default class PointerInteraction extends Interaction {
     constructor(opt_options?: Options);
     protected handlingDownUpSequence: boolean;
     protected targetPointers: PointerEvent[];
+    /**
+     * Handle pointer down events.
+     */
     protected handleDownEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Handle pointer drag events.
+     */
     protected handleDragEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): void;
+    /**
+     * Handle pointer move events.
+     */
     protected handleMoveEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): void;
+    /**
+     * Handle pointer up events.
+     */
     protected handleUpEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Returns the current number of pointers involved in the interaction,
+     * e.g. 2 when two fingers are used.
+     */
     getPointerCount(): number;
+    /**
+     * Handles the {@link module:ol/MapBrowserEvent map browser event} and may call into
+     * other functions, if event sequences like e.g. 'drag' or 'down-up' etc. are
+     * detected.
+     */
     handleEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * This function is used to determine if "down" events should be propagated
+     * to other interactions or should be stopped.
+     */
     stopDown(handled: boolean): boolean;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

@@ -271,7 +271,7 @@ interface CipherStatic {
 
 interface CipherHelper {
     encrypt(message: WordArray | string, key: WordArray | string, cfg?: CipherOption): CipherParams;
-    decrypt(ciphertext: CipherParams | string, key: WordArray | string, cfg?: CipherOption): CipherParams;
+    decrypt(ciphertext: CipherParams | string, key: WordArray | string, cfg?: CipherOption): WordArray;
 }
 
 /**

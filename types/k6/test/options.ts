@@ -1,9 +1,25 @@
-import { Options } from 'k6/options';
+import { Options, Scenario } from 'k6/options';
 
 const options: Options = {
     vus: 10,
     duration: '10s'
 };
+
+const moreOptions: Options = {
+    vus: 10,
+    duration: '10s',
+    blockHostnames: ["*.k6.io" , "www.example.com"],
+    dns: {
+        ttl: '6s',
+        select: 'first',
+        policy: 'preferIPv4'
+    }
+};
+
+const scenarios: Scenario[] = [{
+            executor: "shared-iterations",
+            iterations: 100
+}];
 
 const scenarioExample: Options = {
     executionSegment: "0:1",

@@ -422,7 +422,7 @@ export default class Carousel<T> extends React.Component<CarouselProperties<T>> 
     /**
      * Snap to an item manually
      */
-    snapToItem(index: number, animated?: boolean, fireCallback?: boolean): void;
+    snapToItem(index: number, animated?: boolean, fireCallback?: boolean, initial?: boolean, lockScroll?: boolean): void;
     /**
      * Snap to next item manually
      */

@@ -3,7 +3,6 @@
 // Definitions by: James Darbyshire <https://github.com/darbio>
 //                 Michael Skarum <https://github.com/skarum>
 //                 Stef Heyenrath <https://github.com/StefH>
-//                 Toby Hede <https://github.com/tobyhede>
 //                 Rich Buggy <https://github.com/buggy>
 //                 Yoriki Yamaguchi <https://github.com/y13i>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
@@ -37,6 +36,8 @@
 //                 Sachin Shekhar <https://github.com/SachinShekhar>
 //                 Ivan Martos <https://github.com/ivanmartos>
 //                 Zach Anthony <https://github.com/zach-anthony>
+//                 Peter Savnik <https://github.com/savnik>
+//                 Sven Milewski <https://github.com/svenmilewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -47,6 +48,7 @@ export * from "./trigger/alb";
 // TODO: export * from "./trigger/alexa";
 export * from "./trigger/api-gateway-authorizer";
 export * from "./trigger/api-gateway-proxy";
+export * from "./trigger/appsync-resolver";
 // CloudTrail section just describes using S3 to trigger on cloudtrail changes.
 export * from "./trigger/cloudformation-custom-resource";
 export * from "./trigger/cloudfront-request";
@@ -68,7 +70,7 @@ export * from "./trigger/dynamodb-stream";
 export * from "./trigger/eventbridge";
 // ElastiCache section just describes using lambdas in an ElastiCache context (VPC issues, etc.)
 // EC2 events are delivered using cloudwatch events...
-// TODO: export * from "./trigger/iot"; for "IoT Events"
+export * from "./trigger/iot";
 export * from "./trigger/kinesis-firehose-transformation";
 export * from "./trigger/kinesis-stream";
 export * from "./trigger/lex";

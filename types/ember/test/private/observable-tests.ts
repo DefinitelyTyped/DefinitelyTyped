@@ -1,13 +1,13 @@
 // tslint-disable-next-line
-import { assertType } from "../lib/assert";
-import Ember from "ember";
+import { assertType } from '../lib/assert';
+import Ember from 'ember';
 import {
     ExtractPropertyNamesOfType,
     UnwrapComputedPropertyGetter,
     UnwrapComputedPropertyGetters,
-    UnwrapComputedPropertySetters
+    UnwrapComputedPropertySetters,
 } from '@ember/object/-private/types';
-import Observable from "@ember/object/observable";
+import Observable from '@ember/object/observable';
 
 class OtherThing {
     observerOfDemo(target: DemoObservable, key: 'foo') {}
@@ -57,46 +57,63 @@ class DemoObservable implements Observable {
     fooDidChange(obj: this, propName: 'foo') {}
     protected fooDidChangeProtected(obj: this, propName: 'foo') {}
     get<K extends keyof this>(key: K): UnwrapComputedPropertyGetter<this[K]> {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
     getProperties<K extends keyof this>(list: K[]): Pick<UnwrapComputedPropertyGetters<this>, K>;
     getProperties<K extends keyof this>(...list: K[]): Pick<UnwrapComputedPropertyGetters<this>, K>;
     getProperties(...rest: any[]): any {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
     set<K extends keyof this>(key: K, value: this[K]): this[K] {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
-    setProperties<K extends keyof this>(hash: Pick<this, K>): Pick< UnwrapComputedPropertySetters<this>, K> {
-        throw new Error("Method not implemented.");
+    setProperties<K extends keyof this>(hash: Pick<this, K>): Pick<UnwrapComputedPropertySetters<this>, K> {
+        throw new Error('Method not implemented.');
     }
     notifyPropertyChange(keyName: string): this {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
-    addObserver<Target>(key: keyof this, target: Target, method: keyof Target | ((this: Target, sender: this, key: string, value: any, rev: number) => void)): any;
-    addObserver<K extends keyof this>(key: K, method: keyof this | ((this: this, sender: this, key: K, value: this[K], rev: number) => void)): any;
+    addObserver<Target>(
+        key: keyof this,
+        target: Target,
+        method: keyof Target | ((this: Target, sender: this, key: string, value: any, rev: number) => void),
+    ): any;
+    addObserver<K extends keyof this>(
+        key: K,
+        method: keyof this | ((this: this, sender: this, key: K, value: this[K], rev: number) => void),
+    ): any;
     addObserver(key: any, target: any, method?: any) {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
-    removeObserver<Target>(key: keyof this, target: Target, method: keyof Target | ((this: Target, sender: this, key: string, value: any, rev: number) => void)): any;
-    removeObserver(key: keyof this, method: keyof this | ((this: this, sender: this, key: string, value: any, rev: number) => void)): any;
+    removeObserver<Target>(
+        key: keyof this,
+        target: Target,
+        method: keyof Target | ((this: Target, sender: this, key: string, value: any, rev: number) => void),
+    ): any;
+    removeObserver(
+        key: keyof this,
+        method: keyof this | ((this: this, sender: this, key: string, value: any, rev: number) => void),
+    ): any;
     removeObserver(key: any, target: any, method?: any): void {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
-    getWithDefault<K extends keyof this>(key: K, defaultValue: UnwrapComputedPropertyGetter<this[K]>): UnwrapComputedPropertyGetter<this[K]> {
-        throw new Error("Method not implemented.");
+    getWithDefault<K extends keyof this>(
+        key: K,
+        defaultValue: UnwrapComputedPropertyGetter<this[K]>,
+    ): UnwrapComputedPropertyGetter<this[K]> {
+        throw new Error('Method not implemented.');
     }
     incrementProperty(keyName: ExtractPropertyNamesOfType<this, number | undefined>, increment?: number): number {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
     decrementProperty(keyName: ExtractPropertyNamesOfType<this, number | undefined>, decrement?: number): number {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
     toggleProperty(keyName: ExtractPropertyNamesOfType<this, boolean | undefined>): boolean {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
     cacheFor<K extends keyof this>(key: K): UnwrapComputedPropertyGetter<this[K]> | undefined {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
 }
 const o = new DemoObservable();
@@ -143,9 +160,9 @@ assertType<number | undefined>(o.getWithDefault()); // $ExpectError
  * getProperties
  */
 // ('foo', 'bar')
-assertType<{ foo: string, bar: [boolean, boolean] }>(o.getProperties('foo', 'bar')); // $ExpectType { foo: string; bar: [boolean, boolean]; }
+assertType<{ foo: string; bar: [boolean, boolean] }>(o.getProperties('foo', 'bar')); // $ExpectType { foo: string; bar: [boolean, boolean]; }
 // ['foo', 'bar']
-assertType<{ foo: string, bar: [boolean, boolean] }>(o.getProperties(['foo', 'bar'])); // $ExpectType { foo: string; bar: [boolean, boolean]; }
+assertType<{ foo: string; bar: [boolean, boolean] }>(o.getProperties(['foo', 'bar'])); // $ExpectType { foo: string; bar: [boolean, boolean]; }
 // empty cases
 assertType<{}>(o.getProperties()); // $ExpectType {}
 assertType<{}>(o.getProperties([])); // $ExpectType {}
@@ -166,7 +183,7 @@ assertType<any>(o.set('jeanShorts', 10)); // $ExpectError
 /**
  * setProperties
  */
-assertType<{ foo: string, bar: [boolean, boolean] }>(o.setProperties({ foo: 'abc', bar: [true, true] })); // $ExpectType { foo: string; bar: [boolean, boolean]; }
+assertType<{ foo: string; bar: [boolean, boolean] }>(o.setProperties({ foo: 'abc', bar: [true, true] })); // $ExpectType { foo: string; bar: [boolean, boolean]; }
 // empty case
 assertType<{}>(o.setProperties({})); // $ExpectType {}
 // property that doesn't exist

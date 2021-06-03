@@ -3,6 +3,7 @@
 // Definitions by: Raphaël Doursenaud <https://github.com/rdoursenaud>
 //                 Amiram Korach <https://github.com/amiram>
 //                 Antoine Boisadam <https://github.com/Antoine38660>
+//                 Alex Bilbie <https://github.com/alexbilbie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -116,7 +117,7 @@ declare namespace InboxSDK {
     interface ComposeView {
       addButton(buttonDescriptor: ComposeButtonDescriptor): void;
 
-      addComposeNotice(composeNoticeDescriptor: ComposeNoticeDescriptor): void;
+      addComposeNotice(composeNoticeDescriptor: ComposeNoticeDescriptor): Common.SimpleElementView;
 
       addStatusBar(statusBarDescriptor: StatusBarDescriptor): StatusBarView;
 

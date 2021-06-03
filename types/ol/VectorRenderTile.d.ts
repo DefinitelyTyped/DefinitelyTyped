@@ -24,9 +24,18 @@ export default class VectorRenderTile extends Tile {
         getSourceTiles: (p0: VectorRenderTile) => VectorTile[],
     );
     getContext(layer: Layer<Source>): CanvasRenderingContext2D;
+    /**
+     * Get the Canvas for this tile.
+     */
     getImage(layer: Layer<Source>): HTMLCanvasElement;
     getReplayState(layer: Layer<Source>): ReplayState;
     hasContext(layer: Layer<Source>): boolean;
+    /**
+     * Load the tile.
+     */
     load(): void;
+    /**
+     * Remove from the cache due to expiry
+     */
     release(): void;
 }

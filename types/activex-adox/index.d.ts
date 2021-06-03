@@ -191,7 +191,6 @@ declare namespace ADOX {
         Unique: boolean;
     }
 
-    // tslint:disable-next-line:interface-name
     interface Indexes {
         Append(Item: Index | string, Columns?: string | SafeArray<string>): void; // is this actually two overloads, one with [Index] and one with [string,string | SafeArray<string>]?
         readonly Count: number;

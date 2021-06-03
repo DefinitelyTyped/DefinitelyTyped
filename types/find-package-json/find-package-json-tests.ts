@@ -1,19 +1,29 @@
-"use strict";
+'use strict';
 
-import finder = require("find-package-json");
+import find = require('find-package-json');
 
-const f = finder();
-const fDirname = finder(__dirname);
-const fModule: finder.FinderIterator = finder(module);
+const f = find();
+find(__dirname); // $ExpectType FinderIterator
+const fModule = find(module); // $ExpectType FinderIterator
+
+const iter = fModule[Symbol.iterator](); // $ExpectType IterableIterator<PackageWithPath>
+const iterResult = iter.next(); // $ExpectType IteratorResult<PackageWithPath, any>
+if (iterResult.done) {
+    iterResult; // $ExpectType IteratorReturnResult<any>
+    iterResult.value; // $ExpectType any
+} else {
+    iterResult; // $ExpectType IteratorYieldResult<PackageWithPath>
+    iterResult.value; // $ExpectType PackageWithPath
+}
 
 const findResult = f.next();
 
 if (findResult.done) {
-    const res: finder.Done = findResult;
-    const value: undefined = findResult.value;
-    const filename: undefined = findResult.filename;
+    findResult; // $ExpectType Done
+    findResult.value; // $ExpectType undefined
+    findResult.filename; // $ExpectType undefined
 } else {
-    const res: finder.FoundPackage = findResult;
-    const value: finder.Package = findResult.value;
-    const filename: string = findResult.filename;
+    findResult; // $ExpectType FoundPackage
+    findResult.value; // $ExpectType PackageWithPath
+    findResult.filename; // $ExpectType string
 }

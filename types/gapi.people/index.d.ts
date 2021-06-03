@@ -12,15 +12,12 @@ declare namespace gapi.client.people {
 
     interface GetParameters {
       resourceName: string;
-
-      // Query parameters
       personFields: string;
     }
 
     function get(parameters: GetParameters): HttpRequest<Person>;
 
     interface GetBatchGetParameters {
-      // Query parameters
       resourcesName?: string;
       personFields: string;
     }
@@ -37,6 +34,8 @@ declare namespace gapi.client.people {
       requestedResourceName: string;
     }
 
+    function searchContacts(parameters: SearchContactsParameters): HttpRequest<SearchContactsResponse>;
+
     namespace connections {
       function list(parameters: ListParameters): HttpRequest<Response>;
 
@@ -44,8 +43,6 @@ declare namespace gapi.client.people {
 
       interface ListParameters {
         resourceName: string;
-
-        // Query parameters
         pageToken?: string;
         pageSize?: number;
         sortOrder?: SortOrder;
@@ -54,11 +51,45 @@ declare namespace gapi.client.people {
       }
 
       interface Response {
-        connections: Person[];
-        nextPageToken: string;
-        nextSyncToken: string;
+        connections?: Person[];
+        nextPageToken?: string;
+        nextSyncToken?: string;
       }
     }
+  }
+
+  export namespace otherContacts {
+    function list(parameters: ListParameters): HttpRequest<ListResponse>;
+
+    interface ListParameters {
+      pageToken?: string;
+      pageSize?: number;
+      requestSyncToken?: boolean;
+      syncToken?: string;
+      readMask: string;
+    }
+
+    interface ListResponse {
+      otherContacts?: Person[],
+      nextPageToken?: string,
+      nextSyncToken?: string,
+    }
+
+    function search(parameters: SearchContactsParameters): HttpRequest<SearchContactsResponse>;
+  }
+
+  interface SearchContactsParameters {
+    query: string;
+    pageSize?: number;
+    readMask: string;
+  }
+
+  interface SearchContactsResponse {
+    results?: SearchContactsResult[],
+  }
+
+  interface SearchContactsResult {
+    person: Person,
   }
 
   type SourceType = 'SOURCE_TYPE_UNSPECIFIED' | 'ACCOUNT' | 'PROFILE' | 'DOMAIN_PROFILE' | 'CONTACT';
@@ -119,11 +150,13 @@ declare namespace gapi.client.people {
   interface CoverPhoto {
     metadata: FieldMetadata;
     url: string;
+    default: boolean;
   }
 
   interface Photo {
     metadata: FieldMetadata;
     url: string;
+    default: boolean;
   }
 
   interface Gender {

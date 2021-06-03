@@ -17,12 +17,25 @@ navigator.getUserMedia(
             },
             previewStream: (stream: MediaStream) => {
                 console.log(stream);
-            }
+            },
         });
 
         instance.stopRecording(() => {
             const blob = instance.getBlob();
         });
+
+        // $ExpectType string
+        instance.getState();
+
+        // $ExpectType { onRecordingStopped: (callback: () => void) => void; }
+        instance.setRecordingDuration(1);
+
+        const fiveMinutes = 5 * 1000 * 60;
+        // $ExpectType void
+        instance.setRecordingDuration(fiveMinutes, () => {});
+
+        // $ExpectType void
+        instance.setRecordingDuration(fiveMinutes).onRecordingStopped(() => {});
     },
     console.error,
 );
@@ -35,3 +48,10 @@ const instance2 = new RecordRTC(canvas, {
 instance2.stopRecording();
 
 console.log(RecordRTC.version);
+
+const multiStreamRecorder = new RecordRTC.MultiStreamRecorder([]);
+multiStreamRecorder.record();
+multiStreamRecorder.stop((blob: Blob) => {});
+multiStreamRecorder.pause();
+multiStreamRecorder.resume();
+multiStreamRecorder.clearRecordedData();

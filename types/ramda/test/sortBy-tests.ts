@@ -45,3 +45,15 @@ import * as R from 'ramda';
   const people = [clara, bob, alice];
   sortByNameCaseInsensitive(people); // => [alice, bob, clara]
 };
+
+() => {
+  interface Obj { value: number; }
+  const f = R.pipe(
+    R.sortBy<Obj>(x => x.value)
+  );
+
+  const result = f([{ value: 1 }, { value: 2 }]);
+
+  // $ExpectType Obj[]
+  result;
+};

@@ -207,6 +207,10 @@ export class MapController implements BaseMapController {
 export interface PointerEvent extends MouseEvent {
     type: string;
     point: [number, number];
+    offsetCenter: {
+        x: number;
+        y: number;
+    };
     lngLat: [number, number];
     target: any;
     srcEvent: any;
@@ -350,7 +354,7 @@ export interface PopupProps extends BaseControlProps {
     tipSize?: number;
     closeButton?: boolean;
     closeOnClick?: boolean;
-    anchor?: 'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right';
+    anchor?: MapboxGL.Anchor;
     dynamicPosition?: boolean;
     sortByDepth?: boolean;
     onClose?: () => void;

@@ -25,14 +25,48 @@ export interface Options {
 }
 export default class ImageWMS extends ImageSource {
     constructor(opt_options?: Options);
-    getFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: any): string;
+    /**
+     * Return the GetFeatureInfo URL for the passed coordinate, resolution, and
+     * projection. Return undefined if the GetFeatureInfo URL cannot be
+     * constructed.
+     */
+    getFeatureInfoUrl(
+        coordinate: Coordinate,
+        resolution: number,
+        projection: ProjectionLike,
+        params: any,
+    ): string | undefined;
     getImageInternal(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageWrapper;
+    /**
+     * Return the image load function of the source.
+     */
     getImageLoadFunction(): LoadFunction;
-    getLegendUrl(resolution?: number, params?: any): string;
+    /**
+     * Return the GetLegendGraphic URL, optionally optimized for the passed
+     * resolution and possibly including any passed specific parameters. Returns
+     * undefined if the GetLegendGraphic URL cannot be constructed.
+     */
+    getLegendUrl(resolution?: number, params?: any): string | undefined;
+    /**
+     * Get the user-provided params, i.e. those passed to the constructor through
+     * the "params" option, and possibly updated using the updateParams method.
+     */
     getParams(): any;
-    getUrl(): string;
+    /**
+     * Return the URL used for this WMS source.
+     */
+    getUrl(): string | undefined;
+    /**
+     * Set the image load function of the source.
+     */
     setImageLoadFunction(imageLoadFunction: LoadFunction): void;
+    /**
+     * Set the URL to use for requests.
+     */
     setUrl(url: string | undefined): void;
+    /**
+     * Update the user-provided params.
+     */
     updateParams(params: any): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

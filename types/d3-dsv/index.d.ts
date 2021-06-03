@@ -156,7 +156,7 @@ export function csvParseRows<ParsedRow extends object>(
  * @param rows Array of object rows.
  * @param columns An array of strings representing the column names.
  */
-export function csvFormat<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+export function csvFormat<T extends object>(rows: readonly T[], columns?: ReadonlyArray<keyof T>): string;
 
 // csvFormatBody(...) ============================================================================
 
@@ -166,7 +166,7 @@ export function csvFormat<T extends object>(rows: T[], columns?: Array<keyof T>)
  * @param rows Array of object rows.
  * @param columns An array of strings representing the column names.
  */
-export function csvFormatBody<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+export function csvFormatBody<T extends object>(rows: readonly T[], columns?: ReadonlyArray<keyof T>): string;
 
 // csvFormatRows(...) ========================================================================
 
@@ -183,7 +183,7 @@ export function csvFormatBody<T extends object>(rows: T[], columns?: Array<keyof
  *
  * @param rows An array of array of string rows.
  */
-export function csvFormatRows(rows: string[][]): string;
+export function csvFormatRows(rows: readonly string[][]): string;
 
 // csvFormatRow(...) ========================================================================
 
@@ -192,7 +192,7 @@ export function csvFormatRows(rows: string[][]): string;
  *
  * @param row An array of strings representing a row.
  */
-export function csvFormatRow(row: string[]): string;
+export function csvFormatRow(row: readonly string[]): string;
 
 // csvFormatValue(...) ========================================================================
 
@@ -297,7 +297,7 @@ export function tsvParseRows<ParsedRow extends object>(
  * @param rows Array of object rows.
  * @param columns An array of strings representing the column names.
  */
-export function tsvFormat<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+export function tsvFormat<T extends object>(rows: readonly T[], columns?: ReadonlyArray<keyof T>): string;
 
 // tsvFormatBody(...) ============================================================================
 
@@ -307,7 +307,7 @@ export function tsvFormat<T extends object>(rows: T[], columns?: Array<keyof T>)
  * @param rows Array of object rows.
  * @param columns An array of strings representing the column names.
  */
-export function tsvFormatBody<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+export function tsvFormatBody<T extends object>(rows: readonly T[], columns?: ReadonlyArray<keyof T>): string;
 
 // tsvFormatRows(...) ========================================================================
 
@@ -324,7 +324,7 @@ export function tsvFormatBody<T extends object>(rows: T[], columns?: Array<keyof
  *
  * @param rows An array of array of string rows.
  */
-export function tsvFormatRows(rows: string[][]): string;
+export function tsvFormatRows(rows: readonly string[][]): string;
 
 // tsvFormatRow(...) ========================================================================
 
@@ -333,7 +333,7 @@ export function tsvFormatRows(rows: string[][]): string;
  *
  * @param row An array of strings representing a row.
  */
-export function tsvFormatRow(row: string[]): string;
+export function tsvFormatRow(row: readonly string[]): string;
 
 // tsvFormatValue(...) ========================================================================
 
@@ -432,7 +432,7 @@ export interface DSV {
      * @param rows Array of object rows.
      * @param columns An array of strings representing the column names.
      */
-    format<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+    format<T extends object>(rows: readonly T[], columns?: ReadonlyArray<keyof T>): string;
 
     /**
      * Equivalent to dsv.format, but omits the header row.
@@ -441,7 +441,7 @@ export interface DSV {
      * @param rows Array of object rows.
      * @param columns An array of strings representing the column names.
      */
-    formatBody<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+    formatBody<T extends object>(rows: readonly T[], columns?: ReadonlyArray<keyof T>): string;
 
     /**
      * Formats the specified array of array of string rows as delimiter-separated values, returning a string.
@@ -454,7 +454,7 @@ export interface DSV {
      *
      * @param rows An array of array of string rows.
      */
-    formatRows(rows: string[][]): string;
+    formatRows(rows: readonly string[][]): string;
 
     /**
      * Formats a single array row of strings as delimiter-separated values, returning a string.
@@ -463,7 +463,7 @@ export interface DSV {
      *
      * @param row An array of strings representing a row.
      */
-    formatRow(row: string[]): string;
+    formatRow(row: readonly string[]): string;
 
     /**
      * Format a single value or string as a delimiter-separated value, returning a string.
@@ -490,6 +490,6 @@ export function dsvFormat(delimiter: string): DSV;
  */
 export function autoType<ParsedRow extends object | undefined | null, Columns extends string>(
     // tslint:disable-next-line:no-unnecessary-generics
-    object: DSVRowString<Columns> | string[]
+    object: DSVRowString<Columns> | readonly string[]
 // tslint:disable-next-line:no-unnecessary-generics
 ): ParsedRow;

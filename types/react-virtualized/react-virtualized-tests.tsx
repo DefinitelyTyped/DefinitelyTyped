@@ -12,6 +12,16 @@ import {
     TableHeaderProps,
 } from 'react-virtualized';
 
+// Default tree-shaken CJS exports built by babel and output to react-virtualized/dist<commonjs>/<ComponentName>
+import AutoSizerCJS from 'react-virtualized/dist/commonjs/AutoSizer';
+import ArrowKeyStepperCJS from 'react-virtualized/dist/commonjs/ArrowKeyStepper';
+import GridCJS from 'react-virtualized/dist/commonjs/Grid';
+
+// Default tree-shaken ES exports built by babel and output to react-virtualized/dist<es>/<ComponentName>
+import AutoSizerESM from 'react-virtualized/dist/es/AutoSizer';
+import ArrowKeyStepperESM from 'react-virtualized/dist/es/ArrowKeyStepper';
+import GridESM from 'react-virtualized/dist/es/Grid';
+
 export class ArrowKeyStepperExample extends PureComponent<any, any> {
     render() {
         const { mode } = this.state;
@@ -69,6 +79,120 @@ export class ArrowKeyStepperExample extends PureComponent<any, any> {
     }
 }
 
+export class ArrowKeyStepperCJSExample extends PureComponent<any, any> {
+    render() {
+        const { mode } = this.state;
+
+        return (
+            <ArrowKeyStepperCJS columnCount={100} mode={mode as 'edges'} rowCount={100}>
+                {({ onSectionRendered, scrollToColumn, scrollToRow }) => (
+                    <div>
+                        <AutoSizerCJS disableHeight>
+                            {({ width }) => (
+                                <GridCJS
+                                    className={'styles.Grid'}
+                                    columnWidth={this._getColumnWidth}
+                                    columnCount={100}
+                                    height={200}
+                                    onSectionRendered={onSectionRendered}
+                                    cellRenderer={({ columnIndex, key, rowIndex, style }) =>
+                                        this._cellRenderer({
+                                            columnIndex,
+                                            key,
+                                            rowIndex,
+                                            scrollToColumn,
+                                            scrollToRow,
+                                            style,
+                                        })
+                                    }
+                                    rowHeight={this._getRowHeight}
+                                    rowCount={100}
+                                    scrollToColumn={scrollToColumn}
+                                    scrollToRow={scrollToRow}
+                                    width={width}
+                                />
+                            )}
+                        </AutoSizerCJS>
+                    </div>
+                )}
+            </ArrowKeyStepperCJS>
+        );
+    }
+
+    _getColumnWidth({ index }: Index) {
+        return (1 + (index % 3)) * 60;
+    }
+
+    _getRowHeight({ index }: Index) {
+        return (1 + (index % 3)) * 30;
+    }
+
+    _cellRenderer({ columnIndex, key, rowIndex, scrollToColumn, scrollToRow, style }: any) {
+        return (
+            <div className={'className'} key={key} style={style}>
+                {`r:${rowIndex}, c:${columnIndex}`}
+            </div>
+        );
+    }
+}
+
+export class ArrowKeyStepperESMExample extends PureComponent<any, any> {
+    render() {
+        const { mode } = this.state;
+
+        return (
+            <ArrowKeyStepperESM columnCount={100} mode={mode as 'edges'} rowCount={100}>
+                {({ onSectionRendered, scrollToColumn, scrollToRow }) => (
+                    <div>
+                        <AutoSizerESM disableHeight>
+                            {({ width }) => (
+                                <GridESM
+                                    className={'styles.Grid'}
+                                    columnWidth={this._getColumnWidth}
+                                    columnCount={100}
+                                    height={200}
+                                    onSectionRendered={onSectionRendered}
+                                    cellRenderer={({ columnIndex, key, rowIndex, style }) =>
+                                        this._cellRenderer({
+                                            columnIndex,
+                                            key,
+                                            rowIndex,
+                                            scrollToColumn,
+                                            scrollToRow,
+                                            style,
+                                        })
+                                    }
+                                    rowHeight={this._getRowHeight}
+                                    rowCount={100}
+                                    scrollToColumn={scrollToColumn}
+                                    scrollToRow={scrollToRow}
+                                    width={width}
+                                />
+                            )}
+                        </AutoSizerESM>
+                    </div>
+                )}
+            </ArrowKeyStepperESM>
+        );
+    }
+
+    _getColumnWidth({ index }: Index) {
+        return (1 + (index % 3)) * 60;
+    }
+
+    _getRowHeight({ index }: Index) {
+        return (1 + (index % 3)) * 30;
+    }
+
+    _cellRenderer({ columnIndex, key, rowIndex, scrollToColumn, scrollToRow, style }: any) {
+        return (
+            <div className={'className'} key={key} style={style}>
+                {`r:${rowIndex}, c:${columnIndex}`}
+            </div>
+        );
+    }
+}
+
 import { List } from 'react-virtualized';
 
 export class AutoSizerExample extends PureComponent<any, any> {
@@ -103,6 +227,77 @@ export class AutoSizerExample extends PureComponent<any, any> {
         );
     }
 }
+
+import ListCJS from 'react-virtualized/dist/commonjs/List';
+
+export class AutoSizerCJSExample extends PureComponent<any, any> {
+    render() {
+        const { list } = this.context;
+        const { hideDescription } = this.state;
+
+        return (
+            <AutoSizerCJS>
+                {({ width, height }) => (
+                    <ListCJS
+                        className={'styles.List'}
+                        height={height}
+                        rowCount={list.size}
+                        rowHeight={30}
+                        rowRenderer={this._rowRenderer}
+                        width={width}
+                    />
+                )}
+            </AutoSizerCJS>
+        );
+    }
+
+    _rowRenderer({ index, key, style }: any) {
+        const { list } = this.context;
+        const row = list.get(index);
+
+        return (
+            <div key={key} className={'styles.row'} style={style}>
+                {row.name}
+            </div>
+        );
+    }
+}
+
+import ListESM from 'react-virtualized/dist/commonjs/List';
+
+export class AutoSizerESMExample extends PureComponent<any, any> {
+    render() {
+        const { list } = this.context;
+        const { hideDescription } = this.state;
+
+        return (
+            <AutoSizerESM>
+                {({ width, height }) => (
+                    <ListESM
+                        className={'styles.List'}
+                        height={height}
+                        rowCount={list.size}
+                        rowHeight={30}
+                        rowRenderer={this._rowRenderer}
+                        width={width}
+                    />
+                )}
+            </AutoSizerESM>
+        );
+    }
+
+    _rowRenderer({ index, key, style }: any) {
+        const { list } = this.context;
+        const row = list.get(index);
+
+        return (
+            <div key={key} className={'styles.row'} style={style}>
+                {row.name}
+            </div>
+        );
+    }
+}
+
 import {} from 'react';
 import { CellMeasurer, CellMeasurerCache, ListRowProps } from 'react-virtualized';
 
@@ -359,6 +554,138 @@ export class GridExample extends PureComponent<any, any> {
             <AutoSizer disableHeight>
                 {({ width }) => (
                     <Grid
+                        cellRenderer={this._cellRenderer}
+                        className={'styles.BodyGrid'}
+                        columnWidth={this._getColumnWidth}
+                        columnCount={columnCount}
+                        height={height}
+                        noContentRenderer={this._noContentRenderer}
+                        overscanColumnCount={overscanColumnCount}
+                        overscanRowCount={overscanRowCount}
+                        rowHeight={useDynamicRowHeight ? this._getRowHeight : rowHeight}
+                        rowCount={rowCount}
+                        scrollToColumn={scrollToColumn}
+                        scrollToRow={scrollToRow}
+                        width={width}
+                    />
+                )}
+            </AutoSizer>
+        );
+    }
+
+    _cellRenderer(params: GridCellProps) {
+        if (params.columnIndex === 0) {
+            return this._renderLeftSideCell(params);
+        } else {
+            return this._renderBodyCell(params);
+        }
+    }
+
+    _getColumnWidth({ index }: Index) {
+        switch (index) {
+            case 0:
+                return 50;
+            case 1:
+                return 100;
+            case 2:
+                return 300;
+            default:
+                return 80;
+        }
+    }
+
+    _getDatum(index: number) {
+        const { list } = this.context;
+
+        return list.get(index % list.size);
+    }
+
+    _getRowClassName(row: number) {
+        return row % 2 === 0 ? 'styles.evenRow' : 'styles.oddRow';
+    }
+
+    _getRowHeight({ index }: Index) {
+        return this._getDatum(index).size;
+    }
+
+    _noContentRenderer() {
+        return <div className={'styles.noCells'}>No cells</div>;
+    }
+
+    _renderBodyCell({ columnIndex, key, rowIndex, style }: GridCellProps) {
+        const rowClass = this._getRowClassName(rowIndex);
+        const datum = this._getDatum(rowIndex);
+
+        let content;
+
+        switch (columnIndex) {
+            case 1:
+                content = datum.name;
+                break;
+            case 2:
+                content = datum.random;
+                break;
+            default:
+                content = `r:${rowIndex}, c:${columnIndex}`;
+                break;
+        }
+
+        return (
+            <div className={'classNames'} key={key} style={style}>
+                {content}
+            </div>
+        );
+    }
+
+    _renderLeftSideCell({ key, rowIndex, style }: GridCellProps) {
+        const datum = this._getDatum(rowIndex);
+
+        // Don't modify styles.
+        // These are frozen by React now (as of 16.0.0).
+        // Since Grid caches and re-uses them, they aren't safe to modify.
+        style = {
+            ...style,
+            backgroundColor: datum.color,
+        };
+
+        return (
+            <div className={'classNames'} key={key} style={style}>
+                {datum.name.charAt(0)}
+            </div>
+        );
+    }
+}
+
+export class GridCJSExample extends PureComponent<any, any> {
+    state = {
+        columnCount: 1000,
+        height: 300,
+        overscanColumnCount: 0,
+        overscanRowCount: 10,
+        rowHeight: 40,
+        rowCount: 1000,
+        scrollToColumn: undefined,
+        scrollToRow: undefined,
+        useDynamicRowHeight: false,
+    };
+
+    render() {
+        const {
+            columnCount,
+            height,
+            overscanColumnCount,
+            overscanRowCount,
+            rowHeight,
+            rowCount,
+            scrollToColumn,
+            scrollToRow,
+            useDynamicRowHeight,
+        } = this.state;
+
+        return (
+            <AutoSizer disableHeight>
+                {({ width }) => (
+                    <GridCJS
                         cellRenderer={this._cellRenderer}
                         className={'styles.BodyGrid'}
                         columnWidth={this._getColumnWidth}

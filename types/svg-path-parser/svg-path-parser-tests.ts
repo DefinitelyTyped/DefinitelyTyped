@@ -1,5 +1,6 @@
 /// <reference types="node" />
 
+import { assert } from 'console';
 import * as svgParser from 'svg-path-parser';
 
 function isMoveToCommand(cmd: svgParser.Command): cmd is svgParser.MoveToCommand {
@@ -47,8 +48,6 @@ function stringify(cmd: svgParser.Command) {
     return `${cmd.code} ${cmd.x} ${cmd.y}`;
   } else if (isLineToCommand(cmd)) {
     return `${cmd.code} ${cmd.x} ${cmd.y}`;
-  } else if (isLineToCommand(cmd)) {
-    return `${cmd.code} ${cmd.x} ${cmd.y}`;
   } else if (isHorizontalLineToCommand(cmd)) {
     return `${cmd.code} ${cmd.x}`;
   } else if (isVerticalLineToCommand(cmd)) {
@@ -65,15 +64,37 @@ function stringify(cmd: svgParser.Command) {
     return `${cmd.code} ${cmd.x} ${cmd.y}`;
   } else if (isEllipticalArcCommand(cmd)) {
     return `${cmd.code} ${cmd.rx} ${cmd.ry} ${cmd.xAxisRotation} ${cmd.largeArc} ${cmd.sweep} ${cmd.x} ${cmd.y}`;
-  } else {
-    throw new Error(`${cmd.code} command is unknown command: cmd = ${JSON.stringify(cmd)}`);
+  }
+  throw new Error(`unknown command: cmd = ${JSON.stringify(cmd)}`);
+}
+
+// Test that the discriminated union type works by using properties
+// that only exist on each of the discriminated types.
+function testUnion(cmd: svgParser.Command): number {
+  switch (cmd.command) {
+    case "moveto":
+    case "lineto":
+    case "smooth quadratic curveto":
+      return cmd.x + cmd.y;
+    case "horizontal lineto":
+      return cmd.x;
+    case "vertical lineto":
+      return cmd.y;
+    case "closepath":
+      return 1;
+    case "curveto":
+    case "smooth curveto":
+      return cmd.x2 + cmd.y2;
+    case "quadratic curveto":
+      return cmd.x1 + cmd.y1;
+    case "elliptical arc":
+      return cmd.rx + cmd.ry;
   }
 }
 
-let cmds = svgParser.parseSVG('M 0 0 L 50 50');
-// makeAbsolute() changes cmds inplacely
-cmds = svgParser.makeAbsolute(cmds);
+const cmds = svgParser.parseSVG('M 10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80');
+svgParser.makeAbsolute(cmds); // makeAbsolute() changes cmds in-place
 
-cmds.filter((cmd: svgParser.Command) => !cmd.relative)    // relative commands must not exist
-    .map(stringify)
-    .forEach(console.log);
+assert(cmds.every(cmd => !cmd.relative)); // relative commands must not exist
+cmds.forEach(testUnion);  // doesn't really do much, but the function itself must type-check
+cmds.map(stringify).forEach(console.log); // could throw

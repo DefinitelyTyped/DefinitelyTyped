@@ -1,4 +1,4 @@
-// Type definitions for cli-progress 3.8
+// Type definitions for cli-progress 3.9
 // Project: https://github.com/AndiDittrich/Node.CLI-Progress
 // Definitions by:  Mohamed Hegazy <https://github.com/mhegazy>
 //                  Álvaro Martínez <https://github.com/alvaromartmart>
@@ -6,10 +6,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
+import EventEmitter = require("events");
+
 export interface Params {
     progress: number;
     eta: number;
-    startTime: Date;
+    startTime: number;
     total: number;
     value: number;
     maxWidth: number;
@@ -33,16 +35,16 @@ export interface Options {
      *    is rendered as
      *      progress [========================================] 100% | ETA: 0s | 200/200
      */
-    format?: string | ((options: Options, params: Params, payload: any) => string);
+    format?: string | GenericFormatter;
 
     /** a custom bar formatter function which renders the bar-element (default: format-bar.js) */
-    formatBar?: (progress: number, options: Options) => string;
+    formatBar?: BarFormatter;
 
     /** a custom timer formatter function which renders the formatted time elements like eta_formatted and duration-formatted (default: format-time.js) */
-    formatTime?: (t: number, options: Options, roundToMultipleOf: number) => string;
+    formatTime?: TimeFormatter;
 
     /** a custom value formatter function which renders all other values (default: format-value.js) */
-    formatValue?: (v: number, options: Options, type: string) => string;
+    formatValue?: ValueFormatter;
 
     /** the maximum update rate (default: 10) */
     fps?: number;
@@ -130,7 +132,7 @@ export interface Preset {
      *
      * {value} - the current value set by last update() call
      *
-     * {eta} - expected time of accomplishment in seconds
+     * {eta} -  expected time of accomplishment in seconds (limited to 115days, otherwise INF is displayed)
      *
      * {duration} - elapsed time in seconds
      *
@@ -142,7 +144,7 @@ export interface Preset {
     format: string;
 }
 
-export class SingleBar {
+export class SingleBar extends EventEmitter {
     /** Initialize a new Progress bar. An instance can be used multiple times! it's not required to re-create it! */
     constructor(opt: Options, preset?: Preset);
 
@@ -176,7 +178,7 @@ export class SingleBar {
     update(payload: object): void;
 }
 
-export class MultiBar {
+export class MultiBar extends EventEmitter {
     constructor(opt: Options, preset?: Preset);
 
     create(total: number, startValue: number, payload?: any): SingleBar;
@@ -200,4 +202,36 @@ export const Presets: {
     shades_grey: Preset;
 };
 
+export interface GenericFormatter {
+    (options: Options, params: Params, payload: any): string;
+}
+
+export interface TimeFormatter {
+    (t: number, options: Options, roundToMultipleOf: number): string;
+}
+
+export interface ValueFormatter {
+    (v: number, options: Options, type: ValueType): string;
+}
+
+export interface BarFormatter {
+    (progress: number, options: Options): string;
+}
+
+export type ValueType = 'percentage' | 'total' | 'value' | 'eta' | 'duration';
+
+declare const defaultFormatter: GenericFormatter;
+declare const formatBar: BarFormatter;
+declare const formatValue: ValueFormatter;
+declare const formatTime: TimeFormatter;
+
+export const Format: {
+    Formatter: typeof defaultFormatter;
+    BarFormat: typeof formatBar;
+    ValueFormat: typeof formatValue;
+    TimeFormat: typeof formatTime;
+};
+
 export class Bar extends SingleBar {}
+
+export {};

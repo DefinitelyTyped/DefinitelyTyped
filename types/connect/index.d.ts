@@ -11,7 +11,6 @@ import * as http from "http";
 
 /**
  * Create a new connect server.
- * @public
  */
 declare function createServer(): createServer.Server;
 
@@ -50,17 +49,15 @@ declare namespace createServer {
         * For example if we were to mount a function at _/admin_, it would
         * be invoked on _/admin_, and _/admin/settings_, however it would
         * not be invoked for _/_, or _/posts_.
-        *
-        * @public
         */
+        use(fn: NextHandleFunction): Server;
         use(fn: HandleFunction): Server;
+        use(route: string, fn: NextHandleFunction): Server;
         use(route: string, fn: HandleFunction): Server;
 
         /**
         * Handle server requests, punting them down
         * the middleware stack.
-        *
-        * @private
         */
         handle(req: http.IncomingMessage, res: http.ServerResponse, next: Function): void;
 
@@ -85,8 +82,6 @@ declare namespace createServer {
         *
         *      http.createServer(app).listen(80);
         *      https.createServer(options, app).listen(443);
-        *
-        * @api public
         */
         listen(port: number, hostname?: string, backlog?: number, callback?: Function): http.Server;
         listen(port: number, hostname?: string, callback?: Function): http.Server;

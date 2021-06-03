@@ -35,7 +35,21 @@ declare interface WindowOrWorkerGlobalScope {
     fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 }
 
-interface Blob {}
+interface Blob {
+    readonly size: number;
+    readonly type: string;
+    slice(start?: number, end?: number): Blob;
+}
+
+interface BlobOptions {
+    type: string;
+    lastModified: number;
+}
+
+declare var Blob: {
+    prototype: Blob;
+    new (blobParts?: Array<Blob | string>, options?: BlobOptions): Blob;
+};
 
 declare class FormData {
     append(name: string, value: any): void;
@@ -64,7 +78,18 @@ declare var Headers: {
     new (init?: HeadersInit_): Headers;
 };
 
+/**
+ * React Native's implementation of fetch allows this syntax for uploading files from
+ * local filesystem.
+ * See https://github.com/facebook/react-native/blob/master/Libraries/Network/convertRequestBody.js#L22
+ */
+interface _SourceUri {
+    uri: string;
+    [key: string]: any;
+}
+
 type BodyInit_ =
+    | _SourceUri
     | Blob
     | Int8Array
     | Int16Array
@@ -144,10 +169,11 @@ type ResponseType_ = 'basic' | 'cors' | 'default' | 'error' | 'opaque' | 'opaque
 // XMLHttpRequest
 //
 
-declare interface ProgressEvent extends Event {
+declare interface ProgressEvent<T extends EventTarget = EventTarget> extends Event {
     readonly lengthComputable: boolean;
     readonly loaded: number;
     readonly total: number;
+    readonly target: T | null;
 }
 
 interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
@@ -374,3 +400,52 @@ declare class AbortController {
      */
     abort(): void;
 }
+
+interface FileReaderEventMap {
+    abort: ProgressEvent<FileReader>;
+    error: ProgressEvent<FileReader>;
+    load: ProgressEvent<FileReader>;
+    loadend: ProgressEvent<FileReader>;
+    loadstart: ProgressEvent<FileReader>;
+    progress: ProgressEvent<FileReader>;
+}
+
+interface FileReader extends EventTarget {
+    readonly error: Error | null;
+    onabort: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onerror: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onload: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onloadend: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onloadstart: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onprogress: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    readonly readyState: number;
+    readonly result: string | ArrayBuffer;
+    abort(): void;
+    readAsArrayBuffer(blob: Blob): void;
+    // readAsBinaryString(blob: Blob): void;
+    readAsDataURL(blob: Blob): void;
+    readAsText(blob: Blob, encoding?: string): void;
+    readonly DONE: number;
+    readonly EMPTY: number;
+    readonly LOADING: number;
+    addEventListener<K extends keyof FileReaderEventMap>(
+        type: K,
+        listener: (this: FileReader, ev: FileReaderEventMap[K]) => any,
+        options?: boolean,
+    ): void;
+    // addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof FileReaderEventMap>(
+        type: K,
+        listener: (this: FileReader, ev: FileReaderEventMap[K]) => any,
+        options?: boolean,
+    ): void;
+    // removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var FileReader: {
+    prototype: FileReader;
+    new (): FileReader;
+    readonly DONE: number;
+    readonly EMPTY: number;
+    readonly LOADING: number;
+};

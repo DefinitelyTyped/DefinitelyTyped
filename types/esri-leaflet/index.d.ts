@@ -946,6 +946,10 @@ declare module 'leaflet' {
              * The WKID of a datum transformation for the server to apply when reprojecting output features.
              */
             transform(datumTranformation: SpatialReferenceExpression): this;
+            /**
+             * Ensures that no geometry or duplicate field values will be returned in the subsequent request.
+             */
+            distinct(): this;
         }
 
         /**

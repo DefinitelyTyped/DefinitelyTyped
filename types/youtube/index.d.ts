@@ -1,7 +1,6 @@
 // Type definitions for YouTube
 // Project: https://developers.google.com/youtube/
-// Definitions by: Daz Wilkin <https://github.com/DazWilkin>,
-//                 Ian Obermiller <http://ianobermiller.com>,
+// Definitions by: Ian Obermiller <http://ianobermiller.com>,
 //                 Josh Goldberg <https://github.com/JoshuaKGoldberg>
 //                 Eliot Fallon <https://github.com/eliotfallon213>
 //                 Terry Mun <https://github.com/terrymun>
@@ -18,7 +17,7 @@ declare namespace YT
     /**
      * State of a video player.
      */
-    export const enum PlayerState
+    export enum PlayerState
     {
         UNSTARTED = -1,
         ENDED = 0,
@@ -31,7 +30,7 @@ declare namespace YT
     /**
      * Known causes for player errors.
      */
-    export const enum PlayerError
+    export enum PlayerError
     {
         /**
          * The request contained an invalid parameter value.
@@ -62,7 +61,7 @@ declare namespace YT
     /**
      * Whether to auto-hide video controls.
      */
-    export const enum AutoHide
+    export enum AutoHide
     {
         /**
          * Controls are visible throughout the video
@@ -83,7 +82,7 @@ declare namespace YT
     /**
      * Whether to autoplay the video.
      */
-    export const enum AutoPlay
+    export enum AutoPlay
     {
         /**
          * Video does not autoplay.
@@ -99,7 +98,7 @@ declare namespace YT
     /**
      * Whether to use user-preferred or forced caption loading.
      */
-    export const enum ClosedCaptionsLoadPolicy
+    export enum ClosedCaptionsLoadPolicy
     {
         /**
          * Defaults to the user's preferences.
@@ -120,7 +119,7 @@ declare namespace YT
     /**
      * How video controls are shown.
      */
-    export const enum Controls
+    export enum Controls
     {
         /**
          * Player controls do not display.
@@ -141,7 +140,7 @@ declare namespace YT
     /**
      * Whether to allow keyboard controls.
      */
-    export const enum KeyboardControls
+    export enum KeyboardControls
     {
         /**
          * Keyboard controls are enabled.
@@ -157,7 +156,7 @@ declare namespace YT
     /**
      * Whether the JavaScript API should be enabled.
      */
-    export const enum JsApi
+    export enum JsApi
     {
         /**
          * JavaScript API will be disabled.
@@ -173,7 +172,7 @@ declare namespace YT
     /**
      * Whether to display the full-screen button.
      */
-    export const enum FullscreenButton
+    export enum FullscreenButton
     {
         /**
          * The full screen button is hidden.
@@ -189,7 +188,7 @@ declare namespace YT
     /**
      * Whether to show video annotations.
      */
-    export const enum IvLoadPolicy
+    export enum IvLoadPolicy
     {
         /**
          * Video annotations will be shown.
@@ -225,7 +224,7 @@ declare namespace YT
     /**
      * Whether a single video should be looped.
      */
-    export const enum Loop
+    export enum Loop
     {
         /**
          * Video or playlist will be played only once.
@@ -241,7 +240,7 @@ declare namespace YT
     /**
      * Comma separated list of video IDs to play after the URL path's video.
      */
-    export const enum ModestBranding
+    export enum ModestBranding
     {
         /**
          * Player will contain full YouTube branding.
@@ -257,7 +256,7 @@ declare namespace YT
     /**
      * Whether to playback video inline or full-screen in an HTML5 player on iOS
      */
-    export const enum PlaysInline
+    export enum PlaysInline
     {
         /**
          * Playback in fullscreen.
@@ -273,7 +272,7 @@ declare namespace YT
     /**
      * Whether to show related videos after the video finishes.
      */
-    export const enum RelatedVideos
+    export enum RelatedVideos
     {
         /**
          * Hide related videos after playback is complete.
@@ -289,7 +288,7 @@ declare namespace YT
     /**
      * Whether to show video information before playing.
      */
-    export const enum ShowInfo
+    export enum ShowInfo
     {
         /**
          * Hide video title and uploader before video starts playing.
@@ -660,6 +659,18 @@ declare namespace YT
          */
         index?: number;
     }
+    
+    /**
+     * The spherical video config object, including information about the 
+     * viewport headings and zoom level.
+     */
+    export interface SphericalProperties {
+      enableOrientationSensor?: boolean;
+      fov?: number;
+      pitch?: number;
+      roll?: number;
+      yaw?: number;
+    }
 
     /**
      * Creates and controls a YouTube player in an <iframe>.
@@ -927,6 +938,19 @@ declare namespace YT
          * @returns YouTube.com URL for the currently loaded/playing video.
          */
         getVideoUrl(): string;
+        
+        /**
+         * @returns The spherical video config object, with information about the viewport
+         * headings and zoom level.
+         */
+        getSphericalProperties(): SphericalProperties;
+
+        /**
+         * Sets the spherical video config object. The call will be No-Op for non-360
+         * videos, and will change the view port according to the input for 360
+         * videos.
+         */
+        setSphericalProperties(option: SphericalProperties): void;
 
         /**
          * @returns Embed code for the currently loaded/playing video.

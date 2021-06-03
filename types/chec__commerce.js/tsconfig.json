@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@chec/*": ["chec__*"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "test/cart.ts",
+        "test/categories.ts",
+        "test/checkout.ts",
+        "test/customer.ts",
+        "test/index.ts",
+        "test/merchants.ts",
+        "test/products.ts",
+        "test/services.ts"
+    ]
+}

@@ -78,6 +78,9 @@ decrypted = CryptoJS.RC4Drop.decrypt(encrypted, 'Secret Passphrase', {
     drop: 3072 / 4,
 });
 
+// .decrypt() returns WordArray
+CryptoJS.AES.decrypt('Message', 'Secret Passphrase').toString(CryptoJS.enc.Utf8)
+
 // Custome Key and IV
 var key = CryptoJS.enc.Hex.parse('000102030405060708090a0b0c0d0e0f');
 var iv = CryptoJS.enc.Hex.parse('101112131415161718191a1b1c1d1e1f');

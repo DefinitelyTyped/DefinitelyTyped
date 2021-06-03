@@ -1,6 +1,6 @@
 // Type definitions for datadog-winston 1.0
 // Project: https://github.com/itsfadnis/datadog-winston
-// Definitions by: Matt Hintzke <https://github.com/mhintzke13>
+// Definitions by: Matt Hintzke <https://github.com/mhintzke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -13,6 +13,7 @@ declare namespace DatadogWinston {
         service?: string;
         ddsource?: string;
         ddtags?: string;
+        intakeRegion?: string;
     }
 }
 

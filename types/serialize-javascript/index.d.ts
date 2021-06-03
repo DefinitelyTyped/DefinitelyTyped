@@ -1,8 +1,9 @@
-// Type definitions for serialize-javascript 4.0
+// Type definitions for serialize-javascript 5.0
 // Project: https://github.com/yahoo/serialize-javascript
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Pochodaydayup <https://github.com/Pochodaydayup>
-//                 Undefined <https://github.com/masnn>
+//                 undefined-moe <https://github.com/undefined-moe>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace serializeJavascript {
@@ -23,7 +24,7 @@ declare namespace serializeJavascript {
          * This options needs to be explicitly set to true. HTML characters and JavaScript line terminators will not be escaped.
          * You will have to roll your own.
          */
-        unsafe?: boolean;
+        unsafe?: true;
         /**
          * This option is to signal serialize() that we do not want serialize JavaScript function.
          * Just treat function like JSON.stringify do, but other features will work as expected.
@@ -38,5 +39,9 @@ declare namespace serializeJavascript {
  * @param options optional object
  * @returns serialized data
  */
-declare function serializeJavascript(input: any, options?: serializeJavascript.SerializeJSOptions): string;
+declare function serializeJavascript(
+    input: any,
+    options?: serializeJavascript.SerializeJSOptions | number | string,
+): string;
+
 export = serializeJavascript;

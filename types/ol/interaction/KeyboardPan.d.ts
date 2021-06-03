@@ -12,6 +12,11 @@ export interface Options {
 }
 export default class KeyboardPan extends Interaction {
     constructor(opt_options?: Options);
+    /**
+     * Handles the {@link module:ol/MapBrowserEvent map browser event} if it was a
+     * KeyEvent, and decides the direction to pan to (if an arrow key was
+     * pressed).
+     */
     handleEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

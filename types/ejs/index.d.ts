@@ -9,6 +9,11 @@
 export as namespace ejs;
 
 /**
+ * Version of EJS.
+ */
+export const VERSION: string;
+
+/**
  * Name for detection of EJS.
  */
 export const name: 'ejs';
@@ -164,7 +169,7 @@ export namespace Template {
         ESCAPED = 'escaped',
         RAW = 'raw',
         COMMENT = 'comment',
-        LITERAL = 'literal'
+        LITERAL = 'literal',
     }
 }
 
@@ -425,6 +430,11 @@ export interface Options {
 
     /** Set to a string (e.g., 'echo' or 'print') for a function to print output inside scriptlet tags. */
     outputFunctionName?: string;
+
+    /**
+     * An array of paths to use when resolving includes with relative paths
+     */
+    views?: string[];
 }
 
 export interface Cache {

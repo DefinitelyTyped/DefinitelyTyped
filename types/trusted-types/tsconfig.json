@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "trusted-types-tests.ts"
+        "test/browser.ts",
+        "test/module.ts"
     ]
 }

@@ -6,6 +6,7 @@
 //                 Frédéric Barthelet <https://github.com/fredericbarthelet>
 //                 Bryan Hunter <https://github.com/bryan-hunter>
 //                 Thomas Aribart <https://github.com/thomasaribart>
+//                 Gareth Jones <https://github.com/G-Rath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require('./classes/Service');
@@ -31,10 +32,10 @@ declare namespace Serverless {
     }
 
     interface FunctionDefinition {
-        name: string;
-        package: Package;
+        name?: string;
+        package?: Package;
+        reservedConcurrency?: number;
         runtime?: string;
-        handler: string;
         timeout?: number;
         memorySize?: number;
         environment?: { [name: string]: string };
@@ -42,12 +43,23 @@ declare namespace Serverless {
         tags?: { [key: string]: string };
     }
 
+    interface FunctionDefinitionHandler extends FunctionDefinition {
+        handler: string;
+    }
+
+    interface FunctionDefinitionImage extends FunctionDefinition {
+        image: string;
+    }
+
     // Other events than ApiGatewayEvent are available
     type Event = ApiGatewayValidate.ApiGatewayEvent | object;
 
     interface Package {
-        include: string[];
-        exclude: string[];
+        /** @deprecated use `patterns` instead */
+        include?: string[];
+        /** @deprecated use `patterns` instead */
+        exclude?: string[];
+        patterns?: string[];
         artifact?: string;
         individually?: boolean;
     }
@@ -83,6 +95,15 @@ declare class Serverless {
     version: string;
 
     resources: AwsProvider.Resources;
+
+    configSchemaHandler: {
+        defineCustomProperties(schema: unknown): void;
+        defineFunctionEvent(provider: string, event: string, schema: Record<string, unknown>): void;
+        defineFunctionEventProperties(provider: string, existingEvent: string, schema: unknown): void;
+        defineFunctionProperties(provider: string, schema: unknown): void;
+        defineProvider(provider: string, options?: Record<string, unknown>): void;
+        defineTopLevelProperty(provider: string, schema: Record<string, unknown>): void;
+    };
 }
 
 export = Serverless;

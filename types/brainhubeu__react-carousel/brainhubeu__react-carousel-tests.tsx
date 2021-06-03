@@ -102,7 +102,13 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
                     <img alt="image-2"/>
                     <img alt="image-3"/>
                 </Carousel>
-                <Dots number={slides.length} value={value} onChange={this.handleChange} rtl={false}/>
+                <Dots
+                    number={slides.length}
+                    value={value}
+                    onChange={this.handleChange}
+                    rtl={false}
+                    className="some-class"
+                />
             </>
         );
     }

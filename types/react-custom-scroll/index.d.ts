@@ -14,7 +14,7 @@ export interface CustomScrollProps {
     allowOuterScroll?: boolean;
     heightRelativeToParent?: string;
     flex?: number | string;
-    onScoll?: (e?: any) => any;
+    onScroll?: (e?: any) => any;
     addScrolledClass?: boolean;
     freezePosition?: boolean;
     minScrollHandleHeight?: number;

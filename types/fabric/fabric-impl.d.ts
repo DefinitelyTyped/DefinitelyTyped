@@ -10,6 +10,13 @@ export const iMatrix: number[];
 export let textureSize: number;
 export let copiedText: string;
 export let copiedTextStyle: any[];
+export let charWidthsCache: {
+    [key: string]: { // example: montserrat
+        [key: string]: { // example: normal_normal
+            [key: string]: number; // example: A: 286
+        }
+    }
+};
 
 /////////////////////////////////////////////////////////////
 // fabric Functions
@@ -52,7 +59,7 @@ export function loadSVGFromURL(
     url: string,
     callback: (results: Object[], options: any) => void,
     reviver?: Function,
-    options?: { crossOrigin?: string }
+    options?: { crossOrigin?: string },
 ): void;
 /**
  * Returns CSS rules for a given SVG document
@@ -322,23 +329,22 @@ interface IObservable<T> {
     on(eventName: string, handler: (e: IEvent) => void): T;
 
     /**
-     * Observes specified event
-     * @param eventName Object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
-     */
-    on(events: { [eventName: string]: (e: IEvent) => void }): T;
-    /**
-     * Fires event with an optional options object
-     * @param eventName Event name to fire
-     * @param [options] Options object
-     */
-    trigger(eventName: string, options?: any): T;
-    /**
      * Stops event observing for a particular event handler. Calling this method
      * without arguments removes all handlers for all events
      * @param eventName Event name (eg. 'after:render') or object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
      * @param handler Function to be deleted from EventListeners
      */
     off(eventName?: string | any, handler?: (e: IEvent) => void): T;
+
+    /**
+     * Fires event with an optional options object
+     * @memberOf fabric.Observable
+     * @param {String} eventName Event name to fire
+     * @param {Object} [options] Options object
+     * @return {Self} thisArg
+     * @chainable
+     */
+    fire(eventName: string, options?: any): T;
 }
 
 interface Callbacks {
@@ -579,7 +585,7 @@ interface IGradientOptionsCoords {
 }
 
 type IGradientOptionsColorStops = Array<{
-    offset: string;
+    offset: number;
     color: string;
 }>;
 
@@ -675,14 +681,6 @@ export class Gradient {
      * @see http://www.w3.org/TR/SVG/pservers.html#RadialGradientElement
      */
     static fromElement(el: SVGGradientElement, instance: Object): Gradient;
-    /**
-     * Returns {@link fabric.Gradient} instance from its object representation
-     * @static
-     * @memberOf fabric.Gradient
-     * @param {Object} obj
-     * @param {Object} [options] Options object
-     */
-    static forObject(obj: any, options?: IGradientOptions): Gradient;
 }
 export class Intersection {
     constructor(status?: string);
@@ -1102,16 +1100,6 @@ interface IStaticCanvasOptions {
      * @type Boolean
      */
     renderOnAddRemove?: boolean;
-    /**
-     * Function that determines clipping of entire canvas area
-     * Being passed context as first argument.
-     * If you are using code minification, ctx argument can be minified/manglied you should use
-     * as a workaround `var ctx = arguments[0];` in the function;
-     * See clipping canvas area in {@link https://github.com/kangax/fabric.js/wiki/FAQ}
-     * @deprecated since 2.0.0
-     * @type Function
-     */
-    clipTo?(context: CanvasRenderingContext2D): void;
     /**
      * Indicates whether object controls (borders/controls) are rendered above overlay image
      * @type Boolean
@@ -1634,20 +1622,6 @@ export class StaticCanvas {
     cloneWithoutData(callback?: any): void;
 
     /**
-     * Populates canvas with data from the specified dataless JSON.
-     * JSON format must conform to the one of {@link fabric.Canvas#toDatalessJSON}
-     * @deprecated since 1.2.2
-     * @param {String|Object} json JSON string or object
-     * @param {Function} callback Callback, invoked when json is parsed
-     *                            and corresponding objects (e.g: {@link fabric.Image})
-     *                            are initialized
-     * @param {Function} [reviver] Method for further parsing of JSON elements, called after each fabric object created.
-     * @return {fabric.Canvas} instance
-     * @chainable
-     * @tutorial {@link http://fabricjs.com/fabric-intro-part-3#deserialization}
-     */
-    loadFromDatalessJSON(json: any, callback: Function, reviver?: Function): Canvas;
-    /**
      * Populates canvas with data from the specified JSON.
      * JSON format must conform to the one of {@link fabric.Canvas#toJSON}
      * @param {String|Object} json JSON string or object
@@ -1658,6 +1632,7 @@ export class StaticCanvas {
      * @return {fabric.Canvas} instance
      */
     loadFromJSON(json: any, callback: Function, reviver?: Function): Canvas;
+
     /**
      * Creates markup containing SVG font faces,
      * font URLs for font faces must be collected by developers
@@ -1665,11 +1640,13 @@ export class StaticCanvas {
      * @param {Array} objects Array of fabric objects
      * @return {String}
      */
+
     createSVGFontFacesMarkup(objects: any[]): string;
     /**
      * Creates markup containing SVG referenced elements like patterns, gradients etc.
      * @return {String}
      */
+
     createSVGRefElementsMarkup(): string;
     /**
      * Straightens object, then rerenders canvas
@@ -1677,15 +1654,19 @@ export class StaticCanvas {
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
+
     straightenObject(object: Object): Canvas;
 }
 
 interface ICanvasOptions extends IStaticCanvasOptions {
     /**
      * When true, objects can be transformed by one side (unproportionally)
+     * when dragged on the corners that normally would not do that.
      * @type Boolean
+     * @default
+     * @since fabric 4.0 // changed name and default value
      */
-    uniScaleTransform?: boolean;
+    uniformScaling?: boolean;
 
     /**
      * Indicates which key enable unproportional scaling
@@ -1962,7 +1943,6 @@ export class Canvas {
      */
     altSelectionKey?: string;
 
-    fire(eventName: string, options: any): void;
     /**
      * Renders both the top canvas and the secondary container canvas.
      * @return {fabric.Canvas} instance
@@ -2546,10 +2526,6 @@ export class Image {
      */
     dispose(): void;
     /**
-     * Sets crossOrigin value (on an instance and corresponding image element)
-     */
-    setCrossOrigin(value: string): Image;
-    /**
      * Returns original size of an image
      * @return Object with "width" and "height" properties
      */
@@ -2906,11 +2882,6 @@ interface IObjectOptions {
     borderScaleFactor?: number;
 
     /**
-     * Transform matrix (similar to SVG's transform matrix)
-     */
-    transformMatrix?: any[];
-
-    /**
      * Minimum allowed scale value of an object
      */
     minScaleLimit?: number;
@@ -2960,12 +2931,6 @@ interface IObjectOptions {
      * When `false`, default object's values are not included in its serialization
      */
     includeDefaultValues?: boolean;
-
-    /**
-     * Function that determines clipping of an object (context is passed as a first argument)
-     * Note that context origin is at the object's center point (not left/top corner)
-     */
-    clipTo?: Function;
 
     /**
      * When `true`, object horizontal movement is locked
@@ -3192,6 +3157,8 @@ export class Object {
         mtr?: boolean;
     };
 
+    controls: { [key: string]: Control };
+
     constructor(options?: IObjectOptions);
     initialize(options?: IObjectOptions): Object;
 
@@ -3336,9 +3303,9 @@ export class Object {
      * @param {Boolean} [options.enableRetinaScaling] Enable retina scaling for clone image. Introduce in 1.6.4
      * @param {Boolean} [options.withoutTransform] Remove current object transform ( no scale , no angle, no flip, no skew ). Introduced in 2.3.4
      * @param {Boolean} [options.withoutShadow] Remove current object shadow. Introduced in 2.4.2
-     * @return {String} Returns a data: URL containing a representation of the object in the format specified by options.format
+     * @return {HTMLCanvasElement} Returns a new HTMLCanvasElement painted with the current canvas object
      */
-    toCanvasElement(options?: IDataURLOptions): string;
+    toCanvasElement(options?: IDataURLOptions): HTMLCanvasElement;
 
     /**
      * Converts an object into a data-url-like string
@@ -3362,32 +3329,6 @@ export class Object {
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
     toJSON(propertiesToInclude?: string[]): any;
-
-    /**
-     * Sets gradient (fill or stroke) of an object
-     * **Backwards incompatibility note:** This method was named "setGradientFill" until v1.1.0
-     * @param property Property name 'stroke' or 'fill'
-     * @param [options] Options object
-     */
-    setGradient(property: 'stroke' | 'fill', options?: OGradientOptions): Object;
-
-    /**
-     * Sets pattern fill of an object
-     * @param options Options object
-     */
-    setPatternFill(options: IFillOptions, callback: Function): Object;
-
-    /**
-     * Sets shadow of an object
-     * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
-     */
-    setShadow(options?: string | Shadow): Object;
-
-    /**
-     * Sets "color" of an instance (alias of `set('fill', …)`)
-     * @param color Color value
-     */
-    setColor(color: string): Object;
 
     /**
      * Sets "angle" of an instance
@@ -3442,7 +3383,7 @@ export class Object {
      * @param e Event to operate upon
      * @param [pointer] Pointer to operate upon (instead of event)
      */
-    getLocalPointer(e: Event, pointer?: { x: number; y: number }): { x: number; y: number };
+    getLocalPointer(e: Event | undefined, pointer?: { x: number; y: number }): { x: number; y: number };
 
     /**
      * Basic getter
@@ -3709,13 +3650,15 @@ export class Object {
     // -------------------------------------------------------------------------------------------------------------------------------
     /**
      * Sets corner position coordinates based on current angle, width and height.
+     * oCoords are used to find the corners
+     * aCoords are used to quickly find an object on the canvas
+     * lineCoords are used to quickly find object during pointer events.
      * See {@link https://github.com/kangax/fabric.js/wiki/When-to-call-setCoords|When-to-call-setCoords}
-     * @param {Boolean} [ignoreZoom] set oCoords with or without the viewport transform.
-     * @param {Boolean} [skipAbsolute] skip calculation of aCoords, usefull in setViewportTransform
+     * @param {Boolean} [skipCorners] skip calculation of oCoords.
      * @return {fabric.Object} thisArg
      * @chainable
      */
-    setCoords(ignoreZoom?: boolean, skipAbsolute?: boolean): Object;
+    setCoords(skipCorners?: boolean): Object;
     /**
      * Returns coordinates of object's bounding rectangle (left, top, width, height)
      * the box is intented as aligned to axis of canvas.
@@ -3784,8 +3727,6 @@ export class Object {
      */
     intersectsWithRect(pointTL: any, pointBR: any, absolute?: boolean, calculate?: boolean): boolean;
 
-    fire(eventName: string, options?: any): void;
-
     /**
      * Animates object's properties
      * object.animate('left', ..., {duration: ...});
@@ -3823,7 +3764,7 @@ export class Object {
     /**
      * return correct set of coordinates for intersection
      */
-    getCoords(absolute?: boolean, calculate?: boolean): any;
+    getCoords(absolute?: boolean, calculate?: boolean): [fabric.Point, fabric.Point, fabric.Point, fabric.Point];
     /**
      * Returns height of an object bounding box counting transformations
      * before 2.0 it was named getHeight();
@@ -5839,12 +5780,6 @@ export class BaseBrush {
      * Stroke Dash Array.
      */
     strokeDashArray: any[];
-
-    /**
-     * Sets shadow of an object
-     * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
-     */
-    setShadow(options: string | any): BaseBrush;
 }
 
 export class CircleBrush extends BaseBrush {
@@ -6001,6 +5936,10 @@ interface IUtilAnimEase {
     easeOutQuart: IUtilAminEaseFunction;
     easeOutQuint: IUtilAminEaseFunction;
     easeOutSine: IUtilAminEaseFunction;
+}
+
+interface IUtilImage {
+    setImageSmoothing(ctx: CanvasRenderingContext2D, value: any): void;
 }
 
 interface IUtilArc {
@@ -6446,9 +6385,34 @@ interface IUtilMisc {
     };
 
     /**
-     * Creates a transform matrix with the specified scale and skew
+     * Returns a transform matrix starting from an object of the same kind of
+     * the one returned from qrDecompose, useful also if you want to calculate some
+     * transformations from an object that is not enlived yet
+     * @static
+     * @memberOf fabric.util
+     * @param  {Object} options
+     * @param  {Number} [options.angle]
+     * @param  {Number} [options.scaleX]
+     * @param  {Number} [options.scaleY]
+     * @param  {Boolean} [options.flipX]
+     * @param  {Boolean} [options.flipY]
+     * @param  {Number} [options.skewX]
+     * @param  {Number} [options.skewX]
+     * @param  {Number} [options.translateX]
+     * @param  {Number} [options.translateY]
+     * @return {Number[]} transform matrix
      */
-    customTransformMatrix(scaleX: number, scaleY: number, skewX: number): number[];
+    composeMatrix(options: {
+        angle: number;
+        scaleX: number;
+        scaleY: number;
+        flipX: boolean;
+        flipY: boolean;
+        skewX: number;
+        skewY: number;
+        translateX: number;
+        translateY: number;
+    }): number[];
 
     /**
      * Returns string representation of function body
@@ -6477,7 +6441,8 @@ interface IUtilMisc {
 
 export const util: IUtil;
 interface IUtil
-    extends IUtilAnimation,
+    extends IUtilImage,
+        IUtilAnimation,
         IUtilArc,
         IObservable<IUtil>,
         IUtilDomEvent,
@@ -6561,4 +6526,212 @@ export interface WebglFilterBackend extends FilterBackend, WebglFilterBackendOpt
 
 export class WebglFilterBackend {
     constructor(options?: WebglFilterBackendOptions);
+}
+
+export class Control {
+    constructor(options?: Partial<Control>);
+
+    /**
+     * keep track of control visibility.
+     * mainly for backward compatibility.
+     * if you do not want to see a control, you can remove it
+     * from the controlset.
+     * @type {Boolean}
+     * @default true
+     */
+    visible: boolean;
+
+    /**
+     * Name of the action that the control will likely execute.
+     * This is optional. FabricJS uses to identify what the user is doing for some
+     * extra optimizations. If you are writing a custom control and you want to know
+     * somewhere else in the code what is going on, you can use this string here.
+     * you can also provide a custom getActionName if your control run multiple actions
+     * depending on some external state.
+     * default to scale since is the most common, used on 4 corners by default
+     * @default 'scale'
+     */
+    actionName: string;
+
+    /**
+     * Drawing angle of the control.
+     * NOT used for now, but name marked as needed for internal logic
+     * example: to reuse the same drawing function for different rotated controls
+     * @default 0
+     */
+    angle: number;
+
+    /**
+     * Relative position of the control. X
+     * 0,0 is the center of the Object, while -0.5 (left) or 0.5 (right) are the extremities
+     * of the bounding box.
+     * @default 0
+     */
+    x: number;
+
+    /**
+     * Relative position of the control. Y
+     * 0,0 is the center of the Object, while -0.5 (top) or 0.5 (bottom) are the extremities
+     * of the bounding box.
+     * @default 0
+     */
+    y: number;
+
+    /**
+     * Horizontal offset of the control from the defined position. In pixels
+     * Positive offset moves the control to the right, negative to the left.
+     * It used when you want to have position of control that does not scale with
+     * the bounding box. Example: rotation control is placed at x:0, y: 0.5 on
+     * the boundindbox, with an offset of 30 pixels vertically. Those 30 pixels will
+     * stay 30 pixels no matter how the object is big. Another example is having 2
+     * controls in the corner, that stay in the same position when the object scale.
+     * of the bounding box.
+     * @default 0
+     */
+    offsetX: number;
+
+    /**
+     * Vertical offset of the control from the defined position. In pixels
+     * Positive offset moves the control to the bottom, negative to the top.
+     * @default 0
+     */
+    offsetY: number;
+
+    /**
+     * Sets the length of the control. If null, defaults to object's cornerSize.
+     * Expects both sizeX and sizeY to be set when set.
+     * @type {?Number}
+     */
+    sizeX?: number;
+
+    /**
+     * Sets the height of the control. If null, defaults to object's cornerSize.
+     * Expects both sizeX and sizeY to be set when set.
+     */
+    sizeY?: number;
+
+    /**
+     * Sets the length of the touch area of the control. If null, defaults to object's touchCornerSize.
+     * Expects both touchSizeX and touchSizeY to be set when set.
+     * @type {?Number}
+     * @default null
+     */
+    touchSizeX?: number;
+
+    /**
+     * Sets the height of the touch area of the control. If null, defaults to object's touchCornerSize.
+     * Expects both touchSizeX and touchSizeY to be set when set.
+     * @type {?Number}
+     * @default null
+     */
+    touchSizeY?: number;
+
+    /**
+     * Css cursor style to display when the control is hovered.
+     * if the method `cursorStyleHandler` is provided, this property is ignored.
+     * @default 'crosshair'
+     */
+    cursorStyle: string;
+
+    /**
+     * If controls has an offsetY or offsetX, draw a line that connects
+     * the control to the bounding box
+     * @default false
+     */
+    withConnection: boolean;
+
+    /**
+     * The control actionHandler, provide one to handle action ( control being moved )
+     * @return {Boolean} true if the action/event modified the object
+     */
+    actionHandler(eventData: MouseEvent, transformData: Transform, x: number, y: number): boolean;
+
+    /**
+     * The control handler for mouse down, provide one to handle mouse down on control
+     */
+    mouseDownHandler(eventData: MouseEvent, transformData: Transform, x: number, y: number): boolean;
+
+    /**
+     * The control mouseUpHandler, provide one to handle an effect on mouse up.
+     */
+    mouseUpHandler(eventData: MouseEvent, transformData: Transform, x: number, y: number): boolean;
+
+    /**
+     * Returns control actionHandler
+     */
+    getActionHandler(eventData: MouseEvent, fabricObject: Object, control: Control): ControlMouseEventHandler;
+
+    /**
+     * Returns control mouseDown handler
+     */
+    getMouseDownHandler(eventData: MouseEvent, fabricObject: Object, control: Control): ControlMouseEventHandler;
+
+    /**
+     * Returns control mouseUp handler
+     */
+    getMouseUpHandler(eventData: MouseEvent, fabricObject: Object, control: Control): ControlMouseEventHandler;
+
+    /**
+     * Returns control cursorStyle for css using cursorStyle. If you need a more elaborate
+     * function you can pass one in the constructor
+     * the cursorStyle property
+     */
+    cursorStyleHandler(eventData: MouseEvent, control: Control, fabricObject: Object): string;
+
+    /**
+     * Returns the action name. The basic implementation just return the actionName property.
+     */
+    getActionName(eventData: MouseEvent, control: Control, fabricObject: Object): string;
+
+    /**
+     * Returns controls visibility
+     */
+    getVisibility(fabricObject: Object, controlKey: string): boolean;
+
+    /**
+     * Sets controls visibility
+     */
+    setVisibility(visibility: boolean): void;
+
+    positionHandler(dim: { x: number, y: number }, finalMatrix: any, fabricObject: Object, currentControl: Control): Point;
+
+    /**
+     * Returns the coords for this control based on object values.
+     */
+    calcCornerCoords(objectAngle: number, objectCornerSize: number, centerX: number, centerY: number, isTouch: boolean): void;
+
+    /**
+     * Render function for the control.
+     * When this function runs the context is unscaled. unrotate. Just retina scaled.
+     * all the functions will have to translate to the point left,top before starting Drawing
+     * if they want to draw a control where the position is detected.
+     * left and top are the result of the positionHandler function
+     */
+    render(ctx: CanvasRenderingContext2D, left: number, top: number, styleOverride: any, fabricObject: Object): void;
+}
+
+type ControlMouseEventHandler = (eventData: MouseEvent, transformData: Transform, x: number, y: number) => boolean;
+
+export interface Transform {
+    target: Object;
+    action: string;
+    actionHandler: ControlMouseEventHandler;
+    altKey: boolean;
+    corner: string;
+    ex: number;
+    ey: number;
+    lastX: number;
+    lastY: number;
+    offsetX: number;
+    offsetY: number;
+    originX: "left" | "right";
+    originY: "top" | "bottom";
+    original: any;
+    scaleX: number;
+    scaleY: number;
+    shiftKey: boolean;
+    skewX: number;
+    skewY: number;
+    theta: number;
+    width: number;
 }

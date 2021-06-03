@@ -396,7 +396,6 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
 
 export type Parameters<T> = T extends (...args: infer A) => any ? A : never;
 
-// tslint:disable-next-line no-empty-interface
 export interface ShallowWrapper<P = {}, S = {}, C = Component> extends CommonWrapper<P, S, C> {}
 export class ShallowWrapper<P = {}, S = {}, C = Component> {
     constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper<any, any>, options?: ShallowRendererProps);
@@ -503,7 +502,6 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
     getWrappingComponent: () => ShallowWrapper;
 }
 
-// tslint:disable-next-line no-empty-interface
 export interface ReactWrapper<P = {}, S = {}, C = Component> extends CommonWrapper<P, S, C> {}
 export class ReactWrapper<P = {}, S = {}, C = Component> {
     constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper<any, any>, options?: MountRendererProps);

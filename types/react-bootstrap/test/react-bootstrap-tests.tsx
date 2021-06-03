@@ -292,6 +292,13 @@ export class ReactBootstrapTest extends Component {
                 </div>
 
                 <div style={style}>
+                  <Panel bsClass="custom-class">
+                    <Panel.Body>Panel content</Panel.Body>
+                    <Panel.Footer>Panel footer</Panel.Footer>
+                  </Panel>
+                </div>
+
+                <div style={style}>
                   <div>
                     <Panel bsStyle="primary">
                       <Panel.Heading>

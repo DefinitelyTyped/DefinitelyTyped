@@ -1,18 +1,15 @@
-// Type definitions for non-npm package Node.js 14.11
+// Type definitions for non-npm package Node.js 15.12
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Alberto Schiabel <https://github.com/jkomyno>
-//                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Benjamin Toueg <https://github.com/btoueg>
-//                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Chigozirim C. <https://github.com/smac89>
 //                 David Junger <https://github.com/touffy>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
-//                 Flarna <https://github.com/Flarna>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Huw <https://github.com/hoo29>
@@ -31,7 +28,6 @@
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Samuel Ainsworth <https://github.com/samuela>
 //                 Kyle Uehlein <https://github.com/kuehlein>
-//                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
 //                 Marcin Kopacz <https://github.com/chyzwar>
 //                 Trivikram Kamat <https://github.com/trivikr>
@@ -44,6 +40,7 @@
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Jason Kwok <https://github.com/JasonHK>
 //                 Victor Perin <https://github.com/victorperin>
+//                 Yongsheng Zhang <https://github.com/ZYSzys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.7.
@@ -53,9 +50,9 @@
 
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
-//          - ~/index.d.ts        - Definitions specific to TypeScript 2.8
-//          - ~/ts3.5/index.d.ts  - Definitions specific to TypeScript 3.5
+//          - ~/index.d.ts        - Definitions specific to TypeScript 3.7
+//          - ~/ts3.6/index.d.ts  - Definitions specific to TypeScript 3.6
 
-// NOTE: Augmentations for TypeScript 3.5 and later should use individual files for overrides
-//       within the respective ~/ts3.5 (or later) folder. However, this is disallowed for versions
-//       prior to TypeScript 3.5, so the older definitions will be found here.
+// NOTE: Augmentations for TypeScript 3.6 and later should use individual files for overrides
+//       within the respective ~/ts3.6 (or later) folder. However, this is disallowed for versions
+//       prior to TypeScript 3.6, so the older definitions will be found here.

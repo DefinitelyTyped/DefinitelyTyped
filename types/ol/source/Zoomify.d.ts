@@ -38,6 +38,9 @@ export class CustomTile extends ImageTile {
         tileLoadFunction: LoadFunction,
         opt_options?: Options_1,
     );
+    /**
+     * Get the image element for this tile.
+     */
     getImage(): HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
 }
 export default class Zoomify extends TileImage {

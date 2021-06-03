@@ -3,7 +3,7 @@ import { Locale } from 'date-fns';
 export type DateLocale = Locale;
 
 export interface Modifiers {
-    [propName: string]: (date: Date) => boolean;
+    [propName: string]: (date: Date, type: string) => boolean;
 }
 export interface ModifiersClassNames {
     [propName: string]: string;
@@ -13,8 +13,9 @@ export interface DatePickerProps {
     locale: DateLocale;
     date: string;
     isFocus: boolean;
-    month?: Date;
+    initialDate?: Date;
     format: string;
+    enableGridSwitch: boolean;
     minimumDate: Date | null;
     maximumDate: Date | null;
     modifiers: Modifiers;
@@ -26,12 +27,13 @@ export interface DatePickerProps {
 
 export interface DateRangePickerProps {
     locale: DateLocale;
-    isFocus: boolean;
-    month?: Date;
     format: string;
     startDate: string;
     endDate: string;
+    initialDate?: Date;
+    isFocus: boolean;
     focusName: string;
+    enableGridSwitch: boolean;
     minimumDate: Date | null;
     maximumDate: Date | null;
     modifiers: Modifiers;

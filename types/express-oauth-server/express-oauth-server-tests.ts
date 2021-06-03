@@ -36,8 +36,10 @@ const oauth2Model: OAuth2Server.AuthorizationCodeModel = {
     }
 };
 
-const serverOptions: OAuth2Server.ServerOptions = {
+const serverOptions: ExpressOAuthServer.Options = {
     model: oauth2Model,
+    useErrorHandler: true,
+    continueMiddleware: false,
 };
 const expressOAuthServer: ExpressOAuthServer = new ExpressOAuthServer(serverOptions);
 

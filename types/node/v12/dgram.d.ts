@@ -1,7 +1,7 @@
-declare module "dgram" {
-    import { AddressInfo } from "net";
-    import * as dns from "dns";
-    import * as events from "events";
+declare module 'dgram' {
+    import { AddressInfo } from 'net';
+    import * as dns from 'dns';
+    import EventEmitter = require('events');
 
     interface RemoteInfo {
         address: string;
@@ -34,7 +34,7 @@ declare module "dgram" {
     function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
-    class Socket extends events.EventEmitter {
+    class Socket extends EventEmitter {
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         address(): AddressInfo;
         bind(port?: number, address?: string, callback?: () => void): void;
@@ -50,9 +50,9 @@ declare module "dgram" {
         getSendBufferSize(): number;
         ref(): this;
         remoteAddress(): AddressInfo;
-        send(msg: string | Uint8Array | any[], port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array | any[], port?: number, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array | any[], callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: string | Uint8Array | ReadonlyArray<any>, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: string | Uint8Array, offset: number, length: number, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: string | Uint8Array, offset: number, length: number, port?: number, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: string | Uint8Array, offset: number, length: number, callback?: (error: Error | null, bytes: number) => void): void;

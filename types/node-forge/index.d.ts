@@ -1,20 +1,22 @@
 // Type definitions for node-forge 0.9.1
 // Project: https://github.com/digitalbazaar/forge
-// Definitions by: Seth Westphal    <https://github.com/westy92>
-//                 Kay Schecker     <https://github.com/flynetworks>
-//                 Aakash Goenka    <https://github.com/a-k-g>
-//                 Rafal2228        <https://github.com/rafal2228>
-//                 Beeno Tung       <https://github.com/beenotung>
-//                 Joe Flateau      <https://github.com/joeflateau>
-//                 Nikita Koryabkin <https://github.com/Apologiz>
-//                 timhwang21       <https://github.com/timhwang21>
-//                 supaiku0         <https://github.com/supaiku0>
-//                 Anders Kaseorg   <https://github.com/andersk>
-//                 Sascha Zarhuber  <https://github.com/saschazar21>
-//                 Rogier Schouten  <https://github.com/rogierschouten>
-//                 Ivan Aseev       <https://github.com/aseevia>
+// Definitions by: Seth Westphal       <https://github.com/westy92>
+//                 Kay Schecker        <https://github.com/flynetworks>
+//                 Aakash Goenka       <https://github.com/a-k-g>
+//                 Rafal2228           <https://github.com/rafal2228>
+//                 Beeno Tung          <https://github.com/beenotung>
+//                 Joe Flateau         <https://github.com/joeflateau>
+//                 Nikita Koryabkin    <https://github.com/Apologiz>
+//                 timhwang21          <https://github.com/timhwang21>
+//                 supaiku0            <https://github.com/supaiku0>
+//                 Anders Kaseorg      <https://github.com/andersk>
+//                 Sascha Zarhuber     <https://github.com/saschazar21>
+//                 Rogier Schouten     <https://github.com/rogierschouten>
+//                 Ivan Aseev          <https://github.com/aseevia>
 //                 Wiktor Kwapisiewicz <https://github.com/wiktor-k>
-//                 Ligia Frangello  <https://github.com/frangello>
+//                 Ligia Frangello     <https://github.com/frangello>
+//                 Dmitry Avezov       <https://github.com/avezov>
+//                 Jose Fuentes        <https://github.com/j-fuentes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -35,6 +37,7 @@ declare module "node-forge" {
             t: number;
             s: number;
             toString(): string;
+            bitLength(): number;
         }
     }
 
@@ -291,6 +294,28 @@ declare module "node-forge" {
              * @return the attribute.
              */
             getAttribute(opts: string | GetAttributeOpts): Attribute | null;
+
+            /**
+             * Returns true if this certificate's issuer matches the passed
+             * certificate's subject. Note that no signature check is performed.
+             *
+             * @param parent the certificate to check.
+             *
+             * @return true if this certificate's issuer matches the passed certificate's
+             *         subject.
+             */
+            isIssuer(parent: Certificate): boolean;
+
+            /**
+             * Returns true if this certificate's subject matches the issuer of the
+             * given certificate). Note that not signature check is performed.
+             *
+             * @param child the certificate to check.
+             *
+             * @return true if this certificate's subject matches the passed
+             *         certificate's issuer.
+             */
+            issued(child: Certificate): boolean;
         }
 
         /**
@@ -367,7 +392,13 @@ declare module "node-forge" {
 
         function createCaStore(certs?: ReadonlyArray<Certificate | pki.PEM>): CAStore;
 
-        function verifyCertificateChain(caStore: CAStore, chain: Certificate[], customVerifyCallback?: (verified: boolean | string, depth: number, chain: Certificate[]) => boolean): boolean;
+        function verifyCertificateChain(
+            caStore: CAStore,
+            chain: Certificate[],
+            options?: ((verified: boolean | string, depth: number, certs: Certificate[]) => boolean) | {
+                verify?: (verified: boolean | string, depth: number, certs: Certificate[]) => boolean,
+                validityCheckDate?: Date | null
+            }): boolean;
 
         function pemToDer(pem: PEM): util.ByteStringBuffer;
 
@@ -731,7 +762,7 @@ declare module "node-forge" {
 
     namespace hmac {
 
-      type Algorithm = "sha1" | "md5" | "sha256";
+      type Algorithm = "sha1" | "md5" | "sha256" | "sha512";
 
       interface HMAC {
           digest(): util.ByteBuffer;

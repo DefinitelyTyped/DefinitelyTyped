@@ -1,4 +1,4 @@
-// Type definitions for react-modal 3.10
+// Type definitions for react-modal 3.12
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Drew Noakes <https://github.com/drewnoakes>,
@@ -103,6 +103,9 @@ declare namespace ReactModal {
         /* Boolean indicating if the modal should restore focus to the element that had focus prior to its display. */
         shouldReturnFocusAfterClose?: boolean;
 
+        /* Boolean indicating if the modal should use the preventScroll flag when restoring focus to the element that had focus prior to its display. */
+        preventScroll?: boolean;
+
         /* Function that will be called to get the parent element that the modal will be attached to. */
         parentSelector?(): HTMLElement;
 
@@ -123,6 +126,11 @@ declare namespace ReactModal {
 
         /* Function accepting the ref for the overlay */
         overlayRef?: (instance: HTMLDivElement) => void;
+
+        /* Custom Overlay element. */
+        overlayElement?: (props: React.ComponentPropsWithRef<"div">, contentEl: React.ReactElement) => React.ReactElement;
+        /* Custom Content element. */
+        contentElement?: (props: React.ComponentPropsWithRef<"div">, children: React.ReactNode) => React.ReactElement;
 
         /* String value of data-test-id attibute to be applied to to the modal content. */
         testId?: string;

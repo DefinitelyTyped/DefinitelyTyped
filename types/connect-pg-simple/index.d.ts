@@ -5,7 +5,7 @@
 // TypeScript Version: 2.4
 
 import { RequestHandler } from "express";
-import { Store, SessionOptions } from "express-session";
+import { Store, SessionData, SessionOptions } from "express-session";
 import { Pool, PoolConfig } from "pg";
 
 declare function connectPgSimple(session: (options?: SessionOptions) => RequestHandler): typeof connectPgSimple.PGStore;
@@ -15,6 +15,12 @@ declare namespace connectPgSimple {
       constructor(options?: PGStoreOptions);
       close(): void;
       pruneSessions(callback?: (err: Error) => void): void;
+
+      get(sid: string, callback: (err: any, session?: SessionData | null) => void): void;
+      set(sid: string, session: SessionData, callback?: (err?: any) => void): void;
+      destroy(sid: string, callback?: (err?: any) => void): void;
+
+      touch(sid: string, session: SessionData, callback?: () => void): void;
   }
   interface PGStoreOptions {
       pool?: Pool;
@@ -25,7 +31,6 @@ declare namespace connectPgSimple {
       schemaName?: string;
       tableName?: string;
       pruneSessionInterval?: false | number;
-      // tslint:disable-next-line:prefer-method-signature
       errorLog?: (...args: any[]) => void;
   }
 }

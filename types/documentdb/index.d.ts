@@ -160,7 +160,6 @@ export interface DatabaseMeta extends AbstractMeta {
 }
 
 /** Represents the meta data for a collection. */
-// tslint:disable-next-line:no-empty-interface
 export interface CollectionMeta extends Collection, AbstractMeta {
 }
 

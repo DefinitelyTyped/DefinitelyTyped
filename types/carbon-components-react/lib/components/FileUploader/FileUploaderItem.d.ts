@@ -1,28 +1,30 @@
 import * as React from "react";
 import {
-    ValidityProps,
     ReactAttr,
-    EmbeddedIconProps
 } from "../../../typings/shared";
-import { FileStatus } from "./FileUploader";
+import { FileStatus, FileUploaderSize } from "./shared";
 
-interface FileUploaderItemInheritedProps extends
-    ReactAttr<HTMLSpanElement>,
-    EmbeddedIconProps,
-    Pick<ValidityProps, "invalid"> {
-}
-
-export interface FileUploaderItemProps extends FileUploaderItemInheritedProps {
+export interface FileUploaderItemProps extends ReactAttr<HTMLSpanElement> {
     /**
      * Unique identifier for the file object
      */
     // Required but has a default value
     uuid?: string;
 
+    iconDescription?: string;
+
+    invalid?: boolean;
+
     /**
      * Name of the uploaded file
      */
     name?: string;
+
+    /**
+     * Specify the size of the uploaded items, from a list of available
+     * sizes. For `default` size, this prop can remain unspecified.
+     */
+    size?: FileUploaderSize;
 
     /**
      * Status of the file upload

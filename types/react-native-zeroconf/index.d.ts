@@ -1,4 +1,4 @@
-// Type definitions for react-native-zeroconf 0.11
+// Type definitions for react-native-zeroconf 0.12
 // Project: https://github.com/Apercu/react-native-zeroconf#readme
 // Definitions by: Peter Matta <https://github.com/mattapet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,7 +30,7 @@ export interface Service {
     host: string;
     port: number;
     txt: {
-        [key: string]: any
+        [key: string]: any;
     };
 }
 
@@ -92,8 +92,16 @@ export default class Zeroconf extends EventEmitter {
      * suffixed, for example `'local.'`. Defaults to `'local'`.
      * @param name should be unique to the device, often the device name.
      * @param port should be an integer between 0 and 65535.
+     * @param txt contains key-value pairs of additional TXT record data.
      */
-    publishService(type: string, protocol: string, domain?: string, name?: string, port?: number): void;
+    publishService(
+        type: string,
+        protocol: string,
+        domain?: string,
+        name?: string,
+        port?: number,
+        txt?: { [key: string]: any },
+    ): void;
 
     /**
      * Unpublish a service.

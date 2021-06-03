@@ -194,7 +194,7 @@ export interface config {
     server: string;
     port?: number;
     domain?: string;
-    database: string;
+    database?: string;
     connectionTimeout?: number;
     requestTimeout?: number;
     stream?: boolean;
@@ -206,6 +206,13 @@ export interface config {
      * tedious Connection. It can be used for attaching event handlers.
      */
     beforeConnect?: (conn: tds.Connection) => void
+}
+
+export declare class MSSQLError extends Error {
+    constructor(message: Error | string, code?: string);
+    public code: string;
+    public name: string;
+    public originalError?: Error;
 }
 
 export declare class ConnectionPool extends events.EventEmitter {
@@ -232,12 +239,7 @@ export declare class ConnectionPool extends events.EventEmitter {
     public transaction(): Transaction;
 }
 
-export declare class ConnectionError implements Error {
-    constructor(message: string, code?: any)
-    public name: string;
-    public message: string;
-    public code: string;
-}
+export declare class ConnectionError extends MSSQLError {}
 
 export interface IColumnOptions {
     nullable?: boolean;
@@ -318,6 +320,8 @@ export declare class Request extends events.EventEmitter {
     public execute<Entity>(procedure: string, callback: (err?: any, recordsets?: IProcedureResult<Entity>, returnValue?: any) => void): void;
     public input(name: string, value: any): Request;
     public input(name: string, type: (() => ISqlType) | ISqlType, value: any): Request;
+    public replaceInput(name: string, value: any): Request;
+    public replaceInput(name: string, type: (() => ISqlType) | ISqlType, value: any): Request;
     public output(name: string, type: (() => ISqlType) | ISqlType, value?: any): Request;
     public pipe(stream: NodeJS.WritableStream): NodeJS.WritableStream;
     public query(command: string): Promise<IResult<any>>;
@@ -340,15 +344,11 @@ export declare class Request extends events.EventEmitter {
     public resume(): boolean;
 }
 
-export declare class RequestError implements Error {
-    constructor(message: string, code?: any)
-    public name: string;
-    public message: string;
-    public code: string;
+export declare class RequestError extends MSSQLError {
     public number?: number;
-    public state?: number;
-    public class?: number;
     public lineNumber?: number;
+    public state?: string;
+    public class?: string;
     public serverName?: string;
     public procName?: string;
 }
@@ -370,12 +370,7 @@ export declare class Transaction extends events.EventEmitter {
     public request(): Request;
 }
 
-export declare class TransactionError implements Error {
-    constructor(message: string, code?: any)
-    public name: string;
-    public message: string;
-    public code: string;
-}
+export declare class TransactionError extends MSSQLError {}
 
 export declare class PreparedStatement extends events.EventEmitter {
     public transaction: Transaction;
@@ -397,9 +392,4 @@ export declare class PreparedStatement extends events.EventEmitter {
     public unprepare(callback: (err?: Error) => void): PreparedStatement;
 }
 
-export declare class PreparedStatementError implements Error {
-    constructor(message: string, code?: any)
-    public name: string;
-    public message: string;
-    public code: string;
-}
+export declare class PreparedStatementError extends MSSQLError {}

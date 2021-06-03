@@ -44,10 +44,15 @@ import { readFile } from 'fs';
         [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize('woop', 'module')),
     });
 
+    util.format('%s:%s', 'foo');
+    util.format('%s:%s', 'foo', 'bar', 'baz');
+    util.format(1, 2, 3);
+    util.format('%% %s');
+    util.format();
+
     util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
 
     // util.callbackify
-    // tslint:disable-next-line no-unnecessary-class
     class callbackifyTest {
         static fn(): Promise<void> {
             assert(arguments.length === 0);
@@ -171,26 +176,4 @@ import { readFile } from 'fs';
     const teEncodeRes: Uint8Array = te.encode("TextEncoder");
 
     const encIntoRes: util.EncodeIntoResult = te.encodeInto('asdf', new Uint8Array(16));
-
-    // util.types
-    let b: boolean;
-    b = util.types.isBigInt64Array(15);
-    b = util.types.isBigUint64Array(15);
-    b = util.types.isModuleNamespaceObject(15);
-
-    const f = (v: any) => {
-        if (util.types.isArrayBufferView(v)) {
-            const abv: ArrayBufferView  = v;
-        }
-    };
-
-    // tslint:disable-next-line:no-construct ban-types
-    const maybeBoxed: number | Number = new Number(1);
-    if (util.types.isBoxedPrimitive(maybeBoxed)) {
-        const boxed: Number = maybeBoxed;
-    }
-    const maybeBoxed2: number | Number = 1;
-    if (!util.types.isBoxedPrimitive(maybeBoxed2)) {
-        const boxed: number = maybeBoxed2;
-    }
 }

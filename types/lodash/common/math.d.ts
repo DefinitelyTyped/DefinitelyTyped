@@ -181,7 +181,7 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * Computes the mean of the provided propties of the objects in the `array`
+         * Computes the mean of the provided properties of the objects in the `array`
          *
          * @category Math
          * @param array The array to iterate over.

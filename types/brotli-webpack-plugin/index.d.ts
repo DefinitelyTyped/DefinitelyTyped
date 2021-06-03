@@ -2,7 +2,7 @@
 // Project: https://github.com/mynameiswhm/brotli-webpack-plugin
 // Definitions by: Karol Majewski <https://github.com/karol-majewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 3.7
 
 import * as webpack from 'webpack';
 

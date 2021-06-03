@@ -19,6 +19,9 @@
             ],
             "d3-transition": [
                 "d3-transition/v1"
+            ],
+            "d3-zoom": [
+                "d3-zoom/v1"
             ]
         },
         "types": [],

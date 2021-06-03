@@ -11,6 +11,10 @@ declare namespace h {}
 type Element = ReactElement | string | number | null;
 
 declare function h(
+    children?: ReadonlyArray<Element> | Element
+): ReactElement;
+
+declare function h(
     componentOrTag: ComponentClass | StatelessComponent | string,
     children?: ReadonlyArray<Element> | Element
 ): ReactElement;
