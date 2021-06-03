@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
-import { ApolloLink } from '@apollo/client/link/core/ApolloLink';
+import { ApolloLink } from '@apollo/client/core';
 import { AbsintheSocket, Notifier } from '@absinthe/socket';
 
 export function createAbsintheSocketLink(
