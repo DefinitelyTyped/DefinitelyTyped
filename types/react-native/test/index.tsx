@@ -1317,12 +1317,18 @@ const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
 const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.log('test')} />;
 const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
-const SwitchOnChangePromiseTest = () => <Switch onChange={(event?: SwitchChangeEvent) => new Promise(() => event!.value)} />;
+const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
+  const e: SwitchChangeEvent = event;
+  return new Promise(() => e.value);
+}} />;
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
 const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
 const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
-const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value?: boolean) => new Promise(() => value)} />;
+const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value) => {
+  const v: boolean = value;
+  return new Promise(() => v)
+}} />;
 
 const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
