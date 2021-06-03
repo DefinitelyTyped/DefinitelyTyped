@@ -7,9 +7,7 @@
 import { NextLink, Operation, Observable, FetchResult, ApolloLink } from '@apollo/client/core';
 import { AbsintheSocket, Notifier } from '@absinthe/socket';
 
-export interface AbsintheSocketLink extends ApolloLink {
-    request: (operation: Operation, forward: NextLink | undefined) => Observable<FetchResult> | null;
-}
+export interface AbsintheSocketLink extends ApolloLink {}
 
 export function createAbsintheSocketLink(
     absintheSocket: AbsintheSocket,
