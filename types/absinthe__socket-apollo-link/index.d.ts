@@ -1,4 +1,4 @@
-// Type definitions for @absinthe/socket-apollo-link 1.0
+// Type definitions for @absinthe/socket-apollo-link 0.2.1
 // Project: https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/absinthe-phoenix-socket-apollo-link#readme
 // Definitions by: Maarten van Vliet <https://github.com/maartenvanvliet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
