@@ -1,4 +1,7 @@
 import { when, resetAllWhenMocks, verifyAllWhenMocksCalled } from 'jest-when';
+import { toBeMocked } from './example-module';
+
+jest.mock('./example-module');
 
 describe('mock-when test', () => {
     it('basic usage:', () => {
@@ -178,5 +181,13 @@ describe('mock-when test', () => {
       fn2(1);
 
       expect(verifyAllWhenMocksCalled).not.toThrow();
+    });
+
+    it('allows mocked modules', () => {
+      when(toBeMocked)
+        .calledWith('another one')
+        .mockReturnValue('another one');
+
+      expect(toBeMocked('another one')).toEqual('another one');
     });
 });
