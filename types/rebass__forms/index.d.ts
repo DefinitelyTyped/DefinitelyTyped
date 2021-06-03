@@ -4,7 +4,7 @@
 //                 trumanshuck <https://github.com/trumanshuck>
 //                 Eddie Cooro <https://github.com/Eddie-CooRo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// Minimum TypeScript Version: 4.1
 
 import * as React from 'react';
 import * as Rebass from 'rebass';

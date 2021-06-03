@@ -8,7 +8,7 @@
 //                 Erin Noe-Payne <https://github.com/autoric>
 //                 akameco <https://github.com/akameco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// Minimum TypeScript Version: 4.1
 
 import * as React from 'react';
 import * as StyledSystem from 'styled-system';

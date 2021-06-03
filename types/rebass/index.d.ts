@@ -10,7 +10,7 @@
 //                 mrkosima <https://github.com/mrkosima>
 //                 rafaelalmeidatk <https://github.com/rafaelalmeidatk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// Minimum TypeScript Version: 4.1
 
 import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
 import * as React from 'react';
