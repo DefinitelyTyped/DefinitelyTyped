@@ -1,4 +1,4 @@
-// Type definitions for intl-tel-input 17.0
+// Type definitions for intl-tel-input 17.0.3
 // Project: https://github.com/jackocnr/intl-tel-input
 // Definitions by: Fidan Hakaj <https://github.com/fdnhkj>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
@@ -322,6 +322,13 @@ declare namespace intlTelInputUtils {
 
 declare global {
     namespace intlTelInputUtils {
+
+        function formatNumber(number: string, countryCode: string, format: intlTelInputUtils.numberFormat): string
+        function getExampleNumber(countryCode: string, isNational: boolean, numberType: intlTelInputUtils.numberType): string
+        function getNumberType(number: string, countryCode: string): string
+        function getValidationError(number: string, countryCode: string): string
+        function isValidNumber(number: string, countryCode: string): string
+
         enum numberFormat {
             E164 = 0,
             INTERNATIONAL = 1,
