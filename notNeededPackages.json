@@ -3622,6 +3622,10 @@
             "libraryName": "rc-progress",
             "asOfVersion": "2.4.0"
         },
+        "rdf-js": {
+            "libraryName": "rdf-js",
+            "asOfVersion": "4.0.2"
+        },
         "rc-select": {
             "libraryName": "rc-select",
             "asOfVersion": "8.6.5"
