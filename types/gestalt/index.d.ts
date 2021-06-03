@@ -1,4 +1,4 @@
-// Type definitions for gestalt 21.0
+// Type definitions for gestalt 22.6
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -882,7 +882,7 @@ export interface ModalProps {
      */
     closeOnOutsideClick?: boolean;
     footer?: React.ReactNode;
-    heading?: React.ReactNode | string;
+    heading?: React.ReactNode;
     role?: 'alertdialog' | 'dialog';
     size?: 'sm' | 'md' | 'lg' | number;
     /**
@@ -1338,7 +1338,7 @@ export interface TextAreaProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
     disabled?: boolean;
-    errorMessage?: React.ReactNode | string;
+    errorMessage?: React.ReactNode;
     helperText?: string;
     label?: string;
     name?: string;
@@ -1370,7 +1370,7 @@ export interface TextFieldProps {
      * @default false
      */
     disabled?: boolean;
-    errorMessage?: React.ReactNode | string;
+    errorMessage?: React.ReactNode;
     /**
      * More information about how to complete the form field
      */
@@ -1531,12 +1531,12 @@ export interface VideoProps {
     onSeek?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
     onTimeChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { time: number }>;
     onVolumeChange?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>, { volume: number }>;
-    onError?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement> | React.SyntheticEvent<HTMLAnchorElement>>;
-    onLoadStart?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement> | React.SyntheticEvent<HTMLAnchorElement>>;
-    onPlaying?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement> | React.SyntheticEvent<HTMLAnchorElement>>;
-    onSeeking?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement> | React.SyntheticEvent<HTMLAnchorElement>>;
-    onStalled?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement> | React.SyntheticEvent<HTMLAnchorElement>>;
-    onWaiting?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement> | React.SyntheticEvent<HTMLAnchorElement>>;
+    onError?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
+    onLoadStart?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
+    onPlaying?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
+    onSeeking?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
+    onStalled?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
+    onWaiting?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
     playsInline?: boolean;
     poster?: string;
 }
