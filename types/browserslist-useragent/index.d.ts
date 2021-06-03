@@ -11,9 +11,13 @@ export interface ResolvedUserAgent {
 export interface BrowserslistUseragentOptions {
     browsers?: string[];
     env?: string;
-    ignorePath?: boolean;
+    ignorePatch?: boolean;
     ignoreMinor?: boolean;
     allowHigherVersions?: boolean;
+    /**
+     * @default process.cwd()
+     */
+    path?: string;
 }
 
 export function matchesUA(

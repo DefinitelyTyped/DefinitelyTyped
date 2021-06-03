@@ -30,13 +30,13 @@ import {
     OutgoingHttpHeaders,
     createServer,
     constants,
-    ServerOptions
-} from "http2";
-import { EventEmitter } from "events";
-import { Stats } from "fs";
-import { Socket, Server } from "net";
-import { TLSSocket } from "tls";
-import { Duplex, Readable } from "stream";
+    ServerOptions,
+} from 'http2';
+import EventEmitter = require('events');
+import { Stats } from 'fs';
+import { Socket, Server } from 'net';
+import { TLSSocket } from 'tls';
+import { Duplex, Readable } from 'stream';
 import { URL } from 'url';
 
 // Headers & Settings
@@ -102,6 +102,7 @@ import { URL } from 'url';
     (http2Session as ClientHttp2Session).request(headers, options);
 
     const stream: Http2Stream = {} as any;
+    http2Session.setLocalWindowSize(2 ** 20);
     http2Session.setTimeout(100, () => {});
     http2Session.close(() => {});
 
@@ -236,6 +237,9 @@ import { URL } from 'url';
         server.on('request', (request: Http2ServerRequest, response: Http2ServerResponse) => {});
         server.on('timeout', () => {});
         server.setTimeout().setTimeout(5).setTimeout(5, () => {});
+        server.updateSettings({
+            enableConnectProtocol: true,
+        });
     });
 
     http2SecureServer.on('unknownProtocol', (socket: TLSSocket) => {});
@@ -251,7 +255,8 @@ import { URL } from 'url';
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-        settings
+        settings,
+        unknownProtocolTimeout: 123,
     };
     // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
     const secureServerOptions: SecureServerOptions = Object.assign({}, serverOptions);
@@ -296,7 +301,7 @@ import { URL } from 'url';
         response.removeHeader(':method');
         response.setHeader(':method', 'GET');
         response.setHeader(':status', 200);
-        response.setHeader('some-list', ['', '']);
+        response.setHeader('some-list', ['', ''] as ReadonlyArray<string>);
         const headersSent: boolean = response.headersSent;
 
         response.setTimeout(0, () => {});
@@ -323,6 +328,7 @@ import { URL } from 'url';
         response.end('', 'utf8', () => {});
         response.end(Buffer.from([]));
         response.end(Buffer.from([]), () => {});
+        const writable: boolean = response.writable;
 
         request.on('aborted', (hadError: boolean, code: number) => {});
         request.on('close', () => {});

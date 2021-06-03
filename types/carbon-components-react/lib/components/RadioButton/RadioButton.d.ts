@@ -1,12 +1,14 @@
 import * as React from "react";
 import { ReactInputAttr, ForwardRefReturn } from "../../../typings/shared";
 
-type ExcludedAttributes = "onChange" | "ref" | "type";
-interface InheritedProps extends Omit<ReactInputAttr, ExcludedAttributes> { }
+// NOTE: The index does not export * on this file because non-default export of RadioButton clashs with RadioButton at the top-level index.
+//       You'll need to export types manually in this directory's index file.
 
 export type RadioButtonValue = string | number;
 
-export interface RadioButtonProps extends InheritedProps {
+type ExcludedAttributes = "onChange" | "ref" | "type" | "value";
+
+export interface RadioButtonProps extends Omit<ReactInputAttr, ExcludedAttributes>  {
     defaultChecked?: boolean,
     hideLabel?: boolean,
     /**
@@ -18,6 +20,8 @@ export interface RadioButtonProps extends InheritedProps {
     value?: RadioButtonValue, // required but has default value
 }
 
-declare const RadioButton: ForwardRefReturn<HTMLInputElement, RadioButtonProps>;
+declare class RadioButtonComponent extends React.Component<RadioButtonProps> { }
+export { RadioButtonComponent as RadioButton };
 
+declare const RadioButton: ForwardRefReturn<HTMLInputElement, RadioButtonProps>;
 export default RadioButton;

@@ -21,8 +21,14 @@ export interface Options {
 }
 export default class Static extends ImageSource {
     constructor(options: Options);
+    /**
+     * Returns the image extent
+     */
     getImageExtent(): Extent;
     getImageInternal(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageWrapper;
+    /**
+     * Return the URL used for this image source.
+     */
     getUrl(): string;
     handleImageChange(evt: BaseEvent): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

@@ -47,3 +47,5 @@ export class ColumnSizer extends PureComponent<ColumnSizerProps> {
         width: Validator<number>;
     };
 }
+
+export default ColumnSizer;

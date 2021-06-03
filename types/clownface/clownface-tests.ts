@@ -1,4 +1,4 @@
-import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode, Quad_Graph } from 'rdf-js';
+import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode, Quad_Graph, Variable } from 'rdf-js';
 import Clownface = require('clownface/lib/Clownface');
 import clownface = require('clownface');
 import Context = require('clownface/lib/Context');
@@ -86,6 +86,14 @@ function testAddIn() {
     cf = cf.addIn(manyPredicates, manyObjects);
 }
 
+function testAddInBlankNode() {
+    const cf: clownface.AnyPointer = <any> {};
+
+    function bnodeCallback(bnode: clownface.GraphPointer<BlankNode>): void {}
+    cf.addIn(node, null, bnodeCallback);
+    cf.addIn(node, undefined, bnodeCallback);
+}
+
 function testAddList() {
     let cf: clownface.AnyPointer<NamedNode> = <any> {};
     cf = cf.addList(predicate, [node]);
@@ -111,14 +119,27 @@ function testAddOut() {
     cf = cf.addOut(manyPredicates, manyObjects);
 }
 
+function testAddOutBlankNode() {
+    const cf: clownface.AnyPointer = <any> {};
+
+    function bnodeCallback(bnode: clownface.GraphPointer<BlankNode>): void {}
+    cf.addOut(node, null, bnodeCallback);
+    cf.addOut(node, undefined, bnodeCallback);
+}
+
 function testBlankNode() {
     const cf: clownface.AnyPointer<Term[], Dataset> = <any> {};
     let singleBlank: clownface.AnyPointer<BlankNode, Dataset> = cf.blankNode();
     singleBlank = cf.blankNode('label');
     const multiBlankContext: clownface.AnyPointer<BlankNode[], Dataset> = cf.blankNode([ 'b1', 'b2' ]);
+    const set: Set<BlankNode> = <any> {};
 
     const fromOther: clownface.AnyPointer<BlankNode, Dataset> = cf.blankNode(singleBlank);
     const fromMultipleOther: clownface.MultiPointer<BlankNode, Dataset> = cf.blankNode(multiBlankContext);
+    const fromSet: clownface.MultiPointer<BlankNode, Dataset> = cf.blankNode(set);
+
+    const pointers: Array<clownface.GraphPointer<BlankNode, Dataset>> = <any> {};
+    const fromArray: clownface.MultiPointer<BlankNode, Dataset> = cf.blankNode(pointers);
 }
 
 function testDeleteIn() {
@@ -126,6 +147,9 @@ function testDeleteIn() {
     cf = cf.deleteIn();
     cf = cf.deleteIn(node);
     cf = cf.deleteIn([node, node]);
+    cf = cf.deleteIn([node, node], node);
+    cf = cf.deleteIn([node, node], [node]);
+    cf = cf.deleteIn([node, node], cf.out());
 }
 
 function testDeleteList() {
@@ -138,6 +162,9 @@ function testDeleteOut() {
     cf = cf.deleteOut();
     cf = cf.deleteOut(node);
     cf = cf.deleteOut([node, node]);
+    cf = cf.deleteOut([node, node], node);
+    cf = cf.deleteOut([node, node], [node]);
+    cf = cf.deleteOut([node, node], cf.out());
 }
 
 function testFactory() {
@@ -197,6 +224,19 @@ function testFilter() {
         const copy: never = quad;
         return true;
     });
+
+    const anyPointer: clownface.AnyPointer<clownface.AnyContext, Dataset> = <any> {};
+    function onlyVariables(ptr: clownface.GraphPointer): ptr is clownface.GraphPointer<Variable> {
+        return true;
+    }
+
+    const typeGuarded: clownface.AnyPointer<Variable, Dataset> = anyPointer.filter(onlyVariables);
+
+    function onlyNamedOrBlank(ptr: clownface.GraphPointer): ptr is clownface.GraphPointer<NamedNode> | clownface.GraphPointer<BlankNode> {
+        return true;
+    }
+
+    const multipleTypeGuarded: clownface.AnyPointer<NamedNode | BlankNode, Dataset> = anyPointer.filter<NamedNode | BlankNode>(onlyNamedOrBlank);
 }
 
 function testForEach() {
@@ -253,6 +293,12 @@ function testLiteral() {
 
     const fromOther: clownface.AnyPointer<Literal, Dataset> = cf.literal(cfOneLit);
     const fromMultipleOther: clownface.MultiPointer<Literal, Dataset> = cf.literal(cfLiterals);
+
+    const set: Set<Literal> = <any> {};
+    const fromSet: clownface.MultiPointer<Literal | NamedNode, Dataset> = cf.literal(set);
+
+    const pointers: Array<clownface.GraphPointer<Literal, Dataset>> = <any> {};
+    const fromArray: clownface.MultiPointer<Literal, Dataset> = cf.literal(pointers);
 }
 
 function testMap() {
@@ -270,9 +316,17 @@ function testNamedNode() {
     let cfSingleNamed: clownface.AnyPointer<NamedNode, Dataset> = cf.namedNode(node);
     cfSingleNamed = cf.namedNode('http://example.com/');
     const cfNamedMany: clownface.AnyPointer<NamedNode[], Dataset> = cf.namedNode(['http://example.com/', 'http://example.org/']);
+    const set: Set<NamedNode> = <any> {};
 
     const fromOther: clownface.AnyPointer<NamedNode, Dataset> = cf.namedNode(cfSingleNamed);
     const fromMultipleOther: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(cfNamedMany);
+    const fromSet: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(set);
+
+    const pointers: Array<clownface.GraphPointer<NamedNode, Dataset>> = <any> {};
+    const fromArray: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(pointers);
+
+    const foo: NamedNode<'foo'> = <any> {};
+    const preservedTypeArg: clownface.GraphPointer<NamedNode<'foo'>, Dataset> = cf.namedNode(foo);
 }
 
 function testNode() {
@@ -290,6 +344,12 @@ function testNode() {
     const literalFromOther: clownface.MultiPointer<Literal, Dataset> = cf.node(cfLit);
 
     const literalFromMultipleOther: clownface.MultiPointer<Literal, Dataset> = cf.node(cfLitMany);
+
+    const set: Set<Literal | NamedNode> = <any> {};
+    const fromSet: clownface.MultiPointer<Literal | NamedNode, Dataset> = cf.node(set);
+
+    const pointers: Array<clownface.GraphPointer<Literal | NamedNode, Dataset>> = <any> {};
+    const fromArray: clownface.MultiPointer<Literal | NamedNode, Dataset> = cf.node(pointers);
 }
 
 function testOut() {
@@ -378,4 +438,14 @@ function addInAddOutRetainsType() {
     const addInSingleNoObject: clownface.AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate);
     const addInSingleWithCallback: clownface.AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, () => {});
     const addInSingleWithObjectAndCallback: clownface.AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, 'foo', () => {});
+}
+
+function testAny() {
+    const multiPtr: clownface.AnyPointer<clownface.AnyContext, Dataset> = <any> {};
+    const graphPtr: clownface.AnyPointer<clownface.AnyContext, Dataset> = <any> {};
+    let anyPointer: clownface.AnyPointer<clownface.AnyContext, Dataset> = <any> {};
+
+    anyPointer = anyPointer.any();
+    anyPointer = multiPtr.any();
+    anyPointer = graphPtr.any();
 }

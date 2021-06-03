@@ -13,7 +13,7 @@ export const _ = () => (
             heightRelativeToParent="50%"
             allowOuterScroll={false}
             flex={2}
-            onScoll={onScrollStub}
+            onScroll={onScrollStub}
             addScrolledClass={true}
             freezePosition={false}
             minScrollHandleHeight={50}

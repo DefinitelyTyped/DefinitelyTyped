@@ -14,6 +14,7 @@
 //                 tu4mo <https://github.com/tu4mo>
 //                 Kerry Gougeon <https://github.com/kerry-g>
 //                 Walter Kennedy <https://github.com/wthefourth>
+//                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -24,7 +25,12 @@ import { Locale } from 'date-fns';
 export function registerLocale(localeName: string, localeData: {}): void;
 export function setDefaultLocale(localeName: string): void;
 export function getDefaultLocale(): string;
-export function CalendarContainer(className: string, children: React.ReactNode[], showPopperArrow: boolean, arrowProps: {}): React.ReactNode;
+export function CalendarContainer(props: {
+    className?: string;
+    children?: React.ReactNode;
+    showPopperArrow?: boolean;
+    arrowProps?: { [propName: string]: any };
+}): React.ReactElement;
 
 interface HighlightDates {
     [className: string]: Date[];
@@ -61,9 +67,10 @@ export interface ReactDatePickerProps {
     excludeDates?: Date[];
     excludeTimes?: Date[];
     filterDate?(date: Date): boolean;
+    filterTime?(date: Date): boolean;
     fixedHeight?: boolean;
     forceShowMonthNavigation?: boolean;
-    formatWeekDay?(formattedDate: string): string;
+    formatWeekDay?(formattedDate: string): React.ReactNode;
     formatWeekNumber?(date: Date): string | number;
     highlightDates?: Array<HighlightDates | Date>;
     id?: string;
@@ -80,12 +87,15 @@ export interface ReactDatePickerProps {
     minTime?: Date;
     monthsShown?: number;
     name?: string;
-    nextMonthButtonLabel?: string;
+    nextMonthButtonLabel?: string | React.ReactNode;
     nextYearButtonLabel?: string;
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
     onCalendarClose?(): void;
     onCalendarOpen?(): void;
-    onChange(date: Date | [Date, Date] /* for selectsRange */ | null, event: React.SyntheticEvent<any> | undefined): void;
+    onChange(
+        date: Date | [Date, Date] | /* for selectsRange */ null,
+        event: React.SyntheticEvent<any> | undefined,
+    ): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
     onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
     onDayMouseEnter?: (date: Date) => void;
@@ -109,16 +119,17 @@ export interface ReactDatePickerProps {
     popperClassName?: string;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
     popperModifiers?: Popper.Modifiers;
-    popperPlacement?: string;
+    popperPlacement?: Popper.Placement;
     popperProps?: {};
     preventOpenOnFocus?: boolean;
-    previousMonthButtonLabel?: string;
+    previousMonthButtonLabel?: string | React.ReactNode;
     previousYearButtonLabel?: string;
     readOnly?: boolean;
     renderCustomHeader?(params: {
         date: Date;
         changeYear(year: number): void;
         changeMonth(month: number): void;
+        customHeaderCount: number;
         decreaseMonth(): void;
         increaseMonth(): void;
         prevMonthButtonDisabled: boolean;
@@ -173,6 +184,7 @@ export interface ReactDatePickerProps {
     yearDropdownItemNumber?: number;
     excludeScrollbar?: boolean;
     enableTabLoop?: boolean;
+    yearItemNumber?: number;
 }
 
 declare class ReactDatePicker extends React.Component<ReactDatePickerProps> {

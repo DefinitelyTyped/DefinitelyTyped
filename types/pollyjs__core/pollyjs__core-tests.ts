@@ -202,14 +202,23 @@ async function test() {
     /* Intercept all Google Analytic requests and respond with a 200 */
     server.get('/google-analytics/*path').intercept((req, res, intercept) => {
         if (req.pathname === 'test') {
+            intercept.stopPropagation();
             intercept.abort();
         } else {
             res.sendStatus(200);
         }
     });
-
     /* Pass-through all GET requests to /coverage */
     server.get('/coverage').configure({ expiresIn: '5d' }).passthrough();
+
+    // Only first one will get executed
+    server.get('/demo-stop-propagation').configure({ expiresIn: '5d' }).intercept((req, res, intercept) => {
+        intercept.stopPropagation();
+        res.status(400);
+    });
+    server.get('/demo-stop-propagation').configure({ expiresIn: '5d' }).intercept((req, res, intercept) => {
+        res.status(400);
+    });
 
     server.any().on('error', (req, error) => {
         req.setHeader('Content-Length', '2344')

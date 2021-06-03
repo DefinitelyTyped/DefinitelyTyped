@@ -25,7 +25,7 @@ interface OAuthOptions {
      * The OAuth client ID of the requesting application
      * Defaults to your client ID
      */
-    clintId?: string;
+    clientId?: string;
 
     /**
      * The URL of the monday OAuth endpoint

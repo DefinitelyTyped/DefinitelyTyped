@@ -2,8 +2,9 @@
 // Project: https://github.com/stephencookdev/speed-measure-webpack-plugin#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
-import { Configuration } from 'webpack';
+import { Compiler, Configuration } from "webpack";
 
 /**
  * See how fast (or not) your plugins and loaders are, so you can optimise your builds
@@ -12,16 +13,17 @@ declare class SpeedMeasurePlugin {
     constructor(options?: SpeedMeasurePlugin.Options);
 
     wrap(config: Configuration): Configuration;
+    apply(compiler: Compiler): void;
 }
 
 declare namespace SpeedMeasurePlugin {
     type OutputFormat =
         /** produces a JSON blob */
-        | 'json'
+        | "json"
         /** produces a human readable output */
-        | 'human'
+        | "human"
         /** produces a more verbose version of the human readable output */
-        | 'humanVerbose'
+        | "humanVerbose"
         /** output the response */
         | ((json: any) => string);
 
@@ -30,6 +32,10 @@ declare namespace SpeedMeasurePlugin {
         | string
         /** calls the function with the output as the first parameter */
         | ((output: string, ...rest: any[]) => void);
+
+    type LoaderBuild = {
+        filePath: string;
+    } & Record<string, string>;
 
     /**
      * Pass these into the constructor, as an object:
@@ -51,9 +57,21 @@ declare namespace SpeedMeasurePlugin {
          * For some plugins this doesn't work (or you may want to override this default).
          * This option takes an object of pluginName: PluginConstructor
          */
-        pluginNames?: {
-            [key: string]: object;
-        };
+        pluginNames?: Record<string, object>;
+
+        /**
+         * You can configure SMP to include the files that take the most time per loader,
+         * when using outputFormat: 'humanVerbose'
+         * @default 0
+         */
+        loaderTopFiles?: number;
+
+        /**
+         * This option gives you a comparison over time of the module count and time spent, per loader.
+         * This option provides more data when outputFormat: "humanVerbose".
+         */
+        compareLoadersBuild?: LoaderBuild;
+
         /**
          * By default, SMP measures loaders in groups.
          * If truthy, this plugin will give per-loader timing information.

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Web Serial API based on spec and Chromium implementation 0.1
+// Type definitions for non-npm package Web Serial API based on spec and Chromium implementation 1.0
 // Project: https://wicg.github.io/serial/
 // Definitions by: Maciej Mroziński <https://github.com/maciejmrozinski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -27,11 +27,11 @@ type ParityType = 'none' | 'even' | 'odd' | 'mark' | 'space';
 type FlowControlType = 'none' | 'hardware';
 
 interface SerialOptions {
-    baudrate: number; // Chromium implementation (spec: baudRate)
+    baudRate: number;
     dataBits?: number;
     stopBits?: number;
     parity?: ParityType;
-    buffersize?: number; // Chromium implementation (spec: bufferSize)
+    bufferSize?: number;
     flowControl?: FlowControlType;
 }
 

@@ -46,9 +46,7 @@ export const Component = withComponent(withCustomRendererAsString());
 //   renderCallback(props?: P): string;
 // }
 
-// tslint:disable-next-line interface-over-type-literal
 export type Props = { greet: string };
-// tslint:disable-next-line interface-over-type-literal
 export type State = { count: number };
 
 class Mo extends MComponent<Props, State> {

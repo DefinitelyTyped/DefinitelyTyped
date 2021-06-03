@@ -14,7 +14,7 @@ export type DirectConfig = {
 
 export type PayPalConfig = BraintreeConfig | DirectConfig;
 
-export type PayPalEvent = 'error' | 'token';
+export type PayPalEvent = 'error' | 'token' | 'cancel' | 'ready';
 
 export type PayPalStartOptions = {
   options: {

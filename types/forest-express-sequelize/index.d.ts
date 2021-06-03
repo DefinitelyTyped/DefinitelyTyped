@@ -1,9 +1,31 @@
-// Type definitions for forest-express-sequelize 6.3
+// Type definitions for forest-express-sequelize 7.5
 // Project: http://www.forestadmin.com
 // Definitions by: Steve Bunlon <https://github.com/SteveBunlon>
+//                 Guillaume Gautreau <https://github.com/ghusse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { RequestHandler, Response } from "express";
+import { RequestHandler, Response, Request, NextFunction, Application } from 'express';
+import { Sequelize, SequelizeStatic } from 'sequelize';
+
+// Everything related to Forest initialization
+
+export interface LianaOptions {
+    objectMapping: SequelizeStatic;
+    envSecret: string;
+    authSecret: string;
+    connections: {
+        [connectionName: string]: Sequelize;
+    };
+    includedModels?: string[];
+    excludedModels?: string[];
+    configDir?: string;
+}
+
+export function init(options: LianaOptions): Promise<Application>;
+
+// Everything related to Forest Authentication
+
+export function ensureAuthenticated(request: Request, response: Response, next: NextFunction): void;
 
 // Everything related to Forest constants
 
@@ -13,7 +35,7 @@ export const PUBLIC_ROUTES: string[];
 
 export class AbstractRecordTool {
     constructor(model: object)
-    serialize(records: object[]): StatSerialized;
+    serialize(records: object[]): Promise<StatSerialized>;
 }
 
 export class RecordGetter extends AbstractRecordTool {
@@ -22,7 +44,7 @@ export class RecordGetter extends AbstractRecordTool {
 
 export class RecordsGetter extends AbstractRecordTool {
     getAll(params: Params): Promise<object[]>;
-    getIdsFromRequest(params: Params): Promise<string[]>;
+    getIdsFromRequest(request: Request): Promise<string[]>;
 }
 
 export class RecordsCounter extends AbstractRecordTool {
@@ -138,39 +160,45 @@ export interface SegmentAggregationCreator {
     (record: any): object;
 }
 
-export interface CollectionOptions {
+export interface SmartFieldOptions {
+    field: string;
+    description?: string;
+    type: string | string[];
+    isReadOnly?: boolean;
+    reference?: string;
+    enums?: string[];
+    defaultValue?: any;
+    get?: SmartFieldValueGetter;
+    set?: SmartFieldValueSetter;
+    search?: SmartFieldSearcher;
+}
+
+export interface SmartActionOptions {
+    name: string;
+    type?: string;
     fields?: Array<{
-        field: string,
-        description?: string,
-        type: string | string[],
-        isReadOnly?: boolean,
-        reference?: string,
-        enums?: string[],
-        defaultValue?: any,
-        get?: SmartFieldValueGetter,
-        set?: SmartFieldValueSetter,
-        search?: SmartFieldSearcher,
+        field: string;
+        type: string | string[];
+        reference?: string;
+        enums?: string[];
+        description?: string;
+        isRequired?: boolean;
     }>;
-    actions?: Array<{
-        name: string;
-        type?: string,
-        fields?: Array<{
-            field: string,
-            type: string | string[],
-            reference?: string,
-            enums?: string[],
-            description?: string,
-            isRequired?: boolean,
-        }>
-        download?: boolean,
-        endpoint?: string,
-        httpMethod?: string,
-        values?: SmartActionValuesInjector,
-    }>;
-    segments?: Array<{
-        name: string,
-        where: SegmentAggregationCreator;
-    }>;
+    download?: boolean;
+    endpoint?: string;
+    httpMethod?: string;
+    values?: SmartActionValuesInjector;
+}
+
+export interface SmartSegmentOptions {
+    name: string;
+    where: SegmentAggregationCreator;
+}
+
+export interface CollectionOptions {
+    fields?: SmartFieldOptions[];
+    actions?: SmartActionOptions[];
+    segments?: SmartSegmentOptions[];
 }
 
 export function collection(name: string, options: CollectionOptions): void;

@@ -5,6 +5,7 @@ import Directions, { DirectionsService, DirectionsResponse } from '@mapbox/mapbo
 import MapMatching, { MapMatchingResponse, MapMatchingService } from '@mapbox/mapbox-sdk/services/map-matching';
 import Styles, { StylesService } from '@mapbox/mapbox-sdk/services/styles';
 import StaticMap, { StaticMapService } from '@mapbox/mapbox-sdk/services/static';
+import Geocoding, { GeocodeService } from '@mapbox/mapbox-sdk/services/geocoding';
 import { LineString } from 'geojson';
 
 const config: SdkConfig = {
@@ -83,6 +84,21 @@ staticMapService.getStaticImage({
     position: 'auto',
     overlays: [
         {
+            path: {
+                coordinates: [
+                    [8.1298828125, 10.098670120603392],
+                    [9.4921875, 15.792253570362446],
+                    [11.77734375, 14.179186142354181],
+                    [11.513671874999998, 11.6522364041154]
+                ],
+                strokeColor: 'ff0000',
+                strokeWidth: 10,
+                strokeOpacity: 0.4,
+                fillColor: '000',
+                fillOpacity: 0.75
+            }
+        },
+        {
             marker: {
                 coordinates: [0, 1],
                 color: 'yellow',
@@ -99,4 +115,11 @@ staticMapService.getStaticImage({
             geoJson: geoOverlay
         }
     ]
+});
+
+const geocodeService: GeocodeService = Geocoding(config);
+geocodeService.forwardGeocode({
+  bbox: [1, 2, 3, 4],
+  query: 'Paris, France',
+  mode: 'mapbox.places'
 });

@@ -36,14 +36,44 @@ export interface Options {
 export default class WMTS extends TileImage {
     constructor(options: Options);
     createFromWMTSTemplate(template: string): UrlFunction;
+    /**
+     * Get the dimensions, i.e. those passed to the constructor through the
+     * "dimensions" option, and possibly updated using the updateDimensions
+     * method.
+     */
     getDimensions(): any;
+    /**
+     * Return the image format of the WMTS source.
+     */
     getFormat(): string;
+    /**
+     * Return the layer of the WMTS source.
+     */
     getLayer(): string;
+    /**
+     * Return the matrix set of the WMTS source.
+     */
     getMatrixSet(): string;
+    /**
+     * Return the request encoding, either "KVP" or "REST".
+     */
     getRequestEncoding(): WMTSRequestEncoding;
+    /**
+     * Return the style of the WMTS source.
+     */
     getStyle(): string;
+    /**
+     * Return the version of the WMTS source.
+     */
     getVersion(): string;
+    /**
+     * Set the URLs to use for requests.
+     * URLs may contain OGC conform URL Template Variables: {TileMatrix}, {TileRow}, {TileCol}.
+     */
     setUrls(urls: string[]): void;
+    /**
+     * Update the dimensions.
+     */
     updateDimensions(dimensions: any): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
@@ -67,4 +97,7 @@ export default class WMTS extends TileImage {
     once(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
     un(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): void;
 }
+/**
+ * Generate source options from a capabilities object.
+ */
 export function optionsFromCapabilities(wmtsCap: any, config: any): Options;

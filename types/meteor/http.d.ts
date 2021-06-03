@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 declare module "meteor/http" {
     module HTTP {
         interface HTTPRequest {
@@ -24,15 +25,17 @@ declare module "meteor/http" {
             data?: any;
         }
 
-        function call(method: string, url: string, options?: HTTP.HTTPRequest, asyncCallback?: Function): HTTP.HTTPResponse;
+        type AsyncCallback = (error: Meteor.Error | null, result?: HTTPResponse) => void;
 
-        function del(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: Function): HTTP.HTTPResponse;
+        function call(method: string, url: string, options?: HTTP.HTTPRequest, asyncCallback?: AsyncCallback): HTTP.HTTPResponse;
 
-        function get(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: Function): HTTP.HTTPResponse;
+        function del(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: AsyncCallback): HTTP.HTTPResponse;
 
-        function post(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: Function): HTTP.HTTPResponse;
+        function get(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: AsyncCallback): HTTP.HTTPResponse;
 
-        function put(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: Function): HTTP.HTTPResponse;
+        function post(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: AsyncCallback): HTTP.HTTPResponse;
+
+        function put(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: AsyncCallback): HTTP.HTTPResponse;
 
         function call(method: string, url: string, options?: {
             content?: string;
@@ -45,6 +48,6 @@ declare module "meteor/http" {
             followRedirects?: boolean;
             npmRequestOptions?: Object;
             beforeSend?: Function;
-        }, asyncCallback?: Function): HTTP.HTTPResponse;
+        }, asyncCallback?: AsyncCallback): HTTP.HTTPResponse;
     }
 }

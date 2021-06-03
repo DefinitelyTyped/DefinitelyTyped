@@ -7,6 +7,7 @@ import {
     constants,
     kMaxLength,
     kStringMaxLength,
+    Blob,
 } from 'buffer';
 
 const utf8Buffer = new Buffer('test');
@@ -19,8 +20,8 @@ console.log(Buffer.isBuffer(octetBuffer));
 console.log(Buffer.isEncoding('utf8'));
 console.log(Buffer.byteLength('xyz123'));
 console.log(Buffer.byteLength('xyz123', 'ascii'));
-const result1 = Buffer.concat([utf8Buffer, base64Buffer]);
-const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+const result1 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8Array>);
+const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8Array>, 9999999);
 
 // Module constants
 {
@@ -41,9 +42,9 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
 // Class Method: Buffer.from(data)
 {
     // Array
-    const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+    const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as ReadonlyArray<number>);
     // Buffer
-    const buf2: Buffer = Buffer.from(buf1);
+    const buf2: Buffer = Buffer.from(buf1, 1, 2);
     // String
     const buf3: Buffer = Buffer.from('this is a tést');
     // ArrayBuffer
@@ -56,6 +57,8 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
     const buf6: Buffer = Buffer.from(buf1);
     const sb: SharedArrayBuffer = {} as any;
     const buf7: Buffer = Buffer.from(sb);
+    // $ExpectError
+    Buffer.from({});
 }
 
 // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -67,11 +70,33 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
     let buf: Buffer;
     buf = Buffer.from(arr.buffer, 1);
     buf = Buffer.from(arr.buffer, 0, 1);
+
+    // $ExpectError
+    Buffer.from("this is a test", 1, 1);
+    // Ideally passing a normal Buffer would be a type error too, but it's not
+    //  since Buffer is assignable to ArrayBuffer currently
 }
 
 // Class Method: Buffer.from(str[, encoding])
 {
     const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    /* tslint:disable-next-line no-construct */
+    Buffer.from(new String("DEADBEEF"), "hex");
+    // $ExpectError
+    Buffer.from(buf2, 'hex');
+}
+
+// Class Method: Buffer.from(object, [, byteOffset[, length]])  (Implicit coercion)
+{
+    const pseudoBuf = { valueOf() { return Buffer.from([1, 2, 3]); } };
+    let buf: Buffer = Buffer.from(pseudoBuf);
+    const pseudoString = { valueOf() { return "Hello"; }};
+    buf = Buffer.from(pseudoString);
+    buf = Buffer.from(pseudoString, "utf-8");
+    // $ExpectError
+    Buffer.from(pseudoString, 1, 2);
+    const pseudoArrayBuf = { valueOf() { return new Uint16Array(2); } };
+    buf = Buffer.from(pseudoArrayBuf, 1, 1);
 }
 
 // Class Method: Buffer.alloc(size[, fill[, encoding]])
@@ -236,3 +261,32 @@ b.fill('a').fill('b');
     const target: TranscodeEncoding = 'ascii';
     transcode(Buffer.from('€'), source, target); // $ExpectType Buffer
 }
+
+{
+    const a = Buffer.alloc(1000);
+    a.writeBigInt64BE(123n);
+    a.writeBigInt64LE(123n);
+    a.writeBigUInt64BE(123n);
+    a.writeBigUInt64LE(123n);
+    let b: bigint = a.readBigInt64BE(123);
+    b = a.readBigInt64LE(123);
+    b = a.readBigUInt64LE(123);
+    b = a.readBigUInt64BE(123);
+}
+
+async () => {
+    const blob = new Blob(['asd', Buffer.from('test'), new Blob(['dummy'])], {
+        type: 'application/javascript',
+        encoding: 'base64',
+    });
+
+    blob.size; // $ExpectType number
+    blob.type; // $ExpectType string
+
+    blob.arrayBuffer(); // $ExpectType Promise<ArrayBuffer>
+    blob.text(); // $ExpectType Promise<string>
+    blob.slice(); // $ExpectType Blob
+    blob.slice(1); // $ExpectType Blob
+    blob.slice(1, 2); // $ExpectType Blob
+    blob.slice(1, 2, 'other'); // $ExpectType Blob
+};

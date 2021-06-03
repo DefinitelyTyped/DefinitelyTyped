@@ -19,31 +19,12 @@ const _ = webpack({
             new TerserPlugin({
                 exclude: /\/excludes/,
             }),
-            // cache
-            new TerserPlugin({
-                cache: true,
-            }),
-            new TerserPlugin({
-                cache: 'path/to/cache',
-            }),
-            // cacheKeys
-            new TerserPlugin({
-                cache: true,
-                cacheKeys: (defaultCacheKeys, file) => {
-                    defaultCacheKeys.myCacheKey = 'myCacheKeyValue';
-                    return defaultCacheKeys;
-                },
-            }),
             // parallel
             new TerserPlugin({
                 parallel: true,
             }),
             new TerserPlugin({
                 parallel: 4,
-            }),
-            // sourceMap
-            new TerserPlugin({
-                sourceMap: true,
             }),
             // minify
             new TerserPlugin({
@@ -61,11 +42,11 @@ const _ = webpack({
             new TerserPlugin({
                 terserOptions: {
                     ecma: undefined,
-                    warnings: false,
                     parse: {},
                     compress: {},
                     mangle: true, // Note `mangle.properties` is `false` by default.
                     module: false,
+                    // deprecated
                     output: undefined,
                     toplevel: false,
                     nameCache: undefined,
@@ -114,7 +95,7 @@ const _ = webpack({
             // varia
             new TerserPlugin({
                 terserOptions: {
-                    output: {
+                    format: {
                         comments: /@license/i,
                     },
                 },
@@ -122,7 +103,7 @@ const _ = webpack({
             }),
             new TerserPlugin({
                 terserOptions: {
-                    output: {
+                    format: {
                         comments: false,
                     },
                 },
@@ -130,20 +111,21 @@ const _ = webpack({
             }),
             new TerserPlugin({
                 terserOptions: {
-                  ecma: undefined,
-                  parse: {},
-                  compress: {},
-                  mangle: true, // Note `mangle.properties` is `false` by default.
-                  module: false,
-                  output: undefined,
-                  toplevel: false,
-                  nameCache: undefined,
-                  ie8: false,
-                  keep_classnames: undefined,
-                  keep_fnames: false,
-                  safari10: false,
+                    ecma: undefined,
+                    parse: {},
+                    compress: {},
+                    mangle: true, // Note `mangle.properties` is `false` by default.
+                    module: false,
+                    // deprecated
+                    output: undefined,
+                    toplevel: false,
+                    nameCache: undefined,
+                    ie8: false,
+                    keep_classnames: undefined,
+                    keep_fnames: false,
+                    safari10: false,
                 },
-              }),
+            }),
         ],
     },
 });

@@ -24,6 +24,8 @@ var config: sql.config = {
     }
 }
 
+var minimalConfig: sql.config = { server: 'ip' };
+
 var connectionStringTest: sql.ConnectionPool = new sql.ConnectionPool("connectionstring", (err) => {
     if (err) {
         return err;
@@ -93,6 +95,8 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
         var testId: number = 0;
         var testString: string = 'test';
 
+        // checking default input/output methods
+
         requestStoredProcedureWithOutput.input("name", sql.VarChar, "abc");               // varchar(3)
         requestStoredProcedureWithOutput.input("name", sql.VarChar(50), "abc");           // varchar(MAX)
         requestStoredProcedureWithOutput.output("name", sql.VarChar);                     // varchar(8000)
@@ -104,6 +108,24 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
 
         requestStoredProcedureWithOutput.input("name", sql.DateTime2, new Date());        // datetime2(7)
         requestStoredProcedureWithOutput.input("name", sql.DateTime2(5), new Date());     // datetime2(5)
+
+        requestStoredProcedureWithOutput.input("name", "abc");
+
+        // checking replaceInput method
+
+        requestStoredProcedureWithOutput.replaceInput("name", sql.VarChar, "abc");               // varchar(3)
+        requestStoredProcedureWithOutput.replaceInput("name", sql.VarChar(50), "abc");           // varchar(MAX)
+
+        requestStoredProcedureWithOutput.replaceInput("name", sql.Decimal, 155.33);              // decimal(18, 0)
+        requestStoredProcedureWithOutput.replaceInput("name", sql.Decimal(10), 155.33);          // decimal(10, 0)
+        requestStoredProcedureWithOutput.replaceInput("name", sql.Decimal(10, 2), 155.33);       // decimal(10, 2)
+
+        requestStoredProcedureWithOutput.replaceInput("name", sql.DateTime2, new Date());        // datetime2(7)
+        requestStoredProcedureWithOutput.replaceInput("name", sql.DateTime2(5), new Date());     // datetime2(5)
+
+        requestStoredProcedureWithOutput.replaceInput("name", "abc");
+
+        // executing stored procedure
 
         requestStoredProcedure.execute('StoredProcedureName', function (err, recordsets, returnValue) {
             if (err != null) {
@@ -251,4 +273,32 @@ async function test_msnodesqlv8() {
 function test_rows_and_columnns() {
     var table = new sql.Table('#temp_table3');
     table.columns.forEach(col => col.name)
+}
+
+function test_mssql_errors() {
+    // Test constructors
+    const sqlDriverError = new Error('mock error');
+    const mssqlStringError = new sql.MSSQLError('Something went wrong');
+    const baseMSSQLError = new sql.MSSQLError(sqlDriverError, 'EREQUEST');
+    const connectionError = new sql.ConnectionError(sqlDriverError, 'ELOGIN');
+    const requestError = new sql.RequestError(sqlDriverError, 'EREQUEST');
+    const preparedStatementError = new sql.PreparedStatementError(sqlDriverError, 'EINJECT');
+    const transactionError = new sql.TransactionError(sqlDriverError, 'EABORT');
+
+    // Test inheritance
+    if (
+        'name' in baseMSSQLError &&
+        'name' in connectionError &&
+        'name' in requestError &&
+        'name' in preparedStatementError &&
+        'name' in transactionError
+    ) {
+        let name: string = baseMSSQLError.name;
+        let msg: string = requestError.message;
+        let lineNo: number = requestError.lineNumber;
+        let err: Error = requestError.originalError;
+        err = connectionError.originalError;
+        err = preparedStatementError.originalError;
+        err = transactionError.originalError;
+    }
 }

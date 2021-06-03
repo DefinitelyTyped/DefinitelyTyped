@@ -18,9 +18,9 @@ function test() {
     optionsTypeTest(opts1);
     optionsTypeTest(opts2);
 
-    const taskFunc: Undertaker.TaskFunction = () => "";
+    const taskFunc: Undertaker.TaskFunction = async () => "";
 
-    const cb = () => {
+    const cb = async () => {
         console.log("watch change!");
     };
 

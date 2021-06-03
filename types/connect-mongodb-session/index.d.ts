@@ -1,31 +1,34 @@
-// Type definitions for connect-mongodb-session
+// Type definitions for connect-mongodb-session 2.4
 // Project: https://github.com/mongodb-js/connect-mongodb-session#readme
 // Definitions by: Nattapong Sirilappanich <https://github.com/NattapongSiri>
+//                 Ravi van Rooijen <https://github.com/HoldYourWaffle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
-
-/// <reference types="express-session" />
 
 import session = require('express-session');
-import * as express from 'express';
-import {MongoClient, MongoClientOptions} from 'mongodb'
+import { MongoClient, MongoClientOptions } from 'mongodb';
 
-declare function connect(fn : (options?: session.SessionOptions) => express.RequestHandler) : connectMongodbSession.MongoDBStore
+export = ConnectMongoDBSession;
 
-declare namespace connectMongodbSession {
-    export interface MongoDBStore extends session.Store {
-        client : MongoClient
-        new(connection?: ConnectionInfo, callback?: (error : Error) => void) : MongoDBStore
+declare function ConnectMongoDBSession(fn: typeof session): typeof ConnectMongoDBSession.MongoDBStore;
+
+declare namespace ConnectMongoDBSession {
+    class MongoDBStore extends session.Store {
+        constructor(connection?: MongoDBSessionOptions, callback?: (error: Error) => void);
+        client: MongoClient;
+
+        get(sid: string, callback: (err: any, session?: session.SessionData | null) => void): void;
+        set(sid: string, session: session.SessionData, callback?: (err?: any) => void): void;
+        destroy(sid: string, callback?: (err?: any) => void): void;
+        all(callback: (err: any, obj?: session.SessionData[] | { [sid: string]: session.SessionData; } | null) => void): void;
+        clear(callback?: (err?: any) => void): void;
     }
 
-    export interface ConnectionInfo {
-        idField? : string
-        collection : string
-        connectionOptions?: MongoClientOptions
-        databaseName?: string
-        expires?: number
-        uri : string
+    interface MongoDBSessionOptions {
+        uri: string;
+        collection: string;
+        expires?: number;
+        databaseName?: string;
+        connectionOptions?: MongoClientOptions;
+        idField?: string;
     }
 }
-
-export = connect

@@ -8,7 +8,7 @@ import * as restify from 'restify';
 
 declare module 'restify' {
   interface CookieOptions {
-    encode?: (input: string) => string; // tslint:disable-line:prefer-method-signature
+    encode?: (input: string) => string;
     maxAge?: number;
     domain?: string;
     path?: string;

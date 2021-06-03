@@ -1,6 +1,6 @@
-// Type definitions for DevExpress ASP.NET 201.5
+// Type definitions for DevExpress ASP.NET 202.5
 // Project: https://devexpress.com/
-// Definitions by: DevExpress Inc. <https://devexpress.com/>
+// Definitions by: DevExpress Inc. <https://github.com/DevExpress>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -44,13 +44,25 @@ declare class ASPxClientDiagram extends ASPxClientControl {
      */
     CustomShapeCreateTemplate: ASPxClientEvent<ASPxClientDiagramCustomShapeCreateTemplateEventHandler<ASPxClientDiagram>>;
     /**
+     * Allows you to create a template for custom shapes in the toolbox.
+     */
+    CustomShapeCreateToolboxTemplate: ASPxClientEvent<ASPxClientDiagramCustomShapeCreateTemplateEventHandler<ASPxClientDiagram>>;
+    /**
      * Fires after a diagram model's data (mapped to a data source) is changed and the client-server synchronization starts to apply the change on the server.
      */
     BeginSynchronization: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDiagram>>;
     /**
-     * Fires after a diagram model's data change is applied to the server and server and client document models have been synchronized.
+     * Fires after a diagram model's data change is applied to the server (the server and client document models have been synchronized).
      */
     EndSynchronization: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDiagram>>;
+    /**
+     * Allows you to prohibit an edit operation at run time.
+     */
+    RequestEditOperation: ASPxClientEvent<ASPxClientDiagramRequestEditOperationEventHandler<ASPxClientDiagram>>;
+    /**
+     * Focuses the Diagram control.
+     */
+    Focus(): void;
     /**
      * Imports the diagram data.
      * @param data The diagram data in JSON format.
@@ -76,6 +88,20 @@ declare class ASPxClientDiagram extends ASPxClientControl {
      * @param readOnly true to make the diagram read-only; otherwise, false.
      */
     SetReadOnly(readOnly: boolean): void;
+    /**
+     * Returns a value that indicates whether the control's status is read-only.
+     */
+    GetReadOnly(): boolean;
+    /**
+     * Returns a shape or connector object specified by its key. The DiagramShape or DiagramConnector object with the specified key.
+     * @param key The item key.
+     */
+    GetItemByKey(key: any): DiagramItem;
+    /**
+     * Returns a shape or connector object specified by its internal identifier. The DiagramShape or DiagramConnector object with the specified identifier.
+     * @param id The item identifier.
+     */
+    GetItemById(id: string): DiagramItem;
 }
 /**
  * A method that will handle the ItemClick and ItemDblClick events.
@@ -93,7 +119,7 @@ declare class ASPxClientDiagramItemClickEventArgs extends ASPxClientEventArgs {
      */
     constructor(item: DiagramItem);
     /**
-     * Gets an object that provides information about an item (shape or connector) related to the event.
+     * Gets an object that provides information about an item (DiagramShape or DiagramConnector) related to the event.
      */
     item: DiagramItem;
 }
@@ -113,7 +139,7 @@ declare class ASPxClientDiagramSelectionChangedEventArgs extends ASPxClientEvent
      */
     constructor(items: DiagramItem[]);
     /**
-     * Gets an array of the selected items (shapes or connectors).
+     * Gets an array of the selected items (DiagramShape or DiagramConnector objects).
      */
     items: DiagramItem[];
 }
@@ -134,13 +160,291 @@ declare class ASPxClientDiagramCustomShapeCreateTemplateEventArgs extends ASPxCl
      */
     constructor(container: any, item: DiagramShape);
     /**
-     * Returns a container for an instance of the template.
+     * Returns the template's container.
      */
     container: any;
     /**
      * Gets the currently processed diagram item.
      */
     item: DiagramShape;
+}
+/**
+ * A method that handles the client RequestEditOperation event.
+ * @param source The event's source.
+ * @param e An object that contains event data.
+ */
+interface ASPxClientDiagramRequestEditOperationEventHandler<Sender> { (source: Sender, e: ASPxClientDiagramRequestEditOperationEventArgs): void; }
+/**
+ * Provides data for the RequestEditOperation event.
+ */
+declare class ASPxClientDiagramRequestEditOperationEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramRequestEditOperationEventArgs class with specified settings.
+     * @param operation Identifies the operation currently being processed.
+     * @param allowed Specifies whether the edit operation is allowed.
+     * @param reason Identifies the reason why the event is raised.
+     * @param args Contains information about the processed shape or connector.
+     */
+    constructor(operation: DiagramEditOperation, allowed: boolean, reason: DiagramRequestEditOperationReason, args: any);
+    /**
+     * Identifies the operation currently being processed.
+     */
+    operation: DiagramEditOperation;
+    /**
+     * Specifies whether the edit operation is allowed.
+     */
+    allowed: boolean;
+    /**
+     * Identifies the reason why the event is raised.
+     */
+    reason: DiagramRequestEditOperationReason;
+    /**
+     * Contains information about the processed shape or connector.
+     */
+    args: any;
+}
+/**
+ * Contains information about the processed shape.
+ */
+declare class ASPxClientDiagramAddShapeEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramAddShapeEventArgs class with specified settings.
+     * @param shape The shape object.
+     * @param position An object that contains the shape coordinates.
+     */
+    constructor(shape: DiagramShape, position: any);
+    /**
+     * The processed shape.
+     */
+    shape: DiagramShape;
+    /**
+     * A position (x- and y-coordinates) where the shape is being added.
+     */
+    position: any;
+}
+/**
+ * Contains information about the processed shape.
+ */
+declare class ASPxClientDiagramAddShapeFromToolboxEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramAddShapeFromToolboxEventArgs class with specified settings.
+     * @param type The type of the processed shape.
+     */
+    constructor(type: string);
+    /**
+     * The type of the processed shape.
+     */
+    type: string;
+}
+/**
+ * Contains information about the processed shape.
+ */
+declare class ASPxClientDiagramDeleteShapeEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramDeleteShapeEventArgs class with specified settings.
+     * @param shape The shape object.
+     */
+    constructor(shape: DiagramShape);
+    /**
+     * The processed shape.
+     */
+    shape: DiagramShape;
+}
+/**
+ * Contains information about the processed connector.
+ */
+declare class ASPxClientDiagramDeleteConnectorEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramDeleteConnectorEventArgs class with specified settings.
+     * @param connector The connector object.
+     */
+    constructor(connector: DiagramConnector);
+    /**
+     * The processed connector.
+     */
+    connector: DiagramConnector;
+}
+/**
+ * Contains information about the processed connection.
+ */
+declare class ASPxClientDiagramChangeConnectionEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramChangeConnectionEventArgs class with specified settings.
+     * @param newShape The new connected shape.
+     * @param oldShape The previous connected shape.
+     * @param connector The processed connector.
+     * @param connectionPointIndex The index of the processed point in the shape's connection point collection.
+     * @param connectorPosition The position of the connector in the processed point.
+     */
+    constructor(newShape: DiagramShape, oldShape: DiagramShape, connector: DiagramConnector, connectionPointIndex: number, connectorPosition: string);
+    /**
+     * The new connected shape.
+     */
+    newShape: DiagramShape;
+    /**
+     * The previous connected shape.
+     */
+    oldShape: DiagramShape;
+    /**
+     * The processed connector.
+     */
+    connector: DiagramConnector;
+    /**
+     * The index of the processed point in the shape's connection point collection.
+     */
+    connectionPointIndex: number;
+    /**
+     * The position of the connector in the processed point.
+     */
+    position: string;
+}
+/**
+ * Contains information about the processed connector.
+ */
+declare class ASPxClientDiagramChangeConnectorPointsEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramChangeConnectorPointsEventArgs class with specified settings.
+     * @param connector The connector object.
+     * @param newPoints The array of new connector points.
+     * @param oldPoints The array of previous connection points.
+     */
+    constructor(connector: DiagramConnector, newPoints: any[], oldPoints: any[]);
+    /**
+     * The processed connector.
+     */
+    connector: DiagramConnector;
+    /**
+     * The array of new connector points.
+     */
+    newPoints: any[];
+    /**
+     * The array of previous connection points.
+     */
+    oldPoints: any[];
+}
+/**
+ * Contains information about the processed shape.
+ */
+declare class ASPxClientDiagramBeforeChangeShapeTextEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramBeforeChangeShapeTextEventArgs class with specified settings.
+     * @param shape The shape object.
+     */
+    constructor(shape: DiagramShape);
+    /**
+     * The processed shape.
+     */
+    shape: DiagramShape;
+}
+/**
+ * Contains information about the processed shape.
+ */
+declare class ASPxClientDiagramChangeShapeTextEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramChangeShapeTextEventArgs class with specified settings.
+     * @param shape The shape object.
+     * @param text The new shape text.
+     */
+    constructor(shape: DiagramShape, text: string);
+    /**
+     * The processed shape.
+     */
+    shape: DiagramShape;
+    /**
+     * The new shape text.
+     */
+    text: string;
+}
+/**
+ * Contains information about the processed connector.
+ */
+declare class ASPxClientDiagramBeforeChangeConnectorTextEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramBeforeChangeConnectorTextEventArgs class with specified settings.
+     * @param connector The connector object.
+     * @param index The index of the processed text in the connector's texts collection.
+     */
+    constructor(connector: DiagramConnector, index: number);
+    /**
+     * The processed connector.
+     */
+    connector: DiagramConnector;
+    /**
+     * The index of the processed text in the connector's texts collection.
+     */
+    index: number;
+}
+/**
+ * Contains information about the processed connector.
+ */
+declare class ASPxClientDiagramChangeConnectorTextEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramChangeConnectorTextEventArgs class with specified settings.
+     * @param connector The connector object.
+     * @param index The index of the processed text in the connector's texts collection.
+     * @param text The new connector text.
+     */
+    constructor(connector: DiagramConnector, index: number, text: string);
+    /**
+     * The processed connector.
+     */
+    connector: DiagramConnector;
+    /**
+     * The index of the processed text in the connector's texts collection.
+     */
+    index: number;
+    /**
+     * The new connector text.
+     */
+    text: string;
+}
+/**
+ * Contains information about the processed shape.
+ */
+declare class ASPxClientDiagramResizeShapeEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramResizeShapeEventArgs class with specified settings.
+     * @param shape The shape object.
+     * @param newSize An object that contains the new shape size.
+     * @param oldSize An object that contains the previous shape size.
+     */
+    constructor(shape: DiagramShape, newSize: any, oldSize: any);
+    /**
+     * The processed shape.
+     */
+    shape: DiagramShape;
+    /**
+     * The new shape size in units.
+     */
+    newSize: any;
+    /**
+     * The previous shape size in units.
+     */
+    oldSize: any;
+}
+/**
+ * Contains information about the processed shape.
+ */
+declare class ASPxClientDiagramMoveShapeEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramMoveShapeEventArgs class with specified settings.
+     * @param shape The processed shape.
+     * @param newPosition The new shape position (x- and y-coordinates).
+     * @param oldPosition The previous shape position (x- and y-coordinates).
+     */
+    constructor(shape: DiagramShape, newPosition: any, oldPosition: any);
+    /**
+     * The processed shape.
+     */
+    shape: DiagramShape;
+    /**
+     * The new shape position (x- and y-coordinates).
+     */
+    newPosition: any;
+    /**
+     * The previous shape position (x- and y-coordinates).
+     */
+    oldPosition: any;
 }
 /**
  * Provides information about an item (shape or connector).
@@ -171,6 +475,18 @@ declare class DiagramShape extends DiagramItem {
      * Gets the shape type.
      */
     type: string;
+    /**
+     * Specifies the shape position (x- and y-coordinates) in units.
+     */
+    position: any;
+    /**
+     * Specifies the shape size in units.
+     */
+    size: any;
+    /**
+     * Gets an array of attached connector identifiers.
+     */
+    attachedConnectorIds: string[];
 }
 /**
  * Provides information about a connector.
@@ -188,6 +504,92 @@ declare class DiagramConnector extends DiagramItem {
      * Gets the connector's end node key.
      */
     toKey: any;
+    /**
+     * Gets the connector's start node identifier.
+     */
+    fromId: string;
+    /**
+     * The index of a shape connection point where the connector starts.
+     */
+    fromPointIndex: number;
+    /**
+     * Gets the connector's end node identifier.
+     */
+    toId: string;
+    /**
+     * The index of the shape connection point where the connector ends.
+     */
+    toPointIndex: number;
+    /**
+     * Gets the connector's key points.
+     */
+    points: any[];
+}
+/**
+ * Declares client constants that identify diagram edit operations.
+ */
+declare class DiagramEditOperation {
+    /**
+     * Identifies the AddShape operation.
+     */
+    static readonly AddShape: string;
+    /**
+     * Identifies the AddShapeFromToolbox operation.
+     */
+    static readonly AddShapeFromToolbox: string;
+    /**
+     * Identifies the DeleteShape operation.
+     */
+    static readonly DeleteShape: string;
+    /**
+     * Identifies the DeleteConnector operation.
+     */
+    static readonly DeleteConnector: string;
+    /**
+     * Identifies the ChangeConnection operation.
+     */
+    static readonly ChangeConnection: string;
+    /**
+     * Identifies the ChangeConnectorPoints operation.
+     */
+    static readonly ChangeConnectorPoints: string;
+    /**
+     * Identifies the BeforeChangeShapeText operation.
+     */
+    static readonly BeforeChangeShapeText: string;
+    /**
+     * Identifies the ChangeShapeText operation.
+     */
+    static readonly ChangeShapeText: string;
+    /**
+     * Identifies the BeforeChangeConnectorText operation.
+     */
+    static readonly BeforeChangeConnectorText: string;
+    /**
+     * Identifies the ChangeConnectorText operation.
+     */
+    static readonly ChangeConnectorText: string;
+    /**
+     * Identifies the ResizeShape operation.
+     */
+    static readonly ResizeShape: string;
+    /**
+     * Identifies the MoveShape operation.
+     */
+    static readonly MoveShape: string;
+}
+/**
+ * Declares client constants that identify the reason the diagram requests an edit operation's availability.
+ */
+declare class DiagramRequestEditOperationReason {
+    /**
+     * Indicates that the control is updating the UI. Set the allowed property to `false` to hide the UI element associated with the specified operation.
+     */
+    static readonly CheckUIElementAvailability: string;
+    /**
+     * Indicates if a user attempts an edit operation. You can specify whether to allow the operation and display an error message if necessary.
+     */
+    static readonly ModelModification: string;
 }
 /**
  * Lists built-in shapes' types.
@@ -231,9 +633,6 @@ declare enum DiagramShapeType {
     StoredData = 32,
     Display = 33,
     Merge = 34,
-    /**
-     * The connector.
-     */
     Connector = 35,
     Or = 36,
     SummingJunction = 37,
@@ -2402,13 +2801,16 @@ declare class ASPxClientPivotMenuItemClickEventArgs extends ASPxClientEventArgs 
      */
     MenuItemName: string;
     /**
-     * Gets the field's unique indentifier.
+     * Gets the field's unique identifier.
      */
     FieldID: string;
     /**
      * Gets the index of the field value for which the popup menu has been invoked.
      */
     FieldValueIndex: number;
+    /**
+     * Gets the field's area.
+     */
     Area: string;
 }
 /**
@@ -3192,17 +3594,17 @@ declare class RichEditSelection {
      * Selects the table cell in which the cursor is located and allows you to extend the entire selection with the currently existing selection.
      * @param extendSelection true to extend the selection; otherwise, false.
      */
-    selectTableCell(extendSelection?: boolean): void;
+    selectTableCell(): void;
     /**
      * Selects the table row in which the cursor is located and allows you to extend the entire selection with the currently existing selection.
      * @param extendSelection true to extend the selection; otherwise, false.
      */
-    selectTableRow(extendSelection?: boolean): void;
+    selectTableRow(): void;
     /**
      * Selects the entire table in which the cursor is located and allows you to extend the entire selection with the currently existing selection.
      * @param extendSelection true to extend the selection; otherwise, false.
      */
-    selectTable(extendSelection?: boolean): void;
+    selectTable(): void;
     /**
      * Selects the editor's entire content.
      */
@@ -9730,11 +10132,16 @@ declare class ASPxClientRichEditContentRemovedEventArgs extends ASPxClientEventA
      */
     interval: Interval;
     /**
-     * Initializes a new instance of the ASPxClientRichEditContentRemovedEventArgs object. For internal use only.
-     * @param subDocumentId An identifier of a sub-document that contained the removed content.
-     * @param interval An interval object that relates to the removed content.
+     * Returns the recently removed text.
      */
-    constructor(subDocumentId: number, interval: Interval);
+    removedText: string;
+    /**
+     * Initializes a new instance of the ASPxClientRichEditContentRemovedEventArgs class with specified settings.
+     * @param subDocumentId Gets the active sub-document's identifier.
+     * @param interval Gets the text buffer interval related to the removed content.
+     * @param removedText Returns the recently removed text.
+     */
+    constructor(subDocumentId: number, interval: Interval, removedText: string);
 }
 /**
  * Provides data for the ASPxClientRichEdit.CustomCommandExecuted event.
@@ -10345,7 +10752,7 @@ declare class ASPxClientRichEdit extends ASPxClientControl {
      */
     DocumentFormatted: ASPxClientEvent<ASPxClientRichEditDocumentFormattedEventHandler>;
     /**
-     * Fires if an end user makes any change in the RichEdit's document on the client.
+     * Fires if any change is made to the RichEdit's document on the client.
      */
     DocumentChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientRichEdit>>;
     /**
@@ -10511,6 +10918,473 @@ declare class ASPxClientRichEdit extends ASPxClientControl {
     documentFormat: DocumentFormat;
 }
 
+/**
+ * A client point object.
+ */
+declare class ASPxClientPoint {
+    /**
+     * Initializes a new instance of the ASPxClientPoint object. For internal use only.
+     * @param x An integer value specifying the x-coordinate of the point.
+     * @param y An integer value specifying the y-coordinate of the point.
+     */
+    constructor(x: number, y: number);
+    /**
+     * Gets the point's X-coordinate.
+     */
+    GetX(): number;
+    /**
+     * Gets the point's Y-coordinate.
+     */
+    GetY(): number;
+}
+/**
+ * A client rectangle object.
+ */
+declare class ASPxClientRect {
+    /**
+     * Initializes a new instance of the ASPxClientRect object. For internal use only.
+     * @param x An integer value specifying the x-coordinate of the upper-left corner of the rectangle.
+     * @param y An integer value specifying the y-coordinate of the upper-left corner of the rectangle.
+     * @param width An integer value specifying the rectangle width.
+     * @param height An integer value specifying the rectangle height.
+     */
+    constructor(x: number, y: number, width: number, height: number);
+    /**
+     * Gets the X-coordinate of the rectangle's left edge.
+     */
+    GetLeft(): number;
+    /**
+     * Gets the X-coordinate of the rectangle's right edge.
+     */
+    GetRight(): number;
+    /**
+     * Gets the Y-coordinate of the rectangle's top edge.
+     */
+    GetTop(): number;
+    /**
+     * Gets the Y-coordinate of the rectangle's bottom edge.
+     */
+    GetBottom(): number;
+    /**
+     * Gets the rectangle's width.
+     */
+    GetWidth(): number;
+    /**
+     * Gets the rectangle's height.
+     */
+    GetHeight(): number;
+}
+/**
+ * Represents a client-side equivalent of the WeekDaysCheckEdit control.
+ */
+declare class ASPxClientWeekDaysCheckEdit extends ASPxClientControl {
+    /**
+     * Gets the selection state of the week day check boxes.
+     */
+    GetValue(): ASPxClientWeekDays;
+    /**
+     * Gets the selection state of the week day check boxes.
+     * @param value An ASPxClientWeekDays object specifying the selection state of the week day check boxes.
+     */
+    SetValue(value: ASPxClientWeekDays): void;
+}
+/**
+ * Represents a client-side equivalent of the RecurrenceRangeControl.
+ */
+declare class ASPxClientRecurrenceRangeControl extends ASPxClientControl {
+    /**
+     * Gets the type of the recurrence range.
+     */
+    GetRange(): ASPxClientRecurrenceRange;
+    /**
+     * Gets how many times the appointment occurs.
+     */
+    GetOccurrenceCount(): number;
+    /**
+     * Gets the recurrence end date.
+     */
+    GetEndDate(): Date;
+    /**
+     * Sets the type of the recurrence range.
+     * @param range An ASPxClientRecurrenceRangeenumeration value that specifies the recurrence range type.
+     */
+    SetRange(range: ASPxClientRecurrenceRange): void;
+    /**
+     * Sets how many times the appointment occurs.
+     * @param occurrenceCount An integer value that specifies how many times the appointment occurs.
+     */
+    SetOccurrenceCount(occurrenceCount: number): void;
+    /**
+     * Sets the recurrence end date.
+     * @param date A JavaScript Date object that specifies the end date for the recurrence.
+     */
+    SetEndDate(date: Date): void;
+}
+/**
+ * A base for client equivalents of recurrence controls available in the XtraScheduler library.
+ */
+declare class ASPxClientRecurrenceControlBase extends ASPxClientControl {
+    /**
+     * Returns an object providing access to the ASPxClientRecurrenceControlBase control's editor values.
+     */
+    CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
+    /**
+     * Updates values of editors displayed by the ASPxClientRecurrenceControlBase control.
+     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
+     */
+    Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
+}
+/**
+ * Represents a client-side equivalent of the DailyRecurrenceControl - a control for specifying the daily recurrence.
+ */
+declare class ASPxClientDailyRecurrenceControl extends ASPxClientRecurrenceControlBase {
+    /**
+     * Returns an object providing access to the ASPxClientDailyRecurrenceControl's editor values.
+     */
+    CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
+    /**
+     * Updates values of editors displayed by the ASPxClientDailyRecurrenceControl.
+     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
+     */
+    Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
+}
+/**
+ * Represents a client-side equivalent of the WeeklyRecurrenceControl.
+ */
+declare class ASPxClientWeeklyRecurrenceControl extends ASPxClientRecurrenceControlBase {
+    /**
+     * Returns an object providing access to the ASPxClientWeeklyRecurrenceControl's editor values.
+     */
+    CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
+    /**
+     * Updates values of editors displayed by the ASPxClientWeeklyRecurrenceControl.
+     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
+     */
+    Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
+}
+/**
+ * Represents a client-side equivalent of the MonthlyRecurrenceControl.
+ */
+declare class ASPxClientMonthlyRecurrenceControl extends ASPxClientRecurrenceControlBase {
+    /**
+     * Returns an object providing access to the ASPxClientMonthlyRecurrenceControl's editor values.
+     */
+    CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
+    /**
+     * Updates values of editors displayed by the ASPxClientMonthlyRecurrenceControll.
+     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
+     */
+    Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
+}
+/**
+ * Represents a client-side equivalent of the YearlyRecurrenceControl.
+ */
+declare class ASPxClientYearlyRecurrenceControl extends ASPxClientRecurrenceControlBase {
+    /**
+     * Returns an object providing access to the ASPxClientYearlyRecurrenceControl's editor values.
+     */
+    CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
+    /**
+     * Updates values of editors displayed by the ASPxClientYearlyRecurrenceControl.
+     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
+     */
+    Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
+}
+/**
+ * An object providing access to an ASPxClientRecurrenceControlBase control's editor values.
+ */
+declare class DefaultRecurrenceRuleValuesAccessor {
+    /**
+     * Initializes a new instance of the DefaultRecurrenceRuleValuesAccessor object. For internal use only.
+     */
+    constructor(recurrenceControl: ASPxClientRecurrenceControlBase);
+    /**
+     * Get the frequency with which the appointment occurs with respect to the appointment's recurrence type.
+     */
+    GetPeriodicity(): number;
+    /**
+     * Gets the number of the month's day in which the appointment is scheduled.
+     */
+    GetDayNumber(): number;
+    /**
+     * Gets or sets the month's number.
+     */
+    GetMonth(): number;
+    /**
+     * Gets the days of the week on which a weekly recurrent appointment is scheduled.
+     */
+    GetWeekDays(): ASPxClientWeekDays;
+    /**
+     * Gets the number of the week in a month when an appointment is scheduled.
+     */
+    GetWeekOfMonth(): ASPxClientWeekOfMonth;
+}
+/**
+ * An object providing access to an ASPxClientDailyRecurrenceControl's editor values.
+ */
+declare class DailyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
+    /**
+     * Initializes a new instance of the DailyRecurrenceValuesAccessor object. For internal use only.
+     * @param recurrenceControl A ASPxClientRecurrenceControlBase object specifying the required recurrence control.
+     */
+    constructor(recurrenceControl: ASPxClientRecurrenceControlBase);
+    /**
+     * Gets the number of days between appointment occurrences.
+     */
+    GetPeriodicity(): number;
+    /**
+     * Gets the days of the week to which a daily recurrent appointment is scheduled.
+     */
+    GetWeekDays(): ASPxClientWeekDays;
+}
+/**
+ * An object providing access to an ASPxClientWeeklyRecurrenceControl's editor values.
+ */
+declare class WeeklyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
+    /**
+     * Initializes a new instance of the WeeklyRecurrenceValuesAccessor object. For internal use only.
+     * @param recurrenceControl A ASPxClientRecurrenceControlBase object specifying the required recurrence control.
+     */
+    constructor(recurrenceControl: ASPxClientRecurrenceControlBase);
+    /**
+     * Gets the number of weeks between appointment occurrences.
+     */
+    GetPeriodicity(): number;
+    /**
+     * Gets the days of the week on which a weekly recurrent appointment is scheduled.
+     */
+    GetWeekDays(): ASPxClientWeekDays;
+}
+/**
+ * An object providing access to an ASPxClientMonthlyRecurrenceControl's editor values.
+ */
+declare class MonthlyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
+    /**
+     * Initializes a new instance of the MonthlyRecurrenceValuesAccessor object. For internal use only.
+     * @param recurrenceControl A ASPxClientRecurrenceControlBase object specifying the required recurrence control.
+     */
+    constructor(recurrenceControl: ASPxClientRecurrenceControlBase);
+    /**
+     * Gets the day of the month on which the appointment is scheduled.
+     */
+    GetDayNumber(): number;
+    /**
+     * Gets the number of months between appointment occurrences.
+     */
+    GetPeriodicity(): number;
+    /**
+     * Gets the days of the week on which a monthly recurrent appointment is scheduled.
+     */
+    GetWeekDays(): ASPxClientWeekDays;
+    /**
+     * Gets the number of the week in a month when an appointment is scheduled.
+     */
+    GetWeekOfMonth(): ASPxClientWeekOfMonth;
+}
+/**
+ * An object providing access to an ASPxClientYearlyRecurrenceControl's editor values.
+ */
+declare class YearlyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
+    /**
+     * Initializes a new instance of the YearlyRecurrenceValuesAccessor object. For internal use only.
+     * @param recurrenceControl A ASPxClientRecurrenceControlBase object specifying the required recurrence control.
+     */
+    constructor(recurrenceControl: ASPxClientRecurrenceControlBase);
+    /**
+     * Gets the day of the month on which the appointment is scheduled.
+     */
+    GetDayNumber(): number;
+    /**
+     * Gets or sets the month's number.
+     */
+    GetMonth(): number;
+    /**
+     * Gets the days of the week on which a yearly recurrent appointment is scheduled.
+     */
+    GetWeekDays(): ASPxClientWeekDays;
+    /**
+     * Gets or sets the number of a week in a month when an appointment is scheduled.
+     */
+    GetWeekOfMonth(): ASPxClientWeekOfMonth;
+}
+/**
+ * Provides base functionality for the ASPxClientScheduler's forms.
+ */
+declare class ASPxClientFormBase {
+    /**
+     * Closes the form.
+     */
+    Close(): void;
+    /**
+     * Occurs when the form has been closed.
+     */
+    FormClosed: ASPxClientEvent<ASPxClientEventHandler<ASPxClientFormBase>>;
+    /**
+     * Sets the visibility state of the specified form element.
+     * @param element An object specifying the element whose visibility state should be changed.
+     * @param isVisible true to display the element; false to hide the element.
+     */
+    SetVisibleCore(element: any, isVisible: boolean): void;
+}
+/**
+ * Represents a client-side equivalent of the RecurrenceTypeEdit.
+ */
+declare class ASPxClientRecurrenceTypeEdit extends ASPxClientRadioButtonList {
+    /**
+     * Gets the selected recurrence type.
+     */
+    GetRecurrenceType(): ASPxClientRecurrenceType;
+    /**
+     * Sets the selected recurrence type.
+     * @param recurrenceType An ASPxClientRecurrenceType enumeration value.
+     */
+    SetRecurrenceType(recurrenceType: ASPxClientRecurrenceType): void;
+}
+/**
+ * Contains lists of property names for different appointment types.
+ */
+declare class AppointmentPropertyNames {
+    /**
+     * Gets the list of properties characteristic for appointments of the ASPxAppointmentType.Normal type.
+     */
+    Normal: string;
+    /**
+     * Gets the list of properties characteristic for appointments of the ASPxAppointmentType.Pattern type.
+     */
+    Pattern: string;
+}
+/**
+ * Contains information about a client tooltip.
+ */
+declare class ASPxClientSchedulerToolTipData {
+    /**
+     * Returns the client appointment for which the tooltip is displayed.
+     */
+    GetAppointment(): ASPxClientAppointment;
+    /**
+     * Returns the client time interval for which the tooltip is displayed.
+     */
+    GetInterval(): ASPxClientTimeInterval;
+    /**
+     * Returns the resources associated with the appointment for which the tooltip is displayed.
+     */
+    GetResources(): string[];
+}
+/**
+ * A client-side equivalent of the ASPxSchedulerToolTipBase control.
+ */
+declare class ASPxClientToolTipBase {
+    /**
+     * Returns the value that indicates whether or not the tooltip can be displayed.
+     */
+    CanShowToolTip(): boolean;
+    /**
+     * Ends updating the tooltip content.
+     * @param toolTipData An ASPxClientSchedulerToolTipData object providing data required to update the tooltip content.
+     */
+    FinalizeUpdate(toolTipData: ASPxClientSchedulerToolTipData): void;
+    /**
+     * Updates the tooltip content.
+     * @param toolTipData An ASPxClientSchedulerToolTipData object providing data required to update the tooltip content.
+     */
+    Update(toolTipData: ASPxClientSchedulerToolTipData): void;
+    /**
+     * Closes the tooltip.
+     */
+    Close(): void;
+    /**
+     * Gets the tooltip position. An ASPxClientPoint object representing the tooltip position.
+     * @param bounds An object that represents the tooltip bounds.
+     */
+    CalculatePosition(bounds: any): ASPxClientPoint;
+    /**
+     * Displays the Appointment Menu at the position of the tooltip.
+     * @param eventObject An object containing information about the event in which the menu is displayed.
+     */
+    ShowAppointmentMenu(eventObject: any): void;
+    /**
+     * Displays the View Menu at the position of the tooltip.
+     * @param eventObject An object containing information about the event in which the menu is displayed.
+     */
+    ShowViewMenu(eventObject: any): void;
+    /**
+     * Returns the string representation of the specified interval. A string containing a textual representation of the interval.
+     * @param interval An ASPxClientTimeInterval object to convert.
+     */
+    ConvertIntervalToString(interval: ASPxClientTimeInterval): string;
+}
+/**
+ * Represents the client-side equivalent of the ASPxSchedulerStorageControl control.
+ */
+declare class ASPxClientSchedulerStorageControl extends ASPxClientControl {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientSchedulerStorageControl>>;
+    /**
+     * Occurs on the client side after a callback's server-side processing has been completed.
+     */
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientSchedulerStorageControl>>;
+    /**
+     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientSchedulerStorageControl.
+     */
+    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientSchedulerStorageControl>>;
+    /**
+     * Occurs when a reminder is invoked.
+     */
+    ReminderAlert: ASPxClientEvent<ReminderAlertEventHandler<ASPxClientSchedulerStorageControl>>;
+    /**
+     * Retrieves the collection of appointments that are in the specified time interval and are assigned to the specified resources.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     * @param interval An ASPxClientTimeInterval object specifying the required time interval.
+     * @param resources An array of string values representing the resources' IDs.
+     */
+    GetAppointments(onSuccess: (arg: string) => void, interval: ASPxClientTimeInterval, resources?: string[]): void;
+    /**
+     * Client-side function that returns an appointment with the specified ID.
+     * @param onSuccess A handler of a function which will receive and process the appointments.
+     * @param appointmentId An appointment's identifier.
+     */
+    GetAppointmentById(onSuccess: (arg: string) => void, appointmentId: string): void;
+    /**
+     * Retrieves the collection of resources.
+     * @param onSuccess A client action to perform if the server round-trip has completed successfully.
+     */
+    GetResources(onSuccess: (arg: string) => void): void;
+    /**
+     * Returns the resource by its ID.
+     * @param onSuccess A handler of a function which will receive and process the properties' values.
+     * @param resourceId A string value specifying the resource ID.
+     */
+    GetResourceById(onSuccess: (arg: string) => void, resourceId: string): void;
+    /**
+     * Client-side scripting method to insert the specified appointment.
+     * @param appointment An ASPxClientAppointment object representing the client-side appointment.
+     */
+    InsertAppointment(appointment: ASPxClientAppointment): void;
+    /**
+     * Client-side scripting method to update the specified appointment.
+     * @param appointment An ASPxClientAppointment object representing the client-side appointment.
+     */
+    UpdateAppointment(appointment: ASPxClientAppointment): void;
+    /**
+     * Client-side scripting  method to delete the specified appointment.
+     * @param appointment An ASPxClientAppointment object representing the client-side appointment.
+     */
+    DeleteAppointment(appointment: ASPxClientAppointment): void;
+    /**
+     * Dismisses all reminders.
+     */
+    DismissAllReminders(): void;
+    /**
+     * Snoozes all reminders.
+     */
+    SnoozeAllReminders(): void;
+    /**
+     * Client-side scripting method which initiates a round trip to the server, so that the control will be reloaded.
+     */
+    Refresh(): void;
+}
 /**
  * Holds the information that determines what action types can be performed for appointments.
  */
@@ -12016,328 +12890,6 @@ declare class ASPxClientTimeInterval {
     static CalculateDuration(start: Date, end: Date): number;
 }
 /**
- * A client point object.
- */
-declare class ASPxClientPoint {
-    /**
-     * Initializes a new instance of the ASPxClientPoint object. For internal use only.
-     * @param x An integer value specifying the x-coordinate of the point.
-     * @param y An integer value specifying the y-coordinate of the point.
-     */
-    constructor(x: number, y: number);
-    /**
-     * Gets the point's X-coordinate.
-     */
-    GetX(): number;
-    /**
-     * Gets the point's Y-coordinate.
-     */
-    GetY(): number;
-}
-/**
- * A client rectangle object.
- */
-declare class ASPxClientRect {
-    /**
-     * Initializes a new instance of the ASPxClientRect object. For internal use only.
-     * @param x An integer value specifying the x-coordinate of the upper-left corner of the rectangle.
-     * @param y An integer value specifying the y-coordinate of the upper-left corner of the rectangle.
-     * @param width An integer value specifying the rectangle width.
-     * @param height An integer value specifying the rectangle height.
-     */
-    constructor(x: number, y: number, width: number, height: number);
-    /**
-     * Gets the X-coordinate of the rectangle's left edge.
-     */
-    GetLeft(): number;
-    /**
-     * Gets the X-coordinate of the rectangle's right edge.
-     */
-    GetRight(): number;
-    /**
-     * Gets the Y-coordinate of the rectangle's top edge.
-     */
-    GetTop(): number;
-    /**
-     * Gets the Y-coordinate of the rectangle's bottom edge.
-     */
-    GetBottom(): number;
-    /**
-     * Gets the rectangle's width.
-     */
-    GetWidth(): number;
-    /**
-     * Gets the rectangle's height.
-     */
-    GetHeight(): number;
-}
-/**
- * Represents a client-side equivalent of the WeekDaysCheckEdit control.
- */
-declare class ASPxClientWeekDaysCheckEdit extends ASPxClientControl {
-    /**
-     * Gets the selection state of the week day check boxes.
-     */
-    GetValue(): ASPxClientWeekDays;
-    /**
-     * Gets the selection state of the week day check boxes.
-     * @param value An ASPxClientWeekDays object specifying the selection state of the week day check boxes.
-     */
-    SetValue(value: ASPxClientWeekDays): void;
-}
-/**
- * Represents a client-side equivalent of the RecurrenceRangeControl.
- */
-declare class ASPxClientRecurrenceRangeControl extends ASPxClientControl {
-    /**
-     * Gets the type of the recurrence range.
-     */
-    GetRange(): ASPxClientRecurrenceRange;
-    /**
-     * Gets how many times the appointment occurs.
-     */
-    GetOccurrenceCount(): number;
-    /**
-     * Gets the recurrence end date.
-     */
-    GetEndDate(): Date;
-    /**
-     * Sets the type of the recurrence range.
-     * @param range An ASPxClientRecurrenceRangeenumeration value that specifies the recurrence range type.
-     */
-    SetRange(range: ASPxClientRecurrenceRange): void;
-    /**
-     * Sets how many times the appointment occurs.
-     * @param occurrenceCount An integer value that specifies how many times the appointment occurs.
-     */
-    SetOccurrenceCount(occurrenceCount: number): void;
-    /**
-     * Sets the recurrence end date.
-     * @param date A JavaScript Date object that specifies the end date for the recurrence.
-     */
-    SetEndDate(date: Date): void;
-}
-/**
- * A base for client equivalents of recurrence controls available in the XtraScheduler library.
- */
-declare class ASPxClientRecurrenceControlBase extends ASPxClientControl {
-    /**
-     * Returns an object providing access to the ASPxClientRecurrenceControlBase control's editor values.
-     */
-    CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
-    /**
-     * Updates values of editors displayed by the ASPxClientRecurrenceControlBase control.
-     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
-     */
-    Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
-}
-/**
- * Represents a client-side equivalent of the DailyRecurrenceControl - a control for specifying the daily recurrence.
- */
-declare class ASPxClientDailyRecurrenceControl extends ASPxClientRecurrenceControlBase {
-    /**
-     * Returns an object providing access to the ASPxClientDailyRecurrenceControl's editor values.
-     */
-    CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
-    /**
-     * Updates values of editors displayed by the ASPxClientDailyRecurrenceControl.
-     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
-     */
-    Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
-}
-/**
- * Represents a client-side equivalent of the WeeklyRecurrenceControl.
- */
-declare class ASPxClientWeeklyRecurrenceControl extends ASPxClientRecurrenceControlBase {
-    /**
-     * Returns an object providing access to the ASPxClientWeeklyRecurrenceControl's editor values.
-     */
-    CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
-    /**
-     * Updates values of editors displayed by the ASPxClientWeeklyRecurrenceControl.
-     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
-     */
-    Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
-}
-/**
- * Represents a client-side equivalent of the MonthlyRecurrenceControl.
- */
-declare class ASPxClientMonthlyRecurrenceControl extends ASPxClientRecurrenceControlBase {
-    /**
-     * Returns an object providing access to the ASPxClientMonthlyRecurrenceControl's editor values.
-     */
-    CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
-    /**
-     * Updates values of editors displayed by the ASPxClientMonthlyRecurrenceControll.
-     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
-     */
-    Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
-}
-/**
- * Represents a client-side equivalent of the YearlyRecurrenceControl.
- */
-declare class ASPxClientYearlyRecurrenceControl extends ASPxClientRecurrenceControlBase {
-    /**
-     * Returns an object providing access to the ASPxClientYearlyRecurrenceControl's editor values.
-     */
-    CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
-    /**
-     * Updates values of editors displayed by the ASPxClientYearlyRecurrenceControl.
-     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
-     */
-    Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
-}
-/**
- * An object providing access to an ASPxClientRecurrenceControlBase control's editor values.
- */
-declare class DefaultRecurrenceRuleValuesAccessor {
-    /**
-     * Initializes a new instance of the DefaultRecurrenceRuleValuesAccessor object. For internal use only.
-     */
-    constructor(recurrenceControl: ASPxClientRecurrenceControlBase);
-    /**
-     * Get the frequency with which the appointment occurs with respect to the appointment's recurrence type.
-     */
-    GetPeriodicity(): number;
-    /**
-     * Gets the number of the month's day in which the appointment is scheduled.
-     */
-    GetDayNumber(): number;
-    /**
-     * Gets or sets the month's number.
-     */
-    GetMonth(): number;
-    /**
-     * Gets the days of the week on which a weekly recurrent appointment is scheduled.
-     */
-    GetWeekDays(): ASPxClientWeekDays;
-    /**
-     * Gets the number of the week in a month when an appointment is scheduled.
-     */
-    GetWeekOfMonth(): ASPxClientWeekOfMonth;
-}
-/**
- * An object providing access to an ASPxClientDailyRecurrenceControl's editor values.
- */
-declare class DailyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
-    /**
-     * Initializes a new instance of the DailyRecurrenceValuesAccessor object. For internal use only.
-     * @param recurrenceControl A ASPxClientRecurrenceControlBase object specifying the required recurrence control.
-     */
-    constructor(recurrenceControl: ASPxClientRecurrenceControlBase);
-    /**
-     * Gets the number of days between appointment occurrences.
-     */
-    GetPeriodicity(): number;
-    /**
-     * Gets the days of the week to which a daily recurrent appointment is scheduled.
-     */
-    GetWeekDays(): ASPxClientWeekDays;
-}
-/**
- * An object providing access to an ASPxClientWeeklyRecurrenceControl's editor values.
- */
-declare class WeeklyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
-    /**
-     * Initializes a new instance of the WeeklyRecurrenceValuesAccessor object. For internal use only.
-     * @param recurrenceControl A ASPxClientRecurrenceControlBase object specifying the required recurrence control.
-     */
-    constructor(recurrenceControl: ASPxClientRecurrenceControlBase);
-    /**
-     * Gets the number of weeks between appointment occurrences.
-     */
-    GetPeriodicity(): number;
-    /**
-     * Gets the days of the week on which a weekly recurrent appointment is scheduled.
-     */
-    GetWeekDays(): ASPxClientWeekDays;
-}
-/**
- * An object providing access to an ASPxClientMonthlyRecurrenceControl's editor values.
- */
-declare class MonthlyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
-    /**
-     * Initializes a new instance of the MonthlyRecurrenceValuesAccessor object. For internal use only.
-     * @param recurrenceControl A ASPxClientRecurrenceControlBase object specifying the required recurrence control.
-     */
-    constructor(recurrenceControl: ASPxClientRecurrenceControlBase);
-    /**
-     * Gets the day of the month on which the appointment is scheduled.
-     */
-    GetDayNumber(): number;
-    /**
-     * Gets the number of months between appointment occurrences.
-     */
-    GetPeriodicity(): number;
-    /**
-     * Gets the days of the week on which a monthly recurrent appointment is scheduled.
-     */
-    GetWeekDays(): ASPxClientWeekDays;
-    /**
-     * Gets the number of the week in a month when an appointment is scheduled.
-     */
-    GetWeekOfMonth(): ASPxClientWeekOfMonth;
-}
-/**
- * An object providing access to an ASPxClientYearlyRecurrenceControl's editor values.
- */
-declare class YearlyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
-    /**
-     * Initializes a new instance of the YearlyRecurrenceValuesAccessor object. For internal use only.
-     * @param recurrenceControl A ASPxClientRecurrenceControlBase object specifying the required recurrence control.
-     */
-    constructor(recurrenceControl: ASPxClientRecurrenceControlBase);
-    /**
-     * Gets the day of the month on which the appointment is scheduled.
-     */
-    GetDayNumber(): number;
-    /**
-     * Gets or sets the month's number.
-     */
-    GetMonth(): number;
-    /**
-     * Gets the days of the week on which a yearly recurrent appointment is scheduled.
-     */
-    GetWeekDays(): ASPxClientWeekDays;
-    /**
-     * Gets or sets the number of a week in a month when an appointment is scheduled.
-     */
-    GetWeekOfMonth(): ASPxClientWeekOfMonth;
-}
-/**
- * Provides base functionality for the ASPxClientScheduler's forms.
- */
-declare class ASPxClientFormBase {
-    /**
-     * Closes the form.
-     */
-    Close(): void;
-    /**
-     * Occurs when the form has been closed.
-     */
-    FormClosed: ASPxClientEvent<ASPxClientEventHandler<ASPxClientFormBase>>;
-    /**
-     * Sets the visibility state of the specified form element.
-     * @param element An object specifying the element whose visibility state should be changed.
-     * @param isVisible true to display the element; false to hide the element.
-     */
-    SetVisibleCore(element: any, isVisible: boolean): void;
-}
-/**
- * Represents a client-side equivalent of the RecurrenceTypeEdit.
- */
-declare class ASPxClientRecurrenceTypeEdit extends ASPxClientRadioButtonList {
-    /**
-     * Gets the selected recurrence type.
-     */
-    GetRecurrenceType(): ASPxClientRecurrenceType;
-    /**
-     * Sets the selected recurrence type.
-     * @param recurrenceType An ASPxClientRecurrenceType enumeration value.
-     */
-    SetRecurrenceType(recurrenceType: ASPxClientRecurrenceType): void;
-}
-/**
  * Represents the client-side equivalent of the ASPxDateNavigator control.
  */
 declare class ASPxClientDateNavigator extends ASPxClientControl {
@@ -12417,151 +12969,6 @@ declare class ASPxClientDateNavigatorSelectionChangedEventArgs extends ASPxClien
      * Returns the selected dates related to the event.
      */
     selectedDates: Date[];
-}
-/**
- * Contains lists of property names for different appointment types.
- */
-declare class AppointmentPropertyNames {
-    /**
-     * Gets the list of properties characteristic for appointments of the ASPxAppointmentType.Normal type.
-     */
-    Normal: string;
-    /**
-     * Gets the list of properties characteristic for appointments of the ASPxAppointmentType.Pattern type.
-     */
-    Pattern: string;
-}
-/**
- * Contains information about a client tooltip.
- */
-declare class ASPxClientSchedulerToolTipData {
-    /**
-     * Returns the client appointment for which the tooltip is displayed.
-     */
-    GetAppointment(): ASPxClientAppointment;
-    /**
-     * Returns the client time interval for which the tooltip is displayed.
-     */
-    GetInterval(): ASPxClientTimeInterval;
-    /**
-     * Returns the resources associated with the appointment for which the tooltip is displayed.
-     */
-    GetResources(): string[];
-}
-/**
- * A client-side equivalent of the ASPxSchedulerToolTipBase control.
- */
-declare class ASPxClientToolTipBase {
-    /**
-     * Returns the value that indicates whether or not the tooltip can be displayed.
-     */
-    CanShowToolTip(): boolean;
-    /**
-     * Ends updating the tooltip content.
-     * @param toolTipData An ASPxClientSchedulerToolTipData object providing data required to update the tooltip content.
-     */
-    FinalizeUpdate(toolTipData: ASPxClientSchedulerToolTipData): void;
-    /**
-     * Updates the tooltip content.
-     * @param toolTipData An ASPxClientSchedulerToolTipData object providing data required to update the tooltip content.
-     */
-    Update(toolTipData: ASPxClientSchedulerToolTipData): void;
-    /**
-     * Closes the tooltip.
-     */
-    Close(): void;
-    /**
-     * Gets the tooltip position. An ASPxClientPoint object representing the tooltip position.
-     * @param bounds An object that represents the tooltip bounds.
-     */
-    CalculatePosition(bounds: any): ASPxClientPoint;
-    /**
-     * Displays the Appointment Menu at the position of the tooltip.
-     * @param eventObject An object containing information about the event in which the menu is displayed.
-     */
-    ShowAppointmentMenu(eventObject: any): void;
-    /**
-     * Displays the View Menu at the position of the tooltip.
-     * @param eventObject An object containing information about the event in which the menu is displayed.
-     */
-    ShowViewMenu(eventObject: any): void;
-    /**
-     * Returns the string representation of the specified interval. A string containing a textual representation of the interval.
-     * @param interval An ASPxClientTimeInterval object to convert.
-     */
-    ConvertIntervalToString(interval: ASPxClientTimeInterval): string;
-}
-/**
- * Represents the client-side equivalent of the ASPxSchedulerStorageControl control.
- */
-declare class ASPxClientSchedulerStorageControl extends ASPxClientControl {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientSchedulerStorageControl>>;
-    /**
-     * Occurs on the client side after a callback's server-side processing has been completed.
-     */
-    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientSchedulerStorageControl>>;
-    /**
-     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientSchedulerStorageControl.
-     */
-    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientSchedulerStorageControl>>;
-    /**
-     * Occurs when a reminder is invoked.
-     */
-    ReminderAlert: ASPxClientEvent<ReminderAlertEventHandler<ASPxClientSchedulerStorageControl>>;
-    /**
-     * Retrieves the collection of appointments that are in the specified time interval and are assigned to the specified resources.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     * @param interval An ASPxClientTimeInterval object specifying the required time interval.
-     * @param resources An array of string values representing the resources' IDs.
-     */
-    GetAppointments(onSuccess: (arg: string) => void, interval: ASPxClientTimeInterval, resources?: string[]): void;
-    /**
-     * Client-side function that returns an appointment with the specified ID.
-     * @param onSuccess A handler of a function which will receive and process the appointments.
-     * @param appointmentId An appointment's identifier.
-     */
-    GetAppointmentById(onSuccess: (arg: string) => void, appointmentId: string): void;
-    /**
-     * Retrieves the collection of resources.
-     * @param onSuccess A client action to perform if the server round-trip has completed successfully.
-     */
-    GetResources(onSuccess: (arg: string) => void): void;
-    /**
-     * Returns the resource by its ID.
-     * @param onSuccess A handler of a function which will receive and process the properties' values.
-     * @param resourceId A string value specifying the resource ID.
-     */
-    GetResourceById(onSuccess: (arg: string) => void, resourceId: string): void;
-    /**
-     * Client-side scripting method to insert the specified appointment.
-     * @param appointment An ASPxClientAppointment object representing the client-side appointment.
-     */
-    InsertAppointment(appointment: ASPxClientAppointment): void;
-    /**
-     * Client-side scripting method to update the specified appointment.
-     * @param appointment An ASPxClientAppointment object representing the client-side appointment.
-     */
-    UpdateAppointment(appointment: ASPxClientAppointment): void;
-    /**
-     * Client-side scripting  method to delete the specified appointment.
-     * @param appointment An ASPxClientAppointment object representing the client-side appointment.
-     */
-    DeleteAppointment(appointment: ASPxClientAppointment): void;
-    /**
-     * Dismisses all reminders.
-     */
-    DismissAllReminders(): void;
-    /**
-     * Snoozes all reminders.
-     */
-    SnoozeAllReminders(): void;
-    /**
-     * Client-side scripting method which initiates a round trip to the server, so that the control will be reloaded.
-     */
-    Refresh(): void;
 }
 
 /**
@@ -12671,171 +13078,6 @@ declare class ASPxClientSpreadsheetRectangle {
      * Gets the x-coordinate of the specified cell's right side.
      */
     right: number;
-}
-/**
- * A method that will handle the ASPxClientSpreadsheet.CellBeginEdit event.
- * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
- * @param e A ASPxClientSpreadsheetCellBeginEditEventArgs object that contains event data.
- */
-interface ASPxClientSpreadsheetCellBeginEditEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetCellBeginEditEventArgs): void; }
-/**
- * Provides data for the ASPxClientSpreadsheet.CellBeginEdit event.
- */
-declare class ASPxClientSpreadsheetCellBeginEditEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientSpreadsheetCellBeginEditEventArgs class with specified settings.
-     * @param columnIndex The active cell's column index.
-     * @param rowIndex The active cell's row index.
-     * @param formula The active cell's formula.
-     * @param value The active cell's current value.
-     * @param displayText The text displayed in the active cell.
-     * @param sheetName The current worksheet's name.
-     */
-    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, displayText: string, sheetName: string);
-    /**
-     * Gets the active cell's column index.
-     */
-    columnIndex: number;
-    /**
-     * Gets the active cell's row index.
-     */
-    rowIndex: number;
-    /**
-     * Gets the active cell's formula.
-     */
-    formula: string;
-    /**
-     * Gets the active cell's current value.
-     */
-    value: string;
-    /**
-     * Specifies the text displayed in the processed cell.
-     */
-    displayText: string;
-    /**
-     * Gets the current worksheet's name.
-     */
-    sheetName: string;
-}
-/**
- * A method that will handle the ASPxClientSpreadsheet.CellEndEdit event.
- * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
- * @param e A ASPxClientSpreadsheetCellEndEditEventArgs object that contains event data.
- */
-interface ASPxClientSpreadsheetCellEndEditEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetCellEndEditEventArgs): void; }
-/**
- * Provides data for the ASPxClientSpreadsheet.CellEndEdit event.
- */
-declare class ASPxClientSpreadsheetCellEndEditEventArgs extends ASPxClientSpreadsheetCellBeginEditEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientSpreadsheetCellEndEditEventArgs class with specified settings.
-     * @param columnIndex The active cell's column index.
-     * @param rowIndex The active cell's row index.
-     * @param formula The active cell's formula.
-     * @param value The active cell's current value.
-     * @param displayText The text displayed in the active cell.
-     * @param sheetName The current worksheet's name.
-     * @param editorText The text stored in the active cell's editor.
-     */
-    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, displayText: string, sheetName: string, editorText: string);
-    /**
-     * Gets or sets the text stored within the active cell's editor.
-     */
-    editorText: string;
-}
-/**
- * A method that will handle the ASPxClientSpreadsheet.CellCancelEdit event.
- * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
- * @param e A ASPxClientSpreadsheetCellCancelEditEventArgs object that contains event data.
- */
-interface ASPxClientSpreadsheetCellCancelEditEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetCellCancelEditEventArgs): void; }
-/**
- * Provides data for the ASPxClientSpreadsheet.CellCancelEdit event.
- */
-declare class ASPxClientSpreadsheetCellCancelEditEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientSpreadsheetCellCancelEditEventArgs class with specified settings.
-     * @param columnIndex The active cell's column index.
-     * @param rowIndex The active cell's row index.
-     * @param formula The active cell's formula.
-     * @param value The active cell's current value.
-     * @param displayText The text displayed in the active cell.
-     * @param sheetName The current worksheet's name.
-     */
-    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, displayText: string, sheetName: string);
-    /**
-     * Gets the active cell's column index.
-     */
-    columnIndex: number;
-    /**
-     * Gets the active cell's row index.
-     */
-    rowIndex: number;
-    /**
-     * Gets the active cell's formula.
-     */
-    formula: string;
-    /**
-     * Gets the active cell's current value.
-     */
-    value: string;
-    /**
-     * Specifies the text displayed in the processed cell.
-     */
-    displayText: string;
-    /**
-     * Gets the current worksheet's name.
-     */
-    sheetName: string;
-}
-/**
- * A method that will handle the ASPxClientSpreadsheet.SelectionChanged event.
- * @param source An object representing the event source. Identifies the button editor that raised the event.
- * @param e An ASPxClientSpreadsheetSelectionChangedEventArgs object that contains event data.
- */
-interface ASPxClientSpreadsheetSelectionChangedEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetSelectionChangedEventArgs): void; }
-/**
- * Provides data for the ASPxClientSpreadsheet.SelectionChanged event.
- */
-declare class ASPxClientSpreadsheetSelectionChangedEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientSpreadsheetSelectionChangedEventArgs within the specified setting.
-     * @param selection An ASPxClientSpreadsheetSelection object defining the selection in the Spreadsheet.
-     */
-    constructor(selection: ASPxClientSpreadsheetSelection);
-    /**
-     * Gets an object that determines the currently selected region within the Spreadsheet.
-     */
-    selection: ASPxClientSpreadsheetSelection;
-}
-/**
- * Represents the selection in the Spreadsheet.
- */
-declare class ASPxClientSpreadsheetSelection {
-    /**
-     * Gets the column index of the active cell.
-     */
-    activeCellColumnIndex: number;
-    /**
-     * Gets the row index of the active cell.
-     */
-    activeCellRowIndex: number;
-    /**
-     * Gets the index of the selection's left column.
-     */
-    leftColumnIndex: number;
-    /**
-     * Gets the index of the selection's top row.
-     */
-    topRowIndex: number;
-    /**
-     * Gets the index of the selection's right column.
-     */
-    rightColumnIndex: number;
-    /**
-     * Gets the index of the selection's bottom row.
-     */
-    bottomRowIndex: number;
 }
 /**
  * A method that will handle the ASPxClientSpreadsheet.CustomCommandExecuted event.
@@ -13140,6 +13382,171 @@ declare class ASPxClientSpreadsheet extends ASPxClientControl {
      * @param obj The client object to be type cast.
      */
     static Cast(obj: any): ASPxClientSpreadsheet;
+}
+/**
+ * A method that will handle the ASPxClientSpreadsheet.CellBeginEdit event.
+ * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
+ * @param e A ASPxClientSpreadsheetCellBeginEditEventArgs object that contains event data.
+ */
+interface ASPxClientSpreadsheetCellBeginEditEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetCellBeginEditEventArgs): void; }
+/**
+ * Provides data for the ASPxClientSpreadsheet.CellBeginEdit event.
+ */
+declare class ASPxClientSpreadsheetCellBeginEditEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientSpreadsheetCellBeginEditEventArgs class with specified settings.
+     * @param columnIndex The active cell's column index.
+     * @param rowIndex The active cell's row index.
+     * @param formula The active cell's formula.
+     * @param value The active cell's current value.
+     * @param displayText The text displayed in the active cell.
+     * @param sheetName The current worksheet's name.
+     */
+    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, displayText: string, sheetName: string);
+    /**
+     * Gets the active cell's column index.
+     */
+    columnIndex: number;
+    /**
+     * Gets the active cell's row index.
+     */
+    rowIndex: number;
+    /**
+     * Gets the active cell's formula.
+     */
+    formula: string;
+    /**
+     * Gets the active cell's current value.
+     */
+    value: string;
+    /**
+     * Specifies the text displayed in the processed cell.
+     */
+    displayText: string;
+    /**
+     * Gets the current worksheet's name.
+     */
+    sheetName: string;
+}
+/**
+ * A method that will handle the ASPxClientSpreadsheet.CellEndEdit event.
+ * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
+ * @param e A ASPxClientSpreadsheetCellEndEditEventArgs object that contains event data.
+ */
+interface ASPxClientSpreadsheetCellEndEditEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetCellEndEditEventArgs): void; }
+/**
+ * Provides data for the ASPxClientSpreadsheet.CellEndEdit event.
+ */
+declare class ASPxClientSpreadsheetCellEndEditEventArgs extends ASPxClientSpreadsheetCellBeginEditEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientSpreadsheetCellEndEditEventArgs class with specified settings.
+     * @param columnIndex The active cell's column index.
+     * @param rowIndex The active cell's row index.
+     * @param formula The active cell's formula.
+     * @param value The active cell's current value.
+     * @param displayText The text displayed in the active cell.
+     * @param sheetName The current worksheet's name.
+     * @param editorText The text stored in the active cell's editor.
+     */
+    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, displayText: string, sheetName: string, editorText: string);
+    /**
+     * Gets or sets the text stored within the active cell's editor.
+     */
+    editorText: string;
+}
+/**
+ * A method that will handle the ASPxClientSpreadsheet.CellCancelEdit event.
+ * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
+ * @param e A ASPxClientSpreadsheetCellCancelEditEventArgs object that contains event data.
+ */
+interface ASPxClientSpreadsheetCellCancelEditEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetCellCancelEditEventArgs): void; }
+/**
+ * Provides data for the ASPxClientSpreadsheet.CellCancelEdit event.
+ */
+declare class ASPxClientSpreadsheetCellCancelEditEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientSpreadsheetCellCancelEditEventArgs class with specified settings.
+     * @param columnIndex The active cell's column index.
+     * @param rowIndex The active cell's row index.
+     * @param formula The active cell's formula.
+     * @param value The active cell's current value.
+     * @param displayText The text displayed in the active cell.
+     * @param sheetName The current worksheet's name.
+     */
+    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, displayText: string, sheetName: string);
+    /**
+     * Gets the active cell's column index.
+     */
+    columnIndex: number;
+    /**
+     * Gets the active cell's row index.
+     */
+    rowIndex: number;
+    /**
+     * Gets the active cell's formula.
+     */
+    formula: string;
+    /**
+     * Gets the active cell's current value.
+     */
+    value: string;
+    /**
+     * Specifies the text displayed in the processed cell.
+     */
+    displayText: string;
+    /**
+     * Gets the current worksheet's name.
+     */
+    sheetName: string;
+}
+/**
+ * A method that will handle the ASPxClientSpreadsheet.SelectionChanged event.
+ * @param source An object representing the event source. Identifies the button editor that raised the event.
+ * @param e An ASPxClientSpreadsheetSelectionChangedEventArgs object that contains event data.
+ */
+interface ASPxClientSpreadsheetSelectionChangedEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetSelectionChangedEventArgs): void; }
+/**
+ * Provides data for the ASPxClientSpreadsheet.SelectionChanged event.
+ */
+declare class ASPxClientSpreadsheetSelectionChangedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientSpreadsheetSelectionChangedEventArgs within the specified setting.
+     * @param selection An ASPxClientSpreadsheetSelection object defining the selection in the Spreadsheet.
+     */
+    constructor(selection: ASPxClientSpreadsheetSelection);
+    /**
+     * Gets an object that determines the currently selected region within the Spreadsheet.
+     */
+    selection: ASPxClientSpreadsheetSelection;
+}
+/**
+ * Represents the selection in the Spreadsheet.
+ */
+declare class ASPxClientSpreadsheetSelection {
+    /**
+     * Gets the column index of the active cell.
+     */
+    activeCellColumnIndex: number;
+    /**
+     * Gets the row index of the active cell.
+     */
+    activeCellRowIndex: number;
+    /**
+     * Gets the index of the selection's left column.
+     */
+    leftColumnIndex: number;
+    /**
+     * Gets the index of the selection's top row.
+     */
+    topRowIndex: number;
+    /**
+     * Gets the index of the selection's right column.
+     */
+    rightColumnIndex: number;
+    /**
+     * Gets the index of the selection's bottom row.
+     */
+    bottomRowIndex: number;
 }
 /**
  * Represents an individual item of the Spreadsheet's context menu.
@@ -13964,7 +14371,7 @@ declare class ASPxClientTreeListBatchEditStartEditingEventArgs extends ASPxClien
      */
     nodeKey: string;
     /**
-     * Gets the tree list column that owns a cell that is about to be edited.
+     * Gets the column to which the edited cell belongs.
      */
     focusedColumn: ASPxClientTreeListColumn;
     /**
@@ -13983,15 +14390,17 @@ interface ASPxClientTreeListBatchEditEndEditingEventHandler<Sender> { (source: S
  */
 declare class ASPxClientTreeListBatchEditEndEditingEventArgs extends ASPxClientCancelEventArgs {
     /**
-     * Initializes a new instance of the ASPxClientTreeListBatchEditEndEditingEventArgs class.
-     * @param nodeKey A String value that identifies the processed node.
-     * @param nodeValues An object representing a data source’s field values.
+     * Initializes a new instance of the ASPxClientTreeListBatchEditEndEditingEventArgs class with specified settings.
      */
-    constructor(nodeKey: string, nodeValues: any);
+    constructor(nodeKey: string, nodeValues: any, focusedColumn: ASPxClientTreeListColumn);
     /**
      * Gets the processed node's key value.
      */
     nodeKey: string;
+    /**
+     * Gets the column to which the edited cell belongs.
+     */
+    focusedColumn: ASPxClientTreeListColumn;
     /**
      * Gets the value of the processed cell.
      */
@@ -14519,7 +14928,7 @@ declare class ASPxClientCancelEventArgs extends ASPxClientEventArgs {
      */
     constructor();
     /**
-     * Gets or sets a value indicating whether the action which raised the event should be canceled.
+     * Specifies whether to cancel the related action (for example, row edit, export).
      */
     cancel: boolean;
 }
@@ -15418,2158 +15827,6 @@ declare class ASPxClientDockZoneProcessingModeEventArgs extends ASPxClientProces
      * Gets the panel currently being processed.
      */
     panel: ASPxClientDockPanel;
-}
-/**
- * Represents the client-side equivalent of the ASPxBinaryImage control.
- */
-declare class ASPxClientBinaryImage extends ASPxClientEdit {
-    /**
-     * Occurs on the client side after an image is clicked.
-     */
-    Click: ASPxClientEvent<ASPxClientEditEventHandler<ASPxClientBinaryImage>>;
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientBinaryImage>>;
-    /**
-     * Occurs after a callback's server-side processing has been completed.
-     */
-    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientBinaryImage>>;
-    /**
-     * Fires on the client side if any server error occurs during server-side processing of a callback sent by the ASPxClientBinaryImage.
-     */
-    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientBinaryImage>>;
-    /**
-     * Sets the size of the image editor.
-     * @param width An integer value that specifies the control's width.
-     * @param height An integer value that specifies the control's height.
-     */
-    SetSize(width: number, height: number): void;
-    /**
-     * For internal use only.
-     */
-    GetValue(): any;
-    /**
-     * For internal use only.
-     */
-    SetValue(value: any): void;
-    /**
-     * Removes an image from the editor content.
-     */
-    Clear(): void;
-    /**
-     * Returns a name of the last uploaded file.
-     */
-    GetUploadedFileName(): string;
-    /**
-     * Sends a callback to the server and generates the server-side ASPxBinaryImage.CustomCallback event, passing it the specified argument.
-     * @param parameter A string value that contains any information that needs to be sent to the server-side ASPxBinaryImage.CustomCallback event.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(parameter: string, onSuccess?: (arg: string) => void): void;
-    /**
-     * Converts the specified object to the ASPxClientBinaryImage type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientBinaryImage;
-}
-/**
- * A client-side equivalent of the ASPxButton control.
- */
-declare class ASPxClientButton extends ASPxClientControl {
-    /**
-     * Occurs on the client side when the button's checked state is changed.
-     */
-    CheckedChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientButton>>;
-    /**
-     * Fires on the client side when the button receives input focus.
-     */
-    GotFocus: ASPxClientEvent<ASPxClientEventHandler<ASPxClientButton>>;
-    /**
-     * Fires on the client side when the button loses input focus.
-     */
-    LostFocus: ASPxClientEvent<ASPxClientEventHandler<ASPxClientButton>>;
-    /**
-     * Occurs on the client side after a button is clicked.
-     */
-    Click: ASPxClientEvent<ASPxClientButtonClickEventHandler<ASPxClientButton>>;
-    /**
-     * Simulates a mouse click action on the button control.
-     */
-    DoClick(): void;
-    /**
-     * Returns a value indicating whether the button is checked.
-     */
-    GetChecked(): boolean;
-    /**
-     * Sets a value that specifies the button's checked status.
-     * @param value true if the button is checked; otherwise, false.
-     */
-    SetChecked(value: boolean): void;
-    /**
-     * Returns the text displayed within the button.
-     */
-    GetText(): string;
-    /**
-     * Sets the text to be displayed within the button.
-     * @param value A string value specifying the text to be displayed within the button.
-     */
-    SetText(value: string): void;
-    /**
-     * Returns the URL pointing to the image displayed within the button.
-     */
-    GetImageUrl(): string;
-    /**
-     * Sets the URL pointing to the image displayed within the button.
-     * @param value A string value that is the URL to the image displayed within the button.
-     */
-    SetImageUrl(value: string): void;
-    /**
-     * Sets a value specifying whether the button is enabled.
-     * @param value true to enable the button; false to disable it.
-     */
-    SetEnabled(value: boolean): void;
-    /**
-     * Returns a value indicating whether the button is enabled.
-     */
-    GetEnabled(): boolean;
-    /**
-     * Sets input focus to the button.
-     */
-    Focus(): void;
-    /**
-     * Converts the specified object to the ASPxClientButton type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientButton;
-}
-/**
- * A method that will handle the client ASPxClientButton.Click event.
- * @param source An object that is the event's source.
- * @param e An ASPxClientButtonClickEventArgs object that contains event data.
- */
-interface ASPxClientButtonClickEventHandler<Sender> { (source: Sender, e: ASPxClientButtonClickEventArgs): void; }
-/**
- * Provides data for the ASPxClientButton.Click event.
- */
-declare class ASPxClientButtonClickEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientButtonClickEventArgs class with the specified settings.
-     * @param processOnServer true to process the event on the server side; false to handle it completely on the client side. Initializes the ASPxClientProcessingModeEventArgs.processOnServer property.
-     * @param cancelEventAndBubble true to cancel both the event's default action and the event's bubbling upon the hierarchy of event handlers; otherwise, false. Initializes the ASPxClientButtonClickEventArgs.cancelEventAndBubble property.
-     */
-    constructor(processOnServer: boolean, cancelEventAndBubble: boolean);
-    /**
-     * Specifies whether both the event's default action and the event's bubbling upon the hierarchy of event handlers should be canceled.
-     */
-    cancelEventAndBubble: boolean;
-}
-/**
- * Represents the client-side equivalent of the ASPxCalendar control.
- */
-declare class ASPxClientCalendar extends ASPxClientEdit {
-    /**
-     * Fires on the client side after the selected date has been changed within the calendar.
-     */
-    SelectionChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientCalendar>>;
-    /**
-     * Occurs on the client side when the month displayed within the calendar is changed.
-     */
-    VisibleMonthChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientCalendar>>;
-    /**
-     * Allows you to disable the calendar's days.
-     */
-    CustomDisabledDate: ASPxClientEvent<ASPxClientCalendarCustomDisabledDateEventHandler<ASPxClientCalendar>>;
-    /**
-     * Occurs when an end user clicks a date cell.
-     */
-    CellClick: ASPxClientEvent<ASPxClientCalendarCellClickEventHandler<ASPxClientCalendar>>;
-    /**
-     * Occurs on the client-side when an end-user presses a key while the editor has focus.
-     */
-    KeyDown: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientCalendar>>;
-    /**
-     * Occurs on the client-side when an end-user presses and releases a key while the editor has focus.
-     */
-    KeyPress: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientCalendar>>;
-    /**
-     * Occurs on the client-side when an end-user releases a pressed key while the editor has focus.
-     */
-    KeyUp: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientCalendar>>;
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientCalendar>>;
-    /**
-     * Occurs on the client side after the callback server-side processing has been completed.
-     */
-    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientCalendar>>;
-    /**
-     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientCalendar.
-     */
-    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientCalendar>>;
-    /**
-     * Tests whether the specified date is selected. true if the specified date is selected; otherwise, false.
-     * @param date A date-time value that specifies the date to test.
-     */
-    IsDateSelected(date: Date): boolean;
-    /**
-     * Sets the date that specifies the month and year to be displayed in the calendar.
-     * @param date The date that specifies calendar's visible month and year.
-     */
-    SetVisibleDate(date: Date): void;
-    /**
-     * Sets the calendar's selected date.
-     * @param date A date object that specifies the calendar's selected date.
-     */
-    SetSelectedDate(date: Date): void;
-    /**
-     * Returns the calendar's selected date.
-     */
-    GetSelectedDate(): Date;
-    /**
-     * Gets the date that determines the month and year that are currently displayed in the calendar.
-     */
-    GetVisibleDate(): Date;
-    /**
-     * Selects the specified date within the calendar.
-     * @param date A date-time value that specifies the selected date.
-     */
-    SelectDate(date: Date): void;
-    /**
-     * Selects the specified range of dates within the calendar.
-     * @param start A date-time value that specifies the range's first date.
-     * @param end A date-time value that specifies the range's last date.
-     */
-    SelectRange(start: Date, end: Date): void;
-    /**
-     * Deselects the specified date within the calendar.
-     * @param date A date-time value that specifies the date to deselect.
-     */
-    DeselectDate(date: Date): void;
-    /**
-     * Deselects the specified range of dates within the calendar.
-     * @param start A date-time value that specifies the range's first date.
-     * @param end A date-time value that specifies the range's last date.
-     */
-    DeselectRange(start: Date, end: Date): void;
-    /**
-     * Deselects all the selected dates within the calendar.
-     */
-    ClearSelection(): void;
-    /**
-     * Returns a list of dates which are selected within the calendar.
-     */
-    GetSelectedDates(): Date[];
-    /**
-     * Gets the minimum date on the calendar.
-     */
-    GetMinDate(): Date;
-    /**
-     * Sets the minimum date of the calendar.
-     * @param date A DateTime object representing the minimum date.
-     */
-    SetMinDate(date: Date): void;
-    /**
-     * Gets the maximum date on the calendar.
-     */
-    GetMaxDate(): Date;
-    /**
-     * Sets the maximum date of the calendar.
-     * @param date A DateTime object representing the maximum date.
-     */
-    SetMaxDate(date: Date): void;
-    /**
-     * Converts the specified object to the ASPxClientCalendar type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientCalendar;
-}
-/**
- * Provides data for the ASPxClientCalendar.CustomDisabledDate event.
- */
-declare class ASPxClientCalendarCustomDisabledDateEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCalendarCustomDisabledDateEventArgs object.
-     * @param date A DateTime object that is the currently processed date.
-     */
-    constructor(date: Date);
-    /**
-     * Gets the date processed in the calendar.
-     */
-    date: Date;
-    /**
-     * Gets or sets a value specifying whether selection of the processed calendar date is disabled.
-     */
-    isDisabled: boolean;
-}
-/**
- * A method that will handle the client ASPxClientCalendar.CustomDisabledDate event.
- * @param source The event source.
- * @param e An ASPxClientCalendarCustomDisabledDateEventArgs object that contains event data.
- */
-interface ASPxClientCalendarCustomDisabledDateEventHandler<Sender> { (source: Sender, e: ASPxClientCalendarCustomDisabledDateEventArgs): void; }
-/**
- * Provides data for the ASPxClientDateEdit.CalendarCellClick event.
- */
-declare class ASPxClientCalendarCellClickEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCalendarCellClickEventArgs class.
-     * @param date A DateTime object representing the clicked date cell.
-     */
-    constructor(date: Date);
-    /**
-     * Gets the date that relates to the processed calendar's cell click.
-     */
-    date: Date;
-}
-/**
- * A method that will handle the ASPxClientDateEdit.CalendarCellClick event.
- * @param source The event source.
- * @param e A ASPxClientCalendarCellClickEventArgs object that contains event data.
- */
-interface ASPxClientCalendarCellClickEventHandler<Sender> { (source: Sender, e: ASPxClientCalendarCellClickEventArgs): void; }
-/**
- * Represents the client-side equivalent of the ASPxCaptcha control.
- */
-declare class ASPxClientCaptcha extends ASPxClientControl {
-    /**
-     * Sets input focus to the control's text box.
-     */
-    Focus(): void;
-    /**
-     * Refreshes the code displayed within the editor's challenge image.
-     */
-    Refresh(): void;
-    /**
-     * Converts the specified object to the ASPxClientCaptcha type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientCaptcha;
-}
-/**
- * Represents the client-side equivalent of the ASPxCheckBox control.
- */
-declare class ASPxClientCheckBox extends ASPxClientEdit {
-    /**
-     * Occurs on the client side when the editor's checked state is changed.
-     */
-    CheckedChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientCheckBox>>;
-    /**
-     * Returns a value indicating whether the check box editor is checked.
-     */
-    GetChecked(): boolean;
-    /**
-     * Sets a value which specifies the checked status of the check box editor.
-     * @param isChecked true if the check box editor is checked; otherwise, false.
-     */
-    SetChecked(isChecked: boolean): void;
-    /**
-     * Returns the text displayed within the editor.
-     */
-    GetText(): string;
-    /**
-     * Returns a value which specifies a check box checked state.
-     */
-    GetCheckState(): string;
-    /**
-     * Sets a value specifying the state of a check box.
-     * @param checkState A string value matches one of the CheckState enumeration values.
-     */
-    SetCheckState(checkState: string): void;
-    /**
-     * Sets the text to be displayed within the editor.
-     * @param text A string value specifying the text to be displayed within the editor.
-     */
-    SetText(text: string): void;
-    /**
-     * Converts the specified object to the ASPxClientCheckBox type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientCheckBox;
-}
-/**
- * Represents the client-side equivalent of the ASPxRadioButton control.
- */
-declare class ASPxClientRadioButton extends ASPxClientCheckBox {
-    /**
-     * Returns a value indicating whether the radio button is checked.
-     */
-    GetChecked(): boolean;
-    /**
-     * Sets a value which specifies the radio button's checked status.
-     * @param isChecked true if the radio button is checked; otherwise, false.
-     */
-    SetChecked(isChecked: boolean): void;
-    /**
-     * Converts the specified object to the ASPxClientRadioButton type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientRadioButton;
-}
-/**
- * Represents the client-side equivalent of the ASPxColorEdit control.
- */
-declare class ASPxClientColorEdit extends ASPxClientDropDownEditBase {
-    /**
-     * Fires after the selected color has been changed within the color editor via end-user interaction.
-     */
-    ColorChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientColorEdit>>;
-    /**
-     * This event is not in effect for the ASPxClientColorEdit. Use the ASPxClientColorEdit.ColorChanged event instead.
-     */
-    TextChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientColorEdit>>;
-    /**
-     * Returns the color editor's value.
-     */
-    GetColor(): string;
-    /**
-     * Specifies the color value for the color editor.
-     * @param value A string value specifying the editor color.
-     */
-    SetColor(value: string): void;
-    /**
-     * Indicates whether the automatic color item is selected.
-     */
-    IsAutomaticColorSelected(): boolean;
-    /**
-     * Converts the specified object to the ASPxClientColorEdit type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientColorEdit;
-}
-/**
- * Represents the client-side equivalent of the ASPxComboBox control.
- */
-declare class ASPxClientComboBox extends ASPxClientDropDownEditBase {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientComboBox>>;
-    /**
-     * Occurs on the client side after a callback's server-side processing has been completed.
-     */
-    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientComboBox>>;
-    /**
-     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientComboBox.
-     */
-    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientComboBox>>;
-    /**
-     * Occurs on the client side after a different item in the list has been selected (focus has been moved from one item to another).
-     */
-    SelectedIndexChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientComboBox>>;
-    /**
-     * Adds a new item to the end of the control's items collection. An integer value representing the position at which a new item was added.
-     * @param text Specifies the item's text.
-     * @param value An object that represents the item's associated value.
-     * @param imageUrl A string value specifying the path to the image displayed by the item.
-     */
-    AddItem(text: string | string[], value?: any, imageUrl?: string): number;
-    /**
-     * Adds a new item to the control's items collection at the specified index.
-     * @param index An integer value that represents the index position.
-     * @param value An object that represents the item's associated value.
-     * @param imageUrl A String value specifying the path to the image displayed by the item.
-     */
-    InsertItem(index: number, text: string | string[], value?: any, imageUrl?: string): void;
-    /**
-     * Removes an item specified by its index from the client list editor.
-     * @param index An integer value representing the index of the list item to be removed.
-     */
-    RemoveItem(index: number): void;
-    /**
-     * Removes all items from the client combo box editor.
-     */
-    ClearItems(): void;
-    /**
-     * Prevents the client combobox editor from being rendered until the ASPxClientComboBox.EndUpdate method is called.
-     */
-    BeginUpdate(): void;
-    /**
-     * Re-enables editor render operations after a call to the ASPxClientComboBox.BeginUpdate method and forces an immediate re-rendering.
-     */
-    EndUpdate(): void;
-    /**
-     * Scrolls the editor's item list, so that the specified item becomes visible.
-     * @param index An integer value that specifies the item's index within the editor's client item list.
-     */
-    MakeItemVisible(index: number): void;
-    /**
-     * Returns an item specified by its index within the combo box editor's item collection. An ASPxClientListEditItem object representing the collection item found.
-     * @param index An integer value specifying the zero-based index of the item to search for.
-     */
-    GetItem(index: number): ASPxClientListEditItem;
-    /**
-     * Returns a combo box item by its text. A ASPxClientListEditItem object that represents the combo box item. null (Nothing in Visual Basic) if the item was not found.
-     * @param text A string that specifies the item's text.
-     */
-    FindItemByText(text: string): ASPxClientListEditItem;
-    /**
-     * Returns a combo box item by its value. A ASPxClientListEditItem object that represents the combo box item. null (Nothing in Visual Basic) if the item was not found.
-     * @param value An object that specifies the item's value.
-     */
-    FindItemByValue(value: any): ASPxClientListEditItem;
-    /**
-     * Gets the number of items contained in the editor's item collection.
-     */
-    GetItemCount(): number;
-    /**
-     * Returns the index of the selected item within the combo box editor.
-     */
-    GetSelectedIndex(): number;
-    /**
-     * Sets the combobox editor's selected item specified by its index.
-     * @param index An integer value specifying the zero-based index of the item to select.
-     */
-    SetSelectedIndex(index: number): void;
-    /**
-     * Returns the combo box editor's selected item.
-     */
-    GetSelectedItem(): ASPxClientListEditItem;
-    /**
-     * Sets the list editor's selected item.
-     * @param item An ASPxClientListEditItem object that specifies the item to select.
-     */
-    SetSelectedItem(item: ASPxClientListEditItem): void;
-    /**
-     * Gets the text displayed in the editor's edit box.
-     */
-    GetText(): string;
-    /**
-     * Sends a callback to the server and generates the server-side ASPxAutoCompleteBoxBase.Callback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side ASPxAutoCompleteBoxBase.Callback event.
-     */
-    PerformCallback(parameter: string): void;
-    /**
-     * Fires before the filtering is executed.
-     */
-    ItemFiltering: ASPxClientEvent<ASPxClientListEditItemFilteringEventHandler<ASPxClientComboBox>>;
-    /**
-     * Enables you to highlight the filtered items.
-     */
-    CustomHighlighting: ASPxClientEvent<ASPxClientListEditCustomHighlightingEventHandler<ASPxClientComboBox>>;
-    /**
-     * Specifies the text displayed within the editor's edit box.
-     * @param text A string value specifying the editor's text.
-     * @param applyFilter true, to use the specified text as a filter and apply it to the editor, otherwise, false.
-     */
-    SetText(text: string, applyFilter?: boolean): void;
-    /**
-     * Determines whether the drop-down content is loaded; if not - loads the content.
-     * @param callbackFunction An object that is the JavaScript function that receives the callback data as a parameter. The function is performed after the combo box content is loaded.
-     */
-    EnsureDropDownLoaded(callbackFunction: any): void;
-    /**
-     * Defines the HTML content for the specified combo box item.
-     * @param index An integer value specifying the zero-based index of the item.
-     * @param html A string value that is the HTML code defining the content of the combo box item.
-     */
-    SetItemHtml(index: number, html: string): void;
-    /**
-     * Sets the tooltip text for the combo box editor's item specified by its index.
-     * @param index An integer value specifying the zero-based index of the item.
-     * @param tooltip A string value specifying the tooltip text.
-     */
-    SetItemTooltip(index: number, tooltip: string): void;
-    /**
-     * Adds a custom attribute to a combo box item.
-     * @param index The item index.
-     * @param attributeName The attribute name.
-     * @param attributeValue The attribute value.
-     */
-    SetItemAttribute(index: number, attributeName: string, attributeValue: string): void;
-    /**
-     * Sets the CSS class for a combo box item specified by its index.
-     * @param index An integer value specifying the zero-based index of the item.
-     * @param className A string value specifying the CSS class name.
-     */
-    AddItemCssClass(index: number, className: string): void;
-    /**
-     * Removes the CSS class from a combo box item specified by its index.
-     * @param index An integer value specifying the zero-based index of the item.
-     * @param className A string value specifying the CSS class name.
-     */
-    RemoveItemCssClass(index: number, className: string): void;
-    /**
-     * Defines the HTML content for the specified combo box item's text cell.
-     * @param itemIndex An integer value specifying the zero-based index of the item.
-     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
-     * @param html A string value that is the HTML code defining the content of the combo box item.
-     */
-    SetItemTextCellHtml(itemIndex: number, textCellIndex: number, html: string): void;
-    /**
-     * Sets the tooltip text for the text cell of the editor's item specified by its index.
-     * @param itemIndex An integer value specifying the zero-based index of the item.
-     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
-     * @param tooltip A string value specifying the tooltip text.
-     */
-    SetItemTextCellTooltip(itemIndex: number, textCellIndex: number, tooltip: string): void;
-    /**
-     * Adds a custom attribute to a combo box item's text cell.
-     * @param itemIndex The item's index.
-     * @param textCellIndex The text cell's index.
-     * @param attributeName The attribute name.
-     * @param attributeValue The attribute value.
-     */
-    SetItemTextCellAttribute(itemIndex: number, textCellIndex: number, attributeName: string, attributeValue: string): void;
-    /**
-     * Sets the CSS class for a combo box item's text cell specified by its index.
-     * @param itemIndex An integer value specifying the zero-based index of the item.
-     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
-     * @param className A string value specifying the CSS class name.
-     */
-    AddItemTextCellCssClass(itemIndex: number, textCellIndex: number, className: string): void;
-    /**
-     * Removes the CSS class from a combo box item's text cell specified by its index.
-     * @param itemIndex An integer value specifying the zero-based index of the item.
-     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
-     * @param className A string value specifying the CSS class name.
-     */
-    RemoveItemTextCellCssClass(itemIndex: number, textCellIndex: number, className: string): void;
-    /**
-     * Converts the specified object to the ASPxClientComboBox type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientComboBox;
-}
-/**
- * Represents the client-side equivalent of the ASPxDateEdit control.
- */
-declare class ASPxClientDateEdit extends ASPxClientDropDownEditBase {
-    /**
-     * Fires after the selected date has been changed within the date editor.
-     */
-    DateChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientDateEdit>>;
-    /**
-     * Enables you to convert the value entered by an end user into the value that will be stored by the date editor.
-     */
-    ParseDate: ASPxClientEvent<ASPxClientParseDateEventHandler<ASPxClientDateEdit>>;
-    /**
-     * Allows you to disable the calendar's days.
-     */
-    CalendarCustomDisabledDate: ASPxClientEvent<ASPxClientCalendarCustomDisabledDateEventHandler<ASPxClientDateEdit>>;
-    /**
-     * Occurs when an end user clicks a calendar date cell.
-     */
-    CalendarCellClick: ASPxClientEvent<ASPxClientCalendarCellClickEventHandler<ASPxClientDateEdit>>;
-    /**
-     * This event is not in effect for the ASPxClientDateEdit. Use the ASPxClientDateEdit.DateChanged event instead.
-     */
-    TextChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientDateEdit>>;
-    /**
-     * Returns the calendar of the date editor.
-     */
-    GetCalendar(): ASPxClientCalendar;
-    /**
-     * Returns the built-in time edit control.
-     */
-    GetTimeEdit(): ASPxClientTimeEdit;
-    /**
-     * Specifies the date for the editor.
-     * @param date The date.
-     */
-    SetDate(date: Date): void;
-    /**
-     * Gets the date that is the editor's value.
-     */
-    GetDate(): Date;
-    /**
-     * Returns the number of days in a range selected within a date edit.
-     */
-    GetRangeDayCount(): number;
-    /**
-     * Gets the range's length.
-     */
-    GetRangeLength(): number;
-    /**
-     * Gets the minimum date of the editor.
-     */
-    GetMinDate(): Date;
-    /**
-     * Sets the minimum date of the editor.
-     * @param date A DateTime object representing the minimum date.
-     */
-    SetMinDate(date: Date): void;
-    /**
-     * Gets the maximum date of the editor.
-     */
-    GetMaxDate(): Date;
-    /**
-     * Sets the maximum date of the editor.
-     * @param date A DateTime object representing the maximum date.
-     */
-    SetMaxDate(date: Date): void;
-    /**
-     * Converts the specified object to the ASPxClientDateEdit type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientDateEdit;
-}
-/**
- * Provides data for the ASPxClientDateEdit.ParseDate client-side event that parses a string entered into a date editor.
- */
-declare class ASPxClientParseDateEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientParseDateEventArgs class with specified settings.
-     * @param value A string containing the value entered into the date editor.
-     */
-    constructor(value: string);
-    /**
-     * Gets the value entered into the date editor by an end user.
-     */
-    value: string;
-    /**
-     * Gets or sets the edit value of the date editor.
-     */
-    date: Date;
-    /**
-     * Gets or sets a value specifying whether the event was handled.
-     */
-    handled: boolean;
-}
-/**
- * A method that will handle the ASPxClientDateEdit.ParseDate event.
- * @param source An object representing the event source. Identifies the button editor that raised the event.
- * @param e An ASPxClientParseDateEventArgs object that contains event data.
- */
-interface ASPxClientParseDateEventHandler<Sender> { (source: Sender, e: ASPxClientParseDateEventArgs): void; }
-/**
- * Represents a base class for the editors that contain a drop down window.
- */
-declare class ASPxClientDropDownEditBase extends ASPxClientButtonEditBase {
-    /**
-     * Occurs on the client-side when the drop down window is opened by the dropdown button click.
-     */
-    DropDown: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDropDownEditBase>>;
-    /**
-     * Occurs on the client side when the drop down window is closed.
-     */
-    CloseUp: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDropDownEditBase>>;
-    /**
-     * Occurs on the client side before the drop down window is closed and allows you to cancel the operation.
-     */
-    QueryCloseUp: ASPxClientEvent<ASPxClientCancelEventHandler<ASPxClientDropDownEditBase>>;
-    /**
-     * Modifies the size of the drop down window in accordance with its content.
-     */
-    AdjustDropDownWindow(): void;
-    /**
-     * Invokes the editor's drop down window.
-     */
-    ShowDropDown(): void;
-    /**
-     * Closes the opened drop down window of the editor.
-     */
-    HideDropDown(): void;
-}
-/**
- * Represents a base for client editor objects realizing the dropdown editor functionality.
- */
-declare class ASPxClientDropDownEdit extends ASPxClientDropDownEditBase {
-    /**
-     * Allows you to handle a click on 'Ok' and 'Cancel' buttons in the drop-down window.
-     */
-    DropDownCommandButtonClick: ASPxClientEvent<ASPxClientDropDownCommandEventHandler<ASPxClientDropDownEdit>>;
-    /**
-     * Obtains the key value associated with the text displayed within the editor's edit box.
-     */
-    GetKeyValue(): string;
-    /**
-     * Specifies the key value associated with the text displayed within the editor's edit box.
-     * @param keyValue A string specifying the key value associated with the editor's value (displayed text).
-     */
-    SetKeyValue(keyValue: string): void;
-    /**
-     * Converts the specified object to the ASPxClientDropDownEdit type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientDropDownEdit;
-}
-/**
- * A method that will handle the ASPxClientDropDownEdit.DropDownCommandButtonClick event.
- * @param source The event source.
- * @param e A ASPxClientDropDownCommandEventArgs object that contains event data.
- */
-interface ASPxClientDropDownCommandEventHandler<Sender> { (source: Sender, e: ASPxClientDropDownCommandEventArgs): void; }
-/**
- * Provides data for the ASPxClientDropDownEdit.DropDownCommandButtonClick event.
- */
-declare class ASPxClientDropDownCommandEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientDropDownCommandEventArgs class.
-     */
-    constructor();
-    /**
-     * Gets the name of the processed command in the ASPxClientDropDownEdit.DropDownCommandButtonClick event.
-     */
-    commandName: string;
-}
-/**
- * Serves as the base object for all the editors included in the client-side object model.
- */
-declare class ASPxClientEditBase extends ASPxClientControl {
-    /**
-     * Returns the editor's value.
-     */
-    GetValue(): any;
-    /**
-     * Changes the editor's value.
-     * @param value An object representing the data to be assigned to the editor's edit value.
-     */
-    SetValue(value: any): void;
-    /**
-     * Returns a value indicating whether an editor is enabled.
-     */
-    GetEnabled(): boolean;
-    /**
-     * Specifies whether an editor is enabled.
-     * @param value true to enable the editor; otherwise, false.
-     */
-    SetEnabled(value: boolean): void;
-    /**
-     * Returns the text displayed in the editor caption.
-     */
-    GetCaption(): string;
-    /**
-     * Specifies the text displayed in the editor caption.
-     * @param caption A string value specifying the editor caption.
-     */
-    SetCaption(caption: string): void;
-}
-/**
- * Serves as the base object for all the editors that support validation.
- */
-declare class ASPxClientEdit extends ASPxClientEditBase {
-    /**
-     * Fires on the client side when the editor receives input focus.
-     */
-    GotFocus: ASPxClientEvent<ASPxClientEventHandler<ASPxClientEdit>>;
-    /**
-     * Fires on the client side when the editor loses input focus.
-     */
-    LostFocus: ASPxClientEvent<ASPxClientEventHandler<ASPxClientEdit>>;
-    /**
-     * Allows you to specify whether the value entered into the editor is valid, and whether the editor is allowed to lose focus.
-     */
-    Validation: ASPxClientEvent<ASPxClientEditValidationEventHandler<ASPxClientEdit>>;
-    /**
-     * Fires after the editor's value has been changed by end-user interactions.
-     */
-    ValueChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientEdit>>;
-    /**
-     * Returns an HTML element that represents the control's input element.
-     */
-    GetInputElement(): any;
-    /**
-     * Returns a value indicating whether the editor's state is read-only on the client-side.
-     */
-    GetReadOnly(): boolean;
-    /**
-     * Specifies whether the control's state is read-only on the client side.
-     * @param readOnly true, to make the control read-only on the client side; otherwise, false.
-     */
-    SetReadOnly(readOnly: boolean): void;
-    /**
-     * Sets input focus to the editor.
-     */
-    Focus(): void;
-    /**
-     * Gets a value that indicates whether the editor's value passes validation.
-     */
-    GetIsValid(): boolean;
-    /**
-     * Gets the error text to be displayed within the editor's error frame if the editor's validation fails.
-     */
-    GetErrorText(): string;
-    /**
-     * Sets a value that specifies whether the editor's value is valid.
-     * @param isValid True if the editor's value is valid; otherwise, False.
-     */
-    SetIsValid(isValid: boolean): void;
-    /**
-     * Sets the error text to be displayed within the editor's error frame if the editor's validation fails.
-     * @param errorText A string value representing the error text.
-     */
-    SetErrorText(errorText: string): void;
-    /**
-     * Performs the editor's validation.
-     */
-    Validate(): void;
-    /**
-     * Assigns a null value to all editors in a specified visibility state, which are located within a specified container and belong to a specific validation group.
-     * @param container An HTML element specifying the container of editors to be validated.
-     * @param validationGroup A string value specifying the validation group's name.
-     * @param clearInvisibleEditors true to clear both visible and invisible editors that belong to the specified container and group; false to clear only visible editors.
-     */
-    static ClearEditorsInContainer(container: any, validationGroup?: string, clearInvisibleEditors?: boolean): void;
-    /**
-     * Assigns a null value to all editors which are located within the specified container object, and belonging to a specific validation group, dependent on the visibility state specified.
-     * @param containerId A string value specifying the editor container's identifier.
-     * @param validationGroup A string value specifying the validatiion group's name.
-     * @param clearInvisibleEditors true to clear both visible and invisible editors that belong to the specified container and group; false to clear only visible editors.
-     */
-    static ClearEditorsInContainerById(containerId: string, validationGroup?: string, clearInvisibleEditors?: boolean): void;
-    /**
-     * Assigns a null value to all editors which belong to a specific validation group, dependent on the visibility state specified.
-     * @param validationGroup A string value specifying the validation group's name.
-     * @param clearInvisibleEditors true to clear both visible and invisible editors that belong to the specified validation group; false to clear only visible editors.
-     */
-    static ClearGroup(validationGroup: string, clearInvisibleEditors?: boolean): void;
-    /**
-     * Validates all editors in a specified visibility state, which are located within a specified container and belong to a specific validation group. true if the specified editors pass validation; otherwise, false.
-     * @param container An HTML element that contains editors.
-     * @param validationGroup The validation group's name.
-     * @param validateInvisibleEditors true to validate both visible and invisible editors that belong to the specified container and group; false to validate only visible editors.
-     */
-    static ValidateEditorsInContainer(container: any, validationGroup?: string, validateInvisibleEditors?: boolean): boolean;
-    /**
-     * Performs validation of the editors which are located within the specified container and belong to a specific validation group, dependent on the visibility state specified. true if the specified editors pass validation; otherwise, false.
-     * @param containerId A string value specifying the editor container's identifier.
-     * @param validationGroup A string value that specifies the validation group's name.
-     * @param validateInvisibleEditors true to validate both visible and invisible editors that belong to the specified container and group; false to validate only visible editors.
-     */
-    static ValidateEditorsInContainerById(containerId: string, validationGroup?: string, validateInvisibleEditors?: boolean): boolean;
-    /**
-     * Performs validation of editors contained within the specified validation group, dependent on the editor visibility state specified. true if editors of the specified validation group pass validation; otherwise, false.
-     * @param validationGroup A string value specifying the validation group's name.
-     * @param validateInvisibleEditors true to validate both visible and invisible editors that belong to the specified validation group; false to validate only visible editors.
-     */
-    static ValidateGroup(validationGroup: string, validateInvisibleEditors?: boolean): boolean;
-    /**
-     * Verifies whether the editors in a specified visibility state, which are located within a specified container and belong to a specific validation group, are valid. true if the editors are valid; otherwise, false.
-     * @param container An HTML element specifying the container of editors to be validated.
-     * @param validationGroup A string value that specifies the validation group's name.
-     * @param checkInvisibleEditors true to check both visible and invisible editors that belong to the specified container; false to check only visible editors.
-     */
-    static AreEditorsValid(container?: any | string, validationGroup?: string, checkInvisibleEditors?: boolean): boolean;
-    /**
-     * Attaches a handler to the ASPxClientEdit's event indicating whether the editor has been changed since the previous state.
-     * @param handler An object representing a handler.
-     * @param predicate An ASPxClientControlPredicate object representing the predicate criteria.
-     */
-    static AttachEditorModificationListener(handler: any, predicate: ASPxClientControlPredicate): void;
-    /**
-     * Detaches a handler from the editor's event if the editor meets the predicate criteria.
-     * @param handler An object representing a handler.
-     * @param predicate An ASPxClientControlPredicate object representing a predicate criteria.
-     */
-    static DetachEditorModificationListener(handler: any, predicate: ASPxClientControlPredicate): void;
-}
-/**
- * A method that will handle the client events concerning a keyboard key being pressed.
- * @param source The event source. This parameter identifies the editor which raised the event.
- * @param e An ASPxClientEditKeyEventArgs object that contains event data.
- */
-interface ASPxClientEditKeyEventHandler<Sender> { (source: Sender, e: ASPxClientEditKeyEventArgs): void; }
-/**
- * Provides data for the client events involved with a key being pressed or released.
- */
-declare class ASPxClientEditKeyEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientEditKeyEventArgs object.
-     * @param htmlEvent A DHTML event object that relates to the processed event.
-     */
-    constructor(htmlEvent: any);
-    /**
-     * Gets a DHTML event object that relates to the processed event.
-     */
-    htmlEvent: any;
-}
-/**
- * A method that will handle client validation events.
- * @param source An object representing the event source. Identifies the button editor that raised the event.
- * @param e An ASPxClientEditValidationEventArgs object that contains event data.
- */
-interface ASPxClientEditValidationEventHandler<Sender> { (source: Sender, e: ASPxClientEditValidationEventArgs): void; }
-/**
- * Provides data for the client events that are related to data validation (see ASPxClientEdit.Validate).
- */
-declare class ASPxClientEditValidationEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientEditValidationEventArgs class with the specified settings.
-     * @param value An object that represents the validated value.
-     * @param errorText A string representing the error description.
-     * @param isValid true if the validated value is valid; otherwise, false.
-     */
-    constructor(value: string, errorText: string, isValid: boolean);
-    /**
-     * Gets or sets the error description.
-     */
-    errorText: string;
-    /**
-     * Gets or sets a value specifying whether the validated value is valid.
-     */
-    isValid: boolean;
-    /**
-     * Gets or sets the editor's value being validated.
-     */
-    value: string;
-}
-/**
- * Represents the client ASPxFilterControl.
- */
-declare class ASPxClientFilterControl extends ASPxClientControl {
-    /**
-     * Occurs after a new filter expression has been applied.
-     */
-    Applied: ASPxClientEvent<ASPxClientFilterAppliedEventHandler<ASPxClientFilterControl>>;
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientFilterControl>>;
-    /**
-     * Occurs on the client side after a callback's server-side processing has been completed.
-     */
-    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientFilterControl>>;
-    /**
-     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientFilterControl.
-     */
-    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientFilterControl>>;
-    /**
-     * Returns the filter expression.
-     */
-    GetFilterExpression(): string;
-    /**
-     * Returns the applied filter expression.
-     */
-    GetAppliedFilterExpression(): string;
-    /**
-     * Returns the editor used to edit operand values for the specified filter column. An ASPxClientEditBase descendant that represents the editor used to edit operand values for the specified filter column.
-     * @param editorIndex An integer value that identifies the filter column by its index within the collection.
-     */
-    GetEditor(editorIndex: number): ASPxClientEditBase;
-    /**
-     * Returns a value indicating whether the filter expression being currently composed on the client side is valid - all expression conditions are filled.
-     */
-    IsFilterExpressionValid(): boolean;
-    /**
-     * Applies a filter constructed by an end-user.
-     */
-    Apply(): void;
-    /**
-     * Resets the current filter expression to a previously applied filter expression.
-     */
-    Reset(): void;
-    /**
-     * Converts the specified object to the ASPxClientFilterControl type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientFilterControl;
-}
-/**
- * A method that will handle the ASPxClientFilterControl.Applied event.
- * @param source The event source.
- * @param e An ASPxClientFilterAppliedEventArgs object that contains event data.
- */
-interface ASPxClientFilterAppliedEventHandler<Sender> { (source: Sender, e: ASPxClientFilterAppliedEventArgs): void; }
-/**
- * Provides data for the ASPxClientFilterControl.Applied event.
- */
-declare class ASPxClientFilterAppliedEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientFilterAppliedEventArgs class.
-     * @param filterExpression A string value that specifies the filter expression currently being applied. This value is assigned to the ASPxClientFilterAppliedEventArgs.filterExpression property.
-     */
-    constructor(filterExpression: string);
-    /**
-     * Gets the filter expression currently being applied.
-     */
-    filterExpression: string;
-}
-/**
- * Represents a base for client editor objects that display a list of items.
- */
-declare class ASPxClientListEdit extends ASPxClientEdit {
-    /**
-     * Occurs on the client side after a different item in the list has been selected (focus has been moved from one item to another).
-     */
-    SelectedIndexChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientListEdit>>;
-    /**
-     * Returns the list editor's selected item.
-     */
-    GetSelectedItem(): ASPxClientListEditItem;
-    /**
-     * Returns the index of the selected item within the list editor.
-     */
-    GetSelectedIndex(): number;
-    /**
-     * Sets the list editor's selected item.
-     * @param item An ASPxClientListEditItem object that specifies the item to select.
-     */
-    SetSelectedItem(item: ASPxClientListEditItem): void;
-    /**
-     * Sets the list editor's selected item specified by its index.
-     * @param index An integer value specifying the zero-based index of the item to select.
-     */
-    SetSelectedIndex(index: number): void;
-}
-/**
- * Represents the client-side equivalent of the ListEditItem object.
- */
-declare class ASPxClientListEditItem {
-    /**
-     * Gets a value that indicates whether a list edit item is selected.
-     */
-    selected: boolean;
-    /**
-     * Returns the list item's value that corresponds to the specified column. Specifies the list item's value that corresponds to the specified column.
-     * @param columnIndex Specifies the column's index or name in the Columns collection.
-     */
-    GetColumnText(columnIndex: number | string): string;
-    /**
-     * Gets an editor to which the current item belongs.
-     */
-    listEditBase: ASPxClientListEdit;
-    /**
-     * Gets the item's index.
-     */
-    index: number;
-    /**
-     * Gets the item's associated image.
-     */
-    imageUrl: string;
-    /**
-     * Gets the item's display text.
-     */
-    text: string;
-    /**
-     * Gets the item's associated value.
-     */
-    value: any;
-}
-/**
- * Represents the client-side equivalent of the ASPxListBox control.
- */
-declare class ASPxClientListBox extends ASPxClientListEdit {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientListBox>>;
-    /**
-     * Occurs on the client side after a callback's server-side processing has been completed.
-     */
-    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientListBox>>;
-    /**
-     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientListBox.
-     */
-    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientListBox>>;
-    /**
-     * Occurs on the client side when an end-user presses a key while the editor has focus.
-     */
-    KeyDown: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientListBox>>;
-    /**
-     * Occurs on the client side when an end-user presses and releases a key while the editor has focus.
-     */
-    KeyPress: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientListBox>>;
-    /**
-     * Occurs on the client side when an end-user releases a pressed key while the editor has focus.
-     */
-    KeyUp: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientListBox>>;
-    /**
-     * Occurs on the client side after a different item in the list box has been selected (focus has been moved from one item to another).
-     */
-    SelectedIndexChanged: ASPxClientEvent<ASPxClientListEditItemSelectedChangedEventHandler<ASPxClientListBox>>;
-    /**
-     * Occurs on the client when the editor's item is double clicked.
-     */
-    ItemDoubleClick: ASPxClientEvent<ASPxClientEventHandler<ASPxClientListBox>>;
-    /**
-     * Gets the number of items contained in the editor's item collection.
-     */
-    GetItemCount(): number;
-    /**
-     * Returns an item specified by its index within the list box editor's item collection. An ASPxClientListEditItem object representing the collection item found.
-     * @param index An integer value specifying the zero-based index of the item to search for.
-     */
-    GetItem(index: number): ASPxClientListEditItem;
-    /**
-     * Returns an array of the list editor's selected items indices.
-     */
-    GetSelectedIndices(): number[];
-    /**
-     * Returns an array of the list editor's selected items values.
-     */
-    GetSelectedValues(): any[];
-    /**
-     * Returns an array of the list editor's selected items.
-     */
-    GetSelectedItems(): ASPxClientListEditItem[];
-    /**
-     * Selects all list box items.
-     */
-    SelectAll(): void;
-    /**
-     * Unselects all list box items.
-     */
-    UnselectAll(): void;
-    /**
-     * Selects the items with the specified indices within a list box.
-     * @param indices An array of integer values that represent the items indices.
-     */
-    SelectIndices(indices: number[]): void;
-    /**
-     * Unselects an array of the list box items with the specified indices.
-     * @param indices An array of integer values that represent the indices.
-     */
-    UnselectIndices(indices: number[]): void;
-    /**
-     * Selects the specified items within a list box.
-     * @param items An array of ASPxClientListEditItem objects that represent the items.
-     */
-    SelectItems(items: ASPxClientListEditItem[]): void;
-    /**
-     * Unselects an array of the specified list box items.
-     * @param items An array of ASPxClientListEditItem objects that represent the items.
-     */
-    UnselectItems(items: ASPxClientListEditItem[]): void;
-    /**
-     * Select the items with the specified values within a list box.
-     * @param values An array of Object[] objects that represent the item's values.
-     */
-    SelectValues(values: any[]): void;
-    /**
-     * Unselects an array of the list box items with the specified values.
-     * @param values An array of Object[] objects that represent the values.
-     */
-    UnselectValues(values: any[]): void;
-    /**
-     * Scrolls the editor's item list, so that the specified item becomes visible.
-     * @param index An integer value that specifies the item's index within the editor's client item list.
-     */
-    MakeItemVisible(index: number): void;
-    /** @deprecated Use the AdjustControl method instead. */
-    /**
-     * Initializes the ASPxClientListBox client object when its parent container becomes visible dynamically, on the client side.
-     */
-    InitOnContainerMadeVisible(): void;
-    /**
-     * Adds a new item to the editor, specifying the item's display text, associated value and displayed image, and returns the index of the added item. An integer value that represents the added item's index.
-     * @param text A string value specifying the item's display text.
-     * @param value An object specifying the value associated with the item.
-     * @param imageUrl A string value specifying the path to the image displayed by the item.
-     */
-    AddItem(text: string | string[], value?: any, imageUrl?: string): number;
-    /**
-     * Adds a new item to the control's items collection at the specified index.
-     * @param index An integer value that represents the index position.
-     * @param value An object that represents the item's associated value.
-     * @param imageUrl A String value specifying the path to the image displayed by the item.
-     */
-    InsertItem(index: number, text: string | string[], value?: any, imageUrl?: string): void;
-    /**
-     * Prevents the client list box editor from being rendered until the ASPxClientListBox.EndUpdate method is called.
-     */
-    BeginUpdate(): void;
-    /**
-     * Re-enables editor render operations after a call to the ASPxClientListBox.BeginUpdate method, and forces an immediate re-rendering.
-     */
-    EndUpdate(): void;
-    /**
-     * Removes all items from the client list box editor.
-     */
-    ClearItems(): void;
-    /**
-     * Removes an item specified by its index from the client list editor.
-     * @param index An integer value representing the index of the list item to be removed.
-     */
-    RemoveItem(index: number): void;
-    /**
-     * Returns a list box item by its text. A ASPxClientListEditItem object that represents the list box item. null (Nothing in Visual Basic) if the item was not found.
-     * @param text A string that specifies the item's text.
-     */
-    FindItemByText(text: string): ASPxClientListEditItem;
-    /**
-     * Returns a list box item by its value. A ASPxClientListEditItem object that represents the list box item. null (Nothing in Visual Basic) if the item was not found.
-     * @param value An object that specifies the item's value.
-     */
-    FindItemByValue(value: any): ASPxClientListEditItem;
-    /**
-     * Sends a callback to the server, and generates the server-side ASPxListBox.Callback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side ASPxListBox.Callback event.
-     */
-    PerformCallback(parameter: string): void;
-    /**
-     * Fires before the filtering is executed.
-     */
-    ItemFiltering: ASPxClientEvent<ASPxClientListEditItemFilteringEventHandler<ASPxClientListBox>>;
-    /**
-     * Enables you to highlight the filtered items.
-     */
-    CustomHighlighting: ASPxClientEvent<ASPxClientListEditCustomHighlightingEventHandler<ASPxClientListBox>>;
-    /**
-     * Defines the HTML content for the specified list box item.
-     * @param index An integer value specifying the zero-based index of the item.
-     * @param html A string value that is the HTML code defining the content of the list box item.
-     */
-    SetItemHtml(index: number, html: string): void;
-    /**
-     * Sets the tooltip text for the list box editor's item specified by its index.
-     * @param index An integer value specifying the zero-based index of the item.
-     * @param tooltip A string value specifying the tooltip text.
-     */
-    SetItemTooltip(index: number, tooltip: string): void;
-    /**
-     * Adds a custom attribute to a list box item.
-     * @param index The item index.
-     * @param attributeName The attribute name.
-     * @param attributeValue The attribute value.
-     */
-    SetItemAttribute(index: number, attributeName: string, attributeValue: string): void;
-    /**
-     * Sets the CSS class for a list box item specified by its index.
-     * @param index An integer value specifying the zero-based index of the item.
-     * @param className A string value specifying the CSS class name.
-     */
-    AddItemCssClass(index: number, className: string): void;
-    /**
-     * Removes the CSS class from a list box item specified by its index.
-     * @param index An integer value specifying the zero-based index of the item.
-     * @param className A string value specifying the CSS class name.
-     */
-    RemoveItemCssClass(index: number, className: string): void;
-    /**
-     * Defines the HTML content for the specified list box item's text cell.
-     * @param itemIndex An integer value specifying the zero-based index of the item.
-     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
-     * @param html A string value that is the HTML code defining the content of the list box item.
-     */
-    SetItemTextCellHtml(itemIndex: number, textCellIndex: number, html: string): void;
-    /**
-     * Sets the tooltip text for the text cell of the editor's item specified by its index.
-     * @param itemIndex An integer value specifying the zero-based index of the item.
-     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
-     * @param tooltip A string value specifying the tooltip text.
-     */
-    SetItemTextCellTooltip(itemIndex: number, textCellIndex: number, tooltip: string): void;
-    /**
-     * Adds a custom attribute to a list box item's text cell.
-     * @param itemIndex The item's index.
-     * @param textCellIndex The text cell's index.
-     * @param attributeName The attribute name.
-     * @param attributeValue The attribute value.
-     */
-    SetItemTextCellAttribute(itemIndex: number, textCellIndex: number, attributeName: string, attributeValue: string): void;
-    /**
-     * Sets the CSS class for a list box item's text cell specified by its index.
-     * @param itemIndex An integer value specifying the zero-based index of the item.
-     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
-     * @param className A string value specifying the CSS class name.
-     */
-    AddItemTextCellCssClass(itemIndex: number, textCellIndex: number, className: string): void;
-    /**
-     * Removes the CSS class from a list box item's text cell specified by its index.
-     * @param itemIndex An integer value specifying the zero-based index of the item.
-     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
-     * @param className A string value specifying the CSS class name.
-     */
-    RemoveItemTextCellCssClass(itemIndex: number, textCellIndex: number, className: string): void;
-    /**
-     * Converts the specified object to the ASPxClientListBox type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientListBox;
-}
-/**
- * Serves as the base type for the ASPxClientCheckBoxList and ASPxClientRadioButtonList objects.
- */
-declare class ASPxClientCheckListBase extends ASPxClientListEdit {
-    /**
-     * Gets the number of items contained in the editor's item collection.
-     */
-    GetItemCount(): number;
-    /**
-     * Returns the editor's item specified by its index. An ASPxClientListEditItem object that is the item located at the specified index.
-     * @param index An integer value specifying the zero-based index of the item to be retrieved.
-     */
-    GetItem(index: number): ASPxClientListEditItem;
-}
-/**
- * Represents the client-side equivalent of the ASPxRadioButtonList control.
- */
-declare class ASPxClientRadioButtonList extends ASPxClientCheckListBase {
-    /**
-     * Converts the specified object to the ASPxClientRadioButtonList type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientRadioButtonList;
-}
-/**
- * A client-side equivalent of the ASPxCheckBoxList object.
- */
-declare class ASPxClientCheckBoxList extends ASPxClientCheckListBase {
-    /**
-     * Occurs on the client side after a different item in the check box list has been selected (focus has been moved from one item to another).
-     */
-    SelectedIndexChanged: ASPxClientEvent<ASPxClientListEditItemSelectedChangedEventHandler<ASPxClientCheckBoxList>>;
-    /**
-     * Returns an array of the check box list editor's selected items indices.
-     */
-    GetSelectedIndices(): number[];
-    /**
-     * Returns an array of the check box list editor's selected items values.
-     */
-    GetSelectedValues(): any[];
-    /**
-     * Returns an array of the check box list editor's selected items.
-     */
-    GetSelectedItems(): ASPxClientListEditItem[];
-    /**
-     * Selects all check box list items.
-     */
-    SelectAll(): void;
-    /**
-     * Unselects all check box list items.
-     */
-    UnselectAll(): void;
-    /**
-     * Selects items with the specified indices within a check box list.
-     * @param indices An array of integer values that are the item indices.
-     */
-    SelectIndices(indices: number[]): void;
-    /**
-     * Selects the specified items within a check box list.
-     * @param items An array of ASPxClientListEditItem objects that are the items.
-     */
-    SelectItems(items: ASPxClientListEditItem[]): void;
-    /**
-     * Selects items with the specified values within a check box list.
-     * @param values An array of Object[] objects that are the item values.
-     */
-    SelectValues(values: any[]): void;
-    /**
-     * Unselects items with the specified indices within a check box list.
-     * @param indices An array of integer values that are the item indices.
-     */
-    UnselectIndices(indices: number[]): void;
-    /**
-     * Unselects the specified items within a check box list.
-     * @param items An array of ASPxClientListEditItem objects that are the items.
-     */
-    UnselectItems(items: ASPxClientListEditItem[]): void;
-    /**
-     * Unselects items with the specified values within a check box list.
-     * @param values An array of Object[] objects that are the item values.
-     */
-    UnselectValues(values: any[]): void;
-    /**
-     * Converts the specified object to the ASPxClientCheckBoxList type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientCheckBoxList;
-}
-/**
- * A method that will handle the ASPxClientListBox.SelectedIndexChanged event.
- * @param source The event source.
- * @param e An ASPxClientListEditItemSelectedChangedEventArgs object that contains event data.
- */
-interface ASPxClientListEditItemSelectedChangedEventHandler<Sender> { (source: Sender, e: ASPxClientListEditItemSelectedChangedEventArgs): void; }
-/**
- * Provides data for the ASPxClientListEdit.SelectedIndexChanged event.
- */
-declare class ASPxClientListEditItemSelectedChangedEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientListEditItemSelectedChangedEventArgs class with the specified settings.
-     * @param index An integer value that specifies the index of an item.
-     * @param isSelected true if an item is selected; otherwise, false.
-     */
-    constructor(index: number, isSelected: boolean);
-    /**
-     * Gets the index of the item related to the event.
-     */
-    index: number;
-    /**
-     * Gets whether the item has been selected.
-     */
-    isSelected: boolean;
-}
-/**
- * A method that will handle the ASPxClientComboBox.ItemFiltering and ASPxClientListBox.ItemFiltering events.
- * @param source The event source.
- * @param e A ASPxClientListEditItemFilteringEventArgs object that contains event data.
- */
-interface ASPxClientListEditItemFilteringEventHandler<Sender> { (source: Sender, e: ASPxClientListEditItemFilteringEventArgs): void; }
-/**
- * Provides data for the ASPxClientComboBox.ItemFiltering and ASPxClientListBox.ItemFiltering events.
- */
-declare class ASPxClientListEditItemFilteringEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientListEditItemFilteringEventArgs class.
-     */
-    constructor();
-    /**
-     * Gets the editor item object related to the event.
-     */
-    item: ASPxClientListEditItem;
-    /**
-     * Specifies whether the item should be shown in the search result.
-     */
-    isFit: boolean;
-    /**
-     * Gets a string that is a filter condition for the editor's items typed by a user.
-     */
-    filter: string;
-}
-/**
- * A method that will handle the ASPxClientComboBox.CustomHighlighting and ASPxClientListBox.CustomHighlighting events.
- * @param source The event source.
- * @param e A ASPxClientListEditCustomHighlightingEventArgs object that contains event data.
- */
-interface ASPxClientListEditCustomHighlightingEventHandler<Sender> { (source: Sender, e: ASPxClientListEditCustomHighlightingEventArgs): void; }
-/**
- * Provides data for the ASPxClientComboBox.CustomHighlighting and ASPxClientListBox.CustomHighlighting events.
- */
-declare class ASPxClientListEditCustomHighlightingEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientListEditCustomHighlightingEventArgs class.
-     */
-    constructor();
-    /**
-     * Specifies rules according to which the editor highlights the filtered items.
-     */
-    highlighting: any;
-    /**
-     * Gets a string that is a filter condition for the editor's items typed by a user.
-     */
-    filter: string;
-}
-/**
- * Represents a client-side equivalent of the ASPxProgressBar control.
- */
-declare class ASPxClientProgressBar extends ASPxClientEditBase {
-    /**
-     * Sets the position of the operation's progress.
-     * @param position An integer value specifying the progress position.
-     */
-    SetPosition(position: number): void;
-    /**
-     * Gets the position of the operation's progress.
-     */
-    GetPosition(): number;
-    /**
-     * Sets the pattern used to format the displayed text for the progress bar.
-     * @param text A  value that is the format pattern.
-     */
-    SetCustomDisplayFormat(text: string): void;
-    /**
-     * Returns the text displayed within the progress bar.
-     */
-    GetDisplayText(): string;
-    /**
-     * Sets the percentage representation of the progress position.
-     */
-    GetPercent(): number;
-    /**
-     * Sets the minimum range value of the progress bar.
-     * @param min An integer value specifying the minimum value of the progress bar range.
-     */
-    SetMinimum(min: number): void;
-    /**
-     * Sets the maximum range value of the progress bar.
-     * @param max An integer value specifying the maximum value of the progress bar range.
-     */
-    SetMaximum(max: number): void;
-    /**
-     * Gets the minimum range value of the progress bar.
-     */
-    GetMinimum(): number;
-    /**
-     * Gets the maximum range value of the progress bar.
-     */
-    GetMaximum(): number;
-    /**
-     * Sets the minimum and maximum range values of the progress bar.
-     * @param minValue An integer value specifying the minimum value of the progress bar range.
-     * @param maxValue An integer value specifying the maximum value of the progress bar range.
-     */
-    SetMinMaxValues(minValue: number, maxValue: number): void;
-    /**
-     * Converts the specified object to the ASPxClientProgressBar type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientProgressBar;
-}
-/**
- * Represents a base class for the ASPxClientSpinEdit object.
- */
-declare class ASPxClientSpinEditBase extends ASPxClientButtonEditBase {
-    /**
-     * This event is not in effect for the ASPxClientSpinEditBase. Use the ASPxClientEdit.ValueChanged event instead. Alternatively, use an editor type specific event, such as ASPxClientSpinEdit.NumberChanged for an ASPxClientSpinEdit or ASPxClientTimeEdit.DateChanged for an ASPxClientTimeEdit.
-     */
-    TextChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientSpinEditBase>>;
-}
-/**
- * Represents the client-side equivalent of the ASPxSpinEdit control.
- */
-declare class ASPxClientSpinEdit extends ASPxClientSpinEditBase {
-    /**
-     * Occurs on the client side when the editor's value is altered in any way.
-     */
-    NumberChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientSpinEdit>>;
-    /**
-     * Specifies the value of the spin edit control on the client side.
-     * @param number A Decimal value specifying the control value.
-     */
-    SetValue(number: number): void;
-    /**
-     * Sets the spin editor's value.
-     * @param number A decimal number specifying the value to assign to the spin editor.
-     */
-    SetNumber(number: number): void;
-    /**
-     * Gets a number which represents the spin editor's value.
-     */
-    GetNumber(): number;
-    /**
-     * Returns the text displayed within the editor.
-     */
-    GetText(): string;
-    /**
-     * Sets the minimum value of the editor.
-     * @param value A decimal value specifying the minimum value of the editor.
-     */
-    SetMinValue(value: number): void;
-    /**
-     * Gets the minimum value of the editor.
-     */
-    GetMinValue(): number;
-    /**
-     * Sets the maximum value of the editor.
-     * @param value A decimal value specifying the maximum value of the editor.
-     */
-    SetMaxValue(value: number): void;
-    /**
-     * Gets the maximum value of the editor.
-     */
-    GetMaxValue(): number;
-    /**
-     * Converts the specified object to the ASPxClientSpinEdit type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientSpinEdit;
-}
-/**
- * A client-side equivalent of the ASPxTimeEdit control.
- */
-declare class ASPxClientTimeEdit extends ASPxClientSpinEditBase {
-    /**
-     * Fires after the selected date has been changed within the time editor.
-     */
-    DateChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTimeEdit>>;
-    /**
-     * Specifies the date for the editor.
-     * @param date A DateTime object that is the date.
-     */
-    SetDate(date: Date): void;
-    /**
-     * Gets the date that is the editor's value.
-     */
-    GetDate(): Date;
-    /**
-     * Converts the specified object to the ASPxClientTimeEdit type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientTimeEdit;
-}
-/**
- * Represents a base for client-side static editors whose values cannot be visually changed by end users.
- */
-declare class ASPxClientStaticEdit extends ASPxClientEditBase {
-    /**
-     * Occurs on the client side after an end-user clicks within a static editor.
-     */
-    Click: ASPxClientEvent<ASPxClientEditEventHandler<ASPxClientStaticEdit>>;
-}
-/**
- * A method that will handle client-side events which concern clicking within editors.
- * @param source An object representing the event source. Identifies the editor that raised the event.
- * @param e An ASPxClientEditClickEventArgs object that contains event data.
- */
-interface ASPxClientEditEventHandler<Sender> { (source: Sender, e: ASPxClientEditClickEventArgs): void; }
-/**
- * Provides data for the client-side events which concern clicking within editors.
- */
-declare class ASPxClientEditClickEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new object of the ASPxClientEditClickEventArgs type with the specified settings.
-     * @param htmlElement An HTML object.
-     * @param htmlEvent A DHTML event object that relates to the processed event.
-     */
-    constructor(htmlElement: any, htmlEvent: any);
-    /**
-     * Gets the HTML element related to the event.
-     */
-    htmlElement: any;
-    /**
-     * Gets a DHTML event object that relates to the processed event.
-     */
-    htmlEvent: any;
-}
-/**
- * Represents the client-side equivalent of the ASPxHyperLink control.
- */
-declare class ASPxClientHyperLink extends ASPxClientStaticEdit {
-    /**
-     * Gets an URL which defines the navigation location for the editor's hyperlink.
-     */
-    GetNavigateUrl(): string;
-    /**
-     * Specifies an URL which defines the navigation location for the editor's hyperlink.
-     * @param url A string value which specifies an URL to where the client web browser will navigate when a hyperlink in the editor is clicked.
-     */
-    SetNavigateUrl(url: string): void;
-    /**
-     * Gets the text caption displayed for the hyperlink in the hyperlink editor.
-     */
-    GetText(): string;
-    /**
-     * Specifies the text caption displayed for the hyperlink in the hyperlink editor.
-     * @param text A string value specifying the text caption for the hyperlink in the editor.
-     */
-    SetText(text: string): void;
-    /**
-     * Converts the specified object to the ASPxClientHyperLink type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientHyperLink;
-}
-/**
- * Represents a base for client-side editors which are capable of displaying images.
- */
-declare class ASPxClientImageBase extends ASPxClientStaticEdit {
-    /**
-     * Sets the size of the image displayed within the image editor.
-     * @param width An integer value that specifies the image's width.
-     * @param height An integer value that specifies the image's height.
-     */
-    SetSize(width: number, height: number): void;
-}
-/**
- * Represents the client-side equivalent of the ASPxImage control.
- */
-declare class ASPxClientImage extends ASPxClientImageBase {
-    /**
-     * Returns the URL pointing to the image displayed within the image editor.
-     */
-    GetImageUrl(): string;
-    /**
-     * Sets the URL which points to the image displayed within the image editor.
-     * @param url A string value specifying the URL to the image displayed within the editor.
-     */
-    SetImageUrl(url: string): void;
-    /**
-     * Converts the specified object to the ASPxClientImage type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientImage;
-}
-/**
- * Represents the client-side equivalent of the ASPxLabel control.
- */
-declare class ASPxClientLabel extends ASPxClientStaticEdit {
-    /**
-     * Returns the text displayed within the editor.
-     */
-    GetText(): string;
-    /**
-     * Sets the text to be displayed within the editor.
-     * @param text A string value specifying the text to be displayed within the editor.
-     */
-    SetText(text: string): void;
-    /**
-     * Converts the specified object to the ASPxClientLabel type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientLabel;
-}
-/**
- * Represents a base for client-side objects which allow single-line text input.
- */
-declare class ASPxClientTextEdit extends ASPxClientEdit {
-    /**
-     * Occurs on the client-side when an end-user presses a key while the editor has focus.
-     */
-    KeyDown: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientTextEdit>>;
-    /**
-     * Occurs on the client-side when an end-user presses and releases a key while the editor has focus.
-     */
-    KeyPress: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientTextEdit>>;
-    /**
-     * Occurs on the client-side when an end-user releases a pressed key while the editor has focus.
-     */
-    KeyUp: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientTextEdit>>;
-    /**
-     * Fires on the client side when the editor's text is changed and focus moves out of the editor by end-user interactions.
-     */
-    TextChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTextEdit>>;
-    /**
-     * Fires on the client side when the editor's input value is changed before the focus moves out of the editor by end-user interactions.
-     */
-    UserInput: ASPxClientEvent<ASPxClientEventHandler<ASPxClientTextEdit>>;
-    /**
-     * Returns the text displayed within the editor.
-     */
-    GetText(): string;
-    /**
-     * Sets the text to be displayed within the editor.
-     * @param text A string value specifying the text to be displayed within the editor.
-     */
-    SetText(text: string): void;
-    /**
-     * Selects all text in the text editor.
-     */
-    SelectAll(): void;
-    /**
-     * Sets the caret position within the edited text.
-     * @param position An integer value that specifies the zero-based index of a text character that shall precede the caret.
-     */
-    SetCaretPosition(position: number): void;
-    /**
-     * Obtains the caret position within the edited text.
-     */
-    GetCaretPosition(): number;
-    /**
-     * Selects the specified portion of the editor's text.
-     * @param startPos A zero-based integer value specifying the selection's starting position.
-     * @param endPos A zero-based integer value specifying the selection's ending position.
-     * @param scrollToSelection true to scroll the editor's contents to make the selection visible; otherwise, false.
-     */
-    SetSelection(startPos: number, endPos: number, scrollToSelection: boolean): void;
-}
-/**
- * Represents a base for client-side editors which are capable of displaying and editing text data in their edit regions.
- */
-declare class ASPxClientTextBoxBase extends ASPxClientTextEdit {
-}
-/**
- * A client-side equivalent of the ASPxTextBox control.
- */
-declare class ASPxClientTextBox extends ASPxClientTextBoxBase {
-    /**
-     * Converts the specified object to the ASPxClientTextBox type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientTextBox;
-}
-/**
- * A client-side equivalent of the ASPxMemo control.
- */
-declare class ASPxClientMemo extends ASPxClientTextEdit {
-    /**
-     * Converts the specified object to the ASPxClientMemo type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientMemo;
-}
-/**
- * Represents a base for client button editor objects.
- */
-declare class ASPxClientButtonEditBase extends ASPxClientTextBoxBase {
-    /**
-     * Occurs on the client side after an editor button is clicked.
-     */
-    ButtonClick: ASPxClientEvent<ASPxClientButtonEditClickEventHandler<ASPxClientButtonEditBase>>;
-    /**
-     * Returns a button by its index in the button collection. A button.
-     * @param number A button index.
-     */
-    GetButton(number: number): any;
-    /**
-     * Specifies whether the button is visible.
-     * @param number An integer value specifying the button's index within the ASPxButtonEditBase.Buttons collection.
-     * @param value true, to make the button visible; otherwise, false.
-     */
-    SetButtonVisible(number: number, value: boolean): void;
-    /**
-     * Returns a value specifying whether a button is displayed. true, if the button visible; otherwise, false.
-     * @param number An integer value specifying the button's index within the ASPxButtonEditBase.Buttons collection.
-     */
-    GetButtonVisible(number: number): boolean;
-}
-/**
- * Represents the client-side equivalent of the ASPxButtonEdit control.
- */
-declare class ASPxClientButtonEdit extends ASPxClientButtonEditBase {
-    /**
-     * Converts the specified object to the ASPxClientButtonEdit type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientButtonEdit;
-}
-/**
- * A method that will handle the ASPxClientButtonEditBase.ButtonClick event.
- * @param source An object representing the event source. Identifies the button editor that raised the event.
- * @param e An ASPxClientButtonEditClickEventArgs object that contains event data.
- */
-interface ASPxClientButtonEditClickEventHandler<Sender> { (source: Sender, e: ASPxClientButtonEditClickEventArgs): void; }
-/**
- * Provides data for the ASPxClientButtonEditBase.ButtonClick event.
- */
-declare class ASPxClientButtonEditClickEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientButtonEditClickEventArgs object with the specified parameters.
-     * @param processOnServer true to process the event on the server side; false to completely handle it on the client side. Initializes the ASPxClientProcessingModeEventArgs.processOnServer property.
-     * @param buttonIndex An integer value representing the zero based index of the clicked button. Initializes the ASPxClientButtonEditClickEventArgs.buttonIndex property.
-     */
-    constructor(processOnServer: boolean, buttonIndex: number);
-    /**
-     * Gets the index of the clicked button.
-     */
-    buttonIndex: number;
-}
-/**
- * A client-side equivalent of the ASPxTokenBox object.
- */
-declare class ASPxClientTokenBox extends ASPxClientComboBox {
-    /**
-     * Adds a new token with the specified text to the end of the control's token collection.
-     * @param text A string value specifying the token's text.
-     */
-    AddToken(text: string): void;
-    /**
-     * Removes a token specified by its text from the client token box.
-     * @param text A string value that is the text of the token to be removed.
-     */
-    RemoveTokenByText(text: string): void;
-    /**
-     * Removes a token specified by its index from the client token box.
-     * @param index An integer value that is the index of the token to be removed.
-     */
-    RemoveToken(index: number): void;
-    /**
-     * Returns an HTML span element that corresponds to the specified token. An object that is the HTML span element that corresponds to the specified token.
-     * @param index An integer value that is the token index.
-     */
-    GetTokenHtmlElement(index: number): any;
-    /**
-     * Returns an HTML span element that corresponds to the specified token's text. An object that is the HTML span element that corresponds to the specified token's text.
-     * @param index An integer value that is the token index.
-     */
-    GetTokenTextHtmlElement(index: number): any;
-    /**
-     * Returns an HTML span element that corresponds to the specified token's remove button. An object that is the HTML span element that corresponds to the specified token's remove button.
-     * @param index An integer value that is the token index.
-     */
-    GetTokenRemoveButtonHtmlElement(index: number): any;
-    /**
-     * Returns a collection of tokens.
-     */
-    GetTokenCollection(): string[];
-    /**
-     * Sets a collection of tokens.
-     * @param collection A  object that is the collection of tokens.
-     */
-    SetTokenCollection(collection: string[]): void;
-    /**
-     * Removes all tokens contained in the token box.
-     */
-    ClearTokenCollection(): void;
-    /**
-     * Returns the index of a token specified by its text. An integer value that is the token index
-     * @param text A string value that specifies the text of the token.
-     */
-    GetTokenIndexByText(text: string): number;
-    /**
-     * Gets the token texts, separated with a sign, specified by the ASPxTokenBox.TextSeparator property.
-     */
-    GetText(): string;
-    /**
-     * Sets the token texts, separated with a sign, specified by the ASPxTokenBox.TextSeparator property.
-     * @param text A string value that is the token texts separated with a text separator.
-     */
-    SetText(text: string): void;
-    /**
-     * Gets the editor value.
-     */
-    GetValue(): string;
-    /**
-     * Sets the editor value.
-     * @param value A string that is the editor value.
-     */
-    SetValue(value: string): void;
-    /**
-     * Returns a value that indicates if the specified token (string) is a custom token. true, if the token is not contained in the predefined ASPxAutoCompleteBoxBase.Items collection; otherwise, false.
-     * @param text A string value that is a token.
-     * @param caseSensitive true, if tokens are case sensitive; otherwise, false.
-     */
-    IsCustomToken(text: string, caseSensitive: boolean): boolean;
-    /**
-     * Fires on the client side after the token collection has been changed.
-     */
-    TokensChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientTokenBox>>;
-    /**
-     * For internal use only.
-     */
-    ButtonClick: ASPxClientEvent<ASPxClientButtonEditClickEventHandler<ASPxClientTokenBox>>;
-    /**
-     * For internal use only.
-     */
-    SetSelectedIndex(index: number): void;
-    /**
-     * For internal use only.
-     */
-    SetSelectedItem(item: ASPxClientListEditItem): void;
-    /**
-     * Converts the specified object to the ASPxClientTokenBox type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientTokenBox;
-}
-/**
- * The client-side equivalent of the ASPxTrackBar control.
- */
-declare class ASPxClientTrackBar extends ASPxClientEdit {
-    /**
-     * Fires on the client side before a track bar position is changed and allows you to cancel the action.
-     */
-    PositionChanging: ASPxClientEvent<ASPxClientTrackBarPositionChangingEventHandler<ASPxClientTrackBar>>;
-    /**
-     * Fires after the editor's position has been changed.
-     */
-    PositionChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTrackBar>>;
-    /**
-     * Occurs on the client-side when an end-user moves a cursor while the drag handle is held down.
-     */
-    Track: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTrackBar>>;
-    /**
-     * Occurs on the client-side when an end-user presses a drag handle and moves it.
-     */
-    TrackStart: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTrackBar>>;
-    /**
-     * Occurs on the client-side when an end-user releases a drag handle after moving it.
-     */
-    TrackEnd: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTrackBar>>;
-    /**
-     * Returns a track bar item index by the item's value. An Int32 value that is an index of the item with the specified value. null (Nothing in Visual Basic) if the item was not found.
-     * @param value An object that specifies the item's value.
-     */
-    GetItemIndexByValue(value: any): number;
-    /**
-     * Returns a track bar item's associated value. An Object that specifies the item's value.
-     * @param index An integer value that specifies the required item's index.
-     */
-    GetItemValue(index: number): any;
-    /**
-     * Returns a track bar item text. A String value specifying the track bar item text.
-     * @param index An integer value that specifies the required item's index.
-     */
-    GetItemText(index: number): string;
-    /**
-     * Returns a track bar item's tooltip text. A String value that specifies the text content of the current item's tooltip.
-     * @param index An integer value that specifies the required item's index.
-     */
-    GetItemToolTip(index: number): string;
-    /**
-     * Returns the number of the track bar items that are maintained by the item collection.
-     */
-    GetItemCount(): number;
-    /**
-     * Specifies the secondary drag handle position.
-     * @param position A  value that specifies the position.
-     */
-    SetPositionEnd(position: number): void;
-    /**
-     * Specifies the main drag handle position.
-     * @param position A  value that specifies the position.
-     */
-    SetPositionStart(position: number): void;
-    /**
-     * Returns the secondary drag handle position.
-     */
-    GetPositionEnd(): number;
-    /**
-     * Returns the main drag handle position.
-     */
-    GetPositionStart(): number;
-    /**
-     * Gets a drag handle position.
-     */
-    GetPosition(): number;
-    /**
-     * Specifies a drag handle position.
-     * @param position A  value that specifies the position.
-     */
-    SetPosition(position: number): void;
-    /**
-     * Converts the specified object to the ASPxClientTrackBar type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientTrackBar;
-}
-/**
- * A method that will handle the ASPxClientTrackBar.PositionChanging event.
- * @param source The event source. Identifies the ASPxTrackBar control that raised the event.
- * @param e A ASPxClientTrackBarPositionChangingEventArgs object that contains event data.
- */
-interface ASPxClientTrackBarPositionChangingEventHandler<Sender> { (source: Sender, e: ASPxClientTrackBarPositionChangingEventArgs): void; }
-/**
- * Provides data for the ASPxClientTrackBar.PositionChanging event.
- */
-declare class ASPxClientTrackBarPositionChangingEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientTrackBarPositionChangingEventArgs object with the specified setting.
-     * @param currentPositionStart A Decimal value specifying the current main drag handle position.
-     * @param currentPositionEnd A Decimal value specifying the current secondary drag handle position.
-     * @param newPositionStart A Decimal value specifying a position where the main drag handle is being moved.
-     * @param newPositionEnd A Decimal value specifying a position where the secondary drag handle is being moved.
-     */
-    constructor(currentPositionStart: number, currentPositionEnd: number, newPositionStart: number, newPositionEnd: number);
-    /**
-     * Gets or sets a value indicating whether the action which raised the event should be canceled.
-     */
-    cancel: boolean;
-    /**
-     * Gets the current drag handle position.
-     */
-    currentPosition: number;
-    /**
-     * Gets the current secondary drag handle position.
-     */
-    currentPositionEnd: number;
-    /**
-     * Gets the current main drag handle position.
-     */
-    currentPositionStart: number;
-    /**
-     * Gets a position where the drag handle is being moved.
-     */
-    newPosition: number;
-    /**
-     * Gets a position where the secondary drag handle is being moved.
-     */
-    newPositionEnd: number;
-    /**
-     * Gets a position where the main drag handle is being moved.
-     */
-    newPositionStart: number;
-}
-/**
- * Represents the client-side equivalent of the ASPxValidationSummary control.
- */
-declare class ASPxClientValidationSummary extends ASPxClientControl {
-    /**
-     * Occurs on the client side when the validation summary's visibility is changed.
-     */
-    VisibilityChanged: ASPxClientEvent<ASPxClientValidationSummaryVisibilityChangedEventHandler<ASPxClientValidationSummary>>;
-}
-/**
- * A method that will handle the ASPxClientValidationSummary.VisibilityChanged client event.
- * @param source An object representing the event source.
- * @param e A ASPxClientValidationSummaryVisibilityChangedEventArgs object that contains event data.
- */
-interface ASPxClientValidationSummaryVisibilityChangedEventHandler<Sender> { (source: Sender, e: ASPxClientValidationSummaryVisibilityChangedEventArgs): void; }
-/**
- * Provides data for the ASPxClientValidationSummary.VisibilityChanged event.
- */
-declare class ASPxClientValidationSummaryVisibilityChangedEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientValidationSummaryVisibilityChangedEventArgs class.
-     * @param visible true if the editor is visible; otherwise, false.
-     */
-    constructor(visible: boolean);
-    /**
-     * Gets or sets whether the editor is visible on the client.
-     */
-    visible: boolean;
 }
 /**
  * Represents the client-side equivalent of the ASPxFileManager control.
@@ -19025,3969 +17282,6 @@ declare class ASPxClientGlobalEvents {
     ValidationCompleted: ASPxClientEvent<ASPxClientValidationCompletedEventHandler<ASPxClientGlobalEvents>>;
 }
 /**
- * Represents the client ASPxCardView.
- */
-declare class ASPxClientCardView extends ASPxClientGridBase {
-    /**
-     * Provides access to the batch editing client API.
-     */
-    batchEditApi: ASPxClientCardViewBatchEditApi;
-    /**
-     * Occurs when a custom command button has been clicked.
-     */
-    CustomButtonClick: ASPxClientEvent<ASPxClientCardViewCustomButtonEventHandler<ASPxClientCardView>>;
-    /**
-     * Fires after the selection has been changed.
-     */
-    SelectionChanged: ASPxClientEvent<ASPxClientCardViewSelectionEventHandler<ASPxClientCardView>>;
-    /**
-     * Enables you to prevent columns from being sorted.
-     */
-    ColumnSorting: ASPxClientEvent<ASPxClientCardViewColumnCancelEventHandler<ASPxClientCardView>>;
-    /**
-     * Enables you to handle each column grouping.
-     */
-    ColumnGrouping: ASPxClientEvent<ASPxClientCardViewColumnCancelEventHandler<ASPxClientCardView>>;
-    /**
-     * Fires before a group row is expanded.
-     */
-    GroupRowExpanding: ASPxClientEvent<ASPxClientCardViewGroupCancelEventHandler<ASPxClientCardView>>;
-    /**
-     * Fires before a group row is collapsed.
-     */
-    GroupRowCollapsing: ASPxClientEvent<ASPxClientCardViewGroupCancelEventHandler<ASPxClientCardView>>;
-    /**
-     * Occurs when a grid switches to batch edit mode.
-     */
-    BatchEditStartEditing: ASPxClientEvent<ASPxClientCardViewBatchEditStartEditingEventHandler<ASPxClientCardView>>;
-    /**
-     * Occurs when a grid leaves batch edit mode.
-     */
-    BatchEditEndEditing: ASPxClientEvent<ASPxClientCardViewBatchEditEndEditingEventHandler<ASPxClientCardView>>;
-    /**
-     * Enables you to prevent a batch edit confirmation message from being displayed.
-     */
-    BatchEditConfirmShowing: ASPxClientEvent<ASPxClientCardViewBatchEditConfirmShowingEventHandler<ASPxClientCardView>>;
-    /**
-     * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
-     */
-    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientCardViewBatchEditTemplateCellFocusedEventHandler<ASPxClientCardView>>;
-    /**
-     * Enables you to specify whether card data is valid and provide an error text.
-     */
-    BatchEditCardValidating: ASPxClientEvent<ASPxClientCardViewBatchEditCardValidatingEventHandler<ASPxClientCardView>>;
-    /**
-     * Occurs on the client side before data changes are saved in batch edit mode.
-     */
-    BatchEditChangesSaving: ASPxClientEvent<ASPxClientCardViewBatchEditChangesSavingEventHandler<ASPxClientCardView>>;
-    /**
-     * Occurs on the client side before data changes are canceled in batch edit mode.
-     */
-    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientCardViewBatchEditChangesCancelingEventHandler<ASPxClientCardView>>;
-    /**
-     * Occurs on the client side before a card is inserted in batch edit mode.
-     */
-    BatchEditCardInserting: ASPxClientEvent<ASPxClientCardViewBatchEditCardInsertingEventHandler<ASPxClientCardView>>;
-    /**
-     * Occurs on the client side before a card is deleted in batch edit mode.
-     */
-    BatchEditCardDeleting: ASPxClientEvent<ASPxClientCardViewBatchEditCardDeletingEventHandler<ASPxClientCardView>>;
-    /**
-     * Occurs on the client side before a card is recovered in batch edit mode.
-     */
-    BatchEditCardRecovering: ASPxClientEvent<ASPxClientCardViewBatchEditCardRecoveringEventHandler<ASPxClientCardView>>;
-    /**
-     * Occurs on the client side when the focused cell is about to be changed.
-     */
-    FocusedCellChanging: ASPxClientEvent<ASPxClientCardViewFocusedCellChangingEventHandler<ASPxClientCardView>>;
-    /**
-     * Fires on the client when a card is clicked.
-     */
-    CardClick: ASPxClientEvent<ASPxClientCardViewCardClickEventHandler<ASPxClientCardView>>;
-    /**
-     * Fires on the client when a card is double clicked.
-     */
-    CardDblClick: ASPxClientEvent<ASPxClientCardViewCardClickEventHandler<ASPxClientCardView>>;
-    /**
-     * Fires in response to changing card focus.
-     */
-    FocusedCardChanged: ASPxClientEvent<ASPxClientCardViewFocusEventHandler<ASPxClientCardView>>;
-    /**
-     * Fires before a card has been focused.
-     */
-    CardFocusing: ASPxClientEvent<ASPxClientCardViewCardFocusingEventHandler<ASPxClientCardView>>;
-    /**
-     * Sorts data by the specified data column's values, and places the column to the specified position among the sorted columns.
-     * @param column An ASPxClientCardViewColumn object that represents the data column.
-     * @param sortOrder A string value that specifies the column's sort order ('ASC', 'DSC' or 'NONE').
-     * @param reset true to clear any previous sorting; otherwise, false.
-     */
-    SortBy(column: ASPxClientCardViewColumn | number | string, sortOrder?: string, reset?: boolean, sortIndex?: number): void;
-    /**
-     * Groups cards by the values of the specified column.
-     * @param column An ASPxClientCardViewColumn object that represents the card view column.
-     * @param groupIndex An integer value that specifies the grouping level. &#0045;1 to cancel grouping by the column's values.
-     * @param sortOrder A string value that specifies the column's sort order.
-     */
-    GroupBy(column: ASPxClientCardViewColumn | number | string, groupIndex?: number, sortOrder?: string): void;
-    /**
-     * Ungroups cards by the values of the specified column.
-     */
-    Ungroup(column: ASPxClientCardViewColumn | number | string): void;
-    /**
-     * Moves the specified column to the specified visual position within the ASPxCardView.
-     * @param moveToColumnVisibleIndex An integer value that identifies the target column displayed within the grid.
-     * @param moveBefore true to move the column before the target column; otherwise, false.
-     */
-    MoveColumn(column: ASPxClientCardViewColumn | number | string, moveToColumnVisibleIndex?: number, moveBefore?: boolean): void;
-    /**
-     * Returns the key value of the specified card. A string representing the specified card's key value. If the index passed via the visibleIndex parameter is wrong, or the ASPxGridBase.KeyFieldName property is not set, null is returned.
-     * @param visibleIndex An integer value that specifies the card's visible index.
-     */
-    GetCardKey(visibleIndex: number): string;
-    /**
-     * Switches the CardView to edit mode.
-     * @param visibleIndex A zero-based integer that identifies a card to be edited.
-     */
-    StartEditCard(visibleIndex: number): void;
-    /**
-     * Switches the ASPxCardView to edit mode.
-     * @param key An object that uniquely identifies a card to be edited.
-     */
-    StartEditCardByKey(key: any): void;
-    /**
-     * Indicates whether or not a new card is being edited.
-     */
-    IsNewCardEditing(): boolean;
-    /**
-     * Adds a new card.
-     */
-    AddNewCard(): void;
-    /**
-     * Deletes the specified card.
-     * @param visibleIndex An integer value that identifies the card.
-     */
-    DeleteCard(visibleIndex: number): void;
-    /**
-     * Deletes a card with the specified key value.
-     * @param key An object that uniquely identifies the card.
-     */
-    DeleteCardByKey(key: any): void;
-    /**
-     * Returns the focused card's index.
-     */
-    GetFocusedCardIndex(): number;
-    /**
-     * Moves focus to the specified card.
-     * @param visibleIndex An integer value that specifies the focused card's index.
-     */
-    SetFocusedCardIndex(visibleIndex: number): void;
-    /**
-     * Selects or deselects the specified cards within the CardView.
-     * @param visibleIndices An array of zero-based indices that identify data cards within the grid.
-     * @param selected true to select the specified cards; false to deselect the cards.
-     */
-    SelectCards(visibleIndices?: number[] | number, selected?: boolean): void;
-    /**
-     * Selects or deselects the specified card displayed within the CardView.
-     * @param selected true to select the specified card; false to deselect the card.
-     */
-    SelectCardsByKey(keys: any[] | any, selected?: boolean): void;
-    /**
-     * Deselects the specified cards displayed within the ASPxCardView.
-     * @param keys An array of objects that uniquely identify the cards.
-     */
-    UnselectCardsByKey(keys: any[] | any): void;
-    /**
-     * Deselects the specified cards (if selected) within the ASPxCardView.
-     */
-    UnselectCards(visibleIndices?: number[] | number): void;
-    /**
-     * Deselects all grid cards that match the filter criteria currently applied to the CardView.
-     */
-    UnselectFilteredCards(): void;
-    /**
-     * Selects or deselects the specified card displayed on the current page.
-     * @param visibleIndex A zero-based integer value that specifies the card's visible index.
-     * @param selected true to select the specified card; false to deselect the card.
-     */
-    SelectCardOnPage(visibleIndex: number, selected?: boolean): void;
-    /**
-     * Deselects the specified cards (if selected) displayed on the current page.
-     * @param visibleIndex A zero-based integer value that specifies the card's visible index.
-     */
-    UnselectCardOnPage(visibleIndex: number): void;
-    /**
-     * Allows you to select or deselect all cards displayed on the current page based on the parameter passed.
-     * @param selected true to select all unselected cards displayed on the current page; false to deselect all selected cards on the page.
-     */
-    SelectAllCardsOnPage(selected?: boolean): void;
-    /**
-     * Deselects all selected cards displayed on the current page.
-     */
-    UnselectAllCardsOnPage(): void;
-    /**
-     * Returns the number of selected cards.
-     */
-    GetSelectedCardCount(): number;
-    /**
-     * Indicates whether or not the specified card is selected within the current page. true if the specified card is selected within the current page; otherwise, false.
-     * @param visibleIndex An integer value that identifies the card by its visible index.
-     */
-    IsCardSelectedOnPage(visibleIndex: number): boolean;
-    /**
-     * Expands the specified group row.
-     * @param visibleIndex An integer value that identifies the group row.
-     */
-    ExpandGroupRow(visibleIndex: number): void;
-    /**
-     * Collapses the specified group row.
-     * @param visibleIndex An integer value that identifies the group row by its visible index.
-     */
-    CollapseGroupRow(visibleIndex: number): void;
-    /**
-     * Expands all group rows.
-     */
-    ExpandAll(): void;
-    /**
-     * Collapses all group rows.
-     */
-    CollapseAll(): void;
-    /**
-     * Exports grid data to a file in the specified format.
-     * @param format An ASPxClientCardViewExportFormat object specifying the export format.
-     */
-    ExportTo(format: ASPxClientCardViewExportFormat): void;
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientCardView>>;
-    /**
-     * Occurs on the client after a callback's server-side processing has been completed.
-     */
-    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientCardView>>;
-    /**
-     * Fires on the client if any unhandled server error occurs during server-side processing of a callback sent by the ASPxClientCardView.
-     */
-    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientCardView>>;
-    /**
-     * Fires after the customization window has been closed.
-     */
-    CustomizationWindowCloseUp: ASPxClientEvent<ASPxClientEventHandler<ASPxClientCardView>>;
-    /**
-     * Applies the specified search panel filter criterion to grid data.
-     * @param value A string value that specifies the filter criterion.
-     */
-    ApplySearchPanelFilter(value: string): void;
-    /**
-     * Applies the specified filter expression to the grid.
-     * @param filterExpression A string value that specifies the filter expression.
-     */
-    ApplyFilter(filterExpression: string): void;
-    /**
-     * Clears the filter expression applied to a client CardView.
-     */
-    ClearFilter(): void;
-    /**
-     * Gets the Popup Edit Form.
-     */
-    GetPopupEditForm(): ASPxClientPopupControl;
-    /**
-     * Sets input focus to the grid.
-     */
-    Focus(): void;
-    /**
-     * Sends a callback to the server and generates the server-side event, passing the specified argument to it.
-     * @param args A string value that represents any information that needs to be sent to the server-side event.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(args: string, onSuccess?: (arg: string) => void): void;
-    /**
-     * Selects the specified page.
-     * @param pageIndex An integer value that specifies the active page's index.
-     */
-    GotoPage(pageIndex: number): void;
-    /**
-     * Gets the index of the page currently being selected.
-     */
-    GetPageIndex(): number;
-    /**
-     * Gets the number of pages to which the grid's data is divided.
-     */
-    GetPageCount(): number;
-    /**
-     * Activates the next page.
-     */
-    NextPage(): void;
-    /**
-     * Activates the previous page.
-     */
-    PrevPage(): void;
-    /**
-     * Returns the index of the first card displayed within the grid's active page.
-     */
-    GetTopVisibleIndex(): number;
-    /**
-     * Indicates whether the grid is in edit mode.
-     */
-    IsEditing(): boolean;
-    /**
-     * Saves all the changes made and switches the grid to browse mode.
-     */
-    UpdateEdit(): void;
-    /**
-     * Cancels all the changes made and switches the CardView to browse mode.
-     */
-    CancelEdit(): void;
-    /**
-     * Updates data displayed within the grid.
-     */
-    Refresh(): void;
-    /**
-     * Indicates whether the customization window is displayed.
-     */
-    IsCustomizationWindowVisible(): boolean;
-    /**
-     * Invokes the customization window and displays it over the specified HTML element.
-     * @param showAtElement An object that specifies the HTML element relative to whose position the customization window is invoked.
-     */
-    ShowCustomizationWindow(showAtElement?: any): void;
-    /**
-     * Closes the customization window.
-     */
-    HideCustomizationWindow(): void;
-    /**
-     * Returns the number of columns within the client grid.
-     */
-    GetColumnCount(): number;
-    /**
-     * Returns the card values displayed within all selected cards.
-     * @param fieldNames The names of data source fields separated via a semicolon, whose values within the selected cards are returned.
-     * @param onCallback An ASPxClientCardViewValuesCallback object that represents the JavaScript function which receives the list of card values as a parameter.
-     */
-    GetSelectedFieldValues(fieldNames: string, onCallback: ASPxClientCardViewValuesCallback): void;
-    /**
-     * Returns key values of selected cards displayed within the current page.
-     */
-    GetSelectedKeysOnPage(): any[];
-    /**
-     * Sends a callback to the server and generates the server-side ASPxCardView.CustomDataCallback event.
-     * @param args A string value that is any information that needs to be sent to the server-side ASPxCardView.CustomDataCallback event.
-     * @param onCallback An ASPxClientCardViewValuesCallback object that is the JavaScript function which receives the information on the client side.
-     */
-    GetValuesOnCustomCallback(args: string, onCallback: ASPxClientCardViewValuesCallback): void;
-    /**
-     * Returns the values of the specified data source fields within the specified card.
-     * @param visibleIndex An integer value that identifies the data card.
-     * @param fieldNames The names of data source fields separated via a semicolon, whose values within the specified card are returned.
-     * @param onCallback An ASPxClientCardViewValuesCallback object that represents the JavaScript function which receives the list of card values as a parameter.
-     */
-    GetCardValues(visibleIndex: number, fieldNames: string, onCallback: ASPxClientCardViewValuesCallback): void;
-    /**
-     * Returns the card values displayed within the current page.
-     * @param fieldNames The names of data source fields whose values are returned.
-     * @param onCallback An ASPxClientCardViewValuesCallback object that represents the JavaScript function which receives the list of card values as a parameter.
-     */
-    GetPageCardValues(fieldNames: string, onCallback: ASPxClientCardViewValuesCallback): void;
-    /**
-     * Returns the number of cards actually displayed within the active page.
-     */
-    GetVisibleCardsOnPage(): number;
-    /**
-     * Returns the client column that resides at the specified position within the column collection. An ASPxClientCardViewColumn object that represents the client column.
-     * @param columnIndex A zero-based index that identifies the column within the column collection (the column's CollectionItem.Index property value).
-     */
-    GetColumn(columnIndex: number): ASPxClientCardViewColumn;
-    /**
-     * Returns the column with the specified unique identifier. An ASPxClientCardViewColumn object that represents the client column.
-     * @param columnId A string value that specifies the column's unique identifier (the column's WebColumnBase.Name property value).
-     */
-    GetColumnById(columnId: string): ASPxClientCardViewColumn;
-    /**
-     * Returns the client column to which the specified data source field is bound. An ASPxClientCardViewColumn object that represents the client column bound to the specified data source field.
-     * @param columnFieldName A string value that specifies the name of the data source field to which the column is bound (the column's CardViewColumn.FieldName property value).
-     */
-    GetColumnByField(columnFieldName: string): ASPxClientCardViewColumn;
-    /**
-     * Returns the editor used to edit the specified column's values. An ASPxClientEdit object that is the specified column's editor.
-     */
-    GetEditor(column: ASPxClientCardViewColumn | number | string): ASPxClientEdit;
-    /**
-     * Returns the value of the specified edit cell. A string value that represents the value of the edit cell which corresponds to the specified data column.
-     */
-    GetEditValue(column: ASPxClientCardViewColumn | number | string): string;
-    /**
-     * Moves focus to the specified edit cell within the edited card.
-     */
-    FocusEditor(column: ASPxClientCardViewColumn | number | string): void;
-    /**
-     * Sets the value of the specified edit cell.
-     * @param value A string value that specifies the edit cell's new value.
-     */
-    SetEditValue(column: ASPxClientCardViewColumn | number | string, value: string): void;
-    /**
-     * Displays the Filter Control.
-     */
-    ShowFilterControl(): void;
-    /**
-     * Hides the Filter Control.
-     */
-    CloseFilterControl(): void;
-    /**
-     * Enables or disables the current filter.
-     * @param isFilterEnabled true to enable the current filter; otherwise, false.
-     */
-    SetFilterEnabled(isFilterEnabled: boolean): void;
-    /**
-     * Returns the current vertical scroll position of the grid's content.
-     */
-    GetVerticalScrollPosition(): number;
-    /**
-     * Specifies the vertical scroll position for the grid's content.
-     * @param position An integer value specifying the vertical scroll position.
-     */
-    SetVerticalScrollPosition(position: number): void;
-    /**
-     * Gets information about a focused cell.
-     */
-    GetFocusedCell(): ASPxClientCardViewCellInfo;
-    /**
-     * Focuses the specified cell.
-     * @param cardVisibleIndex An  value that specifies the visible index of the card.
-     * @param columnIndex A zero-based index that identifies the column in the column collection (the column's CollectionItem.Index property value).
-     */
-    SetFocusedCell(cardVisibleIndex: number, columnIndex: number): void;
-    /**
-     * Specifies a custom editor for the search panel on the client side.
-     * @param editor An ASPxClientEdit object representing a custom editor.
-     */
-    SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
-    /**
-     * Gets the form layout.
-     */
-    GetEditFormLayout(): ASPxClientFormLayout;
-    /**
-     * Gets the edit form layout item. The form layout item.
-     * @param column The column, its index or name.
-     */
-    GetEditFormLayoutItemByColumn(column: ASPxClientCardViewColumn | number | string): ASPxClientLayoutItem;
-    /**
-     * Gets the edit form layout item or group. The layout item.
-     * @param name The layout item name.
-     */
-    GetEditFormLayoutItemOrGroup(name: string): ASPxClientLayoutItem;
-    /**
-     * Converts the specified object to the ASPxClientCardView type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientCardView;
-}
-/**
- * Represents a client column.
- */
-declare class ASPxClientCardViewColumn extends ASPxClientGridColumnBase {
-    /**
-     * Gets the name that uniquely identifies the column.
-     */
-    name: string;
-    /**
-     * Gets the column's position within the collection.
-     */
-    index: number;
-    /**
-     * Gets the name of the database field assigned to the current column.
-     */
-    fieldName: string;
-    /**
-     * Gets whether the column is visible.
-     */
-    visible: boolean;
-}
-/**
- * Represents a JavaScript function which receives the list of card values when the client ASPxClientCardView.GetCardValues, ASPxCardView.GetCurrentPageCardValues or ASPxClientCardView.GetSelectedFieldValues method is called.
- * @param result An object that represents the list of card values received from the server.
- */
-interface ASPxClientCardViewValuesCallback { (result: any): void; }
-/**
- * A method that will handle the cancelable events of a client ASPxCardView column.
- * @param source The event source. This parameter identifies the ASPxClientCardView object that raised the event.
- * @param e An ASPxClientCardViewColumnCancelEventArgs object that contains event data.
- */
-interface ASPxClientCardViewColumnCancelEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewColumnCancelEventArgs): void; }
-/**
- * Provides data for the cancelable events of a client ASPxCardView column.
- */
-declare class ASPxClientCardViewColumnCancelEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new isntance of the ASPxClientCardViewColumnCancelEventArgs class.
-     * @param column An ASPxClientCardViewColumn object that represents the processed column.
-     */
-    constructor(column: ASPxClientCardViewColumn);
-    /**
-     * Gets the processed client column.
-     */
-    column: ASPxClientCardViewColumn;
-}
-/**
- * Represents a method that will handle the ASPxClientCardView.CardFocusing event.
- * @param source The event source.
- * @param e An ASPxClientCardViewCardFocusingEventArgs object which contains event data.
- */
-interface ASPxClientCardViewCardFocusingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewCardFocusingEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.CardFocusing event.
- */
-declare class ASPxClientCardViewCardFocusingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewCardFocusingEventArgs class.
-     * @param visibleIndex A integer value specifying the card visible index.
-     * @param htmlEvent An object specifying the HTML event.
-     */
-    constructor(visibleIndex: number, htmlEvent: any);
-    /**
-     * Gets the card visible index.
-     */
-    visibleIndex: number;
-    /**
-     * Provides access to the parameters associated with the ASPxClientCardView.CardFocusing event.
-     */
-    htmlEvent: any;
-}
-/**
- * A method that will handle the ASPxClientCardView.CardClick event.
- * @param source The event source. This parameter identifies the ASPxClientCardView object that raised the event.
- * @param e An ASPxClientCardViewCardClickEventArgs object that contains event data.
- */
-interface ASPxClientCardViewCardClickEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewCardClickEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.CardClick event.
- */
-declare class ASPxClientCardViewCardClickEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewCardClickEventArgs class.
-     * @param visibleIndex A zero-based integer index that identifies the clicked row.
-     * @param htmlEvent An object that contains parameters associated with the event. This value is assigned to the ASPxClientCardViewCardClickEventArgs.htmlEvent property.
-     */
-    constructor(visibleIndex: number, htmlEvent: any);
-    /**
-     * Gets the processed card's visible index.
-     */
-    visibleIndex: number;
-    /**
-     * Provides access to the parameters associated with the ASPxClientCardView.CardClick event.
-     */
-    htmlEvent: any;
-}
-/**
- * A method that will handle the ASPxClientCardView.GroupRowCollapsing and ASPxClientCardView.GroupRowExpanding events.
- * @param source The event source.
- * @param e A ASPxClientCardViewGroupCancelEventArgs object that contains event data.
- */
-interface ASPxClientCardViewGroupCancelEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewGroupCancelEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.GroupRowExpanding and ASPxClientCardView.GroupRowCollapsing events.
- */
-declare class ASPxClientCardViewGroupCancelEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewGroupCancelEventArgs class.
-     * @param visibleIndex An integer value that specifies the group's visible index.
-     */
-    constructor(visibleIndex: number);
-    /**
-     * Gets the processed group row's visible index.
-     */
-    visibleIndex: number;
-}
-/**
- * A method that will handle the ASPxClientCardView.CustomButtonClick event.
- * @param source The event source.
-This parameter identifies the ASPxClientCardView object that raised the event.
- * @param e An ASPxClientCardViewCustomButtonEventArgs object that contains event data.
- */
-interface ASPxClientCardViewCustomButtonEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewCustomButtonEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.CustomButtonClick event.
- */
-declare class ASPxClientCardViewCustomButtonEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewCustomButtonEventArgs class.
-     * @param visibleIndex An integer value that identifies the card whose custom button has been clicked. This value is assigned to the ASPxClientCardViewCustomButtonEventArgs.visibleIndex property.
-     * @param buttonID An integer value that identifies the clicked custom button. This value is assigned to the ASPxClientCardViewCustomButtonEventArgs.buttonID property.
-     */
-    constructor(visibleIndex: number, buttonID: string);
-    /**
-     * Gets the value which identifies the card whose custom button has been clicked.
-     */
-    visibleIndex: number;
-    /**
-     * Gets the value which identifies the custom button.
-     */
-    buttonID: string;
-}
-/**
- * A method that will handle the ASPxClientCardView.SelectionChanged event.
- * @param source The event source.
- * @param e An ASPxClientCardViewSelectionEventArgs object that contains event data.
- */
-interface ASPxClientCardViewSelectionEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewSelectionEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.SelectionChanged event.
- */
-declare class ASPxClientCardViewSelectionEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewSelectionEventArgs class.
-     * @param visibleIndex An integer value that specifies the visible index of the card whose selected state has been changed. This value is assigned to the ASPxClientCardViewSelectionEventArgs.visibleIndex property.
-     */
-    constructor(visibleIndex: number);
-    /**
-     * Gets the visible index of the card whose selected state has been changed.
-     */
-    visibleIndex: number;
-    /**
-     * Gets whether the card has been selected.
-     */
-    isSelected: boolean;
-    /**
-     * Gets whether all cards displayed within a page have been selected or unselected.
-     */
-    isAllRecordsOnPage: boolean;
-    /**
-     * Gets whether a selection has been changed on the server.
-     */
-    isChangedOnServer: boolean;
-}
-/**
- * Represents a method that will handle the ASPxClientCardView.FocusedCardChanged event.
- * @param source The event source.
- * @param e An ASPxClientCardViewFocusEventArgs object which contains event data.
- */
-interface ASPxClientCardViewFocusEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewFocusEventArgs): void; }
-/**
- * Provides data for the corresponding event.
- */
-declare class ASPxClientCardViewFocusEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewFocusEventArgs class.
-     */
-    constructor();
-    /**
-     * Gets whether card focusing has been changed on the server.
-     */
-    isChangedOnServer: boolean;
-}
-/**
- * A method that will handle the ASPxClientCardView.BatchEditStartEditing event.
- * @param source The event source.
- * @param e An ASPxClientCardViewBatchEditStartEditingEventArgs object that contains event data.
- */
-interface ASPxClientCardViewBatchEditStartEditingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditStartEditingEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.BatchEditStartEditing event.
- */
-declare class ASPxClientCardViewBatchEditStartEditingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewBatchEditStartEditingEventArgs class with the specified settings.
-     * @param visibleIndex An integer value that specifies the visible index of the card. This value is assigned to the ASPxClientCardViewBatchEditStartEditingEventArgs.visibleIndex property.
-     * @param focusedColumn An ASPxClientCardViewColumn object that is the focused CardView column. This value is assigned to the ASPxClientCardViewBatchEditStartEditingEventArgs.focusedColumn property.
-     * @param cardValues A hashtable that stores information about editable cells. This value is assigned to the ASPxClientCardViewBatchEditStartEditingEventArgs.cardValues property.
-     */
-    constructor(visibleIndex: number, focusedColumn: ASPxClientCardViewColumn, cardValues: any);
-    /**
-     * Gets the visible index of the card whose cells are about to be edited.
-     */
-    visibleIndex: number;
-    /**
-     * Gets the CardView column that owns a cell that is about to be edited.
-     */
-    focusedColumn: ASPxClientCardViewColumn;
-    /**
-     * Gets a hashtable that maintains information about editable cells.
-     */
-    cardValues: any;
-}
-/**
- * A method that will handle the ASPxClientCardView.BatchEditEndEditing event.
- * @param source The event source.
- * @param e An ASPxClientCardViewBatchEditEndEditingEventArgs object that contains event data.
- */
-interface ASPxClientCardViewBatchEditEndEditingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditEndEditingEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.BatchEditEndEditing event.
- */
-declare class ASPxClientCardViewBatchEditEndEditingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewBatchEditEndEditingEventArgs class with the specified settings.
-     * @param visibleIndex An integer value that specifies the visible index of the card. This value is assigned to the ASPxClientCardViewBatchEditEndEditingEventArgs.visibleIndex property.
-     * @param cardValues A hashtable that stores information about editable cells. This value is assigned to the ASPxClientCardViewBatchEditEndEditingEventArgs.cardValues property.
-     */
-    constructor(visibleIndex: number, cardValues: any);
-    /**
-     * Gets the visible index of the card whose cells have been edited.
-     */
-    visibleIndex: number;
-    /**
-     * Gets a hashtable that maintains information about editable cells.
-     */
-    cardValues: any;
-}
-/**
- * A method that will handle the ASPxClientCardView.BatchEditCardValidating event.
- * @param source The event source.
- * @param e An ASPxClientCardViewBatchEditCardValidatingEventArgs object that contains event data.
- */
-interface ASPxClientCardViewBatchEditCardValidatingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditCardValidatingEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.BatchEditCardValidating event.
- */
-declare class ASPxClientCardViewBatchEditCardValidatingEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewBatchEditCardValidatingEventArgs class.
-     * @param visibleIndex An integer value that specifies the processed card's visible index.
-     * @param validationInfo An object containing validation information.
-     */
-    constructor(visibleIndex: number, validationInfo: any);
-    /**
-     * Gets the processed card's visible index.
-     */
-    visibleIndex: number;
-    /**
-     * Provides validation information of a card currently being validated.
-     */
-    validationInfo: any;
-}
-/**
- * A method that will handle the ASPxClientCardView.BatchEditConfirmShowing client event.
- * @param source The event source.
- * @param e An ASPxClientCardViewBatchEditConfirmShowingEventArgs object that contains event data.
- */
-interface ASPxClientCardViewBatchEditConfirmShowingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditConfirmShowingEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.BatchEditConfirmShowing event.
- */
-declare class ASPxClientCardViewBatchEditConfirmShowingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewBatchEditConfirmShowingEventArgs class.
-     * @param requestTriggerID A string value specifying the client identifier of an object that initiates a request.
-     */
-    constructor(requestTriggerID: string);
-    /**
-     * Gets the client identifier of an object that initiates a send request.
-     */
-    requestTriggerID: string;
-}
-/**
- * A method that will handle the ASPxClientCardView.BatchEditTemplateCellFocused event.
- * @param source An object representing the event source. Identifies the button editor that raised the event.
- * @param e An ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs object that contains event data.
- */
-interface ASPxClientCardViewBatchEditTemplateCellFocusedEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.BatchEditTemplateCellFocused event.
- */
-declare class ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs class with the specified column.
-     * @param column An ASPxClientCardViewColumn object that is the processed CardView column. This value is assigned to the ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs.column property.
-     */
-    constructor(column: ASPxClientCardViewColumn);
-    /**
-     * Gets the currently processed column.
-     */
-    column: ASPxClientCardViewColumn;
-    /**
-     * Gets or sets a value specifying whether the event was handled.
-     */
-    handled: boolean;
-}
-/**
- * A method that will handle the ASPxClientCardView.BatchEditChangesSaving event.
- * @param source The event source. This parameter identifies the card view object which raised the event.
- * @param e An ASPxClientCardViewBatchEditChangesSavingEventArgs object that contains event data.
- */
-interface ASPxClientCardViewBatchEditChangesSavingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditChangesSavingEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.BatchEditChangesSaving event.
- */
-declare class ASPxClientCardViewBatchEditChangesSavingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewBatchEditChangesSavingEventArgs class.
-     * @param insertedValues A hashtable that stores information about inserted cells.
-     * @param deletedValues A hashtable that stores information about deleted cells.
-     * @param updatedValues A hashtable that stores information about updated cells.
-     */
-    constructor(insertedValues: any, deletedValues: any, updatedValues: any);
-    /**
-     * Gets a hashtable that maintains information about inserted cells.
-     */
-    insertedValues: any;
-    /**
-     * Gets a hashtable that maintains information about deleted cells.
-     */
-    deletedValues: any;
-    /**
-     * Gets a hashtable that maintains information about updated cells.
-     */
-    updatedValues: any;
-}
-/**
- * A method that will handle the ASPxClientCardView.BatchEditChangesCanceling event.
- * @param source The event source. This parameter identifies the card view object which raised the event.
- * @param e An ASPxClientCardViewBatchEditChangesCancelingEventArgs object that contains event data.
- */
-interface ASPxClientCardViewBatchEditChangesCancelingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditChangesCancelingEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.BatchEditChangesCanceling event.
- */
-declare class ASPxClientCardViewBatchEditChangesCancelingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewBatchEditChangesCancelingEventArgs class.
-     * @param insertedValues A hashtable that stores information about inserted cells.
-     * @param deletedValues A hashtable that stores information about deleted cells.
-     * @param updatedValues A hashtable that stores information about updated cells.
-     */
-    constructor(insertedValues: any, deletedValues: any, updatedValues: any);
-    /**
-     * Gets a hashtable that maintains information about inserted cells.
-     */
-    insertedValues: any;
-    /**
-     * Gets a hashtable that maintains information about deleted cells.
-     */
-    deletedValues: any;
-    /**
-     * Gets a hashtable that maintains information about updated cells.
-     */
-    updatedValues: any;
-}
-/**
- * A method that will handle the ASPxClientCardView.BatchEditCardInserting event.
- * @param source The event source. This parameter identifies the card view object which raised the event.
- * @param e An ASPxClientCardViewBatchEditCardInsertingEventArgs object that contains event data.
- */
-interface ASPxClientCardViewBatchEditCardInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditCardInsertingEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.BatchEditCardInserting event.
- */
-declare class ASPxClientCardViewBatchEditCardInsertingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewBatchEditCardInsertingEventArgs class.
-     * @param visibleIndex An integer value that specifies the processed card visible index.
-     */
-    constructor(visibleIndex: number);
-    /**
-     * Gets the processed card visible index.
-     */
-    visibleIndex: number;
-}
-/**
- * A method that will handle the ASPxClientCardView.BatchEditCardDeleting event.
- * @param source The event source. This parameter identifies the card view object which raised the event.
- * @param e An ASPxClientCardViewBatchEditCardDeletingEventArgs object that contains event data.
- */
-interface ASPxClientCardViewBatchEditCardDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditCardDeletingEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.BatchEditCardDeleting event.
- */
-declare class ASPxClientCardViewBatchEditCardDeletingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewBatchEditCardDeletingEventArgs class.
-     * @param visibleIndex An integer value that specifies the processed card visible index.
-     * @param cardValues A hashtable that stores information about the processed card's cells.
-     */
-    constructor(visibleIndex: number, cardValues: any);
-    /**
-     * Gets the processed card visible index.
-     */
-    visibleIndex: number;
-    /**
-     * Gets a hashtable that maintains information about deleted cells.
-     */
-    cardValues: any;
-}
-/**
- * A method that will handle the ASPxClientCardView.BatchEditCardRecovering event.
- * @param source The event source.
- * @param e An ASPxClientCardViewBatchEditCardRecoveringEventArgs object that contains event data.
- */
-interface ASPxClientCardViewBatchEditCardRecoveringEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditCardRecoveringEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.BatchEditCardRecovering event.
- */
-declare class ASPxClientCardViewBatchEditCardRecoveringEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewBatchEditCardRecoveringEventArgs class.
-     * @param visibleIndex An integer value specifying a card's visible index.
-     * @param cardValues An object representing card values.
-     */
-    constructor(visibleIndex: number, cardValues: any);
-    /**
-     * Gets the visible index of the card whose cells has been recovered.
-     */
-    visibleIndex: number;
-    /**
-     * Gets a hashtable that maintains information about recovered cells.
-     */
-    cardValues: any;
-}
-/**
- * A method that will handle the ASPxClientCardView.FocusedCellChanging event.
- * @param source The event source.
- * @param e An ASPxClientCardViewFocusedCellChangingEventArgs object that contains event data.
- */
-interface ASPxClientCardViewFocusedCellChangingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewFocusedCellChangingEventArgs): void; }
-/**
- * Provides data for the ASPxClientCardView.FocusedCellChanging event.
- */
-declare class ASPxClientCardViewFocusedCellChangingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientCardViewFocusedCellChangingEventArgs class with specified settings.
-     * @param cellInfo A ASPxClientCardViewCellInfo object providing information about the focused cell.
-     */
-    constructor(cellInfo: ASPxClientCardViewCellInfo);
-    /**
-     * Provides information of a card's cell currently being focused.
-     */
-    cellInfo: ASPxClientCardViewCellInfo;
-}
-/**
- * Provides members related to Batch Edit Mode
- */
-declare class ASPxClientCardViewBatchEditApi {
-    /**
-     * Performs validation of CardView data contained in the cards when the CardView operates in Batch Edit mode. true, if data in the cards data passes validation; otherwise, false.
-     * @param validateOnlyModified true, if only modified cards should be validated; otherwise, false.
-     */
-    ValidateCards(validateOnlyModified?: boolean): boolean;
-    /**
-     * Performs validation of CardView data contained in the specified card when the CardView operates in Batch Edit mode. true, if data in the specified card data passes validation; otherwise, false.
-     * @param visibleIndex An integer value specifying the visible index of the validated card.
-     */
-    ValidateCard(visibleIndex: number): boolean;
-    /**
-     * Returns an array of card visible indices. An array of integer values that are the visible indices of cards.
-     * @param includeDeleted true, to include visible indices of deleted cards to the returned array; otherwise, false.
-     */
-    GetCardVisibleIndices(includeDeleted: boolean): number[];
-    /**
-     * Returns an array of the deleted card visible indices.
-     */
-    GetDeletedCardIndices(): number[];
-    /**
-     * Returns an array of the inserted card visible indices.
-     */
-    GetInsertedCardIndices(): number[];
-    /**
-     * Returns an array of the updated cards' visible indices.
-     */
-    GetUpdatedCardIndices(): number[];
-    /**
-     * Indicates if the card with the specified visible index is deleted. true, if the card is deleted; otherwise, false.
-     * @param visibleIndex An integer value that identifies the card by its visible index.
-     */
-    IsDeletedCard(visibleIndex: number): boolean;
-    /**
-     * Indicates if the card with the specified visible index is newly created. true, if the row is new; otherwise, false.
-     * @param visibleIndex An integer value that identifies the card by its visible index.
-     */
-    IsNewCard(visibleIndex: number): boolean;
-    /**
-     * Adds a new card when ASPxCardView is in Batch Edit mode.
-     */
-    AddNewCard(): void;
-    /**
-     * Deletes the specified card when ASPxCardView is in Batch Edit mode.
-     * @param visibleIndex An integer value that identifies the card index.
-     */
-    DeleteCard(visibleIndex: number): void;
-    /**
-     * Deletes a card with a specified key value when ASPxCardView is in Batch Edit mode.
-     * @param key An object that uniquely identifies the card.
-     */
-    DeleteCardByKey(key: any): void;
-    /**
-     * Recovers the specified card when ASPxCardView is in Batch Edit mode.
-     * @param visibleIndex An integer value that identifies the card index.
-     */
-    RecoverCard(visibleIndex: number): void;
-    /**
-     * Recovers a card with a specified key value when ASPxCardView is in Batch Edit mode.
-     * @param key An object that uniquely identifies the card.
-     */
-    RecoverCardByKey(key: any): void;
-    /**
-     * Programmatically moves the focus to the previous cell in the card
-     */
-    MoveFocusBackward(): boolean;
-    /**
-     * Programmatically moves the focus to the next cell in the card.
-     */
-    MoveFocusForward(): boolean;
-    /**
-     * Sets the value of the specified cell.
-     * @param visibleIndex An integer zero-based index that identifies the card containing the processed cell.
-     * @param columnFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
-     * @param value An object that contains the new cell value.
-     * @param displayText A string value that specifies the cell display text.
-     * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
-     */
-    SetCellValue(visibleIndex: number, columnFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
-    /**
-     * Gets the value of the specified cell. An object containing the specified cell's value.
-     * @param visibleIndex A zero-based integer value that specifies the visible index of a card containing the processed cell.
-     * @param columnFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
-     * @param initial true, to return the initial (server) value; false, to return a value currently contained on the client side (modified value).
-     */
-    GetCellValue(visibleIndex: number, columnFieldNameOrId: string, initial?: boolean): any;
-    /**
-     * Gets a container holding a data cell content. An object that is the HTML container element that contains the data cell's content.
-     * @param visibleIndex An integer value that is the visible index.
-     * @param columnFieldNameOrId A string value that is the column's Field Name or ID.
-     */
-    GetCellTextContainer(visibleIndex: number, columnFieldNameOrId: string): any;
-    /**
-     * Gets information about the cell currently being edited.
-     */
-    GetEditCellInfo(): ASPxClientCardViewCellInfo;
-    /**
-     * Returns an object that stores unsaved changes.
-     */
-    GetUnsavedChanges(): any;
-    /**
-     * Returns a value that indicates whether the specified cell's data has been changed. true, if the cell has changed data; otherwise, false.
-     * @param visibleIndex An integer value that specifies the visible index of a card.
-     * @param columnFieldNameOrId A string value that specifies the column's field name or unique identifier (the column's WebColumnBase.Name property value).
-     */
-    HasChanges(visibleIndex?: number, columnFieldNameOrId?: string): boolean;
-    /**
-     * Resets changes in the specified cell.
-     * @param visibleIndex An integer value that specifies the visible index of a card containing the processed cell.
-     * @param columnIndex A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
-     */
-    ResetChanges(visibleIndex: number, columnIndex?: number): void;
-    /**
-     * Switches the specified cell to edit mode.
-     * @param visibleIndex A zero-based integer value that specifies the visible index of a card containing the processed cell.
-     * @param columnIndex A zero-based integer value that identifies the column which contains the processed cell in the column collection.
-     */
-    StartEdit(visibleIndex: number, columnIndex: number): void;
-    /**
-     * Ends cell or card editing.
-     */
-    EndEdit(): void;
-    /**
-     * Provides the text displayed within the cell according to the specified display format rule. A string value representing the cell's displayed text.
-     * @param columnFieldNameOrId A string value representing the column's unique identifier or field name.
-     * @param value An object representing a value.
-     */
-    GetColumnDisplayText(columnFieldNameOrId: string, value: any): string;
-    /**
-     * Returns the total summary value. The value.
-     * @param summaryItemIndex The total summary's index or field name.
-     */
-    GetTotalSummaryValue(summaryItemIndex: number | string): number;
-    /**
-     * Returns the group summery value. The group summary value.
-     * @param groupRowVisibleIndex The group row's visible index.
-     * @param summaryItemIndex The summary's index or field name.
-     */
-    GetGroupSummaryValue(groupRowVisibleIndex: number, summaryItemIndex: number | string): number;
-}
-/**
- * Contains information on a grid cell.
- */
-declare class ASPxClientCardViewCellInfo {
-    /**
-     * Gets the visible index of the card that contains the cell currently being processed.
-     */
-    cardVisibleIndex: number;
-    /**
-     * Gets the data column that contains the cell currently being processed.
-     */
-    column: ASPxClientCardViewColumn;
-}
-/**
- * Declares client constants that contain the names of the CardView's default commands executed through callbacks.
- */
-declare class ASPxClientCardViewCallbackCommand {
-    /**
-     * Default value: "GROUPBYSELECTORVALUE"
-     */
-    static readonly GroupBySelectorValue: string;
-}
-/**
- * Lists values that specify the document formats available for export from the grid.
- */
-declare class ASPxClientCardViewExportFormat extends ASPxClientGridExportFormat {
-}
-/**
- * Lists values that specify the position relative to the target column in which a moved column should be placed.
- */
-declare class ASPxClientGridColumnMovingTargetPosition {
-    /**
-     * A moved column should be placed to the right of the target column.
-     */
-    Right: number;
-    /**
-     * A moved column should be placed to the left of the target column.
-     */
-    Left: number;
-    /**
-     * A moved column should be placed at the top of the target column.
-     */
-    Top: number;
-    /**
-     * A moved column should be placed at the bottom of the target column.
-     */
-    Bottom: number;
-}
-/**
- * Represents the client ASPxGridView.
- */
-declare class ASPxClientGridBase extends ASPxClientControl {
-    /**
-     * Fires when a user changes the summary item value.
-     */
-    BatchEditSummaryDisplayText: ASPxClientEvent<ASPxClientGridBatchEditSummaryDisplayTextEventHandler<ASPxClientGridBase>>;
-    /**
-     * Fires after a toolbar item has been clicked.
-     */
-    ToolbarItemClick: ASPxClientEvent<ASPxClientGridToolbarItemClickEventHandler<ASPxClientGridBase>>;
-    /**
-     * Returns a toolbar specified by its name. An ASPxClientMenu object that is the toolbar with the specified name.
-     * @param name A string value specifying the toolbar name.
-     */
-    GetToolbarByName(name: string): ASPxClientMenu;
-    /**
-     * Returns a grid's toolbar specified by its index. An ASPxClientMenu object that is the toolbar located at the specified index within the control's Toolbars collection.
-     * @param index An integer value specifying the zero-based index of the toolbar object to retrieve.
-     */
-    GetToolbar(index: number): ASPxClientMenu;
-}
-/**
- * Serves as a base class for classes that implement the client column functionality.
- */
-declare class ASPxClientGridColumnBase {
-}
-/**
- * Declares client constants that contain the names of the GridView's default commands executed through callbacks.
- */
-declare class ASPxClientGridViewCallbackCommand {
-    /**
-     * Default value: "NEXTPAGE"
-     */
-    static readonly NextPage: string;
-    /**
-     * Default value: "PREVPAGE"
-     */
-    static readonly PreviousPage: string;
-    /**
-     * Default value: "GOTOPAGE"
-     */
-    static readonly GotoPage: string;
-    /**
-     * Default value: "SELECTROWS"
-     */
-    static readonly SelectRows: string;
-    /**
-     * Default value: "SELECTROWSKEY"
-     */
-    static readonly SelectRowsKey: string;
-    /**
-     * Default value: "SELECTION"
-     */
-    static readonly Selection: string;
-    /**
-     * Default value: "FOCUSEDROW"
-     */
-    static readonly FocusedRow: string;
-    /**
-     * Default value: "GROUP"
-     */
-    static readonly Group: string;
-    /**
-     * Default value: "UNGROUP"
-     */
-    static readonly UnGroup: string;
-    /**
-     * Default value: "SORT"
-     */
-    static readonly Sort: string;
-    /**
-     * Default value: "COLUMNMOVE"
-     */
-    static readonly ColumnMove: string;
-    /**
-     * Default value: "COLLAPSEALL"
-     */
-    static readonly CollapseAll: string;
-    /**
-     * Default value: "EXPANDALL"
-     */
-    static readonly ExpandAll: string;
-    /**
-     * Default value: "EXPANDROW"
-     */
-    static readonly ExpandRow: string;
-    /**
-     * Default value: "COLLAPSEROW"
-     */
-    static readonly CollapseRow: string;
-    /**
-     * Default value: "HIDEALLDETAIL"
-     */
-    static readonly HideAllDetail: string;
-    /**
-     * Default value: "SHOWALLDETAIL"
-     */
-    static readonly ShowAllDetail: string;
-    /**
-     * Default value: "SHOWDETAILROW"
-     */
-    static readonly ShowDetailRow: string;
-    /**
-     * Default value: "HIDEDETAILROW"
-     */
-    static readonly HideDetailRow: string;
-    /**
-     * Default value: "PAGERONCLICK"
-     */
-    static readonly PagerOnClick: string;
-    /**
-     * Default value: "APPLYFILTER"
-     */
-    static readonly ApplyFilter: string;
-    /**
-     * Default value: "APPLYCOLUMNFILTER"
-     */
-    static readonly ApplyColumnFilter: string;
-    /**
-     * Default value: "APPLYMULTICOLUMNFILTER"
-     */
-    static readonly ApplyMultiColumnFilter: string;
-    /**
-     * Default value: "APPLYHEADERCOLUMNFILTER"
-     */
-    static readonly ApplyHeaderColumnFilter: string;
-    /**
-     * Default value: "APPLYSEARCHPANELFILTER"
-     */
-    static readonly ApplySearchPanelFilter: string;
-    /**
-     * Default value: "APPLYCUSTOMIZATIONDIALOGCHANGES"
-     */
-    static readonly ApplyCustomizationDialogChanges: string;
-    /**
-     * Default value: "FILTERROWMENU"
-     */
-    static readonly FilterRowMenu: string;
-    /**
-     * Default value: "STARTEDIT"
-     */
-    static readonly StartEdit: string;
-    /**
-     * Default value: "CANCELEDIT"
-     */
-    static readonly CancelEdit: string;
-    /**
-     * Default value: "UPDATEEDIT"
-     */
-    static readonly UpdateEdit: string;
-    /**
-     * Default value: "UPDATESUMMARIES"
-     */
-    static readonly UpdateSummaries: string;
-    /**
-     * Default value: "ADDNEWROW"
-     */
-    static readonly AddNewRow: string;
-    /**
-     * Default value: "DELETEROW"
-     */
-    static readonly DeleteRow: string;
-    /**
-     * Default value: "CUSTOMBUTTON"
-     */
-    static readonly CustomButton: string;
-    /**
-     * Default value: "CUSTOMCALLBACK"
-     */
-    static readonly CustomCallback: string;
-    /**
-     * Default value: "SHOWFILTERCONTROL"
-     */
-    static readonly ShowFilterControl: string;
-    /**
-     * Default value: "CLOSEFILTERCONTROL"
-     */
-    static readonly CloseFilterControl: string;
-    /**
-     * Default value: "SETFILTERENABLED"
-     */
-    static readonly SetFilterEnabled: string;
-    /**
-     * Default value: "REFRESH"
-     */
-    static readonly Refresh: string;
-    /**
-     * Default value: "SELFIELDVALUES"
-     */
-    static readonly SelFieldValues: string;
-    /**
-     * Default value: "ROWVALUES"
-     */
-    static readonly RowValues: string;
-    /**
-     * Default value: "PAGEROWVALUES"
-     */
-    static readonly PageRowValues: string;
-    /**
-     * Default value: "FILTERPOPUP"
-     */
-    static readonly FilterPopup: string;
-    /**
-     * Default value: "CONTEXTMENU"
-     */
-    static readonly ContextMenu: string;
-    /**
-     * Default value: "TOOLBAR"
-     */
-    static readonly Toolbar: string;
-    /**
-     * Default value: "EXPORT"
-     */
-    static readonly Export: string;
-    /**
-     * Default value: "CUSTOMVALUES"
-     */
-    static readonly CustomValues: string;
-}
-/**
- * Lists values that specify the document formats available for export from the grid.
- */
-declare class ASPxClientGridExportFormat {
-    /**
-     * Identifies Portable Document Format (.pdf).
-     */
-    static readonly Pdf: string;
-    /**
-     * Identifies DOCX format (.docx).
-     */
-    static readonly Docx: string;
-    /**
-     * Identifies Rich Text Format (.rtf).
-     */
-    static readonly Rtf: string;
-    /**
-     * Identifies Comma Separated Values format (.csv).
-     */
-    static readonly Csv: string;
-    /**
-     * Identifies Excel Binary File format (.xls).
-     */
-    static readonly Xls: string;
-    /**
-     * Identifies XML spreadsheet file format (.xlsx).
-     */
-    static readonly Xlsx: string;
-}
-/**
- * A method that will handle the ASPxClientGridBase.ToolbarItemClick event.
- * @param source The event source.
- * @param e An ASPxClientGridToolbarItemClickEventArgs object that contains event data.
- */
-interface ASPxClientGridToolbarItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientGridToolbarItemClickEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridBase.ToolbarItemClick event.
- */
-declare class ASPxClientGridToolbarItemClickEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridToolbarItemClickEventArgs class.
-     * @param item An ASPxClientMenu object that should be clicked to fire the event.
-     * @param processOnServer true to process the event on the server side; false to completely handle it on the client side.
-     */
-    constructor(item: ASPxClientMenuItem, processOnServer: boolean);
-    /**
-     * Gets the toolbar index.
-     */
-    toolbarIndex: number;
-    /**
-     * Gets the toolbar name.
-     */
-    toolbarName: string;
-    /**
-     * Gets the clicked menu item
-     */
-    item: ASPxClientMenuItem;
-    /**
-     * Specifies whether a postback or a callback is used to finally process the event on the server side.
-     */
-    usePostBack: boolean;
-    /**
-     * Specifies whether the toolbar item click is handled manually, so no default processing is required.
-     */
-    handled: boolean;
-}
-/**
- * A method that will handle the BatchEditSummaryDisplayText event.
- * @param source The event source. This parameter identifies the object which raised the event.
- * @param e The event data.
- */
-interface ASPxClientGridBatchEditSummaryDisplayTextEventHandler<Sender> { (source: Sender, e: ASPxClientGridBatchEditSummaryDisplayTextEventArgs): void; }
-/**
- * Provides data for the BatchEditSummaryDisplayText event.
- */
-declare class ASPxClientGridBatchEditSummaryDisplayTextEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the class.
-     * @param summaryInfo The summary information.
-     * @param text The summary text.
-     * @param groupRowVisibleIndex The group row's visible index.
-     */
-    constructor(summaryInfo: any, text: string, groupRowVisibleIndex: number);
-    /**
-     * Specifies whether the processed summary is a group summary.
-     */
-    isGroupSummary: boolean;
-    /**
-     * Specifies whether the processed summary is a total summary.
-     */
-    isTotalSummary: boolean;
-    /**
-     * Gets the summary item index.
-     */
-    summaryItemIndex: number;
-    /**
-     * Gets the summary type.
-     */
-    summaryType: ASPxClientSummaryItemType;
-    /**
-     * Gets the summary item's field name.
-     */
-    summaryFieldName: string;
-    /**
-     * Gets the summary item's server value.
-     */
-    serverValue: number;
-    /**
-     * Specifies the summary item's value.
-     */
-    value: number;
-    /**
-     * Gets the element that contains the summary item.
-     */
-    summaryElement: any;
-    /**
-     * Gets or sets the summary item's display text.
-     */
-    displayText: string;
-    /**
-     * Specifies the group row's visible index.
-     */
-    groupRowVisibleIndex: number;
-}
-/**
- * Lists values that specify the summary item's aggregate function types.
- */
-declare class ASPxClientSummaryItemType {
-    /**
-     * The sum of all values in a column.
-     */
-    Sum: number;
-    /**
-     * The minimum value in the column.
-     */
-    Min: number;
-    /**
-     * The maximum value in the column.
-     */
-    Max: number;
-    /**
-     * The record count.
-     */
-    Count: number;
-    /**
-     * The column's average value.
-     */
-    Average: number;
-}
-/**
- * The client-side equivalent of the ASPxGridLookup control.
- */
-declare class ASPxClientGridLookup extends ASPxClientDropDownEditBase {
-    /**
-     * Fires on the client when a data row is clicked within the built-in dropdown grid.
-     */
-    RowClick: ASPxClientEvent<ASPxClientGridViewRowClickEventHandler<ASPxClientGridLookup>>;
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientGridLookup>>;
-    /**
-     * Occurs on the client side after a callback's server-side processing has been completed.
-     */
-    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientGridLookup>>;
-    /**
-     * Returns a client object representing the built-in dropdown grid.
-     */
-    GetGridView(): ASPxClientGridView;
-    /**
-     * Confirms the current selection made by an end-user within the editor's dropdown grid.
-     */
-    ConfirmCurrentSelection(): void;
-    /**
-     * Cancels the current selection made by an end-user within the editor's dropdown grid and rolls back to the last confirmed selection. The selection can be confirmed by either pressing the Enter key or calling the ASPxClientGridLookup.ConfirmCurrentSelection method.
-     */
-    RollbackToLastConfirmedSelection(): void;
-    /**
-     * Converts the specified object to the ASPxClientGridLookup type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientGridLookup;
-}
-/**
- * A client-side equivalent of the ASPxGridView object.
- */
-declare class ASPxClientGridView extends ASPxClientGridBase {
-    /**
-     * Provides access to the batch editing client API.
-     */
-    batchEditApi: ASPxClientGridViewBatchEditApi;
-    /**
-     * Occurs when a user clicks a custom command button.
-     */
-    CustomButtonClick: ASPxClientEvent<ASPxClientGridViewCustomButtonEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires when a user selects a row.
-     */
-    SelectionChanged: ASPxClientEvent<ASPxClientGridViewSelectionEventHandler<ASPxClientGridView>>;
-    /**
-     * Enables you to prevent columns from being sorted.
-     */
-    ColumnSorting: ASPxClientEvent<ASPxClientGridViewColumnCancelEventHandler<ASPxClientGridView>>;
-    /**
-     * Enables you to cancel data grouping.
-     */
-    ColumnGrouping: ASPxClientEvent<ASPxClientGridViewColumnCancelEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires in response to changing row focus.
-     */
-    FocusedRowChanged: ASPxClientEvent<ASPxClientGridViewFocusEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires before a row has been focused.
-     */
-    RowFocusing: ASPxClientEvent<ASPxClientGridViewRowFocusingEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires when an end-user starts dragging the column's header and enables you to cancel this operation.
-     */
-    ColumnStartDragging: ASPxClientEvent<ASPxClientGridViewColumnCancelEventHandler<ASPxClientGridView>>;
-    /**
-     * Enables you to prevent columns from being resized.
-     */
-    ColumnResizing: ASPxClientEvent<ASPxClientGridViewColumnCancelEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs after a column's width has been changed by an end-user.
-     */
-    ColumnResized: ASPxClientEvent<ASPxClientGridViewColumnProcessingModeEventHandler<ASPxClientGridView>>;
-    /**
-     * Enables you to control column movement.
-     */
-    ColumnMoving: ASPxClientEvent<ASPxClientGridViewColumnMovingEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires before a group row is expanded.
-     */
-    RowExpanding: ASPxClientEvent<ASPxClientGridViewRowCancelEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires before a group row is collapsed.
-     */
-    RowCollapsing: ASPxClientEvent<ASPxClientGridViewRowCancelEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires before a detail row is expanded.
-     */
-    DetailRowExpanding: ASPxClientEvent<ASPxClientGridViewRowCancelEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires before a detail row is collapsed.
-     */
-    DetailRowCollapsing: ASPxClientEvent<ASPxClientGridViewRowCancelEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires on the client when a data row is clicked.
-     */
-    RowClick: ASPxClientEvent<ASPxClientGridViewRowClickEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires on the client when a data row is double clicked.
-     */
-    RowDblClick: ASPxClientEvent<ASPxClientGridViewRowClickEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs after an end-user right clicks in the GridView, and enables you to provide a custom context menu.
-     */
-    ContextMenu: ASPxClientEvent<ASPxClientGridViewContextMenuEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires on the client side when a context menu item has been clicked.
-     */
-    ContextMenuItemClick: ASPxClientEvent<ASPxClientGridViewContextMenuItemClickEventHandler<ASPxClientGridView>>;
-    /**
-     * Enables you to specify whether row data is valid and provide an error text.
-     */
-    BatchEditRowValidating: ASPxClientEvent<ASPxClientGridViewBatchEditRowValidatingEventHandler<ASPxClientGridView>>;
-    /**
-     * Enables you to prevent a batch edit confirmation message from being displayed.
-     */
-    BatchEditConfirmShowing: ASPxClientEvent<ASPxClientGridViewBatchEditConfirmShowingEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs when a grid switches to batch edit mode.
-     */
-    BatchEditStartEditing: ASPxClientEvent<ASPxClientGridViewBatchEditStartEditingEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs when a grid leaves the batch edit mode.
-     */
-    BatchEditEndEditing: ASPxClientEvent<ASPxClientGridViewBatchEditEndEditingEventHandler<ASPxClientGridView>>;
-    /**
-     * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
-     */
-    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientGridViewBatchEditTemplateCellFocusedEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs on the client side before data changes are saved in batch edit mode.
-     */
-    BatchEditChangesSaving: ASPxClientEvent<ASPxClientGridViewBatchEditChangesSavingEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs on the client side before data changes are canceled in batch edit mode.
-     */
-    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientGridViewBatchEditChangesCancelingEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs on the client side before a data row is inserted in batch edit mode.
-     */
-    BatchEditRowInserting: ASPxClientEvent<ASPxClientGridViewBatchEditRowInsertingEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs on the client side before a data row is deleted in batch edit mode.
-     */
-    BatchEditRowDeleting: ASPxClientEvent<ASPxClientGridViewBatchEditRowDeletingEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs on the client side before a row is recovered in batch edit mode.
-     */
-    BatchEditRowRecovering: ASPxClientEvent<ASPxClientGridViewBatchEditRowRecoveringEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs on the client side before the Changes Preview window is shown.
-     */
-    BatchEditChangesPreviewShowing: ASPxClientEvent<ASPxClientCancelEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs on the client side when the Changes Preview window is shown.
-     */
-    BatchEditChangesPreviewShown: ASPxClientEvent<ASPxClientEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs on the client side when the focused cell is about to be changed.
-     */
-    FocusedCellChanging: ASPxClientEvent<ASPxClientGridViewFocusedCellChangingEventHandler<ASPxClientGridView>>;
-    /**
-     * Invokes the Customization Dialog and displays it over the grid.
-     */
-    ShowCustomizationDialog(): void;
-    /**
-     * Sorts data by the specified data column's values, and places the column to the specified position among the sorted columns.
-     * @param column An ASPxClientGridViewColumn object that represents the data column.
-     * @param sortOrder A string value that specifies the column's sort order ('ASC', 'DSC' or 'NONE').
-     * @param reset true to clear any previous sorting; otherwise, false.
-     * @param sortIndex An integer value that specifies the zero-based column's index among the sorted columns. &#0045;1 if data is not sorted by this column.
-     */
-    SortBy(column: ASPxClientGridViewColumn | number | string, sortOrder?: string, reset?: boolean, sortIndex?: number): void;
-    /**
-     * Moves the specified column to the specified visual position within the grid and optionally groups or ungroups the grid's data by this column.
-     * @param column An ASPxClientGridViewColumn object that represents the column to move.
-     * @param moveToColumnVisibleIndex An integer value that identifies the target column displayed within the grid.
-     * @param moveBefore true to move the column before the target column; otherwise, false.
-     * @param moveToGroup true to group the grid's data by the column; otherwise, false.
-     * @param moveFromGroup true to ungroup the grid's data by the column; otherwise, false.
-     */
-    MoveColumn(column: ASPxClientGridViewColumn | number | string, moveToColumnVisibleIndex?: number, moveBefore?: boolean | ASPxClientGridColumnMovingTargetPosition, moveToGroup?: boolean, moveFromGroup?: boolean): void;
-    /**
-     * Returns an object specifying the grid column's layout.
-     */
-    GetColumnLayout(): any;
-    /**
-     * Specifies the grid column's layout.
-     * @param columnLayout An object specifying the grid column's layout.
-     */
-    SetColumnLayout(columnLayout: any): void;
-    /**
-     * Groups data by the values of the specified data column with the specified sort order. If several columns are involved in grouping, the specified column will reside at the specified grouping level.
-     * @param groupIndex An integer value that specifies the grouping level. &#0045;1 to cancel grouping by the column's values.
-     * @param sortOrder A string value that specifies the column's sort order.
-     */
-    GroupBy(column: ASPxClientGridViewColumn | number | string, groupIndex?: number, sortOrder?: string): void;
-    /** @deprecated Use the Ungroup method instead. */
-    /**
-     * Ungroups data by the values of the specified column.
-     */
-    UnGroup(column: ASPxClientGridViewColumn | number | string): void;
-    /**
-     * Ungroups data by the values of a specified column.
-     * @param column A ASPxClientGridViewColumn object that is the grid column.
-     */
-    Ungroup(column: ASPxClientGridViewColumn | number | string): void;
-    /**
-     * Expands all group rows.
-     */
-    ExpandAll(): void;
-    /**
-     * Collapses all group rows.
-     */
-    CollapseAll(): void;
-    /**
-     * Expands all detail rows.
-     */
-    ExpandAllDetailRows(): void;
-    /**
-     * Collapses all detail rows.
-     */
-    CollapseAllDetailRows(): void;
-    /**
-     * Expands the specified group row and optionally child group rows at all nesting levels.
-     * @param visibleIndex An integer value that identifies the group row.
-     * @param recursive true to expand any child group rows at all nesting levels; false to preserve the collapsed state of any child group rows.
-     */
-    ExpandRow(visibleIndex: number, recursive?: boolean): void;
-    /**
-     * Collapses the specified group row and optionally child group rows at all nesting levels.
-     * @param visibleIndex An integer value that identifies the group row by its visible index.
-     * @param recursive true to collapse child group rows at all nesting levels; false to preserve the expanded state of any child group row.
-     */
-    CollapseRow(visibleIndex: number, recursive?: boolean): void;
-    /**
-     * Scrolls the view to the specified row.
-     * @param visibleIndex An integer value that identifies a row by its visible index.
-     */
-    MakeRowVisible(visibleIndex: number): void;
-    /**
-     * Expands the specified detail row.
-     * @param visibleIndex A zero-based integer index that identifies the detail row.
-     */
-    ExpandDetailRow(visibleIndex: number): void;
-    /**
-     * Collapses the specified detail row.
-     * @param visibleIndex A zero-based integer index that identifies the detail row.
-     */
-    CollapseDetailRow(visibleIndex: number): void;
-    /**
-     * Returns the key value of the specified data row. A string representing the specified data row's key value. If the index passed via the visibleIndex parameter is wrong, or the ASPxGridBase.KeyFieldName property is not set, null is returned.
-     * @param visibleIndex An integer value that specifies the row's visible index.
-     */
-    GetRowKey(visibleIndex: number): string;
-    /**
-     * Switches the grid to edit mode.
-     * @param visibleIndex A zero-based integer that identifies a data row to be edited.
-     */
-    StartEditRow(visibleIndex: number): void;
-    /**
-     * Switches the grid to edit mode.
-     * @param key An object that uniquely identifies a data row to be edited.
-     */
-    StartEditRowByKey(key: any): void;
-    /**
-     * Indicates whether or not a new row is being edited.
-     */
-    IsNewRowEditing(): boolean;
-    /**
-     * Adds a new record.
-     */
-    AddNewRow(): void;
-    /**
-     * Deletes the specified row.
-     * @param visibleIndex An integer value that identifies the row.
-     */
-    DeleteRow(visibleIndex: number): void;
-    /**
-     * Deletes a row with the specified key value.
-     * @param key An object that uniquely identifies the row.
-     */
-    DeleteRowByKey(key: any): void;
-    /**
-     * Returns the focused row's index.
-     */
-    GetFocusedRowIndex(): number;
-    /**
-     * Moves focus to the specified row.
-     * @param visibleIndex An integer value that specifies the focused row's index.
-     */
-    SetFocusedRowIndex(visibleIndex: number): void;
-    /**
-     * Selects or deselects the specified rows within the grid.
-     * @param visibleIndices An array of zero-based indices that identify data rows within the grid.
-     * @param selected true to select the specified rows; false to deselect the rows.
-     */
-    SelectRows(visibleIndices?: number[] | number, selected?: boolean): void;
-    /**
-     * Selects or deselects the specified row in the grid.
-     * @param selected true to select the specified row; false to deselect the row.
-     */
-    SelectRowsByKey(keys: any[] | any, selected?: boolean): void;
-    /**
-     * Deselects the specified row displayed within the grid.
-     */
-    UnselectRowsByKey(keys: any[] | any): void;
-    /**
-     * Deselects the specified row (if selected) within the grid.
-     * @param visibleIndices Visible indices of rows to unselect.
-     */
-    UnselectRows(visibleIndices?: number[] | number): void;
-    /**
-     * Deselects all grid rows that match the filter criteria currently applied to the grid.
-     */
-    UnselectFilteredRows(): void;
-    /**
-     * Selects or deselects the specified row displayed on the current page.
-     * @param visibleIndex A zero-based integer value that specifies the row's visible index.
-     * @param selected true to select the specified row; false to deselect the row.
-     */
-    SelectRowOnPage(visibleIndex: number, selected?: boolean): void;
-    /**
-     * Deselects the specified row (if selected) displayed on the current page.
-     * @param visibleIndex A zero-based integer value that specifies the row's visible index.
-     */
-    UnselectRowOnPage(visibleIndex: number): void;
-    /**
-     * Allows you to select or deselect all rows displayed on the current page based on the parameter passed.
-     * @param selected true to select all unselected rows displayed on the current page; false to deselect all selected rows on the page.
-     */
-    SelectAllRowsOnPage(selected?: boolean): void;
-    /**
-     * Deselects all selected rows displayed on the current page.
-     */
-    UnselectAllRowsOnPage(): void;
-    /**
-     * Returns the number of selected rows.
-     */
-    GetSelectedRowCount(): number;
-    /**
-     * Indicates whether or not the specified row is selected within the current page. true if the specified row is selected within the current page; otherwise, false.
-     * @param visibleIndex An integer value that identifies the row by its visible index.
-     */
-    IsRowSelectedOnPage(visibleIndex: number): boolean;
-    /**
-     * Indicates whether the specified row is a group row. true if the specified row is a group row; otherwise, false.
-     * @param visibleIndex An integer value that identifies the row by its visible index.
-     */
-    IsGroupRow(visibleIndex: number): boolean;
-    /**
-     * Indicates whether the specified row is a data row. true if the specified row is a data row; otherwise, false.
-     * @param visibleIndex An integer value that identifies the row by its visible index.
-     */
-    IsDataRow(visibleIndex: number): boolean;
-    /**
-     * Indicates whether the specified group row is expanded. true if the specified group row is expanded; otherwise, false.
-     * @param visibleIndex An integer value that identifies the group row by its visible index.
-     */
-    IsGroupRowExpanded(visibleIndex: number): boolean;
-    /** @deprecated Use the GetVerticalScrollPosition method instead. */
-    /**
-     * Returns the current vertical scroll position of the grid's content.
-     */
-    GetVertScrollPos(): number;
-    /** @deprecated Use the GetHorizontalScrollPosition method instead. */
-    /**
-     * Returns the current horizontal scroll position of the grid's content.
-     */
-    GetHorzScrollPos(): number;
-    /**
-     * Returns the current horizontal scroll position of the grid's content.
-     */
-    GetHorizontalScrollPosition(): number;
-    /** @deprecated Use the SetVerticalScrollPosition method instead. */
-    /**
-     * Specifies the vertical scroll position for the grid's content.
-     * @param position An integer value specifying the vertical scroll position.
-     */
-    SetVertScrollPos(position: number): void;
-    /** @deprecated Use the SetHorizontalScrollPosition method instead. */
-    /**
-     * Specifies the horizontal scroll position for the grid's content.
-     * @param position An integer value specifying the horizontal scroll position.
-     */
-    SetHorzScrollPos(position: number): void;
-    /**
-     * Specifies the horizontal scroll position for the grid's content.
-     * @param position An integer value specifying the horizontal scroll position.
-     */
-    SetHorizontalScrollPosition(position: number): void;
-    /**
-     * Sets the scrollability of various types of grid rows when the grid displays fixed columns.
-     * @param scrollableRowSettings An object specifying which types of grid rows should or should not be scrollable.
-     */
-    SetFixedColumnScrollableRows(scrollableRowSettings: any): void;
-    /**
-     * Exports a grid data to a file in the specified format.
-     * @param format An ASPxClientGridViewExportFormat object specifying the export format.
-     */
-    ExportTo(format: ASPxClientGridViewExportFormat): void;
-    /**
-     * Returns a value specifying the indices of the rows visible in the browser's view port. An array of integer values that are the indices of the rows visible in the browser's view port.
-     * @param includePartiallyVisible true, to include partially visible rows, otherwise, false.
-     */
-    GetRowIndicesVisibleInViewPort(includePartiallyVisible: boolean): number[];
-    /**
-     * Applies a filter specified in the filter row to the GridView.
-     */
-    ApplyOnClickRowFilter(): void;
-    /**
-     * Returns the editor used to edit the value in the auto filter row for the specified data column. An object that represents the editor used to edit the value in the specified auto filter row cell. null (Nothing in Visual Basic) if the editor was not found.
-     */
-    GetAutoFilterEditor(column: ASPxClientGridViewColumn | number | string): any;
-    /**
-     * Applies a filter to the specified data column.
-     * @param val A string value that specifies the filter expression.
-     */
-    AutoFilterByColumn(column: ASPxClientGridViewColumn | number | string, val: string): void;
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientGridView>>;
-    /**
-     * Occurs on the client after a callback's server-side processing has been completed.
-     */
-    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires on the client if any unhandled server error occurs during server-side processing of a callback sent by the ASPxClientGridView.
-     */
-    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientGridView>>;
-    /**
-     * Fires after the Customization Window has been closed.
-     */
-    CustomizationWindowCloseUp: ASPxClientEvent<ASPxClientEventHandler<ASPxClientGridView>>;
-    /**
-     * Applies the specified search panel filter criterion to grid data.
-     * @param value A string value that specifies the filter criterion.
-     */
-    ApplySearchPanelFilter(value: string): void;
-    /**
-     * Applies the specified filter expression to the GridView.
-     * @param filterExpression A string value that specifies the filter expression.
-     */
-    ApplyFilter(filterExpression: string): void;
-    /**
-     * Clears the filter expression applied to a client GridView.
-     */
-    ClearFilter(): void;
-    /**
-     * Gets the Popup Edit Form.
-     */
-    GetPopupEditForm(): ASPxClientPopupControl;
-    /**
-     * Sets input focus to the grid.
-     */
-    Focus(): void;
-    /**
-     * Sends a callback to the server and generates the server-side event, passing the specified argument to it.
-     * @param args A string value that represents any information that needs to be sent to the server-side event.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(args: string, onSuccess?: (arg: string) => void): void;
-    /**
-     * Selects the specified page.
-     * @param pageIndex An integer value that specifies the active page's index.
-     */
-    GotoPage(pageIndex: number): void;
-    /**
-     * Gets the index of the page currently being selected.
-     */
-    GetPageIndex(): number;
-    /**
-     * Gets the number of pages to which the grid's data is divided.
-     */
-    GetPageCount(): number;
-    /**
-     * Activates the next page.
-     */
-    NextPage(): void;
-    /**
-     * Activates the previous page.
-     */
-    PrevPage(): void;
-    /**
-     * Returns the index of the first data row displayed within the GridView's active page.
-     */
-    GetTopVisibleIndex(): number;
-    /**
-     * Indicates whether the grid is in edit mode.
-     */
-    IsEditing(): boolean;
-    /**
-     * Saves all the changes made and switches the grid to browse mode.
-     */
-    UpdateEdit(): void;
-    /**
-     * Cancels all the changes made and switches the GridView to browse mode.
-     */
-    CancelEdit(): void;
-    /**
-     * Updates data displayed within the grid.
-     */
-    Refresh(): void;
-    /**
-     * Indicates whether the Customization Window is displayed.
-     */
-    IsCustomizationWindowVisible(): boolean;
-    /**
-     * Invokes the Customization Window and displays it over the specified HTML element.
-     * @param showAtElement An object that specifies the HTML element relative to whose position the customization window is invoked.
-     */
-    ShowCustomizationWindow(showAtElement?: any): void;
-    /**
-     * Closes the Customization Window.
-     */
-    HideCustomizationWindow(): void;
-    /** @deprecated Use the GetColumnCount method instead. */
-    /**
-     * Returns the number of columns within the client GridView.
-     */
-    GetColumnsCount(): number;
-    /**
-     * Returns the number of columns within the client GridView.
-     */
-    GetColumnCount(): number;
-    /**
-     * Returns the row values displayed within all selected rows.
-     * @param fieldNames The names of data source fields separated via a semicolon, whose values within the selected rows are returned.
-     * @param onCallback A ASPxClientGridViewValuesCallback object that represents the JavaScript function which receives the list of row values as a parameter.
-     */
-    GetSelectedFieldValues(fieldNames: string, onCallback: ASPxClientGridViewValuesCallback): void;
-    /**
-     * Returns key values of selected rows displayed within the current page.
-     */
-    GetSelectedKeysOnPage(): any[];
-    /**
-     * Sends a callback to the server and generates the server-side ASPxGridView.CustomDataCallback event.
-     * @param args Information that you need to send to the ASPxGridView.CustomDataCallback server-side event.
-     * @param onCallback A JavaScript function that receives the information on the client side.
-     */
-    GetValuesOnCustomCallback(args: string, onCallback: ASPxClientGridViewValuesCallback): void;
-    /**
-     * Returns the values of the specified data source fields within the specified row.
-     * @param visibleIndex An integer value that identifies the data row's index.
-     * @param fieldNames The names of data source fields separated by a semicolon, whose values within the specified row are returned.
-     * @param onCallback An ASPxClientGridViewValuesCallback object that represents the JavaScript function which receives the list of row values as a parameter.
-     */
-    GetRowValues(visibleIndex: number, fieldNames: string, onCallback: ASPxClientGridViewValuesCallback): void;
-    /**
-     * Returns the row values displayed within the current page.
-     * @param fieldNames The names of data source fields whose values are returned.
-     * @param onCallback A ASPxClientGridViewValuesCallback object that represents the JavaScript function which receives the list of row values as a parameter.
-     */
-    GetPageRowValues(fieldNames: string, onCallback: ASPxClientGridViewValuesCallback): void;
-    /**
-     * Returns the number of rows actually displayed within the active page.
-     */
-    GetVisibleRowsOnPage(): number;
-    /**
-     * Returns the client column that resides at the specified position within the column collection. An ASPxClientGridViewColumn object that represents the client column.
-     * @param columnIndex A zero-based index that identifies the column within the column collection (the column's CollectionItem.Index property value).
-     */
-    GetColumn(columnIndex: number): ASPxClientGridViewColumn;
-    /**
-     * Returns the column with the specified unique identifier. An ASPxClientGridViewColumn object that represents the client column.
-     * @param columnId A string value that specifies the column's unique identifier (the column's WebColumnBase.Name property value).
-     */
-    GetColumnById(columnId: string): ASPxClientGridViewColumn;
-    /**
-     * Returns the client column which is bound to the specified data source field. An ASPxClientGridViewColumn object that represents the client column bound to the specified data source field.
-     * @param columnFieldName A string value that specifies the name of the data source field to which the column is bound (the column's GridViewDataColumn.FieldName property value).
-     */
-    GetColumnByField(columnFieldName: string): ASPxClientGridViewColumn;
-    /**
-     * Returns the editor used to edit the specified column's values. Specifies a column's editor.
-     * @param column Specifies the required column in the client grid.
-     */
-    GetEditor(column: ASPxClientGridViewColumn | number | string): ASPxClientEdit;
-    /**
-     * Returns the value of the specified edit cell. A string value that represents the value of the edit cell which corresponds to the specified data column.
-     * @param column An ASPxClientGridViewColumn object that represents the data column within the client grid.
-     */
-    GetEditValue(column: ASPxClientGridViewColumn | number | string): string;
-    /**
-     * Moves focus to the specified edit cell within the edited row.
-     * @param column An ASPxClientGridViewColumn object that represents the data column within the client grid.
-     */
-    FocusEditor(column: ASPxClientGridViewColumn | number | string): void;
-    /**
-     * Sets the value of the specified edit cell.
-     * @param value A string value that specifies the edit cell's new value.
-     */
-    SetEditValue(column: ASPxClientGridViewColumn | number | string, value: string): void;
-    /**
-     * Displays the Filter Control.
-     */
-    ShowFilterControl(): void;
-    /**
-     * Hides the Filter Control.
-     */
-    CloseFilterControl(): void;
-    /**
-     * Enables or disables the current filter.
-     * @param isFilterEnabled true to enable the current filter; otherwise, false.
-     */
-    SetFilterEnabled(isFilterEnabled: boolean): void;
-    /**
-     * Returns the current vertical scroll position of the grid's content.
-     */
-    GetVerticalScrollPosition(): number;
-    /**
-     * Specifies the vertical scroll position for the grid's content.
-     * @param position An integer value that specifies the vertical scroll position.
-     */
-    SetVerticalScrollPosition(position: number): void;
-    /**
-     * Gets information about a focused cell.
-     */
-    GetFocusedCell(): ASPxClientGridViewCellInfo;
-    /**
-     * Focuses the specified cell.
-     * @param rowVisibleIndex An integer value that specifies the visible index of the row.
-     * @param columnIndex Focuses the specified cell.
-     */
-    SetFocusedCell(rowVisibleIndex: number, columnIndex: number): void;
-    /**
-     * Focuses the specified cell.
-     * @param key A String value that identifies the row by its key value.
-     * @param columnIndex A zero-based index that identifies the column in the column collection (the column's CollectionItem.Index property value).
-     */
-    SetFocusedCellByKey(key: any, columnIndex: number): void;
-    /**
-     * Specifies a custom editor for the search panel on the client side.
-     * @param editor An ASPxClientEdit object representing a custom editor.
-     */
-    SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
-    /**
-     * Returns the edit form layout.
-     */
-    GetEditFormLayout(): ASPxClientFormLayout;
-    /**
-     * Returns the form layout item. The form layout item.
-     * @param column The column, its index or name.
-     */
-    GetEditFormLayoutItemByColumn(column: ASPxClientGridViewColumn | number | string): ASPxClientLayoutItem;
-    /**
-     * Returns the form layout item or group. The layout item.
-     * @param name The item's or group's name.
-     */
-    GetEditFormLayoutItemOrGroup(name: string): ASPxClientLayoutItem;
-    /**
-     * Converts the specified object to the ASPxClientGridView type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientGridView;
-}
-/**
- * A client grid column.
- */
-declare class ASPxClientGridViewColumn extends ASPxClientGridColumnBase {
-    /** @deprecated Use the name property instead. */
-    /**
-     * Gets the column's unique identifier.
-     */
-    id: string;
-    /**
-     * Gets the name that uniquely identifies the column.
-     */
-    name: string;
-    /**
-     * Gets the column's position within the collection.
-     */
-    index: number;
-    /**
-     * Gets the name of the database field assigned to the current column.
-     */
-    fieldName: string;
-    /**
-     * Gets whether the column is visible.
-     */
-    visible: boolean;
-}
-/**
- * Represents a JavaScript function which receives the list of row values when the client ASPxClientGridView.GetRowValues, ASPxGridView.GetCurrentPageRowValues or ASPxClientGridView.GetSelectedFieldValues method is called.
- * @param result An object that represents the list of row values received from the server.
- */
-interface ASPxClientGridViewValuesCallback { (result: any): void; }
-/**
- * A method that will handle the cancelable events of a client ASPxGridView column.
- * @param source The event source.
- * @param e An ASPxClientGridViewColumnCancelEventArgs object that contains event data.
- */
-interface ASPxClientGridViewColumnCancelEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewColumnCancelEventArgs): void; }
-/**
- * Provides data for the cancelable events of a client ASPxGridView column.
- */
-declare class ASPxClientGridViewColumnCancelEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new isntance of the ASPxClientGridViewColumnCancelEventArgs class.
-     * @param column An ASPxClientGridViewColumn object that represents the processed column.
-     */
-    constructor(column: ASPxClientGridViewColumn);
-    /**
-     * Gets the processed client column.
-     */
-    column: ASPxClientGridViewColumn;
-}
-/**
- * A method that will handle the client events concerned with column processing.
- * @param source The event source.
- * @param e A ASPxClientGridViewColumnProcessingModeEventArgs object that contains event data.
- */
-interface ASPxClientGridViewColumnProcessingModeEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewColumnProcessingModeEventArgs): void; }
-/**
- * Provides data for the client events  concerned with column processing, and that allow the event's processing to be passed to the server side.
- */
-declare class ASPxClientGridViewColumnProcessingModeEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewColumnProcessingModeEventArgs class with the specified setting.
-     * @param column A ASPxClientGridViewColumn object representing the column related to the event.
-     */
-    constructor(column: ASPxClientGridViewColumn);
-    /**
-     * Gets a grid column related to the event.
-     */
-    column: ASPxClientGridViewColumn;
-}
-/**
- * A method that will handle the ASPxClientGridView.RowCollapsing and ASPxClientGridView.RowExpanding events.
- * @param source The event source.
- * @param e An ASPxClientGridViewRowCancelEventArgs object that contains event data.
- */
-interface ASPxClientGridViewRowCancelEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewRowCancelEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.RowCollapsing and ASPxClientGridView.RowExpanding events.
- */
-declare class ASPxClientGridViewRowCancelEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewRowCancelEventArgs class.
-     * @param visibleIndex An integer value that identifies the processed row. This value is assigned to the ASPxClientGridViewRowCancelEventArgs.visibleIndex property.
-     */
-    constructor(visibleIndex: number);
-    /**
-     * Gets the processed row's visible index.
-     */
-    visibleIndex: number;
-}
-/**
- * A method that will handle the ASPxClientGridView.SelectionChanged event.
- * @param source The event source.
- * @param e An ASPxClientGridViewSelectionEventArgs object that contains event data.
- */
-interface ASPxClientGridViewSelectionEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewSelectionEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.SelectionChanged event.
- */
-declare class ASPxClientGridViewSelectionEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewSelectionEventArgs class.
-     * @param visibleIndex An integer value that specifies the visible index of the row whose selected state has been changed. This value is assigned to the ASPxClientGridViewSelectionEventArgs.visibleIndex property.
-     */
-    constructor(visibleIndex: number);
-    /**
-     * Gets the visible index of the row whose selected state has been changed.
-     */
-    visibleIndex: number;
-    /**
-     * Gets whether the row has been selected.
-     */
-    isSelected: boolean;
-    /**
-     * Gets whether all rows displayed within a page have been selected or unselected.
-     */
-    isAllRecordsOnPage: boolean;
-    /**
-     * Gets whether a selection has been changed on the server.
-     */
-    isChangedOnServer: boolean;
-}
-/**
- * Represents a method that will handle the ASPxClientGridView.FocusedRowChanged event.
- * @param source The event source.
- * @param e An ASPxClientGridViewFocusEventArgs object which contains event data.
- */
-interface ASPxClientGridViewFocusEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewFocusEventArgs): void; }
-/**
- * Provides data for the corresponding event.
- */
-declare class ASPxClientGridViewFocusEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewFocusEventArgs class.
-     */
-    constructor();
-    /**
-     * Gets whether the row focusing has been changed on the server.
-     */
-    isChangedOnServer: boolean;
-}
-/**
- * Represents a method that will handle the ASPxClientGridView.RowFocusing event.
- * @param source The event source.
- * @param e An ASPxClientGridViewRowFocusingEventArgs object which contains event data.
- */
-interface ASPxClientGridViewRowFocusingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewRowFocusingEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.RowFocusing event.
- */
-declare class ASPxClientGridViewRowFocusingEventArgs extends ASPxClientGridViewRowCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewRowFocusingEventArgs class.
-     * @param visibleIndex An integer value specifying the row visible index.
-     * @param htmlEvent An object specifying the HTML event.
-     */
-    constructor(visibleIndex: number, htmlEvent: any);
-    /**
-     * Provides access to the parameters associated with the ASPxClientGridView.RowFocusing event.
-     */
-    htmlEvent: any;
-}
-/**
- * A method that will handle the ASPxClientGridView.RowClick event.
- * @param source The event source. This parameter identifies the ASPxClientGridView object that raised the event.
- * @param e An ASPxClientGridViewRowClickEventArgs object that contains event data.
- */
-interface ASPxClientGridViewRowClickEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewRowClickEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.RowClick event.
- */
-declare class ASPxClientGridViewRowClickEventArgs extends ASPxClientGridViewRowCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewRowClickEventArgs class.
-     * @param visibleIndex A zero-based integer index that identifies the clicked row.
-     * @param htmlEvent An object that contains parameters associated with the event. This value is assigned to the ASPxClientGridViewRowClickEventArgs.htmlEvent property.
-     */
-    constructor(visibleIndex: number, htmlEvent: any);
-    /**
-     * Provides access to the parameters associated with the ASPxClientGridView.RowClick event.
-     */
-    htmlEvent: any;
-}
-/**
- * A method that will handle the ASPxClientGridView.ContextMenu event.
- * @param source The event source.
- * @param e An ASPxClientGridViewContextMenuEventArgs object that contains event data.
- */
-interface ASPxClientGridViewContextMenuEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewContextMenuEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.ContextMenu event.
- */
-declare class ASPxClientGridViewContextMenuEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewContextMenuEventArgs class with the specified settings.
-     * @param objectType A string specifying a grid element that has been right clicked by the user.
-     * @param index A zero-based integer index that is the processed element index.
-     * @param htmlEvent An object that contains parameters associated with the event.
-     * @param showBrowserMenu true, to display a browser context menu; otherwise, false.
-     */
-    constructor(objectType: string, index: number, htmlEvent: any, showBrowserMenu: boolean);
-    /**
-     * Gets which grid element has been right clicked by the user.
-     */
-    objectType: string;
-    /**
-     * Identifies the grid element being right clicked by the user.
-     */
-    index: number;
-    /**
-     * Provides access to the parameters associated with the ASPxClientGridView.ContextMenu event.
-     */
-    htmlEvent: any;
-    /**
-     * Gets the currently processed menu object.
-     */
-    menu: any;
-    /**
-     * Specifies whether a browser context menu should be displayed.
-     */
-    showBrowserMenu: boolean;
-}
-/**
- * A method that will handle the ASPxClientGridView.ContextMenuItemClick event.
- * @param source The event source.
- * @param e An ASPxClientGridViewContextMenuItemClickEventArgs object that contains event data.
- */
-interface ASPxClientGridViewContextMenuItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewContextMenuItemClickEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.ContextMenuItemClick event.
- */
-declare class ASPxClientGridViewContextMenuItemClickEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewContextMenuItemClickEventArgs class with the specified settings.
-     * @param item An ASPxClientMenuItem object specifying an item that has been right clicked by the user.
-     * @param objectType A string specifying a grid element that has been right clicked by the user.
-     * @param elementIndex A zero-based integer index that identifies the grid element being right clicked by the user.
-     * @param processOnServer true to process the event on the server side; false to completely handle it on the client side.
-     */
-    constructor(item: ASPxClientMenuItem, objectType: string, elementIndex: number, processOnServer: boolean);
-    /**
-     * Gets the clicked context menu item.
-     */
-    item: ASPxClientMenuItem;
-    /**
-     * Gets which grid element has been right clicked by the user.
-     */
-    objectType: string;
-    /**
-     * Returns the processed element index.
-     */
-    elementIndex: number;
-    /**
-     * Specifies whether a postback or a callback is used to finally process the event on the server side.
-     */
-    usePostBack: boolean;
-    /**
-     * Specifies whether default context menu item click is handled manually, so no default processing is required.
-     */
-    handled: boolean;
-}
-/**
- * A method that will handle the ASPxClientGridView.CustomButtonClick event.
- * @param source The event source.
-This parameter identifies the ASPxClientGridView object that raised the event.
- * @param e An ASPxClientGridViewCustomButtonEventArgs object that contains event data.
- */
-interface ASPxClientGridViewCustomButtonEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewCustomButtonEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.CustomButtonClick event.
- */
-declare class ASPxClientGridViewCustomButtonEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewCustomButtonEventArgs class.
-     * @param visibleIndex An integer value that identifies the row whose custom button has been clicked. This value is assigned to the ASPxClientGridViewCustomButtonEventArgs.visibleIndex property.
-     * @param buttonID An integer value that identifies the clicked custom button. This value is assigned to the ASPxClientGridViewCustomButtonEventArgs.buttonID property.
-     */
-    constructor(visibleIndex: number, buttonID: string);
-    /**
-     * Gets the value that identifies the row whose custom button has been clicked.
-     */
-    visibleIndex: number;
-    /**
-     * Gets the value that identifies the custom button.
-     */
-    buttonID: string;
-}
-/**
- * A method that will handle the ASPxClientGridView.ColumnMoving event.
- * @param source The event source.
- * @param e An ASPxClientGridViewColumnMovingEventArgs object that contains event data.
- */
-interface ASPxClientGridViewColumnMovingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewColumnMovingEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.ColumnMoving event.
- */
-declare class ASPxClientGridViewColumnMovingEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewColumnMovingEventArgs class.
-     * @param sourceColumn An ASPxClientGridViewColumn object that represents the column currently being dragged by an end-user. This value is assigned to the ASPxClientGridViewColumnMovingEventArgs.sourceColumn property.
-     * @param destinationColumn An ASPxClientGridViewColumn object that represents the target column. This value is assigned to the ASPxClientGridViewColumnMovingEventArgs.destinationColumn property.
-     * @param isDropBefore true if the source column will be inserted before the target column (if dropped); otherwise, false. This value is assigned to the ASPxClientGridViewColumnMovingEventArgs.isDropBefore property.
-     * @param isGroupPanel true if the source column is currently over the Group Panel; otherwise, false. This value is assigned to the ASPxClientGridViewColumnMovingEventArgs.isGroupPanel property.
-     */
-    constructor(sourceColumn: ASPxClientGridViewColumn, destinationColumn: ASPxClientGridViewColumn, isDropBefore: boolean, isGroupPanel: boolean);
-    /**
-     * Gets or sets whether a column is allowed to be moved.
-     */
-    allow: boolean;
-    /**
-     * Gets the column currently being dragged by an end-user.
-     */
-    sourceColumn: ASPxClientGridViewColumn;
-    /**
-     * Gets the target column, before or after which the source column will be inserted (if dropped).
-     */
-    destinationColumn: ASPxClientGridViewColumn;
-    /**
-     * Gets whether the source column will be inserted before the target column (if dropped).
-     */
-    isDropBefore: boolean;
-    /**
-     * Gets whether the source column is currently over the Group Panel.
-     */
-    isGroupPanel: boolean;
-}
-/**
- * A method that will handle the ASPxClientGridView.BatchEditConfirmShowing client event.
- * @param source The event source.
- * @param e An ASPxClientGridViewBatchEditConfirmShowingEventArgs object that contains event data.
- */
-interface ASPxClientGridViewBatchEditConfirmShowingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditConfirmShowingEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.BatchEditConfirmShowing event.
- */
-declare class ASPxClientGridViewBatchEditConfirmShowingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewBatchEditConfirmShowingEventArgs class.
-     * @param requestTriggerID A string value specifying the client identifier of an object that initiates a request.
-     */
-    constructor(requestTriggerID: string);
-    /**
-     * Gets the client identifier of an object that initiates a send request.
-     */
-    requestTriggerID: string;
-}
-/**
- * A method that will handle the ASPxClientGridView.BatchEditStartEditing event.
- * @param source The event source.
- * @param e An ASPxClientGridViewBatchEditStartEditingEventArgs object that contains event data.
- */
-interface ASPxClientGridViewBatchEditStartEditingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditStartEditingEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.BatchEditStartEditing event.
- */
-declare class ASPxClientGridViewBatchEditStartEditingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewBatchEditStartEditingEventArgs class.
-     * @param visibleIndex An integer value that is the row's visible index.
-     * @param focusedColumn An  object that is the focused row.
-     * @param rowValues An object that provides the row values.
-     * @param key An object that provides the row's key.
-     */
-    constructor(visibleIndex: number, focusedColumn: ASPxClientGridViewColumn, rowValues: any, key: any);
-    /**
-     * Gets the visible index of the row whose cells are about to be edited.
-     */
-    visibleIndex: number;
-    /**
-     * Gets the grid column that owns a cell that is about to be edited.
-     */
-    focusedColumn: ASPxClientGridViewColumn;
-    /**
-     * Gets a hashtable that maintains information about editable cells.
-     */
-    rowValues: any;
-    /**
-     * Gets the row's key.
-     */
-    key: any;
-}
-/**
- * A method that will handle the ASPxClientGridView.BatchEditEndEditing event.
- * @param source The event source.
- * @param e An ASPxClientGridViewBatchEditEndEditingEventArgs object that contains event data.
- */
-interface ASPxClientGridViewBatchEditEndEditingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditEndEditingEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.BatchEditEndEditing event.
- */
-declare class ASPxClientGridViewBatchEditEndEditingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewBatchEditEndEditingEventArgs class.
-     * @param visibleIndex An integer value that specifies the visible index.
-     * @param rowValues An object that provides the row values.
-     * @param key An object that provides the row key.
-     */
-    constructor(visibleIndex: number, rowValues: any, key: any);
-    /**
-     * Gets the visible index of the row whose cells has been edited.
-     */
-    visibleIndex: number;
-    /**
-     * Gets a hashtable that maintains information about editable cells.
-     */
-    rowValues: any;
-    /**
-     * Gets the row's key.
-     */
-    key: any;
-}
-/**
- * A method that will handle the ASPxClientGridView.BatchEditRowValidating event.
- * @param source The event source.
- * @param e An ASPxClientGridViewBatchEditRowValidatingEventArgs object that contains event data.
- */
-interface ASPxClientGridViewBatchEditRowValidatingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditRowValidatingEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.BatchEditRowValidating event.
- */
-declare class ASPxClientGridViewBatchEditRowValidatingEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewBatchEditRowValidatingEventArgs class.
-     * @param visibleIndex An integer value that specifies the row's visible index.
-     * @param validationInfo An object that provides the row's validation info.
-     * @param key An object that is the row's key.
-     */
-    constructor(visibleIndex: number, validationInfo: any, key: any);
-    /**
-     * Gets the processed row's visible index.
-     */
-    visibleIndex: number;
-    /**
-     * Provides validation information of a row currently being validated.
-     */
-    validationInfo: any;
-    /**
-     * Gets the row's key.
-     */
-    key: any;
-}
-/**
- * A method that will handle the ASPxClientGridView.BatchEditTemplateCellFocused event.
- * @param source An object representing the event source. Identifies the button editor that raised the event.
- * @param e An ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs object that contains event data.
- */
-interface ASPxClientGridViewBatchEditTemplateCellFocusedEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.BatchEditTemplateCellFocused event.
- */
-declare class ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs class with the specified column.
-     * @param column An ASPxClientGridViewColumn object that is the processed grid column. This value is assigned to the ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs.column property.
-     */
-    constructor(column: ASPxClientGridViewColumn);
-    /**
-     * Gets the currently processed column.
-     */
-    column: ASPxClientGridViewColumn;
-    /**
-     * Gets or sets a value specifying whether the event was handled.
-     */
-    handled: boolean;
-}
-/**
- * A method that will handle the ASPxClientGridView.BatchEditChangesSaving event.
- * @param source The event source. This parameter identifies the grid view object which raised the event.
- * @param e An ASPxClientGridViewBatchEditChangesSavingEventArgs object that contains event data.
- */
-interface ASPxClientGridViewBatchEditChangesSavingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditChangesSavingEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.BatchEditChangesSaving event.
- */
-declare class ASPxClientGridViewBatchEditChangesSavingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewBatchEditChangesSavingEventArgs class.
-     * @param insertedValues A hashtable that stores information about inserted cells.
-     * @param deletedValues A hashtable that stores information about deleted cells.
-     * @param updatedValues A hashtable that stores information about updated cells.
-     */
-    constructor(insertedValues: any, deletedValues: any, updatedValues: any);
-    /**
-     * Gets a hashtable that maintains information about inserted cells.
-     */
-    insertedValues: any;
-    /**
-     * Gets a hashtable that maintains information about deleted cells.
-     */
-    deletedValues: any;
-    /**
-     * Gets a hashtable that maintains information about updated cells.
-     */
-    updatedValues: any;
-}
-/**
- * A method that will handle the ASPxClientGridView.BatchEditChangesCanceling event.
- * @param source The event source. This parameter identifies the grid view object which raised the event.
- * @param e An ASPxClientGridViewBatchEditChangesCancelingEventArgs object that contains event data.
- */
-interface ASPxClientGridViewBatchEditChangesCancelingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditChangesCancelingEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.BatchEditChangesCanceling event.
- */
-declare class ASPxClientGridViewBatchEditChangesCancelingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewBatchEditChangesCancelingEventArgs class.
-     * @param insertedValues A hashtable that stores information about inserted cells.
-     * @param deletedValues A hashtable that stores information about deleted cells.
-     * @param updatedValues A hashtable that stores information about updated cells.
-     */
-    constructor(insertedValues: any, deletedValues: any, updatedValues: any);
-    /**
-     * Gets a hashtable that maintains information about inserted cells.
-     */
-    insertedValues: any;
-    /**
-     * Gets a hashtable that maintains information about deleted cells.
-     */
-    deletedValues: any;
-    /**
-     * Gets a hashtable that maintains information about updated cells.
-     */
-    updatedValues: any;
-}
-/**
- * A method that will handle the ASPxClientGridView.BatchEditRowInserting event.
- * @param source The event source. This parameter identifies the card view object which raised the event.
- * @param e An ASPxClientGridViewBatchEditRowInsertingEventArgs object that contains event data.
- */
-interface ASPxClientGridViewBatchEditRowInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditRowInsertingEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.BatchEditRowInserting event.
- */
-declare class ASPxClientGridViewBatchEditRowInsertingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewBatchEditRowInsertingEventArgs class.
-     * @param visibleIndex An integer value that specifies the processed row's visible index.
-     */
-    constructor(visibleIndex: number);
-    /**
-     * Gets the processed row's visible index.
-     */
-    visibleIndex: number;
-}
-/**
- * A method that will handle the ASPxClientGridView.BatchEditRowDeleting event.
- * @param source The event source. This parameter identifies the grid view object which raised the event.
- * @param e An ASPxClientGridViewBatchEditRowDeletingEventArgs object that contains event data.
- */
-interface ASPxClientGridViewBatchEditRowDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditRowDeletingEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.BatchEditRowDeleting event.
- */
-declare class ASPxClientGridViewBatchEditRowDeletingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewBatchEditRowDeletingEventArgs class.
-     * @param visibleIndex An integer value that specifies the row's visible index.
-     * @param rowValues An object that provides row values.
-     * @param key An object that is the row's key.
-     */
-    constructor(visibleIndex: number, rowValues: any, key: any);
-    /**
-     * Gets the processed row's visible index.
-     */
-    visibleIndex: number;
-    /**
-     * Gets a hashtable that maintains information about deleted cells.
-     */
-    rowValues: any;
-    /**
-     * Gets the row's key.
-     */
-    key: any;
-}
-/**
- * A method that will handle the ASPxClientGridView.BatchEditRowRecovering event.
- * @param source The event source.
- * @param e An ASPxClientGridViewBatchEditRowRecoveringEventArgs object that contains event data.
- */
-interface ASPxClientGridViewBatchEditRowRecoveringEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditRowRecoveringEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.BatchEditRowRecovering event.
- */
-declare class ASPxClientGridViewBatchEditRowRecoveringEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewBatchEditRowRecoveringEventArgs class.
-     * @param visibleIndex An integer value that specifies the row's visible index.
-     * @param rowValues An object that provides row values.
-     * @param key An object that is the row's key.
-     */
-    constructor(visibleIndex: number, rowValues: any, key: any);
-    /**
-     * Gets the processed row's visible index.
-     */
-    visibleIndex: number;
-    /**
-     * Gets a hashtable that maintains information about recovered cells.
-     */
-    rowValues: any;
-    /**
-     * Gets the row's key.
-     */
-    key: any;
-}
-/**
- * A method that will handle the ASPxClientGridView.FocusedCellChanging event.
- * @param source The event source.
- * @param e An ASPxClientGridViewFocusedCellChangingEventArgs object that contains event data.
- */
-interface ASPxClientGridViewFocusedCellChangingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewFocusedCellChangingEventArgs): void; }
-/**
- * Provides data for the ASPxClientGridView.FocusedCellChanging event.
- */
-declare class ASPxClientGridViewFocusedCellChangingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientGridViewFocusedCellChangingEventArgs class with specified settings.
-     * @param cellInfo A ASPxClientGridViewCellInfo object providing information about the focused cell.
-     */
-    constructor(cellInfo: ASPxClientGridViewCellInfo);
-    /**
-     * Provides information on a cell currently being focused.
-     */
-    cellInfo: ASPxClientGridViewCellInfo;
-}
-/**
- * Contains information on a grid cell.
- */
-declare class ASPxClientGridViewCellInfo {
-    /**
-     * Gets the visible index of the row that contains the cell currently being processed.
-     */
-    rowVisibleIndex: number;
-    /**
-     * Gets the data column that contains the cell currently being processed.
-     */
-    column: ASPxClientGridViewColumn;
-    /**
-     * Gets the row's key.
-     */
-    key: any;
-}
-/**
- * Provides members related to Batch Edit Mode
- */
-declare class ASPxClientGridViewBatchEditApi {
-    /**
-     * Validate grid data contained in all rows when the grid operates in Batch Edit mode. true, if data in all rows passes validation; otherwise, false.
-     * @param validateOnlyModified true, if only modified rows should be validated; otherwise, false.
-     * @param validateOnCurrentPageOnly true, to validate rows that are located only on the current page; otherwise, false.
-     */
-    ValidateRows(validateOnlyModified?: boolean, validateOnCurrentPageOnly?: boolean): boolean;
-    /**
-     * Performs validation of grid data contained in the specified row when the grid operates in Batch Edit mode. true, if data in the specified row data passes validation; otherwise, false.
-     * @param visibleIndex An integer value specifying the visible index of the validated row.
-     */
-    ValidateRow(visibleIndex: number): boolean;
-    /**
-     * Performs validation of grid data contained in the specified row when the grid operates in Batch Edit mode. true, if data in the specified row data passes validation; otherwise, false.
-     * @param key A String value that identifies the row by its key value.
-     */
-    ValidateRowByKey(key: any): boolean;
-    /**
-     * Returns an array of row visible indices. An array of integer values that are the visible indices of grid rows.
-     * @param includeDeleted true, to include visible indices of deleted rows to the returned array; otherwise, false.
-     */
-    GetRowVisibleIndices(includeDeleted: boolean): number[];
-    /**
-     * Returns an array of the deleted row visible indices.
-     */
-    GetDeletedRowIndices(): number[];
-    /**
-     * Returns an array of the inserted row visible indices.
-     */
-    GetInsertedRowIndices(): number[];
-    /**
-     * Returns an array of the updated rows visible indices.
-     */
-    GetUpdatedRowIndices(): number[];
-    /**
-     * Indicates if the row with specified visible index is deleted. true, if the row is deleted; otherwise, false.
-     * @param visibleIndex An integer value that identifies the row by its visible index.
-     */
-    IsDeletedRow(visibleIndex: number): boolean;
-    /**
-     * Indicates if the row with specified key is deleted. true, if the row is deleted; otherwise, false.
-     * @param key A String value that identifies the row by its key value.
-     */
-    IsDeletedRowByKey(key: any): boolean;
-    /**
-     * Indicates if the row with specified visible index is newly created. true, if the row is new; otherwise, false.
-     * @param visibleIndex An integer value that identifies the row by its visible index.
-     */
-    IsNewRow(visibleIndex: number): boolean;
-    /**
-     * Adds a new row when ASPxGridView is in Batch Edit mode.
-     */
-    AddNewRow(): void;
-    /**
-     * Deletes the specified row when ASPxGridView is in Batch Edit.
-     * @param visibleIndex An integer value that identifies the row index.
-     */
-    DeleteRow(visibleIndex: number): void;
-    /**
-     * Deletes a row with a specified key value when ASPxGridView is in Batch Edit mode.
-     * @param key An object that uniquely identifies the row.
-     */
-    DeleteRowByKey(key: any): void;
-    /**
-     * Recovers the specified row when ASPxGridView is in Batch Edit mode.
-     * @param visibleIndex An integer value that identifies the row index.
-     */
-    RecoverRow(visibleIndex: number): void;
-    /**
-     * Recovers a row with a specified key value when ASPxGridView is in Batch Edit mode.
-     * @param key An object that uniquely identifies the row.
-     */
-    RecoverRowByKey(key: any): void;
-    /**
-     * Switches the grid to 'Preview Changes' mode.
-     */
-    ShowChangesPreview(): void;
-    /**
-     * Switches the grid from the 'Preview Changes' mode to edit mode.
-     */
-    HideChangesPreview(): void;
-    /**
-     * Returns a value that specifies whether the row is located on the current page. true, if the row is located on the current page; otherwise, false.
-     * @param key A String value that identifies the row by its key value.
-     */
-    IsCurrentPageRow(key: any): boolean;
-    /**
-     * Programmatically moves the focus to the previous cell in the row.
-     */
-    MoveFocusBackward(): boolean;
-    /**
-     * Programmatically moves the focus to the next cell in the row.
-     */
-    MoveFocusForward(): boolean;
-    /**
-     * Sets the value of the specified cell.
-     * @param visibleIndex An integer zero-based index that identifies the row containing the processed cell.
-     * @param columnFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
-     * @param value An object that contains the new cell value.
-     * @param displayText A string value that specifies the cell display text.
-     * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
-     */
-    SetCellValue(visibleIndex: number, columnFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
-    /**
-     * Sets the value of the specified cell.
-     * @param key A String value that identifies the row by its key value.
-     * @param columnFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
-     * @param value An object that contains the new cell value.
-     * @param displayText A string value that specifies the cell display text.
-     * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
-     */
-    SetCellValueByKey(key: any, columnFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
-    /**
-     * Gets the value of the specified cell. An object containing the specified cell's value.
-     * @param visibleIndex A zero-based integer value that specifies a visible index of a row containing the processed cell.
-     * @param columnFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
-     * @param initial true, to return the initial (server) value; false, to return a value currently contained on the client side (modified value).
-     */
-    GetCellValue(visibleIndex: number, columnFieldNameOrId: string, initial?: boolean): any;
-    /**
-     * Gets the value of the specified cell. An object containing the specified cell's value.
-     * @param key A String value that identifies the row by its key value.
-     * @param columnFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
-     * @param initial true, to return the initial (server) value; false, to return a value currently contained on the client side (modified value).
-     */
-    GetCellValueByKey(key: any, columnFieldNameOrId: string, initial?: boolean): any;
-    /**
-     * Gets a container holding a data cell content. A HTML container element that contains the data cell's content.
-     * @param visibleIndex An integer value that is the visible index.
-     * @param columnFieldNameOrId A string value that is the column's Field Name or ID.
-     */
-    GetCellTextContainer(visibleIndex: number, columnFieldNameOrId: string): any;
-    /**
-     * Gets a container holding a data cell content. An object that is the HTML container element that contains the data cell's content.
-     * @param key A String value that identifies the row by its key value.
-     * @param columnFieldNameOrId A string value that is the column's Field Name or ID.
-     */
-    GetCellTextContainerByKey(key: any, columnFieldNameOrId: string): any;
-    /**
-     * Gets information about the cell currently being edited.
-     */
-    GetEditCellInfo(): ASPxClientGridViewCellInfo;
-    /**
-     * Returns an object that stores unsaved changes.
-     */
-    GetUnsavedChanges(): any;
-    /**
-     * Returns a value that indicates whether the specified data cell's data has been changed. true, if the cell has changed data; otherwise, false.
-     * @param visibleIndex An integer value that specifies the visible index of a row.
-     * @param columnFieldNameOrId A string value that identifies the column by the name of the data source field to which the column is bound, or by the column's name.
-     */
-    HasChanges(visibleIndex?: number, columnFieldNameOrId?: string): boolean;
-    /**
-     * Returns a value that indicates whether the specified data cell's data has been changed. true, if the cell has changed data; otherwise, false.
-     * @param key A String value that identifies the row by its key value.
-     * @param columnFieldNameOrId A string value that identifies the column by the name of the data source field to which the column is bound, or by the column's name.
-     */
-    HasChangesByKey(key: any, columnFieldNameOrId?: string): boolean;
-    /**
-     * Resets changes in the specified cell.
-     * @param visibleIndex An integer value that specifies the visible index of a row containing the processed cell.
-     * @param columnIndex An integer value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
-     */
-    ResetChanges(visibleIndex: number, columnIndex?: number): void;
-    /**
-     * Resets changes in the specified cell.
-     * @param key A String value that identifies the row by its key value.
-     * @param columnIndex A zero-based index that identifies the column in the column collection (the column's CollectionItem.Index property value).
-     */
-    ResetChangesByKey(key: any, columnIndex?: number): void;
-    /**
-     * Switches the specified cell to edit mode.
-     * @param visibleIndex A zero-based integer value that specifies the visible index of a row containing the processed cell.
-     * @param columnIndex A zero-based integer value that identifies the column which contains the processed cell in the column collection.
-     */
-    StartEdit(visibleIndex: number, columnIndex: number): void;
-    /**
-     * Switches the specified cell to edit mode.
-     * @param key Identifies the cell by its key value.
-     * @param columnIndex Identifies the column that contains the processed cell in the column collection.
-     */
-    StartEditByKey(key: any, columnIndex: number): void;
-    /**
-     * Ends cell or row editing.
-     */
-    EndEdit(): void;
-    /**
-     * Provides the text displayed within the cell according to the specified display format rule. A string value representing the cell's displayed text.
-     * @param columnFieldNameOrId A string value representing the column's unique identifier or field name.
-     * @param value An object representing a value.
-     */
-    GetColumnDisplayText(columnFieldNameOrId: string, value: any): string;
-    /**
-     * Returns the total summary value. The total summary value.
-     * @param summaryItemIndex The total summary's index or field name.
-     */
-    GetTotalSummaryValue(summaryItemIndex: number | string): number;
-    /**
-     * Returns the group summery value. The group summary value.
-     * @param groupRowVisibleIndex The group row's visible index.
-     * @param summaryItemIndex The summary's index or field name.
-     */
-    GetGroupSummaryValue(groupRowVisibleIndex: number, summaryItemIndex: number | string): number;
-}
-/**
- * Lists values that specify the document formats available for export from the grid.
- */
-declare class ASPxClientGridViewExportFormat extends ASPxClientGridExportFormat {
-}
-/**
- * A client-side equivalent of the ASPxVerticalGrid object.
- */
-declare class ASPxClientVerticalGrid extends ASPxClientGridBase {
-    /**
-     * Provides access to the batch editing client API.
-     */
-    batchEditApi: ASPxClientVerticalGridBatchEditApi;
-    /**
-     * Occurs when a custom command button has been clicked.
-     */
-    CustomButtonClick: ASPxClientEvent<ASPxClientVerticalGridCustomButtonEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Fires after the selection has been changed.
-     */
-    SelectionChanged: ASPxClientEvent<ASPxClientVerticalGridSelectionEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Occurs when a grid switches to batch edit mode.
-     */
-    BatchEditStartEditing: ASPxClientEvent<ASPxClientVerticalGridBatchEditStartEditingEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Occurs when a grid leaves the batch edit mode.
-     */
-    BatchEditEndEditing: ASPxClientEvent<ASPxClientVerticalGridBatchEditEndEditingEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Enables you to prevent a batch edit confirmation message from being displayed.
-     */
-    BatchEditConfirmShowing: ASPxClientEvent<ASPxClientVerticalGridBatchEditConfirmShowingEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
-     */
-    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientVerticalGridBatchEditTemplateCellFocusedEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Occurs on the client side before data changes are saved in batch edit mode.
-     */
-    BatchEditChangesSaving: ASPxClientEvent<ASPxClientVerticalGridBatchEditChangesSavingEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Occurs on the client side before data changes are canceled in batch edit mode.
-     */
-    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientVerticalGridBatchEditChangesCancelingEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Occurs on the client side before a record is inserted in batch edit mode.
-     */
-    BatchEditRecordInserting: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordInsertingEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Occurs on the client side before a record is deleted in batch edit mode.
-     */
-    BatchEditRecordDeleting: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordDeletingEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Occurs on the client side before a record is deleted in batch edit mode.
-     */
-    BatchEditRecordRecovering: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordRecoveringEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Enables you to specify whether record data is valid and provide an error text.
-     */
-    BatchEditRecordValidating: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordValidatingEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Occurs on the client side when the focused cell is about to be changed.
-     */
-    FocusedCellChanging: ASPxClientEvent<ASPxClientVerticalGridFocusedCellChangingEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Enables you to prevent rows from being sorted.
-     */
-    RowSorting: ASPxClientEvent<ASPxClientVerticalGridRowCancelEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Fires on the client side before the expansion state of a row is changed by end-user interaction.
-     */
-    RowExpandedChanging: ASPxClientEvent<ASPxClientVerticalGridRowExpandingEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Fires on the client side after a row's expansion state has been changed by end-user interaction.
-     */
-    RowExpandedChanged: ASPxClientEvent<ASPxClientVerticalGridRowExpandedEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Fires on the client when a record is clicked.
-     */
-    RecordClick: ASPxClientEvent<ASPxClientVerticalGridRecordClickEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Fires on the client when a record is double clicked.
-     */
-    RecordDblClick: ASPxClientEvent<ASPxClientVerticalGridRecordClickEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Sorts data by the specified data row's values, and places the row to the specified position among the sorted rows.
-     * @param sortOrder A string value that specifies the row's sort order ('ASC', 'DSC' or 'NONE').
-     * @param reset true to clear any previous sorting; otherwise, false.
-     * @param sortIndex An integer value that specifies the zero-based row's index among the sorted rows. &#0045;1 if data is not sorted by this row.
-     */
-    SortBy(row: ASPxClientVerticalGridRow | number | string, sortOrder?: string, reset?: boolean, sortIndex?: number): void;
-    /**
-     * Returns the key value of the specified data row (record in the vertical grid). A string representing the specified data row's key value. If the index passed using the visibleIndex parameter is wrong or the ASPxGridBase.KeyFieldName property is not set, null is returned.
-     * @param visibleIndex An integer value that specifies the record's visible index.
-     */
-    GetRecordKey(visibleIndex: number): string;
-    /**
-     * Adds a new record.
-     */
-    AddNewRecord(): void;
-    /**
-     * Deletes the specified record.
-     * @param visibleIndex An integer value that identifies the record.
-     */
-    DeleteRecord(visibleIndex: number): void;
-    /**
-     * Deletes a record with the specified key value.
-     * @param key An object that uniquely identifies the record.
-     */
-    DeleteRecordByKey(key: any): void;
-    /**
-     * Selects or deselects the specified records within the grid.
-     * @param visibleIndices An array of zero-based indices that identify records within the grid.
-     * @param selected true to select the specified records; false to deselect the records.
-     */
-    SelectRecords(visibleIndices?: number[] | number, selected?: boolean): void;
-    /**
-     * Selects or deselects the specified records displayed within the grid.
-     * @param keys An array of objects that uniquely identify the records.
-     * @param selected true to select the specified records; false to deselect the records.
-     */
-    SelectRecordsByKey(keys: any[] | any, selected?: boolean): void;
-    /**
-     * Deselects the specified records (if selected) within the grid.
-     * @param visibleIndices An array of zero-based indices that identify records within the grid.
-     */
-    UnselectRecords(visibleIndices?: number[] | number): void;
-    /**
-     * Deselects the specified records displayed within the grid.
-     * @param keys An array of objects that uniquely identify the records.
-     */
-    UnselectRecordsByKey(keys: any[] | any): void;
-    /**
-     * Deselects all grid records that match the filter criteria currently applied to the grid.
-     */
-    UnselectFilteredRecords(): void;
-    /**
-     * Selects or deselects the specified record displayed on the current page.
-     * @param visibleIndex A zero-based integer value that specifies the record's visible index.
-     * @param selected true to select the specified record; false to deselect the record.
-     */
-    SelectRecordOnPage(visibleIndex: number, selected?: boolean): void;
-    /**
-     * Deselects the specified record (if selected) displayed on the current page.
-     * @param visibleIndex A zero-based integer value that specifies the record's visible index.
-     */
-    UnselectRecordOnPage(visibleIndex: number): void;
-    /**
-     * Allows you to select or deselect all records displayed on the current page based on the parameter passed.
-     * @param selected true to select all unselected records displayed on the current page; false to deselect all selected records on the page.
-     */
-    SelectAllRecordsOnPage(selected?: boolean): void;
-    /**
-     * Deselects all selected records displayed on the current page.
-     */
-    UnselectAllRecordsOnPage(): void;
-    /**
-     * Returns the number of selected records.
-     */
-    GetSelectedRecordCount(): number;
-    /**
-     * Indicates whether or not the specified record is selected within the current page. true if the specified record is selected within the current page; otherwise, false.
-     * @param visibleIndex An integer value that identifies the record by its visible index.
-     */
-    IsRecordSelectedOnPage(visibleIndex: number): boolean;
-    /**
-     * Exports a grid data to a file in the specified format.
-     * @param format An ASPxClientVerticalGridExportFormat object specifying the export format.
-     */
-    ExportTo(format: ASPxClientVerticalGridExportFormat): void;
-    /**
-     * Returns the values of the specified data source fields within the specified record.
-     * @param visibleIndex An integer value that identifies the record.
-     * @param fieldNames The names of data source fields separated using a semicolon, whose values within the specified record are returned.
-     * @param onCallback An ASPxClientVerticalGridValuesCallback object that represents the JavaScript function which receives the list of record values as a parameter.
-     */
-    GetRecordValues(visibleIndex: number, fieldNames: string, onCallback: ASPxClientVerticalGridValuesCallback): void;
-    /**
-     * Returns the record values displayed within the current page.
-     * @param fieldNames The names of data source fields whose values are returned.
-     * @param onCallback A ASPxClientVerticalGridValuesCallback object that represents the JavaScript function which receives the list of record values as a parameter.
-     */
-    GetPageRecordValues(fieldNames: string, onCallback: ASPxClientVerticalGridValuesCallback): void;
-    /**
-     * Returns the number of records actually displayed on the active page.
-     */
-    GetVisibleRecordsOnPage(): number;
-    /**
-     * Returns the number of rows within the client vertical grid.
-     */
-    GetRowCount(): number;
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Occurs on the client after a callback's server-side processing has been completed.
-     */
-    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Fires on the client if any unhandled server error occurs during server-side processing of a callback sent by the ASPxClientVerticalGrid.
-     */
-    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientVerticalGrid>>;
-    /**
-     * Applies the specified search panel filter criterion to grid data.
-     * @param value A string value that specifies the filter criterion.
-     */
-    ApplySearchPanelFilter(value: string): void;
-    /**
-     * Applies the specified filter expression to the ASPxVerticalGrid.
-     * @param filterExpression A string value that specifies the filter expression.
-     */
-    ApplyFilter(filterExpression: string): void;
-    /**
-     * Clears the filter expression applied to a client vertical grid.
-     */
-    ClearFilter(): void;
-    /**
-     * Sets input focus to the grid.
-     */
-    Focus(): void;
-    /**
-     * Sends a callback to the server and generates the server-side event, passing the specified argument to it.
-     * @param args A string value that represents any information that needs to be sent to the server-side event.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(args: string, onSuccess?: (arg: string) => void): void;
-    /**
-     * Selects the specified page.
-     * @param pageIndex An integer value that specifies the active page's index.
-     */
-    GotoPage(pageIndex: number): void;
-    /**
-     * Gets the index of the page currently being selected.
-     */
-    GetPageIndex(): number;
-    /**
-     * Gets the number of pages to which the grid's data is divided.
-     */
-    GetPageCount(): number;
-    /**
-     * Activates the next page.
-     */
-    NextPage(): void;
-    /**
-     * Activates the previous page.
-     */
-    PrevPage(): void;
-    /**
-     * Returns the index of the first record displayed within the vertical grid's active page.
-     */
-    GetTopVisibleIndex(): number;
-    /**
-     * Saves all the changes made and switches the grid to browse mode.
-     */
-    UpdateEdit(): void;
-    /**
-     * Cancels all the changes made and switches the ASPxVerticalGrid to browse mode.
-     */
-    CancelEdit(): void;
-    /**
-     * Updates data displayed within the grid.
-     */
-    Refresh(): void;
-    /**
-     * Returns the record values displayed within all selected records.
-     * @param fieldNames The names of data source fields separated by a semicolon, whose values within the selected records are returned.
-     * @param onCallback A ASPxClientVerticalGridValuesCallback object that represents the JavaScript function which receives the list of record values as a parameter.
-     */
-    GetSelectedFieldValues(fieldNames: string, onCallback: ASPxClientVerticalGridValuesCallback): void;
-    /**
-     * Returns key values of selected records displayed within the current page.
-     */
-    GetSelectedKeysOnPage(): any[];
-    /**
-     * Sends a callback to the server and generates the server-side ASPxVerticalGrid.CustomDataCallback event.
-     * @param args A string value that is any information that needs to be sent to the server-side ASPxVerticalGrid.CustomDataCallback event.
-     * @param onCallback A ASPxClientVerticalGridValuesCallback object that is the JavaScript function which receives the information on the client side.
-     */
-    GetValuesOnCustomCallback(args: string, onCallback: ASPxClientVerticalGridValuesCallback): void;
-    /**
-     * Returns the editor used to edit the specified row's values. An ASPxClientEdit object that is the specified row's editor.
-     * @param row An ASPxClientVerticalGridRowobject that specifies the required row within the client grid.
-     */
-    GetEditor(row: ASPxClientVerticalGridRow | number | string): ASPxClientEdit;
-    /**
-     * Displays the Filter Control.
-     */
-    ShowFilterControl(): void;
-    /**
-     * Hides the Filter Control.
-     */
-    CloseFilterControl(): void;
-    /**
-     * Enables or disables the current filter.
-     * @param isFilterEnabled true to enable the current filter; otherwise, false.
-     */
-    SetFilterEnabled(isFilterEnabled: boolean): void;
-    /**
-     * Specifies a custom editor for the search panel on the client side.
-     * @param editor An ASPxClientEdit object representing a custom editor.
-     */
-    SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
-    /**
-     * Returns the client row that resides at the specified position within the row collection. An ASPxClientVerticalGridRow object that represents the client row.
-     * @param rowIndex A zero-based index that identifies the row within the row collection (the row's CollectionItem.Index property value).
-     */
-    GetRow(rowIndex: number): ASPxClientVerticalGridRow;
-    /**
-     * Returns the row with the specified unique identifier. An ASPxClientVerticalGridRow object that represents the client row.
-     * @param rowId A string value that specifies the row's unique identifier (the row's WebColumnBase.Name property value).
-     */
-    GetRowById(rowId: string): ASPxClientVerticalGridRow;
-    /**
-     * Returns the client row which is bound to the specified data source field. An ASPxClientVerticalGridRow object that represents the client row bound to the specified data source field.
-     * @param rowFieldName A string value that specifies the name of the data source field to which the row is bound (the row's ASPxClientVerticalGridRow.fieldName property value).
-     */
-    GetRowByField(rowFieldName: string): ASPxClientVerticalGridRow;
-    /**
-     * Returns the current vertical scroll position of the grid's content.
-     */
-    GetVerticalScrollPosition(): number;
-    /**
-     * Returns the current horizontal scroll position of the grid's content.
-     */
-    GetHorizontalScrollPosition(): number;
-    /**
-     * Specifies the vertical scroll position for the grid's content.
-     * @param position An integer value specifying the vertical scroll position.
-     */
-    SetVerticalScrollPosition(position: number): void;
-    /**
-     * Specifies the horizontal scroll position for the grid's content.
-     * @param position An integer value specifying the horizontal scroll position.
-     */
-    SetHorizontalScrollPosition(position: number): void;
-    /**
-     * Gets the value that specifies whether the required row is expanded. true, if the row is expanded; otherwise, false.
-     * @param row An ASPxClientVerticalGridRowobject that specifies the row.
-     */
-    GetRowExpanded(row: ASPxClientVerticalGridRow | number | string): boolean;
-    /**
-     * Sets a value indicating whether the row is expanded.
-     * @param value true, to expand the row; otherwise, false.
-     */
-    SetRowExpanded(row: ASPxClientVerticalGridRow | number | string, value: boolean): void;
-    /**
-     * Sets the offset from the container's top border to fixed rows while scrolling the page.
-     * @param offset The top offset.
-     */
-    SetFixedRowsTopOffset(offset: number): void;
-    /**
-     * Converts the specified object to the ASPxClientVerticalGrid type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): ASPxClientVerticalGrid;
-}
-/**
- * A client grid row.
- */
-declare class ASPxClientVerticalGridRow extends ASPxClientGridColumnBase {
-    /**
-     * Gets the name that uniquely identifies the row.
-     */
-    name: string;
-    /**
-     * Gets the row's position within the collection.
-     */
-    index: number;
-    /**
-     * Gets the name of the database field assigned to the current row.
-     */
-    fieldName: string;
-    /**
-     * Gets whether the row is visible.
-     */
-    visible: boolean;
-}
-/**
- * Represents a JavaScript function which receives the list of record values when the client ASPxClientVerticalGrid.GetRecordValues, ASPxVerticalGrid.GetCurrentPageRecordValues or ASPxClientVerticalGrid.GetSelectedFieldValues method is called.
- * @param result An object that represents the list of record values received from the server.
- */
-interface ASPxClientVerticalGridValuesCallback { (result: any): void; }
-/**
- * A method that will handle the cancelable events of a client ASPxVerticalGrid row.
- * @param source The event source.
- * @param e An ASPxClientVerticalGridRowCancelEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridRowCancelEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridRowCancelEventArgs): void; }
-/**
- * Provides data for the cancelable events of a client ASPxVerticalGrid row.
- */
-declare class ASPxClientVerticalGridRowCancelEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridRowCancelEventArgs class.
-     * @param row An ASPxClientVerticalGridRowCancelEventArgs object that represents the processed row.
-     */
-    constructor(row: ASPxClientVerticalGridRow);
-    /**
-     * Gets the processed client row.
-     */
-    row: ASPxClientVerticalGridRow;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.RecordClick event.
- * @param source The event source. This parameter identifies the ASPxClientVerticalGrid object that raised the event.
- * @param e An ASPxClientVerticalGridRecordClickEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridRecordClickEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridRecordClickEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.RecordClick event.
- */
-declare class ASPxClientVerticalGridRecordClickEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridRecordClickEventArgs class.
-     * @param visibleIndex A zero-based integer index that identifies the clicked record.
-     * @param htmlEvent An object that contains parameters associated with the event. This value is assigned to the ASPxClientVerticalGridRecordClickEventArgs.htmlEvent property.
-     */
-    constructor(visibleIndex: number, htmlEvent: any);
-    /**
-     * Gets the processed record's visible index.
-     */
-    visibleIndex: number;
-    /**
-     * Provides access to the parameters associated with the ASPxClientVerticalGrid.RecordClick event.
-     */
-    htmlEvent: any;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.CustomButtonClick event.
- * @param source The event source.
-This parameter identifies the ASPxClientVerticalGrid object that raised the event.
- * @param e An ASPxClientVerticalGridCustomButtonEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridCustomButtonEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridCustomButtonEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.CustomButtonClick event.
- */
-declare class ASPxClientVerticalGridCustomButtonEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridCustomButtonEventArgs class.
-     * @param visibleIndex An integer value that identifies the record whose custom button has been clicked. This value is assigned to the ASPxClientVerticalGridCustomButtonEventArgs.visibleIndex property.
-     * @param buttonID An integer value that identifies the clicked custom button. This value is assigned to the ASPxClientVerticalGridCustomButtonEventArgs.buttonID property.
-     */
-    constructor(visibleIndex: number, buttonID: string);
-    /**
-     * Gets the value which identifies the record whose custom button has been clicked.
-     */
-    visibleIndex: number;
-    /**
-     * Gets the value which identifies the custom button.
-     */
-    buttonID: string;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.SelectionChanged event.
- * @param source The event source.
- * @param e An ASPxClientVerticalGridSelectionEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridSelectionEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridSelectionEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.SelectionChanged event.
- */
-declare class ASPxClientVerticalGridSelectionEventArgs extends ASPxClientProcessingModeEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridSelectionEventArgs class.
-     * @param visibleIndex An integer value that specifies the visible index of the record whose selected state has been changed. This value is assigned to the ASPxClientVerticalGridSelectionEventArgs.visibleIndex property.
-     */
-    constructor(visibleIndex: number);
-    /**
-     * Gets the visible index of the record whose selected state has been changed.
-     */
-    visibleIndex: number;
-    /**
-     * Gets whether the record has been selected.
-     */
-    isSelected: boolean;
-    /**
-     * Gets whether all records displayed within a page have been selected or unselected.
-     */
-    isAllRecordsOnPage: boolean;
-    /**
-     * Gets whether a selection has been changed on the server.
-     */
-    isChangedOnServer: boolean;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.RowExpandedChanged event.
- * @param source The event source.
- * @param e An ASPxClientVerticalGridRowExpandedEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridRowExpandedEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridRowExpandedEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.RowExpandedChanged event.
- */
-declare class ASPxClientVerticalGridRowExpandedEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridRowExpandedEventArgs class with specified settings.
-     * @param row A ASPxClientVerticalGridRow object that uniquely identifies the expanded row. This value is assigned to the ASPxClientVerticalGridRowExpandedEventArgs.row property.
-     */
-    constructor(row: ASPxClientVerticalGridRow);
-    /**
-     * Gets the expanded row.
-     */
-    row: ASPxClientVerticalGridRow;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.RowExpandedChanging event.
- * @param source The event source.
- * @param e An ASPxClientVerticalGridRowExpandedEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridRowExpandingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridRowExpandingEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.RowExpandedChanging event.
- */
-declare class ASPxClientVerticalGridRowExpandingEventArgs extends ASPxClientVerticalGridRowExpandedEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridRowExpandingEventArgs class with the specified row.
-     * @param row An ASPxClientVerticalGridRowobject that represents the row to expand.
-     */
-    constructor(row: ASPxClientVerticalGridRow);
-    /**
-     * Gets or sets a value indicating whether the action which raised the event should be canceled.
-     */
-    cancel: boolean;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.BatchEditStartEditing event.
- * @param source The event source.
- * @param e An ASPxClientVerticalGridBatchEditStartEditingEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridBatchEditStartEditingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditStartEditingEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.BatchEditStartEditing event.
- */
-declare class ASPxClientVerticalGridBatchEditStartEditingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridBatchEditStartEditingEventArgs class with the specified settings.
-     * @param visibleIndex An integer value that specifies the visible index of the record. This value is assigned to the ASPxClientVerticalGridBatchEditRecordValidatingEventArgs.visibleIndex property.
-     * @param focusedRow An ASPxClientVerticalGridRow object that is the focused grid row. This value is assigned to the ASPxClientVerticalGridBatchEditStartEditingEventArgs.focusedRow property.
-     * @param recordValues A hashtable that stores information about editable cells. This value is assigned to the ASPxClientVerticalGridBatchEditStartEditingEventArgs.recordValues property.
-     */
-    constructor(visibleIndex: number, focusedRow: ASPxClientVerticalGridRow, recordValues: any);
-    /**
-     * Gets the visible index of the record whose cells are about to be edited.
-     */
-    visibleIndex: number;
-    /**
-     * Gets the grid row that owns a cell that is about to be edited.
-     */
-    focusedRow: ASPxClientVerticalGridRow;
-    /**
-     * Gets a hashtable that maintains information about editable cells.
-     */
-    recordValues: any;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.BatchEditEndEditing event.
- * @param source The event source.
- * @param e An ASPxClientVerticalGridBatchEditEndEditingEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridBatchEditEndEditingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditEndEditingEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.BatchEditEndEditing event.
- */
-declare class ASPxClientVerticalGridBatchEditEndEditingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridBatchEditEndEditingEventArgs class with the specified settings.
-     * @param visibleIndex An integer value that specifies the visible index of the record. This value is assigned to the ASPxClientVerticalGridBatchEditEndEditingEventArgs.visibleIndex property.
-     * @param recordValues A hashtable that stores information about editable cells. This value is assigned to the ASPxClientVerticalGridBatchEditEndEditingEventArgs.recordValues property.
-     */
-    constructor(visibleIndex: number, recordValues: any);
-    /**
-     * Gets the visible index of the record whose cells have been edited.
-     */
-    visibleIndex: number;
-    /**
-     * Gets a hashtable that maintains information about editable cells.
-     */
-    recordValues: any;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.BatchEditRecordValidating event.
- * @param source The event source.
- * @param e An ASPxClientVerticalGridBatchEditRecordValidatingEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridBatchEditRecordValidatingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditRecordValidatingEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.BatchEditRecordValidating event.
- */
-declare class ASPxClientVerticalGridBatchEditRecordValidatingEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridBatchEditRecordValidatingEventArgs class.
-     * @param visibleIndex An integer value that specifies the processed record's visible index.
-     * @param validationInfo An object containing validation information.
-     */
-    constructor(visibleIndex: number, validationInfo: any);
-    /**
-     * Gets the processed record's visible index.
-     */
-    visibleIndex: number;
-    /**
-     * Provides validation information on the record currently being validated.
-     */
-    validationInfo: any;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.BatchEditConfirmShowing client event.
- * @param source The event source.
- * @param e An ASPxClientVerticalGridBatchEditConfirmShowingEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridBatchEditConfirmShowingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditConfirmShowingEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.BatchEditConfirmShowing event.
- */
-declare class ASPxClientVerticalGridBatchEditConfirmShowingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridBatchEditConfirmShowingEventArgs class.
-     * @param requestTriggerID A string value specifying the client identifier of an object that initiates a request.
-     */
-    constructor(requestTriggerID: string);
-    /**
-     * Gets the client identifier of an object that initiates a send request.
-     */
-    requestTriggerID: string;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.BatchEditTemplateCellFocused event.
- * @param source An object representing the event source. Identifies the button editor that raised the event.
- * @param e An ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridBatchEditTemplateCellFocusedEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.BatchEditTemplateCellFocused event.
- */
-declare class ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs class with the specified row.
-     * @param row An ASPxClientVerticalGridRow object that is the processed grid row. This value is assigned to the ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs.row property.
-     */
-    constructor(row: ASPxClientVerticalGridRow);
-    /**
-     * Gets the currently processed row.
-     */
-    row: ASPxClientVerticalGridRow;
-    /**
-     * Gets or sets a value specifying whether the event was handled.
-     */
-    handled: boolean;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.BatchEditChangesSaving event.
- * @param source The event source. This parameter identifies the vertical grid object which raised the event.
- * @param e An ASPxClientVerticalGridBatchEditChangesSavingEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridBatchEditChangesSavingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditChangesSavingEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.BatchEditChangesSaving event.
- */
-declare class ASPxClientVerticalGridBatchEditChangesSavingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridBatchEditChangesSavingEventArgs class.
-     * @param insertedValues A hashtable that stores information about inserted cells.
-     * @param deletedValues A hashtable that stores information about deleted cells.
-     * @param updatedValues A hashtable that stores information about updated cells.
-     */
-    constructor(insertedValues: any, deletedValues: any, updatedValues: any);
-    /**
-     * Gets a hashtable that maintains information about inserted cells.
-     */
-    insertedValues: any;
-    /**
-     * Gets a hashtable that maintains information about deleted cells.
-     */
-    deletedValues: any;
-    /**
-     * Gets a hashtable that maintains information about updated cells.
-     */
-    updatedValues: any;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.BatchEditChangesCanceling event.
- * @param source The event source. This parameter identifies the vertical grid object which raised the event.
- * @param e An ASPxClientVerticalGridBatchEditChangesCancelingEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridBatchEditChangesCancelingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditChangesCancelingEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.BatchEditChangesCanceling event.
- */
-declare class ASPxClientVerticalGridBatchEditChangesCancelingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridBatchEditChangesCancelingEventArgs class.
-     * @param insertedValues A hashtable that stores information about inserted cells.
-     * @param deletedValues A hashtable that stores information about deleted cells.
-     * @param updatedValues A hashtable that stores information about updated cells.
-     */
-    constructor(insertedValues: any, deletedValues: any, updatedValues: any);
-    /**
-     * Gets a hashtable that maintains information about inserted cells.
-     */
-    insertedValues: any;
-    /**
-     * Gets a hashtable that maintains information about deleted cells.
-     */
-    deletedValues: any;
-    /**
-     * Gets a hashtable that maintains information about updated cells.
-     */
-    updatedValues: any;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.BatchEditRecordInserting event.
- * @param source The event source. This parameter identifies the vertical grid object which raised the event.
- * @param e An ASPxClientVerticalGridBatchEditRecordInsertingEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridBatchEditRecordInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditRecordInsertingEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.BatchEditRecordInserting event.
- */
-declare class ASPxClientVerticalGridBatchEditRecordInsertingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridBatchEditRecordInsertingEventArgs class.
-     * @param visibleIndex An integer value that specifies the processed record's visible index.
-     */
-    constructor(visibleIndex: number);
-    /**
-     * Gets the processed record's visible index.
-     */
-    visibleIndex: number;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.BatchEditRecordDeleting event.
- * @param source The event source. This parameter identifies the vertical grid object which raised the event.
- * @param e An ASPxClientVerticalGridBatchEditRecordDeletingEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridBatchEditRecordDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditRecordDeletingEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.BatchEditRecordDeleting event.
- */
-declare class ASPxClientVerticalGridBatchEditRecordDeletingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridBatchEditRecordDeletingEventArgs class.
-     * @param visibleIndex An integer value that specifies the processed record's visible index.
-     * @param recordValues A hashtable that stores information about the processed record's cells.
-     */
-    constructor(visibleIndex: number, recordValues: any);
-    /**
-     * Gets the processed record's visible index.
-     */
-    visibleIndex: number;
-    /**
-     * Gets a hashtable that maintains information about deleted cells.
-     */
-    recordValues: any;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.BatchEditRecordRecovering event.
- * @param source The event source.
- * @param e An ASPxClientVerticalGridBatchEditRecordRecoveringEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridBatchEditRecordRecoveringEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditRecordRecoveringEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.BatchEditRecordRecovering event.
- */
-declare class ASPxClientVerticalGridBatchEditRecordRecoveringEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridBatchEditRecordRecoveringEventArgs class.
-     * @param visibleIndex An integer value specifying a record's visible index.
-     * @param recordValues An object representing record values.
-     */
-    constructor(visibleIndex: number, recordValues: any);
-    /**
-     * Gets the processed record's visible index.
-     */
-    visibleIndex: number;
-    /**
-     * Gets a hashtable that maintains information about recovered cells.
-     */
-    recordValues: any;
-}
-/**
- * A method that will handle the ASPxClientVerticalGrid.FocusedCellChanging event.
- * @param source The event source.
- * @param e An ASPxClientVerticalGridFocusedCellChangingEventArgs object that contains event data.
- */
-interface ASPxClientVerticalGridFocusedCellChangingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridFocusedCellChangingEventArgs): void; }
-/**
- * Provides data for the ASPxClientVerticalGrid.FocusedCellChanging event.
- */
-declare class ASPxClientVerticalGridFocusedCellChangingEventArgs extends ASPxClientCancelEventArgs {
-    /**
-     * Initializes a new instance of the ASPxClientVerticalGridFocusedCellChangingEventArgs class with specified settings.
-     * @param cellInfo A ASPxClientVerticalGridCellInfo object providing information about the focused cell.
-     */
-    constructor(cellInfo: ASPxClientVerticalGridCellInfo);
-    /**
-     * Provides information on a cell currently being focused.
-     */
-    cellInfo: ASPxClientVerticalGridCellInfo;
-}
-/**
- * Contains information on a cell that is being edited.
- */
-declare class ASPxClientVerticalGridCellInfo {
-    /**
-     * Gets the row that contains the cell currently being processed.
-     */
-    row: ASPxClientVerticalGridRow;
-    /**
-     * Gets the visible index of the record that contains the cell currently being processed.
-     */
-    recordVisibleIndex: number;
-}
-/**
- * Declares client constants that contain the names of the ASPxVerticalGrid's default commands executed through callbacks.
- */
-declare class ASPxClientVerticalGridCallbackCommand {
-    /**
-     * Default value: "EXPANDROW"
-     */
-    static readonly ExpandRow: string;
-}
-/**
- * Provides members related to Batch Edit Mode
- */
-declare class ASPxClientVerticalGridBatchEditApi {
-    /**
-     * Performs validation of grid data contained in all records when the grid operates in batch edit mode. true, if data in all records passes validation; otherwise, false.
-     * @param validateOnlyModified true, if only modified records should be validated; otherwise, false.
-     */
-    ValidateRecords(validateOnlyModified?: boolean): boolean;
-    /**
-     * Performs validation of grid data contained in the specified record when the grid operates in batch edit mode. true, if data in the specified record passes validation; otherwise, false.
-     * @param visibleIndex An integer value specifying the visible index of the validated record.
-     */
-    ValidateRecord(visibleIndex: number): boolean;
-    /**
-     * Returns an array of record visible indices. An array of integer values that are the visible indices of grid records.
-     * @param includeDeleted true, to include visible indices of deleted records to the returned array; otherwise, false.
-     */
-    GetRecordVisibleIndices(includeDeleted: boolean): number[];
-    /**
-     * Returns an array of the deleted record visible indices.
-     */
-    GetDeletedRecordIndices(): number[];
-    /**
-     * Returns an array of the inserted record visible indices.
-     */
-    GetInsertedRecordIndices(): number[];
-    /**
-     * Returns an array of the updated records visible indices.
-     */
-    GetUpdatedRecordIndices(): number[];
-    /**
-     * Indicates if the record with the specified visible index is deleted. true, if the record is deleted; otherwise, false.
-     * @param visibleIndex An integer value that identifies the record by its visible index.
-     */
-    IsDeletedRecord(visibleIndex: number): boolean;
-    /**
-     * Indicates if the record with specified visible index is newly created. true, if the record is new; otherwise, false.
-     * @param visibleIndex An integer value that identifies the record by its visible index.
-     */
-    IsNewRecord(visibleIndex: number): boolean;
-    /**
-     * Adds a new record when ASPxVerticalGrid is in Batch Edit mode.
-     */
-    AddNewRecord(): void;
-    /**
-     * Deletes the specified record when ASPxVerticalGrid is in Batch Edit mode.
-     * @param visibleIndex An integer value that identifies the record index.
-     */
-    DeleteRecord(visibleIndex: number): void;
-    /**
-     * Deletes a record with a specified key value when ASPxVerticalGrid is in Batch Edit mode.
-     * @param key An object that uniquely identifies the record.
-     */
-    DeleteRecordByKey(key: any): void;
-    /**
-     * Recovers the specified record when ASPxVerticalGrid is in Batch Edit mode.
-     * @param visibleIndex An integer value that identifies the record index.
-     */
-    RecoverRecord(visibleIndex: number): void;
-    /**
-     * Recovers a record with a specified key value when ASPxVerticalGrid is in Batch Edit mode.
-     * @param key An object that uniquely identifies the record.
-     */
-    RecoverRecordByKey(key: any): void;
-    /**
-     * Programmatically moves the focus to the previous cell in the record.
-     */
-    MoveFocusBackward(): boolean;
-    /**
-     * Programmatically moves the focus to the next cell in the record.
-     */
-    MoveFocusForward(): boolean;
-    /**
-     * Sets the value of the specified cell.
-     * @param visibleIndex An integer zero-based index that identifies the row containing the processed cell.
-     * @param rowFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
-     * @param value An object that contains the new cell value.
-     * @param displayText A string value that specifies the cell display text.
-     * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
-     */
-    SetCellValue(visibleIndex: number, rowFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
-    /**
-     * Gets the value of the specified cell. An object containing the specified cell's value.
-     * @param visibleIndex A zero-based integer value that specifies a visible index of a record containing the processed cell.
-     * @param rowFieldNameOrId A string value that specifies the field name or unique identifier (the row's WebColumnBase.Name property value) of a row containing the processed cell.
-     * @param initial true, to return the initial (server) value; false, to return a value currently contained on the client side (modified value).
-     */
-    GetCellValue(visibleIndex: number, rowFieldNameOrId: string, initial?: boolean): any;
-    /**
-     * Gets a container holding the data cell content. An object that is the HTML container element that contains the data cell's content.
-     * @param visibleIndex An integer value that is the visible index.
-     * @param columnFieldNameOrId A string value that is the column's Field Name or ID.
-     */
-    GetCellTextContainer(visibleIndex: number, columnFieldNameOrId: string): any;
-    /**
-     * Gets information about the cell currently being edited.
-     */
-    GetEditCellInfo(): ASPxClientVerticalGridCellInfo;
-    /**
-     * Returns an object that stores unsaved changes.
-     */
-    GetUnsavedChanges(): any;
-    /**
-     * Returns a value that indicates whether the specified data cell's data has been changed. true, if the cell has changed data; otherwise, false.
-     * @param visibleIndex An integer value that specifies the visible index of a record.
-     * @param rowFieldNameOrId A string value that identifies the row by the name of the data source field to which the row is bound, or by the row's name.
-     */
-    HasChanges(visibleIndex?: number, rowFieldNameOrId?: string): boolean;
-    /**
-     * Resets changes in the specified cell.
-     * @param visibleIndex An integer value that specifies the visible index of a record containing the processed cell.
-     * @param rowIndex A string value that specifies the field name or unique identifier (the row's WebColumnBase.Name property value) of a row containing the processed cell.
-     */
-    ResetChanges(visibleIndex: number, rowIndex?: number): void;
-    /**
-     * Switches the specified cell to batch edit mode.
-     * @param visibleIndex A zero-based integer value that specifies the visible index of a record containing the processed cell.
-     * @param rowIndex A zero-based integer value that identifies the row which contains the processed cell in the rows collection.
-     */
-    StartEdit(visibleIndex: number, rowIndex: number): void;
-    /**
-     * Ends the cell(s) editing.
-     */
-    EndEdit(): void;
-    /**
-     * Provides the text displayed within the cell according to the specified display format rule. A string value representing the cell's displayed text.
-     * @param columnFieldNameOrId A string value representing the row's unique identifier or field name.
-     * @param value An object representing a value.
-     */
-    GetColumnDisplayText(columnFieldNameOrId: string, value: any): string;
-    /**
-     * Returns the total summary value. The value.
-     * @param summaryItemIndex The total summary's index or field name.
-     */
-    GetTotalSummaryValue(summaryItemIndex: number | string): number;
-}
-/**
- * Lists values that specify the document formats available for export from the grid.
- */
-declare class ASPxClientVerticalGridExportFormat extends ASPxClientGridExportFormat {
-}
-/**
  * Represents a client-side equivalent of the ASPxHiddenField control.
  */
 declare class ASPxClientHiddenField extends ASPxClientControl {
@@ -23078,8 +17372,8 @@ declare class ASPxClientHint extends ASPxClientControl {
     static Register(targetSelector: string, options: ASPxClientHintOptions | string | ASPxClientEvent<ASPxClientHintShowingEventHandler>): ASPxClientHint;
     /**
      * Invokes a hint.
-     * @param targetSelector A string value that is the CSS selector.
-     * @param options An ASPxClientHintOptions object that is the hint's options.
+     * @param targetSelector The CSS selector.
+     * @param options The options of the hint.
      */
     static Show(targetSelector: string | any | ASPxClientHintOptions, options?: ASPxClientHintOptions | string): void;
     /**
@@ -27388,894 +21682,6126 @@ declare class ASPxClientUtils {
      */
     static SendMessageToAssistiveTechnology(message: string): void;
 }
-
 /**
- * The client-side equivalent of the BinaryImageEditExtension.
+ * Represents the client-side equivalent of the ASPxBinaryImage control.
  */
-declare class MVCxClientBinaryImage extends ASPxClientBinaryImage {
+declare class ASPxClientBinaryImage extends ASPxClientEdit {
     /**
-     * Occurs when you initiate a callback to the server.
+     * Occurs on the client side after an image is clicked.
      */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientBinaryImage>>;
-    /**
-     * Sends a callback with parameters to update the Binary Image.
-     * @param data Information that is passed to the server.
-     * @param onSuccess A client action that is performed if a callback is completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Converts the specified object to the MVCxClientBinaryImage type. The converted object.
-     * @param obj The object.
-     */
-    static Cast(obj: any): MVCxClientBinaryImage;
-}
-/**
- * A client-side counterpart of the Calendar and CalendarFor extensions.
- */
-declare class MVCxClientCalendar extends ASPxClientCalendar {
+    Click: ASPxClientEvent<ASPxClientEditEventHandler<ASPxClientBinaryImage>>;
     /**
      * Occurs when a callback for server-side processing is initiated.
      */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientCalendar>>;
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientBinaryImage>>;
     /**
-     * Converts the specified object to the MVCxClientCalendar type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
+     * Occurs after a callback's server-side processing has been completed.
      */
-    static Cast(obj: any): MVCxClientCalendar;
-}
-/**
- * A client-side counterpart of the CallbackPanel extension.
- */
-declare class MVCxClientCallbackPanel extends ASPxClientCallbackPanel {
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientBinaryImage>>;
     /**
-     * Occurs when a callback for server-side processing is initiated.
+     * Fires on the client side if any server error occurs during server-side processing of a callback sent by the ASPxClientBinaryImage.
      */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientCallbackPanel>>;
+    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientBinaryImage>>;
     /**
-     * Sends a callback with a parameter to update the Callback Panel by processing the passed information on the server, in an Action specified by the Callback Panel's CallbackPanelSettings.CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackPanelSettings.CallbackRouteValues property.
+     * Sets the size of the image editor.
+     * @param width An integer value that specifies the control's width.
+     * @param height An integer value that specifies the control's height.
+     */
+    SetSize(width: number, height: number): void;
+    /**
+     * For internal use only.
+     */
+    GetValue(): any;
+    /**
+     * For internal use only.
+     */
+    SetValue(value: any): void;
+    /**
+     * Removes an image from the editor content.
+     */
+    Clear(): void;
+    /**
+     * Returns a name of the last uploaded file.
+     */
+    GetUploadedFileName(): string;
+    /**
+     * Sends a callback to the server and generates the server-side ASPxBinaryImage.CustomCallback event, passing it the specified argument.
+     * @param parameter A string value that contains any information that needs to be sent to the server-side ASPxBinaryImage.CustomCallback event.
      * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    PerformCallback(parameter: string, onSuccess?: (arg: string) => void): void;
     /**
-     * Converts the specified object to the MVCxClientCallbackPanel type. The converted client object specified by the obj parameter.
+     * Converts the specified object to the ASPxClientBinaryImage type. The converted client object specified by the obj parameter.
      * @param obj The client object to be type cast.
      */
-    static Cast(obj: any): MVCxClientCallbackPanel;
+    static Cast(obj: any): ASPxClientBinaryImage;
 }
 /**
- * A client-side counterpart of the CardView extension.
+ * A client-side equivalent of the ASPxButton control.
  */
-declare class MVCxClientCardView extends ASPxClientCardView {
+declare class ASPxClientButton extends ASPxClientControl {
+    /**
+     * Occurs on the client side when the button's checked state is changed.
+     */
+    CheckedChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientButton>>;
+    /**
+     * Fires on the client side when the button receives input focus.
+     */
+    GotFocus: ASPxClientEvent<ASPxClientEventHandler<ASPxClientButton>>;
+    /**
+     * Fires on the client side when the button loses input focus.
+     */
+    LostFocus: ASPxClientEvent<ASPxClientEventHandler<ASPxClientButton>>;
+    /**
+     * Occurs on the client side after a button is clicked.
+     */
+    Click: ASPxClientEvent<ASPxClientButtonClickEventHandler<ASPxClientButton>>;
+    /**
+     * Simulates a mouse click action on the button control.
+     */
+    DoClick(): void;
+    /**
+     * Returns a value indicating whether the button is checked.
+     */
+    GetChecked(): boolean;
+    /**
+     * Sets a value that specifies the button's checked status.
+     * @param value true if the button is checked; otherwise, false.
+     */
+    SetChecked(value: boolean): void;
+    /**
+     * Returns the text displayed within the button.
+     */
+    GetText(): string;
+    /**
+     * Sets the text to be displayed within the button.
+     * @param value A string value specifying the text to be displayed within the button.
+     */
+    SetText(value: string): void;
+    /**
+     * Returns the URL pointing to the image displayed within the button.
+     */
+    GetImageUrl(): string;
+    /**
+     * Sets the URL pointing to the image displayed within the button.
+     * @param value A string value that is the URL to the image displayed within the button.
+     */
+    SetImageUrl(value: string): void;
+    /**
+     * Sets a value specifying whether the button is enabled.
+     * @param value true to enable the button; false to disable it.
+     */
+    SetEnabled(value: boolean): void;
+    /**
+     * Returns a value indicating whether the button is enabled.
+     */
+    GetEnabled(): boolean;
+    /**
+     * Sets input focus to the button.
+     */
+    Focus(): void;
+    /**
+     * Converts the specified object to the ASPxClientButton type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientButton;
+}
+/**
+ * A method that will handle the client ASPxClientButton.Click event.
+ * @param source An object that is the event's source.
+ * @param e An ASPxClientButtonClickEventArgs object that contains event data.
+ */
+interface ASPxClientButtonClickEventHandler<Sender> { (source: Sender, e: ASPxClientButtonClickEventArgs): void; }
+/**
+ * Provides data for the ASPxClientButton.Click event.
+ */
+declare class ASPxClientButtonClickEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientButtonClickEventArgs class with the specified settings.
+     * @param processOnServer true to process the event on the server side; false to handle it completely on the client side. Initializes the ASPxClientProcessingModeEventArgs.processOnServer property.
+     * @param cancelEventAndBubble true to cancel both the event's default action and the event's bubbling upon the hierarchy of event handlers; otherwise, false. Initializes the ASPxClientButtonClickEventArgs.cancelEventAndBubble property.
+     */
+    constructor(processOnServer: boolean, cancelEventAndBubble: boolean);
+    /**
+     * Specifies whether both the event's default action and the event's bubbling upon the hierarchy of event handlers should be canceled.
+     */
+    cancelEventAndBubble: boolean;
+}
+/**
+ * Represents the client-side equivalent of the ASPxCalendar control.
+ */
+declare class ASPxClientCalendar extends ASPxClientEdit {
+    /**
+     * Occurs on the client after a user changes the selected date in the calendar.
+     */
+    SelectionChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientCalendar>>;
+    /**
+     * Occurs on the client when a user changes the month in the calendar.
+     */
+    VisibleMonthChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientCalendar>>;
+    /**
+     * Allows you to disable the calendar's days.
+     */
+    CustomDisabledDate: ASPxClientEvent<ASPxClientCalendarCustomDisabledDateEventHandler<ASPxClientCalendar>>;
+    /**
+     * Occurs when an end user clicks a date cell.
+     */
+    CellClick: ASPxClientEvent<ASPxClientCalendarCellClickEventHandler<ASPxClientCalendar>>;
+    /**
+     * Occurs on the client-side when an end-user presses a key while the editor has focus.
+     */
+    KeyDown: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientCalendar>>;
+    /**
+     * Occurs on the client-side when an end-user presses and releases a key while the editor has focus.
+     */
+    KeyPress: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientCalendar>>;
+    /**
+     * Occurs on the client-side when an end-user releases a pressed key while the editor has focus.
+     */
+    KeyUp: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientCalendar>>;
     /**
      * Occurs when a callback for server-side processing is initiated.
      */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientCardView>>;
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientCalendar>>;
     /**
-     * Sends a callback with a parameter to update the CardView by processing the passed information on the server, in an Action specified via the CardView's GridSettingsBase.CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the CardView's GridSettingsBase.CustomActionRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     * Occurs on the client side after the callback server-side processing has been completed.
      */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientCalendar>>;
     /**
-     * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the CardView's GridSettingsBase.CustomDataActionRouteValues property, and then process the returned result in the specified client function. This method does not update the CardView.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the GridSettingsBase.CustomDataActionRouteValues property.
-     * @param onCallback A ASPxClientCardViewValuesCallback object that represents the JavaScript function which receives the information on the client side.
+     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientCalendar.
      */
-    GetValuesOnCustomCallback(data: any, onCallback: ASPxClientCardViewValuesCallback): void;
+    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientCalendar>>;
     /**
-     * Converts the specified object to the MVCxClientCardView type. The converted client object specified by the obj parameter.
+     * Tests whether the specified date is selected. true if the specified date is selected; otherwise, false.
+     * @param date A date-time value that specifies the date to test.
+     */
+    IsDateSelected(date: Date): boolean;
+    /**
+     * Sets the date that specifies the month and year to be displayed in the calendar.
+     * @param date The date that specifies calendar's visible month and year.
+     */
+    SetVisibleDate(date: Date): void;
+    /**
+     * Sets the calendar's selected date.
+     * @param date A date object that specifies the calendar's selected date.
+     */
+    SetSelectedDate(date: Date): void;
+    /**
+     * Returns the calendar's selected date.
+     */
+    GetSelectedDate(): Date;
+    /**
+     * Gets the date that determines the month and year that are currently displayed in the calendar.
+     */
+    GetVisibleDate(): Date;
+    /**
+     * Selects the specified date within the calendar.
+     * @param date A date-time value that specifies the selected date.
+     */
+    SelectDate(date: Date): void;
+    /**
+     * Selects the specified range of dates within the calendar.
+     * @param start A date-time value that specifies the range's first date.
+     * @param end A date-time value that specifies the range's last date.
+     */
+    SelectRange(start: Date, end: Date): void;
+    /**
+     * Deselects the specified date within the calendar.
+     * @param date A date-time value that specifies the date to deselect.
+     */
+    DeselectDate(date: Date): void;
+    /**
+     * Deselects the specified range of dates within the calendar.
+     * @param start A date-time value that specifies the range's first date.
+     * @param end A date-time value that specifies the range's last date.
+     */
+    DeselectRange(start: Date, end: Date): void;
+    /**
+     * Deselects all the selected dates within the calendar.
+     */
+    ClearSelection(): void;
+    /**
+     * Returns a list of dates which are selected within the calendar.
+     */
+    GetSelectedDates(): Date[];
+    /**
+     * Gets the minimum date on the calendar.
+     */
+    GetMinDate(): Date;
+    /**
+     * Sets the minimum date of the calendar.
+     * @param date A DateTime object representing the minimum date.
+     */
+    SetMinDate(date: Date): void;
+    /**
+     * Gets the maximum date on the calendar.
+     */
+    GetMaxDate(): Date;
+    /**
+     * Sets the maximum date of the calendar.
+     * @param date A DateTime object representing the maximum date.
+     */
+    SetMaxDate(date: Date): void;
+    /**
+     * Converts the specified object to the ASPxClientCalendar type. The converted client object specified by the obj parameter.
      * @param obj The client object to be type cast.
      */
-    static Cast(obj: any): MVCxClientCardView;
+    static Cast(obj: any): ASPxClientCalendar;
 }
 /**
- * A client-side counterpart of the Chart extension.
+ * Provides data for the ASPxClientCalendar.CustomDisabledDate event.
  */
-declare class MVCxClientChart extends ASPxClientWebChartControl {
+declare class ASPxClientCalendarCustomDisabledDateEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCalendarCustomDisabledDateEventArgs object.
+     * @param date A DateTime object that is the currently processed date.
+     */
+    constructor(date: Date);
+    /**
+     * Gets the date processed in the calendar.
+     */
+    date: Date;
+    /**
+     * Gets or sets a value specifying whether selection of the processed calendar date is disabled.
+     */
+    isDisabled: boolean;
+}
+/**
+ * A method that will handle the client ASPxClientCalendar.CustomDisabledDate event.
+ * @param source The event source.
+ * @param e An ASPxClientCalendarCustomDisabledDateEventArgs object that contains event data.
+ */
+interface ASPxClientCalendarCustomDisabledDateEventHandler<Sender> { (source: Sender, e: ASPxClientCalendarCustomDisabledDateEventArgs): void; }
+/**
+ * Provides data for the ASPxClientDateEdit.CalendarCellClick event.
+ */
+declare class ASPxClientCalendarCellClickEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCalendarCellClickEventArgs class.
+     * @param date A DateTime object representing the clicked date cell.
+     */
+    constructor(date: Date);
+    /**
+     * Gets the date that relates to the processed calendar's cell click.
+     */
+    date: Date;
+}
+/**
+ * A method that will handle the ASPxClientDateEdit.CalendarCellClick event.
+ * @param source The event source.
+ * @param e A ASPxClientCalendarCellClickEventArgs object that contains event data.
+ */
+interface ASPxClientCalendarCellClickEventHandler<Sender> { (source: Sender, e: ASPxClientCalendarCellClickEventArgs): void; }
+/**
+ * Represents the client-side equivalent of the ASPxCaptcha control.
+ */
+declare class ASPxClientCaptcha extends ASPxClientControl {
+    /**
+     * Sets input focus to the control's text box.
+     */
+    Focus(): void;
+    /**
+     * Refreshes the code displayed within the editor's challenge image.
+     */
+    Refresh(): void;
+    /**
+     * Converts the specified object to the ASPxClientCaptcha type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientCaptcha;
+}
+/**
+ * Represents the client-side equivalent of the ASPxCheckBox control.
+ */
+declare class ASPxClientCheckBox extends ASPxClientEdit {
+    /**
+     * Occurs on the client side when the editor's checked state is changed.
+     */
+    CheckedChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientCheckBox>>;
+    /**
+     * Returns a value indicating whether the check box editor is checked.
+     */
+    GetChecked(): boolean;
+    /**
+     * Sets a value which specifies the checked status of the check box editor.
+     * @param isChecked true if the check box editor is checked; otherwise, false.
+     */
+    SetChecked(isChecked: boolean): void;
+    /**
+     * Returns the text displayed within the editor.
+     */
+    GetText(): string;
+    /**
+     * Returns a value which specifies a check box checked state.
+     */
+    GetCheckState(): string;
+    /**
+     * Sets a value specifying the state of a check box.
+     * @param checkState A string value matches one of the CheckState enumeration values.
+     */
+    SetCheckState(checkState: string): void;
+    /**
+     * Sets the text to be displayed within the editor.
+     * @param text A string value specifying the text to be displayed within the editor.
+     */
+    SetText(text: string): void;
+    /**
+     * Converts the specified object to the ASPxClientCheckBox type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientCheckBox;
+}
+/**
+ * Represents the client-side equivalent of the ASPxRadioButton control.
+ */
+declare class ASPxClientRadioButton extends ASPxClientCheckBox {
+    /**
+     * Returns a value indicating whether the radio button is checked.
+     */
+    GetChecked(): boolean;
+    /**
+     * Sets a value which specifies the radio button's checked status.
+     * @param isChecked true if the radio button is checked; otherwise, false.
+     */
+    SetChecked(isChecked: boolean): void;
+    /**
+     * Converts the specified object to the ASPxClientRadioButton type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientRadioButton;
+}
+/**
+ * Represents the client-side equivalent of the ASPxColorEdit control.
+ */
+declare class ASPxClientColorEdit extends ASPxClientDropDownEditBase {
+    /**
+     * Occurs on the client after a user changes the selected color in the color editor.
+     */
+    ColorChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientColorEdit>>;
+    /**
+     * This event is not in effect for the ASPxClientColorEdit. Use the ASPxClientColorEdit.ColorChanged event instead.
+     */
+    TextChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientColorEdit>>;
+    /**
+     * Returns the color editor's value.
+     */
+    GetColor(): string;
+    /**
+     * Specifies the color value for the color editor.
+     * @param value A string value specifying the editor color.
+     */
+    SetColor(value: string): void;
+    /**
+     * Indicates whether the automatic color item is selected.
+     */
+    IsAutomaticColorSelected(): boolean;
+    /**
+     * Converts the specified object to the ASPxClientColorEdit type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientColorEdit;
+}
+/**
+ * Represents the client-side equivalent of the ASPxComboBox control.
+ */
+declare class ASPxClientComboBox extends ASPxClientDropDownEditBase {
     /**
      * Occurs when a callback for server-side processing is initiated.
      */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientChart>>;
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientComboBox>>;
     /**
-     * Sends a callback with a parameter to update a Chart by processing the passed information on the server, in an Action specified via the Chart's ChartControlSettings.CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the ChartControlSettings.CustomActionRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     * Occurs on the client side after a callback's server-side processing has been completed.
      */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientComboBox>>;
     /**
-     * Converts the specified object to the MVCxClientChart type. The converted client object specified by the obj parameter.
+     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientComboBox.
+     */
+    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientComboBox>>;
+    /**
+     * Occurs on the client side after a different item in the list has been selected (focus has been moved from one item to another).
+     */
+    SelectedIndexChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientComboBox>>;
+    /**
+     * Adds a new item to the end of the control's items collection. An integer value representing the position at which a new item was added.
+     * @param text Specifies the item's text.
+     * @param value An object that represents the item's associated value.
+     * @param imageUrl A string value specifying the path to the image displayed by the item.
+     */
+    AddItem(text: string | string[], value?: any, imageUrl?: string): number;
+    /**
+     * Adds a new item to the control's items collection at the specified index.
+     * @param index An integer value that represents the index position.
+     * @param value An object that represents the item's associated value.
+     * @param imageUrl A String value specifying the path to the image displayed by the item.
+     */
+    InsertItem(index: number, text: string | string[], value?: any, imageUrl?: string): void;
+    /**
+     * Removes an item specified by its index from the client list editor.
+     * @param index An integer value representing the index of the list item to be removed.
+     */
+    RemoveItem(index: number): void;
+    /**
+     * Removes all items from the client combo box editor.
+     */
+    ClearItems(): void;
+    /**
+     * Prevents the client combobox editor from being rendered until the ASPxClientComboBox.EndUpdate method is called.
+     */
+    BeginUpdate(): void;
+    /**
+     * Re-enables editor render operations after a call to the ASPxClientComboBox.BeginUpdate method and forces an immediate re-rendering.
+     */
+    EndUpdate(): void;
+    /**
+     * Scrolls the editor's item list, so that the specified item becomes visible.
+     * @param index An integer value that specifies the item's index within the editor's client item list.
+     */
+    MakeItemVisible(index: number): void;
+    /**
+     * Returns an item specified by its index within the combo box editor's item collection. An ASPxClientListEditItem object representing the collection item found.
+     * @param index An integer value specifying the zero-based index of the item to search for.
+     */
+    GetItem(index: number): ASPxClientListEditItem;
+    /**
+     * Returns a combo box item by its text. A ASPxClientListEditItem object that represents the combo box item. null (Nothing in Visual Basic) if the item was not found.
+     * @param text A string that specifies the item's text.
+     */
+    FindItemByText(text: string): ASPxClientListEditItem;
+    /**
+     * Returns a combo box item by its value. A ASPxClientListEditItem object that represents the combo box item. null (Nothing in Visual Basic) if the item was not found.
+     * @param value An object that specifies the item's value.
+     */
+    FindItemByValue(value: any): ASPxClientListEditItem;
+    /**
+     * Gets the number of items contained in the editor's item collection.
+     */
+    GetItemCount(): number;
+    /**
+     * Returns the index of the selected item within the combo box editor.
+     */
+    GetSelectedIndex(): number;
+    /**
+     * Sets the combobox editor's selected item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item to select.
+     */
+    SetSelectedIndex(index: number): void;
+    /**
+     * Returns the combo box editor's selected item.
+     */
+    GetSelectedItem(): ASPxClientListEditItem;
+    /**
+     * Sets the list editor's selected item.
+     * @param item An ASPxClientListEditItem object that specifies the item to select.
+     */
+    SetSelectedItem(item: ASPxClientListEditItem): void;
+    /**
+     * Gets the text displayed in the editor's edit box.
+     */
+    GetText(): string;
+    /**
+     * Sends a callback to the server and generates the server-side ASPxAutoCompleteBoxBase.Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side ASPxAutoCompleteBoxBase.Callback event.
+     */
+    PerformCallback(parameter: string): void;
+    /**
+     * Fires before the filtering is executed.
+     */
+    ItemFiltering: ASPxClientEvent<ASPxClientListEditItemFilteringEventHandler<ASPxClientComboBox>>;
+    /**
+     * Enables you to highlight the filtered items.
+     */
+    CustomHighlighting: ASPxClientEvent<ASPxClientListEditCustomHighlightingEventHandler<ASPxClientComboBox>>;
+    /**
+     * Specifies the text displayed within the editor's edit box.
+     * @param text A string value specifying the editor's text.
+     * @param applyFilter true, to use the specified text as a filter and apply it to the editor, otherwise, false.
+     */
+    SetText(text: string, applyFilter?: boolean): void;
+    /**
+     * Determines whether the drop-down content is loaded; if not - loads the content.
+     * @param callbackFunction An object that is the JavaScript function that receives the callback data as a parameter. The function is performed after the combo box content is loaded.
+     */
+    EnsureDropDownLoaded(callbackFunction: any): void;
+    /**
+     * Defines the HTML content for the specified combo box item.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param html A string value that is the HTML code defining the content of the combo box item.
+     */
+    SetItemHtml(index: number, html: string): void;
+    /**
+     * Sets the tooltip text for the combo box editor's item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param tooltip A string value specifying the tooltip text.
+     */
+    SetItemTooltip(index: number, tooltip: string): void;
+    /**
+     * Adds a custom attribute to a combo box item.
+     * @param index The item index.
+     * @param attributeName The attribute name.
+     * @param attributeValue The attribute value.
+     */
+    SetItemAttribute(index: number, attributeName: string, attributeValue: string): void;
+    /**
+     * Sets the CSS class for a combo box item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param className A string value specifying the CSS class name.
+     */
+    AddItemCssClass(index: number, className: string): void;
+    /**
+     * Removes the CSS class from a combo box item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param className A string value specifying the CSS class name.
+     */
+    RemoveItemCssClass(index: number, className: string): void;
+    /**
+     * Defines the HTML content for the specified combo box item's text cell.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param html A string value that is the HTML code defining the content of the combo box item.
+     */
+    SetItemTextCellHtml(itemIndex: number, textCellIndex: number, html: string): void;
+    /**
+     * Sets the tooltip text for the text cell of the editor's item specified by its index.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param tooltip A string value specifying the tooltip text.
+     */
+    SetItemTextCellTooltip(itemIndex: number, textCellIndex: number, tooltip: string): void;
+    /**
+     * Adds a custom attribute to a combo box item's text cell.
+     * @param itemIndex The item's index.
+     * @param textCellIndex The text cell's index.
+     * @param attributeName The attribute name.
+     * @param attributeValue The attribute value.
+     */
+    SetItemTextCellAttribute(itemIndex: number, textCellIndex: number, attributeName: string, attributeValue: string): void;
+    /**
+     * Sets the CSS class for a combo box item's text cell specified by its index.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param className A string value specifying the CSS class name.
+     */
+    AddItemTextCellCssClass(itemIndex: number, textCellIndex: number, className: string): void;
+    /**
+     * Removes the CSS class from a combo box item's text cell specified by its index.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param className A string value specifying the CSS class name.
+     */
+    RemoveItemTextCellCssClass(itemIndex: number, textCellIndex: number, className: string): void;
+    /**
+     * Converts the specified object to the ASPxClientComboBox type. The converted client object specified by the obj parameter.
      * @param obj The client object to be type cast.
      */
-    static Cast(obj: any): MVCxClientChart;
+    static Cast(obj: any): ASPxClientComboBox;
 }
 /**
- * A client-side counterpart of the ComboBox and ComboBoxFor extensions.
+ * Represents the client-side equivalent of the ASPxDateEdit control.
  */
-declare class MVCxClientComboBox extends ASPxClientComboBox {
+declare class ASPxClientDateEdit extends ASPxClientDropDownEditBase {
     /**
-     * Occurs when a callback for server-side processing is initiated.
+     * Occurs on the client after a user changes the selected date in the date editor.
      */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientComboBox>>;
+    DateChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientDateEdit>>;
     /**
-     * Sends a callback with a parameter to update the ComboBox by processing the passed information on the server, in an Action specified by the ComboBox's AutoCompleteBoxBaseSettings.CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the AutoCompleteBoxBaseSettings.CallbackRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     * Enables you to convert the value entered by an end user into the value that will be stored by the date editor.
      */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    ParseDate: ASPxClientEvent<ASPxClientParseDateEventHandler<ASPxClientDateEdit>>;
     /**
-     * Converts the specified object to the MVCxClientComboBox type. The converted client object specified by the obj parameter.
+     * Allows you to disable the calendar's days.
+     */
+    CalendarCustomDisabledDate: ASPxClientEvent<ASPxClientCalendarCustomDisabledDateEventHandler<ASPxClientDateEdit>>;
+    /**
+     * Occurs when an end user clicks a calendar date cell.
+     */
+    CalendarCellClick: ASPxClientEvent<ASPxClientCalendarCellClickEventHandler<ASPxClientDateEdit>>;
+    /**
+     * This event is not in effect for the ASPxClientDateEdit. Use the ASPxClientDateEdit.DateChanged event instead.
+     */
+    TextChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientDateEdit>>;
+    /**
+     * Returns the calendar of the date editor.
+     */
+    GetCalendar(): ASPxClientCalendar;
+    /**
+     * Returns the built-in time edit control.
+     */
+    GetTimeEdit(): ASPxClientTimeEdit;
+    /**
+     * Specifies the date for the editor.
+     * @param date The date.
+     */
+    SetDate(date: Date): void;
+    /**
+     * Gets the date that is the editor's value.
+     */
+    GetDate(): Date;
+    /**
+     * Returns the number of days in a range selected within a date edit.
+     */
+    GetRangeDayCount(): number;
+    /**
+     * Gets the range's length.
+     */
+    GetRangeLength(): number;
+    /**
+     * Gets the minimum date of the editor.
+     */
+    GetMinDate(): Date;
+    /**
+     * Sets the minimum date of the editor.
+     * @param date A DateTime object representing the minimum date.
+     */
+    SetMinDate(date: Date): void;
+    /**
+     * Gets the maximum date of the editor.
+     */
+    GetMaxDate(): Date;
+    /**
+     * Sets the maximum date of the editor.
+     * @param date A DateTime object representing the maximum date.
+     */
+    SetMaxDate(date: Date): void;
+    /**
+     * Converts the specified object to the ASPxClientDateEdit type. The converted client object specified by the obj parameter.
      * @param obj The client object to be type cast.
      */
-    static Cast(obj: any): MVCxClientComboBox;
+    static Cast(obj: any): ASPxClientDateEdit;
 }
 /**
- * A client-side counterpart of the DataView extension.
+ * Provides data for the ASPxClientDateEdit.ParseDate client-side event that parses a string entered into a date editor.
  */
-declare class MVCxClientDataView extends ASPxClientDataView {
+declare class ASPxClientParseDateEventArgs extends ASPxClientEventArgs {
     /**
-     * Occurs when a callback for server-side processing is initiated.
+     * Initializes a new instance of the ASPxClientParseDateEventArgs class with specified settings.
+     * @param value A string containing the value entered into the date editor.
      */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientDataView>>;
+    constructor(value: string);
     /**
-     * Sends a callback with a parameter to update the DataView by processing the passed information on the server, in an Action specified via the DataView's DataViewSettings.CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the DataViewSettings.CustomActionRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     * Gets the value entered into the date editor by an end user.
      */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    value: string;
     /**
-     * Converts the specified object to the MVCxClientDataView type. The converted client object specified by the obj parameter.
+     * Gets or sets the edit value of the date editor.
+     */
+    date: Date;
+    /**
+     * Gets or sets a value specifying whether the event was handled.
+     */
+    handled: boolean;
+}
+/**
+ * A method that will handle the ASPxClientDateEdit.ParseDate event.
+ * @param source An object representing the event source. Identifies the button editor that raised the event.
+ * @param e An ASPxClientParseDateEventArgs object that contains event data.
+ */
+interface ASPxClientParseDateEventHandler<Sender> { (source: Sender, e: ASPxClientParseDateEventArgs): void; }
+/**
+ * Represents a base class for the editors that contain a drop down window.
+ */
+declare class ASPxClientDropDownEditBase extends ASPxClientButtonEditBase {
+    /**
+     * Occurs on the client-side when the drop down window is opened by the dropdown button click.
+     */
+    DropDown: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDropDownEditBase>>;
+    /**
+     * Occurs on the client side when the drop down window is closed.
+     */
+    CloseUp: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDropDownEditBase>>;
+    /**
+     * Occurs on the client side before the drop down window is closed and allows you to cancel the operation.
+     */
+    QueryCloseUp: ASPxClientEvent<ASPxClientCancelEventHandler<ASPxClientDropDownEditBase>>;
+    /**
+     * Modifies the size of the drop down window in accordance with its content.
+     */
+    AdjustDropDownWindow(): void;
+    /**
+     * Invokes the editor's drop down window.
+     */
+    ShowDropDown(): void;
+    /**
+     * Closes the opened drop down window of the editor.
+     */
+    HideDropDown(): void;
+}
+/**
+ * Represents a base for client editor objects realizing the dropdown editor functionality.
+ */
+declare class ASPxClientDropDownEdit extends ASPxClientDropDownEditBase {
+    /**
+     * Allows you to handle a click on 'Ok' and 'Cancel' buttons in the drop-down window.
+     */
+    DropDownCommandButtonClick: ASPxClientEvent<ASPxClientDropDownCommandEventHandler<ASPxClientDropDownEdit>>;
+    /**
+     * Obtains the key value associated with the text displayed within the editor's edit box.
+     */
+    GetKeyValue(): string;
+    /**
+     * Specifies the key value associated with the text displayed within the editor's edit box.
+     * @param keyValue A string specifying the key value associated with the editor's value (displayed text).
+     */
+    SetKeyValue(keyValue: string): void;
+    /**
+     * Converts the specified object to the ASPxClientDropDownEdit type. The converted client object specified by the obj parameter.
      * @param obj The client object to be type cast.
      */
-    static Cast(obj: any): MVCxClientDataView;
+    static Cast(obj: any): ASPxClientDropDownEdit;
 }
 /**
- * A client-side counterpart of the DateEdit extension.
+ * A method that will handle the ASPxClientDropDownEdit.DropDownCommandButtonClick event.
+ * @param source The event source.
+ * @param e A ASPxClientDropDownCommandEventArgs object that contains event data.
  */
-declare class MVCxClientDateEdit extends ASPxClientDateEdit {
-    /**
-     * Converts the specified object to the MVCxClientDateEdit type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientDateEdit;
-}
+interface ASPxClientDropDownCommandEventHandler<Sender> { (source: Sender, e: ASPxClientDropDownCommandEventArgs): void; }
 /**
- * A client-side counterpart of the Diagram extension.
+ * Provides data for the ASPxClientDropDownEdit.DropDownCommandButtonClick event.
  */
-declare class MVCxClientDiagram extends ASPxClientDiagram {
+declare class ASPxClientDropDownCommandEventArgs extends ASPxClientCancelEventArgs {
     /**
-     * Converts the specified object to the MVCxClientDiagram type. The converted client object.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientDiagram;
-}
-/**
- * A client-side counterpart of the DockManager extension.
- */
-declare class MVCxClientDockManager extends ASPxClientDockManager {
-    /**
-     * Sends a callback with a parameter to update the DockManager by processing the passed information on the server, in an Action specified by the DockManager's DockManagerSettings.CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the DockManagerSettings.CallbackRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Converts the specified object to the MVCxClientDockManager type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientDockManager;
-}
-/**
- * A client-side counterpart of the DockPanel extension.
- */
-declare class MVCxClientDockPanel extends ASPxClientDockPanel {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientDockPanel>>;
-    /**
-     * Sends a callback with a parameter to update the DockPanel by processing the passed information on the server, in an Action specified by the DockPanel's PopupControlSettingsBase.CallbackRouteValues (via the DockPanelSettings.CallbackRouteValues) property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the PopupControlSettingsBase.CallbackRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Converts the specified object to the MVCxClientDockPanel type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientDockPanel;
-}
-/**
- * A client-side counterpart of the FileManager extension.
- */
-declare class MVCxClientFileManager extends ASPxClientFileManager {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientFileManager>>;
-    /**
-     * Sends a callback to the server and generates the server-side ASPxFileManager.CustomCallback event, passing it the specified argument.
-     * @param data A string value that specifies any information that needs to be sent to the server-side ASPxFileManager.CustomCallback event.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Converts the specified object to the MVCxClientFileManager type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientFileManager;
-}
-/**
- * A client-side counterpart of the FilterControl extension.
- */
-declare class MVCxClientFilterControl extends ASPxClientFilterControl {
-    /**
-     * Returns the filter control's state.
-     * @param obj An object that receives a filter control's callback parameters.
-     */
-    FillStateObject(obj: any): void;
-    /**
-     * Converts the specified object to the MVCxClientFilterControl type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientFilterControl;
-}
-/**
- * A client-side counterpart of the Gantt extension.
- */
-declare class MVCxClientGantt extends ASPxClientGantt {
-    /**
-     * Converts the specified object to the MVCxClientGantt type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientGantt;
-}
-/**
- * A client-side counterpart of the GridView extension.
- */
-declare class MVCxClientGridView extends ASPxClientGridView {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientGridView>>;
-    /**
-     * Sends a callback with a parameter to update the GridView by processing the passed information on the server, in an Action specified via the grid's GridSettingsBase.CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the grid's GridSettingsBase.CustomActionRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the GridView's GridSettingsBase.CustomDataActionRouteValues property, and then process the returned result in the specified client function. This method does not update the GridView.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the GridSettingsBase.CustomDataActionRouteValues property.
-     * @param onCallback A ASPxClientGridViewValuesCallback object that represents the JavaScript function which receives the information on the client side.
-     */
-    GetValuesOnCustomCallback(data: any, onCallback: ASPxClientGridViewValuesCallback): void;
-    /**
-     * Converts the specified object to the MVCxClientGridView type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientGridView;
-}
-/**
- * A client-side counterpart of the HtmlEditor extension.
- */
-declare class MVCxClientHtmlEditor extends ASPxClientHtmlEditor {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientHtmlEditor>>;
-    /**
-     * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the HtmlEditor's HtmlEditorSettings.CustomDataActionRouteValues property, and then return the processing result to the ASPxClientHtmlEditor.CustomDataCallback event on the client. This method does not update the HtmlEditor.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the HtmlEditorSettings.CustomDataActionRouteValues property.
-     * @param onCallback An ASPxClientDataCallback object that is the JavaScript function which receives the callback data as a parameter.
-     */
-    PerformDataCallback(data: any, onCallback?: ASPxClientDataCallback): void;
-    /**
-     * Converts the specified object to the MVCxClientHtmlEditor type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientHtmlEditor;
-}
-/**
- * A client-side counterpart of the ImageGallery extension.
- */
-declare class MVCxClientImageGallery extends ASPxClientImageGallery {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientImageGallery>>;
-    /**
-     * Sends a callback with a parameter to update the ImageGallery by processing the passed information on the server, in an Action specified via the ImageGallery's ImageGallerySettings.CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the ImageGallerySettings.CustomActionRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Converts the specified object to the MVCxClientImageGallery type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientImageGallery;
-}
-/**
- * A client-side counterpart of the ListBox and ListBoxFor extensions.
- */
-declare class MVCxClientListBox extends ASPxClientListBox {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientListBox>>;
-    /**
-     * Sends a callback with a parameter to update the ListBox by processing the passed information on the server, in an Action specified by the ListBox's ListBoxSettings.CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the ListBoxSettings.CallbackRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Converts the specified object to the MVCxClientListBox type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientListBox;
-}
-/**
- * A client-side counterpart of the NavBar extension.
- */
-declare class MVCxClientNavBar extends ASPxClientNavBar {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientNavBar>>;
-    /**
-     * Converts the specified object to the MVCxClientNavBar type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientNavBar;
-}
-/**
- * A client-side counterpart of the PivotGrid extension.
- */
-declare class MVCxClientPivotGrid extends ASPxClientPivotGrid {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientPivotGrid>>;
-    /**
-     * Sends a callback with a parameter to update the PivotGrid by processing the passed information on the server, in an Action specified via the grid's PivotGridSettings.CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the grid's PivotGridSettings.CustomActionRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Passes PivotGrid callback parameters to the specified object.
-     * @param obj An object that receives PivotGrid callback parameters.
-     */
-    FillStateObject(obj: any): void;
-    /**
-     * Converts the specified object to the MVCxClientPivotGrid type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientPivotGrid;
-}
-/**
- * A client-side counterpart of the PopupControl extension.
- */
-declare class MVCxClientPopupControl extends ASPxClientPopupControl {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientPopupControl>>;
-    /**
-     * Sends a callback with a parameter to update the PopupControl by processing the passed information on the server, in an Action specified via the PopupControl's PopupControlSettingsBase.CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the PopupControlSettingsBase.CallbackRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Sends a callback with a parameters to update the popup window by processing the related popup window and the passed information on the server, in an Action specified by the PopupControl's PopupControlSettingsBase.CallbackRouteValues property.
-     * @param window A ASPxClientPopupWindow object identifying the processed popup window.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the PopupControlSettingsBase.CallbackRouteValues property.
-     */
-    PerformWindowCallback(window: ASPxClientPopupWindow, data: any): void;
-    /**
-     * Converts the specified object to the MVCxClientPopupControl type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientPopupControl;
-}
-/**
- * A client-side counterpart of the Query Builder extension.
- */
-declare class MVCxClientQueryBuilder extends ASPxClientQueryBuilder {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientQueryBuilder>>;
-    /**
-     * Occurs after executing the Save command on the client.
-     */
-    SaveCommandExecuted: ASPxClientEvent<MVCxClientQueryBuilderSaveCommandExecutedEventHandler<MVCxClientQueryBuilder>>;
-    /**
-     * Sends a callback to the server and generates the server-side event passing it the specified argument.
-     * @param arg A string value that represents any information that needs to be sent to the server-side event.
-     */
-    PerformCallback(arg: any): void;
-}
-/**
- * A method that will handle the MVCxClientQueryBuilder.SaveCommandExecuted event.
- * @param source An object which is the event source. Identifies the client object that raised the event.
- * @param e A MVCxClientQueryBuilderSaveCommandExecutedEventArgs object that contains event data.
- */
-interface MVCxClientQueryBuilderSaveCommandExecutedEventHandler<Sender> { (source: Sender, e: MVCxClientQueryBuilderSaveCommandExecutedEventArgs): void; }
-/**
- * Provides data for the MVCxClientQueryBuilder.SaveCommandExecuted event.
- */
-declare class MVCxClientQueryBuilderSaveCommandExecutedEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the MVCxClientQueryBuilderSaveCommandExecutedEventArgs class with the specified settings.
-     * @param result An object that specifies the Save command execution result.
-     */
-    constructor(result: string);
-    /**
-     * Specifies the Save command execution result.
-     */
-    Result: string;
-}
-/**
- * A client-side equivalent of the MVCxDocumentViewer class.
- */
-declare class MVCxClientDocumentViewer extends ASPxClientDocumentViewer {
-    /**
-     * Occurs before performing a document export request.
-     */
-    BeforeExportRequest: ASPxClientEvent<MVCxClientBeforeExportRequestEventHandler<MVCxClientDocumentViewer>>;
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientDocumentViewer>>;
-}
-/**
- * Obsolete. Use the MVCxClientDocumentViewer class instead.
- */
-declare class MVCxClientReportViewer extends ASPxClientReportViewer {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientReportViewer>>;
-    /**
-     * Occurs before performing a document export request.
-     */
-    BeforeExportRequest: ASPxClientEvent<MVCxClientBeforeExportRequestEventHandler<MVCxClientReportViewer>>;
-}
-/**
- * A method that will handle the MVCxClientReportViewer.BeforeExportRequest event.
- * @param source An object which is the event source. Identifies the client object that raised the event.
- * @param e A MVCxClientBeforeExportRequestEventArgs object that contains event data.
- */
-interface MVCxClientBeforeExportRequestEventHandler<Sender> { (source: Sender, e: MVCxClientBeforeExportRequestEventArgs): void; }
-/**
- * Provides data for client BeforeExportRequest events.
- */
-declare class MVCxClientBeforeExportRequestEventArgs extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the MVCxClientBeforeExportRequestEventArgs class with default settings.
+     * Initializes a new instance of the ASPxClientDropDownCommandEventArgs class.
      */
     constructor();
     /**
-     * Gets an object containing specific information (if any, as name/value pairs) that should be passed as a request parameter from the client to the server side for further processing.
+     * Gets the name of the processed command in the ASPxClientDropDownEdit.DropDownCommandButtonClick event.
      */
-    customArgs: any;
+    commandName: string;
 }
 /**
- * A client-side equivalent of the MVCxReportDesigner class.
+ * Serves as the base object for all the editors included in the client-side object model.
  */
-declare class MVCxClientReportDesigner extends ASPxClientReportDesigner {
+declare class ASPxClientEditBase extends ASPxClientControl {
     /**
-     * Occurs when a callback for server-side processing is initiated.
+     * Returns the editor's value.
      */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientReportDesigner>>;
+    GetValue(): any;
     /**
-     * Occurs after executing the Save command on the client.
+     * Changes the editor's value.
+     * @param value An object representing the data to be assigned to the editor's edit value.
      */
-    SaveCommandExecuted: ASPxClientEvent<MVCxClientReportDesignerSaveCommandExecutedEventHandler<MVCxClientReportDesigner>>;
+    SetValue(value: any): void;
     /**
-     * Sends a callback to the server and generates the server-side event, passing it the specified argument.
-     * @param arg A string value that represents any information that needs to be sent to the server-side event.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     * Returns a value indicating whether an editor is enabled.
      */
-    PerformCallback(arg: any, onSuccess?: (arg: string) => void): void;
+    GetEnabled(): boolean;
+    /**
+     * Specifies whether an editor is enabled.
+     * @param value true to enable the editor; otherwise, false.
+     */
+    SetEnabled(value: boolean): void;
+    /**
+     * Returns the text displayed in the editor caption.
+     */
+    GetCaption(): string;
+    /**
+     * Specifies the text displayed in the editor caption.
+     * @param caption A string value specifying the editor caption.
+     */
+    SetCaption(caption: string): void;
 }
 /**
- * A method that will handle the MVCxReportDesignerClientSideEvents.SaveCommandExecuted event.
- * @param source An object which is the event source. Identifies the client object that raised the event.
- * @param e A MVCxClientBeforeExportRequestEventArgs object that contains event data.
+ * Serves as the base object for all the editors that support validation.
  */
-interface MVCxClientReportDesignerSaveCommandExecutedEventHandler<Sender> { (source: Sender, e: MVCxClientReportDesignerSaveCommandExecutedEventArgs): void; }
-/**
- * Provides data for the MVCxClientReportDesigner.SaveCommandExecuted event.
- */
-declare class MVCxClientReportDesignerSaveCommandExecutedEventArgs extends ASPxClientEventArgs {
+declare class ASPxClientEdit extends ASPxClientEditBase {
     /**
-     * Initializes a new instance of the MVCxClientReportDesignerSaveCommandExecutedEventArgs class with the specified settings.
-     * @param result A string value that represents the result of server-side processing.
+     * Fires on the client side when the editor receives input focus.
      */
-    constructor(result: string);
+    GotFocus: ASPxClientEvent<ASPxClientEventHandler<ASPxClientEdit>>;
     /**
-     * Returns the operation result.
+     * Fires on the client side when the editor loses input focus.
      */
-    Result: string;
-}
-/**
- * A client-side counterpart of the RichEdit extension.
- */
-declare class MVCxClientRichEdit extends ASPxClientRichEdit {
+    LostFocus: ASPxClientEvent<ASPxClientEventHandler<ASPxClientEdit>>;
     /**
-     * Sends a callback with a parameter to update the RichEdit by processing the passed information on the server, in an Action specified via the RichEditSettings.CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the RichEditSettings.CustomActionRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     * Allows you to specify whether the value entered into the editor is valid, and whether the editor is allowed to lose focus.
      */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    Validation: ASPxClientEvent<ASPxClientEditValidationEventHandler<ASPxClientEdit>>;
     /**
-     * Converts the specified object to the MVCxClientRichEdit type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
+     * Fires after the editor's value has been changed by end-user interactions.
      */
-    static Cast(obj: any): MVCxClientRichEdit;
-}
-/**
- * A client-side counterpart of the RoundPanel extension.
- */
-declare class MVCxClientRoundPanel extends ASPxClientRoundPanel {
+    ValueChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientEdit>>;
     /**
-     * Occurs when a callback for server-side processing is initiated.
+     * Returns an HTML element that is the control's input element.
      */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientRoundPanel>>;
+    GetInputElement(): any;
     /**
-     * Sends a callback with a parameter to update the Round Panel by processing the passed information on the server, in an Action specified by the Round Panel's RoundPanelSettings.CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the RoundPanelSettings.CallbackRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     * Returns a value indicating whether the editor's state is read-only on the client-side.
      */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    GetReadOnly(): boolean;
     /**
-     * Converts the specified object to the MVCxClientRoundPanel type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
+     * Specifies whether the control's state is read-only on the client side.
+     * @param readOnly true, to make the control read-only on the client side; otherwise, false.
      */
-    static Cast(obj: any): MVCxClientRoundPanel;
-}
-/**
- * A client-side counterpart of the Scheduler extension.
- */
-declare class MVCxClientScheduler extends ASPxClientScheduler {
+    SetReadOnly(readOnly: boolean): void;
     /**
-     * Occurs on the client side when the tooltip is about to be displayed.
+     * Sets input focus to the editor.
      */
-    ToolTipDisplaying: ASPxClientEvent<MVCxClientSchedulerToolTipDisplayingEventHandler<MVCxClientScheduler>>;
+    Focus(): void;
     /**
-     * Occurs when a callback for server-side processing is initiated.
+     * Gets a value that indicates whether the editor's value passes validation.
      */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientScheduler>>;
+    GetIsValid(): boolean;
     /**
-     * Sends a callback with a parameter to update the Scheduler by processing the passed information on the server, in an Action specified via the Scheduler's SchedulerSettings.CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the SchedulerSettings.CustomActionRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     * Gets the error text to be displayed within the editor's error frame if the editor's validation fails.
      */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    GetErrorText(): string;
     /**
-     * Converts the specified object to the MVCxClientScheduler type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
+     * Sets a value that specifies whether the editor's value is valid.
+     * @param isValid True if the editor's value is valid; otherwise, False.
      */
-    static Cast(obj: any): MVCxClientScheduler;
-}
-/**
- * A template that is rendered to display a tooltip.
- */
-declare class MVCxClientSchedulerTemplateToolTip extends ASPxClientToolTipBase {
+    SetIsValid(isValid: boolean): void;
     /**
-     * Gets the tooltip type.
+     * Sets the error text to be displayed within the editor's error frame if the editor's validation fails.
+     * @param errorText A string value representing the error text.
      */
-    type: MVCxSchedulerToolTipType;
-}
-/**
- * A method that will handle the MVCxSchedulerClientSideEvents.ToolTipDisplaying event.
- * @param source An object which is the event source. Identifies the client object that raised the event.
- * @param e A MVCxClientSchedulerToolTipDisplayingEventArgs object that contains the related arguments.
- */
-interface MVCxClientSchedulerToolTipDisplayingEventHandler<Sender> { (source: Sender, e: MVCxClientSchedulerToolTipDisplayingEventArgs): void; }
-/**
- * Provides data for the MVCxClientScheduler.ToolTipDisplaying event.
- */
-declare class MVCxClientSchedulerToolTipDisplayingEventArgs extends ASPxClientEventArgs {
+    SetErrorText(errorText: string): void;
     /**
-     * Initializes new instance of the MVCxClientSchedulerToolTipDisplayingEventArgs class with the specified settings.
-     * @param toolTip A MVCxClientSchedulerTemplateToolTip object that is a tooltip.
-     * @param data An ASPxClientSchedulerToolTipData object that is the tooltip data.
+     * Performs the editor's validation.
      */
-    constructor(toolTip: MVCxClientSchedulerTemplateToolTip, data: ASPxClientSchedulerToolTipData);
+    Validate(): void;
     /**
-     * Gets the tooltip related to the event.
+     * Assigns a null value to all editors in a specified visibility state, which are located within a specified container and belong to a specific validation group.
+     * @param container An HTML element specifying the container of editors to be validated.
+     * @param validationGroup A string value specifying the validation group's name.
+     * @param clearInvisibleEditors true to clear both visible and invisible editors that belong to the specified container and group; false to clear only visible editors.
      */
-    toolTip: MVCxClientSchedulerTemplateToolTip;
+    static ClearEditorsInContainer(container: any, validationGroup?: string, clearInvisibleEditors?: boolean): void;
     /**
-     * Gets information about the tooltip related to the event.
+     * Assigns a null value to all editors which are located within the specified container object, and belonging to a specific validation group, dependent on the visibility state specified.
+     * @param containerId A string value specifying the editor container's identifier.
+     * @param validationGroup A string value specifying the validatiion group's name.
+     * @param clearInvisibleEditors true to clear both visible and invisible editors that belong to the specified container and group; false to clear only visible editors.
      */
-    data: ASPxClientSchedulerToolTipData;
-}
-/**
- * Lists available tooltip types.
- */
-declare class MVCxSchedulerToolTipType {
+    static ClearEditorsInContainerById(containerId: string, validationGroup?: string, clearInvisibleEditors?: boolean): void;
     /**
-     * The tooltip is displayed for a selected appointment.
+     * Assigns a null value to all editors which belong to a specific validation group, dependent on the visibility state specified.
+     * @param validationGroup A string value specifying the validation group's name.
+     * @param clearInvisibleEditors true to clear both visible and invisible editors that belong to the specified validation group; false to clear only visible editors.
      */
-    static readonly Appointment: number;
+    static ClearGroup(validationGroup: string, clearInvisibleEditors?: boolean): void;
     /**
-     * The tooltip is displayed for a dragged appointment.
-     */
-    static readonly AppointmentDrag: number;
-    /**
-     * The tooltip is displayed for a selected time interval.
-     */
-    static readonly Selection: number;
-}
-/**
- * A client-side counterpart of the Scheduler Storage Control extension.
- */
-declare class MVCxClientSchedulerStorage extends ASPxClientSchedulerStorageControl {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientSchedulerStorage>>;
-    /**
-     * Converts the specified object to the MVCxClientSchedulerStorage type. SchedulerStorage
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientSchedulerStorage;
-}
-/**
- * A client-side counterpart of the Spreadsheet extension.
- */
-declare class MVCxClientSpreadsheet extends ASPxClientSpreadsheet {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientSpreadsheet>>;
-    /**
-     * Sends a callback with a parameter to update the Spreadsheet by processing the passed information on the server, in an Action specified via the SpreadsheetSettings.CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the SpreadsheetSettings.CustomActionRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Converts the specified object to the MVCxClientSpreadsheet type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientSpreadsheet;
-}
-/**
- * A client-side counterpart of the PageControl extension.
- */
-declare class MVCxClientPageControl extends ASPxClientPageControl {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientPageControl>>;
-    /**
-     * Sends a callback with a parameter to update the PageControl by processing the passed information on the server, in an Action specified by the PageControl's PageControlSettings.CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the PageControlSettings.CallbackRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Converts the specified object to the MVCxClientPageControl type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientPageControl;
-}
-/**
- * A client-side counterpart of the TokenBox and TokenBoxFor extensions.
- */
-declare class MVCxClientTokenBox extends ASPxClientTokenBox {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientTokenBox>>;
-    /**
-     * Sends a callback with a parameter to update the TokenBox by processing the passed information on the server, in an Action specified by the TokenBox's AutoCompleteBoxBaseSettings.CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the AutoCompleteBoxBaseSettings.CallbackRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Converts the specified object to the MVCxClientTokenBox type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientTokenBox;
-}
-/**
- * A client-side counterpart of the TreeList extension.
- */
-declare class MVCxClientTreeList extends ASPxClientTreeList {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientTreeList>>;
-    /**
-     * Sends a callback with a parameter to update the TreeList by processing the passed information on the server, in an Action specified via the TreeList's TreeListSettings.CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the TreeListSettings.CustomActionRouteValues property.
-     * @param onSuccess A client action to perform if the server round-trip completed successfully.
-     */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
-    /**
-     * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the TreeList's TreeListSettings.CustomDataActionRouteValues property, and then return the processing result to the client, to the ASPxClientTreeList.CustomDataCallback event. This method does not update the TreeList.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the TreeListSettings.CustomDataActionRouteValues property.
-     */
-    PerformCustomDataCallback(data: any): void;
-    /**
-     * Converts the specified object to the MVCxClientTreeList type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientTreeList;
-}
-/**
- * A client-side counterpart of the TreeView extension.
- */
-declare class MVCxClientTreeView extends ASPxClientTreeView {
-    /**
-     * Occurs when a callback for server-side processing is initiated.
-     */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientTreeView>>;
-    /**
-     * Converts the specified object to the MVCxClientTreeView type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientTreeView;
-}
-/**
- * A client-side counterpart of the UploadControl extension.
- */
-declare class MVCxClientUploadControl extends ASPxClientUploadControl {
-    /**
-     * Converts the specified object to the MVCxClientUploadControl type. The converted client object specified by the obj parameter.
-     * @param obj The client object to be type cast.
-     */
-    static Cast(obj: any): MVCxClientUploadControl;
-}
-/**
- * An object containing a service static function that can be useful when performing client-side processing.
- */
-declare class MVCxClientUtils {
-    /**
-     * Loads service resources (such as scripts, CSS files, etc.) required for DevExpress functionality to work properly after a non DevExpress callback has been processed on the server and returned back to the client.
-     */
-    static FinalizeCallback(): void;
-    /**
-     * Returns values of editors placed in the specified container. An object containing pairs of editor names and values.
-     * @param containerOrId A container of editors, or its ID.
-     * @param processInvisibleEditors true to process both visible and invisible editors that belong to the specified container; false to process only visible editors.
-     */
-    static GetSerializedEditorValuesInContainer(containerOrId: any, processInvisibleEditors?: boolean): any;
-    /**
-     * Performs unobtrusive validation for editors in the specified container. true, if editors in the container pass the validation' otherwise, false.
-     * @param containerId The ID of an HTML element that contains editors.
-     * @param validateInvisibleEditors true, to validate visible and invisible DevExpress editors in the container; otherwise, to validate only visible editors.
-     */
-    static PerformValidationInContainerById(containerId: string, validateInvisibleEditors?: boolean): boolean;
-    /**
-     * Performs unobtrusive validation for editors in the specified container. true, if editors in the container pass the validation' otherwise, false.
+     * Validates all editors in a specified visibility state, which are located within a specified container and belong to a specific validation group. true if the specified editors pass validation; otherwise, false.
      * @param container An HTML element that contains editors.
-     * @param validateInvisibleEditors true, to validate visible and invisible DevExpress editors in the container; otherwise, to validate only visible editors.
+     * @param validationGroup The validation group's name.
+     * @param validateInvisibleEditors true to validate both visible and invisible editors that belong to the specified container and group; false to validate only visible editors.
      */
-    static PerformValidationInContainer(container: any, validateInvisibleEditors?: boolean): boolean;
+    static ValidateEditorsInContainer(container: any, validationGroup?: string, validateInvisibleEditors?: boolean): boolean;
+    /**
+     * Performs validation of the editors which are located within the specified container and belong to a specific validation group, dependent on the visibility state specified. true if the specified editors pass validation; otherwise, false.
+     * @param containerId A string value specifying the editor container's identifier.
+     * @param validationGroup A string value that specifies the validation group's name.
+     * @param validateInvisibleEditors true to validate both visible and invisible editors that belong to the specified container and group; false to validate only visible editors.
+     */
+    static ValidateEditorsInContainerById(containerId: string, validationGroup?: string, validateInvisibleEditors?: boolean): boolean;
+    /**
+     * Performs validation of editors contained within the specified validation group, dependent on the editor visibility state specified. true if editors of the specified validation group pass validation; otherwise, false.
+     * @param validationGroup A string value specifying the validation group's name.
+     * @param validateInvisibleEditors true to validate both visible and invisible editors that belong to the specified validation group; false to validate only visible editors.
+     */
+    static ValidateGroup(validationGroup: string, validateInvisibleEditors?: boolean): boolean;
+    /**
+     * Verifies whether the editors in a specified visibility state, which are located within a specified container and belong to a specific validation group, are valid. true if the editors are valid; otherwise, false.
+     * @param container An HTML element specifying the container of editors to be validated.
+     * @param validationGroup A string value that specifies the validation group's name.
+     * @param checkInvisibleEditors true to check both visible and invisible editors that belong to the specified container; false to check only visible editors.
+     */
+    static AreEditorsValid(container?: any | string, validationGroup?: string, checkInvisibleEditors?: boolean): boolean;
+    /**
+     * Attaches a handler to the ASPxClientEdit's event indicating whether the editor has been changed since the previous state.
+     * @param handler An object representing a handler.
+     * @param predicate An ASPxClientControlPredicate object representing the predicate criteria.
+     */
+    static AttachEditorModificationListener(handler: any, predicate: ASPxClientControlPredicate): void;
+    /**
+     * Detaches a handler from the editor's event if the editor meets the predicate criteria.
+     * @param handler An object representing a handler.
+     * @param predicate An ASPxClientControlPredicate object representing a predicate criteria.
+     */
+    static DetachEditorModificationListener(handler: any, predicate: ASPxClientControlPredicate): void;
 }
 /**
- * A method that will handle client BeginCallback events.
- * @param source An object which is the event source. Identifies the client object that raised the event.
- * @param e A MVCxClientBeginCallbackEventArgs object that contains event data.
+ * A method that will handle the client events concerning a keyboard key being pressed.
+ * @param source The event source. This parameter identifies the editor which raised the event.
+ * @param e An ASPxClientEditKeyEventArgs object that contains event data.
  */
-interface MVCxClientBeginCallbackEventHandler<Sender> { (source: Sender, e: MVCxClientBeginCallbackEventArgs): void; }
+interface ASPxClientEditKeyEventHandler<Sender> { (source: Sender, e: ASPxClientEditKeyEventArgs): void; }
 /**
- * Provides data for client BeginCallback events.
+ * Provides data for the client events involved with a key being pressed or released.
  */
-declare class MVCxClientBeginCallbackEventArgs extends ASPxClientBeginCallbackEventArgs {
+declare class ASPxClientEditKeyEventArgs extends ASPxClientEventArgs {
     /**
-     * Initializes a new instance of the MVCxClientBeginCallbackEventArgs class.
-     * @param command A string value that is the name of the command that initiated a callback.
+     * Initializes a new instance of the ASPxClientEditKeyEventArgs object.
+     * @param htmlEvent A DHTML event object that relates to the processed event.
      */
-    constructor(command: string);
+    constructor(htmlEvent: any);
     /**
-     * Gets an object containing specific information (if any, as name/value pairs) that should be passed as a request parameter from the client to the server side for further processing.
+     * Gets a DHTML event object that relates to the processed event.
      */
-    customArgs: any;
+    htmlEvent: any;
 }
 /**
- * A method that will handle the ASPxClientGlobalEvents.BeginCallback event.
- * @param source An object which is the event source. Identifies the client object that raised the event.
- * @param e A MVCxClientGlobalBeginCallbackEventArgs object that contains event data.
+ * A method that will handle client validation events.
+ * @param source An object representing the event source. Identifies the button editor that raised the event.
+ * @param e An ASPxClientEditValidationEventArgs object that contains event data.
  */
-interface MVCxClientGlobalBeginCallbackEventHandler<Sender> { (source: Sender, e: MVCxClientGlobalBeginCallbackEventArgs): void; }
+interface ASPxClientEditValidationEventHandler<Sender> { (source: Sender, e: ASPxClientEditValidationEventArgs): void; }
 /**
- * Provides data for the ASPxClientGlobalEvents.BeginCallback event.
+ * Provides data for the client events that are related to data validation (see ASPxClientEdit.Validate).
  */
-declare class MVCxClientGlobalBeginCallbackEventArgs extends ASPxClientGlobalBeginCallbackEventArgs {
+declare class ASPxClientEditValidationEventArgs extends ASPxClientEventArgs {
     /**
-     * Initializes a new instance of the MVCxClientGlobalBeginCallbackEventArgs class.
-     * @param control An ASPxClientControl class descendant object that is the control that initiated a callback.
-     * @param command A string value that is the name of the command that initiated a callback.
+     * Initializes a new instance of the ASPxClientEditValidationEventArgs class with the specified settings.
+     * @param value An object that represents the validated value.
+     * @param errorText A string representing the error description.
+     * @param isValid true if the validated value is valid; otherwise, false.
      */
-    constructor(control: ASPxClientControl, command: string);
+    constructor(value: string, errorText: string, isValid: boolean);
     /**
-     * Gets an object containing specific information (if any, as name/value pairs) that should be passed as a request parameter from the client to the server side for further processing.
+     * Gets or sets the error description.
      */
-    customArgs: any;
+    errorText: string;
+    /**
+     * Gets or sets a value specifying whether the validated value is valid.
+     */
+    isValid: boolean;
+    /**
+     * Gets or sets the editor's value being validated.
+     */
+    value: string;
 }
 /**
- * An ASP.NET MVC equivalent of the client ASPxClientGlobalEvents component.
+ * Represents the client ASPxFilterControl.
  */
-declare class MVCxClientGlobalEvents {
+declare class ASPxClientFilterControl extends ASPxClientControl {
     /**
-     * Occurs on the client side after client object models of all DevExpress MVC extensions contained within the page have been initialized.
+     * Occurs after a new filter expression has been applied.
      */
-    ControlsInitialized: ASPxClientEvent<ASPxClientControlsInitializedEventHandler<MVCxClientGlobalEvents>>;
+    Applied: ASPxClientEvent<ASPxClientFilterAppliedEventHandler<ASPxClientFilterControl>>;
     /**
-     * Occurs on the client when a callback for server-side processing is initiated.
+     * Occurs when a callback for server-side processing is initiated.
      */
-    BeginCallback: ASPxClientEvent<MVCxClientGlobalBeginCallbackEventHandler<MVCxClientGlobalEvents>>;
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientFilterControl>>;
+    /**
+     * Occurs on the client side after a callback's server-side processing has been completed.
+     */
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientFilterControl>>;
+    /**
+     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientFilterControl.
+     */
+    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientFilterControl>>;
+    /**
+     * Returns the filter expression.
+     */
+    GetFilterExpression(): string;
+    /**
+     * Returns the applied filter expression.
+     */
+    GetAppliedFilterExpression(): string;
+    /**
+     * Returns the editor used to edit the specified values. The editor.
+     * @param index The index of the filter condition.
+     * @param valueIndex The index of the value in the specified filter condition.
+     */
+    GetEditor(index: number, valueIndex: number): ASPxClientEditBase;
+    /**
+     * Returns a value indicating whether the filter expression being currently composed on the client side is valid - all expression conditions are filled.
+     */
+    IsFilterExpressionValid(): boolean;
+    /**
+     * Applies a filter constructed by an end-user.
+     */
+    Apply(): void;
+    /**
+     * Resets the current filter expression to a previously applied filter expression.
+     */
+    Reset(): void;
+    /**
+     * Converts the specified object to the ASPxClientFilterControl type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientFilterControl;
+}
+/**
+ * A method that will handle the ASPxClientFilterControl.Applied event.
+ * @param source The event source.
+ * @param e An ASPxClientFilterAppliedEventArgs object that contains event data.
+ */
+interface ASPxClientFilterAppliedEventHandler<Sender> { (source: Sender, e: ASPxClientFilterAppliedEventArgs): void; }
+/**
+ * Provides data for the ASPxClientFilterControl.Applied event.
+ */
+declare class ASPxClientFilterAppliedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientFilterAppliedEventArgs class.
+     * @param filterExpression A string value that specifies the filter expression currently being applied. This value is assigned to the ASPxClientFilterAppliedEventArgs.filterExpression property.
+     */
+    constructor(filterExpression: string);
+    /**
+     * Gets the filter expression currently being applied.
+     */
+    filterExpression: string;
+}
+/**
+ * Represents a base for client editor objects that display a list of items.
+ */
+declare class ASPxClientListEdit extends ASPxClientEdit {
+    /**
+     * Occurs on the client side after a different item in the list has been selected (focus has been moved from one item to another).
+     */
+    SelectedIndexChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientListEdit>>;
+    /**
+     * Returns the list editor's selected item.
+     */
+    GetSelectedItem(): ASPxClientListEditItem;
+    /**
+     * Returns the index of the selected item within the list editor.
+     */
+    GetSelectedIndex(): number;
+    /**
+     * Sets the list editor's selected item.
+     * @param item An ASPxClientListEditItem object that specifies the item to select.
+     */
+    SetSelectedItem(item: ASPxClientListEditItem): void;
+    /**
+     * Sets the list editor's selected item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item to select.
+     */
+    SetSelectedIndex(index: number): void;
+}
+/**
+ * Represents the client-side equivalent of the ListEditItem object.
+ */
+declare class ASPxClientListEditItem {
+    /**
+     * Gets a value that indicates whether a list edit item is selected.
+     */
+    selected: boolean;
+    /**
+     * Returns the list item's value that corresponds to the specified column. Specifies the list item's value that corresponds to the specified column.
+     * @param columnIndex Specifies the column's index or name in the Columns collection.
+     */
+    GetColumnText(columnIndex: number | string): string;
+    /**
+     * Gets an editor to which the current item belongs.
+     */
+    listEditBase: ASPxClientListEdit;
+    /**
+     * Gets the item's index.
+     */
+    index: number;
+    /**
+     * Gets the item's associated image.
+     */
+    imageUrl: string;
+    /**
+     * Gets the item's display text.
+     */
+    text: string;
+    /**
+     * Gets the item's associated value.
+     */
+    value: any;
+}
+/**
+ * Represents the client-side equivalent of the ASPxListBox control.
+ */
+declare class ASPxClientListBox extends ASPxClientListEdit {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientListBox>>;
+    /**
+     * Occurs on the client side after a callback's server-side processing has been completed.
+     */
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientListBox>>;
+    /**
+     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientListBox.
+     */
+    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientListBox>>;
+    /**
+     * Occurs on the client side when an end-user presses a key while the editor has focus.
+     */
+    KeyDown: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientListBox>>;
+    /**
+     * Occurs on the client side when an end-user presses and releases a key while the editor has focus.
+     */
+    KeyPress: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientListBox>>;
+    /**
+     * Occurs on the client side when an end-user releases a pressed key while the editor has focus.
+     */
+    KeyUp: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientListBox>>;
+    /**
+     * Occurs on the client side after a different item in the list box has been selected (focus has been moved from one item to another).
+     */
+    SelectedIndexChanged: ASPxClientEvent<ASPxClientListEditItemSelectedChangedEventHandler<ASPxClientListBox>>;
+    /**
+     * Occurs on the client when the editor's item is double clicked.
+     */
+    ItemDoubleClick: ASPxClientEvent<ASPxClientEventHandler<ASPxClientListBox>>;
+    /**
+     * Gets the number of items contained in the editor's item collection.
+     */
+    GetItemCount(): number;
+    /**
+     * Returns an item specified by its index within the list box editor's item collection. An ASPxClientListEditItem object representing the collection item found.
+     * @param index An integer value specifying the zero-based index of the item to search for.
+     */
+    GetItem(index: number): ASPxClientListEditItem;
+    /**
+     * Returns an array of the list editor's selected items indices.
+     */
+    GetSelectedIndices(): number[];
+    /**
+     * Returns an array of the list editor's selected items values.
+     */
+    GetSelectedValues(): any[];
+    /**
+     * Returns an array of the list editor's selected items.
+     */
+    GetSelectedItems(): ASPxClientListEditItem[];
+    /**
+     * Selects all list box items.
+     */
+    SelectAll(): void;
+    /**
+     * Unselects all list box items.
+     */
+    UnselectAll(): void;
+    /**
+     * Selects the items with the specified indices within a list box.
+     * @param indices An array of integer values that represent the items indices.
+     */
+    SelectIndices(indices: number[]): void;
+    /**
+     * Unselects an array of the list box items with the specified indices.
+     * @param indices An array of integer values that represent the indices.
+     */
+    UnselectIndices(indices: number[]): void;
+    /**
+     * Selects the specified items within a list box.
+     * @param items An array of ASPxClientListEditItem objects that represent the items.
+     */
+    SelectItems(items: ASPxClientListEditItem[]): void;
+    /**
+     * Unselects an array of the specified list box items.
+     * @param items An array of ASPxClientListEditItem objects that represent the items.
+     */
+    UnselectItems(items: ASPxClientListEditItem[]): void;
+    /**
+     * Select the items with the specified values within a list box.
+     * @param values An array of Object[] objects that represent the item's values.
+     */
+    SelectValues(values: any[]): void;
+    /**
+     * Unselects an array of the list box items with the specified values.
+     * @param values An array of Object[] objects that represent the values.
+     */
+    UnselectValues(values: any[]): void;
+    /**
+     * Scrolls the editor's item list, so that the specified item becomes visible.
+     * @param index An integer value that specifies the item's index within the editor's client item list.
+     */
+    MakeItemVisible(index: number): void;
+    /** @deprecated Use the AdjustControl method instead. */
+    /**
+     * Initializes the ASPxClientListBox client object when its parent container becomes visible dynamically, on the client side.
+     */
+    InitOnContainerMadeVisible(): void;
+    /**
+     * Adds a new item to the editor, specifying the item's display text, associated value and displayed image, and returns the index of the added item. An integer value that represents the added item's index.
+     * @param text A string value specifying the item's display text.
+     * @param value An object specifying the value associated with the item.
+     * @param imageUrl A string value specifying the path to the image displayed by the item.
+     */
+    AddItem(text: string | string[], value?: any, imageUrl?: string): number;
+    /**
+     * Adds a new item to the control's items collection at the specified index.
+     * @param index An integer value that represents the index position.
+     * @param value An object that represents the item's associated value.
+     * @param imageUrl A String value specifying the path to the image displayed by the item.
+     */
+    InsertItem(index: number, text: string | string[], value?: any, imageUrl?: string): void;
+    /**
+     * Prevents the client list box editor from being rendered until the ASPxClientListBox.EndUpdate method is called.
+     */
+    BeginUpdate(): void;
+    /**
+     * Re-enables editor render operations after a call to the ASPxClientListBox.BeginUpdate method, and forces an immediate re-rendering.
+     */
+    EndUpdate(): void;
+    /**
+     * Removes all items from the client list box editor.
+     */
+    ClearItems(): void;
+    /**
+     * Removes an item specified by its index from the client list editor.
+     * @param index An integer value representing the index of the list item to be removed.
+     */
+    RemoveItem(index: number): void;
+    /**
+     * Returns a list box item by its text. A ASPxClientListEditItem object that represents the list box item. null (Nothing in Visual Basic) if the item was not found.
+     * @param text A string that specifies the item's text.
+     */
+    FindItemByText(text: string): ASPxClientListEditItem;
+    /**
+     * Returns a list box item by its value. A ASPxClientListEditItem object that represents the list box item. null (Nothing in Visual Basic) if the item was not found.
+     * @param value An object that specifies the item's value.
+     */
+    FindItemByValue(value: any): ASPxClientListEditItem;
+    /**
+     * Sends a callback to the server, and generates the server-side ASPxListBox.Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side ASPxListBox.Callback event.
+     */
+    PerformCallback(parameter: string): void;
+    /**
+     * Fires before the filtering is executed.
+     */
+    ItemFiltering: ASPxClientEvent<ASPxClientListEditItemFilteringEventHandler<ASPxClientListBox>>;
+    /**
+     * Enables you to highlight the filtered items.
+     */
+    CustomHighlighting: ASPxClientEvent<ASPxClientListEditCustomHighlightingEventHandler<ASPxClientListBox>>;
+    /**
+     * Defines the HTML content for the specified list box item.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param html A string value that is the HTML code defining the content of the list box item.
+     */
+    SetItemHtml(index: number, html: string): void;
+    /**
+     * Sets the tooltip text for the list box editor's item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param tooltip A string value specifying the tooltip text.
+     */
+    SetItemTooltip(index: number, tooltip: string): void;
+    /**
+     * Adds a custom attribute to a list box item.
+     * @param index The item index.
+     * @param attributeName The attribute name.
+     * @param attributeValue The attribute value.
+     */
+    SetItemAttribute(index: number, attributeName: string, attributeValue: string): void;
+    /**
+     * Sets the CSS class for a list box item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param className A string value specifying the CSS class name.
+     */
+    AddItemCssClass(index: number, className: string): void;
+    /**
+     * Removes the CSS class from a list box item specified by its index.
+     * @param index An integer value specifying the zero-based index of the item.
+     * @param className A string value specifying the CSS class name.
+     */
+    RemoveItemCssClass(index: number, className: string): void;
+    /**
+     * Defines the HTML content for the specified list box item's text cell.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param html A string value that is the HTML code defining the content of the list box item.
+     */
+    SetItemTextCellHtml(itemIndex: number, textCellIndex: number, html: string): void;
+    /**
+     * Sets the tooltip text for the text cell of the editor's item specified by its index.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param tooltip A string value specifying the tooltip text.
+     */
+    SetItemTextCellTooltip(itemIndex: number, textCellIndex: number, tooltip: string): void;
+    /**
+     * Adds a custom attribute to a list box item's text cell.
+     * @param itemIndex The item's index.
+     * @param textCellIndex The text cell's index.
+     * @param attributeName The attribute name.
+     * @param attributeValue The attribute value.
+     */
+    SetItemTextCellAttribute(itemIndex: number, textCellIndex: number, attributeName: string, attributeValue: string): void;
+    /**
+     * Sets the CSS class for a list box item's text cell specified by its index.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param className A string value specifying the CSS class name.
+     */
+    AddItemTextCellCssClass(itemIndex: number, textCellIndex: number, className: string): void;
+    /**
+     * Removes the CSS class from a list box item's text cell specified by its index.
+     * @param itemIndex An integer value specifying the zero-based index of the item.
+     * @param textCellIndex An integer value specifying the zero-based index of the item's text cell.
+     * @param className A string value specifying the CSS class name.
+     */
+    RemoveItemTextCellCssClass(itemIndex: number, textCellIndex: number, className: string): void;
+    /**
+     * Converts the specified object to the ASPxClientListBox type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientListBox;
+}
+/**
+ * Serves as the base type for the ASPxClientCheckBoxList and ASPxClientRadioButtonList objects.
+ */
+declare class ASPxClientCheckListBase extends ASPxClientListEdit {
+    /**
+     * Gets the number of items contained in the editor's item collection.
+     */
+    GetItemCount(): number;
+    /**
+     * Returns the editor's item specified by its index. An ASPxClientListEditItem object that is the item located at the specified index.
+     * @param index An integer value specifying the zero-based index of the item to be retrieved.
+     */
+    GetItem(index: number): ASPxClientListEditItem;
+}
+/**
+ * Represents the client-side equivalent of the ASPxRadioButtonList control.
+ */
+declare class ASPxClientRadioButtonList extends ASPxClientCheckListBase {
+    /**
+     * Converts the specified object to the ASPxClientRadioButtonList type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientRadioButtonList;
+}
+/**
+ * A client-side equivalent of the ASPxCheckBoxList object.
+ */
+declare class ASPxClientCheckBoxList extends ASPxClientCheckListBase {
+    /**
+     * Occurs on the client side after a different item in the check box list has been selected (focus has been moved from one item to another).
+     */
+    SelectedIndexChanged: ASPxClientEvent<ASPxClientListEditItemSelectedChangedEventHandler<ASPxClientCheckBoxList>>;
+    /**
+     * Returns an array of the check box list editor's selected items indices.
+     */
+    GetSelectedIndices(): number[];
+    /**
+     * Returns an array of the check box list editor's selected items values.
+     */
+    GetSelectedValues(): any[];
+    /**
+     * Returns an array of the check box list editor's selected items.
+     */
+    GetSelectedItems(): ASPxClientListEditItem[];
+    /**
+     * Selects all check box list items.
+     */
+    SelectAll(): void;
+    /**
+     * Unselects all check box list items.
+     */
+    UnselectAll(): void;
+    /**
+     * Selects items with the specified indices within a check box list.
+     * @param indices An array of integer values that are the item indices.
+     */
+    SelectIndices(indices: number[]): void;
+    /**
+     * Selects the specified items within a check box list.
+     * @param items An array of ASPxClientListEditItem objects that are the items.
+     */
+    SelectItems(items: ASPxClientListEditItem[]): void;
+    /**
+     * Selects items with the specified values within a check box list.
+     * @param values An array of Object[] objects that are the item values.
+     */
+    SelectValues(values: any[]): void;
+    /**
+     * Unselects items with the specified indices within a check box list.
+     * @param indices An array of integer values that are the item indices.
+     */
+    UnselectIndices(indices: number[]): void;
+    /**
+     * Unselects the specified items within a check box list.
+     * @param items An array of ASPxClientListEditItem objects that are the items.
+     */
+    UnselectItems(items: ASPxClientListEditItem[]): void;
+    /**
+     * Unselects items with the specified values within a check box list.
+     * @param values An array of Object[] objects that are the item values.
+     */
+    UnselectValues(values: any[]): void;
+    /**
+     * Converts the specified object to the ASPxClientCheckBoxList type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientCheckBoxList;
+}
+/**
+ * A method that will handle the ASPxClientListBox.SelectedIndexChanged event.
+ * @param source The event source.
+ * @param e An ASPxClientListEditItemSelectedChangedEventArgs object that contains event data.
+ */
+interface ASPxClientListEditItemSelectedChangedEventHandler<Sender> { (source: Sender, e: ASPxClientListEditItemSelectedChangedEventArgs): void; }
+/**
+ * Provides data for the ASPxClientListEdit.SelectedIndexChanged event.
+ */
+declare class ASPxClientListEditItemSelectedChangedEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientListEditItemSelectedChangedEventArgs class with the specified settings.
+     * @param index An integer value that specifies the index of an item.
+     * @param isSelected true if an item is selected; otherwise, false.
+     */
+    constructor(index: number, isSelected: boolean);
+    /**
+     * Gets the index of the item related to the event.
+     */
+    index: number;
+    /**
+     * Gets whether the item has been selected.
+     */
+    isSelected: boolean;
+}
+/**
+ * A method that will handle the ASPxClientComboBox.ItemFiltering and ASPxClientListBox.ItemFiltering events.
+ * @param source The event source.
+ * @param e A ASPxClientListEditItemFilteringEventArgs object that contains event data.
+ */
+interface ASPxClientListEditItemFilteringEventHandler<Sender> { (source: Sender, e: ASPxClientListEditItemFilteringEventArgs): void; }
+/**
+ * Provides data for the ASPxClientComboBox.ItemFiltering and ASPxClientListBox.ItemFiltering events.
+ */
+declare class ASPxClientListEditItemFilteringEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientListEditItemFilteringEventArgs class.
+     */
+    constructor();
+    /**
+     * Gets the editor item object related to the event.
+     */
+    item: ASPxClientListEditItem;
+    /**
+     * Specifies whether the item should be shown in the search result.
+     */
+    isFit: boolean;
+    /**
+     * Gets a string that is a filter condition for the editor's items typed by a user.
+     */
+    filter: string;
+}
+/**
+ * A method that will handle the ASPxClientComboBox.CustomHighlighting and ASPxClientListBox.CustomHighlighting events.
+ * @param source The event source.
+ * @param e A ASPxClientListEditCustomHighlightingEventArgs object that contains event data.
+ */
+interface ASPxClientListEditCustomHighlightingEventHandler<Sender> { (source: Sender, e: ASPxClientListEditCustomHighlightingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientComboBox.CustomHighlighting and ASPxClientListBox.CustomHighlighting events.
+ */
+declare class ASPxClientListEditCustomHighlightingEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientListEditCustomHighlightingEventArgs class.
+     */
+    constructor();
+    /**
+     * Specifies rules according to which the editor highlights the filtered items.
+     */
+    highlighting: any;
+    /**
+     * Gets a string that is a filter condition for the editor's items typed by a user.
+     */
+    filter: string;
+}
+/**
+ * Represents a client-side equivalent of the ASPxProgressBar control.
+ */
+declare class ASPxClientProgressBar extends ASPxClientEditBase {
+    /**
+     * Sets the position of the operation's progress.
+     * @param position An integer value specifying the progress position.
+     */
+    SetPosition(position: number): void;
+    /**
+     * Gets the position of the operation's progress.
+     */
+    GetPosition(): number;
+    /**
+     * Sets the pattern used to format the displayed text for the progress bar.
+     * @param text A  value that is the format pattern.
+     */
+    SetCustomDisplayFormat(text: string): void;
+    /**
+     * Returns the text displayed within the progress bar.
+     */
+    GetDisplayText(): string;
+    /**
+     * Sets the percentage representation of the progress position.
+     */
+    GetPercent(): number;
+    /**
+     * Sets the minimum range value of the progress bar.
+     * @param min An integer value specifying the minimum value of the progress bar range.
+     */
+    SetMinimum(min: number): void;
+    /**
+     * Sets the maximum range value of the progress bar.
+     * @param max An integer value specifying the maximum value of the progress bar range.
+     */
+    SetMaximum(max: number): void;
+    /**
+     * Gets the minimum range value of the progress bar.
+     */
+    GetMinimum(): number;
+    /**
+     * Gets the maximum range value of the progress bar.
+     */
+    GetMaximum(): number;
+    /**
+     * Sets the minimum and maximum range values of the progress bar.
+     * @param minValue An integer value specifying the minimum value of the progress bar range.
+     * @param maxValue An integer value specifying the maximum value of the progress bar range.
+     */
+    SetMinMaxValues(minValue: number, maxValue: number): void;
+    /**
+     * Converts the specified object to the ASPxClientProgressBar type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientProgressBar;
+}
+/**
+ * Represents a base class for the ASPxClientSpinEdit object.
+ */
+declare class ASPxClientSpinEditBase extends ASPxClientButtonEditBase {
+    /**
+     * This event is not in effect for the ASPxClientSpinEditBase. Use the ASPxClientEdit.ValueChanged event instead. Alternatively, use an editor type specific event, such as ASPxClientSpinEdit.NumberChanged for an ASPxClientSpinEdit or ASPxClientTimeEdit.DateChanged for an ASPxClientTimeEdit.
+     */
+    TextChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientSpinEditBase>>;
+}
+/**
+ * Represents the client-side equivalent of the ASPxSpinEdit control.
+ */
+declare class ASPxClientSpinEdit extends ASPxClientSpinEditBase {
+    /**
+     * Occurs on the client when a user changes the editor's value.
+     */
+    NumberChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientSpinEdit>>;
+    /**
+     * Specifies the value of the spin edit control on the client side.
+     * @param number A Decimal value specifying the control value.
+     */
+    SetValue(number: number): void;
+    /**
+     * Sets the spin editor's value.
+     * @param number A decimal number specifying the value to assign to the spin editor.
+     */
+    SetNumber(number: number): void;
+    /**
+     * Gets a number which represents the spin editor's value.
+     */
+    GetNumber(): number;
+    /**
+     * Returns the text displayed within the editor.
+     */
+    GetText(): string;
+    /**
+     * Sets the minimum value of the editor.
+     * @param value A decimal value specifying the minimum value of the editor.
+     */
+    SetMinValue(value: number): void;
+    /**
+     * Gets the minimum value of the editor.
+     */
+    GetMinValue(): number;
+    /**
+     * Sets the maximum value of the editor.
+     * @param value A decimal value specifying the maximum value of the editor.
+     */
+    SetMaxValue(value: number): void;
+    /**
+     * Gets the maximum value of the editor.
+     */
+    GetMaxValue(): number;
+    /**
+     * Converts the specified object to the ASPxClientSpinEdit type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientSpinEdit;
+}
+/**
+ * A client-side equivalent of the ASPxTimeEdit control.
+ */
+declare class ASPxClientTimeEdit extends ASPxClientSpinEditBase {
+    /**
+     * Fires after the selected date has been changed within the time editor.
+     */
+    DateChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTimeEdit>>;
+    /**
+     * Specifies the date for the editor.
+     * @param date A DateTime object that is the date.
+     */
+    SetDate(date: Date): void;
+    /**
+     * Gets the date that is the editor's value.
+     */
+    GetDate(): Date;
+    /**
+     * Converts the specified object to the ASPxClientTimeEdit type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientTimeEdit;
+}
+/**
+ * Represents a base for client-side static editors whose values cannot be visually changed by end users.
+ */
+declare class ASPxClientStaticEdit extends ASPxClientEditBase {
+    /**
+     * Occurs on the client side after an end-user clicks within a static editor.
+     */
+    Click: ASPxClientEvent<ASPxClientEditEventHandler<ASPxClientStaticEdit>>;
+}
+/**
+ * A method that will handle client-side events which concern clicking within editors.
+ * @param source An object representing the event source. Identifies the editor that raised the event.
+ * @param e An ASPxClientEditClickEventArgs object that contains event data.
+ */
+interface ASPxClientEditEventHandler<Sender> { (source: Sender, e: ASPxClientEditClickEventArgs): void; }
+/**
+ * Provides data for the client-side events which concern clicking within editors.
+ */
+declare class ASPxClientEditClickEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new object of the ASPxClientEditClickEventArgs type with the specified settings.
+     * @param htmlElement An HTML object.
+     * @param htmlEvent A DHTML event object that relates to the processed event.
+     */
+    constructor(htmlElement: any, htmlEvent: any);
+    /**
+     * Gets the HTML element related to the event.
+     */
+    htmlElement: any;
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     */
+    htmlEvent: any;
+}
+/**
+ * Represents the client-side equivalent of the ASPxHyperLink control.
+ */
+declare class ASPxClientHyperLink extends ASPxClientStaticEdit {
+    /**
+     * Gets an URL which defines the navigation location for the editor's hyperlink.
+     */
+    GetNavigateUrl(): string;
+    /**
+     * Specifies an URL which defines the navigation location for the editor's hyperlink.
+     * @param url A string value which specifies an URL to where the client web browser will navigate when a hyperlink in the editor is clicked.
+     */
+    SetNavigateUrl(url: string): void;
+    /**
+     * Gets the text caption displayed for the hyperlink in the hyperlink editor.
+     */
+    GetText(): string;
+    /**
+     * Specifies the text caption displayed for the hyperlink in the hyperlink editor.
+     * @param text A string value specifying the text caption for the hyperlink in the editor.
+     */
+    SetText(text: string): void;
+    /**
+     * Converts the specified object to the ASPxClientHyperLink type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientHyperLink;
+}
+/**
+ * Represents a base for client-side editors which are capable of displaying images.
+ */
+declare class ASPxClientImageBase extends ASPxClientStaticEdit {
+    /**
+     * Sets the size of the image displayed within the image editor.
+     * @param width An integer value that specifies the image's width.
+     * @param height An integer value that specifies the image's height.
+     */
+    SetSize(width: number, height: number): void;
+}
+/**
+ * Represents the client-side equivalent of the ASPxImage control.
+ */
+declare class ASPxClientImage extends ASPxClientImageBase {
+    /**
+     * Returns the URL pointing to the image displayed within the image editor.
+     */
+    GetImageUrl(): string;
+    /**
+     * Sets the URL which points to the image displayed within the image editor.
+     * @param url A string value specifying the URL to the image displayed within the editor.
+     */
+    SetImageUrl(url: string): void;
+    /**
+     * Converts the specified object to the ASPxClientImage type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientImage;
+}
+/**
+ * Represents the client-side equivalent of the ASPxLabel control.
+ */
+declare class ASPxClientLabel extends ASPxClientStaticEdit {
+    /**
+     * Returns the text displayed within the editor.
+     */
+    GetText(): string;
+    /**
+     * Sets the text to be displayed within the editor.
+     * @param text A string value specifying the text to be displayed within the editor.
+     */
+    SetText(text: string): void;
+    /**
+     * Converts the specified object to the ASPxClientLabel type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientLabel;
+}
+/**
+ * Represents a base for client-side objects which allow single-line text input.
+ */
+declare class ASPxClientTextEdit extends ASPxClientEdit {
+    /**
+     * Occurs on the client-side when an end-user presses a key while the editor has focus.
+     */
+    KeyDown: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientTextEdit>>;
+    /**
+     * Occurs on the client-side when an end-user presses and releases a key while the editor has focus.
+     */
+    KeyPress: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientTextEdit>>;
+    /**
+     * Occurs on the client-side when an end-user releases a pressed key while the editor has focus.
+     */
+    KeyUp: ASPxClientEvent<ASPxClientEditKeyEventHandler<ASPxClientTextEdit>>;
+    /**
+     * Occurs on the client when a user changes the editor's text and the editor loses focus.
+     */
+    TextChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTextEdit>>;
+    /**
+     * Fires on the client each time a user changes an editor's input value.
+     */
+    UserInput: ASPxClientEvent<ASPxClientEventHandler<ASPxClientTextEdit>>;
+    /**
+     * Returns the text displayed within the editor.
+     */
+    GetText(): string;
+    /**
+     * Sets the text to be displayed within the editor.
+     * @param text A string value specifying the text to be displayed within the editor.
+     */
+    SetText(text: string): void;
+    /**
+     * Selects all text in the text editor.
+     */
+    SelectAll(): void;
+    /**
+     * Sets the caret position within the edited text.
+     * @param position An integer value that specifies the zero-based index of a text character that shall precede the caret.
+     */
+    SetCaretPosition(position: number): void;
+    /**
+     * Obtains the caret position within the edited text.
+     */
+    GetCaretPosition(): number;
+    /**
+     * Selects the specified portion of the editor's text.
+     * @param startPos A zero-based integer value specifying the selection's starting position.
+     * @param endPos A zero-based integer value specifying the selection's ending position.
+     * @param scrollToSelection true to scroll the editor's contents to make the selection visible; otherwise, false.
+     */
+    SetSelection(startPos: number, endPos: number, scrollToSelection: boolean): void;
+}
+/**
+ * Represents a base for client-side editors which are capable of displaying and editing text data in their edit regions.
+ */
+declare class ASPxClientTextBoxBase extends ASPxClientTextEdit {
+}
+/**
+ * A client-side equivalent of the ASPxTextBox control.
+ */
+declare class ASPxClientTextBox extends ASPxClientTextBoxBase {
+    /**
+     * Converts the specified object to the ASPxClientTextBox type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientTextBox;
+}
+/**
+ * A client-side equivalent of the ASPxMemo control.
+ */
+declare class ASPxClientMemo extends ASPxClientTextEdit {
+    /**
+     * Converts the specified object to the ASPxClientMemo type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientMemo;
+}
+/**
+ * Represents a base for client button editor objects.
+ */
+declare class ASPxClientButtonEditBase extends ASPxClientTextBoxBase {
+    /**
+     * Occurs on the client side after an editor button is clicked.
+     */
+    ButtonClick: ASPxClientEvent<ASPxClientButtonEditClickEventHandler<ASPxClientButtonEditBase>>;
+    /**
+     * Returns a button by its index in the button collection. A button.
+     * @param number A button index.
+     */
+    GetButton(number: number): any;
+    /**
+     * Specifies whether the button is visible.
+     * @param number An integer value specifying the button's index within the ASPxButtonEditBase.Buttons collection.
+     * @param value true, to make the button visible; otherwise, false.
+     */
+    SetButtonVisible(number: number, value: boolean): void;
+    /**
+     * Returns a value specifying whether a button is displayed. true, if the button visible; otherwise, false.
+     * @param number An integer value specifying the button's index within the ASPxButtonEditBase.Buttons collection.
+     */
+    GetButtonVisible(number: number): boolean;
+}
+/**
+ * Represents the client-side equivalent of the ASPxButtonEdit control.
+ */
+declare class ASPxClientButtonEdit extends ASPxClientButtonEditBase {
+    /**
+     * Converts the specified object to the ASPxClientButtonEdit type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientButtonEdit;
+}
+/**
+ * A method that will handle the ASPxClientButtonEditBase.ButtonClick event.
+ * @param source An object representing the event source. Identifies the button editor that raised the event.
+ * @param e An ASPxClientButtonEditClickEventArgs object that contains event data.
+ */
+interface ASPxClientButtonEditClickEventHandler<Sender> { (source: Sender, e: ASPxClientButtonEditClickEventArgs): void; }
+/**
+ * Provides data for the ASPxClientButtonEditBase.ButtonClick event.
+ */
+declare class ASPxClientButtonEditClickEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientButtonEditClickEventArgs object with the specified parameters.
+     * @param processOnServer true to process the event on the server side; false to completely handle it on the client side. Initializes the ASPxClientProcessingModeEventArgs.processOnServer property.
+     * @param buttonIndex An integer value representing the zero based index of the clicked button. Initializes the ASPxClientButtonEditClickEventArgs.buttonIndex property.
+     */
+    constructor(processOnServer: boolean, buttonIndex: number);
+    /**
+     * Gets the index of the clicked button.
+     */
+    buttonIndex: number;
+}
+/**
+ * A client-side equivalent of the ASPxTokenBox object.
+ */
+declare class ASPxClientTokenBox extends ASPxClientComboBox {
+    /**
+     * Adds a new token with the specified text to the end of the control's token collection.
+     * @param text A string value specifying the token's text.
+     */
+    AddToken(text: string): void;
+    /**
+     * Removes a token specified by its text from the client token box.
+     * @param text A string value that is the text of the token to be removed.
+     */
+    RemoveTokenByText(text: string): void;
+    /**
+     * Removes a token specified by its index from the client token box.
+     * @param index An integer value that is the index of the token to be removed.
+     */
+    RemoveToken(index: number): void;
+    /**
+     * Returns an HTML span element that corresponds to the specified token. An object that is the HTML span element that corresponds to the specified token.
+     * @param index An integer value that is the token index.
+     */
+    GetTokenHtmlElement(index: number): any;
+    /**
+     * Returns an HTML span element that corresponds to the specified token's text. An object that is the HTML span element that corresponds to the specified token's text.
+     * @param index An integer value that is the token index.
+     */
+    GetTokenTextHtmlElement(index: number): any;
+    /**
+     * Returns an HTML span element that corresponds to the specified token's remove button. An object that is the HTML span element that corresponds to the specified token's remove button.
+     * @param index An integer value that is the token index.
+     */
+    GetTokenRemoveButtonHtmlElement(index: number): any;
+    /**
+     * Returns a collection of tokens.
+     */
+    GetTokenCollection(): string[];
+    /**
+     * Sets a collection of tokens.
+     * @param collection A  object that is the collection of tokens.
+     */
+    SetTokenCollection(collection: string[]): void;
+    /**
+     * Removes all tokens contained in the token box.
+     */
+    ClearTokenCollection(): void;
+    /**
+     * Returns the index of a token specified by its text. An integer value that is the token index
+     * @param text A string value that specifies the text of the token.
+     */
+    GetTokenIndexByText(text: string): number;
+    /**
+     * Gets the token texts, separated with a sign, specified by the ASPxTokenBox.TextSeparator property.
+     */
+    GetText(): string;
+    /**
+     * Sets the token texts, separated with a sign, specified by the ASPxTokenBox.TextSeparator property.
+     * @param text A string value that is the token texts separated with a text separator.
+     */
+    SetText(text: string): void;
+    /**
+     * Gets the editor value.
+     */
+    GetValue(): string;
+    /**
+     * Sets the editor value.
+     * @param value A string that is the editor value.
+     */
+    SetValue(value: string): void;
+    /**
+     * Returns a value that indicates if the specified token (string) is a custom token. true, if the token is not contained in the predefined ASPxAutoCompleteBoxBase.Items collection; otherwise, false.
+     * @param text A string value that is a token.
+     * @param caseSensitive true, if tokens are case sensitive; otherwise, false.
+     */
+    IsCustomToken(text: string, caseSensitive: boolean): boolean;
+    /**
+     * Occurs on the client after a user changes the token collection.
+     */
+    TokensChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientTokenBox>>;
+    /**
+     * For internal use only.
+     */
+    ButtonClick: ASPxClientEvent<ASPxClientButtonEditClickEventHandler<ASPxClientTokenBox>>;
+    /**
+     * For internal use only.
+     */
+    SetSelectedIndex(index: number): void;
+    /**
+     * For internal use only.
+     */
+    SetSelectedItem(item: ASPxClientListEditItem): void;
+    /**
+     * Converts the specified object to the ASPxClientTokenBox type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientTokenBox;
+}
+/**
+ * The client-side equivalent of the ASPxTrackBar control.
+ */
+declare class ASPxClientTrackBar extends ASPxClientEdit {
+    /**
+     * Occurs on the client before a user changes track bar position.
+     */
+    PositionChanging: ASPxClientEvent<ASPxClientTrackBarPositionChangingEventHandler<ASPxClientTrackBar>>;
+    /**
+     * Fires after the editor's position has been changed.
+     */
+    PositionChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTrackBar>>;
+    /**
+     * Occurs on the client-side when an end-user moves a cursor while the drag handle is held down.
+     */
+    Track: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTrackBar>>;
+    /**
+     * Occurs on the client-side when an end-user presses a drag handle and moves it.
+     */
+    TrackStart: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTrackBar>>;
+    /**
+     * Occurs on the client-side when an end-user releases a drag handle after moving it.
+     */
+    TrackEnd: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTrackBar>>;
+    /**
+     * Returns a track bar item index by the item's value. An Int32 value that is an index of the item with the specified value. null (Nothing in Visual Basic) if the item was not found.
+     * @param value An object that specifies the item's value.
+     */
+    GetItemIndexByValue(value: any): number;
+    /**
+     * Returns a track bar item's associated value. An Object that specifies the item's value.
+     * @param index An integer value that specifies the required item's index.
+     */
+    GetItemValue(index: number): any;
+    /**
+     * Returns a track bar item text. A String value specifying the track bar item text.
+     * @param index An integer value that specifies the required item's index.
+     */
+    GetItemText(index: number): string;
+    /**
+     * Returns a track bar item's tooltip text. A String value that specifies the text content of the current item's tooltip.
+     * @param index An integer value that specifies the required item's index.
+     */
+    GetItemToolTip(index: number): string;
+    /**
+     * Returns the number of the track bar items that are maintained by the item collection.
+     */
+    GetItemCount(): number;
+    /**
+     * Specifies the secondary drag handle position.
+     * @param position A  value that specifies the position.
+     */
+    SetPositionEnd(position: number): void;
+    /**
+     * Specifies the main drag handle position.
+     * @param position A  value that specifies the position.
+     */
+    SetPositionStart(position: number): void;
+    /**
+     * Returns the secondary drag handle position.
+     */
+    GetPositionEnd(): number;
+    /**
+     * Returns the main drag handle position.
+     */
+    GetPositionStart(): number;
+    /**
+     * Gets a drag handle position.
+     */
+    GetPosition(): number;
+    /**
+     * Specifies a drag handle position.
+     * @param position A  value that specifies the position.
+     */
+    SetPosition(position: number): void;
+    /**
+     * Converts the specified object to the ASPxClientTrackBar type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientTrackBar;
+}
+/**
+ * A method that will handle the ASPxClientTrackBar.PositionChanging event.
+ * @param source The event source. Identifies the ASPxTrackBar control that raised the event.
+ * @param e A ASPxClientTrackBarPositionChangingEventArgs object that contains event data.
+ */
+interface ASPxClientTrackBarPositionChangingEventHandler<Sender> { (source: Sender, e: ASPxClientTrackBarPositionChangingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientTrackBar.PositionChanging event.
+ */
+declare class ASPxClientTrackBarPositionChangingEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientTrackBarPositionChangingEventArgs object with the specified setting.
+     * @param currentPositionStart A Decimal value specifying the current main drag handle position.
+     * @param currentPositionEnd A Decimal value specifying the current secondary drag handle position.
+     * @param newPositionStart A Decimal value specifying a position where the main drag handle is being moved.
+     * @param newPositionEnd A Decimal value specifying a position where the secondary drag handle is being moved.
+     */
+    constructor(currentPositionStart: number, currentPositionEnd: number, newPositionStart: number, newPositionEnd: number);
+    /**
+     * Gets or sets a value indicating whether the action which raised the event should be canceled.
+     */
+    cancel: boolean;
+    /**
+     * Gets the current drag handle position.
+     */
+    currentPosition: number;
+    /**
+     * Gets the current secondary drag handle position.
+     */
+    currentPositionEnd: number;
+    /**
+     * Gets the current main drag handle position.
+     */
+    currentPositionStart: number;
+    /**
+     * Gets a position where the drag handle is being moved.
+     */
+    newPosition: number;
+    /**
+     * Gets a position where the secondary drag handle is being moved.
+     */
+    newPositionEnd: number;
+    /**
+     * Gets a position where the main drag handle is being moved.
+     */
+    newPositionStart: number;
+}
+/**
+ * Represents the client-side equivalent of the ASPxValidationSummary control.
+ */
+declare class ASPxClientValidationSummary extends ASPxClientControl {
+    /**
+     * Occurs on the client side when the validation summary's visibility is changed.
+     */
+    VisibilityChanged: ASPxClientEvent<ASPxClientValidationSummaryVisibilityChangedEventHandler<ASPxClientValidationSummary>>;
+}
+/**
+ * A method that will handle the ASPxClientValidationSummary.VisibilityChanged client event.
+ * @param source An object representing the event source.
+ * @param e A ASPxClientValidationSummaryVisibilityChangedEventArgs object that contains event data.
+ */
+interface ASPxClientValidationSummaryVisibilityChangedEventHandler<Sender> { (source: Sender, e: ASPxClientValidationSummaryVisibilityChangedEventArgs): void; }
+/**
+ * Provides data for the ASPxClientValidationSummary.VisibilityChanged event.
+ */
+declare class ASPxClientValidationSummaryVisibilityChangedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientValidationSummaryVisibilityChangedEventArgs class.
+     * @param visible true if the editor is visible; otherwise, false.
+     */
+    constructor(visible: boolean);
+    /**
+     * Gets or sets whether the editor is visible on the client.
+     */
+    visible: boolean;
+}
+/**
+ * Lists values that specify the position relative to the target column in which a moved column should be placed.
+ */
+declare class ASPxClientGridColumnMovingTargetPosition {
+    /**
+     * A moved column should be placed to the right of the target column.
+     */
+    Right: number;
+    /**
+     * A moved column should be placed to the left of the target column.
+     */
+    Left: number;
+    /**
+     * A moved column should be placed at the top of the target column.
+     */
+    Top: number;
+    /**
+     * A moved column should be placed at the bottom of the target column.
+     */
+    Bottom: number;
+}
+/**
+ * Represents the client ASPxGridView.
+ */
+declare class ASPxClientGridBase extends ASPxClientControl {
+    /**
+     * Fires when a user changes the summary item value.
+     */
+    BatchEditSummaryDisplayText: ASPxClientEvent<ASPxClientGridBatchEditSummaryDisplayTextEventHandler<ASPxClientGridBase>>;
+    /**
+     * Fires after a toolbar item has been clicked.
+     */
+    ToolbarItemClick: ASPxClientEvent<ASPxClientGridToolbarItemClickEventHandler<ASPxClientGridBase>>;
+    /**
+     * Returns a toolbar specified by its name. An ASPxClientMenu object that is the toolbar with the specified name.
+     * @param name A string value specifying the toolbar name.
+     */
+    GetToolbarByName(name: string): ASPxClientMenu;
+    /**
+     * Returns a grid's toolbar specified by its index. An ASPxClientMenu object that is the toolbar located at the specified index within the control's Toolbars collection.
+     * @param index An integer value specifying the zero-based index of the toolbar object to retrieve.
+     */
+    GetToolbar(index: number): ASPxClientMenu;
+}
+/**
+ * Serves as a base class for classes that implement the client column functionality.
+ */
+declare class ASPxClientGridColumnBase {
+}
+/**
+ * Declares client constants that contain the names of the GridView's default commands executed through callbacks.
+ */
+declare class ASPxClientGridViewCallbackCommand {
+    /**
+     * Default value: "NEXTPAGE"
+     */
+    static readonly NextPage: string;
+    /**
+     * Default value: "PREVPAGE"
+     */
+    static readonly PreviousPage: string;
+    /**
+     * Default value: "GOTOPAGE"
+     */
+    static readonly GotoPage: string;
+    /**
+     * Default value: "SELECTROWS"
+     */
+    static readonly SelectRows: string;
+    /**
+     * Default value: "SELECTROWSKEY"
+     */
+    static readonly SelectRowsKey: string;
+    /**
+     * Default value: "SELECTION"
+     */
+    static readonly Selection: string;
+    /**
+     * Default value: "FOCUSEDROW"
+     */
+    static readonly FocusedRow: string;
+    /**
+     * Default value: "GROUP"
+     */
+    static readonly Group: string;
+    /**
+     * Default value: "UNGROUP"
+     */
+    static readonly UnGroup: string;
+    /**
+     * Default value: "SORT"
+     */
+    static readonly Sort: string;
+    /**
+     * Default value: "COLUMNMOVE"
+     */
+    static readonly ColumnMove: string;
+    /**
+     * Default value: "COLLAPSEALL"
+     */
+    static readonly CollapseAll: string;
+    /**
+     * Default value: "EXPANDALL"
+     */
+    static readonly ExpandAll: string;
+    /**
+     * Default value: "EXPANDROW"
+     */
+    static readonly ExpandRow: string;
+    /**
+     * Default value: "COLLAPSEROW"
+     */
+    static readonly CollapseRow: string;
+    /**
+     * Default value: "HIDEALLDETAIL"
+     */
+    static readonly HideAllDetail: string;
+    /**
+     * Default value: "SHOWALLDETAIL"
+     */
+    static readonly ShowAllDetail: string;
+    /**
+     * Default value: "SHOWDETAILROW"
+     */
+    static readonly ShowDetailRow: string;
+    /**
+     * Default value: "HIDEDETAILROW"
+     */
+    static readonly HideDetailRow: string;
+    /**
+     * Default value: "PAGERONCLICK"
+     */
+    static readonly PagerOnClick: string;
+    /**
+     * Default value: "APPLYFILTER"
+     */
+    static readonly ApplyFilter: string;
+    /**
+     * Default value: "APPLYCOLUMNFILTER"
+     */
+    static readonly ApplyColumnFilter: string;
+    /**
+     * Default value: "APPLYMULTICOLUMNFILTER"
+     */
+    static readonly ApplyMultiColumnFilter: string;
+    /**
+     * Default value: "APPLYHEADERCOLUMNFILTER"
+     */
+    static readonly ApplyHeaderColumnFilter: string;
+    /**
+     * Default value: "APPLYSEARCHPANELFILTER"
+     */
+    static readonly ApplySearchPanelFilter: string;
+    /**
+     * Default value: "APPLYCUSTOMIZATIONDIALOGCHANGES"
+     */
+    static readonly ApplyCustomizationDialogChanges: string;
+    /**
+     * Default value: "FILTERROWMENU"
+     */
+    static readonly FilterRowMenu: string;
+    /**
+     * Default value: "STARTEDIT"
+     */
+    static readonly StartEdit: string;
+    /**
+     * Default value: "CANCELEDIT"
+     */
+    static readonly CancelEdit: string;
+    /**
+     * Default value: "UPDATEEDIT"
+     */
+    static readonly UpdateEdit: string;
+    /**
+     * Default value: "UPDATESUMMARIES"
+     */
+    static readonly UpdateSummaries: string;
+    /**
+     * Default value: "ADDNEWROW"
+     */
+    static readonly AddNewRow: string;
+    /**
+     * Default value: "DELETEROW"
+     */
+    static readonly DeleteRow: string;
+    /**
+     * Default value: "CUSTOMBUTTON"
+     */
+    static readonly CustomButton: string;
+    /**
+     * Default value: "CUSTOMCALLBACK"
+     */
+    static readonly CustomCallback: string;
+    /**
+     * Default value: "SHOWFILTERCONTROL"
+     */
+    static readonly ShowFilterControl: string;
+    /**
+     * Default value: "CLOSEFILTERCONTROL"
+     */
+    static readonly CloseFilterControl: string;
+    /**
+     * Default value: "SETFILTERENABLED"
+     */
+    static readonly SetFilterEnabled: string;
+    /**
+     * Default value: "REFRESH"
+     */
+    static readonly Refresh: string;
+    /**
+     * Default value: "SELFIELDVALUES"
+     */
+    static readonly SelFieldValues: string;
+    /**
+     * Default value: "ROWVALUES"
+     */
+    static readonly RowValues: string;
+    /**
+     * Default value: "PAGEROWVALUES"
+     */
+    static readonly PageRowValues: string;
+    /**
+     * Default value: "FILTERPOPUP"
+     */
+    static readonly FilterPopup: string;
+    /**
+     * Default value: "CONTEXTMENU"
+     */
+    static readonly ContextMenu: string;
+    /**
+     * Default value: "TOOLBAR"
+     */
+    static readonly Toolbar: string;
+    /**
+     * Default value: "EXPORT"
+     */
+    static readonly Export: string;
+    /**
+     * Default value: "CUSTOMVALUES"
+     */
+    static readonly CustomValues: string;
+}
+/**
+ * Lists values that specify the document formats available for export from the grid.
+ */
+declare class ASPxClientGridExportFormat {
+    /**
+     * Identifies Portable Document Format (.pdf).
+     */
+    static readonly Pdf: string;
+    /**
+     * Identifies DOCX format (.docx).
+     */
+    static readonly Docx: string;
+    /**
+     * Identifies Rich Text Format (.rtf).
+     */
+    static readonly Rtf: string;
+    /**
+     * Identifies Comma Separated Values format (.csv).
+     */
+    static readonly Csv: string;
+    /**
+     * Identifies Excel Binary File format (.xls).
+     */
+    static readonly Xls: string;
+    /**
+     * Identifies XML spreadsheet file format (.xlsx).
+     */
+    static readonly Xlsx: string;
+}
+/**
+ * A method that will handle the ASPxClientGridBase.ToolbarItemClick event.
+ * @param source The event source.
+ * @param e An ASPxClientGridToolbarItemClickEventArgs object that contains event data.
+ */
+interface ASPxClientGridToolbarItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientGridToolbarItemClickEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridBase.ToolbarItemClick event.
+ */
+declare class ASPxClientGridToolbarItemClickEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridToolbarItemClickEventArgs class.
+     * @param item An ASPxClientMenu object that should be clicked to fire the event.
+     * @param processOnServer true to process the event on the server side; false to completely handle it on the client side.
+     */
+    constructor(item: ASPxClientMenuItem, processOnServer: boolean);
+    /**
+     * Gets the toolbar index.
+     */
+    toolbarIndex: number;
+    /**
+     * Gets the toolbar name.
+     */
+    toolbarName: string;
+    /**
+     * Gets the clicked menu item
+     */
+    item: ASPxClientMenuItem;
+    /**
+     * Specifies whether a postback or a callback is used to finally process the event on the server side.
+     */
+    usePostBack: boolean;
+    /**
+     * Specifies whether the toolbar item click is handled manually, so no default processing is required.
+     */
+    handled: boolean;
+}
+/**
+ * A method that will handle the BatchEditSummaryDisplayText event.
+ * @param source The event source. This parameter identifies the object which raised the event.
+ * @param e The event data.
+ */
+interface ASPxClientGridBatchEditSummaryDisplayTextEventHandler<Sender> { (source: Sender, e: ASPxClientGridBatchEditSummaryDisplayTextEventArgs): void; }
+/**
+ * Provides data for the BatchEditSummaryDisplayText event.
+ */
+declare class ASPxClientGridBatchEditSummaryDisplayTextEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the class.
+     * @param summaryInfo The summary information.
+     * @param text The summary text.
+     * @param groupRowVisibleIndex The group row's visible index.
+     */
+    constructor(summaryInfo: any, text: string, groupRowVisibleIndex: number);
+    /**
+     * Specifies whether the processed summary is a group summary.
+     */
+    isGroupSummary: boolean;
+    /**
+     * Specifies whether the processed summary is a total summary.
+     */
+    isTotalSummary: boolean;
+    /**
+     * Gets the summary item index.
+     */
+    summaryItemIndex: number;
+    /**
+     * Gets the summary type.
+     */
+    summaryType: ASPxClientSummaryItemType;
+    /**
+     * Gets the summary item's field name.
+     */
+    summaryFieldName: string;
+    /**
+     * Gets the summary item's server value.
+     */
+    serverValue: number;
+    /**
+     * Specifies the summary item's value.
+     */
+    value: number;
+    /**
+     * Gets the element that contains the summary item.
+     */
+    summaryElement: any;
+    /**
+     * Gets or sets the summary item's display text.
+     */
+    displayText: string;
+    /**
+     * Specifies the group row's visible index.
+     */
+    groupRowVisibleIndex: number;
+}
+/**
+ * Lists values that specify the summary item's aggregate function types.
+ */
+declare class ASPxClientSummaryItemType {
+    /**
+     * The sum of all values in a column.
+     */
+    Sum: number;
+    /**
+     * The minimum value in the column.
+     */
+    Min: number;
+    /**
+     * The maximum value in the column.
+     */
+    Max: number;
+    /**
+     * The record count.
+     */
+    Count: number;
+    /**
+     * The column's average value.
+     */
+    Average: number;
+}
+/**
+ * The client-side equivalent of the ASPxGridLookup control.
+ */
+declare class ASPxClientGridLookup extends ASPxClientDropDownEditBase {
+    /**
+     * Fires on the client when a data row is clicked within the built-in dropdown grid.
+     */
+    RowClick: ASPxClientEvent<ASPxClientGridViewRowClickEventHandler<ASPxClientGridLookup>>;
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientGridLookup>>;
+    /**
+     * Occurs on the client side after a callback's server-side processing has been completed.
+     */
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientGridLookup>>;
+    /**
+     * Returns a client object representing the built-in dropdown grid.
+     */
+    GetGridView(): ASPxClientGridView;
+    /**
+     * Confirms the current selection made by an end-user within the editor's dropdown grid.
+     */
+    ConfirmCurrentSelection(): void;
+    /**
+     * Cancels the current selection made by an end-user within the editor's dropdown grid and rolls back to the last confirmed selection. The selection can be confirmed by either pressing the Enter key or calling the ASPxClientGridLookup.ConfirmCurrentSelection method.
+     */
+    RollbackToLastConfirmedSelection(): void;
+    /**
+     * Converts the specified object to the ASPxClientGridLookup type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientGridLookup;
+}
+/**
+ * Represents the client ASPxCardView.
+ */
+declare class ASPxClientCardView extends ASPxClientGridBase {
+    /**
+     * Provides access to the batch editing client API.
+     */
+    batchEditApi: ASPxClientCardViewBatchEditApi;
+    /**
+     * Occurs when a custom command button has been clicked.
+     */
+    CustomButtonClick: ASPxClientEvent<ASPxClientCardViewCustomButtonEventHandler<ASPxClientCardView>>;
+    /**
+     * Fires after the selection has been changed.
+     */
+    SelectionChanged: ASPxClientEvent<ASPxClientCardViewSelectionEventHandler<ASPxClientCardView>>;
+    /**
+     * Enables you to prevent columns from being sorted.
+     */
+    ColumnSorting: ASPxClientEvent<ASPxClientCardViewColumnCancelEventHandler<ASPxClientCardView>>;
+    /**
+     * Enables you to handle each column grouping.
+     */
+    ColumnGrouping: ASPxClientEvent<ASPxClientCardViewColumnCancelEventHandler<ASPxClientCardView>>;
+    /**
+     * Fires before a group row is expanded.
+     */
+    GroupRowExpanding: ASPxClientEvent<ASPxClientCardViewGroupCancelEventHandler<ASPxClientCardView>>;
+    /**
+     * Fires before a group row is collapsed.
+     */
+    GroupRowCollapsing: ASPxClientEvent<ASPxClientCardViewGroupCancelEventHandler<ASPxClientCardView>>;
+    /**
+     * Occurs when a grid switches to batch edit mode.
+     */
+    BatchEditStartEditing: ASPxClientEvent<ASPxClientCardViewBatchEditStartEditingEventHandler<ASPxClientCardView>>;
+    /**
+     * Occurs when a grid leaves batch edit mode.
+     */
+    BatchEditEndEditing: ASPxClientEvent<ASPxClientCardViewBatchEditEndEditingEventHandler<ASPxClientCardView>>;
+    /**
+     * Enables you to prevent a batch edit confirmation message from being displayed.
+     */
+    BatchEditConfirmShowing: ASPxClientEvent<ASPxClientCardViewBatchEditConfirmShowingEventHandler<ASPxClientCardView>>;
+    /**
+     * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
+     */
+    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientCardViewBatchEditTemplateCellFocusedEventHandler<ASPxClientCardView>>;
+    /**
+     * Enables you to specify whether card data is valid and provide an error text.
+     */
+    BatchEditCardValidating: ASPxClientEvent<ASPxClientCardViewBatchEditCardValidatingEventHandler<ASPxClientCardView>>;
+    /**
+     * Occurs on the client side before data changes are saved in batch edit mode.
+     */
+    BatchEditChangesSaving: ASPxClientEvent<ASPxClientCardViewBatchEditChangesSavingEventHandler<ASPxClientCardView>>;
+    /**
+     * Occurs on the client side before data changes are canceled in batch edit mode.
+     */
+    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientCardViewBatchEditChangesCancelingEventHandler<ASPxClientCardView>>;
+    /**
+     * Occurs on the client side before a card is inserted in batch edit mode.
+     */
+    BatchEditCardInserting: ASPxClientEvent<ASPxClientCardViewBatchEditCardInsertingEventHandler<ASPxClientCardView>>;
+    /**
+     * Occurs on the client side before a card is deleted in batch edit mode.
+     */
+    BatchEditCardDeleting: ASPxClientEvent<ASPxClientCardViewBatchEditCardDeletingEventHandler<ASPxClientCardView>>;
+    /**
+     * Occurs on the client side before a card is recovered in batch edit mode.
+     */
+    BatchEditCardRecovering: ASPxClientEvent<ASPxClientCardViewBatchEditCardRecoveringEventHandler<ASPxClientCardView>>;
+    /**
+     * Occurs on the client side when the focused cell is about to be changed.
+     */
+    FocusedCellChanging: ASPxClientEvent<ASPxClientCardViewFocusedCellChangingEventHandler<ASPxClientCardView>>;
+    /**
+     * Fires on the client when a card is clicked.
+     */
+    CardClick: ASPxClientEvent<ASPxClientCardViewCardClickEventHandler<ASPxClientCardView>>;
+    /**
+     * Fires on the client when a card is double clicked.
+     */
+    CardDblClick: ASPxClientEvent<ASPxClientCardViewCardClickEventHandler<ASPxClientCardView>>;
+    /**
+     * Fires in response to changing card focus.
+     */
+    FocusedCardChanged: ASPxClientEvent<ASPxClientCardViewFocusEventHandler<ASPxClientCardView>>;
+    /**
+     * Fires before a card has been focused.
+     */
+    CardFocusing: ASPxClientEvent<ASPxClientCardViewCardFocusingEventHandler<ASPxClientCardView>>;
+    /**
+     * Sorts data by the specified data column's values, and places the column to the specified position among the sorted columns.
+     * @param column An ASPxClientCardViewColumn object that represents the data column.
+     * @param sortOrder A string value that specifies the column's sort order ('ASC', 'DSC' or 'NONE').
+     * @param reset true to clear any previous sorting; otherwise, false.
+     */
+    SortBy(column: ASPxClientCardViewColumn | number | string, sortOrder?: string, reset?: boolean, sortIndex?: number): void;
+    /**
+     * Groups cards by the values of the specified column.
+     * @param column An ASPxClientCardViewColumn object that represents the card view column.
+     * @param groupIndex An integer value that specifies the grouping level. &#0045;1 to cancel grouping by the column's values.
+     * @param sortOrder A string value that specifies the column's sort order.
+     */
+    GroupBy(column: ASPxClientCardViewColumn | number | string, groupIndex?: number, sortOrder?: string): void;
+    /**
+     * Ungroups cards by the values of the specified column.
+     */
+    Ungroup(column: ASPxClientCardViewColumn | number | string): void;
+    /**
+     * Moves the specified column to the specified visual position within the ASPxCardView.
+     * @param moveToColumnVisibleIndex An integer value that identifies the target column displayed within the grid.
+     * @param moveBefore true to move the column before the target column; otherwise, false.
+     */
+    MoveColumn(column: ASPxClientCardViewColumn | number | string, moveToColumnVisibleIndex?: number, moveBefore?: boolean): void;
+    /**
+     * Returns the key value of the specified card. A string representing the specified card's key value. If the index passed via the visibleIndex parameter is wrong, or the ASPxGridBase.KeyFieldName property is not set, null is returned.
+     * @param visibleIndex An integer value that specifies the card's visible index.
+     */
+    GetCardKey(visibleIndex: number): string;
+    /**
+     * Switches the CardView to edit mode.
+     * @param visibleIndex A zero-based integer that identifies a card to be edited.
+     */
+    StartEditCard(visibleIndex: number): void;
+    /**
+     * Switches the ASPxCardView to edit mode.
+     * @param key An object that uniquely identifies a card to be edited.
+     */
+    StartEditCardByKey(key: any): void;
+    /**
+     * Indicates whether or not a new card is being edited.
+     */
+    IsNewCardEditing(): boolean;
+    /**
+     * Adds a new card.
+     */
+    AddNewCard(): void;
+    /**
+     * Deletes the specified card.
+     * @param visibleIndex An integer value that identifies the card.
+     */
+    DeleteCard(visibleIndex: number): void;
+    /**
+     * Deletes a card with the specified key value.
+     * @param key An object that uniquely identifies the card.
+     */
+    DeleteCardByKey(key: any): void;
+    /**
+     * Returns the focused card's index.
+     */
+    GetFocusedCardIndex(): number;
+    /**
+     * Moves focus to the specified card.
+     * @param visibleIndex An integer value that specifies the focused card's index.
+     */
+    SetFocusedCardIndex(visibleIndex: number): void;
+    /**
+     * Selects or deselects the specified cards within the CardView.
+     * @param visibleIndices An array of zero-based indices that identify data cards within the grid.
+     * @param selected true to select the specified cards; false to deselect the cards.
+     */
+    SelectCards(visibleIndices?: number[] | number, selected?: boolean): void;
+    /**
+     * Selects or deselects the specified card displayed within the CardView.
+     * @param selected true to select the specified card; false to deselect the card.
+     */
+    SelectCardsByKey(keys: any[] | any, selected?: boolean): void;
+    /**
+     * Deselects the specified cards displayed within the ASPxCardView.
+     * @param keys An array of objects that uniquely identify the cards.
+     */
+    UnselectCardsByKey(keys: any[] | any): void;
+    /**
+     * Deselects the specified cards (if selected) within the ASPxCardView.
+     */
+    UnselectCards(visibleIndices?: number[] | number): void;
+    /**
+     * Deselects all grid cards that match the filter criteria currently applied to the CardView.
+     */
+    UnselectFilteredCards(): void;
+    /**
+     * Selects or deselects the specified card displayed on the current page.
+     * @param visibleIndex A zero-based integer value that specifies the card's visible index.
+     * @param selected true to select the specified card; false to deselect the card.
+     */
+    SelectCardOnPage(visibleIndex: number, selected?: boolean): void;
+    /**
+     * Deselects the specified cards (if selected) displayed on the current page.
+     * @param visibleIndex A zero-based integer value that specifies the card's visible index.
+     */
+    UnselectCardOnPage(visibleIndex: number): void;
+    /**
+     * Allows you to select or deselect all cards displayed on the current page based on the parameter passed.
+     * @param selected true to select all unselected cards displayed on the current page; false to deselect all selected cards on the page.
+     */
+    SelectAllCardsOnPage(selected?: boolean): void;
+    /**
+     * Deselects all selected cards displayed on the current page.
+     */
+    UnselectAllCardsOnPage(): void;
+    /**
+     * Returns the number of selected cards.
+     */
+    GetSelectedCardCount(): number;
+    /**
+     * Indicates whether or not the specified card is selected within the current page. true if the specified card is selected within the current page; otherwise, false.
+     * @param visibleIndex An integer value that identifies the card by its visible index.
+     */
+    IsCardSelectedOnPage(visibleIndex: number): boolean;
+    /**
+     * Expands the specified group row.
+     * @param visibleIndex An integer value that identifies the group row.
+     */
+    ExpandGroupRow(visibleIndex: number): void;
+    /**
+     * Collapses the specified group row.
+     * @param visibleIndex An integer value that identifies the group row by its visible index.
+     */
+    CollapseGroupRow(visibleIndex: number): void;
+    /**
+     * Expands all group rows.
+     */
+    ExpandAll(): void;
+    /**
+     * Collapses all group rows.
+     */
+    CollapseAll(): void;
+    /**
+     * Exports grid data to a file in the specified format.
+     * @param format An ASPxClientCardViewExportFormat object specifying the export format.
+     */
+    ExportTo(format: ASPxClientCardViewExportFormat): void;
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientCardView>>;
     /**
      * Occurs on the client after a callback's server-side processing has been completed.
      */
-    EndCallback: ASPxClientEvent<ASPxClientGlobalEndCallbackEventHandler<MVCxClientGlobalEvents>>;
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientCardView>>;
     /**
-     * Fires on the client if any server error occurs during server-side processing of a callback sent by a DevExpress MVC extension.
+     * Fires on the client if any unhandled server error occurs during server-side processing of a callback sent by the ASPxClientCardView.
      */
-    CallbackError: ASPxClientEvent<ASPxClientGlobalCallbackErrorEventHandler<MVCxClientGlobalEvents>>;
+    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientCardView>>;
     /**
-     * Dynamically connects the MVCxClientGlobalEvents.ControlsInitialized client event with an appropriate event handler function.
-     * @param handler A object representing the event handling function's content.
+     * Fires after the customization window has been closed.
      */
-    static AddControlsInitializedEventHandler(handler: ASPxClientEvent<ASPxClientControlsInitializedEventHandler<MVCxClientGlobalEvents>>): void;
+    CustomizationWindowCloseUp: ASPxClientEvent<ASPxClientEventHandler<ASPxClientCardView>>;
     /**
-     * Dynamically connects the MVCxClientGlobalEvents.BeginCallback client event with an appropriate event handler function.
-     * @param handler A object containing the event handling function's content.
+     * Applies the specified search panel filter criterion to grid data.
+     * @param value A string value that specifies the filter criterion.
      */
-    static AddBeginCallbackEventHandler(handler: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientGlobalEvents>>): void;
+    ApplySearchPanelFilter(value: string): void;
     /**
-     * Dynamically connects the MVCxClientGlobalEvents.EndCallback client event with an appropriate event handler function.
-     * @param handler A object containing the event handling function's content.
+     * Applies the specified filter expression to the grid.
+     * @param filterExpression A string value that specifies the filter expression.
      */
-    static AddEndCallbackEventHandler(handler: ASPxClientEvent<ASPxClientEndCallbackEventHandler<MVCxClientGlobalEvents>>): void;
+    ApplyFilter(filterExpression: string): void;
     /**
-     * Dynamically connects the MVCxClientGlobalEvents.CallbackError client event with an appropriate event handler function.
-     * @param handler A object containing the event handling function's content.
+     * Clears the filter expression applied to a client CardView.
      */
-    static AddCallbackErrorHandler(handler: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<MVCxClientGlobalEvents>>): void;
+    ClearFilter(): void;
+    /**
+     * Gets the Popup Edit Form.
+     */
+    GetPopupEditForm(): ASPxClientPopupControl;
+    /**
+     * Sets input focus to the grid.
+     */
+    Focus(): void;
+    /**
+     * Sends a callback to the server and generates the server-side event, passing the specified argument to it.
+     * @param args A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(args: string, onSuccess?: (arg: string) => void): void;
+    /**
+     * Selects the specified page.
+     * @param pageIndex An integer value that specifies the active page's index.
+     */
+    GotoPage(pageIndex: number): void;
+    /**
+     * Gets the index of the page currently being selected.
+     */
+    GetPageIndex(): number;
+    /**
+     * Gets the number of pages to which the grid's data is divided.
+     */
+    GetPageCount(): number;
+    /**
+     * Activates the next page.
+     */
+    NextPage(): void;
+    /**
+     * Activates the previous page.
+     */
+    PrevPage(): void;
+    /**
+     * Returns the index of the first card displayed within the grid's active page.
+     */
+    GetTopVisibleIndex(): number;
+    /**
+     * Indicates whether the grid is in edit mode.
+     */
+    IsEditing(): boolean;
+    /**
+     * Saves all the changes made and switches the grid to browse mode.
+     */
+    UpdateEdit(): void;
+    /**
+     * Cancels all the changes made and switches the CardView to browse mode.
+     */
+    CancelEdit(): void;
+    /**
+     * Updates data displayed within the grid.
+     */
+    Refresh(): void;
+    /**
+     * Indicates whether the customization window is displayed.
+     */
+    IsCustomizationWindowVisible(): boolean;
+    /**
+     * Invokes the customization window and displays it over the specified HTML element.
+     * @param showAtElement An object that specifies the HTML element relative to whose position the customization window is invoked.
+     */
+    ShowCustomizationWindow(showAtElement?: any): void;
+    /**
+     * Closes the customization window.
+     */
+    HideCustomizationWindow(): void;
+    /**
+     * Returns the number of columns within the client grid.
+     */
+    GetColumnCount(): number;
+    /**
+     * Returns the card values displayed within all selected cards.
+     * @param fieldNames The names of data source fields separated via a semicolon, whose values within the selected cards are returned.
+     * @param onCallback An ASPxClientCardViewValuesCallback object that represents the JavaScript function which receives the list of card values as a parameter.
+     */
+    GetSelectedFieldValues(fieldNames: string, onCallback: ASPxClientCardViewValuesCallback): void;
+    /**
+     * Returns key values of selected cards displayed within the current page.
+     */
+    GetSelectedKeysOnPage(): any[];
+    /**
+     * Sends a callback to the server and generates the server-side ASPxCardView.CustomDataCallback event.
+     * @param args A string value that is any information that needs to be sent to the server-side ASPxCardView.CustomDataCallback event.
+     * @param onCallback An ASPxClientCardViewValuesCallback object that is the JavaScript function which receives the information on the client side.
+     */
+    GetValuesOnCustomCallback(args: string, onCallback: ASPxClientCardViewValuesCallback): void;
+    /**
+     * Returns the values of the specified data source fields within the specified card.
+     * @param visibleIndex An integer value that identifies the data card.
+     * @param fieldNames The names of data source fields separated via a semicolon, whose values within the specified card are returned.
+     * @param onCallback An ASPxClientCardViewValuesCallback object that represents the JavaScript function which receives the list of card values as a parameter.
+     */
+    GetCardValues(visibleIndex: number, fieldNames: string, onCallback: ASPxClientCardViewValuesCallback): void;
+    /**
+     * Returns the card values displayed within the current page.
+     * @param fieldNames The names of data source fields whose values are returned.
+     * @param onCallback An ASPxClientCardViewValuesCallback object that represents the JavaScript function which receives the list of card values as a parameter.
+     */
+    GetPageCardValues(fieldNames: string, onCallback: ASPxClientCardViewValuesCallback): void;
+    /**
+     * Returns the number of cards actually displayed within the active page.
+     */
+    GetVisibleCardsOnPage(): number;
+    /**
+     * Returns the client column that resides at the specified position within the column collection. An ASPxClientCardViewColumn object that represents the client column.
+     * @param columnIndex A zero-based index that identifies the column within the column collection (the column's CollectionItem.Index property value).
+     */
+    GetColumn(columnIndex: number): ASPxClientCardViewColumn;
+    /**
+     * Returns the column with the specified unique identifier. An ASPxClientCardViewColumn object that represents the client column.
+     * @param columnId A string value that specifies the column's unique identifier (the column's WebColumnBase.Name property value).
+     */
+    GetColumnById(columnId: string): ASPxClientCardViewColumn;
+    /**
+     * Returns the client column to which the specified data source field is bound. An ASPxClientCardViewColumn object that represents the client column bound to the specified data source field.
+     * @param columnFieldName A string value that specifies the name of the data source field to which the column is bound (the column's CardViewColumn.FieldName property value).
+     */
+    GetColumnByField(columnFieldName: string): ASPxClientCardViewColumn;
+    /**
+     * Returns the editor used to edit the specified column's values. An ASPxClientEdit object that is the specified column's editor.
+     */
+    GetEditor(column: ASPxClientCardViewColumn | number | string): ASPxClientEdit;
+    /**
+     * Returns the value of the specified edit cell. A string value that represents the value of the edit cell which corresponds to the specified data column.
+     */
+    GetEditValue(column: ASPxClientCardViewColumn | number | string): string;
+    /**
+     * Moves focus to the specified edit cell within the edited card.
+     */
+    FocusEditor(column: ASPxClientCardViewColumn | number | string): void;
+    /**
+     * Sets the value of the specified edit cell.
+     * @param value A string value that specifies the edit cell's new value.
+     */
+    SetEditValue(column: ASPxClientCardViewColumn | number | string, value: string): void;
+    /**
+     * Displays the Filter Control.
+     */
+    ShowFilterControl(): void;
+    /**
+     * Hides the Filter Control.
+     */
+    CloseFilterControl(): void;
+    /**
+     * Enables or disables the current filter.
+     * @param isFilterEnabled true to enable the current filter; otherwise, false.
+     */
+    SetFilterEnabled(isFilterEnabled: boolean): void;
+    /**
+     * Returns the current vertical scroll position of the grid's content.
+     */
+    GetVerticalScrollPosition(): number;
+    /**
+     * Specifies the vertical scroll position for the grid's content.
+     * @param position An integer value specifying the vertical scroll position.
+     */
+    SetVerticalScrollPosition(position: number): void;
+    /**
+     * Gets information about a focused cell.
+     */
+    GetFocusedCell(): ASPxClientCardViewCellInfo;
+    /**
+     * Focuses the specified cell.
+     * @param cardVisibleIndex An  value that specifies the visible index of the card.
+     * @param columnIndex A zero-based index that identifies the column in the column collection (the column's CollectionItem.Index property value).
+     */
+    SetFocusedCell(cardVisibleIndex: number, columnIndex: number): void;
+    /**
+     * Specifies a custom editor for the search panel on the client side.
+     * @param editor An ASPxClientEdit object representing a custom editor.
+     */
+    SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
+    /**
+     * Gets the form layout.
+     */
+    GetEditFormLayout(): ASPxClientFormLayout;
+    /**
+     * Gets the edit form layout item. The form layout item.
+     * @param column The column, its index or name.
+     */
+    GetEditFormLayoutItemByColumn(column: ASPxClientCardViewColumn | number | string): ASPxClientLayoutItem;
+    /**
+     * Gets the edit form layout item or group. The layout item.
+     * @param name The layout item name.
+     */
+    GetEditFormLayoutItemOrGroup(name: string): ASPxClientLayoutItem;
+    /**
+     * Converts the specified object to the ASPxClientCardView type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientCardView;
 }
 /**
- * A client-side counterpart of the VerticalGrid extension.
+ * Represents a client column.
  */
-declare class MVCxClientVerticalGrid extends ASPxClientVerticalGrid {
+declare class ASPxClientCardViewColumn extends ASPxClientGridColumnBase {
+    /**
+     * Gets the name that uniquely identifies the column.
+     */
+    name: string;
+    /**
+     * Gets the column's position within the collection.
+     */
+    index: number;
+    /**
+     * Gets the name of the database field assigned to the current column.
+     */
+    fieldName: string;
+    /**
+     * Gets whether the column is visible.
+     */
+    visible: boolean;
+}
+/**
+ * Represents a JavaScript function which receives the list of card values when the client ASPxClientCardView.GetCardValues, ASPxCardView.GetCurrentPageCardValues or ASPxClientCardView.GetSelectedFieldValues method is called.
+ * @param result An object that represents the list of card values received from the server.
+ */
+interface ASPxClientCardViewValuesCallback { (result: any): void; }
+/**
+ * A method that will handle the cancelable events of a client ASPxCardView column.
+ * @param source The event source. This parameter identifies the ASPxClientCardView object that raised the event.
+ * @param e An ASPxClientCardViewColumnCancelEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewColumnCancelEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewColumnCancelEventArgs): void; }
+/**
+ * Provides data for the cancelable events of a client ASPxCardView column.
+ */
+declare class ASPxClientCardViewColumnCancelEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new isntance of the ASPxClientCardViewColumnCancelEventArgs class.
+     * @param column An ASPxClientCardViewColumn object that represents the processed column.
+     */
+    constructor(column: ASPxClientCardViewColumn);
+    /**
+     * Gets the processed client column.
+     */
+    column: ASPxClientCardViewColumn;
+}
+/**
+ * Represents a method that will handle the ASPxClientCardView.CardFocusing event.
+ * @param source The event source.
+ * @param e An ASPxClientCardViewCardFocusingEventArgs object which contains event data.
+ */
+interface ASPxClientCardViewCardFocusingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewCardFocusingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.CardFocusing event.
+ */
+declare class ASPxClientCardViewCardFocusingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewCardFocusingEventArgs class.
+     * @param visibleIndex A integer value specifying the card visible index.
+     * @param htmlEvent An object specifying the HTML event.
+     */
+    constructor(visibleIndex: number, htmlEvent: any);
+    /**
+     * Gets the card visible index.
+     */
+    visibleIndex: number;
+    /**
+     * Provides access to the parameters associated with the ASPxClientCardView.CardFocusing event.
+     */
+    htmlEvent: any;
+}
+/**
+ * A method that will handle the ASPxClientCardView.CardClick event.
+ * @param source The event source. This parameter identifies the ASPxClientCardView object that raised the event.
+ * @param e An ASPxClientCardViewCardClickEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewCardClickEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewCardClickEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.CardClick event.
+ */
+declare class ASPxClientCardViewCardClickEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewCardClickEventArgs class.
+     * @param visibleIndex A zero-based integer index that identifies the clicked row.
+     * @param htmlEvent An object that contains parameters associated with the event. This value is assigned to the ASPxClientCardViewCardClickEventArgs.htmlEvent property.
+     */
+    constructor(visibleIndex: number, htmlEvent: any);
+    /**
+     * Gets the processed card's visible index.
+     */
+    visibleIndex: number;
+    /**
+     * Provides access to the parameters associated with the ASPxClientCardView.CardClick event.
+     */
+    htmlEvent: any;
+}
+/**
+ * A method that will handle the ASPxClientCardView.GroupRowCollapsing and ASPxClientCardView.GroupRowExpanding events.
+ * @param source The event source.
+ * @param e A ASPxClientCardViewGroupCancelEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewGroupCancelEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewGroupCancelEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.GroupRowExpanding and ASPxClientCardView.GroupRowCollapsing events.
+ */
+declare class ASPxClientCardViewGroupCancelEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewGroupCancelEventArgs class.
+     * @param visibleIndex An integer value that specifies the group's visible index.
+     */
+    constructor(visibleIndex: number);
+    /**
+     * Gets the processed group row's visible index.
+     */
+    visibleIndex: number;
+}
+/**
+ * A method that will handle the ASPxClientCardView.CustomButtonClick event.
+ * @param source The event source.
+This parameter identifies the ASPxClientCardView object that raised the event.
+ * @param e An ASPxClientCardViewCustomButtonEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewCustomButtonEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewCustomButtonEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.CustomButtonClick event.
+ */
+declare class ASPxClientCardViewCustomButtonEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewCustomButtonEventArgs class.
+     * @param visibleIndex An integer value that identifies the card whose custom button has been clicked. This value is assigned to the ASPxClientCardViewCustomButtonEventArgs.visibleIndex property.
+     * @param buttonID An integer value that identifies the clicked custom button. This value is assigned to the ASPxClientCardViewCustomButtonEventArgs.buttonID property.
+     */
+    constructor(visibleIndex: number, buttonID: string);
+    /**
+     * Gets the value which identifies the card whose custom button has been clicked.
+     */
+    visibleIndex: number;
+    /**
+     * Gets the value which identifies the custom button.
+     */
+    buttonID: string;
+}
+/**
+ * A method that will handle the ASPxClientCardView.SelectionChanged event.
+ * @param source The event source.
+ * @param e An ASPxClientCardViewSelectionEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewSelectionEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewSelectionEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.SelectionChanged event.
+ */
+declare class ASPxClientCardViewSelectionEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewSelectionEventArgs class.
+     * @param visibleIndex An integer value that specifies the visible index of the card whose selected state has been changed. This value is assigned to the ASPxClientCardViewSelectionEventArgs.visibleIndex property.
+     */
+    constructor(visibleIndex: number);
+    /**
+     * Gets the visible index of the card whose selected state has been changed.
+     */
+    visibleIndex: number;
+    /**
+     * Gets whether the card has been selected.
+     */
+    isSelected: boolean;
+    /**
+     * Gets whether all cards displayed within a page have been selected or unselected.
+     */
+    isAllRecordsOnPage: boolean;
+    /**
+     * Gets whether a selection has been changed on the server.
+     */
+    isChangedOnServer: boolean;
+}
+/**
+ * Represents a method that will handle the ASPxClientCardView.FocusedCardChanged event.
+ * @param source The event source.
+ * @param e An ASPxClientCardViewFocusEventArgs object which contains event data.
+ */
+interface ASPxClientCardViewFocusEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewFocusEventArgs): void; }
+/**
+ * Provides data for the corresponding event.
+ */
+declare class ASPxClientCardViewFocusEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewFocusEventArgs class.
+     */
+    constructor();
+    /**
+     * Gets whether card focusing has been changed on the server.
+     */
+    isChangedOnServer: boolean;
+}
+/**
+ * A method that will handle the ASPxClientCardView.BatchEditStartEditing event.
+ * @param source The event source.
+ * @param e An ASPxClientCardViewBatchEditStartEditingEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewBatchEditStartEditingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditStartEditingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.BatchEditStartEditing event.
+ */
+declare class ASPxClientCardViewBatchEditStartEditingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewBatchEditStartEditingEventArgs class with the specified settings.
+     * @param visibleIndex An integer value that specifies the visible index of the card. This value is assigned to the ASPxClientCardViewBatchEditStartEditingEventArgs.visibleIndex property.
+     * @param focusedColumn An ASPxClientCardViewColumn object that is the focused CardView column. This value is assigned to the ASPxClientCardViewBatchEditStartEditingEventArgs.focusedColumn property.
+     * @param cardValues A hashtable that stores information about editable cells. This value is assigned to the ASPxClientCardViewBatchEditStartEditingEventArgs.cardValues property.
+     */
+    constructor(visibleIndex: number, focusedColumn: ASPxClientCardViewColumn, cardValues: any);
+    /**
+     * Gets the visible index of the card whose cells are about to be edited.
+     */
+    visibleIndex: number;
+    /**
+     * Gets the CardView column that owns a cell that is about to be edited.
+     */
+    focusedColumn: ASPxClientCardViewColumn;
+    /**
+     * Gets a hashtable that maintains information about editable cells.
+     */
+    cardValues: any;
+}
+/**
+ * A method that will handle the ASPxClientCardView.BatchEditEndEditing event.
+ * @param source The event source.
+ * @param e An ASPxClientCardViewBatchEditEndEditingEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewBatchEditEndEditingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditEndEditingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.BatchEditEndEditing event.
+ */
+declare class ASPxClientCardViewBatchEditEndEditingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewBatchEditEndEditingEventArgs class with specified settings.
+     */
+    constructor(visibleIndex: number, cardValues: any, focusedColumn: ASPxClientCardViewColumn);
+    /**
+     * Gets the visible index of the card whose cells have been edited.
+     */
+    visibleIndex: number;
+    /**
+     * Gets the column to which the edited cell belongs.
+     */
+    focusedColumn: ASPxClientCardViewColumn;
+    /**
+     * Gets a hashtable that maintains information about editable cells.
+     */
+    cardValues: any;
+}
+/**
+ * A method that will handle the ASPxClientCardView.BatchEditCardValidating event.
+ * @param source The event source.
+ * @param e An ASPxClientCardViewBatchEditCardValidatingEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewBatchEditCardValidatingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditCardValidatingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.BatchEditCardValidating event.
+ */
+declare class ASPxClientCardViewBatchEditCardValidatingEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewBatchEditCardValidatingEventArgs class.
+     * @param visibleIndex An integer value that specifies the processed card's visible index.
+     * @param validationInfo An object containing validation information.
+     */
+    constructor(visibleIndex: number, validationInfo: any);
+    /**
+     * Gets the processed card's visible index.
+     */
+    visibleIndex: number;
+    /**
+     * Provides validation information of a card currently being validated.
+     */
+    validationInfo: any;
+}
+/**
+ * A method that will handle the ASPxClientCardView.BatchEditConfirmShowing client event.
+ * @param source The event source.
+ * @param e An ASPxClientCardViewBatchEditConfirmShowingEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewBatchEditConfirmShowingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditConfirmShowingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.BatchEditConfirmShowing event.
+ */
+declare class ASPxClientCardViewBatchEditConfirmShowingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewBatchEditConfirmShowingEventArgs class.
+     * @param requestTriggerID A string value specifying the client identifier of an object that initiates a request.
+     */
+    constructor(requestTriggerID: string);
+    /**
+     * Gets the client identifier of an object that initiates a send request.
+     */
+    requestTriggerID: string;
+}
+/**
+ * A method that will handle the ASPxClientCardView.BatchEditTemplateCellFocused event.
+ * @param source An object representing the event source. Identifies the button editor that raised the event.
+ * @param e An ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewBatchEditTemplateCellFocusedEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.BatchEditTemplateCellFocused event.
+ */
+declare class ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs class with the specified column.
+     * @param column An ASPxClientCardViewColumn object that is the processed CardView column. This value is assigned to the ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs.column property.
+     */
+    constructor(column: ASPxClientCardViewColumn);
+    /**
+     * Gets the currently processed column.
+     */
+    column: ASPxClientCardViewColumn;
+    /**
+     * Gets or sets a value specifying whether the event was handled.
+     */
+    handled: boolean;
+}
+/**
+ * A method that will handle the ASPxClientCardView.BatchEditChangesSaving event.
+ * @param source The event source. This parameter identifies the card view object which raised the event.
+ * @param e An ASPxClientCardViewBatchEditChangesSavingEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewBatchEditChangesSavingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditChangesSavingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.BatchEditChangesSaving event.
+ */
+declare class ASPxClientCardViewBatchEditChangesSavingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewBatchEditChangesSavingEventArgs class.
+     * @param insertedValues A hashtable that stores information about inserted cells.
+     * @param deletedValues A hashtable that stores information about deleted cells.
+     * @param updatedValues A hashtable that stores information about updated cells.
+     */
+    constructor(insertedValues: any, deletedValues: any, updatedValues: any);
+    /**
+     * Gets a hashtable that maintains information about inserted cells.
+     */
+    insertedValues: any;
+    /**
+     * Gets a hashtable that maintains information about deleted cells.
+     */
+    deletedValues: any;
+    /**
+     * Gets a hashtable that maintains information about updated cells.
+     */
+    updatedValues: any;
+}
+/**
+ * A method that will handle the ASPxClientCardView.BatchEditChangesCanceling event.
+ * @param source The event source. This parameter identifies the card view object which raised the event.
+ * @param e An ASPxClientCardViewBatchEditChangesCancelingEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewBatchEditChangesCancelingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditChangesCancelingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.BatchEditChangesCanceling event.
+ */
+declare class ASPxClientCardViewBatchEditChangesCancelingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewBatchEditChangesCancelingEventArgs class.
+     * @param insertedValues A hashtable that stores information about inserted cells.
+     * @param deletedValues A hashtable that stores information about deleted cells.
+     * @param updatedValues A hashtable that stores information about updated cells.
+     */
+    constructor(insertedValues: any, deletedValues: any, updatedValues: any);
+    /**
+     * Gets a hashtable that maintains information about inserted cells.
+     */
+    insertedValues: any;
+    /**
+     * Gets a hashtable that maintains information about deleted cells.
+     */
+    deletedValues: any;
+    /**
+     * Gets a hashtable that maintains information about updated cells.
+     */
+    updatedValues: any;
+}
+/**
+ * A method that will handle the ASPxClientCardView.BatchEditCardInserting event.
+ * @param source The event source. This parameter identifies the card view object which raised the event.
+ * @param e An ASPxClientCardViewBatchEditCardInsertingEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewBatchEditCardInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditCardInsertingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.BatchEditCardInserting event.
+ */
+declare class ASPxClientCardViewBatchEditCardInsertingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewBatchEditCardInsertingEventArgs class.
+     * @param visibleIndex An integer value that specifies the processed card visible index.
+     */
+    constructor(visibleIndex: number);
+    /**
+     * Gets the processed card visible index.
+     */
+    visibleIndex: number;
+}
+/**
+ * A method that will handle the ASPxClientCardView.BatchEditCardDeleting event.
+ * @param source The event source. This parameter identifies the card view object which raised the event.
+ * @param e An ASPxClientCardViewBatchEditCardDeletingEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewBatchEditCardDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditCardDeletingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.BatchEditCardDeleting event.
+ */
+declare class ASPxClientCardViewBatchEditCardDeletingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewBatchEditCardDeletingEventArgs class.
+     * @param visibleIndex An integer value that specifies the processed card visible index.
+     * @param cardValues A hashtable that stores information about the processed card's cells.
+     */
+    constructor(visibleIndex: number, cardValues: any);
+    /**
+     * Gets the processed card visible index.
+     */
+    visibleIndex: number;
+    /**
+     * Gets a hashtable that maintains information about deleted cells.
+     */
+    cardValues: any;
+}
+/**
+ * A method that will handle the ASPxClientCardView.BatchEditCardRecovering event.
+ * @param source The event source.
+ * @param e An ASPxClientCardViewBatchEditCardRecoveringEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewBatchEditCardRecoveringEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditCardRecoveringEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.BatchEditCardRecovering event.
+ */
+declare class ASPxClientCardViewBatchEditCardRecoveringEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewBatchEditCardRecoveringEventArgs class.
+     * @param visibleIndex An integer value specifying a card's visible index.
+     * @param cardValues An object representing card values.
+     */
+    constructor(visibleIndex: number, cardValues: any);
+    /**
+     * Gets the visible index of the card whose cells has been recovered.
+     */
+    visibleIndex: number;
+    /**
+     * Gets a hashtable that maintains information about recovered cells.
+     */
+    cardValues: any;
+}
+/**
+ * A method that will handle the ASPxClientCardView.FocusedCellChanging event.
+ * @param source The event source.
+ * @param e An ASPxClientCardViewFocusedCellChangingEventArgs object that contains event data.
+ */
+interface ASPxClientCardViewFocusedCellChangingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewFocusedCellChangingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientCardView.FocusedCellChanging event.
+ */
+declare class ASPxClientCardViewFocusedCellChangingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientCardViewFocusedCellChangingEventArgs class with specified settings.
+     * @param cellInfo A ASPxClientCardViewCellInfo object providing information about the focused cell.
+     */
+    constructor(cellInfo: ASPxClientCardViewCellInfo);
+    /**
+     * Provides information of a card's cell currently being focused.
+     */
+    cellInfo: ASPxClientCardViewCellInfo;
+}
+/**
+ * Provides members related to Batch Edit Mode
+ */
+declare class ASPxClientCardViewBatchEditApi {
+    /**
+     * Performs validation of CardView data contained in the cards when the CardView operates in Batch Edit mode. true, if data in the cards data passes validation; otherwise, false.
+     * @param validateOnlyModified true, if only modified cards should be validated; otherwise, false.
+     */
+    ValidateCards(validateOnlyModified?: boolean): boolean;
+    /**
+     * Performs validation of CardView data contained in the specified card when the CardView operates in Batch Edit mode. true, if data in the specified card data passes validation; otherwise, false.
+     * @param visibleIndex An integer value specifying the visible index of the validated card.
+     */
+    ValidateCard(visibleIndex: number): boolean;
+    /**
+     * Returns an array of card visible indices. An array of integer values that are the visible indices of cards.
+     * @param includeDeleted true, to include visible indices of deleted cards to the returned array; otherwise, false.
+     */
+    GetCardVisibleIndices(includeDeleted: boolean): number[];
+    /**
+     * Returns an array of the deleted card visible indices.
+     */
+    GetDeletedCardIndices(): number[];
+    /**
+     * Returns an array of the inserted card visible indices.
+     */
+    GetInsertedCardIndices(): number[];
+    /**
+     * Returns an array of the updated cards' visible indices.
+     */
+    GetUpdatedCardIndices(): number[];
+    /**
+     * Indicates if the card with the specified visible index is deleted. true, if the card is deleted; otherwise, false.
+     * @param visibleIndex An integer value that identifies the card by its visible index.
+     */
+    IsDeletedCard(visibleIndex: number): boolean;
+    /**
+     * Indicates if the card with the specified visible index is newly created. true, if the row is new; otherwise, false.
+     * @param visibleIndex An integer value that identifies the card by its visible index.
+     */
+    IsNewCard(visibleIndex: number): boolean;
+    /**
+     * Adds a new card when ASPxCardView is in Batch Edit mode.
+     */
+    AddNewCard(): void;
+    /**
+     * Deletes the specified card when ASPxCardView is in Batch Edit mode.
+     * @param visibleIndex An integer value that identifies the card index.
+     */
+    DeleteCard(visibleIndex: number): void;
+    /**
+     * Deletes a card with a specified key value when ASPxCardView is in Batch Edit mode.
+     * @param key An object that uniquely identifies the card.
+     */
+    DeleteCardByKey(key: any): void;
+    /**
+     * Recovers the specified card when ASPxCardView is in Batch Edit mode.
+     * @param visibleIndex An integer value that identifies the card index.
+     */
+    RecoverCard(visibleIndex: number): void;
+    /**
+     * Recovers a card with a specified key value when ASPxCardView is in Batch Edit mode.
+     * @param key An object that uniquely identifies the card.
+     */
+    RecoverCardByKey(key: any): void;
+    /**
+     * Programmatically moves the focus to the previous cell in the card
+     */
+    MoveFocusBackward(): boolean;
+    /**
+     * Programmatically moves the focus to the next cell in the card.
+     */
+    MoveFocusForward(): boolean;
+    /**
+     * Sets the value of the specified cell.
+     * @param visibleIndex An integer zero-based index that identifies the card containing the processed cell.
+     * @param columnFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
+     * @param value An object that contains the new cell value.
+     * @param displayText A string value that specifies the cell display text.
+     * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
+     */
+    SetCellValue(visibleIndex: number, columnFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
+    /**
+     * Gets the value of the specified cell. An object containing the specified cell's value.
+     * @param visibleIndex A zero-based integer value that specifies the visible index of a card containing the processed cell.
+     * @param columnFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
+     * @param initial true, to return the initial (server) value; false, to return a value currently contained on the client side (modified value).
+     */
+    GetCellValue(visibleIndex: number, columnFieldNameOrId: string, initial?: boolean): any;
+    /**
+     * Gets a container holding a data cell content. An object that is the HTML container element that contains the data cell's content.
+     * @param visibleIndex An integer value that is the visible index.
+     * @param columnFieldNameOrId A string value that is the column's Field Name or ID.
+     */
+    GetCellTextContainer(visibleIndex: number, columnFieldNameOrId: string): any;
+    /**
+     * Gets information about the cell currently being edited.
+     */
+    GetEditCellInfo(): ASPxClientCardViewCellInfo;
+    /**
+     * Returns an object that stores unsaved changes.
+     */
+    GetUnsavedChanges(): any;
+    /**
+     * Returns a value that indicates whether the specified cell's data has been changed. true, if the cell has changed data; otherwise, false.
+     * @param visibleIndex An integer value that specifies the visible index of a card.
+     * @param columnFieldNameOrId A string value that specifies the column's field name or unique identifier (the column's WebColumnBase.Name property value).
+     */
+    HasChanges(visibleIndex?: number, columnFieldNameOrId?: string): boolean;
+    /**
+     * Resets changes in the specified cell.
+     * @param visibleIndex An integer value that specifies the visible index of a card containing the processed cell.
+     * @param columnIndex A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
+     */
+    ResetChanges(visibleIndex: number, columnIndex?: number): void;
+    /**
+     * Switches the specified cell to edit mode.
+     * @param visibleIndex A zero-based integer value that specifies the visible index of a card containing the processed cell.
+     * @param columnIndex A zero-based integer value that identifies the column which contains the processed cell in the column collection.
+     */
+    StartEdit(visibleIndex: number, columnIndex: number): void;
+    /**
+     * Ends cell or card editing.
+     */
+    EndEdit(): void;
+    /**
+     * Provides the text displayed within the cell according to the specified display format rule. A string value representing the cell's displayed text.
+     * @param columnFieldNameOrId A string value representing the column's unique identifier or field name.
+     * @param value An object representing a value.
+     */
+    GetColumnDisplayText(columnFieldNameOrId: string, value: any): string;
+    /**
+     * Returns the total summary value. The value.
+     * @param summaryItemIndex The total summary's index or field name.
+     */
+    GetTotalSummaryValue(summaryItemIndex: number | string): number;
+    /**
+     * Returns the group summery value. The group summary value.
+     * @param groupRowVisibleIndex The group row's visible index.
+     * @param summaryItemIndex The summary's index or field name.
+     */
+    GetGroupSummaryValue(groupRowVisibleIndex: number, summaryItemIndex: number | string): number;
+}
+/**
+ * Contains information on a grid cell.
+ */
+declare class ASPxClientCardViewCellInfo {
+    /**
+     * Gets the visible index of the card that contains the cell currently being processed.
+     */
+    cardVisibleIndex: number;
+    /**
+     * Gets the data column that contains the cell currently being processed.
+     */
+    column: ASPxClientCardViewColumn;
+}
+/**
+ * Declares client constants that contain the names of the CardView's default commands executed through callbacks.
+ */
+declare class ASPxClientCardViewCallbackCommand {
+    /**
+     * Default value: "GROUPBYSELECTORVALUE"
+     */
+    static readonly GroupBySelectorValue: string;
+}
+/**
+ * Lists values that specify the document formats available for export from the grid.
+ */
+declare class ASPxClientCardViewExportFormat extends ASPxClientGridExportFormat {
+}
+/**
+ * A client-side equivalent of the ASPxGridView object.
+ */
+declare class ASPxClientGridView extends ASPxClientGridBase {
+    /**
+     * Provides access to the batch editing client API.
+     */
+    batchEditApi: ASPxClientGridViewBatchEditApi;
+    /**
+     * Occurs when a user clicks a custom command button.
+     */
+    CustomButtonClick: ASPxClientEvent<ASPxClientGridViewCustomButtonEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires when a user selects a row.
+     */
+    SelectionChanged: ASPxClientEvent<ASPxClientGridViewSelectionEventHandler<ASPxClientGridView>>;
+    /**
+     * Enables you to prevent columns from being sorted.
+     */
+    ColumnSorting: ASPxClientEvent<ASPxClientGridViewColumnCancelEventHandler<ASPxClientGridView>>;
+    /**
+     * Enables you to cancel data grouping.
+     */
+    ColumnGrouping: ASPxClientEvent<ASPxClientGridViewColumnCancelEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires in response to changing row focus.
+     */
+    FocusedRowChanged: ASPxClientEvent<ASPxClientGridViewFocusEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires before a row has been focused.
+     */
+    RowFocusing: ASPxClientEvent<ASPxClientGridViewRowFocusingEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires when an end-user starts dragging the column's header and enables you to cancel this operation.
+     */
+    ColumnStartDragging: ASPxClientEvent<ASPxClientGridViewColumnCancelEventHandler<ASPxClientGridView>>;
+    /**
+     * Enables you to prevent columns from being resized.
+     */
+    ColumnResizing: ASPxClientEvent<ASPxClientGridViewColumnCancelEventHandler<ASPxClientGridView>>;
+    /**
+     * Occurs after a column's width has been changed by an end-user.
+     */
+    ColumnResized: ASPxClientEvent<ASPxClientGridViewColumnProcessingModeEventHandler<ASPxClientGridView>>;
+    /**
+     * Enables you to control column movement.
+     */
+    ColumnMoving: ASPxClientEvent<ASPxClientGridViewColumnMovingEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires before a group row is expanded.
+     */
+    RowExpanding: ASPxClientEvent<ASPxClientGridViewRowCancelEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires before a group row is collapsed.
+     */
+    RowCollapsing: ASPxClientEvent<ASPxClientGridViewRowCancelEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires before a detail row is expanded.
+     */
+    DetailRowExpanding: ASPxClientEvent<ASPxClientGridViewRowCancelEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires before a detail row is collapsed.
+     */
+    DetailRowCollapsing: ASPxClientEvent<ASPxClientGridViewRowCancelEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires on the client when a data row is clicked.
+     */
+    RowClick: ASPxClientEvent<ASPxClientGridViewRowClickEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires on the client when a data row is double clicked.
+     */
+    RowDblClick: ASPxClientEvent<ASPxClientGridViewRowClickEventHandler<ASPxClientGridView>>;
+    /**
+     * Occurs after an end-user right clicks in the GridView, and enables you to provide a custom context menu.
+     */
+    ContextMenu: ASPxClientEvent<ASPxClientGridViewContextMenuEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires on the client side when a context menu item has been clicked.
+     */
+    ContextMenuItemClick: ASPxClientEvent<ASPxClientGridViewContextMenuItemClickEventHandler<ASPxClientGridView>>;
+    /**
+     * Enables you to specify whether row data is valid and provide an error text.
+     */
+    BatchEditRowValidating: ASPxClientEvent<ASPxClientGridViewBatchEditRowValidatingEventHandler<ASPxClientGridView>>;
+    /**
+     * Enables you to prevent a batch edit confirmation message from being displayed.
+     */
+    BatchEditConfirmShowing: ASPxClientEvent<ASPxClientGridViewBatchEditConfirmShowingEventHandler<ASPxClientGridView>>;
+    /**
+     * Occurs when a grid switches to batch edit mode.
+     */
+    BatchEditStartEditing: ASPxClientEvent<ASPxClientGridViewBatchEditStartEditingEventHandler<ASPxClientGridView>>;
+    /**
+     * Occurs when a grid leaves the batch edit mode.
+     */
+    BatchEditEndEditing: ASPxClientEvent<ASPxClientGridViewBatchEditEndEditingEventHandler<ASPxClientGridView>>;
+    /**
+     * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
+     */
+    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientGridViewBatchEditTemplateCellFocusedEventHandler<ASPxClientGridView>>;
+    /**
+     * Occurs on the client side before data changes are saved in batch edit mode.
+     */
+    BatchEditChangesSaving: ASPxClientEvent<ASPxClientGridViewBatchEditChangesSavingEventHandler<ASPxClientGridView>>;
+    /**
+     * Occurs on the client side before data changes are canceled in batch edit mode.
+     */
+    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientGridViewBatchEditChangesCancelingEventHandler<ASPxClientGridView>>;
+    /**
+     * Occurs on the client side before a data row is inserted in batch edit mode.
+     */
+    BatchEditRowInserting: ASPxClientEvent<ASPxClientGridViewBatchEditRowInsertingEventHandler<ASPxClientGridView>>;
+    /**
+     * Occurs on the client side before a data row is deleted in batch edit mode.
+     */
+    BatchEditRowDeleting: ASPxClientEvent<ASPxClientGridViewBatchEditRowDeletingEventHandler<ASPxClientGridView>>;
+    /**
+     * Occurs on the client side before a row is recovered in batch edit mode.
+     */
+    BatchEditRowRecovering: ASPxClientEvent<ASPxClientGridViewBatchEditRowRecoveringEventHandler<ASPxClientGridView>>;
+    /**
+     * Occurs on the client side before the Changes Preview window is shown.
+     */
+    BatchEditChangesPreviewShowing: ASPxClientEvent<ASPxClientCancelEventHandler<ASPxClientGridView>>;
+    /**
+     * Occurs on the client side when the Changes Preview window is shown.
+     */
+    BatchEditChangesPreviewShown: ASPxClientEvent<ASPxClientEventHandler<ASPxClientGridView>>;
+    /**
+     * Occurs on the client side when the focused cell is about to be changed.
+     */
+    FocusedCellChanging: ASPxClientEvent<ASPxClientGridViewFocusedCellChangingEventHandler<ASPxClientGridView>>;
+    /**
+     * Invokes the Customization Dialog and displays it over the grid.
+     */
+    ShowCustomizationDialog(): void;
+    /**
+     * Sorts data by the specified data column's values, and places the column to the specified position among the sorted columns.
+     * @param column An ASPxClientGridViewColumn object that represents the data column.
+     * @param sortOrder A string value that specifies the column's sort order ('ASC', 'DSC' or 'NONE').
+     * @param reset true to clear any previous sorting; otherwise, false.
+     * @param sortIndex An integer value that specifies the zero-based column's index among the sorted columns. &#0045;1 if data is not sorted by this column.
+     */
+    SortBy(column: ASPxClientGridViewColumn | number | string, sortOrder?: string, reset?: boolean, sortIndex?: number): void;
+    /**
+     * Moves the specified column to the specified visual position within the grid and optionally groups or ungroups the grid's data by this column.
+     * @param column An ASPxClientGridViewColumn object that represents the column to move.
+     * @param moveToColumnVisibleIndex An integer value that identifies the target column displayed within the grid.
+     * @param moveBefore true to move the column before the target column; otherwise, false.
+     * @param moveToGroup true to group the grid's data by the column; otherwise, false.
+     * @param moveFromGroup true to ungroup the grid's data by the column; otherwise, false.
+     */
+    MoveColumn(column: ASPxClientGridViewColumn | number | string, moveToColumnVisibleIndex?: number, moveBefore?: boolean | ASPxClientGridColumnMovingTargetPosition, moveToGroup?: boolean, moveFromGroup?: boolean): void;
+    /**
+     * Returns an object specifying the grid column's layout.
+     */
+    GetColumnLayout(): any;
+    /**
+     * Specifies the grid column's layout.
+     * @param columnLayout An object specifying the grid column's layout.
+     */
+    SetColumnLayout(columnLayout: any): void;
+    /**
+     * Groups data by the values of the specified data column with the specified sort order. If several columns are involved in grouping, the specified column will reside at the specified grouping level.
+     * @param groupIndex An integer value that specifies the grouping level. &#0045;1 to cancel grouping by the column's values.
+     * @param sortOrder A string value that specifies the column's sort order.
+     */
+    GroupBy(column: ASPxClientGridViewColumn | number | string, groupIndex?: number, sortOrder?: string): void;
+    /** @deprecated Use the Ungroup method instead. */
+    /**
+     * Ungroups data by the values of the specified column.
+     */
+    UnGroup(column: ASPxClientGridViewColumn | number | string): void;
+    /**
+     * Ungroups data by the values of a specified column.
+     * @param column A ASPxClientGridViewColumn object that is the grid column.
+     */
+    Ungroup(column: ASPxClientGridViewColumn | number | string): void;
+    /**
+     * Expands all group rows.
+     */
+    ExpandAll(): void;
+    /**
+     * Collapses all group rows.
+     */
+    CollapseAll(): void;
+    /**
+     * Expands all detail rows.
+     */
+    ExpandAllDetailRows(): void;
+    /**
+     * Collapses all detail rows.
+     */
+    CollapseAllDetailRows(): void;
+    /**
+     * Expands the specified group row and optionally child group rows at all nesting levels.
+     * @param visibleIndex An integer value that identifies the group row.
+     * @param recursive true to expand any child group rows at all nesting levels; false to preserve the collapsed state of any child group rows.
+     */
+    ExpandRow(visibleIndex: number, recursive?: boolean): void;
+    /**
+     * Collapses the specified group row and optionally child group rows at all nesting levels.
+     * @param visibleIndex An integer value that identifies the group row by its visible index.
+     * @param recursive true to collapse child group rows at all nesting levels; false to preserve the expanded state of any child group row.
+     */
+    CollapseRow(visibleIndex: number, recursive?: boolean): void;
+    /**
+     * Scrolls the view to the specified row.
+     * @param visibleIndex An integer value that identifies a row by its visible index.
+     */
+    MakeRowVisible(visibleIndex: number): void;
+    /**
+     * Expands the specified detail row.
+     * @param visibleIndex A zero-based integer index that identifies the detail row.
+     */
+    ExpandDetailRow(visibleIndex: number): void;
+    /**
+     * Collapses the specified detail row.
+     * @param visibleIndex A zero-based integer index that identifies the detail row.
+     */
+    CollapseDetailRow(visibleIndex: number): void;
+    /**
+     * Returns the key value of the specified data row. A string representing the specified data row's key value. If the index passed via the visibleIndex parameter is wrong, or the ASPxGridBase.KeyFieldName property is not set, null is returned.
+     * @param visibleIndex An integer value that specifies the row's visible index.
+     */
+    GetRowKey(visibleIndex: number): string;
+    /**
+     * Switches the grid to edit mode.
+     * @param visibleIndex A zero-based integer that identifies a data row to be edited.
+     */
+    StartEditRow(visibleIndex: number): void;
+    /**
+     * Switches the grid to edit mode.
+     * @param key An object that uniquely identifies a data row to be edited.
+     */
+    StartEditRowByKey(key: any): void;
+    /**
+     * Indicates whether or not a new row is being edited.
+     */
+    IsNewRowEditing(): boolean;
+    /**
+     * Adds a new record.
+     */
+    AddNewRow(): void;
+    /**
+     * Deletes the specified row.
+     * @param visibleIndex An integer value that identifies the row.
+     */
+    DeleteRow(visibleIndex: number): void;
+    /**
+     * Deletes a row with the specified key value.
+     * @param key An object that uniquely identifies the row.
+     */
+    DeleteRowByKey(key: any): void;
+    /**
+     * Returns the focused row's index.
+     */
+    GetFocusedRowIndex(): number;
+    /**
+     * Moves focus to the specified row.
+     * @param visibleIndex An integer value that specifies the focused row's index.
+     */
+    SetFocusedRowIndex(visibleIndex: number): void;
+    /**
+     * Selects or deselects the specified rows within the grid.
+     * @param visibleIndices An array of zero-based indices that identify data rows within the grid.
+     * @param selected true to select the specified rows; false to deselect the rows.
+     */
+    SelectRows(visibleIndices?: number[] | number, selected?: boolean): void;
+    /**
+     * Selects or deselects the specified row in the grid.
+     * @param selected true to select the specified row; false to deselect the row.
+     */
+    SelectRowsByKey(keys: any[] | any, selected?: boolean): void;
+    /**
+     * Deselects the specified row displayed within the grid.
+     */
+    UnselectRowsByKey(keys: any[] | any): void;
+    /**
+     * Deselects the specified row (if selected) within the grid.
+     * @param visibleIndices Visible indices of rows to unselect.
+     */
+    UnselectRows(visibleIndices?: number[] | number): void;
+    /**
+     * Deselects all grid rows that match the filter criteria currently applied to the grid.
+     */
+    UnselectFilteredRows(): void;
+    /**
+     * Selects or deselects the specified row displayed on the current page.
+     * @param visibleIndex A zero-based integer value that specifies the row's visible index.
+     * @param selected true to select the specified row; false to deselect the row.
+     */
+    SelectRowOnPage(visibleIndex: number, selected?: boolean): void;
+    /**
+     * Deselects the specified row (if selected) displayed on the current page.
+     * @param visibleIndex A zero-based integer value that specifies the row's visible index.
+     */
+    UnselectRowOnPage(visibleIndex: number): void;
+    /**
+     * Allows you to select or deselect all rows displayed on the current page based on the parameter passed.
+     * @param selected true to select all unselected rows displayed on the current page; false to deselect all selected rows on the page.
+     */
+    SelectAllRowsOnPage(selected?: boolean): void;
+    /**
+     * Deselects all selected rows displayed on the current page.
+     */
+    UnselectAllRowsOnPage(): void;
+    /**
+     * Returns the number of selected rows.
+     */
+    GetSelectedRowCount(): number;
+    /**
+     * Indicates whether or not the specified row is selected within the current page. true if the specified row is selected within the current page; otherwise, false.
+     * @param visibleIndex An integer value that identifies the row by its visible index.
+     */
+    IsRowSelectedOnPage(visibleIndex: number): boolean;
+    /**
+     * Indicates whether the specified row is a group row. true if the specified row is a group row; otherwise, false.
+     * @param visibleIndex An integer value that identifies the row by its visible index.
+     */
+    IsGroupRow(visibleIndex: number): boolean;
+    /**
+     * Indicates whether the specified row is a data row. true if the specified row is a data row; otherwise, false.
+     * @param visibleIndex An integer value that identifies the row by its visible index.
+     */
+    IsDataRow(visibleIndex: number): boolean;
+    /**
+     * Indicates whether the specified group row is expanded. true if the specified group row is expanded; otherwise, false.
+     * @param visibleIndex An integer value that identifies the group row by its visible index.
+     */
+    IsGroupRowExpanded(visibleIndex: number): boolean;
+    /** @deprecated Use the GetVerticalScrollPosition method instead. */
+    /**
+     * Returns the current vertical scroll position of the grid's content.
+     */
+    GetVertScrollPos(): number;
+    /** @deprecated Use the GetHorizontalScrollPosition method instead. */
+    /**
+     * Returns the current horizontal scroll position of the grid's content.
+     */
+    GetHorzScrollPos(): number;
+    /**
+     * Returns the current horizontal scroll position of the grid's content.
+     */
+    GetHorizontalScrollPosition(): number;
+    /** @deprecated Use the SetVerticalScrollPosition method instead. */
+    /**
+     * Specifies the vertical scroll position for the grid's content.
+     * @param position An integer value specifying the vertical scroll position.
+     */
+    SetVertScrollPos(position: number): void;
+    /** @deprecated Use the SetHorizontalScrollPosition method instead. */
+    /**
+     * Specifies the horizontal scroll position for the grid's content.
+     * @param position An integer value specifying the horizontal scroll position.
+     */
+    SetHorzScrollPos(position: number): void;
+    /**
+     * Specifies the horizontal scroll position for the grid's content.
+     * @param position An integer value specifying the horizontal scroll position.
+     */
+    SetHorizontalScrollPosition(position: number): void;
+    /**
+     * Sets the scrollability of various types of grid rows when the grid displays fixed columns.
+     * @param scrollableRowSettings An object specifying which types of grid rows should or should not be scrollable.
+     */
+    SetFixedColumnScrollableRows(scrollableRowSettings: any): void;
+    /**
+     * Exports a grid data to a file in the specified format.
+     * @param format An ASPxClientGridViewExportFormat object specifying the export format.
+     */
+    ExportTo(format: ASPxClientGridViewExportFormat): void;
+    /**
+     * Returns a value specifying the indices of the rows visible in the browser's view port. An array of integer values that are the indices of the rows visible in the browser's view port.
+     * @param includePartiallyVisible true, to include partially visible rows, otherwise, false.
+     */
+    GetRowIndicesVisibleInViewPort(includePartiallyVisible: boolean): number[];
+    /**
+     * Applies a filter specified in the filter row to the GridView.
+     */
+    ApplyOnClickRowFilter(): void;
+    /**
+     * Returns the editor used to edit the value in the auto filter row for the specified data column. An object that represents the editor used to edit the value in the specified auto filter row cell. null (Nothing in Visual Basic) if the editor was not found.
+     */
+    GetAutoFilterEditor(column: ASPxClientGridViewColumn | number | string): any;
+    /**
+     * Applies a filter to the specified data column.
+     * @param val A string value that specifies the filter expression.
+     */
+    AutoFilterByColumn(column: ASPxClientGridViewColumn | number | string, val: string): void;
     /**
      * Occurs when a callback for server-side processing is initiated.
      */
-    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientVerticalGrid>>;
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientGridView>>;
     /**
-     * Sends a callback with a parameter to update the VerticalGrid by processing the passed information on the server in an Action specified via the grid's GridSettingsBase.CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the grid's GridSettingsBase.CustomActionRouteValues property.
+     * Occurs on the client after a callback's server-side processing has been completed.
+     */
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires on the client if any unhandled server error occurs during server-side processing of a callback sent by the ASPxClientGridView.
+     */
+    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientGridView>>;
+    /**
+     * Fires after the Customization Window has been closed.
+     */
+    CustomizationWindowCloseUp: ASPxClientEvent<ASPxClientEventHandler<ASPxClientGridView>>;
+    /**
+     * Applies the specified search panel filter criterion to grid data.
+     * @param value A string value that specifies the filter criterion.
+     */
+    ApplySearchPanelFilter(value: string): void;
+    /**
+     * Applies the specified filter expression to the GridView.
+     * @param filterExpression A string value that specifies the filter expression.
+     */
+    ApplyFilter(filterExpression: string): void;
+    /**
+     * Clears the filter expression applied to a client GridView.
+     */
+    ClearFilter(): void;
+    /**
+     * Gets the Popup Edit Form.
+     */
+    GetPopupEditForm(): ASPxClientPopupControl;
+    /**
+     * Sets input focus to the grid.
+     */
+    Focus(): void;
+    /**
+     * Sends a callback to the server and generates the server-side event, passing the specified argument to it.
+     * @param args A string value that represents any information that needs to be sent to the server-side event.
      * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
-    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    PerformCallback(args: string, onSuccess?: (arg: string) => void): void;
     /**
-     * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the VerticalGrid's GridSettingsBase.CustomDataActionRouteValues property, and then process the returned result in the specified client function. This method does not update the VerticalGrid.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the GridSettingsBase.CustomDataActionRouteValues property.
-     * @param onCallback A ASPxClientGridViewValuesCallback object that represents the JavaScript function which receives the information on the client side.
+     * Selects the specified page.
+     * @param pageIndex An integer value that specifies the active page's index.
      */
-    GetValuesOnCustomCallback(data: any, onCallback: ASPxClientGridViewValuesCallback): void;
+    GotoPage(pageIndex: number): void;
     /**
-     * Converts the specified object to the MVCxClientVerticalGrid type. The converted client object specified by the obj parameter.
+     * Gets the index of the page currently being selected.
+     */
+    GetPageIndex(): number;
+    /**
+     * Gets the number of pages to which the grid's data is divided.
+     */
+    GetPageCount(): number;
+    /**
+     * Activates the next page.
+     */
+    NextPage(): void;
+    /**
+     * Activates the previous page.
+     */
+    PrevPage(): void;
+    /**
+     * Returns the index of the first data row displayed within the GridView's active page.
+     */
+    GetTopVisibleIndex(): number;
+    /**
+     * Indicates whether the grid is in edit mode.
+     */
+    IsEditing(): boolean;
+    /**
+     * Saves all the changes made and switches the grid to browse mode.
+     */
+    UpdateEdit(): void;
+    /**
+     * Cancels all the changes made and switches the GridView to browse mode.
+     */
+    CancelEdit(): void;
+    /**
+     * Updates data displayed within the grid.
+     */
+    Refresh(): void;
+    /**
+     * Indicates whether the Customization Window is displayed.
+     */
+    IsCustomizationWindowVisible(): boolean;
+    /**
+     * Invokes the Customization Window and displays it over the specified HTML element.
+     * @param showAtElement An object that specifies the HTML element relative to whose position the customization window is invoked.
+     */
+    ShowCustomizationWindow(showAtElement?: any): void;
+    /**
+     * Closes the Customization Window.
+     */
+    HideCustomizationWindow(): void;
+    /** @deprecated Use the GetColumnCount method instead. */
+    /**
+     * Returns the number of columns within the client GridView.
+     */
+    GetColumnsCount(): number;
+    /**
+     * Returns the number of columns within the client GridView.
+     */
+    GetColumnCount(): number;
+    /**
+     * Returns the row values displayed within all selected rows.
+     * @param fieldNames The names of data source fields separated via a semicolon, whose values within the selected rows are returned.
+     * @param onCallback A ASPxClientGridViewValuesCallback object that represents the JavaScript function which receives the list of row values as a parameter.
+     */
+    GetSelectedFieldValues(fieldNames: string, onCallback: ASPxClientGridViewValuesCallback): void;
+    /**
+     * Returns key values of selected rows displayed within the current page.
+     */
+    GetSelectedKeysOnPage(): any[];
+    /**
+     * Sends a callback to the server and generates the server-side ASPxGridView.CustomDataCallback event.
+     * @param args Information that you need to send to the ASPxGridView.CustomDataCallback server-side event.
+     * @param onCallback A JavaScript function that receives the information on the client side.
+     */
+    GetValuesOnCustomCallback(args: string, onCallback: ASPxClientGridViewValuesCallback): void;
+    /**
+     * Returns the values of the specified data source fields within the specified row.
+     * @param visibleIndex An integer value that identifies the data row's index.
+     * @param fieldNames The names of data source fields separated by a semicolon, whose values within the specified row are returned.
+     * @param onCallback An ASPxClientGridViewValuesCallback object that represents the JavaScript function which receives the list of row values as a parameter.
+     */
+    GetRowValues(visibleIndex: number, fieldNames: string, onCallback: ASPxClientGridViewValuesCallback): void;
+    /**
+     * Returns the row values displayed within the current page.
+     * @param fieldNames The names of data source fields whose values are returned.
+     * @param onCallback A ASPxClientGridViewValuesCallback object that represents the JavaScript function which receives the list of row values as a parameter.
+     */
+    GetPageRowValues(fieldNames: string, onCallback: ASPxClientGridViewValuesCallback): void;
+    /**
+     * Returns the number of rows actually displayed within the active page.
+     */
+    GetVisibleRowsOnPage(): number;
+    /**
+     * Returns the client column that resides at the specified position within the column collection. An ASPxClientGridViewColumn object that represents the client column.
+     * @param columnIndex A zero-based index that identifies the column within the column collection (the column's CollectionItem.Index property value).
+     */
+    GetColumn(columnIndex: number): ASPxClientGridViewColumn;
+    /**
+     * Returns the column with the specified unique identifier. An ASPxClientGridViewColumn object that represents the client column.
+     * @param columnId A string value that specifies the column's unique identifier (the column's WebColumnBase.Name property value).
+     */
+    GetColumnById(columnId: string): ASPxClientGridViewColumn;
+    /**
+     * Returns the client column which is bound to the specified data source field. An ASPxClientGridViewColumn object that represents the client column bound to the specified data source field.
+     * @param columnFieldName A string value that specifies the name of the data source field to which the column is bound (the column's GridViewDataColumn.FieldName property value).
+     */
+    GetColumnByField(columnFieldName: string): ASPxClientGridViewColumn;
+    /**
+     * Returns the editor used to edit the specified column's values. Specifies a column's editor.
+     * @param column Specifies the required column in the client grid.
+     */
+    GetEditor(column: ASPxClientGridViewColumn | number | string): ASPxClientEdit;
+    /**
+     * Returns the value of the specified edit cell. A string value that represents the value of the edit cell which corresponds to the specified data column.
+     * @param column An ASPxClientGridViewColumn object that represents the data column within the client grid.
+     */
+    GetEditValue(column: ASPxClientGridViewColumn | number | string): string;
+    /**
+     * Moves focus to the specified edit cell within the edited row.
+     * @param column An ASPxClientGridViewColumn object that represents the data column within the client grid.
+     */
+    FocusEditor(column: ASPxClientGridViewColumn | number | string): void;
+    /**
+     * Sets the value of the specified edit cell.
+     * @param value A string value that specifies the edit cell's new value.
+     */
+    SetEditValue(column: ASPxClientGridViewColumn | number | string, value: string): void;
+    /**
+     * Displays the Filter Control.
+     */
+    ShowFilterControl(): void;
+    /**
+     * Hides the Filter Control.
+     */
+    CloseFilterControl(): void;
+    /**
+     * Enables or disables the current filter.
+     * @param isFilterEnabled true to enable the current filter; otherwise, false.
+     */
+    SetFilterEnabled(isFilterEnabled: boolean): void;
+    /**
+     * Returns the current vertical scroll position of the grid's content.
+     */
+    GetVerticalScrollPosition(): number;
+    /**
+     * Specifies the vertical scroll position for the grid's content.
+     * @param position An integer value that specifies the vertical scroll position.
+     */
+    SetVerticalScrollPosition(position: number): void;
+    /**
+     * Gets information about a focused cell.
+     */
+    GetFocusedCell(): ASPxClientGridViewCellInfo;
+    /**
+     * Focuses the specified cell.
+     * @param rowVisibleIndex An integer value that specifies the visible index of the row.
+     * @param columnIndex Focuses the specified cell.
+     */
+    SetFocusedCell(rowVisibleIndex: number, columnIndex: number): void;
+    /**
+     * Focuses the specified cell.
+     * @param key A String value that identifies the row by its key value.
+     * @param columnIndex A zero-based index that identifies the column in the column collection (the column's CollectionItem.Index property value).
+     */
+    SetFocusedCellByKey(key: any, columnIndex: number): void;
+    /**
+     * Specifies a custom editor for the search panel on the client side.
+     * @param editor An ASPxClientEdit object representing a custom editor.
+     */
+    SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
+    /**
+     * Returns the edit form layout.
+     */
+    GetEditFormLayout(): ASPxClientFormLayout;
+    /**
+     * Returns the form layout item. The form layout item.
+     * @param column The column, its index or name.
+     */
+    GetEditFormLayoutItemByColumn(column: ASPxClientGridViewColumn | number | string): ASPxClientLayoutItem;
+    /**
+     * Returns the form layout item or group. The layout item.
+     * @param name The item's or group's name.
+     */
+    GetEditFormLayoutItemOrGroup(name: string): ASPxClientLayoutItem;
+    /**
+     * Converts the specified object to the ASPxClientGridView type. The converted client object specified by the obj parameter.
      * @param obj The client object to be type cast.
      */
-    static Cast(obj: any): MVCxClientVerticalGrid;
+    static Cast(obj: any): ASPxClientGridView;
 }
 /**
- * A client-side equivalent of the MVCxWebDocumentViewer class.
+ * A client grid column.
  */
-declare class MVCxClientWebDocumentViewer extends ASPxClientWebDocumentViewer {
+declare class ASPxClientGridViewColumn extends ASPxClientGridColumnBase {
+    /** @deprecated Use the name property instead. */
+    /**
+     * Gets the column's unique identifier.
+     */
+    id: string;
+    /**
+     * Gets the name that uniquely identifies the column.
+     */
+    name: string;
+    /**
+     * Gets the column's position within the collection.
+     */
+    index: number;
+    /**
+     * Gets the name of the database field assigned to the current column.
+     */
+    fieldName: string;
+    /**
+     * Gets whether the column is visible.
+     */
+    visible: boolean;
+}
+/**
+ * Represents a JavaScript function which receives the list of row values when the client ASPxClientGridView.GetRowValues, ASPxGridView.GetCurrentPageRowValues or ASPxClientGridView.GetSelectedFieldValues method is called.
+ * @param result An object that represents the list of row values received from the server.
+ */
+interface ASPxClientGridViewValuesCallback { (result: any): void; }
+/**
+ * A method that will handle the cancelable events of a client ASPxGridView column.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewColumnCancelEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewColumnCancelEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewColumnCancelEventArgs): void; }
+/**
+ * Provides data for the cancelable events of a client ASPxGridView column.
+ */
+declare class ASPxClientGridViewColumnCancelEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new isntance of the ASPxClientGridViewColumnCancelEventArgs class.
+     * @param column An ASPxClientGridViewColumn object that represents the processed column.
+     */
+    constructor(column: ASPxClientGridViewColumn);
+    /**
+     * Gets the processed client column.
+     */
+    column: ASPxClientGridViewColumn;
+}
+/**
+ * A method that will handle the client events concerned with column processing.
+ * @param source The event source.
+ * @param e A ASPxClientGridViewColumnProcessingModeEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewColumnProcessingModeEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewColumnProcessingModeEventArgs): void; }
+/**
+ * Provides data for the client events  concerned with column processing, and that allow the event's processing to be passed to the server side.
+ */
+declare class ASPxClientGridViewColumnProcessingModeEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewColumnProcessingModeEventArgs class with the specified setting.
+     * @param column A ASPxClientGridViewColumn object representing the column related to the event.
+     */
+    constructor(column: ASPxClientGridViewColumn);
+    /**
+     * Gets a grid column related to the event.
+     */
+    column: ASPxClientGridViewColumn;
+}
+/**
+ * A method that will handle the ASPxClientGridView.RowCollapsing and ASPxClientGridView.RowExpanding events.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewRowCancelEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewRowCancelEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewRowCancelEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.RowCollapsing and ASPxClientGridView.RowExpanding events.
+ */
+declare class ASPxClientGridViewRowCancelEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewRowCancelEventArgs class.
+     * @param visibleIndex An integer value that identifies the processed row. This value is assigned to the ASPxClientGridViewRowCancelEventArgs.visibleIndex property.
+     */
+    constructor(visibleIndex: number);
+    /**
+     * Gets the processed row's visible index.
+     */
+    visibleIndex: number;
+}
+/**
+ * A method that will handle the ASPxClientGridView.SelectionChanged event.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewSelectionEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewSelectionEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewSelectionEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.SelectionChanged event.
+ */
+declare class ASPxClientGridViewSelectionEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewSelectionEventArgs class.
+     * @param visibleIndex An integer value that specifies the visible index of the row whose selected state has been changed. This value is assigned to the ASPxClientGridViewSelectionEventArgs.visibleIndex property.
+     */
+    constructor(visibleIndex: number);
+    /**
+     * Gets the visible index of the row whose selected state has been changed.
+     */
+    visibleIndex: number;
+    /**
+     * Gets whether the row has been selected.
+     */
+    isSelected: boolean;
+    /**
+     * Gets whether all rows displayed within a page have been selected or unselected.
+     */
+    isAllRecordsOnPage: boolean;
+    /**
+     * Gets whether a selection has been changed on the server.
+     */
+    isChangedOnServer: boolean;
+}
+/**
+ * Represents a method that will handle the ASPxClientGridView.FocusedRowChanged event.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewFocusEventArgs object which contains event data.
+ */
+interface ASPxClientGridViewFocusEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewFocusEventArgs): void; }
+/**
+ * Provides data for the corresponding event.
+ */
+declare class ASPxClientGridViewFocusEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewFocusEventArgs class.
+     */
+    constructor();
+    /**
+     * Gets whether the row focusing has been changed on the server.
+     */
+    isChangedOnServer: boolean;
+}
+/**
+ * Represents a method that will handle the ASPxClientGridView.RowFocusing event.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewRowFocusingEventArgs object which contains event data.
+ */
+interface ASPxClientGridViewRowFocusingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewRowFocusingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.RowFocusing event.
+ */
+declare class ASPxClientGridViewRowFocusingEventArgs extends ASPxClientGridViewRowCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewRowFocusingEventArgs class.
+     * @param visibleIndex An integer value specifying the row visible index.
+     * @param htmlEvent An object specifying the HTML event.
+     */
+    constructor(visibleIndex: number, htmlEvent: any);
+    /**
+     * Provides access to the parameters associated with the ASPxClientGridView.RowFocusing event.
+     */
+    htmlEvent: any;
+}
+/**
+ * A method that will handle the ASPxClientGridView.RowClick event.
+ * @param source The event source. This parameter identifies the ASPxClientGridView object that raised the event.
+ * @param e An ASPxClientGridViewRowClickEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewRowClickEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewRowClickEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.RowClick event.
+ */
+declare class ASPxClientGridViewRowClickEventArgs extends ASPxClientGridViewRowCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewRowClickEventArgs class.
+     * @param visibleIndex A zero-based integer index that identifies the clicked row.
+     * @param htmlEvent An object that contains parameters associated with the event. This value is assigned to the ASPxClientGridViewRowClickEventArgs.htmlEvent property.
+     */
+    constructor(visibleIndex: number, htmlEvent: any);
+    /**
+     * Provides access to the parameters associated with the ASPxClientGridView.RowClick event.
+     */
+    htmlEvent: any;
+}
+/**
+ * A method that will handle the ASPxClientGridView.ContextMenu event.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewContextMenuEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewContextMenuEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewContextMenuEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.ContextMenu event.
+ */
+declare class ASPxClientGridViewContextMenuEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewContextMenuEventArgs class with the specified settings.
+     * @param objectType A string specifying a grid element that has been right clicked by the user.
+     * @param index A zero-based integer index that is the processed element index.
+     * @param htmlEvent An object that contains parameters associated with the event.
+     * @param showBrowserMenu true, to display a browser context menu; otherwise, false.
+     */
+    constructor(objectType: string, index: number, htmlEvent: any, showBrowserMenu: boolean);
+    /**
+     * Gets which grid element has been right clicked by the user.
+     */
+    objectType: string;
+    /**
+     * Identifies the grid element being right clicked by the user.
+     */
+    index: number;
+    /**
+     * Provides access to the parameters associated with the ASPxClientGridView.ContextMenu event.
+     */
+    htmlEvent: any;
+    /**
+     * Gets the currently processed menu object.
+     */
+    menu: any;
+    /**
+     * Specifies whether a browser context menu should be displayed.
+     */
+    showBrowserMenu: boolean;
+}
+/**
+ * A method that will handle the ASPxClientGridView.ContextMenuItemClick event.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewContextMenuItemClickEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewContextMenuItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewContextMenuItemClickEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.ContextMenuItemClick event.
+ */
+declare class ASPxClientGridViewContextMenuItemClickEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewContextMenuItemClickEventArgs class with the specified settings.
+     * @param item An ASPxClientMenuItem object specifying an item that has been right clicked by the user.
+     * @param objectType A string specifying a grid element that has been right clicked by the user.
+     * @param elementIndex A zero-based integer index that identifies the grid element being right clicked by the user.
+     * @param processOnServer true to process the event on the server side; false to completely handle it on the client side.
+     */
+    constructor(item: ASPxClientMenuItem, objectType: string, elementIndex: number, processOnServer: boolean);
+    /**
+     * Gets the clicked context menu item.
+     */
+    item: ASPxClientMenuItem;
+    /**
+     * Gets which grid element has been right clicked by the user.
+     */
+    objectType: string;
+    /**
+     * Returns the processed element index.
+     */
+    elementIndex: number;
+    /**
+     * Specifies whether a postback or a callback is used to finally process the event on the server side.
+     */
+    usePostBack: boolean;
+    /**
+     * Specifies whether default context menu item click is handled manually, so no default processing is required.
+     */
+    handled: boolean;
+}
+/**
+ * A method that will handle the ASPxClientGridView.CustomButtonClick event.
+ * @param source The event source.
+This parameter identifies the ASPxClientGridView object that raised the event.
+ * @param e An ASPxClientGridViewCustomButtonEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewCustomButtonEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewCustomButtonEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.CustomButtonClick event.
+ */
+declare class ASPxClientGridViewCustomButtonEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewCustomButtonEventArgs class.
+     * @param visibleIndex An integer value that identifies the row whose custom button has been clicked. This value is assigned to the ASPxClientGridViewCustomButtonEventArgs.visibleIndex property.
+     * @param buttonID An integer value that identifies the clicked custom button. This value is assigned to the ASPxClientGridViewCustomButtonEventArgs.buttonID property.
+     */
+    constructor(visibleIndex: number, buttonID: string);
+    /**
+     * Gets the value that identifies the row whose custom button has been clicked.
+     */
+    visibleIndex: number;
+    /**
+     * Gets the value that identifies the custom button.
+     */
+    buttonID: string;
+}
+/**
+ * A method that will handle the ASPxClientGridView.ColumnMoving event.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewColumnMovingEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewColumnMovingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewColumnMovingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.ColumnMoving event.
+ */
+declare class ASPxClientGridViewColumnMovingEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewColumnMovingEventArgs class.
+     * @param sourceColumn An ASPxClientGridViewColumn object that represents the column currently being dragged by an end-user. This value is assigned to the ASPxClientGridViewColumnMovingEventArgs.sourceColumn property.
+     * @param destinationColumn An ASPxClientGridViewColumn object that represents the target column. This value is assigned to the ASPxClientGridViewColumnMovingEventArgs.destinationColumn property.
+     * @param isDropBefore true if the source column will be inserted before the target column (if dropped); otherwise, false. This value is assigned to the ASPxClientGridViewColumnMovingEventArgs.isDropBefore property.
+     * @param isGroupPanel true if the source column is currently over the Group Panel; otherwise, false. This value is assigned to the ASPxClientGridViewColumnMovingEventArgs.isGroupPanel property.
+     */
+    constructor(sourceColumn: ASPxClientGridViewColumn, destinationColumn: ASPxClientGridViewColumn, isDropBefore: boolean, isGroupPanel: boolean);
+    /**
+     * Gets or sets whether a column is allowed to be moved.
+     */
+    allow: boolean;
+    /**
+     * Gets the column currently being dragged by an end-user.
+     */
+    sourceColumn: ASPxClientGridViewColumn;
+    /**
+     * Gets the target column, before or after which the source column will be inserted (if dropped).
+     */
+    destinationColumn: ASPxClientGridViewColumn;
+    /**
+     * Gets whether the source column will be inserted before the target column (if dropped).
+     */
+    isDropBefore: boolean;
+    /**
+     * Gets whether the source column is currently over the Group Panel.
+     */
+    isGroupPanel: boolean;
+}
+/**
+ * A method that will handle the ASPxClientGridView.BatchEditConfirmShowing client event.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewBatchEditConfirmShowingEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewBatchEditConfirmShowingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditConfirmShowingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.BatchEditConfirmShowing event.
+ */
+declare class ASPxClientGridViewBatchEditConfirmShowingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewBatchEditConfirmShowingEventArgs class.
+     * @param requestTriggerID A string value specifying the client identifier of an object that initiates a request.
+     */
+    constructor(requestTriggerID: string);
+    /**
+     * Gets the client identifier of an object that initiates a send request.
+     */
+    requestTriggerID: string;
+}
+/**
+ * A method that will handle the ASPxClientGridView.BatchEditStartEditing event.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewBatchEditStartEditingEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewBatchEditStartEditingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditStartEditingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.BatchEditStartEditing event.
+ */
+declare class ASPxClientGridViewBatchEditStartEditingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewBatchEditStartEditingEventArgs class.
+     * @param visibleIndex An integer value that is the row's visible index.
+     * @param focusedColumn An  object that is the focused row.
+     * @param rowValues An object that provides the row values.
+     * @param key An object that provides the row's key.
+     */
+    constructor(visibleIndex: number, focusedColumn: ASPxClientGridViewColumn, rowValues: any, key: any);
+    /**
+     * Gets the visible index of the row whose cells are about to be edited.
+     */
+    visibleIndex: number;
+    /**
+     * Gets the grid column that owns a cell that is about to be edited.
+     */
+    focusedColumn: ASPxClientGridViewColumn;
+    /**
+     * Gets a hashtable that maintains information about editable cells.
+     */
+    rowValues: any;
+    /**
+     * Gets the row's key.
+     */
+    key: any;
+}
+/**
+ * A method that will handle the ASPxClientGridView.BatchEditEndEditing event.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewBatchEditEndEditingEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewBatchEditEndEditingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditEndEditingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.BatchEditEndEditing event.
+ */
+declare class ASPxClientGridViewBatchEditEndEditingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewBatchEditEndEditingEventArgs class with specified settings.
+     */
+    constructor(visibleIndex: number, rowValues: any, key: any, focusedColumn: ASPxClientGridViewColumn);
+    /**
+     * Gets the visible index of the row whose cells has been edited.
+     */
+    visibleIndex: number;
+    /**
+     * Gets the column to which the edited cell belongs.
+     */
+    focusedColumn: ASPxClientGridViewColumn;
+    /**
+     * Gets a hashtable that maintains information about editable cells.
+     */
+    rowValues: any;
+    /**
+     * Gets the row's key.
+     */
+    key: any;
+}
+/**
+ * A method that will handle the ASPxClientGridView.BatchEditRowValidating event.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewBatchEditRowValidatingEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewBatchEditRowValidatingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditRowValidatingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.BatchEditRowValidating event.
+ */
+declare class ASPxClientGridViewBatchEditRowValidatingEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewBatchEditRowValidatingEventArgs class.
+     * @param visibleIndex An integer value that specifies the row's visible index.
+     * @param validationInfo An object that provides the row's validation info.
+     * @param key An object that is the row's key.
+     */
+    constructor(visibleIndex: number, validationInfo: any, key: any);
+    /**
+     * Gets the processed row's visible index.
+     */
+    visibleIndex: number;
+    /**
+     * Provides validation information of a row currently being validated.
+     */
+    validationInfo: any;
+    /**
+     * Gets the row's key.
+     */
+    key: any;
+}
+/**
+ * A method that will handle the ASPxClientGridView.BatchEditTemplateCellFocused event.
+ * @param source An object representing the event source. Identifies the button editor that raised the event.
+ * @param e An ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewBatchEditTemplateCellFocusedEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.BatchEditTemplateCellFocused event.
+ */
+declare class ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs class with the specified column.
+     * @param column An ASPxClientGridViewColumn object that is the processed grid column. This value is assigned to the ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs.column property.
+     */
+    constructor(column: ASPxClientGridViewColumn);
+    /**
+     * Gets the currently processed column.
+     */
+    column: ASPxClientGridViewColumn;
+    /**
+     * Gets or sets a value specifying whether the event was handled.
+     */
+    handled: boolean;
+}
+/**
+ * A method that will handle the ASPxClientGridView.BatchEditChangesSaving event.
+ * @param source The event source. This parameter identifies the grid view object which raised the event.
+ * @param e An ASPxClientGridViewBatchEditChangesSavingEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewBatchEditChangesSavingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditChangesSavingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.BatchEditChangesSaving event.
+ */
+declare class ASPxClientGridViewBatchEditChangesSavingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewBatchEditChangesSavingEventArgs class.
+     * @param insertedValues A hashtable that stores information about inserted cells.
+     * @param deletedValues A hashtable that stores information about deleted cells.
+     * @param updatedValues A hashtable that stores information about updated cells.
+     */
+    constructor(insertedValues: any, deletedValues: any, updatedValues: any);
+    /**
+     * Gets a hashtable that maintains information about inserted cells.
+     */
+    insertedValues: any;
+    /**
+     * Gets a hashtable that maintains information about deleted cells.
+     */
+    deletedValues: any;
+    /**
+     * Gets a hashtable that maintains information about updated cells.
+     */
+    updatedValues: any;
+}
+/**
+ * A method that will handle the ASPxClientGridView.BatchEditChangesCanceling event.
+ * @param source The event source. This parameter identifies the grid view object which raised the event.
+ * @param e An ASPxClientGridViewBatchEditChangesCancelingEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewBatchEditChangesCancelingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditChangesCancelingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.BatchEditChangesCanceling event.
+ */
+declare class ASPxClientGridViewBatchEditChangesCancelingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewBatchEditChangesCancelingEventArgs class.
+     * @param insertedValues A hashtable that stores information about inserted cells.
+     * @param deletedValues A hashtable that stores information about deleted cells.
+     * @param updatedValues A hashtable that stores information about updated cells.
+     */
+    constructor(insertedValues: any, deletedValues: any, updatedValues: any);
+    /**
+     * Gets a hashtable that maintains information about inserted cells.
+     */
+    insertedValues: any;
+    /**
+     * Gets a hashtable that maintains information about deleted cells.
+     */
+    deletedValues: any;
+    /**
+     * Gets a hashtable that maintains information about updated cells.
+     */
+    updatedValues: any;
+}
+/**
+ * A method that will handle the ASPxClientGridView.BatchEditRowInserting event.
+ * @param source The event source. This parameter identifies the card view object which raised the event.
+ * @param e An ASPxClientGridViewBatchEditRowInsertingEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewBatchEditRowInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditRowInsertingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.BatchEditRowInserting event.
+ */
+declare class ASPxClientGridViewBatchEditRowInsertingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewBatchEditRowInsertingEventArgs class.
+     * @param visibleIndex An integer value that specifies the processed row's visible index.
+     */
+    constructor(visibleIndex: number);
+    /**
+     * Gets the processed row's visible index.
+     */
+    visibleIndex: number;
+}
+/**
+ * A method that will handle the ASPxClientGridView.BatchEditRowDeleting event.
+ * @param source The event source. This parameter identifies the grid view object which raised the event.
+ * @param e An ASPxClientGridViewBatchEditRowDeletingEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewBatchEditRowDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditRowDeletingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.BatchEditRowDeleting event.
+ */
+declare class ASPxClientGridViewBatchEditRowDeletingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewBatchEditRowDeletingEventArgs class.
+     * @param visibleIndex An integer value that specifies the row's visible index.
+     * @param rowValues An object that provides row values.
+     * @param key An object that is the row's key.
+     */
+    constructor(visibleIndex: number, rowValues: any, key: any);
+    /**
+     * Gets the processed row's visible index.
+     */
+    visibleIndex: number;
+    /**
+     * Gets a hashtable that maintains information about deleted cells.
+     */
+    rowValues: any;
+    /**
+     * Gets the row's key.
+     */
+    key: any;
+}
+/**
+ * A method that will handle the ASPxClientGridView.BatchEditRowRecovering event.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewBatchEditRowRecoveringEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewBatchEditRowRecoveringEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditRowRecoveringEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.BatchEditRowRecovering event.
+ */
+declare class ASPxClientGridViewBatchEditRowRecoveringEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewBatchEditRowRecoveringEventArgs class.
+     * @param visibleIndex An integer value that specifies the row's visible index.
+     * @param rowValues An object that provides row values.
+     * @param key An object that is the row's key.
+     */
+    constructor(visibleIndex: number, rowValues: any, key: any);
+    /**
+     * Gets the processed row's visible index.
+     */
+    visibleIndex: number;
+    /**
+     * Gets a hashtable that maintains information about recovered cells.
+     */
+    rowValues: any;
+    /**
+     * Gets the row's key.
+     */
+    key: any;
+}
+/**
+ * A method that will handle the ASPxClientGridView.FocusedCellChanging event.
+ * @param source The event source.
+ * @param e An ASPxClientGridViewFocusedCellChangingEventArgs object that contains event data.
+ */
+interface ASPxClientGridViewFocusedCellChangingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewFocusedCellChangingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientGridView.FocusedCellChanging event.
+ */
+declare class ASPxClientGridViewFocusedCellChangingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGridViewFocusedCellChangingEventArgs class with specified settings.
+     * @param cellInfo A ASPxClientGridViewCellInfo object providing information about the focused cell.
+     */
+    constructor(cellInfo: ASPxClientGridViewCellInfo);
+    /**
+     * Provides information on a cell currently being focused.
+     */
+    cellInfo: ASPxClientGridViewCellInfo;
+}
+/**
+ * Contains information on a grid cell.
+ */
+declare class ASPxClientGridViewCellInfo {
+    /**
+     * Gets the visible index of the row that contains the cell currently being processed.
+     */
+    rowVisibleIndex: number;
+    /**
+     * Gets the data column that contains the cell currently being processed.
+     */
+    column: ASPxClientGridViewColumn;
+    /**
+     * Gets the row's key.
+     */
+    key: any;
+}
+/**
+ * Provides members related to Batch Edit Mode
+ */
+declare class ASPxClientGridViewBatchEditApi {
+    /**
+     * Validate grid data contained in all rows when the grid operates in Batch Edit mode. true, if data in all rows passes validation; otherwise, false.
+     * @param validateOnlyModified true, if only modified rows should be validated; otherwise, false.
+     * @param validateOnCurrentPageOnly true, to validate rows that are located only on the current page; otherwise, false.
+     */
+    ValidateRows(validateOnlyModified?: boolean, validateOnCurrentPageOnly?: boolean): boolean;
+    /**
+     * Performs validation of grid data contained in the specified row when the grid operates in Batch Edit mode. true, if data in the specified row data passes validation; otherwise, false.
+     * @param visibleIndex An integer value specifying the visible index of the validated row.
+     */
+    ValidateRow(visibleIndex: number): boolean;
+    /**
+     * Performs validation of grid data contained in the specified row when the grid operates in Batch Edit mode. true, if data in the specified row data passes validation; otherwise, false.
+     * @param key A String value that identifies the row by its key value.
+     */
+    ValidateRowByKey(key: any): boolean;
+    /**
+     * Returns an array of row visible indices. An array of integer values that are the visible indices of grid rows.
+     * @param includeDeleted true, to include visible indices of deleted rows to the returned array; otherwise, false.
+     */
+    GetRowVisibleIndices(includeDeleted: boolean): number[];
+    /**
+     * Returns an array of the deleted row visible indices.
+     */
+    GetDeletedRowIndices(): number[];
+    /**
+     * Returns an array of the inserted row visible indices.
+     */
+    GetInsertedRowIndices(): number[];
+    /**
+     * Returns an array of the updated rows visible indices.
+     */
+    GetUpdatedRowIndices(): number[];
+    /**
+     * Indicates if the row with specified visible index is deleted. true, if the row is deleted; otherwise, false.
+     * @param visibleIndex An integer value that identifies the row by its visible index.
+     */
+    IsDeletedRow(visibleIndex: number): boolean;
+    /**
+     * Indicates if the row with specified key is deleted. true, if the row is deleted; otherwise, false.
+     * @param key A String value that identifies the row by its key value.
+     */
+    IsDeletedRowByKey(key: any): boolean;
+    /**
+     * Indicates if the row with specified visible index is newly created. true, if the row is new; otherwise, false.
+     * @param visibleIndex An integer value that identifies the row by its visible index.
+     */
+    IsNewRow(visibleIndex: number): boolean;
+    /**
+     * Adds a new row when ASPxGridView is in Batch Edit mode.
+     */
+    AddNewRow(): void;
+    /**
+     * Deletes the specified row when ASPxGridView is in Batch Edit.
+     * @param visibleIndex An integer value that identifies the row index.
+     */
+    DeleteRow(visibleIndex: number): void;
+    /**
+     * Deletes a row with a specified key value when ASPxGridView is in Batch Edit mode.
+     * @param key An object that uniquely identifies the row.
+     */
+    DeleteRowByKey(key: any): void;
+    /**
+     * Recovers the specified row when ASPxGridView is in Batch Edit mode.
+     * @param visibleIndex An integer value that identifies the row index.
+     */
+    RecoverRow(visibleIndex: number): void;
+    /**
+     * Recovers a row with a specified key value when ASPxGridView is in Batch Edit mode.
+     * @param key An object that uniquely identifies the row.
+     */
+    RecoverRowByKey(key: any): void;
+    /**
+     * Switches the grid to 'Preview Changes' mode.
+     */
+    ShowChangesPreview(): void;
+    /**
+     * Switches the grid from the 'Preview Changes' mode to edit mode.
+     */
+    HideChangesPreview(): void;
+    /**
+     * Returns a value that specifies whether the row is located on the current page. true, if the row is located on the current page; otherwise, false.
+     * @param key A String value that identifies the row by its key value.
+     */
+    IsCurrentPageRow(key: any): boolean;
+    /**
+     * Programmatically moves the focus to the previous cell in the row.
+     */
+    MoveFocusBackward(): boolean;
+    /**
+     * Programmatically moves the focus to the next cell in the row.
+     */
+    MoveFocusForward(): boolean;
+    /**
+     * Sets the value of the specified cell.
+     * @param visibleIndex An integer zero-based index that identifies the row containing the processed cell.
+     * @param columnFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
+     * @param value An object that contains the new cell value.
+     * @param displayText A string value that specifies the cell display text.
+     * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
+     */
+    SetCellValue(visibleIndex: number, columnFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
+    /**
+     * Sets the value of the specified cell.
+     * @param key A String value that identifies the row by its key value.
+     * @param columnFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
+     * @param value An object that contains the new cell value.
+     * @param displayText A string value that specifies the cell display text.
+     * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
+     */
+    SetCellValueByKey(key: any, columnFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
+    /**
+     * Gets the value of the specified cell. An object containing the specified cell's value.
+     * @param visibleIndex A zero-based integer value that specifies a visible index of a row containing the processed cell.
+     * @param columnFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
+     * @param initial true, to return the initial (server) value; false, to return a value currently contained on the client side (modified value).
+     */
+    GetCellValue(visibleIndex: number, columnFieldNameOrId: string, initial?: boolean): any;
+    /**
+     * Gets the value of the specified cell. An object containing the specified cell's value.
+     * @param key A String value that identifies the row by its key value.
+     * @param columnFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
+     * @param initial true, to return the initial (server) value; false, to return a value currently contained on the client side (modified value).
+     */
+    GetCellValueByKey(key: any, columnFieldNameOrId: string, initial?: boolean): any;
+    /**
+     * Gets a container holding a data cell content. A HTML container element that contains the data cell's content.
+     * @param visibleIndex An integer value that is the visible index.
+     * @param columnFieldNameOrId A string value that is the column's Field Name or ID.
+     */
+    GetCellTextContainer(visibleIndex: number, columnFieldNameOrId: string): any;
+    /**
+     * Gets a container holding a data cell content. An object that is the HTML container element that contains the data cell's content.
+     * @param key A String value that identifies the row by its key value.
+     * @param columnFieldNameOrId A string value that is the column's Field Name or ID.
+     */
+    GetCellTextContainerByKey(key: any, columnFieldNameOrId: string): any;
+    /**
+     * Gets information about the cell currently being edited.
+     */
+    GetEditCellInfo(): ASPxClientGridViewCellInfo;
+    /**
+     * Returns an object that stores unsaved changes.
+     */
+    GetUnsavedChanges(): any;
+    /**
+     * Returns a value that indicates whether the specified data cell's data has been changed. true, if the cell has changed data; otherwise, false.
+     * @param visibleIndex An integer value that specifies the visible index of a row.
+     * @param columnFieldNameOrId A string value that identifies the column by the name of the data source field to which the column is bound, or by the column's name.
+     */
+    HasChanges(visibleIndex?: number, columnFieldNameOrId?: string): boolean;
+    /**
+     * Returns a value that indicates whether the specified data cell's data has been changed. true, if the cell has changed data; otherwise, false.
+     * @param key A String value that identifies the row by its key value.
+     * @param columnFieldNameOrId A string value that identifies the column by the name of the data source field to which the column is bound, or by the column's name.
+     */
+    HasChangesByKey(key: any, columnFieldNameOrId?: string): boolean;
+    /**
+     * Resets changes in the specified cell.
+     * @param visibleIndex An integer value that specifies the visible index of a row containing the processed cell.
+     * @param columnIndex An integer value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
+     */
+    ResetChanges(visibleIndex: number, columnIndex?: number): void;
+    /**
+     * Resets changes in the specified cell.
+     * @param key A String value that identifies the row by its key value.
+     * @param columnIndex A zero-based index that identifies the column in the column collection (the column's CollectionItem.Index property value).
+     */
+    ResetChangesByKey(key: any, columnIndex?: number): void;
+    /**
+     * Switches the specified cell to edit mode.
+     * @param visibleIndex A zero-based integer value that specifies the visible index of a row containing the processed cell.
+     * @param columnIndex A zero-based integer value that identifies the column which contains the processed cell in the column collection.
+     */
+    StartEdit(visibleIndex: number, columnIndex: number): void;
+    /**
+     * Switches the specified cell to edit mode.
+     * @param key Identifies the cell by its key value.
+     * @param columnIndex Identifies the column that contains the processed cell in the column collection.
+     */
+    StartEditByKey(key: any, columnIndex: number): void;
+    /**
+     * Ends cell or row editing.
+     */
+    EndEdit(): void;
+    /**
+     * Provides the text displayed within the cell according to the specified display format rule. A string value representing the cell's displayed text.
+     * @param columnFieldNameOrId A string value representing the column's unique identifier or field name.
+     * @param value An object representing a value.
+     */
+    GetColumnDisplayText(columnFieldNameOrId: string, value: any): string;
+    /**
+     * Returns the total summary value. The total summary value.
+     * @param summaryItemIndex The total summary's index or field name.
+     */
+    GetTotalSummaryValue(summaryItemIndex: number | string): number;
+    /**
+     * Returns the group summery value. The group summary value.
+     * @param groupRowVisibleIndex The group row's visible index.
+     * @param summaryItemIndex The summary's index or field name.
+     */
+    GetGroupSummaryValue(groupRowVisibleIndex: number, summaryItemIndex: number | string): number;
+}
+/**
+ * Lists values that specify the document formats available for export from the grid.
+ */
+declare class ASPxClientGridViewExportFormat extends ASPxClientGridExportFormat {
+}
+/**
+ * A client-side equivalent of the ASPxVerticalGrid object.
+ */
+declare class ASPxClientVerticalGrid extends ASPxClientGridBase {
+    /**
+     * Provides access to the batch editing client API.
+     */
+    batchEditApi: ASPxClientVerticalGridBatchEditApi;
+    /**
+     * Occurs when a custom command button has been clicked.
+     */
+    CustomButtonClick: ASPxClientEvent<ASPxClientVerticalGridCustomButtonEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Fires after the selection has been changed.
+     */
+    SelectionChanged: ASPxClientEvent<ASPxClientVerticalGridSelectionEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Occurs when a grid switches to batch edit mode.
+     */
+    BatchEditStartEditing: ASPxClientEvent<ASPxClientVerticalGridBatchEditStartEditingEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Occurs when a grid leaves the batch edit mode.
+     */
+    BatchEditEndEditing: ASPxClientEvent<ASPxClientVerticalGridBatchEditEndEditingEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Enables you to prevent a batch edit confirmation message from being displayed.
+     */
+    BatchEditConfirmShowing: ASPxClientEvent<ASPxClientVerticalGridBatchEditConfirmShowingEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
+     */
+    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientVerticalGridBatchEditTemplateCellFocusedEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Occurs on the client side before data changes are saved in batch edit mode.
+     */
+    BatchEditChangesSaving: ASPxClientEvent<ASPxClientVerticalGridBatchEditChangesSavingEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Occurs on the client side before data changes are canceled in batch edit mode.
+     */
+    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientVerticalGridBatchEditChangesCancelingEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Occurs on the client side before a record is inserted in batch edit mode.
+     */
+    BatchEditRecordInserting: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordInsertingEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Occurs on the client side before a record is deleted in batch edit mode.
+     */
+    BatchEditRecordDeleting: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordDeletingEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Occurs on the client side before a record is deleted in batch edit mode.
+     */
+    BatchEditRecordRecovering: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordRecoveringEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Enables you to specify whether record data is valid and provide an error text.
+     */
+    BatchEditRecordValidating: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordValidatingEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Occurs on the client side when the focused cell is about to be changed.
+     */
+    FocusedCellChanging: ASPxClientEvent<ASPxClientVerticalGridFocusedCellChangingEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Enables you to prevent rows from being sorted.
+     */
+    RowSorting: ASPxClientEvent<ASPxClientVerticalGridRowCancelEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Fires on the client side before the expansion state of a row is changed by end-user interaction.
+     */
+    RowExpandedChanging: ASPxClientEvent<ASPxClientVerticalGridRowExpandingEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Fires on the client side after a row's expansion state has been changed by end-user interaction.
+     */
+    RowExpandedChanged: ASPxClientEvent<ASPxClientVerticalGridRowExpandedEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Fires on the client when a record is clicked.
+     */
+    RecordClick: ASPxClientEvent<ASPxClientVerticalGridRecordClickEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Fires on the client when a record is double clicked.
+     */
+    RecordDblClick: ASPxClientEvent<ASPxClientVerticalGridRecordClickEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Sorts data by the specified data row's values, and places the row to the specified position among the sorted rows.
+     * @param sortOrder A string value that specifies the row's sort order ('ASC', 'DSC' or 'NONE').
+     * @param reset true to clear any previous sorting; otherwise, false.
+     * @param sortIndex An integer value that specifies the zero-based row's index among the sorted rows. &#0045;1 if data is not sorted by this row.
+     */
+    SortBy(row: ASPxClientVerticalGridRow | number | string, sortOrder?: string, reset?: boolean, sortIndex?: number): void;
+    /**
+     * Returns the key value of the specified data row (record in the vertical grid). A string representing the specified data row's key value. If the index passed using the visibleIndex parameter is wrong or the ASPxGridBase.KeyFieldName property is not set, null is returned.
+     * @param visibleIndex An integer value that specifies the record's visible index.
+     */
+    GetRecordKey(visibleIndex: number): string;
+    /**
+     * Adds a new record.
+     */
+    AddNewRecord(): void;
+    /**
+     * Deletes the specified record.
+     * @param visibleIndex An integer value that identifies the record.
+     */
+    DeleteRecord(visibleIndex: number): void;
+    /**
+     * Deletes a record with the specified key value.
+     * @param key An object that uniquely identifies the record.
+     */
+    DeleteRecordByKey(key: any): void;
+    /**
+     * Selects or deselects the specified records within the grid.
+     * @param visibleIndices An array of zero-based indices that identify records within the grid.
+     * @param selected true to select the specified records; false to deselect the records.
+     */
+    SelectRecords(visibleIndices?: number[] | number, selected?: boolean): void;
+    /**
+     * Selects or deselects the specified records displayed within the grid.
+     * @param keys An array of objects that uniquely identify the records.
+     * @param selected true to select the specified records; false to deselect the records.
+     */
+    SelectRecordsByKey(keys: any[] | any, selected?: boolean): void;
+    /**
+     * Deselects the specified records (if selected) within the grid.
+     * @param visibleIndices An array of zero-based indices that identify records within the grid.
+     */
+    UnselectRecords(visibleIndices?: number[] | number): void;
+    /**
+     * Deselects the specified records displayed within the grid.
+     * @param keys An array of objects that uniquely identify the records.
+     */
+    UnselectRecordsByKey(keys: any[] | any): void;
+    /**
+     * Deselects all grid records that match the filter criteria currently applied to the grid.
+     */
+    UnselectFilteredRecords(): void;
+    /**
+     * Selects or deselects the specified record displayed on the current page.
+     * @param visibleIndex A zero-based integer value that specifies the record's visible index.
+     * @param selected true to select the specified record; false to deselect the record.
+     */
+    SelectRecordOnPage(visibleIndex: number, selected?: boolean): void;
+    /**
+     * Deselects the specified record (if selected) displayed on the current page.
+     * @param visibleIndex A zero-based integer value that specifies the record's visible index.
+     */
+    UnselectRecordOnPage(visibleIndex: number): void;
+    /**
+     * Allows you to select or deselect all records displayed on the current page based on the parameter passed.
+     * @param selected true to select all unselected records displayed on the current page; false to deselect all selected records on the page.
+     */
+    SelectAllRecordsOnPage(selected?: boolean): void;
+    /**
+     * Deselects all selected records displayed on the current page.
+     */
+    UnselectAllRecordsOnPage(): void;
+    /**
+     * Returns the number of selected records.
+     */
+    GetSelectedRecordCount(): number;
+    /**
+     * Indicates whether or not the specified record is selected within the current page. true if the specified record is selected within the current page; otherwise, false.
+     * @param visibleIndex An integer value that identifies the record by its visible index.
+     */
+    IsRecordSelectedOnPage(visibleIndex: number): boolean;
+    /**
+     * Exports a grid data to a file in the specified format.
+     * @param format An ASPxClientVerticalGridExportFormat object specifying the export format.
+     */
+    ExportTo(format: ASPxClientVerticalGridExportFormat): void;
+    /**
+     * Returns the values of the specified data source fields within the specified record.
+     * @param visibleIndex An integer value that identifies the record.
+     * @param fieldNames The names of data source fields separated using a semicolon, whose values within the specified record are returned.
+     * @param onCallback An ASPxClientVerticalGridValuesCallback object that represents the JavaScript function which receives the list of record values as a parameter.
+     */
+    GetRecordValues(visibleIndex: number, fieldNames: string, onCallback: ASPxClientVerticalGridValuesCallback): void;
+    /**
+     * Returns the record values displayed within the current page.
+     * @param fieldNames The names of data source fields whose values are returned.
+     * @param onCallback A ASPxClientVerticalGridValuesCallback object that represents the JavaScript function which receives the list of record values as a parameter.
+     */
+    GetPageRecordValues(fieldNames: string, onCallback: ASPxClientVerticalGridValuesCallback): void;
+    /**
+     * Returns the number of records actually displayed on the active page.
+     */
+    GetVisibleRecordsOnPage(): number;
+    /**
+     * Returns the number of rows within the client vertical grid.
+     */
+    GetRowCount(): number;
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Occurs on the client after a callback's server-side processing has been completed.
+     */
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Fires on the client if any unhandled server error occurs during server-side processing of a callback sent by the ASPxClientVerticalGrid.
+     */
+    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientVerticalGrid>>;
+    /**
+     * Applies the specified search panel filter criterion to grid data.
+     * @param value A string value that specifies the filter criterion.
+     */
+    ApplySearchPanelFilter(value: string): void;
+    /**
+     * Applies the specified filter expression to the ASPxVerticalGrid.
+     * @param filterExpression A string value that specifies the filter expression.
+     */
+    ApplyFilter(filterExpression: string): void;
+    /**
+     * Clears the filter expression applied to a client vertical grid.
+     */
+    ClearFilter(): void;
+    /**
+     * Sets input focus to the grid.
+     */
+    Focus(): void;
+    /**
+     * Sends a callback to the server and generates the server-side event, passing the specified argument to it.
+     * @param args A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(args: string, onSuccess?: (arg: string) => void): void;
+    /**
+     * Selects the specified page.
+     * @param pageIndex An integer value that specifies the active page's index.
+     */
+    GotoPage(pageIndex: number): void;
+    /**
+     * Gets the index of the page currently being selected.
+     */
+    GetPageIndex(): number;
+    /**
+     * Gets the number of pages to which the grid's data is divided.
+     */
+    GetPageCount(): number;
+    /**
+     * Activates the next page.
+     */
+    NextPage(): void;
+    /**
+     * Activates the previous page.
+     */
+    PrevPage(): void;
+    /**
+     * Returns the index of the first record displayed within the vertical grid's active page.
+     */
+    GetTopVisibleIndex(): number;
+    /**
+     * Saves all the changes made and switches the grid to browse mode.
+     */
+    UpdateEdit(): void;
+    /**
+     * Cancels all the changes made and switches the ASPxVerticalGrid to browse mode.
+     */
+    CancelEdit(): void;
+    /**
+     * Updates data displayed within the grid.
+     */
+    Refresh(): void;
+    /**
+     * Returns the record values displayed within all selected records.
+     * @param fieldNames The names of data source fields separated by a semicolon, whose values within the selected records are returned.
+     * @param onCallback A ASPxClientVerticalGridValuesCallback object that represents the JavaScript function which receives the list of record values as a parameter.
+     */
+    GetSelectedFieldValues(fieldNames: string, onCallback: ASPxClientVerticalGridValuesCallback): void;
+    /**
+     * Returns key values of selected records displayed within the current page.
+     */
+    GetSelectedKeysOnPage(): any[];
+    /**
+     * Sends a callback to the server and generates the server-side ASPxVerticalGrid.CustomDataCallback event.
+     * @param args A string value that is any information that needs to be sent to the server-side ASPxVerticalGrid.CustomDataCallback event.
+     * @param onCallback A ASPxClientVerticalGridValuesCallback object that is the JavaScript function which receives the information on the client side.
+     */
+    GetValuesOnCustomCallback(args: string, onCallback: ASPxClientVerticalGridValuesCallback): void;
+    /**
+     * Returns the editor used to edit the specified row's values. An ASPxClientEdit object that is the specified row's editor.
+     * @param row An ASPxClientVerticalGridRowobject that specifies the required row within the client grid.
+     */
+    GetEditor(row: ASPxClientVerticalGridRow | number | string): ASPxClientEdit;
+    /**
+     * Displays the Filter Control.
+     */
+    ShowFilterControl(): void;
+    /**
+     * Hides the Filter Control.
+     */
+    CloseFilterControl(): void;
+    /**
+     * Enables or disables the current filter.
+     * @param isFilterEnabled true to enable the current filter; otherwise, false.
+     */
+    SetFilterEnabled(isFilterEnabled: boolean): void;
+    /**
+     * Specifies a custom editor for the search panel on the client side.
+     * @param editor An ASPxClientEdit object representing a custom editor.
+     */
+    SetSearchPanelCustomEditor(editor: ASPxClientEdit): void;
+    /**
+     * Returns the client row that resides at the specified position within the row collection. An ASPxClientVerticalGridRow object that represents the client row.
+     * @param rowIndex A zero-based index that identifies the row within the row collection (the row's CollectionItem.Index property value).
+     */
+    GetRow(rowIndex: number): ASPxClientVerticalGridRow;
+    /**
+     * Returns the row with the specified unique identifier. An ASPxClientVerticalGridRow object that represents the client row.
+     * @param rowId A string value that specifies the row's unique identifier (the row's WebColumnBase.Name property value).
+     */
+    GetRowById(rowId: string): ASPxClientVerticalGridRow;
+    /**
+     * Returns the client row which is bound to the specified data source field. An ASPxClientVerticalGridRow object that represents the client row bound to the specified data source field.
+     * @param rowFieldName A string value that specifies the name of the data source field to which the row is bound (the row's ASPxClientVerticalGridRow.fieldName property value).
+     */
+    GetRowByField(rowFieldName: string): ASPxClientVerticalGridRow;
+    /**
+     * Returns the current vertical scroll position of the grid's content.
+     */
+    GetVerticalScrollPosition(): number;
+    /**
+     * Returns the current horizontal scroll position of the grid's content.
+     */
+    GetHorizontalScrollPosition(): number;
+    /**
+     * Specifies the vertical scroll position for the grid's content.
+     * @param position An integer value specifying the vertical scroll position.
+     */
+    SetVerticalScrollPosition(position: number): void;
+    /**
+     * Specifies the horizontal scroll position for the grid's content.
+     * @param position An integer value specifying the horizontal scroll position.
+     */
+    SetHorizontalScrollPosition(position: number): void;
+    /**
+     * Gets the value that specifies whether the required row is expanded. true, if the row is expanded; otherwise, false.
+     * @param row An ASPxClientVerticalGridRowobject that specifies the row.
+     */
+    GetRowExpanded(row: ASPxClientVerticalGridRow | number | string): boolean;
+    /**
+     * Sets a value indicating whether the row is expanded.
+     * @param value true, to expand the row; otherwise, false.
+     */
+    SetRowExpanded(row: ASPxClientVerticalGridRow | number | string, value: boolean): void;
+    /**
+     * Sets the offset from the container's top border to fixed rows while scrolling the page.
+     * @param offset The top offset.
+     */
+    SetFixedRowsTopOffset(offset: number): void;
+    /**
+     * Converts the specified object to the ASPxClientVerticalGrid type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): ASPxClientVerticalGrid;
+}
+/**
+ * A client grid row.
+ */
+declare class ASPxClientVerticalGridRow extends ASPxClientGridColumnBase {
+    /**
+     * Gets the name that uniquely identifies the row.
+     */
+    name: string;
+    /**
+     * Gets the row's position within the collection.
+     */
+    index: number;
+    /**
+     * Gets the name of the database field assigned to the current row.
+     */
+    fieldName: string;
+    /**
+     * Gets whether the row is visible.
+     */
+    visible: boolean;
+}
+/**
+ * Represents a JavaScript function which receives the list of record values when the client ASPxClientVerticalGrid.GetRecordValues, ASPxVerticalGrid.GetCurrentPageRecordValues or ASPxClientVerticalGrid.GetSelectedFieldValues method is called.
+ * @param result An object that represents the list of record values received from the server.
+ */
+interface ASPxClientVerticalGridValuesCallback { (result: any): void; }
+/**
+ * A method that will handle the cancelable events of a client ASPxVerticalGrid row.
+ * @param source The event source.
+ * @param e An ASPxClientVerticalGridRowCancelEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridRowCancelEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridRowCancelEventArgs): void; }
+/**
+ * Provides data for the cancelable events of a client ASPxVerticalGrid row.
+ */
+declare class ASPxClientVerticalGridRowCancelEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridRowCancelEventArgs class.
+     * @param row An ASPxClientVerticalGridRowCancelEventArgs object that represents the processed row.
+     */
+    constructor(row: ASPxClientVerticalGridRow);
+    /**
+     * Gets the processed client row.
+     */
+    row: ASPxClientVerticalGridRow;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.RecordClick event.
+ * @param source The event source. This parameter identifies the ASPxClientVerticalGrid object that raised the event.
+ * @param e An ASPxClientVerticalGridRecordClickEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridRecordClickEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridRecordClickEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.RecordClick event.
+ */
+declare class ASPxClientVerticalGridRecordClickEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridRecordClickEventArgs class.
+     * @param visibleIndex A zero-based integer index that identifies the clicked record.
+     * @param htmlEvent An object that contains parameters associated with the event. This value is assigned to the ASPxClientVerticalGridRecordClickEventArgs.htmlEvent property.
+     */
+    constructor(visibleIndex: number, htmlEvent: any);
+    /**
+     * Gets the processed record's visible index.
+     */
+    visibleIndex: number;
+    /**
+     * Provides access to the parameters associated with the ASPxClientVerticalGrid.RecordClick event.
+     */
+    htmlEvent: any;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.CustomButtonClick event.
+ * @param source The event source.
+This parameter identifies the ASPxClientVerticalGrid object that raised the event.
+ * @param e An ASPxClientVerticalGridCustomButtonEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridCustomButtonEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridCustomButtonEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.CustomButtonClick event.
+ */
+declare class ASPxClientVerticalGridCustomButtonEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridCustomButtonEventArgs class.
+     * @param visibleIndex An integer value that identifies the record whose custom button has been clicked. This value is assigned to the ASPxClientVerticalGridCustomButtonEventArgs.visibleIndex property.
+     * @param buttonID An integer value that identifies the clicked custom button. This value is assigned to the ASPxClientVerticalGridCustomButtonEventArgs.buttonID property.
+     */
+    constructor(visibleIndex: number, buttonID: string);
+    /**
+     * Gets the value which identifies the record whose custom button has been clicked.
+     */
+    visibleIndex: number;
+    /**
+     * Gets the value which identifies the custom button.
+     */
+    buttonID: string;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.SelectionChanged event.
+ * @param source The event source.
+ * @param e An ASPxClientVerticalGridSelectionEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridSelectionEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridSelectionEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.SelectionChanged event.
+ */
+declare class ASPxClientVerticalGridSelectionEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridSelectionEventArgs class.
+     * @param visibleIndex An integer value that specifies the visible index of the record whose selected state has been changed. This value is assigned to the ASPxClientVerticalGridSelectionEventArgs.visibleIndex property.
+     */
+    constructor(visibleIndex: number);
+    /**
+     * Gets the visible index of the record whose selected state has been changed.
+     */
+    visibleIndex: number;
+    /**
+     * Gets whether the record has been selected.
+     */
+    isSelected: boolean;
+    /**
+     * Gets whether all records displayed within a page have been selected or unselected.
+     */
+    isAllRecordsOnPage: boolean;
+    /**
+     * Gets whether a selection has been changed on the server.
+     */
+    isChangedOnServer: boolean;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.RowExpandedChanged event.
+ * @param source The event source.
+ * @param e An ASPxClientVerticalGridRowExpandedEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridRowExpandedEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridRowExpandedEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.RowExpandedChanged event.
+ */
+declare class ASPxClientVerticalGridRowExpandedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridRowExpandedEventArgs class with specified settings.
+     * @param row A ASPxClientVerticalGridRow object that uniquely identifies the expanded row. This value is assigned to the ASPxClientVerticalGridRowExpandedEventArgs.row property.
+     */
+    constructor(row: ASPxClientVerticalGridRow);
+    /**
+     * Gets the expanded row.
+     */
+    row: ASPxClientVerticalGridRow;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.RowExpandedChanging event.
+ * @param source The event source.
+ * @param e An ASPxClientVerticalGridRowExpandedEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridRowExpandingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridRowExpandingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.RowExpandedChanging event.
+ */
+declare class ASPxClientVerticalGridRowExpandingEventArgs extends ASPxClientVerticalGridRowExpandedEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridRowExpandingEventArgs class with the specified row.
+     * @param row An ASPxClientVerticalGridRowobject that represents the row to expand.
+     */
+    constructor(row: ASPxClientVerticalGridRow);
+    /**
+     * Gets or sets a value indicating whether the action which raised the event should be canceled.
+     */
+    cancel: boolean;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.BatchEditStartEditing event.
+ * @param source The event source.
+ * @param e An ASPxClientVerticalGridBatchEditStartEditingEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridBatchEditStartEditingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditStartEditingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.BatchEditStartEditing event.
+ */
+declare class ASPxClientVerticalGridBatchEditStartEditingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridBatchEditStartEditingEventArgs class with the specified settings.
+     * @param visibleIndex An integer value that specifies the visible index of the record. This value is assigned to the ASPxClientVerticalGridBatchEditRecordValidatingEventArgs.visibleIndex property.
+     * @param focusedRow An ASPxClientVerticalGridRow object that is the focused grid row. This value is assigned to the ASPxClientVerticalGridBatchEditStartEditingEventArgs.focusedRow property.
+     * @param recordValues A hashtable that stores information about editable cells. This value is assigned to the ASPxClientVerticalGridBatchEditStartEditingEventArgs.recordValues property.
+     */
+    constructor(visibleIndex: number, focusedRow: ASPxClientVerticalGridRow, recordValues: any);
+    /**
+     * Gets the visible index of the record whose cells are about to be edited.
+     */
+    visibleIndex: number;
+    /**
+     * Gets the grid row that owns a cell that is about to be edited.
+     */
+    focusedRow: ASPxClientVerticalGridRow;
+    /**
+     * Gets a hashtable that maintains information about editable cells.
+     */
+    recordValues: any;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.BatchEditEndEditing event.
+ * @param source The event source.
+ * @param e An ASPxClientVerticalGridBatchEditEndEditingEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridBatchEditEndEditingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditEndEditingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.BatchEditEndEditing event.
+ */
+declare class ASPxClientVerticalGridBatchEditEndEditingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridBatchEditEndEditingEventArgs class with specified settings.
+     */
+    constructor(visibleIndex: number, recordValues: any, focusedRow: ASPxClientVerticalGridRow);
+    /**
+     * Gets the visible index of the record whose cells have been edited.
+     */
+    visibleIndex: number;
+    /**
+     * Gets the row to which the edited cell belongs.
+     */
+    focusedRow: ASPxClientVerticalGridRow;
+    /**
+     * Gets a hashtable that maintains information about editable cells.
+     */
+    recordValues: any;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.BatchEditRecordValidating event.
+ * @param source The event source.
+ * @param e An ASPxClientVerticalGridBatchEditRecordValidatingEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridBatchEditRecordValidatingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditRecordValidatingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.BatchEditRecordValidating event.
+ */
+declare class ASPxClientVerticalGridBatchEditRecordValidatingEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridBatchEditRecordValidatingEventArgs class.
+     * @param visibleIndex An integer value that specifies the processed record's visible index.
+     * @param validationInfo An object containing validation information.
+     */
+    constructor(visibleIndex: number, validationInfo: any);
+    /**
+     * Gets the processed record's visible index.
+     */
+    visibleIndex: number;
+    /**
+     * Provides validation information on the record currently being validated.
+     */
+    validationInfo: any;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.BatchEditConfirmShowing client event.
+ * @param source The event source.
+ * @param e An ASPxClientVerticalGridBatchEditConfirmShowingEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridBatchEditConfirmShowingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditConfirmShowingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.BatchEditConfirmShowing event.
+ */
+declare class ASPxClientVerticalGridBatchEditConfirmShowingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridBatchEditConfirmShowingEventArgs class.
+     * @param requestTriggerID A string value specifying the client identifier of an object that initiates a request.
+     */
+    constructor(requestTriggerID: string);
+    /**
+     * Gets the client identifier of an object that initiates a send request.
+     */
+    requestTriggerID: string;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.BatchEditTemplateCellFocused event.
+ * @param source An object representing the event source. Identifies the button editor that raised the event.
+ * @param e An ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridBatchEditTemplateCellFocusedEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.BatchEditTemplateCellFocused event.
+ */
+declare class ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs class with the specified row.
+     * @param row An ASPxClientVerticalGridRow object that is the processed grid row. This value is assigned to the ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs.row property.
+     */
+    constructor(row: ASPxClientVerticalGridRow);
+    /**
+     * Gets the currently processed row.
+     */
+    row: ASPxClientVerticalGridRow;
+    /**
+     * Gets or sets a value specifying whether the event was handled.
+     */
+    handled: boolean;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.BatchEditChangesSaving event.
+ * @param source The event source. This parameter identifies the vertical grid object which raised the event.
+ * @param e An ASPxClientVerticalGridBatchEditChangesSavingEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridBatchEditChangesSavingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditChangesSavingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.BatchEditChangesSaving event.
+ */
+declare class ASPxClientVerticalGridBatchEditChangesSavingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridBatchEditChangesSavingEventArgs class.
+     * @param insertedValues A hashtable that stores information about inserted cells.
+     * @param deletedValues A hashtable that stores information about deleted cells.
+     * @param updatedValues A hashtable that stores information about updated cells.
+     */
+    constructor(insertedValues: any, deletedValues: any, updatedValues: any);
+    /**
+     * Gets a hashtable that maintains information about inserted cells.
+     */
+    insertedValues: any;
+    /**
+     * Gets a hashtable that maintains information about deleted cells.
+     */
+    deletedValues: any;
+    /**
+     * Gets a hashtable that maintains information about updated cells.
+     */
+    updatedValues: any;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.BatchEditChangesCanceling event.
+ * @param source The event source. This parameter identifies the vertical grid object which raised the event.
+ * @param e An ASPxClientVerticalGridBatchEditChangesCancelingEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridBatchEditChangesCancelingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditChangesCancelingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.BatchEditChangesCanceling event.
+ */
+declare class ASPxClientVerticalGridBatchEditChangesCancelingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridBatchEditChangesCancelingEventArgs class.
+     * @param insertedValues A hashtable that stores information about inserted cells.
+     * @param deletedValues A hashtable that stores information about deleted cells.
+     * @param updatedValues A hashtable that stores information about updated cells.
+     */
+    constructor(insertedValues: any, deletedValues: any, updatedValues: any);
+    /**
+     * Gets a hashtable that maintains information about inserted cells.
+     */
+    insertedValues: any;
+    /**
+     * Gets a hashtable that maintains information about deleted cells.
+     */
+    deletedValues: any;
+    /**
+     * Gets a hashtable that maintains information about updated cells.
+     */
+    updatedValues: any;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.BatchEditRecordInserting event.
+ * @param source The event source. This parameter identifies the vertical grid object which raised the event.
+ * @param e An ASPxClientVerticalGridBatchEditRecordInsertingEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridBatchEditRecordInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditRecordInsertingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.BatchEditRecordInserting event.
+ */
+declare class ASPxClientVerticalGridBatchEditRecordInsertingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridBatchEditRecordInsertingEventArgs class.
+     * @param visibleIndex An integer value that specifies the processed record's visible index.
+     */
+    constructor(visibleIndex: number);
+    /**
+     * Gets the processed record's visible index.
+     */
+    visibleIndex: number;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.BatchEditRecordDeleting event.
+ * @param source The event source. This parameter identifies the vertical grid object which raised the event.
+ * @param e An ASPxClientVerticalGridBatchEditRecordDeletingEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridBatchEditRecordDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditRecordDeletingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.BatchEditRecordDeleting event.
+ */
+declare class ASPxClientVerticalGridBatchEditRecordDeletingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridBatchEditRecordDeletingEventArgs class.
+     * @param visibleIndex An integer value that specifies the processed record's visible index.
+     * @param recordValues A hashtable that stores information about the processed record's cells.
+     */
+    constructor(visibleIndex: number, recordValues: any);
+    /**
+     * Gets the processed record's visible index.
+     */
+    visibleIndex: number;
+    /**
+     * Gets a hashtable that maintains information about deleted cells.
+     */
+    recordValues: any;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.BatchEditRecordRecovering event.
+ * @param source The event source.
+ * @param e An ASPxClientVerticalGridBatchEditRecordRecoveringEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridBatchEditRecordRecoveringEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditRecordRecoveringEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.BatchEditRecordRecovering event.
+ */
+declare class ASPxClientVerticalGridBatchEditRecordRecoveringEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridBatchEditRecordRecoveringEventArgs class.
+     * @param visibleIndex An integer value specifying a record's visible index.
+     * @param recordValues An object representing record values.
+     */
+    constructor(visibleIndex: number, recordValues: any);
+    /**
+     * Gets the processed record's visible index.
+     */
+    visibleIndex: number;
+    /**
+     * Gets a hashtable that maintains information about recovered cells.
+     */
+    recordValues: any;
+}
+/**
+ * A method that will handle the ASPxClientVerticalGrid.FocusedCellChanging event.
+ * @param source The event source.
+ * @param e An ASPxClientVerticalGridFocusedCellChangingEventArgs object that contains event data.
+ */
+interface ASPxClientVerticalGridFocusedCellChangingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridFocusedCellChangingEventArgs): void; }
+/**
+ * Provides data for the ASPxClientVerticalGrid.FocusedCellChanging event.
+ */
+declare class ASPxClientVerticalGridFocusedCellChangingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientVerticalGridFocusedCellChangingEventArgs class with specified settings.
+     * @param cellInfo A ASPxClientVerticalGridCellInfo object providing information about the focused cell.
+     */
+    constructor(cellInfo: ASPxClientVerticalGridCellInfo);
+    /**
+     * Provides information on a cell currently being focused.
+     */
+    cellInfo: ASPxClientVerticalGridCellInfo;
+}
+/**
+ * Contains information on a cell that is being edited.
+ */
+declare class ASPxClientVerticalGridCellInfo {
+    /**
+     * Gets the row that contains the cell currently being processed.
+     */
+    row: ASPxClientVerticalGridRow;
+    /**
+     * Gets the visible index of the record that contains the cell currently being processed.
+     */
+    recordVisibleIndex: number;
+}
+/**
+ * Declares client constants that contain the names of the ASPxVerticalGrid's default commands executed through callbacks.
+ */
+declare class ASPxClientVerticalGridCallbackCommand {
+    /**
+     * Default value: "EXPANDROW"
+     */
+    static readonly ExpandRow: string;
+}
+/**
+ * Provides members related to Batch Edit Mode
+ */
+declare class ASPxClientVerticalGridBatchEditApi {
+    /**
+     * Performs validation of grid data contained in all records when the grid operates in batch edit mode. true, if data in all records passes validation; otherwise, false.
+     * @param validateOnlyModified true, if only modified records should be validated; otherwise, false.
+     */
+    ValidateRecords(validateOnlyModified?: boolean): boolean;
+    /**
+     * Performs validation of grid data contained in the specified record when the grid operates in batch edit mode. true, if data in the specified record passes validation; otherwise, false.
+     * @param visibleIndex An integer value specifying the visible index of the validated record.
+     */
+    ValidateRecord(visibleIndex: number): boolean;
+    /**
+     * Returns an array of record visible indices. An array of integer values that are the visible indices of grid records.
+     * @param includeDeleted true, to include visible indices of deleted records to the returned array; otherwise, false.
+     */
+    GetRecordVisibleIndices(includeDeleted: boolean): number[];
+    /**
+     * Returns an array of the deleted record visible indices.
+     */
+    GetDeletedRecordIndices(): number[];
+    /**
+     * Returns an array of the inserted record visible indices.
+     */
+    GetInsertedRecordIndices(): number[];
+    /**
+     * Returns an array of the updated records visible indices.
+     */
+    GetUpdatedRecordIndices(): number[];
+    /**
+     * Indicates if the record with the specified visible index is deleted. true, if the record is deleted; otherwise, false.
+     * @param visibleIndex An integer value that identifies the record by its visible index.
+     */
+    IsDeletedRecord(visibleIndex: number): boolean;
+    /**
+     * Indicates if the record with specified visible index is newly created. true, if the record is new; otherwise, false.
+     * @param visibleIndex An integer value that identifies the record by its visible index.
+     */
+    IsNewRecord(visibleIndex: number): boolean;
+    /**
+     * Adds a new record when ASPxVerticalGrid is in Batch Edit mode.
+     */
+    AddNewRecord(): void;
+    /**
+     * Deletes the specified record when ASPxVerticalGrid is in Batch Edit mode.
+     * @param visibleIndex An integer value that identifies the record index.
+     */
+    DeleteRecord(visibleIndex: number): void;
+    /**
+     * Deletes a record with a specified key value when ASPxVerticalGrid is in Batch Edit mode.
+     * @param key An object that uniquely identifies the record.
+     */
+    DeleteRecordByKey(key: any): void;
+    /**
+     * Recovers the specified record when ASPxVerticalGrid is in Batch Edit mode.
+     * @param visibleIndex An integer value that identifies the record index.
+     */
+    RecoverRecord(visibleIndex: number): void;
+    /**
+     * Recovers a record with a specified key value when ASPxVerticalGrid is in Batch Edit mode.
+     * @param key An object that uniquely identifies the record.
+     */
+    RecoverRecordByKey(key: any): void;
+    /**
+     * Programmatically moves the focus to the previous cell in the record.
+     */
+    MoveFocusBackward(): boolean;
+    /**
+     * Programmatically moves the focus to the next cell in the record.
+     */
+    MoveFocusForward(): boolean;
+    /**
+     * Sets the value of the specified cell.
+     * @param visibleIndex An integer zero-based index that identifies the row containing the processed cell.
+     * @param rowFieldNameOrId A string value that specifies the field name or unique identifier (the column's WebColumnBase.Name property value) of a column containing the processed cell.
+     * @param value An object that contains the new cell value.
+     * @param displayText A string value that specifies the cell display text.
+     * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
+     */
+    SetCellValue(visibleIndex: number, rowFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
+    /**
+     * Gets the value of the specified cell. An object containing the specified cell's value.
+     * @param visibleIndex A zero-based integer value that specifies a visible index of a record containing the processed cell.
+     * @param rowFieldNameOrId A string value that specifies the field name or unique identifier (the row's WebColumnBase.Name property value) of a row containing the processed cell.
+     * @param initial true, to return the initial (server) value; false, to return a value currently contained on the client side (modified value).
+     */
+    GetCellValue(visibleIndex: number, rowFieldNameOrId: string, initial?: boolean): any;
+    /**
+     * Gets a container holding the data cell content. An object that is the HTML container element that contains the data cell's content.
+     * @param visibleIndex An integer value that is the visible index.
+     * @param columnFieldNameOrId A string value that is the column's Field Name or ID.
+     */
+    GetCellTextContainer(visibleIndex: number, columnFieldNameOrId: string): any;
+    /**
+     * Gets information about the cell currently being edited.
+     */
+    GetEditCellInfo(): ASPxClientVerticalGridCellInfo;
+    /**
+     * Returns an object that stores unsaved changes.
+     */
+    GetUnsavedChanges(): any;
+    /**
+     * Returns a value that indicates whether the specified data cell's data has been changed. true, if the cell has changed data; otherwise, false.
+     * @param visibleIndex An integer value that specifies the visible index of a record.
+     * @param rowFieldNameOrId A string value that identifies the row by the name of the data source field to which the row is bound, or by the row's name.
+     */
+    HasChanges(visibleIndex?: number, rowFieldNameOrId?: string): boolean;
+    /**
+     * Resets changes in the specified cell.
+     * @param visibleIndex An integer value that specifies the visible index of a record containing the processed cell.
+     * @param rowIndex A string value that specifies the field name or unique identifier (the row's WebColumnBase.Name property value) of a row containing the processed cell.
+     */
+    ResetChanges(visibleIndex: number, rowIndex?: number): void;
+    /**
+     * Switches the specified cell to batch edit mode.
+     * @param visibleIndex A zero-based integer value that specifies the visible index of a record containing the processed cell.
+     * @param rowIndex A zero-based integer value that identifies the row which contains the processed cell in the rows collection.
+     */
+    StartEdit(visibleIndex: number, rowIndex: number): void;
+    /**
+     * Ends the cell(s) editing.
+     */
+    EndEdit(): void;
+    /**
+     * Provides the text displayed within the cell according to the specified display format rule. A string value representing the cell's displayed text.
+     * @param columnFieldNameOrId A string value representing the row's unique identifier or field name.
+     * @param value An object representing a value.
+     */
+    GetColumnDisplayText(columnFieldNameOrId: string, value: any): string;
+    /**
+     * Returns the total summary value. The value.
+     * @param summaryItemIndex The total summary's index or field name.
+     */
+    GetTotalSummaryValue(summaryItemIndex: number | string): number;
+}
+/**
+ * Lists values that specify the document formats available for export from the grid.
+ */
+declare class ASPxClientVerticalGridExportFormat extends ASPxClientGridExportFormat {
 }
 
 declare class ASPxClientChartDesigner extends ASPxClientControl {
@@ -30304,7 +29830,805 @@ declare class ASPxClientGanttCustomCommandEventArgs extends ASPxClientEventArgs 
     parameter: any;
 }
 /**
- * A client-side equivalent of the DevExpress.Web.ASPxGantt control.
+ * A method that handles the ContextMenuCustomization event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttContextMenuCustomizationEventHandler<Sender> { (source: Sender, e: ASPxClientGanttContextMenuCustomizationEventArgs): void; }
+/**
+ * Contains data for the ContextMenuCustomization event.
+ */
+declare class ASPxClientGanttContextMenuCustomizationEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttContextMenuCustomizationEventArgs class with specified settings.
+     * @param menuItems The collection of context menu items.
+     */
+    constructor(menuItems: any);
+    /**
+     * Gets the collection of context menu items.
+     */
+    menuItems: ASPxClientGanttContextMenuItemCollection;
+}
+/**
+ * A context menu item.
+ */
+declare class ASPxClientGanttContextMenuItem {
+    /**
+     * Gets the parent context menu item to which the current item belongs.
+     */
+    parent: ASPxClientGanttContextMenuItem;
+    /**
+     * Specifies the context menu item's name.
+     */
+    name: string;
+    /**
+     * Specifies the context menu item's text.
+     */
+    text: string;
+    /**
+     * Specifies whether the item is enabled.
+     */
+    enabled: boolean;
+    /**
+     * Specifies the name of the CSS class that defines the context menu item's image.
+     */
+    imageClassName: string;
+    /**
+     * Specifies the context menu item's navigation Url.
+     */
+    navigateUrl: string;
+    /**
+     * Specifies the Url of the menu item's image.
+     */
+    imageUrl: string;
+    /**
+     * Specifies whether an item separator is displayed before the context menu item.
+     */
+    beginGroup: boolean;
+    /**
+     * Specifies the context menu item's tooltip.
+     */
+    tooltip: string;
+    /**
+     * Gets or sets the window or frame where to locate the content of the Url associated with the current menu item.
+     */
+    target: string;
+    /**
+     * Returns the context menu item's subitems.
+     */
+    GetSubItems(): ASPxClientGanttContextMenuItemCollection;
+    /**
+     * Returns the context menu item's subitem with the specified index. The subitem.
+     * @param index The subitem's index.
+     */
+    GetItem(index: number): ASPxClientGanttContextMenuItem;
+    /**
+     * Returns the context menu item's subitem with the specified name. The context menu item.
+     * @param name The context menu item's name.
+     */
+    GetItemByName(name: string): ASPxClientGanttContextMenuItem;
+    /**
+     * Returns the number of the context menu item's subitems.
+     */
+    GetItemCount(): number;
+}
+/**
+ * The context menu item collection.
+ */
+declare class ASPxClientGanttContextMenuItemCollection {
+    /**
+     * Adds a context menu item.
+     * @param item The context menu item.
+     */
+    Add(item: ASPxClientGanttContextMenuItem): void;
+    /**
+     * Removes a context menu item with the specified index from the item collection.
+     * @param index The context menu item's index.
+     */
+    Remove(index: number): void;
+    /**
+     * Removes a context menu item with the specified name from the item collection.
+     * @param name The context menu item's name.
+     */
+    RemoveByName(name: string): void;
+    /**
+     * Inserts a context menu item at the specified position in the collection.
+     * @param index The context menu item's index.
+     * @param item The context menu item.
+     */
+    Insert(index: number, item: ASPxClientGanttContextMenuItem): void;
+    /**
+     * Returns the number of context menu items.
+     */
+    GetCount(): number;
+    /**
+     * Returns a context menu item with the specified name. The context menu item.
+     * @param name The name.
+     */
+    GetByName(name: string): ASPxClientGanttContextMenuItem;
+    /**
+     * Returns a context menu item with the specified index. The context menu item.
+     * @param index The index.
+     */
+    Get(index: number): ASPxClientGanttContextMenuItem;
+    /**
+     * Removes predefined items from the context menu.
+     */
+    Clear(): void;
+}
+/**
+ * A method that handles the StartCellEditing event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttStartCellEditingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttStartCellEditingEventArgs): void; }
+/**
+ * Contains data for the StartCellEditing event.
+ */
+declare class ASPxClientGanttStartCellEditingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttStartCellEditingEventArgs class with specified settings.
+     * @param key The task key.
+     * @param focusedFieldName The field name of the focused task.
+     * @param values The task values.
+     */
+    constructor(key: any, focusedFieldName: string, values: any);
+    /**
+     * Specifies the task values.
+     */
+    values: any;
+    /**
+     * Specifies the task key.
+     */
+    key: any;
+    /**
+     * Specifies the field name of the focused task.
+     */
+    focusedFieldName: string;
+}
+/**
+ * A method that handles the EndCellEditing event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttEndCellEditingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttEndCellEditingEventArgs): void; }
+/**
+ * Contains data for the EndCellEditing event.
+ */
+declare class ASPxClientGanttEndCellEditingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttEndCellEditingEventArgs class with specified settings.
+     * @param key The task key.
+     * @param focusedFieldName The field name.
+     * @param values The values.
+     */
+    constructor(key: any, focusedFieldName: string, values: any);
+    /**
+     * Specifies the task values.
+     */
+    values: any;
+    /**
+     * Specifies the task key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the TaskInserting event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttTaskInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttTaskInsertingEventArgs): void; }
+/**
+ * Contains data for the TaskInserting event.
+ */
+declare class ASPxClientGanttTaskInsertingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttTaskInsertingEventArgs class with specified settings.
+     * @param values The task values.
+     */
+    constructor(values: any);
+    /**
+     * Specifies the task values.
+     */
+    values: any;
+}
+/**
+ * A method that handles the TaskInserted event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttTaskInsertedEventHandler<Sender> { (source: Sender, e: ASPxClientGanttTaskInsertedEventArgs): void; }
+/**
+ * Contains data for the TaskInserted event.
+ */
+declare class ASPxClientGanttTaskInsertedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttTaskInsertedEventArgs class with specified settings.
+     * @param values The task values.
+     */
+    constructor(values: any);
+    /**
+     * Specifies the task values.
+     */
+    values: any;
+    /**
+     * Specifies the task key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the TaskDeleting event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttTaskDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttTaskDeletingEventArgs): void; }
+/**
+ * Contains data for the TaskDeleting event.
+ */
+declare class ASPxClientGanttTaskDeletingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttTaskDeletingEventArgs class with specified settings.
+     * @param key The task key.
+     * @param values The task values.
+     */
+    constructor(key: any, values: any);
+    /**
+     * Specifies the task values.
+     */
+    values: any;
+    /**
+     * Specifies the task key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the TaskDeleted event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttTaskDeletedEventHandler<Sender> { (source: Sender, e: ASPxClientGanttTaskDeletedEventArgs): void; }
+/**
+ * Contains data for the TaskDeleted event.
+ */
+declare class ASPxClientGanttTaskDeletedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttTaskDeletedEventArgs class with specified settings.
+     * @param values The task values.
+     */
+    constructor(values: any);
+    /**
+     * Specifies the task values.
+     */
+    values: any;
+    /**
+     * Specifies the task key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the TaskUpdating event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttTaskUpdatingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttTaskUpdatingEventArgs): void; }
+/**
+ * Contains data for the TaskUpdating event.
+ */
+declare class ASPxClientGanttTaskUpdatingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttTaskUpdatingEventArgs class with specified settings.
+     * @param key The task key.
+     * @param values The task values.
+     * @param newValues The task values after update.
+     */
+    constructor(key: any, values: any, newValues: any);
+    /**
+     * Specifies the task's new values.
+     */
+    newValues: any;
+    /**
+     * Specifies the task values.
+     */
+    values: any;
+    /**
+     * Specifies the task key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the TaskUpdated event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttTaskUpdatedEventHandler<Sender> { (source: Sender, e: ASPxClientGanttTaskUpdatedEventArgs): void; }
+/**
+ * Contains data for the TaskUpdated event.
+ */
+declare class ASPxClientGanttTaskUpdatedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttTaskUpdatedEventArgs class with specified settings.
+     * @param values The task values.
+     */
+    constructor(values: any);
+    /**
+     * Specifies the task values.
+     */
+    values: any;
+    /**
+     * Specifies the task key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the TaskMoving event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttTaskMovingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttTaskMovingEventArgs): void; }
+/**
+ * Contains data for the TaskMoving event.
+ */
+declare class ASPxClientGanttTaskMovingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttTaskMovingEventArgs class with specified settings.
+     * @param key The task key.
+     * @param values The task values.
+     * @param newValues The task values after moving.
+     */
+    constructor(key: any, values: any, newValues: any);
+    /**
+     * Specifies the task values after moving.
+     */
+    newValues: any;
+    /**
+     * Specifies the task values.
+     */
+    values: any;
+    /**
+     * Specifies the task key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the TaskEditDialogShowing event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttTaskEditDialogShowingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttTaskEditDialogShowingEventArgs): void; }
+/**
+ * Contains data for the TaskEditDialogShowing event.
+ */
+declare class ASPxClientGanttTaskEditDialogShowingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttTaskEditDialogShowingEventArgs class with specified settings.
+     * @param key The task key.
+     * @param values The task values.
+     * @param readOnlyFields An array of read-only fields.
+     * @param hiddenFields An array of hidden fields.
+     */
+    constructor(key: any, values: any, readOnlyFields: string[], hiddenFields: string[]);
+    /**
+     * Specifies the task values.
+     */
+    values: any;
+    /**
+     * Specifies the task key.
+     */
+    key: any;
+    /**
+     * Specifies read-only fields in the edit dialog.
+     */
+    readOnlyFields: string[];
+    /**
+     * Specifies hidden fields in the edit dialog.
+     */
+    hiddenFields: string[];
+}
+/**
+ * A method that handles the FocusedTaskChanging event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttFocusedTaskChangingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttFocusedTaskChangingEventArgs): void; }
+/**
+ * Contains data for the FocusedTaskChanging event.
+ */
+declare class ASPxClientGanttFocusedTaskChangingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Returns the task data.
+     */
+    values: any;
+    /**
+     * Returns the task key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the FocusedTaskChanged event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttFocusedTaskChangedEventHandler<Sender> { (source: Sender, e: ASPxClientGanttFocusedTaskChangedEventArgs): void; }
+/**
+ * Contains data for the FocusedTaskChanged event.
+ */
+declare class ASPxClientGanttFocusedTaskChangedEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttFocusedTaskChangedEventArgs class with specified settings.
+     * @param key The task key.
+     * @param values The task data.
+     */
+    constructor(key: any, values: any);
+    /**
+     * Returns the task key.
+     */
+    key: any;
+    /**
+     * Returns the task data.
+     */
+    values: any;
+}
+/**
+ * A method that handles the DependencyInserting event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttDependencyInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttDependencyInsertingEventArgs): void; }
+/**
+ * Contains data for the DependencyInserting event.
+ */
+declare class ASPxClientGanttDependencyInsertingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttDependencyInsertingEventArgs class with specified settings.
+     * @param values The dependency values.
+     */
+    constructor(values: any);
+    /**
+     * Specifies the dependency values.
+     */
+    values: any;
+}
+/**
+ * A method that handles the DependencyInserted event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttDependencyInsertedEventHandler<Sender> { (source: Sender, e: ASPxClientGanttDependencyInsertedEventArgs): void; }
+/**
+ * Contains data for the DependencyInserted event.
+ */
+declare class ASPxClientGanttDependencyInsertedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttDependencyInsertedEventArgs class with specified settings.
+     * @param values The dependency data.
+     */
+    constructor(values: any);
+    /**
+     * Specifies the dependency values.
+     */
+    values: any;
+    /**
+     * Specifies the dependency key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the DependencyDeleting event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttDependencyDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttDependencyDeletingEventArgs): void; }
+/**
+ * Contains data for the DependencyDeleting event.
+ */
+declare class ASPxClientGanttDependencyDeletingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttDependencyDeletingEventArgs class with specified settings.
+     * @param key The dependency key.
+     * @param values The dependency values.
+     */
+    constructor(key: any, values: any);
+    /**
+     * Specifies the dependency values.
+     */
+    values: any;
+    /**
+     * Specifies the dependency key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the DependencyDeleted event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttDependencyDeletedEventHandler<Sender> { (source: Sender, e: ASPxClientGanttDependencyDeletedEventArgs): void; }
+/**
+ * Contains data for the DependencyDeleted event.
+ */
+declare class ASPxClientGanttDependencyDeletedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttDependencyDeletedEventArgs class with specified settings.
+     * @param values The dependency data.
+     */
+    constructor(values: any);
+    /**
+     * Specifies the dependency values.
+     */
+    values: any;
+    /**
+     * Specifies the dependency key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the ResourceInserting event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttResourceInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttResourceInsertingEventArgs): void; }
+/**
+ * Contains data for the ResourceInserting event.
+ */
+declare class ASPxClientGanttResourceInsertingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttResourceInsertingEventArgs class with specified settings.
+     * @param values The resource values.
+     */
+    constructor(values: any);
+    /**
+     * Specifies the resource values.
+     */
+    values: any;
+}
+/**
+ * A method that handles the ResourceInserting event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttResourceInsertedEventHandler<Sender> { (source: Sender, e: ASPxClientGanttResourceInsertedEventArgs): void; }
+/**
+ * Contains data for the ResourceInserted event.
+ */
+declare class ASPxClientGanttResourceInsertedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttResourceInsertedEventArgs class with specified settings.
+     * @param values The resource values.
+     */
+    constructor(values: any);
+    /**
+     * Specifies the resource values.
+     */
+    values: any;
+    /**
+     * Specified the resource key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the ResourceDeleting event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttResourceDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttResourceDeletingEventArgs): void; }
+/**
+ * Contains data for the ResourceDeleting event.
+ */
+declare class ASPxClientGanttResourceDeletingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttResourceDeletingEventArgs class with specified settings.
+     * @param key The resource key.
+     * @param values The resource values.
+     */
+    constructor(key: any, values: any);
+    /**
+     * Specifies the resource values.
+     */
+    values: any;
+    /**
+     * Specifies the resource key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the ResourceDeleted event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttResourceDeletedEventHandler<Sender> { (source: Sender, e: ASPxClientGanttResourceDeletedEventArgs): void; }
+/**
+ * Contains data for the ResourceDeleted event.
+ */
+declare class ASPxClientGanttResourceDeletedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttResourceDeletedEventArgs class with specified settings.
+     * @param values The resource values.
+     */
+    constructor(values: any);
+    /**
+     * Specifies the resource values.
+     */
+    values: any;
+    /**
+     * Specifies the resource key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the ResourceAssigning event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttResourceAssigningEventHandler<Sender> { (source: Sender, e: ASPxClientGanttResourceAssigningEventArgs): void; }
+/**
+ * Contains data for the ResourceAssigning event.
+ */
+declare class ASPxClientGanttResourceAssigningEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttResourceAssigningEventArgs class with specified settings.
+     * @param values The resource values.
+     */
+    constructor(values: any);
+    /**
+     * Specifies resource values.
+     */
+    values: any;
+}
+/**
+ * A method that handles the ResourceAssigned event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttResourceAssignedEventHandler<Sender> { (source: Sender, e: ASPxClientGanttResourceAssignedEventArgs): void; }
+/**
+ * Contains data for the ResourceAssigned event.
+ */
+declare class ASPxClientGanttResourceAssignedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttResourceAssignedEventArgs class with specified settings.
+     * @param values The resource values.
+     */
+    constructor(values: any);
+    /**
+     * Specifies the resource values.
+     */
+    values: any;
+    /**
+     * Specifies the resource assignment key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the ResourceUnassigning event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttResourceUnassigningEventHandler<Sender> { (source: Sender, e: ASPxClientGanttResourceUnassigningEventArgs): void; }
+/**
+ * Contains data for the ResourceUnassigning event.
+ */
+declare class ASPxClientGanttResourceUnassigningEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttResourceUnassigningEventArgs class with specified settings.
+     * @param key The resource key.
+     * @param values The resource values.
+     */
+    constructor(key: any, values: any);
+    /**
+     * Specifies the resource values.
+     */
+    values: any;
+    /**
+     * Specifies the resource key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the ResourceUnassigned event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttResourceUnassignedEventHandler<Sender> { (source: Sender, e: ASPxClientGanttResourceUnassignedEventArgs): void; }
+/**
+ * Contains data for the ResourceUnassigned event.
+ */
+declare class ASPxClientGanttResourceUnassignedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttResourceUnassignedEventArgs class with specified settings.
+     * @param values The resource values.
+     */
+    constructor(values: any);
+    /**
+     * Specifies the resource values.
+     */
+    values: any;
+    /**
+     * Specifies the resource assignment key.
+     */
+    key: any;
+}
+/**
+ * A method that handles the TooltipShowing event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttTooltipShowingEventHandler<Sender> { (source: Sender, e: ASPxClientGanttTooltipShowingEventArgs): void; }
+/**
+ * Provides data for the TooltipShowing event.
+ */
+declare class ASPxClientGanttTooltipShowingEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttTooltipShowingEventArgs class with specified settings.
+     * @param container A container for the tooltip.
+     * @param task The task.
+     */
+    constructor(container: any, task: any);
+    /**
+     * Returns the processed task.
+     */
+    task: any;
+    /**
+     * Returns a container for an instance of the tooltip.
+     */
+    container: any;
+}
+/**
+ * A method that handles task-related events.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttTaskEventHandler<Sender> { (source: Sender, e: ASPxClientGanttTaskEventArgs): void; }
+/**
+ * Provides data for the TaskClick and TaskDblClick events.
+ */
+declare class ASPxClientGanttTaskEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttTaskEventArgs class with specified settings.
+     * @param key The task key.
+     * @param values The task data.
+     * @param htmlEvent Event parameters.
+     */
+    constructor(key: any, values: any, htmlEvent: any);
+    /**
+     * Returns the task data.
+     */
+    values: any;
+    /**
+     * Returns the task key.
+     */
+    key: any;
+    /**
+     * Provides access to the parameters associated with the TaskClick and TaskDblClick events.
+     */
+    htmlEvent: any;
+}
+/**
+ * A method that handles the ContextMenu event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttContextMenuEventHandler<Sender> { (source: Sender, e: ASPxClientGanttContextMenuEventArgs): void; }
+/**
+ * Contains data for the ContextMenu event.
+ */
+declare class ASPxClientGanttContextMenuEventArgs extends ASPxClientCancelEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttContextMenuEventArgs class with specified settings.
+     * @param objectInfo Information about the right-clicked object.
+     * @param htmlEvent The DHTML event object related to the processed event.
+     */
+    constructor(objectInfo: any, htmlEvent: any);
+    /**
+     * Gets information about the right-clicked object.
+     */
+    objectInfo: any;
+    /**
+     * Gets the DHTML event object that contains information about the processed event.
+     */
+    htmlEvent: any;
+}
+/**
+ * A client-side equivalent of the ASPxGantt control.
  */
 declare class ASPxClientGantt extends ASPxClientControl {
     /**
@@ -30323,6 +30647,122 @@ declare class ASPxClientGantt extends ASPxClientControl {
      * Enables you to implement a custom command's logic.
      */
     CustomCommand: ASPxClientEvent<ASPxClientGanttCustomCommandEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before the built-in context menu is rendered.
+     */
+    ContextMenuCustomization: ASPxClientEvent<ASPxClientGanttContextMenuCustomizationEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a user starts to edit a cell.
+     */
+    StartCellEditing: ASPxClientEvent<ASPxClientGanttStartCellEditingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a user finishes editing a cell.
+     */
+    EndCellEditing: ASPxClientEvent<ASPxClientGanttEndCellEditingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a user inserts a task.
+     */
+    TaskInserting: ASPxClientEvent<ASPxClientGanttTaskInsertingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs after a user inserted a task.
+     */
+    TaskInserted: ASPxClientEvent<ASPxClientGanttTaskInsertedEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a user deletes a task.
+     */
+    TaskDeleting: ASPxClientEvent<ASPxClientGanttTaskDeletingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs after a user deleted a task.
+     */
+    TaskDeleted: ASPxClientEvent<ASPxClientGanttTaskDeletedEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a user updates a task.
+     */
+    TaskUpdating: ASPxClientEvent<ASPxClientGanttTaskUpdatingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs after a user updated a task.
+     */
+    TaskUpdated: ASPxClientEvent<ASPxClientGanttTaskUpdatedEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a user moves a task.
+     */
+    TaskMoving: ASPxClientEvent<ASPxClientGanttTaskMovingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before the edit dialog is shown.
+     */
+    TaskEditDialogShowing: ASPxClientEvent<ASPxClientGanttTaskEditDialogShowingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a task is focused.
+     */
+    FocusedTaskChanging: ASPxClientEvent<ASPxClientGanttFocusedTaskChangingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs when a task is focused.
+     */
+    FocusedTaskChanged: ASPxClientEvent<ASPxClientGanttFocusedTaskChangedEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a user inserts a dependency.
+     */
+    DependencyInserting: ASPxClientEvent<ASPxClientGanttDependencyInsertingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs after a user inserted a dependency.
+     */
+    DependencyInserted: ASPxClientEvent<ASPxClientGanttDependencyInsertedEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a user deletes a dependency.
+     */
+    DependencyDeleting: ASPxClientEvent<ASPxClientGanttDependencyDeletingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs after a user deleted a dependency.
+     */
+    DependencyDeleted: ASPxClientEvent<ASPxClientGanttDependencyDeletedEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a user inserts a new resource.
+     */
+    ResourceInserting: ASPxClientEvent<ASPxClientGanttResourceInsertingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs after a user inserted a new resource.
+     */
+    ResourceInserted: ASPxClientEvent<ASPxClientGanttResourceInsertedEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a user deletes a resource.
+     */
+    ResourceDeleting: ASPxClientEvent<ASPxClientGanttResourceDeletingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs after a user deleted a resource.
+     */
+    ResourceDeleted: ASPxClientEvent<ASPxClientGanttResourceDeletedEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a user assigns a resource to a task.
+     */
+    ResourceAssigning: ASPxClientEvent<ASPxClientGanttResourceAssigningEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs after a user assigned a resource to a task.
+     */
+    ResourceAssigned: ASPxClientEvent<ASPxClientGanttResourceAssignedEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a user removes a resource from a task.
+     */
+    ResourceUnassigning: ASPxClientEvent<ASPxClientGanttResourceUnassigningEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs after a user removed a resource from a task.
+     */
+    ResourceUnassigned: ASPxClientEvent<ASPxClientGanttResourceUnassignedEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs before a tooltip is displayed.
+     */
+    TooltipShowing: ASPxClientEvent<ASPxClientGanttTooltipShowingEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs when a user clicks a task.
+     */
+    TaskClick: ASPxClientEvent<ASPxClientGanttTaskEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs when a user double-clicks a task.
+     */
+    TaskDblClick: ASPxClientEvent<ASPxClientGanttTaskEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs when a user right-clicks a task or dependency to open the context menu.
+     */
+    ContextMenu: ASPxClientEvent<ASPxClientGanttContextMenuEventHandler<ASPxClientGantt>>;
     /**
      * Specifies the view type.
      * @param viewType The control's view type.
@@ -30356,6 +30796,105 @@ declare class ASPxClientGantt extends ASPxClientControl {
      * @param key The task key.
      */
     CollapseTask(key: any): void;
+    /**
+     * Gets the focused task's key.
+     */
+    GetFocusedTaskKey(): any;
+    /**
+     * Sets the focused task.
+     * @param key The task's key.
+     */
+    SetFocusedTaskKey(key: any): void;
+    /**
+     * Gets the task data. The task data.
+     * @param key The task's key.
+     */
+    GetTaskData(key: any): any;
+    /**
+     * Deletes a task.
+     * @param key The task's key.
+     */
+    DeleteTask(key: any): void;
+    /**
+     * Inserts a new task.
+     * @param data The task data.
+     */
+    InsertTask(data: any): void;
+    /**
+     * Updates the task data.
+     * @param key The task's key.
+     * @param data The task data.
+     */
+    UpdateTask(key: any, data: any): void;
+    /**
+     * Gets the dependency data. The dependency's data.
+     * @param key The dependency's key.
+     */
+    GetDependencyData(key: any): any;
+    /**
+     * Deletes a dependency.
+     * @param key The dependency's key.
+     */
+    DeleteDependency(key: any): void;
+    /**
+     * Inserts a new dependency.
+     * @param data The dependency data.
+     */
+    InsertDependency(data: any): void;
+    /**
+     * Gets the resource data. The resource's data.
+     * @param key The resource's key.
+     */
+    GetResourceData(key: any): any;
+    /**
+     * Deletes a resource.
+     * @param key The resource's key.
+     */
+    DeleteResource(key: any): void;
+    /**
+     * Inserts a new resource.
+     * @param data The resource data.
+     * @param taskKeys An array of tasks' keys.
+     */
+    InsertResource(data: any, taskKeys: any[]): void;
+    /**
+     * Gets the resource assignment data. The resource assignment data.
+     * @param key The resource assignment's key.
+     */
+    GetResourceAssignmentData(key: any): any;
+    /**
+     * Removes a resource from the task.
+     * @param resourceKey The resource's key.
+     * @param taskKey The task's key.
+     */
+    UnassignResourceFromTask(resourceKey: any, taskKey: any): void;
+    /**
+     * Assigns a resource to a task.
+     * @param resourceKey The resource's key.
+     * @param taskKey The task's key.
+     */
+    AssignResourceToTask(resourceKey: any, taskKey: any): void;
+    /**
+     * Gets resources assigned to a task. The resources.
+     * @param key The task's key.
+     */
+    GetTaskResources(key: any): any[];
+    /**
+     * Gets the keys of the visible tasks.
+     */
+    GetVisibleTaskKeys(): any[];
+    /**
+     * Gets the keys of the visible dependencies.
+     */
+    GetVisibleDependencyKeys(): any[];
+    /**
+     * Gets the keys of the visible resources.
+     */
+    GetVisibleResourceKeys(): any[];
+    /**
+     * Gets the keys of the visible resource assignments.
+     */
+    GetVisibleResourceAssignmentKeys(): any[];
 }
 /**
  * Declare client constants that specify the Gantt's view type.
@@ -32182,7 +32721,7 @@ declare class ASPxClientDashboard extends ASPxClientControl {
      */
     ReloadData(): void;
     /**
-     * Refreshes an entire dashboard displayed in the Web Dashboard control.
+     * Refreshes dashboard items or the entire dashboard.
      */
     Refresh(itemName?: string | string[]): void;
     /**
@@ -32796,14 +33335,6 @@ declare class BootstrapClientCallbackPanel extends ASPxClientControl {
     GetEnabled(): boolean;
 }
 /**
- * Represents the client BootstrapCardView.
- */
-declare class BootstrapClientCardView extends ASPxClientCardView {
-    GetEditFormLayout(): ASPxClientFormLayout;
-    GetEditFormLayoutItemByColumn(column: ASPxClientCardViewColumn | number | string): ASPxClientLayoutItem;
-    GetEditFormLayoutItemOrGroup(name: string): ASPxClientLayoutItem;
-}
-/**
  * Represents a client-side equivalent of the BootstrapCheckBox control.
  */
 declare class BootstrapClientCheckBox extends ASPxClientEdit {
@@ -32920,325 +33451,6 @@ declare class BootstrapClientDateEdit extends ASPxClientDateEdit {
     GetRangeLength(): number;
 }
 /**
- * Represents a client-side equivalent of the BootstrapChartBase class.
- */
-declare class BootstrapClientChartBase extends BootstrapUIWidgetBase {
-    /**
-     * Fires when the Series and Points chart elements are ready to be accessed.
-     */
-    Done: ASPxClientEvent<BootstrapClientChartBaseDoneEventHandler<BootstrapClientChartBase>>;
-    /**
-     * Fires when an item on the chart legend is clicked.
-     */
-    LegendClick: ASPxClientEvent<BootstrapClientChartBaseLegendClickEventHandler<BootstrapClientChartBase>>;
-    /**
-     * Fires when a user clicks a series point.
-     */
-    PointClick: ASPxClientEvent<BootstrapClientChartBasePointClickEventHandler<BootstrapClientChartBase>>;
-    /**
-     * Fires when the hover state of a series point has been changed.
-     */
-    PointHoverChanged: ASPxClientEvent<BootstrapClientChartBasePointHoverChangedEventHandler<BootstrapClientChartBase>>;
-    /**
-     * Fires when the selection state of a series point has been changed.
-     */
-    PointSelectionChanged: ASPxClientEvent<BootstrapClientChartBasePointSelectionChangedEventHandler<BootstrapClientChartBase>>;
-    /**
-     * Fires when a point's tooltip becomes hidden.
-     */
-    TooltipHidden: ASPxClientEvent<BootstrapClientChartBaseTooltipHiddenEventHandler<BootstrapClientChartBase>>;
-    /**
-     * Fires when a point's tooltip appears.
-     */
-    TooltipShown: ASPxClientEvent<BootstrapClientChartBaseTooltipShownEventHandler<BootstrapClientChartBase>>;
-    /**
-     * Fires when a user clicks a label on the argument axis.
-     */
-    ArgumentAxisClick: ASPxClientEvent<BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<BootstrapClientChartBase>>;
-    /**
-     * Fires when a user clicks a series.
-     */
-    SeriesClick: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesClickEventHandler<BootstrapClientChartBase>>;
-    /**
-     * Fires when the hover state of a series has been changed.
-     */
-    SeriesHoverChanged: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<BootstrapClientChartBase>>;
-    /**
-     * Fires when the selection state of a series has been changed.
-     */
-    SeriesSelectionChanged: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<BootstrapClientChartBase>>;
-}
-/**
- * Represents a client-side equivalent of the Chart control.
- */
-declare class BootstrapClientChart extends BootstrapClientChartBase {
-    /**
-     * Fires when a chart zooming or scrolling begins.
-     */
-    ZoomStart: ASPxClientEvent<BootstrapClientChartZoomStartEventHandler<BootstrapClientChart>>;
-    /**
-     * Fires when a chart zooming or scrolling ends.
-     */
-    ZoomEnd: ASPxClientEvent<BootstrapClientChartZoomEndEventHandler<BootstrapClientChart>>;
-}
-/**
- * Represents a client-side equivalent of the BootstrapPolarChart control.
- */
-declare class BootstrapClientPolarChart extends BootstrapClientChartBase {
-}
-/**
- * Represents a client-side equivalent of the BootstrapPieChart control.
- */
-declare class BootstrapClientPieChart extends BootstrapClientChartBase {
-}
-/**
- * A method that will handle the BootstrapClientChartBase.Done event.
- * @param source The event source.
- * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
- */
-interface BootstrapClientChartBaseDoneEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapClientChartBase.LegendClick event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapClientChartBaseLegendClickEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the Invoke event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapClientChartBase.PointClick event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapClientChartBasePointClickEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapClientChartBase.PointHoverChanged event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapClientChartBasePointHoverChangedEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapClientChartBase.PointSelectionChanged event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapClientChartBasePointSelectionChangedEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapClientChartBase.TooltipHidden event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapClientChartBaseTooltipHiddenEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapClientChartBase.TooltipShown event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapClientChartBaseTooltipShownEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapClientChartBase.SeriesClick event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapClientCoordinateSystemChartSeriesClickEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapClientChartBase.SeriesHoverChanged event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapClientChartBase.SeriesSelectionChanged event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapClientChart.ZoomStart event.
- * @param source The event source.
- * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
- */
-interface BootstrapClientChartZoomStartEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapClientChart.ZoomEnd event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapClientChartZoomEndEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * Represents a client-side equivalent of the BootstrapRangeSelector control.
- */
-declare class BootstrapClientRangeSelector extends BootstrapUIWidgetBase {
-    /**
-     * Fires after the selected range has been changed by moving one of the sliders.
-     */
-    ValueChanged: ASPxClientEvent<BootstrapClientRangeSelectorValueChangedEventHandler<BootstrapClientRangeSelector>>;
-    /**
-     * Gets the Range Selector's selected value range.
-     */
-    GetValue(): any[];
-    /**
-     * Gets the Range Selector's selected value range.
-     * @param value An array containing the value range.
-     */
-    SetValue(value: any[]): void;
-}
-/**
- * A method that will handle the BootstrapClientRangeSelector.ValueChanged event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapClientRangeSelectorValueChangedEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * Represents a client-side equivalent of the BootstrapSparkline control.
- */
-declare class BootstrapClientSparkline extends BootstrapUIWidgetBase {
-    TooltipHidden: ASPxClientEvent<BootstrapClientSparklineTooltipHiddenEventHandler<BootstrapClientSparkline>>;
-    TooltipShown: ASPxClientEvent<BootstrapClientSparklineTooltipShownEventHandler<BootstrapClientSparkline>>;
-    ExportTo(fileName: string, format: string): void;
-    Print(): void;
-}
-interface BootstrapClientSparklineTooltipHiddenEventHandler<Sender> { (source: Sender, e: any): void; }
-interface BootstrapClientSparklineTooltipShownEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * Represents a client-side equivalent of the BootstrapWebClientUIWidget class.
- */
-declare class BootstrapUIWidgetBase extends ASPxClientControl {
-    /**
-     * Fires once, after the widget is initialized.
-     */
-    Init: ASPxClientEvent<BootstrapUIWidgetInitializedEventHandler<BootstrapUIWidgetBase>>;
-    /**
-     * Fires when the widget has finished drawing itself.
-     */
-    Drawn: ASPxClientEvent<BootstrapUIWidgetDrawnEventHandler<BootstrapUIWidgetBase>>;
-    /**
-     * Fires when the widget is removed from the DOM using the remove(), empty(), or html() jQuery methods only.
-     */
-    Disposing: ASPxClientEvent<BootstrapUIWidgetDisposingEventHandler<BootstrapUIWidgetBase>>;
-    /**
-     * Fires after an option of the widget has been changed.
-     */
-    OptionChanged: ASPxClientEvent<BootstrapUIWidgetOptionChangedEventHandler<BootstrapUIWidgetBase>>;
-    /**
-     * Fires before data from the widget is exported.
-     */
-    Exporting: ASPxClientEvent<BootstrapUIWidgetExportingEventHandler<BootstrapUIWidgetBase>>;
-    /**
-     * Fires after data from the widget is exported.
-     */
-    Exported: ASPxClientEvent<BootstrapUIWidgetExportedEventHandler<BootstrapUIWidgetBase>>;
-    /**
-     * Raised before a file with exported data is saved on the user's local storage.
-     */
-    FileSaving: ASPxClientEvent<BootstrapUIWidgetFileSavingEventHandler<BootstrapUIWidgetBase>>;
-    /**
-     * Fires when an error or warning appears in the widget.
-     */
-    IncidentOccurred: ASPxClientEvent<BootstrapUIWidgetErrorEventHandler<BootstrapUIWidgetBase>>;
-    SetEnabled(enabled: boolean): void;
-    GetEnabled(): boolean;
-    /**
-     * Gets an instance of the widget.
-     */
-    GetInstance(): any;
-    /**
-     * Sets the widget's options to values specified in the passed object.
-     * @param options An object containing key-value pairs specifying new option values.
-     */
-    SetOptions(options: any): void;
-    /**
-     * Sets the client data source instance.
-     * @param dataSource A DevExtreme DataSource object.
-     */
-    SetDataSource(dataSource: any): void;
-    /**
-     * Gets the client data source instance.
-     */
-    GetDataSource(): any;
-    /**
-     * Exports the widget.
-     * @param format A string specifying the target file format.
-     * @param fileName A string specifying the file name.
-     */
-    ExportTo(format: string, fileName: string): void;
-    /**
-     * Invokes the browser's Print window to print the widget's contents.
-     */
-    Print(): void;
-}
-/**
- * A method that will handle the BootstrapUIWidgetBase.Init event.
- * @param source The event source.
- * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
- */
-interface BootstrapUIWidgetInitializedEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapUIWidgetBase.Drawn event.
- * @param source The event source.
- * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
- */
-interface BootstrapUIWidgetDrawnEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapUIWidgetBase.Disposing event.
- * @param source The event source.
- * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
- */
-interface BootstrapUIWidgetDisposingEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapUIWidgetBase.Exported event.
- * @param source The event source.
- * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
- */
-interface BootstrapUIWidgetExportedEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * Provides base data for the client-side events.
- */
-declare class BootstrapUIWidgetEventArgsBase extends ASPxClientEventArgs {
-    /**
-     * Initializes a new instance of the BootstrapUIWidgetEventArgsBase class with the specified widget and its container.
-     * @param component The widget instance.
-     * @param element The widget's container.
-     */
-    constructor(component: any, element: any);
-    /**
-     * The widget instance.
-     */
-    component: any;
-    /**
-     * The widget's container.
-     */
-    element: any;
-}
-/**
- * A method that will handle the BootstrapUIWidgetBase.Exporting event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapUIWidgetExportingEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapUIWidgetBase.FileSaving event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapUIWidgetFileSavingEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapUIWidgetBase.OptionChanged event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapUIWidgetOptionChangedEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
- * A method that will handle the BootstrapUIWidgetBase.IncidentOccurred event.
- * @param source The event source.
- * @param e An object that contains event data.
- */
-interface BootstrapUIWidgetErrorEventHandler<Sender> { (source: Sender, e: any): void; }
-/**
  * Represents a client-side equivalent of the BootstrapDropDownEdit control.
  */
 declare class BootstrapClientDropDownEdit extends ASPxClientDropDownEdit {
@@ -33295,12 +33507,6 @@ declare class BootstrapClientFloatingActionButtonContextChangingEventArgs extend
  * Represents a client-side equivalent of the BootstrapFormLayout control.
  */
 declare class BootstrapClientFormLayout extends ASPxClientFormLayout {
-}
-/**
- * Represents the client BootstrapGridView.
- */
-declare class BootstrapClientGridView extends ASPxClientGridView {
-    GetEditFormLayout(): BootstrapClientFormLayout;
 }
 /**
  * Represents a client-side equivalent of the BootstrapHyperLink control.
@@ -33657,13 +33863,6 @@ declare class BootstrapClientRibbon extends ASPxClientRibbon {
 declare class BootstrapClientRichEdit extends ASPxClientRichEdit {
 }
 /**
- * Represents a client-side equivalent of the BootstrapScheduler control.
- */
-declare class BootstrapClientScheduler extends ASPxClientScheduler {
-    GetFloatingActionButton(): BootstrapClientFloatingActionButton;
-    static Cast(obj: any): ASPxClientScheduler;
-}
-/**
  * Represents a client-side equivalent of the BootstrapSpinEdit control.
  */
 declare class BootstrapClientSpinEdit extends ASPxClientSpinEdit {
@@ -33672,15 +33871,6 @@ declare class BootstrapClientSpinEdit extends ASPxClientSpinEdit {
  * Represents the client-side equivalent of the BootstrapClientTimeEdit control.
  */
 declare class BootstrapClientTimeEdit extends ASPxClientTimeEdit {
-}
-/**
- * Represents a client-side equivalent of the BootstrapSpreadsheet control.
- */
-declare class BootstrapClientSpreadsheet extends ASPxClientSpreadsheet {
-}
-declare class BootstrapClientTabControlWithClientTabAPI extends BootstrapClientTabControl {
-}
-declare class BootstrapClientSpreadsheetTabControl extends BootstrapClientTabControlWithClientTabAPI {
 }
 /**
  * Represents a client-side equivalent of the BootstrapTabControl control.
@@ -33992,7 +34182,8 @@ declare class BootstrapClientTagBox extends ASPxClientTokenBox {
      */
     GetSelectedItem(): BootstrapClientListBoxItem;
     /**
-     * This member is not in effect for this class. It is overridden only for the purpose of preventing it from appearing in Microsoft Visual Studio designer tools.
+     * Sets the list editor's selected item.
+     * @param item A BootstrapClientListBoxItem object that specifies the item to select.
      */
     SetSelectedItem(item: BootstrapClientListBoxItem): void;
     /**
@@ -34011,7 +34202,10 @@ declare class BootstrapClientTagBox extends ASPxClientTokenBox {
      */
     FindItemByValue(value: any): BootstrapClientListBoxItem;
     /**
-     * This method is not in effect for the BootstrapClientTagBox class.
+     * Adds a new item to the editor, specifying the item's display text, associated value and displayed image, and returns the index of the added item. An integer value representing the position to which the new item was added.
+     * @param texts The item's display text(s).
+     * @param value An object that represents the item's associated value.
+     * @param iconCssClass A String value specifying the CSS class of the image displayed by the list item.
      */
     AddItem(texts: string[] | string, value?: any, iconCssClass?: string): number;
     /**
@@ -34267,6 +34461,1244 @@ declare class BootstrapClientUploadControl extends ASPxClientUploadControl {
  */
 declare class BootstrapClientUtils {
     static UpdateDefaultStyles(): void;
+}
+/**
+ * Represents the client BootstrapCardView.
+ */
+declare class BootstrapClientCardView extends ASPxClientCardView {
+    GetEditFormLayout(): ASPxClientFormLayout;
+    GetEditFormLayoutItemByColumn(column: ASPxClientCardViewColumn | number | string): ASPxClientLayoutItem;
+    GetEditFormLayoutItemOrGroup(name: string): ASPxClientLayoutItem;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapChartBase class.
+ */
+declare class BootstrapClientChartBase extends BootstrapUIWidgetBase {
+    /**
+     * Fires when the Series and Points chart elements are ready to be accessed.
+     */
+    Done: ASPxClientEvent<BootstrapClientChartBaseDoneEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when an item on the chart legend is clicked.
+     */
+    LegendClick: ASPxClientEvent<BootstrapClientChartBaseLegendClickEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when a user clicks a series point.
+     */
+    PointClick: ASPxClientEvent<BootstrapClientChartBasePointClickEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when the hover state of a series point has been changed.
+     */
+    PointHoverChanged: ASPxClientEvent<BootstrapClientChartBasePointHoverChangedEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when the selection state of a series point has been changed.
+     */
+    PointSelectionChanged: ASPxClientEvent<BootstrapClientChartBasePointSelectionChangedEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when a point's tooltip becomes hidden.
+     */
+    TooltipHidden: ASPxClientEvent<BootstrapClientChartBaseTooltipHiddenEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when a point's tooltip appears.
+     */
+    TooltipShown: ASPxClientEvent<BootstrapClientChartBaseTooltipShownEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when a user clicks a label on the argument axis.
+     */
+    ArgumentAxisClick: ASPxClientEvent<BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when a user clicks a series.
+     */
+    SeriesClick: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesClickEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when the hover state of a series has been changed.
+     */
+    SeriesHoverChanged: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<BootstrapClientChartBase>>;
+    /**
+     * Fires when the selection state of a series has been changed.
+     */
+    SeriesSelectionChanged: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<BootstrapClientChartBase>>;
+}
+/**
+ * Represents a client-side equivalent of the Chart control.
+ */
+declare class BootstrapClientChart extends BootstrapClientChartBase {
+    /**
+     * Fires when a chart zooming or scrolling begins.
+     */
+    ZoomStart: ASPxClientEvent<BootstrapClientChartZoomStartEventHandler<BootstrapClientChart>>;
+    /**
+     * Fires when a chart zooming or scrolling ends.
+     */
+    ZoomEnd: ASPxClientEvent<BootstrapClientChartZoomEndEventHandler<BootstrapClientChart>>;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapPolarChart control.
+ */
+declare class BootstrapClientPolarChart extends BootstrapClientChartBase {
+}
+/**
+ * Represents a client-side equivalent of the BootstrapPieChart control.
+ */
+declare class BootstrapClientPieChart extends BootstrapClientChartBase {
+}
+/**
+ * A method that will handle the BootstrapClientChartBase.Done event.
+ * @param source The event source.
+ * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
+ */
+interface BootstrapClientChartBaseDoneEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapClientChartBase.LegendClick event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapClientChartBaseLegendClickEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the Invoke event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapClientChartBase.PointClick event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapClientChartBasePointClickEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapClientChartBase.PointHoverChanged event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapClientChartBasePointHoverChangedEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapClientChartBase.PointSelectionChanged event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapClientChartBasePointSelectionChangedEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapClientChartBase.TooltipHidden event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapClientChartBaseTooltipHiddenEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapClientChartBase.TooltipShown event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapClientChartBaseTooltipShownEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapClientChartBase.SeriesClick event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapClientCoordinateSystemChartSeriesClickEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapClientChartBase.SeriesHoverChanged event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapClientChartBase.SeriesSelectionChanged event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapClientChart.ZoomStart event.
+ * @param source The event source.
+ * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
+ */
+interface BootstrapClientChartZoomStartEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapClientChart.ZoomEnd event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapClientChartZoomEndEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * Represents a client-side equivalent of the BootstrapRangeSelector control.
+ */
+declare class BootstrapClientRangeSelector extends BootstrapUIWidgetBase {
+    /**
+     * Fires after the selected range has been changed by moving one of the sliders.
+     */
+    ValueChanged: ASPxClientEvent<BootstrapClientRangeSelectorValueChangedEventHandler<BootstrapClientRangeSelector>>;
+    /**
+     * Gets the Range Selector's selected value range.
+     */
+    GetValue(): any[];
+    /**
+     * Gets the Range Selector's selected value range.
+     * @param value An array containing the value range.
+     */
+    SetValue(value: any[]): void;
+}
+/**
+ * A method that will handle the BootstrapClientRangeSelector.ValueChanged event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapClientRangeSelectorValueChangedEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * Represents a client-side equivalent of the BootstrapSparkline control.
+ */
+declare class BootstrapClientSparkline extends BootstrapUIWidgetBase {
+    TooltipHidden: ASPxClientEvent<BootstrapClientSparklineTooltipHiddenEventHandler<BootstrapClientSparkline>>;
+    TooltipShown: ASPxClientEvent<BootstrapClientSparklineTooltipShownEventHandler<BootstrapClientSparkline>>;
+    ExportTo(fileName: string, format: string): void;
+    Print(): void;
+}
+interface BootstrapClientSparklineTooltipHiddenEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientSparklineTooltipShownEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * Represents a client-side equivalent of the BootstrapWebClientUIWidget class.
+ */
+declare class BootstrapUIWidgetBase extends ASPxClientControl {
+    /**
+     * Fires once, after the widget is initialized.
+     */
+    Init: ASPxClientEvent<BootstrapUIWidgetInitializedEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Fires when the widget has finished drawing itself.
+     */
+    Drawn: ASPxClientEvent<BootstrapUIWidgetDrawnEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Fires when the widget is removed from the DOM using the remove(), empty(), or html() jQuery methods only.
+     */
+    Disposing: ASPxClientEvent<BootstrapUIWidgetDisposingEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Fires after an option of the widget has been changed.
+     */
+    OptionChanged: ASPxClientEvent<BootstrapUIWidgetOptionChangedEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Fires before data from the widget is exported.
+     */
+    Exporting: ASPxClientEvent<BootstrapUIWidgetExportingEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Fires after data from the widget is exported.
+     */
+    Exported: ASPxClientEvent<BootstrapUIWidgetExportedEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Raised before a file with exported data is saved on the user's local storage.
+     */
+    FileSaving: ASPxClientEvent<BootstrapUIWidgetFileSavingEventHandler<BootstrapUIWidgetBase>>;
+    /**
+     * Fires when an error or warning appears in the widget.
+     */
+    IncidentOccurred: ASPxClientEvent<BootstrapUIWidgetErrorEventHandler<BootstrapUIWidgetBase>>;
+    SetEnabled(enabled: boolean): void;
+    GetEnabled(): boolean;
+    /**
+     * Gets an instance of the widget.
+     */
+    GetInstance(): any;
+    /**
+     * Sets the widget's options to values specified in the passed object.
+     * @param options An object containing key-value pairs specifying new option values.
+     */
+    SetOptions(options: any): void;
+    /**
+     * Sets the client data source instance.
+     * @param dataSource A DevExtreme DataSource object.
+     */
+    SetDataSource(dataSource: any): void;
+    /**
+     * Gets the client data source instance.
+     */
+    GetDataSource(): any;
+    /**
+     * Exports the widget.
+     * @param format A string specifying the target file format.
+     * @param fileName A string specifying the file name.
+     */
+    ExportTo(format: string, fileName: string): void;
+    /**
+     * Invokes the browser's Print window to print the widget's contents.
+     */
+    Print(): void;
+}
+/**
+ * A method that will handle the BootstrapUIWidgetBase.Init event.
+ * @param source The event source.
+ * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
+ */
+interface BootstrapUIWidgetInitializedEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapUIWidgetBase.Drawn event.
+ * @param source The event source.
+ * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
+ */
+interface BootstrapUIWidgetDrawnEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapUIWidgetBase.Disposing event.
+ * @param source The event source.
+ * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
+ */
+interface BootstrapUIWidgetDisposingEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapUIWidgetBase.Exported event.
+ * @param source The event source.
+ * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
+ */
+interface BootstrapUIWidgetExportedEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * Provides base data for the client-side events.
+ */
+declare class BootstrapUIWidgetEventArgsBase extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the BootstrapUIWidgetEventArgsBase class with the specified widget and its container.
+     * @param component The widget instance.
+     * @param element The widget's container.
+     */
+    constructor(component: any, element: any);
+    /**
+     * The widget instance.
+     */
+    component: any;
+    /**
+     * The widget's container.
+     */
+    element: any;
+}
+/**
+ * A method that will handle the BootstrapUIWidgetBase.Exporting event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapUIWidgetExportingEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapUIWidgetBase.FileSaving event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapUIWidgetFileSavingEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapUIWidgetBase.OptionChanged event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapUIWidgetOptionChangedEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * A method that will handle the BootstrapUIWidgetBase.IncidentOccurred event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface BootstrapUIWidgetErrorEventHandler<Sender> { (source: Sender, e: any): void; }
+/**
+ * Represents the client BootstrapGridView.
+ */
+declare class BootstrapClientGridView extends ASPxClientGridView {
+    GetEditFormLayout(): BootstrapClientFormLayout;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapScheduler control.
+ */
+declare class BootstrapClientScheduler extends ASPxClientScheduler {
+    GetFloatingActionButton(): BootstrapClientFloatingActionButton;
+    static Cast(obj: any): ASPxClientScheduler;
+}
+/**
+ * Represents a client-side equivalent of the BootstrapSpreadsheet control.
+ */
+declare class BootstrapClientSpreadsheet extends ASPxClientSpreadsheet {
+}
+declare class BootstrapClientTabControlWithClientTabAPI extends BootstrapClientTabControl {
+}
+declare class BootstrapClientSpreadsheetTabControl extends BootstrapClientTabControlWithClientTabAPI {
+}
+
+/**
+ * The client-side equivalent of the BinaryImageEditExtension.
+ */
+declare class MVCxClientBinaryImage extends ASPxClientBinaryImage {
+    /**
+     * Occurs when you initiate a callback to the server.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientBinaryImage>>;
+    /**
+     * Sends a callback with parameters to update the Binary Image.
+     * @param data Information that is passed to the server.
+     * @param onSuccess A client action that is performed if a callback is completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientBinaryImage type. The converted object.
+     * @param obj The object.
+     */
+    static Cast(obj: any): MVCxClientBinaryImage;
+}
+/**
+ * A client-side counterpart of the Calendar and CalendarFor extensions.
+ */
+declare class MVCxClientCalendar extends ASPxClientCalendar {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientCalendar>>;
+    /**
+     * Converts the specified object to the MVCxClientCalendar type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientCalendar;
+}
+/**
+ * A client-side counterpart of the CallbackPanel extension.
+ */
+declare class MVCxClientCallbackPanel extends ASPxClientCallbackPanel {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientCallbackPanel>>;
+    /**
+     * Sends a callback with a parameter to update the Callback Panel by processing the passed information on the server, in an Action specified by the Callback Panel's CallbackPanelSettings.CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackPanelSettings.CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientCallbackPanel type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientCallbackPanel;
+}
+/**
+ * A client-side counterpart of the CardView extension.
+ */
+declare class MVCxClientCardView extends ASPxClientCardView {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientCardView>>;
+    /**
+     * Sends a callback with a parameter to update the CardView by processing the passed information on the server, in an Action specified via the CardView's GridSettingsBase.CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the CardView's GridSettingsBase.CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the CardView's GridSettingsBase.CustomDataActionRouteValues property, and then process the returned result in the specified client function. This method does not update the CardView.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the GridSettingsBase.CustomDataActionRouteValues property.
+     * @param onCallback A ASPxClientCardViewValuesCallback object that represents the JavaScript function which receives the information on the client side.
+     */
+    GetValuesOnCustomCallback(data: any, onCallback: ASPxClientCardViewValuesCallback): void;
+    /**
+     * Converts the specified object to the MVCxClientCardView type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientCardView;
+}
+/**
+ * A client-side counterpart of the Chart extension.
+ */
+declare class MVCxClientChart extends ASPxClientWebChartControl {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientChart>>;
+    /**
+     * Sends a callback with a parameter to update a Chart by processing the passed information on the server, in an Action specified via the Chart's ChartControlSettings.CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the ChartControlSettings.CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientChart type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientChart;
+}
+/**
+ * A client-side counterpart of the ComboBox and ComboBoxFor extensions.
+ */
+declare class MVCxClientComboBox extends ASPxClientComboBox {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientComboBox>>;
+    /**
+     * Sends a callback with a parameter to update the ComboBox by processing the passed information on the server, in an Action specified by the ComboBox's AutoCompleteBoxBaseSettings.CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the AutoCompleteBoxBaseSettings.CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientComboBox type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientComboBox;
+}
+/**
+ * A client-side counterpart of the DataView extension.
+ */
+declare class MVCxClientDataView extends ASPxClientDataView {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientDataView>>;
+    /**
+     * Sends a callback with a parameter to update the DataView by processing the passed information on the server, in an Action specified via the DataView's DataViewSettings.CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the DataViewSettings.CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientDataView type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientDataView;
+}
+/**
+ * A client-side counterpart of the DateEdit extension.
+ */
+declare class MVCxClientDateEdit extends ASPxClientDateEdit {
+    /**
+     * Converts the specified object to the MVCxClientDateEdit type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientDateEdit;
+}
+/**
+ * A client-side counterpart of the Diagram extension.
+ */
+declare class MVCxClientDiagram extends ASPxClientDiagram {
+    /**
+     * Converts the specified object to the MVCxClientDiagram type. The converted client object.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientDiagram;
+}
+/**
+ * A client-side counterpart of the DockManager extension.
+ */
+declare class MVCxClientDockManager extends ASPxClientDockManager {
+    /**
+     * Sends a callback with a parameter to update the DockManager by processing the passed information on the server, in an Action specified by the DockManager's DockManagerSettings.CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the DockManagerSettings.CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientDockManager type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientDockManager;
+}
+/**
+ * A client-side counterpart of the DockPanel extension.
+ */
+declare class MVCxClientDockPanel extends ASPxClientDockPanel {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientDockPanel>>;
+    /**
+     * Sends a callback with a parameter to update the DockPanel by processing the passed information on the server, in an Action specified by the DockPanel's PopupControlSettingsBase.CallbackRouteValues (via the DockPanelSettings.CallbackRouteValues) property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the PopupControlSettingsBase.CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientDockPanel type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientDockPanel;
+}
+/**
+ * A client-side counterpart of the FileManager extension.
+ */
+declare class MVCxClientFileManager extends ASPxClientFileManager {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientFileManager>>;
+    /**
+     * Sends a callback to the server and generates the server-side ASPxFileManager.CustomCallback event, passing it the specified argument.
+     * @param data A string value that specifies any information that needs to be sent to the server-side ASPxFileManager.CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientFileManager type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientFileManager;
+}
+/**
+ * A client-side counterpart of the FilterControl extension.
+ */
+declare class MVCxClientFilterControl extends ASPxClientFilterControl {
+    /**
+     * Returns the filter control's state.
+     * @param obj An object that receives a filter control's callback parameters.
+     */
+    FillStateObject(obj: any): void;
+    /**
+     * Converts the specified object to the MVCxClientFilterControl type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientFilterControl;
+}
+/**
+ * A client-side counterpart of the Gantt extension.
+ */
+declare class MVCxClientGantt extends ASPxClientGantt {
+    /**
+     * Converts the specified object to the MVCxClientGantt type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientGantt;
+}
+/**
+ * A client-side counterpart of the GridView extension.
+ */
+declare class MVCxClientGridView extends ASPxClientGridView {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientGridView>>;
+    /**
+     * Sends a callback with a parameter to update the GridView by processing the passed information on the server, in an Action specified via the grid's GridSettingsBase.CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the grid's GridSettingsBase.CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the GridView's GridSettingsBase.CustomDataActionRouteValues property, and then process the returned result in the specified client function. This method does not update the GridView.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the GridSettingsBase.CustomDataActionRouteValues property.
+     * @param onCallback A ASPxClientGridViewValuesCallback object that represents the JavaScript function which receives the information on the client side.
+     */
+    GetValuesOnCustomCallback(data: any, onCallback: ASPxClientGridViewValuesCallback): void;
+    /**
+     * Converts the specified object to the MVCxClientGridView type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientGridView;
+}
+/**
+ * A client-side counterpart of the HtmlEditor extension.
+ */
+declare class MVCxClientHtmlEditor extends ASPxClientHtmlEditor {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientHtmlEditor>>;
+    /**
+     * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the HtmlEditor's HtmlEditorSettings.CustomDataActionRouteValues property, and then return the processing result to the ASPxClientHtmlEditor.CustomDataCallback event on the client. This method does not update the HtmlEditor.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the HtmlEditorSettings.CustomDataActionRouteValues property.
+     * @param onCallback An ASPxClientDataCallback object that is the JavaScript function which receives the callback data as a parameter.
+     */
+    PerformDataCallback(data: any, onCallback?: ASPxClientDataCallback): void;
+    /**
+     * Converts the specified object to the MVCxClientHtmlEditor type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientHtmlEditor;
+}
+/**
+ * A client-side counterpart of the ImageGallery extension.
+ */
+declare class MVCxClientImageGallery extends ASPxClientImageGallery {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientImageGallery>>;
+    /**
+     * Sends a callback with a parameter to update the ImageGallery by processing the passed information on the server, in an Action specified via the ImageGallery's ImageGallerySettings.CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the ImageGallerySettings.CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientImageGallery type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientImageGallery;
+}
+/**
+ * A client-side counterpart of the ListBox and ListBoxFor extensions.
+ */
+declare class MVCxClientListBox extends ASPxClientListBox {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientListBox>>;
+    /**
+     * Sends a callback with a parameter to update the ListBox by processing the passed information on the server, in an Action specified by the ListBox's ListBoxSettings.CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the ListBoxSettings.CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientListBox type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientListBox;
+}
+/**
+ * A client-side counterpart of the NavBar extension.
+ */
+declare class MVCxClientNavBar extends ASPxClientNavBar {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientNavBar>>;
+    /**
+     * Converts the specified object to the MVCxClientNavBar type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientNavBar;
+}
+/**
+ * A client-side counterpart of the PivotGrid extension.
+ */
+declare class MVCxClientPivotGrid extends ASPxClientPivotGrid {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientPivotGrid>>;
+    /**
+     * Sends a callback with a parameter to update the PivotGrid by processing the passed information on the server, in an Action specified via the grid's PivotGridSettings.CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the grid's PivotGridSettings.CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Passes PivotGrid callback parameters to the specified object.
+     * @param obj An object that receives PivotGrid callback parameters.
+     */
+    FillStateObject(obj: any): void;
+    /**
+     * Converts the specified object to the MVCxClientPivotGrid type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientPivotGrid;
+}
+/**
+ * A client-side counterpart of the PopupControl extension.
+ */
+declare class MVCxClientPopupControl extends ASPxClientPopupControl {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientPopupControl>>;
+    /**
+     * Sends a callback with a parameter to update the PopupControl by processing the passed information on the server, in an Action specified via the PopupControl's PopupControlSettingsBase.CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the PopupControlSettingsBase.CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Sends a callback with a parameters to update the popup window by processing the related popup window and the passed information on the server, in an Action specified by the PopupControl's PopupControlSettingsBase.CallbackRouteValues property.
+     * @param window A ASPxClientPopupWindow object identifying the processed popup window.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the PopupControlSettingsBase.CallbackRouteValues property.
+     */
+    PerformWindowCallback(window: ASPxClientPopupWindow, data: any): void;
+    /**
+     * Converts the specified object to the MVCxClientPopupControl type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientPopupControl;
+}
+/**
+ * A client-side counterpart of the Query Builder extension.
+ */
+declare class MVCxClientQueryBuilder extends ASPxClientQueryBuilder {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientQueryBuilder>>;
+    /**
+     * Occurs after executing the Save command on the client.
+     */
+    SaveCommandExecuted: ASPxClientEvent<MVCxClientQueryBuilderSaveCommandExecutedEventHandler<MVCxClientQueryBuilder>>;
+    /**
+     * Sends a callback to the server and generates the server-side event passing it the specified argument.
+     * @param arg A string value that represents any information that needs to be sent to the server-side event.
+     */
+    PerformCallback(arg: any): void;
+}
+/**
+ * A method that will handle the MVCxClientQueryBuilder.SaveCommandExecuted event.
+ * @param source An object which is the event source. Identifies the client object that raised the event.
+ * @param e A MVCxClientQueryBuilderSaveCommandExecutedEventArgs object that contains event data.
+ */
+interface MVCxClientQueryBuilderSaveCommandExecutedEventHandler<Sender> { (source: Sender, e: MVCxClientQueryBuilderSaveCommandExecutedEventArgs): void; }
+/**
+ * Provides data for the MVCxClientQueryBuilder.SaveCommandExecuted event.
+ */
+declare class MVCxClientQueryBuilderSaveCommandExecutedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the MVCxClientQueryBuilderSaveCommandExecutedEventArgs class with the specified settings.
+     * @param result An object that specifies the Save command execution result.
+     */
+    constructor(result: string);
+    /**
+     * Specifies the Save command execution result.
+     */
+    Result: string;
+}
+/**
+ * A client-side equivalent of the MVCxDocumentViewer class.
+ */
+declare class MVCxClientDocumentViewer extends ASPxClientDocumentViewer {
+    /**
+     * Occurs before performing a document export request.
+     */
+    BeforeExportRequest: ASPxClientEvent<MVCxClientBeforeExportRequestEventHandler<MVCxClientDocumentViewer>>;
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientDocumentViewer>>;
+}
+/**
+ * Obsolete. Use the MVCxClientDocumentViewer class instead.
+ */
+declare class MVCxClientReportViewer extends ASPxClientReportViewer {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientReportViewer>>;
+    /**
+     * Occurs before performing a document export request.
+     */
+    BeforeExportRequest: ASPxClientEvent<MVCxClientBeforeExportRequestEventHandler<MVCxClientReportViewer>>;
+}
+/**
+ * A method that will handle the MVCxClientReportViewer.BeforeExportRequest event.
+ * @param source An object which is the event source. Identifies the client object that raised the event.
+ * @param e A MVCxClientBeforeExportRequestEventArgs object that contains event data.
+ */
+interface MVCxClientBeforeExportRequestEventHandler<Sender> { (source: Sender, e: MVCxClientBeforeExportRequestEventArgs): void; }
+/**
+ * Provides data for client BeforeExportRequest events.
+ */
+declare class MVCxClientBeforeExportRequestEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the MVCxClientBeforeExportRequestEventArgs class with default settings.
+     */
+    constructor();
+    /**
+     * Gets an object containing specific information (if any, as name/value pairs) that should be passed as a request parameter from the client to the server side for further processing.
+     */
+    customArgs: any;
+}
+/**
+ * A client-side equivalent of the MVCxReportDesigner class.
+ */
+declare class MVCxClientReportDesigner extends ASPxClientReportDesigner {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientReportDesigner>>;
+    /**
+     * Occurs after executing the Save command on the client.
+     */
+    SaveCommandExecuted: ASPxClientEvent<MVCxClientReportDesignerSaveCommandExecutedEventHandler<MVCxClientReportDesigner>>;
+    /**
+     * Sends a callback to the server and generates the server-side event, passing it the specified argument.
+     * @param arg A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(arg: any, onSuccess?: (arg: string) => void): void;
+}
+/**
+ * A method that will handle the MVCxReportDesignerClientSideEvents.SaveCommandExecuted event.
+ * @param source An object which is the event source. Identifies the client object that raised the event.
+ * @param e A MVCxClientBeforeExportRequestEventArgs object that contains event data.
+ */
+interface MVCxClientReportDesignerSaveCommandExecutedEventHandler<Sender> { (source: Sender, e: MVCxClientReportDesignerSaveCommandExecutedEventArgs): void; }
+/**
+ * Provides data for the MVCxClientReportDesigner.SaveCommandExecuted event.
+ */
+declare class MVCxClientReportDesignerSaveCommandExecutedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the MVCxClientReportDesignerSaveCommandExecutedEventArgs class with the specified settings.
+     * @param result A string value that represents the result of server-side processing.
+     */
+    constructor(result: string);
+    /**
+     * Returns the operation result.
+     */
+    Result: string;
+}
+/**
+ * A client-side counterpart of the RichEdit extension.
+ */
+declare class MVCxClientRichEdit extends ASPxClientRichEdit {
+    /**
+     * Sends a callback with a parameter to update the RichEdit by processing the passed information on the server, in an Action specified via the RichEditSettings.CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the RichEditSettings.CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientRichEdit type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientRichEdit;
+}
+/**
+ * A client-side counterpart of the RoundPanel extension.
+ */
+declare class MVCxClientRoundPanel extends ASPxClientRoundPanel {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientRoundPanel>>;
+    /**
+     * Sends a callback with a parameter to update the Round Panel by processing the passed information on the server, in an Action specified by the Round Panel's RoundPanelSettings.CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the RoundPanelSettings.CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientRoundPanel type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientRoundPanel;
+}
+/**
+ * A client-side counterpart of the Scheduler extension.
+ */
+declare class MVCxClientScheduler extends ASPxClientScheduler {
+    /**
+     * Occurs on the client side when the tooltip is about to be displayed.
+     */
+    ToolTipDisplaying: ASPxClientEvent<MVCxClientSchedulerToolTipDisplayingEventHandler<MVCxClientScheduler>>;
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientScheduler>>;
+    /**
+     * Sends a callback with a parameter to update the Scheduler by processing the passed information on the server, in an Action specified via the Scheduler's SchedulerSettings.CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the SchedulerSettings.CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientScheduler type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientScheduler;
+}
+/**
+ * A template that is rendered to display a tooltip.
+ */
+declare class MVCxClientSchedulerTemplateToolTip extends ASPxClientToolTipBase {
+    /**
+     * Gets the tooltip type.
+     */
+    type: MVCxSchedulerToolTipType;
+}
+/**
+ * A method that will handle the MVCxSchedulerClientSideEvents.ToolTipDisplaying event.
+ * @param source An object which is the event source. Identifies the client object that raised the event.
+ * @param e A MVCxClientSchedulerToolTipDisplayingEventArgs object that contains the related arguments.
+ */
+interface MVCxClientSchedulerToolTipDisplayingEventHandler<Sender> { (source: Sender, e: MVCxClientSchedulerToolTipDisplayingEventArgs): void; }
+/**
+ * Provides data for the MVCxClientScheduler.ToolTipDisplaying event.
+ */
+declare class MVCxClientSchedulerToolTipDisplayingEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes new instance of the MVCxClientSchedulerToolTipDisplayingEventArgs class with the specified settings.
+     * @param toolTip A MVCxClientSchedulerTemplateToolTip object that is a tooltip.
+     * @param data An ASPxClientSchedulerToolTipData object that is the tooltip data.
+     */
+    constructor(toolTip: MVCxClientSchedulerTemplateToolTip, data: ASPxClientSchedulerToolTipData);
+    /**
+     * Gets the tooltip related to the event.
+     */
+    toolTip: MVCxClientSchedulerTemplateToolTip;
+    /**
+     * Gets information about the tooltip related to the event.
+     */
+    data: ASPxClientSchedulerToolTipData;
+}
+/**
+ * Lists available tooltip types.
+ */
+declare class MVCxSchedulerToolTipType {
+    /**
+     * The tooltip is displayed for a selected appointment.
+     */
+    static readonly Appointment: number;
+    /**
+     * The tooltip is displayed for a dragged appointment.
+     */
+    static readonly AppointmentDrag: number;
+    /**
+     * The tooltip is displayed for a selected time interval.
+     */
+    static readonly Selection: number;
+}
+/**
+ * A client-side counterpart of the Scheduler Storage Control extension.
+ */
+declare class MVCxClientSchedulerStorage extends ASPxClientSchedulerStorageControl {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientSchedulerStorage>>;
+    /**
+     * Converts the specified object to the MVCxClientSchedulerStorage type. SchedulerStorage
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientSchedulerStorage;
+}
+/**
+ * A client-side counterpart of the Spreadsheet extension.
+ */
+declare class MVCxClientSpreadsheet extends ASPxClientSpreadsheet {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientSpreadsheet>>;
+    /**
+     * Sends a callback with a parameter to update the Spreadsheet by processing the passed information on the server, in an Action specified via the SpreadsheetSettings.CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the SpreadsheetSettings.CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientSpreadsheet type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientSpreadsheet;
+}
+/**
+ * A client-side counterpart of the PageControl extension.
+ */
+declare class MVCxClientPageControl extends ASPxClientPageControl {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientPageControl>>;
+    /**
+     * Sends a callback with a parameter to update the PageControl by processing the passed information on the server, in an Action specified by the PageControl's PageControlSettings.CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the PageControlSettings.CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientPageControl type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientPageControl;
+}
+/**
+ * A client-side counterpart of the TokenBox and TokenBoxFor extensions.
+ */
+declare class MVCxClientTokenBox extends ASPxClientTokenBox {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientTokenBox>>;
+    /**
+     * Sends a callback with a parameter to update the TokenBox by processing the passed information on the server, in an Action specified by the TokenBox's AutoCompleteBoxBaseSettings.CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the AutoCompleteBoxBaseSettings.CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientTokenBox type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientTokenBox;
+}
+/**
+ * A client-side counterpart of the TreeList extension.
+ */
+declare class MVCxClientTreeList extends ASPxClientTreeList {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientTreeList>>;
+    /**
+     * Sends a callback with a parameter to update the TreeList by processing the passed information on the server, in an Action specified via the TreeList's TreeListSettings.CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the TreeListSettings.CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the TreeList's TreeListSettings.CustomDataActionRouteValues property, and then return the processing result to the client, to the ASPxClientTreeList.CustomDataCallback event. This method does not update the TreeList.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the TreeListSettings.CustomDataActionRouteValues property.
+     */
+    PerformCustomDataCallback(data: any): void;
+    /**
+     * Converts the specified object to the MVCxClientTreeList type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientTreeList;
+}
+/**
+ * A client-side counterpart of the TreeView extension.
+ */
+declare class MVCxClientTreeView extends ASPxClientTreeView {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientTreeView>>;
+    /**
+     * Converts the specified object to the MVCxClientTreeView type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientTreeView;
+}
+/**
+ * A client-side counterpart of the UploadControl extension.
+ */
+declare class MVCxClientUploadControl extends ASPxClientUploadControl {
+    /**
+     * Converts the specified object to the MVCxClientUploadControl type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientUploadControl;
+}
+/**
+ * An object containing a service static function that can be useful when performing client-side processing.
+ */
+declare class MVCxClientUtils {
+    /**
+     * Loads service resources (such as scripts, CSS files, etc.) required for DevExpress functionality to work properly after a non DevExpress callback has been processed on the server and returned back to the client.
+     */
+    static FinalizeCallback(): void;
+    /**
+     * Returns values of editors placed in the specified container. An object containing pairs of editor names and values.
+     * @param containerOrId A container of editors, or its ID.
+     * @param processInvisibleEditors true to process both visible and invisible editors that belong to the specified container; false to process only visible editors.
+     */
+    static GetSerializedEditorValuesInContainer(containerOrId: any, processInvisibleEditors?: boolean): any;
+    /**
+     * Performs unobtrusive validation for editors in the specified container. true, if editors in the container pass the validation' otherwise, false.
+     * @param containerId The ID of an HTML element that contains editors.
+     * @param validateInvisibleEditors true, to validate visible and invisible DevExpress editors in the container; otherwise, to validate only visible editors.
+     */
+    static PerformValidationInContainerById(containerId: string, validateInvisibleEditors?: boolean): boolean;
+    /**
+     * Performs unobtrusive validation for editors in the specified container. true, if editors in the container pass the validation' otherwise, false.
+     * @param container An HTML element that contains editors.
+     * @param validateInvisibleEditors true, to validate visible and invisible DevExpress editors in the container; otherwise, to validate only visible editors.
+     */
+    static PerformValidationInContainer(container: any, validateInvisibleEditors?: boolean): boolean;
+}
+/**
+ * A method that will handle client BeginCallback events.
+ * @param source An object which is the event source. Identifies the client object that raised the event.
+ * @param e A MVCxClientBeginCallbackEventArgs object that contains event data.
+ */
+interface MVCxClientBeginCallbackEventHandler<Sender> { (source: Sender, e: MVCxClientBeginCallbackEventArgs): void; }
+/**
+ * Provides data for client BeginCallback events.
+ */
+declare class MVCxClientBeginCallbackEventArgs extends ASPxClientBeginCallbackEventArgs {
+    /**
+     * Initializes a new instance of the MVCxClientBeginCallbackEventArgs class.
+     * @param command A string value that is the name of the command that initiated a callback.
+     */
+    constructor(command: string);
+    /**
+     * Gets an object containing specific information (if any, as name/value pairs) that should be passed as a request parameter from the client to the server side for further processing.
+     */
+    customArgs: any;
+}
+/**
+ * A method that will handle the ASPxClientGlobalEvents.BeginCallback event.
+ * @param source An object which is the event source. Identifies the client object that raised the event.
+ * @param e A MVCxClientGlobalBeginCallbackEventArgs object that contains event data.
+ */
+interface MVCxClientGlobalBeginCallbackEventHandler<Sender> { (source: Sender, e: MVCxClientGlobalBeginCallbackEventArgs): void; }
+/**
+ * Provides data for the MVCxClientGlobalEvents.BeginCallback event.
+ */
+declare class MVCxClientGlobalBeginCallbackEventArgs extends ASPxClientGlobalBeginCallbackEventArgs {
+    /**
+     * Initializes a new instance of the MVCxClientGlobalBeginCallbackEventArgs class.
+     * @param control An ASPxClientControl class descendant object that is the control that initiated a callback.
+     * @param command A string value that is the name of the command that initiated a callback.
+     */
+    constructor(control: ASPxClientControl, command: string);
+    /**
+     * Gets an object containing specific information (if any, as name/value pairs) that should be passed as a request parameter from the client to the server side for further processing.
+     */
+    customArgs: any;
+}
+/**
+ * An ASP.NET MVC equivalent of the client ASPxClientGlobalEvents component.
+ */
+declare class MVCxClientGlobalEvents {
+    /**
+     * Occurs on the client side after client object models of all DevExpress MVC extensions contained within the page have been initialized.
+     */
+    ControlsInitialized: ASPxClientEvent<ASPxClientControlsInitializedEventHandler<MVCxClientGlobalEvents>>;
+    /**
+     * Occurs on the client when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientGlobalBeginCallbackEventHandler<MVCxClientGlobalEvents>>;
+    /**
+     * Occurs on the client after a callback's server-side processing has been completed.
+     */
+    EndCallback: ASPxClientEvent<ASPxClientGlobalEndCallbackEventHandler<MVCxClientGlobalEvents>>;
+    /**
+     * Fires on the client if any server error occurs during server-side processing of a callback sent by a DevExpress MVC extension.
+     */
+    CallbackError: ASPxClientEvent<ASPxClientGlobalCallbackErrorEventHandler<MVCxClientGlobalEvents>>;
+    /**
+     * Dynamically connects the MVCxClientGlobalEvents.ControlsInitialized client event with an appropriate event handler function.
+     * @param handler A object representing the event handling function's content.
+     */
+    static AddControlsInitializedEventHandler(handler: ASPxClientEvent<ASPxClientControlsInitializedEventHandler<MVCxClientGlobalEvents>>): void;
+    /**
+     * Dynamically connects the MVCxClientGlobalEvents.BeginCallback client event with an appropriate event handler function.
+     * @param handler A object containing the event handling function's content.
+     */
+    static AddBeginCallbackEventHandler(handler: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientGlobalEvents>>): void;
+    /**
+     * Dynamically connects the MVCxClientGlobalEvents.EndCallback client event with an appropriate event handler function.
+     * @param handler A object containing the event handling function's content.
+     */
+    static AddEndCallbackEventHandler(handler: ASPxClientEvent<ASPxClientEndCallbackEventHandler<MVCxClientGlobalEvents>>): void;
+    /**
+     * Dynamically connects the MVCxClientGlobalEvents.CallbackError client event with an appropriate event handler function.
+     * @param handler A object containing the event handling function's content.
+     */
+    static AddCallbackErrorHandler(handler: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<MVCxClientGlobalEvents>>): void;
+}
+/**
+ * A client-side counterpart of the VerticalGrid extension.
+ */
+declare class MVCxClientVerticalGrid extends ASPxClientVerticalGrid {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientVerticalGrid>>;
+    /**
+     * Sends a callback with a parameter to update the VerticalGrid by processing the passed information on the server in an Action specified via the grid's GridSettingsBase.CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the grid's GridSettingsBase.CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the VerticalGrid's GridSettingsBase.CustomDataActionRouteValues property, and then process the returned result in the specified client function. This method does not update the VerticalGrid.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the GridSettingsBase.CustomDataActionRouteValues property.
+     * @param onCallback A ASPxClientGridViewValuesCallback object that represents the JavaScript function which receives the information on the client side.
+     */
+    GetValuesOnCustomCallback(data: any, onCallback: ASPxClientGridViewValuesCallback): void;
+    /**
+     * Converts the specified object to the MVCxClientVerticalGrid type. The converted client object specified by the obj parameter.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientVerticalGrid;
+}
+/**
+ * A client-side equivalent of the MVCxWebDocumentViewer class.
+ */
+declare class MVCxClientWebDocumentViewer extends ASPxClientWebDocumentViewer {
 }
 
 /**

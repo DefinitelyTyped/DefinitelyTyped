@@ -448,7 +448,6 @@ declare namespace runtime {
         safeMode?: boolean;
     }
 
-    // tslint:disable-next-line:no-empty-interface
     interface PersistentSettings {
         init(settings: LocalSettings): void;
         load(storage: StorageModule): void;

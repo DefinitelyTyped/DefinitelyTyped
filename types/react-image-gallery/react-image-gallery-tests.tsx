@@ -4,6 +4,10 @@ import ReactImageGallery, { ReactImageGalleryItem, ReactImageGalleryProps } from
 class ImageGallery extends React.Component {
     private gallery: ReactImageGallery | null;
 
+    onBeforeSlide(index: number) {
+        const message = `onBeforeSlide ${index}`;
+    }
+
     componentDidMount() {
         if (this.gallery) {
             const message = `Showing ${this.gallery.getCurrentIndex() + 1}. image the gallery.`;
@@ -13,16 +17,8 @@ class ImageGallery extends React.Component {
     renderThumbInner(item: ReactImageGalleryItem): React.ReactNode {
         return (
             <div className="image-gallery-thumbnail-inner">
-                <img
-                    src={item.thumbnail}
-                    alt={item.thumbnailAlt}
-                    title={item.thumbnailTitle}
-                />
-                {item.thumbnailLabel && (
-                    <div className="image-gallery-thumbnail-label">
-                        {item.thumbnailLabel}
-                    </div>
-                )}
+                <img src={item.thumbnail} alt={item.thumbnailAlt} title={item.thumbnailTitle} />
+                {item.thumbnailLabel && <div className="image-gallery-thumbnail-label">{item.thumbnailLabel}</div>}
             </div>
         );
     }
@@ -39,9 +35,9 @@ class ImageGallery extends React.Component {
             autoPlay: false,
             showFullscreenButton: false,
             renderThumbInner: this.renderThumbInner,
-            disableKeyDown: false
+            disableKeyDown: false,
         };
 
-        return <ReactImageGallery ref={(r) => this.gallery = r} {...props} />;
+        return <ReactImageGallery ref={r => (this.gallery = r)} {...props} />;
     }
 }

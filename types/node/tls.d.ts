@@ -1,8 +1,6 @@
-declare module "tls" {
-    import * as crypto from "crypto";
-    import * as dns from "dns";
-    import * as net from "net";
-    import * as stream from "stream";
+declare module 'tls' {
+    import { X509Certificate } from 'crypto';
+    import * as net from 'net';
 
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
@@ -299,6 +297,16 @@ declare module "tls" {
         enableTrace(): void;
 
         /**
+         * If there is no peer certificate, or the socket has been destroyed, `undefined` will be returned.
+         */
+        getPeerX509Certificate(): X509Certificate | undefined;
+
+        /**
+         * If there is no local certificate, or the socket has been destroyed, `undefined` will be returned.
+         */
+        getX509Certificate(): X509Certificate | undefined;
+
+        /**
          * @param length number of bytes to retrieve from keying material
          * @param label an application specific label, typically this will be a value from the
          * [IANA Exporter Label Registry](https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#exporter-labels).
@@ -385,7 +393,7 @@ declare module "tls" {
         rejectUnauthorized?: boolean;
     }
 
-    interface TlsOptions extends SecureContextOptions, CommonConnectionOptions {
+    interface TlsOptions extends SecureContextOptions, CommonConnectionOptions, net.ServerOpts {
         /**
          * Abort the connection if the SSL/TLS handshake does not finish in the
          * specified number of milliseconds. A 'tlsClientError' is emitted on
@@ -436,7 +444,7 @@ declare module "tls" {
 
     interface PSKCallbackNegotation {
         psk: DataView | NodeJS.TypedArray;
-        identitty: string;
+        identity: string;
     }
 
     interface ConnectionOptions extends SecureContextOptions, CommonConnectionOptions {
@@ -471,6 +479,9 @@ declare module "tls" {
     }
 
     class Server extends net.Server {
+        constructor(secureConnectionListener?: (socket: TLSSocket) => void);
+        constructor(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void);
+
         /**
          * The server.addContext() method adds a secure context that will be
          * used if the client request's SNI name matches the supplied hostname
@@ -553,6 +564,9 @@ declare module "tls" {
         prependOnceListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
     }
 
+    /**
+     * @deprecated since v0.11.3 Use `tls.TLSSocket` instead.
+     */
     interface SecurePair {
         encrypted: TLSSocket;
         cleartext: TLSSocket;
@@ -707,12 +721,14 @@ declare module "tls" {
          */
         sessionIdContext?: string;
         /**
-         * 48 bytes of cryptographically strong pseudo-random data.
+         * 48-bytes of cryptographically strong pseudo-random data.
+         * See Session Resumption for more information.
          */
         ticketKeys?: Buffer;
         /**
-         * The number of seconds after which a TLS session created by the server
-         * will no longer be resumable.
+         * The number of seconds after which a TLS session created by the
+         * server will no longer be resumable. See Session Resumption for more
+         * information. Default: 300.
          */
         sessionTimeout?: number;
     }
@@ -738,7 +754,7 @@ declare module "tls" {
      * @deprecated since v0.11.3 Use `tls.TLSSocket` instead.
      */
     function createSecurePair(credentials?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
-    function createSecureContext(details: SecureContextOptions): SecureContext;
+    function createSecureContext(options?: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 
     /**

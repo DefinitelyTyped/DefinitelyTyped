@@ -1,4 +1,4 @@
-declare module "querystring" {
+declare module 'querystring' {
     interface StringifyOptions {
         encodeURIComponent?: (str: string) => string;
     }

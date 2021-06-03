@@ -20,12 +20,12 @@ To keep me motivated you can [buy me a beer][6] 😉
 
 If you are facing some issues or you have an idea how to improve typings - feel free to contribute or open an issue.
 
-* Clone the [DefinitelyTyped][3] project
-    * or update if you already have it (`git fetch upstream && git reset --hard upstream/master`)
+* Clone the [DefinitelyTyped][3] project and configure `upstream` (`git remote add upstream git@github.com:DefinitelyTyped/DefinitelyTyped.git`)
+    * or ony update the repo if you already have it (`git fetch upstream && git reset --hard upstream/master`)
 * Add your changes and commit them (in case of error in [api.json][4] too, let the Square team know about it)
 * Test your changes:
     * `npm run lint square-connect`
-    * `npm run test`
+    * `npm run test square-connect`
 
 [1]: https://docs.connect.squareup.com
 [2]: https://github.com/swagger-api/swagger-codegen

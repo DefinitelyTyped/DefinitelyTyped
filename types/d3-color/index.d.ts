@@ -438,7 +438,7 @@ export interface HCLColorFactory extends Function {
      * @param l Luminance channel value typically in the range [0, 100].
      * @param opacity Optional opacity value, defaults to 1.
      */
-    (h: number, l: number, c: number, opacity?: number): HCLColor;
+    (h: number, c: number, l: number, opacity?: number): HCLColor;
     /**
      * Parses the specified CSS Color Module Level 3 specifier string, returning an HCL color.
      * If the specifier was not valid, null is returned.

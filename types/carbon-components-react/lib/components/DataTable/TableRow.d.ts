@@ -1,9 +1,9 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactAttr<HTMLTableRowElement> { }
-
-export interface TableRowProps extends InheritedProps { }
+export interface TableRowProps extends ReactAttr<HTMLTableRowElement> {
+    isSelected?: boolean,
+}
 
 declare const TableRow: React.FC<TableRowProps>;
 

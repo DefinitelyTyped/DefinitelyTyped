@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RequiresChildrenProps } from "../../../typings/shared";
+import { RequiresChildrenProps, ForwardRefProps, FCReturn } from "../../../typings/shared";
 import { OverflowMenuItemAnchorProps, OverflowMenuItemButtonProps } from "../OverflowMenuItem";
 
 export interface TableToolbarActionAnchorProps extends
@@ -17,6 +17,9 @@ export interface TableToolbarActionButtonProps extends
 }
 
 export type AllTableToolbarActionProps = TableToolbarActionAnchorProps | TableToolbarActionButtonProps;
-declare const TableToolbarAction: React.FC<AllTableToolbarActionProps>;
+
+declare function TableToolbarAction(props: ForwardRefProps<HTMLAnchorElement, TableToolbarActionAnchorProps>): FCReturn;
+// tslint:disable:unified-signatures
+declare function TableToolbarAction(props: ForwardRefProps<HTMLButtonElement, TableToolbarActionButtonProps>): FCReturn;
 
 export default TableToolbarAction;

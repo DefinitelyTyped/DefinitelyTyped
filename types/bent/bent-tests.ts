@@ -1,5 +1,9 @@
 import bent, { BentResponse, Json, RequestFunction } from 'bent';
 
+interface Body {
+    foo: string;
+}
+
 // $ExpectType RequestFunction<string>
 bent('string');
 // $ExpectType RequestFunction<string>
@@ -9,7 +13,7 @@ bent('GET', 'string');
 // $ExpectType RequestFunction<string>
 bent('https://example.com', 'string');
 // $ExpectType RequestFunction<string>
-bent(200, 'string') as RequestFunction<string>;
+bent<string>(200, 'string');
 
 // $ExpectType RequestFunction<Buffer | ArrayBuffer>
 bent('buffer');
@@ -20,30 +24,41 @@ bent('GET', 'buffer');
 // $ExpectType RequestFunction<Buffer | ArrayBuffer>
 bent('https://example.com', 'buffer');
 // $ExpectType RequestFunction<Buffer | ArrayBuffer>
-bent(200, 'buffer') as RequestFunction<Buffer | ArrayBuffer>;
+bent<Buffer | ArrayBuffer>(200, 'buffer');
 
-// $ExpectType RequestFunction<Json>
+// $ExpectType RequestFunction<any>
 bent('json');
-// $ExpectType RequestFunction<Json>
+// $ExpectType RequestFunction<any>
 bent('json', 'GET');
-// $ExpectType RequestFunction<Json>
+// $ExpectType RequestFunction<any>
 bent('GET', 'json');
-// $ExpectType RequestFunction<Json>
+// $ExpectType RequestFunction<any>
 bent('https://example.com', 'json');
 // $ExpectType RequestFunction<Json>
-bent(200, 'json') as RequestFunction<Json>;
+bent<Json>(200, 'json');
+
+// $ExpectType RequestFunction<Body>
+bent<Body>('json');
+// $ExpectType RequestFunction<Body>
+bent<Body>('GET', 'json');
+// $ExpectType RequestFunction<Body>
+bent<Body>('https://example.com', 'json');
+// $ExpectType RequestFunction<Body>
+bent<Body>(200, 'json');
 
 // $ExpectType RequestFunction<BentResponse>
 bent('GET', 200) as RequestFunction<BentResponse>;
 // $ExpectType RequestFunction<BentResponse>
 bent('https://example.com', 'GET') as RequestFunction<BentResponse>;
 // $ExpectType RequestFunction<BentResponse>
-bent(200) as RequestFunction<BentResponse>;
+bent<BentResponse>(200);
 
 // $ExpectType Promise<string>
 bent('string')('https://example.com');
-// $ExpectType Promise<Json>
+// $ExpectType Promise<any>
 bent('json')('https://example.com');
+// $ExpectType Promise<Body>
+bent<Body>('json')('https://example.com');
 // $ExpectType Promise<Buffer | ArrayBuffer>
 bent('buffer')('https://example.com');
 // $ExpectType Promise<BentResponse>

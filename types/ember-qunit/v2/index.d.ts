@@ -8,7 +8,7 @@
 /// <reference types="qunit" />
 
 import Ember from 'ember';
-import { ModuleCallbacks, TestContext } from "ember-test-helpers";
+import { ModuleCallbacks, TestContext } from 'ember-test-helpers';
 
 interface QUnitModuleCallbacks extends ModuleCallbacks, Hooks {
     beforeSetup?(assert: Assert): void;

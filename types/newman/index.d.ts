@@ -1,7 +1,6 @@
 // Type definitions for newman 5.1
 // Project: https://github.com/postmanlabs/newman
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
-//                 Graham McGregor <https://github.com/Graham42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -19,6 +18,8 @@ export interface NewmanRunOptions {
     collection: Collection | CollectionDefinition | string;
     /** An environment JSON / file path for the current collection run. */
     environment?: VariableScope | VariableScopeDefinition | string;
+    /** An override to environment variables.  See: https://github.com/postmanlabs/newman/blob/develop/lib/run/options.js */
+    envVar?: Collection | CollectionDefinition | string;
     /** A globals JSON / file path for the current collection run. */
     globals?: VariableScope | VariableScopeDefinition | string;
     /** The relative path to export the globals file from the current run to  */

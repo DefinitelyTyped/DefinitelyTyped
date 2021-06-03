@@ -1,11 +1,9 @@
-// Type definitions for module-deps 6.1
+// Type definitions for module-deps 6.2
 // Project: https://github.com/browserify/module-deps
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
-import * as browserResolve from "browser-resolve";
 
 /**
  * Return an object transform stream 'd' that expects entry filenames or '{ id: ..., file: ... }' objects
@@ -24,7 +22,7 @@ declare namespace moduleDeps {
         /**
          * A string or array of string transforms
          */
-        transform?: string | string[];
+        transform?: Transform | Transform[];
 
         /**
          * An array path of strings showing where to look in the package.json
@@ -35,7 +33,7 @@ declare namespace moduleDeps {
         /**
          * Custom resolve function using the opts.resolve(id, parent, cb) signature that browser-resolve has
          */
-        resolve?: (id: string, opts: browserResolve.SyncOpts, cb: (err?: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => void) => void;
+        resolve?: (id: string, opts: ParentObject, cb: (err?: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => void) => void;
 
         /**
          * A custom dependency detection function. opts.detect(source) should return an array of dependency module names. By default detective is used
@@ -99,7 +97,7 @@ declare namespace moduleDeps {
 
         // un-documented options used by module-deps
         basedir?: string;
-        globalTransform?: any[];
+        globalTransform?: Transform | Transform[];
         extensions?: string[];
         modules?: { [name: string]: any };
         expose?: { [name: string]: string };
@@ -108,7 +106,7 @@ declare namespace moduleDeps {
     }
 
     interface ModuleDepsObject extends NodeJS.ReadWriteStream {
-        resolve(id: string, parent: { id: string }, cb: (err: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => any): any;
+        resolve(id: string, parent: Partial<ParentObject> & { id: string; [name: string]: any }, cb: (err: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => any): any;
 
         readFile(file: string, id?: any, pkg?: PackageObject): NodeJS.ReadableStream;
 
@@ -129,11 +127,15 @@ declare namespace moduleDeps {
         /**
          * Every time a transform is applied to a file, a 'transform' event fires with the instantiated transform stream tr.
          */
-        on(event: "transform", listener: (tr: any, file: string) => any): this;
+        on(event: "transform", listener: (tr: NodeJS.ReadableStream, file: string) => any): this;
         /**
          * Every time a file is read, this event fires with the file path.
          */
         on(event: "file", listener: (file: string, id: string) => any): this;
+        /**
+         * When a transform stream emits an error it is passed along to this stream an an 'error' event.
+         */
+        on(event: "error", listener: (err: any) => any): this;
         /**
          * When opts.ignoreMissing is enabled, this event fires for each missing package.
          */
@@ -147,6 +149,8 @@ declare namespace moduleDeps {
 
     type CacheCallback = (err: Error | null, res?: { source: string; package: any; deps: { [dep: string]: boolean } }) => void;
 
+    type Transform = string | ((file: string, opts: { basedir?: string }) => NodeJS.ReadWriteStream);
+
     interface InputRow {
         file: string;
         id: string;
@@ -159,6 +163,19 @@ declare namespace moduleDeps {
         transform: string | (() => any);
         options: any;
         global?: boolean;
+    }
+
+    interface ParentObject {
+        id: string;
+        filename: string;
+        basedir: string;
+        paths: string[];
+        package?: any;
+        packageFilter?: (p: PackageObject, x: string) => PackageObject & { __dirname: string };
+        inNodeModules?: boolean;
+        // undocumented, see 'Options' interface
+        extensions?: string[];
+        modules?: { [name: string]: any };
     }
 
     interface TransformObject {

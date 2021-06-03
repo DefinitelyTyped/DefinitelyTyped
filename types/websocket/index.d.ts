@@ -63,6 +63,14 @@ export interface IConfig {
      * @default 5000
      */
     closeTimeout?: number;
+
+    /**
+     * The Nagle Algorithm makes more efficient use of network resources by introducing a
+     * small delay before sending small packets so that multiple messages can be batched
+     * together before going onto the wire. This however comes at the cost of latency.
+     * @default true
+     */
+    disableNagleAlgorithm?: boolean;
 }
 
 export interface IServerConfig extends IConfig {
@@ -144,14 +152,6 @@ export interface IServerConfig extends IConfig {
      * @default false
      */
     ignoreXForwardedFor?: boolean;
-
-    /**
-     * The Nagle Algorithm makes more efficient use of network resources by introducing a
-     * small delay before sending small packets so that multiple messages can be batched
-     * together before going onto the wire. This however comes at the cost of latency.
-     * @default true
-     */
-    disableNagleAlgorithm?: boolean;
 }
 
 export class server extends events.EventEmitter {

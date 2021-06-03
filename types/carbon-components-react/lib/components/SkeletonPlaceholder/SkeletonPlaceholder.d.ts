@@ -1,9 +1,7 @@
 import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr { }
-
-export interface SkeletonPlaceholderProps extends InheritedProps { }
+export interface SkeletonPlaceholderProps extends ReactDivAttr { }
 
 declare const SkeletonPlaceholder: React.FC<SkeletonPlaceholderProps>;
 

@@ -1,8 +1,9 @@
-// Type definitions for react-native-fbsdk 1.1
+// Type definitions for react-native-fbsdk 3.0
 // Project: https://github.com/facebook/react-native-fbsdk
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 //                 Thibault Malbranche <https://github.com/titozzz>
 //                 Stuart Forrest <https://github.com/stuartforrest-infinity>
+//                 Un Ha Kim <https://github.com/UHKim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -12,7 +13,8 @@ import { ViewStyle } from 'react-native';
 /**
  * Commonly used Facebook permissions
  */
-export type Permissions = 'public_profile'
+export type Permissions =
+    | 'public_profile'
     | 'user_friends'
     | 'email'
     | 'user_about_me'
@@ -63,9 +65,9 @@ export type Permissions = 'public_profile'
  */
 export type AppGroupPrivacy =
     // Anyone can see the group, who's in in and what members post.
-    'Open' |
+    | 'Open'
     // Anyone can see the group and who's in it, but only members can see posts.
-    'Closed';
+    | 'Closed';
 
 /**
  * A model for app groups.
@@ -119,17 +121,17 @@ export interface AppInviteContent {
 
 export type GameRequestActionType =
     // The user is sending an object to their friends.
-    'send' |
+    | 'send'
     // The user is asking for an object from friends.
-    'askfor' |
+    | 'askfor'
     // It is the turn of the friends to play against the user in a match.
-    'turn';
+    | 'turn';
 
 export type GameRequestFilters =
     // Friends using the app can be displayed.
-    'app_users' |
+    | 'app_users'
     // Friends not using the app can be displayed.
-    'app_non_users';
+    | 'app_non_users';
 
 /**
  * A model for a game request.
@@ -283,17 +285,12 @@ export interface OpenGraphValue {
     value: any;
 }
 
-export type OpenGraphValueType =
-    'number' |
-    'open-graph-object' |
-    'photo' |
-    'string';
+export type OpenGraphValueType = 'number' | 'open-graph-object' | 'photo' | 'string';
 
 export interface ShareOpenGraphValueContainer {
     /**
      * Sets a number for the specified key.
      */
-    // tslint:disable-next-line:variable-name
     putNumber(key: string, number: number): void;
 
     /**
@@ -309,7 +306,6 @@ export interface ShareOpenGraphValueContainer {
     /**
      * Sets a string for the specified key.
      */
-    // tslint:disable-next-line:variable-name
     putString(key: string, string: string): void;
 
     /**
@@ -580,6 +576,7 @@ export class AccessToken {
      * Jan. 1, 1970, midnight GMT.
      */
     getLastRefresh(): number;
+    getDataAccessExpiration(): number;
 
     /**
      * Gets the ID of the Facebook Application associated with this access token.
@@ -600,14 +597,18 @@ export type AppEventsFlushBehavior =
      * Flush automatically: periodically (every 15 seconds or after every 100 events), and
      * always at app reactivation. This is the default value.
      */
-    'auto' |
+    | 'auto'
     /**
      * Only flush when AppEventsLogger.flush() is explicitly invoked.
      */
-    'explicitly-only';
+    | 'explicitly-only';
 
 export interface Params {
     [key: string]: string | number;
+}
+
+export namespace AppLink {
+    function fetchDeferredAppLink(): Promise<string | null>;
 }
 
 /**
@@ -682,6 +683,27 @@ export namespace AppEventsLogger {
      * @platform Android
      */
     function setPushNotificationsRegistrationId(registrationId: string): void;
+
+    /**
+     * Returns user id or null if not set
+     */
+    function getUserID(): Promise<string | null>;
+
+    /**
+     * Returns anonymous id or null if not set
+     */
+    function getAnonymousID(): Promise<string | null>;
+
+    /**
+     * Returns advertiser id or null if not set
+     */
+    function getAdvertiserID(): Promise<string | null>;
+
+    /**
+     * Returns advertiser id or null if not set.
+     * @platform android
+     */
+    function getAttributionID(): Promise<string | null>;
 }
 
 export namespace GameRequestDialog {
@@ -810,12 +832,6 @@ export interface LoginButtonProps {
     loginBehaviorAndroid?: LoginBehaviorAndroid;
 
     /**
-     * The behavior to use when attempting a login.
-     * @platform ios
-     */
-    loginBehaviorIOS?: LoginBehaviorIOS;
-
-    /**
      * The default audience to target when attempting a login.
      */
     defaultAudience?: DefaultAudience;
@@ -841,11 +857,11 @@ export class LoginButton extends Component<LoginButtonProps, any> {
  */
 export type DefaultAudience =
     // Indicates that the user's friends are able to see posts made by the application.
-    'friends' |
+    | 'friends'
     // Indicates that all Facebook users are able to see posts made by the application.
-    'everyone' |
+    | 'everyone'
     // Indicates that only the user is able to see posts made by the application.
-    'only_me';
+    | 'only_me';
 
 export type LoginBehavior = LoginBehaviorIOS | LoginBehaviorAndroid;
 
@@ -854,11 +870,11 @@ export type LoginBehavior = LoginBehaviorIOS | LoginBehaviorAndroid;
  */
 export type LoginBehaviorAndroid =
     // Attempt login in using the Facebook App, and if that does not work fall back to web dialog auth.
-    'native_with_fallback'|
+    | 'native_with_fallback'
     // Only attempt to login using the Facebook App.
-    'native_only'|
+    | 'native_only'
     // Only the web dialog auth should be used.
-    'web_only';
+    | 'web_only';
 
 /**
  * Indicate how Facebook Login should be attempted on iOS.
@@ -940,26 +956,6 @@ export interface SendButtonProps {
 
 export class SendButton extends Component<SendButtonProps, any> {}
 
-export namespace ShareApi {
-    /**
-     * Check if the content can be shared via share api.
-     */
-    function canShare(shareContent: ShareContent): Promise<boolean>;
-
-    /**
-     * For iOS only, creates a User Owned Open Graph object without an action.
-     * NOTE: Only one share action can be performed at a time.
-     * @platform ios
-     */
-    function createOpenGraphObject(openGraphObject: ShareOpenGraphObject): Promise<any>;
-
-    /**
-     * Shares the specified content with a message.
-     * NOTE: Only one share action can be performed at a time.
-     */
-    function share(shareContent: ShareContent, graphNode: string, message: string): Promise<any>;
-}
-
 export interface ShareButtonProps {
     /**
      * Content to be shared.
@@ -979,32 +975,32 @@ export type ShareDialogModeAndroid =
     /**
      * The mode is determined automatically.
      */
-    'automatic'|
+    | 'automatic'
     /**
      * The native dialog is used.
      */
-    'native'|
+    | 'native'
     /**
      * The web dialog is used.
      */
-    'web'|
+    | 'web'
     /**
      * The feed dialog is used.
      */
-    'feed';
+    | 'feed';
 export type ShareDialogModeIOS =
     /*
-    * Acts with the most appropriate mode that is available.
-    */
-    'automatic'|
+     * Acts with the most appropriate mode that is available.
+     */
+    | 'automatic'
     /*
-    * Displays the dialog in Safari.
-    */
-    'browser'|
+     * Displays the dialog in Safari.
+     */
+    | 'browser'
     /*
-    * Displays the dialog in a UIWebView within the app.
-    */
-    'webview';
+     * Displays the dialog in a UIWebView within the app.
+     */
+    | 'webview';
 
 export namespace ShareDialog {
     /**
@@ -1026,4 +1022,23 @@ export namespace ShareDialog {
      * Sets whether or not the native share dialog should fail when it encounters a data error.
      */
     function setShouldFailOnDataError(shouldFailOnDataError: boolean): void;
+}
+
+export namespace Settings {
+    /**
+     * For iOS only, get AdvertiserTrackingEnabled status.
+     * @platform ios
+     */
+    function getAdvertiserTrackingEnabled(): Promise<boolean>;
+
+    /**
+     * For iOS only, set AdvertiserTrackingEnabled status, only works in iOS 14 and above.
+     * @platform ios
+     */
+    function setAdvertiserTrackingEnabled(ATE: boolean): Promise<boolean>;
+
+    /**
+     * Set data processing options
+     */
+    function setDataProcessingOptions(options: Array<string | 'LDU'>, ...args: number[]): void;
 }

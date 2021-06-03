@@ -1,4 +1,4 @@
-// Type definitions for @babel/traverse 7.0
+// Type definitions for @babel/traverse 7.11
 // Project: https://github.com/babel/babel/tree/main/packages/babel-traverse, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
@@ -8,7 +8,6 @@
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
 
 import * as t from '@babel/types';
 export import Node = t.Node;
@@ -65,7 +64,7 @@ export interface TraverseOptions<S = Node> extends Visitor<S> {
     noScope?: boolean;
 }
 
-export type ArrayKeys<T> = { [P in keyof T]: T[P] extends any[] ? P : never }[keyof T];
+export type ArrayKeys<T> = keyof { [P in keyof T as T[P] extends any[] ? P : never]: P };
 
 export class Scope {
     constructor(path: NodePath, parentScope?: Scope);
@@ -138,6 +137,8 @@ export class Scope {
 
     removeData(key: string): void;
 
+    crawl(): void;
+
     push(opts: { id: t.LVal; init?: t.Expression; unique?: boolean; kind?: 'var' | 'let' | 'const' }): void;
 
     getProgramParent(): Scope;
@@ -204,9 +205,16 @@ export type VisitNode<S, P extends Node> = VisitNodeFunction<S, P> | VisitNodeOb
 
 export type VisitNodeFunction<S, P extends Node> = (this: S, path: NodePath<P>, state: S) => void;
 
+type NodeType = Node['type'] | keyof t.Aliases;
+
 export interface VisitNodeObject<S, P extends Node> {
     enter?: VisitNodeFunction<S, P>;
     exit?: VisitNodeFunction<S, P>;
+    denylist?: NodeType[];
+    /**
+     * @deprecated will be removed in Babel 8
+     */
+    blacklist?: NodeType[];
 }
 
 export type NodePaths<T extends Node | readonly Node[]> = T extends readonly Node[]

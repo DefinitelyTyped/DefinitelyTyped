@@ -5,25 +5,27 @@
 //                 Saad Quadri <https://github.com/saadq>
 //                 Jason Kwok <https://github.com/JasonHK>
 //                 Brad Zacher <https://github.com/bradzacher>
+//                 JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="helpers.d.ts" />
+/// <reference path="lib/rules/index.d.ts" />
 
-import { JSONSchema4 } from 'json-schema';
-import * as ESTree from 'estree';
+import { JSONSchema4 } from "json-schema";
+import * as ESTree from "estree";
 
 export namespace AST {
     type TokenType =
-        | 'Boolean'
-        | 'Null'
-        | 'Identifier'
-        | 'Keyword'
-        | 'Punctuator'
-        | 'JSXIdentifier'
-        | 'JSXText'
-        | 'Numeric'
-        | 'String'
-        | 'RegularExpression';
+        | "Boolean"
+        | "Null"
+        | "Identifier"
+        | "Keyword"
+        | "Punctuator"
+        | "JSXIdentifier"
+        | "JSXText"
+        | "Numeric"
+        | "String"
+        | "RegularExpression";
 
     interface Token {
         type: TokenType;
@@ -58,7 +60,18 @@ export namespace Scope {
     }
 
     interface Scope {
-        type: 'block' | 'catch' | 'class' | 'for' | 'function' | 'function-expression-name' | 'global' | 'module' | 'switch' | 'with' | 'TDZ';
+        type:
+            | "block"
+            | "catch"
+            | "class"
+            | "for"
+            | "function"
+            | "function-expression-name"
+            | "global"
+            | "module"
+            | "switch"
+            | "with"
+            | "TDZ";
         isStrict: boolean;
         upper: Scope | null;
         childScopes: Scope[];
@@ -97,14 +110,22 @@ export namespace Scope {
     }
 
     type DefinitionType =
-        | { type: 'CatchClause', node: ESTree.CatchClause, parent: null }
-        | { type: 'ClassName', node: ESTree.ClassDeclaration | ESTree.ClassExpression, parent: null }
-        | { type: 'FunctionName', node: ESTree.FunctionDeclaration | ESTree.FunctionExpression, parent: null }
-        | { type: 'ImplicitGlobalVariable', node: ESTree.Program, parent: null }
-        | { type: 'ImportBinding', node: ESTree.ImportSpecifier | ESTree.ImportDefaultSpecifier | ESTree.ImportNamespaceSpecifier, parent: ESTree.ImportDeclaration }
-        | { type: 'Parameter', node: ESTree.FunctionDeclaration | ESTree.FunctionExpression | ESTree.ArrowFunctionExpression, parent: null }
-        | { type: 'TDZ', node: any, parent: null }
-        | { type: 'Variable', node: ESTree.VariableDeclarator, parent: ESTree.VariableDeclaration };
+        | { type: "CatchClause"; node: ESTree.CatchClause; parent: null }
+        | { type: "ClassName"; node: ESTree.ClassDeclaration | ESTree.ClassExpression; parent: null }
+        | { type: "FunctionName"; node: ESTree.FunctionDeclaration | ESTree.FunctionExpression; parent: null }
+        | { type: "ImplicitGlobalVariable"; node: ESTree.Program; parent: null }
+        | {
+              type: "ImportBinding";
+              node: ESTree.ImportSpecifier | ESTree.ImportDefaultSpecifier | ESTree.ImportNamespaceSpecifier;
+              parent: ESTree.ImportDeclaration;
+          }
+        | {
+              type: "Parameter";
+              node: ESTree.FunctionDeclaration | ESTree.FunctionExpression | ESTree.ArrowFunctionExpression;
+              parent: null;
+          }
+        | { type: "TDZ"; node: any; parent: null }
+        | { type: "Variable"; node: ESTree.VariableDeclarator; parent: ESTree.VariableDeclaration };
 
     type Definition = DefinitionType & { name: ESTree.Identifier };
 }
@@ -131,9 +152,9 @@ export class SourceCode {
 
     getAllComments(): ESTree.Comment[];
 
-    getComments(node: ESTree.Node): { leading: ESTree.Comment[], trailing: ESTree.Comment[] };
+    getComments(node: ESTree.Node): { leading: ESTree.Comment[]; trailing: ESTree.Comment[] };
 
-    getJSDocComment(node: ESTree.Node): AST.Token | null;
+    getJSDocComment(node: ESTree.Node): ESTree.Comment | null;
 
     getNodeByRangeIndex(index: number): ESTree.Node | null;
 
@@ -146,58 +167,42 @@ export class SourceCode {
     // Inherited methods from TokenStore
     // ---------------------------------
 
-    getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): AST.Token | null;
+    getTokenByRangeStart(offset: number, options?: { includeComments: false }): AST.Token | null;
+    getTokenByRangeStart(offset: number, options: { includeComments: boolean }): AST.Token | ESTree.Comment | null;
 
-    getFirstToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getFirstToken: SourceCode.UnaryNodeCursorWithSkipOptions;
 
-    getFirstTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getFirstTokens: SourceCode.UnaryNodeCursorWithCountOptions;
 
-    getLastToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getLastToken: SourceCode.UnaryNodeCursorWithSkipOptions;
 
-    getLastTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getLastTokens: SourceCode.UnaryNodeCursorWithCountOptions;
 
-    getTokenBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getTokenBefore: SourceCode.UnaryCursorWithSkipOptions;
 
-    getTokensBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokensBefore: SourceCode.UnaryCursorWithCountOptions;
 
-    getTokenAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getTokenAfter: SourceCode.UnaryCursorWithSkipOptions;
 
-    getTokensAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokensAfter: SourceCode.UnaryCursorWithCountOptions;
 
-    getFirstTokenBetween(
+    getFirstTokenBetween: SourceCode.BinaryCursorWithSkipOptions;
+
+    getFirstTokensBetween: SourceCode.BinaryCursorWithCountOptions;
+
+    getLastTokenBetween: SourceCode.BinaryCursorWithSkipOptions;
+
+    getLastTokensBetween: SourceCode.BinaryCursorWithCountOptions;
+
+    getTokensBetween: SourceCode.BinaryCursorWithCountOptions;
+
+    getTokens: ((node: ESTree.Node, beforeCount?: number, afterCount?: number) => AST.Token[]) &
+        SourceCode.UnaryNodeCursorWithCountOptions;
+
+    commentsExistBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithSkipOptions
-    ): AST.Token | null;
-
-    getFirstTokensBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithCountOptions
-    ): AST.Token[];
-
-    getLastTokenBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithSkipOptions
-    ): AST.Token | null;
-
-    getLastTokensBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithCountOptions
-    ): AST.Token[];
-
-    getTokensBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        padding?: number | SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions
-    ): AST.Token[];
-
-    getTokens(node: ESTree.Node, beforeCount?: number, afterCount?: number): AST.Token[];
-    getTokens(node: ESTree.Node, options: SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions): AST.Token[];
-
-    commentsExistBetween(left: ESTree.Node | AST.Token, right: ESTree.Node | AST.Token): boolean;
+    ): boolean;
 
     getCommentsBefore(nodeOrToken: ESTree.Node | AST.Token): ESTree.Comment[];
 
@@ -221,19 +226,205 @@ export namespace SourceCode {
         [nodeType: string]: string[];
     }
 
-    type FilterPredicate = (tokenOrComment: AST.Token | ESTree.Comment) => boolean;
+    interface UnaryNodeCursorWithSkipOptions {
+        <T extends AST.Token>(
+            node: ESTree.Node,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; skip?: number },
+        ): T | null;
+        <T extends AST.Token | ESTree.Comment>(
+            node: ESTree.Node,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): T | null;
+        (
+            node: ESTree.Node,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; skip?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token | null;
+        (
+            node: ESTree.Node,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): AST.Token | ESTree.Comment | null;
+    }
 
-    type CursorWithSkipOptions = number | FilterPredicate | {
-        includeComments?: boolean;
-        filter?: FilterPredicate;
-        skip?: number;
-    };
+    interface UnaryNodeCursorWithCountOptions {
+        <T extends AST.Token>(
+            node: ESTree.Node,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; count?: number },
+        ): T[];
+        <T extends AST.Token | ESTree.Comment>(
+            node: ESTree.Node,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): T[];
+        (
+            node: ESTree.Node,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; count?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token[];
+        (
+            node: ESTree.Node,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): Array<AST.Token | ESTree.Comment>;
+    }
 
-    type CursorWithCountOptions = number | FilterPredicate | {
-        includeComments?: boolean;
-        filter?: FilterPredicate;
-        count?: number;
-    };
+    interface UnaryCursorWithSkipOptions {
+        <T extends AST.Token>(
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; skip?: number },
+        ): T | null;
+        <T extends AST.Token | ESTree.Comment>(
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): T | null;
+        (
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; skip?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token | null;
+        (
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): AST.Token | ESTree.Comment | null;
+    }
+
+    interface UnaryCursorWithCountOptions {
+        <T extends AST.Token>(
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; count?: number },
+        ): T[];
+        <T extends AST.Token | ESTree.Comment>(
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): T[];
+        (
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; count?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token[];
+        (
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): Array<AST.Token | ESTree.Comment>;
+    }
+
+    interface BinaryCursorWithSkipOptions {
+        <T extends AST.Token>(
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; skip?: number },
+        ): T | null;
+        <T extends AST.Token | ESTree.Comment>(
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): T | null;
+        (
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; skip?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token | null;
+        (
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): AST.Token | ESTree.Comment | null;
+    }
+
+    interface BinaryCursorWithCountOptions {
+        <T extends AST.Token>(
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; count?: number },
+        ): T[];
+        <T extends AST.Token | ESTree.Comment>(
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): T[];
+        (
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; count?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token[];
+        (
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): Array<AST.Token | ESTree.Comment>;
+    }
 }
 
 //#endregion
@@ -244,94 +435,99 @@ export namespace Rule {
         meta?: RuleMetaData;
     }
 
-    type NodeTypes = ESTree.Node['type'];
+    type NodeTypes = ESTree.Node["type"];
     interface NodeListener {
-        ArrayExpression?: (node: ESTree.ArrayExpression) => void;
-        ArrayPattern?: (node: ESTree.ArrayPattern) => void;
-        ArrowFunctionExpression?: (node: ESTree.ArrowFunctionExpression) => void;
-        AssignmentExpression?: (node: ESTree.AssignmentExpression) => void;
-        AssignmentPattern?: (node: ESTree.AssignmentPattern) => void;
-        AwaitExpression?: (node: ESTree.AwaitExpression) => void;
-        BinaryExpression?: (node: ESTree.BinaryExpression) => void;
-        BlockStatement?: (node: ESTree.BlockStatement) => void;
-        BreakStatement?: (node: ESTree.BreakStatement) => void;
-        CallExpression?: (node: ESTree.CallExpression) => void;
-        CatchClause?: (node: ESTree.CatchClause) => void;
-        ChainExpression?: (node: ESTree.ChainExpression) => void;
-        ClassBody?: (node: ESTree.ClassBody) => void;
-        ClassDeclaration?: (node: ESTree.ClassDeclaration) => void;
-        ClassExpression?: (node: ESTree.ClassExpression) => void;
-        ConditionalExpression?: (node: ESTree.ConditionalExpression) => void;
-        ContinueStatement?: (node: ESTree.ContinueStatement) => void;
-        DebuggerStatement?: (node: ESTree.DebuggerStatement) => void;
-        DoWhileStatement?: (node: ESTree.DoWhileStatement) => void;
-        EmptyStatement?: (node: ESTree.EmptyStatement) => void;
-        ExportAllDeclaration?: (node: ESTree.ExportAllDeclaration) => void;
-        ExportDefaultDeclaration?: (node: ESTree.ExportDefaultDeclaration) => void;
-        ExportNamedDeclaration?: (node: ESTree.ExportNamedDeclaration) => void;
-        ExportSpecifier?: (node: ESTree.ExportSpecifier) => void;
-        ExpressionStatement?: (node: ESTree.ExpressionStatement) => void;
-        ForInStatement?: (node: ESTree.ForInStatement) => void;
-        ForOfStatement?: (node: ESTree.ForOfStatement) => void;
-        ForStatement?: (node: ESTree.ForStatement) => void;
-        FunctionDeclaration?: (node: ESTree.FunctionDeclaration) => void;
-        FunctionExpression?: (node: ESTree.FunctionExpression) => void;
-        Identifier?: (node: ESTree.Identifier) => void;
-        IfStatement?: (node: ESTree.IfStatement) => void;
-        ImportDeclaration?: (node: ESTree.ImportDeclaration) => void;
-        ImportDefaultSpecifier?: (node: ESTree.ImportDefaultSpecifier) => void;
-        ImportExpression?: (node: ESTree.ImportExpression) => void;
-        ImportNamespaceSpecifier?: (node: ESTree.ImportNamespaceSpecifier) => void;
-        ImportSpecifier?: (node: ESTree.ImportSpecifier) => void;
-        LabeledStatement?: (node: ESTree.LabeledStatement) => void;
-        Literal?: (node: ESTree.Literal) => void;
-        LogicalExpression?: (node: ESTree.LogicalExpression) => void;
-        MemberExpression?: (node: ESTree.MemberExpression) => void;
-        MetaProperty?: (node: ESTree.MetaProperty) => void;
-        MethodDefinition?: (node: ESTree.MethodDefinition) => void;
-        NewExpression?: (node: ESTree.NewExpression) => void;
-        ObjectExpression?: (node: ESTree.ObjectExpression) => void;
-        ObjectPattern?: (node: ESTree.ObjectPattern) => void;
+        ArrayExpression?: (node: ESTree.ArrayExpression & NodeParentExtension) => void;
+        ArrayPattern?: (node: ESTree.ArrayPattern & NodeParentExtension) => void;
+        ArrowFunctionExpression?: (node: ESTree.ArrowFunctionExpression & NodeParentExtension) => void;
+        AssignmentExpression?: (node: ESTree.AssignmentExpression & NodeParentExtension) => void;
+        AssignmentPattern?: (node: ESTree.AssignmentPattern & NodeParentExtension) => void;
+        AwaitExpression?: (node: ESTree.AwaitExpression & NodeParentExtension) => void;
+        BinaryExpression?: (node: ESTree.BinaryExpression & NodeParentExtension) => void;
+        BlockStatement?: (node: ESTree.BlockStatement & NodeParentExtension) => void;
+        BreakStatement?: (node: ESTree.BreakStatement & NodeParentExtension) => void;
+        CallExpression?: (node: ESTree.CallExpression & NodeParentExtension) => void;
+        CatchClause?: (node: ESTree.CatchClause & NodeParentExtension) => void;
+        ChainExpression?: (node: ESTree.ChainExpression & NodeParentExtension) => void;
+        ClassBody?: (node: ESTree.ClassBody & NodeParentExtension) => void;
+        ClassDeclaration?: (node: ESTree.ClassDeclaration & NodeParentExtension) => void;
+        ClassExpression?: (node: ESTree.ClassExpression & NodeParentExtension) => void;
+        ConditionalExpression?: (node: ESTree.ConditionalExpression & NodeParentExtension) => void;
+        ContinueStatement?: (node: ESTree.ContinueStatement & NodeParentExtension) => void;
+        DebuggerStatement?: (node: ESTree.DebuggerStatement & NodeParentExtension) => void;
+        DoWhileStatement?: (node: ESTree.DoWhileStatement & NodeParentExtension) => void;
+        EmptyStatement?: (node: ESTree.EmptyStatement & NodeParentExtension) => void;
+        ExportAllDeclaration?: (node: ESTree.ExportAllDeclaration & NodeParentExtension) => void;
+        ExportDefaultDeclaration?: (node: ESTree.ExportDefaultDeclaration & NodeParentExtension) => void;
+        ExportNamedDeclaration?: (node: ESTree.ExportNamedDeclaration & NodeParentExtension) => void;
+        ExportSpecifier?: (node: ESTree.ExportSpecifier & NodeParentExtension) => void;
+        ExpressionStatement?: (node: ESTree.ExpressionStatement & NodeParentExtension) => void;
+        ForInStatement?: (node: ESTree.ForInStatement & NodeParentExtension) => void;
+        ForOfStatement?: (node: ESTree.ForOfStatement & NodeParentExtension) => void;
+        ForStatement?: (node: ESTree.ForStatement & NodeParentExtension) => void;
+        FunctionDeclaration?: (node: ESTree.FunctionDeclaration & NodeParentExtension) => void;
+        FunctionExpression?: (node: ESTree.FunctionExpression & NodeParentExtension) => void;
+        Identifier?: (node: ESTree.Identifier & NodeParentExtension) => void;
+        IfStatement?: (node: ESTree.IfStatement & NodeParentExtension) => void;
+        ImportDeclaration?: (node: ESTree.ImportDeclaration & NodeParentExtension) => void;
+        ImportDefaultSpecifier?: (node: ESTree.ImportDefaultSpecifier & NodeParentExtension) => void;
+        ImportExpression?: (node: ESTree.ImportExpression & NodeParentExtension) => void;
+        ImportNamespaceSpecifier?: (node: ESTree.ImportNamespaceSpecifier & NodeParentExtension) => void;
+        ImportSpecifier?: (node: ESTree.ImportSpecifier & NodeParentExtension) => void;
+        LabeledStatement?: (node: ESTree.LabeledStatement & NodeParentExtension) => void;
+        Literal?: (node: ESTree.Literal & NodeParentExtension) => void;
+        LogicalExpression?: (node: ESTree.LogicalExpression & NodeParentExtension) => void;
+        MemberExpression?: (node: ESTree.MemberExpression & NodeParentExtension) => void;
+        MetaProperty?: (node: ESTree.MetaProperty & NodeParentExtension) => void;
+        MethodDefinition?: (node: ESTree.MethodDefinition & NodeParentExtension) => void;
+        NewExpression?: (node: ESTree.NewExpression & NodeParentExtension) => void;
+        ObjectExpression?: (node: ESTree.ObjectExpression & NodeParentExtension) => void;
+        ObjectPattern?: (node: ESTree.ObjectPattern & NodeParentExtension) => void;
         Program?: (node: ESTree.Program) => void;
-        Property?: (node: ESTree.Property) => void;
-        RestElement?: (node: ESTree.RestElement) => void;
-        ReturnStatement?: (node: ESTree.ReturnStatement) => void;
-        SequenceExpression?: (node: ESTree.SequenceExpression) => void;
-        SpreadElement?: (node: ESTree.SpreadElement) => void;
-        Super?: (node: ESTree.Super) => void;
-        SwitchCase?: (node: ESTree.SwitchCase) => void;
-        SwitchStatement?: (node: ESTree.SwitchStatement) => void;
-        TaggedTemplateExpression?: (node: ESTree.TaggedTemplateExpression) => void;
-        TemplateElement?: (node: ESTree.TemplateElement) => void;
-        TemplateLiteral?: (node: ESTree.TemplateLiteral) => void;
-        ThisExpression?: (node: ESTree.ThisExpression) => void;
-        ThrowStatement?: (node: ESTree.ThrowStatement) => void;
-        TryStatement?: (node: ESTree.TryStatement) => void;
-        UnaryExpression?: (node: ESTree.UnaryExpression) => void;
-        UpdateExpression?: (node: ESTree.UpdateExpression) => void;
-        VariableDeclaration?: (node: ESTree.VariableDeclaration) => void;
-        VariableDeclarator?: (node: ESTree.VariableDeclarator) => void;
-        WhileStatement?: (node: ESTree.WhileStatement) => void;
-        WithStatement?: (node: ESTree.WithStatement) => void;
-        YieldExpression?: (node: ESTree.YieldExpression) => void;
+        Property?: (node: ESTree.Property & NodeParentExtension) => void;
+        RestElement?: (node: ESTree.RestElement & NodeParentExtension) => void;
+        ReturnStatement?: (node: ESTree.ReturnStatement & NodeParentExtension) => void;
+        SequenceExpression?: (node: ESTree.SequenceExpression & NodeParentExtension) => void;
+        SpreadElement?: (node: ESTree.SpreadElement & NodeParentExtension) => void;
+        Super?: (node: ESTree.Super & NodeParentExtension) => void;
+        SwitchCase?: (node: ESTree.SwitchCase & NodeParentExtension) => void;
+        SwitchStatement?: (node: ESTree.SwitchStatement & NodeParentExtension) => void;
+        TaggedTemplateExpression?: (node: ESTree.TaggedTemplateExpression & NodeParentExtension) => void;
+        TemplateElement?: (node: ESTree.TemplateElement & NodeParentExtension) => void;
+        TemplateLiteral?: (node: ESTree.TemplateLiteral & NodeParentExtension) => void;
+        ThisExpression?: (node: ESTree.ThisExpression & NodeParentExtension) => void;
+        ThrowStatement?: (node: ESTree.ThrowStatement & NodeParentExtension) => void;
+        TryStatement?: (node: ESTree.TryStatement & NodeParentExtension) => void;
+        UnaryExpression?: (node: ESTree.UnaryExpression & NodeParentExtension) => void;
+        UpdateExpression?: (node: ESTree.UpdateExpression & NodeParentExtension) => void;
+        VariableDeclaration?: (node: ESTree.VariableDeclaration & NodeParentExtension) => void;
+        VariableDeclarator?: (node: ESTree.VariableDeclarator & NodeParentExtension) => void;
+        WhileStatement?: (node: ESTree.WhileStatement & NodeParentExtension) => void;
+        WithStatement?: (node: ESTree.WithStatement & NodeParentExtension) => void;
+        YieldExpression?: (node: ESTree.YieldExpression & NodeParentExtension) => void;
     }
 
+    interface NodeParentExtension {
+        parent: Node;
+    }
+    type Node = ESTree.Node & NodeParentExtension;
+
     interface RuleListener extends NodeListener {
-        onCodePathStart?(codePath: CodePath, node: ESTree.Node): void;
+        onCodePathStart?(codePath: CodePath, node: Node): void;
 
-        onCodePathEnd?(codePath: CodePath, node: ESTree.Node): void;
+        onCodePathEnd?(codePath: CodePath, node: Node): void;
 
-        onCodePathSegmentStart?(segment: CodePathSegment, node: ESTree.Node): void;
+        onCodePathSegmentStart?(segment: CodePathSegment, node: Node): void;
 
-        onCodePathSegmentEnd?(segment: CodePathSegment, node: ESTree.Node): void;
+        onCodePathSegmentEnd?(segment: CodePathSegment, node: Node): void;
 
-        onCodePathSegmentLoop?(fromSegment: CodePathSegment, toSegment: CodePathSegment, node: ESTree.Node): void;
+        onCodePathSegmentLoop?(fromSegment: CodePathSegment, toSegment: CodePathSegment, node: Node): void;
 
         [key: string]:
-            | ((codePath: CodePath, node: ESTree.Node) => void)
-            | ((segment: CodePathSegment, node: ESTree.Node) => void)
-            | ((fromSegment: CodePathSegment, toSegment: CodePathSegment, node: ESTree.Node) => void)
-            | ((node: ESTree.Node) => void)
+            | ((codePath: CodePath, node: Node) => void)
+            | ((segment: CodePathSegment, node: Node) => void)
+            | ((fromSegment: CodePathSegment, toSegment: CodePathSegment, node: Node) => void)
+            | ((node: Node) => void)
             | NodeListener[keyof NodeListener]
             | undefined;
     }
@@ -365,13 +561,13 @@ export namespace Rule {
             /** specifies the URL at which the full documentation can be accessed */
             url?: string;
             /** specifies whether rules can return suggestions (defaults to false if omitted) */
-            suggestion?: boolean
+            suggestion?: boolean;
         };
         messages?: { [messageId: string]: string };
-        fixable?: 'code' | 'whitespace';
+        fixable?: "code" | "whitespace";
         schema?: JSONSchema4 | JSONSchema4[];
         deprecated?: boolean;
-        type?: 'problem' | 'suggestion' | 'layout';
+        type?: "problem" | "suggestion" | "layout";
     }
 
     interface RuleContext {
@@ -387,6 +583,8 @@ export namespace Rule {
         getDeclaredVariables(node: ESTree.Node): Scope.Variable[];
 
         getFilename(): string;
+
+        getCwd(): string;
 
         getScope(): Scope.Scope;
 
@@ -469,7 +667,7 @@ export class Linter {
 export namespace Linter {
     type Severity = 0 | 1 | 2;
 
-    type RuleLevel = Severity | 'off' | 'warn' | 'error';
+    type RuleLevel = Severity | "off" | "warn" | "error";
     type RuleLevelAndOptions<Options extends any[] = any[]> = Prepend<Partial<Options>, RuleLevel>;
 
     type RuleEntry<Options extends any[] = any[]> = RuleLevel | RuleLevelAndOptions<Options>;
@@ -486,7 +684,7 @@ export namespace Linter {
         $schema?: string;
         env?: { [name: string]: boolean };
         extends?: string | string[];
-        globals?: { [name: string]: boolean };
+        globals?: { [name: string]: boolean | "readonly" | "readable" | "writable" | "writeable" };
         noInlineConfig?: boolean;
         overrides?: ConfigOverride[];
         parser?: string;
@@ -509,8 +707,8 @@ export namespace Linter {
     }
 
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020;
-        sourceType?: 'script' | 'module';
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021;
+        sourceType?: "script" | "module";
         ecmaFeatures?: {
             globalReturn?: boolean;
             impliedStrict?: boolean;
@@ -578,6 +776,18 @@ export namespace Linter {
         scopeManager?: Scope.ScopeManager;
         visitorKeys?: SourceCode.VisitorKeys;
     }
+
+    interface ProcessorFile {
+        text: string;
+        filename: string;
+    }
+
+    // https://eslint.org/docs/developer-guide/working-with-plugins#processors-in-plugins
+    interface Processor<T extends string | ProcessorFile = string | ProcessorFile> {
+        supportsAutofix?: boolean;
+        preprocess?(text: string, filename: string): T[];
+        postprocess?(messages: LintMessage[][], filename: string): LintMessage[];
+    }
 }
 
 //#endregion
@@ -591,7 +801,7 @@ export class ESLint {
 
     static getErrorResults(results: ESLint.LintResult[]): ESLint.LintResult[];
 
-    constructor(options: ESLint.Options);
+    constructor(options?: ESLint.Options);
 
     lintFiles(patterns: string | string[]): Promise<ESLint.LintResult[]>;
 
@@ -627,11 +837,12 @@ export namespace ESLint {
 
         // Autofix
         fix?: boolean | ((message: Linter.LintMessage) => boolean);
-        fixTypes?: Array<Rule.RuleMetaData['type']>;
+        fixTypes?: Array<Rule.RuleMetaData["type"]>;
 
         // Cache-related
         cache?: boolean;
         cacheLocation?: string;
+        cacheStrategy?: "content" | "metadata";
     }
 
     interface LintResult {
@@ -706,6 +917,7 @@ export namespace CLIEngine {
         cache?: boolean;
         cacheFile?: string;
         cacheLocation?: string;
+        cacheStrategy?: "content" | "metadata";
         configFile?: string;
         cwd?: string;
         envs?: string[];

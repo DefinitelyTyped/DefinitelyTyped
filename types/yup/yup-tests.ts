@@ -182,7 +182,7 @@ mixed.test('is-jimmy', '${path} is not Jimmy', value => value === 'jimmy');
 mixed.test(
     'is-jimmy',
     ({ path, value }) => `${path} has an error, it is ${value}`,
-    value => value === 'jimmy',
+    (value, context) => value === 'jimmy' || context.originalValue === 'jimmy',
 );
 mixed.test({
     name: 'lessThan5',
@@ -224,6 +224,8 @@ const testContext = function(this: TestContext) {
     this.parent;
     // $ExpectType Schema<any, object>
     this.schema;
+    // $ExpectType any
+    this.originalValue;
     // $ExpectType (value: any) => any
     this.resolve;
     // $ExpectType ValidationError
@@ -433,6 +435,7 @@ boolSchema.defined();
 const dateSchema = yup.date(); // $ExpectType DateSchema<Date | undefined, object>
 dateSchema.type;
 dateSchema.isValid(new Date()); // => true
+dateSchema.isValid('2017-11-12'); // => true
 dateSchema.min(new Date());
 dateSchema.min('2017-11-12');
 dateSchema.min(new Date(), 'message');
@@ -626,6 +629,7 @@ const exhaustiveLocalObjectconst: LocaleObject = {
         oneOf: '${path} must be one of the following values: ${values}',
         notOneOf: '${path} must not be one of the following values: ${values}',
         notType: '${path} is not the correct type',
+        defined: '${path} is not defined',
     },
     string: {
         length: '${path} must be exactly ${length} characters',
@@ -644,6 +648,7 @@ const exhaustiveLocalObjectconst: LocaleObject = {
         max: '${path} must be less than or equal to ${max}',
         lessThan: '${path} must be less than ${less}',
         moreThan: '${path} must be greater than ${more}',
+        notEqual: '${path} must be not equal to ${notEqual}',
         positive: '${path} must be a positive number',
         negative: '${path} must be a negative number',
         integer: '${path} must be an integer',
@@ -656,7 +661,7 @@ const exhaustiveLocalObjectconst: LocaleObject = {
         // NOOP
     },
     object: {
-        noUnknown: '${path} field cannot have keys not specified in the object shape',
+        noUnknown: '${path} field has unspecified keys: ${unknown}',
     },
     array: {
         min: '${path} field must have at least ${min} items',
@@ -926,6 +931,8 @@ person.mustBeAString = undefined;
 person.friends = new Set([1, 2, 3]);
 // $ExpectError
 person.friends = ["Amy", "Beth"];
+// $ExpectError
+person.birthDate = '2017-11-12';
 
 const castPerson = personSchema.cast({});
 castPerson.firstName = '';
@@ -945,6 +952,50 @@ castPerson.isAlive = undefined;
 castPerson.children = ['1', '2', '3'];
 castPerson.children = null;
 castPerson.children = undefined;
+
+// date validations on a string field
+const stringDateSchema = yup.object({
+    stringyDateRequired: yup
+        .date<string>()
+        .required(),
+    stringyDateOptional: yup
+        .date<string>()
+        .nullable()
+        .notRequired(),
+    flexibleDate: yup.date<Date | string>().required(),
+    realDate: yup.date().required()
+}).defined();
+
+type StringDate = yup.InferType<typeof stringDateSchema>;
+const stringDate: StringDate = {
+    stringyDateRequired: "2020-01-01",
+    stringyDateOptional: null,
+    flexibleDate: "2020-01-01",
+    realDate: new Date(),
+};
+
+stringDate.stringyDateRequired = "2020-01-01";
+// $ExpectError
+stringDate.stringyDateRequired = new Date();
+// $ExpectError
+stringDate.stringyDateRequired = null;
+
+stringDate.stringyDateOptional = "2020-01-01";
+stringDate.stringyDateOptional = undefined;
+stringDate.stringyDateOptional = null;
+// $ExpectError
+stringDate.stringyDateOptional = new Date();
+
+stringDate.flexibleDate = new Date();
+stringDate.flexibleDate = "2020-01-01";
+// $ExpectError
+stringDate.flexibleDate = null;
+// $ExpectError
+stringDate.flexibleDate = undefined;
+
+stringDate.realDate = new Date();
+// $ExpectError
+stringDate.realDate = "2020-01-01";
 
 const loginSchema = yup.object({
     password: yup.string(),

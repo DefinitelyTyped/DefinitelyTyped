@@ -1,4 +1,4 @@
-// Type definitions for react-email-editor 1.0
+// Type definitions for react-email-editor 1.1
 // Project: https://github.com/unlayer/react-email-editor
 // Definitions by: Nikita Granko <https://github.com/ngranko>
 //                 Vladimir Penyazkov <https://github.com/mindtraveller>
@@ -52,6 +52,16 @@ export interface DesignTagConfig {
     readonly delimeter: [string, string];
 }
 
+export interface DisplayCondition {
+    readonly type: string;
+    readonly label: string;
+    readonly description: string;
+    readonly before: string;
+    readonly after: string;
+}
+
+export type EmptyDisplayCondition = object;
+
 export interface ToolConfig {
     readonly enabled?: boolean;
     readonly position?: number;
@@ -103,6 +113,7 @@ export interface UnlayerOptions {
     readonly customCSS?: string[];
     readonly features?: Features;
     readonly translations?: Translations;
+    readonly displayConditions?: DisplayCondition[];
 }
 
 export interface EmailEditorProps {
@@ -144,9 +155,13 @@ export type EventCallback = (data: object) => void;
 export type FileUploadCallback = (file: FileInfo, done: FileUploadDoneCallback) => void;
 export type FileUploadDoneCallback = (data: FileUploadDoneData) => void;
 
+export type DisplayConditionDoneCallback = (data: DisplayCondition | null) => void;
+export type DisplayConditionCallback = (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => void;
+
 export default class Component extends ReactComponent<EmailEditorProps> {
     private unlayerReady(): void;
     registerCallback(type: 'image', callback: FileUploadCallback): void;
+    registerCallback(type: 'displayCondition', callback: DisplayConditionCallback): void;
     addEventListener(type: string, callback: EventCallback): void;
     loadDesign(design: Design): void;
     saveDesign(callback: SaveDesignCallback): void;

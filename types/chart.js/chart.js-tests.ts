@@ -52,6 +52,7 @@ const chart: Chart = new Chart(ctx, {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
             mode: 'index',
+            axis: 'x',
             itemSort: (a, b, data) => Math.random() - 0.5,
             position: 'average',
             caretPadding: 2,
@@ -98,6 +99,25 @@ const chart: Chart = new Chart(ctx, {
                     },
                 },
             ],
+        },
+        elements: {
+            rectangle: {
+                backgroundColor(ctx) {
+                    if (ctx.dataset && typeof ctx.dataset.backgroundColor === "function") {
+                        return ctx.dataset.backgroundColor(ctx);
+                    }
+
+                    if (ctx.dataset && Array.isArray(ctx.dataset.backgroundColor)) {
+                        return ctx.dataset.backgroundColor[0] || "red";
+                    }
+
+                    if (!ctx.dataset) {
+                        return "red";
+                    }
+
+                    return (ctx.dataset.backgroundColor as ChartColor | string) || "red";
+                }
+            }
         },
         legend: {
             align: 'center',
@@ -333,6 +353,22 @@ const customTooltipsPieChart = new Chart(ctx, {
     },
 });
 
+// chart with right-to-left (rtl) legend and tooltip
+const rtlTooltipsLegendsLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {},
+    options: {
+        legend: {
+            rtl: true,
+            textDirection: 'rtl',
+        },
+        tooltips: {
+            rtl: true,
+            textDirection: 'rtl',
+        },
+    },
+});
+
 // platform global values
 Chart.platform.disableCSSInjection = true;
 
@@ -347,6 +383,7 @@ Chart.defaults.global.defaultFontFamily = 'Arial';
 Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
 Chart.defaults.global.tooltips.cornerRadius = 2;
 Chart.defaults.global.tooltips.displayColors = false;
+Chart.defaults.global.defaultColor = ctx.createLinearGradient(0, 0, 0, 100);
 
 // Update Chart defaults using scaleService
 Chart.scaleService.updateScaleDefaults('time', {
@@ -529,3 +566,24 @@ const chartWithNumberArrayData: Chart = new Chart(ctx, {
         }
     }
 });
+
+// Category axes
+const categoryXAxe: Chart.ChartXAxe = {
+    type: 'category',
+    labels: ['label1', 'label2'],
+};
+
+// Testing plugin service static methods
+const plugins = Chart.plugins.getAll();
+console.log(plugins);
+const foo = plugins.find(plugin => plugin.id === 'foo');
+console.log(foo);
+const pluginCount = Chart.plugins.count();
+console.log(pluginCount);
+const notify = Chart.plugins.notify(chart, 'beforeInit', []);
+console.log(notify);
+const pluginDescriptors = Chart.plugins.descriptors(chart);
+console.log(pluginDescriptors);
+
+Chart.plugins.clear();
+console.log(Chart.plugins.getAll());

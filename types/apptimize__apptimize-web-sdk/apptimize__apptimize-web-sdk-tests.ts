@@ -1,4 +1,4 @@
-import Apptimize, { VariantInfo } from 'apptimize__apptimize-web-sdk';
+import Apptimize, { VariantInfo } from '@apptimize/apptimize-web-sdk';
 
 // Test Apptimize methods called with valid properties return expected types
 Apptimize.flushTracking(); // $ExpectType void

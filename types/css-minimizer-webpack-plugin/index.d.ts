@@ -1,18 +1,25 @@
-// Type definitions for css-minimizer-webpack-plugin 1.1
+// Type definitions for css-minimizer-webpack-plugin 3.0
 // Project: https://github.com/webpack-contrib/css-minimizer-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Plugin } from 'webpack';
-import { CssNanoOptions } from 'cssnano';
-import { SourceMapOptions } from 'postcss';
+// TypeScript Version: 3.7
 
-declare class CssMinimizerPlugin extends Plugin {
+import { Compiler } from "webpack";
+import { CssNanoOptions } from "cssnano";
+import { ProcessOptions, SourceMapOptions } from "postcss";
+
+declare class CssMinimizerPlugin {
     constructor(options?: CssMinimizerPlugin.Options);
+
+    /**
+     * Apply the plugin
+     */
+    apply(compiler: Compiler): void;
 }
 
 declare namespace CssMinimizerPlugin {
     interface Options {
-        minimizerOptions?: CssNanoOptions;
+        minimizerOptions?: MinimizerOptions | MinimizerOptions[];
         /**
          * Test to match files against.
          */
@@ -49,7 +56,7 @@ declare namespace CssMinimizerPlugin {
          * Allows you to override default minify function.
          * By default plugin uses cssnano package. Useful for using and testing unpublished versions or forks.
          */
-        minify?: (data: any, inputMap: any, minimizerOptions: any) => any;
+        minify?: MinifyFunc | MinifyFunc[];
         /**
          * Allow to filter css-minimizer warnings (By default cssnano).
          * Return true to keep the warning, a falsy value (false/null/undefined) otherwise.
@@ -57,13 +64,28 @@ declare namespace CssMinimizerPlugin {
         warningsFilter?: (warning: string, file: string, source: string) => boolean | undefined | null;
     }
 
+    interface MinimizerOptions extends CssNanoOptions {
+        processorOptions?: {
+            from?: ProcessOptions["from"];
+            map?: ProcessOptions["map"];
+            parser?: ProcessOptions["parser"] | string;
+            stringifier?: ProcessOptions["stringifier"] | string;
+            syntax?: ProcessOptions["syntax"] | string;
+            to?: ProcessOptions["to"];
+        };
+    }
+
+    interface MinifyFunc {
+        (data: any, inputMap: any, minimizerOptions: any): any;
+    }
+
     /**
      * Default cache keys
      */
     interface DefaultCacheKeys {
         cssMinimizer: string;
-        'css-minimizer-webpack-plugin': string;
-        'css-minimizer-webpack-plugin-options': string;
+        "css-minimizer-webpack-plugin": string;
+        "css-minimizer-webpack-plugin-options": string;
         path: string;
         hash: string;
     }

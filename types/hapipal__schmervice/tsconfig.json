@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "target": "ES6",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@hapi/*": [ "hapi__*" ],
+            "@hapipal/*": [ "hapipal__*" ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "hapipal__schmervice-tests.ts",
+        "test/organization_service.ts",
+        "test/user_service.ts"
+    ]
+}

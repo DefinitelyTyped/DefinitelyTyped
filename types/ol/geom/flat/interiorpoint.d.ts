@@ -1,3 +1,7 @@
+/**
+ * Calculates a point that is likely to lie in the interior of the linear rings.
+ * Inspired by JTS's com.vividsolutions.jts.geom.Geometry#getInteriorPoint.
+ */
 export function getInteriorPointOfArray(
     flatCoordinates: number[],
     offset: number,

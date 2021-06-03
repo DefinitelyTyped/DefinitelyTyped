@@ -6,6 +6,8 @@ export interface Field {
     type?: FieldType;
     title?: string;
     value?: any;
+    min?: number;
+    max?: number;
 
     hasClass(cls: string | RegExp): boolean;
 }

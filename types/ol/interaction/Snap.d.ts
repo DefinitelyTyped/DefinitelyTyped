@@ -1,4 +1,4 @@
-import Collection, { CollectionEvent } from '../Collection';
+import Collection from '../Collection';
 import { Coordinate } from '../coordinate';
 import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
@@ -8,7 +8,7 @@ import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
 import { Pixel } from '../pixel';
 import PluggableMap from '../PluggableMap';
-import VectorSource, { VectorSourceEvent } from '../source/Vector';
+import VectorSource from '../source/Vector';
 import PointerInteraction from './Pointer';
 
 export interface Options {
@@ -29,10 +29,24 @@ export interface SegmentData {
 }
 export default class Snap extends PointerInteraction {
     constructor(opt_options?: Options);
+    /**
+     * Add a feature to the collection of features that we may snap to.
+     */
     addFeature(feature: Feature<Geometry>, opt_listen?: boolean): void;
     handleEvent(evt: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Handle pointer up events.
+     */
     handleUpEvent(evt: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Remove a feature from the collection of features that we may snap to.
+     */
     removeFeature(feature: Feature<Geometry>, opt_unlisten?: boolean): void;
+    /**
+     * Remove the interaction from its current map and attach it to the new map.
+     * Subclasses may set up event handlers to get notified about changes to
+     * the map here.
+     */
     setMap(map: PluggableMap): void;
     snapTo(pixel: Pixel, pixelCoordinate: Coordinate, map: PluggableMap): Result;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

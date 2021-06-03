@@ -28,6 +28,14 @@ const ReactTimeagoAllOptions: JSX.Element = (
     />
 );
 
+const ReactTimeagoDefaultComponentProps: JSX.Element = (
+    // Note that the default component is <time/>, which has a style prop.
+    <ReactTimeago
+        date={new Date()}
+        style={{marginTop: 42}}
+    />
+);
+
 // inspired by react-native
 class Text extends React.Component<{
     style?: Array<{}>;

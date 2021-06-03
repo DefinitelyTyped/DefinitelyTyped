@@ -15,9 +15,14 @@ export interface Options {
     opaque?: boolean;
     reprojectionErrorThreshold?: number;
     tileLoadFunction?: LoadFunction;
+    transition?: number;
     url?: string;
     wrapX?: boolean;
 }
+/**
+ * The attribution containing a link to the OpenStreetMap Copyright and License
+ * page.
+ */
 export const ATTRIBUTION: string;
 export default class OSM extends XYZ {
     constructor(opt_options?: Options);

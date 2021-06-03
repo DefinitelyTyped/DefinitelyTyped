@@ -15,7 +15,8 @@ import {
     PaymentMethodNonce,
     Transaction,
     WebhookNotificationKind,
-    MerchantAccountCreateRequest, Plan,
+    MerchantAccountCreateRequest,
+    Plan,
 } from 'braintree';
 
 /**
@@ -82,12 +83,49 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 })();
 
 (async () => {
-    const transactionRequest = {
+    const transactionRequest: braintree.TransactionRequest = {
         amount: '128.00',
     };
     const response = await gateway.transaction.sale(transactionRequest).catch(console.error);
     if (!response) return;
-    const { amount, billing, id }: Transaction = response.transaction;
+    const { amount, billing, escrowStatus, gatewayRejectionReason, type, status, id }: Transaction = response.transaction;
+
+    // Assert overlap between transaction type and static field
+    type === Transaction.Type.Credit;
+    type === Transaction.Type.Sale;
+
+    // Assert overlap between transaction status and static field
+    status === Transaction.Status.AuthorizationExpired;
+    status === Transaction.Status.Authorized;
+    status === Transaction.Status.Authorizing;
+    status === Transaction.Status.Failed;
+    status === Transaction.Status.GatewayRejected;
+    status === Transaction.Status.ProcessorDeclined;
+    status === Transaction.Status.Settled;
+    status === Transaction.Status.SettlementConfirmed;
+    status === Transaction.Status.SettlementDeclined;
+    status === Transaction.Status.SettlementPending;
+    status === Transaction.Status.Settling;
+    status === Transaction.Status.SubmittedForSettlement;
+    status === Transaction.Status.Voided;
+
+    // Assert overlap between gateway rejection reason and static field
+    gatewayRejectionReason === Transaction.GatewayRejectionReason.ApplicationIncomplete;
+    gatewayRejectionReason === Transaction.GatewayRejectionReason.Avs;
+    gatewayRejectionReason === Transaction.GatewayRejectionReason.Cvv;
+    gatewayRejectionReason === Transaction.GatewayRejectionReason.AvsAndCvv;
+    gatewayRejectionReason === Transaction.GatewayRejectionReason.Duplicate;
+    gatewayRejectionReason === Transaction.GatewayRejectionReason.Fraud;
+    gatewayRejectionReason === Transaction.GatewayRejectionReason.RiskThreshold;
+    gatewayRejectionReason === Transaction.GatewayRejectionReason.ThreeDSecure;
+    gatewayRejectionReason === Transaction.GatewayRejectionReason.TokenIssuance;
+
+    // Assert overlap between escrow status and static field
+    escrowStatus === Transaction.EscrowStatus.HoldPending;
+    escrowStatus === Transaction.EscrowStatus.Held;
+    escrowStatus === Transaction.EscrowStatus.ReleasePending;
+    escrowStatus === Transaction.EscrowStatus.Released;
+    escrowStatus === Transaction.EscrowStatus.Refunded;
 
     // Cannot assign to var
     await gateway.transaction
@@ -113,9 +151,20 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     });
 
     const { subscription } = result;
+
     // $ExpectType string
     subscription.nextBillingDate;
+
+    // Assert overlap between subscription status and static field
+    subscription.status === braintree.Subscription.Status.Active;
+    subscription.status === braintree.Subscription.Status.Canceled;
+    subscription.status === braintree.Subscription.Status.Expired;
+    subscription.status === braintree.Subscription.Status.PastDue;
+    subscription.status === braintree.Subscription.Status.Pending;
 })();
+
+// $ExpectType () => string[]
+braintree.Subscription.Status.All;
 
 (async () => {
     const kind: WebhookNotificationKind = 'subscription_canceled';
@@ -192,7 +241,7 @@ const gateway2: BraintreeGateway = braintree.connect({
             lastName: 'Doe'
         },
         funding: {
-            destination: 'Bank',
+            destination: braintree.MerchantAccount.FundingDestination.Bank, // <-- Test example present in https://developers.braintreepayments.com/guides/braintree-marketplace/onboarding/node
             accountNumber: '123456789',
             routingNumber: '021000021'
         },
@@ -203,3 +252,37 @@ const gateway2: BraintreeGateway = braintree.connect({
     if (!response) return;
     const id = response.merchantAccount.masterMerchantAccount?.id;
 })();
+
+/**
+ * Disbursement webhook kind
+ */
+(async () => {
+    const notification = await gateway.webhookTesting.sampleNotification('disbursement', 'disbursementId');
+    const result = await gateway.webhookNotification.parse((notification).bt_signature, notification.bt_payload);
+
+    if (result.kind === 'disbursement') {
+        const id = result.disbursement.id;
+        const amount = result.disbursement.amount;
+        const disbursementDate = result.disbursement.disbursementDate;
+        const disbursementType = result.disbursement.disbursementType;
+        const transactionIds = result.disbursement.transactionIds;
+        const merchantAccount = result.disbursement.merchantAccount;
+        const retry = result.disbursement.retry;
+        const success = result.disbursement.success;
+        const exceptionMessage = result.disbursement.exceptionMessage;
+        const followUpAction = result.disbursement.followUpAction;
+
+        // Assert overlap between disbursement type and static field
+        disbursementType === braintree.Disbursement.Types.Credit;
+        disbursementType === braintree.Disbursement.Types.Debit;
+    }
+})();
+
+// $ExpectType "bank"
+braintree.MerchantAccount.FundingDestination.Bank;
+
+// $ExpectType "email"
+braintree.MerchantAccount.FundingDestination.Email;
+
+// $ExpectType "mobile_phone"
+braintree.MerchantAccount.FundingDestination.MobilePhone;

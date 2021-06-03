@@ -227,7 +227,11 @@ export interface SwiperOptions {
     /**
      * Register event handlers.
      */
-    on?: { [key in SwiperEvent]?: () => void };
+    on?: {
+        [key in Exclude<SwiperEvent, LazyLoadingEvent>]?: (this: Swiper, swiper: Swiper) => void;
+    } & {
+        [key in LazyLoadingEvent]?: (this: Swiper, slideEl: HTMLElement, imageEl: HTMLImageElement) => void;
+    };
 
     // CSS Scroll Snap
 
@@ -1173,8 +1177,6 @@ export interface A11yOptions {
     notificationClass?: string;
 }
 
-// "Multiple imports from './dist/js/swiper.esm' can be combined into one" + "Line breaks are not allowed in import declaration" = ...
-// tslint:disable-next-line:max-line-length
 import {
     Virtual,
     Keyboard,

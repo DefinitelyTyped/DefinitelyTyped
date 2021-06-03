@@ -16,12 +16,14 @@ import * as ssh2 from 'ssh2';
 
 export = sftp;
 
+type FileInfoType = 'd' | '-' | 'l';
+
 declare class sftp {
     connect(options: sftp.ConnectOptions): Promise<ssh2.SFTPWrapper>;
 
     list(remoteFilePath: string, pattern?: string | RegExp): Promise<sftp.FileInfo[]>;
 
-    exists(remotePath: string): Promise<false | 'd' | '-' | 'l'>;
+    exists(remotePath: string): Promise<false | FileInfoType>;
 
     stat(remotePath: string): Promise<sftp.FileStats>;
 
@@ -55,11 +57,7 @@ declare class sftp {
 
     chmod(remotePath: string, mode: number | string): Promise<string>;
 
-    append(
-        input: Buffer | NodeJS.ReadableStream,
-        remotePath: string,
-        options?: sftp.TransferOptions,
-    ): Promise<string>;
+    append(input: Buffer | NodeJS.ReadableStream, remotePath: string, options?: sftp.TransferOptions): Promise<string>;
 
     uploadDir(srcDir: string, destDir: string): Promise<string>;
 
@@ -104,7 +102,7 @@ declare namespace sftp {
     interface FastPutTransferOptions extends FastGetTransferOptions, ModeOption {}
 
     interface FileInfo {
-        type: string;
+        type: FileInfoType;
         name: string;
         size: number;
         modifyTime: number;

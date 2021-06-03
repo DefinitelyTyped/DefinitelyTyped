@@ -15,6 +15,12 @@
         "paths": {
             "terser-webpack-plugin": [
                 "terser-webpack-plugin/v2"
+            ],
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
             ]
         },
         "types": [],

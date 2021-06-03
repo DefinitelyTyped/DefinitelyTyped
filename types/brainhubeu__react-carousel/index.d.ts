@@ -15,6 +15,7 @@ export interface DotsProps {
     value?: number;
     onChange?(value: number): void;
     rtl?: boolean;
+    className?: string;
 }
 
 export class Dots extends React.Component<DotsProps> {
@@ -48,7 +49,7 @@ export interface CarouselProps {
     draggable?: boolean;
     animationSpeed?: number;
     className?: string;
-    breakpoints?: Pick<CarouselProps, Exclude<keyof CarouselProps, "breakpoints">>;
+    breakpoints?: Pick<CarouselProps, Exclude<keyof CarouselProps, "breakpoints" | "plugins">>;
     plugins?: Array<string|CarouselPluginTypes>;
 }
 

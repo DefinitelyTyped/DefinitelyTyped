@@ -6,7 +6,7 @@ interface ErrorConstructor {
     /**
      * Optional override for formatting stack traces
      *
-     * @see https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces
+     * @see https://v8.dev/docs/stack-trace-api#customizing-stack-traces
      */
     prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
 
@@ -37,9 +37,9 @@ interface ImportMeta {
  ------------------------------------------------*/
 
 // For backwards compability
-interface NodeRequire extends NodeJS.Require {}
-interface RequireResolve extends NodeJS.RequireResolve {}
-interface NodeModule extends NodeJS.Module {}
+interface NodeRequire extends NodeJS.Require { }
+interface RequireResolve extends NodeJS.RequireResolve { }
+interface NodeModule extends NodeJS.Module { }
 
 declare var process: NodeJS.Process;
 declare var console: Console;
@@ -47,13 +47,13 @@ declare var console: Console;
 declare var __filename: string;
 declare var __dirname: string;
 
-declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
+declare function setTimeout(callback: (...args: any[]) => void, ms?: number, ...args: any[]): NodeJS.Timeout;
 declare namespace setTimeout {
     function __promisify__(ms: number): Promise<void>;
     function __promisify__<T>(ms: number, value: T): Promise<T>;
 }
 declare function clearTimeout(timeoutId: NodeJS.Timeout): void;
-declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
+declare function setInterval(callback: (...args: any[]) => void, ms?: number, ...args: any[]): NodeJS.Timeout;
 declare function clearInterval(intervalId: NodeJS.Timeout): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
 declare namespace setImmediate {
@@ -71,7 +71,9 @@ declare var module: NodeModule;
 declare var exports: any;
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
+type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "base64url" | "latin1" | "binary" | "hex";
+
+type WithImplicitCoercion<T> = T | { valueOf(): T };
 
 /**
  * Raw data is stored in instances of the Buffer class.
@@ -116,7 +118,7 @@ declare class Buffer extends Uint8Array {
      * @param array The octets to store.
      * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
      */
-    constructor(array: any[]);
+    constructor(array: ReadonlyArray<any>);
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
@@ -132,25 +134,19 @@ declare class Buffer extends Uint8Array {
      *
      * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
      */
-    static from(arrayBuffer: ArrayBuffer | SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
+    static from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    static from(data: number[]): Buffer;
-    static from(data: Uint8Array): Buffer;
-    /**
-     * Creates a new buffer containing the coerced value of an object
-     * A `TypeError` will be thrown if {obj} has not mentioned methods or is not of other type appropriate for `Buffer.from()` variants.
-     * @param obj An object supporting `Symbol.toPrimitive` or `valueOf()`.
-     */
-    static from(obj: { valueOf(): string | object } | { [Symbol.toPrimitive](hint: 'string'): string }, byteOffset?: number, length?: number): Buffer;
+    static from(data: Uint8Array | ReadonlyArray<number>): Buffer;
+    static from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
      */
-    static from(str: string, encoding?: BufferEncoding): Buffer;
+    static from(str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: 'string'): string }, encoding?: BufferEncoding): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param values to create a new Buffer
@@ -191,7 +187,7 @@ declare class Buffer extends Uint8Array {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    static concat(list: Uint8Array[], totalLength?: number): Buffer;
+    static concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
@@ -315,6 +311,45 @@ declare class Buffer extends Uint8Array {
     values(): IterableIterator<number>;
 }
 
+//#region borrowed
+// from https://github.com/microsoft/TypeScript/blob/38da7c600c83e7b31193a62495239a0fe478cb67/lib/lib.webworker.d.ts#L633 until moved to separate lib
+/** A controller object that allows you to abort one or more DOM requests as and when desired. */
+interface AbortController {
+    /**
+     * Returns the AbortSignal object associated with this object.
+     */
+
+    readonly signal: AbortSignal;
+    /**
+     * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
+     */
+    abort(): void;
+}
+
+/** A signal object that allows you to communicate with a DOM request (such as a Fetch) and abort it if required via an AbortController object. */
+interface AbortSignal {
+    /**
+     * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
+     */
+    readonly aborted: boolean;
+
+    /**
+     * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
+     */
+    abort(): void;
+}
+
+declare var AbortController: {
+    prototype: AbortController;
+    new(): AbortController;
+};
+
+declare var AbortSignal: {
+    prototype: AbortSignal;
+    new(): AbortSignal;
+};
+//#endregion borrowed
+
 /*----------------------------------------------*
 *                                               *
 *               GLOBAL INTERFACES               *
@@ -344,7 +379,7 @@ declare namespace NodeJS {
          * Specifies the maximum number of characters to
          * include when formatting. Set to `null` or `Infinity` to show all elements.
          * Set to `0` or negative to show no characters.
-         * @default Infinity
+         * @default 10000
          */
         maxStringLength?: number | null;
         breakLength?: number;
@@ -470,6 +505,8 @@ declare namespace NodeJS {
     interface ReadWriteStream extends ReadableStream, WritableStream { }
 
     interface Global {
+        AbortController: typeof AbortController;
+        AbortSignal: typeof AbortSignal;
         Array: typeof Array;
         ArrayBuffer: typeof ArrayBuffer;
         Boolean: typeof Boolean;
@@ -523,8 +560,8 @@ declare namespace NodeJS {
         parseFloat: typeof parseFloat;
         parseInt: typeof parseInt;
         setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => Immediate;
-        setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
-        setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
+        setInterval: (callback: (...args: any[]) => void, ms?: number, ...args: any[]) => Timeout;
+        setTimeout: (callback: (...args: any[]) => void, ms?: number, ...args: any[]) => Timeout;
         queueMicrotask: typeof queueMicrotask;
         undefined: typeof undefined;
         unescape: (str: string) => string;
@@ -541,6 +578,7 @@ declare namespace NodeJS {
     interface Timer extends RefCounted {
         hasRef(): boolean;
         refresh(): this;
+        [Symbol.toPrimitive](): number;
     }
 
     interface Immediate extends RefCounted {
@@ -551,13 +589,24 @@ declare namespace NodeJS {
     interface Timeout extends Timer {
         hasRef(): boolean;
         refresh(): this;
+        [Symbol.toPrimitive](): number;
     }
 
-    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
+    type TypedArray =
+        | Uint8Array
+        | Uint8ClampedArray
+        | Uint16Array
+        | Uint32Array
+        | Int8Array
+        | Int16Array
+        | Int32Array
+        | BigUint64Array
+        | BigInt64Array
+        | Float32Array
+        | Float64Array;
     type ArrayBufferView = TypedArray | DataView;
 
     interface Require {
-        /* tslint:disable-next-line:callable-types */
         (id: string): any;
         resolve: RequireResolve;
         cache: Dict<NodeModule>;
@@ -579,6 +628,10 @@ declare namespace NodeJS {
         '.node': (m: Module, filename: string) => any;
     }
     interface Module {
+        /**
+         * `true` if the module is running during the Node.js preload
+         */
+        isPreloading: boolean;
         exports: any;
         require: Require;
         id: string;

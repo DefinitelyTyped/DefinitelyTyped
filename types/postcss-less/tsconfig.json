@@ -1,8 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "ES5",
         "lib": [
-            "es6"
+            "es6",
+            "ES2018.Promise"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

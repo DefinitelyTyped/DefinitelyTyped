@@ -16,7 +16,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-radar
          */
         interface SeriesRadar {
-
             /**
              * @default
              * "radar"
@@ -178,7 +177,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-radar.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -352,7 +350,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-radar.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -637,12 +635,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-radar.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -688,7 +684,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -974,7 +970,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -1003,7 +998,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle.color
                  */
-                color?: string | Function;
+                color?: EChartOption.Color | Function;
 
                 /**
                  * border color, whose format is similar to that of `color`.
@@ -1013,7 +1008,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: EChartOption.Color;
 
                 /**
                  * border width. No border when it is set to be 0.
@@ -1054,7 +1049,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1090,7 +1085,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-radar.lineStyle
              */
             lineStyle?: {
-
                 /**
                  * Line color.
                  *
@@ -1109,7 +1103,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-radar.lineStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * line width.
@@ -1155,7 +1149,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-radar.lineStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1191,7 +1185,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-radar.areaStyle
              */
             areaStyle?: {
-
                 /**
                  * Fill color.
                  *
@@ -1210,7 +1203,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-radar.areaStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * Size of shadow blur.
@@ -1232,7 +1225,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-radar.areaStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1265,12 +1258,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-radar.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -1287,7 +1278,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -1297,7 +1288,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -1338,7 +1329,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -1371,7 +1362,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1544,7 +1534,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -1830,12 +1820,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1881,7 +1869,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -2166,7 +2154,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -2185,7 +2172,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * line width.
@@ -2231,7 +2218,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -2264,7 +2251,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.areaStyle
                  */
                 areaStyle?: {
-
                     /**
                      * Fill color.
                      *
@@ -2283,7 +2269,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.areaStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * Size of shadow blur.
@@ -2305,7 +2291,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.areaStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -2512,7 +2498,6 @@ declare namespace echarts {
 
         namespace SeriesRadar {
             interface DataObject {
-
                 /**
                  * Data item name
                  *
@@ -2635,7 +2620,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-radar.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2766,7 +2750,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-radar.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -3052,12 +3036,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -3103,7 +3085,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -3391,7 +3373,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-radar.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * Bar color..
                      *
@@ -3476,7 +3457,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-radar.data.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -3495,7 +3475,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-radar.data.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * line width.
@@ -3541,7 +3521,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-radar.data.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -3577,7 +3557,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-radar.data.areaStyle
                  */
                 areaStyle?: {
-
                     /**
                      * Fill color.
                      *
@@ -3596,7 +3575,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-radar.data.areaStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * Size of shadow blur.
@@ -3618,7 +3597,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-radar.data.areaStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -3651,12 +3630,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3787,7 +3764,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -4077,12 +4054,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -4128,7 +4103,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -4425,7 +4400,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * Bar color..
                          *
@@ -4508,7 +4482,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *
@@ -4528,7 +4501,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.lineStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * line width.
@@ -4574,7 +4547,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.lineStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -4607,7 +4580,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.areaStyle
                      */
                     areaStyle?: {
-
                         /**
                          * Fill color.
                          *
@@ -4627,7 +4599,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.areaStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * Size of shadow blur.
@@ -4649,7 +4621,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.areaStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.

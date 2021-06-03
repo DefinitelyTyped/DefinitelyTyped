@@ -7,20 +7,6 @@
  */
 
 import * as d3Axis from 'd3-axis';
-import {
-    scaleBand,
-    ScaleBand,
-    scaleLinear,
-    ScaleLinear,
-    scaleOrdinal,
-    ScaleOrdinal,
-    scalePoint,
-    ScalePoint,
-    scalePow,
-    ScalePower,
-    scaleTime,
-    ScaleTime
-} from 'd3-scale';
 import { select, Selection } from 'd3-selection';
 import { Transition } from 'd3-transition';
 import { timeMinute } from 'd3-time';
@@ -32,21 +18,9 @@ import { format } from 'd3-format';
 
 let num: number;
 
-let axisScaleNumber: d3Axis.AxisScale<number>;
-let axisScaleDate: d3Axis.AxisScale<Date>;
-let axisScaleString: d3Axis.AxisScale<string>;
-
-// --------------------------------------------------------------------------
-// Test AxisScale Helper Interface
-// --------------------------------------------------------------------------
-
-axisScaleNumber = scaleLinear();
-axisScaleDate = scaleTime();
-axisScaleString = scaleOrdinal<number>();
-axisScaleNumber = scaleBand<number>();
-axisScaleNumber = scalePoint<number>();
-axisScaleString = scaleBand();
-axisScaleString = scalePoint();
+declare let axisScaleNumber: d3Axis.AxisScale<number | { valueOf(): number }>;
+declare let axisScaleDate: d3Axis.AxisScale<Date>;
+declare let axisScaleString: d3Axis.AxisScale<string>;
 
 // --------------------------------------------------------------------------
 // Test AxisContainerElement
@@ -66,10 +40,10 @@ containerElement = canvas; // fails, incompatible type
 // Test Axis Generators
 // --------------------------------------------------------------------------
 
-let topAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisTop(scaleLinear());
-let rightAxis: d3Axis.Axis<Date> = d3Axis.axisRight<Date>(scaleTime());
-let bottomAxis: d3Axis.Axis<string> = d3Axis.axisBottom(scaleOrdinal<number>());
-let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scaleLinear());
+let topAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisTop(axisScaleNumber);
+let rightAxis: d3Axis.Axis<Date> = d3Axis.axisRight<Date>(axisScaleDate);
+let bottomAxis: d3Axis.Axis<string> = d3Axis.axisBottom(axisScaleString);
+let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(axisScaleNumber);
 
 // --------------------------------------------------------------------------
 // Test Configure Axis
@@ -77,15 +51,13 @@ let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scal
 
 // scale(...) ----------------------------------------------------------------
 
-leftAxis = leftAxis.scale(scalePow());
-const powerScale: ScalePower<number, number> = leftAxis.scale<ScalePower<number, number>>();
+leftAxis = leftAxis.scale(axisScaleNumber);
 
-bottomAxis = bottomAxis.scale(scaleOrdinal<number>());
+bottomAxis = bottomAxis.scale(axisScaleString);
 // $ExpectError
-bottomAxis = bottomAxis.scale(scalePow()); // fails, domain of scale incompatible with domain of axis
+bottomAxis = bottomAxis.scale(axisScaleNumber); // fails, domain of scale incompatible with domain of axis
 
 const axisScale: d3Axis.AxisScale<string> = bottomAxis.scale();
-const ordinalScale: ScaleOrdinal<string, number> = bottomAxis.scale<ScaleOrdinal<string, number>>();
 
 // ticks(...) ----------------------------------------------------------------
 

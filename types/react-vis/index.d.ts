@@ -243,7 +243,7 @@ export interface AbstractSeriesProps<T extends AbstractSeriesPoint> {
     getY?: RVGet<T, 'y'>;
     height?: number;
     onNearestX?: RVNearestXEventHandler<T>;
-    onNearestXY?: RVNearestXEventHandler<T>;
+    onNearestXY?: RVNearestXYEventHandler<T>;
     onSeriesClick?: RVMouseEventHandler;
     onSeriesMouseOut?: RVMouseEventHandler;
     onSeriesMouseOver?: RVMouseEventHandler;
@@ -388,6 +388,7 @@ export interface CustomSVGSeriesProps extends AbstractSeriesProps<CustomSVGSerie
 export class CustomSVGSeries extends AbstractSeries<CustomSVGSeriesProps> {}
 
 export interface AreaSeriesProps extends AbstractSeriesProps<AreaSeriesPoint> {
+    curve?: string | ((x: any) => any); // default: null
     getNull?: RVGetNull<AreaSeriesPoint>;
 }
 export class AreaSeries extends AbstractSeries<AreaSeriesProps> {}
@@ -561,7 +562,12 @@ export interface XAxisProps {
     top?: number;
     left?: number;
     title?: string;
-    style?: CSSProperties;
+    style?: CSSProperties & {
+        line?: CSSProperties;
+        ticks?: CSSProperties;
+        text?: CSSProperties;
+        title?: CSSProperties;
+    };
     className?: string;
     hideTicks?: boolean;
     hideLine?: boolean;
@@ -592,7 +598,12 @@ export interface YAxisProps {
     top?: number;
     left?: number;
     title?: string;
-    style?: CSSProperties;
+    style?: CSSProperties & {
+        line?: CSSProperties;
+        ticks?: CSSProperties;
+        text?: CSSProperties;
+        title?: CSSProperties;
+    };
     className?: string;
     hideTicks?: boolean;
     hideLine?: boolean;

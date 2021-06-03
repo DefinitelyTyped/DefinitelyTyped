@@ -228,6 +228,16 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     forge.pki.verifyCertificateChain(caStore, [certificate], (verified, depth, chain) => {
         return true;
     });
+
+    forge.pki.verifyCertificateChain(caStore, [certificate], {
+        verify: (verified, depth, chain) => {
+            return true;
+        },
+        validityCheckDate: new Date()
+    });
+
+    certificate.issued(certificate);
+    certificate.isIssuer(certificate);
 }
 
 {
@@ -421,4 +431,36 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 {
     let decrypedRsa: forge.pki.rsa.PrivateKey = forge.pki.decryptRsaPrivateKey('testpem');
+}
+
+{
+    publicKeyRsa.n.bitLength();
+}
+
+{
+  const hmac = forge.hmac.create();
+  hmac.start('md5', 'Jefe');
+  hmac.update('what do ya want for nothing?');
+  const ret = hmac.digest().toHex();
+}
+
+{
+  const hmac = forge.hmac.create();
+  hmac.start('sha1', 'Jefe');
+  hmac.update('what do ya want for nothing?');
+  const ret = hmac.digest().toHex();
+}
+
+{
+  const hmac = forge.hmac.create();
+  hmac.start('sha256', 'Jefe');
+  hmac.update('what do ya want for nothing?');
+  const ret = hmac.digest().toHex();
+}
+
+{
+  const hmac = forge.hmac.create();
+  hmac.start('sha512', 'Jefe');
+  hmac.update('what do ya want for nothing?');
+  const ret = hmac.digest().toHex();
 }

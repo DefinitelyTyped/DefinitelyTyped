@@ -19,7 +19,8 @@
     await w.close();
 
     let permissionState: PermissionState = await fileHandle.queryPermission();
-    permissionState = await fileHandle.requestPermission({ writable: true });
+    permissionState = await fileHandle.requestPermission({ mode: 'read' });
+    permissionState = await fileHandle.requestPermission({ mode: 'readwrite' });
 
     fileHandle = await showSaveFilePicker();
     fileHandle = await showSaveFilePicker({
@@ -60,7 +61,7 @@
 
     dirHandle = await navigator.storage.getDirectory();
 
-    // Testing old / stable Chrome methods, remove when they're removed.
+    // Testing Chromium <=85 methods, remove when all Chromium-based browsers have upgraded.
 
     fileHandle = await chooseFileSystemEntries();
     fileHandle = await chooseFileSystemEntries({
@@ -75,8 +76,8 @@
     dirHandle = await dirHandle.getDirectory('subdir', { create: true });
     fileHandle = await dirHandle.getFile('file.txt');
 
-    permissionState = await fileHandle.requestPermission({ mode: 'readwrite' });
-    permissionState = await fileHandle.requestPermission({ mode: 'read' });
+    permissionState = await fileHandle.requestPermission({ writable: false });
+    permissionState = await fileHandle.requestPermission({ writable: true });
 
     (async function* recursivelyWalkDir(dirHandle: FileSystemDirectoryHandle): AsyncIterable<File> {
         for await (const handle of dirHandle.getEntries()) {

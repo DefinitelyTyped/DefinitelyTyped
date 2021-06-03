@@ -46,13 +46,25 @@ export interface StyleObject {
     glyphs: string;
     layers: LayerObject[];
 }
+/**
+ * The Mapbox source type.
+ */
 declare enum SourceType {
     VECTOR = 'vector',
 }
 export default class MapboxVectorLayer extends VectorTileLayer {
     constructor(options: Options);
+    /**
+     * Fetch the style object.
+     */
     protected fetchStyle(styleUrl: string): void;
+    /**
+     * Handle configuration or loading error.
+     */
     protected handleError(error: Error): void;
+    /**
+     * Handle the loaded style object.
+     */
     protected onStyleLoad(style: StyleObject): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

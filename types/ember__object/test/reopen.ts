@@ -1,13 +1,13 @@
-import { assertType } from "./lib/assert";
-import EmberObject from "@ember/object";
-import Mixin from "@ember/object/mixin";
+import { assertType } from './lib/assert';
+import EmberObject from '@ember/object';
+import Mixin from '@ember/object/mixin';
 
 type Person = typeof Person.prototype;
 const Person = EmberObject.extend({
     name: '',
     sayHello() {
         alert(`Hello. My name is ${this.get('name')}`);
-    }
+    },
 });
 
 assertType<Person>(Person.reopen());
@@ -21,7 +21,7 @@ const Person2 = Person.reopenClass({
 
     createPerson(name: string): Person {
         return Person.create({ name });
-    }
+    },
 });
 
 assertType<string>(Person2.create().name);
@@ -30,7 +30,7 @@ assertType<void>(Person2.create().sayHello());
 assertType<string>(Person2.species);
 
 const tom = Person2.create({
-    name: 'Tom Dale'
+    name: 'Tom Dale',
 });
 
 const badTom = Person2.create({ name: 99 }); // $ExpectError
@@ -46,7 +46,7 @@ const Person3 = Person2.reopen({
 
     sayGoodbye() {
         alert(`${this.get('goodbyeMessage')}, ${this.get('name')}`);
-    }
+    },
 });
 
 const person3 = Person3.create();
@@ -55,11 +55,13 @@ person3.get('goodbyeMessage');
 person3.sayHello();
 person3.sayGoodbye();
 
-interface AutoResizeMixin { resizable: true; }
+interface AutoResizeMixin {
+    resizable: true;
+}
 declare const AutoResizeMixin: Mixin<AutoResizeMixin>;
 
 const ResizableTextArea = EmberObject.reopen(AutoResizeMixin, {
-    scaling: 1.0
+    scaling: 1.0,
 });
 const text = ResizableTextArea.create();
 // TODO fix upstream

@@ -114,7 +114,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-parallel
          */
         interface SeriesParallel {
-
             /**
              * @default
              * "parallel"
@@ -178,7 +177,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle
              */
             lineStyle?: {
-
                 /**
                  * Line color.
                  *
@@ -197,7 +195,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * line width.
@@ -245,7 +243,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -280,12 +278,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -304,7 +300,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * line width.
@@ -352,7 +348,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -487,10 +483,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.data
              */
-            data?: (
-                (number | string | SeriesParallel.DataObject)[]
-                | (number | string | SeriesParallel.DataObject)[][]
-            );
+            data?: (number | string | SeriesParallel.DataObject)[] | (number | string | SeriesParallel.DataObject)[][];
 
             /**
              * `zlevel` value of all graghical elements in parallel.
@@ -653,7 +646,6 @@ declare namespace echarts {
 
         namespace SeriesParallel {
             interface DataObject {
-
                 /**
                  * The name of a data item.
                  *
@@ -696,7 +688,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * line width.
@@ -744,7 +736,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -778,12 +770,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *
@@ -803,7 +793,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * line width.
@@ -851,7 +841,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.

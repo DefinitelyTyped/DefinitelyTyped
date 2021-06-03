@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "webpack": "^5.3.0"
+    }
+}

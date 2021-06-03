@@ -43,4 +43,4 @@ export as namespace xmlserializer;
  *
  * @param node the DOM element to be serialized to XML/XHTML
  */
-export function serializeToString(node: parse5.Element): string;
+export function serializeToString(node: parse5.Node): string;

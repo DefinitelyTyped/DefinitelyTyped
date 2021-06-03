@@ -1,8 +1,6 @@
 import * as React from "react";
 
-interface InheritedProps extends React.TdHTMLAttributes<HTMLTableDataCellElement> { }
-
-export interface TableCellProps extends InheritedProps { }
+export interface TableCellProps extends React.TdHTMLAttributes<HTMLTableDataCellElement> { }
 
 declare const TableCell: React.FC<TableCellProps>;
 

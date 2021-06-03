@@ -5,6 +5,9 @@ import LRUCache from './structs/LRUCache';
 export default class TileCache extends LRUCache<any> {
     constructor();
     expireCache(usedTiles: { [key: string]: boolean }): void;
+    /**
+     * Prune all tiles from the cache that don't have the same z as the newest tile.
+     */
     pruneExceptNewestZ(): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

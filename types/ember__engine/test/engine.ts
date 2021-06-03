@@ -1,37 +1,37 @@
-import Engine from "@ember/engine";
-import EmberObject from "@ember/object";
+import Engine from '@ember/engine';
+import EmberObject from '@ember/object';
 
 const BaseEngine = Engine.extend({
-    modulePrefix: 'my-engine'
+    modulePrefix: 'my-engine',
 });
 
 BaseEngine.initializer({
     name: 'my-initializer',
     initialize(engine) {
         engine.register('foo:bar', EmberObject.extend({ foo: 'bar' }));
-    }
+    },
 });
 
 BaseEngine.instanceInitializer({
     name: 'my-instance-initializer',
     initialize(engine) {
         engine.lookup('foo:bar').get('foo');
-    }
+    },
 });
 
 const Engine1 = BaseEngine.create({
     rootElement: '#engine-one',
     customEvents: {
-        paste: 'paste'
-    }
+        paste: 'paste',
+    },
 });
 
 const Engine2 = BaseEngine.create({
     rootElement: '#engine-two',
     customEvents: {
         mouseenter: null,
-        mouseleave: null
-    }
+        mouseleave: null,
+    },
 });
 
 const Engine3 = BaseEngine.create();

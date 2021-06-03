@@ -1,18 +1,15 @@
-// Type definitions for non-npm package Node.js 12.12
+// Type definitions for non-npm package Node.js 12.20
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Alberto Schiabel <https://github.com/jkomyno>
-//                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Benjamin Toueg <https://github.com/btoueg>
-//                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Chigozirim C. <https://github.com/smac89>
 //                 David Junger <https://github.com/touffy>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
-//                 Flarna <https://github.com/Flarna>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Huw <https://github.com/hoo29>
@@ -32,7 +29,6 @@
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
 //                 Samuel Ainsworth <https://github.com/samuela>
 //                 Kyle Uehlein <https://github.com/kuehlein>
-//                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
 //                 Marcin Kopacz <https://github.com/chyzwar>
 //                 Trivikram Kamat <https://github.com/trivikr>

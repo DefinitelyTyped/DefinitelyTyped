@@ -10,7 +10,12 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@ungap/*": [
+                "ungap__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

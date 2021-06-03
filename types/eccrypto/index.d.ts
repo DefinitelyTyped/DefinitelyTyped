@@ -19,7 +19,7 @@ export function getPublicCompressed(privateKey: Buffer): Buffer;
 export function sign(key: Buffer, msg: Buffer): Promise<Buffer>;
 
 // Verify an ECDSA signature.
-export function sign(publicKey: Buffer, msg: Buffer, sig: Buffer): Promise<null>;
+export function verify(publicKey: Buffer, msg: Buffer, sig: Buffer): Promise<null>;
 
 // Derive shared secret for given private and public keys.
 export function derive(privateKeyA: Buffer, publicKeyB: Buffer): Promise<Buffer>;

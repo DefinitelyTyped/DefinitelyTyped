@@ -13,8 +13,14 @@ export default class ReprojImage extends ImageBase {
         getImageFunction: FunctionType,
         opt_contextOptions?: any,
     );
+    /**
+     * Clean up.
+     */
     disposeInternal(): void;
     getImage(): HTMLCanvasElement;
     getProjection(): Projection;
+    /**
+     * Load not yet loaded URI.
+     */
     load(): void;
 }

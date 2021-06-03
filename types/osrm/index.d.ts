@@ -471,6 +471,11 @@ declare namespace OSRM {
          * specify which table results to return.
          */
         annotations?: Array<('duration' | 'distance')>;
+        /**
+         * Multiply the table duration values in the table by this number for more controlled input into a
+         * route optimization solver.
+         */
+        scale_factor?: number;
     }
 
     /**

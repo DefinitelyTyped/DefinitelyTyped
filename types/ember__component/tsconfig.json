@@ -27,6 +27,7 @@
         "index.d.ts",
         "test/lib/assert.ts",
         "test/component.ts",
-        "test/helper.ts"
+        "test/helper.ts",
+        "test/template-only.ts"
     ]
 }

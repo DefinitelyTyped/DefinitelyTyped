@@ -15,12 +15,10 @@ $.fn.matchHeight._rows($('.containers'));
 
 $('.containers').matchHeight({ remove: true });
 
-// tslint:disable-next-line no-used-variable
 $.fn.matchHeight._beforeUpdate = (event, groups) => {
     // do something before any updates are applied
 };
 
-// tslint:disable-next-line no-used-variable
 $.fn.matchHeight._afterUpdate = (event, groups) => {
     // do something after all updates are applied
 };

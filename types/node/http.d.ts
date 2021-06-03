@@ -1,7 +1,7 @@
-declare module "http" {
-    import * as stream from "stream";
-    import { URL } from "url";
-    import { Socket, Server as NetServer } from "net";
+declare module 'http' {
+    import * as stream from 'stream';
+    import { URL } from 'url';
+    import { Socket, Server as NetServer } from 'net';
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
@@ -32,6 +32,7 @@ declare module "http" {
         'content-type'?: string;
         'cookie'?: string;
         'date'?: string;
+        'etag'?: string;
         'expect'?: string;
         'expires'?: string;
         'forwarded'?: string;
@@ -51,6 +52,11 @@ declare module "http" {
         'range'?: string;
         'referer'?: string;
         'retry-after'?: string;
+        'sec-websocket-accept'?: string;
+        'sec-websocket-extensions'?: string;
+        'sec-websocket-key'?: string;
+        'sec-websocket-protocol'?: string;
+        'sec-websocket-version'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
         'tk'?: string;
@@ -65,10 +71,13 @@ declare module "http" {
     }
 
     // outgoing headers allows numbers (as they are converted internally to strings)
-    interface OutgoingHttpHeaders extends NodeJS.Dict<number | string | string[]> {
+    type OutgoingHttpHeader = number | string | string[];
+
+    interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {
     }
 
     interface ClientRequestArgs {
+        abort?: AbortSignal;
         protocol?: string | null;
         host?: string | null;
         hostname?: string | null;
@@ -98,7 +107,7 @@ declare module "http" {
         ServerResponse?: typeof ServerResponse;
         /**
          * Optionally overrides the value of
-         * [`--max-http-header-size`][] for requests received by this server, i.e.
+         * `--max-http-header-size` for requests received by this server, i.e.
          * the maximum length of request headers in bytes.
          * @default 8192
          */
@@ -147,7 +156,8 @@ declare module "http" {
 
     // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
     class OutgoingMessage extends stream.Writable {
-        upgrading: boolean;
+        readonly req: IncomingMessage;
+
         chunkedEncoding: boolean;
         shouldKeepAlive: boolean;
         useChunkedEncodingByDefault: boolean;
@@ -156,23 +166,23 @@ declare module "http" {
          * @deprecated Use `writableEnded` instead.
          */
         finished: boolean;
-        headersSent: boolean;
+        readonly headersSent: boolean;
         /**
-         * @deprecate Use `socket` instead.
+         * @deprecated Use `socket` instead.
          */
-        connection: Socket;
-        socket: Socket;
+        readonly connection: Socket | null;
+        readonly socket: Socket | null;
 
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): this;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        addTrailers(headers: OutgoingHttpHeaders | Array<[string, string]>): void;
+        addTrailers(headers: OutgoingHttpHeaders | ReadonlyArray<[string, string]>): void;
         flushHeaders(): void;
     }
 
@@ -188,8 +198,8 @@ declare module "http" {
         // https://github.com/nodejs/node/blob/master/test/parallel/test-http-write-callbacks.js#L53
         // no args in writeContinue callback
         writeContinue(callback?: () => void): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): this;
-        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
         writeProcessing(): void;
     }
 
@@ -205,14 +215,15 @@ declare module "http" {
 
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
     class ClientRequest extends OutgoingMessage {
-        connection: Socket;
-        socket: Socket;
-        aborted: number;
+        aborted: boolean;
+        host: string;
+        protocol: string;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
         method: string;
         path: string;
+        /** @deprecated since v14.1.0 Use `request.destroy()` instead. */
         abort(): void;
         onSocket(socket: Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
@@ -309,7 +320,7 @@ declare module "http" {
         httpVersionMinor: number;
         complete: boolean;
         /**
-         * @deprecate Use `socket` instead.
+         * @deprecated since v13.0.0 - Use `socket` instead.
          */
         connection: Socket;
         socket: Socket;
@@ -364,7 +375,8 @@ declare module "http" {
          */
         timeout?: number;
         /**
-         * Scheduling strategy to apply when picking the next free socket to use. Default: 'fifo'.
+         * Scheduling strategy to apply when picking the next free socket to use.
+         * @default `lifo`
          */
         scheduling?: 'fifo' | 'lifo';
     }
@@ -372,6 +384,7 @@ declare module "http" {
     class Agent {
         maxFreeSockets: number;
         maxSockets: number;
+        maxTotalSockets: number;
         readonly freeSockets: NodeJS.ReadOnlyDict<Socket[]>;
         readonly sockets: NodeJS.ReadOnlyDict<Socket[]>;
         readonly requests: NodeJS.ReadOnlyDict<IncomingMessage[]>;
@@ -408,7 +421,14 @@ declare module "http" {
 
     /**
      * Read-only property specifying the maximum allowed size of HTTP headers in bytes.
-     * Defaults to 16KB. Configurable using the [`--max-http-header-size`][] CLI option.
+     * Defaults to 16KB. Configurable using the `--max-http-header-size` CLI option.
      */
     const maxHeaderSize: number;
+
+    /**
+     *
+     * This utility function converts a URL object into an ordinary options object as
+     * expected by the `http.request()` and `https.request()` APIs.
+     */
+    function urlToHttpOptions(url: URL): ClientRequestArgs;
 }

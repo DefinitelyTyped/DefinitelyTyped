@@ -1,6 +1,9 @@
 // Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.0
 // Project: https://developer.akamai.com/akamai-edgeworkers-overview
 // Definitions by: Evan Hughes <https://github.com/evan-hughes>
+//                 Will Bain <https://github.com/wabain>
+//                 Swathi Bala <https://github.com/swathimr>
+//                 Aman Nanner <https://github.com/ananner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace EW {
@@ -9,6 +12,15 @@ declare namespace EW {
          * Provides header values by header name
          */
         getHeader(name: string): string[] | null;
+    }
+
+    // This is what we return from the API. Hence the type is string[]
+    interface Headers {
+        [others: string]: string[];
+    }
+
+    interface ReadAllHeader {
+        getHeaders(): Headers;
     }
 
     interface MutatesHeaders {
@@ -170,7 +182,7 @@ declare namespace EW {
         readonly query: string;
 
         /**
-         * The relative URL of the incoming request. This includes the path as well
+         * The Relative URL of the incoming request. This includes the path as well
          * as the query string.
          */
         readonly url: string;
@@ -183,19 +195,19 @@ declare namespace EW {
         readonly userLocation: UserLocation | undefined;
 
         /**
-         * Object containing properties specifying the device characteristics. The
+         * Object containing properties specifying the device characteristics. This
          * value of this property will be null if the contract associated with the
          * request does not have entitlements for EDC.
          */
         readonly device: Device | undefined;
 
         /**
-         * The CP code used for reporting.
+         * The cpcode used for reporting.
          */
         readonly cpCode: number;
     }
 
-    // Legacy interfaces for backwards compatibility
+    // Legacy interfaces for backwards compatability
     interface MutableRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request {
     }
     interface ImmutableRequest extends ReadsHeaders, ReadsVariables, Request {
@@ -221,6 +233,10 @@ declare namespace EW {
     interface EgressClientRequest extends ReadsHeaders, ReadsVariables, Request, MutatesVariables {
     }
     interface EgressClientResponse extends MutatesHeaders, ReadsHeaders, HasStatus {
+    }
+
+    // responseProvider
+    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader {
     }
 
     interface Destination {
@@ -506,6 +522,394 @@ declare module "cookies" {
         secure: boolean;
         sameSite: "Strict" | "Lax" | "None" | true;
     }
+}
+
+/**
+ * Creates a response that can be returned from the `responseProvider()`
+ * callback in a promise.
+ */
+declare module "create-response" {
+    import { ReadableStream } from "streams";
+
+    /**
+     * Specifies headers for createResponse(). Keys are treated as header
+     * names, and values are treated as header values.
+     */
+    interface Headers {
+        [others: string]: string | string[];
+    }
+
+    /**
+     * A response body, either in the form of a static string or a readable stream.
+     */
+    type CreateResponseBody = string | ReadableStream;
+
+    /**
+     * Generates a return value for responseProvider(). It validates the
+     * passed values and returns an opaque object. Callers should be
+     * prepared for the function to throw exceptions if they specify invalid
+     * arguments.
+     *
+     * @param status The HTTP status code of the outgoing response. Must be
+     *          in the range of 100-599.
+     * @param headers Properties used as key:value pairs for the response
+     *          headers. Keys are strings that contain header names, values
+     *          are either strings or arrays of strings.
+     * @param body Content of the response body. When specified as a
+     *          string, the body is limited to 100,000 bytes. When specified
+     *          as a ReadableStream, there is no limit.
+     * @param denyReason Deny reason when the status code is 403.
+     */
+    function createResponse(status: number, headers: Headers, body: CreateResponseBody, denyReason?: string): object;
+    function createResponse(body?: CreateResponseBody, opts?: {
+        status?: number, headers?: Headers, body?: object, denyReason?: string
+    }): object;
+}
+
+declare module "http-request" {
+    import { ReadableStream } from "streams";
+
+    /**
+     * Performs a subrequest, fetching the requested resource asynchronously.
+     *
+     * @param url A String containing the URL to fetch. Can be an absolute
+     *      or relative URL. Relative URLs will use the parent request as
+     *      the base URL. Only "http" and "https" are supported for the
+     *      scheme. Specifying port numbers is not supported.
+     * @param options May include
+     *  - `method` The HTTP method to use.
+     *  - `headers` Request headers to specify.
+     *  - `body` The request payload.
+     *  - `timeout` The request timeout, in milliseconds.
+     */
+    function httpRequest(url: string, options?: {
+        method?: string,
+        headers?: { [others: string]: string | string[] },
+        body?: string,
+        timeout?: number
+    }): Promise<HttpResponse>;
+
+    /**
+     * Describes the result of a `httpRequest()`.
+     */
+    interface HttpResponse extends EW.ReadsHeaders, EW.ReadAllHeader {
+        /**
+         * The HTTP status code
+         */
+        readonly status: number;
+
+        /**
+         * A boolean which is true for 2XX responses
+         */
+        readonly ok: boolean;
+
+        body: ReadableStream;
+
+        /**
+         * Returns a Promise that resolves to a string containing the
+         * response body. Note that the body is buffered in memory.
+         */
+        text(): Promise<string>;
+
+        /**
+         * Parses the body of the response as JSON. The response is buffered
+         * and `JSON.parse()` is run on the text.
+         */
+        json(): Promise<any>;
+    }
+}
+
+/**
+ * Provides implementations of the [WHATWG Streams Standard].
+ *
+ * [WHATWG Streams Standard]: https://streams.spec.whatwg.org
+ */
+declare module "streams" {
+    interface ReadableStreamBYOBRequest {
+        readonly view: ArrayBufferView;
+        respond(bytesWritten: number): void;
+        respondWithNewView(view: ArrayBufferView): void;
+    }
+
+    interface ReadableByteStreamController {
+        readonly byobRequest: ReadableStreamBYOBRequest | undefined;
+        readonly desiredSize: number | null;
+        close(): void;
+        enqueue(chunk: ArrayBufferView): void;
+        error(error?: any): void;
+    }
+
+    interface ReadableByteStreamControllerCallback {
+        (controller: ReadableByteStreamController): void | PromiseLike<void>;
+    }
+
+    interface UnderlyingByteSource {
+        autoAllocateChunkSize?: number;
+        cancel?: ReadableStreamErrorCallback;
+        pull?: ReadableByteStreamControllerCallback;
+        start?: ReadableByteStreamControllerCallback;
+        type: "bytes";
+    }
+
+    interface ReadableStreamDefaultController<R = any> {
+        readonly desiredSize: number | null;
+        close(): void;
+        enqueue(chunk: R): void;
+        error(error?: any): void;
+    }
+
+    interface ReadableStreamDefaultControllerCallback<R> {
+        (controller: ReadableStreamDefaultController<R>): void | PromiseLike<void>;
+    }
+
+    interface ReadableStreamErrorCallback {
+        (reason: any): void | PromiseLike<void>;
+    }
+
+    /**
+     * https://streams.spec.whatwg.org/#underlying-source-api
+     */
+    interface UnderlyingSource<R = any> {
+        start?: ReadableStreamDefaultControllerCallback<R>;
+        pull?: ReadableStreamDefaultControllerCallback<R>;
+        cancel?: ReadableStreamErrorCallback;
+        type?: undefined;
+    }
+
+    interface WritableStreamDefaultController {
+        error(error?: any): void;
+    }
+
+    interface WritableStreamDefaultControllerStartCallback {
+        (controller: WritableStreamDefaultController): void | PromiseLike<void>;
+    }
+
+    interface WritableStreamDefaultControllerWriteCallback<W> {
+        (chunk: W, controller: WritableStreamDefaultController): void | PromiseLike<void>;
+    }
+
+    interface WritableStreamDefaultControllerCloseCallback {
+        (): void | PromiseLike<void>;
+    }
+
+    interface WritableStreamErrorCallback {
+        (reason: any): void | PromiseLike<void>;
+    }
+
+    interface UnderlyingSink<W = any> {
+        start?: WritableStreamDefaultControllerStartCallback;
+        write?: WritableStreamDefaultControllerWriteCallback<W>;
+        close?: WritableStreamDefaultControllerCloseCallback;
+        abort?: WritableStreamErrorCallback;
+        type?: undefined;
+    }
+
+    interface ReadableStreamReadResult<T> {
+        readonly done: boolean;
+        readonly value: T;
+    }
+
+    interface PipeOptions {
+        preventAbort?: boolean;
+        preventCancel?: boolean;
+        preventClose?: boolean;
+        signal?: { aborted: boolean };
+    }
+
+    interface QueuingStrategySizeCallback<T = any> {
+        (chunk: T): number;
+    }
+
+    interface QueuingStrategy<T = any> {
+        highWaterMark?: number;
+        size?: QueuingStrategySizeCallback<T>;
+    }
+
+    interface WritableStreamDefaultWriter<W = any> {
+        readonly closed: Promise<void>;
+        readonly desiredSize: number | null;
+        readonly ready: Promise<void>;
+        abort(reason?: any): Promise<void>;
+        close(): Promise<void>;
+        releaseLock(): void;
+        write(chunk: W): Promise<void>;
+    }
+
+    interface WritableStream<W = any> {
+        readonly locked: boolean;
+        abort(reason?: any): Promise<void>;
+        close(): Promise<void>;
+        getWriter(): WritableStreamDefaultWriter<W>;
+    }
+
+    const WritableStream: {
+        prototype: WritableStream;
+        new <W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
+    };
+
+    interface ReadableStream<R = any> {
+        readonly locked: boolean;
+        cancel(reason?: any): Promise<void>;
+        getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
+        getReader(): ReadableStreamDefaultReader<R>;
+        pipeThrough<T>({ writable, readable }: { writable: WritableStream<R>, readable: ReadableStream<T> }, options?: PipeOptions): ReadableStream<T>;
+        pipeTo(dest: WritableStream<R>, options?: PipeOptions): Promise<void>;
+        tee(): [ReadableStream<R>, ReadableStream<R>];
+    }
+
+    const ReadableStream: {
+        prototype: ReadableStream;
+        new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStream<Uint8Array>;
+        new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
+    };
+
+    interface ReadableStreamBYOBReader {
+        readonly closed: Promise<void>;
+        cancel(reason?: any): Promise<void>;
+        read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
+        releaseLock(): void;
+    }
+
+    interface ReadableStreamDefaultReader<R = any> {
+        readonly closed: Promise<void>;
+        cancel(reason?: any): Promise<void>;
+        read(): Promise<ReadableStreamReadResult<R>>;
+        releaseLock(): void;
+    }
+
+    interface TransformStream<I = any, O = any> {
+        readonly readable: ReadableStream<O>;
+        readonly writable: WritableStream<I>;
+    }
+
+    interface CountQueuingStrategy {
+        highWaterMark: number;
+        size(chunk: any): 1;
+    }
+
+    interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
+        highWaterMark: number;
+        size(chunk: ArrayBufferView): number;
+    }
+
+    const ByteLengthQueuingStrategy: {
+        prototype: ByteLengthQueuingStrategy;
+        new(options: { highWaterMark: number }): ByteLengthQueuingStrategy;
+    };
+
+    export { ByteLengthQueuingStrategy, CountQueuingStrategy, ReadableStream, TransformStream, WritableStream, ReadableStreamDefaultController };
+}
+
+declare module "text-encode-transform" {
+    import { ReadableStream, WritableStream } from "streams";
+
+    interface TextEncoderCommon {
+        /**
+         * Returns "utf-8".
+         */
+        readonly encoding: string;
+    }
+
+    interface TextEncoderStream extends GenericTransformStream, TextEncoderCommon {
+        readonly readable: ReadableStream<Uint8Array>;
+        readonly writable: WritableStream<string>;
+    }
+
+    const TextEncoderStream: {
+        prototype: TextEncoderStream;
+        new(): TextEncoderStream;
+    };
+
+    type BufferSource = ArrayBufferView | ArrayBuffer;
+
+    interface TextDecoderOptions {
+        fatal?: boolean;
+        ignoreBOM?: boolean;
+    }
+
+    interface GenericTransformStream {
+        /**
+         * Returns a readable stream whose chunks are strings resulting from running encoding's decoder on the chunks written to writable.
+         */
+        readonly readable: ReadableStream;
+        /**
+         * Returns a writable stream which accepts [AllowShared] BufferSource chunks and runs them through encoding's decoder before making them available to readable.
+         *
+         * Typically this will be used via the pipeThrough() method on a ReadableStream source.
+         *
+         * ```
+         * var decoder = new TextDecoderStream(encoding);
+         * byteReadable
+         *   .pipeThrough(decoder)
+         *   .pipeTo(textWritable);
+         * ```
+         *
+         * If the error mode is "fatal" and encoding's decoder returns error, both readable and writable will be errored with a TypeError.
+         */
+        readonly writable: WritableStream;
+    }
+
+    interface TextDecoderCommon {
+        /**
+         * Returns encoding's name, lowercased.
+         */
+        readonly encoding: string;
+        /**
+         * Returns true if error mode is "fatal", and false otherwise.
+         */
+        readonly fatal: boolean;
+        /**
+         * Returns true if ignore BOM flag is set, and false otherwise.
+         */
+        readonly ignoreBOM: boolean;
+    }
+
+    interface TextDecoderStream extends GenericTransformStream, TextDecoderCommon {
+        readonly readable: ReadableStream<string>;
+        readonly writable: WritableStream<BufferSource>;
+    }
+
+    const TextDecoderStream: {
+        prototype: TextDecoderStream;
+        new(label?: string, options?: TextDecoderOptions): TextDecoderStream;
+    };
+
+    export { TextEncoderStream, TextDecoderStream };
+}
+
+/**
+ * Provides a debug logging facility. When debugging is enabled, log
+ * messages are written to response headers or the responseProvider()
+ * multipart output.
+ */
+declare module "log" {
+    interface Logger {
+        /**
+         * Emit a message to the log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        log(format: string, ...values: any): void;
+    }
+
+    const logger: Logger;
+
+    export { logger };
 }
 
 /**
