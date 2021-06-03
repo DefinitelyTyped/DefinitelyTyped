@@ -511,6 +511,14 @@ const customFontStyles = system({
         defaultScale: [200, 400, 600],
         transform: (n, scale) => get(scale, n),
     },
+    variable: {
+        property: '--some-var',
+        scale: 'fontWeights'
+    },
+    manyVariables: {
+        properties: ['--some-other-var'],
+        scale: 'fontWeights'
+    },
     letterSpacing: true,
 });
 
