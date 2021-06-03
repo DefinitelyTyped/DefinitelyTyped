@@ -1,16 +1,13 @@
 declare module 'timers' {
-    interface TimerOptions {
+    import { Abortable } from 'events';
+
+    interface TimerOptions extends Abortable {
         /**
          * Set to `false` to indicate that the scheduled `Timeout`
          * should not require the Node.js event loop to remain active.
          * @default true
          */
         ref?: boolean;
-
-        /**
-         * An optional `AbortSignal` that can be used to cancel the scheduled `Timeout`.
-         */
-        signal?: AbortSignal;
     }
 
     function setTimeout(callback: (...args: any[]) => void, ms?: number, ...args: any[]): NodeJS.Timeout;

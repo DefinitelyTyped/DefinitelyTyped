@@ -86,7 +86,6 @@ type HasProperty<T, K> = K extends keyof T ? true : false;
                     title: 'A',
                 },
                 {
-                    value: 'B',
                     title: 'B',
                 },
             ],

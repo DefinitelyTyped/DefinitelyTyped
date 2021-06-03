@@ -39,7 +39,8 @@ export namespace crypto {
     class Signature {
         static fromDER(sig: Buffer): Signature;
         static fromString(data: string): Signature;
-        SIGHASH_ALL: number;
+        static SIGHASH_ALL: number;
+        static SIGHASH_FORKID: number;
         toString(): string;
     }
 
@@ -293,7 +294,7 @@ export class Transaction {
     fee(amount: number): this;
     feePerKb(amount: number): this;
     feePerByte(amount: number): this;
-    sign(privateKey: Array<PrivateKey | string> | PrivateKey | string, sigtype?: number, signingMethod?: string): this;
+    sign(privateKey: Array<PrivateKey | string> | PrivateKey | string, sigtype?: number | null, signingMethod?: string): this;
     getSignatures(
         privKey: PrivateKey | string,
         sigtype?: number,

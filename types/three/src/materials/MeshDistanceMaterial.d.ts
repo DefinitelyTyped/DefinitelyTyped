@@ -64,11 +64,6 @@ export class MeshDistanceMaterial extends Material {
     /**
      * @default false
      */
-    skinning: boolean;
-
-    /**
-     * @default false
-     */
     morphTargets: boolean;
 
     /**

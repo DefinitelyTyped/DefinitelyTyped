@@ -108,5 +108,26 @@ import { EventLoopUtilization } from 'perf_hooks';
 
 {
     const worker = new workerThreads.Worker(__filename);
-    const utilization: EventLoopUtilization = worker.performance.eventLoopUtilitzation();
+    const utilization: EventLoopUtilization = worker.performance.eventLoopUtilization();
+}
+
+{
+    const bc: workerThreads.BroadcastChannel = new workerThreads.BroadcastChannel('test');
+    const name: string = bc.name;
+    bc.postMessage({
+        test: 1.
+    });
+
+    bc.close();
+    bc.ref();
+    bc.unref();
+    bc.onmessage = (msg: unknown) => { };
+    bc.onmessageerror = (msg: unknown) => { };
+}
+
+{
+    workerThreads.setEnvironmentData('test', 1);
+    workerThreads.setEnvironmentData(123, { a: 1 });
+    workerThreads.getEnvironmentData('test'); // $ExpectType Serializable
+    workerThreads.getEnvironmentData(1); // $ExpectType Serializable
 }

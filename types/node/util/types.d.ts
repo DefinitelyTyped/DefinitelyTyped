@@ -51,7 +51,3 @@ declare module 'util/types' {
     function isWeakMap(object: any): object is WeakMap<any, any>;
     function isWeakSet(object: any): object is WeakSet<any>;
 }
-
-declare module 'node:util/types' {
-    export * from 'util/types';
-}

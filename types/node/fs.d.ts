@@ -1,6 +1,6 @@
 declare module 'fs' {
     import * as stream from 'stream';
-    import EventEmitter = require('events');
+    import { Abortable, EventEmitter } from 'events';
     import { URL } from 'url';
     import * as promises from 'fs/promises';
 
@@ -142,11 +142,6 @@ declare module 'fs' {
         prependOnceListener(event: "close", listener: () => void): this;
     }
 
-    // TODO: Move this to a more central location
-    export interface Abortable {
-        signal?: AbortSignal;
-    }
-
     export class ReadStream extends stream.Readable {
         close(): void;
         bytesRead: number;
@@ -281,9 +276,7 @@ declare module 'fs' {
     /**
      * Asynchronous rename(2) - Change the name or location of a file or directory.
      * @param oldPath A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      */
     export function rename(oldPath: PathLike, newPath: PathLike, callback: NoParamCallback): void;
 
@@ -302,9 +295,7 @@ declare module 'fs' {
     /**
      * Synchronous rename(2) - Change the name or location of a file or directory.
      * @param oldPath A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      */
     export function renameSync(oldPath: PathLike, newPath: PathLike): void;
 
@@ -318,7 +309,6 @@ declare module 'fs' {
     /**
      * Asynchronous truncate(2) - Truncate a file to a specified length.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      */
     export function truncate(path: PathLike, callback: NoParamCallback): void;
 
@@ -1247,7 +1237,7 @@ declare module 'fs' {
      * Asynchronous close(2) - close a file descriptor.
      * @param fd A file descriptor.
      */
-    export function close(fd: number, callback: NoParamCallback): void;
+    export function close(fd: number, callback?: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace close {
@@ -1492,6 +1482,8 @@ declare module 'fs' {
      */
     export function writeSync(fd: number, string: string, position?: number | null, encoding?: BufferEncoding | null): number;
 
+    export type ReadPosition = number | bigint;
+
     /**
      * Asynchronously reads data from the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
@@ -1505,7 +1497,7 @@ declare module 'fs' {
         buffer: TBuffer,
         offset: number,
         length: number,
-        position: number | null,
+        position: ReadPosition | null,
         callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void,
     ): void;
 
@@ -1539,7 +1531,7 @@ declare module 'fs' {
         /**
          * @default null
          */
-        position?: number | null;
+        position?: ReadPosition | null;
     }
 
     /**
@@ -1550,7 +1542,7 @@ declare module 'fs' {
      * @param length The number of bytes to read.
      * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
      */
-    export function readSync(fd: number, buffer: NodeJS.ArrayBufferView, offset: number, length: number, position: number | null): number;
+    export function readSync(fd: number, buffer: NodeJS.ArrayBufferView, offset: number, length: number, position: ReadPosition | null): number;
 
     /**
      * Similar to the above `fs.readSync` function, this version takes an optional `options` object.
@@ -1574,7 +1566,6 @@ declare module 'fs' {
     /**
      * Asynchronously reads the entire contents of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
@@ -1588,7 +1579,6 @@ declare module 'fs' {
     /**
      * Asynchronously reads the entire contents of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
@@ -1642,7 +1632,6 @@ declare module 'fs' {
     /**
      * Synchronously reads the entire contents of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param options An object that may contain an optional flag. If a flag is not provided, it defaults to `'r'`.
      */
@@ -1651,7 +1640,6 @@ declare module 'fs' {
     /**
      * Synchronously reads the entire contents of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
@@ -1661,7 +1649,6 @@ declare module 'fs' {
     /**
      * Synchronously reads the entire contents of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
@@ -1673,7 +1660,6 @@ declare module 'fs' {
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
@@ -1687,7 +1673,6 @@ declare module 'fs' {
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      */
@@ -1713,7 +1698,6 @@ declare module 'fs' {
     /**
      * Synchronously writes data to a file, replacing the file if it already exists.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
@@ -1727,7 +1711,6 @@ declare module 'fs' {
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
      * @param file A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
@@ -1741,7 +1724,6 @@ declare module 'fs' {
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
      * @param file A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      */
@@ -1767,7 +1749,6 @@ declare module 'fs' {
     /**
      * Synchronously append data to a file, creating the file if it does not exist.
      * @param file A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
@@ -1786,21 +1767,36 @@ declare module 'fs' {
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      */
     export function watchFile(filename: PathLike, listener: (curr: Stats, prev: Stats) => void): void;
 
     /**
      * Stop watching for changes on `filename`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      */
     export function unwatchFile(filename: PathLike, listener?: (curr: Stats, prev: Stats) => void): void;
 
+    export interface WatchOptions extends Abortable {
+        encoding?: BufferEncoding | "buffer";
+        persistent?: boolean;
+        recursive?: boolean;
+    }
+
+    export type WatchListener<T> = (event: "rename" | "change", filename: T) => void;
+
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
+     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
+     * If `encoding` is not supplied, the default of `'utf8'` is used.
+     * If `persistent` is not supplied, the default of `true` is used.
+     * If `recursive` is not supplied, the default of `false` is used.
+     */
+    export function watch(filename: PathLike, options: WatchOptions & { encoding: "buffer" } | "buffer", listener?: WatchListener<Buffer>): FSWatcher;
+
+    /**
+     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
+     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
      * If `encoding` is not supplied, the default of `'utf8'` is used.
      * If `persistent` is not supplied, the default of `true` is used.
@@ -1808,52 +1804,30 @@ declare module 'fs' {
      */
     export function watch(
         filename: PathLike,
-        options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | BufferEncoding | undefined | null,
-        listener?: (event: "rename" | "change", filename: string) => void,
+        options?: WatchOptions | BufferEncoding | null,
+        listener?: WatchListener<string>,
     ): FSWatcher;
 
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
      * If `encoding` is not supplied, the default of `'utf8'` is used.
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    export function watch(
-        filename: PathLike,
-        options: { encoding: "buffer", persistent?: boolean, recursive?: boolean; } | "buffer",
-        listener?: (event: "rename" | "change", filename: Buffer) => void
-    ): FSWatcher;
+    export function watch(filename: PathLike, options: WatchOptions | string, listener?: WatchListener<string | Buffer>): FSWatcher;
 
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
-     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
-     * If `encoding` is not supplied, the default of `'utf8'` is used.
-     * If `persistent` is not supplied, the default of `true` is used.
-     * If `recursive` is not supplied, the default of `false` is used.
      */
-    export function watch(
-        filename: PathLike,
-        options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | string | null,
-        listener?: (event: "rename" | "change", filename: string | Buffer) => void,
-    ): FSWatcher;
-
-    /**
-     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
-     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
-     */
-    export function watch(filename: PathLike, listener?: (event: "rename" | "change", filename: string) => any): FSWatcher;
+    export function watch(filename: PathLike, listener?: WatchListener<string>): FSWatcher;
 
     /**
      * Asynchronously tests whether or not the given path exists by checking with the file system.
      * @deprecated since v1.0.0 Use `fs.stat()` or `fs.access()` instead
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      */
     export function exists(path: PathLike, callback: (exists: boolean) => void): void;
 
@@ -1869,7 +1843,6 @@ declare module 'fs' {
     /**
      * Synchronously tests whether or not the given path exists by checking with the file system.
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      */
     export function existsSync(path: PathLike): boolean;
 
@@ -2039,14 +2012,12 @@ declare module 'fs' {
     /**
      * Asynchronously tests a user's permissions for the file specified by path.
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      */
     export function access(path: PathLike, mode: number | undefined, callback: NoParamCallback): void;
 
     /**
      * Asynchronously tests a user's permissions for the file specified by path.
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      */
     export function access(path: PathLike, callback: NoParamCallback): void;
 
@@ -2063,19 +2034,13 @@ declare module 'fs' {
     /**
      * Synchronously tests a user's permissions for the file specified by path.
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      */
     export function accessSync(path: PathLike, mode?: number): void;
 
-    /**
-     * Returns a new `ReadStream` object.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
-     */
-    export function createReadStream(path: PathLike, options?: string | {
+    interface StreamOptions {
         flags?: string;
         encoding?: BufferEncoding;
-        fd?: number;
+        fd?: number | promises.FileHandle;
         mode?: number;
         autoClose?: boolean;
         /**
@@ -2083,25 +2048,24 @@ declare module 'fs' {
          */
         emitClose?: boolean;
         start?: number;
-        end?: number;
         highWaterMark?: number;
-    }): ReadStream;
+    }
+
+    interface ReadStreamOptions extends StreamOptions {
+        end?: number;
+    }
+
+    /**
+     * Returns a new `ReadStream` object.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function createReadStream(path: PathLike, options?: string | ReadStreamOptions): ReadStream;
 
     /**
      * Returns a new `WriteStream` object.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
      */
-    export function createWriteStream(path: PathLike, options?: string | {
-        flags?: string;
-        encoding?: BufferEncoding;
-        fd?: number;
-        mode?: number;
-        autoClose?: boolean;
-        emitClose?: boolean;
-        start?: number;
-        highWaterMark?: number;
-    }): WriteStream;
+    export function createWriteStream(path: PathLike, options?: string | StreamOptions): WriteStream;
 
     /**
      * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.

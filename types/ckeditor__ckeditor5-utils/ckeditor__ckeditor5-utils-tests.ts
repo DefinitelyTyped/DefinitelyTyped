@@ -1,4 +1,4 @@
-import * as ckEngine from "@ckeditor/ckeditor5-engine";
+import { KeyEventData } from "@ckeditor/ckeditor5-engine/src/view/observer/keyobserver";
 import createElement from "@ckeditor/ckeditor5-utils/src/dom/createelement";
 import Locale from "@ckeditor/ckeditor5-utils/src/locale";
 import EmitterMixin, { Emitter } from "@ckeditor/ckeditor5-utils/src/emittermixin";
@@ -33,12 +33,7 @@ import fastDiff from "@ckeditor/ckeditor5-utils/src/fastdiff";
 import first from "@ckeditor/ckeditor5-utils/src/first";
 import FocusTracker from "@ckeditor/ckeditor5-utils/src/focustracker";
 import isIterable from "@ckeditor/ckeditor5-utils/src/isiterable";
-import {
-    getCode,
-    keyCodes,
-    getEnvKeystrokeText,
-    parseKeystroke,
-} from "@ckeditor/ckeditor5-utils/src/keyboard";
+import { getCode, keyCodes, getEnvKeystrokeText, parseKeystroke } from "@ckeditor/ckeditor5-utils/src/keyboard";
 import KeystrokeHandler from "@ckeditor/ckeditor5-utils/src/keystrokehandler";
 import spy from "@ckeditor/ckeditor5-utils/src/spy";
 import mapsEqual from "@ckeditor/ckeditor5-utils/src/mapsequal";
@@ -421,7 +416,7 @@ emitter.delegate("foo").to(emitter, name => name + "-delegated");
 
 emitter.fire("foo");
 emitter.fire("foo", 1, "b", true);
-emitter.fire("getSelectedContent", (evt: EventInfo<any>) => {
+emitter.fire("getSelectedContent", (evt: EventInfo) => {
     evt.stop();
 });
 
@@ -462,8 +457,8 @@ bool = env.isMac;
 
 // utils/eventinfo ============================================================
 
-const event = new EventInfo({ a: 1 }, "test");
-num = event.source.a;
+const event = new EventInfo(EmitterMixin, "test");
+const emit: Emitter = event.source;
 str = event.name;
 
 event.path[0];
@@ -521,7 +516,7 @@ num = parseKeystroke(["shift", 33]);
 
 // utils/keystrokehandler =====================================================
 
-declare const keystroke: ckEngine.view.observer.KeyEventData;
+declare const keystroke: KeyEventData;
 const keystrokes = new KeystrokeHandler();
 
 const mySpy = spy();

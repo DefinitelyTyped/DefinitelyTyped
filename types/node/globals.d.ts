@@ -37,9 +37,9 @@ interface ImportMeta {
  ------------------------------------------------*/
 
 // For backwards compability
-interface NodeRequire extends NodeJS.Require {}
-interface RequireResolve extends NodeJS.RequireResolve {}
-interface NodeModule extends NodeJS.Module {}
+interface NodeRequire extends NodeJS.Require { }
+interface RequireResolve extends NodeJS.RequireResolve { }
+interface NodeModule extends NodeJS.Module { }
 
 declare var process: NodeJS.Process;
 declare var console: Console;
@@ -318,6 +318,7 @@ interface AbortController {
     /**
      * Returns the AbortSignal object associated with this object.
      */
+
     readonly signal: AbortSignal;
     /**
      * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
@@ -331,6 +332,11 @@ interface AbortSignal {
      * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
      */
     readonly aborted: boolean;
+
+    /**
+     * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
+     */
+    abort(): void;
 }
 
 declare var AbortController: {
@@ -622,6 +628,10 @@ declare namespace NodeJS {
         '.node': (m: Module, filename: string) => any;
     }
     interface Module {
+        /**
+         * `true` if the module is running during the Node.js preload
+         */
+        isPreloading: boolean;
         exports: any;
         require: Require;
         id: string;

@@ -34,6 +34,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     fragListTests(model);
     instanceTreeTests(model);
     modelTests(model);
+    showHideTests(viewer);
     await propertyDbTests(model);
     await compGeomTests(viewer);
     await dataVizTests(viewer);
@@ -321,6 +322,11 @@ async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number
             reject(err);
         });
     });
+}
+
+function showHideTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    viewer.hideAll();
+    viewer.showAll();
 }
 
 function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {

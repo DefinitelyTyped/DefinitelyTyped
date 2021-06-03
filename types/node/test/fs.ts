@@ -1,6 +1,7 @@
+import { FileHandle, open as openAsync, watch as watchAsync } from 'fs/promises';
 import * as fs from 'fs';
-import assert = require('assert');
 import * as util from 'util';
+import assert = require('assert');
 
 {
     fs.writeFile("thebible.txt",
@@ -66,15 +67,20 @@ import * as util from 'util';
 }
 
 {
-    fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => {});
+    fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => { });
+    fs.read(1, Buffer.from('test'), 1, 2, 123n, () => { });
 }
 
 {
     fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 0);
+    fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 123n);
     fs.readSync(1, Buffer.from(''), {
         length: 123,
         offset: 456,
         position: null,
+    });
+    fs.readSync(1, Buffer.from(''), {
+        position: 123n,
     });
 }
 
@@ -106,9 +112,9 @@ import * as util from 'util';
 
     const enc = 'buffer';
     fs.readdirSync('path', { encoding: enc });
-    fs.readdirSync('path', { });
+    fs.readdirSync('path', {});
 
-    fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => {});
+    fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => { });
 }
 
 async function testPromisify() {
@@ -155,7 +161,8 @@ async function testPromisify() {
     fs.watch('/tmp/foo-', {
         recursive: true,
         persistent: true,
-        encoding: 'utf8'
+        encoding: 'utf8',
+        signal: new AbortSignal(),
     }, (event, filename) => {
         console.log(event, filename);
     });
@@ -177,6 +184,11 @@ async function testPromisify() {
     fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
 
     fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
+}
+
+{
+    fs.close(123);
+    fs.close(123, (error?: Error | null) => { });
 }
 
 {
@@ -316,12 +328,12 @@ async function testPromisify() {
     try {
         await fs.promises.rmdir('some/test/path');
         await fs.promises.rmdir('some/test/path', { recursive: true, maxRetries: 123, retryDelay: 123 });
-    } catch (e) {}
+    } catch (e) { }
 
     try {
         await fs.promises.rmdir('some/test/file');
         await fs.promises.rmdir('some/test/file', { recursive: true, maxRetries: 123, retryDelay: 123 });
-    } catch (e) {}
+    } catch (e) { }
 })();
 
 {
@@ -345,13 +357,18 @@ async function testPromisify() {
     });
 }
 
-{
-    const writeStream = fs.createWriteStream('./index.d.ts');
+async () => {
+    const handle: FileHandle = await openAsync('test', 'r');
+    const writeStream = fs.createWriteStream('./index.d.ts', {
+        fd: handle,
+    });
     const _wom = writeStream.writableObjectMode; // $ExpectType boolean
 
-    const readStream = fs.createReadStream('./index.d.ts');
+    const readStream = fs.createReadStream('./index.d.ts', {
+        fd: handle,
+    });
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
-}
+};
 
 {
     fs.readvSync(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>);
@@ -360,12 +377,12 @@ async function testPromisify() {
 }
 
 async function testStat(
-  path: string,
-  fd: number,
-  opts: fs.StatOptions,
-  bigintMaybeFalse: fs.StatOptions & { bigint: false } | undefined,
-  bigIntMaybeTrue: fs.StatOptions & { bigint: true } | undefined,
-  maybe?: fs.StatOptions,
+    path: string,
+    fd: number,
+    opts: fs.StatOptions,
+    bigintMaybeFalse: fs.StatOptions & { bigint: false } | undefined,
+    bigIntMaybeTrue: fs.StatOptions & { bigint: true } | undefined,
+    maybe?: fs.StatOptions,
 ) {
     /* Need to test these variants:
      * - stat
@@ -393,25 +410,25 @@ async function testStat(
      */
 
     // Callback mode
-    fs.stat(path, (err, st: fs.Stats) => {});
-    fs.lstat(path, (err, st: fs.Stats) => {});
-    fs.fstat(fd, (err, st: fs.Stats) => {});
+    fs.stat(path, (err, st: fs.Stats) => { });
+    fs.lstat(path, (err, st: fs.Stats) => { });
+    fs.fstat(fd, (err, st: fs.Stats) => { });
 
-    fs.stat(path, undefined, (err, st: fs.Stats) => {});
-    fs.lstat(path, undefined, (err, st: fs.Stats) => {});
-    fs.fstat(fd, undefined, (err, st: fs.Stats) => {});
+    fs.stat(path, undefined, (err, st: fs.Stats) => { });
+    fs.lstat(path, undefined, (err, st: fs.Stats) => { });
+    fs.fstat(fd, undefined, (err, st: fs.Stats) => { });
 
-    fs.stat(path, {}, (err, st: fs.Stats) => {});
-    fs.lstat(path, {}, (err, st: fs.Stats) => {});
-    fs.fstat(fd, {}, (err, st: fs.Stats) => {});
+    fs.stat(path, {}, (err, st: fs.Stats) => { });
+    fs.lstat(path, {}, (err, st: fs.Stats) => { });
+    fs.fstat(fd, {}, (err, st: fs.Stats) => { });
 
-    fs.stat(path, bigintMaybeFalse, (err, st: fs.Stats) => {});
-    fs.lstat(path, bigintMaybeFalse, (err, st: fs.Stats) => {});
-    fs.fstat(fd, bigintMaybeFalse, (err, st: fs.Stats) => {});
+    fs.stat(path, bigintMaybeFalse, (err, st: fs.Stats) => { });
+    fs.lstat(path, bigintMaybeFalse, (err, st: fs.Stats) => { });
+    fs.fstat(fd, bigintMaybeFalse, (err, st: fs.Stats) => { });
 
-    fs.stat(path, { bigint: true }, (err, st: fs.BigIntStats) => {});
-    fs.lstat(path, { bigint: true }, (err, st: fs.BigIntStats) => {});
-    fs.fstat(fd, { bigint: true }, (err, st: fs.BigIntStats) => {});
+    fs.stat(path, { bigint: true }, (err, st: fs.BigIntStats) => { });
+    fs.lstat(path, { bigint: true }, (err, st: fs.BigIntStats) => { });
+    fs.fstat(fd, { bigint: true }, (err, st: fs.BigIntStats) => { });
 
     fs.stat(path, bigIntMaybeTrue, (err, st) => {
         st; // $ExpectType Stats | BigIntStats
@@ -535,3 +552,11 @@ async function testStat(
 const bigStats: fs.BigIntStats = fs.statSync('.', { bigint: true });
 const bigIntStat: bigint = bigStats.atimeNs;
 const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.random() > 0.5 });
+
+{
+    watchAsync('y33t'); // $ExpectType AsyncIterable<string>
+    watchAsync('y33t', 'buffer'); // $ExpectType AsyncIterable<Buffer>
+    watchAsync('y33t', { encoding: 'buffer', signal: new AbortSignal() }); // $ExpectType AsyncIterable<Buffer>
+
+    watchAsync('test', { persistent: true, recursive: true, encoding: 'utf-8' }); // $ExpectType AsyncIterable<string>
+}

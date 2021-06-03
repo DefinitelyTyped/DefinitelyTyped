@@ -1,4 +1,4 @@
-import { UploadAdapter } from "@ckeditor/ckeditor5-adapter-ckfinder";
+import UploadAdapter from "@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter";
 import * as utils from "@ckeditor/ckeditor5-adapter-ckfinder/src/utils";
 import { Plugin } from "@ckeditor/ckeditor5-core";
 

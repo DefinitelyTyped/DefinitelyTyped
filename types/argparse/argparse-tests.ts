@@ -260,12 +260,14 @@ class CustomAction1 extends Action {
         super(options);
     }
     call(parser: ArgumentParser, namespace: Namespace, values: string | string[], optionString: string | null) {
+        namespace[this.dest] = values;
         console.log("custom action 1");
     }
 }
 
 class CustomAction2 extends Action {
     call(parser: ArgumentParser, namespace: Namespace, values: string | string[], optionString: string | null) {
+        namespace.custom = values;
         console.log("custom action 2");
     }
 }

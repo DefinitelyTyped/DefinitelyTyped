@@ -178,6 +178,7 @@ export * from './objects/Group';
  */
 export * from './renderers/WebGLMultisampleRenderTarget';
 export * from './renderers/WebGLCubeRenderTarget';
+export * from './renderers/WebGLMultipleRenderTargets';
 export * from './renderers/WebGLRenderTarget';
 export * from './renderers/WebGLRenderer';
 export * from './renderers/WebGL1Renderer';

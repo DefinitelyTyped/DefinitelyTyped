@@ -1,13 +1,13 @@
 declare module 'child_process' {
     import { BaseEncodingOptions } from 'fs';
-    import * as events from 'events';
+    import { EventEmitter, Abortable } from 'events';
     import * as net from 'net';
     import { Writable, Readable, Stream, Pipe } from 'stream';
 
-    type Serializable = string | object | number | boolean;
+    type Serializable = string | object | number | boolean | bigint;
     type SendHandle = net.Socket | net.Server;
 
-    interface ChildProcess extends events.EventEmitter {
+    interface ChildProcess extends EventEmitter {
         stdin: Writable | null;
         stdout: Readable | null;
         stderr: Readable | null;
@@ -20,7 +20,7 @@ declare module 'child_process' {
             Readable | Writable | null | undefined // extra
         ];
         readonly killed: boolean;
-        readonly pid: number;
+        readonly pid?: number;
         readonly connected: boolean;
         readonly exitCode: number | null;
         readonly signalCode: NodeJS.Signals | null;
@@ -129,16 +129,24 @@ declare module 'child_process' {
         keepOpen?: boolean;
     }
 
-    type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | Stream | number | null | undefined)>;
+    type IOType = "overlapped" | "pipe" | "ignore" | "inherit";
+
+    type StdioOptions = IOType | Array<(IOType | "ipc" | Stream | number | null | undefined)>;
 
     type SerializationType = 'json' | 'advanced';
 
-    interface MessagingOptions {
+    interface MessagingOptions extends Abortable {
         /**
          * Specify the kind of serialization used for sending messages between processes.
          * @default 'json'
          */
         serialization?: SerializationType;
+
+        /**
+         * The signal value to be used when the spawned process will be killed by the abort signal.
+         * @default 'SIGTERM'
+         */
+        killSignal?: NodeJS.Signals | number;
     }
 
     interface ProcessEnvOptions {
@@ -159,7 +167,7 @@ declare module 'child_process' {
         timeout?: number;
     }
 
-    interface CommonSpawnOptions extends CommonOptions, MessagingOptions {
+    interface CommonSpawnOptions extends CommonOptions, MessagingOptions, Abortable {
         argv0?: string;
         stdio?: StdioOptions;
         shell?: boolean | string;
@@ -171,11 +179,12 @@ declare module 'child_process' {
     }
 
     interface SpawnOptionsWithoutStdio extends SpawnOptions {
-        stdio?: 'pipe' | Array<null | undefined | 'pipe'>;
+        stdio?: StdioPipeNamed | StdioPipe[];
     }
 
     type StdioNull = 'inherit' | 'ignore' | Stream;
-    type StdioPipe = undefined | null | 'pipe';
+    type StdioPipeNamed = 'pipe' | 'overlapped';
+    type StdioPipe = undefined | null | StdioPipeNamed;
 
     interface SpawnOptionsWithStdioTuple<
         Stdin extends StdioNull | StdioPipe,
@@ -330,11 +339,12 @@ declare module 'child_process' {
         function __promisify__(command: string, options?: (BaseEncodingOptions & ExecOptions) | null): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
-    interface ExecFileOptions extends CommonOptions {
+    interface ExecFileOptions extends CommonOptions, Abortable {
         maxBuffer?: number;
         killSignal?: NodeJS.Signals | number;
         windowsVerbatimArguments?: boolean;
         shell?: boolean | string;
+        signal?: AbortSignal;
     }
     interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
@@ -434,7 +444,7 @@ declare module 'child_process' {
         ): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
-    interface ForkOptions extends ProcessEnvOptions, MessagingOptions {
+    interface ForkOptions extends ProcessEnvOptions, MessagingOptions, Abortable {
         execPath?: string;
         execArgv?: string[];
         silent?: boolean;
@@ -447,7 +457,6 @@ declare module 'child_process' {
 
     interface SpawnSyncOptions extends CommonSpawnOptions {
         input?: string | NodeJS.ArrayBufferView;
-        killSignal?: NodeJS.Signals | number;
         maxBuffer?: number;
         encoding?: BufferEncoding | 'buffer' | null;
     }
