@@ -114,7 +114,7 @@ export interface RendererApi {
     renderOutputItem(outputItem: OutputItem, element: HTMLElement): void;
 
     /**
-     * Called by the editor when a previously-pendered output item is being disposed of.
+     * Called by the editor when a previously-rendered output item is being disposed of.
      *
      * Your renderer should implement this if you need to clean up anything that was registered
      * during `renderOutputItem`. This would include global event listeners or any HTML elements outside of the
