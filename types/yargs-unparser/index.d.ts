@@ -2,9 +2,7 @@
 // Project: https://github.com/yargs/yargs-unparser#readme
 // Definitions by: Anton Golub <https://github.com/antongolub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
 
-// tslint:disable:strict-export-declare-modifiers
 declare namespace yargsUnparser {
     type Argv = string[];
     interface Arguments {
