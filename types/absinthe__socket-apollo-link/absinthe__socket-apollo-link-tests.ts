@@ -1,8 +1,9 @@
 import { Socket } from 'phoenix';
 import * as AbsintheSocket from '@absinthe/socket';
-import { createAbsintheSocketLink, AbsintheSocketLink } from '@absinthe/socket-apollo-link';
+import { createAbsintheSocketLink } from '@absinthe/socket-apollo-link';
+import { ApolloLink } from '@apollo/client/link/core/ApolloLink';
 
-function testAbsintheApolloLink(phoenixSocket: Socket): AbsintheSocketLink {
+function testAbsintheApolloLink(phoenixSocket: Socket): ApolloLink {
     const absintheSocket = AbsintheSocket.create(phoenixSocket);
     return createAbsintheSocketLink(
         absintheSocket,
