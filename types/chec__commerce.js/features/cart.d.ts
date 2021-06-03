@@ -40,8 +40,8 @@ export class Cart {
 
   refresh(): Promise<CartType>;
   id(): string|null;
-  request(endpoint: string, method: RequestMethod, data?: object, returnFullRequest?: boolean): Promise<any>;
-  add(productId: string, quantity: number, variantData?: object | string): Promise<AddUpdateResponse>;
+  request(endpoint?: string, method?: RequestMethod, data?: object, returnFullRequest?: boolean): Promise<any>;
+  add(productId: string, quantity?: number, variantData?: object | string): Promise<AddUpdateResponse>;
   retrieve(cardId?: string): Promise<CartType>;
   checkQuantity(productId: string, quantity: number): Promise<boolean>;
   remove(lineId: string): Promise<RemoveResponse>;

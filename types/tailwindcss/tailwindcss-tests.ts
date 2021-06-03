@@ -6,7 +6,7 @@ import * as defaultTheme from 'tailwindcss/defaultTheme';
 
 import type { TailwindConfig } from 'tailwindcss/tailwind-config';
 
-import tailwindCss = require('tailwindcss');
+import tailwindCss from 'tailwindcss';
 
 // A typical TailwindCSS Config
 const configWithoutExtend: Omit<TailwindConfig, 'theme' | 'variants'> & {
@@ -2520,17 +2520,34 @@ const tailwindConfig = resolveConfig(config);
 tailwindCss(tailwindConfig);
 
 tailwindConfig.theme.height;
+
+// @ts-expect-error `colors` is possibly undefined
 tailwindConfig.theme.colors.gray[100];
+
+// $ExpectType string | undefined
+tailwindConfig.theme.colors?.gray[100];
 
 // Examples from https://tailwindcss.com/docs/configuration#referencing-in-java-script
 
+// @ts-expect-error `width` is possibly undefined
 tailwindConfig.theme.width[4];
+
+// $ExpectType string | undefined
+tailwindConfig.theme.width?.[4];
 // => '1rem'
 
+// @ts-expect-error `screens` is possibly undefined
 tailwindConfig.theme.screens.md;
+
+// $ExpectType string | undefined
+tailwindConfig.theme.screens?.md;
 // => '768px'
 
+// @ts-expect-error `boxShadow` is possibly undefined
 tailwindConfig.theme.boxShadow['2xl'];
+
+// $ExpectType string | undefined
+tailwindConfig.theme.boxShadow?.['2xl'];
 // => '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
 
 colors.red[500];
@@ -2549,6 +2566,63 @@ colors.trueGray[500];
 colors.coolGray[500];
 colors.blueGray[500];
 
-// @ts-expect-error
+// @ts-expect-error `darkMode` isn't a property of `theme`
 defaultTheme.darkMode;
+
+// @ts-expect-error `colors` is possibly undefined
 defaultTheme.colors.blue[800];
+
+// $ExpectType string | undefined
+defaultTheme.colors?.blue[800];
+
+// $ExpectType any[]
+tailwindConfig.plugins;
+
+// $ExpectType any[]
+tailwindConfig.purge;
+
+// $ExpectType any[]
+tailwindConfig.presets;
+
+// $ExpectType false | "media" | "class"
+tailwindConfig.darkMode;
+
+tailwindConfig.darkMode = false;
+
+// @ts-expect-error cannot assign `true`. `darkMode` isn't boolean
+tailwindConfig.darkMode = true;
+
+// @ts-expect-error accepts only specific values
+tailwindConfig.darkMode = 'invalid-value';
+
+// $ExpectType Variant[]
+tailwindConfig.variantOrder;
+
+tailwindConfig.variantOrder = ['active', 'checked'];
+
+// @ts-expect-error value should be an array of Variant
+tailwindConfig.variantOrder = false;
+
+// $ExpectType string
+tailwindConfig.prefix;
+
+tailwindConfig.prefix = 'tw-';
+
+// @ts-expect-error value should be string
+tailwindConfig.prefix = 1000;
+
+// $ExpectType boolean
+tailwindConfig.important;
+
+tailwindConfig.important = false;
+
+// @ts-expect-error should be boolean
+tailwindConfig.important = 'false';
+
+// $ExpectType string
+tailwindConfig.separator;
+
+tailwindConfig.separator = '_';
+
+// @ts-expect-error should be string
+tailwindConfig.separator = 1234;

@@ -107,7 +107,7 @@ declare module 'http' {
         ServerResponse?: typeof ServerResponse;
         /**
          * Optionally overrides the value of
-         * [`--max-http-header-size`][] for requests received by this server, i.e.
+         * `--max-http-header-size` for requests received by this server, i.e.
          * the maximum length of request headers in bytes.
          * @default 8192
          */
@@ -156,7 +156,8 @@ declare module 'http' {
 
     // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
     class OutgoingMessage extends stream.Writable {
-        upgrading: boolean;
+        readonly req: IncomingMessage;
+
         chunkedEncoding: boolean;
         shouldKeepAlive: boolean;
         useChunkedEncodingByDefault: boolean;
@@ -165,12 +166,12 @@ declare module 'http' {
          * @deprecated Use `writableEnded` instead.
          */
         finished: boolean;
-        headersSent: boolean;
+        readonly headersSent: boolean;
         /**
          * @deprecated Use `socket` instead.
          */
-        connection: Socket | null;
-        socket: Socket | null;
+        readonly connection: Socket | null;
+        readonly socket: Socket | null;
 
         constructor();
 
@@ -420,7 +421,14 @@ declare module 'http' {
 
     /**
      * Read-only property specifying the maximum allowed size of HTTP headers in bytes.
-     * Defaults to 16KB. Configurable using the [`--max-http-header-size`][] CLI option.
+     * Defaults to 16KB. Configurable using the `--max-http-header-size` CLI option.
      */
     const maxHeaderSize: number;
+
+    /**
+     *
+     * This utility function converts a URL object into an ordinary options object as
+     * expected by the `http.request()` and `https.request()` APIs.
+     */
+    function urlToHttpOptions(url: URL): ClientRequestArgs;
 }

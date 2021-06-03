@@ -7,12 +7,17 @@ import {
     Router,
     useLocation,
     useMatch,
+    useParams,
 } from '@reach/router';
 import * as React from 'react';
 import { render } from 'react-dom';
 
 interface DashParams {
     id: string;
+}
+
+interface UseParamsCheckParams {
+    value: string;
 }
 
 const Home = (props: RouteComponentProps) => <div>Home</div>;
@@ -39,6 +44,11 @@ const UseLocationCheck = (props: RouteComponentProps) => {
     );
 };
 
+const UseParamsCheck = (props: RouteComponentProps) => {
+    const params = useParams<UseParamsCheckParams>();
+    return <div>{params.value}</div>;
+};
+
 render(
     <Router className="my-class">
         <Router component="div">
@@ -51,6 +61,7 @@ render(
         <Dash path="/default/:id" />
         <UseMatchCheck path="/params/*" />
         <UseLocationCheck path="/another-path" />
+        <UseParamsCheck path="/current/:value" />
         <NotFound default />
 
         <Link to="/somepath" rel="noopener noreferrer" target="_blank" />
