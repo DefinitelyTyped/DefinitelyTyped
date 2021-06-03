@@ -986,6 +986,8 @@ import { promisify } from 'util';
     cert.fingerprint; // $ExpectType string
     cert.fingerprint256; // $ExpectType string
     cert.infoAccess; // $ExpectType string
+    cert.issuer; // $ExpectType string
+    cert.issuerCertificate; // $ExpectType X509Certificate | undefined
     cert.keyUsage; // $ExpectType string[]
     cert.publicKey; // $ExpectType KeyObject
     cert.raw; // $ExpectType Buffer
@@ -1014,4 +1016,22 @@ import { promisify } from 'util';
     cert.toLegacyObject(); // $ExpectType PeerCertificate
     cert.toJSON(); // $ExpectType string
     cert.toString(); // $ExpectType string
+}
+
+{
+    crypto.generatePrime(123, (err: Error | null, prime: ArrayBuffer) => {});
+    crypto.generatePrime(123, { rem: 123n, add: 123n }, (err: Error | null, prime: ArrayBuffer) => {});
+    crypto.generatePrime(123, { bigint: true }, (err: Error | null, prime: bigint) => {});
+    crypto.generatePrime(123, { bigint: Math.random() > 0 }, (err: Error | null, prime: ArrayBuffer | bigint) => {});
+
+    crypto.generatePrimeSync(123); // $ExpectType ArrayBuffer
+    crypto.generatePrimeSync(123, { rem: 123n, add: 123n }); // $ExpectType ArrayBuffer
+    crypto.generatePrimeSync(123, { bigint: true }); // $ExpectType bigint
+    crypto.generatePrimeSync(123, { bigint: Math.random() > 0 }); // $ExpectType bigint | ArrayBuffer
+
+    crypto.checkPrime(123n, (err: Error | null, result: boolean) => {});
+    crypto.checkPrime(123n, { checks: 123 }, (err: Error | null, result: boolean) => {});
+
+    crypto.checkPrimeSync(123n); // $ExpectType boolean
+    crypto.checkPrimeSync(123n, { checks: 123 }); // $ExpectType boolean
 }

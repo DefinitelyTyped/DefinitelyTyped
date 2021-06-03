@@ -97,7 +97,8 @@ import * as dns from 'dns';
     const ds: dgram.Socket = dgram.createSocket({
         type: 'udp4',
         recvBufferSize: 10000,
-        sendBufferSize: 15000
+        sendBufferSize: 15000,
+        signal: new AbortSignal(),
     });
 
     let size: number;

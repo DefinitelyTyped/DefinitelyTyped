@@ -6037,9 +6037,7 @@ interface PlatformWebStatic extends PlatformStatic {
     OS: 'web';
 }
 
-declare const OpaqueColorValue: unique symbol;
-type OpaqueColorValue = typeof OpaqueColorValue;
-
+type OpaqueColorValue = symbol & { __TYPE__: 'Color' };
 export type ColorValue = string | OpaqueColorValue;
 
 export type ProcessedColorValue = number | OpaqueColorValue;

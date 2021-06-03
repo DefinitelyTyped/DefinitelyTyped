@@ -1,5 +1,12 @@
 import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from 'video.js';
 
+// $ExpectType boolean
+window.HELP_IMPROVE_VIDEOJS;
+
+const videoElement = document.createElement('video');
+// $ExpectType VideoJsPlayer
+videojs(videoElement);
+
 const audioElement = document.createElement('audio');
 
 const playerOptions: VideoJsPlayerOptions = {
@@ -10,7 +17,7 @@ const playerOptions: VideoJsPlayerOptions = {
         playToggle: false,
         captionsButton: false,
         chaptersButton: false,
-        pictureInPictureToggle: audioElement.tagName !== "AUDIO"
+        pictureInPictureToggle: audioElement.tagName !== 'AUDIO',
     },
     height: 10,
     loop: true,
@@ -38,6 +45,7 @@ const playerOptions: VideoJsPlayerOptions = {
             myOption: true,
         },
     },
+    fill: false,
     responsive: false,
     sources: [
         {
@@ -155,6 +163,10 @@ videojs('example_video_1', playerOptions).ready(function() {
     const responsive: boolean = this.responsive();
 
     this.responsive(false);
+
+    const fill: boolean = this.fill();
+
+    this.fill(false);
 
     testEvents(this);
 

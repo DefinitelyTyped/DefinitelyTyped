@@ -50,5 +50,5 @@ function useContext() {
 }
 // BreakpointProvider
 const ProviderComponent: React.FC = ({ children }) => {
-    return <BreakpointProvider value={defaultQueries}>{children}</BreakpointProvider>;
+    return <BreakpointProvider queries={defaultQueries}>{children}</BreakpointProvider>;
 };
