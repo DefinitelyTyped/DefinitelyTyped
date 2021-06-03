@@ -153,15 +153,16 @@ export interface styleFn {
 }
 
 export type CSSVariable = `--${string}`;
+export type CSSProperty = keyof CSS.Properties | CSSVariable;
 
 export interface ConfigStyle {
     /** The CSS property to use in the returned style object (overridden by `properties` if present). */
-    property?: keyof CSS.Properties | CSSVariable;
+    property?: CSSProperty;
     /**
      * An array of multiple properties (e.g. `['marginLeft', 'marginRight']`) to which this style's value will be
      * assigned (overrides `property` when present).
      */
-    properties?: Array<keyof CSS.Properties | CSSVariable>;
+    properties?: CSSProperty[];
     /** A string referencing a key in the `theme` object. */
     scale?: string;
     /** A fallback scale object for when there isn't one defined in the `theme` object. */
