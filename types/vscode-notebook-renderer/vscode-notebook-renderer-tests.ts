@@ -45,9 +45,9 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
             data;
         },
 
-        destroyOutputItem(outputId) {
+        disposeOutputItem(id) {
             // $ExpectType string | undefined
-            outputId;
+            id;
         },
 
         otherProp: () => { },
