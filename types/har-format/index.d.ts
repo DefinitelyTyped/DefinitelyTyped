@@ -497,6 +497,10 @@ export interface Entry {
     _was_pushed?: number | string | null;
     /** _non-standard_  */
     _initialPriority?: string | null;
+    /** _non-standard_  */
+    _renderBlocking?: string | null;
+    /** _non-standard_  */
+    _isLCP?: boolean | null;
 }
 /**
  * This object contains detailed info about performed request.
