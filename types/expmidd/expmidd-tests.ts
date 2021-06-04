@@ -173,56 +173,19 @@ namespace expmidd_tests {
         req.params.length; // $ExpectType number
     });
 
-    // Params can be a custom type
-    // NB. out-of-the-box all params are strings, however, other types are allowed to accomadate request validation/coersion middleware
-    router.get<{ foo: string; bar: number }>('/:foo/:bar', req => {
-        req.params.foo; // $ExpectType string
-        req.params.bar; // $ExpectType number
-        req.params.baz; // $ExpectError
-    });
-
-    // Params can be a custom type and can be specified via an explicit param type (express-serve-static-core)
-    router.get('/:foo/:bar', (req: Request<{ foo: string; bar: number }>) => {
-        req.params.foo; // $ExpectType string
-        req.params.bar; // $ExpectType number
-        req.params.baz; // $ExpectError
-    });
-
-    // Params can be a custom type and can be specified via an explicit param type (express)
-    router.get('/:foo/:bar', (req: express.Request<{ foo: string; bar: number }>) => {
-        req.params.foo; // $ExpectType string
-        req.params.bar; // $ExpectType number
-        req.params.baz; // $ExpectError
-    });
-
-    // Query can be a custom type
-    router.get('/:foo', (req: express.Request<{}, any, any, { q: string }>) => {
-        req.query.q; // $ExpectType string
-        req.query.a; // $ExpectError
-    });
-
     // Query will be defaulted to any
     router.get('/:foo', (req: express.Request<{}>) => {
         req.query; // $ExpectType ParsedQs
     });
 
-    // Locals can be a custom type
-    router.get('/locals', (req, res: express.Response<any, { foo: boolean }>) => {
-        res.locals.foo; // $ExpectType boolean
-        res.locals.bar; // $ExpectError
-    });
+
 
     // Response will default to any type
     router.get('/', (req: Request, res: express.Response) => {
         res.json({});
     });
 
-    // Response will be of Type provided
-    router.get('/', (req: Request, res: express.Response<string>) => {
-        res.json();
-        res.json(1); // $ExpectError
-        res.send(1); // $ExpectError
-    });
+
 
     app.use((req, res, next) => {
         // hacky trick, router is just a handler
