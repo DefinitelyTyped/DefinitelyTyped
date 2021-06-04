@@ -7,11 +7,6 @@ import { Observable } from "rxjs";
 type QuestionProperty = inquirer.KeyUnion<inquirer.UnionToIntersection<inquirer.DistinctQuestion>>;
 
 /**
- * Unpacks a question-property.
- */
-type UnpackQuestionProperty<T> = T extends inquirer.AsyncDynamicQuestionProperty<inquirer.Answers, infer U> ? (U extends Promise<infer U2> ? U2 : U) : T;
-
-/**
  * Fetches a property of the specified `question`.
  *
  * @param question
