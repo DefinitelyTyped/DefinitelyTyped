@@ -483,7 +483,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    type ChoiceCollection<T extends Answers = Answers> = Array<DistinctChoice<AllChoiceMap>>;
+    type ChoiceCollection<T extends Answers = Answers> = Array<DistinctChoice<AllChoiceMap<T>>>;
 
     /**
      * Provides options for a question for the `InputPrompt`.
