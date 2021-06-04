@@ -229,11 +229,23 @@ declare namespace inquirer {
 
     /**
      * Represents a dynamic property for a question.
+     *
+     * @template T
+     * The type of the property.
+     *
+     * @template TAnswers
+     * The type of the answers.
      */
     type DynamicQuestionProperty<T, TAnswers extends Answers = Answers> = T | ((answers: TAnswers) => T);
 
     /**
      * Represents a dynamic property for a question which can be fetched asynchronously.
+     *
+     * @template T
+     * The type of the property.
+     *
+     * @template TAnswers
+     * The type of the answers.
      */
     type AsyncDynamicQuestionProperty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<T | Promise<T>, TAnswers>;
 
@@ -455,6 +467,9 @@ declare namespace inquirer {
     /**
      * Provides valid choices for the question of the `TChoiceMap`.
      *
+     * @template TAnswers
+     * The type of the answers.
+     *
      * @template TChoiceMap
      * The choice-types to provide.
      */
@@ -464,6 +479,9 @@ declare namespace inquirer {
 
     /**
      * Represents a set of choices.
+     *
+     * @template T
+     * The type of the answers.
      */
     type ChoiceCollection<T extends Answers = Answers> = Array<DistinctChoice<AllChoiceMap>>;
 
