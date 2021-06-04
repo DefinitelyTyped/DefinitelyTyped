@@ -373,7 +373,7 @@ interface AbortEvent extends Event {
     type: 'abort';
 }
 
-declare class AbortSignal {
+declare class AbortSignal implements EventTarget {
     /**
      * AbortSignal cannot be constructed directly.
      */
@@ -384,6 +384,16 @@ declare class AbortSignal {
     readonly aborted: boolean;
 
     onabort: (event: AbortEvent) => void;
+
+    addEventListener: (type: "abort", listener: ((this: AbortSignal, event: any) => any), options?: boolean | {
+        capture?: boolean,
+        once?: boolean,
+        passive?: boolean
+    }) => void;
+
+    removeEventListener: (type: "abort", listener: ((this: AbortSignal, event: any) => any), options?: boolean | {
+        capture?: boolean
+    }) => void;
 }
 
 declare class AbortController {
