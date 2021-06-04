@@ -9,9 +9,13 @@ const sequences = {
 
 cheet('↑ ↑ ↓ ↓ ← → ← → b a');
 cheet('h a n d l e r', (str, seq) => {});
-cheet('m u l t i p l e h a n d l e r s', {
+cheet('s o m e h a n d l e r s', {
     done(str, seq) {},
     fail(str) {},
+});
+cheet('f u l l m u l t i p l e h a n d l e r s', {
+    done(str, seq) {},
+    fail(str, seq) {},
     next(str, key, num, seq) {},
 });
 

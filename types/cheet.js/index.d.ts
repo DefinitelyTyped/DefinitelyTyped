@@ -65,14 +65,14 @@ export function cheet(
          * @param str - The string representation of the sequence that completed.
          * @param seq - An array of key names representing the sequence that completed.
          */
-        done(str: string, seq: string[]): void;
+        done?(str: string, seq: string[]): void;
         /**
          * A callback to execute each time a sequence's progress is broken.
          *
          * @param str - The string representation of the sequence that completed.
          * @param seq - An array of key names representing the sequence that completed.
          */
-        fail(str: string, seq: string[]): void;
+        fail?(str: string, seq: string[]): void;
         /**
          * A callback to execute each time a correct key in the sequence is pressed in order.
          *
@@ -81,7 +81,7 @@ export function cheet(
          * @param num - A number representing the current progress of the sequence. (starts at 0)
          * @param seq - An array of key names representing the sequence that is in progress.
          */
-        next(str: string, key: string, num: number, seq: string[]): void;
+        next?(str: string, key: string, num: number, seq: string[]): void;
     },
 ): void;
 
