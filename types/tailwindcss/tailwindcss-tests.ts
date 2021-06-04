@@ -4,7 +4,7 @@ import * as colors from 'tailwindcss/colors';
 
 import * as defaultTheme from 'tailwindcss/defaultTheme';
 
-import type { TailwindConfig } from 'tailwindcss/tailwind-config';
+import type { TailwindConfig, TailwindPurgeConfig } from 'tailwindcss/tailwind-config';
 
 import tailwindCss from 'tailwindcss';
 
@@ -2641,54 +2641,35 @@ tailwindConfig.separator = 1234;
     tailwindConfig.purge = { content: false };
 
     // $ExpectType { content: string[]; }
-    const purgeWithContent = (tailwindConfig.purge = {
+    const purgeConfig: TailwindPurgeConfig = (tailwindConfig.purge = {
         content: ['src/**/*.{[tj]s?(x),html}'],
     });
 
     const aBooleanValue = Math.random() < 0.5;
 
-    // $ExpectType { content: string[]; enabled: boolean; }
-    tailwindConfig.purge = { enabled: aBooleanValue, ...purgeWithContent };
+    // $ExpectType boolean
+    purgeConfig.enabled = aBooleanValue;
 
     // @ts-expect-error `enabled` should have a boolean value
-    tailwindConfig.purge = { enabled: 123, ...purgeWithContent };
+    purgeConfig.enabled = 123;
 
-    tailwindConfig.purge = {
-        // @ts-expect-error `preserveHtmlElements` should have a boolean value
-        preserveHtmlElements: 123,
-        ...purgeWithContent,
-    };
+    // @ts-expect-error `preserveHtmlElements` should have a boolean value
+    purgeConfig.preserveHtmlElements = 123;
 
-    tailwindConfig.purge = {
-        preserveHtmlElements: aBooleanValue,
-        ...purgeWithContent,
-    };
+    // $ExpectType boolean
+    purgeConfig.preserveHtmlElements = aBooleanValue;
 
-    tailwindConfig.purge = {
-        // @ts-expect-error `layers` should be an array of TailwindValidLayers
-        layers: 123,
-        ...purgeWithContent,
-    };
+    // @ts-expect-error `layers` should be an array of TailwindValidLayers
+    purgeConfig.layers = 123;
 
-    tailwindConfig.purge = {
-        // @ts-expect-error `layers` has an invalid layer name
-        layers: ['a-new-layer'],
-        ...purgeWithContent,
-    };
+    // @ts-expect-error `layers` has an invalid layer name
+    purgeConfig.layers = ['a-new-layer'];
 
-    tailwindConfig.purge = {
-        layers: ['base', 'components'],
-        ...purgeWithContent,
-    };
+    purgeConfig.layers = ['base', 'components'];
 
-    tailwindConfig.purge = {
-        // @ts-expect-error `mode` should be "all" or undefined
-        mode: 123,
-        ...purgeWithContent,
-    };
+    // @ts-expect-error `mode` should be "all" or undefined
+    purgeConfig.mode = 123;
 
-    tailwindConfig.purge = {
-        mode: 'all',
-        ...purgeWithContent,
-    };
+    // $ExpectType "all"
+    purgeConfig.mode = 'all';
 }
