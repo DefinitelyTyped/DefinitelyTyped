@@ -2578,7 +2578,7 @@ defaultTheme.colors?.blue[800];
 // $ExpectType any[]
 tailwindConfig.plugins;
 
-// $ExpectType any[]
+// $ExpectType string[] | TailwindPurgeConfig
 tailwindConfig.purge;
 
 // $ExpectType any[]
@@ -2626,3 +2626,69 @@ tailwindConfig.separator = '_';
 
 // @ts-expect-error should be string
 tailwindConfig.separator = 1234;
+
+{
+    // $ExpectType string[]
+    tailwindConfig.purge = ['src/**/*.tsx'];
+
+    // @ts-expect-error `content` should be array of strings or TailwindPurgeConfig
+    tailwindConfig.purge = false;
+
+    // @ts-expect-error `content` should defined
+    tailwindConfig.purge = {};
+
+    // @ts-expect-error `content` should have array of strings
+    tailwindConfig.purge = { content: false };
+
+    // $ExpectType { content: string[]; }
+    const purgeWithContent = (tailwindConfig.purge = {
+        content: ['src/**/*.{[tj]s?(x),html}'],
+    });
+
+    const aBooleanValue = Math.random() < 0.5;
+
+    // $ExpectType { content: string[]; enabled: boolean; }
+    tailwindConfig.purge = { enabled: aBooleanValue, ...purgeWithContent };
+
+    // @ts-expect-error `enabled` should have a boolean value
+    tailwindConfig.purge = { enabled: 123, ...purgeWithContent };
+
+    tailwindConfig.purge = {
+        // @ts-expect-error `preserveHtmlElements` should have a boolean value
+        preserveHtmlElements: 123,
+        ...purgeWithContent,
+    };
+
+    tailwindConfig.purge = {
+        preserveHtmlElements: aBooleanValue,
+        ...purgeWithContent,
+    };
+
+    tailwindConfig.purge = {
+        // @ts-expect-error `layers` should be an array of TailwindValidLayers
+        layers: 123,
+        ...purgeWithContent,
+    };
+
+    tailwindConfig.purge = {
+        // @ts-expect-error `layers` has an invalid layer name
+        layers: ['a-new-layer'],
+        ...purgeWithContent,
+    };
+
+    tailwindConfig.purge = {
+        layers: ['base', 'components'],
+        ...purgeWithContent,
+    };
+
+    tailwindConfig.purge = {
+        // @ts-expect-error `mode` should be "all" or undefined
+        mode: 123,
+        ...purgeWithContent,
+    };
+
+    tailwindConfig.purge = {
+        mode: 'all',
+        ...purgeWithContent,
+    };
+}
