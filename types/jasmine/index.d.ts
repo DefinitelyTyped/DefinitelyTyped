@@ -991,6 +991,15 @@ declare namespace jasmine {
         deprecationWarnings: ExpectationResult[];
     }
 
+    /** @deprecated use JasmineStartedInfo instead */
+    type SuiteInfo = JasmineStartedInfo;
+
+    /** @deprecated use SuiteResult or SpecResult instead */
+    type CustomReporterResult = SuiteResult & SpecResult;
+
+    /** @deprecated use JasmineDoneInfo instead */
+    type RunDetails = JasmineDoneInfo;
+
     interface CustomReporter {
         jasmineStarted?(suiteInfo: JasmineStartedInfo, done?: () => void): void | Promise<void>;
         suiteStarted?(result: SuiteResult, done?: () => void): void | Promise<void>;
