@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 2.0
+// Type definitions for Mapbox GL JS 2.3
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -372,6 +372,18 @@ declare namespace mapboxgl {
          */
         setTerrain(terrain?: TerrainSpecification | null): this;
 
+        getTerrain(): TerrainSpecification | null;
+
+        showTerrainWireframe: boolean;
+
+        /**
+         *
+         * @param lngLat The coordinate to query
+         * @param options Optional {ElevationQueryOptions}
+         * @returns The elevation in meters at mean sea level or null
+         */
+        queryTerrainElevation(lngLat: mapboxgl.LngLatLike, options?: ElevationQueryOptions): number | null;
+
         setFeatureState(
             feature: FeatureIdentifier | mapboxgl.MapboxGeoJSONFeature,
             state: { [key: string]: any },
@@ -563,6 +575,9 @@ declare namespace mapboxgl {
         touchZoomRotate: TouchZoomRotateHandler;
 
         touchPitch: TouchPitchHandler;
+
+        getFog(): Fog | null;
+        setFog(fog: Fog): this;
     }
 
     export interface MapboxOptions {
@@ -773,6 +788,13 @@ declare namespace mapboxgl {
          * @default null
          */
         accessToken?: string;
+
+        /**
+         * Allows for the usage of the map in automated tests without an accessToken with custom self-hosted test fixtures.
+         *
+         * @default null
+        */
+        testMode?: boolean;
     }
 
     type quat = number[];
@@ -1201,6 +1223,7 @@ declare namespace mapboxgl {
     export interface Style {
         bearing?: number;
         center?: number[];
+        fog?: Fog;
         glyphs?: string;
         layers?: AnyLayer[];
         metadata?: any;
@@ -1227,6 +1250,12 @@ declare namespace mapboxgl {
         'color-transition'?: Transition;
         intensity?: number;
         'intensity-transition'?: Transition;
+    }
+
+    export interface Fog {
+        color?: string | Expression;
+        'horizon-blend'?: number | Expression;
+        range?: number[] | Expression;
     }
 
     export interface Sources {
@@ -2472,4 +2501,8 @@ declare namespace mapboxgl {
         'sky-opacity'?: number | Expression;
         'sky-type'?: 'gradient' | 'atmosphere';
     }
+
+    export type ElevationQueryOptions = {
+        exaggerated: boolean
+    };
 }
