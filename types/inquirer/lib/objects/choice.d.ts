@@ -9,7 +9,7 @@ import inquirer = require('../..');
 declare class Choice<T extends inquirer.Answers = inquirer.Answers> implements
     inquirer.ListChoiceOptions<T>,
     inquirer.CheckboxChoiceOptions<T>,
-    inquirer.ExpandChoiceOptions<T> {
+    inquirer.ExpandChoiceOptions {
     /**
      * @inheritdoc
      */
