@@ -189,6 +189,12 @@ auth.tokens
         // Handle the error.
     });
 
+// Get management client access token
+management
+    .getAccessToken()
+    .then(token => console.log(token))
+    .catch(err => console.log('Error: ' + err));
+
 // Update a user
 management.updateUser({ id: 'user_id' }, { email: 'hi@me.co' });
 
@@ -843,9 +849,21 @@ authentication
         refresh_token: '{YOUR_REFRESH_TOKEN}',
         client_id: '{OPTIONAL_CLIENT_ID}',
     })
-    .then(() => console.log('refreshed'));
-authentication.refreshToken({ refresh_token: '{YOUR_REFRESH_TOKEN}', client_id: '{OPTIONAL_CLIENT_ID}' }, err =>
-    console.log('refreshed'),
+    .then(tokenResponse => {
+        console.log(tokenResponse);
+    })
+    .catch(err => {
+        // Handle the error.
+    });
+
+authentication.refreshToken(
+    { refresh_token: '{YOUR_REFRESH_TOKEN}', client_id: '{OPTIONAL_CLIENT_ID}' },
+    (err, tokenResponse) => {
+        if (err) {
+            // Handle error.
+        }
+        console.log(tokenResponse);
+    },
 );
 
 const oauthAuthenticator = new auth0.OAuthAuthenticator({
@@ -854,8 +872,22 @@ const oauthAuthenticator = new auth0.OAuthAuthenticator({
     clientSecret: '{OPTIONAL_CLIENT_SECRET}',
 });
 
-oauthAuthenticator.refreshToken({ refresh_token: '{YOUR_REFRESH_TOKEN}' }).then(() => console.log('refreshed'));
-oauthAuthenticator.refreshToken({ refresh_token: '{YOUR_REFRESH_TOKEN}' }, err => console.log('refreshed'));
+oauthAuthenticator
+    .refreshToken({
+        refresh_token: '{YOUR_REFRESH_TOKEN}',
+    })
+    .then(tokenResponse => {
+        console.log(tokenResponse);
+    })
+    .catch(err => {
+        // Handle the error.
+    });
+oauthAuthenticator.refreshToken({ refresh_token: '{YOUR_REFRESH_TOKEN}' }, (err, tokenResponse) => {
+    if (err) {
+        // Handle error.
+    }
+    console.log(tokenResponse);
+});
 
 async function signupTest(): Promise<void> {
     const signupResult = await authentication.database.signUp({ email: 'email', password: 'password' });
@@ -881,7 +913,7 @@ async () => {
 };
 
 // Token manager
-const tokenManager = new auth0.TokenManager({
+const tokenManager = new auth0.TokensManager({
     baseUrl: 'baseUrl',
     clientId: '{OPTIONAL_CLIENT_ID}',
     clientSecret: '{OPTIONAL_CLIENT_SECRET}',
@@ -895,7 +927,7 @@ tokenManager.revokeRefreshToken(
         client_id: '{OPTIONAL_CLIENT_ID}',
         client_secret: '{OPTIONAL_CLIENT_SECRET}',
     },
-    (err: Error) => {
+    err => {
         if (err) {
             // Handle error.
         }

@@ -77,7 +77,7 @@ export namespace DS {
         async?: true;
     }
 
-    type AsyncBelongsTo<T extends Model> = T & PromiseObject<T>;
+    type AsyncBelongsTo<T extends Model | null> = PromiseObject<T>;
     /**
      * `DS.belongsTo` is used to define One-To-One and One-To-Many
      * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
@@ -85,13 +85,16 @@ export namespace DS {
     function belongsTo<K extends keyof ModelRegistry>(
         modelName: K,
         options: RelationshipOptions<ModelRegistry[K]> & Sync
-    ): Ember.ComputedProperty<ModelRegistry[K]>;
+    ): Ember.ComputedProperty<
+        ModelRegistry[K] | null,
+        ModelRegistry[K] | PromiseObject<ModelRegistry[K] | null> | null
+    >;
     function belongsTo<K extends keyof ModelRegistry>(
         modelName: K,
         options?: RelationshipOptions<ModelRegistry[K]> & Async
     ): Ember.ComputedProperty<
-        AsyncBelongsTo<ModelRegistry[K]>,
-        ModelRegistry[K]
+        AsyncBelongsTo<ModelRegistry[K] | null>,
+        ModelRegistry[K] | PromiseObject<ModelRegistry[K] | null> | null
     >;
     type AsyncHasMany<T extends Model> = PromiseManyArray<T>;
     type SyncHasMany<T extends Model> = ManyArray<T>;
@@ -327,7 +330,7 @@ export namespace DS {
      * Holds validation errors for a given record, organized by attribute names.
      */
     interface Errors extends Ember.Enumerable<any>, Evented {}
-    class Errors extends Ember.Object {
+    class Errors extends Ember.ArrayProxy<any> {
         /**
          * DEPRECATED:
          * Register with target handler
@@ -474,7 +477,7 @@ export namespace DS {
          * contains keys corresponding to the invalid property names
          * and values which are arrays of Javascript objects with two keys:
          */
-        errors: Ember.ComputedProperty<Errors>;
+        errors: Errors;
         /**
          * This property holds the `DS.AdapterError` object with which
          * last adapter operation was rejected.
@@ -861,7 +864,7 @@ export namespace DS {
          * normalized hash of data and the object represented by the reference
          * will update.
          */
-        push(payload: RSVP.Promise<any> | {}): PromiseObject<T> & T;
+        push(payload: RSVP.Promise<any> | {}): PromiseObject<T>;
         /**
          * If the entity referred to by the reference is already loaded, it is
          * present as `reference.value`. Otherwise the value returned by this function
@@ -872,12 +875,12 @@ export namespace DS {
          * Triggers a fetch for the backing entity based on its `remoteType`
          * (see `remoteType` definitions per reference type).
          */
-        load(): PromiseObject<T> & T;
+        load(): PromiseObject<T>;
         /**
          * Reloads the record if it is already loaded. If the record is not
          * loaded it will load the record via `store.findRecord`
          */
-        reload(): PromiseObject<T> & T;
+        reload(): PromiseObject<T>;
     }
     /**
      * A `ManyArray` is a `MutableArray` that represents the contents of a has-many
@@ -919,10 +922,10 @@ export namespace DS {
      * it easy to create data bindings with the `PromiseArray` that will be
      * updated when the promise resolves.
      */
-    interface PromiseArray<T>
+    interface PromiseArray<T, ArrayType extends Ember.ArrayProxy<T>['content'] = Ember.Array<T>>
         extends Ember.ArrayProxy<T>,
-            PromiseProxyMixin<Ember.ArrayProxy<T>> {}
-    class PromiseArray<T> {}
+            PromiseProxyMixin<ArrayType> {}
+    class PromiseArray<T> extends Ember.ArrayProxy<T> {}
     /**
      * A `PromiseObject` is an object that acts like both an `Ember.Object`
      * and a promise. When the promise is resolved, then the resulting value
@@ -930,16 +933,15 @@ export namespace DS {
      * it easy to create data bindings with the `PromiseObject` that will
      * be updated when the promise resolves.
      */
-    interface PromiseObject<T extends object>
-        extends ObjectProxy<T>,
-            PromiseProxyMixin<T & ObjectProxy> {}
-    class PromiseObject<T> {}
+    interface PromiseObject<T extends object | null>
+        extends PromiseProxyMixin<T> {}
+    class PromiseObject<T> extends ObjectProxy<NonNullable<T>> {}
     /**
      * A PromiseManyArray is a PromiseArray that also proxies certain method calls
      * to the underlying manyArray.
      * Right now we proxy:
      */
-    class PromiseManyArray<T extends Model> extends PromiseArray<T> {
+    class PromiseManyArray<T extends Model> extends PromiseArray<T, Ember.ArrayProxy<T>> {
         /**
          * Reloads all of the records in the manyArray. If the manyArray
          * holds a relationship that was originally fetched using a links url
@@ -1098,7 +1100,7 @@ export namespace DS {
             modelName: K,
             id: string | number,
             options?: {}
-        ): PromiseObject<ModelRegistry[K]> & ModelRegistry[K];
+        ): PromiseObject<ModelRegistry[K]>;
         /**
          * Get the reference for the specified record.
          */
@@ -1131,7 +1133,7 @@ export namespace DS {
             query: object,
             options?: { adapterOptions?: object }
         ): AdapterPopulatedRecordArray<ModelRegistry[K]> &
-            PromiseArray<ModelRegistry[K]>;
+            PromiseArray<ModelRegistry[K], Ember.ArrayProxy<ModelRegistry[K]>>;
         /**
          * This method makes a request for one record, where the `id` is not known
          * beforehand (if the `id` is known, use [`findRecord`](#method_findRecord)
@@ -1156,7 +1158,7 @@ export namespace DS {
                 include?: string;
                 adapterOptions?: any;
             }
-        ): PromiseArray<ModelRegistry[K]>;
+        ): PromiseArray<ModelRegistry[K], Ember.ArrayProxy<ModelRegistry[K]>>;
         /**
          * This method returns a filtered array that contains all of the
          * known records for a given type in the store.

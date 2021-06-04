@@ -1,4 +1,4 @@
-// Type definitions for jest-image-snapshot 4.1
+// Type definitions for jest-image-snapshot 4.3
 // Project: https://github.com/americanexpress/jest-image-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 //                 erbridge <https://github.com/erbridge>
@@ -60,6 +60,12 @@ export interface MatchImageSnapshotOptions {
      */
     dumpDiffToConsole?: boolean;
     /**
+     * Will output the image to the terminal using iTerm's Inline Images Protocol.
+     * If the term is not compatible, it does the same thing as `dumpDiffToConsole`.
+     * @default false
+     */
+    dumpInlineDiffToConsole?: boolean;
+    /**
      * Removes coloring from the console output, useful if storing the results to a file.
      * @default false.
      */
@@ -117,7 +123,10 @@ export function configureToMatchImageSnapshot(
 /**
  * Mutates original state with new state
  */
-export function updateSnapshotState<TObject, TPartial>(originalSnapshotState: TObject, partialSnapshotState: TPartial): TObject & TPartial;
+export function updateSnapshotState<TObject, TPartial>(
+    originalSnapshotState: TObject,
+    partialSnapshotState: TPartial,
+): TObject & TPartial;
 
 declare global {
     namespace jest {

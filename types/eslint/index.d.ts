@@ -5,25 +5,27 @@
 //                 Saad Quadri <https://github.com/saadq>
 //                 Jason Kwok <https://github.com/JasonHK>
 //                 Brad Zacher <https://github.com/bradzacher>
+//                 JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="helpers.d.ts" />
+/// <reference path="lib/rules/index.d.ts" />
 
-import { JSONSchema4 } from 'json-schema';
-import * as ESTree from 'estree';
+import { JSONSchema4 } from "json-schema";
+import * as ESTree from "estree";
 
 export namespace AST {
     type TokenType =
-        | 'Boolean'
-        | 'Null'
-        | 'Identifier'
-        | 'Keyword'
-        | 'Punctuator'
-        | 'JSXIdentifier'
-        | 'JSXText'
-        | 'Numeric'
-        | 'String'
-        | 'RegularExpression';
+        | "Boolean"
+        | "Null"
+        | "Identifier"
+        | "Keyword"
+        | "Punctuator"
+        | "JSXIdentifier"
+        | "JSXText"
+        | "Numeric"
+        | "String"
+        | "RegularExpression";
 
     interface Token {
         type: TokenType;
@@ -58,7 +60,18 @@ export namespace Scope {
     }
 
     interface Scope {
-        type: 'block' | 'catch' | 'class' | 'for' | 'function' | 'function-expression-name' | 'global' | 'module' | 'switch' | 'with' | 'TDZ';
+        type:
+            | "block"
+            | "catch"
+            | "class"
+            | "for"
+            | "function"
+            | "function-expression-name"
+            | "global"
+            | "module"
+            | "switch"
+            | "with"
+            | "TDZ";
         isStrict: boolean;
         upper: Scope | null;
         childScopes: Scope[];
@@ -97,14 +110,22 @@ export namespace Scope {
     }
 
     type DefinitionType =
-        | { type: 'CatchClause', node: ESTree.CatchClause, parent: null }
-        | { type: 'ClassName', node: ESTree.ClassDeclaration | ESTree.ClassExpression, parent: null }
-        | { type: 'FunctionName', node: ESTree.FunctionDeclaration | ESTree.FunctionExpression, parent: null }
-        | { type: 'ImplicitGlobalVariable', node: ESTree.Program, parent: null }
-        | { type: 'ImportBinding', node: ESTree.ImportSpecifier | ESTree.ImportDefaultSpecifier | ESTree.ImportNamespaceSpecifier, parent: ESTree.ImportDeclaration }
-        | { type: 'Parameter', node: ESTree.FunctionDeclaration | ESTree.FunctionExpression | ESTree.ArrowFunctionExpression, parent: null }
-        | { type: 'TDZ', node: any, parent: null }
-        | { type: 'Variable', node: ESTree.VariableDeclarator, parent: ESTree.VariableDeclaration };
+        | { type: "CatchClause"; node: ESTree.CatchClause; parent: null }
+        | { type: "ClassName"; node: ESTree.ClassDeclaration | ESTree.ClassExpression; parent: null }
+        | { type: "FunctionName"; node: ESTree.FunctionDeclaration | ESTree.FunctionExpression; parent: null }
+        | { type: "ImplicitGlobalVariable"; node: ESTree.Program; parent: null }
+        | {
+              type: "ImportBinding";
+              node: ESTree.ImportSpecifier | ESTree.ImportDefaultSpecifier | ESTree.ImportNamespaceSpecifier;
+              parent: ESTree.ImportDeclaration;
+          }
+        | {
+              type: "Parameter";
+              node: ESTree.FunctionDeclaration | ESTree.FunctionExpression | ESTree.ArrowFunctionExpression;
+              parent: null;
+          }
+        | { type: "TDZ"; node: any; parent: null }
+        | { type: "Variable"; node: ESTree.VariableDeclarator; parent: ESTree.VariableDeclaration };
 
     type Definition = DefinitionType & { name: ESTree.Identifier };
 }
@@ -131,9 +152,9 @@ export class SourceCode {
 
     getAllComments(): ESTree.Comment[];
 
-    getComments(node: ESTree.Node): { leading: ESTree.Comment[], trailing: ESTree.Comment[] };
+    getComments(node: ESTree.Node): { leading: ESTree.Comment[]; trailing: ESTree.Comment[] };
 
-    getJSDocComment(node: ESTree.Node): AST.Token | null;
+    getJSDocComment(node: ESTree.Node): ESTree.Comment | null;
 
     getNodeByRangeIndex(index: number): ESTree.Node | null;
 
@@ -146,58 +167,42 @@ export class SourceCode {
     // Inherited methods from TokenStore
     // ---------------------------------
 
-    getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): AST.Token | null;
+    getTokenByRangeStart(offset: number, options?: { includeComments: false }): AST.Token | null;
+    getTokenByRangeStart(offset: number, options: { includeComments: boolean }): AST.Token | ESTree.Comment | null;
 
-    getFirstToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getFirstToken: SourceCode.UnaryNodeCursorWithSkipOptions;
 
-    getFirstTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getFirstTokens: SourceCode.UnaryNodeCursorWithCountOptions;
 
-    getLastToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getLastToken: SourceCode.UnaryNodeCursorWithSkipOptions;
 
-    getLastTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getLastTokens: SourceCode.UnaryNodeCursorWithCountOptions;
 
-    getTokenBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getTokenBefore: SourceCode.UnaryCursorWithSkipOptions;
 
-    getTokensBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokensBefore: SourceCode.UnaryCursorWithCountOptions;
 
-    getTokenAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getTokenAfter: SourceCode.UnaryCursorWithSkipOptions;
 
-    getTokensAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokensAfter: SourceCode.UnaryCursorWithCountOptions;
 
-    getFirstTokenBetween(
+    getFirstTokenBetween: SourceCode.BinaryCursorWithSkipOptions;
+
+    getFirstTokensBetween: SourceCode.BinaryCursorWithCountOptions;
+
+    getLastTokenBetween: SourceCode.BinaryCursorWithSkipOptions;
+
+    getLastTokensBetween: SourceCode.BinaryCursorWithCountOptions;
+
+    getTokensBetween: SourceCode.BinaryCursorWithCountOptions;
+
+    getTokens: ((node: ESTree.Node, beforeCount?: number, afterCount?: number) => AST.Token[]) &
+        SourceCode.UnaryNodeCursorWithCountOptions;
+
+    commentsExistBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithSkipOptions
-    ): AST.Token | null;
-
-    getFirstTokensBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithCountOptions
-    ): AST.Token[];
-
-    getLastTokenBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithSkipOptions
-    ): AST.Token | null;
-
-    getLastTokensBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithCountOptions
-    ): AST.Token[];
-
-    getTokensBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        padding?: number | SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions
-    ): AST.Token[];
-
-    getTokens(node: ESTree.Node, beforeCount?: number, afterCount?: number): AST.Token[];
-    getTokens(node: ESTree.Node, options: SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions): AST.Token[];
-
-    commentsExistBetween(left: ESTree.Node | AST.Token, right: ESTree.Node | AST.Token): boolean;
+    ): boolean;
 
     getCommentsBefore(nodeOrToken: ESTree.Node | AST.Token): ESTree.Comment[];
 
@@ -221,19 +226,205 @@ export namespace SourceCode {
         [nodeType: string]: string[];
     }
 
-    type FilterPredicate = (tokenOrComment: AST.Token | ESTree.Comment) => boolean;
+    interface UnaryNodeCursorWithSkipOptions {
+        <T extends AST.Token>(
+            node: ESTree.Node,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; skip?: number },
+        ): T | null;
+        <T extends AST.Token | ESTree.Comment>(
+            node: ESTree.Node,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): T | null;
+        (
+            node: ESTree.Node,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; skip?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token | null;
+        (
+            node: ESTree.Node,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): AST.Token | ESTree.Comment | null;
+    }
 
-    type CursorWithSkipOptions = number | FilterPredicate | {
-        includeComments?: boolean;
-        filter?: FilterPredicate;
-        skip?: number;
-    };
+    interface UnaryNodeCursorWithCountOptions {
+        <T extends AST.Token>(
+            node: ESTree.Node,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; count?: number },
+        ): T[];
+        <T extends AST.Token | ESTree.Comment>(
+            node: ESTree.Node,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): T[];
+        (
+            node: ESTree.Node,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; count?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token[];
+        (
+            node: ESTree.Node,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): Array<AST.Token | ESTree.Comment>;
+    }
 
-    type CursorWithCountOptions = number | FilterPredicate | {
-        includeComments?: boolean;
-        filter?: FilterPredicate;
-        count?: number;
-    };
+    interface UnaryCursorWithSkipOptions {
+        <T extends AST.Token>(
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; skip?: number },
+        ): T | null;
+        <T extends AST.Token | ESTree.Comment>(
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): T | null;
+        (
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; skip?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token | null;
+        (
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): AST.Token | ESTree.Comment | null;
+    }
+
+    interface UnaryCursorWithCountOptions {
+        <T extends AST.Token>(
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; count?: number },
+        ): T[];
+        <T extends AST.Token | ESTree.Comment>(
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): T[];
+        (
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; count?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token[];
+        (
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): Array<AST.Token | ESTree.Comment>;
+    }
+
+    interface BinaryCursorWithSkipOptions {
+        <T extends AST.Token>(
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; skip?: number },
+        ): T | null;
+        <T extends AST.Token | ESTree.Comment>(
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): T | null;
+        (
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; skip?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token | null;
+        (
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): AST.Token | ESTree.Comment | null;
+    }
+
+    interface BinaryCursorWithCountOptions {
+        <T extends AST.Token>(
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; count?: number },
+        ): T[];
+        <T extends AST.Token | ESTree.Comment>(
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): T[];
+        (
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; count?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token[];
+        (
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): Array<AST.Token | ESTree.Comment>;
+    }
 }
 
 //#endregion
@@ -244,7 +435,7 @@ export namespace Rule {
         meta?: RuleMetaData;
     }
 
-    type NodeTypes = ESTree.Node['type'];
+    type NodeTypes = ESTree.Node["type"];
     interface NodeListener {
         ArrayExpression?: (node: ESTree.ArrayExpression & NodeParentExtension) => void;
         ArrayPattern?: (node: ESTree.ArrayPattern & NodeParentExtension) => void;
@@ -316,7 +507,9 @@ export namespace Rule {
         YieldExpression?: (node: ESTree.YieldExpression & NodeParentExtension) => void;
     }
 
-    interface NodeParentExtension { parent: Node; }
+    interface NodeParentExtension {
+        parent: Node;
+    }
     type Node = ESTree.Node & NodeParentExtension;
 
     interface RuleListener extends NodeListener {
@@ -368,13 +561,13 @@ export namespace Rule {
             /** specifies the URL at which the full documentation can be accessed */
             url?: string;
             /** specifies whether rules can return suggestions (defaults to false if omitted) */
-            suggestion?: boolean
+            suggestion?: boolean;
         };
         messages?: { [messageId: string]: string };
-        fixable?: 'code' | 'whitespace';
+        fixable?: "code" | "whitespace";
         schema?: JSONSchema4 | JSONSchema4[];
         deprecated?: boolean;
-        type?: 'problem' | 'suggestion' | 'layout';
+        type?: "problem" | "suggestion" | "layout";
     }
 
     interface RuleContext {
@@ -390,6 +583,8 @@ export namespace Rule {
         getDeclaredVariables(node: ESTree.Node): Scope.Variable[];
 
         getFilename(): string;
+
+        getCwd(): string;
 
         getScope(): Scope.Scope;
 
@@ -472,7 +667,7 @@ export class Linter {
 export namespace Linter {
     type Severity = 0 | 1 | 2;
 
-    type RuleLevel = Severity | 'off' | 'warn' | 'error';
+    type RuleLevel = Severity | "off" | "warn" | "error";
     type RuleLevelAndOptions<Options extends any[] = any[]> = Prepend<Partial<Options>, RuleLevel>;
 
     type RuleEntry<Options extends any[] = any[]> = RuleLevel | RuleLevelAndOptions<Options>;
@@ -489,7 +684,7 @@ export namespace Linter {
         $schema?: string;
         env?: { [name: string]: boolean };
         extends?: string | string[];
-        globals?: { [name: string]: boolean | 'readonly' | 'readable' | 'writable' | 'writeable' };
+        globals?: { [name: string]: boolean | "readonly" | "readable" | "writable" | "writeable" };
         noInlineConfig?: boolean;
         overrides?: ConfigOverride[];
         parser?: string;
@@ -512,8 +707,8 @@ export namespace Linter {
     }
 
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020;
-        sourceType?: 'script' | 'module';
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021;
+        sourceType?: "script" | "module";
         ecmaFeatures?: {
             globalReturn?: boolean;
             impliedStrict?: boolean;
@@ -581,6 +776,18 @@ export namespace Linter {
         scopeManager?: Scope.ScopeManager;
         visitorKeys?: SourceCode.VisitorKeys;
     }
+
+    interface ProcessorFile {
+        text: string;
+        filename: string;
+    }
+
+    // https://eslint.org/docs/developer-guide/working-with-plugins#processors-in-plugins
+    interface Processor<T extends string | ProcessorFile = string | ProcessorFile> {
+        supportsAutofix?: boolean;
+        preprocess?(text: string, filename: string): T[];
+        postprocess?(messages: LintMessage[][], filename: string): LintMessage[];
+    }
 }
 
 //#endregion
@@ -594,7 +801,7 @@ export class ESLint {
 
     static getErrorResults(results: ESLint.LintResult[]): ESLint.LintResult[];
 
-    constructor(options: ESLint.Options);
+    constructor(options?: ESLint.Options);
 
     lintFiles(patterns: string | string[]): Promise<ESLint.LintResult[]>;
 
@@ -630,11 +837,12 @@ export namespace ESLint {
 
         // Autofix
         fix?: boolean | ((message: Linter.LintMessage) => boolean);
-        fixTypes?: Array<Rule.RuleMetaData['type']>;
+        fixTypes?: Array<Rule.RuleMetaData["type"]>;
 
         // Cache-related
         cache?: boolean;
         cacheLocation?: string;
+        cacheStrategy?: "content" | "metadata";
     }
 
     interface LintResult {
@@ -709,6 +917,7 @@ export namespace CLIEngine {
         cache?: boolean;
         cacheFile?: string;
         cacheLocation?: string;
+        cacheStrategy?: "content" | "metadata";
         configFile?: string;
         cwd?: string;
         envs?: string[];

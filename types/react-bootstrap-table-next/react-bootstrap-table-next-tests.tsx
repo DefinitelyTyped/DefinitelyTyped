@@ -84,6 +84,45 @@ const productColumns: Array<ColumnDescription<Product>> = [
         formatter: priceFormatter,
         text: 'Product Price',
         headerFormatter: priceHeaderFormatter,
+        validator: (newValue: number, row, column, done) => {
+            setTimeout(() => {
+                if (isNaN(newValue)) {
+                    return done({
+                        valid: false,
+                        message: 'Price should be numeric'
+                    });
+                }
+                if (newValue < 2000) {
+                    return done({
+                        valid: false,
+                        message: 'Price should bigger than 2000'
+                    });
+                }
+                return done();
+            }, 2000);
+            return {
+                async: true
+            };
+        }
+    },
+    {
+        dataField: 'price2',
+        text: 'Product Price 2',
+        validator: (newValue, row, column) => {
+            if (isNaN(newValue)) {
+                return {
+                    valid: false,
+                    message: 'Price should be numeric'
+                };
+            }
+            if (newValue < 2000) {
+                return {
+                    valid: false,
+                    message: 'Price should bigger than 2000'
+                };
+            }
+            return true;
+        }
     },
     /**
      * test optional dataField for dummyFields

@@ -11,6 +11,8 @@ const player = new window.Spotify.Player({
     },
     volume: 0.5
 });
+// https://developer.spotify.com/documentation/web-playback-sdk/reference/#playing-a-spotify-uri
+const {id: device_id} = player._options;
 
 player.connect().then((success: boolean) => {
     if (success) {

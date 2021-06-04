@@ -1,7 +1,7 @@
-declare module "child_process" {
-    import * as events from "events";
-    import * as net from "net";
-    import { Writable, Readable, Stream, Pipe } from "stream";
+declare module 'child_process' {
+    import * as events from 'events';
+    import * as net from 'net';
+    import { Writable, Readable, Stream, Pipe } from 'stream';
 
     interface ChildProcess extends events.EventEmitter {
         stdin: Writable | null;

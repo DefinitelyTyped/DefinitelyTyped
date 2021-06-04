@@ -1,7 +1,8 @@
-// Type definitions for non-npm package Wechat Mini Program - xmly-plugin 3.0
+// Type definitions for non-npm package Wechat Mini Program - xmly-plugin 3.1
 // Project: https://mp.weixin.qq.com/wxopen/pluginbasicprofile?action=intro&appid=wxc6a13dda5815c529
 // Definitions by:  TB <https://github.com/Durianicecream>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.2
 
 import XMLY from './xmly';
 import XMplayer from './player';
@@ -30,6 +31,10 @@ export default class XMPlugin {
      * @param options 初始化参数
      */
     static init(options: options): XMPlugin;
+    /**
+     * 获取当前插件实例
+     */
+    static getInstance(): XMPlugin | void;
     /**
      * 销毁方法
      */

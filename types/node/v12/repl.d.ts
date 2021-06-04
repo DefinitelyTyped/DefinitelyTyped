@@ -1,22 +1,22 @@
-declare module "repl" {
-    import { Interface, Completer, AsyncCompleter } from "readline";
-    import { Context } from "vm";
-    import { InspectOptions } from "util";
+declare module 'repl' {
+    import { Interface, Completer, AsyncCompleter } from 'readline';
+    import { Context } from 'vm';
+    import { InspectOptions } from 'util';
 
     interface ReplOptions {
         /**
          * The input prompt to display.
-         * Default: `"> "`
+         * @default "> "
          */
         prompt?: string;
         /**
          * The `Readable` stream from which REPL input will be read.
-         * Default: `process.stdin`
+         * @default process.stdin
          */
         input?: NodeJS.ReadableStream;
         /**
          * The `Writable` stream to which REPL output will be written.
-         * Default: `process.stdout`
+         * @default process.stdout
          */
         output?: NodeJS.WritableStream;
         /**

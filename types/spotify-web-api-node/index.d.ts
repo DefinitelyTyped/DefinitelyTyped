@@ -945,7 +945,7 @@ declare class SpotifyWebApi {
      *                    it contains an error object. Not returned if a callback is given.
      */
     getShowEpisodes(showId: string, options: PaginationMarketOptions, callback: Callback<SpotifyApi.ShowEpisodesResponse>): void;
-    getShowEpisodes(showId: string, options?: PaginationMarketOptions): Promise<SpotifyApi.ShowEpisodesResponse>;
+    getShowEpisodes(showId: string, options?: PaginationMarketOptions): Promise<Response<SpotifyApi.ShowEpisodesResponse>>;
 
     /**
      * Search for a show.
@@ -1228,10 +1228,12 @@ interface AuthorizationCodeGrantResponse {
 /**
  * Response returned when requesting new access token (via refresh token)
  * https://developer.spotify.com/documentation/general/guides/authorization-guide/#4-requesting-a-refreshed-access-token-spotify-returns-a-new-access-token-to-your-app
+ * https://developer.spotify.com/documentation/general/guides/authorization-guide/#6-requesting-a-refreshed-access-token
  */
 interface RefreshAccessTokenResponse {
     access_token: string;
     expires_in: number;
+    refresh_token?: string;
     scope: string;
     token_type: string;
 }

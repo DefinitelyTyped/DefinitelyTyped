@@ -1347,6 +1347,10 @@ declare namespace SpotifyApi {
          */
         explicit: boolean;
         /**
+         * A description of the episode. This field may contain HTML tags.
+         */
+        html_description: string;
+        /**
          * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode.
          */
         id: string;
@@ -1544,10 +1548,12 @@ declare namespace SpotifyApi {
     interface CurrentlyPlayingObject {
         timestamp: number;
         device: UserDevice;
+        actions: ActionsObject;
         progress_ms: number | null;
         is_playing: boolean;
-        item: TrackObjectFull | null;
+        item: TrackObjectFull | EpisodeObjectFull | null;
         context: ContextObject | null;
+        currently_playing_type: 'track' | 'episode' | 'ad' | 'unknown';
     }
 
     interface UserDevice {
@@ -1557,5 +1563,22 @@ declare namespace SpotifyApi {
         name: string;
         type: string;
         volume_percent: number | null;
+    }
+
+    interface ActionsObject {
+        disallows: DisallowsObject;
+    }
+
+    interface DisallowsObject {
+        interrupting_playback?: boolean;
+        pausing?: boolean;
+        resuming?: boolean;
+        seeking?: boolean;
+        skipping_next?: boolean;
+        skipping_prev?: boolean;
+        toggling_repeat_context?: boolean;
+        toggling_repeat_track?: boolean;
+        toggling_shuffle?: boolean;
+        transferring_playback?: boolean;
     }
 }

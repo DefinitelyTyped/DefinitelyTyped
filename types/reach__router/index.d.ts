@@ -177,6 +177,8 @@ export function useLocation(): WindowLocation;
 
 export function useNavigate(): NavigateFn;
 
-export function useParams(): any;
+// TODO: In the next major release update we should update the type parameter default of TPrams from `any` to `{}`,
+// it is currently being keep for backwards compatibility with version 1.3.7 or below.
+export function useParams<TParams extends { [Param in keyof TParams]?: string } = any>(): TParams;
 
 export function useMatch(pathname: string): null | { uri: string; path: string; [param: string]: string };

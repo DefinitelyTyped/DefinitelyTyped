@@ -1,6 +1,6 @@
 /// Demonstrate usage in the browser's window object
 
-window.Xrm.Utility.alertDialog("message", () => {});
+window.Xrm.Utility.alertDialog("message", () => { });
 parent.Xrm.Page.context.getOrgLcid();
 
 /// Demonstrate clientglobalcontext.d.ts
@@ -52,8 +52,14 @@ lookupAttribute.addPreSearch(() => { alert("A search was performed."); });
 const lookupValues = lookupAttribute.getAttribute().getValue();
 
 if (lookupValues !== null)
-    if (!lookupValues[0].id || !lookupValues[0].entityType)
+    if (lookupValues[0].id || lookupValues[0].entityType)
         throw new Error("Invalid value in Lookup control.");
+
+lookupAttribute.getAttribute().setValue(null);
+lookupAttribute.getAttribute().setValue([{
+    entityType: "contact",
+    id: "b9a1a53f-bc38-4e80-9fbb-fe51caa7df65"
+}]);
 
 /// Demonstrate v7.0 BPF API
 
@@ -64,7 +70,7 @@ if (Xrm.Page.data.process != null)
 
 Xrm.Utility.openQuickCreate("account").then(
     (object) => { if (object) alert(`Newly created record Id: ${object.savedEntityReference.id}`); },
-    (error) => {console.log(`Code: ${error.errorCode}, Message: ${error.message}`); });
+    (error) => { console.log(`Code: ${error.errorCode}, Message: ${error.message}`); });
 
 /// Make all controls visible.
 
@@ -92,9 +98,9 @@ Xrm.Page.data.entity.addOnSave((context: Xrm.Page.SaveEventContext) => {
 
 /// Demonstrate ES6 String literal with templates
 
-alert(`The current form type is: ${Xrm.Page.ui.getFormType() }`);
+alert(`The current form type is: ${Xrm.Page.ui.getFormType()}`);
 
-alert(`The current entity type is: ${Xrm.Page.data.entity.getEntityName() }`);
+alert(`The current entity type is: ${Xrm.Page.data.entity.getEntityName()}`);
 
 /// Demonstrate Optionset Value as int in Turbo Forms
 
@@ -130,7 +136,7 @@ const isMulitselect = attribute.getAttributeType() === "multiselectoptionset";
 
 let autoCompleteControl = Xrm.Page.getControl<Xrm.Page.AutoLookupControl>("name");
 const userInput = autoCompleteControl.getValue();
-const accountResult = {  };
+const accountResult = {};
 const resultSet: Xrm.Page.AutoCompleteResultSet = {
     results: new Array() as Xrm.Page.AutoCompleteResult[],
     commands: {
@@ -153,7 +159,7 @@ resultSet.results.push({
 });
 autoCompleteControl.addOnKeyPress(() => { });
 autoCompleteControl.fireOnKeyPress();
-autoCompleteControl.removeOnKeyPress(() => {});
+autoCompleteControl.removeOnKeyPress(() => { });
 autoCompleteControl.showAutoComplete(resultSet);
 autoCompleteControl.hideAutoComplete();
 
@@ -197,8 +203,8 @@ Xrm.WebApi.retrieveMultipleRecords("contact", `?fetchXml=<fetch version='1.0' ma
         </link-entity>
     </entity>
     </fetch>`).then((response) => {
-        console.log("Query Returned : " + response.entities.length);
-    });
+    console.log("Query Returned : " + response.entities.length);
+});
 
 // Demonstrate add/removeTabStateChange
 const contextHandler = (context: Xrm.Page.EventContext) => {
@@ -207,3 +213,134 @@ const contextHandler = (context: Xrm.Page.EventContext) => {
 
 Xrm.Page.ui.tabs.get("tabName").addTabStateChange(contextHandler);
 Xrm.Page.ui.tabs.get("tabName").removeTabStateChange(contextHandler);
+
+// Demonstrate lookupObject
+
+async function xrmUtility() {
+    const lookedUp = await Promise.resolve(Xrm.Utility.lookupObjects({
+        allowMultiSelect: false,
+        defaultEntityType: "account",
+        defaultViewId: "abc-deo",
+        disableMru: true,
+        searchText: "text",
+        showBarcodeScanner: true,
+        entityTypes: ["contact", "account"],
+        viewIds: ["abc"],
+        filters: [{
+            entityLogicalName: "contact",
+            filterXml: "<xml>goes</xml>"
+        }]
+    }));
+
+    const lookedUpItem = lookedUp[0];
+    if (lookedUpItem.entityType === "contact") {
+    }
+
+    Xrm.Utility.showProgressIndicator("doing things");
+    Xrm.Utility.closeProgressIndicator();
+}
+
+async function xrmNavigation() {
+    await Promise.resolve(Xrm.Navigation.openAlertDialog({
+        title: "title of dialog",
+        text: "text of dialog",
+        confirmButtonLabel: "confim the thing",
+    }, {
+        height: 100,
+        width: 100,
+    }));
+
+    await Promise.resolve(Xrm.Navigation.openAlertDialog({
+        title: "title of dialog",
+        text: "text of dialog",
+    }));
+
+    const confirmResult = await Promise.resolve(Xrm.Navigation.openConfirmDialog({
+        title: "title of dialog",
+        subtitle: "subtitle of dialog",
+        text: "text of dialog",
+        cancelButtonLabel: "cancel the thing",
+        confirmButtonLabel: "confim the thing",
+    }, {
+        height: 100,
+        width: 100,
+    }));
+
+    const trueConst = true;
+    if (confirmResult.confirmed === trueConst) {
+        // confirmed
+    }
+
+    await Promise.resolve(Xrm.Navigation.openErrorDialog({
+        message: "",
+        details: "",
+        errorCode: 12344,
+    }));
+}
+
+// Demonstrate addOnLoad/removeOnLoad methods
+const saveOptionsSaveMode = (context: Xrm.Events.SaveEventContext) => {
+    const saveMode = context.getEventArgs().getSaveMode();
+    context.getFormContext().data.save({
+        saveMode
+    });
+};
+
+// Demonstrate addOnLoad/removeOnLoad methods
+const formContextDataOnLoadMethods = (context: Xrm.Events.EventContext) => {
+    const formContext = context.getFormContext();
+    formContext.data.addOnLoad(contextHandler);
+    formContext.data.removeOnLoad(contextHandler);
+};
+
+// Demonstrate Xrm.Utility.lookupObjects parameters
+Xrm.Utility.lookupObjects({
+    entityTypes: ["contact"]
+});
+
+// filters property
+Xrm.Utility.lookupObjects({
+    entityTypes: ["contact"],
+    filters: [{
+        entityLogicalName: "contact",
+        filterXml: `<filter>
+            <condition attribute="contactid" operator="neq" value="b9a1a53f-bc38-4e80-9fbb-fe51caa7df65"
+        </filter>`
+    }]
+});
+
+// searchText property
+Xrm.Utility.lookupObjects({
+    entityTypes: ["contact"],
+    searchText: "Doe, John"
+});
+
+// disableMru property
+Xrm.Utility.lookupObjects({
+    entityTypes: ["contact"],
+    disableMru: true
+});
+
+// Demonstrate Xrm.Utility.getPageContext parameters
+Xrm.Utility.getPageContext(); // $ExpectType PageContext
+
+// Demonstrate visibility for grid control
+const gridControlGetSetVisible = (context: Xrm.Events.EventContext) => {
+    const formContext = context.getFormContext();
+    const gridControl = formContext.getControl<Xrm.Controls.GridControl>("myGrid");
+
+    // getVisible
+    const visibility = gridControl.getVisible();
+
+    // setVisible
+    gridControl.setVisible(!visibility);
+};
+
+async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEntity: Xrm.EntityReference) {
+    if (commandProperties.SourceControlId === "AddExistingRecordFromSubGridAssociated") {
+        await Promise.resolve(Xrm.Navigation.openAlertDialog({
+            title: `${commandProperties.CommandValueId}`,
+            text: `Thanks for clicking on ${primaryEntity.Name} of type ${primaryEntity.TypeName} and id ${primaryEntity.Id}`,
+        }));
+    }
+}

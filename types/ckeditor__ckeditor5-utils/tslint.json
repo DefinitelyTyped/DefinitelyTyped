@@ -1,12 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "ban-types": false,
-        "quotemark": [
-            true,
-            "double",
-            "avoid-escape",
-            "avoid-template"
-        ]
-    }
+    "extends": "dtslint/dt.json"
 }

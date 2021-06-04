@@ -2,7 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "no-unnecessary-generics": false,
-        "no-self-import": false
+        "no-unnecessary-generics": false
     }
 }

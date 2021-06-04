@@ -25,8 +25,9 @@ export class WebGLRenderTarget extends EventDispatcher {
     uuid: string;
     width: number;
     height: number;
-    scissor: Vector4;
+    depth: number;
 
+    scissor: Vector4;
     /**
      * @default false
      */
@@ -91,8 +92,9 @@ export class WebGLRenderTarget extends EventDispatcher {
      */
     generateMipmaps: any;
 
-    setSize(width: number, height: number): void;
-    clone(): WebGLRenderTarget;
+    setTexture(texture: Texture): void;
+    setSize(width: number, height: number, depth?: number): void;
+    clone(): this;
     copy(source: WebGLRenderTarget): this;
     dispose(): void;
 }

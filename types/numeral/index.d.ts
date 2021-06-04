@@ -70,7 +70,7 @@ declare namespace numeral {
         prototype: Numeral;
         clone(): Numeral;
         format(inputString?: string, roundingFunction?: RoundingFunction): string;
-        value(): number;
+        value(): number | null;
         input(): any;
         set(value: any): Numeral;
         add(value: any): Numeral;

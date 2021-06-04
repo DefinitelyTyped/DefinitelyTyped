@@ -14,9 +14,9 @@ export interface MeshNormalMaterialParameters extends MaterialParameters {
     displacementBias?: number;
     wireframe?: boolean;
     wireframeLinewidth?: number;
-    skinning?: boolean;
     morphTargets?: boolean;
     morphNormals?: boolean;
+    flatShading?: boolean;
 }
 
 export class MeshNormalMaterial extends Material {
@@ -80,17 +80,18 @@ export class MeshNormalMaterial extends Material {
     /**
      * @default false
      */
-    skinning: boolean;
-
-    /**
-     * @default false
-     */
     morphTargets: boolean;
 
     /**
      * @default false
      */
     morphNormals: boolean;
+
+    /**
+     * Define whether the material is rendered with flat shading. Default is false.
+     * @default false
+     */
+    flatShading: boolean;
 
     setValues(parameters: MeshNormalMaterialParameters): void;
 }

@@ -11,7 +11,6 @@ export interface ShaderMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number;
     lights?: boolean;
     clipping?: boolean;
-    skinning?: boolean;
     morphTargets?: boolean;
     morphNormals?: boolean;
     extensions?: {
@@ -76,11 +75,6 @@ export class ShaderMaterial extends Material {
     /**
      * @default false
      */
-    skinning: boolean;
-
-    /**
-     * @default false
-     */
     morphTargets: boolean;
 
     /**
@@ -121,6 +115,8 @@ export class ShaderMaterial extends Material {
      * @default null
      */
     glslVersion: GLSLVersion | null;
+
+    isShaderMaterial: boolean;
 
     setValues(parameters: ShaderMaterialParameters): void;
     toJSON(meta: any): any;

@@ -1,7 +1,6 @@
 // Type definitions for braintree 2.22
 // Project: https://github.com/braintree/braintree_node
-// Definitions by: Sam Rubin <https://github.com/smrubin>,
-//                 Mohamed Elsharnouby <https://github.com/sharno>,
+// Definitions by: Sam Rubin <https://github.com/smrubin>
 //                 Aaron Rose <https://github.com/acdr>
 //                 Sanders DeNardi <https://github.com/sedenardi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -358,6 +357,36 @@ declare namespace braintree {
      */
 
     export class CreditCard {
+        static CardType: {
+            AmEx: 'American Express';
+            CarteBlanche: 'Carte Blanche';
+            ChinaUnionPay: 'China UnionPay';
+            DinersClubInternational: 'Diners Club';
+            Discover: 'Discover';
+            Elo: 'Elo';
+            JCB: 'JCB';
+            Laser: 'Laser';
+            UKMaestro: 'UK Maestro';
+            Maestro: 'Maestro';
+            MasterCard: 'MasterCard';
+            Solo: 'Solo';
+            Switch: 'Switch';
+            Visa: 'Visa';
+            Unknown: 'Unknown';
+            All: () => string[];
+        };
+
+        static CustomerLocation: {
+            International: 'international';
+            US: 'us';
+        };
+
+        static CardTypeIndicator: {
+            Yes: 'Yes';
+            No: 'No';
+            Unknown: 'Unknown';
+        };
+
         billingAddress?: Address;
         bin: string;
         cardholderName?: string;
@@ -653,10 +682,62 @@ declare namespace braintree {
     }
 
     /**
+     * Disbursement
+     */
+
+    export class Disbursement {
+        static Types: {
+            Credit: 'credit';
+            Debit: 'debit';
+        };
+
+        id: string;
+        amount: string;
+        disbursementDate: Date;
+        disbursementType: DisbursementType;
+        transactionIds: string[];
+        merchantAccount: DisbursementMerchantAccount;
+        retry: boolean;
+        success: boolean;
+        exceptionMessage?: DisbursementExceptionMessage;
+        followUpAction?: DisbursementFollowUpAction;
+    }
+
+    export type DisbursementType = 'credit' | 'debit';
+
+    export interface DisbursementMerchantAccount {
+        id: string;
+        subMerchantAccount: boolean;
+        status: 'active';
+    }
+
+    export type DisbursementExceptionMessage =
+        | 'bank_rejected'
+        | 'insufficient_funds'
+        | 'account_not_authorized';
+
+    export type DisbursementFollowUpAction =
+        | 'contact_us'
+        | 'update_funding_information'
+        | 'none';
+
+    /**
      * Merchant Account
      */
 
     export class MerchantAccount {
+        static Status: {
+            Pending: 'pending',
+            Active: 'active',
+            Suspended: 'suspended'
+        };
+
+        static FundingDestination: {
+            Bank: 'bank',
+            Email: 'email',
+            MobilePhone: 'mobile_phone',
+        };
+
         business?: MerchantBusinessResponse;
         currencyIsoCode: string;
         default: boolean;
@@ -950,6 +1031,11 @@ declare namespace braintree {
         };
     }
 
+    export interface DisbursementNotification extends BaseWebhookNotification {
+        kind: DisbursementNotificationKind;
+        disbursement: Disbursement;
+    }
+
     export type WebhookNotification =
         | TransactionNotification
         | SubMerchantAccountApprovedNotification
@@ -957,7 +1043,8 @@ declare namespace braintree {
         | SubscriptionNotification
         | DisputeNotification
         | AccountUpdaterNotification
-        | PaymentMethodNotification;
+        | PaymentMethodNotification
+        | DisbursementNotification;
 
     export type AccountUpdaterNotificationKind =
         | 'account_updater_daily_report';
@@ -990,6 +1077,10 @@ declare namespace braintree {
     export type PaymentMethodNotificationKind =
         | 'payment_method_revoked_by_customer';
 
+    export type DisbursementNotificationKind =
+        | 'disbursement'
+        | 'disbursement_exception';
+
     export type WebhookNotificationKind =
         | AccountUpdaterNotificationKind
         | DisputeNotificationKind
@@ -998,11 +1089,10 @@ declare namespace braintree {
         | SubMerchantAccountDeclinedNotificationKind
         | TransactionNotificationKind
         | PaymentMethodNotificationKind
+        | DisbursementNotificationKind
         | 'check'
         | 'connected_merchant_paypal_status_changed'
         | 'connected_merchant_status_transitioned'
-        | 'disbursement'
-        | 'disbursement_exception'
         | 'grantor_updated_granted_payment_method'
         | 'granted_payment_method_revoked'
         | 'local_payment_completed'
@@ -1047,11 +1137,20 @@ declare namespace braintree {
      */
 
     export class Subscription {
+        static Status: {
+            Active: 'Active';
+            Canceled: 'Canceled';
+            Expired: 'Expired';
+            PastDue: 'Past Due';
+            Pending: 'Pending';
+            All: () => string[];
+        };
+
         addOns?: AddOn[];
         balance: string;
         billingDayOfMonth?: number;
-        billingPeriodEndDate: Date;
-        billingPeriodStartDate: Date;
+        billingPeriodEndDate: string;
+        billingPeriodStartDate: string;
         createdAt: Date;
         currentBillingCycle: number;
         daysPastDue?: number;
@@ -1120,7 +1219,7 @@ declare namespace braintree {
         subscriptionSource: SubscriptionSource;
     }
 
-    export type SubscriptionStatus = 'Active' | 'Canceled' | 'Expired' | 'PastDue' | 'Pending';
+    export type SubscriptionStatus = 'Active' | 'Canceled' | 'Expired' | 'Past Due' | 'Pending';
 
     export type SubscriptionSource = 'api' | 'control_panel' | 'recurring';
 
@@ -1129,6 +1228,49 @@ declare namespace braintree {
      */
 
     export class Transaction {
+        static EscrowStatus: {
+            HoldPending: 'hold_pending';
+            Held: 'held';
+            ReleasePending: 'release_pending';
+            Released: 'released';
+            Refunded: 'refunded';
+        };
+
+        static Type: {
+            Credit: 'credit';
+            Sale: 'sale';
+            All: () => string[];
+        };
+
+        static GatewayRejectionReason: {
+            ApplicationIncomplete: 'application_incomplete';
+            Avs: 'avs';
+            Cvv: 'cvv';
+            AvsAndCvv: 'avs_and_cvv';
+            Duplicate: 'duplicate';
+            Fraud: 'fraud';
+            RiskThreshold: 'risk_threshold';
+            ThreeDSecure: 'three_d_secure';
+            TokenIssuance: 'token_issuance';
+        };
+
+        static Status: {
+            AuthorizationExpired: 'authorization_expired';
+            Authorizing: 'authorizing';
+            Authorized: 'authorized';
+            GatewayRejected: 'gateway_rejected';
+            Failed: 'failed';
+            ProcessorDeclined: 'processor_declined';
+            Settled: 'settled';
+            Settling: 'settling';
+            SettlementConfirmed: 'settlement_confirmed';
+            SettlementDeclined: 'settlement_declined';
+            SettlementPending: 'settlement_pending';
+            SubmittedForSettlement: 'submitted_for_settlement';
+            Voided: 'voided';
+            All: () => string[];
+        };
+
         addOns?: AddOn[];
         additionalProccessorResponse: string;
         amount: string;
@@ -1579,6 +1721,7 @@ declare namespace braintree {
         | 'authorization_expired'
         | 'authorized'
         | 'authorizing'
+        | 'settlement_confirmed'
         | 'settlement_pending'
         | 'settlement_declined'
         | 'failed'

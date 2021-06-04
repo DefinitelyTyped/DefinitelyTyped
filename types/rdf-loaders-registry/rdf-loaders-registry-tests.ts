@@ -30,11 +30,15 @@ async function basicLoading() {
   registry.registerLiteralLoader(integer, integerLoader);
   registry.registerNodeLoader(nebula, nebulaLoader);
 
-  const result: Nebula | null = await registry.load<Nebula>(node);
+  const result: Nebula | undefined = await registry.load<Nebula>(node);
 }
 
 async function loadWithSpecificLoaderInferOptionType() {
-  const result: Nebula | null = await registry.load<Nebula, NebulaLoader>(node, { bar: 'baz'});
+  const result = registry.load<Nebula, NebulaLoader>(node, { bar: 'baz' });
+  if (result) {
+    const nebula: Nebula = await result;
+  }
+
   // $ExpectError
   await registry.load<Nebula, NebulaLoader>(node, {});
   // $ExpectError

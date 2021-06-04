@@ -8,6 +8,7 @@
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Marko Klopets <https://github.com/mklopets>
 //                 André Fonseca <https://github.com/amxfonseca>
+//                 makspetrov <https://github.com/Nosfit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -551,6 +552,7 @@ declare namespace mapboxgl {
         ): this;
         once<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
         once(type: string, listener: (ev: any) => void): this;
+        once(type: string): Promise<this>;
 
         off<T extends keyof MapLayerEventType>(
             type: T,
@@ -684,6 +686,13 @@ declare namespace mapboxgl {
         locale?: { [key: string]: string };
 
         /**
+         * Overrides the generation of all glyphs and font settings except font-weight keywords
+         * Also overrides localIdeographFontFamily
+         * @default null
+         */
+        localFontFamily?: string;
+
+        /**
          * If specified, defines a CSS font-family for locally overriding generation of glyphs in the
          * 'CJK Unified Ideographs' and 'Hangul Syllables' ranges. In these ranges, font settings from
          * the map's style will be ignored, except for font-weight keywords (light/regular/medium/bold).
@@ -714,6 +723,14 @@ declare namespace mapboxgl {
 
         /** Minimum zoom of the map. */
         minZoom?: number;
+
+        /**
+         * If true, map will prioritize rendering for performance by reordering layers
+         * If false, layers will always be drawn in the specified order
+         *
+         * @default true
+         */
+        optimizeForTerrain?: boolean;
 
         /** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
         preserveDrawingBuffer?: boolean;
@@ -1232,6 +1249,7 @@ declare namespace mapboxgl {
         light?: Light;
         sources?: Sources;
         sprite?: string;
+        terrain?: TerrainSpecification;
         transition?: Transition;
         version: number;
         zoom?: number;
@@ -1936,10 +1954,11 @@ declare namespace mapboxgl {
         pitch?: number;
         /** If zooming, the zoom center (defaults to map center) */
         around?: LngLatLike;
+        /** Dimensions in pixels applied on each side of the viewport for shifting the vanishing point. */
+        padding?: number | PaddingOptions;
     }
 
     export interface CameraForBoundsOptions extends CameraOptions {
-        padding?: number | PaddingOptions;
         offset?: PointLike;
         maxZoom?: number;
     }
@@ -1971,7 +1990,6 @@ declare namespace mapboxgl {
 
     export interface FitBoundsOptions extends mapboxgl.FlyToOptions {
         linear?: boolean;
-        padding?: number | mapboxgl.PaddingOptions;
         offset?: mapboxgl.PointLike;
         maxZoom?: number;
         maxDuration?: number;
@@ -2099,8 +2117,8 @@ declare namespace mapboxgl {
         interactive?: boolean;
 
         filter?: any[];
-        layout?: Layout;
-        paint?: object;
+        layout?: AnyLayout;
+        paint?: AnyPaint;
     }
 
     interface BackgroundLayer extends Layer {
@@ -2348,7 +2366,7 @@ declare namespace mapboxgl {
         'symbol-avoid-edges'?: boolean;
         'symbol-z-order'?: 'viewport-y' | 'source';
         'icon-allow-overlap'?: boolean | StyleFunction | Expression;
-        'icon-ignore-placement'?: boolean;
+        'icon-ignore-placement'?: boolean | Expression;
         'icon-optional'?: boolean;
         'icon-rotation-alignment'?: 'map' | 'viewport' | 'auto';
         'icon-size'?: number | StyleFunction | Expression;
@@ -2369,7 +2387,7 @@ declare namespace mapboxgl {
         'text-max-width'?: number | StyleFunction | Expression;
         'text-line-height'?: number | Expression;
         'text-letter-spacing'?: number | Expression;
-        'text-justify'?: 'left' | 'center' | 'right' | Expression;
+        'text-justify'?: 'auto' | 'left' | 'center' | 'right' | Expression;
         'text-anchor'?: Anchor | StyleFunction | Expression;
         'text-max-angle'?: number | Expression;
         'text-rotate'?: number | StyleFunction | Expression;

@@ -1,7 +1,7 @@
 import * as childProcess from 'child_process';
 import * as net from 'net';
 import * as fs from 'fs';
-import * as assert from 'assert';
+import assert = require('assert');
 import { promisify } from 'util';
 import { Writable, Readable, Pipe } from 'stream';
 

@@ -117,21 +117,21 @@ declare namespace google {
             id?: string;
         }
 
-        export class data {
+        namespace data {
             // https://developers.google.com/chart/interactive/docs/reference#data_modifier_functions
-            static month(value: Date): number;
+            function month(value: Date): number;
 
             // https://developers.google.com/chart/interactive/docs/reference#group
-            static sum(values: number[] | string[] | Date[]): number;
-            static avg(values: number[] | string[] | Date[]): number;
-            static min(values: number[] | string[] | Date[]): number | string | Date;
-            static max(values: number[] | string[] | Date[]): number | string | Date;
-            static count(values: any[]): number;
+            function sum(values: ReadonlyArray<number>): number;
+            function avg(values: ReadonlyArray<number>): number;
+            function min(values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>): number | string | Date | null;
+            function max(values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>): number | string | Date | null;
+            function count(values: ReadonlyArray<any>): number;
 
-            static group(data: DataTable | DataView, keys: (number | GroupKeyOptions)[], columns?: GroupColumnOptions[]): DataTable;
+            function group(data: DataTable | DataView, keys: ReadonlyArray<number | GroupKeyOptions>, columns?: ReadonlyArray<GroupColumnOptions>): DataTable;
 
             // https://developers.google.com/chart/interactive/docs/reference#join
-            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
+            function join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: ReadonlyArray<[number|string, number|string]>, columnsA: ReadonlyArray<number|string>, columnsB: ReadonlyArray<number|string>): DataTable;
         }
         //#endregion
 
@@ -148,6 +148,7 @@ declare namespace google {
             addRows(rows: any[][]): number;
             clone(): DataTable;
             getColumnId(columnIndex: number): string;
+            getColumnIndex(columnIdentifier: number|string): number;
             getColumnLabel(columnIndex: number): string;
             getColumnPattern(columnIndex: number): string;
             getColumnProperties(columnIndex: number): Properties;
@@ -473,6 +474,10 @@ declare namespace google {
             strokeWidth?: number;
         }
 
+        export interface ChartStrokeOpacity extends ChartStroke {
+            strokeOpacity?: number;
+        }
+
         export interface ChartFill {
             fill?: string;
             fillOpacity?: number;
@@ -523,7 +528,7 @@ declare namespace google {
             ticks?: any[];
             title?: string;
             titleTextStyle?: ChartTextStyle;
-            allowContainerBoundaryTextCufoff?: boolean;
+            allowContainerBoundaryTextCutoff?: boolean;
             slantedText?: boolean;
             slantedTextAngle?: number;
             maxAlternation?: number;
@@ -584,9 +589,9 @@ declare namespace google {
             groupWidth: any; // number | string
         }
 
-        export interface VisualizationSelectionArray {
-            column?: number;
-            row?: number;
+        export interface ChartSelection {
+            column?: number | null;
+            row?: number | null;
         }
 
         export interface Candlestick {
@@ -622,8 +627,8 @@ declare namespace google {
         abstract class ChartBase {
             constructor(element: Element);
             getContainer(): Element;
-            getSelection(): VisualizationSelectionArray[];
-            setSelection(selection: VisualizationSelectionArray[]): void;
+            getSelection(): ChartSelection[];
+            setSelection(selection?: ChartSelection[] | null): void;
         }
 
         abstract class ChartBaseClearable extends ChartBase {
@@ -752,6 +757,17 @@ declare namespace google {
             targetAxisIndex?: number;
         }
 
+        // https://developers.google.com/chart/interactive/docs/gallery/intervals#combining-interval-styles
+        export interface Intervals {
+            style?: 'area' | 'bars' | 'boxes' | 'line' | 'points' | 'sticks';
+            color?: string;
+            barWidth?: number;
+            boxWidth?: number;
+            lineWidth?: number;
+            pointSize?: number;
+            fillOpacity?: number;
+        }
+
         // https://developers.google.com/chart/interactive/docs/gallery/linechart#Configuration_Options
         export interface LineChartOptions {
             aggregationTarget?: string;
@@ -784,7 +800,7 @@ declare namespace google {
             pointShape?: ChartPointShape;
             pointSize?: number;
             pointsVisible?: boolean;
-            intervals?: { style: string };
+            intervals?: Intervals;
             interval?: any;
             theme?: string;
             title?: string;
@@ -1148,7 +1164,7 @@ declare namespace google {
             cssClassNames?: CssClassNames;
             firstRowNumber?: number;
             frozenColumns?: number;
-            height?: string;
+            height?: string | number;
             page?: string;
             pageSize?: number;
             pagingButtons?: number | 'both' | 'prev' | 'next' | 'auto';
@@ -1159,7 +1175,7 @@ declare namespace google {
             sortAscending?: boolean;
             sortColumn?: number;
             startPage?: number;
-            width?: string;
+            width?: string | number;
         }
 
         export interface CssClassNames {
@@ -1187,7 +1203,7 @@ declare namespace google {
             constructor(element: Element);
             draw(data: DataTable | DataView, options?: TimelineOptions): void;
             clearChart(): void;
-            getSelection(): VisualizationSelectionArray[];
+            getSelection(): ChartSelection[];
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/timeline#Configuration_Options
@@ -1368,32 +1384,37 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options
         export interface CalendarOptions {
-            calendar: {
-                cellColor: Object;
-                cellSize: number;
-                dayOfWeekLabel: Object;
-                dayOfWeekRightSpace: number;
-                daysOfWeek: string;
-                focusedCellColor: Object;
-                monthLabel: Object;
-                monthOutlineColor: Object;
-                underMonthSpace: number;
-                underYearSpace: number;
-                unusedMonthOutlineColor: Object;
+            calendar?: {
+                cellColor?: ChartStrokeOpacity;
+                cellSize?: number;
+                dayOfWeekLabel?: ChartTextStyle;
+                dayOfWeekRightSpace?: number;
+                daysOfWeek?: string;
+                focusedCellColor?: ChartStrokeOpacity;
+                monthLabel?: ChartTextStyle;
+                monthOutlineColor?: ChartStrokeOpacity;
+                underMonthSpace?: number;
+                underYearSpace?: number;
+                unusedMonthOutlineColor?: ChartStrokeOpacity;
+                yearLabel?: ChartTextStyle;
             };
             colorAxis?: {
-                colors: string[];
-                maxValue: number;
-                minValue: number;
-                values: number[];
+                colors?: string[];
+                maxValue?: number;
+                minValue?: number;
+                values?: number[];
             };
             forceIFrame?: boolean;
             height?: number;
-            noDataPattern?: Object;
-            tooltip: {
+            noDataPattern?: {
+                backgroundColor: string,
+                color: string
+            };
+            tooltip?: {
                 isHtml: boolean;
             };
             width?: number;
+            title?: string;
         }
 
         //#endregion

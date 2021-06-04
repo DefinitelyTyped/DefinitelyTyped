@@ -12,11 +12,14 @@
 //                 Sebastiaan Pasma <https://github.com/spasma>
 //                 bdbai <https://github.com/bdbai>
 //                 pokutuna <https://github.com/pokutuna>
+//                 Jason Xian <https://github.com/JasonXian>
+//                 userTim <https://github.com/usertim>
+//                 Idan Zeierman <https://github.com/idan315>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="filesystem" />
-/// <reference path="har-format/index.d.ts" />
+/// <reference path="./har-format/index.d.ts" />
 
 ////////////////////
 // Global object
@@ -86,6 +89,229 @@ declare namespace chrome.accessibilityFeatures {
 }
 
 ////////////////////
+// Action
+////////////////////
+/**
+ * Use the chrome.action API to control the extension's icon in the Google Chrome toolbar.
+ * Availability: Since Chrome 88. Manifest v3.
+ * Manifest:  "action": {...}
+ */
+declare namespace chrome.action {
+    export interface BadgeBackgroundColorDetails {
+        /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
+        color: string | ColorArray;
+        /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+        tabId?: number;
+    }
+
+    export interface BadgeTextDetails {
+        /** Any number of characters can be passed, but only about four can fit in the space. */
+        text: string;
+        /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+        tabId?: number;
+    }
+
+    export type ColorArray = [number, number, number, number];
+
+    export interface TitleDetails {
+        /** The string the action should display when moused over. */
+        title: string;
+        /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+        tabId?: number;
+    }
+
+    export interface PopupDetails {
+        /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+        tabId?: number;
+        /** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
+        popup: string;
+    }
+
+    export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
+
+    export interface TabIconDetails {
+        /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
+        path?: string | { [index: number]: string };
+        /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+        tabId?: number;
+        /** Optional. Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'  */
+        imageData?: ImageData | { [index: number]: ImageData };
+    }
+
+    export interface TabDetails {
+        /** Optional. The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned.  */
+        tabId?: number;
+    }
+
+    /**
+     * Since Chrome 88.
+     * Disables the action for a tab.
+     * @param tabId The id of the tab for which you want to modify the action.
+     * @return The `disable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function disable(tabId: number): Promise<void>;
+
+    /**
+     * Since Chrome 88.
+     * Disables the action for a tab.
+     * @param tabId The id of the tab for which you want to modify the action.
+     * @param callback
+     */
+    export function disable(tabId: number, callback?: () => void): void;
+
+    /**
+     * Since Chrome 88.
+     * Enables the action for a tab. By default, actions are enabled.
+     * @param tabId The id of the tab for which you want to modify the action.
+     * @return The `enable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function enable(tabId: number): Promise<void>;
+
+    /**
+     * Since Chrome 88.
+     * Enables the action for a tab. By default, actions are enabled.
+     * @param tabId The id of the tab for which you want to modify the action.
+     * @param callback
+     */
+    export function enable(tabId: number, callback?: () => void): void;
+
+    /**
+     * Since Chrome 88.
+     * Gets the background color of the action.
+     * @param callback The callback parameter should be a function that looks like this:
+     * (result: ColorArray) => {...}
+     */
+    export function getBadgeBackgroundColor(details: TabDetails, callback: (result: ColorArray) => void): void;
+    /**
+     * Since Chrome 88.
+     * Gets the background color of the action.
+     * @return The `getBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getBadgeBackgroundColor(details: TabDetails): Promise<ColorArray>;
+
+    /**
+     * Since Chrome 88.
+     * Gets the badge text of the action. If no tab is specified, the non-tab-specific badge text is returned.
+     * If displayActionCountAsBadgeText is enabled, a placeholder text will be returned unless the
+     * declarativeNetRequestFeedback permission is present or tab-specific badge text was provided.
+     * @param callback The callback parameter should be a function that looks like this:
+     * (result: string) => {...}
+     */
+    export function getBadgeText(details: TabDetails, callback: (result: string) => void): void;
+
+    /**
+     * Since Chrome 88.
+     * Gets the badge text of the action. If no tab is specified, the non-tab-specific badge text is returned.
+     * If displayActionCountAsBadgeText is enabled, a placeholder text will be returned unless the
+     * declarativeNetRequestFeedback permission is present or tab-specific badge text was provided.
+     * @return The `getBadgeText` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getBadgeText(details: TabDetails): Promise<string>;
+
+    /**
+     * Since Chrome 88.
+     * Gets the html document set as the popup for this action.
+     * @param callback The callback parameter should be a function that looks like this:
+     * (result: string) => {...}
+     */
+    export function getPopup(details: TabDetails, callback: (result: string) => void): void;
+
+    /**
+     * Since Chrome 88.
+     * Gets the html document set as the popup for this action.
+     * @return The `getPopup` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getPopup(details: TabDetails): Promise<string>;
+
+    /**
+     * Since Chrome 88.
+     * Gets the title of the action.
+     * @param callback The callback parameter should be a function that looks like this:
+     * (result: string) => {...}
+     */
+    export function getTitle(details: TabDetails, callback: (result: string) => void): void;
+
+    /**
+     * Since Chrome 88.
+     * Gets the title of the action.
+     * @return The `getTitle` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getTitle(details: TabDetails): Promise<string>;
+
+    /**
+     * Since Chrome 88.
+     * Sets the background color for the badge.
+     * @return The `setBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): Promise<void>;
+
+    /**
+     * Since Chrome 88.
+     * Sets the background color for the badge.
+     * @param callback The callback parameter should be a function that looks like this:
+     * () => {...}
+     */
+    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback?: () => void): void;
+
+    /**
+     * Since Chrome 88.
+     * Sets the badge text for the action. The badge is displayed on top of the icon.
+     * @return The `setBadgeText` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setBadgeText(details: BadgeTextDetails): Promise<void>;
+
+    /**
+     * Since Chrome 88.
+     * Sets the badge text for the action. The badge is displayed on top of the icon.
+     * @param callback The callback parameter should be a function that looks like this:
+     * () => {...}
+     */
+    export function setBadgeText(details: BadgeTextDetails, callback?: () => void): void;
+
+    /**
+     * Since Chrome 88.
+     * Sets the icon for the action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element,
+     * or as dictionary of either one of those. Either the path or the imageData property must be specified.
+     * @param callback The callback parameter should be a function that looks like this:
+     * () => {...}
+     */
+    export function setIcon(details: TabIconDetails, callback?: () => void): void;
+
+    /**
+     * Since Chrome 88.
+     * Sets the html document to be opened as a popup when the user clicks on the action's icon.
+     * @return The `setPopup` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setPopup(details: PopupDetails): Promise<void>;
+
+    /**
+     * Since Chrome 88.
+     * Sets the html document to be opened as a popup when the user clicks on the action's icon.
+     * @param callback The callback parameter should be a function that looks like this:
+     * () => {...}
+     */
+    export function setPopup(details: PopupDetails, callback?: () => void): void;
+
+    /**
+     * Since Chrome 88.
+     * Sets the title of the action. This shows up in the tooltip.
+     * @return The `setTitle` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setTitle(details: TitleDetails): Promise<void>;
+
+    /**
+     * Since Chrome 88.
+     * Sets the title of the action. This shows up in the tooltip.
+     * @param callback The callback parameter should be a function that looks like this:
+     * () => {...}
+     */
+    export function setTitle(details: TitleDetails, callback?: () => void): void;
+
+    /** Fired when an action icon is clicked. This event will not fire if the action has a popup. */
+    export var onClicked: BrowserClickedEvent;
+}
+
+////////////////////
 // Alarms
 ////////////////////
 /**
@@ -136,11 +362,28 @@ declare namespace chrome.alarms {
      */
     export function getAll(callback: (alarms: Alarm[]) => void): void;
     /**
+     * Gets an array of all the alarms.
+     * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getAll(): Promise<Alarm[]>;
+    /**
+     * Clears all alarms.
+     * function(boolean wasCleared) {...};
+     * @return The `clearAll` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function clearAll(): Promise<boolean>;
+    /**
      * Clears all alarms.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(boolean wasCleared) {...};
      */
     export function clearAll(callback?: (wasCleared: boolean) => void): void;
+    /**
+     * Clears the alarm with the given name.
+     * @param name The name of the alarm to clear. Defaults to the empty string.
+     * @return The `clear` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function clear(name?: string): Promise<boolean>;
     /**
      * Clears the alarm with the given name.
      * @param name The name of the alarm to clear. Defaults to the empty string.
@@ -155,6 +398,11 @@ declare namespace chrome.alarms {
      */
     export function clear(callback: (wasCleared: boolean) => void): void;
     /**
+     * Clears the alarm without a name.
+     * @return The `clear` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function clear(): Promise<void>;
+    /**
      * Retrieves details about the specified alarm.
      * @param callback The callback parameter should be a function that looks like this:
      * function( Alarm alarm) {...};
@@ -162,11 +410,22 @@ declare namespace chrome.alarms {
     export function get(callback: (alarm: Alarm) => void): void;
     /**
      * Retrieves details about the specified alarm.
+     * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function get(): Promise<Alarm>;
+    /**
+     * Retrieves details about the specified alarm.
      * @param name The name of the alarm to get. Defaults to the empty string.
      * @param callback The callback parameter should be a function that looks like this:
      * function( Alarm alarm) {...};
      */
     export function get(name: string, callback: (alarm: Alarm) => void): void;
+    /**
+     * Retrieves details about the specified alarm.
+     * @param name The name of the alarm to get. Defaults to the empty string.
+     * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function get(name: string): Promise<Alarm>;
 
     /** Fired when an alarm has elapsed. Useful for event pages. */
     export var onAlarm: AlarmEvent;
@@ -317,11 +576,23 @@ declare namespace chrome.bookmarks {
     export function search(query: string, callback: (results: BookmarkTreeNode[]) => void): void;
     /**
      * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties.
+     * @param query A string of words and quoted phrases that are matched against bookmark URLs and titles.
+     * @return The `search` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function search(query: string): Promise<BookmarkTreeNode[]>;
+    /**
+     * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties.
      * @param query An object with one or more of the properties query, url, and title specified. Bookmarks matching all specified properties will be produced.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of BookmarkTreeNode results) {...};
      */
     export function search(query: BookmarkSearchQuery, callback: (results: BookmarkTreeNode[]) => void): void;
+    /**
+     * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties.
+     * @param query An object with one or more of the properties query, url, and title specified. Bookmarks matching all specified properties will be produced.
+     * @return The `search` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function search(query: BookmarkSearchQuery): Promise<BookmarkTreeNode[]>;
     /**
      * Retrieves the entire Bookmarks hierarchy.
      * @param callback The callback parameter should be a function that looks like this:
@@ -329,12 +600,23 @@ declare namespace chrome.bookmarks {
      */
     export function getTree(callback: (results: BookmarkTreeNode[]) => void): void;
     /**
+     * Retrieves the entire Bookmarks hierarchy.
+     * @return The `getTree` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getTree(): Promise<BookmarkTreeNode[]>;
+    /**
      * Retrieves the recently added bookmarks.
      * @param numberOfItems The maximum number of items to return.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of BookmarkTreeNode results) {...};
      */
     export function getRecent(numberOfItems: number, callback: (results: BookmarkTreeNode[]) => void): void;
+    /**
+     * Retrieves the recently added bookmarks.
+     * @param numberOfItems The maximum number of items to return.
+     * @return The `getRecent` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getRecent(numberOfItems: number): Promise<BookmarkTreeNode[]>;
     /**
      * Retrieves the specified BookmarkTreeNode.
      * @param id A single string-valued id
@@ -344,17 +626,42 @@ declare namespace chrome.bookmarks {
     export function get(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
     /**
      * Retrieves the specified BookmarkTreeNode.
+     * @param id A single string-valued id
+     * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function get(id: string): Promise<BookmarkTreeNode[]>;
+    /**
+     * Retrieves the specified BookmarkTreeNode.
      * @param idList An array of string-valued ids
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of BookmarkTreeNode results) {...};
      */
     export function get(idList: string[], callback: (results: BookmarkTreeNode[]) => void): void;
     /**
+     * Retrieves the specified BookmarkTreeNode.
+     * @param idList An array of string-valued ids
+     * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function get(idList: string[]): Promise<BookmarkTreeNode[]>;
+    /**
+     * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
+     * @return The `create` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function create(bookmark: BookmarkCreateArg): Promise<BookmarkTreeNode>;
+    /**
      * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function( BookmarkTreeNode result) {...};
      */
     export function create(bookmark: BookmarkCreateArg, callback?: (result: BookmarkTreeNode) => void): void;
+    /**
+     * Moves the specified BookmarkTreeNode to the provided location.
+     * @return The `move` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function move(
+        id: string,
+        destination: BookmarkDestinationArg,
+    ): Promise<BookmarkTreeNode>;
     /**
      * Moves the specified BookmarkTreeNode to the provided location.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -367,6 +674,14 @@ declare namespace chrome.bookmarks {
     ): void;
     /**
      * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified properties will be left unchanged. Note: Currently, only 'title' and 'url' are supported.
+     * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function update(
+        id: string,
+        changes: BookmarkChangesArg,
+    ): Promise<BookmarkTreeNode>;
+    /**
+     * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified properties will be left unchanged. Note: Currently, only 'title' and 'url' are supported.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function( BookmarkTreeNode result) {...};
      */
@@ -375,6 +690,11 @@ declare namespace chrome.bookmarks {
         changes: BookmarkChangesArg,
         callback?: (result: BookmarkTreeNode) => void,
     ): void;
+    /**
+     * Removes a bookmark or an empty bookmark folder.
+     * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function remove(id: string): Promise<void>;
     /**
      * Removes a bookmark or an empty bookmark folder.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -388,6 +708,11 @@ declare namespace chrome.bookmarks {
      */
     export function getChildren(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
     /**
+     * Retrieves the children of the specified BookmarkTreeNode id.
+     * @return The `getChildren` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getChildren(id: string): Promise<BookmarkTreeNode[]>;
+    /**
      * Since Chrome 14.
      * Retrieves part of the Bookmarks hierarchy, starting at the specified node.
      * @param id The ID of the root of the subtree to retrieve.
@@ -395,6 +720,18 @@ declare namespace chrome.bookmarks {
      * function(array of BookmarkTreeNode results) {...};
      */
     export function getSubTree(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
+    /**
+     * Since Chrome 14.
+     * Retrieves part of the Bookmarks hierarchy, starting at the specified node.
+     * @param id The ID of the root of the subtree to retrieve.
+     * @return The `getSubTree` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getSubTree(id: string): Promise<BookmarkTreeNode[]>;
+    /**
+     * Recursively removes a bookmark folder.
+     * @return The `removeTree` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeTree(id: string): Promise<void>;
     /**
      * Recursively removes a bookmark folder.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -436,7 +773,7 @@ declare namespace chrome.browserAction {
 
     export interface BadgeTextDetails {
         /** Any number of characters can be passed, but only about four can fit in the space. */
-        text: string;
+        text?: string;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number;
     }
@@ -477,9 +814,21 @@ declare namespace chrome.browserAction {
      * Since Chrome 22.
      * Enables the browser action for a tab. By default, browser actions are enabled.
      * @param tabId The id of the tab for which you want to modify the browser action.
+     * @return The `enable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function enable(tabId?: number): Promise<void>;
+    /**
+     * Since Chrome 22.
+     * Enables the browser action for a tab. By default, browser actions are enabled.
+     * @param tabId The id of the tab for which you want to modify the browser action.
      * @param callback Supported since Chrome 67
      */
     export function enable(tabId?: number, callback?: () => void): void;
+    /**
+     * Sets the background color for the badge.
+     * @return The `setBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): Promise<void>;
     /**
      * Sets the background color for the badge.
      * @param callback Supported since Chrome 67
@@ -487,9 +836,19 @@ declare namespace chrome.browserAction {
     export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback?: () => void): void;
     /**
      * Sets the badge text for the browser action. The badge is displayed on top of the icon.
+     * @return The `setBadgeText` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setBadgeText(details: BadgeTextDetails): Promise<void>;
+    /**
+     * Sets the badge text for the browser action. The badge is displayed on top of the icon.
      * @param callback Supported since Chrome 67
      */
     export function setBadgeText(details: BadgeTextDetails, callback?: () => void): void;
+    /**
+     * Sets the title of the browser action. This shows up in the tooltip.
+     * @return The `setTitle` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setTitle(details: TitleDetails): Promise<void>;
     /**
      * Sets the title of the browser action. This shows up in the tooltip.
      * @param callback Supported since Chrome 67
@@ -502,10 +861,28 @@ declare namespace chrome.browserAction {
      */
     export function getBadgeText(details: TabDetails, callback: (result: string) => void): void;
     /**
+     * Since Chrome 19.
+     * Gets the badge text of the browser action. If no tab is specified, the non-tab-specific badge text is returned.
+     * @return The `getBadgeText` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getBadgeText(details: TabDetails): Promise<string>;
+    /**
+     * Sets the html document to be opened as a popup when the user clicks on the browser action's icon.
+     * @return The `setPopup` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setPopup(details: PopupDetails): Promise<void>;
+    /**
      * Sets the html document to be opened as a popup when the user clicks on the browser action's icon.
      * @param callback Supported since Chrome 67
      */
     export function setPopup(details: PopupDetails, callback?: () => void): void;
+    /**
+     * Since Chrome 22.
+     * Disables the browser action for a tab.
+     * @param tabId The id of the tab for which you want to modify the browser action.
+     * @return The `disable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function disable(tabId?: number): Promise<void>;
     /**
      * Since Chrome 22.
      * Disables the browser action for a tab.
@@ -522,6 +899,12 @@ declare namespace chrome.browserAction {
     export function getTitle(details: TabDetails, callback: (result: string) => void): void;
     /**
      * Since Chrome 19.
+     * Gets the title of the browser action.
+     * @return The `getTitle` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getTitle(details: TabDetails): Promise<string>;
+    /**
+     * Since Chrome 19.
      * Gets the background color of the browser action.
      * @param callback The callback parameter should be a function that looks like this:
      * function( ColorArray result) {...};
@@ -529,11 +912,23 @@ declare namespace chrome.browserAction {
     export function getBadgeBackgroundColor(details: TabDetails, callback: (result: ColorArray) => void): void;
     /**
      * Since Chrome 19.
+     * Gets the background color of the browser action.
+     * @return The `getBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getBadgeBackgroundColor(details: TabDetails): Promise<ColorArray>;
+    /**
+     * Since Chrome 19.
      * Gets the html document set as the popup for this browser action.
      * @param callback The callback parameter should be a function that looks like this:
      * function(string result) {...};
      */
     export function getPopup(details: TabDetails, callback: (result: string) => void): void;
+    /**
+     * Since Chrome 19.
+     * Gets the html document set as the popup for this browser action.
+     * @return The `getPopup` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getPopup(details: TabDetails): Promise<string>;
     /**
      * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -1397,6 +1792,11 @@ declare namespace chrome.cookies {
      */
     export function getAllCookieStores(callback: (cookieStores: CookieStore[]) => void): void;
     /**
+     * Lists all existing cookie stores.
+     * @return The `getAllCookieStores` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getAllCookieStores(): Promise<CookieStore[]>;
+    /**
      * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first.
      * @param details Information to filter the cookies being retrieved.
      * @param callback The callback parameter should be a function that looks like this:
@@ -1405,6 +1805,18 @@ declare namespace chrome.cookies {
      */
     export function getAll(details: GetAllDetails, callback: (cookies: Cookie[]) => void): void;
     /**
+     * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first.
+     * @param details Information to filter the cookies being retrieved.
+     * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getAll(details: GetAllDetails): Promise<Cookie[]>;
+    /**
+     * Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
+     * @param details Details about the cookie being set.
+     * @return The `set` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function set(details: SetDetails): Promise<Cookie | null>;
+    /**
      * Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
      * @param details Details about the cookie being set.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -1412,6 +1824,12 @@ declare namespace chrome.cookies {
      * Optional parameter cookie: Contains details about the cookie that's been set. If setting failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set.
      */
     export function set(details: SetDetails, callback?: (cookie: Cookie | null) => void): void;
+    /**
+     * Deletes a cookie by name.
+     * @param details Information to identify the cookie to remove.
+     * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function remove(details: Details): Promise<Details>;
     /**
      * Deletes a cookie by name.
      * @param details Information to identify the cookie to remove.
@@ -1427,6 +1845,12 @@ declare namespace chrome.cookies {
      * Parameter cookie: Contains details about the cookie. This parameter is null if no such cookie was found.
      */
     export function get(details: Details, callback: (cookie: Cookie | null) => void): void;
+    /**
+     * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
+     * @param details Details to identify the cookie being retrieved.
+     * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function get(details: Details): Promise<Cookie | null>;
 
     /** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */
     export var onChanged: CookieChangedEvent;
@@ -1875,7 +2299,7 @@ declare namespace chrome.devtools.inspectedWindow {
      */
     export function eval<T>(
         expression: string,
-        options: EvalOptions,
+        options?: EvalOptions,
         callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
     ): void;
     /**
@@ -2817,6 +3241,12 @@ declare namespace chrome.events {
  */
 declare namespace chrome.extension {
     export interface FetchProperties {
+        /**
+         * Optional.
+         * Chrome 54+
+         * Find a view according to a tab id. If this field is omitted, returns all views.
+         */
+        tabId?: number;
         /** Optional. The window to restrict the search to. If omitted, returns all views.  */
         windowId?: number;
         /** Optional. The type of view to get. If omitted, returns all views (including background pages and tabs). Valid values: 'tab', 'notification', 'popup'.  */
@@ -3841,6 +4271,20 @@ declare namespace chrome.identity {
         id: string;
     }
 
+    /** @since Chrome 84. */
+    export enum AccountStatus {
+        SYNC = 'SYNC',
+        ANY = 'ANY',
+    }
+
+    export interface ProfileDetails {
+        /**
+         * Optional.
+         * A status of the primary account signed into a profile whose ProfileUserInfo should be returned. Defaults to SYNC account status.
+         */
+        accountStatus?: AccountStatus;
+    }
+
     export interface TokenDetails {
         /**
          * Optional.
@@ -3890,11 +4334,25 @@ declare namespace chrome.identity {
     export interface SignInChangeEvent extends chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void> { }
 
     /**
+     * Resets the state of the Identity API:
+     *
+     *  * Removes all OAuth2 access tokens from the token cache
+     *  * Removes user's account preferences
+     *  * De-authorizes the user from all auth flows
+     * @since Chrome 87.
+     * @param callback Called when the state has been cleared.
+     * The parameter should be a function that looks like this:
+     * () => {...};
+     */
+    export function clearAllCachedAuthTokens(callback: () => void): void;
+
+    /**
      * Retrieves a list of AccountInfo objects describing the accounts present on the profile.
      * getAccounts is only supported on dev channel.
      * Dev channel only.
      */
     export function getAccounts(callback: (accounts: AccountInfo[]) => void): void;
+
     /**
      * Gets an OAuth2 access token using the client ID and scopes specified in the oauth2 section of manifest.json.
      * The Identity API caches access tokens in memory, so it's ok to call getAuthToken non-interactively any time a token is required. The token cache automatically handles expiration.
@@ -3905,12 +4363,17 @@ declare namespace chrome.identity {
      * function(string token) {...};
      */
     export function getAuthToken(details: TokenDetails, callback?: (token: string) => void): void;
+
     /**
      * Retrieves email address and obfuscated gaia id of the user signed into a profile.
      * This API is different from identity.getAccounts in two ways. The information returned is available offline, and it only applies to the primary account for the profile.
      * @since Chrome 37.
      */
     export function getProfileUserInfo(callback: (userInfo: UserInfo) => void): void;
+
+    /** @since Chrome 84. */
+    export function getProfileUserInfo(details: ProfileDetails, callback: (userInfo: UserInfo) => void): void;
+
     /**
      * Removes an OAuth2 access token from the Identity API's token cache.
      * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with getAuthToken.
@@ -3920,6 +4383,7 @@ declare namespace chrome.identity {
      * function() {...};
      */
     export function removeCachedAuthToken(details: TokenInformation, callback?: () => void): void;
+
     /**
      * Starts an auth flow at the specified URL.
      * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern https://<app-id>.chromiumapp.org/*, the window will close, and the final redirect URL will be passed to the callback function.
@@ -3930,6 +4394,7 @@ declare namespace chrome.identity {
      * function(string responseUrl) {...};
      */
     export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl?: string) => void): void;
+
     /**
      * Generates a redirect URL to be used in launchWebAuthFlow.
      * The generated URLs match the pattern https://<app-id>.chromiumapp.org/*.
@@ -4618,10 +5083,24 @@ declare namespace chrome.management {
      * Enables or disables an app or extension.
      * @param id This should be the id from an item of management.ExtensionInfo.
      * @param enabled Whether this item should be enabled or disabled.
+     * @return The `setEnabled` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setEnabled(id: string, enabled: boolean): Promise<void>;
+    /**
+     * Enables or disables an app or extension.
+     * @param id This should be the id from an item of management.ExtensionInfo.
+     * @param enabled Whether this item should be enabled or disabled.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function setEnabled(id: string, enabled: boolean, callback?: () => void): void;
+    /**
+     * Returns a list of permission warnings for the given extension id.
+     * @since Chrome 15.
+     * @param id The ID of an already installed extension.
+     * @return The `getPermissionWarningsById` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getPermissionWarningsById(id: string): Promise<string[]>;
     /**
      * Returns a list of permission warnings for the given extension id.
      * @since Chrome 15.
@@ -4634,16 +5113,37 @@ declare namespace chrome.management {
      * Returns information about the installed extension, app, or theme that has the given ID.
      * @since Chrome 9.
      * @param id The ID from an item of management.ExtensionInfo.
+     * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function get(id: string): Promise<ExtensionInfo>;
+    /**
+     * Returns information about the installed extension, app, or theme that has the given ID.
+     * @since Chrome 9.
+     * @param id The ID from an item of management.ExtensionInfo.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function( ExtensionInfo result) {...};
      */
     export function get(id: string, callback?: (result: ExtensionInfo) => void): void;
     /**
      * Returns a list of information about installed extensions and apps.
+     * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getAll(): Promise<ExtensionInfo[]>;
+    /**
+     * Returns a list of information about installed extensions and apps.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(array of ExtensionInfo result) {...};
      */
     export function getAll(callback?: (result: ExtensionInfo[]) => void): void;
+    /**
+     * Returns a list of permission warnings for the given extension manifest string. Note: This function can be used without requesting the 'management' permission in the manifest.
+     * @since Chrome 15.
+     * @param manifestStr Extension manifest JSON string.
+     * @return The `getPermissionWarningsByManifest` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getPermissionWarningsByManifest(
+        manifestStr: string,
+    ): Promise<string[]>;
     /**
      * Returns a list of permission warnings for the given extension manifest string. Note: This function can be used without requesting the 'management' permission in the manifest.
      * @since Chrome 15.
@@ -4658,10 +5158,23 @@ declare namespace chrome.management {
     /**
      * Launches an application.
      * @param id The extension id of the application.
+     * @return The `launchApp` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function launchApp(id: string): Promise<void>;
+    /**
+     * Launches an application.
+     * @param id The extension id of the application.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function launchApp(id: string, callback?: () => void): void;
+    /**
+     * Uninstalls a currently installed app or extension.
+     * @since Chrome 21.
+     * @param id This should be the id from an item of management.ExtensionInfo.
+     * @return The `uninstall` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function uninstall(id: string, options?: UninstallOptions): Promise<void>;
     /**
      * Uninstalls a currently installed app or extension.
      * @since Chrome 21.
@@ -4674,6 +5187,13 @@ declare namespace chrome.management {
      * Uninstalls a currently installed app or extension.
      * @deprecated since Chrome 21. The options parameter was added to this function.
      * @param id This should be the id from an item of management.ExtensionInfo.
+     * @return The `uninstall` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function uninstall(id: string): Promise<void>;
+    /**
+     * Uninstalls a currently installed app or extension.
+     * @deprecated since Chrome 21. The options parameter was added to this function.
+     * @param id This should be the id from an item of management.ExtensionInfo.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
@@ -4681,10 +5201,23 @@ declare namespace chrome.management {
     /**
      * Returns information about the calling extension, app, or theme. Note: This function can be used without requesting the 'management' permission in the manifest.
      * @since Chrome 39.
+     * @return The `getSelf` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getSelf(): Promise<ExtensionInfo>;
+    /**
+     * Returns information about the calling extension, app, or theme. Note: This function can be used without requesting the 'management' permission in the manifest.
+     * @since Chrome 39.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function( ExtensionInfo result) {...};
      */
     export function getSelf(callback?: (result: ExtensionInfo) => void): void;
+    /**
+     * Uninstalls the calling extension.
+     * Note: This function can be used without requesting the 'management' permission in the manifest.
+     * @since Chrome 26.
+     * @return The `uninstallSelf` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function uninstallSelf(options?: UninstallOptions): Promise<void>;
     /**
      * Uninstalls the calling extension.
      * Note: This function can be used without requesting the 'management' permission in the manifest.
@@ -4697,10 +5230,23 @@ declare namespace chrome.management {
      * Uninstalls the calling extension.
      * Note: This function can be used without requesting the 'management' permission in the manifest.
      * @since Chrome 26.
+     * @return The `uninstallSelf` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function uninstallSelf(): Promise<void>;
+    /**
+     * Uninstalls the calling extension.
+     * Note: This function can be used without requesting the 'management' permission in the manifest.
+     * @since Chrome 26.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function uninstallSelf(callback?: () => void): void;
+    /**
+     * Display options to create shortcuts for an app. On Mac, only packaged app shortcuts can be created.
+     * @since Chrome 37.
+     * @return The `createAppShortcut` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function createAppShortcut(id: string): Promise<void>;
     /**
      * Display options to create shortcuts for an app. On Mac, only packaged app shortcuts can be created.
      * @since Chrome 37.
@@ -4713,10 +5259,26 @@ declare namespace chrome.management {
      * @since Chrome 37.
      * @param id This should be the id from an app item of management.ExtensionInfo.
      * @param launchType The target launch type. Always check and make sure this launch type is in ExtensionInfo.availableLaunchTypes, because the available launch types vary on different platforms and configurations.
+     * @return The `setLaunchType` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setLaunchType(id: string, launchType: string): Promise<void>;
+    /**
+     * Set the launch type of an app.
+     * @since Chrome 37.
+     * @param id This should be the id from an app item of management.ExtensionInfo.
+     * @param launchType The target launch type. Always check and make sure this launch type is in ExtensionInfo.availableLaunchTypes, because the available launch types vary on different platforms and configurations.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function setLaunchType(id: string, launchType: string, callback?: () => void): void;
+    /**
+     * Generate an app for a URL. Returns the generated bookmark app.
+     * @since Chrome 37.
+     * @param url The URL of a web page. The scheme of the URL can only be "http" or "https".
+     * @param title The title of the generated app.
+     * @return The `generateAppForLink` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function generateAppForLink(url: string, title: string): Promise<ExtensionInfo>;
     /**
      * Generate an app for a URL. Returns the generated bookmark app.
      * @since Chrome 37.
@@ -6409,6 +6971,90 @@ declare namespace chrome.runtime {
 }
 
 ////////////////////
+// Scripting
+////////////////////
+/**
+ * Use the chrome.scripting API to execute script in different contexts.
+ * Permissions: "scripting", Manifest v3+
+ * @since Chrome 88.
+ */
+declare namespace chrome.scripting {
+
+    /* The CSS style origin for a style change. */
+    export type StyleOrigin = "AUTHOR" | "USER";
+
+    export interface InjectionResult {
+        /* The frame associated with the injection. */
+        frameId: number;
+        /* The result of the script execution. */
+        result?: any;
+    }
+
+    export interface InjectionTarget {
+        /* Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if frameIds is specified. */
+        allFrames?: boolean;
+        /* The IDs of specific frames to inject into. */
+        frameIds?: number[];
+        /* The ID of the tab into which to inject. */
+        tabId: number;
+    }
+
+    export interface CSSInjection {
+        /* A string containing the CSS to inject. Exactly one of files and css must be specified. */
+        css?: string;
+        /* The path of the CSS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and css must be specified. */
+        files?: string[];
+        /* The style origin for the injection. Defaults to 'AUTHOR'. */
+        origin?: StyleOrigin;
+        /* Details specifying the target into which to insert the CSS. */
+        target: InjectionTarget;
+    }
+
+    export interface ScriptInjection {
+        /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
+        files?: string[];
+        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
+        function?: () => void;
+        /* Details specifying the target into which to inject the script. */
+        target: InjectionTarget;
+    }
+
+    /**
+     * Injects a script into a target context. The script will be run at document_end.
+     * @param injection
+     * The details of the script which to inject.
+     * @return The `executeScript` method provides its result via callback or returned as a `Promise` (MV3 only). The resulting array contains the result of execution for each frame where the injection succeeded.
+     */
+    export function executeScript(injection: ScriptInjection): Promise<InjectionResult[]>;
+
+    /**
+     * Injects a script into a target context. The script will be run at document_end.
+     * @param injection
+     * The details of the script which to inject.
+     * @param callback
+     * Invoked upon completion of the injection. The resulting array contains the result of execution for each frame where the injection succeeded.
+     */
+    export function executeScript(injection: ScriptInjection, callback?: (results: InjectionResult[]) => void): void;
+
+    /**
+     * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.
+     * @param injection
+     * The details of the styles to insert.
+     * @return The `insertCSS` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function insertCSS(injection: CSSInjection): Promise<void>;
+
+    /**
+     * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.
+     * @param injection
+     * The details of the styles to insert.
+     * @param callback
+     * Invoked upon completion of the injection.
+     */
+    export function insertCSS(injection: CSSInjection, callback?: () => void): void;
+}
+
+////////////////////
 // Script Badge
 ////////////////////
 declare namespace chrome.scriptBadge {
@@ -6752,6 +7398,12 @@ declare namespace chrome.system.cpu {
 
     /** Queries basic CPU information of the system. */
     export function getInfo(callback: (info: CpuInfo) => void): void;
+
+    /**
+     * Queries basic CPU information of the system.
+     * @return The `getInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getInfo(): Promise<CpuInfo>;
 }
 
 ////////////////////
@@ -6772,6 +7424,12 @@ declare namespace chrome.system.memory {
 
     /** Get physical memory information. */
     export function getInfo(callback: (info: MemoryInfo) => void): void;
+
+    /**
+     * Get physical memory information.
+     * @return The `getInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getInfo(): Promise<MemoryInfo>;
 }
 
 ////////////////////
@@ -6813,16 +7471,34 @@ declare namespace chrome.system.storage {
     /** Get the storage information from the system. The argument passed to the callback is an array of StorageUnitInfo objects. */
     export function getInfo(callback: (info: StorageUnitInfo[]) => void): void;
     /**
+     * Get the storage information from the system. The argument passed to the callback is an array of StorageUnitInfo objects.
+     * @return The `getInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getInfo(): Promise<StorageUnitInfo[]>;
+    /**
      * Ejects a removable storage device.
      * @param callback
      * Parameter result: success: The ejection command is successful -- the application can prompt the user to remove the device; in_use: The device is in use by another application. The ejection did not succeed; the user should not remove the device until the other application is done with the device; no_such_device: There is no such device known. failure: The ejection command failed.
      */
     export function ejectDevice(id: string, callback: (result: string) => void): void;
     /**
+     * Ejects a removable storage device.
+     * @param callback
+     * Parameter result: success: The ejection command is successful -- the application can prompt the user to remove the device; in_use: The device is in use by another application. The ejection did not succeed; the user should not remove the device until the other application is done with the device; no_such_device: There is no such device known. failure: The ejection command failed.
+     * @return The `ejectDevice` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function ejectDevice(id: string): Promise<string>;
+    /**
      * Get the available capacity of a specified |id| storage device. The |id| is the transient device ID from StorageUnitInfo.
      * @since Dev channel only.
      */
     export function getAvailableCapacity(id: string, callback: (info: StorageCapacityInfo) => void): void;
+    /**
+     * Get the available capacity of a specified |id| storage device. The |id| is the transient device ID from StorageUnitInfo.
+     * @since Dev channel only.
+     * @return The `getAvailableCapacity` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getAvailableCapacity(id: string): Promise<StorageCapacityInfo>;
 
     /** Fired when a new removable storage is attached to the system. */
     export var onAttached: SystemStorageAttachedEvent;
@@ -7163,11 +7839,23 @@ declare namespace chrome.system.display {
     export function getInfo(callback: (info: DisplayInfo[]) => void): void;
     /**
      * Requests the information for all attached display devices.
+     * @return The `getInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getInfo(): Promise<DisplayInfo[]>;
+    /**
+     * Requests the information for all attached display devices.
      * @since Chrome 59
      * @param flags Options affecting how the information is returned.
      * @param callback The callback to invoke with the results.
      */
     export function getInfo(flags: DisplayInfoFlags, callback: (info: DisplayInfo[]) => void): void;
+    /**
+     * Requests the information for all attached display devices.
+     * @since Chrome 59
+     * @param flags Options affecting how the information is returned.
+     * @return The `getInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getInfo(flags: DisplayInfoFlags): Promise<DisplayInfo[]>;
 
     /**
      * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
@@ -7176,6 +7864,26 @@ declare namespace chrome.system.display {
      * @param callback The callback to invoke with the results.
      */
     export function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
+
+    /**
+     * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+     * @description Requests the layout info for all displays.
+     * @since Chrome 53
+     * @return The getDisplayLayout method provides its result via callback or returned as a Promise (MV3 only).
+     */
+    export function getDisplayLayout(): Promise<DisplayLayout[]>;
+
+    /**
+     * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+     * @description
+     * Updates the properties for the display specified by **id**,
+     * according to the information provided in **info**.
+     * On failure, runtime.lastError will be set.
+     * @param id The display's unique identifier.
+     * @param info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|.
+     * @return The `setDisplayProperties` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters. To find out whether the function succeeded, runtime.lastError should be queried.
+     */
+    export function setDisplayProperties(id: string, info: DisplayPropertiesInfo): Promise<void>;
 
     /**
      * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
@@ -7188,6 +7896,19 @@ declare namespace chrome.system.display {
      * @param [callback] Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
      */
     export function setDisplayProperties(id: string, info: DisplayPropertiesInfo, callback?: () => void): void;
+
+    /**
+     * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+     * @description
+     * Set the layout for all displays.
+     * Any display not included will use the default layout.
+     * If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout.
+     * After layout is resolved, an onDisplayChanged event will be triggered.
+     * @since Chrome 53
+     * @param layouts The layout information, required for all displays except the primary display.
+     * @return The `setDisplayLayout` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters. To find out whether the function succeeded, runtime.lastError should be queried.
+     */
+    export function setDisplayLayout(layouts: DisplayLayout[]): Promise<void>;
 
     /**
      * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
@@ -7257,6 +7978,17 @@ declare namespace chrome.system.display {
     export function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
 
     /**
+     * Displays the native touch calibration UX for the display with **id** as display id.
+     * This will show an overlay on the screen with required instructions on how to proceed.
+     * The callback will be invoked in case of successful calibraion only.
+     * If the calibration fails, this will throw an error.
+     * @since Chrome 57
+     * @param id The display's unique identifier.
+     * @return The `showNativeTouchCalibration` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function showNativeTouchCalibration(id: string): Promise<boolean>;
+
+    /**
      * Starts custom touch calibration for a display.
      * This should be called when using a custom UX for collecting calibration data.
      * If another touch calibration is already in progress this will throw an error.
@@ -7294,6 +8026,18 @@ declare namespace chrome.system.display {
      * mirroring destination displays.
      */
     export function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed, callback: () => void): void;
+
+    /**
+     * requires(CrOS Kiosk app) Chrome OS Kiosk apps only
+     * @since Chrome 65.
+     * @description
+     * Sets the display mode to the specified mirror mode.
+     * Each call resets the state from previous calls.
+     * Calling setDisplayProperties() will fail for the
+     * mirroring destination displays.
+     * @return The `setMirrorMode` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed): Promise<void>;
 
     /**
      * Fired when anything changes to the display configuration.
@@ -7502,6 +8246,11 @@ declare namespace chrome.tabs {
          * @since Chrome 31.
          */
         sessionId?: string;
+        /**
+         * The ID of the group that the tab belongs to.
+         * @since Chrome 88
+         */
+        groupId: number;
     }
 
     /**
@@ -7685,6 +8434,18 @@ declare namespace chrome.tabs {
         frameId?: number;
     }
 
+    export interface GroupOptions {
+        /** Optional. Configurations for creating a group. Cannot be used if groupId is already specified. */
+        createProperties?: {
+            /** Optional. The window of the new group. Defaults to the current window. */
+            windowId?: number
+        },
+        /** Optional. The ID of the group to add the tabs to. If not specified, a new group will be created. */
+        groupId?: number;
+        /** TOptional. he tab ID or list of tab IDs to add to the specified group. */
+        tabIds?: number | number[];
+    }
+
     export interface HighlightInfo {
         /** One or more tab indices to highlight. */
         tabs: number | number[];
@@ -7752,6 +8513,11 @@ declare namespace chrome.tabs {
          * @since Chrome 45.
          */
         muted?: boolean;
+        /**
+         * Optional. The ID of the group that the tabs are in, or chrome.tabGroups.TAB_GROUP_ID_NONE for ungrouped tabs.
+         * @since Chrome 88
+         */
+        groupId?: number;
     }
 
     export interface TabHighlightInfo {
@@ -7799,6 +8565,11 @@ declare namespace chrome.tabs {
          * @since Chrome 54.
          */
         autoDiscardable?: boolean;
+        /**
+         * The tab's new group.
+         * @since Chrome 88
+         */
+        groupId?: number;
         /**
          * The tab's new muted state and the reason for the change.
          * @since Chrome 46. Warning: this is the current Beta channel.
@@ -7872,10 +8643,23 @@ declare namespace chrome.tabs {
     /**
      * Injects JavaScript code into a page. For details, see the programmatic injection section of the content scripts doc.
      * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
+     * @return The `executeScript` method provides its result via callback or returned as a `Promise` (MV3 only). The result of the script in every injected frame.
+     */
+    export function executeScript(details: InjectDetails): Promise<any[]>;
+    /**
+     * Injects JavaScript code into a page. For details, see the programmatic injection section of the content scripts doc.
+     * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
      * @param callback Optional. Called after all the JavaScript has been executed.
      * Parameter result: The result of the script in every injected frame.
      */
     export function executeScript(details: InjectDetails, callback?: (result: any[]) => void): void;
+    /**
+     * Injects JavaScript code into a page. For details, see the programmatic injection section of the content scripts doc.
+     * @param tabId Optional. The ID of the tab in which to run the script; defaults to the active tab of the current window.
+     * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
+     * @return The `executeScript` method provides its result via callback or returned as a `Promise` (MV3 only). The result of the script in every injected frame.
+     */
+    export function executeScript(tabId: number, details: InjectDetails): Promise<any[]>;
     /**
      * Injects JavaScript code into a page. For details, see the programmatic injection section of the content scripts doc.
      * @param tabId Optional. The ID of the tab in which to run the script; defaults to the active tab of the current window.
@@ -7887,18 +8671,41 @@ declare namespace chrome.tabs {
     /** Retrieves details about the specified tab. */
     export function get(tabId: number, callback: (tab: Tab) => void): void;
     /**
+     * Retrieves details about the specified tab.
+     * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function get(tabId: number): Promise<Tab>;
+    /**
      * Gets details about all tabs in the specified window.
      * @deprecated since Chrome 33. Please use tabs.query {windowId: windowId}.
      */
     export function getAllInWindow(callback: (tab: Tab) => void): void;
     /**
      * Gets details about all tabs in the specified window.
+     * @return The `getAllInWindow` method provides its result via callback or returned as a `Promise` (MV3 only).
+     * @deprecated since Chrome 33. Please use tabs.query {windowId: windowId}.
+     */
+    export function getAllInWindow(): Promise<Tab>;
+    /**
+     * Gets details about all tabs in the specified window.
      * @deprecated since Chrome 33. Please use tabs.query {windowId: windowId}.
      * @param windowId Optional. Defaults to the current window.
      */
     export function getAllInWindow(windowId: number, callback: (tab: Tab) => void): void;
+    /**
+     * Gets details about all tabs in the specified window.
+     * @deprecated since Chrome 33. Please use tabs.query {windowId: windowId}.
+     * @param windowId Optional. Defaults to the current window.
+     * @return The `getAllInWindow` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getAllInWindow(windowId: number): Promise<Tab>;
     /** Gets the tab that this script call is being made from. May be undefined if called from a non-tab context (for example: a background page or popup view). */
     export function getCurrent(callback: (tab?: Tab) => void): void;
+    /**
+     * Gets the tab that this script call is being made from. May be undefined if called from a non-tab context (for example: a background page or popup view).
+     * @return The `getCurrent` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getCurrent(): Promise<Tab>;
     /**
      * Gets the tab that is selected in the specified window.
      * @deprecated since Chrome 33. Please use tabs.query {active: true}.
@@ -7906,16 +8713,40 @@ declare namespace chrome.tabs {
     export function getSelected(callback: (tab: Tab) => void): void;
     /**
      * Gets the tab that is selected in the specified window.
+     * @return The `getSelected` method provides its result via callback or returned as a `Promise` (MV3 only).
+     * @deprecated since Chrome 33. Please use tabs.query {active: true}.
+     */
+    export function getSelected(): Promise<Tab>;
+    /**
+     * Gets the tab that is selected in the specified window.
      * @deprecated since Chrome 33. Please use tabs.query {active: true}.
      * @param windowId Optional. Defaults to the current window.
      */
     export function getSelected(windowId: number, callback: (tab: Tab) => void): void;
+    /**
+     * Gets the tab that is selected in the specified window.
+     * @deprecated since Chrome 33. Please use tabs.query {active: true}.
+     * @param windowId Optional. Defaults to the current window.
+     * @return The `getSelected` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getSelected(windowId: number): Promise<Tab>;
+    /**
+     * Creates a new tab.
+     * @return The `create` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the created tab. Will contain the ID of the new tab.
+     */
+    export function create(createProperties: CreateProperties): Promise<Tab>;
     /**
      * Creates a new tab.
      * @param callback Optional.
      * Parameter tab: Details about the created tab. Will contain the ID of the new tab.
      */
     export function create(createProperties: CreateProperties, callback?: (tab: Tab) => void): void;
+    /**
+     * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === "normal") windows.
+     * @param tabId The tab to move.
+     * @return The `move` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the moved tab.
+     */
+    export function move(tabId: number, moveProperties: MoveProperties): Promise<Tab>;
     /**
      * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === "normal") windows.
      * @param tabId The tab to move.
@@ -7926,16 +8757,33 @@ declare namespace chrome.tabs {
     /**
      * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === "normal") windows.
      * @param tabIds The tabs to move.
+     * @return The `move` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the moved tabs.
+     */
+    export function move(tabIds: number[], moveProperties: MoveProperties): Promise<Tab[]>;
+    /**
+     * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === "normal") windows.
+     * @param tabIds The tabs to move.
      * @param callback Optional.
      * Parameter tabs: Details about the moved tabs.
      */
     export function move(tabIds: number[], moveProperties: MoveProperties, callback?: (tabs: Tab[]) => void): void;
     /**
      * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
+     * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
+     */
+    export function update(updateProperties: UpdateProperties): Promise<Tab>;
+    /**
+     * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
      * @param callback Optional.
      * Optional parameter tab: Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
      */
     export function update(updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
+    /**
+     * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
+     * @param tabId Defaults to the selected tab of the current window.
+     * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
+     */
+    export function update(tabId: number, updateProperties: UpdateProperties): Promise<Tab>;
     /**
      * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
      * @param tabId Defaults to the selected tab of the current window.
@@ -7946,8 +8794,20 @@ declare namespace chrome.tabs {
     /**
      * Closes a tab.
      * @param tabId The tab to close.
+     * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function remove(tabId: number): Promise<void>;
+    /**
+     * Closes a tab.
+     * @param tabId The tab to close.
      */
     export function remove(tabId: number, callback?: Function): void;
+    /**
+     * Closes several tabs.
+     * @param tabIds The list of tabs to close.
+     * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function remove(tabIds: number[]): Promise<void>;
     /**
      * Closes several tabs.
      * @param tabIds The list of tabs to close.
@@ -7961,6 +8821,11 @@ declare namespace chrome.tabs {
     export function captureVisibleTab(callback: (dataUrl: string) => void): void;
     /**
      * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
+     * @return The `captureVisibleTab` method provides its result via callback or returned as a `Promise` (MV3 only). A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.
+     */
+    export function captureVisibleTab(): Promise<string>;
+    /**
+     * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
      * @param windowId Optional. The target window. Defaults to the current window.
      * @param callback
      * Parameter dataUrl: A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.
@@ -7968,11 +8833,33 @@ declare namespace chrome.tabs {
     export function captureVisibleTab(windowId: number, callback: (dataUrl: string) => void): void;
     /**
      * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
+     * @param windowId Optional. The target window. Defaults to the current window.
+     * @return The `captureVisibleTab` method provides its result via callback or returned as a `Promise` (MV3 only). A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.
+     */
+    export function captureVisibleTab(windowId: number): Promise<string>;
+    /**
+     * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
+     * @param options Optional. Details about the format and quality of an image.
+     * @return The `captureVisibleTab` method provides its result via callback or returned as a `Promise` (MV3 only). A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.
+     */
+    export function captureVisibleTab(options: CaptureVisibleTabOptions): Promise<string>;
+    /**
+     * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
      * @param options Optional. Details about the format and quality of an image.
      * @param callback
      * Parameter dataUrl: A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.
      */
     export function captureVisibleTab(options: CaptureVisibleTabOptions, callback: (dataUrl: string) => void): void;
+    /**
+     * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
+     * @param windowId Optional. The target window. Defaults to the current window.
+     * @param options Optional. Details about the format and quality of an image.
+     * @return The `captureVisibleTab` method provides its result via callback or returned as a `Promise` (MV3 only). A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.
+     */
+    export function captureVisibleTab(
+        windowId: number,
+        options: CaptureVisibleTabOptions,
+    ): Promise<string>;
     /**
      * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
      * @param windowId Optional. The target window. Defaults to the current window.
@@ -7989,13 +8876,32 @@ declare namespace chrome.tabs {
      * Reload a tab.
      * @since Chrome 16.
      * @param tabId The ID of the tab to reload; defaults to the selected tab of the current window.
+     * @return The `reload` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function reload(tabId: number, reloadProperties?: ReloadProperties): Promise<void>;
+    /**
+     * Reload a tab.
+     * @since Chrome 16.
+     * @param tabId The ID of the tab to reload; defaults to the selected tab of the current window.
      */
     export function reload(tabId: number, reloadProperties?: ReloadProperties, callback?: () => void): void;
     /**
      * Reload the selected tab of the current window.
      * @since Chrome 16.
+     * @return The `reload` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function reload(reloadProperties: ReloadProperties): Promise<void>;
+    /**
+     * Reload the selected tab of the current window.
+     * @since Chrome 16.
      */
     export function reload(reloadProperties: ReloadProperties, callback?: () => void): void;
+    /**
+     * Reload the selected tab of the current window.
+     * @since Chrome 16.
+     * @return The `reload` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function reload(): Promise<void>;
     /**
      * Reload the selected tab of the current window.
      * @since Chrome 16.
@@ -8038,6 +8944,12 @@ declare namespace chrome.tabs {
     /**
      * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
      * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
+     * @return The `insertCSS` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function insertCSS(details: InjectDetails): Promise<void>;
+    /**
+     * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
+     * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
      * @param callback Optional. Called when all the CSS has been inserted.
      */
     export function insertCSS(details: InjectDetails, callback?: Function): void;
@@ -8045,9 +8957,22 @@ declare namespace chrome.tabs {
      * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
      * @param tabId Optional. The ID of the tab in which to insert the CSS; defaults to the active tab of the current window.
      * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
+     * @return The `insertCSS` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function insertCSS(tabId: number, details: InjectDetails): Promise<void>;
+    /**
+     * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
+     * @param tabId Optional. The ID of the tab in which to insert the CSS; defaults to the active tab of the current window.
+     * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
      * @param callback Optional. Called when all the CSS has been inserted.
      */
     export function insertCSS(tabId: number, details: InjectDetails, callback?: Function): void;
+    /**
+     * Highlights the given tabs.
+     * @since Chrome 16.
+     * @return The `highlight` method provides its result via callback or returned as a `Promise` (MV3 only). Contains details about the window whose tabs were highlighted.
+     */
+    export function highlight(highlightInfo: HighlightInfo): Promise<chrome.windows.Window>;
     /**
      * Highlights the given tabs.
      * @since Chrome 16.
@@ -8061,11 +8986,22 @@ declare namespace chrome.tabs {
      */
     export function query(queryInfo: QueryInfo, callback: (result: Tab[]) => void): void;
     /**
+     * Gets all tabs that have the specified properties, or all tabs if no properties are specified.
+     * @since Chrome 16.
+     * @return The `query` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function query(queryInfo: QueryInfo): Promise<Tab[]>;
+    /**
      * Detects the primary language of the content in a tab.
      * @param callback
      * Parameter language: An ISO language code such as en or fr. For a complete list of languages supported by this method, see kLanguageInfoTable. The 2nd to 4th columns will be checked and the first non-NULL value will be returned except for Simplified Chinese for which zh-CN will be returned. For an unknown language, und will be returned.
      */
     export function detectLanguage(callback: (language: string) => void): void;
+    /**
+     * Detects the primary language of the content in a tab.
+     * @return The `detectLanguage` method provides its result via callback or returned as a `Promise` (MV3 only). An ISO language code such as en or fr. For a complete list of languages supported by this method, see kLanguageInfoTable. The 2nd to 4th columns will be checked and the first non-NULL value will be returned except for Simplified Chinese for which zh-CN will be returned. For an unknown language, und will be returned.
+     */
+    export function detectLanguage(): Promise<string>;
     /**
      * Detects the primary language of the content in a tab.
      * @param tabId Optional. Defaults to the active tab of the current window.
@@ -8074,12 +9010,33 @@ declare namespace chrome.tabs {
      */
     export function detectLanguage(tabId: number, callback: (language: string) => void): void;
     /**
+     * Detects the primary language of the content in a tab.
+     * @param tabId Optional. Defaults to the active tab of the current window.
+     * @return The `detectLanguage` method provides its result via callback or returned as a `Promise` (MV3 only). An ISO language code such as en or fr. For a complete list of languages supported by this method, see kLanguageInfoTable. The 2nd to 4th columns will be checked and the first non-NULL value will be returned except for Simplified Chinese for which zh-CN will be returned. For an unknown language, und will be returned.
+     */
+    export function detectLanguage(tabId: number): Promise<string>;
+    /**
+     * Zooms a specified tab.
+     * @since Chrome 42.
+     * @param zoomFactor The new zoom factor. Use a value of 0 here to set the tab to its current default zoom factor. Values greater than zero specify a (possibly non-default) zoom factor for the tab.
+     * @return The `setZoom` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setZoom(zoomFactor: number): Promise<void>;
+    /**
      * Zooms a specified tab.
      * @since Chrome 42.
      * @param zoomFactor The new zoom factor. Use a value of 0 here to set the tab to its current default zoom factor. Values greater than zero specify a (possibly non-default) zoom factor for the tab.
      * @param callback Optional. Called after the zoom factor has been changed.
      */
     export function setZoom(zoomFactor: number, callback?: () => void): void;
+    /**
+     * Zooms a specified tab.
+     * @since Chrome 42.
+     * @param tabId Optional. The ID of the tab to zoom; defaults to the active tab of the current window.
+     * @param zoomFactor The new zoom factor. Use a value of 0 here to set the tab to its current default zoom factor. Values greater than zero specify a (possibly non-default) zoom factor for the tab.
+     * @return The `setZoom` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setZoom(tabId: number, zoomFactor: number): Promise<void>;
     /**
      * Zooms a specified tab.
      * @since Chrome 42.
@@ -8098,11 +9055,31 @@ declare namespace chrome.tabs {
     /**
      * Gets the current zoom factor of a specified tab.
      * @since Chrome 42.
+     * @return The `getZoom` method provides its result via callback or returned as a `Promise` (MV3 only). The tab's current zoom factor.
+     */
+    export function getZoom(): Promise<number>;
+    /**
+     * Gets the current zoom factor of a specified tab.
+     * @since Chrome 42.
      * @param tabId Optional. The ID of the tab to get the current zoom factor from; defaults to the active tab of the current window.
      * @param callback Called with the tab's current zoom factor after it has been fetched.
      * Parameter zoomFactor: The tab's current zoom factor.
      */
     export function getZoom(tabId: number, callback: (zoomFactor: number) => void): void;
+    /**
+     * Gets the current zoom factor of a specified tab.
+     * @since Chrome 42.
+     * @param tabId Optional. The ID of the tab to get the current zoom factor from; defaults to the active tab of the current window.
+     * @return The `getZoom` method provides its result via callback or returned as a `Promise` (MV3 only). The tab's current zoom factor.
+     */
+    export function getZoom(tabId: number): Promise<number>;
+    /**
+     * Sets the zoom settings for a specified tab, which define how zoom changes are handled. These settings are reset to defaults upon navigating the tab.
+     * @since Chrome 42.
+     * @param zoomSettings Defines how zoom changes are handled and at what scope.
+     * @return The `setZoomSettings` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setZoomSettings(zoomSettings: ZoomSettings): Promise<void>;
     /**
      * Sets the zoom settings for a specified tab, which define how zoom changes are handled. These settings are reset to defaults upon navigating the tab.
      * @since Chrome 42.
@@ -8110,6 +9087,14 @@ declare namespace chrome.tabs {
      * @param callback Optional. Called after the zoom settings have been changed.
      */
     export function setZoomSettings(zoomSettings: ZoomSettings, callback?: () => void): void;
+    /**
+     * Sets the zoom settings for a specified tab, which define how zoom changes are handled. These settings are reset to defaults upon navigating the tab.
+     * @since Chrome 42.
+     * @param tabId Optional. The ID of the tab to change the zoom settings for; defaults to the active tab of the current window.
+     * @param zoomSettings Defines how zoom changes are handled and at what scope.
+     * @return The `setZoomSettings` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setZoomSettings(tabId: number, zoomSettings: ZoomSettings): Promise<void>;
     /**
      * Sets the zoom settings for a specified tab, which define how zoom changes are handled. These settings are reset to defaults upon navigating the tab.
      * @since Chrome 42.
@@ -8128,11 +9113,31 @@ declare namespace chrome.tabs {
     /**
      * Gets the current zoom settings of a specified tab.
      * @since Chrome 42.
+     * @return The `getZoomSettings` method provides its result via callback or returned as a `Promise` (MV3 only). The tab's current zoom settings.
+     */
+    export function getZoomSettings(): Promise<ZoomSettings>;
+    /**
+     * Gets the current zoom settings of a specified tab.
+     * @since Chrome 42.
      * @param tabId Optional. The ID of the tab to get the current zoom settings from; defaults to the active tab of the current window.
      * @param callback Called with the tab's current zoom settings.
      * Paramater zoomSettings: The tab's current zoom settings.
      */
     export function getZoomSettings(tabId: number, callback: (zoomSettings: ZoomSettings) => void): void;
+    /**
+     * Gets the current zoom settings of a specified tab.
+     * @since Chrome 42.
+     * @param tabId Optional. The ID of the tab to get the current zoom settings from; defaults to the active tab of the current window.
+     * @return The `getZoomSettings` method provides its result via callback or returned as a `Promise` (MV3 only). The tab's current zoom settings.
+     */
+    export function getZoomSettings(tabId: number): Promise<ZoomSettings>;
+    /**
+     * Discards a tab from memory. Discarded tabs are still visible on the tab strip and are reloaded when activated.
+     * @since Chrome 54.
+     * @param tabId Optional. The ID of the tab to be discarded. If specified, the tab will be discarded unless it's active or already discarded. If omitted, the browser will discard the least important tab. This can fail if no discardable tabs exist.
+     * @return The `discard` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function discard(tabId?: number): Promise<Tab>;
     /**
      * Discards a tab from memory. Discarded tabs are still visible on the tab strip and are reloaded when activated.
      * @since Chrome 54.
@@ -8143,9 +9148,22 @@ declare namespace chrome.tabs {
     /**
      * Go foward to the next page, if one is available.
      * @since Chrome 72.
+     * @return The `goForward` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function goForward(): Promise<void>;
+    /**
+     * Go foward to the next page, if one is available.
+     * @since Chrome 72.
      * @param callback Optional. Called after the operation is completed.
      */
     export function goForward(callback?: () => void): void;
+    /**
+     * Go foward to the next page, if one is available.
+     * @since Chrome 72.
+     * @param tabId Optional. The ID of the tab to navigate forward; defaults to the selected tab of the current window.
+     * @return The `goForward` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function goForward(tabId: number): Promise<void>;
     /**
      * Go foward to the next page, if one is available.
      * @since Chrome 72.
@@ -8156,6 +9174,12 @@ declare namespace chrome.tabs {
     /**
      * Go back to the previous page, if one is available.
      * @since Chrome 72.
+     * @return The `goBack` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function goBack(): Promise<void>;
+    /**
+     * Go back to the previous page, if one is available.
+     * @since Chrome 72.
      * @param callback Optional. Called after the operation is completed.
      */
     export function goBack(callback?: () => void): void;
@@ -8163,10 +9187,51 @@ declare namespace chrome.tabs {
      * Go back to the previous page, if one is available.
      * @since Chrome 72.
      * @param tabId Optional. The ID of the tab to navigate back; defaults to the selected tab of the current window.
+     * @return The `goBack` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function goBack(tabId: number): Promise<void>;
+    /**
+     * Go back to the previous page, if one is available.
+     * @since Chrome 72.
+     * @param tabId Optional. The ID of the tab to navigate back; defaults to the selected tab of the current window.
      * @param callback Optional. Called after the operation is completed.
      */
     export function goBack(tabId: number, callback?: () => void): void;
-
+    /**
+     * Adds one or more tabs to a specified group, or if no group is specified, adds the given tabs to a newly created group.
+     * @since Chrome 88
+     * @param options Configurations object
+     * @return The `group` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function group(options: GroupOptions): Promise<number>;
+    /**
+     * Adds one or more tabs to a specified group, or if no group is specified, adds the given tabs to a newly created group.
+     * @since Chrome 88
+     * @param options Configurations object
+     * @return The `group` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function group(options: GroupOptions): Promise<number>;
+    /**
+     * Adds one or more tabs to a specified group, or if no group is specified, adds the given tabs to a newly created group.
+     * @since Chrome 88
+     * @param options Configurations object
+     * @param callback Optional.
+     */
+    export function group(options: GroupOptions, callback?: (groupId: number) => void): void
+    /**
+     * Removes one or more tabs from their respective groups. If any groups become empty, they are deleted
+     * @since Chrome 88
+     * @param tabIds The tabs to ungroup.
+     * @return The `ungroup` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function ungroup(tabIds: number | number[]): Promise<void>;
+    /**
+     * Removes one or more tabs from their respective groups. If any groups become empty, they are deleted
+     * @since Chrome 88
+     * @param tabIds The tabs to ungroup.
+     * @param callback Optional. Called after the operation is completed.
+     */
+    export function ungroup(tabIds: number | number[], callback?: () => void): void
     /**
      * Fired when the highlighted or selected tabs in a window changes.
      * @since Chrome 18.
@@ -8222,6 +9287,136 @@ declare namespace chrome.tabs {
      * @since Chrome 46.
      */
     export var TAB_ID_NONE: -1;
+}
+
+////////////////////
+// Tab Groups
+////////////////////
+/**
+ * Use the chrome.tabGroups API to interact with the browser's tab grouping system. You can use this API to modify and rearrange tab groups in the browser. To group and ungroup tabs, or to query what tabs are in groups, use the chrome.tabs API.
+ * Permissions:  "tabGroups"
+ * @since Chrome 89. Manifest V3 and above.
+ */
+ declare namespace chrome.tabGroups {
+
+    /** An ID that represents the absence of a group. */
+    export var TAB_GROUP_ID_NONE: -1;
+
+    export type ColorEnum = 'grey' | 'blue' | 'red' | 'yellow' | 'green' | 'pink' | 'purple' | 'cyan';
+
+    export interface TabGroup {
+        /** Whether the group is collapsed. A collapsed group is one whose tabs are hidden. */
+        collapsed: boolean;
+        /** The group's color. */
+        color: ColorEnum;
+        /** The ID of the group. Group IDs are unique within a browser session. */
+        id: number;
+        /** Optional. The title of the group. */
+        title?: string;
+        /** The ID of the window that contains the group. */
+        windowId: number;
+    }
+
+    export interface MoveProperties {
+        /** The position to move the group to. Use -1 to place the group at the end of the window. */
+        index: number;
+        /** Optional. The window to move the group to. Defaults to the window the group is currently in. Note that groups can only be moved to and from windows with chrome.windows.WindowType type "normal". */
+        windowId?: number;
+    }
+
+    export interface QueryInfo {
+        /** Optional. Whether the groups are collapsed. */
+        collapsed?: boolean;
+        /** Optional. The color of the groups. */
+        color?: ColorEnum;
+        /** Optional. Match group titles against a pattern. */
+        title?: string;
+        /** Optional. The ID of the window that contains the group. */
+        windowId?: number;
+    }
+
+    export interface UpdateProperties {
+        /** Optional. Whether the group should be collapsed. */
+        collapsed?: boolean;
+        /** Optional. The color of the group. */
+        color?: ColorEnum;
+        /** Optional. The title of the group. */
+        title?: string;
+    }
+
+    /**
+     * Retrieves details about the specified group.
+     * @param groupId The ID of the tab group.
+     * @param callback Called with the retrieved tab group.
+     */
+    export function get(groupId: number, callback: (group: TabGroup) => void): void;
+
+    /**
+     * Retrieves details about the specified group.
+     * @param groupId The ID of the tab group.
+     * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function get(groupId: number): Promise<TabGroup>;
+
+    /**
+     * Moves the group and all its tabs within its window, or to a new window.
+     * @param groupId The ID of the group to move.
+     * @param moveProperties Information on how to move the group.
+     * @return The `move` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function move(groupId: number, moveProperties: MoveProperties): Promise<TabGroup>;
+
+    /**
+     * Moves the group and all its tabs within its window, or to a new window.
+     * @param groupId The ID of the group to move.
+     * @param moveProperties Information on how to move the group.
+     * @param callback Optional.
+    */
+    export function move(groupId: number, moveProperties: MoveProperties, callback?: (group: TabGroup) => void): void;
+
+    /**
+     * Gets all groups that have the specified properties, or all groups if no properties are specified.
+     * @param queryInfo Object with search parameters.
+     * @param callback Called with retrieved tab groups.
+     */
+    export function query(queryInfo: QueryInfo, callback: (result: TabGroup[]) => void): void;
+
+    /**
+     * Gets all groups that have the specified properties, or all groups if no properties are specified.
+     * @param queryInfo Object with search parameters.
+     * @return The `query` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function query(queryInfo: QueryInfo): Promise<TabGroup[]>;
+
+    /**
+     * Modifies the properties of a group. Properties that are not specified in updateProperties are not modified.
+     * @param groupId The ID of the group to modify.
+     * @param updateProperties Information on how to update the group.
+     * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function update(groupId: number, updateProperties: UpdateProperties): Promise<TabGroup>;
+
+    /**
+     * Modifies the properties of a group. Properties that are not specified in updateProperties are not modified.
+     * @param groupId The ID of the group to modify.
+     * @param updateProperties Information on how to update the group.
+     * @param callback Optional.
+     */
+    export function update(groupId: number, updateProperties: UpdateProperties, callback?: (group: TabGroup) => void): void;
+
+    export interface TabGroupCreatedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
+    export interface TabGroupMovedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
+    export interface TabGroupRemovedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
+    export interface TabGroupUpdated extends chrome.events.Event<(group: TabGroup) => void> { }
+
+    /** Fired when a group is created. */
+    export var onCreated: TabGroupCreatedEvent;
+    /** Fired when a group is moved within a window. Move events are still fired for the individual tabs within the group, as well as for the group itself. This event is not fired when a group is moved between windows; instead, it will be removed from one window and created in another. */
+    export var onMoved: TabGroupMovedEvent;
+    /** Fired when a group is closed, either directly by the user or automatically because it contained zero. */
+    export var onRemoved: TabGroupRemovedEvent;
+    /** Fired when a group is updated. */
+    export var onUpdated: TabGroupUpdated;
 }
 
 ////////////////////
@@ -9204,7 +10399,7 @@ declare namespace chrome.webstore {
  */
 declare namespace chrome.windows {
     export interface Window {
-        /** Array of tabs.Tab objects representing the current tabs in the window. */
+        /** Optional. Array of tabs.Tab objects representing the current tabs in the window. */
         tabs?: chrome.tabs.Tab[];
         /** Optional. The offset of the window from the top edge of the screen in pixels. Under some circumstances a Window may not be assigned top property, for example when querying closed windows from the sessions API. */
         top?: number;
@@ -9214,10 +10409,9 @@ declare namespace chrome.windows {
         width?: number;
         /**
          * The state of this browser window.
-         * One of: "normal", "minimized", "maximized", "fullscreen", or "docked"
          * @since Chrome 17.
          */
-        state: string;
+        state?: windowStateEnum;
         /** Whether the window is currently the focused window. */
         focused: boolean;
         /**
@@ -9229,32 +10423,30 @@ declare namespace chrome.windows {
         incognito: boolean;
         /**
          * The type of browser window this is.
-         * One of: "normal", "popup", "panel", "app", or "devtools"
          */
-        type: string;
+        type?: windowTypeEnum;
         /** Optional. The ID of the window. Window IDs are unique within a browser session. Under some circumstances a Window may not be assigned an ID, for example when querying windows using the sessions API, in which case a session ID may be present. */
-        id: number;
+        id?: number;
         /** Optional. The offset of the window from the left edge of the screen in pixels. Under some circumstances a Window may not be assigned left property, for example when querying closed windows from the sessions API. */
         left?: number;
         /**
-         * The session ID used to uniquely identify a Window obtained from the sessions API.
+         * Optional. The session ID used to uniquely identify a Window obtained from the sessions API.
          * @since Chrome 31.
          */
         sessionId?: string;
     }
 
-    export interface GetInfo {
+    export interface QueryOptions {
         /**
          * Optional.
-         * If true, the windows.Window object will have a tabs property that contains a list of the tabs.Tab objects. The Tab objects only contain the url, title and favIconUrl properties if the extension's manifest file includes the "tabs" permission.
+         * If true, the windows.Window object will have a tabs property that contains a list of the tabs.Tab objects.
+         * The Tab objects only contain the url, pendingUrl, title and favIconUrl properties if the extension's manifest file includes the "tabs" permission.
          */
         populate?: boolean;
         /**
-         * If set, the windows.Window returned will be filtered based on its type. If unset the default filter is set to ['app', 'normal', 'panel', 'popup'], with 'app' and 'panel' window types limited to the extension's own windows.
-         * Each one of: "normal", "popup", "panel", "app", or "devtools"
-         * @since Chrome 46. Warning: this is the current Beta channel.
+         * If set, the Window returned is filtered based on its type. If unset, the default filter is set to ['normal', 'popup'].
          */
-        windowTypes?: string[];
+        windowTypes?: windowTypeEnum[];
     }
 
     export interface CreateData {
@@ -9290,11 +10482,8 @@ declare namespace chrome.windows {
         focused?: boolean;
         /** Optional. Whether the new window should be an incognito window. */
         incognito?: boolean;
-        /**
-         * Optional. Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set.
-         * One of: "normal", "popup", "panel", or "detached_panel"
-         */
-        type?: string;
+        /** Optional. Specifies what type of browser window to create. */
+        type?: createTypeEnum;
         /**
          * Optional.
          * The number of pixels to position the new window from the left edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels.
@@ -9302,10 +10491,14 @@ declare namespace chrome.windows {
         left?: number;
         /**
          * Optional. The initial state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'.
-         * One of: "normal", "minimized", "maximized", "fullscreen", or "docked"
          * @since Chrome 44.
          */
-        state?: string;
+        state?: windowStateEnum;
+        /**
+         * If true, the newly-created window's 'window.opener' is set to the caller and is in the same [unit of related browsing contexts](https://www.w3.org/TR/html51/browsers.html#unit-of-related-browsing-contexts) as the caller.
+         * @since Chrome 64.
+         */
+        setSelfAsOpener?: boolean;
     }
 
     export interface UpdateInfo {
@@ -9322,10 +10515,9 @@ declare namespace chrome.windows {
         width?: number;
         /**
          * Optional. The new state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'.
-         * One of: "normal", "minimized", "maximized", "fullscreen", or "docked"
          * @since Chrome 17.
          */
-        state?: string;
+        state?: windowStateEnum;
         /**
          * Optional. If true, brings the window to the front. If false, brings the next window in the z-order to the front.
          * @since Chrome 8.
@@ -9338,9 +10530,8 @@ declare namespace chrome.windows {
     export interface WindowEventFilter {
         /**
          * Conditions that the window's type being created must satisfy. By default it will satisfy ['app', 'normal', 'panel', 'popup'], with 'app' and 'panel' window types limited to the extension's own windows.
-         * Each one of: "normal", "popup", "panel", "app", or "devtools"
          */
-        windowTypes: string[];
+        windowTypes: windowTypeEnum[];
     }
 
     export interface WindowIdEvent
@@ -9350,32 +10541,80 @@ declare namespace chrome.windows {
         extends chrome.events.Event<(window: Window, filters?: WindowEventFilter) => void> { }
 
     /**
+     * Specifies what type of browser window to create.
+     * 'panel' is deprecated and is available only to existing whitelisted extensions on Chrome OS.
+     * @since Chrome 44.
+     */
+    export type createTypeEnum = 'normal' | 'popup' | 'panel';
+
+    /**
+     * The state of this browser window.
+     * In some circumstances a window may not be assigned a state property; for example, when querying closed windows from the sessions API.
+     * @since Chrome 44.
+     */
+    export type windowStateEnum = 'normal' | 'minimized' | 'maximized' | 'fullscreen' | 'locked-fullscreen';
+
+    /**
+     * The type of browser window this is.
+     * In some circumstances a window may not be assigned a type property; for example, when querying closed windows from the sessions API.
+     * @since Chrome 44.
+     */
+    export type windowTypeEnum = 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
+
+    /**
      * The windowId value that represents the current window.
      * @since Chrome 18.
      */
-    export var WINDOW_ID_CURRENT: number;
+    export var WINDOW_ID_CURRENT: -2;
     /**
      * The windowId value that represents the absence of a chrome browser window.
      * @since Chrome 6.
      */
-    export var WINDOW_ID_NONE: number;
+    export var WINDOW_ID_NONE: -1;
 
     /** Gets details about a window. */
     export function get(windowId: number, callback: (window: chrome.windows.Window) => void): void;
     /**
      * Gets details about a window.
+     * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function get(windowId: number): Promise<chrome.windows.Window>;
+    /**
+     * Gets details about a window.
      * @since Chrome 18.
      */
-    export function get(windowId: number, getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function get(windowId: number, queryOptions: QueryOptions, callback: (window: chrome.windows.Window) => void): void;
     /**
-     * Gets the current window.
+     * Gets details about a window.
+     * @since Chrome 18.
+     * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
+    export function get(windowId: number, queryOptions: QueryOptions): Promise<chrome.windows.Window>;
+    /** Gets the current window. */
     export function getCurrent(callback: (window: chrome.windows.Window) => void): void;
     /**
      * Gets the current window.
+     * @return The `getCurrent` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getCurrent(): Promise<chrome.windows.Window>;
+    /**
+     * Gets the current window.
+     * @param QueryOptions
      * @since Chrome 18.
      */
-    export function getCurrent(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function getCurrent(queryOptions: QueryOptions, callback: (window: chrome.windows.Window) => void): void;
+    /**
+     * Gets the current window.
+     * @param QueryOptions
+     * @since Chrome 18.
+     * @return The `getCurrent` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getCurrent(queryOptions: QueryOptions): Promise<chrome.windows.Window>;
+    /**
+     * Creates (opens) a new browser with any optional sizing, position or default URL provided.
+     * @return The `create` method provides its result via callback or returned as a `Promise` (MV3 only). Contains details about the created window.
+     */
+    export function create(): Promise<chrome.windows.Window>;
     /**
      * Creates (opens) a new browser with any optional sizing, position or default URL provided.
      * @param callback
@@ -9384,6 +10623,13 @@ declare namespace chrome.windows {
     export function create(callback?: (window?: chrome.windows.Window) => void): void;
     /**
      * Creates (opens) a new browser with any optional sizing, position or default URL provided.
+     * @param CreateData
+     * @return The `create` method provides its result via callback or returned as a `Promise` (MV3 only). Contains details about the created window.
+     */
+    export function create(createData: CreateData): Promise<chrome.windows.Window>;
+    /**
+     * Creates (opens) a new browser with any optional sizing, position or default URL provided.
+     * @param CreateData
      * @param callback
      * Optional parameter window: Contains details about the created window.
      */
@@ -9394,15 +10640,39 @@ declare namespace chrome.windows {
     export function getAll(callback: (windows: chrome.windows.Window[]) => void): void;
     /**
      * Gets all windows.
+     * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getAll(): Promise<chrome.windows.Window[]>;
+    /**
+     * Gets all windows.
      * @since Chrome 18.
      */
-    export function getAll(getInfo: GetInfo, callback: (windows: chrome.windows.Window[]) => void): void;
+    export function getAll(queryOptions: QueryOptions, callback: (windows: chrome.windows.Window[]) => void): void;
+    /**
+     * Gets all windows.
+     * @since Chrome 18.
+     * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getAll(queryOptions: QueryOptions): Promise<chrome.windows.Window[]>;
+    /**
+     * Updates the properties of a window. Specify only the properties that you want to change; unspecified properties will be left unchanged.
+     * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function update(
+        windowId: number,
+        updateInfo: UpdateInfo,
+    ): Promise<chrome.windows.Window>;
     /** Updates the properties of a window. Specify only the properties that you want to change; unspecified properties will be left unchanged. */
     export function update(
         windowId: number,
         updateInfo: UpdateInfo,
         callback?: (window: chrome.windows.Window) => void,
     ): void;
+    /**
+     * Removes (closes) a window, and all the tabs inside it
+     * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function remove(windowId: number): Promise<void>;
     /** Removes (closes) a window, and all the tabs inside it. */
     export function remove(windowId: number, callback?: Function): void;
     /**
@@ -9411,9 +10681,20 @@ declare namespace chrome.windows {
     export function getLastFocused(callback: (window: chrome.windows.Window) => void): void;
     /**
      * Gets the window that was most recently focused — typically the window 'on top'.
+     * @return The `getLastFocused` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getLastFocused(): Promise<chrome.windows.Window>;
+    /**
+     * Gets the window that was most recently focused — typically the window 'on top'.
      * @since Chrome 18.
      */
-    export function getLastFocused(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function getLastFocused(queryOptions: QueryOptions, callback: (window: chrome.windows.Window) => void): void;
+    /**
+     * Gets the window that was most recently focused — typically the window 'on top'.
+     * @since Chrome 18.
+     * @return The `getLastFocused` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getLastFocused(queryOptions: QueryOptions): Promise<chrome.windows.Window>;
 
     /** Fired when a window is removed (closed). */
     export var onRemoved: WindowIdEvent;
@@ -9424,4 +10705,646 @@ declare namespace chrome.windows {
      * Note: On some Linux window managers, WINDOW_ID_NONE will always be sent immediately preceding a switch from one chrome window to another.
      */
     export var onFocusChanged: WindowIdEvent;
+
+    /**
+     * Fired when a window has been resized; this event is only dispatched when the new bounds are committed, and not for in-progress changes.
+     * @since Chrome 86.
+     */
+    export var onBoundsChanged: WindowReferenceEvent;
+}
+
+declare namespace chrome.declarativeNetRequest {
+    /** Ruleset ID for the dynamic rules added by the extension. */
+    export const DYNAMIC_RULESET_ID: string;
+
+    /** Time interval within which MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL getMatchedRules calls can be made, specified in minutes.
+     * Additional calls will fail immediately and set runtime.lastError.
+     * Note: getMatchedRules calls associated with a user gesture are exempt from the quota.
+     */
+    export const GETMATCHEDRULES_QUOTA_INTERVAL: number;
+
+    /** The minimum number of static rules guaranteed to an extension across its enabled static rulesets.
+     * Any rules above this limit will count towards the global rule limit.
+     */
+    export const GUARANTEED_MINIMUM_STATIC_RULES: number;
+
+    /** The number of times getMatchedRules can be called within a period of GETMATCHEDRULES_QUOTA_INTERVAL. */
+    export const MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL: number;
+
+    /** The maximum number of combined dynamic and session scoped rules an extension can add. */
+    export const MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: number;
+
+    /** The maximum number of regular expression rules that an extension can add.
+     * This limit is evaluated separately for the set of dynamic rules and those specified in the rule resources file.
+     */
+    export const MAX_NUMBER_OF_REGEX_RULES: number;
+
+    /** The maximum number of static Rulesets an extension can specify as part of the "rule_resources" manifest key. */
+    export const MAX_NUMBER_OF_STATIC_RULESETS: number;
+
+    /** Ruleset ID for the session-scoped rules added by the extension. */
+    export const SESSION_RULESET_ID: string;
+
+    /** This describes the resource type of the network request. */
+    export enum ResourceType {
+        MAIN_FRAME = "main_frame",
+        SUB_FRAME = "sub_frame",
+        STYLESHEET = "stylesheet",
+        SCRIPT = "script",
+        IMAGE = "image",
+        FONT = "font",
+        OBJECT = "object",
+        XML_HTTP_REQUEST = "xmlhttprequest",
+        PING = "ping",
+        CSP_REPORT = "csp_report",
+        MEDIA = "media",
+        WEB_SOCKET = "websocket",
+        OTHER = "other"
+    }
+
+    /** Describes the kind of action to take if a given RuleCondition matches. */
+    export enum RuleActionType {
+        BLOCK = "block",
+        REDIRECT = "redirect",
+        ALLOW = "allow",
+        UPGRADE_SCHEME = "upgradeScheme",
+        MODIFY_HEADERS = "modifyHeaders",
+        ALLOW_ALL_REQUESTS = "allowAllRequests"
+    }
+
+    /** Describes the reason why a given regular expression isn't supported. */
+    export enum UnsupportedRegexReason {
+        SYNTAX_ERROR = "syntaxError",
+        MEMORY_LIMIT_EXCEEDED = "memoryLimitExceeded"
+    }
+
+    /** TThis describes whether the request is first or third party to the frame in which it originated.
+     * A request is said to be first party if it has the same domain (eTLD+1) as the frame in which the request originated.
+     */
+    export enum DomainType {
+        FIRST_PARTY = "firstParty",
+        THIRD_PARTY = "thirdParty"
+    }
+
+    /** This describes the possible operations for a "modifyHeaders" rule. */
+    export enum HeaderOperation {
+        APPEND = "append",
+        SET = "set",
+        REMOVE = "remove"
+    }
+
+    export interface RequestDetails {
+        /** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens.
+         * If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame.
+         * Frame IDs are unique within a tab.
+         */
+        frameId: number;
+
+        /** The origin where the request was initiated.
+         * This does not change through redirects.
+         * If this is an opaque origin, the string 'null' will be used.
+         */
+        initiator?: string;
+
+        /** Standard HTTP method. */
+        method: string;
+
+        /** ID of frame that wraps the frame which sent the request.
+         * Set to -1 if no parent frame exists.
+         */
+        partentFrameId: number;
+
+        /** The ID of the request.
+         * Request IDs are unique within a browser session.
+         */
+        requestId: string;
+
+        /** The ID of the tab in which the request takes place.
+         * Set to -1 if the request isn't related to a tab.
+         */
+        tabId: number;
+
+        /** The resource type of the request. */
+        type: ResourceType;
+
+        /** The URL of the request. */
+        url: string;
+    }
+
+    export interface Rule {
+        /** The action to take if this rule is matched. */
+        action: RuleAction;
+
+        /** The condition under which this rule is triggered. */
+        condition: RuleCondition;
+
+        /** An id which uniquely identifies a rule.
+         * Mandatory and should be >= 1.
+         */
+        id: number;
+
+        /** Rule priority.
+         * Defaults to 1.
+         * When specified, should be >= 1.
+         */
+        priority: number;
+    }
+
+    export interface RuleAction {
+        /** Describes how the redirect should be performed.
+         * Only valid for redirect rules.
+         */
+        redirect?: Redirect;
+
+        /** The request headers to modify for the request.
+         * Only valid if RuleActionType is "modifyHeaders".
+         */
+        requestHeaders?: ModifyHeaderInfo[];
+
+        /** The response headers to modify for the request.
+         * Only valid if RuleActionType is "modifyHeaders".
+         */
+        responseHeaders?: ModifyHeaderInfo[];
+
+        /** The type of action to perform. */
+        type: RuleActionType;
+    }
+
+    export interface RuleCondition {
+        /** Specifies whether the network request is first-party or third-party to the domain from which it originated.
+         * If omitted, all requests are accepted.
+         */
+        domainType?: DomainType;
+
+        /** The rule will only match network requests originating from the list of domains.
+         * If the list is omitted, the rule is applied to requests from all domains.
+         * An empty list is not allowed.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         * This matches against the request initiator and not the request url.
+         */
+        domains?: string[];
+
+        /** The rule will not match network requests originating from the list of excludedDomains.
+         * If the list is empty or omitted, no domains are excluded.
+         * This takes precedence over domains.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         * This matches against the request initiator and not the request url.
+         */
+        excludedDomains?: string[];
+
+        /** List of resource types which the rule won't match.
+         * Only one of resourceTypes and excludedResourceTypes should be specified.
+         * If neither of them is specified, all resource types except "main_frame" are blocked.
+         */
+        excludedResourceTypes?: ResourceType[];
+
+        /**
+         * Whether the urlFilter or regexFilter (whichever is specified) is case sensitive.
+         * Default is true.
+         */
+        isUrlFilterCaseSensitive?: boolean;
+
+        /** Regular expression to match against the network request url.
+         * This follows the RE2 syntax.
+         *
+         * Note: Only one of urlFilter or regexFilter can be specified.
+         *
+         * Note: The regexFilter must be composed of only ASCII characters.
+         * This is matched against a url where the host is encoded in the punycode format (in case of internationalized domains) and any other non-ascii characters are url encoded in utf-8.
+         */
+        regexFilter?: string;
+
+        /** List of resource types which the rule can match.
+         * An empty list is not allowed.
+         *
+         * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
+         */
+        resourceTypes?: ResourceType[];
+
+        /** The pattern which is matched against the network request url.
+         * Supported constructs:
+         *
+         * '*' : Wildcard: Matches any number of characters.
+         *
+         * '|' : Left/right anchor: If used at either end of the pattern, specifies the beginning/end of the url respectively.
+         *
+         * '||' : Domain name anchor: If used at the beginning of the pattern, specifies the start of a (sub-)domain of the URL.
+         *
+         * '^' : Separator character: This matches anything except a letter, a digit or one of the following: _ - . %.
+         * This can also match the end of the URL.
+         *
+         * Therefore urlFilter is composed of the following parts: (optional Left/Domain name anchor) + pattern + (optional Right anchor).
+         *
+         * If omitted, all urls are matched. An empty string is not allowed.
+         *
+         * A pattern beginning with || is not allowed. Use instead.
+         *
+         * Note: Only one of urlFilter or regexFilter can be specified.
+         *
+         * Note: The urlFilter must be composed of only ASCII characters.
+         * This is matched against a url where the host is encoded in the punycode format (in case of internationalized domains) and any other non-ascii characters are url encoded in utf-8.
+         * For example, when the request url is http://abc.рф?q=ф, the urlFilter will be matched against the url http://abc.xn--p1ai/?q=%D1%84.
+         */
+        urlFilter?: string;
+    }
+
+    export interface MatchedRule {
+        /** A matching rule's ID. */
+        ruleId: number;
+
+        /** ID of the Ruleset this rule belongs to.
+         * For a rule originating from the set of dynamic rules, this will be equal to DYNAMIC_RULESET_ID.
+         */
+        rulesetId: string;
+    }
+
+    export interface MatchedRuleInfo {
+        rule: MatchedRule;
+
+        /** The tabId of the tab from which the request originated if the tab is still active. Else -1. */
+        tabId: number;
+
+        /** The time the rule was matched.
+         * Timestamps will correspond to the Javascript convention for times, i.e. number of milliseconds since the epoch.
+         */
+        timeStamp: number;
+    }
+
+    export interface MatchedRulesFilter {
+        /** If specified, only matches rules after the given timestamp. */
+        minTimeStamp?: number;
+
+        /** If specified, only matches rules for the given tab.
+         * Matches rules not associated with any active tab if set to -1.
+         */
+        tabId?: number;
+    }
+
+    export interface ModifyHeaderInfo {
+        /** The name of the header to be modified. */
+        header: string;
+
+        /** The operation to be performed on a header. */
+        operation: HeaderOperation;
+
+        /** The new value for the header.
+         * Must be specified for append and set operations.
+         */
+        value?: string;
+    }
+
+    export interface QueryKeyValue {
+        key: string;
+        value: string;
+    }
+
+    export interface QueryTransform {
+        /** The list of query key-value pairs to be added or replaced. */
+        addOrReplaceParams?: QueryKeyValue[];
+
+        /** The list of query keys to be removed. */
+        removeParams?: string[];
+    }
+
+    export interface URLTransform {
+        /** The new fragment for the request.
+         * Should be either empty, in which case the existing fragment is cleared; or should begin with '#'.
+         */
+        fragment?: string;
+
+        /** The new host for the request. */
+        host?: string;
+
+        /** The new password for the request. */
+        password?: string;
+
+        /** The new path for the request.
+         * If empty, the existing path is cleared.
+         */
+        path?: string;
+
+        /** The new port for the request.
+         * If empty, the existing port is cleared.
+         */
+        port?: string;
+
+        /** The new query for the request.
+         * Should be either empty, in which case the existing query is cleared; or should begin with '?'.
+         */
+        query?: string;
+
+        /** Add, remove or replace query key-value pairs. */
+        queryTransform?: QueryTransform;
+
+        /** The new scheme for the request.
+         * Allowed values are "http", "https", "ftp" and "chrome-extension".
+         */
+        scheme?: string;
+
+        /** The new username for the request. */
+        username?: string;
+    }
+
+    export interface RegexOptions {
+        /** Whether the regex specified is case sensitive.
+         * Default is true.
+         */
+        isCaseSensitive?: boolean;
+
+        /** The regular expresson to check. */
+        regex: string;
+
+        /** Whether the regex specified requires capturing.
+         * Capturing is only required for redirect rules which specify a regexSubstition action.
+         * The default is false.
+         */
+        requireCapturing?: boolean;
+    }
+
+    export interface IsRegexSupportedResult {
+        isSupported: boolean;
+
+        /** Specifies the reason why the regular expression is not supported.
+         * Only provided if isSupported is false.
+         */
+        reason?: UnsupportedRegexReason;
+    }
+
+    export interface TabActionCountUpdate {
+        /** The amount to increment the tab's action count by.
+         * Negative values will decrement the count
+         */
+        increment: number;
+
+        /** The tab for which to update the action count. */
+        tabId: number;
+    }
+
+    export interface ExtensionActionOptions {
+        /** Whether to automatically display the action count for a page as the extension's badge text.
+         * This preference is persisted across sessions.
+         */
+        displayActionCountAsBadgeText?: boolean;
+
+        /** Details of how the tab's action count should be adjusted. */
+        tabUpdate?: TabActionCountUpdate;
+    }
+
+    export interface Redirect {
+        /** Path relative to the extension directory.
+         * Should start with '/'.
+         */
+        extensionPath?: string;
+
+        /** Substitution pattern for rules which specify a regexFilter.
+         * The first match of regexFilter within the url will be replaced with this pattern.
+         * Within regexSubstitution, backslash-escaped digits (\1 to \9) can be used to insert the corresponding capture groups.
+         * \0 refers to the entire matching text.
+         */
+        regexSubstitution?: string;
+
+        /** Url transformations to perform. */
+        transform?: URLTransform;
+
+        /** The redirect url.
+         * Redirects to JavaScript urls are not allowed.
+         */
+        url?: string;
+    }
+
+    export interface UpdateRuleOptions {
+        /** Rules to add. */
+        addRules?: Rule[];
+
+        /** IDs of the rules to remove.
+         * Any invalid IDs will be ignored.
+         */
+        removeRuleIds?: number[];
+    }
+
+    export interface UpdateRulesetOptions {
+        /** The set of ids corresponding to a static Ruleset that should be disabled. */
+        disableRulesetIds?: string[];
+
+        /** The set of ids corresponding to a static Ruleset that should be enabled. */
+        enableRulesetIds?: string[];
+    }
+
+    export interface MatchedRuleInfoDebug {
+        /** Details about the request for which the rule was matched. */
+        request: RequestDetails;
+
+        rule: MatchedRule;
+    }
+
+    export interface Ruleset {
+        /** Whether the ruleset is enabled by default. */
+        enabled: boolean;
+
+        /** A non-empty string uniquely identifying the ruleset.
+         * IDs beginning with '_' are reserved for internal use.
+         */
+        id: string;
+
+        /** The path of the JSON ruleset relative to the extension directory. */
+        path: string;
+    }
+
+    export interface RulesMatchedDetails {
+        /** Rules matching the given filter. */
+        rulesMatchedInfo: MatchedRuleInfo[]
+    }
+
+    /** Returns the number of static rules an extension can enable before the global static rule limit is reached. */
+    export function getAvailableStaticRuleCount(callback: (count: number) => void): void;
+
+    /**
+     * Returns the number of static rules an extension can enable before the global static rule limit is reached.
+     * @return The `getAvailableStaticRuleCount` method provides its result via callback or returned as a `Promise` (MV3 only).
+     * */
+    export function getAvailableStaticRuleCount(): Promise<number>;
+
+    /** Returns the current set of dynamic rules for the extension.
+     *
+     * @param callback Called with the set of dynamic rules.
+     * An error might be raised in case of transient internal errors.
+     */
+    export function getDynamicRules(callback: (rules: Rule[]) => void): void;
+
+    /**
+     * Returns the current set of dynamic rules for the extension.
+     * @return The `getDynamicRules` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getDynamicRules(): Promise<Rule[]>;
+
+    /** Returns the ids for the current set of enabled static rulesets.
+     *
+     * @param callback Called with a list of ids, where each id corresponds to an enabled static Ruleset. */
+    export function getEnabledRulesets(callback: (rulesetIds: string[]) => void): void;
+
+    /**
+     * Returns the ids for the current set of enabled static rulesets.
+     * @return The `getEnabledRulesets` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getEnabledRulesets(): Promise<string[]>;
+
+    /** Returns all rules matched for the extension.
+     * Callers can optionally filter the list of matched rules by specifying a filter.
+     * This method is only available to extensions with the declarativeNetRequestFeedback permission or having the activeTab permission granted for the tabId specified in filter.
+     * Note: Rules not associated with an active document that were matched more than five minutes ago will not be returned.
+     *
+     * @param filter An object to filter the list of matched rules.
+     * @param callback Called once the list of matched rules has been fetched.
+     * In case of an error, runtime.lastError will be set and no rules will be returned.
+     * This can happen for multiple reasons, such as insufficient permissions, or exceeding the quota.
+     */
+    export function getMatchedRules(filter: MatchedRulesFilter | undefined, callback: (details: RulesMatchedDetails) => void): void;
+
+    /**
+     * Returns all rules matched for the extension.
+     * Callers can optionally filter the list of matched rules by specifying a filter.
+     * This method is only available to extensions with the declarativeNetRequestFeedback permission or having the activeTab permission granted for the tabId specified in filter.
+     * Note: Rules not associated with an active document that were matched more than five minutes ago will not be returned.
+     *
+     * @param filter An object to filter the list of matched rules.
+     * @return The `getMatchedRules` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getMatchedRules(filter: MatchedRulesFilter | undefined): Promise<RulesMatchedDetails>;
+
+    export function getMatchedRules(callback: (details: RulesMatchedDetails) => void): void;
+
+    export function getMatchedRules(): Promise<RulesMatchedDetails>;
+
+    /** Returns the current set of session scoped rules for the extension.
+     *
+     * @param callback Called with the set of session scoped rules.
+     */
+    export function getSessionRules(callback: (rules: Rule[]) => void): void;
+
+    /**
+     * Returns the current set of session scoped rules for the extension.
+     *
+     * @return The `getSessionRules` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getSessionRules(): Promise<Rule[]>;
+
+    /** Checks if the given regular expression will be supported as a regexFilter rule condition.
+     *
+     * @param regexOptions The regular expression to check.
+     * @param callback Called with details consisting of whether the regular expression is supported and the
+     * reason if not.
+     */
+    export function isRegexSupported(regexOptions: RegexOptions, callback: (result: IsRegexSupportedResult) => void): void;
+
+    /** Checks if the given regular expression will be supported as a regexFilter rule condition.
+     *
+     * @param regexOptions The regular expression to check.
+     * @return The `isRegexSupported` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function isRegexSupported(regexOptions: RegexOptions): Promise<IsRegexSupportedResult>;
+
+    /** Configures if the action count for tabs should be displayed as the extension action's badge text and provides a way for that action count to be incremented. */
+    export function setExtensionActionOptions(options: ExtensionActionOptions, callback: Function): void;
+
+    /**
+     * Configures if the action count for tabs should be displayed as the extension action's badge text and provides a way for that action count to be incremented.
+     * @return The `setExtensionActionOptions` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setExtensionActionOptions(options: ExtensionActionOptions): Promise<void>;
+
+    /** Modifies the current set of dynamic rules for the extension.
+     * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
+     *
+     * Notes:
+     * This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
+     * These rules are persisted across browser sessions and across extension updates.
+     * Static rules specified as part of the extension package can not be removed using this function.
+     * MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES is the maximum number of combined dynamic and session rules an extension can add.
+     *
+     * @param callback Called once the update is complete or has failed.
+     * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
+     * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, internal errors, and others.
+     */
+    export function updateDynamicRules(options: UpdateRuleOptions, callback: Function): void;
+
+    /** Modifies the current set of dynamic rules for the extension.
+     * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
+     *
+     * Notes:
+     * This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
+     * These rules are persisted across browser sessions and across extension updates.
+     * Static rules specified as part of the extension package can not be removed using this function.
+     * MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES is the maximum number of combined dynamic and session rules an extension can add.
+     *
+     * @return The `updateDynamicRules` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
+     * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, internal errors, and others.
+     */
+    export function updateDynamicRules(options: UpdateRuleOptions): Promise<void>;
+
+    /** Updates the set of enabled static rulesets for the extension.
+     * The rulesets with IDs listed in options.disableRulesetIds are first removed, and then the rulesets listed in options.enableRulesetIds are added.
+     *
+     * Note that the set of enabled static rulesets is persisted across sessions but not across extension updates, i.e. the rule_resources manifest key will determine the set of enabled static rulesets on each extension update.
+     *
+     * @param callback Called once the update is complete.
+     * In case of an error, runtime.lastError will be set and no change will be made to set of enabled rulesets.
+     * This can happen for multiple reasons, such as invalid ruleset IDs, rule count limit exceeded, or internal errors.
+     */
+    export function updateEnabledRulesets(options: UpdateRulesetOptions, callback: Function): void;
+
+    /** Updates the set of enabled static rulesets for the extension.
+     * The rulesets with IDs listed in options.disableRulesetIds are first removed, and then the rulesets listed in options.enableRulesetIds are added.
+     *
+     * Note that the set of enabled static rulesets is persisted across sessions but not across extension updates, i.e. the rule_resources manifest key will determine the set of enabled static rulesets on each extension update.
+     *
+     * @return The `updateEnabledRulesets` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     * In case of an error, runtime.lastError will be set and no change will be made to set of enabled rulesets.
+     * This can happen for multiple reasons, such as invalid ruleset IDs, rule count limit exceeded, or internal errors.
+     */
+    export function updateEnabledRulesets(options: UpdateRulesetOptions): Promise<void>;
+
+
+    /** Modifies the current set of session scoped rules for the extension.
+     * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
+     *
+     * Notes:
+     * This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
+     * These rules are not persisted across sessions and are backed in memory.
+     * MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES is the maximum number of combined dynamic and session rules an extension can add.
+     *
+     * @param callback Called once the update is complete or has failed.
+     * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
+     * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, and others.
+     */
+    export function updateSessionRules(options: UpdateRuleOptions, callback: Function): void;
+
+    /** Modifies the current set of session scoped rules for the extension.
+     * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
+     *
+     * Notes:
+     * This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
+     * These rules are not persisted across sessions and are backed in memory.
+     * MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES is the maximum number of combined dynamic and session rules an extension can add.
+     *
+     * @return The `updateSessionRules` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
+     * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, and others.
+     */
+    export function updateSessionRules(options: UpdateRuleOptions): Promise<void>;
+
+    /** The rule that has been matched along with information about the associated request. */
+    export interface RuleMatchedDebugEvent extends chrome.events.Event<(info: MatchedRuleInfoDebug) => void> { }
+
+    /** Fired when a rule is matched with a request.
+     * Only available for unpacked extensions with the declarativeNetRequestFeedback permission as this is intended to be used for debugging purposes only. */
+    export var onRuleMatchedDebug: RuleMatchedDebugEvent;
 }

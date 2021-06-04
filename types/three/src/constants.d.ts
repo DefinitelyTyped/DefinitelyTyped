@@ -2,12 +2,12 @@ export const REVISION: string;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
 export enum MOUSE {
-    LEFT,
-    MIDDLE,
-    RIGHT,
-    ROTATE,
-    DOLLY,
-    PAN,
+    LEFT = 0,
+    MIDDLE = 1,
+    RIGHT = 2,
+    ROTATE = 0,
+    DOLLY = 1,
+    PAN = 2,
 }
 
 export enum TOUCH {
@@ -369,3 +369,24 @@ export const StreamCopyUsage: Usage;
 export enum GLSLVersion {}
 export const GLSL1: GLSLVersion;
 export const GLSL3: GLSLVersion;
+
+export type BuiltinShaderAttributeName =
+    | 'position'
+    | 'normal'
+    | 'uv'
+    | 'color'
+    | 'skinIndex'
+    | 'skinWeight'
+    | 'instanceMatrix'
+    | 'morphTarget0'
+    | 'morphTarget1'
+    | 'morphTarget2'
+    | 'morphTarget3'
+    | 'morphTarget4'
+    | 'morphTarget5'
+    | 'morphTarget6'
+    | 'morphTarget7'
+    | 'morphNormal0'
+    | 'morphNormal1'
+    | 'morphNormal2'
+    | 'morphNormal3';

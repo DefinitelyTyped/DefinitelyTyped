@@ -1,7 +1,5 @@
-/// <reference types="node" />
 import SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 import { Configuration } from 'webpack';
-import path = require('path');
 
 (config: Configuration) => {
     // tests
@@ -10,7 +8,7 @@ import path = require('path');
         new SVGSpritemapPlugin('images/sprites/**/*.svg'),
         new SVGSpritemapPlugin(['images/logos/**/*.svg', 'images/icons/**/*.svg']),
         new SVGSpritemapPlugin('src/**/*.svg', {
-            styles: path.join(__dirname, 'src/scss/_sprites.scss'),
+            styles: 'src/scss/_sprites.scss',
         }),
         new SVGSpritemapPlugin('src/**/*.svg', {
             output: {
@@ -24,12 +22,14 @@ import path = require('path');
                     view: '-fragment',
                     symbol: true,
                 },
+                prefix: 'sprie-prefix-',
+                prefixStylesSelectors: true,
             },
             styles: {
                 format: 'fragment',
                 keepAttributes: true,
-                filename: path.join(__dirname, 'src/scss/_sprites.scss'),
-                callback: (content) => `[class*="sprite-"] { background-size: cover; } ${content}`,
+                filename: 'src/scss/_sprites.scss',
+                callback: content => `[class*="sprite-"] { background-size: cover; } ${content}`,
             },
         }),
     ];

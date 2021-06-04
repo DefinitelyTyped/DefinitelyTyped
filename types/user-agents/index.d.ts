@@ -1,14 +1,14 @@
 // Type definitions for user-agents 1.0
 // Project: https://github.com/intoli/user-agents#readme
-// Definitions by: Nick Chursin <https://github.com/unickq>
+// Definitions by: Nick Chursin <https://github.com/unickq>, Jan Peer Stöcklmair <https://github.com/JPeer264>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class UserAgent {
     /**
      * The representation of a user-agents object.
-     * @param object <Array, Function, Object, RegExp, or String> - A set of filters to apply to the generated user agents
+     * @param filters <Array, Function, Object, RegExp, or String> - A set of filters to apply to the generated user agents
      */
-    constructor(object?: any);
+    constructor(filters?: Filter | Filter[]);
 
     /**
      * Casts the UserAgent instance to a string which corresponds to the user agent header. Equivalent to accessing the userAgent.userAgent property.
@@ -29,6 +29,8 @@ declare class UserAgent {
      */
     appName: string;
 }
+
+type Filter = Partial<Data> | RegExp | ((data: Data) => boolean) | string;
 
 interface Data {
     /**

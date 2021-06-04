@@ -5,8 +5,6 @@ import { Color } from '../math/Color';
 import { Texture } from '../textures/Texture';
 import { WebGLRenderer } from '../renderers/WebGLRenderer';
 import { Camera } from '../cameras/Camera';
-import { WebGLRenderTarget } from '../renderers/WebGLRenderTarget';
-import { WebGLCubeRenderTarget } from '../renderers/WebGLCubeRenderTarget';
 
 // Scenes /////////////////////////////////////////////////////////////////////
 
@@ -38,7 +36,7 @@ export class Scene extends Object3D {
     /**
      * @default null
      */
-    background: null | Color | Texture | WebGLCubeRenderTarget;
+    background: null | Color | Texture;
 
     /**
      * @default null

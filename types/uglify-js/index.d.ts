@@ -1,4 +1,4 @@
-// Type definitions for UglifyJS 3.12
+// Type definitions for UglifyJS 3.13
 // Project: https://github.com/mishoo/UglifyJS
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
@@ -98,6 +98,12 @@ export interface CompressOptions {
      * hoist function declarations
      * @default false
      */
+
+    /**
+     * hoist `export` statements to facilitate various `compress` and `mangle` optimizations.
+     * @default true
+     */
+    hoist_exports?: boolean;
     hoist_funs?: boolean;
     /**
      * Hoist properties from constant object and array literals into regular variables subject to a set of constraints.
@@ -116,6 +122,11 @@ export interface CompressOptions {
      * @default true
      */
     if_return?: boolean;
+    /**
+     * drop unreferenced import symbols when used with `unused`
+     * @default true
+     */
+    imports?: boolean;
     /**
      * Inline calls to function with simple/return statement
      * - false -- same as `Disabled`
@@ -318,7 +329,7 @@ export enum InlineFunctions {
     Disabled = 0,
     SimpleFunctions = 1,
     WithArguments = 2,
-    WithArgumentsAndVariables = 3
+    WithArgumentsAndVariables = 3,
 }
 export interface MangleOptions {
     /** Pass true to mangle names visible in scopes where `eval` or with are used. */
@@ -370,7 +381,7 @@ export enum OutputQuoteStyle {
     PreferDouble = 0,
     AlwaysSingle = 1,
     AlwaysDouble = 2,
-    AlwaysOriginal = 3
+    AlwaysOriginal = 3,
 }
 
 export interface MinifyOptions {

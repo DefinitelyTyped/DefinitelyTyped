@@ -15,6 +15,7 @@ import {
 
 export interface MaterialParameters {
     alphaTest?: number;
+    alphaToCoverage?: boolean;
     blendDst?: BlendingDstFactor;
     blendDstAlpha?: number;
     blendEquation?: BlendingEquation;
@@ -39,7 +40,6 @@ export interface MaterialParameters {
     precision?: 'highp' | 'mediump' | 'lowp' | null;
     premultipliedAlpha?: boolean;
     dithering?: boolean;
-    flatShading?: boolean;
     side?: Side;
     shadowSide?: Side;
     toneMapped?: boolean;
@@ -68,6 +68,12 @@ export class Material extends EventDispatcher {
      * @default 0
      */
     alphaTest: number;
+
+    /**
+     * Enables alpha to coverage. Can only be used with MSAA-enabled rendering contexts.
+     * @default false
+     */
+    alphaToCoverage: boolean;
 
     /**
      * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
@@ -289,12 +295,6 @@ export class Material extends EventDispatcher {
     dithering: boolean;
 
     /**
-     * Define whether the material is rendered with flat shading. Default is false.
-     * @default false
-     */
-    flatShading: boolean;
-
-    /**
      * Defines which of the face sides will be rendered - front, back or both.
      * Default is THREE.FrontSide. Other options are THREE.BackSide and THREE.DoubleSide.
      * @default THREE.FrontSide
@@ -361,7 +361,7 @@ export class Material extends EventDispatcher {
     /**
      * Return a new material with the same parameters as this material.
      */
-    clone(): Material;
+    clone(): this;
 
     /**
      * Copy the parameters from the passed material into this material.

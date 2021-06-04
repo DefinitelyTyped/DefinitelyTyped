@@ -43,7 +43,7 @@ type MaxPageCount = (pageCount: number) => void;
 interface PDFViewerProps {
     document: Document;
     withCredentials?: boolean;
-    password?: boolean;
+    password?: string;
     loader?: React.ReactNode;
     externalInput?: boolean;
     page?: number;

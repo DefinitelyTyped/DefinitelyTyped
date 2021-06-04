@@ -17,8 +17,8 @@ type FacingMode = 'user' | 'environment';
 type ImageType = 'png' | 'jpg';
 
 interface Resolution {
-    height?: number;
-    width?: number;
+    height?: MediaTrackConstraints['height'];
+    width?: MediaTrackConstraints['width'];
 }
 
 export const FACING_MODES: FacingModes;
@@ -59,7 +59,7 @@ export interface CaptureConfigOption {
 declare class CameraPhoto {
     videoElement: HTMLVideoElement;
     windowURL: URL;
-    mediaDevices: MediaDevices;
+    mediaDevices: MediaDevices | null;
     settings: MediaTrackSettings | null;
     numberOfMaxResolutionTry: number;
     stream: MediaStream | null;

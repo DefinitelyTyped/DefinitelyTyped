@@ -1,4 +1,4 @@
-declare module "url" {
+declare module 'url' {
     import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
 
     // Input to `url.format`

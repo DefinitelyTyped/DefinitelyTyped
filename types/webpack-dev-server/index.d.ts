@@ -12,6 +12,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 William Artero <https://github.com/wwmoraes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.8
 
 import * as webpack from 'webpack';
 import * as httpProxyMiddleware from 'http-proxy-middleware';
@@ -27,13 +28,13 @@ declare namespace WebpackDevServer {
     }
 
     interface ProxyConfigMap {
-        [url: string]: string | httpProxyMiddleware.Config;
+        [url: string]: string | httpProxyMiddleware.Options;
     }
 
     type ProxyConfigArrayItem = {
         path?: string | string[];
         context?: string | string[] | httpProxyMiddleware.Filter;
-    } & httpProxyMiddleware.Config;
+    } & httpProxyMiddleware.Options;
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
 
@@ -314,20 +315,20 @@ declare namespace WebpackDevServer {
          * client.
          */
         transportMode?:
-            'sockjs'
+            | 'sockjs'
             | 'ws'
             | {
-              client: object,
-              server: 'ws',
-            }
+                  client: object;
+                  server: 'ws';
+              }
             | {
-              client: 'ws',
-              server: object,
-            }
+                  client: 'ws';
+                  server: object;
+              }
             | {
-              client: object,
-              server: object,
-            };
+                  client: object;
+                  server: object;
+              };
         /** This option lets the browser open with your local IP. */
         useLocalIp?: boolean;
         /**
@@ -354,6 +355,7 @@ declare module 'webpack' {
 }
 
 declare class WebpackDevServer {
+    listeningApp: WebpackDevServer.ListeningApp;
     sockets: NodeJS.EventEmitter[];
 
     constructor(webpack: webpack.Compiler | webpack.MultiCompiler, config?: WebpackDevServer.Configuration);

@@ -1,4 +1,4 @@
-// Type definitions for Amplitude SDK 7.0
+// Type definitions for Amplitude SDK 8.0
 // Project: https://github.com/amplitude/Amplitude-Javascript
 // Definitions by: Arvydas Sidorenko <https://github.com/Asido>
 //                 Dan Manastireanu <https://github.com/danmana>
@@ -25,6 +25,7 @@ export interface Config {
     eventUploadPeriodMillis?: number;
     eventUploadThreshold?: number;
     forceHttps?: boolean;
+    includeFbclid?: boolean;
     includeGclid?: boolean;
     includeReferrer?: boolean;
     includeUtm?: boolean;

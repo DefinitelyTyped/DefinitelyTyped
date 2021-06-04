@@ -56,26 +56,29 @@ declare namespace jsrsasign.KJUR.crypto {
         /**
          * completes hash calculation and returns hash result
          * @example
-         * mac.digest()
+         * var mac = new KJUR.crypto.Mac({alg: "HmacSHA256", "pass": "pass"});
+         * mac.updateString('aaa')
+         * mac.doFinal() → "5737da..."
          */
-        doFinal(): void;
+        doFinal(): string;
 
         /**
          * performs final update on the digest using string, then completes the digest computation
          * @param str string to final update
          * @example
-         * mac.digestString('aaa')
+         * var mac = new KJUR.crypto.Mac({alg: "HmacSHA256", "pass": "pass"});
+         * mac.doFinalString("aaa") → "5737da..."
          */
-        doFinalString(str: string): void;
+        doFinalString(str: string): string;
 
         /**
-         * performs final update on the digest using hexadecimal string,
-         * then completes the digest computation
+         * performs final update on the digest using hexadecimal string, then completes the digest computation
          * @param hex hexadecimal string to final update
          * @example
-         * mac.digestHex('0f2abd')
+         * var mac = new KJUR.crypto.Mac({alg: "HmacSHA256", "pass": "pass"});
+         * mac.doFinalHex("616161") → "5737da..."
          */
-        doFinalHex(hex: string): void;
+        doFinalHex(hex: string): string;
 
         /**
          * set password for Mac

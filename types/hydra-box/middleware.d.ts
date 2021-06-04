@@ -3,7 +3,7 @@ import { Store } from 'rdf-js';
 import '@rdfjs/express-handler';
 import 'set-link';
 import 'absolute-url';
-import Api = require('./Api');
+import { Api } from './Api';
 import { ResourceLoader } from '.';
 
 declare namespace middleware {

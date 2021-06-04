@@ -1,5 +1,14 @@
 import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from 'video.js';
 
+// $ExpectType boolean
+window.HELP_IMPROVE_VIDEOJS;
+
+const videoElement = document.createElement('video');
+// $ExpectType VideoJsPlayer
+videojs(videoElement);
+
+const audioElement = document.createElement('audio');
+
 const playerOptions: VideoJsPlayerOptions = {
     autoplay: 'muted',
     bigPlayButton: false,
@@ -8,6 +17,7 @@ const playerOptions: VideoJsPlayerOptions = {
         playToggle: false,
         captionsButton: false,
         chaptersButton: false,
+        pictureInPictureToggle: audioElement.tagName !== 'AUDIO',
     },
     height: 10,
     loop: true,
@@ -35,6 +45,8 @@ const playerOptions: VideoJsPlayerOptions = {
             myOption: true,
         },
     },
+    fill: false,
+    responsive: false,
     sources: [
         {
             src: 'https://example.com/video.mp4',
@@ -148,6 +160,14 @@ videojs('example_video_1', playerOptions).ready(function() {
 
     const networkState: videojs.NetworkState = this.networkState();
 
+    const responsive: boolean = this.responsive();
+
+    this.responsive(false);
+
+    const fill: boolean = this.fill();
+
+    this.fill(false);
+
     testEvents(this);
 
     testComponents(this);
@@ -155,6 +175,8 @@ videojs('example_video_1', playerOptions).ready(function() {
     testPlugin(this, {});
 
     testLogger();
+
+    testMiddleware();
 });
 
 function testEvents(player: videojs.Player) {
@@ -255,4 +277,10 @@ function testLogger() {
 
     const currentLevel = videojs.log.level();
     videojs.log.level(videojs.log.levels.DEFAULT);
+}
+
+function testMiddleware() {
+    videojs.use('*', () => ({
+        setSource: (srcObj, next) => next(null, srcObj),
+    }));
 }

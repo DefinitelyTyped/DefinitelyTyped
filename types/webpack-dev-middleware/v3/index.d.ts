@@ -5,6 +5,7 @@
 //                 Chris Abrams <https://github.com/chrisabrams>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import * as webpack from 'webpack';
 import * as loglevel from 'loglevel';

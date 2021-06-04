@@ -36,9 +36,9 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number;
     wireframeLinecap?: string;
     wireframeLinejoin?: string;
-    skinning?: boolean;
     morphTargets?: boolean;
     morphNormals?: boolean;
+    flatShading?: boolean;
 }
 
 export class MeshPhongMaterial extends Material {
@@ -197,17 +197,19 @@ export class MeshPhongMaterial extends Material {
     /**
      * @default false
      */
-    skinning: boolean;
-
-    /**
-     * @default false
-     */
     morphTargets: boolean;
 
     /**
      * @default false
      */
     morphNormals: boolean;
+
+    /**
+     * Define whether the material is rendered with flat shading. Default is false.
+     * @default false
+     */
+    flatShading: boolean;
+
     /**
      * @deprecated Use {@link MeshStandardMaterial THREE.MeshStandardMaterial} instead.
      */

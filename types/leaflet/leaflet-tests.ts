@@ -45,7 +45,10 @@ let distance: number;
 distance = point.distanceTo(point);
 distance = point.distanceTo(pointTuple);
 
-const transformation = new L.Transformation(1, 2, 3, 4);
+let transformation: L.Transformation;
+transformation = new L.Transformation(1, 2, 3, 4);
+transformation = L.transformation(1, 2, 3, 4);
+transformation = L.transformation([1, 2, 3, 4]);
 point = transformation.transform(point);
 point = transformation.transform(point, 2);
 point = transformation.untransform(point);
@@ -64,6 +67,11 @@ bounds = new L.Bounds(pointTuple, pointTuple);
 bounds = new L.Bounds([point, point]);
 bounds = new L.Bounds(boundsLiteral);
 
+const topLeft = bounds.getTopLeft();
+const topRight = bounds.getTopRight();
+const bottomLeft = bounds.getBottomLeft();
+const bottomRight = bounds.getBottomRight();
+
 let points: L.Point[];
 points = L.LineUtil.simplify([point, point], 1);
 
@@ -73,6 +81,8 @@ point = L.LineUtil.closestPointOnSegment(point, point, point);
 
 points = L.PolyUtil.clipPolygon(points, bounds);
 points = L.PolyUtil.clipPolygon(points, bounds, true);
+
+L.LineUtil.clipSegment(point, point, bounds);
 
 let mapOptions: L.MapOptions = {};
 
@@ -355,7 +365,8 @@ videoOverlayOptions = {
     interactive: true,
     opacity: 100,
     autoplay: true,
-    loop: false
+    loop: false,
+    muted: true
 };
 
 const videoOverlayBounds = latLngBounds;
@@ -521,8 +532,11 @@ let nestedTwoCoords = [[12, 13], [13, 14], [14, 15]];
 const nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
 nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
 
-const geojsonOptions: L.GeoJSONOptions = { interactive: true, bubblingMouseEvents: false };
+const geojsonOptions: L.GeoJSONOptions = { interactive: true, bubblingMouseEvents: false, markersInheritOptions: true };
 const geojson = new L.GeoJSON(null, geojsonOptions);
+
+geojson.toGeoJSON();
+geojson.toGeoJSON(15);
 
 const style: L.PathOptions = {
     className: "string",
