@@ -272,6 +272,6 @@ function renderOutTestEmail() {
     // MjmlSocial
     {
         const minProps: React.ReactNode = <MjmlSocial />;
-        const maxProps: React.ReactNode = <MjmlSocial>child</MjmlSocial>;
+        const maxProps: React.ReactNode = <MjmlSocial cssClass="">child</MjmlSocial>;
     }
 }
