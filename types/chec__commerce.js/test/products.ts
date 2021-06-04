@@ -184,7 +184,7 @@ const variants: Products.VariantCollection = {
       price: null,
       is_valid: true,
       invalid_reason_code: null,
-      eta: null,
+      meta: null,
       created: 1617227299,
       updated: 1617227299,
       options: {
