@@ -13,6 +13,12 @@ export class RemarkableTest {
         md.render("# Remarkable rulezz!");
     }
 
+    presets() {
+        new Remarkable("commonmark");
+        new Remarkable("default");
+        new Remarkable("full");
+    }
+
     defineOptionsInContructor() {
         const md = new Remarkable({
             html: false,

@@ -252,6 +252,9 @@ const settings: TagifyConstructorSettings = {
     mixMode: {
         insertAfterTag: '\u00A0'
     },
+    a11y: {
+        focusableTags: true
+    },
     classNames: {
         namespace: 'tagify',
         mixMode: 'tagify--mix',
@@ -306,11 +309,13 @@ const settings: TagifyConstructorSettings = {
                 }
             });
         },
-        suggestionClick: e => {
+        suggestionClick: (e, data) => {
             if (e.target instanceof HTMLElement) {
                 const isAction = e.target.classList.contains('removeBtn');
-                const suggestionElm = e.target.closest('.tagify__dropdown__item');
-                const value = suggestionElm ? suggestionElm.getAttribute('value') : "";
+                const suggestionElm = data.suggestionElm;
+                if (data.tagData) {
+                    const value = data.tagData.value;
+                }
                 return new Promise((resolve, reject) => {
                     if (isAction) {
                         tagify.dropdown.refilter.call(tagify);
@@ -322,6 +327,9 @@ const settings: TagifyConstructorSettings = {
                 return Promise.resolve();
             }
         },
+        beforePaste: (e, data) => {
+            return Promise.resolve(data.pastedText.replace('foo', 'bar'));
+        }
     },
 };
 
@@ -391,11 +399,23 @@ new Tagify(inputElement, { mixTagsInterpolator: ["", "", ""] });
 // $ExpectError
 new Tagify(inputElement, { mixTagsInterpolator: [""] });
 
+new Tagify<TagData>(inputElement, { tagTextProp: "foobar" });
+new Tagify<MyTagData>(inputElement, { tagTextProp: "active" });
+// $ExpectError
+new Tagify<MyTagData>(inputElement, { tagTextProp: "foobar" });
+
 const tagArray: TagData[] = tagify.value;
 const scopeEl: HTMLElement = tagify.DOM.scope;
 const spanEl: HTMLSpanElement = tagify.DOM.input;
 const dropdownEl: HTMLDivElement = tagify.DOM.dropdown;
 const inputEl: HTMLInputElement | HTMLTextAreaElement = tagify.DOM.originalInput;
+
+if (tagify.suggestedListItems !== undefined) {
+    const item: TagData = tagify.suggestedListItems[0];
+}
+if (typedTagify.suggestedListItems !== undefined) {
+    const item: MyTagData = typedTagify.suggestedListItems[0];
+}
 
 // $ExpectType Tagify<TagData>
 tagify.on('add', (event) => { });
@@ -807,6 +827,8 @@ tagify.getTagElms();
 tagify.getTagElms('blue', 'green');
 
 // $ExpectType string
+tagify.getInputValue();
+// $ExpectType string
 tagify.getMixedTagsAsString();
 
 // $ExpectType HTMLElement | undefined
@@ -893,9 +915,10 @@ tagify.dropdown.refilter.call(this, "filter value");
 
 tagify.removeAllTags();
 tagify.removeAllTags({});
-tagify.removeAllTags({withoutChangeEvent: false});
-tagify.removeAllTags({withoutChangeEvent: true});
+tagify.removeAllTags({ withoutChangeEvent: false });
+tagify.removeAllTags({ withoutChangeEvent: true });
+tagify.getCleanValue();
 tagify.update();
 tagify.update({});
-tagify.update({withoutChangeEvent: true});
+tagify.update({ withoutChangeEvent: true });
 tagify.destroy();

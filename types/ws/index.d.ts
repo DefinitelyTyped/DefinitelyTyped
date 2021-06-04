@@ -1,12 +1,12 @@
 // Type definitions for ws 7.4
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
-//                 Matt Silverlock <https://github.com/elithrar>
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 reduckted <https://github.com/reduckted>
 //                 teidesu <https://github.com/teidesu>
 //                 Bartosz Wojtkowiak <https://github.com/wojtkowiak>
+//                 Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -22,22 +22,35 @@ import { SecureContextOptions } from 'tls';
 
 // WebSocket socket.
 declare class WebSocket extends events.EventEmitter {
-    static CONNECTING: number;
-    static OPEN: number;
-    static CLOSING: number;
-    static CLOSED: number;
+    /** The connection is not yet open. */
+    static CONNECTING: 0;
+    /** The connection is open and ready to communicate. */
+    static OPEN: 1;
+    /** The connection is in the process of closing. */
+    static CLOSING: 2;
+    /** The connection is closed. */
+    static CLOSED: 3;
 
     binaryType: string;
     bufferedAmount: number;
     extensions: string;
     protocol: string;
-    readyState: number;
+    /** The current state of the connection */
+    readyState:
+        | typeof WebSocket.CONNECTING
+        | typeof WebSocket.OPEN
+        | typeof WebSocket.CLOSING
+        | typeof WebSocket.CLOSED;
     url: string;
 
-    CONNECTING: number;
-    OPEN: number;
-    CLOSING: number;
-    CLOSED: number;
+    /** The connection is not yet open. */
+    CONNECTING: 0;
+    /** The connection is open and ready to communicate. */
+    OPEN: 1;
+    /** The connection is in the process of closing. */
+    CLOSING: 2;
+    /** The connection is closed. */
+    CLOSED: 3;
 
     onopen: (event: WebSocket.OpenEvent) => void;
     onerror: (event: WebSocket.ErrorEvent) => void;
@@ -91,6 +104,24 @@ declare class WebSocket extends events.EventEmitter {
     on(event: 'ping' | 'pong', listener: (this: WebSocket, data: Buffer) => void): this;
     on(event: 'unexpected-response', listener: (this: WebSocket, request: http.ClientRequest, response: http.IncomingMessage) => void): this;
     on(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
+
+    once(event: 'close', listener: (this: WebSocket, code: number, reason: string) => void): this;
+    once(event: 'error', listener: (this: WebSocket, err: Error) => void): this;
+    once(event: 'upgrade', listener: (this: WebSocket, request: http.IncomingMessage) => void): this;
+    once(event: 'message', listener: (this: WebSocket, data: WebSocket.Data) => void): this;
+    once(event: 'open' , listener: (this: WebSocket) => void): this;
+    once(event: 'ping' | 'pong', listener: (this: WebSocket, data: Buffer) => void): this;
+    once(event: 'unexpected-response', listener: (this: WebSocket, request: http.ClientRequest, response: http.IncomingMessage) => void): this;
+    once(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
+
+    off(event: 'close', listener: (this: WebSocket, code: number, reason: string) => void): this;
+    off(event: 'error', listener: (this: WebSocket, err: Error) => void): this;
+    off(event: 'upgrade', listener: (this: WebSocket, request: http.IncomingMessage) => void): this;
+    off(event: 'message', listener: (this: WebSocket, data: WebSocket.Data) => void): this;
+    off(event: 'open' , listener: (this: WebSocket) => void): this;
+    off(event: 'ping' | 'pong', listener: (this: WebSocket, data: Buffer) => void): this;
+    off(event: 'unexpected-response', listener: (this: WebSocket, request: http.ClientRequest, response: http.IncomingMessage) => void): this;
+    off(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
 
     addListener(event: 'close', listener: (code: number, message: string) => void): this;
     addListener(event: 'error', listener: (err: Error) => void): this;
@@ -257,7 +288,7 @@ declare namespace WebSocket {
         off(event: 'close' | 'listening', cb: (this: Server) => void): this;
         off(event: string | symbol, listener: (this: Server, ...args: any[]) => void): this;
 
-        addListener(event: 'connection', cb: (client: WebSocket) => void): this;
+        addListener(event: 'connection', cb: (client: WebSocket, request: http.IncomingMessage) => void): this;
         addListener(event: 'error', cb: (err: Error) => void): this;
         addListener(event: 'headers', cb: (headers: string[], request: http.IncomingMessage) => void): this;
         addListener(event: 'close' | 'listening', cb: () => void): this;

@@ -27,3 +27,9 @@ css.addRule('.color-white', { color: 'white' });
 
 css.closeBlocks();
 css.getOutput();
+
+if (css instanceof Generator) {
+    css; // $ExpectType Generator
+}
+// $ExpectError
+new Generator();

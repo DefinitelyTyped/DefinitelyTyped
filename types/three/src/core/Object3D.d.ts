@@ -310,6 +310,11 @@ export class Object3D extends EventDispatcher {
     remove(...object: Object3D[]): this;
 
     /**
+     * Removes this object from its current parent.
+     */
+    removeFromParent(): this;
+
+    /**
      * Removes all child objects.
      */
     clear(): this;
@@ -360,7 +365,7 @@ export class Object3D extends EventDispatcher {
 
     toJSON(meta?: { geometries: any; materials: any; textures: any; images: any }): any;
 
-    clone(recursive?: boolean): Object3D;
+    clone(recursive?: boolean): this;
 
     /**
      *

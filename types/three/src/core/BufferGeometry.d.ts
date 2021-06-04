@@ -2,10 +2,12 @@ import { BufferAttribute } from './BufferAttribute';
 import { Box3 } from './../math/Box3';
 import { Sphere } from './../math/Sphere';
 import { Matrix4 } from './../math/Matrix4';
+import { Quaternion } from './../math/Quaternion';
 import { Vector2 } from './../math/Vector2';
 import { Vector3 } from './../math/Vector3';
 import { EventDispatcher } from './EventDispatcher';
 import { InterleavedBufferAttribute } from './InterleavedBufferAttribute';
+import { BuiltinShaderAttributeName } from '../constants';
 
 /**
  * This is a superefficent class for geometries because it saves all data in buffers.
@@ -91,10 +93,13 @@ export class BufferGeometry extends EventDispatcher {
     getIndex(): BufferAttribute | null;
     setIndex(index: BufferAttribute | number[] | null): BufferGeometry;
 
-    setAttribute(name: string, attribute: BufferAttribute | InterleavedBufferAttribute): BufferGeometry;
-    getAttribute(name: string): BufferAttribute | InterleavedBufferAttribute;
-    deleteAttribute(name: string): BufferGeometry;
-    hasAttribute(name: string): boolean;
+    setAttribute(
+        name: BuiltinShaderAttributeName | (string & {}),
+        attribute: BufferAttribute | InterleavedBufferAttribute,
+    ): BufferGeometry;
+    getAttribute(name: BuiltinShaderAttributeName | (string & {})): BufferAttribute | InterleavedBufferAttribute;
+    deleteAttribute(name: BuiltinShaderAttributeName | (string & {})): BufferGeometry;
+    hasAttribute(name: BuiltinShaderAttributeName | (string & {})): boolean;
 
     addGroup(start: number, count: number, materialIndex?: number): void;
     clearGroups(): void;
@@ -105,6 +110,7 @@ export class BufferGeometry extends EventDispatcher {
      * Bakes matrix transform directly into vertex coordinates.
      */
     applyMatrix4(matrix: Matrix4): BufferGeometry;
+    applyQuaternion(q: Quaternion): BufferGeometry;
 
     rotateX(angle: number): BufferGeometry;
     rotateY(angle: number): BufferGeometry;

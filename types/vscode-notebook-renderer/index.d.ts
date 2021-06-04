@@ -1,61 +1,143 @@
-// Type definitions for non-npm package vscode-notebook-renderer 1.55
+// Type definitions for non-npm package vscode-notebook-renderer 1.57
 // Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
 // Definitions by: Connor Peet <https://github.com/connor4312>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
-// todo: update "Project" link above to docs site, once it becomes available
+import { VSCodeEvent } from './events';
 
-export interface Disposable {
-    dispose(): void;
-}
+/**
+ * Information about a rendered cell output.
+ */
+export interface OutputItem {
+    /**
+     * Unique id of the output item.
+     */
+    readonly id: string;
 
-export interface VSCodeEvent<T> {
-    (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
+    /**
+     * Mime type being rendered.
+     */
+    readonly mime: string;
+
+    /**
+     * The data as text. Note that a UTF-8 decoder is used is create
+     * the string from the underlying bytes.
+     */
+    text(): string;
+
+    /**
+     * The data as object - parsed from JSON. Note that this will
+     * throw an error when the underlying data is not a valid JSON string.
+     */
+    json(): any;
+
+    /**
+     * The data as bytes.
+     */
+    data(): Uint8Array;
+
+    /**
+     * The data as blob. The blob-type will be initialized the `mime`
+     * of this object.
+     */
+    blob(): Blob;
+
+    /**
+     * Output item metadata.
+     */
+    readonly metadata: unknown;
 }
 
 /**
- * Notebook output event -- a supertype of the `NotebookCellOutputItem` in the VS Code types.
+ * Collection of APIs provided to your renderer.
+ *
+ * @template TState Type of the renderer specific state persisted in the webview.
  */
-export interface NotebookOutputEventParams  {
-    readonly element: HTMLElement;
-    readonly outputId: string;
+export interface RendererContext<TState> {
+    /**
+     * Sets renderer-specific state that is persisted in the webview.
+     */
+    setState(value: TState): void;
 
-    readonly mime: string;
-    readonly value: any;
-    readonly metadata?: Record<string, any>;
+    /**
+     * Gets any previously set renderer-specific state.
+     * @see RendererContext.setState
+     */
+    getState(): TState | undefined;
+
+    /**
+     * Retrieve the API of another renderer.
+     *
+     * This allows the current renderer to extend another renderer.
+     *
+     * @param id Id of the renderer to retrieve. This is the `id` of the `notebookRenderer` contribution in
+     * the target renderer's `package.json`.
+     *
+     * @return The API of the requested renderer. This is the object returned from its `activate` method. Returns
+     * `undefined` if the requested renderer cannot be found.
+     */
+    getRenderer(id: string): Promise<RendererApi | undefined>;
+
+    /**
+     * Method that may be present if `requiresMessaging` is set to `true`
+     * or `optional` in the renderer contribution point.
+     *
+     * Sends a message to a renderer listening via the `vscode.notebook.createRendererMessaging`
+     * object in the extension host.
+     */
+    postMessage?(message: unknown): void;
+
+    /**
+     * Event that may be present if `requiresMessaging` is set to `true`
+     * or `optional` in the renderer contribution point.
+     *
+     * Fires when a message is sent via the `vscode.notebook.createRendererMessaging`
+     * object in the extension host.
+     */
+    onDidReceiveMessage?: VSCodeEvent<any>;
 }
 
-export interface NotebookRendererApi<T> {
-    setState(value: T): void;
-    getState(): T | undefined;
+/**
+ * API returned by your renderer. This is invoked by the editor to manage the lifecycle of rendered output items.
+ */
+export interface RendererApi {
+    /**
+     * Called by the editor to render an output item.
+     *
+     * This is invoked by the editor when an output item is first renderered or when
+     * the output item is updated.
+     *
+     * @param outputItem Output item to render.
+     * @param element Html element to render into.
+     */
+    renderOutputItem(outputItem: OutputItem, element: HTMLElement): void;
 
     /**
-     * Sends a message to the renderer extension code. Can be received in
-     * the `onDidReceiveMessage` event in `NotebookCommunication`.
+     * Called by the editor when a previously-rendered output item is being disposed of.
+     *
+     * Your renderer should implement this if you need to clean up anything that was registered
+     * during `renderOutputItem`. This would include global event listeners or any HTML elements outside of the
+     * output item's node.
+     *
+     * @param id The id of the item being removed. If `undefined`, all cells are being removed.
      */
-    postMessage(msg: unknown): void;
+    disposeOutputItem?(id?: string): void;
 
     /**
-     * Fired before an output is destroyed, with its output ID, or undefined if
-     * all cells are about to unmount.
+     * Additional properties may be returned for others to consume in
+     * {@link RendererContext.getRenderer}.
+     *
+     * This lets your renderer expose hooks that other renderers can use to extend its behavior.
+     * For example,
      */
-    onWillDestroyOutput: VSCodeEvent<{ outputId: string } | undefined>;
-
-    /**
-     * Fired when an output is rendered. The `outputId` provided is the same
-     * as the one given in `NotebookOutputRenderer.render` in the extension
-     * API, and `onWillDestroyOutput`.
-     */
-    onDidCreateOutput: VSCodeEvent<NotebookOutputEventParams>;
-
-    /**
-     * Called when the renderer uses `postMessage` on the NotebookCommunication
-     * instance for this renderer.
-     */
-    onDidReceiveMessage: VSCodeEvent<any>;
+    [key: string]: unknown;
 }
 
-declare global {
-    function acquireNotebookRendererApi(rendererId: string): NotebookRendererApi<any>;
-}
+/**
+ * Describes the function that should be exported as `activate` from your
+ * renderer entrypoint.
+ *
+ * @template TState Type of the renderer specific state persisted in the webview.
+ */
+export type ActivationFunction<TState = any> = (context: RendererContext<TState>) => RendererApi;

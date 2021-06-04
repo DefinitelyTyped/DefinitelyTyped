@@ -8,6 +8,7 @@ export interface Options {
     className?: string;
     label?: string | HTMLElement;
     tipLabel?: string;
+    compassClassName?: string;
     duration?: number;
     autoHide?: boolean;
     render?: (p0: MapEvent) => void;

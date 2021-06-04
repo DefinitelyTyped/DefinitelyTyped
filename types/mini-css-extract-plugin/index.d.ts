@@ -1,11 +1,14 @@
-// Type definitions for mini-css-extract-plugin 1.2
+// Type definitions for mini-css-extract-plugin 1.4
 // Project: https://github.com/webpack-contrib/mini-css-extract-plugin
 // Definitions by: JounQin <https://github.com/JounQin>
 //                 Katsuya Hino <https://github.com/dobogo>
 //                 Spencer Miskoviak <https://github.com/skovy>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
+/// <reference types="node" />
 import { Configuration, Compiler } from 'webpack';
 
 /**
@@ -39,7 +42,7 @@ declare namespace MiniCssExtractPlugin {
         /**
          * Works like [`output.chunkFilename`](https://webpack.js.org/configuration/output/#outputchunkfilename).
          */
-        chunkFilename?: string;
+        chunkFilename?: Required<Configuration>['output']['chunkFilename'];
         /**
          * For projects where CSS ordering has been mitigated through consistent
          * use of scoping or naming conventions, the CSS order warnings can be
@@ -75,6 +78,12 @@ declare namespace MiniCssExtractPlugin {
          * @default 'text/css'
          */
         linkType?: string | false | 'text/css';
+
+        /**
+         * Use an experimental webpack API to execute modules instead of child compilers
+         * @default false
+         */
+        experimentalUseImportModule?: boolean;
     }
     interface LoaderOptions {
         /**
@@ -83,12 +92,23 @@ declare namespace MiniCssExtractPlugin {
          */
         publicPath?: string | ((resourcePath: string, context: string) => string);
         /**
+         * If false, the plugin will extract the CSS but **will not** emit the file
+         * @default true
+         */
+        emit?: boolean;
+        /**
          * By default, `mini-css-extract-plugin` generates JS modules that use the ES modules syntax.
          * There are some cases in which using ES modules is beneficial,
          * like in the case of module concatenation and tree shaking.
          * @default true
          */
         esModule?: boolean;
+
+        /**
+         * Layer of the css execution
+         */
+        layer?: string;
+
         modules?: {
             /**
              * Enables/disables ES modules named export for locals.

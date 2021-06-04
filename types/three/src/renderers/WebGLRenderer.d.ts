@@ -197,16 +197,6 @@ export class WebGLRenderer implements Renderer {
      */
     toneMappingExposure: number;
 
-    /**
-     * @default 8
-     */
-    maxMorphTargets: number;
-
-    /**
-     * @default 4
-     */
-    maxMorphNormals: number;
-
     info: WebGLInfo;
 
     shadowMap: WebGLShadowMap;
@@ -286,12 +276,12 @@ export class WebGLRenderer implements Renderer {
     /**
      * Sets the custom opaque sort function for the WebGLRenderLists. Pass null to use the default painterSortStable function.
      */
-    setOpaqueSort(method: () => void): void;
+    setOpaqueSort(method: (a: any, b: any) => number): void;
 
     /**
      * Sets the custom transparent sort function for the WebGLRenderLists. Pass null to use the default reversePainterSortStable function.
      */
-    setTransparentSort(method: () => void): void;
+    setTransparentSort(method: (a: any, b: any) => number): void;
 
     /**
      * Returns a THREE.Color instance with the current clear color.
@@ -376,14 +366,6 @@ export class WebGLRenderer implements Renderer {
      * Returns the current active mipmap level.
      */
     getActiveMipmapLevel(): number;
-
-    /**
-     * Sets the given WebGLFramebuffer. This method can only be used if no render target is set via
-     * {@link WebGLRenderer#setRenderTarget .setRenderTarget}.
-     *
-     * @param value The WebGLFramebuffer.
-     */
-    setFramebuffer(value: WebGLFramebuffer): void;
 
     /**
      * Returns the current render target. If no render target is set, null is returned.

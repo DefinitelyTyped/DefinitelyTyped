@@ -52,8 +52,14 @@ lookupAttribute.addPreSearch(() => { alert("A search was performed."); });
 const lookupValues = lookupAttribute.getAttribute().getValue();
 
 if (lookupValues !== null)
-    if (!lookupValues[0].id || !lookupValues[0].entityType)
+    if (lookupValues[0].id || lookupValues[0].entityType)
         throw new Error("Invalid value in Lookup control.");
+
+lookupAttribute.getAttribute().setValue(null);
+lookupAttribute.getAttribute().setValue([{
+    entityType: "contact",
+    id: "b9a1a53f-bc38-4e80-9fbb-fe51caa7df65"
+}]);
 
 /// Demonstrate v7.0 BPF API
 
@@ -270,4 +276,71 @@ async function xrmNavigation() {
         details: "",
         errorCode: 12344,
     }));
+}
+
+// Demonstrate addOnLoad/removeOnLoad methods
+const saveOptionsSaveMode = (context: Xrm.Events.SaveEventContext) => {
+    const saveMode = context.getEventArgs().getSaveMode();
+    context.getFormContext().data.save({
+        saveMode
+    });
+};
+
+// Demonstrate addOnLoad/removeOnLoad methods
+const formContextDataOnLoadMethods = (context: Xrm.Events.EventContext) => {
+    const formContext = context.getFormContext();
+    formContext.data.addOnLoad(contextHandler);
+    formContext.data.removeOnLoad(contextHandler);
+};
+
+// Demonstrate Xrm.Utility.lookupObjects parameters
+Xrm.Utility.lookupObjects({
+    entityTypes: ["contact"]
+});
+
+// filters property
+Xrm.Utility.lookupObjects({
+    entityTypes: ["contact"],
+    filters: [{
+        entityLogicalName: "contact",
+        filterXml: `<filter>
+            <condition attribute="contactid" operator="neq" value="b9a1a53f-bc38-4e80-9fbb-fe51caa7df65"
+        </filter>`
+    }]
+});
+
+// searchText property
+Xrm.Utility.lookupObjects({
+    entityTypes: ["contact"],
+    searchText: "Doe, John"
+});
+
+// disableMru property
+Xrm.Utility.lookupObjects({
+    entityTypes: ["contact"],
+    disableMru: true
+});
+
+// Demonstrate Xrm.Utility.getPageContext parameters
+Xrm.Utility.getPageContext(); // $ExpectType PageContext
+
+// Demonstrate visibility for grid control
+const gridControlGetSetVisible = (context: Xrm.Events.EventContext) => {
+    const formContext = context.getFormContext();
+    const gridControl = formContext.getControl<Xrm.Controls.GridControl>("myGrid");
+
+    // getVisible
+    const visibility = gridControl.getVisible();
+
+    // setVisible
+    gridControl.setVisible(!visibility);
+};
+
+async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEntity: Xrm.EntityReference) {
+    if (commandProperties.SourceControlId === "AddExistingRecordFromSubGridAssociated") {
+        await Promise.resolve(Xrm.Navigation.openAlertDialog({
+            title: `${commandProperties.CommandValueId}`,
+            text: `Thanks for clicking on ${primaryEntity.Name} of type ${primaryEntity.TypeName} and id ${primaryEntity.Id}`,
+        }));
+    }
 }

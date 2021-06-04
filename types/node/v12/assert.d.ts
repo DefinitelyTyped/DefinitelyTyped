@@ -1,8 +1,3 @@
-declare module 'node:assert' {
-    import assert = require('assert');
-    export = assert;
-}
-
 declare module 'assert' {
     function assert(value: any, message?: string | Error): asserts value;
     namespace assert {

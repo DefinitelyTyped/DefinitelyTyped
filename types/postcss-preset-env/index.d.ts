@@ -51,7 +51,7 @@ declare namespace postcssPresetEnv {
          *
          * @default default
          */
-        browsers?: string;
+        browsers?: string | string[];
 
         /**
          * The `insertAfter` keys allow you to insert other PostCSS plugins

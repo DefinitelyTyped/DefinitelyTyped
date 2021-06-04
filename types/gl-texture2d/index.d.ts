@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import ndarray = require("ndarray");
+import { NdArray } from "ndarray";
 
 type GLenum = number;
 
@@ -31,15 +31,16 @@ declare class Texture {
     bind(id?: number): number;
     dispose(): void;
     generateMipmap(): void;
-    setPixels(data: InputType | RawObject | ndarray, offset?: [number, number], mipLevel?: GLenum): void;
+    setPixels(data: InputType | RawObject | NdArray, offset?: [number, number], mipLevel?: GLenum): void;
 }
 
-declare function texture2d(gl: WebGLRenderingContext, array: ndarray): Texture;
+declare function texture2d(gl: WebGLRenderingContext, array: NdArray): Texture;
 
 declare function texture2d(
     gl: WebGLRenderingContext,
     input: InputType | RawObject | [number, number],
     format?: GLenum,
-    type?: GLenum): Texture;
+    type?: GLenum,
+): Texture;
 
 export = texture2d;

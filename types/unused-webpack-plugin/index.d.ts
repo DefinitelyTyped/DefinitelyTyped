@@ -2,7 +2,7 @@
 // Project: https://github.com/MatthieuLemoine/unused-webpack-plugin#readme
 // Definitions by: Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.7
 
 import { WebpackPluginInstance, Compiler } from 'webpack';
 

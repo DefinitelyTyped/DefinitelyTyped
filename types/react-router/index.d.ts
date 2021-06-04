@@ -91,7 +91,7 @@ export interface RouteProps<
     component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
     render?: (props: RouteComponentProps<Params>) => React.ReactNode;
     children?: ((props: RouteChildrenProps<Params>) => React.ReactNode) | React.ReactNode;
-    path?: Path | Path[];
+    path?: Path | readonly Path[];
     exact?: boolean;
     sensitive?: boolean;
     strict?: boolean;
@@ -149,10 +149,14 @@ export type ExtractRouteOptionalParam<T extends string, U = string | number | bo
 
 export type ExtractRouteParams<T extends string, U = string | number | boolean> = string extends T
     ? { [k in string]?: U }
-    : T extends `${infer _Start}:${infer Param}/${infer Rest}`
-    ? ExtractRouteOptionalParam<Param, U> & ExtractRouteParams<Rest, U>
-    : T extends `${infer _Start}:${infer Param}`
-    ? ExtractRouteOptionalParam<Param, U>
+    : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}/${infer Rest}`
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
+      ? ExtractRouteOptionalParam<Param, U> & ExtractRouteParams<Rest, U>
+      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U> & ExtractRouteParams<Rest, U>
+    : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}`
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
+      ? ExtractRouteOptionalParam<Param, U>
+      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U>
     : {};
 
 export function generatePath<S extends string>(path: S, params?: ExtractRouteParams<S>): string;

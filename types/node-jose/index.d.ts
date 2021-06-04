@@ -91,17 +91,16 @@ export namespace JWA {
 }
 
 export namespace JWE {
+    interface EncryptOptions {
+        format?: 'general' | 'compact' | 'flattened';
+        zip?: boolean | 'DEF';
+        fields?: object;
+        contentAlg?: string;
+        protect?: string | string[];
+    }
+
     function createEncrypt(keys: JWK.Key | JWK.Key[]): Encryptor;
-    function createEncrypt(
-        options: {
-            format?: 'general' | 'compact' | 'flattened';
-            zip?: boolean | 'DEF';
-            fields?: object;
-            contentAlg?: string;
-            protect?: string | string[];
-        },
-        key: JWK.Key
-    ): Encryptor;
+    function createEncrypt(options: EncryptOptions, key: JWK.Key): Encryptor;
 
     function createDecrypt(key: JWK.Key | JWK.KeyStore, opts?: any): Decryptor;
 
@@ -266,16 +265,15 @@ export namespace JWK {
 }
 
 export namespace JWS {
+    interface SignOptions {
+        format?: 'compact' | 'flattened';
+        alg?: string;
+        compact?: boolean;
+        fields?: object;
+    }
+
     function createSign(keys: JWK.Key | JWK.Key[]): Signer;
-    function createSign(
-        options: {
-            format?: 'compact' | 'flattened';
-            alg?: string;
-            compact?: boolean;
-            fields?: object;
-        },
-        key: JWK.Key | JWK.Key[]
-    ): Signer;
+    function createSign(options: SignOptions, key: JWK.Key | JWK.Key[]): Signer;
 
     /**
      * Using a keystore.

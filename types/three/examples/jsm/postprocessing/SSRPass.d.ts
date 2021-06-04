@@ -11,7 +11,7 @@ import {
     Mesh,
     Material,
 } from '../../../src/Three';
-import { Pass } from '../postprocessing/Pass';
+import { Pass, FullScreenQuad } from '../postprocessing/Pass';
 import { Reflector } from '../objects/ReflectorForSSRPass';
 
 export interface SSRPassParams {
@@ -39,17 +39,17 @@ export class SSRPass extends Pass {
     opacity: number;
     output: number;
     maxDistance: number;
-    surfDist: number;
+    thickness: number;
     encoding: TextureEncoding;
     tempColor: Color;
 
     get selects(): Mesh[] | null;
     set selects(val: Mesh[] | null);
-    isSelective: boolean;
+    selective: boolean;
     get isBouncing(): boolean;
     set isBouncing(val: boolean);
 
-    isBlur: boolean;
+    blur: boolean;
 
     get isDistanceAttenuation(): boolean;
     set isDistanceAttenuation(val: boolean);
@@ -84,7 +84,7 @@ export class SSRPass extends Pass {
 
     copyMaterial: ShaderMaterial;
 
-    fsQuad: Pass.FullScreenQuad;
+    fsQuad: FullScreenQuad;
 
     originalClearColor: Color;
 

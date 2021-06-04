@@ -18,9 +18,9 @@ declare namespace Verifier {
         const Constructor: typeof Verifier;
     }
 
-    function parser(options?: VerifierOptions): Verifier;
+    function verifier(options?: VerifierOptions): Verifier;
 
-    namespace parser {
+    namespace verifier {
         type Constructor = Verifier;
         const Constructor: typeof Verifier;
     }

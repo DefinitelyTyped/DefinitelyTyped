@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-model 1.12
+// Type definitions for prosemirror-model 1.13
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -270,6 +270,13 @@ export interface ParseRule {
      * constructing a parser, the order of the rule array is used.
      */
     priority?: number | null;
+    /**
+     * By default, when a rule matches an element or style, no further
+     * rules get a chance to match it. By setting this to false,
+     * you indicate that even when this rule matches, other rules
+     * that come after it should also run.
+     */
+    consuming?: boolean | null;
     /**
      * When given, restricts this rule to only match when the current
      * context—the parent nodes into which the content is being

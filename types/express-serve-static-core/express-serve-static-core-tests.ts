@@ -8,7 +8,8 @@ app.listen(3000, () => {
 
 app.get('/:foo', req => {
     req.params.foo; // $ExpectType string
-    req.params[0]; // $ExpectType string
+    req.params.bar; // $ExpectError
+    req.params[0]; // $ExpectError
     // $ExpectType string | false | null
     req.is(['application/json', 'application/xml']);
     // $ExpectType string | false | null
@@ -19,7 +20,8 @@ app.get('/:foo', req => {
 
 app.route('/:foo').get(req => {
     req.params.foo; // $ExpectType string
-    req.params[0]; // $ExpectType string
+    req.params.bar; // $ExpectError
+    req.params[0]; // $ExpectError
     // $ExpectType string | false | null
     req.is(['application/json', 'application/xml']);
     // $ExpectType string | false | null
@@ -41,7 +43,7 @@ app.route('/*').get<express.ParamsArray>(req => {
 });
 
 // Params can be a custom type
-// NB. out-of-the-box all params are strings, however, other types are allowed to accomadate request validation/coersion middleware
+// NB. out-of-the-box all params are strings, however, other types are allowed to accommodate request validation/coercion middleware
 app.get<{ foo: string; bar: number }>('/:foo/:bar', req => {
     req.params.foo; // $ExpectType string
     req.params.bar; // $ExpectType number
@@ -94,7 +96,7 @@ app.get('/nextroute', (req, res, next) => {
 
 // Default types
 app.post('/', (req, res) => {
-    req.params[0]; // $ExpectType string
+    req.params[0]; // $ExpectError
 
     req.body; // $ExpectType any
     res.send('ok'); // $ExpectType Response<any, Record<string, any>, number>
@@ -102,6 +104,22 @@ app.post('/', (req, res) => {
 
 // Default types - under route
 app.route('/').post((req, res) => {
+    req.params[0]; // $ExpectError
+
+    req.body; // $ExpectType any
+    res.send('ok'); // $ExpectType Response<any, Record<string, any>, number>
+});
+
+// Default types - not using RouteParameters
+app.post('/' as string, (req, res) => {
+    req.params[0]; // $ExpectType string
+
+    req.body; // $ExpectType any
+    res.send('ok'); // $ExpectType Response<any, Record<string, any>, number>
+});
+
+// Default types - not using RouteParameters - under route
+app.route('/' as string).post((req, res) => {
     req.params[0]; // $ExpectType string
 
     req.body; // $ExpectType any

@@ -15,6 +15,8 @@ const clusterOptions: OSS.ClusterOptions = {
 
 const clusterClient = new OSS.Cluster(clusterOptions);
 
+clusterClient.deleteMulti(["cluster"], { quiet: true });
+
 const imageOptions: OSS.ImageClientOptions = {
     imageHost: 'xxxx',
     accessKeyId: 'xxxx',

@@ -11,6 +11,6 @@ interface Options {
     recursive?: true | false;
 }
 
-declare function requireAll(options: Options): {[key: string]: any};
+declare function requireAll(options: string | Options): {[key: string]: any};
 
 export = requireAll;

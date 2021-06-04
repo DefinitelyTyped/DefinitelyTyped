@@ -121,7 +121,7 @@ function renderOutTestEmail() {
 {
     const minProps: React.ReactNode = <MjmlBody />;
     const maxProps: React.ReactNode = (
-        <MjmlBody cssClass="" width={1} backgroundColor="">
+        <MjmlBody cssClass="" mjClass="" width={1} backgroundColor="">
             child
         </MjmlBody>
     );
@@ -272,6 +272,6 @@ function renderOutTestEmail() {
     // MjmlSocial
     {
         const minProps: React.ReactNode = <MjmlSocial />;
-        const maxProps: React.ReactNode = <MjmlSocial>child</MjmlSocial>;
+        const maxProps: React.ReactNode = <MjmlSocial cssClass="">child</MjmlSocial>;
     }
 }

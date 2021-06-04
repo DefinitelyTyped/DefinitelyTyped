@@ -1,4 +1,4 @@
-import events = require('node:events');
+import events = require('events');
 
 const emitter: events = new events.EventEmitter();
 declare const listener: (...args: any[]) => void;
@@ -87,6 +87,7 @@ async function test() {
     for await (const e of events.on(new events.EventEmitter(), 'test')) {
         console.log(e);
     }
+    events.on(new events.EventEmitter(), 'test', { signal: new AbortController().signal });
 }
 
 {

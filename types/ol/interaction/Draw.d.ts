@@ -23,7 +23,7 @@ import PointerInteraction from './Pointer';
  * geometry is the geometry that is returned when the function is called without
  * a second argument.
  */
-export type GeometryFunction = (p0: SketchCoordType, p1?: SimpleGeometry, p2?: Projection) => SimpleGeometry;
+export type GeometryFunction = (p0: SketchCoordType, p1: SimpleGeometry, p2: Projection) => SimpleGeometry;
 /**
  * Coordinate type when drawing lines.
  */
@@ -74,7 +74,7 @@ export default class Draw extends PointerInteraction {
      * Append coordinates to the end of the geometry that is currently being drawn.
      * This can be used when drawing LineStrings or Polygons. Coordinates will
      * either be appended to the current LineString or the outer ring of the current
-     * Polygon.
+     * Polygon. If no geometry is being drawn, a new one will be created.
      */
     appendCoordinates(coordinates: LineCoordType): void;
     /**
@@ -109,7 +109,8 @@ export default class Draw extends PointerInteraction {
      */
     handleUpEvent(event: MapBrowserEvent<UIEvent>): boolean;
     /**
-     * Remove last point of the feature currently being drawn.
+     * Remove last point of the feature currently being drawn. Does not do anything when
+     * drawing POINT or MULTI_POINT geometries.
      */
     removeLastPoint(): void;
     /**
@@ -143,7 +144,7 @@ export default class Draw extends PointerInteraction {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-declare class DrawEvent extends BaseEvent {
+export class DrawEvent extends BaseEvent {
     constructor(type: DrawEventType, feature: Feature<Geometry>);
     /**
      * The feature being drawn.
@@ -158,7 +159,7 @@ declare class DrawEvent extends BaseEvent {
 export function createBox(): GeometryFunction;
 /**
  * Create a geometryFunction for type: 'Circle' that will create a regular
- * polygon with a user specified number of sides and start angle instead of an
+ * polygon with a user specified number of sides and start angle instead of a
  * module:ol/geom/Circle~Circle geometry.
  */
 export function createRegularPolygon(opt_sides?: number, opt_angle?: number): GeometryFunction;

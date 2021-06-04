@@ -38,9 +38,8 @@ rename({
         suffix: '-${hash}'
     });
 
-rename.parse();                 // $ExpectError
-rename.parse({});               // $ExpectError
-rename.parse("p.js");
+rename.parse("p.js"); // $ExpectType ParsedFileObject
+rename.parse({ dirname: '.'}); // $ExpectType ParsedFileObject
 
 rename.stringify();             // $ExpectError
 

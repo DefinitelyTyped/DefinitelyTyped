@@ -197,18 +197,6 @@ declare class EventEmitter {
     addListener(eventType: string, listener: (...args: any[]) => any, context?: any): EmitterSubscription;
 
     /**
-     * Similar to addListener, except that the listener is removed after it is
-     * invoked once.
-     *
-     * @param eventType - Name of the event to listen to
-     * @param listener - Function to invoke only once when the
-     *   specified event is emitted
-     * @param context - Optional context object to use when invoking the
-     *   listener
-     */
-    once(eventType: string, listener: (...args: any[]) => any, context: any): EmitterSubscription;
-
-    /**
      * Removes all of the registered listeners, including those registered as
      * listener maps.
      *
@@ -218,41 +206,19 @@ declare class EventEmitter {
     removeAllListeners(eventType?: string): void;
 
     /**
-     * Provides an API that can be called during an eventing cycle to remove the
-     * last listener that was invoked. This allows a developer to provide an event
-     * object that can remove the listener (or listener map) during the
-     * invocation.
-     *
-     * If it is called when not inside of an emitting cycle it will throw.
-     *
-     * @throws {Error} When called not during an eventing cycle
-     *
-     * @example
-     *   const subscription = emitter.addListenerMap({
-     *     someEvent: function(data, event) {
-     *       console.log(data);
-     *       emitter.removeCurrentListener();
-     *     }
-     *   });
-     *
-     *   emitter.emit('someEvent', 'abc'); // logs 'abc'
-     *   emitter.emit('someEvent', 'def'); // does not log anything
-     */
-    removeCurrentListener(): void;
-
-    /**
      * Removes a specific subscription. Called by the `remove()` method of the
      * subscription itself to ensure any necessary cleanup is performed.
+     * @deprecated Use `remove` on the EventSubscription from `addListener`.
      */
     removeSubscription(subscription: EmitterSubscription): void;
 
     /**
-     * Returns an array of listeners that are currently registered for the given
+     * Returns the number of listeners that are currently registered for the given
      * event.
      *
      * @param eventType - Name of the event to query
      */
-    listeners(eventType: string): EmitterSubscription[];
+    listenerCount(eventType: string): number;
 
     /**
      * Emits an event of the given type with the given data. All handlers of that
@@ -281,7 +247,7 @@ declare class EventEmitter {
      *   emitter.removeListener('someEvent', function(message) {
      *     console.log(message);
      *   }); // removes the listener if already registered
-     *
+     * @deprecated Use `remove` on the EventSubscription from `addListener`.
      */
     removeListener(eventType: string, listener: (...args: any[]) => any): void;
 }
@@ -628,20 +594,26 @@ export namespace AppRegistry {
     function getRunnable(appKey: string): Runnable | undefined;
 }
 
-export interface LayoutAnimationTypes {
-    spring: string;
-    linear: string;
-    easeInEaseOut: string;
-    easeIn: string;
-    easeOut: string;
-    keyboard: string;
+export type LayoutAnimationType =
+    | 'spring'
+    | 'linear'
+    | 'easeInEaseOut'
+    | 'easeIn'
+    | 'easeOut'
+    | 'keyboard';
+
+export type LayoutAnimationTypes = {
+    [type in LayoutAnimationType]: type;
 }
 
-export interface LayoutAnimationProperties {
-    opacity: string;
-    scaleX: string;
-    scaleY: string;
-    scaleXY: string;
+export type LayoutAnimationProperty =
+    | 'opacity'
+    | 'scaleX'
+    | 'scaleY'
+    | 'scaleXY';
+
+export type LayoutAnimationProperties = {
+    [prop in LayoutAnimationProperty]: prop;
 }
 
 export interface LayoutAnimationAnim {
@@ -649,8 +621,8 @@ export interface LayoutAnimationAnim {
     delay?: number;
     springDamping?: number;
     initialVelocity?: number;
-    type?: string; //LayoutAnimationTypes
-    property?: string; //LayoutAnimationProperties
+    type?: LayoutAnimationType;
+    property?: LayoutAnimationProperty;
 }
 
 export interface LayoutAnimationConfig {
@@ -679,8 +651,8 @@ export interface LayoutAnimationStatic {
     /** Helper for creating a config for configureNext. */
     create: (
         duration: number,
-        type?: keyof LayoutAnimationTypes,
-        creationProp?: keyof LayoutAnimationProperties
+        type?: LayoutAnimationType,
+        creationProp?: LayoutAnimationProperty
     ) => LayoutAnimationConfig;
     Types: LayoutAnimationTypes;
     Properties: LayoutAnimationProperties;
@@ -3936,7 +3908,7 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
 
     /**
      * Invoked when load completes successfully
-     * { source: { url, height, width } }.
+     * { source: { uri, height, width } }.
      */
     onLoad?: (event: NativeSyntheticEvent<ImageLoadEventData>) => void;
 
@@ -4029,6 +4001,11 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      * A unique identifier for this element to be used in UI Automation testing scripts.
      */
     testID?: string;
+
+    /**
+     * Used to reference react managed images from native code.
+     */
+    nativeID?: string;
 
     /**
      * A static image to display while downloading the final image off the network.
@@ -4161,7 +4138,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Styling for internal View for ListFooterComponent
      */
-    ListFooterComponentStyle?: ViewStyle | null;
+    ListFooterComponentStyle?: StyleProp<ViewStyle>;
 
     /**
      * Rendered at the very beginning of the list.
@@ -4171,7 +4148,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Styling for internal View for ListHeaderComponent
      */
-    ListHeaderComponentStyle?: ViewStyle | null;
+    ListHeaderComponentStyle?: StyleProp<ViewStyle>;
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
@@ -6060,9 +6037,7 @@ interface PlatformWebStatic extends PlatformStatic {
     OS: 'web';
 }
 
-declare const OpaqueColorValue: unique symbol;
-type OpaqueColorValue = typeof OpaqueColorValue;
-
+type OpaqueColorValue = symbol & { __TYPE__: 'Color' };
 export type ColorValue = string | OpaqueColorValue;
 
 export type ProcessedColorValue = number | OpaqueColorValue;
@@ -7001,6 +6976,10 @@ export interface NativeScrollEvent {
     layoutMeasurement: NativeScrollSize;
     velocity?: NativeScrollVelocity;
     zoomScale: number;
+    /**
+     * @platform ios
+     */
+    targetContentOffset?: NativeScrollPoint;
 }
 
 export interface SnapshotViewIOSProps extends ViewProps {
@@ -8600,6 +8579,10 @@ export interface SwitchPropsIOS extends ViewProps {
     tintColor?: ColorValue;
 }
 
+export interface SwitchChangeEvent extends React.SyntheticEvent {
+    value: boolean
+}
+
 export interface SwitchProps extends SwitchPropsIOS {
     /**
      * Color of the foreground switch grip.
@@ -8611,7 +8594,7 @@ export interface SwitchProps extends SwitchPropsIOS {
      *
      * Color when false and color when true
      */
-    trackColor?: { false: ColorValue; true: ColorValue };
+    trackColor?: { false?: ColorValue | null; true?: ColorValue | null };
 
     /**
      * If true the user won't be able to toggle the switch.
@@ -8620,9 +8603,14 @@ export interface SwitchProps extends SwitchPropsIOS {
     disabled?: boolean;
 
     /**
+     * Invoked with the the change event as an argument when the value changes.
+     */
+    onChange?: ((event: SwitchChangeEvent) => Promise<void> | void) | null;
+
+    /**
      * Invoked with the new value when the value changes.
      */
-    onValueChange?: (value: boolean) => void;
+    onValueChange?: ((value: boolean) => Promise<void> | void) | null;
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -8764,7 +8752,33 @@ export namespace Animated {
         // Internal class, no public API.
     }
 
-    class AnimatedWithChildren extends Animated {
+    class AnimatedNode {
+        /**
+         * Adds an asynchronous listener to the value so you can observe updates from
+         * animations.  This is useful because there is no way to
+         * synchronously read the value because it might be driven natively.
+         *
+         * See https://reactnative.dev/docs/animatedvalue.html#addlistener
+         */
+        addListener(callback: (value: any) => any): string;
+        /**
+         * Unregister a listener. The `id` param shall match the identifier
+         * previously returned by `addListener()`.
+         *
+         * See https://reactnative.dev/docs/animatedvalue.html#removelistener
+         */
+        removeListener(id: string): void;
+        /**
+         * Remove all registered listeners.
+         *
+         * See https://reactnative.dev/docs/animatedvalue.html#removealllisteners
+         */
+        removeAllListeners(): void;
+
+        hasListeners(): boolean;
+    }
+
+    class AnimatedWithChildren extends AnimatedNode {
         // Internal class, no public API.
     }
 
@@ -9163,6 +9177,7 @@ export interface I18nManagerStatic {
     getConstants: () => {
         isRTL: boolean;
         doLeftAndRightSwapInRTL: boolean;
+        localeIdentifier?: string | null;
     };
     allowRTL: (allowRTL: boolean) => void;
     forceRTL: (forceRTL: boolean) => void;

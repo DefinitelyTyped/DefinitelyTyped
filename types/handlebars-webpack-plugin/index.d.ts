@@ -2,6 +2,7 @@
 // Project: https://github.com/sagold/handlebars-webpack-plugin
 // Definitions by: odas0R <https://github.com/Odas0R>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 // Minimum TypeScript Version: 3.7
 
 import { Compiler, WebpackPluginInstance } from 'webpack';

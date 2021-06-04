@@ -315,6 +315,10 @@ braintree.client.create(
             },
         );
 
+        braintree.ApplePaySession.canMakePayments(); // boolean
+        braintree.ApplePaySession.canMakePaymentsWithActiveCard('merchantIdentifier'); // boolean
+        braintree.ApplePaySession.supportsVersion(3); // boolean
+
         braintree.applePay.create(
             { client: clientInstance },
             (createErr?: braintree.BraintreeError, applePayInstance?: braintree.ApplePay) => {
@@ -386,14 +390,16 @@ braintree.client.create(
                     {
                         token: event.payment.token,
                     },
-                    (err, tokenizedPayload) => {
+                    (err: braintree.BraintreeError, tokenizedPayload: braintree.ApplePayPayload) => {
                         if (err) {
                             session.completePayment(braintree.ApplePayStatusCodes.STATUS_FAILURE);
                             return;
                         }
-                        session.completePayment(braintree.ApplePayStatusCodes.STATUS_SUCCESS);
 
                         // Send the tokenizedPayload to your server.
+                        console.log(tokenizedPayload.nonce);
+
+                        session.completePayment(braintree.ApplePayStatusCodes.STATUS_SUCCESS);
                     },
                 );
             };
@@ -708,6 +714,17 @@ braintree.client.create(
                         button.removeAttribute('disabled');
                     });
             });
+        });
+
+        // Vault Manager
+        braintree.vaultManager.create({ client: clientInstance }, (createErr, vaultManagerInstance) => {
+            vaultManagerInstance.fetchPaymentMethods()
+                .then((payload: braintree.FetchPaymentMethodsPayload[]) => {
+                    payload.forEach(paymentMethod => console.log(paymentMethod.nonce));
+                })
+                .catch((error: braintree.BraintreeError) => {
+                    console.error('Error!', error);
+                });
         });
 
         clientInstance.teardown(err => {

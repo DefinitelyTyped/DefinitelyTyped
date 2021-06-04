@@ -87,4 +87,24 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
      * @default null
      */
     transmissionMap: Texture | null;
+
+    /**
+     * @default 0.01
+     */
+    thickness: number;
+
+    /**
+     * @default null
+     */
+    thicknessMap: Texture | null;
+
+    /**
+     * @default 0.0
+     */
+    attenuationDistance: number;
+
+    /**
+     * @default Color( 1, 1, 1 )
+     */
+    attenuationColor: Color;
 }

@@ -1,7 +1,7 @@
 import BaseComponent from './base-component';
 
 declare class Toast extends BaseComponent {
-    constructor(element: Element, options?: Partial<Toast.Options>);
+    constructor(element: string | Element, options?: Partial<Toast.Options>);
 
     /**
      * Reveals an element’s toast. Returns to the caller before the toast has actually

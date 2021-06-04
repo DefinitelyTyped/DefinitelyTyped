@@ -85,6 +85,22 @@ import * as url from 'url';
 }
 
 {
+    const wss = new WebSocket.Server();
+
+    wss.addListener('connection', (client, request) => {
+        request.socket.remoteAddress;
+
+        // $ExpectError
+        request.aborted === 10;
+
+        client.terminate();
+        request.destroy();
+    });
+
+    wss.close();
+}
+
+{
     new WebSocket.Server({ noServer: true, perMessageDeflate: false });
     new WebSocket.Server({ noServer: true, perMessageDeflate: { } });
     new WebSocket.Server({
@@ -169,6 +185,45 @@ import * as url from 'url';
 {
     const ws = new WebSocket('ws://www.host.com/path');
     ws.addEventListener('message', (event: WebSocket.MessageEvent) => {
-        console.log(event.data, event.target, event.type);
+            console.log(event.data, event.target, event.type);
     }, { once: true });
+}
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+    const eventHandler: Parameters<typeof ws.once>[1] = () => {};
+    const event = '';
+    const errorHandler = (err: Error) => {
+        ws.off(event, eventHandler);
+    };
+    ws.once('error', errorHandler);
+}
+
+function f() {
+    const ws = new WebSocket('ws://www.host.com/path');
+
+    // $ExpectError
+    const a: 5 = ws.readyState;
+
+    if (ws.readyState === ws.OPEN) {
+        // $ExpectError
+        const a: 2 = ws.readyState;
+        const x: 1 = ws.readyState;
+        return;
+    }
+    if (ws.readyState === ws.CONNECTING) {
+        const x: 0 = ws.readyState;
+        return;
+    }
+    if (ws.readyState === ws.CLOSING) {
+        const x: 2 = ws.readyState;
+        return;
+    }
+    if (ws.readyState === ws.CLOSED) {
+        const x: 3 = ws.readyState;
+        return;
+    }
+
+    // $ExpectType never
+    const x: never = ws.readyState;
 }
