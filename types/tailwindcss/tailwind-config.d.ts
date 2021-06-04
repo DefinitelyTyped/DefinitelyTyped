@@ -1208,9 +1208,6 @@ export interface TailwindConfig {
         'animation',
     ];
     plugins: any[];
-    /**
-     * Array of glob paths or object of config
-     */
     purge: string[] | TailwindPurgeConfig;
     presets: any[];
     darkMode: false | 'media' | 'class';
