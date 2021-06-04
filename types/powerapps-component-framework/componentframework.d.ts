@@ -406,9 +406,9 @@ declare namespace ComponentFramework {
 
         /**
          * Function to return if the user has Privilege for one specific entity
-         * @entityTypeName entity type name
-         * @privilegeType privilege type i.e. Create, Read, Write etc.
-         * @privilegeDepth privilege depth i.e. basic, Global etc.
+         * @param entityTypeName entity type name
+         * @param privilegeType privilege type i.e. Create, Read, Write etc.
+         * @param privilegeDepth privilege depth i.e. basic, Global etc.
          */
         hasEntityPrivilege(entityTypeName: string, privilegeType: PropertyHelper.Types.PrivilegeType, privilegeDepth: PropertyHelper.Types.PrivilegeDepth): boolean;
 
@@ -416,7 +416,7 @@ declare namespace ComponentFramework {
          * Opens a lookup dialog allowing the user to select one or more entities.
          * @param lookupOptions Options for opening the lookup dialog.
          */
-        lookupObjects(lookupOptions: UtilityApi.LookupOptions): Promise<EntityReference[]>;
+        lookupObjects(lookupOptions: UtilityApi.LookupOptions): Promise<LookupValue[]>;
     }
 
     /**
@@ -429,24 +429,24 @@ declare namespace ComponentFramework {
          * @param data dictionary with attribute schema name and value
          * @returns The deferred object for the result of the operation. The created record object will be resolved if successful.
          */
-        createRecord(entityType: string, data: WebApi.Entity): Promise<EntityReference>;
+        createRecord(entityType: string, data: WebApi.Entity): Promise<LookupValue>;
 
         /**
          * Deletes an entity record.
-         * @param id GUID of the entity record you want to delete.
          * @param entityType logical name of the entity type record to delete
+         * @param id GUID of the entity record you want to delete.
          * @returns The deferred object for the result of the operation. The deleted record object will be resolved if successful.
          */
-        deleteRecord(entityType: string, id: string): Promise<EntityReference>;
+        deleteRecord(entityType: string, id: string): Promise<LookupValue>;
 
         /**
          * Updates an entity record.
+         * @param entityType logical name of the entity type record to update
          * @param id GUID of the entity record you want to update.
          * @param data dictionary containing to-change attributes with schema name and value
-         * @param entityType logical name of the entity type record to update
          * @returns The deferred object for the result of the operation. The updated record object will be resolved if successful.
          */
-        updateRecord(entityType: string, id: string, data: WebApi.Entity): Promise<EntityReference>;
+        updateRecord(entityType: string, id: string, data: WebApi.Entity): Promise<LookupValue>;
 
         /**
          * Retrieves a collection of entity records.
@@ -460,8 +460,8 @@ declare namespace ComponentFramework {
 
         /**
          * Retrieves an entity record.
-         * @param id GUID of the entity record you want to retrieve.
          * @param entityType logical name of the entity type record to retrieve
+         * @param id GUID of the entity record you want to retrieve.
          * @param options OData system query options, $select and $expand, to retrieve your data.
          * For support options, please refer to https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrieverecord
          * @returns The deferred object for the result of the operation. A JSON object with the retrieved properties and values will be resolved if successful.
@@ -516,7 +516,6 @@ declare namespace ComponentFramework {
             /**
              * Contains a set of geographic coordinates along with associated accuracy as well as a set of other optional attributes such as altitude and speed.
              */
-
             coords: {
                 latitude: number;
                 longitude: number;
@@ -852,7 +851,7 @@ declare namespace ComponentFramework {
          * The object returned when a save is successful for open form.
          */
         interface OpenFormSuccessResponse {
-            savedEntityReference: EntityReference[];
+            savedEntityReference: LookupValue[];
         }
 
         /**
@@ -1343,7 +1342,6 @@ declare namespace ComponentFramework {
          */
         interface NumberProperty extends Property {
             raw: number | null;
-
             attributes?: PropertyHelper.FieldPropertyMetadata.NumberMetadata;
         }
 
@@ -1373,7 +1371,6 @@ declare namespace ComponentFramework {
          */
         interface DateTimeProperty extends Property {
             raw: Date | null;
-
             attributes?: PropertyHelper.FieldPropertyMetadata.DateTimeMetadata;
         }
 
@@ -1382,7 +1379,6 @@ declare namespace ComponentFramework {
          */
         interface StringProperty extends Property {
             raw: string | null;
-
             attributes?: PropertyHelper.FieldPropertyMetadata.StringMetadata;
         }
 
@@ -1399,7 +1395,6 @@ declare namespace ComponentFramework {
          */
         interface OptionSetProperty extends Property {
             raw: number | null;
-
             attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;
         }
 
@@ -1408,7 +1403,6 @@ declare namespace ComponentFramework {
          */
         interface MultiSelectOptionSetProperty extends Property {
             raw: number[] | null;
-
             attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;
         }
 
@@ -1555,7 +1549,7 @@ declare namespace ComponentFramework {
 
             /**
              * Set the ids of the selected records
-             * @ids List of recordId's
+             * @param ids List of recordId's
              */
             setSelectedRecordIds(ids: string[]): void;
         }
@@ -1789,7 +1783,7 @@ declare namespace ComponentFramework {
 
                 /**
                  * Sets the top-most filter associated with the data-set
-                 * @expression filter expression to be set
+                 * @param expression filter expression to be set
                  */
                 setFilter(expression: FilterExpression): void;
 
@@ -1868,7 +1862,7 @@ declare namespace ComponentFramework {
                  * Get the raw value of the record's column
                  * @param columnName Column name of the record
                  */
-                getValue(columnName: string): string | Date | number | number[] | boolean | EntityReference | EntityReference[];
+                getValue(columnName: string): string | Date | number | number[] | boolean | EntityReference | EntityReference[] | LookupValue | LookupValue[];
 
                 /**
                  * Get the object that encapsulates an Entity Reference as a plain object
@@ -1921,13 +1915,19 @@ declare namespace ComponentFramework {
                 loadPreviousPage(): void;
 
                 /**
+                 * Request the exact page
+                 * @param pageNumber The page number to go to in the dat.
+                 */
+                loadExactPage(pageNumber?: number): void;
+
+                /**
                  * Reload the results from the server, and reset to page 1.
                  */
                 reset(): void;
 
                 /**
                  * Sets the number of results to return per page on the next data refresh.
-                 * @pageSize pageSize to be set.
+                 * @param pageSize pageSize to be set
                  */
                 setPageSize(pageSize: number): void;
             }
@@ -1943,6 +1943,7 @@ declare namespace ComponentFramework {
 
                 /**
                  * Add a new linked entity relationship with the existed query primary entity
+                 * @param expression The new linked entity to add
                  */
                 addLinkedEntity(expression: LinkEntityExposedExpression): void;
             }
