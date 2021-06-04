@@ -1,10 +1,10 @@
-import inquirer = require("../..");
+import { Answers, DistinctQuestion, KeyUnion, UnionToIntersection } from "../..";
 import { Observable } from "rxjs";
 
 /**
  * Represents a property-name of any question-type.
  */
-type QuestionProperty = inquirer.KeyUnion<inquirer.UnionToIntersection<inquirer.DistinctQuestion>>;
+type QuestionProperty = KeyUnion<UnionToIntersection<DistinctQuestion>>;
 
 /**
  * Fetches a property of the specified `question`.
@@ -22,8 +22,8 @@ type QuestionProperty = inquirer.KeyUnion<inquirer.UnionToIntersection<inquirer.
  * The processed question.
  */
 export function fetchAsyncQuestionPropertyQuestionProperty(
-    question: inquirer.DistinctQuestion,
+    question: DistinctQuestion,
     prop: QuestionProperty,
-    answers: inquirer.Answers): Observable<inquirer.DistinctQuestion>;
+    answers: Answers): Observable<DistinctQuestion>;
 
 export { };
