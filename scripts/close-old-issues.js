@@ -7,7 +7,7 @@ const octokit = new CustomOctokit({ auth: process.env.GITHUB_API_TOKEN });
 const message = `
 Hi thread, we're moving DefinitelyTyped to use [GitHub Discussions](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/53377) for conversations the \`@types\` modules in DefinitelyTyped.
 
-To help with the transition, we're closing all issues which haven't had activity in the last 6 months, which includes this issue. `
+To help with the transition, we're closing all issues which haven't had activity in the last 6 months, which includes this issue. If you think closing this issue is a mistake, please pop into the [TypeScript Community Discord](https://discord.gg/typescript) and mention the issue in the \`definitely-typed\` channel.`
 
 
 const go = async () => {
