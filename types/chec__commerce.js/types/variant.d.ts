@@ -9,7 +9,8 @@ export interface Variant {
   price: Price | null;
   is_valid: boolean;
   invalid_reason_code: string | null;
-  meta: any;
+  eta: any;
+  meta?: any;
   created?: number;
   updated?: number;
   options: { [name: string]: string };
