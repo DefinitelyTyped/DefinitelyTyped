@@ -317,11 +317,8 @@ declare namespace inquirer {
 
     /**
      * Provides options for a choice.
-     *
-     * @template T
-     * The type of the answers.
      */
-    interface ChoiceOptions<T extends Answers = Answers> extends ChoiceBase {
+    interface ChoiceOptions extends ChoiceBase {
         /**
          * @inheritdoc
          */
@@ -354,7 +351,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface ListChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
+    interface ListChoiceOptions<T extends Answers = Answers> extends ChoiceOptions {
         /**
          * A value indicating whether the choice is disabled.
          */
@@ -376,11 +373,8 @@ declare namespace inquirer {
 
     /**
      * Provides options for a choice of the `ExpandPrompt`.
-     *
-     * @template T
-     * The type of the answers.
      */
-    interface ExpandChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
+    interface ExpandChoiceOptions extends ChoiceOptions {
         /**
          * The key to press for selecting the choice.
          */
@@ -410,7 +404,7 @@ declare namespace inquirer {
      */
     interface BaseChoiceMap<T extends Answers = Answers> {
         Choice: Choice<T>;
-        ChoiceOptions: ChoiceOptions<T>;
+        ChoiceOptions: ChoiceOptions;
         SeparatorOptions: SeparatorOptions;
         Separator: Separator;
     }
@@ -442,7 +436,7 @@ declare namespace inquirer {
      * The type of the answers.
      */
     interface ExpandChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
-        ExpandChoiceOptions: ExpandChoiceOptions<T>;
+        ExpandChoiceOptions: ExpandChoiceOptions;
     }
 
     /**
