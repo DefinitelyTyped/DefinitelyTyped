@@ -1,4 +1,4 @@
-// Type definitions for react-slider 1.1
+// Type definitions for react-slider 1.3
 // Project: https://github.com/zillow/react-slider
 // Definitions by: Jason Unger <https://github.com/jsonunger>
 //                 Björgvin Bæhrenz Þórðarson <https://github.com/bjorgvin>
@@ -24,6 +24,14 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      * The length of the array must match the number of thumbs in the `value` array.
      */
     ariaLabel?: T extends number ? string : ReadonlyArray<string>;
+
+    /**
+     * aria-labelledby for screen-readers to apply to the thumbs.
+     * Used when slider rendered with separate label.
+     * Use an array for more than one thumb.
+     * The length of the array must match the number of thumbs in the value array.
+     */
+    ariaLabelledby?: T extends number ? string : ReadonlyArray<string>;
 
     /**
      * `aria-valuetext` for screen-readers.
@@ -118,24 +126,24 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      * Callback called only after moving a thumb has ended. The callback
      * will only be called if the action resulted in a change.
      *
-     * - `value` - the result value, or values if the slider has multiple thumbs
+     * - `value` - the result value, or values if the slider has multiple thumbs and the thumb index
      */
-    onAfterChange?: (value: T) => void;
+    onAfterChange?: (value: T, index: number) => void;
 
     /**
      * Callback called before starting to move a thumb. The callback will
      * only be called if the action will result in a change.
      *
-     * - `value` - the initial value, or values if the slider has multiple thumbs
+     * - `value` - the initial value, or values if the slider has multiple thumbs and the thumb index
      */
-    onBeforeChange?: (value: T) => void;
+    onBeforeChange?: (value: T, index: number) => void;
 
     /**
      * Callback called on every value change.
      *
-     * - `value` - the new value, or values if the slider has multiple thumbs
+     * - `value` - the new value, or values if the slider has multiple thumbs and the thumb index
      */
-    onChange?: (value: T) => void;
+    onChange?: (value: T, index: number) => void;
 
     /**
      * Callback called when the the slider is clicked (thumb or tracks).
