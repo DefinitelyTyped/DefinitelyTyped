@@ -444,17 +444,8 @@ const version4Tests = async () => {
 
     const { name, deqOptions, enqOptions, payloadType, payloadTypeClass, payloadTypeName } = queue;
 
-    const {
-        condition,
-        consumerName,
-        correlation,
-        mode,
-        msgId,
-        navigation,
-        transformation,
-        visibility,
-        wait,
-    } = deqOptions;
+    const { condition, consumerName, correlation, mode, msgId, navigation, transformation, visibility, wait } =
+        deqOptions;
 
     const messages = await queue.deqMany(5);
 

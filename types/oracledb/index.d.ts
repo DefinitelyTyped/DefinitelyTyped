@@ -2372,19 +2372,19 @@ declare namespace OracleDB {
     type QueryStream<T> = Readable & QueryStreamEvents<T>;
 
     interface QueryStreamEvents<T> {
-        addListener(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
+        addListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
 
-        emit(event: "metadata", metadata: Metadata<T>[]): boolean;
+        emit(event: 'metadata', metadata: Metadata<T>[]): boolean;
 
-        on(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
+        on(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
 
-        once(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
+        once(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
 
-        prependListener(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
+        prependListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
 
-        prependOnceListener(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
+        prependOnceListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
 
-        removeListener(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
+        removeListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
     }
 
     /**
