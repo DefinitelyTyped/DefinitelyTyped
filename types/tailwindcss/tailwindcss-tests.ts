@@ -4,7 +4,7 @@ import * as colors from 'tailwindcss/colors';
 
 import * as defaultTheme from 'tailwindcss/defaultTheme';
 
-import type { TailwindConfig } from 'tailwindcss/tailwind-config';
+import type { TailwindConfig, TailwindPurgeConfig } from 'tailwindcss/tailwind-config';
 
 import tailwindCss from 'tailwindcss';
 
@@ -2578,7 +2578,7 @@ defaultTheme.colors?.blue[800];
 // $ExpectType any[]
 tailwindConfig.plugins;
 
-// $ExpectType any[]
+// $ExpectType string[] | TailwindPurgeConfig
 tailwindConfig.purge;
 
 // $ExpectType any[]
@@ -2626,3 +2626,50 @@ tailwindConfig.separator = '_';
 
 // @ts-expect-error should be string
 tailwindConfig.separator = 1234;
+
+{
+    // $ExpectType string[]
+    tailwindConfig.purge = ['src/**/*.tsx'];
+
+    // @ts-expect-error `content` should be array of strings or TailwindPurgeConfig
+    tailwindConfig.purge = false;
+
+    // @ts-expect-error `content` should defined
+    tailwindConfig.purge = {};
+
+    // @ts-expect-error `content` should have array of strings
+    tailwindConfig.purge = { content: false };
+
+    // $ExpectType { content: string[]; }
+    const purgeConfig: TailwindPurgeConfig = (tailwindConfig.purge = {
+        content: ['src/**/*.{[tj]s?(x),html}'],
+    });
+
+    const aBooleanValue = Math.random() < 0.5;
+
+    // $ExpectType boolean
+    purgeConfig.enabled = aBooleanValue;
+
+    // @ts-expect-error `enabled` should have a boolean value
+    purgeConfig.enabled = 123;
+
+    // @ts-expect-error `preserveHtmlElements` should have a boolean value
+    purgeConfig.preserveHtmlElements = 123;
+
+    // $ExpectType boolean
+    purgeConfig.preserveHtmlElements = aBooleanValue;
+
+    // @ts-expect-error `layers` should be an array of TailwindValidLayers
+    purgeConfig.layers = 123;
+
+    // @ts-expect-error `layers` has an invalid layer name
+    purgeConfig.layers = ['a-new-layer'];
+
+    purgeConfig.layers = ['base', 'components'];
+
+    // @ts-expect-error `mode` should be "all" or undefined
+    purgeConfig.mode = 123;
+
+    // $ExpectType "all"
+    purgeConfig.mode = 'all';
+}
