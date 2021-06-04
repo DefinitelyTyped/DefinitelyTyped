@@ -1,7 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "expmidd": "^0.4.0"
+        "expmidd": "^0.4.0",
+        "@types/express-serve-static-core": "^4.17.18"
     },
     "types": "index",
     "typesVersions": {
