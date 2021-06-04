@@ -115,8 +115,10 @@ export interface JwtHeader {
     crit?: Array<string | keyof JwtHeader>;
     kid?: string;
     jku?: string;
-    x5u?: string;
+    x5u?: string | string[];
+    'x5t#S256'?: string;
     x5t?: string;
+    x5c?: string | string[];
 }
 
 // standard claims https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
@@ -128,6 +130,7 @@ export interface JwtPayload {
     exp?: number;
     nbf?: number;
     iat?: number;
+    jti?: string;
 }
 
 export interface Jwt {
