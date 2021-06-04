@@ -396,7 +396,7 @@ declare namespace inquirer {
     /**
      * Represents a separator.
      */
-    interface SeparatorOptions {
+    interface SeparatorOptions extends ChoiceBase {
         /**
          * Gets the type of the choice.
          */
