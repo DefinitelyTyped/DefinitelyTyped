@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "dependencies": {
+        "expmidd": "^0.4.0"
+    },
+    "types": "index",
+    "typesVersions": {
+        ">=3.2": {
+            "*": [
+                "ts3.2/*"
+            ]
+        },
+        ">=3.1": {
+            "*": [
+                "ts3.1/*"
+            ]
+        }
+    }
+}
