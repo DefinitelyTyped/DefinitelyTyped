@@ -473,7 +473,7 @@ declare namespace inquirer {
      * @template TChoiceMap
      * The choice-types to provide.
      */
-    type DistinctChoice<TChoiceMap> =
+    type DistinctChoice<TAnswers extends Answers = Answers, TChoiceMap = AllChoiceMap<TAnswers>> =
         string |
         TChoiceMap[keyof TChoiceMap];
 
