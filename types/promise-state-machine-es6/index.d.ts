@@ -20,10 +20,10 @@ interface DotNodeStringified {
 interface FsmBase<State, Transitions> {
     state: State;
 
-    is(state: State | State[]): boolean;
+    is(state: State): boolean;
     is(...args: State[]): boolean;
 
-    can(state: Transitions | Transitions[]): boolean;
+    can(state: Transitions): boolean;
     can(...args: Transitions[]): boolean;
 
     toDOTsync(options?: { replacer: (data: DotNode<State, Transitions>) => DotNodeStringified}): string;

@@ -45,16 +45,10 @@ fsm.on('start', (from, to) => {
 fsm.is(State.stopped);
 
 // $ExpectType boolean
-fsm.is([State.stopped, State.running]);
-
-// $ExpectType boolean
 fsm.is(State.stopped, State.running);
 
 // $ExpectType boolean
 fsm.can(Transitions.start);
-
-// $ExpectType boolean
-fsm.can([Transitions.start, Transitions.stop]);
 
 // $ExpectType boolean
 fsm.can(Transitions.start, Transitions.stop);
