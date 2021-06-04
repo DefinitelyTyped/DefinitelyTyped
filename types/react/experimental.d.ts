@@ -104,7 +104,7 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#suspenselist
      * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
      */
-    export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
+    export const SuspenseList: ExoticComponent<SuspenseListProps>;
 
     // must be synchronous
     export type TransitionFunction = () => VoidOrUndefinedOnly;
@@ -132,7 +132,7 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usedeferredvalue
      */
-    export function unstable_useDeferredValue<T>(value: T): T;
+    export function useDeferredValue<T>(value: T): T;
 
     /**
      * Allows components to avoid undesirable loading states by waiting for content to load
@@ -151,7 +151,7 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
      */
-    export function unstable_useTransition(): [boolean, TransitionStartFunction];
+    export function useTransition(): [boolean, TransitionStartFunction];
 
     const opaqueIdentifierBranding: unique symbol;
     /**
@@ -177,5 +177,5 @@ declare module '.' {
      *
      * @param callback A _synchronous_ function which causes state updates that can be deferred.
      */
-    export function unstable_startTransition(scope: TransitionFunction): void;
+    export function startTransition(scope: TransitionFunction): void;
 }

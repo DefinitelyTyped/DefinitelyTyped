@@ -98,9 +98,9 @@ function animate() {
 function render() {
     theta += 0.1;
 
-    camera.position.x = radius * Math.sin(THREE.MathUtils.degToRad(theta));
-    camera.position.y = radius * Math.sin(THREE.MathUtils.degToRad(theta));
-    camera.position.z = radius * Math.cos(THREE.MathUtils.degToRad(theta));
+    camera.position.x = radius * Math.sin(THREE.degToRad(theta));
+    camera.position.y = radius * Math.sin(THREE.degToRad(theta));
+    camera.position.z = radius * Math.cos(THREE.degToRad(theta));
     camera.lookAt(scene.position);
 
     camera.updateMatrixWorld();

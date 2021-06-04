@@ -2693,6 +2693,10 @@
             "libraryName": "material-components-web",
             "asOfVersion": "1.0.0"
         },
+        "mathjs": {
+            "libraryName": "mathjs",
+            "asOfVersion": "9.4.1"
+        },
         "matrix-appservice-bridge": {
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
@@ -2792,6 +2796,10 @@
         "mongodb-memory-server": {
             "libraryName": "mongodb-memory-server",
             "asOfVersion": "2.3.0"
+        },
+        "mongoose": {
+            "libraryName": "mongoose",
+            "asOfVersion": "5.11.0"
         },
         "monk": {
             "libraryName": "monk",
@@ -3613,6 +3621,10 @@
         "rc-progress": {
             "libraryName": "rc-progress",
             "asOfVersion": "2.4.0"
+        },
+        "rdf-js": {
+            "libraryName": "rdf-js",
+            "asOfVersion": "4.0.2"
         },
         "rc-select": {
             "libraryName": "rc-select",
