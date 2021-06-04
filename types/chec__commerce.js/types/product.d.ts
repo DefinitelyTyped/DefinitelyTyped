@@ -15,23 +15,23 @@ export interface Product {
     managed: boolean;
     available: number;
   };
-  media: Array<{
+  media: {
     type: string;
     source: string;
-  }>;
-  sku: string;
+  };
+  sku: string | null;
   sort_order: number;
   seo: {
-    title: string;
-    description: string;
+    title: string | null;
+    description: string | null;
   };
-  thank_you_url: string;
+  thank_you_url: string | null;
   meta: any;
   conditionals: {
     is_active: boolean;
-    is_free: boolean;
+    is_tax_exempt: boolean;
     is_pay_what_you_want: boolean;
-    is_quantity_limited: boolean;
+    is_inventory_managed: boolean;
     is_sold_out: boolean;
     has_digital_delivery: boolean;
     has_physical_delivery: boolean;
@@ -45,9 +45,9 @@ export interface Product {
   };
   is: {
     active: boolean;
-    free: boolean;
+    tax_exempt: boolean;
     pay_what_you_want: boolean;
-    quantity_limited: boolean;
+    inventory_managed: boolean;
     sold_out: boolean;
   };
   has: {
