@@ -121,7 +121,7 @@ function renderOutTestEmail() {
 {
     const minProps: React.ReactNode = <MjmlBody />;
     const maxProps: React.ReactNode = (
-        <MjmlBody cssClass="" width={1} backgroundColor="">
+        <MjmlBody cssClass="" mjClass="" width={1} backgroundColor="">
             child
         </MjmlBody>
     );

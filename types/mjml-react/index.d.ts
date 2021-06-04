@@ -48,6 +48,7 @@ export interface BorderProps {
 
 export interface ClassNameProps {
     cssClass?: string;
+    mjClass?: string;
 }
 
 export interface HrefProps {
