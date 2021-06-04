@@ -2,7 +2,6 @@
 // Project: https://github.com/Riderize/passport-strava-oauth2
 // Definitions by: edilson <https://github.com/edilson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
 
 // tslint:disable-next-line:no-single-declare-module
 declare module '@riderize/passport-strava-oauth2' {
