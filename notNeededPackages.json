@@ -4286,10 +4286,6 @@
             "libraryName": "rgb2hex",
             "asOfVersion": "0.2.1"
         },
-        "riderize__passport-strava-oauth2": {
-            "libraryName": "@riderize/passport-strava-oauth2",
-            "asOfVersion": "1.1.1"
-        },
         "riot": {
             "libraryName": "riot",
             "asOfVersion": "4.1.0"
