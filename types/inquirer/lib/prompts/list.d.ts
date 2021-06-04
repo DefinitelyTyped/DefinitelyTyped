@@ -6,7 +6,7 @@ import { Interface as ReadlineInterface } from "readline";
 /**
  * The question-options for the `ListPrompt<T>`.
  */
-type Question = ListQuestionOptions<Answers>;
+type Question = ListQuestionOptions;
 
 /**
  * Represents a prompt which provides a list to choose an answer from.

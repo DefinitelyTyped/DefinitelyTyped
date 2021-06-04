@@ -5,7 +5,7 @@ import { Interface as ReadlineInterface } from "readline";
 /**
  * The question for the `NumberPrompt<T>`.
  */
-type Question = NumberQuestionOptions<Answers>;
+type Question = NumberQuestionOptions;
 
 /**
  * Provides a prompt which allows the user to type a number as answer.

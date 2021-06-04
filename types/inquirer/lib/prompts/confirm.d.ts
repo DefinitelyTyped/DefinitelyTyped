@@ -5,7 +5,7 @@ import { Interface as ReadlineInterface } from "readline";
 /**
  * The question-options for the `ConfirmPrompt<T>`.
  */
-type Question = ConfirmQuestionOptions<Answers>;
+type Question = ConfirmQuestionOptions;
 
 /**
  * Represents a prompt which provides a message to confirm.
