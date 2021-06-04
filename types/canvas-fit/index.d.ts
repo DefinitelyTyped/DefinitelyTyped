@@ -18,7 +18,7 @@ interface resize {
      * Dynamically change the canvas' target scale.
      * Note that you still need to manually trigger a resize after doing this.
      */
-    scale?: number;
+    scale: number;
     /**
      * Dynamically change the canvas' target scale.
      * Note that you still need to manually trigger a resize after doing this.
