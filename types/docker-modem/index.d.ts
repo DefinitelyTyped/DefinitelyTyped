@@ -10,13 +10,17 @@ import { ConnectConfig } from 'ssh2';
 import { ClientRequest, IncomingMessage, OutgoingHttpHeaders, RequestOptions, Agent } from 'http';
 import { Socket } from 'net';
 import { Duplex, DuplexOptions, Stream } from 'stream';
-import { KeyObject } from '../dockerode';
 
 declare namespace DockerModem {
     class HttpDuplex extends Duplex {
         constructor(request: ClientRequest, response: IncomingMessage, options?: DuplexOptions);
 
         connect(request: ClientRequest, response: IncomingMessage): void;
+    }
+
+    interface KeyObject {
+        pem: string | Buffer;
+        passphrase?: string;
     }
 
     interface ConstructorOptions {
