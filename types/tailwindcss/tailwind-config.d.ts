@@ -106,7 +106,7 @@ export type TailwindValidLayers = 'base' | 'components' | 'utilities' | 'screens
 
 export interface TailwindPurgeConfig {
     /**
-     * Array of array of glob paths
+     * Array of glob paths
      */
     content: string[];
     /**
@@ -123,7 +123,7 @@ export interface TailwindPurgeConfig {
      */
     layers?: TailwindValidLayers[];
     /**
-     * Removing all unused styles
+     * Remove all unused styles
      * @see https://tailwindcss.com/docs/optimizing-for-production#removing-all-unused-styles
      */
     mode?: 'all';
