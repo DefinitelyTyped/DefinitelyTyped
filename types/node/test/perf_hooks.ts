@@ -40,7 +40,7 @@ const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => 
 };
 const obs = new PerformanceObserver(performanceObserverCallback);
 obs.observe({
-    entryTypes: ['function'] as ReadonlyArray<EntryType>,
+    type: 'function' as EntryType,
     buffered: true,
 });
 

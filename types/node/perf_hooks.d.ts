@@ -188,12 +188,13 @@ declare module 'perf_hooks' {
         disconnect(): void;
 
         /**
-         * Subscribes the PerformanceObserver instance to notifications of new PerformanceEntry instances identified by options.entryTypes.
+         * Subscribes the PerformanceObserver instance to notifications of new PerformanceEntry instances.
+         * The type of entries are identified via the use of one of options.entryTypes or options.type.
          * When options.buffered is false, the callback will be invoked once for every PerformanceEntry instance.
-         * Property buffered defaults to false.
+         * Property buffered defaults to false, and when used the user must use options.type instead of options.entryTypes.
          * @param options
          */
-        observe(options: { entryTypes: ReadonlyArray<EntryType>; buffered?: boolean }): void;
+        observe(options: { entryTypes?: ReadonlyArray<EntryType>; type?: EntryType; buffered?: boolean }): void;
     }
 
     namespace constants {
