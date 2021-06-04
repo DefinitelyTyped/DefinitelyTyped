@@ -20,7 +20,7 @@ export interface WorkgridToolbarOptions {
     toolbarId?: string | null;
     version?: string | null;
     cssRules?: string[];
-    msIdToken: string | null;
+    msIdToken?: string | null;
 }
 
 export function showWorkgridToolbar(options: WorkgridToolbarOptions): void;
