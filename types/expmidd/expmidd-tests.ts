@@ -1,10 +1,14 @@
 
-import runMiddleware, { cors } from 'expmidd';
+import runMiddleware from 'expmidd';
 
 import express = require('express');
 import * as http from 'http';
 import { Request, RequestRanges, ParamsArray } from 'express-serve-static-core';
+import Cors from 'cors';
 
+const cors = Cors({
+    methods: ['GET', 'POST'],
+});
 namespace expmidd_tests {
     const app = express();
 
@@ -40,15 +44,15 @@ namespace expmidd_tests {
         next(err);
     });
 
-    app.get('/', async(req, res) => {
-        await runMiddleware(req, res, cors.get);
+    app.get('/', async (req, res) => {
+        await runMiddleware(req, res, cors);
         res.send('hello world');
     });
 
     // Accept json app-wide or on one endpoint.
     app.use(express.json({ limit: '200kb' }));
-    app.post('/echo', express.json(), async(req, res) => {
-        await runMiddleware(req, res, cors.post);
+    app.post('/echo', express.json(), async (req, res) => {
+        await runMiddleware(req, res, cors);
         res.json(req.body);
     });
 
@@ -59,8 +63,8 @@ namespace expmidd_tests {
             parameterLimit: 16,
         }),
     );
-    app.post('/search', express.urlencoded(), async(req, res) => {
-        await runMiddleware(req, res, cors.get);
+    app.post('/search', express.urlencoded(), async (req, res) => {
+        await runMiddleware(req, res, cors);
         res.json(Object.keys(req.body));
     });
 
@@ -252,13 +256,13 @@ namespace expmidd_tests {
 
     app.listen(3000);
 
-    const next: express.NextFunction = () => {};
+    const next: express.NextFunction = () => { };
 
     // Make sure we can use every generic
     const someOtherHandler: express.RequestHandler<{}, any, any, { foo: string }> = (req, res, next) => next();
 
     // Make sure we can use every generic
-    const someOtherErrorHandler: express.ErrorRequestHandler<{}, any, any, { foo: string }> = (req, res) => {};
+    const someOtherErrorHandler: express.ErrorRequestHandler<{}, any, any, { foo: string }> = (req, res) => { };
 }
 
 /***************************

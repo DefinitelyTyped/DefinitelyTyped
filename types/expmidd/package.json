@@ -1,8 +1,12 @@
 {
     "private": true,
     "dependencies": {
-        "expmidd": "^0.4.0",
-        "@types/express-serve-static-core": "^4.17.18"
+        "@types/cors": "^2.8.10",
+        "@types/express": "^4.17.12",
+        "@types/express-serve-static-core": "^4.17.18",
+        "cors": "latest",
+        "expmidd": "0.2.0",
+        "express": "latest"
     },
     "types": "index",
     "typesVersions": {
@@ -16,5 +20,6 @@
                 "ts3.1/*"
             ]
         }
-    }
+    },
+    "devDependencies": {}
 }
