@@ -318,7 +318,7 @@ export interface MjmlSocialProps {
     containerBackgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlSocial extends React.Component<MjmlSocialProps & PaddingProps> { }
+export class MjmlSocial extends React.Component<MjmlSocialProps & PaddingProps & ClassNameProps> { }
 
 export interface MjmlSocialElementProps {
     borderRadius?: string | number;
