@@ -34,6 +34,7 @@
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Wyatt Johnson <https://github.com/wyattjoh>
+//                 Boris Figovsky <https://github.com/borfig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
