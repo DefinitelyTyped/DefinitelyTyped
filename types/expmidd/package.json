@@ -1,12 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "@types/cors": "^2.8.10",
-        "@types/express": "^4.17.12",
-        "@types/express-serve-static-core": "^4.17.18",
-        "cors": "latest",
-        "expmidd": "0.2.0",
-        "express": "latest"
+        "cors": "^2.8.5",
+        "expmidd": "0.3.0"
     },
     "types": "index",
     "typesVersions": {
@@ -21,5 +17,7 @@
             ]
         }
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "@types/cors": "^2.8.10"
+    }
 }
