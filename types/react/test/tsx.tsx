@@ -141,22 +141,31 @@ const ContextUsingUnstableObservedBits = React.createContext(undefined, (previou
 </div>;
 
 // Below tests that setState() works properly for both regular and callback modes
-class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
+type StateOfSetStateTest = { foo: boolean, bar: boolean }
+class SetStateTest extends React.Component<{}, StateOfSetStateTest> {
     handleSomething = () => {
-      this.setState({ foo: '' }); // $ExpectError
-      this.setState({ foo: true });
-      this.setState({ foo: true, bar: true });
-      this.setState({});
-      this.setState(null);
-      this.setState({ foo: true, foo2: true }); // $ExpectError
-      this.setState(() => ({ foo: '' })); // $ExpectError
-      this.setState(() => ({ foo: true }));
-      this.setState(() => ({ foo: true, bar: true }));
-      this.setState(() => ({ foo: true, foo2: true })); // $ExpectError
-      this.setState(() => ({ foo: '', foo2: true })); // $ExpectError
-      this.setState(() => ({ })); // ok!
-      this.setState({ foo: true, bar: undefined}); // $ExpectError
-      this.setState(prevState => (prevState.bar ? { bar: false } : null));
+        function complicatedReturn (original: StateOfSetStateTest) {
+            if (Math.random() > 0.5) {
+                return original;
+            }
+            return { foo: true };
+        }
+
+        this.setState({ foo: '' }); // $ExpectError
+        this.setState({ foo: true });
+        this.setState({ foo: true, bar: true });
+        this.setState({});
+        this.setState(null);
+        this.setState({ foo: true, foo2: true }); // $ExpectError
+        this.setState(() => ({ foo: '' })); // $ExpectError
+        this.setState(() => ({ foo: true }));
+        this.setState(() => ({ foo: true, bar: true }));
+        this.setState(() => ({ foo: true, foo2: true })); // $ExpectError
+        this.setState(() => ({ foo: '', foo2: true })); // $ExpectError
+        this.setState(() => ({ })); // ok!
+        this.setState({ foo: true, bar: undefined }); // $ExpectError
+        this.setState(prevState => complicatedReturn(prevState));
+        this.setState(prevState => (prevState.bar ? { bar: false } : null));
     }
 }
 
