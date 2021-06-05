@@ -1,4 +1,4 @@
-// Type definitions for @riderize/passport-strava-oauth2 2.0
+// Type definitions for @riderize/passport-strava-oauth2 2.1
 // Project: https://github.com/Riderize/passport-strava-oauth2
 // Definitions by: edilson <https://github.com/edilson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
