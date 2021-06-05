@@ -6,7 +6,7 @@ const app = new Koa();
 app.use(bodyParser({ strict: false }));
 
 app.use((ctx) => {
-    // $ExpectType string | Record<string, unknown>
+    // $ExpectType string | Record<string, unknown> | unknown[]
     ctx.request.body;
 });
 
