@@ -10,10 +10,11 @@ export interface Merchant {
   country: string;
   currency: Currency;
   support_email: string;
-  timezone?: string;
+  timezone: string | null;
   logo?: string;
   logo_shape?: string;
-  cover?: string;
+  cover: string | null;
+  intercom: boolean;
   has: {
     logo: boolean;
     cover: boolean;
@@ -23,8 +24,8 @@ export interface Merchant {
   analytics: {
     google: {
       settings: {
-        tracking_id?: string;
-        linked_domains?: string[];
+        tracking_id: string | null;
+        linked_domains: string[] | null;
       };
     };
   };
