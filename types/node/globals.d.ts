@@ -26,10 +26,6 @@ interface String {
     trimEnd(): string;
 }
 
-interface ImportMeta {
-    url: string;
-}
-
 /*-----------------------------------------------*
  *                                               *
  *                   GLOBAL                      *

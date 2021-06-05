@@ -9,6 +9,8 @@ declare module 'util' {
     }
     export function format(format?: any, ...param: any[]): string;
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
+    export function getSystemErrorMap(): Map<number, [string, string]>;
+
     /** @deprecated since v0.11.3 - use a third party module instead. */
     export function log(string: string): void;
     export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
@@ -153,4 +155,8 @@ declare module 'util' {
         encode(input?: string): Uint8Array;
         encodeInto(input: string, output: Uint8Array): EncodeIntoResult;
     }
+}
+
+declare module 'node:util' {
+    export * from 'util';
 }

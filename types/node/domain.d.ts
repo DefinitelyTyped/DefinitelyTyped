@@ -22,3 +22,10 @@ declare module 'domain' {
 
     function create(): Domain;
 }
+
+/**
+ * @deprecated
+ */
+declare module 'node:domain' {
+    export * from 'domain';
+}

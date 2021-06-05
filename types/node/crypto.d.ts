@@ -1587,3 +1587,7 @@ declare module 'crypto' {
      */
     function checkPrimeSync(value: LargeNumberLike, options?: CheckPrimeOptions): boolean;
 }
+
+declare module 'node:crypto' {
+    export * from 'crypto';
+}

@@ -294,3 +294,7 @@ async () => {
 {
     atob(btoa('test')); // $ExpectType string
 }
+
+{
+    global.atob(global.btoa('test')); // $ExpectType string
+}

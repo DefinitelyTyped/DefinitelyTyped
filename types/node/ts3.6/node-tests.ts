@@ -318,10 +318,6 @@ const importObject = { wasi_unstable: wasi.wasiImport };
             const pauseReason: string = message.params.reason;
         });
         session.on('Debugger.resumed', () => {});
-        // Node Inspector events
-        session.on('NodeTracing.dataCollected', (message: inspector.InspectorNotification<inspector.NodeTracing.DataCollectedEventDataType>) => {
-          const value: Array<{}> = message.params.value;
-        });
     }
 }
 
