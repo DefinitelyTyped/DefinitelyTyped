@@ -141,7 +141,7 @@ const ContextUsingUnstableObservedBits = React.createContext(undefined, (previou
 </div>;
 
 // Below tests that setState() works properly for both regular and callback modes
-type StateOfSetStateTest = { foo: boolean, bar: boolean }
+type StateOfSetStateTest = { foo: boolean, bar: boolean };
 class SetStateTest extends React.Component<{}, StateOfSetStateTest> {
     handleSomething = () => {
         function complicatedReturn (original: StateOfSetStateTest) {
