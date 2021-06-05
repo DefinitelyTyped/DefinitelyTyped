@@ -124,3 +124,10 @@ import { EventLoopUtilization } from 'perf_hooks';
     bc.onmessage = (msg: unknown) => { };
     bc.onmessageerror = (msg: unknown) => { };
 }
+
+{
+    workerThreads.setEnvironmentData('test', 1);
+    workerThreads.setEnvironmentData(123, { a: 1 });
+    workerThreads.getEnvironmentData('test'); // $ExpectType Serializable
+    workerThreads.getEnvironmentData(1); // $ExpectType Serializable
+}

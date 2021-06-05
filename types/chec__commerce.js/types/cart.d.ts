@@ -5,7 +5,7 @@ import { LineItem } from './line-item';
 export interface Cart {
   id: string;
   created: number;
-  last_updated: number;
+  updated: number;
   expires: number;
   total_items: number;
   total_unique_items: number;

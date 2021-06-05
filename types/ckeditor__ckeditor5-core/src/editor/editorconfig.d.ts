@@ -8,6 +8,7 @@ import { ExportWordConfig } from '@ckeditor/ckeditor5-export-word/src/exportword
 import { HeadingConfig } from '@ckeditor/ckeditor5-heading/src/heading';
 import { TitleConfig } from '@ckeditor/ckeditor5-heading/src/title';
 import { HighlightConfig } from '@ckeditor/ckeditor5-highlight/src/highlight';
+import { ImageConfig } from '@ckeditor/ckeditor5-image/src/image';
 import { TextPartLanguageOption } from '@ckeditor/ckeditor5-language/src/textpartlanguage';
 import { LinkConfig } from '@ckeditor/ckeditor5-link/src/link';
 import { PaginationConfig } from '@ckeditor/ckeditor5-pagination/src/pagination';
@@ -30,8 +31,6 @@ type FontColorConfig = any;
 type FontFamilyConfig = any;
 // TODO: import {FontSizeConfig} from "@ckeditor/ckeditor5-font/src/fontsize";
 type FontSizeConfig = any;
-// TODO: import {ImageConfig} from "@ckeditor/ckeditor5-image/src/image";
-type ImageConfig = any;
 // TODO: import {IndentBlockConfig} from "@ckeditor/ckeditor5-indent/src/indentblock";
 type IndentBlockConfig = any;
 // TODO: import {MediaEmbedConfig} from "@ckeditor/ckeditor5-media-embed/src/mediaembed";

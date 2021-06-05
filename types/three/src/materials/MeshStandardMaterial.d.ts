@@ -32,7 +32,6 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     refractionRatio?: number;
     wireframe?: boolean;
     wireframeLinewidth?: number;
-    skinning?: boolean;
     vertexTangents?: boolean;
     morphTargets?: boolean;
     morphNormals?: boolean;
@@ -196,11 +195,6 @@ export class MeshStandardMaterial extends Material {
      * @default 'round'
      */
     wireframeLinejoin: string;
-
-    /**
-     * @default false
-     */
-    skinning: boolean;
 
     /**
      * @default false
