@@ -1443,6 +1443,7 @@ export class Db extends EventEmitter {
 
 export interface CommonOptions extends WriteConcern {
     session?: ClientSession;
+    writeConcern?: WriteConcern | string;
 }
 
 /**
