@@ -2,7 +2,6 @@
 // Project: https://github.com/i-rocky/country-list-js
 // Definitions by: Digory Doolittle <https://github.com/digorydoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
 
 export interface Province {
     name: string;
