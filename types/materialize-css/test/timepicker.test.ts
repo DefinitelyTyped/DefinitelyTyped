@@ -57,7 +57,7 @@ timePicker.options;
 timePicker.el;
 // $ExpectType boolean
 timePicker.isOpen;
-// $ExpectType string
+// $ExpectType "AM" | "PM"
 timePicker.amOrPm;
 // $ExpectType Views
 timePicker.currentView;

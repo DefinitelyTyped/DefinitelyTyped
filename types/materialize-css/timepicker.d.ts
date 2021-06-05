@@ -23,7 +23,7 @@ declare namespace M {
          * If the time is AM or PM on twelve-hour clock
          * @default 'PM'
          */
-        amOrPm: string;
+        amOrPm: "AM" | "PM";
 
         /**
          * Current view on the timepicker
