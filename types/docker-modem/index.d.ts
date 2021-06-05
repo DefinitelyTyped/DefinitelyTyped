@@ -2,7 +2,6 @@
 // Project: https://github.com/apocas/docker-modem
 // Definitions by: Nasreddine Bac Ali <https://github.com/bacali95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
