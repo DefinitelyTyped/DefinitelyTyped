@@ -483,7 +483,6 @@ export interface MongoClientOptions
         SSLOptions,
         TLSOptions,
         HighAvailabilityOptions,
-        WriteConcern,
         UnifiedTopologyOptions {
     /**
      * The logging level (error/warn/info/debug)
