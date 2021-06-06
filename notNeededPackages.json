@@ -3622,6 +3622,10 @@
             "libraryName": "rc-progress",
             "asOfVersion": "2.4.0"
         },
+        "rdf-js": {
+            "libraryName": "rdf-js",
+            "asOfVersion": "4.0.2"
+        },
         "rc-select": {
             "libraryName": "rc-select",
             "asOfVersion": "8.6.5"
@@ -4281,10 +4285,6 @@
         "rgb2hex": {
             "libraryName": "rgb2hex",
             "asOfVersion": "0.2.1"
-        },
-        "riderize__passport-strava-oauth2": {
-            "libraryName": "@riderize/passport-strava-oauth2",
-            "asOfVersion": "1.1.1"
         },
         "riot": {
             "libraryName": "riot",

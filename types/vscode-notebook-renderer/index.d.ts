@@ -1,19 +1,19 @@
 // Type definitions for non-npm package vscode-notebook-renderer 1.57
 // Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
-// Definitions by: Connor Peet <https://github.com/connor4312>
+// Definitions by: Connor Peet <https://github.com/connor4312>, Matt Bierner <https://github.com/mjbvz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
 import { VSCodeEvent } from './events';
 
 /**
- * Information about a rendered cell.
+ * Information about a rendered cell output.
  */
-export interface CellInfo {
+export interface OutputItem {
     /**
-     * HTML element where the cell should be renderer.
+     * Unique id of the output item.
      */
-    readonly element: HTMLElement;
+    readonly id: string;
 
     /**
      * Mime type being rendered.
@@ -35,7 +35,7 @@ export interface CellInfo {
     /**
      * The data as bytes.
      */
-    bytes(): Uint8Array;
+    data(): Uint8Array;
 
     /**
      * The data as blob. The blob-type will be initialized the `mime`
@@ -44,7 +44,7 @@ export interface CellInfo {
     blob(): Blob;
 
     /**
-     * cell metadata.
+     * Output item metadata.
      */
     readonly metadata: unknown;
 }
@@ -99,25 +99,36 @@ export interface RendererContext<TState> {
 }
 
 /**
- * API returned by your renderer. This is invoked by the editor to manage the lifecycle of rendered cells.
+ * API returned by your renderer. This is invoked by the editor to manage the lifecycle of rendered output items.
  */
 export interface RendererApi {
     /**
-     * Method called by the editor to render a cell.
-     */
-    renderCell(id: string, info: CellInfo): void;
-
-    /**
-     * Destroys a previously-rendered cell.
+     * Called by the editor to render an output item.
      *
-     * @param id the of the cell being removed. If undefined, all cells are
-     * being removed.
+     * This is invoked by the editor when an output item is first renderered or when
+     * the output item is updated.
+     *
+     * @param outputItem Output item to render.
+     * @param element Html element to render into.
      */
-    destroyCell?(id?: string): void;
+    renderOutputItem(outputItem: OutputItem, element: HTMLElement): void;
 
     /**
-     * Additional properties may be returned for others to consume in
+     * Called by the editor when a previously-rendered output item is being disposed of.
+     *
+     * Your renderer should implement this if you need to clean up anything that was registered
+     * during `renderOutputItem`. This would include global event listeners or any HTML elements outside of the
+     * output item's node.
+     *
+     * @param id The id of the item being removed. If `undefined`, all cells are being removed.
+     */
+    disposeOutputItem?(id?: string): void;
+
+    /**
+     * Optional additional methods and properties for other renderers to consume using
      * {@link RendererContext.getRenderer}.
+     *
+     * This lets your renderer expose hooks that other renderers can use to extend its behavior.
      */
     [key: string]: unknown;
 }

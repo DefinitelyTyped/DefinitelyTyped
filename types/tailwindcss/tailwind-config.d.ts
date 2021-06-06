@@ -102,9 +102,36 @@ export interface TailwindColorConfig {
     readonly pink: TailwindColorGroup;
 }
 
+export type TailwindValidLayers = 'base' | 'components' | 'utilities' | 'screens';
+
+export interface TailwindPurgeConfig {
+    /**
+     * Array of glob paths
+     */
+    content: string[];
+    /**
+     * @see https://tailwindcss.com/docs/optimizing-for-production#enabling-manually
+     */
+    enabled?: boolean;
+    /**
+     * @see https://tailwindcss.com/docs/optimizing-for-production#preserving-html-elements
+     */
+    preserveHtmlElements?: boolean;
+    /**
+     * Purge specific layers
+     * @see https://tailwindcss.com/docs/optimizing-for-production#purging-specific-layers
+     */
+    layers?: TailwindValidLayers[];
+    /**
+     * Remove all unused styles
+     * @see https://tailwindcss.com/docs/optimizing-for-production#removing-all-unused-styles
+     */
+    mode?: 'all';
+}
+
 export interface TailwindConfig {
     theme: Partial<{
-        readonly extend: Omit<TailwindConfig['theme'], 'extend'>
+        readonly extend: Omit<TailwindConfig['theme'], 'extend'>;
         readonly screens: {
             readonly sm: string;
             readonly md: string;
@@ -939,7 +966,7 @@ export interface TailwindConfig {
         };
     }>;
     variants: Partial<{
-        readonly extend: Omit<TailwindConfig['variants'], 'extend'>
+        readonly extend: Omit<TailwindConfig['variants'], 'extend'>;
         readonly accessibility: Variant[];
         readonly alignContent: Variant[];
         readonly alignItems: Variant[];
@@ -1181,7 +1208,7 @@ export interface TailwindConfig {
         'animation',
     ];
     plugins: any[];
-    purge: any[];
+    purge: string[] | TailwindPurgeConfig;
     presets: any[];
     darkMode: false | 'media' | 'class';
     variantOrder: Variant[];

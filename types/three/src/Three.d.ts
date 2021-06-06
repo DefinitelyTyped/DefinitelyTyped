@@ -139,7 +139,6 @@ export * from './math/interpolants/DiscreteInterpolant';
 export * from './math/interpolants/CubicInterpolant';
 export * from './math/Interpolant';
 export * from './math/Triangle';
-export * from './math/MathUtils';
 export * from './math/Spherical';
 export * from './math/Cylindrical';
 export * from './math/Plane';
@@ -158,6 +157,8 @@ export * from './math/Vector2';
 export * from './math/Quaternion';
 export * from './math/Color';
 export * from './math/SphericalHarmonics3';
+import * as MathUtils from './math/MathUtils';
+export { MathUtils };
 /**
  * Objects
  */

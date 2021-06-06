@@ -46,6 +46,7 @@
         "test/materials/materials-variations-standard.ts",
         "test/postprocessing/postprocessing-ssrr.ts",
         "test/postprocessing/postprocessing-ssr.ts",
+        "test/postprocessing/postprocessing-effectcomposer-pass.ts",
         "test/renderers/renderers-renderTarget-multiple.ts",
         "test/renderers/renderers-renderTarget-texture2DArray.ts",
         "test/renderers/webxr/webxr-vr-cube.ts",

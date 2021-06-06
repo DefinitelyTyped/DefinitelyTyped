@@ -1,16 +1,16 @@
 // Type definitions for stremio-addon-sdk 1.6
 // Project: https://github.com/Stremio/stremio-addon-sdk#readme
-// Definitions by: Sleeyax <https://github.com/sleeyax>
+// Definitions by: Sleeyax <https://github.com/sleeyax>, Victor <https://github.com/victorgveloso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
 export {};
 
-type ShortManifestResource = 'catalog' | 'meta' | 'stream' | 'subtitles' | 'addon_catalog';
-type Extra = 'search' | 'genre' | 'skip';
-type ContentType = 'movie' | 'series' | 'channel' | 'tv';
+export type ShortManifestResource = 'catalog' | 'meta' | 'stream' | 'subtitles' | 'addon_catalog';
+export type Extra = 'search' | 'genre' | 'skip';
+export type ContentType = 'movie' | 'series' | 'channel' | 'tv';
 
-interface Args {
+export interface Args {
     type: ContentType;
     id: string;
     extra: { search: string; genre: string; skip: number };
@@ -100,7 +100,7 @@ export class addonBuilder {
 /**
  * The addonInterface, as returned from builder.getInterface()
  */
-interface AddonInterface {
+export interface AddonInterface {
     manifest: Manifest;
     get: (args: { resource: ShortManifestResource } & Args) => Promise<any>;
 }
@@ -108,7 +108,7 @@ interface AddonInterface {
 /**
  * A resolving object can also include the following cache related properties
  */
-interface Cache {
+export interface Cache {
     /**
      * (in seconds) sets the Cache-Control header to max-age=$cacheMaxAge
      * and overwrites the global cache time set in serveHTTP options.
@@ -129,7 +129,7 @@ interface Cache {
  *
  * Catalogs are displayed on the Stremio's Board, Discover and Search.
  */
-interface MetaPreview {
+export interface MetaPreview {
     /**
      * Universal identifier.
      * You may use a prefix unique to your addon.
@@ -185,9 +185,9 @@ interface MetaPreview {
 /**
  * Detailed description of a meta item.
  *
- * This description is displayed when the user selects an item form the catalog.
+ * This description is displayed when the user selects an item from the catalog.
  */
-interface MetaDetail extends MetaPreview {
+export interface MetaDetail extends MetaPreview {
     /**
      * genre/categories of the content.
      *
@@ -267,7 +267,7 @@ interface MetaDetail extends MetaPreview {
     };
 }
 
-interface MetaLink {
+export interface MetaLink {
     /**
      * Human readable name for the link.
      */
@@ -285,7 +285,7 @@ interface MetaLink {
     url: string;
 }
 
-interface MetaVideo {
+export interface MetaVideo {
     /**
      * ID of the video.
      */
@@ -347,7 +347,7 @@ interface MetaVideo {
  *
  * It may be torrent info hash, HTTP URL, etc.
  */
-interface Stream {
+export interface Stream {
     /**
      * Direct URL to a video stream - http, https, rtmp protocols are supported.
      */
@@ -426,7 +426,7 @@ interface Stream {
 /**
  * Subtitles resource for the chosen media.
  */
-interface Subtitle {
+export interface Subtitle {
     /**
      * Url to the subtitle file.
      */
@@ -524,7 +524,7 @@ export interface Manifest {
 /**
  * Used as a response for defineResourceHandler.
  */
-interface AddonCatalog {
+export interface AddonCatalog {
     /**
      * only http is currently officially supported.
      */
@@ -539,7 +539,7 @@ interface AddonCatalog {
     manifest: Manifest;
 }
 
-interface FullManifestResource {
+export interface FullManifestResource {
     /**
      * Resource name.
      */
@@ -556,7 +556,7 @@ interface FullManifestResource {
     idPrefixes?: string[];
 }
 
-interface ManifestCatalog {
+export interface ManifestCatalog {
     /**
      *  This is the content type of the catalog.
      */
@@ -582,7 +582,7 @@ interface ManifestCatalog {
     extra?: ManifestExtra[];
 }
 
-interface ManifestExtra {
+export interface ManifestExtra {
     /**
      * The name of the property
      *

@@ -255,7 +255,8 @@ import { URL } from 'url';
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-        settings
+        settings,
+        unknownProtocolTimeout: 123,
     };
     // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
     const secureServerOptions: SecureServerOptions = Object.assign({}, serverOptions);
