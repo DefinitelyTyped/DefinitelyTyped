@@ -102,6 +102,7 @@ export interface WorkerHost {
     emit(eventName: string, ...args: any[]): void;
 }
 
+// tslint:disable-next-line:no-unnecessary-class
 declare class TransferableResponse {
     constructor(response: any, tranferables: Transferable[]);
 }

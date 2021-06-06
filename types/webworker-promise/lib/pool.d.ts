@@ -10,7 +10,7 @@ export interface WorkerPoolSrcOptions extends WorkerPoolSharedOptions {
 }
 
 export interface WorkerPoolCreateOptions extends WorkerPoolSharedOptions {
-    create: () => Worker | typeof NodeWorker;
+    create: () => Worker | NodeWorker;
 }
 
 /**
