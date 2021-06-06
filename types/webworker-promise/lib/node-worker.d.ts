@@ -1,3 +1,5 @@
+export = NodeWorker;
+
 /**
  * You can use webworker-promise with nodejs using shim
  *
@@ -14,6 +16,6 @@
  *
  */
 // tslint:disable-next-line:no-unnecessary-class
-export default class NodeWorker {
+declare class NodeWorker {
     constructor(filePath: string);
 }

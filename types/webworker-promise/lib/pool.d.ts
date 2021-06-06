@@ -1,17 +1,6 @@
-import NodeWorker from './node-worker';
+import NodeWorker = require('./node-worker');
 
-export interface WorkerPoolSharedOptions {
-    maxThreads?: number;
-    maxConcurrentPerWorker?: number;
-}
-
-export interface WorkerPoolSrcOptions extends WorkerPoolSharedOptions {
-    src: string;
-}
-
-export interface WorkerPoolCreateOptions extends WorkerPoolSharedOptions {
-    create: () => Worker | NodeWorker;
-}
+export = WorkerPool;
 
 /**
  * Workers Pool
@@ -35,8 +24,8 @@ export interface WorkerPoolCreateOptions extends WorkerPoolSharedOptions {
  *  });
  * ```
  */
-export default class WorkerPool {
-    static create(workerPoolOptions: WorkerPoolSrcOptions | WorkerPoolCreateOptions): WorkerPool;
+declare class WorkerPool {
+    static create(workerPoolOptions: WorkerPool.WorkerPoolSrcOptions | WorkerPool.WorkerPoolCreateOptions): WorkerPool;
     /**
      * Allows you to trigger the main worker function.
      * The event handler function is scoped to the emit passed into the main function and is not triggered by global emits from the worker.
@@ -94,4 +83,19 @@ export default class WorkerPool {
         transferableList?: Transferable[],
         onEvent?: (eventName: string, message: any) => void,
     ): Promise<any>;
+}
+
+declare namespace WorkerPool {
+    interface WorkerPoolSharedOptions {
+        maxThreads?: number;
+        maxConcurrentPerWorker?: number;
+    }
+
+    interface WorkerPoolSrcOptions extends WorkerPoolSharedOptions {
+        src: string;
+    }
+
+    interface WorkerPoolCreateOptions extends WorkerPoolSharedOptions {
+        create: () => Worker | NodeWorker;
+    }
 }

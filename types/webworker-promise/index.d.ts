@@ -3,7 +3,9 @@
 // Definitions by: Idicious <https://github.com/idicious>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import NodeWorker from './lib/node-worker';
+import NodeWorker = require('./lib/node-worker');
+
+export = PromiseWorker;
 
 declare class PromiseWorker {
     constructor(worker: Worker | NodeWorker);
@@ -143,4 +145,3 @@ declare class PromiseWorker {
      */
     terminate(): void;
 }
-export default PromiseWorker;

@@ -1,133 +1,132 @@
+export = registerWebworker;
+
 /**
- * Webworker side API for registering operations and events that can be called from the main thread.
+ * Main function to register functions in the webworker that a callable from the main thread.
+ *
+ * @param register Eventhandler for `postMessage` calls from the main thread.
+ *
+ * @example
+ *
+ * ```
+ * // worker.js
+ * registerWebworker((message) => {
+ *      return `Hello ${message}!`;
+ * });
+ *
+ * // main.js
+ * worker.postMessage('world').then((response) => {
+ *      console.log(response); // Hello world!
+ * })
+ * ```
  */
-export interface WorkerHost {
-    /**
-     * Allows you to register operations that can be triggered via the `exec` command from the main thread.
-     * The emit function is scoped to the event handler of the `exec` operation and does not trigger the global `on` / `once` handlers in the main thread.
-     *
-     * @param eventName Name of the operation
-     * @param handler Event handler
-     *
-     * @example
-     *
-     * ```
-     * // worker.js
-     * registerWebworker().operation('greet', (message) => {
-     *      return `Hello ${message}!`;
-     * });
-     *
-     * // main.js
-     * worker.exec('greet', 'world').then((response) => {
-     *      console.log(response); // Hello world!
-     * })
-     * ```
-     */
-    operation(
-        eventName: string,
-        handler: (message: any, emit: (eventName: string, data: any) => void) => any,
-    ): WorkerHost;
-    /**
-     * Allows you to register operations that can be triggered via the `emit` command from the main thread.
-     *
-     * @param eventName Name of the operation
-     * @param handler Event handler
-     *
-     * @example
-     *
-     * ```
-     * // worker.js
-     * const host = registerWebworker()
-     *  .on('add', (x, y) => {
-     *      host.emit('add:result', x + y);
-     *  });
-     *
-     * // main.js
-     * worker.on('add:result', (result) => {
-     *      console.log(result); // 3
-     * });
-     *
-     * worker.emit('add', 1, 2);
-     * ```
-     */
-    on(eventName: string, handler: (...args: any[]) => void): WorkerHost;
-    /**
-     * Allows you to register operations that can be triggered via the `emit` command from the main thread, will only be triggered once.
-     *
-     * @param eventName Name of the operation
-     * @param handler Event handler
-     *
-     * @example
-     *
-     * ```
-     * // worker.js
-     * const host = registerWebworker()
-     *  .once('add', (x, y) => {
-     *      host.emit('add:result', x + y);
-     *  });
-     *
-     * // main.js
-     * worker.once('add:result', (result) => {
-     *      console.log(result); // 3
-     * });
-     *
-     * // Will only have effect first call
-     * worker.emit('add', 1, 2);
-     * ```
-     */
-    once(eventName: string, handler: (...args: any[]) => void): WorkerHost;
-    /**
-     * Allows you to emit values to the main thread that can be listened to via the `on` and `once` methods.
-     *
-     * @param eventName Name of the operation
-     * @param handler Event handler
-     *
-     * @example
-     *
-     * ```
-     * // worker.js
-     * const host = registerWebworker()
-     *  .on('add', (x, y) => {
-     *      host.emit('add:result', x + y);
-     *  });
-     *
-     * // main.js
-     * worker.on('add:result', (result) => {
-     *      console.log(result); // 3
-     * });
-     *
-     * worker.emit('add', 1, 2);
-     * ```
-     */
-    emit(eventName: string, ...args: any[]): void;
-}
+declare function registerWebworker(
+    register?: (message: any, emit: (eventName: string, data: any) => void) => Promise<any>,
+): registerWebworker.WorkerHost;
 
-// tslint:disable-next-line:no-unnecessary-class
-declare class TransferableResponse {
-    constructor(response: any, tranferables: Transferable[]);
-}
-
-export interface Register {
+declare namespace registerWebworker {
     /**
-     * Main function to register functions in the webworker that a callable from the main thread.
-     *
-     * @param register Eventhandler for `postMessage` calls from the main thread.
-     *
-     * @example
-     *
-     * ```
-     * // worker.js
-     * registerWebworker((message) => {
-     *      return `Hello ${message}!`;
-     * });
-     *
-     * // main.js
-     * worker.postMessage('world').then((response) => {
-     *      console.log(response); // Hello world!
-     * })
-     * ```
+     * Webworker side API for registering operations and events that can be called from the main thread.
      */
-    (register?: (message: any, emit: (eventName: string, data: any) => void) => Promise<any>): WorkerHost;
+    interface WorkerHost {
+        /**
+         * Allows you to register operations that can be triggered via the `exec` command from the main thread.
+         * The emit function is scoped to the event handler of the `exec` operation and does not trigger the global `on` / `once` handlers in the main thread.
+         *
+         * @param eventName Name of the operation
+         * @param handler Event handler
+         *
+         * @example
+         *
+         * ```
+         * // worker.js
+         * registerWebworker().operation('greet', (message) => {
+         *      return `Hello ${message}!`;
+         * });
+         *
+         * // main.js
+         * worker.exec('greet', 'world').then((response) => {
+         *      console.log(response); // Hello world!
+         * })
+         * ```
+         */
+        operation(
+            eventName: string,
+            handler: (message: any, emit: (eventName: string, data: any) => void) => any,
+        ): WorkerHost;
+        /**
+         * Allows you to register operations that can be triggered via the `emit` command from the main thread.
+         *
+         * @param eventName Name of the operation
+         * @param handler Event handler
+         *
+         * @example
+         *
+         * ```
+         * // worker.js
+         * const host = registerWebworker()
+         *  .on('add', (x, y) => {
+         *      host.emit('add:result', x + y);
+         *  });
+         *
+         * // main.js
+         * worker.on('add:result', (result) => {
+         *      console.log(result); // 3
+         * });
+         *
+         * worker.emit('add', 1, 2);
+         * ```
+         */
+        on(eventName: string, handler: (...args: any[]) => void): WorkerHost;
+        /**
+         * Allows you to register operations that can be triggered via the `emit` command from the main thread, will only be triggered once.
+         *
+         * @param eventName Name of the operation
+         * @param handler Event handler
+         *
+         * @example
+         *
+         * ```
+         * // worker.js
+         * const host = registerWebworker()
+         *  .once('add', (x, y) => {
+         *      host.emit('add:result', x + y);
+         *  });
+         *
+         * // main.js
+         * worker.once('add:result', (result) => {
+         *      console.log(result); // 3
+         * });
+         *
+         * // Will only have effect first call
+         * worker.emit('add', 1, 2);
+         * ```
+         */
+        once(eventName: string, handler: (...args: any[]) => void): WorkerHost;
+        /**
+         * Allows you to emit values to the main thread that can be listened to via the `on` and `once` methods.
+         *
+         * @param eventName Name of the operation
+         * @param handler Event handler
+         *
+         * @example
+         *
+         * ```
+         * // worker.js
+         * const host = registerWebworker()
+         *  .on('add', (x, y) => {
+         *      host.emit('add:result', x + y);
+         *  });
+         *
+         * // main.js
+         * worker.on('add:result', (result) => {
+         *      console.log(result); // 3
+         * });
+         *
+         * worker.emit('add', 1, 2);
+         * ```
+         */
+        emit(eventName: string, ...args: any[]): void;
+    }
 
     /**
      * Use to return transferables from worker thread to main thread.
@@ -143,9 +142,8 @@ export interface Register {
      *  });
      * ```
      */
-    TransferableResponse: typeof TransferableResponse;
+    // tslint:disable-next-line:no-unnecessary-class
+    class TransferableResponse {
+        constructor(response: any, tranferables: Transferable[]);
+    }
 }
-
-declare const _export: Register;
-
-export default _export;

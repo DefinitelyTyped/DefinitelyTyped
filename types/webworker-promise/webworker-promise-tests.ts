@@ -1,7 +1,7 @@
-import WebworkerPromise from 'webworker-promise';
-import WorkerPool from 'webworker-promise/lib/pool';
-import registerWebworker from 'webworker-promise/lib/register';
-import NodeWorker from 'webworker-promise/lib/node-worker';
+import WebworkerPromise = require('webworker-promise');
+import WorkerPool = require('webworker-promise/lib/pool');
+import registerWebworker = require('webworker-promise/lib/register');
+import NodeWorker = require('webworker-promise/lib/node-worker');
 
 const worker = new WebworkerPromise(new Worker('worker.js'));
 {
