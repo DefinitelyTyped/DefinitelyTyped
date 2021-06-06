@@ -10,7 +10,7 @@ declare class PromiseWorker {
 
     /**
      * Allows you to trigger the main worker function.
-     * The event handler function is scoped to the emit past into the main function and is not triggered by global emits from the worker.
+     * The event handler function is scoped to the emit passed into the main function and is not triggered by global emits from the worker.
      *
      * @param message Data to send to worker
      * @param transferableList List of transferables to send to worker
@@ -38,7 +38,7 @@ declare class PromiseWorker {
 
     /**
      * Allows you to trigger operations that are registered via the `operation` function in the worker.
-     * The event handler function is scoped to the emit past into the `operation` function and is not triggered by global emits from the worker.
+     * The event handler function is scoped to the emit passed into the `operation` function and is not triggered by global emits from the worker.
      *
      * @param operationName Name of the operation
      * @param message Data to send to worker

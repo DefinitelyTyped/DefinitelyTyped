@@ -39,16 +39,61 @@ export interface WorkerPoolCreateOptions extends WorkerPoolSharedOptions {
  */
 export default class WorkerPool {
     static create(workerPoolOptions: WorkerPoolSrcOptions | WorkerPoolCreateOptions): WorkerPool;
-    postMessage<T = any, E = any>(
-        message: any,
+    /**
+     * Allows you to trigger the main worker function.
+     * The event handler function is scoped to the emit passed into the main function and is not triggered by global emits from the worker.
+     *
+     * @param message Data to send to worker
+     * @param transferableList List of transferables to send to worker
+     * @param onEvent Eventhandler for `emit` calls from the worker
+     *
+     * @example
+     *
+     * ```
+     * // worker.js
+     * registerWebworker((message) => {
+     *      return `Hello ${message}!`;
+     * });
+     *
+     * // main.js
+     * worker.postMessage('world').then((response) => {
+     *      console.log(response); // Hello world!
+     * })
+     * ```
+     */
+    postMessage<TResult = any, TEvent = any>(
+        message: unknown,
         transferableList?: Transferable[],
-        onEvent?: (eventName: string, message: E) => void,
-    ): Promise<T>;
+        onEvent?: (eventName: string, message: TEvent) => void,
+    ): Promise<TResult>;
 
-    exec<T = any, E = any>(
+    /**
+     * Allows you to trigger operations that are registered via the `operation` function in the worker.
+     * The event handler function is scoped to the emit passed into the `operation` function and is not triggered by global emits from the worker.
+     *
+     * @param operationName Name of the operation
+     * @param message Data to send to worker
+     * @param transferableList List of transferables to send to worker
+     * @param onEvent Eventhandler for `emit` calls from the worker
+     *
+     * @example
+     *
+     * ```
+     * // worker.js
+     * registerWebworker().operation('greet', (message) => {
+     *      return `Hello ${message}!`;
+     * });
+     *
+     * // main.js
+     * worker.exec('greet', 'world').then((response) => {
+     *      console.log(response); // Hello world!
+     * })
+     * ```
+     */
+    exec<TResult = any, TEvent = any>(
         operationName: string,
         message?: any,
         transferableList?: Transferable[],
-        onEvent?: (eventName: string, message: E) => void,
-    ): Promise<T>;
+        onEvent?: (eventName: string, message: TEvent) => void,
+    ): Promise<TResult>;
 }
