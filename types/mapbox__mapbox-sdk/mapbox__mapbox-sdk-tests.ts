@@ -6,6 +6,7 @@ import MapMatching, { MapMatchingResponse, MapMatchingService } from '@mapbox/ma
 import Styles, { StylesService } from '@mapbox/mapbox-sdk/services/styles';
 import StaticMap, { StaticMapService } from '@mapbox/mapbox-sdk/services/static';
 import Geocoding, { GeocodeService } from '@mapbox/mapbox-sdk/services/geocoding';
+import Optimization, { OptimizationService } from '@mapbox/mapbox-sdk/services/optimization';
 import { LineString } from 'geojson';
 
 const config: SdkConfig = {
@@ -25,6 +26,7 @@ const mapiRequest: MapiRequest = directionsService.getDirections({
             coordinates: [2, 4],
         },
     ],
+    exclude: [],
 });
 
 mapiRequest.send().then((response: MapiResponse) => {
@@ -122,4 +124,40 @@ geocodeService.forwardGeocode({
   bbox: [1, 2, 3, 4],
   query: 'Paris, France',
   mode: 'mapbox.places'
+});
+
+const optimizationService: OptimizationService = Optimization(config);
+optimizationService.getOptimization({
+    profile: 'driving',
+    waypoints: [
+        {
+            coordinates: [-122.42, 37.78],
+            bearing: [45, 90],
+            radius: "unlimited",
+            approach: "unrestricted"
+        },
+        {
+            coordinates: [-122.45, 37.91],
+            bearing: [90, 1],
+            radius: "unlimited",
+            approach: "curb"
+        },
+        {
+            coordinates: [-122.48, 37.73],
+            bearing: [340, 45],
+            radius: 1234,
+            approach: "unrestricted"
+        },
+    ],
+    destination: 'last',
+    distributions: [{
+        pickup: 0,
+        dropoff: 1,
+    }],
+    geometries: 'geojson',
+    language: 'en',
+    overview: 'full',
+    source: 'first',
+    roundtrip: true,
+    steps: true,
 });
