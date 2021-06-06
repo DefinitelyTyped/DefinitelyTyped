@@ -7,10 +7,10 @@ export = NodeWorker;
  *
  * ```
  * const WebworkerPromise = require('webworker-promise');
- * const Worker = require('webworker-promise/lib/node-worker.js');
+ * const Worker = require('webworker-promise/lib/node-worker');
  * const path = require('path');
  *
- * const workerPath = path.join(__dirname, './worker.js');
+ * const workerPath = path.join(__dirname, './worker');
  * const worker = new WebworkerPromise(new Worker(workerPath));
  * ```
  *
