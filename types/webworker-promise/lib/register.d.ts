@@ -1,8 +1,3 @@
-// Type definitions for webworker-promise 0.4
-// Project: https://github.com/kwolfy/webworker-promise#readme
-// Definitions by: Idicious <https://github.com/idicious>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Webworker side API for registering operations and events that can be called from the main thread.
  */
@@ -111,7 +106,7 @@ declare class TransferableResponse {
     constructor(response: any, tranferables: Transferable[]);
 }
 
-declare type Register = {
+export interface Register {
     /**
      * Main function to register functions in the webworker that a callable from the main thread.
      *
@@ -148,7 +143,7 @@ declare type Register = {
      * ```
      */
     TransferableResponse: typeof TransferableResponse;
-};
+}
 
 declare const _export: Register;
 

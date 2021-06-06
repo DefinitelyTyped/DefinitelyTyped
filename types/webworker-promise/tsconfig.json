@@ -19,9 +19,9 @@
     },
     "files": [
         "index.d.ts",
-        "lib/pool/index.d.ts",
-        "lib/register/index.d.ts",
-        "lib/node-worker/index.d.ts",
+        "lib/pool.d.ts",
+        "lib/register.d.ts",
+        "lib/node-worker.d.ts",
         "webworker-promise-tests.ts"
     ]
 }

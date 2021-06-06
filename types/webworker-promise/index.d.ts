@@ -30,11 +30,11 @@ declare class PromiseWorker {
      * })
      * ```
      */
-    postMessage<TResult = any, TEvent = any>(
+    postMessage(
         message: unknown,
         transferableList?: Transferable[],
-        onEvent?: (eventName: string, message: TEvent) => void,
-    ): Promise<TResult>;
+        onEvent?: (eventName: string, message: any) => void,
+    ): Promise<any>;
 
     /**
      * Allows you to trigger operations that are registered via the `operation` function in the worker.
@@ -59,12 +59,12 @@ declare class PromiseWorker {
      * })
      * ```
      */
-    exec<TResult = any, TEvent = any>(
+    exec(
         operationName: string,
         message?: any,
         transferableList?: Transferable[],
-        onEvent?: (eventName: string, message: TEvent) => void,
-    ): Promise<TResult>;
+        onEvent?: (eventName: string, message: any) => void,
+    ): Promise<any>;
     /**
      * Allows you to register operations that can be triggered via the `emit` command from the worker.
      *
@@ -138,5 +138,9 @@ declare class PromiseWorker {
      * ```
      */
     emit(eventName: string, ...args: any[]): void;
+    /**
+     * Disposes the underlying worker, future calls will have no effect
+     */
+    terminate(): void;
 }
 export default PromiseWorker;

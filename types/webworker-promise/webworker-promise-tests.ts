@@ -17,7 +17,7 @@ const worker = new WebworkerPromise(new Worker('worker.js'));
 
     // worker.js
     registerWebworker(async (message, emit) => {
-        //message - ping
+        // message - ping
         return 'pong';
     });
 }
@@ -44,16 +44,16 @@ const worker = new WebworkerPromise(new Worker('worker.js'));
 }
 
 {
-    //Transferable
-    //You can use transferable list for performance issue
+    // Transferable
+    // You can use transferable list for performance issue
     const arrayBuffer2 = new ArrayBuffer(10);
     const arrayBuffer = new ArrayBuffer(10);
 
-    //Send just arraybuffer
+    // Send just arraybuffer
     worker.postMessage(arrayBuffer, [arrayBuffer]);
-    //Or inside objects
+    // Or inside objects
     worker.postMessage({ myArr: arrayBuffer, myArr2: arrayBuffer2 }, [arrayBuffer, arrayBuffer2]);
-    //And in worker.js
+    // And in worker.js
     registerWebworker(async (message, emit) => {
         return new registerWebworker.TransferableResponse(arrayBuffer, [arrayBuffer]);
     });
@@ -70,8 +70,8 @@ const worker = new WebworkerPromise(new Worker('worker.js'));
             data; // world
         })
         .then(response => {
-            //job end
-            //pong
+            // job end
+            // pong
         });
     // worker.js
     registerWebworker(async (message, emit) => {
@@ -111,7 +111,7 @@ const worker = new WebworkerPromise(new Worker('worker.js'));
 
     // worker.js
     registerWebworker(async message => {
-        //handle postMessage
+        // handle postMessage
         return 'pong';
     }).operation('hello', async (message, emit) => {
         return 'world';
@@ -146,11 +146,11 @@ const worker = new WebworkerPromise(new Worker('worker.js'));
     // Any thrown errors or rejections from the worker will be propagated to the main thread as a rejected Promise. For instance:
 
     // worker.js
-    registerWebworker(function (message) {
+    registerWebworker(message => {
         throw new Error('myException!');
     });
     // main.js
-    worker.postMessage('hi').catch(function (err) {
+    worker.postMessage('hi').catch(err => {
         console.log(err.message); // 'myException!'
         console.log(err.stack); // stack trace string
     });

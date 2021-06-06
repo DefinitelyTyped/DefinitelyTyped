@@ -1,11 +1,6 @@
-// Type definitions for webworker-promise 0.4
-// Project: https://github.com/kwolfy/webworker-promise#readme
-// Definitions by: Idicious <https://github.com/idicious>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import NodeWorker from './node-worker';
 
-import NodeWorker from '../node-worker';
-
-interface WorkerPoolSharedOptions {
+export interface WorkerPoolSharedOptions {
     maxThreads?: number;
     maxConcurrentPerWorker?: number;
 }
@@ -15,7 +10,7 @@ export interface WorkerPoolSrcOptions extends WorkerPoolSharedOptions {
 }
 
 export interface WorkerPoolCreateOptions extends WorkerPoolSharedOptions {
-    create: () => Worker | NodeWorker;
+    create: () => Worker | typeof NodeWorker;
 }
 
 /**
@@ -23,19 +18,22 @@ export interface WorkerPoolCreateOptions extends WorkerPoolSharedOptions {
  * Dynamic pool for workers.
  *
  * Note: It's experimental feature, and api may be changed
- * 
+ *
  * @example
+ *
+ * ```
  * const pool = WorkerPool.create({
-        src: './test.worker.js',
-        // or
-        create: () => new Worker('./test.worker.js'),
-        maxThreads: 3, // optional, default is 2, max numbers of workers to create if necessary
-        maxConcurrentPerWorker: 1, // optional, default is 1
-    });
-
-    pool.postMessage('hello').then(() => {
-        console.log('result');
-    });
+ *      src: './test.worker.js',
+ *      // or
+ *      create: () => new Worker('./test.worker.js'),
+ *      maxThreads: 3, // optional, default is 2, max numbers of workers to create if necessary
+ *      maxConcurrentPerWorker: 1, // optional, default is 1
+ *  });
+ *
+ *  pool.postMessage('hello').then(() => {
+ *      console.log('result');
+ *  });
+ * ```
  */
 export default class WorkerPool {
     static create(workerPoolOptions: WorkerPoolSrcOptions | WorkerPoolCreateOptions): WorkerPool;
@@ -61,11 +59,11 @@ export default class WorkerPool {
      * })
      * ```
      */
-    postMessage<TResult = any, TEvent = any>(
+    postMessage(
         message: unknown,
         transferableList?: Transferable[],
-        onEvent?: (eventName: string, message: TEvent) => void,
-    ): Promise<TResult>;
+        onEvent?: (eventName: string, message: any) => void,
+    ): Promise<any>;
 
     /**
      * Allows you to trigger operations that are registered via the `operation` function in the worker.
@@ -90,10 +88,10 @@ export default class WorkerPool {
      * })
      * ```
      */
-    exec<TResult = any, TEvent = any>(
+    exec(
         operationName: string,
         message?: any,
         transferableList?: Transferable[],
-        onEvent?: (eventName: string, message: TEvent) => void,
-    ): Promise<TResult>;
+        onEvent?: (eventName: string, message: any) => void,
+    ): Promise<any>;
 }
