@@ -420,7 +420,7 @@ export interface CalendarListBaseProps extends CalendarBaseProps {
 
 export class CalendarList extends React.Component<CalendarMarkingProps & CalendarListBaseProps> {}
 
-type ExpandableCalendarProps = CalendarMarkingProps &
+export type ExpandableCalendarProps = CalendarMarkingProps &
     CalendarListBaseProps & {
         /** the initial position of the calendar ('open' or 'closed') */
         initialPosition: 'open' | 'closed';
