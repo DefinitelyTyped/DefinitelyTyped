@@ -5,6 +5,15 @@ import { Request, Response } from 'express';
 // Definitions by: hebertcisco <https://github.com/hebertcisco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/* =================== USAGE ===================
+
+    import express = require("express");
+    var app = express();
+
+ =============================================== */
+
+/// <reference types="express" />
+
 export as namespace expmidd;
 
 declare const runMiddleware: (req: Request, res: Response, fn: any) => Promise<unknown>;

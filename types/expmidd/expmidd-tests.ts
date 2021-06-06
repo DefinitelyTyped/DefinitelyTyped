@@ -1,7 +1,8 @@
 import * as http from 'http';
 //import express = require('express');
 
-//import { Request, Response } from 'express';
+import { Request, Response } from 'express';
+
 //import Cors = require('cors');
 //import runMiddleware = require('expmidd');
 
@@ -16,11 +17,10 @@ import * as http from 'http';
     });
 }*/
 
-
 namespace expmidd_tests {
     const host = 'localhost';
     const port = 8000;
-    const requestListener = function (req, res) {
+    const requestListener: any = function (req: Request, res: Response) {
         res.writeHead(200);
         res.end("hello world");
     };

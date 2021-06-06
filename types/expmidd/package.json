@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "@types/express": "^4.17.12"
+  },
+  "types": "index"
+}
