@@ -1,4 +1,4 @@
-import autoExternal from './index';
+import autoExternal from 'rollup-plugin-auto-external';
 import { Plugin } from 'rollup';
 
 const config: Plugin = autoExternal({
@@ -7,4 +7,3 @@ const config: Plugin = autoExternal({
     packagePath: './packages/module/package.json',
     peerDependencies: false,
 });
-console.log(config);
