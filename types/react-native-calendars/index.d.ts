@@ -426,7 +426,7 @@ export type ExpandableCalendarProps = CalendarMarkingProps &
         initialPosition: 'open' | 'closed';
         /** callback that fires when the calendar is opened or closed */
         onCalendarToggled?: (isOpen: boolean) => void;
-        /** an option to disable the pan gesture and disable the opening and closing of the calendar (initialPosition will persist)*/
+        /** an option to disable the pan gesture and disable the opening and closing of the calendar (initialPosition will persist) */
         disablePan?: boolean;
         /** whether to hide the knob  */
         hideKnob?: boolean;
