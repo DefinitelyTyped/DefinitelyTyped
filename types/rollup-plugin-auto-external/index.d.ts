@@ -1,4 +1,4 @@
-// Type definitions for rollup-plugin-auto-external 2.0.0
+// Type definitions for foo rollup-plugin-auto-external 2.0
 // Project: https://github.com/stevenbenisek/rollup-plugin-auto-external
 // Definitions by: rxliuli <https://github.com/rxliuli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
