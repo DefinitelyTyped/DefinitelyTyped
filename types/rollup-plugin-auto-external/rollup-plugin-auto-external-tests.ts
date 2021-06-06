@@ -1,4 +1,4 @@
-import autoExternal from 'rollup-plugin-auto-external';
+import autoExternal = require('rollup-plugin-auto-external');
 import { Plugin } from 'rollup';
 
 const config: Plugin = autoExternal({
