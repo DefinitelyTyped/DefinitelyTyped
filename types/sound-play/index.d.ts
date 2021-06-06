@@ -3,4 +3,6 @@
 // Definitions by: Brenek Harrison <https://github.com/BrenekH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function play(path: string, volume?: number): Promise<unknown>;
+/// <reference types="node" />
+
+export function play(path: string, volume?: number): Promise<{ stdout: string | Buffer; stdin: string | Buffer; }>;

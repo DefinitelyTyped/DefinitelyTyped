@@ -1,9 +1,9 @@
 import { play } from "sound-play";
 
-// $ExpectType Promise<unknown>
+// $ExpectType Promise<{ stdout: string | Buffer; stdin: string | Buffer; }>
 play("file.mp3");
 
-// $ExpectType Promise<unknown>
+// $ExpectType Promise<{ stdout: string | Buffer; stdin: string | Buffer; }>
 play("file.mp3", 0.5);
 
 // $ExpectError
