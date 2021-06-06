@@ -6,9 +6,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import { StyleProp, TextStyle, ViewStyle } from "react-native";
-import XDateLocaleConfig = require("xdate");
+import * as React from 'react';
+import { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import XDateLocaleConfig = require('xdate');
 
 export class LocaleConfig extends XDateLocaleConfig {
     static locales: { [key: string]: typeof XDateLocaleConfig.locales[string] & { today: string } };
@@ -60,16 +60,16 @@ export interface CalendarTheme {
     arrowStyle?: ViewStyle;
 
     // Theme ID's to style for
-    "stylesheet.calendar.header"?: CalendarThemeIdStyle;
-    "stylesheet.calendar.main"?: CalendarThemeIdStyle;
-    "stylesheet.calendar-list.main"?: CalendarThemeIdStyle;
-    "stylesheet.agenda.main"?: CalendarThemeIdStyle;
-    "stylesheet.agenda.list"?: CalendarThemeIdStyle;
-    "stylesheet.day.basic"?: CalendarThemeIdStyle;
-    "stylesheet.day.single"?: CalendarThemeIdStyle;
-    "stylesheet.day.multiDot"?: CalendarThemeIdStyle;
-    "stylesheet.day.period"?: CalendarThemeIdStyle;
-    "stylesheet.dot"?: CalendarThemeIdStyle;
+    'stylesheet.calendar.header'?: CalendarThemeIdStyle;
+    'stylesheet.calendar.main'?: CalendarThemeIdStyle;
+    'stylesheet.calendar-list.main'?: CalendarThemeIdStyle;
+    'stylesheet.agenda.main'?: CalendarThemeIdStyle;
+    'stylesheet.agenda.list'?: CalendarThemeIdStyle;
+    'stylesheet.day.basic'?: CalendarThemeIdStyle;
+    'stylesheet.day.single'?: CalendarThemeIdStyle;
+    'stylesheet.day.multiDot'?: CalendarThemeIdStyle;
+    'stylesheet.day.period'?: CalendarThemeIdStyle;
+    'stylesheet.dot'?: CalendarThemeIdStyle;
 }
 
 export type DateCallbackHandler = (date: DateObject) => void;
@@ -130,21 +130,21 @@ export interface PeriodMarking {
 export type Marking = CustomMarking | DotMarking | MultiDotMarking | MultiPeriodMarking | PeriodMarking;
 
 export interface CustomMarkingProps {
-    markingType: "custom";
+    markingType: 'custom';
     markedDates: {
         [date: string]: CustomMarking;
     };
 }
 
 export interface DotMarkingProps {
-    markingType?: "simple";
+    markingType?: 'simple';
     markedDates: {
         [date: string]: DotMarking;
     };
 }
 
 export interface MultiDotMarkingProps {
-    markingType: "multi-dot";
+    markingType: 'multi-dot';
     markedDates: {
         [date: string]: MultiDotMarking;
     };
@@ -155,14 +155,14 @@ export interface MultiDotMarkingProps {
  * of the component
  */
 export interface MultiPeriodMarkingProps {
-    markingType: "multi-period";
+    markingType: 'multi-period';
     markedDates: {
         [date: string]: MultiPeriodMarking;
     };
 }
 
 export interface PeriodMarkingProps {
-    markingType: "period";
+    markingType: 'period';
     markedDates: {
         [date: string]: PeriodMarking;
     };
@@ -181,11 +181,42 @@ export interface DayComponentProps {
     marking: false | Marking[];
     onPress: (date: DateObject) => any;
     onLongPress: (date: DateObject) => any;
-    state: "" | "selected" | "disabled" | "today";
+    state: '' | 'selected' | 'disabled' | 'today';
     theme: CalendarTheme;
 }
 
-export interface CalendarBaseProps {
+export interface CalendarHeaderProps {
+    theme?: CalendarTheme;
+    firstDay?: number;
+    displayLoadingIndicator?: boolean;
+    showWeekNumbers?: boolean;
+    month?: XDate;
+    addMonth?: (month: number) => void;
+    /** Month format in the title. Formatting values: http://arshaw.com/xdate/#Formatting */
+    monthFormat?: string;
+    /**  Hide day names. Default = false */
+    hideDayNames?: boolean;
+    /** Hide month navigation arrows. Default = false */
+    hideArrows?: boolean;
+    /** Replace default arrows with custom ones (direction can be 'left' or 'right') */
+    renderArrow?: (direction: 'left' | 'right') => React.ReactNode;
+    /** Handler which gets executed when press arrow icon left. It receive a callback can go back month */
+    onPressArrowLeft?: (subtractMonth: () => void) => void;
+    /** Handler which gets executed when press arrow icon right. It receive a callback can go next month */
+    onPressArrowRight?: (addMonth: () => void) => void;
+    /** Disable left arrow. Default = false */
+    disableArrowLeft?: boolean;
+    /** Disable right arrow. Default = false */
+    disableArrowRight?: boolean;
+    /** Apply custom disable color to selected day indexes */
+    disabledDaysIndexes?: Array<Number>;
+    /** Replace default month and year title with custom one. the function receive a date as parameter. */
+    renderHeader?: (date: Date) => React.ReactNode;
+    /** Provide aria-level for calendar heading for proper accessibility when used with web (react-native-web) */
+    webAriaLevel?: number;
+}
+
+export interface CalendarBaseProps extends CalendarHeaderProps {
     /**
      *  Initially visible month. Default = Date()
      */
@@ -275,7 +306,7 @@ export interface CalendarBaseProps {
     /**
      *  Handler which gets executed when press arrow icon left. It receive a callback can go back month
      */
-    onPressArrowLeft?: (substractMonth: () => void) => void;
+    onPressArrowLeft?: (subtractMonth: () => void) => void;
 
     /**
      *  Handler which gets executed when press arrow icon left. It receive a callback can go next month
@@ -295,7 +326,7 @@ export interface CalendarBaseProps {
     /**
      *  Replace default arrows with custom ones (direction can be 'left' or 'right')
      */
-    renderArrow?: (direction: "left" | "right") => React.ReactNode;
+    renderArrow?: (direction: 'left' | 'right') => React.ReactNode;
 
     /**
      *  Show week numbers to the left. Default = false
@@ -320,6 +351,9 @@ export interface CalendarBaseProps {
      *  Replace default month and year title with custom one. the function receive a date as parameter.
      */
     renderHeader?: (date: Date) => React.ReactNode;
+
+    /** Allow rendering of a totally custom header */
+    customHeader?: (props: any) => React.ReactNode;
 }
 
 export type CalendarProps = CalendarMarkingProps &
@@ -334,7 +368,7 @@ export class Calendar extends React.Component<CalendarProps> {}
 
 export interface CalendarListBaseProps extends CalendarBaseProps {
     /**
-     *  Set custom calendar heigth.
+     *  Set custom calendar height.
      */
     calendarHeight?: number;
 
@@ -385,6 +419,32 @@ export interface CalendarListBaseProps extends CalendarBaseProps {
 }
 
 export class CalendarList extends React.Component<CalendarMarkingProps & CalendarListBaseProps> {}
+
+type ExpandableCalendarProps = CalendarMarkingProps &
+    CalendarListBaseProps & {
+        /** the initial position of the calendar ('open' or 'closed') */
+        initialPosition: 'open' | 'closed';
+        /** callback that fires when the calendar is opened or closed */
+        onCalendarToggled?: (isOpen: boolean) => void;
+        /** an option to disable the pan gesture and disable the opening and closing of the calendar (initialPosition will persist)*/
+        disablePan?: boolean;
+        /** whether to hide the knob  */
+        hideKnob?: boolean;
+        /** source for the left arrow image */
+        leftArrowImageSource?: ImageSourcePropType;
+        /** source for the right arrow image */
+        rightArrowImageSource?: ImageSourcePropType;
+        /** whether to have shadow/elevation for the calendar */
+        allowShadow?: boolean;
+        /** whether to disable the week scroll in closed position */
+        disableWeekScroll?: boolean;
+        /** a threshold for opening the calendar with the pan gesture */
+        openThreshold?: number;
+        /** a threshold for closing the calendar with the pan gesture */
+        closeThreshold?: number;
+    };
+
+export class ExpandableCalendar extends React.Component<ExpandableCalendarProps> {}
 
 export interface AgendaThemeStyle extends CalendarTheme {
     agendaDayNumColor?: string;
@@ -472,7 +532,7 @@ export interface AgendaProps<TItem> {
     pastScrollRange?: number;
 
     /**
-     *  A RefreshControl component, used to provide pull-to-refresh funtionality for the ScrollView.
+     *  A RefreshControl component, used to provide pull-to-refresh functionality for the ScrollView.
      */
     refreshControl?: React.ReactNode;
 
@@ -549,7 +609,7 @@ export interface TimelineProps {
     end?: number;
 
     /**
-     *  Handler whick gets executed when on event tap. Default = undefined
+     *  Handler which gets executed when on event tap. Default = undefined
      */
     eventTapped?: (event: TimelineEvent) => any;
 
