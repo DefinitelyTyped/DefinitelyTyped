@@ -209,7 +209,7 @@ export interface CalendarHeaderProps {
     /** Disable right arrow. Default = false */
     disableArrowRight?: boolean;
     /** Apply custom disable color to selected day indexes */
-    disabledDaysIndexes?: Array<Number>;
+    disabledDaysIndexes?: number[];
     /** Replace default month and year title with custom one. the function receive a date as parameter. */
     renderHeader?: (date: Date) => React.ReactNode;
     /** Provide aria-level for calendar heading for proper accessibility when used with web (react-native-web) */
