@@ -13,6 +13,7 @@ declare namespace googleMapReact {
         language?: string;
         region?: string;
         libraries?: string[] | string;
+        url?: string;
     };
 
     interface MapTypeStyle {
