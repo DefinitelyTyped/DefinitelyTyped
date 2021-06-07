@@ -1,4 +1,5 @@
-import WaveSurfer from "wavesurfer.js";
+import WaveSurfer = require("wavesurfer.js");
+
 import Init from "wavesurfer.js/src/html-init";
 import PeakCache from "wavesurfer.js/src/peakcache";
 import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
