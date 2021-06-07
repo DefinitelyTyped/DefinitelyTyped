@@ -1790,7 +1790,7 @@ export interface User extends DirectoryObject {
     // The user or contact that is this user's manager. Read-only. (HTTP Methods: GET, PUT, DELETE.)
     manager?: NullableOption<DirectoryObject>;
     // The groups, directory roles and administrative units that the user is a member of. Read-only. Nullable.
-    memberOf?: NullableOption<DirectoryObject[]>;
+    memberOf?: NullableOption<Group[]>;
     oauth2PermissionGrants?: NullableOption<OAuth2PermissionGrant[]>;
     // Devices that are owned by the user. Read-only. Nullable.
     ownedDevices?: NullableOption<DirectoryObject[]>;
@@ -3991,6 +3991,7 @@ export interface Group extends DirectoryObject {
      * example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Read-only.
      */
     createdDateTime?: NullableOption<string>;
+    creationOptions?: NullableOption<string[]>;
     // An optional description for the group. Returned by default.
     description?: NullableOption<string>;
     /**
@@ -4102,6 +4103,8 @@ export interface Group extends DirectoryObject {
      * time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Read-only.
      */
     renewedDateTime?: NullableOption<string>;
+    resourceBehaviorOptions?: NullableOption<string[]>;
+    resourceProvisioningOptions?: NullableOption<string[]>;
     // Specifies whether the group is a security group. Returned by default. Supports $filter.
     securityEnabled?: NullableOption<boolean>;
     // Security identifier of the group, used in Windows scenarios. Returned by default.
