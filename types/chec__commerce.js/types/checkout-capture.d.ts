@@ -1,12 +1,17 @@
 import { Extrafield } from './extrafield';
 import { Address } from './address';
-import { Customer } from './customer';
 
 export interface CheckoutCapture {
   line_items: any;
   discount_code?: string;
   extra_fields?: Extrafield[];
-  customer: Partial<Omit<Customer, 'external_id'>>;
+  customer: {
+    firstname?: string;
+    lastname?: string;
+    email: string;
+    phone?: string;
+    meta?: any;
+  };
   shipping?: Partial<Address>;
   fulfillment?: {
     shipping_method: string;

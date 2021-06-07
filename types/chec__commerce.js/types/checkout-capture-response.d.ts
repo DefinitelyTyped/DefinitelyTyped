@@ -1,4 +1,6 @@
 import { Price } from './price';
+import { OrderConditionals } from './order-conditionals';
+import { OrderCollected } from './order-collected';
 import { Currency } from './currency';
 
 export type PaymentStatus = 'paid' | 'not_paid' | 'partially_paid' | 'refunded' | 'authorized';
@@ -29,28 +31,8 @@ export interface CheckoutCaptureResponse {
     required: boolean;
     value: string;
   }>;
-  conditionals: {
-    collected_fullname: boolean;
-    collected_shipping_address: boolean;
-    collected_billing_address: boolean;
-    collected_extra_fields: boolean;
-    collected_tax: boolean;
-    collected_eu_vat_moss_evidence: boolean;
-    has_physical_fulfillment: boolean;
-    has_digital_fulfillment: boolean;
-    has_pay_what_you_want: boolean;
-    has_discounts: boolean;
-    is_free: boolean;
-    is_fulfilled: boolean;
-  };
-  collected: {
-    fullname: boolean;
-    shipping_address: boolean;
-    billing_address: boolean;
-    extra_fields: boolean;
-    tax: boolean;
-    eu_vat_moss_evidence: boolean;
-  };
+  conditionals: OrderConditionals;
+  collected: OrderCollected;
   has: {
     physical_fulfillment: boolean;
     digital_fulfillment: boolean;
@@ -61,9 +43,6 @@ export interface CheckoutCaptureResponse {
     free: boolean;
     fulfilled: boolean;
   };
-  fraud: {
-    provider: string;
-    response: any;
-  };
+  fraud: any;
   meta: any;
 }
