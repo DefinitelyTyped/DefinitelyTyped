@@ -11,7 +11,11 @@
 /// <reference types="node" />
 
 export namespace crypto {
-    class BN {}
+    class BN {
+        constructor(n: number);
+        static fromNumber(n: number): BN;
+        toNumber(): number;
+    }
 
     namespace ECDSA {
         function sign(message: Buffer, key: PrivateKey): Signature;
@@ -259,6 +263,19 @@ export namespace Transaction {
         lockForSeconds(seconds: number): this;
         lockUntilBlockHeight(heightDiff: number): this;
         getLockTime(): Date | number;
+    }
+
+    namespace sighash {
+        function sign(
+            transaction: Transaction,
+            privateKey: PrivateKey,
+            sighashType: number,
+            inputIndex: number,
+            subscript: Script,
+            inputSatoshis: crypto.BN,
+            flags: number,
+            signingMethod: 'ecdsa' | 'schnorr'
+        ): crypto.Signature;
     }
 }
 
