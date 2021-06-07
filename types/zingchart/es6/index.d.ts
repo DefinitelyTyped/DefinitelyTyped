@@ -3530,7 +3530,7 @@ declare namespace zingchart {
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
         'border-width'?: any;
-          /**
+         /**
           * Sets the style of the cursor when hovering over a node. "hand" | "normal"
           */
          cursor?: string;
