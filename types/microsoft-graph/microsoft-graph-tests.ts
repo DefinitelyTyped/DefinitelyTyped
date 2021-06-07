@@ -213,7 +213,7 @@ const userExpandsMemberOf: MicrosoftGraph.User = {
             onPremisesProvisioningErrors: []
         }
     ]
-}
+};
 
 const group: MicrosoftGraph.Group = {
     id: "34cd1266-bb4a-4844-a739-96a46afb660d",
@@ -263,4 +263,4 @@ const group: MicrosoftGraph.Group = {
     visibility: "Public",
     onPremisesProvisioningErrors: [],
     memberOf: []
-}
+};
