@@ -31,9 +31,9 @@ function testDiffMainEach() {
     });
 }
 
-const DIFF_DELETE: number = DiffMatchPatch.DIFF_DELETE;
-const DIFF_INSERT: number = DiffMatchPatch.DIFF_INSERT;
-const DIFF_EQUAL: number = DiffMatchPatch.DIFF_EQUAL;
+const DIFF_DELETE = DiffMatchPatch.DIFF_DELETE;
+const DIFF_INSERT = DiffMatchPatch.DIFF_INSERT;
+const DIFF_EQUAL = DiffMatchPatch.DIFF_EQUAL;
 const dmp = new DiffMatchPatch.diff_match_patch();
 
 // DIFF TEST FUNCTIONS
@@ -44,30 +44,6 @@ function testDiffCommonPrefix() {
 
 function testDiffCommonSuffix() {
     assertEquals(0, dmp.diff_commonSuffix('abc', 'xyz'));
-}
-
-function testDiffCommonOverlap() {
-    assertEquals(0, dmp.diff_commonOverlap_('', 'abcd'));
-}
-
-function testDiffHalfMatch() {
-    dmp.Diff_Timeout = 1;
-
-    assertEquals(null, dmp.diff_halfMatch_('1234567890', 'abcdef'));
-
-    assertEquivalent(['12', '90', 'a', 'z', '345678'], dmp.diff_halfMatch_('1234567890', 'a345678z'));
-
-    assertEquivalent(['12123', '123121', 'a', 'z', '1234123451234'], dmp.diff_halfMatch_('121231234123451234123121', 'a1234123451234z'));
-}
-
-function testDiffLinesToChars() {
-    assertLinesToCharsResultEquals({chars1: '\x01\x02\x01', chars2: '\x02\x01\x02', lineArray: ['', 'alpha\n', 'beta\n']}, dmp.diff_linesToChars_('alpha\nbeta\nalpha\n', 'beta\nalpha\nbeta\n'));
-}
-
-function testDiffCharsToLines() {
-    const diffs: DiffMatchPatch.Diff[] = [[DIFF_EQUAL, '\x01\x02\x01'], [DIFF_INSERT, '\x02\x01\x02']];
-    dmp.diff_charsToLines_(diffs, ['', 'alpha\n', 'beta\n']);
-    assertEquivalent([[DIFF_EQUAL, 'alpha\nbeta\nalpha\n'], [DIFF_INSERT, 'beta\nalpha\nbeta\n']], diffs);
 }
 
 function testDiffCleanupMerge() {
@@ -84,7 +60,7 @@ function testDiffCleanupSemanticLossless() {
 
 function testDiffCleanupSemantic() {
     const diffs: DiffMatchPatch.Diff[] = [[DIFF_DELETE, 'ab'], [DIFF_INSERT, 'cd'], [DIFF_EQUAL, '12'], [DIFF_DELETE, 'e']];
-  dmp.diff_cleanupSemantic(diffs);
+    dmp.diff_cleanupSemantic(diffs);
     assertEquivalent([[DIFF_DELETE, 'ab'], [DIFF_INSERT, 'cd'], [DIFF_EQUAL, '12'], [DIFF_DELETE, 'e']], diffs);
 }
 
@@ -128,12 +104,6 @@ function testDiffLevenshtein() {
     assertEquals(4, dmp.diff_levenshtein([[DIFF_DELETE, 'abc'], [DIFF_INSERT, '1234'], [DIFF_EQUAL, 'xyz']]));
 }
 
-function testDiffBisect() {
-    const a = 'cat';
-    const b = 'map';
-    assertEquivalent([[DIFF_DELETE, 'c'], [DIFF_INSERT, 'm'], [DIFF_EQUAL, 'a'], [DIFF_DELETE, 't'], [DIFF_INSERT, 'p']], dmp.diff_bisect_(a, b, Number.MAX_VALUE));
-}
-
 function testDiffMain() {
     assertEquivalent([], dmp.diff_main('', '', false));
 
@@ -143,21 +113,6 @@ function testDiffMain() {
 }
 
 // MATCH TEST FUNCTIONS
-
-function testMatchAlphabet() {
-    const expected: {[char: string]: number} = {};
-    expected['a'] = 4;
-    expected['b'] = 2;
-    expected['c'] = 1;
-    assertEquivalent(expected, dmp.match_alphabet_('abc'));
-}
-
-function testMatchBitap() {
-    dmp.Match_Distance = 100;
-    dmp.Match_Threshold = 0.5;
-
-    assertEquals(5, dmp.match_bitap_('abcdefghijk', 'fgh', 5));
-}
 
 function testMatchMain() {
     assertEquals(0, dmp.match_main('abcdef', 'abcdef', 1000));
@@ -189,13 +144,6 @@ function testPatchToText() {
     const strp = '@@ -21,18 +22,17 @@\n jump\n-s\n+ed\n  over \n-the\n+a\n  laz\n';
     const p = dmp.patch_fromText(strp);
     assertEquals(strp, dmp.patch_toText(p));
-}
-
-function testPatchAddContext() {
-    dmp.Patch_Margin = 4;
-    const p = dmp.patch_fromText('@@ -21,4 +21,10 @@\n-jump\n+somersault\n')[0];
-    dmp.patch_addContext_(p, 'The quick brown fox jumps over the lazy dog.');
-    assertEquals('@@ -17,12 +17,18 @@\n fox \n-jump\n+somersault\n s ov\n', p.toString());
 }
 
 function testPatchMake() {

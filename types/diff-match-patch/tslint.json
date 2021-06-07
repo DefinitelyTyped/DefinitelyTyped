@@ -13,6 +13,8 @@
                 ],
                 "mode": "code"
             }
-        ]
+        ],
+        "no-const-enum": false,
+        "unified-signatures": false
     }
 }
