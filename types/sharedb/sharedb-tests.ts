@@ -45,6 +45,7 @@ const backend = new ShareDB({
 });
 console.log(backend.db);
 backend.on('error', (error) => console.error(error));
+backend.on('send', (agent, context) => console.log(agent, context));
 backend.addListener('timing', (type, time, request) => console.log(type, new Date(time), request));
 
 // getOps allows for `from` and `to` to both be `null`:
@@ -271,9 +272,26 @@ function startClient(callback) {
         console.log(err, results);
     });
     // SQL-ish query adapter that takes a string query condition
-    connection.createSubscribeQuery('examples', 'numClicks >= 5', null, (err, results) => {
-        console.log(err, results);
+    const query = connection.createSubscribeQuery<MyDoc>('examples', 'numClicks >= 5', null, (err, results) => {
+        results.forEach((result) => result.data.foo > 0);
     });
+
+    query.on('ready', () => {});
+    query.on('error', (error) => console.log(error));
+    query.on('insert', async (inserted) => {
+        inserted.forEach((i) => i.data.foo);
+        await new Promise<void>((resolve) => resolve());
+    });
+    query.on('remove', (removed) => {
+        removed.forEach((r) => r.data.bar);
+    });
+    query.on('move', (moved, from, to) => {
+        moved.forEach(() => console.log(from - to));
+    });
+    query.on('changed', (results) => {
+        results.forEach((result) => result.data.foo);
+    });
+    query.on('extra', (extra) => console.log(extra));
 
     const anotherDoc = doc.connection.get('examples', 'another-counter');
     console.log(anotherDoc.collection);
@@ -291,7 +309,7 @@ function startClient(callback) {
 
     doc.submitOp([{insert: 'foo', attributes: {bold: true}}], {source: {deep: true}});
 
-    connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot) => {
+    connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot: ShareDBClient.Snapshot) => {
         if (error) throw error;
         console.log(snapshot.data);
     });

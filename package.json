@@ -19,6 +19,7 @@
         "not-needed": "node scripts/not-needed.js",
         "update-codeowners": "node scripts/update-codeowners.js",
         "test-all": "node node_modules/@definitelytyped/dtslint-runner/dist/index.js --path .",
+        "clean": "node scripts/remove-empty.js",
         "test": "dtslint types",
         "lint": "dtslint types",
         "prettier": "prettier"

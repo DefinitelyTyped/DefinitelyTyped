@@ -266,9 +266,9 @@ export interface RequestEvents extends Podium {
      * * 'disconnect' - emitted when a request errors or aborts unexpectedly.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestevents)
      */
-    on(criteria: 'peek', listener: PeekListener): void;
+    on(criteria: 'peek', listener: PeekListener): this;
 
-    on(criteria: 'finish' | 'disconnect', listener: (data: undefined) => void): void;
+    on(criteria: 'finish' | 'disconnect', listener: (data: undefined) => void): this;
 
     /**
      * Access: read only and the public podium interface.
@@ -278,9 +278,10 @@ export interface RequestEvents extends Podium {
      * * 'disconnect' - emitted when a request errors or aborts unexpectedly.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestevents)
      */
-    once(criteria: 'peek', listener: PeekListener): void;
+    once(criteria: 'peek', listener: PeekListener): this;
+    once(criteria: 'peek'): Promise<Parameters<PeekListener>>;
 
-    once(criteria: 'finish' | 'disconnect', listener: (data: undefined) => void): void;
+    once(criteria: 'finish' | 'disconnect', listener: (data: undefined) => void): this;
 }
 
 /**
@@ -635,17 +636,18 @@ export interface ResponseEvents extends Podium {
      * 'peek' - emitted for each chunk of data written back to the client connection. The event method signature is function(chunk, encoding).
      * 'finish' - emitted when the response finished writing but before the client response connection is ended. The event method signature is function ().
      */
-    on(criteria: 'peek', listener: PeekListener): void;
+    on(criteria: 'peek', listener: PeekListener): this;
 
-    on(criteria: 'finish', listener: (data: undefined) => void): void;
+    on(criteria: 'finish', listener: (data: undefined) => void): this;
 
     /**
      * 'peek' - emitted for each chunk of data written back to the client connection. The event method signature is function(chunk, encoding).
      * 'finish' - emitted when the response finished writing but before the client response connection is ended. The event method signature is function ().
      */
-    once(criteria: 'peek', listener: PeekListener): void;
+    once(criteria: 'peek', listener: PeekListener): this;
+    once(criteria: 'peek'): Promise<Parameters<PeekListener>>;
 
-    once(criteria: 'finish', listener: (data: undefined) => void): void;
+    once(criteria: 'finish', listener: (data: undefined) => void): this;
 }
 
 /**
@@ -740,12 +742,14 @@ export interface ResponseObject extends Podium {
     bytes(length: number): ResponseObject;
 
     /**
-     * Sets the 'Content-Type' HTTP header 'charset' property where:
+     * Controls the 'Content-Type' HTTP header 'charset' property of the response.
+     *  * When invoked without any parameter, will prevent hapijs from applying its default charset normalization to 'utf-8'
+     *  * When 'charset' parameter is provided, will set the 'Content-Type' HTTP header 'charset' property where:
      * @param charset - the charset property value.
      * @return Return value: the current response object.
      * [See docs](https://hapijs.com/api/17.0.1#-responsecharsetcharset)
      */
-    charset(charset: string): ResponseObject;
+    charset(charset?: string): ResponseObject;
 
     /**
      * Sets the HTTP status code where:
@@ -2395,17 +2399,17 @@ export interface ServerEvents extends Podium {
      * See ['start' event](https://github.com/hapijs/hapi/blob/master/API.md#-start-event)
      * See ['stop' event](https://github.com/hapijs/hapi/blob/master/API.md#-stop-event)
      */
-    on(criteria: 'log' | ServerEventCriteria<'log'>, listener: LogEventHandler): void;
+    on(criteria: 'log' | ServerEventCriteria<'log'>, listener: LogEventHandler): this;
 
-    on(criteria: 'request' | ServerEventCriteria<'request'>, listener: RequestEventHandler): void;
+    on(criteria: 'request' | ServerEventCriteria<'request'>, listener: RequestEventHandler): this;
 
-    on(criteria: 'response' | ServerEventCriteria<'response'>, listener: ResponseEventHandler): void;
+    on(criteria: 'response' | ServerEventCriteria<'response'>, listener: ResponseEventHandler): this;
 
-    on(criteria: 'route' | ServerEventCriteria<'route'>, listener: RouteEventHandler): void;
+    on(criteria: 'route' | ServerEventCriteria<'route'>, listener: RouteEventHandler): this;
 
-    on(criteria: 'start' | ServerEventCriteria<'start'>, listener: StartEventHandler): void;
+    on(criteria: 'start' | ServerEventCriteria<'start'>, listener: StartEventHandler): this;
 
-    on(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): void;
+    on(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): this;
 
     /**
      * Same as calling [server.events.on()](https://github.com/hapijs/hapi/blob/master/API.md#server.events.on()) with the count option set to 1.
@@ -2417,17 +2421,17 @@ export interface ServerEvents extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventsoncecriteria-listener)
      */
-    once(criteria: 'log' | ServerEventCriteria<'log'>, listener: LogEventHandler): void;
+    once(criteria: 'log' | ServerEventCriteria<'log'>, listener: LogEventHandler): this;
 
-    once(criteria: 'request' | ServerEventCriteria<'request'>, listener: RequestEventHandler): void;
+    once(criteria: 'request' | ServerEventCriteria<'request'>, listener: RequestEventHandler): this;
 
-    once(criteria: 'response' | ServerEventCriteria<'response'>, listener: ResponseEventHandler): void;
+    once(criteria: 'response' | ServerEventCriteria<'response'>, listener: ResponseEventHandler): this;
 
-    once(criteria: 'route' | ServerEventCriteria<'route'>, listener: RouteEventHandler): void;
+    once(criteria: 'route' | ServerEventCriteria<'route'>, listener: RouteEventHandler): this;
 
-    once(criteria: 'start' | ServerEventCriteria<'start'>, listener: StartEventHandler): void;
+    once(criteria: 'start' | ServerEventCriteria<'start'>, listener: StartEventHandler): this;
 
-    once(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): void;
+    once(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): this;
 
     /**
      * Same as calling server.events.on() with the count option set to 1.
@@ -2444,13 +2448,13 @@ export interface ServerEvents extends Podium {
      * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumremovelistenername-listener)
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
      */
-    removeListener(name: string, listener: Podium.Listener): Podium;
+    removeListener(name: string, listener: Podium.Listener): this;
 
     /**
      * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumremovealllistenersname)
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
      */
-    removeAllListeners(name: string): Podium;
+    removeAllListeners(name: string): this;
 
     /**
      * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumhaslistenersname)
@@ -2474,7 +2478,8 @@ export type RouteRequestExtType = 'onPreAuth'
     | 'onPostAuth'
     | 'onPreHandler'
     | 'onPostHandler'
-    | 'onPreResponse';
+    | 'onPreResponse'
+    | 'onPostResponse';
 
 export type ServerRequestExtType =
     RouteRequestExtType

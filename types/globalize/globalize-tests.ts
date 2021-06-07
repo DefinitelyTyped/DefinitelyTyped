@@ -91,6 +91,12 @@ strOutput = Globalize.formatNumber(20, { style: "decimal" });
 numOutput = en.parseNumber("20");
 numOutput = Globalize.parseNumber("20", { style: "percent" });
 
+let numberToPartsFormatter = Globalize.numberToPartsFormatter({});
+let numPartsOutput: Globalize.NumberFormatPart[];
+
+numPartsOutput = numberToPartsFormatter(1999999);
+numPartsOutput = Globalize.formatNumberToParts(1999999, {});
+
 let pluralGenerator = en.pluralGenerator();
 strOutput = pluralGenerator(20);
 

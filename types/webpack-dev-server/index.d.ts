@@ -12,7 +12,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 William Artero <https://github.com/wwmoraes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 3.8
 
 import * as webpack from 'webpack';
 import * as httpProxyMiddleware from 'http-proxy-middleware';
@@ -355,6 +355,7 @@ declare module 'webpack' {
 }
 
 declare class WebpackDevServer {
+    listeningApp: WebpackDevServer.ListeningApp;
     sockets: NodeJS.EventEmitter[];
 
     constructor(webpack: webpack.Compiler | webpack.MultiCompiler, config?: WebpackDevServer.Configuration);

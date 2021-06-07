@@ -2734,19 +2734,44 @@ declare namespace ymaps {
     class Clusterer implements IChildOnMap, ICustomizable, IEventEmitter, IParentOnMap {
         constructor(options?: IClustererOptions);
 
-        events: IEventManager;
-        options: IOptionManager;
         balloon: clusterer.Balloon;
-        //     balloonopen:
-        hint: clusterer.Hint;
-
-        getParent(): null | IControlParent;
-
-        setParent(parent: IControlParent): this;
-
+        // balloonopen:
         // balloonclose:
+        events: IEventManager;
+        hint: clusterer.Hint;
+        options: IOptionManager;
+
+        add(objects: IGeoObject | IGeoObject[]): this;
+
+        createCluster(center: number[], geoObjects: IGeoObject[]): IGeoObject;
+
+        getBounds(): number[][] | null;
+
+        getClusters(): IGeoObject[];
+
+        getGeoObjects(): IGeoObject[];
 
         getMap(): Map;
+
+        getObjectState(geoObject: IGeoObject): { isShown: boolean; cluster: Cluster; isClustered: boolean };
+
+        getParent(): IParentOnMap | null;
+
+        remove(objects: IGeoObject | IGeoObject[]): this;
+
+        removeAll(): this;
+
+        setParent(parent: IParentOnMap | null): this;
+    }
+
+    interface Cluster {
+        id: string;
+        geometry: IGeometry;
+        properties: {
+            geoObjects: IGeoObject[];
+            [k: string]: any;
+        };
+        options: IOptionManager;
     }
 
     interface IClustererOptions {
@@ -4115,17 +4140,133 @@ declare namespace ymaps {
         geoObjectOpenBalloonOnClick?: boolean;
     }
 
-    class ObjectManager {
+    class ObjectManager implements ICustomizable, IEventEmitter, IGeoObject, IParentOnMap {
         constructor(options: IObjectManagerOptions);
 
-        add(params: object): ObjectManager;
+        clusters: objectManager.ClusterCollection;
+
+        events: IEventManager;
+
+        geometry: IGeometry | null;
 
         objects: objectManager.ObjectCollection;
 
+        options: IOptionManager;
+
+        properties: IDataManager;
+
+        state: IDataManager;
+
+        add(objects: object | object[] | string): this;
+
+        getBounds(): number[][] | null;
+
+        getFilter(): string | ((object: object | string) => boolean) | null;
+
+        getMap(): Map;
+
+        getObjectState(id: string): { found: boolean; isShown: boolean; cluster?: Cluster; isClustered: boolean; isFilteredOut: boolean };
+
+        getOverlay(): Promise<IOverlay | null>;
+
+        getOverlaySync(): IOverlay | null;
+
+        getParent(): IParentOnMap | null;
+
+        getPixelBounds(): number[][] | null;
+
+        remove(objects: object | object[] | string): this;
+
         removeAll(): this;
+
+        setFilter(filer: (object: object | string) => boolean): void;
+
+        setParent(parent: IParentOnMap | null): this;
     }
 
     namespace objectManager {
+        class Balloon implements Omit<IBalloonManager<map.Balloon>, 'open'> {
+            events: IEventManager;
+
+            autoPan(): Promise<ymaps.Balloon>;
+
+            close(force?: boolean): Promise<ymaps.Balloon>;
+
+            destroy(): void;
+
+            getData(): object | null;
+
+            getOptions(): IOptionManager | null;
+
+            getOverlay(): Promise<IOverlay | null>;
+
+            getOverlaySync(): IOverlay | null;
+
+            getPosition(): number[] | null;
+
+            isOpen(): boolean;
+
+            open(objectId: object | string, anchorPixelPosition?: boolean): Promise<ymaps.Balloon>;
+
+            setData(data: object | string | HTMLElement): Promise<ymaps.Balloon>;
+
+            setOptions(options: object): Promise<ymaps.Balloon>;
+
+            setPosition(position: number[]): Promise<ymaps.Balloon>;
+        }
+
+        class ClusterCollection implements ICustomizable, IEventEmitter {
+            balloon: Balloon;
+
+            events: IEventManager;
+
+            hint: Hint;
+
+            options: option.Manager;
+
+            state: data.Manager;
+
+            getAll(): object[];
+
+            getById(id: string | null | undefined): Cluster | null;
+
+            getIterator(): IIterator;
+
+            getLength(): number;
+
+            getObjectManager(): ObjectManager;
+
+            setClusterOptions(objectId: string, options: object): ObjectCollection;
+        }
+
+        class Hint implements Omit<IHintManager<map.Hint>, 'open'> {
+            events: IEventManager;
+
+            close(force?: boolean): Promise<map.Hint>;
+
+            destroy(): void;
+
+            getData(): object | null;
+
+            getOptions(): IOptionManager | null;
+
+            getOverlay(): Promise<IOverlay | null>;
+
+            getOverlaySync(): IOverlay | null;
+
+            getPosition(): number[] | null;
+
+            isOpen(): boolean;
+
+            open(objectId: object | string, position?: number[]): Promise<map.Hint>;
+
+            setData(data: object | string | HTMLElement): Promise<map.Hint>;
+
+            setOptions(options: object): Promise<map.Hint>;
+
+            setPosition(position: number[]): Promise<map.Hint>;
+        }
+
         class ObjectCollection implements ICollection, ICustomizable {
             options: option.Manager;
 
@@ -4133,11 +4274,13 @@ declare namespace ymaps {
 
             add(object: object): this;
 
+            getById(id: string | null | undefined): object | null;
+
             getIterator(): IIterator;
 
             remove(object: object): this;
 
-            getById(id: string | null | undefined): object | null;
+            setObjectOptions(objectId: string, options: object): ObjectCollection;
         }
     }
 

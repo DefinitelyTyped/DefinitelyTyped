@@ -589,9 +589,9 @@ declare namespace google {
             groupWidth: any; // number | string
         }
 
-        export interface VisualizationSelectionArray {
-            column?: number;
-            row?: number;
+        export interface ChartSelection {
+            column?: number | null;
+            row?: number | null;
         }
 
         export interface Candlestick {
@@ -627,8 +627,8 @@ declare namespace google {
         abstract class ChartBase {
             constructor(element: Element);
             getContainer(): Element;
-            getSelection(): VisualizationSelectionArray[];
-            setSelection(selection: VisualizationSelectionArray[]): void;
+            getSelection(): ChartSelection[];
+            setSelection(selection?: ChartSelection[] | null): void;
         }
 
         abstract class ChartBaseClearable extends ChartBase {
@@ -1164,7 +1164,7 @@ declare namespace google {
             cssClassNames?: CssClassNames;
             firstRowNumber?: number;
             frozenColumns?: number;
-            height?: string;
+            height?: string | number;
             page?: string;
             pageSize?: number;
             pagingButtons?: number | 'both' | 'prev' | 'next' | 'auto';
@@ -1175,7 +1175,7 @@ declare namespace google {
             sortAscending?: boolean;
             sortColumn?: number;
             startPage?: number;
-            width?: string;
+            width?: string | number;
         }
 
         export interface CssClassNames {
@@ -1203,7 +1203,7 @@ declare namespace google {
             constructor(element: Element);
             draw(data: DataTable | DataView, options?: TimelineOptions): void;
             clearChart(): void;
-            getSelection(): VisualizationSelectionArray[];
+            getSelection(): ChartSelection[];
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/timeline#Configuration_Options
@@ -1396,6 +1396,7 @@ declare namespace google {
                 underMonthSpace?: number;
                 underYearSpace?: number;
                 unusedMonthOutlineColor?: ChartStrokeOpacity;
+                yearLabel?: ChartTextStyle;
             };
             colorAxis?: {
                 colors?: string[];

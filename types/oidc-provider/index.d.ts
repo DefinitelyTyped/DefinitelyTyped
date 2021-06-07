@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 7.1
+// Type definitions for oidc-provider 7.4
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,9 +19,10 @@ export type CanBePromise<T> = Promise<T> | T;
 export type FindAccount = (
     ctx: KoaContextWithOIDC,
     sub: string,
-    token?: AuthorizationCode | AccessToken | DeviceCode,
+    token?: AuthorizationCode | AccessToken | DeviceCode | BackchannelAuthenticationRequest,
 ) => CanBePromise<Account | undefined>;
 export type TokenFormat = 'opaque' | 'jwt' | 'paseto';
+export type FapiProfile = '1.0 ID2' | '1.0 Final';
 
 export type TTLFunction<T> = (ctx: KoaContextWithOIDC, token: T, client: Client) => number;
 
@@ -109,12 +110,16 @@ export interface AllClientMetadata {
     require_signed_request_object?: boolean;
     require_pushed_authorization_requests?: boolean;
 
+    backchannel_user_code_parameter?: boolean;
+    backchannel_authentication_request_signing_alg?: string;
+    backchannel_client_notification_endpoint?: string;
+    backchannel_token_delivery_mode?: CIBADeliveryMode;
+
     [key: string]: unknown;
 }
 
 export interface ClientMetadata extends AllClientMetadata {
     client_id: string;
-    redirect_uris: string[];
 }
 
 export type ResponseType =
@@ -126,6 +131,7 @@ export type ResponseType =
     | 'code id_token token'
     | 'none';
 export type PKCEMethods = 'S256' | 'plain';
+export type CIBADeliveryMode = 'poll' | 'ping';
 export type SubjectTypes = 'public' | 'pairwise';
 export type ClientAuthMethod =
     | 'client_secret_basic'
@@ -184,6 +190,7 @@ declare class Interaction extends BaseModel {
     trusted?: string[];
     uid: string;
     lastSubmission?: InteractionResults;
+    grantId?: string;
 
     save(ttl: number): Promise<string>;
     persist(): Promise<string>;
@@ -233,6 +240,8 @@ declare class Session extends BaseModel {
 }
 
 declare class Grant extends BaseModel {
+    constructor(properties?: { clientId?: string; accountId?: string });
+
     accountId?: string;
     clientId?: string;
     openid?: {
@@ -442,8 +451,6 @@ declare class DeviceCode extends BaseToken {
     userCode: string;
     inFlight?: boolean;
     deviceInfo?: UnknownObject;
-    codeChallenge?: string;
-    codeChallengeMethod?: string;
     accountId?: string;
     acr?: string;
     amr?: string[];
@@ -456,10 +463,33 @@ declare class DeviceCode extends BaseToken {
     sessionUid?: string;
     expiresWithSession?: boolean;
     grantId: string;
-    gty: string;
     consumed: unknown;
 
     consume(): Promise<void>;
+
+    static revokeByGrantId(grantId: string): Promise<void>;
+}
+
+declare class BackchannelAuthenticationRequest extends BaseToken {
+    constructor(properties?: { clientId?: string; accountId?: string });
+
+    readonly kind: 'BackchannelAuthenticationRequest';
+    error?: string;
+    errorDescription?: string;
+    params?: UnknownObject;
+    accountId?: string;
+    acr?: string;
+    amr?: string[];
+    authTime?: number;
+    claims?: ClaimsParameter;
+    nonce?: string;
+    resource?: string | string[];
+    scope?: string;
+    sid?: string;
+    sessionUid?: string;
+    expiresWithSession?: boolean;
+    grantId: string;
+    consumed: unknown;
 
     static revokeByGrantId(grantId: string): Promise<void>;
 }
@@ -555,6 +585,8 @@ declare class Client {
 
     metadata(): ClientMetadata;
 
+    backchannelPing(request: BackchannelAuthenticationRequest): Promise<void>;
+
     readonly clientId: string;
 
     readonly grantTypes?: string[];
@@ -609,6 +641,11 @@ declare class Client {
     readonly authorizationEncryptedResponseEnc?: string;
     readonly webMessageUris?: string[];
     readonly tlsClientCertificateBoundAccessTokens?: boolean;
+
+    readonly backchannelUserCodeParameter?: boolean;
+    readonly backchannelAuthenticationRequestSigningAlg?: string;
+    readonly backchannelClientNotificationEndpoint?: string;
+    readonly backchannelTokenDeliveryMode?: CIBADeliveryMode;
 
     [key: string]: unknown;
 
@@ -667,6 +704,7 @@ declare class OIDCContext {
         readonly InitialAccessToken?: InitialAccessToken;
         readonly Interaction?: Interaction;
         readonly PushedAuthorizationRequest?: PushedAuthorizationRequest;
+        readonly BackchannelAuthenticationRequest?: BackchannelAuthenticationRequest;
         readonly RefreshToken?: RefreshToken;
         readonly RegistrationAccessToken?: RegistrationAccessToken;
         readonly RotatedRefreshToken?: RefreshToken;
@@ -703,6 +741,8 @@ declare class OIDCContext {
     readonly params?: UnknownObject;
 
     getAccessToken(opts?: { acceptDPoP?: boolean; acceptQueryParam?: boolean }): string;
+
+    clientJwtAuthExpectedAudience(): Set<string>;
 }
 
 export type KoaContextWithOIDC = Koa.ParameterizedContext<
@@ -985,10 +1025,22 @@ export interface Configuration {
             ack?: string;
         };
 
-        fapiRW?: {
+        fapi?: {
+            enabled?: boolean;
+            profile?: FapiProfile | ((ctx: KoaContextWithOIDC, client: Client) => FapiProfile)
+        };
+
+        ciba?: {
             enabled?: boolean;
             ack?: string;
-        };
+            deliveryModes: CIBADeliveryMode[];
+            triggerAuthenticationDevice?: (ctx: KoaContextWithOIDC, request: BackchannelAuthenticationRequest, account: Account, client: Client) => CanBePromise<void>;
+            validateBindingMessage?: (ctx: KoaContextWithOIDC, bindingMessage?: string) => CanBePromise<void>;
+            validateRequestContext?: (ctx: KoaContextWithOIDC, requestContext?: string) => CanBePromise<void>;
+            processLoginHintToken?: (ctx: KoaContextWithOIDC, loginHintToken?: string) => CanBePromise<string | undefined>;
+            processLoginHint?: (ctx: KoaContextWithOIDC, loginHint?: string) => CanBePromise<string | undefined>;
+            verifyUserCode?: (ctx: KoaContextWithOIDC, userCode?: string) => CanBePromise<void>;
+        }
 
         webMessageResponseMode?: {
             enabled?: boolean;
@@ -1044,6 +1096,7 @@ export interface Configuration {
                 client: Client,
             ) => CanBePromise<ResourceServer>;
             defaultResource?: (ctx: KoaContextWithOIDC) => CanBePromise<string | string[]>;
+            useGrantedResource?: (ctx: KoaContextWithOIDC, model: AuthorizationCode | RefreshToken | DeviceCode | BackchannelAuthenticationRequest) => CanBePromise<boolean>;
         };
     };
 
@@ -1062,7 +1115,7 @@ export interface Configuration {
     issueRefreshToken?: (
         ctx: KoaContextWithOIDC,
         client: Client,
-        code: AuthorizationCode | DeviceCode,
+        code: AuthorizationCode | DeviceCode | BackchannelAuthenticationRequest,
     ) => CanBePromise<boolean>;
 
     jwks?: { keys: JWK[] };
@@ -1085,6 +1138,7 @@ export interface Configuration {
         revocation?: string;
         token?: string;
         userinfo?: string;
+        backchannel_authentication?: string;
         pushed_authorization_request?: string;
     };
 
@@ -1101,6 +1155,7 @@ export interface Configuration {
         AuthorizationCode?: TTLFunction<AuthorizationCode> | number;
         ClientCredentials?: TTLFunction<ClientCredentials> | number;
         DeviceCode?: TTLFunction<DeviceCode> | number;
+        BackchannelAuthenticationRequest?: TTLFunction<BackchannelAuthenticationRequest> | number;
         IdToken?: TTLFunction<IdToken> | number;
         RefreshToken?: TTLFunction<RefreshToken> | number;
         Interaction?: TTLFunction<Interaction> | number;
@@ -1213,7 +1268,7 @@ export type EncryptionEncValues =
 export interface InteractionResults {
     login?: {
         remember?: boolean;
-        account: string;
+        accountId: string;
         ts?: number;
         amr?: string[];
         acr?: string;
@@ -1235,6 +1290,8 @@ export class Provider extends events.EventEmitter {
     proxy?: Koa['proxy'];
     listen: Koa['listen'];
     callback: Koa['callback'];
+
+    backchannelResult(request: BackchannelAuthenticationRequest | string, result: Grant | errors.OIDCProviderError | string, opts?: { acr?: string, amr?: string[], authTime?: number }): Promise<void>;
 
     interactionResult(
         req: http.IncomingMessage | http2.Http2ServerRequest,
@@ -1274,6 +1331,9 @@ export class Provider extends events.EventEmitter {
     addListener(event: 'device_code.saved', listener: (deviceCode: DeviceCode) => void): this;
     addListener(event: 'device_code.destroyed', listener: (deviceCode: DeviceCode) => void): this;
     addListener(event: 'device_code.consumed', listener: (deviceCode: DeviceCode) => void): this;
+    addListener(event: 'backchannel_authentication_request.saved', listener: (deviceCode: DeviceCode) => void): this;
+    addListener(event: 'backchannel_authentication_request.destroyed', listener: (deviceCode: DeviceCode) => void): this;
+    addListener(event: 'backchannel_authentication_request.consumed', listener: (deviceCode: DeviceCode) => void): this;
     addListener(event: 'client_credentials.destroyed', listener: (clientCredentials: ClientCredentials) => void): this;
     addListener(event: 'client_credentials.saved', listener: (clientCredentials: ClientCredentials) => void): this;
     addListener(event: 'client_credentials.issued', listener: (clientCredentials: ClientCredentials) => void): this;
@@ -1393,6 +1453,9 @@ export class Provider extends events.EventEmitter {
     on(event: 'device_code.saved', listener: (deviceCode: DeviceCode) => void): this;
     on(event: 'device_code.destroyed', listener: (deviceCode: DeviceCode) => void): this;
     on(event: 'device_code.consumed', listener: (deviceCode: DeviceCode) => void): this;
+    on(event: 'backchannel_authentication_request.saved', listener: (deviceCode: DeviceCode) => void): this;
+    on(event: 'backchannel_authentication_request.destroyed', listener: (deviceCode: DeviceCode) => void): this;
+    on(event: 'backchannel_authentication_request.consumed', listener: (deviceCode: DeviceCode) => void): this;
     on(event: 'client_credentials.destroyed', listener: (clientCredentials: ClientCredentials) => void): this;
     on(event: 'client_credentials.saved', listener: (clientCredentials: ClientCredentials) => void): this;
     on(event: 'client_credentials.issued', listener: (clientCredentials: ClientCredentials) => void): this;
@@ -1482,6 +1545,9 @@ export class Provider extends events.EventEmitter {
     once(event: 'device_code.saved', listener: (deviceCode: DeviceCode) => void): this;
     once(event: 'device_code.destroyed', listener: (deviceCode: DeviceCode) => void): this;
     once(event: 'device_code.consumed', listener: (deviceCode: DeviceCode) => void): this;
+    once(event: 'backchannel_authentication_request.saved', listener: (deviceCode: DeviceCode) => void): this;
+    once(event: 'backchannel_authentication_request.destroyed', listener: (deviceCode: DeviceCode) => void): this;
+    once(event: 'backchannel_authentication_request.consumed', listener: (deviceCode: DeviceCode) => void): this;
     once(event: 'client_credentials.destroyed', listener: (clientCredentials: ClientCredentials) => void): this;
     once(event: 'client_credentials.saved', listener: (clientCredentials: ClientCredentials) => void): this;
     once(event: 'client_credentials.issued', listener: (clientCredentials: ClientCredentials) => void): this;
@@ -1583,6 +1649,9 @@ export class Provider extends events.EventEmitter {
     prependListener(event: 'device_code.saved', listener: (deviceCode: DeviceCode) => void): this;
     prependListener(event: 'device_code.destroyed', listener: (deviceCode: DeviceCode) => void): this;
     prependListener(event: 'device_code.consumed', listener: (deviceCode: DeviceCode) => void): this;
+    prependListener(event: 'backchannel_authentication_request.saved', listener: (deviceCode: DeviceCode) => void): this;
+    prependListener(event: 'backchannel_authentication_request.destroyed', listener: (deviceCode: DeviceCode) => void): this;
+    prependListener(event: 'backchannel_authentication_request.consumed', listener: (deviceCode: DeviceCode) => void): this;
     prependListener(
         event: 'client_credentials.destroyed',
         listener: (clientCredentials: ClientCredentials) => void,
@@ -1720,6 +1789,9 @@ export class Provider extends events.EventEmitter {
     prependOnceListener(event: 'device_code.saved', listener: (deviceCode: DeviceCode) => void): this;
     prependOnceListener(event: 'device_code.destroyed', listener: (deviceCode: DeviceCode) => void): this;
     prependOnceListener(event: 'device_code.consumed', listener: (deviceCode: DeviceCode) => void): this;
+    prependOnceListener(event: 'backchannel_authentication_request.saved', listener: (deviceCode: DeviceCode) => void): this;
+    prependOnceListener(event: 'backchannel_authentication_request.destroyed', listener: (deviceCode: DeviceCode) => void): this;
+    prependOnceListener(event: 'backchannel_authentication_request.consumed', listener: (deviceCode: DeviceCode) => void): this;
     prependOnceListener(
         event: 'client_credentials.destroyed',
         listener: (clientCredentials: ClientCredentials) => void,
@@ -1861,6 +1933,7 @@ export class Provider extends events.EventEmitter {
     readonly PushedAuthorizationRequest: typeof PushedAuthorizationRequest;
     readonly ClientCredentials: typeof ClientCredentials;
     readonly DeviceCode: typeof DeviceCode;
+    readonly BackchannelAuthenticationRequest: typeof BackchannelAuthenticationRequest;
     readonly BaseToken: typeof BaseToken;
     readonly Account: { findAccount: FindAccount };
     readonly IdToken: typeof IdToken;
@@ -1934,6 +2007,24 @@ export namespace errors {
         statusCode: number;
         status: number;
         allow_redirect: boolean;
+    }
+    class ExpiredLoginHintToken extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class InvalidBindingMessage extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class InvalidUserCode extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class MissingUserCode extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class TransactionFailed extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class UnknownUserId extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
     }
     class AccessDenied extends OIDCProviderError {
         constructor(description?: string, detail?: string);

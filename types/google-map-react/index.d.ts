@@ -175,7 +175,7 @@ declare namespace googleMapReact {
         onGoogleApiLoaded?(maps: { map: any; maps: any; ref: Element | null }): void;
         onTilesLoaded?(): void;
         yesIWantToUseGoogleMapApiInternals?: boolean;
-        style?: React.HTMLProps<HTMLDivElement>;
+        style?: React.CSSProperties;
         shouldUnregisterMapOnUnmount?: boolean;
         heatmap?: Heatmap;
     }

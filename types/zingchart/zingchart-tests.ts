@@ -1,3 +1,10 @@
+import { ZC } from "zingchart/server/zingchart-nodejs.min.js";
+import zingchart from "zingchart/es6";
+
+zingchart.ASYNC = true;
+zingchart.DEV.CANVASVERSION = 2;
+ZC.VERSION = '2.9.4';
+
 zingchart.render({
     id: 'myChart',
     data: {
@@ -19,6 +26,9 @@ zingchart.render({
               method: 4,
               sequence: 2,
               speed: 275,
+            },
+            'value-box': {
+                text: 'Hello World',
             }
         },
     },

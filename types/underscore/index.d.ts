@@ -3711,6 +3711,35 @@ declare module _ {
         matcher<T>(attrs: T): _.Predicate<T>;
 
         /**
+         * Returns the specified property of `object`. `path` may be specified
+         * as a simple key, or as an array of object keys or array indexes,
+         * for deep property fetching. If the property does not exist or is `undefined`,
+         * the optional default is returned.
+         * @param object The object that maybe contains the property.
+         * @param path The path to the property on `object`.
+         * @param defaultValue Default if not found.
+         * @returns The item on the `object` or the `defaultValue`
+         **/
+        get(
+            object: null | undefined,
+            path: string | string[]
+        ): undefined;
+        get<U>(
+            object: null | undefined,
+            path: string | string[],
+            defaultValue?: U
+        ): U;
+        get<V extends Collection<any>>(
+            object: V,
+            path: string | string[]
+        ): TypeOfCollection<V> | undefined;
+        get<V extends Collection<any>, U>(
+            object: V,
+            path: string | string[],
+            defaultValue?: U
+        ): TypeOfCollection<V> | U;
+
+        /**
         * Returns a function that will itself return the key property of any passed-in object.
         * @param key Property of the object.
         * @return Function which accept an object an returns the value of key in that object.
@@ -4975,6 +5004,18 @@ declare module _ {
         matcher(): _.ListIterator<T, boolean>;
 
         /**
+         * Wrapped type `any`.
+         * @see _.get
+         **/
+        get(
+            path: string | string[]
+        ): TypeOfCollection<V> | undefined;
+        get<U>(
+            path: string | string[],
+            defaultValue?: U
+        ): TypeOfCollection<V> | U;
+
+        /**
         * Wrapped type `string`.
         * @see _.property
         **/
@@ -6207,6 +6248,18 @@ declare module _ {
          * @see _.matcher
          **/
         matcher(): _Chain<T>;
+
+        /**
+         * Wrapped type `any`.
+         * @see _.get
+         **/
+        get(
+            path: string | string[]
+        ): _Chain<TypeOfCollection<V> | undefined, T | undefined>;
+        get<U>(
+            path: string | string[],
+            defaultValue?: U
+        ): _Chain<TypeOfCollection<V> | U, T | U>;
 
         /**
         * Wrapped type `string`.

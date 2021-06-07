@@ -51,9 +51,15 @@ declare namespace AceAjax {
         addCommand(command: EditorCommand): void;
         addCommands(commands: EditorCommand[]): void;
         removeCommand(command: EditorCommand | string, keepCommand?: boolean): void;
+        removeCommands(command: EditorCommand[]): void;
         bindKey(key: string | { mac?: string, win?: string },
-        command: CommandLike,
-        position?: number): void;
+          command: CommandLike,
+          position?: number): void;
+        bindKeys(keys: {[s: string]: Function}): void;
+        parseKeys(keyPart: string): {key: string, hashId: number};
+        findKeyCommand(hashId: number, keyString: string): string | undefined;
+        handleKeyboard(data: {}, hashId: number, keyString: string, keyCode: string | number): void | {command: string};
+        getStatusText(editor: Editor, data: {}): string;
         platform: string;
     }
 
@@ -1141,7 +1147,7 @@ declare namespace AceAjax {
 
         onTextInput(text: string): void;
 
-        onCommandKey(e: any, hashId: any, keyCode: any): void;
+        onCommandKey(e: any, hashId: number, keyCode: number): void;
 
         commands: CommandManager;
 

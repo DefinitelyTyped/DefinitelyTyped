@@ -32,6 +32,7 @@ export interface MentionsInputProps extends Omit<React.TextareaHTMLAttributes<HT
      */
     allowSpaceInQuery?: boolean;
     allowSuggestionsAboveCursor?: boolean;
+    forceSuggestionsAboveCursor?: boolean;
     ignoreAccents?: boolean;
     value?: string;
     onChange?: OnChangeHandlerFunc;

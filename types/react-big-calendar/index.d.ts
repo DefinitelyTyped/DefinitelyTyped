@@ -186,11 +186,11 @@ export interface Components<TEvent extends object = Event, TResource extends obj
         event?: React.ComponentType<EventProps<TEvent>>;
     };
     day?: {
-        header?: React.ComponentType;
+        header?: React.ComponentType<HeaderProps>;
         event?: React.ComponentType<EventProps<TEvent>>;
     };
     week?: {
-        header?: React.ComponentType;
+        header?: React.ComponentType<HeaderProps>;
         event?: React.ComponentType<EventProps<TEvent>>;
     };
     month?: {
@@ -265,6 +265,13 @@ export interface Messages {
     noEventsInRange?: string;
 }
 
+export interface SlotInfo {
+  start: stringOrDate;
+  end: stringOrDate;
+  slots: Date[] | string[];
+  action: 'select' | 'click' | 'doubleClick';
+}
+
 export type Culture = string;
 export type FormatInput = number | string | Date;
 
@@ -298,12 +305,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onNavigate?: (newDate: Date, view: View, action: NavigateAction) => void;
     onView?: (view: View) => void;
     onDrillDown?: (date: Date, view: View) => void;
-    onSelectSlot?: (slotInfo: {
-        start: stringOrDate;
-        end: stringOrDate;
-        slots: Date[] | string[];
-        action: 'select' | 'click' | 'doubleClick';
-    }) => void;
+    onSelectSlot?: (slotInfo: SlotInfo) => void;
     onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onKeyPressEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;

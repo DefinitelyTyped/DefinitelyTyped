@@ -1,45 +1,64 @@
-// Type definitions for urban-dictionary 2.2
+// Type definitions for urban-dictionary 3.0
 // Project: https://github.com/NightfallAlicorn/urban-dictionary
 // Definitions by: Nigecat <https://github.com/Nigecat>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface WordDefinition {
-    definition: string;
-    permalink: string;
-    thumbs_up: number;
-    thumbs_down: number;
-    sound_urls: string[];
+export interface DefinitionObject {
     author: string;
-    word: string;
-    defid: number;
     current_vote: string;
-    written_on: string;
+    defid: number;
+    definition: string;
     example: string;
+    permalink: string;
+    sound_urls: string[];
+    thumbs_down: number;
+    thumbs_up: number;
+    word: string;
+    written_on: string;
+}
+
+export interface AutocompleteExtraObject {
+    preview: string;
+    term: string;
 }
 
 /**
- * Asynchronously obtain Urban Dictionary term entry by defid.
- * @param id Definition entry to retrieve
- * @param callback Optional callback to return the data with
- * @return The word definition data, this is also passed to the callback if it is specified.
+ * Use this to retrieve an array up to 20 search suggested strings.
  */
-export function defid(id: number, callback?: (error: Error, object: WordDefinition) => any): Promise<WordDefinition>;
+export function autocomplete(term: string, callback: (error: Error, results: string[]) => void): void;
+export function autocomplete(term: string): Promise<string[]>;
 
 /**
- * Asynchronously obtain a random definition from Urban Dictionary.
- * @param callback Optional callback to return the data with
- * @return The word definition data, this is also passed to the callback if it is specified.
+ * Use this to retrieve an array up to 20 search suggested AutocompleteExtraObject
+ * that contain a preview and suggested term.
  */
-export function random(callback?: (error: Error, object: WordDefinition) => any): Promise<WordDefinition>;
+export function autocompleteExtra(
+    term: string,
+    callback: (error: Error, results: AutocompleteExtraObject[]) => void,
+): void;
+export function autocompleteExtra(term: string): Promise<AutocompleteExtraObject[]>;
 
 /**
- * Asynchronously obtain Urban Dictionary by term.
- * @param word Definition to search for
- * @param callback Optional callback to return the data with
- * @return Returns a promise object containing entries, tags and sounds properties.
+ * Use this to retrieve an array up to 10 DefinitionObject.
  */
-export function term(word: string, callback?: (error: Error, entries: WordDefinition[], tags: string[], sounds: string[]) => any): Promise<{
-    entries: WordDefinition[];
-    tags: string[];
-    sounds: string[];
-}>;
+export function define(term: string, callback: (error: Error, results: DefinitionObject[]) => void): void;
+export function define(term: string): Promise<DefinitionObject[]>;
+
+/**
+ * Use this to retrieve a specific DefinitionObject by its defid.
+ */
+export function getDefinitionByDefid(id: number, callback: (error: Error, results: DefinitionObject) => void): void;
+export function getDefinitionByDefid(id: number): Promise<DefinitionObject>;
+
+/**
+ * Use this to retrieve an array up to 10 random DefinitionObject.
+ */
+export function random(callback: (error: Error, results: DefinitionObject[]) => void): void;
+export function random(): Promise<DefinitionObject[]>;
+
+/**
+ * Use this to retrieve an array with 10 Words of the Day DefinitionObject.
+ */
+export function wordsOfTheDay(callback: (error: Error, results: DefinitionObject[]) => void): void;
+export function wordsOfTheDay(): Promise<DefinitionObject[]>;
