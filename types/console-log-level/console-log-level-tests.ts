@@ -1,5 +1,7 @@
 import consoleLogLevel = require("console-log-level");
 
+const logger0 = consoleLogLevel();
+
 const logger1 = consoleLogLevel({
     level: "trace",
     stderr: undefined,
