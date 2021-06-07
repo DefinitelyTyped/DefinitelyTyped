@@ -1291,7 +1291,7 @@ export interface TapAreaProps {
     >;
     rel?: 'none' | 'nofollow';
     role?: 'button' | 'link';
-    rounding?: 'pill' | 'circule' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
     tabIndex?: -1 | 0;
     tapStyle?: 'none' | 'compress';
     target?: null | 'self' | 'blank';
