@@ -12,7 +12,11 @@ type ZalgoPromise<T> = Promise<T>;
 // For the purposes of using the library on it's own Window is CrossDomain enough
 type CrossDomainWindowType = Window | null;
 type DomainMatcher = string | RegExp | string[];
-type HandlerType = (source: CrossDomainWindowType, origin: string, data: object) => void | ZalgoPromise<any>;
+type HandlerType = (event: {
+    source: CrossDomainWindowType,
+    origin: string,
+    data: any
+}) => ZalgoPromise<any>;
 type ErrorHandlerType = (err: any) => void;
 
 interface ServerOptionsType {

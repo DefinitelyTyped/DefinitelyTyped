@@ -1,4 +1,4 @@
-import { DocumentClient } from 'aws-sdk/clients/dynamodb';
+import * as DDB from 'aws-sdk/clients/dynamodb';
 
 export type Key = any;
 export type GenericCallback = (err: Error, data: any) => void;
@@ -29,10 +29,12 @@ export type ArcDataIndexable = ArcData & {
 };
 
 export interface ArcData {
-    _name(tableName: string): string;
+    _name(tableName: string): string | undefined;
+    name(tableName: string): string | undefined;
 }
 
 export interface ArcTables {
     (): Promise<ArcDataIndexable>;
-    doc: DocumentClient;
+    doc: DDB.DocumentClient;
+    db: DDB;
 }

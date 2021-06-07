@@ -19,6 +19,7 @@ qs.stringify({
     param5: { key1: 'value1', key2: 'value2' },
     param6: new RegExp('regex'),
     param7: null,
+    param8: undefined,
 });
 
 // Omit last optional parameter

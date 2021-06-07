@@ -63,7 +63,7 @@ declare namespace prompts {
     // Based upon: https://github.com/terkelg/prompts/blob/d7d2c37a0009e3235b2e88a7d5cdbb114ac271b2/lib/elements/select.js#L29
     interface Choice {
         title: string;
-        value: any;
+        value?: any;
         disabled?: boolean;
         selected?: boolean;
         description?: string;

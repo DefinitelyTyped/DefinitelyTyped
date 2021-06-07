@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Maps JavaScript API 3.44
+// Type definitions for non-npm package Google Maps JavaScript API 3.45
 // Project: https://developers.google.com/maps/
 // Definitions by: Justin Poehnelt <https://github.com/jpoehnelt>
 //                 Alex Muramoto <https://github.com/amuramoto>
@@ -7,7 +7,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.44
+// Google Maps JS API Version: 3.45
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -50,6 +50,18 @@ declare namespace google.maps {
      * <code>null</code>, the layer will be removed.
      */
     setMap(map: google.maps.Map|null): void;
+  }
+}
+declare namespace google.maps {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Used for setting the map&#39;s camera options.
+   */
+  interface CameraOptions {
+    center?: google.maps.LatLngLiteral|google.maps.LatLng;
+    heading?: number;
+    tilt?: number;
+    zoom?: number;
   }
 }
 declare namespace google.maps {
@@ -283,6 +295,21 @@ declare namespace google.maps {
      * Elements are positioned in the top right and flow towards the middle.
      */
     TOP_RIGHT = 11.0,
+  }
+}
+declare namespace google.maps {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * This class provides convenience methods for generating matrices to use for
+   * rendering WebGL scenes on top of the Google base map. <br><br>Note: A
+   * reference to this object should <b>not</b> be held outside of the scope of
+   * the encapsulating {@link google.maps.WebglOverlayView.onDraw} call.
+   */
+  interface CoordinateTransformer {
+    fromLatLngAltitude(
+        latLng: google.maps.LatLng|google.maps.LatLngLiteral, altitude: number,
+        rotations?: Float32Array, scale?: Float32Array): Float64Array;
+    getCameraParams(): google.maps.WebglCameraParams;
   }
 }
 declare namespace google.maps {
@@ -950,6 +977,11 @@ declare namespace google.maps.Data {
    */
   interface StyleOptions {
     /**
+     * The animation to play when marker is added to a map. Only applies to
+     * point geometries.
+     */
+    animation?: google.maps.Animation;
+    /**
      * If <code>true</code>, the marker receives mouse and touch events. Default
      * value is <code>true</code>.
      */
@@ -986,6 +1018,21 @@ declare namespace google.maps.Data {
      * applies to point geometries.
      */
     icon?: string|google.maps.Icon|google.maps.Symbol;
+    /**
+     * The icons to be rendered along a polyline. Only applies to line
+     * geometries.
+     */
+    icons?: google.maps.IconSequence[];
+    /**
+     * Adds a label to the marker. The label can either be a string, or a
+     * <code>MarkerLabel</code> object. Only applies to point geometries.
+     */
+    label?: string|google.maps.MarkerLabel;
+    /**
+     * The marker&#39;s opacity between 0.0 and 1.0. Only applies to point
+     * geometries.
+     */
+    opacity?: number;
     /**
      * Defines the image map used for hit detection. Only applies to point
      * geometries.
@@ -1452,11 +1499,7 @@ declare namespace google.maps {
    */
   class DirectionsService {
     /**
-     * Issue a directions search request. <aside class="note">Note: <strong>For
-     * the beta release, <code>v=beta</code>, the callback is optional and a
-     * Promise is returned</strong>. More information is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * Issue a directions search request.
      */
     route(
         request: google.maps.DirectionsRequest,
@@ -1765,11 +1808,7 @@ declare namespace google.maps {
    */
   class DistanceMatrixService {
     /**
-     * Issues a distance matrix request. <aside class="note">Note: <strong>For
-     * the beta release, <code>v=beta</code>, the callback is optional and a
-     * Promise is returned</strong>. More information is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * Issues a distance matrix request.
      */
     getDistanceMatrix(
         request: google.maps.DistanceMatrixRequest,
@@ -1891,12 +1930,7 @@ declare namespace google.maps {
   class ElevationService {
     /**
      * Makes an elevation request along a path, where the elevation data are
-     * returned as distance-based samples along that path. <aside
-     * class="note">Note: <strong>A Promise is only returned for the beta
-     * release, <code>v=beta</code></strong>. More information is available in
-     * the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * returned as distance-based samples along that path.
      */
     getElevationAlongPath(
         request: google.maps.PathElevationRequest,
@@ -1905,12 +1939,7 @@ declare namespace google.maps {
              b: google.maps.ElevationStatus) => void):
         Promise<google.maps.PathElevationResponse>|null;
     /**
-     * Makes an elevation request for a list of discrete locations. <aside
-     * class="note">Note: <strong>For the beta release, <code>v=beta</code>, the
-     * callback is optional and a Promise is returned</strong>. More information
-     * is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * Makes an elevation request for a list of discrete locations.
      */
     getElevationForLocations(
         request: google.maps.LocationElevationRequest,
@@ -1981,11 +2010,7 @@ declare namespace google.maps {
    */
   class Geocoder {
     /**
-     * Geocode a request. <aside class="note">Note: <strong>A Promise is only
-     * returned for the beta release, <code>v=beta</code></strong>. More
-     * information is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * Geocode a request.
      */
     geocode(
         request: google.maps.GeocoderRequest,
@@ -2202,6 +2227,10 @@ declare namespace google.maps {
      * IDs</a> in the Places API developer guide.
      */
     place_id: string;
+    /**
+     * The plus code associated with the location.
+     */
+    plus_code?: google.maps.places.PlacePlusCode;
     /**
      * An array of strings denoting all the localities contained in a postal
      * code. This is only present when the result is a postal code that contains
@@ -2443,6 +2472,7 @@ declare namespace google.maps {
     /**
      * Sets the opacity level (<code>0</code> (transparent) to <code>1.0</code>)
      * of the <code>ImageMapType</code> tiles.
+     * @param opacity The new opacity.
      */
     setOpacity(opacity: number): void;
     tileSize: google.maps.Size|null;
@@ -2514,13 +2544,33 @@ declare namespace google.maps {
      * the tip of the InfoWindow.
      */
     open(
-        map?: google.maps.Map|null|google.maps.StreetViewPanorama,
+        options?: google.maps.Map|null|google.maps.StreetViewPanorama|
+        google.maps.InfoWindowOpenOptions,
         anchor?: google.maps.MVCObject|null): void;
     setContent(content: string|Node|null): void;
     setOptions(options: google.maps.InfoWindowOptions|null): void;
     setPosition(position: google.maps.LatLng|null|
                 google.maps.LatLngLiteral): void;
     setZIndex(zIndex: number): void;
+  }
+}
+declare namespace google.maps {
+  /**
+   * Options for opening an InfoWindow
+   */
+  interface InfoWindowOpenOptions {
+    /**
+     * If anchor is non-null, position this InfoWindow at the top-center of the
+     * anchor, instead of at the given latlng. The InfoWindow will be rendered
+     * on the same Map or StreetView as the anchor.
+     */
+    anchor?: google.maps.MVCObject|null;
+    /**
+     * Whether or not focus should be moved inside the InfoWindow when it is
+     * opened. When unset or set to <code>null</code> or <code>undefined</code>,
+     * a heuristic will be used to decide whether focus should be moved or not.
+     */
+    shouldFocus?: boolean|null;
   }
 }
 declare namespace google.maps {
@@ -2652,6 +2702,7 @@ declare namespace google.maps {
      * or GeoRSS file that is hosted on a publicly accessible web server. A
      * <code>KmlFeatureData</code> object is provided for each feature when
      * clicked.
+     * @param opts Options for this layer.
      */
     constructor(opts?: google.maps.KmlLayerOptions|null);
     /**
@@ -2691,6 +2742,7 @@ declare namespace google.maps {
     setUrl(url: string): void;
     /**
      * Sets the z-index of the KML Layer.
+     * @param zIndex The z-index to set.
      */
     setZIndex(zIndex: number): void;
   }
@@ -3209,7 +3261,8 @@ declare namespace google.maps {
      * the <code>fitBounds</code> function reads the map&#39;s size as 0x0, and
      * therefore does not do anything. To change the viewport while the map is
      * hidden, set the map to <code>visibility: hidden</code>, thereby ensuring
-     * the map div has an actual size.
+     * the map div has an actual size. For vector maps, this method sets the
+     * map&#39;s tilt and heading to their default zero values.
      * @param bounds Bounds to show.
      * @param padding Padding in pixels. The bounds will be fit in the part of
      *     the map that remains after padding is removed. A number value will
@@ -3223,14 +3276,20 @@ declare namespace google.maps {
      * Returns the lat/lng bounds of the current viewport. If more than one copy
      * of the world is visible, the bounds range in longitude from -180 to 180
      * degrees inclusive. If the map is not yet initialized or center and zoom
-     * have not been set then the result is <code>undefined</code>.
+     * have not been set then the result is <code>undefined</code>. For vector
+     * maps with non-zero tilt or heading, the returned lat/lng bounds
+     * represents the smallest bounding box that includes the visible region of
+     * the map&#39;s viewport. See {@link
+     * google.maps.MapCanvasProjection.getVisibleRegion} for getting the exact
+     * visible region of the map&#39;s viewport.
      */
     getBounds(): google.maps.LatLngBounds|undefined;
     /**
-     * Returns the position displayed at the center of the map. Note that this
-     * <code>LatLng</code> object is <em>not</em> wrapped. See <code><a
-     * href="#LatLng">LatLng</a></code> for more information. If the center or
-     * bounds have not been set then the result is <code>undefined</code>.
+     * Returns the position displayed at the center of the map. Note that
+     * this {@link google.maps.LatLng} object is <em>not</em> wrapped. See
+     * <code><a href="#LatLng">LatLng</a></code> for more information. If the
+     * center or bounds have not been set then the result is
+     * <code>undefined</code>.
      */
     getCenter(): google.maps.LatLng|undefined;
     /**
@@ -3241,9 +3300,9 @@ declare namespace google.maps {
     getClickableIcons(): boolean|undefined;
     getDiv(): Element;
     /**
-     * Returns the compass heading of aerial imagery. The heading value is
-     * measured in degrees (clockwise) from cardinal direction North. If the map
-     * is not yet initialized then the result is <code>undefined</code>.
+     * Returns the compass heading of the map. The heading value is measured in
+     * degrees (clockwise) from cardinal direction North. If the map is not yet
+     * initialized then the result is <code>undefined</code>.
      */
     getHeading(): number|undefined;
     getMapTypeId(): string|undefined;
@@ -3255,6 +3314,11 @@ declare namespace google.maps {
      */
     getProjection(): google.maps.Projection|undefined;
     /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Returns the current RenderingType of the map.
+     */
+    getRenderingType(): google.maps.RenderingType;
+    /**
      * Returns the default <code>StreetViewPanorama</code> bound to the map,
      * which may be a default panorama embedded within the map, or the panorama
      * set using <code>setStreetView()</code>. Changes to the map&#39;s
@@ -3264,11 +3328,9 @@ declare namespace google.maps {
     getStreetView(): google.maps.StreetViewPanorama;
     /**
      * Returns the current angle of incidence of the map, in degrees from the
-     * viewport plane to the map plane. The result will be <code>0</code> for
-     * imagery taken directly overhead or <code>45</code> for 45&deg; imagery.
-     * 45&deg; imagery is only available for <code>satellite</code> and
-     * <code>hybrid</code> map types, within some locations, and at some zoom
-     * levels. <b>Note:</b> This method does not return the value set by
+     * viewport plane to the map plane. For raster maps, the result will be
+     * <code>0</code> for imagery taken directly overhead or <code>45</code> for
+     * 45&deg; imagery. This method does not return the value set by
      * <code>setTilt</code>. See <code>setTilt</code> for details.
      */
     getTilt(): number|undefined;
@@ -3281,6 +3343,12 @@ declare namespace google.maps {
      * A registry of <code>MapType</code> instances by string ID.
      */
     mapTypes: google.maps.MapTypeRegistry;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Immediately sets the map&#39;s camera to the target camera options,
+     * without animation.
+     */
+    moveCamera(cameraOptions: google.maps.CameraOptions): void;
     /**
      * Additional map types to overlay. Overlay map types will display on top of
      * the base map they are attached to, in the order in which they appear in
@@ -3310,6 +3378,8 @@ declare namespace google.maps {
      * <code>LatLngBounds</code>. It makes no guarantee where on the map the
      * bounds will be, except that the map will be panned to show as much of the
      * bounds as possible inside <code>{currentMapSizeInPx} - {padding}</code>.
+     * For both raster and vector maps, the map&#39;s zoom, tilt, and heading
+     * will not be changed.
      * @param latLngBounds The bounds to pan the map to.
      * @param padding Padding in pixels. A number value will yield the same
      *     padding on all 4 sides. The default value is 0.
@@ -3326,8 +3396,9 @@ declare namespace google.maps {
      */
     setClickableIcons(value: boolean): void;
     /**
-     * Sets the compass heading for aerial imagery measured in degrees from
-     * cardinal direction North.
+     * Sets the compass heading for map measured in degrees from cardinal
+     * direction North. For raster maps, this method only applies to aerial
+     * imagery.
      */
     setHeading(heading: number): void;
     setMapTypeId(mapTypeId: string): void;
@@ -3341,20 +3412,23 @@ declare namespace google.maps {
      */
     setStreetView(panorama: google.maps.StreetViewPanorama|null): void;
     /**
-     * Controls the automatic switching behavior for the angle of incidence of
-     * the map. The only allowed values are <code>0</code> and <code>45</code>.
-     * <code>setTilt(0)</code> causes the map to always use a 0&deg; overhead
-     * view regardless of the zoom level and viewport. <code>setTilt(45)</code>
-     * causes the tilt angle to automatically switch to 45 whenever 45&deg;
-     * imagery is available for the current zoom level and viewport, and switch
-     * back to 0 whenever 45&deg; imagery is not available (this is the default
-     * behavior). 45&deg; imagery is only available for <code>satellite</code>
-     * and <code>hybrid</code> map types, within some locations, and at some
-     * zoom levels. <b>Note:</b> <code>getTilt</code> returns the current tilt
-     * angle, not the value set by <code>setTilt</code>. Because
-     * <code>getTilt</code> and <code>setTilt</code> refer to different things,
-     * do not <code>bind()</code> the <code>tilt</code> property; doing so may
-     * yield unpredictable effects.
+     * For vector maps, sets the angle of incidence of the map. The allowed
+     * values are restricted depending on the zoom level of the map. For raster
+     * maps, controls the automatic switching behavior for the angle of
+     * incidence of the map. The only allowed values are <code>0</code> and
+     * <code>45</code>. <code>setTilt(0)</code> causes the map to always use a
+     * 0&deg; overhead view regardless of the zoom level and viewport.
+     * <code>setTilt(45)</code> causes the tilt angle to automatically switch to
+     * 45 whenever 45&deg; imagery is available for the current zoom level and
+     * viewport, and switch back to 0 whenever 45&deg; imagery is not available
+     * (this is the default behavior). 45&deg; imagery is only available for
+     * <code>satellite</code> and <code>hybrid</code> map types, within some
+     * locations, and at some zoom levels. <b>Note:</b> <code>getTilt</code>
+     * returns the current tilt angle, not the value set by
+     * <code>setTilt</code>. Because <code>getTilt</code> and
+     * <code>setTilt</code> refer to different things, do not
+     * <code>bind()</code> the <code>tilt</code> property; doing so may yield
+     * unpredictable effects.
      */
     setTilt(tilt: number): void;
     setZoom(zoom: number): void;
@@ -3391,6 +3465,13 @@ declare namespace google.maps {
      */
     fromLatLngToDivPixel(latLng: google.maps.LatLng|null): google.maps.Point
         |null;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * The visible region of the map. Returns <code>null</code> if the map has
+     * no size. Returns <code>null</code> if the OverlayView is on a
+     * StreetViewPanorama.
+     */
+    getVisibleRegion(): google.maps.VisibleRegion|null;
     /**
      * The width of the world in pixels in the current zoom level. For
      * projections with a heading angle of either 90 or 270 degrees, this
@@ -3527,10 +3608,28 @@ declare namespace google.maps {
      */
     heading?: number|null;
     /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Whether the map should allow fractional zoom levels. If not explicitly
+     * set to <code>true</code> or <code>false</code>, by default vector maps
+     * will allow fractional zoom and raster maps will not. Listen to
+     * <code>isfractionalzoomenabled_changed</code> to know when the default has
+     * been set.
+     */
+    isFractionalZoomEnabled?: boolean|null;
+    /**
      * If <code>false</code>, prevents the map from being controlled by the
      * keyboard. Keyboard shortcuts are enabled by default.
      */
     keyboardShortcuts?: boolean|null;
+    /**
+     * The unique identifier that represents a single instance of a Google Map.
+     * You can create Map IDs and update a style associated with a Map ID at any
+     * time in the Google Cloud Console <a
+     * href="https://console.cloud.google.com/google/maps-apis/client-maps">Maps
+     * Management page</a> without changing embedded JSON styling in your
+     * application code.
+     */
+    mapId?: string|null;
     /**
      * The initial enabled/disabled state of the Map type control.
      */
@@ -3640,20 +3739,22 @@ declare namespace google.maps {
      */
     styles?: google.maps.MapTypeStyle[]|null;
     /**
-     * Controls the automatic switching behavior for the angle of incidence of
-     * the map. The only allowed values are <code>0</code> and <code>45</code>.
-     * The value <code>0</code> causes the map to always use a 0&deg; overhead
-     * view regardless of the zoom level and viewport. The value <code>45</code>
-     * causes the tilt angle to automatically switch to 45 whenever 45&deg;
-     * imagery is available for the current zoom level and viewport, and switch
-     * back to 0 whenever 45&deg; imagery is not available (this is the default
-     * behavior). 45&deg; imagery is only available for <code>satellite</code>
-     * and <code>hybrid</code> map types, within some locations, and at some
-     * zoom levels. <b>Note:</b> <code>getTilt</code> returns the current tilt
-     * angle, not the value specified by this option. Because
-     * <code>getTilt</code> and this option refer to different things, do not
-     * <code>bind()</code> the <code>tilt</code> property; doing so may yield
-     * unpredictable effects.
+     * For vector maps, sets the angle of incidence of the map. The allowed
+     * values are restricted depending on the zoom level of the map. For raster
+     * maps, controls the automatic switching behavior for the angle of
+     * incidence of the map. The only allowed values are <code>0</code> and
+     * <code>45</code>. The value <code>0</code> causes the map to always use a
+     * 0&deg; overhead view regardless of the zoom level and viewport. The value
+     * <code>45</code> causes the tilt angle to automatically switch to 45
+     * whenever 45&deg; imagery is available for the current zoom level and
+     * viewport, and switch back to 0 whenever 45&deg; imagery is not available
+     * (this is the default behavior). 45&deg; imagery is only available for
+     * <code>satellite</code> and <code>hybrid</code> map types, within some
+     * locations, and at some zoom levels. <b>Note:</b> <code>getTilt</code>
+     * returns the current tilt angle, not the value specified by this option.
+     * Because <code>getTilt</code> and this option refer to different things,
+     * do not <code>bind()</code> the <code>tilt</code> property; doing so may
+     * yield unpredictable effects.
      */
     tilt?: number|null;
     /**
@@ -3740,6 +3841,9 @@ declare namespace google.maps {
      * Returns a tile for the given tile coordinate (x, y) and zoom level. This
      * tile will be appended to the given ownerDocument. Not available for base
      * map types.
+     * @param tileCoord Tile coordinates.
+     * @param zoom Tile zoom.
+     * @param ownerDocument The document which owns this tile.
      */
     getTile(
         tileCoord: google.maps.Point|null, zoom: number,
@@ -3771,6 +3875,7 @@ declare namespace google.maps {
     /**
      * Releases the given tile, performing any necessary cleanup. The provided
      * tile will have already been removed from the document. Optional.
+     * @param tile Tile to release.
      */
     releaseTile(tile: Node|null): void;
     /**
@@ -3855,6 +3960,8 @@ declare namespace google.maps {
     /**
      * Sets the registry to associate the passed string identifier with the
      * passed MapType.
+     * @param id Identifier of the MapType to add to the registry.
+     * @param mapType MapType object to add to the registry.
      */
     set(id: string, mapType: any): void;
   }
@@ -4160,12 +4267,11 @@ declare namespace google.maps {
      */
     opacity?: number|null;
     /**
-     * Optimization renders many markers as a single static element. Disable
-     * optimized rendering for animated GIFs or PNGs, or when each marker must
-     * be rendered as a separate DOM element (advanced usage only). By default,
-     * the Maps JavaScript API will decide whether or not a Marker will be
-     * optimized. Not all Markers can be optimized; in some situations, the Maps
-     * JavaScript API may need to render Markers without optimization.
+     * Optimization enhances performance by rendering many markers as a single
+     * static element. This is useful in cases where a large number of markers
+     * is required. Read more about <a
+     * href="https://developers.google.com/maps/documentation/javascript/markers#optimize">marker
+     * optimization</a>.
      */
     optimized?: boolean|null;
     /**
@@ -4261,11 +4367,7 @@ declare namespace google.maps {
      * a particular <code>LatLng</code> for the <code>satellite</code> map type.
      * As this request is asynchronous, you must pass a <code>callback</code>
      * function which will be executed upon completion of the request, being
-     * passed a <code>MaxZoomResult</code>.<aside class="note">Note: <strong>For
-     * the beta release, <code>v=beta</code>, the callback is optional and a
-     * Promise is returned</strong>. More information is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * passed a <code>MaxZoomResult</code>.
      */
     getMaxZoomAtLatLng(
         latlng: google.maps.LatLng|null|google.maps.LatLngLiteral,
@@ -4358,6 +4460,8 @@ declare namespace google.maps {
     onRemove(): void;
     /**
      * Adds the overlay to the map or panorama.
+     * @param map The map or panorama. If <code>null</code>, the layer will be
+     *     removed.
      */
     setMap(map: google.maps.Map|null|google.maps.StreetViewPanorama): void;
     /**
@@ -4993,6 +5097,26 @@ declare namespace google.maps {
 }
 declare namespace google.maps {
   /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   */
+  enum RenderingType {
+    /**
+     * Indicates that the map is a raster map.
+     */
+    RASTER = 'RASTER',
+    /**
+     * Indicates that it is unknown yet whether the map is vector or raster,
+     * because the map has not finished initializing yet.
+     */
+    UNINITIALIZED = 'UNINITIALIZED',
+    /**
+     * Indicates that the map is a vector map.
+     */
+    VECTOR = 'VECTOR',
+  }
+}
+declare namespace google.maps {
+  /**
    * Options for the rendering of the rotate control.
    */
   interface RotateControlOptions {
@@ -5520,11 +5644,6 @@ declare namespace google.maps {
      * Retrieves the <code>StreetViewPanoramaData</code> for a panorama that
      * matches the supplied Street View query request. The
      * <code>StreetViewPanoramaData</code> is passed to the provided callback.
-     * <aside class="note">Note: <strong>For the beta release,
-     * <code>v=beta</code>, the callback is optional and a Promise is
-     * returned</strong>. More information is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
      */
     getPanorama(
         request: google.maps.StreetViewLocationRequest|
@@ -6261,6 +6380,128 @@ declare namespace google.maps {
      * Trolleybus.
      */
     TROLLEYBUS = 'TROLLEYBUS',
+  }
+}
+declare namespace google.maps {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Contains the four points defining the four-sided polygon that is the
+   * visible region of the map. On a vector map this polygon can be a trapezoid
+   * instead of a rectangle, when a vector map has tilt.
+   */
+  interface VisibleRegion {
+    farLeft: google.maps.LatLng;
+    farRight: google.maps.LatLng;
+    /**
+     * The smallest bounding box that includes the visible region.
+     */
+    latLngBounds: google.maps.LatLngBounds;
+    nearLeft: google.maps.LatLng;
+    nearRight: google.maps.LatLng;
+  }
+}
+declare namespace google.maps {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * A <code>WebglCameraParams</code> is a snapshot of camera properties used to
+   * render the current frame.
+   */
+  interface WebglCameraParams {
+    /**
+     * Heading of the camera in degrees.
+     */
+    heading: number;
+    /**
+     * Latitude in degrees.
+     */
+    lat: number;
+    /**
+     * Longitude in degrees.
+     */
+    lng: number;
+    /**
+     * Angle of incidence of the camera, in degrees.
+     */
+    tilt: number;
+    /**
+     * Zoom level of the camera.
+     */
+    zoom: number;
+  }
+}
+declare namespace google.maps {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * The WebGL Overlay View provides direct access to the same WebGL rendering
+   * context Google Maps Platform uses to render the vector basemap. This use of
+   * a shared rendering context provides benefits such as depth occlusion with
+   * 3D building geometry, and the ability to sync 2D/3D content with basemap
+   * rendering. <br><br>With WebGL Overlay View you can add content to your maps
+   * using WebGL directly, or popular Graphics libraries like Three.js or
+   * deck.gl. To use the overlay, you can extend
+   * <code>google.maps.WebglOverlayView</code> and provide an implementation for
+   * each of the following lifecycle hooks: {@link
+   * google.maps.WebglOverlayView.onAdd}, {@link
+   * google.maps.WebglOverlayView.onContextRestored}, {@link
+   * google.maps.WebglOverlayView.onDraw}, {@link
+   * google.maps.WebglOverlayView.onContextLost} and {@link
+   * google.maps.WebglOverlayView.onRemove}. <br><br>You must call {@link
+   * google.maps.WebglOverlayView.setMap} with a valid {@link google.maps.Map}
+   * object to trigger the call to the <code>onAdd()</code> method and
+   * <code>setMap(null)</code> in order to trigger the <code>onRemove()</code>
+   * method. The <code>setMap()</code> method can be called at the time of
+   * construction or at any point afterward when the overlay should be re-shown
+   * after removing. The <code>onDraw()</code> method will then be called
+   * whenever a map property changes that could change the position of the
+   * element, such as zoom, center, or map type. WebglOverlayView may only be
+   * added to a vector map having a {@link google.maps.MapOptions.mapId}.
+   */
+  class WebglOverlayView extends google.maps.MVCObject {
+    getMap(): google.maps.Map|null|undefined;
+    /**
+     * Implement this method to fetch or create intermediate data structures
+     * before the overlay is drawn that don’t require immediate access to the
+     * WebGL rendering context.
+     */
+    onAdd(): void;
+    /**
+     * This method is called when the rendering context is lost for any reason,
+     * and is where you should clean up any pre-existing GL state, since it is
+     * no longer needed.
+     */
+    onContextLost(): void;
+    /**
+     * This method is called once the rendering context is available. Use it to
+     * initialize or bind any WebGL state such as shaders or buffer objects.
+     * @param gl rendering context for developers to access WebGL.
+     */
+    onContextRestored(gl: WebGLRenderingContext): void;
+    /**
+     * Implement this method to draw WebGL content directly on the map. Note
+     * that if the overlay needs a new frame drawn then call {@link
+     * google.maps.WebglOverlayView.requestRedraw}.
+     * @param gl rendering context for developers to access WebGL.
+     * @param transformer convenience class for providing camera transforms to
+     *     center objects at latitude/longitude coordinates.
+     */
+    onDraw(
+        gl: WebGLRenderingContext,
+        transformer: google.maps.CoordinateTransformer): void;
+    /**
+     * This method is called when the overlay is removed from the map with
+     * <code>WebglOverlayView.setMap(null)</code>, and is where you should
+     * remove all intermediate objects.
+     */
+    onRemove(): void;
+    /**
+     * Triggers the map to redraw a frame.
+     */
+    requestRedraw(): void;
+    /**
+     * Adds the overlay to the map.
+     * @param map The map to access the div, model and view state.
+     */
+    setMap(map?: google.maps.Map|null): void;
   }
 }
 declare namespace google.maps {
@@ -7173,11 +7414,7 @@ declare namespace google.maps.places {
   class AutocompleteService {
     /**
      * Retrieves place autocomplete predictions based on the supplied
-     * autocomplete request. <aside class="note">Note: <strong>For the beta
-     * release, <code>v=beta</code>, the callback is optional and a Promise is
-     * returned</strong>. More information is available in the <a
-     * href="https://developers.google.com/maps/documentation/javascript/promises">Promises
-     * guide</a>.</aside>
+     * autocomplete request.
      */
     getPlacePredictions(
         request: google.maps.places.AutocompletionRequest,

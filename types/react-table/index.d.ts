@@ -238,6 +238,7 @@ export interface UseTableHooks<D extends object> extends Record<string, any> {
 export interface UseTableColumnOptions<D extends object> {
     id?: IdType<D>;
     Header?: Renderer<HeaderProps<D>>;
+    Footer?: Renderer<FooterProps<D>>;
     width?: number | string;
     minWidth?: number;
     maxWidth?: number;
@@ -318,6 +319,8 @@ export interface UseTableCellProps<D extends object, V = any> {
 export type HeaderProps<D extends object> = TableInstance<D> & {
     column: ColumnInstance<D>;
 };
+
+export type FooterProps<D extends object> = TableInstance<D> & {};
 
 export type CellProps<D extends object, V = any> = TableInstance<D> & {
     column: ColumnInstance<D>;

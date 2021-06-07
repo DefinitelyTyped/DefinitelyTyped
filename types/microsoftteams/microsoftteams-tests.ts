@@ -7,7 +7,54 @@
  */
 (() => {
   microsoftTeams.getContext(context => {
-    const { upn, channelId } = context;
+    const {
+        appIconPosition,
+        appSessionId,
+        channelId,
+        channelName,
+        channelRelativeUrl,
+        channelType,
+        chatId,
+        defaultOneNoteSectionId,
+        entityId,
+        frameContext,
+        groupId,
+        hostClientType,
+        hostTeamGroupId,
+        hostTeamTenantId,
+        isCallingAllowed,
+        isFullScreen,
+        isMultiWindow,
+        isPSTNCallingAllowed,
+        isTeamArchived,
+        locale,
+        loginHint,
+        meetingId,
+        osLocaleInfo,
+        parentMessageId,
+        ringId,
+        sessionId,
+        sharepoint,
+        sourceOrigin,
+        subEntityId,
+        teamId,
+        teamName,
+        teamSiteDomain,
+        teamSitePath,
+        teamSiteUrl,
+        teamTemplateId,
+        teamType,
+        tenantSKU,
+        theme,
+        tid,
+        upn,
+        userClickTime,
+        userFileOpenPreference,
+        userLicenseType,
+        userObjectId,
+        userPrincipalName,
+        userTeamRole
+    } = context;
     context.isFullScreen = true;
   });
 

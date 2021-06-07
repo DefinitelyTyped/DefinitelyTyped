@@ -1,4 +1,4 @@
-// Type definitions for node-rpio 2.4
+// Type definitions for node-rpio 2.4.1
 // Project: https://github.com/jperkin/node-rpio
 // Definitions by: Dominik Palo <https://github.com/DominikPalo>
 //                 Hannes Früchtenicht <https://github.com/Pencl>
@@ -248,16 +248,18 @@ interface Rpio {
      * 
      * @param buffer - holds the read bits
      * @param length - number of bits to read, defaults to buffer.length
+     * @returns a status code
      */
-    i2cRead(buffer: Buffer, length?: number): void;
+    i2cRead(buffer: Buffer, length?: number): RPIO.I2cStatusCode;
 
     /**
      * Write to the i²c slave.
      * 
      * @param buffer - bits to write
      * @param length - number of bits in buffer to transfer, default = buffer.length
+     * @returns a status code
      */
-    i2cWrite(buffer: Buffer, length?: number): void;
+    i2cWrite(buffer: Buffer, length?: number): RPIO.I2cStatusCode;
 
     /*
      * Read bytes from a register into a buffer after issuing a repeated start,
@@ -267,8 +269,9 @@ interface Rpio {
      * @param register - register to read
      * @param buffer - store for read bits
      * @param length - the max number of bits to read, default = buffer.length
+     * @returns a status code
      */
-    i2cReadRegisterRestart(register: number, buffer: Buffer, length?: number): void;
+    i2cReadRegisterRestart(register: number, buffer: Buffer, length?: number): RPIO.I2cStatusCode;
 
     /*
      * Write cmdlen commands from cmdbuf to device before issuing a repeated
@@ -277,8 +280,9 @@ interface Rpio {
      * @param cmdLen
      * @param rbuf
      * @param rlen
+     * @returns a status code
      */
-    i2cWriteReadRestart(cmdbuf: Buffer, cmdlen: number, rbuf: Buffer, rlen: number): void;
+    i2cWriteReadRestart(cmdbuf: Buffer, cmdlen: number, rbuf: Buffer, rlen: number): RPIO.I2cStatusCode;
 
     /**
      * Set the baud rate.
@@ -541,5 +545,15 @@ declare namespace RPIO {
          * @param pin: The pin which triggered the callback.
          */
         (pin: number): void;
+    }
+
+    /**
+     * Return codes for I2C read and write operations.
+     */
+    enum I2cStatusCode {
+      OK   	     = 0x00,      /*!< Success */
+      ERROR_NACK = 0x01,      /*!< Received a NACK */
+      ERROR_CLKT = 0x02,      /*!< Received Clock Stretch Timeout */
+      ERROR_DATA = 0x04       /*!< Not all data is sent / received */
     }
 }

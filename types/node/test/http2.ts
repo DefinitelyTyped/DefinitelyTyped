@@ -237,6 +237,9 @@ import { URL } from 'url';
         server.on('request', (request: Http2ServerRequest, response: Http2ServerResponse) => {});
         server.on('timeout', () => {});
         server.setTimeout().setTimeout(5).setTimeout(5, () => {});
+        server.updateSettings({
+            enableConnectProtocol: true,
+        });
     });
 
     http2SecureServer.on('unknownProtocol', (socket: TLSSocket) => {});
@@ -252,7 +255,8 @@ import { URL } from 'url';
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-        settings
+        settings,
+        unknownProtocolTimeout: 123,
     };
     // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
     const secureServerOptions: SecureServerOptions = Object.assign({}, serverOptions);

@@ -12,10 +12,10 @@ declare function words(
         join: string;
     },
 ): string;
-declare function words(options: words.Options | number): string | string[];
+declare function words(options: words.Options | number): string[];
 
 declare namespace words {
-    let wordList: string[];
+    const wordList: string[];
 
     interface Options {
         exactly?: number;

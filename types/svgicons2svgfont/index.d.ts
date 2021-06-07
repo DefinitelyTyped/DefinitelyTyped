@@ -1,4 +1,4 @@
-// Type definitions for svgicons2svgfont 9.2
+// Type definitions for svgicons2svgfont 10.0
 // Project: https://github.com/nfroidure/svgicons2svgfont
 // Definitions by: Kaspar Vollenweider <https://github.com/casaper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,11 +7,11 @@
 
 import { Stream } from 'stream';
 
-declare class SVGIcons2SVGFont extends Stream.Transform {
-    constructor(options?: SVGIcons2SVGFont.SvgIcons2FontOptions);
+declare class SVGIcons2SVGFontStream extends Stream.Transform {
+    constructor(options?: SVGIcons2SVGFontStream.SvgIcons2FontOptions);
 }
 
-declare namespace SVGIcons2SVGFont {
+declare namespace SVGIcons2SVGFontStream {
     interface SvgIcons2FontOptions {
         /**
          * The font family name you want
@@ -82,6 +82,12 @@ declare namespace SVGIcons2SVGFont {
          */
         metadata?: string;
         /**
+         * A function which determines the metadata for an icon.
+         * It takes a parameter file with an icon svg and should return icon metadata (asynchronously) via the callback function.
+         * You can use this function to provide custom logic for svg to codepoint mapping.
+         */
+        metadataProvider?: MetadataProvider;
+        /**
          * Allows you to provide your own logging function.
          *
          * Set to function(){} to disable logging.
@@ -90,6 +96,24 @@ declare namespace SVGIcons2SVGFont {
          */
         log?: (message?: any) => void;
     }
+
+    interface Metadata {
+        path: string;
+        name: string;
+        unicode: string[];
+        renamed: boolean;
+    }
+
+    interface MetadataOptions {
+        prependUnicode?: boolean;
+        startUnicode?: number;
+        log?: typeof console['log'];
+        err?: typeof console['error'];
+    }
+
+    interface MetadataProvider {
+        (file: string, cb: (err: any, metadata: Metadata) => void): void;
+    }
 }
 
-export = SVGIcons2SVGFont;
+export = SVGIcons2SVGFontStream;

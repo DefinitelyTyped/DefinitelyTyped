@@ -107,6 +107,8 @@ declare namespace chayns {
 
     function findSite(name: string, skip?: number, take?: number): Promise<Site[]>;
 
+    function uploadCloudImage(): Promise<UploadCloudImageResult>;
+
     /**
      * UI Functions
      * Waitcursor
@@ -249,6 +251,8 @@ declare namespace chayns {
             let language: string;
 
             let groups: UserGroup[];
+
+            let adminMode: boolean;
         }
 
         /**
@@ -402,6 +406,23 @@ declare namespace chayns {
         function input(config: DialogInputConfig): Promise<DialogInputResult>;
 
         function facebook(options: DialogFacebookOptions): Promise<DialogFacebookResult>;
+
+        /**
+         * This dialog allows the user to select a date, a time or both.
+         * This call accepts only the config parameter, which is an object.
+         * You can call this dialog using chayns.dialog.advancedDate.
+         *
+         * This date dialog will return on each platform the same values.
+         * This is a big advantage of this call and there are some more features like:
+         *  - multiselect
+         *  - multiple preselects
+         *  - disabled days
+         *  - disabled intervals
+         *  - disabled intervals for weekdays
+         *  - selection of year and month to make it easier to select a date which is far away.
+         * @param config
+         */
+        function advancedDate(config: AdvancedDateDialogConfig): Promise<AdvancedDateDialogResult>;
     }
 
     /**
@@ -935,4 +956,158 @@ interface DialogFacebookResultSelection {
 interface UiTooltipInitConfig {
     tooltipClass: string;
     preventAnimation: boolean;
+}
+
+interface UploadCloudImageResult {
+    base: string;
+    imageLocations: string[];
+    key: string;
+    meta: UploadCloudImageResultMeta;
+    url: string;
+}
+
+interface UploadCloudImageResultMeta {
+    height: number;
+    preview: string;
+    width: number;
+}
+
+interface AdvancedDateDialogConfig {
+    /**
+     * The headline of the dialog
+     */
+    title?: string;
+
+    /**
+     * The description below the headline
+     */
+    message?: string;
+
+    /**
+     * The buttons the user could interact with
+     */
+    buttons?: any[];
+
+    /**
+     * The smallest possible value which the user could select
+     */
+    minDate?: Date | number;
+
+    /**
+     * The biggest possible value which the user could select
+     */
+    maxDate?: Date | number;
+
+    /**
+     * The user can only dial e.g. every 10th minute instead of every minute.
+     */
+    minuteInterval?: number;
+
+    /**
+     * The date(s) which should be preselected
+     */
+    preSelect?: Date | Date[] | number | number[];
+
+    /**
+     * The user could select different dates.
+     * Multiple Times are not supported
+     */
+    multiselect?: boolean;
+
+    /**
+     * This array defines dates which the user could not select
+     */
+    disabledDates?: Date[] | number[];
+
+    /**
+     * This Blocks could be used in DATE_TIME Dialog to be displayed between the calendar and the time select
+     */
+    textBlocks?: TextBlock[];
+
+    /**
+     * Allows to select a year with an extra menu
+     */
+    yearSelect?: boolean;
+
+    /**
+     * Allows to select a month with an extra menu
+     */
+    monthSelect?: boolean;
+
+    /**
+     * Allows to select an interval. Can't be used with multiselect
+     */
+    interval?: boolean;
+
+    /**
+     * The min-interval the user has to select in minutes
+     */
+    minInterval?: number;
+
+    /**
+     * The max-interval the user has to select in minutes
+     */
+    maxInterval?: number;
+
+    /**
+     * Allows to disable intervals
+     */
+    disabledIntervals?: IntervalObject[];
+
+    /**
+     * Allows to disable intervals for every weekday, e.g. tuesdays, 7:00-9:30
+     */
+    disabledWeeDayIntervals?: any[];
+
+    /**
+     * The dialog will return the timestamp in the local timezone with the date from preSelect
+     */
+    getLocalTime?: boolean;
+
+    /**
+     * The type of the dateDialog
+     */
+    dateType?: chayns.dialog.dateType;
+}
+
+interface IntervalObject {
+    /**
+     * start of the interval
+     * date/timestamp (in seconds)
+     */
+    start: Date | number;
+
+    /**
+     * end of the interval
+     * date/timestamp (in seconds)
+     */
+    end: Date | number;
+}
+
+interface TextBlock {
+    /**
+     * A h2 Element
+     */
+    headline?: string;
+
+    /**
+     * A text which could contain html
+     */
+    text?: string;
+
+    /**
+     * The position of the Element.
+     * 0 is above the first dialog item, 1 is above the second dialog item...
+     */
+    position: number;
+}
+
+interface AdvancedDateDialogResult {
+    buttonType: number;
+    selectedDates: SelectedDate[];
+}
+
+interface SelectedDate {
+    isSelected: boolean;
+    timestamp: number;
 }

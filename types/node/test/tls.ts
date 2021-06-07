@@ -61,6 +61,9 @@ import * as fs from 'fs';
     const minVersion: string = DEFAULT_MIN_VERSION;
 
     const buf: Buffer = tlsSocket.exportKeyingMaterial(123, 'test', Buffer.from('nope'));
+
+    tlsSocket.getPeerX509Certificate(); // $ExpectType X509Certificate | undefined
+    tlsSocket.getX509Certificate(); // $ExpectType X509Certificate | undefined
 }
 
 {
