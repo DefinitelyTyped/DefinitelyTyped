@@ -10,32 +10,38 @@ const Customized = DS.JSONAPISerializer.extend({
 
         json.data.attributes.cost = {
             amount: json.data.attributes.amount,
-            currency: json.data.attributes.currency
+            currency: json.data.attributes.currency,
         };
 
         return json;
     },
-    normalizeResponse(store: DS.Store, primaryModelClass: DS.Model, payload: any, id: string|number, requestType: string) {
+    normalizeResponse(
+        store: DS.Store,
+        primaryModelClass: DS.Model,
+        payload: any,
+        id: string | number,
+        requestType: string,
+    ) {
         payload.data.attributes.amount = payload.data.attributes.cost.amount;
         payload.data.attributes.currency = payload.data.attributes.cost.currency;
 
         delete payload.data.attributes.cost;
 
         return this._super(...Array.from(arguments));
-    }
+    },
 });
 
 const EmbeddedRecordMixin = DS.JSONSerializer.extend(DS.EmbeddedRecordsMixin, {
     attrs: {
         author: {
             serialize: false,
-            deserialize: 'records'
+            deserialize: 'records',
         },
         comments: {
             deserialize: 'records',
-            serialize: 'ids'
-        }
-    }
+            serialize: 'ids',
+        },
+    },
 });
 
 class Message extends DS.Model.extend({
@@ -43,7 +49,7 @@ class Message extends DS.Model.extend({
     body: DS.attr(),
 
     author: DS.belongsTo('user'),
-    comments: DS.belongsTo('comment')
+    comments: DS.belongsTo('comment'),
 }) {}
 
 declare module 'ember-data' {
@@ -61,7 +67,7 @@ const SerializerUsingSnapshots = DS.RESTSerializer.extend({
         let json: any = {
             POST_TTL: snapshot.attr('title'),
             POST_BDY: snapshot.attr('body'),
-            POST_CMS: snapshot.hasMany('comments', { ids: true })
+            POST_CMS: snapshot.hasMany('comments', { ids: true }),
         };
 
         if (options.includeId) {
@@ -69,13 +75,13 @@ const SerializerUsingSnapshots = DS.RESTSerializer.extend({
         }
 
         return json;
-    }
+    },
 });
 
 DS.Serializer.extend({
     serialize(snapshot: DS.Snapshot<'message-for-serializer'>, options: {}) {
         let json: any = {
-            id: snapshot.id
+            id: snapshot.id,
         };
 
         snapshot.eachAttribute((key, attribute) => {

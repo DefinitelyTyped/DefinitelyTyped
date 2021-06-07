@@ -1,4 +1,4 @@
-// Type definitions for yeoman-generator 4.11
+// Type definitions for yeoman-generator 5.0
 // Project: https://github.com/yeoman/generator, http://yeoman.io
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
@@ -7,6 +7,7 @@
 //                 Arthur Corenzan <https://github.com/haggen>
 //                 Richard Lea <https://github.com/chigix>
 //                 Devid Farinelli <https://github.com/misterdev>
+//                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -19,7 +20,7 @@ import { Editor, CopyOptions } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
 import { Transform } from 'stream';
 import Environment = require('yeoman-environment');
-import Storage = require("./lib/util/storage");
+import Storage = require('./lib/util/storage');
 import Logger = Environment.Logger;
 
 declare namespace Generator {
@@ -56,6 +57,16 @@ declare namespace Generator {
          * Gets or sets a collection of custom priorities.
          */
         customPriorities?: Priority[];
+
+        /**
+         * The environment to use for creating the generator.
+         */
+        env?: Environment;
+
+        /**
+         * The destination-root to write the files to.
+         */
+        destinationRoot?: string;
     }
 
     /**
@@ -102,11 +113,7 @@ declare namespace Generator {
     /**
      * Provides a set of questions.
      */
-    type Questions<A extends Answers = Answers> = (
-        | Question<A>
-        | Array<Question<A>>
-        | Observable<Question<A>>
-    );
+    type Questions<A extends Answers = Answers> = Question<A> | Array<Question<A>> | Observable<Question<A>>;
 
     /**
      * Provides options for performing installations.
@@ -336,6 +343,11 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     config: Storage;
 
     /**
+     * The storage containing the destination-`package.json`.
+     */
+    packageJson: Storage;
+
+    /**
      * An instance of [`mem-fs-editor`](https://github.com/SBoudrias/mem-fs-editor).
      */
     fs: Editor;
@@ -349,6 +361,11 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * Provides the functionality to log messages.
      */
     log: Logger;
+
+    /**
+     * The path from where the user is running `yo`
+     */
+    contextRoot: string;
 
     /**
      * Reads the options or a single option at the specified property-path from the `.yo-rc` config-store.
@@ -402,7 +419,8 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     composeWith(
         generators: Array<Generator.CompositionOptions | string> | Generator.CompositionOptions | string,
         options?: Generator.GeneratorOptions,
-        returnNewGenerator?: false): this;
+        returnNewGenerator?: false,
+    ): this;
 
     /**
      * Compose this generator with another one.
@@ -427,7 +445,8 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     composeWith(
         generators: Generator.CompositionOptions | string,
         options: Generator.GeneratorOptions,
-        returnNewGenerator: true): Generator;
+        returnNewGenerator: true,
+    ): Generator;
 
     /**
      * Compose this generator with another one.
@@ -452,7 +471,8 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     composeWith(
         generators: Array<Generator.CompositionOptions | string>,
         options: Generator.GeneratorOptions,
-        returnNewGenerator: true): Generator[];
+        returnNewGenerator: true,
+    ): Generator[];
 
     /**
      * Creates a new storage.
@@ -523,7 +543,12 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param queueName The name of the queue to schedule on.
      * @param reject A callback for handling rejections.
      */
-    queueMethod(method: ((...args: any[]) => any) | Record<string, (...args: any[]) => any>, methodName?: string, queueName?: string, reject?: Generator.Callback): void;
+    queueMethod(
+        method: ((...args: any[]) => any) | Record<string, (...args: any[]) => any>,
+        methodName?: string,
+        queueName?: string,
+        reject?: Generator.Callback,
+    ): void;
 
     /**
      * Schedules a task on a run queue.
@@ -546,7 +571,11 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param questions
      * The questions to register.
      */
-    registerConfigPrompts<TAnswers>(questions: Generator.QuestionRegistrationOptions<TAnswers> | Array<Generator.QuestionRegistrationOptions<TAnswers>>): void;
+    registerConfigPrompts<TAnswers>(
+        questions:
+            | Generator.QuestionRegistrationOptions<TAnswers>
+            | Array<Generator.QuestionRegistrationOptions<TAnswers>>,
+    ): void;
 
     /**
      * Adds a transform stream to the commit stream.
@@ -618,7 +647,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.copy(this.destinationPath(from), this.destinationPath(to))
      * ```
      */
-    copyDestination: Editor["copy"];
+    copyDestination: Editor['copy'];
 
     /**
      * Copy file from templates folder to destination folder.
@@ -628,7 +657,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.copy(this.templatePath(from), this.destinationPath(to))
      * ```
      */
-    copyTemplate: Editor["copy"];
+    copyTemplate: Editor['copy'];
 
     /**
      * Deletes file from destination folder.
@@ -638,7 +667,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.delete(this.destinationPath(filepath))
      * ```
      */
-    deleteDestination: Editor["delete"];
+    deleteDestination: Editor['delete'];
 
     /**
      * Checks whether a file exists in the destination folder.
@@ -648,7 +677,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.exists(this.destinationPath(filepath))
      * ```
      */
-    existsDestination: Editor["exists"];
+    existsDestination: Editor['exists'];
 
     /**
      * Move file from destination folder to another destination folder.
@@ -658,7 +687,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.move(this.destinationPath(from), this.destinationPath(to))
      * ```
      */
-    moveDestination: Editor["move"];
+    moveDestination: Editor['move'];
 
     /**
      * Read file from destination folder.
@@ -668,7 +697,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.read(this.destinationPath(filepath))
      * ```
      */
-    readDestination: Editor["read"];
+    readDestination: Editor['read'];
 
     /**
      * Read JSON file from destination folder.
@@ -678,7 +707,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.readJSON(this.destinationPath(filepath))
      * ```
      */
-    readDestinationJSON: Editor["readJSON"];
+    readDestinationJSON: Editor['readJSON'];
 
     /**
      * Read file from templates folder.
@@ -688,7 +717,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.read(this.templatePath(filepath))
      * ```
      */
-    readTemplate: Editor["read"];
+    readTemplate: Editor['read'];
 
     /**
      * Copies a template from templates folder to the destination.
@@ -699,7 +728,13 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param templateOptions The `ejs`-options.
      * @param copyOptions The `mem-fs-editor` copy options.
      */
-    renderTemplate(source: string | string[], destination?: string | string[], templateData?: TemplateData | string, templateOptions?: TemplateOptions | string, copyOptions?: CopyOptions): void;
+    renderTemplate(
+        source: string | string[],
+        destination?: string | string[],
+        templateData?: TemplateData | string,
+        templateOptions?: TemplateOptions | string,
+        copyOptions?: CopyOptions,
+    ): void;
 
     /**
      * Copies templates from the `templates` folder to the destination.
@@ -707,7 +742,10 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param templates The template files to copy.
      * @param templateData The ejs data or the name of the storage-key to get the data from.
      */
-    renderTemplates(templates: Array<Generator.TemplateRenderOptions<this>>, templateData?: TemplateData | string): void;
+    renderTemplates(
+        templates: Array<Generator.TemplateRenderOptions<this>>,
+        templateData?: TemplateData | string,
+    ): void;
 
     /**
      * Write file to destination folder
@@ -717,7 +755,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.write(this.destinationPath(filepath))
      * ```
      */
-    writeDestination: Editor["write"];
+    writeDestination: Editor['write'];
 
     /**
      * Write json file to destination folder
@@ -727,7 +765,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.writeJSON(this.destinationPath(filepath))
      * ```
      */
-    writeDestinationJSON: Editor["writeJSON"];
+    writeDestinationJSON: Editor['writeJSON'];
 
     // actions/help mixin
     /**
@@ -770,7 +808,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     spawnCommand(command: string, args: string[], opt?: SpawnOptions): any;
 
     /**
-     * Normalizes a command accross the OS and spawns it (synchronously).
+     * Normalizes a command across the OS and spawns it (synchronously).
      *
      * @param command The program to execute.
      * @param args A list of arguments to pass to the program
@@ -780,6 +818,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
 
     // actions/install mixin
     /**
+     * @deprecated
      * Receives a list of `components` and an `options` object to install through bower.
      *
      * The installation will automatically run during the run loop `install` phase.
@@ -791,6 +830,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     bowerInstall(component?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
 
     /**
+     * @deprecated
      * Runs `npm` and `bower`, in sequence, in the generated directory and prints a
      * message to let the user know.
      *
@@ -810,6 +850,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     installDependencies(options?: Generator.InstallOptions): void;
 
     /**
+     * @deprecated
      * Receives a list of `packages` and an `options` object to install through npm.
      *
      * The installation will automatically run during the run loop `install` phase.
@@ -821,6 +862,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     npmInstall(pkgs?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
 
     /**
+     * @deprecated
      * Combine package manager cmd line arguments and run the `install` command.
      *
      * During the `install` step, every command will be scheduled to run once, on the
@@ -831,9 +873,15 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    scheduleInstallTask(installer: string, paths?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
+    scheduleInstallTask(
+        installer: string,
+        paths?: string | string[],
+        options?: object,
+        spawnOptions?: SpawnOptions,
+    ): void;
 
     /**
+     * @deprecated
      * Receives a list of `packages` and an `options` object to install through npm.
      *
      * The installation will automatically run during the run loop `install` phase.
@@ -843,6 +891,29 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
     yarnInstall(pkgs?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
+
+    // actions/package.json
+    /**
+     * Adds dependencies to the destination `package.json`.
+     *
+     * @param dependencies
+     * The packages to add.
+     *
+     * @returns
+     * The newly added dependencies.
+     */
+    addDependencies(dependencies: Record<string, string> | string | string[]): Promise<Record<string, string>>;
+
+    /**
+     * Adds development-dependencies to the destination `package.json`.
+     *
+     * @param devDependencies
+     * The packages to add to the development-dependencies.
+     *
+     * @returns
+     * The newly added development-dependencies.
+     */
+    addDevDependencies(devDependencies: Record<string, string> | string | string[]): Promise<Record<string, string>>;
 
     // actions/user mixin
     readonly user: {
@@ -868,7 +939,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
              *         get the information
              */
             username(): Promise<string>;
-        }
+        };
     };
 }
 export = Generator;

@@ -284,7 +284,7 @@ export function createConnection(host: string | undefined, port: number, options
 export function createSSLConnection(host: string | undefined, port: number, options?: ConnectOptions): Connection;
 export function createHttpConnection(host: string | undefined, port: number, options?: ConnectOptions): HttpConnection;
 export function createXHRConnection(host: string | undefined, port: number, options?: ConnectOptions): XHRConnection;
-export function createWSConnectin(host: string | undefined, port: number, options?: WSConnectOptions): WSConnection;
+export function createWSConnection(host: string | undefined, port: number, options?: WSConnectOptions): WSConnection;
 
 export function createXHRClient<TClient>(
     client: TClientConstructor<TClient>,

@@ -13,7 +13,7 @@
             "../"
         ],
         "paths":{
-            "@blazor/javascript-interop": ["blazor__javascript-interop"]
+            "@blazor/*": ["blazor__*"]
         },
         "types": [],
         "noEmit": true,

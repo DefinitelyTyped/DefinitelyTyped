@@ -268,8 +268,11 @@ declare namespace SshPK {
   }
 
   class PrivateKey {
+    comment?: string;
     constructor(opts: any);
+
     static formats: Formats;
+
     toBuffer(format: string, options: any): Buffer;
     hash(algo: string): Buffer;
     toPublic(): Key;

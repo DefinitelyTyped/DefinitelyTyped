@@ -1,24 +1,18 @@
-// Type definitions for webpack-plugin-serve 0.10
+// Type definitions for webpack-plugin-serve 1.4
 // Project: https://github.com/shellscape/webpack-plugin-serve
 // Definitions by: Matheus Gonçalves da Silva <https://github.com/PlayMa256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 3.8
 /// <reference types="node" />
 
-import { Url } from 'url';
-import { Config as HttpProxyMiddlewareConfig, Proxy } from 'http-proxy-middleware';
+import { Options as HttpProxyMiddlewareConfig, RequestHandler as Proxy } from 'http-proxy-middleware';
 import * as Koa from 'koa';
-import {
-    ServerOptions as Http2ServerOptions,
-    SecureServerOptions as Http2SecureServerOptions,
-} from 'http2';
+import { ServerOptions as Http2ServerOptions, SecureServerOptions as Http2SecureServerOptions } from 'http2';
 import { ServerOptions as HttpsServerOptions } from 'https';
-import { ZlibOptions } from 'zlib';
-import { Compiler } from 'webpack';
 import { Options as HistoryApiFallbackOptions } from 'connect-history-api-fallback';
 import { CompressOptions } from 'koa-compress';
 import { Options as KoaStaticOptions } from 'koa-static';
-import { Options as FastGlobOptions } from 'fast-glob';
+import type { GlobbyOptions } from 'globby';
 
 export interface Builtins {
     proxy: (args: HttpProxyMiddlewareConfig) => Proxy;
@@ -31,18 +25,19 @@ export interface Builtins {
 
 export interface StaticObject {
     glob?: string | string[];
-    options?: FastGlobOptions;
+    options?: GlobbyOptions;
 }
 
 export interface WebpackPluginServeOptions {
     client?: {
         address?: string;
+        protocol?: 'ws' | 'wss';
         retry?: boolean;
         silent?: boolean;
     };
     compress?: boolean;
     historyFallback?: boolean | HistoryApiFallbackOptions;
-    hmr?: boolean;
+    hmr?: boolean | 'refresh-on-failure';
     host?: string | Promise<string>;
     http2?: boolean | Http2ServerOptions | Http2SecureServerOptions;
     https?: HttpsServerOptions;
@@ -53,11 +48,11 @@ export interface WebpackPluginServeOptions {
     };
     middleware?: (app: Koa, builtins: Builtins) => void;
     open?:
-    | boolean
-    | {
-        wait?: boolean;
-        app?: string | ReadonlyArray<string>;
-    };
+        | boolean
+        | {
+              wait?: boolean;
+              app?: string | ReadonlyArray<string>;
+          };
     port?: number | Promise<number>;
     progress?: boolean | 'minimal';
     static?: string | string[] | StaticObject;
@@ -65,7 +60,7 @@ export interface WebpackPluginServeOptions {
     waitForBuild?: boolean;
 }
 
-export class WebpackPluginServe {
+export class WebpackPluginServe<Compiler> {
     constructor(opts?: WebpackPluginServeOptions);
     attach(): {
         apply(compiler: Compiler): void;

@@ -3,18 +3,15 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-declare-current-package": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-self-import": false,
         "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "prefer-declare-function": false,
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }

@@ -1,6 +1,5 @@
 import { EmojiData, EmojiEntry } from './nimble-emoji-index';
 
-// tslint:disable-next-line strict-export-declare-modifiers
 declare const _default: {
     search(query: ''): null;
     search(query: string): EmojiData[] | null;

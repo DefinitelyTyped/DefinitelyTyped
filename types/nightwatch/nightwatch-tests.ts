@@ -180,6 +180,32 @@ const testPage = {
 };
 
 //
+// ./tests/specific-commands.ts
+//
+
+const testSpecificCommands: NightwatchTests = {
+  executeAsync: (browser: NightwatchBrowser) => {
+    browser.executeAsync((done) => {
+      setTimeout(() => {
+        done(true);
+      }, 500);
+    }, [], (result) => {
+      browser.assert.equal(result.value, true);
+    });
+
+    browser.executeAsync((arg1, arg2, done) => {
+      setTimeout(() => {
+        done(true);
+      }, 500);
+    }, [1, 2], (result) => {
+      browser.assert.equal(result.value, true);
+    });
+
+    browser.end();
+  }
+};
+
+//
 // ./commands/localStorageValue.ts
 // - function based command
 //
@@ -188,7 +214,7 @@ function localStorageValueCommand(this: NightwatchAPI, key: string, callback?: (
   const self = this;
 
   this.execute(
-    // tslint:disable-next-line
+    // tslint:disable-next-line:only-arrow-functions
     function(key) {
       return window.localStorage.getItem(key);
     },

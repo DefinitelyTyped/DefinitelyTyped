@@ -1,12 +1,25 @@
-import { performance, monitorEventLoopDelay, PerformanceObserverCallback, PerformanceObserver, PerformanceEntry, EntryType, constants } from 'perf_hooks';
+import {
+    performance,
+    monitorEventLoopDelay,
+    PerformanceObserverCallback,
+    PerformanceObserver,
+    PerformanceEntry,
+    EntryType,
+    constants,
+    EventLoopUtilization,
+    IntervalHistogram,
+    RecordableHistogram,
+    createHistogram,
+} from 'perf_hooks';
 
 performance.mark('start');
-(
-    () => {}
-)();
+(() => {})();
 performance.mark('end');
 
-const perfEntry: PerformanceEntry = performance.getEntriesByName('discover')[0];
+performance.measure('name', 'startMark', 'endMark');
+performance.measure('name', 'startMark');
+performance.measure('name');
+
 const timeOrigin: number = performance.timeOrigin;
 
 const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => {
@@ -24,15 +37,14 @@ const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => 
     }
 
     obs.disconnect();
-    performance.clearFunctions();
 };
 const obs = new PerformanceObserver(performanceObserverCallback);
 obs.observe({
-    entryTypes: ['function'],
+    entryTypes: ['function'] as ReadonlyArray<EntryType>,
     buffered: true,
 });
 
-const monitor = monitorEventLoopDelay({
+const monitor: IntervalHistogram = monitorEventLoopDelay({
     resolution: 42,
 });
 
@@ -47,3 +59,18 @@ const max: number = monitor.max;
 const mean: number = monitor.mean;
 const stddev: number = monitor.stddev;
 const exceeds: number = monitor.exceeds;
+
+const eventLoopUtilization1: EventLoopUtilization = performance.eventLoopUtilization();
+const eventLoopUtilization2: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization1);
+const eventLoopUtilization3: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization2, eventLoopUtilization1);
+
+let histogram: RecordableHistogram = createHistogram({
+    figures: 123,
+    min: 1,
+    max: 2,
+});
+histogram = createHistogram();
+
+histogram.record(123);
+histogram.record(123n);
+histogram.recordDelta();

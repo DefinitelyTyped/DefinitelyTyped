@@ -5,11 +5,13 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Aniello Falcone <https://github.com/AnielloFalcone>
 //                 Mohammad Hossein Amri <https://github.com/mhamri>
+//                 Marco Mantovani <https://github.com/TheLand>
+//                 Ameer Hamoodi <https://github.com/AmeerHamoodi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { Blot } from 'parchment/dist/src/blot/abstract/blot';
-import Delta = require('quill-delta');
+import { Blot } from "parchment/dist/src/blot/abstract/blot";
+import Delta = require("quill-delta");
 
 /**
  * A stricter type definition would be:
@@ -18,12 +20,21 @@ import Delta = require('quill-delta');
  *
  *  But this would break a lot of existing code as it would require manual discrimination of the union types.
  */
-export type DeltaOperation = { insert?: any, delete?: number, retain?: number } & OptionalAttributes;
+export type DeltaOperation = { insert?: any; delete?: number; retain?: number } & OptionalAttributes;
+interface SourceMap {
+    API: "api";
+    SILENT: "silent";
+    USER: "user";
+}
 export type Sources = "api" | "user" | "silent";
 
 export interface Key {
     key: string | number;
-    shortKey?: boolean;
+    shortKey?: boolean | null;
+    shiftKey?: boolean | null;
+    altKey?: boolean | null;
+    metaKey?: boolean | null;
+    ctrlKey?: boolean | null;
 }
 
 export interface StringMap {
@@ -36,7 +47,8 @@ export interface OptionalAttributes {
 
 export type TextChangeHandler = (delta: Delta, oldContents: Delta, source: Sources) => any;
 export type SelectionChangeHandler = (range: RangeStatic, oldRange: RangeStatic, source: Sources) => any;
-export type EditorChangeHandler = ((name: "text-change", delta: Delta, oldContents: Delta, source: Sources) => any)
+export type EditorChangeHandler =
+    | ((name: "text-change", delta: Delta, oldContents: Delta, source: Sources) => any)
     | ((name: "selection-change", range: RangeStatic, oldRange: RangeStatic, source: Sources) => any);
 
 export interface KeyboardStatic {
@@ -44,9 +56,13 @@ export interface KeyboardStatic {
     addBinding(key: Key, context: any, callback: (range: RangeStatic, context: any) => void): void;
 }
 
+export type ClipboardMatcherCallback = (node: any, delta: Delta) => Delta;
+export type ClipboardMatcherNode = string | number;
+
 export interface ClipboardStatic {
-    convert(html?: string): Delta;
-    addMatcher(selectorOrNodeType: string|number, callback: (node: any, delta: Delta) => Delta): void;
+    matchers: Array<[ClipboardMatcherNode, ClipboardMatcherCallback]>;
+    convert(content?: { html?: string; text?: string }, formats?: StringMap): Delta;
+    addMatcher(selectorOrNodeType: ClipboardMatcherNode, callback: ClipboardMatcherCallback): void;
     dangerouslyPasteHTML(html: string, source?: Sources): void;
     dangerouslyPasteHTML(index: number, html: string, source?: Sources): void;
 }
@@ -97,7 +113,7 @@ export interface EventEmitter {
 
 export class Quill implements EventEmitter {
     /**
-     * @private Internal API
+     * Internal API
      */
     root: HTMLDivElement;
     clipboard: ClipboardStatic;
@@ -107,6 +123,7 @@ export class Quill implements EventEmitter {
     deleteText(index: number, length: number, source?: Sources): Delta;
     disable(): void;
     enable(enabled?: boolean): void;
+    isEnabled(): boolean;
     getContents(index?: number, length?: number): Delta;
     getLength(): number;
     getText(index?: number, length?: number): string;
@@ -126,6 +143,8 @@ export class Quill implements EventEmitter {
     setText(text: string, source?: Sources): Delta;
     update(source?: Sources): void;
     updateContents(delta: Delta, source?: Sources): Delta;
+
+    static readonly sources: SourceMap;
 
     format(name: string, value: any, source?: Sources): Delta;
     formatLine(index: number, length: number, source?: Sources): Delta;
@@ -150,13 +169,13 @@ export class Quill implements EventEmitter {
     setSelection(range: RangeStatic, source?: Sources): void;
 
     // static methods: debug, import, register, find
-    static debug(level: string|boolean): void;
+    static debug(level: string | boolean): void;
     static import(path: string): any;
     static register(path: string, def: any, suppressWarning?: boolean): void;
     static register(defs: StringMap, suppressWarning?: boolean): void;
     static find(domNode: Node, bubble?: boolean): Quill | any;
 
-    addContainer(classNameOrDomNode: string|Node, refNode?: Node): any;
+    addContainer(classNameOrDomNode: string | Node, refNode?: Node): any;
     getModule(name: string): any;
 
     // Blot interface is not exported on Parchment

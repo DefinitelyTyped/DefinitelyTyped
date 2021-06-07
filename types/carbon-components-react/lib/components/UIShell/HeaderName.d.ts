@@ -1,12 +1,9 @@
-import { ReactAnchorAttr, ReactAttr, RequiresChildrenProps, FCReturn, FCProps } from "../../../typings/shared";
+import { RequiresChildrenProps, FCReturn, FCProps } from "../../../typings/shared";
 import { LinkProps } from "./Link";
 
-interface InheritedProps extends RequiresChildrenProps {
-    className?: ReactAttr["className"],
-    href?: ReactAnchorAttr["href"],
-}
-
-export interface HeaderNamePropsBase extends InheritedProps {
+export interface HeaderNamePropsBase extends RequiresChildrenProps {
+    className?: string,
+    href?: string,
     prefix?: string,
 }
 

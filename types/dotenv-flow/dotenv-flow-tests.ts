@@ -18,4 +18,5 @@ dotenv.config({
     path: '/path/to/project',
     encoding: 'utf8',
     purge_dotenv: true,
+    silent: false,
 });

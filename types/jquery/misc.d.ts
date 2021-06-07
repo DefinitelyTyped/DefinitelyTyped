@@ -718,7 +718,7 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/jQuery.Callbacks/ }\`
          * @since 1.7
          */
-        // tslint:disable-next-line:ban-types callable-types no-unnecessary-generics
+        // tslint:disable-next-line:ban-types no-unnecessary-generics
         <T extends Function>(flags?: string): Callbacks<T>;
     }
 
@@ -5649,6 +5649,7 @@ $( document ).on( "mousemove", function( event ) {
         char: string | undefined;
         /** @deprecated */
         charCode: number;
+        code: string;
         key: string;
         /** @deprecated */
         keyCode: number;

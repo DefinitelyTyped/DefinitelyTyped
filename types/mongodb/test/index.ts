@@ -5,51 +5,48 @@ import * as mongodb from 'mongodb';
 export const connectionString = 'mongodb://127.0.0.1:27017/test';
 
 const options: mongodb.MongoClientOptions = {
-  authSource: ' ',
-  loggerLevel: 'debug',
-  w: 1,
-  wtimeout: 300,
-  j: true,
-  bufferMaxEntries: 1000,
-  readPreference: true ? mongodb.ReadPreference.NEAREST : 'secondaryPreferred',
-  promoteValues: true,
-  pkFactory: {},
-  poolSize: 1,
-  socketOptions: {},
-  family: 4,
-  reconnectTries: 123456,
-  reconnectInterval: 123456,
-  ssl: true,
-  sslValidate: false,
-  checkServerIdentity: true
-    ? true
-    : (host, cert) => {
-        return undefined;
-      },
-  sslCA: ['str'],
-  sslCRL: ['str'],
-  sslCert: new Buffer(999),
-  sslKey: new Buffer(999),
-  sslPass: new Buffer(999),
-  promoteBuffers: false,
-  useNewUrlParser: false,
-  useUnifiedTopology: false,
-  authMechanism: 'SCRAM-SHA-1',
-  forceServerObjectId: false,
-  promiseLibrary: Promise,
+    authSource: ' ',
+    loggerLevel: 'debug',
+    w: 1,
+    wtimeout: 300,
+    j: true,
+    bufferMaxEntries: 1000,
+    readPreference: true ? mongodb.ReadPreference.NEAREST : 'secondaryPreferred',
+    promoteValues: true,
+    pkFactory: {},
+    poolSize: 1,
+    socketOptions: {},
+    family: 4,
+    reconnectTries: 123456,
+    reconnectInterval: 123456,
+    ssl: true,
+    sslValidate: false,
+    checkServerIdentity: true
+        ? true
+        : (host, cert) => {
+              return undefined;
+          },
+    sslCA: ['str'],
+    sslCRL: ['str'],
+    sslCert: new Buffer(999),
+    sslKey: new Buffer(999),
+    sslPass: new Buffer(999),
+    promoteBuffers: false,
+    useNewUrlParser: false,
+    useUnifiedTopology: false,
+    authMechanism: 'SCRAM-SHA-1',
+    forceServerObjectId: false,
+    promiseLibrary: Promise,
+    directConnection: false,
 };
 
-mongodb.MongoClient.connect(
-  connectionString,
-  options,
-  (err: mongodb.MongoError, client: mongodb.MongoClient) => {
+mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError, client: mongodb.MongoClient) => {
     if (err) throw err;
     const db = client.db('test');
     const collection = db.collection('test_crud');
     // Let's close the db
     client.close();
-  },
-);
+});
 
 const unifiedTopologyOptions: mongodb.UnifiedTopologyOptions = {
     useUnifiedTopology: true,
@@ -65,21 +62,14 @@ const unifiedTopologyOptions: mongodb.UnifiedTopologyOptions = {
 new mongodb.MongoClient('mongodb://localhost:27017', unifiedTopologyOptions);
 
 async function testFunc(): Promise<mongodb.MongoClient> {
-  const testClient: mongodb.MongoClient = await mongodb.connect(connectionString);
-  return testClient;
+    const testClient: mongodb.MongoClient = await mongodb.connect(connectionString);
+    return testClient;
 }
 
-mongodb.connect(
-  connectionString,
-  (err: mongodb.MongoError, client: mongodb.MongoClient) => {
-      err.hasErrorLabel('label'); // $ExpectType boolean
-  },
-);
-mongodb.connect(
-  connectionString,
-  options,
-  (err: mongodb.MongoError, client: mongodb.MongoClient) => {},
-);
+mongodb.connect(connectionString, (err: mongodb.MongoError, client: mongodb.MongoClient) => {
+    err.hasErrorLabel('label'); // $ExpectType boolean
+});
+mongodb.connect(connectionString, options, (err: mongodb.MongoError, client: mongodb.MongoClient) => {});
 
 // TLS
 const userName = '';
@@ -92,6 +82,7 @@ const client = new mongodb.MongoClient(url, {
     tlsCertificateKeyFile: `${__dirname}/certs/x509/client.pem`,
     tlsCertificateKeyFilePassword: '10gen',
 });
+console.log(client.readPreference.mode, client.writeConcern.w);
 
 // Test other error classes
 new mongodb.MongoNetworkError('network error');
@@ -99,18 +90,32 @@ new mongodb.MongoParseError('parse error');
 
 // Streams
 const gridFSBucketTests = (bucket: mongodb.GridFSBucket) => {
-    const openUploadStream  = bucket.openUploadStream('file.dat');
+    const openUploadStream = bucket.openUploadStream('file.dat');
     openUploadStream.on('close', () => {});
     openUploadStream.on('end', () => {});
     openUploadStream.abort(); // $ExpectType void
     openUploadStream.abort(() => {
         openUploadStream.removeAllListeners();
     });
-    openUploadStream.abort((error) => {
+    openUploadStream.abort(error => {
         error; // $ExpectType MongoError
     });
     openUploadStream.abort((error, result) => {});
 };
 
 // Compression
-const compressedClient = new mongodb.MongoClient(url, { compression: { compressors: ['zlib', 'snappy']}});
+const compressedClient = new mongodb.MongoClient(url, { compression: { compressors: ['zlib', 'snappy'] } });
+
+// Client-Side Field Level Encryption
+const keyVaultNamespace = 'encryption.__keyVault';
+const secureClient = new mongodb.MongoClient(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    monitorCommands: true,
+    autoEncryption: {
+        keyVaultNamespace,
+        kmsProviders: {},
+        schemaMap: {},
+        extraOptions: {},
+    },
+});

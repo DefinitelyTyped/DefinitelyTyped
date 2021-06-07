@@ -5,15 +5,17 @@ import { Client } from './client';
 
 export type GooglePaymentTokenizeValues = 'Yes' | 'No' | 'Unknown';
 
+export interface GooglePaymentDetails {
+    cardType: string;
+    lastFour: string;
+    lastTow: string;
+    isNetworkTokenized: boolean;
+    bin: string;
+}
+
 export interface GooglePaymentTokenizePayload {
     nonce: string;
-    details: {
-        cardType: string;
-        lastFour: string;
-        lastTow: string;
-        isNetworkTokenized: boolean;
-        bin: string;
-    };
+    details: GooglePaymentDetails;
     description: string;
     type: string;
     binData: {

@@ -2,7 +2,7 @@
 // Project: https://github.com/Va1/browser-sync-webpack-plugin/blob/master/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.7
 
 import BrowserSync = require('browser-sync');
 import { Plugin } from 'webpack';

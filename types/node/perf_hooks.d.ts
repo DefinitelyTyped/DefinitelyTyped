@@ -3,7 +3,8 @@ declare module 'perf_hooks' {
 
     type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
 
-    interface PerformanceEntry {
+    class PerformanceEntry {
+        protected constructor();
         /**
          * The total number of milliseconds elapsed for this entry.
          * This value will not be meaningful for all Performance Entry types.
@@ -41,66 +42,36 @@ declare module 'perf_hooks' {
         readonly flags?: number;
     }
 
-    interface PerformanceNodeTiming extends PerformanceEntry {
+    class PerformanceNodeTiming extends PerformanceEntry {
         /**
          * The high resolution millisecond timestamp at which the Node.js process completed bootstrap.
          */
         readonly bootstrapComplete: number;
 
         /**
-         * The high resolution millisecond timestamp at which cluster processing ended.
+         * The high resolution millisecond timestamp at which the Node.js process completed bootstrapping.
+         * If bootstrapping has not yet finished, the property has the value of -1.
          */
-        readonly clusterSetupEnd: number;
+        readonly environment: number;
 
         /**
-         * The high resolution millisecond timestamp at which cluster processing started.
+         * The high resolution millisecond timestamp at which the Node.js environment was initialized.
          */
-        readonly clusterSetupStart: number;
+        readonly idleTime: number;
 
         /**
-         * The high resolution millisecond timestamp at which the Node.js event loop exited.
+         * The high resolution millisecond timestamp of the amount of time the event loop has been idle
+         *  within the event loop's event provider (e.g. `epoll_wait`). This does not take CPU usage
+         * into consideration. If the event loop has not yet started (e.g., in the first tick of the main script),
+         *  the property has the value of 0.
          */
         readonly loopExit: number;
 
         /**
          * The high resolution millisecond timestamp at which the Node.js event loop started.
+         * If the event loop has not yet started (e.g., in the first tick of the main script), the property has the value of -1.
          */
         readonly loopStart: number;
-
-        /**
-         * The high resolution millisecond timestamp at which main module load ended.
-         */
-        readonly moduleLoadEnd: number;
-
-        /**
-         * The high resolution millisecond timestamp at which main module load started.
-         */
-        readonly moduleLoadStart: number;
-
-        /**
-         * The high resolution millisecond timestamp at which the Node.js process was initialized.
-         */
-        readonly nodeStart: number;
-
-        /**
-         * The high resolution millisecond timestamp at which preload module load ended.
-         */
-        readonly preloadModuleLoadEnd: number;
-
-        /**
-         * The high resolution millisecond timestamp at which preload module load started.
-         */
-        readonly preloadModuleLoadStart: number;
-
-        /**
-         * The high resolution millisecond timestamp at which third_party_main processing ended.
-         */
-        readonly thirdPartyMainEnd: number;
-
-        /**
-         * The high resolution millisecond timestamp at which third_party_main processing started.
-         */
-        readonly thirdPartyMainStart: number;
 
         /**
          * The high resolution millisecond timestamp at which the V8 platform was initialized.
@@ -108,49 +79,28 @@ declare module 'perf_hooks' {
         readonly v8Start: number;
     }
 
-    interface Performance {
-        /**
-         * If name is not provided, removes all PerformanceFunction objects from the Performance Timeline.
-         * If name is provided, removes entries with name.
-         * @param name
-         */
-        clearFunctions(name?: string): void;
+    interface EventLoopUtilization {
+        idle: number;
+        active: number;
+        utilization: number;
+    }
 
+    /**
+     * @param util1 The result of a previous call to eventLoopUtilization()
+     * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
+     */
+    type EventLoopUtilityFunction = (
+        util1?: EventLoopUtilization,
+        util2?: EventLoopUtilization,
+    ) => EventLoopUtilization;
+
+    interface Performance {
         /**
          * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
          * If name is provided, removes only the named mark.
          * @param name
          */
         clearMarks(name?: string): void;
-
-        /**
-         * If name is not provided, removes all PerformanceMeasure objects from the Performance Timeline.
-         * If name is provided, removes only objects whose performanceEntry.name matches name.
-         */
-        clearMeasures(name?: string): void;
-
-        /**
-         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime.
-         * @return list of all PerformanceEntry objects
-         */
-        getEntries(): PerformanceEntry[];
-
-        /**
-         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
-         * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
-         * @param name
-         * @param type
-         * @return list of all PerformanceEntry objects
-         */
-        getEntriesByName(name: string, type?: EntryType): PerformanceEntry[];
-
-        /**
-         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
-         * whose performanceEntry.entryType is equal to type.
-         * @param type
-         * @return list of all PerformanceEntry objects
-         */
-        getEntriesByType(type: EntryType): PerformanceEntry[];
 
         /**
          * Creates a new PerformanceMark entry in the Performance Timeline.
@@ -176,7 +126,7 @@ declare module 'perf_hooks' {
          * @param startMark
          * @param endMark
          */
-        measure(name: string, startMark: string, endMark: string): void;
+        measure(name: string, startMark?: string, endMark?: string): void;
 
         /**
          * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
@@ -199,6 +149,13 @@ declare module 'perf_hooks' {
          * @param fn
          */
         timerify<T extends (...optionalParams: any[]) => any>(fn: T): T;
+
+        /**
+         * eventLoopUtilization is similar to CPU utilization except that it is calculated using high precision wall-clock time.
+         * It represents the percentage of time the event loop has spent outside the event loop's event provider (e.g. epoll_wait).
+         * No other CPU idle time is taken into consideration.
+         */
+        eventLoopUtilization: EventLoopUtilityFunction;
     }
 
     interface PerformanceObserverEntryList {
@@ -236,7 +193,7 @@ declare module 'perf_hooks' {
          * Property buffered defaults to false.
          * @param options
          */
-        observe(options: { entryTypes: EntryType[]; buffered?: boolean }): void;
+        observe(options: { entryTypes: ReadonlyArray<EntryType>; buffered?: boolean }): void;
     }
 
     namespace constants {
@@ -265,27 +222,7 @@ declare module 'perf_hooks' {
         resolution?: number;
     }
 
-    interface EventLoopDelayMonitor {
-        /**
-         * Enables the event loop delay sample timer. Returns `true` if the timer was started, `false` if it was already started.
-         */
-        enable(): boolean;
-        /**
-         * Disables the event loop delay sample timer. Returns `true` if the timer was stopped, `false` if it was already stopped.
-         */
-        disable(): boolean;
-
-        /**
-         * Resets the collected histogram data.
-         */
-        reset(): void;
-
-        /**
-         * Returns the value at the given percentile.
-         * @param percentile A percentile value between 1 and 100.
-         */
-        percentile(percentile: number): number;
-
+    interface Histogram {
         /**
          * A `Map` object detailing the accumulated percentile distribution.
          */
@@ -315,7 +252,59 @@ declare module 'perf_hooks' {
          * The standard deviation of the recorded event loop delays.
          */
         readonly stddev: number;
+
+        /**
+         * Resets the collected histogram data.
+         */
+        reset(): void;
+
+        /**
+         * Returns the value at the given percentile.
+         * @param percentile A percentile value between 1 and 100.
+         */
+        percentile(percentile: number): number;
     }
 
-    function monitorEventLoopDelay(options?: EventLoopMonitorOptions): EventLoopDelayMonitor;
+    interface IntervalHistogram extends Histogram {
+        /**
+         * Enables the event loop delay sample timer. Returns `true` if the timer was started, `false` if it was already started.
+         */
+        enable(): boolean;
+        /**
+         * Disables the event loop delay sample timer. Returns `true` if the timer was stopped, `false` if it was already stopped.
+         */
+        disable(): boolean;
+    }
+
+    interface RecordableHistogram extends Histogram {
+        record(val: number | bigint): void;
+
+        /**
+         * Calculates the amount of time (in nanoseconds) that has passed since the previous call to recordDelta() and records that amount in the histogram.
+         */
+        recordDelta(): void;
+    }
+
+    function monitorEventLoopDelay(options?: EventLoopMonitorOptions): IntervalHistogram;
+
+    interface CreateHistogramOptions {
+        /**
+         * The minimum recordable value. Must be an integer value greater than 0.
+         * @default 1
+         */
+        min?: number | bigint;
+
+        /**
+         * The maximum recordable value. Must be an integer value greater than min.
+         * @default Number.MAX_SAFE_INTEGER
+         */
+        max?: number | bigint;
+        /**
+         * The number of accuracy digits. Must be a number between 1 and 5.
+         * @default 3
+         */
+        figures?: number;
+    }
+
+    function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
 }

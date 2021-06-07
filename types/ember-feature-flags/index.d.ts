@@ -1,4 +1,4 @@
-// Type definitions for ember-feature-flags 4.0
+// Type definitions for ember-feature-flags 6.0
 // Project: https://github.com/kategengler/ember-feature-flags#readme
 // Definitions by: Frank Tan <https://github.com/tansongyang>
 //                 Mike North <https://github.com/mike-north>
@@ -10,7 +10,7 @@
 
 import Ember from 'ember';
 
-// https://github.com/kategengler/ember-feature-flags/blob/v3.0.0/addon/services/features.js#L5
+// https://github.com/kategengler/ember-feature-flags/blob/v6.0.0/addon/services/features.js#L5
 export default interface Features extends Ember.Service {
     setup(features: { [key: string]: boolean }): void;
     enable(feature: string): void;

@@ -72,8 +72,8 @@ async function streamingClient() {
     });
 
     // query.construct
-    const constructNoOptions: Stream<TestQuad> = await fullOptions.query.construct(query);
-    const constructFullOptions: Stream<TestQuad> = await fullOptions.query.construct(query, {
+    const constructNoOptions: Stream<TestQuad> & Readable = await fullOptions.query.construct(query);
+    const constructFullOptions: Stream<TestQuad> & Readable = await fullOptions.query.construct(query, {
         headers,
         operation: 'get'
     });
@@ -86,7 +86,7 @@ async function streamingClient() {
     });
 
     // store.get
-    const get: Stream<TestQuad> = await fullOptions.store.get(graph);
+    const get: Stream<TestQuad> & Readable = await fullOptions.store.get(graph);
 
     // store.put
     const put: Promise<void> = fullOptions.store.put(stream);

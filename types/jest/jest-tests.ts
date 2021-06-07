@@ -1,3 +1,17 @@
+/* Basic matchers */
+
+describe('', () => {
+    it('', () => {
+        expect(BigInt(0)).toBeGreaterThan(BigInt(1));
+
+        expect(BigInt(0)).toBeGreaterThanOrEqual(BigInt(1));
+
+        expect(BigInt(0)).toBeLessThan(BigInt(1));
+
+        expect(BigInt(0)).toBeLessThanOrEqual(BigInt(1));
+    });
+});
+
 /* Lifecycle events */
 
 beforeAll(() => {});
@@ -301,6 +315,14 @@ jest.requireActual('./thisReturnsTheActualModule');
 // $ExpectType string
 jest.requireActual<string>('./thisReturnsTheActualModule');
 
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+// $ExpectType any
+jest.requireActual('./thisReturnsTheActualModule').default;
+
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+// $ExpectType any
+const spreadRequireActual = {...jest.requireActual('./thisReturnsTheActualModule')};
+
 // https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
 // $ExpectType any
 jest.requireMock('./thisAlwaysReturnsTheMock');
@@ -308,6 +330,14 @@ jest.requireMock('./thisAlwaysReturnsTheMock');
 // https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
 // $ExpectType string
 jest.requireMock<string>('./thisAlwaysReturnsTheMock');
+
+// https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
+// $ExpectType any
+jest.requireMock('./thisAlwaysReturnsTheMock').default;
+
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+// $ExpectType any
+const spreadRequireMock = {...jest.requireMock('./thisAlwaysReturnsTheMock')};
 
 /* Mocks and spies */
 
@@ -327,7 +357,7 @@ const mock6 = jest.fn((arg: {}) => arg);
 const mock7 = jest.fn((arg: number) => arg);
 // $ExpectType Mock<number, [number]> || Mock<number, [arg: number]>
 const mock8: jest.Mock = jest.fn((arg: number) => arg);
-// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]> || Mock<Promise<boolean>, [a: number, _b: string, _c: {}, [], _makeItStop: boolean]>
+// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]> || Mock<Promise<boolean>, [a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean]>
 const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) =>
     Promise.resolve(_makeItStop)
 );
@@ -357,6 +387,9 @@ mock8.mockImplementation((arg: string) => 1);
 
 // mockImplementation not required to declare all arguments
 mock9.mockImplementation((a: number) => Promise.resolve(a === 0));
+
+const createMockFromModule1: {} = jest.createMockFromModule('moduleName');
+const createMockFromModule2: { a: 'b' } = jest.createMockFromModule<{ a: 'b' }>('moduleName');
 
 const genMockModule1: {} = jest.genMockFromModule('moduleName');
 const genMockModule2: { a: 'b' } = jest.genMockFromModule<{ a: 'b' }>('moduleName');
@@ -511,7 +544,7 @@ class TestMocked {
 
 const mocked: jest.Mocked<TestMocked> = new TestMocked() as any;
 mocked.test1.mockImplementation(() => Promise.resolve({ a: 1 }));
-// $ExpectType (x: Type1) => Promise<Type1> | undefined
+// $ExpectType ((x: Type1) => Promise<Type1>) | undefined
 mocked.test1.getMockImplementation();
 mocked.test1.mockReturnValue(Promise.resolve({ a: 1 }));
 // $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Type1]> & ((x: Type1) => Promise<Type1>)
@@ -1007,9 +1040,13 @@ describe('', () => {
         expect(jest.fn(willThrow)).toThrow(/foo/);
 
         expect(() => {}).toThrowErrorMatchingSnapshot();
+        expect(() => {}).toThrowErrorMatchingSnapshot('snapshotName');
         expect(willThrow).toThrowErrorMatchingSnapshot();
+        expect(willThrow).toThrowErrorMatchingSnapshot('snapshotName');
         expect(jest.fn()).toThrowErrorMatchingSnapshot();
+        expect(jest.fn()).toThrowErrorMatchingSnapshot('snapshotName');
         expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot();
+        expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot('snapshotName');
 
         expect(() => {}).toThrowErrorMatchingInlineSnapshot();
         expect(() => {}).toThrowErrorMatchingInlineSnapshot('Error Message');
@@ -1456,3 +1493,4 @@ test.only.each`
 });
 
 expect('').toHaveProperty('path.to.thing');
+expect('').toHaveProperty('path.to.thing', {});

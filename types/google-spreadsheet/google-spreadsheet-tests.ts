@@ -16,16 +16,22 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
      // OR use API key -- only for read-only access to public sheets
      doc.useApiKey('YOUR-API-KEY');
 
+     doc.useOAuth2Client({
+         getAccessToken: () => ({ token: "test_token" })
+     });
+
      await doc.loadInfo(); // loads document properties and worksheets
      console.log(doc.title);
      await doc.updateProperties({ title: 'renamed doc' });
 
-    let sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id]
-    console.log(sheet.title);
-    console.log(sheet.rowCount);
+     let sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id]
+     console.log(sheet.title);
+     console.log(sheet.rowCount);
 
      // adding / removing sheets
-     const newSheet = await doc.addSheet({ title: 'hot new sheet!' });
+     const title = 'hot new sheet!';
+     await doc.addSheet({ title });
+     const newSheet = doc.sheetsByTitle[title];
      await newSheet.delete();
 
      // create a sheet and set the header row
@@ -46,6 +52,8 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
      rows[1].email = 'sergey@abc.xyz'; // update a value
      await rows[1].save(); // save updates
      await rows[1].delete(); // delete a rowa
+
+    await sheet.loadCells(); // load all cells
 
      await sheet.loadCells('A1:E10'); // loads a range of cells
      console.log(sheet.cellStats); // total cells, loaded, how many non-empty

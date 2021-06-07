@@ -33,7 +33,7 @@ declare namespace jwplayer {
 
     interface OS {
         android: boolean;
-        androidNative: boolean;   // Android native browser
+        androidNative: boolean; // Android native browser
         iOS: boolean;
         mobile: boolean;
         mac: boolean;
@@ -157,7 +157,10 @@ declare namespace jwplayer {
     }
 
     interface ErrorParam {
+        code: number;
         message: string;
+        sourceError: object | null;
+        type: 'error';
     }
 
     interface FullscreenParam {
@@ -277,6 +280,13 @@ declare namespace jwplayer {
         type: 'cast';
     }
 
+    interface WarningParam {
+        code: number;
+        message: string;
+        sourceError: object | null;
+        type: 'warning';
+    }
+
     interface EventParams {
         adClick: AdProgressParam;
         adCompanions: AdCompanionsParam;
@@ -318,10 +328,18 @@ declare namespace jwplayer {
         seek: SeekParam;
         setupError: ErrorParam;
         time: TimeParam;
+        warning: WarningParam;
     }
 
-    type NoParamEvent = 'adBlock' | 'beforeComplete' | 'complete' | 'beforePlay' | 'displayClick' | 'playlistComplete'
-            | 'seeked' | 'remove';
+    type NoParamEvent =
+        | 'adBlock'
+        | 'beforeComplete'
+        | 'complete'
+        | 'beforePlay'
+        | 'displayClick'
+        | 'playlistComplete'
+        | 'seeked'
+        | 'remove';
 
     interface JWPlayer {
         addButton(icon: string, label: string, handler: () => void, id: string): void;

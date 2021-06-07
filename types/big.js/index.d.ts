@@ -1,7 +1,7 @@
-// Type definitions for big.js 4.0
+// Type definitions for big.js 6.1
 // Project: https://github.com/MikeMcl/big.js/
 // Definitions by: Steve Ognibene <https://github.com/nycdotnet>
-//                 Miika Hänninen <https://github.com/googol>
+//                 Roman Nuritdinov (Ky6uk) <https://github.com/Ky6uk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type BigSource = number | string | Big;
@@ -97,6 +97,28 @@ export interface BigConstructor {
      * Default value: 21
      */
     PE: number;
+
+    /** Readonly rounding modes */
+
+    /**
+     * Rounds towards zero.
+     * I.e. truncate, no rounding.
+     */
+    readonly roundDown: RoundingMode.RoundDown;
+    /**
+     * Rounds towards nearest neighbour.
+     * If equidistant, rounds away from zero.
+     */
+    readonly roundHalfUp: RoundingMode.RoundHalfUp;
+    /**
+     * Rounds towards nearest neighbour.
+     * If equidistant, rounds towards even neighbour.
+     */
+    readonly roundHalfEven: RoundingMode.RoundHalfEven;
+    /**
+     * Rounds away from zero.
+     */
+    readonly roundUp: RoundingMode.RoundUp;
 }
 
 export interface Big {
@@ -276,6 +298,14 @@ export interface Big {
      */
     toString(): string;
     /**
+     * Returns a primitive number representing the value of this Big number.
+     *
+     * If Big.strict is true an error will be thrown if toNumber is called on a Big number which cannot be converted to a primitive number without a loss of precision.
+     *
+     * @since 6.0
+     */
+    toNumber(): number;
+    /**
      * Returns a string representing the value of this Big number.
      *
      * If this Big number has a positive exponent that is equal to or greater than 21, or a negative exponent equal to or less than -7, then exponential notation is returned.
@@ -307,48 +337,22 @@ export interface Big {
     s: number;
 }
 
+// We want the exported symbol 'Big' to represent two things:
+// - The Big interface, when used in a type context.
+// - The BigConstructor instance, when used in a value context.
 export const Big: BigConstructor;
 
-// Helpers to allow referencing Big and BigConstructor from inside the global declaration without creating a self reference
-export type Big_ = Big;
-export type BigConstructor_ = BigConstructor;
-export type BigSource_ = BigSource;
+// The default export is the same as type/value combo symbol 'Big'.
 export default Big;
 
-declare global {
-    namespace BigJs {
-        type Big = Big_;
-        type BigConstructor = BigConstructor_;
-        type BigSource = BigSource_;
-
-        const enum Comparison {
-            GT = 1,
-            EQ = 0,
-            LT = -1,
-        }
-
-        const enum RoundingMode {
-            /**
-             * Rounds towards zero.
-             * I.e. truncate, no rounding.
-             */
-            RoundDown = 0,
-            /**
-             * Rounds towards nearest neighbour.
-             * If equidistant, rounds away from zero.
-             */
-            RoundHalfUp = 1,
-            /**
-             * Rounds towards nearest neighbour.
-             * If equidistant, rounds towards even neighbour.
-             */
-            RoundHalfEven = 2,
-            /**
-             * Rounds away from zero.
-             */
-            RoundUp = 3,
-        }
-    }
-
-    const Big: BigJs.BigConstructor;
-}
+// If you pull in big.js via a <script> tag, the global symbol 'Big' is automatically defined.
+// To let TypeScript know that, add this to your project's global types file, e.g. "types.d.ts":
+//
+// import BigJs from 'big.js';
+// declare global {
+//     const Big = BigJs;
+//     type Big = BigJs;
+// }
+//
+// There is a way to have TypeScript know to do this automatically (using "export as namespace"),
+// but I couldn't get it working correctly.

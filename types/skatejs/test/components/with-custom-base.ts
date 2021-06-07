@@ -2,7 +2,6 @@ import { define } from 'skatejs';
 
 import { ButtonComponent, InputComponent } from './custom-base';
 
-// tslint:disable-next-line interface-over-type-literal
 export type ButtonProps = {
   raised?: boolean;
 };
@@ -25,7 +24,6 @@ export class MaterialButton extends ButtonComponent<ButtonProps> {
 }
 define(MaterialButton);
 
-// tslint:disable-next-line interface-over-type-literal
 export type InputProps = {
   touched?: boolean;
 };

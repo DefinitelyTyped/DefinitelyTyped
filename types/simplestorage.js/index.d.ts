@@ -1,6 +1,8 @@
-// Type definitions for simplestorage.js v0.2.1
+// Type definitions for simplestorage.js 0.2
 // Project: https://github.com/andris9/simpleStorage
-// Definitions by: Áxel Costas Pena <https://github.com/axelcostaspena>, Michael Ledin <https://github.com/mxl>
+// Definitions by: Áxel Costas Pena <https://github.com/axelcostaspena>
+//                 Michael Ledin <https://github.com/mxl>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = simpleStorage;
@@ -8,22 +10,36 @@ export as namespace simpleStorage;
 
 /**
  * Cross-browser key-value store database to store data locally in the browser.
- * {@link simpleStorage} is a fork of {@link http://www.jstorage.info/|jStorage} that only includes the minimal set of features. Basically it is a wrapper for native <code>{@link JSON}</code> + <code>{@link WindowLocalStorage.localStorage|localStorage}</code> with some TTL magic mixed in.
- * The module has no dependencies, you can use it as a standalone script (introduces {@link simpleStorage} global) or as an AMD module. All modern browsers (including mobile) are supported, older browsers (IE7, Firefox 3) are not.
+ * {@link simpleStorage} is a fork of {@link http://www.jstorage.info/|jStorage}
+ * that only includes the minimal set of features.
+ * Basically it is a wrapper for native <code>{@link JSON}</code> + <code>{@link WindowLocalStorage.localStorage|localStorage}</code> with some TTL magic mixed in.
+ * The module has no dependencies, you can use it as a standalone script (introduces {@link simpleStorage} global) or as an AMD module.
+ * All modern browsers (including mobile) are supported, older browsers (IE7, Firefox 3) are not.
  * {@link simpleStorage} is very small - about 1kB in size when minimized and gzipped.
  * @see https://github.com/andris9/simpleStorage#simplestorage
  */
-declare var simpleStorage: simplestoragejs.SimpleStorage;
+declare const simpleStorage: simplestoragejs.SimpleStorage;
+
+declare const VERSION = '0.2.1';
 
 declare namespace simplestoragejs {
+    type StatusCode = 'OK' | 'LS_NOT_AVAILABLE' | 'LS_DISABLED' | 'LS_QUOTA_EXCEEDED';
+
+    interface SimpleStorageError extends Error {
+        code?: StatusCode;
+    }
 
     /**
-     * {@link simpleStorage} API is a subset of {@link http://www.jstorage.info/|jStorage} with slight modifications, so for most cases it should work out of the box if you are converting from {@link http://www.jstorage.info/|jStorage}. Main difference is between return values - if an action failed because of an error (storage full, storage not available, invalid data used etc.), you get the error object as the return value. {@link http://www.jstorage.info/|jStorage} never indicated anything if an error occurred.
+     * {@link simpleStorage} API is a subset of {@link http://www.jstorage.info/|jStorage} with slight modifications,
+     * so for most cases it should work out of the box if you are converting from {@link http://www.jstorage.info/|jStorage}.
+     * Main difference is between return values - if an action failed because of an error (storage full, storage not available, invalid data used etc.),
+     * you get the error object as the return value. {@link http://www.jstorage.info/|jStorage} never indicated anything if an error occurred.
      * @see https://github.com/andris9/simpleStorage#usage
      */
-    export interface SimpleStorage {
+    interface SimpleStorage {
+        version: typeof VERSION;
 
-        version: string;
+        status?: StatusCode | string | number;
 
         /**
          * Check if local storage can be used.
@@ -40,7 +56,7 @@ declare namespace simplestoragejs {
          * @param [options] Optional options object.
          * @see https://github.com/andris9/simpleStorage#setkey-value-options
          */
-        set(key: string, value: any, options?: SetOptions): boolean|Error;
+        set(key: string, value?: any, options?: SetOptions): boolean | SimpleStorageError;
 
         /**
          * Retrieve a value from local storage.
@@ -64,7 +80,7 @@ declare namespace simplestoragejs {
          * @param key The key to be deleted.
          * @see https://github.com/andris9/simpleStorage#deletekeykey
          */
-        deleteKey(key: string): boolean|Error;
+        deleteKey(key: string): boolean | SimpleStorageError;
 
         /**
          * Set a millisecond timeout. When the timeout is reached, the key is removed automatically from local storage.
@@ -73,7 +89,7 @@ declare namespace simplestoragejs {
          * @param ttl Timeout in milliseconds. If the value is 0, timeout is cleared from the key.
          * @see https://github.com/andris9/simpleStorage#setttlkey-ttl
          */
-        setTTL(key: string, ttl: number): boolean|Error;
+        setTTL(key: string, ttl: number): boolean | SimpleStorageError;
 
         /**
          * Retrieve remaining milliseconds for a key with TTL.
@@ -81,21 +97,21 @@ declare namespace simplestoragejs {
          * @param key The key to be checked.
          * @see https://github.com/andris9/simpleStorage#getttlkey
          */
-        getTTL(key: string): number|boolean;
+        getTTL(key: string): number | false;
 
         /**
          * Clear all values.
          * Returns <code>true</code> if storage was flushed or <code>{@link Error}</code> object if storage was not flushed because of an error.
          * @see https://github.com/andris9/simpleStorage#flush
          */
-        flush(): boolean|Error;
+        flush(): boolean | SimpleStorageError;
 
         /**
          * Retrieve all used keys as an array.
          * Returns an array of keys.
          * @see https://github.com/andris9/simpleStorage#index
          */
-        index(): [string]|boolean;
+        index(): [string] | false;
 
         /**
          * Get used storage in symbol count.
@@ -107,11 +123,11 @@ declare namespace simplestoragejs {
     /**
      * @see https://github.com/andris9/simpleStorage#setkey-value-options
      */
-    export interface SetOptions {
+    interface SetOptions {
         /**
          * Sets the time-to-live (TTL) value in milliseconds for the given key/value.
+         * @default 0
          */
         TTL?: number;
     }
-
 }

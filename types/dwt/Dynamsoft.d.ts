@@ -385,6 +385,10 @@ export interface WebTwainEnv {
      */
     Unload(): void;
     /**
+     * Whether to download the wasm for Camera Addon to use on initialization.
+     */
+    UseCameraAddonWasm: boolean;
+    /**
      * Whether to use the library in Local-Service mode or WASM mode.
      */
     UseLocalService: boolean;

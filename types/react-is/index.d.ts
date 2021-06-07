@@ -1,4 +1,4 @@
-// Type definitions for react-is 16.7
+// Type definitions for react-is 17.0
 // Project: https://reactjs.org/
 // Definitions by: Avi Vahl <https://github.com/AviVahl>
 //                 Christian Chown <https://github.com/christianchown>

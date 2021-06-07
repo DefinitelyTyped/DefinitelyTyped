@@ -12,8 +12,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@derhuerst/cli-on-key": [
-                "derhuerst__cli-on-key"
+            "@derhuerst/*": [
+                "derhuerst__*"
             ]
         }
     },

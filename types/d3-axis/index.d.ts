@@ -1,13 +1,14 @@
-// Type definitions for D3JS d3-axis module 1.0
+// Type definitions for D3JS d3-axis module 2.1
 // Project: https://github.com/d3/d3-axis/, https://d3js.org/d3-axis
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.0.8
+// Last module patch version validated against: 2.1.0
 
 import { Selection, TransitionLike } from 'd3-selection';
 
@@ -299,6 +300,19 @@ export interface Axis<Domain> {
      * @param padding Padding in pixels (Default is 3).
      */
     tickPadding(padding: number): this;
+
+    /**
+     * Returns the current offset which defaults to 0 on devices with a devicePixelRatio greater than 1, and 0.5px otherwise.
+     * This default offset ensures crisp edges on low-resolution devices.
+     */
+    offset(): number;
+
+    /**
+     * Sets the offset to the specified value in pixels and returns the axis.
+     * Defaults to 0 on devices with a devicePixelRatio greater than 1, and 0.5px otherwise.
+     * This default offset ensures crisp edges on low-resolution devices.
+     */
+    offset(offset: number): this;
 }
 
 /**

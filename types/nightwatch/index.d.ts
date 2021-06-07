@@ -588,6 +588,8 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
      */
     css(property: string, message?: string): this;
 
+    section(property: string): this;
+
     /**
      * Property that checks if an element is currently enabled.
      */
@@ -620,6 +622,10 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
 }
 
 export interface NightwatchAssertions extends NightwatchCommonAssertions, NightwatchCustomAssertions {
+    /**
+     * Negates any of assertions following in the chain.
+     */
+    not: this;
 }
 
 export interface NightwatchCommonAssertions {
@@ -1026,13 +1032,13 @@ export interface NightwatchAPI extends SharedCommands, WebDriverProtocol, Nightw
     launch_url: string;
 }
 
-// tslint:disable-next-line
+// tslint:disable-next-line:no-empty-interface
 export interface NightwatchCustomCommands { }
 
-// tslint:disable-next-line
+// tslint:disable-next-line:no-empty-interface
 export interface NightwatchCustomAssertions { }
 
-// tslint:disable-next-line
+// tslint:disable-next-line:no-empty-interface
 export interface NightwatchCustomPageObjects { }
 
 export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands {
@@ -1094,11 +1100,13 @@ export interface NightwatchAssertion<T, U = any> {
     command(callback: (result: U) => void): this;
     failure?(result: U): boolean;
     api: NightwatchAPI;
+    client: NightwatchClient;
 }
 
 export interface NightwatchClient {
     api: NightwatchAPI;
     assertion: NightwatchAssert;
+    locateStrategy?: LocateStrategy;
 }
 
 export interface Nightwatch {
@@ -1587,6 +1595,7 @@ export interface ElementCommands {
      * @see elementIdClick
      */
     click(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
+    click(using: LocateStrategy, selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
 
     /**
      * Retrieve the value of an attribute for a given DOM element. Uses `elementIdAttribute` protocol command.
@@ -1881,6 +1890,14 @@ export interface ElementCommands {
      * };
      */
     waitForElementVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void, message?: string): this;
+    waitForElementVisible(
+        using: LocateStrategy,
+        selector: string,
+        time?: number,
+        abortOnFailure?: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+        message?: string
+    ): this;
 }
 
 export interface WebDriverProtocol extends
@@ -2438,7 +2455,7 @@ export interface WebDriverProtocolElementInteraction {
      * Rather than the `setValue`, the modifiers are not released at the end of the call. The state of the modifier keys is kept between calls,
      * so mouse interactions can be performed while modifier keys are depressed.
      */
-    keys(keysToSend: string[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    keys(keysToSend: string | string[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
 
     /**
      * Submit a FORM element. The submit command may also be applied to any element that is a descendant of a FORM element.
@@ -2517,7 +2534,7 @@ export interface WebDriverProtocolDocumentHandling {
      *    });
      * }
      */
-    executeAsync<T>(script: ((this: undefined, ...data: any[]) => T) | string, args?: any[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void): this;
+    executeAsync(script: ((this: undefined, ...data: any[]) => any) | string, args?: any[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void): this;
 }
 
 export interface WebDriverProtocolCookies {

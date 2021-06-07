@@ -12,9 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/api-fetch": ["wordpress__api-fetch"],
-            "@wordpress/data": ["wordpress__data"],
-            "@wordpress/data-controls": ["wordpress__data-controls"]
+            "@wordpress/*": ["wordpress__*"]
         }
     },
     "files": [

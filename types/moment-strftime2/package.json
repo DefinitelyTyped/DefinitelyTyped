@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "moment": "^2.18.1"
+        "moment": "^2.18.1",
+        "moment-timezone": ">=0.5.30"
     }
 }

@@ -1,6 +1,6 @@
 import Features from 'ember-feature-flags';
 import 'ember-feature-flags/tests/helpers/with-feature';
-import 'ember-feature-flags/test-support';
+import { enableFeature } from 'ember-feature-flags/test-support';
 
 /** Static assertion that `value` has type `T` */
 // Disable tslint here b/c the generic is used to let us do a type coercion and

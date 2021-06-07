@@ -37,6 +37,7 @@ pvutils.fromBase64("", true, true).charAt(0);
 
 pvutils.arrayBufferToString(new ArrayBuffer(0)).charAt(0);
 pvutils.arrayBufferToString(new Uint8Array(0)).charAt(0);
+pvutils.arrayBufferToString(new DataView(new Uint8Array(0))).charAt(0);
 
 pvutils.stringToArrayBuffer("").byteLength;
 

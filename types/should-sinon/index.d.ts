@@ -8,7 +8,7 @@ import * as s from 'sinon';
 import should = require('should');
 
 declare module 'sinon' {
-    interface SinonSpy {
+    interface SinonSpyCallApi {
         should: ShouldSinonAssertion;
     }
     interface ShouldSinonAssertion extends should.Assertion {

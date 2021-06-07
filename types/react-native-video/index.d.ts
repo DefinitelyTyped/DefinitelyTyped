@@ -21,7 +21,7 @@ export interface OnLoadData {
     naturalSize: {
         height: number;
         width: number;
-        orientation: 'horizontal' | 'landscape';
+        orientation: 'portrait' | 'landscape';
     };
 }
 
@@ -64,6 +64,16 @@ export interface OnBufferData {
     isBuffering: boolean;
 }
 
+export interface DRMSettings {
+  type: DRMType;
+  licenseServer?: string;
+  headers?: { [key: string]: string };
+  contentId?: string;
+  certificateUrl?: string;
+  base64Certificate?: boolean;
+  getLicense?(): Promise<string>;
+}
+
 export const TextTrackType: {
     SRT: 'application/x-subrip';
     TTML: 'application/ttml+xml';
@@ -87,6 +97,13 @@ export enum FilterType {
     TONAL = 'CIPhotoEffectTonal',
     TRANSFER = 'CIPhotoEffectTransfer',
     SEPIA = 'CISepiaTone',
+}
+
+export enum DRMType {
+  WIDEVINE = 'widevine',
+  PLAYREADY = 'playready',
+  CLEARKEY = 'clearkey',
+  FAIRPLAY = 'fairplay',
 }
 
 export interface VideoProperties extends ViewProps {
@@ -114,7 +131,7 @@ export interface VideoProperties extends ViewProps {
 
     /* Wrapper component */
     // Opaque type returned by require('./video.mp4')
-    source: { uri?: string } | number;
+    source: { uri?: string, headers?: {[key: string]: string } } | number;
     minLoadRetryCount?: number;
     maxBitRate?: number;
     resizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
@@ -146,6 +163,8 @@ export interface VideoProperties extends ViewProps {
     hideShutterView?: boolean;
     allowsExternalPlayback?: boolean;
     audioOnly?: boolean;
+    preventsDisplaySleepDuringVideoPlayback?: boolean;
+    drm?: DRMSettings;
 
     onLoadStart?(): void;
     onLoad?(data: OnLoadData): void;

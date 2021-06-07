@@ -35,11 +35,11 @@ export interface IOptionsValues {
 }
 
 export interface IPerfLoggingPrefs {
-  enableNetwork: boolean;
-  enablePage: boolean;
-  enableTimeline: boolean;
-  tracingCategories: string;
-  bufferUsageReportingInterval: number;
+  enableNetwork?: boolean;
+  enablePage?: boolean;
+  enableTimeline?: boolean;
+  traceCategories?: string;
+  bufferUsageReportingInterval?: number;
 }
 
 /**

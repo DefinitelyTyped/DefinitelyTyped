@@ -1,4 +1,4 @@
-// Type definitions for react-scroll 1.5
+// Type definitions for react-scroll 1.8
 // Project: https://github.com/fisshy/react-scroll
 // Definitions by: Ioannis Kokkinidis <https://github.com/sudoplz>
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>

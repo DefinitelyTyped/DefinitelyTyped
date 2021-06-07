@@ -16,7 +16,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@recurly/*": [
+                "recurly__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

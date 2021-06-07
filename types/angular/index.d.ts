@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.7
+// Type definitions for Angular JS 1.8
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <https://github.com/diegovilar>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
@@ -7,7 +7,6 @@
 //                 Steffen Kowalski <https://github.com/scipper>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 /// <reference path="jqlite.d.ts" />
 
@@ -1410,11 +1409,21 @@ declare namespace angular {
         component(name: string, options: IComponentOptions): ICompileProvider;
         component(object: {[componentName: string]: IComponentOptions}): ICompileProvider;
 
+        /** @deprecated The old name of aHrefSanitizationTrustedUrlList. Kept for compatibility. */
         aHrefSanitizationWhitelist(): RegExp;
+        /** @deprecated The old name of aHrefSanitizationTrustedUrlList. Kept for compatibility. */
         aHrefSanitizationWhitelist(regexp: RegExp): ICompileProvider;
 
+        aHrefSanitizationTrustedUrlList(): RegExp;
+        aHrefSanitizationTrustedUrlList(regexp: RegExp): ICompileProvider;
+
+        /** @deprecated The old name of imgSrcSanitizationTrustedUrlList. Kept for compatibility. */
         imgSrcSanitizationWhitelist(): RegExp;
+        /** @deprecated The old name of imgSrcSanitizationTrustedUrlList. Kept for compatibility. */
         imgSrcSanitizationWhitelist(regexp: RegExp): ICompileProvider;
+
+        imgSrcSanitizationTrustedUrlList(): RegExp;
+        imgSrcSanitizationTrustedUrlList(regexp: RegExp): ICompileProvider;
 
         debugInfoEnabled(): boolean;
         debugInfoEnabled(enabled: boolean): ICompileProvider;
@@ -1800,12 +1809,12 @@ declare namespace angular {
         useApplyAsync(): boolean;
         useApplyAsync(value: boolean): IHttpProvider;
 
+        /** @deprecated The old name of xsrfTrustedOrigins. Kept for compatibility. */
+        xsrfWhitelistedOrigins: string[];
         /**
-         * @param value If true, `$http` will return a normal promise without the `success` and `error` methods.
-         * @returns If a value is specified, returns the $httpProvider for chaining.
-         *    otherwise, returns the current configured value.
+         * Array containing URLs whose origins are trusted to receive the XSRF token.
          */
-        useLegacyPromiseExtensions(value: boolean): boolean | IHttpProvider;
+        xsrfTrustedOrigins: string[];
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1894,10 +1903,18 @@ declare namespace angular {
     // see http://docs.angularjs.org/api/ng/provider/$sceDelegateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEDelegateProvider extends IServiceProvider {
+        /** @deprecated since 1.8.1 */
         resourceUrlBlacklist(): any[];
-        resourceUrlBlacklist(blacklist: any[]): void;
+        /** @deprecated since 1.8.1 */
+        resourceUrlBlacklist(bannedList: any[]): void;
+        bannedResourceUrlList(): any[];
+        bannedResourceUrlList(bannedList: any[]): void;
+        /** @deprecated since 1.8.1 */
         resourceUrlWhitelist(): any[];
-        resourceUrlWhitelist(whitelist: any[]): void;
+        /** @deprecated since 1.8.1 */
+        resourceUrlWhitelist(trustedList: any[]): void;
+        trustedResourceUrlList(): any[];
+        trustedResourceUrlList(trustedList: any[]): void;
     }
 
     /**

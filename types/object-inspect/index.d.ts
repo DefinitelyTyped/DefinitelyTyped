@@ -1,4 +1,4 @@
-// Type definitions for object-inspect 1.6
+// Type definitions for object-inspect 1.8
 // Project: https://github.com/substack/object-inspect
 // Definitions by: Charles Samborski <https://github.com/demurgos>
 //                 Akuukis <https://github.com/Akuukis>
@@ -18,6 +18,18 @@ declare namespace objectInspect {
          * Must be "single" or "double", if present.
          */
         quoteStyle?: 'single' | 'double';
+        /**
+         * Must be 0, a positive integer, Infinity, or null, if present. Default Infinity.
+         */
+        maxStringLength?: number | null;
+        /**
+         * When true, a custom inspect method function will be invoked. Default true.
+         */
+        customInspect?: boolean;
+        /**
+         * Must be "\t", null, or a positive integer. Default null.
+         */
+        indent?: number | '\t' | null;
     }
 }
 

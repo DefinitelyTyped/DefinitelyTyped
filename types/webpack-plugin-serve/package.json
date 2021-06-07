@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "fast-glob": "^2.2.6"
+        "globby": "^11.0.1",
+        "http-proxy-middleware": "^1.0.0"
     }
 }

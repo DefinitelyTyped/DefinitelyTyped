@@ -1,6 +1,0 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "no-angle-bracket-type-assertion": false
-    }
-}

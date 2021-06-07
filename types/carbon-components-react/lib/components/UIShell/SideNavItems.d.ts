@@ -1,12 +1,9 @@
 import * as React from "react";
-import { ReactAttr, SideNavSharedProps } from '../../../typings/shared';
+import { SideNavSharedProps, RequiresChildrenProps } from "../../../typings/shared";
 
-interface InheritedProps extends SideNavSharedProps {
-    children: ReactAttr["children"],
-    className?: ReactAttr["className"],
+export interface SideNavItemsProps extends SideNavSharedProps, RequiresChildrenProps {
+    className?: string,
 }
-
-export interface SideNavItemsProps extends InheritedProps {}
 
 declare const SideNavItems: React.FC<SideNavItemsProps>;
 

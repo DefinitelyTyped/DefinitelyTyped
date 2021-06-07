@@ -3,7 +3,7 @@ import "bmapgl";
 class TestFixture {
     // document: http://lbsyun.baidu.com/index.php?title=jspopularGL
     createMap(container: string | HTMLElement) {
-        navigator.geolocation.getCurrentPosition((position: Position) => {
+        navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
             const point = new BMapGL.Point(position.coords.longitude, position.coords.latitude);
             const map = new BMapGL.Map(container);
             map.centerAndZoom(point, 15);

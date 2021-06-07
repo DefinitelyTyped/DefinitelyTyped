@@ -1,7 +1,9 @@
-// Type definitions for postcss-less 3.1
+// Type definitions for postcss-less 4.0
 // Project: https://github.com/shellscape/postcss-less
 // Definitions by: Masafumi Koba <https://github.com/ybiquitous>
+//                 Daniel Cassidy <https://github.com/djcsdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
 import * as postcss from 'postcss';
 
@@ -24,6 +26,7 @@ declare namespace postcssLess {
     // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/nodes/variable.js
     interface VariableAtRule extends postcss.AtRule {
         variable: true;
+        value: string;
     }
 
     // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/LessParser.js#L147-L151
@@ -45,6 +48,13 @@ declare namespace postcssLess {
     }
 
     type Rule = ExtendRule;
+
+    // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/LessParser.js#L187
+    interface ExtendDeclaration extends postcss.Declaration {
+        extend: true;
+    }
+
+    type Declaration = ExtendDeclaration;
 
     // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/LessParser.js#L73
     interface InlineComment extends postcss.Comment {

@@ -1,4 +1,4 @@
-// Type definitions for react-grid-layout 0.17
+// Type definitions for react-grid-layout 1.1
 // Project: https://github.com/STRML/react-grid-layout
 // Definitions by: Andrew Birkholz <https://github.com/abirkholz>,
 //                 Ali Taheri <https://github.com/alitaheri>,
@@ -9,14 +9,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export as namespace ReactGridLayout;
 export = ReactGridLayout;
 
-declare class ReactGridLayout extends React.Component<
-    ReactGridLayout.ReactGridLayoutProps
-> {}
+declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps> {}
+
+type ResizeHandle = 's' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne';
 
 declare namespace ReactGridLayout {
     interface Layout {
@@ -85,6 +85,17 @@ declare namespace ReactGridLayout {
          * If false, will not be resizable. Overrides `static`.
          */
         isResizable?: boolean;
+
+        /**
+         * By default, a handle is only shown on the bottom-right (southeast) corner.
+         * Note that resizing from the top or left is generally not intuitive.
+         */
+        resizeHandles?: ResizeHandle[];
+
+        /**
+         * If true and draggable, item will be moved only within grid.
+         */
+        isBounded?: boolean;
     }
 
     interface Layouts {
@@ -97,7 +108,7 @@ declare namespace ReactGridLayout {
         newItem: Layout,
         placeholder: Layout,
         event: MouseEvent,
-        element: HTMLElement
+        element: HTMLElement,
     ) => void;
 
     interface CoreProps {
@@ -142,7 +153,7 @@ declare namespace ReactGridLayout {
         /**
          * Compaction type.
          */
-        compactType?: "vertical" | "horizontal" | null;
+        compactType?: 'vertical' | 'horizontal' | null;
 
         /**
          * This allows setting the initial width on the server side.
@@ -160,9 +171,9 @@ declare namespace ReactGridLayout {
          * which appears when you drag over some element from outside.
          */
         droppingItem?: {
-            i: string
-            w: number
-            h: number
+            i: string;
+            w: number;
+            h: number;
         };
 
         /**
@@ -176,9 +187,33 @@ declare namespace ReactGridLayout {
         isResizable?: boolean;
 
         /**
+         * Defines which resize handles should be rendered
+         * Allows for any combination of:
+         * 's' - South handle (bottom-center)
+         * 'w' - West handle (left-center)
+         * 'e' - East handle (right-center)
+         * 'n' - North handle (top-center)
+         * 'sw' - Southwest handle (bottom-left)
+         * 'nw' - Northwest handle (top-left)
+         * 'se' - Southeast handle (bottom-right)
+         * 'ne' - Northeast handle (top-right)
+         */
+        resizeHandles?: ResizeHandle[];
+
+        /**
+         * Defines custom component for resize handle
+         */
+        resizeHandle?: React.ReactNode | ((resizeHandle: ResizeHandle) => React.ReactNode);
+
+        /**
          * If set to false it will not call `onDrop()` callback.
          */
         isDroppable?: boolean;
+
+        /**
+         * If true and draggable, all items will be moved only within grid.
+         */
+        isBounded?: boolean;
 
         /**
          * If true, grid items won't change position when being dragged over.
@@ -238,7 +273,7 @@ declare namespace ReactGridLayout {
         /**
          * Calls when some element has been dropped
          */
-        onDrop?(elemParams: { x: number, y: number, w: number, h: number, e: Event }): void;
+        onDrop?(layout: Layout[], item: Layout, e: Event): void;
     }
 
     interface ReactGridLayoutProps extends CoreProps {
@@ -326,7 +361,7 @@ declare namespace ReactGridLayout {
             containerWidth: number,
             margin: [number, number],
             cols: number,
-            containerPadding: [number, number]
+            containerPadding: [number, number],
         ): void;
     }
 
@@ -342,6 +377,6 @@ declare namespace ReactGridLayout {
     }
 
     function WidthProvider<P>(
-        component: React.ComponentClass<P> | React.FunctionComponent<P>
+        component: React.ComponentClass<P> | React.FunctionComponent<P>,
     ): React.ComponentClass<P & WidthProviderProps>;
 }

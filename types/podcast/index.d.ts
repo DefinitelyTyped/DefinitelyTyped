@@ -1,4 +1,4 @@
-// Type definitions for podcast 1.1
+// Type definitions for podcast 1.3
 // Project: https://github.com/maxnowack/node-podcast
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 //                 Malo Bourgon <https://github.com/malob>
@@ -71,7 +71,7 @@ declare namespace Podcast {
         itunesExplicit?: boolean;
         itunesSubtitle?: string;
         itunesSummary?: string;
-        itunesDuration?: number;
+        itunesDuration?: number | string;
         itunesImage?: string;
         itunesSeason?: number;
         itunesEpisode?: number;

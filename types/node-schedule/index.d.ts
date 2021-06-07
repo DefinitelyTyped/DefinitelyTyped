@@ -3,6 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Florian Plattner <https://github.com/flowpl>
 //                 Tieu Philippe Khim <https://github.com/spike008t>
+//                 Seohyun Yoon <https://github.com/seohyun0120>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -134,11 +135,11 @@ export interface RecurrenceSpecDateRange {
     /**
      * Starting date in date range.
      */
-    start: Date | string | number;
+    start?: Date | string | number;
     /**
      * Ending date in date range.
      */
-    end: Date | string | number;
+    end?: Date | string | number;
     /**
      * Cron expression string.
      */

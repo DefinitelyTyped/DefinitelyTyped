@@ -204,6 +204,21 @@ doc.image('path/to/image.png', {
 });
 
 
+// AcroForm
+doc.initForm();
+
+doc.endAcroForm();
+
+doc.formField('ZipCode1', { V: 'some-value' });
+
+doc.formAnnotation('ZipCode1', 'text', 0, 0, 10, 10, { V: 'some-value' });
+doc.formText('ZipCode1', 0, 0, 10, 10);
+doc.formPushButton('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+doc.formCombo('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+doc.formList('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+doc.formRadioButton('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+doc.formCheckbox('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+
 // Subclassing
 class SubPDFDocument extends PDFDocument {
     constructor(options:PDFKit.PDFDocumentOptions) {

@@ -3,16 +3,12 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "comment-format": false,
-        "eofline": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
-        "prefer-method-signature": false,
         "prefer-template": false,
         "semicolon": false,
         "unified-signatures": false

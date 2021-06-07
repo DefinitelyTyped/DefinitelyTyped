@@ -1,11 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
-        "dt-header": false,
-        "no-redundant-jsdoc": false,
-        "prefer-method-signature": false,
-        "semicolon": false,
-        "unified-signatures": false
+        "dt-header": false
     }
 }

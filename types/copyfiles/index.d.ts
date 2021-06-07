@@ -1,4 +1,4 @@
-// Type definitions for copyfiles 2.2
+// Type definitions for copyfiles 2.4
 // Project: https://github.com/calvinmetcalf/copyfiles#readme
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -11,7 +11,7 @@ declare namespace copyfiles {
         /** throw error if nothing is copied */
         error?: boolean;
         /** pattern or glob to exclude */
-        exclude?: string;
+        exclude?: string | ReadonlyArray<string>;
         /** flatten the output */
         flat?: boolean;
         /**

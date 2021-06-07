@@ -20,7 +20,6 @@ export interface Options {
     contentType?: string;
     ext?: boolean;
     before?: HandleFunction[];
-    // tslint:disable-next-line prefer-method-signature
     logFn?: (req: http.IncomingMessage, res: http.ServerResponse, err: Error) => void;
     cors?: boolean;
     corsHeaders?: string;

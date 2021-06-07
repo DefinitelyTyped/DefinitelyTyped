@@ -1,0 +1,1 @@
+window.arweaveWallet !== undefined;

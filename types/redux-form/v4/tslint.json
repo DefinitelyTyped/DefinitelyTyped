@@ -1,9 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "no-namespace": false,
-        "no-redundant-jsdoc": false,
         "strict-export-declare-modifiers": false
     }
 }

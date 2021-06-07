@@ -13,8 +13,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@babel/plugin-transform-runtime": [
-                "babel__plugin-transform-runtime"
+            "@babel/*": [
+                "babel__*"
             ]
         }
     },

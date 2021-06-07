@@ -1,18 +1,14 @@
-// Type definitions for non-npm package WebExtension Development in FireFox 78.0
+// Type definitions for non-npm package WebExtension Development in FireFox 82.0
 // Project: https://developer.mozilla.org/en-US/Add-ons/WebExtensions
 // Definitions by: Jasmin Bom <https://github.com/jsmnbom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.4
 // Generated using script at github.com/jsmnbom/definitelytyped-firefox-webext-browser
 
 interface WebExtEvent<TCallback extends (...args: any[]) => any> {
     addListener(cb: TCallback): void;
     removeListener(cb: TCallback): void;
     hasListener(cb: TCallback): boolean;
-}
-
-interface Window {
-    browser: typeof browser;
 }
 
 /** Not allowed in: Content scripts, Devtools pages */
@@ -40,6 +36,9 @@ declare namespace browser._manifest {
             | {
                   scripts: ExtensionURL[];
                   persistent?: PersistentBackgroundProperty;
+              }
+            | {
+                  service_worker: ExtensionURL;
               };
         options_ui?: _WebExtensionManifestOptionsUi;
         content_scripts?: ContentScript[];
@@ -292,7 +291,11 @@ declare namespace browser._manifest {
         | 'urlbar';
 
     /** Defines the location the browserAction will appear by default. The default location is navbar. */
-    type _WebExtensionManifestBrowserActionDefaultArea = 'navbar' | 'menupanel' | 'tabstrip' | 'personaltoolbar';
+    type _WebExtensionManifestBrowserActionDefaultArea =
+        | 'navbar'
+        | 'menupanel'
+        | 'tabstrip'
+        | 'personaltoolbar';
 
     interface _WebExtensionManifestBrowserAction {
         default_title?: string;
@@ -358,7 +361,9 @@ declare namespace browser._manifest {
     }
 
     /** The type of param can be either "purpose" or "pref". */
-    type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition = 'purpose' | 'pref';
+    type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition =
+        | 'purpose'
+        | 'pref';
 
     /** The context that initiates a search, required if condition is "purpose". */
     type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose =
@@ -383,7 +388,7 @@ declare namespace browser._manifest {
 
     interface _WebExtensionManifestChromeSettingsOverridesSearchProvider {
         name: string;
-        keyword?: string;
+        keyword?: string | string[];
         search_url: string;
         favicon_url?: string;
         suggest_url?: string;
@@ -681,7 +686,11 @@ declare namespace browser.activityLog {
     /**
      * The type of log entry. api_call is a function call made by the extension and api_event is an event callback to the extension. content_script is logged when a content script is injected.
      */
-    type _OnExtensionActivityDetailsType = 'api_call' | 'api_event' | 'content_script' | 'user_script';
+    type _OnExtensionActivityDetailsType =
+        | 'api_call'
+        | 'api_event'
+        | 'content_script'
+        | 'user_script';
 
     /** The type of view where the activity occurred. Content scripts will not have a viewType. */
     type _OnExtensionActivityDetailsViewType =
@@ -717,7 +726,9 @@ declare namespace browser.activityLog {
         data: _OnExtensionActivityDetailsData;
     }
 
-    interface _ActivityLogOnExtensionActivityEvent<TCallback = (details: _OnExtensionActivityDetails) => void> {
+    interface _ActivityLogOnExtensionActivityEvent<
+        TCallback = (details: _OnExtensionActivityDetails) => void
+    > {
         addListener(cb: TCallback, id: string): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
@@ -821,7 +832,7 @@ declare namespace browser.browserAction {
     type ColorArray = [number, number, number, number];
 
     /** Pixel data for an image. Must be an ImageData object (for example, from a `canvas` element). */
-    type ImageDataType = object /*ImageData*/;
+    type ImageDataType = ImageData;
 
     /**
      * An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is `[255, 0, 0, 255]`. Can also be a string with a CSS value, with opaque red being `#FF0000` or `#F00`.
@@ -1110,7 +1121,11 @@ declare namespace browser.browserSettings {
  */
 declare namespace browser.captivePortal {
     /** The current captive portal state. */
-    type _OnStateChangedDetailsState = 'unknown' | 'not_captive' | 'unlocked_portal' | 'locked_portal';
+    type _OnStateChangedDetailsState =
+        | 'unknown'
+        | 'not_captive'
+        | 'unlocked_portal'
+        | 'locked_portal';
 
     interface _OnStateChangedDetails {
         /** The current captive portal state. */
@@ -1150,8 +1165,6 @@ declare namespace browser.captivePortal {
  * Not allowed in: Content scripts, Devtools pages
  */
 declare namespace browser.clipboard {
-    type ArrayBuffer = any;
-
     /** The type of imageData. */
     type _SetImageDataImageType = 'jpeg' | 'png';
 
@@ -1197,7 +1210,9 @@ declare namespace browser.contentScripts {
 
     /* contentScripts functions */
     /** Register a content script programmatically */
-    function register(contentScriptOptions: RegisteredContentScriptOptions): Promise<RegisteredContentScript>;
+    function register(
+        contentScriptOptions: RegisteredContentScriptOptions
+    ): Promise<RegisteredContentScript>;
 }
 
 /**
@@ -1614,7 +1629,15 @@ declare namespace browser.downloads {
      *
      * These string constants will never change, however the set of DangerTypes may change.
      */
-    type DangerType = 'file' | 'url' | 'content' | 'uncommon' | 'host' | 'unwanted' | 'safe' | 'accepted';
+    type DangerType =
+        | 'file'
+        | 'url'
+        | 'content'
+        | 'uncommon'
+        | 'host'
+        | 'unwanted'
+        | 'safe'
+        | 'accepted';
 
     /**
      * *in_progress*:
@@ -1951,7 +1974,11 @@ declare namespace browser.events {
          * @param [ruleIdentifiers] If an array is passed, only rules with identifiers contained in this array are returned.
          * @deprecated Unsupported on Firefox at this time.
          */
-        getRules?(eventName: string, webViewInstanceId: number, ruleIdentifiers?: string[]): Promise<Rule[]>;
+        getRules?(
+            eventName: string,
+            webViewInstanceId: number,
+            ruleIdentifiers?: string[]
+        ): Promise<Rule[]>;
         /**
          * Unregisters currently registered rules.
          * @param eventName Name of the event this function affects.
@@ -1959,7 +1986,11 @@ declare namespace browser.events {
          * @param [ruleIdentifiers] If an array is passed, only rules with identifiers contained in this array are unregistered.
          * @deprecated Unsupported on Firefox at this time.
          */
-        removeRules?(eventName: string, webViewInstanceId: number, ruleIdentifiers?: string[]): Promise<void>;
+        removeRules?(
+            eventName: string,
+            webViewInstanceId: number,
+            ruleIdentifiers?: string[]
+        ): Promise<void>;
     }
 
     /** Filters URLs for various criteria. See event filtering. All criteria are case sensitive. */
@@ -2141,7 +2172,13 @@ declare namespace browser.extension {
      * @deprecated Please use `runtime.onMessage`.
      */
     const onRequest:
-        | WebExtEvent<(request: any, sender: runtime.MessageSender, sendResponse: (response?: any) => void) => void>
+        | WebExtEvent<
+              (
+                  request: any,
+                  sender: runtime.MessageSender,
+                  sendResponse: (response?: any) => void
+              ) => void
+          >
         | undefined;
 
     /**
@@ -2151,7 +2188,13 @@ declare namespace browser.extension {
      * @deprecated Please use `runtime.onMessageExternal`.
      */
     const onRequestExternal:
-        | WebExtEvent<(request: any, sender: runtime.MessageSender, sendResponse: (response?: any) => void) => void>
+        | WebExtEvent<
+              (
+                  request: any,
+                  sender: runtime.MessageSender,
+                  sendResponse: (response?: any) => void
+              ) => void
+          >
         | undefined;
 }
 
@@ -2165,7 +2208,7 @@ declare namespace browser.extensionTypes {
     /** The format of an image. */
     type ImageFormat = 'jpeg' | 'png';
 
-    /** Details about the format and quality of an image. */
+    /** Details about the format, quality, area and scale of the capture. */
     interface ImageDetails {
         /** The format of the resulting image. Default is `"jpeg"`. */
         format?: ImageFormat;
@@ -2173,6 +2216,12 @@ declare namespace browser.extensionTypes {
          * When format is `"jpeg"`, controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.
          */
         quality?: number;
+        /**
+         * The area of the document to capture, in CSS pixels, relative to the page. If omitted, capture the visible viewport.
+         */
+        rect?: _ImageDetailsRect;
+        /** The scale of the resulting image. Defaults to `devicePixelRatio`. */
+        scale?: number;
     }
 
     /** The soonest that the JavaScript or CSS will be injected into the tab. */
@@ -2210,7 +2259,7 @@ declare namespace browser.extensionTypes {
         cssOrigin?: CSSOrigin;
     }
 
-    type Date = string | number | object /*Date*/;
+    type Date = string | number | globalThis.Date;
 
     type ExtensionFileOrCode =
         | {
@@ -2222,6 +2271,16 @@ declare namespace browser.extensionTypes {
 
     /** A plain JSON value */
     type PlainJSONValue = null | string | number | boolean | _PlainJSONArray | _PlainJSONObject;
+
+    /**
+     * The area of the document to capture, in CSS pixels, relative to the page. If omitted, capture the visible viewport.
+     */
+    interface _ImageDetailsRect {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }
 
     interface _PlainJSONArray extends Array<PlainJSONValue> {}
 
@@ -2258,7 +2317,8 @@ declare namespace browser.geckoProfiler {
         | 'ipcmessages'
         | 'fileio'
         | 'fileioall'
-        | 'noiostacks';
+        | 'noiostacks'
+        | 'audiocallbacktracing';
 
     type Supports = 'windowLength';
 
@@ -2446,7 +2506,7 @@ declare namespace browser.identity {
      * @deprecated Unsupported on Firefox at this time.
      */
     function removeCachedAuthToken(
-        details: _RemoveCachedAuthTokenDetails,
+        details: _RemoveCachedAuthTokenDetails
     ): Promise<_RemoveCachedAuthTokenReturnUserinfo>;
 
     /** Starts an auth flow at the specified URL. */
@@ -2463,7 +2523,9 @@ declare namespace browser.identity {
      * Fired when signin state changes for an account on the user's profile.
      * @deprecated Unsupported on Firefox at this time.
      */
-    const onSignInChanged: WebExtEvent<(account: AccountInfo, signedIn: boolean) => void> | undefined;
+    const onSignInChanged:
+        | WebExtEvent<(account: AccountInfo, signedIn: boolean) => void>
+        | undefined;
 }
 
 /**
@@ -2655,7 +2717,15 @@ declare namespace browser.networkStatus {
     type _NetworkLinkInfoStatus = 'unknown' | 'up' | 'down';
 
     /** If known, the type of network connection that is avialable. */
-    type _NetworkLinkInfoType = 'unknown' | 'ethernet' | 'usb' | 'wifi' | 'wimax' | '2g' | '3g' | '4g';
+    type _NetworkLinkInfoType =
+        | 'unknown'
+        | 'ethernet'
+        | 'usb'
+        | 'wifi'
+        | 'wimax'
+        | '2g'
+        | '3g'
+        | '4g';
 
     /* networkStatus functions */
     /** Returns the $(ref:NetworkLinkInfo} of the current network connection. */
@@ -2849,7 +2919,7 @@ declare namespace browser.notifications {
 declare namespace browser.pageAction {
     /* pageAction types */
     /** Pixel data for an image. Must be an ImageData object (for example, from a `canvas` element). */
-    type ImageDataType = object /*ImageData*/;
+    type ImageDataType = ImageData;
 
     /** Information sent when a page action is clicked. */
     interface OnClickData {
@@ -3027,10 +3097,20 @@ declare namespace browser.privacy.network {
     }
 
     /** The minimum TLS version supported. */
-    type _TlsVersionRestrictionConfigMinimum = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
+    type _TlsVersionRestrictionConfigMinimum =
+        | 'TLSv1'
+        | 'TLSv1.1'
+        | 'TLSv1.2'
+        | 'TLSv1.3'
+        | 'unknown';
 
     /** The maximum TLS version supported. */
-    type _TlsVersionRestrictionConfigMaximum = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
+    type _TlsVersionRestrictionConfigMaximum =
+        | 'TLSv1'
+        | 'TLSv1.1'
+        | 'TLSv1.2'
+        | 'TLSv1.3'
+        | 'unknown';
 
     /* privacy.network properties */
     /**
@@ -3221,7 +3301,11 @@ declare namespace browser.proxy {
     }
 
     interface _ProxyOnRequestEvent<TCallback = (details: _OnRequestDetails) => void> {
-        addListener(cb: TCallback, filter: webRequest.RequestFilter, extraInfoSpec?: Array<'requestHeaders'>): void;
+        addListener(
+            cb: TCallback,
+            filter: webRequest.RequestFilter,
+            extraInfoSpec?: Array<'requestHeaders'>
+        ): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
     }
@@ -3320,7 +3404,7 @@ declare namespace browser.runtime {
      */
     type OnRestartRequiredReason = 'app_update' | 'os_update' | 'periodic';
 
-    type PlatformNaclArch = any;
+    type PlatformNaclArch = 'arm' | 'x86-32' | 'x86-64';
 
     /** This will be defined during an API method callback if there was an error */
     interface _LastError {
@@ -3350,6 +3434,8 @@ declare namespace browser.runtime {
          */
         includeTlsChannelId?: boolean;
     }
+
+    type DirectoryEntry = any;
 
     interface _OnInstalledDetails {
         /** The reason that this event is being dispatched. */
@@ -3462,7 +3548,11 @@ declare namespace browser.runtime {
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to `runtime.connect` but only sends a single message, with an optional response. If sending to your extension, the `runtime.onMessage` event will be fired in each page, or `runtime.onMessageExternal`, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use `tabs.sendMessage`.
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
      */
-    function sendMessage(extensionId: string, message: any, options?: _SendMessageOptions): Promise<any>;
+    function sendMessage(
+        extensionId: string,
+        message: any,
+        options?: _SendMessageOptions
+    ): Promise<any>;
 
     /**
      * Send a single message to a native application.
@@ -3483,7 +3573,7 @@ declare namespace browser.runtime {
      * Returns a DirectoryEntry for the package directory.
      * @deprecated Unsupported on Firefox at this time.
      */
-    function getPackageDirectoryEntry(): Promise<object /*DirectoryEntry*/>;
+    function getPackageDirectoryEntry(): Promise<DirectoryEntry>;
 
     /* runtime events */
     /**
@@ -3535,7 +3625,7 @@ declare namespace browser.runtime {
     const onMessage: WebExtEvent<(
         message: any,
         sender: MessageSender,
-        sendResponse: (response?: any) => void,
+        sendResponse: (response?: any) => void
     ) => boolean | Promise<any> | void>;
 
     /**
@@ -3547,7 +3637,7 @@ declare namespace browser.runtime {
     const onMessageExternal: WebExtEvent<(
         message: any,
         sender: MessageSender,
-        sendResponse: (response?: any) => void,
+        sendResponse: (response?: any) => void
     ) => boolean | Promise<any> | void>;
 
     /**
@@ -3645,7 +3735,10 @@ declare namespace browser.storage {
      * @param changes Object mapping each key that changed to its corresponding `storage.StorageChange` for that item.
      * @param areaName The name of the storage area (`"sync"`, `"local"` or `"managed"`) the changes are for.
      */
-    const onChanged: WebExtEvent<(changes: { [key: string]: StorageChange }, areaName: string) => void>;
+    const onChanged: WebExtEvent<(
+        changes: { [key: string]: StorageChange },
+        areaName: string
+    ) => void>;
 }
 
 /**
@@ -3718,14 +3811,21 @@ declare namespace browser.telemetry {
      * @param message The data payload for the ping.
      * @param options Options object.
      */
-    function submitPing(type: string, message: { [key: string]: any }, options: _SubmitPingOptions): Promise<any>;
+    function submitPing(
+        type: string,
+        message: { [key: string]: any },
+        options: _SubmitPingOptions
+    ): Promise<any>;
 
     /**
      * Submits a custom ping to the Telemetry back-end, with an encrypted payload. Requires a telemetry entry in the manifest to be used.
      * @param message The data payload for the ping, which will be encrypted.
      * @param options Options object.
      */
-    function submitEncryptedPing(message: { [key: string]: any }, options: _SubmitEncryptedPingOptions): Promise<any>;
+    function submitEncryptedPing(
+        message: { [key: string]: any },
+        options: _SubmitEncryptedPingOptions
+    ): Promise<any>;
 
     /** Checks if Telemetry upload is enabled. */
     function canUpload(): Promise<any>;
@@ -3742,7 +3842,10 @@ declare namespace browser.telemetry {
      * @param name The scalar name
      * @param value The value to set the scalar to
      */
-    function scalarSet(name: string, value: string | boolean | number | { [key: string]: any }): Promise<any>;
+    function scalarSet(
+        name: string,
+        value: string | boolean | number | { [key: string]: any }
+    ): Promise<any>;
 
     /**
      * Sets the scalar to the maximum of the current and the passed value
@@ -3768,7 +3871,7 @@ declare namespace browser.telemetry {
     function keyedScalarSet(
         name: string,
         key: string,
-        value: string | boolean | number | { [key: string]: any },
+        value: string | boolean | number | { [key: string]: any }
     ): Promise<any>;
 
     /**
@@ -3792,7 +3895,7 @@ declare namespace browser.telemetry {
         method: string,
         object: string,
         value?: string,
-        extra?: { [key: string]: string },
+        extra?: { [key: string]: string }
     ): Promise<any>;
 
     /**
@@ -3882,7 +3985,11 @@ declare namespace browser.types {
      *
      * Only `regular` is supported by Firefox at this time.
      */
-    type SettingScope = 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
+    type SettingScope =
+        | 'regular'
+        | 'regular_only'
+        | 'incognito_persistent'
+        | 'incognito_session_only';
 
     /**
      * One of
@@ -4059,7 +4166,11 @@ declare namespace browser.webNavigation {
         | 'keyword'
         | 'keyword_generated';
 
-    type TransitionQualifier = 'client_redirect' | 'server_redirect' | 'forward_back' | 'from_address_bar';
+    type TransitionQualifier =
+        | 'client_redirect'
+        | 'server_redirect'
+        | 'forward_back'
+        | 'from_address_bar';
 
     interface EventUrlFilters {
         url: events.UrlFilter[];
@@ -4142,7 +4253,9 @@ declare namespace browser.webNavigation {
         timeStamp: number;
     }
 
-    interface _WebNavigationOnBeforeNavigateEvent<TCallback = (details: _OnBeforeNavigateDetails) => void> {
+    interface _WebNavigationOnBeforeNavigateEvent<
+        TCallback = (details: _OnBeforeNavigateDetails) => void
+    > {
         addListener(cb: TCallback, filters?: EventUrlFilters): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
@@ -4198,7 +4311,9 @@ declare namespace browser.webNavigation {
         timeStamp: number;
     }
 
-    interface _WebNavigationOnDOMContentLoadedEvent<TCallback = (details: _OnDOMContentLoadedDetails) => void> {
+    interface _WebNavigationOnDOMContentLoadedEvent<
+        TCallback = (details: _OnDOMContentLoadedDetails) => void
+    > {
         addListener(cb: TCallback, filters?: EventUrlFilters): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
@@ -4249,7 +4364,9 @@ declare namespace browser.webNavigation {
         timeStamp: number;
     }
 
-    interface _WebNavigationOnErrorOccurredEvent<TCallback = (details: _OnErrorOccurredDetails) => void> {
+    interface _WebNavigationOnErrorOccurredEvent<
+        TCallback = (details: _OnErrorOccurredDetails) => void
+    > {
         addListener(cb: TCallback, filters?: EventUrlFilters): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
@@ -4351,7 +4468,9 @@ declare namespace browser.webNavigation {
         timeStamp: number;
     }
 
-    interface _WebNavigationOnHistoryStateUpdatedEvent<TCallback = (details: _OnHistoryStateUpdatedDetails) => void> {
+    interface _WebNavigationOnHistoryStateUpdatedEvent<
+        TCallback = (details: _OnHistoryStateUpdatedDetails) => void
+    > {
         addListener(cb: TCallback, filters?: EventUrlFilters): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
@@ -4594,6 +4713,32 @@ declare namespace browser.webRequest {
         thirdParty: UrlClassificationParty;
     }
 
+    /** An object you can use to monitor and modify HTTP responses. */
+    interface StreamFilter {
+        /** Describes the current status of the stream. */
+        status: _StreamFilterStatus;
+        /** A string that will contain an error message after the onerror event has fired. */
+        error: string;
+        /** Event handler which is called when an error has occurred. */
+        onerror: ((event: Event) => void) | null;
+        /** Event handler which is called when the stream has no more data to deliver and has closed. */
+        onstop: ((event: Event) => void) | null;
+        /** Event handler which is called when the stream is about to start receiving data. */
+        onstart: ((event: Event) => void) | null;
+        /** Event handler which is called when incoming data is available. */
+        ondata: ((event: _StreamFilterOndataEvent) => void) | null;
+        /** Closes the request. */
+        close(): void;
+        /** Disconnects the filter from the request. */
+        disconnect(): void;
+        /** Suspends processing of the request. */
+        suspend(): void;
+        /** Resumes processing of the request. */
+        resume(): void;
+        /** Writes some data to the output stream. */
+        write(data: Uint8Array | ArrayBuffer): void;
+    }
+
     interface _HttpHeaders {
         /** Name of the HTTP header. */
         name: string;
@@ -4632,6 +4777,20 @@ declare namespace browser.webRequest {
 
     /** Protocol version if state is "secure" */
     type _SecurityInfoProtocolVersion = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
+
+    /** Describes the current status of the stream. */
+    type _StreamFilterStatus =
+        | 'uninitialized'
+        | 'transferringdata'
+        | 'finishedtransferringdata'
+        | 'suspended'
+        | 'closed'
+        | 'disconnected'
+        | 'failed';
+
+    interface _StreamFilterOndataEvent extends Event {
+        data: ArrayBuffer;
+    }
 
     interface _GetSecurityInfoOptions {
         /** Include the entire certificate chain. */
@@ -4691,9 +4850,15 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnBeforeRequestEvent<
-        TCallback = (details: _OnBeforeRequestDetails) => BlockingResponse | Promise<BlockingResponse> | void
+        TCallback = (
+            details: _OnBeforeRequestDetails
+        ) => BlockingResponse | Promise<BlockingResponse> | void
     > {
-        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRequestOptions[]): void;
+        addListener(
+            cb: TCallback,
+            filter: RequestFilter,
+            extraInfoSpec?: OnBeforeRequestOptions[]
+        ): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
     }
@@ -4735,9 +4900,15 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnBeforeSendHeadersEvent<
-        TCallback = (details: _OnBeforeSendHeadersDetails) => BlockingResponse | Promise<BlockingResponse> | void
+        TCallback = (
+            details: _OnBeforeSendHeadersDetails
+        ) => BlockingResponse | Promise<BlockingResponse> | void
     > {
-        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]): void;
+        addListener(
+            cb: TCallback,
+            filter: RequestFilter,
+            extraInfoSpec?: OnBeforeSendHeadersOptions[]
+        ): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
     }
@@ -4779,7 +4950,11 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnSendHeadersEvent<TCallback = (details: _OnSendHeadersDetails) => void> {
-        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnSendHeadersOptions[]): void;
+        addListener(
+            cb: TCallback,
+            filter: RequestFilter,
+            extraInfoSpec?: OnSendHeadersOptions[]
+        ): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
     }
@@ -4827,9 +5002,15 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnHeadersReceivedEvent<
-        TCallback = (details: _OnHeadersReceivedDetails) => BlockingResponse | Promise<BlockingResponse> | void
+        TCallback = (
+            details: _OnHeadersReceivedDetails
+        ) => BlockingResponse | Promise<BlockingResponse> | void
     > {
-        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]): void;
+        addListener(
+            cb: TCallback,
+            filter: RequestFilter,
+            extraInfoSpec?: OnHeadersReceivedOptions[]
+        ): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
     }
@@ -4891,9 +5072,15 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnAuthRequiredEvent<
-        TCallback = (details: _OnAuthRequiredDetails) => BlockingResponse | Promise<BlockingResponse> | void
+        TCallback = (
+            details: _OnAuthRequiredDetails
+        ) => BlockingResponse | Promise<BlockingResponse> | void
     > {
-        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnAuthRequiredOptions[]): void;
+        addListener(
+            cb: TCallback,
+            filter: RequestFilter,
+            extraInfoSpec?: OnAuthRequiredOptions[]
+        ): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
     }
@@ -4946,8 +5133,14 @@ declare namespace browser.webRequest {
         thirdParty: boolean;
     }
 
-    interface _WebRequestOnResponseStartedEvent<TCallback = (details: _OnResponseStartedDetails) => void> {
-        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnResponseStartedOptions[]): void;
+    interface _WebRequestOnResponseStartedEvent<
+        TCallback = (details: _OnResponseStartedDetails) => void
+    > {
+        addListener(
+            cb: TCallback,
+            filter: RequestFilter,
+            extraInfoSpec?: OnResponseStartedOptions[]
+        ): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
     }
@@ -5002,8 +5195,14 @@ declare namespace browser.webRequest {
         thirdParty: boolean;
     }
 
-    interface _WebRequestOnBeforeRedirectEvent<TCallback = (details: _OnBeforeRedirectDetails) => void> {
-        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRedirectOptions[]): void;
+    interface _WebRequestOnBeforeRedirectEvent<
+        TCallback = (details: _OnBeforeRedirectDetails) => void
+    > {
+        addListener(
+            cb: TCallback,
+            filter: RequestFilter,
+            extraInfoSpec?: OnBeforeRedirectOptions[]
+        ): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
     }
@@ -5061,7 +5260,11 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnCompletedEvent<TCallback = (details: _OnCompletedDetails) => void> {
-        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnCompletedOptions[]): void;
+        addListener(
+            cb: TCallback,
+            filter: RequestFilter,
+            extraInfoSpec?: OnCompletedOptions[]
+        ): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
     }
@@ -5110,7 +5313,9 @@ declare namespace browser.webRequest {
         thirdParty: boolean;
     }
 
-    interface _WebRequestOnErrorOccurredEvent<TCallback = (details: _OnErrorOccurredDetails) => void> {
+    interface _WebRequestOnErrorOccurredEvent<
+        TCallback = (details: _OnErrorOccurredDetails) => void
+    > {
         addListener(cb: TCallback, filter: RequestFilter): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
@@ -5129,12 +5334,15 @@ declare namespace browser.webRequest {
     function handlerBehaviorChanged(): Promise<void>;
 
     /** ... */
-    function filterResponseData(requestId: string): object; /*StreamFilter*/
+    function filterResponseData(requestId: string): StreamFilter;
 
     /**
      * Retrieves the security information for the request. Returns a promise that will resolve to a SecurityInfo object.
      */
-    function getSecurityInfo(requestId: string, options?: _GetSecurityInfoOptions): Promise<SecurityInfo>;
+    function getSecurityInfo(
+        requestId: string,
+        options?: _GetSecurityInfoOptions
+    ): Promise<SecurityInfo>;
 
     /* webRequest events */
     /**
@@ -5310,7 +5518,7 @@ declare namespace browser.bookmarks {
                   url?: string;
                   /** The title of the bookmark; matches verbatim. */
                   title?: string;
-              },
+              }
     ): Promise<BookmarkTreeNode[]>;
 
     /**
@@ -5664,7 +5872,9 @@ declare namespace browser.devtools.inspectedWindow {
      * @param content New content of the resource.
      * @deprecated Unsupported on Firefox at this time.
      */
-    const onResourceContentCommitted: WebExtEvent<(resource: Resource, content: string) => void> | undefined;
+    const onResourceContentCommitted:
+        | WebExtEvent<(resource: Resource, content: string) => void>
+        | undefined;
 }
 
 /**
@@ -5754,7 +5964,7 @@ declare namespace browser.devtools.panels {
          * Fired when the user switches to the panel.
          * @param window The JavaScript `window` object of panel's page.
          */
-        onShown: WebExtEvent<(window: object /*global*/) => void>;
+        onShown: WebExtEvent<(window: Window) => void>;
         /** Fired when the user switches away from the panel. */
         onHidden: WebExtEvent<() => void>;
     }
@@ -5788,7 +5998,7 @@ declare namespace browser.devtools.panels {
          * Fired when the sidebar pane becomes visible as a result of user switching to the panel that hosts it.
          * @param window The JavaScript `window` object of the sidebar page, if one was set with the `setPage()` method.
          */
-        onShown: WebExtEvent<(window: object /*global*/) => void>;
+        onShown: WebExtEvent<(window: Window) => void>;
         /**
          * Fired when the sidebar pane becomes hidden as a result of the user switching away from the panel that hosts the sidebar pane.
          */
@@ -5852,7 +6062,7 @@ declare namespace browser.devtools.panels {
     function create(
         title: string,
         iconPath: _manifest.ExtensionURL | '',
-        pagePath: _manifest.ExtensionURL,
+        pagePath: _manifest.ExtensionURL
     ): Promise<ExtensionPanel>;
 
     /**
@@ -5917,7 +6127,7 @@ declare namespace browser.find {
      */
     function find(
         queryphrase: string,
-        params?: _FindParams,
+        params?: _FindParams
     ): Promise<{
         count: number;
         rangeData?: Array<{
@@ -6306,7 +6516,10 @@ declare namespace browser.contextMenus {
      * @param [callback] Called when the item has been created in the browser. If there were any problems creating the item, details will be available in `runtime.lastError`.
      * @returns The ID of the newly created item.
      */
-    function create(createProperties: _CreateCreateProperties, callback?: () => void): number | string;
+    function create(
+        createProperties: _CreateCreateProperties,
+        callback?: () => void
+    ): number | string;
 
     /**
      * Updates a previously created context menu item.
@@ -6338,7 +6551,7 @@ declare namespace browser.contextMenus {
      * Retrieve the element that was associated with a recent contextmenu event.
      * @param targetElementId The identifier of the clicked element, available as info.targetElementId in the menus.onShown, onClicked or onclick event.
      */
-    function getTargetElement(targetElementId: number): object | /*Element*/ void;
+    function getTargetElement(targetElementId: number): Element | void;
 
     /* contextMenus events */
     /**
@@ -6565,7 +6778,10 @@ declare namespace browser.menus {
      * @param [callback] Called when the item has been created in the browser. If there were any problems creating the item, details will be available in `runtime.lastError`.
      * @returns The ID of the newly created item.
      */
-    function create(createProperties: _CreateCreateProperties, callback?: () => void): number | string;
+    function create(
+        createProperties: _CreateCreateProperties,
+        callback?: () => void
+    ): number | string;
 
     /**
      * Updates a previously created context menu item.
@@ -6597,7 +6813,7 @@ declare namespace browser.menus {
      * Retrieve the element that was associated with a recent contextmenu event.
      * @param targetElementId The identifier of the clicked element, available as info.targetElementId in the menus.onShown, onClicked or onclick event.
      */
-    function getTargetElement(targetElementId: number): object | /*Element*/ void;
+    function getTargetElement(targetElementId: number): Element | void;
 
     /* menus events */
     /**
@@ -6777,10 +6993,16 @@ declare namespace browser.omnibox {
      * User has changed what is typed into the omnibox.
      * @param suggest A callback passed to the onInputChanged event used for sending suggestions back to the browser.
      */
-    const onInputChanged: WebExtEvent<(text: string, suggest: (suggestResults: SuggestResult[]) => void) => void>;
+    const onInputChanged: WebExtEvent<(
+        text: string,
+        suggest: (suggestResults: SuggestResult[]) => void
+    ) => void>;
 
     /** User has accepted what is typed into the omnibox. */
-    const onInputEntered: WebExtEvent<(text: string, disposition: OnInputEnteredDisposition) => void>;
+    const onInputEntered: WebExtEvent<(
+        text: string,
+        disposition: OnInputEnteredDisposition
+    ) => void>;
 
     /** User has ended the keyword input session without accepting the input. */
     const onInputCancelled: WebExtEvent<() => void>;
@@ -6806,7 +7028,7 @@ declare namespace browser.pkcs11 {
 
     /** Enumerate a module's slots, each with their name and whether a token is present */
     function getModuleSlots(
-        name: string,
+        name: string
     ): Promise<{
         name: string;
         token?: {
@@ -6985,7 +7207,7 @@ declare namespace browser.sessions {
 declare namespace browser.sidebarAction {
     /* sidebarAction types */
     /** Pixel data for an image. Must be an ImageData object (for example, from a `canvas` element). */
-    type ImageDataType = object /*ImageData*/;
+    type ImageDataType = ImageData;
 
     interface _SetTitleDetails {
         /** The string the sidebar action should display when moused over. */
@@ -7526,7 +7748,9 @@ declare namespace browser.tabs {
         url?: string;
     }
 
-    interface _TabsOnUpdatedEvent<TCallback = (tabId: number, changeInfo: _OnUpdatedChangeInfo, tab: Tab) => void> {
+    interface _TabsOnUpdatedEvent<
+        TCallback = (tabId: number, changeInfo: _OnUpdatedChangeInfo, tab: Tab) => void
+    > {
         addListener(cb: TCallback, filter?: UpdateFilter): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
@@ -7618,7 +7842,11 @@ declare namespace browser.tabs {
      * Sends a single request to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The `extension.onRequest` event is fired in each content script running in the specified tab for the current extension.
      * @deprecated Please use `runtime.sendMessage`.
      */
-    function sendRequest(tabId: number, request: any, responseCallback?: (response: any) => void): void;
+    function sendRequest(
+        tabId: number,
+        request: any,
+        responseCallback?: (response: any) => void
+    ): void;
 
     /**
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The `runtime.onMessage` event is fired in each content script running in the specified tab for the current extension.
@@ -7646,7 +7874,10 @@ declare namespace browser.tabs {
      * Duplicates a tab.
      * @param tabId The ID of the tab which is to be duplicated.
      */
-    function duplicate(tabId: number, duplicateProperties?: _DuplicateDuplicateProperties): Promise<Tab>;
+    function duplicate(
+        tabId: number,
+        duplicateProperties?: _DuplicateDuplicateProperties
+    ): Promise<Tab>;
 
     /** Gets all tabs that have the specified properties, or all tabs if no properties are specified. */
     function query(queryInfo: _QueryQueryInfo): Promise<Tab[]>;
@@ -7668,7 +7899,10 @@ declare namespace browser.tabs {
      * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === "normal") windows.
      * @param tabIds The tab or list of tabs to move.
      */
-    function move(tabIds: number | number[], moveProperties: _MoveMoveProperties): Promise<Tab | Tab[]>;
+    function move(
+        tabIds: number | number[],
+        moveProperties: _MoveMoveProperties
+    ): Promise<Tab | Tab[]>;
 
     /** Reload a tab. */
     function reload(): Promise<void>;
@@ -7679,6 +7913,12 @@ declare namespace browser.tabs {
     function reload(tabId: number, reloadProperties?: _ReloadReloadProperties): Promise<void>;
     /** Reload a tab. */
     function reload(reloadProperties: _ReloadReloadProperties): Promise<void>;
+
+    /**
+     * Warm up a tab
+     * @param tabId The ID of the tab to warm up.
+     */
+    function warmup(tabId: number): Promise<any>;
 
     /**
      * Closes one or more tabs.
@@ -7704,31 +7944,30 @@ declare namespace browser.tabs {
      */
     function toggleReaderMode(tabId?: number): Promise<void>;
 
-    /**
-     * Captures the visible area of a specified tab. You must have <all_urls> permission to use this method.
-     */
+    /** Captures an area of a specified tab. You must have <all_urls> permission to use this method. */
     function captureTab(): Promise<string>;
     /**
-     * Captures the visible area of a specified tab. You must have <all_urls> permission to use this method.
+     * Captures an area of a specified tab. You must have <all_urls> permission to use this method.
      * @param tabId The tab to capture. Defaults to the active tab of the current window.
      */
     function captureTab(tabId: number, options?: extensionTypes.ImageDetails): Promise<string>;
-    /**
-     * Captures the visible area of a specified tab. You must have <all_urls> permission to use this method.
-     */
+    /** Captures an area of a specified tab. You must have <all_urls> permission to use this method. */
     function captureTab(options: extensionTypes.ImageDetails): Promise<string>;
 
     /**
-     * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
+     * Captures an area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
      */
     function captureVisibleTab(): Promise<string>;
     /**
-     * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
+     * Captures an area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
      * @param windowId The target window. Defaults to the current window.
      */
-    function captureVisibleTab(windowId: number, options?: extensionTypes.ImageDetails): Promise<string>;
+    function captureVisibleTab(
+        windowId: number,
+        options?: extensionTypes.ImageDetails
+    ): Promise<string>;
     /**
-     * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
+     * Captures an area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
      */
     function captureVisibleTab(options: extensionTypes.ImageDetails): Promise<string>;
 
@@ -7833,7 +8072,11 @@ declare namespace browser.tabs {
      * @param tabIds An array of tab IDs to move in the line of succession. For each tab in the array, the tab's current predecessors will have their successor set to the tab's current successor, and each tab will then be set to be the successor of the previous tab in the array. Any tabs not in the same window as the tab indicated by the second argument (or the first tab in the array, if no second argument) will be skipped.
      * @param [tabId] The ID of a tab to set as the successor of the last tab in the array, or `tabs.TAB_ID_NONE` to leave the last tab without a successor. If options.append is true, then this tab is made the predecessor of the first tab in the array instead.
      */
-    function moveInSuccession(tabIds: number[], tabId?: number, options?: _MoveInSuccessionOptions): Promise<any>;
+    function moveInSuccession(
+        tabIds: number[],
+        tabId?: number,
+        options?: _MoveInSuccessionOptions
+    ): Promise<any>;
 
     /**
      * Navigate to next page in tab's history, if available
@@ -7880,7 +8123,9 @@ declare namespace browser.tabs {
      * @param tabId The ID of the tab that has become active.
      * @deprecated Please use `tabs.onActivated`.
      */
-    const onActiveChanged: WebExtEvent<(tabId: number, selectInfo: _OnActiveChangedSelectInfo) => void> | undefined;
+    const onActiveChanged:
+        | WebExtEvent<(tabId: number, selectInfo: _OnActiveChangedSelectInfo) => void>
+        | undefined;
 
     /**
      * Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to onUpdated events to be notified when a URL is set.
@@ -7891,7 +8136,9 @@ declare namespace browser.tabs {
      * Fired when the highlighted or selected tabs in a window changes.
      * @deprecated Please use `tabs.onHighlighted`.
      */
-    const onHighlightChanged: WebExtEvent<(selectInfo: _OnHighlightChangedSelectInfo) => void> | undefined;
+    const onHighlightChanged:
+        | WebExtEvent<(selectInfo: _OnHighlightChangedSelectInfo) => void>
+        | undefined;
 
     /** Fired when the highlighted or selected tabs in a window changes. */
     const onHighlighted: WebExtEvent<(highlightInfo: _OnHighlightedHighlightInfo) => void>;
@@ -8001,9 +8248,9 @@ declare namespace browser.urlbar {
     }
 
     /**
-     * Possible types of results. `remote_tab`: A synced tab from another device. `search`: A search suggestion from a search engine. `tab`: An open tab in the browser. `tip`: An actionable message to help the user with their query. `url`: A URL that's not one of the other types.
+     * Possible types of results. `dynamic`: A result whose view and payload are specified by the extension. `remote_tab`: A synced tab from another device. `search`: A search suggestion from a search engine. `tab`: An open tab in the browser. `tip`: An actionable message to help the user with their query. `url`: A URL that's not one of the other types.
      */
-    type ResultType = 'remote_tab' | 'search' | 'tab' | 'tip' | 'url';
+    type ResultType = 'dynamic' | 'remote_tab' | 'search' | 'tab' | 'tip' | 'url';
 
     /** Options to the `search` function. */
     interface SearchOptions {
@@ -8016,7 +8263,9 @@ declare namespace browser.urlbar {
      */
     type SourceType = 'bookmarks' | 'history' | 'local' | 'network' | 'search' | 'tabs';
 
-    interface _UrlbarOnBehaviorRequestedEvent<TCallback = (query: Query) => 'active' | 'inactive' | 'restricting'> {
+    interface _UrlbarOnBehaviorRequestedEvent<
+        TCallback = (query: Query) => 'active' | 'inactive' | 'restricting'
+    > {
         addListener(cb: TCallback, providerName: string): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
@@ -8040,7 +8289,9 @@ declare namespace browser.urlbar {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _UrlbarOnResultPickedEvent<TCallback = (payload: object) => void> {
+    interface _UrlbarOnResultPickedEvent<
+        TCallback = (payload: object, elementName: string) => void
+    > {
         addListener(cb: TCallback, providerName: string): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
@@ -8095,8 +8346,9 @@ declare namespace browser.urlbar {
     const onResultsRequested: _UrlbarOnResultsRequestedEvent;
 
     /**
-     * Typically, a provider includes a `url` property in its results' payloads. When the user picks a result with a URL, Firefox automatically loads the URL. URLs don't make sense for every result type, however. When the user picks a result without a URL, this event is fired. The provider should take an appropriate action in response. Currently the only applicable `ResultType` is `tip`.
+     * Typically, a provider includes a `url` property in its results' payloads. When the user picks a result with a URL, Firefox automatically loads the URL. URLs don't make sense for every result type, however. When the user picks a result without a URL, this event is fired. The provider should take an appropriate action in response. Currently the only applicable `ResultTypes` are `dynamic` and `tip`.
      * @param payload The payload of the result that was picked.
+     * @param elementName If the result is a dynamic type, this is the name of the element in the result view that was picked. If the result is not a dynamic type, this is an empty string.
      */
     const onResultPicked: _UrlbarOnResultPickedEvent;
 }

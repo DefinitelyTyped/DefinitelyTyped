@@ -1,9 +1,7 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactAttr { }
-
-export interface StructuredListSkeletonProps extends InheritedProps {
+export interface StructuredListSkeletonProps extends ReactDivAttr {
     border?: boolean,
     rowCount?: number,
 }

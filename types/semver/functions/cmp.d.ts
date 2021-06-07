@@ -1,4 +1,4 @@
-import semver = require('../');
+import semver = require('../index');
 import SemVer = require('../classes/semver');
 
 /**

@@ -1,3 +1,8 @@
+/**
+ * The geometry type. One of 'Point', 'LineString', 'LinearRing',
+ * 'Polygon', 'MultiPoint', 'MultiLineString', 'MultiPolygon',
+ * 'GeometryCollection', 'Circle'.
+ */
 declare enum GeometryType {
     POINT = 'Point',
     LINE_STRING = 'LineString',

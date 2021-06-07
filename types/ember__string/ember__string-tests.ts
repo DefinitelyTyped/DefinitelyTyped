@@ -1,4 +1,15 @@
-import { dasherize, camelize, capitalize, classify, decamelize, loc, underscore, w } from '@ember/string';
+import {
+  dasherize,
+  camelize,
+  capitalize,
+  classify,
+  decamelize,
+  loc,
+  underscore,
+  w,
+  htmlSafe,
+  isHTMLSafe,
+} from '@ember/string';
 
 dasherize(); // $ExpectError
 dasherize('blue man group'); // $ExpectType string
@@ -31,3 +42,10 @@ capitalize('', ''); // $ExpectError
 loc(); // $ExpectError
 loc("_Hello World");  // $ExpectType string
 loc("_Hello %@ %@", ["John", "Smith"]);  // $ExpectType string
+
+htmlSafe(); // $ExpectError
+htmlSafe('foo'); // $ExpectType SafeString
+
+isHTMLSafe(); // $ExpectError
+isHTMLSafe('foo'); // $ExpectType boolean
+isHTMLSafe(htmlSafe('foo')); // $ExpectType boolean

@@ -19,6 +19,8 @@ import {
   TSet,
   TList,
   TMap,
+  createWSConnection,
+  createWSClient,
 } from 'thrift';
 
 interface MockServiceHandlers {
@@ -71,7 +73,14 @@ const secureConnection = createConnection('0.0.0.0', 1234, {
     nodeOptions: httpsOptions
 });
 
+const webSocketConnection = createWSConnection('0.0.0.0', 1234, {
+    transport: TBufferedTransport,
+    protocol: TBinaryProtocol
+});
+
 createClient<MockClient>(mockGeneratedService, clientConnection);
+
+createWSClient<MockClient>(mockGeneratedService, webSocketConnection);
 
 const mockBuffer: Buffer = Buffer.alloc(8);
 

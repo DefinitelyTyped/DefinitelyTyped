@@ -57,7 +57,6 @@ declare namespace BetterSqlite3 {
         open: boolean;
         inTransaction: boolean;
 
-        // tslint:disable-next-line no-unnecessary-generics
         prepare<BindParameters extends any[] | {} = any[]>(source: string): BindParameters extends any[]
           ? Statement<BindParameters>
           : Statement<[BindParameters]>;

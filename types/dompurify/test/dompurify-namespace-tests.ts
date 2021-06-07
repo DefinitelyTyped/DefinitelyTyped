@@ -6,4 +6,4 @@
 // https://github.com/microsoft/TypeScript/issues/19139
 
 let dirty = '<script>alert("hi")</script><p>Totally safe<p><p onerror="blowUp()">Totally not safe</p>';
-DOMPurify.sanitize(dirty)
+DOMPurify.sanitize(dirty); // $ExpectType string

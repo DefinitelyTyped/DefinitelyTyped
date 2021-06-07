@@ -91,12 +91,12 @@ declare namespace elasticlunr {
         [K in keyof T]?: {
             bool?: Bool;
             boost?: number;
-            expand?: boolean;
         };
     };
 
     interface SearchConfig<T> {
         fields?: FieldSearchConfig<T>;
+        expand?: boolean;
     }
 
     interface SerialisedInvertedIndex {

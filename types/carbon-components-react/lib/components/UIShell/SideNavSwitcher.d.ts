@@ -1,14 +1,11 @@
 import * as React from "react";
-import { ReactAttr, ForwardRefReturn } from "../../../typings/shared";
+import { ForwardRefReturn } from "../../../typings/shared";
 
-interface InheritedProps {
-    children?: ReactAttr["children"],
-    className?: ReactAttr["className"],
-    onChange?(event: React.ChangeEvent<HTMLSelectElement>): void,
-}
-
-export interface SideNavSwitcherProps extends InheritedProps {
+export interface SideNavSwitcherProps {
+    children?: React.ReactNode,
+    className?: string,
     labelText: string;
+    onChange?(event: React.ChangeEvent<HTMLSelectElement>): void,
     options: readonly string[],
 }
 

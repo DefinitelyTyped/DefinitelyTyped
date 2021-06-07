@@ -383,7 +383,19 @@ let lineRadialDefAccessorFn: (d: LineRadialDatum, index: number, data: LineRadia
 // line(...) create Line generator =====================================================
 
 let defaultLine: d3Shape.Line<[number, number]> = d3Shape.line();
+defaultLine = d3Shape.line(5, 3);
 let line: d3Shape.Line<LineDatum> = d3Shape.line<LineDatum>();
+line = d3Shape.line(
+    (d, t, data) => {
+        console.log('Number of Points: ', data.length);
+        console.log('X-Coordinate of first point: ', data[0].x); // data type is Array<LineDatum>
+        return d.x; // d type is LineDatum
+    },
+    (d, t, data) => {
+        console.log('Number of Points: ', data.length);
+        console.log('Y-Coordinate of first point: ', data[0].y); // data type is Array<LineDatum>
+        return d.y; // d type is LineDatum
+    });
 
 // configure Line(...) generator ======================================================
 
@@ -564,7 +576,24 @@ let areaRadialDefAccessorFn: (d: AreaRadialDatum, index: number, data: AreaRadia
 // area(...) create Area generator =====================================================
 
 let defaultArea: d3Shape.Area<[number, number]> = d3Shape.area();
+defaultArea = d3Shape.area(1, 2, 3);
 let area: d3Shape.Area<AreaDatum> = d3Shape.area<AreaDatum>();
+area = d3Shape.area(
+    (d, t, data) => {
+        console.log('Number of Points: ', data.length);
+        console.log('X0-Coordinate of first point: ', data[0].x0); // data type is Array<AreaDatum>
+        return d.x0; // d type is AreaDatum
+    },
+    (d, t, data) => {
+        console.log('Number of Points: ', data.length);
+        console.log('Y0-Coordinate of first point: ', data[0].y0); // data type is Array<AreaDatum>
+        return d.y0; // d type is AreaDatum
+    },
+    (d, t, data) => {
+        console.log('Number of Points: ', data.length);
+        console.log('Y1-Coordinate of first point: ', data[0].y1); // data type is Array<AreaDatum>
+        return d.y1; // d type is AreaDatum
+    });
 
 // configure Area(...) generator ======================================================
 
@@ -864,8 +893,10 @@ curveGenerator.areaEnd();
 // Test factories --------------------------------------------------------------------
 
 curveFactory = d3Shape.curveBasis;
-curveFactory = d3Shape.curveBasisOpen;
 curveFactory = d3Shape.curveBasisClosed;
+curveFactory = d3Shape.curveBasisOpen;
+curveFactory = d3Shape.curveBumpX;
+curveFactory = d3Shape.curveBumpY;
 
 let curveBundleFactory: d3Shape.CurveBundleFactory;
 
@@ -1209,8 +1240,28 @@ let canvasSymbol: d3Shape.Symbol<any, any>;
 let svgSymbol: d3Shape.Symbol<SVGPathElement, SymbolDatum>;
 
 canvasSymbol = d3Shape.symbol();
+canvasSymbol = d3Shape.symbol(d3Shape.symbolDiamond, 5);
 
 svgSymbol = d3Shape.symbol<SymbolDatum>();
+svgSymbol = d3Shape.symbol(
+    d => {
+        let t: d3Shape.SymbolType;
+        switch (d.type) { // datum type is SymbolDatum
+            case 'circle':
+                t = d3Shape.symbolCircle;
+                break;
+            case 'square':
+                t = d3Shape.symbolSquare;
+                break;
+            default:
+                t = d3Shape.symbolCircle;
+                break;
+        }
+        return t;
+    },
+    d => {
+        return d.size; // datum type is SymbolDatum
+    });
 
 // Configure Symbol Generator =========================================================
 
@@ -1420,7 +1471,7 @@ defaultStack = defaultStack.order(null);
 
 overlyComplicatedStack = overlyComplicatedStack.order(d3Shape.stackOrderAscending);
 
-let orderStackDatumSeries: (series: d3Shape.Series<StackDatum, StackKey>) => number[];
+let orderStackDatumSeries: (series: d3Shape.Series<StackDatum, StackKey>) => Iterable<number>;
 orderStackDatumSeries = overlyComplicatedStack.order();
 
 // TODO: other signatures

@@ -24,6 +24,9 @@ import nodePersist = require("node-persist");
     });
 
     await storage.setItem("someArray", [1, 2, 3]);
+
+    await storage.setItem("testExpiration", "abcdefg", { ttl: 60 * 1000 });
+
     const value = await storage.getItem("someArray");
     await storage.removeItem("someArray");
 

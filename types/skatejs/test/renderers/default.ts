@@ -1,6 +1,5 @@
 import { props, withComponent } from 'skatejs';
 
-// tslint:disable-next-line interface-over-type-literal
 type Props = {
   name: string;
 };

@@ -5,7 +5,7 @@ import {
     beforeEach as importedBeforeEach,
     describe as importedDescribe,
     it as importedIt,
-    xit as importedXit
+    xit as importedXit,
 } from 'mocha';
 
 import LocalMocha = require('mocha');
@@ -828,6 +828,15 @@ function testParallelMode() {
     mocha.parallelMode();
 }
 
+function testRootHooks() {
+    mocha.rootHooks({
+        beforeAll(done) {
+            done();
+        },
+        afterEach: [done => done()],
+    });
+}
+
 function testUnloadFiles() {
     mocha.unloadFiles();
 }
@@ -884,6 +893,21 @@ function test_constructor_jobs_option() {
     const m: Mocha = new LocalMocha({ jobs: 4 });
 }
 
+function test_constructor_root_hooks() {
+    const m: Mocha = new LocalMocha({
+        rootHooks: {
+            beforeEach(done) {
+                done();
+            },
+            afterEach(done) {
+                done();
+            },
+            afterAll: [done => done()],
+            beforeAll: [done => done()],
+        },
+    });
+}
+
 function test_constructor_all_options() {
     const m: Mocha = new LocalMocha({
         slow: 25,
@@ -920,6 +944,18 @@ function test_run(localMocha: LocalMocha) {
 
 function test_growl() {
     mocha.growl();
+}
+
+function test_dispose(localMocha: LocalMocha) {
+    // Runner dispose
+    mocha.run().dispose();
+    localMocha.run().dispose();
+
+    // Suite dispose
+    localMocha.suite.dispose();
+
+    // Mocha instance dispose
+    localMocha.dispose();
 }
 
 function test_chaining() {
@@ -1314,6 +1350,25 @@ function test_interfaces_common(suites: Mocha.Suite[], context: Mocha.MochaGloba
     funcs.test.only(mocha, test);
     funcs.test.skip(string);
     funcs.test.retries(number);
+}
+
+function test_global_setup(m: Mocha, fn: LocalMocha.HookFunction): boolean {
+    m.globalSetup(fn);
+    m.globalTeardown(fn);
+    m.enableGlobalSetup(true);
+    m.enableGlobalTeardown(true);
+
+    let x: boolean;
+    x = m.hasGlobalSetupFixtures();
+    x = m.hasGlobalTeardownFixtures();
+    return x;
+}
+
+import createStatsCollector = require("mocha/lib/stats-collector");
+
+function test_stats_collector(runner: LocalMocha.Runner) {
+    // $ExpectType void
+    createStatsCollector(runner);
 }
 
 // mocha-typescript (https://www.npmjs.com/package/mocha-typescript/) augments

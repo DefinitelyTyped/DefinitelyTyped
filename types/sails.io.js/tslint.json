@@ -3,15 +3,11 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
-        "eofline": false,
         "interface-over-type-literal": false,
         "no-boolean-literal-compare": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "object-literal-key-quotes": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false

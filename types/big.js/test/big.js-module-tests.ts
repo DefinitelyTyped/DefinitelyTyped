@@ -1,19 +1,15 @@
 /*
-
   This file contains tests for the named export definitions of big.js.
-  Import the Big constructor and any types from 'big.js'
-  Do not use the global Big constructor or the types in the global BigJs namespace.
 
   Tests include code from http://mikemcl.github.io/big.js/
 
   Minor changes have been made such as adding variable definitions where required.
-
 */
 
 import { Big, RoundingMode } from 'big.js';
 
 function constructorTests() {
-    const x = new Big(9); // '9'
+    const x: Big = new Big(9); // '9'
     const y = new Big(x); // '9'
     const d = Big(435.345); // 'new' is optional
     const e = Big('435.345'); // 'new' is optional
@@ -26,6 +22,14 @@ function staticPropertiesTests() {
     Big.DP = 40;
     Big.RM = 3;
     Big.RM = RoundingMode.RoundUp;
+    Big.RM = Big.roundUp;
+}
+
+function staticReadonlyPropertiesTests() {
+    Big.roundDown; // 0
+    Big.roundHalfUp; // 1
+    Big.roundHalfEven; // 2
+    Big.roundUp; // 3
 }
 
 function absTests() {
@@ -184,6 +188,13 @@ function toStringTests() {
     x.toString(); // '999000000000000000000'
     const y = new Big('1E21');
     x.toString(); // '1e+21'
+}
+
+function toNumberTests() {
+    const x = new Big('123.45');
+    x.toNumber(); // 123.45
+    const y = new Big('1.0000000000000000001');
+    y.toNumber(); // 1
 }
 
 function valueOfTests() {

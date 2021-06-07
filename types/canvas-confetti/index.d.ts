@@ -1,4 +1,4 @@
-// Type definitions for canvas-confetti 1.0
+// Type definitions for canvas-confetti 1.4
 // Project: https://github.com/catdad/canvas-confetti#readme
 // Definitions by: Martin Tracey <https://github.com/matracey>
 //                 Josh Batley <https://github.com/joshbatley>
@@ -76,6 +76,27 @@ declare namespace confetti {
          * @default 100
          */
         zIndex?: number;
+        /**
+         * Scale factor for each confetti particle. Use decimals to make the confetti smaller.
+         * @default 1
+         */
+        scalar?: number;
+        /**
+         * How quickly the particles are pulled down. 1 is full gravity, 0.5 is half gravity, etc., but there are no limits.
+         * @default 1
+         */
+        gravity?: number;
+        /**
+         * How much to the side the confetti will drift. The default is 0, meaning that they will fall straight down.
+         * Use a negative number for left and positive number for right
+         * @default 0
+         */
+        drift?: number;
+        /**
+         * Disables confetti entirely for users that prefer reduced motion. The confetti() promise will resolve immediately in this case.
+         * @default false
+         */
+        disableForReducedMotion?: boolean;
     }
 
     interface Origin {
@@ -102,6 +123,11 @@ declare namespace confetti {
          * @default false
          */
         useWorker?: boolean;
+        /**
+         * Disables confetti entirely for users that prefer reduced motion. When set to true, use of this
+         * confetti instance will always respect a user's request for reduced motion and disable confetti for them.
+         */
+        disableForReducedMotion?: boolean;
     }
 
     /**
@@ -111,7 +137,7 @@ declare namespace confetti {
     function reset(): Reset;
 
     interface CreateTypes {
-        (options?: Options): () => Promise<null> | null;
+        (options?: Options): Promise<null> | null;
         reset: Reset;
     }
     /**

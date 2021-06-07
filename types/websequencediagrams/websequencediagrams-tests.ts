@@ -1,18 +1,23 @@
-import * as wsd from 'websequencediagrams';
+import wsd = require('websequencediagrams');
 
-wsd.diagram('Alice->Bob: message', 'modern-blue', 'png', (error, buffer, mimeType) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('Received MIME type:', mimeType);
-    console.log('Received Buffer:', buffer);
-  }
-});
+async () => {
+    const [buffer, mimeType] = await wsd.diagram('Alice->Bob: message', 'modern-blue', 'png');
+    mimeType; // $ExpectType string
+    buffer; // $ExpectType Buffer
 
-wsd.diagram_url('Alice->Bob: message', 'modern-blue', 'png', (error, url) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('Received URL:', url);
-  }
-});
+    // @ts-expect-error
+    await wsd.diagram('Alice->Bob: message', 'invalid');
+
+    const url = await wsd.diagramURL('Alice->Bob: message', 'modern-blue', 'png');
+    url; // $ExpectType string
+
+    // @ts-expect-error
+    await wsd.diagramURL('Alice->Bob: message', 'modern-blue', 'invalid');
+
+    // @ts-expect-error
+    await wsd.diagramURL(null);
+
+    wsd.root; // $ExpectType string
+
+    wsd.styles; // $ExpectType Style[]
+};

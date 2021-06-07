@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@rdfjs/sink-map": [
-                "rdfjs__sink-map"
+            "@rdfjs/*": [
+                "rdfjs__*"
             ]
         }
     },

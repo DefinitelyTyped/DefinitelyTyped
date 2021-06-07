@@ -176,3 +176,27 @@ function updateQueries() {
         ],
     };
 }
+
+/**
+ * SPARQL* AST
+ */
+function sparqlStarAst() {
+    const bgp: SparqlJs.BgpPattern = {
+        type: 'bgp',
+        triples: [
+            {
+                subject: DataFactory.quad(
+                    DataFactory.namedNode('http://example.com/s1'),
+                    DataFactory.namedNode('http://example.com/p1'),
+                    DataFactory.literal('str1')
+                ),
+                predicate: DataFactory.namedNode('http://example.com/p2'),
+                object: DataFactory.quad(
+                    DataFactory.namedNode('http://example.com/s2'),
+                    DataFactory.namedNode('http://example.com/p3'),
+                    DataFactory.literal('str2')
+                ),
+            }
+        ],
+    };
+}

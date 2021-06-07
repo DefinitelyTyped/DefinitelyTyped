@@ -9,7 +9,7 @@
         "baseUrl": "../",
         "typeRoots": ["../"],
         "paths": {
-            "@mapbox/s3urls": ["mapbox__s3urls"]
+            "@mapbox/*": ["mapbox__*"]
         },
         "types": [],
         "noEmit": true,

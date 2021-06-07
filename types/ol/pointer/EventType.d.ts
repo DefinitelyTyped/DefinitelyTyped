@@ -1,3 +1,6 @@
+/**
+ * Constants for event names.
+ */
 declare enum EventType {
     POINTERMOVE = 'pointermove',
     POINTERDOWN = 'pointerdown',

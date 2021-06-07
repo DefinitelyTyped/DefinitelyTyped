@@ -4,7 +4,6 @@
         "interface-over-type-literal": false,
         "no-consecutive-blank-lines": false,
         "no-unnecessary-generics": false,
-        "no-var": false,
         "one-line": false,
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
