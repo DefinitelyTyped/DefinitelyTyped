@@ -19,6 +19,8 @@ import {
     caption02,
     helperText02,
     label02,
+    toggleOff,
+    sizes,
 } from "@carbon/elements";
 
 tokens.colors;
@@ -46,3 +48,5 @@ g80.helperText02;
 caption02;
 helperText02;
 label02;
+toggleOff;
+sizes["2XLarge"];
