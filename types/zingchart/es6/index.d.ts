@@ -3364,6 +3364,10 @@ declare namespace zingchart {
          */
         'callout-width'?: any;
         /**
+         * Sets the style of the cursor when hovering over a node. "hand" | "normal"
+         */
+        cursor?: string;
+        /**
          * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
          */
         'fill-angle'?: number;
@@ -3526,6 +3530,10 @@ declare namespace zingchart {
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
         'border-width'?: any;
+         /**
+          * Sets the style of the cursor when hovering over a node. "hand" | "normal"
+          */
+         cursor?: string;
         /**
          * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
          */
@@ -3601,6 +3609,10 @@ declare namespace zingchart {
          * Sets the distance between the shadow and the object. 4 | "6px" | ...
          */
         'shadow-distance'?: any;
+        /**
+         * Sets the size of the object/shape. 4 | "6px" | ...
+         */
+        size?: any;
         /**
          * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
          */
@@ -5200,6 +5212,10 @@ declare namespace zingchart {
        */
       description?: string;
       /**
+       * Turns off click on slices
+       */
+      detached?: boolean;
+      /**
        * By default ZingChart uses sampling when rendering charts. This helps improve rendering speeds and typically does not effect the ap
        * pearance of the chart. However, using the attribute "exact": true within the "plot": { } object forces ZingChart to render all nod
        * es. true | false | 1 | 0
@@ -5432,6 +5448,10 @@ declare namespace zingchart {
        * Bubble Charts and Bubble Pie Charts Only: Sets a multiplier (default 1) used to increase/decrease the bubble size 5 | 10 | ...
        */
       'size-factor'?: number;
+      /**
+       * Hole size in middle of chart
+       */
+      slice?: number;
       /**
        * Nested Pie Charts Only: Sets the initial offset of the pie layers when making a nestedpie 5 | 10 | ...
        */
@@ -7715,6 +7735,10 @@ declare namespace zingchart {
          * Sets whether or not the object's shadow is visible. Has limited effect on HTML5 implementation. true | false | 1 | 0
          */
         shadow?: boolean;
+        /**
+         * Sets the text content of the object. "Some Text" | ...
+         */
+        text?: string;
         /**
          * Sets the transparency of the text. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comple
          * tely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...

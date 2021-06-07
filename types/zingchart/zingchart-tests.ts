@@ -26,6 +26,9 @@ zingchart.render({
               method: 4,
               sequence: 2,
               speed: 275,
+            },
+            'value-box': {
+                text: 'Hello World',
             }
         },
     },
