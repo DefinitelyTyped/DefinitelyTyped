@@ -6,7 +6,6 @@
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
 //                 Vladimir Dashukevich <https://github.com/life777>
-//                 Marko Klopets <https://github.com/mklopets>
 //                 André Fonseca <https://github.com/amxfonseca>
 //                 makspetrov <https://github.com/Nosfit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
