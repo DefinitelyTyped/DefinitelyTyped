@@ -22,9 +22,24 @@ export declare const StructuredListHead: React.FC<StructuredListHeadProps>;
 
 // StructuredListInput
 
-type ExcludedListInputPropKeys = "tabIndex" | "type" | "value";
+type ExcludedListInputPropKeys = "onChange" | "tabIndex" | "type" | "value";
+
+/**
+ * Prop "checked" is not overrideable with the 2021 release flag enabled.
+ */
 export interface StructuredListInputProps extends Omit<ReactInputAttr, ExcludedListInputPropKeys> {
+    /**
+     * @deprecated This is not used with the 2021 release flag enabled.
+     */
     defaultChecked?: boolean,
+    /**
+     * @param event
+     * @deprecated This is not used with the 2021 release flag enabled.
+     */
+    onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
+    /**
+     * @deprecated This is not used with the 2021 release flag enabled.
+     */
     value: string | number,
 }
 
@@ -34,10 +49,21 @@ export declare const StructuredListInput: React.FC<StructuredListInputProps>;
 
 export interface StructuredListDivRowProps extends Omit<ReactDivAttr, "onKeyDown" | "tabIndex"> {
     head?: boolean,
+    /**
+     * @deprecated
+     */
     label?: false,
 }
+
+/**
+ * @deprecated This variant is not supported in the "next" version of StructuredList and is not available with the
+ * 2021 release feature flag enabled.
+ */
 export interface StructuredListLabelRowProps extends ReactLabelAttr {
     head?: boolean,
+    /**
+     * @deprecated
+     */
     label: true,
 }
 
@@ -52,7 +78,11 @@ export declare const StructuredListBody: React.FC<StructuredListBodyProps>;
 
 // StructuredListCell
 
-export interface StructuredListCellProps extends ReactDivAttr {
+/*
+ * TODO: make the distinction between span/div when next becomes the stable version. For now this will cover both
+ *  next and stable signatures without overcomplicating the types.
+ */
+export interface StructuredListCellProps extends ReactAttr {
     head?: boolean,
     noWrap?: boolean,
 }

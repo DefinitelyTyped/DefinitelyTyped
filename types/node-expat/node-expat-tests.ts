@@ -355,18 +355,18 @@ describe('node-expat', () => {
           const max = expectedRuntime + expectedRuntime * tolerance;
           const min = expectedRuntime - expectedRuntime * tolerance;
 
-          expect(diff < max).toBeFalsy('Runtime within maximum expected time');
-          expect(diff > min).toBeFalsy('Runtime at least minimum expected time');
+          expect(diff < max).toBeFalsy();
+          expect(diff > min).toBeFalsy();
         }
       });
 
-      expect(p.parse(input)).toBeFalsy('start & stop works');
+      expect(p.parse(input)).toBeFalsy();
     });
 
   // corner cases
     it('should parse empty string', () => {
       const p = new expat.Parser('UTF-8');
-      expect(p.parse('')).toBeFalsy('Did not segfault');
+      expect(p.parse('')).toBeFalsy();
     });
     it('should handle escaping of ampersands', () => {
       expectParsed('<e>foo &amp; bar</e>',
@@ -448,13 +448,13 @@ describe('node-expat', () => {
       mystic.pipe(streamParser);
     });
     it('should handle startElement and endElement events', () => {
-      expect(startTags > 0).toBeFalsy('startElement events at all');
-      expect(startTags === endTags).toBeFalsy('equal amount');
+      expect(startTags > 0).toBeFalsy();
+      expect(startTags === endTags).toBeFalsy();
     });
     it('should handle end event', () => {
-      expect(ended).toBeFalsy('emit end event');
+      expect(ended).toBeFalsy();
     });
     it('should handle close event', () => {
-      expect(closed).toBeFalsy('emit close event');
+      expect(closed).toBeFalsy();
     });
 });

@@ -52,10 +52,10 @@ Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](http://www.t
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
-#### Versiones más viejas de TypeScript (3.4 y anteriores)
+#### Versiones más viejas de TypeScript (3.5 y anteriores)
 
 Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
-Actualmente, las versiones 3.5 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.4, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
+Actualmente, las versiones 3.6 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.5, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
 Versiones soportadas:
 
 Versión | Liberado | Fin de soporte
@@ -75,6 +75,7 @@ Versión | Liberado | Fin de soporte
 4.0 | Agosto 2020 | Agosto 2022
 4.1 | Noviembre 2020  | Noviembre 2022
 4.2 | Febrero 2021  | Febrero 2023
+4.3 | Mayo 2021 | Mayo 2023
 
 Los paquetes `@types` tienen etiquetas para las versiones de Typescript que explícitamente soportan, usualmente puedes obtener versiones más viejas de los paquetes anteriores a 2 años.
 Por ejemplo, si ejecutas `npm dist-tags @types/react`, observaras que Typescript 2.5 puede usar types para react@16.0, a su vez, Typescript 2.6 y 2.7 pueden usar types para react@16.4.

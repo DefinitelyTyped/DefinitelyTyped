@@ -124,7 +124,7 @@ export function issuerCreateCredential(
     credReq: CredReq,
     credValues: CredValues,
     revRegId: RevRegId | null,
-    blobStorageReaderHandle: BlobStorageReaderHandle,
+    blobStorageReaderHandle: BlobStorageReaderHandle | 0,
 ): Promise<[Cred, CredRevocId, RevocRegDelta]>;
 // TODO: issuerRevokeCredential
 // TODO: issuerMergeRevocationRegistryDeltas
@@ -140,11 +140,11 @@ export function proverCreateCredentialReq(
 ): Promise<[CredReq, CredReqMetadata]>;
 export function proverStoreCredential(
     wh: WalletHandle,
-    credentialId: CredentialId,
+    credentialId: CredentialId | null,
     credReqMetadata: CredReqMetadata,
     cred: Cred,
     credDef: CredDef,
-    revRegDef: null,
+    revRegDef: RevRegDef | null,
 ): Promise<CredentialId>;
 // TODO: proverGetCredentials
 export function proverGetCredential(wh: WalletHandle, credId: string): Promise<IndyCredentialInfo>;
@@ -155,7 +155,7 @@ export function proverGetCredentialsForProofReq(wh: WalletHandle, proofRequest: 
 export function proverSearchCredentialsForProofReq(
     wh: WalletHandle,
     proofRequest: IndyProofRequest,
-    extraQuery: Array<{ [key: string]: WalletQuery }>,
+    extraQuery: ReferentWalletQuery | null,
 ): Promise<SearchHandle>;
 export function proverFetchCredentialsForProofReq(
     sh: SearchHandle,
@@ -186,19 +186,14 @@ export function verifierVerifyProof(
 // -------------------------------------------- //
 // --------------- BLOB STORAGE --------------- //
 // -------------------------------------------- //
-export function openBlobStorageWriter(
-    type: string,
-    tailsWriterConfig: { base_dir: string; uri_pattern: string },
-): Promise<BlobReaderHandle>;
-export function openBlobStorageReader(
-    type: string,
-    tailsWriterConfig: { base_dir: string; uri_pattern: string },
-): Promise<BlobReaderHandle>;
+export function openBlobStorageWriter(type: string, tailsWriterConfig: TailsWriterConfig): Promise<BlobWriterHandle>;
+export function openBlobStorageReader(type: string, tailsReaderConfig: TailsReaderConfig): Promise<BlobReaderHandle>;
 
 export type WalletHandle = number;
 export type SearchHandle = number;
 export type PoolHandle = number;
 export type BlobReaderHandle = number;
+export type BlobWriterHandle = number;
 export type Did = string;
 export type Verkey = string;
 export type ByteArray = number[];
@@ -209,6 +204,18 @@ export type KeyDerivationMethod = "ARGON2I_MOD" | "ARGON2I_INT" | "RAW";
 
 // TODO: Maybe we can make this a bit more specific?
 export type WalletQuery = Record<string, unknown>;
+
+export interface ReferentWalletQuery {
+    [key: string]: WalletQuery;
+}
+
+export interface TailsReaderConfig {
+    base_dir: string;
+}
+export interface TailsWriterConfig {
+    base_dir: string;
+    uri_pattern: string;
+}
 
 export interface WalletRecordOptions {
     retrieveType?: boolean;
@@ -417,6 +424,10 @@ export interface CredentialDefs {
 }
 
 export interface RevRegsDefs {
+    [key: string]: unknown;
+}
+
+export interface RevRegDef {
     [key: string]: unknown;
 }
 

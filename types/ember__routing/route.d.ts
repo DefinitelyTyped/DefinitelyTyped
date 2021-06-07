@@ -12,7 +12,7 @@ type RouteModel = object | string | number;
  * The `Ember.Route` class is used to define individual routes. Refer to
  * the [routing guide](http://emberjs.com/guides/routing/) for documentation.
  */
-export default class Route<Model = any> extends EmberObject.extend(ActionHandler, Evented) {
+export default class Route<Model = unknown> extends EmberObject.extend(ActionHandler, Evented) {
     // methods
     /**
      * This hook is called after this route's model has resolved.

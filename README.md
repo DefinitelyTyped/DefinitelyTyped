@@ -73,11 +73,14 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-#### Older versions of TypeScript (3.4 and earlier)
+### Support Window
 
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
-Currently versions 3.5 and above are tested.
-If you're using TypeScript 2.0 to 3.4, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+
+<details>
+<summary>Currently versions 3.6 and above are tested...</summary>
+
+If you're using TypeScript 2.0 to 3.5, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -98,6 +101,7 @@ Here is the support window:
 | 4.0     | August 2020    | August 2022    |
 | 4.1     | November 2020  | November 2022  |
 | 4.2     | February 2021  | February 2023  |
+| 4.3     | May 2021       | May 2023       |
 
 `@types` packages have tags for versions of TypeScript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
 For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript 2.5 can use types for react@16.0, whereas TypeScript 2.6 and 2.7 can use types for react@16.4:
@@ -120,18 +124,28 @@ For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript
 
 You may need to add manual [references](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
 
+</details>
+
 ## How can I contribute?
 
-Definitely Typed only works because of contributions by users like you!
+Definitely Typed only works because of contributions by users like you! 
 
 ### Testing
 
-Before you share your improvement with the world, use it yourself.
+Before you share your improvement with the world, use the types yourself by creating a `typename.d.ts` file in your project and filling out its exports:
+
+```ts
+declare module "libname" { 
+  // Types inside here
+  export function helloWorldMessage(): string
+}
+```
 
 #### Test editing an existing package
 
-To test local to your app, you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to extend existing types from the DT module you want to work on.
-Alternatively, you can also edit the types directly in `node_modules/@types/foo/index.d.ts` to validate your changes, then bring the changes to this repo with the steps below.
+You can edit the types directly in `node_modules/@types/foo/index.d.ts` to validate your changes, then bring the changes to this repo with the steps below.
+
+Alternatively, you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to extend existing types from the DT module or use the `declare module` technique above which will override the version in `node_modules`.
 
 #### Adding tests to a new package
 
@@ -162,6 +176,9 @@ We use a bot to let a large number of pull requests to DefinitelyTyped be handle
 
 #### Partial clone
 
+<details>
+<summary>You can clone the entire repository <a href='https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository'>as per usual</a>, but it's large and includes a massive directory of type packages.</summary>
+
 You can clone the entire repository [as per usual](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository), but it's large and includes a massive directory of type packages. This will take some time to clone and may be unnecessarily unwieldy.
 
 For a more manageable clone that includes _only_ the type packages relevant to you, you can use git's [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout), [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt), and [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) features. This will reduce clone time and improve git performance.
@@ -173,6 +190,8 @@ For a more manageable clone that includes _only_ the type packages relevant to y
     - `--filter=blob:none` will exclude files, fetching them only as needed.
     - `--depth=1` will further improve clone speed by truncating commit history, but it may cause issues as summarized [here](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/).
 2. `git sparse-checkout add types/<type> types/<dependency-type> ...`
+
+</details>
 
 #### Edit an existing package
 
@@ -242,6 +261,8 @@ If a package was never on Definitely Typed, it does not need to be added to `not
 Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
 
 This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
+
+Once you have all all your changes ready, use `npm run test-all` to see how your changes affect other modules.
 
 #### Naming
 
@@ -415,6 +436,13 @@ Roughly:
 
 PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) to see progress as maintainers work through the open PRs.
 
+#### I'd like to submit a change to a very popular project, why are they treated differently?
+
+For changes to very popular modules, e.g. Node/Express/Jest which have many millions of downloads each per week on npm, the requirements for contributions are a bit higher. 
+Changes to these projects can have massive ecosystem effects, and so we treat changes to the with a lot of care.
+These modules require both a sign-off from a DT maintainer, and enthusiastic support from the module owners. The bar for passing this can be quite high, and often PRs can go stale because it doesn't have a champion.
+If you're finding that no-one is committing, try to make your PR have a smaller focus.
+
 #### My PR is merged; when will the `@types` npm package be updated?
 
 npm packages should update within a few minutes. If it's been more than an hour, mention the PR number on [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) and the current maintainer will get the correct team member to investigate.
@@ -428,13 +456,17 @@ If the module you're referencing is an ambient module (uses `declare module`, or
 
 Then they are wrong, and we've not noticed yet. You can help by submitting a pull request to fix them.
 
+#### Can I change/enforce formatting settings for modules?
+
+No. We've explored trying to make DT's code-formatting consistent before but reached an impasse due to the high activity on the repo. We include formatting settings via a [`.editorconfig`](.editorconfig) and [`.prettierrc.json`](.prettierrc.json). These are exclusively for tooling in your editor, their settings don't conflict and we don't plan on changing them. Nor do we plan on enforcing a specific style in the repo. We want to keep the barriers to contributions low.
+
 #### Can I request a definition?
 
 Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
 
 #### What about type definitions for the DOM?
 
-If types are part of a web standard, they should be contributed to [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
+If types are part of a web standard, they should be contributed to [TypeScript-DOM-lib-generator](https://github.com/Microsoft/TypeScript-DOM-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
 
 #### Should I add an empty namespace to a package that doesn't export a module to use ES6 style imports?
 
@@ -504,7 +536,7 @@ Here's a short example to get you started:
 
 #### I want to add a DOM API not present in TypeScript by default.
 
-This may belong in [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme). See the guidelines there.
+This may belong in [TypeScript-DOM-lib-generator](https://github.com/Microsoft/TypeScript-DOM-lib-generator#readme). See the guidelines there.
 If the standard is still a draft, it belongs here.
 Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
 When it graduates draft mode, we may remove it from Definitely Typed and deprecate the associated `@types` package.

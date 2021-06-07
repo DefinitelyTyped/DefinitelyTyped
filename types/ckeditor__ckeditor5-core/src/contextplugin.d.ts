@@ -11,9 +11,9 @@ export default class ContextPlugin implements Observable {
     static readonly requires?: Array<typeof Plugin>;
 
     constructor(context: Context | Editor);
-    afterInit?(): Promise<void> | null;
-    destroy?(): Promise<void> | null;
-    init?(): Promise<void> | null;
+    afterInit?(): Promise<void> | void;
+    destroy?(): Promise<void> | void;
+    init?(): Promise<void> | void;
 
     set(option: Record<string, unknown>): void;
     set(name: string, value: unknown): void;

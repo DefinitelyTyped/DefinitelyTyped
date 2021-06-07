@@ -33,9 +33,9 @@ function SingleThumbSliders() {
                 max={90}
                 min={10}
                 minDistance={10}
-                onAfterChange={value => value > 1}
-                onBeforeChange={value => value > 1}
-                onChange={value => value > 1}
+                onAfterChange={(value, index) => value > 1 && index === 0}
+                onBeforeChange={(value, index) => value > 1 && index === 0}
+                onChange={(value, index) => value > 1 && index === 0}
                 onSliderClick={value => value > 1}
                 orientation="horizontal"
                 pageFn={step => step * 15}

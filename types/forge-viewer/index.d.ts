@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.42
+// Type definitions for non-npm package Forge Viewer 7.44
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -336,6 +336,7 @@ declare namespace Autodesk {
         const GEOMETRY_LOADED_EVENT = 'geometryLoaded';
         const GEOMETRY_DOWNLOAD_COMPLETE_EVENT = 'geometryDownloadComplete';
         const HIDE_EVENT = 'hide';
+        const HIDE_ALL_EVENT = 'hideAll';
         const HYPERLINK_EVENT = 'hyperlink';
         const ISOLATE_EVENT = 'isolate';
         const LAYER_VISIBILITY_CHANGED_EVENT = 'layerVisibilityChanged';
@@ -360,6 +361,8 @@ declare namespace Autodesk {
         const RESTORE_DEFAULT_SETTINGS_EVENT = 'restoreDefaultSettings';
         const SELECTION_CHANGED_EVENT = 'selection';
         const SHOW_EVENT = 'show';
+        const SHOW_ALL_EVENT = 'showAll';
+        const SHOW_PROPERTIES_EVENT = 'showProperties';
         const TEXTURES_LOADED_EVENT = 'texturesLoaded';
         const TOOL_CHANGE_EVENT = 'toolChanged';
         const TOOLBAR_CREATED_EVENT = 'toolbarCreated';
@@ -370,6 +373,13 @@ declare namespace Autodesk {
         const WEBGL_CONTEXT_LOST_EVENT = 'webGlContextLost';
 
         let HTTP_REQUEST_HEADERS: any;
+
+        enum TOOLBAR {
+          NAVTOOLSID = 'navTools',
+          MODELTOOLSID = 'modelTools',
+          SETTINGSTOOLSID = 'settingsTools',
+          MEASURETOOLSID = 'measureTools'
+        }
 
         interface ViewerEventArgs {
           target?: Viewer3D;
@@ -397,6 +407,7 @@ declare namespace Autodesk {
           useDynamicGlobalOffset?: boolean;
           viewerConfig?: any;
           viewerStartOptions?: any;
+          viewerUnits?: string;
         }
 
         class AggregatedView {
@@ -462,6 +473,7 @@ declare namespace Autodesk {
           findPropertyDbPath(): string;
           findViewableParent(): BubbleNode;
           getDefaultGeometry(): any;
+          getDocument(): Document;
           getInputFileType(): string;
           getLodNode(): boolean;
           getModelName(): string;
@@ -1072,6 +1084,7 @@ declare namespace Autodesk {
             getAllModels(): Model[];
             getUnderlayRaster(bubbleNode: BubbleNode): Model[];
             hide(node: number|number[], model?: Model): void;
+            hideAll(): void;
             show(node: number|number[], model?: Model): void;
             showAll(): void;
             toggleVisibility(dbId: number, model?: Model): void;
@@ -1185,7 +1198,7 @@ declare namespace Autodesk {
             appendOrderedElementToViewer(layerOrderId: string): void;
             hitTest(x: number, y: number, ignoreTransparent: boolean): Private.HitTestResult;
             refresh(clear: boolean): void;
-            addEventListener(type: string, callback: (event: any) => void): any;
+            addEventListener(type: string, callback: (event: any) => void, options?: any): any;
             hasEventListener(type: string, callback: (event: any) => void): any;
             removeEventListener(type: string, callback: (event: any) => void): any;
             dispatchEvent(event: object): void;
@@ -1207,7 +1220,7 @@ declare namespace Autodesk {
 
             addPanel(panel: UI.DockingPanel): boolean;
             createDebugSubmenu(button: UI.Button): void;
-            createViewerOptionsMenu(model: Model): void;
+            createViewerOptionsMenu(): void;
             createUI(model: Model): void;
             onFullScreenModeEvent(event: object): void;
             onProgressBarUpdate(event: object): void;
@@ -1215,10 +1228,12 @@ declare namespace Autodesk {
             addOptionList(parent: Element, label: string, optionList: string[], initialIndex: number, onchange: (index: number) => void, saveKey: boolean): void;
             showViewer3dOptions(show: boolean): void;
             showRenderingOptions(show: boolean): void;
-            showLayerManager(show: boolean): void;
+            /** @deprecated */
+            showLayerManager(): void;
             initHotkeys(model: Model): void;
             setModelStructurePanel(modelStructurePanel: any/*Autodesk.Viewing.UI.ModelStructurePanel*/): void;
-            setLayersPanel(layersPanel: any/*Autodesk.Viewing.UI.LayersPanel*/): void;
+            /** @deprecated */
+            setLayersPanel(): void;
             setPropertyPanel(propertyPanel: any/*Autodesk.Viewing.UI.PropertyPanel*/): void;
             getPropertyPanel(createDefault?: boolean): any/*Autodesk.Viewing.UI.PropertyPanel*/;
             setSettingsPanel(settingsPanel: any/*Autodesk.Viewing.UI.SettingsPanel*/): void;
@@ -1641,7 +1656,8 @@ declare namespace Autodesk {
                     messageKey: string,
                     messageDefaultValue?: string,
                     buttonText?: string,
-                    checkboxChecked?: boolean
+                    checkboxChecked?: boolean,
+                    position?: string
                 }, closeCallback?: (event: any) => void, buttonCallback?: (event: any) => void, checkboxCallback?: (event: any) => void): void;
 
                 function dismiss(): boolean;
@@ -1838,24 +1854,24 @@ declare namespace Autodesk {
             areDefaultPropertiesShown(): void;
             displayCategory(category: object, parent: HTMLElement, options: DisplayCategoryOptions): HTMLElement[];
             displayProperty(property: object, parent: HTMLElement, options: DisplayCategoryOptions): HTMLElement[];
-            getCategoryClass(category: object): string;
-            getPropertyClass(property: object): string;
+            getCategoryClass(): string;
+            getPropertyClass(): string;
             hasProperties(): boolean;
-            highlight(text: string, options: object): void;
+            highlight(text: string): void;
             isCategoryCollapsed(category: object): boolean;
-            onCategoryClick(category: object, event: Event): void;
-            onCategoryDoubleClick(category: object, event: Event): void;
-            onCategoryIconClick(category: object, event: Event): void;
-            onCategoryRightClick(category: object, event: Event): void;
-            onPropertyClick(property: object, event: Event): void;
-            onPropertyDoubleClick(property: object, event: Event): void;
-            onPropertyIconClick(property: object, event: Event): void;
-            onPropertyRightClick(property: object, event: Event): void;
+            onCategoryClick(category: object): void;
+            onCategoryDoubleClick(): void;
+            onCategoryIconClick(category: object): void;
+            onCategoryRightClick(): void;
+            onPropertyClick(): void;
+            onPropertyDoubleClick(): void;
+            onPropertyIconClick(property: object): void;
+            onPropertyRightClick(): void;
             removeAllProperties(): void;
-            removeProperty(name: string, value: string, category: string, options?: object): boolean;
+            removeProperty(name: string, value: string, category: string): boolean;
             setAggregatedProperties(propSet: PropertySet): void;
             setCategoryCollapsed(category: object, collapsed: boolean): void;
-            setProperties(properties: Array<{displayName: string, displayValue: any}>, options?: object): void;
+            setProperties(properties: Array<{displayName: string, displayValue: any}>): void;
             showDefaultProperties(): void;
             showNoProperties(): void;
           }
@@ -2102,11 +2118,11 @@ declare namespace Autodesk {
 
           constructor(model: Viewing.Model);
 
-          generateSurfaceShadingData(devices: object[], levels?: LevelRoomsMap): Promise<SurfaceShadingData>;
+          generateSurfaceShadingData(devices: RoomDevice[], levels?: LevelRoomsMap, nodeName?: string): Promise<SurfaceShadingData>;
           getImmediateChildNodesByName(name: string, parentId?: number): number[];
           getLevel(room: Room): string;
-          getLevelRoomsMap(keepRoomDetail?: boolean): Promise<LevelRoomsMap>;
-          getRoomList(): Promise<Room[]>;
+          getLevelRoomsMap(keepRoomDetail?: boolean, nodeName?: string): Promise<LevelRoomsMap>;
+          getRoomList(nodeName?: string): Promise<Room[]>;
         }
 
         class Room {

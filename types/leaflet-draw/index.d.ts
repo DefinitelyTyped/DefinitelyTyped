@@ -167,7 +167,7 @@ declare module 'leaflet' {
              *
              * Default value: null
              */
-            remove?: null | false;
+            remove?: boolean | null;
         }
 
         class Draw extends Control {

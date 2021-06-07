@@ -55,7 +55,8 @@ import * as net from 'net';
     const res: http.ServerResponse = new http.ServerResponse(incoming);
 
     // test headers
-    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Type', 'text/plain')
+    .setHeader('Return-Type', 'this');
     const bool: boolean = res.hasHeader('Content-Type');
     const headers: string[] = res.getHeaderNames();
 
@@ -91,6 +92,8 @@ import * as net from 'net';
 
     // flush
     res.flushHeaders();
+
+    res.req; // $ExpectType IncomingMessage
 }
 
 // http ClientRequest
@@ -202,10 +205,12 @@ import * as net from 'net';
 // http request options
 {
     const requestOpts: http.RequestOptions = {
+        abort: new AbortSignal(),
         timeout: 30000
     };
 
     const clientArgs: http.ClientRequestArgs = {
+        abort: new AbortSignal(),
         timeout: 30000
     };
 }
@@ -225,4 +230,8 @@ import * as net from 'net';
 // statics
 {
     const maxHeaderSize = http.maxHeaderSize;
+}
+
+{
+    const opts: http.RequestOptions = http.urlToHttpOptions(new url.URL('test.com'));
 }

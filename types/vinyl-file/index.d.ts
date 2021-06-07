@@ -5,7 +5,7 @@
 // TypeScript Version: 3.8
 
 /// <reference types="node" />
-import * as File from 'vinyl';
+import File = require('vinyl');
 
 export interface VinylFileOptions {
     /** Specifies the working directory the folder is relative to */
