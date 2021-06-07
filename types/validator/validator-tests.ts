@@ -379,6 +379,7 @@ import isHSLFuncEs from 'validator/es/lib/isHSL';
 import isRgbColorFuncEs from 'validator/es/lib/isRgbColor';
 import isHexadecimalFuncEs from 'validator/es/lib/isHexadecimal';
 import isIPFuncEs from 'validator/es/lib/isIP';
+import isIPRangeFuncEs from 'validator/es/lib/isIPRange';
 import isISBNFuncEs from 'validator/es/lib/isISBN';
 import isEANFuncEs from 'validator/es/lib/isEAN';
 import isISSNFuncEs from 'validator/es/lib/isISSN';
