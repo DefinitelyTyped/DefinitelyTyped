@@ -8,37 +8,5 @@
 
 import WaveSurfer from "./src/wavesurfer";
 
-export default WaveSurfer;
-
-import {
-    absMax,
-    debounce,
-    clamp,
-    fetchFile,
-    frame,
-    getId,
-    max,
-    min,
-    Observer,
-    preventClick,
-    requestAnimationFrame,
-    style,
-    withOrientation,
-} from "./src/util";
-
-export {
-    absMax,
-    clamp,
-    debounce,
-    fetchFile,
-    frame,
-    getId,
-    max,
-    min,
-    Observer,
-    preventClick,
-    requestAnimationFrame,
-    style,
-    WaveSurfer,
-    withOrientation,
-};
+export = WaveSurfer;
+export as namespace WaveSurfer;
