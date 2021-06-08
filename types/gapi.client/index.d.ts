@@ -26,7 +26,6 @@ declare namespace gapi {
          * The loaded API interface will be in the form gapi.client.api.collection.method.
          * For example, the Moderator API would create methods like gapi.client.moderator.series.list.
          * @param urlOrObject The Discovery Document URL or parsed Discovery Document JSON object
-         * (Example: https://github.com/google/google-api-javascript-client/blob/master/samples/loadedDiscovery.html).
          */
         function load(urlOrObject: string | object): Promise<void>;
 
