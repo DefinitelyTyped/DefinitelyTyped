@@ -3,7 +3,6 @@
 // Definitions by: Ernesto García <https://github.com/gnapse>
 //                 John Gozde <https://github.com/jgoz>
 //                 Seth Macpherson <https://github.com/smacpherson64>
-//                 Shenghao Lei <https://github.com/SevenOutman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
