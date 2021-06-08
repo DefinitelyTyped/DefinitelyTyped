@@ -93,7 +93,12 @@ declare module 'process' {
             }
 
             // Alias for compatibility
-            interface ProcessEnv extends Dict<string> {}
+            interface ProcessEnv extends Dict<string> {
+                /**
+                 * Can be used to change the default timezone at runtime
+                 */
+                TZ?: string;
+            }
 
             interface HRTime {
                 (time?: [number, number]): [number, number];

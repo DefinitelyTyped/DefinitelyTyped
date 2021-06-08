@@ -119,3 +119,5 @@ import EventEmitter = require('events');
 const hrtimeBigint: bigint = process.hrtime.bigint();
 
 process.allowedNodeEnvironmentFlags.has('asdf');
+
+process.env.TZ = 'test';
