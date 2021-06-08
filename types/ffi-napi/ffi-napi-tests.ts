@@ -143,3 +143,9 @@ ffi.Library(null, { x: ["void", [], { async: true }]}).x;
     const callback = (x: number) => x > 0;
     lib.foo(callback);
 }
+
+// $ExpectType PFFI_TYPE | undefined
+ref.types.uint32.ffi_type;
+
+// $ExpectType PFFI_TYPE
+ffi.FFI_TYPES.void;

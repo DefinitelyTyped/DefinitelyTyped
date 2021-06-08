@@ -134,7 +134,7 @@ export interface Function<
     /** The type of arguments. */
     argTypes: TArgTypes;
     /** Is set for node-ffi functions. */
-    ffi_type: Buffer;
+    ffi_type: PFFI_TYPE;
     abi: number;
 
     /** Get a `Callback` pointer of this function type. */
@@ -281,37 +281,71 @@ export const VariadicForeignFunction: {
     (ptr: Buffer, ret: ref.TypeLike, fixedArgs: ref.TypeLike[], abi?: number): VariadicForeignFunction;
 };
 
-export interface DynamicLibrary {
-    /** Close library, returns the result of the `dlclose` system function. */
+/**
+ * This class loads and fetches function pointers for dynamic libraries
+ * (`.so`, `.dylib`, `etc`). After the libray's function pointer is acquired, then you
+ * call {@link DynamicLibrary.get} to retreive a pointer to an exported symbol. You need to
+ * call `get___` on the pointer to dereference it into its actual value, or
+ * turn the pointer into a callable function with {@link ForeignFunction}.
+ */
+export class DynamicLibrary {
+    /**
+     * @param mode One of the numeric {@link DynamicLibrary.FLAGS} values.
+     */
+    constructor(path?: string, mode?: number);
+
+    /**
+     * Close library, returns the result of the `dlclose` system function.
+     */
     close(): number;
-    /** Get a symbol from this library. */
+
+    /**
+     * Get a symbol from this library.
+     */
     get(symbol: string): Buffer;
-    /** Get the result of the `dlerror` system function. */
+
+    /**
+     * Get the result of the `dlerror` system function.
+     */
     error(): string;
+
+    /**
+     * Returns the path originally passed to the constructor.
+     */
+    path(): string;
 }
 
 /**
  * This class loads and fetches function pointers for dynamic libraries
- * (.so, .dylib, etc). After the libray's function pointer is acquired, then you
- * call `get(symbol)` to retreive a pointer to an exported symbol. You need to
+ * (`.so`, `.dylib`, etc). After the libray's function pointer is acquired, then you
+ * call {@link DynamicLibrary.get} to retreive a pointer to an exported symbol. You need to
  * call `get___` on the pointer to dereference it into its actual value, or
- * turn the pointer into a callable function with `ForeignFunction`.
+ * turn the pointer into a callable function with {@link ForeignFunction}.
+ *
+ * @param mode One of the numeric {@link DynamicLibrary.FLAGS} values.
  */
-export const DynamicLibrary: {
-    FLAGS: {
-        RTLD_LAZY: number;
-        RTLD_NOW: number;
-        RTLD_LOCAL: number;
-        RTLD_GLOBAL: number;
-        RTLD_NOLOAD: number;
-        RTLD_NODELETE: number;
-        RTLD_NEXT: Buffer;
-        RTLD_DEFAUL: Buffer;
-    }
+export function DynamicLibrary(path?: string, mode?: number): DynamicLibrary;
+export namespace DynamicLibrary {
+    /**
+     * Exported flags from "dlfcn.h"
+     */
+    namespace FLAGS {
+        // flags for dlopen()
+        const RTLD_LAZY: number;
+        const RTLD_NOW: number;
+        const RTLD_LOCAL: number;
+        const RTLD_GLOBAL: number;
+        const RTLD_NOLOAD: number | undefined; // not defined on Windows
+        const RTLD_NODELETE: number | undefined; // not defined on Windows
+        const RTLD_FIRST: number | undefined; // not defined on Windows
 
-    new (path?: string, mode?: number): DynamicLibrary;
-    (path?: string, mode?: number): DynamicLibrary;
-};
+        // flags for dlsym()
+        const RTLD_NEXT: ref.Pointer<unknown>;
+        const RTLD_DEFAULT: ref.Pointer<unknown>;
+        const RTLD_SELF: ref.Pointer<unknown> | undefined; // not defined on Windows
+        const RTLD_MAIN_ONLY: ref.Pointer<unknown> | undefined; // not defined on Windows
+    }
+}
 
 /**
  * Turns a JavaScript function into a C function pointer.
@@ -379,34 +413,105 @@ export interface Callback {
 }
 export const Callback: Callback;
 
-export const ffiType: {
-    /** Get a `ffi_type *` Buffer appropriate for the given type. */
-    (type: ref.TypeLike): Buffer
-    FFI_TYPE: StructType;
-};
+/** Get a `ffi_type *` Buffer appropriate for the given type. */
+export function ffiType(type: ref.TypeLike): ref.Pointer<FFI_TYPE>;
+export namespace ffiType {
+    /**
+     * Define the `ffi_type` struct (see deps/libffi/include/ffi.h) for use in JS.
+     * This struct type is used internally to define custom struct ret/arg types.
+     */
+    const FFI_TYPE: StructType<{
+        size: typeof ref.types.size_t,
+        alignment: typeof ref.types.ushort,
+        type: typeof ref.types.ushort,
+        elements: ref.Type<ref.Pointer<PFFI_TYPE>>,
+    }>;
+
+    type FFI_TYPE = ReturnType<typeof FFI_TYPE>;
+}
 
 export function CIF(retType: ref.TypeLike, types: ref.TypeLike[], abi?: number): Buffer;
 export function CIF_var(retType: ref.TypeLike, types: ref.TypeLike[], numFixedArgs: number, abi?: number): Buffer;
+
 export const HAS_OBJC: boolean;
-export const FFI_TYPES: Record<string, Buffer>;
+
+/**
+ * Represents an opaque pointer to an {@link FFI_TYPE} struct used for marshalling types to native code.
+ */
+export type PFFI_TYPE = ref.Pointer<FFI_TYPE>;
+
+declare module "ref-napi" {
+    interface Type {
+        /**
+         * Determines the FFI_TYPE set for a type.
+         */
+        ffi_type?: PFFI_TYPE;
+    }
+}
+
+export interface FfiTypesRegistry {
+    void: PFFI_TYPE;
+    uint8: PFFI_TYPE;
+    int8: PFFI_TYPE;
+    uint16: PFFI_TYPE;
+    int16: PFFI_TYPE;
+    uint32: PFFI_TYPE;
+    int32: PFFI_TYPE;
+    uint64: PFFI_TYPE;
+    int64: PFFI_TYPE;
+    uchar: PFFI_TYPE;
+    char: PFFI_TYPE;
+    ushort: PFFI_TYPE;
+    short: PFFI_TYPE;
+    uint: PFFI_TYPE;
+    int: PFFI_TYPE;
+    float: PFFI_TYPE;
+    double: PFFI_TYPE;
+    pointer: PFFI_TYPE;
+    ulonglong: PFFI_TYPE;
+    longlong: PFFI_TYPE;
+    ulong: PFFI_TYPE;
+    long: PFFI_TYPE;
+}
+
+export const FFI_TYPES: FfiTypesRegistry;
 export const FFI_OK: number;
 export const FFI_BAD_TYPEDEF: number;
 export const FFI_BAD_ABI: number;
 export const FFI_DEFAULT_ABI: number;
 export const FFI_FIRST_ABI: number;
 export const FFI_LAST_ABI: number;
-export const FFI_SYSV: number;
-export const FFI_UNIX64: number;
-export const RTLD_LAZY: number;
-export const RTLD_NOW: number;
-export const RTLD_LOCAL: number;
-export const RTLD_GLOBAL: number;
-export const RTLD_NOLOAD: number;
-export const RTLD_NODELETE: number;
-export const RTLD_NEXT: Buffer;
-export const RTLD_DEFAULT: Buffer;
+
+// NOTE: These are defined depending on the platform ffi-napi was compiled on:
+export const FFI_SYSV: number | undefined; // __arm__, Intel x86 Win32, __aarch64__, Intel x86 and AMD x86/x64
+export const FFI_VFP: number | undefined; // __arm__
+export const FFI_UNIX64: number | undefined; // All unix variants
+export const FFI_STDCALL: number | undefined; // Intel x86 Win32
+export const FFI_THISCALL: number | undefined; // Intel x86 Win32
+export const FFI_FASTCALL: number | undefined; // Intel x86 Win32
+export const FFI_MS_CDECL: number | undefined; // Intel x86 Win32
+export const FFI_WIN64: number | undefined; // Intel x86 Win64
+
+export import RTLD_LAZY = DynamicLibrary.FLAGS.RTLD_LAZY;
+export import RTLD_NOW = DynamicLibrary.FLAGS.RTLD_NOW;
+export import RTLD_LOCAL = DynamicLibrary.FLAGS.RTLD_LOCAL;
+export import RTLD_GLOBAL = DynamicLibrary.FLAGS.RTLD_GLOBAL;
+export import RTLD_NOLOAD = DynamicLibrary.FLAGS.RTLD_NOLOAD;
+export import RTLD_NODELETE = DynamicLibrary.FLAGS.RTLD_NODELETE;
+export import RTLD_FIRST = DynamicLibrary.FLAGS.RTLD_FIRST;
+export import RTLD_NEXT = DynamicLibrary.FLAGS.RTLD_NEXT;
+export import RTLD_DEFAULT = DynamicLibrary.FLAGS.RTLD_DEFAULT;
+export import RTLD_SELF = DynamicLibrary.FLAGS.RTLD_SELF;
+export import RTLD_MAIN_ONLY = DynamicLibrary.FLAGS.RTLD_MAIN_ONLY;
+
+export const FFI_ARG_SIZE: number;
+export const FFI_SARG_SIZE: number;
+export const FFI_TYPE_SIZE: number;
+export const FFI_CIF_SIZE: number;
+
 export const LIB_EXT: string;
-export const FFI_TYPE: StructType;
+
+export import FFI_TYPE = ffiType.FFI_TYPE;
 
 /** Default types. */
 export import types = ref.types;
