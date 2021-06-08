@@ -1,4 +1,4 @@
-/// <reference types="../alpha"/>
+/// <reference types="../next"/>
 import React = require('react');
 import ReactDOM = require('react-dom');
 

@@ -8,7 +8,7 @@
         "test/managedAttributes.tsx",
         "test/hooks.tsx",
         "test/experimental.tsx",
-        "test/alpha.tsx"
+        "test/next.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",

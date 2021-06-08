@@ -29,7 +29,7 @@
 // flagged experimental or not. Experimental APIs will be tagged with `__EXPERIMENTAL__`.
 
 import React = require('react');
-import ReactDOM = require('./alpha');
+import ReactDOM = require('./next');
 
 export {};
 
