@@ -110,3 +110,18 @@ type HasProperty<T, K> = K extends keyof T ? true : false;
         },
     ]);
 })();
+
+// initial can be a string or function
+(async () => {
+    await prompts({
+        type: 'text',
+        name: 'value',
+        initial: () => 'initial value'
+    });
+
+    await prompts({
+        type: 'text',
+        name: 'value',
+        initial: 'initial value'
+    });
+})();
