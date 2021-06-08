@@ -78,7 +78,7 @@ declare namespace prompts {
         type: PromptType | Falsy | PrevCaller<T, PromptType | Falsy>;
         name: ValueOrFunc<T>;
         message?: ValueOrFunc<string>;
-        initial?: string | number | boolean | Date;
+        initial?: ValueOrFunc<string>;
         style?: string | PrevCaller<T, string | Falsy>;
         format?: PrevCaller<T, void>;
         validate?: PrevCaller<T, boolean | string | Promise<boolean | string>>;
