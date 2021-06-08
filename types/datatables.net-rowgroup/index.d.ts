@@ -63,7 +63,7 @@ declare namespace DataTables {
         /**
          * Set the data point to use as the grouping data source
          */
-        dataSrc?: number|string;
+        dataSrc?: number|string|Array;
 
         /**
          * Provides the ability to disable row grouping at initialisation
