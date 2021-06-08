@@ -1305,6 +1305,7 @@ declare global {
 
             interface ValidatorField {
                 type?: any;
+                required?: boolean;
                 constant?: boolean;
                 default?: any;
                 options?: any[] | Function;
