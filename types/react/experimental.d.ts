@@ -38,7 +38,4 @@ import React = require('./alpha');
 
 export {};
 
-declare const UNDEFINED_VOID_ONLY: unique symbol;
-type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
-
 declare module '.' {}
