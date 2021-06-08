@@ -19,7 +19,7 @@ declare namespace gapi {
          */
         function load(name: string, version: string, callback: () => any): void;
         function load(name: string, version: string): Promise<void>;
-        
+
         /**
          * Loads the client library interface to a particular API with discovery document URL or JSON object. 
          * Returns a Promise-like goog.Thenable object that resolves when the API interface is loaded.
