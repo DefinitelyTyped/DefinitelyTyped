@@ -68,39 +68,39 @@ declare module 'util' {
         const custom: unique symbol;
     }
     /** @deprecated since v4.0.0 - use `Array.isArray()` instead. */
-    export function isArray(object: any): object is any[];
+    export function isArray(object: unknown): object is unknown[];
     /** @deprecated since v4.0.0 - use `util.types.isRegExp()` instead. */
-    export function isRegExp(object: any): object is RegExp;
+    export function isRegExp(object: unknown): object is RegExp;
     /** @deprecated since v4.0.0 - use `util.types.isDate()` instead. */
-    export function isDate(object: any): object is Date;
+    export function isDate(object: unknown): object is Date;
     /** @deprecated since v4.0.0 - use `util.types.isNativeError()` instead. */
-    export function isError(object: any): object is Error;
-    export function inherits(constructor: any, superConstructor: any): void;
-    export function debuglog(key: string): (msg: string, ...param: any[]) => void;
+    export function isError(object: unknown): object is Error;
+    export function inherits(constructor: unknown, superConstructor: unknown): void;
+    export function debuglog(key: string): (msg: string, ...param: unknown[]) => void;
     /** @deprecated since v4.0.0 - use `typeof value === 'boolean'` instead. */
-    export function isBoolean(object: any): object is boolean;
+    export function isBoolean(object: unknown): object is boolean;
     /** @deprecated since v4.0.0 - use `Buffer.isBuffer()` instead. */
-    export function isBuffer(object: any): object is Buffer;
+    export function isBuffer(object: unknown): object is Buffer;
     /** @deprecated since v4.0.0 - use `typeof value === 'function'` instead. */
-    export function isFunction(object: any): boolean;
+    export function isFunction(object: unknown): boolean;
     /** @deprecated since v4.0.0 - use `value === null` instead. */
-    export function isNull(object: any): object is null;
+    export function isNull(object: unknown): object is null;
     /** @deprecated since v4.0.0 - use `value === null || value === undefined` instead. */
-    export function isNullOrUndefined(object: any): object is null | undefined;
+    export function isNullOrUndefined(object: unknown): object is null | undefined;
     /** @deprecated since v4.0.0 - use `typeof value === 'number'` instead. */
-    export function isNumber(object: any): object is number;
+    export function isNumber(object: unknown): object is number;
     /** @deprecated since v4.0.0 - use `value !== null && typeof value === 'object'` instead. */
-    export function isObject(object: any): boolean;
+    export function isObject(object: unknown): boolean;
     /** @deprecated since v4.0.0 - use `(typeof value !== 'object' && typeof value !== 'function') || value === null` instead. */
-    export function isPrimitive(object: any): boolean;
+    export function isPrimitive(object: unknown): boolean;
     /** @deprecated since v4.0.0 - use `typeof value === 'string'` instead. */
-    export function isString(object: any): object is string;
+    export function isString(object: unknown): object is string;
     /** @deprecated since v4.0.0 - use `typeof value === 'symbol'` instead. */
-    export function isSymbol(object: any): object is symbol;
+    export function isSymbol(object: unknown): object is symbol;
     /** @deprecated since v4.0.0 - use `value === undefined` instead. */
-    export function isUndefined(object: any): object is undefined;
+    export function isUndefined(object: unknown): object is undefined;
     export function deprecate<T extends Function>(fn: T, message: string, code?: string): T;
-    export function isDeepStrictEqual(val1: any, val2: any): boolean;
+    export function isDeepStrictEqual(val1: unknown, val2: unknown): boolean;
 
     export function callbackify(fn: () => Promise<void>): (callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<TResult>(fn: () => Promise<TResult>): (callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;

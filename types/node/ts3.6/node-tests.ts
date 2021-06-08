@@ -167,7 +167,7 @@ const importObject = { wasi_unstable: wasi.wasiImport };
     }
     {
         const frame: NodeJS.CallSite = null!;
-        const frameThis: any = frame.getThis();
+        const frameThis: unknown = frame.getThis();
         const typeName: string | null  = frame.getTypeName();
         const func: Function | undefined  = frame.getFunction();
         const funcName: string | null = frame.getFunctionName();
