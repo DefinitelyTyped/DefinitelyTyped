@@ -12,18 +12,18 @@ interface RequestBody {
     };
 }
 
-app.use<{}, { request: { body: RequestBody } }>((ctx) => {
+app.use((ctx) => {
     // $ExpectType RequestBody
     const body = ctx.request.body as RequestBody;
 
     // $ExpectType string
-    ctx.request.body.a.b;
+    body.a.b;
 
     // $ExpectType number
-    ctx.request.body.a.c;
+    body.a.c;
 
     // $ExpectError
-    ctx.request.body.d;
+    body.d;
 });
 
 app.listen(80);
