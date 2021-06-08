@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { usePageVisibility, PageVisibility, KnownVisibilityStates } from 'react-page-visibility';
+import PageVisibility, { usePageVisibility, KnownVisibilityStates } from 'react-page-visibility';
 
 const ComponentExpectsBoolean = (props: { isVisible: boolean }) => {
   const { isVisible } = props;

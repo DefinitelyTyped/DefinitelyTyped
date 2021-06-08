@@ -24,4 +24,4 @@ export interface PageVisibilityProps {
  * A higher order component for managing visibility state via the child
  * rendering pattern.
  */
-export class PageVisibility extends Component<PageVisibilityProps> {}
+export default class PageVisibility extends Component<PageVisibilityProps> {}
