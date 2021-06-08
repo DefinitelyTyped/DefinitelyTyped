@@ -23,15 +23,16 @@ const go = async () => {
     };
 
     for await (const response of octokit.paginate.iterator('GET /search/issues', parameters)) {
-        debugger
+        console.log("\n-")
         /** @type {Array<import("@octokit/types/src/generated/Endpoints").Endpoints["GET /issues"]["response"]["data"][number]>} */
         const items = response.data
         for (const issue of items) {
             // Ignore issues with labels
             if (issue.labels.length) continue;
 
-            await octokit.issues.update({ repo: "DefinitelyTyped", owner: "DefinitelyTyped", number: issue.number, state: "closed" })
-            await octokit.issues.createComment({ repo: "DefinitelyTyped", owner: "DefinitelyTyped", number: issue.number, body: message })
+            process.stdout.write("#" + issue.number + " ")
+            await octokit.issues.update({ repo: "DefinitelyTyped", owner: "DefinitelyTyped", issue_number: issue.number, state: "closed" })
+            await octokit.issues.createComment({ repo: "DefinitelyTyped", owner: "DefinitelyTyped", issue_number: issue.number, body: message })
         }
     }
 };
