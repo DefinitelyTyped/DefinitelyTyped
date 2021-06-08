@@ -33,7 +33,9 @@ interface SensorOptions {
     frequency?: number;
 }
 
-type MotionSensorOptions = SensorOptions & { referenceFrame?: string };
+interface MotionSensorOptions extends SensorOptions {
+    referenceFrame?: string;
+}
 
 // Accelerometer: https://www.w3.org/TR/accelerometer/
 
