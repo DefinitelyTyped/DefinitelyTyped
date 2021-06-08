@@ -330,7 +330,6 @@ declare module 'process' {
                 umask(mask: string | number): number;
                 uptime(): number;
                 hrtime: HRTime;
-                domain: Domain;
 
                 // Worker
                 send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
