@@ -122,14 +122,10 @@ declare module 'console' {
                 new(stdout: WritableStream, stderr?: WritableStream, ignoreErrors?: boolean): Console;
                 new(options: ConsoleConstructorOptions): Console;
             }
-
-            interface Global {
-                console: typeof console;
-            }
         }
     }
 
-    export = console;
+    export = globalThis.console;
 }
 
 declare module 'node:console' {

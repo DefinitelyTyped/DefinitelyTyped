@@ -5,11 +5,7 @@
 
 /// <reference types="node" />
 
-declare namespace NodeJS  {
-    interface Global {
-        mapOptions: any
-    }
-}
+declare var mapOptions: Options;
 
 interface Events {
     /**
