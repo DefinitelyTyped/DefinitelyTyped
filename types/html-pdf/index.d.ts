@@ -1,4 +1,4 @@
-// Type definitions for html-pdf v2.2.0
+// Type definitions for html-pdf v3.0.1
 // Project: https://github.com/marcbachmann/node-html-pdf
 // Definitions by: Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,6 +13,9 @@ declare module 'html-pdf' {
 
     // Export options
     directory?: string;
+    
+    // Allow local URL access: https://github.com/marcbachmann/node-html-pdf/commit/236a29746d8fa9b6e2ba9d51d50c59b1f7587a69
+    localUrlAccess?: boolean;
 
     // Papersize Options: http://phantomjs.org/api/webpage/property/paper-size.html
     height?: string;
