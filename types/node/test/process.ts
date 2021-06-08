@@ -28,6 +28,9 @@ import EventEmitter = require('events');
     process.once("removeListener", (event: string | symbol, listener: Function) => { });
     process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
     process.on("customEvent", () => { });
+    process.on('worker', w => {
+        w; // $ExpectType Worker
+    });
 
     const listeners = process.listeners('uncaughtException');
     const oldHandler = listeners[listeners.length - 1];

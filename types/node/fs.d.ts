@@ -10,7 +10,7 @@ declare module 'fs' {
      */
     export type PathLike = string | Buffer | URL;
 
-    export type PathOrFd = PathLike | number;
+    export type PathOrFileDescriptor = PathLike | number;
 
     export type TimeLike = string | number | Date;
 
@@ -1566,7 +1566,7 @@ declare module 'fs' {
      * If a flag is not provided, it defaults to `'r'`.
      */
     export function readFile(
-        path: PathOrFd,
+        path: PathOrFileDescriptor,
         options: { encoding?: null | undefined; flag?: string | undefined; } & Abortable | undefined | null,
         callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
     ): void;
@@ -1579,7 +1579,7 @@ declare module 'fs' {
      * If a flag is not provided, it defaults to `'r'`.
      */
     export function readFile(
-        path: PathOrFd,
+        path: PathOrFileDescriptor,
         options: { encoding: BufferEncoding; flag?: string | undefined; } & Abortable | string,
         callback: (err: NodeJS.ErrnoException | null, data: string) => void,
     ): void;
@@ -1592,7 +1592,7 @@ declare module 'fs' {
      * If a flag is not provided, it defaults to `'r'`.
      */
     export function readFile(
-        path: PathOrFd,
+        path: PathOrFileDescriptor,
         options: ObjectEncodingOptions & { flag?: string | undefined; } & Abortable | string | undefined | null,
         callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void,
     ): void;
@@ -1602,7 +1602,7 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      */
-    export function readFile(path: PathOrFd, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
+    export function readFile(path: PathOrFileDescriptor, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace readFile {
@@ -1613,7 +1613,7 @@ declare module 'fs' {
          * @param options An object that may contain an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        function __promisify__(path: PathOrFd, options?: { encoding?: null | undefined; flag?: string | undefined; } | null): Promise<Buffer>;
+        function __promisify__(path: PathOrFileDescriptor, options?: { encoding?: null | undefined; flag?: string | undefined; } | null): Promise<Buffer>;
 
         /**
          * Asynchronously reads the entire contents of a file.
@@ -1623,7 +1623,7 @@ declare module 'fs' {
          * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        function __promisify__(path: PathOrFd, options: { encoding: BufferEncoding; flag?: string | undefined; } | string): Promise<string>;
+        function __promisify__(path: PathOrFileDescriptor, options: { encoding: BufferEncoding; flag?: string | undefined; } | string): Promise<string>;
 
         /**
          * Asynchronously reads the entire contents of a file.
@@ -1633,7 +1633,7 @@ declare module 'fs' {
          * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        function __promisify__(path: PathOrFd, options?: ObjectEncodingOptions & { flag?: string | undefined; } | string | null): Promise<string | Buffer>;
+        function __promisify__(path: PathOrFileDescriptor, options?: ObjectEncodingOptions & { flag?: string | undefined; } | string | null): Promise<string | Buffer>;
     }
 
     /**
@@ -1642,7 +1642,7 @@ declare module 'fs' {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param options An object that may contain an optional flag. If a flag is not provided, it defaults to `'r'`.
      */
-    export function readFileSync(path: PathOrFd, options?: { encoding?: null | undefined; flag?: string | undefined; } | null): Buffer;
+    export function readFileSync(path: PathOrFileDescriptor, options?: { encoding?: null | undefined; flag?: string | undefined; } | null): Buffer;
 
     /**
      * Synchronously reads the entire contents of a file.
@@ -1651,7 +1651,7 @@ declare module 'fs' {
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    export function readFileSync(path: PathOrFd, options: { encoding: BufferEncoding; flag?: string | undefined; } | BufferEncoding): string;
+    export function readFileSync(path: PathOrFileDescriptor, options: { encoding: BufferEncoding; flag?: string | undefined; } | BufferEncoding): string;
 
     /**
      * Synchronously reads the entire contents of a file.
@@ -1660,7 +1660,7 @@ declare module 'fs' {
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    export function readFileSync(path: PathOrFd, options?: ObjectEncodingOptions & { flag?: string | undefined; } | BufferEncoding | null): string | Buffer;
+    export function readFileSync(path: PathOrFileDescriptor, options?: ObjectEncodingOptions & { flag?: string | undefined; } | BufferEncoding | null): string | Buffer;
 
     export type WriteFileOptions = (ObjectEncodingOptions & Abortable & { mode?: Mode | undefined; flag?: string | undefined; }) | string | null;
 
@@ -1675,7 +1675,7 @@ declare module 'fs' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    export function writeFile(path: PathOrFd, data: string | NodeJS.ArrayBufferView, options: WriteFileOptions, callback: NoParamCallback): void;
+    export function writeFile(path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options: WriteFileOptions, callback: NoParamCallback): void;
 
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -1683,7 +1683,7 @@ declare module 'fs' {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      */
-    export function writeFile(path: PathOrFd, data: string | NodeJS.ArrayBufferView, callback: NoParamCallback): void;
+    export function writeFile(path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace writeFile {
@@ -1699,7 +1699,7 @@ declare module 'fs' {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'w'` is used.
          */
-        function __promisify__(path: PathOrFd, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): Promise<void>;
+        function __promisify__(path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): Promise<void>;
     }
 
     /**
@@ -1713,7 +1713,7 @@ declare module 'fs' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    export function writeFileSync(path: PathOrFd, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): void;
+    export function writeFileSync(path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): void;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -1726,7 +1726,7 @@ declare module 'fs' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    export function appendFile(file: PathOrFd, data: string | Uint8Array, options: WriteFileOptions, callback: NoParamCallback): void;
+    export function appendFile(file: PathOrFileDescriptor, data: string | Uint8Array, options: WriteFileOptions, callback: NoParamCallback): void;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -1734,7 +1734,7 @@ declare module 'fs' {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      */
-    export function appendFile(file: PathOrFd, data: string | Uint8Array, callback: NoParamCallback): void;
+    export function appendFile(file: PathOrFileDescriptor, data: string | Uint8Array, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace appendFile {
@@ -1750,7 +1750,7 @@ declare module 'fs' {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'a'` is used.
          */
-        function __promisify__(file: PathOrFd, data: string | Uint8Array, options?: WriteFileOptions): Promise<void>;
+        function __promisify__(file: PathOrFileDescriptor, data: string | Uint8Array, options?: WriteFileOptions): Promise<void>;
     }
 
     /**
@@ -1764,7 +1764,7 @@ declare module 'fs' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    export function appendFileSync(file: PathOrFd, data: string | Uint8Array, options?: WriteFileOptions): void;
+    export function appendFileSync(file: PathOrFileDescriptor, data: string | Uint8Array, options?: WriteFileOptions): void;
 
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
