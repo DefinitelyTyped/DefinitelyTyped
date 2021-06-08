@@ -5,10 +5,12 @@
 
 /// <reference types="node" />
 
+export {};
+
 /**
  * A set of commonly understood string names for types to help with completions.
  */
-export type NamedType = "string" | "pointer" | keyof typeof types | `${keyof typeof types}${"*" | " *" | "**" | " **"}`;
+export type NamedType = "string" | "pointer" | keyof TypesDefaultRegistry | `${keyof TypesDefaultRegistry}${"*" | " *" | "**" | " **"}`;
 
 /**
  * Base constraint for a type understood by the package.
@@ -22,18 +24,114 @@ export type TypeLike = Type | string;
 export type NamedTypeLike = Type | NamedType;
 
 /**
+ * A type-space registry of type names to their JS types (allows for overrides of defaults)
+ *
+ * If you find a type is too specific for your use case, you can modify {@link UnderlyingTypeOverrideRegistry} using
+ * a module augmentation:
+ *
+ * ```ts
+ * declare module "ref-napi" {
+ *   interface UnderlyingTypeOverrideRegistry {
+ *     int64: SomeOtherType;
+ *   }
+ * }
+ * ```
+ */
+export interface UnderlyingTypeOverrideRegistry { // tslint:disable-line no-empty-interface
+}
+
+/**
+ * A type-space registry of type names to their JS types.
+ *
+ * **Do not augment this type.** If you find a type is too specific for your use case, you can modify
+ * {@link UnderlyingTypeOverrideRegistry} using module augmentation:
+ *
+ * ```ts
+ * declare module "ref-napi" {
+ *   interface UnderlyingTypeOverrideRegistry {
+ *     int64: SomeOtherType;
+ *   }
+ * }
+ * ```
+ */
+export interface UnderlyingTypeDefaultRegistry {
+    "void": void; // tslint:disable-line void-return
+    "bool": boolean;
+    "int8": number;
+    "uint8": number;
+    "int16": number;
+    "uint16": number;
+    "int32": number;
+    "uint32": number;
+    "float": number;
+    "double": number;
+    "byte": number;
+    "char": number;
+    "uchar": number;
+    "short": number;
+    "ushort": number;
+    "int": number;
+    "uint": number;
+    "int64": string | number;
+    "uint64": string | number;
+    "long": string | number;
+    "longlong": string | number;
+    "ulong": string | number;
+    "ulonglong": string | number;
+    "size_t": string | number;
+    "Object": unknown;
+    "CString": string | null;
+    "pointer": Pointer<unknown>;
+    "string": string | null;
+    "char*": string;
+    "char *": string;
+    "byte*": Buffer | Pointer<number>;
+    "byte *": Buffer | Pointer<number>;
+    "void*": Pointer<unknown>;
+    "void *": Pointer<unknown>;
+}
+
+/**
+ * A type-space registry of type names to their JS types.
+ *
+ * **Do not augment this type.** If you find a type is too specific for your use case, you can modify
+ * {@link UnderlyingTypeOverrideRegistry} using module augmentation:
+ *
+ * ```ts
+ * declare module "ref-napi" {
+ *   interface UnderlyingTypeOverrideRegistry {
+ *     "long": SomeOtherType;
+ *   }
+ * }
+ * ```
+ */
+export interface UnderlyingTypeRegistry extends Omit<UnderlyingTypeDefaultRegistry, keyof UnderlyingTypeOverrideRegistry>, UnderlyingTypeOverrideRegistry {
+}
+
+// Helper type that trims leading and trailing spaces from a string
+type Trim<S extends string> =
+    // NOTE: look for double and single space characters to reduce recursion
+    S extends `  ${infer U}` ? Trim<U> :
+    S extends ` ${infer U}` ? Trim<U> :
+    S extends `${infer U}  ` ? Trim<U> :
+    S extends `${infer U} ` ? Trim<U> :
+    S;
+
+/**
  * Gets the underlying type for a {@link Type} or {@link BaseNamedType}.
  */
 export type UnderlyingType<T extends TypeLike> =
     T extends Type<infer U> ? U :
-    T extends "void" ? void : // tslint:disable-line void-return
-    T extends "bool" ? boolean :
-    T extends "int8" | "uint8" | "int16" | "uint16" | "int32" | "uint32" | "float" | "double" | "byte" | "char" | "uchar" | "short" | "ushort" | "int" | "uint" ? number :
-    T extends "int64" | "uint64" | "long" | "longlong" | "ulong" | "ulonglong" | "size_t" ? string | number :
-    T extends "Object" ? unknown :
-    T extends "CString" | "string" ? string | null :
-    T extends "pointer" ? Pointer<any> :
-    T extends `${infer U}${"" | " "}*` ? U extends "char" ? string : Pointer<UnderlyingType<U>> :
+    // Allow for user-defined type overrides
+    T extends keyof UnderlyingTypeOverrideRegistry ? UnderlyingTypeOverrideRegistry[T] :
+    // Use default type map
+    T extends keyof UnderlyingTypeRegistry ? UnderlyingTypeRegistry[T] :
+    // Coerce pointer types into relevant references.
+    T extends `${infer U}*` ?
+        Trim<U> extends "char" ? string | null : // `char*` is a string type
+        Trim<U> extends "byte" ? Buffer | Pointer<number> : // `byte*` is either a `Buffer` or a `Pointer` to a single byte
+        Trim<U> extends "void" ? Pointer<unknown> : // `void*` is a `Pointer` to some unknown value.
+        Pointer<UnderlyingType<U>> : // Treat this as a `Pointer` to the underlying type.
     unknown;
 
 /**
@@ -281,8 +379,38 @@ export declare function _writePointer(buffer: Buffer, offset: number, pointer: B
 export declare function _writeObject<T>(buffer: Value<T>, offset: 0, object: T): void;
 export declare function _writeObject(buffer: Buffer, offset: number, object: Object): void;
 
-/** Default types. */
-export declare var types: {
+/**
+ * A registry of user-defined type names to {@link Type} instances known to `ref-napi`.
+ *
+ * If you find a type is too specific for your use case, you can modify {@link TypesOverrideRegistry} using
+ * module augmentation:
+ *
+ * ```ts
+ * declare module "ref-napi" {
+ *   interface TypesOverrideRegistry {
+ *     int64: Type<SomeOtherType>;
+ *   }
+ * }
+ * ```
+ */
+export interface TypesOverrideRegistry { // tslint:disable-line no-empty-interface
+}
+
+/**
+ * A registry of default type names to {@link Type} types known to `ref-napi`.
+ *
+ * **Do not augment this type.** If you find a type is too specific for your use case, you can modify
+ * {@link TypesOverrideRegistry} using module augmentation:
+ *
+ * ```ts
+ * declare module "ref-napi" {
+ *   interface TypesOverrideRegistry {
+ *     int64: Type<SomeOtherType>;
+ *   }
+ * }
+ * ```
+ */
+ export interface TypesDefaultRegistry {
     void: Type<void>;
     int64: Type<string | number>;
     ushort: Type<number>;
@@ -309,9 +437,35 @@ export declare var types: {
     size_t: Type<string | number>;
     uint32: Type<number>;
     short: Type<number>;
-};
+}
 
-export declare var alignof: {
+/**
+ * A combined registry of default and overridden type names to {@link Type} types known to `ref-napi`.
+ *
+ * **Do not augment this type.** If you find a type is too specific for your use case, you can modify
+ * {@link TypesOverrideRegistry} using module augmentation:
+ *
+ * ```ts
+ * declare module "ref-napi" {
+ *   interface TypesOverrideRegistry {
+ *     int64: Type<SomeOtherType>;
+ *   }
+ * }
+ * ```
+ */
+export interface TypesRegistry extends Omit<TypesDefaultRegistry, keyof TypesOverrideRegistry>, TypesOverrideRegistry {
+}
+
+/** Default types. */
+export declare var types: TypesRegistry;
+
+/**
+ * A registry of type names to their alignments.
+ *
+ * NOTE: This is not a 1:1 correspondence with {@link TypesDefaultRegistry} as it excludes {@link TypesDefaultRegistry.void} and
+ * {@link TypesDefaultRegistry.CString}, but includes {@link AlignofRegistry.pointer}.
+ */
+export interface AlignofRegistry {
     pointer: number;
     int64: number;
     ushort: number;
@@ -337,9 +491,18 @@ export declare var alignof: {
     size_t: number;
     uint32: number;
     short: number;
-};
+}
 
-export declare var sizeof: {
+/** Default type alignments. */
+export declare var alignof: AlignofRegistry;
+
+/**
+ * A registry of type names to their sizes.
+ *
+ * NOTE: This is not a 1:1 correspondence with {@link TypesDefaultRegistry} as it excludes {@link TypesDefaultRegistry.void} and
+ * {@link TypesDefaultRegistry.CString}, but includes {@link SizeofRegistry.pointer}.
+ */
+export interface SizeofRegistry {
     pointer: number;
     int64: number;
     ushort: number;
@@ -365,7 +528,10 @@ export declare var sizeof: {
     size_t: number;
     uint32: number;
     short: number;
-};
+}
+
+/** Default type sizes. */
+export declare var sizeof: SizeofRegistry;
 
 declare global {
   interface Buffer {
