@@ -83,6 +83,6 @@ declare namespace DataTables {
         /**
          * Provide a function that can be used to control the data shown in the start grouping row
          */
-        startRender?: (rows: Api, group: string) => string|HTMLElement|JQuery;
+        startRender?: (rows: Api, group: string, level: number) => string|HTMLElement|JQuery;
     }
 }
