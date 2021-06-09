@@ -1973,8 +1973,8 @@ declare namespace Matter {
         timeScale: number;
 
         /**
-         * A `Number` that specifies the current simulation-time in milliseconds starting from `0`. 
-         * It is incremented on every `Engine.update` by the given `delta` argument. 
+         * A `Number` that specifies the current simulation-time in milliseconds starting from `0`.
+         * It is incremented on every `Engine.update` by the given `delta` argument.
          *
          * @property timing.timestamp
          * @type number
