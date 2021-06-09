@@ -154,6 +154,7 @@ export interface VideoProperties extends ViewProps {
     playInBackground?: boolean;
     playWhenInactive?: boolean;
     ignoreSilentSwitch?: 'ignore' | 'obey';
+    mixWithOthers?: 'inherit' | 'mix' | 'duck';
     reportBandwidth?: boolean;
     disableFocus?: boolean;
     controls?: boolean;

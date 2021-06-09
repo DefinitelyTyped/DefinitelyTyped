@@ -1,4 +1,4 @@
-// Type definitions for datatables.net-rowgroup 1.0
+// Type definitions for datatables.net-rowgroup 1.1
 // Project: https://datatables.net/extensions/rowgroup/, https://datatables.net
 // Definitions by: Matthieu Tabuteau <https://github.com/maixiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -63,7 +63,7 @@ declare namespace DataTables {
         /**
          * Set the data point to use as the grouping data source
          */
-        dataSrc?: number|string;
+        dataSrc?: number|string|string[];
 
         /**
          * Provides the ability to disable row grouping at initialisation
@@ -83,6 +83,6 @@ declare namespace DataTables {
         /**
          * Provide a function that can be used to control the data shown in the start grouping row
          */
-        startRender?: (rows: Api, group: string) => string|HTMLElement|JQuery;
+        startRender?: (rows: Api, group: string, level: number) => string|HTMLElement|JQuery;
     }
 }

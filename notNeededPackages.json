@@ -1561,6 +1561,10 @@
             "libraryName": "graphql-query-complexity",
             "asOfVersion": "0.2.0"
         },
+        "graphql-relay": {
+            "libraryName": "graphql-relay",
+            "asOfVersion": "0.7.0"
+        },
         "gravatar-url": {
             "libraryName": "gravatar-url",
             "asOfVersion": "3.0.0"
