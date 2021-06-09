@@ -2,20 +2,6 @@
 
 import React = require('react');
 
-// We need these Window interfaces to compile
-interface Window {
-    location: {
-        href: string;
-        pathname: string;
-    };
-    addEventListener(type: string, callback: () => void): void;
-    removeEventListener(type: string, callback: () => void): void;
-}
-
-const noop = () => {};
-
-const window: Window = { location: { href: '', pathname: '' }, addEventListener: noop, removeEventListener: noop };
-
 const locationSource = React.unstable_createMutableSource(window, () => window.location.href);
 
 const getSnapshot = (window: Window) => window.location.pathname;
