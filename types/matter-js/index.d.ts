@@ -137,9 +137,10 @@ declare namespace Matter {
         * @param {bool} [flagInternal=false]
         * @param {number} [removeCollinear=0.01]
         * @param {number} [minimumArea=10]
+        * @param {number} [removeDuplicatePoints=0.01]
         * @return {body}
         */
-        static fromVertices(x: number, y: number, vertexSets: Array<Array<Vector>>, options?: IBodyDefinition, flagInternal?: boolean, removeCollinear?: number, minimumArea?: number): Body;
+        static fromVertices(x: number, y: number, vertexSets: Array<Array<Vector>>, options?: IBodyDefinition, flagInternal?: boolean, removeCollinear?: number, minimumArea?: number, removeDuplicatePoints?: number): Body;
     }
 
     export interface IBodyDefinition {
@@ -1133,7 +1134,7 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @return {bounds} A new bounds object
          */
-        static create (vertices: Vertices): Bounds;
+        static create(vertices: Vertices): Bounds;
         /**
          * Updates bounds using the given vertices and extends the bounds given a velocity.
          * @method update
@@ -2039,6 +2040,7 @@ declare namespace Matter {
         * @property broadphase
         * @type grid
         * @default a Matter.Grid instance
+        * @deprecated use `engine.grid`
         */
         broadphase: Grid;
         /**
@@ -2066,6 +2068,24 @@ declare namespace Matter {
         * @default false
         */
         enableSleeping: boolean;
+
+        /**
+         * The gravity to apply on all bodies in `engine.world`.
+         *
+         * @property gravity
+         * @type object
+         * @default { x: 0, y: 1, scale: 0.001 }
+         */
+        gravity: Gravity;
+
+        /**
+         * A `Matter.Grid` instance.
+         *
+         * @property grid
+         * @type grid
+         * @default a Matter.Grid instance
+         */
+        grid: Grid;
 
         /**
          * Collision pair set for this `Engine`.
@@ -2332,13 +2352,13 @@ declare namespace Matter {
     * @class Query
     */
     export class Query {
-         /**
-         * Finds a list of collisions between body and bodies.
-         * @method collides
-         * @param {body} body
-         * @param {body[]} bodies
-         * @return {object[]} Collisions
-         */
+        /**
+        * Finds a list of collisions between body and bodies.
+        * @method collides
+        * @param {body} body
+        * @param {body[]} bodies
+        * @return {object[]} Collisions
+        */
         static collides(body: Body, bodies: Array<Body>): Array<any>;
 
         /**
@@ -2823,7 +2843,7 @@ declare namespace Matter {
          * @param {vector} vectorC
          * @return {number} The cross product of the three vectors
          */
-        static cross3(vectorA: Vector, vectorB: Vector, vectorC: Vector):number;
+        static cross3(vectorA: Vector, vectorB: Vector, vectorC: Vector): number;
 
         /**
          * Adds the two vectors.
@@ -3110,7 +3130,7 @@ declare namespace Matter {
     }
 
     interface Gravity extends Vector {
-      scale: number;
+        scale: number;
     }
 
     /**
@@ -3179,6 +3199,9 @@ declare namespace Matter {
          */
         static create(options: IWorldDefinition): World;
 
+        /**
+         * @deprecated use `engine.gravity`
+         */
         gravity: Gravity;
         bounds: Bounds;
 
@@ -3768,9 +3791,9 @@ declare namespace Matter {
 
     }
 
-    type Dependency = {name: string, range: string}
-                    | {name: string, version: string}
-                    | string;
+    type Dependency = { name: string, range: string }
+        | { name: string, version: string }
+        | string;
 
     export class Plugin {
         name: string;
@@ -3824,7 +3847,7 @@ declare namespace Matter {
          * @param module {} The module.
          * @return {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
          */
-        static isFor(plugin: Plugin, module: {name?: string, [_: string]: any}): boolean;
+        static isFor(plugin: Plugin, module: { name?: string, [_: string]: any }): boolean;
 
         /**
          * Installs the plugins by calling `plugin.install` on each plugin specified in `plugins` if passed, otherwise `module.uses`.
@@ -3843,7 +3866,7 @@ declare namespace Matter {
          * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
          */
         static use(
-            module: {uses?: (Plugin | string)[]; [_: string]: any},
+            module: { uses?: (Plugin | string)[];[_: string]: any },
             plugins: (Plugin | string)[]
         ): void;
 
@@ -3855,8 +3878,8 @@ declare namespace Matter {
          */
         static dependencies(
             module: Dependency,
-            tracked?: {[_: string]: string[]}
-        ): {[_: string]: string[]} | string | undefined
+            tracked?: { [_: string]: string[] }
+        ): { [_: string]: string[] } | string | undefined
 
         /**
          * Parses a dependency string into its components.
@@ -3867,7 +3890,7 @@ declare namespace Matter {
          * @param dependency {string} The dependency of the format `'module-name'` or `'module-name@version'`.
          * @return {object} The dependency parsed into its components.
          */
-        static dependencyParse(dependency: Dependency) : {name: string, range: string};
+        static dependencyParse(dependency: Dependency): { name: string, range: string };
 
         /**
          * Parses a version string into its components.
@@ -3883,7 +3906,7 @@ declare namespace Matter {
          * @param range {string} The version string.
          * @return {object} The version range parsed into its components.
          */
-        static versionParse(range: string) : {
+        static versionParse(range: string): {
             isRange: boolean,
             version: string,
             range: string,
