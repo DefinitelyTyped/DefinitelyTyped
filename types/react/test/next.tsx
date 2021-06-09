@@ -2,18 +2,28 @@
 
 import React = require('react');
 
-interface Source {
-    value: string;
+// We need these Window interfaces to compile
+interface Window {
+    location: {
+        href: string;
+        pathname: string;
+    };
+    addEventListener(type: string, callback: () => void): void;
+    removeEventListener(type: string, callback: () => void): void;
 }
 
-const source: Source = { value: '' };
+const noop = () => {};
 
-const mutableSource = React.unstable_createMutableSource(source, () => source.value);
+const window: Window = { location: { href: '', pathname: '' }, addEventListener: noop, removeEventListener: noop };
 
-const getSnapshot = (source: Source) => source.value;
+const locationSource = React.unstable_createMutableSource(window, () => window.location.href);
 
-// subscribe progress is ignored
-const subscribe: React.MutableSourceSubscribe<Source> = (source, callback) => () => {};
+const getSnapshot = (window: Window) => window.location.pathname;
+
+const subscribe: React.MutableSourceSubscribe<Window> = (window, callback) => {
+    window.addEventListener("popstate", callback);
+    return () => window.removeEventListener("popstate", callback);
+};
 
 function useExperimentalHooks() {
     const [toggle, setToggle] = React.useState(false);
@@ -40,7 +50,7 @@ function useExperimentalHooks() {
     const deferredConstructible = React.useDeferredValue(Constructible);
 
     // $ExpectType string
-    const pathName = React.unstable_useMutableSource(mutableSource, getSnapshot, subscribe);
+    const pathName = React.unstable_useMutableSource(locationSource, getSnapshot, subscribe);
 
     return () => {
         startTransition(() => {
