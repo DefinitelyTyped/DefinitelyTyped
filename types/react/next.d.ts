@@ -195,5 +195,5 @@ declare module '.' {
      *
      * @see https://github.com/reactjs/rfcs/blob/master/text/0147-use-mutable-source.md
      */
-    export function unstable_useMutableSource<T, TResult extends any>(MutableSource: MutableSource<T>, getSnapshot: (source: T) => TResult, subscribe: MutableSourceSubscribe<T>): TResult;
+    export function unstable_useMutableSource<T, TResult extends unknown>(MutableSource: MutableSource<T>, getSnapshot: (source: T) => TResult, subscribe: MutableSourceSubscribe<T>): TResult;
 }
