@@ -424,6 +424,11 @@ declare namespace DataTables {
         message?: string|Api|JQuery|object;
 
         /**
+         * List of buttons to be created
+         */
+        buttons?: ButtonSettings[];
+        
+        /**
          * PRINT: Show print dialoge on click
          */
         autoPrint?: boolean;
