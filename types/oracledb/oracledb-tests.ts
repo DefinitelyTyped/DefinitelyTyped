@@ -559,6 +559,37 @@ const testGenerics = async () => {
     console.log(result3.outBinds[0].firstColumn);
 };
 
+export const testQueryStreamGenerics = (connection: oracledb.Connection): void => {
+    interface MyStream {
+        streamTest: string;
+    }
+
+    const stream = connection.queryStream<MyStream>('SELECT 1 FROM DUAL WHERE 10 < :myValue', {
+        myValue: {
+            dir: oracledb.BIND_IN,
+            maxSize: 50,
+            type: oracledb.NUMBER,
+            val: 20,
+        },
+        anotherValue: {
+            dir: oracledb.BIND_INOUT,
+            type: oracledb.DB_TYPE_NCLOB,
+        },
+    });
+
+    stream.on('data', data => {
+        console.log(data);
+    });
+
+    stream.on('metadata', metadata => {
+        const streamClass = metadata[0].dbTypeClass;
+
+        const streamClassInstance = new streamClass({
+            streamTest: 'success',
+        });
+    });
+};
+
 const test4point1 = async (): Promise<void> => {
     defaultOracledb.poolMaxPerShard = 45;
 
