@@ -11,7 +11,7 @@ import VectorSource from '../source/Vector';
 import Interaction from './Interaction';
 
 export interface Options {
-    formatConstructors?: (FeatureFormat | FeatureFormat)[];
+    formatConstructors?: (typeof FeatureFormat | FeatureFormat)[];
     source?: VectorSource<Geometry>;
     projection?: ProjectionLike;
     target?: HTMLElement;

@@ -14,7 +14,7 @@ export default class RenderEvent extends BaseEvent {
      * Canvas context. Not available when the event is dispatched by the map. Only available
      * when a Canvas renderer is used, null otherwise.
      */
-    context: CanvasRenderingContext2D;
+    context: CanvasRenderingContext2D | null;
     /**
      * An object representing the current render frame state.
      */

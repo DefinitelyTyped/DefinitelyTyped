@@ -16,13 +16,13 @@ export interface Options {
     attributions?: AttributionLike;
     attributionsCollapsible?: boolean;
     cacheSize?: number;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
     imageSmoothing?: boolean;
     opaque?: boolean;
     projection?: ProjectionLike;
     reprojectionErrorThreshold?: number;
     state?: State;
-    tileClass?: ImageTile;
+    tileClass?: typeof ImageTile;
     tileGrid?: TileGrid;
     tileLoadFunction?: LoadFunction;
     tilePixelRatio?: number;
@@ -38,7 +38,7 @@ export default class TileImage extends UrlTile {
     constructor(options: Options);
     protected crossOrigin: string;
     protected tileCacheForProjection: { [key: string]: TileCache };
-    protected tileClass: ImageTile;
+    protected tileClass: typeof ImageTile;
     protected tileGridForProjection: { [key: string]: TileGrid };
     /**
      * Return the key to be used for all tiles in the source.

@@ -25,7 +25,7 @@ export interface Config {
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
     imageSmoothing?: boolean;
     jsonp?: boolean;
     reprojectionErrorThreshold?: number;

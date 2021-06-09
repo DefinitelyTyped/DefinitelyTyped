@@ -13,7 +13,7 @@ export interface CartoDBLayerInfo {
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
     projection?: ProjectionLike;
     maxZoom?: number;
     minZoom?: number;

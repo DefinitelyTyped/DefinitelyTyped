@@ -25,7 +25,7 @@ export interface Options {
     overlaps?: boolean;
     projection?: ProjectionLike;
     state?: State;
-    tileClass?: VectorTile_1;
+    tileClass?: typeof VectorTile_1;
     maxZoom?: number;
     minZoom?: number;
     tileSize?: number | Size;
@@ -41,7 +41,7 @@ export interface Options {
 }
 export default class VectorTile extends UrlTile {
     constructor(options: Options);
-    protected tileClass: VectorTile_1;
+    protected tileClass: typeof VectorTile_1;
     /**
      * clear {@link module:ol/TileCache~TileCache} and delete all source tiles
      */

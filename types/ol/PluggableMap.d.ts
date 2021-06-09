@@ -41,7 +41,7 @@ export interface FrameState {
     animate: boolean;
     coordinateToPixelTransform: Transform;
     declutterTree: RBush<any>;
-    extent: Extent;
+    extent: null | Extent;
     index: number;
     layerStatesArray: State_1[];
     layerIndex: number;

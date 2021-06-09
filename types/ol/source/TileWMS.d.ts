@@ -14,14 +14,14 @@ import WMSServerType from './WMSServerType';
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
     imageSmoothing?: boolean;
     params: { [key: string]: any };
     gutter?: number;
     hidpi?: boolean;
     projection?: ProjectionLike;
     reprojectionErrorThreshold?: number;
-    tileClass?: ImageTile;
+    tileClass?: typeof ImageTile;
     tileGrid?: TileGrid;
     serverType?: WMSServerType | string;
     tileLoadFunction?: LoadFunction;

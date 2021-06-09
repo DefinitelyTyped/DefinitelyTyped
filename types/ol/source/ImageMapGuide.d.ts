@@ -10,7 +10,7 @@ import ImageSource, { ImageSourceEvent } from './Image';
 
 export interface Options {
     url?: string;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
     displayDpi?: number;
     metersPerUnit?: number;
     hidpi?: boolean;
