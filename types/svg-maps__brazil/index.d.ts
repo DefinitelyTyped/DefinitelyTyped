@@ -3,18 +3,9 @@
 // Definitions by: Joao Sutel <https://github.com/joaosutel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace brazil {
-    interface Location {
-        path: string;
-        id: string;
-        name?: string;
-    }
-    interface Map {
-        viewBox: string;
-        locations: Location[];
-        label?: string;
-    }
-}
+import { Location, Map } from '@svg-maps/common';
 
-declare const brazil: brazil.Map;
-export = brazil;
+declare const brazil: Map;
+
+export default brazil;
+export { Location, Map };
