@@ -225,7 +225,8 @@ declare module 'http2' {
 
     export interface ServerHttp2Stream extends Http2Stream {
         readonly headersSent: boolean;
-        readonly pushAllowed: boolean;
+        readonly pushAllowed: boolean;        
+        readonly session: ServerHttp2Session;
         additionalHeaders(headers: OutgoingHttpHeaders): void;
         pushStream(headers: OutgoingHttpHeaders, callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => void): void;
         pushStream(headers: OutgoingHttpHeaders, options?: StreamPriorityOptions, callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => void): void;
