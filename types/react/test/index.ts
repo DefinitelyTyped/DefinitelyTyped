@@ -264,7 +264,8 @@ const legacyStatelessComponentFactory: React.SFCFactory<SCProps> =
 const legacyStatelessComponentFactoryElement: React.SFCElement<SCProps> =
     legacyStatelessComponentFactory(props);
 
-const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
+// domFactory was React.DOMFactory<React.DOMAttributes<{}>, Element> but changed to React.HTMLFactory<HTMLElement>
+const domFactory: React.HTMLFactory<HTMLElement> =
     React.createFactory("div");
 const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
     domFactory();
@@ -481,7 +482,9 @@ const divStyle: React.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
-const htmlAttr: React.HTMLProps<HTMLElement> = {
+
+// DOM.div / DOM.span / DOM.input is called with same props but inlined
+DOM.div({
     key: 36,
     ref: "htmlComponent",
     children,
@@ -508,10 +511,63 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     'aria-colcount': 7,
     'aria-label': 'test',
     'aria-relevant': 'additions removals'
-};
-DOM.div(htmlAttr);
-DOM.span(htmlAttr);
-DOM.input(htmlAttr);
+});
+DOM.span({
+    key: 36,
+    ref: "htmlComponent",
+    children,
+    className: "test-attr",
+    style: divStyle,
+    slot: "HTMLComponent",
+    onClick: (event: React.MouseEvent<{}>) => {
+        event.preventDefault();
+        event.stopPropagation();
+    },
+    onClickCapture: (event: React.MouseEvent<{}>) => {
+        event.preventDefault();
+        event.stopPropagation();
+    },
+    onAnimationStart: event => {
+        const currentTarget: EventTarget & HTMLElement = event.currentTarget;
+    },
+    dangerouslySetInnerHTML: {
+        __html: "<strong>STRONG</strong>"
+    },
+    unselectable: 'on',
+    'aria-atomic': false,
+    'aria-checked': 'true',
+    'aria-colcount': 7,
+    'aria-label': 'test',
+    'aria-relevant': 'additions removals'
+});
+DOM.input({
+    key: 36,
+    ref: "htmlComponent",
+    children,
+    className: "test-attr",
+    style: divStyle,
+    slot: "HTMLComponent",
+    onClick: (event: React.MouseEvent<{}>) => {
+        event.preventDefault();
+        event.stopPropagation();
+    },
+    onClickCapture: (event: React.MouseEvent<{}>) => {
+        event.preventDefault();
+        event.stopPropagation();
+    },
+    onAnimationStart: event => {
+        const currentTarget: EventTarget & HTMLElement = event.currentTarget;
+    },
+    dangerouslySetInnerHTML: {
+        __html: "<strong>STRONG</strong>"
+    },
+    unselectable: 'on',
+    'aria-atomic': false,
+    'aria-checked': 'true',
+    'aria-colcount': 7,
+    'aria-label': 'test',
+    'aria-relevant': 'additions removals'
+});
 
 DOM.svg({
     viewBox: "0 0 48 48",
