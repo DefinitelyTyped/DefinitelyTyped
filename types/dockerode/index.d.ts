@@ -9,6 +9,7 @@
 //                 Cameron Diver <https://github.com/CameronDiver>
 //                 Pascal Sthamer <https://github.com/p4sca1>
 //                 Stuart Thomson <https://github.com/stuartthomson>
+//                 Nasreddine Bac Ali <https://github.com/bacali95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
