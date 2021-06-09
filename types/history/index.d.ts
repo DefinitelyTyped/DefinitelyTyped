@@ -3,6 +3,8 @@
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Nathan Brown <https://github.com/ngbrown>, Young Rok Kim <https://github.com/rokoroku>, Daniel Nixon <https://github.com/danielnixon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+import { ParsedQuery } from 'query-string';
+
 export as namespace History;
 
 export type Action = 'PUSH' | 'POP' | 'REPLACE';
@@ -30,6 +32,7 @@ export interface Location<S = LocationState> {
     state: S;
     hash: Hash;
     key?: LocationKey;
+    query?: ParsedQuery;
 }
 
 export interface LocationDescriptorObject<S = LocationState> {
@@ -38,6 +41,7 @@ export interface LocationDescriptorObject<S = LocationState> {
     state?: S;
     hash?: Hash;
     key?: LocationKey;
+    query?: ParsedQuery;
 }
 
 export namespace History {
