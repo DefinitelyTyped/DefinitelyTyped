@@ -4270,7 +4270,7 @@ declare namespace Cesium {
             credit?: Credit | string;
         });
         static fromGltf(options: {
-            url: string;
+            url: Resource | string;
             basePath?: string;
             show?: boolean;
             modelMatrix?: Matrix4;
