@@ -424,11 +424,6 @@ declare namespace DataTables {
         message?: string|Api|JQuery|object;
 
         /**
-         * List of buttons to be created
-         */
-        buttons?: ButtonSettings[];
-        
-        /**
          * PRINT: Show print dialoge on click
          */
         autoPrint?: boolean;
@@ -448,6 +443,15 @@ declare namespace DataTables {
         columnText?: FunctionButtonColvisColumnText;
 
         //#endregion ColVis
+
+        //#region Buttons
+
+        /**
+         * List of buttons to be created
+         */
+        buttons?: ButtonSettings[];
+
+        //#endregion Buttons
     }
 
     type ButtonSelectorTypes = string | number | JQuery;
