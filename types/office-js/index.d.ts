@@ -4,7 +4,6 @@
 //                 Ricky Kirkham <https://github.com/Rick-Kirkham>,
 //                 Alex Jerabek <https://github.com/AlexJerabek>,
 //                 Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>,
-//                 Sudhi Ramamurthy <https://github.com/sumurthy>,
 //                 Alison McKay <https://github.com/alison-mk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
