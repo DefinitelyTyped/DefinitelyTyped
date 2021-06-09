@@ -2,6 +2,19 @@
 
 import React = require('react');
 
+interface Source {
+    value: string;
+}
+
+const source: Source = { value: '' };
+
+const mutableSource = React.unstable_createMutableSource(source, () => source.value);
+
+const getSnapshot = (source: Source) => source.value;
+
+// subscribe progress is ignored
+const subscribe: React.MutableSourceSubscribe<Source> = (source, callback) => () => {};
+
 function useExperimentalHooks() {
     const [toggle, setToggle] = React.useState(false);
 
@@ -25,6 +38,9 @@ function useExperimentalHooks() {
 
     // $ExpectType () => string
     const deferredConstructible = React.useDeferredValue(Constructible);
+
+    // $ExpectType string
+    const pathName = React.unstable_useMutableSource(mutableSource, getSnapshot, subscribe);
 
     return () => {
         startTransition(() => {
