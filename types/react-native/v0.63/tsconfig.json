@@ -6,10 +6,10 @@
         ],
         "paths": {
             "react-native": [
-                "react-native/v63"
+                "react-native/v0.63"
             ],
             "react-native/*": [
-                "react-native/v63/*"
+                "react-native/v0.63/*"
             ]
         },
         "noImplicitAny": true,
