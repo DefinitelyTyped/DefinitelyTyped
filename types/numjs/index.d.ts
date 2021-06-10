@@ -9,7 +9,7 @@ import { Data, DataType, NdArray as BaseNdArray } from "ndarray";
 
 export type NdType<T> = DataType | Data<T>;
 
-export interface NdArray<T = number> extends BaseNdArray<T> {
+export interface NdArray<T = number> extends BaseNdArray<Data<T>> {
     ndim: number;
     T: NdArray<T>;
     slice(...args: Array<number | number[]>): NdArray<T>;
