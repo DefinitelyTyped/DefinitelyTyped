@@ -1,12 +1,8 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps {
-    children?: ReactAttr["children"],
-    className?: ReactAttr["className"],
-}
-
-export interface HeaderSideNavItemsProps extends InheritedProps {
+export interface HeaderSideNavItemsProps {
+    children?: React.ReactNode,
+    className?: string,
     hasDivider?: boolean,
 }
 

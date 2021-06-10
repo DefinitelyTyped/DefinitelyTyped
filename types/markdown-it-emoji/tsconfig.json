@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "markdown-it-emoji-tests.ts"
+        "test/markdown-it-emoji-cjs.ts",
+        "test/markdown-it-emoji-global.ts"
     ]
 }

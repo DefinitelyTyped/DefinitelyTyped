@@ -9,7 +9,7 @@
 /// <reference types="node" />
 
 // Import from dependencies
-import { Stream } from 'stream';
+import { Readable as ReadableStream } from 'stream';
 import { EventEmitter } from 'events';
 import { AgentOptions } from 'https';
 
@@ -28,6 +28,7 @@ export interface ClientOptions {
     transport?: any;
     sessionToken?: string;
     partSize?: number;
+    pathStyle?: boolean;
 }
 
 export interface BucketItemFromList {
@@ -61,10 +62,11 @@ export interface IncompleteUploadedBucketItem {
     size: number;
 }
 
-export interface BucketStream<T> extends Stream {
+export interface BucketStream<T> extends ReadableStream {
     on(event: 'data', listener: (item: T) => void): this;
-    on(event: 'error', listener: (error: Error) => void): this;
-    on(event: 'end', listener: () => void): this;
+    on(event: 'end' | 'pause' | 'readable' | 'resume' | 'close', listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
 export interface PostPolicyResult {
@@ -110,21 +112,21 @@ export class Client {
     listIncompleteUploads(bucketName: string, prefix?: string, recursive?: boolean): BucketStream<IncompleteUploadedBucketItem>;
 
     // Object operations
-    getObject(bucketName: string, objectName: string, callback: ResultCallback<Stream>): void;
-    getObject(bucketName: string, objectName: string): Promise<Stream>;
+    getObject(bucketName: string, objectName: string, callback: ResultCallback<ReadableStream>): void;
+    getObject(bucketName: string, objectName: string): Promise<ReadableStream>;
 
-    getPartialObject(bucketName: string, objectName: string, offset: number, callback: ResultCallback<Stream>): void;
-    getPartialObject(bucketName: string, objectName: string, offset: number, length: number, callback: ResultCallback<Stream>): void;
-    getPartialObject(bucketName: string, objectName: string, offset: number, length?: number): Promise<Stream>;
+    getPartialObject(bucketName: string, objectName: string, offset: number, callback: ResultCallback<ReadableStream>): void;
+    getPartialObject(bucketName: string, objectName: string, offset: number, length: number, callback: ResultCallback<ReadableStream>): void;
+    getPartialObject(bucketName: string, objectName: string, offset: number, length?: number): Promise<ReadableStream>;
 
     fGetObject(bucketName: string, objectName: string, filePath: string, callback: NoResultCallback): void;
     fGetObject(bucketName: string, objectName: string, filePath: string): Promise<void>;
 
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<string>;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, metaData?: ItemBucketMetadata): Promise<string>;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, callback: ResultCallback<string>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size: number, callback: ResultCallback<string>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<string>;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, metaData?: ItemBucketMetadata): Promise<string>;
 
     fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
     fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata): Promise<string>;

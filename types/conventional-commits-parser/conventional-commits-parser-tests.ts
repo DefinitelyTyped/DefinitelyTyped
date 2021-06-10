@@ -32,9 +32,9 @@ namespace Module.Commit {
         commit.notes; // $ExpectType Note[]
         commit.references; // $ExpectType Reference[]
         commit.revert; // $ExpectType Revert | null
-        commit.scope; // $ExpectType string | null | undefined
-        commit.subject; // $ExpectType string | null | undefined
-        commit.type; // $ExpectType string | null | undefined
+        commit.scope; // $ExpectType string | null | undefined || Field | undefined
+        commit.subject; // $ExpectType string | null | undefined || Field | undefined
+        commit.type; // $ExpectType string | null | undefined || Field | undefined
     }
 }
 
@@ -65,6 +65,13 @@ namespace Module.Commit.Revert {
 
     // $ExpectType Revert
     revert;
-    revert.hash; // $ExpectType string | null | undefined
-    revert.header; // $ExpectType string | null | undefined
+    revert.hash; // $ExpectType string | null | undefined || Field | undefined
+    revert.header; // $ExpectType string | null | undefined || Field | undefined
+}
+
+namespace Module.Options {
+    let options: conventionalCommitsParser.Options;
+    options = {};
+    options = {warn: console.warn.bind(console)};
+    options = {warn: true};
 }

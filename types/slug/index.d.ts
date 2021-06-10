@@ -1,24 +1,13 @@
-// Type definitions for slug 0.9
+// Type definitions for slug 5.0
 // Project: https://github.com/trott/node-slug
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = slug;
 
-interface CharMap {
-    [x: string]: string;
-}
+declare function slug(string: string, replacement: string): string;
+declare function slug(string: string, opts?: slug.Options): string;
 
-interface Mode {
-    charmap?: CharMap| null;
-    lower?: boolean| null;
-    multicharmap?: CharMap| null;
-    remove?: RegExp| null;
-    replacement?: string | null;
-    symbols?: boolean| null;
-}
-
-declare function slug(string: string, opts?: Mode | string): string;
 declare namespace slug {
     const charmap: CharMap;
     const defaults: {
@@ -31,4 +20,22 @@ declare namespace slug {
         multicharmap: CharMap;
     };
     const multicharmap: CharMap;
+
+    function extend(entry: CharMap): void;
+    function reset(): void;
+
+    interface Mode {
+        charmap?: CharMap | null;
+        lower?: boolean | null;
+        multicharmap?: CharMap | null;
+        remove?: RegExp | null;
+        replacement?: string | null;
+        symbols?: boolean | null;
+    }
+
+    type Options = {
+        locale?: string;
+    } & Partial<Mode>;
+
+    type CharMap = Record<string, string>;
 }

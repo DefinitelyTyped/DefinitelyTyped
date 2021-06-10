@@ -6,12 +6,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export interface TabsProps
-    extends Omit<React.HTMLProps<HTMLDivElement>, "className" | "onSelect"> {
+export interface TabsProps extends Omit<React.HTMLProps<HTMLDivElement>, 'className' | 'onSelect' | 'ref'> {
     className?: string | string[] | { [name: string]: boolean };
     defaultFocus?: boolean;
     defaultIndex?: number;
@@ -24,13 +23,11 @@ export interface TabsProps
     selectedTabPanelClassName?: string;
 }
 
-export interface TabListProps
-    extends Omit<React.HTMLProps<HTMLUListElement>, "className"> {
+export interface TabListProps extends Omit<React.HTMLProps<HTMLUListElement>, 'className'> {
     className?: string | string[] | { [name: string]: boolean };
 }
 
-export interface TabProps
-    extends Omit<React.HTMLProps<HTMLLIElement>, "className" | "tabIndex"> {
+export interface TabProps extends Omit<React.HTMLProps<HTMLLIElement>, 'className' | 'tabIndex'> {
     className?: string | string[] | { [name: string]: boolean };
     disabled?: boolean;
     disabledClassName?: string;
@@ -38,8 +35,7 @@ export interface TabProps
     tabIndex?: string;
 }
 
-export interface TabPanelProps
-    extends Omit<React.HTMLProps<HTMLDivElement>, "className"> {
+export interface TabPanelProps extends Omit<React.HTMLProps<HTMLDivElement>, 'className'> {
     className?: string | string[] | { [name: string]: boolean };
     forceRender?: boolean;
     selectedClassName?: string;

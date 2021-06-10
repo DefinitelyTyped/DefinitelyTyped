@@ -69,6 +69,8 @@ export interface OpenstackProviderOptions {
     tenantId?: string;
     version?: string;
     keystoneAuthVersion?: string;
+    domainId?: string;
+    domainName?: string;
 }
 
 export type RackspaceRegions =

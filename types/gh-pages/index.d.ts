@@ -1,4 +1,4 @@
-// Type definitions for gh-pages 2.2
+// Type definitions for gh-pages 3.0
 // Project: https://github.com/tschaub/gh-pages
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -39,3 +39,21 @@ export function publish(basePath: string, callback: (err: any) => void): void;
 export function publish(basePath: string, config: PublishOptions, callback?: (err: any) => void): void;
 
 export function clean(): void;
+
+export interface Defaults {
+    dest: '.';
+    add: false;
+    git: 'git';
+    depth: 1;
+    dotfiles: false;
+    branch: 'gh-pages';
+    remote: string;
+    src: '**/*';
+    remove: '.';
+    push: true;
+    history: true;
+    message: 'Updates';
+    silent: false;
+}
+
+export const defaults: Readonly<Defaults>;

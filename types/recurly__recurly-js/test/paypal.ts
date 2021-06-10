@@ -18,6 +18,8 @@ export default function paypal() {
 
   paypal.on('token', () => {});
   paypal.on('error', () => {});
+  paypal.on('cancel', () => {});
+  paypal.on('ready', () => {});
   // $ExpectError
   paypal.on('fake-event', () => {});
 
@@ -27,6 +29,5 @@ export default function paypal() {
       description: "description"
     }
   });
-
   paypal.destroy();
 }

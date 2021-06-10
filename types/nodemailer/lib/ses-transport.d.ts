@@ -83,11 +83,11 @@ declare namespace SESTransport {
     }
 }
 
-declare class SESTransport extends EventEmitter implements Transport {
+declare class SESTransport extends EventEmitter implements Transport<SESTransport.SentMessageInfo> {
     options: SESTransport.Options;
 
     logger: shared.Logger;
-    mailer: Mail;
+    mailer: Mail<SESTransport.SentMessageInfo>;
 
     name: string;
     version: string;
@@ -100,13 +100,13 @@ declare class SESTransport extends EventEmitter implements Transport {
     sendingRateTTL: number | null;
     rateInterval: number;
     rateMessages: Array<{ ts: number, pending: boolean }>;
-    pending: Array<{ mail: Mail; callback(err: Error | null, info: SESTransport.SentMessageInfo): void; }>;
+    pending: Array<{ mail: Mail<SESTransport.SentMessageInfo>; callback(err: Error | null, info: SESTransport.SentMessageInfo): void; }>;
     idling: boolean;
 
     constructor(options: SESTransport.Options);
 
     /** Schedules a sending of a message */
-    send(mail: MailMessage, callback: (err: Error | null, info: SESTransport.SentMessageInfo) => void): void;
+    send(mail: MailMessage<SESTransport.SentMessageInfo>, callback: (err: Error | null, info: SESTransport.SentMessageInfo) => void): void;
 
     /** Returns true if there are free slots in the queue */
     isIdle(): boolean;

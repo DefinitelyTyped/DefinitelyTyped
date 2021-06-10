@@ -4,7 +4,7 @@ export default function applePay() {
     currency: 'USD',
     label: 'My Subscription',
     total: '29.00',
-    pricing: window.recurly.Pricing.Checkout(),
+    pricing: window.recurly.Pricing.Checkout()
   });
 
   applePay.ready(() => {});

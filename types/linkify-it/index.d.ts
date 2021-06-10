@@ -1,6 +1,9 @@
-// Type definitions for linkify-it 2.1.0
+// Type definitions for linkify-it 3.0.2
 // Project: https://github.com/markdown-it/linkify-it
-// Definitions by: Lindsey Smith <https://github.com/praxxis>, Robert Coie <https://github.com/rapropos/typed-linkify-it>, Alex Plumb <https://github.com/alexplumb>
+// Definitions by: Lindsey Smith <https://github.com/praxxis>
+//                 Robert Coie <https://github.com/rapropos/typed-linkify-it>
+//                 Alex Plumb <https://github.com/alexplumb>
+//                 Rafa Gares <https://github.com/ragafus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -45,7 +48,11 @@ declare namespace LinkifyIt {
     }
 
     interface LinkifyIt {
-        add(schema: string, rule: Rule): LinkifyIt;
+        // Use overloads to provide contextual typing to `FullRule.normalize`, which is ambiguous with string.normalize
+        // This appears unneeded to the unified-signatures lint rule.
+        add(schema: string, rule: string): LinkifyIt;
+        // tslint:disable-next-line: unified-signatures
+        add(schema: string, rule: FullRule | null): LinkifyIt;
         match(text: string): Match[] | null;
         normalize(raw: string): string;
         pretest(text: string): boolean;

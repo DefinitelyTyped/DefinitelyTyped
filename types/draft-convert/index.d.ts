@@ -1,73 +1,106 @@
-// Type definitions for draft-convert v2.1.5
+// Type definitions for draft-convert v2.1.10
 // Project: https://github.com/HubSpot/draft-convert
 // Definitions by: Agustin Valeriani <https://github.com/avaleriani/>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
+//                 Vadim Chistokhvalov <https://github.com/vadim-ch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.9
 
 // Based on: https://github.com/HubSpot/draft-convert/issues/107#issuecomment-488581709 by <https://github.com/sbusch>
+
 declare module 'draft-convert' {
-  import {
-    ContentBlock,
-    ContentState,
-    DraftBlockType,
-    DraftInlineStyleType,
-    Entity,
-    RawDraftEntity
-  } from 'draft-js';
-  import { ReactNode } from 'react';
+    import {
+        DraftEntityMutability,
+        RawDraftContentBlock,
+        ContentState,
+        DraftBlockType,
+        DraftInlineStyleType,
+        Entity,
+        RawDraftEntity,
+    } from 'draft-js';
+    import { ReactNode } from 'react';
 
-  interface IConvertToHTMLConfig {
-    // Inline styles:
-    styleToHTML?: <T extends DraftInlineStyleType>(style: T) => Tag | void;
+    type RawDraftContentBlockWithCustomType<T> = Omit<RawDraftContentBlock, 'type'> & {
+        type: T;
+    };
 
-    // Block styles:
-    blockToHTML?: (block: ContentBlock) => Tag;
+    type ExtendedHTMLElement<T> = (HTMLElement | HTMLLinkElement) & T;
 
-    // Entity styling:
-    entityToHTML?: (entity: RawDraftEntity, originalText: string) => Tag;
-  }
+    interface IConvertToHTMLConfig<
+        S = DraftInlineStyleType,
+        B extends DraftBlockType = DraftBlockType,
+        E extends RawDraftEntity = RawDraftEntity
+    > {
+        // Inline styles:
+        styleToHTML?: (style: S) => Tag | void;
 
-  type EntityKey = string;
+        // Block styles:
+        blockToHTML?: (block: RawDraftContentBlockWithCustomType<B>) => Tag;
 
-  interface IConvertFromHTMLConfig {
-    // Inline styles:
-    htmlToStyle?: (nodeName: string, node: HTMLElement) => DraftInlineStyleType;
+        // Entity styling:
+        entityToHTML?: (entity: E, originalText: string) => Tag;
+    }
 
-    // Block styles:
-    htmlToBlock?: (
-      nodeName: string,
-      node: HTMLElement
-    ) => DraftBlockType | { type: DraftBlockType; data: object } | false;
+    type EntityKey = string;
 
-    // Html entities
-    htmlToEntity?: (
-      nodeName: string,
-      node: HTMLElement,
-      createEntity: (type: string, mutability: string, data: object) => EntityKey,
-      getEntity: (key: EntityKey) => Entity,
-      mergeEntityData: (key: string, data: object) => void,
-      replaceEntityData: (key: string, data: object) => void
-    ) => void;
+    interface IConvertFromHTMLConfig<
+        S extends {
+            [name: string]: unknown;
+        } = DOMStringMap,
+        B extends DraftBlockType = DraftBlockType,
+        E extends RawDraftEntity = RawDraftEntity
+    > {
+        // Inline styles:
+        htmlToStyle?: (nodeName: string, node: ExtendedHTMLElement<S>, currentStyle: Set<string>) => Set<string>;
 
-    // Text entities
-    textToEntity?: (
-      text: string,
-      createEntity: (type: string, mutability: string, data: object) => EntityKey,
-      getEntity: (key: EntityKey) => Entity,
-      mergeEntityData: (key: string, data: object) => void,
-      replaceEntityData: (key: string, data: object) => void
-    ) => Array<{ entity: EntityKey; offset: number; length: number; result?: string }>;
-  }
+        // Block styles:
+        htmlToBlock?: (
+            nodeName: string,
+            node: ExtendedHTMLElement<S>,
+        ) => B | { type: B; data: object } | false | undefined;
 
-  type ContentStateConverter = (contentState: ContentState) => string;
-  type htmlConverter = (html: string) => ContentState;
+        // Html entities
+        htmlToEntity?: (
+            nodeName: string,
+            node: ExtendedHTMLElement<S>,
+            createEntity: (type: E['type'], mutability: DraftEntityMutability, data: E['data']) => EntityKey,
+            getEntity: (key: EntityKey) => Entity,
+            mergeEntityData: (key: string, data: object) => void,
+            replaceEntityData: (key: string, data: object) => void,
+        ) => EntityKey | undefined;
 
-  type Tag =
-    | ReactNode
-    | { start: string; end: string; empty?: string }
-    | { element: ReactNode; empty?: ReactNode };
+        // Text entities
+        textToEntity?: (
+            text: string,
+            createEntity: (type: E['type'], mutability: DraftEntityMutability, data: E['data']) => EntityKey,
+            getEntity: (key: EntityKey) => Entity,
+            mergeEntityData: (key: string, data: object) => void,
+            replaceEntityData: (key: string, data: object) => void,
+        ) => Array<{
+            entity: EntityKey;
+            offset: number;
+            length: number;
+            result?: string;
+        }>;
+    }
 
-  export function convertToHTML(config: IConvertToHTMLConfig): ContentStateConverter;
-  export function convertFromHTML(config: IConvertFromHTMLConfig): htmlConverter;
+    type ContentStateConverter = (contentState: ContentState) => string;
+    type HTMLConverter = (html: string) => ContentState;
+
+    type Tag = ReactNode | { start: string; end: string; empty?: string } | { element: ReactNode; empty?: ReactNode };
+
+    export function convertToHTML<
+        S = DraftInlineStyleType,
+        B extends DraftBlockType = DraftBlockType,
+        E extends RawDraftEntity = RawDraftEntity
+    >(config: IConvertToHTMLConfig<S, B, E>): ContentStateConverter;
+    export function convertToHTML(contentState: ContentState): string;
+    export function convertFromHTML<
+        S extends {
+            [name: string]: unknown;
+        } = DOMStringMap,
+        B extends DraftBlockType = DraftBlockType,
+        E extends RawDraftEntity = RawDraftEntity
+    >(config: IConvertFromHTMLConfig<S, B, E>): HTMLConverter;
+    export function convertFromHTML(html: string): ContentState;
 }

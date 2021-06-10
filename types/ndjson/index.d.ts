@@ -1,4 +1,4 @@
-// Type definitions for ndjson 1.5
+// Type definitions for ndjson 2.0
 // Project: https://github.com/maxogden/ndjson
 // Definitions by: Junxiao Shi <https://github.com/yoursunny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,7 +13,5 @@ export interface ParseOptions {
 }
 
 export function parse(opts?: ParseOptions): ThroughStream;
-
-export function serialize(opts?: DuplexOptions): Transform;
 
 export function stringify(opts?: DuplexOptions): Transform;

@@ -1,12 +1,11 @@
-// Type definitions for roslib.js 1.0.1
+// Type definitions for roslib.js 1.1.0
 // Project: http://wiki.ros.org/roslibjs
 // Definitions by: Stefan Profanter <https://github.com/Pro>,
 //                 Cooper Benson <https://github.com/skycoop>,
 //                 David Gonzalez <https://github.com/dgorobopec>
 //                 Arvid Norlander <https://github.com/VorpalBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
+// TypeScript Version: 3.7
 
 /* ----------------------------------
 
@@ -18,6 +17,17 @@ export = ROSLIB;
 export as namespace ROSLIB;
 
 declare namespace ROSLIB {
+    interface Vector3Like {
+        x?: number | null;
+        y?: number | null;
+        z?: number | null;
+    }
+    interface QuaternionLike {
+        x?: number | null;
+        y?: number | null;
+        z?: number | null;
+        w?: number | null;
+    }
     export class Ros {
         /**
          * Manages connection to the server and all interactions with ROS.
@@ -36,26 +46,26 @@ declare namespace ROSLIB {
          *   * transportLibrary (optional) - one of 'websocket' (default), 'socket.io' or RTCPeerConnection instance controlling how the connection is created in `connect`.
          *   * transportOptions (optional) - the options to use use when creating a connection. Currently only used if `transportLibrary` is RTCPeerConnection.
          */
-        constructor(options:{
-            url?: string,
-            groovyCompatibility?: boolean,
-            transportLibrary?: 'websocket' | 'socket.io' | RTCPeerConnection,
-            transportOptions?: RTCDataChannelInit
+        constructor(options: {
+            url?: string;
+            groovyCompatibility?: boolean;
+            transportLibrary?: 'websocket' | 'socket.io' | RTCPeerConnection;
+            transportOptions?: RTCDataChannelInit;
         });
 
-        on(eventName:string, callback:(event:any) => void):void;
+        on(eventName: string, callback: (event: any) => void): void;
 
         /**
          * Connect to the specified WebSocket.
          *
          * @param url - WebSocket URL for Rosbridge
          */
-        connect(url:string):void;
+        connect(url: string): void;
 
         /**
          * Disconnect from the WebSocket server.
          */
-        close():void;
+        close(): void;
 
         /**
          * Sends an authorization request to the server.
@@ -68,14 +78,21 @@ declare namespace ROSLIB {
          * @param level - User level as a string given by the client.
          * @param end - End time of the client's session.
          */
-        authenticate(mac:string, client:string, dest:string, rand:string, t:number, level:string, end:number):void;
-
+        authenticate(
+            mac: string,
+            client: string,
+            dest: string,
+            rand: string,
+            t: number,
+            level: string,
+            end: number,
+        ): void;
 
         /**
          * Sends the message over the WebSocket, but queues the message up if not yet
          * connected.
          */
-        callOnConnection(message:any):void;
+        callOnConnection(message: any): void;
 
         /**
          * Retrieves list of actionlib servers in ROS as an array.
@@ -85,17 +102,21 @@ declare namespace ROSLIB {
          * @param failedCallback - the callback function when the ros call failed (optional). Params:
          *   * error - the error message reported by ROS
          */
-        getActionServers(callback:(action_servers:string[]) => void, failedCallback?:(error:any)=>void):void;
+        getActionServers(callback: (action_servers: string[]) => void, failedCallback?: (error: any) => void): void;
 
         /**
          * Retrieves list of topics in ROS as an array.
          *
          * @param callback function with params:
          *   * topics - Array of topic names
-         * @param failedCallback - the callback function when the ros call failed (optional). Params:
+         *   * types - Array of message type names
+         * @param failedCallback - the callback function when the service call failed (optional). Params:
          *   * error - the error message reported by ROS
          */
-        getTopics(callback:(topics:string[]) => void, failedCallback?:(error:any)=>void):void;
+        getTopics(
+            callback: (topics: { topics: string[]; types: string[] }) => void,
+            failedCallback?: (error: any) => void,
+        ): void;
 
         /**
          * Retrieves Topics in ROS as an array as specific type
@@ -106,7 +127,11 @@ declare namespace ROSLIB {
          * @param failedCallback - the callback function when the ros call failed (optional). Params:
          *   * error - the error message reported by ROS
          */
-        getTopicsForType(topicType:string, callback:(topics:string[]) => void, failedCallback?:(error:any)=>void):void;
+        getTopicsForType(
+            topicType: string,
+            callback: (topics: string[]) => void,
+            failedCallback?: (error: any) => void,
+        ): void;
 
         /**
          * Retrieves list of active service names in ROS.
@@ -116,7 +141,7 @@ declare namespace ROSLIB {
          * @param failedCallback - the callback function when the ros call failed (optional). Params:
          *   * error - the error message reported by ROS
          */
-        getServices(callback:(services:string[]) => void, failedCallback?:(error:any)=>void):void;
+        getServices(callback: (services: string[]) => void, failedCallback?: (error: any) => void): void;
 
         /**
          * Retrieves list of services in ROS as an array as specific type
@@ -127,7 +152,11 @@ declare namespace ROSLIB {
          * @param failedCallback - the callback function when the ros call failed (optional). Params:
          *   * error - the error message reported by ROS
          */
-        getServicesForType(serviceType:string, callback:(services:string[]) => void, failedCallback?:(error:any)=>void):void;
+        getServicesForType(
+            serviceType: string,
+            callback: (services: string[]) => void,
+            failedCallback?: (error: any) => void,
+        ): void;
 
         /**
          * Retrieves list of active node names in ROS.
@@ -137,7 +166,7 @@ declare namespace ROSLIB {
          * @param failedCallback - the callback function when the ros call failed (optional). Params:
          *   * error - the error message reported by ROS
          */
-        getNodes(callback:(nodes:string[]) => void, failedCallback?:(error:any)=>void):void;
+        getNodes(callback: (nodes: string[]) => void, failedCallback?: (error: any) => void): void;
 
         /**
          * Retrieves list of param names from the ROS Parameter Server.
@@ -147,7 +176,7 @@ declare namespace ROSLIB {
          * @param failedCallback - the callback function when the ros call failed (optional). Params:
          *   * error - the error message reported by ROS
          */
-        getParams(callback:(params:string[]) => void, failedCallback?:(error:any)=>void):void;
+        getParams(callback: (params: string[]) => void, failedCallback?: (error: any) => void): void;
 
         /**
          * Retrieves a type of ROS topic.
@@ -158,7 +187,7 @@ declare namespace ROSLIB {
          * @param failedCallback - the callback function when the ros call failed (optional). Params:
          *   * error - the error message reported by ROS
          */
-        getTopicType(topic:string, callback:(type:string) => void, failedCallback?:(error:any)=>void):void;
+        getTopicType(topic: string, callback: (type: string) => void, failedCallback?: (error: any) => void): void;
 
         /**
          * Retrieves a type of ROS service.
@@ -169,7 +198,7 @@ declare namespace ROSLIB {
          * @param failedCallback - the callback function when the ros call failed (optional). Params:
          *   * error - the error message reported by ROS
          */
-        getServiceType(service:string, callback:(type:string) => void, failedCallback?:(error:any)=>void):void;
+        getServiceType(service: string, callback: (type: string) => void, failedCallback?: (error: any) => void): void;
 
         /**
          * Retrieves a detail of ROS message.
@@ -180,14 +209,33 @@ declare namespace ROSLIB {
          * @param failedCallback - the callback function when the ros call failed (optional). Params:
          *   * error - the error message reported by ROS
          */
-        getMessageDetails(message:Message, callback:(detail:any) => void, failedCallback?:(error:any)=>void):void;
+        getMessageDetails(
+            message: Message,
+            callback: (detail: any) => void,
+            failedCallback?: (error: any) => void,
+        ): void;
 
         /**
          * Decode a typedefs into a dictionary like `rosmsg show foo/bar`
          *
          * @param defs - array of type_def dictionary
          */
-        decodeTypeDefs(defs:any):void;
+        decodeTypeDefs(defs: any): void;
+
+        /**
+         * Retrieves a detail of ROS service request.
+         *
+         * @param service name of service:
+         * @param callback - function with params:
+         *   * type - String of the service type
+         * @param failedCallback - the callback function when the service call failed (optional). Params:
+         *   * error - the error message reported by ROS
+         */
+        getServiceRequestDetails(
+            service: string,
+            callback: (type: string) => void,
+            failedCallback?: (error: any) => void,
+        ): void;
     }
 
     export class Message {
@@ -197,7 +245,7 @@ declare namespace ROSLIB {
          * @constructor
          * @param values - object matching the fields defined in the .msg definition file
          */
-        constructor(values:any);
+        constructor(values: any);
     }
 
     export class Param {
@@ -209,10 +257,7 @@ declare namespace ROSLIB {
          *   * ros - the ROSLIB.Ros connection handle
          *   * name - the param name, like max_vel_x
          */
-        constructor(options:{
-            ros: Ros,
-            name: string
-        });
+        constructor(options: { ros: Ros; name: string });
 
         /**
          * Fetches the value of the param.
@@ -220,7 +265,7 @@ declare namespace ROSLIB {
          * @param callback - function with the following params:
          *  * value - the value of the param from ROS.
          */
-        get(callback:(response:any) => void):void;
+        get(callback: (response: any) => void): void;
 
         /**
          * Sets the value of the param in ROS.
@@ -229,15 +274,13 @@ declare namespace ROSLIB {
          * @param callback - function with params:
          *   * response - the response from the service request
          */
-        set(value:any, callback?:(response:any) => void):void;
+        set(value: any, callback?: (response: any) => void): void;
 
         /**
          * Delete this parameter on the ROS server.
          */
-        delete(callback:(response:any) => void):void;
-
+        delete(callback: (response: any) => void): void;
     }
-
 
     export class Service {
         /**
@@ -249,17 +292,12 @@ declare namespace ROSLIB {
          *   * name - the service name, like /add_two_ints
          *   * serviceType - the service type, like 'rospy_tutorials/AddTwoInts'
          */
-        constructor(data:{
-            ros: Ros,
-            name: string,
-            serviceType: string
-        });
-
+        constructor(data: { ros: Ros; name: string; serviceType: string });
 
         // getter
-        public name:string;
+        public name: string;
         // getter
-        public serviceType:string;
+        public serviceType: string;
 
         /**
          * Calls the service. Returns the service response in the callback.
@@ -270,7 +308,11 @@ declare namespace ROSLIB {
          * @param failedCallback - the callback function when the service call failed (optional). Params:
          *   * error - the error message reported by ROS
          */
-        callService(request:ServiceRequest, callback:(response:any) => void, failedCallback?:(error:any) => void):void;
+        callService(
+            request: ServiceRequest,
+            callback: (response: any) => void,
+            failedCallback?: (error: any) => void,
+        ): void;
 
         /**
          * Advertise this service and call the callback each time a client calls it.
@@ -279,12 +321,12 @@ declare namespace ROSLIB {
          *   * request - the service request data
          *   * response - the data which should be sent back to the caller
          */
-        advertise(callback:(request:any, response:any) => void):void;
+        advertise(callback: (request: any, response: any) => void): void;
 
         /**
          * Unadvertise a previously advertised service
          */
-        unadvertise():void;
+        unadvertise(): void;
     }
 
     export class ServiceRequest {
@@ -294,7 +336,7 @@ declare namespace ROSLIB {
          * @constructor
          * @param values - object matching the fields defined in the .srv definition file
          */
-        constructor(values?:any);
+        constructor(values?: any);
     }
 
     export class ServiceResponse {
@@ -304,7 +346,7 @@ declare namespace ROSLIB {
          * @constructor
          * @param values - object matching the fields defined in the .srv definition file
          */
-        constructor(values?:any);
+        constructor(values?: any);
     }
 
     export class Topic {
@@ -326,21 +368,21 @@ declare namespace ROSLIB {
          *   * latch - latch the topic when publishing
          *   * queue_length - the queue length at bridge side used when subscribing (defaults to 0, no queueing).
          */
-        constructor(options:{
-            ros: Ros,
-            name: string,
-            messageType: string,
-            compression?: string,
-            throttle_rate?: number,
-            queue_size?: number,
-            latch?: boolean,
-            queue_length?: number
+        constructor(options: {
+            ros: Ros;
+            name: string;
+            messageType: string;
+            compression?: string;
+            throttle_rate?: number;
+            queue_size?: number;
+            latch?: boolean;
+            queue_length?: number;
         });
 
         // getter
-        public name:string;
+        public name: string;
         // getter
-        public messageType:string;
+        public messageType: string;
 
         /**
          * Every time a message is published for the given topic, the callback
@@ -349,7 +391,7 @@ declare namespace ROSLIB {
          * @param callback - function with the following params:
          *   * message - the published message
          */
-        subscribe(callback:(message:Message) => void):void;
+        subscribe(callback: (message: Message) => void): void;
 
         /**
          * Unregisters as a subscriber for the topic. Unsubscribing stop remove
@@ -360,24 +402,24 @@ declare namespace ROSLIB {
          *     * provided and other listeners are registered the topic won't
          *     * unsubscribe, just stop emitting to the passed listener
          */
-        unsubscribe(callback?:(callback:(message:Message) => void) => void):void;
+        unsubscribe(callback?: (callback: (message: Message) => void) => void): void;
 
         /**
          * Registers as a publisher for the topic.
          */
-        advertise():void;
+        advertise(): void;
 
         /**
          * Unregisters as a publisher for the topic.
          */
-        unadvertise():void;
+        unadvertise(): void;
 
         /**
          * Publish the message.
          *
          * @param message - A ROSLIB.Message object.
          */
-        publish(message:Message):void;
+        publish(message: Message): void;
     }
 
     export class TFClient {
@@ -397,15 +439,15 @@ declare namespace ROSLIB {
          *   * repubServiceName (optional) - the name of the republish_tfs service (non groovy compatibility mode only) default: '/republish_tfs'
          */
         constructor(options: {
-            ros: Ros,
+            ros: Ros;
             fixedFrame?: string;
-            angularThres?: number,
-            transThres?: number,
-            rate?: number,
-            updateDelay?: number,
-            topicTimeout?: number,
-            serverName?: string,
-            repubServiceName?: string
+            angularThres?: number;
+            transThres?: number;
+            rate?: number;
+            updateDelay?: number;
+            topicTimeout?: number;
+            serverName?: string;
+            repubServiceName?: string;
         });
 
         /**
@@ -432,7 +474,7 @@ declare namespace ROSLIB {
          * @param callback - function with params:
          *  * transform - the transform data
          */
-        subscribe(frameId: string, callback:(transform:Transform) => void): void;
+        subscribe(frameId: string, callback: (transform: Transform) => void): void;
 
         /**
          * Unsubscribe from the given TF frame.
@@ -440,7 +482,7 @@ declare namespace ROSLIB {
          * @param frameId - the TF frame to unsubscribe from
          * @param callback - the callback function to remove
          */
-        unsubscribe(frameId: string, callback?:(transform:Transform) => void): void;
+        unsubscribe(frameId: string, callback?: (transform: Transform) => void): void;
 
         /**
          * Create and send a new goal (or service request) to the tf2_web_republisher based on the current list of TFs.
@@ -457,10 +499,7 @@ declare namespace ROSLIB {
          *   * translation - the Vector3 describing the translation
          *   * rotation - the ROSLIB.Quaternion describing the rotation
          */
-        constructor(options: {
-            translation: Vector3,
-            rotation: Quaternion
-        });
+        constructor(options?: { translation?: Vector3Like | null; rotation?: QuaternionLike | null });
 
         // getters
         public translation: Vector3;
@@ -472,7 +511,7 @@ declare namespace ROSLIB {
         clone(): Transform;
     }
 
-    export class Vector3 {
+    export class Vector3 implements Vector3Like {
         /**
          * A 3D vector.
          *
@@ -482,11 +521,7 @@ declare namespace ROSLIB {
          *   * y - the y value
          *   * z - the z value
          */
-        constructor(options: {
-            x: number,
-            y: number,
-            z: number
-        });
+        constructor(options?: { x?: number | null; y?: number | null; z?: number | null } | null);
 
         // getters
         public x: number;
@@ -519,7 +554,7 @@ declare namespace ROSLIB {
         subtract(v: Vector3): void;
     }
 
-    export class Quaternion {
+    export class Quaternion implements QuaternionLike {
         /**
          * A Quaternion.
          *
@@ -530,12 +565,7 @@ declare namespace ROSLIB {
          *   * z - the z value
          *   * w - the w value
          */
-        constructor(options?: {
-            x: number,
-            y: number,
-            z: number,
-            w: number
-        });
+        constructor(options?: { x?: number | null; y?: number | null; z?: number | null; w?: number | null } | null);
 
         // getters
         public x: number;
@@ -575,6 +605,40 @@ declare namespace ROSLIB {
         normalize(): void;
     }
 
+    export class Pose {
+        position: Vector3;
+        orientation: Quaternion;
+
+        /**
+         * A Pose in 3D space. Values are copied into this object.
+         *
+         *  @constructor
+         *  @param options - object with following keys:
+         *   * position - the Vector3 describing the position
+         *   * orientation - the ROSLIB.Quaternion describing the orientation
+         */
+        constructor(
+            options?: {
+                position?: Vector3Like | null;
+                orientation?: QuaternionLike | null;
+            } | null,
+        );
+
+        /**
+         * Apply a transform against this pose.
+         *
+         * @param tf the transform
+         */
+        applyTransform(tf: Transform): void;
+
+        /**
+         * Clone a copy of this pose.
+         *
+         * @returns the cloned pose
+         */
+        clone(): Pose;
+    }
+
     class ActionClient {
         /**
          * An actionlib action client.
@@ -592,17 +656,12 @@ declare namespace ROSLIB {
          *   * actionName - the action message name, like 'actionlib_tutorials/FibonacciAction'
          *   * timeout - the timeout length when connecting to the action server
          */
-        constructor(options:{
-            ros: Ros,
-            serverName: string,
-            actionName: string,
-            timeout: number
-        });
+        constructor(options: { ros: Ros; serverName: string; actionName: string; timeout: number });
 
         /**
          * Cancel all goals associated with this ActionClient.
          */
-        cancel():void;
+        cancel(): void;
     }
 
     class Goal {
@@ -617,10 +676,7 @@ declare namespace ROSLIB {
          *   * actionClient - the ROSLIB.ActionClient to use with this goal
          *   * goalMessage - The JSON object containing the goal for the action server
          */
-        constructor(options:{
-            actionClient: ActionClient,
-            goalMessage: any
-        });
+        constructor(options: { actionClient: ActionClient; goalMessage: any });
 
         /**
          * Connect callback functions to goal based events
@@ -628,18 +684,178 @@ declare namespace ROSLIB {
          * @param eventName Name of event ('timeout', 'status', 'feedback', 'result')
          * @param callback Callback function executed on connected event
          */
-        on(eventName:string, callback:(event:any) => void):void;
+        on(eventName: string, callback: (event: any) => void): void;
 
         /**
          * Send the goal to the action server.
          *
          * @param timeout (optional) - a timeout length for the goal's result
          */
-        send(timeout?:number):void;
+        send(timeout?: number): void;
 
         /**
          * Cancel the current goal.
          */
-        cancel():void;
+        cancel(): void;
+    }
+
+    export class UrdfColor {
+        r: number;
+        g: number;
+        b: number;
+        a: number;
+        /**
+         * A Color element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfMaterial {
+        textureFilename: string | null;
+        color: UrdfColor | null;
+        name: string;
+
+        /**
+         * A Material element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+
+        isLink(): boolean;
+    }
+
+    export class UrdfJoint {
+        name: string;
+        type: string;
+        parent: string | null;
+        child: string | null;
+        minval: number | null;
+        maxval: number | null;
+
+        /**
+         * A Joint element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export const URDF_SPHERE: 0;
+    export const URDF_BOX: 1;
+    export const URDF_CYLINDER: 2;
+    export const URDF_MESH: 3;
+
+    export type UrdfGeometry = UrdfSphere | UrdfBox | UrdfCylinder | UrdfMesh;
+
+    export class UrdfSphere {
+        type: typeof URDF_SPHERE;
+        radius: number;
+
+        /**
+         * A Sphere element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfBox {
+        type: typeof URDF_BOX;
+        dimension: Vector3;
+
+        /**
+         * A Box element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfCylinder {
+        type: typeof URDF_CYLINDER;
+        length: number;
+        radius: number;
+
+        /**
+         * A Cylinder element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfMesh {
+        type: typeof URDF_MESH;
+        filename: string;
+        scale: Vector3 | null;
+
+        /**
+         * A Box element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfVisual {
+        origin: Pose | null;
+        geometry: UrdfGeometry | null;
+        material: UrdfMaterial | null;
+
+        /**
+         * A Visual element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfLink {
+        name: string;
+        visuals: UrdfVisual[];
+
+        /**
+         * A Link element in a URDF.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         */
+        constructor(options: { xml: Node });
+    }
+
+    export class UrdfModel {
+        materials: Record<string, UrdfMaterial>;
+        links: Record<string, UrdfLink>;
+        joints: Record<string, UrdfJoint>;
+
+        /**
+         * A URDF Model can be used to parse a given URDF into the appropriate elements.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *  * xml - the XML element to parse
+         *  * string - the XML element to parse as a string
+         */
+        constructor(options: { xml: Node; string?: string | null } | { string: string });
     }
 }

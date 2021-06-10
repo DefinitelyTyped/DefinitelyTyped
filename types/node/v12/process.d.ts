@@ -1,5 +1,5 @@
-declare module "process" {
-    import * as tty from "tty";
+declare module 'process' {
+    import * as tty from 'tty';
 
     global {
         namespace NodeJS {

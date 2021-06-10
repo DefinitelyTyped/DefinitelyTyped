@@ -1,5 +1,5 @@
 /** @deprecated since v6.3.0 - use constants property exposed by the relevant module instead. */
-declare module "constants" {
+declare module 'constants' {
     /** @deprecated since v6.3.0 - use `os.constants.errno.E2BIG` instead. */
     const E2BIG: number;
     /** @deprecated since v6.3.0 - use `os.constants.errno.EACCES` instead. */

@@ -21,16 +21,16 @@ interface Console {
      */
     countReset(label?: string): void;
     /**
-     * The `console.debug()` function is an alias for {@link console.log()}.
+     * The `console.debug()` function is an alias for {@link console.log}.
      */
     debug(message?: any, ...optionalParams: any[]): void;
     /**
-     * Uses {@link util.inspect()} on `obj` and prints the resulting string to `stdout`.
+     * Uses {@link util.inspect} on `obj` and prints the resulting string to `stdout`.
      * This function bypasses any custom `inspect()` function defined on `obj`.
      */
     dir(obj: any, options?: NodeJS.InspectOptions): void;
     /**
-     * This method calls {@link console.log()} passing it the arguments received. Please note that this method does not produce any XML formatting
+     * This method calls {@link console.log} passing it the arguments received. Please note that this method does not produce any XML formatting
      */
     dirxml(...data: any[]): void;
     /**
@@ -43,7 +43,7 @@ interface Console {
      */
     group(...label: any[]): void;
     /**
-     * The `console.groupCollapsed()` function is an alias for {@link console.group()}.
+     * The `console.groupCollapsed()` function is an alias for {@link console.group}.
      */
     groupCollapsed(...label: any[]): void;
     /**
@@ -51,7 +51,7 @@ interface Console {
      */
     groupEnd(): void;
     /**
-     * The {@link console.info()} function is an alias for {@link console.log()}.
+     * The {@link console.info} function is an alias for {@link console.log}.
      */
     info(message?: any, ...optionalParams: any[]): void;
     /**
@@ -62,25 +62,25 @@ interface Console {
      * This method does not display anything unless used in the inspector.
      *  Prints to `stdout` the array `array` formatted as a table.
      */
-    table(tabularData: any, properties?: string[]): void;
+    table(tabularData: any, properties?: ReadonlyArray<string>): void;
     /**
      * Starts a timer that can be used to compute the duration of an operation. Timers are identified by a unique `label`.
      */
     time(label?: string): void;
     /**
-     * Stops a timer that was previously started by calling {@link console.time()} and prints the result to `stdout`.
+     * Stops a timer that was previously started by calling {@link console.time} and prints the result to `stdout`.
      */
     timeEnd(label?: string): void;
     /**
-     * For a timer that was previously started by calling {@link console.time()}, prints the elapsed time and other `data` arguments to `stdout`.
+     * For a timer that was previously started by calling {@link console.time}, prints the elapsed time and other `data` arguments to `stdout`.
      */
     timeLog(label?: string, ...data: any[]): void;
     /**
-     * Prints to `stderr` the string 'Trace :', followed by the {@link util.format()} formatted message and stack trace to the current position in the code.
+     * Prints to `stderr` the string 'Trace :', followed by the {@link util.format} formatted message and stack trace to the current position in the code.
      */
     trace(message?: any, ...optionalParams: any[]): void;
     /**
-     * The {@link console.warn()} function is an alias for {@link console.error()}.
+     * The {@link console.warn} function is an alias for {@link console.error}.
      */
     warn(message?: any, ...optionalParams: any[]): void;
 
@@ -152,6 +152,11 @@ interface String {
     trimLeft(): string;
     /** Removes whitespace from the right end of a string. */
     trimRight(): string;
+
+    /** Returns a copy with leading whitespace removed. */
+    trimStart(): string;
+    /** Returns a copy with trailing whitespace removed. */
+    trimEnd(): string;
 }
 
 interface ImportMeta {
@@ -188,7 +193,6 @@ declare function queueMicrotask(callback: () => void): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
-    /* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -226,8 +230,15 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: NodeModule | null;
+    /** @deprecated since 12.19.0 Please use `require.main` and `module.children` instead. */
+    parent: NodeModule | null | undefined;
     children: NodeModule[];
+    /**
+     * @since 11.14.0
+     *
+     * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
+     */
+    path: string;
     paths: string[];
 }
 
@@ -241,6 +252,14 @@ type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" 
 
 interface Buffer {
     constructor: typeof Buffer;
+    readBigUInt64BE(offset?: number): bigint;
+    readBigUInt64LE(offset?: number): bigint;
+    readBigInt64BE(offset?: number): bigint;
+    readBigInt64LE(offset?: number): bigint;
+    writeBigInt64BE(value: bigint, offset?: number): number;
+    writeBigInt64LE(value: bigint, offset?: number): number;
+    writeBigUInt64BE(value: bigint, offset?: number): number;
+    writeBigUInt64LE(value: bigint, offset?: number): number;
 }
 
 /**
@@ -286,7 +305,7 @@ declare class Buffer extends Uint8Array {
      * @param array The octets to store.
      * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
      */
-    constructor(array: any[]);
+    constructor(array: ReadonlyArray<any>);
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
@@ -307,7 +326,7 @@ declare class Buffer extends Uint8Array {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    static from(data: number[]): Buffer;
+    static from(data: ReadonlyArray<number>): Buffer;
     static from(data: Uint8Array): Buffer;
     /**
      * Creates a new buffer containing the coerced value of an object
@@ -361,7 +380,7 @@ declare class Buffer extends Uint8Array {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    static concat(list: Uint8Array[], totalLength?: number): Buffer;
+    static concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
@@ -744,6 +763,7 @@ declare namespace NodeJS {
 
     interface HRTime {
         (time?: [number, number]): [number, number];
+        bigint(): bigint;
     }
 
     interface ProcessReport {
@@ -830,6 +850,32 @@ declare namespace NodeJS {
         voluntaryContextSwitches: number;
     }
 
+    interface EmitWarningOptions {
+        /**
+         * When `warning` is a `string`, `type` is the name to use for the _type_ of warning being emitted.
+         *
+         * @default 'Warning'
+         */
+        type?: string;
+
+        /**
+         * A unique identifier for the warning instance being emitted.
+         */
+        code?: string;
+
+        /**
+         * When `warning` is a `string`, `ctor` is an optional function used to limit the generated stack trace.
+         *
+         * @default process.emitWarning
+         */
+        ctor?: Function;
+
+        /**
+         * Additional text to include with the error.
+         */
+        detail?: string;
+    }
+
     interface Process extends EventEmitter {
         /**
          * Can also be a tty.WriteStream, not typed due to limitation.s
@@ -845,11 +891,26 @@ declare namespace NodeJS {
         argv0: string;
         execArgv: string[];
         execPath: string;
-        abort(): void;
+        abort(): never;
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;
-        emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
+
+        /**
+         * The `process.emitWarning()` method can be used to emit custom or application specific process warnings.
+         *
+         * These can be listened for by adding a handler to the `'warning'` event.
+         *
+         * @param warning The warning to emit.
+         * @param type When `warning` is a `string`, `type` is the name to use for the _type_ of warning being emitted. Default: `'Warning'`.
+         * @param code A unique identifier for the warning instance being emitted.
+         * @param ctor When `warning` is a `string`, `ctor` is an optional function used to limit the generated stack trace. Default: `process.emitWarning`.
+         */
+        emitWarning(warning: string | Error, ctor?: Function): void;
+        emitWarning(warning: string | Error, type?: string, ctor?: Function): void;
+        emitWarning(warning: string | Error, type?: string, code?: string, ctor?: Function): void;
+        emitWarning(warning: string | Error, options?: EmitWarningOptions): void;
+
         env: ProcessEnv;
         exit(code?: number): never;
         exitCode?: number;
@@ -862,7 +923,7 @@ declare namespace NodeJS {
         getegid(): number;
         setegid(id: number | string): void;
         getgroups(): number[];
-        setgroups(groups: Array<string | number>): void;
+        setgroups(groups: ReadonlyArray<string | number>): void;
         setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
         hasUncaughtExceptionCaptureCallback(): boolean;
         version: string;
@@ -915,9 +976,15 @@ declare namespace NodeJS {
             tls: boolean;
         };
         /**
+         * @deprecated since v12.19.0 - Calling process.umask() with no argument causes
+         * the process-wide umask to be written twice. This introduces a race condition between threads,
+         * and is a potential security vulnerability. There is no safe, cross-platform alternative API.
+         */
+        umask(): number;
+        /**
          * Can only be set if not in worker thread.
          */
-        umask(mask?: number): number;
+        umask(mask: string | number): number;
         uptime(): number;
         hrtime: HRTime;
         domain: Domain;
@@ -1120,6 +1187,7 @@ declare namespace NodeJS {
         ref(): this;
         refresh(): this;
         unref(): this;
+        [Symbol.toPrimitive](): number;
     }
 
     class Immediate {
@@ -1134,6 +1202,7 @@ declare namespace NodeJS {
         ref(): this;
         refresh(): this;
         unref(): this;
+        [Symbol.toPrimitive](): number;
     }
 
     class Module {
@@ -1154,17 +1223,35 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        parent: Module | null;
+        /** @deprecated since 12.19.0 Please use `require.main` and `module.children` instead. */
+        parent: Module | null | undefined;
         children: Module[];
+        /**
+         * @since 11.14.0
+         *
+         * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
+         */
+        path: string;
         paths: string[];
 
         constructor(id: string, parent?: Module);
     }
 
-    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
-    type ArrayBufferView = TypedArray | DataView;
+    interface Dict<T> {
+        [key: string]: T | undefined;
+    }
 
-    // The value type here is a "poor man's `unknown`". When these types support TypeScript
-    // 3.0+, we can replace this with `unknown`.
-    type PoorMansUnknown = {} | null | undefined;
+    type TypedArray =
+        | Uint8Array
+        | Uint8ClampedArray
+        | Uint16Array
+        | Uint32Array
+        | Int8Array
+        | Int16Array
+        | Int32Array
+        | BigUint64Array
+        | BigInt64Array
+        | Float32Array
+        | Float64Array;
+    type ArrayBufferView = TypedArray | DataView;
 }

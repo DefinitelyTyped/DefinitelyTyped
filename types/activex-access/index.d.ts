@@ -5090,7 +5090,6 @@ declare namespace Access {
         XML: string;
     }
 
-    // tslint:disable-next-line:interface-name
     interface ImportExportSpecifications {
         Add(Name: string, SpecificationDefinition: string): ImportExportSpecification;
         readonly Application: Application;

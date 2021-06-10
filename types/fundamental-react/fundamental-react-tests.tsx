@@ -1,6 +1,8 @@
 import {
     ActionBar,
+    Avatar,
     Breadcrumb,
+    BusyIndicator,
     Button,
     ButtonGroup,
     Calendar,
@@ -21,20 +23,20 @@ import {
     FormSet,
     FormTextarea,
     Icon,
-    Identifier,
     Image,
     InfoLabel,
     InlineHelp,
     InputGroup,
     LayoutGrid,
+    LayoutPanel,
     Link,
     List,
     LocalizationEditor,
     Menu,
     MessageStrip,
     MultiInput,
+    ObjectStatus,
     Pagination,
-    Panel,
     Popover,
     SearchInput,
     Select,
@@ -48,6 +50,7 @@ import {
     Tile,
     Time,
     TimePicker,
+    Title,
     Token,
     TreeView,
 } from "fundamental-react";
@@ -100,12 +103,20 @@ const actionBars = (
     </div>
 );
 
+const avatar = (
+    <Avatar color={1} tile={false} />
+);
+
 const breadcrumb = (
     <Breadcrumb>
         <Breadcrumb.Item name="Link Text" url="#" />
         <Breadcrumb.Item name="Link Text" url="#" />
         <Breadcrumb.Item name="Link Text" url="#" />
     </Breadcrumb>
+);
+
+const busyIndicator = (
+    <BusyIndicator show/>
 );
 
 const buttons = (
@@ -122,6 +133,8 @@ const buttons = (
         <Button type="positive">Positive Button</Button>
         <Button type="medium">Medium Button</Button>
         <Button type="negative">Negative Button</Button>
+        <Button type="ghost">Ghost Button</Button>
+        <Button type="attention">Attention Button</Button>
         <Button glyph="cart" option="emphasized">
             Add to Cart
         </Button>
@@ -666,93 +679,6 @@ const icons = (
     </div>
 );
 
-const identifiers = (
-    <div>
-        <Identifier glyph="washing-machine" size="xxs" />
-        <Identifier glyph="washing-machine" size="xs" />
-        <Identifier glyph="washing-machine" size="s" />
-        <Identifier glyph="washing-machine" size="m" />
-        <Identifier glyph="washing-machine" size="l" />
-        <Identifier glyph="washing-machine" size="xl" />
-        <Identifier glyph="washing-machine" size="xxl" />
-        <Identifier label="Wendy Wallace" size="xxs">
-            WW
-        </Identifier>
-        <Identifier label="Wendy Wallace" size="xs">
-            WW
-        </Identifier>
-        <Identifier label="Wendy Wallace" size="s">
-            WW
-        </Identifier>
-        <Identifier label="Wendy Wallace" size="m">
-            WW
-        </Identifier>
-        <Identifier label="Wendy Wallace" size="l">
-            WW
-        </Identifier>
-        <Identifier label="Wendy Wallace" size="xl">
-            WW
-        </Identifier>
-        <Identifier label="Wendy Wallace" size="xxl">
-            WW
-        </Identifier>
-        <Identifier glyph="washing-machine" modifier="circle" size="xxs" />
-        <Identifier glyph="washing-machine" modifier="circle" size="xs" />
-        <Identifier glyph="washing-machine" modifier="circle" size="s" />
-        <Identifier glyph="washing-machine" modifier="circle" size="m" />
-        <Identifier glyph="washing-machine" modifier="circle" size="l" />
-        <Identifier glyph="washing-machine" modifier="circle" size="xl" />
-        <Identifier glyph="washing-machine" modifier="circle" size="xxl" />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="xxs"
-        />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="xs"
-        />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="s"
-        />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="m"
-        />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="l"
-        />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="xl"
-        />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="xxl"
-        />
-        <Identifier label="Wendy Wallace" modifier="transparent" size="m">
-            WW
-        </Identifier>
-        <Identifier glyph="washing-machine" modifier="transparent" size="l" />
-        <Identifier color={1} glyph="money-bills" size="m" />
-        <Identifier color={2} glyph="money-bills" size="m" />
-        <Identifier color={3} glyph="money-bills" size="m" />
-        <Identifier color={4} glyph="money-bills" size="m" />
-        <Identifier color={5} glyph="money-bills" size="m" />
-        <Identifier color={6} glyph="money-bills" size="m" />
-        <Identifier color={7} glyph="money-bills" size="m" />
-        <Identifier color={8} glyph="money-bills" size="m" />
-        <Identifier color={9} glyph="money-bills" size="m" />
-    </div>
-);
 const images = (
     <div>
         <Image photo="https://placeimg.com/400/400/nature" size="s" />
@@ -1066,8 +992,8 @@ const menus = (
     <div>
         <Menu>
             <Menu.List>
-                <Menu.Item url="/">Option 1</Menu.Item>
-                <Menu.Item url="/">Option 2</Menu.Item>
+                <Menu.Item separator url="/">Option 1</Menu.Item>
+                <Menu.Item separator url="/">Option 2</Menu.Item>
                 <Menu.Item url="/">Option 3</Menu.Item>
                 <Menu.Item url="/">Option 4</Menu.Item>
             </Menu.List>
@@ -1119,14 +1045,14 @@ const menus = (
                 <Menu.Item>
                     <Menu.Item url="/">Option 1</Menu.Item>
                 </Menu.Item>
-                <Menu.Item addon="accept">
+                <Menu.Item addonAfter="accept">
+                    <Menu.Item url="/">Option 1</Menu.Item>
+                </Menu.Item>
+                <Menu.Item addonBefore="accept">
                     <Menu.Item url="/">Option 1</Menu.Item>
                 </Menu.Item>
                 <Menu.Item>
-                    <Menu.Item url="/">Option 1</Menu.Item>
-                </Menu.Item>
-                <Menu.Item>
-                    <Menu.Item url="/">Option 1</Menu.Item>
+                    <Menu.Item disabled selected url="/">Option 1</Menu.Item>
                 </Menu.Item>
             </Menu.List>
         </Menu>
@@ -1198,6 +1124,10 @@ const multiInputs = (
     </div>
 );
 
+const objectStatus = (
+    <ObjectStatus indication={1} size={'l'}/>
+);
+
 const paginations = (
     <div>
         <Pagination itemsTotal={101} onClick={function w() {}} />
@@ -1224,171 +1154,15 @@ const paginations = (
     </div>
 );
 
-const panels = (
-    <div>
-        <Panel>
-            <Panel.Header>
-                <Panel.Head
-                    description="Panel Description"
-                    title="Panel Header with Actions"
-                />
-                <Panel.Actions>
-                    <Button compact glyph="add">
-                        Add New Button
-                    </Button>
-                </Panel.Actions>
-            </Panel.Header>
-            <Panel.Filters>
-                <div>Panel Filters</div>
-                <br />
-                <Popover
-                    body={
-                        <Menu>
-                            <Menu.List>
-                                <Menu.Item url="/">Option 1</Menu.Item>
-                                <Menu.Item url="/">Option 2</Menu.Item>
-                                <Menu.Item url="/">Option 3</Menu.Item>
-                                <Menu.Item url="/">Option 4</Menu.Item>
-                            </Menu.List>
-                        </Menu>
-                    }
-                    control={<Button>Color</Button>}
-                    noArrow
-                />
-                <Popover
-                    body={
-                        <Menu>
-                            <Menu.List>
-                                <Menu.Item url="/">Option 1</Menu.Item>
-                                <Menu.Item url="/">Option 2</Menu.Item>
-                                <Menu.Item url="/">Option 3</Menu.Item>
-                                <Menu.Item url="/">Option 4</Menu.Item>
-                            </Menu.List>
-                        </Menu>
-                    }
-                    control={<Button>Size</Button>}
-                    noArrow
-                />
-            </Panel.Filters>
-            <Panel.Body>
-                <div>Panel Body</div>
-                <br />
-                <Tile>
-                    <Tile.Media>
-                        <Image
-                            photo="https://placeimg.com/400/400/nature"
-                            size="l"
-                            type="circle"
-                        />
-                    </Tile.Media>
-                    <Tile.Content title="Tile Title">
-                        <p>Tile Description</p>
-                    </Tile.Content>
-                </Tile>
-                <br />
-                <Token>Bibendum</Token>
-                <Token>Lorem</Token>
-                <Token>Dolor</Token>
-                <Token>Filter</Token>
-            </Panel.Body>
-            <Panel.Footer>Panel Footer</Panel.Footer>
-        </Panel>
-        <LayoutGrid>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-        </LayoutGrid>
-        <LayoutGrid nogap>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-        </LayoutGrid>
-        <LayoutGrid cols={2}>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-        </LayoutGrid>
-        <LayoutGrid cols={6}>
-            <Panel colSpan={2}>
-                <Panel.Body>Panel with colSpan=2</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel colSpan={3}>
-                <Panel.Body>Panel with colSpan=3</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel colSpan={4}>
-                <Panel.Body>Panel with colSpan=4</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel colSpan={5}>
-                <Panel.Body>Panel with colSpan=5</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel colSpan={6}>
-                <Panel.Body>Panel with colSpan=6</Panel.Body>
-            </Panel>
-        </LayoutGrid>
-    </div>
+const layoutPanel = (
+    <LayoutPanel>
+        <LayoutPanel.Header>
+            LayoutPanel Head
+        </LayoutPanel.Header>
+        <LayoutPanel.Body>
+            LayoutPanel Body
+        </LayoutPanel.Body>
+    </LayoutPanel>
 );
 
 const popovers = (
@@ -1705,7 +1479,7 @@ const popovers = (
                         </Menu.List>
                     </Menu>
                 }
-                control={<Identifier color={6} glyph="money-bills" size="m" />}
+                control={<Icon glyph="menu2" size="xl" />}
                 noArrow
                 placement="bottom"
             />
@@ -1878,20 +1652,13 @@ const searchInputs = (
 
 const selects = (
     <div>
-        <Select placeholder='Select'>
-            <List>
-                <List.Item>
-                    <List.Text>List Item 1</List.Text>
-                </List.Item>
-            </List>
+        <Select placeholder='Select' options={[
+            {text: "List Item 1", key: "1"},
+            {text: "List Item 2", key: "2"}
+        ]} selectedKey={"2"}>
         </Select>
 
         <Select compact validationState={{state: 'warning', text: 'Validated'}}>
-            <List>
-                <List.Item>
-                    <List.Text>List Item 1</List.Text>
-                </List.Item>
-            </List>
         </Select>
     </div>
 );
@@ -2243,13 +2010,13 @@ const shellbars = (
 
 const sideNavs = (
     <div>
-        <SideNav selectedId="item-2">
-            <SideNav.List>
-                <SideNav.ListItem id="item-1" name="Link Item" url="#" />
-                <SideNav.ListItem id="item-2" name="Link Item" url="#" />
-                <SideNav.ListItem id="item-3" name="Link Item" url="#" />
-                <SideNav.ListItem id="item-4" name="Link Item" url="#" />
-                <SideNav.ListItem id="item-5" name="Link Item" url="#" />
+        <SideNav skipLink={{href: "/", label: "skip to /"}} selectedId="item-2">
+            <SideNav.List groupLabel="groupLabel-1">
+                <SideNav.ListItem condensed id="item-1" name="Link Item" url="#" />
+                <SideNav.ListItem condensed id="item-2" name="Link Item" url="#" />
+                <SideNav.ListItem condensed id="item-3" name="Link Item" url="#" />
+                <SideNav.ListItem condensed id="item-4" name="Link Item" url="#" />
+                <SideNav.ListItem condensed expandSubmenuLabel="subemenuLabel-1" id="item-5" name="Link Item" url="#" />
             </SideNav.List>
         </SideNav>
         <SideNav selectedId="item_2">
@@ -2383,6 +2150,7 @@ const stepInputs = (
         <StepInput disabled value={10} />
         <StepInput readOnly value={10} />
         <StepInput
+            onChange={(stepValue) => {}}
             placeholder='Error'
             validationState={{
                 state: 'error',
@@ -2574,111 +2342,26 @@ const tabs = (
 
 const tiles = (
     <div>
-        <Tile>
-            <Tile.Content title="Tile Title">
+        <Tile className="tile-class-1" size="s">
+            <Tile.Content twoColumns className="tileContent-class-1">
                 <p>Tile Description</p>
             </Tile.Content>
-        </Tile>
-        <Tile>
-            <Tile.Media>
-                <Image photo="https://placeimg.com/400/400/nature" size="m" />
-            </Tile.Media>
-            <Tile.Content title="Tile Title" />
+            <Tile.Footer className="tileFooter-class-1">
+                <b>tile footer</b>
+            </Tile.Footer>
         </Tile>
         <br />
-        <Tile role="button">
-            <Tile.Media>
-                <Image
-                    photo="https://placeimg.com/400/400/nature"
-                    size="l"
-                    type="circle"
-                />
-            </Tile.Media>
-            <Tile.Content title="Tile Title">
-                <p>Tile Description</p>
-            </Tile.Content>
+        <Tile isDouble>
+            <Tile.Header className="tileHeader-class-1" subtitle="Header Subtitle">
+                <p>Header Description</p>
+            </Tile.Header>
         </Tile>
         <br />
-        <Tile role="button">
-            <Tile.Media>
-                <Identifier color={3} glyph="home" size="m" />
-            </Tile.Media>
-            <Tile.Content title="Tile Title">
-                <p>Tile Description</p>
-            </Tile.Content>
-        </Tile>
-        <Tile>
-            <Tile.Content title="Tile Title" />
-            <Tile.Actions>
-                <Popover
-                    body={
-                        <Menu>
-                            <Menu.List>
-                                <Menu.Item url="/">Option 1</Menu.Item>
-                                <Menu.Item url="/">Option 2</Menu.Item>
-                                <Menu.Item url="/">Option 3</Menu.Item>
-                                <Menu.Item url="/">Option 4</Menu.Item>
-                            </Menu.List>
-                        </Menu>
-                    }
-                    control={<Button glyph="vertical-grip" option="transparent" />}
-                    placement="bottom-end"
-                />
-            </Tile.Actions>
-        </Tile>
-        <Tile product role="button">
-            <Tile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
-            <Tile.Content title="Tile Title">
-                <p>Tile Description</p>
-            </Tile.Content>
-        </Tile>
-        <br />
-        <Tile product disabled>
-            <Tile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
-            <Tile.Content title="Tile Title">
-                <p>Tile Description</p>
-            </Tile.Content>
-        </Tile>
-        <LayoutGrid cols={4}>
-            <Tile colorAccent={7} rowSpan={2}>
+            <Tile onClick={function w() {}}>
                 <Tile.Content title="Tile Title">
                     <p>Tile Description</p>
                 </Tile.Content>
             </Tile>
-            <Tile>
-                <Tile.Media>
-                    <Image
-                        photo="https://placeimg.com/400/400/nature"
-                        size="l"
-                        type="circle"
-                    />
-                </Tile.Media>
-                <Tile.Content title="Tile Title">
-                    <p>Tile Description</p>
-                </Tile.Content>
-            </Tile>
-            <Tile>
-                <Tile.Content title="Tile Title">
-                    <p>Tile Description</p>
-                </Tile.Content>
-            </Tile>
-            <Tile role="button">
-                <Tile.Media>
-                    <Identifier color={3} glyph="home" size="l" />
-                </Tile.Media>
-                <Tile.Content title="Tile Title" />
-            </Tile>
-            <Tile>
-                <Tile.Content title="Tile Title">
-                    <p>Tile Description</p>
-                </Tile.Content>
-            </Tile>
-            <Tile colorAccent={4} columnSpan={2}>
-                <Tile.Content title="Tile Title">
-                    <p>Tile Description</p>
-                </Tile.Content>
-            </Tile>
-        </LayoutGrid>
     </div>
 );
 
@@ -2697,6 +2380,17 @@ const timePickers = (
         <TimePicker format12Hours />
         <TimePicker showSecond={false} />
         <TimePicker disabled />
+    </div>
+);
+
+const title = (
+    <div>
+        <Title level={1}>Fundamental React Title 1</Title>
+        <Title level={2}>Fundamental React Title 2</Title>
+        <Title level={3}>Fundamental React Title 3</Title>
+        <Title level={4}>Fundamental React Title 4</Title>
+        <Title level={5}>Fundamental React Title 5</Title>
+        <Title level={6}>Fundamental React Title 6</Title>
     </div>
 );
 

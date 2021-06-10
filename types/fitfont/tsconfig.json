@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "noEmit": true,
+        "module": "commonjs",
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "lib": [
+            "es5"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true
+    },
+    "baseUrl": "types",
+    "typeRoots": [
+        "types"
+    ],
+    "files": [
+        "index.d.ts",
+        "fitfont-tests.ts"
+    ]
+}

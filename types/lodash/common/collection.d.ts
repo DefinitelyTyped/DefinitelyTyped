@@ -1,7 +1,5 @@
 import _ = require("../index");
 declare module "../index" {
-    // countBy
-
     interface LoDashStatic {
         /**
          * Creates an object composed of keys generated from the results of running each element of collection through
@@ -12,138 +10,150 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns the composed aggregate object.
          */
-        countBy<T>(
-            collection: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
-        ): Dictionary<number>;
-
+        countBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): Dictionary<number>;
         /**
          * @see _.countBy
          */
-        countBy<T extends object>(
-            collection: T | null | undefined,
-            iteratee?: ValueIteratee<T[keyof T]>
-        ): Dictionary<number>;
+        countBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<number>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.countBy
          */
-        countBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<Dictionary<number>>;
-
-        /**
-         * @see _.countBy
-         */
-        countBy<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee?: ValueIteratee<T[keyof T]>
-        ): LoDashImplicitWrapper<Dictionary<number>>;
+        countBy(iteratee?: ValueIteratee<T[keyof T]>): Object<Dictionary<number>>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.countBy
          */
-        countBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<Dictionary<number>>;
-
-        /**
-         * @see _.countBy
-         */
-        countBy<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee?: ValueIteratee<T[keyof T]>
-        ): LoDashExplicitWrapper<Dictionary<number>>;
+        countBy(iteratee?: ValueIteratee<string>): Object<Dictionary<number>>;
     }
-
-    // each
-
+    interface Collection<T> {
+        /**
+         * @see _.countBy
+         */
+        countBy(iteratee?: ValueIteratee<T>): Object<Dictionary<number>>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.countBy
+         */
+        countBy(iteratee?: ValueIteratee<T[keyof T]>): ObjectChain<Dictionary<number>>;
+    }
+    interface StringChain {
+        /**
+         * @see _.countBy
+         */
+        countBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<number>>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.countBy
+         */
+        countBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<number>>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.countBy
+         */
+        countBy(iteratee?: ValueIteratee<T>): ObjectChain<Dictionary<number>>;
+    }
     interface LoDashStatic {
-        each: typeof _.forEach; // tslint:disable-line:no-unnecessary-qualifier
+        /**
+         * @see _.forEach
+         */
+        each: LoDashStatic['forEach'];
     }
-
-    interface LoDashWrapper<TValue> {
+    interface String {
         /**
-         * @see _.forEach
+         * @see _.each
          */
-        each<T>(
-            this: LoDashWrapper<T[] | null | undefined>,
-            iteratee?: ArrayIterator<T, any>
-        ): this;
-
-        /**
-         * @see _.forEach
-         */
-        each(
-            this: LoDashWrapper<string | null | undefined>,
-            iteratee?: StringIterator<any>
-        ): this;
-
-        /**
-         * @see _.forEach
-         */
-        each<T>(
-            this: LoDashWrapper<List<T> | null | undefined>,
-            iteratee?: ListIterator<T, any>
-        ): this;
-
-        /**
-         * @see _.forEach
-         */
-        each<T extends object>(
-            this: LoDashWrapper<T | null | undefined>,
-            iteratee?: ObjectIterator<T, any>
-        ): this;
+        each: String['forEach'];
     }
-
-    // eachRight
-
+    interface Collection<T> {
+        /**
+         * @see _.each
+         */
+        each: Collection<T>['forEach'];
+    }
+    interface Object<T> {
+        /**
+         * @see _.each
+         */
+        each: Object<T>['forEach'];
+    }
+    interface StringChain {
+        /**
+         * @see _.each
+         */
+        each: StringChain['forEach'];
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.each
+         */
+        each: StringNullableChain['forEach'];
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.each
+         */
+        each: CollectionChain<T>['forEach'];
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.each
+         */
+        each: ObjectChain<T>['forEach'];
+    }
     interface LoDashStatic {
-        eachRight: typeof _.forEachRight; // tslint:disable-line:no-unnecessary-qualifier
+        /**
+         * @see _.forEachRight
+         */
+        eachRight: LoDashStatic["forEachRight"];
     }
-
-    interface LoDashWrapper<TValue> {
+    interface String {
         /**
-         * @see _.forEachRight
+         * @see _.eachRight
          */
-        eachRight<T>(
-            this: LoDashWrapper<T[] | null | undefined>,
-            iteratee?: ArrayIterator<T, any>
-        ): this;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight(
-            this: LoDashWrapper<string | null | undefined>,
-            iteratee?: StringIterator<any>
-        ): this;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight<T>(
-            this: LoDashWrapper<List<T> | null | undefined>,
-            iteratee?: ListIterator<T, any>
-        ): this;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight<T extends object>(
-            this: LoDashWrapper<T | null | undefined>,
-            iteratee?: ObjectIterator<T, any>
-        ): this;
+        eachRight: String['forEachRight'];
     }
-
-    // every
-
+    interface Collection<T> {
+        /**
+         * @see _.eachRight
+         */
+        eachRight: Collection<T>['forEachRight'];
+    }
+    interface Object<T> {
+        /**
+         * @see _.eachRight
+         */
+        eachRight: Object<T>['forEachRight'];
+    }
+    interface StringChain {
+        /**
+         * @see _.eachRight
+         */
+        eachRight: StringChain['forEachRight'];
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.eachRight
+         */
+        eachRight: StringNullableChain['forEachRight'];
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.eachRight
+         */
+        eachRight: CollectionChain<T>['forEachRight'];
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.eachRight
+         */
+        eachRight: ObjectChain<T>['forEachRight'];
+    }
     interface LoDashStatic {
         /**
          * Checks if predicate returns truthy for all elements of collection. Iteration is stopped once predicate
@@ -153,58 +163,36 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns true if all elements pass the predicate check, else false.
          */
-        every<T>(
-            collection: List<T> | null | undefined,
-            predicate?: ListIterateeCustom<T, boolean>
-        ): boolean;
-
+        every<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): boolean;
         /**
          * @see _.every
          */
-        every<T extends object>(
-            collection: T | null | undefined,
-            predicate?: ObjectIterateeCustom<T, boolean>
-        ): boolean;
+        every<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.every
          */
-        every<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeCustom<T, boolean>
-        ): boolean;
-
-        /**
-         * @see _.every
-         */
-        every<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeCustom<T, boolean>
-        ): boolean;
+        every(predicate?: ListIterateeCustom<T, boolean>): boolean;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.every
          */
-        every<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeCustom<T, boolean>
-        ): LoDashExplicitWrapper<boolean>;
-
-        /**
-         * @see _.every
-         */
-        every<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeCustom<T, boolean>
-        ): LoDashExplicitWrapper<boolean>;
+        every(predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
-
-    // filter
-
+    interface CollectionChain<T> {
+        /**
+         * @see _.every
+         */
+        every(predicate?: ListIterateeCustom<T, boolean>): PrimitiveChain<boolean>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.every
+         */
+        every(predicate?: ObjectIterateeCustom<T, boolean>): PrimitiveChain<boolean>;
+    }
     interface LoDashStatic {
         /**
          * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
@@ -214,130 +202,82 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the new filtered array.
          */
-        filter(
-            collection: string | null | undefined,
-            predicate?: StringIterator<boolean>
-        ): string[];
-
+        filter(collection: string | null | undefined, predicate?: StringIterator<boolean>): string[];
         /**
          * @see _.filter
          */
-        filter<T, S extends T>(
-            collection: List<T> | null | undefined,
-            predicate: ListIteratorTypeGuard<T, S>
-        ): S[];
-
+        filter<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>): S[];
         /**
          * @see _.filter
          */
-        filter<T>(
-            collection: List<T> | null | undefined,
-            predicate?: ListIterateeCustom<T, boolean>
-        ): T[];
-
+        filter<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): T[];
         /**
          * @see _.filter
          */
-        filter<T extends object, S extends T[keyof T]>(
-            collection: T | null | undefined,
-            predicate: ObjectIteratorTypeGuard<T, S>
-        ): S[];
-
+        filter<T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>): S[];
         /**
          * @see _.filter
          */
-        filter<T extends object>(
-            collection: T | null | undefined,
-            predicate?: ObjectIterateeCustom<T, boolean>
-        ): Array<T[keyof T]>;
+        filter<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): Array<T[keyof T]>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.filter
          */
-        filter(
-            this: LoDashImplicitWrapper<string | null | undefined>,
-            predicate?: StringIterator<boolean>
-        ): LoDashImplicitWrapper<string[]>;
-
-        /**
-         * @see _.filter
-         */
-        filter<T, S extends T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate: ListIteratorTypeGuard<T, S>
-        ): LoDashImplicitWrapper<S[]>;
-
-        /**
-         * @see _.filter
-         */
-        filter<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeCustom<T, boolean>
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.filter
-         */
-        filter<T extends object, S extends T[keyof T]>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<T, S>
-        ): LoDashImplicitWrapper<S[]>;
-
-        /**
-         * @see _.filter
-         */
-        filter<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeCustom<T, boolean>
-        ): LoDashImplicitWrapper<Array<T[keyof T]>>;
+        filter(predicate?: StringIterator<boolean>): Collection<string>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.filter
          */
-        filter(
-            this: LoDashExplicitWrapper<string | null | undefined>,
-            predicate?: StringIterator<boolean>
-        ): LoDashExplicitWrapper<string[]>;
-
+        filter<S extends T>(predicate: ListIteratorTypeGuard<T, S>): Collection<S>;
         /**
          * @see _.filter
          */
-        filter<T, S extends T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate: ListIteratorTypeGuard<T, S>
-        ): LoDashExplicitWrapper<S[]>;
-
-        /**
-         * @see _.filter
-         */
-        filter<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeCustom<T, boolean>
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.filter
-         */
-        filter<T extends object, S extends T[keyof T]>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<T, S>
-        ): LoDashExplicitWrapper<S[]>;
-
-        /**
-         * @see _.filter
-         */
-        filter<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeCustom<T, boolean>
-        ): LoDashExplicitWrapper<Array<T[keyof T]>>;
+        filter(predicate?: ListIterateeCustom<T, boolean>): Collection<T>;
     }
-
-    // find
-
+    interface Object<T> {
+        /**
+         * @see _.filter
+         */
+        filter<S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>): Collection<S>;
+        /**
+         * @see _.filter
+         */
+        filter(predicate?: ObjectIterateeCustom<T, boolean>): Collection<T[keyof T]>;
+    }
+    interface StringChain {
+        /**
+         * @see _.filter
+         */
+        filter(predicate?: StringIterator<boolean>): CollectionChain<string>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.filter
+         */
+        filter(predicate?: StringIterator<boolean>): CollectionChain<string>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.filter
+         */
+        filter<S extends T>(predicate: ListIteratorTypeGuard<T, S>): CollectionChain<S>;
+        /**
+         * @see _.filter
+         */
+        filter(predicate?: ListIterateeCustom<T, boolean>): CollectionChain<T>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.filter
+         */
+        filter<S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>): CollectionChain<S>;
+        /**
+         * @see _.filter
+         */
+        filter(predicate?: ObjectIterateeCustom<T, boolean>): CollectionChain<T[keyof T]>;
+    }
     interface LoDashStatic {
         /**
          * Iterates over elements of collection, returning the first element predicate returns truthy for.
@@ -348,118 +288,60 @@ declare module "../index" {
          * @param fromIndex The index to search from.
          * @return Returns the matched element, else undefined.
          */
-        find<T, S extends T>(
-            collection: List<T> | null | undefined,
-            predicate: ListIteratorTypeGuard<T, S>,
-            fromIndex?: number
-        ): S|undefined;
-
+        find<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
         /**
          * @see _.find
          */
-        find<T>(
-            collection: List<T> | null | undefined,
-            predicate?: ListIterateeCustom<T, boolean>,
-            fromIndex?: number
-        ): T|undefined;
-
+        find<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
         /**
          * @see _.find
          */
-        find<T extends object, S extends T[keyof T]>(
-            collection: T | null | undefined,
-            predicate: ObjectIteratorTypeGuard<T, S>,
-            fromIndex?: number
-        ): S|undefined;
-
+        find<T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
         /**
          * @see _.find
          */
-        find<T extends object>(
-            collection: T | null | undefined,
-            predicate?: ObjectIterateeCustom<T, boolean>,
-            fromIndex?: number
-        ): T[keyof T]|undefined;
+        find<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T]|undefined;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.find
          */
-        find<T, S extends T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate: ListIteratorTypeGuard<T, S>,
-            fromIndex?: number
-        ): S|undefined;
-
+        find<S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
         /**
          * @see _.find
          */
-        find<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeCustom<T, boolean>,
-            fromIndex?: number
-        ): T|undefined;
-
-        /**
-         * @see _.find
-         */
-        find<T extends object, S extends T[keyof T]>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<T, S>,
-            fromIndex?: number
-        ): S|undefined;
-
-        /**
-         * @see _.find
-         */
-        find<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeCustom<T, boolean>,
-            fromIndex?: number
-        ): T[keyof T]|undefined;
+        find(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.find
          */
-        find<T, S extends T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate: ListIteratorTypeGuard<T, S>,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<S|undefined>;
-
+        find< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
         /**
          * @see _.find
          */
-        find<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeCustom<T, boolean>,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<T|undefined>;
-
-        /**
-         * @see _.find
-         */
-        find<T extends object, S extends T[keyof T]>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<T, S>,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<S|undefined>;
-
-        /**
-         * @see _.find
-         */
-        find<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeCustom<T, boolean>,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<T[keyof T]|undefined>;
+        find(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T]|undefined;
     }
-
-    // findLast
-
+    interface CollectionChain<T> {
+        /**
+         * @see _.find
+         */
+        find< S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S|undefined>;
+        /**
+         * @see _.find
+         */
+        find(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T|undefined>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.find
+         */
+        find< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S|undefined>;
+        /**
+         * @see _.find
+         */
+        find(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T[keyof T]|undefined>;
+    }
     interface LoDashStatic {
         /**
          * This method is like _.find except that it iterates over elements of a collection from
@@ -469,118 +351,60 @@ declare module "../index" {
          * @param fromIndex The index to search from.
          * @return The found element, else undefined.
          */
-        findLast<T, S extends T>(
-            collection: List<T> | null | undefined,
-            predicate: ListIteratorTypeGuard<T, S>,
-            fromIndex?: number
-        ): S|undefined;
-
+        findLast<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
         /**
          * @see _.findLast
          */
-        findLast<T>(
-            collection: List<T> | null | undefined,
-            predicate?: ListIterateeCustom<T, boolean>,
-            fromIndex?: number
-        ): T|undefined;
-
+        findLast<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
         /**
          * @see _.findLast
          */
-        findLast<T extends object, S extends T[keyof T]>(
-            collection: T | null | undefined,
-            predicate: ObjectIteratorTypeGuard<T, S>,
-            fromIndex?: number
-        ): S|undefined;
-
+        findLast<T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
         /**
          * @see _.findLast
          */
-        findLast<T extends object>(
-            collection: T | null | undefined,
-            predicate?: ObjectIterateeCustom<T, boolean>,
-            fromIndex?: number
-        ): T[keyof T]|undefined;
+        findLast<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T]|undefined;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.findLast
          */
-        findLast<T, S extends T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate: ListIteratorTypeGuard<T, S>,
-            fromIndex?: number
-        ): S | undefined;
-
+        findLast<S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
         /**
          * @see _.findLast
          */
-        findLast<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeCustom<T, boolean>,
-            fromIndex?: number
-        ): T | undefined;
-
-        /**
-         * @see _.findLast
-         */
-        findLast<T extends object, S extends T[keyof T]>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<T, S>,
-            fromIndex?: number
-        ): S|undefined;
-
-        /**
-         * @see _.findLast
-         */
-        findLast<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeCustom<T, boolean>,
-            fromIndex?: number
-        ): T[keyof T]|undefined;
+        findLast(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.findLast
          */
-        findLast<T, S extends T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate: ListIteratorTypeGuard<T, S>,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<S | undefined>;
-
+        findLast< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
         /**
          * @see _.findLast
          */
-        findLast<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeCustom<T, boolean>,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<T | undefined>;
-
-        /**
-         * @see _.findLast
-         */
-        findLast<T extends object, S extends T[keyof T]>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<T, S>,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<S|undefined>;
-
-        /**
-         * @see _.findLast
-         */
-        findLast<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeCustom<T, boolean>,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<T[keyof T]|undefined>;
+        findLast(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T]|undefined;
     }
-
-    // flatMap
-
+    interface CollectionChain<T> {
+        /**
+         * @see _.findLast
+         */
+        findLast< S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S|undefined>;
+        /**
+         * @see _.findLast
+         */
+        findLast(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T|undefined>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.findLast
+         */
+        findLast< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S|undefined>;
+        /**
+         * @see _.findLast
+         */
+        findLast(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T[keyof T]|undefined>;
+    }
     interface LoDashStatic {
         /**
          * Creates an array of flattened values by running each element in collection through iteratee
@@ -591,136 +415,114 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns the new flattened array.
          */
-        flatMap<T>(
-            collection: List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined
-        ): T[];
-
+        flatMap<T>(collection: Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined): T[];
         /**
          * @see _.flatMap
          */
-        flatMap(
-            collection: object | null | undefined
-        ): any[];
-
+        flatMap(collection: object | null | undefined): any[];
         /**
          * @see _.flatMap
          */
-        flatMap<T, TResult>(
-            collection: List<T> | null | undefined,
-            iteratee: ListIterator<T, Many<TResult>>
-        ): TResult[];
-
+        flatMap<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, Many<TResult>>): TResult[];
         /**
          * @see _.flatMap
          */
-        flatMap<T extends object, TResult>(
-            collection: T | null | undefined,
-            iteratee: ObjectIterator<T, Many<TResult>>
-        ): TResult[];
-
+        flatMap<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, Many<TResult>>): TResult[];
         /**
          * @see _.flatMap
          */
-        flatMap(
-            collection: object | null | undefined,
-            iteratee: string
-        ): any[];
-
+        flatMap(collection: object | null | undefined, iteratee: string): any[];
         /**
          * @see _.flatMap
          */
-        flatMap(
-            collection: object | null | undefined,
-            iteratee: object
-        ): boolean[];
+        flatMap(collection: object | null | undefined, iteratee: object): boolean[];
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.flatMap
          */
-        flatMap<T>(this: LoDashImplicitWrapper<List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): LoDashImplicitWrapper<T[]>;
-
+        flatMap<TResult>(iteratee: StringIterator<Many<TResult>>): Collection<TResult>;
         /**
          * @see _.flatMap
          */
-        flatMap(): LoDashImplicitWrapper<any[]>;
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<T, TResult>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee: ListIterator<T, Many<TResult>>
-        ): LoDashImplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<T extends object, TResult>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee: ObjectIterator<T, Many<TResult>>
-        ): LoDashImplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap(
-            iteratee: string
-        ): LoDashImplicitWrapper<any[]>;
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap(
-            iteratee: object
-        ): LoDashImplicitWrapper<boolean[]>;
+        flatMap(): Collection<string>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.flatMap
          */
-        flatMap<T>(this: LoDashExplicitWrapper<List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): LoDashExplicitWrapper<T[]>;
-
+        flatMap<TResult = any>(iteratee: ListIterator<T, Many<TResult>> | PropertyName): Collection<TResult>;
         /**
          * @see _.flatMap
          */
-        flatMap(): LoDashExplicitWrapper<any[]>;
-
+        flatMap(iteratee: [PropertyName, any] | object): Collection<boolean>;
         /**
          * @see _.flatMap
          */
-        flatMap<T, TResult>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee: ListIterator<T, Many<TResult>>
-        ): LoDashExplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<T extends object, TResult>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee: ObjectIterator<T, Many<TResult>>
-        ): LoDashExplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap(
-            iteratee: string
-        ): LoDashExplicitWrapper<any[]>;
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap(
-            iteratee: object
-        ): LoDashExplicitWrapper<boolean[]>;
+        flatMap(): T extends Many<infer U> ? Collection<U> : Collection<T>;
     }
-
-    // flatMapDeep
-
+    interface Object<T> {
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult = any>(iteratee: ObjectIterator<T, Many<TResult>> | PropertyName): Collection<TResult>;
+        /**
+         * @see _.flatMap
+         */
+        flatMap(iteratee: [PropertyName, any] | object): Collection<boolean>;
+        /**
+         * @see _.flatMap
+         */
+        flatMap(): Collection<T[keyof T]>;
+    }
+    interface StringChain {
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(iteratee: StringIterator<Many<TResult>>): CollectionChain<TResult>;
+        /**
+         * @see _.flatMap
+         */
+        flatMap(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(iteratee: StringIterator<Many<TResult>>): CollectionChain<TResult>;
+        /**
+         * @see _.flatMap
+         */
+        flatMap(): CollectionChain<string>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult = any>(iteratee: ListIterator<T, Many<TResult>> | PropertyName): CollectionChain<TResult>;
+        /**
+         * @see _.flatMap
+         */
+        flatMap(iteratee: [PropertyName, any] | object): CollectionChain<boolean>;
+        /**
+         * @see _.flatMap
+         */
+        flatMap(): T extends Many<infer U> ? CollectionChain<U> : CollectionChain<T>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult = any>(iteratee: ObjectIterator<T, Many<TResult>> | PropertyName): CollectionChain<TResult>;
+        /**
+         * @see _.flatMap
+         */
+        flatMap(iteratee: [PropertyName, any] | object): CollectionChain<boolean>;
+        /**
+         * @see _.flatMap
+         */
+        flatMap(): CollectionChain<T[keyof T]>;
+    }
     interface LoDashStatic {
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
@@ -740,127 +542,110 @@ declare module "../index" {
          * _.flatMapDeep([1, 2], duplicate);
          * // => [1, 1, 2, 2]
          */
-        flatMapDeep<T>(
-            collection: List<ListOfRecursiveArraysOrValues<T> | T> | Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined
-        ): T[];
-
+        flatMapDeep<T>(collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined): T[];
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<T, TResult>(
-            collection: List<T> | null | undefined,
-            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>
-        ): TResult[];
-
+        flatMapDeep<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>): TResult[];
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<T extends object, TResult>(
-            collection: T | null | undefined,
-            iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>
-        ): TResult[];
-
+        flatMapDeep<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>): TResult[];
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep(
-            collection: object | null | undefined,
-            iteratee: string
-        ): any[];
-
+        flatMapDeep(collection: object | null | undefined, iteratee: string): any[];
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep(
-            collection: object | null | undefined,
-            iteratee: object
-        ): boolean[];
+        flatMapDeep(collection: object | null | undefined, iteratee: object): boolean[];
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<T>(
-            this: LoDashImplicitWrapper<List<ListOfRecursiveArraysOrValues<T> | T> | Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>
-        ): LoDashImplicitWrapper<T[]>;
-
+        flatMapDeep<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>): Collection<TResult>;
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<T, TResult>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>
-        ): LoDashImplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.flatMapDeep
-         */
-        flatMapDeep<T extends object, TResult>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>
-        ): LoDashImplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.flatMapDeep
-         */
-        flatMapDeep(
-            this: LoDashImplicitWrapper<object | null | undefined>,
-            iteratee: string
-        ): LoDashImplicitWrapper<any[]>;
-
-        /**
-         * @see _.flatMapDeep
-         */
-        flatMapDeep(
-            this: LoDashImplicitWrapper<object | null | undefined>,
-            iteratee: object
-        ): LoDashImplicitWrapper<boolean[]>;
+        flatMapDeep(): Collection<string>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<T>(
-            this: LoDashExplicitWrapper<List<ListOfRecursiveArraysOrValues<T> | T> | Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>
-        ): LoDashExplicitWrapper<T[]>;
-
+        flatMapDeep<TResult = any>(iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName): Collection<TResult>;
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<T, TResult>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>
-        ): LoDashExplicitWrapper<TResult[]>;
-
+        flatMapDeep(iteratee: [PropertyName, any] | object): Collection<boolean>;
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<T extends object, TResult>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>
-        ): LoDashExplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.flatMapDeep
-         */
-        flatMapDeep(
-            this: LoDashExplicitWrapper<object | null | undefined>,
-            iteratee: string
-        ): LoDashExplicitWrapper<any[]>;
-
-        /**
-         * @see _.flatMapDeep
-         */
-        flatMapDeep(
-            this: LoDashExplicitWrapper<object | null | undefined>,
-            iteratee: object
-        ): LoDashExplicitWrapper<boolean[]>;
+        flatMapDeep(): Collection<T>;
     }
-
-    // flatMapDepth
-
+    interface Object<T> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult = any>(iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName): Collection<TResult>;
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(iteratee: [PropertyName, any] | object): Collection<boolean>;
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(): Collection<T[keyof T]>;
+    }
+    interface StringChain {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>): CollectionChain<TResult>;
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>): CollectionChain<TResult>;
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(): CollectionChain<string>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult = any>(iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName): CollectionChain<TResult>;
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(iteratee: [PropertyName, any] | object): CollectionChain<boolean>;
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(): CollectionChain<T>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult = any>(iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName): CollectionChain<TResult>;
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(iteratee: [PropertyName, any] | object): CollectionChain<boolean>;
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(): CollectionChain<T[keyof T]>;
+    }
     interface LoDashStatic {
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
@@ -881,139 +666,110 @@ declare module "../index" {
          * _.flatMapDepth([1, 2], duplicate, 2);
          * // => [[1, 1], [2, 2]]
          */
-        flatMapDepth<T>(
-            collection: List<ListOfRecursiveArraysOrValues<T> | T> | Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined
-        ): T[];
-
+        flatMapDepth<T>(collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined): T[];
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<T, TResult>(
-            collection: List<T> | null | undefined,
-            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>,
-            depth?: number
-        ): TResult[];
-
+        flatMapDepth<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): TResult[];
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<T extends object, TResult>(
-            collection: T | null | undefined,
-            iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>,
-            depth?: number
-        ): TResult[];
-
+        flatMapDepth<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): TResult[];
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth(
-            collection: object | null | undefined,
-            iteratee: string,
-            depth?: number
-        ): any[];
-
+        flatMapDepth(collection: object | null | undefined, iteratee: string, depth?: number): any[];
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth(
-            collection: object | null | undefined,
-            iteratee: object,
-            depth?: number
-        ): boolean[];
+        flatMapDepth(collection: object | null | undefined, iteratee: object, depth?: number): boolean[];
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<T>(
-            this: LoDashImplicitWrapper<List<ListOfRecursiveArraysOrValues<T> | T> | Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>
-        ): LoDashImplicitWrapper<T[]>;
-
+        flatMapDepth<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): Collection<TResult>;
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<T, TResult>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>,
-            depth?: number
-        ): LoDashImplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.flatMapDepth
-         */
-        flatMapDepth<T extends object, TResult>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>,
-            depth?: number
-        ): LoDashImplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.flatMapDepth
-         */
-        flatMapDepth(
-            this: LoDashImplicitWrapper<object | null | undefined>,
-            iteratee: string,
-            depth?: number
-        ): LoDashImplicitWrapper<any[]>;
-
-        /**
-         * @see _.flatMapDepth
-         */
-        flatMapDepth(
-            this: LoDashImplicitWrapper<object | null | undefined>,
-            iteratee: object,
-            depth?: number
-        ): LoDashImplicitWrapper<boolean[]>;
+        flatMapDepth(depth?: number): Collection<string>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<T>(
-            this: LoDashExplicitWrapper<List<ListOfRecursiveArraysOrValues<T> | T> | Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>
-        ): LoDashExplicitWrapper<T[]>;
-
+        flatMapDepth<TResult = any>(iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName, depth?: number): Collection<TResult>;
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<T, TResult>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>,
-            depth?: number
-        ): LoDashExplicitWrapper<TResult[]>;
-
+        flatMapDepth(iteratee: [PropertyName, any] | object, depth?: number): Collection<boolean>;
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<T extends object, TResult>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>,
-            depth?: number
-        ): LoDashExplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.flatMapDepth
-         */
-        flatMapDepth(
-            this: LoDashExplicitWrapper<object | null | undefined>,
-            iteratee: string,
-            depth?: number
-        ): LoDashExplicitWrapper<any[]>;
-
-        /**
-         * @see _.flatMapDepth
-         */
-        flatMapDepth(
-            this: LoDashExplicitWrapper<object | null | undefined>,
-            iteratee: object,
-            depth?: number
-        ): LoDashExplicitWrapper<boolean[]>;
+        flatMapDepth(depth?: number): Collection<T>;
     }
-
-    // forEach
-
+    interface Object<T> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult = any>(iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName, depth?: number): Collection<TResult>;
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(iteratee: [PropertyName, any] | object, depth?: number): Collection<boolean>;
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(depth?: number): Collection<T[keyof T]>;
+    }
+    interface StringChain {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): CollectionChain<TResult>;
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(depth?: number): CollectionChain<string>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): CollectionChain<TResult>;
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(depth?: number): CollectionChain<string>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult = any>(iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName, depth?: number): CollectionChain<TResult>;
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(iteratee: [PropertyName, any] | object, depth?: number): CollectionChain<boolean>;
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(depth?: number): CollectionChain<T>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult = any>(iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName, depth?: number): CollectionChain<TResult>;
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(iteratee: [PropertyName, any] | object, depth?: number): CollectionChain<boolean>;
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(depth?: number): CollectionChain<T[keyof T]>;
+    }
     interface LoDashStatic {
         /**
          * Iterates over elements of collection invoking iteratee for each element. The iteratee is invoked with three arguments:
@@ -1027,104 +783,78 @@ declare module "../index" {
          * @param collection The collection to iterate over.
          * @param iteratee The function invoked per iteration.
          */
-        forEach<T>(
-            collection: T[],
-            iteratee?: ArrayIterator<T, any>
-        ): T[];
-
+        forEach<T>(collection: T[], iteratee?: ArrayIterator<T, any>): T[];
         /**
          * @see _.forEach
          */
-        forEach(
-            collection: string,
-            iteratee?: StringIterator<any>
-        ): string;
-
+        forEach(collection: string, iteratee?: StringIterator<any>): string;
         /**
          * @see _.forEach
          */
-        forEach<T>(
-            collection: List<T>,
-            iteratee?: ListIterator<T, any>
-        ): List<T>;
-
+        forEach<T>(collection: List<T>, iteratee?: ListIterator<T, any>): List<T>;
         /**
          * @see _.forEach
          */
-        forEach<T extends object>(
-            collection: T,
-            iteratee?: ObjectIterator<T, any>
-        ): T;
-
+        forEach<T extends object>(collection: T, iteratee?: ObjectIterator<T, any>): T;
         /**
          * @see _.forEach
          */
-        forEach<T, TArray extends T[] | null | undefined>(
-            collection: TArray & (T[] | null | undefined),
-            iteratee?: ArrayIterator<T, any>
-        ): TArray;
-
+        forEach<T, TArray extends T[] | null | undefined>(collection: TArray & (T[] | null | undefined), iteratee?: ArrayIterator<T, any>): TArray;
         /**
          * @see _.forEach
          */
-        forEach<TString extends string | null | undefined>(
-            collection: TString,
-            iteratee?: StringIterator<any>
-        ): TString;
-
+        forEach<TString extends string | null | undefined>(collection: TString, iteratee?: StringIterator<any>): TString;
         /**
          * @see _.forEach
          */
-        forEach<T, TList extends List<T> | null | undefined>(
-            collection: TList & (List<T> | null | undefined),
-            iteratee?: ListIterator<T, any>
-        ): TList;
-
+        forEach<T, TList extends List<T> | null | undefined>(collection: TList & (List<T> | null | undefined), iteratee?: ListIterator<T, any>): TList;
         /**
          * @see _.forEach
          */
-        forEach<T extends object>(
-            collection: T | null | undefined,
-            iteratee?: ObjectIterator<T, any>
-        ): T | null | undefined;
+        forEach<T extends object>(collection: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
-
-    interface LoDashWrapper<TValue> {
+    interface String {
         /**
          * @see _.forEach
          */
-        forEach<T>(
-            this: LoDashWrapper<T[] | null | undefined>,
-            iteratee?: ArrayIterator<T, any>
-        ): this;
-
-        /**
-         * @see _.forEach
-         */
-        forEach(
-            this: LoDashWrapper<string | null | undefined>,
-            iteratee?: StringIterator<any>
-        ): this;
-
-        /**
-         * @see _.forEach
-         */
-        forEach<T>(
-            this: LoDashWrapper<List<T> | null | undefined>,
-            iteratee?: ListIterator<T, any>
-        ): this;
-
-        /**
-         * @see _.forEach
-         */
-        forEach<T extends object>(
-            this: LoDashWrapper<T | null | undefined>,
-            iteratee?: ObjectIterator<T, any>
-        ): this;
+        forEach(iteratee?: StringIterator<any>): String;
     }
-
-    // forEachRight
-
+    interface Object<T> {
+        /**
+         * @see _.forEach
+         */
+        forEach(iteratee?: ObjectIterator<T, any>): Object<T>;
+    }
+    interface Collection<T> {
+        /**
+         * @see _.forEach
+         */
+        forEach(iteratee?: ListIterator<T, any>): Collection<T>;
+    }
+    interface StringChain {
+        /**
+         * @see _.forEach
+         */
+        forEach(iteratee?: StringIterator<any>): StringChain;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.forEach
+         */
+        forEach(iteratee?: StringIterator<any>): StringNullableChain;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.forEach
+         */
+        forEach(iteratee?: ObjectIterator<T, any>): ObjectChain<T>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.forEach
+         */
+        forEach(iteratee?: ListIterator<T, any>): CollectionChain<T>;
+    }
     interface LoDashStatic {
         /**
          * This method is like _.forEach except that it iterates over elements of collection from right to left.
@@ -1134,104 +864,78 @@ declare module "../index" {
          * @param collection The collection to iterate over.
          * @param iteratee The function called per iteration.
          */
-        forEachRight<T>(
-            collection: T[],
-            iteratee?: ArrayIterator<T, any>
-        ): T[];
-
+        forEachRight<T>(collection: T[], iteratee?: ArrayIterator<T, any>): T[];
         /**
          * @see _.forEachRight
          */
-        forEachRight(
-            collection: string,
-            iteratee?: StringIterator<any>
-        ): string;
-
+        forEachRight(collection: string, iteratee?: StringIterator<any>): string;
         /**
          * @see _.forEachRight
          */
-        forEachRight<T>(
-            collection: List<T>,
-            iteratee?: ListIterator<T, any>
-        ): List<T>;
-
+        forEachRight<T>(collection: List<T>, iteratee?: ListIterator<T, any>): List<T>;
         /**
          * @see _.forEachRight
          */
-        forEachRight<T extends object>(
-            collection: T,
-            iteratee?: ObjectIterator<T, any>
-        ): T;
-
+        forEachRight<T extends object>(collection: T, iteratee?: ObjectIterator<T, any>): T;
         /**
          * @see _.forEachRight
          */
-        forEachRight<T, TArray extends T[] | null | undefined>(
-            collection: TArray & (T[] | null | undefined),
-            iteratee?: ArrayIterator<T, any>
-        ): TArray;
-
+        forEachRight<T, TArray extends T[] | null | undefined>(collection: TArray & (T[] | null | undefined), iteratee?: ArrayIterator<T, any>): TArray;
         /**
          * @see _.forEachRight
          */
-        forEachRight<TString extends string | null | undefined>(
-            collection: TString,
-            iteratee?: StringIterator<any>
-        ): TString;
-
+        forEachRight<TString extends string | null | undefined>(collection: TString, iteratee?: StringIterator<any>): TString;
         /**
          * @see _.forEachRight
          */
-        forEachRight<T, TList extends List<T> | null | undefined>(
-            collection: TList & (List<T> | null | undefined),
-            iteratee?: ListIterator<T, any>
-        ): TList;
-
+        forEachRight<T, TList extends List<T> | null | undefined>(collection: TList & (List<T> | null | undefined), iteratee?: ListIterator<T, any>): TList;
         /**
          * @see _.forEachRight
          */
-        forEachRight<T extends object>(
-            collection: T | null | undefined,
-            iteratee?: ObjectIterator<T, any>
-        ): T | null | undefined;
+        forEachRight<T extends object>(collection: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
-
-    interface LoDashWrapper<TValue> {
+    interface String {
         /**
          * @see _.forEachRight
          */
-        forEachRight<T>(
-            this: LoDashWrapper<T[] | null | undefined>,
-            iteratee?: ArrayIterator<T, any>
-        ): this;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight(
-            this: LoDashWrapper<string | null | undefined>,
-            iteratee?: StringIterator<any>
-        ): this;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight<T>(
-            this: LoDashWrapper<List<T> | null | undefined>,
-            iteratee?: ListIterator<T, any>
-        ): this;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight<T extends object>(
-            this: LoDashWrapper<T | null | undefined>,
-            iteratee?: ObjectIterator<T, any>
-        ): this;
+        forEachRight(iteratee?: StringIterator<any>): String;
     }
-
-    // groupBy
-
+    interface Object<T> {
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight(iteratee?: ObjectIterator<T, any>): Object<T>;
+    }
+    interface Collection<T> {
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight(iteratee?: ListIterator<T, any>): Collection<T>;
+    }
+    interface StringChain {
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight(iteratee?: StringIterator<any>): StringChain;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight(iteratee?: StringIterator<any>): StringNullableChain;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight(iteratee?: ObjectIterator<T, any>): ObjectChain<T>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight(iteratee?: ListIterator<T, any>): CollectionChain<T>;
+    }
     interface LoDashStatic {
         /**
          * Creates an object composed of keys generated from the results of running each element of collection through
@@ -1242,58 +946,54 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns the composed aggregate object.
          */
-        groupBy<T>(
-            collection: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
-        ): Dictionary<T[]>;
-
+        groupBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): Dictionary<T[]>;
         /**
          * @see _.groupBy
          */
-        groupBy<T extends object>(
-            collection: T | null | undefined,
-            iteratee?: ValueIteratee<T[keyof T]>
-        ): Dictionary<Array<T[keyof T]>>;
+        groupBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<Array<T[keyof T]>>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.groupBy
          */
-        groupBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<Dictionary<T[]>>;
-
-        /**
-         * @see _.groupBy
-         */
-        groupBy<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee?: ValueIteratee<T[keyof T]>
-        ): LoDashImplicitWrapper<Dictionary<Array<T[keyof T]>>>;
+        groupBy(iteratee?: ValueIteratee<string>): Object<Dictionary<string[]>>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.groupBy
          */
-        groupBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<Dictionary<T[]>>;
-
-        /**
-         * @see _.groupBy
-         */
-        groupBy<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee?: ValueIteratee<T[keyof T]>
-        ): LoDashExplicitWrapper<Dictionary<Array<T[keyof T]>>>;
+        groupBy(iteratee?: ValueIteratee<T>): Object<Dictionary<T[]>>;
     }
-
-    // includes
-
+    interface Object<T> {
+        /**
+         * @see _.groupBy
+         */
+        groupBy(iteratee?: ValueIteratee<T[keyof T]>): Object<Dictionary<Array<T[keyof T]>>>;
+    }
+    interface StringChain {
+        /**
+         * @see _.groupBy
+         */
+        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string[]>>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.groupBy
+         */
+        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string>>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.groupBy
+         */
+        groupBy(iteratee?: ValueIteratee<T>): ObjectChain<Dictionary<T[]>>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.groupBy
+         */
+        groupBy(iteratee?: ValueIteratee<T[keyof T]>): ObjectChain<Dictionary<Array<T[keyof T]>>>;
+    }
     interface LoDashStatic {
         /**
          * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
@@ -1304,37 +1004,44 @@ declare module "../index" {
          * @param fromIndex The index to search from.
          * @return True if the target element is found, else false.
          */
-        includes<T>(
-            collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined,
-            target: T,
-            fromIndex?: number
-        ): boolean;
+        includes<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number): boolean;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.includes
          */
-        includes<T>(
-            this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            target: T,
-            fromIndex?: number
-        ): boolean;
+        includes(target: T[keyof T], fromIndex?: number): boolean;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.includes
          */
-        includes<T>(
-            this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            target: T,
-            fromIndex?: number
-        ): LoDashExplicitWrapper<boolean>;
+        includes(target: T, fromIndex?: number): boolean;
     }
-
-    // invokeMap
-
+    interface String {
+        /**
+         * @see _.includes
+         */
+        includes(target: string, fromIndex?: number): boolean;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.includes
+         */
+        includes(target: T[keyof T], fromIndex?: number): PrimitiveChain<boolean>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.includes
+         */
+        includes(target: T, fromIndex?: number): PrimitiveChain<boolean>;
+    }
+    interface StringChain {
+        /**
+         * @see _.includes
+         */
+        includes(target: string, fromIndex?: number): PrimitiveChain<boolean>;
+    }
     interface LoDashStatic {
         /**
         * Invokes the method named by methodName on each element in the collection returning
@@ -1344,55 +1051,33 @@ declare module "../index" {
         * @param collection The collection to iterate over.
         * @param methodName The name of the method to invoke.
         * @param args Arguments to invoke the method with.
-        **/
-        invokeMap(
-            collection: object | null | undefined,
-            methodName: string,
-            ...args: any[]): any[];
-
+         */
+        invokeMap(collection: object | null | undefined, methodName: string, ...args: any[]): any[];
         /**
-        * @see _.invokeMap
-        **/
-        invokeMap<TResult>(
-            collection: object | null | undefined,
-            method: (...args: any[]) => TResult,
-            ...args: any[]): TResult[];
+         * @see _.invokeMap
+         */
+        invokeMap<TResult>(collection: object | null | undefined, method: (...args: any[]) => TResult, ...args: any[]): TResult[];
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-        * @see _.invokeMap
-        **/
-        invokeMap(
-            methodName: string,
-            ...args: any[]): LoDashImplicitWrapper<any[]>;
-
+         * @see _.invokeMap
+         */
+        invokeMap(methodName: string, ...args: any[]): Collection<any>;
         /**
-        * @see _.invokeMap
-        **/
-        invokeMap<TResult>(
-            method: (...args: any[]) => TResult,
-            ...args: any[]): LoDashImplicitWrapper<TResult[]>;
+         * @see _.invokeMap
+         */
+        invokeMap<TResult>(method: (...args: any[]) => TResult, ...args: any[]): Collection<TResult>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-        * @see _.invokeMap
-        **/
-        invokeMap(
-            methodName: string,
-            ...args: any[]): LoDashExplicitWrapper<any[]>;
-
+         * @see _.invokeMap
+         */
+        invokeMap(methodName: string, ...args: any[]): CollectionChain<any>;
         /**
-        * @see _.invokeMap
-        **/
-        invokeMap<TResult>(
-            method: (...args: any[]) => TResult,
-            ...args: any[]): LoDashExplicitWrapper<TResult[]>;
+         * @see _.invokeMap
+         */
+        invokeMap<TResult>(method: (...args: any[]) => TResult, ...args: any[]): CollectionChain<TResult>;
     }
-
-    // keyBy
-
     interface LoDashStatic {
         /**
          * Creates an object composed of keys generated from the results of running each element of collection through
@@ -1403,58 +1088,54 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns the composed aggregate object.
          */
-        keyBy<T>(
-            collection: List<T> | null | undefined,
-            iteratee?: ValueIterateeCustom<T, PropertyName>
-        ): Dictionary<T>;
-
+        keyBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIterateeCustom<T, PropertyName>): Dictionary<T>;
         /**
          * @see _.keyBy
          */
-        keyBy<T extends object>(
-            collection: T | null | undefined,
-            iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>
-        ): Dictionary<T[keyof T]>;
+        keyBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): Dictionary<T[keyof T]>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.keyBy
          */
-        keyBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ValueIterateeCustom<T, PropertyName>
-        ): LoDashImplicitWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.keyBy
-         */
-        keyBy<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>
-        ): LoDashImplicitWrapper<Dictionary<T[keyof T]>>;
+        keyBy(iteratee?: ValueIterateeCustom<string, PropertyName>): Object<Dictionary<string>>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.keyBy
          */
-        keyBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ValueIterateeCustom<T, PropertyName>
-        ): LoDashExplicitWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.keyBy
-         */
-        keyBy<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>
-        ): LoDashExplicitWrapper<Dictionary<T[keyof T]>>;
+        keyBy(iteratee?: ValueIterateeCustom<T, PropertyName>): Object<Dictionary<T>>;
     }
-
-    // map
-
+    interface Object<T> {
+        /**
+         * @see _.keyBy
+         */
+        keyBy(iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): Object<Dictionary<T[keyof T]>>;
+    }
+    interface StringChain {
+        /**
+         * @see _.keyBy
+         */
+        keyBy(iteratee?: ValueIterateeCustom<string, PropertyName>): ObjectChain<Dictionary<string>>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.keyBy
+         */
+        keyBy(iteratee?: ValueIterateeCustom<string, PropertyName>): ObjectChain<Dictionary<string>>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.keyBy
+         */
+        keyBy(iteratee?: ValueIterateeCustom<T, PropertyName>): ObjectChain<Dictionary<T>>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.keyBy
+         */
+        keyBy(iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): ObjectChain<Dictionary<T[keyof T]>>;
+    }
     interface LoDashStatic {
         /**
          * Creates an array of values by running each element in collection through iteratee. The iteratee is
@@ -1472,163 +1153,151 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns the new mapped array.
          */
-        map<T, TResult>(
-            collection: T[] | null | undefined,
-            iteratee: ArrayIterator<T, TResult>
-        ): TResult[];
-
+        map<T, TResult>(collection: T[] | null | undefined, iteratee: ArrayIterator<T, TResult>): TResult[];
         /**
          * @see _.map
          */
-        map<T, TResult>(
-            collection: List<T> | null | undefined,
-            iteratee: ListIterator<T, TResult>
-        ): TResult[];
-
+        map<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, TResult>): TResult[];
         /**
          * @see _.map
          */
-        map<T>(collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
-
+        map<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
         /**
          * @see _.map
          */
-        map<T extends object, TResult>(
-            collection: T | null | undefined,
-            iteratee: ObjectIterator<T, TResult>
-        ): TResult[];
-
-        /** @see _.map */
-        map<T, K extends keyof T>(
-            collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined,
-            iteratee: K
-        ): Array<T[K]>;
-
+        map<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, TResult>): TResult[];
         /**
          * @see _.map
          */
-        map<T>(
-            collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined,
-            iteratee?: string
-        ): any[];
-
+        map<T, K extends keyof T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: K): Array<T[K]>;
         /**
          * @see _.map
          */
-        map<T>(
-            collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined,
-            iteratee?: object
-        ): boolean[];
+        map<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: string): any[];
+        /**
+         * @see _.map
+         */
+        map<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: object): boolean[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.map
          */
-        map<T, TResult>(
-            this: LoDashImplicitWrapper<T[] | null | undefined>,
-            iteratee: ArrayIterator<T, TResult>
-        ): LoDashImplicitWrapper<TResult[]>;
-
+        map<TResult>(iteratee: StringIterator<TResult>): Collection<TResult>;
         /**
          * @see _.map
          */
-        map<T, TResult>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee: ListIterator<T, TResult>
-        ): LoDashImplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.map
-         */
-        map<T>(this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.map
-         */
-        map<T extends object, TResult>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee: ObjectIterator<T, TResult>
-        ): LoDashImplicitWrapper<TResult[]>;
-
-        /** @see _.map */
-        map<T, K extends keyof T>(
-            this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee: K
-        ): LoDashImplicitWrapper<Array<T[K]>>;
-
-        /**
-         * @see _.map
-         */
-        map<T>(
-            this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee?: string
-        ): LoDashImplicitWrapper<any[]>;
-
-        /**
-         * @see _.map
-         */
-        map<T>(
-            this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee?: object
-        ): LoDashImplicitWrapper<boolean[]>;
+        map(): Collection<string>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.map
          */
-        map<T, TResult>(
-            this: LoDashExplicitWrapper<T[] | null | undefined>,
-            iteratee: ArrayIterator<T, TResult>
-        ): LoDashExplicitWrapper<TResult[]>;
-
+        map<K extends keyof T>(key: K): Collection<T[K]>;
         /**
          * @see _.map
          */
-        map<T, TResult>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee: ListIterator<T, TResult>
-        ): LoDashExplicitWrapper<TResult[]>;
-
+        map<TResult>(iteratee: ListIterator<T, TResult>): Collection<TResult>;
         /**
          * @see _.map
          */
-        map<T>(this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
-
+        map(iteratee: PropertyName): Collection<any>;
         /**
          * @see _.map
          */
-        map<T extends object, TResult>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee: ObjectIterator<T, TResult>
-        ): LoDashExplicitWrapper<TResult[]>;
-
-        /** @see _.map */
-        map<T, K extends keyof T>(
-            this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee: K
-        ): LoDashExplicitWrapper<Array<T[K]>>;
-
+        map(iteratee: [PropertyName, any] | object): Collection<boolean>;
         /**
          * @see _.map
          */
-        map<T>(
-            this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee?: string
-        ): LoDashExplicitWrapper<any[]>;
-
-        /**
-         * @see _.map
-         */
-        map<T>(
-            this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee?: object
-        ): LoDashExplicitWrapper<boolean[]>;
+        map(): Collection<T>;
     }
-
-    // orderBy
-
+    interface Object<T> {
+        /**
+         * @see _.map
+         */
+        map<K extends keyof T[keyof T]>(key: K): Collection<T[keyof T][K]>;
+        /**
+         * @see _.map
+         */
+        map<TResult>(iteratee: ObjectIterator<T, TResult>): Collection<TResult>;
+        /**
+         * @see _.map
+         */
+        map(iteratee: PropertyName): Collection<any>;
+        /**
+         * @see _.map
+         */
+        map(iteratee: [PropertyName, any] | object): Collection<boolean>;
+        /**
+         * @see _.map
+         */
+        map(): Collection<T[keyof T]>;
+    }
+    interface StringChain {
+        /**
+         * @see _.map
+         */
+        map<TResult>(iteratee: StringIterator<TResult>): CollectionChain<TResult>;
+        /**
+         * @see _.map
+         */
+        map(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.map
+         */
+        map<TResult>(iteratee: StringIterator<TResult>): CollectionChain<TResult>;
+        /**
+         * @see _.map
+         */
+        map(): CollectionChain<string>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.map
+         */
+        map<K extends keyof T>(key: K): CollectionChain<T[K]>;
+        /**
+         * @see _.map
+         */
+        map<TResult>(iteratee: ListIterator<T, TResult>): CollectionChain<TResult>;
+        /**
+         * @see _.map
+         */
+        map(iteratee: PropertyName): CollectionChain<any>;
+        /**
+         * @see _.map
+         */
+        map(iteratee: [PropertyName, any] | object): CollectionChain<boolean>;
+        /**
+         * @see _.map
+         */
+        map(): CollectionChain<T>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.map
+         */
+        map<K extends keyof T[keyof T]>(key: K): CollectionChain<T[keyof T][K]>;
+        /**
+         * @see _.map
+         */
+        map<TResult>(iteratee: ObjectIterator<T, TResult>): CollectionChain<TResult>;
+        /**
+         * @see _.map
+         */
+        map(iteratee: PropertyName): CollectionChain<any>;
+        /**
+         * @see _.map
+         */
+        map(iteratee: [PropertyName, any] | object): CollectionChain<boolean>;
+        /**
+         * @see _.map
+         */
+        map(): CollectionChain<T[keyof T]>;
+    }
     interface LoDashStatic {
         /**
          * This method is like `_.sortBy` except that it allows specifying the sort
@@ -1655,118 +1324,44 @@ declare module "../index" {
          * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
          * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
          */
-        orderBy<T>(
-            collection: List<T> | null | undefined,
-            iteratees?: Many<ListIterator<T, NotVoid>>,
-            orders?: Many<boolean|"asc"|"desc">
-        ): T[];
-
+        orderBy<T>(collection: List<T> | null | undefined, iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): T[];
         /**
          * @see _.orderBy
          */
-        orderBy<T>(
-            collection: List<T> | null | undefined,
-            iteratees?: Many<ListIteratee<T>>,
-            orders?: Many<boolean|"asc"|"desc">
-        ): T[];
-
+        orderBy<T>(collection: List<T> | null | undefined, iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): T[];
         /**
          * @see _.orderBy
          */
-        orderBy<T extends object>(
-            collection: T | null | undefined,
-            iteratees?: Many<ObjectIterator<T, NotVoid>>,
-            orders?: Many<boolean|"asc"|"desc">
-        ): Array<T[keyof T]>;
-
+        orderBy<T extends object>(collection: T | null | undefined, iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): Array<T[keyof T]>;
         /**
          * @see _.orderBy
          */
-        orderBy<T extends object>(
-            collection: T | null | undefined,
-            iteratees?: Many<ObjectIteratee<T>>,
-            orders?: Many<boolean|"asc"|"desc">
-        ): Array<T[keyof T]>;
+        orderBy<T extends object>(collection: T | null | undefined, iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): Array<T[keyof T]>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.orderBy
          */
-        orderBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratees?: Many<ListIterator<T, NotVoid>>,
-            orders?: Many<boolean|"asc"|"desc">
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.orderBy
-         */
-        orderBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratees?: Many<ListIteratee<T>>,
-            orders?: Many<boolean|"asc"|"desc">
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.orderBy
-         */
-        orderBy<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratees?: Many<ObjectIterator<T, NotVoid>>,
-            orders?: Many<boolean|"asc"|"desc">
-        ): LoDashImplicitWrapper<Array<T[keyof T]>>;
-
-        /**
-         * @see _.orderBy
-         */
-        orderBy<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratees?: Many<ObjectIteratee<T>>,
-            orders?: Many<boolean|"asc"|"desc">
-        ): LoDashImplicitWrapper<Array<T[keyof T]>>;
+        orderBy(iteratees?: Many<ListIterator<T, NotVoid> | PropertyName | PartialShallow<T>>, orders?: Many<boolean|"asc"|"desc">): Collection<T>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.orderBy
          */
-        orderBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratees?: Many<ListIterator<T, NotVoid>>,
-            orders?: Many<boolean|"asc"|"desc">
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.orderBy
-         */
-        orderBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratees?: Many<ListIteratee<T>>,
-            orders?: Many<boolean|"asc"|"desc">
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.orderBy
-         */
-        orderBy<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratees?: Many<ObjectIterator<T, NotVoid>>,
-            orders?: Many<boolean|"asc"|"desc">
-        ): LoDashExplicitWrapper<Array<T[keyof T]>>;
-
-        /**
-         * @see _.orderBy
-         */
-        orderBy<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratees?: Many<ObjectIteratee<T>>,
-            orders?: Many<boolean|"asc"|"desc">
-        ): LoDashExplicitWrapper<Array<T[keyof T]>>;
+        orderBy(iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): Collection<T[keyof T]>;
     }
-
-    // partition
-
+    interface CollectionChain<T> {
+        /**
+         * @see _.orderBy
+         */
+        orderBy(iteratees?: Many<ListIterator<T, NotVoid> | PropertyName | PartialShallow<T>>, orders?: Many<boolean|"asc"|"desc">): CollectionChain<T>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.orderBy
+         */
+        orderBy(iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): CollectionChain<T[keyof T]>;
+    }
     interface LoDashStatic {
         /**
         * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
@@ -1776,71 +1371,67 @@ declare module "../index" {
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
         * @return Returns the array of grouped elements.
-        **/
-        partition<T, U extends T>(
-            collection: List<T> | null | undefined,
-            callback: ValueIteratorTypeGuard<T, U>
-        ): [U[], Array<Exclude<T, U>>];
-        partition<T>(
-            collection: List<T> | null | undefined,
-            callback: ValueIteratee<T>
-        ): [T[], T[]];
-
+         */
+        partition<T, U extends T>(collection: List<T> | null | undefined, callback: ValueIteratorTypeGuard<T, U>): [U[], Array<Exclude<T, U>>];
         /**
          * @see _.partition
          */
-        partition<T extends object>(
-            collection: T | null | undefined,
-            callback: ValueIteratee<T[keyof T]>
-        ): [Array<T[keyof T]>, Array<T[keyof T]>];
+        partition<T>(collection: List<T> | null | undefined, callback: ValueIteratee<T>): [T[], T[]];
+        /**
+         * @see _.partition
+         */
+        partition<T extends object>(collection: T | null | undefined, callback: ValueIteratee<T[keyof T]>): [Array<T[keyof T]>, Array<T[keyof T]>];
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.partition
          */
-        partition<T, U extends T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            callback: ValueIteratorTypeGuard<T, U>
-        ): LoDashImplicitWrapper<[U[], Array<Exclude<T, U>>]>;
-        partition<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            callback: ValueIteratee<T>
-        ): LoDashImplicitWrapper<[T[], T[]]>;
-
-        /**
-         * @see _.partition
-         */
-        partition<T>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            callback: ValueIteratee<T[keyof T]>
-        ): LoDashImplicitWrapper<[Array<T[keyof T]>, Array<T[keyof T]>]>;
+        partition(callback: StringIterator<NotVoid>): LoDashImplicitWrapper<[string[], string[]]>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.partition
          */
-        partition<T, U extends T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            callback: ValueIteratorTypeGuard<T, U>
-        ): LoDashExplicitWrapper<[U[], Array<Exclude<T, U>>]>;
-        partition<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            callback: ValueIteratee<T>
-        ): LoDashExplicitWrapper<[T[], T[]]>;
-
+        partition<U extends T>(callback: ValueIteratorTypeGuard<T, U>): LoDashImplicitWrapper<[U[], Array<Exclude<T, U>>]>;
         /**
          * @see _.partition
          */
-        partition<T>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            callback: ValueIteratee<T[keyof T]>
-        ): LoDashExplicitWrapper<[Array<T[keyof T]>, Array<T[keyof T]>]>;
+        partition(callback: ValueIteratee<T>): LoDashImplicitWrapper<[T[], T[]]>;
     }
-
-    // reduce
-
+    interface Object<T> {
+        /**
+         * @see _.partition
+         */
+        partition(callback: ValueIteratee<T[keyof T]>): LoDashImplicitWrapper<[Array<T[keyof T]>, Array<T[keyof T]>]>;
+    }
+    interface StringChain {
+        /**
+         * @see _.partition
+         */
+        partition(callback: StringIterator<NotVoid>): LoDashExplicitWrapper<[string[], string[]]>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.partition
+         */
+        partition(callback: StringIterator<NotVoid>): LoDashExplicitWrapper<[string[], string[]]>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.partition
+         */
+        partition<U extends T>(callback: ValueIteratorTypeGuard<T, U>): LoDashExplicitWrapper<[U[], Array<Exclude<T, U>>]>;
+        /**
+         * @see _.partition
+         */
+        partition(callback: ValueIteratee<T>): LoDashExplicitWrapper<[T[], T[]]>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.partition
+         */
+        partition(callback: ValueIteratee<T[keyof T]>): LoDashExplicitWrapper<[Array<T[keyof T]>, Array<T[keyof T]>]>;
+    }
     interface LoDashStatic {
         /**
         * Reduces a collection to a value which is the accumulated result of running each
@@ -1852,164 +1443,69 @@ declare module "../index" {
         * @param callback The function called per iteration.
         * @param accumulator Initial value of the accumulator.
         * @return Returns the accumulated value.
-        **/
-        reduce<T, TResult>(
-            collection: T[] | null | undefined,
-            callback: MemoListIterator<T, TResult, T[]>,
-            accumulator: TResult
-        ): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        reduce<T, TResult>(
-            collection: List<T> | null | undefined,
-            callback: MemoListIterator<T, TResult, List<T>>,
-            accumulator: TResult
-        ): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        reduce<T extends object, TResult>(
-            collection: T | null | undefined,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>,
-            accumulator: TResult
-        ): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        reduce<T>(
-            collection: T[] | null | undefined,
-            callback: MemoListIterator<T, T, T[]>
-        ): T | undefined;
-
+         */
+        reduce<T, TResult>(collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult): TResult;
         /**
          * @see _.reduce
-         **/
-        reduce<T>(
-            collection: List<T> | null | undefined,
-            callback: MemoListIterator<T, T, List<T>>
-        ): T | undefined;
-
-        /**
-        * @see _.reduce
-        **/
-        reduce<T extends object>(
-            collection: T | null | undefined,
-            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
-        ): T[keyof T] | undefined;
-    }
-
-    interface LoDashImplicitWrapper<TValue> {
-         /**
-        * @see _.reduce
-        **/
-        reduce<T, TResult>(
-            this: LoDashImplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, TResult, T[]>,
-            accumulator: TResult
-        ): TResult;
-
+         */
+        reduce<T, TResult>(collection: List<T> | null | undefined, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
         /**
          * @see _.reduce
-         **/
-        reduce<T, TResult>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, TResult, List<T>>,
-            accumulator: TResult
-        ): TResult;
-
+         */
+        reduce<T extends object, TResult>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
         /**
-        * @see _.reduce
-        **/
-        reduce<T extends object, TResult>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>,
-            accumulator: TResult
-        ): TResult;
-
+         * @see _.reduce
+         */
+        reduce<T>(collection: T[] | null | undefined, callback: MemoListIterator<T, T, T[]>): T | undefined;
         /**
-        * @see _.reduce
-        **/
-        reduce<T>(
-            this: LoDashImplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, T, T[]>
-        ): T | undefined;
-
+         * @see _.reduce
+         */
+        reduce<T>(collection: List<T> | null | undefined, callback: MemoListIterator<T, T, List<T>>): T | undefined;
         /**
-        * @see _.reduce
-        **/
-        reduce<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, T, List<T>>
-        ): T | undefined;
-
-        /**
-        * @see _.reduce
-        **/
-        reduce<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
-        ): T[keyof T] | undefined;
+         * @see _.reduce
+         */
+        reduce<T extends object>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
-        * @see _.reduce
-        **/
-        reduce<T, TResult>(
-            this: LoDashExplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, TResult, T[]>,
-            accumulator: TResult
-        ): LoDashExplicitWrapper<TResult>;
-
+         * @see _.reduce
+         */
+        reduce<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
         /**
-        * @see _.reduce
-        **/
-        reduce<T, TResult>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, TResult, List<T>>,
-            accumulator: TResult
-        ): LoDashExplicitWrapper<TResult>;
-
-        /**
-        * @see _.reduce
-        **/
-        reduce<T extends object, TResult>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>,
-            accumulator: TResult
-        ): LoDashExplicitWrapper<TResult>;
-
-        /**
-        * @see _.reduce
-        **/
-        reduce<T>(
-            this: LoDashExplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, T, T[]>
-        ): LoDashExplicitWrapper<T | undefined>;
-
-        /**
-        * @see _.reduce
-        **/
-        reduce<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, T, List<T>>
-        ): LoDashExplicitWrapper<T | undefined>;
-
-        /**
-        * @see _.reduce
-        **/
-        reduce<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
-        ): LoDashExplicitWrapper<T[keyof T] | undefined>;
+         * @see _.reduce
+         */
+        reduce(callback: MemoListIterator<T, T, List<T>>): T | undefined;
     }
-
-    // reduceRight
-
+    interface Object<T> {
+        /**
+         * @see _.reduce
+         */
+        reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
+        /**
+         * @see _.reduce
+         */
+        reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.reduce
+         */
+        reduce<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): ExpChain<TResult>;
+        /**
+         * @see _.reduce
+         */
+        reduce(callback: MemoListIterator<T, T, List<T>>): ExpChain<T | undefined>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.reduce
+         */
+        reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): ExpChain<TResult>;
+        /**
+         * @see _.reduce
+         */
+        reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): ExpChain<T[keyof T] | undefined>;
+    }
     interface LoDashStatic {
         /**
         * This method is like _.reduce except that it iterates over elements of a collection from
@@ -2018,164 +1514,69 @@ declare module "../index" {
         * @param callback The function called per iteration.
         * @param accumulator Initial value of the accumulator.
         * @return The accumulated value.
-        **/
-        reduceRight<T, TResult>(
-            collection: T[] | null | undefined,
-            callback: MemoListIterator<T, TResult, T[]>,
-            accumulator: TResult
-        ): TResult;
-
+         */
+        reduceRight<T, TResult>(collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult): TResult;
         /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T, TResult>(
-            collection: List<T> | null | undefined,
-            callback: MemoListIterator<T, TResult, List<T>>,
-            accumulator: TResult
-        ): TResult;
-
+         * @see _.reduceRight
+         */
+        reduceRight<T, TResult>(collection: List<T> | null | undefined, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
         /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T extends object, TResult>(
-            collection: T | null | undefined,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>,
-            accumulator: TResult
-        ): TResult;
-
+         * @see _.reduceRight
+         */
+        reduceRight<T extends object, TResult>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
         /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T>(
-            collection: T[] | null | undefined,
-            callback: MemoListIterator<T, T, T[]>
-        ): T | undefined;
-
+         * @see _.reduceRight
+         */
+        reduceRight<T>(collection: T[] | null | undefined, callback: MemoListIterator<T, T, T[]>): T | undefined;
         /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T>(
-            collection: List<T> | null | undefined,
-            callback: MemoListIterator<T, T, List<T>>
-        ): T | undefined;
-
+         * @see _.reduceRight
+         */
+        reduceRight<T>(collection: List<T> | null | undefined, callback: MemoListIterator<T, T, List<T>>): T | undefined;
         /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T extends object>(
-            collection: T | null | undefined,
-            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
-        ): T[keyof T] | undefined;
+         * @see _.reduceRight
+         */
+        reduceRight<T extends object>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
-         /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T, TResult>(
-            this: LoDashImplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, TResult, T[]>,
-            accumulator: TResult
-        ): TResult;
-
+    interface Collection<T> {
         /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T, TResult>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, TResult, List<T>>,
-            accumulator: TResult
-        ): TResult;
-
+         * @see _.reduceRight
+         */
+        reduceRight<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
         /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T extends object, TResult>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>,
-            accumulator: TResult
-        ): TResult;
-
-        /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T>(
-            this: LoDashImplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, T, T[]>
-        ): T | undefined;
-
-        /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, T, List<T>>
-        ): T | undefined;
-
-        /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
-        ): T[keyof T] | undefined;
+         * @see _.reduceRight
+         */
+        reduceRight(callback: MemoListIterator<T, T, List<T>>): T | undefined;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T, TResult>(
-            this: LoDashExplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, TResult, T[]>,
-            accumulator: TResult
-        ): LoDashExplicitWrapper<TResult>;
-
+         * @see _.reduceRight
+         */
+        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
         /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T, TResult>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, TResult, List<T>>,
-            accumulator: TResult
-        ): LoDashExplicitWrapper<TResult>;
-
-        /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T extends object, TResult>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>,
-            accumulator: TResult
-        ): LoDashExplicitWrapper<TResult>;
-
-        /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T>(
-            this: LoDashExplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, T, T[]>
-        ): LoDashExplicitWrapper<T | undefined>;
-
-        /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, T, List<T>>
-        ): LoDashExplicitWrapper<T | undefined>;
-
-        /**
-        * @see _.reduceRight
-        **/
-        reduceRight<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
-        ): LoDashExplicitWrapper<T[keyof T] | undefined>;
+         * @see _.reduceRight
+         */
+        reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
-
-    // reject
-
+    interface CollectionChain<T> {
+        /**
+         * @see _.reduceRight
+         */
+        reduceRight<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): ExpChain<TResult>;
+        /**
+         * @see _.reduceRight
+         */
+        reduceRight(callback: MemoListIterator<T, T, List<T>>): ExpChain<T | undefined>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.reduceRight
+         */
+        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): ExpChain<TResult>;
+        /**
+         * @see _.reduceRight
+         */
+        reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): ExpChain<T[keyof T] | undefined>;
+    }
     interface LoDashStatic {
         /**
          * The opposite of _.filter; this method returns the elements of collection that predicate does not return
@@ -2185,82 +1586,58 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the new filtered array.
          */
-        reject(
-            collection: string | null | undefined,
-            predicate?: StringIterator<boolean>
-        ): string[];
-
+        reject(collection: string | null | undefined, predicate?: StringIterator<boolean>): string[];
         /**
          * @see _.reject
          */
-        reject<T>(
-            collection: List<T> | null | undefined,
-            predicate?: ListIterateeCustom<T, boolean>
-        ): T[];
-
+        reject<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): T[];
         /**
          * @see _.reject
          */
-        reject<T extends object>(
-            collection: T | null | undefined,
-            predicate?: ObjectIterateeCustom<T, boolean>
-        ): Array<T[keyof T]>;
+        reject<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): Array<T[keyof T]>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.reject
          */
-        reject(
-            this: LoDashImplicitWrapper<string | null | undefined>,
-            predicate?: StringIterator<boolean>
-        ): LoDashImplicitWrapper<string[]>;
-
-        /**
-         * @see _.reject
-         */
-        reject<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeCustom<T, boolean>
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.reject
-         */
-        reject<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeCustom<T, boolean>
-        ): LoDashImplicitWrapper<Array<T[keyof T]>>;
+        reject(predicate?: StringIterator<boolean>): Collection<string>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.reject
          */
-        reject(
-            this: LoDashExplicitWrapper<string | null | undefined>,
-            predicate?: StringIterator<boolean>
-        ): LoDashExplicitWrapper<string[]>;
-
-        /**
-         * @see _.reject
-         */
-        reject<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeCustom<T, boolean>
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.reject
-         */
-        reject<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeCustom<T, boolean>
-        ): LoDashExplicitWrapper<Array<T[keyof T]>>;
+        reject(predicate?: ListIterateeCustom<T, boolean>): Collection<T>;
     }
-
-    // sample
-
+    interface Object<T> {
+        /**
+         * @see _.reject
+         */
+        reject(predicate?: ObjectIterateeCustom<T, boolean>): Collection<T[keyof T]>;
+    }
+    interface StringChain {
+        /**
+         * @see _.reject
+         */
+        reject(predicate?: StringIterator<boolean>): CollectionChain<string>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.reject
+         */
+        reject(predicate?: StringIterator<boolean>): CollectionChain<string>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.reject
+         */
+        reject(predicate?: ListIterateeCustom<T, boolean>): CollectionChain<T>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.reject
+         */
+        reject(predicate?: ObjectIterateeCustom<T, boolean>): CollectionChain<T[keyof T]>;
+    }
     interface LoDashStatic {
         /**
          * Gets a random element from collection.
@@ -2268,52 +1645,54 @@ declare module "../index" {
          * @param collection The collection to sample.
          * @return Returns the random element.
          */
-        sample<T>(
-            collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined
-        ): T | undefined;
-
+        sample<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined): T | undefined;
         /**
          * @see _.sample
          */
-        sample<T extends object>(
-            collection: T | null | undefined
-        ): T[keyof T] | undefined;
+        sample<T extends object>(collection: T | null | undefined): T[keyof T] | undefined;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.sample
          */
-        sample<T>(
-            this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>
-        ): T | undefined;
-
-        /**
-         * @see _.sample
-         */
-        sample<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>
-        ): T[keyof T] | undefined;
+        sample(): string | undefined;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.sample
          */
-        sample<T>(
-            this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>
-        ): LoDashExplicitWrapper<T | undefined>;
-
-        /**
-         * @see _.sample
-         */
-        sample<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>
-        ): LoDashExplicitWrapper<T[keyof T] | undefined>;
+        sample(): T | undefined;
     }
-
-    // sampleSize
-
+    interface Object<T> {
+        /**
+         * @see _.sample
+         */
+        sample(): T[keyof T] | undefined;
+    }
+    interface StringChain {
+        /**
+         * @see _.sample
+         */
+        sample(): StringNullableChain;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.sample
+         */
+        sample(): StringNullableChain;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.sample
+         */
+        sample(): ExpChain<T | undefined>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.sample
+         */
+        sample(): ExpChain<T[keyof T] | undefined>;
+    }
     interface LoDashStatic {
         /**
          * Gets n random elements at unique keys from collection up to the size of collection.
@@ -2322,58 +1701,54 @@ declare module "../index" {
          * @param n The number of elements to sample.
          * @return Returns the random elements.
          */
-        sampleSize<T>(
-            collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined,
-            n?: number
-        ): T[];
-
+        sampleSize<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, n?: number): T[];
         /**
          * @see _.sampleSize
          */
-        sampleSize<T extends object>(
-            collection: T | null | undefined,
-            n?: number
-        ): Array<T[keyof T]>;
+        sampleSize<T extends object>(collection: T | null | undefined, n?: number): Array<T[keyof T]>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.sampleSize
          */
-        sampleSize<T>(
-            this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            n?: number
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.sampleSize
-         */
-        sampleSize<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            n?: number
-        ): LoDashImplicitWrapper<Array<T[keyof T]>>;
+        sampleSize(n?: number): Collection<string>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.sampleSize
          */
-        sampleSize<T>(
-            this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            n?: number
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.sampleSize
-         */
-        sampleSize<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            n?: number
-        ): LoDashExplicitWrapper<Array<T[keyof T]>>;
+        sampleSize(n?: number): Collection<T>;
     }
-
-    // shuffle
-
+    interface Object<T> {
+        /**
+         * @see _.sampleSize
+         */
+        sampleSize(n?: number): Collection<T[keyof T]>;
+    }
+    interface StringChain {
+        /**
+         * @see _.sampleSize
+         */
+        sampleSize(n?: number): CollectionChain<string>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.sampleSize
+         */
+        sampleSize(n?: number): CollectionChain<string>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.sampleSize
+         */
+        sampleSize(n?: number): CollectionChain<T>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.sampleSize
+         */
+        sampleSize(n?: number): CollectionChain<T[keyof T]>;
+    }
     interface LoDashStatic {
         /**
          * Creates an array of shuffled values, using a version of the Fisher-Yates shuffle.
@@ -2382,39 +1757,53 @@ declare module "../index" {
          * @return Returns the new shuffled array.
          */
         shuffle<T>(collection: List<T> | null | undefined): T[];
-
         /**
          * @see _.shuffle
          */
         shuffle<T extends object>(collection: T | null | undefined): Array<T[keyof T]>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.shuffle
          */
-        shuffle<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.shuffle
-         */
-        shuffle<T extends object>(this: LoDashImplicitWrapper<T | null | undefined>): LoDashImplicitWrapper<Array<T[keyof T]>>;
+        shuffle(): Collection<string>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.shuffle
          */
-        shuffle<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.shuffle
-         */
-        shuffle<T extends object>(this: LoDashExplicitWrapper<T | null | undefined>): LoDashExplicitWrapper<Array<T[keyof T]>>;
+        shuffle(): Collection<T>;
     }
-
-    // size
-
+    interface Object<T> {
+        /**
+         * @see _.shuffle
+         */
+        shuffle(): Collection<T[keyof T]>;
+    }
+    interface StringChain {
+        /**
+         * @see _.shuffle
+         */
+        shuffle(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.shuffle
+         */
+        shuffle(): CollectionChain<string>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.shuffle
+         */
+        shuffle(): CollectionChain<T>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.shuffle
+         */
+        shuffle(): CollectionChain<T[keyof T]>;
+    }
     interface LoDashStatic {
         /**
          * Gets the size of collection by returning its length for array-like values or the number of own enumerable
@@ -2425,23 +1814,18 @@ declare module "../index" {
          */
         size(collection: object | string | null | undefined): number;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.size
          */
         size(): number;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.size
          */
-        size(): LoDashExplicitWrapper<number>;
+        size(): PrimitiveChain<number>;
     }
-
-    // some
-
     interface LoDashStatic {
         /**
          * Checks if predicate returns truthy for any element of collection. Iteration is stopped once predicate
@@ -2451,58 +1835,36 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns true if any element passes the predicate check, else false.
          */
-        some<T>(
-            collection: List<T> | null | undefined,
-            predicate?: ListIterateeCustom<T, boolean>
-        ): boolean;
-
+        some<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): boolean;
         /**
          * @see _.some
          */
-        some<T extends object>(
-            collection: T | null | undefined,
-            predicate?: ObjectIterateeCustom<T, boolean>
-        ): boolean;
+        some<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.some
          */
-        some<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeCustom<T, boolean>
-        ): boolean;
-
-        /**
-         * @see _.some
-         */
-        some<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeCustom<T, boolean>
-        ): boolean;
+        some(predicate?: ListIterateeCustom<T, boolean>): boolean;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.some
          */
-        some<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIterateeCustom<T, boolean>
-        ): LoDashExplicitWrapper<boolean>;
-
-        /**
-         * @see _.some
-         */
-        some<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIterateeCustom<T, boolean>
-        ): LoDashExplicitWrapper<boolean>;
+        some(predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
-
-    // sortBy
-
+    interface CollectionChain<T> {
+        /**
+         * @see _.some
+         */
+        some(predicate?: ListIterateeCustom<T, boolean>): PrimitiveChain<boolean>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.some
+         */
+        some(predicate?: ObjectIterateeCustom<T, boolean>): PrimitiveChain<boolean>;
+    }
     interface LoDashStatic {
         /**
          * Creates an array of elements, sorted in ascending order by the results of
@@ -2535,53 +1897,34 @@ declare module "../index" {
          * });
          * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
          */
-        sortBy<T>(
-            collection: List<T> | null | undefined,
-            ...iteratees: Array<Many<ListIteratee<T>>>
-        ): T[];
-
+        sortBy<T>(collection: List<T> | null | undefined, ...iteratees: Array<Many<ListIteratee<T>>>): T[];
         /**
          * @see _.sortBy
          */
-        sortBy<T extends object>(
-            collection: T | null | undefined,
-            ...iteratees: Array<Many<ObjectIteratee<T>>>
-        ): Array<T[keyof T]>;
+        sortBy<T extends object>(collection: T | null | undefined, ...iteratees: Array<Many<ObjectIteratee<T>>>): Array<T[keyof T]>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.sortBy
          */
-        sortBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            ...iteratees: Array<Many<ListIteratee<T>>>
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.sortBy
-         */
-        sortBy<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            ...iteratees: Array<Many<ObjectIteratee<T>>>
-        ): LoDashImplicitWrapper<Array<T[keyof T]>>;
+        sortBy(...iteratees: Array<Many<ListIteratee<T>>>): Collection<T>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.sortBy
          */
-        sortBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            ...iteratees: Array<Many<ListIteratee<T>>>
-        ): LoDashExplicitWrapper<T[]>;
-
+        sortBy(...iteratees: Array<Many<ObjectIteratee<T>>>): Collection<T[keyof T]>;
+    }
+    interface CollectionChain<T> {
         /**
          * @see _.sortBy
          */
-        sortBy<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            ...iteratees: Array<Many<ObjectIteratee<T>>>
-        ): LoDashExplicitWrapper<Array<T[keyof T]>>;
+        sortBy(...iteratees: Array<Many<ListIteratee<T>>>): CollectionChain<T>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.sortBy
+         */
+        sortBy(...iteratees: Array<Many<ObjectIteratee<T>>>): CollectionChain<T[keyof T]>;
     }
 }

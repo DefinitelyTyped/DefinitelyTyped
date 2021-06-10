@@ -3,7 +3,7 @@ import { Identity } from '../../identity';
 import { Application } from '../application/application';
 import Transport from '../../transport/transport';
 import { WindowEvents } from '../events/window';
-import { AnchorType, Bounds, Transition, TransitionOptions } from '../../shapes';
+import { AnchorType, Bounds, Transition, TransitionOptions } from '../../shapes/shapes';
 import { WindowOption } from './windowOption';
 import { EntityType } from '../frame/frame';
 import { ExternalWindow } from '../external-window/external-window';
@@ -84,7 +84,7 @@ export interface PrinterInfo {
     isDefault: boolean;
 }
 interface Margins {
-    marginType?: ('default' | 'none' | 'printableArea' | 'custom');
+    marginType?: 'default' | 'none' | 'printableArea' | 'custom';
     top?: number;
     bottom?: number;
     left?: number;
@@ -106,7 +106,7 @@ export interface PrintOptions {
     collate?: boolean;
     copies?: number;
     pageRanges?: Record<string, number>;
-    duplexMode?: ('simplex' | 'shortEdge' | 'longEdge');
+    duplexMode?: 'simplex' | 'shortEdge' | 'longEdge';
     dpi?: Dpi;
 }
 interface WindowMovementOptions {
@@ -129,12 +129,12 @@ export interface FindInPageOptions {
  * @property { number } [bottom] The bottom margin of the printed web page, in pixels.
  * @property { number } [left] The left margin of the printed web page, in pixels.
  * @property { number } [right] The right margin of the printed web page, in pixels.
-*/
+ */
 /**
  * @typedef { object } Dpi
  * @property { number } [horizontal] The horizontal dpi
  * @property { number } [vertical] The vertical dpi
-*/
+ */
 /**
  * @typedef { object } PrintOptions
  * @property { boolean } [silent=false] Don't ask user for print settings.
@@ -152,13 +152,13 @@ export interface FindInPageOptions {
  * @property { Dpi } [dpi] Set dpi for the printed web page
  */
 /**
-* PrinterInfo interface
-* @typedef { object } PrinterInfo
-* @property { string } name Printer Name
-* @property { string } description Printer Description
-* @property { number } status Printer Status
-* @property { boolean } isDefault Indicates that system's default printer
-*/
+ * PrinterInfo interface
+ * @typedef { object } PrinterInfo
+ * @property { string } name Printer Name
+ * @property { string } description Printer Description
+ * @property { number } status Printer Status
+ * @property { boolean } isDefault Indicates that system's default printer
+ */
 /**
  * @typedef {object} Window~options
  * @summary Window creation options.
@@ -270,7 +270,7 @@ export interface FindInPageOptions {
  * @property {any} [customContext=""] - _Updatable._
  * A field that the user can use to attach serializable data that will be saved when {@link Platform#getSnapshot Platform.getSnapshot}
  * is called.  If a window in a Platform is trying to update or retrieve its own context, it can use the
- * {@link Platform#setContext Platform.setContext} and {@link Platform#getContext Platform.getContext} calls.
+ * {@link Platform#setWindowContext Platform.setWindowContext} and {@link Platform#getWindowContext Platform.getWindowContext} calls.
  * When omitted, the default value of this property is the empty string (`""`).
  * As opposed to customData this is meant for frequent updates and sharing with other contexts. [Example]{@tutorial customContext}
  *
@@ -368,6 +368,10 @@ export interface FindInPageOptions {
  * `shadow` and `cornerRounding` are mutually exclusive.
  * On Windows 7, Aero theme is required.
  *
+ * @property {boolean} [showBackgroundImages=false] - _Updatable._
+ * Platforms Only.  If true, will show background images in the layout when the Views are hidden.
+ * This occurs when the window is resizing or a tab is being dragged within the layout.
+ *
  * @property {boolean} [showTaskbarIcon=true] - _Updatable._ _Windows_.
  * A flag to show the window's icon in the taskbar.
  *
@@ -403,6 +407,12 @@ export interface FindInPageOptions {
  * When set to `false`, the window will appear immediately without waiting for content to be loaded.
  */
 /**
+ * @typedef {object} CapturePageOptions
+ * @property { Area } [area] The area of the window to be captured.
+ * @property { string } [format='png'] The format of the captured image.  Can be 'png', 'jpg', or 'bmp'.
+ * @property { number } [quality=100] Number representing quality of JPEG image only. Between 0 - 100.
+ */
+/**
  * @typedef { object } Area
  * @property { number } height Area's height
  * @property { number } width Area's width
@@ -428,7 +438,7 @@ export interface FindInPageOptions {
  * @property {Opacity} opacity - The Opacity transition
  * @property {Position} position - The Position transition
  * @property {Size} size - The Size transition
-*/
+ */
 /**
  * @typedef {object} TransitionOptions
  * @property {boolean} interrupt - This option interrupts the current animation. When false it pushes
@@ -454,7 +464,7 @@ this animation onto the end of the animation queue.
  * @property {number} duration - The total time in milliseconds this transition should take.
  * @property {boolean} relative - Treat 'opacity' as absolute or as a delta. Defaults to false.
  * @property {number} opacity - This value is clamped from 0.0 to 1.0.
-*/
+ */
 /**
  * Bounds is a interface that has the properties of height,
  * width, left, top which are all numbers
@@ -557,6 +567,15 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.EventEmitter
      */
     /**
+     * Gets a base64 encoded image of the window or a part of it.
+     * @function capturePage
+     * @param { CapturePageOptions } [options] options for capturePage call.
+     * @return {Promise.<string>}
+     * @memberof Window
+     * @instance
+     * @tutorial Window.capturePage
+     */
+    /**
      * Executes Javascript on the window, restricted to windows you own or windows owned by
      * applications you have created.
      * @param { string } code JavaScript code to be executed on the window.
@@ -576,13 +595,13 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.focus
      */
     /**
-    * Returns the zoom level of the window.
-    * @function getZoomLevel
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<number>}
-    * @tutorial Window.getZoomLevel
-    */
+     * Returns the zoom level of the window.
+     * @function getZoomLevel
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<number>}
+     * @tutorial Window.getZoomLevel
+     */
     /**
      * Sets the zoom level of the window.
      * @param { number } level The zoom level
@@ -649,30 +668,30 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.stopNavigation
      */
     /**
-    * Reloads the window current page
-    * @function reload
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<void>}
-    * @tutorial Window.reload
-    */
+     * Reloads the window current page
+     * @function reload
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.reload
+     */
     /**
-    * Prints the window's web page
-    * @param { PrintOptions } [options] Printer Options
-    * @function print
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<void>}
-    * @tutorial Window.print
-    */
+     * Prints the window's web page
+     * @param { PrintOptions } [options] Printer Options
+     * @function print
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.print
+     */
     /**
-    * Returns an array with all system printers
-    * @function getPrinters
-    * @memberOf Window
-    * @instance
-    * @return { Promise.Array.<PrinterInfo> }
-    * @tutorial Window.getPrinters
-    */
+     * Returns an array with all system printers
+     * @function getPrinters
+     * @memberOf Window
+     * @instance
+     * @return { Promise.Array.<PrinterInfo> }
+     * @tutorial Window.getPrinters
+     */
     createWindow(options: WindowOption): Promise<_Window>;
     private windowListFromNameList;
     /**
@@ -686,7 +705,7 @@ export declare class _Window extends WebContents<WindowEvents> {
      * Gets the current bounds (top, bottom, right, left, width, height) of the window.
      * @return {Promise.<Bounds>}
      * @tutorial Window.getBounds
-    */
+     */
     getBounds(): Promise<Bounds>;
     /**
      * Centers the window on its current screen.
@@ -726,8 +745,9 @@ export declare class _Window extends WebContents<WindowEvents> {
      *  ‘close-requested’ has been subscribed to for application’s main window.
      * @return {Promise.<void>}
      * @tutorial Window.close
-    */
+     */
     close(force?: boolean): Promise<void>;
+    focusedWebViewWasChanged(): Promise<void>;
     /**
      * Returns the native OS level Id.
      * In Windows, it will return the Windows [handle](https://docs.microsoft.com/en-us/windows/desktop/WinProg/windows-data-types#HWND).
@@ -736,11 +756,11 @@ export declare class _Window extends WebContents<WindowEvents> {
      */
     getNativeId(): Promise<string>;
     /**
-    * Retrieves window's attached views.
-    * @experimental
-    * @return {Promise.Array.<View>}
-    * @tutorial Window.getCurrentViews
-    */
+     * Retrieves window's attached views.
+     * @experimental
+     * @return {Promise.Array.<View>}
+     * @tutorial Window.getCurrentViews
+     */
     getCurrentViews(): Promise<Array<View>>;
     disableFrame(): Promise<void>;
     /**
@@ -801,11 +821,12 @@ export declare class _Window extends WebContents<WindowEvents> {
      */
     getParentWindow(): Promise<_Window>;
     /**
-     * Gets a base64 encoded PNG snapshot of the window or just part a of it.
+     * ***DEPRECATED - please use Window.capturePage.***
+     * Gets a base64 encoded PNG image of the window or just part a of it.
      * @param { Area } [area] The area of the window to be captured.
      * Omitting it will capture the whole visible window.
      * @return {Promise.<string>}
-     * @tutorial Window.getSnapshot
+     * @tutorial Window.capturePage
      */
     getSnapshot(area?: Area): Promise<string>;
     /**

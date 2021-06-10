@@ -1,13 +1,18 @@
-declare module "http2" {
-    import * as events from "events";
-    import * as fs from "fs";
-    import * as net from "net";
-    import * as stream from "stream";
-    import * as tls from "tls";
-    import * as url from "url";
+declare module 'http2' {
+    import EventEmitter = require('events');
+    import * as fs from 'fs';
+    import * as net from 'net';
+    import * as stream from 'stream';
+    import * as tls from 'tls';
+    import * as url from 'url';
 
-    import { IncomingHttpHeaders as Http1IncomingHttpHeaders, OutgoingHttpHeaders, IncomingMessage, ServerResponse } from "http";
-    export { OutgoingHttpHeaders } from "http";
+    import {
+        IncomingHttpHeaders as Http1IncomingHttpHeaders,
+        OutgoingHttpHeaders,
+        IncomingMessage,
+        ServerResponse,
+    } from 'http';
+    export { OutgoingHttpHeaders } from 'http';
 
     export interface IncomingHttpStatusHeader {
         ":status"?: number;
@@ -261,7 +266,7 @@ declare module "http2" {
         inflateDynamicTableSize?: number;
     }
 
-    export interface Http2Session extends events.EventEmitter {
+    export interface Http2Session extends EventEmitter {
         readonly alpnProtocol?: string;
         readonly closed: boolean;
         readonly connecting: boolean;
@@ -281,6 +286,7 @@ declare module "http2" {
         ping(callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
         ping(payload: NodeJS.ArrayBufferView, callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
         ref(): void;
+        setLocalWindowSize(windowSize: number): void;
         setTimeout(msecs: number, callback?: () => void): void;
         settings(settings: Settings): void;
         unref(): void;
@@ -356,7 +362,7 @@ declare module "http2" {
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         emit(event: "altsvc", alt: string, origin: string, stream: number): boolean;
-        emit(event: "origin", origins: string[]): boolean;
+        emit(event: "origin", origins: ReadonlyArray<string>): boolean;
         emit(event: "connect", session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket): boolean;
         emit(event: "stream", stream: ClientHttp2Stream, headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
@@ -432,6 +438,13 @@ declare module "http2" {
         paddingStrategy?: number;
         peerMaxConcurrentStreams?: number;
         settings?: Settings;
+        /**
+         * Specifies a timeout in milliseconds that
+         * a server should wait when an [`'unknownProtocol'`][] is emitted. If the
+         * socket has not been destroyed by that time the server will destroy it.
+         * @default 100000
+         */
+        unknownProtocolTimeout?: number;
 
         selectPadding?(frameLen: number, maxFrameLen: number): number;
         createConnection?(authority: url.URL, option: SessionOptions): stream.Duplex;
@@ -460,7 +473,16 @@ declare module "http2" {
         origins?: string[];
     }
 
-    export interface Http2Server extends net.Server {
+    interface HTTP2ServerCommon {
+        setTimeout(msec?: number, callback?: () => void): this;
+        /**
+         * Throws ERR_HTTP2_INVALID_SETTING_VALUE for invalid settings values.
+         * Throws ERR_INVALID_ARG_TYPE for invalid settings argument.
+         */
+        updateSettings(settings: Settings): void;
+    }
+
+    export interface Http2Server extends net.Server, HTTP2ServerCommon {
         addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
@@ -508,11 +530,9 @@ declare module "http2" {
         prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        setTimeout(msec?: number, callback?: () => void): this;
     }
 
-    export interface Http2SecureServer extends tls.Server {
+    export interface Http2SecureServer extends tls.Server, HTTP2ServerCommon {
         addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
@@ -566,12 +586,10 @@ declare module "http2" {
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        setTimeout(msec?: number, callback?: () => void): this;
     }
 
     export class Http2ServerRequest extends stream.Readable {
-        constructor(stream: ServerHttp2Stream, headers: IncomingHttpHeaders, options: stream.ReadableOptions, rawHeaders: string[]);
+        constructor(stream: ServerHttp2Stream, headers: IncomingHttpHeaders, options: stream.ReadableOptions, rawHeaders: ReadonlyArray<string>);
 
         readonly aborted: boolean;
         readonly authority: string;
@@ -642,7 +660,7 @@ declare module "http2" {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    export class Http2ServerResponse extends stream.Stream {
+    export class Http2ServerResponse extends stream.Writable {
         constructor(stream: ServerHttp2Stream);
 
         readonly connection: net.Socket | tls.TLSSocket;
@@ -662,7 +680,7 @@ declare module "http2" {
         getHeaders(): OutgoingHttpHeaders;
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
         setTimeout(msecs: number, callback?: () => void): void;
         write(chunk: string | Uint8Array, callback?: (err: Error) => void): boolean;
         write(chunk: string | Uint8Array, encoding: BufferEncoding, callback?: (err: Error) => void): boolean;
@@ -932,6 +950,12 @@ declare module "http2" {
         const HTTP_STATUS_NOT_EXTENDED: number;
         const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
     }
+
+    /**
+     * This symbol can be set as a property on the HTTP/2 headers object with
+     * an array value in order to provide a list of headers considered sensitive.
+     */
+    export const sensitiveHeaders: symbol;
 
     export function getDefaultSettings(): Settings;
     export function getPackedSettings(settings: Settings): Buffer;

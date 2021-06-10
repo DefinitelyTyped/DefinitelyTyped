@@ -12,7 +12,7 @@
  */
 
 export type Format = 'd' | 'dm' | 'dms';
-export type Dp = 0 | 2 | 4;
+export type Dp = number;
 
 export interface Plural<T> {
     [itemName: string]: T;

@@ -1,4 +1,4 @@
-// Type definitions for VexFlow v1.2.88
+// Type definitions for VexFlow v3.0.9
 // Project: http://vexflow.com
 // Definitions by: Roman Quiring <https://github.com/rquiring>
 //                 Sebastian Haas <https://github.com/sebastianhaas>
@@ -570,6 +570,10 @@ declare namespace Vex {
 
         class Formatter {
             static DEBUG: boolean;
+            constructor(options?: {
+                softmaxFactor?: number,
+                maxIterations?: number
+            });
             static FormatAndDraw(
                 ctx: IRenderContext,
                 stave: Stave,

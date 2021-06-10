@@ -45,7 +45,10 @@ let distance: number;
 distance = point.distanceTo(point);
 distance = point.distanceTo(pointTuple);
 
-const transformation = new L.Transformation(1, 2, 3, 4);
+let transformation: L.Transformation;
+transformation = new L.Transformation(1, 2, 3, 4);
+transformation = L.transformation(1, 2, 3, 4);
+transformation = L.transformation([1, 2, 3, 4]);
 point = transformation.transform(point);
 point = transformation.transform(point, 2);
 point = transformation.untransform(point);
@@ -64,6 +67,11 @@ bounds = new L.Bounds(pointTuple, pointTuple);
 bounds = new L.Bounds([point, point]);
 bounds = new L.Bounds(boundsLiteral);
 
+const topLeft = bounds.getTopLeft();
+const topRight = bounds.getTopRight();
+const bottomLeft = bounds.getBottomLeft();
+const bottomRight = bounds.getBottomRight();
+
 let points: L.Point[];
 points = L.LineUtil.simplify([point, point], 1);
 
@@ -74,7 +82,19 @@ point = L.LineUtil.closestPointOnSegment(point, point, point);
 points = L.PolyUtil.clipPolygon(points, bounds);
 points = L.PolyUtil.clipPolygon(points, bounds, true);
 
+L.LineUtil.clipSegment(point, point, bounds);
+
 let mapOptions: L.MapOptions = {};
+
+const crs: L.CRS[] = [
+    L.CRS.EPSG3395,
+    L.CRS.EPSG3857,
+    L.CRS.EPSG4326,
+    L.CRS.EPSG900913,
+    L.CRS.Earth,
+    L.CRS.Simple,
+];
+
 mapOptions = {
     preferCanvas: true,
     attributionControl: false,
@@ -147,6 +167,16 @@ zoomPanOptions = {
     noMoveStart: true
 };
 
+let invalidateSizeOptions: L.InvalidateSizeOptions = {};
+invalidateSizeOptions = {
+    animate: false,
+    debounceMoveend: true,
+    duration: 0.5,
+    easeLinearity: 0.6,
+    noMoveStart: true,
+    pan: false,
+};
+
 const zoomOptions: L.ZoomOptions = {};
 
 const panOptions: L.PanOptions = {};
@@ -212,6 +242,11 @@ zoom = map.getBoundsZoom(latLngBounds);
 zoom = map.getBoundsZoom(latLngBounds, true);
 zoom = map.getBoundsZoom(latLngBoundsLiteral);
 zoom = map.getBoundsZoom(latLngBoundsLiteral, true);
+zoom = map.getBoundsZoom(latLngBoundsLiteral, true, point);
+zoom = map.getZoomScale(10);
+zoom = map.getZoomScale(10, 7);
+zoom = map.getScaleZoom(10);
+zoom = map.getScaleZoom(10, 7);
 
 let mapLatLngBounds: L.LatLngBounds;
 mapLatLngBounds = map.getBounds();
@@ -219,6 +254,10 @@ mapLatLngBounds = map.getBounds();
 let mapPoint: L.Point;
 mapPoint = map.getSize();
 mapPoint = map.getPixelOrigin();
+mapPoint = map.project(coordinates);
+mapPoint = map.project(coordinates, 10);
+coordinates = map.unproject(mapPoint);
+coordinates = map.unproject(mapPoint, 10);
 
 let mapPixelBounds: L.Bounds;
 mapPixelBounds = map.getPixelBounds();
@@ -326,7 +365,8 @@ videoOverlayOptions = {
     interactive: true,
     opacity: 100,
     autoplay: true,
-    loop: false
+    loop: false,
+    muted: true
 };
 
 const videoOverlayBounds = latLngBounds;
@@ -410,6 +450,7 @@ map = map
     .openTooltip(htmlElement, latLngTuple, tooltipOptions)
     .closeTooltip()
     .closeTooltip(L.tooltip())
+    .setView(latLng)
     .setView(latLng, 12)
     .setView(latLng, 12, zoomPanOptions)
     .setView(latLngLiteral, 12)
@@ -451,8 +492,9 @@ map = map
     .panInsideBounds(latLngBounds, panOptions)
     .panInsideBounds(latLngBoundsLiteral)
     .panInsideBounds(latLngBoundsLiteral, panOptions)
-    .invalidateSize(zoomPanOptions)
+    .invalidateSize(invalidateSizeOptions)
     .invalidateSize(false)
+    .invalidateSize({ debounceMoveend: true, pan: false })
     .stop()
     .flyTo(latLng)
     .flyTo(latLng, 12)
@@ -490,13 +532,21 @@ let nestedTwoCoords = [[12, 13], [13, 14], [14, 15]];
 const nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
 nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
 
-const geojson = new L.GeoJSON();
+const geojsonOptions: L.GeoJSONOptions = { interactive: true, bubblingMouseEvents: false, markersInheritOptions: true };
+const geojson = new L.GeoJSON(null, geojsonOptions);
+
+geojson.toGeoJSON();
+geojson.toGeoJSON(15);
+
 const style: L.PathOptions = {
     className: "string",
 };
 const styler: L.StyleFunction<MyProperties> = () => style;
 geojson.setStyle(style);
 geojson.setStyle(styler);
+
+geojson.resetStyle();
+geojson.resetStyle(layer);
 
 class MyMarker extends L.Marker {
     constructor() {

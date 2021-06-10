@@ -1,25 +1,29 @@
-// Type definitions for webpack-assets-manifest 3.0
+// Type definitions for webpack-assets-manifest 5.0
 // Project: https://github.com/webdeveric/webpack-assets-manifest
 // Definitions by: Franklin Tse <https://github.com/FranklinWhale>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 3.7
 
-import { Plugin } from "webpack";
+/// <reference types="node" />
+import { Compiler } from "webpack";
 import { SyncHook, SyncWaterfallHook } from "tapable";
 
-declare class WebpackAssetsManifest extends Plugin {
+declare class WebpackAssetsManifest {
     constructor(options?: WebpackAssetsManifest.Options);
+    apply(compiler: Compiler): void;
 
     /** https://github.com/webdeveric/webpack-assets-manifest#hooks */
     hooks: {
         apply: SyncHook<WebpackAssetsManifest>;
 
         /**
-         * The `SyncWaterfallHook` class supports 3 type parameters only but this hook actually has 4 parameters. The type of 4th parameter is `AnyObject`.
+         * The `SyncWaterfallHook` class supports 2 type parameters only but this hook actually has 4 parameters.
+         * The type of 3rd parameter is `WebpackAssetsManifest`.
+         * The type of 4th parameter is `AnyObject`.
          *
          * Refer to https://github.com/webdeveric/webpack-assets-manifest#hooks for details
          */
-        customize: SyncWaterfallHook<WebpackAssetsManifest.Entry, WebpackAssetsManifest.AnyObject, WebpackAssetsManifest>;
+        customize: SyncWaterfallHook<WebpackAssetsManifest.Entry, WebpackAssetsManifest.AnyObject>;
 
         transform: SyncWaterfallHook<WebpackAssetsManifest.AnyObject, WebpackAssetsManifest>;
 

@@ -1,4 +1,4 @@
-// Type definitions for spotify-web-api-node 4.0
+// Type definitions for spotify-web-api-node 5.0
 // Project: https://github.com/thelinmichael/spotify-web-api-node
 // Definitions by: Magnar Ovedal Myrtveit <https://github.com/Stadly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -107,7 +107,7 @@ declare class SpotifyWebApi {
      * Search for music entities of certain types.
      * @param query The search query.
      * @param types An array of item types to search across.
-     * Valid types are: 'album', 'artist', 'playlist', and 'track'.
+     * Valid types are: 'album', 'artist', 'playlist', 'track', 'show', and 'episode'.
      * @param options The possible options, e.g. limit, offset.
      * @param callback Optional callback method to be called instead of the promise.
      * @example search('Abba', ['track', 'playlist'], { limit : 5, offset : 1 }).then(...)
@@ -286,16 +286,15 @@ declare class SpotifyWebApi {
 
     /**
      * Create a playlist.
-     * @param userId The playlist's owner's user ID.
-     * @param playlistName The name of the playlist.
-     * @param options The possible options, currently only public.
+     * @param name The name of the playlist.
+     * @param options The possible options, being description, collaborative and public.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example createPlaylist('thelinmichael', 'My cool playlist!', { public : false }).then(...)
+     * @example createPlaylist('My playlist', {''description': 'My description', 'collaborative' : false, 'public': true}).then(...)
      * @returns A promise that if successful, resolves to an object containing information about the
      *          created playlist. If rejected, it contains an error object. Not returned if a callback is given.
      */
-    createPlaylist(userId: string, playlistName: string, options: PlaylistDetailsOptions, callback: Callback<SpotifyApi.CreatePlaylistResponse>): void;
-    createPlaylist(userId: string, playlistName: string, options?: PlaylistDetailsOptions): Promise<Response<SpotifyApi.CreatePlaylistResponse>>;
+    createPlaylist(playlistName: string, options: PlaylistDetailsOptions, callback: Callback<SpotifyApi.CreatePlaylistResponse>): void;
+    createPlaylist(playlistName: string, options?: PlaylistDetailsOptions): Promise<Response<SpotifyApi.CreatePlaylistResponse>>;
 
     /**
      * Follow a playlist.
@@ -349,7 +348,7 @@ declare class SpotifyWebApi {
      * @param tracks URIs of the tracks to add to the playlist.
      * @param options Options, position being the only one.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example addTracksToPlaylist(3EsfV6XzCHU8SPNdbnFogK', ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"]).then(...)
+     * @example addTracksToPlaylist('3EsfV6XzCHU8SPNdbnFogK', ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"]).then(...)
      * @returns A promise that if successful returns an object containing a snapshot_id. If rejected,
      * it contains an error object. Not returned if a callback is given.
      */
@@ -360,7 +359,7 @@ declare class SpotifyWebApi {
      * Remove tracks from a playlist.
      * @param playlistId The playlist's ID
      * @param tracks An array of objects containing a property called uri with the track URI (String), and
-     * a an optional property called positions (int[]), e.g. { uri : "spotify:track:491rM2JN8KvmV6p0oDDuJT", positions : [0, 15] }
+     * an optional property called positions (int[]), e.g. { uri : "spotify:track:491rM2JN8KvmV6p0oDDuJT", positions : [0, 15] }
      * @param options Options, snapshot_id being the only one.
      * @param callback Optional callback method to be called instead of the promise.
      * @returns A promise that if successful returns an object containing a snapshot_id. If rejected,
@@ -460,6 +459,17 @@ declare class SpotifyWebApi {
      * @returns The URL where the user can give application permissions.
      */
     createAuthorizeURL(scopes: ReadonlyArray<string>, state: string, showDialog?: boolean): string;
+
+    /**
+     * Retrieve a list of available genres seed parameter values for recommendations.
+     * @param callback Optional callback method to be called instead of the promise.
+     * @example getAvailableGenreSeeds().then(...)
+     * @returns A promise that if successful, resolves to an object containing
+     *          a list of available genres to be used as seeds for recommendations.
+     *          If rejected, it contains an error object. Not returned if a callback is given.
+     */
+    getAvailableGenreSeeds(callback: Callback<SpotifyApi.AvailableGenreSeedsResponse>): void;
+    getAvailableGenreSeeds(): Promise<Response<SpotifyApi.AvailableGenreSeedsResponse>>;
 
     /**
      * Retrieve the tracks that are saved to the authenticated users Your Music library.
@@ -567,11 +577,20 @@ declare class SpotifyWebApi {
      * Get the Current User's Recently Played Tracks
      * @param options Options, being type, after, limit, before.
      * @param callback Optional callback method to be called instead of the promise.
-     * @returns A promise that if successful, resolves into a paging object of tracks,
-     *          otherwise an error. Not returned if a callback is given.
+     * @returns A promise that if successful, resolves into a paging object of play history objects,
+     *          otherwise an error. Not returned if a callback is given. Note that the response will be empty
+     *          in case the user has enabled private session.
      */
     getMyRecentlyPlayedTracks(options: BeforeOptions | AfterOptions, callback: Callback<SpotifyApi.UsersRecentlyPlayedTracksResponse>): void;
     getMyRecentlyPlayedTracks(options?: BeforeOptions | AfterOptions): Promise<Response<SpotifyApi.UsersRecentlyPlayedTracksResponse>>;
+
+    /**
+     * Add track or episode to device queue
+     * @param uri URI of the track or episode to add
+     * @param options Options, being device_id.
+     * @returns A promise that if successful returns null, otherwise an error.
+     */
+    addToQueue(uri: string, options?: DeviceOptions): Promise<Response<SpotifyApi.AddToQueueResponse>>;
 
     /**
      * Get the Current User's Connect Devices
@@ -593,7 +612,7 @@ declare class SpotifyWebApi {
     getMyCurrentPlayingTrack(options?: MarketOptions): Promise<Response<SpotifyApi.CurrentlyPlayingResponse>>;
 
     /**
-     * Get the Current User's Current Playback State
+     * Get Information About The User's Current Playback State
      * @param options Options, being market.
      * @param callback Optional callback method to be called instead of the promise.
      * @returns A promise that if successful, resolves into a paging object of tracks,
@@ -604,20 +623,22 @@ declare class SpotifyWebApi {
 
     /**
      * Transfer a User's Playback
-     * @param options Options, being market.
+     * @param deviceIds An _array_ containing a device ID on which playback should be started/transferred.
+     * (NOTE: The API is currently only supporting a single device ID.)
+     * @param options Options, the only one being 'play'.
      * @param callback Optional callback method to be called instead of the promise.
-     * @returns A promise that if successful, resolves into a paging object of tracks,
+     * @returns A promise that if successful, resolves into an empty response,
      *          otherwise an error. Not returned if a callback is given.
      */
-    transferMyPlayback(options: TransferPlaybackOptions, callback: Callback<void>): void;
-    transferMyPlayback(options?: TransferPlaybackOptions): Promise<Response<void>>;
+    transferMyPlayback(deviceIds: ReadonlyArray<string>, options: TransferPlaybackOptions, callback: Callback<void>): void;
+    transferMyPlayback(deviceIds: ReadonlyArray<string>, options?: TransferPlaybackOptions): Promise<Response<void>>;
 
     /**
      * Starts or Resumes the Current User's Playback
-     * @param options Options, being device_id, context_uri, offset, uris.
+     * @param options Options, being device_id, context_uri, offset, uris, position_ms.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example playbackResume({context_uri: 'spotify:album:5ht7ItJgpBH7W6vJ5BqpPr'}).then(...)
-     * @returns A promise that if successful, resolves into a paging object of tracks,
+     * @example play({context_uri: 'spotify:album:5ht7ItJgpBH7W6vJ5BqpPr'}).then(...)
+     * @returns A promise that if successful, resolves into an empty response,
      *          otherwise an error. Not returned if a callback is given.
      */
     play(options: PlayOptions, callback: Callback<void>): void;
@@ -625,10 +646,10 @@ declare class SpotifyWebApi {
 
     /**
      * Pauses the Current User's Playback
-     * @param options Options, for now device_id,
+     * @param options Options, being device_id. If left empty will target the user's currently active device.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example playbackPause().then(...)
-     * @returns A promise that if successful, resolves into a paging object of tracks,
+     * @example pause().then(...)
+     * @returns A promise that if successful, resolves into an empty response,
      *          otherwise an error. Not returned if a callback is given.
      */
     pause(options: DeviceOptions, callback: Callback<void>): void;
@@ -636,29 +657,31 @@ declare class SpotifyWebApi {
 
     /**
      * Skip the Current User's Playback To Previous Track
+     * @param options Options, being device_id. If left empty will target the user's currently active device.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example playbackPrevious().then(...)
-     * @returns A promise that if successful, resolves into a paging object of tracks,
+     * @example skipToPrevious().then(...)
+     * @returns A promise that if successful, resolves into an empty response,
      *          otherwise an error. Not returned if a callback is given.
      */
-    skipToPrevious(callback: Callback<void>): void;
-    skipToPrevious(): Promise<Response<void>>;
+    skipToPrevious(options: DeviceOptions, callback: Callback<void>): void;
+    skipToPrevious(options?: DeviceOptions): Promise<Response<void>>;
 
     /**
      * Skip the Current User's Playback To Next Track
+     * @param options Options, being device_id. If left empty will target the user's currently active device.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example playbackNext().then(...)
-     * @returns A promise that if successful, resolves into a paging object of tracks,
+     * @example skipToNext().then(...)
+     * @returns A promise that if successful, resolves into an empty response,
      *          otherwise an error. Not returned if a callback is given.
      */
-    skipToNext(callback: Callback<void>): void;
-    skipToNext(): Promise<Response<void>>;
+    skipToNext(options: DeviceOptions, callback: Callback<void>): void;
+    skipToNext(options?: DeviceOptions): Promise<Response<void>>;
 
     /**
      * Seeks to the given position in the user’s currently playing track.
      *
      * @param positionMs The position in milliseconds to seek to. Must be a positive number.
-     * @param options A JSON object with options that can be passed.
+     * @param options Options, being device_id. If left empty will target the user's currently active device.
      * @param callback An optional callback that receives 2 parameters. The first
      * one is the error object (null if no error), and the second is the value if the request succeeded.
      * @returns Null if a callback is provided, a Promise otherwise
@@ -668,34 +691,36 @@ declare class SpotifyWebApi {
 
     /**
      * Set Repeat Mode On The Current User's Playback
-     * @param options Options, being state (track, context, off).
+     * @param state State (track, context, or off)
+     * @param options Options, being device_id. If left empty will target the user's currently active device.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example playbackRepeat({state: 'context'}).then(...)
-     * @returns A promise that if successful, resolves into a paging object of tracks,
+     * @example setRepeat('context', {}).then(...)
+     * @returns A promise that if successful, resolves into an empty response,
      *          otherwise an error. Not returned if a callback is given.
      */
-    setRepeat(options: RepeatOptions, callback: Callback<void>): void;
-    setRepeat(options?: RepeatOptions): Promise<Response<void>>;
+    setRepeat(state: RepeatState, options: DeviceOptions, callback: Callback<void>): void;
+    setRepeat(state: RepeatState, options?: DeviceOptions): Promise<Response<void>>;
 
     /**
      * Set Shuffle Mode On The Current User's Playback
-     * @param options Options, being state (true, false).
+     * @param state State
+     * @param options Options, being device_id. If left empty will target the user's currently active device.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example playbackShuffle({state: 'false'}).then(...)
-     * @returns A promise that if successful, resolves into a paging object of tracks,
+     * @example setShuffle('false').then(...)
+     * @returns A promise that if successful, resolves into an empty response,
      *          otherwise an error. Not returned if a callback is given.
      */
-    setShuffle(options: ShuffleOptions, callback: Callback<void>): void;
-    setShuffle(options?: ShuffleOptions): Promise<Response<void>>;
+    setShuffle(state: boolean, options: DeviceOptions, callback: Callback<void>): void;
+    setShuffle(state: boolean, options?: DeviceOptions): Promise<Response<void>>;
 
     /**
      * Set the volume for the user’s current playback device.
-     *
-     * @param volumePercent The volume to set. Must be a value from 0 to 100 inclusive.
-     * @param options A JSON object with options that can be passed.
+     * @param volumePercent The volume to set. Must be a value from 0 to 100.
+     * @param options Options, being device_id. If left empty will target the user's currently active device.
      * @param callback An optional callback that receives 2 parameters. The first
      * one is the error object (null if no error), and the second is the value if the request succeeded.
-     * @returns nothing if callback is provided, a Promise otherwise
+     * @returns A promise that if successful, resolves into an empty response,
+     *          otherwise an error. Not returned if a callback is given.
      */
     setVolume(volumePercent: number, options: DeviceOptions, callback: Callback<void>): void;
     setVolume(volumePercent: number, options?: DeviceOptions): Promise<Response<void>>;
@@ -845,6 +870,134 @@ declare class SpotifyWebApi {
     getPlaylistsForCategory(categoryId: string, options?: PaginationCountryOptions): Promise<Response<SpotifyApi.CategoryPlaylistsReponse>>;
 
     /**
+     * Get a show.
+     * @param showId The show's ID.
+     * @param options The possible options, currently only market.
+     * @param callback Optional callback method to be called instead of the promise.
+     * @example getShow('3Qm86XLflmIXVm1wcwkgDK').then(...)
+     * @returns A promise that if successful, returns an object containing information
+     *          about the show. Not returned if a callback is given.
+     */
+    getShow(showId: string, options: MarketOptions, callback: Callback<SpotifyApi.SingleShowResponse>): void;
+    getShow(showId: string, options?: MarketOptions): Promise<Response<SpotifyApi.SingleShowResponse>>;
+
+    /**
+     * Look up several shows.
+     * @param showIds The IDs of the shows.
+     * @param options The possible options, currently only market.
+     * @param callback Optional callback method to be called instead of the promise.
+     * @example getShows(['0oSGxfWSnnOXhD2fKuz2Gy', '3dBVyJ7JuOMt4GE9607Qin']).then(...)
+     * @returns A promise that if successful, returns an object containing information
+     *          about the shows. Not returned if a callback is given.
+     */
+    getShows(showIds: ReadonlyArray<string>, options: MarketOptions, callback: Callback<SpotifyApi.MultipleShowsResponse>): void;
+    getShows(showIds: ReadonlyArray<string>, options?: MarketOptions): Promise<Response<SpotifyApi.MultipleShowsResponse>>;
+
+    /**
+     * Check if one or more shows is already saved in the current Spotify user’s “Your Music” library.
+     * @param showIds The show IDs
+     * @param callback Optional callback method to be called instead of the promise.
+     * @returns A promise that if successful, resolves into an array of booleans. The order
+     * of the returned array's elements correspond to the show ID in the request.
+     * The boolean value of true indicates that the show is part of the user's library, otherwise false.
+     * Not returned if a callback is given.
+     */
+    containsMySavedShows(showIds: ReadonlyArray<string>, callback: Callback<boolean[]>): void;
+    containsMySavedShows(showIds: ReadonlyArray<string>): Promise<Response<boolean[]>>;
+
+    /**
+     * Remove an show from the authenticated user's Your Music library.
+     * @param showIds The show IDs
+     * @param callback Optional callback method to be called instead of the promise.
+     * @returns A promise that if successful returns null, otherwise an error.
+     * Not returned if a callback is given.
+     */
+    removeFromMySavedShows(showIds: ReadonlyArray<string>, callback: Callback<void>): void;
+    removeFromMySavedShows(showIds: ReadonlyArray<string>): Promise<Response<void>>;
+
+    /**
+     * Add a show from the authenticated user's Your Music library.
+     * @param showIds The show IDs
+     * @param callback Optional callback method to be called instead of the promise.
+     * @returns A promise that if successful returns null, otherwise an error. Not returned if a callback is given.
+     */
+    addToMySavedShows(showIds: ReadonlyArray<string>, callback: Callback<void>): void;
+    addToMySavedShows(showIds: ReadonlyArray<string>): Promise<Response<void>>;
+
+    /**
+     * Retrieve the shows that are saved to the authenticated users Your Music library.
+     * @param options Options, being market, limit, and/or offset.
+     * @param callback Optional callback method to be called instead of the promise.
+     * @returns A promise that if successful, resolves to an object containing a paging object which in turn contains
+     *          playlist show objects. Not returned if a callback is given.
+     */
+    getMySavedShows(options: PaginationMarketOptions, callback: Callback<SpotifyApi.UsersSavedShowsResponse>): void;
+    getMySavedShows(options?: PaginationMarketOptions): Promise<Response<SpotifyApi.SavedShowObject>>;
+
+    /**
+     * Get the episodes of an show.
+     * @param showId the show's ID.
+     * @param options The possible options, being limit, offset, and market.
+     * @param callback Optional callback method to be called instead of the promise.
+     * @example getShowEpisodes('41MnTivkwTO3UUJ8DrqEJJ', { limit : 5, offset : 1 }).then(...)
+     * @returns A promise that if successful, returns an object containing the
+     *                    episodes in the album. The result is paginated. If the promise is rejected.
+     *                    it contains an error object. Not returned if a callback is given.
+     */
+    getShowEpisodes(showId: string, options: PaginationMarketOptions, callback: Callback<SpotifyApi.ShowEpisodesResponse>): void;
+    getShowEpisodes(showId: string, options?: PaginationMarketOptions): Promise<Response<SpotifyApi.ShowEpisodesResponse>>;
+
+    /**
+     * Search for a show.
+     * @param query The search query.
+     * @param options The possible options, e.g. limit, offset.
+     * @param callback Optional callback method to be called instead of the promise.
+     * @example searchShows('Space Oddity', { limit : 5, offset : 1 }).then(...)
+     * @returns A promise that if successful, returns an object containing the
+     *          search results. The result is paginated. If the promise is rejected,
+     *          it contains an error object. Not returned if a callback is given.
+     */
+    searchShows(query: string, options: PaginationOptions, callback: Callback<SpotifyApi.SearchResponse>): void;
+    searchShows(query: string, options?: PaginationOptions): Promise<Response<SpotifyApi.SearchResponse>>;
+
+    /**
+     * Search for an episode.
+     * @param query The search query.
+     * @param options The possible options, e.g. limit, offset.
+     * @param callback Optional callback method to be called instead of the promise.
+     * @example searchEpisodes('Space Oddity', { limit : 5, offset : 1 }).then(...)
+     * @returns A promise that if successful, returns an object containing the
+     *          search results. The result is paginated. If the promise is rejected,
+     *          it contains an error object. Not returned if a callback is given.
+     */
+    searchEpisodes(query: string, options: PaginationOptions, callback: Callback<SpotifyApi.SearchResponse>): void;
+    searchEpisodes(query: string, options?: PaginationOptions): Promise<Response<SpotifyApi.SearchResponse>>;
+
+    /**
+     * Look up an episode.
+     * @param episodeId The episode's ID.
+     * @param options The possible options, currently only market.
+     * @param callback Optional callback method to be called instead of the promise.
+     * @example getEpisode('3Qm86XLflmIXVm1wcwkgDK').then(...)
+     * @returns A promise that if successful, returns an object containing information
+     *          about the episode. Not returned if a callback is given.
+     */
+    getEpisode(episodeId: string, options: MarketOptions, callback: Callback<SpotifyApi.SingleEpisodeResponse>): void;
+    getEpisode(episodeId: string, options?: MarketOptions): Promise<Response<SpotifyApi.SingleEpisodeResponse>>;
+
+    /**
+     * Look up several episodes.
+     * @param episodeIds The IDs of the episodes.
+     * @param options The possible options, currently only market.
+     * @param callback Optional callback method to be called instead of the promise.
+     * @example getEpisodes(['0oSGxfWSnnOXhD2fKuz2Gy', '3dBVyJ7JuOMt4GE9607Qin']).then(...)
+     * @returns A promise that if successful, returns an object containing information
+     *          about the episodes. Not returned if a callback is given.
+     */
+    getEpisodes(episodeIds: ReadonlyArray<string>, options: MarketOptions, callback: Callback<SpotifyApi.MultipleEpisodesResponse>): void;
+    getEpisodes(episodeIds: ReadonlyArray<string>, options?: MarketOptions): Promise<Response<SpotifyApi.MultipleEpisodesResponse>>;
+
+    /**
      * Request an access token using the Client Credentials flow.
      * Requires that client ID and client secret has been set previous to the call.
      * @param options Options.
@@ -971,7 +1124,7 @@ interface GetArtistAlbumsOptions extends PaginationCountryOptions {
 
 interface GetPlaylistTracksOptions extends PaginationMarketOptions, FieldsOptions { }
 
-type SearchType = 'album' | 'artist' | 'playlist' | 'track';
+type SearchType = 'album' | 'artist' | 'playlist' | 'track' | 'show' | 'episode';
 
 interface SearchOptions extends PaginationMarketOptions {
     include_external?: 'audio';
@@ -1034,7 +1187,6 @@ interface GetTopOptions extends PaginationOptions {
 }
 
 interface TransferPlaybackOptions {
-    device_ids: ReadonlyArray<string>;
     play?: boolean;
 }
 
@@ -1045,13 +1197,7 @@ interface PlayOptions extends DeviceOptions {
     position_ms?: number;
 }
 
-interface RepeatOptions extends DeviceOptions {
-    state?: 'track' | 'context' | 'off';
-}
-
-interface ShuffleOptions extends DeviceOptions {
-    state?: boolean;
-}
+type RepeatState = 'track' | 'context' | 'off';
 
 interface GetFeaturedPlaylistsOptions extends PaginationLocaleOptions {
     timestamp?: string;
@@ -1082,10 +1228,12 @@ interface AuthorizationCodeGrantResponse {
 /**
  * Response returned when requesting new access token (via refresh token)
  * https://developer.spotify.com/documentation/general/guides/authorization-guide/#4-requesting-a-refreshed-access-token-spotify-returns-a-new-access-token-to-your-app
+ * https://developer.spotify.com/documentation/general/guides/authorization-guide/#6-requesting-a-refreshed-access-token
  */
 interface RefreshAccessTokenResponse {
     access_token: string;
     expires_in: number;
+    refresh_token?: string;
     scope: string;
     token_type: string;
 }

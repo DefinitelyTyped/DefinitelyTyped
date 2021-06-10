@@ -587,6 +587,7 @@ declare namespace GoogleAppsScript {
         shared?: boolean;
         sharedWithMeDate?: string;
         sharingUser?: Drive.Schema.User;
+        shortcutDetails?: Drive.Schema.ShortcutDetails;
         spaces?: string[];
         teamDriveId?: string;
         thumbnail?: Drive.Schema.FileThumbnail;
@@ -721,7 +722,7 @@ declare namespace GoogleAppsScript {
         name?: string;
         permissionDetails?: Drive.Schema.PermissionPermissionDetails[];
         photoLink?: string;
-        role?: string;
+        role?: "owner" | "organizer" | "fileOrganizer" | "writer" | "reader";
         selfLink?: string;
         teamDrivePermissionDetails?: Drive.Schema.PermissionTeamDrivePermissionDetails[];
         type?: string;
@@ -744,7 +745,7 @@ declare namespace GoogleAppsScript {
         inherited?: boolean;
         inheritedFrom?: string;
         permissionType?: string;
-        role?: string;
+        role?: "organizer" | "fileOrganizer" | "writer" | "reader";
       }
       interface PermissionTeamDrivePermissionDetails {
         additionalRoles?: string[];
@@ -793,6 +794,10 @@ declare namespace GoogleAppsScript {
         kind?: string;
         nextPageToken?: string;
         selfLink?: string;
+      }
+      interface ShortcutDetails {
+        targetId?: string;
+        targetMimeType?: string;
       }
       interface StartPageToken {
         kind?: string;

@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "commonjs",
+        "lib": ["es5"],
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "greek-utils-tests.ts"
+    ]
+}

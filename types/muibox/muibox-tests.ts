@@ -31,6 +31,7 @@ dialog
     .prompt({
         message: "What is your name?",
         title: "Salutation",
+        placeholder: "Name",
         ok: { text: "Proceed" },
         cancel: { text: "Quit" },
         defaultValue: "Joe",

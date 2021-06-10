@@ -6,8 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="node" />
-
 declare namespace SumoLogger {
     interface SumoLoggerOptions {
         /**
@@ -101,13 +99,13 @@ declare namespace SumoLogger {
          * Use this when the event being logged occurred
          * at a different time than when the log was sent.
          */
-        timestamp: Date;
+        timestamp?: Date;
 
         /** Override a session key set in the `config` call. */
-        sessionKey: string;
+        sessionKey?: string;
 
         /** Override client URL set in the config call. (Node version only) */
-        url: string;
+        url?: string;
     }
 }
 

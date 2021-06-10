@@ -1,7 +1,8 @@
-// Type definitions for node-persist 3.0
+// Type definitions for node-persist 3.1
 // Project: https://github.com/simonlast/node-persist
 // Definitions by: Spencer Williams <https://github.com/spencerwi>,
-//                 Samuel Elliott <https://github.com/samuelthomas2774>
+//                 Samuel Elliott <https://github.com/samuelthomas2774>,
+//                 Jack Hedaya <https://github.com/jackHedaya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,7 +17,7 @@ declare namespace NodePersist {
         stringify?: (data: any) => string;
         parse?: (str: string) => any;
         encoding?: BufferEncoding;
-        logging?: boolean;
+        logging?: ((...args: any[]) => void) | boolean;
         expiredInterval?: Milliseconds;
         forgiveParseErrors?: boolean;
         ttl?: Milliseconds;
@@ -24,13 +25,14 @@ declare namespace NodePersist {
 
     interface DatumOptions {
         raw?: boolean;
+        ttl?: Milliseconds;
     }
 
     interface Datum {
         key: string;
         value: any;
 
-        ttl?: number;
+        ttl?: Milliseconds;
     }
 
     interface EnsureDirectoryResult {

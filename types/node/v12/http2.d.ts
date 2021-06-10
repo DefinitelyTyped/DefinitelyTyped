@@ -1,13 +1,18 @@
-declare module "http2" {
-    import * as events from "events";
-    import * as fs from "fs";
-    import * as net from "net";
-    import * as stream from "stream";
-    import * as tls from "tls";
-    import * as url from "url";
+declare module 'http2' {
+    import EventEmitter = require('events');
+    import * as fs from 'fs';
+    import * as net from 'net';
+    import * as stream from 'stream';
+    import * as tls from 'tls';
+    import * as url from 'url';
 
-    import { IncomingHttpHeaders as Http1IncomingHttpHeaders, OutgoingHttpHeaders, IncomingMessage, ServerResponse } from "http";
-    export { OutgoingHttpHeaders } from "http";
+    import {
+        IncomingHttpHeaders as Http1IncomingHttpHeaders,
+        OutgoingHttpHeaders,
+        IncomingMessage,
+        ServerResponse,
+    } from 'http';
+    export { OutgoingHttpHeaders } from 'http';
 
     export interface IncomingHttpStatusHeader {
         ":status"?: number;
@@ -261,7 +266,7 @@ declare module "http2" {
         inflateDynamicTableSize?: number;
     }
 
-    export interface Http2Session extends events.EventEmitter {
+    export interface Http2Session extends EventEmitter {
         readonly alpnProtocol?: string;
         readonly closed: boolean;
         readonly connecting: boolean;
@@ -356,7 +361,7 @@ declare module "http2" {
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         emit(event: "altsvc", alt: string, origin: string, stream: number): boolean;
-        emit(event: "origin", origins: string[]): boolean;
+        emit(event: "origin", origins: ReadonlyArray<string>): boolean;
         emit(event: "connect", session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket): boolean;
         emit(event: "stream", stream: ClientHttp2Stream, headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
@@ -570,7 +575,7 @@ declare module "http2" {
     }
 
     export class Http2ServerRequest extends stream.Readable {
-        constructor(stream: ServerHttp2Stream, headers: IncomingHttpHeaders, options: stream.ReadableOptions, rawHeaders: string[]);
+        constructor(stream: ServerHttp2Stream, headers: IncomingHttpHeaders, options: stream.ReadableOptions, rawHeaders: ReadonlyArray<string>);
 
         readonly aborted: boolean;
         readonly authority: string;
@@ -637,7 +642,7 @@ declare module "http2" {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    export class Http2ServerResponse extends stream.Stream {
+    export class Http2ServerResponse extends stream.Writable {
         constructor(stream: ServerHttp2Stream);
 
         readonly connection: net.Socket | tls.TLSSocket;
@@ -657,7 +662,7 @@ declare module "http2" {
         getHeaders(): OutgoingHttpHeaders;
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
         setTimeout(msecs: number, callback?: () => void): void;
         write(chunk: string | Uint8Array, callback?: (err: Error) => void): boolean;
         write(chunk: string | Uint8Array, encoding: string, callback?: (err: Error) => void): boolean;

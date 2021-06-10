@@ -15,10 +15,12 @@
         ],
         "types": [],
         "noEmit": true,
+        "jsx": "preserve",
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "react-tabs-tests.ts"
+        "react-tabs-tests.ts",
+        "react-tabs-tests.tsx"
     ]
 }

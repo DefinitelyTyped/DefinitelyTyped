@@ -121,6 +121,7 @@ declare namespace m {
         colorspace(space: ColorSpace | string): State;
         command(customCommand: string): State;
         compose(operator: ComposeOperator | string): State;
+        composite(changeImagePath: string, maskImagePath?: string): State;
         compress(type: CompressionType | string): State;
         contrast(multiplier: number): State;
         convolve(kernel: string): State;

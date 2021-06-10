@@ -289,6 +289,18 @@ player.setLoop(true).then((loop) => {
     // an error occurred
 });
 
+player.getMuted().then((muted) => {
+    // muted = whether muted is turned on or not
+}).catch((error) => {
+    // an error occurred
+});
+
+player.setMuted(true).then((muted) => {
+    // muted was turned on
+}).catch((error) => {
+    // an error occurred
+});
+
 player.getPaused().then((paused) => {
     // paused = whether or not the player is paused
 }).catch((error) => {

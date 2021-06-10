@@ -1,9 +1,10 @@
-// Type definitions for koa-joi-router 5.2
+// Type definitions for koa-joi-router 8.0
 // Project: https://github.com/koajs/joi-router
 // Definitions by: Matthew Bull <https://github.com/wingsbob>
 //                 Dave Welsh <https://github.com/move-zig>
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Tiger Oakes <https://github.com/NotWoods>
+//                 Jeremy Hull <https://github.com/sourrust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -40,7 +41,7 @@ declare namespace createRouter {
           query?: Joi.SchemaLike;
           params?: Joi.SchemaLike;
           body?: Joi.SchemaLike;
-          maxBody?: number;
+          maxBody?: number | string;
           failure?: number;
           type?: 'form'|'json'|'multipart';
           formOptions?: CoBody.Options;
@@ -48,6 +49,7 @@ declare namespace createRouter {
           multipartOptions?: CoBody.Options;
           output?: {[status: string]: OutputValidation};
           continueOnError?: boolean;
+          validateOptions?: Joi.ValidationOptions;
       };
       meta?: any;
     }
@@ -61,6 +63,7 @@ declare namespace createRouter {
     interface Router {
         routes: Spec[];
         route(spec: Spec|Spec[]): Router;
+        router: KoaRouter;
         middleware(): Koa.Middleware;
 
         prefix: KoaRouter['prefix'];

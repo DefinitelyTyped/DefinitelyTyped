@@ -84,6 +84,8 @@ export interface PieChartProps<T extends PieChartData> extends ChartProps<T> {
     outerRadius?: number | string;
     labelRadius?: number | string;
     padAngle?: number;
+    startAngle?: number;
+    endAngle?: number;
     sort?: SortFunction<T>;
     valueAccessor?: AccessorFunction<T, number>;
 }
@@ -207,6 +209,7 @@ export interface ProgressCircleProps {
     progressColor?: string;
     backgroundColor?: string;
     strokeWidth?: number;
+    cornerRadius?: number | string;
     startAngle?: number;
     endAngle?: number;
     animate?: boolean;

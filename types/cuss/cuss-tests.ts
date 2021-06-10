@@ -9,6 +9,7 @@ import cussPortuguese = require('cuss/pt-pt');
 Object.keys(cuss).length; // $ExpectType number
 cuss.beaver; // $ExpectType SurenessRating
 cuss.asshat; // $ExpectType SurenessRating
+cuss.shiksa; // $ExpectType SurenessRating
 
 cussArgentinian; // $ExpectType Cuss
 cussEspagniol; // $ExpectType Cuss

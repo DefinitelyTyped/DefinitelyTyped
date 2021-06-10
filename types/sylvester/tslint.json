@@ -2,19 +2,15 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "callable-types": false,
         "dt-header": false,
-        "eofline": false,
         "interface-name": false,
         "jsdoc-format": false,
         "no-inferrable-types": false,
         "no-internal-module": false,
         "no-mergeable-namespace": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }

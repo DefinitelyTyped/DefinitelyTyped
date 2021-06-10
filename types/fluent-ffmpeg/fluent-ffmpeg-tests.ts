@@ -3,6 +3,10 @@ import { createWriteStream } from 'fs';
 
 const stream = createWriteStream('outputfile.divx');
 
+// Set the CWD
+ffmpeg('file.avi', { cwd: '/path/to' })
+    .output('ouptutfile.mp4');
+
 ffmpeg('/path/to/file.avi')
     .output('outputfile.mp4')
     .output(stream);

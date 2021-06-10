@@ -50,7 +50,6 @@ declare namespace Box2D.Common {
 
         /**
         * RGB color as hex.
-        * @type uint
         **/
         public color: number;
 

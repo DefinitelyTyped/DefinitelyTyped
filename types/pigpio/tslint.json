@@ -1,7 +1,0 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "no-void-expression": false,
-        "prefer-template": false
-    }
-}

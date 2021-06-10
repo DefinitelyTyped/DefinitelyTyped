@@ -1,8 +1,8 @@
 import tripleBeam = require('triple-beam');
 
-const level: string = tripleBeam.LEVEL;
-const message: string = tripleBeam.MESSAGE;
-const splat: string = tripleBeam.SPLAT;
+const level: symbol = tripleBeam.LEVEL;
+const message: symbol = tripleBeam.MESSAGE;
+const splat: symbol = tripleBeam.SPLAT;
 const configsObj: tripleBeam.Configs = tripleBeam.configs;
 
 const cli: tripleBeam.Config = configsObj.cli;

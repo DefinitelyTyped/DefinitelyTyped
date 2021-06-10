@@ -11,7 +11,7 @@ const loadMoreItems = (startIndex: number, stopIndex: number) => {
     for (let index = startIndex; index <= stopIndex; index++) {
         itemStatusMap[index] = LOADING;
     }
-    return new Promise(resolve =>
+    return new Promise<void>(resolve =>
         setTimeout(() => {
             for (let index = startIndex; index <= stopIndex; index++) {
                 itemStatusMap[index] = LOADED;

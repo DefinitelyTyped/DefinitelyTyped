@@ -860,7 +860,7 @@ declare namespace chrome {
      * @description
      * The chrome.audio API is provided to allow users to get information
      * about and control the audio devices attached to the system.
-     * This API is currently only implemented for ChromeOS.
+     * This API is currently only available in kiosk mode for ChromeOS.
      */
     namespace audio {
         type StreamType =
@@ -3682,14 +3682,8 @@ declare namespace chrome {
         }
         /**
          * Internal interfaces, not for use
-         * @private
-         * @internal
          */
         namespace _internal_ {
-            /**
-             * @private
-             * @internal
-             */
             interface RequestedEventOptions {
                 /** The identifier of the file system related to this operation. */
                 fileSystemId: string;
@@ -3697,19 +3691,11 @@ declare namespace chrome {
                 requestId: integer;
             }
 
-            /**
-             * @private
-             * @internal
-             */
             interface EntryPathRequestedEventOptions extends RequestedEventOptions {
                 /** The path of the entry to which this operation is related to. */
                 entryPath: string;
             }
 
-            /**
-             * @private
-             * @internal
-             */
             interface FilePathRequestedEventOptions extends RequestedEventOptions {
                 /** The path of the entry for the operation */
                 filePath: string;
@@ -5649,8 +5635,6 @@ declare namespace chrome {
         type ProxySettingsType = 'Direct' | 'Manual' | 'PAC' | 'WPAD';
         /**
          * Partial classes for internal use
-         * @internal
-         * @private
          */
         namespace _internal_ {
             type ObjectFunction = 'unknown' | 'getter' | 'setter';
@@ -10365,7 +10349,7 @@ declare namespace chrome {
         }
 
         /** @since Chrome 39. */
-        interface DeviceFilter extends Partial<DeviceFilter> { }
+        interface DeviceFilter extends Partial<DeviceFilterStrict> { }
 
         interface TransferInfo {
             /**
@@ -11253,10 +11237,6 @@ declare namespace chrome {
             sessionCookie?: boolean;
         }
 
-        /**
-         * @private
-         * @template T Type of cookie
-         */
         interface AddCookie<T> {
             /**
              * Cookie to be added to the request.
@@ -11287,11 +11267,6 @@ declare namespace chrome {
             public readonly instanceType: string;
         }
 
-        /**
-         * @private
-         * @template T First parameter type
-         * @template K Second parameter type
-         */
         interface EditCookieParams<T, K> {
             /**
              * Filter for cookies that will be modified.
@@ -11346,10 +11321,6 @@ declare namespace chrome {
 
 
 
-        /**
-         * @private
-         * @template T Filter type
-         */
         interface RemoveCookieParams<T> {
             /**
              * Filter for cookies that will be removed.

@@ -1,12 +1,10 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import { ReactAttr, ForwardRefReturn } from "../../../typings/shared";
 
-interface InheritedProps extends ReactAttr { }
-
-export interface BreadcrumbProps extends InheritedProps {
+export interface BreadcrumbProps extends ReactAttr {
     noTrailingSlash?: boolean,
 }
 
-declare const Breadcrumb: React.FC<BreadcrumbProps>;
+declare const Breadcrumb: ForwardRefReturn<HTMLElement, BreadcrumbProps>;
 
 export default Breadcrumb;

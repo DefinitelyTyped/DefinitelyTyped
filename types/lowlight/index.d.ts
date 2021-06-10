@@ -11,6 +11,7 @@ declare module 'lowlight/lib/core' {
     export function highlight(language: string, value: string, options?: lowlight.HighlightOptions): lowlight.HighlightResult;
     export function highlightAuto(value: string, options?: lowlight.HighlightAutoOptions): lowlight.HighlightAutoResult;
     export function registerLanguage(name: string, syntax: Function): void;
+    export function listLanguages(): string[];
 }
 
 declare namespace lowlight {

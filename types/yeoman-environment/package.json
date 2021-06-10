@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "rxjs": ">=6.4.0"
+        "chalk": "^4.1.0",
+        "rxjs": "^6.4.0"
     }
 }

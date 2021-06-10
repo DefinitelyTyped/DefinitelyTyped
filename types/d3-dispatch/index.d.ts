@@ -1,14 +1,15 @@
-// Type definitions for D3JS d3-dispatch module 1.0
+// Type definitions for D3JS d3-dispatch module 2.0
 // Project: https://github.com/d3/d3-dispatch/, https://d3js.org/d3-dispatch
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.3
+// Last module patch version validated against: 2.0.0
 
-export interface Dispatch<T extends EventTarget> {
+export interface Dispatch<T extends object> {
     /**
      * Like `function.apply`, invokes each registered callback for the specified type,
      * passing the callback the specified arguments, with `that` as the `this` context.
@@ -71,4 +72,4 @@ export interface Dispatch<T extends EventTarget> {
  * @param types The event types.
  * @throws "illegal type" on empty string or duplicated event types.
  */
-export function dispatch<T extends EventTarget>(...types: string[]): Dispatch<T>;
+export function dispatch<T extends object>(...types: string[]): Dispatch<T>;

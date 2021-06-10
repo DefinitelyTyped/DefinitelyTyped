@@ -1,7 +1,7 @@
 import { ChannelBase } from './channel';
 import Transport from '../../../transport/transport';
 import { Identity } from '../../../main';
-import { ClientIdentity, ProviderIdentity } from '../../../shapes';
+import { ClientIdentity, ProviderIdentity } from '../../../shapes/Identity';
 export declare type ConnectionListener = (identity: Identity, connectionMessage?: any) => any;
 export declare type DisconnectionListener = (identity: Identity) => any;
 export declare class ChannelProvider extends ChannelBase {

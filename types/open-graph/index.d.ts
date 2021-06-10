@@ -66,7 +66,7 @@ declare namespace og {
     }
 
     function parse(websiteContent: string, options?: Options): Data;
-    function getHTML(url: string | Cheerio, callback: RequestCallback): void;
+    function getHTML(url: string | cheerio.Cheerio, callback: RequestCallback): void;
 }
 
 declare function og(url: string, callback: og.DataCallback, options?: og.Options): void;

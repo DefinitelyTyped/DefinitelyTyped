@@ -17,49 +17,42 @@ import { EditorState, Plugin, Transaction } from 'prosemirror-state';
  * with `"> "` into a blockquote, or something entirely different.
  */
 export class InputRule<S extends Schema = any> {
-  /**
-   * Create an input rule. The rule applies when the user typed
-   * something and the text directly in front of the cursor matches
-   * `match`, which should probably end with `$`.
-   *
-   * The `handler` can be a string, in which case the matched text, or
-   * the first matched group in the regexp, is replaced by that
-   * string.
-   *
-   * Or a it can be a function, which will be called with the match
-   * array produced by
-   * [`RegExp.exec`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec),
-   * as well as the start and end of the matched range, and which can
-   * return a [transaction](#state.Transaction) that describes the
-   * rule's effect, or null to indicate the input was not handled.
-   */
-  constructor(
-    match: RegExp,
-    handler:
-      | string
-      | ((
-        state: EditorState<S>,
-        match: string[],
-        start: number,
-        end: number
-      ) => Transaction<S> | null)
-  );
+    /**
+     * Create an input rule. The rule applies when the user typed
+     * something and the text directly in front of the cursor matches
+     * `match`, which should probably end with `$`.
+     *
+     * The `handler` can be a string, in which case the matched text, or
+     * the first matched group in the regexp, is replaced by that
+     * string.
+     *
+     * Or a it can be a function, which will be called with the match
+     * array produced by
+     * [`RegExp.exec`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec),
+     * as well as the start and end of the matched range, and which can
+     * return a [transaction](#state.Transaction) that describes the
+     * rule's effect, or null to indicate the input was not handled.
+     */
+    constructor(
+        match: RegExp,
+        handler:
+            | string
+            | ((state: EditorState<S>, match: string[], start: number, end: number) => Transaction<S> | null),
+    );
 }
 /**
  * Create an input rules plugin. When enabled, it will cause text
  * input that matches any of the given rules to trigger the rule's
  * action.
  */
-export function inputRules<S extends Schema = any>(config: {
-  rules: Array<InputRule<S>>;
-}): Plugin<S>;
+export function inputRules<S extends Schema = any>(config: { rules: Array<InputRule<S>> }): Plugin<unknown, S>;
 /**
  * This is a command that will undo an input rule, if applying such a
  * rule was the last thing that the user did.
  */
 export function undoInputRule<S extends Schema = any>(
-  state: EditorState<S>,
-  dispatch?: (p: Transaction<S>) => void
+    state: EditorState<S>,
+    dispatch?: (p: Transaction<S>) => void,
 ): boolean;
 /**
  * Build an input rule for automatically wrapping a textblock when a
@@ -79,10 +72,10 @@ export function undoInputRule<S extends Schema = any>(
  * return a boolean to indicate whether a join should happen.
  */
 export function wrappingInputRule<S extends Schema = any>(
-  regexp: RegExp,
-  nodeType: NodeType<S>,
-  getAttrs?: { [key: string]: any } | ((p: string[]) => { [key: string]: any } | null | undefined),
-  joinPredicate?: (p1: string[], p2: ProsemirrorNode<S>) => boolean
+    regexp: RegExp,
+    nodeType: NodeType<S>,
+    getAttrs?: { [key: string]: any } | ((p: string[]) => { [key: string]: any } | null | undefined),
+    joinPredicate?: (p1: string[], p2: ProsemirrorNode<S>) => boolean,
 ): InputRule<S>;
 /**
  * Build an input rule that changes the type of a textblock when the
@@ -93,9 +86,9 @@ export function wrappingInputRule<S extends Schema = any>(
  * `wrappingInputRule` function.
  */
 export function textblockTypeInputRule<S extends Schema = any>(
-  regexp: RegExp,
-  nodeType: NodeType<S>,
-  getAttrs?: { [key: string]: any } | ((p: string[]) => { [key: string]: any } | null | undefined)
+    regexp: RegExp,
+    nodeType: NodeType<S>,
+    getAttrs?: { [key: string]: any } | ((p: string[]) => { [key: string]: any } | null | undefined),
 ): InputRule<S>;
 /**
  * Converts double dashes to an emdash.

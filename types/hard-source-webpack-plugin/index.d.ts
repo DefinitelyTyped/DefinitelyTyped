@@ -3,7 +3,7 @@
 // Definitions by: woitechen <https://github.com/woitechen>
 //                 Yama-Tomo <https://github.com/Yama-Tomo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import * as webpack from 'webpack';
 import { ForkOptions, ChildProcess } from 'child_process';

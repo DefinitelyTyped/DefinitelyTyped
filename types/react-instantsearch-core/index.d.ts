@@ -1,4 +1,4 @@
-// Type definitions for react-instantsearch-core 6.3
+// Type definitions for react-instantsearch-core 6.10
 // Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
@@ -6,7 +6,6 @@
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Samuel Vaillant <https://github.com/samouss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 
 import * as React from 'react';
 import { SearchParameters } from 'algoliasearch-helper';
@@ -20,6 +19,7 @@ export interface InstantSearchProps {
   refresh?: boolean;
   onSearchStateChange?: (...args: any[]) => any;
   onSearchParameters?: (...args: any[]) => any;
+  widgetsCollector?: (...args: any[]) => any;
   resultsState?: any;
   stalledSearchDelay?: number;
 }
@@ -31,7 +31,12 @@ export interface InstantSearchProps {
  */
 export class InstantSearch extends React.Component<InstantSearchProps> {}
 
-export class Index extends React.Component<any> {}
+export interface IndexProps {
+  indexName: string;
+  indexId?: string;
+}
+
+export class Index extends React.Component<IndexProps> {}
 
 export interface ConnectorSearchResults<TDoc = BasicDoc> {
   results: AllSearchResults<TDoc>;
@@ -131,7 +136,7 @@ export type ConnectorProvided<TProvided> = TProvided & {
  */
 export function createConnector<TProvided = {}, TExposed = {}>(
   connectorDesc: ConnectorDescription<TProvided, TExposed>
-): ((stateless: React.StatelessComponent<ConnectorProvided<TProvided>>) => React.ComponentClass<TExposed>) &
+): ((stateless: React.FunctionComponent<ConnectorProvided<TProvided>>) => React.ComponentClass<TExposed>) &
   (<TProps extends Partial<ConnectorProvided<TProvided>>>(
     Composed: React.ComponentType<TProps>
   ) => ConnectedComponentClass<TProps, ConnectorProvided<TProvided>, TExposed>);
@@ -184,8 +189,10 @@ export interface AutocompleteExposed {
   defaultRefinement?: string;
 }
 
-// tslint:disable-next-line:no-unnecessary-generics
-export function connectAutoComplete<TDoc = BasicDoc>(stateless: React.StatelessComponent<AutocompleteProvided<TDoc>>): React.ComponentClass<AutocompleteExposed>;
+export function connectAutoComplete<TDoc = BasicDoc>(
+  // tslint:disable-next-line:no-unnecessary-generics
+  stateless: React.FunctionComponent<AutocompleteProvided<TDoc>>
+): React.ComponentClass<AutocompleteExposed>;
 export function connectAutoComplete<Props extends AutocompleteProvided<TDoc>, TDoc = BasicDoc>(
   Composed: React.ComponentType<Props>
 ): ConnectedComponentClass<Props, AutocompleteProvided<TDoc>, AutocompleteExposed>;
@@ -224,7 +231,7 @@ export interface CurrentRefinementsExposed {
 
 export interface CurrentRefinementsProvided {
   /** a function to remove a single filter */
-  refine: (refinement: RefinementValue | RefinementValue[]) => void;
+  refine: (refinement: RefinementValue | RefinementValue[] | Refinement[]) => void;
   /**
    * all the filters, the value is to pass to the refine function for removing all currentrefinements,
    * label is for the display. When existing several refinements for the same atribute name, then you
@@ -237,7 +244,7 @@ export interface CurrentRefinementsProvided {
 }
 
 export function connectCurrentRefinements(
-  stateless: React.StatelessComponent<CurrentRefinementsProvided>
+  stateless: React.FunctionComponent<CurrentRefinementsProvided>
 ): React.ComponentClass<CurrentRefinementsExposed>;
 export function connectCurrentRefinements<TProps extends Partial<CurrentRefinementsProvided>>(
   Composed: React.ComponentType<TProps>
@@ -273,7 +280,7 @@ export interface GeoSearchProvided<THit = any> {
  * https://community.algolia.com/react-instantsearch/connectors/connectGeoSearch.html
  */
 export function connectGeoSearch(
-  stateless: React.StatelessComponent<GeoSearchProvided>
+  stateless: React.FunctionComponent<GeoSearchProvided>
 ): React.ComponentClass<GeoSearchExposed>;
 export function connectGeoSearch<TProps extends Partial<GeoSearchProvided<THit>>, THit>(
   ctor: React.ComponentType<TProps>
@@ -319,7 +326,7 @@ export type HighlightProps<TDoc = any> = HighlightProvided<TDoc> & HighlightPass
  * connectHighlight connector provides the logic to create an highlighter component that will retrieve, parse and render an highlighted attribute from an Algolia hit.
  */
 export function connectHighlight<TDoc = any>(
-  stateless: React.StatelessComponent<HighlightProps<TDoc>>
+  stateless: React.FunctionComponent<HighlightProps<TDoc>>
 ): React.ComponentClass<HighlightPassedThru<TDoc>>;
 export function connectHighlight<TProps extends Partial<HighlightProps<TDoc>>, TDoc>(
   ctor: React.ComponentType<TProps>
@@ -337,8 +344,10 @@ export interface HitsProvided<THit> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
-// tslint:disable-next-line:no-unnecessary-generics
-export function connectHits<THit = BasicDoc>(stateless: React.StatelessComponent<HitsProvided<THit>>): React.ComponentClass;
+export function connectHits<THit = BasicDoc>(
+  // tslint:disable-next-line:no-unnecessary-generics
+  stateless: React.FunctionComponent<HitsProvided<THit>>
+): React.ComponentClass;
 export function connectHits<TProps extends HitsProvided<THit>, THit>(
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, HitsProvided<THit>>;
@@ -388,7 +397,7 @@ export interface MenuExposed {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectMenu.html
  */
-export function connectMenu(stateless: React.StatelessComponent<MenuProvided>): React.ComponentClass<MenuExposed>;
+export function connectMenu(stateless: React.FunctionComponent<MenuProvided>): React.ComponentClass<MenuExposed>;
 export function connectMenu<TProps extends Partial<MenuProvided>>(
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, MenuProvided, MenuExposed>;
@@ -429,7 +438,7 @@ export interface NumericMenuExposed {
  * https://community.algolia.com/react-instantsearch/connectors/connectNumericMenu.html
  */
 export function connectNumericMenu(
-  stateless: React.StatelessComponent<NumericMenuProvided>
+  stateless: React.FunctionComponent<NumericMenuProvided>
 ): React.ComponentClass<NumericMenuExposed>;
 export function connectNumericMenu<TProps extends Partial<NumericMenuProvided>>(
   ctor: React.ComponentType<TProps>
@@ -487,7 +496,7 @@ export interface RefinementListExposed {
  * https://community.algolia.com/react-instantsearch/connectors/connectRefinementList.html
  */
 export function connectRefinementList(
-  stateless: React.StatelessComponent<RefinementListProvided>
+  stateless: React.FunctionComponent<RefinementListProvided>
 ): React.ComponentClass<RefinementListExposed>;
 export function connectRefinementList<TProps extends Partial<RefinementListProvided>>(
   ctor: React.ComponentType<TProps>
@@ -508,12 +517,13 @@ export interface SearchBoxExposed {
   defaultRefinement?: string;
 }
 export function connectSearchBox(
-  stateless: React.StatelessComponent<SearchBoxProvided>
+  stateless: React.FunctionComponent<SearchBoxProvided>
 ): React.ComponentClass<SearchBoxExposed>;
 export function connectSearchBox<TProps extends Partial<SearchBoxProvided>>(
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, SearchBoxProvided, SearchBoxExposed>;
 
+export function connectRelevantSort(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectSortBy(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface StateResultsProvided<TDoc = BasicDoc> {
@@ -542,17 +552,19 @@ export interface StateResultsProvided<TDoc = BasicDoc> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectStateResults.html
  */
-export function connectStateResults(stateless: React.StatelessComponent<StateResultsProvided>): React.ComponentClass;
+export function connectStateResults(stateless: React.FunctionComponent<StateResultsProvided>): React.ComponentClass;
 export function connectStateResults<TProps extends Partial<StateResultsProvided<any>>>(
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, StateResultsProvided>;
 
-interface StatsProvided {
+export interface StatsProvided {
   nbHits: number;
+  nbSortedHits: number;
   processingTimeMS: number;
+  areHitsSorted: boolean;
 }
 
-export function connectStats(stateless: React.StatelessComponent<StatsProvided>): React.ComponentClass;
+export function connectStats(stateless: React.FunctionComponent<StatsProvided>): React.ComponentClass;
 export function connectStats<TProps extends Partial<StatsProvided>>(
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, StatsProvided>;
@@ -592,6 +604,7 @@ export interface SearchState {
     aroundLatLng: boolean;
     [key: string]: any;
   };
+  relevancyStrictness?: number;
   refinementList?: {
     [key: string]: string[];
   };
@@ -640,6 +653,8 @@ export interface SearchResults<TDoc = BasicDoc> {
   index: string;
   hitsPerPage: number;
   nbHits: number;
+  nbSortedHits?: number;
+  appliedRelevancyStrictness?: number;
   nbPages: number;
   page: number;
   processingTimeMS: number;
@@ -697,9 +712,33 @@ interface HighlightResultPrimitive {
   fullyHighlighted?: boolean;
 }
 
-export function EXPERIMENTAL_connectConfigureRelatedItems(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export type InsightsClient = (method: InsightsClientMethod, payload: InsightsClientPayload) => void;
+
+export type InsightsClientMethod = 'clickedObjectIDsAfterSearch' | 'convertedObjectIDsAfterSearch';
+
+export interface InsightsClientPayload {
+    index: string;
+    queryID: string;
+    eventName: string;
+    objectIDs: string[];
+    positions?: number[];
+}
+
+export type WrappedInsightsClient = (method: InsightsClientMethod, payload: Partial<InsightsClientPayload>) => void;
+export interface ConnectHitInsightsProvided {
+    hit: Hit;
+    insights: WrappedInsightsClient;
+}
+
+export function EXPERIMENTAL_connectConfigureRelatedItems(
+  Composed: React.ComponentType<any>
+): React.ComponentClass<any>;
 export function connectQueryRules(Composed: React.ComponentType<any>): React.ComponentClass<any>;
-export function connectHitInsights(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectHitInsights(
+    insightsClient: InsightsClient,
+): (
+    hitComponent: React.ComponentType<any>,
+) => React.ComponentType<Omit<ConnectHitInsightsProvided, { insights: WrappedInsightsClient }>>;
 export function connectVoiceSearch(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 // Turn off automatic exports - so we don't export internal types like Omit<>

@@ -173,6 +173,9 @@ function clientTest2() {
     client.on('connectFailed', err => {
         console.log(`on failed: ${err}`);
     });
+    client.on('httpResponse', resp => {
+        console.log(`got ${resp.statusCode} ${resp.statusMessage}, expected 101 Switching Protocols`);
+    });
     client.connect(`ws://${ipArray[0]}:8888`, null, null, null, {
         localAddress: ipArray[0],
     });

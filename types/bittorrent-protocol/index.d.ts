@@ -56,6 +56,8 @@ declare namespace BittorrentProtocol {
 
         use(ext: ExtensionConstructor): void;
 
+        [key: string]: any;
+
         handshake(infoHash: string | Buffer, peerId: string | Buffer, extensions?: any): void;
 
         choke(): void;

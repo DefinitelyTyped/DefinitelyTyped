@@ -25,6 +25,9 @@ export interface TileInfo {
     width: number;
     height?: number;
 }
+/**
+ * Enum representing the major IIIF Image API versions
+ */
 export enum Versions {
     VERSION1 = 'version1',
     VERSION2 = 'version2',

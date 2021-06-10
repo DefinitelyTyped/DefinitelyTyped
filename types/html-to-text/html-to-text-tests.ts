@@ -1,27 +1,84 @@
-import { fromString, HtmlToTextOptions } from 'html-to-text';
+import { FormatCallback, htmlToText, HtmlToTextOptions,
+    TagDefinition } from 'html-to-text';
 import * as formatters from 'html-to-text/lib/formatter';
+
+// Test code that also provides sample implementations
+
+const headerOptions: TagDefinition =  {
+    options: {
+        uppercase: false
+    },
+    format: "headerFormatter",
+};
+
+// Sample use of FormatCallback outside of HtmlTextOptions
+
+const headerFormatter: FormatCallback = (elem, walk, builder, options) => {
+    builder.openBlock(options.leadingLineBreaks || 2);
+    walk(elem.children, builder);
+    builder.closeBlock(options.trailingLineBreaks || 2,
+        str => {
+            const underline = str.substr(str.lastIndexOf("\n") + 1)
+                .replace(/./g, "=");
+            return `${str}\n${underline}`;
+        }
+    );
+};
 
 const htmlOptions: HtmlToTextOptions = {
     wordwrap: null,
     tables: true,
     hideLinkHrefIfSameAsText: true,
     ignoreImage: true,
-    format: {
-        text: (el, options) => {
-            return formatters.text(el, options);
+    formatters: {
+        headerFormatter: (elem, walk, builder, options) => {
+            builder.openBlock(options.leadingLineBreaks || 2);
+            walk(elem.children, builder);
+            builder.closeBlock(options.trailingLineBreaks || 2,
+               str => `${str} **hdr**\n`);
         },
-        table: (el, walk, options) => {
-            return formatters.table(el, walk, options);
+        blockFormatter: (elem, walk, builder, options) => {
+            builder.openBlock(options.leadingLineBreaks || 2, 2);
+            walk(elem.children, builder);
+            builder.closeBlock(options.trailingLineBreaks || 2,
+               str => `**blk** ${str}\n`);
+        },
+        textFormatter: (elem, walk, builder, options) => {
+            formatters.heading(elem, walk, builder, options);
+        },
+    },
+    tags: {
+        a: {
+            options: {
+                hideLinkHrefIfSameAsText: true,
+            },
+        },
+        h1: headerOptions,
+        h3: {
+            format: "textFormatter",
+        },
+        blockquote: {
+            options: {
+                trimEmptyLines: false
+            },
+            format: "blockFormatter",
         },
     },
 };
 
-const htmlString = '<p><b>bold</b></p><p><i>italic</i></p>';
+const htmlString = `<h1>h1</h1><p><b>bold</b></p><p><i>italic</i></p>
+<h3>h3</h3><blockquote>block quote</blockquote>`;
+
 console.log('Processing string with default options');
-console.log(fromString(htmlString));
+console.log(htmlToText(htmlString));
 
 console.log('Processing string with custom options');
-console.log(fromString(htmlString, htmlOptions));
+const text = htmlToText(htmlString, htmlOptions);
+console.log(text);
+
+if (!text.match(/\*\*hdr\*\*/)) {
+    console.error("Formatter not called!");
+}
 
 const allElements = '<a>a</a>\
 <blockquote>b</blockquote>\
@@ -34,41 +91,29 @@ const allElements = '<a>a</a>\
 <table></table>\
 <ul></ul>';
 
+const elementFormatter: FormatCallback = (elem, walk, builder, options) => {
+    builder.openBlock(options.leadingLineBreaks || 2);
+    // walk(elem.children?, builder);
+    builder.closeBlock(options.trailingLineBreaks || 2,
+        str => {
+            return `--${elem.name}--\n`;
+        }
+    );
+};
+
 const fmtOptions: HtmlToTextOptions = {
-    format: {
-        anchor: (_el, _walk, _options) => {
-            return "--anchor--\n";
-        },
-        blockquote: (_el, _walk, _options) => {
-            return "--blockquote--\n";
-        },
-        heading: (_el, _walk, _options) => {
-            return "--heading--\n";
-        },
-        horizontalLine: (_el, _walk, _options) => {
-            return "--horizontalLine--\n";
-        },
-        image: (_el, _options) => {
-            return "--image--\n";
-        },
-        lineBreak: (_el, _walk, _options) => {
-            return "--lineBreak--\n";
-        },
-        orderedList: (_el, _walk, _options) => {
-            return "--orderedList--\n";
-        },
-        paragraph: (_el, _walk, _options) => {
-            return "--paragraph--\n";
-        },
-        table: (_el, _walk, _options) => {
-            return "--table--\n";
-        },
-        text: (_el, _options) => {
-            return "--text--\n";
-        },
-        unorderedList: (_el, _walk, _options) => {
-            return "--unorderedList--\n";
-        },
+    formatters: {
+        anchor: elementFormatter,
+        blockquote: elementFormatter,
+        heading: elementFormatter,
+        horizontalLine: elementFormatter,
+        image: elementFormatter,
+        inline: elementFormatter,
+        lineBreak: elementFormatter,
+        orderedList: elementFormatter,
+        paragraph: elementFormatter,
+        table: elementFormatter,
+        unorderedList: elementFormatter,
     },
 };
-console.log(fromString(allElements, fmtOptions));
+console.log(htmlToText(allElements, fmtOptions));

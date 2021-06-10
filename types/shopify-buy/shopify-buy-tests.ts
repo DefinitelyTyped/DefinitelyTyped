@@ -257,7 +257,7 @@ function closeCart() {
 ============================================================ */
 function findCartItemByVariantId(variantId : string | number) {
     return cart.lineItems.filter(function (item) {
-        return (item.variant_id === variantId);
+        return (item.variantId === variantId);
     })[0];
 }
 
@@ -279,17 +279,17 @@ function addOrUpdateVariant(variant : ShopifyBuy.ProductVariant, quantity : numb
 /* Update details for item already in cart. Remove if necessary
 ============================================================ */
 function updateVariantInCart(cartLineItem : ShopifyBuy.LineItem, quantity : number) {
-    var variantId : string | number = cartLineItem.variant_id;
+    var variantId : string | number = cartLineItem.variantId;
     var cartLength : number = cart.lineItems.length;
     let lineItemVariant: ShopifyBuy.AttributeInput = {
         id: cartLineItem.id,
         quantity
     };
-    client.checkout.updateLineItem(cartLineItem.id, [lineItemVariant]).then(function(updatedCart : ShopifyBuy.Cart) {
+    client.checkout.updateLineItems(cartLineItem.id, [lineItemVariant]).then(function(updatedCart : ShopifyBuy.Cart) {
         var $cartItem = $('.cart').find('.cart-item[data-variant-id="' + variantId + '"]');
         if (updatedCart.lineItems.length >= cartLength) {
             $cartItem.find('.cart-item__quantity').val(cartLineItem.quantity);
-            $cartItem.find('.cart-item__price').text(formatAsMoney(cartLineItem.line_price));
+            $cartItem.find('.cart-item__price').text(formatAsMoney(cartLineItem.linePrice));
         } else {
             $cartItem.addClass('js-hidden').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
                 $cartItem.remove();
@@ -314,7 +314,7 @@ function addVariantToCart(variant : ShopifyBuy.ProductVariant, quantity : number
 
     client.checkout.addVariants({ variant: variant, quantity: quantity }).then(function() {
         var cartItem : ShopifyBuy.LineItem = cart.lineItems.filter(function (item : ShopifyBuy.LineItem ) {
-            return (item.variant_id === variant.id);
+            return (item.variantId === variant.id);
         })[0];
         var $cartItem = renderCartItem(cartItem);
         var $cartItemContainer = $('.cart-item-container');
@@ -338,15 +338,15 @@ function renderCartItem(lineItem : ShopifyBuy.LineItem) {
     var lineItemEmptyTemplate = $('#CartItemTemplate').html();
     var $lineItemTemplate = $(lineItemEmptyTemplate);
     var itemImage = lineItem.image.src;
-    $lineItemTemplate.attr('data-variant-id', lineItem.variant_id);
+    $lineItemTemplate.attr('data-variant-id', lineItem.variantId);
     $lineItemTemplate.addClass('js-hidden');
     $lineItemTemplate.find('.cart-item__img').css('background-image', 'url(' + itemImage + ')');
     $lineItemTemplate.find('.cart-item__title').text(lineItem.title);
-    $lineItemTemplate.find('.cart-item__variant-title').text(lineItem.variant_title);
-    $lineItemTemplate.find('.cart-item__price').text(formatAsMoney(lineItem.line_price));
+    $lineItemTemplate.find('.cart-item__variant-title').text(lineItem.variantTitle);
+    $lineItemTemplate.find('.cart-item__price').text(formatAsMoney(lineItem.linePrice));
     $lineItemTemplate.find('.cart-item__quantity').attr('value', lineItem.quantity);
-    $lineItemTemplate.find('.quantity-decrement').attr('data-variant-id', lineItem.variant_id);
-    $lineItemTemplate.find('.quantity-increment').attr('data-variant-id', lineItem.variant_id);
+    $lineItemTemplate.find('.quantity-decrement').attr('data-variant-id', lineItem.variantId);
+    $lineItemTemplate.find('.quantity-increment').attr('data-variant-id', lineItem.variantId);
 
     return $lineItemTemplate;
 }

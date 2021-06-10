@@ -144,3 +144,7 @@ class ToolbarExample extends React.Component<{}, {search: string}> {
         );
     }
 }
+
+const CheckboxExample = () => (
+    <Checkbox value="checked" onCheck={console.log} label="Check Me" style={{ icon: { color: 'pink' }}} />
+);

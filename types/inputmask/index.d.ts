@@ -1,4 +1,4 @@
-// Type definitions for inputmask 4.0
+// Type definitions for inputmask 5.0
 // Project: https://github.com/RobinHerbots/Inputmask
 // Definitions by: Daniel Mester Pirttijarvi <https://github.com/dmester>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,8 +17,14 @@ declare namespace Inputmask {
 
     type Casing = "upper" | "lower" | "title";
 
-    type DefinitionValidator = (chrs: string, buffer: string[], pos: number, strict: boolean, opts: Options) =>
-        boolean | { pos: number, c: string };
+    // `maskset` typed as `any`, since its content is not described in the documentation
+    type DefinitionValidator = (
+        chrs: string,
+        maskset: any,
+        pos: number,
+        strict: boolean,
+        opts: Options,
+    ) => boolean | CommandObject;
 
     interface Options {
         /**
@@ -109,7 +115,7 @@ declare namespace Inputmask {
          */
         removeMaskOnSubmit?: boolean;
         /**
-         * Remove the empty mask on blur or when not empty removes the optional trailing part.
+         * Remove the empty mask on blur or when not empty remove the optional trailing part.
          *
          * @default true
          */
@@ -120,6 +126,12 @@ declare namespace Inputmask {
          * @default true
          */
         insertMode?: boolean;
+        /**
+         * Show selected caret when `insertMode = false`.
+         *
+         * @default true
+         */
+        insertModeVisual?: boolean;
         /**
          * Clear the incomplete input on blur.
          *
@@ -135,7 +147,12 @@ declare namespace Inputmask {
         /**
          * Callback to implement autocomplete on certain keys for example.
          */
-        onKeyDown?: (event: KeyboardEvent, buffer: string[], caretPos: number, opts: Options) => void;
+        onKeyDown?: (
+            event: KeyboardEvent,
+            buffer: string[],
+            caretPos: { begin: number; end: number },
+            opts: Options,
+        ) => void;
         /**
          * Executes before masking the initial value to allow preprocessing of the initial value.
          */
@@ -147,7 +164,7 @@ declare namespace Inputmask {
          */
         onBeforePaste?: (pastedValue: string, opts: Options) => string;
         /**
-         * Executes before writing to the masked element Use this to do some extra processing of the input. This can
+         * Executes before writing to the masked element. Use this to do some extra processing of the input. This can
          * be useful when implementing an alias, ex. decimal alias, autofill the digits when leaving the inputfield.
          */
         onBeforeWrite?: (event: KeyboardEvent, buffer: string[], caretPos: number, opts: Options) => CommandObject;
@@ -170,7 +187,7 @@ declare namespace Inputmask {
          */
         showMaskOnHover?: boolean;
         /**
-         * Callback function is executed on every keyvalidation with the key & result as parameter.
+         * Callback function is executed on every keyvalidation with the key, result as the parameter.
          */
         onKeyValidation?: (key: number, result: boolean) => void;
         /**
@@ -188,7 +205,7 @@ declare namespace Inputmask {
         /**
          * Align the input to the right
          *
-         * By setting the rightAlign you can specify to right align an inputmask. This is only applied in combination of
+         * By setting the rightAlign you can specify to right-align an inputmask. This is only applied in combination of
          * the `numericInput` option or the `dir-attribute`.
          *
          * @default true
@@ -220,10 +237,7 @@ declare namespace Inputmask {
          *
          * typing 1212345123 => should result in +55-12-1234-5123 type extra 4 => switch to +55-12-12345-1234
          *
-         * When passing multiple masks (an array of masks) keepStatic is automatically set to true unless explicitly set
-         * through the options.
-         *
-         * @default null
+         * When the option is not set, it will default to `false`, except for multiple masks it will default to `true`!
          */
         keepStatic?: boolean | null;
         /**
@@ -254,16 +268,36 @@ declare namespace Inputmask {
          */
         isComplete?: (buffer: string[], opts: Options) => boolean;
         /**
-         * Hook to postValidate the result from isValid. Useful for validating the entry as a whole.
+         * Hook to postValidate the result from `isValid`. Useful for validating the entry as a whole.
          */
-        postValidation?: (buffer: string[], pos: number, currentResult: CommandObject, opts: Options) =>
-            boolean | CommandObject;
+        postValidation?: (
+            buffer: string[],
+            pos: number,
+            char: string,
+            currentResult: boolean,
+            opts: Options,
+            maskset: any,
+            strict: boolean,
+            fromCheckval: boolean,
+        ) => boolean | CommandObject;
         /**
-         * Hook to preValidate the input. Useful for validating regardless the definition. When return true, the normal
-         * validation kicks in, otherwise it is skipped.
+         * Hook to preValidate the input. Useful for validating regardless of the definition.
+         *
+         * When returning `true`, the normal validation kicks in, otherwise, it is skipped.
+         *
+         * When returning a command object the actions are executed and further validation is stopped. If you want to
+         * continue further validation, you need to add the `rewritePosition` action.
          */
-        preValidation?: (buffer: string[], pos: number, char: string, isSelection: boolean, opts: Options) =>
-            boolean | CommandObject;
+        preValidation?: (
+            buffer: string[],
+            pos: number,
+            char: string,
+            isSelection: boolean,
+            opts: Options,
+            maskset: any,
+            caretPos: { begin: number; end: number },
+            strict: boolean,
+        ) => boolean | CommandObject;
         /**
          * The `staticDefinitionSymbol` option is used to indicate that the static entries in the mask can match a
          * certain definition. Especially useful with alternators so that static element in the mask can match
@@ -320,32 +354,6 @@ declare namespace Inputmask {
          */
         inputmode?: InputMode;
         /**
-         * Create a css styleable mask.
-         *
-         * You need to include the inputmask.css in your page to use this option.
-         *
-         * See the inputmask.css for more info about the used styling. You can override the
-         * Inputmask.prototype.positionColorMask`if you need some custom positioning.
-         *
-         * @default false
-         */
-        colorMask?: boolean;
-        /**
-         * Disables predictive text on mobile devices.
-         *
-         * What it does:
-         *
-         * * changes the input type to password => disables predictive text
-         * * enables the colorMask option which creates a div, which surrounds the input. So we type in the hidden
-         *   password input and render the mask in the a created div.
-         *
-         * To use the colorMask, you need to include the inputmask.css. You might need to add some css-tweaks to make
-         * it all visually correct in your page.
-         *
-         * @default false
-         */
-        disablePredictiveText?: boolean;
-        /**
          * Specify to use the `data-inputmask` attributes or to ignore them.
          *
          * If you don't use data attributes you can disable the import by specifying `importDataAttributes: false`.
@@ -354,7 +362,9 @@ declare namespace Inputmask {
          */
         importDataAttributes?: boolean;
         /**
-         * Shift position of the mask entries on entry and deletion. In some cases shift the mask enties isn't desired.
+         * Alter the behavior of the char shifting on entry or deletion.
+         *
+         * In some cases shifting the mask entries or deletion should be more restrictive.
          *
          * Ex. date masks. Shifting month to day makes no sense
          *
@@ -362,13 +372,19 @@ declare namespace Inputmask {
          */
         shiftPositions?: boolean;
         /**
+         * Use the default defined definitions from the prototype.
+         *
+         * @default true
+         */
+        usePrototypeDefinitions?: boolean;
+        /**
          * Minimum value. This needs to be in the same format as the `inputFormat` when used with the datetime alias.
          */
-        min?: string;
+        min?: string | number;
         /**
          * Maximum value. This needs to be in the same format as the `inputFormat` when used with the datetime alias.
          */
-        max?: string;
+        max?: string | number;
 
         /**
          * Number of fractionalDigits.
@@ -381,7 +397,7 @@ declare namespace Inputmask {
          *
          * @default "*"
          */
-        digits?: string;
+        digits?: string | number;
         /**
          * Specify wheter the digits are optional.
          *
@@ -395,18 +411,6 @@ declare namespace Inputmask {
          */
         enforceDigitsOnBlur?: boolean;
         /**
-         * Define the grouping of the integer part.
-         *
-         * @default 3
-         */
-        groupSize?: number;
-        /**
-         * Enable grouping of the integer part.
-         *
-         * @default false
-         */
-        autoGroup?: boolean;
-        /**
          * Allow to enter -.
          *
          * @default true
@@ -418,18 +422,6 @@ declare namespace Inputmask {
          * @default { front: "-", back: "" }
          */
         negationSymbol?: { front: string, back: string };
-        /**
-         * Number of integerDigits
-         *
-         * @default "+"
-         */
-        integerDigits?: string;
-        /**
-         * Specify wheter the integerdigits are optional.
-         *
-         * @default true
-         */
-        integerOptional?: boolean;
         /**
          * Define a prefix.
          *
@@ -443,11 +435,11 @@ declare namespace Inputmask {
          */
         suffix?: string;
         /**
-         * Do not allow assumption of decimals input without entering the radixpoint.
+         * Set the maximum value when the user types a number which is greater that the value of max.
          *
-         * @default true
+         * @default false
          */
-        decimalProtect?: boolean;
+        SetMaxOnOverflow?: boolean;
         /**
          * Define the step the ctrl-up & ctrl-down must take.
          *
@@ -463,11 +455,32 @@ declare namespace Inputmask {
          */
         unmaskAsNumber?: boolean;
         /**
-         * Indicates whether the value passed for initialization is text or a number
+         * Indicates whether the value passed for initialization is text or a number.
+         *
+         * * `text` - radixpoint should be the same as in the options
+         * * `number` - radixpoint should be a . as the default for a number in js
          *
          * @default "text"
          */
         inputType?: "text" | "number";
+        /**
+         * Set the function for rounding the values when set.
+         *
+         * Other examples:
+         * * `Math.floor`
+         * * `fn(x) { // do your own rounding logic // return x; }`
+         *
+         * @default Math.round
+         */
+        roundingFN?: (input: number) => number;
+        /**
+         * Define shortcuts. This will allow typing 1k => 1000, 2m => 2000000
+         *
+         * To disable just pass shortcuts: `null` as option
+         *
+         * @default {k: "000", m: "000000"}
+         */
+        shortcuts?: { [shortcut: string]: string } | null;
         /**
          * Format used to input a date. This option is only effective for the datetime alias.
          *
@@ -485,10 +498,10 @@ declare namespace Inputmask {
          * * `yyyy` - Year as 4 digits.
          * * `h` - Hours; no leading zero for single-digit hours (12-hour clock).
          * * `hh` - Hours; leading zero for single-digit hours (12-hour clock).
-         * * `hhh` - Hours; no limit
+         * * `hx` - Hours; no limit; `x` = number of digits ~ use as h2, h3, ...
          * * `H` - Hours; no leading zero for single-digit hours (24-hour clock).
          * * `HH` - Hours; leading zero for single-digit hours (24-hour clock).
-         * * `HHH` - Hours; no limit
+         * * `Hx` - Hours; no limit; `x` = number of digits ~ use as H2, H3, ...
          * * `M` - Minutes; no leading zero for single-digit minutes. Uppercase M unlike CF timeFormat's m to avoid
          *         conflict with months.
          * * `MM` - Minutes; leading zero for single-digit minutes. Uppercase MM unlike CF timeFormat's mm to avoid
@@ -601,6 +614,14 @@ declare namespace Inputmask {
          * Character to insert.
          */
         c: string;
+        /**
+         * @default true
+         */
+        fromIsValid?: boolean;
+        /**
+         * @default true
+         */
+        strict?: boolean;
     }
 
     interface CommandObject {
@@ -629,6 +650,10 @@ declare namespace Inputmask {
          * * `{ start: , end: }` => refresh from start to end.
          */
         refreshFromBuffer?: true | { start: number, end: number };
+        /**
+         * Rewrite the maskPos within the isvalid function.
+         */
+        rewritePosition?: number;
     }
 
     interface Static {
@@ -714,7 +739,28 @@ declare namespace Inputmask {
     }
 }
 
+// Helper to be able to export the types globally
+declare namespace Inputmask_ {
+    export {};
+    export import Proxy = Inputmask;
+}
+
 declare global {
+    namespace Inputmask {
+        type Casing = Inputmask_.Proxy.Casing;
+        type CommandObject = Inputmask_.Proxy.CommandObject;
+        type Definition = Inputmask_.Proxy.Definition;
+        type DefinitionValidator = Inputmask_.Proxy.DefinitionValidator;
+        type InputMode = Inputmask_.Proxy.InputMode;
+        type InsertPosition = Inputmask_.Proxy.InsertPosition;
+        type Instance = Inputmask_.Proxy.Instance;
+        type Options = Inputmask_.Proxy.Options;
+        type PositionCaretOnClick = Inputmask_.Proxy.PositionCaretOnClick;
+        type Range = Inputmask_.Proxy.Range;
+        type Static = Inputmask_.Proxy.Static;
+    }
+    const Inputmask: Inputmask.Static;
+
     interface HTMLElement {
         inputmask?: Inputmask.Instance;
     }
@@ -723,7 +769,7 @@ declare global {
         /**
          * Return the default (empty) mask value.
          */
-        inputmask(method: "getemptymask"): string; // tslint:disable-line:unified-signatures
+        inputmask(method: "getemptymask"): string;
         /**
          * The metadata of the actual mask provided in the mask definitions can be obtained by calling getmetadata. If
          * only a mask is provided the mask definition will be returned by the getmetadata.
@@ -733,7 +779,7 @@ declare global {
          * Check whether the returned value is masked or not; currently only works reliably when using `jquery.val` fn
          * to retrieve the value
          */
-        inputmask(method: "hasMaskedValue"): boolean; // tslint:disable-line:unified-signatures
+        inputmask(method: "hasMaskedValue"): boolean;
         /**
          * Verify whether the current value is complete or not.
          */
@@ -790,5 +836,4 @@ declare global {
 }
 
 declare const Inputmask: Inputmask.Static;
-export = Inputmask;
-export as namespace Inputmask;
+export default Inputmask;

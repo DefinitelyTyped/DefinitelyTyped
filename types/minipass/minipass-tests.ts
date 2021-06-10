@@ -35,7 +35,7 @@ mp.end('bar', encoding);
 mp.end('bar', encoding, () => {});
 mp.resume();
 mp.pause();
-mp.pipe(process.stdout); // $ExpectType WriteStream
+mp.pipe(process.stdout); // $ExpectType WriteStream & { fd: 1; }
 
 mp.on('data', chunk => {
     chunk; // $ExpectType any

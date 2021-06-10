@@ -1,5 +1,5 @@
-declare module "v8" {
-    import { Readable } from "stream";
+declare module 'v8' {
+    import { Readable } from 'stream';
 
     interface HeapSpaceInfo {
         space_name: string;

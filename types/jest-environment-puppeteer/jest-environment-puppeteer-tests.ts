@@ -26,7 +26,7 @@ class CustomJestEnvironment extends JestEnvironmentPuppeteer {
         await super.teardown();
     }
 
-    runScript(script: Script) {
+    runScript(script: Script): any {
         return super.runScript(script);
     }
 

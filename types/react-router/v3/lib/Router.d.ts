@@ -51,7 +51,7 @@ type LocationFunction = (location: LocationDescriptor) => void;
 type GoFunction = (n: number) => void;
 type NavigateFunction = () => void;
 type ActiveFunction = (location: LocationDescriptor, indexOnly?: boolean) => boolean;
-type LeaveHookFunction = (route: any, callback: RouteHook) => void;
+type LeaveHookFunction = (route: any, callback: RouteHook) => () => void;
 type CreatePartFunction<Part> = (pathOrLoc: LocationDescriptor, query?: any) => Part;
 
 export interface InjectedRouter {

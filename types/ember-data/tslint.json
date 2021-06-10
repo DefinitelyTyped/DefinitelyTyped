@@ -10,6 +10,7 @@
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,
         "prefer-const": false,
+        "space-before-function-paren": false,
         "npm-naming": [true, { "mode": "code", "errors": [["NoDefaultExport", false]] }]
     }
 }

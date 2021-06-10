@@ -49,12 +49,24 @@ export interface APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext>
     routeKey?: string;
 }
 
+export interface APIGatewayEventClientCertificate {
+    clientCertPem: string;
+    serialNumber: string;
+    subjectDN: string;
+    issuerDN: string;
+    validity: {
+        notAfter: string;
+        notBefore: string;
+    };
+}
+
 export interface APIGatewayEventIdentity {
     accessKey: string | null;
     accountId: string | null;
     apiKey: string | null;
     apiKeyId: string | null;
     caller: string | null;
+    clientCert: APIGatewayEventClientCertificate | null;
     cognitoAuthenticationProvider: string | null;
     cognitoAuthenticationType: string | null;
     cognitoIdentityId: string | null;

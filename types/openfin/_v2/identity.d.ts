@@ -3,6 +3,10 @@ export interface Identity {
     name?: string;
     entityType?: any;
 }
+export interface NamedIdentity {
+    uuid: string;
+    name: string;
+}
 export interface GroupWindowIdentity extends Identity {
     isExternalWindow?: boolean;
 }

@@ -375,7 +375,7 @@ select('core/editor').getCurrentPostAttribute('content');
 select('core/editor').getCurrentPostAttribute('author');
 // $ExpectType any[] | undefined
 select('core/editor').getCurrentPostAttribute('meta');
-// $ExpectType "open" | "closed" | undefined
+// $ExpectType "open" | "closed" | undefined || OpenOrClosed | undefined
 select('core/editor').getCurrentPostAttribute('comment_status');
 // $ExpectType number | undefined
 select('core/editor').getCurrentPostAttribute('menu_order');

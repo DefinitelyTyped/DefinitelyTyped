@@ -1,5 +1,5 @@
 import { WindowOption } from '../window/windowOption';
-import { ShortcutOverride } from '../../shapes';
+import { ShortcutOverride } from '../../shapes/shapes';
 import { ViewCreationOptions } from '../view/view';
 export interface ApplicationOption extends LegacyWinOptionsInAppOptions {
     disableIabSecureLogging?: boolean;

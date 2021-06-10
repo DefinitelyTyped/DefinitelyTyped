@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@babel/generator": [
-                "babel__generator"
+            "@babel/*": [
+                "babel__*"
             ]
         }
     },

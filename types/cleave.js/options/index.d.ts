@@ -25,6 +25,7 @@ export interface CleaveOptions {
 export interface CleaveOptions {
     time?: boolean;
     timePattern?: ReadonlyArray<string>;
+    timeFormat?: string;
 }
 
 // Numeral Options

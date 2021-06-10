@@ -4,10 +4,7 @@
         "adjacent-overload-signatures": false,
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
-        "eofline": false,
         "interface-name": false,
-        "no-redundant-jsdoc": false,
         "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "npm-naming": [
@@ -23,7 +20,6 @@
             }
         ],
         "only-arrow-functions": false,
-        "prefer-method-signature": false,
         "prefer-template": false,
         "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,

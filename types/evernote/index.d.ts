@@ -4,7 +4,6 @@
 //                 Felipe Castillo <https://github.com/fcastilloec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //              https://dev.evernote.com/doc/reference/
-// TypeScript Version: 2.3
 
 import { oauth1tokenCallback, OAuth } from 'oauth';
 
@@ -100,12 +99,12 @@ export namespace NoteStore {
         });
     }
     class NoteCollectionCounts {
-        notebookCounts?: Map<Types.Guid, number>;
-        tagCounts?: Map<Types.Guid, number>;
+        notebookCounts?: Record<Types.Guid, number>;
+        tagCounts?: Record<Types.Guid, number>;
         trashCount?: number;
         constructor(args?: {
-            notebookCounts?: Map<Types.Guid, number>;
-            tagCounts?: Map<Types.Guid, number>;
+            notebookCounts?: Record<Types.Guid, number>;
+            tagCounts?: Record<Types.Guid, number>;
             trashCount?: number;
         });
     }

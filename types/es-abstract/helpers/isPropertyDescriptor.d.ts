@@ -1,16 +1,12 @@
-import {
-    AccessorDescriptor as ESAccessorDescriptor,
-    DataDescriptor as ESDataDescriptor,
-    PropertyDescriptor as ESPropertyDescriptor,
-} from '../index';
+import type { PropertyDescriptor } from '../index';
 
 declare function IsPropertyDescriptor(
     ES: {
         Type(O: unknown): string | undefined;
-        IsAccessorDescriptor(Desc: unknown): Desc is ESAccessorDescriptor;
-        IsDataDescriptor(Desc: unknown): Desc is ESDataDescriptor;
+        IsAccessorDescriptor(Desc: unknown): boolean;
+        IsDataDescriptor(Desc: unknown): boolean;
     },
     Desc: unknown,
-): Desc is ESPropertyDescriptor;
+): Desc is PropertyDescriptor;
 
 export = IsPropertyDescriptor;

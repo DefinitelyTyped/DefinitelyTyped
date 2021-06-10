@@ -1,11 +1,10 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactDivAttr } from "../../../typings/shared";
-
-interface InheritedProps extends ReactDivAttr, EmbeddedIconProps { }
+import { ReactDivAttr } from "../../../typings/shared";
 
 export type InlineLoadingStatus = 'active' | 'error' | 'finished' | 'inactive';
-export interface InlineLoadingProps extends InheritedProps {
+export interface InlineLoadingProps extends ReactDivAttr {
     description?: React.ReactNode;
+    iconDescription?: string;
     onSuccess?(): void;
     /**
      * @deprecated

@@ -179,7 +179,13 @@ interface ChannelEvent<T> extends SimperiumEvent {
     indexingStateChange: (isIndexing: boolean) => void;
     ready: () => void;
     send: (message: string) => void;
-    update: (entityId: EntityId, updatedEntity: T) => void;
+    update: (
+        entityId: EntityId,
+        updatedEntity: T,
+        originalEntity?: T,
+        patch?: JSONDiff<T>,
+        isIndexing?: boolean,
+    ) => void;
     version: (entityId: EntityId, version: number, entity: T) => void;
 }
 

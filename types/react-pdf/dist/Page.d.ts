@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PDFPageProxy } from 'pdfjs-dist';
+import { PDFPageProxy as _PDFPageProxy } from 'pdfjs-dist';
 
 export type RenderFunction = () => JSX.Element;
 
@@ -37,7 +37,20 @@ export interface TextItem {
     fontName: string;
 }
 
+export interface PDFPageProxy extends _PDFPageProxy {
+    width: number;
+    height: number;
+    originalWidth: number;
+    originalHeight: number;
+}
+
 export interface Props {
+    /**
+     * A function that behaves like ref,
+     * but it's passed to main `<canvas>` rendered by `<Page>` component.
+     */
+    canvasRef?: React.LegacyRef<HTMLCanvasElement>;
+
     /**
      * Defines custom class name(s), that will be added to rendered element.
      * @default 'react-pdf__Page'
@@ -187,4 +200,4 @@ export interface Props {
     width?: number;
 }
 
-export default class Page extends React.Component<Props> { }
+export default class Page extends React.Component<Props> {}

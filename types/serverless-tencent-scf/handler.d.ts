@@ -9,11 +9,12 @@ export type Handler<TEvent, TResult> = (
 
 export interface Context {
     callbackWaitsForEmptyEventLoop: boolean;
+    getRemainingTimeInMillis: () => number;
     memory_limit_in_mb: number;
     time_limit_in_ms: number;
     request_id: string;
-    environment: string | null;
-    environ: string | null;
+    environment: string;
+    environ: string;
     function_version: string;
     function_name: string;
     namespace: string;

@@ -2,7 +2,7 @@ import * as React from "react";
 
 export type ButtonOptions = "emphasized" | "transparent";
 
-export type ButtonTypes = "standard" | "positive" | "negative" | "medium";
+export type ButtonTypes = "standard" | "positive" | "negative" | "medium" | "ghost" | "attention";
 
 export type ButtonProps = {
     className?: string;

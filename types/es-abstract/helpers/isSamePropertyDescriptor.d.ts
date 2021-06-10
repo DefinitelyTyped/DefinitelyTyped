@@ -1,9 +1,11 @@
-import { PropertyDescriptor as ESPropertyDescriptor } from '../index';
+import type { PropertyDescriptor } from '../index';
 
 declare function isSamePropertyDescriptor(
-    ES: { SameValue(x: unknown, y: unknown): boolean },
-    D1: ESPropertyDescriptor,
-    D2: ESPropertyDescriptor,
+    ES: {
+        SameValue(x: unknown, y: unknown): boolean;
+    },
+    D1: PropertyDescriptor,
+    D2: PropertyDescriptor,
 ): boolean;
 
 export = isSamePropertyDescriptor;

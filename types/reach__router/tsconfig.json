@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "paths": {
-            "@reach/router": ["reach__router"]
+            "@reach/*": ["reach__*"]
         }
     },
     "files": ["index.d.ts", "reach__router-tests.tsx"]

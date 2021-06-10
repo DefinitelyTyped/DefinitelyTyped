@@ -27,7 +27,15 @@ const testCases = [
     <span translate="no" />,
     <span translate="yes" />,
     <svg><image crossOrigin="anonymous" /></svg>,
+    <details open={true} onToggle={() => {}} />,
     <input value={['one', 'two'] as ReadonlyArray<string>} />,
     <input value={['one', 'two'] as string[]} />,
-    <input value={['one', 'two']} />
+    <input value={['one', 'two']} />,
+    <input enterKeyHint="done" />,
+    <div role="dialog" />,
+    <div role="none presentation" />,
+    <svg role="treeitem" />,
+    // $ExpectError
+    <input enterKeyHint="don" />,
+    <video disableRemotePlayback />
 ];

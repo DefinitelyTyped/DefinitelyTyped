@@ -6,7 +6,7 @@ import {
     PusherMessage,
     PusherReadCursor,
     UserPresenceState,
-} from 'pusher__chatkit-client';
+} from '@pusher/chatkit-client';
 
 const chatManager = new ChatManager({
     instanceLocator: 'abc123',

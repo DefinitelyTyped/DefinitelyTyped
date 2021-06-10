@@ -112,16 +112,9 @@ declare namespace OpenSeadragon {
 
     function capitalizeFirstLetter(value: string): string;
 
-    function createCallback(
-        object: object,
-        method: (...args: any[]) => void,
-        ...args: any[]
-    ): (...args: any[]) => void;
+    function createCallback(object: object, method: (...args: any[]) => void, ...args: any[]): (...args: any[]) => void;
 
-    function delegate(
-        object: object,
-        method: (...args: any[]) => void
-    ): (object: any, ...args: any[]) => void; // REVIEW: unsure of return type
+    function delegate(object: object, method: (...args: any[]) => void): (object: any, ...args: any[]) => void; // REVIEW: unsure of return type
 
     function eventIsCanceled(event: OSDEvent<any>): boolean;
 
@@ -151,11 +144,7 @@ declare namespace OpenSeadragon {
 
     function imageFormatSupported(extension?: string): boolean;
 
-    function indexOf(
-        array: any[],
-        searchElement: object,
-        fromIndex?: number
-    ): number;
+    function indexOf(array: any[], searchElement: object, fromIndex?: number): number;
 
     // (missing jquery functions)
 
@@ -199,11 +188,7 @@ declare namespace OpenSeadragon {
         useCapture?: boolean | { capture?: boolean }
     ): void;
 
-    function setElementOpacity(
-        element: Element | string,
-        opacity: number,
-        usesAlpha?: boolean
-    ): void;
+    function setElementOpacity(element: Element | string, opacity: number, usesAlpha?: boolean): void;
 
     function setElementPointerEvents(
         element: Element | string,
@@ -300,17 +285,17 @@ declare namespace OpenSeadragon {
         opacity?: number;
         preload?: boolean;
         compositeOperation?:
-            | "source-over"
-            | "source-atop"
-            | "source-in"
-            | "source-out"
-            | "destination-over"
-            | "destination-atop"
-            | "destination-in"
-            | "destination-out"
-            | "lighter"
-            | "copy"
-            | "xor";
+            | 'source-over'
+            | 'source-atop'
+            | 'source-in'
+            | 'source-out'
+            | 'destination-over'
+            | 'destination-atop'
+            | 'destination-in'
+            | 'destination-out'
+            | 'lighter'
+            | 'copy'
+            | 'xor';
         placeholderFillStyle?: string | CanvasGradient | CanvasPattern;
         degrees?: number;
         flipped?: boolean;
@@ -349,12 +334,7 @@ declare namespace OpenSeadragon {
         zoomPerSecond?: number;
         showNavigator?: boolean;
         navigatorId?: string;
-        navigatorPosition?:
-            | "TOP_LEFT"
-            | "TOP_RIGHT"
-            | "BOTTOM_LEFT"
-            | "BOTTOM_RIGHT"
-            | "ABSOLUTE";
+        navigatorPosition?: 'TOP_LEFT' | 'TOP_RIGHT' | 'BOTTOM_LEFT' | 'BOTTOM_RIGHT' | 'ABSOLUTE';
         navigatorSizeRatio?: number;
         navigatorMaintainSizeRatio?: boolean;
         navigatorTop?: number | string;
@@ -411,10 +391,10 @@ declare namespace OpenSeadragon {
         collectionMode?: boolean;
         collectionRows?: number;
         collectionColumns?: number;
-        collectionLayout?: "horizontal" | "vertical";
+        collectionLayout?: 'horizontal' | 'vertical';
         collectionTileSize?: number;
         collectionTileMargin?: number;
-        crossOriginPolicy?: "Anonymous" | "use-credentials" | false;
+        crossOriginPolicy?: 'Anonymous' | 'use-credentials' | false;
         ajaxWithCredentials?: boolean;
         loadTilesWithAjax?: boolean;
         ajaxHeaders?: object;
@@ -465,22 +445,16 @@ declare namespace OpenSeadragon {
             onBlur?: EventHandler<ButtonEvent>;
         });
 
-        addHandler(
-            eventName: ButtonEventName,
-            handler: EventHandler<ButtonEvent>,
-            userData?: object
-        ): void;
+        addHandler(eventName: ButtonEventName, handler: EventHandler<ButtonEvent>, userData?: object): void;
         addOnceHandler(
             eventName: ButtonEventName,
             handler: EventHandler<ButtonEvent>,
             userData?: object,
-            times?: number
+            times?: number,
         ): void;
         disable(): void;
         enable(): void;
-        getHandler(
-            eventName: ButtonEventName
-        ): (source: ButtonEventName, ...args: any[]) => void;
+        getHandler(eventName: ButtonEventName): (source: ButtonEventName, ...args: any[]) => void;
         raiseEvent(eventName: ButtonEventName, eventArgs: object): void;
         removeAllHandlers(eventName: ButtonEventName): void;
         removeHandler(
@@ -515,11 +489,7 @@ declare namespace OpenSeadragon {
         element: Element;
         wrapper: Element;
 
-        constructor(
-            element: Element,
-            options: TControlOptions,
-            container: Element
-        );
+        constructor(element: Element, options: TControlOptions, container: Element);
 
         destroy(): void;
         isVisible(): boolean;
@@ -541,14 +511,7 @@ declare namespace OpenSeadragon {
         maxLevel: number;
         minLevel: number;
 
-        constructor(
-            x: number,
-            y: number,
-            width: number,
-            height: number,
-            minLevel: number,
-            maxLevel: number
-        );
+        constructor(x: number, y: number, width: number, height: number, minLevel: number, maxLevel: number);
     }
 
     class Drawer {
@@ -557,12 +520,7 @@ declare namespace OpenSeadragon {
         context: CanvasRenderingContext2D | null;
         // element : Element; // Deprecated
 
-        constructor(options: {
-            viewer: Viewer;
-            viewport: Viewport;
-            element: Element;
-            debugGridColor?: string;
-        });
+        constructor(options: { viewer: Viewer; viewport: Viewport; element: Element; debugGridColor?: string });
 
         blendSketch(options: {
             opacity: number;
@@ -576,14 +534,10 @@ declare namespace OpenSeadragon {
         destroy(): void;
         drawTile(
             tile: Tile,
-            drawingHandler: (
-                context: CanvasRenderingContext2D,
-                tile: any,
-                rendered: any
-            ) => void, // TODO: determine handler parameter types
+            drawingHandler: (context: CanvasRenderingContext2D, tile: any, rendered: any) => void, // TODO: determine handler parameter types
             useSketch: boolean,
             scale?: number,
-            translate?: Point
+            translate?: Point,
         ): void;
         getCanvasSize(sketch: boolean): Point;
         getOpacity(): number;
@@ -604,7 +558,7 @@ declare namespace OpenSeadragon {
             fileFormat: number,
             displayRects: number,
             minLevel: number,
-            maxLevel: number
+            maxLevel: number,
         );
     }
 
@@ -644,7 +598,7 @@ declare namespace OpenSeadragon {
                 url: string;
                 width: number;
                 height: number;
-            }>
+            }>,
         );
     }
 
@@ -787,20 +741,10 @@ declare namespace OpenSeadragon {
     }
 
     class OsmTileSource extends TileSource {
-        constructor(
-            width: number,
-            height: number,
-            tileSize: number,
-            tileOverlap: number,
-            tilesUrl: string
-        );
+        constructor(width: number, height: number, tileSize: number, tileOverlap: number, tilesUrl: string);
     }
 
-    type OnDrawCallback = (
-        position: Point,
-        size: Point,
-        element: HTMLElement
-    ) => void;
+    type OnDrawCallback = (position: Point, size: Point, element: HTMLElement) => void;
 
     interface OverlayOptions {
         element: HTMLElement;
@@ -846,13 +790,7 @@ declare namespace OpenSeadragon {
         width: number;
         height: number;
         degrees: number;
-        constructor(
-            x?: number,
-            y?: number,
-            width?: number,
-            height?: number,
-            degrees?: number
-        );
+        constructor(x?: number, y?: number, width?: number, height?: number, degrees?: number);
         clone(): Rect;
         containsPoint(point: Point, epsilon?: number): boolean;
         equals(rectangle: Rect): boolean;
@@ -942,17 +880,13 @@ declare namespace OpenSeadragon {
             context2D: CanvasRenderingContext2D,
             loadWithAjax: boolean,
             ajaxHeaders: object,
-            sourceBounds: Rect
+            sourceBounds: Rect,
         );
         drawCanvas(
             context: CanvasRenderingContext2D,
-            drawingHandler: (
-                context: CanvasRenderingContext2D,
-                tile: any,
-                rendered: any
-            ) => void,
+            drawingHandler: (context: CanvasRenderingContext2D, tile: any, rendered: any) => void,
             scale?: number,
-            translate?: Point
+            translate?: Point,
         ): void;
         drawHTML(container: Element): void;
         getScaleForEdgeSmoothing(): number;
@@ -1010,23 +944,11 @@ declare namespace OpenSeadragon {
             ajaxHeaders?: object;
         });
 
-        addHandler(
-            eventName: string,
-            handler: EventHandler<TiledImageEvent>,
-            userData?: object
-        ): void;
-        addOnceHandler(
-            eventName: string,
-            handler: EventHandler<TiledImageEvent>,
-            userData?: object
-        ): void;
+        addHandler(eventName: string, handler: EventHandler<TiledImageEvent>, userData?: object): void;
+        addOnceHandler(eventName: string, handler: EventHandler<TiledImageEvent>, userData?: object): void;
         destroy(): void;
         draw(): void;
-        fitBounds(
-            bounds: Rect,
-            anchor?: Placement,
-            immediately?: boolean
-        ): void;
+        fitBounds(bounds: Rect, anchor?: Placement, immediately?: boolean): void;
         getBounds(current?: boolean): Rect;
         getBoundsNoRotate(current?: boolean): Rect;
         getClip(): Rect | null;
@@ -1042,34 +964,22 @@ declare namespace OpenSeadragon {
         getTileBounds(level: number, x: number, y: number): Rect;
         imageToViewerElementCoordinats(pixel: Point): Point;
         imageToViewportCoordinates(position: Point, current?: boolean): Point;
-        imageToViewportCoordinates(
-            imageX: number,
-            imageY: number,
-            current?: boolean
-        ): Point;
+        imageToViewportCoordinates(imageX: number, imageY: number, current?: boolean): Point;
         imageToViewportRectangle(
             imageX: number,
             imageY?: number,
             pixelWidth?: number,
             pixelHeight?: number,
-            current?: boolean
+            current?: boolean,
         ): Rect;
-        imageToViewportRectangle(
-            position: Rect,
-            pixelWidth?: number,
-            pixelHeight?: number,
-            current?: boolean
-        ): Rect;
+        imageToViewportRectangle(position: Rect, pixelWidth?: number, pixelHeight?: number, current?: boolean): Rect;
 
         imageToViewportZoom(imageZoom: number): number;
         imageToWindowCoordinates(pixel: Point): Point;
         needsDraw(): boolean;
         raiseEvent(eventName: string, eventArgs: object): void;
         removeAllHandlers(eventName: string): void;
-        removeHandler(
-            eventName: string,
-            handler: EventHandler<TiledImageEvent>
-        ): void;
+        removeHandler(eventName: string, handler: EventHandler<TiledImageEvent>): void;
         reset(): void;
         resetCroppingPolygons(): void;
         setClip(newClip: Rect | null): void;
@@ -1085,18 +995,14 @@ declare namespace OpenSeadragon {
         update(): boolean;
         viewerElementToImageCoordinates(pixel: Point): Point;
         viewportToImageCoordinates(position: Point, current?: boolean): Point;
-        viewportToImageCoordinates(
-            viewerX: number,
-            viewerY: number,
-            current?: boolean
-        ): Point;
+        viewportToImageCoordinates(viewerX: number, viewerY: number, current?: boolean): Point;
         viewportToImageRectangle(position: Rect): Rect;
         viewportToImageRectangle(
             viewportX: number,
             viewportY: number,
             pixelWidth?: number,
             pixelHeight?: number,
-            current?: boolean
+            current?: boolean,
         ): Rect;
         viewportToImageZoom(viewportZoom: number): number;
         windowToImageCoordinates(pixel: Point): Point;
@@ -1110,16 +1016,12 @@ declare namespace OpenSeadragon {
         ready: boolean;
         tileOverlap: number;
         constructor(options: TileSourceOptions);
-        addHandler(
-            eventName: string,
-            handler: EventHandler<TileSourceEvent>,
-            userData?: object
-        ): void;
+        addHandler(eventName: string, handler: EventHandler<TileSourceEvent>, userData?: object): void;
         addOnceHandler(
             eventName: string,
             handler: EventHandler<TileSourceEvent>,
             userData?: object,
-            times?: number
+            times?: number,
         ): void;
         configure(data: string | object | any[] | Document): object;
         getClosestLevel(): number;
@@ -1130,12 +1032,7 @@ declare namespace OpenSeadragon {
         getPixelRatio(level: number): number;
         getTileAjaxHeaders(level: number, x: number, y: number): object;
         getTileAtPoint(level: number, point: Point): Tile;
-        getTileBounds(
-            level: number,
-            x: number,
-            y: number,
-            isSource?: boolean
-        ): Rect;
+        getTileBounds(level: number, x: number, y: number, isSource?: boolean): Rect;
         getTileHeight(level: number): number;
         getTileUrl(level: number, x: number, y: number): string;
         getTileWidth(level: number): number;
@@ -1153,13 +1050,7 @@ declare namespace OpenSeadragon {
     }
 
     class TmsTileSource extends TileSource {
-        constructor(
-            width: number,
-            height: number,
-            tileSize: number,
-            tileOverlap: number,
-            tilesUrl: string
-        );
+        constructor(width: number, height: number, tileSize: number, tileOverlap: number, tilesUrl: string);
     }
 
     interface ImageOptions {
@@ -1207,26 +1098,18 @@ declare namespace OpenSeadragon {
 
         constructor(options: Options);
         _cancelPendingImages(): void;
-        addHandler(
-            eventName: ViewerEventName,
-            callback: EventHandler<ViewerEvent>,
-            userData?: object
-        ): void;
+        addHandler(eventName: ViewerEventName, callback: EventHandler<ViewerEvent>, userData?: object): void;
         addOnceHandler(
             eventName: ViewerEventName,
             callback: EventHandler<ViewerEvent>,
             userData?: object,
-            times?: number
+            times?: number,
         ): void;
         addOverlay(
             element: HTMLElement | string | object,
             location?: Point | Rect,
             placement?: Placement,
-            onDraw?: (
-                element: HTMLElement,
-                location: Location,
-                placement: Placement
-            ) => void
+            onDraw?: (element: HTMLElement, location: Location, placement: Placement) => void,
         ): Viewer;
         addReferenceStrip(): void;
         addSimpleImage(options: SimpleImageOptions): void;
@@ -1246,10 +1129,7 @@ declare namespace OpenSeadragon {
         isMouseNavEnabled(): boolean;
         isOpen(): boolean;
         isVisible(): boolean;
-        open(
-            tileSources: string | object | TileSource[],
-            initialPage?: number
-        ): Viewer;
+        open(tileSources: string | object | TileSource[], initialPage?: number): Viewer;
         raiseEvent(eventName: string, eventArgs?: object): void;
         removeAllHandlers(eventName: string): void;
         removeHandler(
@@ -1264,11 +1144,7 @@ declare namespace OpenSeadragon {
         setFullScreen(fullScreen: boolean): Viewer;
         setMouseNavEnabled(enabled: boolean): Viewer;
         setVisible(visible: boolean): Viewer;
-        updateOverlay(
-            element: Element | string,
-            location: Point | Rect,
-            placement?: Placement
-        ): Viewer;
+        updateOverlay(element: Element | string, location: Point | Rect, placement?: Placement): Viewer;
     }
 
     class Viewport {
@@ -1290,15 +1166,9 @@ declare namespace OpenSeadragon {
 
         applyConstraints(immediately?: boolean): Viewport;
         deltaPixelsFromPoints(deltaPoints: Point, current?: boolean): Point;
-        deltaPixelsFromPointsNoRotate(
-            deltaPoints: Point,
-            current?: boolean
-        ): Point;
+        deltaPixelsFromPointsNoRotate(deltaPoints: Point, current?: boolean): Point;
         deltaPointsFromPixels(deltaPoints: Point, current?: boolean): Point;
-        deltaPointsFromPixelsNoRotate(
-            deltaPoints: Point,
-            current?: boolean
-        ): Point;
+        deltaPointsFromPixelsNoRotate(deltaPoints: Point, current?: boolean): Point;
         ensureVisible(immediately?: boolean): Viewport;
         fitBounds(bounds: Rect, immediately?: boolean): Viewport;
         fitBoundsWithConstraints(bounds: Rect, immediately?: boolean): Viewport;
@@ -1325,17 +1195,12 @@ declare namespace OpenSeadragon {
         imageToViewerElementCoordinates(pixel: Point): Point;
         imageToViewportCoordinates(position: Point): Point;
         imageToViewportCoordinates(imageX: number, imageY: number): Point;
-        imageToViewportCoordinates(
-            imageX: number,
-            imageY: number,
-            pixelWidth: number,
-            pixelHeight: number
-        ): Point;
+        imageToViewportCoordinates(imageX: number, imageY: number, pixelWidth: number, pixelHeight: number): Point;
         imageToViewportRectangle(
             imageX: number | Rect,
             imageY?: number,
             pixelWidth?: number,
-            pixelHeight?: number
+            pixelHeight?: number,
         ): Rect;
         imageToViewportZoom(imageZoom: number): number;
         imageToWindowCoordinates(pixel: Point): Point;
@@ -1358,48 +1223,26 @@ declare namespace OpenSeadragon {
         viewportToImageCoordinates(position: Point): Point;
         viewportToImageCoordinates(viewerX: number, viewerY: number): Point;
         viewportToImageRectangle(rectangle: Rect): Rect;
-        viewportToImageRectangle(
-            viewerX: number,
-            viewerY: number,
-            pointWidth: number,
-            pointHeight: number
-        ): Rect;
+        viewportToImageRectangle(viewerX: number, viewerY: number, pointWidth: number, pointHeight: number): Rect;
         viewportToImageZoom(viewportZoom: number): number;
         viewportToViewerElementCoordinates(point: Point): Point;
         viewportToViewerElementRectangle(rectangle: Rect): Rect;
         viewportToWindowCoordinates(point: Point): Point;
         windowToImageCoordinates(pixel: Point): Point;
         windowToViewportCoordinates(pixel: Point): Point;
-        zoomBy(
-            factor: number,
-            refPoint?: Point,
-            immediately?: boolean
-        ): Viewport;
-        zoomTo(
-            factor: number,
-            refPoint?: Point,
-            immediately?: boolean
-        ): Viewport;
+        zoomBy(factor: number, refPoint?: Point, immediately?: boolean): Viewport;
+        zoomTo(factor: number, refPoint?: Point, immediately?: boolean): Viewport;
     }
 
     class World extends EventSource {
         constructor(options: object);
 
-        addHandler(
-            eventName: WorldEventName,
-            callback: EventHandler<WorldEvent>,
-            userData?: object
-        ): void;
+        addHandler(eventName: WorldEventName, callback: EventHandler<WorldEvent>, userData?: object): void;
         addItem(item: TiledImage, options?: { index?: number }): void;
-        addOnceHandler(
-            eventName: string,
-            handler: EventHandler<WorldEvent>,
-            userData?: object,
-            times?: number
-        ): void;
+        addOnceHandler(eventName: string, handler: EventHandler<WorldEvent>, userData?: object, times?: number): void;
         arrange(options: {
             immediately?: boolean;
-            layout?: "horizontal" | "vertical";
+            layout?: 'horizontal' | 'vertical';
             rows?: number;
             columns?: number;
             tileSize?: number;
@@ -1428,93 +1271,77 @@ declare namespace OpenSeadragon {
     }
 
     class ZoomifyTileSource extends TileSource {
-        constructor(
-            width: number,
-            height: number,
-            tileSize: number,
-            tilesUrl: string
-        );
+        constructor(width: number, height: number, tileSize: number, tilesUrl: string);
     }
 
     // TODO: use proper eventName type aliases, and OSDEvent where appropiate
 
     type EventHandler<T extends OSDEvent<any>> = (event: T) => void;
 
-    type ButtonEventName =
-        | "blur"
-        | "click"
-        | "enter"
-        | "exit"
-        | "focus"
-        | "press"
-        | "release";
+    type ButtonEventName = 'blur' | 'click' | 'enter' | 'exit' | 'focus' | 'press' | 'release';
     type TiledImageEventName =
-        | "bounds-change"
-        | "clip-change"
-        | "composite-operation-change"
-        | "fully-loaded-change"
-        | "opacity-change";
-    type TileSourceEventname = "open-failed" | "ready";
+        | 'bounds-change'
+        | 'clip-change'
+        | 'composite-operation-change'
+        | 'fully-loaded-change'
+        | 'opacity-change';
+    type TileSourceEventname = 'open-failed' | 'ready';
     type ViewerEventName =
-        | "add-item-failed"
-        | "add-overlay"
-        | "animation"
-        | "animation-finish"
-        | "animation-start"
-        | "canvas-click"
-        | "canvas-double-click"
-        | "canvas-drag"
-        | "canvas-drag-end"
-        | "canvas-enter"
-        | "canvas-exit"
-        | "canvas-key"
-        | "canvas-nonprimary-press"
-        | "canvas-nonprimary-release"
-        | "canvas-pinch"
-        | "canvas-press"
-        | "canvas-release"
-        | "canvas-scroll"
-        | "clear-overlay"
-        | "close"
-        | "constrain"
-        | "container-enter"
-        | "container-exit"
-        | "controls-enabled"
-        | "flip"
-        | "full-page"
-        | "full-screen"
-        | "home"
-        | "mouse-enabled"
-        | "navigator-click"
-        | "navigator-drag"
-        | "navigator-scroll"
-        | "open"
-        | "open-failed"
-        | "page"
-        | "pan"
-        | "pre-full-page"
-        | "pre-full-screen"
-        | "remove-overlay"
-        | "reset-size"
-        | "resize"
-        | "rotate"
-        | "tile-drawing"
-        | "tile-drawn"
-        | "tile-load-failed"
-        | "tile-loaded"
-        | "tile-unloaded"
-        | "update-level"
-        | "update-overlay"
-        | "update-tile"
-        | "update-viewport"
-        | "viewport-change"
-        | "visible"
-        | "zoom";
-    type WorldEventName =
-        | "add-item"
-        | "item-index-change"
-        | "metrics-change"
-        | "remove-item";
+        | 'add-item-failed'
+        | 'add-overlay'
+        | 'animation'
+        | 'animation-finish'
+        | 'animation-start'
+        | 'canvas-click'
+        | 'canvas-double-click'
+        | 'canvas-drag'
+        | 'canvas-drag-end'
+        | 'canvas-enter'
+        | 'canvas-exit'
+        | 'canvas-key'
+        | 'canvas-nonprimary-press'
+        | 'canvas-nonprimary-release'
+        | 'canvas-pinch'
+        | 'canvas-press'
+        | 'canvas-release'
+        | 'canvas-scroll'
+        | 'clear-overlay'
+        | 'close'
+        | 'constrain'
+        | 'container-enter'
+        | 'container-exit'
+        | 'controls-enabled'
+        | 'flip'
+        | 'full-page'
+        | 'full-screen'
+        | 'home'
+        | 'mouse-enabled'
+        | 'navigator-click'
+        | 'navigator-drag'
+        | 'navigator-scroll'
+        | 'open'
+        | 'open-failed'
+        | 'page'
+        | 'pan'
+        | 'pre-full-page'
+        | 'pre-full-screen'
+        | 'remove-overlay'
+        | 'reset-size'
+        | 'resize'
+        | 'rotate'
+        | 'tile-drawing'
+        | 'tile-drawn'
+        | 'tile-load-failed'
+        | 'tile-loaded'
+        | 'tile-unloaded'
+        | 'update-level'
+        | 'update-overlay'
+        | 'update-tile'
+        | 'update-viewport'
+        | 'viewport-change'
+        | 'visible'
+        | 'zoom';
+    type WorldEventName = 'add-item' | 'item-index-change' | 'metrics-change' | 'remove-item';
 
     interface OSDEvent<T> extends Event {
         eventSource?: T;
@@ -1600,8 +1427,6 @@ declare namespace OpenSeadragon {
 
 export as namespace OpenSeadragon;
 
-declare function OpenSeadragon(
-    options: OpenSeadragon.Options
-): OpenSeadragon.Viewer;
+declare function OpenSeadragon(options: OpenSeadragon.Options): OpenSeadragon.Viewer;
 
 export = OpenSeadragon;

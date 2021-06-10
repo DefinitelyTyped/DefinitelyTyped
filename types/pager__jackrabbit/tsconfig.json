@@ -12,7 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@pager/jackrabbit": ["pager__jackrabbit"]
+            "@pager/*": ["pager__*"]
         }
     },
     "files": ["index.d.ts", "pager__jackrabbit-tests.ts"]

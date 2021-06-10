@@ -67,6 +67,8 @@ declare const customCommand: string;
 declare const customInArguments: string[];
 declare const customOutArguments: string[];
 declare const customFormat: string;
+declare const changeImage: string;
+declare const maskImage: string;
 let readStream: stream.PassThrough;
 
 gm(src)
@@ -101,6 +103,8 @@ gm(src)
     .colorspace(type)
     .command(customCommand)
     .compose(operator)
+    .composite(changeImage)
+    .composite(changeImage, maskImage)
     .compress(type)
     .contrast(multiplier)
     .convolve(kernel)

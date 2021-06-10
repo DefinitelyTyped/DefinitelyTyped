@@ -1,4 +1,4 @@
-import css, { Theme } from '@styled-system/css';
+import css, { CssFunctionReturnType, Theme } from '@styled-system/css';
 
 const theme = {
     colors: {
@@ -260,3 +260,10 @@ css({
         label: 'baz',
     },
 });
+
+// handles vendor-prefixed css properties
+css({
+    WebkitTouchCallout: 'none'
+});
+
+const result: CssFunctionReturnType = css({});

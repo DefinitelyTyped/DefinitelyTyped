@@ -524,6 +524,11 @@ function TestWebElementPromise() {
     elementPromise.then((element: webdriver.WebElement) => 'foo', (error: any) => 'bar').then((result: string) => {});
 }
 
+function testCondition() {
+    const conditionString = new webdriver.Condition<string>('message', () => Math.random() > 0.5 ? 'foo' : null);
+    const conditionStringPromise = new webdriver.Condition<string>('message', async () => Math.random() > 0.5 ? 'foo' : null);
+}
+
 declare let stringPromise: Promise<string>;
 
 function TestUntilModule() {

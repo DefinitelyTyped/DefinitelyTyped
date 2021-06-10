@@ -15,6 +15,12 @@ const test = (config: karma.Config) => {
                 prefs: {
                     'media.navigator.permission.disabled': true,
                 },
+                command: '<path to FF68>/firefox.exe',
+            },
+            Firefox78: {
+                base: 'Firefox',
+                name: 'Firefox78',
+                command: '<path to FF78>/firefox.exe',
             },
         },
     });

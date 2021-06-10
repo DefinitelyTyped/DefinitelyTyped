@@ -10,6 +10,8 @@ interface JasmineAjaxResponse {
     statusText?: string;
     responseText?: string;
     response?: string;
+    responseURL?: string;
+    responseJSON?: any;
     contentType?: string;
     responseHeaders?: { [key: string]: string };
 }
@@ -41,13 +43,10 @@ interface JasmineAjaxRequestTracker {
     filter(urlToMatch: string): JasmineAjaxRequest[];
 }
 
-interface JasmineAjaxRequestStubReturnOptions {
-    status?: number;
-    contentType?: string;
-    response?: string;
-    responseText?: string;
-    responseHeaders?: { [key: string]: string };
-}
+/**
+ * @deprecated Use JasmineAjaxResponse instead
+ */
+type JasmineAjaxRequestStubReturnOptions = JasmineAjaxResponse;
 
 interface JasmineAjaxRequestStubErrorOptions {
     status?: number;
@@ -59,7 +58,7 @@ interface JasmineAjaxRequestStub {
     query: string;
     data: string;
     method: string;
-    andReturn(options: JasmineAjaxRequestStubReturnOptions): void;
+    andReturn(options: JasmineAjaxResponse): void;
     andError(options: JasmineAjaxRequestStubErrorOptions): void;
     andTimeout(): void;
     andCallFunction(functionToCall: (request: JasmineAjaxRequest) => void): void;

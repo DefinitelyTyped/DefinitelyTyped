@@ -628,7 +628,6 @@ declare namespace WIA {
     }
 
     /** The Items object contains a collection of Item objects. See the Items property on the Device or Item object for details on accessing the Items object. */
-    // tslint:disable-next-line interface-name
     interface Items {
         /** Adds a new Item with the specified Name and Flags. The Flags value is created by using the OR operation with members of the WiaItemFlags enumeration. */
         Add(Name: string, Flags: number): void;

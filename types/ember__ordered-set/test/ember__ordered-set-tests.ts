@@ -54,7 +54,7 @@ const sansContext = OrderedSet.create<string>();
 
 sansContext.add('foo');
 
-sansContext.forEach(function(entry) {
+sansContext.forEach(function (entry) {
     assertType<string>(entry);
     assertType<void>(this);
 });
@@ -62,7 +62,7 @@ sansContext.forEach(function(entry) {
 // forEach() context can be set as second argument
 const withContext = OrderedSet.create<string>();
 const context = { bar: 'baz' };
-withContext.forEach(function(entry) {
+withContext.forEach(function (entry) {
     assertType<string>(entry);
     assertType<Dict<string>>(this);
 }, context);

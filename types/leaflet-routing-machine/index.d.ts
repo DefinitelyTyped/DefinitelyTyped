@@ -2,7 +2,7 @@
 // Project: https://github.com/perliedman/leaflet-routing-machine#readme
 // Definitions by: Chanaka Rathnayaka <https://github.com/chanakadrathnayaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.9
 
 import * as L from 'leaflet';
 
@@ -10,6 +10,7 @@ declare module 'leaflet' {
     namespace Routing {
         class Control extends Itinerary {
             constructor(options?: RoutingControlOptions);
+
             getWaypoints(): Waypoint[];
             setWaypoints(waypoints: Waypoint[] | LatLng[]): this;
             spliceWaypoints(index: number, waypointsToRemove: number, ...wayPoints: Waypoint[]): Waypoint[];
@@ -30,21 +31,25 @@ declare module 'leaflet' {
             autoRoute?: boolean;
             routeWhileDragging?: boolean;
             routeDragInterval?: number;
-            waypointMode?: string;
+            waypointMode?: 'connect' | 'snap';
             useZoomParameter?: boolean;
             showAlternatives?: boolean;
             altLineOptions?: LineOptions;
+            addWaypoints?: boolean;
+            defaultErrorHandler?: (error: any) => void;
         }
 
         class Itinerary extends L.Control {
             constructor(options: ItineraryOptions);
+
             setAlternatives(routes: IRoute[]): any;
             show(): void;
             hide(): void;
+            createAlternativesContainer(): HTMLElement;
         }
 
         interface ItineraryOptions {
-            pointMarkerStyle?: PathOptions;
+            pointMarkerStyle?: CircleMarkerOptions;
             summaryTemplate?: string;
             distanceTemplate?: string;
             timeTemplate?: string;
@@ -59,10 +64,12 @@ declare module 'leaflet' {
             collapseBtn?: (itinerary: Itinerary) => void;
             collapseBtnClass?: string;
             totalDistanceRoundingSensitivity?: number;
+            itineraryBuilder?: ItineraryBuilder;
         }
 
         class Plan extends Layer {
             constructor(waypoints: Waypoint[] | LatLng[], options?: PlanOptions);
+
             isReady(): boolean;
             getWaypoints(): Waypoint[];
             setWaypoints(waypoints: Waypoint[] | LatLng[]): any;
@@ -85,10 +92,13 @@ declare module 'leaflet' {
             createMarker?: (waypointIndex: number, waypoint: Waypoint, numberWaypoints: number) => Marker;
             routeWhileDragging?: boolean;
             reverseWaypoints?: boolean;
+            language?: string;
+            createGeocoderElement?: (waypoint: Waypoint, waypointIndex: number, numberWaypoints: number, options: PlanOptions) => GeocoderElement;
         }
 
         class Line extends LayerGroup {
             constructor(route: IRoute, options?: LineOptions);
+
             getBounds(): LatLngBounds;
         }
 
@@ -96,6 +106,8 @@ declare module 'leaflet' {
             styles?: PathOptions[];
             missingRouteStyles?: PathOptions[];
             addWaypoints?: boolean;
+            extendToWaypoints: boolean;
+            missingRouteTolerance: number;
         }
 
         class OSRMv1 implements IRouter {
@@ -103,6 +115,7 @@ declare module 'leaflet' {
 
             route(waypoints: Waypoint[], callback: (args?: any) => void, context?: {}, options?: RoutingOptions): void ;
             buildRouteUrl(waypoints: Waypoint[], options: RoutingOptions): string;
+            requiresMoreDetail(route: { inputWaypoints: Waypoint, waypoints: Waypoint, properties?: any }, zoom: any, bounds: LatLng[]): boolean;
         }
 
         interface OSRMOptions {
@@ -112,35 +125,63 @@ declare module 'leaflet' {
             polylinePrecision?: number;
             useHints?: boolean;
             routingOptions?: any;
+            suppressDemoServerWarning?: boolean;
+            language?: string;
+            requestParameters?: { [key: string]: any };
+            stepToText?: (step: any, leg: { legCount: number, legIndex: number }) => any;
         }
 
         class Formatter {
             constructor(options?: FormatterOptions);
+
             formatDistance(d: number, precision?: number): string;
             formatTime(t: number): string;
             formatInstruction(instruction: IInstruction): string;
+            getIconName(instruction: IInstruction, index: number):
+                'depart' | 'via' | 'enter-roundabout' | 'arrive' | 'continue' | 'bear-right' | 'turn-right'
+                | 'sharp-right' | 'u-turn' | 'sharp-left' | 'turn-left' | 'bear-left';
+            capitalize(s: string): string;
         }
 
         interface FormatterOptions {
             language?: string;
-            units?: string;
+            units?: 'metric' | 'imperial';
             roundingSensitivity?: number;
             unitNames?: {};
+            distanceTemplate: string;
         }
 
         class ItineraryBuilder {
             constructor();
-            createContainer(className: string): HTMLElement;
-            createStepsContainer(container: HTMLElement): void;
-            createStep(text: string, distance: string, steps: HTMLElement): void;
+
+            createContainer(className?: string): HTMLElement;
+            createStepsContainer(): HTMLElement;
+            createStep(text: string, distance: string, icon: string, steps: HTMLElement): void;
+        }
+
+        interface ItineraryBuilderOptions {
+            containerClassName: string;
         }
 
         class Localization {
-            constructor(lang: string);
-            localize(text: string): string;
+            constructor(langs: LocalizationOptions | LocalizationOptions[]);
+
+            localize(text: string | string[]): string;
         }
 
-        interface Waypoint {
+        interface LocalizationOptions {
+            directions: { N: string, NE: string, E: string, SE: string, S: string, SW: string, W: string, NW: string,
+                SlightRight: string, Right: string, SharpRight: string, SlightLeft: string, Left: string,
+                SharpLeft: string, Uturn: string };
+            instructions: { [key: string]: string[] | string };
+            formatOrder: (n: number | string) => string;
+            ui: { startPlaceholder: string, viaPlaceholder: string, endPlaceholder: string };
+            units: { meters: string, kilometers: string, yards: string, miles: string, hours: string, minutes: string, seconds: string };
+        }
+
+        class Waypoint {
+            constructor(latLng: LatLng, name: string, options: WaypointOptions);
+
             latLng: LatLng;
             name?: string;
             options?: WaypointOptions;
@@ -148,6 +189,50 @@ declare module 'leaflet' {
 
         interface WaypointOptions {
             allowUTurn?: boolean;
+        }
+
+        class GeocoderElement {
+            constructor(wp: Waypoint, i: number, numberWaypoints: number, options: GeocoderElementOptions);
+
+            getContainer(): HTMLElement;
+            setValue(v: any): void;
+            update(force: any): void;
+            focus(): void;
+        }
+
+        interface GeocoderElementOptions {
+            createGeocoder?: (i: number, nWps: number, options: GeocoderElementOptions) => any;
+            geocoderPlaceholder?: (i: number, numberWaypoints: number, geocoderElement: GeocoderElement) => string;
+            geocoderClass?: () => string;
+            waypointNameFallback?: (latLng: LatLng) => string;
+            maxGeocoderTolerance?: number;
+            autocompleteOptions?: {};
+            language?: string;
+        }
+
+        class ErrorControl extends L.Control {
+            constructor(routingControl: Control, options: ErrorControlOptions) ;
+        }
+
+        interface ErrorControlOptions {
+            header?: string;
+            formatMessage?: (error: IError) => string;
+        }
+
+        class AutoComplete {
+            constructor(element: HTMLElement, callback: any, context: any, options: AutoCompleteOptions) ;
+
+            close(): void;
+        }
+
+        interface AutoCompleteOptions {
+            timeout?: number;
+            blurTimeout?: number;
+            noResultsMessage?: string;
+        }
+
+        class MapBox extends OSRMv1 {
+            constructor(accessToken: string, options: OSRMOptions) ;
         }
 
         // Event Objects
@@ -218,7 +303,7 @@ declare module 'leaflet' {
         interface IInstruction {
             distance: number;
             time: number;
-            text?: number;
+            text?: string;
             type?: 'Straight' | 'SlightRight' | 'Right' | 'SharpRight' | 'TurnAround' | 'SharpLeft' | 'Left' | 'SlightLeft' | 'WaypointReached' |
                 'Roundabout' | 'StartAt' | 'DestinationReached' | 'EnterAgainstAllowedDirection' | 'LeaveAgainstAllowedDirection';
             road?: string;
@@ -247,11 +332,23 @@ declare module 'leaflet' {
 
         function plan(waypoints: Waypoint[] | LatLng[], options?: PlanOptions): Plan;
 
+        function waypoint(latLng: LatLng, name?: string, options?: WaypointOptions): Waypoint;
+
         function osrmv1(options?: OSRMOptions): OSRMv1;
+
+        function localization(options?: LocalizationOptions): Localization;
 
         function formatter(options?: FormatterOptions): Formatter;
 
-        function waypoint(latLng: LatLng, name?: string, options?: WaypointOptions): Waypoint;
+        function geocoderElement(waypoint: Waypoint, i: number, numberWaypoints: number, options: GeocoderElementOptions): GeocoderElement;
+
+        function itineraryBuilder(options?: ItineraryBuilderOptions): ItineraryBuilder;
+
+        function mapbox(accessToken: string, options: OSRMOptions): MapBox;
+
+        function errorControl(routingControl: Control, options: ErrorControlOptions): ErrorControl ;
+
+        function autocomplete(element: HTMLElement, callback: any, context: any, options: AutoCompleteOptions): AutoComplete;
     }
 
     namespace routing {
@@ -263,10 +360,22 @@ declare module 'leaflet' {
 
         function plan(waypoints: Routing.Waypoint[] | LatLng[], options?: Routing.PlanOptions): Routing.Plan;
 
+        function waypoint(latLng: LatLng, name?: string, options?: Routing.WaypointOptions): Routing.Waypoint;
+
         function osrmv1(options?: Routing.OSRMOptions): Routing.OSRMv1;
+
+        function localization(options?: Routing.LocalizationOptions): Routing.Localization;
 
         function formatter(options?: Routing.FormatterOptions): Routing.Formatter;
 
-        function waypoint(latLng: LatLng, name?: string, options?: Routing.WaypointOptions): Routing.Waypoint;
+        function geocoderElement(waypoint: Routing.Waypoint, i: number, numberWaypoints: number, options: Routing.GeocoderElementOptions): Routing.GeocoderElement;
+
+        function itineraryBuilder(options?: Routing.ItineraryBuilderOptions): Routing.ItineraryBuilder;
+
+        function mapbox(accessToken: string, options: Routing.OSRMOptions): Routing.MapBox;
+
+        function errorControl(routingControl: Routing.Control, options: Routing.ErrorControlOptions): Routing.ErrorControl;
+
+        function autocomplete(element: HTMLElement, callback: any, context: any, options: Routing.AutoCompleteOptions): Routing.AutoComplete;
     }
 }

@@ -1,5 +1,5 @@
-import * as Chain from 'stream-chain';
-import * as FilterBase from './FilterBase';
+import Chain = require('stream-chain');
+import FilterBase = require('./FilterBase');
 
 export = Replace;
 

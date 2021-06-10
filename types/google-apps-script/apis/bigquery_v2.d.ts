@@ -4,83 +4,83 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Bigquery {
+  namespace BigQuery {
     namespace Collection {
       interface DatasetsCollection {
         // Returns the dataset specified by datasetID.
-        get(projectId: string, datasetId: string): Bigquery.Schema.Dataset;
+        get(projectId: string, datasetId: string): BigQuery.Schema.Dataset;
         // Creates a new empty dataset.
-        insert(resource: Bigquery.Schema.Dataset, projectId: string): Bigquery.Schema.Dataset;
+        insert(resource: BigQuery.Schema.Dataset, projectId: string): BigQuery.Schema.Dataset;
         // Lists all datasets in the specified project to which you have been granted the READER dataset role.
-        list(projectId: string): Bigquery.Schema.DatasetList;
+        list(projectId: string): BigQuery.Schema.DatasetList;
         // Lists all datasets in the specified project to which you have been granted the READER dataset role.
-        list(projectId: string, optionalArgs: object): Bigquery.Schema.DatasetList;
+        list(projectId: string, optionalArgs: object): BigQuery.Schema.DatasetList;
         // Updates information in an existing dataset. The update method replaces the entire dataset resource, whereas the patch method only replaces fields that are provided in the submitted dataset resource. This method supports patch semantics.
-        patch(resource: Bigquery.Schema.Dataset, projectId: string, datasetId: string): Bigquery.Schema.Dataset;
+        patch(resource: BigQuery.Schema.Dataset, projectId: string, datasetId: string): BigQuery.Schema.Dataset;
         // Deletes the dataset specified by the datasetId value. Before you can delete a dataset, you must delete all its tables, either manually or by specifying deleteContents. Immediately after deletion, you can create another dataset with the same name.
         remove(projectId: string, datasetId: string): void;
         // Deletes the dataset specified by the datasetId value. Before you can delete a dataset, you must delete all its tables, either manually or by specifying deleteContents. Immediately after deletion, you can create another dataset with the same name.
         remove(projectId: string, datasetId: string, optionalArgs: object): void;
         // Updates information in an existing dataset. The update method replaces the entire dataset resource, whereas the patch method only replaces fields that are provided in the submitted dataset resource.
-        update(resource: Bigquery.Schema.Dataset, projectId: string, datasetId: string): Bigquery.Schema.Dataset;
+        update(resource: BigQuery.Schema.Dataset, projectId: string, datasetId: string): BigQuery.Schema.Dataset;
       }
       interface JobsCollection {
         // Requests that a job be cancelled. This call will return immediately, and the client will need to poll for the job status to see if the cancel completed successfully. Cancelled jobs may still incur costs.
-        cancel(projectId: string, jobId: string): Bigquery.Schema.JobCancelResponse;
+        cancel(projectId: string, jobId: string): BigQuery.Schema.JobCancelResponse;
         // Requests that a job be cancelled. This call will return immediately, and the client will need to poll for the job status to see if the cancel completed successfully. Cancelled jobs may still incur costs.
-        cancel(projectId: string, jobId: string, optionalArgs: object): Bigquery.Schema.JobCancelResponse;
+        cancel(projectId: string, jobId: string, optionalArgs: object): BigQuery.Schema.JobCancelResponse;
         // Returns information about a specific job. Job information is available for a six month period after creation. Requires that you're the person who ran the job, or have the Is Owner project role.
-        get(projectId: string, jobId: string): Bigquery.Schema.Job;
+        get(projectId: string, jobId: string): BigQuery.Schema.Job;
         // Returns information about a specific job. Job information is available for a six month period after creation. Requires that you're the person who ran the job, or have the Is Owner project role.
-        get(projectId: string, jobId: string, optionalArgs: object): Bigquery.Schema.Job;
+        get(projectId: string, jobId: string, optionalArgs: object): BigQuery.Schema.Job;
         // Retrieves the results of a query job.
-        getQueryResults(projectId: string, jobId: string): Bigquery.Schema.GetQueryResultsResponse;
+        getQueryResults(projectId: string, jobId: string): BigQuery.Schema.GetQueryResultsResponse;
         // Retrieves the results of a query job.
-        getQueryResults(projectId: string, jobId: string, optionalArgs: object): Bigquery.Schema.GetQueryResultsResponse;
+        getQueryResults(projectId: string, jobId: string, optionalArgs: object): BigQuery.Schema.GetQueryResultsResponse;
         // Starts a new asynchronous job. Requires the Can View project role.
-        insert(resource: Bigquery.Schema.Job, projectId: string): Bigquery.Schema.Job;
+        insert(resource: BigQuery.Schema.Job, projectId: string): BigQuery.Schema.Job;
         // Starts a new asynchronous job. Requires the Can View project role.
-        insert(resource: Bigquery.Schema.Job, projectId: string, mediaData: any): Bigquery.Schema.Job;
+        insert(resource: BigQuery.Schema.Job, projectId: string, mediaData: any): BigQuery.Schema.Job;
         // Lists all jobs that you started in the specified project. Job information is available for a six month period after creation. The job list is sorted in reverse chronological order, by job creation time. Requires the Can View project role, or the Is Owner project role if you set the allUsers property.
-        list(projectId: string): Bigquery.Schema.JobList;
+        list(projectId: string): BigQuery.Schema.JobList;
         // Lists all jobs that you started in the specified project. Job information is available for a six month period after creation. The job list is sorted in reverse chronological order, by job creation time. Requires the Can View project role, or the Is Owner project role if you set the allUsers property.
-        list(projectId: string, optionalArgs: object): Bigquery.Schema.JobList;
+        list(projectId: string, optionalArgs: object): BigQuery.Schema.JobList;
         // Runs a BigQuery SQL query synchronously and returns query results if the query completes within a specified timeout.
-        query(resource: Bigquery.Schema.QueryRequest, projectId: string): Bigquery.Schema.QueryResponse;
+        query(resource: BigQuery.Schema.QueryRequest, projectId: string): BigQuery.Schema.QueryResponse;
       }
       interface ProjectsCollection {
         // Returns the email address of the service account for your project used for interactions with Google Cloud KMS.
-        getServiceAccount(projectId: string): Bigquery.Schema.GetServiceAccountResponse;
+        getServiceAccount(projectId: string): BigQuery.Schema.GetServiceAccountResponse;
         // Lists all projects to which you have been granted any project role.
-        list(): Bigquery.Schema.ProjectList;
+        list(): BigQuery.Schema.ProjectList;
         // Lists all projects to which you have been granted any project role.
-        list(optionalArgs: object): Bigquery.Schema.ProjectList;
+        list(optionalArgs: object): BigQuery.Schema.ProjectList;
       }
       interface TabledataCollection {
         // Streams data into BigQuery one record at a time without needing to run a load job. Requires the WRITER dataset role.
-        insertAll(resource: Bigquery.Schema.TableDataInsertAllRequest, projectId: string, datasetId: string, tableId: string): Bigquery.Schema.TableDataInsertAllResponse;
+        insertAll(resource: BigQuery.Schema.TableDataInsertAllRequest, projectId: string, datasetId: string, tableId: string): BigQuery.Schema.TableDataInsertAllResponse;
         // Retrieves table data from a specified set of rows. Requires the READER dataset role.
-        list(projectId: string, datasetId: string, tableId: string): Bigquery.Schema.TableDataList;
+        list(projectId: string, datasetId: string, tableId: string): BigQuery.Schema.TableDataList;
         // Retrieves table data from a specified set of rows. Requires the READER dataset role.
-        list(projectId: string, datasetId: string, tableId: string, optionalArgs: object): Bigquery.Schema.TableDataList;
+        list(projectId: string, datasetId: string, tableId: string, optionalArgs: object): BigQuery.Schema.TableDataList;
       }
       interface TablesCollection {
         // Gets the specified table resource by table ID. This method does not return the data in the table, it only returns the table resource, which describes the structure of this table.
-        get(projectId: string, datasetId: string, tableId: string): Bigquery.Schema.Table;
+        get(projectId: string, datasetId: string, tableId: string): BigQuery.Schema.Table;
         // Gets the specified table resource by table ID. This method does not return the data in the table, it only returns the table resource, which describes the structure of this table.
-        get(projectId: string, datasetId: string, tableId: string, optionalArgs: object): Bigquery.Schema.Table;
+        get(projectId: string, datasetId: string, tableId: string, optionalArgs: object): BigQuery.Schema.Table;
         // Creates a new, empty table in the dataset.
-        insert(resource: Bigquery.Schema.Table, projectId: string, datasetId: string): Bigquery.Schema.Table;
+        insert(resource: BigQuery.Schema.Table, projectId: string, datasetId: string): BigQuery.Schema.Table;
         // Lists all tables in the specified dataset. Requires the READER dataset role.
-        list(projectId: string, datasetId: string): Bigquery.Schema.TableList;
+        list(projectId: string, datasetId: string): BigQuery.Schema.TableList;
         // Lists all tables in the specified dataset. Requires the READER dataset role.
-        list(projectId: string, datasetId: string, optionalArgs: object): Bigquery.Schema.TableList;
+        list(projectId: string, datasetId: string, optionalArgs: object): BigQuery.Schema.TableList;
         // Updates information in an existing table. The update method replaces the entire table resource, whereas the patch method only replaces fields that are provided in the submitted table resource. This method supports patch semantics.
-        patch(resource: Bigquery.Schema.Table, projectId: string, datasetId: string, tableId: string): Bigquery.Schema.Table;
+        patch(resource: BigQuery.Schema.Table, projectId: string, datasetId: string, tableId: string): BigQuery.Schema.Table;
         // Deletes the table specified by tableId from the dataset. If the table contains data, all the data will be deleted.
         remove(projectId: string, datasetId: string, tableId: string): void;
         // Updates information in an existing table. The update method replaces the entire table resource, whereas the patch method only replaces fields that are provided in the submitted table resource.
-        update(resource: Bigquery.Schema.Table, projectId: string, datasetId: string, tableId: string): Bigquery.Schema.Table;
+        update(resource: BigQuery.Schema.Table, projectId: string, datasetId: string, tableId: string): BigQuery.Schema.Table;
       }
     }
     namespace Schema {
@@ -97,14 +97,14 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       interface BigtableColumnFamily {
-        columns?: Bigquery.Schema.BigtableColumn[];
+        columns?: BigQuery.Schema.BigtableColumn[];
         encoding?: string;
         familyId?: string;
         onlyReadLatest?: boolean;
         type?: string;
       }
       interface BigtableOptions {
-        columnFamilies?: Bigquery.Schema.BigtableColumnFamily[];
+        columnFamilies?: BigQuery.Schema.BigtableColumnFamily[];
         ignoreUnspecifiedColumnFamilies?: boolean;
         readRowkeyAsString?: boolean;
       }
@@ -116,10 +116,10 @@ declare namespace GoogleAppsScript {
         trainingLoss?: number;
       }
       interface BqmlTrainingRun {
-        iterationResults?: Bigquery.Schema.BqmlIterationResult[];
+        iterationResults?: BigQuery.Schema.BqmlIterationResult[];
         startTime?: string;
         state?: string;
-        trainingOptions?: Bigquery.Schema.BqmlTrainingRunTrainingOptions;
+        trainingOptions?: BigQuery.Schema.BqmlTrainingRunTrainingOptions;
       }
       interface BqmlTrainingRunTrainingOptions {
         earlyStop?: boolean;
@@ -144,9 +144,9 @@ declare namespace GoogleAppsScript {
         skipLeadingRows?: string;
       }
       interface Dataset {
-        access?: Bigquery.Schema.DatasetAccess[];
+        access?: BigQuery.Schema.DatasetAccess[];
         creationTime?: string;
-        datasetReference?: Bigquery.Schema.DatasetReference;
+        datasetReference?: BigQuery.Schema.DatasetReference;
         defaultPartitionExpirationMs?: string;
         defaultTableExpirationMs?: string;
         description?: string;
@@ -166,16 +166,16 @@ declare namespace GoogleAppsScript {
         role?: string;
         specialGroup?: string;
         userByEmail?: string;
-        view?: Bigquery.Schema.TableReference;
+        view?: BigQuery.Schema.TableReference;
       }
       interface DatasetList {
-        datasets?: Bigquery.Schema.DatasetListDatasets[];
+        datasets?: BigQuery.Schema.DatasetListDatasets[];
         etag?: string;
         kind?: string;
         nextPageToken?: string;
       }
       interface DatasetListDatasets {
-        datasetReference?: Bigquery.Schema.DatasetReference;
+        datasetReference?: BigQuery.Schema.DatasetReference;
         friendlyName?: string;
         id?: string;
         kind?: string;
@@ -221,7 +221,7 @@ declare namespace GoogleAppsScript {
         shuffleOutputBytesSpilled?: string;
         startMs?: string;
         status?: string;
-        steps?: Bigquery.Schema.ExplainQueryStep[];
+        steps?: BigQuery.Schema.ExplainQueryStep[];
         waitMsAvg?: string;
         waitMsMax?: string;
         waitRatioAvg?: number;
@@ -237,28 +237,28 @@ declare namespace GoogleAppsScript {
       }
       interface ExternalDataConfiguration {
         autodetect?: boolean;
-        bigtableOptions?: Bigquery.Schema.BigtableOptions;
+        bigtableOptions?: BigQuery.Schema.BigtableOptions;
         compression?: string;
-        csvOptions?: Bigquery.Schema.CsvOptions;
-        googleSheetsOptions?: Bigquery.Schema.GoogleSheetsOptions;
+        csvOptions?: BigQuery.Schema.CsvOptions;
+        googleSheetsOptions?: BigQuery.Schema.GoogleSheetsOptions;
         hivePartitioningMode?: string;
         ignoreUnknownValues?: boolean;
         maxBadRecords?: number;
-        schema?: Bigquery.Schema.TableSchema;
+        schema?: BigQuery.Schema.TableSchema;
         sourceFormat?: string;
         sourceUris?: string[];
       }
       interface GetQueryResultsResponse {
         cacheHit?: boolean;
-        errors?: Bigquery.Schema.ErrorProto[];
+        errors?: BigQuery.Schema.ErrorProto[];
         etag?: string;
         jobComplete?: boolean;
-        jobReference?: Bigquery.Schema.JobReference;
+        jobReference?: BigQuery.Schema.JobReference;
         kind?: string;
         numDmlAffectedRows?: string;
         pageToken?: string;
-        rows?: Bigquery.Schema.TableRow[];
-        schema?: Bigquery.Schema.TableSchema;
+        rows?: BigQuery.Schema.TableRow[];
+        schema?: BigQuery.Schema.TableSchema;
         totalBytesProcessed?: string;
         totalRows?: string;
       }
@@ -271,29 +271,29 @@ declare namespace GoogleAppsScript {
         skipLeadingRows?: string;
       }
       interface Job {
-        configuration?: Bigquery.Schema.JobConfiguration;
+        configuration?: BigQuery.Schema.JobConfiguration;
         etag?: string;
         id?: string;
-        jobReference?: Bigquery.Schema.JobReference;
+        jobReference?: BigQuery.Schema.JobReference;
         kind?: string;
         selfLink?: string;
-        statistics?: Bigquery.Schema.JobStatistics;
-        status?: Bigquery.Schema.JobStatus;
+        statistics?: BigQuery.Schema.JobStatistics;
+        status?: BigQuery.Schema.JobStatus;
         user_email?: string;
       }
       interface JobCancelResponse {
-        job?: Bigquery.Schema.Job;
+        job?: BigQuery.Schema.Job;
         kind?: string;
       }
       interface JobConfiguration {
-        copy?: Bigquery.Schema.JobConfigurationTableCopy;
+        copy?: BigQuery.Schema.JobConfigurationTableCopy;
         dryRun?: boolean;
-        extract?: Bigquery.Schema.JobConfigurationExtract;
+        extract?: BigQuery.Schema.JobConfigurationExtract;
         jobTimeoutMs?: string;
         jobType?: string;
         labels?: object;
-        load?: Bigquery.Schema.JobConfigurationLoad;
-        query?: Bigquery.Schema.JobConfigurationQuery;
+        load?: BigQuery.Schema.JobConfigurationLoad;
+        query?: BigQuery.Schema.JobConfigurationQuery;
       }
       interface JobConfigurationExtract {
         compression?: string;
@@ -302,17 +302,17 @@ declare namespace GoogleAppsScript {
         destinationUris?: string[];
         fieldDelimiter?: string;
         printHeader?: boolean;
-        sourceTable?: Bigquery.Schema.TableReference;
+        sourceTable?: BigQuery.Schema.TableReference;
       }
       interface JobConfigurationLoad {
         allowJaggedRows?: boolean;
         allowQuotedNewlines?: boolean;
         autodetect?: boolean;
-        clustering?: Bigquery.Schema.Clustering;
+        clustering?: BigQuery.Schema.Clustering;
         createDisposition?: string;
-        destinationEncryptionConfiguration?: Bigquery.Schema.EncryptionConfiguration;
-        destinationTable?: Bigquery.Schema.TableReference;
-        destinationTableProperties?: Bigquery.Schema.DestinationTableProperties;
+        destinationEncryptionConfiguration?: BigQuery.Schema.EncryptionConfiguration;
+        destinationTable?: BigQuery.Schema.TableReference;
+        destinationTableProperties?: BigQuery.Schema.DestinationTableProperties;
         encoding?: string;
         fieldDelimiter?: string;
         hivePartitioningMode?: string;
@@ -321,25 +321,25 @@ declare namespace GoogleAppsScript {
         nullMarker?: string;
         projectionFields?: string[];
         quote?: string;
-        rangePartitioning?: Bigquery.Schema.RangePartitioning;
-        schema?: Bigquery.Schema.TableSchema;
+        rangePartitioning?: BigQuery.Schema.RangePartitioning;
+        schema?: BigQuery.Schema.TableSchema;
         schemaInline?: string;
         schemaInlineFormat?: string;
         schemaUpdateOptions?: string[];
         skipLeadingRows?: number;
         sourceFormat?: string;
         sourceUris?: string[];
-        timePartitioning?: Bigquery.Schema.TimePartitioning;
+        timePartitioning?: BigQuery.Schema.TimePartitioning;
         useAvroLogicalTypes?: boolean;
         writeDisposition?: string;
       }
       interface JobConfigurationQuery {
         allowLargeResults?: boolean;
-        clustering?: Bigquery.Schema.Clustering;
+        clustering?: BigQuery.Schema.Clustering;
         createDisposition?: string;
-        defaultDataset?: Bigquery.Schema.DatasetReference;
-        destinationEncryptionConfiguration?: Bigquery.Schema.EncryptionConfiguration;
-        destinationTable?: Bigquery.Schema.TableReference;
+        defaultDataset?: BigQuery.Schema.DatasetReference;
+        destinationEncryptionConfiguration?: BigQuery.Schema.EncryptionConfiguration;
+        destinationTable?: BigQuery.Schema.TableReference;
         flattenResults?: boolean;
         maximumBillingTier?: number;
         maximumBytesBilled?: string;
@@ -347,39 +347,39 @@ declare namespace GoogleAppsScript {
         preserveNulls?: boolean;
         priority?: string;
         query?: string;
-        queryParameters?: Bigquery.Schema.QueryParameter[];
-        rangePartitioning?: Bigquery.Schema.RangePartitioning;
+        queryParameters?: BigQuery.Schema.QueryParameter[];
+        rangePartitioning?: BigQuery.Schema.RangePartitioning;
         schemaUpdateOptions?: string[];
         tableDefinitions?: object;
-        timePartitioning?: Bigquery.Schema.TimePartitioning;
+        timePartitioning?: BigQuery.Schema.TimePartitioning;
         useLegacySql?: boolean;
         useQueryCache?: boolean;
-        userDefinedFunctionResources?: Bigquery.Schema.UserDefinedFunctionResource[];
+        userDefinedFunctionResources?: BigQuery.Schema.UserDefinedFunctionResource[];
         writeDisposition?: string;
       }
       interface JobConfigurationTableCopy {
         createDisposition?: string;
-        destinationEncryptionConfiguration?: Bigquery.Schema.EncryptionConfiguration;
-        destinationTable?: Bigquery.Schema.TableReference;
-        sourceTable?: Bigquery.Schema.TableReference;
-        sourceTables?: Bigquery.Schema.TableReference[];
+        destinationEncryptionConfiguration?: BigQuery.Schema.EncryptionConfiguration;
+        destinationTable?: BigQuery.Schema.TableReference;
+        sourceTable?: BigQuery.Schema.TableReference;
+        sourceTables?: BigQuery.Schema.TableReference[];
         writeDisposition?: string;
       }
       interface JobList {
         etag?: string;
-        jobs?: Bigquery.Schema.JobListJobs[];
+        jobs?: BigQuery.Schema.JobListJobs[];
         kind?: string;
         nextPageToken?: string;
       }
       interface JobListJobs {
-        configuration?: Bigquery.Schema.JobConfiguration;
-        errorResult?: Bigquery.Schema.ErrorProto;
+        configuration?: BigQuery.Schema.JobConfiguration;
+        errorResult?: BigQuery.Schema.ErrorProto;
         id?: string;
-        jobReference?: Bigquery.Schema.JobReference;
+        jobReference?: BigQuery.Schema.JobReference;
         kind?: string;
         state?: string;
-        statistics?: Bigquery.Schema.JobStatistics;
-        status?: Bigquery.Schema.JobStatus;
+        statistics?: BigQuery.Schema.JobStatistics;
+        status?: BigQuery.Schema.JobStatus;
         user_email?: string;
       }
       interface JobReference {
@@ -391,13 +391,13 @@ declare namespace GoogleAppsScript {
         completionRatio?: number;
         creationTime?: string;
         endTime?: string;
-        extract?: Bigquery.Schema.JobStatistics4;
-        load?: Bigquery.Schema.JobStatistics3;
+        extract?: BigQuery.Schema.JobStatistics4;
+        load?: BigQuery.Schema.JobStatistics3;
         numChildJobs?: string;
         parentJobId?: string;
-        query?: Bigquery.Schema.JobStatistics2;
+        query?: BigQuery.Schema.JobStatistics2;
         quotaDeferments?: string[];
-        reservationUsage?: Bigquery.Schema.JobStatisticsReservationUsage[];
+        reservationUsage?: BigQuery.Schema.JobStatisticsReservationUsage[];
         startTime?: string;
         totalBytesProcessed?: string;
         totalSlotMs?: string;
@@ -406,25 +406,25 @@ declare namespace GoogleAppsScript {
         billingTier?: number;
         cacheHit?: boolean;
         ddlOperationPerformed?: string;
-        ddlTargetRoutine?: Bigquery.Schema.RoutineReference;
-        ddlTargetTable?: Bigquery.Schema.TableReference;
+        ddlTargetRoutine?: BigQuery.Schema.RoutineReference;
+        ddlTargetTable?: BigQuery.Schema.TableReference;
         estimatedBytesProcessed?: string;
-        modelTraining?: Bigquery.Schema.BigQueryModelTraining;
+        modelTraining?: BigQuery.Schema.BigQueryModelTraining;
         modelTrainingCurrentIteration?: number;
         modelTrainingExpectedTotalIteration?: string;
         numDmlAffectedRows?: string;
-        queryPlan?: Bigquery.Schema.ExplainQueryStage[];
-        referencedTables?: Bigquery.Schema.TableReference[];
-        reservationUsage?: Bigquery.Schema.JobStatistics2ReservationUsage[];
-        schema?: Bigquery.Schema.TableSchema;
+        queryPlan?: BigQuery.Schema.ExplainQueryStage[];
+        referencedTables?: BigQuery.Schema.TableReference[];
+        reservationUsage?: BigQuery.Schema.JobStatistics2ReservationUsage[];
+        schema?: BigQuery.Schema.TableSchema;
         statementType?: string;
-        timeline?: Bigquery.Schema.QueryTimelineSample[];
+        timeline?: BigQuery.Schema.QueryTimelineSample[];
         totalBytesBilled?: string;
         totalBytesProcessed?: string;
         totalBytesProcessedAccuracy?: string;
         totalPartitionsProcessed?: string;
         totalSlotMs?: string;
-        undeclaredQueryParameters?: Bigquery.Schema.QueryParameter[];
+        undeclaredQueryParameters?: BigQuery.Schema.QueryParameter[];
       }
       interface JobStatistics2ReservationUsage {
         name?: string;
@@ -446,8 +446,8 @@ declare namespace GoogleAppsScript {
         slotMs?: string;
       }
       interface JobStatus {
-        errorResult?: Bigquery.Schema.ErrorProto;
-        errors?: Bigquery.Schema.ErrorProto[];
+        errorResult?: BigQuery.Schema.ErrorProto;
+        errors?: BigQuery.Schema.ErrorProto[];
         state?: string;
       }
       interface MaterializedViewDefinition {
@@ -455,8 +455,8 @@ declare namespace GoogleAppsScript {
         query?: string;
       }
       interface ModelDefinition {
-        modelOptions?: Bigquery.Schema.ModelDefinitionModelOptions;
-        trainingRuns?: Bigquery.Schema.BqmlTrainingRun[];
+        modelOptions?: BigQuery.Schema.ModelDefinitionModelOptions;
+        trainingRuns?: BigQuery.Schema.BqmlTrainingRun[];
       }
       interface ModelDefinitionModelOptions {
         labels?: string[];
@@ -467,7 +467,7 @@ declare namespace GoogleAppsScript {
         etag?: string;
         kind?: string;
         nextPageToken?: string;
-        projects?: Bigquery.Schema.ProjectListProjects[];
+        projects?: BigQuery.Schema.ProjectListProjects[];
         totalItems?: number;
       }
       interface ProjectListProjects {
@@ -475,33 +475,33 @@ declare namespace GoogleAppsScript {
         id?: string;
         kind?: string;
         numericId?: string;
-        projectReference?: Bigquery.Schema.ProjectReference;
+        projectReference?: BigQuery.Schema.ProjectReference;
       }
       interface ProjectReference {
         projectId?: string;
       }
       interface QueryParameter {
         name?: string;
-        parameterType?: Bigquery.Schema.QueryParameterType;
-        parameterValue?: Bigquery.Schema.QueryParameterValue;
+        parameterType?: BigQuery.Schema.QueryParameterType;
+        parameterValue?: BigQuery.Schema.QueryParameterValue;
       }
       interface QueryParameterType {
-        arrayType?: Bigquery.Schema.QueryParameterType;
-        structTypes?: Bigquery.Schema.QueryParameterTypeStructTypes[];
+        arrayType?: BigQuery.Schema.QueryParameterType;
+        structTypes?: BigQuery.Schema.QueryParameterTypeStructTypes[];
         type?: string;
       }
       interface QueryParameterTypeStructTypes {
         description?: string;
         name?: string;
-        type?: Bigquery.Schema.QueryParameterType;
+        type?: BigQuery.Schema.QueryParameterType;
       }
       interface QueryParameterValue {
-        arrayValues?: Bigquery.Schema.QueryParameterValue[];
+        arrayValues?: BigQuery.Schema.QueryParameterValue[];
         structValues?: object;
         value?: string;
       }
       interface QueryRequest {
-        defaultDataset?: Bigquery.Schema.DatasetReference;
+        defaultDataset?: BigQuery.Schema.DatasetReference;
         dryRun?: boolean;
         kind?: string;
         location?: string;
@@ -509,21 +509,21 @@ declare namespace GoogleAppsScript {
         parameterMode?: string;
         preserveNulls?: boolean;
         query?: string;
-        queryParameters?: Bigquery.Schema.QueryParameter[];
+        queryParameters?: BigQuery.Schema.QueryParameter[];
         timeoutMs?: number;
         useLegacySql?: boolean;
         useQueryCache?: boolean;
       }
       interface QueryResponse {
         cacheHit?: boolean;
-        errors?: Bigquery.Schema.ErrorProto[];
+        errors?: BigQuery.Schema.ErrorProto[];
         jobComplete?: boolean;
-        jobReference?: Bigquery.Schema.JobReference;
+        jobReference?: BigQuery.Schema.JobReference;
         kind?: string;
         numDmlAffectedRows?: string;
         pageToken?: string;
-        rows?: Bigquery.Schema.TableRow[];
-        schema?: Bigquery.Schema.TableSchema;
+        rows?: BigQuery.Schema.TableRow[];
+        schema?: BigQuery.Schema.TableSchema;
         totalBytesProcessed?: string;
         totalRows?: string;
       }
@@ -536,7 +536,7 @@ declare namespace GoogleAppsScript {
       }
       interface RangePartitioning {
         field?: string;
-        range?: Bigquery.Schema.RangePartitioningRange;
+        range?: BigQuery.Schema.RangePartitioningRange;
       }
       interface RangePartitioningRange {
         end?: string;
@@ -554,34 +554,34 @@ declare namespace GoogleAppsScript {
         oldestEntryTime?: string;
       }
       interface Table {
-        clustering?: Bigquery.Schema.Clustering;
+        clustering?: BigQuery.Schema.Clustering;
         creationTime?: string;
         description?: string;
-        encryptionConfiguration?: Bigquery.Schema.EncryptionConfiguration;
+        encryptionConfiguration?: BigQuery.Schema.EncryptionConfiguration;
         etag?: string;
         expirationTime?: string;
-        externalDataConfiguration?: Bigquery.Schema.ExternalDataConfiguration;
+        externalDataConfiguration?: BigQuery.Schema.ExternalDataConfiguration;
         friendlyName?: string;
         id?: string;
         kind?: string;
         labels?: object;
         lastModifiedTime?: string;
         location?: string;
-        materializedView?: Bigquery.Schema.MaterializedViewDefinition;
-        model?: Bigquery.Schema.ModelDefinition;
+        materializedView?: BigQuery.Schema.MaterializedViewDefinition;
+        model?: BigQuery.Schema.ModelDefinition;
         numBytes?: string;
         numLongTermBytes?: string;
         numPhysicalBytes?: string;
         numRows?: string;
-        rangePartitioning?: Bigquery.Schema.RangePartitioning;
+        rangePartitioning?: BigQuery.Schema.RangePartitioning;
         requirePartitionFilter?: boolean;
-        schema?: Bigquery.Schema.TableSchema;
+        schema?: BigQuery.Schema.TableSchema;
         selfLink?: string;
-        streamingBuffer?: Bigquery.Schema.Streamingbuffer;
-        tableReference?: Bigquery.Schema.TableReference;
-        timePartitioning?: Bigquery.Schema.TimePartitioning;
+        streamingBuffer?: BigQuery.Schema.Streamingbuffer;
+        tableReference?: BigQuery.Schema.TableReference;
+        timePartitioning?: BigQuery.Schema.TimePartitioning;
         type?: string;
-        view?: Bigquery.Schema.ViewDefinition;
+        view?: BigQuery.Schema.ViewDefinition;
       }
       interface TableCell {
         v?: object;
@@ -589,7 +589,7 @@ declare namespace GoogleAppsScript {
       interface TableDataInsertAllRequest {
         ignoreUnknownValues?: boolean;
         kind?: string;
-        rows?: Bigquery.Schema.TableDataInsertAllRequestRows[];
+        rows?: BigQuery.Schema.TableDataInsertAllRequestRows[];
         skipInvalidRows?: boolean;
         templateSuffix?: string;
       }
@@ -598,24 +598,24 @@ declare namespace GoogleAppsScript {
         json?: object;
       }
       interface TableDataInsertAllResponse {
-        insertErrors?: Bigquery.Schema.TableDataInsertAllResponseInsertErrors[];
+        insertErrors?: BigQuery.Schema.TableDataInsertAllResponseInsertErrors[];
         kind?: string;
       }
       interface TableDataInsertAllResponseInsertErrors {
-        errors?: Bigquery.Schema.ErrorProto[];
+        errors?: BigQuery.Schema.ErrorProto[];
         index?: number;
       }
       interface TableDataList {
         etag?: string;
         kind?: string;
         pageToken?: string;
-        rows?: Bigquery.Schema.TableRow[];
+        rows?: BigQuery.Schema.TableRow[];
         totalRows?: string;
       }
       interface TableFieldSchema {
-        categories?: Bigquery.Schema.TableFieldSchemaCategories;
+        categories?: BigQuery.Schema.TableFieldSchemaCategories;
         description?: string;
-        fields?: Bigquery.Schema.TableFieldSchema[];
+        fields?: BigQuery.Schema.TableFieldSchema[];
         mode?: string;
         name?: string;
         type?: string;
@@ -627,21 +627,21 @@ declare namespace GoogleAppsScript {
         etag?: string;
         kind?: string;
         nextPageToken?: string;
-        tables?: Bigquery.Schema.TableListTables[];
+        tables?: BigQuery.Schema.TableListTables[];
         totalItems?: number;
       }
       interface TableListTables {
-        clustering?: Bigquery.Schema.Clustering;
+        clustering?: BigQuery.Schema.Clustering;
         creationTime?: string;
         expirationTime?: string;
         friendlyName?: string;
         id?: string;
         kind?: string;
         labels?: object;
-        tableReference?: Bigquery.Schema.TableReference;
-        timePartitioning?: Bigquery.Schema.TimePartitioning;
+        tableReference?: BigQuery.Schema.TableReference;
+        timePartitioning?: BigQuery.Schema.TimePartitioning;
         type?: string;
-        view?: Bigquery.Schema.TableListTablesView;
+        view?: BigQuery.Schema.TableListTablesView;
       }
       interface TableListTablesView {
         useLegacySql?: boolean;
@@ -652,10 +652,10 @@ declare namespace GoogleAppsScript {
         tableId?: string;
       }
       interface TableRow {
-        f?: Bigquery.Schema.TableCell[];
+        f?: BigQuery.Schema.TableCell[];
       }
       interface TableSchema {
-        fields?: Bigquery.Schema.TableFieldSchema[];
+        fields?: BigQuery.Schema.TableFieldSchema[];
       }
       interface TimePartitioning {
         expirationMs?: string;
@@ -670,128 +670,128 @@ declare namespace GoogleAppsScript {
       interface ViewDefinition {
         query?: string;
         useLegacySql?: boolean;
-        userDefinedFunctionResources?: Bigquery.Schema.UserDefinedFunctionResource[];
+        userDefinedFunctionResources?: BigQuery.Schema.UserDefinedFunctionResource[];
       }
     }
   }
   interface Bigquery {
-    Datasets?: Bigquery.Collection.DatasetsCollection;
-    Jobs?: Bigquery.Collection.JobsCollection;
-    Projects?: Bigquery.Collection.ProjectsCollection;
-    Tabledata?: Bigquery.Collection.TabledataCollection;
-    Tables?: Bigquery.Collection.TablesCollection;
+    Datasets?: BigQuery.Collection.DatasetsCollection;
+    Jobs?: BigQuery.Collection.JobsCollection;
+    Projects?: BigQuery.Collection.ProjectsCollection;
+    Tabledata?: BigQuery.Collection.TabledataCollection;
+    Tables?: BigQuery.Collection.TablesCollection;
     // Create a new instance of BigQueryModelTraining
-    newBigQueryModelTraining(): Bigquery.Schema.BigQueryModelTraining;
+    newBigQueryModelTraining(): BigQuery.Schema.BigQueryModelTraining;
     // Create a new instance of BigtableColumn
-    newBigtableColumn(): Bigquery.Schema.BigtableColumn;
+    newBigtableColumn(): BigQuery.Schema.BigtableColumn;
     // Create a new instance of BigtableColumnFamily
-    newBigtableColumnFamily(): Bigquery.Schema.BigtableColumnFamily;
+    newBigtableColumnFamily(): BigQuery.Schema.BigtableColumnFamily;
     // Create a new instance of BigtableOptions
-    newBigtableOptions(): Bigquery.Schema.BigtableOptions;
+    newBigtableOptions(): BigQuery.Schema.BigtableOptions;
     // Create a new instance of BqmlIterationResult
-    newBqmlIterationResult(): Bigquery.Schema.BqmlIterationResult;
+    newBqmlIterationResult(): BigQuery.Schema.BqmlIterationResult;
     // Create a new instance of BqmlTrainingRun
-    newBqmlTrainingRun(): Bigquery.Schema.BqmlTrainingRun;
+    newBqmlTrainingRun(): BigQuery.Schema.BqmlTrainingRun;
     // Create a new instance of BqmlTrainingRunTrainingOptions
-    newBqmlTrainingRunTrainingOptions(): Bigquery.Schema.BqmlTrainingRunTrainingOptions;
+    newBqmlTrainingRunTrainingOptions(): BigQuery.Schema.BqmlTrainingRunTrainingOptions;
     // Create a new instance of Clustering
-    newClustering(): Bigquery.Schema.Clustering;
+    newClustering(): BigQuery.Schema.Clustering;
     // Create a new instance of CsvOptions
-    newCsvOptions(): Bigquery.Schema.CsvOptions;
+    newCsvOptions(): BigQuery.Schema.CsvOptions;
     // Create a new instance of Dataset
-    newDataset(): Bigquery.Schema.Dataset;
+    newDataset(): BigQuery.Schema.Dataset;
     // Create a new instance of DatasetAccess
-    newDatasetAccess(): Bigquery.Schema.DatasetAccess;
+    newDatasetAccess(): BigQuery.Schema.DatasetAccess;
     // Create a new instance of DatasetReference
-    newDatasetReference(): Bigquery.Schema.DatasetReference;
+    newDatasetReference(): BigQuery.Schema.DatasetReference;
     // Create a new instance of DestinationTableProperties
-    newDestinationTableProperties(): Bigquery.Schema.DestinationTableProperties;
+    newDestinationTableProperties(): BigQuery.Schema.DestinationTableProperties;
     // Create a new instance of EncryptionConfiguration
-    newEncryptionConfiguration(): Bigquery.Schema.EncryptionConfiguration;
+    newEncryptionConfiguration(): BigQuery.Schema.EncryptionConfiguration;
     // Create a new instance of ErrorProto
-    newErrorProto(): Bigquery.Schema.ErrorProto;
+    newErrorProto(): BigQuery.Schema.ErrorProto;
     // Create a new instance of ExplainQueryStage
-    newExplainQueryStage(): Bigquery.Schema.ExplainQueryStage;
+    newExplainQueryStage(): BigQuery.Schema.ExplainQueryStage;
     // Create a new instance of ExplainQueryStep
-    newExplainQueryStep(): Bigquery.Schema.ExplainQueryStep;
+    newExplainQueryStep(): BigQuery.Schema.ExplainQueryStep;
     // Create a new instance of ExternalDataConfiguration
-    newExternalDataConfiguration(): Bigquery.Schema.ExternalDataConfiguration;
+    newExternalDataConfiguration(): BigQuery.Schema.ExternalDataConfiguration;
     // Create a new instance of GoogleSheetsOptions
-    newGoogleSheetsOptions(): Bigquery.Schema.GoogleSheetsOptions;
+    newGoogleSheetsOptions(): BigQuery.Schema.GoogleSheetsOptions;
     // Create a new instance of Job
-    newJob(): Bigquery.Schema.Job;
+    newJob(): BigQuery.Schema.Job;
     // Create a new instance of JobConfiguration
-    newJobConfiguration(): Bigquery.Schema.JobConfiguration;
+    newJobConfiguration(): BigQuery.Schema.JobConfiguration;
     // Create a new instance of JobConfigurationExtract
-    newJobConfigurationExtract(): Bigquery.Schema.JobConfigurationExtract;
+    newJobConfigurationExtract(): BigQuery.Schema.JobConfigurationExtract;
     // Create a new instance of JobConfigurationLoad
-    newJobConfigurationLoad(): Bigquery.Schema.JobConfigurationLoad;
+    newJobConfigurationLoad(): BigQuery.Schema.JobConfigurationLoad;
     // Create a new instance of JobConfigurationQuery
-    newJobConfigurationQuery(): Bigquery.Schema.JobConfigurationQuery;
+    newJobConfigurationQuery(): BigQuery.Schema.JobConfigurationQuery;
     // Create a new instance of JobConfigurationTableCopy
-    newJobConfigurationTableCopy(): Bigquery.Schema.JobConfigurationTableCopy;
+    newJobConfigurationTableCopy(): BigQuery.Schema.JobConfigurationTableCopy;
     // Create a new instance of JobReference
-    newJobReference(): Bigquery.Schema.JobReference;
+    newJobReference(): BigQuery.Schema.JobReference;
     // Create a new instance of JobStatistics
-    newJobStatistics(): Bigquery.Schema.JobStatistics;
+    newJobStatistics(): BigQuery.Schema.JobStatistics;
     // Create a new instance of JobStatistics2
-    newJobStatistics2(): Bigquery.Schema.JobStatistics2;
+    newJobStatistics2(): BigQuery.Schema.JobStatistics2;
     // Create a new instance of JobStatistics2ReservationUsage
-    newJobStatistics2ReservationUsage(): Bigquery.Schema.JobStatistics2ReservationUsage;
+    newJobStatistics2ReservationUsage(): BigQuery.Schema.JobStatistics2ReservationUsage;
     // Create a new instance of JobStatistics3
-    newJobStatistics3(): Bigquery.Schema.JobStatistics3;
+    newJobStatistics3(): BigQuery.Schema.JobStatistics3;
     // Create a new instance of JobStatistics4
-    newJobStatistics4(): Bigquery.Schema.JobStatistics4;
+    newJobStatistics4(): BigQuery.Schema.JobStatistics4;
     // Create a new instance of JobStatisticsReservationUsage
-    newJobStatisticsReservationUsage(): Bigquery.Schema.JobStatisticsReservationUsage;
+    newJobStatisticsReservationUsage(): BigQuery.Schema.JobStatisticsReservationUsage;
     // Create a new instance of JobStatus
-    newJobStatus(): Bigquery.Schema.JobStatus;
+    newJobStatus(): BigQuery.Schema.JobStatus;
     // Create a new instance of MaterializedViewDefinition
-    newMaterializedViewDefinition(): Bigquery.Schema.MaterializedViewDefinition;
+    newMaterializedViewDefinition(): BigQuery.Schema.MaterializedViewDefinition;
     // Create a new instance of ModelDefinition
-    newModelDefinition(): Bigquery.Schema.ModelDefinition;
+    newModelDefinition(): BigQuery.Schema.ModelDefinition;
     // Create a new instance of ModelDefinitionModelOptions
-    newModelDefinitionModelOptions(): Bigquery.Schema.ModelDefinitionModelOptions;
+    newModelDefinitionModelOptions(): BigQuery.Schema.ModelDefinitionModelOptions;
     // Create a new instance of QueryParameter
-    newQueryParameter(): Bigquery.Schema.QueryParameter;
+    newQueryParameter(): BigQuery.Schema.QueryParameter;
     // Create a new instance of QueryParameterType
-    newQueryParameterType(): Bigquery.Schema.QueryParameterType;
+    newQueryParameterType(): BigQuery.Schema.QueryParameterType;
     // Create a new instance of QueryParameterTypeStructTypes
-    newQueryParameterTypeStructTypes(): Bigquery.Schema.QueryParameterTypeStructTypes;
+    newQueryParameterTypeStructTypes(): BigQuery.Schema.QueryParameterTypeStructTypes;
     // Create a new instance of QueryParameterValue
-    newQueryParameterValue(): Bigquery.Schema.QueryParameterValue;
+    newQueryParameterValue(): BigQuery.Schema.QueryParameterValue;
     // Create a new instance of QueryRequest
-    newQueryRequest(): Bigquery.Schema.QueryRequest;
+    newQueryRequest(): BigQuery.Schema.QueryRequest;
     // Create a new instance of QueryTimelineSample
-    newQueryTimelineSample(): Bigquery.Schema.QueryTimelineSample;
+    newQueryTimelineSample(): BigQuery.Schema.QueryTimelineSample;
     // Create a new instance of RangePartitioning
-    newRangePartitioning(): Bigquery.Schema.RangePartitioning;
+    newRangePartitioning(): BigQuery.Schema.RangePartitioning;
     // Create a new instance of RangePartitioningRange
-    newRangePartitioningRange(): Bigquery.Schema.RangePartitioningRange;
+    newRangePartitioningRange(): BigQuery.Schema.RangePartitioningRange;
     // Create a new instance of RoutineReference
-    newRoutineReference(): Bigquery.Schema.RoutineReference;
+    newRoutineReference(): BigQuery.Schema.RoutineReference;
     // Create a new instance of Streamingbuffer
-    newStreamingbuffer(): Bigquery.Schema.Streamingbuffer;
+    newStreamingbuffer(): BigQuery.Schema.Streamingbuffer;
     // Create a new instance of Table
-    newTable(): Bigquery.Schema.Table;
+    newTable(): BigQuery.Schema.Table;
     // Create a new instance of TableDataInsertAllRequest
-    newTableDataInsertAllRequest(): Bigquery.Schema.TableDataInsertAllRequest;
+    newTableDataInsertAllRequest(): BigQuery.Schema.TableDataInsertAllRequest;
     // Create a new instance of TableDataInsertAllRequestRows
-    newTableDataInsertAllRequestRows(): Bigquery.Schema.TableDataInsertAllRequestRows;
+    newTableDataInsertAllRequestRows(): BigQuery.Schema.TableDataInsertAllRequestRows;
     // Create a new instance of TableFieldSchema
-    newTableFieldSchema(): Bigquery.Schema.TableFieldSchema;
+    newTableFieldSchema(): BigQuery.Schema.TableFieldSchema;
     // Create a new instance of TableFieldSchemaCategories
-    newTableFieldSchemaCategories(): Bigquery.Schema.TableFieldSchemaCategories;
+    newTableFieldSchemaCategories(): BigQuery.Schema.TableFieldSchemaCategories;
     // Create a new instance of TableReference
-    newTableReference(): Bigquery.Schema.TableReference;
+    newTableReference(): BigQuery.Schema.TableReference;
     // Create a new instance of TableSchema
-    newTableSchema(): Bigquery.Schema.TableSchema;
+    newTableSchema(): BigQuery.Schema.TableSchema;
     // Create a new instance of TimePartitioning
-    newTimePartitioning(): Bigquery.Schema.TimePartitioning;
+    newTimePartitioning(): BigQuery.Schema.TimePartitioning;
     // Create a new instance of UserDefinedFunctionResource
-    newUserDefinedFunctionResource(): Bigquery.Schema.UserDefinedFunctionResource;
+    newUserDefinedFunctionResource(): BigQuery.Schema.UserDefinedFunctionResource;
     // Create a new instance of ViewDefinition
-    newViewDefinition(): Bigquery.Schema.ViewDefinition;
+    newViewDefinition(): BigQuery.Schema.ViewDefinition;
   }
 }
 

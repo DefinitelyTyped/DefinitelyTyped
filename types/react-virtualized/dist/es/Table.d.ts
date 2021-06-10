@@ -440,3 +440,5 @@ export class Table extends PureComponent<TableProps> {
     /** See Grid#scrollToCell */
     scrollToRow(index?: number): void;
 }
+
+export default Table;

@@ -9,7 +9,7 @@
 
 import { Dispatch, Middleware, MiddlewareAPI } from 'redux';
 
-type TypeOrResolver<Arg, Type> = Type | ((arg: Arg) => Type);
+type TypeOrResolver<Arg, Type> = Type | ((arg: Arg) => Type | Promise<Type>);
 
 /**
  * This module is also a UMD module that exposes a global variable 'ReduxApiMiddleware'
@@ -64,20 +64,20 @@ export function createMiddleware(options?: CreateMiddlewareOptions): Middleware;
 
 export interface RSAARequestTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
-    payload?: ((action: RSAAAction, state: State) => Payload) | Payload;
-    meta?: ((action: RSAAAction, state: State) => Meta) | Meta;
+    payload?: ((action: RSAAAction, state: State) => Payload | Promise<Payload>) | Payload;
+    meta?: ((action: RSAAAction, state: State) => Meta | Promise<Meta>) | Meta;
 }
 
 export interface RSAASuccessTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
-    payload?: ((action: RSAAAction, state: State, res: Response) => Payload) | Payload;
-    meta?: ((action: RSAAAction, state: State, res: Response) => Meta) | Meta;
+    payload?: ((action: RSAAAction, state: State, res: Response) => Payload | Promise<Payload>) | Payload;
+    meta?: ((action: RSAAAction, state: State, res: Response) => Meta | Promise<Meta>) | Meta;
 }
 
 export interface RSAAFailureTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
-    payload?: ((action: RSAAAction, state: State, res: Response) => Payload) | Payload;
-    meta?: ((action: RSAAAction, state: State, res: Response) => Meta) | Meta;
+    payload?: ((action: RSAAAction, state: State, res: Response) => Payload | Promise<Payload>) | Payload;
+    meta?: ((action: RSAAAction, state: State, res: Response) => Meta | Promise<Meta>) | Meta;
 }
 
 export type RSAARequestType<State = any, Payload = any, Meta = any> =

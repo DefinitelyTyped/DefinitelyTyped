@@ -3,8 +3,6 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference types="node" />
-
 /**
  * Options for the encode() function
  */
