@@ -59,12 +59,12 @@ declare namespace DataTables {
          * Set the class name to be used for the grouping rows
          */
         className?: string;
-        
+
         /**
          * Text to show for rows which have null, undefined or empty string group data
          */
         emptyDataGroup?: string;
-        
+
         /**
          * Set the data point to use as the grouping data source
          */
@@ -79,7 +79,7 @@ declare namespace DataTables {
          * Set the class name to be used for the grouping start rows
          */
         startClassName?: string;
-        
+
         /**
          * Set the class name to be used for the grouping end rows
          */
