@@ -10,6 +10,7 @@
     "noImplicitThis": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
+    "noEmit": true,
     "baseUrl": "../",
     "typeRoots": [
       "../"
