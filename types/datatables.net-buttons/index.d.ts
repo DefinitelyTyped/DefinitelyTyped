@@ -449,7 +449,7 @@ declare namespace DataTables {
         /**
          * List of buttons to be created
          */
-        buttons?: Array<(string|ButtonSettings)>;
+        buttons?: Array<string|FunctionButtom|ButtonSettings>;
 
         //#endregion Buttons
     }
