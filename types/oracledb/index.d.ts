@@ -1,6 +1,7 @@
-// Type definitions for oracledb 5.1
+// Type definitions for oracledb 5.2
 // Project: https://github.com/oracle/node-oracledb
 // Definitions by: Connor Fitzgerald <https://github.com/connorjayfitzgerald>
+//                 Dan Beglin <https://github.com/dannyb648>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -566,6 +567,10 @@ declare namespace OracleDB {
      * In node-oracledb 5.0, set queueMax to 0 to disable queuing.
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#connpoolqueue
+     */
+    let errorOnConcurrentExecute: boolean;
+    /**
+     * TODO Documentation here
      */
     let queueRequests: number;
     /**
@@ -1743,6 +1748,41 @@ declare namespace OracleDB {
     }
 
     /**
+     * Statistics 
+     */
+    interface Statistics {
+        gatheredDate: Date;
+        upTime: Date;
+        upTimeSinceReset: Date;
+        connectionRequests: number;
+        requestsEnqueued: number;
+        requestsDequeued: number;
+        failedRequests: number;
+        rejectedRequests: number;
+        requestTimeouts: number;
+        maximumQueueLength: number;
+        currentQueueLength: number;
+        timeInQueue: number;
+        minimumTimeInQueue: number;
+        maximumTimeInQueue: number;
+        averageTimeInQueue: number;
+        connectionsInUse: number;
+        connectionsOpen: number;
+        poolAlias: string;
+        queueMax: number;
+        queueTimeout: number;
+        poolMin: number;
+        poolMax: number;
+        poolIncrement: number;
+        poolTimeout: number;
+        poolPingInterval: number;
+        poolMaxPerShard: number;
+        stmtCacheSize: number;
+        sodaMetaDataCache: boolean;
+        threadPoolSize: number;
+    }
+
+    /**
      * Contains a pool of connections to the database.
      */
     interface Pool {
@@ -1904,9 +1944,25 @@ declare namespace OracleDB {
         terminate(callback: (error: DBError) => void): void;
 
         /**
-         * If _enableStats is true, this method can be used to output statistics to the console.
+         * If enableStatistics is true, this method can be used to output statistics to the console.
          */
-        _logStats(): void;
+        logStatistics(): void;
+
+        /**
+         * Method to obtain a JSON object with all statistical metrics and pool properties
+         */
+        getStatistics(): Statistics;
+
+        /**
+         * Allows a subset of pool creation properties to be changed without needing to restart the pool or restart the application. 
+         * Properties such as the maximum number of connections in the pool, or the statement cache size used by connections can be changed. 
+         * Properties are optional. 
+         * Unspecified properties will leave those pool properties unchanged. The properties are processed in two stages. 
+         * After any size change has been processed, reconfiguration on the other properties is done sequentially.
+         * If an error such as an invalid value occurs when changing one property, then an error will be thrown but any already changed properties will retain their new values.
+         */
+        reconfigure(poolAttrs: PoolAttributes): Promise<void>;
+        reconfigure(poolAttrs: PoolAttributes, callback: (error: DBError) => void): void;
     }
 
     /**
@@ -2097,9 +2153,9 @@ declare namespace OracleDB {
         user?: string;
         /**
          * Further statistics can be enabled by setting the createPool() poolAttrs parameter _enableStats to true.
-         * Statistics can be output to the console by calling the pool._logStats() method.
+         * Statistics can be output to the console by calling the pool.logStatistics() method.
          */
-        _enableStats?: boolean;
+        enableStatistics?: boolean;
     }
 
     /**
@@ -2798,10 +2854,12 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        insertOneAndGet(newDocument: SodaDocument | Record<string, any>): Promise<SodaDocument>;
+        insertOneAndGet(newDocument: SodaDocument | Record<string, any>, options?: { hint: string }): Promise<SodaDocument>;
+
         insertOneAndGet(
             newDocument: SodaDocument | Record<string, any>,
             callback: (error: DBError, document: SodaDocument) => void,
+            options?: { hint: string }
         ): void;
 
         /**
@@ -2834,10 +2892,11 @@ declare namespace OracleDB {
          * @required Oracle Client 18.5 or higher
          * @since 4.0
          */
-        insertManyAndGet(documents: (SodaDocument | Record<string, any>)[]): Promise<SodaDocument[]>;
+        insertManyAndGet(documents: (SodaDocument | Record<string, any>)[], options?: { hint: string }): Promise<SodaDocument[]>;
         insertManyAndGet(
             documents: (SodaDocument | Record<string, any>)[],
             callback: (error: DBError, documents: SodaDocument[]) => void,
+            options?: { hint: string }
         ): void;
 
         /**
@@ -2859,8 +2918,8 @@ declare namespace OracleDB {
          *
          * @since 5.0
          */
-        saveAndGet(document: SodaDocument): Promise<SodaDocument>;
-        saveAndGet(document: SodaDocument, cb: (err: DBError, doc: SodaDocument) => void): void;
+        saveAndGet(document: SodaDocument, options?: { hint: string }): Promise<SodaDocument>;
+        saveAndGet(document: SodaDocument, cb: (err: DBError, doc: SodaDocument) => void, options?: { hint: string }): void;
 
         /**
          * This method truncates a collection, removing all documents. The collection will not be deleted.
@@ -2982,6 +3041,13 @@ declare namespace OracleDB {
          * @since 3.0
          */
         filter(filterSpec: Record<string, any>): SodaOperation;
+        /**
+         * The hint() value can be used to pass an Oracle hint to terminal SodaOperation Methods. 
+         * It is string in the same format as a SQL hint but without any comment characters, for example hint("MONITOR"). 
+         * Pass only the hint "MONITOR" (turn on monitoring) or "NO_MONITOR" (turn off monitoring).
+         * See the Oracle Database SQL Tuning Guide documentation MONITOR and NO_MONITOR Hints and Monitoring Database Operations for more information.
+         */
+        hint(value: string): SodaOperation;
         /**
          * Sets the key value to be used to match a document for the operation. Any previous calls made to this
          * method or keys() will be ignored.
