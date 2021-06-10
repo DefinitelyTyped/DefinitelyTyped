@@ -224,6 +224,29 @@ const Article = styled.section`
 // A Link instance should be backed by an HTMLAnchorElement
 const ComposedLink = () => <Link onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined} />;
 
+interface ComponentWithGenericsProps<T> { item: T;  render: (item: T) => any; }
+
+const ComponentWithGenerics = <T extends any>({
+    item,
+    render,
+}: { item: T,  render: (item: T) => any }): React.ReactElement => <div></div>;
+
+const StyledComponentWithGenerics = styled(ComponentWithGenerics)``;
+
+interface ItemType { title: string; }
+
+const shouldStillBeAbleToPassGenerics = () => {
+    return (
+        <StyledComponentWithGenerics<React.FC<ComponentWithGenericsProps<ItemType>>>
+            item={{ title: "" }}
+            render={item => {
+                // $ExpectType ItemType
+                item;
+            }}
+        />
+    );
+};
+
 /**
  * construction via string tag
  */

@@ -171,6 +171,9 @@ export interface StyledComponentBase<
     (props: StyledComponentProps<C, T, O, A> & { as?: never; forwardedAs?: never }): React.ReactElement<
         StyledComponentProps<C, T, O, A>
     >;
+    <SpecifiedC extends string | React.ComponentType<any> = C>(props: StyledComponentProps<SpecifiedC, T, O, A> & { as?: never; forwardedAs?: never }): React.ReactElement<
+        StyledComponentProps<SpecifiedC, T, O, A>
+    >;
     <AsC extends string | React.ComponentType<any> = C, FAsC extends string | React.ComponentType<any> = C>(
         props: StyledComponentPropsWithAs<C, T, O, A, AsC, FAsC>,
     ): React.ReactElement<StyledComponentPropsWithAs<C, T, O, A, AsC, FAsC>>;
