@@ -5302,6 +5302,10 @@
             "libraryName": "@wordpress/a11y",
             "asOfVersion": "2.9.0"
         },
+        "wordpress__api-fetch": {
+            "libraryName": "@wordpress/api-fetch",
+            "asOfVersion": "3.23.1"
+        },
         "wordpress__autop": {
             "libraryName": "@wordpress/autop",
             "asOfVersion": "2.7.0"
