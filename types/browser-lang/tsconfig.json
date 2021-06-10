@@ -1,7 +1,7 @@
 {
   "files": [
     "index.d.ts",
-    "browser-or-node-tests.ts"
+    "browser-lang-test.ts"
   ],
   "compilerOptions": {
     "module": "commonjs",
