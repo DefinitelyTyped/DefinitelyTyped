@@ -1,0 +1,19 @@
+{
+  "files": [
+    "index.d.ts",
+    "browser-or-node-tests.ts"
+  ],
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "baseUrl": "../",
+    "typeRoots": [
+      "../"
+    ],
+  }
+}
