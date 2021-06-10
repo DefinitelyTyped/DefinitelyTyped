@@ -11628,9 +11628,14 @@ declare namespace Office {
      * [Api set: Mailbox 1.1]
      *
      * @remarks
-     * 
+     *
+     * **Known issue with HTML table border colors**
+     *
+     * Outlook on Windows: If you're setting various cell borders to different colors in an HTML table in Compose mode, a cell's borders may not reflect
+     * the expected color. For the known behavior, visit {@link https://github.com/OfficeDev/office-js/issues/1818 | OfficeDev/office-js issue #1818}.
+     *
      * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
-     * 
+     *
      * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
      */
     interface Body {
