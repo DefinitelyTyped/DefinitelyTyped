@@ -1,6 +1,6 @@
 // Type definitions for non-npm package vscode-notebook-renderer 1.57
 // Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
-// Definitions by: Connor Peet <https://github.com/connor4312>
+// Definitions by: Connor Peet <https://github.com/connor4312>, Matt Bierner <https://github.com/mjbvz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
@@ -125,11 +125,10 @@ export interface RendererApi {
     disposeOutputItem?(id?: string): void;
 
     /**
-     * Additional properties may be returned for others to consume in
+     * Optional additional methods and properties for other renderers to consume using
      * {@link RendererContext.getRenderer}.
      *
      * This lets your renderer expose hooks that other renderers can use to extend its behavior.
-     * For example,
      */
     [key: string]: unknown;
 }

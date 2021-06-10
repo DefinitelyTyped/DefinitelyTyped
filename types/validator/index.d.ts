@@ -673,9 +673,9 @@ declare namespace validator {
     function isIP(str: string, version?: IPVersion): boolean;
 
     /**
-     * Check if the string is an IP Range (version 4 only).
+     * Check if the string is an IP Range (version 4 or 6).
      */
-    function isIPRange(str: string): boolean;
+    function isIPRange(str: string, version?: IPVersion): boolean;
 
     type ISBNVersion = '10' | '13' | 10 | 13;
 

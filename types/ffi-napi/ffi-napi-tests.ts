@@ -114,3 +114,38 @@ const TArray = ref_array(ref);
     });
     current.atoi('1234');
 }
+
+declare const any: any;
+
+// $ExpectType ForeignFunction<void, []> | VariadicForeignFunction<CoerceType<"void">, []> | ((args_0: (err: any, value: void) => void) => void)
+ffi.Library(null, { x: ["void", [], any]}).x;
+// $ExpectType ForeignFunction<void, []>
+ffi.Library(null, { x: ["void", [], undefined]}).x;
+// $ExpectType ForeignFunction<void, []>
+ffi.Library(null, { x: ["void", [], { }]}).x;
+// $ExpectType ForeignFunction<void, []>
+ffi.Library(null, { x: ["void", [], { varargs: false }]}).x;
+// $ExpectType ForeignFunction<void, []>
+ffi.Library(null, { x: ["void", [], { async: false }]}).x;
+// $ExpectType ForeignFunction<void, []>
+ffi.Library(null, { x: ["void", [], { abi: 0 }]}).x;
+// $ExpectType VariadicForeignFunction<CoerceType<"void">, []>
+ffi.Library(null, { x: ["void", [], { varargs: true }]}).x;
+// $ExpectType (args_0: (err: any, value: void) => void) => void
+ffi.Library(null, { x: ["void", [], { async: true }]}).x;
+
+{
+    // Ensure functions types are valid.
+    const PCALLBACK = ffi.Function("bool", ["int32"]);
+    const lib = ffi.Library(null, {
+        foo: ["void", [PCALLBACK]]
+    });
+    const callback = (x: number) => x > 0;
+    lib.foo(callback);
+}
+
+// $ExpectType PFFI_TYPE | undefined
+ref.types.uint32.ffi_type;
+
+// $ExpectType PFFI_TYPE
+ffi.FFI_TYPES.void;

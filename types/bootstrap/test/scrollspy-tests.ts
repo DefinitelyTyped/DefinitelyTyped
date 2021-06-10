@@ -6,7 +6,7 @@ const element = new Element();
 // $ExpectType ScrollSpy
 new ScrollSpy(element, { offset: 10 });
 
-// $ExpectType ScrollSpy
+// $ExpectType ScrollSpy | null
 ScrollSpy.getInstance(element);
 
 // $ExpectType string

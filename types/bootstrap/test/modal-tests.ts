@@ -6,7 +6,7 @@ const element = new Element();
 // $ExpectType Modal
 new Modal(element, { backdrop: 'static' });
 
-// $ExpectType Modal
+// $ExpectType Modal | null
 Modal.getInstance(element);
 
 // $ExpectType string

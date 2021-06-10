@@ -5,8 +5,8 @@ export interface ProductVariantGroup {
   id: string;
   name: string;
   meta?: any;
-  created?: number;
-  updated?: number;
+  created: number | null;
+  updated: number | null;
   options: ProductVariantOption[];
 }
 
