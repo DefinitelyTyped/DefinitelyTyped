@@ -23,6 +23,8 @@ declare namespace OpenSeadragon {
         SAFARI = 3,
         CHROME = 4,
         OPERA = 5,
+        EDGE = 6,
+        CHROMEEDGE = 7,
     }
 
     enum ButtonState {
@@ -101,7 +103,9 @@ declare namespace OpenSeadragon {
         element: Element | string,
         eventName: string,
         handler: (event: Event) => void,
-        useCapture?: boolean
+        useCapture?:
+            | boolean
+            | { capture?: boolean; passive?: boolean; once?: boolean }
     ): void;
 
     function cancelEvent(event?: OSDEvent<any>): void;
@@ -118,6 +122,8 @@ declare namespace OpenSeadragon {
         object: object,
         method: (...args: any[]) => void
     ): (object: any, ...args: any[]) => void; // REVIEW: unsure of return type
+
+    function eventIsCanceled(event: OSDEvent<any>): boolean;
 
     function extend(): any;
 
@@ -168,6 +174,12 @@ declare namespace OpenSeadragon {
 
     function makeTransparentImage(src: string): Element;
 
+    function normalizeEventListenerOptions(
+        options:
+            | boolean
+            | { capture?: boolean; passive?: boolean; once?: boolean }
+    ): string;
+
     function now(): number;
 
     function parseJSON(string: string): object;
@@ -184,7 +196,7 @@ declare namespace OpenSeadragon {
         element: Element | string,
         eventName: string,
         handler: EventHandler<any>,
-        useCapture?: boolean
+        useCapture?: boolean | { capture?: boolean }
     ): void;
 
     function setElementOpacity(
@@ -193,7 +205,23 @@ declare namespace OpenSeadragon {
         usesAlpha?: boolean
     ): void;
 
+    function setElementPointerEvents(
+        element: Element | string,
+        value: string
+    ): void;
+
+    function setElementPointerEventsNone(element: Element | string): void;
+
     function setElementTouchActionNone(element: Element | string): void;
+
+    function setImageFormatsSupported(formats: {
+        bmp?: boolean;
+        jpeg?: boolean;
+        jpg?: boolean;
+        png?: boolean;
+        tif?: boolean;
+        wdp?: boolean;
+    }): void;
 
     function setPageScroll(point: Point): void;
 
@@ -205,6 +233,7 @@ declare namespace OpenSeadragon {
         scrollToZoom?: boolean;
         clickToZoom?: boolean;
         dblClickToZoom?: boolean;
+        dragToPan?: boolean;
         pinchToZoom?: boolean;
         flickEnabled?: boolean;
         flickMinSpeed?: number;
@@ -234,12 +263,10 @@ declare namespace OpenSeadragon {
         element?: HTMLElement;
         tileSources?:
             | string
-            | string[]
-            | TileSource[]
             | TileSourceOptions
             | {
                   type: string;
-                  levels: Array<{
+                  levels?: Array<{
                       url: string;
                       height: number;
                       width: number;
@@ -257,7 +284,8 @@ declare namespace OpenSeadragon {
                           Height: string;
                       };
                   };
-              };
+              }
+            | Array<string | TileSource | { type: "openstreetmaps" }>;
         tabIndex?: number;
         overlays?: any[];
         prefixUrl?: string;
@@ -391,6 +419,7 @@ declare namespace OpenSeadragon {
         loadTilesWithAjax?: boolean;
         ajaxHeaders?: object;
         imageSmoothingEnabled?: boolean;
+        rotationIncrement?: number;
     }
 
     interface TileSourceOptions {
@@ -418,6 +447,7 @@ declare namespace OpenSeadragon {
         tracker: MouseTracker;
 
         constructor(options: {
+            userData?: string;
             element?: Element;
             tooltip?: string;
             srcRest?: string;
@@ -457,6 +487,9 @@ declare namespace OpenSeadragon {
             eventName: ButtonEventName,
             handler: EventHandler<ButtonEvent>
         ): void;
+        notifyGroupEnter(): void;
+        notifyGroupExit(): void;
+        destroy(): void;
     }
 
     class ButtonGroup {
@@ -465,6 +498,8 @@ declare namespace OpenSeadragon {
         tracker: MouseTracker;
 
         constructor(options: { buttons: Button[]; element?: Element });
+
+        destroy(): void;
     }
 
     interface TControlOptions {
@@ -554,6 +589,9 @@ declare namespace OpenSeadragon {
         getOpacity(): number;
         setOpacity(opacity: number): Drawer;
         viewportToDrawerRectangle(rectangle: Rect): Rect;
+        setImageSmoothingEnabled(imageSmoothingEnabled?: boolean): void;
+        viewportCoordToDrawerCoord(point: Point): Point;
+        clipWithPolygons(polygons: Point[][], useSketch?: boolean): void;
     }
 
     class DziTileSource extends TileSource {
@@ -570,7 +608,9 @@ declare namespace OpenSeadragon {
         );
     }
 
-    class IIIFTileSource extends TileSource {}
+    class IIIFTileSource extends TileSource {
+        constructor(options: TileSourceOptions & { tileFormat?: string });
+    }
 
     class ImageLoader {
         constructor(options: { jobLimit?: number; timeout?: number });
@@ -592,9 +632,10 @@ declare namespace OpenSeadragon {
             url: string;
             buildPyramid?: boolean;
             crossOriginPolicy?: string | boolean;
-            ajaxWidthCredentials?: string | boolean;
+            ajaxWithCredentials?: string | boolean;
             useCanvas?: boolean;
         });
+        destroy(): void;
     }
 
     class LegacyTileSource extends TileSource {
@@ -615,8 +656,16 @@ declare namespace OpenSeadragon {
         dblClickTimeThreshold?: number;
         dblClickDistThreshold?: number;
         stopDelay?: number;
+        preProcessEventHandler?: EventHandler<OSDEvent<any>>;
+        contextMenuHandler?: EventHandler<OSDEvent<any>>;
         enterHandler?: EventHandler<OSDEvent<any>>;
+        /**
+         * @deprecated
+         */
         exitHandler?: EventHandler<OSDEvent<any>>;
+        leaveHandler?: EventHandler<OSDEvent<any>>;
+        overHandler?: EventHandler<OSDEvent<any>>;
+        outHandler?: EventHandler<OSDEvent<any>>;
         pressHandler?: EventHandler<OSDEvent<any>>;
         nonPrimaryPressHandler?: EventHandler<OSDEvent<any>>;
         releaseHandler?: EventHandler<OSDEvent<any>>;
@@ -646,28 +695,50 @@ declare namespace OpenSeadragon {
 
         blurHandler: (event: OSDEvent<any>) => void;
         clickHandler: (event: OSDEvent<any>) => void;
+        contextMenuHandler: (event: OSDEvent<any>) => void;
         dblClickHandler: (event: OSDEvent<any>) => void;
         destroy(): void;
         dragEndHandler: (event: OSDEvent<any>) => void;
         dragHandler: (event: OSDEvent<any>) => void;
         enterHandler: (event: OSDEvent<any>) => void;
         exitHandler: (event: OSDEvent<any>) => void;
+        leaveHandler: (event: OSDEvent<any>) => void;
         focusHandler: (event: OSDEvent<any>) => void;
         getActivePointerCount(): number;
         getActivePointersListByType(type: string): GesturePointList;
-        getActivePointersListsExceptType(type: string): GesturePointList[];
         keyDownHandler: (event: OSDEvent<any>) => void;
         keyHandler: (event: OSDEvent<any>) => void;
         keyUpHandler: (event: OSDEvent<any>) => void;
         moveHandler: (event: OSDEvent<any>) => void;
         nonPrimaryPressHandler: (event: OSDEvent<any>) => void;
         nonPrimaryReleaseHandler: (event: OSDEvent<any>) => void;
+        overHandler: (event: OSDEvent<any>) => void;
+        outHandler: (event: OSDEvent<any>) => void;
         pinchHandler: (event: OSDEvent<any>) => void;
         pressHandler: (event: OSDEvent<any>) => void;
+        preProcessEventHandler: (event: OSDEvent<any>) => void;
         releaseHandler: (event: OSDEvent<any>) => void;
         scrollHandler: (event: OSDEvent<any>) => void;
         setTracking(track: boolean): any;
         stopHandler: (event: OSDEvent<any>) => void;
+    }
+
+    interface EventProcessInfo {
+        eventSource: MouseTracker;
+        originalEvent: Event;
+        eventPhase: number;
+        eventType: string;
+        pointerType: string;
+        isEmulated: boolean;
+        isStoppable: boolean;
+        isCancelable: boolean;
+        defaultPrevented: boolean;
+        preventDefault: boolean;
+        preventGesture: boolean;
+        stopPropagation: boolean;
+        shouldCapture: boolean;
+        shouldReleaseCapture: boolean;
+        userData: any;
     }
 
     interface GesturePoint {
@@ -711,6 +782,8 @@ declare namespace OpenSeadragon {
         setFlip(state: boolean): void;
         update(viewport: Viewport): void;
         updateSize(): void;
+        setWidth(width: number | string): void;
+        setHeight(width: number | string): void;
     }
 
     class OsmTileSource extends TileSource {
@@ -839,6 +912,7 @@ declare namespace OpenSeadragon {
         context2D: CanvasRenderingContext2D;
         element: Element;
         exists: boolean;
+        flipped: boolean;
         image: object;
         imgElement: HTMLImageElement;
         isBottomMost: boolean;
@@ -960,10 +1034,12 @@ declare namespace OpenSeadragon {
         getCompositeOperation(): string;
         getContentSize(): Point;
         getFullyLoaded(): boolean;
+        getFlip(): boolean;
         getHandler(eventName: string): (source: Event, ...args: any[]) => void;
         getOpacity(): number;
         getPreload(): boolean;
         getRotation(current?: boolean): number;
+        getTileBounds(level: number, x: number, y: number): Rect;
         imageToViewerElementCoordinats(pixel: Point): Point;
         imageToViewportCoordinates(position: Point, current?: boolean): Point;
         imageToViewportCoordinates(
@@ -995,8 +1071,11 @@ declare namespace OpenSeadragon {
             handler: EventHandler<TiledImageEvent>
         ): void;
         reset(): void;
+        resetCroppingPolygons(): void;
         setClip(newClip: Rect | null): void;
         setCompositeOperation(compositeOperation: string): void;
+        setCroppingPolygons(polygons: Point[][]): void;
+        setFlip(flip: boolean): void;
         setHeight(height: number, immediately?: boolean): void;
         setOpacity(opacity: number): void;
         setPosition(position: Point, immediately?: boolean): void;
@@ -1062,7 +1141,10 @@ declare namespace OpenSeadragon {
         getTileWidth(level: number): number;
         raiseEvent(eventName: string, eventArgs: object): void;
         removeAllHandlers(eventName: string): void;
-        removeHandler(eventName: string, handler: EventHandler<TileSourceEvent>): void;
+        removeHandler(
+            eventName: string,
+            handler: EventHandler<TileSourceEvent>
+        ): void;
         supports(
             data: string | object | any[] | Document,
             url: string
@@ -1080,8 +1162,7 @@ declare namespace OpenSeadragon {
         );
     }
 
-    interface TiledImageOptions {
-        tileSource: string | object;
+    interface ImageOptions {
         index?: number;
         replace?: boolean;
         x?: number;
@@ -1103,6 +1184,14 @@ declare namespace OpenSeadragon {
         error?: (error: Error) => void;
         collectionImmediately?: boolean;
         placeholderFillStyle?: string | CanvasGradient | CanvasPattern;
+    }
+
+    interface TiledImageOptions extends ImageOptions {
+        tileSource: string | object;
+    }
+
+    interface SimpleImageOptions extends ImageOptions {
+        url: string;
     }
 
     class Viewer extends ControlDock {
@@ -1140,7 +1229,7 @@ declare namespace OpenSeadragon {
             ) => void
         ): Viewer;
         addReferenceStrip(): void;
-        addSimpleImage(options: TiledImageOptions): void; // TODO: check options type
+        addSimpleImage(options: SimpleImageOptions): void;
         addTiledImage(options: TiledImageOptions): void;
         bindSequenceControls(): Viewer;
         bindStandardControls(): Viewer;
@@ -1163,7 +1252,10 @@ declare namespace OpenSeadragon {
         ): Viewer;
         raiseEvent(eventName: string, eventArgs?: object): void;
         removeAllHandlers(eventName: string): void;
-        removeHandler(eventName: string, handler: EventHandler<ViewerEvent>): void;
+        removeHandler(
+            eventName: string,
+            handler: EventHandler<ViewerEvent>
+        ): void;
         removeOverlay(overlay: Element | string): Viewer;
         removeReferenceStrip(): void;
         setControlsEnabled(enabled: boolean): Viewer;
@@ -1324,7 +1416,10 @@ declare namespace OpenSeadragon {
         raiseEvent(eventName: string, eventArgs?: object): void;
         removeAll(): void;
         removeAllHandlers(eventName: string): void;
-        removeHandler(eventName: string, handler: EventHandler<WorldEvent>): void;
+        removeHandler(
+            eventName: string,
+            handler: EventHandler<WorldEvent>
+        ): void;
         removeItem(item: TiledImage): void;
         resetItems(): void;
         setAutoRefigureSizes(value?: boolean): void;
