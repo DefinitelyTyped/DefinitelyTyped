@@ -1,4 +1,4 @@
-// Type definitions for Matter.js - 0.14.2
+// Type definitions for Matter.js - 0.17.1
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771>,
@@ -1133,7 +1133,7 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @return {bounds} A new bounds object
          */
-        static create (vertices: Vertices): Bounds;
+        static create(vertices: Vertices): Bounds;
         /**
          * Updates bounds using the given vertices and extends the bounds given a velocity.
          * @method update
@@ -1493,7 +1493,8 @@ declare namespace Matter {
     */
     export class Composites {
         /**
-         * Creates a composite with simple car setup of bodies and constraints.
+         * This has now moved to the [car example](https://github.com/liabru/matter-js/blob/master/examples/car.js), follow that instead as this function is deprecated here.
+         * @deprecated moved to car example
          * @method car
          * @param {number} xx
          * @param {number} yy
@@ -1530,7 +1531,8 @@ declare namespace Matter {
         static mesh(composite: Composite, columns: number, rows: number, crossBrace: boolean, options: any): Composite;
 
         /**
-         * Creates a composite with a Newton's Cradle setup of bodies and constraints.
+         * This has now moved to the [newtonsCradle example](https://github.com/liabru/matter-js/blob/master/examples/newtonsCradle.js), follow that instead as this function is deprecated here.
+         * @deprecated moved to newtonsCradle example
          * @method newtonsCradle
          * @param {number} xx
          * @param {number} yy
@@ -1557,7 +1559,9 @@ declare namespace Matter {
         static pyramid(xx: number, yy: number, columns: number, rows: number, columnGap: number, rowGap: number, callback: Function): Composite;
 
         /**
-         * Creates a simple soft body like object.
+         * This has now moved to the [softBody example](https://github.com/liabru/matter-js/blob/master/examples/softBody.js)
+         * and the [cloth example](https://github.com/liabru/matter-js/blob/master/examples/cloth.js), follow those instead as this function is deprecated here.
+         * @deprecated moved to softBody and cloth examples
          * @method softBody
          * @param {number} xx
          * @param {number} yy
@@ -1766,6 +1770,24 @@ declare namespace Matter {
          */
         static create(options: IConstraintDefinition): Constraint;
 
+
+        /**
+         * Returns the world-space position of `constraint.pointA`, accounting for `constraint.bodyA`.
+         * @method pointAWorld
+         * @param {constraint} constraint
+         * @returns {vector} the world-space position
+         */
+        static pointAWorld(constraint: Constraint): Vector;
+
+        /**
+         * Returns the world-space position of `constraint.pointB`, accounting for `constraint.bodyB`.
+         * @method pointBWorld
+         * @param {constraint} constraint
+         * @returns {vector} the world-space position
+         */
+        static pointBWorld(constraint: Constraint): Vector;
+
+
         /**
          * The first possible `Body` that this constraint is attached to.
          *
@@ -1944,21 +1966,42 @@ declare namespace Matter {
          * A value of `0.1` gives a slow-motion effect.
          * A value of `1.2` gives a speed-up effect.
          *
-        * @property timing.timeScale
-        * @type number
-        * @default 1
-        */
+         * @property timing.timeScale
+         * @type number
+         * @default 1
+         */
         timeScale: number;
 
         /**
          * A `Number` that specifies the current simulation-time in milliseconds starting from `0`.
          * It is incremented on every `Engine.update` by the given `delta` argument.
          *
-        * @property timing.timestamp
-        * @type number
-        * @default 0
-        */
+         * @property timing.timestamp
+         * @type number
+         * @default 0
+         */
         timestamp: number;
+
+        /**
+         * A `Number` that represents the total execution time elapsed during the last `Engine.update` in milliseconds.
+         * It is updated by timing from the start of the last `Engine.update` call until it ends.
+         *
+         * This value will also include the total execution time of all event handlers directly or indirectly triggered by the engine update.
+         *
+         * @property timing.lastElapsed
+         * @type number
+         * @default 0
+         */
+        lastElapsed: number;
+
+        /**
+         * A `Number` that represents the `delta` value used in the last engine update.
+         *
+         * @property timing.lastDelta
+         * @type number
+         * @default 0
+         */
+        lastDelta: number;
     }
 
     /**
@@ -2027,7 +2070,8 @@ declare namespace Matter {
         static update(engine: Engine, delta?: number, correction?: number): Engine;
 
         /**
-         * An alias for `Runner.run`, see `Matter.Runner` for more information.
+         * A deprecated alias for `Runner.run`, use `Matter.Runner.run(engine)` instead and see `Matter.Runner` for more information.
+         * @deprecated use Matter.Runner.run(engine) instead
          * @method run
          * @param {engine} engine
          */
@@ -2332,13 +2376,13 @@ declare namespace Matter {
     * @class Query
     */
     export class Query {
-         /**
-         * Finds a list of collisions between body and bodies.
-         * @method collides
-         * @param {body} body
-         * @param {body[]} bodies
-         * @return {object[]} Collisions
-         */
+        /**
+        * Finds a list of collisions between body and bodies.
+        * @method collides
+        * @param {body} body
+        * @param {body[]} bodies
+        * @return {object[]} Collisions
+        */
         static collides(body: Body, bodies: Array<Body>): Array<any>;
 
         /**
@@ -2823,7 +2867,7 @@ declare namespace Matter {
          * @param {vector} vectorC
          * @return {number} The cross product of the three vectors
          */
-        static cross3(vectorA: Vector, vectorB: Vector, vectorC: Vector):number;
+        static cross3(vectorA: Vector, vectorB: Vector, vectorC: Vector): number;
 
         /**
          * Adds the two vectors.
@@ -3110,7 +3154,7 @@ declare namespace Matter {
     }
 
     interface Gravity extends Vector {
-      scale: number;
+        scale: number;
     }
 
     /**
@@ -3479,6 +3523,40 @@ declare namespace Matter {
          * @return {} The loaded module
          */
         static _requireGlobal(globalName: string, moduleName: string): any
+
+        /**
+         * Uses `Common.warn` to log the given message one time only.
+         * @method warnOnce
+         * @param ...objs {} The objects to log.
+         */
+        static warnOnce(...objs: Record<string, any>[]): void
+
+        /**
+         * Shows a deprecated console warning when the function on the given object is called.
+         * The target function will be replaced with a new function that first shows the warning
+         * and then calls the original function.
+         * @method deprecated
+         * @param {object} obj The object or module
+         * @param {string} name The property name of the function on obj
+         * @param {string} warning The one-time message to show if the function is called
+         */
+        static deprecated(obj: Record<string, any>, prop: string, warning: string): void
+
+        /**
+         * Provide the [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module to enable
+         * concave vertex decomposition support when using `Bodies.fromVertices` e.g. `Common.setDecomp(require('poly-decomp'))`.
+         * @method setDecomp
+         * @param {} decomp The [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module.
+         */
+        static setDecomp(decomp: any): void
+
+        /**
+         * Returns the [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module provided through `Common.setDecomp`,
+         * otherwise returns the global `decomp` if set.
+         * @method getDecomp
+         * @return {} The [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module if provided.
+         */
+        static getDecomp(): any
     }
 
     export interface IEvent<T> {
@@ -3768,9 +3846,9 @@ declare namespace Matter {
 
     }
 
-    type Dependency = {name: string, range: string}
-                    | {name: string, version: string}
-                    | string;
+    type Dependency = { name: string, range: string }
+        | { name: string, version: string }
+        | string;
 
     export class Plugin {
         name: string;
@@ -3824,7 +3902,7 @@ declare namespace Matter {
          * @param module {} The module.
          * @return {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
          */
-        static isFor(plugin: Plugin, module: {name?: string, [_: string]: any}): boolean;
+        static isFor(plugin: Plugin, module: { name?: string, [_: string]: any }): boolean;
 
         /**
          * Installs the plugins by calling `plugin.install` on each plugin specified in `plugins` if passed, otherwise `module.uses`.
@@ -3843,7 +3921,7 @@ declare namespace Matter {
          * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
          */
         static use(
-            module: {uses?: (Plugin | string)[]; [_: string]: any},
+            module: { uses?: (Plugin | string)[];[_: string]: any },
             plugins: (Plugin | string)[]
         ): void;
 
@@ -3855,8 +3933,8 @@ declare namespace Matter {
          */
         static dependencies(
             module: Dependency,
-            tracked?: {[_: string]: string[]}
-        ): {[_: string]: string[]} | string | undefined
+            tracked?: { [_: string]: string[] }
+        ): { [_: string]: string[] } | string | undefined
 
         /**
          * Parses a dependency string into its components.
@@ -3867,7 +3945,7 @@ declare namespace Matter {
          * @param dependency {string} The dependency of the format `'module-name'` or `'module-name@version'`.
          * @return {object} The dependency parsed into its components.
          */
-        static dependencyParse(dependency: Dependency) : {name: string, range: string};
+        static dependencyParse(dependency: Dependency): { name: string, range: string };
 
         /**
          * Parses a version string into its components.
@@ -3883,7 +3961,7 @@ declare namespace Matter {
          * @param range {string} The version string.
          * @return {object} The version range parsed into its components.
          */
-        static versionParse(range: string) : {
+        static versionParse(range: string): {
             isRange: boolean,
             version: string,
             range: string,
