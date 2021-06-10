@@ -32,7 +32,10 @@ export interface ToRelativeOptions extends Omit<ToRelativeCalendarOptions, 'unit
      * @default 0
      */
     padding?: number;
-    /** If omitted, the method will pick the unit. */
+    /**
+     * A single unit or an array of units. If an array is supplied, the method will pick the best one
+     * to use from the array. If omitted, the method will pick the unit from a default set.
+     */
     unit?: ToRelativeUnit | ToRelativeUnit[];
 }
 
