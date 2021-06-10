@@ -8,11 +8,11 @@
 
 import * as React from "react";
 
-export type maskArray = Array<string | RegExp> | boolean;
+export type maskArray = Array<string | RegExp> | false;
 
 export interface MaskedInputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
-    mask?: maskArray | ((value: string) => maskArray);
+    mask: maskArray | ((value: string) => maskArray);
 
     guide?: boolean;
 
