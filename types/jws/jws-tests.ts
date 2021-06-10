@@ -28,7 +28,12 @@ const signatureWithHeaderParams = jws.sign({
 });
 
 // jws.decode
+// $ExpectType Signature | null
 const message = jws.decode('djfakdid');
+if (message) {
+  // $ExpectType string
+  const payload = message.payload;
+}
 
 // $ExpectType boolean
 const isValid = jws.isValid('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c');
