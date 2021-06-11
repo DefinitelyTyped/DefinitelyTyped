@@ -764,7 +764,7 @@ lg = new L.LayerGroup([new L.Layer(), new L.Layer()], {
 // adapted from GridLayer documentation
 const CanvasLayer = L.GridLayer.extend({
     createTile(coords: L.Coords, done: L.DoneCallback) {
-        const tile = (L.DomUtil.create('canvas', 'leaflet-tile') as HTMLCanvasElement);
+        const tile = L.DomUtil.create('canvas', 'leaflet-tile');
         const size = this.getTileSize();
         tile.width = size.x;
         tile.height = size.y;
@@ -775,7 +775,7 @@ const CanvasLayer = L.GridLayer.extend({
 // adapted from GridLayer documentation
 const AsyncCanvasLayer = L.GridLayer.extend({
     createTile(coords: L.Coords, done: L.DoneCallback) {
-        const tile = (L.DomUtil.create('canvas', 'leaflet-tile') as HTMLCanvasElement);
+        const tile = L.DomUtil.create('canvas', 'leaflet-tile');
         const size = this.getTileSize();
         tile.width = size.x;
         tile.height = size.y;
