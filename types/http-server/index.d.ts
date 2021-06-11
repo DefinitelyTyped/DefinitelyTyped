@@ -26,4 +26,6 @@ export interface Options {
     robots?: string | true;
     proxy?: string;
     https?: https.ServerOptions;
+    username?: string;
+    password?: string;
 }
