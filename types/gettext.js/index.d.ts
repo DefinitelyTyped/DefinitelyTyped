@@ -8,7 +8,7 @@ export type PluralForm = (n: number) => number;
 
 export type GettextStatic = (options?: GettextOptions) => Gettext;
 
-type Optionull<T> = T | null | undefined;
+export type Optionull<T> = T | null | undefined;
 
 export interface GettextOptions {
   domain?: string;
