@@ -3,8 +3,6 @@
 // Definitions by: Fabian Bäumer <https://github.com/TrueSkrillor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace commandShellLib;
-
 /** A single command specifying parameters, description and the corresponding handler. */
 export interface Command {
     /**
