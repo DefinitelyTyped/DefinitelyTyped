@@ -141,6 +141,32 @@ const humanoidFactory = Factory.define<Person>('Humanoid').extend('Person');
 humanoidFactory.attr('firstName', 'Beep');
 humanoidFactory.attr('lastName', 'Bop');
 
+// Define Humanoid as extended person
+const anotherHumanoidFactory = Factory.define<Person>('AnotherHumanoid').extend(personFactory);
+
+humanoidFactory.attr('firstName', 'Beep');
+humanoidFactory.attr('lastName', 'Bop');
+
+// Define a Toddler which implements from Person props
+interface Toddler extends Person {
+    useDiaper: boolean;
+}
+
+const toddlerFactory = Factory.define<Toddler>('Toddler').extend<Person>('Person');
+
+toddlerFactory.attr('firstName', 'XÆA-12');
+toddlerFactory.attr('lastName', 'Musk');
+toddlerFactory.attr('useDiaper', true);
+
+const miniMuskFactory = Factory.define<Toddler>('MiniMusk').extend(personFactory);
+
+miniMuskFactory.attr('firstName', 'XÆA-12');
+miniMuskFactory.attr('lastName', 'Musk');
+miniMuskFactory.attr('useDiaper', true);
+
+// this should be a $ExpectError
+// const errorPersonFactory = Factory.define<Person>('ErrorPerson').extend(toddlerFactory);
+
 class CustomClass {
     type: string;
 
