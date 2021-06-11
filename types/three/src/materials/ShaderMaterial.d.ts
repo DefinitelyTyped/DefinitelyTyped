@@ -38,7 +38,7 @@ export class ShaderMaterial extends Material {
     /**
      * @default {}
      */
-    uniforms: { [uniform: string]: IUniform };
+    uniforms: { [uniform: string]: IUniform | undefined };
     vertexShader: string;
     fragmentShader: string;
 
