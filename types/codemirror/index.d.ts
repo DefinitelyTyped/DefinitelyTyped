@@ -609,10 +609,10 @@ declare namespace CodeMirror {
         identifiers?: unknown;
         /** List of extra words ton consider as keywords */
         extra_keywords?: string[];
-        /**  List of extra words ton consider as builtins */
+        /** List of extra words ton consider as builtins */
         extra_builtins?: string[];
 
-        /**useCPP, which determines whether C preprocessor directives are recognized.*/
+        /** useCPP, which determines whether C preprocessor directives are recognized. */
         useCPP?: boolean;
 
         /** Below options are supported in Handlebars/Haskell/YAML front matter  mode */
@@ -650,12 +650,14 @@ declare namespace CodeMirror {
 
         /** Whether to separately highlight markdown meta characters (*[]()etc.) (default: false). */
         highlightFormatting?: boolean;
-        /** Maximum allowed blockquote nesting (default: 0 - infinite nesting).*/
+        /** Maximum allowed blockquote nesting (default: 0 - infinite nesting). */
         maxBlockquoteDepth?: boolean;
-        /** Whether to highlight inline XML (default: true).*/
+        /** Whether to highlight inline XML (default: true). */
         xml?: boolean;
-        /** Whether to syntax-highlight fenced code blocks, if given mode is included, or fencedCodeBlockDefaultMode
-         * is set (default: true). */
+        /**
+         * Whether to syntax-highlight fenced code blocks, if given mode is included, or fencedCodeBlockDefaultMode
+         * is set (default: true).
+         */
         fencedCodeBlockHighlighting?: boolean;
         /** Mode to use for fencedCodeBlockHighlighting, if given mode is not included. */
         fencedCodeBlockDefaultMode?: string;
@@ -684,7 +686,7 @@ declare namespace CodeMirror {
 
         /** Below options are supported in SystemVerilog mode */
 
-        /** List of keywords which should not cause indentation to increase.  */
+        /** List of keywords which should not cause indentation to increase. */
         noIndentKeywords?: unknown;
 
         /** Below options are supported in VHDL mode */
@@ -708,7 +710,7 @@ declare namespace CodeMirror {
          * and highlights mismatches as errors. Defaults to true.
          */
         matchClosing?: boolean;
-        /** Setting this to true will force the opening tag of CDATA blocks to not be indented.*/
+        /** Setting this to true will force the opening tag of CDATA blocks to not be indented. */
         alignCDATA?: boolean;
     }
 
