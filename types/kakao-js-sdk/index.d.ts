@@ -23,7 +23,9 @@ declare namespace Kakao {
             msg: string;
         }
 
-        type ApiResponse = object; // api responses
+        interface ApiResponse {
+            [key: string]: any;
+        } // api responses
 
         function cleanup(): void;
 
@@ -37,7 +39,9 @@ declare namespace Kakao {
          */
         function request(settings: {
             url: string; // Kakao REST API urls
-            data?: object;
+            data?: {
+                [key: string]: any;
+            };
             files?: FileList | File[] | Blob[];
             success?: RequestSuccessCallback;
             fail?: RequestFailCallback;
@@ -51,7 +55,9 @@ declare namespace Kakao {
 
         interface AuthStatusObject {
             status: 'connected' | 'not_connected';
-            user?: object;
+            user?: {
+                [key: string]: any;
+            };
         }
 
         interface AuthSuccessObject {
@@ -197,7 +203,11 @@ declare namespace Kakao {
             buttons?: ButtonObject[];
             installTalk?: boolean; // default false
             callback?: LinkCallback;
-            serverCallbackArgs?: object | string; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
+            serverCallbackArgs?:
+                | {
+                      [key: string]: any;
+                  }
+                | string; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
         }
 
         interface DefaultCommerceSettings extends BaseObject<'commerce'> {
@@ -265,10 +275,16 @@ declare namespace Kakao {
         function createCustomButton(settings: {
             container: string | HTMLElement;
             templateId: number;
-            templateArgs?: object;
+            templateArgs?: {
+                [key: string]: any;
+            };
             installTalk?: boolean; // default false
             callback?: LinkCallback;
-            serverCallbackArgs?: object | string; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
+            serverCallbackArgs?:
+                | {
+                      [key: string]: any;
+                  }
+                | string; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
         }): void;
 
         function createDefaultButton(
@@ -281,10 +297,16 @@ declare namespace Kakao {
             container: string | HTMLElement;
             requestUrl: string;
             templateId?: number;
-            templateArgs?: object;
+            templateArgs?: {
+                [key: string]: any;
+            };
             installTalk?: boolean; // default false
             callback?: LinkCallback;
-            serverCallbackArgs?: object | string;
+            serverCallbackArgs?:
+                | {
+                      [key: string]: any;
+                  }
+                | string;
         }): void;
 
         function deleteImage(settings: { imageUrl: string }): Promise<unknown>;
@@ -293,10 +315,16 @@ declare namespace Kakao {
 
         function sendCustom(settings: {
             templateId: number;
-            templateArgs: object;
+            templateArgs: {
+                [key: string]: any;
+            };
             installTalk?: boolean; // default false
             callback?: LinkCallback;
-            serverCallbackArgs?: object | string;
+            serverCallbackArgs?:
+                | {
+                      [key: string]: any;
+                  }
+                | string;
         }): void;
 
         function sendDefault(settings: DefaultSettings): void;
@@ -304,10 +332,16 @@ declare namespace Kakao {
         function sendScrap(settings: {
             requestUrl: string;
             templateId?: number;
-            templateArgs?: object;
+            templateArgs?: {
+                [key: string]: any;
+            };
             installTalk?: boolean; // default false
             callback?: LinkCallback;
-            serverCallbackArgs?: object | string;
+            serverCallbackArgs?:
+                | {
+                      [key: string]: any;
+                  }
+                | string;
         }): void;
 
         function uploadImage(settings: { file: FileList }): Promise<ImageInfos>;
