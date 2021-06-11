@@ -1,6 +1,8 @@
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
 
+import Tabulator from 'tabulator-tables';
+
 // constructor
 let table = new Tabulator('#test');
 table.copyToClipboard('selected');
