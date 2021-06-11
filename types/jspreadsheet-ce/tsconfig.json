@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "jspreadsheet-tests.ts"
+        "jspreadsheet-ce-tests.ts"
     ]
 }
