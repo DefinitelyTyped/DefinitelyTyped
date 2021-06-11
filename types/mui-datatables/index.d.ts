@@ -7,7 +7,6 @@
 //                 Byron "Byrekt" Mitchell <https://github.com/byrekt>
 //                 Bohdan Yavorskyi <https://github.com/BohdanYavorskyi>
 //                 Patrick Erichsen <https://github.com/Patrick-Erichsen>
-//                 Jan Eckert <https://github.com/meinlebenswerk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
