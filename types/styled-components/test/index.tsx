@@ -669,7 +669,9 @@ const HasAttributesOfAsOrForwardedAsComponent = (
     <>
         <WrappedExternalAsComponent as="a" type="primitive" href="/" />
         <WrappedExternalAsComponent forwardedAs="a" type="complex" href="/" />
-        <WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" />
+        <WrappedExternalAsComponent as={OtherExternalComponent} requiredProp="test" />
+        {<WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" /> // $ExpectError
+        }
         <WrappedExternalAsComponent forwardedAs={OtherExternalComponent} type="complex" requiredProp="test" />
     </>
 );
@@ -695,7 +697,8 @@ class Test2Container extends React.Component<Test2ContainerProps> {
     }
 }
 
-const containerTest = <StyledTestContainer as={Test2Container} type="foo" size="big"/>;
+const containerTest = <StyledTestContainer as={Test2Container} type="foo" />;
+const containerTestFailed = <StyledTestContainer as={Test2Container} type="foo" size="big" />; // $ExpectError
 const containerTestTwo = <StyledTestContainer forwardedAs={Test2Container} type="foo" size="big" />;
 
 // 4.0 refs
