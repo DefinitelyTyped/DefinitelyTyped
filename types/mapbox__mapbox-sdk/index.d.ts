@@ -1195,7 +1195,7 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
   export default function Optimization(config: SdkConfig | MapiClient): OptimizationService; // SdkConfig | MapiClient
 
   interface OptimizationService {
-    getContours(config: OptimizationRequest): MapiRequest;
+    getOptimization(config: OptimizationRequest): MapiRequest;
   }
 
   interface OptimizationRequest {
