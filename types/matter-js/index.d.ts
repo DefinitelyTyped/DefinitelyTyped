@@ -137,9 +137,10 @@ declare namespace Matter {
         * @param {bool} [flagInternal=false]
         * @param {number} [removeCollinear=0.01]
         * @param {number} [minimumArea=10]
+        * @param {number} [removeDuplicatePoints=0.01]
         * @return {body}
         */
-        static fromVertices(x: number, y: number, vertexSets: Array<Array<Vector>>, options?: IBodyDefinition, flagInternal?: boolean, removeCollinear?: number, minimumArea?: number): Body;
+        static fromVertices(x: number, y: number, vertexSets: Array<Array<Vector>>, options?: IBodyDefinition, flagInternal?: boolean, removeCollinear?: number, minimumArea?: number, removeDuplicatePoints?: number): Body;
     }
 
     export interface IBodyDefinition {
@@ -2078,12 +2079,13 @@ declare namespace Matter {
         static run(enige: Engine): void;
 
         /**
-         * An instance of a broadphase controller. The default value is a `Matter.Grid` instance created by `Engine.create`.
+         * Replaced by and now alias for `engine.grid`.
          *
-        * @property broadphase
-        * @type grid
-        * @default a Matter.Grid instance
-        */
+         * @deprecated use `engine.grid`
+         * @property broadphase
+         * @type grid
+         * @default a Matter.Grid instance
+         */
         broadphase: Grid;
         /**
          * An integer `Number` that specifies the number of constraint iterations to perform each update.
@@ -2110,6 +2112,24 @@ declare namespace Matter {
         * @default false
         */
         enableSleeping: boolean;
+
+        /**
+         * A `Matter.Grid` instance.
+         *
+         * @property grid
+         * @type grid
+         * @default a Matter.Grid instance
+         */
+        grid: Grid;
+
+
+        /**
+         * The gravity to apply on all bodies in `engine.world`.
+         *
+         * @property gravity
+         * @type object
+         */
+        gravity: Gravity;
 
         /**
          * Collision pair set for this `Engine`.
@@ -3223,6 +3243,9 @@ declare namespace Matter {
          */
         static create(options: IWorldDefinition): World;
 
+        /**
+         * @deprecated moved to engine.gravity
+         */
         gravity: Gravity;
         bounds: Bounds;
 
