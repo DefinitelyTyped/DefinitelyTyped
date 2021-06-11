@@ -104,6 +104,7 @@ type GetRouteParameter<RouteAfterColon extends string> = RouteAfterColon extends
         : `${Char}${GetRouteParameter<Rest>}`
     : RouteAfterColon;
 
+// prettier-ignore
 export type RouteParameters<Route extends string> = string extends Route
     ? ParamsDictionary
     : Route extends `${string}(${string}`
