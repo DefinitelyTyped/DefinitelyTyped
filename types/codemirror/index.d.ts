@@ -579,116 +579,124 @@ declare namespace CodeMirror {
         /** Below options are supported in CSS mode */
 
         /** Whether to highlight non-standard CSS property keywords such as margin-inline or zoom (default: true). */
-        highlightNonStandardPropertyKeywords?: boolean,
+        highlightNonStandardPropertyKeywords?: boolean;
 
         /** Below options are supported in Cython/Python modes */
 
         /**  The version of Python to recognize. Default is 3. */
-        version? : 2 | 3,
-        /**  If you have a single-line string that is not terminated at the end of the line, this will show subsequent lines as errors if true, otherwise it will consider the newline as the end of the string. Default is false. */
-        singleLineStringErrors?: boolean,
-        /** If you want to write long arguments to a function starting on a new line, how much that line should be indented. Defaults to one normal indentation unit. */
-        hangingIndent?: number,
+        version? : 2 | 3;
+        /**  If you have a single-line string that is not terminated at the end of the line, this will show subsequent
+         * lines as errors if true, otherwise it will consider the newline as the end of the string. Default is false. */
+        singleLineStringErrors?: boolean;
+        /** If you want to write long arguments to a function starting on a new line, how much that line should be
+         * indented. Defaults to one normal indentation unit. */
+        hangingIndent?: number;
         /** Regular Expression for single operator matching */
-        singleOperators?: unknown,
+        singleOperators?: unknown;
         /**  Regular Expression for single delimiter matching default :^[\\(\\)\\[\\]\\{\\}@,:`=;\\.] */
-        singleDelimiters?: unknown,
+        singleDelimiters?: unknown;
         /** Regular Expression for double operators matching, default :^((==)|(!=)|(<=)|(>=)|(<>)|(<<)|(>>)|(//)|(\\*\\*)) */
-        doubleOperators?: unknown,
+        doubleOperators?: unknown;
         /** Regular Expression for double delimiters matching default :^((\\+=)|(\\-=)|(\\*=)|(%=)|(/=)|(&=)|(\\|=)|(\\^=)) */
-        doubleDelimiters?: unknown,
+        doubleDelimiters?: unknown;
         /** Regular Expression for triple delimiters matching default :^((//=)|(>>=)|(<<=)|(\\*\\*=)) */
-        tripleDelimiters?: unknown,
+        tripleDelimiters?: unknown;
         /** RegEx - Regular Expression for identifier, default :^[_A-Za-z][_A-Za-z0-9]* */
-        identifiers?: unknown,
+        identifiers?: unknown;
         /** List of extra words ton consider as keywords */
-        extra_keywords?: string[],
+        extra_keywords?: string[];
         /**  List of extra words ton consider as builtins */
-        extra_builtins?: string[],
+        extra_builtins?: string[];
 
         /**useCPP, which determines whether C preprocessor directives are recognized.*/
-        useCPP?: boolean,
+        useCPP?: boolean;
 
 
         /** Below options are supported in Handlebars/Haskell/YAML front matter  mode */
-        base?: string,
+        base?: string;
 
         /** Below options are supported in HTML mixed  mode */
-        tags?: {[key: string]: unknown}
+        tags?: {[key: string]: unknown};
 
         /** Below options are supported in JavaScript mixed  mode */
 
         /** json which will set the mode to expect JSON data rather than a JavaScript program. */
-        json?: boolean,
+        json?: boolean;
         /** jsonld which will set the mode to expect JSON-LD linked data rather than a JavaScript program */
-        jsonld?: boolean,
+        jsonld?: boolean;
         /** typescript which will activate additional syntax highlighting and some other things for TypeScript code */
-        typescript?: boolean,
-        /** trackScope can be set to false to turn off tracking of local variables. This will prevent locals from getting the "variable-2" token type, and will break completion of locals with javascript-hint. */
-        trackScope?: boolean,
-        /** statementIndent which (given a number) will determine the amount of indentation to use for statements continued on a new line. */
-        statementIndent?: boolean,
-        /** wordCharacters, a regexp that indicates which characters should be considered part of an identifier. Defaults to /[\w$]/, which does not handle non-ASCII identifiers. Can be set to something more elaborate to improve Unicode support.*/
-        wordCharacters?: unknown,
+        typescript?: boolean;
+        /** trackScope can be set to false to turn off tracking of local variables. This will prevent locals from getting
+         * the "variable-2" token type, and will break completion of locals with javascript-hint. */
+        trackScope?: boolean;
+        /** statementIndent which (given a number) will determine the amount of indentation to use for statements
+         * continued on a new line. */
+        statementIndent?: boolean;
+        /** wordCharacters, a regexp that indicates which characters should be considered part of an identifier.
+         *  Defaults to /[\w$]/, which does not handle non-ASCII identifiers. Can be set to something more elaborate to
+         *  improve Unicode support.*/
+        wordCharacters?: unknown;
 
         /** Below options are supported in Markdown mixed  mode */
 
         /** Whether to separately highlight markdown meta characters (*[]()etc.) (default: false). */
-        highlightFormatting?: boolean,
+        highlightFormatting?: boolean;
         /** Maximum allowed blockquote nesting (default: 0 - infinite nesting).*/
-        maxBlockquoteDepth?: boolean,
+        maxBlockquoteDepth?: boolean;
         /** Whether to highlight inline XML (default: true).*/
-        xml?: boolean,
-        /** Whether to syntax-highlight fenced code blocks, if given mode is included, or fencedCodeBlockDefaultMode is set (default: true). */
-        fencedCodeBlockHighlighting?: boolean,
+        xml?: boolean;
+        /** Whether to syntax-highlight fenced code blocks, if given mode is included, or fencedCodeBlockDefaultMode
+         * is set (default: true). */
+        fencedCodeBlockHighlighting?: boolean;
         /** Mode to use for fencedCodeBlockHighlighting, if given mode is not included. */
-        fencedCodeBlockDefaultMode?: string,
+        fencedCodeBlockDefaultMode?: string;
         /** When you want to override default token type names (e.g. {code: "code"}). */
-        tokenTypeOverrides?: unknown,
+        tokenTypeOverrides?: unknown;
         /** Allow lazy headers without whitespace between hashtag and text (default: false). */
-        allowAtxHeaderWithoutSpace?: boolean,
+        allowAtxHeaderWithoutSpace?: boolean;
 
         /** Below options are supported in GFM mode mode */
-        gitHubSpice?: boolean,
-        taskLists?: boolean,
-        strikethrough?: boolean,
-        emoji?: boolean,
+        gitHubSpice?: boolean;
+        taskLists?: boolean;
+        strikethrough?: boolean;
+        emoji?: boolean;
 
         /** Below options are supported in Smarty mode */
 
         /** leftDelimiter and rightDelimiter, which should be strings that determine where the Smarty syntax starts and ends. */
-        leftDelimiter?: string,
-        rightDelimiter?: string,
-        baseMode?: string,
+        leftDelimiter?: string;
+        rightDelimiter?: string;
+        baseMode?: string;
 
         /** Below options are supported in sTeX mode */
 
         /** Whether to start parsing in math mode (default: false) */
-        inMathMode?: boolean,
+        inMathMode?: boolean;
 
         /** Below options are supported in SystemVerilog mode */
 
         /** List of keywords which should not cause indentation to increase.  */
-        noIndentKeywords?: unknown,
+        noIndentKeywords?: unknown;
 
         /** Below options are supported in VHDL mode */
 
         /** List of atom words. Default: "null" */
-        atoms?: unknown,
+        atoms?: unknown;
         /** List of meta hooks. Default: ["`", "$"] */
-        hooks?:unknown,
+        hooks?:unknown;
         /** Whether multi-line strings are accepted. Default: false */
-        multiLineStrings?: boolean,
+        multiLineStrings?: boolean;
 
         /** Below options are supported in XML mode */
 
-        /** This switches the mode to parse HTML instead of XML. This means attributes do not have to be quoted, and some elements (such as br) do not require a closing tag. */
-        htmlMode?: boolean,
-        /** Controls whether the mode checks that close tags match the corresponding opening tag, and highlights mismatches as errors. Defaults to true.*/
-        matchClosing?: boolean,
+        /** This switches the mode to parse HTML instead of XML. This means attributes do not have to be quoted,
+         * and some elements (such as br) do not require a closing tag. */
+        htmlMode?: boolean;
+        /** Controls whether the mode checks that close tags match the corresponding opening tag,
+         * and highlights mismatches as errors. Defaults to true.*/
+        matchClosing?: boolean;
         /** Setting this to true will force the opening tag of CDATA blocks to not be indented.*/
-        alignCDATA?: boolean,
-
+        alignCDATA?: boolean;
     }
 
     type ModeSpec<T> = {
