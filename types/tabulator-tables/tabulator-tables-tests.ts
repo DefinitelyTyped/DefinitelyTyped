@@ -1,5 +1,6 @@
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
+// tslint:disable:prefer-const
 
 import Tabulator from 'tabulator-tables';
 
@@ -472,7 +473,7 @@ table.download('pdf', 'data.pdf', {
         doc.text('SOME TEXT', 1, 1);
         return {
             styles: {
-                fillColor: [200, 00, 00],
+                fillColor: [200, 0, 0],
             },
         };
     },
