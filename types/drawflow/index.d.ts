@@ -152,8 +152,9 @@ export default class Drawflow {
   /**
    * Update data element. Ex: 5, { name: 'Drawflow' }
    * @param id
+   * @param data
    */
-  updateNodeDataFromId(id: string | number): void;
+  updateNodeDataFromId(id: string | number, data: any): void;
 
   /**
    * Add input to node. Ex id: 5

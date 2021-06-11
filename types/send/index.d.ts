@@ -1,13 +1,14 @@
-// Type definitions for send v0.14.1
+// Type definitions for send 0.17
 // Project: https://github.com/pillarjs/send
 // Definitions by: Mike Jerred <https://github.com/MikeJerred>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
 import * as stream from "stream";
 import * as fs from "fs";
+import * as m from "mime";
 
 /**
  * Create a new SendStream for the given path to send to a res.
@@ -15,10 +16,8 @@ import * as fs from "fs";
  */
 declare function send(req: stream.Readable, path: string, options?: send.SendOptions): send.SendStream;
 
-import * as m from "mime";
-
 declare namespace send {
-    var mime: typeof m;
+    const mime: typeof m;
     interface SendOptions {
         /**
          * Enable or disable accepting ranged requests, defaults to true.
@@ -62,6 +61,14 @@ declare namespace send {
          * This is skipped if the requested file already has an extension.
          */
         extensions?: string[] | string | boolean;
+
+        /**
+         * Enable or disable the immutable directive in the Cache-Control response header, defaults to false.
+         * If set to true, the maxAge option should also be specified to enable caching.
+         * The immutable directive will prevent supported clients from making conditional requests during the life of the maxAge option to check if the file has changed.
+         * @default false
+         */
+        immutable?: boolean;
 
         /**
          * By default send supports "index.html" files, to disable this set false or to supply a new index pass a string or an array in preferred order.

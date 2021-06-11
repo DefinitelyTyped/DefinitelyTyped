@@ -1057,9 +1057,9 @@ declare namespace OracleDB {
          * @since 1.8
          * @see https://oracle.github.io/node-oracledb/doc/api.html#streamingresults
          */
-        queryStream(sql: string, bindParams: BindParameters, options: ExecuteOptions): Readable;
-        queryStream(sql: string, bindParams: BindParameters): Readable;
-        queryStream(sql: string): Readable;
+        queryStream<T>(sql: string, bindParams: BindParameters, options: ExecuteOptions): QueryStream<T>;
+        queryStream<T>(sql: string, bindParams: BindParameters): QueryStream<T>;
+        queryStream<T>(sql: string): QueryStream<T>;
 
         /**
          * Releases a connection.
@@ -2362,6 +2362,29 @@ declare namespace OracleDB {
         transformation: string;
         /** Defines whether the enqueue occurs in the current transaction or as a separate transaction. It can be any one of the AQ_VISIBILITY constants. */
         visibility: number;
+    }
+
+    /**
+     * Extends Readable and provides access to data and metadata of the query. The end event indicates the end of the query results.
+     * After the end event has been received, the Stream destroy() function should be called to clean up resources properly.
+     * Any further end-of-fetch logic, in particular the connection release, should be in the close event.
+     */
+    type QueryStream<T> = Readable & QueryStreamEvents<T>;
+
+    interface QueryStreamEvents<T> {
+        addListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+
+        emit(event: 'metadata', metadata: Metadata<T>[]): boolean;
+
+        on(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+
+        once(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+
+        prependListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+
+        prependOnceListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+
+        removeListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
     }
 
     /**

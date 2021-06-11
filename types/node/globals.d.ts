@@ -37,9 +37,9 @@ interface ImportMeta {
  ------------------------------------------------*/
 
 // For backwards compability
-interface NodeRequire extends NodeJS.Require {}
-interface RequireResolve extends NodeJS.RequireResolve {}
-interface NodeModule extends NodeJS.Module {}
+interface NodeRequire extends NodeJS.Require { }
+interface RequireResolve extends NodeJS.RequireResolve { }
+interface NodeModule extends NodeJS.Module { }
 
 declare var process: NodeJS.Process;
 declare var console: Console;
@@ -318,6 +318,7 @@ interface AbortController {
     /**
      * Returns the AbortSignal object associated with this object.
      */
+
     readonly signal: AbortSignal;
     /**
      * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
@@ -341,6 +342,7 @@ declare var AbortController: {
 declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
+    // TODO: Add abort() static
 };
 //#endregion borrowed
 

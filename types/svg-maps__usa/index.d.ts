@@ -3,20 +3,9 @@
 // Definitions by: Nick Glazer <https://github.com/nickglazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// tslint:disable-next-line no-single-declare-module
-declare module '@svg-maps/usa' {
-    export interface Location {
-        path: string;
-        id: string;
-        name?: string;
-    }
+import { Location, Map } from '@svg-maps/common';
 
-    export interface Map {
-        viewBox: string;
-        locations: Location[];
-        label?: string;
-    }
+declare const USA: Map;
 
-    const USA: Map;
-    export default USA;
-}
+export default USA;
+export { Location, Map };

@@ -1561,6 +1561,10 @@
             "libraryName": "graphql-query-complexity",
             "asOfVersion": "0.2.0"
         },
+        "graphql-relay": {
+            "libraryName": "graphql-relay",
+            "asOfVersion": "0.7.0"
+        },
         "gravatar-url": {
             "libraryName": "gravatar-url",
             "asOfVersion": "3.0.0"
@@ -2693,6 +2697,10 @@
             "libraryName": "material-components-web",
             "asOfVersion": "1.0.0"
         },
+        "mathjs": {
+            "libraryName": "mathjs",
+            "asOfVersion": "9.4.1"
+        },
         "matrix-appservice-bridge": {
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
@@ -2792,6 +2800,10 @@
         "mongodb-memory-server": {
             "libraryName": "mongodb-memory-server",
             "asOfVersion": "2.3.0"
+        },
+        "mongoose": {
+            "libraryName": "mongoose",
+            "asOfVersion": "5.11.0"
         },
         "monk": {
             "libraryName": "monk",
@@ -3614,6 +3626,10 @@
             "libraryName": "rc-progress",
             "asOfVersion": "2.4.0"
         },
+        "rdf-js": {
+            "libraryName": "rdf-js",
+            "asOfVersion": "4.0.2"
+        },
         "rc-select": {
             "libraryName": "rc-select",
             "asOfVersion": "8.6.5"
@@ -4273,10 +4289,6 @@
         "rgb2hex": {
             "libraryName": "rgb2hex",
             "asOfVersion": "0.2.1"
-        },
-        "riderize__passport-strava-oauth2": {
-            "libraryName": "@riderize/passport-strava-oauth2",
-            "asOfVersion": "1.1.1"
         },
         "riot": {
             "libraryName": "riot",
@@ -5289,6 +5301,10 @@
         "wordpress__a11y": {
             "libraryName": "@wordpress/a11y",
             "asOfVersion": "2.9.0"
+        },
+        "wordpress__api-fetch": {
+            "libraryName": "@wordpress/api-fetch",
+            "asOfVersion": "3.23.1"
         },
         "wordpress__autop": {
             "libraryName": "@wordpress/autop",

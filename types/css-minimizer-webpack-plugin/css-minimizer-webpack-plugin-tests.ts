@@ -48,6 +48,35 @@ module.exports = {
                     return false;
                 },
             }),
+            new CssMinimizerPlugin({
+                minimizerOptions: [
+                    {
+                        preset: [
+                            "default",
+                            {
+                                discardComments: { removeAll: true },
+                            },
+                        ],
+                        processorOptions: {
+                            parser: "parser",
+                            stringifier: "parse",
+                            syntax: "syntax",
+                        },
+                    },
+                ],
+                minify: [
+                    async (data, inputMap, minimizerOptions) => {
+                        return {
+                            code: `a{color: red}`,
+                            map: `{"version": "3", ...}`,
+                            warnings: [],
+                        };
+                    },
+                ],
+            }),
+            new CssMinimizerPlugin({minify: CssMinimizerPlugin.cssnanoMinify}),
+            new CssMinimizerPlugin({minify: CssMinimizerPlugin.cssoMinify}),
+            new CssMinimizerPlugin({minify: CssMinimizerPlugin.cleanCssMinify}),
         ],
     },
 };
