@@ -34,6 +34,7 @@ export interface Gettext {
   setLocale(locale: string): Gettext;
   getLocale(): string;
   textdomain(domain?: string): Gettext | string;
+
   gettext(msgid: string, ...args: any[]): string;
   ngettext(msgid: string, msgid_plural: string, n: number, ...args: any[]): string;
   pgettext(msgctxt: string, msgid: string, ...args: any[]): string;
@@ -41,6 +42,9 @@ export interface Gettext {
   __(msgid: string, ...args: any[]): string;
   _n(msgid: string, msgid_plural: string, n: number, ...args: any[]): string;
   _p(msgctxt: string, msgid: string, ...args: any[]): string;
+
+  strfmt(fmt: string, ...args: any[]): string;
+  expand_locale(locale: string): string[];
 }
 
 export const i18n: GettextStatic;
