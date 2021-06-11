@@ -8,10 +8,10 @@
 export = AnalyticsNode.Analytics;
 
 declare namespace AnalyticsNode {
-  type Identity = { 
-    userId?: string | number | undefined;
-    anonymousId?: string | number | undefined
-  };
+  interface Identity {
+    userId?: string | number;
+    anonymousId?: string | number;
+  }
 
   type Message = Identity & {
     type: string;
