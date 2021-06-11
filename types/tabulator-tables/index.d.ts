@@ -2278,5 +2278,3 @@ declare class Tabulator {
     /**The clearHistory function can be used to clear out the current table interaction history. */
     clearHistory: () => void;
 }
-
-export default Tabulator;
