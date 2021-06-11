@@ -29,4 +29,5 @@ export interface InnerImageZoomProps {
     afterZoomOut?: () => void;
 }
 
-export default class InnerImageZoom extends React.Component<InnerImageZoomProps> {}
+export class InnerImageZoom extends React.Component<InnerImageZoomProps> {}
+export default InnerImageZoom;
