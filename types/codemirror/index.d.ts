@@ -584,12 +584,16 @@ declare namespace CodeMirror {
         /** Below options are supported in Cython/Python modes */
 
         /**  The version of Python to recognize. Default is 3. */
-        version? : 2 | 3;
-        /**  If you have a single-line string that is not terminated at the end of the line, this will show subsequent
-         * lines as errors if true, otherwise it will consider the newline as the end of the string. Default is false. */
+        version?: 2 | 3;
+        /**
+         * If you have a single-line string that is not terminated at the end of the line, this will show subsequent
+         * lines as errors if true, otherwise it will consider the newline as the end of the string. Default is false.
+         */
         singleLineStringErrors?: boolean;
-        /** If you want to write long arguments to a function starting on a new line, how much that line should be
-         * indented. Defaults to one normal indentation unit. */
+        /**
+         * If you want to write long arguments to a function starting on a new line, how much that line should be
+         * indented. Defaults to one normal indentation unit.
+         */
         hangingIndent?: number;
         /** Regular Expression for single operator matching */
         singleOperators?: unknown;
@@ -611,7 +615,6 @@ declare namespace CodeMirror {
         /**useCPP, which determines whether C preprocessor directives are recognized.*/
         useCPP?: boolean;
 
-
         /** Below options are supported in Handlebars/Haskell/YAML front matter  mode */
         base?: string;
 
@@ -626,15 +629,21 @@ declare namespace CodeMirror {
         jsonld?: boolean;
         /** typescript which will activate additional syntax highlighting and some other things for TypeScript code */
         typescript?: boolean;
-        /** trackScope can be set to false to turn off tracking of local variables. This will prevent locals from getting
-         * the "variable-2" token type, and will break completion of locals with javascript-hint. */
+        /**
+         * trackScope can be set to false to turn off tracking of local variables. This will prevent locals from getting
+         * the "variable-2" token type, and will break completion of locals with javascript-hint.
+         */
         trackScope?: boolean;
-        /** statementIndent which (given a number) will determine the amount of indentation to use for statements
-         * continued on a new line. */
+        /**
+         * statementIndent which (given a number) will determine the amount of indentation to use for statements
+         * continued on a new line.
+         */
         statementIndent?: boolean;
-        /** wordCharacters, a regexp that indicates which characters should be considered part of an identifier.
+        /**
+         * wordCharacters, a regexp that indicates which characters should be considered part of an identifier.
          *  Defaults to /[\w$]/, which does not handle non-ASCII identifiers. Can be set to something more elaborate to
-         *  improve Unicode support.*/
+         *  improve Unicode support.
+         */
         wordCharacters?: unknown;
 
         /** Below options are supported in Markdown mixed  mode */
@@ -683,17 +692,21 @@ declare namespace CodeMirror {
         /** List of atom words. Default: "null" */
         atoms?: unknown;
         /** List of meta hooks. Default: ["`", "$"] */
-        hooks?:unknown;
+        hooks?: unknown;
         /** Whether multi-line strings are accepted. Default: false */
         multiLineStrings?: boolean;
 
         /** Below options are supported in XML mode */
 
-        /** This switches the mode to parse HTML instead of XML. This means attributes do not have to be quoted,
-         * and some elements (such as br) do not require a closing tag. */
+        /**
+         * This switches the mode to parse HTML instead of XML. This means attributes do not have to be quoted,
+         * and some elements (such as br) do not require a closing tag.
+         */
         htmlMode?: boolean;
-        /** Controls whether the mode checks that close tags match the corresponding opening tag,
-         * and highlights mismatches as errors. Defaults to true.*/
+        /**
+         * Controls whether the mode checks that close tags match the corresponding opening tag,
+         * and highlights mismatches as errors. Defaults to true.
+         */
         matchClosing?: boolean;
         /** Setting this to true will force the opening tag of CDATA blocks to not be indented.*/
         alignCDATA?: boolean;
