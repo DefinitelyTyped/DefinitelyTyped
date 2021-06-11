@@ -9,12 +9,15 @@ const defaultLocale = getDefaultLocale();
 <DatePicker
     adjustDateOnChange
     allowSameDay
+    ariaDescribedBy=""
     ariaLabelledBy=""
     ariaLabelClose=""
+    ariaRequired=""
     autoComplete=""
     autoFocus
     calendarClassName=""
     calendarContainer={props => <div />}
+    calendarStartDay={0}
     className=""
     clearButtonTitle=""
     // closeOnScroll={false} // Or as function:

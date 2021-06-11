@@ -39,12 +39,15 @@ interface HighlightDates {
 export interface ReactDatePickerProps {
     adjustDateOnChange?: boolean;
     allowSameDay?: boolean;
+    ariaDescribedBy?: string;
     ariaLabelClose?: string;
     ariaLabelledBy?: string;
+    ariaRequired?: string;
     autoComplete?: string;
     autoFocus?: boolean;
     calendarClassName?: string;
     calendarContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
+    calendarStartDay?: number;
     children?: React.ReactNode;
     chooseDayAriaLabelPrefix?: string;
     className?: string;
