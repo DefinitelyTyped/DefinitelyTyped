@@ -2027,3 +2027,8 @@ export namespace Util {
     let lastId: number;
     let emptyImageUrl: string;
 }
+
+export const extend: typeof Util['extend'];
+export const bind: typeof Util['bind'];
+export const stamp: typeof Util['stamp'];
+export const setOptions: typeof Util['setOptions'];
