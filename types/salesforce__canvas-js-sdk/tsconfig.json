@@ -13,11 +13,6 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "@salesforce/*": [
-                "salesforce__*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
