@@ -209,6 +209,13 @@ jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then(result => {
             // ....
         });
 
+    jose.JWE.createEncrypt({ iv: Buffer.alloc(96 / 8) }, key)
+        .update('input')
+        .final()
+        .then(result => {
+            // ....
+        });
+
     jose.JWE.createEncrypt([key, key])
         .update('input')
         .final()
