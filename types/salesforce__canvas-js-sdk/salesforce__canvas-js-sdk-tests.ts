@@ -1,18 +1,16 @@
-import { canvas } from '@salesforce/canvas-js-sdk';
-
 // =============================================================================
 // Constants
 // =============================================================================
 
-const CLIENT: canvas.Client = {
+const CLIENT: Sfdc.canvas.Client = {
     oauthToken: 'oauthToken',
     instanceId: 'instanceId',
     targetOrigin: 'targetOrigin',
 };
 
-const APPLICATION: canvas.Application = {
+const APPLICATION: Sfdc.canvas.Application = {
     applicationId: '06Px000000003ed',
-    authType: canvas.ApplicationAuthType.SIGNED_REQUEST,
+    authType: Sfdc.canvas.ApplicationAuthType.SIGNED_REQUEST,
     canvasUrl: 'http://MyDomainName.my.salesforce.com:8080/canvas_app_path/canvas_app.jsp',
     developerName: 'my_java_app',
     isInstalledPersonalApp: false,
@@ -24,7 +22,7 @@ const APPLICATION: canvas.Application = {
     version: '1.0.0',
 };
 
-const USER: canvas.User = {
+const USER: Sfdc.canvas.User = {
     accessibilityModeEnabled: false,
     currencyISOCode: 'USD',
     email: 'admin@6457617734813492.com',
@@ -44,10 +42,10 @@ const USER: canvas.User = {
     timeZone: 'America/Los_Angeles',
     userId: '005x0000001SyyEAAS',
     userName: 'admin@6457617734813492.com',
-    userType: canvas.UserType.STANDARD,
+    userType: Sfdc.canvas.UserType.STANDARD,
 };
 
-const ENVIRONMENT: canvas.Environment = {
+const ENVIRONMENT: Sfdc.canvas.Environment = {
     parameters: {
         complex: {
             key1: 'value1',
@@ -75,7 +73,7 @@ const ENVIRONMENT: canvas.Environment = {
         Fax: '(555) 555-5555',
         BillingCity: 'Seattle',
     },
-    displayLocation: canvas.EnvironmentDisplayLocation.CHATTER,
+    displayLocation: Sfdc.canvas.EnvironmentDisplayLocation.CHATTER,
     locationUrl: 'http://www.salesforce.com/some/path/index.html',
     subLocation: null,
     uiTheme: 'Theme3',
@@ -85,7 +83,7 @@ const ENVIRONMENT: canvas.Environment = {
     },
 };
 
-const ORGANIZATION: canvas.Organization = {
+const ORGANIZATION: Sfdc.canvas.Organization = {
     currencyIsoCode: 'USD',
     multicurrencyEnabled: true,
     name: 'Edge Communications',
@@ -93,7 +91,7 @@ const ORGANIZATION: canvas.Organization = {
     organizationId: '00Dx00000001hxyEAA',
 };
 
-const LINKS: canvas.Links = {
+const LINKS: Sfdc.canvas.Links = {
     chatterFeedItemsUrl: '/services/data/v52.0/chatter/feed-items',
     chatterFeedsUrl: '/services/data/v52.0/chatter/feeds',
     chatterGroupsUrl: '/services/data/v52.0/chatter/groups',
@@ -110,7 +108,7 @@ const LINKS: canvas.Links = {
     userUrl: '/005x0000001SyyEAAS',
 };
 
-const CONTEXT: canvas.Context = {
+const CONTEXT: Sfdc.canvas.Context = {
     application: APPLICATION,
     user: USER,
     environment: ENVIRONMENT,
@@ -122,93 +120,93 @@ const CONTEXT: canvas.Context = {
 // Sfdc.canvas
 // =============================================================================
 
-canvas(() => {}); // $ExpectType void
+Sfdc.canvas(() => {}); // $ExpectType void
 
-canvas.hasOwn({ a: 1 }, 'a'); // $ExpectType boolean
+Sfdc.canvas.hasOwn({ a: 1 }, 'a'); // $ExpectType boolean
 // => true
-canvas.hasOwn({ a: 1 }, 'b'); // $ExpectType boolean
+Sfdc.canvas.hasOwn({ a: 1 }, 'b'); // $ExpectType boolean
 // => false
 
-canvas.isUndefined(undefined); // $ExpectType boolean
+Sfdc.canvas.isUndefined(undefined); // $ExpectType boolean
 // => true
-canvas.isUndefined('a'); // $ExpectType boolean
+Sfdc.canvas.isUndefined('a'); // $ExpectType boolean
 // => false
 
-canvas.isNil(undefined); // $ExpectType boolean
-canvas.isNil(null); // $ExpectType boolean
-canvas.isNil(''); // $ExpectType boolean
+Sfdc.canvas.isNil(undefined); // $ExpectType boolean
+Sfdc.canvas.isNil(null); // $ExpectType boolean
+Sfdc.canvas.isNil(''); // $ExpectType boolean
 // => true
-canvas.isNil('a'); // $ExpectType boolean
+Sfdc.canvas.isNil('a'); // $ExpectType boolean
 // => false
 
-canvas.isNumber(123); // $ExpectType boolean
+Sfdc.canvas.isNumber(123); // $ExpectType boolean
 // => true
-canvas.isNumber('a'); // $ExpectType boolean
+Sfdc.canvas.isNumber('a'); // $ExpectType boolean
 // => false
 
-canvas.isFunction(() => {}); // $ExpectType boolean
+Sfdc.canvas.isFunction(() => {}); // $ExpectType boolean
 // => true
-canvas.isFunction(''); // $ExpectType boolean
+Sfdc.canvas.isFunction(''); // $ExpectType boolean
 // => false
 
-canvas.isArray([]); // $ExpectType boolean
+Sfdc.canvas.isArray([]); // $ExpectType boolean
 // => true
-canvas.isArray({}); // $ExpectType boolean
-canvas.isArray(''); // $ExpectType boolean
+Sfdc.canvas.isArray({}); // $ExpectType boolean
+Sfdc.canvas.isArray(''); // $ExpectType boolean
 // => false
 
-canvas.isArguments([]); // $ExpectType boolean
+Sfdc.canvas.isArguments([]); // $ExpectType boolean
 // => true
 
-canvas.isObject({}); // $ExpectType boolean
+Sfdc.canvas.isObject({}); // $ExpectType boolean
 // => true
-canvas.isObject([]); // $ExpectType boolean
+Sfdc.canvas.isObject([]); // $ExpectType boolean
 // => false
 
-canvas.isString(''); // $ExpectType boolean
+Sfdc.canvas.isString(''); // $ExpectType boolean
 // => true
-canvas.isString(1); // $ExpectType boolean
+Sfdc.canvas.isString(1); // $ExpectType boolean
 // => false
 
-canvas.appearsJson('{}'); // $ExpectType boolean
+Sfdc.canvas.appearsJson('{}'); // $ExpectType boolean
 // => true
-canvas.appearsJson(''); // $ExpectType boolean
+Sfdc.canvas.appearsJson(''); // $ExpectType boolean
 // => false
 
-canvas.nop(); // $ExpectType void
+Sfdc.canvas.nop(); // $ExpectType void
 
-canvas.invoker(() => {}); // $ExpectType void
+Sfdc.canvas.invoker(() => {}); // $ExpectType void
 
-canvas.identity(1); // $ExpectType 1
-canvas.identity('a'); // $ExpectType "a"
-canvas.identity({}); // $ExpectType {}
+Sfdc.canvas.identity(1); // $ExpectType 1
+Sfdc.canvas.identity('a'); // $ExpectType "a"
+Sfdc.canvas.identity({}); // $ExpectType {}
 
 // $ExpectType void
-canvas.each(['1', '2', '3'], (item, index, arr) => {
+Sfdc.canvas.each(['1', '2', '3'], (item, index, arr) => {
     item; // $ExpectType string
     index; // $ExpectType number
     arr; // $ExpectType string[]
 });
 
 // $ExpectType void
-canvas.each({ a: 1, b: 2, c: 3 }, (item, key, obj) => {
+Sfdc.canvas.each({ a: 1, b: 2, c: 3 }, (item, key, obj) => {
     item; // $ExpectType number
     key; // $ExpectType string
     obj; // $ExpectType Record<string, number>
 });
 
-canvas.each(1, (item, index, arr) => {}); // $ExpectError
+Sfdc.canvas.each(1, (item, index, arr) => {}); // $ExpectError
 
-canvas.startsWithHttp('http://foo', 'http://bar'); // $ExpectType string
+Sfdc.canvas.startsWithHttp('http://foo', 'http://bar'); // $ExpectType string
 // => 'http://foo'
-canvas.startsWithHttp('foo', 'http://bar'); // $ExpectType string
+Sfdc.canvas.startsWithHttp('foo', 'http://bar'); // $ExpectType string
 // => 'http://bar'
 
 // $ExpectError
-canvas.startsWithHttp(1, 'http://bar');
+Sfdc.canvas.startsWithHttp(1, 'http://bar');
 
 // $ExpectType number[]
-canvas.map(['1', '2', '3'], (item, index, arr) => {
+Sfdc.canvas.map(['1', '2', '3'], (item, index, arr) => {
     item; // $ExpectType string
     index; // $ExpectType number
     arr; // $ExpectType string[]
@@ -216,166 +214,166 @@ canvas.map(['1', '2', '3'], (item, index, arr) => {
 });
 
 // $ExpectType string[]
-canvas.map({ a: 1, b: 2, c: 3 }, (item, index, obj) => {
+Sfdc.canvas.map({ a: 1, b: 2, c: 3 }, (item, index, obj) => {
     item; // $ExpectType number
     index; // $ExpectType string
     obj; // $ExpectType Record<string, number>
     return String(item);
 });
 
-canvas.map(1, (item, index, arr) => {}); // $ExpectError
+Sfdc.canvas.map(1, (item, index, arr) => {}); // $ExpectError
 
-canvas.values([1, 2, 3, 4]); // $ExpectType number[]
-canvas.values({ a: 1, b: 2, c: 3 }); // $ExpectType number[]
-canvas.values(1); // $ExpectError
+Sfdc.canvas.values([1, 2, 3, 4]); // $ExpectType number[]
+Sfdc.canvas.values({ a: 1, b: 2, c: 3 }); // $ExpectType number[]
+Sfdc.canvas.values(1); // $ExpectError
 
-canvas.slice([1, 2, 3, 4]); // $ExpectType number[]
-canvas.slice([1, 2, 3, 4], 0); // $ExpectType number[]
-canvas.slice([1, 2, 3, 4], 0, 1); // $ExpectType number[]
-canvas.slice(0, 0, 0); // $ExpectError
+Sfdc.canvas.slice([1, 2, 3, 4]); // $ExpectType number[]
+Sfdc.canvas.slice([1, 2, 3, 4], 0); // $ExpectType number[]
+Sfdc.canvas.slice([1, 2, 3, 4], 0, 1); // $ExpectType number[]
+Sfdc.canvas.slice(0, 0, 0); // $ExpectError
 
-canvas.toArray(undefined); // $ExpectType []
-canvas.toArray(null); // $ExpectType []
-canvas.toArray([1, 2, 3, 4]); // $ExpectType number[]
-canvas.toArray({ a: 1, b: 2, c: 3 }); // $ExpectType number[]
-canvas.toArray(1); // $ExpectError
+Sfdc.canvas.toArray(undefined); // $ExpectType []
+Sfdc.canvas.toArray(null); // $ExpectType []
+Sfdc.canvas.toArray([1, 2, 3, 4]); // $ExpectType number[]
+Sfdc.canvas.toArray({ a: 1, b: 2, c: 3 }); // $ExpectType number[]
+Sfdc.canvas.toArray(1); // $ExpectError
 
-canvas.size(undefined); // $ExpectType number
-canvas.size(null); // $ExpectType number
-canvas.size([1, 2, 3, 4]); // $ExpectType number
-canvas.size({ a: 1, b: 2, c: 3 }); // $ExpectType number
-canvas.size(1); // $ExpectError
+Sfdc.canvas.size(undefined); // $ExpectType number
+Sfdc.canvas.size(null); // $ExpectType number
+Sfdc.canvas.size([1, 2, 3, 4]); // $ExpectType number
+Sfdc.canvas.size({ a: 1, b: 2, c: 3 }); // $ExpectType number
+Sfdc.canvas.size(1); // $ExpectError
 
-canvas.indexOf([1, 2, 3, 4], 3); // $ExpectType number
-canvas.indexOf([1, 2, 3, 4], 'a'); // $ExpectError
+Sfdc.canvas.indexOf([1, 2, 3, 4], 3); // $ExpectType number
+Sfdc.canvas.indexOf([1, 2, 3, 4], 'a'); // $ExpectError
 
-canvas.isEmpty(null); // $ExpectType boolean
-canvas.isEmpty(''); // $ExpectType boolean
-canvas.isEmpty(1); // $ExpectType boolean
-canvas.isEmpty([]); // $ExpectType boolean
+Sfdc.canvas.isEmpty(null); // $ExpectType boolean
+Sfdc.canvas.isEmpty(''); // $ExpectType boolean
+Sfdc.canvas.isEmpty(1); // $ExpectType boolean
+Sfdc.canvas.isEmpty([]); // $ExpectType boolean
 // => true
-canvas.isEmpty('test'); // $ExpectType boolean
-canvas.isEmpty(['a']); // $ExpectType boolean
+Sfdc.canvas.isEmpty('test'); // $ExpectType boolean
+Sfdc.canvas.isEmpty(['a']); // $ExpectType boolean
 // => false
 
-canvas.remove([1, 2, 3, 4], 3); // $ExpectType number[]
-canvas.remove([1, 2, 3, 4], 'a'); // $ExpectError
+Sfdc.canvas.remove([1, 2, 3, 4], 3); // $ExpectType number[]
+Sfdc.canvas.remove([1, 2, 3, 4], 'a'); // $ExpectError
 
-canvas.param([1, 2, 3, 4], true); // $ExpectType string
-canvas.param([1, 2, 3, 4]); // $ExpectType string
-canvas.param({ a: 1, b: 2, c: 3 }, true); // $ExpectType string
-canvas.param({ a: 1, b: 2, c: 3 }); // $ExpectType string
-canvas.param(1); // $ExpectError
+Sfdc.canvas.param([1, 2, 3, 4], true); // $ExpectType string
+Sfdc.canvas.param([1, 2, 3, 4]); // $ExpectType string
+Sfdc.canvas.param({ a: 1, b: 2, c: 3 }, true); // $ExpectType string
+Sfdc.canvas.param({ a: 1, b: 2, c: 3 }); // $ExpectType string
+Sfdc.canvas.param(1); // $ExpectError
 
-canvas.objectify('a=1&b=2'); // $ExpectType Record<string, string>
-canvas.objectify(1); // $ExpectError
+Sfdc.canvas.objectify('a=1&b=2'); // $ExpectType Record<string, string>
+Sfdc.canvas.objectify(1); // $ExpectError
 
-canvas.stripUrl('http://foo'); // $ExpectType string
-canvas.stripUrl(1); // $ExpectError
+Sfdc.canvas.stripUrl('http://foo'); // $ExpectType string
+Sfdc.canvas.stripUrl(1); // $ExpectError
 
-canvas.query('http://foo', 'a=1&b=2'); // $ExpectType string
+Sfdc.canvas.query('http://foo', 'a=1&b=2'); // $ExpectType string
 // $ExpectError
-canvas.query('http://foo', 1);
+Sfdc.canvas.query('http://foo', 1);
 // $ExpectError
-canvas.query(1, 'a=1&b=2');
+Sfdc.canvas.query(1, 'a=1&b=2');
 
-canvas.extend({ a: 1 }, { b: 2 }); // $ExpectType { a: number; } & { b: number; }
-canvas.extend({ a: 1 }, { b: 2 }, { c: 3 }); // $ExpectType { a: number; } & { b: number; } & { c: number; }
-canvas.extend({ a: 1 }, 'a'); // $ExpectError
-canvas.extend({ a: 1 }); // $ExpectError
+Sfdc.canvas.extend({ a: 1 }, { b: 2 }); // $ExpectType { a: number; } & { b: number; }
+Sfdc.canvas.extend({ a: 1 }, { b: 2 }, { c: 3 }); // $ExpectType { a: number; } & { b: number; } & { c: number; }
+Sfdc.canvas.extend({ a: 1 }, 'a'); // $ExpectError
+Sfdc.canvas.extend({ a: 1 }); // $ExpectError
 
-canvas.endsWith('hello world', 'world'); // $ExpectType boolean
-canvas.endsWith('hello world', 'foo'); // $ExpectType boolean
-canvas.endsWith('hello world', 1); // $ExpectError
+Sfdc.canvas.endsWith('hello world', 'world'); // $ExpectType boolean
+Sfdc.canvas.endsWith('hello world', 'foo'); // $ExpectType boolean
+Sfdc.canvas.endsWith('hello world', 1); // $ExpectError
 
-canvas.capitalize('hello world'); // $ExpectType string
-canvas.capitalize(1); // $ExpectError
+Sfdc.canvas.capitalize('hello world'); // $ExpectType string
+Sfdc.canvas.capitalize(1); // $ExpectError
 
-canvas.uncapitalize('hello world'); // $ExpectType string
-canvas.uncapitalize(1); // $ExpectError
+Sfdc.canvas.uncapitalize('hello world'); // $ExpectType string
+Sfdc.canvas.uncapitalize(1); // $ExpectError
 
-canvas.decode('abcedf'); // $ExpectType string
-canvas.decode(1); // $ExpectError
+Sfdc.canvas.decode('abcedf'); // $ExpectType string
+Sfdc.canvas.decode(1); // $ExpectError
 
-canvas.escapeToUTF8('abcedf'); // $ExpectType string
-canvas.escapeToUTF8(1); // $ExpectError
+Sfdc.canvas.escapeToUTF8('abcedf'); // $ExpectType string
+Sfdc.canvas.escapeToUTF8(1); // $ExpectError
 
-canvas.validEventName('abcedf', 'foo'); // $ExpectType number
-canvas.validEventName('abcedf', ['foo']); // $ExpectType number
-canvas.validEventName(1, 'foo'); // $ExpectError
-canvas.validEventName('abcedf', 1); // $ExpectError
+Sfdc.canvas.validEventName('abcedf', 'foo'); // $ExpectType number
+Sfdc.canvas.validEventName('abcedf', ['foo']); // $ExpectType number
+Sfdc.canvas.validEventName(1, 'foo'); // $ExpectError
+Sfdc.canvas.validEventName('abcedf', 1); // $ExpectError
 
-canvas.prototypeOf(1); // $ExpectType object | null
+Sfdc.canvas.prototypeOf(1); // $ExpectType object | null
 
-canvas.module('foo', { a: 1 }); // $ExpectType typeof canvas
-canvas.module(1, { a: 1 }); // $ExpectError
+Sfdc.canvas.module('foo', { a: 1 }); // $ExpectType typeof canvas
+Sfdc.canvas.module(1, { a: 1 }); // $ExpectError
 
-canvas.document(); // $ExpectType Document
+Sfdc.canvas.document(); // $ExpectType Document
 
-canvas.byId('foo'); // $ExpectType HTMLElement
-canvas.byId(1); // $ExpectError
+Sfdc.canvas.byId('foo'); // $ExpectType HTMLElement
+Sfdc.canvas.byId(1); // $ExpectError
 
-canvas.byClass('foo'); // $ExpectType HTMLElement
-canvas.byClass(1); // $ExpectError
+Sfdc.canvas.byClass('foo'); // $ExpectType HTMLElement
+Sfdc.canvas.byClass(1); // $ExpectError
 
 const el = document.createElement('div');
-canvas.attr(el, 'foo'); // $ExpectType string
-canvas.attr(el, 1); // $ExpectError
-canvas.attr(1, 'foo'); // $ExpectError
+Sfdc.canvas.attr(el, 'foo'); // $ExpectType string
+Sfdc.canvas.attr(el, 1); // $ExpectError
+Sfdc.canvas.attr(1, 'foo'); // $ExpectError
 
-canvas.onReady(() => {}); // $ExpectType void
+Sfdc.canvas.onReady(() => {}); // $ExpectType void
 
 // =============================================================================
-// Sfdc.canvas.client
+// Sfdc.Sfdc.canvas.client
 // =============================================================================
 
 // $ExpectType void
-canvas.client.ctx(response => {
+Sfdc.canvas.client.ctx(response => {
     response; // $ExpectType Response<Context>
 }, CLIENT);
 
 // $ExpectType void
-canvas.client.ajax('/foo', {
+Sfdc.canvas.client.ajax('/foo', {
     client: CLIENT,
-    success: (data: canvas.Response<unknown>) => {
+    success: (data: Sfdc.canvas.Response<unknown>) => {
         data; // $ExpectType Response<unknown>
     },
 });
 
 // $ExpectType void
-canvas.client.ajax('/foo', {
+Sfdc.canvas.client.ajax('/foo', {
     client: CLIENT,
     method: 'POST',
     async: true,
     contentType: 'text/html',
     headers: { foo: 'bar' },
     data: JSON.stringify({ hello: 'world' }),
-    success: (data: canvas.Response<unknown>) => {
+    success: (data: Sfdc.canvas.Response<unknown>) => {
         data; // $ExpectType Response<unknown>
     },
 });
 
-canvas.client.token(); // $ExpectType string | null
-canvas.client.token('foo'); // $ExpectType string | null
-canvas.client.token(null); // $ExpectType string | null
-canvas.client.token(123); // $ExpectError
+Sfdc.canvas.client.token(); // $ExpectType string | null
+Sfdc.canvas.client.token('foo'); // $ExpectType string | null
+Sfdc.canvas.client.token(null); // $ExpectType string | null
+Sfdc.canvas.client.token(123); // $ExpectError
 
-canvas.client.version(); // $ExpectType Version
+Sfdc.canvas.client.version(); // $ExpectType Version
 
-canvas.client.resize(CLIENT); // $ExpectType void
-canvas.client.resize(CLIENT, { width: '5px', height: '5px' }); // $ExpectType void
-canvas.client.resize(CLIENT, {}); // $ExpectError
+Sfdc.canvas.client.resize(CLIENT); // $ExpectType void
+Sfdc.canvas.client.resize(CLIENT, { width: '5px', height: '5px' }); // $ExpectType void
+Sfdc.canvas.client.resize(CLIENT, {}); // $ExpectError
 
-canvas.client.size(); // $ExpectType Size
+Sfdc.canvas.client.size(); // $ExpectType Size
 
-canvas.client.autogrow(CLIENT); // $ExpectType void
-canvas.client.autogrow(CLIENT, true); // $ExpectType void
-canvas.client.autogrow(CLIENT, false); // $ExpectType void
-canvas.client.autogrow(CLIENT, true, 500); // $ExpectType void
-canvas.client.autogrow(CLIENT, 500); // $ExpectError
+Sfdc.canvas.client.autogrow(CLIENT); // $ExpectType void
+Sfdc.canvas.client.autogrow(CLIENT, true); // $ExpectType void
+Sfdc.canvas.client.autogrow(CLIENT, false); // $ExpectType void
+Sfdc.canvas.client.autogrow(CLIENT, true, 500); // $ExpectType void
+Sfdc.canvas.client.autogrow(CLIENT, 500); // $ExpectError
 
 // $ExpectType void
-canvas.client.subscribe(CLIENT, {
+Sfdc.canvas.client.subscribe(CLIENT, {
     name: 'foo.bar',
     onData: (event: unknown) => {
         event; // $ExpectType unknown
@@ -383,7 +381,7 @@ canvas.client.subscribe(CLIENT, {
 });
 
 // $ExpectType void
-canvas.client.subscribe(CLIENT, [
+Sfdc.canvas.client.subscribe(CLIENT, [
     {
         name: 'foo.bar',
         onData: (event: unknown) => {
@@ -393,7 +391,7 @@ canvas.client.subscribe(CLIENT, [
 ]);
 
 // $ExpectError
-canvas.client.subscribe(CLIENT, {
+Sfdc.canvas.client.subscribe(CLIENT, {
     name: 'sfdc.streamingapi',
     params: {},
     onData: (event: unknown) => {
@@ -405,7 +403,7 @@ canvas.client.subscribe(CLIENT, {
 });
 
 // $ExpectType void
-canvas.client.subscribe(CLIENT, {
+Sfdc.canvas.client.subscribe(CLIENT, {
     name: 'sfdc.streamingapi',
     params: {
         topic: 'foo.bar',
@@ -419,7 +417,7 @@ canvas.client.subscribe(CLIENT, {
 });
 
 // $ExpectType void
-canvas.client.subscribe(CLIENT, [
+Sfdc.canvas.client.subscribe(CLIENT, [
     {
         name: 'foo.bar',
         onData: (event: unknown) => {
@@ -440,15 +438,15 @@ canvas.client.subscribe(CLIENT, [
     },
 ]);
 
-canvas.client.unsubscribe(CLIENT, 'foo.bar'); // $ExpectType void
+Sfdc.canvas.client.unsubscribe(CLIENT, 'foo.bar'); // $ExpectType void
 
 // $ExpectType void
-canvas.client.unsubscribe(CLIENT, {
+Sfdc.canvas.client.unsubscribe(CLIENT, {
     name: 'foo.bar',
 });
 
 // $ExpectType void
-canvas.client.unsubscribe(CLIENT, {
+Sfdc.canvas.client.unsubscribe(CLIENT, {
     name: 'sfdc.streamingapi',
     params: {
         topic: 'foo.bar',
@@ -456,13 +454,13 @@ canvas.client.unsubscribe(CLIENT, {
 });
 
 // $ExpectError
-canvas.client.unsubscribe(CLIENT, {
+Sfdc.canvas.client.unsubscribe(CLIENT, {
     name: 'sfdc.streamingapi',
     params: {},
 });
 
 // $ExpectType void
-canvas.client.unsubscribe(CLIENT, [
+Sfdc.canvas.client.unsubscribe(CLIENT, [
     'foo.bar',
     {
         name: 'foo.bar',
@@ -476,20 +474,20 @@ canvas.client.unsubscribe(CLIENT, [
 ]);
 
 // $ExpectType void
-canvas.client.publish(CLIENT, {
+Sfdc.canvas.client.publish(CLIENT, {
     name: 'foo',
     payload: { hello: 'world' },
 });
 
 // $ExpectError
-canvas.client.publish(CLIENT, {
+Sfdc.canvas.client.publish(CLIENT, {
     name: 'foo',
 });
 
-canvas.client.signedrequest(); // $ExpectType SignedRequest
+Sfdc.canvas.client.signedrequest(); // $ExpectType SignedRequest
 
 // $ExpectType SignedRequest
-canvas.client.signedrequest({
+Sfdc.canvas.client.signedrequest({
     context: CONTEXT,
     client: CLIENT,
     algorithm: 'HMACSHA256',
@@ -498,58 +496,58 @@ canvas.client.signedrequest({
 });
 
 // $ExpectType void
-canvas.client.refreshSignedRequest(data => {
+Sfdc.canvas.client.refreshSignedRequest(data => {
     data; // $ExpectType Response<string>
 });
 
-canvas.client.repost(); // $ExpectType void
-canvas.client.repost(true); // $ExpectType void
-canvas.client.repost(false); // $ExpectType void
+Sfdc.canvas.client.repost(); // $ExpectType void
+Sfdc.canvas.client.repost(true); // $ExpectType void
+Sfdc.canvas.client.repost(false); // $ExpectType void
 
 // =============================================================================
-// Sfdc.canvas.console
+// Sfdc.Sfdc.canvas.console
 // =============================================================================
 
-canvas.console.enable(); // $ExpectType void
+Sfdc.canvas.console.enable(); // $ExpectType void
 
-canvas.console.disable(); // $ExpectType void
+Sfdc.canvas.console.disable(); // $ExpectType void
 
-canvas.console.log('hello'); // $ExpectType void
-canvas.console.log('hello', 'world'); // $ExpectType void
-canvas.console.log(['hello', 'world']); // $ExpectType void
-canvas.console.log({ hello: 'world' }); // $ExpectType void
-canvas.console.log(12345); // $ExpectType void
+Sfdc.canvas.console.log('hello'); // $ExpectType void
+Sfdc.canvas.console.log('hello', 'world'); // $ExpectType void
+Sfdc.canvas.console.log(['hello', 'world']); // $ExpectType void
+Sfdc.canvas.console.log({ hello: 'world' }); // $ExpectType void
+Sfdc.canvas.console.log(12345); // $ExpectType void
 
-canvas.console.error(new Error('hello')); // $ExpectType void
-canvas.console.error('hello'); // $ExpectType void
-canvas.console.error('hello', 'world'); // $ExpectType void
-canvas.console.error(['hello', 'world']); // $ExpectType void
-canvas.console.error({ hello: 'world' }); // $ExpectType void
-canvas.console.error(12345); // $ExpectType void
-
-// =============================================================================
-// Sfdc.canvas.cookies
-// =============================================================================
-
-canvas.cookies.set('foo', 'bar'); // $ExpectType void
-canvas.cookies.set('foo', 'bar', 300); // $ExpectType void
-canvas.cookies.set('foo', 300); // $ExpectError
-
-canvas.cookies.get('foo'); // $ExpectType string
-canvas.cookies.get(1); // $ExpectError
-
-canvas.cookies.remove('foo'); // $ExpectType void
-canvas.cookies.remove(1); // $ExpectError
+Sfdc.canvas.console.error(new Error('hello')); // $ExpectType void
+Sfdc.canvas.console.error('hello'); // $ExpectType void
+Sfdc.canvas.console.error('hello', 'world'); // $ExpectType void
+Sfdc.canvas.console.error(['hello', 'world']); // $ExpectType void
+Sfdc.canvas.console.error({ hello: 'world' }); // $ExpectType void
+Sfdc.canvas.console.error(12345); // $ExpectType void
 
 // =============================================================================
-// Sfdc.canvas.oauth
+// Sfdc.Sfdc.canvas.cookies
 // =============================================================================
 
-canvas.oauth.init(); // $ExpectType void
+Sfdc.canvas.cookies.set('foo', 'bar'); // $ExpectType void
+Sfdc.canvas.cookies.set('foo', 'bar', 300); // $ExpectType void
+Sfdc.canvas.cookies.set('foo', 300); // $ExpectError
+
+Sfdc.canvas.cookies.get('foo'); // $ExpectType string
+Sfdc.canvas.cookies.get(1); // $ExpectError
+
+Sfdc.canvas.cookies.remove('foo'); // $ExpectType void
+Sfdc.canvas.cookies.remove(1); // $ExpectError
+
+// =============================================================================
+// Sfdc.Sfdc.canvas.oauth
+// =============================================================================
+
+Sfdc.canvas.oauth.init(); // $ExpectType void
 
 // $ExpectType void
-canvas.oauth.login({
-    uri: canvas.oauth.loginUrl(),
+Sfdc.canvas.oauth.login({
+    uri: Sfdc.canvas.oauth.loginUrl(),
     params: {
         response_type: 'token',
         client_id: 'foo',
@@ -557,39 +555,39 @@ canvas.oauth.login({
     },
 });
 
-canvas.oauth.logout(); // $ExpectType void
+Sfdc.canvas.oauth.logout(); // $ExpectType void
 
-canvas.oauth.loggedin(); // $ExpectType boolean
+Sfdc.canvas.oauth.loggedin(); // $ExpectType boolean
 
-canvas.oauth.loginUrl(); // $ExpectType string
+Sfdc.canvas.oauth.loginUrl(); // $ExpectType string
 
-canvas.oauth.token(); // $ExpectType string | null
-canvas.oauth.token(null); // $ExpectType string | null
-canvas.oauth.token('foo'); // $ExpectType string | null
-canvas.oauth.token(1); // $ExpectError
+Sfdc.canvas.oauth.token(); // $ExpectType string | null
+Sfdc.canvas.oauth.token(null); // $ExpectType string | null
+Sfdc.canvas.oauth.token('foo'); // $ExpectType string | null
+Sfdc.canvas.oauth.token(1); // $ExpectError
 
-canvas.oauth.instance(); // $ExpectType string | null
-canvas.oauth.instance(null); // $ExpectType string | null
-canvas.oauth.instance('foo'); // $ExpectType string | null
-canvas.oauth.instance(1); // $ExpectError
+Sfdc.canvas.oauth.instance(); // $ExpectType string | null
+Sfdc.canvas.oauth.instance(null); // $ExpectType string | null
+Sfdc.canvas.oauth.instance('foo'); // $ExpectType string | null
+Sfdc.canvas.oauth.instance(1); // $ExpectError
 
-canvas.oauth.client(); // $ExpectType Client
+Sfdc.canvas.oauth.client(); // $ExpectType Client
 
-canvas.oauth.checkChildWindowStatus(); // $ExpectType void
+Sfdc.canvas.oauth.checkChildWindowStatus(); // $ExpectType void
 
-canvas.oauth.childWindowUnloadNotification('foo'); // $ExpectType void
+Sfdc.canvas.oauth.childWindowUnloadNotification('foo'); // $ExpectType void
 
 // =============================================================================
-// Sfdc.canvas.xd
+// Sfdc.Sfdc.canvas.xd
 // =============================================================================
 
-canvas.xd.post('foo', 'http://test'); // $ExpectType void
-canvas.xd.post('foo', 'http://test', window); // $ExpectType void
+Sfdc.canvas.xd.post('foo', 'http://test'); // $ExpectType void
+Sfdc.canvas.xd.post('foo', 'http://test', window); // $ExpectType void
 
 // $ExpectError
-canvas.xd.post({}, 'http://test', window);
+Sfdc.canvas.xd.post({}, 'http://test', window);
 
-canvas.xd.receive((data: unknown) => {}); // $ExpectType void
-canvas.xd.receive((data: unknown) => {}, 'origin'); // $ExpectType void
+Sfdc.canvas.xd.receive((data: unknown) => {}); // $ExpectType void
+Sfdc.canvas.xd.receive((data: unknown) => {}, 'origin'); // $ExpectType void
 
-canvas.xd.remove(); // $ExpectType void
+Sfdc.canvas.xd.remove(); // $ExpectType void
