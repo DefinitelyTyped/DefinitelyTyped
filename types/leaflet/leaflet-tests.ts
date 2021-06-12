@@ -737,6 +737,16 @@ L.Util.requestAnimFrame(() => {}, {}, true);
 L.Util.cancelAnimFrame(1);
 L.Util.emptyImageUrl;
 
+const extendedRoot0: typeof obj1 = L.extend(obj1);
+const extendedRoot1: typeof obj1 & typeof obj2 = L.extend(obj1, obj2);
+const extendedRoot2: typeof obj1 & typeof obj2 & typeof obj3 = L.extend(obj1, obj2, obj3);
+const extendedRoot3: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 = L.extend(obj1, obj2, obj3, obj4);
+const extendedRoot4: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 & typeof obj5 = L.extend(obj1, obj2, obj3, obj4, obj5);
+
+L.bind(fnWithArguments, {}, {} as L.DoneCallback, {} as HTMLElement);
+L.stamp({});
+L.setOptions({}, {});
+
 interface MyProperties {
     testProperty: string;
 }
