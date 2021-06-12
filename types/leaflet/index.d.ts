@@ -15,6 +15,9 @@ export as namespace L;
 
 import * as geojson from 'geojson';
 
+/** A constant that represents the Leaflet version in use. */
+export const version: string;
+
 export class Class {
     static extend(props: any): {new(...args: any[]): any} & typeof Class;
     static include(props: any): any & typeof Class;

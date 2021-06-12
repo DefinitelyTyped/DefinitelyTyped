@@ -1,5 +1,7 @@
 import * as L from 'leaflet';
 
+const version = L.version;
+
 const latLngLiteral: L.LatLngLiteral = { lat: 12, lng: 13 };
 const latLngTuple: L.LatLngTuple = [12, 13];
 
