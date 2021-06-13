@@ -116,4 +116,54 @@ const fmtOptions: HtmlToTextOptions = {
         unorderedList: elementFormatter,
     },
 };
+console.log('Emit all elements with "--" wrapping');
 console.log(htmlToText(allElements, fmtOptions));
+
+const blockTextTestElements = '<a>a</a>\
+<blockquote>b</blockquote>\
+<p>1234567890123456789012345678901234567890</p>\
+<table></table>';
+
+const fmtOptionsDepr: HtmlToTextOptions = {
+    formatters: {
+        table: (elem, walk, builder, options) => {
+            builder.openBlock(options.leadingLineBreaks || 2);
+            builder.openTable();
+            builder.openTableRow();
+            builder.openTableCell(22);
+            builder.addInline("Cell 1 data", false);
+            builder.closeTableCell(2);
+            builder.openTableCell(6);
+            builder.addInline("Cell 2 data", false);
+            builder.closeTableCell(1);
+            builder.closeTableRow();
+            builder.closeTable(4);
+            // walk(elem.children, builder);
+            builder.closeBlock(options.trailingLineBreaks || 2);
+        },
+    },
+};
+console.log('Test deprecated table builder interfaces');
+console.log(htmlToText(blockTextTestElements, fmtOptionsDepr));
+
+const fmtOptionsTable: HtmlToTextOptions = {
+    formatters: {
+        table: (elem, walk, builder, options) => {
+            builder.openBlock({ leadingLineBreaks: options.leadingLineBreaks || 2 });
+            builder.openTable();
+            builder.openTableRow();
+            builder.openTableCell({ maxColumnWidth: 22});
+            builder.addInline("Cell 1 data", { noWordTransform: false });
+            builder.closeTableCell({ colspan: 2 });
+            builder.openTableCell({ maxColumnWidth: 6 });
+            builder.addInline("Cell 2 data", { noWordTransform: false });
+            builder.closeTableCell();
+            builder.closeTableRow();
+            builder.closeTable({ colSpacing: 4 });
+            // walk(elem.children, builder);
+            builder.closeBlock({ trailingLineBreaks: options.trailingLineBreaks || 2 });
+        },
+    },
+};
+console.log('Test current table builder interfaces');
+console.log(htmlToText(blockTextTestElements, fmtOptionsTable));
