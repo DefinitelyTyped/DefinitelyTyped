@@ -10,4 +10,4 @@
 
 declare function gauss(mat: number[][]): number[];
 
-export = gauss
+export = gauss;
