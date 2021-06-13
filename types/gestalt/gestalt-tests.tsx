@@ -1,9 +1,11 @@
+import { useRef } from "react";
 import {
     ActivationCard,
     Avatar,
     AvatarPair,
     Badge,
     Box,
+    BoxProps,
     Button,
     ButtonGroup,
     Callout,
@@ -116,6 +118,14 @@ const CheckUseReducedMotion = () => {
 <Box onDrag={(event) => { event.movementX; }} />;
 // $ExpectError
 <Box onDrag={((event) => { event.__nonExistentProperty__; })} />;
+
+// Test Box accepts Ref.
+() => {
+    const ref = useRef<HTMLDivElement>(null);
+    return <Box ref={ref} />
+}
+// Test BoxProps.ref can be forwarded.
+(props: BoxProps) => <Box ref={props.ref} />;
 
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
 <Button text="" />;
