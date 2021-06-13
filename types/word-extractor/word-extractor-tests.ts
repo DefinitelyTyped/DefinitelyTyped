@@ -1,13 +1,22 @@
-import WordExtractor = require("word-extractor");
+import WordExtractor = require('word-extractor');
 
 const extractor = new WordExtractor();
 
-let temp: string;
-
-const doc = extractor.extract('/path/to/file.doc').then(document => {
-    temp = document.getBody();
-    temp = document.getAnnotations();
-    temp = document.getEndNotes();
-    temp = document.getFootnotes();
-    temp = document.getHeaders();
+extractor.extract('/path/to/file.doc').then(document => {
+    document.getBody(); // $ExpectType string
+    document.getAnnotations(); // $ExpectType string
+    document.getEndNotes(); // $ExpectType string
+    document.getFootnotes(); // $ExpectType string
+    document.getHeaders(); // $ExpectType string
+    document.getHeaders(); // $ExpectType string
+    // $ExpectType string
+    document.getHeaders({
+        includeFooters: false,
+    });
+    document.getFooters(); // $ExpectType string
+    // $ExpectType string
+    document.getTextboxes({
+        includeBody: false,
+        includeHeadersAndFooters: false,
+    });
 });
