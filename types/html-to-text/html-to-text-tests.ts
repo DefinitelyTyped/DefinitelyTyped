@@ -1,4 +1,4 @@
-import { FormatCallback, htmlToText, HtmlToTextOptions,
+import { compile, FormatCallback, htmlToText, HtmlToTextOptions,
     TagDefinition } from 'html-to-text';
 import * as formatters from 'html-to-text/lib/formatter';
 
@@ -167,3 +167,45 @@ const fmtOptionsTable: HtmlToTextOptions = {
 };
 console.log('Test current table builder interfaces');
 console.log(htmlToText(blockTextTestElements, fmtOptionsTable));
+
+const selOptions: HtmlToTextOptions = {
+    formatters: {
+        h1Formatter: (elem, walk, builder, options) => {
+            builder.addInline("preheading: ", { noWordTransform: false });
+            walk(elem.children, builder);
+        }
+    },
+    selectors: [
+        {
+            selector: "h1",
+            format: 'h1Formatter',
+        },
+        {
+            selector: "hr",
+            options: {length: 5},
+        },
+    ]
+};
+
+console.log('Test with selectors');
+console.log(htmlToText(allElements, selOptions));
+
+console.log('Test with compiler function');
+const converter = compile(selOptions);
+console.log(converter(allElements));
+
+console.log('Test with any tag');
+console.log(htmlToText("<h1>Starting foo test</h1><foo>bar</foo>", {
+    formatters: {
+        fooFormatter: (elem, walk, builder, options) => {
+            builder.addInline("fooFormatter: ", { noWordTransform: false });
+            walk(elem.children, builder);
+        }
+    },
+    selectors: [
+        {
+            selector: "foo",
+            format: 'fooFormatter',
+        },
+    ]
+}));
