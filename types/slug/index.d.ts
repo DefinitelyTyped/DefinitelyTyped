@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = slug;
+export as namespace slug;
 
 declare function slug(string: string, replacement: string): string;
 declare function slug(string: string, opts?: slug.Options): string;

@@ -7,6 +7,7 @@ slug("unicode ♥ is ☢"); // $ExpectType string
 slug("i ♥ unicode", "_"); // $ExpectType string
 
 slug.charmap["♥"] = "freaking love"; // change default charmap or use option {charmap:{…}} as 2. argument
+slug.multicharmap["♥"] = "freaking love";
 slug("I ♥ UNICODE"); // $ExpectType string
 
 slug("☏-Number", { lower: true }); // $ExpectType string
