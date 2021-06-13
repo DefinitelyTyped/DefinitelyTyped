@@ -161,3 +161,5 @@ const authorizationPolicy: MicrosoftGraph.AuthorizationPolicy = {
     guestUserRoleId: "TEST_ID",
     displayName: "TEST_NAME"
 };
+
+const deviceEnrollmentType: MicrosoftGraph.DeviceEnrollmentType = "windowsCoManagement";

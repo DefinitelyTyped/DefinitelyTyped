@@ -6,7 +6,7 @@ const element = new Element();
 // $ExpectType Tab
 new Tab(element);
 
-// $ExpectType Tab
+// $ExpectType Tab | null
 Tab.getInstance(element);
 
 element.addEventListener(Tab.Events.hidden, event => {

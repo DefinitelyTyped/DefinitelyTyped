@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 1.38
+// Type definitions for non-npm package microsoft-graph 1.39
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -765,7 +765,10 @@ export type DeviceEnrollmentType =
     | "windowsBulkUserless"
     | "windowsAutoEnrollment"
     | "windowsBulkAzureDomainJoin"
-    | "windowsCoManagement";
+    | "windowsCoManagement"
+    | "windowsAzureADJoinUsingDeviceAuth"
+    | "appleUserEnrollment"
+    | "appleUserEnrollmentWithServiceAccount";
 export type DeviceManagementExchangeAccessState = "none" | "unknown" | "allowed" | "blocked" | "quarantined";
 export type DeviceManagementExchangeAccessStateReason =
     | "none"
@@ -833,7 +836,6 @@ export type ImportedWindowsAutopilotDeviceIdentityImportStatus =
     | "complete"
     | "error";
 export type ImportedWindowsAutopilotDeviceIdentityUploadStatus = "noUpload" | "pending" | "complete" | "error";
-export type WindowsAutopilotDeviceDeletionState = "unknown" | "failed" | "accepted" | "error";
 export type ManagedAppClipboardSharingLevel = "allApps" | "managedAppsWithPasteIn" | "managedApps" | "blocked";
 export type ManagedAppDataEncryptionType =
     | "useDeviceSettings"
@@ -1482,7 +1484,7 @@ export interface User extends DirectoryObject {
      * definitions for further information. Returned only on $select.
      */
     ageGroup?: NullableOption<string>;
-    // The licenses that are assigned to the user. Not nullable. Supports $filter.
+    // The licenses that are assigned to the user, including inherited (group-based) licenses. Not nullable. Supports $filter.
     assignedLicenses?: AssignedLicense[];
     // The plans that are assigned to the user. Returned only on $select. Read-only. Not nullable.
     assignedPlans?: AssignedPlan[];
@@ -1512,7 +1514,7 @@ export interface User extends DirectoryObject {
      * The date and time the user was created. The value cannot be modified and is automatically populated when the entity is
      * created. The DateTimeOffset type represents date and time information using ISO 8601 format and is always in UTC time.
      * Property is nullable. A null value indicates that an accurate creation time couldn't be determined for the user.
-     * Returned only on $select. Read-only. Supports $filter with the eq, lt, and ge operators.
+     * Returned only on $select. Read-only. Supports $filter with the eq, ne, le, and ge operators.
      */
     createdDateTime?: NullableOption<string>;
     /**
@@ -1591,9 +1593,10 @@ export interface User extends DirectoryObject {
     // State of license assignments for this user. Returned only on $select. Read-only.
     licenseAssignmentStates?: NullableOption<LicenseAssignmentState[]>;
     /**
-     * The SMTP address for the user, for example, 'jeff@contoso.onmicrosoft.com'.NOTE: While this property can contain accent
-     * characters, using them can cause access issues with other Microsoft applications for the user.Returned by default.
-     * Supports $filter and endsWith.
+     * The SMTP address for the user, for example, 'jeff@contoso.onmicrosoft.com'. Changes to this property will also update
+     * the user's proxyAddresses collection to include the value as an SMTP address. While this property can contain accent
+     * characters, using them can cause access issues with other Microsoft applications for the user. Supports $filter and
+     * endsWith.
      */
     mail?: NullableOption<string>;
     /**
@@ -1923,7 +1926,7 @@ export interface OAuth2PermissionGrant extends Entity {
      */
     clientId?: string;
     /**
-     * Indicates if authorization is granted for the client application to impersonate all users or only a specific user.
+     * Indicates whether authorization is granted for the client application to impersonate all users or only a specific user.
      * AllPrincipals indicates authorization to impersonate all users. Principal indicates authorization to impersonate a
      * specific user. Consent on behalf of all users can be granted by an administrator. Non-admin users may be authorized to
      * consent on behalf of themselves in some cases, for some delegated permissions. Required. Supports $filter (eq only).
@@ -2306,6 +2309,11 @@ export interface MailFolder extends Entity {
     childFolderCount?: NullableOption<number>;
     // The mailFolder's display name.
     displayName?: NullableOption<string>;
+    /**
+     * Indicates whether the mailFolder is hidden. This property can be set only when creating the folder. Find more
+     * information in Hidden mail folders.
+     */
+    isHidden?: NullableOption<boolean>;
     // The unique identifier for the mailFolder's parent mailFolder.
     parentFolderId?: NullableOption<string>;
     // The number of items in the mailFolder.
@@ -2641,6 +2649,8 @@ export interface ManagedDevice extends Entity {
     emailAddress?: NullableOption<string>;
     // Enrollment time of the device. This property is read-only.
     enrolledDateTime?: string;
+    // Ethernet MAC. This property is read-only.
+    ethernetMacAddress?: NullableOption<string>;
     /**
      * The Access State of the device in Exchange. This property is read-only. Possible values are: none, unknown, allowed,
      * blocked, quarantined.
@@ -2657,6 +2667,8 @@ export interface ManagedDevice extends Entity {
     exchangeLastSuccessfulSyncDateTime?: string;
     // Free Storage in Bytes. This property is read-only.
     freeStorageSpaceInBytes?: number;
+    // Integrated Circuit Card Identifier, it is A SIM card's unique identification number. This property is read-only.
+    iccid?: NullableOption<string>;
     // IMEI. This property is read-only.
     imei?: NullableOption<string>;
     // Device encryption status. This property is read-only.
@@ -2674,7 +2686,8 @@ export interface ManagedDevice extends Entity {
     /**
      * Management channel of the device. Intune, EAS, etc. This property is read-only. Possible values are: eas, mdm, easMdm,
      * intuneClient, easIntuneClient, configurationManagerClient, configurationManagerClientMdm,
-     * configurationManagerClientMdmEas, unknown, jamf, googleCloudDevicePolicyController, microsoft365ManagedMdm, msSense.
+     * configurationManagerClientMdmEas, unknown, jamf, googleCloudDevicePolicyController, microsoft365ManagedMdm, msSense,
+     * intuneAosp.
      */
     managementAgent?: ManagementAgentType;
     // Manufacturer of the device. This property is read-only.
@@ -2683,6 +2696,8 @@ export interface ManagedDevice extends Entity {
     meid?: NullableOption<string>;
     // Model of the device. This property is read-only.
     model?: NullableOption<string>;
+    // Notes on the device created by IT Admin
+    notes?: NullableOption<string>;
     // Operating system of the device. Windows, iOS, etc. This property is read-only.
     operatingSystem?: NullableOption<string>;
     // Operating system version of the device. This property is read-only.
@@ -2695,6 +2710,8 @@ export interface ManagedDevice extends Entity {
     partnerReportedThreatState?: ManagedDevicePartnerReportedHealthState;
     // Phone number of the device. This property is read-only.
     phoneNumber?: NullableOption<string>;
+    // Total Memory in Bytes. This property is read-only.
+    physicalMemoryInBytes?: number;
     // An error string that identifies issues when creating Remote Assistance session objects. This property is read-only.
     remoteAssistanceSessionErrorDetails?: NullableOption<string>;
     // Url that allows a Remote Assistance session to be established with the device. This property is read-only.
@@ -2705,6 +2722,8 @@ export interface ManagedDevice extends Entity {
     subscriberCarrier?: NullableOption<string>;
     // Total Storage in Bytes. This property is read-only.
     totalStorageSpaceInBytes?: number;
+    // Unique Device Identifier for iOS and macOS devices. This property is read-only.
+    udid?: NullableOption<string>;
     // User display name. This property is read-only.
     userDisplayName?: NullableOption<string>;
     // Unique Identifier for the user associated with the device. This property is read-only.
@@ -2939,7 +2958,7 @@ export interface Team extends Entity {
     classification?: NullableOption<string>;
     // Timestamp at which the team was created.
     createdDateTime?: NullableOption<string>;
-    // An optional description for the team.
+    // An optional description for the team. Maximum length: 1024 characters.
     description?: NullableOption<string>;
     // The name of the team.
     displayName?: NullableOption<string>;
@@ -3380,11 +3399,16 @@ export interface AuthenticationMethodConfiguration extends Entity {
     state?: NullableOption<AuthenticationMethodState>;
 }
 export interface AuthenticationMethodsPolicy extends Entity {
+    // A description of the policy.
     description?: NullableOption<string>;
+    // The name of the policy.
     displayName?: NullableOption<string>;
+    // The date and time of the last update to the policy.
     lastModifiedDateTime?: NullableOption<string>;
+    // The version of the policy in use.
     policyVersion?: NullableOption<string>;
     reconfirmationInDays?: NullableOption<number>;
+    // Represents the settings for each authentication method.
     authenticationMethodConfigurations?: NullableOption<AuthenticationMethodConfiguration[]>;
 }
 export interface AuthenticationMethodTarget extends Entity {
@@ -3588,6 +3612,7 @@ export interface B2xIdentityUserFlow extends IdentityUserFlow {
     languages?: NullableOption<UserFlowLanguageConfiguration[]>;
     // The user attribute assignments included in the user flow.
     userAttributeAssignments?: NullableOption<IdentityUserFlowAttributeAssignment[]>;
+    userFlowIdentityProviders?: NullableOption<IdentityProviderBase[]>;
 }
 // tslint:disable-next-line: interface-name
 export interface IdentityProvider extends Entity {
@@ -3653,6 +3678,15 @@ export interface IdentityUserFlowAttributeAssignment extends Entity {
     userAttribute?: NullableOption<IdentityUserFlowAttribute>;
 }
 // tslint:disable-next-line: interface-name
+export interface IdentityProviderBase extends Entity {
+    // The display name of the identity provider.
+    displayName?: NullableOption<string>;
+}
+export interface BuiltInIdentityProvider extends IdentityProviderBase {
+    // The identity provider type. For a B2B scenario, possible values: AADSignup, MicrosoftAccount, EmailOTP. Required.
+    identityProviderType?: NullableOption<string>;
+}
+// tslint:disable-next-line: interface-name
 export interface IdentityUserFlowAttribute extends Entity {
     /**
      * The data type of the user flow attribute. This cannot be modified after the custom user flow attribute is created. The
@@ -3676,6 +3710,7 @@ export interface IdentityContainer extends Entity {
     conditionalAccess?: NullableOption<ConditionalAccessRoot>;
     apiConnectors?: NullableOption<IdentityApiConnector[]>;
     b2xUserFlows?: NullableOption<B2xIdentityUserFlow[]>;
+    identityProviders?: NullableOption<IdentityProviderBase[]>;
     userFlowAttributes?: NullableOption<IdentityUserFlowAttribute[]>;
 }
 export interface ConditionalAccessRoot extends Entity {
@@ -3684,6 +3719,23 @@ export interface ConditionalAccessRoot extends Entity {
 }
 // tslint:disable-next-line: interface-name no-empty-interface
 export interface IdentityCustomUserFlowAttribute extends IdentityUserFlowAttribute {}
+export interface SocialIdentityProvider extends IdentityProviderBase {
+    /**
+     * The client identifier for the application obtained when registering the application with the identity provider.
+     * Required.
+     */
+    clientId?: NullableOption<string>;
+    /**
+     * The client secret for the application that is obtained when the application is registered with the identity provider.
+     * This is write-only. A read operation returns '****'. Required.
+     */
+    clientSecret?: NullableOption<string>;
+    /**
+     * For a B2B scenario, possible values: Google, Facebook. For a B2C scenario, possible values: Microsoft, Google, Amazon,
+     * LinkedIn, Facebook, GitHub, Twitter, Weibo, QQ, WeChat. Required.
+     */
+    identityProviderType?: NullableOption<string>;
+}
 // tslint:disable-next-line: no-empty-interface
 export interface UserFlowLanguagePage extends Entity {}
 export interface AdministrativeUnit extends DirectoryObject {
@@ -4332,8 +4384,8 @@ export interface Organization extends DirectoryObject {
     // Not nullable.
     marketingNotificationEmails?: string[];
     /**
-     * The time and date at which the tenant was last synced with the on-premise directory. The Timestamp type represents date
-     * and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is
+     * The time and date at which the tenant was last synced with the on-premises directory. The Timestamp type represents
+     * date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is
      * 2014-01-01T00:00:00Z.
      */
     onPremisesLastSyncDateTime?: NullableOption<string>;
@@ -6144,43 +6196,56 @@ export interface AccessReviewInstanceDecisionItem extends Entity {
 export interface AccessReviewScheduleDefinition extends Entity {
     // User who created this review.
     createdBy?: NullableOption<UserIdentity>;
-    // Timestamp when review series was created.
+    // Timestamp when the access review series was created. Supports $select.
     createdDateTime?: NullableOption<string>;
-    // Description provided by review creators to provide more context of the review to admins.
+    // Description provided by review creators to provide more context of the review to admins. Supports $select.
     descriptionForAdmins?: NullableOption<string>;
     /**
      * Description provided by review creators to provide more context of the review to reviewers. Reviewers will see this
-     * description in the email sent to them requesting their review.
+     * description in the email sent to them requesting their review. Supports $select.
      */
     descriptionForReviewers?: NullableOption<string>;
-    // Name of access review series. Required on create.
+    // Name of the access review series. Required on create. Supports $select.
     displayName?: NullableOption<string>;
+    /**
+     * This collection of reviewer scopes is used to define the list of fallback reviewers. These fallback reviewers will be
+     * notified to take action if no users are found from the list of reviewers specified. This could occur when either the
+     * group owner is specified as the reviewer but the group owner does not exist, or manager is specified as reviewer but a
+     * user's manager does not exist. Supports $select.
+     */
     fallbackReviewers?: NullableOption<AccessReviewReviewerScope[]>;
     /**
-     * In the case of a review of guest users across all Microsoft 365 groups, this determines the scope of which groups will
-     * be reviewed. Each group will become a unique accessReviewInstance of the access review series. For supported scopes,
-     * see accessReviewScope.
+     * This property is required when scoping a review to guest users' access across all Microsoft 365 groups and determines
+     * which Microsoft 365 groups are reviewed. Each group will become a unique accessReviewInstance of the access review
+     * series. For supported scopes, see accessReviewScope. Supports $select. For examples of options for configuring
+     * instanceEnumerationScope, see Configure the scope of your access review definition using the Microsoft Graph API.
      */
     instanceEnumerationScope?: NullableOption<AccessReviewScope>;
-    // Timestamp when review series was last modified.
+    // Timestamp when the access review series was last modified. Supports $select.
     lastModifiedDateTime?: NullableOption<string>;
     /**
-     * This collection of access review scopes is used to define who are the reviewers. See accessReviewReviewerScope.
-     * Required on create.
+     * This collection of access review scopes is used to define who are the reviewers. Required on create. Supports $select.
+     * For examples of options for assigning reviewers, see Assign reviewers to your access review definition using the
+     * Microsoft Graph API.
      */
     reviewers?: NullableOption<AccessReviewReviewerScope[]>;
-    // Defines scope of users reviewed. For supported scopes, see accessReviewScope. Required on create.
+    /**
+     * Defines scope of resources to review. For supported scopes, see accessReviewScope. Required on create. Supports $select
+     * and $filter (contains only). For examples of options for configuring scope, see Configure the scope of your access
+     * review definition using the Microsoft Graph API.
+     */
     scope?: NullableOption<AccessReviewScope>;
-    // The settings for an access review series, see type definition below.
+    // The settings for an access review series, see type definition below. Supports $select.
     settings?: NullableOption<AccessReviewScheduleSettings>;
     /**
-     * This read-only field specifies the status of an accessReview. The typical states include Initializing, NotStarted,
-     * Starting, InProgress, Completing, Completed, AutoReviewing, and AutoReviewed.
+     * This read-only field specifies the status of an access review. The typical states include Initializing, NotStarted,
+     * Starting, InProgress, Completing, Completed, AutoReviewing, and AutoReviewed. Supports $select, $orderby, and $filter
+     * (eq only).
      */
     status?: NullableOption<string>;
     /**
      * Set of access reviews instances for this access review series. Access reviews that do not recur will only have one
-     * instance; otherwise, there will be an instance for each recurrence.
+     * instance; otherwise, there is an instance for each recurrence.
      */
     instances?: NullableOption<AccessReviewInstance[]>;
 }
@@ -7428,7 +7493,7 @@ export interface DeviceCompliancePolicySettingStateSummary extends Entity {
     notApplicableDeviceCount?: number;
     /**
      * Setting platform. Possible values are: android, androidForWork, iOS, macOS, windowsPhone81, windows81AndLater,
-     * windows10AndLater, androidWorkProfile, windows10XProfile, all.
+     * windows10AndLater, androidWorkProfile, windows10XProfile, androidAOSP, all.
      */
     platformType?: PolicyPlatformType;
     // Number of remediated devices
@@ -7673,6 +7738,8 @@ export interface ApplePushNotificationCertificate extends Entity {
     appleIdentifier?: NullableOption<string>;
     // Not yet documented
     certificate?: NullableOption<string>;
+    // Certificate serial number. This property is read-only.
+    certificateSerialNumber?: NullableOption<string>;
     // The expiration date and time for Apple push notification certificate.
     expirationDateTime?: string;
     // Last modified date and time for Apple push notification certificate.
@@ -8848,7 +8915,8 @@ export interface IosGeneralDeviceConfiguration extends DeviceConfiguration {
     wallpaperBlockModification?: boolean;
     /**
      * Indicates whether or not to force the device to use only Wi-Fi networks from configuration profiles when the device is
-     * in supervised mode.
+     * in supervised mode. Available for devices running iOS and iPadOS versions 14.4 and earlier. Devices running 14.5+
+     * should use the setting, 'WiFiConnectToAllowedNetworksOnlyForced.
      */
     wiFiConnectOnlyToConfiguredNetworks?: boolean;
 }
@@ -11666,16 +11734,9 @@ export interface Initiator extends Identity {
     initiatorType?: NullableOption<InitiatorType>;
 }
 export interface KeyValue {
-    /**
-     * Contains the name of the field that a value is associated with. When a sign in or domain hint is included in the
-     * sign-in request, corresponding fields are included as key-value pairs. Possible keys: Login hint present, Domain hint
-     * present.
-     */
+    // Key.
     key?: NullableOption<string>;
-    /**
-     * Contains the corresponding value for the specified key. The value is true if a sign in hint was included in the sign-in
-     * request; otherwise false. The value is true if a domain hint was included in the sign-in request; otherwise false.
-     */
+    // Value.
     value?: NullableOption<string>;
 }
 export interface ModifiedProperty {
@@ -13430,7 +13491,7 @@ export interface OnlineMeetingInfo {
     tollNumber?: NullableOption<string>;
 }
 export interface PatternedRecurrence {
-    // The frequency of an event.
+    // The frequency of an event. Do not specify for a one-time access review.
     pattern?: NullableOption<RecurrencePattern>;
     // The duration of an event.
     range?: NullableOption<RecurrenceRange>;
@@ -13864,10 +13925,7 @@ export interface AccessReviewApplyAction {}
 // tslint:disable-next-line: no-empty-interface
 export interface AccessReviewScope {}
 export interface AccessReviewQueryScope extends AccessReviewScope {
-    /**
-     * The query representing what will be reviewed in an access review. Examples of this include
-     * /groups/{id}/members?$filter=…
-     */
+    // The query representing what will be reviewed in an access review.
     query?: NullableOption<string>;
     /**
      * In the scenario where reviewers need to be specified dynamically, this property is used to indicate the relative source
@@ -13878,7 +13936,10 @@ export interface AccessReviewQueryScope extends AccessReviewScope {
     queryType?: NullableOption<string>;
 }
 export interface AccessReviewInactiveUsersQueryScope extends AccessReviewQueryScope {
-    // Defines the length of the duration period of inactivity. Inactivity is based on the last sign in date of the user.
+    /**
+     * Defines the duration of inactivity. Inactivity is based on the last sign in date of the user compared to the access
+     * review instance's start date. If this property is not specified, it's assigned the default value PT0S.
+     */
     inactiveDuration?: NullableOption<string>;
 }
 export interface AccessReviewInstanceDecisionItemResource {
@@ -13894,7 +13955,8 @@ export interface AccessReviewReviewerScope {
     query?: NullableOption<string>;
     /**
      * In the scenario where reviewers need to be specified dynamically, this property is used to indicate the relative source
-     * of the query. This property is only required if a relative query (i.e., ./manager) is specified.
+     * of the query. This property is only required if a relative query, for example, ./manager, is specified. Possible value:
+     * decisions.
      */
     queryRoot?: NullableOption<string>;
     // The type of query. Examples include MicrosoftGraph and ARM.
@@ -13907,26 +13969,30 @@ export interface AccessReviewScheduleSettings {
      * the case of disableAndDeleteUserApplyAction. See accessReviewApplyAction.
      */
     applyActions?: NullableOption<AccessReviewApplyAction[]>;
-    // Flag to indicate whether auto-apply feature is enabled.
+    /**
+     * Indicates whether decisions are automatically applied. When set to false, a user must apply the decisions manually once
+     * the reviewer completes the access review. When set to true, decisions are applied automatically after the access review
+     * instance duration ends, whether or not the reviewers have responded. Default value is false.
+     */
     autoApplyDecisionsEnabled?: boolean;
-    // Decision chosen if defaultDecisionEnabled is enabled. Can be one of 'Approve', 'Deny', or 'Recommendation'.
+    // Decision chosen if defaultDecisionEnabled is enabled. Can be one of Approve, Deny, or Recommendation.
     defaultDecision?: NullableOption<string>;
-    // Flag to indicate whether default decision is enabled/disabled when reviewers do not respond.
+    // Indicates whether the default decision is enabled or disabled when reviewers do not respond. Default value is false.
     defaultDecisionEnabled?: boolean;
     // Duration of each recurrence of review (accessReviewInstance) in number of days.
     instanceDurationInDays?: number;
-    // Flag to indicate whether reviewers are required to provide justification with their decision.
+    // Indicates whether reviewers are required to provide justification with their decision. Default value is false.
     justificationRequiredOnApproval?: boolean;
-    // Flag to indicate whether emails are enabled/disabled.
+    // Indicates whether emails are enabled or disabled. Default value is false.
     mailNotificationsEnabled?: boolean;
-    // Flag to indicate whether decision recommendations are enabled/disabled.
+    // Indicates whether decision recommendations are enabled/disabled.
     recommendationsEnabled?: boolean;
     /**
-     * Detailed settings for recurrence. Using standard Outlook recurrence object. Note that dayOfMonth is not supported - use
-     * property startDate on recurrenceRange to determine the day the review will start on.
+     * Detailed settings for recurrence using the standard Outlook recurrence object. Only weekly and absoluteMonthly on
+     * recurrencePattern are supported. Use the property startDate on recurrenceRange to determine the day the review starts.
      */
     recurrence?: NullableOption<PatternedRecurrence>;
-    // Flag to indicate whether reminders are enabled/disabled.
+    // Indicates whether reminders are enabled or disabled. Default value is false.
     reminderNotificationsEnabled?: boolean;
 }
 export interface AppConsentRequestScope {
@@ -15048,16 +15114,6 @@ export interface WindowsDeviceAzureADAccount extends WindowsDeviceAccount {
     // Not yet documented
     userPrincipalName?: NullableOption<string>;
 }
-export interface DeletedWindowsAutopilotDeviceState {
-    // Device deletion state. Possible values are: unknown, failed, accepted, error.
-    deletionState?: WindowsAutopilotDeviceDeletionState;
-    // ZTD Device Registration ID .
-    deviceRegistrationId?: NullableOption<string>;
-    // Device deletion error message.
-    errorMessage?: NullableOption<string>;
-    // Autopilot Device Serial Number
-    serialNumber?: NullableOption<string>;
-}
 // tslint:disable-next-line: interface-name
 export interface ImportedWindowsAutopilotDeviceIdentityState {
     // Device error code reported by Device Directory Service(DDS).
@@ -15098,9 +15154,19 @@ export interface IPv6Range extends IpRange {
     upperAddress?: string;
 }
 export interface KeyValuePair {
-    // Name for this key-value pair
+    /**
+     * Name for this key-value pair. Possible names are: AdditionalWSFedEndpointCheckResult,
+     * AllowedAuthenticationClassReferencesCheckResult, AlwaysRequireAuthenticationCheckResult, AutoUpdateEnabledCheckResult,
+     * ClaimsProviderNameCheckResult, EncryptClaimsCheckResult, EncryptedNameIdRequiredCheckResult,
+     * MonitoringEnabledCheckResult,NotBeforeSkewCheckResult, RequestMFAFromClaimsProvidersCheckResult,
+     * SignedSamlRequestsRequiredCheckResult, AdditionalAuthenticationRulesCheckResult, TokenLifetimeCheckResult,
+     * DelegationAuthorizationRulesCheckResult, IssuanceAuthorizationRulesCheckResult, IssuanceTransformRulesCheckResult.
+     */
     name?: string;
-    // Value for this key-value pair
+    /**
+     * Value for this key-value pair. Possible result values are 0 (when the validation check passed), 1 (when the validation
+     * check failed), or 2 (when the validation check is a warning).
+     */
     value?: NullableOption<string>;
 }
 export interface ManagedAppDiagnosticStatus {
@@ -17227,4 +17293,17 @@ export namespace CallRecords {
          */
         role?: ServiceRole;
     }
+}
+export namespace ExternalConnectors {
+    type ExternalItemContentType = "text" | "html" | "unknownFutureValue";
+    interface ExternalItem extends microsoftgraph.Entity {
+        content?: NullableOption<ExternalItemContent>;
+        properties?: NullableOption<Properties>;
+    }
+    interface ExternalItemContent {
+        type?: ExternalItemContentType;
+        value?: NullableOption<string>;
+    }
+// tslint:disable-next-line: no-empty-interface
+    interface Properties {}
 }

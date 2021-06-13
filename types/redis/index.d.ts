@@ -375,8 +375,8 @@ export interface Commands<R> {
     /**
      * Perform arbitrary bitfield integer operations on strings.
      */
-    bitfield: OverloadedKeyCommand<string | number, [number, number], R>;
-    BITFIELD: OverloadedKeyCommand<string | number, [number, number], R>;
+    bitfield: OverloadedKeyCommand<string | number, number[], R>;
+    BITFIELD: OverloadedKeyCommand<string | number, number[], R>;
 
     /**
      * Perform bitwise operations between strings.

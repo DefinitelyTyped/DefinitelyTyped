@@ -17,7 +17,7 @@ export interface DowncastConversionApi<T = any> {
     consumable: ModelConsumable;
     dispatcher: DowncastDispatcher;
     mapper: Mapper;
-    options: T;
+    options?: T;
     schema: Schema;
     writer: DowncastWriter;
 }

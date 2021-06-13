@@ -4,7 +4,7 @@ declare module 'child_process' {
     import * as net from 'net';
     import { Writable, Readable, Stream, Pipe } from 'stream';
 
-    type Serializable = string | object | number | boolean;
+    type Serializable = string | object | number | boolean | bigint;
     type SendHandle = net.Socket | net.Server;
 
     interface ChildProcess extends EventEmitter {
@@ -20,7 +20,7 @@ declare module 'child_process' {
             Readable | Writable | null | undefined // extra
         ];
         readonly killed: boolean;
-        readonly pid: number;
+        readonly pid?: number;
         readonly connected: boolean;
         readonly exitCode: number | null;
         readonly signalCode: NodeJS.Signals | null;
@@ -135,12 +135,18 @@ declare module 'child_process' {
 
     type SerializationType = 'json' | 'advanced';
 
-    interface MessagingOptions {
+    interface MessagingOptions extends Abortable {
         /**
          * Specify the kind of serialization used for sending messages between processes.
          * @default 'json'
          */
         serialization?: SerializationType;
+
+        /**
+         * The signal value to be used when the spawned process will be killed by the abort signal.
+         * @default 'SIGTERM'
+         */
+        killSignal?: NodeJS.Signals | number;
     }
 
     interface ProcessEnvOptions {
@@ -451,7 +457,6 @@ declare module 'child_process' {
 
     interface SpawnSyncOptions extends CommonSpawnOptions {
         input?: string | NodeJS.ArrayBufferView;
-        killSignal?: NodeJS.Signals | number;
         maxBuffer?: number;
         encoding?: BufferEncoding | 'buffer' | null;
     }

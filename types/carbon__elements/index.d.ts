@@ -1,4 +1,4 @@
-// Type definitions for @carbon/elements 10.34
+// Type definitions for @carbon/elements 10.35
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/elements
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -76,6 +76,8 @@ export const white: {
     background: "#ffffff";
     layer: "#f4f4f4";
     layerAccent: "#e0e0e0";
+    layerAccentActive: "#a8a8a8";
+    layerAccentHover: "#d1d1d1";
     field: "#f4f4f4";
     backgroundInverse: "#393939";
     backgroundBrand: "#0f62fe";
@@ -99,7 +101,7 @@ export const white: {
     iconOnColor: "#ffffff";
     iconInverse: "#ffffff";
     supportError: "#da1e28";
-    supportSuccess: "#24a148";
+    supportSuccess: "#198038";
     supportWarning: "#f1c21b";
     supportInfo: "#0043ce";
     supportErrorInverse: "#fa4d56";
@@ -180,6 +182,11 @@ export const white: {
     helperText01: {
         fontSize: "0.75rem";
         lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
         letterSpacing: "0.32px";
     };
     bodyShort01: {
@@ -575,6 +582,12 @@ export const white: {
     container03: "2.5rem";
     container04: "3rem";
     container05: "4rem";
+    sizeXSmall: "1.5rem";
+    sizeSmall: "2rem";
+    sizeMedium: "2.5rem";
+    sizeLarge: "3rem";
+    sizeXLarge: "4rem";
+    size2XLarge: "5rem";
     iconSize01: "1rem";
     iconSize02: "1.25rem";
 };
@@ -1389,6 +1402,20 @@ export const layout04: "3rem";
 export const layout05: "4rem";
 export const layout06: "6rem";
 export const layout07: "10rem";
+export const size2XLarge: "5rem";
+export const sizeLarge: "3rem";
+export const sizeMedium: "2.5rem";
+export const sizeSmall: "2rem";
+export const sizeXLarge: "4rem";
+export const sizeXSmall: "1.5rem";
+export const sizes: {
+    XSmall: typeof sizeXSmall;
+    Small: typeof sizeSmall;
+    Medium: typeof sizeMedium;
+    Large: typeof sizeLarge;
+    XLarge: typeof sizeXLarge;
+    "2XLarge": typeof size2XLarge;
+};
 export const container01: "1.5rem";
 export const container02: "2rem";
 export const container03: "2.5rem";
@@ -1466,6 +1493,8 @@ export const g10: {
     background: "#f4f4f4";
     layer: "#ffffff";
     layerAccent: "#e0e0e0";
+    layerAccentActive: "#a8a8a8";
+    layerAccentHover: "#d1d1d1";
     field: "#ffffff";
     backgroundInverse: "#393939";
     backgroundBrand: "#0f62fe";
@@ -1489,7 +1518,7 @@ export const g10: {
     iconOnColor: "#ffffff";
     iconInverse: "#ffffff";
     supportError: "#da1e28";
-    supportSuccess: "#24a148";
+    supportSuccess: "#198038";
     supportWarning: "#f1c21b";
     supportInfo: "#0043ce";
     supportErrorInverse: "#fa4d56";
@@ -1970,6 +1999,12 @@ export const g10: {
     container03: "2.5rem";
     container04: "3rem";
     container05: "4rem";
+    sizeXSmall: "1.5rem";
+    sizeSmall: "2rem";
+    sizeMedium: "2.5rem";
+    sizeLarge: "3rem";
+    sizeXLarge: "4rem";
+    size2XLarge: "5rem";
     iconSize01: "1rem";
     iconSize02: "1.25rem";
 };
@@ -1977,6 +2012,8 @@ export const g80: {
     background: "#393939";
     layer: "#525252";
     layerAccent: "#6f6f6f";
+    layerAccentActive: "#525252";
+    layerAccentHover: "#5e5e5e";
     field: "#525252";
     backgroundInverse: "#f4f4f4";
     backgroundBrand: "#0f62fe";
@@ -2126,6 +2163,12 @@ export const g80: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    caption02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     label01: {
         fontSize: "0.75rem";
         fontWeight: 400;
@@ -2541,6 +2584,12 @@ export const g80: {
     container03: "2.5rem";
     container04: "3rem";
     container05: "4rem";
+    sizeXSmall: "1.5rem";
+    sizeSmall: "2rem";
+    sizeMedium: "2.5rem";
+    sizeLarge: "3rem";
+    sizeXLarge: "4rem";
+    size2XLarge: "5rem";
     iconSize01: "1rem";
     iconSize02: "1.25rem";
 };
@@ -2614,6 +2663,8 @@ export const g90: {
     background: "#262626";
     layer: "#393939";
     layerAccent: "#525252";
+    layerAccentActive: "#8d8d8d";
+    layerAccentHover: "#636363";
     field: "#393939";
     backgroundInverse: "#f4f4f4";
     backgroundBrand: "#0f62fe";
@@ -2697,6 +2748,12 @@ export const g90: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    caption02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     label01: {
         fontSize: "0.75rem";
         fontWeight: 400;
@@ -3112,6 +3169,12 @@ export const g90: {
     container03: "2.5rem";
     container04: "3rem";
     container05: "4rem";
+    sizeXSmall: "1.5rem";
+    sizeSmall: "2rem";
+    sizeMedium: "2.5rem";
+    sizeLarge: "3rem";
+    sizeXLarge: "4rem";
+    size2XLarge: "5rem";
     iconSize01: "1rem";
     iconSize02: "1.25rem";
 };
@@ -3185,6 +3248,8 @@ export const g100: {
     background: "#161616";
     layer: "#262626";
     layerAccent: "#393939";
+    layerAccentActive: "#6f6f6f";
+    layerAccentHover: "#474747";
     field: "#262626";
     backgroundInverse: "#f4f4f4";
     backgroundBrand: "#0f62fe";
@@ -3268,6 +3333,12 @@ export const g100: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    caption02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     label01: {
         fontSize: "0.75rem";
         fontWeight: 400;
@@ -3683,6 +3754,12 @@ export const g100: {
     container03: "2.5rem";
     container04: "3rem";
     container05: "4rem";
+    sizeXSmall: "1.5rem";
+    sizeSmall: "2rem";
+    sizeMedium: "2.5rem";
+    sizeLarge: "3rem";
+    sizeXLarge: "4rem";
+    size2XLarge: "5rem";
     iconSize01: "1rem";
     iconSize02: "1.25rem";
 };
@@ -3756,6 +3833,8 @@ export const v9: {
     background: "#f4f7fb";
     layer: "#ffffff";
     layerAccent: "#dfe3e6";
+    layerAccentActive: "#a8a8a8";
+    layerAccentHover: "#ced4d9";
     field: "#ffffff";
     backgroundInverse: "#272d33";
     backgroundBrand: "#3d70b2";
@@ -3839,6 +3918,12 @@ export const v9: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    caption02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     label01: {
         fontSize: "0.75rem";
         fontWeight: 400;
@@ -4254,6 +4339,12 @@ export const v9: {
     container03: "2.5rem";
     container04: "3rem";
     container05: "4rem";
+    sizeXSmall: "1.5rem";
+    sizeSmall: "2rem";
+    sizeMedium: "2.5rem";
+    sizeLarge: "3rem";
+    sizeXLarge: "4rem";
+    size2XLarge: "5rem";
     iconSize01: "1rem";
     iconSize02: "1.25rem";
 };
@@ -4279,6 +4370,7 @@ export const tokens: {
         "icon02",
         "icon03",
         "link01",
+        "link02",
         "inverseLink",
         "field01",
         "field02",
@@ -4324,6 +4416,82 @@ export const tokens: {
         "buttonSeparator",
         "skeleton01",
         "skeleton02",
+        "background",
+        "layer",
+        "layerAccent",
+        "layerAccentHover",
+        "layerAccentActive",
+        "field",
+        "backgroundInverse",
+        "backgroundBrand",
+        "interactive",
+        "borderSubtle",
+        "borderStrong",
+        "borderInverse",
+        "borderInteractive",
+        "textPrimary",
+        "textSecondary",
+        "textPlaceholder",
+        "textHelper",
+        "textOnColor",
+        "textInverse",
+        "linkPrimary",
+        "linkSecondary",
+        "linkVisited",
+        "linkInverse",
+        "iconPrimary",
+        "iconSecondary",
+        "iconOnColor",
+        "iconInverse",
+        "supportError",
+        "supportSuccess",
+        "supportWarning",
+        "supportInfo",
+        "supportErrorInverse",
+        "supportSuccessInverse",
+        "supportWarningInverse",
+        "supportInfoInverse",
+        "overlay",
+        "toggleOff",
+        "buttonPrimary",
+        "buttonSecondary",
+        "buttonTertiary",
+        "buttonDangerPrimary",
+        "buttonDangerSecondary",
+        "backgroundActive",
+        "layerActive",
+        "buttonDangerActive",
+        "buttonPrimaryActive",
+        "buttonSecondaryActive",
+        "buttonTertiaryActive",
+        "focusInset",
+        "focusInverse",
+        "backgroundHover",
+        "layerHover",
+        "fieldHover",
+        "backgroundInverseHover",
+        "linkPrimaryHover",
+        "buttonDangerHover",
+        "buttonPrimaryHover",
+        "buttonSecondaryHover",
+        "buttonTertiaryHover",
+        "backgroundSelected",
+        "backgroundSelectedHover",
+        "layerSelected",
+        "layerSelectedHover",
+        "layerSelectedInverse",
+        "borderSubtleSelected",
+        "layerDisabled",
+        "fieldDisabled",
+        "borderDisabled",
+        "textDisabled",
+        "buttonDisabled",
+        "iconDisabled",
+        "textOnColorDisabled",
+        "iconOnColorDisabled",
+        "layerSelectedDisabled",
+        "skeletonBackground",
+        "skeletonElement",
         "brand01",
         "brand02",
         "brand03",
@@ -4380,6 +4548,7 @@ export const tokens: {
         "spacing10",
         "spacing11",
         "spacing12",
+        "spacing13",
         "fluidSpacing01",
         "fluidSpacing02",
         "fluidSpacing03",
@@ -4396,6 +4565,12 @@ export const tokens: {
         "container03",
         "container04",
         "container05",
+        "sizeXSmall",
+        "sizeSmall",
+        "sizeMedium",
+        "sizeLarge",
+        "sizeXLarge",
+        "size2XLarge",
         "iconSize01",
         "iconSize02",
     ];
@@ -4509,13 +4684,14 @@ export const themes: {
         icon02: "#525252";
         icon03: "#ffffff";
         link01: "#0f62fe";
+        link02: "#0043ce";
         inverseLink: "#78a9ff";
         field01: "#f4f4f4";
         field02: "#ffffff";
         inverse01: "#ffffff";
         inverse02: "#393939";
         support01: "#da1e28";
-        support02: "#24a148";
+        support02: "#198038";
         support03: "#f1c21b";
         support04: "#0043ce";
         inverseSupport01: "#fa4d56";
@@ -4554,6 +4730,82 @@ export const themes: {
         buttonSeparator: "#e0e0e0";
         skeleton01: "#e5e5e5";
         skeleton02: "#c6c6c6";
+        background: "#ffffff";
+        layer: "#f4f4f4";
+        layerAccent: "#e0e0e0";
+        layerAccentActive: "#a8a8a8";
+        layerAccentHover: "#d1d1d1";
+        field: "#f4f4f4";
+        backgroundInverse: "#393939";
+        backgroundBrand: "#0f62fe";
+        interactive: "#0f62fe";
+        borderSubtle: "#e0e0e0";
+        borderStrong: "#8d8d8d";
+        borderInverse: "#161616";
+        borderInteractive: "#0f62fe";
+        textPrimary: "#161616";
+        textSecondary: "#525252";
+        textPlaceholder: "#a8a8a8";
+        textHelper: "#6f6f6f";
+        textOnColor: "#ffffff";
+        textInverse: "#ffffff";
+        linkPrimary: "#0f62fe";
+        linkSecondary: "#0043ce";
+        linkVisited: "#8a3ffc";
+        linkInverse: "#78a9ff";
+        iconPrimary: "#161616";
+        iconSecondary: "#525252";
+        iconOnColor: "#ffffff";
+        iconInverse: "#ffffff";
+        supportError: "#da1e28";
+        supportSuccess: "#198038";
+        supportWarning: "#f1c21b";
+        supportInfo: "#0043ce";
+        supportErrorInverse: "#fa4d56";
+        supportSuccessInverse: "#42be65";
+        supportWarningInverse: "#f1c21b";
+        supportInfoInverse: "#4589ff";
+        overlay: "rgba(22, 22, 22, 0.5)";
+        toggleOff: "#8d8d8d";
+        buttonPrimary: "#0f62fe";
+        buttonSecondary: "#393939";
+        buttonTertiary: "#0f62fe";
+        buttonDangerPrimary: "#da1e28";
+        buttonDangerSecondary: "#da1e28";
+        backgroundActive: "#c6c6c6";
+        layerActive: "#c6c6c6";
+        buttonDangerActive: "#750e13";
+        buttonPrimaryActive: "#002d9c";
+        buttonSecondaryActive: "#6f6f6f";
+        buttonTertiaryActive: "#002d9c";
+        focusInset: "#ffffff";
+        focusInverse: "#ffffff";
+        backgroundHover: "#e5e5e5";
+        layerHover: "#e5e5e5";
+        fieldHover: "#e5e5e5";
+        backgroundInverseHover: "#4c4c4c";
+        linkPrimaryHover: "#0043ce";
+        buttonDangerHover: "#b81921";
+        buttonPrimaryHover: "#0353e9";
+        buttonSecondaryHover: "#4c4c4c";
+        buttonTertiaryHover: "#0353e9";
+        backgroundSelected: "#e0e0e0";
+        backgroundSelectedHover: "#cacaca";
+        layerSelected: "#e0e0e0";
+        layerSelectedHover: "#cacaca";
+        layerSelectedInverse: "#161616";
+        borderSubtleSelected: "#c6c6c6";
+        layerDisabled: "#f4f4f4";
+        fieldDisabled: "#f4f4f4";
+        borderDisabled: "#f4f4f4";
+        textDisabled: "#c6c6c6";
+        buttonDisabled: "#c6c6c6";
+        iconDisabled: "#c6c6c6";
+        textOnColorDisabled: "#8d8d8d";
+        iconOnColorDisabled: "#8d8d8d";
+        layerSelectedDisabled: "#8d8d8d";
+        skeletonBackground: "#e5e5e5";
+        skeletonElement: "#c6c6c6";
         brand01: "#0f62fe";
         brand02: "#393939";
         brand03: "#0f62fe";
@@ -4796,13 +5048,15 @@ export const themes: {
             fontWeight: 300;
             lineHeight: 1.334;
             letterSpacing: 0;
-            lg: {
-                fontSize: "1.75rem";
-                lineHeight: 1.29;
-            };
-            max: {
-                fontSize: "2rem";
-                lineHeight: 1.25;
+            breakpoints: {
+                lg: {
+                    fontSize: "1.75rem";
+                    lineHeight: 1.29;
+                };
+                max: {
+                    fontSize: "2rem";
+                    lineHeight: 1.25;
+                };
             };
         };
         quotation01: {
@@ -4985,6 +5239,12 @@ export const themes: {
         container03: "2.5rem";
         container04: "3rem";
         container05: "4rem";
+        sizeXSmall: "1.5rem";
+        sizeSmall: "2rem";
+        sizeMedium: "2.5rem";
+        sizeLarge: "3rem";
+        sizeXLarge: "4rem";
+        size2XLarge: "5rem";
         iconSize01: "1rem";
         iconSize02: "1.25rem";
     };
@@ -5009,13 +5269,14 @@ export const themes: {
         icon02: "#525252";
         icon03: "#ffffff";
         link01: "#0f62fe";
+        link02: "#0043ce";
         inverseLink: "#78a9ff";
         field01: "#ffffff";
         field02: "#f4f4f4";
         inverse01: "#ffffff";
         inverse02: "#393939";
         support01: "#da1e28";
-        support02: "#24a148";
+        support02: "#198038";
         support03: "#f1c21b";
         support04: "#0043ce";
         inverseSupport01: "#fa4d56";
@@ -5049,11 +5310,87 @@ export const themes: {
         disabled01: "#ffffff";
         disabled02: "#c6c6c6";
         disabled03: "#8d8d8d";
-        highlight: "#edf5ff";
+        highlight: "#d0e2ff";
         decorative01: "#e0e0e0";
         buttonSeparator: "#e0e0e0";
         skeleton01: "#e5e5e5";
         skeleton02: "#c6c6c6";
+        background: "#f4f4f4";
+        layer: "#ffffff";
+        layerAccent: "#e0e0e0";
+        layerAccentActive: "#a8a8a8";
+        layerAccentHover: "#d1d1d1";
+        field: "#ffffff";
+        backgroundInverse: "#393939";
+        backgroundBrand: "#0f62fe";
+        interactive: "#0f62fe";
+        borderSubtle: "#e0e0e0";
+        borderStrong: "#8d8d8d";
+        borderInverse: "#161616";
+        borderInteractive: "#0f62fe";
+        textPrimary: "#161616";
+        textSecondary: "#525252";
+        textPlaceholder: "#a8a8a8";
+        textHelper: "#6f6f6f";
+        textOnColor: "#ffffff";
+        textInverse: "#ffffff";
+        linkPrimary: "#0f62fe";
+        linkSecondary: "#0043ce";
+        linkVisited: "#8a3ffc";
+        linkInverse: "#78a9ff";
+        iconPrimary: "#161616";
+        iconSecondary: "#525252";
+        iconOnColor: "#ffffff";
+        iconInverse: "#ffffff";
+        supportError: "#da1e28";
+        supportSuccess: "#198038";
+        supportWarning: "#f1c21b";
+        supportInfo: "#0043ce";
+        supportErrorInverse: "#fa4d56";
+        supportSuccessInverse: "#42be65";
+        supportWarningInverse: "#f1c21b";
+        supportInfoInverse: "#4589ff";
+        overlay: "rgba(22, 22, 22, 0.5)";
+        toggleOff: "#8d8d8d";
+        buttonPrimary: "#0f62fe";
+        buttonSecondary: "#393939";
+        buttonTertiary: "#0f62fe";
+        buttonDangerPrimary: "#da1e28";
+        buttonDangerSecondary: "#da1e28";
+        backgroundActive: "#c6c6c6";
+        layerActive: "#c6c6c6";
+        buttonDangerActive: "#750e13";
+        buttonPrimaryActive: "#002d9c";
+        buttonSecondaryActive: "#6f6f6f";
+        buttonTertiaryActive: "#002d9c";
+        focusInset: "#ffffff";
+        focusInverse: "#ffffff";
+        backgroundHover: "#e5e5e5";
+        layerHover: "#e5e5e5";
+        fieldHover: "#e5e5e5";
+        backgroundInverseHover: "#4c4c4c";
+        linkPrimaryHover: "#0043ce";
+        buttonDangerHover: "#b81921";
+        buttonPrimaryHover: "#0353e9";
+        buttonSecondaryHover: "#4c4c4c";
+        buttonTertiaryHover: "#0353e9";
+        backgroundSelected: "#e0e0e0";
+        backgroundSelectedHover: "#cacaca";
+        layerSelected: "#e0e0e0";
+        layerSelectedHover: "#cacaca";
+        layerSelectedInverse: "#161616";
+        borderSubtleSelected: "#c6c6c6";
+        layerDisabled: "#ffffff";
+        fieldDisabled: "#ffffff";
+        borderDisabled: "#ffffff";
+        textDisabled: "#c6c6c6";
+        buttonDisabled: "#c6c6c6";
+        iconDisabled: "#c6c6c6";
+        textOnColorDisabled: "#8d8d8d";
+        iconOnColorDisabled: "#8d8d8d";
+        layerSelectedDisabled: "#8d8d8d";
+        skeletonBackground: "#e5e5e5";
+        skeletonElement: "#c6c6c6";
         brand01: "#0f62fe";
         brand02: "#393939";
         brand03: "#0f62fe";
@@ -5296,13 +5633,15 @@ export const themes: {
             fontWeight: 300;
             lineHeight: 1.334;
             letterSpacing: 0;
-            lg: {
-                fontSize: "1.75rem";
-                lineHeight: 1.29;
-            };
-            max: {
-                fontSize: "2rem";
-                lineHeight: 1.25;
+            breakpoints: {
+                lg: {
+                    fontSize: "1.75rem";
+                    lineHeight: 1.29;
+                };
+                max: {
+                    fontSize: "2rem";
+                    lineHeight: 1.25;
+                };
             };
         };
         quotation01: {
@@ -5485,6 +5824,12 @@ export const themes: {
         container03: "2.5rem";
         container04: "3rem";
         container05: "4rem";
+        sizeXSmall: "1.5rem";
+        sizeSmall: "2rem";
+        sizeMedium: "2.5rem";
+        sizeLarge: "3rem";
+        sizeXLarge: "4rem";
+        size2XLarge: "5rem";
         iconSize01: "1rem";
         iconSize02: "1.25rem";
     };
@@ -5492,6 +5837,8 @@ export const themes: {
         background: "#393939";
         layer: "#525252";
         layerAccent: "#6f6f6f";
+        layerAccentActive: "#525252";
+        layerAccentHover: "#5e5e5e";
         field: "#525252";
         backgroundInverse: "#f4f4f4";
         backgroundBrand: "#0f62fe";
@@ -6062,6 +6409,12 @@ export const themes: {
         container03: "2.5rem";
         container04: "3rem";
         container05: "4rem";
+        sizeXSmall: "1.5rem";
+        sizeSmall: "2rem";
+        sizeMedium: "2.5rem";
+        sizeLarge: "3rem";
+        sizeXLarge: "4rem";
+        size2XLarge: "5rem";
         iconSize01: "1rem";
         iconSize02: "1.25rem";
     };
@@ -6086,6 +6439,7 @@ export const themes: {
         icon02: "#c6c6c6";
         icon03: "#ffffff";
         link01: "#78a9ff";
+        link02: "#a6c8ff";
         inverseLink: "#0f62fe";
         field01: "#393939";
         field02: "#525252";
@@ -6131,6 +6485,82 @@ export const themes: {
         buttonSeparator: "#161616";
         skeleton01: "#353535";
         skeleton02: "#525252";
+        background: "#262626";
+        layer: "#393939";
+        layerAccent: "#525252";
+        layerAccentActive: "#8d8d8d";
+        layerAccentHover: "#636363";
+        field: "#393939";
+        backgroundInverse: "#f4f4f4";
+        backgroundBrand: "#0f62fe";
+        interactive: "#4589ff";
+        borderSubtle: "#525252";
+        borderStrong: "#8d8d8d";
+        borderInverse: "#f4f4f4";
+        borderInteractive: "#4589ff";
+        textPrimary: "#f4f4f4";
+        textSecondary: "#c6c6c6";
+        textPlaceholder: "#6f6f6f";
+        textHelper: "#8d8d8d";
+        textOnColor: "#ffffff";
+        textInverse: "#161616";
+        linkPrimary: "#78a9ff";
+        linkSecondary: "#a6c8ff";
+        linkVisited: "#be95ff";
+        linkInverse: "#0f62fe";
+        iconPrimary: "#f4f4f4";
+        iconSecondary: "#c6c6c6";
+        iconOnColor: "#ffffff";
+        iconInverse: "#161616";
+        supportError: "#ff8389";
+        supportSuccess: "#42be65";
+        supportWarning: "#f1c21b";
+        supportInfo: "#4589ff";
+        supportErrorInverse: "#da1e28";
+        supportSuccessInverse: "#24a148";
+        supportWarningInverse: "#f1c21b";
+        supportInfoInverse: "#0f62fe";
+        overlay: "rgba(22, 22, 22, 0.7)";
+        toggleOff: "#8d8d8d";
+        buttonPrimary: "#0f62fe";
+        buttonSecondary: "#6f6f6f";
+        buttonTertiary: "#ffffff";
+        buttonDangerPrimary: "#da1e28";
+        buttonDangerSecondary: "#ff8389";
+        backgroundActive: "#6f6f6f";
+        layerActive: "#6f6f6f";
+        buttonDangerActive: "#750e13";
+        buttonPrimaryActive: "#002d9c";
+        buttonSecondaryActive: "#393939";
+        buttonTertiaryActive: "#c6c6c6";
+        focusInset: "#161616";
+        focusInverse: "#0f62fe";
+        backgroundHover: "#4c4c4c";
+        layerHover: "#4c4c4c";
+        fieldHover: "#4c4c4c";
+        backgroundInverseHover: "#e5e5e5";
+        linkPrimaryHover: "#a6c8ff";
+        buttonDangerHover: "#b81921";
+        buttonPrimaryHover: "#0353e9";
+        buttonSecondaryHover: "#606060";
+        buttonTertiaryHover: "#f4f4f4";
+        backgroundSelected: "#525252";
+        backgroundSelectedHover: "#656565";
+        layerSelected: "#525252";
+        layerSelectedHover: "#656565";
+        layerSelectedInverse: "#f4f4f4";
+        borderSubtleSelected: "#6f6f6f";
+        layerDisabled: "#393939";
+        fieldDisabled: "#393939";
+        borderDisabled: "#393939";
+        textDisabled: "#6f6f6f";
+        buttonDisabled: "#6f6f6f";
+        iconDisabled: "#6f6f6f";
+        textOnColorDisabled: "#a8a8a8";
+        iconOnColorDisabled: "#a8a8a8";
+        layerSelectedDisabled: "#a8a8a8";
+        skeletonBackground: "#353535";
+        skeletonElement: "#525252";
         brand01: "#0f62fe";
         brand02: "#6f6f6f";
         brand03: "#ffffff";
@@ -6373,13 +6803,15 @@ export const themes: {
             fontWeight: 300;
             lineHeight: 1.334;
             letterSpacing: 0;
-            lg: {
-                fontSize: "1.75rem";
-                lineHeight: 1.29;
-            };
-            max: {
-                fontSize: "2rem";
-                lineHeight: 1.25;
+            breakpoints: {
+                lg: {
+                    fontSize: "1.75rem";
+                    lineHeight: 1.29;
+                };
+                max: {
+                    fontSize: "2rem";
+                    lineHeight: 1.25;
+                };
             };
         };
         quotation01: {
@@ -6562,6 +6994,12 @@ export const themes: {
         container03: "2.5rem";
         container04: "3rem";
         container05: "4rem";
+        sizeXSmall: "1.5rem";
+        sizeSmall: "2rem";
+        sizeMedium: "2.5rem";
+        sizeLarge: "3rem";
+        sizeXLarge: "4rem";
+        size2XLarge: "5rem";
         iconSize01: "1rem";
         iconSize02: "1.25rem";
     };
@@ -6586,6 +7024,7 @@ export const themes: {
         icon02: "#c6c6c6";
         icon03: "#ffffff";
         link01: "#78a9ff";
+        link02: "#a6c8ff";
         inverseLink: "#0f62fe";
         field01: "#262626";
         field02: "#393939";
@@ -6630,7 +7069,83 @@ export const themes: {
         decorative01: "#525252";
         buttonSeparator: "#161616";
         skeleton01: "#353535";
-        skeleton02: "#393939";
+        skeleton02: "#525252";
+        background: "#161616";
+        layer: "#262626";
+        layerAccent: "#393939";
+        layerAccentActive: "#6f6f6f";
+        layerAccentHover: "#474747";
+        field: "#262626";
+        backgroundInverse: "#f4f4f4";
+        backgroundBrand: "#0f62fe";
+        interactive: "#4589ff";
+        borderSubtle: "#393939";
+        borderStrong: "#6f6f6f";
+        borderInverse: "#f4f4f4";
+        borderInteractive: "#4589ff";
+        textPrimary: "#f4f4f4";
+        textSecondary: "#c6c6c6";
+        textPlaceholder: "#6f6f6f";
+        textHelper: "#8d8d8d";
+        textOnColor: "#ffffff";
+        textInverse: "#161616";
+        linkPrimary: "#78a9ff";
+        linkSecondary: "#a6c8ff";
+        linkVisited: "#be95ff";
+        linkInverse: "#0f62fe";
+        iconPrimary: "#f4f4f4";
+        iconSecondary: "#c6c6c6";
+        iconOnColor: "#ffffff";
+        iconInverse: "#161616";
+        supportError: "#fa4d56";
+        supportSuccess: "#42be65";
+        supportWarning: "#f1c21b";
+        supportInfo: "#4589ff";
+        supportErrorInverse: "#da1e28";
+        supportSuccessInverse: "#24a148";
+        supportWarningInverse: "#f1c21b";
+        supportInfoInverse: "#0f62fe";
+        overlay: "rgba(22, 22, 22, 0.7)";
+        toggleOff: "#6f6f6f";
+        buttonPrimary: "#0f62fe";
+        buttonSecondary: "#6f6f6f";
+        buttonTertiary: "#ffffff";
+        buttonDangerPrimary: "#da1e28";
+        buttonDangerSecondary: "#fa4d56";
+        backgroundActive: "#525252";
+        layerActive: "#525252";
+        buttonDangerActive: "#750e13";
+        buttonPrimaryActive: "#002d9c";
+        buttonSecondaryActive: "#393939";
+        buttonTertiaryActive: "#c6c6c6";
+        focusInset: "#161616";
+        focusInverse: "#0f62fe";
+        backgroundHover: "#353535";
+        layerHover: "#353535";
+        fieldHover: "#353535";
+        backgroundInverseHover: "#e5e5e5";
+        linkPrimaryHover: "#a6c8ff";
+        buttonDangerHover: "#b81921";
+        buttonPrimaryHover: "#0353e9";
+        buttonSecondaryHover: "#606060";
+        buttonTertiaryHover: "#f4f4f4";
+        backgroundSelected: "#393939";
+        backgroundSelectedHover: "#4c4c4c";
+        layerSelected: "#393939";
+        layerSelectedHover: "#4c4c4c";
+        layerSelectedInverse: "#f4f4f4";
+        borderSubtleSelected: "#525252";
+        layerDisabled: "#262626";
+        fieldDisabled: "#262626";
+        borderDisabled: "#262626";
+        textDisabled: "#525252";
+        buttonDisabled: "#525252";
+        iconDisabled: "#525252";
+        textOnColorDisabled: "#8d8d8d";
+        iconOnColorDisabled: "#8d8d8d";
+        layerSelectedDisabled: "#8d8d8d";
+        skeletonBackground: "#353535";
+        skeletonElement: "#525252";
         brand01: "#0f62fe";
         brand02: "#6f6f6f";
         brand03: "#ffffff";
@@ -6873,13 +7388,15 @@ export const themes: {
             fontWeight: 300;
             lineHeight: 1.334;
             letterSpacing: 0;
-            lg: {
-                fontSize: "1.75rem";
-                lineHeight: 1.29;
-            };
-            max: {
-                fontSize: "2rem";
-                lineHeight: 1.25;
+            breakpoints: {
+                lg: {
+                    fontSize: "1.75rem";
+                    lineHeight: 1.29;
+                };
+                max: {
+                    fontSize: "2rem";
+                    lineHeight: 1.25;
+                };
             };
         };
         quotation01: {
@@ -7062,6 +7579,12 @@ export const themes: {
         container03: "2.5rem";
         container04: "3rem";
         container05: "4rem";
+        sizeXSmall: "1.5rem";
+        sizeSmall: "2rem";
+        sizeMedium: "2.5rem";
+        sizeLarge: "3rem";
+        sizeXLarge: "4rem";
+        size2XLarge: "5rem";
         iconSize01: "1rem";
         iconSize02: "1.25rem";
     };
@@ -7086,6 +7609,7 @@ export const themes: {
         icon02: "#5a6872";
         icon03: "#ffffff";
         link01: "#3d70b2";
+        link02: "#3d70b2";
         inverseLink: "#5596e6";
         field01: "#ffffff";
         field02: "#f4f7fb";
@@ -7131,6 +7655,82 @@ export const themes: {
         buttonSeparator: "#e0e0e0";
         skeleton01: "rgba(61, 112, 178, .1)";
         skeleton02: "rgba(61, 112, 178, .1)";
+        background: "#f4f7fb";
+        layer: "#ffffff";
+        layerAccent: "#dfe3e6";
+        layerAccentActive: "#a8a8a8";
+        layerAccentHover: "#ced4d9";
+        field: "#ffffff";
+        backgroundInverse: "#272d33";
+        backgroundBrand: "#3d70b2";
+        interactive: "#3d70b2";
+        borderSubtle: "#dfe3e6";
+        borderStrong: "#8897a2";
+        borderInverse: "#5a6872";
+        borderInteractive: "#3d70b2";
+        textPrimary: "#152935";
+        textSecondary: "#5a6872";
+        textPlaceholder: "#cdd1d4";
+        textHelper: "#5a6872";
+        textOnColor: "#ffffff";
+        textInverse: "#ffffff";
+        linkPrimary: "#3d70b2";
+        linkSecondary: "#3d70b2";
+        linkVisited: "#294c86";
+        linkInverse: "#5596e6";
+        iconPrimary: "#3d70b2";
+        iconSecondary: "#5a6872";
+        iconOnColor: "#ffffff";
+        iconInverse: "#ffffff";
+        supportError: "#e0182d";
+        supportSuccess: "#5aa700";
+        supportWarning: "#efc100";
+        supportInfo: "#5aaafa";
+        supportErrorInverse: "#ff5050";
+        supportSuccessInverse: "#8cd211";
+        supportWarningInverse: "#FDD600";
+        supportInfoInverse: "#5aaafa";
+        overlay: "rgba(223, 227, 230, 0.5)";
+        toggleOff: "#8897a2";
+        buttonPrimary: "#3d70b2";
+        buttonSecondary: "#4d5358";
+        buttonTertiary: "#3d70b2";
+        buttonDangerPrimary: "#da1e28";
+        buttonDangerSecondary: "#da1e28";
+        backgroundActive: "#DFEAFA";
+        layerActive: "#DFEAFA";
+        buttonDangerActive: "#AD1625";
+        buttonPrimaryActive: "#30588c";
+        buttonSecondaryActive: "#414f59";
+        buttonTertiaryActive: "#414f59";
+        focusInset: "#ffffff";
+        focusInverse: "#3d70b2";
+        backgroundHover: "#EEF4FC";
+        layerHover: "#EEF4FC";
+        fieldHover: "#EEF4FC";
+        backgroundInverseHover: "#4c4c4c";
+        linkPrimaryHover: "#294c86";
+        buttonDangerHover: "#c70014";
+        buttonPrimaryHover: "#30588c";
+        buttonSecondaryHover: "#4d5b65";
+        buttonTertiaryHover: "#5a6872";
+        backgroundSelected: "#EEF4FC";
+        backgroundSelectedHover: "#DFEAFA";
+        layerSelected: "#EEF4FC";
+        layerSelectedHover: "#DFEAFA";
+        layerSelectedInverse: "#5a6872";
+        borderSubtleSelected: "#DFEAFA";
+        layerDisabled: "#fafbfd";
+        fieldDisabled: "#fafbfd";
+        borderDisabled: "#fafbfd";
+        textDisabled: "#dfe3e6";
+        buttonDisabled: "#dfe3e6";
+        iconDisabled: "#dfe3e6";
+        textOnColorDisabled: "#cdd1d4";
+        iconOnColorDisabled: "#cdd1d4";
+        layerSelectedDisabled: "#cdd1d4";
+        skeletonBackground: "rgba(61, 112, 178, .1)";
+        skeletonElement: "rgba(61, 112, 178, .1)";
         brand01: "#3d70b2";
         brand02: "#4d5358";
         brand03: "#3d70b2";
@@ -7373,13 +7973,15 @@ export const themes: {
             fontWeight: 300;
             lineHeight: 1.334;
             letterSpacing: 0;
-            lg: {
-                fontSize: "1.75rem";
-                lineHeight: 1.29;
-            };
-            max: {
-                fontSize: "2rem";
-                lineHeight: 1.25;
+            breakpoints: {
+                lg: {
+                    fontSize: "1.75rem";
+                    lineHeight: 1.29;
+                };
+                max: {
+                    fontSize: "2rem";
+                    lineHeight: 1.25;
+                };
             };
         };
         quotation01: {
@@ -7562,6 +8164,12 @@ export const themes: {
         container03: "2.5rem";
         container04: "3rem";
         container05: "4rem";
+        sizeXSmall: "1.5rem";
+        sizeSmall: "2rem";
+        sizeMedium: "2.5rem";
+        sizeLarge: "3rem";
+        sizeXLarge: "4rem";
+        size2XLarge: "5rem";
         iconSize01: "1rem";
         iconSize02: "1.25rem";
     };
@@ -7582,24 +8190,65 @@ export const text03: "#a8a8a8";
 export const text04: "#ffffff";
 export const text05: "#6f6f6f";
 export const textError: "#da1e28";
+export const textDisabled: "#c6c6c6";
+export const textHelper: "#6f6f6f";
+export const textInverse: "#ffffff";
+export const textOnColor: "#ffffff";
+export const textOnColorDisabled: "#8d8d8d";
+export const textPlaceholder: "#a8a8a8";
+export const textPrimary: "#161616";
+export const textSecondary: "#525252";
 export const icon01: "#161616";
 export const icon02: "#525252";
 export const icon03: "#ffffff";
+export const iconDisabled: "#c6c6c6";
+export const iconInverse: "#ffffff";
+export const iconOnColor: "#ffffff";
+export const iconOnColorDisabled: "#8d8d8d";
+export const iconPrimary: "#161616";
+export const iconSecondary: "#525252";
 export const link01: "#0f62fe";
 export const link02: "#0043ce";
+export const linkInverse: "#78a9ff";
+export const linkPrimary: "#0f62fe";
+export const linkPrimaryHover: "#0043ce";
+export const linkSecondary: "#0043ce";
+export const linkVisited: "#8a3ffc";
+export const overlay: "rgba(22, 22, 22, 0.5)";
+export const skeletonBackground: "#e5e5e5";
+export const skeletonElement: "#c6c6c6";
 export const inverseLink: "#78a9ff";
 export const field01: "#f4f4f4";
 export const field02: "#ffffff";
 export const inverse01: "#ffffff";
 export const inverse02: "#393939";
 export const support01: "#da1e28";
-export const support02: "#24a148";
+export const support02: "#198038";
 export const support03: "#f1c21b";
 export const support04: "#0043ce";
+export const supportError: "#da1e28";
+export const supportErrorInverse: "#fa4d56";
+export const supportInfo: "#0043ce";
+export const supportInfoInverse: "#4589ff";
+export const supportSuccess: "#198038";
+export const supportSuccessInverse: "#42be65";
+export const supportWarning: "#f1c21b";
+export const supportWarningInverse: "#f1c21b";
 export const inverseSupport01: "#fa4d56";
 export const inverseSupport02: "#42be65";
 export const inverseSupport03: "#f1c21b";
 export const inverseSupport04: "#4589ff";
+export const layer: "#f4f4f4";
+export const layerAccent: "#e0e0e0";
+export const layerAccentActive: "#a8a8a8";
+export const layerAccentHover: "#d1d1d1";
+export const layerActive: "#c6c6c6";
+export const layerDisabled: "#f4f4f4";
+export const layerHover: "#e5e5e5";
+export const layerSelected: "#e0e0e0";
+export const layerSelectedDisabled: "#8d8d8d";
+export const layerSelectedHover: "#cacaca";
+export const layerSelectedInverse: "#161616";
 export const overlay01: "rgba(22, 22, 22, 0.5)";
 export const danger01: "#da1e28";
 export const danger02: "#da1e28";
@@ -7638,6 +8287,7 @@ export const brand03: "#0f62fe";
 export const active01: "#c6c6c6";
 export const hoverField: "#e5e5e5";
 export const danger: "#da1e28";
+export const toggleOff: "#8d8d8d";
 export const unstable_tokens: [
     "caption01",
     "caption02",

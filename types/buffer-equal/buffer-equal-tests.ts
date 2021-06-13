@@ -1,7 +1,3 @@
+import bufferEqual = require("buffer-equal");
 
-import bufferEqual = require('buffer-equal');
-
-var bool: boolean;
-var buf: Buffer;
-
-bool = bufferEqual(buf, buf);
+bufferEqual(Buffer.from([253, 254, 255]), Buffer.from("abcd")); // $ExpectType boolean

@@ -230,5 +230,7 @@ const UsesEveryHook = React.forwardRef(
 const everyHookRef = React.createRef<{ id: number }>();
 <UsesEveryHook ref={everyHookRef}/>;
 
-// TODO: "implicit any" in typescript@3.0 but not in typescript@3.1
-// <UsesEveryHook ref={ref => { ref && console.log(ref.id); }}/>;
+<UsesEveryHook ref={ref => {
+    // $ExpectType { id: number; } | null
+    ref;
+ }}/>;

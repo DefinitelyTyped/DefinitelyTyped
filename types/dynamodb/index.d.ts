@@ -1,4 +1,4 @@
-// Type definitions for dynamodb 1.2
+// Type definitions for dynamodb 1.3
 // Project: https://github.com/baseprime/dynamodb#readme
 // Definitions by: katsanva <https://github.com/katsanva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,8 +19,8 @@ interface CreateTablesOptions {
 
 interface CreateTables {
     (options?: CreateTablesOptions): Promise<any>;
-    (options: CreateTablesOptions, callback: Callback): void;
-    (callback: Callback): void;
+    (options: CreateTablesOptions, callback: Callback<any>): void;
+    (callback: Callback<any>): void;
 }
 
 interface IndexDefinition {
@@ -31,7 +31,7 @@ interface IndexDefinition {
     projection?: Projection;
 }
 
-export interface DefineConfig {
+export interface DefineConfig<T> {
     hashKey: string;
     rangeKey?: string;
     timestamps?: boolean;
@@ -49,8 +49,10 @@ export function dynamoDriver(driver?: DynamoDB): DynamoDB;
 export function documentClient(docClient?: DocumentClient): DocumentClient;
 export function reset(): void;
 export function Set(data: ReadonlyArray<any>, type: string): DynamoDbSet;
-export function define(name: string, config: DefineConfig): typeof Model;
-export function model(name: string, model?: Model): typeof Model;
+export function define(name: string, config: DefineConfig<any>): Model<any>;
+export function define<T>(name: string, config: DefineConfig<T>): Model<T>;
+export function model(name: string, model?: Model<any>): Model<any>;
+export function model<T>(name: string, model?: Model<T>): Model<T>;
 export const createTables: CreateTables;
 export const types: {
     stringSet: () => AnySchema;

@@ -15,6 +15,9 @@ export as namespace L;
 
 import * as geojson from 'geojson';
 
+/** A constant that represents the Leaflet version in use. */
+export const version: string;
+
 export class Class {
     static extend(props: any): {new(...args: any[]): any} & typeof Class;
     static include(props: any): any & typeof Class;
@@ -29,6 +32,12 @@ export class Transformation {
     transform(point: Point, scale?: number): Point;
     untransform(point: Point, scale?: number): Point;
 }
+
+/** Instantiates a Transformation object with the given coefficients. */
+export function transformation(a: number, b: number, c: number, d: number): Transformation;
+
+/** Expects an coefficients array of the form `[a: Number, b: Number, c: Number, d: Number]`. */
+export function transformation(coefficients: [number, number, number, number]): Transformation;
 
 /**
  * @see https://github.com/Leaflet/Leaflet/blob/bc918d4bdc2ba189807bc207c77080fb41ecc196/src/geometry/LineUtil.js#L118
@@ -57,6 +66,13 @@ export namespace DomUtil {
      */
     function get(element: string | HTMLElement): HTMLElement | null;
     function getStyle(el: HTMLElement, styleAttrib: string): string | null;
+    /**
+     * Creates an HTML element with `tagName`, sets its class to `className`, and optionally appends it to `container` element.
+     * @param tagName The name of the tag to create (for example: `div` or `canvas`).
+     * @param className The class to set on the created element.
+     * @param container The container to append the created element to.
+     */
+    function create<T extends keyof HTMLElementTagNameMap>(tagName: T, className?: string, container?: HTMLElement): HTMLElementTagNameMap[T];
     function create(tagName: string, className?: string, container?: HTMLElement): HTMLElement;
     function remove(el: HTMLElement): void;
     function empty(el: HTMLElement): void;
@@ -757,6 +773,16 @@ export interface GridLayerOptions {
     bounds?: LatLngBoundsExpression;
     minZoom?: number;
     maxZoom?: number;
+    /**
+     * Maximum zoom number the tile source has available. If it is specified, the tiles on all zoom levels higher than
+     * `maxNativeZoom` will be loaded from `maxNativeZoom` level and auto-scaled.
+     */
+    maxNativeZoom?: number;
+    /**
+     * Minimum zoom number the tile source has available. If it is specified, the tiles on all zoom levels lower than
+     * `minNativeZoom` will be loaded from `minNativeZoom` level and auto-scaled.
+     */
+    minNativeZoom?: number;
     noWrap?: boolean;
     pane?: string;
     className?: string;
@@ -811,7 +837,7 @@ export interface TileLayerOptions extends GridLayerOptions {
     detectRetina?: boolean;
     crossOrigin?: CrossOrigin;
     // [name: string]: any;
-    // You are able add additional properties, but it makes this interface unchackable.
+    // You are able add additional properties, but it makes this interface uncheckable.
     // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/15313
     // Example:
     // tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
@@ -934,8 +960,13 @@ export interface VideoOverlayOptions extends ImageOverlayOptions {
     autoplay?: boolean;
     /** Whether the video will loop back to the beginning when played. */
     loop?: boolean;
-    /** Whether the video will save aspect ratio after the projection. */
+    /**
+     * Whether the video will save aspect ratio after the projection. Relevant for supported browsers. See
+     * [browser compatibility](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit)
+     */
     keepAspectRatio?: boolean;
+    /** Whether the video starts on mute when loaded. */
+    muted?: boolean;
 }
 
 export class VideoOverlay extends Layer { /** VideoOverlay doesn't extend ImageOverlay because VideoOverlay.getElement returns HTMLImageElement */
@@ -1182,7 +1213,7 @@ export class FeatureGroup<P = any> extends LayerGroup<P> {
 /**
  * Create a feature group, optionally given an initial set of layers.
  */
-export function featureGroup(layers?: Layer[]): FeatureGroup;
+export function featureGroup(layers?: Layer[], options?: LayerOptions): FeatureGroup;
 
 export type StyleFunction<P = any> = (feature?: geojson.Feature<geojson.GeometryObject, P>) => PathOptions;
 
@@ -1246,6 +1277,9 @@ export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
      * The default is the coordsToLatLng static method.
      */
     coordsToLatLng?(coords: [number, number] | [number, number, number]): LatLng; // check if LatLng has an altitude property
+
+    /** Whether default Markers for "Point" type Features inherit from group options. */
+    markersInheritOptions?: boolean;
 }
 
 /**
@@ -1297,13 +1331,13 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
     /**
      * Adds a GeoJSON object to the layer.
      */
-    addData(data: geojson.GeoJsonObject): Layer;
+    addData(data: geojson.GeoJsonObject): this;
 
     /**
      * Resets the given vector layer's style to the original GeoJSON style,
      * useful for resetting style after hover events.
      */
-    resetStyle(layer?: Layer): Layer;
+    resetStyle(layer?: Layer): this;
 
     /**
      * Same as FeatureGroup's setStyle method, but style-functions are also
@@ -1433,6 +1467,17 @@ export namespace Control {
         collapsed?: boolean;
         autoZIndex?: boolean;
         hideSingleBase?: boolean;
+        /**
+         * Whether to sort the layers. When `false`, layers will keep the order in which they were added to the control.
+         */
+        sortLayers?: boolean;
+        /**
+         * A [compare function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
+         * that will be used for sorting the layers, when `sortLayers` is `true`. The function receives both the
+         * [`L.Layer`](https://leafletjs.com/reference.html#layer) instances and their names, as in
+         * `sortFunction(layerA, layerB, nameA, nameB)`. By default, it sorts layers alphabetically by their name.
+         */
+        sortFunction?: (layerA: Layer, layerB: Layer, nameA: string, nameB: string) => number;
     }
 
     interface LayersObject {
@@ -1992,3 +2037,8 @@ export namespace Util {
     let lastId: number;
     let emptyImageUrl: string;
 }
+
+export const extend: typeof Util['extend'];
+export const bind: typeof Util['bind'];
+export const stamp: typeof Util['stamp'];
+export const setOptions: typeof Util['setOptions'];

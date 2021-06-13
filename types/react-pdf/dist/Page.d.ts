@@ -23,11 +23,6 @@ export interface TextLayerItemInternal {
     width: number;
 }
 
-export interface LoadingProcessData {
-    loaded: number;
-    total: number;
-}
-
 export interface TextItem {
     str: string;
     dir: string;
@@ -99,11 +94,6 @@ export interface Props {
      * Function called in case of an error while loading the page.
      */
     onLoadError?: (error: Error) => void;
-
-    /**
-     * Function called, potentially multiple times, as the loading progresses.
-     */
-    onLoadProgress?: (data: LoadingProcessData) => void;
 
     /**
      * Function called when the page is successfully loaded.

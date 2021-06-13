@@ -869,7 +869,7 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      *
      * @param destinationSpreadsheetId destination spreadsheet doc ID
      */
-    copyToSpreadSheet(destinationSpreadsheetId: string): Promise<void>;
+    copyToSpreadsheet(destinationSpreadsheetId: string): Promise<void>;
 
     // #endregion
 }

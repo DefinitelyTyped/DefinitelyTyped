@@ -117,6 +117,17 @@ dt.toRelative({
 });
 
 // $ExpectType string | null
+dt.toRelative({
+    base: DateTime.local(),
+    locale: "fr",
+    style: "long",
+    unit: ["days"],
+    round: true,
+    padding: 10,
+    numberingSystem: "bali",
+});
+
+// $ExpectType string | null
 dt.toRelativeCalendar({
     base: DateTime.local(),
     locale: "fr",

@@ -90,7 +90,7 @@ export interface Options {
     /**
      * Element that is to be positioned.
      */
-    element: HTMLElement;
+    element?: HTMLElement;
     /**
      * Target with respect to which the `element` is to be positioned.
      */

@@ -1561,6 +1561,10 @@
             "libraryName": "graphql-query-complexity",
             "asOfVersion": "0.2.0"
         },
+        "graphql-relay": {
+            "libraryName": "graphql-relay",
+            "asOfVersion": "0.7.0"
+        },
         "gravatar-url": {
             "libraryName": "gravatar-url",
             "asOfVersion": "3.0.0"
@@ -2053,6 +2057,10 @@
             "libraryName": "issue-regex",
             "asOfVersion": "3.1.0"
         },
+        "it-all": {
+            "libraryName": "it-all",
+            "asOfVersion": "1.0.4"
+        },
         "it-pushable": {
             "libraryName": "it-pushable",
             "asOfVersion": "1.4.0"
@@ -2140,6 +2148,10 @@
         "jquery.ajaxfile": {
             "libraryName": "jquery.ajaxfile",
             "asOfVersion": "0.2.29"
+        },
+        "js-base64": {
+            "libraryName": "js-base64",
+            "asOfVersion": "3.3.1"
         },
         "js-combinatorics": {
             "libraryName": "js-combinatorics",
@@ -2685,6 +2697,10 @@
             "libraryName": "material-components-web",
             "asOfVersion": "1.0.0"
         },
+        "mathjs": {
+            "libraryName": "mathjs",
+            "asOfVersion": "9.4.1"
+        },
         "matrix-appservice-bridge": {
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
@@ -2785,6 +2801,10 @@
             "libraryName": "mongodb-memory-server",
             "asOfVersion": "2.3.0"
         },
+        "mongoose": {
+            "libraryName": "mongoose",
+            "asOfVersion": "5.11.0"
+        },
         "monk": {
             "libraryName": "monk",
             "asOfVersion": "6.0.0"
@@ -2836,6 +2856,10 @@
         "nano": {
             "libraryName": "nano",
             "asOfVersion": "7.0.0"
+        },
+        "nanoevents": {
+            "libraryName": "nanoevents",
+            "asOfVersion": "3.0.0"
         },
         "nanoid": {
             "libraryName": "nanoid",
@@ -2977,6 +3001,10 @@
             "libraryName": "notyf",
             "asOfVersion": "3.0.0"
         },
+        "nouislider": {
+            "libraryName": "nouislider",
+            "asOfVersion": "15.0.0"
+        },
         "npm-email": {
             "libraryName": "npm-email",
             "asOfVersion": "3.1.0"
@@ -3024,6 +3052,10 @@
         "okta__jwt-verifier": {
             "libraryName": "@okta/jwt-verifier",
             "asOfVersion": "2.1.0"
+        },
+        "okta__okta-vue": {
+            "libraryName": "@okta/okta-vue",
+            "asOfVersion": "3.1.0"
         },
         "on-change": {
             "libraryName": "on-change",
@@ -3470,6 +3502,14 @@
             "libraryName": "pupa",
             "asOfVersion": "2.0.0"
         },
+        "pusher-js": {
+            "libraryName": "pusher-js",
+            "asOfVersion": "5.1.0"
+        },
+        "python-shell": {
+            "libraryName": "python-shell",
+            "asOfVersion": "1.0.2"
+        },
         "qhistory": {
             "libraryName": "qhistory",
             "asOfVersion": "1.1.0"
@@ -3586,6 +3626,10 @@
             "libraryName": "rc-progress",
             "asOfVersion": "2.4.0"
         },
+        "rdf-js": {
+            "libraryName": "rdf-js",
+            "asOfVersion": "4.0.2"
+        },
         "rc-select": {
             "libraryName": "rc-select",
             "asOfVersion": "8.6.5"
@@ -3678,6 +3722,10 @@
             "libraryName": "react-axe",
             "asOfVersion": "3.5.0"
         },
+        "react-bootstrap-daterangepicker": {
+            "libraryName": "react-bootstrap-daterangepicker",
+            "asOfVersion": "7.0.0"
+        },
         "react-chartjs-2": {
             "libraryName": "react-chartjs-2",
             "asOfVersion": "2.5.7"
@@ -3749,6 +3797,10 @@
         "react-editext": {
             "libraryName": "react-editext",
             "asOfVersion": "4.0.0"
+        },
+        "react-fade-in": {
+            "libraryName": "react-fade-in",
+            "asOfVersion": "2.0.0"
         },
         "react-file-utils": {
             "libraryName": "react-file-utils",
@@ -3822,6 +3874,10 @@
             "libraryName": "react-jss",
             "asOfVersion": "10.0.0"
         },
+        "react-loader-spinner": {
+            "libraryName": "react-loader-spinner",
+            "asOfVersion": "4.0.0"
+        },
         "react-mathquill": {
             "libraryName": "react-mathquill",
             "asOfVersion": "0.2.3"
@@ -3829,6 +3885,10 @@
         "react-monaco-editor": {
             "libraryName": "react-monaco-editor",
             "asOfVersion": "0.16.0"
+        },
+        "react-native-app-intro-slider": {
+            "libraryName": "react-native-app-intro-slider",
+            "asOfVersion": "4.0.0"
         },
         "react-native-appsflyer": {
             "libraryName": "react-native-appsflyer",
@@ -3849,6 +3909,10 @@
         "react-native-document-picker": {
             "libraryName": "react-native-document-picker",
             "asOfVersion": "3.1.0"
+        },
+        "react-native-draggable-flatlist": {
+            "libraryName": "react-native-draggable-flatlist",
+            "asOfVersion": "2.0.0"
         },
         "react-native-elements": {
             "libraryName": "react-native-elements",
@@ -3877,6 +3941,10 @@
         "react-native-linear-gradient": {
             "libraryName": "react-native-linear-gradient",
             "asOfVersion": "2.4.0"
+        },
+        "react-native-mail": {
+            "libraryName": "react-native-mail",
+            "asOfVersion": "6.0.1"
         },
         "react-native-maps": {
             "libraryName": "react-native-maps",
@@ -3934,6 +4002,10 @@
             "libraryName": "react-native-touch-id",
             "asOfVersion": "4.4.0"
         },
+        "react-native-uuid": {
+            "libraryName": "react-native-uuid",
+            "asOfVersion": "2.0.0"
+        },
         "react-native-version-number": {
             "libraryName": "react-native-version-number",
             "asOfVersion": "0.3.5"
@@ -3957,6 +4029,14 @@
         "react-owl-carousel": {
             "libraryName": "react-owl-carousel",
             "asOfVersion": "2.3.0"
+        },
+        "react-plaid-link": {
+            "libraryName": "react-plaid-link",
+            "asOfVersion": "2.0.0"
+        },
+        "react-query": {
+            "libraryName": "react-query",
+            "asOfVersion": "1.2.8"
         },
         "react-resize-detector": {
             "libraryName": "react-resize-detector",
@@ -4061,6 +4141,10 @@
         "reapop": {
             "libraryName": "reapop",
             "asOfVersion": "3.0.0"
+        },
+        "recharts": {
+            "libraryName": "recharts",
+            "asOfVersion": "2.0.0"
         },
         "recoil": {
             "libraryName": "recoil",
@@ -4222,6 +4306,10 @@
             "libraryName": "roads-server",
             "asOfVersion": "1.0.1"
         },
+        "rockset": {
+            "libraryName": "rockset",
+            "asOfVersion": "2.0.1"
+        },
         "rolling-rate-limiter": {
             "libraryName": "rolling-rate-limiter",
             "asOfVersion": "0.2.6"
@@ -4245,6 +4333,10 @@
         "rollup-plugin-postcss": {
             "libraryName": "rollup-plugin-postcss",
             "asOfVersion": "3.1.4"
+        },
+        "rollup-plugin-sourcemaps": {
+            "libraryName": "rollup-plugin-sourcemaps",
+            "asOfVersion": "0.5.0"
         },
         "rot-js": {
             "libraryName": "rot-js",
@@ -5034,6 +5126,10 @@
             "libraryName": "vanilla-tilt",
             "asOfVersion": "1.6.2"
         },
+        "vec3": {
+            "libraryName": "vec3",
+            "asOfVersion": "0.1.4"
+        },
         "vectorious": {
             "libraryName": "vectorious",
             "asOfVersion": "5.0.0"
@@ -5053,6 +5149,10 @@
         "vfile": {
             "libraryName": "vfile",
             "asOfVersion": "4.0.0"
+        },
+        "vfile-location": {
+            "libraryName": "vfile-location",
+            "asOfVersion": "3.0.0"
         },
         "vfile-message": {
             "libraryName": "vfile-message",
@@ -5162,6 +5262,10 @@
             "libraryName": "wikidata-sdk",
             "asOfVersion": "6.1.0"
         },
+        "windows-foreground-love": {
+            "libraryName": "windows-foreground-love",
+            "asOfVersion": "0.3.1"
+        },
         "windows-process-tree": {
             "libraryName": "windows-process-tree",
             "asOfVersion": "0.3.0"
@@ -5197,6 +5301,10 @@
         "wordpress__a11y": {
             "libraryName": "@wordpress/a11y",
             "asOfVersion": "2.9.0"
+        },
+        "wordpress__api-fetch": {
+            "libraryName": "@wordpress/api-fetch",
+            "asOfVersion": "3.23.1"
         },
         "wordpress__autop": {
             "libraryName": "@wordpress/autop",

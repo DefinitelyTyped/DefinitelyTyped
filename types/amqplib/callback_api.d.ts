@@ -58,6 +58,12 @@ export interface ConfirmChannel extends Channel {
 }
 
 export const credentials: {
+    amqplain(username: string, password: string): {
+        mechanism: string;
+        response(): Buffer;
+        username: string;
+        password: string;
+    };
     external(): {
         mechanism: string;
         response(): Buffer;
