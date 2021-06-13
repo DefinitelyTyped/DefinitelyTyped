@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import {
     ActivationCard,
     Avatar,
@@ -121,11 +120,11 @@ const CheckUseReducedMotion = () => {
 
 // Test Box accepts Ref.
 () => {
-    const ref = useRef<HTMLDivElement>(null);
-    return <Box ref={ref} />
-}
-// Test BoxProps.ref can be forwarded.
-(props: BoxProps) => <Box ref={props.ref} />;
+    const ref = React.useRef<HTMLDivElement>(null);
+    return <Box ref={ref} />;
+};
+// Test BoxProps can be forwarded to Box.
+(props: BoxProps) => <Box {...props} />;
 
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
 <Button text="" />;
