@@ -71,7 +71,7 @@ declare namespace Tagify {
         maxItems?: number;
 
         /**
-         * Custom class name for the dropdown suggestions select box.
+         * Custom class name for the dropdown suggestions list.
          * @default Empty string.
          */
         classname?: string;
@@ -610,6 +610,12 @@ declare namespace Tagify {
         addTagOnBlur?: boolean;
 
         /**
+         * Automatically converts pasted text into tags.
+         * @default true
+         */
+        pasteAsTags?: boolean;
+
+        /**
          * Callbacks that are invoked when the event specified by the key
          * occurs.
          */
@@ -682,6 +688,7 @@ declare namespace Tagify {
          * When the backspace key is pressed:
          * `true` - remove last tag
          * `edit` - edit last tag
+         * `false` - do nothing (useful for outside style)
          * @default true
          */
         backspace?: boolean | 'edit';

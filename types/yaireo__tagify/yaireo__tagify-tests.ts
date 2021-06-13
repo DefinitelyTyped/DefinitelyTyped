@@ -26,6 +26,7 @@ const settings: TagifyConstructorSettings = {
     whitelist: ['good-word'],
     blacklist: ['bad-word'],
     addTagOnBlur: false,
+    pasteAsTags: false,
     callbacks: {
         add: (event) => {
             // $ExpectType TagData | undefined
