@@ -18,8 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "eslint-utils-tests.ts",
-        "pattern-matcher-tests.ts",
-        "reference-tracker-tests.ts"
+        "test/index.ts",
+        "test/pattern-matcher.ts",
+        "test/reference-tracker.ts"
     ]
 }
