@@ -5,7 +5,7 @@ import { Socket } from 'net';
 import { Readable } from 'stream';
 import { Url } from 'url';
 
-import { SentMessageInfo, Transport, TransportOptions } from '../..';
+import { Transport, TransportOptions } from '../..';
 import * as shared from '../shared';
 
 import DKIM = require('../dkim');
@@ -153,21 +153,21 @@ declare namespace Mail {
         priority?: "high"|"normal"|"low";
     }
 
-    type PluginFunction = (mail: MailMessage, callback: (err?: Error | null) => void) => void;
+    type PluginFunction<T = any> = (mail: MailMessage<T>, callback: (err?: Error | null) => void) => void;
 }
 
 /** Creates an object for exposing the Mail API */
-declare class Mail extends EventEmitter {
+declare class Mail<T = any> extends EventEmitter {
     options: Mail.Options;
     meta: Map<string, any>;
     dkim: DKIM;
-    transporter: Transport;
+    transporter: Transport<T>;
     logger: shared.Logger;
 
     /** Usage: typeof transporter.MailMessage */
-    MailMessage: MailMessage;
+    MailMessage: MailMessage<T>;
 
-    constructor(transporter: Transport, options?: TransportOptions, defaults?: TransportOptions);
+    constructor(transporter: Transport<T>, options?: TransportOptions, defaults?: TransportOptions);
 
     /** Closes all connections in the pool. If there is a message being sent, the connection is closed later */
     close(): void;
@@ -179,11 +179,11 @@ declare class Mail extends EventEmitter {
     verify(callback: (err: Error | null, success: true) => void): void;
     verify(): Promise<true>;
 
-    use(step: string, plugin: Mail.PluginFunction): this;
+    use(step: string, plugin: Mail.PluginFunction<T>): this;
 
     /** Sends an email using the preselected transport object */
-    sendMail(mailOptions: Mail.Options, callback: (err: Error | null, info: SentMessageInfo) => void): void;
-    sendMail(mailOptions: Mail.Options): Promise<SentMessageInfo>;
+    sendMail(mailOptions: Mail.Options, callback: (err: Error | null, info: T) => void): void;
+    sendMail(mailOptions: Mail.Options): Promise<T>;
 
     getVersionString(): string;
 

@@ -26,6 +26,7 @@
 //                 JongChan Choi <https://github.com/disjukr>
 //                 Victor Magalhães <https://github.com/vhfmag>
 //                 Dale Tan <https://github.com/hellatan>
+//                 Priyanshu Rav <https://github.com/priyanshurav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1738,6 +1739,79 @@ declare namespace React {
         'aria-valuetext'?: string;
     }
 
+    // All the WAI-ARIA 1.1 role attribute values from https://www.w3.org/TR/wai-aria-1.1/#role_definitions
+    type AriaRole =
+        | 'alert'
+        | 'alertdialog'
+        | 'application'
+        | 'article'
+        | 'banner'
+        | 'button'
+        | 'cell'
+        | 'checkbox'
+        | 'columnheader'
+        | 'combobox'
+        | 'complementary'
+        | 'contentinfo'
+        | 'definition'
+        | 'dialog'
+        | 'directory'
+        | 'document'
+        | 'feed'
+        | 'figure'
+        | 'form'
+        | 'grid'
+        | 'gridcell'
+        | 'group'
+        | 'heading'
+        | 'img'
+        | 'link'
+        | 'list'
+        | 'listbox'
+        | 'listitem'
+        | 'log'
+        | 'main'
+        | 'marquee'
+        | 'math'
+        | 'menu'
+        | 'menubar'
+        | 'menuitem'
+        | 'menuitemcheckbox'
+        | 'menuitemradio'
+        | 'navigation'
+        | 'none'
+        | 'note'
+        | 'option'
+        | 'presentation'
+        | 'progressbar'
+        | 'radio'
+        | 'radiogroup'
+        | 'region'
+        | 'row'
+        | 'rowgroup'
+        | 'rowheader'
+        | 'scrollbar'
+        | 'search'
+        | 'searchbox'
+        | 'separator'
+        | 'slider'
+        | 'spinbutton'
+        | 'status'
+        | 'switch'
+        | 'tab'
+        | 'table'
+        | 'tablist'
+        | 'tabpanel'
+        | 'term'
+        | 'textbox'
+        | 'timer'
+        | 'toolbar'
+        | 'tooltip'
+        | 'tree'
+        | 'treegrid'
+        | 'treeitem'
+        | (string & {});
+
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean;
@@ -1767,7 +1841,7 @@ declare namespace React {
         radioGroup?: string; // <command>, <menuitem>
 
         // WAI-ARIA
-        role?: string;
+        role?: AriaRole;
 
         // RDFa Attributes
         about?: string;
@@ -2379,7 +2453,7 @@ declare namespace React {
         width?: number | string;
 
         // Other HTML properties supported by SVG elements in browsers
-        role?: string;
+        role?: AriaRole;
         tabIndex?: number;
         crossOrigin?: "anonymous" | "use-credentials" | "";
 

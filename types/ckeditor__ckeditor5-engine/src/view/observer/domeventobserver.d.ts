@@ -5,5 +5,5 @@ export default abstract class DomEventObserver extends Observer {
     useCapture: boolean;
 
     fire(eventType: string, domEvent: Event, additionalData?: any): void;
-    abstract onDomEvent(event: UIEvent): void;
+    abstract onDomEvent(event: UIEvent | ClipboardEvent): void;
 }

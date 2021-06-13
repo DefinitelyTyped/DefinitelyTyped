@@ -76,7 +76,7 @@ simpleI = countableI.filter((d: Date) => d.getMonth() === 2);
 count = countableI.count(start, end);
 
 // let countableIOrNull: d3Time.CountableTimeInterval | null = countableI.every(10); // Test fails, since .every(...) return Interval and not CountableInterval
-const simpleIOrNull: d3Time.TimeInterval | null = countableI.every(10);
+let simpleIOrNull: d3Time.TimeInterval | null = countableI.every(10);
 
 resultDate = simpleI.floor(inBetween);
 resultDate = simpleI.round(inBetween);
@@ -210,3 +210,9 @@ dateArray = d3Time.utcMonths(start, end, 3);
 countableI = d3Time.utcYear;
 dateArray = d3Time.utcYears(start, end);
 dateArray = d3Time.utcYears(start, end, 2);
+
+dateArray = d3Time.timeTicks(start, end, 2);
+simpleIOrNull = d3Time.timeTickInterval(start, end, 2);
+
+dateArray = d3Time.utcTicks(start, end, 2);
+simpleIOrNull = d3Time.utcTickInterval(start, end, 2);
