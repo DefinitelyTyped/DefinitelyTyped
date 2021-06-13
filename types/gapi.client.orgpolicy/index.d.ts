@@ -1,5 +1,5 @@
 // Type definitions for non-npm package Organization Policy API v2 2.0
-// Project: https://cloud.google.com/resource-manager/docs/organization-policy/understanding-constraints
+// Project: https://cloud.google.com/orgpolicy/docs/reference/rest/index.html
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
 //                 Declan Vong <https://github.com/declanvong>

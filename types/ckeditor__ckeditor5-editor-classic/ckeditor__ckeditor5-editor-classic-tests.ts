@@ -1,5 +1,5 @@
 import { Editor, Plugin } from "@ckeditor/ckeditor5-core";
-import { ClassicEditor } from "@ckeditor/ckeditor5-editor-classic";
+import ClassicEditor from "@ckeditor/ckeditor5-editor-classic";
 import ClassicEditorUI from "@ckeditor/ckeditor5-editor-classic/src/classiceditorui";
 import ClassicEditorUIView from "@ckeditor/ckeditor5-editor-classic/src/classiceditoruiview";
 import { HtmlDataProcessor, StylesProcessor } from "@ckeditor/ckeditor5-engine";
@@ -7,9 +7,9 @@ import View from "@ckeditor/ckeditor5-engine/src/view/view";
 import { EditorUIView, ToolbarView } from "@ckeditor/ckeditor5-ui";
 import { Locale } from "@ckeditor/ckeditor5-utils";
 
-ClassicEditor.create("", { placeholder: "foo" }).then(editor => {
+ClassicEditor.ClassicEditor.create("", { placeholder: "foo" }).then(editor => {
     editor.commands.get("");
-    ClassicEditor.defaultConfig?.plugins?.map(strOrPlugin => {
+    ClassicEditor.ClassicEditor.defaultConfig?.plugins?.map(strOrPlugin => {
         if (typeof strOrPlugin !== "string") {
             new strOrPlugin(editor);
         }
@@ -25,14 +25,14 @@ ClassicEditor.create("", { placeholder: "foo" }).then(editor => {
 
 let htmlElement: HTMLElement = document.createElement("div");
 // $ExpectError;
-new ClassicEditor();
+new ClassicEditor.ClassicEditor();
 
 class MyPlugin extends Plugin {}
 
 (async () => {
-    let editor = await ClassicEditor.create("foo");
-    editor = await ClassicEditor.create(htmlElement);
-    editor = await ClassicEditor.create(htmlElement, { plugins: [MyPlugin] });
+    let editor = await ClassicEditor.ClassicEditor.create("foo");
+    editor = await ClassicEditor.ClassicEditor.create(htmlElement);
+    editor = await ClassicEditor.ClassicEditor.create(htmlElement, { plugins: [MyPlugin] });
     // $ExpectError
     editor.create();
     const str: string = editor.getData();
@@ -45,7 +45,7 @@ class MyPlugin extends Plugin {}
     const ui: ClassicEditorUI = editor.ui;
     const uiView: ClassicEditorUIView = editor.ui.view;
 
-    editor = await ClassicEditor.create(htmlElement, {
+    editor = await ClassicEditor.ClassicEditor.create(htmlElement, {
         toolbar: {
             items: [],
             removeItems: [],

@@ -1,22 +1,24 @@
 import { Doc } from './';
 
-// https://github.com/prettier/prettier/blob/master/src/doc/index.js
+// https://github.com/prettier/prettier/blob/main/src/document/index.js
 
 export namespace builders {
-    type Doc =
-        | string
+    type DocCommand =
         | Align
         | BreakParent
         | Concat
+        | Cursor
         | Fill
         | Group
         | IfBreak
         | Indent
+        | IndentIfBreak
+        | Label
         | Line
         | LineSuffix
         | LineSuffixBoundary
-        | Trim
-        | Cursor;
+        | Trim;
+    type Doc = string | Doc[] | DocCommand;
 
     interface Align {
         type: 'align';
@@ -33,6 +35,11 @@ export namespace builders {
         parts: Doc[];
     }
 
+    interface Cursor {
+        type: 'cursor';
+        placeholder: symbol;
+    }
+
     interface Fill {
         type: 'fill';
         parts: Doc[];
@@ -45,6 +52,10 @@ export namespace builders {
         expandedStates: Doc[];
     }
 
+    interface HardlineWithoutBreakParent extends Line {
+        hard: true;
+    }
+
     interface IfBreak {
         type: 'if-break';
         breakContents: Doc;
@@ -54,6 +65,14 @@ export namespace builders {
     interface Indent {
         type: 'indent';
         contents: Doc;
+    }
+
+    interface IndentIfBreak {
+        type: 'indent-if-break';
+    }
+
+    interface Label {
+        type: 'label';
     }
 
     interface Line {
@@ -72,35 +91,75 @@ export namespace builders {
         type: 'line-suffix-boundary';
     }
 
+    interface LiterallineWithoutBreakParent extends Line {
+        hard: true;
+        literal: true;
+    }
+
+    interface Softline extends Line {
+        soft: true;
+    }
+
     interface Trim {
         type: 'trim';
     }
 
-    interface Cursor {
-        type: 'cursor';
-        placeholder: symbol;
+    interface GroupOptions {
+        shouldBreak?: boolean;
+        id?: symbol;
     }
 
     function addAlignmentToDoc(doc: Doc, size: number, tabWidth: number): Doc;
-    function align(n: Align['n'], contents: Doc): Align;
+    /** @see [align](https://github.com/prettier/prettier/blob/main/commands.md#align) */
+    function align(widthOrString: Align['n'], doc: Doc): Align;
+    /** @see [breakParent](https://github.com/prettier/prettier/blob/main/commands.md#breakparent) */
     const breakParent: BreakParent;
-    function concat(contents: Doc[]): Concat;
-    function conditionalGroup(states: Doc[], opts?: { shouldBreak: boolean }): Group;
-    function dedent(contents: Doc): Align;
-    function dedentToRoot(contents: Doc): Align;
-    function fill(parts: Doc[]): Fill;
-    function group(contents: Doc, opts?: { shouldBreak: boolean }): Group;
+    /**
+     * @see [concat](https://github.com/prettier/prettier/blob/main/commands.md#deprecated-concat)
+     * @deprecated use `Doc[]` instead
+     */
+    function concat(docs: Doc[]): Concat;
+    /** @see [conditionalGroup](https://github.com/prettier/prettier/blob/main/commands.md#conditionalgroup) */
+    function conditionalGroup(alternatives: Doc[], options?: GroupOptions): Group;
+    /** @see [dedent](https://github.com/prettier/prettier/blob/main/commands.md#dedent) */
+    function dedent(doc: Doc): Align;
+    /** @see [dedentToRoot](https://github.com/prettier/prettier/blob/main/commands.md#dedenttoroot) */
+    function dedentToRoot(doc: Doc): Align;
+    /** @see [fill](https://github.com/prettier/prettier/blob/main/commands.md#fill) */
+    function fill(docs: Doc[]): Fill;
+    /** @see [group](https://github.com/prettier/prettier/blob/main/commands.md#group) */
+    function group(doc: Doc, opts?: GroupOptions): Group;
+    /** @see [hardline](https://github.com/prettier/prettier/blob/main/commands.md#hardline) */
     const hardline: Concat;
-    function ifBreak(breakContents: Doc, flatContents: Doc): IfBreak;
-    function indent(contents: Doc): Indent;
-    function join(separator: Doc, parts: Doc[]): Concat;
+    /** @see [hardlineWithoutBreakParent](https://github.com/prettier/prettier/blob/main/commands.md#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) */
+    const hardlineWithoutBreakParent: HardlineWithoutBreakParent;
+    /** @see [ifBreak](https://github.com/prettier/prettier/blob/main/commands.md#ifbreak) */
+    function ifBreak(ifBreak: Doc, noBreak?: Doc, options?: { groupId?: symbol }): IfBreak;
+    /** @see [indent](https://github.com/prettier/prettier/blob/main/commands.md#indent) */
+    function indent(doc: Doc): Indent;
+    /** @see [indentIfBreak](https://github.com/prettier/prettier/blob/main/commands.md#indentifbreak) */
+    function indentIfBreak(doc: Doc, opts: { groupId: symbol; negate?: boolean }): IndentIfBreak;
+    /** @see [join](https://github.com/prettier/prettier/blob/main/commands.md#join) */
+    function join(sep: Doc, docs: Doc[]): Concat;
+    /** @see [label](https://github.com/prettier/prettier/blob/main/commands.md#label) */
+    function label(label: string, doc: Doc): Label;
+    /** @see [line](https://github.com/prettier/prettier/blob/main/commands.md#line) */
     const line: Line;
-    function lineSuffix(contents: Doc): LineSuffix;
+    /** @see [lineSuffix](https://github.com/prettier/prettier/blob/main/commands.md#linesuffix) */
+    function lineSuffix(suffix: Doc): LineSuffix;
+    /** @see [lineSuffixBoundary](https://github.com/prettier/prettier/blob/main/commands.md#linesuffixboundary) */
     const lineSuffixBoundary: LineSuffixBoundary;
+    /** @see [literalline](https://github.com/prettier/prettier/blob/main/commands.md#literalline) */
     const literalline: Concat;
-    function markAsRoot(contents: Doc): Align;
-    const softline: Line;
+    /** @see [literallineWithoutBreakParent](https://github.com/prettier/prettier/blob/main/commands.md#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) */
+    const literallineWithoutBreakParent: LiterallineWithoutBreakParent;
+    /** @see [markAsRoot](https://github.com/prettier/prettier/blob/main/commands.md#markasroot) */
+    function markAsRoot(doc: Doc): Align;
+    /** @see [softline](https://github.com/prettier/prettier/blob/main/commands.md#softline) */
+    const softline: Softline;
+    /** @see [trim](https://github.com/prettier/prettier/blob/main/commands.md#trim) */
     const trim: Trim;
+    /** @see [cursor](https://github.com/prettier/prettier/blob/main/commands.md#cursor) */
     const cursor: Cursor;
 }
 
@@ -133,21 +192,30 @@ export namespace printer {
          * @default false
          */
         useTabs: boolean;
+        parentParser?: string;
+        __embeddedInHtml?: boolean;
     }
 }
 
 export namespace utils {
+    function cleanDoc(doc: Doc): Doc;
+    function findInDoc<T = Doc>(doc: Doc, callback: (doc: Doc) => T, defaultValue: T): T;
+    function getDocParts(doc: Doc): Doc;
+    function isConcat(doc: Doc): boolean;
     function isEmpty(doc: Doc): boolean;
     function isLineNext(doc: Doc): boolean;
-    function willBreak(doc: Doc): boolean;
+    function mapDoc<T = Doc>(doc: Doc, callback: (doc: Doc) => T): T;
+    function normalizeDoc(doc: Doc): Doc;
+    function normalizeParts(parts: Doc[]): Doc[];
+    function propagateBreaks(doc: Doc): void;
+    function removeLines(doc: Doc): Doc;
+    function replaceNewlinesWithLiterallines(doc: Doc): Doc;
+    function stripTrailingHardline(doc: Doc): Doc;
     function traverseDoc(
         doc: Doc,
         onEnter?: (doc: Doc) => void | boolean,
         onExit?: (doc: Doc) => void,
         shouldTraverseConditionalGroups?: boolean,
     ): void;
-    function mapDoc<T>(doc: Doc, callback: (doc: Doc) => T): T;
-    function propagateBreaks(doc: Doc): void;
-    function removeLines(doc: Doc): Doc;
-    function stripTrailingHardline(doc: Doc): Doc;
+    function willBreak(doc: Doc): boolean;
 }

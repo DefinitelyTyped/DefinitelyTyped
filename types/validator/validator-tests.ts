@@ -39,6 +39,7 @@ import isHSLFunc from 'validator/lib/isHSL';
 import isRgbColorFunc from 'validator/lib/isRgbColor';
 import isHexadecimalFunc from 'validator/lib/isHexadecimal';
 import isIPFunc from 'validator/lib/isIP';
+import isIPRange from 'validator/lib/isIPRange';
 import isISBNFunc from 'validator/lib/isISBN';
 import isEANFunc from 'validator/lib/isEAN';
 import isISSNFunc from 'validator/lib/isISSN';
@@ -190,6 +191,9 @@ import isSlugFunc from 'validator/lib/isSlug';
 
     let _isIP = validator.isIP;
     _isIP = isIPFunc;
+
+    let _isIPRange = validator.isIPRange;
+    _isIPRange = isIPRange;
 
     let _isISBN = validator.isISBN;
     _isISBN = isISBNFunc;
@@ -375,6 +379,7 @@ import isHSLFuncEs from 'validator/es/lib/isHSL';
 import isRgbColorFuncEs from 'validator/es/lib/isRgbColor';
 import isHexadecimalFuncEs from 'validator/es/lib/isHexadecimal';
 import isIPFuncEs from 'validator/es/lib/isIP';
+import isIPRangeFuncEs from 'validator/es/lib/isIPRange';
 import isISBNFuncEs from 'validator/es/lib/isISBN';
 import isEANFuncEs from 'validator/es/lib/isEAN';
 import isISSNFuncEs from 'validator/es/lib/isISSN';
@@ -630,6 +635,9 @@ const any: any = null;
 
     result = validator.isIP('sample');
     result = validator.isIP('sample', '6');
+
+    result = validator.isIPRange('sample');
+    result = validator.isIPRange('sample', '6');
 
     result = validator.isISBN('sample');
     result = validator.isISBN('sample', '13');

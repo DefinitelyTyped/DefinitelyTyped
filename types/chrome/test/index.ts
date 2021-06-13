@@ -350,6 +350,7 @@ async function testTabInterface() {
         tab.audible; // $ExpectType boolean | undefined
         tab.discarded; // $ExpectType boolean
         tab.autoDiscardable; // $ExpectType boolean
+        tab.groupId; // $ExpectType number
         tab.mutedInfo; // $ExpectType MutedInfo | undefined
         tab.url; // $ExpectType string | undefined
         tab.pendingUrl; // $ExpectType string | undefined
@@ -377,6 +378,7 @@ async function testTabInterface() {
     tab.audible; // $ExpectType boolean | undefined
     tab.discarded; // $ExpectType boolean
     tab.autoDiscardable; // $ExpectType boolean
+    tab.groupId; // $ExpectType number
     tab.mutedInfo; // $ExpectType MutedInfo | undefined
     tab.url; // $ExpectType string | undefined
     tab.pendingUrl; // $ExpectType string | undefined
@@ -693,4 +695,201 @@ function testSetBrowserBadgeText() {
 
     chrome.browserAction.setBadgeText(); // $ExpectError
     chrome.browserAction.setBadgeText(undefined); // $ExpectError
+}
+
+// https://developer.chrome.com/docs/extensions/reference/action/
+async function testActionForPromise() {
+    await chrome.action.disable(0);
+    await chrome.action.enable(0);
+    await chrome.action.getBadgeBackgroundColor({});
+    await chrome.action.getBadgeText({});
+    await chrome.action.getPopup({});
+    await chrome.action.getTitle({});
+    await chrome.action.setBadgeBackgroundColor({color: 'white'});
+    await chrome.action.setBadgeText({text: 'text1'});
+    await chrome.action.setPopup({popup: 'popup1'});
+    await chrome.action.setTitle({title: 'title1'});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/alarms/
+async function testAlarmsForPromise() {
+    await chrome.alarms.getAll();
+    await chrome.alarms.clearAll();
+    await chrome.alarms.clear();
+    await chrome.alarms.clear('name1');
+    await chrome.alarms.get();
+    await chrome.alarms.get('name1');
+}
+
+// https://developer.chrome.com/docs/extensions/reference/bookmarks
+async function testBookmarksForPromise() {
+    await chrome.bookmarks.search('query1');
+    await chrome.bookmarks.search({});
+    await chrome.bookmarks.getTree();
+    await chrome.bookmarks.getRecent(0);
+    await chrome.bookmarks.get('id1');
+    await chrome.bookmarks.get(['id1']);
+    await chrome.bookmarks.create({});
+    await chrome.bookmarks.move('id1', {});
+    await chrome.bookmarks.update('id1', {});
+    await chrome.bookmarks.remove('id1');
+    await chrome.bookmarks.getChildren('id1');
+    await chrome.bookmarks.getSubTree('id1');
+    await chrome.bookmarks.removeTree('id1');
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction
+async function testBrowserActionForPromise() {
+    await chrome.browserAction.enable(0);
+    await chrome.browserAction.setBadgeBackgroundColor({color: 'color1'});
+    await chrome.browserAction.setBadgeText({});
+    await chrome.browserAction.setTitle({title: 'title1'});
+    await chrome.browserAction.getBadgeText({});
+    await chrome.browserAction.setPopup({popup: 'popup1'});
+    await chrome.browserAction.disable(0);
+    await chrome.browserAction.getTitle({});
+    await chrome.browserAction.getBadgeBackgroundColor({});
+    await chrome.browserAction.getPopup({});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/cookies
+async function testCookieForPromise() {
+    await chrome.cookies.getAllCookieStores();
+    await chrome.cookies.getAll({});
+    await chrome.cookies.set({url: 'url1'});
+    await chrome.cookies.remove({url: 'url1', name: 'name1'});
+    await chrome.cookies.get({url: 'url1', name: 'name1'});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/management
+async function testManagementForPromise() {
+    await chrome.management.setEnabled('id1', true);
+    await chrome.management.getPermissionWarningsById('id1');
+    await chrome.management.get('id1');
+    await chrome.management.getAll();
+    await chrome.management.getPermissionWarningsByManifest('manifestStr1');
+    await chrome.management.launchApp('id1');
+    await chrome.management.uninstall('id1');
+    await chrome.management.uninstall('id1', {});
+    await chrome.management.getSelf();
+    await chrome.management.uninstallSelf({});
+    await chrome.management.uninstallSelf();
+    await chrome.management.createAppShortcut('id1');
+    await chrome.management.setLaunchType('id1', 'launchType1');
+    await chrome.management.generateAppForLink('url1', 'title1');
+}
+
+// https://developer.chrome.com/docs/extensions/reference/scripting
+async function testScriptingForPromise() {
+    await chrome.scripting.executeScript({target: {tabId: 0}});
+    await chrome.scripting.insertCSS({target: {tabId: 0}});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/system_cpu
+async function testSystemCpuForPromise() {
+    await chrome.system.cpu.getInfo();
+}
+
+// https://developer.chrome.com/docs/extensions/reference/system_storage
+async function testSystemStorageForPromise() {
+    await chrome.system.storage.getInfo();
+    await chrome.system.storage.ejectDevice('id1');
+    await chrome.system.storage.getAvailableCapacity('id1');
+}
+
+// https://developer.chrome.com/docs/extensions/reference/system_display
+async function testSystemDisplayForPromise() {
+    await chrome.system.display.getInfo();
+    await chrome.system.display.getInfo({});
+    await chrome.system.display.getDisplayLayout();
+    await chrome.system.display.setDisplayProperties('id1', {});
+    await chrome.system.display.setDisplayLayout([]);
+    await chrome.system.display.showNativeTouchCalibration('id1');
+    await chrome.system.display.setMirrorMode({});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/tabs
+async function testTabsForPromise() {
+    await chrome.tabs.executeScript({});
+    await chrome.tabs.executeScript(0, {});
+    await chrome.tabs.get(0);
+    await chrome.tabs.getAllInWindow();
+    await chrome.tabs.getAllInWindow(0);
+    await chrome.tabs.getCurrent();
+    await chrome.tabs.getSelected();
+    await chrome.tabs.getSelected(0);
+    await chrome.tabs.create({});
+    await chrome.tabs.move(0, {index: 0});
+    await chrome.tabs.move([0], {index: 0});
+    await chrome.tabs.update({});
+    await chrome.tabs.update(0, {});
+    await chrome.tabs.remove(0);
+    await chrome.tabs.remove([0]);
+    await chrome.tabs.captureVisibleTab();
+    await chrome.tabs.captureVisibleTab(0);
+    await chrome.tabs.captureVisibleTab({});
+    await chrome.tabs.captureVisibleTab(0, {});
+    await chrome.tabs.reload(0, {});
+    await chrome.tabs.reload({});
+    await chrome.tabs.reload();
+    await chrome.tabs.insertCSS({});
+    await chrome.tabs.insertCSS(0, {});
+    await chrome.tabs.highlight({tabs: 0});
+    await chrome.tabs.query({});
+    await chrome.tabs.detectLanguage();
+    await chrome.tabs.detectLanguage(0);
+    await chrome.tabs.setZoom(0);
+    await chrome.tabs.setZoom(0, 0);
+    await chrome.tabs.getZoom();
+    await chrome.tabs.getZoom(0);
+    await chrome.tabs.setZoomSettings({});
+    await chrome.tabs.setZoomSettings(0, {});
+    await chrome.tabs.getZoomSettings();
+    await chrome.tabs.getZoomSettings(0);
+    await chrome.tabs.discard(0);
+    await chrome.tabs.goForward();
+    await chrome.tabs.goForward(0);
+    await chrome.tabs.goBack();
+    await chrome.tabs.goBack(0);
+    await chrome.tabs.group({});
+    await chrome.tabs.ungroup(0);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/tabGroups
+async function testTabGroupsForPromise() {
+    await chrome.tabGroups.get(0);
+    await chrome.tabGroups.move(0, {index: 0});
+    await chrome.tabGroups.query({});
+    await chrome.tabGroups.update(0, {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/windows
+async function testWindowsForPromise() {
+    await chrome.windows.get(0);
+    await chrome.windows.get(0, {});
+    await chrome.windows.getCurrent();
+    await chrome.windows.getCurrent({});
+    await chrome.windows.create();
+    await chrome.windows.create({});
+    await chrome.windows.getAll();
+    await chrome.windows.getAll({});
+    await chrome.windows.update(0, {});
+    await chrome.windows.remove(0);
+    await chrome.windows.getLastFocused();
+    await chrome.windows.getLastFocused({});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest
+async function testDeclarativeNetRequestForPromise() {
+    await chrome.declarativeNetRequest.getAvailableStaticRuleCount();
+    await chrome.declarativeNetRequest.getDynamicRules();
+    await chrome.declarativeNetRequest.getEnabledRulesets();
+    await chrome.declarativeNetRequest.getMatchedRules({});
+    await chrome.declarativeNetRequest.getMatchedRules();
+    await chrome.declarativeNetRequest.getSessionRules();
+    await chrome.declarativeNetRequest.isRegexSupported({regex: 'regex1'});
+    await chrome.declarativeNetRequest.setExtensionActionOptions({});
+    await chrome.declarativeNetRequest.updateDynamicRules({});
+    await chrome.declarativeNetRequest.updateEnabledRulesets({});
+    await chrome.declarativeNetRequest.updateSessionRules({});
 }

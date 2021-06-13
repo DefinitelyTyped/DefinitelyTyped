@@ -3965,7 +3965,7 @@ export class Cursor<T = Default> extends Readable {
      * @param value The flag boolean value.
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#addCursorFlag
      */
-    addCursorFlag(flag: string, value: boolean): Cursor<T>;
+    addCursorFlag(flag: 'tailable' | 'oplogReplay' | 'noCursorTimeout' | 'awaitData' | 'partial' | string, value: boolean): Cursor<T>;
     /**
      * Add a query modifier to the cursor query
      *

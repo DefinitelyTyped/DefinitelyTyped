@@ -2,10 +2,11 @@
 // Project: https://github.com/hyperatom/json-form-data
 // Definitions by: Aaron Ross <https://github.com/superhawk610>
 //                 Kamil Socha <https://github.com/ksocha>
+//                 Felix Borzik <https://github.com/Borzik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface ValidJSON {
-    [key: string]: ValidJSON | ValidJSONValue | ValidJSONValue[] | FileList;
+    [key: string]: ValidJSON | ValidJSON[] | ValidJSONValue | ValidJSONValue[] | FileList;
 }
 
 type ValidJSONValue = string | number | boolean | File | Blob | Date | null | undefined;

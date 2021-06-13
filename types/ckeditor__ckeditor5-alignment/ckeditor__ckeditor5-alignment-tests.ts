@@ -1,8 +1,8 @@
-import { Alignment } from "@ckeditor/ckeditor5-alignment";
-import { Editor } from "@ckeditor/ckeditor5-core";
-import * as utils from "@ckeditor/ckeditor5-alignment/src/utils";
-import { Locale } from "@ckeditor/ckeditor5-utils";
+import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 import AlignmentCommand from "@ckeditor/ckeditor5-alignment/src/alignmentcommand";
+import * as utils from "@ckeditor/ckeditor5-alignment/src/utils";
+import { Editor } from "@ckeditor/ckeditor5-core";
+import { Locale } from "@ckeditor/ckeditor5-utils";
 
 class MyEditor extends Editor {}
 

@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.33
+// Type definitions for carbon-components-react 7.34
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 //                 Sebastien Gregoire <https://github.com/sgregoire>
@@ -156,6 +156,11 @@ export { default as Dropdown } from "./lib/components/Dropdown";
 export { ErrorBoundary, ErrorBoundaryContext } from "./lib/components/ErrorBoundary";
 export { default as ExpandableSearch } from "./lib/components/ExpandableSearch";
 export {
+    FeatureFlags as unstable_FeatureFlags,
+    useFeatureFlag as unstable_useFeatureFlag,
+    useFeatureFlags as unstable_useFeatureFlags
+} from "./lib/components/FeatureFlags";
+export {
     default as FileUploader,
     Filename,
     FileUploaderButton,
@@ -266,7 +271,6 @@ export { default as RadioButtonSkeleton } from "./lib/components/RadioButton/Rad
 export { default as SearchSkeleton } from "./lib/components/Search/Search.Skeleton";
 export { default as SelectSkeleton } from "./lib/components/Select/Select.Skeleton";
 export { default as SliderSkeleton } from "./lib/components/Slider/Slider.Skeleton";
-export { default as StructuredListSkeleton } from "./lib/components/StructuredList/StructuredList.Skeleton";
 export { default as TabsSkeleton } from "./lib/components/Tabs/Tabs.Skeleton";
 export { default as TagSkeleton } from "./lib/components/Tag/Tag.Skeleton";
 export { default as TextAreaSkeleton } from "./lib/components/TextArea/TextArea.Skeleton";

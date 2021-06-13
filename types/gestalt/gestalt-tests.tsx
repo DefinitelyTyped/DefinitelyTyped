@@ -15,6 +15,7 @@ import {
     Container,
     Divider,
     Dropdown,
+    Fieldset,
     FixedZIndex,
     Flex,
     GroupAvatar,
@@ -107,6 +108,15 @@ const CheckUseReducedMotion = () => {
 />;
 <Badge text="Nicolas" />;
 <Box ref={React.createRef<HTMLDivElement>()} />;
+
+<Box aria-colspan={1} />;
+// $ExpectError
+<Box aria-colspan="foo" />;
+
+<Box onDrag={(event) => { event.movementX; }} />;
+// $ExpectError
+<Box onDrag={((event) => { event.__nonExistentProperty__; })} />;
+
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
 <Button text="" />;
 <ButtonGroup>
@@ -144,7 +154,16 @@ const CheckUseReducedMotion = () => {
         </Dropdown.Item>
     </Dropdown.Section>
 </Dropdown>;
-<Flex />;
+<Fieldset legend="Fieldset Example">
+    <RadioButton id="id1" onChange={() => {}} />;
+    <RadioButton id="id2" onChange={() => {}} />;
+    <RadioButton id="id3" onChange={() => {}} />;
+</Fieldset>;
+<Flex>
+    <Flex.Item>
+        <Text>Flex</Text>
+    </Flex.Item>
+</Flex>;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
 <IconButton accessibilityLabel="icon" />;

@@ -1,28 +1,24 @@
-import path = require('path');
-import fs = require('fs');
 import getColors = require('get-image-colors');
 import { Options } from 'get-image-colors';
 
-const buffer = fs.readFileSync(path.join(__dirname, 'double-rainbow.gif'));
+declare const buffer: Buffer;
 const options: Options = {
     count: 10,
     type: 'image/png',
 };
 
-getColors('./path').then(colors => {
-    colors; // $ExpectType Color[]
-});
-getColors('./path', (err, colors) => {
-    if (err) throw err;
-    colors; // $ExpectType Color[]
-});
+(async () => {
+    // $ExpectType Color[]
+    await getColors('./double-rainbow.png');
 
-getColors(buffer, 'image/gif').then(colors => {
-    colors; // $ExpectType Color[]
-    colors.map(color => color.hex());
-    colors[0].alpha(0.5).css();
-});
+    getColors('./double-rainbow.png', (err, colors) => {
+        if (err) throw err;
+        colors; // $ExpectType Color[]
+    });
 
-getColors(path.join(__dirname, 'double-rainbow.png'), options).then(colors => {
-    colors; // $ExpectType Color[]
-});
+    // $ExpectType Color[]
+    await getColors(buffer, 'image/gif');
+
+    // $ExpectType Color[]
+    await getColors('./double-rainbow.png', options);
+})();

@@ -46,3 +46,8 @@ export interface FileUpload {
   encoding: string;
   createReadStream(): ReadStream;
 }
+
+export class Upload {
+  resolve(file: FileUpload): void;
+  reject(reason?: any): void;
+}

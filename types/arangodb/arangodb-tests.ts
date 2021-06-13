@@ -1,5 +1,5 @@
 import { aql, db, query } from "@arangodb";
-import { md5 } from "@arangodb/crypto";
+import { md5, genRandomBytes } from "@arangodb/crypto";
 import { createRouter } from "@arangodb/foxx";
 import sessionsMiddleware = require("@arangodb/foxx/sessions");
 import jwtStorage = require("@arangodb/foxx/sessions/storages/jwt");
@@ -161,3 +161,5 @@ view.properties({
         segmentThreshold: 234
     }
 });
+
+console.log(Buffer.concat([Buffer.allocUnsafe(4), genRandomBytes(4)], 8));

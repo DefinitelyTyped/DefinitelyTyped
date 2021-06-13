@@ -16,6 +16,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-    "index.d.ts"
+    "index.d.ts",
+    "wechat-miniprogram-xmly-tests.ts"
   ]
 }

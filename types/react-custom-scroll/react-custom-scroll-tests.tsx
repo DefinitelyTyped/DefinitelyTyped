@@ -20,6 +20,7 @@ export const _ = () => (
             rtl={false}
             scrollTo={20}
             keepAtBottom={false}
+            className="my-class"
         >
             <div>Test content</div>
             <div>Test content</div>

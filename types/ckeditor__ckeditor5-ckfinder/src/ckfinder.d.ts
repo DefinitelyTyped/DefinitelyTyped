@@ -1,10 +1,11 @@
 import { Plugin } from "@ckeditor/ckeditor5-core";
+import Link from "@ckeditor/ckeditor5-link/src/link";
 import CKFinderEditing from "./ckfinderediting";
 import CKFinderUI from "./ckfinderui";
 
 export default class CKFinder extends Plugin {
     static pluginName: "CKFinder";
-    static requires: ["Image", "Link", "CKFinderUploadAdapter", typeof CKFinderEditing, typeof CKFinderUI];
+    static requires: ["Image", typeof Link, "CKFinderUploadAdapter", typeof CKFinderEditing, typeof CKFinderUI];
 }
 
 export interface CKFinderConfig {
