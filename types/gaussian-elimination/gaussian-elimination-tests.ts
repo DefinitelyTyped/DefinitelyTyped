@@ -1,4 +1,4 @@
-import gauss from 'gaussian-elimination';
+import { gauss } from 'gaussian-elimination';
 
 const arr = [
     [3, 6, -2, -8],
