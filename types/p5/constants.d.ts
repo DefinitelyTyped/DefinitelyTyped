@@ -66,5 +66,5 @@ declare module './index' {
 
     type WRAP_Y = CLAMP | REPEAT | MIRROR;
 
-    type DESCRIBE_DISPLAY = LABEL|FALLBACK;
+    type DESCRIBE_DISPLAY = LABEL | FALLBACK;
 }
