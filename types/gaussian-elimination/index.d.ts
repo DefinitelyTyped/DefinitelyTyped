@@ -1,4 +1,4 @@
-// Type definitions for gaussian-elimination 1.0.2
+// Type definitions for gaussian-elimination 1.0
 // Project: https://www.npmjs.com/package/gaussian-elimination
 // Definitions by: paracosm <https://github.com/codecosm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
