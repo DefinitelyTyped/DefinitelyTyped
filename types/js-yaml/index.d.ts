@@ -9,7 +9,7 @@
 
 export as namespace jsyaml;
 
-export function load(str: string, opts?: LoadOptions): object | string | number | null | undefined;
+export function load(str: string, opts?: LoadOptions): object | Array | string | number | null | undefined;
 
 export class Type {
     constructor(tag: string, opts?: TypeConstructorOptions);
