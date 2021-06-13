@@ -14,7 +14,7 @@ declare function tailwindcss(
 };
 
 declare namespace tailwindcss {
-    let postcss: true
+    let postcss: true;
 }
 
 export = tailwindcss;
