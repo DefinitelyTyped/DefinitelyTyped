@@ -652,7 +652,7 @@ declare namespace GoogleAppsScript {
      *       item.setHelpText('Description of new section.');
      *     }
      */
-    enum ItemType { CHECKBOX, CHECKBOX_GRID, DATE, DATETIME, DURATION, GRID, IMAGE, LIST, MULTIPLE_CHOICE, PAGE_BREAK, PARAGRAPH_TEXT, SCALE, SECTION_HEADER, TEXT, TIME, VIDEO }
+    enum ItemType { CHECKBOX, CHECKBOX_GRID, DATE, DATETIME, DURATION, GRID, IMAGE, LIST, MULTIPLE_CHOICE, PAGE_BREAK, PARAGRAPH_TEXT, SCALE, SECTION_HEADER, TEXT, TIME, VIDEO, FILE_UPLOAD }
     /**
      * A question item that allows the respondent to select one choice from a drop-down list. Items can
      * be accessed or created from a Form.

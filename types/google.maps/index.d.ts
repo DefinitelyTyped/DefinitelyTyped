@@ -2566,6 +2566,11 @@ declare namespace google.maps {
      */
     anchor?: google.maps.MVCObject|null;
     /**
+     * The map or panorama on which to render this InfoWindow or
+     * InfoWindowOpenOptions object.
+     */
+    map?: google.maps.Map|null|google.maps.StreetViewPanorama;
+    /**
      * Whether or not focus should be moved inside the InfoWindow when it is
      * opened. When unset or set to <code>null</code> or <code>undefined</code>,
      * a heuristic will be used to decide whether focus should be moved or not.
