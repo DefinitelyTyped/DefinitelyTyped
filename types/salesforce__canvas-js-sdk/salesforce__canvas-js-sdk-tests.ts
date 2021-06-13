@@ -123,55 +123,36 @@ const CONTEXT: Sfdc.canvas.Context = {
 Sfdc.canvas(() => {}); // $ExpectType void
 
 Sfdc.canvas.hasOwn({ a: 1 }, 'a'); // $ExpectType boolean
-// => true
 Sfdc.canvas.hasOwn({ a: 1 }, 'b'); // $ExpectType boolean
-// => false
 
 Sfdc.canvas.isUndefined(undefined); // $ExpectType boolean
-// => true
 Sfdc.canvas.isUndefined('a'); // $ExpectType boolean
-// => false
 
 Sfdc.canvas.isNil(undefined); // $ExpectType boolean
 Sfdc.canvas.isNil(null); // $ExpectType boolean
 Sfdc.canvas.isNil(''); // $ExpectType boolean
-// => true
 Sfdc.canvas.isNil('a'); // $ExpectType boolean
-// => false
 
 Sfdc.canvas.isNumber(123); // $ExpectType boolean
-// => true
 Sfdc.canvas.isNumber('a'); // $ExpectType boolean
-// => false
 
 Sfdc.canvas.isFunction(() => {}); // $ExpectType boolean
-// => true
 Sfdc.canvas.isFunction(''); // $ExpectType boolean
-// => false
 
 Sfdc.canvas.isArray([]); // $ExpectType boolean
-// => true
 Sfdc.canvas.isArray({}); // $ExpectType boolean
 Sfdc.canvas.isArray(''); // $ExpectType boolean
-// => false
 
 Sfdc.canvas.isArguments([]); // $ExpectType boolean
-// => true
 
 Sfdc.canvas.isObject({}); // $ExpectType boolean
-// => true
 Sfdc.canvas.isObject([]); // $ExpectType boolean
-// => false
 
 Sfdc.canvas.isString(''); // $ExpectType boolean
-// => true
 Sfdc.canvas.isString(1); // $ExpectType boolean
-// => false
 
 Sfdc.canvas.appearsJson('{}'); // $ExpectType boolean
-// => true
 Sfdc.canvas.appearsJson(''); // $ExpectType boolean
-// => false
 
 Sfdc.canvas.nop(); // $ExpectType void
 
@@ -198,9 +179,7 @@ Sfdc.canvas.each({ a: 1, b: 2, c: 3 }, (item, key, obj) => {
 Sfdc.canvas.each(1, (item, index, arr) => {}); // $ExpectError
 
 Sfdc.canvas.startsWithHttp('http://foo', 'http://bar'); // $ExpectType string
-// => 'http://foo'
 Sfdc.canvas.startsWithHttp('foo', 'http://bar'); // $ExpectType string
-// => 'http://bar'
 
 // $ExpectError
 Sfdc.canvas.startsWithHttp(1, 'http://bar');
@@ -251,10 +230,8 @@ Sfdc.canvas.isEmpty(null); // $ExpectType boolean
 Sfdc.canvas.isEmpty(''); // $ExpectType boolean
 Sfdc.canvas.isEmpty(1); // $ExpectType boolean
 Sfdc.canvas.isEmpty([]); // $ExpectType boolean
-// => true
 Sfdc.canvas.isEmpty('test'); // $ExpectType boolean
 Sfdc.canvas.isEmpty(['a']); // $ExpectType boolean
-// => false
 
 Sfdc.canvas.remove([1, 2, 3, 4], 3); // $ExpectType number[]
 Sfdc.canvas.remove([1, 2, 3, 4], 'a'); // $ExpectError
