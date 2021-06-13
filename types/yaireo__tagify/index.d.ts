@@ -1205,6 +1205,11 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     suggestedListItems?: T[];
 
     /**
+     * Get or dynamically set whitelist.
+     */
+    whitelist: string[] | T[];
+
+    /**
      * Array with tag data of the currently selected tags.
      */
     value: T[];

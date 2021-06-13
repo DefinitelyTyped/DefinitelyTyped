@@ -418,6 +418,8 @@ if (typedTagify.suggestedListItems !== undefined) {
     const item: MyTagData = typedTagify.suggestedListItems[0];
 }
 
+tagify.whitelist = ['another', 'good', 'word'];
+
 // $ExpectType Tagify<TagData>
 tagify.on('add', (event) => { });
 // $ExpectType Tagify<TagData>
