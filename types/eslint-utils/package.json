@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/eslint": ">=7.2.13",
+        "@types/eslint-visitor-keys": ">=1.0.0",
+        "@types/estree": ">=0.0.48"
+    }
+}
