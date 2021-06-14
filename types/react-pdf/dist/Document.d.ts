@@ -3,6 +3,11 @@ import { PDFDocumentProxy } from 'pdfjs-dist';
 
 export type RenderFunction = () => JSX.Element;
 
+export interface LoadingProcessData {
+    loaded: number;
+    total: number;
+}
+
 export interface Props {
     /**
      * Defines custom class name(s), that will be added to rendered element.
@@ -72,6 +77,11 @@ export interface Props {
     onLoadError?: (error: Error) => void;
 
     /**
+     * Function called, potentially multiple times, as the loading progresses.
+     */
+    onLoadProgress?: (data: LoadingProcessData) => void;
+
+    /**
      * Function called when the document is successfully loaded.
      */
     onLoadSuccess?: (pdf: PDFDocumentProxy) => void;
@@ -115,4 +125,4 @@ export interface Props {
     children?: React.ReactNode;
 }
 
-export default class Document extends React.Component<Props> { }
+export default class Document extends React.Component<Props> {}
