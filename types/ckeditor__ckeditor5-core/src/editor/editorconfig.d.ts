@@ -16,6 +16,7 @@ import { ImageConfig } from '@ckeditor/ckeditor5-image/src/image';
 import { IndentBlockConfig } from '@ckeditor/ckeditor5-indent/src/indentblock';
 import { TextPartLanguageOption } from '@ckeditor/ckeditor5-language/src/textpartlanguage';
 import { LinkConfig } from '@ckeditor/ckeditor5-link/src/link';
+import { MediaEmbedConfig } from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
 import { PaginationConfig } from '@ckeditor/ckeditor5-pagination/src/pagination';
 import { RealTimeCollaborationConfig } from '@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativeediting';
 import { TableConfig } from '@ckeditor/ckeditor5-table/src/table';
@@ -27,8 +28,6 @@ import Plugin, { PluginInterface } from '../plugin';
 
 // TODO: import {CommentsConfig} from "@ckeditor/ckeditor5-comments/src/comments";
 type CommentsConfig = any;
-// TODO: import {MediaEmbedConfig} from "@ckeditor/ckeditor5-media-embed/src/mediaembed";
-type MediaEmbedConfig = any;
 // TODO: import {MentionConfig} from "@ckeditor/ckeditor5-mention/src/mention";
 type MentionConfig = any;
 // TODO: import {RestrictedEditingModeConfig} from "@ckeditor/ckeditor5-restricted-editing/src/restrictededitingmode";
