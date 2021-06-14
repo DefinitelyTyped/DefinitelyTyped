@@ -406,6 +406,11 @@ declare global {
             endAll(): void;
 
             /**
+             * Set autoend option
+             */
+            autoend(value: boolean): void;
+
+            /**
              * When an uncaught exception is raised in the context of a test,
              * then this method is used to handle the error. It fails the test,
              * and prints out appropriate information about the stack, message, current test,

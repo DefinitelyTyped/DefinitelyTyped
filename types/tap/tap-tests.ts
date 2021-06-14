@@ -288,3 +288,8 @@ tap.test("fixture", t => {
     t.fixture("link", "target");
     t.fixture("symlink", "target");
 });
+
+tap.test("autoend", t => {
+    t.autoend(false);
+    t.end();
+});
