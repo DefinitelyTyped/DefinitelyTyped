@@ -27,7 +27,6 @@ import {
 } from "@ckeditor/ckeditor5-engine";
 import ConversionHelpers from "@ckeditor/ckeditor5-engine/src/conversion/conversionhelpers";
 import DowncastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher";
-import Mapper from "@ckeditor/ckeditor5-engine/src/conversion/mapper";
 import UpcastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher";
 import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
 import DocumentFragment from "@ckeditor/ckeditor5-engine/src/model/documentfragment";
@@ -386,5 +385,3 @@ const clickObserver = new ClickObserver(view);
 view.addObserver(ClickObserver);
 clickObserver.domEventType === "click";
 clickObserver.onDomEvent(new MouseEvent("foo"));
-
-new Mapper().on("foo", () => {});
