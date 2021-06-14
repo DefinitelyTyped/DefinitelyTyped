@@ -2174,7 +2174,11 @@ declare namespace Autodesk {
           render(nodeId: string|string[], sensorType: string,
             sensorValueCallback: (device: SurfaceShadingPoint, sensorType: string) => number,
             confidenceSize?: number): void;
-          updateShading(sensorValueCallback: (device: SurfaceShadingPoint, sensorType: string) => number): void;
+          updateShading(sensorValueCallback: (device: SurfaceShadingPoint, sensorType: string) => number, heatmapConfig: {
+            confidence?: number;
+            powerParameter?: number;
+            alpha?: number;
+          }): void;
         }
 
         class SurfaceShadingData extends SurfaceShadingGroup {
@@ -2199,6 +2203,7 @@ declare namespace Autodesk {
         }
 
         class SurfaceShadingNode {
+          bounds: THREE.Box3;
           dbIds: number[];
           fragIds: number[];
           id: string;
@@ -2657,7 +2662,13 @@ declare namespace Autodesk {
         datavizDotOverlay: any;
         deviceDepthOcclusion: boolean;
 
-        constructor(viewer: Viewing.Viewer3D, options?: any);
+        constructor(viewer: Viewing.Viewer3D, options?: {
+          type: string;
+          width?: number;
+          slicingPosition?: number;
+          placementPosition?: number;
+          minOpacity?: number;
+        });
 
         addViewables(data: DataVisualization.Core.ViewableData): void;
         clearHighlightedViewables(): void;
@@ -2677,7 +2688,12 @@ declare namespace Autodesk {
         removeSurfaceShading(): void;
         renderSurfaceShading(nodeIds: string|string[],
           sensorType: string,
-          valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint, sensorType: string) => number, confidenceSize?: number): void;
+          valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint, sensorType: string) => number,
+          heatmapConfig?: {
+            confidence?: number;
+            powerParameter?: number;
+            alpha?: number;
+          }): void;
         setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.Core.SurfaceShadingData,
           options?: {
             type: 'PlanarHeatmap',
@@ -2690,7 +2706,12 @@ declare namespace Autodesk {
         showHideViewables(visible: boolean, occlusion: boolean): void;
         showTextures(): void;
         updateSurfaceShading(valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint,
-          sensorType: string) => number): void;
+          sensorType: string) => number,
+          heatmapConfig?: {
+            confidence?: number;
+            powerParameter?: number;
+            alpha?: number;
+          }): void;
       }
 
       class Edit2D extends Viewing.Extension {
