@@ -6,21 +6,20 @@
 export function setConfig(config: Config): void;
 
 export interface Config {
-    apiKey?: string,
-    accessToken?: string,
-    server?: string
+    apiKey?: string;
+    accessToken?: string;
+    server?: string;
 }
 
 export interface SetListMemberOptions {
-    skipMergeValidation: boolean
+    skipMergeValidation: boolean;
 }
 
 export interface SetListMemberBody {
-    email_address: string,
-    status_if_new: 'subscribed' | 'unsubscribed' | 'cleaned' | 'pending' | 'transactional'
-    merge_fields?: { [key: string]: any }
+    email_address: string;
+    status_if_new: 'subscribed' | 'unsubscribed' | 'cleaned' | 'pending' | 'transactional';
+    merge_fields?: { [key: string]: any };
 }
-
 
 /*~ If there are types, properties, or methods inside dotted names
 *~ of the module, declare them inside a 'namespace'.
@@ -33,6 +32,6 @@ export namespace lists {
     *~   import * as yourMod from 'yourModule';
     *~   yourMod.subProp.foo();
     */
-    export function setListMember(listId: string, subscriberHash: string, body: SetListMemberBody, opts?: SetListMemberOptions): Promise<void>
-    export function getListMember(listId: string, subscriberHash: string, opts?: SetListMemberOptions): Promise<void>;
+    function setListMember(listId: string, subscriberHash: string, body: SetListMemberBody, opts?: SetListMemberOptions): Promise<void>;
+    function getListMember(listId: string, subscriberHash: string, opts?: SetListMemberOptions): Promise<void>;
 }
