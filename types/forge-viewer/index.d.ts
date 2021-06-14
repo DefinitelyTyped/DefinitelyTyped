@@ -1681,6 +1681,7 @@ declare namespace Autodesk {
                 scene: THREE.Scene;
                 sceneAfter: THREE.Scene;
                 selector: any;
+                showGhosting: boolean;
                 use2dInstancing: boolean;
                 visibilityManager: VisibilityManager;
 
