@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.1.0
+// Last module patch version validated against: 2.1.1
 
 import { Path } from 'd3-path';
 
