@@ -406,7 +406,7 @@ declare global {
             endAll(): void;
 
             /**
-             * Set autoend option
+             * Automatically end() the test on the next turn of the event loop after its internal queue is drained.
              */
             autoend(value: boolean): void;
 
