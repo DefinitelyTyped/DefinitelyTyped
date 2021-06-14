@@ -215,7 +215,7 @@ declare namespace videojs {
      *
      * @return    an array of hooks, or an empty array if there are none.
      */
-    function hooks(type: string, fn?: (() => any) | Array<() => any>): void;
+    function hooks(type: string, fn?: (() => any) | Array<() => any>): Array<() => any>;
 
     /**
      * Returns whether the url passed is a cross domain request or not.
