@@ -1,6 +1,6 @@
 // Type definitions for shippo 1.6
 // Project: https://github.com/goshippo/shippo-node-client
-// Definitions by: Saiichi <https://github.com/saiichihashimoto>, Eric Johnson <https://github.com/ejhnsn>
+// Definitions by: Eric Johnson <https://github.com/ejhnsn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Shippo {
