@@ -91,7 +91,7 @@ export interface Arc<This, Datum> {
      *
      * @param d The datum for which the arc is to be generated.
      */
-    (this: This, d: Datum, ...args: any[]): string | null;
+    (this: This, d?: Datum, ...args: any[]): string | null;
     /**
      * Generates an arc for the given arguments.
      *
