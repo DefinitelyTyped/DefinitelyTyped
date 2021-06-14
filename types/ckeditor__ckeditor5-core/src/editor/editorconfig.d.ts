@@ -5,6 +5,10 @@ import { CloudServicesConfig } from '@ckeditor/ckeditor5-cloud-services/src/clou
 import { CodeBlockConfig } from '@ckeditor/ckeditor5-code-block/src/codeblock';
 import { ExportPdfConfig } from '@ckeditor/ckeditor5-export-pdf/src/exportpdf';
 import { ExportWordConfig } from '@ckeditor/ckeditor5-export-word/src/exportword';
+import { FontBackgroundColorConfig } from '@ckeditor/ckeditor5-font/src/fontbackgroundcolor';
+import { FontColorConfig } from '@ckeditor/ckeditor5-font/src/fontcolor';
+import { FontFamilyConfig } from '@ckeditor/ckeditor5-font/src/fontfamily';
+import { FontSizeConfig } from '@ckeditor/ckeditor5-font/src/fontsize';
 import { HeadingConfig } from '@ckeditor/ckeditor5-heading/src/heading';
 import { TitleConfig } from '@ckeditor/ckeditor5-heading/src/title';
 import { HighlightConfig } from '@ckeditor/ckeditor5-highlight/src/highlight';
@@ -23,15 +27,6 @@ import Plugin, { PluginInterface } from '../plugin';
 
 // TODO: import {CommentsConfig} from "@ckeditor/ckeditor5-comments/src/comments";
 type CommentsConfig = any;
-// import {FontBackgroundColorConfig} from "@ckeditor/ckeditor5-font/src/fontbackgroundcolor";
-// TODO: import {FontBackgroundColorConfig} from "@ckeditor/ckeditor5-font/src/fontbackgroundcolor";
-type FontBackgroundColorConfig = any;
-// TODO: import {FontColorConfig} from "@ckeditor/ckeditor5-font/src/fontcolor";
-type FontColorConfig = any;
-// TODO: import {FontFamilyConfig} from "@ckeditor/ckeditor5-font/src/fontfamily";
-type FontFamilyConfig = any;
-// TODO: import {FontSizeConfig} from "@ckeditor/ckeditor5-font/src/fontsize";
-type FontSizeConfig = any;
 // TODO: import {MediaEmbedConfig} from "@ckeditor/ckeditor5-media-embed/src/mediaembed";
 type MediaEmbedConfig = any;
 // TODO: import {MentionConfig} from "@ckeditor/ckeditor5-mention/src/mention";
