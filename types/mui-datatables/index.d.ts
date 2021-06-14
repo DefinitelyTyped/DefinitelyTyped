@@ -846,7 +846,18 @@ export type MUIDataTableColumnDef = string | MUIDataTableColumn;
 type RenderCustomComponent<P> = (props: P) => React.ReactNode;
 
 export interface MUIDataTableCheckboxProps {
-  'data-description': 'row-select' | 'row-select-header' | 'table-filter' | 'table-view-col';
+    checked: boolean;
+    classes: {
+        checked: string;
+        disabled: string;
+        root: string;
+    };
+    color: 'primary' | 'secondary';
+    'data-description': 'row-select' | 'row-select-header' | 'table-filter' | 'table-view-col';
+    'data-index': number | null;
+    disabled: boolean;
+    indeterminante: boolean;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
 }
 
 export interface MUIDataTableProps {
@@ -863,13 +874,13 @@ export interface MUIDataTableProps {
     TableToolbar: RenderCustomComponent<MUIDataTableToolbar> | React.ReactNode;
     TableToolbarSelect: RenderCustomComponent<MUIDataTableToolbarSelect> | React.ReactNode;
     Tooltip: React.ReactNode;
-    icons: {
+    icons: Partial<{
       SearchIcon: React.ReactNode;
       DownloadIcon: React.ReactNode;
       PrintIcon: React.ReactNode;
       ViewColumnIcon: React.ReactNode;
       FilterIcon: React.ReactNode;
-    }
+    }>
   }>;
   data: Array<object | number[] | string[]>;
   options?: MUIDataTableOptions;
