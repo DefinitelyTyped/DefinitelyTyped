@@ -610,7 +610,7 @@ declare namespace OpenSeadragon {
         dblClickTimeThreshold?: number;
         dblClickDistThreshold?: number;
         stopDelay?: number;
-        preProcessEventHandler?: EventHandler<OSDEvent<any>>;
+        preProcessEventHandler?: PreprocessEventHandler;
         contextMenuHandler?: EventHandler<OSDEvent<any>>;
         enterHandler?: EventHandler<OSDEvent<any>>;
         /**
@@ -670,7 +670,7 @@ declare namespace OpenSeadragon {
         outHandler: (event: OSDEvent<any>) => void;
         pinchHandler: (event: OSDEvent<any>) => void;
         pressHandler: (event: OSDEvent<any>) => void;
-        preProcessEventHandler: (event: OSDEvent<any>) => void;
+        preProcessEventHandler: (event: EventProcessInfo) => void;
         releaseHandler: (event: OSDEvent<any>) => void;
         scrollHandler: (event: OSDEvent<any>) => void;
         setTracking(track: boolean): any;
@@ -1277,6 +1277,8 @@ declare namespace OpenSeadragon {
     // TODO: use proper eventName type aliases, and OSDEvent where appropiate
 
     type EventHandler<T extends OSDEvent<any>> = (event: T) => void;
+
+    type PreprocessEventHandler = (event: EventProcessInfo) => void;
 
     type ButtonEventName = 'blur' | 'click' | 'enter' | 'exit' | 'focus' | 'press' | 'release';
     type TiledImageEventName =
