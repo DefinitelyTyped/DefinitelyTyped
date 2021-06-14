@@ -438,11 +438,11 @@ declare namespace Autodesk {
           setBookmarks(bookmarks: BubbleNode[]): void;
           setCamera(camera: any): void;
           setCameraGlobal(camera: any): void;
-          setNodes(bubbleNodes: BubbleNode[], diffConfig: any): void;
+          setNodes(bubbleNodes: BubbleNode[], diffConfig: any): Promise<Model[]>;
           startBimWalk(): void;
           stopBimWalk(): void;
           show(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
-          switchView(bubbleNodes: BubbleNode[], diffConfig: any): void;
+          switchView(bubbleNodes: BubbleNode[], diffConfig: any): Promise<Model[]>;
           unload(bubbleNode: BubbleNode): void;
           unloadAll(filter?: (item: any) => boolean): void;
           unloadUnderlayRaster(bubbleNode: BubbleNode): void;
