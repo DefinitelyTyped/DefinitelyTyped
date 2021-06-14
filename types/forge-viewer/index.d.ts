@@ -679,8 +679,16 @@ declare namespace Autodesk {
             clearThemingColors(): void;
             fetchTopology(maxSizeMB: number): Promise<object>;
             getBoundingBox(): THREE.Box3;
-            getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
-            getBulkProperties2(dbIds: number[], options?: object, successCallback?: (r: PropertyResult[]) => void, errorCallback?: (s: any, m: any, d: any) => void): void;
+            getBulkProperties(dbIds: number[], options?: {
+              propFilter?: string[];
+              ignoreHidden?: boolean;
+             }, successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
+            getBulkProperties2(dbIds: number[], options?: {
+              propFilter?: string[];
+              categoryFilter?: string[];
+              ignoreHidden?: boolean;
+              needExternalId?: boolean;
+            }, successCallback?: (r: PropertyResult[]) => void, errorCallback?: (s: any, m: any, d: any) => void): void;
             getData(): any;
             getFragmentList(): Private.FragmentList;
             getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
