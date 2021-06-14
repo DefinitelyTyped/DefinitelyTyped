@@ -59,6 +59,7 @@ declare module 'process' {
                 | 'android'
                 | 'darwin'
                 | 'freebsd'
+                | 'haiku'
                 | 'linux'
                 | 'openbsd'
                 | 'sunos'
