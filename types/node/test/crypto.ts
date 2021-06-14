@@ -829,7 +829,11 @@ import { promisify } from 'util';
 
 {
     const sig: Buffer = crypto.sign('md5', Buffer.from(''), 'mykey');
+
+    crypto.sign('md5', Buffer.from(''), 'mykey', (error: Error | null, data: Buffer) => { });
+
     const correct: boolean = crypto.verify('md5', sig, 'mykey', sig);
+    crypto.verify('md5', sig, 'mykey', sig, (error: Error | null, result: boolean) => { });
 }
 
 {
@@ -986,6 +990,8 @@ import { promisify } from 'util';
     cert.fingerprint; // $ExpectType string
     cert.fingerprint256; // $ExpectType string
     cert.infoAccess; // $ExpectType string
+    cert.issuer; // $ExpectType string
+    cert.issuerCertificate; // $ExpectType X509Certificate | undefined
     cert.keyUsage; // $ExpectType string[]
     cert.publicKey; // $ExpectType KeyObject
     cert.raw; // $ExpectType Buffer
@@ -1014,4 +1020,43 @@ import { promisify } from 'util';
     cert.toLegacyObject(); // $ExpectType PeerCertificate
     cert.toJSON(); // $ExpectType string
     cert.toString(); // $ExpectType string
+}
+
+{
+    crypto.generatePrime(123, (err: Error | null, prime: ArrayBuffer) => {});
+    crypto.generatePrime(123, { rem: 123n, add: 123n }, (err: Error | null, prime: ArrayBuffer) => {});
+    crypto.generatePrime(123, { bigint: true }, (err: Error | null, prime: bigint) => {});
+    crypto.generatePrime(123, { bigint: Math.random() > 0 }, (err: Error | null, prime: ArrayBuffer | bigint) => {});
+
+    crypto.generatePrimeSync(123); // $ExpectType ArrayBuffer
+    crypto.generatePrimeSync(123, { rem: 123n, add: 123n }); // $ExpectType ArrayBuffer
+    crypto.generatePrimeSync(123, { bigint: true }); // $ExpectType bigint
+    crypto.generatePrimeSync(123, { bigint: Math.random() > 0 }); // $ExpectType bigint | ArrayBuffer
+
+    crypto.checkPrime(123n, (err: Error | null, result: boolean) => {});
+    crypto.checkPrime(123n, { checks: 123 }, (err: Error | null, result: boolean) => {});
+
+    crypto.checkPrimeSync(123n); // $ExpectType boolean
+    crypto.checkPrimeSync(123n, { checks: 123 }); // $ExpectType boolean
+}
+
+{
+    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
+        for (const keyObject of [publicKey, privateKey]) {
+            if (keyObject.asymmetricKeyDetails) {
+                if (keyObject.asymmetricKeyDetails.modulusLength) {
+                    const modulusLength: number = keyObject.asymmetricKeyDetails.modulusLength;
+                }
+                if (keyObject.asymmetricKeyDetails.publicExponent) {
+                    const publicExponent: bigint = keyObject.asymmetricKeyDetails.publicExponent;
+                }
+                if (keyObject.asymmetricKeyDetails.divisorLength) {
+                    const divisorLength: number = keyObject.asymmetricKeyDetails.divisorLength;
+                }
+                if (keyObject.asymmetricKeyDetails.namedCurve) {
+                    const namedCurve: string = keyObject.asymmetricKeyDetails.namedCurve;
+                }
+            }
+        }
+    });
 }

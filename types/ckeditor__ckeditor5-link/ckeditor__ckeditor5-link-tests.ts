@@ -1,5 +1,5 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
-import * as Link from '@ckeditor/ckeditor5-link';
+import Link from '@ckeditor/ckeditor5-link';
 import { View } from '@ckeditor/ckeditor5-ui';
 import LinkCommand from '@ckeditor/ckeditor5-link/src/linkcommand';
 import UnlinkCommand from '@ckeditor/ckeditor5-link/src/unlinkcommand';

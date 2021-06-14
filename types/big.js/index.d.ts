@@ -253,9 +253,10 @@ export interface Big {
      * If dp is omitted, or is null or undefined, the number of digits after the decimal point defaults to the minimum number of digits necessary to represent the value exactly.
      *
      * @param dp Decimal places, 0 to 1e+6 inclusive
+     * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
      * @throws `!toFix!` if dp is invalid.
      */
-    toExponential(dp?: number): string;
+    toExponential(dp?: number, rm?: RoundingMode): string;
     /**
      * Returns a string representing the value of this Big number in normal notation to a fixed number of decimal places dp.
      *
@@ -270,9 +271,10 @@ export interface Big {
      * This is also unlike Number.prototype.toFixed, which returns the value to zero decimal places.
      *
      * @param dp Decimal places, 0 to 1e+6 inclusive
+     * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
      * @throws `!toFix!` if dp is invalid.
      */
-    toFixed(dp?: number): string;
+    toFixed(dp?: number, rm?: RoundingMode): string;
     /**
      * Returns a string representing the value of this Big number to the specified number of significant digits sd.
      *
@@ -285,9 +287,10 @@ export interface Big {
      * If sd is omitted, or is null or undefined, then the return value is the same as .toString().
      *
      * @param sd Significant digits, 1 to 1e+6 inclusive
+     * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
      * @throws `!toPre!` if sd is invalid.
      */
-    toPrecision(sd?: number): string;
+    toPrecision(sd?: number, rm?: RoundingMode): string;
     /**
      * Returns a string representing the value of this Big number.
      *

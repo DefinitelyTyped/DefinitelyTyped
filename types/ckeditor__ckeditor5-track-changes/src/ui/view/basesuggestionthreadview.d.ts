@@ -1,4 +1,4 @@
-import { User } from '@ckeditor/ckeditor5-collaboration-core';
+import { User } from '@ckeditor/ckeditor5-collaboration-core/src/users';
 import { EditorConfig } from '@ckeditor/ckeditor5-core/src/editor/editorconfig';
 import { View } from '@ckeditor/ckeditor5-ui';
 import { Locale } from '@ckeditor/ckeditor5-utils';

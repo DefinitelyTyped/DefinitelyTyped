@@ -7,6 +7,11 @@ export const connectionString = 'mongodb://127.0.0.1:27017/test';
 const options: mongodb.MongoClientOptions = {
     authSource: ' ',
     loggerLevel: 'debug',
+    writeConcern: {
+        w: 1,
+        wtimeout: 300,
+        j: true,
+    },
     w: 1,
     wtimeout: 300,
     j: true,

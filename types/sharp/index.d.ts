@@ -725,6 +725,8 @@ declare namespace sharp {
         icc?: string;
         /** Object keyed by IFD0, IFD1 etc. of key/value string pairs to write as EXIF data. (optional, default {}) */
         exif?: Record<string, any>;
+        /** Number of pixels per inch (DPI) */
+        density?: number;
     }
 
     interface Metadata {

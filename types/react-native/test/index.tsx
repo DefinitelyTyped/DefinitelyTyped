@@ -87,6 +87,7 @@ import {
     StyleSheet,
     Switch,
     SwitchIOS,
+    SwitchChangeEvent,
     Systrace,
     TabBarIOS,
     Text,
@@ -573,9 +574,9 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
-                ListFooterComponentStyle={{ padding: 8 }}
+                ListFooterComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 ListHeaderComponent={null}
-                ListHeaderComponentStyle={{ padding: 8 }}
+                ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 CellRendererComponent={this._cellRenderer}
                 fadingEdgeLength={200}
             />
@@ -1313,6 +1314,22 @@ const SwitchColorNullTest = () => <Switch trackColor={{ true: 'pink', false: nul
 
 const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
 
+const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.log('test')} />;
+const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
+const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
+const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
+  const e: SwitchChangeEvent = event;
+  return new Promise(() => e.value);
+}} />;
+
+const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
+const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
+const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
+const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value) => {
+  const v: boolean = value;
+  return new Promise(() => v)
+}} />;
+
 const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
         <View nativeID={'nativeID'} />
@@ -1519,6 +1536,34 @@ StyleSheet.create({
         tintColor: PlatformColor('test'),
     },
 });
+
+function someColorString(): ColorValue {
+    return '#000000';
+}
+
+function somePlatformColor(): ColorValue {
+    return PlatformColor('test');
+}
+
+const colors = {
+    color: someColorString(),
+    backgroundColor: somePlatformColor(),
+};
+
+StyleSheet.create({
+    labelCell: {
+        color: colors.color,
+        backgroundColor: colors.backgroundColor,
+    },
+});
+
+const OpaqueTest3 = () => (
+    <View
+        style={{
+            backgroundColor: colors.backgroundColor,
+        }}
+    />
+);
 
 // ProgressBarAndroid
 const ProgressBarAndroidTest = () => {
@@ -1728,10 +1773,8 @@ const I18nManagerTest = () => {
 };
 
 // LayoutAnimations
-LayoutAnimation.configureNext(LayoutAnimation.create(
-    123,
-    LayoutAnimation.Types.easeIn,
-    LayoutAnimation.Properties.opacity,
-));
+LayoutAnimation.configureNext(
+    LayoutAnimation.create(123, LayoutAnimation.Types.easeIn, LayoutAnimation.Properties.opacity),
+);
 
 LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn', 'opacity'));

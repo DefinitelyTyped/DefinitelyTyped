@@ -34,6 +34,7 @@
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Wyatt Johnson <https://github.com/wyattjoh>
+//                 Boris Figovsky <https://github.com/borfig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -483,7 +484,6 @@ export interface MongoClientOptions
         SSLOptions,
         TLSOptions,
         HighAvailabilityOptions,
-        WriteConcern,
         UnifiedTopologyOptions {
     /**
      * The logging level (error/warn/info/debug)
@@ -1444,6 +1444,7 @@ export class Db extends EventEmitter {
 
 export interface CommonOptions extends WriteConcern {
     session?: ClientSession;
+    writeConcern?: WriteConcern | string;
 }
 
 /**
@@ -3965,7 +3966,7 @@ export class Cursor<T = Default> extends Readable {
      * @param value The flag boolean value.
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#addCursorFlag
      */
-    addCursorFlag(flag: string, value: boolean): Cursor<T>;
+    addCursorFlag(flag: 'tailable' | 'oplogReplay' | 'noCursorTimeout' | 'awaitData' | 'partial' | string, value: boolean): Cursor<T>;
     /**
      * Add a query modifier to the cursor query
      *

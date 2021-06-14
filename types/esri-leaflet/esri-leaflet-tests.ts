@@ -534,6 +534,18 @@ query.transform({wkt: "GEOGTRAN[\..."});
 
 query.format(false);
 
+query = L.esri.query(queryOptions);
+query = L.esri.query({});
+query = L.esri.query({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000,
+    withCredentials: true
+});
+query.nearby(latlng, 500);
+query.run((error, featureCollection, response) => {});
+
 let identifyFeaturesOptions: L.esri.IdentifyFeaturesOptions;
 let identifyFeatures: L.esri.IdentifyFeatures;
 

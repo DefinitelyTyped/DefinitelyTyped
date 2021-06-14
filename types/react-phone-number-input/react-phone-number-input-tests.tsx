@@ -83,6 +83,7 @@ CountrySelect.defaultProps = {
 
 const test3 = (
     <PhoneInput
+        initialValueFormat={'national'}
         value={'+64271231234'}
         onChange={(value: string) => {
             console.log(value);

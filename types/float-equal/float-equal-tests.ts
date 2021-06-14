@@ -1,3 +1,4 @@
-import floatEqual = require("float-equal");
+import floatEqual from "float-equal";
 
-floatEqual(0.1 + 0.2, 0.3);  // $ExpectType boolean
+// $ExpectType boolean
+floatEqual(0.1 + 0.2, 0.3);

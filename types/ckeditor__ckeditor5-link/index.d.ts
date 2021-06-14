@@ -1,12 +1,24 @@
-// Type definitions for @ckeditor/ckeditor5-link 27.0
+// Type definitions for @ckeditor/ckeditor5-link 27.1
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/export-word.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
-export { default as Link } from './src/link';
-export { default as LinkEditing } from './src/linkediting';
-export { default as LinkUI } from './src/linkui';
-export { default as LinkImage } from './src/linkimage';
-export { default as LinkImageEditing } from './src/linkimageediting';
-export { default as LinkImageUI } from './src/linkimageui';
-export { default as AutoLink } from './src/autolink';
+import Link from './src/link';
+import LinkEditing from './src/linkediting';
+import LinkUI from './src/linkui';
+import LinkImage from './src/linkimage';
+import LinkImageEditing from './src/linkimageediting';
+import LinkImageUI from './src/linkimageui';
+import AutoLink from './src/autolink';
+
+declare const _default: {
+    Link: typeof Link;
+    LinkEditing: typeof LinkEditing;
+    LinkUI: typeof LinkUI;
+    LinkImage: typeof LinkImage;
+    LinkImageEditing: typeof LinkImageEditing;
+    LinkImageUI: typeof LinkImageUI;
+    AutoLink: typeof AutoLink;
+};
+
+export default _default;

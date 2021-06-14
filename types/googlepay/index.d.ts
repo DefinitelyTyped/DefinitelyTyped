@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Pay API 0.5
+// Type definitions for non-npm package Google Pay API 0.6
 // Project: https://developers.google.com/pay/api/web/
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
 //                 Radu Raicea <https://github.com/Radu-Raicea>,
@@ -93,6 +93,11 @@ declare namespace google.payments.api {
          * This field is required.
          */
         transactionInfo: TransactionInfo;
+
+        /**
+         * Offers available for redemption that can be used with current order.
+         */
+        offerInfo?: OfferInfo;
 
         /**
          * Whether a shipping option is required from the buyer.
@@ -241,6 +246,12 @@ declare namespace google.payments.api {
         paymentMethodData: PaymentMethodData;
 
         /**
+         * Contains the data for offer applied by the user. This will be
+         * populated if an offer is applied to the transaction.
+         */
+        offerData?: OfferData;
+
+        /**
          * Contains the data for shipping option selected by the user.
          */
         shippingOptionData?: SelectionOptionData;
@@ -255,7 +266,7 @@ declare namespace google.payments.api {
         /**
          * Indicate the changing field that triggers the callback.
          */
-        callbackTrigger: CallbackTrigger[];
+        callbackTrigger: CallbackTrigger;
 
         /**
          * Contains limited data for user selected card information.
@@ -271,6 +282,11 @@ declare namespace google.payments.api {
          * Contains the data for shipping option selected by the user.
          */
         shippingOptionData?: SelectionOptionData;
+
+        /**
+         * Contains the data for offers applied by the user.
+         */
+        offerData?: OfferData;
     }
 
     /**
@@ -340,6 +356,16 @@ declare namespace google.payments.api {
          * is currently only for web only.
          */
         newShippingOptionParameters?: ShippingOptionParameters;
+
+        /**
+         * Contains the updated offer information. All fields in OfferInfo are
+         * allowed in the update.
+         *
+         * If this field is present it should be the full list of offer info
+         * instead of a delta of any earlier version. Note: This field is
+         * currently only for web only.
+         */
+        newOfferInfo?: OfferInfo;
 
         /**
          * Error for the last PaymentData, will be displayed to the user.
@@ -1147,6 +1173,45 @@ declare namespace google.payments.api {
     }
 
     /**
+     * Definition of merchant provided offers that may be applicable to the
+     * current order.
+     */
+    interface OfferInfo {
+        /**
+         * List of merchant provided offers applicable to the current order.
+         */
+        offers: OfferDetail[];
+    }
+
+    /**
+     * Definition for each offer to be applied to this Payment Request.
+     */
+    interface OfferDetail {
+        /**
+         * Redemption code available for this transaction. This would be used to
+         * identify the offer in case the user decides to apply the offer.
+         */
+        redemptionCode: string;
+
+        /**
+         * Description for the offer visible to the user to inform them about
+         * the offer. The description would be displayed in buyflow and should
+         * be less than 60 characters long.
+         */
+        description: string;
+    }
+
+    /**
+     * Definition for each offer to be applied to this Payment Request.
+     */
+    interface OfferData {
+        /**
+         * Redemption codes of the offers applied by the user.
+         */
+        redemptionCodes: string[];
+    }
+
+    /**
      * Parameters of merchant provided shipping option. If
      * paymentDataRequest#shippingOptionRequired is set then the request must
      * also provide ShippingOptionParameters with at least one option.
@@ -1547,6 +1612,9 @@ declare namespace google.payments.api {
      *
      * Options:
      *
+     * - `OFFER`:
+     *   Callback occurs when offer info is changed.
+     *
      * - `SHIPPING_ADDRESS`:
      *   Callback occurs when shipping address is changed.
      *
@@ -1580,14 +1648,14 @@ declare namespace google.payments.api {
      *   Developer will receive callback data in
      *   [[IntermediatePaymentData.paymentMethodData|`IntermediatePaymentData.paymentMethodData`]]
      */
-    type CallbackIntent = "SHIPPING_ADDRESS" | "SHIPPING_OPTION" | "PAYMENT_AUTHORIZATION" | "PAYMENT_METHOD";
+    type CallbackIntent = "OFFER" | "SHIPPING_ADDRESS" | "SHIPPING_OPTION" | "PAYMENT_AUTHORIZATION" | "PAYMENT_METHOD";
 
     /**
      * Enum string for the callback trigger.
      *
      * Options:
      *
-     * - `OFFER_INFO`:
+     * - `OFFER`:
      *   Callback occurs after offer info is changed.
      *
      * - `SHIPPING_ADDRESS`:
@@ -1607,7 +1675,7 @@ declare namespace google.payments.api {
      *   accounts, we will call initialize again with data from the new
      *   account.
      */
-    type CallbackTrigger = "OFFER_INFO" | "SHIPPING_ADDRESS" | "SHIPPING_OPTION" | "INITIALIZE";
+    type CallbackTrigger = "OFFER" | "SHIPPING_ADDRESS" | "SHIPPING_OPTION" | "INITIALIZE";
 
     /**
      * Enum string for error reason.
@@ -1626,6 +1694,9 @@ declare namespace google.payments.api {
      *   current request. An example would be shipping option cannot be used
      *   for the selected shipping address.
      *
+     * - `OFFER_INVALID`:
+     *   Error when the provided offer info is invalid.
+     *
      * - `PAYMENT_DATA_INVALID`:
      *   Error when the provided payment data is invalid. e.g. Payment token
      *   cannot be charged.
@@ -1633,7 +1704,7 @@ declare namespace google.payments.api {
      * - `OTHER_ERROR`:
      *   A catch all for error not fitting anywhere else.
      */
-    type ErrorReason = "SHIPPING_ADDRESS_INVALID" | "SHIPPING_ADDRESS_UNSERVICEABLE" | "SHIPPING_OPTION_INVALID" | "PAYMENT_DATA_INVALID" | "OTHER_ERROR";
+    type ErrorReason = "SHIPPING_ADDRESS_INVALID" | "SHIPPING_ADDRESS_UNSERVICEABLE" | "SHIPPING_OPTION_INVALID" | "OFFER_INVALID" | "PAYMENT_DATA_INVALID" | "OTHER_ERROR";
 
     /**
      * Enum strings for the state of the transaction.

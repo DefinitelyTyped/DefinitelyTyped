@@ -15,6 +15,7 @@ export class Skeleton {
 
     init(): void;
     calculateInverses(): void;
+    computeBoneTexture(): this;
     pose(): void;
     update(): void;
     clone(): Skeleton;

@@ -1,5 +1,5 @@
 // TODO: import {CommentThread} from "@ckeditor/ckeditor5-comments/src/comments/commentsrepository";
-import { User } from '@ckeditor/ckeditor5-collaboration-core';
+import { User } from '@ckeditor/ckeditor5-collaboration-core/src/users';
 import { Element, Model, Range } from '@ckeditor/ckeditor5-engine';
 import { Item } from '@ckeditor/ckeditor5-engine/src/model/item';
 import { Marker } from '@ckeditor/ckeditor5-engine/src/model/markercollection';

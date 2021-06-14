@@ -3,7 +3,6 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
 //                 David Pärsson <https://github.com/davidparsson>
-//                 Gabe Moothart <https://github.com/gmoothart>
 //                 Lukas Zech <https://github.com/lukas-zech-software>
 //                 Boris Breuer <https://github.com/Engineer2B>
 //                 Chris Yungmann <https://github.com/cyungmann>
@@ -508,7 +507,7 @@ declare namespace jasmine {
         /**
          * @deprecated Use seed option in {@link jasmine.Env.configure} instead.
          */
-        seed(value?: number | string): boolean;
+        seed(value?: number | string): number | string;
         /**
          * Sets a user-defined property that will be provided to reporters as
          * part of the properties field of SpecResult.
@@ -991,6 +990,15 @@ declare namespace jasmine {
         failedExpectations: ExpectationResult[];
         deprecationWarnings: ExpectationResult[];
     }
+
+    /** @deprecated use JasmineStartedInfo instead */
+    type SuiteInfo = JasmineStartedInfo;
+
+    /** @deprecated use SuiteResult or SpecResult instead */
+    type CustomReporterResult = SuiteResult & SpecResult;
+
+    /** @deprecated use JasmineDoneInfo instead */
+    type RunDetails = JasmineDoneInfo;
 
     interface CustomReporter {
         jasmineStarted?(suiteInfo: JasmineStartedInfo, done?: () => void): void | Promise<void>;
