@@ -46,7 +46,29 @@ const getGooglePaymentsClient = (env?: google.payments.api.Environment) => {
         environment: env,
         paymentDataCallbacks: {
             onPaymentAuthorized: (paymentData) => ({ transactionState: 'SUCCESS' }),
-            onPaymentDataChanged: (paymentData) => ({})
+            onPaymentDataChanged: (paymentData) => {
+                const validCodes = ['abc'];
+                if (paymentData.callbackTrigger === 'OFFER') {
+                    if (paymentData.offerData
+                        && paymentData.offerData.redemptionCodes
+                            .every(code => validCodes.indexOf(code) === -1)) {
+                        return {
+                            newOfferInfo: {
+                                offers: paymentData.offerData.redemptionCodes
+                                    .map(code => ({redemptionCode: code, description: `Save with ${code}`}))
+                            }
+                        };
+                    }
+                    return {
+                        error: {
+                            reason: 'OFFER_INVALID',
+                            message: 'That is not a valid promo code.',
+                            intent: 'OFFER'
+                        }
+                    };
+                }
+                return {};
+            }
         }
     });
 };
@@ -145,7 +167,8 @@ function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataReq
             checkoutOption: 'COMPLETE_IMMEDIATE_PURCHASE'
         },
         allowedPaymentMethods,
-        shippingAddressRequired: true
+        shippingAddressRequired: true,
+        callbackIntents: ['OFFER', 'PAYMENT_AUTHORIZATION', 'PAYMENT_METHOD']
     };
 }
 
@@ -157,6 +180,11 @@ function prefetchGooglePaymentData() {
 function onGooglePaymentButtonClick() {
     const request = getGooglePaymentDataConfiguration();
     const client = getGooglePaymentsClient();
+
+    request.callbackIntents = ['PAYMENT_AUTHORIZATION'];
+    request.callbackIntents = ['OFFER'];
+    // $ExpectError
+    request.callbackIntents = ['OFFER_INFO'];
 
     client.loadPaymentData(request)
         .then(data => console.log(data))

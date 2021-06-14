@@ -14,7 +14,7 @@ declare class Tab extends BaseComponent {
      * Static method which allows you to get the tab instance associated with a
      * DOM element
      */
-    static getInstance(element: Element): Tab;
+    static getInstance(element: Element): Tab | null;
 
     static jQueryInterface: Tab.jQueryInterface;
 

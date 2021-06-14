@@ -485,3 +485,13 @@ buffer.reinterpretUntilZeros(number, number);
 
 // $ExpectType Type<any> | undefined
 buffer.type;
+
+// Override types test:
+declare module "ref-napi" {
+    interface UnderlyingTypeOverrideRegistry {
+        "foo": number;
+    }
+}
+
+// $ExpectType Type<number>
+ref.coerceType("foo");

@@ -4,7 +4,6 @@
 //                 Ricky Kirkham <https://github.com/Rick-Kirkham>,
 //                 Alex Jerabek <https://github.com/AlexJerabek>,
 //                 Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>,
-//                 Sudhi Ramamurthy <https://github.com/sumurthy>,
 //                 Alison McKay <https://github.com/alison-mk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -2024,8 +2023,10 @@ declare namespace Office {
          */
         ActiveViewChanged,
         /**
-         * Triggers when any date or time of the selected appointment or series is changed in Outlook. Supported with task pane only.
+         * Occurs when any date or time of the selected appointment or series is changed in Outlook.
+         * **Important**: Only available with task pane implementation.
          * 
+         * To add an event handler for the `AppointmentTimeChanged` event, use the `addHandlerAsync` method of the `Item` object.
          * The event handler receives an argument of type
          * {@link https://docs.microsoft.com/javascript/api/outlook/office.appointmenttimechangedeventargs?view=outlook-js-1.7 | Office.AppointmentTimeChangedEventArgs}.
          * 
@@ -2033,8 +2034,9 @@ declare namespace Office {
          */
         AppointmentTimeChanged,
         /**
-         * Triggers when an attachment is added to or removed from an item. Supported with task pane only.
+         * Occurs when an attachment is added to or removed from an item. **Important**: Only available with task pane implementation.
          * 
+         * To add an event handler for the `AttachmentsChanged` event, use the `addHandlerAsync` method of the `Item` object.
          * The event handler receives an argument of type
          * {@link https://docs.microsoft.com/javascript/api/outlook/office.attachmentschangedeventargs?view=outlook-js-1.8 | Office.AttachmentsChangedEventArgs}.
          * 
@@ -2081,8 +2083,9 @@ declare namespace Office {
          */
         DocumentSelectionChanged,
         /**
-         * Triggers when the appointment location is changed in Outlook. Supported with task pane only.
+         * Occurs when the appointment location is changed in Outlook. **Important**: Only available with task pane implementation.
          * 
+         * To add an event handler for the `EnhancedLocationsChanged` event, use the `addHandlerAsync` method of the `Item` object.
          * The event handler receives an argument of type
          * {@link https://docs.microsoft.com/javascript/api/outlook/office.enhancedlocationschangedeventargs?view=outlook-js-1.8 | Office.EnhancedLocationsChangedEventArgs}.
          * 
@@ -2090,8 +2093,11 @@ declare namespace Office {
          */
         EnhancedLocationsChanged,
         /**
-         * Triggers when a different Outlook item is selected for viewing while the task pane is pinned. Supported with task pane only.
-         * 
+         * Occurs when a different Outlook item is selected for viewing while the task pane is pinned.
+         * **Important**: Only available with task pane implementation.
+         *
+         * To add an event handler for the `ItemChanged` event, use the `addHandlerAsync` method of the `Mailbox` object.
+         *
          * [Api set: Mailbox 1.5]
          */
         ItemChanged,
@@ -2108,8 +2114,10 @@ declare namespace Office {
          */
         NodeReplaced,
         /**
-         * Triggers when the recipient list of the selected item or the appointment location is changed in Outlook. Supported with task pane only.
+         * Occurs when the recipient list of the selected item or the appointment location is changed in Outlook.
+         * **Important**: Only available with task pane implementation.
          * 
+         * To add an event handler for the `RecipientsChanged` event, use the `addHandlerAsync` method of the `Item` object.
          * The event handler receives an argument of type
          * {@link https://docs.microsoft.com/javascript/api/outlook/office.recipientschangedeventargs?view=outlook-js-1.7 | Office.RecipientsChangedEventArgs}.
          * 
@@ -2117,8 +2125,10 @@ declare namespace Office {
          */
         RecipientsChanged,
         /**
-         * Triggers when the recurrence pattern of the selected series is changed in Outlook. Supported with task pane only.
+         * Occurs when the recurrence pattern of the selected series is changed in Outlook.
+         * **Important**: Only available with task pane implementation.
          * 
+         * To add an event handler for the `RecurrenceChanged` event, use the `addHandlerAsync` method of the `Item` object.
          * The event handler receives an argument of type
          * {@link https://docs.microsoft.com/javascript/api/outlook/office.recurrencechangedeventargs?view=outlook-js-1.7 | Office.RecurrenceChangedEventArgs}.
          * 
@@ -9226,8 +9236,8 @@ declare namespace Office {
      * The subclass of {@link Office.Item | Item} dealing with appointments.
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
-     * You should treat this as a mode of `Office.context.mailbox.item`. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item | Object Model} page for more information.
+     * You should treat this as a mode of `Office.context.mailbox.item`. For more information, refer to the
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item | Object Model} page.
      * 
      * Child interfaces:
      *
@@ -9241,8 +9251,8 @@ declare namespace Office {
      * The appointment organizer mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
-     * You should treat this as a mode of `Office.context.mailbox.item`. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item | Object Model} page for more information.
+     * You should treat this as a mode of `Office.context.mailbox.item`. For more information, refer to the
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item | Object Model} page.
      * 
      * Parent interfaces:
      *
@@ -9612,9 +9622,10 @@ declare namespace Office {
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
-         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
+         * Adds an event handler for a supported event. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9626,7 +9637,7 @@ declare namespace Office {
          * 
          * @param eventType - The event that should invoke the handler.
          * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
-         *                The type property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
+         *                The `type` property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
          * @param options - An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
@@ -9634,9 +9645,10 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
+         * Adds an event handler for a supported event. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9648,7 +9660,7 @@ declare namespace Office {
          * 
          * @param eventType - The event that should invoke the handler.
          * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
-         *                The type property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
+         *                The `type` property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
          *                `asyncResult`, which is an `Office.AsyncResult` object.
          */
@@ -10155,9 +10167,10 @@ declare namespace Office {
          */
         removeAttachmentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * Removes the event handlers for a supported event type. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10175,9 +10188,10 @@ declare namespace Office {
          */
         removeHandlerAsync(eventType: Office.EventType | string, options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * Removes the event handlers for a supported event type. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10567,8 +10581,8 @@ declare namespace Office {
      * The appointment attendee mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
-     * You should treat this as a mode of `Office.context.mailbox.item`. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item | Object Model} page for more information.
+     * You should treat this as a mode of `Office.context.mailbox.item`. For more information, refer to the
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item | Object Model} page.
      * 
      * Parent interfaces:
      *
@@ -10586,7 +10600,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Attendee
          *
-         * **Note**: Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. For more information, see 
+         * **Note**: Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. For more information, refer to 
          * {@link https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519 | Blocked attachments in Outlook}.
          *
          */
@@ -10891,9 +10905,10 @@ declare namespace Office {
         subject: string;
 
         /**
-         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
+         * Adds an event handler for a supported event. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10905,7 +10920,7 @@ declare namespace Office {
          * 
          * @param eventType - The event that should invoke the handler.
          * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
-         *                The type property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
+         *                The `type` property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
          * @param options - An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
@@ -10913,9 +10928,10 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
+         * Adds an event handler for a supported event. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10927,7 +10943,7 @@ declare namespace Office {
          * 
          * @param eventType - The event that should invoke the handler.
          * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
-         *                The type property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
+         *                The `type` property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
          *                `asyncResult`, which is an `Office.AsyncResult` object.
          */
@@ -11412,9 +11428,10 @@ declare namespace Office {
          */
         loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
         /**
-         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * Removes the event handlers for a supported event type. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -11432,9 +11449,10 @@ declare namespace Office {
          */
         removeHandlerAsync(eventType: Office.EventType | string, options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * Removes the event handlers for a supported event type. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -11469,7 +11487,7 @@ declare namespace Office {
          */ 
         start: Date; 
         /** 
-         * Gets the type of the event. See `Office.EventType` for details. 
+         * Gets the type of the event. For details, refer to {@link https://docs.microsoft.com/javascript/api/office/office.eventtype | Office.EventType}.
          * 
          * [Api set: Mailbox 1.7] 
          */ 
@@ -11610,13 +11628,13 @@ declare namespace Office {
          */
         attachmentDetails: object[];
         /**
-         * Gets whether the attachments were added or removed. See {@link Office.MailboxEnums.AttachmentStatus | MailboxEnums.AttachmentStatus} for details.
+         * Gets whether the attachments were added or removed. For details, refer to {@link Office.MailboxEnums.AttachmentStatus | MailboxEnums.AttachmentStatus}.
          * 
          * [Api set: Mailbox 1.8]
          */ 
         attachmentStatus: MailboxEnums.AttachmentStatus | string;
         /**
-         * Gets the type of the event. See `Office.EventType` for details.
+         * Gets the type of the event. For details, refer to {@link https://docs.microsoft.com/javascript/api/office/office.eventtype | Office.EventType}.
          * 
          * [Api set: Mailbox 1.8]
          */
@@ -11629,9 +11647,14 @@ declare namespace Office {
      * [Api set: Mailbox 1.1]
      *
      * @remarks
-     * 
+     *
+     * **Known issue with HTML table border colors**
+     *
+     * Outlook on Windows: If you're setting various cell borders to different colors in an HTML table in Compose mode, a cell's borders may not reflect
+     * the expected color. For the known behavior, visit {@link https://github.com/OfficeDev/office-js/issues/1818 | OfficeDev/office-js issue #1818}.
+     *
      * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
-     * 
+     *
      * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
      */
     interface Body {
@@ -12555,7 +12578,7 @@ declare namespace Office {
          */
         enhancedLocations: LocationDetails[];
         /**
-         * Gets the type of the event. See `Office.EventType` for details.
+         * Gets the type of the event. For details, refer to {@link https://docs.microsoft.com/javascript/api/office/office.eventtype | Office.EventType}.
          * 
          * [Api set: Mailbox 1.8]
          */
@@ -12835,7 +12858,7 @@ declare namespace Office {
      * You can determine the type of the item by using the `itemType` property.
      *
      * To see the full member list, refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/preview-requirement-set/office.context.mailbox.item | Object Model} page.
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item | Object Model} page.
      *
      * If you want to see IntelliSense for only a specific type or mode, cast this item to one of the following:
      *
@@ -12859,8 +12882,8 @@ declare namespace Office {
      * The compose mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces.
-     * You should treat this as a mode of `Office.context.mailbox.item`. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item | Object Model} page for more information.
+     * You should treat this as a mode of `Office.context.mailbox.item`. For more information, refer to the
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item | Object Model} page.
      * 
      * Child interfaces:
      *
@@ -12874,8 +12897,8 @@ declare namespace Office {
      * The read mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces.
-     * You should treat this as a mode of `Office.context.mailbox.item`. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item | Object Model} page for more information.
+     * You should treat this as a mode of `Office.context.mailbox.item`. For more information, refer to the
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item | Object Model} page.
      * 
      * Child interfaces:
      *
@@ -13197,9 +13220,10 @@ declare namespace Office {
         userProfile: UserProfile;
 
         /**
-         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
+         * Adds an event handler for a supported event. **Note**: Events are only available with task pane implementation.
          *
-         * Refer to the Mailbox object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox#events | events section} for supported events.
+         * For supported events, refer to the Mailbox object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox#events | events section}.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -13211,16 +13235,17 @@ declare namespace Office {
          *
          * @param eventType - The event that should invoke the handler.
          * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal.
-         *                The type property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
+         *                The `type` property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
          * @param options - Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
          *                 type `Office.AsyncResult`.
          */
-        addHandlerAsync(eventType: Office.EventType | string, handler: (type: Office.EventType) => void, options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType | string, handler: any, options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
+         * Adds an event handler for a supported event. **Note**: Events are only available with task pane implementation.
          *
-         * Refer to the Mailbox object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox#events | events section} for supported events.
+         * For supported events, refer to the Mailbox object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox#events | events section}.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -13232,11 +13257,11 @@ declare namespace Office {
          *
          * @param eventType - The event that should invoke the handler.
          * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal.
-         *                The type property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
+         *                The `type` property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
          *                 type `Office.AsyncResult`.
          */
-        addHandlerAsync(eventType: Office.EventType | string, handler: (type: Office.EventType) => void, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType | string, handler: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Converts an item ID formatted for REST into EWS format.
          *
@@ -13928,9 +13953,10 @@ declare namespace Office {
          */
         makeEwsRequestAsync(data: any, callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
         /**
-         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * Removes the event handlers for a supported event type. **Note**: Events are only available with task pane implementation.
          *
-         * Refer to the Mailbox object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox#events | events section} for supported events.
+         * For supported events, refer to the Mailbox object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox#events | events section}.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -13947,9 +13973,10 @@ declare namespace Office {
          */
         removeHandlerAsync(eventType: Office.EventType | string, options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * Removes the event handlers for a supported event type. **Note**: Events are only available with task pane implementation.
          *
-         * Refer to the Mailbox object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox#events | events section} for supported events.
+         * For supported events, refer to the Mailbox object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox#events | events section}.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -14148,8 +14175,8 @@ declare namespace Office {
      * A subclass of {@link Office.Item | Item} for messages.
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
-     * You should treat this as a mode of `Office.context.mailbox.item`. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item | Object Model} page for more information.
+     * You should treat this as a mode of `Office.context.mailbox.item`. For more information, refer to the
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item | Object Model} page.
      * 
      * Child interfaces:
      *
@@ -14163,8 +14190,8 @@ declare namespace Office {
      * The message compose mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
-     * You should treat this as a mode of `Office.context.mailbox.item`. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item | Object Model} page for more information.
+     * You should treat this as a mode of `Office.context.mailbox.item`. For more information, refer to the
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item | Object Model} page.
      * 
      * Parent interfaces:
      *
@@ -14501,9 +14528,10 @@ declare namespace Office {
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
-         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
+         * Adds an event handler for a supported event. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14515,7 +14543,7 @@ declare namespace Office {
          * 
          * @param eventType - The event that should invoke the handler.
          * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal.
-         *                The type property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
+         *                The `type` property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
          * @param options - An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
@@ -14523,9 +14551,10 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
+         * Adds an event handler for a supported event. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14537,7 +14566,7 @@ declare namespace Office {
          * 
          * @param eventType - The event that should invoke the handler.
          * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal.
-         *                The type property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
+         *                The `type` property on the parameter will match the `eventType` parameter passed to `addHandlerAsync`.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
          */
@@ -15098,9 +15127,10 @@ declare namespace Office {
          */
         removeAttachmentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * Removes the event handlers for a supported event type. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -15118,9 +15148,10 @@ declare namespace Office {
          */
         removeHandlerAsync(eventType: Office.EventType | string, options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * Removes the event handlers for a supported event type. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -15262,8 +15293,8 @@ declare namespace Office {
      * The message read mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
-     * You should treat this as a mode of `Office.context.mailbox.item`. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item | Object Model} page for more information.
+     * You should treat this as a mode of `Office.context.mailbox.item`. For more information, refer to the
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item | Object Model} page.
      * 
      * Parent interfaces:
      *
@@ -15636,9 +15667,10 @@ declare namespace Office {
         to: EmailAddressDetails[];
 
         /**
-         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
+         * Adds an event handler for a supported event. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -15650,7 +15682,7 @@ declare namespace Office {
          * 
          * @param eventType - The event that should invoke the handler.
          * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal.
-         *                The type property on the parameter will match the eventType `parameter` passed to `addHandlerAsync`.
+         *                The `type` property on the parameter will match the eventType `parameter` passed to `addHandlerAsync`.
          * @param options - An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
@@ -15658,9 +15690,10 @@ declare namespace Office {
          */
          addHandlerAsync(eventType: Office.EventType | string, handler: any, options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
          /**
-         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
+         * Adds an event handler for a supported event. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -15672,7 +15705,7 @@ declare namespace Office {
          * 
          * @param eventType - The event that should invoke the handler.
          * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal.
-         *                The type property on the parameter will match the eventType `parameter` passed to `addHandlerAsync`.
+         *                The `type` property on the parameter will match the eventType `parameter` passed to `addHandlerAsync`.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
          */
@@ -16199,9 +16232,10 @@ declare namespace Office {
          */
         loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
         /**
-         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * Removes the event handlers for a supported event type. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -16219,9 +16253,10 @@ declare namespace Office {
          */
         removeHandlerAsync(eventType: Office.EventType | string, options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * Removes the event handlers for a supported event type. **Note**: Events are only available with task pane implementation.
          * 
-         * Refer to the Item object model {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.8/office.context.mailbox.item#events | events section} for supported events.
+         * For supported events, refer to the Item object model
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.10/office.context.mailbox.item#events | events section}.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -16780,7 +16815,7 @@ declare namespace Office {
         setAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
-     * Provides change status of recipients fields when the `Office.EventType.RecipientsChanged` event is raised. 
+     * Provides change status of recipients fields when the `Office.EventType.RecipientsChanged` event is raised.
      * 
      * [Api set: Mailbox 1.7] 
      */ 
@@ -16792,7 +16827,7 @@ declare namespace Office {
          */ 
         changedRecipientFields: RecipientsChangedFields; 
         /** 
-         * Gets the type of the event. See `Office.EventType` for details. 
+         * Gets the type of the event. For details, refer to {@link https://docs.microsoft.com/javascript/api/office/office.eventtype | Office.EventType}.
          * 
          * [Api set: Mailbox 1.7] 
          */ 
@@ -17042,7 +17077,7 @@ declare namespace Office {
          */ 
         recurrence: Recurrence; 
         /** 
-         * Gets the type of the event. See `Office.EventType` for details. 
+         * Gets the type of the event. For details, refer to {@link https://docs.microsoft.com/javascript/api/office/office.eventtype | Office.EventType}.
          * 
          * [Api set: Mailbox 1.7] 
          */ 

@@ -10141,7 +10141,7 @@ declare namespace chrome.webRequest {
          * Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'.
          * @since Chrome 23.
          */
-        requestBody: WebRequestBody;
+        requestBody: WebRequestBody | null;
     }
 
     export interface WebRequestFullDetails extends WebRequestHeadersDetails, WebRequestBodyDetails { }

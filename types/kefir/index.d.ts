@@ -98,7 +98,7 @@ export class Observable<T, S> {
     bufferWithCount(count: number, options?: { flushOnEnd: boolean }): Observable<T[], S>;
     bufferWithTimeOrCount(interval: number, count: number, options?: { flushOnEnd: boolean }): Observable<T[], S>;
     transduce<U>(transducer: any): Observable<U, S>;
-    withHandler<U, V>(handler: (emitter: Emitter<U, S>, event: Event<T, S>) => void): Observable<U, S>;
+    withHandler<U, V>(handler: (emitter: Emitter<U, V>, event: Event<T, S>) => void): Observable<U, V>;
     // Combine streams
     combine<U, V, W>(otherObs: Observable<U, V>, combinator?: (value: T, ...values: U[]) => W): Observable<W, S | V>;
     zip<U, V, W>(otherObs: Observable<U, V>, combinator?: (value: T, ...values: U[]) => W): Observable<W, S | V>;

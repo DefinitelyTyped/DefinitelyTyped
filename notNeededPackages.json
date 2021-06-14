@@ -1561,6 +1561,10 @@
             "libraryName": "graphql-query-complexity",
             "asOfVersion": "0.2.0"
         },
+        "graphql-relay": {
+            "libraryName": "graphql-relay",
+            "asOfVersion": "0.7.0"
+        },
         "gravatar-url": {
             "libraryName": "gravatar-url",
             "asOfVersion": "3.0.0"
@@ -5297,6 +5301,10 @@
         "wordpress__a11y": {
             "libraryName": "@wordpress/a11y",
             "asOfVersion": "2.9.0"
+        },
+        "wordpress__api-fetch": {
+            "libraryName": "@wordpress/api-fetch",
+            "asOfVersion": "3.23.1"
         },
         "wordpress__autop": {
             "libraryName": "@wordpress/autop",

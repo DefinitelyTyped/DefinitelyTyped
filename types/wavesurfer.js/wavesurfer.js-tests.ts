@@ -1,13 +1,17 @@
-import * as WaveSurfer from "wavesurfer.js";
-import CursorPlugin = require("wavesurfer.js/src/plugin/cursor");
-import ElanPlugin = require("wavesurfer.js/src/plugin/elan");
-import MarkersPlugin = require("wavesurfer.js/src/plugin/markers");
-import MediaSessionPlugin = require("wavesurfer.js/src/plugin/mediasession");
-import MicrophonePlugin = require("wavesurfer.js/src/plugin/microphone");
-import MinimapPlugin = require("wavesurfer.js/src/plugin/minimap");
-import RegionsPlugin = require("wavesurfer.js/src/plugin/regions");
-import SpectogramPlugin = require("wavesurfer.js/src/plugin/spectogram");
-import TimelinePlugin = require("wavesurfer.js/src/plugin/timeline");
+import WaveSurfer = require("wavesurfer.js");
+
+import Init from "wavesurfer.js/src/html-init";
+import PeakCache from "wavesurfer.js/src/peakcache";
+import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
+import ElanPlugin from "wavesurfer.js/src/plugin/elan";
+import MarkersPlugin from "wavesurfer.js/src/plugin/markers";
+import MediaSessionPlugin from "wavesurfer.js/src/plugin/mediasession";
+import MicrophonePlugin from "wavesurfer.js/src/plugin/microphone";
+import MinimapPlugin from "wavesurfer.js/src/plugin/minimap";
+import RegionsPlugin from "wavesurfer.js/src/plugin/regions";
+import SpectogramPlugin from "wavesurfer.js/src/plugin/spectogram";
+import TimelinePlugin from "wavesurfer.js/src/plugin/timeline";
+import { PluginDefinition, PluginParams } from "wavesurfer.js/types/plugin";
 
 // https://www.npmjs.com/package/wavesurfer.js#api-in-examples
 // - create an instance
@@ -40,8 +44,8 @@ wsNewed.empty();
 
 // - create an instance with plugins
 class SamplePlugin {
-    constructor(params: WaveSurfer.PluginParams, ws: WaveSurfer) {}
-    static create(params: WaveSurfer.PluginParams): WaveSurfer.PluginDefinition {
+    constructor(params: PluginParams, ws: WaveSurfer) {}
+    static create(params: PluginParams): PluginDefinition {
         return {
             name: "samplePlugin",
             instance: SamplePlugin,
@@ -90,14 +94,16 @@ waveSurferWithMarkersPlugin.markers.destroy();
 // - plugin: mediasession
 const waveSurferWithMediaSessionPlugin = WaveSurfer.create({
     container: "#waveform",
-    plugins: [MediaSessionPlugin.create({
-        metadata: {
-            album: 'Acme',
-            artist: 'Acme',
-            artwork: [],
-            title: 'Foobar'
-        }
-    })],
+    plugins: [
+        MediaSessionPlugin.create({
+            metadata: {
+                album: "Acme",
+                artist: "Acme",
+                artwork: [],
+                title: "Foobar",
+            },
+        }),
+    ],
 });
 waveSurferWithMediaSessionPlugin.mediasession.destroy();
 
@@ -125,13 +131,32 @@ waveSurferWithRegionsPlugin.regions.destroy();
 // - plugin: spectogram
 const waveSurferWithSpectogramPlugin = WaveSurfer.create({
     container: "#waveform",
-    plugins: [SpectogramPlugin.create({})],
+    plugins: [
+        SpectogramPlugin.create({
+            container: "#spectogram",
+        }),
+    ],
 });
 waveSurferWithSpectogramPlugin.spectogram.destroy();
 
 // - plugin: timeline
 const waveSurferWithTimelinePlugin = WaveSurfer.create({
     container: "#waveform",
-    plugins: [TimelinePlugin.create({})],
+    plugins: [
+        TimelinePlugin.create({
+            container: "#timeline",
+        }),
+    ],
 });
 waveSurferWithTimelinePlugin.timeline.destroy();
+
+// - Init
+const waveSurferForInit = new WaveSurfer({ container: "#waveform" });
+const init = new Init(waveSurferForInit);
+init.initAllEls();
+
+// - PeakCache
+const peakCache = new PeakCache();
+peakCache.addRangeToPeakCache(1, 2, 3);
+peakCache.getCacheRanges();
+peakCache.clearPeakCache();
