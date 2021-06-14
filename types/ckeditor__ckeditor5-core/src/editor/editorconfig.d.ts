@@ -14,6 +14,7 @@ import { TextPartLanguageOption } from '@ckeditor/ckeditor5-language/src/textpar
 import { LinkConfig } from '@ckeditor/ckeditor5-link/src/link';
 import { PaginationConfig } from '@ckeditor/ckeditor5-pagination/src/pagination';
 import { RealTimeCollaborationConfig } from '@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativeediting';
+import { RestrictedEditingModeConfig } from '@ckeditor/ckeditor5-restricted-editing/src/restrictededitingmode';
 import { TableConfig } from '@ckeditor/ckeditor5-table/src/table';
 import { TrackChangesConfig } from '@ckeditor/ckeditor5-track-changes/src/trackchanges';
 import { TypingConfig } from '@ckeditor/ckeditor5-typing/src/typing';
@@ -36,8 +37,6 @@ type FontSizeConfig = any;
 type MediaEmbedConfig = any;
 // TODO: import {MentionConfig} from "@ckeditor/ckeditor5-mention/src/mention";
 type MentionConfig = any;
-// TODO: import {RestrictedEditingModeConfig} from "@ckeditor/ckeditor5-restricted-editing/src/restrictededitingmode";
-type RestrictedEditingModeConfig = any;
 // TODO: import {SidebarConfig} from "@ckeditor/ckeditor5-comments/src/annotations/sidebar";
 type SidebarConfig = any;
 // TODO: import {SimpleUploadConfig} from "@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter";
