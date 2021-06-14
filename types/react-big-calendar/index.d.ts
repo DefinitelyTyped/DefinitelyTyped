@@ -193,6 +193,10 @@ export interface Components<TEvent extends object = Event, TResource extends obj
         header?: React.ComponentType<HeaderProps>;
         event?: React.ComponentType<EventProps<TEvent>>;
     };
+    work_week?: {
+      header?: React.ComponentType<HeaderProps>;
+      event?: React.ComponentType<EventProps<TEvent>>;
+    };
     month?: {
         header?: React.ComponentType;
         dateHeader?: React.ComponentType;
