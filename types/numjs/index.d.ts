@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace nj;
-import { Data, DataType, NdArray as BaseNdArray } from "ndarray";
+import { Data, DataType, NdArray as BaseNdArray } from 'ndarray';
 
 export type NdType<T> = DataType | Data<T>;
 
@@ -152,6 +152,13 @@ export interface NdArray<T = number> extends BaseNdArray<Data<T>> {
     convolve(filter: NjArray<T>): NdArray<T>;
 
     fftconvolve(filter: NjArray<T>): NdArray<T>;
+
+    /**
+     * Gives a new shape to an array without changing its data.
+     *
+     * @param shape The new shape should be compatible with the original shape. If an integer, then the result will be a 1-D array of that length
+     */
+    reshape<T = number>(...shape: number[]): NdArray<T>;
 }
 
 export type NdArrayData<T> = Data<T>;

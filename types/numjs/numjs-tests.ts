@@ -3,6 +3,9 @@ import nj = require("numjs");
 const a = nj.abs(2);
 
 const arr = nj.arange(6);
+arr.reshape(1, 2, 3);
+// array([[[ 0, 1, 2],
+//         [ 3, 4, 5]]])
 arr.T;
 // array([[[ 0],
 //         [ 3]],
