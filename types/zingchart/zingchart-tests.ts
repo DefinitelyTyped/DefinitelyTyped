@@ -27,6 +27,9 @@ zingchart.render({
               sequence: 2,
               speed: 275,
             },
+            tooltip: {
+                text: 'Hello world',
+            },
             'value-box': {
                 text: 'Hello World',
             }
