@@ -93,7 +93,7 @@ export interface Props {
     /**
      * Function called when page has been clicked.
      */
-    onClick?: (event: Event) => void;
+    onClick?: (event: React.MouseEvent, page: PDFPageProxy) => void;
 
     /**
      * Function called in case of an error while loading the page.
