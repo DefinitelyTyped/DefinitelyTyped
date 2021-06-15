@@ -365,7 +365,7 @@ export interface GenerateSWOptions extends CommonOptions {
     /**
      * This will be used to create a [`NavigationRoute`](https://developers.google.com/web/tools/workbox/reference-docs/latest/workbox.routing.NavigationRoute)
      * that will respond to [navigation requests](https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests)
-     * for URLs that that aren't precached.
+     * for URLs that aren't precached.
      *
      * This is meant to be used in a [Single Page App](https://en.wikipedia.org/wiki/Single-page_application) scenario, in which you want all navigations to use common App Shell HTML.
      *

@@ -102,7 +102,9 @@ export interface BadgeProps {
     position?: 'middle' | 'top';
 }
 
-export type BoxPassthroughProps = Omit<React.ComponentProps<'div'>, 'onClick' | 'className' | 'style'>;
+export type BoxPassthroughProps =
+    & Omit<React.ComponentProps<'div'>, 'onClick' | 'className' | 'style' | 'ref'>
+    & React.RefAttributes<HTMLDivElement>;
 
 /**
  * Box Props Interface
