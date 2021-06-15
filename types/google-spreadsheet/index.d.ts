@@ -1166,7 +1166,7 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      *
      * @param properties basic Spreadsheet document properties to set
      */
-    createNewSpreadsheetDocument(properties: SpreadsheetBasicProperties): Promise<void>
+    createNewSpreadsheetDocument(properties: SpreadsheetBasicProperties): Promise<void>;
 
     // #endregion
 }
