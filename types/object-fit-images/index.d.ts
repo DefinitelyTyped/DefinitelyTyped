@@ -8,6 +8,6 @@ export as namespace objectFillImages;
 export = objectFillImages;
 
 declare function objectFillImages(
-    images: string | HTMLElement | HTMLElement[] | NodeList | null,
+    images?: string | HTMLElement | HTMLElement[] | NodeList | null,
     options?: { watchMQ?: boolean; skipTest?: boolean },
 ): void;
