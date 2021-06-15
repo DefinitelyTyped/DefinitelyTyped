@@ -186,7 +186,7 @@ declare module "pkijs/src/Accuracy" {
 }
 
 declare module "pkijs/src/AccessDescription" {
-    import GeneralName from "pkijs/src/AccessDescription";
+    import GeneralName from "pkijs/src/GeneralName";
     /**
      * Class from RFC5280
      *
@@ -208,7 +208,7 @@ declare module "pkijs/src/AccessDescription" {
 }
 
 declare module "pkijs/src/AuthorityKeyIdentifier" {
-    import GeneralName from "pkijs/src/AccessDescription";
+    import GeneralName from "pkijs/src/GeneralName";
     import { Integer, OctetString } from "asn1js";
 
     export default class AuthorityKeyIdentifier {
