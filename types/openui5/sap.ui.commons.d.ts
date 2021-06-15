@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -4142,6 +4142,13 @@ declare module "sap/ui/commons/ColorPicker" {
   export default class ColorPicker extends ColorPicker1 {
     /**
      * Constructor for a new ColorPicker.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.ColorPicker#constructor
+     * sap.ui.unified.ColorPicker} can be used.
      */
     constructor(
       /**
@@ -4151,6 +4158,13 @@ declare module "sap/ui/commons/ColorPicker" {
     );
     /**
      * Constructor for a new ColorPicker.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.ColorPicker#constructor
+     * sap.ui.unified.ColorPicker} can be used.
      */
     constructor(
       /**
@@ -6105,6 +6119,13 @@ declare module "sap/ui/commons/FileUploader" {
   export default class FileUploader extends FileUploader1 {
     /**
      * Constructor for a new FileUploader.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor
+     * sap.ui.unified.FileUploader} can be used.
      */
     constructor(
       /**
@@ -6114,6 +6135,13 @@ declare module "sap/ui/commons/FileUploader" {
     );
     /**
      * Constructor for a new FileUploader.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor
+     * sap.ui.unified.FileUploader} can be used.
      */
     constructor(
       /**
@@ -6173,6 +6201,13 @@ declare module "sap/ui/commons/FileUploaderParameter" {
   export default class FileUploaderParameter extends FileUploaderParameter1 {
     /**
      * Constructor for a new FileUploaderParameter.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor
+     * sap.ui.unified.FileUploaderParameter} can be used.
      */
     constructor(
       /**
@@ -6182,6 +6217,13 @@ declare module "sap/ui/commons/FileUploaderParameter" {
     );
     /**
      * Constructor for a new FileUploaderParameter.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor
+     * sap.ui.unified.FileUploaderParameter} can be used.
      */
     constructor(
       /**
@@ -6243,6 +6285,13 @@ declare module "sap/ui/commons/form/Form" {
   export default class Form extends Form1 {
     /**
      * Constructor for a new form/Form.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.Form#constructor
+     * sap.ui.layout.form.Form} can be used.
      */
     constructor(
       /**
@@ -6252,6 +6301,13 @@ declare module "sap/ui/commons/form/Form" {
     );
     /**
      * Constructor for a new form/Form.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.Form#constructor
+     * sap.ui.layout.form.Form} can be used.
      */
     constructor(
       /**
@@ -6332,6 +6388,13 @@ declare module "sap/ui/commons/form/FormContainer" {
   export default class FormContainer extends FormContainer1 {
     /**
      * Constructor for a new form/FormContainer.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormContainer#constructor
+     * sap.ui.layout.form.FormContainer} can be used.
      */
     constructor(
       /**
@@ -6341,6 +6404,13 @@ declare module "sap/ui/commons/form/FormContainer" {
     );
     /**
      * Constructor for a new form/FormContainer.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormContainer#constructor
+     * sap.ui.layout.form.FormContainer} can be used.
      */
     constructor(
       /**
@@ -6421,6 +6491,13 @@ declare module "sap/ui/commons/form/FormElement" {
   export default class FormElement extends FormElement1 {
     /**
      * Constructor for a new form/FormElement.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormElement#constructor
+     * sap.ui.layout.form.FormElement} can be used.
      */
     constructor(
       /**
@@ -6430,6 +6507,13 @@ declare module "sap/ui/commons/form/FormElement" {
     );
     /**
      * Constructor for a new form/FormElement.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormElement#constructor
+     * sap.ui.layout.form.FormElement} can be used.
      */
     constructor(
       /**
@@ -6510,6 +6594,13 @@ declare module "sap/ui/commons/form/FormLayout" {
   export default class FormLayout extends FormLayout1 {
     /**
      * Constructor for a new form/FormLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor
+     * sap.ui.layout.form.FormLayout} can be used.
      */
     constructor(
       /**
@@ -6519,6 +6610,13 @@ declare module "sap/ui/commons/form/FormLayout" {
     );
     /**
      * Constructor for a new form/FormLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor
+     * sap.ui.layout.form.FormLayout} can be used.
      */
     constructor(
       /**
@@ -6579,6 +6677,13 @@ declare module "sap/ui/commons/form/GridContainerData" {
   export default class GridContainerData extends GridContainerData1 {
     /**
      * Constructor for a new form/GridContainerData.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridContainerData#constructor
+     * sap.ui.layout.form.GridContainerData} can be used.
      */
     constructor(
       /**
@@ -6588,6 +6693,13 @@ declare module "sap/ui/commons/form/GridContainerData" {
     );
     /**
      * Constructor for a new form/GridContainerData.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridContainerData#constructor
+     * sap.ui.layout.form.GridContainerData} can be used.
      */
     constructor(
       /**
@@ -6649,6 +6761,13 @@ declare module "sap/ui/commons/form/GridElementData" {
   export default class GridElementData extends GridElementData1 {
     /**
      * Constructor for a new form/GridElementData.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridElementData#constructor
+     * sap.ui.layout.form.GridElementData} can be used.
      */
     constructor(
       /**
@@ -6658,6 +6777,13 @@ declare module "sap/ui/commons/form/GridElementData" {
     );
     /**
      * Constructor for a new form/GridElementData.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridElementData#constructor
+     * sap.ui.layout.form.GridElementData} can be used.
      */
     constructor(
       /**
@@ -6719,6 +6845,13 @@ declare module "sap/ui/commons/form/GridLayout" {
   export default class GridLayout extends GridLayout1 {
     /**
      * Constructor for a new form/GridLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridLayout#constructor
+     * sap.ui.layout.form.GridLayout} can be used.
      */
     constructor(
       /**
@@ -6728,6 +6861,13 @@ declare module "sap/ui/commons/form/GridLayout" {
     );
     /**
      * Constructor for a new form/GridLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridLayout#constructor
+     * sap.ui.layout.form.GridLayout} can be used.
      */
     constructor(
       /**
@@ -6787,6 +6927,13 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
   export default class ResponsiveLayout extends ResponsiveLayout1 {
     /**
      * Constructor for a new form/ResponsiveLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.ResponsiveLayout#constructor
+     * sap.ui.layout.form.ResponsiveLayout} can be used.
      */
     constructor(
       /**
@@ -6796,6 +6943,13 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
     );
     /**
      * Constructor for a new form/ResponsiveLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.ResponsiveLayout#constructor
+     * sap.ui.layout.form.ResponsiveLayout} can be used.
      */
     constructor(
       /**
@@ -6861,6 +7015,13 @@ declare module "sap/ui/commons/form/SimpleForm" {
   export default class SimpleForm extends SimpleForm1 {
     /**
      * Constructor for a new form/SimpleForm.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.SimpleForm#constructor
+     * sap.ui.layout.form.SimpleForm} can be used.
      */
     constructor(
       /**
@@ -6870,6 +7031,13 @@ declare module "sap/ui/commons/form/SimpleForm" {
     );
     /**
      * Constructor for a new form/SimpleForm.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.SimpleForm#constructor
+     * sap.ui.layout.form.SimpleForm} can be used.
      */
     constructor(
       /**
@@ -9809,6 +9977,13 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
   export default class HorizontalLayout extends HorizontalLayout1 {
     /**
      * Constructor for a new layout/HorizontalLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.HorizontalLayout#constructor
+     * sap.ui.layout.HorizontalLayout} can be used.
      */
     constructor(
       /**
@@ -9818,6 +9993,13 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
     );
     /**
      * Constructor for a new layout/HorizontalLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.HorizontalLayout#constructor
+     * sap.ui.layout.HorizontalLayout} can be used.
      */
     constructor(
       /**
@@ -11107,6 +11289,13 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
   export default class ResponsiveFlowLayout extends ResponsiveFlowLayout1 {
     /**
      * Constructor for a new layout/ResponsiveFlowLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayout#constructor
+     * sap.ui.layout.ResponsiveFlowLayout} can be used.
      */
     constructor(
       /**
@@ -11116,6 +11305,13 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
     );
     /**
      * Constructor for a new layout/ResponsiveFlowLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayout#constructor
+     * sap.ui.layout.ResponsiveFlowLayout} can be used.
      */
     constructor(
       /**
@@ -11176,6 +11372,13 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
   export default class ResponsiveFlowLayoutData extends ResponsiveFlowLayoutData1 {
     /**
      * Constructor for a new layout/ResponsiveFlowLayoutData.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayoutData#constructor
+     * sap.ui.layout.ResponsiveFlowLayoutData} can be used.
      */
     constructor(
       /**
@@ -11185,6 +11388,13 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
     );
     /**
      * Constructor for a new layout/ResponsiveFlowLayoutData.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayoutData#constructor
+     * sap.ui.layout.ResponsiveFlowLayoutData} can be used.
      */
     constructor(
       /**
@@ -11265,6 +11475,13 @@ declare module "sap/ui/commons/layout/VerticalLayout" {
   export default class VerticalLayout extends VerticalLayout1 {
     /**
      * Constructor for a new layout/VerticalLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.VerticalLayout#constructor
+     * sap.ui.layout.VerticalLayout} can be used.
      */
     constructor(
       /**
@@ -11274,6 +11491,13 @@ declare module "sap/ui/commons/layout/VerticalLayout" {
     );
     /**
      * Constructor for a new layout/VerticalLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.VerticalLayout#constructor
+     * sap.ui.layout.VerticalLayout} can be used.
      */
     constructor(
       /**
@@ -12522,6 +12746,13 @@ declare module "sap/ui/commons/Menu" {
   export default class Menu extends Menu1 {
     /**
      * Constructor for a new Menu control.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor
+     * sap.ui.unified.Menu} can be used.
      */
     constructor(
       /**
@@ -12531,6 +12762,13 @@ declare module "sap/ui/commons/Menu" {
     );
     /**
      * Constructor for a new Menu control.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor
+     * sap.ui.unified.Menu} can be used.
      */
     constructor(
       /**
@@ -13136,6 +13374,13 @@ declare module "sap/ui/commons/MenuItem" {
   export default class MenuItem extends MenuItem1 {
     /**
      * Constructor for a new MenuItem element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuItem#constructor
+     * sap.ui.unified.MenuItem} can be used.
      */
     constructor(
       /**
@@ -13145,6 +13390,13 @@ declare module "sap/ui/commons/MenuItem" {
     );
     /**
      * Constructor for a new MenuItem element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuItem#constructor
+     * sap.ui.unified.MenuItem} can be used.
      */
     constructor(
       /**
@@ -13246,6 +13498,13 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
   export default class MenuTextFieldItem extends MenuTextFieldItem1 {
     /**
      * Constructor for a new MenuTextFieldItem element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuTextFieldItem#constructor
+     * sap.ui.unified.MenuTextFieldItem} can be used.
      */
     constructor(
       /**
@@ -13255,6 +13514,13 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
     );
     /**
      * Constructor for a new MenuTextFieldItem element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuTextFieldItem#constructor
+     * sap.ui.unified.MenuTextFieldItem} can be used.
      */
     constructor(
       /**
@@ -15074,6 +15340,13 @@ declare module "sap/ui/commons/PasswordField" {
   export default class PasswordField extends TextField {
     /**
      * Constructor for a new PasswordField.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.commons.TextField#constructor
+     * sap.ui.commons.TextField} can be used.
      */
     constructor(
       /**
@@ -15083,6 +15356,13 @@ declare module "sap/ui/commons/PasswordField" {
     );
     /**
      * Constructor for a new PasswordField.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.commons.TextField#constructor
+     * sap.ui.commons.TextField} can be used.
      */
     constructor(
       /**
@@ -20354,6 +20634,13 @@ declare module "sap/ui/commons/SearchProvider" {
   export default class SearchProvider extends OpenSearchProvider {
     /**
      * Constructor for a new SearchProvider.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.search.OpenSearchProvider#constructor
+     * sap.ui.core.search.OpenSearchProvider} can be used.
      */
     constructor(
       /**
@@ -20363,6 +20650,13 @@ declare module "sap/ui/commons/SearchProvider" {
     );
     /**
      * Constructor for a new SearchProvider.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.search.OpenSearchProvider#constructor
+     * sap.ui.core.search.OpenSearchProvider} can be used.
      */
     constructor(
       /**
@@ -23995,6 +24289,13 @@ declare module "sap/ui/commons/Title" {
   export default class Title extends Title1 {
     /**
      * Constructor for a new Title.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Title#constructor
+     * sap.ui.core.Title} can be used.
      */
     constructor(
       /**
@@ -24004,6 +24305,13 @@ declare module "sap/ui/commons/Title" {
     );
     /**
      * Constructor for a new Title.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Title#constructor
+     * sap.ui.core.Title} can be used.
      */
     constructor(
       /**
