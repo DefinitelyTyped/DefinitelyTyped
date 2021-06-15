@@ -15,6 +15,7 @@ import Dialog from "sap/m/Dialog";
 import MessageBox from "sap/m/MessageBox";
 import FileUploader from "sap/ui/unified/FileUploader";
 import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
+import ODataListBinding from "sap/ui/model/odata/v4/ODataListBinding";
 
 Core.attachInit(() => {
     new Text({
@@ -124,3 +125,6 @@ const oTriggerButton = new Button({
 oUploadDialog.addContent(oFileUploader);
 oUploadDialog.addContent(oTriggerButton);
 oUploadDialog.open();
+
+const odataV4ListBinding = new ODataListBinding();
+const odataV4ListBindingCount = odataV4ListBinding.getCount();
