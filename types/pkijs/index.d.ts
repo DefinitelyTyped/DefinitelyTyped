@@ -1336,7 +1336,7 @@ declare module "pkijs/src/OCSPRequest" {
           * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
           * @returns {Promise}
           */
-        sign(privateKey: any, hashAlgorithm: string): PromiseLike<any>;
+        sign(privateKey: any, hashAlgorithm?: string): PromiseLike<any>;
     }
 }
 
@@ -1375,8 +1375,8 @@ declare module "pkijs/src/OCSPResponse" {
          * @param {*} privateKey Private key for "subjectPublicKeyInfo" structure
          * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
          * @returns {Promise}
-	     */
-        sign(privateKey: any, hashAlgorithm: string): PromiseLike<any>;
+         */
+        sign(privateKey: any, hashAlgorithm?: string): PromiseLike<any>;
         /**
          * Verify current OCSP Response
          * @param {Certificate | null} issuerCertificate In order to decrease size of resp issuer cert could be ommited. In such case you need manually provide it.
