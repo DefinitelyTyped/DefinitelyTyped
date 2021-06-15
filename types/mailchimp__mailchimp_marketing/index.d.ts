@@ -15,9 +15,17 @@ export interface SetListMemberOptions {
     skipMergeValidation: boolean;
 }
 
+export enum status {
+    'subscribed' = 'subscribed',
+    'unsubscribed' = 'unsubscribed',
+    'cleaned' = 'cleaned',
+    'pending' = 'pending',
+    'transactional' = 'transactional'
+}
+
 export interface SetListMemberBody {
     email_address: string;
-    status_if_new: 'subscribed' | 'unsubscribed' | 'cleaned' | 'pending' | 'transactional';
+    status_if_new: status;
     merge_fields?: { [key: string]: any };
 }
 
