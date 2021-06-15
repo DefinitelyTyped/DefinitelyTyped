@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/tnt/library" {
   /**
@@ -1529,6 +1529,13 @@ declare module "sap/tnt/ToolHeader" {
     __implements__sap_tnt_IToolHeader: boolean;
     /**
      * Constructor for a new ToolHeader.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor
+     * sap.m.OverflowToolbar} can be used.
      * See:
      * 	{@link fiori:https://experience.sap.com/fiori-design-web/tool-header/ Tool Header}
      */
@@ -1540,6 +1547,13 @@ declare module "sap/tnt/ToolHeader" {
     );
     /**
      * Constructor for a new ToolHeader.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor
+     * sap.m.OverflowToolbar} can be used.
      * See:
      * 	{@link fiori:https://experience.sap.com/fiori-design-web/tool-header/ Tool Header}
      */

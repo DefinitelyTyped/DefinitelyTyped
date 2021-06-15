@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -7804,6 +7804,13 @@ declare module "sap/ui/layout/form/ResponsiveLayout" {
   export default class ResponsiveLayout extends FormLayout {
     /**
      * Constructor for a new sap.ui.layout.form.ResponsiveLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor
+     * sap.ui.layout.form.FormLayout} can be used.
      */
     constructor(
       /**
@@ -7813,6 +7820,13 @@ declare module "sap/ui/layout/form/ResponsiveLayout" {
     );
     /**
      * Constructor for a new sap.ui.layout.form.ResponsiveLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor
+     * sap.ui.layout.form.FormLayout} can be used.
      */
     constructor(
       /**

@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/uxap/library" {
   /**
@@ -1804,6 +1804,13 @@ declare module "sap/uxap/ObjectPageDynamicHeaderContent" {
     __implements__sap_uxap_IHeaderContent: boolean;
     /**
      * Constructor for a new `ObjectPageDynamicHeaderContent`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.DynamicPageHeader#constructor
+     * sap.f.DynamicPageHeader} can be used.
      */
     constructor(
       /**
@@ -1813,6 +1820,13 @@ declare module "sap/uxap/ObjectPageDynamicHeaderContent" {
     );
     /**
      * Constructor for a new `ObjectPageDynamicHeaderContent`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.DynamicPageHeader#constructor
+     * sap.f.DynamicPageHeader} can be used.
      */
     constructor(
       /**
@@ -1885,6 +1899,13 @@ declare module "sap/uxap/ObjectPageDynamicHeaderTitle" {
     __implements__sap_uxap_IHeaderTitle: boolean;
     /**
      * Constructor for a new `ObjectPageDynamicHeaderTitle`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.DynamicPageTitle#constructor
+     * sap.f.DynamicPageTitle} can be used.
      * See:
      * 	{@link topic:6e340c119ddd4c778b315f65a0432420 Object Page Dynamic Header}
      * 	{@link topic:d2ef0099542d44dc868719d908e576d0 Object Page Headers}
@@ -1898,6 +1919,13 @@ declare module "sap/uxap/ObjectPageDynamicHeaderTitle" {
     );
     /**
      * Constructor for a new `ObjectPageDynamicHeaderTitle`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.DynamicPageTitle#constructor
+     * sap.f.DynamicPageTitle} can be used.
      * See:
      * 	{@link topic:6e340c119ddd4c778b315f65a0432420 Object Page Dynamic Header}
      * 	{@link topic:d2ef0099542d44dc868719d908e576d0 Object Page Headers}
@@ -3164,6 +3192,9 @@ declare module "sap/uxap/ObjectPageHeaderActionButton" {
    * @SINCE 1.26
    *
    * A Button that is used in the `actions` aggregation of the {@link sap.uxap.ObjectPageHeader}.
+   *
+   * The button is designed to be used with {@link sap.uxap.ObjectPageHeader} and any usage outside the intended
+   * context is not recommended.
    */
   export default class ObjectPageHeaderActionButton
     extends Button

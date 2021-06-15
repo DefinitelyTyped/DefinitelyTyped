@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare namespace sap {
   interface IUI5DefineDependencyNames {
@@ -121,6 +121,8 @@ declare namespace sap {
     "sap/ui/mdc/p13n/Engine": undefined;
 
     "sap/ui/mdc/p13n/modification/ModificationHandler": undefined;
+
+    "sap/ui/mdc/p13n/panels/GroupPanel": undefined;
 
     "sap/ui/mdc/p13n/panels/QueryPanel": undefined;
 
