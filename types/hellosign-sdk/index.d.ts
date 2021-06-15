@@ -181,11 +181,12 @@ declare namespace HelloSign {
     interface SignatureRequestRequestOptions<Metadata = GenericObject> {
         test_mode?: number;
         clientId: string;
-        files: string[];
+        files?: string[];
         title?: string;
         subject?: string;
         message?: string;
         template_id?: string;
+        template_ids?: string[];
         signers: Array<{
             email_address: string;
             name: string;

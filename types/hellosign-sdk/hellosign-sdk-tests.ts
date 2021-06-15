@@ -220,3 +220,32 @@ export const sendSigningRequest = async (pdfFilePath: string) => {
         signatureRequestId: data.signature_request.signature_request_id,
     };
 };
+
+export const sendSigningRequestWithTemplates = async (pdfFilePath: string) => {
+    const metadata = {
+        documentType: 'TEST',
+    };
+
+    const data = await hsClient.signatureRequest.createEmbedded({
+        test_mode: 0 || 1,
+        clientId: 'TEST',
+        subject: 'TEST',
+        signers: [
+            {
+                email_address: 'test@example.com',
+                name: 'Testy McTest',
+                role: 'Signer',
+            },
+        ],
+        template_id: "test template id",
+        metadata,
+    });
+    const signatures = data.signature_request.signatures;
+    const signature = signatures.find((sig: any) => sig.status_code === 'awaiting_signature')!;
+    const signed_at: number | null = signature.signed_at;
+    const urlRequest = await hsClient.embedded.getSignUrl(signature.signature_id);
+    return {
+        url: urlRequest.embedded.sign_url,
+        signatureRequestId: data.signature_request.signature_request_id,
+    };
+};
