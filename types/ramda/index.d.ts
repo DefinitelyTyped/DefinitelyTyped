@@ -1275,8 +1275,8 @@ export function none<T>(fn: (a: T) => boolean, list: readonly T[]): boolean;
 export function none<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 
 /**
- * A function wrapping a call to the given function in a `!` operation.  It will return `true` when the
- * underlying function would return a false-y value, and `false` when it would return a truth-y one.
+ * A function that returns the ! of its argument.
+ * It will return true when passed false-y value, and false when passed a truth-y one.
  */
 export function not(value: any): boolean;
 
