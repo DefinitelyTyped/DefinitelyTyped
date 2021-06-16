@@ -454,7 +454,7 @@ export function group<TObject, TKey1, TKey2>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2
-): InternMap<TKey1, Map<TKey2, TObject[]>>;
+): InternMap<TKey1, InternMap<TKey2, TObject[]>>;
 /**
  * Groups the specified array of values into an InternMap from key to array of value.
  *
@@ -468,7 +468,7 @@ export function group<TObject, TKey1, TKey2, TKey3>(
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
     key3: (value: TObject) => TKey3
-): InternMap<TKey1, Map<TKey2, Map<TKey3, TObject[]>>>;
+): InternMap<TKey1, InternMap<TKey2, InternMap<TKey3, TObject[]>>>;
 
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
