@@ -112,7 +112,7 @@ export interface JwtHeader {
     alg: string | Algorithm;
     typ?: string;
     cty?: string;
-    crit?: Array<string | keyof JwtHeader>;
+    crit?: Array<string | Exclude<keyof JwtHeader, 'crit'>>;
     kid?: string;
     jku?: string;
     x5u?: string | string[];
