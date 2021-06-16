@@ -676,7 +676,7 @@ const HasAttributesOfAsOrForwardedAsComponent = (
         <WrappedExternalAsComponent as="a" type="primitive" href="/" />
         <WrappedExternalAsComponent forwardedAs="a" type="complex" href="/" />
         <WrappedExternalAsComponent as={OtherExternalComponent} requiredProp="test" />
-        {<WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" /> // $ExpectError
+        <WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" /> { // $ExpectError
         }
         <WrappedExternalAsComponent forwardedAs={OtherExternalComponent} type="complex" requiredProp="test" />
     </>
@@ -706,6 +706,37 @@ class Test2Container extends React.Component<Test2ContainerProps> {
 const containerTest = <StyledTestContainer as={Test2Container} type="foo" />;
 const containerTestFailed = <StyledTestContainer as={Test2Container} type="foo" size="big" />; // $ExpectError
 const containerTestTwo = <StyledTestContainer forwardedAs={Test2Container} type="foo" size="big" />;
+
+interface GenericComponentProps<T> {
+    someProp: T;
+}
+const GenericComponent = <T, >(props: GenericComponentProps<T>): React.ReactElement<GenericComponentProps<T>> | null => null;
+const StyledGenericComponent = styled(GenericComponent)``;
+const TestStyledGenericComponent = (
+    <>
+        <StyledGenericComponent /> { // $ExpectError
+        }
+        <StyledGenericComponent someProp="someString" />
+        <StyledGenericComponent someProp={42} />
+        <StyledGenericComponent<React.FC<GenericComponentProps<string>>> someProp="someString" />
+        <StyledGenericComponent<React.FC<GenericComponentProps<string>>> someProp={42} /> { // $ExpectError
+        }
+        <StyledGenericComponent as="h1" />
+        <StyledGenericComponent as="h1" someProp="someString" /> { // $ExpectError
+        }
+
+        <WithComponentH1 as={GenericComponent} /> { // $ExpectError
+        }
+        <WithComponentH1 as={GenericComponent} someProp="someString" />
+        <WithComponentH1 as={GenericComponent} someProp={42} />
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} /> { // $ExpectError
+        }
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} someProp="someString" />
+        <WithComponentH1<React.FC<GenericComponentProps<number>>> as={GenericComponent} someProp={42} />
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} someProp={42} /> { // $ExpectError
+        }
+    </>
+);
 
 // 4.0 refs
 
