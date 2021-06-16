@@ -401,7 +401,7 @@ import { promisify } from 'util';
         {
             length: 123,
         },
-        (err: Error, key: crypto.KeyObject) => {},
+        (err: Error | null, key: crypto.KeyObject) => {},
     );
 
     crypto.generateKey(
@@ -409,7 +409,7 @@ import { promisify } from 'util';
         {
             length: 128,
         },
-        (err: Error, key: crypto.KeyObject) => {},
+        (err: Error | null, key: crypto.KeyObject) => {},
     );
 
     crypto.generateKey(
@@ -417,7 +417,7 @@ import { promisify } from 'util';
         {
             length: 192,
         },
-        (err: Error, key: crypto.KeyObject) => {},
+        (err: Error | null, key: crypto.KeyObject) => {},
     );
 
     crypto.generateKey(
@@ -425,7 +425,7 @@ import { promisify } from 'util';
         {
             length: 256,
         },
-        (err: Error, key: crypto.KeyObject) => {},
+        (err: Error | null, key: crypto.KeyObject) => {},
     );
 }
 
