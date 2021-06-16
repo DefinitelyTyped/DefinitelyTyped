@@ -1,5 +1,5 @@
 {
-    "extends": "dtslint/dtslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         "file-name-casing": false,
         "no-redundant-jsdoc-2": false,

@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "commonjs",
     "lib": ["esnext"],
     "target": "es2017",
-    "moduleResolution": "Node",
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
