@@ -82,7 +82,7 @@ playerOptions.controlBar! = {
     timeDivider: false,
 };
 
-videojs('example_video_1', playerOptions).ready(function() {
+videojs('example_video_1', playerOptions).ready(function playerReady() {
     // EXAMPLE: Start playing the video.
     const playPromise = this.play();
 
