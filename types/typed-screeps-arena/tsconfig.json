@@ -13,5 +13,5 @@
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },
-  "files": ["index.d.ts", "tests/screeps-arena-tests.ts"]
+  "files": ["index.d.ts", "test/screeps-arena-tests.ts"]
 }
