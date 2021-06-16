@@ -164,8 +164,8 @@ if (decoded) {
     decoded;
 }
 
-decoded = jwt.decode(token, { complete: true });
-if (decoded) {
-  // $ExpectType JwtPayload
-  decoded;
+const decoded2 = jwt.decode(token, { complete: true });
+if (decoded2) {
+  // $ExpectType Jwt
+  decoded2;
 }
