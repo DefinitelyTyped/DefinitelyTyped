@@ -6,7 +6,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 3.0.0
+// Last module patch version validated against: 3.0.1
 
 // ---------------------------------------------------------------------
 // Chord
