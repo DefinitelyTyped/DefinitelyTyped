@@ -144,20 +144,26 @@ jwt.verify(token, cert, { ignoreExpiration: true }, (err, decoded) => {
 
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, (_err, payload) => {
-    // $ExpectType JwtPayload | undefined
-    payload;
+    if (payload) {
+        // $ExpectType JwtPayload
+        payload;
+    }
 });
 
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, {}, (_err, payload) => {
-    // $ExpectType JwtPayload | undefined
-    payload;
+    if (payload) {
+        // $ExpectType JwtPayload
+        payload;
+    }
 });
 
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, { complete: true }, (_err, payload) => {
-    // $ExpectType Jwt | undefined
-    payload;
+    if (payload) {
+        // $ExpectType Jwt
+        payload;
+    }
 });
 
 cert = fs.readFileSync("public.pem"); // get public key
