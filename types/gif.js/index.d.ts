@@ -49,6 +49,9 @@ declare class GIF extends EventEmitter {
         options?: GIF.AddFrameOptions,
     ): void;
 
+    setOption<K extends keyof GIF.Options>(key: K, value: GIF.Options[K]): void;
+    setOptions(options: GIF.Options): void;
+
     on(event: 'abort' | 'start', listener: () => void): this;
     on(event: 'finished', listener: (blob: Blob, data: Uint8Array) => void): this;
     on(event: 'progress', listener: (percent: number) => void): this;

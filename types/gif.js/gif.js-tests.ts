@@ -6,6 +6,11 @@ const gif = new GIF({
     dither: 'Atkinson',
 });
 
+// change GIF options
+gif.setOption('dither', 'Atkinson');
+gif.setOption('quality', 'Atkinson'); // $ExpectError
+gif.setOptions(); // $ExpectError
+
 // add an image element
 declare const imageElement: HTMLImageElement;
 gif.addFrame(imageElement); // $ExpectType void
