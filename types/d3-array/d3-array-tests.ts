@@ -242,6 +242,21 @@ numOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToNum
 strOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToStrOrUndefined);
 numOrUndefinedExtent = d3Array.extent(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+// mode() -----------------------------------------------------------------------
+
+numOrUndefined = d3Array.mode(numbersArray);
+numOrUndefined = d3Array.mode(numericArray);
+numOrUndefined = d3Array.mode(numbersOrUndefinedArray);
+
+numOrUndefined = d3Array.mode(typedArray);
+numOrUndefined = d3Array.mode(readonlyNumbersArray);
+numOrUndefined = d3Array.mode(readonlyNumericArray);
+numOrUndefined = d3Array.mode(readonlyNumbersOrUndefinedArray);
+
+numOrUndefined = d3Array.mode(mixedObjectArray, accessorMixedObjectToNum);
+numOrUndefined = d3Array.mode(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.mode(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
 // mean() ----------------------------------------------------------------------
 
 numOrUndefined = d3Array.mean(numbersArray);
