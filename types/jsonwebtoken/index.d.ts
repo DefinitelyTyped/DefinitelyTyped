@@ -99,9 +99,9 @@ export type VerifyErrors =
     | JsonWebTokenError
     | NotBeforeError
     | TokenExpiredError;
-export type VerifyCallback = (
+export type VerifyCallback<T = JwtPayload> = (
     err: VerifyErrors | null,
-    decoded: object | undefined,
+    decoded: T | undefined,
 ) => void;
 
 export type SignCallback = (
@@ -217,6 +217,12 @@ export function verify(
     token: string,
     secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     callback?: VerifyCallback,
+): void;
+export function verify(
+    token: string,
+    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
+    options?: VerifyOptions & { complete: true },
+    callback?: VerifyCallback<Jwt>,
 ): void;
 export function verify(
     token: string,

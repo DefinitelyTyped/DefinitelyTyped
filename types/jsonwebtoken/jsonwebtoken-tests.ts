@@ -142,6 +142,21 @@ jwt.verify(token, cert, { ignoreExpiration: true }, (err, decoded) => {
     // if ignoreExpration == false and token is expired, err == expired token
 });
 
+jwt.verify(token, cert, (_err, payload) => {
+    // $ExpectType JwtPayload | undefined
+    payload;
+});
+
+jwt.verify(token, cert, {}, (_err, payload) => {
+    // $ExpectType JwtPayload | undefined
+    payload;
+});
+
+jwt.verify(token, cert, { complete: true }, (_err, payload) => {
+    // $ExpectType Jwt | undefined
+    payload;
+});
+
 /**
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
