@@ -8294,7 +8294,7 @@ declare namespace Office {
             Day = "day"
         }
         /**
-         * This bit mask represents a delegate's permissions on a shared folder.
+         * This bitmask represents a delegate's permissions on a shared folder.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -13198,8 +13198,9 @@ declare namespace Office {
          * Your app must have `ReadWriteItem` permissions to call the `saveAsync` method.
          *
          * However, in delegate or shared scenarios, you should instead use the `targetRestUrl` property of the
-         * `SharedProperties` object (introduced in requirement set 1.8). For more information,
-         * see the {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.sharedproperties?view=outlook-js-1.8 | SharedProperties} object
+         * (introduced in requirement set 1.8). For more information, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
          *
          * [Api set: Mailbox 1.5]
          *
