@@ -525,6 +525,43 @@ export function groups<TObject, TKey1, TKey2, TKey3>(
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject[]]>]>]>;
 
 /**
+ * Equivalent to group, but returns a flat array of [key0, key1, …, values] instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param key The key function.
+ */
+export function flatGroup<TObject, TKey>(
+    iterable: Iterable<TObject>,
+    key: (value: TObject) => TKey
+): Array<[TKey, TObject[]]>;
+/**
+ * Equivalent to group, but returns a flat array of [key0, key1, …, values] instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ */
+export function flatGroup<TObject, TKey1, TKey2>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2
+): Array<[TKey1, TKey2, TObject[]]>;
+/**
+ * Equivalent to group, but returns a flat array of [key0, key1, …, values] instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ * @param key3 The third key function.
+ */
+export function flatGroup<TObject, TKey1, TKey2, TKey3>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2,
+    key3: (value: TObject) => TKey3
+): Array<[TKey1, TKey2, TKey3, TObject[]]>;
+
+/**
  * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
  *
  * @param iterable The array to group.
@@ -680,6 +717,49 @@ export function rollups<TObject, TReduce, TKey1, TKey2, TKey3>(
     key2: (value: TObject) => TKey2,
     key3: (value: TObject) => TKey3
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TReduce]>]>]>;
+
+/**
+ * Equivalent to rollup, but returns a flat array of [key0, key1, …, value] instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param reduce The reduce function.
+ * @param key The key function.
+ */
+export function flatRollup<TObject, TReduce, TKey>(
+    iterable: Iterable<TObject>,
+    reduce: (value: TObject[]) => TReduce,
+    key: (value: TObject) => TKey
+): Array<[TKey, TReduce]>;
+/**
+ * Equivalent to rollup, but returns a flat array of [key0, key1, …, value] instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param reduce The reduce function.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ */
+export function flatRollup<TObject, TReduce, TKey1, TKey2>(
+    iterable: Iterable<TObject>,
+    reduce: (value: TObject[]) => TReduce,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2
+): Array<[TKey1, TKey2, TReduce]>;
+/**
+ * Equivalent to rollup, but returns a flat array of [key0, key1, …, value] instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param reduce The reduce function.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ * @param key3 The third key function.
+ */
+export function flatRollup<TObject, TReduce, TKey1, TKey2, TKey3>(
+    iterable: Iterable<TObject>,
+    reduce: (value: TObject[]) => TReduce,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2,
+    key3: (value: TObject) => TKey3
+): Array<[TKey1, TKey2, TKey3, TReduce]>;
 
 /**
  * Groups the specified iterable of elements according to the specified key function, sorts the groups according to the specified comparator, and then returns an array of keys in sorted order.
