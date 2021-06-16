@@ -11,6 +11,7 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Ivan Sieder <https://github.com/ivansieder>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Nandor Kraszlan <https://github.com/nandi95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -62,7 +63,7 @@ export interface SignOptions {
     jwtid?: string;
     mutatePayload?: boolean;
     noTimestamp?: boolean;
-    header?: object;
+    header?: JwtHeader;
     encoding?: string;
 }
 
