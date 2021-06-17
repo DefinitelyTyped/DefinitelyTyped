@@ -1,4 +1,4 @@
-// Type definitions for @chec/commerce.js 2.6
+// Type definitions for @chec/commerce.js 2.7
 // Project: https://github.com/chec/commerce.js#readme
 // Definitions by: Robbie Averill <https://github.com/robbieaverill>
 //                 Guy Marriott <https://github.com/ScopeyNZ>
