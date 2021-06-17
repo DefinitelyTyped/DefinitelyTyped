@@ -18,7 +18,14 @@ export interface Mjml2HtmlOptions {
     filePath?: string;
 }
 
-export function render(email: React.ReactElement, options?: Mjml2HtmlOptions): { html: string; errors: Error[] };
+export interface MjmlError {
+    line: number;
+    message: string;
+    tagName: string;
+    formattedMessage: string;
+}
+
+export function render(email: React.ReactElement, options?: Mjml2HtmlOptions): { html: string; errors: MjmlError[] };
 
 // Components
 
