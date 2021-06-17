@@ -113,7 +113,7 @@ export type RouteParameters<Route extends string> = string extends Route
             ? (GetRouteParameter<Rest> extends `${infer ParamName}?`
                 ? { [P in ParamName]?: string }
                 : { [P in GetRouteParameter<Rest>]: string }) &
-                (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : never)
+                (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
             : { };
 
 export interface IRouterMatcher<
