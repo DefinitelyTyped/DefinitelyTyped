@@ -8,14 +8,14 @@ import normalizeSQSMessageMiddleware from "Middlewares/normalizeSQSMessageMiddle
 import LesgoException from "Exceptions/LesgoException";
 
 import ElasticCacheService from "Services/ElasticCacheService";
-import "./Tests/services/ElasticsearchService";
-import "./Tests/services/AuroraDbService";
-import "./Tests/services/DynamoDbService";
-import "./Tests/services/LoggerService";
-import "./Tests/services/S3Service";
-import "./Tests/services/SQSService";
-import "./Tests/services/FirebaseAdminService";
-import "./Tests/services/JWTService";
+import "./tests/services/ElasticsearchService";
+import "./tests/services/AuroraDbService";
+import "./tests/services/DynamoDbService";
+import "./tests/services/LoggerService";
+import "./tests/services/S3Service";
+import "./tests/services/SQSService";
+import "./tests/services/FirebaseAdminService";
+import "./tests/services/JWTService";
 
 import { ec, get, set, del } from "Utils/cache";
 import { encrypt, decrypt, hash, hashMD5 } from "Utils/crypto";
