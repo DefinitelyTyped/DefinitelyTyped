@@ -79,7 +79,7 @@ declare namespace BetterSqlite3 {
         close(): this;
         defaultSafeIntegers(toggleState?: boolean): this;
         backup(destinationFile: string, options?: Database.BackupOptions): Promise<Database.BackupMetadata>;
-        table(name: string, options: VirtualTableOptions ): this;
+        table(name: string, options: VirtualTableOptions): this;
     }
 
     interface DatabaseConstructor {
