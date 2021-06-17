@@ -7,8 +7,15 @@ import {
     SimpleUploadAdapter,
 } from "@ckeditor/ckeditor5-upload";
 import { FileLoader, UploadAdapter } from "@ckeditor/ckeditor5-upload/src/filerepository";
+import { SimpleUploadConfig } from "@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter";
 
 class MyEditor extends Editor {}
+
+const config: SimpleUploadConfig = {
+    uploadUrl: "",
+    withCredentials: true,
+    headers: {foo: "bar"}
+};
 
 const fileRepository = new FileRepository(new MyEditor());
 fileRepository.on("click", () => {});

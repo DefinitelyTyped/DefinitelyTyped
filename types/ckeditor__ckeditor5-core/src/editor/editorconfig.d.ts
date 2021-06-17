@@ -23,6 +23,7 @@ import { RestrictedEditingModeConfig } from '@ckeditor/ckeditor5-restricted-edit
 import { TableConfig } from '@ckeditor/ckeditor5-table/src/table';
 import { TrackChangesConfig } from '@ckeditor/ckeditor5-track-changes/src/trackchanges';
 import { TypingConfig } from '@ckeditor/ckeditor5-typing/src/typing';
+import { SimpleUploadConfig } from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 import { WordCountConfig } from '@ckeditor/ckeditor5-word-count/src/wordcount';
 import ContextPlugin from '../contextplugin';
 import Plugin, { PluginInterface } from '../plugin';
@@ -33,8 +34,6 @@ type CommentsConfig = any;
 type MentionConfig = any;
 // TODO: import {SidebarConfig} from "@ckeditor/ckeditor5-comments/src/annotations/sidebar";
 type SidebarConfig = any;
-// TODO: import {SimpleUploadConfig} from "@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter";
-type SimpleUploadConfig = any;
 
 export interface EditorConfig {
     alignment?: AlignmentConfig;
