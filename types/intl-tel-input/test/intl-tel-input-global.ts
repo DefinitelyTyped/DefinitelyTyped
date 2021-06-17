@@ -99,7 +99,7 @@ iti.isValidNumber(); // etc
 intlTelInputUtils.formatNumber('07733123456', 'gb', intlTelInputUtils.numberFormat.INTERNATIONAL);
 // $ExpectType string
 intlTelInputUtils.getExampleNumber('gb',  false, intlTelInputUtils.numberType.MOBILE);
-// $ExpectType string
+// $ExpectType numberType
 intlTelInputUtils.getNumberType('07733123456',  'gb');
 // $ExpectType string
 intlTelInputUtils.getValidationError('07733123456',  'gb');
