@@ -940,7 +940,7 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      *
      * @param sheetId document ID from the URL of the Spreadsheet
      */
-    constructor(sheetId: string);
+    constructor(sheetId?: string);
 
     // #region BASIC PROPERTIES
     // These properties should reflect the ones in the SpreadsheetBasicProperties interface
@@ -1157,6 +1157,16 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      * @param rangeId unique ID of the range to delete
      */
     deleteNamedRange(rangeId: string): Promise<void>;
+
+    /**
+     * @description
+     * create a new google spreadsheet document
+     *
+     * You must initialize the GoogleSpreadsheet without an id in order to call this method
+     *
+     * @param properties basic Spreadsheet document properties to set
+     */
+    createNewSpreadsheetDocument(properties: SpreadsheetBasicProperties): Promise<void>;
 
     // #endregion
 }

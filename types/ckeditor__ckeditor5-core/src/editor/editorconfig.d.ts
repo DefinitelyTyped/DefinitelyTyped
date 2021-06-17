@@ -19,9 +19,11 @@ import { LinkConfig } from '@ckeditor/ckeditor5-link/src/link';
 import { MediaEmbedConfig } from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
 import { PaginationConfig } from '@ckeditor/ckeditor5-pagination/src/pagination';
 import { RealTimeCollaborationConfig } from '@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativeediting';
+import { RestrictedEditingModeConfig } from '@ckeditor/ckeditor5-restricted-editing/src/restrictededitingmode';
 import { TableConfig } from '@ckeditor/ckeditor5-table/src/table';
 import { TrackChangesConfig } from '@ckeditor/ckeditor5-track-changes/src/trackchanges';
 import { TypingConfig } from '@ckeditor/ckeditor5-typing/src/typing';
+import { SimpleUploadConfig } from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 import { WordCountConfig } from '@ckeditor/ckeditor5-word-count/src/wordcount';
 import ContextPlugin from '../contextplugin';
 import Plugin, { PluginInterface } from '../plugin';
@@ -30,12 +32,8 @@ import Plugin, { PluginInterface } from '../plugin';
 type CommentsConfig = any;
 // TODO: import {MentionConfig} from "@ckeditor/ckeditor5-mention/src/mention";
 type MentionConfig = any;
-// TODO: import {RestrictedEditingModeConfig} from "@ckeditor/ckeditor5-restricted-editing/src/restrictededitingmode";
-type RestrictedEditingModeConfig = any;
 // TODO: import {SidebarConfig} from "@ckeditor/ckeditor5-comments/src/annotations/sidebar";
 type SidebarConfig = any;
-// TODO: import {SimpleUploadConfig} from "@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter";
-type SimpleUploadConfig = any;
 
 export interface EditorConfig {
     alignment?: AlignmentConfig;
