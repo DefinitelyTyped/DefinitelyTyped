@@ -51,11 +51,11 @@ declare namespace BetterSqlite3 {
     }
 
     interface VirtualTableOptions {
-        rows: () => Generator
-        columns: string[]
-        parameters?: string[] //maximum of 32
-        safeIntegers?: boolean
-        directOnly?: boolean
+        rows: () => Generator;
+        columns: string[];
+        parameters?: string[];
+        safeIntegers?: boolean;
+        directOnly?: boolean;
     }
 
     interface Database {
@@ -79,7 +79,7 @@ declare namespace BetterSqlite3 {
         close(): this;
         defaultSafeIntegers(toggleState?: boolean): this;
         backup(destinationFile: string, options?: Database.BackupOptions): Promise<Database.BackupMetadata>;
-        table: (name: string, options: VirtualTableOptions ) => void
+        table(name: string, options: VirtualTableOptions ): this;
     }
 
     interface DatabaseConstructor {
