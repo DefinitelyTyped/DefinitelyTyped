@@ -1,6 +1,7 @@
 // Type definitions for cpx 1.5
 // Project: https://github.com/mysticatea/cpx
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
+//                 Florian Imdahl <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -37,8 +38,8 @@ export class Watcher extends EventEmitter {
     close(): void;
 }
 
-export function copy(source: string, dest: string, options?: AsyncOptions, callback?: (error: Error | null) => void): void;
-export function copy(source: string, dest: string, callback?: (error: Error | null) => void): void;
+export function copy(source: string, dest: string, options?: AsyncOptions, callback?: (error: Error | null) => void): Promise<void>;
+export function copy(source: string, dest: string, callback?: (error: Error | null) => void): Promise<void>;
 
 export function copySync(source: string, dest: string, options?: SyncOptions): void;
 
