@@ -12,6 +12,7 @@
         "no-single-declare-module": false,
         "strict-export-declare-modifiers": false,
         "whitespace":false,
-        "npmNamingRule":false
+        "npmNamingRule":false,
+        "npm-naming": false
     }
 }
