@@ -19,8 +19,8 @@ db.checkpoint();
 db.checkpoint('main');
 db.table('vtable', {
     columns: ['name'],
-    rows: function* () {
-        yield { 'testName' }   
+    *rows() {
+        yield 'testName';
     }
 })
 db.function('noop', () => { });
