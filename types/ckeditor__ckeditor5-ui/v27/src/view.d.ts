@@ -1,20 +1,17 @@
-import { DomEventData } from "@ckeditor/ckeditor5-engine";
-import { Locale } from "@ckeditor/ckeditor5-utils";
-import { DomEmitter } from "@ckeditor/ckeditor5-utils/src/dom/emittermixin";
-import {
-  Emitter,
-  EmitterMixinDelegateChain,
-} from "@ckeditor/ckeditor5-utils/src/emittermixin";
+import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
-import {
-  BindChain,
-  Observable,
-} from "@ckeditor/ckeditor5-utils/src/observablemixin";
+import { Observable as ObservableBase } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
-import Template, { TemplateDefinition } from "./template";
+import { Locale } from "@ckeditor/ckeditor5-utils";
+import Template, { BindChain, TemplateDefinition } from "./template";
 import ViewCollection from "./viewcollection";
+import { DomEventData } from "@ckeditor/ckeditor5-engine";
 
-export default class View implements DomEmitter, Observable {
+interface Observable extends Omit<ObservableBase, "bind"> {
+    bind(...bindProperties: string[]): BindChain;
+}
+
+export default class View implements Emitter, Observable {
     element: HTMLElement | null;
     readonly isRendered: boolean;
     readonly locale?: Locale;
@@ -59,3 +56,5 @@ export default class View implements DomEmitter, Observable {
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
 }
+
+export {};
