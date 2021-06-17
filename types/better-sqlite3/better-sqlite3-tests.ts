@@ -22,7 +22,7 @@ db.table('vtable', {
     *rows() {
         yield 'testName';
     }
-})
+});
 db.function('noop', () => { });
 db.function('noop', { deterministic: true, varargs: true }, () => { });
 db.aggregate('add', {
@@ -47,7 +47,7 @@ db.aggregate('addAll', {
 db.defaultSafeIntegers();
 db.defaultSafeIntegers(true);
 
-const vtable: Sqlite.Statement = db.prepare('SELECT * FROM vtable')
+const vtable: Sqlite.Statement = db.prepare('SELECT * FROM vtable');
 vtable.all();
 
 const stmt: Sqlite.Statement = db.prepare('SELECT * FROM test WHERE name == ?;');
