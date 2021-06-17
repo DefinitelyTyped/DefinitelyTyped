@@ -3173,6 +3173,7 @@ declare namespace React {
         allowReorder?: "no" | "yes";
         alphabetic?: number | string;
         amplitude?: number | string;
+        angle?: number | string;
         arabicForm?: "initial" | "medial" | "terminal" | "isolated";
         ascent?: number | string;
         attributeName?: string;
