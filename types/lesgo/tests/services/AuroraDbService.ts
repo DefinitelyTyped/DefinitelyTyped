@@ -1,4 +1,4 @@
-import "./pagination";
+import "./pagination/index";
 import AuroraDbService from "Services/AuroraDbService";
 
 const db = new AuroraDbService(); // $ExpectType AuroraDbService
