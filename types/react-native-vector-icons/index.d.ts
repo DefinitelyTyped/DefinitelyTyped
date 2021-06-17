@@ -21,8 +21,8 @@ import { TextProps } from 'react-native';
  *
  */
 export function createIconSet(
-  glyphMap: {}, 
-  fontFamily: string, 
+  glyphMap: {},
+  fontFamily: string,
   fontFile?: string
 ): typeof Icon;
 
