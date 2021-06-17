@@ -4,6 +4,7 @@
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Robert Ying <https://github.com/robertying>
 //                 Jesse Katsumata <https://github.com/Naturalclar>
+//                 Cambo <https://github.com/indentedspace>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -19,11 +20,7 @@ import { TextProps } from 'react-native';
  * to the font file in you asset folder.
  *
  */
-export function createIconSet(
-  glyphMap: {},
-  fontFamily: string,
-  fontFile?: string
-): typeof Icon;
+export function createIconSet(glyphMap: {}, fontFamily: string, fontFile?: string): typeof Icon;
 
 /**
  * Convenience method to create a custom font based on a fontello config file.
