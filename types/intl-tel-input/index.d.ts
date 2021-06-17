@@ -1,4 +1,4 @@
-// Type definitions for intl-tel-input 17.0.3
+// Type definitions for intl-tel-input 17.0
 // Project: https://github.com/jackocnr/intl-tel-input
 // Definitions by: Fidan Hakaj <https://github.com/fdnhkj>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
