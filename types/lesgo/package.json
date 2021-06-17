@@ -2,6 +2,6 @@
     "private": true,
     "dependencies": {
         "middy": "^0.29.0",
-        "memcached-elasticache": "^1.1.1"
+        "@elastic/elasticsearch": "^7.4.0"
     }
 }

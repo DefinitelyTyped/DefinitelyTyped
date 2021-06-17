@@ -27,6 +27,9 @@
             ],
             "Services/*": [
                 "lesgo/services/*"
+            ],
+            "Tests/*": [
+                "lesgo/tests/*"
             ]
         }
     },

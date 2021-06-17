@@ -3,15 +3,13 @@
 // Definitions by: xXLXx <https://github.com/xxlxx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from "./middlewares/httpMiddleware";
-export * from "./middlewares/normalizeHttpRequestMiddleware";
-export * from "./middlewares/errorHttpResponseMiddleware";
-export * from "./middlewares/successHttpResponseMiddleware";
-export * from "./middlewares/verifyJwtMiddleware";
-export * from "./middlewares/normalizeSQSMessageMiddleware";
+// Minimum TypeScript Version: 3.8
+// We did this to adjust to data-api-client
 
-export * from "./exceptions/LesgoException";
+export * from "./middlewares";
 
-export * from "./utils/cache";
+export * from "./exceptions";
 
-export * from "./services/ElasticsearchService";
+export * from "./services";
+
+export * from "./utils";
