@@ -1,4 +1,4 @@
-import AuroraDbService from "Services/AuroraDbService";
+import AuroraDbService from "../../services/AuroraDbService";
 
 export interface PaginatorOptions {
     total: number;

@@ -1,5 +1,5 @@
 import "./pagination/index";
-import AuroraDbService from "Services/AuroraDbService";
+import AuroraDbService from "lesgo/services/AuroraDbService";
 
 const db = new AuroraDbService(); // $ExpectType AuroraDbService
 

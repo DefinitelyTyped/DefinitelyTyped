@@ -1,4 +1,4 @@
-import JWTService from "Services/JWTService";
+import JWTService from "lesgo/services/JWTService";
 
 // $ExpectType JWTService<{ bar: any; foo: any; }>
 const jwtService = new JWTService("mytoken", {

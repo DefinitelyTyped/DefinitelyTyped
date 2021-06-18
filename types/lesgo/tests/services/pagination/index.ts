@@ -1,6 +1,6 @@
-import db from "Utils/db";
-import Paginator, { PaginatorObject } from "Services/pagination/Paginator";
-import LengthAwarePaginator from "Services/pagination/LengthAwarePaginator";
+import db from "lesgo/utils/db";
+import Paginator, { PaginatorObject } from "lesgo/services/pagination/Paginator";
+import LengthAwarePaginator from "lesgo/services/pagination/LengthAwarePaginator";
 
 const paginator = new Paginator(db, "SELECT * FROM Users;", []); // $ExpectType Paginator
 paginator.previousPage(); // $ExpectType number | false

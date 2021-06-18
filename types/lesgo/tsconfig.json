@@ -14,21 +14,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "Middlewares/*": [
-                "lesgo/middlewares/*"
-            ],
-            "Exceptions/*": [
-                "lesgo/exceptions/*"
-            ],
-            "Utils/*": [
-                "lesgo/utils/*"
-            ],
-            "Services/*": [
-                "lesgo/services/*"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

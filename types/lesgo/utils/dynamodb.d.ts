@@ -1,4 +1,4 @@
-import DynamoDbService from "Services/DynamoDbService";
+import DynamoDbService from "../services/DynamoDbService";
 
 declare const dynamodb: DynamoDbService;
 

@@ -1,4 +1,4 @@
-import FirebaseAdmin from "Services/FirebaseAdminService";
+import FirebaseAdmin from "lesgo/services/FirebaseAdminService";
 
 const firebase = new FirebaseAdmin(); // $ExpectType FirebaseAdmin
 

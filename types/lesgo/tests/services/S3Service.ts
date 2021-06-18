@@ -1,4 +1,4 @@
-import S3Service from "Services/S3Service";
+import S3Service from "lesgo/services/S3Service";
 
 // $ExpectType S3Service
 const s3 = new S3Service({

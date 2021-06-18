@@ -1,5 +1,5 @@
 import SQS = require("aws-sdk/clients/sqs");
-import SQSService from "Services/SQSService";
+import SQSService from "../services/SQSService";
 
 export function dispatch(payload: any, queueName: string): Promise<SQS.SendMessageResult>;
 
