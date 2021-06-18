@@ -57,6 +57,8 @@ interface MediaTrackCapabilities {
     sharpness: MediaSettingsRange;
 
     focusDistance: MediaSettingsRange;
+    pan: MediaSettingsRange;
+    tilt: MediaSettingsRange;
     zoom: MediaSettingsRange;
     torch: boolean;
 }
@@ -81,30 +83,34 @@ interface MediaTrackConstraintSet {
     sharpness?: W3C.ConstrainDouble;
 
     focusDistance?: W3C.ConstrainDouble;
-    zoom?: W3C.ConstrainDouble;
+    zoom?: boolean | W3C.ConstrainDouble;
+    pan?: boolean | W3C.ConstrainDouble;
+    tilt?: boolean | W3C.ConstrainDouble;
 
     torch?: W3C.ConstrainBoolean;
 }
 
 interface MediaTrackSettings {
-    whiteBalanceMode: MeteringMode;
-    exposureMode: MeteringMode;
-    focusMode: MeteringMode;
-    pointsOfInterest: Point2D[];
+    whiteBalanceMode?: MeteringMode;
+    exposureMode?: MeteringMode;
+    focusMode?: MeteringMode;
+    pointsOfInterest?: Point2D[];
 
-    exposureCompensation: number;
-    colorTemperature: number;
-    iso: number;
+    exposureCompensation?: number;
+    colorTemperature?: number;
+    iso?: number;
 
-    brightness: number;
-    contrast: number;
-    saturation: number;
-    sharpness: number;
+    brightness?: number;
+    contrast?: number;
+    saturation?: number;
+    sharpness?: number;
 
-    focusDistance: number;
-    zoom: number;
+    focusDistance?: number;
+    pan?: number;
+    tilt?: number;
+    zoom?: number;
 
-    torch: boolean;
+    torch?: boolean;
 }
 
 interface MediaTrackSupportedConstraints {
