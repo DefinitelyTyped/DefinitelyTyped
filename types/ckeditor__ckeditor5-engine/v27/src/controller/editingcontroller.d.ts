@@ -1,33 +1,28 @@
-import { Collection } from "@ckeditor/ckeditor5-utils";
 import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
+import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
+import DowncastDispatcher from "../conversion/downcastdispatcher";
+import Mapper from "../conversion/mapper";
+import Model from "../model/model";
 import DomEventData from "../view/observer/domeventdata";
-import Differ from "./differ";
-import DocumentSelection from "./documentselection";
-import Model from "./model";
-import RootElement from "./rootelement";
-import Writer from "./writer";
+import { StylesProcessor } from "../view/stylesmap";
+import View from "../view/view";
 
-export default class Document implements Emitter {
-    readonly differ: Differ;
-    readonly graveyard: RootElement;
-    readonly history: History;
+export default class EditingController implements Emitter, Observable {
+    readonly downcastDispatcher: DowncastDispatcher;
+    readonly mapper: Mapper;
     readonly model: Model;
-    readonly roots: Collection<RootElement>;
-    readonly selection: DocumentSelection;
-    version: number;
+    readonly view: View;
 
-    constructor();
-    createRoot(elementName?: string, rootName?: string): RootElement;
+    constructor(model: Model, stylesProcessor: StylesProcessor);
     destroy(): void;
-    getRoot(name?: string): RootElement | null;
-    getRootNames(): string[];
-    registerPostFixer(postFixer: (writer: Writer) => void): void;
-    toJSON(): Omit<this, "selection" | "model"> & {
-        selection: "[engine.model.DocumentSelection]";
-        model: "[engine.model.Model]";
-    };
+
+    set(option: Record<string, unknown>): void;
+    set(name: string, value: unknown): void;
+    bind(...bindProperties: string[]): BindChain;
+    unbind(...unbindProperties: string[]): void;
+    decorate(methodName: string): void;
 
     on: (
         event: string,

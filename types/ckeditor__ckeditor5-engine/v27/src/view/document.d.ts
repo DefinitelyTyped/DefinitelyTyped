@@ -1,33 +1,33 @@
 import { Collection } from "@ckeditor/ckeditor5-utils";
 import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
+import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
-import DomEventData from "../view/observer/domeventdata";
-import Differ from "./differ";
 import DocumentSelection from "./documentselection";
-import Model from "./model";
-import RootElement from "./rootelement";
-import Writer from "./writer";
+import DowncastWriter from "./downcastwriter";
+import { BubblingEmitter } from "./observer/bubblingemittermixin";
+import DomEventData from "./observer/domeventdata";
+import RootEditableElement from "./rooteditableelement";
+import { StylesProcessor } from "./stylesmap";
 
-export default class Document implements Emitter {
-    readonly differ: Differ;
-    readonly graveyard: RootElement;
-    readonly history: History;
-    readonly model: Model;
-    readonly roots: Collection<RootElement>;
+export default class Document implements BubblingEmitter, Emitter, Observable {
+    readonly isComposing: boolean;
+    readonly isFocused: boolean;
+    isReadOnly: boolean;
+    readonly roots: Collection<RootEditableElement>;
     readonly selection: DocumentSelection;
-    version: number;
+    readonly stylesProcessor: StylesProcessor;
 
-    constructor();
-    createRoot(elementName?: string, rootName?: string): RootElement;
+    constructor(stylesProcessor: StylesProcessor);
     destroy(): void;
-    getRoot(name?: string): RootElement | null;
-    getRootNames(): string[];
-    registerPostFixer(postFixer: (writer: Writer) => void): void;
-    toJSON(): Omit<this, "selection" | "model"> & {
-        selection: "[engine.model.DocumentSelection]";
-        model: "[engine.model.Model]";
-    };
+    getRoot(name?: string): RootEditableElement | null;
+    registerPostFixer(postFixer: (writer: DowncastWriter) => boolean | void): void;
+
+    set(option: Record<string, unknown>): void;
+    set(name: string, value: unknown): void;
+    bind(...bindProperties: string[]): BindChain;
+    unbind(...unbindProperties: string[]): void;
+    decorate(methodName: string): void;
 
     on: (
         event: string,
@@ -51,3 +51,5 @@ export default class Document implements Emitter {
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
 }
+
+export type ChangeType = "children" | "attributes" | "text";

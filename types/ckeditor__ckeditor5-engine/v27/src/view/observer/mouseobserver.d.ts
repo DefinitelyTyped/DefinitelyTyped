@@ -1,6 +1,6 @@
 import DomEventObserver from "./domeventobserver";
 
 export default class MouseObserver extends DomEventObserver {
-    domEventType: ["mousedown", "mouseup", "mouseover", "mouseout"];
+    domEventType: ["mousedown", "mouseup"];
     onDomEvent(domEvent: MouseEvent): void;
 }

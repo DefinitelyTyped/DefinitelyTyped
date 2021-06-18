@@ -1,13 +1,13 @@
-import { DomEventData } from '@ckeditor/ckeditor5-engine';
-import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
-import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
-import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
-import ModelElement from '../model/element';
-import ModelPosition from '../model/position';
-import ModelRange from '../model/range';
-import Element from '../view/element';
-import Position from '../view/position';
-import Range from '../view/range';
+import { DomEventData } from "@ckeditor/ckeditor5-engine";
+import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
+import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
+import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
+import ModelElement from "../model/element";
+import ModelPosition from "../model/position";
+import ModelRange from "../model/range";
+import Element from "../view/element";
+import Position from "../view/position";
+import Range from "../view/range";
 
 export default class Mapper implements Emitter {
     bindElementToMarker(element: Element, name: string): void;

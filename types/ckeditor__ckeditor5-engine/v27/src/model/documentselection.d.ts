@@ -3,31 +3,40 @@ import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/sr
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import DomEventData from "../view/observer/domeventdata";
-import Differ from "./differ";
-import DocumentSelection from "./documentselection";
-import Model from "./model";
-import RootElement from "./rootelement";
-import Writer from "./writer";
+import Document from "./document";
+import Element from "./element";
+import Position from "./position";
+import Range from "./range";
+import { Marker } from "./markercollection";
+import Selection from "./selection";
 
-export default class Document implements Emitter {
-    readonly differ: Differ;
-    readonly graveyard: RootElement;
-    readonly history: History;
-    readonly model: Model;
-    readonly roots: Collection<RootElement>;
-    readonly selection: DocumentSelection;
-    version: number;
+export default class DocumentSelection implements Emitter {
+    readonly anchor: Position | null;
+    readonly focus: Position | null;
+    readonly hasOwnRange: boolean;
+    readonly isBackward: boolean;
+    readonly isCollapsed: boolean;
+    readonly isGravityOverridden: boolean;
+    readonly markers: Collection<Marker>;
+    readonly rangeCount: number;
 
-    constructor();
-    createRoot(elementName?: string, rootName?: string): RootElement;
+    constructor(doc: Document);
+    containsEntireContent(element?: Element): boolean;
     destroy(): void;
-    getRoot(name?: string): RootElement | null;
-    getRootNames(): string[];
-    registerPostFixer(postFixer: (writer: Writer) => void): void;
-    toJSON(): Omit<this, "selection" | "model"> & {
-        selection: "[engine.model.DocumentSelection]";
-        model: "[engine.model.Model]";
-    };
+    getAttribute(key: string): string | number | boolean | undefined;
+    getAttributeKeys(): IterableIterator<string>;
+    getAttributes(): IterableIterator<[string, string | number | boolean]>;
+    getFirstPosition(): Position | null;
+    getFirstRange(): Range | null;
+    getLastPosition(): Position | null;
+    getLastRange(): Range | null;
+    getRanges(): Generator<Range>;
+    getSelectedBlocks(): ReturnType<Selection["getSelectedBlocks"]>;
+    getSelectedElement(): Element | null;
+    hasAttribute(key: string): boolean;
+    is(type: string): boolean;
+    observeMarkers(prefixOrName: string): void;
+    refresh(): void;
 
     on: (
         event: string,

@@ -71,7 +71,6 @@ export default class Schema implements Emitter, Observable {
 export interface SchemaItemDefinition {
     allowAttributes?: string | string[];
     allowAttributesOf?: string | string[];
-    allowChildren?: string|string[];
     allowContentOf?: string | string[];
     allowIn?: string | string[];
     allowWhere?: string | string[];

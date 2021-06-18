@@ -1,69 +1,51 @@
-import { DomEventData } from "@ckeditor/ckeditor5-engine";
 import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
-import Batch from "./batch";
 import Document from "./document";
-import DocumentFragment from "./documentfragment";
-import DocumentSelection from "./documentselection";
+import DomConverter from "./domconverter";
+import DowncastWriter from "./downcastwriter";
 import Element from "./element";
 import { Item } from "./item";
-import MarkerCollection from "./markercollection";
-import Operation from "./operation/operation";
-import Position, { PositionStickiness } from "./position";
+import DomEventData from "./observer/domeventdata";
+import Observer from "./observer/observer";
+import Position from "./position";
 import Range from "./range";
-import Schema from "./schema";
 import Selection, { Selectable } from "./selection";
-import Writer from "./writer";
+import { StylesProcessor } from "./stylesmap";
 
-export default class Model implements Emitter, Observable {
+export default class View implements Emitter, Observable {
     readonly document: Document;
-    readonly markers: MarkerCollection;
-    readonly schema: Schema;
+    readonly domConverter: DomConverter;
+    readonly domRoots: Map<string, HTMLElement>;
+    readonly hasDomSelection: boolean;
+    readonly isRenderingInProgress: boolean;
 
-    applyOperation(operation: Operation): void;
-    change<T>(callback: (writer: Writer) => T): T;
-    createBatch(type?: "transparent" | "default"): Batch;
-    createOperationFromJSON(arg: Record<string, unknown>): Operation;
+    constructor(stylesProcessor: StylesProcessor);
+    addObserver(ObserverClass: typeof Observer): Observer;
+    attachDomRoot(domRoot: Element, name?: string): void;
+    change(callback: (writer: DowncastWriter) => void): View;
     createPositionAfter(item: Item): Position;
-    createPositionAt(itemOrPosition: Item, offset?: number | "end" | "before" | "after"): Position;
-    createPositionAt(itemOrPosition: Position): Position;
+    createPositionAt(itemOrPosition: Item, offset?: number | "end" | "before" | "after"): void;
+    createPositionAt(itemOrPosition: Position): void;
     createPositionBefore(item: Item): Position;
-    createPositionFromPath(root: Element | DocumentFragment, path: number[], stickiness?: PositionStickiness): Position;
     createRange(start: Position, end?: Position): Range;
     createRangeIn(element: Element): Range;
     createRangeOn(item: Item): Range;
     createSelection(
         selectable?: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean },
+        options?: { backward?: boolean; fake?: boolean; label?: string },
     ): Selection;
-    deleteContent(
-        selection: Selection | DocumentSelection,
-        options?: {
-            leaveUnmerged?: boolean;
-            doNotResetEntireContent?: boolean;
-            doNotAutoparagraph?: boolean;
-            direction?: "forward" | "backward";
-        },
-    ): void;
     destroy(): void;
-    enqueueChange(batchOrType: Batch | "transparent" | "default", callback: (writer: Writer) => void): void;
-    getSelectedContent(selection: Selection | DocumentSelection): DocumentFragment;
-    hasContent(
-        rangeOrElement: Range | Element,
-        options?: { ignoreWhitespaces?: boolean; ignoreMarkers?: boolean },
-    ): boolean;
-    insertContent(
-        content: DocumentFragment | Item,
-        selectable?: Selectable,
-        placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-    ): Range;
-    modifySelection(
-        selection: Selection | DocumentSelection,
-        options?: { direction?: "forward" | "backward"; unit?: "character" | "codePoint" | "word" },
-    ): void;
+    detachDomRoot(name: string): void;
+    disableObservers(): void;
+    enableObservers(): void;
+    focus(): void;
+    forceRender(): void;
+    getDomRoot(name?: string): Element;
+    getObserver(ObserverClass: typeof Observer): Observer | undefined;
+    scrollToTheSelection(): void;
 
     set(option: Record<string, unknown>): void;
     set(name: string, value: unknown): void;
