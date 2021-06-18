@@ -45,6 +45,7 @@ export interface MaterialParameters {
     toneMapped?: boolean;
     transparent?: boolean;
     vertexColors?: boolean;
+    vertexAlphas?: boolean;
     visible?: boolean;
     stencilWrite?: boolean;
     stencilFunc?: StencilFunc;
@@ -334,6 +335,12 @@ export class Material extends EventDispatcher {
      */
     uuid: string;
 
+    /**
+     * Defines whether vertex coloring support alpha. Default is false. Only applies when using .vertexColors property.
+     * @default false
+     */
+    vertexAlphas: boolean;
+    
     /**
      * Defines whether vertex coloring is used. Default is false.
      * @default false
