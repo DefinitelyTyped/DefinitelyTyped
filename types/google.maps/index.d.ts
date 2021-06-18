@@ -1506,7 +1506,7 @@ declare namespace google.maps {
         callback?:
             (a: google.maps.DirectionsResult|null,
              b: google.maps.DirectionsStatus) => void):
-        Promise<google.maps.DirectionsResult>|null;
+        Promise<google.maps.DirectionsResult>;
   }
 }
 declare namespace google.maps {
@@ -1815,7 +1815,7 @@ declare namespace google.maps {
         callback?:
             (a: google.maps.DistanceMatrixResponse|null,
              b: google.maps.DistanceMatrixStatus) => void):
-        Promise<google.maps.DistanceMatrixResponse>|null;
+        Promise<google.maps.DistanceMatrixResponse>;
   }
 }
 declare namespace google.maps {
@@ -1937,7 +1937,7 @@ declare namespace google.maps {
         callback?:
             (a: google.maps.ElevationResult[]|null,
              b: google.maps.ElevationStatus) => void):
-        Promise<google.maps.PathElevationResponse>|null;
+        Promise<google.maps.PathElevationResponse>;
     /**
      * Makes an elevation request for a list of discrete locations.
      */
@@ -1946,7 +1946,7 @@ declare namespace google.maps {
         callback?:
             (a: google.maps.ElevationResult[]|null,
              b: google.maps.ElevationStatus) => void):
-        Promise<google.maps.LocationElevationResponse>|null;
+        Promise<google.maps.LocationElevationResponse>;
   }
 }
 declare namespace google.maps {
@@ -2017,7 +2017,7 @@ declare namespace google.maps {
         callback:
             ((a: google.maps.GeocoderResult[]|null,
               b: google.maps.GeocoderStatus) => void)|
-        null): Promise<google.maps.GeocoderResponse>|null;
+        null): Promise<google.maps.GeocoderResponse>;
   }
 }
 declare namespace google.maps {
@@ -2541,11 +2541,20 @@ declare namespace google.maps {
      * <code>anchorPoint</code> property for calculating the
      * <code>pixelOffset</code> (see InfoWindowOptions). The
      * <code>anchorPoint</code> is the offset from the anchor&#39;s position to
-     * the tip of the InfoWindow.
+     * the tip of the InfoWindow. It is recommended to use the {@link
+     * google.maps.InfoWindowOpenOptions} interface as the single argument for
+     * this method. To prevent changing browser focus on open, set {@link
+     * google.maps.InfoWindowOpenOptions.shouldFocus} to <code>false</code>.
+     * @param options Either an InfoWindowOpenOptions object (recommended) or
+     *     the map|panorama on which to render this InfoWindow.
+     * @param anchor The anchor to which this InfoWindow will be positioned. If
+     *     the anchor is non-null, the InfoWindow will be positioned at the
+     *     top-center of the anchor. The InfoWindow will be rendered on the same
+     *     map or panorama as the anchor <strong>(when available)</strong>.
      */
     open(
-        options?: google.maps.Map|null|google.maps.StreetViewPanorama|
-        google.maps.InfoWindowOpenOptions,
+        options?: google.maps.InfoWindowOpenOptions|null|google.maps.Map|
+        google.maps.StreetViewPanorama,
         anchor?: google.maps.MVCObject|null): void;
     setContent(content: string|Node|null): void;
     setOptions(options: google.maps.InfoWindowOptions|null): void;
@@ -2560,20 +2569,23 @@ declare namespace google.maps {
    */
   interface InfoWindowOpenOptions {
     /**
-     * If anchor is non-null, position this InfoWindow at the top-center of the
-     * anchor, instead of at the given latlng. The InfoWindow will be rendered
-     * on the same Map or StreetView as the anchor.
+     * The anchor to which this InfoWindow will be positioned. If the anchor is
+     * non-null, the InfoWindow will be positioned at the top-center of the
+     * anchor. The InfoWindow will be rendered on the same map or panorama as
+     * the anchor <strong>(when available)</strong>.
      */
     anchor?: google.maps.MVCObject|null;
     /**
-     * The map or panorama on which to render this InfoWindow or
-     * InfoWindowOpenOptions object.
+     * The map or panorama on which to render this InfoWindow.
      */
     map?: google.maps.Map|null|google.maps.StreetViewPanorama;
     /**
      * Whether or not focus should be moved inside the InfoWindow when it is
-     * opened. When unset or set to <code>null</code> or <code>undefined</code>,
-     * a heuristic will be used to decide whether focus should be moved or not.
+     * opened. When this property is unset or when it is set to
+     * <code>null</code> or <code>undefined</code>, a heuristic is used to
+     * decide whether or not focus should be moved. It is recommended to
+     * explicitly set this property to fit your needs as the heuristic is
+     * subject to change and may not work well for all use cases.
      */
     shouldFocus?: boolean|null;
   }
@@ -4280,9 +4292,10 @@ declare namespace google.maps {
      */
     optimized?: boolean|null;
     /**
-     * Marker position. The position is required to display the marker and can
-     * be provided with {@link google.maps.Marker.setPosition} if not provided
-     * at marker construction.
+     * Sets the marker position. A marker may be constructed but not displayed
+     * until its position is provided - for example, by a user&#39;s actions or
+     * choices. A marker position can be provided with {@link
+     * google.maps.Marker.setPosition} if not provided at marker construction.
      */
     position?: google.maps.LatLng|null|google.maps.LatLngLiteral;
     /**
@@ -4377,7 +4390,7 @@ declare namespace google.maps {
     getMaxZoomAtLatLng(
         latlng: google.maps.LatLng|null|google.maps.LatLngLiteral,
         callback?: (a: google.maps.MaxZoomResult) => void):
-        Promise<google.maps.MaxZoomResult>|null;
+        Promise<google.maps.MaxZoomResult>;
   }
 }
 declare namespace google.maps {
@@ -5656,7 +5669,7 @@ declare namespace google.maps {
         callback?:
             (a: google.maps.StreetViewPanoramaData|null,
              b: google.maps.StreetViewStatus) => void):
-        Promise<google.maps.StreetViewResponse>|null;
+        Promise<google.maps.StreetViewResponse>;
   }
 }
 declare namespace google.maps {
@@ -7426,7 +7439,7 @@ declare namespace google.maps.places {
         callback?:
             (a: google.maps.places.AutocompletePrediction[]|null,
              b: google.maps.places.PlacesServiceStatus) => void):
-        Promise<google.maps.places.AutocompleteResponse>|null;
+        Promise<google.maps.places.AutocompleteResponse>;
     /**
      * Retrieves query autocomplete predictions based on the supplied query
      * autocomplete request.
@@ -7637,6 +7650,7 @@ declare namespace google.maps.places {
 declare namespace google.maps.places {
   /**
    * Defines information about an aspect of the place that users have reviewed.
+   * @deprecated This interface is no longer used.
    */
   interface PlaceAspectRating {
     /**
@@ -8026,6 +8040,7 @@ declare namespace google.maps.places {
   interface PlaceReview {
     /**
      * The aspects rated by the review. The ratings on a scale of 0 to 3.
+     * @deprecated This field is no longer available.
      */
     aspects?: google.maps.places.PlaceAspectRating[];
     /**
@@ -8050,6 +8065,10 @@ declare namespace google.maps.places {
      * A URL to the reviwer&#39;s profile image.
      */
     profile_photo_url: string;
+    /**
+     * The rating of this review, a number between 1.0 and 5.0 (inclusive).
+     */
+    rating?: number;
     /**
      * A string of formatted recent time, expressing the review time relative to
      * the current time in a form appropriate for the language and country. For
