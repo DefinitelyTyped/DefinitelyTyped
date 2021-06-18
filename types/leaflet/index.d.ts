@@ -15,6 +15,9 @@ export as namespace L;
 
 import * as geojson from 'geojson';
 
+/** A constant that represents the Leaflet version in use. */
+export const version: string;
+
 export class Class {
     static extend(props: any): {new(...args: any[]): any} & typeof Class;
     static include(props: any): any & typeof Class;
@@ -63,6 +66,13 @@ export namespace DomUtil {
      */
     function get(element: string | HTMLElement): HTMLElement | null;
     function getStyle(el: HTMLElement, styleAttrib: string): string | null;
+    /**
+     * Creates an HTML element with `tagName`, sets its class to `className`, and optionally appends it to `container` element.
+     * @param tagName The name of the tag to create (for example: `div` or `canvas`).
+     * @param className The class to set on the created element.
+     * @param container The container to append the created element to.
+     */
+    function create<T extends keyof HTMLElementTagNameMap>(tagName: T, className?: string, container?: HTMLElement): HTMLElementTagNameMap[T];
     function create(tagName: string, className?: string, container?: HTMLElement): HTMLElement;
     function remove(el: HTMLElement): void;
     function empty(el: HTMLElement): void;
@@ -2027,3 +2037,8 @@ export namespace Util {
     let lastId: number;
     let emptyImageUrl: string;
 }
+
+export const extend: typeof Util['extend'];
+export const bind: typeof Util['bind'];
+export const stamp: typeof Util['stamp'];
+export const setOptions: typeof Util['setOptions'];

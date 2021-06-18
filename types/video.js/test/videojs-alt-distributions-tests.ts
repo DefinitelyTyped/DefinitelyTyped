@@ -148,3 +148,6 @@ function test(videojs: typeof videojsnovtt | typeof videojscore) {
         anotherlogger('today');
     }
 }
+
+videojscore.hooks('foo'); // $ExpectType (() => any)[]
+videojscore.hooks('foo', () => {}); // $ExpectType (() => any)[]

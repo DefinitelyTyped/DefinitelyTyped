@@ -8,9 +8,13 @@ skmeans(dataUni, 4, "kmrand");
 
 skmeans(dataUni, 3, "kmpp");
 
+skmeans(dataUni, 3, [3]);
+
 skmeans(dataMulti, 6);
 
 skmeans(dataMulti, 3, null, 10);
+
+skmeans(dataMulti, 3, [0, 0]);
 
 skmeans(dataMulti, 3, null, null, (x1, x2) => Math.abs(x1 - x2));
 

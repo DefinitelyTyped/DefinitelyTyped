@@ -9,7 +9,7 @@ import MediaSessionPlugin from "wavesurfer.js/src/plugin/mediasession";
 import MicrophonePlugin from "wavesurfer.js/src/plugin/microphone";
 import MinimapPlugin from "wavesurfer.js/src/plugin/minimap";
 import RegionsPlugin from "wavesurfer.js/src/plugin/regions";
-import SpectogramPlugin from "wavesurfer.js/src/plugin/spectogram";
+import SpectrogramPlugin from "wavesurfer.js/src/plugin/spectrogram";
 import TimelinePlugin from "wavesurfer.js/src/plugin/timeline";
 import { PluginDefinition, PluginParams } from "wavesurfer.js/types/plugin";
 
@@ -128,16 +128,16 @@ const waveSurferWithRegionsPlugin = WaveSurfer.create({
 });
 waveSurferWithRegionsPlugin.regions.destroy();
 
-// - plugin: spectogram
-const waveSurferWithSpectogramPlugin = WaveSurfer.create({
+// - plugin: spectrogram
+const waveSurferWithSpectrogramPlugin = WaveSurfer.create({
     container: "#waveform",
     plugins: [
-        SpectogramPlugin.create({
-            container: "#spectogram",
+        SpectrogramPlugin.create({
+            container: "#spectrogram",
         }),
     ],
 });
-waveSurferWithSpectogramPlugin.spectogram.destroy();
+waveSurferWithSpectrogramPlugin.spectrogram.destroy();
 
 // - plugin: timeline
 const waveSurferWithTimelinePlugin = WaveSurfer.create({

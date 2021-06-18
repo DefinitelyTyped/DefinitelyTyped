@@ -48,7 +48,7 @@ import {
 } from 'mjml-react/utils';
 
 function renderOutTestEmail() {
-    // $ExpectType { html: string; errors: Error[]; }
+    // $ExpectType { html: string; errors: MjmlError[]; }
     const result = render(
         <Mjml>
             <MjmlHead>

@@ -7532,6 +7532,10 @@ declare namespace zingchart {
          */
         'shadow-distance'?: any;
         /**
+         * Sets the text content of the object. "Some Text" | ...
+         */
+        text?: string;
+        /**
          * Sets the transparency of the text. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comple
          * tely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
          */

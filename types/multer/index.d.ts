@@ -49,12 +49,12 @@ declare global {
 
         interface Request {
             /** `Multer.File` object populated by `single()` middleware. */
-            file: Multer.File;
+            file?: Multer.File;
             /**
              * Array or dictionary of `Multer.File` object populated by `array()`,
              * `fields()`, and `any()` middleware.
              */
-            files: {
+            files?: {
                 [fieldname: string]: Multer.File[];
             } | Multer.File[];
         }

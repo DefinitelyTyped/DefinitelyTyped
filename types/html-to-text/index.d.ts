@@ -1,4 +1,4 @@
-// Type definitions for html-to-text 6.0
+// Type definitions for html-to-text 8.0
 // Project: https://github.com/html-to-text/node-html-to-text
 // Definitions by: Eryk Warren <https://github.com/erykwarren>
 //                 Carson Full <https://github.com/CarsonF>
@@ -6,6 +6,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { BlockTextBuilder } from './lib/block-text-builder';
+
+export type compiledFunction = (str: string) => string;
+
+/**
+ * Preprocess options, compile selectors into a decision tree,
+ * return a function intended for batch processing.
+ */
+ export function compile(options?: HtmlToTextOptions): compiledFunction;
 
 /**
  * Convert given HTML content to plain text string.
@@ -18,6 +26,7 @@ import { BlockTextBuilder } from './lib/block-text-builder';
  * console.log(text); // HELLO WORLD
  */
 export function htmlToText(html: string, options?: HtmlToTextOptions): string;
+export { htmlToText as convert };
 
 /**
  * @deprecated Import/require `{ htmlToText }` function instead!
@@ -27,13 +36,9 @@ export function fromString(html: string, options?: HtmlToTextOptions): string;
 
 export interface HtmlToTextOptions {
     /**
-     * The resulting text output will be composed from the text content of this element
-     * (or elements if an array of strings is specified).
-     *
-     * Each entry is a single tag name with optional css class and id parameters,
-     * e.g. `['p.class1.class2#id1#id2', 'p.class1.class2#id1#id2']`.
+     * Options for narrowing down to informative parts of HTML document.
      */
-    baseElement?: string | string[];
+    baseElements?: BaseElementsOptions;
     /**
      * Text decoding options given to `he.decode`.
      *
@@ -61,28 +66,11 @@ export interface HtmlToTextOptions {
      */
     preserveNewlines?: boolean;
     /**
-     * Use the entire document if we don't find the tag defined in `Options.baseElement`.
+     * Instructions for how to render HTML elements based on matched selectors.
+     *
+     * Use this to (re)define options for new or already supported tags.
      */
-    returnDomByDefault?: boolean;
-    /**
-     * Allows to select and format certain tables by the `class` or `id` attribute from the HTML document.
-     *
-     * This is necessary because the majority of HTML E-Mails uses a table based layout.
-     *
-     * Prefix your table selectors with a `.` for the `class` and with a `#` for the `id` attribute.
-     * All other tables are ignored (processed as layout containers, not tabular data).
-     *
-     * You can assign `true` to this property to format all tables.
-     */
-    tables?: string[] | boolean;
-    /**
-     * A dictionary with custom tag definitions.
-     *
-     * Use this to (re)define how to handle new or already supported tags.
-     *
-     * Empty string (`''`) as a key used for the default definition for "any other" tags.
-     */
-    tags?: TagDefinitions;
+    selectors?: SelectorDefinition[];
     /**
      * All characters that are considered whitespace.
      * Default is according to HTML specifications.
@@ -100,61 +88,78 @@ export interface HtmlToTextOptions {
      */
 
     /**
+     * @deprecated. Use baseElements.selectors instead.
+     */
+    baseElement?: string | string[];
+
+    /**
      *  @deprecated See the documentation.
-     *  By default links are translated the following
-     *      <a href='link'>text</a> => becomes => text [link].
-     *  If this option is set to true and link and text are the same,
-     *  [link] will be hidden and only text visible.
      */
     hideLinkHrefIfSameAsText?: boolean;
-
     /**
      *  @deprecated See the documentation.
-     *  Allows you to specify the server host for href attributes, where the links start at the root (/).
-     *  For example, linkHrefBaseUrl = 'http://asdf.com' and <a href='/dir/subdir'>...</a>
-     *  the link in the text will be http://asdf.com/dir/subdir.
-     *  Keep in mind that linkHrefBaseUrl shouldn't end with a /.
      */
     linkHrefBaseUrl?: string;
-
     /**
      *  @deprecated See the documentation.
-     *  Ignore all document links if true.
      */
     ignoreHref?: boolean;
-
     /**
      *  @deprecated See the documentation.
-     *  Ignore all document images if true.
      */
     ignoreImage?: boolean;
-
     /**
      *  @deprecated See the documentation.
-     *  Dont print brackets around the link if true
      */
     noLinkBrackets?: boolean;
-
     /**
      *  @deprecated See the documentation.
-     *  By default, headings (<h1>, <h2>, etc) are upper-cased.
-     *  Set to false to leave headings as they are.
      */
     uppercaseHeadings?: boolean;
-
     /**
      *  @deprecated See the documentation.
-     *  By default, paragraphs are converted with two newlines (\n\n).
-     *  Set to true to convert to a single newline.
      */
     singleNewLineParagraphs?: boolean;
-
     /**
      *  @deprecated See the documentation.
-     * defines the string that is used as item prefix for unordered lists `<ol>`.
-     * Default: ' * '
      */
     unorderedListItemPrefix?: string;
+    /**
+     * @deprecated. Use baseElements instead.
+     */
+    returnDomByDefault?: boolean;
+    /**
+     * @deprecated. Use selectors with `format: 'dataTable'` instead.
+     */
+    tables?: string[] | boolean;
+    /**
+     * @deprecated. Use selectors instead.
+     */
+    tags?: TagDefinitions;
+ }
+
+ /**
+  * Options for narrowing down to informative parts of HTML document.
+  */
+ export interface BaseElementsOptions {
+    /**
+     * The resulting text output will be composed from the text content of elements
+     * matched with these selectors.
+     */
+    selectors?: string[];
+    /**
+     * When multiple selectors are set, this option specifies
+     * whether the selectors order has to be reflected in the output text.
+     *
+     * `'selectors'` (default) - matches for the first selector will appear first, etc;
+     *
+     * `'occurrence'` - all bases will appear in the same order as in input HTML.
+     */
+    orderBy?: 'selectors' | 'occurrence';
+    /**
+     * Use the entire document if none of provided selectors matched.
+     */
+    returnDomByDefault?: boolean;
 }
 
 /**
@@ -221,6 +226,24 @@ export interface LongWordSplitOptions {
      * An array containing the characters that may be wrapped on.
      */
     wrapCharacters?: string[];
+}
+
+/**
+ * Describes how to handle tags matched by a selector.
+ */
+ export interface SelectorDefinition {
+    /**
+     * CSS selector. Refer to README for notes on supported selectors etc.
+     */
+    selector: string;
+    /**
+     * Identifier of a {@link FormatCallback}, built-in or provided in `Options.formatters` dictionary.
+     */
+    format?: string;
+    /**
+     * Options to customize the formatter for this tag.
+     */
+    options?: FormatOptions;
 }
 
 /**

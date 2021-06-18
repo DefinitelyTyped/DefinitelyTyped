@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -471,6 +471,13 @@ declare module "sap/f/Avatar" {
   export default class Avatar extends Avatar1 {
     /**
      * Constructor for a new `Avatar`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Avatar#constructor
+     * sap.m.Avatar} can be used.
      * See:
      * 	{@link fiori:https://experience.sap.com/fiori-design-web/avatar/ Avatar}
      */
@@ -482,6 +489,13 @@ declare module "sap/f/Avatar" {
     );
     /**
      * Constructor for a new `Avatar`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Avatar#constructor
+     * sap.m.Avatar} can be used.
      * See:
      * 	{@link fiori:https://experience.sap.com/fiori-design-web/avatar/ Avatar}
      */
@@ -11218,15 +11232,30 @@ declare module "sap/f/semantic/AddAction" {
   export default class AddAction extends SemanticButton {
     /**
      * Constructor for a new `AddAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $AddActionSettings
     );
     /**
      * Constructor for a new `AddAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11234,7 +11263,8 @@ declare module "sap/f/semantic/AddAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $AddActionSettings
     );
@@ -11286,15 +11316,30 @@ declare module "sap/f/semantic/CloseAction" {
   export default class CloseAction extends SemanticButton {
     /**
      * Constructor for a new `CloseAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $CloseActionSettings
     );
     /**
      * Constructor for a new `CloseAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11302,7 +11347,8 @@ declare module "sap/f/semantic/CloseAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $CloseActionSettings
     );
@@ -11354,15 +11400,30 @@ declare module "sap/f/semantic/CopyAction" {
   export default class CopyAction extends SemanticButton {
     /**
      * Constructor for a new `CopyAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $CopyActionSettings
     );
     /**
      * Constructor for a new `CopyAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11370,7 +11431,8 @@ declare module "sap/f/semantic/CopyAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $CopyActionSettings
     );
@@ -11422,15 +11484,30 @@ declare module "sap/f/semantic/DeleteAction" {
   export default class DeleteAction extends SemanticButton {
     /**
      * Constructor for a new `DeleteAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $DeleteActionSettings
     );
     /**
      * Constructor for a new `DeleteAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11438,7 +11515,8 @@ declare module "sap/f/semantic/DeleteAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $DeleteActionSettings
     );
@@ -11490,15 +11568,30 @@ declare module "sap/f/semantic/DiscussInJamAction" {
   export default class DiscussInJamAction extends SemanticButton {
     /**
      * Constructor for a new `DiscussInJamAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $DiscussInJamActionSettings
     );
     /**
      * Constructor for a new `DiscussInJamAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11506,7 +11599,8 @@ declare module "sap/f/semantic/DiscussInJamAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $DiscussInJamActionSettings
     );
@@ -11559,15 +11653,30 @@ declare module "sap/f/semantic/EditAction" {
   export default class EditAction extends SemanticButton {
     /**
      * Constructor for a new `EditAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $EditActionSettings
     );
     /**
      * Constructor for a new `EditAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11575,7 +11684,8 @@ declare module "sap/f/semantic/EditAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $EditActionSettings
     );
@@ -11627,15 +11737,30 @@ declare module "sap/f/semantic/ExitFullScreenAction" {
   export default class ExitFullScreenAction extends SemanticButton {
     /**
      * Constructor for a new `ExitFullScreenAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $ExitFullScreenActionSettings
     );
     /**
      * Constructor for a new `ExitFullScreenAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11643,7 +11768,8 @@ declare module "sap/f/semantic/ExitFullScreenAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $ExitFullScreenActionSettings
     );
@@ -11696,15 +11822,30 @@ declare module "sap/f/semantic/FavoriteAction" {
   export default class FavoriteAction extends SemanticToggleButton {
     /**
      * Constructor for a new `FavoriteAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticToggleButton#constructor
+     * sap.f.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FavoriteActionSettings
     );
     /**
      * Constructor for a new `FavoriteAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticToggleButton#constructor
+     * sap.f.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
@@ -11712,7 +11853,8 @@ declare module "sap/f/semantic/FavoriteAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FavoriteActionSettings
     );
@@ -11765,15 +11907,30 @@ declare module "sap/f/semantic/FlagAction" {
   export default class FlagAction extends SemanticToggleButton {
     /**
      * Constructor for a new `FlagAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticToggleButton#constructor
+     * sap.f.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FlagActionSettings
     );
     /**
      * Constructor for a new `FlagAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticToggleButton#constructor
+     * sap.f.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
@@ -11781,7 +11938,8 @@ declare module "sap/f/semantic/FlagAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FlagActionSettings
     );
@@ -11833,15 +11991,30 @@ declare module "sap/f/semantic/FooterMainAction" {
   export default class FooterMainAction extends MainAction {
     /**
      * Constructor for a new `FooterMainAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.MainAction#constructor
+     * sap.f.semantic.MainAction} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FooterMainActionSettings
     );
     /**
      * Constructor for a new `FooterMainAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.MainAction#constructor
+     * sap.f.semantic.MainAction} can be used.
      */
     constructor(
       /**
@@ -11849,7 +12022,8 @@ declare module "sap/f/semantic/FooterMainAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FooterMainActionSettings
     );
@@ -11901,15 +12075,30 @@ declare module "sap/f/semantic/FullScreenAction" {
   export default class FullScreenAction extends SemanticButton {
     /**
      * Constructor for a new `FullScreenAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FullScreenActionSettings
     );
     /**
      * Constructor for a new `FullScreenAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11917,7 +12106,8 @@ declare module "sap/f/semantic/FullScreenAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FullScreenActionSettings
     );
@@ -11978,7 +12168,8 @@ declare module "sap/f/semantic/MainAction" {
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MainActionSettings
     );
@@ -11995,7 +12186,8 @@ declare module "sap/f/semantic/MainAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MainActionSettings
     );
@@ -12071,15 +12263,30 @@ declare module "sap/f/semantic/MessagesIndicator" {
   export default class MessagesIndicator extends SemanticButton {
     /**
      * Constructor for a new `MessagesIndicator`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MessagesIndicatorSettings
     );
     /**
      * Constructor for a new `MessagesIndicator`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -12087,7 +12294,8 @@ declare module "sap/f/semantic/MessagesIndicator" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MessagesIndicatorSettings
     );
@@ -12148,7 +12356,8 @@ declare module "sap/f/semantic/NegativeAction" {
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $NegativeActionSettings
     );
@@ -12165,7 +12374,8 @@ declare module "sap/f/semantic/NegativeAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $NegativeActionSettings
     );
@@ -12250,7 +12460,8 @@ declare module "sap/f/semantic/PositiveAction" {
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $PositiveActionSettings
     );
@@ -12267,7 +12478,8 @@ declare module "sap/f/semantic/PositiveAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $PositiveActionSettings
     );
@@ -12343,15 +12555,30 @@ declare module "sap/f/semantic/PrintAction" {
   export default class PrintAction extends SemanticButton {
     /**
      * Constructor for a new `PrintAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $PrintActionSettings
     );
     /**
      * Constructor for a new `PrintAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -12359,7 +12586,8 @@ declare module "sap/f/semantic/PrintAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $PrintActionSettings
     );
@@ -12411,6 +12639,13 @@ declare module "sap/f/semantic/SemanticButton" {
   export default class SemanticButton extends SemanticButton1 {
     /**
      * Constructor for a new `SemanticButton`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -12420,6 +12655,13 @@ declare module "sap/f/semantic/SemanticButton" {
     );
     /**
      * Constructor for a new `SemanticButton`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -14747,6 +14989,13 @@ declare module "sap/f/semantic/SemanticToggleButton" {
   export default class SemanticToggleButton extends SemanticToggleButton1 {
     /**
      * Constructor for a new `SemanticToggleButton`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticToggleButton#constructor
+     * sap.m.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
@@ -14756,6 +15005,13 @@ declare module "sap/f/semantic/SemanticToggleButton" {
     );
     /**
      * Constructor for a new `SemanticToggleButton`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticToggleButton#constructor
+     * sap.m.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
@@ -14816,15 +15072,30 @@ declare module "sap/f/semantic/SendEmailAction" {
   export default class SendEmailAction extends SemanticButton {
     /**
      * Constructor for a new `SendEmailAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SendEmailActionSettings
     );
     /**
      * Constructor for a new `SendEmailAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -14832,7 +15103,8 @@ declare module "sap/f/semantic/SendEmailAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SendEmailActionSettings
     );
@@ -14884,15 +15156,30 @@ declare module "sap/f/semantic/SendMessageAction" {
   export default class SendMessageAction extends SemanticButton {
     /**
      * Constructor for a new `SendMessageAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SendMessageActionSettings
     );
     /**
      * Constructor for a new `SendMessageAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -14900,7 +15187,8 @@ declare module "sap/f/semantic/SendMessageAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SendMessageActionSettings
     );
@@ -14952,15 +15240,30 @@ declare module "sap/f/semantic/ShareInJamAction" {
   export default class ShareInJamAction extends SemanticButton {
     /**
      * Constructor for a new `ShareInJamAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $ShareInJamActionSettings
     );
     /**
      * Constructor for a new `ShareInJamAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -14968,7 +15271,8 @@ declare module "sap/f/semantic/ShareInJamAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $ShareInJamActionSettings
     );
@@ -15020,15 +15324,30 @@ declare module "sap/f/semantic/TitleMainAction" {
   export default class TitleMainAction extends MainAction {
     /**
      * Constructor for a new `TitleMainAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.MainAction#constructor
+     * sap.f.semantic.MainAction} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $TitleMainActionSettings
     );
     /**
      * Constructor for a new `TitleMainAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.MainAction#constructor
+     * sap.f.semantic.MainAction} can be used.
      */
     constructor(
       /**
@@ -15036,7 +15355,8 @@ declare module "sap/f/semantic/TitleMainAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $TitleMainActionSettings
     );

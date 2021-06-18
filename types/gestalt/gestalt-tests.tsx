@@ -4,6 +4,7 @@ import {
     AvatarPair,
     Badge,
     Box,
+    BoxProps,
     Button,
     ButtonGroup,
     Callout,
@@ -116,6 +117,14 @@ const CheckUseReducedMotion = () => {
 <Box onDrag={(event) => { event.movementX; }} />;
 // $ExpectError
 <Box onDrag={((event) => { event.__nonExistentProperty__; })} />;
+
+// Test Box accepts Ref.
+() => {
+    const ref = React.useRef<HTMLDivElement>(null);
+    return <Box ref={ref} />;
+};
+// Test BoxProps can be forwarded to Box.
+(props: BoxProps) => <Box {...props} />;
 
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
 <Button text="" />;
