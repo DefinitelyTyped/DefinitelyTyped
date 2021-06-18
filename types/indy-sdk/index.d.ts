@@ -1,7 +1,8 @@
-// Type definitions for indy-sdk 1.15
+// Type definitions for indy-sdk 1.16
 // Project: https://github.com/hyperledger/indy-sdk/tree/master/wrappers/nodejs
 // Definitions by: Timo Glastra <https://github.com/TimoGlastra>
 //                 Jakub Kočí <https://github.com/jakubkoci>
+//                 Karim Stekelenburg <https://github.com/karimStekelenburg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
