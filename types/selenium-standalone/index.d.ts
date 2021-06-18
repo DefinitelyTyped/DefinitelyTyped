@@ -1,6 +1,7 @@
 // Type definitions for selenium-standalone 7.0
 // Project: https://github.com/vvo/selenium-standalone
-// Definitions by: Mykola Grybyk <https://github.com/mgrybyk>
+// Definitions by: Sander de Waal <https://github.com/SanderDeWaal1992>
+//                 Mykola Grybyk <https://github.com/mgrybyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
