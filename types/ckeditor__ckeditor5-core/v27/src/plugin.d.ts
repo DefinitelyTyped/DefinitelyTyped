@@ -62,7 +62,7 @@ export interface PluginInterface {
         destroy?(): Promise<void> | void;
     };
     readonly pluginName?: string;
-    readonly isContextPlugin?: boolean;
+    readonly isContextPlugin: boolean;
     readonly requires?: Array<typeof Plugin | typeof ContextPlugin | string>;
 }
 
