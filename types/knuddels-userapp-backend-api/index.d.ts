@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Knuddels UserApps API 1.20210326150104
+// Type definitions for non-npm package Knuddels UserApps API 1.20210618111624
 // Project: https://developer.knuddels.de
 // Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -223,7 +223,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_addCloseListener
          */
-        addCloseListener(callback: (user: User, appContent: AppContent) => void): void;
+        addCloseListener(callback: (user: User, appContent: AppContent, replacing: boolean) => void): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_getUsers
          */
@@ -1376,6 +1376,15 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_getDefaultLogger
          */
         function getDefaultLogger(): Logger;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_registerInAppChatMessage
+         */
+        function registerInAppChatMessage(
+            chatGroupId: string,
+            sender: User,
+            text: string,
+            receiverUserIds: number[],
+        ): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_listFiles
          */
