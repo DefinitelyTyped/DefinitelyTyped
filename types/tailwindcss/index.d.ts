@@ -13,4 +13,8 @@ declare function tailwindcss(
     plugins: string[];
 };
 
+declare namespace tailwindcss {
+    let postcss: true;
+}
+
 export = tailwindcss;

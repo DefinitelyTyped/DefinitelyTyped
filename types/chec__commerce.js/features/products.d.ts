@@ -4,20 +4,20 @@ import { PaginationMeta } from '../types/pagination';
 import { Variant } from '../types/variant';
 
 export interface ProductCollection {
-  data: Product[];
-  meta: PaginationMeta;
+    data: Product[];
+    meta: PaginationMeta;
 }
 
 export interface VariantCollection {
-  data: Variant[];
-  meta: PaginationMeta;
+    data: Variant[];
+    meta: PaginationMeta;
 }
 
 export class Products {
-  constructor(commerce: Commerce);
+    constructor(commerce: Commerce);
 
-  list(params?: any): Promise<ProductCollection>;
-  retrieve(id: string, data?: object): Promise<Product>;
-  getVariants(id: string, data?: object): Promise<VariantCollection>;
-  getVariant(id: string, variantId: string): Promise<Variant>;
+    list(params?: any): Promise<ProductCollection>;
+    retrieve(id: string, data?: object): Promise<Product>;
+    getVariants(id: string, data?: object): Promise<VariantCollection>;
+    getVariant(id: string, variantId: string): Promise<Variant>;
 }

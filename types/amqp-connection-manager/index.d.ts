@@ -2,6 +2,7 @@
 // Project: https://github.com/benbria/node-amqp-connection-manager
 // Definitions by: rogierschouten <https://github.com/rogierschouten>
 //                 tstelzer <https://github.com/tstelzer>
+//                 borales <https://github.com/Borales>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -57,7 +58,7 @@ export interface AmqpConnectionManagerOptions {
  * @param urls
  * @param options
  */
-export function connect(urls: string[], options?: AmqpConnectionManagerOptions): AmqpConnectionManager;
+export function connect(urls: Array<string | Options.Connect>, options?: AmqpConnectionManagerOptions): AmqpConnectionManager;
 
 export type SetupFunc = ((channel: ConfirmChannel, callback: (error?: Error) => void) => void) | ((channel: ConfirmChannel) => Promise<void>);
 
