@@ -11,6 +11,12 @@ export function createWallet(config: WalletConfig, credentials: WalletCredential
 export function openWallet(config: WalletConfig, credentials: OpenWalletCredentials): Promise<WalletHandle>;
 export function closeWallet(wh: WalletHandle): Promise<void>;
 export function deleteWallet(config: WalletConfig, credentials: WalletCredentials): Promise<void>;
+export function importWallet(
+    config: WalletConfig,
+    credentials: WalletCredentials,
+    importConfig: WalletExportImportConfig,
+): Promise<void>;
+export function exportWallet(wh: WalletHandle, exportConfig: WalletExportImportConfig): Promise<void>;
 export function createAndStoreMyDid(wh: WalletHandle, did: DidConfig): Promise<[Did, Verkey]>;
 export function keyForLocalDid(wh: WalletHandle, did: Did): Promise<Verkey>;
 export function cryptoAnonCrypt(recipientVk: Verkey, messageRaw: Buffer): Promise<Buffer>;
@@ -201,7 +207,7 @@ export type ByteArray = number[];
 export type SchemaId = string;
 export type CredDefId = string;
 export type CredentialId = string;
-export type KeyDerivationMethod = "ARGON2I_MOD" | "ARGON2I_INT" | "RAW";
+export type KeyDerivationMethod = 'ARGON2I_MOD' | 'ARGON2I_INT' | 'RAW';
 
 // TODO: Maybe we can make this a bit more specific?
 export type WalletQuery = Record<string, unknown>;
@@ -252,10 +258,15 @@ export interface OpenWalletCredentials extends WalletCredentials {
     rekey_derivation_method?: KeyDerivationMethod;
 }
 
+export interface WalletExportImportConfig {
+    key: string;
+    path: string;
+}
+
 export interface DidConfig {
     did?: string;
     seed?: string;
-    crypto_type?: "ed25519";
+    crypto_type?: 'ed25519';
     cid?: boolean;
     method_name?: string;
 }
@@ -272,14 +283,14 @@ export interface SignedLedgerRequest extends LedgerRequest {
 }
 
 export interface LedgerRejectResponse {
-    op: "REJECT";
+    op: 'REJECT';
     reqId: number;
     reason: string;
     identifier: string;
 }
 
 export interface LedgerReplyResponse {
-    op: "REPLY";
+    op: 'REPLY';
     result: Record<string, unknown>;
 }
 
@@ -469,14 +480,14 @@ export interface IndyProofRequest {
     requested_predicates: {
         [key: string]: {
             name: string;
-            p_type: ">=" | ">" | "<=" | "<";
+            p_type: '>=' | '>' | '<=' | '<';
             p_value: number;
             restrictions?: WalletQuery[];
             non_revoked?: NonRevokedInterval;
         };
     };
     non_revoked?: NonRevokedInterval;
-    ver?: "1.0" | "2.0";
+    ver?: '1.0' | '2.0';
 }
 
 export interface CredReq {
