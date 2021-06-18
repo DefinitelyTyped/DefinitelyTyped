@@ -9,9 +9,9 @@ declare module "../../wavesurfer" {
     }
 }
 
-export default class SpectogramPlugin extends Observer implements WaveSurferPlugin {
-    constructor(params: SpectogramPluginParams, ws: WaveSurfer);
-    static create(params: SpectogramPluginParams): PluginDefinition;
+export default class SpectrogramPlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: SpectrogramPluginParams, ws: WaveSurfer);
+    static create(params: SpectrogramPluginParams): PluginDefinition;
     destroy(): void;
     init(): void;
 
@@ -23,7 +23,7 @@ export default class SpectogramPlugin extends Observer implements WaveSurferPlug
     readonly frequenciesDataUrl: string;
     readonly height: number;
     readonly noverlap: number;
-    readonly params: SpectogramPluginParams;
+    readonly params: SpectrogramPluginParams;
     readonly pixelRatio: number;
     readonly spectrCc: CanvasRenderingContext2D;
     readonly util: WaveSurfer["util"];
@@ -33,7 +33,7 @@ export default class SpectogramPlugin extends Observer implements WaveSurferPlug
     readonly wrapper: HTMLElement;
 }
 
-export interface SpectogramPluginParams extends PluginParams {
+export interface SpectrogramPluginParams extends PluginParams {
     /** Selector of element or element in which to render. */
     container: string | HTMLElement;
     /** Number of samples to fetch to FFT. Must be a power of 2. */
