@@ -34,45 +34,45 @@ commerce.checkout.generateTokenFrom('cart', commerce.cart.id()!);
 
 // $ExpectType Promise<CheckoutCaptureResponse>
 commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
-  line_items: {
-    // Key is the line item ID for our test product
-    item_7RyWOwmK5nEa2V: {
-        quantity: 1,
-        variants: {
-          // Key is the variant ID for "Color", value is the option ID for "Blue"
-          vrnt_bO6J5apWnVoEjp: 'optn_Op1YoVppylXLv9',
-          // Key is the variant ID for "Size", value is the option ID for "Small"
-          vrnt_4WJvlKpg7pwbYV: 'optn_zkK6oL99G5Xn0Q',
+    line_items: {
+        // Key is the line item ID for our test product
+        item_7RyWOwmK5nEa2V: {
+            quantity: 1,
+            variants: {
+                // Key is the variant ID for "Color", value is the option ID for "Blue"
+                vrnt_bO6J5apWnVoEjp: 'optn_Op1YoVppylXLv9',
+                // Key is the variant ID for "Size", value is the option ID for "Small"
+                vrnt_4WJvlKpg7pwbYV: 'optn_zkK6oL99G5Xn0Q',
+            },
         },
-      }
-  },
-  customer: {
-    firstname: 'John',
-    lastname: 'Doe',
-    email: 'john.doe@example.com',
-  },
-  shipping: {
-    name: 'John Doe',
-    street: '123 Fake St',
-    street_2: 'Unit 2',
-    town_city: 'San Francisco',
-    county_state: 'CA',
-    postal_zip_code: '94103',
-    country: 'US',
-  },
-  fulfillment: {
-    // The shipping method ID for "USPS Ground" (for example)
-    // You can use commerce.checkout.getShippingOptions() to get a list
-    shipping_method: 'ship_1ypbroE658n4ea',
-  },
-  payment: {
-    // Test Gateway is enabled by default, and is used when you submit orders with
-    // your sandbox API key
-    gateway: 'test_gateway',
-    card: {
-      number: '4242 4242 4242 4242'
     },
-  },
+    customer: {
+        firstname: 'John',
+        lastname: 'Doe',
+        email: 'john.doe@example.com',
+    },
+    shipping: {
+        name: 'John Doe',
+        street: '123 Fake St',
+        street_2: 'Unit 2',
+        town_city: 'San Francisco',
+        county_state: 'CA',
+        postal_zip_code: '94103',
+        country: 'US',
+    },
+    fulfillment: {
+        // The shipping method ID for "USPS Ground" (for example)
+        // You can use commerce.checkout.getShippingOptions() to get a list
+        shipping_method: 'ship_1ypbroE658n4ea',
+    },
+    payment: {
+        // Test Gateway is enabled by default, and is used when you submit orders with
+        // your sandbox API key
+        gateway: 'test_gateway',
+        card: {
+            number: '4242 4242 4242 4242',
+        },
+    },
 });
 
 // $ExpectType Promise<CheckoutToken>
@@ -83,25 +83,25 @@ commerce.checkout.getLive(checkoutTokenId);
 
 // $ExpectType Promise<CheckPayWhatYouWantResponse>
 commerce.checkout.checkPayWhatYouWant(checkoutTokenId, {
-  customer_set_price: customerSetPrice,
+    customer_set_price: customerSetPrice,
 });
 
 // $ExpectType Promise<CheckVariantResponse>
 commerce.checkout.checkVariant(checkoutTokenId, lineItemId, {
-  variant_id: variantId,
-  option_id: optionId,
+    variant_id: variantId,
+    option_id: optionId,
 });
 
 // $ExpectType Promise<CheckDiscountResponse>
 commerce.checkout.checkDiscount(checkoutTokenId, {
-  code: discountCode,
+    code: discountCode,
 });
 
 // $ExpectType Promise<CheckShippingOptionResponse>
 commerce.checkout.checkShippingOption(checkoutTokenId, {
-  shipping_option_id: shippingOptionId,
-  country,
-  region,
+    shipping_option_id: shippingOptionId,
+    country,
+    region,
 });
 
 // $ExpectType Promise<IsFreeResponse>
@@ -112,7 +112,7 @@ commerce.checkout.getLocationFromIP(checkoutTokenId, ipAddress);
 
 // $ExpectType Promise<CheckGiftcardResponse>
 commerce.checkout.checkGiftcard(checkoutTokenId, {
-  code: giftcardCode,
+    code: giftcardCode,
 });
 
 // $ExpectType Promise<HelperValidationResponse>
@@ -120,13 +120,13 @@ commerce.checkout.helperValidation(checkoutTokenId);
 
 // $ExpectType Promise<GetShippingOptionsResponse>
 commerce.checkout.getShippingOptions(checkoutTokenId, {
-  country,
-  region,
+    country,
+    region,
 });
 
 // $ExpectType Promise<SetTaxZoneResponse>
 commerce.checkout.setTaxZone(checkoutTokenId, {
-  country,
-  region,
-  postal_zip_code: postCode,
+    country,
+    region,
+    postal_zip_code: postCode,
 });
