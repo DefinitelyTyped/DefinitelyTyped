@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 3.0
+// Type definitions for D3JS d3-array module 2.12
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -8,7 +8,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 2.12.1
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -127,23 +127,6 @@ export function extent<T, U extends Numeric>(
     iterable: Iterable<T>,
     accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null
 ): [U, U] | [undefined, undefined];
-
-/**
- * Returns the mode of the given iterable, i.e. the value which appears the most often.
- * In case of equality, returns the first of the relevant values.
- * If the iterable contains no comparable values, returns undefined.
- * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the mode.
- * This method ignores undefined, null and NaN values; this is useful for ignoring missing data.
- */
-export function mode(iterable: Iterable<Numeric | undefined | null>): number;
-/**
- * Returns the mode of the given iterable, i.e. the value which appears the most often.
- * In case of equality, returns the first of the relevant values.
- * If the iterable contains no comparable values, returns undefined.
- * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the mode.
- * This method ignores undefined, null and NaN values; this is useful for ignoring missing data.
- */
-export function mode<T>(iterable: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null): number;
 
 /**
  * Compute the sum of an array of numbers.
@@ -525,43 +508,6 @@ export function groups<TObject, TKey1, TKey2, TKey3>(
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject[]]>]>]>;
 
 /**
- * Equivalent to group, but returns a flat array of [key0, key1, …, values] instead of nested maps.
- *
- * @param iterable The array to group.
- * @param key The key function.
- */
-export function flatGroup<TObject, TKey>(
-    iterable: Iterable<TObject>,
-    key: (value: TObject) => TKey
-): Array<[TKey, TObject[]]>;
-/**
- * Equivalent to group, but returns a flat array of [key0, key1, …, values] instead of nested maps.
- *
- * @param iterable The array to group.
- * @param key1 The first key function.
- * @param key2 The second key function.
- */
-export function flatGroup<TObject, TKey1, TKey2>(
-    iterable: Iterable<TObject>,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
-): Array<[TKey1, TKey2, TObject[]]>;
-/**
- * Equivalent to group, but returns a flat array of [key0, key1, …, values] instead of nested maps.
- *
- * @param iterable The array to group.
- * @param key1 The first key function.
- * @param key2 The second key function.
- * @param key3 The third key function.
- */
-export function flatGroup<TObject, TKey1, TKey2, TKey3>(
-    iterable: Iterable<TObject>,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
-): Array<[TKey1, TKey2, TKey3, TObject[]]>;
-
-/**
  * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
  *
  * @param iterable The array to group.
@@ -717,49 +663,6 @@ export function rollups<TObject, TReduce, TKey1, TKey2, TKey3>(
     key2: (value: TObject) => TKey2,
     key3: (value: TObject) => TKey3
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TReduce]>]>]>;
-
-/**
- * Equivalent to rollup, but returns a flat array of [key0, key1, …, value] instead of nested maps.
- *
- * @param iterable The array to group.
- * @param reduce The reduce function.
- * @param key The key function.
- */
-export function flatRollup<TObject, TReduce, TKey>(
-    iterable: Iterable<TObject>,
-    reduce: (value: TObject[]) => TReduce,
-    key: (value: TObject) => TKey
-): Array<[TKey, TReduce]>;
-/**
- * Equivalent to rollup, but returns a flat array of [key0, key1, …, value] instead of nested maps.
- *
- * @param iterable The array to group.
- * @param reduce The reduce function.
- * @param key1 The first key function.
- * @param key2 The second key function.
- */
-export function flatRollup<TObject, TReduce, TKey1, TKey2>(
-    iterable: Iterable<TObject>,
-    reduce: (value: TObject[]) => TReduce,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
-): Array<[TKey1, TKey2, TReduce]>;
-/**
- * Equivalent to rollup, but returns a flat array of [key0, key1, …, value] instead of nested maps.
- *
- * @param iterable The array to group.
- * @param reduce The reduce function.
- * @param key1 The first key function.
- * @param key2 The second key function.
- * @param key3 The third key function.
- */
-export function flatRollup<TObject, TReduce, TKey1, TKey2, TKey3>(
-    iterable: Iterable<TObject>,
-    reduce: (value: TObject[]) => TReduce,
-    key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
-): Array<[TKey1, TKey2, TKey3, TReduce]>;
 
 /**
  * Groups the specified iterable of elements according to the specified key function, sorts the groups according to the specified comparator, and then returns an array of keys in sorted order.

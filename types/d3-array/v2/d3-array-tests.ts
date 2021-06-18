@@ -242,21 +242,6 @@ numOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToNum
 strOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToStrOrUndefined);
 numOrUndefinedExtent = d3Array.extent(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
-// mode() -----------------------------------------------------------------------
-
-numOrUndefined = d3Array.mode(numbersArray);
-numOrUndefined = d3Array.mode(numericArray);
-numOrUndefined = d3Array.mode(numbersOrUndefinedArray);
-
-numOrUndefined = d3Array.mode(typedArray);
-numOrUndefined = d3Array.mode(readonlyNumbersArray);
-numOrUndefined = d3Array.mode(readonlyNumericArray);
-numOrUndefined = d3Array.mode(readonlyNumbersOrUndefinedArray);
-
-numOrUndefined = d3Array.mode(mixedObjectArray, accessorMixedObjectToNum);
-numOrUndefined = d3Array.mode(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
-numOrUndefined = d3Array.mode(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
-
 // mean() ----------------------------------------------------------------------
 
 numOrUndefined = d3Array.mean(numbersArray);
@@ -796,14 +781,6 @@ const rolledups: Array<[string, number]> = d3Array.rollups(objArray, d => d.leng
 const rolledups2: Array<[string, Array<[string, number]>]> = d3Array.rollups(objArray, d => d.length, d => d.name, d => d.date);
 const rolledups3: Array<[string, Array<[string, Array<[string, number]>]>]> = d3Array.rollups(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
 const rolledupsAlternate: Array<[string, string]> = d3Array.rollups(objArray, d => d.map(u => u.name).join(' '), d => d.name);
-
-const flatGroup: Array<[string, ObjDefinition[]]> = d3Array.flatGroup(objArray, d => d.name);
-const flatGroup2: Array<[string, string, ObjDefinition[]]> = d3Array.flatGroup(objArray, d => d.name, d => d.date);
-const flatGroup3: Array<[string, string, string, ObjDefinition[]]> = d3Array.flatGroup(objArray, d => d.name, d => d.date, d => d.amount);
-const flatRolledup: Array<[string, number]> = d3Array.flatRollup(objArray, d => d.length, d => d.name);
-const flatRolledup2: Array<[string, string, number]> = d3Array.flatRollup(objArray, d => d.length, d => d.name, d => d.date);
-const flatRolledup3: Array<[string, string, string, number]> = d3Array.flatRollup(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
-const flatRolledupAlternate: Array<[string, string]> = d3Array.flatRollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
 // groupSort() -------------------
 
