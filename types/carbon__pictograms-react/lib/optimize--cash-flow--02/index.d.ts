@@ -1,1 +1,3 @@
-export { OptimizeCashFlow_02 as default } from "../../";
+import { OptimizeCashFlow_02 } from "../../";
+
+export = OptimizeCashFlow_02;

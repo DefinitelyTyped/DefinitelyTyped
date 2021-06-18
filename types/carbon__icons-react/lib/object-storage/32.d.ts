@@ -1,1 +1,3 @@
-export { ObjectStorage32 as default } from "../../";
+import { ObjectStorage32 } from "../../";
+
+export = ObjectStorage32;

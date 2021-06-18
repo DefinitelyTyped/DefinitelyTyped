@@ -1,1 +1,3 @@
-export { TextIndentMore32 as default } from "../../";
+import { TextIndentMore32 } from "../../";
+
+export = TextIndentMore32;

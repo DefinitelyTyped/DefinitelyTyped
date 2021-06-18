@@ -1,1 +1,3 @@
-export { AddDocument as default } from "../../";
+import { AddDocument } from "../../";
+
+export = AddDocument;

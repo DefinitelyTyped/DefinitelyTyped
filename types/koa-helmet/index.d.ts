@@ -1,7 +1,8 @@
 // Type definitions for koa-helmet 6.0
 // Project: https://github.com/venables/koa-helmet#readme
-// Definitions by: Nick Simmons <https://github.com/me>
+// Definitions by: Nick Simmons <https://github.com/nsimmons>
 //                 Jan Dolezel <https://github.com/dolezel>
+//                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -36,6 +37,7 @@ declare namespace koaHelmet {
 
     interface KoaHelmetContentSecurityPolicyConfiguration {
         reportOnly?: boolean;
+        useDefaults?: boolean;
         directives?: KoaHelmetContentSecurityPolicyDirectives;
     }
 

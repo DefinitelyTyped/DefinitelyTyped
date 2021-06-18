@@ -1,1 +1,3 @@
-export { Pressure24 as default } from "../../";
+import { Pressure24 } from "../../";
+
+export = Pressure24;

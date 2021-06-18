@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 4.17
+// Type definitions for ArcGIS API for JavaScript 4.19
 // Project: http://js.arcgis.com
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -595,7 +595,7 @@ declare namespace __esri {
 
   interface Camera extends Accessor, JSONSupport {
     /**
-     * The field of view of the camera in degrees.
+     * The diagonal field of view (fov) angle for the camera.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Camera.html#fov)
      */
@@ -643,7 +643,7 @@ declare namespace __esri {
 
   interface CameraProperties {
     /**
-     * The field of view of the camera in degrees.
+     * The diagonal field of view (fov) angle for the camera.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Camera.html#fov)
      */
@@ -794,6 +794,18 @@ declare namespace __esri {
    */
   interface config {
     /**
+     * An authorization string used to access a resource or service.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#apiKey)
+     */
+    apiKey: string;
+    /**
+     * Overrides the URL for loading the API assets when using local builds of the `@arcgis/core` and `arcgis-js-api` NPM packages.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#assetsPath)
+     */
+    assetsPath: string;
+    /**
      * The URL for font resources used by the [Font](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Font.html#family) class in [FeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html) and [CSVLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-CSVLayer.html) labels.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#fontsUrl)
@@ -932,11 +944,17 @@ declare namespace __esri {
 
   export interface configWorkers extends Object {
     /**
-     * The absolute url to the AMD loader used in the worker.
+     * The absolute url to the AMD or SystemJS loader used in the worker.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#workers)
      */
     loaderUrl?: any;
+    /**
+     * This is used by the `@arcgis/core` and `arcgis-js-api` NPM packages to control where to load a custom build of the `RemoteClient` from.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#workers)
+     */
+    workerPath?: string;
     /**
      * The configuration parameters for [the workers framework](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-workers.html).
      *
@@ -1048,6 +1066,11 @@ declare namespace __esri {
     remove(): void;
   }
 
+  /**
+   * This module contains Accessor [TypeScript](https://www.typescriptlang.org/docs/handbook/decorators.html) decorators.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-accessorSupport-decorators.html)
+   */
   interface decorators {
     /**
      * A property decorator that creates a two-way binding between the property it decorates and an inner property of one of its members.
@@ -1093,13 +1116,13 @@ declare namespace __esri {
      */
     dependsOn?: string[];
     /**
-     * The constructor used to [autocast](https://developers.arcgis.com/javascript/latest/guide/programming-patterns/#autocasting) the property.
+     * The constructor used to [autocast](https://developers.arcgis.com/javascript/latest/programming-patterns/#autocasting) the property.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-accessorSupport-decorators.html#property)
      */
     type?: Function;
     /**
-     * The function to use to [autocast](https://developers.arcgis.com/javascript/latest/guide/programming-patterns/#autocasting) the property.
+     * The function to use to [autocast](https://developers.arcgis.com/javascript/latest/programming-patterns/#autocasting) the property.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-accessorSupport-decorators.html#property)
      */
@@ -1192,6 +1215,12 @@ declare namespace __esri {
   }
 
   interface ErrorConstructor {
+    /**
+     * Error is a class that enhances the debugging and error handling process.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Error.html)
+     */
+
     new (name: string, message?: string, details?: any): Error;
   }
 
@@ -1230,6 +1259,12 @@ declare namespace __esri {
   }
 
   interface HandleOwnerConstructor {
+    /**
+     * Provides a single [handles](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-HandleOwner.html#handles) property to be shared with all subclasses.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-HandleOwner.html)
+     */
+
     new (properties?: HandleOwnerProperties): HandleOwner;
   }
 
@@ -1272,6 +1307,12 @@ declare namespace __esri {
   }
 
   interface HandlesConstructor {
+    /**
+     * This class helps manage a group of handles.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Handles.html)
+     */
+
     new (properties?: HandlesProperties): Handles;
   }
 
@@ -1295,7 +1336,7 @@ declare namespace __esri {
 
   interface JSONSupport {
     /**
-     * Converts an instance of  [this class]() to its [ArcGIS portal JSON](https://developers.arcgis.com/documentation/common-data-types/geometry-objects.htm) representation.
+     * Converts an instance of  this class to its [ArcGIS portal JSON](https://developers.arcgis.com/documentation/common-data-types/geometry-objects.htm) representation.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-JSONSupport.html#toJSON)
      */
@@ -1306,7 +1347,7 @@ declare namespace __esri {
     new (): JSONSupport;
 
     /**
-     * Creates a new instance of [this class]() and initializes it with values from a JSON object generated from a product in the ArcGIS platform.
+     * Creates a new instance of this class and initializes it with values from a JSON object generated from an ArcGIS product.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-JSONSupport.html#fromJSON)
      */
@@ -1315,6 +1356,11 @@ declare namespace __esri {
 
   export const JSONSupport: JSONSupportConstructor;
 
+  /**
+   * Provides a utility method for deeply cloning objects with properties that are computed or have their own `clone()` method, such as [Extent](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Extent.html).
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-lang.html)
+   */
   interface lang {
     /**
      * Use this method to deeply clone objects with properties that are computed or have their own `clone()` method.
@@ -1425,6 +1471,11 @@ declare namespace __esri {
 
   export const corePromise: corePromiseConstructor;
 
+  /**
+   * Various utilities and convenience functions for working with promises.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-promiseUtils.html)
+   */
   interface promiseUtils {
     /**
      * Convenience utility method for creating and resolving a promise.
@@ -1614,6 +1665,11 @@ declare namespace __esri {
     elapsedFrameTime: number;
   }
 
+  /**
+   * Creates a [WhereClause](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-sql-WhereClause.html) expression that adheres to standardized SQL expressions.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-sql.html)
+   */
   interface sql {
     /**
      * Parses the given where clause string and returns an instance of [WhereClause](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-sql-WhereClause.html) when resolved.
@@ -1625,6 +1681,11 @@ declare namespace __esri {
 
   export const sql: sql;
 
+  /**
+   * The WhereClause is used to extract the features that meet a specified condition by parsing the provided results in to a value.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-sql-WhereClause.html)
+   */
   interface WhereClause {
     /**
      * An array of the field names used in the where clause.
@@ -1655,6 +1716,198 @@ declare namespace __esri {
 
   export const WhereClause: WhereClause;
 
+  /**
+   * Types of units used across the JS API.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html)
+   */
+  namespace units {
+    /**
+     * Units for lengths.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#LengthUnit)
+     */
+    export type LengthUnit =
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
+      | "inches"
+      | "feet"
+      | "yards"
+      | "miles"
+      | "nautical-miles"
+      | "us-feet";
+
+    /**
+     * Units for areas.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#AreaUnit)
+     */
+    export type AreaUnit =
+      | "square-millimeters"
+      | "square-centimeters"
+      | "square-decimeters"
+      | "square-meters"
+      | "square-kilometers"
+      | "square-inches"
+      | "square-feet"
+      | "square-yards"
+      | "square-miles"
+      | "square-us-feet"
+      | "acres"
+      | "ares"
+      | "hectares";
+
+    /**
+     * Units for volumes.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#VolumeUnit)
+     */
+    export type VolumeUnit =
+      | "liters"
+      | "cubic-millimeters"
+      | "cubic-centimeters"
+      | "cubic-decimeters"
+      | "cubic-meters"
+      | "cubic-kilometers"
+      | "cubic-inches"
+      | "cubic-feet"
+      | "cubic-yards"
+      | "cubic-miles";
+
+    /**
+     * Units for angles.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#AngleUnit)
+     */
+    export type AngleUnit = "degrees" | "radians";
+
+    /**
+     * Units for angles.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#Unit)
+     */
+    export type Unit = __esri.LengthUnit | __esri.AreaUnit | __esri.VolumeUnit | __esri.AngleUnit;
+
+    /**
+     * Measurement systems.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#MeasurementSystem)
+     */
+    export type MeasurementSystem = "imperial" | "metric";
+
+    /**
+     * Measurement systems or an area units.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#SystemOrAreaUnit)
+     */
+    export type SystemOrAreaUnit = __esri.MeasurementSystem | __esri.AreaUnit;
+
+    /**
+     * Measurement system or an length unit.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#SystemOrLengthUnit)
+     */
+    export type SystemOrLengthUnit = __esri.MeasurementSystem | __esri.LengthUnit;
+  }
+
+  /**
+   * Units for angles.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#AngleUnit)
+   */
+  export type AngleUnit = "degrees" | "radians";
+
+  /**
+   * Units for areas.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#AreaUnit)
+   */
+  export type AreaUnit =
+    | "square-millimeters"
+    | "square-centimeters"
+    | "square-decimeters"
+    | "square-meters"
+    | "square-kilometers"
+    | "square-inches"
+    | "square-feet"
+    | "square-yards"
+    | "square-miles"
+    | "square-us-feet"
+    | "acres"
+    | "ares"
+    | "hectares";
+
+  /**
+   * Units for lengths.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#LengthUnit)
+   */
+  export type LengthUnit =
+    | "millimeters"
+    | "centimeters"
+    | "decimeters"
+    | "meters"
+    | "kilometers"
+    | "inches"
+    | "feet"
+    | "yards"
+    | "miles"
+    | "nautical-miles"
+    | "us-feet";
+
+  /**
+   * Measurement systems.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#MeasurementSystem)
+   */
+  export type MeasurementSystem = "imperial" | "metric";
+
+  /**
+   * Measurement systems or an area units.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#SystemOrAreaUnit)
+   */
+  export type SystemOrAreaUnit = MeasurementSystem | AreaUnit;
+
+  /**
+   * Measurement system or an length unit.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#SystemOrLengthUnit)
+   */
+  export type SystemOrLengthUnit = MeasurementSystem | LengthUnit;
+
+  /**
+   * Units for angles.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#Unit)
+   */
+  export type Unit = LengthUnit | AreaUnit | VolumeUnit | AngleUnit;
+
+  /**
+   * Units for volumes.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-units.html#VolumeUnit)
+   */
+  export type VolumeUnit =
+    | "liters"
+    | "cubic-millimeters"
+    | "cubic-centimeters"
+    | "cubic-decimeters"
+    | "cubic-meters"
+    | "cubic-kilometers"
+    | "cubic-inches"
+    | "cubic-feet"
+    | "cubic-yards"
+    | "cubic-miles";
+
+  /**
+   * Utility methods for working with URLs.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-urlUtils.html)
+   */
   interface urlUtils {
     /**
      * Adds the given proxy rule to the proxy rules list: `esriConfig.request.proxyRules`.
@@ -1693,6 +1946,11 @@ declare namespace __esri {
     urlPrefix: string;
   }
 
+  /**
+   * Various utilities and convenience functions for watching [Accessor](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Accessor.html) properties.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-watchUtils.html)
+   */
   interface watchUtils {
     /**
      * Watches a property for changes and calls the callback with the initial value of the property.
@@ -1984,7 +2242,7 @@ declare namespace __esri {
      */
     label: string;
     /**
-     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a boolean value.
+     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a boolean value.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-ElementMixin.html#visibilityExpression)
      */
@@ -2005,7 +2263,7 @@ declare namespace __esri {
      */
     label?: string;
     /**
-     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a boolean value.
+     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a boolean value.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-ElementMixin.html#visibilityExpression)
      */
@@ -2038,13 +2296,13 @@ declare namespace __esri {
      */
     hint: string;
     /**
-     * The input user interface to use for the element.
+     * The input to use for the element.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-FieldElement.html#input)
      */
-    input: TextBoxInput | TextAreaInput | DateTimePickerInput;
+    input: TextBoxInput | TextAreaInput | DateTimePickerInput | BarcodeScannerInput | ComboBoxInput | RadioButtonsInput;
     /**
-     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a boolean value.
+     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a boolean value.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-FieldElement.html#requiredExpression)
      */
@@ -2084,7 +2342,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-FieldElement.html#domain)
      */
-    domain?: CodedValueDomainProperties | RangeDomainProperties;
+    domain?: (CodedValueDomainProperties & { type: "coded-value" }) | (RangeDomainProperties & { type: "range" });
     /**
      * Indicates whether the field can be edited.
      *
@@ -2104,13 +2362,19 @@ declare namespace __esri {
      */
     hint?: string;
     /**
-     * The input user interface to use for the element.
+     * The input to use for the element.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-FieldElement.html#input)
      */
-    input?: TextBoxInputProperties | TextAreaInputProperties | DateTimePickerInputProperties;
+    input?:
+      | (TextBoxInputProperties & { type: "text-box" })
+      | (TextAreaInputProperties & { type: "text-area" })
+      | (DateTimePickerInputProperties & { type: "datetime-picker" })
+      | (BarcodeScannerInputProperties & { type: "barcode-scanner" })
+      | (ComboBoxInputProperties & { type: "combo-box" })
+      | (RadioButtonsInputProperties & { type: "radio-buttons" });
     /**
-     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a boolean value.
+     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a boolean value.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-FieldElement.html#requiredExpression)
      */
@@ -2186,7 +2450,89 @@ declare namespace __esri {
     type?: "group";
   }
 
-  interface DateTimePickerInput extends Input, JSONSupport {
+  interface BarcodeScannerInput extends Accessor, TextInput, JSONSupport {
+    /**
+     * The type of form element input.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-BarcodeScannerInput.html#type)
+     */
+    readonly type: "barcode-scanner";
+  }
+
+  interface BarcodeScannerInputConstructor {
+    /**
+     * The `BarcodeScannerInput` class defines the desired user interface for a barcode or QR code scanner.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-BarcodeScannerInput.html)
+     */
+
+    new (properties?: BarcodeScannerInputProperties): BarcodeScannerInput;
+
+    fromJSON(json: any): BarcodeScannerInput;
+  }
+
+  export const BarcodeScannerInput: BarcodeScannerInputConstructor;
+
+  interface BarcodeScannerInputProperties extends TextInputProperties {}
+
+  interface ComboBoxInput extends Accessor, JSONSupport {
+    /**
+     * The text used to represent a null value.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-ComboBoxInput.html#noValueOptionLabel)
+     */
+    noValueOptionLabel: string;
+    /**
+     * Determines whether a null value option is displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-ComboBoxInput.html#showNoValueOption)
+     */
+    showNoValueOption: boolean;
+    /**
+     * The type of form element input.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-ComboBoxInput.html#type)
+     */
+    readonly type: "combo-box";
+
+    /**
+     * Creates a deep clone of the ComboBoxInput class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-ComboBoxInput.html#clone)
+     */
+    clone(): ComboBoxInput;
+  }
+
+  interface ComboBoxInputConstructor {
+    /**
+     * The `ComboBoxInput` class defines the desired user interface for a combo box  group.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-ComboBoxInput.html)
+     */
+
+    new (properties?: ComboBoxInputProperties): ComboBoxInput;
+
+    fromJSON(json: any): ComboBoxInput;
+  }
+
+  export const ComboBoxInput: ComboBoxInputConstructor;
+
+  interface ComboBoxInputProperties {
+    /**
+     * The text used to represent a null value.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-ComboBoxInput.html#noValueOptionLabel)
+     */
+    noValueOptionLabel?: string;
+    /**
+     * Determines whether a null value option is displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-ComboBoxInput.html#showNoValueOption)
+     */
+    showNoValueOption?: boolean;
+  }
+
+  interface DateTimePickerInput extends Accessor, JSONSupport {
     /**
      * Indicates if the input should provide an option to select the time.
      *
@@ -2206,11 +2552,11 @@ declare namespace __esri {
      */
     min: number;
     /**
-     * The type of input.
+     * The type of form element input.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-DateTimePickerInput.html#type)
      */
-    type: "datetime-picker";
+    readonly type: "datetime-picker";
 
     /**
      * Creates a deep clone of the `DateTimePicker` class.
@@ -2221,6 +2567,12 @@ declare namespace __esri {
   }
 
   interface DateTimePickerInputConstructor {
+    /**
+     * The `DateTimePickerInput` class defines the desired user interface for editing date fields in a form.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-DateTimePickerInput.html)
+     */
+
     new (properties?: DateTimePickerInputProperties): DateTimePickerInput;
 
     fromJSON(json: any): DateTimePickerInput;
@@ -2228,7 +2580,7 @@ declare namespace __esri {
 
   export const DateTimePickerInput: DateTimePickerInputConstructor;
 
-  interface DateTimePickerInputProperties extends InputProperties {
+  interface DateTimePickerInputProperties {
     /**
      * Indicates if the input should provide an option to select the time.
      *
@@ -2247,38 +2599,64 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-DateTimePickerInput.html#min)
      */
     min?: number;
-    /**
-     * The type of input.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-DateTimePickerInput.html#type)
-     */
-    type?: "datetime-picker";
   }
 
-  interface Input extends Accessor, JSONSupport {
+  interface RadioButtonsInput extends Accessor, JSONSupport {
     /**
-     * The type of form element input displayed.
+     * The text used to represent a null value.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-Input.html#type)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-RadioButtonsInput.html#noValueOptionLabel)
      */
-    readonly type: "text-area" | "text-box" | "datetime-picker";
+    noValueOptionLabel: string;
+    /**
+     * Determines whether a null value option is displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-RadioButtonsInput.html#showNoValueOption)
+     */
+    showNoValueOption: boolean;
+    /**
+     * The type of form element input.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-RadioButtonsInput.html#type)
+     */
+    readonly type: "radio-buttons";
+
+    /**
+     * Creates a deep clone of the `RadioButtonsInput` class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-RadioButtonsInput.html#clone)
+     */
+    clone(): RadioButtonsInput;
   }
 
-  interface InputConstructor {
+  interface RadioButtonsInputConstructor {
     /**
-     * Form element inputs define the input user interface to use for a [field element](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-FieldElement.html) specified in a feature layer's [formTemplate](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-FormTemplate.html).
+     * The `RadioButtonsInput` class defines the desired user interface for a radio button group.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-Input.html)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-RadioButtonsInput.html)
      */
 
-    new (properties?: InputProperties): Input;
+    new (properties?: RadioButtonsInputProperties): RadioButtonsInput;
 
-    fromJSON(json: any): Input;
+    fromJSON(json: any): RadioButtonsInput;
   }
 
-  export const Input: InputConstructor;
+  export const RadioButtonsInput: RadioButtonsInputConstructor;
 
-  interface InputProperties {}
+  interface RadioButtonsInputProperties {
+    /**
+     * The text used to represent a null value.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-RadioButtonsInput.html#noValueOptionLabel)
+     */
+    noValueOptionLabel?: string;
+    /**
+     * Determines whether a null value option is displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-RadioButtonsInput.html#showNoValueOption)
+     */
+    showNoValueOption?: boolean;
+  }
 
   interface TextAreaInput extends TextInput, JSONSupport {
     /**
@@ -2286,10 +2664,23 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextAreaInput.html#type)
      */
-    type: "text-area";
+    readonly type: "text-area";
+
+    /**
+     * Creates a deep clone of the `TextAreaInput` class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextAreaInput.html#clone)
+     */
+    clone(): TextAreaInput;
   }
 
   interface TextAreaInputConstructor {
+    /**
+     * The `TextAreaInput` class defines the desired user interface as a multi-line text area.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextAreaInput.html)
+     */
+
     new (properties?: TextAreaInputProperties): TextAreaInput;
 
     fromJSON(json: any): TextAreaInput;
@@ -2297,25 +2688,31 @@ declare namespace __esri {
 
   export const TextAreaInput: TextAreaInputConstructor;
 
-  interface TextAreaInputProperties extends TextInputProperties {
+  interface TextAreaInputProperties extends TextInputProperties {}
+
+  interface TextBoxInput extends Accessor, TextInput, JSONSupport {
     /**
      * The type of form element input.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextAreaInput.html#type)
-     */
-    type?: "text-area";
-  }
-
-  interface TextBoxInput extends TextInput, JSONSupport {
-    /**
-     * The type of input.
-     *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextBoxInput.html#type)
      */
-    type: "text-box";
+    readonly type: "text-box";
+
+    /**
+     * Creates a deep clone of the `TextBoxInput` class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextBoxInput.html#clone)
+     */
+    clone(): TextBoxInput;
   }
 
   interface TextBoxInputConstructor {
+    /**
+     * The `TextBoxInput` class defines the desired user interface as a single-line text box.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextBoxInput.html)
+     */
+
     new (properties?: TextBoxInputProperties): TextBoxInput;
 
     fromJSON(json: any): TextBoxInput;
@@ -2323,60 +2720,38 @@ declare namespace __esri {
 
   export const TextBoxInput: TextBoxInputConstructor;
 
-  interface TextBoxInputProperties extends TextInputProperties {
-    /**
-     * The type of input.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextBoxInput.html#type)
-     */
-    type?: "text-box";
-  }
+  interface TextBoxInputProperties extends TextInputProperties {}
 
-  interface TextInput extends Input, JSONSupport {
+  interface TextInput {
     /**
-     * When set, defines the input's maximum length.
+     * When set, defines the text input's maximum length.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextInput.html#maxLength)
      */
     maxLength: number;
     /**
-     * When set, defines the input's minimum length.
+     * When set, defines the text input's minimum length.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextInput.html#minLength)
      */
     minLength: number;
-    /**
-     * Indicates the type of form element [input](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-Input.html).
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextInput.html#type)
-     */
-    readonly type: "text-area" | "text-box";
-
-    /**
-     * Creates a deep clone of the `TextInput` class.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextInput.html#clone)
-     */
-    clone(): TextInput;
   }
 
   interface TextInputConstructor {
-    new (properties?: TextInputProperties): TextInput;
-
-    fromJSON(json: any): TextInput;
+    new (): TextInput;
   }
 
   export const TextInput: TextInputConstructor;
 
-  interface TextInputProperties extends InputProperties {
+  interface TextInputProperties {
     /**
-     * When set, defines the input's maximum length.
+     * When set, defines the text input's maximum length.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextInput.html#maxLength)
      */
     maxLength?: number;
     /**
-     * When set, defines the input's minimum length.
+     * When set, defines the text input's minimum length.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-TextInput.html#minLength)
      */
@@ -2384,11 +2759,31 @@ declare namespace __esri {
   }
 
   /**
+   * The `BarcodeScannerInput` class defines the desired user interface is a barcode or QR code scanner.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs.html#BarcodeScannerInput)
+   */
+  export type inputsBarcodeScannerInput = BarcodeScannerInput;
+
+  /**
+   * The `DateTimePickerInput` class defines the desired user interface for editing date fields in a form.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs.html#DateTimePickerInput)
+   */
+  export type inputsDateTimePickerInput = DateTimePickerInput;
+
+  /**
    * Form element input types.
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs.html#Input)
    */
-  export type inputsInput = TextAreaInput | TextBoxInput;
+  export type inputsInput =
+    | DateTimePickerInput
+    | TextAreaInput
+    | TextBoxInput
+    | BarcodeScannerInput
+    | ComboBoxInput
+    | RadioButtonsInput;
 
   /**
    * `TextAreaInput` defines the desired user interface is a multi-line text area.
@@ -2405,7 +2800,7 @@ declare namespace __esri {
   export type inputsTextBoxInput = TextBoxInput;
 
   /**
-   * A convenience module for importing [Input](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-inputs-Input.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/guide/typescript-setup/index.html).
+   * A convenience module for importing [Input](module-esri-form-elements-inputs-Input.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/typescript-setup/).
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-support-inputs.html)
    */
@@ -2415,7 +2810,7 @@ declare namespace __esri {
 
   interface ExpressionInfo extends Accessor, JSONSupport {
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression evaluating to either a string, number, dictionary, or array.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression evaluating to either a string, number, dictionary, or array.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-ExpressionInfo.html#expression)
      */
@@ -2448,6 +2843,12 @@ declare namespace __esri {
   }
 
   interface ExpressionInfoConstructor {
+    /**
+     * The `ExpressionInfo` class defines the [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expressions executed in a layer's [FormTemplate](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-FormTemplate.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-ExpressionInfo.html)
+     */
+
     new (properties?: ExpressionInfoProperties): ExpressionInfo;
 
     fromJSON(json: any): ExpressionInfo;
@@ -2457,7 +2858,7 @@ declare namespace __esri {
 
   interface ExpressionInfoProperties {
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression evaluating to either a string, number, dictionary, or array.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression evaluating to either a string, number, dictionary, or array.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-ExpressionInfo.html#expression)
      */
@@ -2496,7 +2897,7 @@ declare namespace __esri {
      */
     elements: Element[];
     /**
-     * An array of objects or [ExpressionInfo[]](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-ExpressionInfo.html) that reference [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expressions.
+     * An array of objects or [ExpressionInfo[]](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-ExpressionInfo.html) that reference [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expressions.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-FormTemplate.html#expressionInfos)
      */
@@ -2544,7 +2945,7 @@ declare namespace __esri {
      */
     elements?: ElementProperties[];
     /**
-     * An array of objects or [ExpressionInfo[]](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-ExpressionInfo.html) that reference [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expressions.
+     * An array of objects or [ExpressionInfo[]](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-ExpressionInfo.html) that reference [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expressions.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-FormTemplate.html#expressionInfos)
      */
@@ -2558,7 +2959,7 @@ declare namespace __esri {
   }
 
   /**
-   * A convenience module for importing [Element](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-Element.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/guide/typescript-setup/index.html).
+   * A convenience module for importing [Element](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-elements-Element.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/typescript-setup/).
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-support-elements.html)
    */
@@ -2567,7 +2968,7 @@ declare namespace __esri {
   export const elements: elements;
 
   /**
-   * A convenience module for importing [Geometry](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Geometry.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/guide/typescript-setup/index.html).
+   * A convenience module for importing [Geometry](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Geometry.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/typescript-setup/).
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry.html)
    */
@@ -2730,7 +3131,7 @@ declare namespace __esri {
   }
 
   /**
-   * Converts between [points](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Point.html) and formatted coordinates notation strings such as:.
+   * Converts between [points](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Point.html) and formatted coordinates notation strings such as:
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-coordinateFormatter.html)
    */
@@ -2965,6 +3366,12 @@ declare namespace __esri {
   }
 
   interface ExtentConstructor {
+    /**
+     * The minimum and maximum X and Y coordinates of a bounding box.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Extent.html)
+     */
+
     new (properties?: ExtentProperties): Extent;
 
     fromJSON(json: any): Extent;
@@ -3070,6 +3477,12 @@ declare namespace __esri {
   }
 
   interface GeometryConstructor {
+    /**
+     * The base class for geometry objects.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Geometry.html)
+     */
+
     new (properties?: GeometryProperties): Geometry;
 
     fromJSON(json: any): Geometry;
@@ -3098,6 +3511,11 @@ declare namespace __esri {
     spatialReference?: SpatialReferenceProperties;
   }
 
+  /**
+   * A client-side geometry engine for testing, measuring, and analyzing the spatial relationship between two or more 2D geometries.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-geometryEngine.html)
+   */
   interface geometryEngine {
     /**
      * Creates planar (or Euclidean) buffer polygons at a specified distance around the input geometries.
@@ -3442,6 +3860,11 @@ declare namespace __esri {
     unitType: number;
   }
 
+  /**
+   * An asynchronous client-side geometry engine for testing, measuring, and analyzing the spatial relationship between two or more 2D geometries.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-geometryEngineAsync.html)
+   */
   interface geometryEngineAsync {
     /**
      * Creates planar (or Euclidean) buffer polygons at a specified distance around the input geometries.
@@ -3774,6 +4197,12 @@ declare namespace __esri {
   }
 
   interface HeightModelInfoConstructor {
+    /**
+     * The height model info defines the characteristics of a vertical coordinate system.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-HeightModelInfo.html)
+     */
+
     new (properties?: HeightModelInfoProperties): HeightModelInfo;
 
     fromJSON(json: any): HeightModelInfo;
@@ -4399,6 +4828,12 @@ declare namespace __esri {
   }
 
   interface MultipointConstructor {
+    /**
+     * An ordered collection of points.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Multipoint.html)
+     */
+
     new (properties?: MultipointProperties): Multipoint;
 
     fromJSON(json: any): Multipoint;
@@ -4723,6 +5158,12 @@ declare namespace __esri {
   }
 
   interface PolylineConstructor {
+    /**
+     * A polyline contains an array of [paths](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Polyline.html#paths) and [spatialReference](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Polyline.html#spatialReference).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Polyline.html)
+     */
+
     new (properties?: PolylineProperties): Polyline;
 
     fromJSON(json: any): Polyline;
@@ -4856,6 +5297,12 @@ declare namespace __esri {
   }
 
   interface SpatialReferenceConstructor {
+    /**
+     * Defines the spatial reference of a view, layer, or task parameters.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-SpatialReference.html)
+     */
+
     new (properties?: SpatialReferenceProperties): SpatialReference;
 
     /**
@@ -4897,6 +5344,11 @@ declare namespace __esri {
     wkt?: string;
   }
 
+  /**
+   * This class performs geodetic computations for Earth and 70+ non-Earth spheroids.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-support-geodesicUtils.html)
+   */
   interface geodesicUtils {
     /**
      * Geodetically computes the area for one or more polygons.
@@ -5060,20 +5512,31 @@ declare namespace __esri {
   }
 
   interface GeographicTransformationStepConstructor {
+    /**
+     * Represents a step in the process of transforming coordinates from one geographic coordinate system to another.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-support-GeographicTransformationStep.html)
+     */
+
     new (properties?: any): GeographicTransformationStep;
   }
 
   export const GeographicTransformationStep: GeographicTransformationStepConstructor;
 
+  /**
+   * Provides utility methods for working with ArcGIS JSON geometry objects.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-support-jsonUtils.html)
+   */
   interface jsonUtils {
     /**
-     * Creates a new instance of an appropriate [Geometry](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Geometry.html) class and initializes it with values from a JSON object generated from a product in the ArcGIS platform.
+     * Creates a new instance of an appropriate [Geometry](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Geometry.html) class and initializes it with values from a JSON object generated from an ArcGIS product.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-support-jsonUtils.html#fromJSON)
      */
     fromJSON(json: any): Geometry;
     /**
-     * Returns the type for a given geometry in the JSON format used by the ArcGIS platform.
+     * Returns the type for a given geometry in the JSON format used by ArcGIS.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-support-jsonUtils.html#getJsonType)
      */
@@ -5416,6 +5879,11 @@ declare namespace __esri {
     vertical: "clamp" | "repeat" | "mirror";
   }
 
+  /**
+   * Various utilities and convenience functions for working with [Mesh](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Mesh.html) objects.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-support-meshUtils.html)
+   */
   interface meshUtils {
     /**
      * Creates an elevation sampler from a mesh.
@@ -5559,6 +6027,11 @@ declare namespace __esri {
     tangent?: Float32Array;
   }
 
+  /**
+   * Provides a utility method that normalizes geometries that intersect the central meridian or fall outside the world extent so they stay within the coordinate system of the view.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-support-normalizeUtils.html)
+   */
   interface normalizeUtils {
     /**
      * Normalizes geometries that intersect the central meridian or fall outside the world extent so they stay within the coordinate system of the view.
@@ -5574,6 +6047,11 @@ declare namespace __esri {
 
   export const normalizeUtils: normalizeUtils;
 
+  /**
+   * Converts Web Mercator coordinates to geographic coordinates and vice versa.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-support-webMercatorUtils.html)
+   */
   interface webMercatorUtils {
     /**
      * Returns `true` if the `source` spatial reference can be projected to the `target` spatial reference with the [project()](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-support-webMercatorUtils.html#project) function, or if the `source` and `target` are the same [SpatialReference](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-SpatialReference.html).
@@ -5685,6 +6163,12 @@ declare namespace __esri {
      */
     geometry: Geometry;
     /**
+     * Indicates whether the graphic refers to an aggregate, or [cluster](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FeatureReductionCluster.html) graphic.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html#isAggregate)
+     */
+    readonly isAggregate: boolean;
+    /**
      * If applicable, references the layer in which the graphic is stored.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html#layer)
@@ -5728,11 +6212,11 @@ declare namespace __esri {
      */
     getEffectivePopupTemplate(defaultPopupTemplateEnabled?: boolean): PopupTemplate;
     /**
-     * Returns the objectId of the feature associated with the graphic, if it exists.
+     * Returns the Object ID of the feature associated with the graphic, if it exists.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html#getObjectId)
      */
-    getObjectId(): void;
+    getObjectId(): number;
     /**
      * Sets a new value to the specified attribute.
      *
@@ -5851,7 +6335,7 @@ declare namespace __esri {
      */
     loadAll(): Promise<Ground>;
     /**
-     * Queries the ground layer services for elevation values for the given geometry.
+     * Query the ground layer services for elevation values for the given geometry.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html#queryElevation)
      */
@@ -5903,7 +6387,7 @@ declare namespace __esri {
   }
 
   /**
-   * Object returned when [queryElevation()](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html#queryElevation) promise resolves:.
+   * Object returned when [queryElevation()](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html#queryElevation) promise resolves:
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html#ElevationQueryResult)
    */
@@ -5930,11 +6414,23 @@ declare namespace __esri {
 
   export interface GroundCreateElevationSamplerOptions extends Object {
     /**
+     * Controls the horizontal resolution (cell size) in meters from which elevation data is sampled (defaults to `auto`).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html#createElevationSampler)
+     */
+    demResolution?: number | string;
+    /**
      * The value to use when there is no data available.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html#createElevationSampler)
      */
     noDataValue?: number;
+    /**
+     * An [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) to abort the request.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html#createElevationSampler)
+     */
+    signal?: AbortSignal;
   }
 
   export interface GroundNavigationConstraintProperties extends Object {
@@ -5957,6 +6453,12 @@ declare namespace __esri {
 
   export interface GroundQueryElevationOptions extends Object {
     /**
+     * Controls the horizontal resolution (cell size) in meters from which elevation data is sampled (defaults to `auto`).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html#queryElevation)
+     */
+    demResolution?: number | string;
+    /**
      * Indicates whether to return additional sample information for each sampled coordinate.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html#queryElevation)
@@ -5968,6 +6470,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html#queryElevation)
      */
     noDataValue?: number;
+    /**
+     * An [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) to abort the request.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html#queryElevation)
+     */
+    signal?: AbortSignal;
   }
 
   export interface ElevationQueryResultSampleInfo extends Object {
@@ -6115,12 +6623,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html#tokenValidity)
      */
     tokenValidity: number;
-    /**
-     * If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html#useSignInPage)
-     */
-    useSignInPage: boolean;
 
     /**
      * Returns a [credential](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-Credential.html) if the user has already signed in to access the given resource and is allowed to do so when using the given application id.
@@ -6140,6 +6642,18 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html#destroyCredentials)
      */
     destroyCredentials(): void;
+    /**
+     * Disables the use of `window.postMessage` to serve authentication requests that were enabled by [enablePostMessageAuth](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html#enablePostMessageAuth).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html#disablePostMessageAuth)
+     */
+    disablePostMessageAuth(): void;
+    /**
+     * Enables the IdentityManager to serve authentication requests for the given resource from apps running in child iframes.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html#enablePostMessageAuth)
+     */
+    enablePostMessageAuth(resUrl?: string): void;
     /**
      * Returns the [Credential](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-Credential.html) for the resource identified by the specified url.
      *
@@ -6219,12 +6733,6 @@ declare namespace __esri {
      */
     setProtocolErrorHandler(handlerFunction: IdentityManagerSetProtocolErrorHandlerHandlerFunction): void;
     /**
-     * If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html#setRedirectionHandler)
-     */
-    setRedirectionHandler(handlerFunction: IdentityManagerSetRedirectionHandlerHandlerFunction): void;
-    /**
      * Return properties of this object in JSON format.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html#toJSON)
@@ -6238,7 +6746,7 @@ declare namespace __esri {
 
   interface IdentityManagerConstructor {
     /**
-     * This object provides the framework and helper methods used in managing user credentials for the following resources:.
+     * This object provides the framework and helper methods used in managing user credentials for the following resources:
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html)
      */
@@ -6352,33 +6860,6 @@ declare namespace __esri {
     serverInfo: ServerInfo;
   }
 
-  export interface IdentityManagerSetRedirectionHandlerHandlerFunction extends Object {
-    /**
-     * The URL of the secure resource that triggers the redirection to the ArcGIS.com sign-in page.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html#setRedirectionHandler)
-     */
-    resourceUrl: string;
-    /**
-     * The application URL where the sign-in page redirects after a successful login.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html#setRedirectionHandler)
-     */
-    returnUrlParamName: string;
-    /**
-     * The ServerInfo object describing the server where the secure resource is hosted.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html#setRedirectionHandler)
-     */
-    serverInfo: ServerInfo;
-    /**
-     * URL of the sign-in page where users will be redirected.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-IdentityManager.html#setRedirectionHandler)
-     */
-    signInPage: string;
-  }
-
   interface OAuthInfo extends Accessor, JSONSupport {
     /**
      * The registered application id.
@@ -6398,6 +6879,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-OAuthInfo.html#expiration)
      */
     expiration: number;
+    /**
+     * Set this property to `true` to force the user to sign in with the id in `userId`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-OAuthInfo.html#forceUserId)
+     */
+    forceUserId: boolean;
     /**
      * The locale for the OAuth sign in page.
      *
@@ -6440,6 +6927,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-OAuthInfo.html#preserveUrlHash)
      */
     preserveUrlHash: boolean;
+    /**
+     * The user id used when `forceUserId` is `true`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-OAuthInfo.html#userId)
+     */
+    userId: string;
 
     /**
      * Creates a copy of the OAuthInfo object.
@@ -6450,6 +6943,12 @@ declare namespace __esri {
   }
 
   interface OAuthInfoConstructor {
+    /**
+     * This class contains information about an OAuth 2.0 configuration.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-OAuthInfo.html)
+     */
+
     new (properties?: OAuthInfoProperties): OAuthInfo;
 
     fromJSON(json: any): OAuthInfo;
@@ -6476,6 +6975,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-OAuthInfo.html#expiration)
      */
     expiration?: number;
+    /**
+     * Set this property to `true` to force the user to sign in with the id in `userId`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-OAuthInfo.html#forceUserId)
+     */
+    forceUserId?: boolean;
     /**
      * The locale for the OAuth sign in page.
      *
@@ -6518,6 +7023,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-OAuthInfo.html#preserveUrlHash)
      */
     preserveUrlHash?: boolean;
+    /**
+     * The user id used when `forceUserId` is `true`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-OAuthInfo.html#userId)
+     */
+    userId?: string;
   }
 
   interface ServerInfo extends Accessor, JSONSupport {
@@ -6566,6 +7077,12 @@ declare namespace __esri {
   }
 
   interface ServerInfoConstructor {
+    /**
+     * This class contains information about an ArcGIS Server and its token endpoint.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-ServerInfo.html)
+     */
+
     new (properties?: ServerInfoProperties): ServerInfo;
 
     fromJSON(json: any): ServerInfo;
@@ -6664,6 +7181,18 @@ declare namespace __esri {
      */
     convertNumberFormatToIntlOptions(format?: NumberFormat): Intl.NumberFormatOptions;
     /**
+     * Creates a message bundle loader specialized in loading translation files as JSON files.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#createJSONLoader)
+     */
+    createJSONLoader(params: intlCreateJSONLoaderParams): MessageBundleLoader;
+    /**
+     * Loads a localized message bundle used with the current API locale.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#fetchMessageBundle)
+     */
+    fetchMessageBundle(bundleId: string): Promise<any>;
+    /**
      * Formats a `Date` or `Number` value to a string in the current locale.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#formatDate)
@@ -6682,17 +7211,29 @@ declare namespace __esri {
      */
     getLocale(): string;
     /**
-     * Evokes a callback to notify when the locale changes.
+     * Returns one of the known message bundle locale for an input locale.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#normalizeMessageBundleLocale)
+     */
+    normalizeMessageBundleLocale(locale: void): string | any;
+    /**
+     * Registers a [callback](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#LocaleChangeCallback) that gets notified when the locale changes.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#onLocaleChange)
      */
-    onLocaleChange(listener: Function): any;
+    onLocaleChange(callback: LocaleChangeCallback): Handle;
     /**
      * Provides right-to-left preference for input locale.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#prefersRTL)
      */
     prefersRTL(locale?: string): boolean;
+    /**
+     * Registers a message loader to load specified message bundles needed for translating strings.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#registerMessageBundleLoader)
+     */
+    registerMessageBundleLoader(loader: MessageBundleLoader): void;
     /**
      * Sets the locale used by the API.
      *
@@ -6708,6 +7249,51 @@ declare namespace __esri {
   }
 
   export const intl: intl;
+
+  export type FetchMessageBundle = (bundleId: string, locale: string) => Promise<any>;
+
+  export interface intlCreateJSONLoaderParams extends Object {
+    /**
+     * Used to check if the loader should be used to load a candidate's message bundle.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#createJSONLoader)
+     */
+    pattern: string | RegExp;
+    /**
+     * Used to calculate the relative path of the file to load.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#createJSONLoader)
+     */
+    base: string;
+    /**
+     * The location of the translation files.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#createJSONLoader)
+     */
+    location: string | any | Function;
+  }
+
+  export type LocaleChangeCallback = (newLocale: string) => void;
+
+  /**
+   * A message bundle loader is an object used to load translation strings in the user's locale.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#MessageBundleLoader)
+   */
+  export interface MessageBundleLoader extends Object {
+    /**
+     * Used to check if the loader should be used to load a candidate message bundle.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#MessageBundleLoader)
+     */
+    pattern: string | RegExp;
+    /**
+     * Called to load the message bundle if the `pattern` matches the bundle identifier.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-intl.html#MessageBundleLoader)
+     */
+    fetchMessageBundle: FetchMessageBundle;
+  }
 
   /**
    * The Web map definition for formatting numbers.
@@ -6783,6 +7369,11 @@ declare namespace __esri {
     format: HashMap<SubstituteDateTimeFormatOptions | SubstituteNumberFormatOptions>;
   }
 
+  /**
+   * Utility for retrieving the current version of the API.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-kernel.html)
+   */
   interface kernel {
     /**
      * Current version of the ArcGIS API for JavaScript.
@@ -6798,7 +7389,7 @@ declare namespace __esri {
     readonly type: "base-dynamic";
 
     /**
-     * Adds a promise to the layer's [loadable](https://developers.arcgis.com/javascript/latest/guide/programming-patterns/#loadable) chain.
+     * Adds a promise to the layer's [loadable](https://developers.arcgis.com/javascript/latest/programming-patterns/#loadable) chain.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-BaseDynamicLayer.html#addResolvingPromise)
      */
@@ -6890,7 +7481,7 @@ declare namespace __esri {
     readonly type: "base-elevation";
 
     /**
-     * Adds a promise to the layer's [loadable](https://developers.arcgis.com/javascript/latest/guide/programming-patterns/#loadable) chain.
+     * Adds a promise to the layer's [loadable](https://developers.arcgis.com/javascript/latest/programming-patterns/#loadable) chain.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-BaseElevationLayer.html#addResolvingPromise)
      */
@@ -7093,7 +7684,7 @@ declare namespace __esri {
     readonly type: "base-tile" | "bing-maps";
 
     /**
-     * Adds a promise to the layer's [loadable](https://developers.arcgis.com/javascript/latest/guide/programming-patterns/#loadable) chain.
+     * Adds a promise to the layer's [loadable](https://developers.arcgis.com/javascript/latest/programming-patterns/#loadable) chain.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-BaseTileLayer.html#addResolvingPromise)
      */
@@ -7231,7 +7822,7 @@ declare namespace __esri {
      */
     region: string;
     /**
-     * For more information on Bing map styles please visit: https://docs.microsoft.com/en-us/bingmaps/rest-services/imagery/get-imagery-metadata.
+     * For more information on Bing map styles please visit: https://docs.microsoft.com/en-us/bingmaps/rest-services/imagery/get-imagery-metadata
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-BingMapsLayer.html#style)
      */
@@ -7278,7 +7869,7 @@ declare namespace __esri {
      */
     region?: string;
     /**
-     * For more information on Bing map styles please visit: https://docs.microsoft.com/en-us/bingmaps/rest-services/imagery/get-imagery-metadata.
+     * For more information on Bing map styles please visit: https://docs.microsoft.com/en-us/bingmaps/rest-services/imagery/get-imagery-metadata
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-BingMapsLayer.html#style)
      */
@@ -7520,13 +8111,13 @@ declare namespace __esri {
     /**
      * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns the 2D [Extent](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Extent.html) of features that satisfy the query.
      *
-     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns the 2D [Extent](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Extent.html) of features that satisfy the query. At the moment the 3D Extent can be returned by using [BuildingComponentSublayerView.queryExtent()](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-BuildingComponentSublayerView.html#queryExtent), but this will return the 3D extent only for features currently in the view. The query succeeds only if the BuildingSceneLayer has an associated feature layer. If an associated feature layer is not available, then an error with the name `buildingscenelayer:query-not-available` is thrown. Read more about queries in the Querying section of the BuildingSceneLayer class description.[Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#queryExtent)
+     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns the 2D [Extent](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Extent.html) of features that satisfy the query. At the moment the 3D Extent can be returned by using [BuildingComponentSublayerView.queryExtent()](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-BuildingComponentSublayerView.html#queryExtent), but this will return the 3D extent only for features currently in the view. The query succeeds only if the BuildingSceneLayer has an associated feature layer. If an associated feature layer is not available, then an error with the name `buildingscenelayer:query-not-available` is thrown. Read more about queries in the Querying section of the BuildingSceneLayer class description. [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#queryExtent)
      */
     queryExtent(query?: Query | QueryProperties, options?: BuildingComponentSublayerQueryExtentOptions): Promise<any>;
     /**
      * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns the number of features that satisfy the query.
      *
-     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns the number of features that satisfy the query. The query succeeds only if the layer's `supportsLayerQuery` capability is enabled. Use the [getFieldUsageInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#getFieldUsageInfo) method to check if the layer supports queries. If querying is not enabled, then an error with the name `buildingscenelayer:query-not-available` is thrown. Read more about queries in the Querying section of the BuildingSceneLayer class description.[Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#queryFeatureCount)
+     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns the number of features that satisfy the query. The query succeeds only if the layer's `supportsLayerQuery` capability is enabled. Use the [getFieldUsageInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#getFieldUsageInfo) method to check if the layer supports queries. If querying is not enabled, then an error with the name `buildingscenelayer:query-not-available` is thrown. Read more about queries in the Querying section of the BuildingSceneLayer class description. [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#queryFeatureCount)
      */
     queryFeatureCount(
       query?: Query | QueryProperties,
@@ -7535,7 +8126,7 @@ declare namespace __esri {
     /**
      * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns a [FeatureSet](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-FeatureSet.html).
      *
-     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns a [FeatureSet](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-FeatureSet.html). The query succeeds only if the layer's `supportsLayerQuery` capability is enabled. Use the [getFieldUsageInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#getFieldUsageInfo) method to check if the layer supports queries. If querying is not enabled, then an error with the name `buildingscenelayer:query-not-available` is thrown. Read more about queries in the Querying section of the BuildingSceneLayer class description.[Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#queryFeatures)
+     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns a [FeatureSet](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-FeatureSet.html). The query succeeds only if the layer's `supportsLayerQuery` capability is enabled. Use the [getFieldUsageInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#getFieldUsageInfo) method to check if the layer supports queries. If querying is not enabled, then an error with the name `buildingscenelayer:query-not-available` is thrown. Read more about queries in the Querying section of the BuildingSceneLayer class description. [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#queryFeatures)
      */
     queryFeatures(
       query?: Query | QueryProperties,
@@ -7544,7 +8135,7 @@ declare namespace __esri {
     /**
      * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns an array of ObjectIDs of the features that satisfy the input query.
      *
-     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns an array of ObjectIDs of the features that satisfy the input query. The query succeeds only if the layer's `supportsLayerQuery` capability is enabled. Use the [getFieldUsageInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#getFieldUsageInfo) method to check if the layer supports queries. If querying is not enabled, then an error with the name `buildingscenelayer:query-not-available` is thrown. Read more about queries in the Querying section of the SceneLayer class description.[Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#queryObjectIds)
+     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns an array of ObjectIDs of the features that satisfy the input query. The query succeeds only if the layer's `supportsLayerQuery` capability is enabled. Use the [getFieldUsageInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#getFieldUsageInfo) method to check if the layer supports queries. If querying is not enabled, then an error with the name `buildingscenelayer:query-not-available` is thrown. Read more about queries in the Querying section of the SceneLayer class description. [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html#queryObjectIds)
      */
     queryObjectIds(
       query?: Query | QueryProperties,
@@ -7666,6 +8257,12 @@ declare namespace __esri {
   }
 
   interface BuildingGroupSublayerConstructor {
+    /**
+     * Hierarchical group of [BuildingSceneLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-BuildingSceneLayer.html) sublayers.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingGroupSublayer.html)
+     */
+
     new (properties?: BuildingGroupSublayerProperties): BuildingGroupSublayer;
 
     fromJSON(json: any): BuildingGroupSublayer;
@@ -7722,6 +8319,12 @@ declare namespace __esri {
   }
 
   interface BuildingSublayerConstructor {
+    /**
+     * BuildingSublayer is the base class for sublayers of a BuildingSceneLayer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingSublayer.html)
+     */
+
     new (properties?: BuildingSublayerProperties): BuildingSublayer;
 
     fromJSON(json: any): BuildingSublayer;
@@ -7991,7 +8594,9 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-CSVLayer.html#featureReduction)
      */
-    featureReduction?: FeatureReductionClusterProperties | FeatureReductionSelectionProperties;
+    featureReduction?:
+      | (FeatureReductionClusterProperties & { type: "cluster" })
+      | (FeatureReductionSelectionProperties & { type: "selection" });
     /**
      * An array of fields in the layer.
      *
@@ -8401,7 +9006,7 @@ declare namespace __esri {
 
   export interface CSVLayerElevationInfoFeatureExpressionInfo extends Object {
     /**
-     * An [Arcade expression](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) evaluating to a number that determines the z-value of the feature.
+     * An [Arcade expression](https://developers.arcgis.com/javascript/latest/arcade/) evaluating to a number that determines the z-value of the feature.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-CSVLayer.html#elevationInfo)
      */
@@ -8572,6 +9177,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ElevationLayer.html#createElevationSampler)
      */
     noDataValue?: number;
+    /**
+     * An [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) to abort the request.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ElevationLayer.html#createElevationSampler)
+     */
+    signal?: AbortSignal;
   }
 
   export interface ElevationLayerFetchTileOptions extends Object {
@@ -8617,7 +9228,7 @@ declare namespace __esri {
   }
 
   /**
-   * Object returned when [queryElevation()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ElevationLayer.html#queryElevation) promise resolves:.
+   * Object returned when [queryElevation()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ElevationLayer.html#queryElevation) promise resolves:
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ElevationLayer.html#ElevationQueryResult)
    */
@@ -8669,7 +9280,14 @@ declare namespace __esri {
     demResolution: number;
   }
 
-  interface FeatureLayer extends Layer, PortalLayer, ScaleRangeLayer, RefreshableLayer, TemporalLayer, BlendLayer {
+  interface FeatureLayer
+    extends Layer,
+      PortalLayer,
+      ScaleRangeLayer,
+      RefreshableLayer,
+      TemporalLayer,
+      BlendLayer,
+      CustomParametersMixin {
     /**
      * Describes the layer's supported capabilities.
      *
@@ -8707,6 +9325,12 @@ declare namespace __esri {
      */
     readonly editFieldsInfo: EditFieldsInfo;
     /**
+     * Determines if the layer is editable.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#editingEnabled)
+     */
+    editingEnabled: boolean;
+    /**
      * If present, this value specifies information about editing.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#editingInfo)
@@ -8737,6 +9361,12 @@ declare namespace __esri {
      */
     readonly fieldsIndex: FieldsIndex;
     /**
+     * When a feature layer is configured as floor-aware, it has a floorInfo property defined.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#floorInfo)
+     */
+    floorInfo: LayerFloorInfo;
+    /**
      * The associated [template](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-FormTemplate.html) used in an associated layer's [FeatureForm](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#formTemplate)
@@ -8748,6 +9378,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#gdbVersion)
      */
     gdbVersion: string;
+    /**
+     * Provides information on the system maintained area and length fields along with their respective units.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#geometryFieldsInfo)
+     */
+    readonly geometryFieldsInfo: GeometryFieldsInfo;
     /**
      * The geometry type of features in the layer.
      *
@@ -9056,7 +9692,8 @@ declare namespace __esri {
       ScaleRangeLayerProperties,
       RefreshableLayerProperties,
       TemporalLayerProperties,
-      BlendLayerProperties {
+      BlendLayerProperties,
+      CustomParametersMixinProperties {
     /**
      * Copyright information for the layer.
      *
@@ -9080,7 +9717,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#dynamicDataSource)
      */
-    dynamicDataSource?: DynamicMapLayer | DynamicDataLayer;
+    dynamicDataSource?: (DynamicMapLayer & { type: "map-layer" }) | (DynamicDataLayer & { type: "data-layer" });
+    /**
+     * Determines if the layer is editable.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#editingEnabled)
+     */
+    editingEnabled?: boolean;
     /**
      * Specifies how features are placed on the vertical axis (z).
      *
@@ -9092,13 +9735,21 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#featureReduction)
      */
-    featureReduction?: FeatureReductionClusterProperties | FeatureReductionSelectionProperties;
+    featureReduction?:
+      | (FeatureReductionClusterProperties & { type: "cluster" })
+      | (FeatureReductionSelectionProperties & { type: "selection" });
     /**
      * An array of fields in the layer.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#fields)
      */
     fields?: FieldProperties[];
+    /**
+     * When a feature layer is configured as floor-aware, it has a floorInfo property defined.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#floorInfo)
+     */
+    floorInfo?: LayerFloorInfoProperties;
     /**
      * The associated [template](https://developers.arcgis.com/javascript/latest/api-reference/esri-form-FormTemplate.html) used in an associated layer's [FeatureForm](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm.html).
      *
@@ -9818,7 +10469,7 @@ declare namespace __esri {
 
   export interface FeatureLayerElevationInfoFeatureExpressionInfo extends Object {
     /**
-     * An [Arcade expression](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) evaluating to a number that determines the z-value of the feature.
+     * An [Arcade expression](https://developers.arcgis.com/javascript/latest/arcade/) evaluating to a number that determines the z-value of the feature.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#elevationInfo)
      */
@@ -10209,7 +10860,9 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoJSONLayer.html#featureReduction)
      */
-    featureReduction?: FeatureReductionClusterProperties | FeatureReductionSelectionProperties;
+    featureReduction?:
+      | (FeatureReductionClusterProperties & { type: "cluster" })
+      | (FeatureReductionSelectionProperties & { type: "selection" });
     /**
      * An array of fields in the layer.
      *
@@ -10654,7 +11307,7 @@ declare namespace __esri {
 
   export interface GeoJSONLayerElevationInfoFeatureExpressionInfo extends Object {
     /**
-     * An [Arcade expression](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) evaluating to a number that determines the z-value of the feature.
+     * An [Arcade expression](https://developers.arcgis.com/javascript/latest/arcade/) evaluating to a number that determines the z-value of the feature.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoJSONLayer.html#elevationInfo)
      */
@@ -10738,6 +11391,12 @@ declare namespace __esri {
 
   interface GeoRSSLayer extends Layer, ScaleRangeLayer, BlendLayer {
     /**
+     * Indicates whether the layer will be included in the legend.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoRSSLayer.html#legendEnabled)
+     */
+    legendEnabled: boolean;
+    /**
      * Symbol used to represent line features from the GeoRSS feed.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoRSSLayer.html#lineSymbol)
@@ -10785,6 +11444,12 @@ declare namespace __esri {
 
   interface GeoRSSLayerProperties extends LayerProperties, ScaleRangeLayerProperties, BlendLayerProperties {
     /**
+     * Indicates whether the layer will be included in the legend.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoRSSLayer.html#legendEnabled)
+     */
+    legendEnabled?: boolean;
+    /**
      * Symbol used to represent line features from the GeoRSS feed.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoRSSLayer.html#lineSymbol)
@@ -10795,7 +11460,9 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoRSSLayer.html#pointSymbol)
      */
-    pointSymbol?: PictureMarkerSymbolProperties | SimpleMarkerSymbolProperties;
+    pointSymbol?:
+      | (PictureMarkerSymbolProperties & { type: "picture-marker" })
+      | (SimpleMarkerSymbolProperties & { type: "simple-marker" });
     /**
      * Symbol used to represent polygon features from the GeoRSS feed.
      *
@@ -10950,7 +11617,7 @@ declare namespace __esri {
 
   export interface GraphicsLayerElevationInfoFeatureExpressionInfo extends Object {
     /**
-     * An [Arcade expression](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) evaluating to a number that determines the z-value of the feature.
+     * An [Arcade expression](https://developers.arcgis.com/javascript/latest/arcade/) evaluating to a number that determines the z-value of the feature.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GraphicsLayer.html#elevationInfo)
      */
@@ -10976,6 +11643,19 @@ declare namespace __esri {
   }
 
   interface GroupLayer extends Layer, LayersMixin, TablesMixin, PortalLayer, BlendLayer {
+    /**
+     * The maximum scale (most zoomed in) at which the layer is visible in the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GroupLayer.html#maxScale)
+     */
+    maxScale: number;
+    /**
+     * The minimum scale (most zoomed out) at which the layer is visible in the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GroupLayer.html#minScale)
+     */
+    minScale: number;
+
     readonly type: "group";
     /**
      * Indicates how to manage the visibility of the children layers.
@@ -11018,6 +11698,18 @@ declare namespace __esri {
       TablesMixinProperties,
       PortalLayerProperties,
       BlendLayerProperties {
+    /**
+     * The maximum scale (most zoomed in) at which the layer is visible in the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GroupLayer.html#maxScale)
+     */
+    maxScale?: number;
+    /**
+     * The minimum scale (most zoomed out) at which the layer is visible in the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GroupLayer.html#minScale)
+     */
+    minScale?: number;
     /**
      * Indicates how to manage the visibility of the children layers.
      *
@@ -11174,6 +11866,70 @@ declare namespace __esri {
   }
 
   export type PixelFilterFunction = (pixelData: PixelData) => void;
+
+  /**
+   * Raster statistics information returned that meets the specified [ImageHistogramParameters](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html) from the [computeStatisticsHistograms()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#computeStatisticsHistograms) method.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#RasterBandStatistics)
+   */
+  export interface RasterBandStatistics extends Object {
+    /**
+     * Minimum value of the statistics.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#RasterBandStatistics)
+     */
+    min: number;
+    /**
+     * Maximum value of the statistics.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#RasterBandStatistics)
+     */
+    max: number;
+    /**
+     * Average of the statistics.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#RasterBandStatistics)
+     */
+    avg: number;
+    /**
+     * Standard deviation of the statistics.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#RasterBandStatistics)
+     */
+    stddev: number;
+  }
+
+  /**
+   * Raster histogram information returned that meets the specified [ImageHistogramParameters](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html) from the [computeHistograms()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#computeHistograms) or [computeStatisticsHistograms()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#computeStatisticsHistograms) method.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#RasterHistogram)
+   */
+  export interface RasterHistogram extends Object {
+    /**
+     * Number of bins.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#RasterHistogram)
+     */
+    size: number;
+    /**
+     * The minimum pixel value of the histogram.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#RasterHistogram)
+     */
+    min: number;
+    /**
+     * The maximum pixel value of the histogram.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#RasterHistogram)
+     */
+    max: number;
+    /**
+     * Count of pixels that fall into each bin.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#RasterHistogram)
+     */
+    counts: number[] | Uint32Array;
+  }
 
   interface ImageryTileLayer extends Layer, ImageryTileMixin, PortalLayer, ScaleRangeLayer, BlendLayer {
     /**
@@ -11750,7 +12506,8 @@ declare namespace __esri {
       ScaleRangeLayer,
       RefreshableLayer,
       TemporalLayer,
-      BlendLayer {
+      BlendLayer,
+      CustomParametersMixin {
     /**
      * A flat [Collection](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html) of all the [sublayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html#sublayers) in the MapImageLayer including the sublayers of its sublayers.
      *
@@ -11876,7 +12633,8 @@ declare namespace __esri {
       ScaleRangeLayerProperties,
       RefreshableLayerProperties,
       TemporalLayerProperties,
-      BlendLayerProperties {
+      BlendLayerProperties,
+      CustomParametersMixinProperties {
     /**
      * The output dots per inch (DPI) of the MapImageLayer.
      *
@@ -12006,6 +12764,43 @@ declare namespace __esri {
   }
 
   interface MapNotesLayer extends Layer, PortalLayer, ScaleRangeLayer, BlendLayer {
+    /**
+     * Describes the layer's supported capabilities.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapNotesLayer.html#capabilities)
+     */
+    readonly capabilities: MapNotesLayerCapabilities;
+    /**
+     * A layer containing a collection of graphics with multipoint geometry.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapNotesLayer.html#multipointLayer)
+     */
+    readonly multipointLayer: GraphicsLayer;
+    /**
+     * A layer containing a collection of graphics with point geometry.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapNotesLayer.html#pointLayer)
+     */
+    readonly pointLayer: GraphicsLayer;
+    /**
+     * A layer containing a collection of graphics with polygon geometry.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapNotesLayer.html#polygonLayer)
+     */
+    readonly polygonLayer: GraphicsLayer;
+    /**
+     * A layer containing a collection of graphics with polyline geometry.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapNotesLayer.html#polylineLayer)
+     */
+    readonly polylineLayer: GraphicsLayer;
+    /**
+     * A layer containing a collection of text graphics with point geometry.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapNotesLayer.html#textLayer)
+     */
+    readonly textLayer: GraphicsLayer;
+
     readonly type: "map-notes";
 
     on(name: "layerview-create", eventHandler: MapNotesLayerLayerviewCreateEventHandler): IHandle;
@@ -12017,7 +12812,7 @@ declare namespace __esri {
 
   interface MapNotesLayerConstructor {
     /**
-     * The MapNotesLayer is used to create layers based on Map Notes within a WebMap or PortalItem.
+     * The MapNotesLayer lets you display and modify map notes (features sketched on a web map) from the [Map Viewer](https://www.arcgis.com/apps/mapviewer/index.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapNotesLayer.html)
      */
@@ -12051,6 +12846,24 @@ declare namespace __esri {
     layerView: LayerView;
 
     view: View;
+  }
+
+  export interface MapNotesLayerCapabilities extends Object {
+    /**
+     * Describes operations that can be performed on map notes in the layer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapNotesLayer.html#capabilities)
+     */
+    operations: MapNotesLayerCapabilitiesOperations;
+  }
+
+  export interface MapNotesLayerCapabilitiesOperations extends Object {
+    /**
+     * Indicates if map notes in the layer can be edited.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapNotesLayer.html#capabilities)
+     */
+    supportsMapNotesEditing: boolean;
   }
 
   interface ArcGISCachedService {
@@ -12098,6 +12911,12 @@ declare namespace __esri {
   }
 
   interface ArcGISImageService {
+    /**
+     * Defines a band combination using 0-based band indexes.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#bandIds)
+     */
+    bandIds: number[];
     /**
      * Describes the layer's supported capabilities.
      *
@@ -12207,13 +13026,7 @@ declare namespace __esri {
      */
     pixelType: "unknown" | "s8" | "s16" | "s32" | "u8" | "u16" | "u32" | "f32" | "f64";
     /**
-     * Prefix used to define the fields from the raster attribute table.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#rasterAttributeTableFieldPrefix)
-     */
-    rasterAttributeTableFieldPrefix: string;
-    /**
-     * A complete list of fields that consists of raster catalog fields, item pixel value, service pixel value, service pixel value with various server defined function templates, and raster attribute table fields.
+     * A complete list of fields that consists of raster attribute table fields, item pixel value, service pixel value, service pixel value with various server defined function templates, and raster attribute table fields.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#rasterFields)
      */
@@ -12228,7 +13041,8 @@ declare namespace __esri {
       | UniqueValueRenderer
       | RasterStretchRenderer
       | RasterShadedReliefRenderer
-      | RasterColormapRenderer;
+      | RasterColormapRenderer
+      | VectorFieldRenderer;
     /**
      * Specifies the rule for how the requested image should be rendered.
      *
@@ -12267,6 +13081,24 @@ declare namespace __esri {
     readonly version: number;
 
     /**
+     * Computes histograms based on the provided [ImageHistogramParameters](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#computeHistograms)
+     */
+    computeHistograms(
+      parameters: ImageHistogramParameters | ImageHistogramParametersProperties,
+      options?: ArcGISImageServiceComputeHistogramsOptions
+    ): Promise<any>;
+    /**
+     * Computes [statistics](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#RasterBandStatistics) and [histograms](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#RasterHistogram) for the provided [ImageHistogramParameters](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#computeStatisticsHistograms)
+     */
+    computeStatisticsHistograms(
+      parameters: ImageHistogramParameters | ImageHistogramParametersProperties,
+      options?: ArcGISImageServiceComputeStatisticsHistogramsOptions
+    ): Promise<any>;
+    /**
      * Returns an image using the [export REST operation](https://developers.arcgis.com/rest/services-reference/export-image.htm) that displays data from an [ImageryLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#fetchImage)
@@ -12282,7 +13114,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#generateRasterInfo)
      */
-    generateRasterInfo(renderingRule: RasterFunction): Promise<RasterInfo>;
+    generateRasterInfo(renderingRule: RasterFunction | RasterFunctionProperties): Promise<RasterInfo>;
     /**
      * Gets the [image coordinate system](https://developers.arcgis.com/rest/services-reference/raster-ics.htm) information of a catalog item in an image service.
      *
@@ -12295,6 +13127,21 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#getCatalogItemRasterInfo)
      */
     getCatalogItemRasterInfo(rasterId: number, abortOptions?: AbortSignal): Promise<RasterInfo>;
+    /**
+     * Sends a request to the ArcGIS REST image service to identify content based on the specified [ImageIdentifyParameters](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#identify)
+     */
+    identify(
+      parameters: ImageIdentifyParameters | ImageIdentifyParametersProperties,
+      options?: ArcGISImageServiceIdentifyOptions
+    ): Promise<ImageIdentifyResult>;
+    /**
+     * Executes the query task defined in [queryTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#queryTask).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#queryRasters)
+     */
+    queryRasters(query: Query | QueryProperties, options?: ArcGISImageServiceQueryRastersOptions): Promise<FeatureSet>;
   }
 
   interface ArcGISImageServiceConstructor {
@@ -12306,6 +13153,12 @@ declare namespace __esri {
   export const ArcGISImageService: ArcGISImageServiceConstructor;
 
   interface ArcGISImageServiceProperties {
+    /**
+     * Defines a band combination using 0-based band indexes.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#bandIds)
+     */
+    bandIds?: number[];
     /**
      * Describes the layer's supported capabilities.
      *
@@ -12415,22 +13268,17 @@ declare namespace __esri {
      */
     pixelType?: "unknown" | "s8" | "s16" | "s32" | "u8" | "u16" | "u32" | "f32" | "f64";
     /**
-     * Prefix used to define the fields from the raster attribute table.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#rasterAttributeTableFieldPrefix)
-     */
-    rasterAttributeTableFieldPrefix?: string;
-    /**
      * The renderer assigned to the layer.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#renderer)
      */
     renderer?:
-      | ClassBreaksRendererProperties
-      | UniqueValueRendererProperties
-      | RasterStretchRendererProperties
-      | RasterShadedReliefRendererProperties
-      | RasterColormapRendererProperties;
+      | (ClassBreaksRendererProperties & { type: "class-breaks" })
+      | (UniqueValueRendererProperties & { type: "unique-value" })
+      | (RasterStretchRendererProperties & { type: "raster-stretch" })
+      | (RasterShadedReliefRendererProperties & { type: "raster-shaded-relief" })
+      | (RasterColormapRendererProperties & { type: "raster-colormap" })
+      | (VectorFieldRendererProperties & { type: "vector-field" });
     /**
      * Specifies the rule for how the requested image should be rendered.
      *
@@ -12480,7 +13328,7 @@ declare namespace __esri {
      */
     supportsExportImage: void;
     /**
-     * Indicates if the layer supports an [identify](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-ImageServiceIdentifyTask.html) operation on pixel values.
+     * Indicates if the layer supports an [identify](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-ImageIdentifyTask.html) operation on pixel values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#capabilities)
      */
@@ -12580,11 +13428,47 @@ declare namespace __esri {
     maxRecordCount: void;
   }
 
+  export interface ArcGISImageServiceComputeHistogramsOptions extends Object {
+    /**
+     * Signal object that can be used to abort the asynchronous task.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#computeHistograms)
+     */
+    signal?: AbortSignal;
+  }
+
+  export interface ArcGISImageServiceComputeStatisticsHistogramsOptions extends Object {
+    /**
+     * Signal object that can be used to abort the asynchronous task.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#computeStatisticsHistograms)
+     */
+    signal?: AbortSignal;
+  }
+
   export interface ArcGISImageServiceFetchImageOptions extends Object {
     /**
      * An [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) to abort the request.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#fetchImage)
+     */
+    signal?: AbortSignal;
+  }
+
+  export interface ArcGISImageServiceIdentifyOptions extends Object {
+    /**
+     * Signal object that can be used to abort the asynchronous task.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#identify)
+     */
+    signal?: AbortSignal;
+  }
+
+  export interface ArcGISImageServiceQueryRastersOptions extends Object {
+    /**
+     * Signal object that can be used to abort the asynchronous task.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISImageService.html#queryRasters)
      */
     signal?: AbortSignal;
   }
@@ -12679,6 +13563,12 @@ declare namespace __esri {
   }
 
   export interface ArcGISMapServiceCapabilitiesExportMap extends Object {
+    /**
+     * Indicates if sublayers support Arcade expressions for labeling.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ArcGISMapService.html#capabilities)
+     */
+    supportsArcadeExpressionForLabeling: boolean;
     /**
      * Indicates if sublayers rendering can be modified or added using dynamic layers.
      *
@@ -12785,6 +13675,12 @@ declare namespace __esri {
       | "source-out"
       | "vivid-light"
       | "xor";
+    /**
+     * Effect provides various filter functions that can be performed on the layer to achieve different visual effects similar to how image filters work.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-BlendLayer.html#effect)
+     */
+    effect: Effect;
   }
 
   interface BlendLayerConstructor {
@@ -12831,6 +13727,36 @@ declare namespace __esri {
       | "source-out"
       | "vivid-light"
       | "xor";
+    /**
+     * Effect provides various filter functions that can be performed on the layer to achieve different visual effects similar to how image filters work.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-BlendLayer.html#effect)
+     */
+    effect?: any[] | string;
+  }
+
+  interface CustomParametersMixin {
+    /**
+     * A list of custom parameters appended to the URL of all resources fetched by ArcGIS layer types.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-CustomParametersMixin.html#customParameters)
+     */
+    customParameters: any;
+  }
+
+  interface CustomParametersMixinConstructor {
+    new (): CustomParametersMixin;
+  }
+
+  export const CustomParametersMixin: CustomParametersMixinConstructor;
+
+  interface CustomParametersMixinProperties {
+    /**
+     * A list of custom parameters appended to the URL of all resources fetched by ArcGIS layer types.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-CustomParametersMixin.html#customParameters)
+     */
+    customParameters?: any;
   }
 
   interface ImageryTileMixin {
@@ -12846,6 +13772,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ImageryTileMixin.html#copyright)
      */
     copyright: string;
+    /**
+     * Raster information retrieved from data source.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ImageryTileMixin.html#rasterInfo)
+     */
+    rasterInfo: RasterInfo;
     /**
      * The renderer assigned to the layer.
      *
@@ -12864,6 +13796,17 @@ declare namespace __esri {
      */
     url: string;
 
+    /**
+     * Fetches pixels for a given extent.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ImageryTileMixin.html#fetchPixels)
+     */
+    fetchPixels(
+      extent: Extent,
+      width: number,
+      height: number,
+      options?: ImageryTileMixinFetchPixelsOptions
+    ): Promise<any>;
     /**
      * This method fetches a tile for the given level, row and column present in the view.
      *
@@ -12898,22 +13841,37 @@ declare namespace __esri {
      */
     copyright?: string;
     /**
+     * Raster information retrieved from data source.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ImageryTileMixin.html#rasterInfo)
+     */
+    rasterInfo?: RasterInfoProperties;
+    /**
      * The renderer assigned to the layer.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ImageryTileMixin.html#renderer)
      */
     renderer?:
-      | ClassBreaksRendererProperties
-      | UniqueValueRendererProperties
-      | RasterStretchRendererProperties
-      | RasterShadedReliefRendererProperties
-      | RasterColormapRendererProperties;
+      | (ClassBreaksRendererProperties & { type: "class-breaks" })
+      | (UniqueValueRendererProperties & { type: "unique-value" })
+      | (RasterStretchRendererProperties & { type: "raster-stretch" })
+      | (RasterShadedReliefRendererProperties & { type: "raster-shaded-relief" })
+      | (RasterColormapRendererProperties & { type: "raster-colormap" });
     /**
      * The URL of the REST endpoint of the layer.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ImageryTileMixin.html#url)
      */
     url?: string;
+  }
+
+  export interface ImageryTileMixinFetchPixelsOptions extends Object {
+    /**
+     * An [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) to abort the request.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-mixins-ImageryTileMixin.html#fetchPixels)
+     */
+    signal?: AbortSignal;
   }
 
   interface PortalLayer {
@@ -13253,12 +14211,6 @@ declare namespace __esri {
      */
     legendEnabled: boolean;
     /**
-     * The url query string in the format request json content from the server.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-OGCFeatureLayer.html#mediaType)
-     */
-    mediaType: string;
-    /**
      * The OGCFeatureLayer requires that each feature be uniquely identified with an object id.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-OGCFeatureLayer.html#objectIdField)
@@ -13283,7 +14235,7 @@ declare namespace __esri {
      */
     renderer: Renderer;
     /**
-     * The spatial reference of the layer.
+     * The spatial reference the source data is stored in.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-OGCFeatureLayer.html#spatialReference)
      */
@@ -13363,7 +14315,9 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-OGCFeatureLayer.html#featureReduction)
      */
-    featureReduction?: FeatureReductionClusterProperties | FeatureReductionSelectionProperties;
+    featureReduction?:
+      | (FeatureReductionClusterProperties & { type: "cluster" })
+      | (FeatureReductionSelectionProperties & { type: "selection" });
     /**
      * An array of fields in the layer.
      *
@@ -13394,12 +14348,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-OGCFeatureLayer.html#legendEnabled)
      */
     legendEnabled?: boolean;
-    /**
-     * The url query string in the format request json content from the server.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-OGCFeatureLayer.html#mediaType)
-     */
-    mediaType?: string;
     /**
      * The OGCFeatureLayer requires that each feature be uniquely identified with an object id.
      *
@@ -13479,7 +14427,7 @@ declare namespace __esri {
 
   export interface OGCFeatureLayerElevationInfoFeatureExpressionInfo extends Object {
     /**
-     * An [Arcade expression](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) evaluating to a number that determines the z-value of the feature.
+     * An [Arcade expression](https://developers.arcgis.com/javascript/latest/arcade/) evaluating to a number that determines the z-value of the feature.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-OGCFeatureLayer.html#elevationInfo)
      */
@@ -13497,6 +14445,12 @@ declare namespace __esri {
   }
 
   interface OpenStreetMapLayerConstructor {
+    /**
+     * Allows you to use [basemaps](http://wiki.openstreetmap.org/wiki/List_of_OSM-based_services) from [OpenStreetMap](http://www.openstreetmap.org/).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-OpenStreetMapLayer.html)
+     */
+
     new (properties?: OpenStreetMapLayerProperties): OpenStreetMapLayer;
 
     fromJSON(json: any): OpenStreetMapLayer;
@@ -13762,7 +14716,10 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-PointCloudLayer.html#filters)
      */
-    filters?: (PointCloudValueFilterProperties | PointCloudReturnFilterProperties)[];
+    filters?: (
+      | (PointCloudValueFilterProperties & { type: "value" })
+      | (PointCloudReturnFilterProperties & { type: "return" })
+    )[];
     /**
      * Indicates whether the layer will be included in the legend.
      *
@@ -13845,7 +14802,13 @@ declare namespace __esri {
 
   interface SceneLayer extends Layer, SceneService, PortalLayer, ScaleRangeLayer {
     /**
-     * The SQL where clause used to filter features on the client.
+     * Describes the layer's supported capabilities.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    readonly capabilities: SceneLayerCapabilities;
+    /**
+     * The SQL where clause used to filter features.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#definitionExpression)
      */
@@ -13874,6 +14837,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#fieldsIndex)
      */
     readonly fieldsIndex: FieldsIndex;
+    /**
+     * When a scene layer is configured as floor-aware, it has a floorInfo property defined.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#floorInfo)
+     */
+    floorInfo: LayerFloorInfo;
     /**
      * The geometry type of features in the layer.
      *
@@ -13938,6 +14907,12 @@ declare namespace __esri {
     readonly type: "scene";
 
     /**
+     * Applies attribute edits to the features in the associated [FeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#applyEdits)
+     */
+    applyEdits(edits: SceneLayerApplyEditsEdits, options?: SceneLayerApplyEditsOptions): Promise<any>;
+    /**
      * Creates a default popup template for the layer, populated with all the fields of the layer.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#createPopupTemplate)
@@ -13976,25 +14951,25 @@ declare namespace __esri {
     /**
      * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns the 2D [Extent](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Extent.html) of features that satisfy the query.
      *
-     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns the 2D [Extent](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Extent.html) of features that satisfy the query. At the moment the 3D Extent can be returned by using [SceneLayerView.queryExtent()](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-SceneLayerView.html#queryExtent), but this will return the 3D extent only for features currently in the view. The query succeeds only if the SceneLayer has an associated feature layer. If an associated feature layer is not available, then an error with the name `scenelayer:query-not-available` is thrown. Read more about queries in the [Querying](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#querying) section of the class description above.[Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#queryExtent)
+     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns the 2D [Extent](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Extent.html) of features that satisfy the query. At the moment the 3D Extent can be returned by using [SceneLayerView.queryExtent()](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-SceneLayerView.html#queryExtent), but this will return the 3D extent only for features currently in the view. The query succeeds only if the SceneLayer has an associated feature layer. If an associated feature layer is not available, then an error with the name `scenelayer:query-not-available` is thrown. Read more about queries in the [Querying](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#querying) section of the class description above. [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#queryExtent)
      */
     queryExtent(query?: Query | QueryProperties, options?: SceneLayerQueryExtentOptions): Promise<any>;
     /**
      * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns the number of features that satisfy the query.
      *
-     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns the number of features that satisfy the query. The query succeeds only if the layer's `supportsLayerQuery` capability is enabled. Use the [getFieldUsageInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#getFieldUsageInfo) method to check if the layer supports queries. If querying is not enabled, then an error with the name `scenelayer:query-not-available` is thrown. Read more about queries in the [Querying](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#querying) section of the class description above.[Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#queryFeatureCount)
+     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns the number of features that satisfy the query. The query succeeds only if the layer's `supportsLayerQuery` capability is enabled. Use the [getFieldUsageInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#getFieldUsageInfo) method to check if the layer supports queries. If querying is not enabled, then an error with the name `scenelayer:query-not-available` is thrown. Read more about queries in the [Querying](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#querying) section of the class description above. [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#queryFeatureCount)
      */
     queryFeatureCount(query?: Query | QueryProperties, options?: SceneLayerQueryFeatureCountOptions): Promise<number>;
     /**
      * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns a [FeatureSet](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-FeatureSet.html).
      *
-     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns a [FeatureSet](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-FeatureSet.html). The query succeeds only if the layer's `supportsLayerQuery` capability is enabled. Use the [getFieldUsageInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#getFieldUsageInfo) method to check if the layer supports queries. If querying is not enabled, then an error with the name `scenelayer:query-not-available` is thrown. Read more about queries in the [Querying](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#querying) section of the class description above.[Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#queryFeatures)
+     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns a [FeatureSet](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-FeatureSet.html). The query succeeds only if the layer's `supportsLayerQuery` capability is enabled. Use the [getFieldUsageInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#getFieldUsageInfo) method to check if the layer supports queries. If querying is not enabled, then an error with the name `scenelayer:query-not-available` is thrown. Read more about queries in the [Querying](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#querying) section of the class description above. [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#queryFeatures)
      */
     queryFeatures(query?: Query | QueryProperties, options?: SceneLayerQueryFeaturesOptions): Promise<FeatureSet>;
     /**
      * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns an array of ObjectIDs of the features that satisfy the input query.
      *
-     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns an array of ObjectIDs of the features that satisfy the input query. The query succeeds only if the layer's `supportsLayerQuery` capability is enabled. Use the [getFieldUsageInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#getFieldUsageInfo) method to check if the layer supports queries. If querying is not enabled, then an error with the name `scenelayer:query-not-available` is thrown. Read more about queries in the [Querying](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#querying) section of the class description above.[Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#queryObjectIds)
+     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against the associated feature service and returns an array of ObjectIDs of the features that satisfy the input query. The query succeeds only if the layer's `supportsLayerQuery` capability is enabled. Use the [getFieldUsageInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#getFieldUsageInfo) method to check if the layer supports queries. If querying is not enabled, then an error with the name `scenelayer:query-not-available` is thrown. Read more about queries in the [Querying](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#querying) section of the class description above. [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#queryObjectIds)
      */
     queryObjectIds(query?: Query | QueryProperties, options?: SceneLayerQueryObjectIdsOptions): Promise<number[]>;
 
@@ -14025,7 +15000,7 @@ declare namespace __esri {
       PortalLayerProperties,
       ScaleRangeLayerProperties {
     /**
-     * The SQL where clause used to filter features on the client.
+     * The SQL where clause used to filter features.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#definitionExpression)
      */
@@ -14042,6 +15017,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#featureReduction)
      */
     featureReduction?: FeatureReductionSelectionProperties;
+    /**
+     * When a scene layer is configured as floor-aware, it has a floorInfo property defined.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#floorInfo)
+     */
+    floorInfo?: LayerFloorInfoProperties;
     /**
      * The geometry type of features in the layer.
      *
@@ -14120,6 +15101,237 @@ declare namespace __esri {
     layerView: LayerView;
 
     view: View;
+  }
+
+  export interface SceneLayerApplyEditsEdits extends Object {
+    /**
+     * An array or a [collection](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html) of features to be updated.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#applyEdits)
+     */
+    updateFeatures?: Graphic[] | Collection<Graphic>;
+  }
+
+  export interface SceneLayerApplyEditsOptions extends Object {
+    /**
+     * Indicates whether the edits should be applied only if all submitted edits succeed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#applyEdits)
+     */
+    rollbackOnFailureEnabled?: boolean;
+    /**
+     * Indicates whether the edits can be applied using globalIds of features.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#applyEdits)
+     */
+    globalIdUsed?: boolean;
+  }
+
+  export interface SceneLayerCapabilities extends Object {
+    /**
+     * Describes [query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) operations that can be performed on features in the layer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    query: SceneLayerCapabilitiesQuery;
+    /**
+     * Describes characteristics of the data in the layer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    data: SceneLayerCapabilitiesData;
+    /**
+     * Describes editing capabilities that can be performed on the features in the layer via [applyEdits()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#applyEdits).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    editing: SceneLayerCapabilitiesEditing;
+    /**
+     * Describes operations that can be performed on features in the layer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    operations: SceneLayerCapabilitiesOperations;
+  }
+
+  export interface SceneLayerCapabilitiesData extends Object {
+    /**
+     * Indicates if the features in the layer support z-values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsZ: boolean;
+  }
+
+  export interface SceneLayerCapabilitiesEditing extends Object {
+    /**
+     * Indicates if the geometry of the features in the layer can be edited.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsGeometryUpdate: boolean;
+    /**
+     * Indicates if the `globalId` values provided by the client are used in [applyEdits](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#applyEdits).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsGlobalId: boolean;
+    /**
+     * Indicates if the `rollbackOnFailureEnabled` parameter can be set to `true` or `false` when editing features.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsRollbackOnFailure: boolean;
+  }
+
+  export interface SceneLayerCapabilitiesOperations extends Object {
+    /**
+     * Indicates if new features can be [added](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#applyEdits) to the layer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsAdd: boolean;
+    /**
+     * Indicates if features can be [deleted](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#applyEdits) from the layer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsDelete: boolean;
+    /**
+     * Indicates if features in the layer can be [updated](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#applyEdits).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsUpdate: boolean;
+    /**
+     * Indicates if features in the layer can be [edited](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#applyEdits).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsEditing: boolean;
+  }
+
+  export interface SceneLayerCapabilitiesQuery extends Object {
+    /**
+     * The maximum number of records that will be returned for a given query.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    maxRecordCount: number;
+    /**
+     * Indicates if the geometry centroid associated with each polygon feature can be returned.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsCentroid: boolean;
+    /**
+     * Indicates if the layer's query operation supports a buffer distance for input geometries.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsDistance: boolean;
+    /**
+     * Indicates if the layer supports queries for distinct values based on fields specified in the [outFields](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#outFields).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsDistinct: boolean;
+    /**
+     * Indicates if the query operation supports `disjoint` [spatial relationship](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html#spatialRelationship).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsDisjointSpatialRelationship: boolean;
+    /**
+     * Indicates if the query operation supports a [cache hint](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html#cacheHint).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsCacheHint: boolean;
+    /**
+     * Indicates if the layer's query response includes the extent of features.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsExtent: boolean;
+    /**
+     * Indicates if the layer's query response contains geometry attributes, including shape area and length attributes.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsGeometryProperties: boolean;
+    /**
+     * Indicates if the layer supports the [having](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html#having) clause on the service.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsHavingClause: boolean;
+    /**
+     * Indicates if features returned in the query response can be ordered by one or more fields.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsOrderBy: boolean;
+    /**
+     * Indicates if the query response supports pagination.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsPagination: boolean;
+    /**
+     * Indicates if the layer supports [percentile statisticType](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-StatisticDefinition.html#statisticType).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsPercentileStatistics: boolean;
+    /**
+     * Indicates if the query response includes the [query geometry](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-FeatureSet.html#queryGeometry).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsQueryGeometry: boolean;
+    /**
+     * Indicates if the query operation supports the projection of geometries onto a virtual grid.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsQuantization: boolean;
+    /**
+     * Indicates if the query operation supports quantization designed to be used in edit mode (highest resolution at the given spatial reference).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsQuantizationEditMode: boolean;
+    /**
+     * Indicates if the number of features returned by the query operation can be controlled.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsResultType: boolean;
+    /**
+     * Indicates if the query operation supports SQL expressions.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsSqlExpression: boolean;
+    /**
+     * Indicates if the query operation supports using standardized queries.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsStandardizedQueriesOnly: boolean;
+    /**
+     * Indicates if the layer supports field-based statistical functions.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsStatistics: boolean;
+    /**
+     * Indicates if the layer supports historic moment query.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#capabilities)
+     */
+    supportsHistoricMoment: boolean;
   }
 
   export interface SceneLayerElevationInfo extends Object {
@@ -14328,6 +15540,12 @@ declare namespace __esri {
      */
     readonly type: "stream";
     /**
+     * The minimum rate (ms) at which to poll for updates over the websocket connection.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-StreamLayer.html#updateInterval)
+     */
+    updateInterval: number;
+    /**
      * The URL of the stream service.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-StreamLayer.html#url)
@@ -14368,7 +15586,7 @@ declare namespace __esri {
 
   interface StreamLayerConstructor {
     /**
-     * StreamLayer connects to a [stream service](https://enterprise.arcgis.com/en/geoevent/latest/process-event-data/stream-services.htm) or a [custom WebSocket service](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-StreamLayer.html#streamlayer-from-websocket), displaying the observation streams associated with a set of [tracked objects](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-StreamLayer.html#track-aware) in real-time.
+     * StreamLayer connects to a [stream service](https://enterprise.arcgis.com/en/geoevent) or a [custom WebSocket service](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-StreamLayer.html#streamlayer-from-websocket), displaying the observation streams associated with a set of [tracked objects](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-StreamLayer.html#track-aware) in real-time.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-StreamLayer.html)
      */
@@ -14510,6 +15728,12 @@ declare namespace __esri {
      */
     spatialReference?: SpatialReferenceProperties;
     /**
+     * The minimum rate (ms) at which to poll for updates over the websocket connection.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-StreamLayer.html#updateInterval)
+     */
+    updateInterval?: number;
+    /**
      * The URL of the stream service.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-StreamLayer.html#url)
@@ -14570,7 +15794,7 @@ declare namespace __esri {
 
   export interface StreamLayerElevationInfoFeatureExpressionInfo extends Object {
     /**
-     * An [Arcade expression](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) evaluating to a number that determines the z-value of the feature.
+     * An [Arcade expression](https://developers.arcgis.com/javascript/latest/arcade/) evaluating to a number that determines the z-value of the feature.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-StreamLayer.html#elevationInfo)
      */
@@ -14613,225 +15837,14 @@ declare namespace __esri {
     maxObservations?: number;
   }
 
-  interface AttachmentInfo extends Accessor, JSONSupport {
-    /**
-     * The content type of the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#contentType)
-     */
-    contentType: string;
-    /**
-     * An array of [ExifInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#ExifInfo) for the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#exifInfo)
-     */
-    exifInfo: ExifInfo[];
-    /**
-     * The global identifier for the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#globalId)
-     */
-    globalId: string;
-    /**
-     * The identifier for the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#id)
-     */
-    id: number;
-    /**
-     * Keywords used for the attachments.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#keywords)
-     */
-    keywords: string;
-    /**
-     * String value indicating the name of the file attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#name)
-     */
-    name: string;
-    /**
-     * The [OrientationInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#OrientationInfo) for the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#orientationInfo)
-     */
-    readonly orientationInfo: OrientationInfo;
-    /**
-     * The parent or the feature global id of the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#parentGlobalId)
-     */
-    parentGlobalId: number;
-    /**
-     * The parent or the feature object id of the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#parentObjectId)
-     */
-    parentObjectId: number;
-    /**
-     * The file size of the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#size)
-     */
-    size: number;
-    /**
-     * The URL of the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#url)
-     */
-    url: string;
-
-    /**
-     * Creates a deep clone of the AttachmentInfo class.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#clone)
-     */
-    clone(): AttachmentInfo;
-  }
-
-  interface AttachmentInfoConstructor {
-    /**
-     * The `AttachmentInfo` class returns information about attachments associated with a feature.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html)
-     */
-
-    new (properties?: AttachmentInfoProperties): AttachmentInfo;
-
-    fromJSON(json: any): AttachmentInfo;
-  }
-
-  export const AttachmentInfo: AttachmentInfoConstructor;
-
-  interface AttachmentInfoProperties {
-    /**
-     * The content type of the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#contentType)
-     */
-    contentType?: string;
-    /**
-     * An array of [ExifInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#ExifInfo) for the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#exifInfo)
-     */
-    exifInfo?: ExifInfo[];
-    /**
-     * The global identifier for the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#globalId)
-     */
-    globalId?: string;
-    /**
-     * The identifier for the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#id)
-     */
-    id?: number;
-    /**
-     * Keywords used for the attachments.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#keywords)
-     */
-    keywords?: string;
-    /**
-     * String value indicating the name of the file attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#name)
-     */
-    name?: string;
-    /**
-     * The parent or the feature global id of the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#parentGlobalId)
-     */
-    parentGlobalId?: number;
-    /**
-     * The parent or the feature object id of the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#parentObjectId)
-     */
-    parentObjectId?: number;
-    /**
-     * The file size of the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#size)
-     */
-    size?: number;
-    /**
-     * The URL of the attachment.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#url)
-     */
-    url?: string;
-  }
-
   /**
-   * An array of [Exchangeable image file format](https://en.wikipedia.org/wiki/Exif) information for the attachment.
+   * The `AttachmentInfo` class returns information about attachments associated with a feature.
    *
-   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#ExifInfo)
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html)
    */
-  export interface ExifInfo extends Object {
-    /**
-     * The file name.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#ExifInfo)
-     */
-    name?: string;
-    /**
-     * Array of tag objects containing the following properties:.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#ExifInfo)
-     */
-    tags?: ExifInfoTags[];
-  }
+  interface AttachmentInfo {}
 
-  /**
-   * An object containing properties specific to the orientation of an image attachment.
-   *
-   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#OrientationInfo)
-   */
-  export interface OrientationInfo extends Object {
-    /**
-     * The identifer for the orientation info.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#OrientationInfo)
-     */
-    id?: number;
-    /**
-     * The rotation value for the attached image.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#OrientationInfo)
-     */
-    rotation?: number;
-    /**
-     * Indicates whether the image displays mirrored.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#OrientationInfo)
-     */
-    mirrored?: boolean;
-  }
-
-  export interface ExifInfoTags extends Object {
-    /**
-     * The tag name.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#ExifInfo)
-     */
-    name: string;
-    /**
-     * The tag description.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#ExifInfo)
-     */
-    description: string;
-    /**
-     * The value of the tag.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#ExifInfo)
-     */
-    value: any;
-  }
+  export const AttachmentInfo: AttachmentInfo;
 
   interface BuildingFilter extends Accessor, JSONSupport {
     /**
@@ -14861,6 +15874,12 @@ declare namespace __esri {
   }
 
   interface BuildingFilterConstructor {
+    /**
+     * The `BuildingFilter` class defines a set of conditions that can be used to show or hide specific features of a [BuildingSceneLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-BuildingSceneLayer.html) in the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-BuildingFilter.html)
+     */
+
     new (properties?: BuildingFilterProperties): BuildingFilter;
 
     fromJSON(json: any): BuildingFilter;
@@ -14890,7 +15909,7 @@ declare namespace __esri {
   }
 
   /**
-   * Object contained in the [filterBlocks](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-BuildingFilter.html#filterBlocks) collection:.
+   * Object contained in the [filterBlocks](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-BuildingFilter.html#filterBlocks) collection:
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-BuildingFilter.html#BuildingFilterBlock)
    */
@@ -15031,6 +16050,12 @@ declare namespace __esri {
   }
 
   interface CodedValueDomainConstructor {
+    /**
+     * Information about the coded values belonging to the domain.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-CodedValueDomain.html)
+     */
+
     new (properties?: CodedValueDomainProperties): CodedValueDomain;
 
     fromJSON(json: any): CodedValueDomain;
@@ -15153,6 +16178,12 @@ declare namespace __esri {
   }
 
   interface DomainConstructor {
+    /**
+     * Domains define constraints on a [layer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html) [field](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Field.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Domain.html)
+     */
+
     new (properties?: DomainProperties): Domain;
 
     fromJSON(json: any): Domain;
@@ -15238,6 +16269,74 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-ElevationSampler.html#demResolution)
      */
     max: number;
+  }
+
+  interface FacilityLayerInfo extends Accessor, JSONSupport {
+    /**
+     * The field name from the layer that defines the facility unique ID for a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FacilityLayerInfo.html#facilityIdField)
+     */
+    facilityIdField: string;
+    /**
+     * Identifies an operational layer in a map.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FacilityLayerInfo.html#layerId)
+     */
+    layerId: string;
+    /**
+     * The field name from the layer that defines the facility name for a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FacilityLayerInfo.html#nameField)
+     */
+    nameField: string;
+    /**
+     * The field name from the layer that records the unique ID of a feature's associated site and can be used to identify a feature's associated site feature in floor-aware maps.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FacilityLayerInfo.html#siteIdField)
+     */
+    siteIdField: string;
+  }
+
+  interface FacilityLayerInfoConstructor {
+    /**
+     * The FacilityLayerInfo describes the footprints of managed buildings and other structures.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FacilityLayerInfo.html)
+     */
+
+    new (properties?: FacilityLayerInfoProperties): FacilityLayerInfo;
+
+    fromJSON(json: any): FacilityLayerInfo;
+  }
+
+  export const FacilityLayerInfo: FacilityLayerInfoConstructor;
+
+  interface FacilityLayerInfoProperties {
+    /**
+     * The field name from the layer that defines the facility unique ID for a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FacilityLayerInfo.html#facilityIdField)
+     */
+    facilityIdField?: string;
+    /**
+     * Identifies an operational layer in a map.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FacilityLayerInfo.html#layerId)
+     */
+    layerId?: string;
+    /**
+     * The field name from the layer that defines the facility name for a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FacilityLayerInfo.html#nameField)
+     */
+    nameField?: string;
+    /**
+     * The field name from the layer that records the unique ID of a feature's associated site and can be used to identify a feature's associated site feature in floor-aware maps.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FacilityLayerInfo.html#siteIdField)
+     */
+    siteIdField?: string;
   }
 
   interface FeatureReductionCluster extends Accessor, JSONSupport {
@@ -15444,6 +16543,12 @@ declare namespace __esri {
   }
 
   interface FeatureTemplateConstructor {
+    /**
+     * Feature templates define all the information required to create a new feature in a [feature layer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FeatureTemplate.html)
+     */
+
     new (properties?: FeatureTemplateProperties): FeatureTemplate;
 
     fromJSON(json: any): FeatureTemplate;
@@ -15554,6 +16659,12 @@ declare namespace __esri {
   }
 
   interface FeatureTypeConstructor {
+    /**
+     * FeatureType is a subset of features defined in a [FeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html) that share the same attributes.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FeatureType.html)
+     */
+
     new (properties?: FeatureTypeProperties): FeatureType;
 
     fromJSON(json: any): FeatureType;
@@ -15679,6 +16790,12 @@ declare namespace __esri {
   }
 
   interface FieldConstructor {
+    /**
+     * Information about each field in a layer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Field.html)
+     */
+
     new (properties?: FieldProperties): Field;
 
     fromJSON(json: any): Field;
@@ -15805,11 +16922,22 @@ declare namespace __esri {
   }
 
   interface FieldsIndexConstructor {
+    /**
+     * This class provides convenient methods that can be used to make case-insensitive lookups for a field by its name.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-FieldsIndex.html)
+     */
+
     new (properties?: any): FieldsIndex;
   }
 
   export const FieldsIndex: FieldsIndexConstructor;
 
+  /**
+   * Convenience methods for getting field names used for feature layer [labeling](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#labelingInfo), [elevation](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#elevationInfo), [editor tracking](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#editFieldsInfo) and time span.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-fieldUtils.html)
+   */
   interface fieldUtils {
     /**
      * Gets the appropriate display field name to label a feature.
@@ -15839,6 +16967,12 @@ declare namespace __esri {
      */
     getFeatureEditFields(layer: FeatureLayer): string[];
     /**
+     * Returns an array of geometry field names for a given feature layer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-fieldUtils.html#getFeatureGeometryFields)
+     */
+    getFeatureGeometryFields(layer: FeatureLayer): string[];
+    /**
      * Returns an array of field names used in the Arcade expression for labeling features in the given feature layer's [FeatureLayer.labelingInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#labelingInfo).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-fieldUtils.html#getLabelingFields)
@@ -15853,6 +16987,43 @@ declare namespace __esri {
   }
 
   export const fieldUtils: fieldUtils;
+
+  interface GeometryFieldsInfo extends Accessor, JSONSupport {
+    /**
+     * The name of the field that stores the feature's area, e.g.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-GeometryFieldsInfo.html#shapeAreaField)
+     */
+    readonly shapeAreaField: string;
+    /**
+     * The name of the field that stores the feature's length, e.g.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-GeometryFieldsInfo.html#shapeLengthField)
+     */
+    readonly shapeLengthField: string;
+    /**
+     * The units of measure for the area and length field values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-GeometryFieldsInfo.html#units)
+     */
+    readonly units: string;
+  }
+
+  interface GeometryFieldsInfoConstructor {
+    /**
+     * The `GeometryFieldsInfo` class returns information about the system maintained geometry information associated with a specific feature in a [FeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-GeometryFieldsInfo.html)
+     */
+
+    new (properties?: GeometryFieldsInfoProperties): GeometryFieldsInfo;
+
+    fromJSON(json: any): GeometryFieldsInfo;
+  }
+
+  export const GeometryFieldsInfo: GeometryFieldsInfoConstructor;
+
+  interface GeometryFieldsInfoProperties {}
 
   interface ImageParameters extends Accessor {
     /**
@@ -15917,7 +17088,7 @@ declare namespace __esri {
     width: number;
 
     /**
-     * Converts an instance of  [this class]() to its ArcGIS portal JSON representation.
+     * Converts an instance of  this class to its ArcGIS portal JSON representation.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-ImageParameters.html#toJSON)
      */
@@ -15925,6 +17096,12 @@ declare namespace __esri {
   }
 
   interface ImageParametersConstructor {
+    /**
+     * Represents the image parameter options used when calling [Geoprocessor.getResultImage()](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Geoprocessor.html#getResultImage) and Geoprocessor.getResultImageLayer().
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-ImageParameters.html)
+     */
+
     new (properties?: ImageParametersProperties): ImageParameters;
   }
 
@@ -16003,6 +17180,12 @@ declare namespace __esri {
   }
 
   interface InheritedDomainConstructor {
+    /**
+     * This is a subclass of [Domain](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Domain.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-InheritedDomain.html)
+     */
+
     new (properties?: InheritedDomainProperties): InheritedDomain;
 
     fromJSON(json: any): InheritedDomain;
@@ -16064,6 +17247,12 @@ declare namespace __esri {
   }
 
   interface KMLSublayerConstructor {
+    /**
+     * Represents a sublayer in a [KMLLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-KMLLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-KMLSublayer.html)
+     */
+
     new (properties?: KMLSublayerProperties): KMLSublayer;
 
     fromJSON(json: any): KMLSublayer;
@@ -16292,7 +17481,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html#symbol)
      */
-    symbol?: TextSymbolProperties | LabelSymbol3DProperties;
+    symbol?: (TextSymbolProperties & { type: "text" }) | (LabelSymbol3DProperties & { type: "label-3d" });
     /**
      * Indicates whether to use domain names if the fields in the [labelExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html#labelExpression) or [labelExpressionInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html#labelExpressionInfo) have domains.
      *
@@ -16315,11 +17504,153 @@ declare namespace __esri {
      */
     value?: string;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that evaluates to a string used to label features in the layer.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that evaluates to a string used to label features in the layer.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html#labelExpressionInfo)
      */
     expression: string;
+    /**
+     * The title of the label expression.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html#labelExpressionInfo)
+     */
+    title?: string;
+  }
+
+  interface LayerFloorInfo extends Accessor, JSONSupport {
+    /**
+     * The field name derived from a floor-aware layer and used to filter features by floor level.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LayerFloorInfo.html#floorField)
+     */
+    floorField: string;
+  }
+
+  interface LayerFloorInfoConstructor {
+    /**
+     * LayerFloorInfo contains properties that allow a layer to be floor-aware.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LayerFloorInfo.html)
+     */
+
+    new (properties?: LayerFloorInfoProperties): LayerFloorInfo;
+
+    fromJSON(json: any): LayerFloorInfo;
+  }
+
+  export const LayerFloorInfo: LayerFloorInfoConstructor;
+
+  interface LayerFloorInfoProperties {
+    /**
+     * The field name derived from a floor-aware layer and used to filter features by floor level.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LayerFloorInfo.html#floorField)
+     */
+    floorField?: string;
+  }
+
+  interface LevelLayerInfo extends Accessor, JSONSupport {
+    /**
+     * The field name from the layer that defines the unique ID of a feature's associated facility.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#facilityIdField)
+     */
+    facilityIdField: string;
+    /**
+     * The id for an operational layer in the map.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#layerId)
+     */
+    layerId: string;
+    /**
+     * The field name from the layer that defines a unique ID for the feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#levelIdField)
+     */
+    levelIdField: string;
+    /**
+     * The field name from the layer that defines the level floor number in a particular facility.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#levelNumberField)
+     */
+    levelNumberField: string;
+    /**
+     * The field name from the layer that defines the level name of a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#longNameField)
+     */
+    longNameField: string;
+    /**
+     * The field name from the layer that defines the level short name of a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#shortNameField)
+     */
+    shortNameField: string;
+    /**
+     * The field name from the layer that defines the order of display and reference to floors in the [Indoor Positioning System](https://doc.arcgis.com/en/indoors/android/configure-indoor-positioning.htm).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#verticalOrderField)
+     */
+    verticalOrderField: string;
+  }
+
+  interface LevelLayerInfoConstructor {
+    /**
+     * The LevelLayerInfo class describes the footprint of each occupiable floor contained in a managed facility.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html)
+     */
+
+    new (properties?: LevelLayerInfoProperties): LevelLayerInfo;
+
+    fromJSON(json: any): LevelLayerInfo;
+  }
+
+  export const LevelLayerInfo: LevelLayerInfoConstructor;
+
+  interface LevelLayerInfoProperties {
+    /**
+     * The field name from the layer that defines the unique ID of a feature's associated facility.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#facilityIdField)
+     */
+    facilityIdField?: string;
+    /**
+     * The id for an operational layer in the map.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#layerId)
+     */
+    layerId?: string;
+    /**
+     * The field name from the layer that defines a unique ID for the feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#levelIdField)
+     */
+    levelIdField?: string;
+    /**
+     * The field name from the layer that defines the level floor number in a particular facility.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#levelNumberField)
+     */
+    levelNumberField?: string;
+    /**
+     * The field name from the layer that defines the level name of a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#longNameField)
+     */
+    longNameField?: string;
+    /**
+     * The field name from the layer that defines the level short name of a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#shortNameField)
+     */
+    shortNameField?: string;
+    /**
+     * The field name from the layer that defines the order of display and reference to floors in the [Indoor Positioning System](https://doc.arcgis.com/en/indoors/android/configure-indoor-positioning.htm).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LevelLayerInfo.html#verticalOrderField)
+     */
+    verticalOrderField?: string;
   }
 
   interface LOD extends Accessor, JSONSupport {
@@ -16350,6 +17681,12 @@ declare namespace __esri {
   }
 
   interface LODConstructor {
+    /**
+     * A [TileLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-TileLayer.html) has a number of LODs (Levels of Detail).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LOD.html)
+     */
+
     new (properties?: LODProperties): LOD;
 
     fromJSON(json: any): LOD;
@@ -16430,6 +17767,12 @@ declare namespace __esri {
   }
 
   interface MapImageConstructor {
+    /**
+     * Represents the data object for the dynamically generated map.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-MapImage.html)
+     */
+
     new (properties?: MapImageProperties): MapImage;
 
     fromJSON(json: any): MapImage;
@@ -16689,7 +18032,7 @@ declare namespace __esri {
      */
     statistics: PixelBlockStatistics[];
     /**
-     * Number of valid pixels.
+     * Number of valid pixels
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-PixelBlock.html#validPixelCount)
      */
@@ -16728,6 +18071,12 @@ declare namespace __esri {
   }
 
   interface PixelBlockConstructor {
+    /**
+     * An object representing the pixel arrays in the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-PixelBlock.html)
+     */
+
     new (properties?: PixelBlockProperties): PixelBlock;
   }
 
@@ -16781,7 +18130,7 @@ declare namespace __esri {
      */
     statistics?: PixelBlockStatistics[];
     /**
-     * Number of valid pixels.
+     * Number of valid pixels
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-PixelBlock.html#validPixelCount)
      */
@@ -16852,6 +18201,12 @@ declare namespace __esri {
   }
 
   interface RangeDomainConstructor {
+    /**
+     * Range domains specify a valid [minimum](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-RangeDomain.html#minValue) and [maximum](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-RangeDomain.html#maxValue) valid value that can be stored in numeric and date [fields](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Field.html#type).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-RangeDomain.html)
+     */
+
     new (properties?: RangeDomainProperties): RangeDomain;
 
     fromJSON(json: any): RangeDomain;
@@ -17064,6 +18419,12 @@ declare namespace __esri {
   }
 
   interface RasterInfoConstructor {
+    /**
+     * Describes general raster data information exposed by the ArcGIS REST API for [ImageryLayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-RasterInfo.html)
+     */
+
     new (properties?: RasterInfoProperties): RasterInfo;
 
     fromJSON(json: any): RasterInfo;
@@ -17264,6 +18625,12 @@ declare namespace __esri {
   }
 
   interface RelationshipConstructor {
+    /**
+     * Describes a [layer's](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html) relationship with another layer or table.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Relationship.html)
+     */
+
     new (properties?: RelationshipProperties): Relationship;
   }
 
@@ -17349,6 +18716,12 @@ declare namespace __esri {
   }
 
   interface SceneModificationConstructor {
+    /**
+     * The SceneModification is used to perform a client-side geometric modifications.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-SceneModification.html)
+     */
+
     new (properties?: SceneModificationProperties): SceneModification;
 
     fromJSON(json: any): SceneModification;
@@ -17381,6 +18754,12 @@ declare namespace __esri {
   }
 
   interface SceneModificationsConstructor {
+    /**
+     * A collection of [SceneModification](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-SceneModification.html) with polygons and types to apply client-side modifications.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-SceneModifications.html)
+     */
+
     new (properties?: SceneModificationsProperties): SceneModifications;
 
     fromJSON(json: any): SceneModifications;
@@ -17389,6 +18768,62 @@ declare namespace __esri {
   export const SceneModifications: SceneModificationsConstructor;
 
   interface SceneModificationsProperties extends CollectionPropertiesBase<SceneModificationProperties> {}
+
+  interface SiteLayerInfo extends Accessor, JSONSupport {
+    /**
+     * The id for an operational layer in a map.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-SiteLayerInfo.html#layerId)
+     */
+    layerId: string;
+    /**
+     * The field name from the layer that defines the site name of a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-SiteLayerInfo.html#nameField)
+     */
+    nameField: string;
+    /**
+     * The field name from the layer that defines a site unique ID for a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-SiteLayerInfo.html#siteIdField)
+     */
+    siteIdField: string;
+  }
+
+  interface SiteLayerInfoConstructor {
+    /**
+     * The SiteLayerInfo class describes the boundaries of managed sites and is used for visualizing groups of facilities.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-SiteLayerInfo.html)
+     */
+
+    new (properties?: SiteLayerInfoProperties): SiteLayerInfo;
+
+    fromJSON(json: any): SiteLayerInfo;
+  }
+
+  export const SiteLayerInfo: SiteLayerInfoConstructor;
+
+  interface SiteLayerInfoProperties {
+    /**
+     * The id for an operational layer in a map.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-SiteLayerInfo.html#layerId)
+     */
+    layerId?: string;
+    /**
+     * The field name from the layer that defines the site name of a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-SiteLayerInfo.html#nameField)
+     */
+    nameField?: string;
+    /**
+     * The field name from the layer that defines a site unique ID for a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-SiteLayerInfo.html#siteIdField)
+     */
+    siteIdField?: string;
+  }
 
   interface Sublayer extends Accessor, Loadable {
     /**
@@ -17584,12 +19019,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Sublayer.html#queryFeatures)
      */
     queryFeatures(query?: Query | QueryProperties, options?: SublayerQueryFeaturesOptions): Promise<FeatureSet>;
-    /**
-     * Serialize the sublayer for usage in /export.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Sublayer.html#toExportImageJSON)
-     */
-    toExportImageJSON(): void;
   }
 
   interface SublayerConstructor {
@@ -17634,7 +19063,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Sublayer.html#layer)
      */
-    layer?: MapImageLayerProperties | TileLayerProperties;
+    layer?: (MapImageLayerProperties & { type: "map-image" }) | (TileLayerProperties & { type: "tile" });
     /**
      * Indicates whether the layer will be included in the legend.
      *
@@ -17688,7 +19117,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Sublayer.html#source)
      */
-    source?: DynamicMapLayer | DynamicDataLayer;
+    source?: (DynamicMapLayer & { type: "map-layer" }) | (DynamicDataLayer & { type: "data-layer" });
     /**
      * The [map service's metadata JSON](https://developers.arcgis.com/rest/services-reference/map-service.htm) exposed by the ArcGIS REST API.
      *
@@ -18025,6 +19454,12 @@ declare namespace __esri {
   }
 
   interface TileInfoConstructor {
+    /**
+     * Contains information about the tiling scheme for [TileLayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-TileLayer.html), [ElevationLayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ElevationLayer.html) and [WebTileLayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-WebTileLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-TileInfo.html)
+     */
+
     new (properties?: TileInfoProperties): TileInfo;
 
     /**
@@ -18148,6 +19583,12 @@ declare namespace __esri {
   }
 
   interface TileMatrixSetConstructor {
+    /**
+     * Contains information about the tiling scheme for [WMTSSublayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-WMTSSublayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-TileMatrixSet.html)
+     */
+
     new (properties?: TileMatrixSetProperties): TileMatrixSet;
 
     fromJSON(json: any): TileMatrixSet;
@@ -18364,6 +19805,12 @@ declare namespace __esri {
   }
 
   interface WMSSublayerConstructor {
+    /**
+     * Represents a sublayer in a [WMSLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-WMSLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-WMSSublayer.html)
+     */
+
     new (properties?: WMSSublayerProperties): WMSSublayer;
   }
 
@@ -18497,6 +19944,12 @@ declare namespace __esri {
   }
 
   interface WMTSStyleConstructor {
+    /**
+     * Contains information about the WMTS Style for [WMTSSublayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-WMTSSublayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-WMTSStyle.html)
+     */
+
     new (properties?: WMTSStyleProperties): WMTSStyle;
 
     fromJSON(json: any): WMTSStyle;
@@ -18614,6 +20067,12 @@ declare namespace __esri {
   }
 
   interface WMTSSublayerConstructor {
+    /**
+     * Represents a sublayer in a [WMTSLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-WMTSLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-WMTSSublayer.html)
+     */
+
     new (properties?: WMTSSublayerProperties): WMTSSublayer;
 
     fromJSON(json: any): WMTSSublayer;
@@ -18704,7 +20163,8 @@ declare namespace __esri {
       RefreshableLayer,
       ScaleRangeLayer,
       PortalLayer,
-      BlendLayer {
+      BlendLayer,
+      CustomParametersMixin {
     /**
      * A flat [Collection](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html) of all the [sublayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-TileLayer.html#sublayers) in the TileLayer including the sublayers of its sublayers.
      *
@@ -18797,7 +20257,8 @@ declare namespace __esri {
       RefreshableLayerProperties,
       ScaleRangeLayerProperties,
       PortalLayerProperties,
-      BlendLayerProperties {
+      BlendLayerProperties,
+      CustomParametersMixinProperties {
     /**
      * Resampling is enabled by default in 2D [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) and 3D [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
@@ -18910,6 +20371,12 @@ declare namespace __esri {
   }
 
   interface UnsupportedLayerConstructor {
+    /**
+     * Represents an unsupported layer instance.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-UnsupportedLayer.html)
+     */
+
     new (properties?: UnsupportedLayerProperties): UnsupportedLayer;
   }
 
@@ -18988,23 +20455,47 @@ declare namespace __esri {
     url: string;
 
     /**
-     * Returns an instance of [layout](https://www.mapbox.com/mapbox-gl-js/style-spec/#layer-layout) properties for the specified [style-layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers).
+     * Deletes the specified [style layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers) from the VectorTileLayer's [currentStyleInfo.style](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#currentStyleInfo).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#deleteStyleLayer)
+     */
+    deleteStyleLayer(layerId: string): void;
+    /**
+     * Returns an instance of [layout](https://www.mapbox.com/mapbox-gl-js/style-spec/#layer-layout) properties for the specified [style layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#getLayoutProperties)
      */
-    getLayoutProperties(layer: string): any;
+    getLayoutProperties(layerId: string): any;
     /**
-     * Returns an instance of [paint](https://www.mapbox.com/mapbox-gl-js/style-spec/#layer-paint) properties for the specified [style-layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers).
+     * Returns an instance of [paint](https://www.mapbox.com/mapbox-gl-js/style-spec/#layer-paint) properties for the specified [style layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#getPaintProperties)
      */
-    getPaintProperties(layer: string): any;
+    getPaintProperties(layerId: string): any;
     /**
-     * Returns the [id](https://www.mapbox.com/mapbox-gl-js/style-spec/#layer-id) of the [style-layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers) based on its index.
+     * Returns an instance of a [style layer](https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/) from the VectorTileLayer's [currentStyleInfo.style](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#currentStyleInfo).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#getStyleLayer)
+     */
+    getStyleLayer(layerId: string): any;
+    /**
+     * Returns the layer [id](https://www.mapbox.com/mapbox-gl-js/style-spec/#layer-id) of the [style layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers) based on its index.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#getStyleLayerId)
      */
     getStyleLayerId(index: number): string;
+    /**
+     * Returns the index of the [style layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers) from the VectorTileLayer's [currentStyleInfo.style](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#currentStyleInfo).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#getStyleLayerIndex)
+     */
+    getStyleLayerIndex(layerId: string): number;
+    /**
+     * Gets the visibility of the specified [style layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers) from the VectorTileLayer's [currentStyleInfo.style](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#currentStyleInfo).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#getStyleLayerVisibility)
+     */
+    getStyleLayerVisibility(layerId: string): string;
     /**
      * Loads a style to render a layer from the specified URL to a style resource or style JSON object.
      *
@@ -19012,17 +20503,29 @@ declare namespace __esri {
      */
     loadStyle(style: string | any, options?: VectorTileLayerLoadStyleOptions): Promise<any>;
     /**
-     * Assigns new [layout](https://www.mapbox.com/mapbox-gl-js/style-spec/#layer-layout) properties to the specified [style-layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers).
+     * Updates the [layout](https://www.mapbox.com/mapbox-gl-js/style-spec/#layer-layout) properties to the specified [style layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#setLayoutProperties)
      */
-    setLayoutProperties(layer: string, layout: any): void;
+    setLayoutProperties(layerId: string, layout: any): void;
     /**
-     * Assigns new [paint](https://www.mapbox.com/mapbox-gl-js/style-spec/#layer-paint) properties to the specified [style-layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers).
+     * Updates the [paint](https://www.mapbox.com/mapbox-gl-js/style-spec/#layer-paint) properties to the specified [style layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#setPaintProperties)
      */
-    setPaintProperties(layer: string, painter: any): void;
+    setPaintProperties(layerId: string, painter: any): void;
+    /**
+     * Changes the layer properties of the specified [style layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#setStyleLayer)
+     */
+    setStyleLayer(layer: any, index?: number): void;
+    /**
+     * Toggles the visibility of the specified [style layer](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers) in the VectorTileLayer's [currentStyleInfo.style](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#currentStyleInfo).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-VectorTileLayer.html#setStyleLayerVisibility)
+     */
+    setStyleLayerVisibility(layerId: string, visibility: "none" | "visible"): void;
 
     on(name: "layerview-create", eventHandler: VectorTileLayerLayerviewCreateEventHandler): IHandle;
 
@@ -19287,7 +20790,9 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-WCSLayer.html#renderer)
      */
-    renderer?: ClassBreaksRendererProperties | RasterStretchRendererProperties;
+    renderer?:
+      | (ClassBreaksRendererProperties & { type: "class-breaks" })
+      | (RasterStretchRendererProperties & { type: "raster-stretch" });
     /**
      * The version of Web Coverage Service currently being used.
      *
@@ -19625,6 +21130,12 @@ declare namespace __esri {
   }
 
   interface WMSLayerConstructor {
+    /**
+     * The WMSLayer is used to create layers based on OGC Web Map Services (WMS).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-WMSLayer.html)
+     */
+
     new (properties?: WMSLayerProperties): WMSLayer;
 
     fromJSON(json: any): WMSLayer;
@@ -19878,6 +21389,12 @@ declare namespace __esri {
   }
 
   interface WMTSLayerConstructor {
+    /**
+     * The WMTSLayer is used to create layers based on OGC Web Map Services (WMTS).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-WMTSLayer.html)
+     */
+
     new (properties?: WMTSLayerProperties): WMTSLayer;
 
     fromJSON(json: any): WMTSLayer;
@@ -20021,7 +21538,7 @@ declare namespace __esri {
   }
 
   /**
-   * A convenience module for importing [PointCloudRenderer](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-PointCloudRenderer.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/guide/typescript-setup/index.html).
+   * A convenience module for importing [PointCloudRenderer](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-PointCloudRenderer.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/typescript-setup/).
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-pointCloudRenderers.html)
    */
@@ -20110,7 +21627,7 @@ declare namespace __esri {
   export type pointCloudRenderersPointCloudUniqueValueRenderer = PointCloudUniqueValueRenderer;
 
   /**
-   * A convenience module for importing [Content](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-Content.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/guide/typescript-setup/index.html).
+   * A convenience module for importing [Content](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-Content.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/typescript-setup/).
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content.html)
    */
@@ -20170,11 +21687,23 @@ declare namespace __esri {
 
   interface AttachmentsContent extends Content, JSONSupport {
     /**
+     * Describes the attachment's content in detail.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-AttachmentsContent.html#description)
+     */
+    description: string;
+    /**
      * A string value indicating how to display the attachment.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-AttachmentsContent.html#displayType)
      */
     displayType: "preview" | "list";
+    /**
+     * A heading indicating what the attachment's content represents.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-AttachmentsContent.html#title)
+     */
+    title: string;
     /**
      * The type of popup element displayed.
      *
@@ -20199,11 +21728,23 @@ declare namespace __esri {
 
   interface AttachmentsContentProperties extends ContentProperties {
     /**
+     * Describes the attachment's content in detail.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-AttachmentsContent.html#description)
+     */
+    description?: string;
+    /**
      * A string value indicating how to display the attachment.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-AttachmentsContent.html#displayType)
      */
     displayType?: "preview" | "list";
+    /**
+     * A heading indicating what the attachment's content represents.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-AttachmentsContent.html#title)
+     */
+    title?: string;
   }
 
   interface BarChartMediaInfo extends Accessor, JSONSupport, MediaInfo, ChartMediaInfo {
@@ -20330,6 +21871,12 @@ declare namespace __esri {
   }
 
   interface CustomContentConstructor {
+    /**
+     * A `CustomContent` popup element is used to provide a way to customize the [popup's](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html) content.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-CustomContent.html)
+     */
+
     new (properties?: CustomContentProperties): CustomContent;
 
     fromJSON(json: any): CustomContent;
@@ -20364,11 +21911,23 @@ declare namespace __esri {
 
   interface FieldsContent extends Content, JSONSupport {
     /**
+     * Describes the field's content in detail.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-FieldsContent.html#description)
+     */
+    description: string;
+    /**
      * Array of [fieldInfos](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-FieldInfo.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-FieldsContent.html#fieldInfos)
      */
     fieldInfos: FieldInfo[];
+    /**
+     * Heading indicating what the field's content represents.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-FieldsContent.html#title)
+     */
+    title: string;
     /**
      * The type of popup element displayed.
      *
@@ -20400,11 +21959,23 @@ declare namespace __esri {
 
   interface FieldsContentProperties extends ContentProperties {
     /**
+     * Describes the field's content in detail.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-FieldsContent.html#description)
+     */
+    description?: string;
+    /**
      * Array of [fieldInfos](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-FieldInfo.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-FieldsContent.html#fieldInfos)
      */
     fieldInfos?: FieldInfoProperties[];
+    /**
+     * Heading indicating what the field's content represents.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-FieldsContent.html#title)
+     */
+    title?: string;
   }
 
   interface ImageMediaInfo extends Accessor, JSONSupport, MediaInfo {
@@ -20498,6 +22069,18 @@ declare namespace __esri {
 
   interface MediaContent extends Content, JSONSupport {
     /**
+     * Index of the current active media within the popup's media content.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-MediaContent.html#activeMediaInfoIndex)
+     */
+    activeMediaInfoIndex: string;
+    /**
+     * Describes the media's content in detail.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-MediaContent.html#description)
+     */
+    description: string;
+    /**
      * Contains the media elements representing images or charts to display within the [PopupTemplate](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-MediaContent.html#mediaInfos)
@@ -20509,6 +22092,12 @@ declare namespace __esri {
       | LineChartMediaInfo
       | PieChartMediaInfo
       | any[];
+    /**
+     * Heading indicating what the media's content represents.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-MediaContent.html#title)
+     */
+    title: string;
     /**
      * The type of popup element displayed.
      *
@@ -20540,6 +22129,18 @@ declare namespace __esri {
 
   interface MediaContentProperties extends ContentProperties {
     /**
+     * Index of the current active media within the popup's media content.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-MediaContent.html#activeMediaInfoIndex)
+     */
+    activeMediaInfoIndex?: string;
+    /**
+     * Describes the media's content in detail.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-MediaContent.html#description)
+     */
+    description?: string;
+    /**
      * Contains the media elements representing images or charts to display within the [PopupTemplate](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-MediaContent.html#mediaInfos)
@@ -20551,6 +22152,12 @@ declare namespace __esri {
       | LineChartMediaInfoProperties
       | PieChartMediaInfoProperties
       | any[];
+    /**
+     * Heading indicating what the media's content represents.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-MediaContent.html#title)
+     */
+    title?: string;
   }
 
   interface ChartMediaInfo {
@@ -20685,6 +22292,12 @@ declare namespace __esri {
   }
 
   interface ChartMediaInfoValueConstructor {
+    /**
+     * The `ChartMediaInfoValue` class contains information for popups regarding how charts should be constructed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-support-ChartMediaInfoValue.html)
+     */
+
     new (properties?: ChartMediaInfoValueProperties): ChartMediaInfoValue;
 
     fromJSON(json: any): ChartMediaInfoValue;
@@ -20754,6 +22367,12 @@ declare namespace __esri {
   }
 
   interface ChartMediaInfoValueSeriesConstructor {
+    /**
+     * The `ChartMediaInfoValueSeries` class is a read-only support class that represents information specific to how data should be plotted in a chart.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-support-ChartMediaInfoValueSeries.html)
+     */
+
     new (properties?: ChartMediaInfoValueSeriesProperties): ChartMediaInfoValueSeries;
   }
 
@@ -20784,6 +22403,12 @@ declare namespace __esri {
   }
 
   interface ImageMediaInfoValueConstructor {
+    /**
+     * The `ImageMediaInfoValue` class contains information for popups regarding how images should be retrieved.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-support-ImageMediaInfoValue.html)
+     */
+
     new (properties?: ImageMediaInfoValueProperties): ImageMediaInfoValue;
 
     fromJSON(json: any): ImageMediaInfoValue;
@@ -20895,7 +22520,7 @@ declare namespace __esri {
 
   interface popupExpressionInfo extends Accessor, JSONSupport {
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression evaluating to either a string, number, dictionary, or array.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression evaluating to either a string, number, dictionary, or array.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-ExpressionInfo.html#expression)
      */
@@ -20928,6 +22553,12 @@ declare namespace __esri {
   }
 
   interface popupExpressionInfoConstructor {
+    /**
+     * The `ExpressionInfo` class defines the [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expressions executed in a layer's [PopupTemplate](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-ExpressionInfo.html)
+     */
+
     new (properties?: popupExpressionInfoProperties): popupExpressionInfo;
 
     fromJSON(json: any): popupExpressionInfo;
@@ -20937,7 +22568,7 @@ declare namespace __esri {
 
   interface popupExpressionInfoProperties {
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression evaluating to either a string, number, dictionary, or array.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression evaluating to either a string, number, dictionary, or array.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-ExpressionInfo.html#expression)
      */
@@ -20964,7 +22595,7 @@ declare namespace __esri {
 
   interface FieldInfo extends Accessor, JSONSupport {
     /**
-     * The field name as defined by  the service or the `name` of an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression.
+     * The field name as defined by  the service or the `name` of an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-FieldInfo.html#fieldName)
      */
@@ -21021,6 +22652,12 @@ declare namespace __esri {
   }
 
   interface FieldInfoConstructor {
+    /**
+     * The `FieldInfo` class defines how a [Field](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Field.html) participates, or in some cases, does not participate, in a [PopupTemplate](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-FieldInfo.html)
+     */
+
     new (properties?: FieldInfoProperties): FieldInfo;
 
     fromJSON(json: any): FieldInfo;
@@ -21030,7 +22667,7 @@ declare namespace __esri {
 
   interface FieldInfoProperties {
     /**
-     * The field name as defined by  the service or the `name` of an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression.
+     * The field name as defined by  the service or the `name` of an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-FieldInfo.html#fieldName)
      */
@@ -21102,6 +22739,12 @@ declare namespace __esri {
   }
 
   interface LayerOptionsConstructor {
+    /**
+     * The `LayerOptions` class defines additional options that can be defined for a layer's [PopupTemplate](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-LayerOptions.html)
+     */
+
     new (properties?: LayerOptionsProperties): LayerOptions;
 
     fromJSON(json: any): LayerOptions;
@@ -21147,6 +22790,12 @@ declare namespace __esri {
   }
 
   interface RelatedRecordsInfoConstructor {
+    /**
+     * The `RelatedRecordsInfo` class provides additional sorting options when working with related records in a layer's [PopupTemplate](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-RelatedRecordsInfo.html)
+     */
+
     new (properties?: RelatedRecordsInfoProperties): RelatedRecordsInfo;
 
     fromJSON(json: any): RelatedRecordsInfo;
@@ -21301,6 +22950,12 @@ declare namespace __esri {
   }
 
   interface RelatedRecordsInfoFieldOrderConstructor {
+    /**
+     * The `RelatedRecordsInfoFieldOrder` class indicates the field display order for the related records in a layer's [PopupTemplate](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-support-RelatedRecordsInfoFieldOrder.html)
+     */
+
     new (properties?: RelatedRecordsInfoFieldOrderProperties): RelatedRecordsInfoFieldOrder;
 
     fromJSON(json: any): RelatedRecordsInfoFieldOrder;
@@ -21337,13 +22992,13 @@ declare namespace __esri {
      */
     content: Content[] | string | Function | Promise<any>;
     /**
-     * An array of objects or [ExpressionInfo[]](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-ExpressionInfo.html) that reference [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expressions.
+     * An array of objects or [ExpressionInfo[]](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-ExpressionInfo.html) that reference [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expressions.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#expressionInfos)
      */
     expressionInfos: popupExpressionInfo[];
     /**
-     * An array of [FieldInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-FieldInfo.html) that defines how fields in the dataset or values from [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expressions participate in a popup.
+     * An array of [FieldInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-FieldInfo.html) that defines how fields in the dataset or values from [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expressions participate in a popup.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#fieldInfos)
      */
@@ -21379,6 +23034,12 @@ declare namespace __esri {
      */
     relatedRecordsInfo: RelatedRecordsInfo;
     /**
+     * Indicates whether to include the feature's geometry for use by the template.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#returnGeometry)
+     */
+    returnGeometry: boolean;
+    /**
      * The template for defining how to format the title used in a popup.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#title)
@@ -21413,7 +23074,9 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#actions)
      */
-    actions?: CollectionProperties<ActionButtonProperties | ActionToggleProperties>;
+    actions?: CollectionProperties<
+      (ActionButtonProperties & { type: "button" }) | (ActionToggleProperties & { type: "toggle" })
+    >;
     /**
      * The template for defining and formatting a popup's content.
      *
@@ -21421,13 +23084,13 @@ declare namespace __esri {
      */
     content?: ContentProperties[] | string | Function | Promise<any>;
     /**
-     * An array of objects or [ExpressionInfo[]](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-ExpressionInfo.html) that reference [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expressions.
+     * An array of objects or [ExpressionInfo[]](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-ExpressionInfo.html) that reference [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expressions.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#expressionInfos)
      */
     expressionInfos?: popupExpressionInfoProperties[];
     /**
-     * An array of [FieldInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-FieldInfo.html) that defines how fields in the dataset or values from [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expressions participate in a popup.
+     * An array of [FieldInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-FieldInfo.html) that defines how fields in the dataset or values from [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expressions participate in a popup.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#fieldInfos)
      */
@@ -21462,6 +23125,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#relatedRecordsInfo)
      */
     relatedRecordsInfo?: RelatedRecordsInfoProperties;
+    /**
+     * Indicates whether to include the feature's geometry for use by the template.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#returnGeometry)
+     */
+    returnGeometry?: boolean;
     /**
      * The template for defining how to format the title used in a popup.
      *
@@ -22427,6 +24096,12 @@ declare namespace __esri {
   }
 
   interface PortalFolderConstructor {
+    /**
+     * Provides information about folders used to organize content in a portal.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-PortalFolder.html)
+     */
+
     new (properties?: PortalFolderProperties): PortalFolder;
   }
 
@@ -22569,6 +24244,12 @@ declare namespace __esri {
   }
 
   interface PortalGroupConstructor {
+    /**
+     * The group resource represents a group within the [Portal](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-Portal.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-PortalGroup.html)
+     */
+
     new (properties?: PortalGroupProperties): PortalGroup;
   }
 
@@ -22969,6 +24650,12 @@ declare namespace __esri {
   }
 
   interface PortalItemConstructor {
+    /**
+     * An item (a unit of content) in the Portal.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-PortalItem.html)
+     */
+
     new (properties?: PortalItemProperties): PortalItem;
 
     fromJSON(json: any): PortalItem;
@@ -23398,6 +25085,12 @@ declare namespace __esri {
   }
 
   interface PortalItemResourceConstructor {
+    /**
+     * A reference to a portal item resource.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-PortalItemResource.html)
+     */
+
     new (properties?: PortalItemResourceProperties): PortalItemResource;
   }
 
@@ -23506,6 +25199,12 @@ declare namespace __esri {
   }
 
   interface PortalQueryParamsConstructor {
+    /**
+     * The parameters used to perform a query for Items, Groups, and Users within a [Portal](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-Portal.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-PortalQueryParams.html)
+     */
+
     new (properties?: PortalQueryParamsProperties): PortalQueryParams;
   }
 
@@ -23595,6 +25294,12 @@ declare namespace __esri {
   }
 
   interface PortalQueryResultConstructor {
+    /**
+     * Represents the result object returned from a portal query.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-PortalQueryResult.html)
+     */
+
     new (properties?: PortalQueryResultProperties): PortalQueryResult;
   }
 
@@ -23643,6 +25348,12 @@ declare namespace __esri {
   }
 
   interface PortalRatingConstructor {
+    /**
+     * PortalRating provides details about the rating associated with a [Portal item](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-PortalItem.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-PortalRating.html)
+     */
+
     new (properties?: PortalRatingProperties): PortalRating;
   }
 
@@ -23830,6 +25541,12 @@ declare namespace __esri {
   }
 
   interface PortalUserConstructor {
+    /**
+     * Represents a registered user of the [Portal](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-Portal.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-PortalUser.html)
+     */
+
     new (properties?: PortalUserProperties): PortalUser;
   }
 
@@ -23989,7 +25706,7 @@ declare namespace __esri {
   }
 
   /**
-   * A convenience module for importing renderer classes that can be used to render [ImageryLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html) when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/guide/typescript-setup/index.html).
+   * A convenience module for importing renderer classes that can be used to render [ImageryLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html) when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/typescript-setup/).
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rasterRenderers.html)
    */
@@ -24086,11 +25803,19 @@ declare namespace __esri {
   export type rasterRenderersVectorFieldRenderer = VectorFieldRenderer;
 
   /**
-   * A convenience module for importing [Renderer](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-Renderer.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/guide/typescript-setup/index.html).
+   * A convenience module for importing [Renderer](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-Renderer.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/typescript-setup/).
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers.html)
    */
   namespace renderers {
+    /**
+     * DictionaryRenderer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers.html#DictionaryRenderer)
+     */
+    export type DictionaryRenderer = __esri.DictionaryRenderer;
+    export const DictionaryRenderer: typeof __esri.DictionaryRenderer;
+
     /**
      * SimpleRenderer.
      *
@@ -24132,7 +25857,8 @@ declare namespace __esri {
       | __esri.SimpleRenderer
       | __esri.ClassBreaksRenderer
       | __esri.UniqueValueRenderer
-      | __esri.DotDensityRenderer;
+      | __esri.DotDensityRenderer
+      | __esri.DictionaryRenderer;
 
     /**
      * HeatmapRenderer.
@@ -24212,13 +25938,13 @@ declare namespace __esri {
      */
     readonly type: "class-breaks";
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression evaluating to a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression evaluating to a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html#valueExpression)
      */
     valueExpression: string;
     /**
-     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html#valueExpression) property.
+     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html#valueExpression) property.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html#valueExpressionTitle)
      */
@@ -24270,7 +25996,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html#backgroundFillSymbol)
      */
-    backgroundFillSymbol?: FillSymbolProperties | PolygonSymbol3DProperties;
+    backgroundFillSymbol?: FillSymbolProperties | (PolygonSymbol3DProperties & { type: "polygon-3d" });
     /**
      * Each element in the array is an object that provides information about a class break associated with the renderer.
      *
@@ -24320,13 +26046,13 @@ declare namespace __esri {
      */
     normalizationType?: "field" | "log" | "percent-of-total";
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression evaluating to a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression evaluating to a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html#valueExpression)
      */
     valueExpression?: string;
     /**
-     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html#valueExpression) property.
+     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html#valueExpression) property.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html#valueExpressionTitle)
      */
@@ -24362,7 +26088,7 @@ declare namespace __esri {
      */
     scaleExpression: string;
     /**
-     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression as defined in the [scaleExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-DictionaryRenderer.html#scaleExpression) property.
+     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression as defined in the [scaleExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-DictionaryRenderer.html#scaleExpression) property.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-DictionaryRenderer.html#scaleExpressionTitle)
      */
@@ -24374,7 +26100,7 @@ declare namespace __esri {
      */
     type: "dictionary";
     /**
-     * The URL to the dictionary style, e.g.
+     * The URL to the dictionary style.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-DictionaryRenderer.html#url)
      */
@@ -24428,7 +26154,7 @@ declare namespace __esri {
      */
     scaleExpression?: string;
     /**
-     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression as defined in the [scaleExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-DictionaryRenderer.html#scaleExpression) property.
+     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression as defined in the [scaleExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-DictionaryRenderer.html#scaleExpression) property.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-DictionaryRenderer.html#scaleExpressionTitle)
      */
@@ -24440,7 +26166,7 @@ declare namespace __esri {
      */
     type?: "dictionary";
     /**
-     * The URL to the dictionary style, e.g.
+     * The URL to the dictionary style.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-DictionaryRenderer.html#url)
      */
@@ -24872,6 +26598,12 @@ declare namespace __esri {
   }
 
   interface PointCloudRendererConstructor {
+    /**
+     * A PointCloudRenderer allows you to specify how points in a [PointCloudLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-PointCloudLayer.html) are rendered.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-PointCloudRenderer.html)
+     */
+
     new (properties?: PointCloudRendererProperties): PointCloudRenderer;
 
     fromJSON(json: any): PointCloudRenderer;
@@ -25017,7 +26749,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-PointCloudStretchRenderer.html#stops)
      */
-    stops: PointCloudStretchRendererStops[];
+    stops: ColorStop[];
     /**
      * The type of Renderer.
      *
@@ -25071,7 +26803,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-PointCloudStretchRenderer.html#stops)
      */
-    stops?: PointCloudStretchRendererStops[];
+    stops?: ColorStopProperties[];
   }
 
   export interface PointCloudStretchRendererLegendOptions extends Object {
@@ -25081,27 +26813,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-PointCloudStretchRenderer.html#legendOptions)
      */
     title?: string;
-  }
-
-  export interface PointCloudStretchRendererStops extends Object {
-    /**
-     * The value for this stop.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-PointCloudStretchRenderer.html#stops)
-     */
-    value: number;
-    /**
-     * The label for this stop.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-PointCloudStretchRenderer.html#stops)
-     */
-    label?: string;
-    /**
-     * The color value for this stop.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-PointCloudStretchRenderer.html#stops)
-     */
-    color: Color;
   }
 
   interface PointCloudUniqueValueRenderer extends PointCloudRenderer {
@@ -25629,7 +27340,7 @@ declare namespace __esri {
 
   interface RendererConstructor {
     /**
-     * Renderers define how to visually represent each feature in one of the following layer types:.
+     * Renderers define how to visually represent each feature in one of the following layer types:
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-Renderer.html)
      */
@@ -25727,13 +27438,13 @@ declare namespace __esri {
      */
     label: string;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression evaluating to a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression evaluating to a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AttributeColorInfo.html#valueExpression)
      */
     valueExpression: string;
     /**
-     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AttributeColorInfo.html#valueExpression) property.
+     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AttributeColorInfo.html#valueExpression) property.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AttributeColorInfo.html#valueExpressionTitle)
      */
@@ -25781,13 +27492,13 @@ declare namespace __esri {
      */
     label?: string;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression evaluating to a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression evaluating to a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AttributeColorInfo.html#valueExpression)
      */
     valueExpression?: string;
     /**
-     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AttributeColorInfo.html#valueExpression) property.
+     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AttributeColorInfo.html#valueExpression) property.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AttributeColorInfo.html#valueExpressionTitle)
      */
@@ -25873,6 +27584,12 @@ declare namespace __esri {
      */
     standardDeviationInterval: number;
     /**
+     * Only for renderers of type `univariate-color-size` with an `above-and-below` [univariateTheme](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#univariateTheme).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#statistics)
+     */
+    statistics: AuthoringInfoStatistics;
+    /**
      * Indicates the renderer type generated from one of the Smart Mapping functions.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#type)
@@ -25885,6 +27602,30 @@ declare namespace __esri {
       | "predominance"
       | "relationship"
       | "univariate-color-size";
+    /**
+     * Only applicable to [univariateColorSize](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html) renderers with an `above-and-below` [univariateTheme](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#univariateTheme).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#univariateSymbolStyle)
+     */
+    univariateSymbolStyle:
+      | "caret"
+      | "circle-caret"
+      | "arrow"
+      | "circle-arrow"
+      | "plus-minus"
+      | "circle-plus-minus"
+      | "square"
+      | "circle"
+      | "triangle"
+      | "happy-sad"
+      | "thumb"
+      | "custom";
+    /**
+     * Only applicable to [univariateColorSize](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html) renderers.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#univariateTheme)
+     */
+    univariateTheme: "high-to-low" | "above" | "below" | "above-and-below";
     /**
      * Contains authoring properties of visual variables generated from one of the Smart Mapping methods or sliders.
      *
@@ -25901,6 +27642,12 @@ declare namespace __esri {
   }
 
   interface AuthoringInfoConstructor {
+    /**
+     * Authoring information related to generating renderers and visual variables with the Smart Mapping methods.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html)
+     */
+
     new (properties?: AuthoringInfoProperties): AuthoringInfo;
 
     fromJSON(json: any): AuthoringInfo;
@@ -25987,6 +27734,12 @@ declare namespace __esri {
      */
     standardDeviationInterval?: number;
     /**
+     * Only for renderers of type `univariate-color-size` with an `above-and-below` [univariateTheme](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#univariateTheme).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#statistics)
+     */
+    statistics?: AuthoringInfoStatistics;
+    /**
      * Indicates the renderer type generated from one of the Smart Mapping functions.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#type)
@@ -25999,6 +27752,30 @@ declare namespace __esri {
       | "predominance"
       | "relationship"
       | "univariate-color-size";
+    /**
+     * Only applicable to [univariateColorSize](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html) renderers with an `above-and-below` [univariateTheme](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#univariateTheme).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#univariateSymbolStyle)
+     */
+    univariateSymbolStyle?:
+      | "caret"
+      | "circle-caret"
+      | "arrow"
+      | "circle-arrow"
+      | "plus-minus"
+      | "circle-plus-minus"
+      | "square"
+      | "circle"
+      | "triangle"
+      | "happy-sad"
+      | "thumb"
+      | "custom";
+    /**
+     * Only applicable to [univariateColorSize](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html) renderers.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#univariateTheme)
+     */
+    univariateTheme?: "high-to-low" | "above" | "below" | "above-and-below";
     /**
      * Contains authoring properties of visual variables generated from one of the Smart Mapping methods or sliders.
      *
@@ -26091,6 +27868,21 @@ declare namespace __esri {
     minValue?: number;
   }
 
+  export interface AuthoringInfoStatistics extends Object {
+    /**
+     * The maximum data value of the attribute represented by the renderer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#statistics)
+     */
+    max: number;
+    /**
+     * The minimum data value of the attribute represented by the renderer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfo.html#statistics)
+     */
+    min: number;
+  }
+
   interface AuthoringInfoVisualVariable extends Accessor, JSONSupport {
     /**
      * If an age or timeline renderer was generated, indicates the end time of the visualization.
@@ -26133,7 +27925,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfoVisualVariable.html#theme)
      */
-    theme: "above-and-below" | "centered-on" | "extremes" | "high-to-low";
+    theme: "above" | "below" | "above-and-below" | "centered-on" | "extremes" | "high-to-low";
     /**
      * The type of visual variable generated.
      *
@@ -26156,6 +27948,12 @@ declare namespace __esri {
   }
 
   interface AuthoringInfoVisualVariableConstructor {
+    /**
+     * Contains authoring properties of visual variables generated from one of the Smart Mapping methods or sliders.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfoVisualVariable.html)
+     */
+
     new (properties?: AuthoringInfoVisualVariableProperties): AuthoringInfoVisualVariable;
 
     fromJSON(json: any): AuthoringInfoVisualVariable;
@@ -26205,7 +28003,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-AuthoringInfoVisualVariable.html#theme)
      */
-    theme?: "above-and-below" | "centered-on" | "extremes" | "high-to-low";
+    theme?: "above" | "below" | "above-and-below" | "centered-on" | "extremes" | "high-to-low";
     /**
      * The type of visual variable generated.
      *
@@ -26255,6 +28053,12 @@ declare namespace __esri {
   }
 
   interface ClassBreakInfoConstructor {
+    /**
+     * Defines a class break for a [ClassBreaksRenderer](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-ClassBreakInfo.html)
+     */
+
     new (properties?: ClassBreakInfoProperties): ClassBreakInfo;
 
     fromJSON(json: any): ClassBreakInfo;
@@ -26311,6 +28115,12 @@ declare namespace __esri {
   }
 
   interface ColormapInfoConstructor {
+    /**
+     * The ColormapInfo describes pixel value, RGB colors and labels to color the raster.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-ColormapInfo.html)
+     */
+
     new (properties?: ColormapInfoProperties): ColormapInfo;
 
     fromJSON(json: any): ColormapInfo;
@@ -26362,6 +28172,12 @@ declare namespace __esri {
   }
 
   interface HeatmapColorStopConstructor {
+    /**
+     * This class is used to define an array of objects describing the [HeatmapRenderer](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-HeatmapRenderer.html)'s color ramp and associated intensity value ratios.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-HeatmapColorStop.html)
+     */
+
     new (properties?: HeatmapColorStopProperties): HeatmapColorStop;
   }
 
@@ -26382,9 +28198,14 @@ declare namespace __esri {
     ratio?: number;
   }
 
+  /**
+   * Provides a utility method used to deserialize a JSON renderer object returned by the REST API.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-jsonUtils.html)
+   */
   interface supportJsonUtils {
     /**
-     * Creates a new instance of an appropriate [Renderer](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-Renderer.html) class and initializes it with values from a JSON object generated from a product in the ArcGIS platform.
+     * Creates a new instance of an appropriate [Renderer](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-Renderer.html) class and initializes it with values from a JSON object generated from an ArcGIS product.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-support-jsonUtils.html#fromJSON)
      */
@@ -26518,13 +28339,13 @@ declare namespace __esri {
      */
     uniqueValueInfos: UniqueValueInfo[];
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression evaluating to either a string or a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression evaluating to either a string or a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-UniqueValueRenderer.html#valueExpression)
      */
     valueExpression: string;
     /**
-     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-UniqueValueRenderer.html#valueExpression) property.
+     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-UniqueValueRenderer.html#valueExpression) property.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-UniqueValueRenderer.html#valueExpressionTitle)
      */
@@ -26576,7 +28397,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-UniqueValueRenderer.html#backgroundFillSymbol)
      */
-    backgroundFillSymbol?: FillSymbolProperties | PolygonSymbol3DProperties;
+    backgroundFillSymbol?: FillSymbolProperties | (PolygonSymbol3DProperties & { type: "polygon-3d" });
     /**
      * Label used in the [Legend](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html) to describe features assigned the [default symbol](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-UniqueValueRenderer.html#defaultSymbol).
      *
@@ -26626,13 +28447,13 @@ declare namespace __esri {
      */
     uniqueValueInfos?: UniqueValueInfoProperties[];
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression evaluating to either a string or a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression evaluating to either a string or a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-UniqueValueRenderer.html#valueExpression)
      */
     valueExpression?: string;
     /**
-     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-UniqueValueRenderer.html#valueExpression) property.
+     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-UniqueValueRenderer.html#valueExpression) property.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-UniqueValueRenderer.html#valueExpressionTitle)
      */
@@ -26677,7 +28498,7 @@ declare namespace __esri {
       | "ocean-current-m"
       | "simple-scalar"
       | "single-arrow"
-      | "wind-speed";
+      | "wind-barb";
     /**
      * Determines the density of the symbols.
      *
@@ -26748,7 +28569,7 @@ declare namespace __esri {
       | "ocean-current-m"
       | "simple-scalar"
       | "single-arrow"
-      | "wind-speed";
+      | "wind-barb";
     /**
      * Determines the density of the symbols.
      *
@@ -27385,6 +29206,81 @@ declare namespace __esri {
     stops: SizeStop[];
   }
 
+  interface ColorSizeStop extends Accessor, JSONSupport {
+    /**
+     * The [Color](https://developers.arcgis.com/javascript/latest/api-reference/esri-Color.html) used to render features with the given [value](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#value).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#color)
+     */
+    color: Color;
+    /**
+     * A string value used to label the stop in the [Legend](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#label)
+     */
+    label: string;
+    /**
+     * The size value in points used to render features with the given [value](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#value).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#size)
+     */
+    size: number;
+    /**
+     * Specifies the data value to map to the given [size](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#size) and [color](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#color).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#value)
+     */
+    value: number;
+
+    /**
+     * Creates a deep clone of the ColorSizeStop.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#clone)
+     */
+    clone(): ColorSizeStop;
+  }
+
+  interface ColorSizeStopConstructor {
+    /**
+     * Defines how to data values should be represented in the [ColorSizeSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html) with an associated color and size.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html)
+     */
+
+    new (properties?: ColorSizeStopProperties): ColorSizeStop;
+
+    fromJSON(json: any): ColorSizeStop;
+  }
+
+  export const ColorSizeStop: ColorSizeStopConstructor;
+
+  interface ColorSizeStopProperties {
+    /**
+     * The [Color](https://developers.arcgis.com/javascript/latest/api-reference/esri-Color.html) used to render features with the given [value](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#value).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#color)
+     */
+    color?: Color | number[] | string;
+    /**
+     * A string value used to label the stop in the [Legend](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#label)
+     */
+    label?: string;
+    /**
+     * The size value in points used to render features with the given [value](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#value).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#size)
+     */
+    size?: number | string;
+    /**
+     * Specifies the data value to map to the given [size](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#size) and [color](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#color).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorSizeStop.html#value)
+     */
+    value?: number;
+  }
+
   interface ColorStop extends Accessor, JSONSupport {
     /**
      * The [Color](https://developers.arcgis.com/javascript/latest/api-reference/esri-Color.html) used to render features with the given [value](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorStop.html#value).
@@ -27414,6 +29310,12 @@ declare namespace __esri {
   }
 
   interface ColorStopConstructor {
+    /**
+     * Defines a color stop used for creating a continuous color visualization in a [color visual variable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-ColorVariable.html#stops).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-ColorStop.html)
+     */
+
     new (properties?: ColorStopProperties): ColorStop;
 
     fromJSON(json: any): ColorStop;
@@ -27471,6 +29373,12 @@ declare namespace __esri {
   }
 
   interface OpacityStopConstructor {
+    /**
+     * Defines an opacity stop used for creating a continuous opacity visualization in a [opacity visual variable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-OpacityVariable.html#stops).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-OpacityStop.html)
+     */
+
     new (properties?: OpacityStopProperties): OpacityStop;
 
     fromJSON(json: any): OpacityStop;
@@ -27528,6 +29436,12 @@ declare namespace __esri {
   }
 
   interface SizeStopConstructor {
+    /**
+     * Defines a size stop used for creating a continuous size visualization in a [size visual variable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-SizeVariable.html#stops).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-support-SizeStop.html)
+     */
+
     new (properties?: SizeStopProperties): SizeStop;
 
     fromJSON(json: any): SizeStop;
@@ -27576,13 +29490,13 @@ declare namespace __esri {
      */
     readonly type: "color" | "opacity" | "rotation" | "size";
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression evaluating to a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression evaluating to a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-VisualVariable.html#valueExpression)
      */
     valueExpression: string;
     /**
-     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-VisualVariable.html#valueExpression) property.
+     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-VisualVariable.html#valueExpression) property.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-VisualVariable.html#valueExpressionTitle)
      */
@@ -27617,13 +29531,13 @@ declare namespace __esri {
      */
     legendOptions?: VisualVariableLegendOptions;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression evaluating to a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression evaluating to a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-VisualVariable.html#valueExpression)
      */
     valueExpression?: string;
     /**
-     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-VisualVariable.html#valueExpression) property.
+     * The title identifying and describing the associated [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression as defined in the [valueExpression](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-VisualVariable.html#valueExpression) property.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-VisualVariable.html#valueExpressionTitle)
      */
@@ -27651,6 +29565,13 @@ declare namespace __esri {
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers.html#ClassBreaksRenderer)
    */
   export type renderersClassBreaksRenderer = ClassBreaksRenderer;
+
+  /**
+   * DictionaryRenderer.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers.html#DictionaryRenderer)
+   */
+  export type renderersDictionaryRenderer = DictionaryRenderer;
 
   /**
    * DotDensityRenderer.
@@ -27682,7 +29603,8 @@ declare namespace __esri {
     | SimpleRenderer
     | ClassBreaksRenderer
     | UniqueValueRenderer
-    | DotDensityRenderer;
+    | DotDensityRenderer
+    | DictionaryRenderer;
 
   /**
    * SimpleRenderer.
@@ -27698,6 +29620,11 @@ declare namespace __esri {
    */
   export type renderersUniqueValueRenderer = UniqueValueRenderer;
 
+  /**
+   * Retrieves data from a remote server or uploads a file.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-request.html)
+   */
   interface request {
     /**
      * Retrieves data from a remote server or uploads a file from a user's computer.
@@ -27799,11 +29726,11 @@ declare namespace __esri {
      */
     headers?: any;
     /**
-     * Indicates if the request should be made using the HTTP POST method.
+     * Indicates if the request should be made using the HTTP DELETE, HEAD, POST, or PUT method.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-request.html#RequestOptions)
      */
-    method?: "auto" | "post";
+    method?: "auto" | "delete" | "head" | "post" | "put";
     /**
      * Query parameters for the request.
      *
@@ -27873,6 +29800,558 @@ declare namespace __esri {
      */
     getHeader?: GetHeader;
   }
+
+  /**
+   * Helps you find closest facilities around any location (incident) on a network.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-closestFacility.html)
+   */
+  interface closestFacility {
+    /**
+     * Solves the closest facility.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-closestFacility.html#solve)
+     */
+    solve(url: string, params: ClosestFacilityParameters, requestOptions?: any): Promise<ClosestFacilitySolveResult>;
+  }
+
+  export const closestFacility: closestFacility;
+
+  /**
+   * Search a map service exposed by the ArcGIS Server REST API based on a string value.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-find.html)
+   */
+  interface find {}
+
+  export const find: find;
+
+  /**
+   * A convenience module for importing [geometryService](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-geometryService.html) functions when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/typescript-setup/).
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-geometryService.html)
+   */
+  interface geometryService {}
+
+  export const geometryService: geometryService;
+
+  /**
+   * Represents a GP resource exposed by the ArcGIS REST API.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-geoprocessor.html)
+   */
+  interface geoprocessor {}
+
+  export const geoprocessor: geoprocessor;
+
+  /**
+   * A convenience module for providing input options for the geoprocessing service return values.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-geoprocessor-GPOptions.html)
+   */
+  interface GPOptions {
+    /**
+     * The spatial reference of the output geometries.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-geoprocessor-GPOptions.html#outSpatialReference)
+     */
+    outSpatialReference: SpatialReference;
+    /**
+     * ProcessExtent, if specified, will only process features that overlap this extent.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-geoprocessor-GPOptions.html#processExtent)
+     */
+    processExtent: Extent;
+    /**
+     * The spatial reference that the model will use to perform geometry operations.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-geoprocessor-GPOptions.html#processSpatialReference)
+     */
+    processSpatialReference: SpatialReference;
+    /**
+     * If `true`, m-values will be included in the results if the features have m-values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-geoprocessor-GPOptions.html#returnM)
+     */
+    returnM: boolean;
+    /**
+     * If `true`, z-values will be included in the results if the features have z-values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-geoprocessor-GPOptions.html#returnZ)
+     */
+    returnZ: boolean;
+  }
+
+  export const GPOptions: GPOptions;
+
+  /**
+   * Performs an identify operation on the layers of a map service exposed by the ArcGIS Server REST API.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-identify.html)
+   */
+  interface identify {}
+
+  export const identify: identify;
+
+  /**
+   * Performs various operations on an image service resource:
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-imageService.html)
+   */
+  interface imageService {}
+
+  export const imageService: imageService;
+
+  /**
+   * A convenience module for importing [locator](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html) functions when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/typescript-setup/).
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html)
+   */
+  interface locator {
+    /**
+     * Find address candidates for multiple input addresses.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressesToLocations)
+     */
+    addressesToLocations(
+      url: string,
+      params: locatorAddressesToLocationsParams,
+      requestOptions?: any
+    ): Promise<AddressCandidate[]>;
+    /**
+     * Sends a request to the ArcGIS REST geocode resource to find candidates for a single address specified in the address parameter.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressToLocations)
+     */
+    addressToLocations(
+      params: locatorAddressToLocationsParams,
+      url: string,
+      requestOptions?: any
+    ): Promise<AddressCandidate[]>;
+    /**
+     * Locates an address based on a given point.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#locationToAddress)
+     */
+    locationToAddress(params: locatorLocationToAddressParams, requestOptions?: any): Promise<AddressCandidate>;
+    /**
+     * Get character by character auto complete suggestions.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#suggestLocations)
+     */
+    suggestLocations(
+      url: string,
+      params: locatorSuggestLocationsParams,
+      requestOptions?: any
+    ): Promise<LocatorSuggestionResult[]>;
+  }
+
+  export const locator: locator;
+
+  export interface locatorAddressesToLocationsParams extends Object {
+    /**
+     * The input addresses in the format supported by the geocode service.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressesToLocations)
+     */
+    addresses: any[];
+    /**
+     * Limits the results to only search in the country provided.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressesToLocations)
+     */
+    countryCode?: string;
+    /**
+     * Limit result to one or more categories.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressesToLocations)
+     */
+    categories?: string[];
+    /**
+     * Define the type of location, either `"street"` or `"rooftop"`, of the point returned from the [World Geocoding Service](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressesToLocations)
+     */
+    locationType?: string;
+    /**
+     * The spatial reference of the output geometries.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressesToLocations)
+     */
+    outSpatialReference?: SpatialReference;
+  }
+
+  export interface locatorAddressToLocationsParams extends Object {
+    /**
+     * The address argument is data object that contains properties representing the various address fields accepted by the corresponding geocode service.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressToLocations)
+     */
+    address: any;
+    /**
+     * Limit result to one or more categories.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressToLocations)
+     */
+    categories?: string[];
+    /**
+     * Limit result to a specific country.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressToLocations)
+     */
+    countryCode?: string;
+    /**
+     * Allows the results of single geocode transactions to be persisted.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressToLocations)
+     */
+    forStorage?: boolean;
+    /**
+     * Used to weight returned results for a specified area.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressToLocations)
+     */
+    location?: Point;
+    /**
+     * Define the type of location, either `"street"` or `"rooftop"`, of the point returned from the [World Geocoding Service](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressToLocations)
+     */
+    locationType?: string;
+    /**
+     * A `suggestLocations` result ID (magicKey).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressToLocations)
+     */
+    magicKey?: string;
+    /**
+     * Maximum results to return from the query.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressToLocations)
+     */
+    maxLocations?: number;
+    /**
+     * The list of fields included in the returned result set.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressToLocations)
+     */
+    outFields?: string[];
+    /**
+     * The spatial reference of the output geometries.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressToLocations)
+     */
+    outSpatialReference?: SpatialReference;
+    /**
+     * Defines the extent within which the geocode server will search.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#addressToLocations)
+     */
+    searchExtent?: Extent;
+  }
+
+  export interface locatorLocationToAddressParams extends Object {
+    /**
+     * The point at which to search for the closest address.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#locationToAddress)
+     */
+    location: Point;
+    /**
+     * Define the type of location, either `"street"` or `"rooftop"`, of the point returned from the [World Geocoding Service](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#locationToAddress)
+     */
+    locationType?: string;
+    /**
+     * The spatial reference of the output geometries.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#locationToAddress)
+     */
+    outSpatialReference?: SpatialReference;
+  }
+
+  export interface locatorSuggestLocationsParams extends Object {
+    /**
+     * A place or address type which can be used to filter suggest results.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#suggestLocations)
+     */
+    categories?: string[];
+    /**
+     * Defines a normalized location point that is used to sort geocoding candidates based upon their proximity to the given location.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#suggestLocations)
+     */
+    location: Point;
+    /**
+     * The input text entered by a user which is used by the suggest operation to generate a list of possible matches.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-locator.html#suggestLocations)
+     */
+    text: string;
+  }
+
+  /**
+   * Executes different types of query operations on a layer.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query.html)
+   */
+  interface query {}
+
+  export const query: query;
+
+  interface supportAttachmentInfo extends Accessor, JSONSupport {
+    /**
+     * The content type of the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#contentType)
+     */
+    contentType: string;
+    /**
+     * An array of [ExifInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#ExifInfo) for the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#exifInfo)
+     */
+    exifInfo: ExifInfo[];
+    /**
+     * The global identifier for the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#globalId)
+     */
+    globalId: string;
+    /**
+     * The identifier for the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#id)
+     */
+    id: number;
+    /**
+     * Keywords used for the attachments.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#keywords)
+     */
+    keywords: string;
+    /**
+     * String value indicating the name of the file attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#name)
+     */
+    name: string;
+    /**
+     * The [OrientationInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#OrientationInfo) for the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#orientationInfo)
+     */
+    readonly orientationInfo: OrientationInfo;
+    /**
+     * The parent or the feature global id of the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#parentGlobalId)
+     */
+    parentGlobalId: number;
+    /**
+     * The parent or the feature object id of the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#parentObjectId)
+     */
+    parentObjectId: number;
+    /**
+     * The file size of the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#size)
+     */
+    size: number;
+    /**
+     * The URL of the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#url)
+     */
+    url: string;
+
+    /**
+     * Creates a deep clone of the AttachmentInfo class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#clone)
+     */
+    clone(): supportAttachmentInfo;
+  }
+
+  interface supportAttachmentInfoConstructor {
+    /**
+     * The `AttachmentInfo` class returns information about attachments associated with a feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html)
+     */
+
+    new (properties?: supportAttachmentInfoProperties): supportAttachmentInfo;
+
+    fromJSON(json: any): supportAttachmentInfo;
+  }
+
+  export const supportAttachmentInfo: supportAttachmentInfoConstructor;
+
+  interface supportAttachmentInfoProperties {
+    /**
+     * The content type of the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#contentType)
+     */
+    contentType?: string;
+    /**
+     * An array of [ExifInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#ExifInfo) for the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#exifInfo)
+     */
+    exifInfo?: ExifInfo[];
+    /**
+     * The global identifier for the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#globalId)
+     */
+    globalId?: string;
+    /**
+     * The identifier for the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#id)
+     */
+    id?: number;
+    /**
+     * Keywords used for the attachments.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#keywords)
+     */
+    keywords?: string;
+    /**
+     * String value indicating the name of the file attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#name)
+     */
+    name?: string;
+    /**
+     * The parent or the feature global id of the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#parentGlobalId)
+     */
+    parentGlobalId?: number;
+    /**
+     * The parent or the feature object id of the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#parentObjectId)
+     */
+    parentObjectId?: number;
+    /**
+     * The file size of the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#size)
+     */
+    size?: number;
+    /**
+     * The URL of the attachment.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#url)
+     */
+    url?: string;
+  }
+
+  /**
+   * An array of [Exchangeable image file format](https://en.wikipedia.org/wiki/Exif) information for the attachment.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#ExifInfo)
+   */
+  export interface ExifInfo extends Object {
+    /**
+     * The file name.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#ExifInfo)
+     */
+    name?: string;
+    /**
+     * Array of tag objects containing the following properties:
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#ExifInfo)
+     */
+    tags?: ExifInfoTags[];
+  }
+
+  /**
+   * An object containing properties specific to the orientation of an image attachment.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#OrientationInfo)
+   */
+  export interface OrientationInfo extends Object {
+    /**
+     * The identifer for the orientation info.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#OrientationInfo)
+     */
+    id?: number;
+    /**
+     * The rotation value for the attached image.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#OrientationInfo)
+     */
+    rotation?: number;
+    /**
+     * Indicates whether the image displays mirrored.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#OrientationInfo)
+     */
+    mirrored?: boolean;
+  }
+
+  export interface ExifInfoTags extends Object {
+    /**
+     * The tag name.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#ExifInfo)
+     */
+    name: string;
+    /**
+     * The tag description.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#ExifInfo)
+     */
+    description: string;
+    /**
+     * The value of the tag.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#ExifInfo)
+     */
+    value: any;
+  }
+
+  /**
+   * Find routes between two or more locations and optionally get driving directions.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-route.html)
+   */
+  interface route {
+    /**
+     * Solves the route against the route layer with the route parameters.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-route.html#solve)
+     */
+    solve(url: string, params: RouteParameters, requestOptions?: any): Promise<RouteResult>;
+  }
+
+  export const route: route;
+
+  /**
+   * ServiceAreaTask helps you find service areas around any location on a network.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-serviceArea.html)
+   */
+  interface serviceArea {
+    /**
+     * Determines the service area based on a set of parameters.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-serviceArea.html#solve)
+     */
+    solve(url: string, params: ServiceAreaParameters, requestOptions?: any): Promise<ServiceAreaSolveResult>;
+  }
+
+  export const serviceArea: serviceArea;
 
   /**
    * Function for determining suggested [min](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#minScale) and [max](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#maxScale) scale ranges for an input layer.
@@ -28393,7 +30872,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-color.html#createAgeRenderer)
      */
-    theme?: "high-to-low" | "above-and-below" | "centered-on" | "extremes";
+    theme?: "high-to-low" | "above" | "below" | "above-and-below" | "centered-on" | "extremes";
     /**
      * For polygon layers only.
      *
@@ -28539,7 +31018,7 @@ declare namespace __esri {
      */
     colorScheme?: ColorScheme;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-color.html#createClassBreaksRenderer)
      */
@@ -28663,7 +31142,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-color.html#createContinuousRenderer)
      */
-    theme?: "high-to-low" | "above-and-below" | "centered-on" | "extremes";
+    theme?: "high-to-low" | "above" | "below" | "above-and-below" | "centered-on" | "extremes";
     /**
      * In authoring apps, the user may select a pre-defined color scheme.
      *
@@ -28671,7 +31150,7 @@ declare namespace __esri {
      */
     colorScheme?: ColorScheme;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-color.html#createContinuousRenderer)
      */
@@ -28891,7 +31370,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-color.html#createVisualVariable)
      */
-    theme?: "high-to-low" | "above-and-below" | "centered-on" | "extremes";
+    theme?: "high-to-low" | "above" | "below" | "above-and-below" | "centered-on" | "extremes";
     /**
      * In authoring apps, the user may select a pre-defined color scheme.
      *
@@ -28899,7 +31378,7 @@ declare namespace __esri {
      */
     colorScheme?: ColorScheme;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-color.html#createVisualVariable)
      */
@@ -29226,7 +31705,7 @@ declare namespace __esri {
      */
     label?: string;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-dotDensity.html#createRenderer)
      */
@@ -29556,7 +32035,7 @@ declare namespace __esri {
      */
     normalizationField?: string;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-opacity.html#createVisualVariable)
      */
@@ -30441,6 +32920,12 @@ declare namespace __esri {
      */
     unit?: "years" | "months" | "days" | "hours" | "minutes" | "seconds";
     /**
+     * Sets the size stops based on meaningful data values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-size.html#createAgeRenderer)
+     */
+    theme?: "high-to-low" | "above" | "below";
+    /**
      * Sets a maximum age for the visualization.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-size.html#createAgeRenderer)
@@ -30591,7 +33076,7 @@ declare namespace __esri {
      */
     sizeScheme?: SizeScheme;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-size.html#createClassBreaksRenderer)
      */
@@ -30705,7 +33190,7 @@ declare namespace __esri {
      */
     sizeScheme?: SizeScheme;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-size.html#createContinuousRenderer)
      */
@@ -30716,6 +33201,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-size.html#createContinuousRenderer)
      */
     valueExpressionTitle?: string;
+    /**
+     * Sets the size stops based on meaningful data values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-size.html#createContinuousRenderer)
+     */
+    theme?: "high-to-low" | "above" | "below";
     /**
      * A SQL expression evaluating to a number.
      *
@@ -30837,7 +33328,7 @@ declare namespace __esri {
      */
     sizeScheme?: SizeScheme;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-size.html#createVisualVariables)
      */
@@ -30848,6 +33339,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-size.html#createVisualVariables)
      */
     valueExpressionTitle?: string;
+    /**
+     * Sets the size stops based on meaningful data values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-size.html#createVisualVariables)
+     */
+    theme?: "high-to-low" | "above" | "below";
     /**
      * A SQL expression evaluating to a number.
      *
@@ -31144,7 +33641,7 @@ declare namespace __esri {
      */
     typeScheme?: TypeScheme;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number or a string.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number or a string.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-type.html#createRenderer)
      */
@@ -31259,7 +33756,7 @@ declare namespace __esri {
   }
 
   /**
-   * This object contains helper methods for generating data-driven univariate visualizations using both continuous color and continuous size based on a field value or expression from features in a [Layer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html).
+   * This object contains helper methods for generating data-driven univariate visualizations using both continuous color and continuous size based on a single field value or expression from features in a [Layer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html).
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html)
    */
@@ -31364,7 +33861,7 @@ declare namespace __esri {
      */
     normalizationField?: string;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
      */
@@ -31375,6 +33872,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
      */
     valueExpressionTitle?: string;
+    /**
+     * Sets the size stops and colors based on meaningful data values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
+     */
+    theme?: "high-to-low" | "above" | "below" | "above-and-below";
     /**
      * A SQL expression evaluating to a number.
      *
@@ -31430,6 +33933,18 @@ declare namespace __esri {
      */
     sizeOptions?: univariateColorSizeCreateContinuousRendererParamsSizeOptions;
     /**
+     * Options for setting symbols for the `above-and-below` theme.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
+     */
+    symbolOptions?: univariateColorSizeCreateContinuousRendererParamsSymbolOptions;
+    /**
+     * Provides options for configuring the [Legend](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html) representing the renderer generated from this method.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
+     */
+    legendOptions?: univariateColorSizeCreateContinuousRendererParamsLegendOptions;
+    /**
      * The type of symbol to generate.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
@@ -31449,7 +33964,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
      */
-    theme?: string;
+    theme?: "high-to-low" | "above-and-below" | "centered-on" | "extremes";
     /**
      * In authoring apps, the user may select a pre-defined color scheme.
      *
@@ -31462,6 +33977,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
      */
     legendOptions?: univariateColorSizeCreateContinuousRendererParamsColorOptionsLegendOptions;
+    /**
+     * Only applies to the `above-and-below` theme.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
+     */
+    isContinuous?: boolean;
   }
 
   export interface univariateColorSizeCreateContinuousRendererParamsColorOptionsLegendOptions extends Object {
@@ -31470,7 +33991,28 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
      */
-    title: string;
+    title?: string;
+    /**
+     * Indicates if the [Legend](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html) widget should display content describing the color variable.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
+     */
+    showLegend?: boolean;
+  }
+
+  export interface univariateColorSizeCreateContinuousRendererParamsLegendOptions extends Object {
+    /**
+     * The title used to represent the renderer generated from this method in the [Legend](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
+     */
+    title?: string;
+    /**
+     * Indicates if the [Legend](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html) widget should display content describing the generated renderer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
+     */
+    showLegend?: boolean;
   }
 
   export interface univariateColorSizeCreateContinuousRendererParamsSizeOptions extends Object {
@@ -31494,7 +34036,54 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
      */
-    title: string;
+    title?: string;
+    /**
+     * Indicates if the [Legend](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html) widget should display content describing the size variable.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
+     */
+    showLegend?: boolean;
+  }
+
+  export interface univariateColorSizeCreateContinuousRendererParamsSymbolOptions extends Object {
+    /**
+     * Sets above and below symbols based on pre-defined named symbol pairs pairs.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
+     */
+    symbolStyle?:
+      | "caret"
+      | "circle-caret"
+      | "arrow"
+      | "circle-arrow"
+      | "plus-minus"
+      | "circle-plus-minus"
+      | "square"
+      | "circle"
+      | "triangle"
+      | "happy-sad"
+      | "thumb";
+    /**
+     * Allows you to specify custom symbols in the `above-and-below` theme.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
+     */
+    symbols?: univariateColorSizeCreateContinuousRendererParamsSymbolOptionsSymbols;
+  }
+
+  export interface univariateColorSizeCreateContinuousRendererParamsSymbolOptionsSymbols extends Object {
+    /**
+     * The symbol to use for the above portion of the `above-and-below` visualization.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
+     */
+    above: Symbol;
+    /**
+     * The symbol to use for the below portion of the `above-and-below` visualization.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer)
+     */
+    below: Symbol;
   }
 
   export interface univariateColorSizeCreateVisualVariablesParams extends Object {
@@ -31529,7 +34118,7 @@ declare namespace __esri {
      */
     normalizationField?: string;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createVisualVariables)
      */
@@ -31540,6 +34129,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createVisualVariables)
      */
     valueExpressionTitle?: string;
+    /**
+     * Sets the size stops and colors based on meaningful data values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createVisualVariables)
+     */
+    theme?: "high-to-low" | "above" | "below" | "above-and-below";
     /**
      * A SQL expression evaluating to a number.
      *
@@ -31602,7 +34197,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createVisualVariables)
      */
-    theme?: string;
+    theme?: "high-to-low" | "above-and-below" | "centered-on" | "extremes";
     /**
      * In authoring apps, the user may select a pre-defined color scheme.
      *
@@ -31615,6 +34210,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createVisualVariables)
      */
     legendOptions?: univariateColorSizeCreateVisualVariablesParamsColorOptionsLegendOptions;
+    /**
+     * Only applies to the `above-and-below` theme.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createVisualVariables)
+     */
+    isContinuous?: boolean;
   }
 
   export interface univariateColorSizeCreateVisualVariablesParamsColorOptionsLegendOptions extends Object {
@@ -31859,7 +34460,7 @@ declare namespace __esri {
      */
     numClasses?: number;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-classBreaks.html#classBreaks)
      */
@@ -32059,11 +34660,23 @@ declare namespace __esri {
      */
     field?: string;
     /**
+     * Determines how the provided `field` values will be normalized.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-histogram.html#histogram)
+     */
+    normalizationType?: "field" | "log" | "percent-of-total" | "natural-log" | "square-root";
+    /**
      * The field by which to normalize the values returned from the given `field`.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-histogram.html#histogram)
      */
     normalizationField?: string;
+    /**
+     * Only applies if `normalizationType` is `percent-of-total`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-histogram.html#histogram)
+     */
+    normalizationTotal?: number;
     /**
      * The method for classifying the data.
      *
@@ -32095,7 +34708,7 @@ declare namespace __esri {
      */
     numBins?: number;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-histogram.html#histogram)
      */
@@ -32156,6 +34769,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-histogram.html#HistogramResult)
      */
     maxValue: number;
+    /**
+     * The number used to normalize all values when `percent-of-total` is specified as the `normalizationType`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-histogram.html#HistogramResult)
+     */
+    normalizationTotal?: number;
   }
 
   /**
@@ -32320,7 +34939,7 @@ declare namespace __esri {
      */
     field?: string;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-summaryStatistics.html#summaryStatistics)
      */
@@ -32338,11 +34957,23 @@ declare namespace __esri {
      */
     sqlWhere?: string;
     /**
+     * Determines how the provided `field` values will be normalized.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-summaryStatistics.html#summaryStatistics)
+     */
+    normalizationType?: "field" | "log" | "percent-of-total" | "natural-log" | "square-root";
+    /**
      * The field by which to normalize the values returned from the given `field`.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-summaryStatistics.html#summaryStatistics)
      */
     normalizationField?: string;
+    /**
+     * Only applies if `normalizationType` is `percent-of-total`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-summaryStatistics.html#summaryStatistics)
+     */
+    normalizationTotal?: number;
     /**
      * The minimum bounding value for the statistics calculation.
      *
@@ -32434,13 +35065,13 @@ declare namespace __esri {
   }
 
   /**
-   * Provides utility functions for generating [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expressions intended for use in an [age renderer](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-color.html#createAgeRenderer).
+   * Provides utility functions for generating [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expressions intended for use in an [age renderer](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-color.html#createAgeRenderer).
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-support-ageUtils.html)
    */
   interface ageUtils {
     /**
-     * Returns an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression for visualizing the age of a feature based on a given start time and end time.
+     * Returns an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression for visualizing the age of a feature based on a given start time and end time.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-support-ageUtils.html#getAgeExpressions)
      */
@@ -32456,7 +35087,7 @@ declare namespace __esri {
    */
   export interface AgeExpressionsResult extends Object {
     /**
-     * The [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression used to calculate the age of a feature based on the difference between the end time and the start time.
+     * The [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression used to calculate the age of a feature based on the difference between the end time and the start time.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-support-ageUtils.html#AgeExpressionsResult)
      */
@@ -32547,7 +35178,7 @@ declare namespace __esri {
      */
     field?: string;
     /**
-     * An [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a number or string.
+     * An [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a number or string.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-statistics-uniqueValues.html#uniqueValues)
      */
@@ -35725,6 +38356,12 @@ declare namespace __esri {
   }
 
   interface ActionButtonConstructor {
+    /**
+     * A customizable button that performs a specific action(s) used in widgets such as the [Popup](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html), [LayerList](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList.html), and [BasemapLayerList](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapLayerList.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-actions-ActionButton.html)
+     */
+
     new (properties?: ActionButtonProperties): ActionButton;
   }
 
@@ -35762,6 +38399,12 @@ declare namespace __esri {
   }
 
   interface ActionToggleConstructor {
+    /**
+     * A customizable toggle used in the [LayerList](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList.html) widget that performs a specific action(s) which can be toggled on/off.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-actions-ActionToggle.html)
+     */
+
     new (properties?: ActionToggleProperties): ActionToggle;
   }
 
@@ -35797,7 +38440,7 @@ declare namespace __esri {
      */
     addMany(layers: Layer[], index?: number): void;
     /**
-     * Returns a layer based on the given layer id.
+     * Returns a layer based on the given layer ID.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-LayersMixin.html#findLayerById)
      */
@@ -35843,6 +38486,67 @@ declare namespace __esri {
     layers?: CollectionProperties<LayerProperties> | LayerProperties[];
   }
 
+  interface MapFloorInfo extends Accessor, JSONSupport {
+    /**
+     * Contains the facility features of a floor plan, which describe the footprints of managed buildings and other structures.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-MapFloorInfo.html#facilityLayer)
+     */
+    facilityLayer: FacilityLayerInfo;
+    /**
+     * Contains the level features of a floor plan, which describe the footprint of each occupiable floor contained in a managed facility.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-MapFloorInfo.html#levelLayer)
+     */
+    levelLayer: LevelLayerInfo;
+    /**
+     * Contains the site features of a floor plan, which describe the boundaries of managed sites and is used for visualization in mapmaking.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-MapFloorInfo.html#siteLayer)
+     */
+    siteLayer: SiteLayerInfo;
+  }
+
+  interface MapFloorInfoConstructor {
+    /**
+     * Floor-aware maps facilitate visualizing, editing, and analyzing indoor data and they allow for fast navigation of buildings in maps and scenes.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-MapFloorInfo.html)
+     */
+
+    new (properties?: MapFloorInfoProperties): MapFloorInfo;
+
+    fromJSON(json: any): MapFloorInfo;
+  }
+
+  export const MapFloorInfo: MapFloorInfoConstructor;
+
+  interface MapFloorInfoProperties {
+    /**
+     * Contains the facility features of a floor plan, which describe the footprints of managed buildings and other structures.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-MapFloorInfo.html#facilityLayer)
+     */
+    facilityLayer?: FacilityLayerInfoProperties;
+    /**
+     * Contains the level features of a floor plan, which describe the footprint of each occupiable floor contained in a managed facility.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-MapFloorInfo.html#levelLayer)
+     */
+    levelLayer?: LevelLayerInfoProperties;
+    /**
+     * Contains the site features of a floor plan, which describe the boundaries of managed sites and is used for visualization in mapmaking.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-MapFloorInfo.html#siteLayer)
+     */
+    siteLayer?: SiteLayerInfoProperties;
+  }
+
+  /**
+   * Various utils for working with [Popup](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html) widget functionality.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-popupUtils.html)
+   */
   interface popupUtils {
     /**
      * Creates an array of [fieldInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-FieldInfo.html) used for populating [FieldsContent](https://developers.arcgis.com/javascript/latest/api-reference/esri-popup-content-FieldsContent.html).
@@ -35957,6 +38661,13 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-TablesMixin.html#tables)
      */
     tables: Collection<Layer>;
+
+    /**
+     * Returns a table based on the given table ID.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-TablesMixin.html#findTableById)
+     */
+    findTableById(tableId: string): SearchTable;
   }
 
   interface TablesMixinConstructor {
@@ -35975,7 +38686,7 @@ declare namespace __esri {
   }
 
   /**
-   * A convenience module for importing [Symbol](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/guide/typescript-setup/index.html).
+   * A convenience module for importing [Symbol](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol.html) classes when developing with [TypeScript](https://developers.arcgis.com/javascript/latest/typescript-setup/).
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols.html)
    */
@@ -36181,33 +38892,8 @@ declare namespace __esri {
       | __esri.SimpleFillSymbol
       | __esri.SimpleLineSymbol
       | __esri.SimpleMarkerSymbol
-      | __esri.TextSymbol;
-
-    /**
-     * Symbol2D3D types.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols.html#Symbol2D3D)
-     */
-    export type Symbol2D3D =
-      | __esri.PictureFillSymbol
-      | __esri.PictureMarkerSymbol
-      | __esri.SimpleFillSymbol
-      | __esri.SimpleLineSymbol
-      | __esri.SimpleMarkerSymbol
       | __esri.TextSymbol
-      | __esri.Symbol2D
-      | __esri.LabelSymbol3D
-      | __esri.LineSymbol3D
-      | __esri.MeshSymbol3D
-      | __esri.PointSymbol3D
-      | __esri.PolygonSymbol3D;
-
-    /**
-     * Symbol types.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols.html#Symbol)
-     */
-    export type Symbol = __esri.Symbol2D | __esri.symbolsSymbol3D | __esri.WebStyleSymbol;
+      | __esri.CIMSymbol;
 
     /**
      * Symbol3DLayer types.
@@ -36222,7 +38908,8 @@ declare namespace __esri {
       | __esri.LineSymbol3DLayer
       | __esri.ObjectSymbol3DLayer
       | __esri.PathSymbol3DLayer
-      | __esri.TextSymbol3DLayer;
+      | __esri.TextSymbol3DLayer
+      | __esri.WaterSymbol3DLayer;
 
     /**
      * Symbol3D types.
@@ -36235,6 +38922,20 @@ declare namespace __esri {
       | __esri.MeshSymbol3D
       | __esri.PointSymbol3D
       | __esri.PolygonSymbol3D;
+
+    /**
+     * Symbol2D3D types.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols.html#Symbol2D3D)
+     */
+    export type Symbol2D3D = __esri.Symbol2D | __esri.symbolsSymbol3D;
+
+    /**
+     * Symbol types.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols.html#Symbol)
+     */
+    export type Symbol = __esri.Symbol2D3D | __esri.WebStyleSymbol;
   }
 
   interface Callout3D extends Accessor, JSONSupport {
@@ -36839,7 +39540,7 @@ declare namespace __esri {
     /**
      * The font family of the text.
      *
-     * The font family of the text. The possible values are dependent upon the layer type, and if you working with a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or a [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html). See the [Labeling guide page](https://developers.arcgis.com/javascript/latest/guide/labeling/index.html) for detailed explanation, or click the `Read more` below.  >>> esri-read-more **Font families for 3D SceneViews**  The supported font families for 3D [SceneViews](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) are dependent upon the fonts installed on the user's computer and web browser. If an app uses a font that is not installed, the Font class implements a fallback mechanism that will use the default font family value, which is `sans-serif`.  **Font families for 2D MapImageLayer**  The supported font families for [MapImageLayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html) in a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) are dependent upon the fonts installed on the [ArcGIS Server](http://enterprise.arcgis.com/en/server/latest/get-started/windows/what-is-arcgis-for-server-.htm) that published the layer. If an app uses a font that is not installed, the Font class implements a fallback mechanism that will use the default font family value, which is `sans-serif`.  **Font families for 2D FeatureLayer**, CSVLayer, StreamLayer, and TextSymbol  The supported font families are based on hosted fonts files in `.pbf` format. By default, the fonts available are mostly the same ones used by the Esri Vector Basemaps. These fonts are available via `https://static.arcgis.com/fonts`. The URL can be configured to point to your own font resources by setting the [esriConfig.fontsUrl](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#fontsUrl) property. If an app uses a font that is not installed, the Font class implements a fallback mechanism that will use the default font family value, which is `sans-serif`. This uses the `Arial Unicode MS` font file.  List of currently supported fonts: [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Font.html#family)
+     * The font family of the text. The possible values are dependent upon the layer type, and if you working with a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or a [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html). See the [Labeling guide page](https://developers.arcgis.com/javascript/latest/labeling/) for detailed explanation, or click the `Read more` below.  >>> esri-read-more **Font families for 3D SceneViews**  The supported font families for 3D [SceneViews](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) are dependent upon the fonts installed on the user's computer and web browser. If an app uses a font that is not installed, the Font class implements a fallback mechanism that will use the default font family value, which is `sans-serif`.  **Font families for 2D MapImageLayer**  The supported font families for [MapImageLayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html) in a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) are dependent upon the fonts installed on the [ArcGIS Server](http://enterprise.arcgis.com/en/server/latest/get-started/windows/what-is-arcgis-for-server-.htm) that published the layer. If an app uses a font that is not installed, the Font class implements a fallback mechanism that will use the default font family value, which is `sans-serif`.  **Font families for 2D FeatureLayer**, CSVLayer, StreamLayer, and TextSymbol  The supported font families are based on hosted fonts files in `.pbf` format. By default, the fonts available are mostly the same ones used by the Esri Vector Basemaps. These fonts are available via `https://static.arcgis.com/fonts`. The URL can be configured to point to your own font resources by setting the [esriConfig.fontsUrl](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#fontsUrl) property. If an app uses a font that is not installed, the Font class implements a fallback mechanism that will use the default font family value, which is `sans-serif`. This uses the `Arial Unicode MS` font file.  > A preview of the fonts listed in the following table are available in the [Labeling](https://developers.arcgis.com/javascript/latest/labeling/) overview page.  List of currently supported fonts:  [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Font.html#family)
      */
     family: string;
     /**
@@ -36870,6 +39571,12 @@ declare namespace __esri {
   }
 
   interface FontConstructor {
+    /**
+     * The font used to display [2D text symbols](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-TextSymbol.html) and [3D text symbols](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-TextSymbol3DLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Font.html)
+     */
+
     new (properties?: FontProperties): Font;
 
     fromJSON(json: any): Font;
@@ -36887,7 +39594,7 @@ declare namespace __esri {
     /**
      * The font family of the text.
      *
-     * The font family of the text. The possible values are dependent upon the layer type, and if you working with a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or a [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html). See the [Labeling guide page](https://developers.arcgis.com/javascript/latest/guide/labeling/index.html) for detailed explanation, or click the `Read more` below.  >>> esri-read-more **Font families for 3D SceneViews**  The supported font families for 3D [SceneViews](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) are dependent upon the fonts installed on the user's computer and web browser. If an app uses a font that is not installed, the Font class implements a fallback mechanism that will use the default font family value, which is `sans-serif`.  **Font families for 2D MapImageLayer**  The supported font families for [MapImageLayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html) in a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) are dependent upon the fonts installed on the [ArcGIS Server](http://enterprise.arcgis.com/en/server/latest/get-started/windows/what-is-arcgis-for-server-.htm) that published the layer. If an app uses a font that is not installed, the Font class implements a fallback mechanism that will use the default font family value, which is `sans-serif`.  **Font families for 2D FeatureLayer**, CSVLayer, StreamLayer, and TextSymbol  The supported font families are based on hosted fonts files in `.pbf` format. By default, the fonts available are mostly the same ones used by the Esri Vector Basemaps. These fonts are available via `https://static.arcgis.com/fonts`. The URL can be configured to point to your own font resources by setting the [esriConfig.fontsUrl](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#fontsUrl) property. If an app uses a font that is not installed, the Font class implements a fallback mechanism that will use the default font family value, which is `sans-serif`. This uses the `Arial Unicode MS` font file.  List of currently supported fonts: [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Font.html#family)
+     * The font family of the text. The possible values are dependent upon the layer type, and if you working with a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or a [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html). See the [Labeling guide page](https://developers.arcgis.com/javascript/latest/labeling/) for detailed explanation, or click the `Read more` below.  >>> esri-read-more **Font families for 3D SceneViews**  The supported font families for 3D [SceneViews](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) are dependent upon the fonts installed on the user's computer and web browser. If an app uses a font that is not installed, the Font class implements a fallback mechanism that will use the default font family value, which is `sans-serif`.  **Font families for 2D MapImageLayer**  The supported font families for [MapImageLayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html) in a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) are dependent upon the fonts installed on the [ArcGIS Server](http://enterprise.arcgis.com/en/server/latest/get-started/windows/what-is-arcgis-for-server-.htm) that published the layer. If an app uses a font that is not installed, the Font class implements a fallback mechanism that will use the default font family value, which is `sans-serif`.  **Font families for 2D FeatureLayer**, CSVLayer, StreamLayer, and TextSymbol  The supported font families are based on hosted fonts files in `.pbf` format. By default, the fonts available are mostly the same ones used by the Esri Vector Basemaps. These fonts are available via `https://static.arcgis.com/fonts`. The URL can be configured to point to your own font resources by setting the [esriConfig.fontsUrl](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#fontsUrl) property. If an app uses a font that is not installed, the Font class implements a fallback mechanism that will use the default font family value, which is `sans-serif`. This uses the `Arial Unicode MS` font file.  > A preview of the fonts listed in the following table are available in the [Labeling](https://developers.arcgis.com/javascript/latest/labeling/) overview page.  List of currently supported fonts:  [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Font.html#family)
      */
     family?: string;
     /**
@@ -37121,6 +39828,12 @@ declare namespace __esri {
      */
     callout: Callout3D;
     /**
+     * A Collection of [Symbol3DLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3DLayer.html) objects used to visualize the graphic or feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-LabelSymbol3D.html#symbolLayers)
+     */
+    symbolLayers: Collection<TextSymbol3DLayer>;
+    /**
      * The symbol type.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-LabelSymbol3D.html#type)
@@ -37162,6 +39875,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-LabelSymbol3D.html#callout)
      */
     callout?: Callout3DProperties;
+    /**
+     * A Collection of [Symbol3DLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3DLayer.html) objects used to visualize the graphic or feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-LabelSymbol3D.html#symbolLayers)
+     */
+    symbolLayers?: CollectionProperties<TextSymbol3DLayerProperties>;
     /**
      * Shifts the symbol along the vertical world axis by a given height.
      *
@@ -37258,6 +39977,12 @@ declare namespace __esri {
 
   interface LineSymbol3D extends Symbol3D {
     /**
+     * A Collection of [Symbol3DLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3DLayer.html) objects used to visualize the graphic or feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-LineSymbol3D.html#symbolLayers)
+     */
+    symbolLayers: Collection<LineSymbol3DLayer | PathSymbol3DLayer>;
+    /**
      * The symbol type.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-LineSymbol3D.html#type)
@@ -37286,7 +40011,16 @@ declare namespace __esri {
 
   export const LineSymbol3D: LineSymbol3DConstructor;
 
-  interface LineSymbol3DProperties extends Symbol3DProperties {}
+  interface LineSymbol3DProperties extends Symbol3DProperties {
+    /**
+     * A Collection of [Symbol3DLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3DLayer.html) objects used to visualize the graphic or feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-LineSymbol3D.html#symbolLayers)
+     */
+    symbolLayers?: CollectionProperties<
+      (LineSymbol3DLayerProperties & { type: "line" }) | (PathSymbol3DLayerProperties & { type: "path" })
+    >;
+  }
 
   interface LineSymbol3DLayer extends Symbol3DLayer {
     /**
@@ -37517,6 +40251,12 @@ declare namespace __esri {
 
   interface MeshSymbol3D extends Symbol3D {
     /**
+     * A Collection of [Symbol3DLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3DLayer.html) objects used to visualize the graphic or feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-MeshSymbol3D.html#symbolLayers)
+     */
+    symbolLayers: Collection<FillSymbol3DLayer>;
+    /**
      * The symbol type.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-MeshSymbol3D.html#type)
@@ -37545,7 +40285,14 @@ declare namespace __esri {
 
   export const MeshSymbol3D: MeshSymbol3DConstructor;
 
-  interface MeshSymbol3DProperties extends Symbol3DProperties {}
+  interface MeshSymbol3DProperties extends Symbol3DProperties {
+    /**
+     * A Collection of [Symbol3DLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3DLayer.html) objects used to visualize the graphic or feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-MeshSymbol3D.html#symbolLayers)
+     */
+    symbolLayers?: CollectionProperties<FillSymbol3DLayerProperties>;
+  }
 
   interface ObjectSymbol3DLayer extends Symbol3DLayer {
     /**
@@ -38198,6 +40945,12 @@ declare namespace __esri {
      */
     callout: LineCallout3D;
     /**
+     * A Collection of [Symbol3DLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3DLayer.html) objects used to visualize the graphic or feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PointSymbol3D.html#symbolLayers)
+     */
+    symbolLayers: Collection<IconSymbol3DLayer | ObjectSymbol3DLayer | TextSymbol3DLayer>;
+    /**
      * The symbol type.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PointSymbol3D.html#type)
@@ -38239,6 +40992,16 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PointSymbol3D.html#callout)
      */
     callout?: LineCallout3DProperties;
+    /**
+     * A Collection of [Symbol3DLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3DLayer.html) objects used to visualize the graphic or feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PointSymbol3D.html#symbolLayers)
+     */
+    symbolLayers?: CollectionProperties<
+      | (IconSymbol3DLayerProperties & { type: "icon" })
+      | (ObjectSymbol3DLayerProperties & { type: "object" })
+      | (TextSymbol3DLayerProperties & { type: "text" })
+    >;
     /**
      * Shifts the symbol along the vertical world axis by a given height.
      *
@@ -38291,6 +41054,19 @@ declare namespace __esri {
 
   interface PolygonSymbol3D extends Symbol3D {
     /**
+     * A Collection of [Symbol3DLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3DLayer.html) objects used to visualize the graphic or feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PolygonSymbol3D.html#symbolLayers)
+     */
+    symbolLayers: Collection<
+      | ExtrudeSymbol3DLayer
+      | FillSymbol3DLayer
+      | IconSymbol3DLayer
+      | LineSymbol3DLayer
+      | ObjectSymbol3DLayer
+      | WaterSymbol3DLayer
+    >;
+    /**
      * The symbol type.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PolygonSymbol3D.html#type)
@@ -38319,7 +41095,21 @@ declare namespace __esri {
 
   export const PolygonSymbol3D: PolygonSymbol3DConstructor;
 
-  interface PolygonSymbol3DProperties extends Symbol3DProperties {}
+  interface PolygonSymbol3DProperties extends Symbol3DProperties {
+    /**
+     * A Collection of [Symbol3DLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3DLayer.html) objects used to visualize the graphic or feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PolygonSymbol3D.html#symbolLayers)
+     */
+    symbolLayers?: CollectionProperties<
+      | (ExtrudeSymbol3DLayerProperties & { type: "extrude" })
+      | (FillSymbol3DLayerProperties & { type: "fill" })
+      | (IconSymbol3DLayerProperties & { type: "icon" })
+      | (LineSymbol3DLayerProperties & { type: "line" })
+      | (ObjectSymbol3DLayerProperties & { type: "object" })
+      | (WaterSymbol3DLayerProperties & { type: "water" })
+    >;
+  }
 
   interface SimpleFillSymbol extends FillSymbol {
     /**
@@ -38574,6 +41364,11 @@ declare namespace __esri {
     style?: "circle" | "square" | "cross" | "x" | "diamond" | "triangle" | "path";
   }
 
+  /**
+   * Provides utility functions for [CIMSymbols](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-CIMSymbol.html).
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-cimSymbolUtils.html)
+   */
   interface cimSymbolUtils {
     /**
      * Sets the color of the symbol layers of a CIMSymbol to a given value if the symbol layer is not color locked.
@@ -38586,7 +41381,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-cimSymbolUtils.html#applyCIMSymbolRotation)
      */
-    applyCIMSymbolRotation(symbol: CIMSymbol, rotation: number): void;
+    applyCIMSymbolRotation(symbol: CIMSymbol, rotation: number, clockwise?: boolean): void;
     /**
      * Returns the first color of the symbol layers in a CIMSymbol.
      *
@@ -38598,7 +41393,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-cimSymbolUtils.html#getCIMSymbolRotation)
      */
-    getCIMSymbolRotation(symbol: CIMSymbol): number;
+    getCIMSymbolRotation(symbol: CIMSymbol, clockwise?: boolean): number;
     /**
      * Returns the size of a given CIMSymbol.
      *
@@ -38610,14 +41405,28 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-cimSymbolUtils.html#scaleCIMSymbolTo)
      */
-    scaleCIMSymbolTo(symbol: CIMSymbol, size: number): void;
+    scaleCIMSymbolTo(symbol: CIMSymbol, size: number, scaleOptions?: cimSymbolUtilsScaleCIMSymbolToScaleOptions): void;
   }
 
   export const cimSymbolUtils: cimSymbolUtils;
 
+  export interface cimSymbolUtilsScaleCIMSymbolToScaleOptions extends Object {
+    /**
+     * When `true`, this property will preserve the outline width of the symbol.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-cimSymbolUtils.html#scaleCIMSymbolTo)
+     */
+    preserveOutlineWidth?: boolean;
+  }
+
+  /**
+   * Provides a utility method used to deserialize a JSON symbol object returned by the REST API.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-jsonUtils.html)
+   */
   interface symbolsSupportJsonUtils {
     /**
-     * Creates a new instance of an appropriate [Symbol](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol.html) class and initializes it with values from a JSON object generated from a product in the ArcGIS platform.
+     * Creates a new instance of an appropriate [Symbol](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol.html) class and initializes it with values from a JSON object generated from an ArcGIS product.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-jsonUtils.html#fromJSON)
      */
@@ -38626,6 +41435,11 @@ declare namespace __esri {
 
   export const symbolsSupportJsonUtils: symbolsSupportJsonUtils;
 
+  /**
+   * Generates small preview images of symbols.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-symbolPreview.html)
+   */
   interface symbolPreview {
     /**
      * Generates a preview image of a given symbol that can be displayed in a custom widget or other DOM element.
@@ -38682,7 +41496,18 @@ declare namespace __esri {
     symbolConfig?: string;
   }
 
+  /**
+   * Generates small preview images of symbols.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-symbolUtils.html)
+   */
   interface symbolUtils {
+    /**
+     * Returns a color representing the input [graphic's](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html) symbol.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-symbolUtils.html#getDisplayedColor)
+     */
+    getDisplayedColor(graphic: Graphic, options?: symbolUtilsGetDisplayedColorOptions): Promise<Color>;
     /**
      * Returns a symbol representing the input [Graphic](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html).
      *
@@ -38704,6 +41529,39 @@ declare namespace __esri {
   }
 
   export const symbolUtils: symbolUtils;
+
+  export interface symbolUtilsGetDisplayedColorOptions extends Object {
+    /**
+     * The [view scale](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#scale) at which the graphic is displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-symbolUtils.html#getDisplayedColor)
+     */
+    scale?: number;
+    /**
+     * The [viewingMode](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#viewingMode) of the view, if the graphic is displayed in a SceneView.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-symbolUtils.html#getDisplayedColor)
+     */
+    viewingMode?: string;
+    /**
+     * The spatial reference of the view in which the graphic is displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-symbolUtils.html#getDisplayedColor)
+     */
+    spatialReference?: SpatialReference;
+    /**
+     * The renderer of the layer associated with the `graphic`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-symbolUtils.html#getDisplayedColor)
+     */
+    renderer?: Renderer;
+    /**
+     * The [resolution](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#resolution) of the view at which the graphic is displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-symbolUtils.html#getDisplayedColor)
+     */
+    resolution?: number;
+  }
 
   export interface symbolUtilsGetDisplayedSymbolOptions extends Object {
     /**
@@ -38803,17 +41661,32 @@ declare namespace __esri {
      */
     disableUpsampling?: boolean;
     /**
-     * For "tall" symbols in portrait view, then the `tall` value should be used here.
+     * Options for setting the shape of a fill symbol preview.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-symbolUtils.html#renderPreviewHTML)
      */
-    symbolConfig?: string;
+    symbolConfig?: string | symbolUtilsRenderPreviewHTMLOptionsSymbolConfig;
     /**
      * The rotation of the symbol.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-symbolUtils.html#renderPreviewHTML)
      */
     rotation?: string;
+  }
+
+  export interface symbolUtilsRenderPreviewHTMLOptionsSymbolConfig extends Object {
+    /**
+     * Set to `true` for "tall" symbols in portrait view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-symbolUtils.html#renderPreviewHTML)
+     */
+    isTall?: boolean;
+    /**
+     * Set to `true` to render the preview as a square instead of a generic polygon shape.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-support-symbolUtils.html#renderPreviewHTML)
+     */
+    isSquareFill?: boolean;
   }
 
   interface Symbol extends Accessor, JSONSupport {
@@ -38920,19 +41793,19 @@ declare namespace __esri {
 
   export interface Symbol3DStyleOrigin extends Object {
     /**
-     * a well-known esri-provided style, such as `EsriThematicShapesStyle`.
+     * a well-known esri-provided style, such as `EsriThematicShapesStyle`
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3D.html#styleOrigin)
      */
     styleName?: string;
     /**
-     * url to a style definition.
+     * url to a style definition
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3D.html#styleOrigin)
      */
     styleUrl?: string;
     /**
-     * name of the symbol in the style referenced by styleName or styleUrl.
+     * name of the symbol in the style referenced by styleName or styleUrl
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol3D.html#styleOrigin)
      */
@@ -39659,7 +42532,7 @@ declare namespace __esri {
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols.html#Symbol)
    */
-  export type symbolsSymbol = Symbol2D | symbolsSymbol3D | WebStyleSymbol;
+  export type symbolsSymbol = Symbol2D3D | WebStyleSymbol;
 
   /**
    * Symbol2D types.
@@ -39672,26 +42545,15 @@ declare namespace __esri {
     | SimpleFillSymbol
     | SimpleLineSymbol
     | SimpleMarkerSymbol
-    | TextSymbol;
+    | TextSymbol
+    | CIMSymbol;
 
   /**
    * Symbol2D3D types.
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols.html#Symbol2D3D)
    */
-  export type Symbol2D3D =
-    | PictureFillSymbol
-    | PictureMarkerSymbol
-    | SimpleFillSymbol
-    | SimpleLineSymbol
-    | SimpleMarkerSymbol
-    | TextSymbol
-    | Symbol2D
-    | LabelSymbol3D
-    | LineSymbol3D
-    | MeshSymbol3D
-    | PointSymbol3D
-    | PolygonSymbol3D;
+  export type Symbol2D3D = Symbol2D | symbolsSymbol3D;
 
   /**
    * Symbol3D types.
@@ -39713,7 +42575,8 @@ declare namespace __esri {
     | LineSymbol3DLayer
     | ObjectSymbol3DLayer
     | PathSymbol3DLayer
-    | TextSymbol3DLayer;
+    | TextSymbol3DLayer
+    | WaterSymbol3DLayer;
 
   /**
    * TextSymbol.
@@ -39877,7 +42740,7 @@ declare namespace __esri {
      */
     labelPoints(polygons: Polygon[], requestOptions?: any): Promise<Point>;
     /**
-     * Gets the lengths for a [Geometry](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Geometry.html) when the geometry type is [Polyline](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Polyline.html).
+     * Gets the lengths for a [Geometry](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Geometry.html) when the geometry type is [Polyline](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Polyline.html)
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#lengths)
      */
@@ -40208,9 +43071,41 @@ declare namespace __esri {
     gdbVersion?: string;
   }
 
+  interface ImageIdentifyTask extends Task {
+    /**
+     * Sends a request to the ArcGIS REST image service resource to identify content based on the [ImageIdentifyParameters](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html) specified in the `params` argument.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-ImageIdentifyTask.html#execute)
+     */
+    execute(
+      params: ImageIdentifyParameters | ImageIdentifyParametersProperties,
+      requestOptions?: any
+    ): Promise<ImageIdentifyResult>;
+  }
+
+  interface ImageIdentifyTaskConstructor {
+    /**
+     * Performs an identify operation on an image service resource.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-ImageIdentifyTask.html)
+     */
+
+    new (properties?: ImageIdentifyTaskProperties): ImageIdentifyTask;
+  }
+
+  export const ImageIdentifyTask: ImageIdentifyTaskConstructor;
+
+  interface ImageIdentifyTaskProperties extends TaskProperties {}
+
   interface ImageServiceIdentifyTask extends Task {}
 
   interface ImageServiceIdentifyTaskConstructor {
+    /**
+     * Performs an identify operation on an image service resource.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-ImageServiceIdentifyTask.html)
+     */
+
     new (properties?: ImageServiceIdentifyTaskProperties): ImageServiceIdentifyTask;
   }
 
@@ -40249,7 +43144,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#suggestLocations)
      */
-    suggestLocations(params: LocatorSuggestLocationsParams, requestOptions?: any): Promise<SuggestionResult[]>;
+    suggestLocations(params: LocatorSuggestLocationsParams, requestOptions?: any): Promise<LocatorSuggestionResult[]>;
   }
 
   interface LocatorConstructor {
@@ -40405,6 +43300,32 @@ declare namespace __esri {
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#SuggestionResult)
    */
   export interface SuggestionResult extends Object {
+    /**
+     * Indicates if the result is a Collection.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#SuggestionResult)
+     */
+    isCollection: boolean;
+    /**
+     * ID used in combination with the `text` property to uniquely identify a suggestion.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#SuggestionResult)
+     */
+    magicKey: string;
+    /**
+     * The string name of the suggested location to geocode.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#SuggestionResult)
+     */
+    text: string;
+  }
+
+  /**
+   * Describes the object representing the result of the [suggestLocations()](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#suggestLocations) method.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#SuggestionResult)
+   */
+  export interface LocatorSuggestionResult extends Object {
     /**
      * Indicates if the result is a Collection.
      *
@@ -40635,6 +43556,12 @@ declare namespace __esri {
   }
 
   interface AddressCandidateConstructor {
+    /**
+     * Represents an address and its location.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-AddressCandidate.html)
+     */
+
     new (properties?: AddressCandidateProperties): AddressCandidate;
 
     fromJSON(json: any): AddressCandidate;
@@ -40779,6 +43706,12 @@ declare namespace __esri {
   }
 
   interface AreasAndLengthsParametersConstructor {
+    /**
+     * Input parameters for the [areasAndLengths()](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#areasAndLengths) method on the [GeometryService](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-AreasAndLengthsParameters.html)
+     */
+
     new (properties?: AreasAndLengthsParametersProperties): AreasAndLengthsParameters;
 
     fromJSON(json: any): AreasAndLengthsParameters;
@@ -40864,7 +43797,7 @@ declare namespace __esri {
      */
     objectIds: number[];
     /**
-     * If `true`, the [Exchangeable image file format](https://en.wikipedia.org/wiki/Exif) for the attachment will be included in [attachmentInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#exifInfo).
+     * If `true`, the [Exchangeable image file format](https://en.wikipedia.org/wiki/Exif) for the attachment will be included in [attachmentInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#exifInfo).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-AttachmentQuery.html#returnMetadata)
      */
@@ -40954,7 +43887,7 @@ declare namespace __esri {
      */
     objectIds?: number[];
     /**
-     * If `true`, the [Exchangeable image file format](https://en.wikipedia.org/wiki/Exif) for the attachment will be included in [attachmentInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html#exifInfo).
+     * If `true`, the [Exchangeable image file format](https://en.wikipedia.org/wiki/Exif) for the attachment will be included in [attachmentInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html#exifInfo).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-AttachmentQuery.html#returnMetadata)
      */
@@ -41024,7 +43957,7 @@ declare namespace __esri {
     unit: "feet" | "kilometers" | "meters" | "miles" | "nautical-miles" | "yards";
 
     /**
-     * Converts an instance of  [this class]() to its ArcGIS portal JSON representation.
+     * Converts an instance of  this class to its ArcGIS portal JSON representation.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-BufferParameters.html#toJSON)
      */
@@ -41032,6 +43965,12 @@ declare namespace __esri {
   }
 
   interface BufferParametersConstructor {
+    /**
+     * Sets the distances, units, and other parameters for the [buffer()](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#buffer) method on the [GeometryService](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-BufferParameters.html)
+     */
+
     new (properties?: BufferParametersProperties): BufferParameters;
   }
 
@@ -41405,7 +44344,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ClosestFacilityParameters.html#facilities)
      */
-    facilities?: DataLayerProperties | FeatureSetProperties;
+    facilities?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * The network attribute name used as the impedance attribute in analysis.
      *
@@ -41417,7 +44356,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ClosestFacilityParameters.html#incidents)
      */
-    incidents?: DataLayerProperties | FeatureSetProperties;
+    incidents?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * The output geometry precision.
      *
@@ -41459,19 +44398,19 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ClosestFacilityParameters.html#pointBarriers)
      */
-    pointBarriers?: DataLayerProperties | FeatureSetProperties;
+    pointBarriers?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * The set of polygon barriers loaded as network locations during analysis.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ClosestFacilityParameters.html#polygonBarriers)
      */
-    polygonBarriers?: DataLayerProperties | FeatureSetProperties;
+    polygonBarriers?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * The set of polyline barriers loaded as network locations during analysis.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ClosestFacilityParameters.html#polylineBarriers)
      */
-    polylineBarriers?: DataLayerProperties | FeatureSetProperties;
+    polylineBarriers?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * The list of network attribute names to be used as restrictions with the analysis.
      *
@@ -41736,6 +44675,12 @@ declare namespace __esri {
   }
 
   interface DataFileConstructor {
+    /**
+     * A geoprocessing data object containing a data source.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-DataFile.html)
+     */
+
     new (properties?: DataFileProperties): DataFile;
 
     fromJSON(json: any): DataFile;
@@ -41868,14 +44813,14 @@ declare namespace __esri {
      */
     lengthUnit: "feet" | "kilometers" | "meters" | "miles" | "nautical-miles" | "yards";
     /**
-     * All segments longer than `maxSegmentLength` are replaced with sequences of lines no longer than `maxSegmentLength.`.
+     * All segments longer than `maxSegmentLength` are replaced with sequences of lines no longer than `maxSegmentLength.`
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-DensifyParameters.html#maxSegmentLength)
      */
     maxSegmentLength: number;
 
     /**
-     * Converts an instance of  [this class]() to its ArcGIS portal JSON representation.
+     * Converts an instance of  this class to its ArcGIS portal JSON representation.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-DensifyParameters.html#toJSON)
      */
@@ -41883,6 +44828,12 @@ declare namespace __esri {
   }
 
   interface DensifyParametersConstructor {
+    /**
+     * Input parameters for the [densify()](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#densify) method on the GeometryService.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-DensifyParameters.html)
+     */
+
     new (properties?: DensifyParametersProperties): DensifyParameters;
   }
 
@@ -41908,7 +44859,7 @@ declare namespace __esri {
      */
     lengthUnit?: "feet" | "kilometers" | "meters" | "miles" | "nautical-miles" | "yards";
     /**
-     * All segments longer than `maxSegmentLength` are replaced with sequences of lines no longer than `maxSegmentLength.`.
+     * All segments longer than `maxSegmentLength` are replaced with sequences of lines no longer than `maxSegmentLength.`
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-DensifyParameters.html#maxSegmentLength)
      */
@@ -42070,7 +45021,7 @@ declare namespace __esri {
     geometry2: Geometry;
 
     /**
-     * Converts an instance of  [this class]() to its ArcGIS portal JSON representation.
+     * Converts an instance of  this class to its ArcGIS portal JSON representation.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-DistanceParameters.html#toJSON)
      */
@@ -42078,6 +45029,12 @@ declare namespace __esri {
   }
 
   interface DistanceParametersConstructor {
+    /**
+     * Defines the input parameters when calling [GeometryService.distance()](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#distance).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-DistanceParameters.html)
+     */
+
     new (properties?: DistanceParametersProperties): DistanceParameters;
   }
 
@@ -42156,6 +45113,12 @@ declare namespace __esri {
   }
 
   interface FeatureSetConstructor {
+    /**
+     * A collection of features returned from ArcGIS Server or used as input to tasks.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-FeatureSet.html)
+     */
+
     new (properties?: FeatureSetProperties): FeatureSet;
 
     fromJSON(json: any): FeatureSet;
@@ -42266,6 +45229,12 @@ declare namespace __esri {
   }
 
   interface FindParametersConstructor {
+    /**
+     * Input parameters for [FindTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-FindTask.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-FindParameters.html)
+     */
+
     new (properties?: FindParametersProperties): FindParameters;
 
     fromJSON(json: any): FindParameters;
@@ -42370,6 +45339,12 @@ declare namespace __esri {
   }
 
   interface FindResultConstructor {
+    /**
+     * The result from [FindTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-FindTask.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-FindResult.html)
+     */
+
     new (properties?: FindResultProperties): FindResult;
 
     fromJSON(json: any): FindResult;
@@ -42438,6 +45413,12 @@ declare namespace __esri {
   }
 
   interface GeneralizeParametersConstructor {
+    /**
+     * Sets the geometries, maximum deviation and units for the [generalize](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#generalize) operation.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-GeneralizeParameters.html)
+     */
+
     new (properties?: GeneralizeParametersProperties): GeneralizeParameters;
 
     fromJSON(json: any): GeneralizeParameters;
@@ -42490,6 +45471,12 @@ declare namespace __esri {
   }
 
   interface GPMessageConstructor {
+    /**
+     * Represents a message generated during the execution of a [Geoprocessor](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Geoprocessor.html) task.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-GPMessage.html)
+     */
+
     new (properties?: GPMessageProperties): GPMessage;
 
     fromJSON(json: any): GPMessage;
@@ -42626,6 +45613,12 @@ declare namespace __esri {
   }
 
   interface IdentifyParametersConstructor {
+    /**
+     * Input parameters for the [IdentifyTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-IdentifyTask.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-IdentifyParameters.html)
+     */
+
     new (properties?: IdentifyParametersProperties): IdentifyParameters;
 
     fromJSON(json: any): IdentifyParameters;
@@ -42766,6 +45759,12 @@ declare namespace __esri {
   }
 
   interface IdentifyResultConstructor {
+    /**
+     * The result from [IdentifyTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-IdentifyTask.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-IdentifyResult.html)
+     */
+
     new (properties?: IdentifyResultProperties): IdentifyResult;
 
     fromJSON(json: any): IdentifyResult;
@@ -42798,6 +45797,371 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-IdentifyResult.html#layerName)
      */
     layerName?: string;
+  }
+
+  interface ImageHistogramParameters extends Accessor, JSONSupport {
+    /**
+     * Input geometry that defines the area of interest for which the histograms and statistics will be computed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html#geometry)
+     */
+    geometry: Extent | Polygon;
+    /**
+     * Specifies the [mosaic rule](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-MosaicRule.html) on how individual images should be mosaicked when the histogram is computed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html#mosaicRule)
+     */
+    mosaicRule: MosaicRule;
+    /**
+     * Specifies the pixel size (or the resolution).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html#pixelSize)
+     */
+    pixelSize: PixelSize;
+    /**
+     * Specifies the [rendering rule](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-RasterFunction.html) from which to compute the statistics and histogram.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html#renderingRule)
+     */
+    renderingRule: RasterFunction;
+    /**
+     * The [time extent](https://developers.arcgis.com/javascript/latest/api-reference/esri-TimeExtent.html) for which to compute the statistics and histogram.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html#timeExtent)
+     */
+    timeExtent: TimeExtent;
+  }
+
+  interface ImageHistogramParametersConstructor {
+    /**
+     * Input parameters for the [computeHistograms](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#computeHistograms) or [computeStatisticsHistograms](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#computeStatisticsHistograms) method on [ImageryLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html)
+     */
+
+    new (properties?: ImageHistogramParametersProperties): ImageHistogramParameters;
+
+    fromJSON(json: any): ImageHistogramParameters;
+  }
+
+  export const ImageHistogramParameters: ImageHistogramParametersConstructor;
+
+  interface ImageHistogramParametersProperties {
+    /**
+     * Input geometry that defines the area of interest for which the histograms and statistics will be computed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html#geometry)
+     */
+    geometry?: (ExtentProperties & { type: "extent" }) | (PolygonProperties & { type: "polygon" });
+    /**
+     * Specifies the [mosaic rule](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-MosaicRule.html) on how individual images should be mosaicked when the histogram is computed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html#mosaicRule)
+     */
+    mosaicRule?: MosaicRuleProperties;
+    /**
+     * Specifies the pixel size (or the resolution).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html#pixelSize)
+     */
+    pixelSize?: PixelSize;
+    /**
+     * Specifies the [rendering rule](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-RasterFunction.html) from which to compute the statistics and histogram.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html#renderingRule)
+     */
+    renderingRule?: RasterFunctionProperties;
+    /**
+     * The [time extent](https://developers.arcgis.com/javascript/latest/api-reference/esri-TimeExtent.html) for which to compute the statistics and histogram.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageHistogramParameters.html#timeExtent)
+     */
+    timeExtent?: TimeExtentProperties;
+  }
+
+  interface ImageIdentifyParameters extends Accessor, JSONSupport {
+    /**
+     * Input geometry that defines the location to be identified.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#geometry)
+     */
+    geometry: Point | Polygon;
+    /**
+     * Controls the maximum number of returned catalog items, set to 1 to return the top most raster only.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#maxItemCount)
+     */
+    maxItemCount: number;
+    /**
+     * Specifies the mosaic rules defining the image sorting order.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#mosaicRule)
+     */
+    mosaicRule: MosaicRule;
+    /**
+     * Specifies the pixel level being identified on the x and y axis.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#pixelSize)
+     */
+    pixelSize: PixelSize;
+    /**
+     * Specifies the rendering rule for how the requested image should be rendered.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#renderingRule)
+     */
+    renderingRule: RasterFunction;
+    /**
+     * An array the [rendering rules](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#renderingRule) to retrieve multiple processed pixel values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#renderingRules)
+     */
+    renderingRules: RasterFunction;
+    /**
+     * If `true`, returns both geometry and attributes of the catalog items.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#returnCatalogItems)
+     */
+    returnCatalogItems: boolean;
+    /**
+     * When `true`, each feature in the catalog items includes the geometry.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#returnGeometry)
+     */
+    returnGeometry: boolean;
+    /**
+     * If `true`, the pixel values of all raster catalog items under the requested geometry.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#returnPixelValues)
+     */
+    returnPixelValues: boolean;
+    /**
+     * A time extent for a temporal data against [time-aware imagery layer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#timeInfo).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#timeExtent)
+     */
+    timeExtent: TimeExtent;
+  }
+
+  interface ImageIdentifyParametersConstructor {
+    /**
+     * Input parameters for [ImageIdentifyTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-ImageIdentifyTask.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html)
+     */
+
+    new (properties?: ImageIdentifyParametersProperties): ImageIdentifyParameters;
+
+    fromJSON(json: any): ImageIdentifyParameters;
+  }
+
+  export const ImageIdentifyParameters: ImageIdentifyParametersConstructor;
+
+  interface ImageIdentifyParametersProperties {
+    /**
+     * Input geometry that defines the location to be identified.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#geometry)
+     */
+    geometry?: (PointProperties & { type: "point" }) | (PolygonProperties & { type: "polygon" });
+    /**
+     * Controls the maximum number of returned catalog items, set to 1 to return the top most raster only.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#maxItemCount)
+     */
+    maxItemCount?: number;
+    /**
+     * Specifies the mosaic rules defining the image sorting order.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#mosaicRule)
+     */
+    mosaicRule?: MosaicRuleProperties;
+    /**
+     * Specifies the pixel level being identified on the x and y axis.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#pixelSize)
+     */
+    pixelSize?: PixelSize;
+    /**
+     * Specifies the rendering rule for how the requested image should be rendered.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#renderingRule)
+     */
+    renderingRule?: RasterFunctionProperties;
+    /**
+     * An array the [rendering rules](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#renderingRule) to retrieve multiple processed pixel values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#renderingRules)
+     */
+    renderingRules?: RasterFunctionProperties;
+    /**
+     * If `true`, returns both geometry and attributes of the catalog items.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#returnCatalogItems)
+     */
+    returnCatalogItems?: boolean;
+    /**
+     * When `true`, each feature in the catalog items includes the geometry.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#returnGeometry)
+     */
+    returnGeometry?: boolean;
+    /**
+     * If `true`, the pixel values of all raster catalog items under the requested geometry.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#returnPixelValues)
+     */
+    returnPixelValues?: boolean;
+    /**
+     * A time extent for a temporal data against [time-aware imagery layer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html#timeInfo).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#timeExtent)
+     */
+    timeExtent?: TimeExtentProperties;
+  }
+
+  /**
+   * Specifies the pixel size (or the resolution).
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#PixelSize)
+   */
+  export interface PixelSize extends Object {
+    /**
+     * Represents the size of one pixel in map units along the x axis.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#PixelSize)
+     */
+    x: number;
+    /**
+     * Represents the size of one pixel in map units along the y axis.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#PixelSize)
+     */
+    y: number;
+    /**
+     * Spatial reference to be used for the request.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#PixelSize)
+     */
+    spatialReference?: PixelSizeSpatialReference;
+  }
+
+  export interface PixelSizeSpatialReference extends Object {
+    /**
+     * The wkid of the spatial reference.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#PixelSize)
+     */
+    wkid?: number;
+    /**
+     * The Well known text or wkt of the spatial reference.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyParameters.html#PixelSize)
+     */
+    wkt?: number;
+  }
+
+  interface ImageIdentifyResult extends Accessor, JSONSupport {
+    /**
+     * The set of catalog items that overlap the input geometry.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#catalogItems)
+     */
+    catalogItems: FeatureSet;
+    /**
+     * The set of visible areas for the identified catalog items.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#catalogItemVisibilities)
+     */
+    catalogItemVisibilities: number[];
+    /**
+     * The identified location.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#location)
+     */
+    location: Point;
+    /**
+     * The identify property name.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#name)
+     */
+    name: string;
+    /**
+     * The identify property id.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#objectId)
+     */
+    objectId: number;
+    /**
+     * The attributes of the identified object.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#properties)
+     */
+    properties: any;
+    /**
+     * The identify image service pixel value.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#value)
+     */
+    value: string;
+  }
+
+  interface ImageIdentifyResultConstructor {
+    /**
+     * The results from [ImageIdentifyTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-ImageIdentifyTask.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html)
+     */
+
+    new (properties?: ImageIdentifyResultProperties): ImageIdentifyResult;
+
+    fromJSON(json: any): ImageIdentifyResult;
+  }
+
+  export const ImageIdentifyResult: ImageIdentifyResultConstructor;
+
+  interface ImageIdentifyResultProperties {
+    /**
+     * The set of catalog items that overlap the input geometry.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#catalogItems)
+     */
+    catalogItems?: FeatureSetProperties;
+    /**
+     * The set of visible areas for the identified catalog items.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#catalogItemVisibilities)
+     */
+    catalogItemVisibilities?: number[];
+    /**
+     * The identified location.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#location)
+     */
+    location?: PointProperties;
+    /**
+     * The identify property name.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#name)
+     */
+    name?: string;
+    /**
+     * The identify property id.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#objectId)
+     */
+    objectId?: number;
+    /**
+     * The attributes of the identified object.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#properties)
+     */
+    properties?: any;
+    /**
+     * The identify image service pixel value.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageIdentifyResult.html#value)
+     */
+    value?: string;
   }
 
   interface ImageServiceIdentifyParameters extends Accessor, JSONSupport {
@@ -42864,6 +46228,12 @@ declare namespace __esri {
   }
 
   interface ImageServiceIdentifyParametersConstructor {
+    /**
+     * Input parameters for [ImageServiceIdentifyTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-ImageServiceIdentifyTask.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageServiceIdentifyParameters.html)
+     */
+
     new (properties?: ImageServiceIdentifyParametersProperties): ImageServiceIdentifyParameters;
 
     fromJSON(json: any): ImageServiceIdentifyParameters;
@@ -42877,7 +46247,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageServiceIdentifyParameters.html#geometry)
      */
-    geometry?: PointProperties | PolygonProperties;
+    geometry?: (PointProperties & { type: "point" }) | (PolygonProperties & { type: "polygon" });
     /**
      * Controls the maximum number of returned catalog items, set to 1 to return the top most raster only.
      *
@@ -42980,6 +46350,12 @@ declare namespace __esri {
   }
 
   interface ImageServiceIdentifyResultConstructor {
+    /**
+     * The results from [ImageServiceIdentifyTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-ImageServiceIdentifyTask.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ImageServiceIdentifyResult.html)
+     */
+
     new (properties?: ImageServiceIdentifyResultProperties): ImageServiceIdentifyResult;
 
     fromJSON(json: any): ImageServiceIdentifyResult;
@@ -43062,9 +46438,57 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-JobInfo.html#messages)
      */
     messages: GPMessage[];
+    /**
+     * The [options](https://developers.arcgis.com/javascript/latest/api-reference/esri-request.html#esriRequest) to be used for data requests.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-JobInfo.html#requestOptions)
+     */
+    requestOptions: any;
+    /**
+     * ArcGIS Server Rest API endpoint to the resource that receives the geoprocessing request.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-JobInfo.html#sourceUrl)
+     */
+    sourceUrl: string;
+
+    /**
+     * Cancels an asynchronous geoprocessing job.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-JobInfo.html#cancelJob)
+     */
+    cancelJob(jobId: string, requestOptions?: any): Promise<JobInfo>;
+    /**
+     * Sends a request to the GP Task to get the task result identified by `jobId` and `resultName`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-JobInfo.html#fetchResultData)
+     */
+    fetchResultData(jobId: string, resultName: string, requestOptions?: any): Promise<ParameterValue>;
+    /**
+     * Sends a request to the GP Task to get the task result identified by `jobId` and `resultName` as an image.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-JobInfo.html#fetchResultImage)
+     */
+    fetchResultImage(
+      jobId: string,
+      resultName: string,
+      imageParams: ImageParameters,
+      requestOptions?: any
+    ): Promise<ParameterValue>;
+    /**
+     * Get the task result identified by `jobId` as an [MapImageLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-JobInfo.html#fetchResultMapImageLayer)
+     */
+    fetchResultMapImageLayer(jobId: string): Promise<MapImageLayer>;
   }
 
   interface JobInfoConstructor {
+    /**
+     * Represents information pertaining to the execution of an asynchronous [Geoprocessor](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Geoprocessor.html) task on the server.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-JobInfo.html)
+     */
+
     new (properties?: JobInfoProperties): JobInfo;
 
     fromJSON(json: any): JobInfo;
@@ -43102,6 +46526,18 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-JobInfo.html#messages)
      */
     messages?: GPMessageProperties[];
+    /**
+     * The [options](https://developers.arcgis.com/javascript/latest/api-reference/esri-request.html#esriRequest) to be used for data requests.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-JobInfo.html#requestOptions)
+     */
+    requestOptions?: any;
+    /**
+     * ArcGIS Server Rest API endpoint to the resource that receives the geoprocessing request.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-JobInfo.html#sourceUrl)
+     */
+    sourceUrl?: string;
   }
 
   interface LegendLayer extends Accessor {
@@ -43126,6 +46562,12 @@ declare namespace __esri {
   }
 
   interface LegendLayerConstructor {
+    /**
+     * Define layer properties for the legend layers associated with a [PrintTemplate](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-PrintTemplate.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-LegendLayer.html)
+     */
+
     new (properties?: LegendLayerProperties): LegendLayer;
   }
 
@@ -43180,6 +46622,12 @@ declare namespace __esri {
   }
 
   interface LengthsParametersConstructor {
+    /**
+     * Sets the length units and other parameters for the [GeometryService.lengths()](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#lengths) operation.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-LengthsParameters.html)
+     */
+
     new (properties?: LengthsParametersProperties): LengthsParameters;
 
     fromJSON(json: any): LengthsParameters;
@@ -43230,6 +46678,12 @@ declare namespace __esri {
   }
 
   interface LinearUnitConstructor {
+    /**
+     * A data object containing a linear distance.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-LinearUnit.html)
+     */
+
     new (properties?: LinearUnitProperties): LinearUnit;
 
     fromJSON(json: any): LinearUnit;
@@ -43275,6 +46729,12 @@ declare namespace __esri {
   }
 
   interface MultipartColorRampConstructor {
+    /**
+     * Create a multipart color ramp to concatenate multiple color ramps for use in the renderer generated by the GenerateRendererTask.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-MultipartColorRamp.html)
+     */
+
     new (properties?: MultipartColorRampProperties): MultipartColorRamp;
 
     fromJSON(json: any): MultipartColorRamp;
@@ -43315,6 +46775,12 @@ declare namespace __esri {
   }
 
   interface NAMessageConstructor {
+    /**
+     * Represents a message generated during the execution of a network analyst task.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-NAMessage.html)
+     */
+
     new (properties?: NAMessageProperties): NAMessage;
 
     fromJSON(json: any): NAMessage;
@@ -43379,6 +46845,12 @@ declare namespace __esri {
   }
 
   interface OffsetParametersConstructor {
+    /**
+     * Sets the offset distance, type and other parameters for the [GeometryService.offset](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#offset) operation.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-OffsetParameters.html)
+     */
+
     new (properties?: OffsetParametersProperties): OffsetParameters;
 
     fromJSON(json: any): OffsetParameters;
@@ -43448,6 +46920,12 @@ declare namespace __esri {
   }
 
   interface ParameterValueConstructor {
+    /**
+     * Represents the output parameters of a [Geoprocessor](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Geoprocessor.html) task and their properties and values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ParameterValue.html)
+     */
+
     new (properties?: ParameterValueProperties): ParameterValue;
 
     fromJSON(json: any): ParameterValue;
@@ -43511,6 +46989,12 @@ declare namespace __esri {
   }
 
   interface PrintParametersConstructor {
+    /**
+     * Input parameters for [PrintTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-PrintTask.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-PrintParameters.html)
+     */
+
     new (properties?: PrintParametersProperties): PrintParameters;
   }
 
@@ -43598,12 +47082,6 @@ declare namespace __esri {
     /**
      * Define whether the printed map should preserve map scale or map extent.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-PrintTemplate.html#preserveScale)
-     */
-    preserveScale: boolean;
-    /**
-     * Define whether the printed map should preserve map scale or map extent.
-     *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-PrintTemplate.html#scalePreserved)
      */
     scalePreserved: boolean;
@@ -43616,6 +47094,12 @@ declare namespace __esri {
   }
 
   interface PrintTemplateConstructor {
+    /**
+     * Defines the layout template options used by the [PrintTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-PrintTask.html) and [Print](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print.html) widget to generate the print page.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-PrintTemplate.html)
+     */
+
     new (properties?: PrintTemplateProperties): PrintTemplate;
   }
 
@@ -43673,12 +47157,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-PrintTemplate.html#outScale)
      */
     outScale?: number;
-    /**
-     * Define whether the printed map should preserve map scale or map extent.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-PrintTemplate.html#preserveScale)
-     */
-    preserveScale?: boolean;
     /**
      * Define whether the printed map should preserve map scale or map extent.
      *
@@ -43767,12 +47245,6 @@ declare namespace __esri {
      */
     outSpatialReference: SpatialReference;
     /**
-     * The spatial reference to which you are projecting the geometries.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ProjectParameters.html#outSR)
-     */
-    outSR: SpatialReference;
-    /**
      * The well-known id {wkid:number} or well-known text {wkt:string} of the datum transformation to be applied to the projected geometries.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ProjectParameters.html#transformation)
@@ -43786,7 +47258,7 @@ declare namespace __esri {
     transformForward: boolean;
 
     /**
-     * Converts an instance of  [this class]() to its ArcGIS portal JSON representation.
+     * Converts an instance of  this class to its ArcGIS portal JSON representation.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ProjectParameters.html#toJSON)
      */
@@ -43794,6 +47266,12 @@ declare namespace __esri {
   }
 
   interface ProjectParametersConstructor {
+    /**
+     * Defines the projection parameters used when calling the [GeometryService.project()](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#project).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ProjectParameters.html)
+     */
+
     new (properties?: ProjectParametersProperties): ProjectParameters;
   }
 
@@ -43812,12 +47290,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ProjectParameters.html#outSpatialReference)
      */
     outSpatialReference?: SpatialReferenceProperties;
-    /**
-     * The spatial reference to which you are projecting the geometries.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ProjectParameters.html#outSR)
-     */
-    outSR?: SpatialReferenceProperties;
     /**
      * The well-known id {wkid:number} or well-known text {wkt:string} of the datum transformation to be applied to the projected geometries.
      *
@@ -43848,6 +47320,12 @@ declare namespace __esri {
   }
 
   interface Query extends Accessor, JSONSupport {
+    /**
+     * An array of Object IDs representing [aggregate](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html#isAggregate) (i.e.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html#aggregateIds)
+     */
+    aggregateIds: number[];
     /**
      * Indicates if the service should cache the query results.
      *
@@ -43927,7 +47405,7 @@ declare namespace __esri {
      */
     num: number;
     /**
-     * A comma delimited list of ObjectIDs for the features in the layer being queried.
+     * An array of ObjectIDs to be used to query for features in a layer.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html#objectIds)
      */
@@ -43967,7 +47445,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html#pixelSize)
      */
-    pixelSize: Symbol;
+    pixelSize: Point;
     /**
      * Used to project the geometry onto a virtual grid, likely representing pixels on the screen.
      *
@@ -44105,6 +47583,12 @@ declare namespace __esri {
 
   interface QueryProperties {
     /**
+     * An array of Object IDs representing [aggregate](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html#isAggregate) (i.e.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html#aggregateIds)
+     */
+    aggregateIds?: number[];
+    /**
      * Indicates if the service should cache the query results.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html#cacheHint)
@@ -44183,7 +47667,7 @@ declare namespace __esri {
      */
     num?: number;
     /**
-     * A comma delimited list of ObjectIDs for the features in the layer being queried.
+     * An array of ObjectIDs to be used to query for features in a layer.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html#objectIds)
      */
@@ -44223,7 +47707,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html#pixelSize)
      */
-    pixelSize?: SymbolProperties;
+    pixelSize?: PointProperties;
     /**
      * Used to project the geometry onto a virtual grid, likely representing pixels on the screen.
      *
@@ -44417,6 +47901,12 @@ declare namespace __esri {
   }
 
   interface RasterDataConstructor {
+    /**
+     * A geoprocessing data object containing a raster data source.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RasterData.html)
+     */
+
     new (properties?: RasterDataProperties): RasterData;
 
     fromJSON(json: any): RasterData;
@@ -44485,6 +47975,12 @@ declare namespace __esri {
   }
 
   interface RelationParametersConstructor {
+    /**
+     * Sets the relation and other parameters for the [GeometryService.relation()](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#relation) operation.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RelationParameters.html)
+     */
+
     new (properties?: RelationParametersProperties): RelationParameters;
 
     fromJSON(json: any): RelationParameters;
@@ -44632,6 +48128,12 @@ declare namespace __esri {
   }
 
   interface RelationshipQueryConstructor {
+    /**
+     * This class defines parameters for executing queries for related records from a layer.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RelationshipQuery.html)
+     */
+
     new (properties?: RelationshipQueryProperties): RelationshipQuery;
 
     fromJSON(json: any): RelationshipQuery;
@@ -44740,17 +48242,17 @@ declare namespace __esri {
      */
     accumulateAttributes: string[];
     /**
+     * An authorization string used to access a resource or service.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#apiKey)
+     */
+    apiKey: string;
+    /**
      * Each element in the array is an object that describes the parameter values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#attributeParameterValues)
      */
     attributeParameterValues: AttributeParamValue[];
-    /**
-     * The set of point barriers loaded as network locations during analysis.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#barriers)
-     */
-    barriers: DataLayer | FeatureSet;
     /**
      * The language used when computing directions.
      *
@@ -44806,7 +48308,7 @@ declare namespace __esri {
      */
     findBestSequence: boolean;
     /**
-     * In routes where a stop is not located on a network or a stop could not be reached, the results will differ depending on the value of this property:.
+     * In routes where a stop is not located on a network or a stop could not be reached, the results will differ depending on the value of this property:
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#ignoreInvalidLocations)
      */
@@ -44973,9 +48475,22 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#useTimeWindows)
      */
     useTimeWindows: boolean;
+
+    /**
+     * performs a deep clone of the RouteParameters object.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#clone)
+     */
+    clone(): void;
   }
 
   interface RouteParametersConstructor {
+    /**
+     * Input parameters for [RouteTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-RouteTask.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html)
+     */
+
     new (properties?: RouteParametersProperties): RouteParameters;
 
     fromJSON(json: any): RouteParameters;
@@ -44991,17 +48506,17 @@ declare namespace __esri {
      */
     accumulateAttributes?: string[];
     /**
+     * An authorization string used to access a resource or service.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#apiKey)
+     */
+    apiKey?: string;
+    /**
      * Each element in the array is an object that describes the parameter values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#attributeParameterValues)
      */
     attributeParameterValues?: AttributeParamValue[];
-    /**
-     * The set of point barriers loaded as network locations during analysis.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#barriers)
-     */
-    barriers?: DataLayerProperties | FeatureSetProperties;
     /**
      * The language used when computing directions.
      *
@@ -45057,7 +48572,7 @@ declare namespace __esri {
      */
     findBestSequence?: boolean;
     /**
-     * In routes where a stop is not located on a network or a stop could not be reached, the results will differ depending on the value of this property:.
+     * In routes where a stop is not located on a network or a stop could not be reached, the results will differ depending on the value of this property:
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#ignoreInvalidLocations)
      */
@@ -45109,19 +48624,19 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#pointBarriers)
      */
-    pointBarriers?: DataLayerProperties | FeatureSetProperties;
+    pointBarriers?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * The set of polygon barriers loaded as network locations during analysis.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#polygonBarriers)
      */
-    polygonBarriers?: DataLayerProperties | FeatureSetProperties;
+    polygonBarriers?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * The set of polyline barriers loaded as network locations during analysis.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#polylineBarriers)
      */
-    polylineBarriers?: DataLayerProperties | FeatureSetProperties;
+    polylineBarriers?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * If `true`, keeps the first stop fixed in the sequence even when `findBestSequence = true`.
      *
@@ -45205,7 +48720,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteParameters.html#stops)
      */
-    stops?: DataLayerProperties | FeatureSetProperties;
+    stops?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * A travel mode represents a means of transportation, such as driving or walking.
      *
@@ -45280,6 +48795,12 @@ declare namespace __esri {
   }
 
   interface RouteResultConstructor {
+    /**
+     * The result from [RouteTask](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-RouteTask.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-RouteResult.html)
+     */
+
     new (properties?: RouteResultProperties): RouteResult;
 
     fromJSON(json: any): RouteResult;
@@ -45589,7 +49110,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ServiceAreaParameters.html#facilities)
      */
-    facilities?: DataLayerProperties | FeatureSetProperties;
+    facilities?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * The network attribute name used as the impedance attribute in analysis.
      *
@@ -45661,19 +49182,19 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ServiceAreaParameters.html#pointBarriers)
      */
-    pointBarriers?: DataLayerProperties | FeatureSetProperties;
+    pointBarriers?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * The set of polygon barriers loaded as network locations during analysis.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ServiceAreaParameters.html#polygonBarriers)
      */
-    polygonBarriers?: DataLayerProperties | FeatureSetProperties;
+    polygonBarriers?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * The set of polyline barriers loaded as network locations during analysis.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-ServiceAreaParameters.html#polylineBarriers)
      */
-    polylineBarriers?: DataLayerProperties | FeatureSetProperties;
+    polylineBarriers?: (DataLayerProperties & { type: "layer" }) | FeatureSetProperties;
     /**
      * The list of network attribute names to be used as restrictions with the analysis.
      *
@@ -45926,6 +49447,12 @@ declare namespace __esri {
   }
 
   interface StatisticDefinitionConstructor {
+    /**
+     * This class defines the parameters for querying a layer or layer view for statistics.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-StatisticDefinition.html)
+     */
+
     new (properties?: StatisticDefinitionProperties): StatisticDefinition;
 
     fromJSON(json: any): StatisticDefinition;
@@ -46012,6 +49539,12 @@ declare namespace __esri {
   }
 
   interface TrimExtendParametersConstructor {
+    /**
+     * Used to set the parameters for the [GeometryService.trimExtend](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#trimExtend) operation.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-TrimExtendParameters.html)
+     */
+
     new (properties?: TrimExtendParametersProperties): TrimExtendParameters;
 
     fromJSON(json: any): TrimExtendParameters;
@@ -46062,6 +49595,12 @@ declare namespace __esri {
   }
 
   interface TaskConstructor {
+    /**
+     * The base class for tasks.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Task.html)
+     */
+
     new (properties?: TaskProperties): Task;
   }
 
@@ -46103,11 +49642,35 @@ declare namespace __esri {
      */
     clone(): TimeExtent;
     /**
+     * Expands the TimeExtent so that the start and end dates are rounded down and up, respectively, to the parsed time unit.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-TimeExtent.html#expandTo)
+     */
+    expandTo(
+      unit:
+        | "milliseconds"
+        | "seconds"
+        | "minutes"
+        | "hours"
+        | "days"
+        | "weeks"
+        | "months"
+        | "years"
+        | "decades"
+        | "centuries"
+    ): TimeExtent;
+    /**
      * Returns the time extent resulting from the intersection of a given time extent and parsed time extent.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-TimeExtent.html#intersection)
      */
     intersection(timeExtent: TimeExtent): TimeExtent;
+    /**
+     * Returns the time extent resulting from the union of the current time extent and a given time extent.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-TimeExtent.html#union)
+     */
+    union(timeExtent: TimeExtent): TimeExtent;
   }
 
   interface TimeExtentConstructor {
@@ -46172,6 +49735,12 @@ declare namespace __esri {
   }
 
   interface TimeIntervalConstructor {
+    /**
+     * TimeInterval is a class that describes a length of time in one of ten temporal units such as seconds, days, or years.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-TimeInterval.html)
+     */
+
     new (properties?: TimeIntervalProperties): TimeInterval;
 
     fromJSON(json: any): TimeInterval;
@@ -46239,6 +49808,12 @@ declare namespace __esri {
   }
 
   interface ViewpointConstructor {
+    /**
+     * Describes a point of view for a 2D or 3D view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-Viewpoint.html)
+     */
+
     new (properties?: ViewpointProperties): Viewpoint;
 
     fromJSON(json: any): Viewpoint;
@@ -46380,13 +49955,13 @@ declare namespace __esri {
    */
   export interface Tile extends Object {
     /**
-     * The tile string identifier in the format `level/row/col/world`.
+     * The tile string identifier in the format `level/row/col/world`
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-2d-layers-BaseLayerView2D.html#Tile)
      */
     id: string;
     /**
-     * The level identifier of the [LOD](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LOD.html) to which the tile belongs.
+     * The level identifier of the [LOD](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LOD.html) to which the tile belongs
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-2d-layers-BaseLayerView2D.html#Tile)
      */
@@ -46718,13 +50293,13 @@ declare namespace __esri {
    */
   export interface BaseLayerViewGL2DTile extends Object {
     /**
-     * The tile string identifier in the format `level/row/col/world`.
+     * The tile string identifier in the format `level/row/col/world`
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-2d-layers-BaseLayerViewGL2D.html#Tile)
      */
     id: string;
     /**
-     * The level identifier of the [LOD](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LOD.html) to which the tile belongs.
+     * The level identifier of the [LOD](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LOD.html) to which the tile belongs
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-2d-layers-BaseLayerViewGL2D.html#Tile)
      */
@@ -46844,6 +50419,12 @@ declare namespace __esri {
   }
 
   interface ViewStateConstructor {
+    /**
+     * Object that holds information about the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) state.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-2d-ViewState.html)
+     */
+
     new (properties?: ViewStateProperties): ViewState;
 
     fromJSON(json: any): ViewState;
@@ -47233,6 +50814,12 @@ declare namespace __esri {
   }
 
   interface BasemapViewConstructor {
+    /**
+     * Represents the view for a single basemap after it has been added to either a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or a [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-BasemapView.html)
+     */
+
     new (properties?: BasemapViewProperties): BasemapView;
   }
 
@@ -47244,7 +50831,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-BasemapView.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   interface BreakpointsOwner {
@@ -47497,7 +51084,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#hasZ)
      */
-    hasZ: number;
+    hasZ: boolean;
+    /**
+     * Two-dimensional array of numbers representing the coordinates of each vertex comprising the geometry being drawn.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#vertices)
+     */
+    readonly vertices: number[][];
     /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
      *
@@ -47522,13 +51115,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#getCoordsAndPointFromScreenPoint)
      */
-    getCoordsAndPointFromScreenPoint(): any;
+    getCoordsAndPointFromScreenPoint(screenPoint: DrawActionScreenPoint): FromScreenPointResult | any;
     /**
      * Maps the given screen point to a map point.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#getCoordsFromScreenPoint)
      */
-    getCoordsFromScreenPoint(): any;
+    getCoordsFromScreenPoint(screenPoint: DrawActionScreenPoint): number[] | any;
     /**
      * Incrementally redo actions recorded in the stack.
      *
@@ -47540,7 +51133,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#screenToMap)
      */
-    screenToMap(): any;
+    screenToMap(screenPoint: DrawActionScreenPoint): Point | any;
     /**
      * Incrementally undo actions recorded in the stack.
      *
@@ -47567,7 +51160,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#hasZ)
      */
-    hasZ?: number;
+    hasZ?: boolean;
     /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
      *
@@ -47576,14 +51169,47 @@ declare namespace __esri {
     view?: MapViewProperties;
   }
 
-  interface MultipointDrawAction extends DrawAction {
+  /**
+   * The result object of the [getCoordsAndPointFromScreenPoint()](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#getCoordsAndPointFromScreenPoint) method.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#FromScreenPointResult)
+   */
+  export interface FromScreenPointResult extends Object {
     /**
-     * Two-dimensional array of numbers representing the coordinates of each vertex that comprises the drawn geometry.
+     * Array of x, y, and z component (if hasZ is enabled).
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-MultipointDrawAction.html#vertices)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#FromScreenPointResult)
      */
-    readonly vertices: number[][];
+    vertex: number[];
+    /**
+     * The map point of the point associated with the given screen point.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#FromScreenPointResult)
+     */
+    mapPoint: Point;
+  }
 
+  /**
+   * An object representing a point on the screen.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#ScreenPoint)
+   */
+  export interface DrawActionScreenPoint extends Object {
+    /**
+     * The x coordinate.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#ScreenPoint)
+     */
+    x: number;
+    /**
+     * The y coordinate.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-DrawAction.html#ScreenPoint)
+     */
+    y: number;
+  }
+
+  interface MultipointDrawAction extends DrawAction {
     /**
      * Completes drawing the [multipoint](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Multipoint.html) geometry and fires the [draw-complete](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-MultipointDrawAction.html#event-draw-complete) event.
      *
@@ -47709,6 +51335,12 @@ declare namespace __esri {
   }
 
   interface PointDrawActionConstructor {
+    /**
+     * This class uses the view events to generate a set of coordinates to create a new [Point](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Point.html) geometry using [Draw](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-Draw.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-PointDrawAction.html)
+     */
+
     new (properties?: PointDrawActionProperties): PointDrawAction;
   }
 
@@ -47743,12 +51375,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-PolygonDrawAction.html#mode)
      */
     mode: "hybrid" | "freehand" | "click";
-    /**
-     * Two-dimensional array of numbers representing the coordinates of each vertex comprising the geometry being drawn.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-PolygonDrawAction.html#vertices)
-     */
-    readonly vertices: number[][];
 
     /**
      * Completes drawing the polygon geometry and fires the [draw-complete](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-PolygonDrawAction.html#event-draw-complete) event.
@@ -47777,6 +51403,12 @@ declare namespace __esri {
   }
 
   interface PolygonDrawActionConstructor {
+    /**
+     * This class uses different [events](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-PolygonDrawAction.html#events-summary) to generate a set of vertices to create a new [Polygon](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Polygon.html) geometry using [Draw](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-Draw.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-PolygonDrawAction.html)
+     */
+
     new (properties?: PolygonDrawActionProperties): PolygonDrawAction;
   }
 
@@ -47868,12 +51500,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-PolylineDrawAction.html#mode)
      */
     mode: "hybrid" | "freehand" | "click";
-    /**
-     * Two-dimensional array of numbers representing the coordinates of each vertex comprising the geometry being drawn.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-PolylineDrawAction.html#vertices)
-     */
-    readonly vertices: number[][];
 
     /**
      * Completes drawing the polyline geometry and fires the [draw-complete](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-PolylineDrawAction.html#event-draw-complete) event.
@@ -47896,6 +51522,12 @@ declare namespace __esri {
   }
 
   interface PolylineDrawActionConstructor {
+    /**
+     * This class uses different [events](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-PolylineDrawAction.html#events-summary) to generate a set of vertices to create a new [Polyline](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Polyline.html) geometry using [Draw](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-Draw.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-PolylineDrawAction.html)
+     */
+
     new (properties?: PolylineDrawActionProperties): PolylineDrawAction;
   }
 
@@ -47987,12 +51619,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-SegmentDrawAction.html#mode)
      */
     mode: "freehand" | "click";
-    /**
-     * Two-dimensional array of numbers representing the coordinates of each vertex comprising the geometry being drawn.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-SegmentDrawAction.html#vertices)
-     */
-    readonly vertices: number[][];
 
     /**
      * Completes drawing the polygon geometry and fires the [draw-complete](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-SegmentDrawAction.html#event-draw-complete) event.
@@ -48000,12 +51626,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-SegmentDrawAction.html#complete)
      */
     complete(): void;
-    /**
-     * Returns the actual z value to be used when drawing geometry.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-SegmentDrawAction.html#getGeometryZValue)
-     */
-    getGeometryZValue(): void;
 
     on(name: "cursor-update", eventHandler: SegmentDrawActionCursorUpdateEventHandler): IHandle;
 
@@ -48015,6 +51635,12 @@ declare namespace __esri {
   }
 
   interface SegmentDrawActionConstructor {
+    /**
+     * This class uses different [events](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-SegmentDrawAction.html#events-summary) to generate a set of vertices to create a geometry with [drag mode](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-SegmentDrawAction.html#mode) or with two clicks.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-draw-SegmentDrawAction.html)
+     */
+
     new (properties?: SegmentDrawActionProperties): SegmentDrawAction;
   }
 
@@ -48085,6 +51711,12 @@ declare namespace __esri {
   }
 
   interface GroundViewConstructor {
+    /**
+     * This class represents the view for the [Ground](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html) of a map.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-GroundView.html)
+     */
+
     new (properties?: GroundViewProperties): GroundView;
   }
 
@@ -48131,6 +51763,12 @@ declare namespace __esri {
   }
 
   interface GamepadSettingsConstructor {
+    /**
+     * Gamepad input specific configuration settings.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-input-gamepad-GamepadSettings.html)
+     */
+
     new (properties?: GamepadSettingsProperties): GamepadSettings;
   }
 
@@ -48145,7 +51783,7 @@ declare namespace __esri {
     enabledFocusMode?: "document" | "view" | "none";
   }
 
-  interface inputInput extends Accessor {
+  interface Input extends Accessor {
     /**
      * Gamepad input specific configuration settings.
      *
@@ -48154,13 +51792,133 @@ declare namespace __esri {
     readonly gamepad: GamepadSettings;
   }
 
-  interface inputInputConstructor {
-    new (properties?: inputInputProperties): inputInput;
+  interface InputConstructor {
+    /**
+     * Input device related configuration settings on the View.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-input-Input.html)
+     */
+
+    new (properties?: InputProperties): Input;
   }
 
-  export const inputInput: inputInputConstructor;
+  export const Input: InputConstructor;
 
-  interface inputInputProperties {}
+  interface InputProperties {}
+
+  interface FeatureSnappingLayerSource extends Accessor {
+    /**
+     * Indicates whether feature snapping is turned on or off.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-FeatureSnappingLayerSource.html#enabled)
+     */
+    enabled: boolean;
+    /**
+     * The source layer used for snapping.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-FeatureSnappingLayerSource.html#layer)
+     */
+    readonly layer: FeatureLayer | GraphicsLayer | GeoJSONLayer | CSVLayer;
+  }
+
+  interface FeatureSnappingLayerSourceConstructor {
+    /**
+     * The FeatureSnappingLayerSource specifies which layers will be utilized for snapping in the [SnappingOptions](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-FeatureSnappingLayerSource.html)
+     */
+
+    new (properties?: FeatureSnappingLayerSourceProperties): FeatureSnappingLayerSource;
+  }
+
+  export const FeatureSnappingLayerSource: FeatureSnappingLayerSourceConstructor;
+
+  interface FeatureSnappingLayerSourceProperties {
+    /**
+     * Indicates whether feature snapping is turned on or off.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-FeatureSnappingLayerSource.html#enabled)
+     */
+    enabled?: boolean;
+  }
+
+  interface SnappingOptions extends Accessor {
+    /**
+     * Snapping distance for snapping in pixels.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html#distance)
+     */
+    distance: number;
+    /**
+     * Global configuration to turn snapping on or off.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html#enabled)
+     */
+    enabled: boolean;
+    /**
+     * Global configuration option to turn feature snapping on or off.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html#featureEnabled)
+     */
+    featureEnabled: boolean;
+    /**
+     * List of sources for feature snapping.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html#featureSources)
+     */
+    featureSources: Collection<FeatureSnappingLayerSource>;
+    /**
+     * Global configuration option to turn self snapping (within one feature while either drawing or reshaping) on or off.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html#selfEnabled)
+     */
+    selfEnabled: boolean;
+  }
+
+  interface SnappingOptionsConstructor {
+    /**
+     * The `SnappingOptions` allows users to configure snapping for their editing or drawing experience in both the [Sketch](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#snappingOptions) and [Editor](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor.html#snappingOptions) widgets.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html)
+     */
+
+    new (properties?: SnappingOptionsProperties): SnappingOptions;
+  }
+
+  export const SnappingOptions: SnappingOptionsConstructor;
+
+  interface SnappingOptionsProperties {
+    /**
+     * Snapping distance for snapping in pixels.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html#distance)
+     */
+    distance?: number;
+    /**
+     * Global configuration to turn snapping on or off.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html#enabled)
+     */
+    enabled?: boolean;
+    /**
+     * Global configuration option to turn feature snapping on or off.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html#featureEnabled)
+     */
+    featureEnabled?: boolean;
+    /**
+     * List of sources for feature snapping.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html#featureSources)
+     */
+    featureSources?: CollectionProperties<FeatureSnappingLayerSourceProperties>;
+    /**
+     * Global configuration option to turn self snapping (within one feature while either drawing or reshaping) on or off.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html#selfEnabled)
+     */
+    selfEnabled?: boolean;
+  }
 
   interface BuildingComponentSublayerView extends Accessor {
     /**
@@ -48169,6 +51927,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-BuildingComponentSublayerView.html#availableFields)
      */
     readonly availableFields: string[];
+    /**
+     * Applies a client-side [FeatureFilter](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureFilter.html) to the displayed data.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-BuildingComponentSublayerView.html#filter)
+     */
+    filter: FeatureFilter;
     /**
      * The sublayer being viewed.
      *
@@ -48250,7 +52014,14 @@ declare namespace __esri {
 
   export const BuildingComponentSublayerView: BuildingComponentSublayerViewConstructor;
 
-  interface BuildingComponentSublayerViewProperties {}
+  interface BuildingComponentSublayerViewProperties {
+    /**
+     * Applies a client-side [FeatureFilter](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureFilter.html) to the displayed data.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-BuildingComponentSublayerView.html#filter)
+     */
+    filter?: FeatureFilterProperties;
+  }
 
   export interface BuildingComponentSublayerViewQueryExtentOptions extends Object {
     /**
@@ -48770,7 +52541,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-GraphicsLayerView.html#queryGraphics)
      */
-    queryGraphics(): Collection<Graphic>;
+    queryGraphics(): Promise<Collection<Graphic>>;
   }
 
   interface GraphicsLayerViewProperties extends LayerViewProperties {}
@@ -48894,6 +52665,12 @@ declare namespace __esri {
   }
 
   interface LayerViewConstructor {
+    /**
+     * Represents the view for a single layer after it has been added to either a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or a [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-LayerView.html)
+     */
+
     new (properties?: LayerViewProperties): LayerView;
   }
 
@@ -48974,6 +52751,18 @@ declare namespace __esri {
       options?: OGCFeatureLayerViewQueryObjectIdsOptions
     ): Promise<number[]>;
   }
+
+  interface OGCFeatureLayerViewConstructor {
+    /**
+     * Represents the [LayerView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-LayerView.html) of a [OGCFeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-OGCFeatureLayer.html) after it has been added to a [Map](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html) in either a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-OGCFeatureLayerView.html)
+     */
+
+    new (properties?: OGCFeatureLayerViewProperties): OGCFeatureLayerView;
+  }
+
+  export const OGCFeatureLayerView: OGCFeatureLayerViewConstructor;
 
   interface OGCFeatureLayerViewProperties extends LayerViewProperties {
     /**
@@ -49058,6 +52847,12 @@ declare namespace __esri {
      */
     filter: FeatureFilter;
     /**
+     * The scene layer being viewed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-SceneLayerView.html#layer)
+     */
+    readonly layer: SceneLayer;
+    /**
      * The maximum number of features that can be displayed at a time.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-SceneLayerView.html#maximumNumberOfFeatures)
@@ -49091,7 +52886,7 @@ declare namespace __esri {
     /**
      * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against features in the layer view and returns the number of features that satisfy the query.
      *
-     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against features in the layer view and returns the number of features that satisfy the query. If query parameters are not provided, the count of all loaded features is returned. Read more about queries in the [Query]() section of the [SceneLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html) class description.  To query for the count of features directly from a Scene Service rather than those loaded for the current view, you must use the [SceneLayer.queryFeatureCount()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#queryFeatureCount) method.  For making attribute based queries on a SceneLayerView you need to specify the required fields in the [outFields](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#outFields) property of the SceneLayer to ensure that attribute values are available on the client for querying. You can use [availableFields](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-SceneLayerView.html#availableFields) to inspect which fields are available on the client. [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-SceneLayerView.html#queryFeatureCount)
+     * Executes a [Query](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html) against features in the layer view and returns the number of features that satisfy the query. If query parameters are not provided, the count of all loaded features is returned. Read more about queries in the Query section of the [SceneLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html) class description.  To query for the count of features directly from a Scene Service rather than those loaded for the current view, you must use the [SceneLayer.queryFeatureCount()](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#queryFeatureCount) method.  For making attribute based queries on a SceneLayerView you need to specify the required fields in the [outFields](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html#outFields) property of the SceneLayer to ensure that attribute values are available on the client for querying. You can use [availableFields](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-SceneLayerView.html#availableFields) to inspect which fields are available on the client. [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-SceneLayerView.html#queryFeatureCount)
      */
     queryFeatureCount(
       query?: Query | QueryProperties,
@@ -49340,11 +53135,11 @@ declare namespace __esri {
 
   interface FeatureEffect extends Accessor, JSONSupport {
     /**
-     * The graphical [css filter](https://developer.mozilla.org/en-US/docs/Web/CSS/filter) operation applied to the features that do not meet the [filter](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#filter) requirements.
+     * The [effect](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#Effect) applied to features that do not meet the [filter](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#filter) requirements.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#excludedEffect)
      */
-    excludedEffect: string;
+    excludedEffect: Effect;
     /**
      * Indicates if labels for features that are [excluded](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#excludedEffect) from the effect are visible.
      *
@@ -49358,11 +53153,11 @@ declare namespace __esri {
      */
     filter: FeatureFilter;
     /**
-     * The graphical [css filter](https://developer.mozilla.org/en-US/docs/Web/CSS/filter) operation applied to the features that meet the [filter](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#filter) requirements.
+     * The [effect](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#Effect) applied to features that meet the [filter](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#filter) requirements.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#includedEffect)
      */
-    includedEffect: string;
+    includedEffect: Effect;
 
     /**
      * Creates a deep clone of FeatureEffect object.
@@ -49388,11 +53183,11 @@ declare namespace __esri {
 
   interface FeatureEffectProperties {
     /**
-     * The graphical [css filter](https://developer.mozilla.org/en-US/docs/Web/CSS/filter) operation applied to the features that do not meet the [filter](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#filter) requirements.
+     * The [effect](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#Effect) applied to features that do not meet the [filter](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#filter) requirements.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#excludedEffect)
      */
-    excludedEffect?: string;
+    excludedEffect?: any[] | string;
     /**
      * Indicates if labels for features that are [excluded](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#excludedEffect) from the effect are visible.
      *
@@ -49406,12 +53201,19 @@ declare namespace __esri {
      */
     filter?: FeatureFilterProperties;
     /**
-     * The graphical [css filter](https://developer.mozilla.org/en-US/docs/Web/CSS/filter) operation applied to the features that meet the [filter](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#filter) requirements.
+     * The [effect](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#Effect) applied to features that meet the [filter](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#filter) requirements.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#includedEffect)
      */
-    includedEffect?: string;
+    includedEffect?: any[] | string;
   }
+
+  /**
+   * Effect provides various filter functions that can be performed on a layer or a layer view to achieve different visual effects similar to how image filters (photo apps) work.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-support-FeatureEffect.html#Effect)
+   */
+  export type Effect = any[] | string;
 
   interface FeatureFilter extends Accessor, JSONSupport {
     /**
@@ -49530,6 +53332,152 @@ declare namespace __esri {
     where?: string;
   }
 
+  interface Magnifier extends Accessor {
+    /**
+     * Controls the amount of magnification to display.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#factor)
+     */
+    factor: number;
+    /**
+     * Indicates whether the mask image is enabled.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#maskEnabled)
+     */
+    maskEnabled: boolean;
+    /**
+     * The mask url points to an image that determines the visible area of the magnified image [(alpha channel)](https://developer.mozilla.org/en-US/docs/Glossary/Alpha).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#maskUrl)
+     */
+    maskUrl: string;
+    /**
+     * The offset of the magnifier in pixels.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#offset)
+     */
+    offset: ScreenPoint;
+    /**
+     * Indicates whether the overlay image is enabled.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#overlayEnabled)
+     */
+    overlayEnabled: boolean;
+    /**
+     * The overlay url points to an image that is displayed on top of the magnified image.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#overlayUrl)
+     */
+    overlayUrl: string;
+    /**
+     * The position of the magnifier in pixels.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#position)
+     */
+    position: ScreenPoint;
+    /**
+     * The size of the magnifier in pixels.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#size)
+     */
+    size: number;
+    /**
+     * Indicates whether the magnifier is visible.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#visible)
+     */
+    visible: boolean;
+  }
+
+  interface MagnifierConstructor {
+    /**
+     * The Magnifier allows end users to show a portion of the view as a magnified image.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html)
+     */
+
+    new (properties?: MagnifierProperties): Magnifier;
+  }
+
+  export const Magnifier: MagnifierConstructor;
+
+  interface MagnifierProperties {
+    /**
+     * Controls the amount of magnification to display.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#factor)
+     */
+    factor?: number;
+    /**
+     * Indicates whether the mask image is enabled.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#maskEnabled)
+     */
+    maskEnabled?: boolean;
+    /**
+     * The mask url points to an image that determines the visible area of the magnified image [(alpha channel)](https://developer.mozilla.org/en-US/docs/Glossary/Alpha).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#maskUrl)
+     */
+    maskUrl?: string;
+    /**
+     * The offset of the magnifier in pixels.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#offset)
+     */
+    offset?: ScreenPoint;
+    /**
+     * Indicates whether the overlay image is enabled.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#overlayEnabled)
+     */
+    overlayEnabled?: boolean;
+    /**
+     * The overlay url points to an image that is displayed on top of the magnified image.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#overlayUrl)
+     */
+    overlayUrl?: string;
+    /**
+     * The position of the magnifier in pixels.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#position)
+     */
+    position?: ScreenPoint;
+    /**
+     * The size of the magnifier in pixels.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#size)
+     */
+    size?: number;
+    /**
+     * Indicates whether the magnifier is visible.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#visible)
+     */
+    visible?: boolean;
+  }
+
+  /**
+   * An object representing the location on the screen.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#ScreenPoint)
+   */
+  export interface ScreenPoint extends Object {
+    /**
+     * The x coordinate.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#ScreenPoint)
+     */
+    x: number;
+    /**
+     * The y coordinate.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-Magnifier.html#ScreenPoint)
+     */
+    y: number;
+  }
+
   interface MapView extends View, MapViewBase, BreakpointsOwner {
     /**
      * The background color of the MapView.
@@ -49555,6 +53503,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#extent)
      */
     extent: Extent;
+    /**
+     * Applies a display filter on the view for a specific set of floor levels.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#floors)
+     */
+    floors: Collection<string>;
     /**
      * Options for configuring the highlight.
      *
@@ -49612,7 +53566,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#hitTest)
      */
-    hitTest(screenPoint: ScreenPoint | MouseEvent, options?: MapViewHitTestOptions): Promise<HitTestResult>;
+    hitTest(screenPoint: MapViewScreenPoint | MouseEvent, options?: MapViewHitTestOptions): Promise<HitTestResult>;
     /**
      * Registers an event handler on the instance.
      *
@@ -49630,13 +53584,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#toMap)
      */
-    toMap(screenPoint: ScreenPoint | MouseEvent): Point;
+    toMap(screenPoint: MapViewScreenPoint | MouseEvent): Point;
     /**
      * Converts the given [map point](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Point.html) to a screen point.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#toScreen)
      */
-    toScreen(point: Point): ScreenPoint;
+    toScreen(point: Point): MapViewScreenPoint;
 
     on(name: "resize", eventHandler: MapViewResizeEventHandler): IHandle;
 
@@ -49751,7 +53705,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#center)
      */
-    center?: PointProperties | number[];
+    center?: (PointProperties & { type: "point" }) | number[];
     /**
      * Specifies constraints to [scale](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#scale), [zoom](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#zoom), and [rotation](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#rotation) that may be applied to the MapView.
      *
@@ -49764,6 +53718,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#extent)
      */
     extent?: ExtentProperties;
+    /**
+     * Applies a display filter on the view for a specific set of floor levels.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#floors)
+     */
+    floors?: CollectionProperties<string>;
     /**
      * Options for configuring the highlight.
      *
@@ -50433,7 +54393,7 @@ declare namespace __esri {
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#ScreenPoint)
    */
-  export interface ScreenPoint extends Object {
+  export interface MapViewScreenPoint extends Object {
     /**
      * The x coordinate.
      *
@@ -50449,7 +54409,7 @@ declare namespace __esri {
   }
 
   /**
-   * Object returned when [takeScreenshot()](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#takeScreenshot) promise resolves:.
+   * Object returned when [takeScreenshot()](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#takeScreenshot) promise resolves:
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#Screenshot)
    */
@@ -50532,6 +54492,12 @@ declare namespace __esri {
   }
 
   interface gamepadGamepadSettingsConstructor {
+    /**
+     * Gamepad navigation specific configuration settings.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-navigation-gamepad-GamepadSettings.html)
+     */
+
     new (properties?: gamepadGamepadSettingsProperties): gamepadGamepadSettings;
   }
 
@@ -50592,6 +54558,12 @@ declare namespace __esri {
   }
 
   interface NavigationConstructor {
+    /**
+     * Navigation related configuration settings on the View.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-navigation-Navigation.html)
+     */
+
     new (properties?: NavigationProperties): Navigation;
   }
 
@@ -50668,6 +54640,12 @@ declare namespace __esri {
      */
     extent: Extent;
     /**
+     * Applies a display filter on the view for a specific set of floor levels.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#floors)
+     */
+    floors: Collection<string>;
+    /**
      * The view for the ground of the map.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#groundView)
@@ -50697,6 +54675,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#scale)
      */
     scale: number;
+    /**
+     * The type of the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#type)
+     */
+    readonly type: "3d";
     /**
      * The viewing mode (`local` or `global`).
      *
@@ -50875,7 +54859,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#center)
      */
-    center?: PointProperties | number[];
+    center?: (PointProperties & { type: "point" }) | number[];
     /**
      * Represents an optional clipping area used to define the visible [extent](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Extent.html) of a local scene.
      *
@@ -50900,6 +54884,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#extent)
      */
     extent?: ExtentProperties;
+    /**
+     * Applies a display filter on the view for a specific set of floor levels.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#floors)
+     */
+    floors?: CollectionProperties<string>;
     /**
      * Options for configuring the highlight.
      *
@@ -51377,12 +55367,6 @@ declare namespace __esri {
      */
     clipDistance?: SceneViewConstraintsClipDistanceProperties;
     /**
-     * When enabled, prevents the user from navigating below the surface in a local SceneView.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints)
-     */
-    collision?: SceneViewConstraintsCollision;
-    /**
      * Specifies a constraint on the amount of allowed tilting of the view.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints)
@@ -51403,12 +55387,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints)
      */
     clipDistance?: SceneViewConstraintsClipDistance;
-    /**
-     * When enabled, prevents the user from navigating below the surface in a local SceneView.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints)
-     */
-    collision?: SceneViewConstraintsCollision;
     /**
      * Specifies a constraint on the amount of allowed tilting of the view.
      *
@@ -51487,15 +55465,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints)
      */
     mode?: "auto" | "manual";
-  }
-
-  export interface SceneViewConstraintsCollision extends Object {
-    /**
-     * Set to `false` to permit the user to navigate below the surface in a local SceneView.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints)
-     */
-    enabled?: boolean;
   }
 
   export interface SceneViewConstraintsTiltProperties extends Object {
@@ -51703,6 +55672,24 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#highlightOptions)
      */
     fillOpacity?: number;
+    /**
+     * The color of the highlighted feature's shadow.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#highlightOptions)
+     */
+    shadowColor?: Color;
+    /**
+     * The opacity of the highlighted feature's shadow.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#highlightOptions)
+     */
+    shadowOpacity?: number;
+    /**
+     * Defines the intensity of the shadow area obtained by overlapping the shadow of the highlighted feature and the shadow of other objects in the scene.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#highlightOptions)
+     */
+    shadowDifference?: number;
   }
 
   export interface SceneViewHighlightOptions extends AnonymousAccessor {
@@ -51730,6 +55717,24 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#highlightOptions)
      */
     fillOpacity?: number;
+    /**
+     * The color of the highlighted feature's shadow.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#highlightOptions)
+     */
+    shadowColor?: Color;
+    /**
+     * The opacity of the highlighted feature's shadow.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#highlightOptions)
+     */
+    shadowOpacity?: number;
+    /**
+     * Defines the intensity of the shadow area obtained by overlapping the shadow of the highlighted feature and the shadow of other objects in the scene.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#highlightOptions)
+     */
+    shadowDifference?: number;
   }
 
   export interface SceneViewHitTestOptions extends Object {
@@ -51861,7 +55866,7 @@ declare namespace __esri {
   }
 
   /**
-   * Object returned when [takeScreenshot()](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#takeScreenshot) promise resolves:.
+   * Object returned when [takeScreenshot()](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#takeScreenshot) promise resolves:
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#Screenshot)
    */
@@ -51922,6 +55927,11 @@ declare namespace __esri {
     distance: number;
   }
 
+  /**
+   * Contains utilities for working with colors in the [View](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html).
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-support-colorUtils.html)
+   */
   interface colorUtils {
     /**
      * Returns the average color of the view's background within the view's [extent](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#extent).
@@ -52074,7 +56084,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-ui-UI.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   export interface UIAddComponent extends Object {
@@ -52221,7 +56231,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html#input)
      */
-    readonly input: inputInput;
+    readonly input: Input;
     /**
      * Indication whether the view is being interacted with (for example when panning or by an interactive tool).
      *
@@ -52234,6 +56244,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html#layerViews)
      */
     layerViews: Collection<LayerView>;
+    /**
+     * The magnifier allows for showing a portion of the view as a magnifier image on top of the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html#magnifier)
+     */
+    readonly magnifier: Magnifier;
     /**
      * An instance of a [Map](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html) object to display in the view.
      *
@@ -52996,6 +57012,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-Search.html#layers)
      */
     layers: Collection<SearchLayer>;
+    /**
+     * A collection of tables to be included in search.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-Search.html#tables)
+     */
+    tables: Collection<SearchTable>;
 
     /**
      * Creates a deep clone of this object.
@@ -53006,6 +57028,12 @@ declare namespace __esri {
   }
 
   interface SearchConstructor {
+    /**
+     * Represents the search parameters set within the web scene or the web map.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-Search.html)
+     */
+
     new (properties?: SearchProperties): Search;
   }
 
@@ -53036,6 +57064,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-Search.html#layers)
      */
     layers?: CollectionProperties<SearchLayerProperties>;
+    /**
+     * A collection of tables to be included in search.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-Search.html#tables)
+     */
+    tables?: CollectionProperties<SearchTableProperties>;
   }
 
   interface SearchLayer extends Accessor {
@@ -53067,6 +57101,12 @@ declare namespace __esri {
   }
 
   interface SearchLayerConstructor {
+    /**
+     * Represents a layer to be included in search.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchLayer.html)
+     */
+
     new (properties?: SearchLayerProperties): SearchLayer;
   }
 
@@ -53136,6 +57176,12 @@ declare namespace __esri {
   }
 
   interface SearchLayerFieldConstructor {
+    /**
+     * Represents the field of a layer to use for search.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchLayerField.html)
+     */
+
     new (properties?: SearchLayerFieldProperties): SearchLayerField;
   }
 
@@ -53176,6 +57222,144 @@ declare namespace __esri {
       | "xml";
   }
 
+  interface SearchTable extends Accessor {
+    /**
+     * The field to use for search.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTable.html#field)
+     */
+    field: SearchTableField;
+    /**
+     * The id of the table.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTable.html#id)
+     */
+    id: string;
+
+    /**
+     * Creates a deep clone of this object.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTable.html#clone)
+     */
+    clone(): SearchTable;
+  }
+
+  interface SearchTableConstructor {
+    /**
+     * Represents a table to be included in search.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTable.html)
+     */
+
+    new (properties?: SearchTableProperties): SearchTable;
+  }
+
+  export const SearchTable: SearchTableConstructor;
+
+  interface SearchTableProperties {
+    /**
+     * The field to use for search.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTable.html#field)
+     */
+    field?: SearchTableFieldProperties;
+    /**
+     * The id of the table.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTable.html#id)
+     */
+    id?: string;
+  }
+
+  interface SearchTableField extends Accessor {
+    /**
+     * Whether or not the field is an exact match.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTableField.html#exactMatch)
+     */
+    exactMatch: boolean;
+    /**
+     * The name of the field.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTableField.html#name)
+     */
+    name: string;
+    /**
+     * The data type of the field.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTableField.html#type)
+     */
+    type:
+      | "small-integer"
+      | "integer"
+      | "single"
+      | "double"
+      | "long"
+      | "string"
+      | "date"
+      | "oid"
+      | "geometry"
+      | "blob"
+      | "raster"
+      | "guid"
+      | "global-id"
+      | "xml";
+
+    /**
+     * Creates a deep clone of this object.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTableField.html#clone)
+     */
+    clone(): SearchTableField;
+  }
+
+  interface SearchTableFieldConstructor {
+    /**
+     * Represents the field of a table to use for search.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTableField.html)
+     */
+
+    new (properties?: SearchTableFieldProperties): SearchTableField;
+  }
+
+  export const SearchTableField: SearchTableFieldConstructor;
+
+  interface SearchTableFieldProperties {
+    /**
+     * Whether or not the field is an exact match.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTableField.html#exactMatch)
+     */
+    exactMatch?: boolean;
+    /**
+     * The name of the field.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTableField.html#name)
+     */
+    name?: string;
+    /**
+     * The data type of the field.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTableField.html#type)
+     */
+    type?:
+      | "small-integer"
+      | "integer"
+      | "single"
+      | "double"
+      | "long"
+      | "string"
+      | "date"
+      | "oid"
+      | "geometry"
+      | "blob"
+      | "raster"
+      | "guid"
+      | "global-id"
+      | "xml";
+  }
+
   interface Viewing extends Accessor {
     /**
      * An object specifying the search parameters set within the web scene or web map.
@@ -53193,6 +57377,12 @@ declare namespace __esri {
   }
 
   interface ViewingConstructor {
+    /**
+     * Represents view-specific properties of application and UI elements for the web map or web scene.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-Viewing.html)
+     */
+
     new (properties?: ViewingProperties): Viewing;
   }
 
@@ -53232,6 +57422,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#bookmarks)
      */
     bookmarks: Collection<Bookmark>;
+    /**
+     * When a web map is configured as floor-aware, it has a floorInfo property defined.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#floorInfo)
+     */
+    floorInfo: MapFloorInfo;
     /**
      * The initial view of the WebMap.
      *
@@ -53329,7 +57525,7 @@ declare namespace __esri {
     new (properties?: WebMapProperties): WebMap;
 
     /**
-     * Creates a new instance of [this class]() and initializes it with values from a JSON object generated from a product in the ArcGIS platform.
+     * Creates a new instance of this class and initializes it with values from a JSON object generated from an ArcGIS product.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#fromJSON)
      */
@@ -53363,6 +57559,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#bookmarks)
      */
     bookmarks?: CollectionProperties<BookmarkProperties>;
+    /**
+     * When a web map is configured as floor-aware, it has a floorInfo property defined.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#floorInfo)
+     */
+    floorInfo?: MapFloorInfoProperties;
     /**
      * The initial view of the WebMap.
      *
@@ -53405,6 +57607,12 @@ declare namespace __esri {
   }
 
   interface ApplicationPropertiesConstructor {
+    /**
+     * Represents configuration of application and UI elements of the [WebMap](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webmap-ApplicationProperties.html)
+     */
+
     new (properties?: ApplicationPropertiesProperties): ApplicationProperties;
   }
 
@@ -53436,6 +57644,12 @@ declare namespace __esri {
   }
 
   interface ColorBackgroundConstructor {
+    /**
+     * Represents the background color of the [WebMap](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html) when displayed in a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webmap-background-ColorBackground.html)
+     */
+
     new (properties?: ColorBackgroundProperties): ColorBackground;
 
     fromJSON(json: any): ColorBackground;
@@ -53480,6 +57694,12 @@ declare namespace __esri {
   }
 
   interface BookmarkConstructor {
+    /**
+     * A bookmark is a saved map extent that allows end users to quickly navigate to a particular area of interest using the [Bookmarks](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webmap-Bookmark.html)
+     */
+
     new (properties?: BookmarkProperties): Bookmark;
   }
 
@@ -53550,6 +57770,12 @@ declare namespace __esri {
   }
 
   interface InitialViewPropertiesConstructor {
+    /**
+     * Represents the initial viewing state of the [WebMap](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html) when displayed in a [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webmap-InitialViewProperties.html)
+     */
+
     new (properties?: InitialViewPropertiesProperties): InitialViewProperties;
   }
 
@@ -53577,47 +57803,109 @@ declare namespace __esri {
   }
 
   /**
+   * Floor filtering is controlled by a configurable [floor filter](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html).
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#FloorFilter)
+   */
+  export interface WebMapFloorFilter extends Object {
+    /**
+     * Indicates whether the FloorFilter is active and filtering the displayed content according to the [FloorFilter](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html) selection.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#FloorFilter)
+     */
+    enabled: boolean;
+    /**
+     * Indicates whether the levels list is showing the long names from longNameField.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#FloorFilter)
+     */
+    longNames: boolean;
+    /**
+     * Indicates whether the floor filter has been minimized to show only the levels list.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#FloorFilter)
+     */
+    minimized: boolean;
+    /**
+     * Indicates whether the levels portion of the floor filter has been pinned to show the levels list.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#FloorFilter)
+     */
+    pinnedLevels: boolean;
+    /**
+     * Contains the site ID for the initially selected [site](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#site) in the floor filter.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#FloorFilter)
+     */
+    site: string;
+    /**
+     * Contains the facility ID for the initially selected [facility](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#facility) in the floor filter.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#FloorFilter)
+     */
+    facility: string;
+    /**
+     * Contains the level ID for the initially selected floor, which is used when filtering layers by their configured floor-aware properties.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#FloorFilter)
+     */
+    level: string;
+  }
+
+  /**
    * Time animation is controlled by a configurable [time slider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider.html).
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#TimeSlider)
    */
   export interface WebMapTimeSlider extends Object {
     /**
-     * The temporal extent for the entire slider.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#TimeSlider)
-     */
-    fullTimeExtent?: TimeExtent;
-    /**
      * The current time extent of the time slider.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#TimeSlider)
      */
-    currentTimeExtent?: TimeExtent;
+    currentTimeExtent: TimeExtent;
+    /**
+     * The temporal extent for the entire slider.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#TimeSlider)
+     */
+    fullTimeExtent: TimeExtent;
+    /**
+     * When `true`, the time slider will play its animation in a loop.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#TimeSlider)
+     */
+    loop: boolean;
     /**
      * The number of stops.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#TimeSlider)
      */
-    numStops?: number;
+    numStops: number;
     /**
      * The thumb count.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#TimeSlider)
      */
-    numThumbs?: number;
+    numThumbs: number;
+    /**
+     * An array of dates for the time slider widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#TimeSlider)
+     */
+    stops: Date[];
     /**
      * The time rate in milliseconds between animation steps.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#TimeSlider)
      */
-    stopDelay?: number;
+    stopDelay: number;
     /**
      * Defines regularly spaced stops on the time slider from a [TimeInterval](https://developers.arcgis.com/javascript/latest/api-reference/esri-TimeInterval.html) object.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#TimeSlider)
      */
-    stopInterval?: TimeInterval;
+    stopInterval: TimeInterval;
   }
 
   export interface WebMapSaveAsOptions extends Object {
@@ -53690,6 +57978,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#updateFrom)
      */
     thumbnailSize?: WebMapUpdateFromOptionsThumbnailSize;
+    /**
+     * When `true`, the webmap's [widgets](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#widgets) property will not be updated.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#updateFrom)
+     */
+    widgetsExcluded?: boolean;
   }
 
   export interface WebMapUpdateFromOptionsThumbnailSize extends Object {
@@ -53718,7 +58012,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#Widgets)
      */
-    TimeSlider: WebMapTimeSlider;
+    timeSlider: WebMapTimeSlider;
+    /**
+     * Floor filtering is controlled by a configurable [floor filter](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#Widgets)
+     */
+    floorFilter: WebMapFloorFilter;
   }
 
   interface WebScene extends Map, corePromise {
@@ -53752,6 +58052,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html#clippingEnabled)
      */
     clippingEnabled: boolean;
+    /**
+     * When a web scene is configured as floor-aware, it has a floorInfo property defined.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html#floorInfo)
+     */
+    floorInfo: MapFloorInfo;
     /**
      * The height model info of the [WebScene](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html).
      *
@@ -53832,7 +58138,7 @@ declare namespace __esri {
      */
     saveAs(portalItem: PortalItem | PortalItemProperties, options?: WebSceneSaveAsOptions): Promise<PortalItem>;
     /**
-     * Converts an instance of [this class]() to its ArcGIS portal JSON representation.
+     * Converts an instance of this class to its ArcGIS portal JSON representation.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html#toJSON)
      */
@@ -53847,7 +58153,7 @@ declare namespace __esri {
 
   interface WebSceneConstructor {
     /**
-     * The web scene is the core element of 3D mapping across the ArcGIS platform.
+     * The web scene is the core element of 3D mapping across ArcGIS.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html)
      */
@@ -53855,7 +58161,7 @@ declare namespace __esri {
     new (properties?: WebSceneProperties): WebScene;
 
     /**
-     * Creates a new instance of [this class]() and initializes it with values from a JSON object generated from a product in the ArcGIS platform.
+     * Creates a new instance of this class and initializes it with values from a JSON object generated from an ArcGIS product.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html#fromJSON)
      */
@@ -53895,6 +58201,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html#clippingEnabled)
      */
     clippingEnabled?: boolean;
+    /**
+     * When a web scene is configured as floor-aware, it has a floorInfo property defined.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html#floorInfo)
+     */
+    floorInfo?: MapFloorInfoProperties;
     /**
      * The height model info of the [WebScene](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html).
      *
@@ -53944,6 +58256,12 @@ declare namespace __esri {
   }
 
   interface websceneApplicationPropertiesConstructor {
+    /**
+     * Represents configuration of application and UI elements.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-ApplicationProperties.html)
+     */
+
     new (properties?: websceneApplicationPropertiesProperties): websceneApplicationProperties;
   }
 
@@ -54057,6 +58375,12 @@ declare namespace __esri {
   }
 
   interface EnvironmentConstructor {
+    /**
+     * Represents settings that affect the environment in which the [WebScene](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html) is displayed (such as lighting).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Environment.html)
+     */
+
     new (properties?: EnvironmentProperties): Environment;
   }
 
@@ -54124,6 +58448,12 @@ declare namespace __esri {
   }
 
   interface websceneInitialViewPropertiesConstructor {
+    /**
+     * Represents the initial viewing state of the [WebScene](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html) when displayed in a [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-InitialViewProperties.html)
+     */
+
     new (properties?: websceneInitialViewPropertiesProperties): websceneInitialViewProperties;
   }
 
@@ -54185,6 +58515,12 @@ declare namespace __esri {
   }
 
   interface LightingConstructor {
+    /**
+     * The lighting object is part of the [Environment](https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Environment.html) and contains information relating to how a [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) is lit.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Lighting.html)
+     */
+
     new (properties?: LightingProperties): Lighting;
   }
 
@@ -54228,6 +58564,12 @@ declare namespace __esri {
   }
 
   interface PresentationConstructor {
+    /**
+     * A presentation contains a [Collection](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html) of [slides](https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Slide.html) that allows users to quickly navigate to predefined settings of a [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Presentation.html)
+     */
+
     new (properties?: PresentationProperties): Presentation;
   }
 
@@ -54507,7 +58849,7 @@ declare namespace __esri {
 
   export interface SlideGroundProperties extends Object {
     /**
-     * Ground opacity.
+     * Ground opacity
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Slide.html#ground)
      */
@@ -54516,7 +58858,7 @@ declare namespace __esri {
 
   export interface SlideGround extends AnonymousAccessor {
     /**
-     * Ground opacity.
+     * Ground opacity
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Slide.html#ground)
      */
@@ -54718,38 +59060,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement2D.html#unit)
      */
-    unit:
-      | "metric"
-      | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
-      | "square-meters"
-      | "square-kilometers"
-      | "acres"
-      | "ares"
-      | "hectares";
+    unit: SystemOrAreaUnit;
     /**
      * List of available units and unit systems (imperial, metric) for displaying the area values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement2D.html#unitOptions)
      */
-    unitOptions: (
-      | "metric"
-      | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
-      | "square-meters"
-      | "square-kilometers"
-      | "acres"
-      | "ares"
-      | "hectares"
-    )[];
+    unitOptions: SystemOrAreaUnit[];
     /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
      *
@@ -54789,15 +59106,18 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement2D.html#unit)
      */
     unit?:
-      | "metric"
       | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
+      | "metric"
+      | "square-millimeters"
+      | "square-centimeters"
+      | "square-decimeters"
       | "square-meters"
       | "square-kilometers"
+      | "square-inches"
+      | "square-feet"
+      | "square-yards"
+      | "square-miles"
+      | "square-us-feet"
       | "acres"
       | "ares"
       | "hectares";
@@ -54807,15 +59127,18 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement2D.html#unitOptions)
      */
     unitOptions?: (
-      | "metric"
       | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
+      | "metric"
+      | "square-millimeters"
+      | "square-centimeters"
+      | "square-decimeters"
       | "square-meters"
       | "square-kilometers"
+      | "square-inches"
+      | "square-feet"
+      | "square-yards"
+      | "square-miles"
+      | "square-us-feet"
       | "acres"
       | "ares"
       | "hectares"
@@ -54836,7 +59159,7 @@ declare namespace __esri {
 
   interface AreaMeasurement2DViewModel {
     /**
-     * When the coordinate sustem is projected (other than web mercator) then perimeters less than this threshold will be computed planimetrically.
+     * When the coordinate system is projected (other than web mercator) then perimeters less than this threshold will be computed planimetrically.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement2D-AreaMeasurement2DViewModel.html#geodesicDistanceThreshold)
      */
@@ -54864,38 +59187,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement2D-AreaMeasurement2DViewModel.html#unit)
      */
-    unit:
-      | "metric"
-      | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
-      | "square-meters"
-      | "square-kilometers"
-      | "acres"
-      | "ares"
-      | "hectares";
+    unit: SystemOrAreaUnit;
     /**
      * List of available units and unit systems (imperial, metric) for displaying the area values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement2D-AreaMeasurement2DViewModel.html#unitOptions)
      */
-    unitOptions: (
-      | "metric"
-      | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
-      | "square-meters"
-      | "square-kilometers"
-      | "acres"
-      | "ares"
-      | "hectares"
-    )[];
+    unitOptions: SystemOrAreaUnit[];
     /**
      * The view from which the widget will operate.
      *
@@ -54910,18 +59208,6 @@ declare namespace __esri {
      */
     clear(): void;
     /**
-     * Clears the current measurement.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement2D-AreaMeasurement2DViewModel.html#clearMeasurement)
-     */
-    clearMeasurement(): void;
-    /**
-     * Starts a new measurement.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement2D-AreaMeasurement2DViewModel.html#newMeasurement)
-     */
-    newMeasurement(): void;
-    /**
      * Starts a new measurement.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement2D-AreaMeasurement2DViewModel.html#start)
@@ -54930,6 +59216,12 @@ declare namespace __esri {
   }
 
   interface AreaMeasurement2DViewModelConstructor {
+    /**
+     * Provides the logic for the [AreaMeasurement2D](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement2D.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement2D-AreaMeasurement2DViewModel.html)
+     */
+
     new (properties?: any): AreaMeasurement2DViewModel;
   }
 
@@ -54983,38 +59275,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D.html#unit)
      */
-    unit:
-      | "metric"
-      | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
-      | "square-meters"
-      | "square-kilometers"
-      | "acres"
-      | "ares"
-      | "hectares";
+    unit: SystemOrAreaUnit;
     /**
      * List of available units and unit systems (imperial, metric) for displaying the area values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D.html#unitOptions)
      */
-    unitOptions: (
-      | "metric"
-      | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
-      | "square-meters"
-      | "square-kilometers"
-      | "acres"
-      | "ares"
-      | "hectares"
-    )[];
+    unitOptions: SystemOrAreaUnit[];
     /**
      * A reference to the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
@@ -55054,15 +59321,18 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D.html#unit)
      */
     unit?:
-      | "metric"
       | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
+      | "metric"
+      | "square-millimeters"
+      | "square-centimeters"
+      | "square-decimeters"
       | "square-meters"
       | "square-kilometers"
+      | "square-inches"
+      | "square-feet"
+      | "square-yards"
+      | "square-miles"
+      | "square-us-feet"
       | "acres"
       | "ares"
       | "hectares";
@@ -55072,15 +59342,18 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D.html#unitOptions)
      */
     unitOptions?: (
-      | "metric"
       | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
+      | "metric"
+      | "square-millimeters"
+      | "square-centimeters"
+      | "square-decimeters"
       | "square-meters"
       | "square-kilometers"
+      | "square-inches"
+      | "square-feet"
+      | "square-yards"
+      | "square-miles"
+      | "square-us-feet"
       | "acres"
       | "ares"
       | "hectares"
@@ -55117,38 +59390,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D-AreaMeasurement3DViewModel.html#unit)
      */
-    unit:
-      | "metric"
-      | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
-      | "square-meters"
-      | "square-kilometers"
-      | "acres"
-      | "ares"
-      | "hectares";
+    unit: SystemOrAreaUnit;
     /**
      * List of available units and unit systems (imperial, metric) for displaying the area values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D-AreaMeasurement3DViewModel.html#unitOptions)
      */
-    unitOptions: (
-      | "metric"
-      | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
-      | "square-meters"
-      | "square-kilometers"
-      | "acres"
-      | "ares"
-      | "hectares"
-    )[];
+    unitOptions: SystemOrAreaUnit[];
     /**
      * The view from which the widget will operate.
      *
@@ -55163,18 +59411,6 @@ declare namespace __esri {
      */
     clear(): void;
     /**
-     * Clears the current measurement.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D-AreaMeasurement3DViewModel.html#clearMeasurement)
-     */
-    clearMeasurement(): void;
-    /**
-     * Starts a new measurement.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D-AreaMeasurement3DViewModel.html#newMeasurement)
-     */
-    newMeasurement(): void;
-    /**
      * Starts a new measurement.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D-AreaMeasurement3DViewModel.html#start)
@@ -55183,6 +59419,12 @@ declare namespace __esri {
   }
 
   interface AreaMeasurement3DViewModelConstructor {
+    /**
+     * Provides the logic for the [AreaMeasurement3D](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D-AreaMeasurement3DViewModel.html)
+     */
+
     new (properties?: AreaMeasurement3DViewModelProperties): AreaMeasurement3DViewModel;
   }
 
@@ -55195,15 +59437,18 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D-AreaMeasurement3DViewModel.html#unit)
      */
     unit?:
-      | "metric"
       | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
+      | "metric"
+      | "square-millimeters"
+      | "square-centimeters"
+      | "square-decimeters"
       | "square-meters"
       | "square-kilometers"
+      | "square-inches"
+      | "square-feet"
+      | "square-yards"
+      | "square-miles"
+      | "square-us-feet"
       | "acres"
       | "ares"
       | "hectares";
@@ -55213,15 +59458,18 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-AreaMeasurement3D-AreaMeasurement3DViewModel.html#unitOptions)
      */
     unitOptions?: (
-      | "metric"
       | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
+      | "metric"
+      | "square-millimeters"
+      | "square-centimeters"
+      | "square-decimeters"
       | "square-meters"
       | "square-kilometers"
+      | "square-inches"
+      | "square-feet"
+      | "square-yards"
+      | "square-miles"
+      | "square-us-feet"
       | "acres"
       | "ares"
       | "hectares"
@@ -55331,17 +59579,17 @@ declare namespace __esri {
 
   interface AttachmentsViewModel extends Accessor {
     /**
-     * The current [AttachmentInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html) being edited.
+     * The current [AttachmentInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html) being edited.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Attachments-AttachmentsViewModel.html#activeAttachmentInfo)
      */
-    activeAttachmentInfo: AttachmentInfo;
+    activeAttachmentInfo: supportAttachmentInfo;
     /**
-     * A collection of [AttachmentInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html) defined on a feature.
+     * A collection of [AttachmentInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html) defined on a feature.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Attachments-AttachmentsViewModel.html#attachmentInfos)
      */
-    readonly attachmentInfos: AttachmentInfo[];
+    readonly attachmentInfos: supportAttachmentInfo[];
     /**
      * The graphic for the attachments.
      *
@@ -55372,10 +59620,16 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Attachments-AttachmentsViewModel.html#getAttachments)
      */
-    getAttachments(): Promise<AttachmentInfo[]>;
+    getAttachments(): Promise<supportAttachmentInfo[]>;
   }
 
   interface AttachmentsViewModelConstructor {
+    /**
+     * Provides the logic for the [Attachments](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Attachments.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Attachments-AttachmentsViewModel.html)
+     */
+
     new (properties?: AttachmentsViewModelProperties): AttachmentsViewModel;
   }
 
@@ -55383,11 +59637,11 @@ declare namespace __esri {
 
   interface AttachmentsViewModelProperties {
     /**
-     * The current [AttachmentInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-AttachmentInfo.html) being edited.
+     * The current [AttachmentInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-query-support-AttachmentInfo.html) being edited.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Attachments-AttachmentsViewModel.html#activeAttachmentInfo)
      */
-    activeAttachmentInfo?: AttachmentInfoProperties;
+    activeAttachmentInfo?: supportAttachmentInfoProperties;
     /**
      * The graphic for the attachments.
      *
@@ -55422,7 +59676,7 @@ declare namespace __esri {
      */
     iconClass: string;
     /**
-     * Text used to split attribution by [layers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html).
+     * Text used to split attribution by [layers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html)
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Attribution.html#itemDelimiter)
      */
@@ -55461,7 +59715,7 @@ declare namespace __esri {
      */
     iconClass?: string;
     /**
-     * Text used to split attribution by [layers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html).
+     * Text used to split attribution by [layers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html)
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Attribution.html#itemDelimiter)
      */
@@ -55471,7 +59725,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Attribution.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -55519,7 +59773,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Attribution-AttributionViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   /**
@@ -55617,13 +59871,18 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery.html#source)
      */
-    source?: LocalBasemapsSourceProperties | PortalBasemapsSourceProperties;
+    source?:
+      | LocalBasemapsSourceProperties
+      | PortalBasemapsSourceProperties
+      | CollectionProperties<BasemapProperties>
+      | BasemapProperties[]
+      | PortalProperties;
     /**
      * The view from which the widget will operate.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -55673,6 +59932,12 @@ declare namespace __esri {
   }
 
   interface BasemapGalleryViewModelConstructor {
+    /**
+     * Provides the logic for the [BasemapGallery](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery-BasemapGalleryViewModel.html)
+     */
+
     new (properties?: BasemapGalleryViewModelProperties): BasemapGalleryViewModel;
   }
 
@@ -55696,13 +59961,18 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery-BasemapGalleryViewModel.html#source)
      */
-    source?: LocalBasemapsSourceProperties | PortalBasemapsSourceProperties;
+    source?:
+      | LocalBasemapsSourceProperties
+      | PortalBasemapsSourceProperties
+      | CollectionProperties<BasemapProperties>
+      | BasemapProperties[]
+      | PortalProperties;
     /**
      * The view from which the widget will operate.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery-BasemapGalleryViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   interface BasemapGalleryItem extends Accessor {
@@ -55733,6 +60003,12 @@ declare namespace __esri {
   }
 
   interface BasemapGalleryItemConstructor {
+    /**
+     * The BasemapGalleryItem class represents one of the [items](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery-BasemapGalleryViewModel.html#items) in the [BasemapGallery](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery-support-BasemapGalleryItem.html)
+     */
+
     new (properties?: BasemapGalleryItemProperties): BasemapGalleryItem;
   }
 
@@ -55750,7 +60026,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery-support-BasemapGalleryItem.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   interface LocalBasemapsSource extends Accessor {
@@ -55776,6 +60052,12 @@ declare namespace __esri {
   }
 
   interface LocalBasemapsSourceConstructor {
+    /**
+     * The LocalBasemapsSource class is a Collection-driven [Basemap](https://developers.arcgis.com/javascript/latest/api-reference/esri-Basemap.html) [source](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery-BasemapGalleryViewModel.html#source) in the [BasemapGalleryViewModel](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery-BasemapGalleryViewModel.html) or [BasemapGallery](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery-support-LocalBasemapsSource.html)
+     */
+
     new (properties?: LocalBasemapsSourceProperties): LocalBasemapsSource;
   }
 
@@ -55824,6 +60106,12 @@ declare namespace __esri {
   }
 
   interface PortalBasemapsSourceConstructor {
+    /**
+     * The PortalBasemapsSource class is a Portal-driven [Basemap](https://developers.arcgis.com/javascript/latest/api-reference/esri-Basemap.html) [source](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery-BasemapGalleryViewModel.html#source) in the [BasemapGalleryViewModel](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery-BasemapGalleryViewModel.html) or [BasemapGallery](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery-support-PortalBasemapsSource.html)
+     */
+
     new (properties?: PortalBasemapsSourceProperties): PortalBasemapsSource;
   }
 
@@ -56016,7 +60304,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapLayerList.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -56084,6 +60372,12 @@ declare namespace __esri {
   }
 
   interface BasemapLayerListViewModelConstructor {
+    /**
+     * Provides logic for the [BasemapLayerList](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapLayerList.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapLayerList-BasemapLayerListViewModel.html)
+     */
+
     new (properties?: BasemapLayerListViewModelProperties): BasemapLayerListViewModel;
   }
 
@@ -56113,7 +60407,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapLayerList-BasemapLayerListViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   export type ListItemCreatedHandler = (event: any) => void;
@@ -56164,12 +60458,6 @@ declare namespace __esri {
      */
     nextBasemap: Basemap;
     /**
-     * Indicates if the title of the basemap is visible in the widget.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapToggle.html#titleVisible)
-     */
-    titleVisible: boolean;
-    /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapToggle.html#view)
@@ -56218,17 +60506,11 @@ declare namespace __esri {
      */
     nextBasemap?: BasemapProperties | string;
     /**
-     * Indicates if the title of the basemap is visible in the widget.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapToggle.html#titleVisible)
-     */
-    titleVisible?: boolean;
-    /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapToggle.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -56278,6 +60560,12 @@ declare namespace __esri {
   }
 
   interface BasemapToggleViewModelConstructor {
+    /**
+     * Provides the logic for the [BasemapToggle](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapToggle.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapToggle-BasemapToggleViewModel.html)
+     */
+
     new (properties?: BasemapToggleViewModelProperties): BasemapToggleViewModel;
 
     /**
@@ -56302,7 +60590,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapToggle-BasemapToggleViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   export interface BasemapToggleToggleEvent {
@@ -56331,13 +60619,25 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html#bookmarkCreationOptions)
      */
-    bookmarkCreationOptions: BookmarkCreationOptions;
+    bookmarkCreationOptions: BookmarkOptions;
     /**
      * A collection of [Bookmark](https://developers.arcgis.com/javascript/latest/api-reference/esri-webmap-Bookmark.html)s.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html#bookmarks)
      */
     bookmarks: Collection<Bookmark>;
+    /**
+     * Specifies how new bookmarks will be created if [editingEnabled](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html#editingEnabled) is set to `true`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html#defaultCreateOptions)
+     */
+    defaultCreateOptions: BookmarkOptions;
+    /**
+     * Specifies how bookmarks will be edited, if [editingEnabled](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html#editingEnabled) is set to `true`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html#defaultEditOptions)
+     */
+    defaultEditOptions: BookmarkOptions;
     /**
      * When true, the widget is visually withdrawn and cannot be interacted with.
      *
@@ -56407,13 +60707,25 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html#bookmarkCreationOptions)
      */
-    bookmarkCreationOptions?: BookmarkCreationOptions;
+    bookmarkCreationOptions?: BookmarkOptions;
     /**
      * A collection of [Bookmark](https://developers.arcgis.com/javascript/latest/api-reference/esri-webmap-Bookmark.html)s.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html#bookmarks)
      */
     bookmarks?: CollectionProperties<BookmarkProperties>;
+    /**
+     * Specifies how new bookmarks will be created if [editingEnabled](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html#editingEnabled) is set to `true`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html#defaultCreateOptions)
+     */
+    defaultCreateOptions?: BookmarkOptions;
+    /**
+     * Specifies how bookmarks will be edited, if [editingEnabled](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html#editingEnabled) is set to `true`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html#defaultEditOptions)
+     */
+    defaultEditOptions?: BookmarkOptions;
     /**
      * When true, the widget is visually withdrawn and cannot be interacted with.
      *
@@ -56466,6 +60778,18 @@ declare namespace __esri {
      */
     bookmarks: Collection<Bookmark>;
     /**
+     * Specifies how new bookmarks will be created.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#defaultCreateOptions)
+     */
+    defaultCreateOptions: BookmarkOptions;
+    /**
+     * Specifies how bookmarks will be edited.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#defaultEditOptions)
+     */
+    defaultEditOptions: BookmarkOptions;
+    /**
      * The view model's state.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#state)
@@ -56479,17 +60803,17 @@ declare namespace __esri {
     view: MapView;
 
     /**
-     * Creates a new bookmark from based on the [BookmarkCreationOptions](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions).
+     * Creates a new bookmark from the [defaultCreateOptions](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#defaultCreateOptions), unless otherwise specified.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#createBookmark)
      */
-    createBookmark(bookmarkCreationOptions?: BookmarkCreationOptions): Promise<Bookmark>;
+    createBookmark(options?: BookmarkOptions): Promise<Bookmark>;
     /**
      * Edits the given bookmark.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#editBookmark)
      */
-    editBookmark(bookmark: Bookmark, bookmarkCreationOptions?: BookmarkCreationOptions): Promise<Bookmark>;
+    editBookmark(bookmark: Bookmark, options?: BookmarkOptions): Promise<Bookmark>;
     /**
      * Zoom to a specific bookmark.
      *
@@ -56499,6 +60823,12 @@ declare namespace __esri {
   }
 
   interface BookmarksViewModelConstructor {
+    /**
+     * Provides the logic for the [Bookmarks](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html)
+     */
+
     new (properties?: BookmarksViewModelProperties): BookmarksViewModel;
   }
 
@@ -56512,6 +60842,18 @@ declare namespace __esri {
      */
     bookmarks?: CollectionProperties<BookmarkProperties>;
     /**
+     * Specifies how new bookmarks will be created.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#defaultCreateOptions)
+     */
+    defaultCreateOptions?: BookmarkOptions;
+    /**
+     * Specifies how bookmarks will be edited.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#defaultEditOptions)
+     */
+    defaultEditOptions?: BookmarkOptions;
+    /**
      * The view from which the widget will operate.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#view)
@@ -56520,99 +60862,99 @@ declare namespace __esri {
   }
 
   /**
-   * Specifies how new bookmarks will be created.
+   * Specifies how bookmarks will be created or modified.
    *
-   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
    */
-  export interface BookmarkCreationOptions extends Object {
+  export interface BookmarkOptions extends Object {
     /**
      * Indicates whether a screenshot is taken when a new bookmark is created.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
     takeScreenshot?: boolean;
     /**
      * Indicates whether the extent of the current view will become the [extent](https://developers.arcgis.com/javascript/latest/api-reference/esri-webmap-Bookmark.html#extent) of a newly created bookmark.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
     captureExtent?: boolean;
     /**
      * _Since 4.17_ Indicates whether the viewpoint of the current view will become the [viewpoint](https://developers.arcgis.com/javascript/latest/api-reference/esri-webmap-Bookmark.html#viewpoint) of a newly created bookmark.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
     captureViewpoint?: boolean;
     /**
      * _Since 4.17_ Indicates whether the rotation of the current view will be saved in the [viewpoint](https://developers.arcgis.com/javascript/latest/api-reference/esri-webmap-Bookmark.html#viewpoint) of a newly created bookmark.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
     captureRotation?: boolean;
     /**
      * _Since 4.17_ Indicates whether the scale of the current view will be saved in the [viewpoint](https://developers.arcgis.com/javascript/latest/api-reference/esri-webmap-Bookmark.html#viewpoint) of a newly created bookmark.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
     captureScale?: boolean;
     /**
      * An object that specifies the settings of the screenshot that will be used to create the bookmark's [thumbnail](https://developers.arcgis.com/javascript/latest/api-reference/esri-webmap-Bookmark.html#thumbnail).
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
-    screenshotSettings?: BookmarkCreationOptionsScreenshotSettings;
+    screenshotSettings?: BookmarkOptionsScreenshotSettings;
   }
 
-  export interface BookmarkCreationOptionsScreenshotSettings extends Object {
+  export interface BookmarkOptionsScreenshotSettings extends Object {
     /**
      * The width (in pixels) of the screenshot.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
     width?: number;
     /**
      * The height (in pixels) of the screenshot.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
     height?: number;
     /**
      * Used to take a screenshot of a subregion of the view.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
-    area?: BookmarkCreationOptionsScreenshotSettingsArea;
+    area?: BookmarkOptionsScreenshotSettingsArea;
     /**
      * An optional list of layers to be included in the screenshot.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
     layers?: Layer[];
   }
 
-  export interface BookmarkCreationOptionsScreenshotSettingsArea extends Object {
+  export interface BookmarkOptionsScreenshotSettingsArea extends Object {
     /**
      * The x value of the screenshot area.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
     x?: number;
     /**
      * The y value of the screenshot area.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
     y?: number;
     /**
      * The width of the screenshot area.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
     width?: number;
     /**
      * The height of the screenshot area.
      *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkCreationOptions)
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html#BookmarkOptions)
      */
     height?: number;
   }
@@ -56657,7 +60999,7 @@ declare namespace __esri {
      */
     iconClass: string;
     /**
-     * A collection of layers of type [BuildingSceneLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-BuildingSceneLayer.html) that are added to the widget for exploration.
+     * A [collection](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html) of layers of type [BuildingSceneLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-BuildingSceneLayer.html) that are added to the widget for exploration.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BuildingExplorer.html#layers)
      */
@@ -56702,7 +61044,7 @@ declare namespace __esri {
      */
     iconClass?: string;
     /**
-     * A collection of layers of type [BuildingSceneLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-BuildingSceneLayer.html) that are added to the widget for exploration.
+     * A [collection](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html) of layers of type [BuildingSceneLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-BuildingSceneLayer.html) that are added to the widget for exploration.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BuildingExplorer.html#layers)
      */
@@ -56761,6 +61103,12 @@ declare namespace __esri {
   }
 
   interface BuildingExplorerViewModelConstructor {
+    /**
+     * Provides the logic for the [BuildingExplorer](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BuildingExplorer.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BuildingExplorer-BuildingExplorerViewModel.html)
+     */
+
     new (properties?: BuildingExplorerViewModelProperties): BuildingExplorerViewModel;
   }
 
@@ -56858,6 +61206,12 @@ declare namespace __esri {
   }
 
   interface BuildingLevelConstructor {
+    /**
+     * Provides information for the building level filter, such as the value selected by the user or the minimum and maximum allowed values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BuildingExplorer-BuildingLevel.html)
+     */
+
     new (properties?: BuildingLevelProperties): BuildingLevel;
   }
 
@@ -56942,6 +61296,12 @@ declare namespace __esri {
   }
 
   interface BuildingPhaseConstructor {
+    /**
+     * BuildingPhase provides information for the construction phase filter, such as the value selected by the user or the minimum and maximum allowed values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BuildingExplorer-BuildingPhase.html)
+     */
+
     new (properties?: BuildingPhaseProperties): BuildingPhase;
   }
 
@@ -57027,7 +61387,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Compass.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -57088,7 +61448,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Compass-CompassViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   interface CoordinateConversion extends Widget, GoTo {
@@ -57146,6 +61506,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion.html#viewModel)
      */
     viewModel: CoordinateConversionViewModel;
+    /**
+     * The visible elements that are displayed within the widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion.html#visibleElements)
+     */
+    visibleElements: CoordinateConversionVisibleElements;
 
     /**
      * Attempt to convert a string into a [Point](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Point.html).
@@ -57215,13 +61581,19 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion.html#viewModel)
      */
     viewModel?: CoordinateConversionViewModelProperties;
+    /**
+     * The visible elements that are displayed within the widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion.html#visibleElements)
+     */
+    visibleElements?: CoordinateConversionVisibleElements;
   }
 
   interface CoordinateConversionViewModel extends Accessor, GoTo {
@@ -57295,6 +61667,12 @@ declare namespace __esri {
   }
 
   interface CoordinateConversionViewModelConstructor {
+    /**
+     * Provides the logic for the [CoordinateConversion](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion-CoordinateConversionViewModel.html)
+     */
+
     new (properties?: CoordinateConversionViewModelProperties): CoordinateConversionViewModel;
   }
 
@@ -57324,7 +61702,9 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion-CoordinateConversionViewModel.html#locationSymbol)
      */
-    locationSymbol?: SimpleMarkerSymbolProperties | PictureMarkerSymbolProperties;
+    locationSymbol?:
+      | (SimpleMarkerSymbolProperties & { type: "simple-marker" })
+      | (PictureMarkerSymbolProperties & { type: "picture-marker" });
     /**
      * Describes the current mode of the widget.
      *
@@ -57342,7 +61722,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion-CoordinateConversionViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   /**
@@ -57387,6 +61767,12 @@ declare namespace __esri {
   }
 
   interface ConversionConstructor {
+    /**
+     * The Conversion class represents one of the [conversions](esri-widgets-CoordinateConversion.html#conversions) in the [Coordinate Conversion widget](esri-widgets-CoordinateConversion.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion-support-Conversion.html)
+     */
+
     new (properties?: ConversionProperties): Conversion;
   }
 
@@ -57473,6 +61859,12 @@ declare namespace __esri {
   }
 
   interface FormatConstructor {
+    /**
+     * The Format class represents one of the [formats](esri-widgets-CoordinateConversion.html#formats) in the [Coordinate Conversion widget](esri-widgets-CoordinateConversion.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion-support-Format.html)
+     */
+
     new (properties?: FormatProperties): Format;
   }
 
@@ -57589,6 +61981,38 @@ declare namespace __esri {
     coordinate: string;
   }
 
+  /**
+   * The visible elements that are displayed within the widget.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion.html#VisibleElements)
+   */
+  export interface CoordinateConversionVisibleElements extends Object {
+    /**
+     * Indicates whether the settings button will be displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion.html#VisibleElements)
+     */
+    settingsButton?: boolean;
+    /**
+     * Indicates whether the input coordinate button will be displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion.html#VisibleElements)
+     */
+    editButton?: boolean;
+    /**
+     * Indicates whether the expand and retract buttons will be displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion.html#VisibleElements)
+     */
+    expandButton?: boolean;
+    /**
+     * Indicates whether the capture mode button will be displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-CoordinateConversion.html#VisibleElements)
+     */
+    captureButton?: boolean;
+  }
+
   interface Daylight extends Widget {
     /**
      * Controls whether the widget displays a date or a season picker.
@@ -57596,6 +62020,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Daylight.html#dateOrSeason)
      */
     dateOrSeason: "season" | "date";
+    /**
+     * The widget's default CSS icon class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Daylight.html#iconClass)
+     */
+    iconClass: string;
     /**
      * Controls the speed of the daytime and date animation.
      *
@@ -57647,6 +62077,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Daylight.html#dateOrSeason)
      */
     dateOrSeason?: "season" | "date";
+    /**
+     * The widget's default CSS icon class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Daylight.html#iconClass)
+     */
+    iconClass?: string;
     /**
      * Controls the speed of the daytime and date animation.
      *
@@ -57731,6 +62167,12 @@ declare namespace __esri {
   }
 
   interface DaylightViewModelConstructor {
+    /**
+     * Provides the logic for the [Daylight](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Daylight.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Daylight-DaylightViewModel.html)
+     */
+
     new (properties?: DaylightViewModelProperties): DaylightViewModel;
   }
 
@@ -57821,6 +62263,12 @@ declare namespace __esri {
 
   interface Directions extends Widget, GoTo {
     /**
+     * An authorization string used to access a resource or service.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Directions.html#apiKey)
+     */
+    apiKey: string;
+    /**
      * The widget's default CSS icon class.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Directions.html#iconClass)
@@ -57903,6 +62351,12 @@ declare namespace __esri {
 
   interface DirectionsProperties extends WidgetProperties, GoToProperties {
     /**
+     * An authorization string used to access a resource or service.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Directions.html#apiKey)
+     */
+    apiKey?: string;
+    /**
      * The widget's default CSS icon class.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Directions.html#iconClass)
@@ -57943,7 +62397,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Directions.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -57953,6 +62407,12 @@ declare namespace __esri {
   }
 
   interface DirectionsViewModel extends Accessor, GoTo {
+    /**
+     * An authorization string used to access a resource or service.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Directions-DirectionsViewModel.html#apiKey)
+     */
+    apiKey: string;
     /**
      * The network attribute name to be used as the impedance attribute in the analysis.
      *
@@ -58095,12 +62555,24 @@ declare namespace __esri {
   }
 
   interface DirectionsViewModelConstructor {
+    /**
+     * Provides the communication and data manipulation logic for the [Directions](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Directions.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Directions-DirectionsViewModel.html)
+     */
+
     new (properties?: DirectionsViewModelProperties): DirectionsViewModel;
   }
 
   export const DirectionsViewModel: DirectionsViewModelConstructor;
 
   interface DirectionsViewModelProperties extends GoToProperties {
+    /**
+     * An authorization string used to access a resource or service.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Directions-DirectionsViewModel.html#apiKey)
+     */
+    apiKey?: string;
     /**
      * The network attribute name to be used as the impedance attribute in the analysis.
      *
@@ -58154,7 +62626,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Directions-DirectionsViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   export interface DirectionsViewModelLastRoute extends Object {
@@ -58436,6 +62908,12 @@ declare namespace __esri {
      */
     autoSelect?: boolean;
     /**
+     * Indicates whether or not to include [defaultSources](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-SearchViewModel.html#defaultSources) in the Search UI.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Directions.html#SearchProperties)
+     */
+    includeDefaultSources?: boolean | Function;
+    /**
      * Define the type of location, either `"street"` or `"rooftop"`.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Directions.html#SearchProperties)
@@ -58533,34 +63011,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D.html#unit)
      */
-    unit:
-      | "metric"
-      | "imperial"
-      | "inches"
-      | "feet"
-      | "us-feet"
-      | "yards"
-      | "miles"
-      | "nautical-miles"
-      | "meters"
-      | "kilometers";
+    unit: SystemOrLengthUnit;
     /**
      * List of unit systems (imperial, metric) and specific units for displaying the distance values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D.html#unitOptions)
      */
-    unitOptions: (
-      | "metric"
-      | "imperial"
-      | "inches"
-      | "feet"
-      | "us-feet"
-      | "yards"
-      | "miles"
-      | "nautical-miles"
-      | "meters"
-      | "kilometers"
-    )[];
+    unitOptions: SystemOrLengthUnit[];
     /**
      * A reference to the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
@@ -58600,32 +63057,38 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D.html#unit)
      */
     unit?:
-      | "metric"
       | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
       | "inches"
       | "feet"
-      | "us-feet"
       | "yards"
       | "miles"
       | "nautical-miles"
-      | "meters"
-      | "kilometers";
+      | "us-feet";
     /**
      * List of unit systems (imperial, metric) and specific units for displaying the distance values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D.html#unitOptions)
      */
     unitOptions?: (
-      | "metric"
       | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
       | "inches"
       | "feet"
-      | "us-feet"
       | "yards"
       | "miles"
       | "nautical-miles"
-      | "meters"
-      | "kilometers"
+      | "us-feet"
     )[];
     /**
      * A reference to the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
@@ -58659,34 +63122,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D-DirectLineMeasurement3DViewModel.html#unit)
      */
-    unit:
-      | "metric"
-      | "imperial"
-      | "inches"
-      | "feet"
-      | "us-feet"
-      | "yards"
-      | "miles"
-      | "nautical-miles"
-      | "meters"
-      | "kilometers";
+    unit: SystemOrLengthUnit;
     /**
      * List of unit systems (imperial, metric) and specific units for displaying the distance values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D-DirectLineMeasurement3DViewModel.html#unitOptions)
      */
-    unitOptions: (
-      | "metric"
-      | "imperial"
-      | "inches"
-      | "feet"
-      | "us-feet"
-      | "yards"
-      | "miles"
-      | "nautical-miles"
-      | "meters"
-      | "kilometers"
-    )[];
+    unitOptions: SystemOrLengthUnit[];
     /**
      * The view from which the widget will operate.
      *
@@ -58701,18 +63143,6 @@ declare namespace __esri {
      */
     clear(): void;
     /**
-     * Clears the current measurement.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D-DirectLineMeasurement3DViewModel.html#clearMeasurement)
-     */
-    clearMeasurement(): void;
-    /**
-     * Starts a new measurement.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D-DirectLineMeasurement3DViewModel.html#newMeasurement)
-     */
-    newMeasurement(): void;
-    /**
      * Starts a new measurement.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D-DirectLineMeasurement3DViewModel.html#start)
@@ -58721,6 +63151,12 @@ declare namespace __esri {
   }
 
   interface DirectLineMeasurement3DViewModelConstructor {
+    /**
+     * Provides the logic for the [DirectLineMeasurement3D](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D-DirectLineMeasurement3DViewModel.html)
+     */
+
     new (properties?: DirectLineMeasurement3DViewModelProperties): DirectLineMeasurement3DViewModel;
   }
 
@@ -58733,32 +63169,38 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D-DirectLineMeasurement3DViewModel.html#unit)
      */
     unit?:
-      | "metric"
       | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
       | "inches"
       | "feet"
-      | "us-feet"
       | "yards"
       | "miles"
       | "nautical-miles"
-      | "meters"
-      | "kilometers";
+      | "us-feet";
     /**
      * List of unit systems (imperial, metric) and specific units for displaying the distance values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DirectLineMeasurement3D-DirectLineMeasurement3DViewModel.html#unitOptions)
      */
     unitOptions?: (
-      | "metric"
       | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
       | "inches"
       | "feet"
-      | "us-feet"
       | "yards"
       | "miles"
       | "nautical-miles"
-      | "meters"
-      | "kilometers"
+      | "us-feet"
     )[];
     /**
      * The view from which the widget will operate.
@@ -58827,34 +63269,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D.html#unit)
      */
-    unit:
-      | "metric"
-      | "imperial"
-      | "inches"
-      | "feet"
-      | "us-feet"
-      | "yards"
-      | "miles"
-      | "nautical-miles"
-      | "meters"
-      | "kilometers";
+    unit: SystemOrLengthUnit;
     /**
      * List of available units and unit systems (imperial, metric) for displaying the distance values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D.html#unitOptions)
      */
-    unitOptions: (
-      | "metric"
-      | "imperial"
-      | "inches"
-      | "feet"
-      | "us-feet"
-      | "yards"
-      | "miles"
-      | "nautical-miles"
-      | "meters"
-      | "kilometers"
-    )[];
+    unitOptions: SystemOrLengthUnit[];
     /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
      *
@@ -58894,32 +63315,38 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D.html#unit)
      */
     unit?:
-      | "metric"
       | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
       | "inches"
       | "feet"
-      | "us-feet"
       | "yards"
       | "miles"
       | "nautical-miles"
-      | "meters"
-      | "kilometers";
+      | "us-feet";
     /**
      * List of available units and unit systems (imperial, metric) for displaying the distance values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D.html#unitOptions)
      */
     unitOptions?: (
-      | "metric"
       | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
       | "inches"
       | "feet"
-      | "us-feet"
       | "yards"
       | "miles"
       | "nautical-miles"
-      | "meters"
-      | "kilometers"
+      | "us-feet"
     )[];
     /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
@@ -58965,34 +63392,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D-DistanceMeasurement2DViewModel.html#unit)
      */
-    unit:
-      | "metric"
-      | "imperial"
-      | "inches"
-      | "feet"
-      | "us-feet"
-      | "yards"
-      | "miles"
-      | "nautical-miles"
-      | "meters"
-      | "kilometers";
+    unit: SystemOrLengthUnit;
     /**
      * List of available units and unit systems (imperial, metric) for displaying the distance values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D-DistanceMeasurement2DViewModel.html#unitOptions)
      */
-    unitOptions: (
-      | "metric"
-      | "imperial"
-      | "inches"
-      | "feet"
-      | "us-feet"
-      | "yards"
-      | "miles"
-      | "nautical-miles"
-      | "meters"
-      | "kilometers"
-    )[];
+    unitOptions: SystemOrLengthUnit[];
     /**
      * The view from which the widget will operate.
      *
@@ -59007,18 +63413,6 @@ declare namespace __esri {
      */
     clear(): void;
     /**
-     * Clears the current measurement.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D-DistanceMeasurement2DViewModel.html#clearMeasurement)
-     */
-    clearMeasurement(): void;
-    /**
-     * Starts a new measurement.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D-DistanceMeasurement2DViewModel.html#newMeasurement)
-     */
-    newMeasurement(): void;
-    /**
      * Starts a new measurement.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D-DistanceMeasurement2DViewModel.html#start)
@@ -59027,6 +63421,12 @@ declare namespace __esri {
   }
 
   interface DistanceMeasurement2DViewModelConstructor {
+    /**
+     * Provides the logic for the [DistanceMeasurement2D](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D-DistanceMeasurement2DViewModel.html)
+     */
+
     new (properties?: DistanceMeasurement2DViewModelProperties): DistanceMeasurement2DViewModel;
   }
 
@@ -59045,32 +63445,38 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D-DistanceMeasurement2DViewModel.html#unit)
      */
     unit?:
-      | "metric"
       | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
       | "inches"
       | "feet"
-      | "us-feet"
       | "yards"
       | "miles"
       | "nautical-miles"
-      | "meters"
-      | "kilometers";
+      | "us-feet";
     /**
      * List of available units and unit systems (imperial, metric) for displaying the distance values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-DistanceMeasurement2D-DistanceMeasurement2DViewModel.html#unitOptions)
      */
     unitOptions?: (
-      | "metric"
       | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
       | "inches"
       | "feet"
-      | "us-feet"
       | "yards"
       | "miles"
       | "nautical-miles"
-      | "meters"
-      | "kilometers"
+      | "us-feet"
     )[];
     /**
      * The view from which the widget will operate.
@@ -59120,6 +63526,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor.html#layerInfos)
      */
     layerInfos: LayerInfo[];
+    /**
+     * The [SnappingOptions](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html) for editing.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor.html#snappingOptions)
+     */
+    snappingOptions: SnappingOptions;
     /**
      * This property allows customization of supporting Editor widgets and their default behavior.
      *
@@ -59215,6 +63627,12 @@ declare namespace __esri {
      */
     layerInfos?: LayerInfo[];
     /**
+     * The [SnappingOptions](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html) for editing.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor.html#snappingOptions)
+     */
+    snappingOptions?: SnappingOptionsProperties;
+    /**
      * This property allows customization of supporting Editor widgets and their default behavior.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor.html#supportingWidgetDefaults)
@@ -59225,7 +63643,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -59279,6 +63697,12 @@ declare namespace __esri {
   }
 
   interface CreateWorkflowDataConstructor {
+    /**
+     * This object supports the [Editor](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor-CreateWorkflowData.html)
+     */
+
     new (properties?: CreateWorkflowDataProperties): CreateWorkflowData;
   }
 
@@ -59367,6 +63791,12 @@ declare namespace __esri {
      */
     sketchViewModel: SketchViewModel;
     /**
+     * The [SnappingOptions](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html) for editing.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor-EditorViewModel.html#snappingOptions)
+     */
+    snappingOptions: SnappingOptions;
+    /**
      * The widget's state.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor-EditorViewModel.html#state)
@@ -59444,6 +63874,12 @@ declare namespace __esri {
   }
 
   interface EditorViewModelConstructor {
+    /**
+     * Provides the logic for the [Editor](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor-EditorViewModel.html)
+     */
+
     new (properties?: EditorViewModelProperties): EditorViewModel;
   }
 
@@ -59481,11 +63917,17 @@ declare namespace __esri {
      */
     sketchViewModel?: SketchViewModelProperties;
     /**
+     * The [SnappingOptions](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html) for editing.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor-EditorViewModel.html#snappingOptions)
+     */
+    snappingOptions?: SnappingOptionsProperties;
+    /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor-EditorViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   /**
@@ -59533,6 +63975,12 @@ declare namespace __esri {
   }
 
   interface EditsConstructor {
+    /**
+     * This class supports the [Editor](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor-Edits.html)
+     */
+
     new (properties?: EditsProperties): Edits;
   }
 
@@ -59591,6 +64039,12 @@ declare namespace __esri {
   }
 
   interface UpdateWorkflowDataConstructor {
+    /**
+     * This object supports the [Editor](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor-UpdateWorkflowData.html)
+     */
+
     new (properties?: UpdateWorkflowDataProperties): UpdateWorkflowData;
   }
 
@@ -59866,6 +64320,776 @@ declare namespace __esri {
     polylineSymbol?: SimpleLineSymbol;
   }
 
+  interface ElevationProfile extends Widget {
+    /**
+     * When the spatial reference is projected (other than web mercator) and the path is shorter than this threshold, distances will be computed planimetrically.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#geodesicDistanceThreshold)
+     */
+    geodesicDistanceThreshold: number;
+    /**
+     * The widget's default CSS icon class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#iconClass)
+     */
+    iconClass: string;
+    /**
+     * The input line graphic along which elevation will be queried in order to generate an elevation profile.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#input)
+     */
+    input: Graphic;
+    /**
+     * Collection of elevation profile lines which are to be generated and displayed in the widget's chart.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#profiles)
+     */
+    profiles: Collection<
+      ElevationProfileLineGround | ElevationProfileLineInput | ElevationProfileLineQuery | ElevationProfileLineView
+    >;
+    /**
+     * Unit system (imperial, metric) or specific unit used for displaying the elevation and distance values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#unit)
+     */
+    unit: SystemOrLengthUnit;
+    /**
+     * List of available units and unit systems (imperial, metric) for displaying the elevation and distance values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#unitOptions)
+     */
+    unitOptions: SystemOrLengthUnit[];
+    /**
+     * A reference to the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) or the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#view)
+     */
+    view: SceneView | MapView;
+    /**
+     * The view model for this widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#viewModel)
+     */
+    viewModel: ElevationProfileViewModel;
+    /**
+     * This property provides the ability to display or hide the individual elements of the widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#visibleElements)
+     */
+    visibleElements: ElevationProfileVisibleElements;
+  }
+
+  interface ElevationProfileConstructor {
+    /**
+     * The ElevationProfile widget is used to generate and display an elevation profile from an [input line graphic](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#input).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html)
+     */
+
+    new (properties?: ElevationProfileProperties): ElevationProfile;
+  }
+
+  export const ElevationProfile: ElevationProfileConstructor;
+
+  interface ElevationProfileProperties extends WidgetProperties {
+    /**
+     * When the spatial reference is projected (other than web mercator) and the path is shorter than this threshold, distances will be computed planimetrically.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#geodesicDistanceThreshold)
+     */
+    geodesicDistanceThreshold?: number;
+    /**
+     * The widget's default CSS icon class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#iconClass)
+     */
+    iconClass?: string;
+    /**
+     * The input line graphic along which elevation will be queried in order to generate an elevation profile.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#input)
+     */
+    input?: GraphicProperties;
+    /**
+     * Collection of elevation profile lines which are to be generated and displayed in the widget's chart.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#profiles)
+     */
+    profiles?: CollectionProperties<
+      | (ElevationProfileLineGroundProperties & { type: "ground" })
+      | (ElevationProfileLineInputProperties & { type: "input" })
+      | (ElevationProfileLineQueryProperties & { type: "query" })
+      | (ElevationProfileLineViewProperties & { type: "view" })
+    >;
+    /**
+     * Unit system (imperial, metric) or specific unit used for displaying the elevation and distance values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#unit)
+     */
+    unit?:
+      | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
+      | "inches"
+      | "feet"
+      | "yards"
+      | "miles"
+      | "nautical-miles"
+      | "us-feet";
+    /**
+     * List of available units and unit systems (imperial, metric) for displaying the elevation and distance values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#unitOptions)
+     */
+    unitOptions?: (
+      | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
+      | "inches"
+      | "feet"
+      | "yards"
+      | "miles"
+      | "nautical-miles"
+      | "us-feet"
+    )[];
+    /**
+     * A reference to the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) or the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#view)
+     */
+    view?: (SceneViewProperties & { type: "3d" }) | (MapViewProperties & { type: "2d" });
+    /**
+     * The view model for this widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#viewModel)
+     */
+    viewModel?: ElevationProfileViewModelProperties;
+    /**
+     * This property provides the ability to display or hide the individual elements of the widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#visibleElements)
+     */
+    visibleElements?: ElevationProfileVisibleElements;
+  }
+
+  interface ElevationProfileLine extends Accessor {
+    /**
+     * Color of the line on the chart and the hovered points in the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#color)
+     */
+    color: Color;
+    /**
+     * Point being hovered in the chart, in the view's spatial reference.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#hoveredPoint)
+     */
+    readonly hoveredPoint: Point;
+    /**
+     * Unique identifier for the profile line.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#id)
+     */
+    id: string;
+    /**
+     * How far along the generation of this profile is.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#progress)
+     */
+    readonly progress: number;
+    /**
+     * List of samples that make up the elevation profile.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#samples)
+     */
+    readonly samples: ElevationProfileSample[];
+    /**
+     * Statistics about the generated elevation profile, if available.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#statistics)
+     */
+    readonly statistics: ElevationProfileStatistics;
+    /**
+     * Title of the line, to be displayed in the chart tooltip and in the chart legend.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#title)
+     */
+    title: string;
+    /**
+     * The line type.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#type)
+     */
+    readonly type: "ground" | "input" | "query" | "view";
+    /**
+     * Whether the line should be computed and shown in the chart.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#visible)
+     */
+    visible: boolean;
+  }
+
+  interface ElevationProfileLineConstructor {
+    /**
+     * Common interface for all the elevation profile lines.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html)
+     */
+
+    new (properties?: ElevationProfileLineProperties): ElevationProfileLine;
+  }
+
+  export const ElevationProfileLine: ElevationProfileLineConstructor;
+
+  interface ElevationProfileLineProperties {
+    /**
+     * Color of the line on the chart and the hovered points in the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#color)
+     */
+    color?: Color | number[] | string;
+    /**
+     * Unique identifier for the profile line.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#id)
+     */
+    id?: string;
+    /**
+     * Title of the line, to be displayed in the chart tooltip and in the chart legend.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#title)
+     */
+    title?: string;
+    /**
+     * Whether the line should be computed and shown in the chart.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#visible)
+     */
+    visible?: boolean;
+  }
+
+  /**
+   * Represents an elevation sample in the profile.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileSample)
+   */
+  export interface ElevationProfileSample extends Object {
+    /**
+     * The x coordinate of the sample, in the spatial reference of the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileSample)
+     */
+    x: number;
+    /**
+     * The y coordinate of the sample, in the spatial reference of the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileSample)
+     */
+    y: number;
+    /**
+     * The z coordinate of the sample, in the spatial reference of the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileSample)
+     */
+    z?: number;
+    /**
+     * Distance from the beginning of the path, in the effective selected by the user.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileSample)
+     */
+    distance: number;
+    /**
+     * The elevation of the sample, in the effective units selected by the user.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileSample)
+     */
+    elevation?: number;
+  }
+
+  /**
+   * Represents the statistics for the generated profile line.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileStatistics)
+   */
+  export interface ElevationProfileStatistics extends Object {
+    /**
+     * The maximum distance or length of the path.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileStatistics)
+     */
+    maxDistance: number;
+    /**
+     * The minimum elevation along the path.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileStatistics)
+     */
+    minElevation: number;
+    /**
+     * The maximum elevation along the path.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileStatistics)
+     */
+    maxElevation: number;
+    /**
+     * The average elevation along the path.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileStatistics)
+     */
+    avgElevation: number;
+    /**
+     * The cumulative elevation gain along the path.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileStatistics)
+     */
+    elevationGain: number;
+    /**
+     * The cumulative elevation loss along the path.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileStatistics)
+     */
+    elevationLoss: number;
+    /**
+     * The maximum slope along the path.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileStatistics)
+     */
+    maxSlope: number;
+    /**
+     * The average slope along the path.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLine.html#ElevationProfileStatistics)
+     */
+    avgSlope: number;
+  }
+
+  interface ElevationProfileLineGround extends ElevationProfileLine {
+    /**
+     * The line type.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineGround.html#type)
+     */
+    readonly type: "ground";
+  }
+
+  interface ElevationProfileLineGroundConstructor {
+    /**
+     * Profile line which samples elevation from the [Ground](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html) of the [Map](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html) currently set in the [View](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineGround.html)
+     */
+
+    new (properties?: ElevationProfileLineGroundProperties): ElevationProfileLineGround;
+  }
+
+  export const ElevationProfileLineGround: ElevationProfileLineGroundConstructor;
+
+  interface ElevationProfileLineGroundProperties extends ElevationProfileLineProperties {}
+
+  interface ElevationProfileLineInput extends ElevationProfileLine {
+    /**
+     * The line type.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineInput.html#type)
+     */
+    readonly type: "input";
+  }
+
+  interface ElevationProfileLineInputConstructor {
+    /**
+     * Profile line which samples elevation from the geometry of the input [Graphic](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html) itself, typically used on input lines with z values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineInput.html)
+     */
+
+    new (properties?: ElevationProfileLineInputProperties): ElevationProfileLineInput;
+  }
+
+  export const ElevationProfileLineInput: ElevationProfileLineInputConstructor;
+
+  interface ElevationProfileLineInputProperties extends ElevationProfileLineProperties {}
+
+  interface ElevationProfileLineQuery extends ElevationProfileLine {
+    /**
+     * Elevation source used to sample elevation when generating the profile, for example an [ElevationLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ElevationLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineQuery.html#source)
+     */
+    source: ElevationProfileLineQuerySource;
+    /**
+     * The line type.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineQuery.html#type)
+     */
+    readonly type: "query";
+  }
+
+  interface ElevationProfileLineQueryConstructor {
+    /**
+     * Profile line which samples elevation from a custom elevation source, for example by creating a new [ElevationLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ElevationLayer.html), or by using an elevation layer from [ground.layers](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html#layers).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineQuery.html)
+     */
+
+    new (properties?: ElevationProfileLineQueryProperties): ElevationProfileLineQuery;
+  }
+
+  export const ElevationProfileLineQuery: ElevationProfileLineQueryConstructor;
+
+  interface ElevationProfileLineQueryProperties extends ElevationProfileLineProperties {
+    /**
+     * Elevation source used to sample elevation when generating the profile, for example an [ElevationLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ElevationLayer.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineQuery.html#source)
+     */
+    source?: ElevationProfileLineQuerySource;
+  }
+
+  export interface ElevationProfileLineQuerySource extends Object {
+    /**
+     * Function used to query elevation values for a geometry ([Point](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Point.html), [Multipoint](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Multipoint.html) or [Polyline](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Polyline.html)).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineQuery.html#source)
+     */
+    queryElevation: QueryElevation;
+  }
+
+  export type QueryElevation = (
+    geometry: Point | Multipoint | Polyline,
+    options?: any
+  ) => Promise<ElevationLayerElevationQueryResult>;
+
+  interface ElevationProfileLineView extends ElevationProfileLine {
+    /**
+     * Items which are to be excluded when querying elevation from view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineView.html#exclude)
+     */
+    exclude:
+      | (IntersectItem | Collection<IntersectItem> | IntersectItem[] | Ground)[]
+      | Collection<IntersectItem>
+      | IntersectItem;
+    /**
+     * Items which are to be hit when querying elevation from view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineView.html#include)
+     */
+    include:
+      | (IntersectItem | Collection<IntersectItem> | IntersectItem[] | Ground)[]
+      | Collection<IntersectItem>
+      | IntersectItem;
+    /**
+     * The line type.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineView.html#type)
+     */
+    readonly type: "view";
+  }
+
+  interface ElevationProfileLineViewConstructor {
+    /**
+     * Profile line which samples elevation directly from the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineView.html)
+     */
+
+    new (properties?: ElevationProfileLineViewProperties): ElevationProfileLineView;
+  }
+
+  export const ElevationProfileLineView: ElevationProfileLineViewConstructor;
+
+  interface ElevationProfileLineViewProperties extends ElevationProfileLineProperties {
+    /**
+     * Items which are to be excluded when querying elevation from view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineView.html#exclude)
+     */
+    exclude?:
+      | (
+          | GraphicProperties
+          | LayerProperties
+          | BuildingSublayerProperties
+          | CollectionProperties<GraphicProperties | LayerProperties | BuildingSublayerProperties>
+          | (GraphicProperties | LayerProperties | BuildingSublayerProperties)[]
+          | GroundProperties
+        )[]
+      | CollectionProperties<GraphicProperties | LayerProperties | BuildingSublayerProperties>
+      | GraphicProperties
+      | LayerProperties
+      | BuildingSublayerProperties;
+    /**
+     * Items which are to be hit when querying elevation from view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileLineView.html#include)
+     */
+    include?:
+      | (
+          | GraphicProperties
+          | LayerProperties
+          | BuildingSublayerProperties
+          | CollectionProperties<GraphicProperties | LayerProperties | BuildingSublayerProperties>
+          | (GraphicProperties | LayerProperties | BuildingSublayerProperties)[]
+          | GroundProperties
+        )[]
+      | CollectionProperties<GraphicProperties | LayerProperties | BuildingSublayerProperties>
+      | GraphicProperties
+      | LayerProperties
+      | BuildingSublayerProperties;
+  }
+
+  interface ElevationProfileViewModel extends Accessor {
+    /**
+     * Units which have been selected according to the magnitude of the elevations and distances that are to be displayed in the widget, according to the selected unit or unit system.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#effectiveUnits)
+     */
+    readonly effectiveUnits: EffectiveUnits;
+    /**
+     * When the spatial reference is projected (other than web mercator) and the path is shorter than this threshold, distances will be computed planimetrically.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#geodesicDistanceThreshold)
+     */
+    geodesicDistanceThreshold: number;
+    /**
+     * The position, in the range [0, 1], being hovered in the graph.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#hoveredChartPosition)
+     */
+    hoveredChartPosition: number;
+    /**
+     * The input path along which elevation will be queried in order to generate an elevation profile.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#input)
+     */
+    input: Graphic;
+    /**
+     * Collection of elevation profile lines which are to be generated and displayed in the widget's chart.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#profiles)
+     */
+    profiles: Collection<
+      ElevationProfileLineGround | ElevationProfileLineInput | ElevationProfileLineQuery | ElevationProfileLineView
+    >;
+    /**
+     * The progress, between 0 and 1 of generating all the configured elevation profiles.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#progress)
+     */
+    readonly progress: number;
+    /**
+     * The current state of the view model that can be used for rendering the UI of the widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#state)
+     */
+    readonly state: "disabled" | "ready" | "creating" | "created" | "selecting" | "selected";
+    /**
+     * Unit system (imperial, metric) or specific unit used for displaying the elevation and distance values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#unit)
+     */
+    unit: SystemOrLengthUnit;
+    /**
+     * List of available units and unit systems (imperial, metric) for displaying the elevation and distance values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#unitOptions)
+     */
+    unitOptions: SystemOrLengthUnit[];
+    /**
+     * A reference to the [View](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#view)
+     */
+    view: SceneView | MapView;
+
+    /**
+     * Stops a creation/selection operation and restores the previously configured input path.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#cancel)
+     */
+    cancel(): void;
+    /**
+     * Clears the existing profile and stops any interaction.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#clear)
+     */
+    clear(): void;
+    /**
+     * If mode is "sketch" (the default), switches to the "creating" state in which the user can draw a new line.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#start)
+     */
+    start(options?: ElevationProfileViewModelStartOptions): void;
+    /**
+     * Stops a creation/selection operation.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#stop)
+     */
+    stop(): void;
+  }
+
+  interface ElevationProfileViewModelConstructor {
+    /**
+     * Provides the logic for the [ElevationProfile](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html)
+     */
+
+    new (properties?: ElevationProfileViewModelProperties): ElevationProfileViewModel;
+  }
+
+  export const ElevationProfileViewModel: ElevationProfileViewModelConstructor;
+
+  interface ElevationProfileViewModelProperties {
+    /**
+     * When the spatial reference is projected (other than web mercator) and the path is shorter than this threshold, distances will be computed planimetrically.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#geodesicDistanceThreshold)
+     */
+    geodesicDistanceThreshold?: number;
+    /**
+     * The position, in the range [0, 1], being hovered in the graph.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#hoveredChartPosition)
+     */
+    hoveredChartPosition?: number;
+    /**
+     * The input path along which elevation will be queried in order to generate an elevation profile.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#input)
+     */
+    input?: GraphicProperties;
+    /**
+     * Collection of elevation profile lines which are to be generated and displayed in the widget's chart.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#profiles)
+     */
+    profiles?: CollectionProperties<
+      | (ElevationProfileLineGroundProperties & { type: "ground" })
+      | (ElevationProfileLineInputProperties & { type: "input" })
+      | (ElevationProfileLineQueryProperties & { type: "query" })
+      | (ElevationProfileLineViewProperties & { type: "view" })
+    >;
+    /**
+     * Unit system (imperial, metric) or specific unit used for displaying the elevation and distance values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#unit)
+     */
+    unit?:
+      | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
+      | "inches"
+      | "feet"
+      | "yards"
+      | "miles"
+      | "nautical-miles"
+      | "us-feet";
+    /**
+     * List of available units and unit systems (imperial, metric) for displaying the elevation and distance values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#unitOptions)
+     */
+    unitOptions?: (
+      | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
+      | "inches"
+      | "feet"
+      | "yards"
+      | "miles"
+      | "nautical-miles"
+      | "us-feet"
+    )[];
+    /**
+     * A reference to the [View](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#view)
+     */
+    view?: (SceneViewProperties & { type: "3d" }) | (MapViewProperties & { type: "2d" });
+  }
+
+  /**
+   * The units which have been selected according to the magnitude of the elevations and distances that are to be displayed in the widget, according to the selected unit or unit system.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#EffectiveUnits)
+   */
+  export interface EffectiveUnits extends Object {
+    /**
+     * Units used for displaying distance or length values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#EffectiveUnits)
+     */
+    distance: LengthUnit;
+    /**
+     * Units used for displaying elevation values.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#EffectiveUnits)
+     */
+    elevation: LengthUnit;
+  }
+
+  export interface ElevationProfileViewModelStartOptions extends Object {
+    /**
+     * The mode that the widget will start with.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile-ElevationProfileViewModel.html#start)
+     */
+    mode?: "sketch" | "select";
+  }
+
+  /**
+   * The visible elements that are displayed within the widget.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#VisibleElements)
+   */
+  export interface ElevationProfileVisibleElements extends Object {
+    /**
+     * When set to `false`, the legend (which includes statistics) is not displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#VisibleElements)
+     */
+    legend?: boolean;
+    /**
+     * When set to `false`, the chart is not displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#VisibleElements)
+     */
+    chart?: boolean;
+    /**
+     * When set to `false`, the button used to open the settings popup is not displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#VisibleElements)
+     */
+    settingsButton?: boolean;
+    /**
+     * When set to `false`, the button used to start drawing/sketchinng is not displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#VisibleElements)
+     */
+    sketchButton?: boolean;
+    /**
+     * When set to `false`, the button used to select a path is not displayed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ElevationProfile.html#VisibleElements)
+     */
+    selectButton?: boolean;
+  }
+
   interface Expand extends Widget {
     /**
      * Automatically collapses the expand widget instance when the view's viewpoint updates.
@@ -59873,6 +65097,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html#autoCollapse)
      */
     autoCollapse: boolean;
+    /**
+     * When true, the Expand widget will close after the Escape key is pressed when the keyboard focus is within its content.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html#closeOnEsc)
+     */
+    closeOnEsc: boolean | Function;
     /**
      * Icon font used to style the Expand button.
      *
@@ -59980,6 +65210,12 @@ declare namespace __esri {
      */
     autoCollapse?: boolean;
     /**
+     * When true, the Expand widget will close after the Escape key is pressed when the keyboard focus is within its content.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html#closeOnEsc)
+     */
+    closeOnEsc?: boolean | Function;
+    /**
      * Icon font used to style the Expand button.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html#collapseIconClass)
@@ -60038,7 +65274,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -60081,6 +65317,12 @@ declare namespace __esri {
   }
 
   interface ExpandViewModelConstructor {
+    /**
+     * Provides the logic for the [Expand](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand-ExpandViewModel.html)
+     */
+
     new (properties?: ExpandViewModelProperties): ExpandViewModel;
   }
 
@@ -60110,7 +65352,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand-ExpandViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   interface Feature extends Widget {
@@ -60184,6 +65426,12 @@ declare namespace __esri {
   }
 
   interface FeatureConstructor {
+    /**
+     * The Feature widget displays a graphic according to its [PopupTemplate](esri-PopupTemplate.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Feature.html)
+     */
+
     new (properties?: FeatureProperties): Feature;
   }
 
@@ -60219,7 +65467,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Feature.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -60317,6 +65565,12 @@ declare namespace __esri {
   }
 
   interface FeatureViewModelConstructor {
+    /**
+     * Provides the logic for the [Feature](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Feature.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Feature-FeatureViewModel.html)
+     */
+
     new (properties?: FeatureViewModelProperties): FeatureViewModel;
   }
 
@@ -60352,7 +65606,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Feature-FeatureViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   export interface FeatureViewModelFormattedAttributes extends Object {
@@ -60788,6 +66042,8 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-FieldConfig.html#name)
      */
     name: string;
+
+    noValueOptionLabel: boolean;
     /**
      * Indicates whether the field is required.
      *
@@ -60795,13 +66051,15 @@ declare namespace __esri {
      */
     required: boolean;
     /**
-     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a boolean value.
+     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a boolean value.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-FieldConfig.html#requiredExpression)
      */
     requiredExpression: string;
+
+    showNoValueOption: boolean;
     /**
-     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a boolean value.
+     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a boolean value.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-FieldConfig.html#visibilityExpression)
      */
@@ -60832,7 +66090,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-FieldConfig.html#domain)
      */
-    domain?: CodedValueDomainProperties | RangeDomainProperties;
+    domain?: (CodedValueDomainProperties & { type: "coded-value" }) | (RangeDomainProperties & { type: "range" });
     /**
      * Indicates whether the field can be edited.
      *
@@ -60881,6 +66139,8 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-FieldConfig.html#name)
      */
     name?: string;
+
+    noValueOptionLabel?: boolean;
     /**
      * Indicates whether the field is required.
      *
@@ -60888,13 +66148,15 @@ declare namespace __esri {
      */
     required?: boolean;
     /**
-     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a boolean value.
+     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a boolean value.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-FieldConfig.html#requiredExpression)
      */
     requiredExpression?: string;
+
+    showNoValueOption?: boolean;
     /**
-     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a boolean value.
+     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a boolean value.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-FieldConfig.html#visibilityExpression)
      */
@@ -60923,7 +66185,7 @@ declare namespace __esri {
      */
     label: string;
     /**
-     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a boolean value.
+     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a boolean value.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-FieldGroupConfig.html#visibilityExpression)
      */
@@ -60964,7 +66226,7 @@ declare namespace __esri {
      */
     label?: string;
     /**
-     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/guide/arcade/index.html) expression that returns a boolean value.
+     * A reference to an [Arcade](https://developers.arcgis.com/javascript/latest/arcade/) expression that returns a boolean value.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-FieldGroupConfig.html#visibilityExpression)
      */
@@ -61083,6 +66345,12 @@ declare namespace __esri {
   }
 
   interface InputFieldConstructor {
+    /**
+     * This is a read-only support class that represents an input field.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-InputField.html)
+     */
+
     new (properties?: InputFieldProperties): InputField;
   }
 
@@ -61118,7 +66386,7 @@ declare namespace __esri {
      */
     readonly label: string;
     /**
-     * Arcade expression to determine whether this group is visible or not.
+     * Arcade expression to determine whether this group is visible or not
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-InputFieldGroup.html#visibilityExpression)
      */
@@ -61132,6 +66400,12 @@ declare namespace __esri {
   }
 
   interface InputFieldGroupConstructor {
+    /**
+     * This is a read-only support class that represents a group of input fields.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-InputFieldGroup.html)
+     */
+
     new (properties?: InputFieldGroupProperties): InputFieldGroup;
   }
 
@@ -61147,7 +66421,7 @@ declare namespace __esri {
 
     initialState?: "expanded" | "collapsed";
     /**
-     * Arcade expression to determine whether this group is visible or not.
+     * Arcade expression to determine whether this group is visible or not
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureForm-InputFieldGroup.html#visibilityExpression)
      */
@@ -61182,7 +66456,7 @@ declare namespace __esri {
      */
     attachmentsEnabled: boolean;
     /**
-     * When 'true', columns can be reordered by dragging a column's header.
+     * When `true`, columns can be reordered by dragging a column's header.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#columnReorderingEnabled)
      */
@@ -61206,6 +66480,12 @@ declare namespace __esri {
      */
     fieldConfigs: FieldColumnConfig[];
     /**
+     * Set this property to filter the features displayed in the table.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#filterGeometry)
+     */
+    filterGeometry: Geometry;
+    /**
      * Indicates whether to highlight the associated feature when a row is selected.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#highlightOnRowSelectEnabled)
@@ -61218,11 +66498,23 @@ declare namespace __esri {
      */
     layer: FeatureLayer;
     /**
+     * Reference to the FeatureTable's primary menu.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#menu)
+     */
+    readonly menu: ButtonMenu;
+    /**
      * Set this object to customize the feature table's menu content.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#menuConfig)
      */
     menuConfig: ButtonMenuConfig;
+    /**
+     * The default page size used when displaying features within the table.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#pageSize)
+     */
+    pageSize: number;
     /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
      *
@@ -61265,7 +66557,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#findColumn)
      */
-    findColumn(fieldName: string): void;
+    findColumn(fieldName: string): FieldColumn;
     /**
      * Hides the specified column from the feature table.
      *
@@ -61278,6 +66570,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#refresh)
      */
     refresh(): void;
+    /**
+     * Scrolls the table to a row based on specified index.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#scrollToIndex)
+     */
+    scrollToIndex(): void;
     /**
      * Selects the specified rows within the table.
      *
@@ -61326,7 +66624,7 @@ declare namespace __esri {
      */
     attachmentsEnabled?: boolean;
     /**
-     * When 'true', columns can be reordered by dragging a column's header.
+     * When `true`, columns can be reordered by dragging a column's header.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#columnReorderingEnabled)
      */
@@ -61350,6 +66648,12 @@ declare namespace __esri {
      */
     fieldConfigs?: FieldColumnConfigProperties[];
     /**
+     * Set this property to filter the features displayed in the table.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#filterGeometry)
+     */
+    filterGeometry?: GeometryProperties;
+    /**
      * Indicates whether to highlight the associated feature when a row is selected.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#highlightOnRowSelectEnabled)
@@ -61367,6 +66671,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#menuConfig)
      */
     menuConfig?: ButtonMenuConfig;
+    /**
+     * The default page size used when displaying features within the table.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#pageSize)
+     */
+    pageSize?: number;
     /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
      *
@@ -61406,6 +66716,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable-FeatureTableViewModel.html#fieldConfigs)
      */
     fieldConfigs: FieldColumnConfig[];
+    /**
+     * Set this property to filter the features displayed in the table.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable-FeatureTableViewModel.html#filterGeometry)
+     */
+    filterGeometry: Geometry;
     /**
      * A collection of fields to remain hidden within the table.
      *
@@ -61468,6 +66784,12 @@ declare namespace __esri {
      */
     refresh(): void;
     /**
+     * Scrolls the table to a row based on specified index.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable-FeatureTableViewModel.html#scrollToIndex)
+     */
+    scrollToIndex(index: number): void;
+    /**
      * Selects the specified rows within the table.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable-FeatureTableViewModel.html#selectRows)
@@ -61476,10 +66798,16 @@ declare namespace __esri {
   }
 
   interface FeatureTableViewModelConstructor {
+    /**
+     * Provides the logic for the [FeatureTable](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html) widget, which allows users to view content from feature attributes in a tabular format.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable-FeatureTableViewModel.html)
+     */
+
     new (properties?: FeatureTableViewModelProperties): FeatureTableViewModel;
 
     /**
-     * Returns a field value given the specified row (feature) `ObjectId` and an associated `fieldName`.
+     * Returns a field value given the specified feature `ObjectId` and an associated `fieldName`.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable-FeatureTableViewModel.html#getValue)
      */
@@ -61507,6 +66835,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable-FeatureTableViewModel.html#fieldConfigs)
      */
     fieldConfigs?: FieldColumnConfigProperties[];
+    /**
+     * Set this property to filter the features displayed in the table.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable-FeatureTableViewModel.html#filterGeometry)
+     */
+    filterGeometry?: GeometryProperties;
     /**
      * A collection of fields to remain hidden within the table.
      *
@@ -61769,7 +67103,7 @@ declare namespace __esri {
      */
     items: ButtonMenuItem[];
     /**
-     * Indicates if the menu content is visible.
+     * Indicates if the menu content is open and visible.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable-Grid-support-ButtonMenu.html#open)
      */
@@ -61808,7 +67142,7 @@ declare namespace __esri {
      */
     items?: ButtonMenuItemProperties[];
     /**
-     * Indicates if the menu content is visible.
+     * Indicates if the menu content is open and visible.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable-Grid-support-ButtonMenu.html#open)
      */
@@ -61953,6 +67287,12 @@ declare namespace __esri {
   }
 
   interface ButtonMenuViewModelConstructor {
+    /**
+     * Provides the logic for the module:esri/widgets/ButtonMenuItemConfig widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable-Grid-support-ButtonMenuViewModel.html)
+     */
+
     new (properties?: ButtonMenuViewModelProperties): ButtonMenuViewModel;
   }
 
@@ -62092,6 +67432,12 @@ declare namespace __esri {
      */
     menu?: boolean;
     /**
+     * Indicates whether to display the selection column in the table.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#VisibleElements)
+     */
+    selectionColumn?: boolean;
+    /**
      * The menu items within the feature table menu.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#VisibleElements)
@@ -62102,7 +67448,7 @@ declare namespace __esri {
   export interface FeatureTableSelectionChangeEventAdded extends Object {
     feature: Graphic;
 
-    attachments: AttachmentInfo[];
+    attachments: supportAttachmentInfo[];
 
     relatedRecords: Graphic[];
   }
@@ -62110,7 +67456,7 @@ declare namespace __esri {
   export interface FeatureTableSelectionChangeEventRemoved extends Object {
     feature: Graphic;
 
-    attachments: AttachmentInfo[];
+    attachments: supportAttachmentInfo[];
 
     relatedRecords: Graphic[];
   }
@@ -62289,6 +67635,12 @@ declare namespace __esri {
   }
 
   interface FeatureTemplatesViewModelConstructor {
+    /**
+     * Provides the logic for the [FeatureTemplates](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTemplates.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTemplates-FeatureTemplatesViewModel.html)
+     */
+
     new (properties?: FeatureTemplatesViewModelProperties): FeatureTemplatesViewModel;
   }
 
@@ -62368,6 +67720,12 @@ declare namespace __esri {
   }
 
   interface TemplateItemConstructor {
+    /**
+     * The item displayed within the [FeatureTemplates](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTemplates.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTemplates-TemplateItem.html)
+     */
+
     new (properties?: TemplateItemProperties): TemplateItem;
   }
 
@@ -62416,6 +67774,12 @@ declare namespace __esri {
   }
 
   interface TemplateItemGroupConstructor {
+    /**
+     * This is a read-only support class that represents a group of items displayed within the [FeatureTemplates](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTemplates.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTemplates-TemplateItemGroup.html)
+     */
+
     new (properties?: TemplateItemGroupProperties): TemplateItemGroup;
   }
 
@@ -62445,6 +67809,181 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTemplates.html#VisibleElements)
      */
     filter?: boolean;
+  }
+
+  interface FloorFilter extends Widget {
+    /**
+     * The currently selected facility.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#facility)
+     */
+    facility: string;
+    /**
+     * The currently selected floor level.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#level)
+     */
+    level: string;
+    /**
+     * Determines if the widget is expanded or collapsed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#longNames)
+     */
+    longNames: boolean;
+    /**
+     * The currently selected site.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#site)
+     */
+    site: string;
+    /**
+     * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#view)
+     */
+    view: MapView | SceneView;
+    /**
+     * The view model for this widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#viewModel)
+     */
+    viewModel: FloorFilterViewModel;
+
+    /**
+     * Updates the [floorFilter](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#FloorFilter) widget definition in the provided [WebMap](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#updateWebDocument)
+     */
+    updateWebDocument(webmap: WebMap): void;
+  }
+
+  interface FloorFilterConstructor {
+    /**
+     * The FloorFilter widget simplifies visualization of GIS data for a specific floor of a building in your application.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html)
+     */
+
+    new (properties?: FloorFilterProperties): FloorFilter;
+  }
+
+  export const FloorFilter: FloorFilterConstructor;
+
+  interface FloorFilterProperties extends WidgetProperties {
+    /**
+     * The currently selected facility.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#facility)
+     */
+    facility?: string;
+    /**
+     * The currently selected floor level.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#level)
+     */
+    level?: string;
+    /**
+     * Determines if the widget is expanded or collapsed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#longNames)
+     */
+    longNames?: boolean;
+    /**
+     * The currently selected site.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#site)
+     */
+    site?: string;
+    /**
+     * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#view)
+     */
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
+    /**
+     * The view model for this widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html#viewModel)
+     */
+    viewModel?: FloorFilterViewModelProperties;
+  }
+
+  interface FloorFilterViewModel extends Accessor, GoTo {
+    /**
+     * The currently selected facility.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter-FloorFilterViewModel.html#facility)
+     */
+    facility: string;
+    /**
+     * The currently selected level.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter-FloorFilterViewModel.html#level)
+     */
+    level: string;
+    /**
+     * Determines if the widget is expanded or collapsed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter-FloorFilterViewModel.html#longNames)
+     */
+    longNames: boolean;
+    /**
+     * The currently selected site.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter-FloorFilterViewModel.html#site)
+     */
+    site: string;
+    /**
+     * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter-FloorFilterViewModel.html#view)
+     */
+    view: MapView | SceneView;
+  }
+
+  interface FloorFilterViewModelConstructor {
+    /**
+     * Provides the logic for the [FloorFilter](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter-FloorFilterViewModel.html)
+     */
+
+    new (properties?: FloorFilterViewModelProperties): FloorFilterViewModel;
+  }
+
+  export const FloorFilterViewModel: FloorFilterViewModelConstructor;
+
+  interface FloorFilterViewModelProperties extends GoToProperties {
+    /**
+     * The currently selected facility.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter-FloorFilterViewModel.html#facility)
+     */
+    facility?: string;
+    /**
+     * The currently selected level.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter-FloorFilterViewModel.html#level)
+     */
+    level?: string;
+    /**
+     * Determines if the widget is expanded or collapsed.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter-FloorFilterViewModel.html#longNames)
+     */
+    longNames?: boolean;
+    /**
+     * The currently selected site.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter-FloorFilterViewModel.html#site)
+     */
+    site?: string;
+    /**
+     * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FloorFilter-FloorFilterViewModel.html#view)
+     */
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   interface Fullscreen extends Widget {
@@ -62492,7 +68031,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Fullscreen.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -62522,19 +68061,19 @@ declare namespace __esri {
     view: MapView | SceneView;
 
     /**
-     * Enter fullscreen.
+     * Enter fullscreen
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Fullscreen-FullscreenViewModel.html#enter)
      */
     enter(): void;
     /**
-     * Exit fullscreen.
+     * Exit fullscreen
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Fullscreen-FullscreenViewModel.html#exit)
      */
     exit(): void;
     /**
-     * Toggle fullscreen.
+     * Toggle fullscreen
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Fullscreen-FullscreenViewModel.html#toggle)
      */
@@ -62542,6 +68081,12 @@ declare namespace __esri {
   }
 
   interface FullscreenViewModelConstructor {
+    /**
+     * Provides the logic for the [Fullscreen](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Fullscreen.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Fullscreen-FullscreenViewModel.html)
+     */
+
     new (properties?: FullscreenViewModelProperties): FullscreenViewModel;
   }
 
@@ -62559,7 +68104,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Fullscreen-FullscreenViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   interface Histogram extends Widget {
@@ -62765,6 +68310,12 @@ declare namespace __esri {
   }
 
   interface HistogramViewModelConstructor {
+    /**
+     * Provides the logic for the [Histogram](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Histogram.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Histogram-HistogramViewModel.html)
+     */
+
     new (properties?: HistogramViewModelProperties): HistogramViewModel;
   }
 
@@ -63140,6 +68691,12 @@ declare namespace __esri {
   }
 
   interface HistogramRangeSliderViewModelConstructor {
+    /**
+     * Provides the logic for the [HistogramRangeSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-HistogramRangeSlider.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-HistogramRangeSlider-HistogramRangeSliderViewModel.html)
+     */
+
     new (properties?: HistogramRangeSliderViewModelProperties): HistogramRangeSliderViewModel;
   }
 
@@ -63323,7 +68880,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Home.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -63375,6 +68932,12 @@ declare namespace __esri {
   }
 
   interface HomeViewModelConstructor {
+    /**
+     * Provides the logic for the [Home](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Home.html) widget that animates the [View](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html) to its initial [Viewpoint](https://developers.arcgis.com/javascript/latest/api-reference/esri-Viewpoint.html) or a previously defined [viewpoint](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Home-HomeViewModel.html#viewpoint).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Home-HomeViewModel.html)
+     */
+
     new (properties?: HomeViewModelProperties): HomeViewModel;
   }
 
@@ -63386,7 +68949,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Home-HomeViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The [Viewpoint](https://developers.arcgis.com/javascript/latest/api-reference/esri-Viewpoint.html), or point of view, to zoom to when going home.
      *
@@ -63525,7 +69088,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -63583,6 +69146,12 @@ declare namespace __esri {
   }
 
   interface LayerListViewModelConstructor {
+    /**
+     * Provides the logic for the [LayerList](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList-LayerListViewModel.html)
+     */
+
     new (properties?: LayerListViewModelProperties): LayerListViewModel;
   }
 
@@ -63600,7 +69169,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList-LayerListViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   export interface LayerListViewModelTriggerActionEvent {
@@ -63665,7 +69234,7 @@ declare namespace __esri {
      */
     panel: ListItemPanel;
     /**
-     * The parent of this item.
+     * The parent of this item
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList-ListItem.html#parent)
      */
@@ -63746,7 +69315,11 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList-ListItem.html#actionsSections)
      */
     actionsSections?:
-      | CollectionProperties<CollectionProperties<ActionButtonProperties | ActionToggleProperties>>
+      | CollectionProperties<
+          CollectionProperties<
+            (ActionButtonProperties & { type: "button" }) | (ActionToggleProperties & { type: "toggle" })
+          >
+        >
       | any[][];
     /**
      * When a layer contains sublayers, this property is a Collection of ListItem objects belonging to the given layer.
@@ -63779,7 +69352,7 @@ declare namespace __esri {
      */
     panel?: ListItemPanel;
     /**
-     * The parent of this item.
+     * The parent of this item
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList-ListItem.html#parent)
      */
@@ -63801,7 +69374,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList-ListItem.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * Indicates if the ListItem is visible.
      *
@@ -63882,7 +69455,7 @@ declare namespace __esri {
    */
   export interface LayerListVisibleElements extends Object {
     /**
-     * Indicates whether to the status indicators will be displayed.
+     * Indicates whether the status indicators will be displayed.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList.html#VisibleElements)
      */
@@ -63994,7 +69567,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -64037,6 +69610,12 @@ declare namespace __esri {
   }
 
   interface LegendViewModelConstructor {
+    /**
+     * Provides the logic for the [Legend](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html) widget, which displays a label and symbol for interpreting the [Renderer](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-Renderer.html) of each layer in a map.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend-LegendViewModel.html)
+     */
+
     new (properties?: LegendViewModelProperties): LegendViewModel;
   }
 
@@ -64066,7 +69645,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend-LegendViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   export interface LegendViewModelLayerInfos extends Object {
@@ -64160,6 +69739,12 @@ declare namespace __esri {
   }
 
   interface ActiveLayerInfoConstructor {
+    /**
+     * ActiveLayerInfo is added to or removed from the collection of activeLayerInfos as layers become visible or invisible in the view.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend-support-ActiveLayerInfo.html)
+     */
+
     new (properties?: ActiveLayerInfoProperties): ActiveLayerInfo;
   }
 
@@ -64195,7 +69780,14 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend-support-ActiveLayerInfo.html#legendElements)
      */
-    legendElements?: LegendElement[];
+    legendElements?: (
+      | SymbolTableElement
+      | ColorRampElement
+      | OpacityRampElement
+      | SizeRampElement
+      | HeatmapRampElement
+      | RelationshipRampElement
+    )[];
     /**
      * The ActiveLayerInfo of the parent [Sublayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Sublayer.html) or [GroupLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GroupLayer.html).
      *
@@ -64802,6 +70394,12 @@ declare namespace __esri {
 
   interface LineOfSight extends Widget {
     /**
+     * The widget's default CSS icon class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LineOfSight.html#iconClass)
+     */
+    iconClass: string;
+    /**
      * A reference to the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LineOfSight.html#view)
@@ -64828,6 +70426,12 @@ declare namespace __esri {
   export const LineOfSight: LineOfSightConstructor;
 
   interface LineOfSightProperties extends WidgetProperties {
+    /**
+     * The widget's default CSS icon class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LineOfSight.html#iconClass)
+     */
+    iconClass?: string;
     /**
      * A reference to the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
@@ -64870,6 +70474,12 @@ declare namespace __esri {
   }
 
   interface LineOfSightTargetConstructor {
+    /**
+     * This class represents a target point for a [LineOfSight](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LineOfSight.html) analysis.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LineOfSight-LineOfSightTarget.html)
+     */
+
     new (properties?: LineOfSightTargetProperties): LineOfSightTarget;
   }
 
@@ -64995,6 +70605,12 @@ declare namespace __esri {
      */
     iconClass: string;
     /**
+     * Indicates whether to display the [Popup](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html) of the result graphic from the [locate()](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate-LocateViewModel.html#locate) method.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html#popupEnabled)
+     */
+    popupEnabled: boolean;
+    /**
      * Indicates the scale to set on the view when navigating to the position of the geolocated result once a location is returned from the [track](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html#event-track) event.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html#scale)
@@ -65075,6 +70691,12 @@ declare namespace __esri {
      */
     iconClass?: string;
     /**
+     * Indicates whether to display the [Popup](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html) of the result graphic from the [locate()](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate-LocateViewModel.html#locate) method.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html#popupEnabled)
+     */
+    popupEnabled?: boolean;
+    /**
      * Indicates the scale to set on the view when navigating to the position of the geolocated result once a location is returned from the [track](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html#event-track) event.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html#scale)
@@ -65091,7 +70713,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -65101,6 +70723,12 @@ declare namespace __esri {
   }
 
   interface LocateViewModel extends Accessor, Evented, GeolocationPositioning, GoTo {
+    /**
+     * Indicates whether to display the [Popup](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html) of the result graphic from the [locate()](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate-LocateViewModel.html#locate) method.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate-LocateViewModel.html#popupEnabled)
+     */
+    popupEnabled: boolean;
     /**
      * The current state of the widget.
      *
@@ -65136,7 +70764,14 @@ declare namespace __esri {
 
   export const LocateViewModel: LocateViewModelConstructor;
 
-  interface LocateViewModelProperties extends GeolocationPositioningProperties, GoToProperties {}
+  interface LocateViewModelProperties extends GeolocationPositioningProperties, GoToProperties {
+    /**
+     * Indicates whether to display the [Popup](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html) of the result graphic from the [locate()](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate-LocateViewModel.html#locate) method.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate-LocateViewModel.html#popupEnabled)
+     */
+    popupEnabled?: boolean;
+  }
 
   export interface LocateViewModelLocateErrorEvent {
     error: Error;
@@ -65168,19 +70803,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Measurement.html#areaUnit)
      */
-    areaUnit:
-      | "metric"
-      | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
-      | "square-meters"
-      | "square-kilometers"
-      | "acres"
-      | "ares"
-      | "hectares";
+    areaUnit: SystemOrAreaUnit;
     /**
      * The widget's default CSS icon class.
      *
@@ -65192,17 +70815,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Measurement.html#linearUnit)
      */
-    linearUnit:
-      | "metric"
-      | "imperial"
-      | "inches"
-      | "feet"
-      | "us-feet"
-      | "yards"
-      | "miles"
-      | "nautical-miles"
-      | "meters"
-      | "kilometers";
+    linearUnit: SystemOrLengthUnit;
     /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
@@ -65255,15 +70868,18 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Measurement.html#areaUnit)
      */
     areaUnit?:
-      | "metric"
       | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
+      | "metric"
+      | "square-millimeters"
+      | "square-centimeters"
+      | "square-decimeters"
       | "square-meters"
       | "square-kilometers"
+      | "square-inches"
+      | "square-feet"
+      | "square-yards"
+      | "square-miles"
+      | "square-us-feet"
       | "acres"
       | "ares"
       | "hectares";
@@ -65273,22 +70889,25 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Measurement.html#linearUnit)
      */
     linearUnit?:
-      | "metric"
       | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
       | "inches"
       | "feet"
-      | "us-feet"
       | "yards"
       | "miles"
       | "nautical-miles"
-      | "meters"
-      | "kilometers";
+      | "us-feet";
     /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Measurement.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -65319,35 +70938,13 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Measurement-MeasurementViewModel.html#areaUnit)
      */
-    areaUnit:
-      | "metric"
-      | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
-      | "square-meters"
-      | "square-kilometers"
-      | "acres"
-      | "ares"
-      | "hectares";
+    areaUnit: SystemOrAreaUnit;
     /**
      * Unit system (imperial, metric) or specific unit used for displaying the distance values.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Measurement-MeasurementViewModel.html#linearUnit)
      */
-    linearUnit:
-      | "metric"
-      | "imperial"
-      | "inches"
-      | "feet"
-      | "us-feet"
-      | "yards"
-      | "miles"
-      | "nautical-miles"
-      | "meters"
-      | "kilometers";
+    linearUnit: SystemOrLengthUnit;
     /**
      * The ViewModel's state.
      *
@@ -65363,6 +70960,12 @@ declare namespace __esri {
   }
 
   interface MeasurementViewModelConstructor {
+    /**
+     * Provides the logic for the [Measurement](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Measurement.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Measurement-MeasurementViewModel.html)
+     */
+
     new (properties?: MeasurementViewModelProperties): MeasurementViewModel;
   }
 
@@ -65391,15 +70994,18 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Measurement-MeasurementViewModel.html#areaUnit)
      */
     areaUnit?:
-      | "metric"
       | "imperial"
-      | "square-inches"
-      | "square-feet"
-      | "square-us-feet"
-      | "square-yards"
-      | "square-miles"
+      | "metric"
+      | "square-millimeters"
+      | "square-centimeters"
+      | "square-decimeters"
       | "square-meters"
       | "square-kilometers"
+      | "square-inches"
+      | "square-feet"
+      | "square-yards"
+      | "square-miles"
+      | "square-us-feet"
       | "acres"
       | "ares"
       | "hectares";
@@ -65409,22 +71015,25 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Measurement-MeasurementViewModel.html#linearUnit)
      */
     linearUnit?:
-      | "metric"
       | "imperial"
+      | "metric"
+      | "millimeters"
+      | "centimeters"
+      | "decimeters"
+      | "meters"
+      | "kilometers"
       | "inches"
       | "feet"
-      | "us-feet"
       | "yards"
       | "miles"
       | "nautical-miles"
-      | "meters"
-      | "kilometers";
+      | "us-feet";
     /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Measurement-MeasurementViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   interface NavigationToggle extends Widget {
@@ -65636,6 +71245,12 @@ declare namespace __esri {
      */
     readonly featureCount: number;
     /**
+     * When enabled, the popup displays a list of all available [features](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html#features) (using each feature's popup template title) rather than displaying the popup template of the first selected feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html#featureMenuOpen)
+     */
+    featureMenuOpen: boolean;
+    /**
      * Shows pagination for the popup if available.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html#featureNavigationEnabled)
@@ -65811,7 +71426,9 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html#actions)
      */
-    actions?: CollectionProperties<ActionButtonProperties | ActionToggleProperties>;
+    actions?: CollectionProperties<
+      (ActionButtonProperties & { type: "button" }) | (ActionToggleProperties & { type: "toggle" })
+    >;
     /**
      * Position of the popup in relation to the selected feature.
      *
@@ -65866,6 +71483,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html#dockOptions)
      */
     dockOptions?: PopupDockOptions;
+    /**
+     * When enabled, the popup displays a list of all available [features](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html#features) (using each feature's popup template title) rather than displaying the popup template of the first selected feature.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html#featureMenuOpen)
+     */
+    featureMenuOpen?: boolean;
     /**
      * Shows pagination for the popup if available.
      *
@@ -65925,7 +71548,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * This is a class that contains all the logic (properties and methods) that controls this widget's behavior.
      *
@@ -65984,6 +71607,12 @@ declare namespace __esri {
      */
     content: string | HTMLElement | Widget;
     /**
+     * A read-only property that specifies a [Collection](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html) of action [buttons](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-actions-ActionButton.html) and/or [toggles](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-actions-ActionToggle.html) within the popup.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup-PopupViewModel.html#defaultActions)
+     */
+    readonly defaultActions: Collection<ActionButton | ActionToggle>;
+    /**
      * Enables automatic creation of a popup template for layers that have popups enabled but no popupTemplate defined.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup-PopupViewModel.html#defaultPopupTemplateEnabled)
@@ -66008,6 +71637,12 @@ declare namespace __esri {
      */
     highlightEnabled: boolean;
     /**
+     * Indicates whether or not to include [defaultActions](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup-PopupViewModel.html#defaultActions) in the Popup's UI.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup-PopupViewModel.html#includeDefaultActions)
+     */
+    includeDefaultActions: boolean;
+    /**
      * Geometry used to position the popup.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup-PopupViewModel.html#location)
@@ -66031,6 +71666,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup-PopupViewModel.html#promises)
      */
     promises: Promise<any>[];
+    /**
+     * The graphic used to represent the cluster extent when the `Browse features` action is active in a cluster popup.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup-PopupViewModel.html#selectedClusterBoundaryFeature)
+     */
+    readonly selectedClusterBoundaryFeature: Graphic;
     /**
      * The selected feature accessed by the popup.
      *
@@ -66135,7 +71776,9 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup-PopupViewModel.html#actions)
      */
-    actions?: CollectionProperties<ActionButtonProperties | ActionToggleProperties>;
+    actions?: CollectionProperties<
+      (ActionButtonProperties & { type: "button" }) | (ActionToggleProperties & { type: "toggle" })
+    >;
     /**
      * This closes the popup when the [View](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html) camera or [Viewpoint](https://developers.arcgis.com/javascript/latest/api-reference/esri-Viewpoint.html) changes.
      *
@@ -66173,6 +71816,12 @@ declare namespace __esri {
      */
     highlightEnabled?: boolean;
     /**
+     * Indicates whether or not to include [defaultActions](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup-PopupViewModel.html#defaultActions) in the Popup's UI.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup-PopupViewModel.html#includeDefaultActions)
+     */
+    includeDefaultActions?: boolean;
+    /**
      * Geometry used to position the popup.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup-PopupViewModel.html#location)
@@ -66201,7 +71850,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup-PopupViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * Indicates whether the popup is visible.
      *
@@ -66510,6 +72159,18 @@ declare namespace __esri {
      */
     iconClass: string;
     /**
+     * Indicates whether or not to include [defaultTemplates](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html#defaultTemplates).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print.html#includeDefaultTemplates)
+     */
+    includeDefaultTemplates: boolean;
+    /**
+     * It is possible to search a specified portal instance's [locator services](https://enterprise.arcgis.com/en/portal/latest/administer/windows/configure-portal-to-geocode-addresses.htm).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print.html#portal)
+     */
+    portal: Portal;
+    /**
      * The URL of the REST endpoint of the Export Web Map Task.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print.html#printServiceUrl)
@@ -66571,6 +72232,18 @@ declare namespace __esri {
      */
     iconClass?: string;
     /**
+     * Indicates whether or not to include [defaultTemplates](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html#defaultTemplates).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print.html#includeDefaultTemplates)
+     */
+    includeDefaultTemplates?: boolean;
+    /**
+     * It is possible to search a specified portal instance's [locator services](https://enterprise.arcgis.com/en/portal/latest/administer/windows/configure-portal-to-geocode-addresses.htm).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print.html#portal)
+     */
+    portal?: PortalProperties;
+    /**
      * The URL of the REST endpoint of the Export Web Map Task.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print.html#printServiceUrl)
@@ -66596,6 +72269,78 @@ declare namespace __esri {
     viewModel?: PrintViewModelProperties;
   }
 
+  interface CustomTemplate extends Accessor {
+    /**
+     * The template's description.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-CustomTemplate.html#description)
+     */
+    readonly description: string;
+    /**
+     * The output format for the printed map.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-CustomTemplate.html#format)
+     */
+    format: "pdf" | "png32" | "png8" | "jpg" | "gif" | "eps" | "svg" | "svgz";
+    /**
+     * The text that appears inside the [Print Widget's](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print.html) `Select template` button.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-CustomTemplate.html#label)
+     */
+    readonly label: string;
+    /**
+     * The layout used for the print output.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-CustomTemplate.html#layout)
+     */
+    readonly layout:
+      | "map-only"
+      | "a3-landscape"
+      | "a3-portrait"
+      | "a4-landscape"
+      | "a4-portrait"
+      | "letter-ansi-a-landscape"
+      | "letter-ansi-a-portrait"
+      | "tabloid-ansi-b-landscape"
+      | "tabloid-ansi-b-portrait";
+    /**
+     * Defines the layout elements.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-CustomTemplate.html#layoutOptions)
+     */
+    readonly layoutOptions: CustomTemplateLayoutOptions;
+  }
+
+  interface CustomTemplateConstructor {
+    /**
+     * Defines the custom layout template options used by the [Print](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print.html) widget to generate the print page.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-CustomTemplate.html)
+     */
+
+    new (properties?: CustomTemplateProperties): CustomTemplate;
+  }
+
+  export const CustomTemplate: CustomTemplateConstructor;
+
+  interface CustomTemplateProperties {
+    /**
+     * The output format for the printed map.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-CustomTemplate.html#format)
+     */
+    format?: "pdf" | "png32" | "png8" | "jpg" | "gif" | "eps" | "svg" | "svgz";
+  }
+
+  export interface CustomTemplateLayoutOptions extends Object {
+    /**
+     * Indicates whether the legend will be included in the print-out.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-CustomTemplate.html#layoutOptions)
+     */
+    legend?: boolean;
+  }
+
   interface PrintViewModel extends Accessor {
     /**
      * Specify the print output file format(s) that the user can select based on the options available from the print service.
@@ -66609,6 +72354,30 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html#allowedLayouts)
      */
     allowedLayouts: string | string[];
+    /**
+     * A collection of print templates defined on the Portal.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html#defaultTemplates)
+     */
+    readonly defaultTemplates: Collection<CustomTemplate>;
+    /**
+     * The effective URL of the REST endpoint of the Export Web Map Task.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html#effectivePrintServiceUrl)
+     */
+    readonly effectivePrintServiceUrl: string;
+    /**
+     * Indicates whether or not to include [defaultTemplates](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html#defaultTemplates).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html#includeDefaultTemplates)
+     */
+    includeDefaultTemplates: boolean;
+    /**
+     * It is possible to search a specified portal instance's [locator services](https://enterprise.arcgis.com/en/portal/latest/administer/windows/configure-portal-to-geocode-addresses.htm).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html#portal)
+     */
+    portal: Portal;
     /**
      * The URL of the REST endpoint of the Export Web Map Task.
      *
@@ -66661,6 +72430,12 @@ declare namespace __esri {
   }
 
   interface PrintViewModelConstructor {
+    /**
+     * Provides the logic for the [Print](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html)
+     */
+
     new (properties?: PrintViewModelProperties): PrintViewModel;
   }
 
@@ -66679,6 +72454,18 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html#allowedLayouts)
      */
     allowedLayouts?: string | string[];
+    /**
+     * Indicates whether or not to include [defaultTemplates](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html#defaultTemplates).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html#includeDefaultTemplates)
+     */
+    includeDefaultTemplates?: boolean;
+    /**
+     * It is possible to search a specified portal instance's [locator services](https://enterprise.arcgis.com/en/portal/latest/administer/windows/configure-portal-to-geocode-addresses.htm).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-PrintViewModel.html#portal)
+     */
+    portal?: PortalProperties;
     /**
      * The URL of the REST endpoint of the Export Web Map Task.
      *
@@ -66802,6 +72589,12 @@ declare namespace __esri {
   }
 
   interface TemplateOptionsConstructor {
+    /**
+     * Defines the layout template options used by the [Print](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print.html) widget to generate the print page.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Print-TemplateOptions.html)
+     */
+
     new (properties?: TemplateOptionsProperties): TemplateOptions;
   }
 
@@ -67039,6 +72832,12 @@ declare namespace __esri {
   }
 
   interface ScaleBarViewModelConstructor {
+    /**
+     * Provides the logic for the [ScaleBar](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ScaleBar.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ScaleBar-ScaleBarViewModel.html)
+     */
+
     new (properties?: ScaleBarViewModelProperties): ScaleBarViewModel;
   }
 
@@ -67182,13 +72981,85 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ScaleRangeSlider.html#region)
      */
-    region?: SupportedRegion;
+    region?:
+      | "AE"
+      | "AR"
+      | "AT"
+      | "AU"
+      | "BE"
+      | "BG"
+      | "BO"
+      | "BR"
+      | "CA"
+      | "CH"
+      | "CI"
+      | "CL"
+      | "CN"
+      | "CO"
+      | "CR"
+      | "CZ"
+      | "DE"
+      | "DK"
+      | "EE"
+      | "EG"
+      | "ES"
+      | "FI"
+      | "FR"
+      | "GB"
+      | "GL"
+      | "GR"
+      | "GT"
+      | "HK"
+      | "ID"
+      | "IE"
+      | "IL"
+      | "IN"
+      | "IQ"
+      | "IS"
+      | "IT"
+      | "JP"
+      | "KE"
+      | "KR"
+      | "KW"
+      | "LI"
+      | "LT"
+      | "LU"
+      | "LV"
+      | "MA"
+      | "MG"
+      | "ML"
+      | "MO"
+      | "MX"
+      | "MY"
+      | "NI"
+      | "NL"
+      | "NO"
+      | "NZ"
+      | "PE"
+      | "PL"
+      | "PR"
+      | "PT"
+      | "RO"
+      | "RU"
+      | "RW"
+      | "SE"
+      | "SG"
+      | "SK"
+      | "SR"
+      | "SV"
+      | "TH"
+      | "TN"
+      | "TW"
+      | "US"
+      | "VE"
+      | "VI"
+      | "ZA";
     /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ScaleRangeSlider.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -67243,6 +73114,12 @@ declare namespace __esri {
   }
 
   interface ScaleRangesConstructor {
+    /**
+     * The ScaleRanges class represents the ranges of scales for the the [ScaleRangeSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ScaleRangeSlider.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ScaleRangeSlider-ScaleRanges.html)
+     */
+
     new (properties?: ScaleRangesProperties): ScaleRanges;
   }
 
@@ -67251,7 +73128,7 @@ declare namespace __esri {
   interface ScaleRangesProperties {}
 
   /**
-   * The NamedScaleRange provides the minimum and maxium scale of an named scale id.
+   * The NamedScaleRange provides the minimum and maximum scale of an named scale id.
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ScaleRangeSlider-ScaleRanges.html#NamedScaleRange)
    */
@@ -67347,6 +73224,12 @@ declare namespace __esri {
   }
 
   interface ScaleRangeSliderViewModelConstructor {
+    /**
+     * Provides the logic for the [ScaleRangeSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ScaleRangeSlider.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ScaleRangeSlider-ScaleRangeSliderViewModel.html)
+     */
+
     new (properties?: ScaleRangeSliderViewModelProperties): ScaleRangeSliderViewModel;
   }
 
@@ -67394,7 +73277,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-ScaleRangeSlider-ScaleRangeSliderViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   /**
@@ -67630,7 +73513,7 @@ declare namespace __esri {
      */
     readonly selectedResult: SearchResult;
     /**
-     * The Search widget may be used to search features in a [FeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html) or geocode locations with a [Locator](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html).
+     * The Search widget may be used to search features in a [map](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html)/[feature](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html) service feature layer(s), [SceneLayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html) with an associated feature layer, [BuildingComponentSublayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html) with an associated feature layer, [GeoJSONLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoJSONLayer.html), [CSVLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-CSVLayer.html) or [OGCFeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-OGCFeatureLayer.html), or [table](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTable.html), or geocode locations with a [Locator](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search.html#sources)
      */
@@ -67710,7 +73593,7 @@ declare namespace __esri {
 
   interface widgetsSearchConstructor {
     /**
-     * The Search widget provides a way to perform search operations on [locator service(s)](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html) and/or [map](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html)/[feature](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html) service feature layer(s).
+     * The Search widget provides a way to perform search operations on [locator service(s)](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html), [map](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html)/[feature](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html) service feature layer(s), [SceneLayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html) with an associated feature layer, [BuildingComponentSublayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html) with an associated feature layer, [GeoJSONLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoJSONLayer.html), [CSVLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-CSVLayer.html), [OGCFeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-OGCFeatureLayer.html), and/or [table(s)](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTable.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search.html)
      */
@@ -67824,7 +73707,7 @@ declare namespace __esri {
      */
     searchTerm?: string;
     /**
-     * The Search widget may be used to search features in a [FeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html) or geocode locations with a [Locator](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html).
+     * The Search widget may be used to search features in a [map](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html)/[feature](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html) service feature layer(s), [SceneLayers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-SceneLayer.html) with an associated feature layer, [BuildingComponentSublayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-buildingSublayers-BuildingComponentSublayer.html) with an associated feature layer, [GeoJSONLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoJSONLayer.html), [CSVLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-CSVLayer.html) or [OGCFeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-OGCFeatureLayer.html), or [table](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTable.html), or geocode locations with a [Locator](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search.html#sources)
      */
@@ -67840,7 +73723,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -67974,6 +73857,12 @@ declare namespace __esri {
 
   interface LocatorSearchSource extends SearchSource, JSONSupport {
     /**
+     * An authorization string used to access a resource or service.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-LocatorSearchSource.html#apiKey)
+     */
+    apiKey: string;
+    /**
      * A string array which limits the results to one or more categories.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-LocatorSearchSource.html#categories)
@@ -68031,6 +73920,12 @@ declare namespace __esri {
   }
 
   interface LocatorSearchSourceConstructor {
+    /**
+     * The following properties define a [source](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search.html#sources) pointing to a [Locator](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html) that may be used to geocode locations with a [Search](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search.html) widget instance.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-LocatorSearchSource.html)
+     */
+
     new (properties?: LocatorSearchSourceProperties): LocatorSearchSource;
 
     fromJSON(json: any): LocatorSearchSource;
@@ -68039,6 +73934,12 @@ declare namespace __esri {
   export const LocatorSearchSource: LocatorSearchSourceConstructor;
 
   interface LocatorSearchSourceProperties extends SearchSourceProperties {
+    /**
+     * An authorization string used to access a resource or service.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-LocatorSearchSource.html#apiKey)
+     */
+    apiKey?: string;
     /**
      * A string array which limits the results to one or more categories.
      *
@@ -68243,6 +74144,12 @@ declare namespace __esri {
   }
 
   interface SearchSourceConstructor {
+    /**
+     * The following properties define generic [sources](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search.html#sources) properties for use in the [Search](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-SearchSource.html)
+     */
+
     new (properties?: SearchSourceProperties): SearchSource;
 
     fromJSON(json: any): SearchSource;
@@ -68526,7 +74433,7 @@ declare namespace __esri {
      */
     readonly selectedSuggestion: Geometry | SearchViewModelSuggestResult;
     /**
-     * The Search widget may be used to search features in a [Layer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html) or geocode locations with a [Locator](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html).
+     * The Search widget may be used to search features in a [FeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html) or [table](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTable.html), or geocode locations with a [Locator](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-SearchViewModel.html#sources)
      */
@@ -68609,6 +74516,12 @@ declare namespace __esri {
   }
 
   interface SearchViewModelConstructor {
+    /**
+     * Provides the logic for the [Search](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search.html) widget, which performs search operations on [locator service(s)](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html), [map](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html)/[feature](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html) service feature layer(s), and/or [table(s)](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTable.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-SearchViewModel.html)
+     */
+
     new (properties?: SearchViewModelProperties): SearchViewModel;
   }
 
@@ -68712,7 +74625,7 @@ declare namespace __esri {
      */
     searchTerm?: string;
     /**
-     * The Search widget may be used to search features in a [Layer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html) or geocode locations with a [Locator](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html).
+     * The Search widget may be used to search features in a [FeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html) or [table](https://developers.arcgis.com/javascript/latest/api-reference/esri-webdoc-applicationProperties-SearchTable.html), or geocode locations with a [Locator](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-SearchViewModel.html#sources)
      */
@@ -68734,7 +74647,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-SearchViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   export interface SearchViewModelSearchClearEvent {}
@@ -68776,7 +74689,7 @@ declare namespace __esri {
      */
     numResults: number;
     /**
-     * The searched expression.
+     * The searched expression
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-SearchViewModel.html#SearchResponse)
      */
@@ -69012,7 +74925,7 @@ declare namespace __esri {
      */
     numResults: number;
     /**
-     * The searched expression.
+     * The searched expression
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search.html#SearchResponse)
      */
@@ -69217,7 +75130,17 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#activeTool)
      */
-    readonly activeTool: "point" | "polyline" | "polygon" | "circle" | "rectangle" | "move" | "transform" | "reshape";
+    readonly activeTool:
+      | "point"
+      | "polyline"
+      | "polygon"
+      | "circle"
+      | "rectangle"
+      | "move"
+      | "transform"
+      | "reshape"
+      | "rectangle-selection"
+      | "lasso-selection";
     /**
      * Property controlling the visibility and order of create tool buttons.
      *
@@ -69267,6 +75190,12 @@ declare namespace __esri {
      */
     layout: "vertical" | "horizontal";
     /**
+     * The [SnappingOptions](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html) for sketching.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#snappingOptions)
+     */
+    snappingOptions: SnappingOptions;
+    /**
      * The Sketch widget's state.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#state)
@@ -69290,6 +75219,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#viewModel)
      */
     viewModel: SketchViewModel;
+    /**
+     * The visible elements that are displayed within the widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#visibleElements)
+     */
+    visibleElements: SketchVisibleElements;
 
     /**
      * Cancels the active operation and fires the [create](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#event-create) or [update](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#event-update) event.
@@ -69404,17 +75339,29 @@ declare namespace __esri {
      */
     layout?: "vertical" | "horizontal";
     /**
+     * The [SnappingOptions](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-interactive-snapping-SnappingOptions.html) for sketching.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#snappingOptions)
+     */
+    snappingOptions?: SnappingOptionsProperties;
+    /**
      * A reference to the [MapView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) or [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for the Sketch widget.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#viewModel)
      */
     viewModel?: SketchViewModelProperties;
+    /**
+     * The visible elements that are displayed within the widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#visibleElements)
+     */
+    visibleElements?: SketchVisibleElements;
   }
 
   interface SketchViewModel extends Accessor, Evented {
@@ -69475,6 +75422,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch-SketchViewModel.html#polylineSymbol)
      */
     polylineSymbol: SimpleLineSymbol | LineSymbol3D;
+    /**
+     * Options for snapping while sketching.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch-SketchViewModel.html#snappingOptions)
+     */
+    snappingOptions: SnappingOptions;
     /**
      * The sketch view model's state.
      *
@@ -69599,19 +75552,31 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch-SketchViewModel.html#pointSymbol)
      */
-    pointSymbol?: SimpleMarkerSymbolProperties | PointSymbol3DProperties;
+    pointSymbol?:
+      | (SimpleMarkerSymbolProperties & { type: "simple-marker" })
+      | (PointSymbol3DProperties & { type: "point-3d" });
     /**
      * A  [SimpleFillSymbol](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-SimpleFillSymbol.html) or [PolygonSymbol3D](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PolygonSymbol3D.html) used for representing the polygon geometry that is being drawn.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch-SketchViewModel.html#polygonSymbol)
      */
-    polygonSymbol?: SimpleFillSymbolProperties | PolygonSymbol3DProperties;
+    polygonSymbol?:
+      | (SimpleFillSymbolProperties & { type: "simple-fill" })
+      | (PolygonSymbol3DProperties & { type: "polygon-3d" });
     /**
      * A  [SimpleLineSymbol](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-SimpleLineSymbol.html) or [LineSymbol3D](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-LineSymbol3D.html) used for representing the polyline geometry that is being drawn.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch-SketchViewModel.html#polylineSymbol)
      */
-    polylineSymbol?: SimpleLineSymbolProperties | LineSymbol3DProperties;
+    polylineSymbol?:
+      | (SimpleLineSymbolProperties & { type: "simple-line" })
+      | (LineSymbol3DProperties & { type: "line-3d" });
+    /**
+     * Options for snapping while sketching.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch-SketchViewModel.html#snappingOptions)
+     */
+    snappingOptions?: SnappingOptionsProperties;
     /**
      * Indicates if a graphic can be selected to be updated.
      *
@@ -69623,7 +75588,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch-SketchViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   export interface SketchViewModelCreateEvent {
@@ -69955,6 +75920,32 @@ declare namespace __esri {
     yScale: number;
   }
 
+  /**
+   * This information is returned as `toolEventInfo` parameter for the [update](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#event-update) event while the user is selecting or deselecting graphics using `Shift+Left-click`.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#SelectionChangeEventInfo)
+   */
+  export interface SelectionChangeEventInfo extends Object {
+    /**
+     * Type is always `selection-change`.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#SelectionChangeEventInfo)
+     */
+    type: "selection-change";
+    /**
+     * An array of [graphics](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html) representing the latest graphic selected.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#SelectionChangeEventInfo)
+     */
+    added: Graphic[];
+    /**
+     * An array of [graphics](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html) representing the latest graphic deselected.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#SelectionChangeEventInfo)
+     */
+    removed: Graphic[];
+  }
+
   export interface SketchCreateCreateOptions extends Object {
     /**
      * Specifies how the graphic can be created.
@@ -70119,6 +76110,7 @@ declare namespace __esri {
     | ReshapeEventInfo
     | RotateEventInfo
     | ScaleEventInfo
+    | SelectionChangeEventInfo
     | VertexAddEventInfo
     | VertexRemoveEventInfo;
 
@@ -70135,11 +76127,11 @@ declare namespace __esri {
      */
     type: "vertex-add";
     /**
-     * An array of [graphics](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html) with [point](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Point.html) geometries representing the vertices that were added.
+     * An array of x,y coordinates representing the vertices added.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VertexAddEventInfo)
      */
-    added: Graphic[];
+    added: number[];
     /**
      * Contains the details of the added vertices to track changes in topology of the geometry.
      *
@@ -70161,11 +76153,11 @@ declare namespace __esri {
      */
     type: "vertex-remove";
     /**
-     * An array of [graphics](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html) with [point](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Point.html) geometries representing the vertices that were removed.
+     * An array of x,y coordinates representing the vertices removed.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VertexRemoveEventInfo)
      */
-    removed: Graphic[];
+    removed: number[];
     /**
      * Contains the details of the removed vertices to track changes in topology of the geometry.
      *
@@ -70174,13 +76166,39 @@ declare namespace __esri {
     vertices: VertexRemoveEventInfoVertices[];
   }
 
+  /**
+   * The visible elements that are displayed within the widget.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VisibleElements)
+   */
+  export interface SketchVisibleElements extends Object {
+    /**
+     * The available sketch tools within the widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VisibleElements)
+     */
+    createTools?: VisibleElementsCreateTools;
+    /**
+     * The available selection tools within the widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VisibleElements)
+     */
+    selectionTools?: VisibleElementsSelectionTools;
+    /**
+     * Indicates whether to display the undo/redo menu within the widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VisibleElements)
+     */
+    undoRedoMenu?: boolean;
+  }
+
   export interface VertexAddEventInfoVertices extends Object {
     /**
-     * The [graphic](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html) with [point](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Point.html) geometries representing the vertices that were added.
+     * An array of x,y coordinates representing the vertices added.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VertexAddEventInfo)
      */
-    coordinates: Graphic[];
+    coordinates: number[];
     /**
      * The ring/path index of the added vertex.
      *
@@ -70197,11 +76215,11 @@ declare namespace __esri {
 
   export interface VertexRemoveEventInfoVertices extends Object {
     /**
-     * The [graphic](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html) with [point](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Point.html) geometries representing the vertices that were added.
+     * An array of x,y coordinates representing the vertices removed.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VertexRemoveEventInfo)
      */
-    coordinates: Graphic[];
+    coordinates: number[];
     /**
      * The ring/path index of the removed vertex.
      *
@@ -70216,7 +76234,61 @@ declare namespace __esri {
     vertexIndex: number;
   }
 
+  export interface VisibleElementsCreateTools extends Object {
+    /**
+     * Indicates whether to display the point sketch tool.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VisibleElements)
+     */
+    point?: boolean;
+    /**
+     * Indicates whether to display the polyline sketch tool.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VisibleElements)
+     */
+    polyline?: boolean;
+    /**
+     * Indicates whether to display the polygon sketch tool.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VisibleElements)
+     */
+    polygon?: boolean;
+    /**
+     * Indicates whether to display the rectangle sketch tool.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VisibleElements)
+     */
+    rectangle?: boolean;
+    /**
+     * Indicates whether to display the circle sketch tool.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VisibleElements)
+     */
+    circle?: boolean;
+  }
+
+  export interface VisibleElementsSelectionTools extends Object {
+    /**
+     * Indicates whether to display the `"rectangle-selection"` tool.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VisibleElements)
+     */
+    "rectangle-selection"?: boolean;
+    /**
+     * Indicates whether to display the `"lasso-selection"` tool.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html#VisibleElements)
+     */
+    "lasso-selection"?: boolean;
+  }
+
   interface Slice extends Widget {
+    /**
+     * The widget's default CSS icon class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Slice.html#iconClass)
+     */
+    iconClass: string;
     /**
      * A reference to the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
@@ -70244,6 +76316,12 @@ declare namespace __esri {
   export const Slice: SliceConstructor;
 
   interface SliceProperties extends WidgetProperties {
+    /**
+     * The widget's default CSS icon class.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Slice.html#iconClass)
+     */
+    iconClass?: string;
     /**
      * A reference to the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
      *
@@ -70396,18 +76474,6 @@ declare namespace __esri {
      */
     clear(): void;
     /**
-     * Clears the current slice.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Slice-SliceViewModel.html#clearSlice)
-     */
-    clearSlice(): void;
-    /**
-     * Starts a new slice.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Slice-SliceViewModel.html#newSlice)
-     */
-    newSlice(): void;
-    /**
      * Starts a new slice.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Slice-SliceViewModel.html#start)
@@ -70416,6 +76482,12 @@ declare namespace __esri {
   }
 
   interface SliceViewModelConstructor {
+    /**
+     * Provides the logic for the [Slice](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Slice.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Slice-SliceViewModel.html)
+     */
+
     new (properties?: SliceViewModelProperties): SliceViewModel;
   }
 
@@ -70427,7 +76499,9 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Slice-SliceViewModel.html#excludedLayers)
      */
-    excludedLayers?: CollectionProperties<LayerProperties | BuildingComponentSublayerProperties>;
+    excludedLayers?: CollectionProperties<
+      LayerProperties | (BuildingComponentSublayerProperties & { type: "building-component" })
+    >;
     /**
      * Indicates whether the [Ground](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html) and layers that are draped on the ground surface are excluded from the slice.
      *
@@ -70881,6 +76955,12 @@ declare namespace __esri {
   }
 
   interface SliderViewModelConstructor {
+    /**
+     * Provides the logic for the [Slider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Slider.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Slider-SliderViewModel.html)
+     */
+
     new (properties?: SliderViewModelProperties): SliderViewModel;
   }
 
@@ -71174,6 +77254,12 @@ declare namespace __esri {
   }
 
   interface ClassedColorSliderViewModelConstructor {
+    /**
+     * Provides the logic for the [ClassedColorSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ClassedColorSlider.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ClassedColorSlider-ClassedColorSliderViewModel.html)
+     */
+
     new (properties?: ClassedColorSliderViewModelProperties): ClassedColorSliderViewModel;
   }
 
@@ -71401,6 +77487,12 @@ declare namespace __esri {
   }
 
   interface ClassedSizeSliderViewModelConstructor {
+    /**
+     * Provides the logic for the [ClassedSizeSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ClassedSizeSlider.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ClassedSizeSlider-ClassedSizeSliderViewModel.html)
+     */
+
     new (properties?: ClassedSizeSliderViewModelProperties): ClassedSizeSliderViewModel;
   }
 
@@ -71541,6 +77633,24 @@ declare namespace __esri {
 
   interface ColorSizeSlider extends SmartMappingSliderBase {
     /**
+     * Only applicable when three thumbs (i.e.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#handlesSyncedToPrimary)
+     */
+    handlesSyncedToPrimary: boolean;
+    /**
+     * Only applicable when three thumbs (i.e.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#persistSizeRangeEnabled)
+     */
+    persistSizeRangeEnabled: boolean;
+    /**
+     * When `true`, the slider will render a third handle between the two handles already provided by default.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#primaryHandleEnabled)
+     */
+    primaryHandleEnabled: boolean;
+    /**
      * The colors and sizes corresponding with data values in the [ColorVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-ColorVariable.html) and [SizeVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-SizeVariable.html) of the renderer associated with the slider.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#stops)
@@ -71562,6 +77672,12 @@ declare namespace __esri {
       rendererResult: univariateColorSizeContinuousRendererResult,
       histogramResult?: HistogramResult
     ): void;
+    /**
+     * A convenience function used to update a renderer generated with the [univariateColorSize.createContinuousRenderer()](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer) method with the values obtained from the slider.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#updateRenderer)
+     */
+    updateRenderer(renderer: ClassBreaksRenderer): ClassBreaksRenderer;
     /**
      * A convenience function used to update the visual variables of a renderer generated with the [univariateColorSize.createContinuousRenderer()](https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-univariateColorSize.html#createContinuousRenderer) method with the values obtained from the slider.
      *
@@ -71602,11 +77718,29 @@ declare namespace __esri {
 
   interface ColorSizeSliderProperties extends SmartMappingSliderBaseProperties {
     /**
+     * Only applicable when three thumbs (i.e.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#handlesSyncedToPrimary)
+     */
+    handlesSyncedToPrimary?: boolean;
+    /**
+     * Only applicable when three thumbs (i.e.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#persistSizeRangeEnabled)
+     */
+    persistSizeRangeEnabled?: boolean;
+    /**
+     * When `true`, the slider will render a third handle between the two handles already provided by default.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#primaryHandleEnabled)
+     */
+    primaryHandleEnabled?: boolean;
+    /**
      * The colors and sizes corresponding with data values in the [ColorVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-ColorVariable.html) and [SizeVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-SizeVariable.html) of the renderer associated with the slider.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#stops)
      */
-    stops?: ColorSizeStop[];
+    stops?: ColorSizeStopProperties[];
     /**
      * The view model for the ColorSizeSlider widget.
      *
@@ -71615,7 +77749,7 @@ declare namespace __esri {
     viewModel?: ColorSizeSliderViewModelProperties;
   }
 
-  interface ColorSizeSliderViewModel extends SmartMappingSliderViewModel {
+  interface ColorSizeSliderViewModel extends SizeSliderViewModel {
     /**
      * The colors and sizes corresponding with data values in the [ColorVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-ColorVariable.html) and [SizeVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-SizeVariable.html) of the renderer associated with the slider.
      *
@@ -71636,18 +77770,24 @@ declare namespace __esri {
   }
 
   interface ColorSizeSliderViewModelConstructor {
+    /**
+     * Provides the logic for the [ColorSizeSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider-ColorSizeSliderViewModel.html)
+     */
+
     new (properties?: ColorSizeSliderViewModelProperties): ColorSizeSliderViewModel;
   }
 
   export const ColorSizeSliderViewModel: ColorSizeSliderViewModelConstructor;
 
-  interface ColorSizeSliderViewModelProperties extends SmartMappingSliderViewModelProperties {
+  interface ColorSizeSliderViewModelProperties extends SizeSliderViewModelProperties {
     /**
      * The colors and sizes corresponding with data values in the [ColorVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-ColorVariable.html) and [SizeVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-SizeVariable.html) of the renderer associated with the slider.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider-ColorSizeSliderViewModel.html#stops)
      */
-    stops?: ColorSizeStop[];
+    stops?: ColorSizeStopProperties[];
   }
 
   export interface ColorSizeSliderViewModelMaxChangeEvent {
@@ -71667,7 +77807,7 @@ declare namespace __esri {
   }
 
   /**
-   * The return object of the [getColorStopInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider-ColorSizeSliderViewModel.html#getColorStopInfo) method.
+   * The return object of the [getStopInfo()](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider-ColorSizeSliderViewModel.html#getStopInfo) method.
    *
    * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider-ColorSizeSliderViewModel.html#StopInfo)
    */
@@ -71684,38 +77824,6 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider-ColorSizeSliderViewModel.html#StopInfo)
      */
     offset: number;
-  }
-
-  /**
-   * Defines the object specification for each [stops](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#stops).
-   *
-   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#ColorSizeStop)
-   */
-  export interface ColorSizeStop extends Object {
-    /**
-     * Features with the given stop `value` will be rendered with the associated color.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#ColorSizeStop)
-     */
-    color: Color;
-    /**
-     * Label describing the given `value`.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#ColorSizeStop)
-     */
-    label?: string;
-    /**
-     * Features with the given stop `value` will be rendered with the associated size.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#ColorSizeStop)
-     */
-    size: number;
-    /**
-     * The data value associated with the given `color` and `size`.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSizeSlider.html#ColorSizeStop)
-     */
-    value: number;
   }
 
   export interface ColorSizeSliderMaxChangeEvent {
@@ -71842,19 +77950,7 @@ declare namespace __esri {
     viewModel?: ColorSliderViewModelProperties;
   }
 
-  interface ColorSliderViewModel extends SmartMappingSliderViewModel {
-    /**
-     * Only applicable when three thumbs (i.e.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSlider-ColorSliderViewModel.html#handlesSyncedToPrimary)
-     */
-    handlesSyncedToPrimary: boolean;
-    /**
-     * When `true`, the slider will render a third handle between the two handles already provided by default.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSlider-ColorSliderViewModel.html#primaryHandleEnabled)
-     */
-    primaryHandleEnabled: boolean;
+  interface ColorSliderViewModel extends SmartMappingPrimaryHandleSliderViewModel {
     /**
      * The color stops from the [ColorVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-ColorVariable.html) to link to the slider.
      *
@@ -71875,24 +77971,18 @@ declare namespace __esri {
   }
 
   interface ColorSliderViewModelConstructor {
+    /**
+     * Provides the logic for the [ColorSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSlider.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSlider-ColorSliderViewModel.html)
+     */
+
     new (properties?: ColorSliderViewModelProperties): ColorSliderViewModel;
   }
 
   export const ColorSliderViewModel: ColorSliderViewModelConstructor;
 
-  interface ColorSliderViewModelProperties extends SmartMappingSliderViewModelProperties {
-    /**
-     * Only applicable when three thumbs (i.e.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSlider-ColorSliderViewModel.html#handlesSyncedToPrimary)
-     */
-    handlesSyncedToPrimary?: boolean;
-    /**
-     * When `true`, the slider will render a third handle between the two handles already provided by default.
-     *
-     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-ColorSlider-ColorSliderViewModel.html#primaryHandleEnabled)
-     */
-    primaryHandleEnabled?: boolean;
+  interface ColorSliderViewModelProperties extends SmartMappingPrimaryHandleSliderViewModelProperties {
     /**
      * The color stops from the [ColorVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-ColorVariable.html) to link to the slider.
      *
@@ -72047,6 +78137,12 @@ declare namespace __esri {
   }
 
   interface HeatmapSliderViewModelConstructor {
+    /**
+     * Provides the logic for the [HeatmapSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-HeatmapSlider.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-HeatmapSlider-HeatmapSliderViewModel.html)
+     */
+
     new (properties?: HeatmapSliderViewModelProperties): HeatmapSliderViewModel;
   }
 
@@ -72220,6 +78316,12 @@ declare namespace __esri {
   }
 
   interface OpacitySliderViewModelConstructor {
+    /**
+     * Provides the logic for the [OpacitySlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-OpacitySlider.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-OpacitySlider-OpacitySliderViewModel.html)
+     */
+
     new (properties?: OpacitySliderViewModelProperties): OpacitySliderViewModel;
   }
 
@@ -72326,6 +78428,24 @@ declare namespace __esri {
 
   interface SizeSlider extends SmartMappingSliderBase {
     /**
+     * Only applicable when three thumbs (i.e.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SizeSlider.html#handlesSyncedToPrimary)
+     */
+    handlesSyncedToPrimary: boolean;
+    /**
+     * Only applicable when three thumbs (i.e.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SizeSlider.html#persistSizeRangeEnabled)
+     */
+    persistSizeRangeEnabled: boolean;
+    /**
+     * When `true`, the slider will render a third handle between the two handles already provided by default.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SizeSlider.html#primaryHandleEnabled)
+     */
+    primaryHandleEnabled: boolean;
+    /**
      * The size stops from the [SizeVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-SizeVariable.html) to link to the slider.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SizeSlider.html#stops)
@@ -72387,6 +78507,24 @@ declare namespace __esri {
 
   interface SizeSliderProperties extends SmartMappingSliderBaseProperties {
     /**
+     * Only applicable when three thumbs (i.e.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SizeSlider.html#handlesSyncedToPrimary)
+     */
+    handlesSyncedToPrimary?: boolean;
+    /**
+     * Only applicable when three thumbs (i.e.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SizeSlider.html#persistSizeRangeEnabled)
+     */
+    persistSizeRangeEnabled?: boolean;
+    /**
+     * When `true`, the slider will render a third handle between the two handles already provided by default.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SizeSlider.html#primaryHandleEnabled)
+     */
+    primaryHandleEnabled?: boolean;
+    /**
      * The size stops from the [SizeVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-SizeVariable.html) to link to the slider.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SizeSlider.html#stops)
@@ -72406,7 +78544,13 @@ declare namespace __esri {
     viewModel?: SizeSliderViewModelProperties;
   }
 
-  interface SizeSliderViewModel extends SmartMappingSliderViewModel {
+  interface SizeSliderViewModel extends SmartMappingPrimaryHandleSliderViewModel {
+    /**
+     * This property is typically used in diverging, or `above-and-below` renderer configurations.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SizeSlider-SizeSliderViewModel.html#persistSizeRangeEnabled)
+     */
+    persistSizeRangeEnabled: boolean;
     /**
      * The size stops from the [SizeVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-SizeVariable.html) to link to the slider.
      *
@@ -72420,12 +78564,24 @@ declare namespace __esri {
   }
 
   interface SizeSliderViewModelConstructor {
+    /**
+     * Provides the logic for the [SizeSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SizeSlider.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SizeSlider-SizeSliderViewModel.html)
+     */
+
     new (properties?: SizeSliderViewModelProperties): SizeSliderViewModel;
   }
 
   export const SizeSliderViewModel: SizeSliderViewModelConstructor;
 
-  interface SizeSliderViewModelProperties extends SmartMappingSliderViewModelProperties {
+  interface SizeSliderViewModelProperties extends SmartMappingPrimaryHandleSliderViewModelProperties {
+    /**
+     * This property is typically used in diverging, or `above-and-below` renderer configurations.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SizeSlider-SizeSliderViewModel.html#persistSizeRangeEnabled)
+     */
+    persistSizeRangeEnabled?: boolean;
     /**
      * The size stops from the [SizeVariable](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-visualVariables-SizeVariable.html) to link to the slider.
      *
@@ -72516,6 +78672,68 @@ declare namespace __esri {
     value: number;
   }
 
+  interface SmartMappingPrimaryHandleSliderViewModel extends SmartMappingSliderViewModel {
+    /**
+     * Only applicable when three thumbs (i.e.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SmartMappingPrimaryHandleSliderViewModel.html#handlesSyncedToPrimary)
+     */
+    handlesSyncedToPrimary: boolean;
+    /**
+     * When `true`, the slider will render a third handle between the two handles already provided by default.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SmartMappingPrimaryHandleSliderViewModel.html#primaryHandleEnabled)
+     */
+    primaryHandleEnabled: boolean;
+
+    on(name: "max-change", eventHandler: SmartMappingPrimaryHandleSliderViewModelMaxChangeEventHandler): IHandle;
+
+    on(name: "min-change", eventHandler: SmartMappingPrimaryHandleSliderViewModelMinChangeEventHandler): IHandle;
+  }
+
+  interface SmartMappingPrimaryHandleSliderViewModelConstructor {
+    /**
+     * Shared properties for sliders that have a [primaryHandle](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SmartMappingPrimaryHandleSliderViewModel.html#primaryHandleEnabled) option.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SmartMappingPrimaryHandleSliderViewModel.html)
+     */
+
+    new (properties?: SmartMappingPrimaryHandleSliderViewModelProperties): SmartMappingPrimaryHandleSliderViewModel;
+  }
+
+  export const SmartMappingPrimaryHandleSliderViewModel: SmartMappingPrimaryHandleSliderViewModelConstructor;
+
+  interface SmartMappingPrimaryHandleSliderViewModelProperties extends SmartMappingSliderViewModelProperties {
+    /**
+     * Only applicable when three thumbs (i.e.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SmartMappingPrimaryHandleSliderViewModel.html#handlesSyncedToPrimary)
+     */
+    handlesSyncedToPrimary?: boolean;
+    /**
+     * When `true`, the slider will render a third handle between the two handles already provided by default.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SmartMappingPrimaryHandleSliderViewModel.html#primaryHandleEnabled)
+     */
+    primaryHandleEnabled?: boolean;
+  }
+
+  export interface SmartMappingPrimaryHandleSliderViewModelMaxChangeEvent {
+    oldValue: number;
+
+    type: "max";
+
+    value: number;
+  }
+
+  export interface SmartMappingPrimaryHandleSliderViewModelMinChangeEvent {
+    oldValue: number;
+
+    type: "min";
+
+    value: number;
+  }
+
   interface SmartMappingSliderBase extends Widget {
     /**
      * The [Histogram](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Histogram.html) associated with the data represented on the slider.
@@ -72582,6 +78800,12 @@ declare namespace __esri {
   }
 
   interface SmartMappingSliderBaseConstructor {
+    /**
+     * The base class for all Smart Mapping slider widgets.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SmartMappingSliderBase.html)
+     */
+
     new (properties?: SmartMappingSliderBaseProperties): SmartMappingSliderBase;
   }
 
@@ -72793,6 +79017,12 @@ declare namespace __esri {
   }
 
   interface SmartMappingSliderViewModelConstructor {
+    /**
+     * Provides the shared base logic for the smart mapping slider view models.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-SmartMappingSliderViewModel.html)
+     */
+
     new (properties?: SmartMappingSliderViewModelProperties): SmartMappingSliderViewModel;
   }
 
@@ -72844,6 +79074,11 @@ declare namespace __esri {
     max?: number;
   }
 
+  /**
+   * Various utils for tying Smart Mapping renderers to the Smart Mapping slider widgets.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-support-utils.html)
+   */
   interface utils {
     /**
      * Formats a UNIX timestamp to a basic date string.
@@ -72851,6 +79086,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-support-utils.html#formatDateLabel)
      */
     formatDateLabel(value: number): string;
+    /**
+     * Formats a numeric value for display as a label based on the current locale.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-smartMapping-support-utils.html#formatNumberLabel)
+     */
+    formatNumberLabel(value: number): string;
     /**
      * Computes and returns standard deviation values based on the given average and standard deviation.
      *
@@ -72893,6 +79134,12 @@ declare namespace __esri {
   }
 
   interface DatePickerConstructor {
+    /**
+     * The `DatePicker` class provides functionality to easily choose an input date.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-support-DatePicker.html)
+     */
+
     new (properties?: DatePickerProperties): DatePicker;
   }
 
@@ -72922,6 +79169,12 @@ declare namespace __esri {
   interface DatePickerViewModel extends Accessor, MomentElementViewModel {}
 
   interface DatePickerViewModelConstructor {
+    /**
+     * Provides the logic for the [DatePicker](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-support-DatePicker.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-support-DatePickerViewModel.html)
+     */
+
     new (properties?: DatePickerViewModelProperties): DatePickerViewModel;
   }
 
@@ -72998,7 +79251,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-support-GeolocationPositioning.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   interface GoTo {
@@ -73077,6 +79330,12 @@ declare namespace __esri {
   }
 
   interface TimePickerConstructor {
+    /**
+     * The `TimePicker` class provides functionality to easily choose an input date.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-support-TimePicker.html)
+     */
+
     new (properties?: TimePickerProperties): TimePicker;
   }
 
@@ -73100,6 +79359,12 @@ declare namespace __esri {
   interface TimePickerViewModel extends Accessor, MomentElementViewModel {}
 
   interface TimePickerViewModelConstructor {
+    /**
+     * Provides the logic for the [TimePicker](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-support-TimePicker.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-support-TimePickerViewModel.html)
+     */
+
     new (properties?: TimePickerViewModelProperties): TimePickerViewModel;
   }
 
@@ -73126,6 +79391,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-support-widget.html#isRTL)
      */
     function isRTL(): boolean;
+    /**
+     * This convenience decorator is used to help simplify localization of the widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-support-widget.html#messageBundle)
+     */
+    function messageBundle(bundleId?: string): Function;
     /**
      * This convenience decorator marks a property for automatic rendering.
      *
@@ -73343,6 +79614,12 @@ declare namespace __esri {
   }
 
   interface SwipeViewModelConstructor {
+    /**
+     * Provides the logic for the [Swipe](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Swipe.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Swipe-SwipeViewModel.html)
+     */
+
     new (properties?: SwipeViewModelProperties): SwipeViewModel;
   }
 
@@ -73430,11 +79707,11 @@ declare namespace __esri {
      */
     listItemCreatedFunction: TableListListItemCreatedHandler;
     /**
-     * A reference to a [web map](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html) containing the tables.
+     * A reference to a [map](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html) containing the tables.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TableList.html#map)
      */
-    map: WebMap;
+    map: Map | WebMap;
     /**
      * Indicates whether more than one [list item](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TableList-ListItem.html) can be selected by a user at a single time.
      *
@@ -73502,11 +79779,11 @@ declare namespace __esri {
      */
     listItemCreatedFunction?: TableListListItemCreatedHandler;
     /**
-     * A reference to a [web map](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html) containing the tables.
+     * A reference to a [map](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html) containing the tables.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TableList.html#map)
      */
-    map?: WebMapProperties;
+    map?: MapProperties | WebMapProperties;
     /**
      * Indicates whether more than one [list item](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TableList-ListItem.html) can be selected by a user at a single time.
      *
@@ -73574,11 +79851,22 @@ declare namespace __esri {
   }
 
   interface TableListListItemConstructor {
+    /**
+     * In the [TableList](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TableList.html) widget UI, the ListItem represents a layer's table added to the widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TableList-ListItem.html)
+     */
+
     new (): TableListListItem;
   }
 
   export const TableListListItem: TableListListItemConstructor;
 
+  /**
+   * Provides the logic for the [TableList](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TableList.html) widget.
+   *
+   * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TableList-TableListViewModel.html)
+   */
   interface TableListViewModel {
     /**
      * Specifies a function that accesses each [ListItem](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TableList-ListItem.html).
@@ -73587,11 +79875,11 @@ declare namespace __esri {
      */
     listItemCreatedFunction: TableListViewModelListItemCreatedHandler;
     /**
-     * A reference to the [web map](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html) containing the tables.
+     * A reference to the [map](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html) containing the tables.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TableList-TableListViewModel.html#map)
      */
-    map: WebMap;
+    map: Map | WebMap;
     /**
      * The view model's state.
      *
@@ -73746,6 +80034,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider.html#stop)
      */
     stop(): void;
+    /**
+     * Updates the [time slider](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#TimeSlider) widget definition in the provided [WebMap](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider.html#updateWebDocument)
+     */
+    updateWebDocument(webmap: WebMap): void;
   }
 
   interface TimeSliderConstructor {
@@ -73832,7 +80126,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -73867,7 +80161,7 @@ declare namespace __esri {
      */
     mode: "instant" | "time-window" | "cumulative-from-start" | "cumulative-from-end";
     /**
-     * The time (in milliseconds) between playback steps.
+     * The time (in milliseconds) between animation steps.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider-TimeSliderViewModel.html#playRate)
      */
@@ -73904,7 +80198,7 @@ declare namespace __esri {
     view: MapView | SceneView;
 
     /**
-     * Incrementally moves the time extent forward one stop.
+     * Incrementally moves the time extent forward one stop
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider-TimeSliderViewModel.html#next)
      */
@@ -73927,9 +80221,21 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider-TimeSliderViewModel.html#stop)
      */
     stop(): void;
+    /**
+     * Updates the [time slider](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html#TimeSlider) widget definition in the provided [WebMap](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider-TimeSliderViewModel.html#updateWebDocument)
+     */
+    updateWebDocument(webmap: WebMap): void;
   }
 
   interface TimeSliderViewModelConstructor {
+    /**
+     * Provides the logic for the [TimeSlider](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider-TimeSliderViewModel.html)
+     */
+
     new (properties?: TimeSliderViewModelProperties): TimeSliderViewModel;
   }
 
@@ -73955,7 +80261,7 @@ declare namespace __esri {
      */
     mode?: "instant" | "time-window" | "cumulative-from-start" | "cumulative-from-end";
     /**
-     * The time (in milliseconds) between playback steps.
+     * The time (in milliseconds) between animation steps.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider-TimeSliderViewModel.html#playRate)
      */
@@ -73977,7 +80283,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-TimeSlider-TimeSliderViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   export type DateLabelFormatter = (
@@ -74169,7 +80475,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Track.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -74273,6 +80579,24 @@ declare namespace __esri {
      */
     destroy(): void;
     /**
+     * `isFulfilled()` may be used to verify if creating an instance of the class is fulfilled (either resolved or rejected).
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Widget.html#isFulfilled)
+     */
+    isFulfilled(): boolean;
+    /**
+     * `isRejected()` may be used to verify if creating an instance of the class is rejected.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Widget.html#isRejected)
+     */
+    isRejected(): boolean;
+    /**
+     * `isResolved()` may be used to verify if creating an instance of the class is resolved.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Widget.html#isResolved)
+     */
+    isResolved(): boolean;
+    /**
      * Widget teardown helper.
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Widget.html#own)
@@ -74302,6 +80626,12 @@ declare namespace __esri {
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Widget.html#scheduleRender)
      */
     scheduleRender(): void;
+    /**
+     * `when()` may be leveraged once an instance of the class is created.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Widget.html#when)
+     */
+    when(callback?: Function, errback?: Function): Promise<any>;
   }
 
   interface WidgetConstructor {
@@ -74407,7 +80737,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Zoom.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
     /**
      * The view model for this widget.
      *
@@ -74457,6 +80787,12 @@ declare namespace __esri {
   }
 
   interface ZoomViewModelConstructor {
+    /**
+     * Provides the logic for the [Zoom](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Zoom.html) widget.
+     *
+     * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Zoom-ZoomViewModel.html)
+     */
+
     new (properties?: ZoomViewModelProperties): ZoomViewModel;
   }
 
@@ -74480,7 +80816,7 @@ declare namespace __esri {
      *
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Zoom-ZoomViewModel.html#view)
      */
-    view?: MapViewProperties | SceneViewProperties;
+    view?: (MapViewProperties & { type: "2d" }) | (SceneViewProperties & { type: "3d" });
   }
 
   export type MultipointDrawActionCursorUpdateEventHandler = (event: MultipointDrawActionCursorUpdateEvent) => void;
@@ -74692,6 +81028,14 @@ declare namespace __esri {
   export type SliderViewModelMaxChangeEventHandler = (event: SliderViewModelMaxChangeEvent) => void;
 
   export type SliderViewModelMinChangeEventHandler = (event: SliderViewModelMinChangeEvent) => void;
+
+  export type SmartMappingPrimaryHandleSliderViewModelMaxChangeEventHandler = (
+    event: SmartMappingPrimaryHandleSliderViewModelMaxChangeEvent
+  ) => void;
+
+  export type SmartMappingPrimaryHandleSliderViewModelMinChangeEventHandler = (
+    event: SmartMappingPrimaryHandleSliderViewModelMinChangeEvent
+  ) => void;
 
   export type SmartMappingSliderBaseMaxChangeEventHandler = (event: SmartMappingSliderBaseMaxChangeEvent) => void;
 
@@ -78128,14 +84472,24 @@ declare module "esri/form/elements/GroupElement" {
   export = GroupElement;
 }
 
+declare module "esri/form/elements/inputs/BarcodeScannerInput" {
+  import BarcodeScannerInput = __esri.BarcodeScannerInput;
+  export = BarcodeScannerInput;
+}
+
+declare module "esri/form/elements/inputs/ComboBoxInput" {
+  import ComboBoxInput = __esri.ComboBoxInput;
+  export = ComboBoxInput;
+}
+
 declare module "esri/form/elements/inputs/DateTimePickerInput" {
   import DateTimePickerInput = __esri.DateTimePickerInput;
   export = DateTimePickerInput;
 }
 
-declare module "esri/form/elements/inputs/Input" {
-  import Input = __esri.Input;
-  export = Input;
+declare module "esri/form/elements/inputs/RadioButtonsInput" {
+  import RadioButtonsInput = __esri.RadioButtonsInput;
+  export = RadioButtonsInput;
 }
 
 declare module "esri/form/elements/inputs/TextAreaInput" {
@@ -78146,11 +84500,6 @@ declare module "esri/form/elements/inputs/TextAreaInput" {
 declare module "esri/form/elements/inputs/TextBoxInput" {
   import TextBoxInput = __esri.TextBoxInput;
   export = TextBoxInput;
-}
-
-declare module "esri/form/elements/inputs/TextInput" {
-  import TextInput = __esri.TextInput;
-  export = TextInput;
 }
 
 declare module "esri/geometry/Circle" {
@@ -78443,11 +84792,6 @@ declare module "esri/layers/pointCloudFilters/PointCloudReturnFilter" {
   export = PointCloudReturnFilter;
 }
 
-declare module "esri/layers/support/AttachmentInfo" {
-  import AttachmentInfo = __esri.AttachmentInfo;
-  export = AttachmentInfo;
-}
-
 declare module "esri/layers/support/BuildingFilter" {
   import BuildingFilter = __esri.BuildingFilter;
   export = BuildingFilter;
@@ -78476,6 +84820,11 @@ declare module "esri/layers/support/Domain" {
 declare module "esri/layers/support/ElevationSampler" {
   import ElevationSampler = __esri.ElevationSampler;
   export = ElevationSampler;
+}
+
+declare module "esri/layers/support/FacilityLayerInfo" {
+  import FacilityLayerInfo = __esri.FacilityLayerInfo;
+  export = FacilityLayerInfo;
 }
 
 declare module "esri/layers/support/Field" {
@@ -78508,6 +84857,11 @@ declare module "esri/layers/support/FeatureType" {
   export = FeatureType;
 }
 
+declare module "esri/layers/support/GeometryFieldsInfo" {
+  import GeometryFieldsInfo = __esri.GeometryFieldsInfo;
+  export = GeometryFieldsInfo;
+}
+
 declare module "esri/layers/support/ImageParameters" {
   import ImageParameters = __esri.ImageParameters;
   export = ImageParameters;
@@ -78526,6 +84880,16 @@ declare module "esri/layers/support/KMLSublayer" {
 declare module "esri/layers/support/LabelClass" {
   import LabelClass = __esri.LabelClass;
   export = LabelClass;
+}
+
+declare module "esri/layers/support/LayerFloorInfo" {
+  import LayerFloorInfo = __esri.LayerFloorInfo;
+  export = LayerFloorInfo;
+}
+
+declare module "esri/layers/support/LevelLayerInfo" {
+  import LevelLayerInfo = __esri.LevelLayerInfo;
+  export = LevelLayerInfo;
 }
 
 declare module "esri/layers/support/LOD" {
@@ -78576,6 +84940,11 @@ declare module "esri/layers/support/SceneModifications" {
 declare module "esri/layers/support/SceneModification" {
   import SceneModification = __esri.SceneModification;
   export = SceneModification;
+}
+
+declare module "esri/layers/support/SiteLayerInfo" {
+  import SiteLayerInfo = __esri.SiteLayerInfo;
+  export = SiteLayerInfo;
 }
 
 declare module "esri/layers/support/Sublayer" {
@@ -78803,6 +85172,11 @@ declare module "esri/renderers/visualVariables/support/ColorStop" {
   export = ColorStop;
 }
 
+declare module "esri/renderers/visualVariables/support/ColorSizeStop" {
+  import ColorSizeStop = __esri.ColorSizeStop;
+  export = ColorSizeStop;
+}
+
 declare module "esri/renderers/visualVariables/support/OpacityStop" {
   import OpacityStop = __esri.OpacityStop;
   export = OpacityStop;
@@ -78811,6 +85185,11 @@ declare module "esri/renderers/visualVariables/support/OpacityStop" {
 declare module "esri/renderers/visualVariables/support/SizeStop" {
   import SizeStop = __esri.SizeStop;
   export = SizeStop;
+}
+
+declare module "esri/support/MapFloorInfo" {
+  import MapFloorInfo = __esri.MapFloorInfo;
+  export = MapFloorInfo;
 }
 
 declare module "esri/support/actions/ActionBase" {
@@ -79128,6 +85507,11 @@ declare module "esri/tasks/IdentifyTask" {
   export = IdentifyTask;
 }
 
+declare module "esri/tasks/ImageIdentifyTask" {
+  import ImageIdentifyTask = __esri.ImageIdentifyTask;
+  export = ImageIdentifyTask;
+}
+
 declare module "esri/tasks/ImageServiceIdentifyTask" {
   import ImageServiceIdentifyTask = __esri.ImageServiceIdentifyTask;
   export = ImageServiceIdentifyTask;
@@ -79263,6 +85647,21 @@ declare module "esri/tasks/support/IdentifyResult" {
   export = IdentifyResult;
 }
 
+declare module "esri/tasks/support/ImageIdentifyParameters" {
+  import ImageIdentifyParameters = __esri.ImageIdentifyParameters;
+  export = ImageIdentifyParameters;
+}
+
+declare module "esri/tasks/support/ImageIdentifyResult" {
+  import ImageIdentifyResult = __esri.ImageIdentifyResult;
+  export = ImageIdentifyResult;
+}
+
+declare module "esri/tasks/support/ImageHistogramParameters" {
+  import ImageHistogramParameters = __esri.ImageHistogramParameters;
+  export = ImageHistogramParameters;
+}
+
 declare module "esri/tasks/support/ImageServiceIdentifyParameters" {
   import ImageServiceIdentifyParameters = __esri.ImageServiceIdentifyParameters;
   export = ImageServiceIdentifyParameters;
@@ -79378,6 +85777,11 @@ declare module "esri/tasks/support/TrimExtendParameters" {
   export = TrimExtendParameters;
 }
 
+declare module "esri/rest/query/support/AttachmentInfo" {
+  import supportAttachmentInfo = __esri.supportAttachmentInfo;
+  export = supportAttachmentInfo;
+}
+
 declare module "esri/views/BasemapView" {
   import BasemapView = __esri.BasemapView;
   export = BasemapView;
@@ -79386,6 +85790,11 @@ declare module "esri/views/BasemapView" {
 declare module "esri/views/GroundView" {
   import GroundView = __esri.GroundView;
   export = GroundView;
+}
+
+declare module "esri/views/Magnifier" {
+  import Magnifier = __esri.Magnifier;
+  export = Magnifier;
 }
 
 declare module "esri/views/MapView" {
@@ -79409,8 +85818,8 @@ declare module "esri/views/ViewAnimation" {
 }
 
 declare module "esri/views/input/Input" {
-  import inputInput = __esri.inputInput;
-  export = inputInput;
+  import Input = __esri.Input;
+  export = Input;
 }
 
 declare module "esri/views/input/gamepad/GamepadInputDevice" {
@@ -79421,6 +85830,16 @@ declare module "esri/views/input/gamepad/GamepadInputDevice" {
 declare module "esri/views/input/gamepad/GamepadSettings" {
   import GamepadSettings = __esri.GamepadSettings;
   export = GamepadSettings;
+}
+
+declare module "esri/views/interactive/snapping/FeatureSnappingLayerSource" {
+  import FeatureSnappingLayerSource = __esri.FeatureSnappingLayerSource;
+  export = FeatureSnappingLayerSource;
+}
+
+declare module "esri/views/interactive/snapping/SnappingOptions" {
+  import SnappingOptions = __esri.SnappingOptions;
+  export = SnappingOptions;
 }
 
 declare module "esri/views/navigation/Navigation" {
@@ -79484,7 +85903,7 @@ declare module "esri/views/layers/KMLLayerView" {
 }
 
 declare module "esri/views/layers/OGCFeatureLayerView" {
-  type OGCFeatureLayerView = __esri.OGCFeatureLayerView;
+  import OGCFeatureLayerView = __esri.OGCFeatureLayerView;
   export = OGCFeatureLayerView;
 }
 
@@ -79638,6 +86057,16 @@ declare module "esri/webdoc/applicationProperties/SearchLayerField" {
   export = SearchLayerField;
 }
 
+declare module "esri/webdoc/applicationProperties/SearchTable" {
+  import SearchTable = __esri.SearchTable;
+  export = SearchTable;
+}
+
+declare module "esri/webdoc/applicationProperties/SearchTableField" {
+  import SearchTableField = __esri.SearchTableField;
+  export = SearchTableField;
+}
+
 declare module "esri/webdoc/applicationProperties/Viewing" {
   import Viewing = __esri.Viewing;
   export = Viewing;
@@ -79733,6 +86162,11 @@ declare module "esri/widgets/Editor" {
   export = Editor;
 }
 
+declare module "esri/widgets/ElevationProfile" {
+  import ElevationProfile = __esri.ElevationProfile;
+  export = ElevationProfile;
+}
+
 declare module "esri/widgets/Expand" {
   import Expand = __esri.Expand;
   export = Expand;
@@ -79756,6 +86190,11 @@ declare module "esri/widgets/FeatureTable" {
 declare module "esri/widgets/FeatureTemplates" {
   import FeatureTemplates = __esri.FeatureTemplates;
   export = FeatureTemplates;
+}
+
+declare module "esri/widgets/FloorFilter" {
+  import FloorFilter = __esri.FloorFilter;
+  export = FloorFilter;
 }
 
 declare module "esri/widgets/Fullscreen" {
@@ -79913,6 +86352,11 @@ declare module "esri/widgets/smartMapping/SizeSlider" {
   export = SizeSlider;
 }
 
+declare module "esri/widgets/smartMapping/SmartMappingPrimaryHandleSliderViewModel" {
+  import SmartMappingPrimaryHandleSliderViewModel = __esri.SmartMappingPrimaryHandleSliderViewModel;
+  export = SmartMappingPrimaryHandleSliderViewModel;
+}
+
 declare module "esri/widgets/smartMapping/SmartMappingSliderBase" {
   import SmartMappingSliderBase = __esri.SmartMappingSliderBase;
   export = SmartMappingSliderBase;
@@ -80068,6 +86512,36 @@ declare module "esri/widgets/Editor/Workflow" {
   export = Workflow;
 }
 
+declare module "esri/widgets/ElevationProfile/ElevationProfileLine" {
+  import ElevationProfileLine = __esri.ElevationProfileLine;
+  export = ElevationProfileLine;
+}
+
+declare module "esri/widgets/ElevationProfile/ElevationProfileLineGround" {
+  import ElevationProfileLineGround = __esri.ElevationProfileLineGround;
+  export = ElevationProfileLineGround;
+}
+
+declare module "esri/widgets/ElevationProfile/ElevationProfileLineInput" {
+  import ElevationProfileLineInput = __esri.ElevationProfileLineInput;
+  export = ElevationProfileLineInput;
+}
+
+declare module "esri/widgets/ElevationProfile/ElevationProfileLineQuery" {
+  import ElevationProfileLineQuery = __esri.ElevationProfileLineQuery;
+  export = ElevationProfileLineQuery;
+}
+
+declare module "esri/widgets/ElevationProfile/ElevationProfileLineView" {
+  import ElevationProfileLineView = __esri.ElevationProfileLineView;
+  export = ElevationProfileLineView;
+}
+
+declare module "esri/widgets/ElevationProfile/ElevationProfileViewModel" {
+  import ElevationProfileViewModel = __esri.ElevationProfileViewModel;
+  export = ElevationProfileViewModel;
+}
+
 declare module "esri/widgets/Expand/ExpandViewModel" {
   import ExpandViewModel = __esri.ExpandViewModel;
   export = ExpandViewModel;
@@ -80148,6 +86622,11 @@ declare module "esri/widgets/FeatureTemplates/TemplateItemGroup" {
   export = TemplateItemGroup;
 }
 
+declare module "esri/widgets/FloorFilter/FloorFilterViewModel" {
+  import FloorFilterViewModel = __esri.FloorFilterViewModel;
+  export = FloorFilterViewModel;
+}
+
 declare module "esri/widgets/Fullscreen/FullscreenViewModel" {
   import FullscreenViewModel = __esri.FullscreenViewModel;
   export = FullscreenViewModel;
@@ -80216,6 +86695,11 @@ declare module "esri/widgets/Measurement/MeasurementViewModel" {
 declare module "esri/widgets/NavigationToggle/NavigationToggleViewModel" {
   import NavigationToggleViewModel = __esri.NavigationToggleViewModel;
   export = NavigationToggleViewModel;
+}
+
+declare module "esri/widgets/Print/CustomTemplate" {
+  import CustomTemplate = __esri.CustomTemplate;
+  export = CustomTemplate;
 }
 
 declare module "esri/widgets/Print/PrintViewModel" {
@@ -80403,6 +86887,11 @@ declare module "esri/form/elements/ElementMixin" {
   export = ElementMixin;
 }
 
+declare module "esri/form/elements/inputs/TextInput" {
+  import TextInput = __esri.TextInput;
+  export = TextInput;
+}
+
 declare module "esri/layers/mixins/ArcGISCachedService" {
   import ArcGISCachedService = __esri.ArcGISCachedService;
   export = ArcGISCachedService;
@@ -80416,6 +86905,11 @@ declare module "esri/layers/mixins/ArcGISImageService" {
 declare module "esri/layers/mixins/ArcGISMapService" {
   import ArcGISMapService = __esri.ArcGISMapService;
   export = ArcGISMapService;
+}
+
+declare module "esri/layers/mixins/CustomParametersMixin" {
+  import CustomParametersMixin = __esri.CustomParametersMixin;
+  export = CustomParametersMixin;
 }
 
 declare module "esri/layers/mixins/BlendLayer" {
@@ -80588,6 +87082,11 @@ declare module "esri/core/sql/WhereClause" {
   export = WhereClause;
 }
 
+declare module "esri/core/units" {
+  import units = __esri.units;
+  export = units;
+}
+
 declare module "esri/core/urlUtils" {
   import urlUtils = __esri.urlUtils;
   export = urlUtils;
@@ -80661,6 +87160,11 @@ declare module "esri/geometry/support/normalizeUtils" {
 declare module "esri/geometry/support/webMercatorUtils" {
   import webMercatorUtils = __esri.webMercatorUtils;
   export = webMercatorUtils;
+}
+
+declare module "esri/layers/support/AttachmentInfo" {
+  import AttachmentInfo = __esri.AttachmentInfo;
+  export = AttachmentInfo;
 }
 
 declare module "esri/layers/support/fieldUtils" {
@@ -80861,6 +87365,61 @@ declare module "esri/symbols/support/symbolUtils" {
 declare module "esri/symbols/support/cimSymbolUtils" {
   import cimSymbolUtils = __esri.cimSymbolUtils;
   export = cimSymbolUtils;
+}
+
+declare module "esri/rest/closestFacility" {
+  import closestFacility = __esri.closestFacility;
+  export = closestFacility;
+}
+
+declare module "esri/rest/find" {
+  import find = __esri.find;
+  export = find;
+}
+
+declare module "esri/rest/geometryService" {
+  import geometryService = __esri.geometryService;
+  export = geometryService;
+}
+
+declare module "esri/rest/geoprocessor" {
+  import geoprocessor = __esri.geoprocessor;
+  export = geoprocessor;
+}
+
+declare module "esri/rest/geoprocessor/GPOptions" {
+  import GPOptions = __esri.GPOptions;
+  export = GPOptions;
+}
+
+declare module "esri/rest/identify" {
+  import identify = __esri.identify;
+  export = identify;
+}
+
+declare module "esri/rest/imageService" {
+  import imageService = __esri.imageService;
+  export = imageService;
+}
+
+declare module "esri/rest/locator" {
+  import locator = __esri.locator;
+  export = locator;
+}
+
+declare module "esri/rest/serviceArea" {
+  import serviceArea = __esri.serviceArea;
+  export = serviceArea;
+}
+
+declare module "esri/rest/query" {
+  import query = __esri.query;
+  export = query;
+}
+
+declare module "esri/rest/route" {
+  import route = __esri.route;
+  export = route;
 }
 
 declare module "esri/views/support/colorUtils" {

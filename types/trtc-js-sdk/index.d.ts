@@ -1,6 +1,7 @@
-// Type definitions for trtc-js-sdk 4.3
+// Type definitions for trtc-js-sdk 4.8
 // Project: https://github.com/tencentyun/TRTCSDK#readme
 // Definitions by: yokots <https://github.com/yokots>
+//                 Wang KaiLing <https://github.com/wkl007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace TRTC;
@@ -40,7 +41,7 @@ export namespace Logger {
      * TRTC.Logger.setLogLevel(TRTC.Logger.LogLevel.INFO);
      * ```
      */
-    function setLogLevel(level: 0 | 1 | 2 | 3 | 4 | 5 | 6): void;
+    function setLogLevel(level: 0 | 1 | 2 | 3 | 4 | 5): void;
 
     /** 打开日志上传 */
     function enableUploadLog(): void;
@@ -53,7 +54,7 @@ export namespace Logger {
 export const VERSION: string;
 
 /** 检测浏览器是否兼容 TRTC Web SDK */
-export function checkSystemRequirements(): Promise<boolean>;
+export function checkSystemRequirements(): Promise<CheckResult>;
 
 /** 检测浏览器是否支持屏幕分享 */
 export function isScreenShareSupported(): boolean;
@@ -187,6 +188,7 @@ export interface Client {
      * 订阅远端流
      * @param stream 远端流，通过监听 'stream-added' 事件获得。
      *
+     * @param options
      * @example
      * ```javascript
      * // 监听远端流订阅成功事件
@@ -206,13 +208,13 @@ export interface Client {
      * });
      * ```
      */
-    subscribe(stream: RemoteStream, options?: { audio?: boolean; video?: boolean }): void;
+    subscribe(stream: RemoteStream, options?: { audio?: boolean; video?: boolean }): Promise<void>;
 
     /**
      * 取消订阅远端流
      * @param stream 远端流，通过监听 'stream-added' 事件获得。
      */
-    unsubscribe(stream: RemoteStream): void;
+    unsubscribe(stream: RemoteStream): Promise<void>;
 
     /** 切换用户角色 */
     switchRole(role: Role): Promise<void>;
@@ -249,6 +251,12 @@ export interface Client {
 
     /** 获取当前所有远端流的视频统计数据 */
     getRemoteVideoStats(): Promise<RemoteVideoStatsMap>;
+
+    /** 开始混流转码 */
+    startMixTranscode(config: MixTranscodeConfig): Promise<void>;
+
+    /** 停止混流转码 */
+    stopMixTranscode(): Promise<void>;
 }
 
 /** 客户端配置项 */
@@ -261,16 +269,16 @@ export interface ClientConfig {
     userSig: string;
     /**
      * 应用场景,目前支持以下两种场景:
-     * - `videoCall` 实时通话模式
+     * - `rtc` 实时通话模式
      * - `live` 互动直播模式
      */
-    mode: 'videoCall' | 'live';
+    mode: 'rtc' | 'live';
+    /** 是否使用 String 类型的 roomId，支持 v4.3.0+ 版本。 */
+    useStringRoomId?: boolean;
     /** 绑定腾讯云直播 CDN 流 ID，设置之后，您就可以在腾讯云直播 CDN 上通过标准直播方案（FLV|HLS）播放该用户的音视频流。 */
     streamId?: string;
     /** 设置云端录制完成后的回调消息中的 "userdefinerecordid" 字段内容，便于您更方便的识别录制回调。 */
     userDefineRecordId?: string;
-    /** 自动录制时业务自定义ID(32位整型)，将在录制完成后通过直播录制回调接口通知业务方 */
-    recordId?: number;
     /**
      * 纯音频推流模式,需要旁路直播和录制时需要带上此参数:
      * - 1 表示本次是纯音频推流，不需要录制 MP3 文件
@@ -292,7 +300,7 @@ export interface ClientEventMap {
     /** 信令通道连接状态变化事件 */
     'connection-state-changed': {
         prevState: ConnectionState;
-        curState: ConnectionState;
+        state: ConnectionState;
     };
     /** 远端用户进房通知，只有主动推流的远端用户进房才会收到该通知。 */
     'peer-join': RemoteUserInfo;
@@ -306,8 +314,14 @@ export interface ClientEventMap {
     'unmute-audio': RemoteUserInfo;
     /** 远端用户启用视频通知。 */
     'unmute-video': RemoteUserInfo;
-    /** 用户被踢出房间通知，被踢原因有 */
+    /**
+     * 用户被踢出房间通知，被踢原因有：
+     *  - 同名用户登录，注意：同名用户同时登陆是不允许的行为，可能会导致双方音视频通话异常，此乃应用业务逻辑错误！
+     *  - 被账户管理员主动踢出房间
+     */
     'client-banned': RtcError;
+    /** 网络质量统计数据事件，进房后开始统计，每两秒触发一次，包括上行（uplinkNetworkQuality）和下行（downlinkNetworkQuality）的质量统计数据。 */
+    'network-quality': NetworkQuality;
     /** 客户端错误事件 */
     error: RtcError;
 }
@@ -341,7 +355,7 @@ export interface Stream {
      * });
      * ```
      */
-    resume(): void;
+    resume(): Promise<void>;
 
     /** 关闭音视频流,对于本地流，该方法会关闭摄像头并释放摄像头和麦克风访问权限。 */
     close(): void;
@@ -581,6 +595,8 @@ export interface RemoteStream extends Stream {
 }
 
 export interface StreamConfig {
+    /** 用户ID */
+    userId: string;
     /** 是否从麦克风采集音频 */
     audio: boolean;
     /** 是否从摄像头采集视频 */
@@ -603,6 +619,13 @@ export interface StreamConfig {
     facingMode?: 'user' | 'environment';
     /** 是否采集屏幕分享流 */
     screen?: boolean;
+    /**
+     * 是否采集系统音频
+     * 请勿同时设置 audio 和 screenAudio 为 true。
+     * 采集系统声音只支持 Chrome M74+ ，在 Windows 和 Chrome OS 上，可以捕获整个系统的音频，在 Linux 和 Mac 上，只能捕获选项卡的音频。其它 Chrome 版本、其它系统、其它浏览器均不支持。
+     * 屏幕分享获取指引：https://trtc-1252463788.file.myqcloud.com/web/docs/tutorial-06-advanced-screencast.html。
+     */
+    screenAudio?: boolean;
     /** 视频显示是否为镜像，默认为 true。建议在使用前置摄像头时开启，使用后置摄像头时关闭。镜像设置不适用于屏幕分享。 */
     mirror?: boolean;
 }
@@ -612,6 +635,7 @@ export interface StreamEventMap {
     'player-state-changed': {
         type: string;
         state: 'PLAYING' | 'PAUSED' | 'STOPPED';
+        reason: 'playing' | 'mute' | 'unmute' | 'ended';
     };
     /** 本地屏幕分享停止事件通知，仅对本地屏幕分享流有效。 */
     'screen-sharing-stopped': undefined;
@@ -633,7 +657,7 @@ export type Role = 'anchor' | 'audience';
 
 export interface JoinOptions {
     /** 房间号 */
-    roomId: number;
+    roomId: number | string;
     /** 用户角色 */
     role?: Role;
     /**
@@ -683,6 +707,10 @@ export interface LocalVideoStats extends SentMediaStats, VideoStats {
     framesEncoded: number;
     /** 已发送帧数 */
     framesSent: number;
+    /** 视频宽度 */
+    frameWidth: number;
+    /** 视频高度 */
+    frameHeight: number;
 }
 
 export interface ReceivedMediaStats {
@@ -701,6 +729,10 @@ export type RemoteAudioStats = ReceivedMediaStats;
 export interface RemoteVideoStats extends ReceivedMediaStats, VideoStats {
     /** 已解码帧数 */
     framesDecoded: number;
+    /** 视频宽度 */
+    frameWidth: number;
+    /** 视频高度 */
+    frameHeight: number;
 }
 
 export interface LocalAudioStatsMap {
@@ -739,9 +771,9 @@ export type ConnectionState = 'DISCONNECTED' | 'CONNECTING' | 'RECONNECTING' | '
 /** 播放选项 */
 export interface PlayOptions {
     /** 视频画面显示模式，参考 [CSS object-fit 属性](https://developer.mozilla.org/zh-CN/docs/Web/CSS/object-fit) */
-    objectFit: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+    objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
     /** 是否需要 mute 声音，对于本地流通常需要 mute 声音以防止播放从麦克风采集回来的声音。 */
-    muted: boolean;
+    muted?: boolean;
 }
 
 export interface Profile {
@@ -758,3 +790,69 @@ export interface Profile {
 export type VideoProfileString = '120p' | '180p' | '240p' | '360p' | '480p' | '720p' | '1080p' | '1440p' | '4K';
 
 export type ScreenProfileString = '480p' | '480p_2' | '720p' | '720p_2' | '1080p' | '1080p_2';
+
+export interface CheckResult {
+    /** 检测结果 */
+    result: boolean;
+    detail: {
+        /** 当前浏览器是否是 SDK 支持的浏览器 */
+        isBrowserSupported: boolean;
+        /** 当前浏览器是否支持 webRTC */
+        isWebRTCSupported: boolean;
+        /** 当前浏览器是否支持获取媒体设备及媒体流 */
+        isMediaDevicesSupported: boolean;
+        /** 当前浏览器是否支持 H264 编码 */
+        isH264Supported: boolean;
+    };
+}
+
+export interface NetworkQuality {
+    /** 上行网络质量为 SDK 到腾讯云的上行连接网络质量 */
+    uplinkNetworkQuality: 1 | 2 | 3 | 4 | 5 | 6;
+    /** 下行网络质量为 腾讯云到 SDK 的所有下行连接的平均网络质量 */
+    downlinkNetworkQuality: 1 | 2 | 3 | 4 | 5 | 6;
+}
+
+export interface MixTranscodeConfig {
+    /** 混流转码后的流 ID，默认值为'' */
+    streamId?: string;
+    /** 转码后视频分辨率的宽度（px），转码后视频的宽度设置必须大于等于 0 且能容纳所有混入视频，默认值为 640 */
+    videoWidth?: number;
+    /** 转码后视频分辨率的高度（px），转码后视频的高度设置必须大于等于 0 且能容纳所有混入视频，默认值为 480 */
+    videoHeight?: number;
+    /** 转码后的视频码率（kbps），如果传入值为 0，码率值将由 videoWidth 和 videoHeight 决定 */
+    videoBitrate?: number;
+    /** 转码后的视频帧率（fps），默认值为 15， 取值范围为(0, 30] */
+    videoFramerate?: number;
+    /** 转码后的视频关键帧间隔（s），默认值为 2，取值范围为[1, 8] */
+    videoGOP?: number;
+    /** 转码后的音频采样率（Hz），默认值为 48000 */
+    audioSampleRate?: number;
+    /** 转码后的音频码率（kbps），默认值为 64，取值范围为[32, 192] */
+    audioBitrate?: number;
+    /** 转码后的音频声道数， 默认值为 1，取值范围为 1 或 2 */
+    audioChannels?: 1 | 2;
+    /** 混合后画面的背景颜色，格式为十六进制数字，默认值为 0x000000（黑色） */
+    backgroundColor?: number;
+    /** 混合后画面的背景图，默认值为 '' */
+    backgroundImage?: string;
+    /** 混入用户流的信息列表[必填]，必须包含接口调用者的信息 */
+    mixUsers: MixUser[];
+}
+
+export interface MixUser {
+    /** 用户标识[必填]，该用户的 userId */
+    userId: string;
+    /** 只混入该用户的音频流, 若该值为true, 则以下视频相关参数不需要传入 */
+    pureAudio: boolean;
+    /** 该用户流在混流中的宽度（px），必须大于等于0，默认值为 0 */
+    width?: number;
+    /** 该用户流在混流中的高度（px），必须大于等于0，默认值为 0 */
+    height?: number;
+    /** 以混流左上角为起点，该用户流在混流中的 X 坐标（px），必须大于等于 0，默认值为 0 */
+    locationX?: number;
+    /** 以混流左上角为起点，该用户流在混流中的 Y 坐标（px），必须大于等于 0，默认值为 0 */
+    locationY?: number;
+    /** 该用户流在混流中的图层层次，取值范围为[1, 15]；若 pureAudio 的值为 false， 则 zOrder 必传，且各混入流的 zOrder 不可重复 */
+    zOrder?: number;
+}

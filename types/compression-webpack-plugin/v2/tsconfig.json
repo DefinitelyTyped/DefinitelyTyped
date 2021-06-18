@@ -16,6 +16,12 @@
         "paths": {
             "compression-webpack-plugin": [
                 "compression-webpack-plugin/v2"
+            ],
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
             ]
         },
         "types": [],

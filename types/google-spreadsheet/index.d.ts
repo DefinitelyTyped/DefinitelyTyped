@@ -1,4 +1,4 @@
-// Type definitions for google-spreadsheet 3.0
+// Type definitions for google-spreadsheet 3.1
 // Project: https://github.com/theoephraim/node-google-spreadsheet
 // Definitions by: the-vampiire <https://github.com/the-vampiire>
 //                 Federico Grandi <https://github.com/EndBug>
@@ -8,7 +8,7 @@
 
 export type WorksheetType = 'GRID' | 'OBJECT';
 
-export type WorksheetDimension = 'ROW' | 'COLUMN';
+export type WorksheetDimension = 'ROWS' | 'COLUMNS';
 
 export type HyperlinkDisplayType = 'LINKED' | 'PLAIN_TEXT';
 
@@ -284,6 +284,10 @@ export interface ServiceAccountCredentials {
      * service account private key
      */
     private_key: string;
+}
+
+export interface OAuth2Client {
+    getAccessToken: () => { token: string };
 }
 
 // #endregion
@@ -732,8 +736,9 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * @param filters single or array of filters
      * - strings are treated as an A1 range
      * - objects are treated as a WorksheetGridRange
+     * - if skipped, all cells are loaded
      */
-    loadCells(filters: string | WorksheetGridRange | string[] | WorksheetGridRange[]): Promise<void>;
+    loadCells(filters?: string | WorksheetGridRange | string[] | WorksheetGridRange[]): Promise<void>;
 
     /**
      * @description
@@ -864,7 +869,7 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      *
      * @param destinationSpreadsheetId destination spreadsheet doc ID
      */
-    copyToSpreadSheet(destinationSpreadsheetId: string): Promise<void>;
+    copyToSpreadsheet(destinationSpreadsheetId: string): Promise<void>;
 
     // #endregion
 }
@@ -935,7 +940,7 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      *
      * @param sheetId document ID from the URL of the Spreadsheet
      */
-    constructor(sheetId: string);
+    constructor(sheetId?: string);
 
     // #region BASIC PROPERTIES
     // These properties should reflect the ones in the SpreadsheetBasicProperties interface
@@ -1043,6 +1048,14 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
 
     /**
      * @description
+     * Use Google's OAuth2Client to authenticate on behalf of a user
+     *
+     * @param oAuth2Client Configured OAuth2Client
+     */
+    useOAuth2Client(oAuth2Client: OAuth2Client): void;
+
+    /**
+     * @description
      * Set an access token to use for externally managed auth
      * - this method assumes you are creating and managing/refreshing the token yourself
      */
@@ -1144,6 +1157,16 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      * @param rangeId unique ID of the range to delete
      */
     deleteNamedRange(rangeId: string): Promise<void>;
+
+    /**
+     * @description
+     * create a new google spreadsheet document
+     *
+     * You must initialize the GoogleSpreadsheet without an id in order to call this method
+     *
+     * @param properties basic Spreadsheet document properties to set
+     */
+    createNewSpreadsheetDocument(properties: SpreadsheetBasicProperties): Promise<void>;
 
     // #endregion
 }

@@ -1,1 +1,3 @@
-export { CloudStrategy as default } from "../../";
+import { CloudStrategy } from "../../";
+
+export = CloudStrategy;

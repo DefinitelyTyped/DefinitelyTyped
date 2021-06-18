@@ -1,1 +1,3 @@
-export { ImproveRelevance24 as default } from "../../";
+import { ImproveRelevance24 } from "../../";
+
+export = ImproveRelevance24;

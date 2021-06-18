@@ -1,1 +1,3 @@
-export { FilterRemove32 as default } from "../../";
+import { FilterRemove32 } from "../../";
+
+export = FilterRemove32;

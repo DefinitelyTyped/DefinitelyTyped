@@ -1,1 +1,3 @@
-export { Humid as default } from "../../";
+import { Humid } from "../../";
+
+export = Humid;

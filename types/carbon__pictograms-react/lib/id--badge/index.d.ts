@@ -1,1 +1,3 @@
-export { IdBadge as default } from "../../";
+import { IdBadge } from "../../";
+
+export = IdBadge;

@@ -1,1 +1,3 @@
-export { Fragile32 as default } from "../../";
+import { Fragile32 } from "../../";
+
+export = Fragile32;

@@ -1,1 +1,3 @@
-export { LightFilled20 as default } from "../../";
+import { LightFilled20 } from "../../";
+
+export = LightFilled20;

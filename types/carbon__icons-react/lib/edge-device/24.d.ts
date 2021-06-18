@@ -1,1 +1,3 @@
-export { EdgeDevice24 as default } from "../../";
+import { EdgeDevice24 } from "../../";
+
+export = EdgeDevice24;

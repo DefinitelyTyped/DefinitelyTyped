@@ -1,1 +1,3 @@
-export { CurrencyLira24 as default } from "../../";
+import { CurrencyLira24 } from "../../";
+
+export = CurrencyLira24;

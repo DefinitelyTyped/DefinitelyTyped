@@ -1,1 +1,3 @@
-export { Refinery as default } from "../../";
+import { Refinery } from "../../";
+
+export = Refinery;

@@ -21,6 +21,7 @@ function handle_with_next(req: http.IncomingMessage, res: http.ServerResponse, n
 }
 
 pinoHttp({ logger });
+pinoHttp({ logger }).logger = logger;
 pinoHttp({ genReqId: req => req.statusCode || 200 });
 pinoHttp({ genReqId: req => 'foo' });
 pinoHttp({ genReqId: req => Buffer.allocUnsafe(16) });
@@ -37,6 +38,6 @@ pinoHttp({ customAttributeKeys: { err: 'err' } });
 pinoHttp({ customAttributeKeys: { responseTime: 'responseTime' } });
 pinoHttp({ customAttributeKeys: { req: 'req', res: 'res', err: 'err', responseTime: 'responseTime' } });
 pinoHttp({ customLogLevel: (req, res) => 'info' });
-pinoHttp({ reqCustomProps: req => ({ key1: 'value1', 'x-key-2': 'value2' }) });
+pinoHttp({ reqCustomProps: (req, res) => ({ key1: 'value1', 'x-key-2': 'value2' }) });
 pinoHttp({ wrapSerializers: false });
 pinoHttp(new Writable());

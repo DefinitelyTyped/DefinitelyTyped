@@ -1,1 +1,3 @@
-export { HardDrive as default } from "../../";
+import { HardDrive } from "../../";
+
+export = HardDrive;

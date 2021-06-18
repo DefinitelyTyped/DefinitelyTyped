@@ -1,1 +1,3 @@
-export { MobileDevices as default } from "../../";
+import { MobileDevices } from "../../";
+
+export = MobileDevices;

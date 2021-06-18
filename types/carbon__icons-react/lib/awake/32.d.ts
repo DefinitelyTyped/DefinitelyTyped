@@ -1,1 +1,3 @@
-export { Awake32 as default } from "../../";
+import { Awake32 } from "../../";
+
+export = Awake32;

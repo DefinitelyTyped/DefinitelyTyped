@@ -48,3 +48,5 @@ export class ArrowKeyStepper extends PureComponent<ArrowKeyStepperProps, ScrollI
         scrollToRow: 0;
     };
 }
+
+export default ArrowKeyStepper;

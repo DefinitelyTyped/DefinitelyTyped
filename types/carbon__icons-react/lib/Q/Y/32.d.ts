@@ -1,1 +1,3 @@
-export { QY32 as default } from "../../../";
+import { QY32 } from "../../../";
+
+export = QY32;

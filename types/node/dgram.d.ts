@@ -1,7 +1,7 @@
-declare module "dgram" {
-    import { AddressInfo } from "net";
-    import * as dns from "dns";
-    import * as events from "events";
+declare module 'dgram' {
+    import { AddressInfo } from 'net';
+    import * as dns from 'dns';
+    import { EventEmitter, Abortable } from 'events';
 
     interface RemoteInfo {
         address: string;
@@ -19,7 +19,7 @@ declare module "dgram" {
 
     type SocketType = "udp4" | "udp6";
 
-    interface SocketOptions {
+    interface SocketOptions extends Abortable {
         type: SocketType;
         reuseAddr?: boolean;
         /**
@@ -34,7 +34,7 @@ declare module "dgram" {
     function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
-    class Socket extends events.EventEmitter {
+    class Socket extends EventEmitter {
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         address(): AddressInfo;
         bind(port?: number, address?: string, callback?: () => void): void;

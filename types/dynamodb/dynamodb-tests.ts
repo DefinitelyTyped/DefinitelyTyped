@@ -27,6 +27,30 @@ let Account = dynamo.define('Account', {
     },
 });
 
+const AccountTyped = dynamo.define<{
+    email: string;
+    name: string;
+    age?: number;
+    roles?: string[];
+    settings?: { nickname: string; acceptedTerms: boolean };
+}>('Account', {
+    hashKey: 'email',
+
+    // add the timestamp attributes (updatedAt, createdAt)
+    timestamps: true,
+
+    schema: {
+        email: Joi.string().email(),
+        name: Joi.string(),
+        age: Joi.number(),
+        roles: dynamo.types.stringSet(),
+        settings: {
+            nickname: Joi.string(),
+            acceptedTerms: Joi.boolean().default(false),
+        },
+    },
+});
+
 let BlogPost = dynamo.define('BlogPost', {
     hashKey: 'email',
     rangeKey: 'title',
@@ -138,10 +162,20 @@ Account.create(
     },
 );
 
+AccountTyped.create({ email: 'foo@example.com', name: 'Foo Bar', age: 21 }, (err, acc) => {
+    console.log('created account in DynamoDB', acc.get('email'), acc.attrs.email);
+});
+
 const acc = new Account({ email: 'test@example.com', name: 'Test Example' });
 
 acc.save(err => {
     console.log('created account in DynamoDB', acc.get('email'));
+});
+
+const accTyped = new AccountTyped({ email: 'test@example.com', name: 'Test Example' });
+
+accTyped.save(err => {
+    console.log('created account in DynamoDB', accTyped.get('email'), accTyped.attrs.email);
 });
 
 BlogPost.create(
@@ -163,6 +197,12 @@ Account.create([item1, item2, item3], (err, accounts) => {
     console.log('created 3 accounts in DynamoDB', accounts);
 });
 
+AccountTyped.create([item1, item2, item3], (err, accounts) => {
+    accounts.map(acc => {
+        console.log('created account', acc.get('email'), acc.attrs.email);
+    });
+});
+
 let params: dynamo.Model.OperationOptions = {};
 params.ConditionExpression = '#i <> :x';
 params.ExpressionAttributeNames = { '#i': 'id' };
@@ -182,6 +222,10 @@ Account.create(
 
 Account.update({ email: 'foo@example.com', name: 'Bar Tester' }, (err, acc) => {
     console.log('update account', acc.get('name'));
+});
+
+AccountTyped.update({ email: 'foo@example.com', name: 'Bar Tester' }, (err, acc) => {
+    console.log('update account', acc.get('name'), acc.attrs.name);
 });
 
 Account.update(
@@ -316,6 +360,10 @@ Account.get('test@example.com', (err, acc) => {
     console.log('got account', acc.get('email'));
 });
 
+AccountTyped.get('test@example.com', (err, acc) => {
+    console.log('got account', acc.get('email'), acc.attrs.email);
+});
+
 Account.get('test@example.com', { ConsistentRead: true }, (err, acc) => {
     console.log('got account', acc.get('email'));
 });
@@ -354,8 +402,22 @@ Account.get(
 
 const callback = () => {};
 
+// Typed Account query
+AccountTyped.query('foo1@example.com').exec((err, data) => {
+    data.Items.map(i => console.log('fetched account', i.get('email'), i.attrs.email));
+});
+
+// Typed Account query with promise (incl. nested array)
+AccountTyped.query('foo1@example.com')
+    .exec()
+    .promise()
+    .then(data => data[0].Items.map(i => console.log('fetched account', i.get('email'), i.attrs.email)));
+
 // query for blog posts by werner@example.com
 BlogPost.query('werner@example.com').exec(callback);
+
+// query for blog posts by werner@example.com as a promise
+BlogPost.query('werner@example.com').exec().promise().then(callback);
 
 // same as above, but load all results
 BlogPost.query('werner@example.com')
@@ -568,6 +630,22 @@ Account.scan()
     .loadAll()
     .exec(callback);
 
+AccountTyped.scan()
+    .loadAll()
+    .exec((err, data) => {
+        data.Items.map(i => {
+            console.log('scanned account: ', i.get('email'), i.attrs.email);
+        });
+    });
+
+// Promised scan with nested array
+AccountTyped.scan()
+    .loadAll()
+    .exec()
+    .promise()
+    .then()
+    .then(data => data[0].Items.map(i => console.log('fetched account 1234', i.get('email'), i.attrs.email)));
+
 // Load 20 accounts
 Account.scan()
     .limit(20)
@@ -713,6 +791,10 @@ Account.getItems(
         console.log(`loaded ${accounts.length} accounts`); // prints loaded 3 accounts
     },
 );
+
+AccountTyped.getItems(['foo@example.com', 'bar@example.com', 'test@example.com'], (err, accounts) => {
+    console.log(`loaded ${accounts.length} accounts`); // prints loaded 3 accounts
+});
 
 // For models with range keys you must pass in objects of hash and range key attributes
 const postKey1 = { email: 'test@example.com', title: 'Hello World!' };

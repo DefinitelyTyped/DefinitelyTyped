@@ -1,1 +1,3 @@
-export { HardDriveNetwork as default } from "../../";
+import { HardDriveNetwork } from "../../";
+
+export = HardDriveNetwork;

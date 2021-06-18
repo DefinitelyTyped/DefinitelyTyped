@@ -1,1 +1,3 @@
-export { InformationFilled16 as default } from "../../";
+import { InformationFilled16 } from "../../";
+
+export = InformationFilled16;

@@ -1,1 +1,3 @@
-export { DataStructured16 as default } from "../../";
+import { DataStructured16 } from "../../";
+
+export = DataStructured16;

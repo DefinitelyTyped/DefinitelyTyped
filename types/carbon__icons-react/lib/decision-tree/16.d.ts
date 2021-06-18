@@ -1,1 +1,3 @@
-export { DecisionTree16 as default } from "../../";
+import { DecisionTree16 } from "../../";
+
+export = DecisionTree16;

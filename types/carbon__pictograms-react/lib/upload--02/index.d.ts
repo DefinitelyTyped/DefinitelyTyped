@@ -1,1 +1,3 @@
-export { Upload_02 as default } from "../../";
+import { Upload_02 } from "../../";
+
+export = Upload_02;

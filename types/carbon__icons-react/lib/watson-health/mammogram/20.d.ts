@@ -1,1 +1,3 @@
-export { WatsonHealthMammogram20 as default } from "../../../";
+import { WatsonHealthMammogram20 } from "../../../";
+
+export = WatsonHealthMammogram20;

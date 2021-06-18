@@ -1,1 +1,3 @@
-export { Misuse16 as default } from "../../";
+import { Misuse16 } from "../../";
+
+export = Misuse16;

@@ -1,7 +1,7 @@
 import { Coordinate } from '../coordinate';
 import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
-import Feature, { FeatureLike } from '../Feature';
+import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import ImageBase from '../ImageBase';
 import Layer from '../layer/Layer';
@@ -9,10 +9,11 @@ import Observable from '../Observable';
 import { Pixel } from '../pixel';
 import { FrameState } from '../PluggableMap';
 import Projection from '../proj/Projection';
-import Source from '../source/Source';
 import TileSource from '../source/Tile';
 import Tile from '../Tile';
 import TileRange from '../TileRange';
+import { HitMatch } from './Map';
+import { FeatureCallback } from './vector';
 
 export default class LayerRenderer<LayerType extends Layer = Layer> extends Observable {
     constructor(layer: LayerType);
@@ -35,9 +36,9 @@ export default class LayerRenderer<LayerType extends Layer = Layer> extends Obse
         coordinate: Coordinate,
         frameState: FrameState,
         hitTolerance: number,
-        callback: (p0: FeatureLike, p1: Layer<Source>) => T,
-        declutteredFeatures: FeatureLike[],
-    ): T;
+        callback: FeatureCallback<T>,
+        matches: HitMatch<T>[],
+    ): T | undefined;
     getDataAtPixel(pixel: Pixel, frameState: FrameState, hitTolerance: number): Uint8ClampedArray | Uint8Array;
     /**
      * Asynchronous layer level hit detection.

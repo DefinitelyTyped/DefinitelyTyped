@@ -27,6 +27,14 @@ redis.del('foo', 'bar').then(result => result * 1);
 redis.del(['foo', 'bar']).then(result => result * 1);
 redis.del('foo', 'bar', cbNumber);
 redis.del(['foo', 'bar'], cbNumber);
+redis.rpop('list', cb);
+redis.rpop('list', 2, cb);
+redis.rpop('list').then(console.log);
+redis.rpop('list', 2).then(console.log);
+redis.lpop('list', cb);
+redis.lpop('list', 2, cb);
+redis.lpop('list').then(console.log);
+redis.lpop('list', 2).then(console.log);
 redis.brpop('list', 0).then(console.log);
 redis.brpop('listA', 'listB', 0).then(console.log);
 redis.brpop(['listA', 'listB', 0]).then(console.log);
@@ -69,6 +77,13 @@ redis.sinter('keya', 'keyb').then(console.log);
 redis.sinter('keya', 'keyb', cb);
 redis.sunion('keya', 'keyb').then(console.log);
 redis.sunion('keya', 'keyb', cb);
+redis.xreadgroup('GROUP', 'groupName', 'consumerName', 'STREAMS', 'streamName', '6', '7', '8', cb);
+redis.xreadgroup('GROUP', 'groupName', 'consumerName', 'STREAMS', 'streamName', '6', '7', '8').then(console.log);
+
+// Test list index command
+redis.rpush('lposlist', 'foo', 'bar', 'baz');
+redis.lpos('lposlist', 'foo').then(console.log);
+redis.lpos('lposlist', 'baz', 0, 1, 3).then(console.log);
 
 // Test OverloadedKeyCommand
 redis.hdel('foo', 'bar').then(console.log);
@@ -194,6 +209,16 @@ redis.msetnx({ a: 'b', c: 4 }).then(console.log);
 redis.msetnx({ a: 'b', c: 4 }, cbNumber);
 redis.msetnx(new Map<string, number>(), cbNumber);
 
+// Test for GEO commands
+redis.geoadd('Sicily', 13.361389, 38.115556, 'Palermo', cbNumber);
+redis.geoadd('Sicily', 15.087269 , 37.502669, 'Catania').then(console.log);
+redis.geodist('Sicily', 'Palermo', 'Catania', 'km', cb);
+redis.geodist('Sicily', 'Palermo', 'Catania', 'km').then(console.log);
+redis.geohash('Sicily', 'Palermo', 'Catania').then(console.log);
+redis.geopos('Sicily', 'Palermo', 'Catania').then(console.log);
+redis.georadius('Sicily', 15, 37, 200, 'km').then(console.log);
+redis.georadiusbymember('Sicily', 'Palermo', 200, 'km').then(console.log);
+
 // Test for memory usage
 redis.memory('USAGE', 'foo').then(console.log);
 
@@ -261,6 +286,11 @@ redis.lrangeBuffer('bufferlist', 0, listData.length - 2, (err, results) => {
     });
 });
 
+// Test redis disconnect
+redis.disconnect();
+redis.disconnect(true);
+redis.disconnect(false);
+
 // Test OverloadedSubCommand
 redis.cluster('INFO').then(console.log);
 redis.cluster('INFO', cb);
@@ -302,6 +332,9 @@ new Redis({
     port: 6379, // Redis port
     host: '127.0.0.1', // Redis host
     family: 4, // 4 (IPv4) or 6 (IPv6)
+    noDelay: true,
+    stringNumbers: false,
+    maxScriptsCachingTime: 60000,
     username: 'user',
     password: 'auth',
     db: 0,
@@ -314,6 +347,10 @@ new Redis({
         servername: 'tlsservername',
     },
     enableAutoPipelining: true
+});
+// Test commandTimeout
+new Redis({
+    commandTimeout: 5000
 });
 
 const pub = new Redis();
@@ -421,6 +458,13 @@ redis
     .hscan('hash', '0')
     .zscan('zset', 0)
     .zscan('zset', '0')
+    .zadd('key', 1, 'a')
+    .zadd('key', 1, 'a', 2, 'b')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd', 5, 'e')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd', 5, 'e', 6, 'f')
+    .zadd('key', '1', 'a', '2', 'b', '3', 'c', '4', 'd', '5', 'e', '6', 'f')
     .exec((err, results) => {
         // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
     });
@@ -499,6 +543,11 @@ redis.xrevrange('streamName', '+', '-', 'COUNT', 1, cb);
 redis.xtrim('streamName', 'MAXLEN', '~', 1000).then(console.log);
 redis.xtrim('streamName', 'MAXLEN', '~', 1000, cbNumber);
 
+redis.scanStream({match: "pattern"});
+redis.scanStream({type: "del"});
+redis.scanStream({count: 100});
+redis.scanStream({key: "foo"});
+
 redis.zrangebyscore('set', 0, 100).then(console.log);
 redis.zrangebyscore('set', 0, 100);
 redis.zrangebyscore('set', 0, 100, 'WITHSCORES').then(console.log);
@@ -507,6 +556,14 @@ redis.zrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10).then(console.lo
 redis.zrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
 redis.zrangebyscore('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
 redis.zrangebyscore('set', 0, 100, 'LIMIT', 0, 10, cb);
+redis.zrangebyscoreBuffer('set', 0, 100).then(console.log);
+redis.zrangebyscoreBuffer('set', 0, 100);
+redis.zrangebyscoreBuffer('set', 0, 100, 'WITHSCORES').then(console.log);
+redis.zrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', cb);
+redis.zrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10).then(console.log);
+redis.zrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
+redis.zrangebyscoreBuffer('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
+redis.zrangebyscoreBuffer('set', 0, 100, 'LIMIT', 0, 10, cb);
 redis.zrevrangebyscore('set', 0, 100).then(console.log);
 redis.zrevrangebyscore('set', 0, 100);
 redis.zrevrangebyscore('set', 0, 100, 'WITHSCORES').then(console.log);
@@ -515,15 +572,31 @@ redis.zrevrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10).then(console
 redis.zrevrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
 redis.zrevrangebyscore('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
 redis.zrevrangebyscore('set', 0, 100, 'LIMIT', 0, 10, cb);
+redis.zrevrangebyscoreBuffer('set', 0, 100).then(console.log);
+redis.zrevrangebyscoreBuffer('set', 0, 100);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'WITHSCORES').then(console.log);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', cb);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10).then(console.log);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'LIMIT', 0, 10, cb);
 
 redis.zrangebylex('set', '-', '[c').then(console.log);
 redis.zrangebylex('set', '-', '[c');
 redis.zrangebylex('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
 redis.zrangebylex('set', '-', '[c', 'LIMIT', 0, 10, cb);
+redis.zrangebylexBuffer('set', '-', '[c').then(console.log);
+redis.zrangebylexBuffer('set', '-', '[c');
+redis.zrangebylexBuffer('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
+redis.zrangebylexBuffer('set', '-', '[c', 'LIMIT', 0, 10, cb);
 redis.zrevrangebylex('set', '-', '[c').then(console.log);
 redis.zrevrangebylex('set', '-', '[c');
 redis.zrevrangebylex('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
 redis.zrevrangebylex('set', '-', '[c', 'LIMIT', 0, 10, cb);
+redis.zrevrangebylexBuffer('set', '-', '[c').then(console.log);
+redis.zrevrangebylexBuffer('set', '-', '[c');
+redis.zrevrangebylexBuffer('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
+redis.zrevrangebylexBuffer('set', '-', '[c', 'LIMIT', 0, 10, cb);
 
 // ClusterRetryStrategy can return non-numbers to stop retrying
 new Redis.Cluster([], {
@@ -535,16 +608,22 @@ new Redis.Cluster([], {
 });
 
 // Cluster types
+const clusterNodes: Redis.ClusterNode[] = [
+    {
+        host: 'localhost',
+        port: 6379,
+    },
+];
+
 const clusterOptions: Redis.ClusterOptions = {};
-const cluster = new Redis.Cluster(
-    [
-        {
-            host: 'localhost',
-            port: 6379,
-        },
-    ],
-    clusterOptions,
-);
+
+const cluster = new Redis.Cluster(clusterNodes, clusterOptions);
+
+cluster.duplicate(); // $ExpectType Cluster
+cluster.duplicate(clusterNodes); // $ExpectType Cluster
+cluster.duplicate(clusterNodes, clusterOptions); // $ExpectType Cluster
+cluster.duplicate(undefined, clusterOptions); // $ExpectType Cluster
+
 cluster.on('end', () => console.log('on end'));
 cluster.nodes().map(node => {
     node.pipeline()
@@ -651,6 +730,7 @@ cluster.hgetall('key', cb);
 cluster.incrby('key', 15).then(console.log);
 cluster.incrby('key', 15, cb);
 
+cluster.disconnect(true);
 cluster.disconnect();
 cluster.quit(result => {
     console.log(result);
@@ -695,7 +775,16 @@ redis.pipeline()
         // do something with res or err
     });
 
+// Test rpushx and lpushx for pushing several elements
+redis.pipeline()
+    .lpush('lpushxlist', 'foo')
+    .lpushx('lpushxlist', 'bar', 1)
+    .rpushx('rpushxlist', 'hoge', 2);
+
 redis.options.host;
 redis.status;
 cluster.options.maxRedirections;
 cluster.status;
+
+import { lookup } from 'dns';
+clusterOptions.dnsLookup = lookup;

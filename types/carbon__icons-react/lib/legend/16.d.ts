@@ -1,1 +1,3 @@
-export { Legend16 as default } from "../../";
+import { Legend16 } from "../../";
+
+export = Legend16;

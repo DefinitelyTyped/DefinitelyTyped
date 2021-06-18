@@ -1,1 +1,3 @@
-export { LocationPersonFilled32 as default } from "../../";
+import { LocationPersonFilled32 } from "../../";
+
+export = LocationPersonFilled32;

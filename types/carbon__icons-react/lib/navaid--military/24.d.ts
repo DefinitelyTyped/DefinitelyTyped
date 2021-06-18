@@ -1,1 +1,3 @@
-export { NavaidMilitary24 as default } from "../../";
+import { NavaidMilitary24 } from "../../";
+
+export = NavaidMilitary24;

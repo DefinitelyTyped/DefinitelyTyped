@@ -1,1 +1,3 @@
-export { Language32 as default } from "../../";
+import { Language32 } from "../../";
+
+export = Language32;

@@ -1,1 +1,3 @@
-export { DistributeHorizontalCenter24 as default } from "../../";
+import { DistributeHorizontalCenter24 } from "../../";
+
+export = DistributeHorizontalCenter24;

@@ -1,1 +1,3 @@
-export { Delete32 as default } from "../../";
+import { Delete32 } from "../../";
+
+export = Delete32;

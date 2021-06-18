@@ -1,1 +1,3 @@
-export { _4KFilled16 as default } from "../../";
+import { _4KFilled16 } from "../../";
+
+export = _4KFilled16;

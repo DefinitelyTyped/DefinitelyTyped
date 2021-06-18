@@ -1,1 +1,3 @@
-export { MovementOfGoods_02 as default } from "../../";
+import { MovementOfGoods_02 } from "../../";
+
+export = MovementOfGoods_02;

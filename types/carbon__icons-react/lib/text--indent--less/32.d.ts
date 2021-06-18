@@ -1,1 +1,3 @@
-export { TextIndentLess32 as default } from "../../";
+import { TextIndentLess32 } from "../../";
+
+export = TextIndentLess32;

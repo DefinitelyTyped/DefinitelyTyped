@@ -12,8 +12,10 @@ import {
     createServer,
     TLSSocket,
     rootCertificates,
-} from "tls";
-import * as fs from "fs";
+    Server,
+    TlsOptions,
+} from 'tls';
+import * as fs from 'fs';
 
 {
     const ctx: SecureContext = createSecureContext({
@@ -59,6 +61,9 @@ import * as fs from "fs";
     const minVersion: string = DEFAULT_MIN_VERSION;
 
     const buf: Buffer = tlsSocket.exportKeyingMaterial(123, 'test', Buffer.from('nope'));
+
+    tlsSocket.getPeerX509Certificate(); // $ExpectType X509Certificate | undefined
+    tlsSocket.getX509Certificate(); // $ExpectType X509Certificate | undefined
 }
 
 {
@@ -288,4 +293,9 @@ import * as fs from "fs";
 
 {
     const r00ts: ReadonlyArray<string> = rootCertificates;
+}
+
+{
+    const _options: TlsOptions = {};
+    const _server = new Server(_options, (socket) => {});
 }

@@ -1,1 +1,3 @@
-export { SecureHybridCloud as default } from "../../";
+import { SecureHybridCloud } from "../../";
+
+export = SecureHybridCloud;

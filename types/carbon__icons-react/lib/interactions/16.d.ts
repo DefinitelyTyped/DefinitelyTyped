@@ -1,1 +1,3 @@
-export { Interactions16 as default } from "../../";
+import { Interactions16 } from "../../";
+
+export = Interactions16;

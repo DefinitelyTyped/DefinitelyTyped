@@ -1,1 +1,3 @@
-export { VirtualMachine32 as default } from "../../";
+import { VirtualMachine32 } from "../../";
+
+export = VirtualMachine32;

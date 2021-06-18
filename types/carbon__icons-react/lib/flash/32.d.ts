@@ -1,1 +1,3 @@
-export { Flash32 as default } from "../../";
+import { Flash32 } from "../../";
+
+export = Flash32;

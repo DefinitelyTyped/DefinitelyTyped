@@ -1,1 +1,3 @@
-export { UserXRay32 as default } from "../../";
+import { UserXRay32 } from "../../";
+
+export = UserXRay32;

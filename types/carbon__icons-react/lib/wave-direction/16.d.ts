@@ -1,1 +1,3 @@
-export { WaveDirection16 as default } from "../../";
+import { WaveDirection16 } from "../../";
+
+export = WaveDirection16;

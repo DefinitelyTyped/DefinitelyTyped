@@ -1,1 +1,3 @@
-export { Logout32 as default } from "../../";
+import { Logout32 } from "../../";
+
+export = Logout32;

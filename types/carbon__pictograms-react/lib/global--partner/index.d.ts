@@ -1,1 +1,3 @@
-export { GlobalPartner as default } from "../../";
+import { GlobalPartner } from "../../";
+
+export = GlobalPartner;

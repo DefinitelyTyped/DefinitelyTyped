@@ -1,1 +1,3 @@
-export { FetchUploadCloud32 as default } from "../../";
+import { FetchUploadCloud32 } from "../../";
+
+export = FetchUploadCloud32;

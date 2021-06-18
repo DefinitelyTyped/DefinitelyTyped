@@ -1,1 +1,3 @@
-export { WatsonHealthSmoothing32 as default } from "../../../";
+import { WatsonHealthSmoothing32 } from "../../../";
+
+export = WatsonHealthSmoothing32;

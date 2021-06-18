@@ -1,1 +1,3 @@
-export { Doc20 as default } from "../../";
+import { Doc20 } from "../../";
+
+export = Doc20;

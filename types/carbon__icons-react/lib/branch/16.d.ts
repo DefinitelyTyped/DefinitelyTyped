@@ -1,1 +1,3 @@
-export { Branch16 as default } from "../../";
+import { Branch16 } from "../../";
+
+export = Branch16;

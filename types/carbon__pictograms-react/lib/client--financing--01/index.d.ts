@@ -1,1 +1,3 @@
-export { ClientFinancing_01 as default } from "../../";
+import { ClientFinancing_01 } from "../../";
+
+export = ClientFinancing_01;

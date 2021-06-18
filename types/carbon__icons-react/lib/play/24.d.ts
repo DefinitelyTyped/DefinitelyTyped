@@ -1,1 +1,3 @@
-export { Play24 as default } from "../../";
+import { Play24 } from "../../";
+
+export = Play24;

@@ -26,6 +26,7 @@
 //                 JongChan Choi <https://github.com/disjukr>
 //                 Victor Magalhães <https://github.com/vhfmag>
 //                 Dale Tan <https://github.com/hellatan>
+//                 Priyanshu Rav <https://github.com/priyanshurav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -37,6 +38,7 @@
 
 import * as CSS from 'csstype';
 import * as PropTypes from 'prop-types';
+import { Interaction as SchedulerInteraction } from 'scheduler/tracing';
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -52,14 +54,9 @@ type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
 type Booleanish = boolean | 'true' | 'false';
 
-/**
- * defined in scheduler/tracing
- */
-interface SchedulerInteraction {
-    id: number;
-    name: string;
-    timestamp: number;
-}
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+// Destructors are only allowed to return void.
+type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
 
 // tslint:disable-next-line:export-just-namespace
 export = React;
@@ -82,7 +79,7 @@ declare namespace React {
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type JSXElementConstructor<P> =
-        | ((props: P) => ReactElement | null)
+        | ((props: P) => ReactElement<any, any> | null)
         | (new (props: P) => Component<P, any>);
 
     interface RefObject<T> {
@@ -405,7 +402,7 @@ declare namespace React {
     const version: string;
 
     /**
-     * {@link https://github.com/bvaughn/rfcs/blob/profiler/text/0000-profiler.md#detailed-design | API}
+     * {@link https://reactjs.org/docs/profiler.html#onrender-callback Profiler API}
      */
     type ProfilerOnRenderCallback = (
         id: string,
@@ -892,8 +889,7 @@ declare namespace React {
     type DependencyList = ReadonlyArray<any>;
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
-    // The destructor is itself only allowed to return void.
-    type EffectCallback = () => (void | (() => void | undefined));
+    type EffectCallback = () => (void | Destructor);
 
     interface MutableRefObject<T> {
         current: T;
@@ -1024,7 +1020,6 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#useref
      */
-    // TODO (TypeScript 3.0): <T extends unknown>
     function useRef<T>(initialValue: T): MutableRefObject<T>;
     // convenience overload for refs given as a ref prop as they typically start with a null value
     /**
@@ -1040,7 +1035,6 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#useref
      */
-    // TODO (TypeScript 3.0): <T extends unknown>
     function useRef<T>(initialValue: T|null): RefObject<T>;
     // convenience overload for potentially undefined initialValue / call with 0 arguments
     // has a default to stop it from defaulting to {} instead
@@ -1054,7 +1048,6 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#useref
      */
-    // TODO (TypeScript 3.0): <T extends unknown>
     function useRef<T = undefined>(): MutableRefObject<T | undefined>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
@@ -1743,6 +1736,79 @@ declare namespace React {
         'aria-valuetext'?: string;
     }
 
+    // All the WAI-ARIA 1.1 role attribute values from https://www.w3.org/TR/wai-aria-1.1/#role_definitions
+    type AriaRole =
+        | 'alert'
+        | 'alertdialog'
+        | 'application'
+        | 'article'
+        | 'banner'
+        | 'button'
+        | 'cell'
+        | 'checkbox'
+        | 'columnheader'
+        | 'combobox'
+        | 'complementary'
+        | 'contentinfo'
+        | 'definition'
+        | 'dialog'
+        | 'directory'
+        | 'document'
+        | 'feed'
+        | 'figure'
+        | 'form'
+        | 'grid'
+        | 'gridcell'
+        | 'group'
+        | 'heading'
+        | 'img'
+        | 'link'
+        | 'list'
+        | 'listbox'
+        | 'listitem'
+        | 'log'
+        | 'main'
+        | 'marquee'
+        | 'math'
+        | 'menu'
+        | 'menubar'
+        | 'menuitem'
+        | 'menuitemcheckbox'
+        | 'menuitemradio'
+        | 'navigation'
+        | 'none'
+        | 'note'
+        | 'option'
+        | 'presentation'
+        | 'progressbar'
+        | 'radio'
+        | 'radiogroup'
+        | 'region'
+        | 'row'
+        | 'rowgroup'
+        | 'rowheader'
+        | 'scrollbar'
+        | 'search'
+        | 'searchbox'
+        | 'separator'
+        | 'slider'
+        | 'spinbutton'
+        | 'status'
+        | 'switch'
+        | 'tab'
+        | 'table'
+        | 'tablist'
+        | 'tabpanel'
+        | 'term'
+        | 'textbox'
+        | 'timer'
+        | 'toolbar'
+        | 'tooltip'
+        | 'tree'
+        | 'treegrid'
+        | 'treeitem'
+        | (string & {});
+
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean;
@@ -1772,7 +1838,7 @@ declare namespace React {
         radioGroup?: string; // <command>, <menuitem>
 
         // WAI-ARIA
-        role?: string;
+        role?: AriaRole;
 
         // RDFa Attributes
         about?: string;
@@ -2384,7 +2450,7 @@ declare namespace React {
         width?: number | string;
 
         // Other HTML properties supported by SVG elements in browsers
-        role?: string;
+        role?: AriaRole;
         tabIndex?: number;
         crossOrigin?: "anonymous" | "use-credentials" | "";
 

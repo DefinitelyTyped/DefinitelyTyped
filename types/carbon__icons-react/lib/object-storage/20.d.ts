@@ -1,1 +1,3 @@
-export { ObjectStorage20 as default } from "../../";
+import { ObjectStorage20 } from "../../";
+
+export = ObjectStorage20;

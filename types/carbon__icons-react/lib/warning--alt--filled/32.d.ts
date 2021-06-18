@@ -1,1 +1,3 @@
-export { WarningAltFilled32 as default } from "../../";
+import { WarningAltFilled32 } from "../../";
+
+export = WarningAltFilled32;

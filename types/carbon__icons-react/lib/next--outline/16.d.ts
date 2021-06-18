@@ -1,1 +1,3 @@
-export { NextOutline16 as default } from "../../";
+import { NextOutline16 } from "../../";
+
+export = NextOutline16;

@@ -4,6 +4,7 @@
 //                 Manuel Pogge <https://github.com/MrSpoocy>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { ExternalsFunctionElement } from 'webpack';
 

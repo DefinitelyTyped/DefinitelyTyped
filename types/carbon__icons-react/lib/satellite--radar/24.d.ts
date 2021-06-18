@@ -1,1 +1,3 @@
-export { SatelliteRadar24 as default } from "../../";
+import { SatelliteRadar24 } from "../../";
+
+export = SatelliteRadar24;

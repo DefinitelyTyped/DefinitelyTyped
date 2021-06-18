@@ -1,1 +1,3 @@
-export { Split24 as default } from "../../";
+import { Split24 } from "../../";
+
+export = Split24;

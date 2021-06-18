@@ -1,1 +1,3 @@
-export { DataUnstructured24 as default } from "../../";
+import { DataUnstructured24 } from "../../";
+
+export = DataUnstructured24;

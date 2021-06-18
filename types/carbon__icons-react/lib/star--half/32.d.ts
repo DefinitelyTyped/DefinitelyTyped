@@ -1,1 +1,3 @@
-export { StarHalf32 as default } from "../../";
+import { StarHalf32 } from "../../";
+
+export = StarHalf32;

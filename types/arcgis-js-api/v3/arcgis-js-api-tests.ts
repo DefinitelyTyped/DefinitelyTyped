@@ -19,3 +19,9 @@ class MapController {
     this.map = new Map(this.mapDiv, mapOptions);
   }
 }
+
+
+import IdentityManager = require("esri/IdentityManager");
+
+const esriId: IdentityManager = IdentityManager as any;
+esriId.disablePostMessageAuth();

@@ -1,1 +1,3 @@
-export { YAxis16 as default } from "../../";
+import { YAxis16 } from "../../";
+
+export = YAxis16;

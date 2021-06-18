@@ -1,1 +1,3 @@
-export { CubeView24 as default } from "../../";
+import { CubeView24 } from "../../";
+
+export = CubeView24;

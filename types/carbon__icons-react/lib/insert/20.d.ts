@@ -1,1 +1,3 @@
-export { Insert20 as default } from "../../";
+import { Insert20 } from "../../";
+
+export = Insert20;

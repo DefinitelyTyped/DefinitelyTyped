@@ -1,1 +1,3 @@
-export { Trash as default } from "../../";
+import { Trash } from "../../";
+
+export = Trash;

@@ -1,1 +1,3 @@
-export { ListNumbered32 as default } from "../../";
+import { ListNumbered32 } from "../../";
+
+export = ListNumbered32;

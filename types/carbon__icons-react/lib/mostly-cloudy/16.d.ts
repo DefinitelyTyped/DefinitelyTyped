@@ -1,1 +1,3 @@
-export { MostlyCloudy16 as default } from "../../";
+import { MostlyCloudy16 } from "../../";
+
+export = MostlyCloudy16;

@@ -1,1 +1,3 @@
-export { ShrinkScreenFilled32 as default } from "../../";
+import { ShrinkScreenFilled32 } from "../../";
+
+export = ShrinkScreenFilled32;

@@ -1,1 +1,3 @@
-export { Plane24 as default } from "../../";
+import { Plane24 } from "../../";
+
+export = Plane24;

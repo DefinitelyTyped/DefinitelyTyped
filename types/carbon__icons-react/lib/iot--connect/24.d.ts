@@ -1,1 +1,3 @@
-export { IotConnect24 as default } from "../../";
+import { IotConnect24 } from "../../";
+
+export = IotConnect24;

@@ -1,1 +1,3 @@
-export { Tablet32 as default } from "../../";
+import { Tablet32 } from "../../";
+
+export = Tablet32;

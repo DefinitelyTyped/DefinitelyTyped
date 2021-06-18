@@ -1,1 +1,3 @@
-export { WatsonHealthScalpelLasso24 as default } from "../../../";
+import { WatsonHealthScalpelLasso24 } from "../../../";
+
+export = WatsonHealthScalpelLasso24;

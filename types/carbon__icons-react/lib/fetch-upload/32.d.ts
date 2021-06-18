@@ -1,1 +1,3 @@
-export { FetchUpload32 as default } from "../../";
+import { FetchUpload32 } from "../../";
+
+export = FetchUpload32;

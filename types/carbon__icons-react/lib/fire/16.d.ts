@@ -1,1 +1,3 @@
-export { Fire16 as default } from "../../";
+import { Fire16 } from "../../";
+
+export = Fire16;

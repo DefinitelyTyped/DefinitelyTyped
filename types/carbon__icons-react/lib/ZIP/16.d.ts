@@ -1,1 +1,3 @@
-export { Zip16 as default } from "../../";
+import { Zip16 } from "../../";
+
+export = Zip16;

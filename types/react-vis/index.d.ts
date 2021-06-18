@@ -388,6 +388,7 @@ export interface CustomSVGSeriesProps extends AbstractSeriesProps<CustomSVGSerie
 export class CustomSVGSeries extends AbstractSeries<CustomSVGSeriesProps> {}
 
 export interface AreaSeriesProps extends AbstractSeriesProps<AreaSeriesPoint> {
+    curve?: string | ((x: any) => any); // default: null
     getNull?: RVGetNull<AreaSeriesPoint>;
 }
 export class AreaSeries extends AbstractSeries<AreaSeriesProps> {}

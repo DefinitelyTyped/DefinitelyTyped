@@ -1,1 +1,3 @@
-export { EarthAmericasFilled32 as default } from "../../";
+import { EarthAmericasFilled32 } from "../../";
+
+export = EarthAmericasFilled32;

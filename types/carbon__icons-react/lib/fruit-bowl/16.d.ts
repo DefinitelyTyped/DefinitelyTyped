@@ -1,1 +1,3 @@
-export { FruitBowl16 as default } from "../../";
+import { FruitBowl16 } from "../../";
+
+export = FruitBowl16;

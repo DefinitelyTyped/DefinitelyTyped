@@ -1,1 +1,3 @@
-export { Mpg216 as default } from "../../";
+import { Mpg216 } from "../../";
+
+export = Mpg216;

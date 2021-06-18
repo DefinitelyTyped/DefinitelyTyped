@@ -1,1 +1,3 @@
-export { Draw32 as default } from "../../";
+import { Draw32 } from "../../";
+
+export = Draw32;

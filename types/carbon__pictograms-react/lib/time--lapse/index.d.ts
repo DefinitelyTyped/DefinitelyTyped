@@ -1,1 +1,3 @@
-export { TimeLapse as default } from "../../";
+import { TimeLapse } from "../../";
+
+export = TimeLapse;

@@ -1,1 +1,3 @@
-export { ElectricCharge as default } from "../../";
+import { ElectricCharge } from "../../";
+
+export = ElectricCharge;

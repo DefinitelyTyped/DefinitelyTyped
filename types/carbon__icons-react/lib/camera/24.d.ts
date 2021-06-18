@@ -1,1 +1,3 @@
-export { Camera24 as default } from "../../";
+import { Camera24 } from "../../";
+
+export = Camera24;

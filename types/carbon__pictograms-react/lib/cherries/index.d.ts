@@ -1,1 +1,3 @@
-export { Cherries as default } from "../../";
+import { Cherries } from "../../";
+
+export = Cherries;

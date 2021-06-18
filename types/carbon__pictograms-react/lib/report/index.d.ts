@@ -1,1 +1,3 @@
-export { Report as default } from "../../";
+import { Report } from "../../";
+
+export = Report;

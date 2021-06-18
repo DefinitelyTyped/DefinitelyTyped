@@ -1,1 +1,3 @@
-export { QOperation24 as default } from "../../../";
+import { QOperation24 } from "../../../";
+
+export = QOperation24;

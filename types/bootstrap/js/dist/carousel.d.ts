@@ -1,5 +1,7 @@
-declare class Carousel {
-    constructor(element: Element, options?: Partial<Carousel.Options>);
+import BaseComponent from "./base-component";
+
+declare class Carousel extends BaseComponent {
+    constructor(element: string | Element, options?: Partial<Carousel.Options>);
 
     /**
      * Cycles through the carousel items from left to right.
@@ -9,7 +11,7 @@ declare class Carousel {
     /**
      * Stops the carousel from cycling through items.
      */
-    pause(): void;
+    pause(event?: any): void;
 
     /**
      * Cycles to the previous item. Returns to the caller before the previous
@@ -31,15 +33,28 @@ declare class Carousel {
     nextWhenVisible(): void;
 
     /**
-     * Destroys an element's carousel.
+     * Cycles the carousel to a particular frame (0 based, similar to an array).
+     * Returns to the caller before the target item has been shown (e.g., before
+     * the slid.bs.carousel event occurs).
      */
-    dispose(): void;
+    to(index: number): void;
 
     /**
      * Static method which allows you to get the carousel instance associated
      * with a DOM element.
      */
-    static getInstance(element: Element, options?: Partial<Carousel.Options>): Carousel;
+    static getInstance(element: Element, options?: Partial<Carousel.Options>): Carousel | null;
+
+    static jQueryInterface: Carousel.jQueryInterface;
+
+    // static NAME: 'carousel';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Carousel.Options;
 }
 
 declare namespace Carousel {
@@ -99,13 +114,42 @@ declare namespace Carousel {
         /**
          * Fires immediately when the slide instance method is invoked.
          */
-        slide = 'slide.bs.carousel',
+        slide = "slide.bs.carousel",
 
         /**
          * Fired when the carousel has completed its slide transition.
          */
-        slid = 'slid.bs.carousel',
+        slid = "slid.bs.carousel",
     }
+
+    type Direction = "left" | "right";
+
+    interface Event {
+        /**
+         * The direction in which the carousel is sliding (either "left" or
+         * "right").
+         */
+        readonly direction: Direction;
+
+        /**
+         * The DOM element that is being slid into place as the active item.
+         */
+        readonly relatedTarget: Element;
+
+        /**
+         * The index of the current item
+         */
+        readonly from: number;
+
+        /**
+         * The index of the next item
+         */
+        readonly to: number;
+    }
+
+    type jQueryInterface = (
+        config?: Partial<Options> | number | "cycle" | "pause" | "prev" | "next" | "nextWhenVisible" | "dispose",
+    ) => void;
 }
 
 export default Carousel;

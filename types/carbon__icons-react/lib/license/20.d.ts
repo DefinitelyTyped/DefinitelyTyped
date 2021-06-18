@@ -1,1 +1,3 @@
-export { License20 as default } from "../../";
+import { License20 } from "../../";
+
+export = License20;

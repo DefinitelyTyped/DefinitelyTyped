@@ -1,1 +1,3 @@
-export { Roadmap32 as default } from "../../";
+import { Roadmap32 } from "../../";
+
+export = Roadmap32;

@@ -1,1 +1,3 @@
-export { TextAlignLeft32 as default } from "../../";
+import { TextAlignLeft32 } from "../../";
+
+export = TextAlignLeft32;

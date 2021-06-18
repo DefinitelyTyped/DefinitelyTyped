@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-time module 2.0
+// Type definitions for D3JS d3-time module 2.1
 // Project: https://github.com/d3/d3-time/, https://d3js.org/d3-time
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -7,7 +7,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 2.1.1
 
 // ---------------------------------------------------------------
 // Interfaces
@@ -669,3 +669,25 @@ export const utcYear: CountableTimeInterval;
  * @param step An optional number of steps to apply when calculating the dates in the range.
  */
 export function utcYears(start: Date, stop: Date, step?: number): Date[];
+
+/**
+ * Equivalent to d3.utcTicks, but in local time.
+ */
+export function timeTicks(start: Date, stop: Date, count: number): Date[];
+
+/**
+ * Returns the time interval that would be used by d3.timeTicks given the same arguments.
+ */
+export function timeTickInterval(start: Date, stop: Date, count: number): TimeInterval | null;
+
+/**
+ * Returns an array of approximately count dates at regular intervals between start and stop (inclusive).
+ * If stop is before start, dates are returned in reverse chronological order; otherwise dates are returned in chronological order.
+ */
+export function utcTicks(start: Date, stop: Date, count: number): Date[];
+
+/**
+ * Returns the time interval that would be used by d3.utcTicks given the same arguments.
+ * If there is no associated interval, such as when start or stop is invalid, returns null.
+ */
+export function utcTickInterval(start: Date, stop: Date, count: number): TimeInterval | null;

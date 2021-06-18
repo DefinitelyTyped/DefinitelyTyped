@@ -1,1 +1,3 @@
-export { TextKerning20 as default } from "../../";
+import { TextKerning20 } from "../../";
+
+export = TextKerning20;

@@ -1,1 +1,3 @@
-export { ChartTreemap32 as default } from "../../";
+import { ChartTreemap32 } from "../../";
+
+export = ChartTreemap32;

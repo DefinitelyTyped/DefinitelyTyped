@@ -1,1 +1,3 @@
-export { Microscope24 as default } from "../../";
+import { Microscope24 } from "../../";
+
+export = Microscope24;

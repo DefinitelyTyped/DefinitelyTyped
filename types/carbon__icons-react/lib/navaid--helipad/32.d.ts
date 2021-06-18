@@ -1,1 +1,3 @@
-export { NavaidHelipad32 as default } from "../../";
+import { NavaidHelipad32 } from "../../";
+
+export = NavaidHelipad32;

@@ -1,1 +1,3 @@
-export { Smoke24 as default } from "../../";
+import { Smoke24 } from "../../";
+
+export = Smoke24;

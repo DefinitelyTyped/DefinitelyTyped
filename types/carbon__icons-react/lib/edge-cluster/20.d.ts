@@ -1,1 +1,3 @@
-export { EdgeCluster20 as default } from "../../";
+import { EdgeCluster20 } from "../../";
+
+export = EdgeCluster20;

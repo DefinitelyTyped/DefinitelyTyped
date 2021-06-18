@@ -1,1 +1,3 @@
-export { RadioButtonChecked16 as default } from "../../";
+import { RadioButtonChecked16 } from "../../";
+
+export = RadioButtonChecked16;

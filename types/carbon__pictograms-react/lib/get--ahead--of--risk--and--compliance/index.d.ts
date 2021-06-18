@@ -1,1 +1,3 @@
-export { GetAheadOfRiskAndCompliance as default } from "../../";
+import { GetAheadOfRiskAndCompliance } from "../../";
+
+export = GetAheadOfRiskAndCompliance;

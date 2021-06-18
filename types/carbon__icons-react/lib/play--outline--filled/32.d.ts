@@ -1,1 +1,3 @@
-export { PlayOutlineFilled32 as default } from "../../";
+import { PlayOutlineFilled32 } from "../../";
+
+export = PlayOutlineFilled32;

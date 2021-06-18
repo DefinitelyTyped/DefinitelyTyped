@@ -1,1 +1,3 @@
-export { ModelReference16 as default } from "../../";
+import { ModelReference16 } from "../../";
+
+export = ModelReference16;

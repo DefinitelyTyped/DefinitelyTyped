@@ -1,1 +1,3 @@
-export { Forum32 as default } from "../../";
+import { Forum32 } from "../../";
+
+export = Forum32;

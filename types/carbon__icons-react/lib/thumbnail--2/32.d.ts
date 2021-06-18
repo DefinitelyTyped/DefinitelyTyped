@@ -1,1 +1,3 @@
-export { Thumbnail_232 as default } from "../../";
+import { Thumbnail_232 } from "../../";
+
+export = Thumbnail_232;

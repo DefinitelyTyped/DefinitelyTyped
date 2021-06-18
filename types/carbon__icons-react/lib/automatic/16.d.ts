@@ -1,1 +1,3 @@
-export { Automatic16 as default } from "../../";
+import { Automatic16 } from "../../";
+
+export = Automatic16;

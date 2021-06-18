@@ -115,12 +115,12 @@ const environment = new Environment({
     ],
     log: logEvent => {
         switch (logEvent.name) {
-            case 'execute.start':
-            case 'execute.next':
-            case 'execute.error':
+            case 'network.start':
+            case 'network.complete':
+            case 'network.error':
+            case 'network.info':
+            case 'network.unsubscribe':
             case 'execute.info':
-            case 'execute.complete':
-            case 'execute.unsubscribe':
             case 'queryresource.fetch':
             default:
                 break;
@@ -198,11 +198,26 @@ function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversation
     passToHelper(newMessageEdge);
 }
 
+function connectionHandlerWithoutStore() {
+    let connectionId: DataID;
+
+    connectionId = ConnectionHandler.getConnectionID('4', 'ConnectionQuery_friends');
+
+    connectionId = ConnectionHandler.getConnectionID('4', 'ConnectionQuery_friends', null);
+
+    connectionId = ConnectionHandler.getConnectionID('4', 'ConnectionQuery_friends', {
+        orderby: ['first name'],
+    });
+}
+
 // ~~~~~~~~~~~~~~~~~~~~~
 // Source
 // ~~~~~~~~~~~~~~~~~~~~~
 
 store.publish(source);
+const get_store_recorditem = store.getSource().get("someDataId");
+// $ExpectType Record<TConversation> | null | undefined
+const get_store_recorditem_typed = store.getSource().get<TConversation>("someDataId");
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // commitLocalUpdate

@@ -1,1 +1,3 @@
-export { Rocket32 as default } from "../../";
+import { Rocket32 } from "../../";
+
+export = Rocket32;

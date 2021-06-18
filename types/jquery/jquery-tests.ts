@@ -8212,7 +8212,7 @@ function JQuery_EventExtensions() {
                 data;
                 // $ExpectType string
                 namespaces;
-                // $ExpectType EventHandlerBase<EventTarget, TriggeredEvent<EventTarget, any, any, any>>
+                // $ExpectType EventHandlerBase<EventTarget, TriggeredEvent<EventTarget, any, any, any>> || EventHandler<EventTarget, any>
                 eventHandle;
 
                 return false;

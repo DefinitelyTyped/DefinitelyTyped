@@ -1,1 +1,3 @@
-export { LogoQuora32 as default } from "../../";
+import { LogoQuora32 } from "../../";
+
+export = LogoQuora32;

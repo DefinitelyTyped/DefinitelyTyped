@@ -1,1 +1,3 @@
-export { DesignAndDevelopment_02 as default } from "../../";
+import { DesignAndDevelopment_02 } from "../../";
+
+export = DesignAndDevelopment_02;

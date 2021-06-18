@@ -1,5 +1,7 @@
-declare class Modal {
-    constructor(element: Element, options?: Partial<Modal.Options>);
+import BaseComponent from './base-component';
+
+declare class Modal extends BaseComponent {
+    constructor(element: string | Element, options?: Partial<Modal.Options>);
 
     /**
      * Manually toggles a modal. Returns to the caller before the modal has
@@ -27,15 +29,21 @@ declare class Modal {
     handleUpdate(): void;
 
     /**
-     * Destroys an element's dropdown.
-     */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the modal instance associated with
      * a DOM element
      */
-    static getInstance(element: Element, options?: Partial<Modal.Options>): Modal;
+    static getInstance(element: Element, options?: Partial<Modal.Options>): Modal | null;
+
+    static jQueryInterface: Modal.jQueryInterface;
+
+    // static NAME: 'modal';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Modal.Options;
 }
 
 declare namespace Modal {
@@ -97,14 +105,11 @@ declare namespace Modal {
          * @default true
          */
         focus: boolean;
-
-        /**
-         * Shows the modal when initialized.
-         *
-         * @default true
-         */
-        show: boolean;
     }
+
+    type jQueryInterface = (
+        config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'handleUpdate' | 'dispose',
+    ) => void;
 }
 
 export default Modal;

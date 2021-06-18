@@ -1,1 +1,3 @@
-export { BrightnessContrast32 as default } from "../../";
+import { BrightnessContrast32 } from "../../";
+
+export = BrightnessContrast32;

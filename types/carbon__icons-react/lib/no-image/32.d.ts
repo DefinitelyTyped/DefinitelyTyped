@@ -1,1 +1,3 @@
-export { NoImage32 as default } from "../../";
+import { NoImage32 } from "../../";
+
+export = NoImage32;

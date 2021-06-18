@@ -1,1 +1,3 @@
-export { Arrival20 as default } from "../../";
+import { Arrival20 } from "../../";
+
+export = Arrival20;

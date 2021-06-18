@@ -1,1 +1,3 @@
-export { Dining as default } from "../../";
+import { Dining } from "../../";
+
+export = Dining;

@@ -1,1 +1,3 @@
-export { NavaidTacan32 as default } from "../../";
+import { NavaidTacan32 } from "../../";
+
+export = NavaidTacan32;

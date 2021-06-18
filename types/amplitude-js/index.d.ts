@@ -1,4 +1,4 @@
-// Type definitions for Amplitude SDK 7.0
+// Type definitions for Amplitude SDK 8.0
 // Project: https://github.com/amplitude/Amplitude-Javascript
 // Definitions by: Arvydas Sidorenko <https://github.com/Asido>
 //                 Dan Manastireanu <https://github.com/danmana>
@@ -25,6 +25,7 @@ export interface Config {
     eventUploadPeriodMillis?: number;
     eventUploadThreshold?: number;
     forceHttps?: boolean;
+    includeFbclid?: boolean;
     includeGclid?: boolean;
     includeReferrer?: boolean;
     includeUtm?: boolean;
@@ -103,7 +104,8 @@ export class AmplitudeClient {
     setDeviceId(id: string): void;
     regenerateDeviceId(): void;
 
-    identify(identify_obj: Identify, opt_callback?: Callback): void;
+    identify(identify: Identify, callback?: Callback): void;
+    groupIdentify(groupType: string, groupName: string | string[], identify: Identify, callback?: Callback): void;
 
     setUserProperties(properties: any): void;
     setGlobalUserProperties(properties: any): void;

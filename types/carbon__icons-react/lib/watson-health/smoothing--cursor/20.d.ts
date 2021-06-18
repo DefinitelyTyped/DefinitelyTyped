@@ -1,1 +1,3 @@
-export { WatsonHealthSmoothingCursor20 as default } from "../../../";
+import { WatsonHealthSmoothingCursor20 } from "../../../";
+
+export = WatsonHealthSmoothingCursor20;

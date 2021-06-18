@@ -1,1 +1,3 @@
-export { TouchSwipe as default } from "../../";
+import { TouchSwipe } from "../../";
+
+export = TouchSwipe;

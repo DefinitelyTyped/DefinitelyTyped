@@ -1,1 +1,3 @@
-export { PlayFilled16 as default } from "../../";
+import { PlayFilled16 } from "../../";
+
+export = PlayFilled16;

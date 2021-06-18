@@ -1,1 +1,3 @@
-export { PlaneSea20 as default } from "../../";
+import { PlaneSea20 } from "../../";
+
+export = PlaneSea20;

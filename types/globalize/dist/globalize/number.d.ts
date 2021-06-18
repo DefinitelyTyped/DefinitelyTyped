@@ -8,6 +8,11 @@ declare module "../globalize" {
          */
         style?: "decimal" | "percent";
     }
+    type NumberFormatPartTypes = "decimal" | "fraction" | "group" | "infinity" | "integer" | "literal" | "minusSign" | "nan" | "plusSign" | "percentSign" | "compact";
+    interface NumberFormatPart {
+        type: NumberFormatPartTypes;
+        value: string;
+    }
     interface Shared {
         /**
          * Return a function that formats a number according to the given options or locale's defaults.
@@ -28,6 +33,18 @@ declare module "../globalize" {
          * @returns {Function} Return a function that parses a String representing a number according to the given options. If value is invalid, NaN is returned.
          */
         numberParser(options?: NumberParserOptions): (value: string) => number
+        /**
+         * Return a function that formats a number into parts tokens according to the given options.
+         * @param {NumberFormatterOptions} options A JSON object including none or any of the following options.
+         * style Optional String decimal (default), or percent.
+         * minimumIntegerDigits Optional Non-negative integer Number value indicating the minimum integer digits to be used. Numbers will be padded with leading zeroes if necessary.
+         * minimumFractionDigits and maximumFractionDigits Optional Non-negative integer Number values indicating the minimum and maximum fraction digits to be used. Numbers will be rounded or padded with trailing zeroes if necessary. Either one or both of these properties must be present. If they are, they will override minimum and maximum fraction digits derived from the CLDR patterns.
+         * minimumSignificantDigits and maximumSignificantDigits Optional Positive integer Number values indicating the minimum and maximum fraction digits to be shown. Either none or both of these properties are present. If they are, they override minimum and maximum integer and fraction digits. The formatter uses however many integer and fraction digits are required to display the specified number of significant digits.
+         * round Optional String with rounding method ceil, floor, round (default), or truncate.
+         * useGrouping Optional Boolean (default is true) value indicating whether a grouping separator should be used.
+         * @returns {Function} Return a function that formats a number into parts tokens according to the given options.
+         */
+        numberToPartsFormatter(options?: NumberFormatterOptions): (value: number) => NumberFormatPart[];
         /**
          * Return a number formatted according to the given options or locale's defaults.
          * @param {number} value The number to format
@@ -50,6 +67,8 @@ declare module "../globalize" {
          * @returns {number} Return a number according to the given options. If value is invalid, NaN is returned.
          */
         parseNumber(value: string, options?: NumberParserOptions): number;
+        // Alias for .numberToPartsFormatter( [options] )( value ).
+        formatNumberToParts(value: number, options?: NumberFormatterOptions): NumberFormatPart[];
     }
 }
 

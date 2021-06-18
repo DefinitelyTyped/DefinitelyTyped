@@ -1,1 +1,3 @@
-export { Asset32 as default } from "../../";
+import { Asset32 } from "../../";
+
+export = Asset32;

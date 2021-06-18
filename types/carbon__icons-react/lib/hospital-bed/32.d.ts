@@ -1,1 +1,3 @@
-export { HospitalBed32 as default } from "../../";
+import { HospitalBed32 } from "../../";
+
+export = HospitalBed32;

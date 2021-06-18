@@ -1,1 +1,3 @@
-export { Progress as default } from "../../";
+import { Progress } from "../../";
+
+export = Progress;

@@ -1,1 +1,3 @@
-export { Pdf32 as default } from "../../";
+import { Pdf32 } from "../../";
+
+export = Pdf32;

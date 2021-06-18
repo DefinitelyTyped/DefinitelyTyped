@@ -1,1 +1,3 @@
-export { Collaborate20 as default } from "../../";
+import { Collaborate20 } from "../../";
+
+export = Collaborate20;

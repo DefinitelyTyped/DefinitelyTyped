@@ -1,1 +1,3 @@
-export { Event16 as default } from "../../";
+import { Event16 } from "../../";
+
+export = Event16;

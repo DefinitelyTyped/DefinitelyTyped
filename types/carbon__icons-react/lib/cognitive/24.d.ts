@@ -1,1 +1,3 @@
-export { Cognitive24 as default } from "../../";
+import { Cognitive24 } from "../../";
+
+export = Cognitive24;

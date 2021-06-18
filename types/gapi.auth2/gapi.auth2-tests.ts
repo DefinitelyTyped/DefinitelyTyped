@@ -53,6 +53,11 @@ function test_reloadAuthResponse() {
     });
 }
 
+function test_grantOfflineAccess() {
+  gapi.auth2.getAuthInstance().currentUser.get().grantOfflineAccess({ scope: "profile" })
+  .then(response => console.log(response.code));
+}
+
 function test_render() {
   const success = (googleUser: gapi.auth2.GoogleUser): void => {
     console.log(googleUser);

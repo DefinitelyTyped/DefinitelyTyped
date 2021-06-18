@@ -1,7 +1,26 @@
 import * as R from 'ramda';
 
 () => {
-  const headLens = R.lensIndex(0);
-  headLens([10, 20, 30, 40]); // => 10
-  headLens.set('mu', [10, 20, 30, 40]); // => ['mu', 20, 30, 40]
+  // $ExpectType Lens<number[], number>
+  R.lensIndex<number>(0);
+};
+
+() => {
+  type First = string;
+  type Second = number;
+  type Third = boolean;
+
+  type Line = [First, Second, Third];
+
+  const lines: Line[] = [
+    ['a', 1, true],
+    ['b', 2, false],
+    ['c', 3, true],
+  ];
+
+  // $ExpectType Lens<Line, string>
+  const firstLens = R.lensIndex<Line, 0>(0);
+
+  // $ExpectType (obj: Line) => string
+  const viewFirst = R.view(firstLens);
 };

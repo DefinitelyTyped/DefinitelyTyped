@@ -2,6 +2,7 @@
 // Project: https://github.com/jsdom/data-urls#readme
 // Definitions by: Jaime Filho <https://github.com/jaimeadf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.6
 
 /// <reference types="node" />
 

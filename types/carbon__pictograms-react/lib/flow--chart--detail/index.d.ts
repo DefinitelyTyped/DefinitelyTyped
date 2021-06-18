@@ -1,1 +1,3 @@
-export { FlowChartDetail as default } from "../../";
+import { FlowChartDetail } from "../../";
+
+export = FlowChartDetail;

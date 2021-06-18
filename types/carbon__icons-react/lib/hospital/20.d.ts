@@ -1,1 +1,3 @@
-export { Hospital20 as default } from "../../";
+import { Hospital20 } from "../../";
+
+export = Hospital20;

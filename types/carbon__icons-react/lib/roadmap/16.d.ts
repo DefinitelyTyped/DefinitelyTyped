@@ -1,1 +1,3 @@
-export { Roadmap16 as default } from "../../";
+import { Roadmap16 } from "../../";
+
+export = Roadmap16;

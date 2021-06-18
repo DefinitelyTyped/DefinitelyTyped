@@ -1,1 +1,3 @@
-export { SatelliteWeather20 as default } from "../../";
+import { SatelliteWeather20 } from "../../";
+
+export = SatelliteWeather20;

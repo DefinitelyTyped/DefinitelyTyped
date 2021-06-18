@@ -1,1 +1,3 @@
-export { ThisSideUp20 as default } from "../../";
+import { ThisSideUp20 } from "../../";
+
+export = ThisSideUp20;

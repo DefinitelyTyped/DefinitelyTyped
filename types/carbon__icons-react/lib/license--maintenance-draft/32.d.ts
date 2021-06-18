@@ -1,1 +1,3 @@
-export { LicenseMaintenanceDraft32 as default } from "../../";
+import { LicenseMaintenanceDraft32 } from "../../";
+
+export = LicenseMaintenanceDraft32;

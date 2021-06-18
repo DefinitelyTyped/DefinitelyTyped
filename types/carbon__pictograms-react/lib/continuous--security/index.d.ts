@@ -1,1 +1,3 @@
-export { ContinuousSecurity as default } from "../../";
+import { ContinuousSecurity } from "../../";
+
+export = ContinuousSecurity;

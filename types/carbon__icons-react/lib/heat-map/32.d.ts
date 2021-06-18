@@ -1,1 +1,3 @@
-export { HeatMap32 as default } from "../../";
+import { HeatMap32 } from "../../";
+
+export = HeatMap32;

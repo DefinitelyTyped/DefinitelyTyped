@@ -1,1 +1,3 @@
-export { UpToTop32 as default } from "../../";
+import { UpToTop32 } from "../../";
+
+export = UpToTop32;

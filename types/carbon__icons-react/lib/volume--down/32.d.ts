@@ -1,1 +1,3 @@
-export { VolumeDown32 as default } from "../../";
+import { VolumeDown32 } from "../../";
+
+export = VolumeDown32;

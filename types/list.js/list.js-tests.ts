@@ -6,6 +6,11 @@ const list = new List(new HTMLElement(), {
     fuzzySearch: {
         distance: 200
     },
+    pagination: {
+        innerWindow: 3,
+        outerWindow: 1,
+        item: "<li><a class='page' href='#'></a></li>"
+    },
     valueNames: [
       'name', // class
       'born', // class

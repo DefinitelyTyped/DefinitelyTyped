@@ -1,1 +1,3 @@
-export { OpenPanelFilledBottom32 as default } from "../../";
+import { OpenPanelFilledBottom32 } from "../../";
+
+export = OpenPanelFilledBottom32;

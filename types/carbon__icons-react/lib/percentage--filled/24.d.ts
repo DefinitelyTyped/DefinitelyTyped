@@ -1,1 +1,3 @@
-export { PercentageFilled24 as default } from "../../";
+import { PercentageFilled24 } from "../../";
+
+export = PercentageFilled24;

@@ -1,1 +1,3 @@
-export { BuildingInsights_332 as default } from "../../";
+import { BuildingInsights_332 } from "../../";
+
+export = BuildingInsights_332;

@@ -1,1 +1,3 @@
-export { PaperClip as default } from "../../";
+import { PaperClip } from "../../";
+
+export = PaperClip;

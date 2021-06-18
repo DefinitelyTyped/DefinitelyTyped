@@ -1,35 +1,37 @@
-// Type definitions for which 1.3.0
+// Type definitions for which 2.0
 // Project: https://github.com/isaacs/node-which
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 cspotcode <https://github.com/cspotcode>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /** Finds all instances of a specified executable in the PATH environment variable */
-declare function which(cmd: string, options: which.AsyncOptions & which.OptionsAll, cb: (err: Error | null, paths: Array<string> | undefined) => void): void;
-/** Finds the first instance of a specified executable in the PATH environment variable */
-declare function which(cmd: string, options: which.AsyncOptions & which.OptionsFirst, cb: (err: Error | null, path: string | undefined) => void): void;
-/** Finds the first instance of a specified executable in the PATH environment variable */
-declare function which(cmd: string, options: which.AsyncOptions, cb: (err: Error | null, path: string | Array<string> | undefined) => void): void;
-/** Finds the first instance of a specified executable in the PATH environment variable */
+declare function which(
+    cmd: string,
+    options: which.AsyncOptions & which.OptionsAll,
+    cb: (err: Error | null, paths: ReadonlyArray<string> | undefined) => void,
+): void;
+declare function which(
+    cmd: string,
+    options: which.AsyncOptions & which.OptionsFirst,
+    cb: (err: Error | null, path: string | undefined) => void,
+): void;
+declare function which(
+    cmd: string,
+    options: which.AsyncOptions,
+    cb: (err: Error | null, path: string | ReadonlyArray<string> | undefined) => void,
+): void;
 declare function which(cmd: string, cb: (err: Error | null, path: string | undefined) => void): void;
-/** Finds the first instance of a specified executable in the PATH environment variable */
 declare function which(cmd: string, options: which.AsyncOptions & which.OptionsAll): Promise<string[]>;
-/** Finds the first instance of a specified executable in the PATH environment variable */
 declare function which(cmd: string, options?: which.AsyncOptions & which.OptionsFirst): Promise<string>;
+
 declare namespace which {
     /** Finds all instances of a specified executable in the PATH environment variable */
-    function sync(cmd: string, options: which.Options & which.OptionsAll & which.OptionsNoThrow): Array<string> | null;
-    /** Finds the first instance of a specified executable in the PATH environment variable */
-    function sync(cmd: string, options: which.Options & which.OptionsFirst & which.OptionsNoThrow): string | null;
-    /** Finds all instances of a specified executable in the PATH environment variable */
-    function sync(cmd: string, options: which.Options & which.OptionsAll & which.OptionsThrow): Array<string>;
-    /** Finds the first instance of a specified executable in the PATH environment variable */
-    function sync(cmd: string, options: which.Options & which.OptionsFirst & which.OptionsThrow): string;
-    /** Finds the first instance of a specified executable in the PATH environment variable */
-    function sync(cmd: string, options: which.Options): string | Array<string> | null;
-    /** Finds the first instance of a specified executable in the PATH environment variable */
-    function sync(cmd: string): string;
+    function sync(cmd: string, options: Options & OptionsAll & OptionsNoThrow): ReadonlyArray<string> | null;
+    function sync(cmd: string, options: Options & OptionsFirst & OptionsNoThrow): string | null;
+    function sync(cmd: string, options: Options & OptionsAll & OptionsThrow): ReadonlyArray<string>;
+    function sync(cmd: string, options?: Options & OptionsFirst & OptionsThrow): string;
+    function sync(cmd: string, options: Options): string | ReadonlyArray<string> | null;
 
     /** Options that ask for all matches. */
     interface OptionsAll extends AsyncOptions {
@@ -38,7 +40,7 @@ declare namespace which {
 
     /** Options that ask for the first match (the default behavior) */
     interface OptionsFirst extends AsyncOptions {
-        all?: false | undefined;
+        all?: false;
     }
 
     /** Options that ask to receive null instead of a thrown error */
@@ -48,7 +50,7 @@ declare namespace which {
 
     /** Options that ask for a thrown error if executable is not found (the default behavior) */
     interface OptionsThrow extends Options {
-        nothrow?: false | undefined;
+        nothrow?: false;
     }
 
     /** Options for which() async API */
@@ -60,7 +62,7 @@ declare namespace which {
         /** Use instead of the PATHEXT environment variable. */
         pathExt?: string;
     }
-    
+
     /** Options for which() sync and async APIs */
     interface Options extends AsyncOptions {
         /** If true, returns null when not found */

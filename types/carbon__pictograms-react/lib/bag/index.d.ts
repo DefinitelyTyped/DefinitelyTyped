@@ -1,1 +1,3 @@
-export { Bag as default } from "../../";
+import { Bag } from "../../";
+
+export = Bag;

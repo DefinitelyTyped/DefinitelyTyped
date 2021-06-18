@@ -1,4 +1,4 @@
-// Type definitions for oboe v2.0.3
+// Type definitions for oboe 2.1
 // Project: https://github.com/jimhigson/oboe.js
 // Definitions by: Jared Klopper <https://github.com/optical>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,9 +8,10 @@
 declare namespace oboe {
     interface OboeFunction extends Function {
         drop: Object;
-        (url: string): Oboe;
-        (options: Options): Oboe;
-        (stream: NodeJS.ReadableStream): Oboe;
+        (url: string): Oboe; // simple fetch the url
+        (options: Options): Oboe; // fetch with full parameters
+        (stream: NodeJS.ReadableStream): Oboe; // read data from the given Node stream
+        (): Oboe; // parse data given by the emit() calls
     }
 
     interface Oboe {
@@ -33,6 +34,8 @@ declare namespace oboe {
         start(callback: (status: number, headers: Object) => void): Oboe;
 
         abort():void;
+
+        emit(message: 'data' | 'end', data?: string): void;
 
         source: string;
     }

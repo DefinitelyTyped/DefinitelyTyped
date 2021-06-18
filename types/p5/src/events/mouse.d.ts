@@ -122,6 +122,25 @@ declare module '../../index' {
         mouseWheel(event?: object): void;
 
         /**
+         *   The function requestPointerLock() locks the pointer to
+         *   its current position and makes it invisible. Use [movedX]
+         *   and [movedY] to get the difference the mouse was moved
+         *   since the last call of draw.
+         *
+         *   Note that not all browsers support this feature. This enables
+         *   you to create experiences that aren't limited by the mouse
+         *   moving out of the screen even if it is repeatedly moved into
+         *   one direction. For example, a first person perspective experience.
+         */
+        requestPointerLock(): void;
+
+        /**
+         *   The function exitPointerLock() exits a previously triggered
+         *   pointer Lock for example to make ui elements usable etc.
+         */
+        exitPointerLock(): void;
+
+        /**
          *   The system variable mouseX always contains the
          *   current horizontal position of the mouse, relative
          *   to (0, 0) of the canvas. The value at the top-left
@@ -200,6 +219,19 @@ declare module '../../index' {
          *   touch event.
          */
         pwinMouseY: number;
+
+        /**
+         *
+         * The variable movedX contains the horizontal movement of the mouse since the last frame
+         * @readOnly
+         */
+        readonly movedX: number;
+
+        /**
+         * The variable movedY contains the vertical movement of the mouse since the last frame
+         * @readOnly
+         */
+        readonly movedY: number;
 
         /**
          *   Processing automatically tracks if the mouse

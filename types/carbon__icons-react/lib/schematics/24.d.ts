@@ -1,1 +1,3 @@
-export { Schematics24 as default } from "../../";
+import { Schematics24 } from "../../";
+
+export = Schematics24;

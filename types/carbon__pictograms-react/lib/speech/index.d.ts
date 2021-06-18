@@ -1,1 +1,3 @@
-export { Speech as default } from "../../";
+import { Speech } from "../../";
+
+export = Speech;

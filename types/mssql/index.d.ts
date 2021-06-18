@@ -194,7 +194,7 @@ export interface config {
     server: string;
     port?: number;
     domain?: string;
-    database: string;
+    database?: string;
     connectionTimeout?: number;
     requestTimeout?: number;
     stream?: boolean;
@@ -320,6 +320,8 @@ export declare class Request extends events.EventEmitter {
     public execute<Entity>(procedure: string, callback: (err?: any, recordsets?: IProcedureResult<Entity>, returnValue?: any) => void): void;
     public input(name: string, value: any): Request;
     public input(name: string, type: (() => ISqlType) | ISqlType, value: any): Request;
+    public replaceInput(name: string, value: any): Request;
+    public replaceInput(name: string, type: (() => ISqlType) | ISqlType, value: any): Request;
     public output(name: string, type: (() => ISqlType) | ISqlType, value?: any): Request;
     public pipe(stream: NodeJS.WritableStream): NodeJS.WritableStream;
     public query(command: string): Promise<IResult<any>>;

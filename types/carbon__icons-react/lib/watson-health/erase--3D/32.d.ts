@@ -1,1 +1,3 @@
-export { WatsonHealthErase_3D32 as default } from "../../../";
+import { WatsonHealthErase_3D32 } from "../../../";
+
+export = WatsonHealthErase_3D32;

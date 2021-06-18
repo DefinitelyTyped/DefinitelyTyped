@@ -1,1 +1,3 @@
-export { Flash24 as default } from "../../";
+import { Flash24 } from "../../";
+
+export = Flash24;

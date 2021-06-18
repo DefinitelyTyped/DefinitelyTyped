@@ -1,1 +1,3 @@
-export { GasStation16 as default } from "../../";
+import { GasStation16 } from "../../";
+
+export = GasStation16;

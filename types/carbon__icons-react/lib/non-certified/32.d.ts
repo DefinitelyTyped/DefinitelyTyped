@@ -1,1 +1,3 @@
-export { NonCertified32 as default } from "../../";
+import { NonCertified32 } from "../../";
+
+export = NonCertified32;

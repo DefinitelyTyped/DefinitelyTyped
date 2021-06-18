@@ -54,6 +54,7 @@ declare class Observable<T> {
 
     forEach(callback: (value: T) => void): Promise<void>;
     map<R>(callback: (value: T) => R): Observable<R>;
+    filter<S extends T>(callback: (value: T) => value is S): Observable<S>;
     filter(callback: (value: T) => boolean): Observable<T>;
     reduce(callback: (previousValue: T, currentValue: T) => T, initialValue?: T): Observable<T>;
     reduce<R>(callback: (previousValue: R, currentValue: T) => R, initialValue?: R): Observable<R>;

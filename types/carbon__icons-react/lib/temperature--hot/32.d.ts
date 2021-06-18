@@ -1,1 +1,3 @@
-export { TemperatureHot32 as default } from "../../";
+import { TemperatureHot32 } from "../../";
+
+export = TemperatureHot32;

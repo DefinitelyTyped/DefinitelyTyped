@@ -1,1 +1,3 @@
-export { Path as default } from "../../";
+import { Path } from "../../";
+
+export = Path;

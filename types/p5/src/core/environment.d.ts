@@ -5,6 +5,119 @@ import * as p5 from '../../index';
 declare module '../../index' {
     interface p5InstanceExtensions {
         /**
+         * Creates a screen reader accessible description for the canvas.
+         * The first parameter should be a string with a description of the canvas.
+         * The second parameter is optional. If specified, it determines how the
+         * description is displayed.
+         *
+         * <code class="language-javascript">describe(text, LABEL)</code> displays
+         * the description to all users as a <a
+         * href="https://en.wikipedia.org/wiki/Museum_label" target="_blank">
+         * tombstone or exhibit label/caption</a> in a
+         * <code class="language-javascript">&lt;div class="p5Label"&gt;&lt;/div&gt;</code>
+         * adjacent to the canvas. You can style it as you wish in your CSS.
+         *
+         * <code class="language-javascript">describe(text, FALLBACK)</code> makes the
+         * description accessible to screen-reader users only, in
+         * <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Hit_regions_and_accessibility" target="_blank">
+         * a sub DOM inside the canvas element</a>. If a second parameter is not
+         * specified, by default, the description will only be available to
+         * screen-reader users.
+         *
+         * @param [text]      description of the canvas
+         * @param [display] either LABEL or FALLBACK (Optional)
+         *
+         */
+        describe(text: string, display?: DESCRIBE_DISPLAY): void;
+
+        /**
+         * <code class="language-javascript">textOutput()</code> creates a screenreader
+         * accessible output that describes the shapes present on the canvas.
+         * The general description of the canvas includes canvas size,
+         * canvas color, and number of elements in the canvas
+         * (example: 'Your output is a, 400 by 400 pixels, lavender blue
+         * canvas containing the following 4 shapes:'). This description
+         * is followed by a list of shapes where the color, position, and area
+         * of each shape are described (example: "orange ellipse at top left
+         * covering 1% of the canvas"). Each element can be selected to get
+         * more details. A table of elements is also provided. In this table,
+         * shape, color, location, coordinates and area are described
+         * (example: "orange ellipse location=top left area=2").
+         *
+         * <code class="language-javascript">textOutput()</code> and <code class="language-javascript">texOutput(FALLBACK)</code>
+         * make the output available in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Hit_regions_and_accessibility" target="_blank">
+         * a sub DOM inside the canvas element</a> which is accessible to screen readers.
+         * <code class="language-javascript">textOutput(LABEL)</code> creates an
+         * additional div with the output adjacent to the canvas, this is useful
+         * for non-screen reader users that might want to display the output outside
+         * of the canvas' sub DOM as they code. However, using LABEL will create
+         * unnecessary redundancy for screen reader users. We recommend using LABEL
+         * only as part of the development process of a sketch and removing it before
+         * publishing or sharing with screen reader users.
+         *
+         * @param [display] either FALLBACK or LABEL (Optional)
+         */
+        textOutput(display?: DESCRIBE_DISPLAY): void;
+
+        /**
+         * <code class="language-javascript">gridOutput()</code> lays out the
+         * content of the canvas in the form of a grid (html table) based
+         * on the spatial location of each shape. A brief
+         * description of the canvas is available before the table output.
+         * This description includes: color of the background, size of the canvas,
+         * number of objects, and object types (example: "lavender blue canvas is
+         * 200 by 200 and contains 4 objects - 3 ellipses 1 rectangle"). The grid
+         * describes the content spatially, each element is placed on a cell of the
+         * table depending on its position. Within each cell an element the color
+         * and type of shape of that element are available (example: "orange ellipse").
+         * These descriptions can be selected individually to get more details.
+         * A list of elements where shape, color, location, and area are described
+         * (example: "orange ellipse location=top left area=1%") is also available.
+         *
+         * <code class="language-javascript">gridOutput()</code> and <code class="language-javascript">gridOutput(FALLBACK)</code>
+         * make the output available in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Hit_regions_and_accessibility" target="_blank">
+         * a sub DOM inside the canvas element</a> which is accessible to screen readers.
+         * <code class="language-javascript">gridOutput(LABEL)</code> creates an
+         * additional div with the output adjacent to the canvas, this is useful
+         * for non-screen reader users that might want to display the output outside
+         * of the canvas' sub DOM as they code. However, using LABEL will create
+         * unnecessary redundancy for screen reader users. We recommend using LABEL
+         * only as part of the development process of a sketch and removing it before
+         * publishing or sharing with screen reader users.
+         *
+         * @param [display] either FALLBACK or LABEL (Optional)
+         */
+        gridOutput(display?: DESCRIBE_DISPLAY): void;
+
+        /**
+         * This function creates a screen-reader accessible
+         * description for elements —shapes or groups of shapes that create
+         * meaning together— in the canvas. The first paramater should
+         * be the name of the element. The second parameter should be a string
+         * with a description of the element. The third parameter is optional.
+         * If specified, it determines how the element description is displayed.
+         *
+         * <code class="language-javascript">describeElement(name, text, LABEL)</code>
+         * displays the element description to all users as a
+         * <a href="https://en.wikipedia.org/wiki/Museum_label" target="_blank">
+         * tombstone or exhibit label/caption</a> in a
+         * <code class="language-javascript">&lt;div class="p5Label"&gt;&lt;/div&gt;</code>
+         * adjacent to the canvas. You can style it as you wish in your CSS.
+         *
+         * <code class="language-javascript">describeElement(name, text, FALLBACK)</code>
+         * makes the element description accessible to screen-reader users
+         * only, in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Hit_regions_and_accessibility" target="_blank">
+         * a sub DOM inside the canvas element</a>. If a second parameter is not
+         * specified, by default, the element description will only be available
+         * to screen-reader users.
+         *
+         * @param [name]      name of the element
+         * @param [text]      description of the element
+         * @param [display]   either LABEL or FALLBACK (Optional)
+         */
+        describeElement(name: string, text: string, display?: DESCRIBE_DISPLAY): void;
+
+        /**
          *   The print() function writes to the console area of
          *   your browser. This function is often helpful for
          *   looking at the data a program is producing. This

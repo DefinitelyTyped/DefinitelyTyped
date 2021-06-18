@@ -1,1 +1,3 @@
-export { ChartMinimum32 as default } from "../../";
+import { ChartMinimum32 } from "../../";
+
+export = ChartMinimum32;

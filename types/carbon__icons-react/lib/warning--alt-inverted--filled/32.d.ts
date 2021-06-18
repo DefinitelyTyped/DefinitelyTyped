@@ -1,1 +1,3 @@
-export { WarningAltInvertedFilled32 as default } from "../../";
+import { WarningAltInvertedFilled32 } from "../../";
+
+export = WarningAltInvertedFilled32;

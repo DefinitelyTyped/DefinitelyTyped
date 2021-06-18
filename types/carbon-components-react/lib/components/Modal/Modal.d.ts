@@ -1,7 +1,13 @@
 import * as React from "react";
 import { ReactDivAttr, CarbonSize } from "../../../typings/shared";
+import { ButtonProps } from "../Button";
 
 type ExcludedAttributes = "role" | "onBlur" | "onClick" | "onKeyDown" | "onTransitionEnd" | "ref";
+
+export interface ModalSecondaryButtonConfig {
+    buttonText: NonNullable<React.ReactNode>;
+    onClick: NonNullable<ButtonProps["onClick"]>;
+}
 
 export interface ModalProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     alert?: boolean,
@@ -24,10 +30,11 @@ export interface ModalProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     preventCloseOnClickOutside?: boolean,
     primaryButtonDisabled?: boolean,
     primaryButtonText?: React.ReactNode,
+    secondaryButtons?: readonly ModalSecondaryButtonConfig[];
     secondaryButtonText?: React.ReactNode,
     selectorPrimaryFocus?: string,
     selectorsFloatingMenus?: readonly string[],
-    size?: CarbonSize,
+    size?: "xs" | "sm" | "md" | "lg";
     shouldSubmitOnEnter?: boolean,
 }
 

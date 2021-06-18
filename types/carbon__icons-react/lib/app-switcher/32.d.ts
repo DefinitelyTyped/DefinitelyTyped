@@ -1,1 +1,3 @@
-export { AppSwitcher32 as default } from "../../";
+import { AppSwitcher32 } from "../../";
+
+export = AppSwitcher32;

@@ -1,1 +1,3 @@
-export { Mountain20 as default } from "../../";
+import { Mountain20 } from "../../";
+
+export = Mountain20;

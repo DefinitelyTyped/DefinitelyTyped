@@ -1,1 +1,3 @@
-export { Target as default } from "../../";
+import { Target } from "../../";
+
+export = Target;

@@ -1,1 +1,3 @@
-export { Reset16 as default } from "../../";
+import { Reset16 } from "../../";
+
+export = Reset16;

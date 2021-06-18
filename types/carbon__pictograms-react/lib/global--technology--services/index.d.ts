@@ -1,1 +1,3 @@
-export { GlobalTechnologyServices as default } from "../../";
+import { GlobalTechnologyServices } from "../../";
+
+export = GlobalTechnologyServices;

@@ -1,1 +1,3 @@
-export { Iso24 as default } from "../../";
+import { Iso24 } from "../../";
+
+export = Iso24;

@@ -1,1 +1,3 @@
-export { Hdr20 as default } from "../../";
+import { Hdr20 } from "../../";
+
+export = Hdr20;

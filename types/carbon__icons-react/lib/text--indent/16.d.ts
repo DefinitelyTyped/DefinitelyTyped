@@ -1,1 +1,3 @@
-export { TextIndent16 as default } from "../../";
+import { TextIndent16 } from "../../";
+
+export = TextIndent16;

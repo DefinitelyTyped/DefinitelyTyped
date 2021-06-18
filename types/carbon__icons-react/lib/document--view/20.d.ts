@@ -1,1 +1,3 @@
-export { DocumentView20 as default } from "../../";
+import { DocumentView20 } from "../../";
+
+export = DocumentView20;

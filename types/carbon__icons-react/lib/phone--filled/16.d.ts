@@ -1,1 +1,3 @@
-export { PhoneFilled16 as default } from "../../";
+import { PhoneFilled16 } from "../../";
+
+export = PhoneFilled16;

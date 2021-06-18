@@ -1,1 +1,3 @@
-export { Light20 as default } from "../../";
+import { Light20 } from "../../";
+
+export = Light20;

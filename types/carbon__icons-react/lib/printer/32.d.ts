@@ -1,1 +1,3 @@
-export { Printer32 as default } from "../../";
+import { Printer32 } from "../../";
+
+export = Printer32;

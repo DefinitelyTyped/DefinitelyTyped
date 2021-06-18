@@ -1,1 +1,3 @@
-export { SailboatCoastal20 as default } from "../../";
+import { SailboatCoastal20 } from "../../";
+
+export = SailboatCoastal20;

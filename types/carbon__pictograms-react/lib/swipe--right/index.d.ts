@@ -1,1 +1,3 @@
-export { SwipeRight as default } from "../../";
+import { SwipeRight } from "../../";
+
+export = SwipeRight;

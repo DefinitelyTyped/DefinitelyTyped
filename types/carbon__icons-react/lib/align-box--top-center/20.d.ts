@@ -1,1 +1,3 @@
-export { AlignBoxTopCenter20 as default } from "../../";
+import { AlignBoxTopCenter20 } from "../../";
+
+export = AlignBoxTopCenter20;

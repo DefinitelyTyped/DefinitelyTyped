@@ -1,1 +1,3 @@
-export { ForecastLightning_3032 as default } from "../../";
+import { ForecastLightning_3032 } from "../../";
+
+export = ForecastLightning_3032;

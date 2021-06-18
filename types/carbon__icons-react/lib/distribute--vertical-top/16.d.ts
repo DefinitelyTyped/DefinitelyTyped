@@ -1,1 +1,3 @@
-export { DistributeVerticalTop16 as default } from "../../";
+import { DistributeVerticalTop16 } from "../../";
+
+export = DistributeVerticalTop16;

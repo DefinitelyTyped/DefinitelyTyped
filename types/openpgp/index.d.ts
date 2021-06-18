@@ -9,6 +9,7 @@
 //                 Ryo Ota <https://github.com/nwtgck>
 //                 Sergey Bakulin <https://github.com/vansergen>
 //                 Wiktor Kwapisiewicz <https://metacode.biz/@wiktor>
+//                 Ugo Sangiorgi <https://github.com/ugosan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import BN = require('bn.js');
 import stream = require('stream');
@@ -1642,6 +1643,17 @@ export namespace enums {
     function read(): void;
 }
 
+export interface HKPOptions {
+    /**
+     * (optionsl) The long public key ID.
+     */
+    keyId?: string;
+    /**
+     * (optional) This can be any part of the key user ID such as name or email address.
+     */
+    query?: string;
+}
+
 export namespace hkp {
     class HKP {
         /**
@@ -1659,7 +1671,7 @@ export namespace hkp {
          *        or email address.
          * @returns The ascii armored public key.
          */
-        lookup(): Promise<String>;
+        lookup(options: HKPOptions): Promise<String>;
 
         /**
          * Upload a public key to the server.
@@ -1686,7 +1698,7 @@ export class HKP {
      *        or email address.
      * @returns The ascii armored public key.
      */
-    lookup(): Promise<String>;
+    lookup(options: HKPOptions): Promise<String>;
 
     /**
      * Upload a public key to the server.
@@ -2921,6 +2933,10 @@ export interface revokeKey_reasonForRevocation {
  * @see module:packet.List
  */
 export namespace packet {
+    type AnyPacket = Compressed | Literal | Marker | OnePassSignature | PublicKey | PublicKeyEncryptedSessionKey |
+        PublicSubkey | SecretKey | SecretSubkey | Signature | SymEncryptedAEADProtected | SymEncryptedIntegrityProtected |
+        SymEncryptedSessionKey | SymmetricallyEncrypted | Trust | UserAttribute | Userid;
+
     /**
      * Allocate a new packet
      * @param tag property name from {@link module:enums.packet}
@@ -3187,24 +3203,24 @@ export namespace packet {
         /**
          * Creates a new PacketList with all packets from the given types
          */
-        filterByTag(): void;
+        filterByTag(...tags: enums.packet[]): List;
 
         /**
          * Traverses packet tree and returns first matching packet
          * @param type The packet type
          * @returns
          */
-        findPacket(type: enums.packet): List | undefined;
+        findPacket(type: enums.packet): AnyPacket | undefined;
 
         /**
          * Returns array of found indices by tag
          */
-        indexOfTag(): void;
+        indexOfTag(...tags: enums.packet[]): number[];
 
         /**
          * Concatenates packetlist or array of packets
          */
-        concat(): void;
+        concat(packets?: List): void;
 
         /**
          * Allocate a new packetlist from structured packetlist clone

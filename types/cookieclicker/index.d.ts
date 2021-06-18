@@ -2129,9 +2129,9 @@ declare namespace Game {
 
         synergies: Array<SynergyUpgradeClass<string>>;
 
-        tieredAchievs: Array<TieredAchievementClass<number>>;
+        tieredAchievs: Record<string | number, TieredAchievementClass>;
 
-        tieredUpgrades: Array<TieredUpgradeClass<number>>;
+        tieredUpgrades: Record<string | number, TieredUpgradeClass>;
         /**
          * Generates a tooltip to show on the shop listing.
          * @return A string with the html elements
@@ -2236,7 +2236,7 @@ declare namespace Game {
         /**
          * The parents of the heavenly upgrade, present on all upgrades
          */
-        parents: HeavenlyUpgrade[];
+        parents: Upgrade[];
         /**
          * The type of the upgrade, "prestigeDecor" and "unused" are unused, "" is the default
          */
@@ -2260,6 +2260,20 @@ declare namespace Game {
         unlockAt: UnlockRequirement | PseudoNull;
 
         vanilla: PseudoBoolean;
+
+        /**
+         * If true, it is considered a pseudo cookie
+         * A pseudo cookie upgrade which represents an upgrade which doesn't have to be in the cookie pool but its power is calculated in cookie CpS bonuses
+         */
+        pseudoCookie?: PseudoBoolean | boolean;
+        /**
+         * If true, the upgrade is always unlocked, across ascensions
+         */
+        lasting?: PseudoBoolean | boolean;
+        /**
+         * If true, the upgrade cannot be put inside a permanent slot
+         */
+        noPerm?: PseudoBoolean | boolean;
         /**
          * The function that gets triggered on click, vaults or buys the upgrade
          */
@@ -2351,13 +2365,13 @@ declare namespace Game {
          */
         name: string;
         /**
-         * The name of the cookie required to unlock the cookie
+         * The name of the upgrade or achievement required to unlock the cookie
          */
-        require: string;
+        require?: string;
         /**
          * The cookie required to unlock the cookie
          */
-        season: string;
+        season?: string;
     }
     export let UnlockAt: UnlockRequirement[];
     export interface CookieUpgrade {
@@ -2380,15 +2394,6 @@ declare namespace Game {
      * @factory
      */
     export function NewUpgradeCookie(obj: CookieUpgradeParameter): CookieUpgrade;
-
-    /**
-     * A pseudo cookie upgrade which represents an upgrade which doesn't have to be in the cookie pool but its power is calculated in cookie CpS bonuses
-     */
-    export interface PseudoCookieUpgrade extends Upgrade {
-        // Pseudo-true
-        pseudoCookie: 1 | true;
-    }
-
     export interface Tier {
         name: string;
         /**
@@ -2418,9 +2423,9 @@ declare namespace Game {
          * If true, Upgrades with this tier won't count towards tiered CpS multiplier
          */
         special: PseudoBoolean | boolean;
-        upgrades: Array<TieredUpgradeClass<this['name']>>;
+        upgrades: GenericTieredUpgrade[];
     }
-    export let Tiers: Record<string, Tier>;
+    export let Tiers: Record<string | number, Tier>;
     export function GetIcon(type: string, tier: string | number): Icon;
     /**
      * Sets the last created achievement/upgrade tier and building tie, converting it to a generic tiered upgrade/achievement
@@ -2758,7 +2763,7 @@ declare namespace Game {
      * @param what The name of the achievement
      */
     export function HasAchiev(what: string): PseudoBoolean;
-    export interface TieredAchievementClass<Tier extends string | number> extends Achievement {
+    export interface TieredAchievementClass<Tier extends string | number = string | number> extends Achievement {
         tier: Tier;
         buildingTie: GameObject;
     }
@@ -3059,7 +3064,7 @@ declare namespace Game {
         id?: number;
     }
 
-    export let Mods: Record<string, Mod>;
+    export let mods: Record<string, Mod>;
     export let sortedMods: Mod[];
     export let modSaveData: Record<string, string>;
     export let modHooks: Record<string, Array<() => unknown>>;
@@ -3067,7 +3072,11 @@ declare namespace Game {
 
     export function registerMod(id: string, obj: Mod): void;
 
-    export function registerHook(hook: 'cps' | 'cookiesPerClick', func: (() => number) | Array<() => number>): void;
+    export function registerHook(
+        hook: 'cps' | 'cookiesPerClick',
+        func: ((num: number) => number) | Array<(num: number) => number>,
+    ): void;
+    export function registerHook(hook: 'reset', func: ((hard: boolean) => void) | Array<(hard: boolean) => void>): void;
     export function registerHook(hook: 'ticker', func: (() => string[]) | Array<() => string[]>): void;
     export function registerHook(hook: string, func: (() => void) | Array<() => void>): void;
 }

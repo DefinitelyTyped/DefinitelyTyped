@@ -1,1 +1,3 @@
-export { Reminder16 as default } from "../../";
+import { Reminder16 } from "../../";
+
+export = Reminder16;

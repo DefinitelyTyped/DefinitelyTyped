@@ -1,1 +1,3 @@
-export { EarthAmericasFilled24 as default } from "../../";
+import { EarthAmericasFilled24 } from "../../";
+
+export = EarthAmericasFilled24;

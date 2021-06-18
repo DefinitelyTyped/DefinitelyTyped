@@ -1,1 +1,3 @@
-export { TableSplit24 as default } from "../../";
+import { TableSplit24 } from "../../";
+
+export = TableSplit24;

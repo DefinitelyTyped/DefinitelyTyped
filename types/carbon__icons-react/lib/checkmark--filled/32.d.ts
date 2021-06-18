@@ -1,1 +1,3 @@
-export { CheckmarkFilled32 as default } from "../../";
+import { CheckmarkFilled32 } from "../../";
+
+export = CheckmarkFilled32;

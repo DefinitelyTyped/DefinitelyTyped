@@ -1,1 +1,3 @@
-export { TagGroup32 as default } from "../../";
+import { TagGroup32 } from "../../";
+
+export = TagGroup32;

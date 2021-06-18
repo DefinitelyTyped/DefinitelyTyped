@@ -1,1 +1,3 @@
-export { Snooze16 as default } from "../../";
+import { Snooze16 } from "../../";
+
+export = Snooze16;

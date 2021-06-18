@@ -1,1 +1,3 @@
-export { Translate24 as default } from "../../";
+import { Translate24 } from "../../";
+
+export = Translate24;

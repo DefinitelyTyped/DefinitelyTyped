@@ -1,1 +1,3 @@
-export { Tools24 as default } from "../../";
+import { Tools24 } from "../../";
+
+export = Tools24;

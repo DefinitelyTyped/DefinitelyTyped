@@ -1,1 +1,3 @@
-export { NavaidVortac32 as default } from "../../";
+import { NavaidVortac32 } from "../../";
+
+export = NavaidVortac32;

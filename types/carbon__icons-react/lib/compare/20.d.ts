@@ -1,1 +1,3 @@
-export { Compare20 as default } from "../../";
+import { Compare20 } from "../../";
+
+export = Compare20;

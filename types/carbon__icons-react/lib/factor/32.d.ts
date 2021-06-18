@@ -1,1 +1,3 @@
-export { Factor32 as default } from "../../";
+import { Factor32 } from "../../";
+
+export = Factor32;

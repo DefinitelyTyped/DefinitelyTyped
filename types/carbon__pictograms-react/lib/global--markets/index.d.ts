@@ -1,1 +1,3 @@
-export { GlobalMarkets as default } from "../../";
+import { GlobalMarkets } from "../../";
+
+export = GlobalMarkets;

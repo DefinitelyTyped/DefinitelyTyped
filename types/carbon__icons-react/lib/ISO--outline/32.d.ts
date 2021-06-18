@@ -1,1 +1,3 @@
-export { IsoOutline32 as default } from "../../";
+import { IsoOutline32 } from "../../";
+
+export = IsoOutline32;

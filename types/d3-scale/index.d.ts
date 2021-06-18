@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-scale module 3.2
+// Type definitions for D3JS d3-scale module 3.3
 // Project: https://github.com/d3/d3-scale/, https://d3js.org/d3-scale
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 3.2.3
+// Last module patch version validated against: 3.3.0
 
 import { CountableTimeInterval, TimeInterval } from 'd3-time';
 
@@ -1940,11 +1940,6 @@ export interface ScaleQuantize<Range, Unknown = never> {
     nice(count?: number): this;
 
     /**
-     * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
-     */
-    copy(): this;
-
-    /**
      * Returns the current unknown value, which defaults to undefined.
      */
     unknown(): UnknownReturnType<Unknown, undefined>;
@@ -1954,6 +1949,16 @@ export interface ScaleQuantize<Range, Unknown = never> {
      * @param value The output value of the scale for undefined (or NaN) input values.
      */
     unknown<NewUnknown>(value: NewUnknown): ScaleQuantize<Range, NewUnknown>;
+
+    /**
+     * Returns the array of computed thresholds within the domain.
+     */
+    thresholds(): number[];
+
+    /**
+     * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
+     */
+    copy(): this;
 }
 
 /**

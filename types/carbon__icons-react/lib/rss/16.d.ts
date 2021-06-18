@@ -1,1 +1,3 @@
-export { Rss16 as default } from "../../";
+import { Rss16 } from "../../";
+
+export = Rss16;

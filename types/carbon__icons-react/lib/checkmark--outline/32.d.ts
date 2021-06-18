@@ -1,1 +1,3 @@
-export { CheckmarkOutline32 as default } from "../../";
+import { CheckmarkOutline32 } from "../../";
+
+export = CheckmarkOutline32;

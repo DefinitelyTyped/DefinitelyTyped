@@ -154,6 +154,7 @@ parseRowsMappedArray = d3Dsv.csvParseRows(csvTestString, (rawRow, index) => {
 str = d3Dsv.csvFormat(parseRowsMappedArray);
 str = d3Dsv.csvFormat(parseRowsMappedArray, ["year", "length"]);
 str = d3Dsv.csvFormat(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
+str = d3Dsv.csvFormat(parseRowsMappedArray as readonly ParsedTestObject[], ["year", "length"] as ReadonlyArray<keyof ParsedTestObject>);
 
 // csvFormatBody(...) ========================================================================
 

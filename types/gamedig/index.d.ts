@@ -1,4 +1,4 @@
-// Type definitions for Gamedig 2.0
+// Type definitions for Gamedig 3.0
 // Project: https://github.com/sonicsnes/node-gamedig
 // Definitions by: Ivan Sieder <https://github.com/ivansieder>
 //                 Marco Vockner <https://github.com/marcopixel>
@@ -295,6 +295,7 @@ export interface QueryOptions {
     attemptTimeout?: number;
     givenPortOnly?: boolean;
     debug?: boolean;
+    requestRules?: boolean;
 }
 
 export interface QueryResult {

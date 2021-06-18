@@ -1,4 +1,4 @@
-// Type definitions for react-table 7.0
+// Type definitions for react-table 7.7
 // Project: https://github.com/tannerlinsley/react-table
 // Definitions by: Guy Gascoigne-Piggford <https://github.com/ggascoigne>,
 //                 Michael Stramel <https://github.com/stramel>
@@ -6,7 +6,7 @@
 //                 Jason Clark <https://github.com/riceboyler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
-// reflects react-table@7.0.4
+// reflects react-table@7.7.0
 
 // tslint:disable:no-empty-interface
 // no-empty-interface is disabled to allow easy extension with declaration merging
@@ -18,6 +18,7 @@
 // The changelog for the important changes is located in the Readme.md
 
 import {
+    ChangeEvent,
     ComponentType,
     DependencyList,
     EffectCallback,
@@ -139,7 +140,7 @@ export interface TableRowProps extends TableKeyedProps {}
 export interface TableCellProps extends TableKeyedProps {}
 
 export interface TableToggleCommonProps extends TableCommonProps {
-    onChange?: () => void;
+    onChange?: (e: ChangeEvent) => void;
     checked?: boolean;
     title?: string;
     indeterminate?: boolean;
@@ -174,6 +175,7 @@ export type UseTableOptions<D extends object> = {
     defaultColumn: Partial<Column<D>>;
     getSubRows: (originalRow: D, relativeIndex: number) => D[];
     getRowId: (originalRow: D, relativeIndex: number, parent?: Row<D>) => string;
+    autoResetHiddenColumns: boolean;
 }>;
 
 export type PropGetter<D extends object, Props, T extends object = never, P = Partial<Props>> =
@@ -236,6 +238,7 @@ export interface UseTableHooks<D extends object> extends Record<string, any> {
 export interface UseTableColumnOptions<D extends object> {
     id?: IdType<D>;
     Header?: Renderer<HeaderProps<D>>;
+    Footer?: Renderer<FooterProps<D>>;
     width?: number | string;
     minWidth?: number;
     maxWidth?: number;
@@ -280,7 +283,7 @@ export interface UseTableHeaderGroupProps<D extends object> {
 
 export interface UseTableColumnProps<D extends object> {
     id: IdType<D>;
-    columns: Array<ColumnInstance<D>>;
+    columns?: Array<ColumnInstance<D>>;
     isVisible: boolean;
     render: (type: 'Header' | 'Footer' | string, props?: object) => ReactNode;
     totalLeft: number;
@@ -288,10 +291,9 @@ export interface UseTableColumnProps<D extends object> {
     getHeaderProps: (propGetter?: HeaderPropGetter<D>) => TableHeaderProps;
     getFooterProps: (propGetter?: FooterPropGetter<D>) => TableFooterProps;
     toggleHidden: (value?: boolean) => void;
-    parent: ColumnInstance<D>; // not documented
+    parent?: ColumnInstance<D>; // not documented
     getToggleHiddenProps: (userProps?: any) => any;
     depth: number; // not documented
-    index: number; // not documented
     placeholderOf?: ColumnInstance;
 }
 
@@ -317,6 +319,8 @@ export interface UseTableCellProps<D extends object, V = any> {
 export type HeaderProps<D extends object> = TableInstance<D> & {
     column: ColumnInstance<D>;
 };
+
+export type FooterProps<D extends object> = TableInstance<D> & {};
 
 export type CellProps<D extends object, V = any> = TableInstance<D> & {
     column: ColumnInstance<D>;
@@ -413,6 +417,7 @@ export interface UseExpandedRowProps<D extends object> {
     subRows: Array<Row<D>>;
     toggleRowExpanded: (value?: boolean) => void;
     getToggleRowExpandedProps: (props?: Partial<TableExpandedToggleProps>) => TableExpandedToggleProps;
+    depth: number;
 }
 
 //#endregion
@@ -832,7 +837,7 @@ export interface UseSortByColumnProps<D extends object> {
 
 export type SortByFn<D extends object> = (rowA: Row<D>, rowB: Row<D>, columnId: IdType<D>, desc?: boolean) => number;
 
-export type DefaultSortTypes = 'alphanumeric' | 'datetime' | 'basic';
+export type DefaultSortTypes = 'alphanumeric' | 'datetime' | 'basic' | 'string' | 'number';
 
 export interface SortingRule<D> {
     id: IdType<D>;

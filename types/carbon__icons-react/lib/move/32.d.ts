@@ -1,1 +1,3 @@
-export { Move32 as default } from "../../";
+import { Move32 } from "../../";
+
+export = Move32;

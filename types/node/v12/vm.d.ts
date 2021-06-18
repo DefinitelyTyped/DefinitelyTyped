@@ -1,4 +1,4 @@
-declare module "vm" {
+declare module 'vm' {
     interface Context {
         [key: string]: any;
     }
@@ -15,7 +15,7 @@ declare module "vm" {
         lineOffset?: number;
         /**
          * Specifies the column number offset that is displayed in stack traces produced by this script.
-         * Default: `0`
+         * @default 0
          */
         columnOffset?: number;
     }
@@ -23,6 +23,7 @@ declare module "vm" {
         displayErrors?: boolean;
         timeout?: number;
         cachedData?: Buffer;
+        /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean;
     }
     interface RunningScriptOptions extends BaseOptions {
@@ -100,6 +101,7 @@ declare module "vm" {
         runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
         runInThisContext(options?: RunningScriptOptions): any;
         createCachedData(): Buffer;
+        cachedDataRejected?: boolean;
     }
     function createContext(sandbox?: Context, options?: CreateContextOptions): Context;
     function isContext(sandbox: Context): boolean;

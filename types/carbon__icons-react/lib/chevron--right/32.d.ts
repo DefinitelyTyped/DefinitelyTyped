@@ -1,1 +1,3 @@
-export { ChevronRight32 as default } from "../../";
+import { ChevronRight32 } from "../../";
+
+export = ChevronRight32;

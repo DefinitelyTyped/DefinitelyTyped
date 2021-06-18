@@ -1,1 +1,3 @@
-export { VirtualColumn20 as default } from "../../";
+import { VirtualColumn20 } from "../../";
+
+export = VirtualColumn20;

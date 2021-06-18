@@ -1,1 +1,3 @@
-export { Haze20 as default } from "../../";
+import { Haze20 } from "../../";
+
+export = Haze20;

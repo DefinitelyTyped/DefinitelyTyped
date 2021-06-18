@@ -1,1 +1,3 @@
-export { CurrencyWon16 as default } from "../../";
+import { CurrencyWon16 } from "../../";
+
+export = CurrencyWon16;

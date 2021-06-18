@@ -1,1 +1,3 @@
-export { WeatherFrontCold24 as default } from "../../";
+import { WeatherFrontCold24 } from "../../";
+
+export = WeatherFrontCold24;

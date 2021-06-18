@@ -1,1 +1,3 @@
-export { WindGusts20 as default } from "../../";
+import { WindGusts20 } from "../../";
+
+export = WindGusts20;

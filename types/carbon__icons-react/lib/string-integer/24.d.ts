@@ -1,1 +1,3 @@
-export { StringInteger24 as default } from "../../";
+import { StringInteger24 } from "../../";
+
+export = StringInteger24;

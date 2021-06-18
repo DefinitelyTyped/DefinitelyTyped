@@ -1,1 +1,3 @@
-export { ScalesTipped20 as default } from "../../";
+import { ScalesTipped20 } from "../../";
+
+export = ScalesTipped20;

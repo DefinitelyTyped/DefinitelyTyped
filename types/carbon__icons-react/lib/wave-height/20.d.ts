@@ -1,1 +1,3 @@
-export { WaveHeight20 as default } from "../../";
+import { WaveHeight20 } from "../../";
+
+export = WaveHeight20;

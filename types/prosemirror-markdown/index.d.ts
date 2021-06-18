@@ -5,6 +5,7 @@
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 //                 Ifiokj Jr. <https://github.com/ifiokjr>
+//                 Hayashi Takuya <https://github.com/howyi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -126,7 +127,12 @@ export class MarkdownParser<S extends Schema = any> {
  * A parser parsing unextended [CommonMark](http://commonmark.org/),
  * without inline HTML, and producing a document in the basic schema.
  */
-export let defaultMarkdownParser: MarkdownParser;
+export const defaultMarkdownParser: MarkdownParser;
+
+/**
+ * Document schema for the data model used by CommonMark.
+ */
+export const schema: Schema;
 
 export type MarkSerializerMethod<S extends Schema = any> = (
     state: MarkdownSerializerState<S>,

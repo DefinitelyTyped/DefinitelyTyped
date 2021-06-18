@@ -1,1 +1,3 @@
-export { Scan32 as default } from "../../";
+import { Scan32 } from "../../";
+
+export = Scan32;

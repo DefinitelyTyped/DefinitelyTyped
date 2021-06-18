@@ -1,1 +1,3 @@
-export { LogoPython20 as default } from "../../";
+import { LogoPython20 } from "../../";
+
+export = LogoPython20;

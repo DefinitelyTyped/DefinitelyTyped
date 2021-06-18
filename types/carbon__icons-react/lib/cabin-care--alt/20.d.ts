@@ -1,1 +1,3 @@
-export { CabinCareAlt20 as default } from "../../";
+import { CabinCareAlt20 } from "../../";
+
+export = CabinCareAlt20;

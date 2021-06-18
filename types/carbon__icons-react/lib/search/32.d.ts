@@ -1,1 +1,3 @@
-export { Search32 as default } from "../../";
+import { Search32 } from "../../";
+
+export = Search32;

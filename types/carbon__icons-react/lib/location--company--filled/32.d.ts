@@ -1,1 +1,3 @@
-export { LocationCompanyFilled32 as default } from "../../";
+import { LocationCompanyFilled32 } from "../../";
+
+export = LocationCompanyFilled32;

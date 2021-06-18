@@ -127,7 +127,7 @@ const setPosition = () => {
         content: 'Click anywhere on the map to change my position!'
     });
 
-    myMap.addListener('click', e => {
+    myMap.addListener('click', (e: any) => {
         info.setPosition(e.latLng);
         if (!info.isOpen()) {
             info.open();

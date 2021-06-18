@@ -1,1 +1,3 @@
-export { EscalatorDown as default } from "../../";
+import { EscalatorDown } from "../../";
+
+export = EscalatorDown;

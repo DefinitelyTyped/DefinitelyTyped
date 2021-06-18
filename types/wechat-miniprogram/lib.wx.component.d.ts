@@ -61,7 +61,8 @@ declare namespace WechatMiniprogram.Component {
     }
     type DataOption = Record<string, any>
     type PropertyOption = Record<string, AllProperty>
-    type MethodOption = Record<string, (...args: any[]) => any>
+    // tslint:disable-next-line:ban-types
+    type MethodOption = Record<string, Function>
 
     interface Data<D extends DataOption> {
         /** 组件的内部数据，和 `properties` 一同用于组件的模板渲染 */
@@ -169,9 +170,9 @@ declare namespace WechatMiniprogram.Component {
         /** 检查组件是否具有 `behavior` （检查时会递归检查被直接或间接引入的所有behavior） */
         hasBehavior(behavior: Behavior.BehaviorIdentifier): void
         /** 触发事件，参见组件事件 */
-        triggerEvent(
+        triggerEvent<DetailType = any>(
             name: string,
-            detail?: Record<string, unknown>,
+            detail?: DetailType,
             options?: TriggerEventOption
         ): void
         /** 创建一个 SelectorQuery 对象，选择器选取范围为这个组件实例内 */
@@ -274,6 +275,9 @@ declare namespace WechatMiniprogram.Component {
          * [纯数据字段](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/pure-data.html) 是一些不用于界面渲染的 data 字段，可以用于提升页面更新性能。从小程序基础库版本 2.8.2 开始支持。
          */
         pureDataPattern?: RegExp
+        /**
+         * [虚拟化组件节点](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html#%E8%99%9A%E6%8B%9F%E5%8C%96%E7%BB%84%E4%BB%B6%E8%8A%82%E7%82%B9) 使自定义组件内部的第一层节点由自定义组件本身完全决定。从小程序基础库版本 [`2.11.2`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) 开始支持 */
+        virtualHost?: boolean
     }
 
     interface TriggerEventOption {
@@ -450,6 +454,10 @@ declare namespace WechatMiniprogram.Component {
          *
          * 最低基础库版本： [`2.2.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) */
         definitionFilter?: DefinitionFilter
+        /**
+         * 组件自定义导出，当使用 `behavior: wx://component-export` 时，这个定义段可以用于指定组件被 selectComponent 调用时的返回值，参见 [组件间通信与事件](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html)
+         * 最低基础库版本： [`2.2.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) */
+        export: () => IAnyObject
     }
 
     interface KeyFrame {

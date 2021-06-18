@@ -1,1 +1,3 @@
-export { Java as default } from "../../";
+import { Java } from "../../";
+
+export = Java;

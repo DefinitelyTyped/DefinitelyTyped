@@ -26,10 +26,7 @@ import { Step } from 'prosemirror-transform';
  *     This client's ID, used to distinguish its changes from those of
  *     other clients. Defaults to a random 32-bit number.
  */
-export function collab(config?: {
-  version?: number | null;
-  clientID?: number | string | null;
-}): Plugin;
+export function collab(config?: { version?: number | null; clientID?: number | string | null }): Plugin;
 
 /**
  * Create a transaction that represents a set of new steps received from
@@ -47,10 +44,10 @@ export function collab(config?: {
  *     of backwards compatibility.
  */
 export function receiveTransaction<S extends Schema = any>(
-  state: EditorState<S>,
-  steps: Array<Step<S>>,
-  clientIDs: Array<number | string>,
-  options?: { mapSelectionBackward?: boolean }
+    state: EditorState<S>,
+    steps: Array<Step<S>>,
+    clientIDs: Array<number | string>,
+    options?: { mapSelectionBackward?: boolean },
 ): Transaction<S>;
 
 /**
@@ -65,13 +62,16 @@ export function receiveTransaction<S extends Schema = any>(
  * unchanged objects.
  */
 export function sendableSteps<S extends Schema = any>(
-  state: EditorState<S>
-): {
-  version: number;
-  steps: Array<Step<S>>;
-  clientID: number | string;
-  origins: Array<Transaction<S>>;
-} | null | undefined;
+    state: EditorState<S>,
+):
+    | {
+          version: number;
+          steps: Array<Step<S>>;
+          clientID: number | string;
+          origins: Array<Transaction<S>>;
+      }
+    | null
+    | undefined;
 
 /**
  * Get the version up to which the collab plugin has synced with the

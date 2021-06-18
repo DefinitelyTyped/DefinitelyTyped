@@ -1,1 +1,3 @@
-export { Pending32 as default } from "../../";
+import { Pending32 } from "../../";
+
+export = Pending32;

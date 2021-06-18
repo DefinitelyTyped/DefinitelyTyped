@@ -1,1 +1,3 @@
-export { InProgressError32 as default } from "../../";
+import { InProgressError32 } from "../../";
+
+export = InProgressError32;

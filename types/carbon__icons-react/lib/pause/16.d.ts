@@ -1,1 +1,3 @@
-export { Pause16 as default } from "../../";
+import { Pause16 } from "../../";
+
+export = Pause16;

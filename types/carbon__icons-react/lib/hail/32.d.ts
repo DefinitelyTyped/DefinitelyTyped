@@ -1,1 +1,3 @@
-export { Hail32 as default } from "../../";
+import { Hail32 } from "../../";
+
+export = Hail32;

@@ -1,1 +1,3 @@
-export { PageNumber32 as default } from "../../";
+import { PageNumber32 } from "../../";
+
+export = PageNumber32;

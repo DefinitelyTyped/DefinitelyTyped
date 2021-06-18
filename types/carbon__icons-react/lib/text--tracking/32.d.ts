@@ -1,1 +1,3 @@
-export { TextTracking32 as default } from "../../";
+import { TextTracking32 } from "../../";
+
+export = TextTracking32;

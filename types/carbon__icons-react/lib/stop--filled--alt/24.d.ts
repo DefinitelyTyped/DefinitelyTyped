@@ -1,1 +1,3 @@
-export { StopFilledAlt24 as default } from "../../";
+import { StopFilledAlt24 } from "../../";
+
+export = StopFilledAlt24;

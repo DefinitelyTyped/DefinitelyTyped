@@ -1,1 +1,3 @@
-export { Ticket20 as default } from "../../";
+import { Ticket20 } from "../../";
+
+export = Ticket20;

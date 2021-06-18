@@ -1,1 +1,3 @@
-export { HeatMapStocks32 as default } from "../../";
+import { HeatMapStocks32 } from "../../";
+
+export = HeatMapStocks32;

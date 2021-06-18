@@ -1,1 +1,3 @@
-export { BatteryFull24 as default } from "../../";
+import { BatteryFull24 } from "../../";
+
+export = BatteryFull24;

@@ -7,7 +7,7 @@ const text: string = open('file.txt');
 open(5, 'b'); // $ExpectError
 open('file.bin', 5); // $ExpectError
 open('file.bin', 'notamode'); // $ExpectError
-const binary: bytes = open('file.bin', 'b');
+const arrayBuffer: ArrayBuffer = open('file.bin', 'b');
 open('file.bin', 'b', 5); // $ExpectError
 
 // console

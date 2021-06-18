@@ -1,1 +1,3 @@
-export { AirlineRapidBoard20 as default } from "../../";
+import { AirlineRapidBoard20 } from "../../";
+
+export = AirlineRapidBoard20;

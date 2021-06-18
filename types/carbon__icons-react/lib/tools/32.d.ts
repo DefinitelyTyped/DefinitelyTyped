@@ -1,1 +1,3 @@
-export { Tools32 as default } from "../../";
+import { Tools32 } from "../../";
+
+export = Tools32;

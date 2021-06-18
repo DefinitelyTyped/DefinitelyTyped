@@ -1,1 +1,3 @@
-export { DirectionUTurn20 as default } from "../../";
+import { DirectionUTurn20 } from "../../";
+
+export = DirectionUTurn20;

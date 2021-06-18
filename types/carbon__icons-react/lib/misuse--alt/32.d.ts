@@ -1,1 +1,3 @@
-export { MisuseAlt32 as default } from "../../";
+import { MisuseAlt32 } from "../../";
+
+export = MisuseAlt32;

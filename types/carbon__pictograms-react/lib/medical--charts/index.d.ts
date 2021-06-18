@@ -1,1 +1,3 @@
-export { MedicalCharts as default } from "../../";
+import { MedicalCharts } from "../../";
+
+export = MedicalCharts;

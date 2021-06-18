@@ -1,1 +1,3 @@
-export { BringToFront32 as default } from "../../";
+import { BringToFront32 } from "../../";
+
+export = BringToFront32;

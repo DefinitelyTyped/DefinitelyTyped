@@ -1,1 +1,3 @@
-export { WatsonHealthStackedScrolling_224 as default } from "../../../";
+import { WatsonHealthStackedScrolling_224 } from "../../../";
+
+export = WatsonHealthStackedScrolling_224;

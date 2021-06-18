@@ -1,1 +1,3 @@
-export { PlanningAnalytics as default } from "../../";
+import { PlanningAnalytics } from "../../";
+
+export = PlanningAnalytics;

@@ -1,1 +1,3 @@
-export { Radar20 as default } from "../../";
+import { Radar20 } from "../../";
+
+export = Radar20;

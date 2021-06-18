@@ -1,13 +1,23 @@
 import * as React from 'react';
-import ReactTags, { TagComponentProps } from 'react-tag-autocomplete';
+import ReactTags, { TagComponentProps, SuggestionComponentProps, Tag } from 'react-tag-autocomplete';
 
-class TestRequired extends React.Component {
-    render() {
-        const onAddTag = (tag: { id: string | number; name: string }) => {};
-        const onDeleteTag = (i: number) => {};
-        return <ReactTags handleAddition={onAddTag} handleDelete={onDeleteTag} />;
-    }
-}
+const TestRequired = () => {
+    const onAddTag = (tag: { id: string | number; name: string }) => {};
+    const onDeleteTag = (i: number) => {};
+    return <ReactTags onAddition={onAddTag} onDelete={onDeleteTag} />;
+};
+
+const TestRequiredNegative = () => {
+    const onAddTag = (tag: { id: string | number; name: string }) => {};
+    // $ExpectError
+    return <ReactTags onAddition={onAddTag} />;
+};
+
+const SuggestionComponent = ({ item, query }: SuggestionComponentProps) => (
+    <span>
+        {item.name} {query}
+    </span>
+);
 
 class TestAll extends React.Component {
     render() {
@@ -42,8 +52,12 @@ class TestAll extends React.Component {
             { id: 1, name: 'Apples' },
             { id: 2, name: 'Pears' },
         ];
+        const suggestionsTransform = (query: string, suggestions: Tag[]) => {
+            return [];
+        };
         return (
             <ReactTags
+                id="42"
                 addOnBlur={true}
                 allowBackspace={false}
                 allowNew={false}
@@ -51,22 +65,25 @@ class TestAll extends React.Component {
                 autoresize={false}
                 classNames={classNamesObj}
                 clearInputOnDelete={false}
-                delimiterChars={[',', ' ']}
-                delimiters={[9, 13]}
-                handleAddition={onAddTag}
-                handleBlur={onBlur}
-                handleDelete={onDeleteTag}
-                handleFocus={onFocus}
-                handleInputChange={onInputChange}
-                handleValidate={onValidate}
+                delimiters={['Enter', 'Tab']}
+                onAddition={onAddTag}
+                onBlur={onBlur}
+                onDelete={onDeleteTag}
+                onFocus={onFocus}
+                onInput={onInputChange}
+                onValidate={onValidate}
                 inputAttributes={inputAttributes}
                 maxSuggestionsLength={10}
                 minQueryLength={5}
+                newTagPrefix="new-"
                 noSuggestionsText="no results"
-                placeholder=""
+                placeholderText=""
+                removeButtonText="Delete"
                 suggestions={suggestions}
                 suggestionsFilter={suggestionFilter}
                 tagComponent={tagComponent}
+                suggestionComponent={SuggestionComponent}
+                suggestionsTransform={suggestionsTransform}
                 tags={tags}
             />
         );

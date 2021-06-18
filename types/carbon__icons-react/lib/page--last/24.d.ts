@@ -1,1 +1,3 @@
-export { PageLast24 as default } from "../../";
+import { PageLast24 } from "../../";
+
+export = PageLast24;

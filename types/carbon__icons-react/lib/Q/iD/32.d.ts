@@ -1,1 +1,3 @@
-export { QID32 as default } from "../../../";
+import { QID32 } from "../../../";
+
+export = QID32;

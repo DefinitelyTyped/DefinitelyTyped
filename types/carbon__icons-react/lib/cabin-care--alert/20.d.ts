@@ -1,1 +1,3 @@
-export { CabinCareAlert20 as default } from "../../";
+import { CabinCareAlert20 } from "../../";
+
+export = CabinCareAlert20;

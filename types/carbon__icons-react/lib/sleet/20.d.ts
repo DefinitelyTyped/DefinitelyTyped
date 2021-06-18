@@ -1,1 +1,3 @@
-export { Sleet20 as default } from "../../";
+import { Sleet20 } from "../../";
+
+export = Sleet20;

@@ -1,1 +1,3 @@
-export { MostlyCloudy32 as default } from "../../";
+import { MostlyCloudy32 } from "../../";
+
+export = MostlyCloudy32;

@@ -1,1 +1,3 @@
-export { Security32 as default } from "../../";
+import { Security32 } from "../../";
+
+export = Security32;

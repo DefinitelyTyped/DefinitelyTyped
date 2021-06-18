@@ -1,1 +1,3 @@
-export { MacCommand32 as default } from "../../";
+import { MacCommand32 } from "../../";
+
+export = MacCommand32;

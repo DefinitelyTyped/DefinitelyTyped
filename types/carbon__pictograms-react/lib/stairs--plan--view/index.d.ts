@@ -1,1 +1,3 @@
-export { StairsPlanView as default } from "../../";
+import { StairsPlanView } from "../../";
+
+export = StairsPlanView;

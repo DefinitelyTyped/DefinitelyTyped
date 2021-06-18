@@ -1,1 +1,3 @@
-export { FaceNeutralFilled16 as default } from "../../";
+import { FaceNeutralFilled16 } from "../../";
+
+export = FaceNeutralFilled16;

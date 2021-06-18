@@ -1,1 +1,3 @@
-export { Export16 as default } from "../../";
+import { Export16 } from "../../";
+
+export = Export16;

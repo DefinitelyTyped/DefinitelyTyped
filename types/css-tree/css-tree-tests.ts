@@ -347,7 +347,7 @@ switch (ast.type) {
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'HexColor':
+    case 'Hash':
         ast.value; // $ExpectType string
         break;
 
@@ -526,7 +526,7 @@ switch (toPlain.type) {
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'HexColor':
+    case 'Hash':
         toPlain.value; // $ExpectType string
         break;
 

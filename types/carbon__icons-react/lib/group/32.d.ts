@@ -1,1 +1,3 @@
-export { Group32 as default } from "../../";
+import { Group32 } from "../../";
+
+export = Group32;

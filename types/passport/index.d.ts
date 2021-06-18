@@ -32,8 +32,16 @@ declare global {
             logout(): void;
             logOut(): void;
 
-            isAuthenticated(): boolean;
-            isUnauthenticated(): boolean;
+            isAuthenticated(): this is AuthenticatedRequest;
+            isUnauthenticated(): this is UnauthenticatedRequest;
+        }
+
+        interface AuthenticatedRequest extends Request {
+            user: User;
+        }
+
+        interface UnauthenticatedRequest extends Request {
+            user?: undefined;
         }
     }
 }
@@ -73,10 +81,10 @@ declare namespace passport {
         authenticate(strategy: string | string[] | Strategy, options: AuthenticateOptions, callback?: (...args: any[]) => any): AuthenticateRet;
         authorize(strategy: string | string[], callback?: (...args: any[]) => any): AuthorizeRet;
         authorize(strategy: string | string[], options: AuthorizeOptions, callback?: (...args: any[]) => any): AuthorizeRet;
-        serializeUser<TUser, TID>(fn: (user: TUser, done: (err: any, id?: TID) => void) => void): void;
-        serializeUser<TUser, TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, user: TUser, done: (err: any, id?: TID) => void) => void): void;
-        deserializeUser<TUser, TID>(fn: (id: TID, done: (err: any, user?: TUser) => void) => void): void;
-        deserializeUser<TUser, TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, id: TID, done: (err: any, user?: TUser) => void) => void): void;
+        serializeUser<TID>(fn: (user: Express.User, done: (err: any, id?: TID) => void) => void): void;
+        serializeUser<TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, user: Express.User, done: (err: any, id?: TID) => void) => void): void;
+        deserializeUser<TID>(fn: (id: TID, done: (err: any, user?: Express.User | false | null) => void) => void): void;
+        deserializeUser<TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, id: TID, done: (err: any, user?: Express.User | false | null) => void) => void): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
 
@@ -102,7 +110,7 @@ declare namespace passport {
          * useful for third-party authentication strategies to pass profile
          * details.
          */
-        success(user: object, info?: object): void;
+        success(user: Express.User, info?: object): void;
         /**
          * Fail authentication, with optional `challenge` and `status`, defaulting
          * to 401.

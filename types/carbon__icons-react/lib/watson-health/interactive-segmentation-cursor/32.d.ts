@@ -1,1 +1,3 @@
-export { WatsonHealthInteractiveSegmentationCursor32 as default } from "../../../";
+import { WatsonHealthInteractiveSegmentationCursor32 } from "../../../";
+
+export = WatsonHealthInteractiveSegmentationCursor32;

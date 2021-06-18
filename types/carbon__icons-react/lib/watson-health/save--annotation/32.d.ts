@@ -1,1 +1,3 @@
-export { WatsonHealthSaveAnnotation32 as default } from "../../../";
+import { WatsonHealthSaveAnnotation32 } from "../../../";
+
+export = WatsonHealthSaveAnnotation32;

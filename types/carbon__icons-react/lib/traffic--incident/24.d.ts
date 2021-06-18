@@ -1,1 +1,3 @@
-export { TrafficIncident24 as default } from "../../";
+import { TrafficIncident24 } from "../../";
+
+export = TrafficIncident24;

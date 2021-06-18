@@ -4,10 +4,10 @@ import { connectionString } from './index';
 async function run() {
     const client = await connect(connectionString);
     const db = client.db('test');
-    const collection = db.collection('test.find');
+    const collection = db.collection<{ age: number }>('test.find');
 
     const cursor = collection // $ExpectType Cursor<{ foo: number; }>
-        .find<{ age: number }>()
+        .find()
         .addCursorFlag('', true)
         .addQueryModifier('', true)
         .batchSize(1)
@@ -38,7 +38,6 @@ async function run() {
     collection.find().project({ notExistingField: 1 });
     collection.find().sort({ text: { $meta: 'textScore' }, notExistingField: -1 });
     collection.find().sort({});
-    collection.find().bufferedCount();
 
     interface TypedDoc {
         name: string;
@@ -70,6 +69,9 @@ async function run() {
     typedCollection.find().project({ name: 1 });
     typedCollection.find().project({ notExistingField: 1 });
     typedCollection.find().project({ max: { $max: [] } });
+
+    // $ExpectType Cursor<{ name: string; }>
+    typedCollection.find().project<{ name: string; }>({ name: 1 });
 
     for await (const item of cursor) {
         item.foo; // $ExpectType number

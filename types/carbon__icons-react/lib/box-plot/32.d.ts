@@ -1,1 +1,3 @@
-export { BoxPlot32 as default } from "../../";
+import { BoxPlot32 } from "../../";
+
+export = BoxPlot32;

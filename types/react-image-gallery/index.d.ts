@@ -25,6 +25,10 @@ export interface ReactImageGalleryItem {
     }): void;
     description?: string;
     original: string;
+    originalHeight?: number;
+    originalWidth?: number;
+    thumbnailHeight?: number;
+    thumbnailWidth?: number;
     fullscreen?: string;
     originalAlt?: string;
     originalTitle?: string;
@@ -69,7 +73,7 @@ export interface ReactImageGalleryProps {
     swipingTransitionDuration?: number;
     onSlide?: (currentIndex: number) => void;
     onBeforeSlide?: (currentIndex: number) => void;
-    onScreenChange?: (fullScreenElement: Element) => void;
+    onScreenChange?: (fullScreen: boolean) => void;
     onPause?: (currentIndex: number) => void;
     onPlay?: (currentIndex: number) => void;
     onClick?: (event: React.MouseEventHandler<HTMLDivElement>) => void;

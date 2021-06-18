@@ -1,1 +1,3 @@
-export { Calculator32 as default } from "../../";
+import { Calculator32 } from "../../";
+
+export = Calculator32;

@@ -1,5 +1,5 @@
-import * as React from "react";
-import ReactSelect, * as ReactSelectModule from "react-select";
+import * as React from 'react';
+import ReactSelect, * as ReactSelectModule from 'react-select';
 import defaultMenuRenderer from 'react-select/lib/utils/defaultMenuRenderer';
 import DefaultOptionComponent from 'react-select/lib/Option';
 
@@ -7,8 +7,8 @@ declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
 const EXAMPLE_OPTIONS: ReactSelectModule.Options = [
-    { value: "one", label: "One" },
-    { value: "two", label: "Two" }
+    { value: 'one', label: 'One' },
+    { value: 'two', label: 'Two' },
 ];
 
 interface CustomValueType {
@@ -22,44 +22,45 @@ interface CustomValueType {
  * If https://github.com/Microsoft/TypeScript/issues/6395 ever lands, this
  * workaround may become redundant.
  */
-type CustomValueReactSelect = new (props: ReactSelectModule.ReactSelectProps<CustomValueType>) => ReactSelect<CustomValueType>;
+type CustomValueReactSelect = new (
+    props: ReactSelectModule.ReactSelectProps<CustomValueType>,
+) => ReactSelect<CustomValueType>;
 const CustomValueReactSelect = ReactSelect as CustomValueReactSelect;
 
 const EXAMPLE_CUSTOM_OPTIONS: ReactSelectModule.Options<CustomValueType> = [
-    { value: { prop1: "OneProp1", prop2: 1 }, label: "One" },
-    { value: { prop1: "TwoProp2", prop2: 2 }, label: "Two" }
+    { value: { prop1: 'OneProp1', prop2: 1 }, label: 'One' },
+    { value: { prop1: 'TwoProp2', prop2: 2 }, label: 'Two' },
 ];
 
 const EXAMPLE_CUSTOM_VALUE: ReactSelectModule.Option<CustomValueType> = {
-    value: { prop1: "ThreeProp1", prop2: 3 }, label: "Three"
+    value: { prop1: 'ThreeProp1', prop2: 3 },
+    label: 'Three',
 };
 
-describe("react-select", () => {
-    it("options", () => {
+describe('react-select', () => {
+    it('options', () => {
         const optionsString: ReactSelectModule.Options<string> = [
-            { value: "one", label: "One" },
-            { value: "two", label: "Two", clearableValue: false }
+            { value: 'one', label: 'One' },
+            { value: 'two', label: 'Two', clearableValue: false },
         ];
 
         const optionsNumber: ReactSelectModule.Options<number> = [
-            { value: 1, label: "One" },
-            { value: 2, label: "Two", clearableValue: false }
+            { value: 1, label: 'One' },
+            { value: 2, label: 'Two', clearableValue: false },
         ];
 
         const optionsMixed: ReactSelectModule.Options = [
-            { value: "one", label: "One" },
-            { value: 2, label: "Two", clearableValue: false }
+            { value: 'one', label: 'One' },
+            { value: 2, label: 'Two', clearableValue: false },
         ];
     });
 
-    it("async options", () => {
+    it('async options', () => {
         const getAsyncLegacyOptions: ReactSelectModule.LoadOptionsLegacyHandler = (input, callback) => {
             setTimeout(() => {
                 callback(null, {
-                    options: [
-                        { value: "one", label: "Two" }
-                    ],
-                    complete: false
+                    options: [{ value: 'one', label: 'Two' }],
+                    complete: false,
                 });
             });
         };
@@ -75,19 +76,20 @@ describe("react-select", () => {
 
             return {
                 options: result,
-                complete: false
+                complete: false,
             };
         };
     });
 
-    it("Custom value async options", () => {
-        const getAsyncLegacyOptions: ReactSelectModule.LoadOptionsLegacyHandler<CustomValueType> = (input, callback) => {
+    it('Custom value async options', () => {
+        const getAsyncLegacyOptions: ReactSelectModule.LoadOptionsLegacyHandler<CustomValueType> = (
+            input,
+            callback,
+        ) => {
             setTimeout(() => {
                 callback(null, {
-                    options: [
-                        { value: { prop1: "One", prop2: 4 }, label: "Two" }
-                    ],
-                    complete: false
+                    options: [{ value: { prop1: 'One', prop2: 4 }, label: 'Two' }],
+                    complete: false,
                 });
             });
         };
@@ -103,160 +105,156 @@ describe("react-select", () => {
 
             return {
                 options: result,
-                complete: false
+                complete: false,
             };
         };
     });
 
-    it("creatable", () => {
+    it('creatable', () => {
         function Component(props: {}): JSX.Element {
             return <ReactSelectModule.Creatable name="creatable" options={EXAMPLE_OPTIONS} />;
         }
     });
 
-    it("Focus method", () => {
+    it('Focus method', () => {
         class Component extends React.PureComponent {
             private readonly selectRef = (component: ReactSelect) => {
                 component.focus();
             }
 
             render() {
-                return <ReactSelect
-                    ref={this.selectRef}
-                />;
+                return <ReactSelect ref={this.selectRef} />;
             }
         }
     });
 
-    it("setValue method", () => {
+    it('setValue method', () => {
         class Component extends React.PureComponent {
             private readonly selectRef = (component: ReactSelect) => {
                 component.setValue({
-                    value: 'value'
+                    value: 'value',
                 });
             }
 
             render() {
-                return <ReactSelect
-                    ref={this.selectRef}
-                />;
+                return <ReactSelect ref={this.selectRef} />;
             }
         }
     });
 
-    it("Overriding default key-down behavior with onInputKeyDown", () => {
-        const keyDownHandler: ReactSelectModule.OnInputKeyDownHandler = (event => {
+    it('Overriding default key-down behavior with onInputKeyDown', () => {
+        const keyDownHandler: ReactSelectModule.OnInputKeyDownHandler = event => {
             const divEvent = event as React.KeyboardEvent<HTMLDivElement>;
             const inputEvent = event as React.KeyboardEvent<HTMLInputElement>;
-        });
+        };
     });
 
-    it("Updating input values with onInputChange", () => {
+    it('Updating input values with onInputChange', () => {
         const cleanInput: ReactSelectModule.OnInputChangeHandler = inputValue => {
-            return inputValue.replace(/[^0-9]/g, "");
+            return inputValue.replace(/[^0-9]/g, '');
         };
     });
 });
 
-describe("Focus events", () => {
-    it("Passing custom onFocus", () => {
+describe('Focus events', () => {
+    it('Passing custom onFocus', () => {
         class Component extends React.PureComponent {
             render() {
                 return (
-                    <ReactSelect onFocus={(e) => {
-                        const inputEvent = e as React.FocusEvent<HTMLInputElement>;
-                        const divEvent = e as React.FocusEvent<HTMLDivElement>;
-                    }} />
+                    <ReactSelect
+                        onFocus={e => {
+                            const inputEvent = e as React.FocusEvent<HTMLInputElement>;
+                            const divEvent = e as React.FocusEvent<HTMLDivElement>;
+                        }}
+                    />
                 );
             }
         }
     });
 
-    it("Passing custom onBlur", () => {
+    it('Passing custom onBlur', () => {
         class Component extends React.PureComponent {
             render() {
                 return (
-                    <ReactSelect onBlur={(e) => {
-                        const inputEvent = e as React.FocusEvent<HTMLInputElement>;
-                        const divEvent = e as React.FocusEvent<HTMLDivElement>;
-                    }} />
+                    <ReactSelect
+                        onBlur={e => {
+                            const inputEvent = e as React.FocusEvent<HTMLInputElement>;
+                            const divEvent = e as React.FocusEvent<HTMLDivElement>;
+                        }}
+                    />
                 );
             }
         }
     });
 });
 
-describe("Examples", () => {
-    it("Simple example", () => {
+describe('Examples', () => {
+    it('Simple example', () => {
         class Component extends React.Component {
-            private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = (option) => {
+            private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
                 const optionValue: string = option.value;
             }
 
             render() {
-                return <ReactSelect
-                    name="select"
-                    value="one"
-                    options={EXAMPLE_OPTIONS}
-                />;
+                return <ReactSelect name="select" value="one" options={EXAMPLE_OPTIONS} />;
             }
         }
     });
 
-    it("onValueClick", () => {
+    it('onValueClick', () => {
         class Component extends React.Component {
-            private readonly onValueClick: ReactSelectModule.OnValueClickHandler<number> = (option) => {
+            private readonly onValueClick: ReactSelectModule.OnValueClickHandler<number> = option => {
                 const optionValue: number = option.value;
             }
 
             render() {
                 const options = [
-                    { value: 3, label: "Option 3" },
-                    { value: 9, label: "Option 9" }
+                    { value: 3, label: 'Option 3' },
+                    { value: 9, label: 'Option 9' },
                 ];
 
-                return <ReactSelect
-                    name="select"
-                    value={123}
-                    options={options}
-                />;
+                return <ReactSelect name="select" value={123} options={options} />;
             }
         }
     });
 
-    it("Custom value onValueClick", () => {
+    it('Custom value onValueClick', () => {
         class Component extends React.Component {
-            private readonly onValueClick: ReactSelectModule.OnValueClickHandler<CustomValueType> = (option) => {
+            private readonly onValueClick: ReactSelectModule.OnValueClickHandler<CustomValueType> = option => {
                 const optionValue: CustomValueType = option.value;
             }
 
             render() {
-                return <CustomValueReactSelect
-                    name="select"
-                    value={EXAMPLE_CUSTOM_VALUE}
-                    options={EXAMPLE_CUSTOM_OPTIONS}
-                />;
+                return (
+                    <CustomValueReactSelect
+                        name="select"
+                        value={EXAMPLE_CUSTOM_VALUE}
+                        options={EXAMPLE_CUSTOM_OPTIONS}
+                    />
+                );
             }
         }
     });
 
-    it("Custom value onChange", () => {
+    it('Custom value onChange', () => {
         class Component extends React.Component {
-            private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<CustomValueType> = (option) => {
+            private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<CustomValueType> = option => {
                 const optionValue: CustomValueType = option.value;
             }
 
             render() {
-                return <CustomValueReactSelect
-                    name="select"
-                    value={EXAMPLE_CUSTOM_VALUE}
-                    options={EXAMPLE_CUSTOM_OPTIONS}
-                />;
+                return (
+                    <CustomValueReactSelect
+                        name="select"
+                        value={EXAMPLE_CUSTOM_VALUE}
+                        options={EXAMPLE_CUSTOM_OPTIONS}
+                    />
+                );
             }
         }
     });
 
-    it("Menu renderer example", () => {
+    it('Menu renderer example', () => {
         class Component extends React.Component {
             private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
                 const optionValue: string = option.value;
@@ -268,7 +266,7 @@ describe("Examples", () => {
                         <div className="option">
                             <div>{option.label}</div>
                             <div>{props.optionRenderer({})}</div>
-                            <button onClick={() => props.removeValue(option)}/>
+                            <button onClick={() => props.removeValue(option)} />
                         </div>
                     );
                 });
@@ -277,59 +275,60 @@ describe("Examples", () => {
             }
 
             render() {
-                return <ReactSelect
-                    name="select"
-                    value="one"
-                    options={EXAMPLE_OPTIONS}
-                    menuRenderer={this.menuRenderer}
-                />;
+                return (
+                    <ReactSelect name="select" value="one" options={EXAMPLE_OPTIONS} menuRenderer={this.menuRenderer} />
+                );
             }
         }
     });
 
-    it("Menu renderer with custom value type example", () => {
+    it('Menu renderer with custom value type example', () => {
         class Component extends React.Component {
             private readonly menuRenderer: ReactSelectModule.MenuRendererHandler<CustomValueType> = props => {
                 const options = props.options.map(option => {
                     return (
-                        <div className="option" data-value1={option.value.prop1}
+                        <div
+                            className="option"
+                            data-value1={option.value.prop1}
                             data-value2={option.value.prop2}
-                            onClick={() => props.selectValue(option)}>
+                            onClick={() => props.selectValue(option)}
+                        >
                             {option.label}
-                        </div>);
+                        </div>
+                    );
                 });
 
                 return <div className="menu">{options}</div>;
             }
 
             render() {
-                return <CustomValueReactSelect
-                    name="select"
-                    value={EXAMPLE_CUSTOM_VALUE}
-                    options={EXAMPLE_CUSTOM_OPTIONS}
-                    menuRenderer={this.menuRenderer}
-                />;
+                return (
+                    <CustomValueReactSelect
+                        name="select"
+                        value={EXAMPLE_CUSTOM_VALUE}
+                        options={EXAMPLE_CUSTOM_OPTIONS}
+                        menuRenderer={this.menuRenderer}
+                    />
+                );
             }
         }
     });
 
-    it("Extend default menu renderer", () => {
+    it('Extend default menu renderer', () => {
         return class Component extends React.Component {
             private readonly menuRenderer: ReactSelectModule.MenuRendererHandler = props => {
                 return <div className="menu">defaultMenuRenderer(props)</div>;
             }
 
             render() {
-                return <ReactSelect
-                    menuRenderer={this.menuRenderer}
-                />;
+                return <ReactSelect menuRenderer={this.menuRenderer} />;
             }
         };
     });
 
-    it("Extend default Option component", () => {
+    it('Extend default Option component', () => {
         function OptionComponent(props: ReactSelectModule.OptionComponentProps) {
-            const {option, isFocused, isSelected} = props;
+            const { option, isFocused, isSelected } = props;
 
             return (
                 <DefaultOptionComponent {...props}>
@@ -341,14 +340,10 @@ describe("Examples", () => {
             );
         }
 
-        return (
-            <ReactSelect
-                optionComponent={OptionComponent}
-            />
-        );
+        return <ReactSelect optionComponent={OptionComponent} />;
     });
 
-    it("Input render example", () => {
+    it('Input render example', () => {
         class Component extends React.Component {
             private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
                 const optionValue: string = option.value;
@@ -359,17 +354,19 @@ describe("Examples", () => {
             }
 
             render() {
-                return <ReactSelect
-                    name="select"
-                    value="one"
-                    options={EXAMPLE_OPTIONS}
-                    inputRenderer={this.inputRenderer}
-                />;
+                return (
+                    <ReactSelect
+                        name="select"
+                        value="one"
+                        options={EXAMPLE_OPTIONS}
+                        inputRenderer={this.inputRenderer}
+                    />
+                );
             }
         }
     });
 
-    it("Input render with false renderer props", () => {
+    it('Input render with false renderer props', () => {
         <ReactSelect
             arrowRenderer={props => false}
             inputRenderer={props => false}
@@ -379,7 +376,7 @@ describe("Examples", () => {
         />;
     });
 
-    it("Input render with null renderer props", () => {
+    it('Input render with null renderer props', () => {
         <ReactSelect
             arrowRenderer={props => null}
             inputRenderer={props => null}
@@ -389,29 +386,25 @@ describe("Examples", () => {
         />;
     });
 
-    it("Arrow render example", () => {
+    it('Arrow render example', () => {
         return (
             <ReactSelect
-                arrowRenderer={({onMouseDown, isOpen}) => (
-                    <div
-                        className={isOpen ? 'open' : 'closed'}
-                        onMouseDown={onMouseDown}
-                    />
+                arrowRenderer={({ onMouseDown, isOpen }) => (
+                    <div className={isOpen ? 'open' : 'closed'} onMouseDown={onMouseDown} />
                 )}
             />
         );
     });
 
-    it("Option render with custom value option", () => {
-        const optionRenderer = (option: ReactSelectModule.Option<CustomValueType>): ReactSelectModule.HandlerRendererResult =>
-            null;
+    it('Option render with custom value option', () => {
+        const optionRenderer = (
+            option: ReactSelectModule.Option<CustomValueType>,
+        ): ReactSelectModule.HandlerRendererResult => null;
 
-        <CustomValueReactSelect
-            optionRenderer={optionRenderer}
-        />;
+        <CustomValueReactSelect optionRenderer={optionRenderer} />;
     });
 
-    it("Custom option component", () => {
+    it('Custom option component', () => {
         class OptionComponent extends React.Component<ReactSelectModule.OptionComponentProps> {
             render() {
                 return <div>{this.props.option.label}</div>;
@@ -421,49 +414,48 @@ describe("Examples", () => {
         <ReactSelect optionComponent={OptionComponent} />;
     });
 
-    it("Value render with custom value option", () => {
-        const valueRenderer = (option: ReactSelectModule.Option<CustomValueType>): ReactSelectModule.HandlerRendererResult =>
-            null;
+    it('Value render with custom value option', () => {
+        const valueRenderer = (
+            option: ReactSelectModule.Option<CustomValueType>,
+        ): ReactSelectModule.HandlerRendererResult => null;
 
-        <CustomValueReactSelect
-            valueRenderer={valueRenderer}
-        />;
+        <CustomValueReactSelect valueRenderer={valueRenderer} />;
     });
 
-    it("Value render with custom value option and index", () => {
-        const valueRenderer = (option: ReactSelectModule.Option<CustomValueType>, index: number): ReactSelectModule.HandlerRendererResult =>
-            null;
+    it('Value render with custom value option and index', () => {
+        const valueRenderer = (
+            option: ReactSelectModule.Option<CustomValueType>,
+            index: number,
+        ): ReactSelectModule.HandlerRendererResult => null;
 
-        <CustomValueReactSelect
-            valueRenderer={valueRenderer}
-        />;
+        <CustomValueReactSelect valueRenderer={valueRenderer} />;
     });
 
-    it("No Results renderer with string", () => {
+    it('No Results renderer with string', () => {
         <ReactSelect noResultsText="no results" />;
     });
 
-    it("No Results renderer with element", () => {
+    it('No Results renderer with element', () => {
         <ReactSelect noResultsText={<i>no results</i>} />;
     });
 
-    it("onSelectResetsInput", () => {
+    it('onSelectResetsInput', () => {
         <ReactSelect onSelectResetsInput />;
     });
 
-    it("onCloseResetsInput", () => {
+    it('onCloseResetsInput', () => {
         <ReactSelect onCloseResetsInput />;
     });
 
-    it("pageSize", () => {
+    it('pageSize', () => {
         <ReactSelect pageSize={5} />;
     });
 
-    it("removeSelected", () => {
+    it('removeSelected', () => {
         <ReactSelect removeSelected />;
     });
 
-    it("rtl", () => {
+    it('rtl', () => {
         <ReactSelect rtl />;
     });
 });

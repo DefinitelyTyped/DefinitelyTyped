@@ -1,1 +1,3 @@
-export { TextHighlight20 as default } from "../../";
+import { TextHighlight20 } from "../../";
+
+export = TextHighlight20;

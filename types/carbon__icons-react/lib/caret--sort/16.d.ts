@@ -1,1 +1,3 @@
-export { CaretSort16 as default } from "../../";
+import { CaretSort16 } from "../../";
+
+export = CaretSort16;

@@ -299,23 +299,78 @@ const graphDiv = '#test';
             y,
             x,
             type: 'box',
-            name: 'group A'
+            name: 'group A',
         },
         {
             y: y.map(e => e + 1),
             x,
             type: 'box',
-            name: 'group B'
-        }
+            name: 'group B',
+        },
     ];
     const layout: Partial<Layout> = {
         title: 'Grouped Box Plot',
-        boxmode: 'overlay'
+        boxmode: 'overlay',
     };
 
     Plotly.newPlot('myDiv', data, layout);
 })();
-
+(() => {
+  // Test slider APIs
+  const data: Array<Partial<PlotData>> = [
+      {
+        colorbar: {
+          title: 'Test',
+        },
+        locationmode: 'ISO-3',
+        locations: ['USA', 'NLD'],
+        reversescale: true,
+        type: 'choropleth',
+        z: [1, 2]
+      },
+  ];
+  const layout: Partial<Layout> = {
+    showlegend: true,
+    title: 'World Map',
+    geo: {
+      projection: { type: 'Mercator'},
+      showcoastlines: true,
+      showframe: true,
+    },
+    sliders: [{
+      pad: {t: 30},
+      y: 1.3,
+      x: 0.2,
+      len: 0.8,
+      currentvalue: {
+        visible: true,
+        prefix: 'Date:',
+        xanchor: 'right',
+        font: {size: 20, color: '#666'}
+      },
+      steps: [{
+        method: 'animate',
+        label: '2019-02-04',
+        args: [
+          [
+            '2019-02-04'
+          ],
+          {
+            mode: 'immediate',
+            transition: {
+              duration: 300,
+            },
+            frame: {
+              duration: 300,
+              redraw: false
+            }
+          }
+        ]
+      }]
+    }]
+  };
+  Plotly.newPlot('myDiv', data, layout);
+})();
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -784,15 +839,15 @@ function rand() {
 (async () => {
     const sunburst = await newPlot(graphDiv, [
         {
-            type: "sunburst",
-            ids: ["root", "child1", "child2"],
-            branchvalues: "total",
-            level: "child1",
-            parents: ["", "root", "root"],
+            type: 'sunburst',
+            ids: ['root', 'child1', 'child2'],
+            branchvalues: 'total',
+            level: 'child1',
+            parents: ['', 'root', 'root'],
         },
     ]);
 
-    sunburst.on('plotly_sunburstclick', (event) => {
+    sunburst.on('plotly_sunburstclick', event => {
         console.log(`Clicked button ${event.event.button} to navigate to ${event.nextLevel}`);
 
         const point = event.points[0];
@@ -800,7 +855,9 @@ function rand() {
         console.log(`Point is number ${point.pointNumber} on trace ${point.curveNumber}`);
         console.log(`Click happened while at level *labelled* ${point.entry}, and root *labelled* ${point.root}`);
         console.log(`Point has value ${point.value}`);
-        console.log(`Point takes up proportions of (previous level, parent, root): (${point.percentEntry}, ${point.percentParent}, ${point.percentRoot})`);
+        console.log(
+            `Point takes up proportions of (previous level, parent, root): (${point.percentEntry}, ${point.percentParent}, ${point.percentRoot})`,
+        );
         console.log(`Colored ${point.color} and hover ${point.hovertext}`);
         console.log(`Can access trace data ${point.data.name} and full data ${point.fullData.name}`);
     });

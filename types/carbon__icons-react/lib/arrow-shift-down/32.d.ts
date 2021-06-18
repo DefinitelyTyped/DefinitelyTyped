@@ -1,1 +1,3 @@
-export { ArrowShiftDown32 as default } from "../../";
+import { ArrowShiftDown32 } from "../../";
+
+export = ArrowShiftDown32;

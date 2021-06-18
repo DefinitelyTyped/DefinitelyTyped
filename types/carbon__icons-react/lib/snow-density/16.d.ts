@@ -1,1 +1,3 @@
-export { SnowDensity16 as default } from "../../";
+import { SnowDensity16 } from "../../";
+
+export = SnowDensity16;

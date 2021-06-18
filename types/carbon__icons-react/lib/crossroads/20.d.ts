@@ -1,1 +1,3 @@
-export { Crossroads20 as default } from "../../";
+import { Crossroads20 } from "../../";
+
+export = Crossroads20;

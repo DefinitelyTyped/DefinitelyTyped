@@ -1,1 +1,3 @@
-export { Drought20 as default } from "../../";
+import { Drought20 } from "../../";
+
+export = Drought20;

@@ -1,1 +1,3 @@
-export { ThunderstormStrong32 as default } from "../../";
+import { ThunderstormStrong32 } from "../../";
+
+export = ThunderstormStrong32;

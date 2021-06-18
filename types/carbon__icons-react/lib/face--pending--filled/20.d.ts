@@ -1,1 +1,3 @@
-export { FacePendingFilled20 as default } from "../../";
+import { FacePendingFilled20 } from "../../";
+
+export = FacePendingFilled20;

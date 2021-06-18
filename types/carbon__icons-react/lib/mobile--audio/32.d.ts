@@ -1,1 +1,3 @@
-export { MobileAudio32 as default } from "../../";
+import { MobileAudio32 } from "../../";
+
+export = MobileAudio32;

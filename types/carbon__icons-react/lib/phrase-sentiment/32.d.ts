@@ -1,1 +1,3 @@
-export { PhraseSentiment32 as default } from "../../";
+import { PhraseSentiment32 } from "../../";
+
+export = PhraseSentiment32;

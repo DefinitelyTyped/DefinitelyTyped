@@ -1,1 +1,3 @@
-export { HelpDesk16 as default } from "../../";
+import { HelpDesk16 } from "../../";
+
+export = HelpDesk16;

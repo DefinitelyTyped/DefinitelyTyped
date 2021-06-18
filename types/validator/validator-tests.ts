@@ -39,6 +39,7 @@ import isHSLFunc from 'validator/lib/isHSL';
 import isRgbColorFunc from 'validator/lib/isRgbColor';
 import isHexadecimalFunc from 'validator/lib/isHexadecimal';
 import isIPFunc from 'validator/lib/isIP';
+import isIPRange from 'validator/lib/isIPRange';
 import isISBNFunc from 'validator/lib/isISBN';
 import isEANFunc from 'validator/lib/isEAN';
 import isISSNFunc from 'validator/lib/isISSN';
@@ -67,6 +68,7 @@ import isPassportNumberFunc from 'validator/lib/isPassportNumber';
 import isPortFunc from 'validator/lib/isPort';
 import isPostalCodeFunc from 'validator/lib/isPostalCode';
 import isSemVerFunc from 'validator/lib/isSemVer';
+import isStrongPasswordFunc from 'validator/lib/isStrongPassword';
 import isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
 import isURLFunc from 'validator/lib/isURL';
 import isUUIDFunc from 'validator/lib/isUUID';
@@ -190,6 +192,9 @@ import isSlugFunc from 'validator/lib/isSlug';
     let _isIP = validator.isIP;
     _isIP = isIPFunc;
 
+    let _isIPRange = validator.isIPRange;
+    _isIPRange = isIPRange;
+
     let _isISBN = validator.isISBN;
     _isISBN = isISBNFunc;
 
@@ -273,6 +278,9 @@ import isSlugFunc from 'validator/lib/isSlug';
 
     let _isSemVer = validator.isSemVer;
     _isSemVer = isSemVerFunc;
+
+    let _isStrongPassword = validator.isStrongPassword;
+    _isStrongPassword = isStrongPasswordFunc;
 
     let _isSurrogatePair = validator.isSurrogatePair;
     _isSurrogatePair = isSurrogatePairFunc;
@@ -371,6 +379,7 @@ import isHSLFuncEs from 'validator/es/lib/isHSL';
 import isRgbColorFuncEs from 'validator/es/lib/isRgbColor';
 import isHexadecimalFuncEs from 'validator/es/lib/isHexadecimal';
 import isIPFuncEs from 'validator/es/lib/isIP';
+import isIPRangeFuncEs from 'validator/es/lib/isIPRange';
 import isISBNFuncEs from 'validator/es/lib/isISBN';
 import isEANFuncEs from 'validator/es/lib/isEAN';
 import isISSNFuncEs from 'validator/es/lib/isISSN';
@@ -399,6 +408,7 @@ import isPassportNumberFuncEs from 'validator/es/lib/isPassportNumber';
 import isPortFuncEs from 'validator/es/lib/isPort';
 import isPostalCodeFuncEs from 'validator/es/lib/isPostalCode';
 import isSemVerFuncEs from 'validator/es/lib/isSemVer';
+import isStrongPasswordFuncEs from 'validator/es/lib/isStrongPassword';
 import isSurrogatePairFuncEs from 'validator/es/lib/isSurrogatePair';
 import isURLFuncEs from 'validator/es/lib/isURL';
 import isUUIDFuncEs from 'validator/es/lib/isUUID';
@@ -542,7 +552,9 @@ const any: any = null;
 
     result = validator.isAscii('sample');
 
+    const isBase64Options: validator.IsBase64Options = {};
     result = validator.isBase64('sample');
+    result = validator.isBase64('sample', isBase64Options);
 
     result = validator.isBefore('sample');
     result = validator.isBefore('sample', new Date().toString());
@@ -623,6 +635,9 @@ const any: any = null;
 
     result = validator.isIP('sample');
     result = validator.isIP('sample', '6');
+
+    result = validator.isIPRange('sample');
+    result = validator.isIPRange('sample', '6');
 
     result = validator.isISBN('sample');
     result = validator.isISBN('sample', '13');
@@ -794,6 +809,8 @@ const any: any = null;
     result = validator.isPostalCode('sample', 'any');
 
     result = validator.isSemVer('sample');
+
+    result = validator.isStrongPassword('sample');
 
     result = validator.isSurrogatePair('sample');
 

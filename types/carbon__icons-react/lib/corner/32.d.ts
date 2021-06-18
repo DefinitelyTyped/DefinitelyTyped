@@ -1,1 +1,3 @@
-export { Corner32 as default } from "../../";
+import { Corner32 } from "../../";
+
+export = Corner32;

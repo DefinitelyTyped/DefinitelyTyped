@@ -1,1 +1,3 @@
-export { DocumentImport32 as default } from "../../";
+import { DocumentImport32 } from "../../";
+
+export = DocumentImport32;

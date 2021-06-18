@@ -1,1 +1,3 @@
-export { Activity20 as default } from "../../";
+import { Activity20 } from "../../";
+
+export = Activity20;

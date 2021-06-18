@@ -515,7 +515,10 @@ declare namespace OracleDB {
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
-    type BindParameters = Record<string, BindParameter | string | number | Date | Buffer | null> | BindParameter[] | any[];
+    type BindParameters =
+        | Record<string, BindParameter | string | number | Date | Buffer | null>
+        | BindParameter[]
+        | any[];
 
     interface CloseConnectionOptions {
         /**
@@ -697,11 +700,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#querystream For an alternative
          */
         execute(sql: string, bindParams: BindParameters): Promise<Result>;
-        execute(
-            sql: string,
-            bindParams: BindParameters,
-            callback: (error: DBError, result: Result) => void,
-        ): void;
+        execute(sql: string, bindParams: BindParameters, callback: (error: DBError, result: Result) => void): void;
 
         /**
          * This call executes a single SQL or PL/SQL statement.
@@ -753,33 +752,18 @@ declare namespace OracleDB {
          *
          * @since 2.2
          */
+        executeMany(sql: string, binds: (Record<string, any> | any[])[], options: ExecuteManyOptions): Promise<Results>;
         executeMany(
             sql: string,
-            binds: (
-                | Record<string, any>
-                | any[])[],
-            options: ExecuteManyOptions,
-        ): Promise<Results>;
-        executeMany(
-            sql: string,
-            binds: (
-                | Record<string, any>
-                | any[])[],
+            binds: (Record<string, any> | any[])[],
             options: ExecuteManyOptions,
             callback: (error: DBError, result: Results) => void,
         ): void;
 
+        executeMany(sql: string, binds: (Record<string, any> | any[])[]): Promise<Results>;
         executeMany(
             sql: string,
-            binds: (
-                | Record<string, any>
-                | any[])[],
-        ): Promise<Results>;
-        executeMany(
-            sql: string,
-            binds: (
-                | Record<string, any>
-                | any[])[],
+            binds: (Record<string, any> | any[])[],
             callback: (error: DBError, result: Results) => void,
         ): void;
 
@@ -808,11 +792,7 @@ declare namespace OracleDB {
         ): void;
 
         executeMany(sql: string, iterations: number): Promise<Results>;
-        executeMany(
-            sql: string,
-            iterations: number,
-            callback: (error: DBError, result: Results) => void,
-        ): void;
+        executeMany(sql: string, iterations: number, callback: (error: DBError, result: Results) => void): void;
 
         /**
          * Returns a parent SodaDatabase object for use with Simple Oracle Document Access (SODA).
@@ -1217,9 +1197,12 @@ declare namespace OracleDB {
          *          "HIRE_DETAILS": { type: oracledb.DEFAULT }  // override fetchAsString or fetchAsBuffer
          *      }
          */
-        fetchInfo?: Record<string, {
-            type: number;
-        }>;
+        fetchInfo?: Record<
+            string,
+            {
+                type: number;
+            }
+        >;
         /**
          * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
          * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
@@ -1296,9 +1279,7 @@ declare namespace OracleDB {
          *
          * It should be an array or an object, depending on the structure of the binds parameter.
          */
-        bindDefs?:
-        | Record<string, BindDefinition>
-        | BindDefinition[];
+        bindDefs?: Record<string, BindDefinition> | BindDefinition[];
         /**
          * When true, this optional property enables output of the number of rows affected by each input data record.
          * It can only be set true for INSERT, UPDATE, DELETE or MERGE statements.
@@ -1718,8 +1699,8 @@ declare namespace OracleDB {
          * @since 3.1
          */
         sessionCallback?:
-        | string
-        | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void);
+            | string
+            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void);
         /**
          * The number of statements to be cached in the statement cache of each connection in the pool.
          * This optional property overrides the oracledb.stmtCacheSize property.
@@ -1754,9 +1735,7 @@ declare namespace OracleDB {
          * then outBinds is returned as an array. If bindParams is passed as an object,
          * then outBinds is returned as an object. If there are no OUT or IN OUT binds, the value is undefined.
          */
-        outBinds:
-        | Record<string, any>
-        | any[];
+        outBinds: Record<string, any> | any[];
         /**
          * For SELECT statements when the resultSet option is true, use the resultSet object to fetch rows.
          *
@@ -1777,9 +1756,7 @@ declare namespace OracleDB {
          * The number of rows returned is limited by oracledb.maxRows or the maxRows option in an execute() call.
          * If maxRows is 0, then the number of rows is limited by Node.js memory constraints.
          */
-        rows: (
-            | any[]
-            | Record<string, any>)[];
+        rows: (any[] | Record<string, any>)[];
         /**
          * For DML statements (including SELECT FOR UPDATE) this contains the number of rows affected,
          * for example the number of rows inserted. For non-DML statements such as queries and PL/SQL statements,
@@ -1816,9 +1793,7 @@ declare namespace OracleDB {
          * the array passed as the binds parameter. It will be present only if there is at least one OUT bind
          * variable identified.
          */
-        outBinds: (
-            | Record<string, any>
-            | any[])[];
+        outBinds: (Record<string, any> | any[])[];
         /**
          * An integer identifying the total number of database rows affected by the processing of all records
          * of the binds parameter. It is only present if a DML statement was executed.
@@ -1864,18 +1839,8 @@ declare namespace OracleDB {
          * Performance of getRow() can be tuned by adjusting the value of oracledb.fetchArraySize or
          * the execute() option fetchArraySize.
          */
-        getRow(): Promise<
-            | Record<string, any>
-            | any[]
-        >;
-        getRow(
-            callback: (
-                error: DBError,
-                row:
-                    | Record<string, any>
-                    | any[],
-            ) => void,
-        ): void;
+        getRow(): Promise<Record<string, any> | any[]>;
+        getRow(callback: (error: DBError, row: Record<string, any> | any[]) => void): void;
 
         /**
          * This call fetches numRows rows of the ResultSet as an object or an array of column values,
@@ -2170,10 +2135,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         insertOne(newDocumentContent: Record<string, any>): Promise<void>;
-        insertOne(
-            newDocumentContent: Record<string, any>,
-            callback: (error: DBError) => void,
-        ): Promise<void>;
+        insertOne(newDocumentContent: Record<string, any>, callback: (error: DBError) => void): Promise<void>;
 
         /**
          * Similar to sodaCollection.insertOne() but also returns the inserted document so system managed properties,

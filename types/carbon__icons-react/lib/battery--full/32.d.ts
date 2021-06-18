@@ -1,1 +1,3 @@
-export { BatteryFull32 as default } from "../../";
+import { BatteryFull32 } from "../../";
+
+export = BatteryFull32;

@@ -1,1 +1,3 @@
-export { ShrinkScreenFilled24 as default } from "../../";
+import { ShrinkScreenFilled24 } from "../../";
+
+export = ShrinkScreenFilled24;

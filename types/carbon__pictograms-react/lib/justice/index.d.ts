@@ -1,1 +1,3 @@
-export { Justice as default } from "../../";
+import { Justice } from "../../";
+
+export = Justice;

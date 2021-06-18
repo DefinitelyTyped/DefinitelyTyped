@@ -1,1 +1,3 @@
-export { PartlyCloudyNight32 as default } from "../../";
+import { PartlyCloudyNight32 } from "../../";
+
+export = PartlyCloudyNight32;

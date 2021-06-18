@@ -1,1 +1,3 @@
-export { PdfReference32 as default } from "../../";
+import { PdfReference32 } from "../../";
+
+export = PdfReference32;

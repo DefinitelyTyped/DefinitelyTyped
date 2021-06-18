@@ -1,1 +1,3 @@
-export { Taste24 as default } from "../../";
+import { Taste24 } from "../../";
+
+export = Taste24;

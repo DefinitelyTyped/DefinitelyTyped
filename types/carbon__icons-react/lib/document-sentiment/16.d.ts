@@ -1,1 +1,3 @@
-export { DocumentSentiment16 as default } from "../../";
+import { DocumentSentiment16 } from "../../";
+
+export = DocumentSentiment16;

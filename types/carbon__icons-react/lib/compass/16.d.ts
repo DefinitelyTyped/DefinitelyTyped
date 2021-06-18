@@ -1,1 +1,3 @@
-export { Compass16 as default } from "../../";
+import { Compass16 } from "../../";
+
+export = Compass16;

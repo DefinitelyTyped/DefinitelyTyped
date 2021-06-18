@@ -1,4 +1,4 @@
-import postcss = require('postcss');
+import postcss from 'postcss';
 import cssDeclarationSorter = require('css-declaration-sorter');
 
 postcss([cssDeclarationSorter({})]).process('a { color: hyperblue; display: block; }');

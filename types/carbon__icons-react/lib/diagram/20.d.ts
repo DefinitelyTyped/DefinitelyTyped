@@ -1,1 +1,3 @@
-export { Diagram20 as default } from "../../";
+import { Diagram20 } from "../../";
+
+export = Diagram20;

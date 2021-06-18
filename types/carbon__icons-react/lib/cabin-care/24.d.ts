@@ -1,1 +1,3 @@
-export { CabinCare24 as default } from "../../";
+import { CabinCare24 } from "../../";
+
+export = CabinCare24;

@@ -1,1 +1,3 @@
-export { Iso32 as default } from "../../";
+import { Iso32 } from "../../";
+
+export = Iso32;

@@ -1,1 +1,3 @@
-export { LetterRr32 as default } from "../../";
+import { LetterRr32 } from "../../";
+
+export = LetterRr32;

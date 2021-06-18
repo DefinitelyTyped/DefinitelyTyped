@@ -1,1 +1,3 @@
-export { Partnership20 as default } from "../../";
+import { Partnership20 } from "../../";
+
+export = Partnership20;

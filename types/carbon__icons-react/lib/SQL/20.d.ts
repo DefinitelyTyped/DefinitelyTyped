@@ -1,1 +1,3 @@
-export { Sql20 as default } from "../../";
+import { Sql20 } from "../../";
+
+export = Sql20;

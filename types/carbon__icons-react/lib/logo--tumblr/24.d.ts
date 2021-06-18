@@ -1,1 +1,3 @@
-export { LogoTumblr24 as default } from "../../";
+import { LogoTumblr24 } from "../../";
+
+export = LogoTumblr24;

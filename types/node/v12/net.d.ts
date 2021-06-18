@@ -1,9 +1,13 @@
-declare module "net" {
-    import * as stream from "stream";
-    import * as events from "events";
-    import * as dns from "dns";
+declare module 'net' {
+    import * as stream from 'stream';
+    import EventEmitter = require('events');
+    import * as dns from 'dns';
 
-    type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+    type LookupFunction = (
+        hostname: string,
+        options: dns.LookupOneOptions,
+        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+    ) => void;
 
     interface AddressInfo {
         address: string;
@@ -178,7 +182,7 @@ declare module "net" {
     }
 
     // https://github.com/nodejs/node/blob/master/lib/net.js
-    class Server extends events.EventEmitter {
+    class Server extends EventEmitter {
         constructor(connectionListener?: (socket: Socket) => void);
         constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
 

@@ -1,1 +1,3 @@
-export { QOperationGauge24 as default } from "../../../";
+import { QOperationGauge24 } from "../../../";
+
+export = QOperationGauge24;

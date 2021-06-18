@@ -430,6 +430,8 @@ export class Grid extends PureComponent<GridProps, GridState> {
     scrollToPosition(params?: { scrollLeft: number; scrollTop: number }): void;
 }
 
+export default Grid;
+
 export const defaultCellRangeRenderer: GridCellRangeRenderer;
 
 export const accessibilityOverscanIndicesGetter: OverscanIndicesGetter;

@@ -1,1 +1,3 @@
-export { Map24 as default } from "../../";
+import { Map24 } from "../../";
+
+export = Map24;

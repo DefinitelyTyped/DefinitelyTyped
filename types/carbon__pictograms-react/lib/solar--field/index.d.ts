@@ -1,1 +1,3 @@
-export { SolarField as default } from "../../";
+import { SolarField } from "../../";
+
+export = SolarField;

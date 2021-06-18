@@ -130,3 +130,36 @@ const todoTask: MicrosoftGraph.TodoTask = {
 };
 
 const lobbyBypassScope: MicrosoftGraph.LobbyBypassScope = "organizer";
+
+const oneNoteUserRole: MicrosoftGraph.OnenoteUserRole = "Owner";
+
+const conditionalAccessGrantControl: MicrosoftGraph.ConditionalAccessGrantControl = "passwordChange";
+
+const authenticationMethodState: MicrosoftGraph.AuthenticationMethodState = "disabled";
+
+const applicationTemplate: MicrosoftGraph.ApplicationTemplate = {
+    categories: [],
+    logoUrl: "test"
+};
+
+const chatType: MicrosoftGraph.ChatType = "group";
+
+const featureRolloutPolicy: MicrosoftGraph.FeatureRolloutPolicy = {
+    description: "TEST_DESC",
+    displayName: "TEST_NAME"
+};
+
+const consentRequestFilterByCurrentUserOptions: MicrosoftGraph.ConsentRequestFilterByCurrentUserOptions = "reviewer";
+
+const initiatorType: MicrosoftGraph.InitiatorType = "user";
+
+const identityUserFlowAttributeDataType: MicrosoftGraph.IdentityUserFlowAttributeDataType = "string";
+
+const enrollmentState: MicrosoftGraph.EnrollmentState = "enrolled";
+
+const authorizationPolicy: MicrosoftGraph.AuthorizationPolicy = {
+    guestUserRoleId: "TEST_ID",
+    displayName: "TEST_NAME"
+};
+
+const deviceEnrollmentType: MicrosoftGraph.DeviceEnrollmentType = "windowsCoManagement";

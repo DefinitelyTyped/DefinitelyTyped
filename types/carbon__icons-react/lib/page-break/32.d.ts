@@ -1,1 +1,3 @@
-export { PageBreak32 as default } from "../../";
+import { PageBreak32 } from "../../";
+
+export = PageBreak32;

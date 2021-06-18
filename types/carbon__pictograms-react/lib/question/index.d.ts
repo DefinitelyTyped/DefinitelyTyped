@@ -1,1 +1,3 @@
-export { Question as default } from "../../";
+import { Question } from "../../";
+
+export = Question;

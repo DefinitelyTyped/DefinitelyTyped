@@ -1,1 +1,3 @@
-export { Nominal32 as default } from "../../";
+import { Nominal32 } from "../../";
+
+export = Nominal32;

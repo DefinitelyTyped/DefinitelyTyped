@@ -1,1 +1,3 @@
-export { NotificationNew32 as default } from "../../";
+import { NotificationNew32 } from "../../";
+
+export = NotificationNew32;

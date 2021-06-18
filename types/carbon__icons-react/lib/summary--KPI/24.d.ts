@@ -1,1 +1,3 @@
-export { SummaryKpi24 as default } from "../../";
+import { SummaryKpi24 } from "../../";
+
+export = SummaryKpi24;

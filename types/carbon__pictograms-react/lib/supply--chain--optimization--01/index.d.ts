@@ -1,1 +1,3 @@
-export { SupplyChainOptimization_01 as default } from "../../";
+import { SupplyChainOptimization_01 } from "../../";
+
+export = SupplyChainOptimization_01;

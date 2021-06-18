@@ -1,1 +1,3 @@
-export { TeamAlignment as default } from "../../";
+import { TeamAlignment } from "../../";
+
+export = TeamAlignment;

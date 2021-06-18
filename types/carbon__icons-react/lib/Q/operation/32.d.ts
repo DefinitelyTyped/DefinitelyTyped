@@ -1,1 +1,3 @@
-export { QOperation32 as default } from "../../../";
+import { QOperation32 } from "../../../";
+
+export = QOperation32;

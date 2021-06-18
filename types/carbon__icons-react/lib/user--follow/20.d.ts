@@ -1,1 +1,3 @@
-export { UserFollow20 as default } from "../../";
+import { UserFollow20 } from "../../";
+
+export = UserFollow20;

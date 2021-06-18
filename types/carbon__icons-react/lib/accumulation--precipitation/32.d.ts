@@ -1,1 +1,3 @@
-export { AccumulationPrecipitation32 as default } from "../../";
+import { AccumulationPrecipitation32 } from "../../";
+
+export = AccumulationPrecipitation32;

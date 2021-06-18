@@ -1,1 +1,3 @@
-export { FishMultiple20 as default } from "../../";
+import { FishMultiple20 } from "../../";
+
+export = FishMultiple20;

@@ -118,6 +118,12 @@ declare namespace PageJS {
          */
         show(path: string): void;
         /**
+         * Get or set the strict path matching mode to enable.
+         * If enabled /blog will not match "/blog/" and /blog/ will not match "/blog".
+         */
+        strict(enable: boolean): void;
+        strict(): boolean;
+        /**
          * Register page's popstate / click bindings. If you're doing selective binding you'll like want to pass { click: false } to specify this yourself. The following options are available:
          *
          *     - click bind to click events [true]
@@ -265,17 +271,21 @@ declare namespace PageJS {
          */
         handled: boolean;
         /**
-         *  Pathname including the "base" (if any) and query string "/admin/login?foo=bar".
+         *  Pathname including the "base" (if any) and query string "/admin/login?foo=bar#zee".
          */
         canonicalPath: string;
         /**
-         *  Pathname and query string "/login?foo=bar".
+         *  Pathname and query string "/login?foo=bar#zee".
          */
         path: string;
         /**
          *  Query string void of leading ? such as "foo=bar", defaults to "".
          */
         querystring: string;
+        /**
+         *  Hash void of leading # such as "zee", defaults to "".
+         */
+        hash: string;
         /**
          *  The pathname void of query string "/login".
          */

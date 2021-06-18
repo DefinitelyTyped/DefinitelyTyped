@@ -82,9 +82,18 @@ export interface ViewOptions {
     rotation?: number;
     zoom?: number;
     zoomFactor?: number;
+    padding?: number[];
 }
 export default class View extends BaseObject {
     constructor(opt_options?: ViewOptions);
+    /**
+     * Padding (in css pixels).
+     * If the map viewport is partially covered with other content (overlays) along
+     * its edges, this setting allows to shift the center of the viewport away from that
+     * content. The order of the values in the array is top, right, bottom, left.
+     * The default is no padding, which is equivalent to [0, 0, 0, 0].
+     */
+    padding: number[];
     /**
      * Adds relative coordinates to the center of the view. Any extent constraint will apply.
      */
@@ -118,12 +127,12 @@ export default class View extends BaseObject {
      * Animate the view.  The view's center, zoom (or resolution), and rotation
      * can be animated for smooth transitions between view states.  For example,
      * to animate the view to a new zoom level:
-     * By default, the animation lasts one second and uses in-and-out easing.  You
+     * <code>view.animate({zoom: view.getZoom() + 1});</code>By default, the animation lasts one second and uses in-and-out easing.  You
      * can customize this behavior by including duration (in milliseconds) and
      * easing options (see {@link module:ol/easing}).
      * To chain together multiple animations, call the method with multiple
      * animation objects.  For example, to first zoom and then pan:
-     * If you provide a function as the last argument to the animate method, it
+     * <code>view.animate({zoom: 10}, {center: [0, 0]});</code>If you provide a function as the last argument to the animate method, it
      * will get called at the end of an animation series.  The callback will be
      * called with true if the animation series completed on its own or false
      * if it was cancelled.
@@ -144,6 +153,10 @@ export default class View extends BaseObject {
      */
     beginInteraction(): void;
     calculateCenterRotate(rotation: number, anchor: Coordinate): Coordinate | undefined;
+    /**
+     * Calculates the shift between map and viewport center.
+     */
+    calculateCenterShift(center: Coordinate, resolution: number, rotation: number, size: Size): number[] | undefined;
     calculateCenterZoom(resolution: number, anchor: Coordinate): Coordinate | undefined;
     /**
      * Calculate the extent for the current view state and the passed size.

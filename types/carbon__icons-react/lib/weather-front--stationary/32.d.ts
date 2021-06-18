@@ -1,1 +1,3 @@
-export { WeatherFrontStationary32 as default } from "../../";
+import { WeatherFrontStationary32 } from "../../";
+
+export = WeatherFrontStationary32;

@@ -1,10 +1,31 @@
-// Type definitions for forest-express-sequelize 6.3
+// Type definitions for forest-express-sequelize 7.5
 // Project: http://www.forestadmin.com
 // Definitions by: Steve Bunlon <https://github.com/SteveBunlon>
 //                 Guillaume Gautreau <https://github.com/ghusse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { RequestHandler, Response, Request } from "express";
+import { RequestHandler, Response, Request, NextFunction, Application } from 'express';
+import { Sequelize, SequelizeStatic } from 'sequelize';
+
+// Everything related to Forest initialization
+
+export interface LianaOptions {
+    objectMapping: SequelizeStatic;
+    envSecret: string;
+    authSecret: string;
+    connections: {
+        [connectionName: string]: Sequelize;
+    };
+    includedModels?: string[];
+    excludedModels?: string[];
+    configDir?: string;
+}
+
+export function init(options: LianaOptions): Promise<Application>;
+
+// Everything related to Forest Authentication
+
+export function ensureAuthenticated(request: Request, response: Response, next: NextFunction): void;
 
 // Everything related to Forest constants
 
@@ -14,7 +35,7 @@ export const PUBLIC_ROUTES: string[];
 
 export class AbstractRecordTool {
     constructor(model: object)
-    serialize(records: object[]): StatSerialized;
+    serialize(records: object[]): Promise<StatSerialized>;
 }
 
 export class RecordGetter extends AbstractRecordTool {

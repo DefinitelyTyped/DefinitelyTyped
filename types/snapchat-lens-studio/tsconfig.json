@@ -18,6 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "test/expression-controller.ts"
+        "test/expression-controller.ts",
+        "test/face-in-video-controller/index.ts",
+        "test/face-inset-controller.ts"
     ]
 }

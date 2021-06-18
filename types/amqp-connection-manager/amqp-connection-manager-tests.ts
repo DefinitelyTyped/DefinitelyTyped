@@ -1,4 +1,4 @@
-import * as amqp from "amqplib";
+import * as amqp from 'amqplib';
 import * as amqpConMgr from 'amqp-connection-manager';
 
 // from README.md
@@ -31,6 +31,12 @@ channelWrapper.sendToQueue("foo", {a: 'bar'}).catch(_ => {});
 amqpConMgr.connect(["foo", "bar"], {
     findServers(callback) {
         callback("x");
+    }
+});
+
+amqpConMgr.connect([{ hostname: 'foo' }], {
+    findServers(callback) {
+        callback('x');
     }
 });
 

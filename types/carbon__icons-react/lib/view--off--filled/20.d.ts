@@ -1,1 +1,3 @@
-export { ViewOffFilled20 as default } from "../../";
+import { ViewOffFilled20 } from "../../";
+
+export = ViewOffFilled20;

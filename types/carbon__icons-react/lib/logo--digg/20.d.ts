@@ -1,1 +1,3 @@
-export { LogoDigg20 as default } from "../../";
+import { LogoDigg20 } from "../../";
+
+export = LogoDigg20;

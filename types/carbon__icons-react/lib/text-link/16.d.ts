@@ -1,1 +1,3 @@
-export { TextLink16 as default } from "../../";
+import { TextLink16 } from "../../";
+
+export = TextLink16;

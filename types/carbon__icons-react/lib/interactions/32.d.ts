@@ -1,1 +1,3 @@
-export { Interactions32 as default } from "../../";
+import { Interactions32 } from "../../";
+
+export = Interactions32;

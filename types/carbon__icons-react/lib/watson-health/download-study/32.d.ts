@@ -1,1 +1,3 @@
-export { WatsonHealthDownloadStudy32 as default } from "../../../";
+import { WatsonHealthDownloadStudy32 } from "../../../";
+
+export = WatsonHealthDownloadStudy32;

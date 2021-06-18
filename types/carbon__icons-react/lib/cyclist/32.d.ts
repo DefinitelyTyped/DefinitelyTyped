@@ -1,1 +1,3 @@
-export { Cyclist32 as default } from "../../";
+import { Cyclist32 } from "../../";
+
+export = Cyclist32;

@@ -1,1 +1,3 @@
-export { Flag32 as default } from "../../";
+import { Flag32 } from "../../";
+
+export = Flag32;

@@ -1,1 +1,3 @@
-export { WatsonHealthHangingProtocol32 as default } from "../../../";
+import { WatsonHealthHangingProtocol32 } from "../../../";
+
+export = WatsonHealthHangingProtocol32;

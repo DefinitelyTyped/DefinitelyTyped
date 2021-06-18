@@ -1,1 +1,3 @@
-export { SailboatOffshore24 as default } from "../../";
+import { SailboatOffshore24 } from "../../";
+
+export = SailboatOffshore24;

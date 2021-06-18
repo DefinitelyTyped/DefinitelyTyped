@@ -1,1 +1,3 @@
-export { AddAlt20 as default } from "../../";
+import { AddAlt20 } from "../../";
+
+export = AddAlt20;

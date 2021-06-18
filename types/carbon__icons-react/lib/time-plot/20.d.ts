@@ -1,1 +1,3 @@
-export { TimePlot20 as default } from "../../";
+import { TimePlot20 } from "../../";
+
+export = TimePlot20;

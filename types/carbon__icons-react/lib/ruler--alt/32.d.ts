@@ -1,1 +1,3 @@
-export { RulerAlt32 as default } from "../../";
+import { RulerAlt32 } from "../../";
+
+export = RulerAlt32;

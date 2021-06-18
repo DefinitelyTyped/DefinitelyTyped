@@ -1,1 +1,3 @@
-export { MailReply32 as default } from "../../";
+import { MailReply32 } from "../../";
+
+export = MailReply32;

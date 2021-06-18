@@ -1,1 +1,3 @@
-export { Identification32 as default } from "../../";
+import { Identification32 } from "../../";
+
+export = Identification32;

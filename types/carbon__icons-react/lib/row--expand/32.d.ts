@@ -1,1 +1,3 @@
-export { RowExpand32 as default } from "../../";
+import { RowExpand32 } from "../../";
+
+export = RowExpand32;

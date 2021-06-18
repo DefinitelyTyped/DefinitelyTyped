@@ -1,1 +1,3 @@
-export { PageBreak16 as default } from "../../";
+import { PageBreak16 } from "../../";
+
+export = PageBreak16;

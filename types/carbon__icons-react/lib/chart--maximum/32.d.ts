@@ -1,1 +1,3 @@
-export { ChartMaximum32 as default } from "../../";
+import { ChartMaximum32 } from "../../";
+
+export = ChartMaximum32;

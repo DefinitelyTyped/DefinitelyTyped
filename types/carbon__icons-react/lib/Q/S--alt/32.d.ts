@@ -1,1 +1,3 @@
-export { QSAlt32 as default } from "../../../";
+import { QSAlt32 } from "../../../";
+
+export = QSAlt32;

@@ -1,1 +1,3 @@
-export { Blog32 as default } from "../../";
+import { Blog32 } from "../../";
+
+export = Blog32;

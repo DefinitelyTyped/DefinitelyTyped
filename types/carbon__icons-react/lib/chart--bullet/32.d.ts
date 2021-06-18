@@ -1,1 +1,3 @@
-export { ChartBullet32 as default } from "../../";
+import { ChartBullet32 } from "../../";
+
+export = ChartBullet32;

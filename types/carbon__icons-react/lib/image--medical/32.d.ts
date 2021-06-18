@@ -1,1 +1,3 @@
-export { ImageMedical32 as default } from "../../";
+import { ImageMedical32 } from "../../";
+
+export = ImageMedical32;

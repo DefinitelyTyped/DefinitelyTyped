@@ -1,1 +1,3 @@
-export { TargetArea as default } from "../../";
+import { TargetArea } from "../../";
+
+export = TargetArea;

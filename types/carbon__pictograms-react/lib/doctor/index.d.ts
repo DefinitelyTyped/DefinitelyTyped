@@ -1,1 +1,3 @@
-export { Doctor as default } from "../../";
+import { Doctor } from "../../";
+
+export = Doctor;

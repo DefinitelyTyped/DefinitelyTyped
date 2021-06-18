@@ -1,1 +1,3 @@
-export { CropGrowth24 as default } from "../../";
+import { CropGrowth24 } from "../../";
+
+export = CropGrowth24;

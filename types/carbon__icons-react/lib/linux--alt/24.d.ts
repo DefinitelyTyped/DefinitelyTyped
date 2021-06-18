@@ -1,1 +1,3 @@
-export { LinuxAlt24 as default } from "../../";
+import { LinuxAlt24 } from "../../";
+
+export = LinuxAlt24;

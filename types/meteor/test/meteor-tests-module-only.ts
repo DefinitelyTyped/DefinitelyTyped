@@ -10,7 +10,7 @@ const headers = new Headers({ 'Content-Type': 'application/json' });
 const request = new Request('https://github.com', { headers });
 const reply: Promise<Response> = fetch(request);
 
-function foo(x: number) {
+function foo(x: string | number) {
     return `${x}`;
 }
 

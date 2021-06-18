@@ -1,1 +1,3 @@
-export { DataError32 as default } from "../../";
+import { DataError32 } from "../../";
+
+export = DataError32;

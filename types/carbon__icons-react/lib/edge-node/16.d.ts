@@ -1,1 +1,3 @@
-export { EdgeNode16 as default } from "../../";
+import { EdgeNode16 } from "../../";
+
+export = EdgeNode16;

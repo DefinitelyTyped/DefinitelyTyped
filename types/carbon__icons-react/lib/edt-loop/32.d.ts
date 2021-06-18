@@ -1,1 +1,3 @@
-export { EdtLoop32 as default } from "../../";
+import { EdtLoop32 } from "../../";
+
+export = EdtLoop32;

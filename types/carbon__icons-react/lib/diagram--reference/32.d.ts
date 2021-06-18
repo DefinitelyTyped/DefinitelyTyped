@@ -1,1 +1,3 @@
-export { DiagramReference32 as default } from "../../";
+import { DiagramReference32 } from "../../";
+
+export = DiagramReference32;

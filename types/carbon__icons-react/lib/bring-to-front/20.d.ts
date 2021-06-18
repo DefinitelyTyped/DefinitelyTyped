@@ -1,1 +1,3 @@
-export { BringToFront20 as default } from "../../";
+import { BringToFront20 } from "../../";
+
+export = BringToFront20;

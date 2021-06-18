@@ -12,10 +12,13 @@ declare namespace loadImage {
         image: HTMLImageElement | FileReader | false;
     };
 
-    type ParseMetaDataCallback = (data: ImageHead) => void;
+    type ParseMetaDataCallback = (data: MetaData) => void;
+
+    type ExifTagValue = number | string | string[];
 
     interface Exif {
-        [tag: number]: number | string | string[];
+        [tag: number]: ExifTagValue;
+        get: (tagName: 'Orientation' | 'Thumbnail' | 'Exif' | 'GPSInfo' | 'Interoperability') => ExifTagValue;
     }
 
     interface Iptc {
@@ -63,6 +66,8 @@ declare namespace loadImage {
         downsamplingRatio?: number;
         orientation?: Orientation;
         crop?: boolean;
+        imageSmoothingEnabled?: boolean;
+        imageSmoothingQuality?: 'low' | 'medium' | 'high';
     }
     interface CanvasFalseOptions {
         canvas?: false;

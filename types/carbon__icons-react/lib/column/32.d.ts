@@ -1,1 +1,3 @@
-export { Column32 as default } from "../../";
+import { Column32 } from "../../";
+
+export = Column32;

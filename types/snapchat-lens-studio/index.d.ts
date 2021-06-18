@@ -1,14 +1,15 @@
 // Type definitions for non-npm package snapchat-lens-studio 3.2
 // Project: https://lensstudio.snapchat.com/api/
 // Definitions by: Olen Davis <https://github.com/OlenDavis>
+//                 Matt Winkler <https://github.com/mhwinkler>
 //                 Julien Chaumond <https://github.com/julien-c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-// This alone doesn't work when `@types/node` is present:
+// This doesn't work when `@types/node` is present:
 declare const global: SnapchatLensStudio.Global;
 
-// // When `@types/node` is present, please add this shim will be needed to establish the typings `global`:
+// // Instead, when `@types/node` is present, please add this shim will be needed to establish the typings `global`:
 // declare module NodeJS {
 //     interface Global extends SnapchatLensStudio.Global {}
 // }
@@ -1005,14 +1006,14 @@ declare namespace Component {
         fov: number;
 
         /** When enableClearColor is true, this texture is used to clear this Camera’s renderTarget before drawing. If this texture is null, clearColor will be used instead. */
-        inputTexture: Texture;
+        inputTexture: Asset.Texture;
 
         /**
          * A texture controlling which parts of the output texture the camera will draw to. The “red” value of each pixel determines how strongly the camera will draw to that part of the image. For
          * example, a completely black section will cause the camera to not draw there at all. A completely white ( red: or) section will cause the camera to draw normally. Colors in  like:
          * between, gray, will be semitransparent.
          */
-        maskTexture: Texture;
+        maskTexture: Asset.Texture;
 
         /** The distance of the near clipping plane. */
         near: number;
@@ -1024,7 +1025,7 @@ declare namespace Component {
         renderOrder: number;
 
         /** The RenderTarget this Camera will draw to. */
-        renderTarget: Texture;
+        renderTarget: Asset.Texture;
 
         /** The orthographic size of the camera. */
         size: number;
@@ -1166,19 +1167,19 @@ declare namespace Component {
      */
     interface MaterialMeshVisual extends BaseMeshVisual {
         /** Returns the first Material. */
-        mainMaterial: Material;
+        mainMaterial: Asset.Material;
 
         /** Returns the mainPass of the mainMaterial. */
         mainPass: Pass;
 
         /** Adds a Material to use for rendering. */
-        addMaterial(material: Material): void;
+        addMaterial(material: Asset.Material): void;
 
         /** Clears all Materials. */
         clearMaterials(): void;
 
         /** Returns the Material at index index. */
-        getMaterial(index: number): Material;
+        getMaterial(index: number): Asset.Material;
 
         /** Returns the number of Materials used for rendering. */
         getMaterialsCount(): number;
@@ -1244,7 +1245,7 @@ declare namespace Component {
      * ```
      */
     interface FaceMaskVisual extends MaterialMeshVisual {
-        customMaskOnMouthClosed: Texture;
+        customMaskOnMouthClosed: Asset.Texture;
 
         /** The index of the face this effect is attached to. */
         faceIndex: number;
@@ -1308,7 +1309,7 @@ declare namespace Component {
         blendShape: BlendShapes;
 
         /** The RenderMesh asset to render. */
-        mesh: RenderMesh;
+        mesh: Asset.RenderMesh;
 
         /** Sets the Skin to use for rendering this mesh. */
         setSkin(skin: Skin): void;
@@ -1396,7 +1397,7 @@ declare namespace Component {
         dropshadowSettings: DropshadowSettings;
 
         /** Font asset used. */
-        font: Font;
+        font: Asset.Font;
 
         /** Controls how text should be handled when it goes past the horizontal boundaries. */
         horizontalOverflow: HorizontalOverflow;
@@ -1544,7 +1545,7 @@ declare namespace Component {
     /** Applies ScreenTransform positioning to match the cropped region of a texture. For more information, see the Crop Textures guide. */
     interface RectangleSetter extends Component {
         /** Cropped texture to match the screen region of. Should be a texture using a RectCropTextureProvider, such as a Screen Crop Texture or Face Crop Texture. */
-        cropTexture: Texture;
+        cropTexture: Asset.Texture;
     }
 
     /** Overrides the settings on a local ScreenTransform to fit a screen region on the device. See the Screen Transform guide for more information. */
@@ -1559,13 +1560,13 @@ declare namespace Component {
      */
     interface Animation extends Component {
         /** Returns the AnimationLayer under the name layerName. */
-        getAnimationLayerByName(layerName: string): AnimationLayer;
+        getAnimationLayerByName(layerName: string): Asset.AnimationLayer;
 
         /** Removes the AnimationLayer under the name layerName. */
         removeAnimationLayerByName(layerName: string): void;
 
         /** Adds an AnimationLayer under the name layerName. */
-        setAnimationLayerByName(layerName: string, animationLayer: AnimationLayer): void;
+        setAnimationLayerByName(layerName: string, animationLayer: Asset.AnimationLayer): void;
     }
 
     /** Controls playback of animations on the attached SceneObject and its child objects. Please refer to the Playing 3D Animation Guide for setting up and playing animations. */
@@ -1633,7 +1634,7 @@ declare namespace Component {
      */
     interface AudioComponent extends Component {
         /** The audio asset currently assigned to play. */
-        audioTrack: AudioTrackAsset;
+        audioTrack: Asset.AudioTrackAsset;
 
         /** The length ( seconds: in) of the current sound assigned to play. */
         duration: number;
@@ -1941,7 +1942,7 @@ declare namespace Component {
         color: vec3;
 
         /** A color image applied to an imaginary skybox the LightSource will use for color information. */
-        diffuseEnvmapTexture: Texture;
+        diffuseEnvmapTexture: Asset.Texture;
 
         /** A value used to increase the intensity of light information derived from the diffuseEnvmapTexture exponentially. */
         envmapExposure: number;
@@ -1974,7 +1975,7 @@ declare namespace Component {
         shadowFrustumSize: number;
 
         /** A color image applied to an imaginary skybox the light source will use for specular and reflection information. */
-        specularEnvmapTexture: Texture;
+        specularEnvmapTexture: Asset.Texture;
 
         /** Enable if you would like the LightSource to use information from the diffuseEnvmapTexture for light color information. */
         useEnvmap: boolean;
@@ -2077,7 +2078,7 @@ declare namespace Component {
         autoEnableWhenTracking: boolean;
 
         /** The marker asset describing the tracking target. */
-        marker: MarkerAsset;
+        marker: Asset.MarkerAsset;
 
         /** A function that gets called when marker tracking begins. */
         onMarkerFound: () => void;
@@ -2092,8 +2093,24 @@ declare namespace Component {
     /**
      * Binds scripts to Events and executes them when triggered. Any script can access the ScriptComponent executing them through the variable script. See also: Scripting Overview, Script Events
      * Guide. Lens Studio v1.0.0+
+     *
+     * Instead of doing the following:
+     * ```
+     * const typedScript = script as Component.ScriptComponent<{ anInput: number }, { anApiProp: 'some' | 'thing' }>
+     * ```
+     * Use the following to type your script's inputs and/or api properties by extending the interfaces of `ScriptInputs` and/or `ScriptApi`:
+     * ```
+     * declare namespace SnapchatLensStudio {
+     *     interface ScriptApi {
+     *         some?: 'thing' | 'other-thing'
+     *     }
+     * }
+     * ```
      */
-    type ScriptComponent<Inputs extends object = {}, Api extends object = {}> = {
+    type ScriptComponent<
+        Inputs extends object = SnapchatLensStudio.ScriptInputs,
+        Api extends object = SnapchatLensStudio.ScriptApi
+    > = {
         /** Adds a new SceneEvent, triggered by eventType events, to the ScriptComponent. */
         createEvent<T extends keyof EventMapping>(eventType: T): EventMapping[T];
 
@@ -2340,7 +2357,7 @@ interface InputBuilder extends ScriptObject {
     build(): InputPlaceholder;
 
     /** Sets the input texture of the InputPlaceholder to be built. */
-    setInputTexture(texture: Texture): InputBuilder;
+    setInputTexture(texture: Asset.Texture): InputBuilder;
 
     /** Sets the name of the InputPlaceholder to be built. */
     setName(name: string): InputBuilder;
@@ -2439,7 +2456,7 @@ interface OutputPlaceholder extends BasePlaceholder {
     mode: MachineLearning.OutputMode;
 
     /** Output as a Texture. Usable when mode is set to MachineLearning.OutputMode.Texture. */
-    texture: Texture;
+    texture: Asset.Texture;
 }
 
 /** Controls input data for a neural network used by an MLComponent. For more information, see the MLComponent Scripting guide. */
@@ -2448,7 +2465,7 @@ interface InputPlaceholder extends BasePlaceholder {
     data: Float32Array;
 
     /** Texture used as input. */
-    texture: Texture;
+    texture: Asset.Texture;
 }
 
 /** Provides histogram information about tracked world mesh faces in a given area. Returned by DeviceTracking.calculateWorldMeshHistogram(). Lens Studio v3.2+ */
@@ -2667,7 +2684,7 @@ declare namespace LookAtComponent {
 /** Represents the Lens scene. Accessible through global.scene. */
 interface ScriptScene extends ScriptObject {
     /** Creates a new Render Target texture with a RenderTargetProvider as its control property. */
-    createRenderTargetTexture(): Texture;
+    createRenderTargetTexture(): Asset.Texture;
 
     /** Adds a new SceneObject named name to the scene. */
     createSceneObject(name: string): SceneObject;
@@ -2729,8 +2746,16 @@ interface SceneObject extends SerializableWithUID {
     getChildrenCount(): number;
 
     /** Returns the first attached Component with type matching or deriving from componentType. */
+    getComponent<T extends keyof SnapchatLensStudio.ComponentMapping>(
+        componentType: T,
+    ): SnapchatLensStudio.ComponentMapping[T];
+    /** Returns the first attached Component with type matching or deriving from componentType. */
     getComponent(componentType: string): Component;
 
+    /** Returns a list of attached components with types matching or deriving from componentType. */
+    getComponents<T extends keyof SnapchatLensStudio.ComponentMapping>(
+        componentType: T,
+    ): Array<SnapchatLensStudio.ComponentMapping[T]>;
     /** Returns a list of attached components with types matching or deriving from componentType. */
     getComponents(componentType: string): Component[];
 
@@ -2783,33 +2808,69 @@ declare namespace LayerSet {
  * Controls the position, rotation, and scale of a SceneObject. Every SceneObject automatically has a Transform attached.
  * Lens Studio v1.0.0+
  */
-interface Transform {
+interface Transform extends ScriptObject {
+    /** Returns the Transform’s back directional vector. */
+    back: vec3;
+
+    /** Returns the Transform’s down directional vector. */
+    down: vec3;
+
+    /** Returns the Transform’s forward directional vector. */
+    forward: vec3;
+
+    /** Returns the Transform’s left directional vector. */
+    left: vec3;
+
+    /** Returns the Transform’s right directional vector. */
+    right: vec3;
+
+    /** Returns the Transform’s up directional vector. */
+    up: vec3;
+
+    /** Returns the Transform’s world-to-local transformation matrix. */
+    getInvertedWorldTransform(): mat4;
+
+    /** Returns the Transform’s position relative to its parent. */
     getLocalPosition(): vec3;
+
+    /** Returns the Transform’s rotation relative to its parent. */
+    getLocalRotation(): quat;
+
+    /** Returns the Transform’s scale relative to its parent. */
+    getLocalScale(): vec3;
+
+    /** Returns the SceneObject the Transform is attached to. */
+    getSceneObject(): SceneObject;
+
+    /** Returns the Transform’s position relative to the world. */
     getWorldPosition(): vec3;
-}
 
-/**
- * Configures an animation layer for a single SceneObject. Gives access to position, rotation, scale and blend shape animation tracks. See also: Playing 3D Animation Guide, AnimationMixer, Animation.
- *
- */
-interface AnimationLayer extends Asset {
-    /** The Vec3AnimationTrack controlling position in this AnimationLayer. */
-    position: Vec3AnimationTrack;
+    /** Returns the Transform’s rotation relative to the world. */
+    getWorldRotation(): quat;
 
-    /** The QuaternionAnimationTrack controlling rotation in this AnimationLayer. */
-    rotation: QuaternionAnimationTrack;
+    /** Returns the Transform’s scale relative to the world. */
+    getWorldScale(): vec3;
 
-    /** The Vec3AnimationTrack controlling scale in this AnimationLayer. */
-    scale: Vec3AnimationTrack;
+    /** Returns the Transform’s local-to-world transformation matrix. */
+    getWorldTransform(): mat4;
 
-    /** The IntAnimationTrack controlling visibility in this AnimationLayer. */
-    visibility: IntAnimationTrack;
+    /** Sets the Transform’s position relative to its parent. */
+    setLocalPosition(pos: vec3): void;
 
-    /** Returns a FloatAnimationTrack from this AnimationLayer’s blend shapes. */
-    getBlendShapeTrack(shapeName: string): FloatAnimationTrack;
+    /** Sets the Transform’s rotation relative to its parent. */
+    setLocalRotation(rotation: quat): void;
 
-    /** Sets or adds a FloatAnimationTrack to this AnimationLayer’s blend shapes. */
-    setBlendShapeTrack(shapeName: string, track: FloatAnimationTrack): void;
+    /** Sets the Transform’s scale relative to its parent. */
+    setLocalScale(scale: vec3): void;
+
+    /** Sets the Transform’s position relative to the world. */
+    setWorldPosition(pos: vec3): void;
+
+    /** Sets the Transform’s rotation relative to the world. */
+    setWorldRotation(rotation: quat): void;
+
+    /** Sets the Transform’s scale relative to the world. This may produce lossy results when parent objects are rotated, so use setLocalScale( instead: ) if possible. */
+    setWorldScale(scale: vec3): void;
 }
 
 /** The base class for animation tracks. */
@@ -2956,48 +3017,115 @@ declare namespace Asset {
 
     /** Segmentation model used for SegmentationTextureProvider. */
     type SegmentationModel = BinAsset;
-}
 
-type AudioEffectAsset = Asset;
-/** Represents an audio file asset. See also: AudioComponent. */
-type AudioTrackAsset = Asset;
-type BinAsset = Asset;
-type Font = Asset;
+    type AudioEffectAsset = Asset;
+    /** Represents an audio file asset. See also: AudioComponent. */
+    type AudioTrackAsset = Asset;
+    type Font = Asset;
 
-/**
- * Defines a marker to use for Marker Tracking with MarkerTrackingComponent. For more information, see the Marker Tracking guide.
- * ```
- * // Set the MarkerAsset on a MarkerTracking component
- *
- * //@input Component.MarkerTrackingComponent markerTracker
- * //@input Asset.MarkerAsset marker
- *
- * script.markerTracker.marker = script.marker;
- * ```
- */
-interface MarkerAsset extends Asset {
-    /** Returns the aspect ratio (width / height) of the texture used by the marker asset. */
-    getAspectRatio(): number;
-}
+    /**
+     * Defines a marker to use for Marker Tracking with MarkerTrackingComponent. For more information, see the Marker Tracking guide.
+     * ```
+     * // Set the MarkerAsset on a MarkerTracking component
+     *
+     * //@input Component.MarkerTrackingComponent markerTracker
+     * //@input Asset.MarkerAsset marker
+     *
+     * script.markerTracker.marker = script.marker;
+     * ```
+     */
+    interface MarkerAsset extends Asset {
+        /** Returns the aspect ratio (width / height) of the texture used by the marker asset. */
+        getAspectRatio(): number;
+    }
 
-type Material = Asset;
-type ObjectPrefab = Asset;
-/** Represents a mesh asset. See also: RenderMeshVisual. */
-interface RenderMesh extends Asset {
-    /** Returns the maximum value in each dimension of the axis-aligned bounding box containing this mesh. */
-    aabbMax: vec3;
+    /**
+     * An asset that describes how visual objects should appear. Each Material is a collection of Passes which define the actual rendering passes. Materials are used by MeshVisuals for drawing meshes
+     * in the scene.
+     * ```
+     * // Gets the first pass of a material on a sprite and plays the animation from its texture
+     * var sprite = script.getSceneObject().getFirstComponent("Component.SpriteVisual");
+     * var material = sprite.getMaterial(0);
+     * material.getPass(0).baseTex.control.play(-1,0.0);
+     * // Print number of passes
+     * print("Pass count = " + material.getPassCount().toString());
+     * ```
+     */
+    interface Material extends Asset {
+        /** The first Pass of the Material. */
+        mainPass: Pass;
 
-    /** Returns the minimum value in each dimension of the axis-aligned bounding box containing this mesh. */
-    aabbMin: vec3;
+        /** Returns a copy of the Material. */
+        clone(): Material;
 
-    /** The RenderObjectProvider for this RenderMesh, which can provide more controls depending on the mesh type. See also: FaceRenderObjectProvider */
-    control: RenderObjectProvider;
+        /** Returns the Pass of the Material at index index. */
+        getPass(index: number): Pass;
 
-    /** The index data type used by this mesh. */
-    indexType: MeshIndexType;
+        /** Returns the number of Passes for the Material. */
+        getPassCount(): number;
+    }
 
-    /** The topology type used by this mesh. */
-    topology: MeshTopology;
+    type ObjectPrefab = Asset;
+    /** Represents a mesh asset. See also: Asset.RenderMeshVisual. */
+    interface RenderMesh extends Asset {
+        /** Returns the maximum value in each dimension of the axis-aligned bounding box containing this mesh. */
+        aabbMax: vec3;
+
+        /** Returns the minimum value in each dimension of the axis-aligned bounding box containing this mesh. */
+        aabbMin: vec3;
+
+        /** The RenderObjectProvider for this RenderMesh, which can provide more controls depending on the mesh type. See also: FaceRenderObjectProvider */
+        control: RenderObjectProvider;
+
+        /** The index data type used by this mesh. */
+        indexType: MeshIndexType;
+
+        /** The topology type used by this mesh. */
+        topology: MeshTopology;
+    }
+
+    /** Represents a texture file asset. */
+    interface Texture extends Asset {
+        /** The TextureProvider for the texture, which may control things like animation depending on the texture type. See also: AnimatedTextureFileProvider. */
+        control: TextureProvider;
+
+        /** Returns a Texture that captures the current state of this Texture Asset. */
+        copyFrame(): Texture;
+
+        /** Returns the Colorspace of the Texture. */
+        getColorspace(): Colorspace;
+
+        /** Returns the height of the texture. */
+        getHeight(): number;
+
+        /** Returns the width of the texture. */
+        getWidth(): number;
+    }
+
+    /**
+     * Configures an animation layer for a single SceneObject. Gives access to position, rotation, scale and blend shape animation tracks. See also: Playing 3D Animation Guide, AnimationMixer,
+     * Animation.
+     *
+     */
+    interface AnimationLayer extends Asset {
+        /** The Vec3AnimationTrack controlling position in this AnimationLayer. */
+        position: Vec3AnimationTrack;
+
+        /** The QuaternionAnimationTrack controlling rotation in this AnimationLayer. */
+        rotation: QuaternionAnimationTrack;
+
+        /** The Vec3AnimationTrack controlling scale in this AnimationLayer. */
+        scale: Vec3AnimationTrack;
+
+        /** The IntAnimationTrack controlling visibility in this AnimationLayer. */
+        visibility: IntAnimationTrack;
+
+        /** Returns a FloatAnimationTrack from this AnimationLayer’s blend shapes. */
+        getBlendShapeTrack(shapeName: string): FloatAnimationTrack;
+
+        /** Sets or adds a FloatAnimationTrack to this AnimationLayer’s blend shapes. */
+        setBlendShapeTrack(shapeName: string, track: FloatAnimationTrack): void;
+    }
 }
 
 /** Provider for RenderMesh data. */
@@ -3154,7 +3282,7 @@ interface AnimatedTextureFileProvider extends TextureProvider {
 /** Base class for Texture Providers that crop an input texture. */
 interface CropTextureProvider extends TextureProvider {
     /** Input texture to crop. */
-    inputTexture: Texture;
+    inputTexture: Asset.Texture;
 }
 
 /**
@@ -3234,7 +3362,7 @@ interface DepthTextureProvider extends TextureProvider {
 /** TextureProvider for face textures. See the Face Texture Guide for more information. Can be accessed using Texture.control on a face texture asset. */
 interface FaceTextureProvider extends TextureProvider {
     /** The source texture being drawn. This is useful for controlling which effects are visible on the face texture, based on which camera output texture is being used. */
-    inputTexture: Texture;
+    inputTexture: Asset.Texture;
 
     /**
      * The x and y scale used to draw the face within the texture region. A lower scale will be more zoomed in on the face, and a higher scale will be more zoomed out. The default scale is
@@ -3293,10 +3421,10 @@ interface ProceduralTextureProvider extends TextureProvider {
 
 declare namespace ProceduralTextureProvider {
     /** Creates a new, blank Texture Provider using the passed in dimensions and Colorspace. The ProceduralTextureProvider can be accessed through the control property on the returned texture. */
-    function create(width: number, height: number, colorspace: Colorspace): Texture;
+    function create(width: number, height: number, colorspace: Colorspace): Asset.Texture;
 
     /** Creates a new Procedural Texture based on the passed in texture. The ProceduralTextureProvider can be accessed through the control property on the returned texture. */
-    function createFromTexture(texture: Texture): Texture;
+    function createFromTexture(texture: Asset.Texture): Asset.Texture;
 }
 
 /** Controls a camera texture resource. Can be accessed through Texture.control on a Camera texture. For more information, see the Camera and Layers guide. */
@@ -3314,7 +3442,7 @@ interface RenderTargetProvider extends TextureProvider {
     clearDepthEnabled: boolean;
 
     /** When clearColorEnabled is true, this texture is used to clear this RenderTarget the first time it is drawn to each frame. If this texture is null, clearColor will be used instead. */
-    inputTexture: Texture;
+    inputTexture: Asset.Texture;
 
     /** When useScreenResolution is false, controls the horizontal and vertical resolution of the Render Target. */
     resolution: vec2;
@@ -3347,7 +3475,7 @@ type SegmentationTextureProvider = TextureProvider;
 /** Controls a text rendering texture. Can be accessed through the main rendering pass on a Label component. The properties here mirror those on Label. Lens Studio v1.7.0+ */
 interface TextProvider extends TextureProvider {
     /** The font used for rendering text. */
-    fontAsset: Font;
+    fontAsset: Asset.Font;
 
     /** The color used for the outline effect. */
     outlineColor: vec4;
@@ -3409,25 +3537,6 @@ interface VideoTextureProvider extends TextureProvider {
 
 /** Base class for all resource providers. */
 type Provider = ScriptObject;
-type SegmentationModel = Asset;
-
-/** Represents a texture file asset. */
-interface Texture extends Asset {
-    /** The TextureProvider for the texture, which may control things like animation depending on the texture type. See also: AnimatedTextureFileProvider. */
-    control: TextureProvider;
-
-    /** Returns a Texture that captures the current state of this Texture Asset. */
-    copyFrame(): Texture;
-
-    /** Returns the Colorspace of the Texture. */
-    getColorspace(): Colorspace;
-
-    /** Returns the height of the texture. */
-    getHeight(): number;
-
-    /** Returns the width of the texture. */
-    getWidth(): number;
-}
 
 interface EventMapping {
     BrowsLoweredEvent: BrowsLoweredEvent;
@@ -3615,11 +3724,99 @@ interface ScriptObject {
  * a script would be able to access that property as Pass.baseColor.
  *
  * @see https://lensstudio.snapchat.com/api/classes/Pass/
+ *
+ * If you need to rely on any of the Shader Properties documented below, then use a block like the following in your script to augment the Pass interface:
+ * @see https://lensstudio.snapchat.com/api/ShaderProperties/
+ * ```
+ * declare global {
+ *     interface Pass {
+ *         // Specifies the base color (albedo) of the material if the ‘Base Texture’ is disabled. Multiplied with the ‘Base Texture’ otherwise.
+ *         baseColor: vec4
+ *         // Most materials use a base texture (albedo), but disabling it means the base texture will be considered white, and ‘Base Color’ will solely control the color.
+ *         baseTex: Asset.Texture
+ *         // Normally, the Base Texture’s alpha is taken as opacity. Enabling this allows you to define a separate greyscale opacity texture. The ‘Opacity Texture’ value will be multiplied with the
+ *         // Base Texture’s alpha (which is 1 for textures without alpha) to get the final opacity. ‘Opacity Texture’ is only available if ‘Blend Mode’ is not ‘Disabled’.
+ *         opacityTex: Asset.Texture
+ *     }
+ * }
+ * ```
  */
-interface Pass {
-    blendMode: number;
+interface Pass extends ScriptObject {
+    /**
+     * The blend mode used for rendering. Possible values:
+     *
+     * BlendMode - Value - Expression
+     *
+     * Normal - 0 - SrcAlpha, OneMinusSrcAlpha
+     *
+     * MultiplyLegacy [DEPRECATED] - 1 - DstColor, OneMinusSrcAlpha
+     *
+     * AddLegacy [DEPRECATED] - 2 - One, One
+     *
+     * Screen - 3 - One, OneMinusSrcColor
+     *
+     * PremultipliedAlpha - 4 - One, OneMinusSrcAlpha
+     *
+     * AlphaToCoverage - 5 - Blend Disabled
+     *
+     * Disabled - 6 - Blend Disabled
+     *
+     * Add - 7 - SrcAlpha, One
+     *
+     * AlphaTest - 8 - Blend Disabled
+     *
+     * ColoredGlass - 9 - Blend Disabled
+     *
+     * Multiply - 10 - DstColor, Zero
+     *
+     * Min - 11 - One, One
+     *
+     * Max - 12 - One, One
+     *
+     * ```
+     * // Sets the blend mode of the main pass for a material to Screen
+     * //@input Asset.Material material
+     * script.material.mainPass.blendMode = 3;
+     * ```
+     */
+    blendMode: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+
+    /** Controls the masking of color channels with a vec4b representing each channel with a boolean. */
+    colorMask: vec4b;
+
+    /** The cull mode used for rendering. */
+    cullMode: CullMode;
+
+    /** Enables depth-sorting. */
+    depthTest: boolean;
+
+    /** Enables writing pixels to the depth buffer. */
+    depthWrite: boolean;
+
+    /** Number of times the pass will be rendered. Useful with the Instance ID node in Material Editor. */
+    instanceCount: number;
+
+    /** Line width used for rendering. */
+    lineWidth: number;
+
+    /** The name of the Pass. */
     name: string;
-    baseColor: vec4;
+
+    /** Changes the position that each polygon gets drawn. */
+    polygonOffset: vec2;
+
+    /** Whether the material renders on both sides of a mesh face. */
+    twoSided: boolean;
+}
+
+/** Used with Pass’s cullMode property. Determines which faces of a surface are culled (not rendered). */
+declare enum CullMode {
+    /** Front facing surfaces are not rendered. */
+    Front,
+    /** Back facing surfaces are not rendered. */
+    Back,
+    /** Neither front facing nor back facing surfaces are rendered. */
+    FrontAndBack,
 }
 
 /**
@@ -3935,7 +4132,7 @@ interface TextFill extends ScriptObject {
     mode: TextFillMode;
 
     /** If mode is set to TextFillMode.Texture, this will be used as the texture asset used in drawing. */
-    texture: Texture;
+    texture: Asset.Texture;
 
     /** If mode is set to TextFillMode.Texture, this defines what type of stretching is used when the Texture’s aspect ratio doesn’t match the drawing area’s aspect ratio. */
     textureStretch: StretchMode;
@@ -4035,4 +4232,50 @@ declare namespace SnapchatLensStudio {
         /** Prints out a message to the Logger window. */
         print(message: object): void;
     }
+
+    interface ComponentMapping {
+        'Component.ScriptComponent': Component.ScriptComponent;
+
+        'Component.Visual': Component.Visual;
+        'Component.Camera': Component.Camera;
+        'Component.ScreenTransform': Component.ScreenTransform;
+        'Component.MLComponent': Component.MLComponent;
+        'Component.ObjectTracking': Component.ObjectTracking;
+        'Component.PinToMeshComponent': Component.PinToMeshComponent;
+        'Component.RectangleSetter': Component.RectangleSetter;
+        'Component.ScreenRegionComponent': Component.ScreenRegionComponent;
+        'Component.Animation': Component.Animation;
+        'Component.AnimationMixer': Component.AnimationMixer;
+        'Component.AudioComponent': Component.AudioComponent;
+        'Component.SpriteAligner': Component.SpriteAligner;
+        'Component.TouchComponent': Component.TouchComponent;
+        'Component.VertexCache': Component.VertexCache;
+        'Component.BlendShapes': Component.BlendShapes;
+        'Component.DeviceLocationTrackingComponent': Component.DeviceLocationTrackingComponent;
+        'Component.DeviceTracking': Component.DeviceTracking;
+        'Component.Head': Component.Head;
+        'Component.HintsComponent': Component.HintsComponent;
+        'Component.LightSource': Component.LightSource;
+        'Component.LookAtComponent': Component.LookAtComponent;
+        'Component.ManipulateComponent': Component.ManipulateComponent;
+        'Component.MarkerTrackingComponent': Component.MarkerTrackingComponent;
+
+        'Component.BaseMeshVisual': Component.BaseMeshVisual;
+
+        'Component.FaceStretchVisual': Component.FaceStretchVisual;
+        'Component.LiquifyVisual': Component.LiquifyVisual;
+        'Component.MaterialMeshVisual': Component.MaterialMeshVisual;
+        'Component.Text': Component.Text;
+
+        'Component.EyeColorVisual': Component.EyeColorVisual;
+        'Component.FaceInsetVisual': Component.FaceInsetVisual;
+        'Component.FaceMaskVisual': Component.FaceMaskVisual;
+        'Component.Image': Component.Image;
+        'Component.RenderMeshVisual': Component.RenderMeshVisual;
+        'Component.RetouchVisual': Component.RetouchVisual;
+        'Component.SpriteVisual': Component.SpriteVisual;
+    }
+
+    interface ScriptInputs {} // tslint:disable-line no-empty-interface
+    interface ScriptApi {} // tslint:disable-line no-empty-interface
 }

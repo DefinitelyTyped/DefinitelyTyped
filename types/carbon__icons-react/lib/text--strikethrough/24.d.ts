@@ -1,1 +1,3 @@
-export { TextStrikethrough24 as default } from "../../";
+import { TextStrikethrough24 } from "../../";
+
+export = TextStrikethrough24;

@@ -1,1 +1,3 @@
-export { ServiceDesk24 as default } from "../../";
+import { ServiceDesk24 } from "../../";
+
+export = ServiceDesk24;

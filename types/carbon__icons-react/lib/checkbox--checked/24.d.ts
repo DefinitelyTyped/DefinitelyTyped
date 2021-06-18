@@ -1,1 +1,3 @@
-export { CheckboxChecked24 as default } from "../../";
+import { CheckboxChecked24 } from "../../";
+
+export = CheckboxChecked24;

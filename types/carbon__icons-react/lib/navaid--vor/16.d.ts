@@ -1,1 +1,3 @@
-export { NavaidVor16 as default } from "../../";
+import { NavaidVor16 } from "../../";
+
+export = NavaidVor16;

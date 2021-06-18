@@ -1,1 +1,3 @@
-export { NetworkServices as default } from "../../";
+import { NetworkServices } from "../../";
+
+export = NetworkServices;

@@ -1,1 +1,3 @@
-export { Cut32 as default } from "../../";
+import { Cut32 } from "../../";
+
+export = Cut32;

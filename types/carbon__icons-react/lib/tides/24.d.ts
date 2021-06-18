@@ -1,1 +1,3 @@
-export { Tides24 as default } from "../../";
+import { Tides24 } from "../../";
+
+export = Tides24;

@@ -1,1 +1,3 @@
-export { TrafficEvent32 as default } from "../../";
+import { TrafficEvent32 } from "../../";
+
+export = TrafficEvent32;

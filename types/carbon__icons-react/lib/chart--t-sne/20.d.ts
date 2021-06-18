@@ -1,1 +1,3 @@
-export { ChartTSne20 as default } from "../../";
+import { ChartTSne20 } from "../../";
+
+export = ChartTSne20;

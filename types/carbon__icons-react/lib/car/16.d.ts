@@ -1,1 +1,3 @@
-export { Car16 as default } from "../../";
+import { Car16 } from "../../";
+
+export = Car16;

@@ -1,1 +1,3 @@
-export { Tags as default } from "../../";
+import { Tags } from "../../";
+
+export = Tags;

@@ -1,4 +1,4 @@
-// Type definitions for list.js 1.5
+// Type definitions for list.js 2.3
 // Project: http://listjs.com
 // Definitions by: Jeffrey Meng <https://github.com/jeffreymeng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -52,7 +52,14 @@ declare namespace List {
         indexAsync?: boolean;
         page?: number;
         i?: number;
-        pagination?: boolean;
+        pagination?: {
+            paginationClass?: string,
+            innerWindow?: number,
+            outerWindow?: number,
+            left?: number,
+            right?: number
+            item?: string,
+        };
         fuzzySearch?: FuzzySearchOptions;
     }
 

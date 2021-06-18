@@ -1,10 +1,14 @@
-// Type definitions for webpack-bundle-analyzer 3.9
+// Type definitions for webpack-bundle-analyzer 4.4
 // Project: https://github.com/webpack-contrib/webpack-bundle-analyzer
 // Definitions by: Michael Strobel <https://github.com/kryops>
 //                 Vladimir Grenaderov <https://github.com/VladimirGrenaderov>
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
+
+/// <reference types="node" />
 
 import { WebpackPluginInstance, Compiler } from 'webpack';
 
@@ -189,6 +193,26 @@ export namespace BundleAnalyzerPlugin {
          */
         logLevel?: 'info' | 'warn' | 'error' | 'silent';
     }
+
+    interface JsonReportItem {
+        label: string;
+        /** in bytes */
+        gzipSize: number;
+        concatenated?: boolean;
+        /** in bytes */
+        statSize: number;
+        /** in bytes */
+        parsedSize: number;
+
+        groups?: JsonReportItem[];
+        path?: string;
+        inaccurateSizes?: boolean;
+        id?: number | null;
+        isAsset?: boolean;
+    }
+
+    /** The json report that will be produced if `analyzerMode: 'json'` */
+    type JsonReport = JsonReportItem[];
 }
 
 export class BundleAnalyzerPlugin implements WebpackPluginInstance {

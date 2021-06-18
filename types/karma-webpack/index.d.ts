@@ -2,7 +2,7 @@
 // Project: https://github.com/webpack-contrib/karma-webpack
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.7
 
 import 'karma';
 import * as Webpack from 'webpack';

@@ -1,1 +1,3 @@
-export { TextColor16 as default } from "../../";
+import { TextColor16 } from "../../";
+
+export = TextColor16;

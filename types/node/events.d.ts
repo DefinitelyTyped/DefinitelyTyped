@@ -1,4 +1,4 @@
-declare module "events" {
+declare module 'events' {
     interface EventEmitterOptions {
         /**
          * Enables automatic capturing of promise rejection.
@@ -14,11 +14,24 @@ declare module "events" {
         addEventListener(event: string, listener: (...args: any[]) => void, opts?: { once: boolean }): any;
     }
 
-    namespace EventEmitter {
-        function once(emitter: NodeEventTarget, event: string | symbol): Promise<any[]>;
-        function once(emitter: DOMEventTarget, event: string): Promise<any[]>;
-        function on(emitter: EventEmitter, event: string): AsyncIterableIterator<any>;
-        const captureRejectionSymbol: unique symbol;
+    interface StaticEventEmitterOptions {
+        signal?: AbortSignal;
+    }
+
+    interface EventEmitter extends NodeJS.EventEmitter {}
+    class EventEmitter {
+        constructor(options?: EventEmitterOptions);
+
+        static once(emitter: NodeEventTarget, event: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(emitter: DOMEventTarget, event: string, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static on(emitter: NodeJS.EventEmitter, event: string, options?: StaticEventEmitterOptions): AsyncIterableIterator<any>;
+
+        /** @deprecated since v4.0.0 */
+        static listenerCount(emitter: NodeJS.EventEmitter, event: string | symbol): number;
+        /**
+         * Returns a list listener for a specific emitter event name.
+         */
+        static getEventListener(emitter: DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
 
         /**
          * This symbol shall be used to install a listener for only monitoring `'error'`
@@ -29,30 +42,27 @@ declare module "events" {
          * `'error'` event is emitted, therefore the process will still crash if no
          * regular `'error'` listener is installed.
          */
-        const errorMonitor: unique symbol;
+        static readonly errorMonitor: unique symbol;
+        static readonly captureRejectionSymbol: unique symbol;
+
         /**
          * Sets or gets the default captureRejection value for all emitters.
          */
-        let captureRejections: boolean;
+        // TODO: These should be described using static getter/setter pairs:
+        static captureRejections: boolean;
+        static defaultMaxListeners: number;
+    }
 
-        interface EventEmitter extends NodeJS.EventEmitter {
-        }
+    import internal = require('events');
+    namespace EventEmitter {
+        // Should just be `export { EventEmitter }`, but that doesn't work in TypeScript 3.4
+        export { internal as EventEmitter };
 
-        class EventEmitter {
-            constructor(options?: EventEmitterOptions);
-            /** @deprecated since v4.0.0 */
-            static listenerCount(emitter: EventEmitter, event: string | symbol): number;
-            static defaultMaxListeners: number;
+        export interface Abortable {
             /**
-             * This symbol shall be used to install a listener for only monitoring `'error'`
-             * events. Listeners installed using this symbol are called before the regular
-             * `'error'` listeners are called.
-             *
-             * Installing a listener using this symbol does not change the behavior once an
-             * `'error'` event is emitted, therefore the process will still crash if no
-             * regular `'error'` listener is installed.
+             * When provided the corresponding `AbortController` can be used to cancel an asynchronous action.
              */
-            static readonly errorMonitor: unique symbol;
+            signal?: AbortSignal;
         }
     }
 

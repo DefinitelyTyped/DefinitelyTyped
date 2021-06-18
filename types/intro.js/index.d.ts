@@ -26,6 +26,8 @@ declare namespace introJs {
         highlightClass?: string;
         scrollTo?: 'off' | 'tooltip' | 'element';
         disableInteraction?: boolean;
+        title?: string;
+        step?: number;
     }
 
     interface Hint {

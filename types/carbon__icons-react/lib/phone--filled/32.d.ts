@@ -1,1 +1,3 @@
-export { PhoneFilled32 as default } from "../../";
+import { PhoneFilled32 } from "../../";
+
+export = PhoneFilled32;

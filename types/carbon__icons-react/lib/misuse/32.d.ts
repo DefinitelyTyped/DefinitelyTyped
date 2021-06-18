@@ -1,1 +1,3 @@
-export { Misuse32 as default } from "../../";
+import { Misuse32 } from "../../";
+
+export = Misuse32;

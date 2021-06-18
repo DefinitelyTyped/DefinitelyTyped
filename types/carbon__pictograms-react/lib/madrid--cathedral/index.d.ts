@@ -1,1 +1,3 @@
-export { MadridCathedral as default } from "../../";
+import { MadridCathedral } from "../../";
+
+export = MadridCathedral;

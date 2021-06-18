@@ -1,4 +1,4 @@
-// Type definitions for migrate-mongo 7.0
+// Type definitions for migrate-mongo 8.1
 // Project: https://github.com/seppevs/migrate-mongo#readme
 // Definitions by: Amit Beckenstein <https://github.com/amitbeck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -35,6 +35,11 @@ export namespace config {
      * Read the `migrate-mongo-config.js` file.
      */
     function read(): Promise<Config>;
+    /**
+     * Set the passed config object.
+     * @param config The config object.
+     */
+    function set(config: Partial<Config>): void;
 
     interface Config {
         mongodb: {

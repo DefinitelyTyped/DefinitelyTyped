@@ -1,1 +1,3 @@
-export { Intelligence as default } from "../../";
+import { Intelligence } from "../../";
+
+export = Intelligence;

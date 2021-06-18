@@ -1,1 +1,3 @@
-export { Buoy20 as default } from "../../";
+import { Buoy20 } from "../../";
+
+export = Buoy20;

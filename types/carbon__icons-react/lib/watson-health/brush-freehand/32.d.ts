@@ -1,1 +1,3 @@
-export { WatsonHealthBrushFreehand32 as default } from "../../../";
+import { WatsonHealthBrushFreehand32 } from "../../../";
+
+export = WatsonHealthBrushFreehand32;

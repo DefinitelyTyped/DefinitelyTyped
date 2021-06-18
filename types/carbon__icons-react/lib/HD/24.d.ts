@@ -1,1 +1,3 @@
-export { Hd24 as default } from "../../";
+import { Hd24 } from "../../";
+
+export = Hd24;

@@ -1,1 +1,3 @@
-export { Globe16 as default } from "../../";
+import { Globe16 } from "../../";
+
+export = Globe16;

@@ -1,1 +1,3 @@
-export { Moscow as default } from "../../";
+import { Moscow } from "../../";
+
+export = Moscow;

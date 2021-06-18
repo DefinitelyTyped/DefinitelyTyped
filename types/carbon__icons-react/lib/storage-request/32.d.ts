@@ -1,1 +1,3 @@
-export { StorageRequest32 as default } from "../../";
+import { StorageRequest32 } from "../../";
+
+export = StorageRequest32;

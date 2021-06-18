@@ -1,1 +1,3 @@
-export { Security as default } from "../../";
+import { Security } from "../../";
+
+export = Security;

@@ -1,1 +1,3 @@
-export { CalendarHeatMap32 as default } from "../../";
+import { CalendarHeatMap32 } from "../../";
+
+export = CalendarHeatMap32;

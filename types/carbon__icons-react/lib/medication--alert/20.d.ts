@@ -1,1 +1,3 @@
-export { MedicationAlert20 as default } from "../../";
+import { MedicationAlert20 } from "../../";
+
+export = MedicationAlert20;

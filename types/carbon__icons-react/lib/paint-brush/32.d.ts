@@ -1,1 +1,3 @@
-export { PaintBrush32 as default } from "../../";
+import { PaintBrush32 } from "../../";
+
+export = PaintBrush32;

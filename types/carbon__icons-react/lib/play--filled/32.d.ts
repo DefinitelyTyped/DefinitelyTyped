@@ -1,1 +1,3 @@
-export { PlayFilled32 as default } from "../../";
+import { PlayFilled32 } from "../../";
+
+export = PlayFilled32;

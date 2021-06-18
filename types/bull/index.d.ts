@@ -1,4 +1,4 @@
-// Type definitions for bull 3.14
+// Type definitions for bull 3.15
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -620,6 +620,11 @@ declare namespace Bull {
     resume(isLocal?: boolean): Promise<void>;
 
     /**
+     * Returns a promise that resolves with a boolean if queue is paused
+     */
+    isPaused(isLocal?: boolean): Promise<boolean>;
+
+    /**
      * Returns a promise that returns the number of jobs in the queue, waiting or paused.
      * Since there may be other processes adding or processing jobs, this value may be true only for a very small amount of time.
      */
@@ -774,6 +779,12 @@ declare namespace Bull {
      * Returns the queue specific key.
      */
     toKey(queueType: string): string;
+
+    /**
+     * Completely destroys the queue and all of its contents irreversibly.
+     * @param ops.force Obliterate the queue even if there are active jobs
+     */
+    obliterate(ops?: { force: boolean}): Promise<void>;
 
     /**
      * Listens to queue events

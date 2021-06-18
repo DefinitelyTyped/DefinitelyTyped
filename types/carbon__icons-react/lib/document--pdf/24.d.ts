@@ -1,1 +1,3 @@
-export { DocumentPdf24 as default } from "../../";
+import { DocumentPdf24 } from "../../";
+
+export = DocumentPdf24;

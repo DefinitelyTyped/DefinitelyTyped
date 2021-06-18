@@ -1,1 +1,3 @@
-export { EarthFilled32 as default } from "../../";
+import { EarthFilled32 } from "../../";
+
+export = EarthFilled32;

@@ -1,1 +1,3 @@
-export { Wine as default } from "../../";
+import { Wine } from "../../";
+
+export = Wine;

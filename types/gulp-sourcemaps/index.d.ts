@@ -17,6 +17,10 @@ interface WriteMapper {
     (file: string): string;
 }
 
+interface SourceMapMapper {
+    (sourcePath: string, file: File): string;
+}
+
 interface SourceUrlMapper {
     (file: File): string;
 }
@@ -43,5 +47,6 @@ interface WriteOptions {
 }
 
 export declare function init(opts?: InitOptions): NodeJS.ReadWriteStream;
+export declare function mapSources(mapper?: SourceMapMapper): NodeJS.ReadWriteStream;
 export declare function write(path?: string, opts?: WriteOptions): NodeJS.ReadWriteStream;
 export declare function write(opts?: WriteOptions): NodeJS.ReadWriteStream;

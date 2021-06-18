@@ -1,1 +1,3 @@
-export { RoadWeather32 as default } from "../../";
+import { RoadWeather32 } from "../../";
+
+export = RoadWeather32;

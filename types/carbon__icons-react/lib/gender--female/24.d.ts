@@ -1,1 +1,3 @@
-export { GenderFemale24 as default } from "../../";
+import { GenderFemale24 } from "../../";
+
+export = GenderFemale24;

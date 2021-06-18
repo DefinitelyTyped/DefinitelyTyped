@@ -1,1 +1,3 @@
-export { MexicoCityMuseoSoumaya as default } from "../../";
+import { MexicoCityMuseoSoumaya } from "../../";
+
+export = MexicoCityMuseoSoumaya;

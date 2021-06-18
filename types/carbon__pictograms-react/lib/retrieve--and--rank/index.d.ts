@@ -1,1 +1,3 @@
-export { RetrieveAndRank as default } from "../../";
+import { RetrieveAndRank } from "../../";
+
+export = RetrieveAndRank;

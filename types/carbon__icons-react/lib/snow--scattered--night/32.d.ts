@@ -1,1 +1,3 @@
-export { SnowScatteredNight32 as default } from "../../";
+import { SnowScatteredNight32 } from "../../";
+
+export = SnowScatteredNight32;

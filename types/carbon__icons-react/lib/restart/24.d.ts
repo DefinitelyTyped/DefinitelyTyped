@@ -1,1 +1,3 @@
-export { Restart24 as default } from "../../";
+import { Restart24 } from "../../";
+
+export = Restart24;

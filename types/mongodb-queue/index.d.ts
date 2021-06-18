@@ -1,7 +1,7 @@
 // Type definitions for mongodb-queue 4.0
 // Project: https://github.com/chilts/mongodb-queue
 // Definitions by: FiveOFive <https://github.com/FiveOFive>
-//                 John C. Kennedy <https://github.com/codejockie>
+//                 codejockie <https://github.com/codejockie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -26,7 +26,7 @@ declare namespace mongodbQueue {
         clean(callback: QueueCallback<any>): void;
         total(callback: QueueCallback<number>): void;
         size(callback: QueueCallback<number>): void;
-        inflight(callback: QueueCallback<number>): void;
+        inFlight(callback: QueueCallback<number>): void;
         done(callback: QueueCallback<number>): void;
     }
 

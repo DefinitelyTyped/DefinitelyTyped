@@ -1,1 +1,3 @@
-export { Cda16 as default } from "../../";
+import { Cda16 } from "../../";
+
+export = Cda16;

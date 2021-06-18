@@ -1,1 +1,3 @@
-export { FaceWinkFilled32 as default } from "../../";
+import { FaceWinkFilled32 } from "../../";
+
+export = FaceWinkFilled32;
