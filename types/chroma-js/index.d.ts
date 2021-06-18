@@ -73,6 +73,8 @@ declare namespace chroma {
 
         rgb(r: number, g: number, b: number): Color;
 
+        rgba(r: number, g: number, b: number, a: number): Color;
+
         /**
          * GL is a variant of RGB(A), with the only difference that the components are normalized to the range of 0..1.
          */

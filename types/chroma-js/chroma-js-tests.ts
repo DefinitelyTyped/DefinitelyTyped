@@ -21,6 +21,8 @@ function test_chroma() {
     chroma(330, 1, 0.6, 'hsl');
     chroma.hsl(330, 1, 0.6);
     chroma.lch(80, 40, 130);
+    chroma.rgb(114, 137, 218);
+    chroma.rgba(114, 137, 218, 50);
     chroma(80, 40, 130, 'lch');
     chroma.cmyk(0.2, 0.8, 0, 0);
     chroma(0.2, 0.8, 0, 0, 'cmyk');
