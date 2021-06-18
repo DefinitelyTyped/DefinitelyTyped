@@ -167,3 +167,5 @@ const deviceEnrollmentType: MicrosoftGraph.DeviceEnrollmentType = "windowsCoMana
 const applicationStatus: MicrosoftGraph.Application = {
     disabledByMicrosoftStatus: "TEST_VAL"
 };
+
+const bodyType: MicrosoftGraph.BodyType = "text";
