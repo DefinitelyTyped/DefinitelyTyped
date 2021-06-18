@@ -18,7 +18,7 @@ interface Module {
 type RenderFunction = (instance: Module, src: string, options: Options) => string;
 
 declare class Viz {
-  constructor(arg: { Module: Module; render: RenderFunction });
+  constructor(arg: { workerURL?: 'full.render.js' | 'lite.render.js', worker?: Worker, Module?: Module; render?: RenderFunction });
   renderString(src: string, options?: Options): Promise<string>;
   renderSVGElement(src: string, options?: Options): Promise<SVGSVGElement>;
   renderImageElement(src: string, options?: Options): Promise<HTMLImageElement>;

@@ -8,6 +8,9 @@ promise = viz.renderString("graph a { b }", { format: "svg" });
 promise = viz.renderString("digraph a { b }");
 
 // This won't necessarily work, but shouldn't violate typing rules
+new Viz({workerURL: 'full.render.js'});
+new Viz({workerURL: 'lite.render.js'});
+new Viz({worker: new Worker('full.render.js')});
 new Viz({Module, render: (instance: Module, src: string, options: Options) => "string"});
 new Viz({Module, render: (instance: Module, src: string, options: {format?: string}) => "string"});
 new Viz({Module, render: (instance: Module, src: string, options: {format?: string, garbage?: number}) => "string"});
@@ -25,6 +28,8 @@ viz.renderImageElement("string");
 viz.renderJSONObject("string");
 
 // Incorrect
+new Viz({workerURL: ''}); // $ExpectError
+new Viz({worker: {}}); // $ExpectError
 new Viz({Module: 1, render}); // $ExpectError
 new Viz({Module: {}, render}); // $ExpectError
 new Viz({Module, render: (instance: Module, src: string, options: Options) => 1}); // $ExpectError
