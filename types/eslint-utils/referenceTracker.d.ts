@@ -18,7 +18,7 @@ export interface TraceMap {
 }
 
 export interface TraceMapObject {
-    [i: string]: TraceMapObject
+    [i: string]: TraceMapObject;
     [CALL]?: boolean;
     [CONSTRUCT]?: boolean;
     [ESM]?: boolean;
