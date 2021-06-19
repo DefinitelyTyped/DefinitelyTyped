@@ -2,8 +2,9 @@
 // Project: https://github.com/cyrus-and/chrome-remote-interface
 // Definitions by: Khairul Azhar Kasmiran <https://github.com/kazarmy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.8
 
-import ProtocolProxyApi from './devtools-protocol/protocol-proxy-api';
+import type ProtocolProxyApi from 'devtools-protocol/types/protocol-proxy-api';
 
 declare namespace CDP {
     interface BaseOptions {

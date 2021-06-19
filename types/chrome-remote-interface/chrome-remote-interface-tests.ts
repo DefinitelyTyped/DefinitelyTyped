@@ -8,7 +8,7 @@ import CDP = require('chrome-remote-interface');
         const { Page, Runtime } = client;
         await Page.enable();
         await Page.navigate({ url: 'https://github.com' });
-        await Page.loadEventFired();
+        // await Page.loadEventFired();
         await Runtime.enable();
         const loc = await Runtime.evaluate({ expression: 'window.location.toString()' });
         const targets = await CDP.List(cdpPort);

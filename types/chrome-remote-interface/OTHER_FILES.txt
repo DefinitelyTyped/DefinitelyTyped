@@ -1,2 +1,0 @@
-devtools-protocol/LICENSE
-devtools-protocol/VERSION
