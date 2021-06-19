@@ -1,25 +1,35 @@
-import { Graph, Link, Node } from 'react-d3-graph';
 import * as React from 'react';
+import { Graph, Link, Node } from 'react-d3-graph';
+
+const nodes = [
+    { id: 'node1', labelProperty: 'id' },
+    { id: 'node2', name: 'node2Name' },
+    {
+        id: 'node3',
+        size: {
+            width: 100,
+            height: 200,
+        },
+    },
+];
+
+type INode = typeof nodes[number];
+
+const links = [{ source: 'node1', target: 'node2' }];
+type ILink = typeof links[number];
 
 export class Example extends React.Component {
+    ref: React.MutableRefObject<Graph<INode, ILink> | null> = React.createRef();
+
     render(): React.ReactElement {
         return (
             <div>
                 <Graph
+                    ref={this.ref}
                     id="test"
                     data={{
-                        nodes: [
-                            { id: 'node1', labelProperty: 'id' },
-                            { id: 'node2', name: 'node2Name', size: 100 },
-                            {
-                                id: 'node3',
-                                size: {
-                                    width: 100,
-                                    height: 200,
-                                },
-                            },
-                        ],
-                        links: [{ source: 'node1', target: 'node2' }],
+                        nodes,
+                        links,
                         focusedNodeId: 'node1',
                     }}
                     config={{
