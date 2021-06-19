@@ -480,7 +480,7 @@ declare namespace sharp {
          * @param withMetadata
          * @throws {Error} Invalid parameters.
          */
-        withMetadata(withMetadata?: WriteableMetadata): Sharp;
+        withMetadata<T0 extends object = {}, T1 extends object = {}>(withMetadata?: WriteableMetadata<T0, T1>): Sharp;
 
         /**
          * Use these JPEG options for output image.
@@ -718,20 +718,447 @@ declare namespace sharp {
         background: Color;
     }
 
-    interface WriteableMetadata {
+    type ImageOrientation = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+    export enum ExifFlashValues {
+        NoFlash = 0x0,
+        Fired = 0x1,
+        FiredReturnNotDetected = 0x5,
+        FiredReturnDetected = 0x7,
+        OnDidNotFire = 0x8,
+        OnFired = 0x9,
+        OnReturnNotDetected = 0xd,
+        OnReturnDetected = 0xf,
+        OffDidNotFire = 0x10,
+        OffDidNotFireReturnNotDetected = 0x14,
+        AutoDidNotFire = 0x18,
+        AutoFired = 0x19,
+        AutoFiredReturnNotDetected = 0x1d,
+        AutoFiredReturnDetected = 0x1f,
+        NoFlashFunction = 0x20,
+        OffNoFlashFunction = 0x30,
+        FiredRedEyeReduction = 0x41,
+        FiredRedEyeReductionReturnNotDetected = 0x45,
+        FiredRedEyeReductionReturnDetected = 0x47,
+        OnRedEyeReduction = 0x49,
+        OnRedEyeReductionReturnNotDetected = 0x4d,
+        OnRedEyeReductionReturnDetected = 0x4f,
+        OffRedEyeReduction = 0x50,
+        AutoDidNotFireRedEyeReduction = 0x58,
+        AutoFiredRedEyeReduction = 0x59,
+        AutoFiredRedEyeReductionNotDetected = 0x59,
+        AutoFiredRedEyeReductionDetected = 0x5d,
+    }
+
+    enum ExifLightSource {
+        Unknown = 0,
+        Daylight,
+        Flourescent,
+        Tungsten,
+        Flash,
+        FineWeather,
+        Cloudy,
+        Shade,
+        DaylightFlourescent,
+        DayWhiteFlourescent,
+        CoolWhiteFlourescent,
+        WhiteFlourescent,
+        WarmWhiteFlourescent,
+        StandardLightA,
+        StandardLightB,
+        StandardLightC,
+        D55,
+        D65,
+        D75,
+        D50,
+        ISOStudioTungten,
+        Other = 255
+    }
+    /**
+     * The EXIF **IFD0** properties. This is meant to be a _reasonable subset_ with an attempt to
+     * include the most used. If you wish to extend this type you can simply add more strongly typed 
+     * key/value pairs as the optional generic `<T>`.
+     * 
+     * This list was created by referencing the very useful docs from [Exiftool](https://exiftool.org/TagNames/EXIF.html) 
+     * and occational reference to the far drier [EXIF spec](https://web.archive.org/web/20190624045241if_/http://www.cipa.jp:80/std/documents/e/DC-008-Translation-2019-E.pdf).
+     */
+    type ExifIFD0<T extends {} = {}> = {
+        ProcessingSoftware?: string;
+        ImageWidth?: number;
+        ImageHeight?: number;
+        /**
+         * - `1` -  Uncompressed
+         * - `2` -  CCITT 1D
+         * - `3` -  T4/Group 3 Fax
+         * - `4` -  T6/Group 4 Fax
+         * - `5` -  LZW
+         * - `6` -  JPEG (old-style)
+         * - `7` -  JPEG
+         * - `8` -  Adobe Deflate
+         * - `9` -  JBIG B&W
+         * - `10` -  JBIG Color
+         * - `99` -  JPEG
+         * - `262` -  Kodak 262
+         * - `32766` -  Next
+         * - `32767` -  Sony ARW Compressed
+         * - `32769` -  Packed RAW
+         * - `32770` -  Samsung SRW Compressed
+         * - `32771` -  CCIRLEW
+         * - `32772` -  Samsung SRW Compressed 2
+         * - `32773` -  PackBits
+         * - `32809` -  Thunderscan
+         * - `32867` -  Kodak KDC Compressed
+         * - `32895` -  IT8CTPAD
+         * - `32896` -  IT8LW
+         * - `32897` -  IT8MP
+         * - `32898` -  IT8BL
+         * - `32908` -  PixarFilm
+         * - `32909` -  PixarLog
+         * - `32946` -  Deflate
+         * - `32947` -  DCS
+         * - `33003` -  Aperio JPEG 2000 YCbCr
+         * - `33005` -  Aperio JPEG 2000 RGB
+         * - `34661` -  JBIG
+         * - `34676` -  SGILog
+         * - `34677` -  SGILog24
+         * - `34712` -  JPEG 2000
+         * - `34713` -  Nikon NEF Compressed
+         * - `34715` -  JBIG2 TIFF FX
+         * - `34718` -  Microsoft Document Imaging (MDI) Binary Level Codec
+         * - `34719` -  Microsoft Document Imaging (MDI) Progressive Transform Codec
+         * - `34720` -  Microsoft Document Imaging (MDI) Vector
+         * - `34887` -  ESRI Lerc
+         * - `34892` -  Lossy JPEG
+         * - `34925` -  LZMA2
+         * - `34926` -  Zstd
+         * - `34927` -  WebP
+         * - `34933` -  PNG
+         * - `34934` -  JPEG XR
+         * - `65000` -  Kodak DCR Compressed
+         * - `65535` -  Pentax PEF Compressed
+         */
+        Compression?: number;
+        /**
+         * - `0` - WhiteIsZero
+         * - `1` - BlackIsZero
+         * - `2` - RGB
+         * - `3` - RGB Palette
+         * - `4` - Transparency Mask
+         * - `5` - CMYK
+         * - `6` - YCbCr
+         * - `8` - CIELab
+         * - `9` - ICCLab
+         * - `10` - ITULab
+         * - `32803` - Color Filter Array
+         * - `32844` - Pixar LogL
+         * - `32845` - Pixar LogLuv
+         * - `32892` - Sequential Color Filter
+         * - `34892` - Linear Raw
+         * - `51177` - Depth Map
+         */
+        PhotometricInterpretation?: number;
+
+        /**
+         * - `1` - No dithering or halftoning
+         * - `2` - Ordered dither or halftone
+         * - `3` - Randomized dither
+         */
+        Thresholding?: 1 | 2 | 3;
+
+        DocumentName?: string;
+        ImageDescription?: string;
+        Make?: string;
+        Model?: string;
+        /**
+         * - `1` - Horizontal (normal)
+         * - `2` - Mirror horizontal
+         * - `3` - Rotate 180
+         * - `4` - Mirror vertical
+         * - `5` - Mirror horizontal and rotate 270 CW
+         * - `6` - Rotate 90 CW
+         * - `7` - Mirror horizontal and rotate 90 CW
+         * - `8` - Rotate 270 CW
+         */
+        Orientation?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+        XResolution?: number;
+        YResolution?: number;
+
+        Software?: string;
+        /** called DateTime by the EXIF spec */
+        ModifyDate?: string;
+        /** becomes a list-type tag when the MWG module is loaded */
+        Artist?: string;
+        HostComputer?: string;
+        ApplicationNotes?: string;
+        Rating?: number;
+        RatingPercent?: number;
+        PixelScale?: number;
+        Copyright?: string;
+        PhotoshopSettings?: string;
+        XPTitle?: number;
+        XPComment?: number;
+        XPAuthor?: number;
+        XPKeywords?: number;
+        XPSubject?: number;
+        UniqueCameraModel?: string;
+        LocalizedCameraModel?: string;
+        CameraSerialNumber?: string;
+        CameraLabel?: string;
+        CalibrationIlluminant1?: ExifLightSource;
+        CalibrationIlluminant2?: ExifLightSource;
+        OriginalRawFileName: string;
+        /** refer to [ICC Profile Tags](https://exiftool.org/TagNames/ICC_Profile.html) for literal types */
+        AsShotICCProfile?: string;
+        /** refer to [ICC Profile Tags](https://exiftool.org/TagNames/ICC_Profile.html) for literal types */
+        CurrentICCProfile?: string;
+        ColorimetricReference?: number;
+        ProfileName?: string;
+        /**
+         * - `0` - Unknown
+         * - `1` - Linear
+         * - `2` - Inverse
+         */
+        DepthFormat?: 0 | 1 | 2;
+        DepthNear?: number;
+        DepthFar?: number;
+        /** The value of `0` represents _unknown_ and `1` is _meters_; there may be others */
+        DepthUnits?: number;
+        /**
+         * - `0` - Unknown
+         * - `1` - Optical Axis
+         * - `2` - Optical Ray
+         */
+        DepthMeasureType?: 0 | 1 | 2;
+        EnhanceParams?: string;
+    } & T;
+
+
+    /**
+     * The EXIF standard derives from two keyvalue sources. 
+     * 
+     * 1. The IFD0/1 which largely came from the TIFF metadata standard (and where 0 is for the main image, and 1 is for an embedded thumbnail).
+     * 2. The **ExifIFD** standard which was distinct to EXIF.
+     * 
+     * This type represents a useful subset of tags available in EXIF's IFD. It is not meant
+     * to represent _all_ properties but you can use the generic `<T>` to extend the typing 
+     * to other key/values if you need that.
+     */
+    type ExifIFD<T extends object = {}> = {
+        /**
+         * - `0` - Not Defined
+         * - `1` - Manual
+         * - `2` - Program AE
+         * - `3` - Aperture-priority AE
+         * - `4` - Shutter speed priority AE
+         * - `5` - Creative (Slow speed)
+         * - `6` - Action (High speed)
+         * - `7` - Portrait
+         * - `8` - Landscape
+         * - `9` - Bulb
+         */
+        ExposureProgram: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+        /**
+         * - `0` - Unknown
+         * - `1` - Standard Output Sensitivity
+         * - `2` - Recommended Exposure Index
+         * - `3` - ISO Speed
+         * - `4` - Standard Output Sensitivity and Recommended Exposure Index
+         * - `5` - Standard Output Sensitivity and ISO Speed
+         * - `6` - Recommended Exposure Index and ISO Speed
+         * - `7` - Standard Output Sensitivity, Recommended Exposure Index and ISO Speed
+         */
+        SensitivityType: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+        StandardOutputSensitivity: number;
+        RecommendedExposureIndex: number;
+        ISOSpeed: number;
+        /** date/time when original image was taken */
+        DateTimeOriginal: string;
+        /** called DateTimeDigitized by the EXIF spec */
+        CreateDate: string;
+        /** time zone for ModifyDate */
+        OffsetTime: string;
+        /** time zone for DateTimeOriginal */
+        OffsetTimeOriginal: string;
+        /**time zone for CreateDate */
+        OffsetTimeDigitized: string;
+        /** displayed in seconds, but stored as an APEX value */
+        ShutterSpeedValue: number;
+        /** displayed as an F number, but stored as an APEX value */
+        ApertureValue: number;
+        /** displayed as an F number, but stored as an APEX value */
+        MaxAperturValue: number;
+        BrightnessValue: number;
+        /** called ExposureBiasValue by the EXIF spec */
+        ExposureCompensation: number;
+        SubjectDistance: number;
+        /**
+         * - `0` - Unknown
+         * - `1` - Average
+         * - `2` - Center-weighted average
+         * - `3` - Spot
+         * - `4` - Multi-spot
+         * - `5` - Multi-segment
+         * - `6` - Partial
+         * - `255` - Other
+         */
+        MeteringMode: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 255;
+        LightSource: ExifLightSource;
+        /**
+         * - `NoFlash` = 0x0,
+         * - `Fired` = 0x1,
+         * - `FiredReturnNotDetected` = 0x5,
+         * - `FiredReturnDetected` = 0x7,
+         * - `OnDidNotFire` = 0x8,
+         * - `OnFired` = 0x9,
+         * - `OnReturnNotDetected` = 0xd,
+         * - `OnReturnDetected` = 0xf,
+         * - `OffDidNotFire` = 0x10,
+         * - `OffDidNotFireReturnNotDetected` = 0x14,
+         * - `AutoDidNotFire` = 0x18,
+         * - `AutoFired` = 0x19,
+         * - `AutoFiredReturnNotDetected` = 0x1d,
+         * - `AutoFiredReturnDetected` = 0x1f,
+         * - `NoFlashFunction` = 0x20,
+         * - `OffNoFlashFunction` = 0x30,
+         * - `FiredRedEyeReduction` = 0x41,
+         * - `FiredRedEyeReductionReturnNotDetected` = 0x45,
+         * - `FiredRedEyeReductionReturnDetected` = 0x47,
+         * - `OnRedEyeReduction` = 0x49,
+         * - `OnRedEyeReductionReturnNotDetected` = 0x4d,
+         * - `OnRedEyeReductionReturnDetected` = 0x4f,
+         * - `OffRedEyeReduction` = 0x50,
+         * - `AutoDidNotFireRedEyeReduction` = 0x58,
+         * - `AutoFiredRedEyeReduction` = 0x59,
+         * - `AutoFiredRedEyeReductionNotDetected` = 0x59,
+         * - `AutoFiredRedEyeReductionDetected` = 0x5d,
+         */
+        Flash: ExifFlashValues;
+        UserComment: string;
+        AmbientTemperature: number;
+        Humidity: number;
+        Pressure: number;
+        WaterDepth: number;
+        Acceleration: number;
+        CameraElevationAngle: number;
+        /**
+         * - `0x1` = sRGB
+         * - `0x2` = Adobe RGB
+         * - `0xfffd` = Wide Gamut RGB
+         * - `0xfffe` = ICC Profile
+         * - `0xffff` = Uncalibrated
+         * 
+         * NOTE: the value of `0x2` is not standard EXIF. Instead, an Adobe RGB image is indicated by 
+         * "Uncalibrated" with an InteropIndex of "R03". The values 0xfffd and 0xfffe are also non-standard, 
+         * and are used by some Sony cameras.
+         */
+        Colorspace: 0x1 | 0x2 | 0xfffd | 0xfffe | 0xffff;
+        /** called PixelXDimension by the EXIF spec. */
+        ExifImageWidth: number;
+        /** called PixelYDimension by the EXIF spec */
+        ExifImageHeight: number;
+        RelatedSoundFile: string;
+
+        FlashEnergy: number;
+        SubjectLocation: [number, number];
+        ExposureIndex: number;
+        /**
+         * - `1` - Not defined
+         * - `2` - One-chip color area
+         * - `3` - Two-chip color area
+         * - `4` - Three-chip color area
+         * - `5` - Color sequential area
+         * - `7` - Trilinear
+         * - `8` - Color sequential linear
+         */
+        SensingMethod: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+        /**
+         * Only `0` and `1` are standard EXIF but other values are used by Apple iOS devices
+         * 
+         * - `0` - Normal
+         * - `1` - Custom
+         * - `2` - HDR (no original saved)
+         * - `3` - HDR (original saved)
+         * - `4` - Original (for HDR)
+         * - `6` - Panorama
+         * - `7` - Portrait HDR
+         * - `8` - Portrait
+         */
+        CustomRendered: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+        /**
+         * - `0` - Auto
+         * - `1` - Manual
+         * - `2` - Auto bracket
+         */
+        ExposureMode: 0 | 1 | 2;
+        /** 
+         * - `0` = Normal
+         * - `1` = Low
+         * - `2` = High
+         */
+        Contrast: 0 | 1 | 2;
+        /** 
+          * - `0` = Normal
+          * - `1` = Low
+          * - `2` = High
+          */
+        Saturation: 0 | 1 | 2;
+        /** 
+          * - `0` = Normal
+          * - `1` = Soft
+          * - `2` = Hard
+          */
+        Sharpness: 0 | 1 | 2;
+        /**
+         * - `0` = Unknown
+         * - `1` = Macro
+         * - `2` = Close
+         * - `3` = Distant
+         */
+        SubjectDistanceRange: 0 | 1 | 2 | 3;
+        ImageUniqueId: string;
+        /** CameraOwnerName by the EXIF spec. */
+        OwnerName: string;
+        /** called BodySerialNumber by the EXIF spec. */
+        SerialNumber: string;
+        /** 4 rational values giving focal and aperture ranges, called LensSpecification by the EXIF spec */
+        LensInfo: [number, number, number, number];
+        LensMake: string;
+        LensModel: string;
+        LensSerialNumber: string;
+        /**
+         * - `0` - Unknown
+         * - `1` - Not a Composite Image
+         * - `2` - General Composite Image
+         * - `3` - Composite Image Captured While Shooting
+         */
+        CompositeImage: 0 | 1 | 2 | 3;
+        Gamma: number;
+    } & T;
+    interface WriteableMetadata<T0 extends {} = {}, T1 extends {} = {}> {
         /** Value between 1 and 8, used to update the EXIF Orientation tag. */
-        orientation?: number;
+        orientation?: ImageOrientation;
         /** Filesystem path to output ICC profile, defaults to sRGB. */
         icc?: string;
         /** Object keyed by IFD0, IFD1 etc. of key/value string pairs to write as EXIF data. (optional, default {}) */
-        exif?: Record<string, any>;
+        exif?: {
+            /**
+             * Key/value pairs associated to the main image data
+             */
+            IFD0: ExifIFD0<T0> & { [key: string]: any };
+            /**
+             * Key/value pairs associated to the _optionally_ embedded thumbnail
+             */
+            IFD1: T1 & Record<string, any>;
+            [key: string]: any;
+        };
         /** Number of pixels per inch (DPI) */
         density?: number;
     }
 
     interface Metadata {
         /** Number value of the EXIF Orientation header, if present */
-        orientation?: number;
+        orientation?: ImageOrientation;
         /** Name of decoder used to decompress image data e.g. jpeg, png, webp, gif, svg */
         format?: keyof FormatEnum;
         /** Total size of image in bytes, for Stream and Buffer input only */
@@ -886,7 +1313,7 @@ declare namespace sharp {
      * The prebuilt binaries do not include this - see
      * {@link https://sharp.pixelplumbing.com/install#custom-libvips installing a custom libvips}.
      */
-    interface GifOptions extends OutputOptions, AnimationOptions {}
+    interface GifOptions extends OutputOptions, AnimationOptions { }
 
     interface TiffOptions extends OutputOptions {
         /** Quality, integer 1-100 (optional, default 80) */
@@ -1009,12 +1436,12 @@ declare namespace sharp {
     }
 
     interface ClaheOptions {
-      /** width of the region */
-      width: number;
-      /** height of the region */
-      height: number;
-      /** max slope of the cumulative contrast. (optional, default 3) */
-      maxSlope?: number;
+        /** width of the region */
+        width: number;
+        /** height of the region */
+        height: number;
+        /** max slope of the cumulative contrast. (optional, default 3) */
+        maxSlope?: number;
     }
 
     interface ThresholdOptions {
