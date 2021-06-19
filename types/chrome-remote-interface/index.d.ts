@@ -29,6 +29,8 @@ declare namespace CDP {
 }
 
 declare const CDP: {
+    (options: CDP.BaseOptions, callback: (client: CDP.Client) => void): void;
+    (callback: (client: CDP.Client) => void): void;
     (options?: CDP.BaseOptions): Promise<CDP.Client>;
 
     Close(options: CDP.BaseOptions & { id: string }, callback: (err: Error | null) => void): void;
