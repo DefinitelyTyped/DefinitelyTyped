@@ -380,7 +380,7 @@ declare global {
              * Negate the expectation.
              * @example await expect(element(by.id('UniqueId205'))).not.toBeVisible();
              */
-            not: Expect<Promise<void>>;
+            not: Expect<R>;
             /**
              * Expect the view to not be visible.
              * @deprecated Use `.not.toBeVisible()` instead.
