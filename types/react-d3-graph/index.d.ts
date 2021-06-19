@@ -1,8 +1,9 @@
-// Type definitions for react-d3-graph 2.3
+// Type definitions for react-d3-graph 2.6
 // Project: https://github.com/danielcaldas/react-d3-graph#readme
 // Definitions by: Harry Goode <https://github.com/hrngoode>
 //                 Adina Todoran <https://github.com/adina-todoran>
 //                 Robin Leclerc <https://github.com/BreadAndRoses95>
+//                 Nate Moore <https://github.com/TranquilMarmot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Component, MouseEvent } from 'react';
@@ -12,12 +13,19 @@ export type LinkLabelProperty<L extends GraphLink> = ((node: L) => string) | key
 
 export type NodeWithExtraParameters = GraphNode & { [key: string]: string };
 
+export type NodeSize =
+    | number
+    | {
+          width: number;
+          height: number;
+      };
+
 export interface NodeLevelNodeConfiguration {
     color: string;
     fontColor: string;
     opacity: number;
     renderLabel: boolean;
-    size: number | { width: number; height: number; };
+    size: NodeSize;
     strokeColor: string;
     strokeWidth: number;
     svg: string;
@@ -31,7 +39,7 @@ export interface GraphLevelNodeConfiguration<N extends GraphNode> {
     fontColor: string;
     opacity: number;
     renderLabel: boolean;
-    size: number | { width: number; height: number; };
+    size: NodeSize;
     strokeColor: string;
     strokeWidth: number;
     svg: string;
@@ -94,6 +102,7 @@ export interface GraphConfiguration<N extends GraphNode, L extends GraphLink> {
     highlightOpacity: number;
     maxZoom: number;
     minZoom: number;
+    initialZoom: number;
     panAndZoom: boolean;
     staticGraph: boolean;
     staticGraphWithDragAndDrop: boolean;
@@ -152,6 +161,7 @@ export interface GraphEventCallbacks {
     onMouseOverLink: (source: string, target: string) => void;
     onMouseOutLink: (source: string, target: string) => void;
     onNodePositionChange: (nodeId: string, x: number, y: number) => void;
+    onZoomChange: (previousZoom: number, newZoom: number) => void;
 }
 
 export interface GraphProps<N extends GraphNode, L extends GraphLink> extends Partial<GraphEventCallbacks> {
