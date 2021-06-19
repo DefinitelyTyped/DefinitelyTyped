@@ -105,7 +105,7 @@ export interface ShortMove {
     /**
      * If this move results in a promotion, this will have the unit promotion.
      */
-    promotion?: Exclude<PieceType, "p">;
+    promotion?: Exclude<PieceType, "p" | "k">;
 }
 
 /**
