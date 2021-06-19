@@ -1,11 +1,11 @@
 import Prompt = require("./base");
-import inquirer = require("../..");
+import { Answers, ConfirmQuestionOptions } from "../..";
 import { Interface as ReadlineInterface } from "readline";
 
 /**
  * The question-options for the `ConfirmPrompt<T>`.
  */
-type Question = inquirer.ConfirmQuestionOptions<inquirer.Answers>;
+type Question = ConfirmQuestionOptions;
 
 /**
  * Represents a prompt which provides a message to confirm.
@@ -26,7 +26,7 @@ declare class ConfirmPrompt<TQuestion extends Question = Question> extends Promp
      * @param answers
      * The answer-object.
      */
-    constructor(questions: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
+    constructor(questions: TQuestion, readLine: ReadlineInterface, answers: Answers);
 
     /**
      * Renders the prompt.

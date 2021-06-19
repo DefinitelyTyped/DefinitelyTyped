@@ -60,7 +60,7 @@ declare class PasswordPrompt<TQuestion extends Question = Question> extends Prom
     /**
      * Handles the `keypress`-event of the prompt.
      */
-    protected onKeyPress(): void;
+    protected onKeypress(): void;
 
     /**
      * Handles the `success`-event of the prompt.

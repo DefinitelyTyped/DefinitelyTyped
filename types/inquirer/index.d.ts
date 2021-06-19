@@ -229,11 +229,23 @@ declare namespace inquirer {
 
     /**
      * Represents a dynamic property for a question.
+     *
+     * @template T
+     * The type of the property.
+     *
+     * @template TAnswers
+     * The type of the answers.
      */
     type DynamicQuestionProperty<T, TAnswers extends Answers = Answers> = T | ((answers: TAnswers) => T);
 
     /**
      * Represents a dynamic property for a question which can be fetched asynchronously.
+     *
+     * @template T
+     * The type of the property.
+     *
+     * @template TAnswers
+     * The type of the answers.
      */
     type AsyncDynamicQuestionProperty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<T | Promise<T>, TAnswers>;
 
@@ -317,11 +329,8 @@ declare namespace inquirer {
 
     /**
      * Provides options for a choice.
-     *
-     * @template T
-     * The type of the answers.
      */
-    interface ChoiceOptions<T extends Answers = Answers> extends ChoiceBase {
+    interface ChoiceOptions extends ChoiceBase {
         /**
          * @inheritdoc
          */
@@ -354,7 +363,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface ListChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
+    interface ListChoiceOptions<T extends Answers = Answers> extends ChoiceOptions {
         /**
          * A value indicating whether the choice is disabled.
          */
@@ -376,11 +385,8 @@ declare namespace inquirer {
 
     /**
      * Provides options for a choice of the `ExpandPrompt`.
-     *
-     * @template T
-     * The type of the answers.
      */
-    interface ExpandChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
+    interface ExpandChoiceOptions extends ChoiceOptions {
         /**
          * The key to press for selecting the choice.
          */
@@ -390,7 +396,7 @@ declare namespace inquirer {
     /**
      * Represents a separator.
      */
-    interface SeparatorOptions {
+    interface SeparatorOptions extends ChoiceBase {
         /**
          * Gets the type of the choice.
          */
@@ -410,7 +416,7 @@ declare namespace inquirer {
      */
     interface BaseChoiceMap<T extends Answers = Answers> {
         Choice: Choice<T>;
-        ChoiceOptions: ChoiceOptions<T>;
+        ChoiceOptions: ChoiceOptions;
         SeparatorOptions: SeparatorOptions;
         Separator: Separator;
     }
@@ -442,7 +448,7 @@ declare namespace inquirer {
      * The type of the answers.
      */
     interface ExpandChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
-        ExpandChoiceOptions: ExpandChoiceOptions<T>;
+        ExpandChoiceOptions: ExpandChoiceOptions;
     }
 
     /**
@@ -461,17 +467,23 @@ declare namespace inquirer {
     /**
      * Provides valid choices for the question of the `TChoiceMap`.
      *
+     * @template TAnswers
+     * The type of the answers.
+     *
      * @template TChoiceMap
      * The choice-types to provide.
      */
-    type DistinctChoice<TChoiceMap> =
+    type DistinctChoice<TAnswers extends Answers = Answers, TChoiceMap = AllChoiceMap<TAnswers>> =
         string |
         TChoiceMap[keyof TChoiceMap];
 
     /**
      * Represents a set of choices.
+     *
+     * @template T
+     * The type of the answers.
      */
-    type ChoiceCollection<T extends Answers = Answers> = Array<DistinctChoice<AllChoiceMap>>;
+    type ChoiceCollection<T extends Answers = Answers> = Array<DistinctChoice<AllChoiceMap<T>>>;
 
     /**
      * Provides options for a question for the `InputPrompt`.
