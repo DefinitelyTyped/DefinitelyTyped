@@ -480,6 +480,7 @@ declare namespace sharp {
          * @param withMetadata
          * @throws {Error} Invalid parameters.
          */
+        /* tslint:disable-next-line:no-unnecessary-generics */
         withMetadata<T0 extends object = {}, T1 extends object = {}>(withMetadata?: WriteableMetadata<T0, T1>): Sharp;
 
         /**
@@ -720,7 +721,7 @@ declare namespace sharp {
 
     type ImageOrientation = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
-    export enum ExifFlashValues {
+    enum ExifFlashValues {
         NoFlash = 0x0,
         Fired = 0x1,
         FiredReturnNotDetected = 0x5,
@@ -932,7 +933,6 @@ declare namespace sharp {
         EnhanceParams?: string;
     } & T;
 
-
     /**
      * The EXIF standard derives from two keyvalue sources.
      *
@@ -979,7 +979,7 @@ declare namespace sharp {
         OffsetTime?: string;
         /** time zone for DateTimeOriginal */
         OffsetTimeOriginal?: string;
-        /**time zone for CreateDate */
+        /** time zone for CreateDate */
         OffsetTimeDigitized?: string;
         /** displayed in seconds, but stored as an APEX value */
         ShutterSpeedValue?: number;
