@@ -776,10 +776,10 @@ declare namespace sharp {
     }
     /**
      * The EXIF **IFD0** properties. This is meant to be a _reasonable subset_ with an attempt to
-     * include the most used. If you wish to extend this type you can simply add more strongly typed 
+     * include the most used. If you wish to extend this type you can simply add more strongly typed
      * key/value pairs as the optional generic `<T>`.
-     * 
-     * This list was created by referencing the very useful docs from [Exiftool](https://exiftool.org/TagNames/EXIF.html) 
+     *
+     * This list was created by referencing the very useful docs from [Exiftool](https://exiftool.org/TagNames/EXIF.html)
      * and occational reference to the far drier [EXIF spec](https://web.archive.org/web/20190624045241if_/http://www.cipa.jp:80/std/documents/e/DC-008-Translation-2019-E.pdf).
      */
     type ExifIFD0<T extends {} = {}> = {
@@ -934,13 +934,13 @@ declare namespace sharp {
 
 
     /**
-     * The EXIF standard derives from two keyvalue sources. 
-     * 
+     * The EXIF standard derives from two keyvalue sources.
+     *
      * 1. The IFD0/1 which largely came from the TIFF metadata standard (and where 0 is for the main image, and 1 is for an embedded thumbnail).
      * 2. The **ExifIFD** standard which was distinct to EXIF.
-     * 
+     *
      * This type represents a useful subset of tags available in EXIF's IFD. It is not meant
-     * to represent _all_ properties but you can use the generic `<T>` to extend the typing 
+     * to represent _all_ properties but you can use the generic `<T>` to extend the typing
      * to other key/values if you need that.
      */
     type ExifIFD<T extends object = {}> = {
@@ -1046,9 +1046,9 @@ declare namespace sharp {
          * - `0xfffd` = Wide Gamut RGB
          * - `0xfffe` = ICC Profile
          * - `0xffff` = Uncalibrated
-         * 
-         * NOTE: the value of `0x2` is not standard EXIF. Instead, an Adobe RGB image is indicated by 
-         * "Uncalibrated" with an InteropIndex of "R03". The values 0xfffd and 0xfffe are also non-standard, 
+         *
+         * NOTE: the value of `0x2` is not standard EXIF. Instead, an Adobe RGB image is indicated by
+         * "Uncalibrated" with an InteropIndex of "R03". The values 0xfffd and 0xfffe are also non-standard,
          * and are used by some Sony cameras.
          */
         Colorspace?: 0x1 | 0x2 | 0xfffd | 0xfffe | 0xffff;
@@ -1074,7 +1074,7 @@ declare namespace sharp {
 
         /**
          * Only `0` and `1` are standard EXIF but other values are used by Apple iOS devices
-         * 
+         *
          * - `0` - Normal
          * - `1` - Custom
          * - `2` - HDR (no original saved)
@@ -1091,23 +1091,23 @@ declare namespace sharp {
          * - `2` - Auto bracket
          */
         ExposureMode?: 0 | 1 | 2;
-        /** 
+        /**
          * - `0` = Normal
          * - `1` = Low
          * - `2` = High
          */
         Contrast?: 0 | 1 | 2;
-        /** 
-          * - `0` = Normal
-          * - `1` = Low
-          * - `2` = High
-          */
+        /**
+         * - `0` = Normal
+         * - `1` = Low
+         * - `2` = High
+         */
         Saturation?: 0 | 1 | 2;
-        /** 
-          * - `0` = Normal
-          * - `1` = Soft
-          * - `2` = Hard
-          */
+        /**
+         * - `0` = Normal
+         * - `1` = Soft
+         * - `2` = Hard
+         */
         Sharpness?: 0 | 1 | 2;
         /**
          * - `0` = Unknown
