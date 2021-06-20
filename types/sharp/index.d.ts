@@ -906,7 +906,7 @@ declare namespace sharp {
         CameraLabel?: string;
         CalibrationIlluminant1?: ExifLightSource;
         CalibrationIlluminant2?: ExifLightSource;
-        OriginalRawFileName: string;
+        OriginalRawFileName?: string;
         /** refer to [ICC Profile Tags](https://exiftool.org/TagNames/ICC_Profile.html) for literal types */
         AsShotICCProfile?: string;
         /** refer to [ICC Profile Tags](https://exiftool.org/TagNames/ICC_Profile.html) for literal types */
@@ -956,7 +956,7 @@ declare namespace sharp {
          * - `8` - Landscape
          * - `9` - Bulb
          */
-        ExposureProgram: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+        ExposureProgram?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
         /**
          * - `0` - Unknown
          * - `1` - Standard Output Sensitivity
@@ -967,30 +967,30 @@ declare namespace sharp {
          * - `6` - Recommended Exposure Index and ISO Speed
          * - `7` - Standard Output Sensitivity, Recommended Exposure Index and ISO Speed
          */
-        SensitivityType: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
-        StandardOutputSensitivity: number;
-        RecommendedExposureIndex: number;
-        ISOSpeed: number;
+        SensitivityType?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+        StandardOutputSensitivity?: number;
+        RecommendedExposureIndex?: number;
+        ISOSpeed?: number;
         /** date/time when original image was taken */
-        DateTimeOriginal: string;
+        DateTimeOriginal?: string;
         /** called DateTimeDigitized by the EXIF spec */
-        CreateDate: string;
+        CreateDate?: string;
         /** time zone for ModifyDate */
-        OffsetTime: string;
+        OffsetTime?: string;
         /** time zone for DateTimeOriginal */
-        OffsetTimeOriginal: string;
+        OffsetTimeOriginal?: string;
         /**time zone for CreateDate */
-        OffsetTimeDigitized: string;
+        OffsetTimeDigitized?: string;
         /** displayed in seconds, but stored as an APEX value */
-        ShutterSpeedValue: number;
+        ShutterSpeedValue?: number;
         /** displayed as an F number, but stored as an APEX value */
-        ApertureValue: number;
+        ApertureValue?: number;
         /** displayed as an F number, but stored as an APEX value */
-        MaxAperturValue: number;
-        BrightnessValue: number;
+        MaxAperturValue?: number;
+        BrightnessValue?: number;
         /** called ExposureBiasValue by the EXIF spec */
-        ExposureCompensation: number;
-        SubjectDistance: number;
+        ExposureCompensation?: number;
+        SubjectDistance?: number;
         /**
          * - `0` - Unknown
          * - `1` - Average
@@ -1001,8 +1001,8 @@ declare namespace sharp {
          * - `6` - Partial
          * - `255` - Other
          */
-        MeteringMode: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 255;
-        LightSource: ExifLightSource;
+        MeteringMode?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 255;
+        LightSource?: ExifLightSource;
         /**
          * - `NoFlash` = 0x0,
          * - `Fired` = 0x1,
@@ -1032,14 +1032,14 @@ declare namespace sharp {
          * - `AutoFiredRedEyeReductionNotDetected` = 0x59,
          * - `AutoFiredRedEyeReductionDetected` = 0x5d,
          */
-        Flash: ExifFlashValues;
-        UserComment: string;
-        AmbientTemperature: number;
-        Humidity: number;
-        Pressure: number;
-        WaterDepth: number;
-        Acceleration: number;
-        CameraElevationAngle: number;
+        Flash?: ExifFlashValues;
+        UserComment?: string;
+        AmbientTemperature?: number;
+        Humidity?: number;
+        Pressure?: number;
+        WaterDepth?: number;
+        Acceleration?: number;
+        CameraElevationAngle?: number;
         /**
          * - `0x1` = sRGB
          * - `0x2` = Adobe RGB
@@ -1051,16 +1051,16 @@ declare namespace sharp {
          * "Uncalibrated" with an InteropIndex of "R03". The values 0xfffd and 0xfffe are also non-standard, 
          * and are used by some Sony cameras.
          */
-        Colorspace: 0x1 | 0x2 | 0xfffd | 0xfffe | 0xffff;
+        Colorspace?: 0x1 | 0x2 | 0xfffd | 0xfffe | 0xffff;
         /** called PixelXDimension by the EXIF spec. */
-        ExifImageWidth: number;
+        ExifImageWidth?: number;
         /** called PixelYDimension by the EXIF spec */
-        ExifImageHeight: number;
-        RelatedSoundFile: string;
+        ExifImageHeight?: number;
+        RelatedSoundFile?: string;
 
-        FlashEnergy: number;
-        SubjectLocation: [number, number];
-        ExposureIndex: number;
+        FlashEnergy?: number;
+        SubjectLocation?: [number, number];
+        ExposureIndex?: number;
         /**
          * - `1` - Not defined
          * - `2` - One-chip color area
@@ -1070,7 +1070,7 @@ declare namespace sharp {
          * - `7` - Trilinear
          * - `8` - Color sequential linear
          */
-        SensingMethod: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+        SensingMethod?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
         /**
          * Only `0` and `1` are standard EXIF but other values are used by Apple iOS devices
@@ -1084,56 +1084,56 @@ declare namespace sharp {
          * - `7` - Portrait HDR
          * - `8` - Portrait
          */
-        CustomRendered: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+        CustomRendered?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
         /**
          * - `0` - Auto
          * - `1` - Manual
          * - `2` - Auto bracket
          */
-        ExposureMode: 0 | 1 | 2;
+        ExposureMode?: 0 | 1 | 2;
         /** 
          * - `0` = Normal
          * - `1` = Low
          * - `2` = High
          */
-        Contrast: 0 | 1 | 2;
+        Contrast?: 0 | 1 | 2;
         /** 
           * - `0` = Normal
           * - `1` = Low
           * - `2` = High
           */
-        Saturation: 0 | 1 | 2;
+        Saturation?: 0 | 1 | 2;
         /** 
           * - `0` = Normal
           * - `1` = Soft
           * - `2` = Hard
           */
-        Sharpness: 0 | 1 | 2;
+        Sharpness?: 0 | 1 | 2;
         /**
          * - `0` = Unknown
          * - `1` = Macro
          * - `2` = Close
          * - `3` = Distant
          */
-        SubjectDistanceRange: 0 | 1 | 2 | 3;
-        ImageUniqueId: string;
+        SubjectDistanceRange?: 0 | 1 | 2 | 3;
+        ImageUniqueId?: string;
         /** CameraOwnerName by the EXIF spec. */
-        OwnerName: string;
+        OwnerName?: string;
         /** called BodySerialNumber by the EXIF spec. */
-        SerialNumber: string;
+        SerialNumber?: string;
         /** 4 rational values giving focal and aperture ranges, called LensSpecification by the EXIF spec */
-        LensInfo: [number, number, number, number];
-        LensMake: string;
-        LensModel: string;
-        LensSerialNumber: string;
+        LensInfo?: [number, number, number, number];
+        LensMake?: string;
+        LensModel?: string;
+        LensSerialNumber?: string;
         /**
          * - `0` - Unknown
          * - `1` - Not a Composite Image
          * - `2` - General Composite Image
          * - `3` - Composite Image Captured While Shooting
          */
-        CompositeImage: 0 | 1 | 2 | 3;
-        Gamma: number;
+        CompositeImage?: 0 | 1 | 2 | 3;
+        Gamma?: number;
     } & T;
     interface WriteableMetadata<T0 extends {} = {}, T1 extends {} = {}> {
         /** Value between 1 and 8, used to update the EXIF Orientation tag. */
