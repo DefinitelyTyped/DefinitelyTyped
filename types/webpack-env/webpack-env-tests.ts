@@ -28,6 +28,17 @@ if(module.hot) {
     module.hot.accept("./handler.js", function() {
         //...
     });
+
+    // accept update of dependency with an error handler
+    module.hot.accept(
+        "./handler.js",
+        function() {
+            //...
+        },
+        function(err: Error) {
+            // ...
+        }
+    );
 }
 
 module.exports = null;

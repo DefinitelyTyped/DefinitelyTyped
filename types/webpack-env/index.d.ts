@@ -126,14 +126,16 @@ declare namespace __WebpackModuleApi {
          * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
          * @param dependencies
          * @param callback
+         * @param errorHandler
          */
-        accept(dependencies: string[], callback?: (updatedDependencies: ModuleId[]) => void): void;
+        accept(dependencies: string[], callback?: (updatedDependencies: ModuleId[]) => void, errorHandler?: (err: Error) => void): void;
         /**
          * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
          * @param dependency
          * @param callback
+         * @param errorHandler
          */
-        accept(dependency: string, callback?: () => void): void;
+        accept(dependency: string, callback?: () => void, errorHandler?: (err: Error) => void): void;
         /**
          * Accept code updates for this module without notification of parents.
          * This should only be used if the module doesn’t export anything.
