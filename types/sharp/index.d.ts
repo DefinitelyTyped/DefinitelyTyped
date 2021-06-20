@@ -1145,11 +1145,11 @@ declare namespace sharp {
             /**
              * Key/value pairs associated to the main image data
              */
-            IFD0: ExifIFD0<T0> & { [key: string]: any };
+            IFD0?: ExifIFD0<T0> & { [key: string]: any };
             /**
              * Key/value pairs associated to the _optionally_ embedded thumbnail
              */
-            IFD1: T1 & Record<string, any>;
+            IFD1?: T1 & Record<string, any>;
             [key: string]: any;
         };
         /** Number of pixels per inch (DPI) */
