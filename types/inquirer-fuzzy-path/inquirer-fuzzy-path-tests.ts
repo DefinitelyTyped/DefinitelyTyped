@@ -5,7 +5,7 @@ inquirer.registerPrompt("fuzzypath", InquirerFuzzyPath);
 
 declare module "inquirer" {
     interface QuestionMap<T> {
-        autocomplete: InquirerFuzzyPath.FuzzyPathQuestionOptions;
+        fuzzypath: InquirerFuzzyPath.FuzzyPathQuestionOptions;
     }
 }
 
