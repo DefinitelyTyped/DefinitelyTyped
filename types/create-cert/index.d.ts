@@ -6,14 +6,14 @@
 
 import { CertificateCreationOptions } from 'pem';
 
-declare function createCert(opts?: Partial<createCert.Options & CertificateCreationOptions> | string): Promise<createCert.CertificateData>;
+declare function createCert(opts?: createCert.Options | string): Promise<createCert.CertificateData>;
 
 export = createCert;
 
 declare namespace createCert {
-    interface Options {
-        days: number;
-        commonName: string;
+    interface Options extends CertificateCreationOptions {
+        days?: number;
+        commonName?: string;
     }
 
     interface CertificateData {
