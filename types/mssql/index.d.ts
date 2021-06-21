@@ -3,7 +3,6 @@
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
 //                 Peter Keuter <https://github.com/pkeuter>
-//                 David Gasperoni <https://github.com/mcdado>
 //                 Jeff Wooden <https://github.com/woodenconsulting>
 //                 Cahil Foley <https://github.com/cahilfoley>
 //                 Rifa Achrinza <https://github.com/achrinza>
