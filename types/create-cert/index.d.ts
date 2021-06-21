@@ -3,19 +3,23 @@
 // Definitions by: Chris Midgley <https://github.com/midgleyc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { CertificateCreationOptions } from 'pem';
+declare module 'create-cert' {
+    import { CertificateCreationOptions } from 'pem';
 
-declare interface Options {
-    days: number;
-    commonName: string;
+    function createCert(opts?: Partial<createCert.Options & CertificateCreationOptions> | string): Promise<createCert.CertificateData>;
+
+    export = createCert;
+
+    namespace createCert {
+        export interface Options {
+            days: number;
+            commonName: string;
+        }
+
+        export interface CertificateData {
+            key: string;
+            cert: string;
+            caCert: string;
+        }
+    }
 }
-
-declare interface CertificateData {
-    key: string;
-    cert: string;
-    caCert: string;
-}
-
-declare function createCert(opts?: Partial<Options & CertificateCreationOptions> | string): Promise<CertificateData>;
-
-export = createCert;
