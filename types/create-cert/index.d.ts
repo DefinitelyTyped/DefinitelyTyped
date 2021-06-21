@@ -16,6 +16,6 @@ declare interface CertificateData {
     caCert: string;
 }
 
-declare function createCert(opts: Partial<Options & CertificateCreationOptions> | string): Promise<CertificateData>;
+declare function createCert(opts?: Partial<Options & CertificateCreationOptions> | string): Promise<CertificateData>;
 
 export = createCert;

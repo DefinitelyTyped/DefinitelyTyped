@@ -9,6 +9,8 @@ createCert('commonName').then((keys) => {
     const caCert = keys.caCert;
 })
 
+createCert();
+
 createCert({});
 
 createCert({days: 128, commonName: 'hello', emailAddress: 'me@example.com'});
