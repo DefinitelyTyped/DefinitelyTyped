@@ -1,7 +1,7 @@
 // Type definitions for clusterize.js 0.18
 // Project: https://github.com/NeXTs/Clusterize.js
 // Definitions by: Pr1st0n <https://github.com/Pr1st0n>
-//                 Goran <https://github.com/gjovanovicst>
+//                 Goran Jovanovic <https://github.com/gjovanovicst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Clusterize {
@@ -18,33 +18,19 @@ declare class Clusterize {
 }
 
 declare namespace Clusterize {
-    type Options =
-        | {
-              scrollId: string;
-              contentId: string;
-              rows?: string[];
-              tag?: string;
-              rows_in_block?: number;
-              blocks_in_cluster?: number;
-              show_no_data_row?: boolean;
-              no_data_text?: string;
-              no_data_class?: string;
-              keep_parity?: boolean;
-              callbacks?: Callbacks;
-          }
-        | {
-              scrollElem: HTMLElement;
-              contentElem: HTMLElement;
-              rows?: string[];
-              tag?: string;
-              rows_in_block?: number;
-              blocks_in_cluster?: number;
-              show_no_data_row?: boolean;
-              no_data_text?: string;
-              no_data_class?: string;
-              keep_parity?: boolean;
-              callbacks?: Callbacks;
-          };
+    type Setup = { scrollId: string; contentId: string } | { scrollElem: HTMLElement; contentElem: HTMLElement };
+
+    type Options = Setup & {
+        rows?: string[];
+        tag?: string;
+        rows_in_block?: number;
+        blocks_in_cluster?: number;
+        show_no_data_row?: boolean;
+        no_data_text?: string;
+        no_data_class?: string;
+        keep_parity?: boolean;
+        callbacks?: Callbacks;
+    };
 
     interface Callbacks {
         clusterWillChange?: () => void;
