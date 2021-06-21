@@ -90,6 +90,28 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
                             resolve: fastSwipePlugin,
                         }
                     ]}
+                    breakpoints={{
+                        640: {
+                            plugins: [
+                                {
+                                    resolve: slidesToShowPlugin,
+                                    options: {
+                                        numberOfSlides: 1
+                                    }
+                                },
+                            ]
+                        },
+                        900: {
+                            plugins: [
+                                {
+                                    resolve: slidesToShowPlugin,
+                                    options: {
+                                        numberOfSlides: 2
+                                    }
+                                },
+                            ]
+                        }
+                    }}
                     animationSpeed={2000}
                     draggable
                     itemWidth={100}

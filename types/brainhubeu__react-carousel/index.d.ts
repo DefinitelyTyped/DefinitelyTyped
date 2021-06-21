@@ -3,6 +3,7 @@
 // Definitions by: Jack Allen <https://github.com/jackall3n>
 //                 Jeff Wen <https://github.com/sinchang>
 //                 Robert Hebel <https://github.com/roberthebel>
+//                 Pinot Kim <https://github.com/kimpinot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -49,7 +50,7 @@ export interface CarouselProps {
     draggable?: boolean;
     animationSpeed?: number;
     className?: string;
-    breakpoints?: Pick<CarouselProps, Exclude<keyof CarouselProps, "breakpoints" | "plugins">>;
+    breakpoints?: Record<number, Pick<CarouselProps, Exclude<keyof CarouselProps, "breakpoints">>>;
     plugins?: Array<string|CarouselPluginTypes>;
 }
 
