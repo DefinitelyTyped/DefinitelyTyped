@@ -1,12 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "adjacent-overload-signatures": false,
-        "ban-types": false,
-        "comment-format": false,
-        "dt-header": false,
-        "new-parens": false,
-        "no-padding": false,
-        "unified-signatures": false
-    }
+    "extends": "dtslint/dt.json"
 }
