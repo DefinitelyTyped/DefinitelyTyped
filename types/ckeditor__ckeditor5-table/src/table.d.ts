@@ -30,7 +30,7 @@ export interface TableConfig {
         borderColors?: TableColorConfig[];
         backgroundColors: TableColorConfig[];
     };
-    tableToolbar: string[];
+    tableToolbar?: string[];
 }
 
 export type TableColorConfig =
