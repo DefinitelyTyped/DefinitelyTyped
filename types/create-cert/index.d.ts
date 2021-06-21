@@ -2,6 +2,7 @@
 // Project: https://github.com/lukechilds/create-cert
 // Definitions by: Chris Midgley <https://github.com/midgleyc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.4
 
 import { CertificateCreationOptions } from 'pem';
 
