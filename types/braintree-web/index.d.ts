@@ -1,4 +1,4 @@
-// Type definitions for Braintree-web 3.75
+// Type definitions for Braintree-web 3.78
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Guy Shahine <https://github.com/chlela>
 //                 Jason Buckner <https://github.com/jbuckner>
