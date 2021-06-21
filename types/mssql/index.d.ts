@@ -1,7 +1,6 @@
 // Type definitions for mssql 7.1.0
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
-//                 Matt Richardson <https://github.com/mrrichar>
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 David Gasperoni <https://github.com/mcdado>
