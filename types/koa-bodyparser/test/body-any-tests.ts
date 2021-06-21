@@ -6,11 +6,11 @@ const app = new Koa();
 app.use(bodyParser({ strict: false }));
 
 app.use((ctx) => {
-    // $ExpectType unknown
-    ctx.request.body;
+    // $ExpectType any
+    const body = ctx.request.body as any;
 
-    // $ExpectError
-    ctx.request.body.a;
+    // $ExpectType any
+    body.a;
 });
 
 app.listen(80);
