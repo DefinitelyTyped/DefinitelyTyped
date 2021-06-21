@@ -169,6 +169,8 @@ function renderOutTestEmail() {
 {
     const minProps: React.ReactNode = <MjmlColumn />;
     const maxProps: React.ReactNode = <MjmlColumn>child</MjmlColumn>;
+    const innerBackgroundColor: React.ReactNode = <MjmlColumn innerBackgroundColor="#BADA55">child</MjmlColumn>;
+    const innerBackgroundColorError: React.ReactNode = <MjmlColumn innerBackgroundColor={1}>child</MjmlColumn>; // $ExpectError
 }
 // TestMjmlDividerTag
 {
