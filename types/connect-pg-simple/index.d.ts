@@ -28,6 +28,7 @@ declare namespace connectPgSimple {
       conString?: string;
       conObject?: PoolConfig;
       ttl?: number;
+      createTableIfMissing?: string;
       schemaName?: string;
       tableName?: string;
       pruneSessionInterval?: false | number;
