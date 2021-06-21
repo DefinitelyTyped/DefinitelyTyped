@@ -407,6 +407,7 @@ declare namespace Sfdc {
                 readonly redirect_uri: string;
                 readonly state?: string;
                 readonly display?: string;
+                readonly scope?: string;
             }
 
             interface LoginContext {

@@ -532,6 +532,17 @@ Sfdc.canvas.oauth.login({
     },
 });
 
+// $ExpectType void
+Sfdc.canvas.oauth.login({
+    uri: Sfdc.canvas.oauth.loginUrl(),
+    params: {
+        response_type: 'token',
+        client_id: 'foo',
+        redirect_uri: encodeURIComponent('https://foo/callback.html'),
+        scope: 'foo bar',
+    },
+});
+
 Sfdc.canvas.oauth.logout(); // $ExpectType void
 
 Sfdc.canvas.oauth.loggedin(); // $ExpectType boolean
