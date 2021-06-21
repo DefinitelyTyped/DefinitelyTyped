@@ -7,7 +7,7 @@ createCert('commonName').then((keys) => {
     const cert = keys.cert;
     // $ExpectType string
     const caCert = keys.caCert;
-})
+});
 
 createCert();
 
