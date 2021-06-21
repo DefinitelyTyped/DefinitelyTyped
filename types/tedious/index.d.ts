@@ -524,7 +524,7 @@ export class Request extends events.EventEmitter {
     resume():void;
 
     /**
-     * Sets request timeout. default is 1500ms
+     * Sets a timeout for this request. Default is 1500ms
      * @param timeout time in ms
      */
     setTimeout(timeout: number): void;
