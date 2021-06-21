@@ -1,11 +1,9 @@
 // Type definitions for mssql 6.0.0
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
-//                 Vitor Buzinaro <https://github.com/buzinas>
 //                 Matt Richardson <https://github.com/mrrichar>
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
 //                 Peter Keuter <https://github.com/pkeuter>
-//                 David Gasperoni <https://github.com/mcdado>
 //                 Jeff Wooden <https://github.com/woodenconsulting>
 //                 Cahil Foley <https://github.com/cahilfoley>
 //                 Rifa Achrinza <https://github.com/achrinza>
