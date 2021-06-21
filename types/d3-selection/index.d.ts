@@ -568,7 +568,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * Sets the text content to the specified value on all selected elements, replacing any existing child elements.
      * All elements are given the same text content.
      *
-     * @param value A value unction which is evaluated for each selected element, in order, being passed the current datum (d),
+     * @param value A value function which is evaluated for each selected element, in order, being passed the current datum (d),
      * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
      * The function’s return value is then used to set each element’s text content. A null value will clear the content.
      */
