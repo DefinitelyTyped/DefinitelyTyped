@@ -18,7 +18,7 @@ declare namespace Sfdc {
 
         interface Response<T> {
             readonly status: number;
-            readonly payload?: T;
+            readonly payload: T;
         }
 
         enum ApplicationOptions {
@@ -377,7 +377,7 @@ declare namespace Sfdc {
 
             function signedrequest(req?: SignedRequest): SignedRequest;
 
-            function refreshSignedRequest(cb: (data: Response<string>) => void): void;
+            function refreshSignedRequest(cb: (data: Response<{ response: string }>) => void): void;
 
             function repost(refresh?: boolean): void;
         }

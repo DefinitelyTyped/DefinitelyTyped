@@ -474,7 +474,7 @@ Sfdc.canvas.client.signedrequest({
 
 // $ExpectType void
 Sfdc.canvas.client.refreshSignedRequest(data => {
-    data; // $ExpectType Response<string>
+    data; // $ExpectType Response<{ response: string; }>
 });
 
 Sfdc.canvas.client.repost(); // $ExpectType void
