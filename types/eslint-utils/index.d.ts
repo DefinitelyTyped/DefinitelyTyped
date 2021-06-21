@@ -5,7 +5,9 @@
 
 import { AST, Scope, SourceCode } from 'eslint';
 import { VisitorKeys } from 'eslint-visitor-keys';
-import { Node, SourceLocation } from 'estree';
+import { Comment, Node, SourceLocation } from 'estree';
+
+type CommentOrToken = Comment | AST.Token;
 
 /**
  * Find the variable of a given name.
@@ -126,92 +128,157 @@ export function isParenthesized(node: Node, sourceCode: SourceCode): boolean;
 
 /**
  * Checks if the given token is an arrow token or not.
- * @param token The token to check.
+ * @param node The comment or token to check.
  * @returns `true` if the token is an arrow token.
  */
-export function isArrowToken(token: AST.Token): boolean;
+export function isArrowToken(node: CommentOrToken): node is AST.ArrowToken;
 
 /**
  * Checks if the given token is a comma token or not.
- * @param token The token to check.
+ * @param node The comment or token to check.
  * @returns `true` if the token is a comma token.
  */
-export function isCommaToken(token: AST.Token): boolean;
+export function isCommaToken(node: CommentOrToken): node is AST.CommaToken;
 
 /**
  * Checks if the given token is a semicolon token or not.
- * @param token The token to check.
+ * @param node The comment or token to check.
  * @returns `true` if the token is a semicolon token.
  */
-export function isSemicolonToken(token: AST.Token): boolean;
+export function isSemicolonToken(node: CommentOrToken): node is AST.SemicolonToken;
 
 /**
  * Checks if the given token is a colon token or not.
- * @param token The token to check.
+ * @param node The comment or token to check.
  * @returns `true` if the token is a colon token.
  */
-export function isColonToken(token: AST.Token): boolean;
+export function isColonToken(node: CommentOrToken): node is AST.ColonToken;
 
 /**
  * Checks if the given token is an opening parenthesis token or not.
- * @param token The token to check.
+ * @param node The comment or token to check.
  * @returns `true` if the token is an opening parenthesis token.
  */
-export function isOpeningParenToken(token: AST.Token): boolean;
+export function isOpeningParenToken(node: CommentOrToken): node is AST.OpeningParenToken;
 
 /**
  * Checks if the given token is a closing parenthesis token or not.
- * @param token The token to check.
+ * @param node The comment or token to check.
  * @returns `true` if the token is a closing parenthesis token.
  */
-export function isClosingParenToken(token: AST.Token): boolean;
+export function isClosingParenToken(node: CommentOrToken): node is AST.ClosingParenToken;
 
 /**
  * Checks if the given token is an opening square bracket token or not.
- * @param token The token to check.
+ * @param node The comment or token to check.
  * @returns `true` if the token is an opening square bracket token.
  */
-export function isOpeningBracketToken(token: AST.Token): boolean;
+export function isOpeningBracketToken(node: CommentOrToken): node is AST.OpeningBracketToken;
 
 /**
  * Checks if the given token is a closing square bracket token or not.
- * @param token The token to check.
+ * @param node The comment or token to check.
  * @returns `true` if the token is a closing square bracket token.
  */
-export function isClosingBracketToken(token: AST.Token): boolean;
+export function isClosingBracketToken(node: CommentOrToken): node is AST.ClosingBracketToken;
 
 /**
  * Checks if the given token is an opening brace token or not.
- * @param token The token to check.
+ * @param node The comment or token to check.
  * @returns `true` if the token is an opening brace token.
  */
-export function isOpeningBraceToken(token: AST.Token): boolean;
+export function isOpeningBraceToken(node: CommentOrToken): node is AST.OpeningBraceToken;
 
 /**
  * Checks if the given token is a closing brace token or not.
- * @param token The token to check.
+ * @param node The comment or token to check.
  * @returns `true` if the token is a closing brace token.
  */
-export function isClosingBraceToken(token: AST.Token): boolean;
+export function isClosingBraceToken(node: CommentOrToken): node is AST.ClosingBraceToken;
 
 /**
  * Checks if the given token is a comment token or not.
- * @param token The token to check.
+ * @param node The comment or token to check.
  * @returns `true` if the token is a comment token.
  */
-export function isCommentToken(token: AST.Token): boolean;
+export function isCommentToken(node: CommentOrToken): boolean;
 
-export const isNotArrowToken: typeof isArrowToken;
-export const isNotCommaToken: typeof isCommaToken;
-export const isNotSemicolonToken: typeof isSemicolonToken;
-export const isNotColonToken: typeof isColonToken;
-export const isNotOpeningParenToken: typeof isOpeningParenToken;
-export const isNotClosingParenToken: typeof isClosingParenToken;
-export const isNotOpeningBracketToken: typeof isOpeningBracketToken;
-export const isNotClosingBracketToken: typeof isClosingBracketToken;
-export const isNotOpeningBraceToken: typeof isOpeningBraceToken;
-export const isNotClosingBraceToken: typeof isClosingBraceToken;
-export const isNotCommentToken: typeof isCommentToken;
+/**
+ * Checks if the given token is an not arrow token.
+ * @param node The comment or token to check.
+ * @returns `true` if the token is not an arrow token.
+ */
+export function isNotArrowToken(node: CommentOrToken): boolean;
+
+/**
+ * Checks if the given token is not a comma token.
+ * @param node The comment or token to check.
+ * @returns `true` if the token not is a comma token.
+ */
+export function isNotCommaToken(node: CommentOrToken): boolean;
+
+/**
+ * Checks if the given token is not a semicolon token.
+ * @param node The comment or token to check.
+ * @returns `true` if the token not is a semicolon token.
+ */
+export function isNotSemicolonToken(node: CommentOrToken): boolean;
+
+/**
+ * Checks if the given token is not a colon token.
+ * @param node The comment or token to check.
+ * @returns `true` if the token not is a colon token.
+ */
+export function isNotColonToken(node: CommentOrToken): boolean;
+
+/**
+ * Checks if the given token is not an opening parenthesis token.
+ * @param node The comment or token to check.
+ * @returns `true` if the token not is an opening parenthesis token.
+ */
+export function isNotOpeningParenToken(node: CommentOrToken): boolean;
+
+/**
+ * Checks if the given token is not a closing parenthesis token.
+ * @param node The comment or token to check.
+ * @returns `true` if the token not is a closing parenthesis token.
+ */
+export function isNotClosingParenToken(node: CommentOrToken): boolean;
+
+/**
+ * Checks if the given token is not an opening square bracket token.
+ * @param node The comment or token to check.
+ * @returns `true` if the token not is an opening square bracket token.
+ */
+export function isNotOpeningBracketToken(node: CommentOrToken): boolean;
+
+/**
+ * Checks if the given token is not a closing square bracket token.
+ * @param node The comment or token to check.
+ * @returns `true` if the token not is a closing square bracket token.
+ */
+export function isNotClosingBracketToken(node: CommentOrToken): boolean;
+
+/**
+ * Checks if the given token is not an opening brace token.
+ * @param node The comment or token to check.
+ * @returns `true` if the token not is an opening brace token.
+ */
+export function isNotOpeningBraceToken(node: CommentOrToken): boolean;
+
+/**
+ * Checks if the given token is not a closing brace token.
+ * @param node The comment or token to check.
+ * @returns `true` if the token not is a closing brace token.
+ */
+export function isNotClosingBraceToken(node: CommentOrToken): boolean;
+
+/**
+ * Checks if the given token is not a comment token.
+ * @param node The comment or token to check.
+ * @returns `true` if the token is not a comment token.
+ */
+ export function isNotCommentToken(node: CommentOrToken): boolean;
 
 export * from './patternMatcher';
 export * from './referenceTracker';

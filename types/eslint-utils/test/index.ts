@@ -1,11 +1,11 @@
 import { AST, Scope, SourceCode } from 'eslint';
 import * as utils from 'eslint-utils';
-import { Node } from 'estree';
+import { Comment, Node } from 'estree';
 
+declare const commentOrToken: Comment | AST.Token;
 declare const node: Node;
 declare const scope: Scope.Scope;
 declare const sourceCode: SourceCode;
-declare const token: AST.Token;
 
 // $ExpectType Variable | null
 utils.findVariable(scope, 'name');
@@ -96,64 +96,64 @@ utils.isParenthesized(1, node, sourceCode);
 utils.isParenthesized(node, sourceCode);
 
 // $ExpectType boolean
-utils.isArrowToken(token);
+utils.isArrowToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isCommaToken(token);
+utils.isCommaToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isSemicolonToken(token);
+utils.isSemicolonToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isColonToken(token);
+utils.isColonToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isOpeningParenToken(token);
+utils.isOpeningParenToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isClosingParenToken(token);
+utils.isClosingParenToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isClosingBracketToken(token);
+utils.isClosingBracketToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isOpeningBraceToken(token);
+utils.isOpeningBraceToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isClosingBraceToken(token);
+utils.isClosingBraceToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isCommentToken(token);
+utils.isCommentToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isNotArrowToken(token);
+utils.isNotArrowToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isNotCommaToken(token);
+utils.isNotCommaToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isNotSemicolonToken(token);
+utils.isNotSemicolonToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isNotColonToken(token);
+utils.isNotColonToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isNotOpeningParenToken(token);
+utils.isNotOpeningParenToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isNotClosingParenToken(token);
+utils.isNotClosingParenToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isNotOpeningBracketToken(token);
+utils.isNotOpeningBracketToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isNotClosingBracketToken(token);
+utils.isNotClosingBracketToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isNotOpeningBraceToken(token);
+utils.isNotOpeningBraceToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isNotClosingBraceToken(token);
+utils.isNotClosingBraceToken(commentOrToken);
 
 // $ExpectType boolean
-utils.isNotCommentToken(token);
+utils.isNotCommentToken(commentOrToken);
