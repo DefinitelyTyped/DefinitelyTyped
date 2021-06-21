@@ -176,6 +176,7 @@ export interface Components<TEvent extends object = Event, TResource extends obj
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
     eventContainerWrapper?: React.ComponentType;
     dateCellWrapper?: React.ComponentType;
+    dayColumnWrapper?: React.ComponentType;
     timeSlotWrapper?: React.ComponentType;
     timeGutterHeader?: React.ComponentType;
     timeGutterWrapper?: React.ComponentType;
