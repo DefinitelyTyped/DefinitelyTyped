@@ -54,7 +54,7 @@ export function getPropertyName(node: Node, initialScope?: Scope.Scope): string 
 export type StaticValue = StaticValueProvided | StaticValueOptional;
 
 export interface StaticValueProvided {
-    value: any;
+    value: unknown;
 }
 
 export interface StaticValueOptional {
