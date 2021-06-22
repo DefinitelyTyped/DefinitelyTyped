@@ -148,6 +148,18 @@ async function run() {
     buildUpdateQuery({ $unset: { 'subInterfaceArray.$[bla]': 1 } });
     buildUpdateQuery({ $unset: { 'subInterfaceArray.$[]': 1 } });
 
+    const shouldUnset = true as boolean;
+    buildUpdateQuery({ $unset: { numberField: shouldUnset ? true : undefined } });
+    buildUpdateQuery({ $unset: { decimal128Field: shouldUnset ? true : undefined } });
+    buildUpdateQuery({ $unset: { doubleField: shouldUnset ? true : undefined } });
+    buildUpdateQuery({ $unset: { int32Field: shouldUnset ? true : undefined } });
+    buildUpdateQuery({ $unset: { longField: shouldUnset ? true : undefined } });
+    buildUpdateQuery({ $unset: { dateField: shouldUnset ? true : undefined } });
+    buildUpdateQuery({ $unset: { 'dot.notation': shouldUnset ? true : undefined } });
+    buildUpdateQuery({ $unset: { 'subInterfaceArray.$': shouldUnset ? true : undefined } });
+    buildUpdateQuery({ $unset: { 'subInterfaceArray.$[bla]': shouldUnset ? true : undefined } });
+    buildUpdateQuery({ $unset: { 'subInterfaceArray.$[]': shouldUnset ? true : undefined } });
+
     buildUpdateQuery({ $rename: { numberField2: 'stringField' } });
 
     buildUpdateQuery({ $addToSet: { fruitTags: 'stringField' } });

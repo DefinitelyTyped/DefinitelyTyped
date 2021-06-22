@@ -2698,7 +2698,7 @@ export type UpdateQuery<TSchema> = {
     $rename?: { [key: string]: string };
     $set?: MatchKeysAndValues<TSchema>;
     $setOnInsert?: MatchKeysAndValues<TSchema>;
-    $unset?: OnlyFieldsOfType<TSchema, any, "" | 1 | true>;
+    $unset?: OnlyFieldsOfType<TSchema, any, "" | 1 | true | undefined>;
 
     $addToSet?: SetFields<TSchema>;
     $pop?: OnlyFieldsOfType<TSchema, ReadonlyArray<any>, 1 | -1>;
