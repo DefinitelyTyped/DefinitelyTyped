@@ -34,31 +34,6 @@ export namespace AST {
         loc: SourceLocation;
     }
 
-    interface PunctuatorToken<Value extends string> extends Token {
-        type: 'Punctuator';
-        value: Value;
-    }
-
-    interface ArrowToken extends PunctuatorToken<'=>'> {}
-
-    interface CommaToken extends PunctuatorToken<','> {}
-
-    interface SemicolonToken extends PunctuatorToken<';'> {}
-
-    interface ColonToken extends PunctuatorToken<':'> {}
-
-    interface OpeningParenToken extends PunctuatorToken<'('> {}
-
-    interface ClosingParenToken extends PunctuatorToken<')'> {}
-
-    interface OpeningBracketToken extends PunctuatorToken<'['> {}
-
-    interface ClosingBracketToken extends PunctuatorToken<']'> {}
-
-    interface OpeningBraceToken extends PunctuatorToken<'{'> {}
-
-    interface ClosingBraceToken extends PunctuatorToken<'}'> {}
-
     interface SourceLocation {
         start: ESTree.Position;
         end: ESTree.Position;

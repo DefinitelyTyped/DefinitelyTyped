@@ -126,75 +126,100 @@ export function isParenthesized(times: number, node: Node, sourceCode: SourceCod
  */
 export function isParenthesized(node: Node, sourceCode: SourceCode): boolean;
 
+export interface PunctuatorToken<Value extends string> extends AST.Token {
+    type: 'Punctuator';
+    value: Value;
+}
+
+export interface ArrowToken extends PunctuatorToken<'=>'> {}
+
+export interface CommaToken extends PunctuatorToken<','> {}
+
+export interface SemicolonToken extends PunctuatorToken<';'> {}
+
+export interface ColonToken extends PunctuatorToken<':'> {}
+
+export interface OpeningParenToken extends PunctuatorToken<'('> {}
+
+export interface ClosingParenToken extends PunctuatorToken<')'> {}
+
+export interface OpeningBracketToken extends PunctuatorToken<'['> {}
+
+export interface ClosingBracketToken extends PunctuatorToken<']'> {}
+
+export interface OpeningBraceToken extends PunctuatorToken<'{'> {}
+
+export interface ClosingBraceToken extends PunctuatorToken<'}'> {}
+
 /**
  * Checks if the given token is an arrow token or not.
  * @param node The comment or token to check.
  * @returns `true` if the token is an arrow token.
  */
-export function isArrowToken(node: CommentOrToken): node is AST.ArrowToken;
+export function isArrowToken(node: CommentOrToken): node is ArrowToken;
 
 /**
  * Checks if the given token is a comma token or not.
  * @param node The comment or token to check.
  * @returns `true` if the token is a comma token.
  */
-export function isCommaToken(node: CommentOrToken): node is AST.CommaToken;
+export function isCommaToken(node: CommentOrToken): node is CommaToken;
 
 /**
  * Checks if the given token is a semicolon token or not.
  * @param node The comment or token to check.
  * @returns `true` if the token is a semicolon token.
  */
-export function isSemicolonToken(node: CommentOrToken): node is AST.SemicolonToken;
+export function isSemicolonToken(node: CommentOrToken): node is SemicolonToken;
 
 /**
  * Checks if the given token is a colon token or not.
  * @param node The comment or token to check.
  * @returns `true` if the token is a colon token.
  */
-export function isColonToken(node: CommentOrToken): node is AST.ColonToken;
+export function isColonToken(node: CommentOrToken): node is ColonToken;
 
 /**
  * Checks if the given token is an opening parenthesis token or not.
  * @param node The comment or token to check.
  * @returns `true` if the token is an opening parenthesis token.
  */
-export function isOpeningParenToken(node: CommentOrToken): node is AST.OpeningParenToken;
+export function isOpeningParenToken(node: CommentOrToken): node is OpeningParenToken;
 
 /**
  * Checks if the given token is a closing parenthesis token or not.
  * @param node The comment or token to check.
  * @returns `true` if the token is a closing parenthesis token.
  */
-export function isClosingParenToken(node: CommentOrToken): node is AST.ClosingParenToken;
+export function isClosingParenToken(node: CommentOrToken): node is ClosingParenToken;
 
 /**
  * Checks if the given token is an opening square bracket token or not.
  * @param node The comment or token to check.
  * @returns `true` if the token is an opening square bracket token.
  */
-export function isOpeningBracketToken(node: CommentOrToken): node is AST.OpeningBracketToken;
+export function isOpeningBracketToken(node: CommentOrToken): node is OpeningBracketToken;
 
 /**
  * Checks if the given token is a closing square bracket token or not.
  * @param node The comment or token to check.
  * @returns `true` if the token is a closing square bracket token.
  */
-export function isClosingBracketToken(node: CommentOrToken): node is AST.ClosingBracketToken;
+export function isClosingBracketToken(node: CommentOrToken): node is ClosingBracketToken;
 
 /**
  * Checks if the given token is an opening brace token or not.
  * @param node The comment or token to check.
  * @returns `true` if the token is an opening brace token.
  */
-export function isOpeningBraceToken(node: CommentOrToken): node is AST.OpeningBraceToken;
+export function isOpeningBraceToken(node: CommentOrToken): node is OpeningBraceToken;
 
 /**
  * Checks if the given token is a closing brace token or not.
  * @param node The comment or token to check.
  * @returns `true` if the token is a closing brace token.
  */
-export function isClosingBraceToken(node: CommentOrToken): node is AST.ClosingBraceToken;
+export function isClosingBraceToken(node: CommentOrToken): node is ClosingBraceToken;
 
 /**
  * Checks if the given token is a comment token or not.
