@@ -201,7 +201,7 @@ export function isClosingBraceToken(node: CommentOrToken): node is AST.ClosingBr
  * @param node The comment or token to check.
  * @returns `true` if the token is a comment token.
  */
-export function isCommentToken(node: CommentOrToken): boolean;
+export function isCommentToken(node: CommentOrToken): node is Comment;
 
 /**
  * Checks if the given token is an not arrow token.
