@@ -1,4 +1,4 @@
-const key = 'supersecretkeyyoushouldnotcommit';
+const key = '7ed049e344f73f399ba1f7868cf9494f4b13347ecce02a8e463feb32507b73a5';
 import Branca = require('branca');
 
 /*
