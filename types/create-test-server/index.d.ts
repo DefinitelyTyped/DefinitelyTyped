@@ -28,8 +28,8 @@ declare namespace createTestServer {
         certificate?: string | CreateCertOptions;
         /**
          * Body parser options object to be passed to `body-parser` methods.
-
-           If set to `false` then all body parsing middleware will be disabled.
+         *
+         * If set to `false` then all body parsing middleware will be disabled.
          */
         bodyParser?: false | OptionsJson & OptionsText & OptionsUrlencoded;
     }
@@ -84,14 +84,15 @@ declare namespace createTestServer {
          *
          * Once the servers are listening, `server.url` and `server.sslUrl` will be updated.
          *
-         * Please note, this function doesn't take a port argument, it uses a new randomised port each time. Also, you don't need to manually call this after creating a server, it will start listening automatically.
+         * Please note, this function doesn't take a port argument, it uses a new randomised port each time.
+         * Also, you don't need to manually call this after creating a server, it will start listening automatically.
          */
-        listen: () => Promise<void>
+        listen: () => Promise<void>;
         /**
          * Returns a Promise that resolves when both the HTTP and HTTPS servers have stopped listening.
          *
          * Once the servers have stopped listening, `server.url` and `server.sslUrl` will be set to undefined.
          */
-        close: () => Promise<void>
+        close: () => Promise<void>;
     }
 }

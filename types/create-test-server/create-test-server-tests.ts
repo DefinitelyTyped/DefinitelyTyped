@@ -1,15 +1,15 @@
 import createTestServer = require('create-test-server');
 
 const server = createTestServer().then((server) => {
-    // $ExpectType string
+    // $ExpectType string | undefined
     server.url;
-    // $ExpectType string
+    // $ExpectType string | undefined
     server.sslUrl;
     // $ExpectType string
     server.caCert;
-    // $ExpectType number
+    // $ExpectType number | undefined
     server.port;
-    // $ExpectType number
+    // $ExpectType number | undefined
     server.sslPort;
 
     // This is just an Express route
@@ -29,6 +29,6 @@ server.then((s) => {
     s.listen().then(() => {
         s.close();
     });
-})
+});
 
-createTestServer({certificate: 'example.com', bodyParser: false})
+createTestServer({certificate: 'example.com', bodyParser: false});
