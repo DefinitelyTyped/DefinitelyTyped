@@ -11,7 +11,7 @@ export type Detail = 'month' | 'year' | 'decade' | 'century';
 export type DateCallback = (value: Date, event: MouseEvent<HTMLButtonElement>) => void;
 export type ClickWeekNumberCallback = (weekNumber: number, date: Date, event: MouseEvent<HTMLButtonElement>) => void;
 export type OnChangeDateCallback = (value: Date, event: ChangeEvent<HTMLInputElement>) => void;
-export type OnChangeDateRangeCallback = (values: Date[], event: ChangeEvent<HTMLInputElement>) => void;
+export type OnChangeDateRangeCallback = (values: [Date] | [Date, Date], event: ChangeEvent<HTMLInputElement>) => void;
 export type FormatterCallback = (locale: string, date: Date) => string;
 export type ViewCallback = (props: ViewCallbackProperties) => void;
 export type DrillCallback = (props: DrillCallbackProperties) => void;
