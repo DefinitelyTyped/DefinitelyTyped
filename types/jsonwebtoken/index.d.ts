@@ -238,5 +238,6 @@ export function verify(
  * [options] - Options for decoding
  * returns - The decoded Token
  */
-export function decode(token: string, options: DecodeOptions & { json: true } | DecodeOptions & { complete: true }): null | Jwt;
+export function decode(token: string, options: DecodeOptions & { complete: true }): null | Jwt;
+export function decode(token: string, options: DecodeOptions & { json: true }): null | JwtPayload;
 export function decode(token: string, options?: DecodeOptions): null | JwtPayload | string;
