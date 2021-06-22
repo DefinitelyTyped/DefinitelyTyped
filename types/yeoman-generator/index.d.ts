@@ -1,4 +1,4 @@
-// Type definitions for yeoman-generator 5.0
+// Type definitions for yeoman-generator 5.3.0
 // Project: https://github.com/yeoman/generator, http://yeoman.io
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
@@ -228,6 +228,21 @@ declare namespace Generator {
     }
 
     /**
+     * Represents generators feature
+     */
+    interface GeneratorFeatures {
+        /**
+         * Enable customCommitTask()
+         */
+        customCommitTask?: boolean;
+
+        /**
+         * Enable customInstallTask()
+         */
+        customInstallTask?: boolean;
+    }
+
+    /**
      * Provides options for queues.
      */
     interface QueueOptions {
@@ -310,7 +325,7 @@ declare namespace Generator {
  * Every generator should extend this base class.
  */
 declare class Generator<T extends Generator.GeneratorOptions = Generator.GeneratorOptions> extends EventEmitter {
-    constructor(args: string | string[], options: T);
+    constructor(args: string | string[], options: T, features?: Generator.GeneratorFeatures);
 
     /**
      * The current Environment being run.
