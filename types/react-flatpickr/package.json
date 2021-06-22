@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "flatpickr": "^4.0.6"
+    }
+}

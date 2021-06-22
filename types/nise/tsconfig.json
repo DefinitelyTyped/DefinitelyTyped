@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "noEmit": true,
+        "types": [],
+        "lib": ["es6", "dom"],
+        "baseUrl": "../",
+        "typeRoots": ["../"]
+    },
+
+    "files": [
+        "nise-tests.ts",
+        "index.d.ts"
+    ]
+}

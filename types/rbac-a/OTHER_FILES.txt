@@ -1,0 +1,3 @@
+lib/attributes-manager.d.ts
+lib/provider.d.ts
+lib/rbac.d.ts

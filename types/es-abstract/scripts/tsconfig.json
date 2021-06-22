@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ESNext",
+        "lib": ["ESNext"],
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
+        "types": [],
+        "strict": true,
+        "noEmit": true,
+        "useDefineForClassFields": true,
+        "importsNotUsedAsValues": "error",
+        "forceConsistentCasingInFileNames": true
+    },
+    "include": [
+        "*.ts"
+    ]
+}

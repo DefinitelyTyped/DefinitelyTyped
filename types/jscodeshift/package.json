@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "ast-types": "^0.14.1",
+        "recast": "^0.20.3"
+    }
+}

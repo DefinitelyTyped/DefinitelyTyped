@@ -1,0 +1,30 @@
+export interface EventDispatcherEvents {
+    touchstart?: string | null;
+    touchmove?: string | null;
+    touchend?: string | null;
+    touchcancel?: string | null;
+    keydown?: string | null;
+    keyup?: string | null;
+    keypress?: string | null;
+    mousedown?: string | null;
+    mouseup?: string | null;
+    contextmenu?: string | null;
+    click?: string | null;
+    dblclick?: string | null;
+    mousemove?: string | null;
+    focusin?: string | null;
+    focusout?: string | null;
+    mouseenter?: string | null;
+    mouseleave?: string | null;
+    submit?: string | null;
+    input?: string | null;
+    change?: string | null;
+    dragstart?: string | null;
+    drag?: string | null;
+    dragenter?: string | null;
+    dragleave?: string | null;
+    dragover?: string | null;
+    drop?: string | null;
+    dragend?: string | null;
+    [event: string]: string | null | undefined;
+}

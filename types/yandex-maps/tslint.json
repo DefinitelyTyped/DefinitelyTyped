@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "comment-format": false,
+        "export-just-namespace": false,
+        "interface-name": false,
+        "no-any-union": false,
+        "no-unnecessary-class": false
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "no-internal-module": false,
+        "no-var-keyword": false
+    }
+}

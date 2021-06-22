@@ -1,0 +1,29 @@
+name: CI
+on: pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      # Get local dependencies
+      - run: npm install
+
+      # Run tests
+      - run: npm run test-all
+
+      - name: "Run Danger"
+        env:
+          # See https://github.com/danger/danger-js/issues/1042
+          DANGER_GITHUB_API_BASE_URL: "https://api.github.com"
+
+        # Danger failing (for example through rate-limiting) shouldn't fail the build
+        run: |
+          TOKEN='7469b4e94ce21b43e3ab7a'
+          TOKEN+='79960c12a1e067f2ec'
+          DANGER_GITHUB_API_TOKEN=$TOKEN yarn danger ci || $( exit 0 )

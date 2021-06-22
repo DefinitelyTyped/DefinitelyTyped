@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "protobufjs": "^6.8.8"
+    }
+}

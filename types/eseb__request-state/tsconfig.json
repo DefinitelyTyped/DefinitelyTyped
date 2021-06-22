@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["es6"],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "paths": {
+            "@eseb/*": ["eseb__*"]
+        },
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "typeRoots": ["../"],
+        "types": []
+    },
+    "files": [
+        "eseb__request-state-tests.ts",
+        "index.d.ts"
+    ]
+}

@@ -1,0 +1,2 @@
+versions/1.0.0/schema.json.d.ts
+versions/2.0.0/schema.json.d.ts

@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-consecutive-blank-lines": false,
+        "no-object-literal-type-assertion": false,
+        "trim-file": false,
+        "typedef-whitespace": false,
+        "whitespace": false
+    }
+}

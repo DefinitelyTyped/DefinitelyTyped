@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "esModuleInterop": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/pdfmake-interfaces-tests.ts",
+        "test/pdfmake-playground-examples-tests.ts",
+        "test/pdfmake-examples-tests.ts",
+        "test/pdfmake-global-tests.ts",
+        "test/pdfmake-import-default-tests.ts",
+        "test/pdfmake-module-browser-tests.ts",
+        "test/pdfmake-module-server-tests.ts"
+    ]
+}

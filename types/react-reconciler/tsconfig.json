@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/ReactFiberHostConfigWithNoHydration.ts",
+        "test/ReactFiberHostConfigWithNoPersistence.ts",
+        "test/ReactFiberHostConfigWithNoTestSelectors.ts",
+        "test/ReactTestHostConfig.ts",
+        "test/ReactTypes.ts",
+        "test/react-reconciler-tests.ts"
+    ]
+}

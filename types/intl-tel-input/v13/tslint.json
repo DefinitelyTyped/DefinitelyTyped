@@ -1,0 +1,15 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "no-const-enum": false,
+        "no-padding": false,
+        "no-unnecessary-qualifier": false,
+        "object-literal-shorthand": false,
+        "only-arrow-functions": false,
+        "prefer-const": false,
+        "space-before-function-paren": false,
+        "unified-signatures": false,
+        "whitespace": false
+    }
+}
