@@ -2,6 +2,7 @@
 // Project: https://github.com/mailjet/mailjet-apiv3-nodejs
 // Definitions by: Nikola Andreev <https://github.com/Nikola-Andreev>
 //                Jordan Garvey <https://github.com/jordangarvey>
+//                 Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
