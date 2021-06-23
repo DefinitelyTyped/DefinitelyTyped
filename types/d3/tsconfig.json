@@ -40,6 +40,9 @@
             ],
             "d3-drag": [
                 "d3-drag/v2"
+            ],
+            "d3-dsv": [
+                "d3-dsv/v2"
             ]
         },
         "types": [],
