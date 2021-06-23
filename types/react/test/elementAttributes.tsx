@@ -35,6 +35,7 @@ const testCases = [
     <div role="dialog" />,
     <div role="none presentation" />,
     <svg role="treeitem" />,
+    <a target="_blank"></a>,
     // $ExpectError
     <input enterKeyHint="don" />,
     <video disableRemotePlayback />
