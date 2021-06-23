@@ -221,10 +221,10 @@ export class Client {
      * Sends a key event having the given properties as if the user
      * pressed or released a key.
      *
-     * @param pressed Whether the key is pressed (true) or released (false).
+     * @param pressed Whether the key is pressed (1) or released (0).
      * @param keysym The keysym of the key being pressed or released.
      */
-    sendKeyEvent(pressed: boolean, keysym: number): void;
+    sendKeyEvent(pressed: 0 | 1, keysym: number): void;
 
     /**
      * Sends a mouse event having the properties provided by the given mouse state.
