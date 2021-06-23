@@ -8,7 +8,6 @@
 
 import * as d3Color from 'd3-color';
 import * as d3Interpolate from 'd3-interpolate';
-import * as d3Hsv from 'd3-hsv';
 
 // Preparatory steps -------------------------------------------------------------------
 
@@ -80,7 +79,6 @@ iBoolean = d3Interpolate.interpolate("10", true);
 
 // color interpolator returning a color string
 iString = d3Interpolate.interpolate('seagreen', d3Color.rgb(100, 100, 100));
-iString = d3Interpolate.interpolate('seagreen', d3Hsv.hsv(60, 1, 0.2, 0.4));
 iString = d3Interpolate.interpolate('seagreen', 'steelblue'); // as used with valid color name string
 
 // date interpolator
@@ -208,7 +206,6 @@ arrStr = d3Interpolate.quantize<string>(d3Interpolate.interpolateRound(-1, 2), 4
 // without gamma correction
 iString = d3Interpolate.interpolateRgb('seagreen', 'steelblue');
 iString = d3Interpolate.interpolateRgb(d3Color.rgb('seagreen'), d3Color.hcl('steelblue'));
-iString = d3Interpolate.interpolateRgb(d3Color.rgb('seagreen'), d3Hsv.hsv('steelblue'));
 str = iString(0.5);
 
 // with gamma correction
@@ -217,41 +214,33 @@ iString = d3Interpolate.interpolateRgb.gamma(2.2)('purple', 'orange');
 // test interpolateRgbBasis(color) and  interpolateRgbBasisClosed(color) signatures ----
 
 iString = d3Interpolate.interpolateRgbBasis(['seagreen', d3Color.rgb('steelblue'), 'rgb(100, 100, 100)']);
-iString = d3Interpolate.interpolateRgbBasis(['seagreen', d3Hsv.hsv('steelblue'), 'rgb(100, 100, 100)']);
-iString = d3Interpolate.interpolateRgbBasisClosed(['seagreen', d3Hsv.hsv('steelblue'), 'rgb(100, 100, 100)']);
 
 // test interpolateHsl(a, b) and interpolateHslLong(a, b)-------------------------------
 
 iString = d3Interpolate.interpolateHsl('seagreen', 'steelblue');
 iString = d3Interpolate.interpolateHsl(d3Color.rgb('seagreen'), d3Color.hcl('steelblue'));
-iString = d3Interpolate.interpolateHsl(d3Color.rgb('seagreen'), d3Hsv.hsv('steelblue'));
 
 iString = d3Interpolate.interpolateHslLong('seagreen', 'steelblue');
 iString = d3Interpolate.interpolateHslLong(d3Color.rgb('seagreen'), d3Color.hcl('steelblue'));
-iString = d3Interpolate.interpolateHslLong(d3Color.rgb('seagreen'), d3Hsv.hsv('steelblue'));
 
 // test interpolateLab(a, b) -----------------------------------------------------------
 
 iString = d3Interpolate.interpolateLab('seagreen', 'steelblue');
 iString = d3Interpolate.interpolateLab(d3Color.rgb('seagreen'), d3Color.hcl('steelblue'));
-iString = d3Interpolate.interpolateLab(d3Color.rgb('seagreen'), d3Hsv.hsv('steelblue'));
 
 // test interpolateHcl(a, b) and interpolateHclLong(a, b) ------------------------------
 
 iString = d3Interpolate.interpolateHcl('seagreen', 'steelblue');
 iString = d3Interpolate.interpolateHcl(d3Color.rgb('seagreen'), d3Color.hcl('steelblue'));
-iString = d3Interpolate.interpolateHcl(d3Color.rgb('seagreen'), d3Hsv.hsv('steelblue'));
 
 iString = d3Interpolate.interpolateHclLong('seagreen', 'steelblue');
 iString = d3Interpolate.interpolateHclLong(d3Color.rgb('seagreen'), d3Color.hcl('steelblue'));
-iString = d3Interpolate.interpolateHclLong(d3Color.rgb('seagreen'), d3Hsv.hsv('steelblue'));
 
 // test interpolateCubehelix(a, b) and interpolateCubehelixLong(a, b) ------------------
 
 // without gamma correction
 iString = d3Interpolate.interpolateCubehelix('seagreen', 'steelblue');
 iString = d3Interpolate.interpolateCubehelix(d3Color.rgb('seagreen'), d3Color.hcl('steelblue'));
-iString = d3Interpolate.interpolateCubehelix(d3Color.rgb('seagreen'), d3Hsv.hsv('steelblue'));
 str = iString(0.5);
 
 // with gamma correction
@@ -260,7 +249,6 @@ iString = d3Interpolate.interpolateCubehelix.gamma(2.2)('purple', 'orange');
 // without gamma correction
 iString = d3Interpolate.interpolateCubehelixLong('seagreen', 'steelblue');
 iString = d3Interpolate.interpolateCubehelixLong(d3Color.rgb('seagreen'), d3Color.hcl('steelblue'));
-iString = d3Interpolate.interpolateCubehelixLong(d3Color.rgb('seagreen'), d3Hsv.hsv('steelblue'));
 str = iString(0.5);
 
 // with gamma correction
