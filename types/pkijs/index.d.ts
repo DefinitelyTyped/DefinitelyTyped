@@ -186,7 +186,7 @@ declare module "pkijs/src/Accuracy" {
 }
 
 declare module "pkijs/src/AccessDescription" {
-    import GeneralName from "pkijs/src/AccessDescription";
+    import GeneralName from "pkijs/src/GeneralName";
     /**
      * Class from RFC5280
      *
@@ -208,7 +208,7 @@ declare module "pkijs/src/AccessDescription" {
 }
 
 declare module "pkijs/src/AuthorityKeyIdentifier" {
-    import GeneralName from "pkijs/src/AccessDescription";
+    import GeneralName from "pkijs/src/GeneralName";
     import { Integer, OctetString } from "asn1js";
 
     export default class AuthorityKeyIdentifier {
@@ -309,7 +309,7 @@ declare module "pkijs/src/CertID" {
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
     import Certificate from "pkijs/src/Certificate";
 
-    interface CreateFroCertificateParams {
+    interface CreateForCertificateParams {
         hashAlgorithm: string;
         issuerCertificate: Certificate;
     }
@@ -334,10 +334,10 @@ declare module "pkijs/src/CertID" {
         /**
          * Making OCSP certificate identifier for specific certificate
          * @param {Certificate} certificate Certificate making OCSP Request for
-         * @param {CreateFroCertificateParams} parameters Additional parameters
+         * @param {CreateForCertificateParams} parameters Additional parameters
          * @returns {Promise}
          */
-        createForCertificate(certificate: Certificate, parameters: CreateFroCertificateParams): PromiseLike<void>;
+        createForCertificate(certificate: Certificate, parameters: CreateForCertificateParams): PromiseLike<void>;
 
         constructor(params?: any);
 
@@ -1297,6 +1297,8 @@ declare module "pkijs/src/NameConstraints" {
 declare module "pkijs/src/OCSPRequest" {
     import TBSRequest from "pkijs/src/TBSRequest";
     import Signature from "pkijs/src/Signature";
+    import Certificate from "pkijs/src/Certificate";
+    import { CreateForCertificateParams } from "pkijs/src/CertID";
 
     export default class OCSPRequest {
         tbsRequest: TBSRequest;
@@ -1321,6 +1323,20 @@ declare module "pkijs/src/OCSPRequest" {
         static schema(parameters?: any): any;
         fromSchema(schema: any): void;
         toJSON(): any;
+        /**
+         * Making OCSP Request for specific certificate
+         * @param {Certificate} certificate Certificate making OCSP Request for
+         * @param {CreateForCertificateParams} parameters Additional parameters
+         * @returns {Promise}
+         */
+        createForCertificate(certificate: Certificate, parameters: CreateForCertificateParams): PromiseLike<void>;
+         /**
+          * Make signature for current OCSP Request
+          * @param {*} privateKey Private key for "subjectPublicKeyInfo" structure
+          * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
+          * @returns {Promise}
+          */
+        sign(privateKey: any, hashAlgorithm?: string): PromiseLike<any>;
     }
 }
 
@@ -1329,7 +1345,6 @@ declare module "pkijs/src/OCSPResponse" {
     import ResponseBytes from "pkijs/src/ResponseBytes";
     import Certificate from "pkijs/src/Certificate";
     import { GetCertificateStatusResult } from "pkijs/src/BasicOCSPResponse";
-    import { CreateFroCertificateParams } from "pkijs/src/CertID";
 
     export default class OCSPResponse {
         responseStatus: Enumerated;
@@ -1347,13 +1362,6 @@ declare module "pkijs/src/OCSPResponse" {
          * @returns {*}
          */
         getCertificateStatus(certificate: Certificate, issuerCertificate: Certificate): PromiseLike<GetCertificateStatusResult>;
-        /**
-         * Making OCSP Request for specific certificate
-         * @param {Certificate} certificate Certificate making OCSP Request for
-         * @param {CreateFroCertificateParams} parameters Additional parameters
-         * @returns {Promise}
-         */
-        createForCertificate(certificate: Certificate, parameters: CreateFroCertificateParams): PromiseLike<void>;
 
         constructor(params?: any);
 
@@ -1362,6 +1370,19 @@ declare module "pkijs/src/OCSPResponse" {
         fromSchema(schema: any): void;
         toSchema(): any;
         toJSON(): any;
+        /**
+         * Make a signature for current OCSP Response
+         * @param {*} privateKey Private key for "subjectPublicKeyInfo" structure
+         * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
+         * @returns {Promise}
+         */
+        sign(privateKey: any, hashAlgorithm?: string): PromiseLike<any>;
+        /**
+         * Verify current OCSP Response
+         * @param {Certificate | null} issuerCertificate In order to decrease size of resp issuer cert could be ommited. In such case you need manually provide it.
+         * @returns {Promise}
+         */
+        verify(issuerCertificate?: Certificate): PromiseLike<any>;
     }
 }
 

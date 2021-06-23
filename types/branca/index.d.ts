@@ -1,4 +1,4 @@
-// Type definitions for branca 0.3
+// Type definitions for branca 0.4
 // Project: https://github.com/tuupola/branca-js
 // Definitions by: Brett Cocking <https://github.com/BrettIRL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,11 +8,11 @@
 export = branca;
 
 declare class Branca {
-    constructor(key: string);
+    constructor(key: string | Buffer);
 
     encode(message: string, timestamp?: number): string;
     decode(token: string, ttl?: number): Buffer;
     timestamp(token: string): number;
 }
 
-declare function branca(key: string): Branca;
+declare function branca(key: string | Buffer): Branca;

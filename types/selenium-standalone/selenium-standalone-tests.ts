@@ -1,5 +1,5 @@
 "use strict";
-import { install, start, ChildProcess, FsPaths, InstallOpts, StartOpts } from "selenium-standalone";
+import { install, start, FsPaths, InstallOpts, StartOpts } from "selenium-standalone";
 
 // InstallOpts interface
 let installOpts: InstallOpts = {
@@ -21,7 +21,6 @@ let installOpts: InstallOpts = {
     progressCb: (totalLength: number, progressLength: number, chunkLength: number) => {},
     logger: (message: string) => {},
     requestOpts: "requestOpts",
-    cb: (error: Error) => {},
 };
 
 const installOptsCompact: InstallOpts = {
@@ -62,10 +61,8 @@ let startOpts: StartOpts = {
     seleniumArgs: ["bla", "foo"],
     javaArgs: ["bla", "foo"],
     spawnOptions: {},
-    spawnCb: (selenium?: ChildProcess) => {},
     javaPath: "javaPath",
     requestOpts: "requestOpts",
-    cb: (error: Error, child: ChildProcess) => {},
 };
 startOpts = {};
 
@@ -105,11 +102,13 @@ let fsPaths: FsPaths = {
 fsPaths = {};
 
 // start method
-start(startOpts, (error: Error | null, selenium: ChildProcess) => {});
-start(installOptsCompact, (error: Error | null, selenium: ChildProcess) => {});
-start((error: Error | null, selenium: ChildProcess) => {});
+start(startOpts).then((cp) => {
+    cp.kill();
+});
+start(installOptsCompact);
+start();
 
 // install method
-install(installOpts, (error: Error | undefined, fsPaths: FsPaths) => {});
-install(installOptsCompact, (error: Error | undefined, fsPaths: FsPaths) => {});
-install((error: Error | undefined, fsPaths: FsPaths) => {});
+install(installOpts).then(() => {});
+install(installOptsCompact);
+install();

@@ -1,6 +1,7 @@
-// Type definitions for selenium-standalone 6.15
+// Type definitions for selenium-standalone 7.0
 // Project: https://github.com/vvo/selenium-standalone
 // Definitions by: Sander de Waal <https://github.com/SanderDeWaal1992>
+//                 Mykola Grybyk <https://github.com/mgrybyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -9,13 +10,9 @@ import * as http from "http";
 import { URL } from "url";
 import { ChildProcess, SpawnOptions } from "child_process";
 
-export function install(cb: (error: Error | undefined, fsPaths: FsPaths) => void): void;
-export function install(opts: InstallOpts, cb: (error: Error | undefined, fsPaths: FsPaths) => void): void;
-export function install(optsCb: InstallOpts | ((error: Error | undefined, fsPaths: FsPaths) => void), cb?: (error: Error | undefined, fsPaths: FsPaths) => void): void;
+export function install(opts?: InstallOpts): Promise<void>;
 
-export function start(cb: (error: Error | null, selenium: ChildProcess) => void): void;
-export function start(opts: StartOpts, cb: (error: Error | null, selenium: ChildProcess) => void): void;
-export function start(optsCb: StartOpts | ((error: Error | null, selenium: ChildProcess) => void), cb?: (error: Error | null, selenium: ChildProcess) => void): void;
+export function start(opts?: StartOpts): Promise<ChildProcess>;
 
 export interface InstallOpts {
     baseURL?: string;
@@ -27,7 +24,6 @@ export interface InstallOpts {
     progressCb?: (totalLength: number, progressLength: number, chunkLength: number) => void;
     logger?: (message: string) => void;
     requestOpts?: http.RequestOptions | string | URL;
-    cb?: (error: Error) => void;
 }
 
 export interface StartOpts {
@@ -39,10 +35,8 @@ export interface StartOpts {
     seleniumArgs?: string[];
     javaArgs?: string[];
     spawnOptions?: SpawnOptions;
-    spawnCb?: (selenium?: ChildProcess) => void;
     javaPath?: string;
     requestOpts?: http.RequestOptions | string | URL;
-    cb?: (error: Error, child: ChildProcess) => void;
 }
 
 export interface DriverOptions {

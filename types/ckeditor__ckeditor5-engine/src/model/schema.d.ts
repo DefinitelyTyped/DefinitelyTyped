@@ -17,7 +17,7 @@ export default class Schema implements Emitter, Observable {
     addChildCheck(callback: (context: SchemaContext, item: SchemaCompiledItemDefinition) => boolean): void;
     checkAttribute(context: SchemaContextDefinition, attributeName: string): boolean;
     checkAttributeInSelection(selection: Selection | DocumentSelection, attribute: string): boolean;
-    checkChild(context: SchemaContextDefinition, def: Node | string): void;
+    checkChild(context: SchemaContextDefinition, def: Node | string): boolean;
     checkMerge(positionOrBaseElement: Position | Element, elementToMerge: Element): boolean;
     createContext(context: SchemaContextDefinition): SchemaContext;
     extend(itemName: string, definition: SchemaItemDefinition): void;
@@ -71,6 +71,7 @@ export default class Schema implements Emitter, Observable {
 export interface SchemaItemDefinition {
     allowAttributes?: string | string[];
     allowAttributesOf?: string | string[];
+    allowChildren?: string|string[];
     allowContentOf?: string | string[];
     allowIn?: string | string[];
     allowWhere?: string | string[];

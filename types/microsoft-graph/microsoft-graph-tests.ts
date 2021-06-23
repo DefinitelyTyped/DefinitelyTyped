@@ -163,3 +163,9 @@ const authorizationPolicy: MicrosoftGraph.AuthorizationPolicy = {
 };
 
 const deviceEnrollmentType: MicrosoftGraph.DeviceEnrollmentType = "windowsCoManagement";
+
+const applicationStatus: MicrosoftGraph.Application = {
+    disabledByMicrosoftStatus: "TEST_VAL"
+};
+
+const bodyType: MicrosoftGraph.BodyType = "text";

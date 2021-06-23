@@ -10,6 +10,10 @@ indy.openBlobStorageReader("default", {
 
 const walletConfig: indy.WalletConfig = { id: "wallet" };
 const walletCredentials: indy.WalletCredentials = { key: "key" };
+const importExportConfig: indy.WalletExportImportConfig = {
+    key: 'export_key',
+    path: 'some-path',
+};
 const credDef: indy.CredDef = {
     id: "id",
     schemaId: "schemaId",
@@ -131,6 +135,8 @@ const ledgerReadReply: indy.LedgerReadReplyResponse = {
 
 indy.createWallet(walletConfig, walletCredentials);
 indy.openWallet(walletConfig, walletCredentials);
+indy.exportWallet(10, importExportConfig);
+indy.importWallet(walletConfig, walletCredentials, importExportConfig);
 indy.createKey(1, { seed: "seed" });
 indy.cryptoSign(1, "verkey", Buffer.from("message"));
 indy.cryptoVerify("verkey", Buffer.from("message"), Buffer.from("signature"));

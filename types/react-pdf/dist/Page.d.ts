@@ -91,6 +91,11 @@ export interface Props {
     noData?: string | React.ReactElement | RenderFunction;
 
     /**
+     * Function called when page has been clicked.
+     */
+    onClick?: (event: React.MouseEvent, page: PDFPageProxy) => void;
+
+    /**
      * Function called in case of an error while loading the page.
      */
     onLoadError?: (error: Error) => void;

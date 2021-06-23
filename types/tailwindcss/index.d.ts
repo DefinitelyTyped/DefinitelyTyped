@@ -1,4 +1,4 @@
-// Type definitions for tailwindcss 2.0
+// Type definitions for tailwindcss 2.2
 // Project: https://github.com/tailwindlabs/tailwindcss
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

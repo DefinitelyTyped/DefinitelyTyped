@@ -116,6 +116,13 @@ interface RetrieveResult {
 interface SaveResult {
     success: boolean;
     fullName: string;
+    errors?: SaveError | Array<SaveError>
+}
+
+interface SaveError {
+    fields: string|string[];
+    message: string;
+    statusCode: string;
 }
 
 interface UpdateMetadataInfo {

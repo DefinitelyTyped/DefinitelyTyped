@@ -815,6 +815,7 @@ export class GridLayer extends Layer {
 
     protected createTile(coords: Coords, done: DoneCallback): HTMLElement;
     protected _tileCoordsToKey(coords: Coords): string;
+    protected _wrapCoords(parameter: Coords): Coords;
 
     protected _tiles: InternalTiles;
     protected _tileZoom?: number;
