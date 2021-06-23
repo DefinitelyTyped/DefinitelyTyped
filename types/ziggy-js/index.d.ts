@@ -1,4 +1,4 @@
-// Type definitions for ziggy-js 1.3.0
+// Type definitions for ziggy-js 1.3
 // Project: https://github.com/tightenco/ziggy#readme
 // Definitions by: Ben Allfree <https://github.com/benallfree>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
