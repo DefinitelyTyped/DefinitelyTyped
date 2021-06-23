@@ -570,8 +570,18 @@ declare namespace OracleDB {
      */
     let errorOnConcurrentExecute: boolean;
     /**
-     * TODO Documentation here
-     */
+     * This property can be set to throw an error if concurrent operations are attempted 
+     * on a single connection.
+     *
+     * The default value for errorOnConcurrentExecute is false.
+     *
+     * Each Oracle connection can only interact with the database for one operation at a time. 
+     * Attempting to do more than one operation concurrently may be a sign of an incorrectly coded application, 
+     * for example an await may be missing. 
+     * Examples of operations that cannot be executed in parallel on a single connection include connection.execute(),
+     *  connection.executeMany(), connection.queryStream(), connection.getDbObjectClass(), connection.commit(),
+     *  connection.close(), SODA calls, and streaming from Lobs.
+     */ 
     let queueRequests: number;
     /**
      * The number of statements that are cached in the statement cache of each connection.
