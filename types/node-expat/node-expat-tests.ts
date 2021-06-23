@@ -3,7 +3,7 @@
 import expat = require("node-expat");
 
 // let expat = require('../lib/node-expat')
-import Iconv = require('iconv');
+import { Iconv } from 'iconv';
 // import vows = require('vows');
 // let assert = require('assert')
 import fs = require('fs');

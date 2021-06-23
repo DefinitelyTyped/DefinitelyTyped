@@ -5,6 +5,18 @@ import * as inquirer from 'inquirer';
 import { Editor } from 'mem-fs-editor';
 import Storage = require('yeoman-generator/lib/util/storage');
 
+class MyES2015GeneratorWithFeatures extends Base {
+    constructor(args: any, options: Base.GeneratorOptions) {
+        super(args, options, { customInstallTask: true, customCommitTask: true });
+    }
+
+    customInstallTask() {
+    }
+
+    customCommitTask() {
+    }
+}
+
 class MyES2015Generator extends Base { }
 
 const generator = new MyES2015Generator(

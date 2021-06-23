@@ -468,9 +468,17 @@ declare namespace SpotifyApi {
      * Get user's saved shows
      * 
      * GET /v1/me/shows
-     * https://developer.spotify.com/documentation/web-api/reference/library/get-users-saved-shows/
+     * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-shows
      */
     type UsersSavedShowsResponse = PagingObject<SavedShowObject>;
+
+    /**
+     * Get User's Saved Episodes
+     *
+     * GET /v1/me/episodes
+     * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-episodes
+     */
+    type UsersSavedEpisodesResponse = PagingObject<SavedEpisodeObject>;
 
     /**
      * Get a User’s Top Artists and Tracks (Note: This is only Artists)
@@ -596,7 +604,7 @@ declare namespace SpotifyApi {
      * GET /v1/shows/{id}
      * https://developer.spotify.com/web-api/get-show/
      */
-    type SingleShowResponse = ShowObjectFull;
+    type SingleShowResponse = ShowObject;
 
     /**
      * Get Several Shows
@@ -622,7 +630,7 @@ declare namespace SpotifyApi {
      * GET /v1/episodes/{id}
      * https://developer.spotify.com/documentation/web-api/reference/episodes/get-an-episode/
      */
-    type SingleEpisodeResponse = EpisodeObjectFull;
+    type SingleEpisodeResponse = EpisodeObject;
 
     /**
      * Get Several Episodes
@@ -631,7 +639,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/documentation/web-api/reference/episodes/get-several-episodes/
      */
     interface MultipleEpisodesResponse {
-        episodes: EpisodeObjectFull[];
+        episodes: EpisodeObject[];
     }
 
     /**
@@ -1180,6 +1188,21 @@ declare namespace SpotifyApi {
     }
 
     /**
+     * Saved Episode Object
+     * [saved episode object](https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject)
+     */
+    interface SavedEpisodeObject {
+        /**
+         * The date and time the episode was saved.
+         */
+        added_at: string;
+        /**
+         * Information about the episode.
+         */
+        episode: EpisodeObject;
+    }
+
+    /**
      * Saved Show Object
      * [saved show object](https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-show-object)
      */
@@ -1311,10 +1334,10 @@ declare namespace SpotifyApi {
     }
 
     /**
-     * Full Episiode Object
-     * [episode object (full)](https://developer.spotify.com/documentation/web-api/reference/object-model/#episode-object-full)
+     * Episode Object
+     * [episode object](https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject)
      */
-    interface EpisodeObjectFull extends EpisodeObjectSimplified {
+    interface EpisodeObject extends EpisodeObjectSimplified {
         /**
          * The show on which the episode belongs.
          */
@@ -1324,6 +1347,8 @@ declare namespace SpotifyApi {
          */
         uri: string;
     }
+
+    interface EpisodeObjectFull extends EpisodeObject {}
 
     /**
      * Simplified Episode Object
@@ -1411,13 +1436,15 @@ declare namespace SpotifyApi {
     }
 
     /**
-     * Full Show Object
-     * [show object (full)](https://developer.spotify.com/documentation/web-api/reference/object-model/#show-object-full)
+     * Show Object
+     * [show object](https://developer.spotify.com/documentation/web-api/reference/#object-showobject)
      */
-    interface ShowObjectFull extends ShowObjectSimplified {
+    interface ShowObject extends ShowObjectSimplified {
         episodes: PagingObject<EpisodeObjectSimplified>;
         external_urls: ExternalUrlObject;
     }
+
+    interface ShowObjectFull extends ShowObject {}
 
     /**
      * Simplified Show Object
@@ -1551,7 +1578,7 @@ declare namespace SpotifyApi {
         actions: ActionsObject;
         progress_ms: number | null;
         is_playing: boolean;
-        item: TrackObjectFull | EpisodeObjectFull | null;
+        item: TrackObjectFull | EpisodeObject | null;
         context: ContextObject | null;
         currently_playing_type: 'track' | 'episode' | 'ad' | 'unknown';
     }

@@ -1,17 +1,18 @@
-import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
-import Editor from "./editor/editor";
-import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import { DomEventData } from "@ckeditor/ckeditor5-engine";
+import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
+import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
+import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import ContextPlugin from "./contextplugin";
+import Editor from "./editor/editor";
+import { EditorWithUI } from "./editor/editorwithui";
 
 export default abstract class Plugin implements Emitter, Observable {
     static readonly pluginName?: string;
     static readonly isContextPlugin: boolean;
     static readonly requires?: Array<typeof Plugin | typeof ContextPlugin | string>;
 
-    readonly editor: Editor;
+    readonly editor: Editor & EditorWithUI;
     isEnabled: boolean;
 
     constructor(editor: Editor);

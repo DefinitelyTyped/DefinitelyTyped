@@ -17,6 +17,7 @@ const players: YT.Player[] = [
             autohide: YT.AutoHide.AlwaysVisible,
             autoplay: YT.AutoPlay.AutoPlay,
             cc_load_policy: YT.ClosedCaptionsLoadPolicy.ForceOn,
+            cc_lang_pref: "en",
             color: "red",
             controls: YT.Controls.Hide,
             disablekb: YT.KeyboardControls.Disable,
@@ -87,7 +88,7 @@ const ensureString = <TValue extends string>() => {}
 
 ensureString<YT.ProgressBarColor>();
 ensureString<YT.ListType>();
-ensureString<YT.ListTypePlayer>();
+ensureString<YT.ListTypePlaylist>();
 ensureString<YT.ListTypeSearch>();
 ensureString<YT.ListTypeUserUploads>();
 ensureString<YT.SuggestedVideoQuality>();
@@ -165,7 +166,7 @@ player.cuePlaylist(["play", "list"], 7, 0, "default");
 
 player.cuePlaylist({
     list: "playlist",
-    listType: "player",
+    listType: "playlist",
 });
 
 player.cuePlaylist({
@@ -190,7 +191,7 @@ player.loadPlaylist(["play", "list"], 7, 0, "default");
 
 player.loadPlaylist({
     list: "playlist",
-    listType: "player",
+    listType: "playlist",
 });
 
 player.loadPlaylist({

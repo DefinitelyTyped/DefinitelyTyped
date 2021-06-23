@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-axis module 2.1
+// Type definitions for D3JS d3-axis module 3.0
 // Project: https://github.com/d3/d3-axis/, https://d3js.org/d3-axis
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,9 +6,8 @@
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.1.0
+// Last module patch version validated against: 3.0.0
 
 import { Selection, TransitionLike } from 'd3-selection';
 
@@ -203,9 +202,9 @@ export interface Axis<Domain> {
      * However, any tick arguments will still be passed to the scale’s tickFormat function if a
      * tick format is not also set.
      *
-     * @param values An array with values from the Domain of the scale underlying the axis.
+     * @param values An iterable with values from the Domain of the scale underlying the axis.
      */
-    tickValues(values: Domain[]): this;
+    tickValues(values: Iterable<Domain>): this;
 
     /**
      * Clears any previously-set explicit tick values and reverts back to the scale’s tick generator.

@@ -1,9 +1,9 @@
-import inquirer = require("../..");
+import { SeparatorOptions } from "../..";
 
 /**
  * Represents a choice-item separator.
  */
-declare class Separator implements inquirer.ChoiceBase, inquirer.SeparatorOptions {
+declare class Separator implements SeparatorOptions {
     /**
      * @inheritdoc
      */
