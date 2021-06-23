@@ -1,5 +1,5 @@
 // Type definitions for screenshot-desktop 1.12
-// Project: https://github.com/bencevans/screenshot-desktop (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/bencevans/screenshot-desktop
 // Definitions by: Usama Ahsan <https://github.com/usama8800>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
