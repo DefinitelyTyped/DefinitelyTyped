@@ -668,7 +668,7 @@ declare namespace Office {
 	 *
 	 * @remarks
      * 
-     * For code samples showing how to use a `Control` object and it's properties, see {@link https://docs.microsoft.com/office/dev/add-ins/design/disable-add-in-commands | Enable and Disable Add-in Commands} and {@link https://docs.microsoft.com/office/dev/add-ins/design/contextual-tabs | Create custom contextual tabs}.
+     * For code samples showing how to use a `Control` object and its properties, see {@link https://docs.microsoft.com/office/dev/add-ins/design/disable-add-in-commands | Enable and Disable Add-in Commands} and {@link https://docs.microsoft.com/office/dev/add-ins/design/contextual-tabs | Create custom contextual tabs}.
      *
      * **Requirement set**: Ribbon 1.1
      */
