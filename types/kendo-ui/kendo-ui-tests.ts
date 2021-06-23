@@ -32,3 +32,19 @@ $(() => {
     var $switch = <kendo.ui.Switch>$(switchElement).data("kendoSwitch");
     $switch.readonly(true);
 })
+
+// SchedulerDataSource
+$(() => {
+    const dataSource = new kendo.data.SchedulerDataSource({
+        data: [
+            new kendo.data.SchedulerEvent({
+                id: 1,
+                title: "Event",
+                start: new Date("2021/4/4 12:00"),
+                end: new Date("2021/4/4 14:00")
+            })
+        ]
+    });
+    const occurrences = dataSource.expand(new Date("2021/4/1"), new Date("2021/5/1"));
+    const firstOccurence = occurrences[0];
+})
