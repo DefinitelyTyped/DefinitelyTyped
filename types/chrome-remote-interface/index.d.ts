@@ -1,6 +1,7 @@
 // Type definitions for chrome-remote-interface 0.30
 // Project: https://github.com/cyrus-and/chrome-remote-interface
-// Definitions by: Khairul Azhar Kasmiran <https://github.com/kazarmy>, Seth Westphal <https://github.com/westy92>
+// Definitions by: Khairul Azhar Kasmiran <https://github.com/kazarmy>
+//                 Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
