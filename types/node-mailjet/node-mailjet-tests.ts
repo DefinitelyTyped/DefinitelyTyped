@@ -129,6 +129,9 @@ mailJetResponseMessages
         // ignore
     });
 
+// get contact
+connection.get('contact').id('bob@example.com');
+
 // put contact data
 const putParams: object = {
     Data: [
