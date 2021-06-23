@@ -1,12 +1,13 @@
-// Type definitions for D3JS d3-brush module 3.0
+// Type definitions for D3JS d3-brush module 2.1
 // Project: https://github.com/d3/d3-brush/, https://d3js.org/d3-brush
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 3.0.0
+// Last module patch version validated against: 2.1.0
 
 import { Selection, TransitionLike, ValueFn } from 'd3-selection';
 
@@ -38,9 +39,8 @@ export interface BrushBehavior<Datum> {
      *
      * @param group A D3 selection of SVG G elements.
      * @param selection Use null to clear the active brush selection.
-     * @param event
      */
-    move(group: Selection<SVGGElement, Datum, any, any>, selection: null, event?: Event): void;
+    move(group: Selection<SVGGElement, Datum, any, any>, selection: null): void;
     /**
      * Sets the active selection of the brush on the specified SVG G element(s) selection
      * to the provided array.
@@ -50,9 +50,8 @@ export interface BrushBehavior<Datum> {
      * it must be defined as [[x0, y0], [x1, y1]], where x0 is the minimum x-value, y0 is the minimum y-value,
      * x1 is the maximum x-value, and y1 is the maximum y-value. For an x-brush, it must be defined as [x0, x1];
      * for a y-brush, it must be defined as [y0, y1].
-     * @param event
      */
-    move(group: Selection<SVGGElement, Datum, any, any>, selection: BrushSelection, event?: Event): void;
+    move(group: Selection<SVGGElement, Datum, any, any>, selection: BrushSelection): void;
     /**
      * Sets the active selection of the brush on the specified SVG G element(s) selection
      * based on the array returned by a value function invoked for each selection element.
@@ -64,17 +63,15 @@ export interface BrushBehavior<Datum> {
      * For a two-dimensional brush, it must be defined as [[x0, y0], [x1, y1]], where x0 is the minimum x-value, y0 is the minimum y-value,
      * x1 is the maximum x-value, and y1 is the maximum y-value. For an x-brush, it must be defined as [x0, x1];
      * for a y-brush, it must be defined as [y0, y1].
-     * @param event
      */
-    move(group: Selection<SVGGElement, Datum, any, any>, selection: ValueFn<SVGGElement, Datum, BrushSelection>, event?: Event): void;
+    move(group: Selection<SVGGElement, Datum, any, any>, selection: ValueFn<SVGGElement, Datum, BrushSelection>): void;
     /**
      * Clear the active selection of the brush on the specified SVG G element(s) transition.
      *
      * @param group A D3 transition on SVG G elements.
      * @param selection Use null to clear the active brush selection.
-     * @param event
      */
-    move(group: Selection<SVGGElement, Datum, any, any>, selection: null, event?: Event): void;
+    move(group: Selection<SVGGElement, Datum, any, any>, selection: null): void;
     /**
      * Sets the active selection of the brush on the specified SVG G element(s) transition
      * to the provided array.
@@ -84,9 +81,8 @@ export interface BrushBehavior<Datum> {
      * it must be defined as [[x0, y0], [x1, y1]], where x0 is the minimum x-value, y0 is the minimum y-value,
      * x1 is the maximum x-value, and y1 is the maximum y-value. For an x-brush, it must be defined as [x0, x1];
      * for a y-brush, it must be defined as [y0, y1].
-     * @param event
      */
-    move(group: TransitionLike<SVGGElement, Datum>, selection: BrushSelection, event?: Event): void;
+    move(group: TransitionLike<SVGGElement, Datum>, selection: BrushSelection): void;
     /**
      * Sets the active selection of the brush on the specified SVG G element(s) transition
      * based on the array returned by a value function invoked for each transitioning element.
@@ -98,17 +94,15 @@ export interface BrushBehavior<Datum> {
      * For a two-dimensional brush, it must be defined as [[x0, y0], [x1, y1]], where x0 is the minimum x-value, y0 is the minimum y-value,
      * x1 is the maximum x-value, and y1 is the maximum y-value. For an x-brush, it must be defined as [x0, x1];
      * for a y-brush, it must be defined as [y0, y1].
-     * @param event
      */
-    move(group: TransitionLike<SVGGElement, Datum>, selection: ValueFn<SVGGElement, Datum, BrushSelection>, event?: Event): void;
+    move(group: TransitionLike<SVGGElement, Datum>, selection: ValueFn<SVGGElement, Datum, BrushSelection>): void;
 
     /**
      * Clear the active selection of the brush on the specified SVG G element(s) selection.
      *
      * @param group A D3 selection of SVG G elements.
-     * @param event
      */
-    clear(group: Selection<SVGGElement, Datum, any, any>, event?: Event): void;
+    clear(group: Selection<SVGGElement, Datum, any, any>): void;
 
     /**
      * Returns the current extent accessor.
