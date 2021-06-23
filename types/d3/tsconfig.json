@@ -34,6 +34,9 @@
             ],
             "d3-delaunay": [
                 "d3-delaunay/v5"
+            ],
+            "d3-dispatch": [
+                "d3-dispatch/v2"
             ]
         },
         "types": [],
