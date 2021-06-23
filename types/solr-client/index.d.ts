@@ -43,7 +43,7 @@ export interface FacetOptions {
     on: boolean;
     query?: string;
     field?: string | string[];
-    prefix: string;
+    prefix?: string;
     sort?: string;
     limit?: number;
     offset?: number;
