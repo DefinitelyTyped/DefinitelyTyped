@@ -575,18 +575,157 @@ declare namespace CodeMirror {
         getTextArea(): HTMLTextAreaElement;
     }
 
+    interface ModeSpecOptions {
+        /** Below options are supported in CSS mode */
+
+        /** Whether to highlight non-standard CSS property keywords such as margin-inline or zoom (default: true). */
+        highlightNonStandardPropertyKeywords?: boolean;
+
+        /** Below options are supported in Cython/Python modes */
+
+        /**  The version of Python to recognize. Default is 3. */
+        version?: 2 | 3;
+        /**
+         * If you have a single-line string that is not terminated at the end of the line, this will show subsequent
+         * lines as errors if true, otherwise it will consider the newline as the end of the string. Default is false.
+         */
+        singleLineStringErrors?: boolean;
+        /**
+         * If you want to write long arguments to a function starting on a new line, how much that line should be
+         * indented. Defaults to one normal indentation unit.
+         */
+        hangingIndent?: number;
+        /** Regular Expression for single operator matching */
+        singleOperators?: unknown;
+        /**  Regular Expression for single delimiter matching default :^[\\(\\)\\[\\]\\{\\}@,:`=;\\.] */
+        singleDelimiters?: unknown;
+        /** Regular Expression for double operators matching, default :^((==)|(!=)|(<=)|(>=)|(<>)|(<<)|(>>)|(//)|(\\*\\*)) */
+        doubleOperators?: unknown;
+        /** Regular Expression for double delimiters matching default :^((\\+=)|(\\-=)|(\\*=)|(%=)|(/=)|(&=)|(\\|=)|(\\^=)) */
+        doubleDelimiters?: unknown;
+        /** Regular Expression for triple delimiters matching default :^((//=)|(>>=)|(<<=)|(\\*\\*=)) */
+        tripleDelimiters?: unknown;
+        /** RegEx - Regular Expression for identifier, default :^[_A-Za-z][_A-Za-z0-9]* */
+        identifiers?: unknown;
+        /** List of extra words ton consider as keywords */
+        extra_keywords?: string[];
+        /** List of extra words ton consider as builtins */
+        extra_builtins?: string[];
+
+        /** useCPP, which determines whether C preprocessor directives are recognized. */
+        useCPP?: boolean;
+
+        /** Below options are supported in Handlebars/Haskell/YAML front matter  mode */
+        base?: string;
+
+        /** Below options are supported in HTML mixed  mode */
+        tags?: {[key: string]: unknown};
+
+        /** Below options are supported in JavaScript mixed  mode */
+
+        /** json which will set the mode to expect JSON data rather than a JavaScript program. */
+        json?: boolean;
+        /** jsonld which will set the mode to expect JSON-LD linked data rather than a JavaScript program */
+        jsonld?: boolean;
+        /** typescript which will activate additional syntax highlighting and some other things for TypeScript code */
+        typescript?: boolean;
+        /**
+         * trackScope can be set to false to turn off tracking of local variables. This will prevent locals from getting
+         * the "variable-2" token type, and will break completion of locals with javascript-hint.
+         */
+        trackScope?: boolean;
+        /**
+         * statementIndent which (given a number) will determine the amount of indentation to use for statements
+         * continued on a new line.
+         */
+        statementIndent?: boolean;
+        /**
+         * wordCharacters, a regexp that indicates which characters should be considered part of an identifier.
+         *  Defaults to /[\w$]/, which does not handle non-ASCII identifiers. Can be set to something more elaborate to
+         *  improve Unicode support.
+         */
+        wordCharacters?: unknown;
+
+        /** Below options are supported in Markdown mixed  mode */
+
+        /** Whether to separately highlight markdown meta characters (*[]()etc.) (default: false). */
+        highlightFormatting?: boolean;
+        /** Maximum allowed blockquote nesting (default: 0 - infinite nesting). */
+        maxBlockquoteDepth?: boolean;
+        /** Whether to highlight inline XML (default: true). */
+        xml?: boolean;
+        /**
+         * Whether to syntax-highlight fenced code blocks, if given mode is included, or fencedCodeBlockDefaultMode
+         * is set (default: true).
+         */
+        fencedCodeBlockHighlighting?: boolean;
+        /** Mode to use for fencedCodeBlockHighlighting, if given mode is not included. */
+        fencedCodeBlockDefaultMode?: string;
+        /** When you want to override default token type names (e.g. {code: "code"}). */
+        tokenTypeOverrides?: unknown;
+        /** Allow lazy headers without whitespace between hashtag and text (default: false). */
+        allowAtxHeaderWithoutSpace?: boolean;
+
+        /** Below options are supported in GFM mode mode */
+        gitHubSpice?: boolean;
+        taskLists?: boolean;
+        strikethrough?: boolean;
+        emoji?: boolean;
+
+        /** Below options are supported in Smarty mode */
+
+        /** leftDelimiter and rightDelimiter, which should be strings that determine where the Smarty syntax starts and ends. */
+        leftDelimiter?: string;
+        rightDelimiter?: string;
+        baseMode?: string;
+
+        /** Below options are supported in sTeX mode */
+
+        /** Whether to start parsing in math mode (default: false) */
+        inMathMode?: boolean;
+
+        /** Below options are supported in SystemVerilog mode */
+
+        /** List of keywords which should not cause indentation to increase. */
+        noIndentKeywords?: unknown;
+
+        /** Below options are supported in VHDL mode */
+
+        /** List of atom words. Default: "null" */
+        atoms?: unknown;
+        /** List of meta hooks. Default: ["`", "$"] */
+        hooks?: unknown;
+        /** Whether multi-line strings are accepted. Default: false */
+        multiLineStrings?: boolean;
+
+        /** Below options are supported in XML mode */
+
+        /**
+         * This switches the mode to parse HTML instead of XML. This means attributes do not have to be quoted,
+         * and some elements (such as br) do not require a closing tag.
+         */
+        htmlMode?: boolean;
+        /**
+         * Controls whether the mode checks that close tags match the corresponding opening tag,
+         * and highlights mismatches as errors. Defaults to true.
+         */
+        matchClosing?: boolean;
+        /** Setting this to true will force the opening tag of CDATA blocks to not be indented. */
+        alignCDATA?: boolean;
+    }
+
     type ModeSpec<T> = {
         [P in keyof T]: T[P];
     } & { name: string };
 
     interface DocConstructor {
-        new (text: string, mode?: string | ModeSpec<unknown>, firstLineNumber?: number, lineSep?: string): Doc;
-        (text: string, mode?: string | ModeSpec<unknown>, firstLineNumber?: number, lineSep?: string): Doc;
+        new (text: string, mode?: string | ModeSpec<ModeSpecOptions>, firstLineNumber?: number, lineSep?: string): Doc;
+        (text: string, mode?: string | ModeSpec<ModeSpecOptions>, firstLineNumber?: number, lineSep?: string): Doc;
     }
 
     interface DocOrEditor {
         /** Get the mode option */
-        modeOption: string | ModeSpec<unknown>;
+        modeOption: string | ModeSpec<ModeSpecOptions>;
 
         /** Get the current editor content. You can pass it an optional argument to specify the string to be used to separate lines (defaults to "\n"). */
         getValue(seperator?: string): string;
@@ -766,7 +905,7 @@ declare namespace CodeMirror {
              */
             to?: number;
             /** By default, the new document inherits the mode of the parent. This option can be set to a mode spec to give it a different mode. */
-            mode?: string | ModeSpec<unknown>;
+            mode?: string | ModeSpec<ModeSpecOptions>;
         }): Doc;
 
         /**
@@ -1055,7 +1194,7 @@ declare namespace CodeMirror {
          * Alternatively, it may be an object containing configuration options for the mode,
          * with a name property that names the mode (for example {name: "javascript", json: true}).
          */
-        mode?: string | ModeSpec<unknown>;
+        mode?: string | ModeSpec<ModeSpecOptions>;
 
         /**
          * Explicitly set the line separator for the editor. By default (value null), the document will be split on CRLFs as well
@@ -1592,7 +1731,7 @@ declare namespace CodeMirror {
      * The first argument is a configuration object as passed to the mode constructor function, and the second argument
      * is a mode specification as in the EditorConfiguration mode option.
      */
-    function getMode(config: EditorConfiguration, mode: string | ModeSpec<unknown>): Mode<unknown>;
+    function getMode(config: EditorConfiguration, mode: string | ModeSpec<ModeSpecOptions>): Mode<unknown>;
 
     /**
      * Utility function from the overlay.js addon that allows modes to be combined. The mode given as the base argument takes care of
@@ -1611,10 +1750,10 @@ declare namespace CodeMirror {
      */
     const modes: ModeMap;
 
-    function defineMIME(mime: string, modeSpec: string | ModeSpec<unknown>): void;
+    function defineMIME(mime: string, modeSpec: string | ModeSpec<ModeSpecOptions>): void;
 
     interface MimeModeMap {
-        [mimeName: string]: string | ModeSpec<unknown>;
+        [mimeName: string]: string | ModeSpec<ModeSpecOptions>;
     }
 
     /**
