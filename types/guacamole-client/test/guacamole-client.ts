@@ -41,6 +41,7 @@ mouse.onmousedown = st => st.left;
 mouse.onmousemove = st => st.down;
 
 const tunnel = new Guacamole.WebSocketTunnel('haha');
+tunnel.connect();
 tunnel.connect('123');
 // $ExpectError
 tunnel.connect({});
