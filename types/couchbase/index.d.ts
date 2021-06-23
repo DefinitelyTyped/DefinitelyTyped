@@ -879,7 +879,7 @@ declare namespace N1qlQuery {
         /**
          *     This is the default (for single-statement requests).
          */
-        NOT_BOUND,
+        NOT_BOUNDED,
 
         /**
          * This implements strong consistency per request.
