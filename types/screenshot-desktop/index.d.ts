@@ -24,8 +24,6 @@ declare namespace screenshotDesktop {
         'tiff' |
         'wmf';
 
-    const defaultName: string;
-    let defaultLength: number;
     function listDisplays(): Promise<Array<{ id: DisplayID, name: string }>>;
     function all(): Promise<Array<{ id: DisplayID, name: string }>>;
 }
