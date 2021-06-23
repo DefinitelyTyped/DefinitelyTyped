@@ -1,5 +1,5 @@
 import { Mimetype } from './GuacCommon';
-import { WebSocketTunnel } from './WebSocketTunnel';
+import { Tunnel } from './Tunnel';
 import { OutputStream } from './OutputStream';
 import { InputStream } from './InputStream';
 import { Status } from './Status';
@@ -54,7 +54,7 @@ export class Client {
     /**
      * @param tunnel The tunnel to use to send and receive Guacamole instructions.
      */
-    constructor(tunnel: WebSocketTunnel);
+    constructor(tunnel: Tunnel);
 
     /**
      * Sends a disconnect instruction to the server and closes the tunnel.
