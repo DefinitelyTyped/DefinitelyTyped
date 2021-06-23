@@ -1380,9 +1380,6 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     send_command(command: string, cb?: Callback<any>): boolean;
     send_command(command: string, args?: any[], cb?: Callback<any>): boolean;
 
-    addCommand(command: string): void;
-    add_command(command: string): void;
-
     /**
      * Mark the start of a transaction block.
      */
@@ -1409,6 +1406,9 @@ export function createClient(port: number, host?: string, options?: ClientOpts):
 export function createClient(unix_socket: string, options?: ClientOpts): RedisClient;
 export function createClient(redis_url: string, options?: ClientOpts): RedisClient;
 export function createClient(options?: ClientOpts): RedisClient;
+
+export function addCommand(command: string): void;
+export function add_command(command: string): void;
 
 export function print(err: Error | null, reply: any): void;
 
