@@ -457,4 +457,18 @@ export type ValueOfRecord<R> =
  */
 export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
 
+export type GuardType<T extends (value: unknown) => unknown> =
+  T extends (value: unknown) => value is infer Type ? Type : never;
+
+/** a tuple containing the values of an array of type guards */
+export type GuardPredicates<T extends unknown[]> = {
+    [K in keyof T]: (value: unknown) => value is T[K];
+} & unknown[];
+
+/** creates a union of a tuple's values */
+export type TupleUnion<T extends unknown[]> = T[keyof T & number];
+
+/** Taken from type-fest */
+export type UnionToIntersection<T> = (T extends unknown ? (distributedUnion: T) => void : never) extends ((mergedIntersection: infer U) => void) ? U : never;
+
 export {};

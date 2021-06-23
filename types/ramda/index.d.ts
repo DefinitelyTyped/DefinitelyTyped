@@ -31,6 +31,7 @@
 //                 Mike Deverell <https://github.com/devrelm>
 //                 Jorge Santana <https://github.com/LORDBABUINO>
 //                 Mikael Couzic <https://github.com/couzic>
+//                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
@@ -61,7 +62,10 @@ import {
     Reduced,
     SafePred,
     ValueOfRecord,
-    ValueOfUnion
+    ValueOfUnion,
+    GuardPredicates,
+    UnionToIntersection,
+    TupleUnion
 } from "./tools";
 
 export * from './tools';
@@ -104,7 +108,7 @@ export function all<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 /**
  * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
  */
-export function allPass(preds: readonly Pred[]): Pred;
+export function allPass<T extends unknown[]>(preds: Readonly<GuardPredicates<T>>): (value: unknown) => value is UnionToIntersection<TupleUnion<T>>;
 
 /**
  * Returns a function that always returns the given value.
@@ -133,7 +137,7 @@ export function any<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 /**
  * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
  */
-export function anyPass<T>(preds: Array<SafePred<T>>): SafePred<T>;
+export function anyPass<T extends unknown[]>(preds: GuardPredicates<T>): (value: unknown) => value is TupleUnion<T>;
 
 /**
  * ap applies a list of functions to a list of values.

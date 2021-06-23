@@ -10,6 +10,23 @@ import * as R from 'ramda';
   }
 
   const f = R.allPass([gt10, even]);
-  f(11); // => false
-  f(12); // => true
+
+  // $ExpectType false
+  f(11);
+
+  // $ExpectType true
+  f(12);
+
+  interface Foo {
+    foo: number;
+  }
+  interface Bar {
+    bar: string;
+  }
+  const isFoo = (value: unknown): value is Foo => true;
+  const isBar = (value: unknown): value is Bar => true;
+  const x: unknown = null;
+  const f3 = R.allPass([isFoo, isBar])
+  // $ExpectType value is Foo & Bar
+  f3(x);
 };
