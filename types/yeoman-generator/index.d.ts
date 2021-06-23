@@ -1,4 +1,4 @@
-// Type definitions for yeoman-generator 5.3.0
+// Type definitions for yeoman-generator 5.2
 // Project: https://github.com/yeoman/generator, http://yeoman.io
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
@@ -227,19 +227,42 @@ declare namespace Generator {
         path: string;
     }
 
+    type GeneratorFeaturesUniqueBy = 'argument' | 'namespacep';
+
     /**
      * Represents generators feature
      */
     interface GeneratorFeatures {
         /**
-         * Enable customCommitTask()
+         * uniqueBy calculation method (undefined/argument/namespace)
          */
-        customCommitTask?: boolean;
+        uniqueBy?: GeneratorFeaturesUniqueBy;
 
         /**
-         * Enable customInstallTask()
+         * The Generator instance unique identifier.
+         * The Environment will ignore duplicated identifiers.
          */
-        customInstallTask?: boolean;
+        unique?: string;
+
+        /**
+         * Only queue methods that matches a priority
+         */
+        tasksMatchingPriority?: boolean;
+
+        /**
+         * Tasks methods starts with prefix. Allows api methods (non tasks) without prefix.
+         */
+         taskPrefix?: string;
+
+        /**
+         * Enable customCommitTask()
+         */
+         customCommitTask?: boolean;
+
+         /**
+          * Enable customInstallTask()
+          */
+         customInstallTask?: boolean;
     }
 
     /**
