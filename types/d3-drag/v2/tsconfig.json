@@ -9,13 +9,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
-            "d3-dsv": [
-                "d3-dsv/v2"
+            "d3-drag": [
+                "d3-drag/v2"
             ]
         },
         "types": [],
@@ -24,6 +24,6 @@
     },
     "files": [
         "index.d.ts",
-        "d3-fetch-tests.ts"
+        "d3-drag-tests.ts"
     ]
 }

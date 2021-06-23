@@ -19,6 +19,30 @@
             ],
             "d3-axis": [
                 "d3-axis/v2"
+            ],
+            "d3-brush": [
+                "d3-brush/v2"
+            ],
+            "d3-chord": [
+                "d3-chord/v2"
+            ],
+            "d3-color": [
+                "d3-color/v2"
+            ],
+            "d3-contour": [
+                "d3-contour/v2"
+            ],
+            "d3-delaunay": [
+                "d3-delaunay/v5"
+            ],
+            "d3-dispatch": [
+                "d3-dispatch/v2"
+            ],
+            "d3-drag": [
+                "d3-drag/v2"
+            ],
+            "d3-dsv": [
+                "d3-dsv/v2"
             ]
         },
         "types": [],

@@ -1,21 +1,21 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es6",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
-            "d3-dsv": [
-                "d3-dsv/v2"
+            "d3-delaunay": [
+                "d3-delaunay/v5"
             ]
         },
         "types": [],
@@ -24,6 +24,6 @@
     },
     "files": [
         "index.d.ts",
-        "d3-fetch-tests.ts"
+        "d3-delaunay-tests.ts"
     ]
 }

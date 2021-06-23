@@ -1,12 +1,13 @@
-// Type definitions for D3JS d3-chord module 3.0
+// Type definitions for D3JS d3-chord module 2.0
 // Project: https://github.com/d3/d3-chord/, https://d3js.org/d3-chord
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 2.0.0
 
 // ---------------------------------------------------------------------
 // Chord
@@ -190,12 +191,12 @@ export interface ChordLayout {
 export function chord(): ChordLayout;
 
 /**
- * A chord layout for directional flows. The chord from i to j is generated from the value in matrix[i][j] only.
+ * See https://observablehq.com/@d3/directed-chord-diagram.
  */
 export function chordDirected(): ChordLayout;
 
 /**
- * A transposed chord layout. Useful to highlight outgoing (rather than incoming) flows.
+ * ...
  */
 export function chordTranspose(): ChordLayout;
 
