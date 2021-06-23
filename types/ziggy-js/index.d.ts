@@ -6,15 +6,17 @@
 
 import * as H from 'history';
 
-export type Routable = { id: number | string };
+export interface Routable {
+    id: number | string;
+}
 
 export type RouteParam = Routable | string | number | boolean;
 
 export type RouteParams = { [key: string]: RouteParam } | RouteParam[];
 
-export type QueryParams = {
+export interface QueryParams {
     [key: string]: QueryParams | string | number | boolean;
-};
+}
 
 export type RouteParamsWithQueryOverload =
     | RouteParams
@@ -24,7 +26,7 @@ export type RouteParamsWithQueryOverload =
 
 export interface Route {
     uri: string;
-    methods: ('GET' | 'HEAD' | 'POST' | 'PATCH' | 'PUT' | 'OPTIONS' | 'DELETE')[];
+    methods: Array<'GET' | 'HEAD' | 'POST' | 'PATCH' | 'PUT' | 'OPTIONS' | 'DELETE'>;
     domain?: null | string;
 }
 
@@ -80,7 +82,12 @@ export class Router extends String {
     valueOf(): string;
 }
 
-declare function route(): Router;
+declare function route(
+    name?: undefined,
+    params?: RouteParamsWithQueryOverload,
+    absolute?: boolean,
+    config?: Config,
+): Router;
 
 declare function route(
     name: string,
@@ -88,12 +95,5 @@ declare function route(
     absolute?: boolean,
     config?: Config,
 ): string;
-
-declare function route(
-    name: undefined,
-    params?: RouteParamsWithQueryOverload,
-    absolute?: boolean,
-    config?: Config,
-): Router;
 
 export default route;
