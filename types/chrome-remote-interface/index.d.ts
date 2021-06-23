@@ -12,6 +12,10 @@ declare namespace CDP {
         port?: number;
     }
 
+    type CloseOptions = BaseOptions & {
+        id: string;
+    };
+
     interface ListJson {
         description: string;
         devtoolsFrontendUrl: string;
@@ -34,8 +38,8 @@ declare const CDP: {
     (callback: (client: CDP.Client) => void): void;
     (options?: CDP.BaseOptions): Promise<CDP.Client>;
 
-    Close(options: CDP.BaseOptions & { id: string }, callback: (err: Error | null) => void): void;
-    Close(options: CDP.BaseOptions & { id: string }): Promise<void>;
+    Close(options: CDP.CloseOptions, callback: (err: Error | null) => void): void;
+    Close(options: CDP.CloseOptions): Promise<void>;
 
     List(options: CDP.BaseOptions, callback: (err: Error | null, targets: CDP.ListJson[]) => void): void;
     List(callback: (err: Error | null, targets: CDP.ListJson[]) => void): void;

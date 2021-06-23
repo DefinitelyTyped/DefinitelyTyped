@@ -3,7 +3,11 @@ import CDP = require('chrome-remote-interface');
 (async () => {
     let client: CDP.Client | undefined;
     try {
-        const cdpPort = { port: 9223 };
+        // $ExpectError
+        const cdpOpt_err1: CDP.BaseOptions = { host: '127.0.0.1', por: 9223 };
+        // $ExpectError
+        const cdpOpt_err2: CDP.CloseOptions = { host: '127.0.0.1', port: 9223 };
+        const cdpPort: CDP.BaseOptions = { host: '127.0.0.1', port: 9223 };
         client = await CDP(cdpPort);
         const { Page, Runtime } = client;
         await Page.enable();
@@ -25,7 +29,7 @@ import CDP = require('chrome-remote-interface');
 })();
 
 (() => {
-    const cdpPort = { port: 9223 };
+    const cdpPort: CDP.BaseOptions = { port: 9223 };
     CDP(cdpPort, client => {
         CDP.List(cdpPort, (err, targets) => {
             if (!err) {
