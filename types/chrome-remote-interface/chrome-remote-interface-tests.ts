@@ -5,10 +5,15 @@ import CDP = require('chrome-remote-interface');
     try {
         const cdpPort = { port: 9223 };
         client = await CDP(cdpPort);
-        const { Page, Runtime } = client;
+        client.on('disconnect', () => {});
+        client.on('event', (message) => {
+            if (message.method === 'Network.requestWillBeSent') {}
+        });
+        const { Network, Page, Runtime } = client;
+        await Network.enable({});
         await Page.enable();
         await Page.navigate({ url: 'https://github.com' });
-        // await Page.loadEventFired();
+        // TODO await Page.loadEventFired();
         await Runtime.enable();
         const loc = await Runtime.evaluate({ expression: 'window.location.toString()' });
         const targets = await CDP.List(cdpPort);
@@ -53,4 +58,20 @@ import CDP = require('chrome-remote-interface');
         });
         client.close();
     });
+})();
+
+(async () => {
+    CDP.New((err, target) => {
+        if (!err && target.url.startsWith('https://github.com')) {
+            CDP.Close({ id: target.id }, err => {});
+        }
+    });
+
+    CDP.New({ url: 'https://github.com' }, (err, target) => {
+        if (!err && target.url.startsWith('https://github.com')) {
+            CDP.Close({ id: target.id }, err => {});
+        }
+    });
+
+    const target: CDP.Target | undefined = await CDP.New({ url: 'https://github.com' });
 })();
