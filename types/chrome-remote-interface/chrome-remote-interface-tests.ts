@@ -3,9 +3,9 @@ import CDP = require('chrome-remote-interface');
 (async () => {
     let client: CDP.Client | undefined;
     try {
-        // $ExpectError
+        // @ts-expect-error
         const cdpOpt_err1: CDP.BaseOptions = { host: '127.0.0.1', por: 9223 };
-        // $ExpectError
+        // @ts-expect-error
         const cdpOpt_err2: CDP.CloseOptions = { host: '127.0.0.1', port: 9223 };
         const cdpPort: CDP.BaseOptions = { host: '127.0.0.1', port: 9223 };
         client = await CDP(cdpPort);

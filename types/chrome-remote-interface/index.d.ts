@@ -2,7 +2,7 @@
 // Project: https://github.com/cyrus-and/chrome-remote-interface
 // Definitions by: Khairul Azhar Kasmiran <https://github.com/kazarmy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
+// Minimum TypeScript Version: 3.9
 
 import type ProtocolProxyApi from 'devtools-protocol/types/protocol-proxy-api';
 
