@@ -2035,14 +2035,29 @@ declare namespace google.payments.api {
      *
      * Options:
      *
+     * - `book`:
+     *   "Book with Google Pay" button.
+     *
      * - `buy`:
      *   "Buy with Google Pay" button.
+     *
+     * - `checkout`:
+     *   "Checkout with Google Pay" button.
      *
      * - `donate`:
      *   "Donate with Google Pay" button.
      *
+     * - `order`:
+     *   "Order with Google Pay" button.
+     *
+     * - `pay`:
+     *   "Pay with Google Pay" button.
+     *
      * - `plain`:
      *   "Google Pay" button without text.
+     *
+     * - `subscribe`:
+     *   "Subscribe with Google Pay" button.
      *
      * - `long`:
      *   Same as "buy".
@@ -2050,7 +2065,7 @@ declare namespace google.payments.api {
      * - `short`:
      *   Same as "plain".
      */
-    type ButtonType = "buy" | "donate" | "plain" | "long" | "short";
+    type ButtonType = "book" | "buy" | "checkout" | "donate" | "order" | "pay" | "plain" | "subscribe" | "long" | "short";
 
     /**
      * Supported methods for controlling the size of the Google Pay button.
