@@ -112,3 +112,8 @@ i$.onblob = x => {
 
 const vp = new Guacamole.VideoPlayer();
 vp.sync();
+
+new Guacamole.Client(new Guacamole.HTTPTunnel('https://hey.hey')).sendKeyEvent(1 as 1 | 0, 10);
+new Guacamole.Client(tunnel)
+  // $ExpectError
+  .sendKeyEvent(true, 5);
