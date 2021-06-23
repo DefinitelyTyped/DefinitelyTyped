@@ -31,6 +31,7 @@
         "test/Placeholder.tsx",
         "test/SetValue.tsx",
         "test/Tests.tsx",
+        "test/InputStyles.tsx",
         "test/examples/AccessingInternals.tsx",
         "test/examples/AnimatedMulti.tsx",
         "test/examples/AsyncCallbacks.tsx",

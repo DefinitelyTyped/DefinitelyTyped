@@ -32,7 +32,7 @@ export interface Styles<
     groupHeading?(base: CSSObject, props: GroupHeadingProps<OptionType, IsMulti, GroupType>): CSSObject;
     indicatorsContainer?(base: CSSObject, props: IndicatorContainerProps<OptionType, IsMulti, GroupType>): CSSObject;
     indicatorSeparator?(base: CSSObject, props: IndicatorProps<OptionType, IsMulti, GroupType>): CSSObject;
-    input?: (base: CSSObject, props: InputProps) => CSSObject;
+    input?(base: CSSObject, props: InputProps): CSSObject;
     loadingIndicator?(base: CSSObject, props: LoadingIndicatorProps<OptionType, IsMulti, GroupType>): CSSObject;
     loadingMessage?(base: CSSObject, props: NoticeProps<OptionType, IsMulti, GroupType>): CSSObject;
     menu?(base: CSSObject, props: MenuProps<OptionType, IsMulti, GroupType>): CSSObject;
