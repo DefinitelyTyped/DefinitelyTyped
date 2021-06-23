@@ -5,19 +5,19 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-import { ClientRequest } from "http";
+import { ClientRequest } from 'http';
 
 export function createClient(options?: Options): Client;
 
 export interface Options {
-  host?: string;
-  port?: number;
-  core?: string;
-  path?: string;
-  agent?: string;
-  secure?: boolean;
-  bigint?: string;
-  solrVersion?: string;
+    host?: string;
+    port?: number;
+    core?: string;
+    path?: string;
+    agent?: string;
+    secure?: boolean;
+    bigint?: string;
+    solrVersion?: string;
 }
 
 export interface RangeFilterOption {
@@ -43,7 +43,7 @@ export interface FacetOptions {
     on: boolean;
     query?: string;
     field?: string | string[];
-    prefix: string;
+    prefix?: string;
     sort?: string;
     limit?: number;
     offset?: number;
@@ -145,8 +145,19 @@ export interface Client {
     commit(options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
     prepareCommit(callback?: (err: Error, data: object) => void): ClientRequest;
     softCommit(callback?: (err: Error, data: object) => void): ClientRequest;
-    delete(field: string, text: string, options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
-    deleteByRange(field: string, start: string | Date, stop: string | Date, options?: object, callback?: (err: Error, data: object) => void): ClientRequest;
+    delete(
+        field: string,
+        text: string,
+        options?: Options,
+        callback?: (err: Error, data: object) => void,
+    ): ClientRequest;
+    deleteByRange(
+        field: string,
+        start: string | Date,
+        stop: string | Date,
+        options?: object,
+        callback?: (err: Error, data: object) => void,
+    ): ClientRequest;
     deleteByID(id: string | number, options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
     deleteByQuery(query: string, options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
     deleteAll(options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
@@ -154,7 +165,10 @@ export interface Client {
     rollback(callback?: (err: Error, data: object) => void): ClientRequest;
     update(data: object, options?: object, callback?: (err: Error, data: object) => void): ClientRequest;
     search(query: Query, callback?: (err: Error, data: object) => void): ClientRequest;
-    executeCollection(collection: Query | object | string, callback?: (err: Error, data: object) => void): ClientRequest;
+    executeCollection(
+        collection: Query | object | string,
+        callback?: (err: Error, data: object) => void,
+    ): ClientRequest;
     searchAll(callback?: (err: Error, data: object) => void): ClientRequest;
     get(handler: string, query: Query | object | string, callback?: (err: Error, data: object) => void): ClientRequest;
     post(handler: string, query: Query | object | string, callback?: (err: Error, data: object) => void): ClientRequest;
