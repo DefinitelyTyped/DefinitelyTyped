@@ -13,6 +13,11 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "d3-interpolate": [
+                "d3-interpolate/v2"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
