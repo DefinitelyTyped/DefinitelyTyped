@@ -67,6 +67,9 @@
             ],
             "d3-path": [
                 "d3-path/v2"
+            ],
+            "d3-polygon": [
+                "d3-polygon/v2"
             ]
         },
         "types": [],
