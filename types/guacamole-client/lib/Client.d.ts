@@ -7,6 +7,7 @@ import { Display } from './Display';
 import { AudioPlayer } from './AudioPlayer';
 import { VideoPlayer } from './VideoPlayer';
 import { VisibleLayer } from './VisibleLayer';
+import { Mouse } from './Mouse';
 import * as Guacamole from './Object';
 
 export {};
@@ -231,7 +232,7 @@ export class Client {
      *
      * @param mouseState The state of the mouse to send in the mouse event.
      */
-    sendMouseState(state: Client.State): void;
+    sendMouseState(state: Mouse.State): void;
 
     /**
      * Sends the current size of the screen.
