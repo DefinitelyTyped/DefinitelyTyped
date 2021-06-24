@@ -117,3 +117,7 @@ new Guacamole.Client(new Guacamole.HTTPTunnel('https://hey.hey')).sendKeyEvent(1
 new Guacamole.Client(tunnel)
   // $ExpectError
   .sendKeyEvent(true, 5);
+
+new Guacamole.Client(tunnel).sendMouseState(new Guacamole.Mouse.State(1, 2, false, false, false, false, true));
+// $ExpectError
+new Guacamole.Client(tunnel).sendMouseState({ left: true });
