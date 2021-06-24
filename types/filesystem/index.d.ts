@@ -196,6 +196,9 @@ interface FileSystemEntry {
     getParent(successCallback: DirectoryEntryCallback, errorCallback?: ErrorCallback): void;
 }
 
+/** Alias provided for backward compatibility */
+type Entry = FileSystemEntry;
+
 /**
  * This interface represents a directory on a file system.
  */
@@ -245,6 +248,9 @@ interface FileSystemDirectoryEntry extends FileSystemEntry {
      */
     removeRecursively(successCallback: VoidCallback, errorCallback?: ErrorCallback): void;
 }
+
+/** Alias provided for backward compatibility */
+type DirectoryEntry = FileSystemDirectoryEntry;
 
 /**
  * This interface lets a user list files and directories in a directory. If there are no additions to or deletions from a directory between the first and last call to readEntries, and no errors occur, then:
