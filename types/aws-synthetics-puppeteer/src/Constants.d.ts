@@ -1,0 +1,29 @@
+declare module 'Constants' {
+    export const ARTIFACT_UPLOAD_DIR: string;
+    export const SSE_KMS: string;
+    export const S3_PREFIX: string;
+    export const SYNTHETICS_REPORT_NAME: string;
+    export const HTTP_REQUESTS_REPORT_JSON: string;
+    export const HAR_FILE_NAME: string;
+    export const AMAZON_TRACE_ID_HEADER_NAME: string;
+    export const CLOUDWATCH_SYNTHETICS_XRAY_ORIGIN_NAME: string;
+    export const MINIMUM_AWS_SDK_VERSION_FOR_CAPTURING: string;
+    export const USER_AGENT_SERVICE_NAME_PREFIX: string;
+    export const CUSTOM_USER_AGENT: string;
+    export const CW_METRIC_NAMESPACE: string;
+    export const NOT_ENABLED: string;
+    export const NOT_SUPPORTED: string;
+    export const IS_NOT_SUPPORTED: string;
+    export const COMPRESSED_RESPONSE_BODY: string;
+    export const CONTENT_TYPE: string;
+    export const RESTRICTED_HEADER_VALUE: string;
+    export const REPORT_SUPPORTED_CONTENT_TYPE: string[];
+    export const DEFAULT_PATH: string;
+    export const DEFAULT_METHOD: string;
+    export const HTTP_PROTOCOL: string;
+    export const HTTPS_PROTOCOL: string;
+    export const STEP_CONFIG_HEADER: string;
+    export const REQUEST_BODY_HEADER: string;
+    export const STEP_ID_HEADER: string;
+    export const SYNTHETICS_RUNTIME_VERSION: string;
+}
