@@ -15,12 +15,12 @@ declare module 'SyntheticsLogger' {
         getLogLevel(): number;
         setLogLevel(logLevel: any): void;
         resetLogName(): void;
-        debug(message: any, ex: any): void;
-        log(message: any, ex: any): void;
-        info(message: any, ex: any): void;
-        warn(message: any, ex: any): void;
-        error(message: any, ex: any): void;
-        write(message: any, exception: any): void;
+        debug(message: any, ex?: any): void;
+        log(message: any, ex?: any): void;
+        info(message: any, ex?: any): void;
+        warn(message: any, ex?: any): void;
+        error(message: any, ex?: any): void;
+        write(message: any, exception?: any): void;
         deleteLogFile(): Promise<void>;
         reset(): void;
         end(): void;
