@@ -19,7 +19,7 @@ declare namespace CDP {
 
     interface Options extends BaseOptions {
         target?: ((targets: Target[]) => Target | number) | Target | string;
-        protocol?: object;
+        protocol?: Protocol;
         local?: boolean;
     }
 
@@ -54,6 +54,92 @@ declare namespace CDP {
         url: string;
         webSocketDebuggerUrl: string;
     }
+
+    interface VersionResult {
+        Browser: string;
+        'Protocol-Version': string;
+        'User-Agent': string;
+        'V8-Version': string;
+        'Webkit-Version': string;
+        webSocketDebuggerUrl: string;
+    }
+
+    /////////////////////////////////////////////////
+    // Generated from https://app.quicktype.io/,
+    // TypeEnum simplified.
+    // Source: https://github.com/cyrus-and/chrome-remote-interface/blob/v0.30.1/lib/protocol.json
+    /////////////////////////////////////////////////
+    interface Protocol {
+        version: Version;
+        domains: Domain[];
+    }
+
+    interface Domain {
+        domain: string;
+        experimental?: boolean;
+        dependencies?: string[];
+        types?: TypeElement[];
+        commands: Command[];
+        events?: Event[];
+        description?: string;
+        deprecated?: boolean;
+    }
+
+    interface Command {
+        name: string;
+        description?: string;
+        experimental?: boolean;
+        parameters?: Parameter[];
+        returns?: Parameter[];
+        redirect?: string;
+        deprecated?: boolean;
+    }
+
+    interface Parameter {
+        name: string;
+        description?: string;
+        optional?: boolean;
+        $ref?: string;
+        type?: TypeEnum;
+        items?: Items;
+        enum?: string[];
+        experimental?: boolean;
+        deprecated?: boolean;
+    }
+
+    interface Items {
+        type?: TypeEnum;
+        $ref?: string;
+    }
+
+    type TypeEnum = "any" | "array" | "boolean" | "integer" | "number" | "object" | "string";
+
+    interface Event {
+        name: string;
+        description?: string;
+        parameters?: Parameter[];
+        experimental?: boolean;
+        deprecated?: boolean;
+    }
+
+    interface TypeElement {
+        id: string;
+        description?: string;
+        type: TypeEnum;
+        enum?: string[];
+        properties?: Parameter[];
+        experimental?: boolean;
+        items?: Items;
+        deprecated?: boolean;
+    }
+
+    interface Version {
+        major: string;
+        minor: string;
+    }
+    /////////////////////////////////////////////////
+    // Generated content end.
+    /////////////////////////////////////////////////
 
     type Client = {
         close: () => Promise<void>;
@@ -138,13 +224,13 @@ declare const CDP: {
     New(callback: (err: Error | null, target: CDP.Target) => void): void;
     New(options?: CDP.NewOptions): Promise<CDP.Target>;
 
-    Protocol(options: CDP.ProtocolOptions, callback: (err: Error | null, protocol: object) => void): void;
-    Protocol(callback: (err: Error | null, protocol: object) => void): void;
-    Protocol(options?: CDP.ProtocolOptions): Promise<object>;
+    Protocol(options: CDP.ProtocolOptions, callback: (err: Error | null, protocol: CDP.Protocol) => void): void;
+    Protocol(callback: (err: Error | null, protocol: CDP.Protocol) => void): void;
+    Protocol(options?: CDP.ProtocolOptions): Promise<CDP.Protocol>;
 
-    Version(options: CDP.BaseOptions, callback: (err: Error | null, info: object) => void): void;
-    Version(callback: (err: Error | null, info: object) => void): void;
-    Version(options?: CDP.BaseOptions): Promise<object>;
+    Version(options: CDP.BaseOptions, callback: (err: Error | null, info: CDP.VersionResult) => void): void;
+    Version(callback: (err: Error | null, info: CDP.VersionResult) => void): void;
+    Version(options?: CDP.BaseOptions): Promise<CDP.VersionResult>;
 };
 
 export = CDP;

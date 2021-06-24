@@ -88,7 +88,9 @@ CDP.Activate({id: 'CC46FBFA-3BDA-493B-B2E4-2BE6EB0D97EC'}, (err) => {
 
 (() => {
     CDP.Protocol((err, protocol) => {
-        if (!err) {}
+        if (!err) {
+            CDP({ protocol });
+        }
     });
 })();
 
