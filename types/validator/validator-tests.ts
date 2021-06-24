@@ -13,6 +13,7 @@ import isAfterFunc from 'validator/lib/isAfter';
 import isAlphaFunc from 'validator/lib/isAlpha';
 import isAlphanumericFunc from 'validator/lib/isAlphanumeric';
 import isAsciiFunc from 'validator/lib/isAscii';
+import isBase58Func from 'validator/lib/isBase58';
 import isBase64Func from 'validator/lib/isBase64';
 import isBeforeFunc from 'validator/lib/isBefore';
 import isIBANFunc from 'validator/lib/isIBAN';
@@ -88,6 +89,7 @@ import trimFunc from 'validator/lib/trim';
 import unescapeFunc from 'validator/lib/unescape';
 import whitelistFunc from 'validator/lib/whitelist';
 import isSlugFunc from 'validator/lib/isSlug';
+import isVatFunc from 'validator/lib/isVAT';
 
 {
     let _blacklist = validator.blacklist;
@@ -428,6 +430,8 @@ import trimFuncEs from 'validator/es/lib/trim';
 import unescapeFuncEs from 'validator/es/lib/unescape';
 import whitelistFuncEs from 'validator/es/lib/whitelist';
 import isSlugFuncEs from 'validator/es/lib/isSlug';
+import isBase58FuncEs from 'validator/es/lib/isBase58';
+import isVATFuncEs from 'validator/es/lib/isVAT';
 
 /************************************************
  *                                               *
@@ -552,6 +556,7 @@ const any: any = null;
 
     result = validator.isAscii('sample');
 
+    isBase58Func('sample'); // $ExpectType boolean
     const isBase64Options: validator.IsBase64Options = {};
     result = validator.isBase64('sample');
     result = validator.isBase64('sample', isBase64Options);
@@ -814,7 +819,9 @@ const any: any = null;
 
     result = validator.isSurrogatePair('sample');
 
-    const isURLOptions: validator.IsURLOptions = {};
+    const isURLOptions: validator.IsURLOptions = {
+        require_host: true,
+    };
     result = validator.isURL('sample');
     result = validator.isURL('sample', isURLOptions);
 
@@ -825,6 +832,8 @@ const any: any = null;
     result = validator.isUppercase('sample');
 
     result = validator.isVariableWidth('sample');
+    validator.isVAT('GB999 9999 00', 'GB'); // $ExpectType boolean
+    isVatFunc('foo', 'GB'); // $ExpectType boolean
 
     result = validator.isWhitelisted('sample', 'abc');
     result = validator.isWhitelisted('sample', ['a', 'b', 'c']);
