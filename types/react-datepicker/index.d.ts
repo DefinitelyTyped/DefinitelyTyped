@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 3.1
+// Type definitions for react-datepicker 4.1
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -19,7 +19,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import * as Popper from 'popper.js';
+import * as Popper from "@popperjs/core";
 import { Locale } from 'date-fns';
 
 export function registerLocale(localeName: string, localeData: {}): void;
@@ -39,15 +39,20 @@ interface HighlightDates {
 export interface ReactDatePickerProps {
     adjustDateOnChange?: boolean;
     allowSameDay?: boolean;
+    ariaDescribedBy?: string;
+    ariaInvalid?: string;
     ariaLabelClose?: string;
     ariaLabelledBy?: string;
+    ariaRequired?: string;
     autoComplete?: string;
     autoFocus?: boolean;
     calendarClassName?: string;
     calendarContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
+    calendarStartDay?: number;
     children?: React.ReactNode;
     chooseDayAriaLabelPrefix?: string;
     className?: string;
+    clearButtonClassName?: string;
     clearButtonTitle?: string;
     closeOnScroll?: boolean | ((e: Event) => boolean);
     customInput?: React.ReactNode;
@@ -93,7 +98,7 @@ export interface ReactDatePickerProps {
     onCalendarClose?(): void;
     onCalendarOpen?(): void;
     onChange(
-        date: Date | [Date, Date] | /* for selectsRange */ null,
+        date: Date | [Date | null, Date | null] | /* for selectsRange */ null,
         event: React.SyntheticEvent<any> | undefined,
     ): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
@@ -118,7 +123,7 @@ export interface ReactDatePickerProps {
     placeholderText?: string;
     popperClassName?: string;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-    popperModifiers?: Popper.Modifiers;
+    popperModifiers?: Popper.StrictModifiers;
     popperPlacement?: Popper.Placement;
     popperProps?: {};
     preventOpenOnFocus?: boolean;
@@ -160,6 +165,7 @@ export interface ReactDatePickerProps {
     showTimeSelect?: boolean;
     showTimeSelectOnly?: boolean;
     showTwoColumnMonthYearPicker?: boolean;
+    showFourColumnMonthYearPicker?: boolean;
     showWeekNumbers?: boolean;
     showYearDropdown?: boolean;
     showYearPicker?: boolean;
