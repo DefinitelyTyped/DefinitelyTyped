@@ -49,6 +49,9 @@
             ],
             "d3-fetch": [
                 "d3-fetch/v2"
+            ],
+            "d3-force": [
+                "d3-force/v2"
             ]
         },
         "types": [],
