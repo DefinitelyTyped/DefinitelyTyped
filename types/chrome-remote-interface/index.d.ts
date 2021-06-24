@@ -58,11 +58,11 @@ declare namespace CDP {
     interface Client {
         close: () => Promise<void>;
         on(event: 'event', callback: (message: EventMessage) => void): void;
+        on(event: 'ready' | 'disconnect', callback: () => void): void;
         // '<domain>.<method>'
         on<T extends keyof ProtocolMappingApi.Events>(event: T, callback: (params: ProtocolMappingApi.Events[T][0], sessionId?: string) => void): void;
         // '<domain>.<method>.<sessionId>'
         on(event: string, callback: (params: object, sessionId?: string) => void): void;
-        on(event: 'ready' | 'disconnect', callback: () => void): void;
 
         // stable domains
         Browser: ProtocolProxyApi.BrowserApi;
