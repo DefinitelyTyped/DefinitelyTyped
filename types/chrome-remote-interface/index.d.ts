@@ -64,6 +64,7 @@ declare namespace CDP {
         on(event: string, callback: (params: object, sessionId?: string) => void): void;
         on(event: 'ready' | 'disconnect', callback: () => void): void;
 
+        // stable domains
         Browser: ProtocolProxyApi.BrowserApi;
         Debugger: ProtocolProxyApi.DebuggerApi;
         DOM: ProtocolProxyApi.DOMApi;
@@ -79,6 +80,37 @@ declare namespace CDP {
         Runtime: ProtocolProxyApi.RuntimeApi;
         Security: ProtocolProxyApi.SecurityApi;
         Target: ProtocolProxyApi.TargetApi;
+        // unstable domains
+        Console: ProtocolProxyApi.ConsoleApi;
+        Schema: ProtocolProxyApi.SchemaApi;
+        Accessibility: ProtocolProxyApi.AccessibilityApi;
+        Animation: ProtocolProxyApi.AnimationApi;
+        ApplicationCache: ProtocolProxyApi.ApplicationCacheApi;
+        Audits: ProtocolProxyApi.AuditsApi;
+        BackgroundService: ProtocolProxyApi.BackgroundServiceApi;
+        CacheStorage: ProtocolProxyApi.CacheStorageApi;
+        Cast: ProtocolProxyApi.CastApi;
+        CSS: ProtocolProxyApi.CSSApi;
+        Database: ProtocolProxyApi.DatabaseApi;
+        DeviceOrientation: ProtocolProxyApi.DeviceOrientationApi;
+        DOMSnapshot: ProtocolProxyApi.DOMSnapshotApi;
+        DOMStorage: ProtocolProxyApi.DOMStorageApi;
+        Fetch: ProtocolProxyApi.FetchApi;
+        HeadlessExperimental: ProtocolProxyApi.HeadlessExperimentalApi;
+        HeapProfiler: ProtocolProxyApi.HeapProfilerApi;
+        IndexedDB: ProtocolProxyApi.IndexedDBApi;
+        Inspector: ProtocolProxyApi.InspectorApi;
+        LayerTree: ProtocolProxyApi.LayerTreeApi;
+        Media: ProtocolProxyApi.MediaApi;
+        Memory: ProtocolProxyApi.MemoryApi;
+        Overlay: ProtocolProxyApi.OverlayApi;
+        ServiceWorker: ProtocolProxyApi.ServiceWorkerApi;
+        Storage: ProtocolProxyApi.StorageApi;
+        SystemInfo: ProtocolProxyApi.SystemInfoApi;
+        Tethering: ProtocolProxyApi.TetheringApi;
+        Tracing: ProtocolProxyApi.TracingApi;
+        WebAudio: ProtocolProxyApi.WebAudioApi;
+        WebAuthn: ProtocolProxyApi.WebAuthnApi;
     }
 }
 
