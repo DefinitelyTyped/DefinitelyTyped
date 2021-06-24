@@ -15,9 +15,7 @@ const audioFrame = new AudioFrame({
     buffer: audioBuffer,
 });
 
-const offscreenCanvas = new OffscreenCanvas(1, 1);
-
-const imageBitmap = offscreenCanvas.transferToImageBitmap();
+declare const imageBitmap: ImageBitmap;
 
 function genericCodec(codec: AudioDecoder | AudioEncoder | VideoDecoder | VideoEncoder) {
     const state: CodecState = codec.state;
