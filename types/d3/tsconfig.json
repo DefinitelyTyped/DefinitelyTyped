@@ -70,6 +70,9 @@
             ],
             "d3-polygon": [
                 "d3-polygon/v2"
+            ],
+            "d3-quadtree": [
+                "d3-quadtree/v2"
             ]
         },
         "types": [],
