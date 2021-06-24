@@ -5,10 +5,20 @@ import CDP = require('chrome-remote-interface');
     try {
         const cdpPort = { port: 9223 };
         client = await CDP(cdpPort);
-        const { Page, Runtime } = client;
+        client.on('disconnect', () => {});
+        client.on('Network.requestWillBeSent', (params) => {
+            params.documentURL;
+        });
+        client.on('Debugger.resumed', () => {});
+        client.on('Network.requestWillBeSent.123', (params) => {});
+        client.on('event', (message) => {
+            if (message.method === 'Network.requestWillBeSent') {}
+        });
+        const { Network, Page, Runtime } = client;
+        await Network.enable({});
         await Page.enable();
         await Page.navigate({ url: 'https://github.com' });
-        // await Page.loadEventFired();
+        // TODO await Page.loadEventFired();
         await Runtime.enable();
         const loc = await Runtime.evaluate({ expression: 'window.location.toString()' });
         const targets = await CDP.List(cdpPort);
@@ -23,6 +33,10 @@ import CDP = require('chrome-remote-interface');
         }
     }
 })();
+
+CDP.Activate({id: 'CC46FBFA-3BDA-493B-B2E4-2BE6EB0D97EC'}, (err) => {
+    if (!err) {}
+});
 
 (() => {
     const cdpPort = { port: 9223 };
@@ -54,3 +68,29 @@ import CDP = require('chrome-remote-interface');
         client.close();
     });
 })();
+
+(async () => {
+    CDP.New((err, target) => {
+        if (!err && target.url.startsWith('https://github.com')) {
+            CDP.Close({ id: target.id }, err => {});
+        }
+    });
+
+    CDP.New({ url: 'https://github.com' }, (err, target) => {
+        if (!err && target.url.startsWith('https://github.com')) {
+            CDP.Close({ id: target.id }, err => {});
+        }
+    });
+
+    const target: CDP.Target | undefined = await CDP.New({ url: 'https://github.com' });
+})();
+
+(() => {
+    CDP.Protocol((err, protocol) => {
+        if (!err) {}
+    });
+})();
+
+CDP.Version((err, info) => {
+    if (!err) {}
+});
