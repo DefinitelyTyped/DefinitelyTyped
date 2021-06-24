@@ -23,12 +23,20 @@ declare namespace CDP {
         local?: boolean;
     }
 
+    interface ActivateOptions extends BaseOptions {
+        id: string;
+    }
+
     interface CloseOptions extends BaseOptions {
         id: string;
     }
 
     interface NewOptions extends BaseOptions {
         url?: string;
+    }
+
+    interface ProtocolOptions extends BaseOptions {
+        local?: boolean;
     }
 
     interface EventMessage {
@@ -67,6 +75,9 @@ declare const CDP: {
     (callback: (client: CDP.Client) => void): void;
     (options?: CDP.Options): Promise<CDP.Client>;
 
+    Activate(options: CDP.ActivateOptions, callback: (err: Error | null) => void): void;
+    Activate(options: CDP.ActivateOptions): Promise<void>;
+
     Close(options: CDP.CloseOptions, callback: (err: Error | null) => void): void;
     Close(options: CDP.CloseOptions): Promise<void>;
 
@@ -77,6 +88,14 @@ declare const CDP: {
     New(options: CDP.NewOptions, callback: (err: Error | null, target: CDP.Target) => void): void;
     New(callback: (err: Error | null, target: CDP.Target) => void): void;
     New(options?: CDP.NewOptions): Promise<CDP.Target>;
+
+    Protocol(options: CDP.ProtocolOptions, callback: (err: Error | null, protocol: object) => void): void;
+    Protocol(callback: (err: Error | null, protocol: object) => void): void;
+    Protocol(options?: CDP.ProtocolOptions): Promise<object>;
+
+    Version(options: CDP.BaseOptions, callback: (err: Error | null, info: object) => void): void;
+    Version(callback: (err: Error | null, info: object) => void): void;
+    Version(options?: CDP.BaseOptions): Promise<object>;
 };
 
 export = CDP;

@@ -34,6 +34,10 @@ import CDP = require('chrome-remote-interface');
     }
 })();
 
+CDP.Activate({id: 'CC46FBFA-3BDA-493B-B2E4-2BE6EB0D97EC'}, (err) => {
+    if (!err) {}
+});
+
 (() => {
     const cdpPort = { port: 9223 };
     CDP(cdpPort, client => {
@@ -80,3 +84,13 @@ import CDP = require('chrome-remote-interface');
 
     const target: CDP.Target | undefined = await CDP.New({ url: 'https://github.com' });
 })();
+
+(() => {
+    CDP.Protocol((err, protocol) => {
+        if (!err) {}
+    });
+})();
+
+CDP.Version((err, info) => {
+    if (!err) {}
+});
