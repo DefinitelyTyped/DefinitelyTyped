@@ -8,6 +8,7 @@
 
 import * as d3Zoom from 'd3-zoom';
 import { ArrayLike, select, Selection } from 'd3-selection';
+import { Transition } from 'd3-transition';
 import { scaleLinear, ScaleLinear, ScaleTime, scaleTime } from 'd3-scale';
 import { interpolateZoom, interpolate, interpolateArray, ZoomInterpolator, ZoomView } from 'd3-interpolate';
 
