@@ -217,10 +217,10 @@ declare module 'Synthetics' {
             launchTime?: number,
         ): string;
     }
-    import localPuppeteer = require('puppeteer');
-    import RequestResponseLogHelper_1 = require('RequestResponseLogHelper');
+    import * as localPuppeteer from 'puppeteer';
+    import * as RequestResponseLogHelper_1 from 'RequestResponseLogHelper';
     import RequestResponseLogHelper = RequestResponseLogHelper_1.RequestResponseLogHelper;
-    import SyntheticsMetricEmitter_1 = require('SyntheticsMetricEmitter');
+    import * as SyntheticsMetricEmitter_1 from 'SyntheticsMetricEmitter';
     import SyntheticsMetricEmitter = SyntheticsMetricEmitter_1.SyntheticsMetricEmitter;
     import { SyntheticsReport } from 'SyntheticsReport';
     import { RequestsResult } from 'SyntheticsReport';

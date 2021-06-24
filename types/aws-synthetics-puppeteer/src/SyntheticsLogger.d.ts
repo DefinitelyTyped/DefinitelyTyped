@@ -25,5 +25,5 @@ declare module 'SyntheticsLogger' {
         reset(): void;
         end(): void;
     }
-    import fs = require('fs');
+    import * as fs from 'fs';
 }
