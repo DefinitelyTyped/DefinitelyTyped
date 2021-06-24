@@ -8,7 +8,6 @@
 
 import * as d3Zoom from 'd3-zoom';
 import { ArrayLike, select, Selection, event } from 'd3-selection';
-import { Transition } from 'd3-transition';
 import { interpolateZoom, interpolate, interpolateArray, ZoomInterpolator, ZoomView } from 'd3-interpolate';
 
 // --------------------------------------------------------------------------
