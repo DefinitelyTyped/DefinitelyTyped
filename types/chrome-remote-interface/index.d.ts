@@ -55,13 +55,13 @@ declare namespace CDP {
         webSocketDebuggerUrl: string;
     }
 
-    interface Client {
+    type Client = {
         close: () => Promise<void>;
         on(event: 'event', callback: (message: EventMessage) => void): void;
         on(event: 'ready' | 'disconnect', callback: () => void): void;
-        // '<domain>.<method>'
+        // '<domain>.<method>' i.e. Network.requestWillBeSent
         on<T extends keyof ProtocolMappingApi.Events>(event: T, callback: (params: ProtocolMappingApi.Events[T][0], sessionId?: string) => void): void;
-        // '<domain>.<method>.<sessionId>'
+        // '<domain>.<method>.<sessionId>' i.e. Network.requestWillBeSent.abc123
         on(event: string, callback: (params: object, sessionId?: string) => void): void;
 
         // stable domains
@@ -111,7 +111,12 @@ declare namespace CDP {
         Tracing: ProtocolProxyApi.TracingApi;
         WebAudio: ProtocolProxyApi.WebAudioApi;
         WebAuthn: ProtocolProxyApi.WebAuthnApi;
-    }
+    } & EventPromises<ProtocolMappingApi.Events>;
+
+    // '<domain>.<event>' i.e. Page.loadEventFired
+    type EventPromises<T extends ProtocolMappingApi.Events> = {
+        [Property in keyof T]: T[Property] extends any[] ? Promise<T[Property][0]> : never;
+    };
 }
 
 declare const CDP: {
