@@ -86,11 +86,22 @@ const defaultLocale = getDefaultLocale();
     placeholderText=""
     popperClassName=""
     popperContainer={props => <div />}
-    popperModifiers={{
-        flip: {
-            enabled: false,
+    popperModifiers={[
+        {
+          name: "offset",
+          options: {
+            offset: [5, 10],
+          },
         },
-    }}
+        {
+          name: "preventOverflow",
+          options: {
+            rootBoundary: "viewport",
+            tether: false,
+            altAxis: true,
+          },
+        },
+      ]}
     popperPlacement="bottom-start"
     popperProps={{}}
     preventOpenOnFocus

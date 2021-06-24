@@ -16,7 +16,7 @@
 //                 Walter Kennedy <https://github.com/wthefourth>
 //                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.8
 
 import * as React from 'react';
 import * as Popper from "@popperjs/core";
@@ -123,7 +123,7 @@ export interface ReactDatePickerProps {
     placeholderText?: string;
     popperClassName?: string;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-    popperModifiers?: Popper.StrictModifiers;
+    popperModifiers?: Popper.StrictModifiers[];
     popperPlacement?: Popper.Placement;
     popperProps?: {};
     preventOpenOnFocus?: boolean;
