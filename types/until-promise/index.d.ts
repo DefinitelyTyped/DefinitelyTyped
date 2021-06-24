@@ -1,8 +1,7 @@
-/**
- * Types for the until-promise module.
- * Typings are derived from documentation and code. Comments and JSDoc are either copied or new.
- * @see {@link https://github.com/saadtazi/until-promise}
- */
+// Type definitions for until-promise 0.3
+// Project: https://github.com/saadtazi/until-promise#readme
+// Definitions by: Oliver Conzen <https://github.com/Miladiir>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * The type of the execution function. The function can be synchronous or asynchronous.
@@ -81,5 +80,3 @@ declare function pollUntil<ReturnType>(
 ): Promise<ReturnType>;
 
 export default pollUntil;
-
-// Definitions by: Oliver Conzen <https://github.com/miladiir>
