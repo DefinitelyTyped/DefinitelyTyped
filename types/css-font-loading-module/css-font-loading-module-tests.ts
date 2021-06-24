@@ -23,7 +23,7 @@ contexts.forEach(context => {
         evt.fontfaces;
     });
     context.fonts.onloadingdone = (evt) => {
-        evt.fontfaces;
+        (evt as FontFaceSetLoadEvent).fontfaces;
     };
     context.fonts.dispatchEvent(e);
 });
