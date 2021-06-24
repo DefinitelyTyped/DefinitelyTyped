@@ -16,6 +16,9 @@
         "paths": {
             "d3-axis": [
                 "d3-axis/v2"
+            ],
+            "d3-format": [
+                "d3-format/v2"
             ]
         },
         "types": [],
