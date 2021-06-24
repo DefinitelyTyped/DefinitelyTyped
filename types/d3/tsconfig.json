@@ -43,6 +43,9 @@
             ],
             "d3-dsv": [
                 "d3-dsv/v2"
+            ],
+            "d3-ease": [
+                "d3-ease/v2"
             ]
         },
         "types": [],
