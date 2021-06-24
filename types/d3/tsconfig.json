@@ -64,6 +64,9 @@
             ],
             "d3-interpolate": [
                 "d3-hierarchy/v2"
+            ],
+            "d3-path": [
+                "d3-path/v2"
             ]
         },
         "types": [],
