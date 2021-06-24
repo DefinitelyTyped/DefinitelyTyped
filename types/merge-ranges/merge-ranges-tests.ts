@@ -1,4 +1,4 @@
-import mergeRanges from "merge-ranges";
+import mergeRanges = require("merge-ranges");
 
 // $ExpectType [number, number][]
 const numberMerge = mergeRanges([
