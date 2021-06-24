@@ -81,7 +81,7 @@ declare module 'Synthetics' {
          *  @returns {ScreenshotResult} - fileName and page url of screenshot
          */
         takeScreenshot(stepName: any, suffix: any): any;
-        getScreenshotResult(stepName: any): import("SyntheticsReport").ScreenshotResult[];
+        getScreenshotResult(stepName: any): import('SyntheticsReport').ScreenshotResult[];
         addReport(report: any): void;
         /**
          * Execute the provided step, wrapping it with start/succeed/fail logging, screen shots, metrics
@@ -100,7 +100,14 @@ declare module 'Synthetics' {
          * @returns {Promise<*>}
          */
         executeStep(stepName: any, functionToExecute: any, stepConfig?: any): Promise<any>;
-        publishStepResult(result: any, startTime: Date, endTime: Date, stepName: any, canaryStepResult: any, stepConfiguration: any): Promise<void>;
+        publishStepResult(
+            result: any,
+            startTime: Date,
+            endTime: Date,
+            stepName: any,
+            canaryStepResult: any,
+            stepConfiguration: any,
+        ): Promise<void>;
         /**
          * Log step start with current url, take step start screen shot
          * @param stepName
@@ -140,7 +147,16 @@ declare module 'Synthetics' {
          * @returns {Promise<void>}
          */
         executeHttpStep(stepName: any, requestOptions: any, callback?: any, stepConfig?: any): Promise<void>;
-        completeHttpStep(stepName: any, stepId: any, stepStatus: any, failureReason: any, stepStartTime: any, stepEndTime: any, canaryStepResult: any, stepConfiguration: any): Promise<void>;
+        completeHttpStep(
+            stepName: any,
+            stepId: any,
+            stepStatus: any,
+            failureReason: any,
+            stepStartTime: any,
+            stepEndTime: any,
+            canaryStepResult: any,
+            stepConfiguration: any,
+        ): Promise<void>;
         setupPageEvents(page: any): Promise<void>;
         addExecutionError(errorMessage: any, ex: any): void;
         writeHar(): Promise<void>;
@@ -161,21 +177,52 @@ declare module 'Synthetics' {
         }>;
         getLaunchOptions(options: any): Promise<any>;
         launch(options?: {}): Promise<void>;
-        publishResult(result: any, startTime: Date, endTime: Date, stepName: any, stepConfiguration: any): Promise<boolean>;
+        publishResult(
+            result: any,
+            startTime: Date,
+            endTime: Date,
+            stepName: any,
+            stepConfiguration: any,
+        ): Promise<boolean>;
         uploadArtifacts(artifacts: any): Promise<void>;
         beforeCanary(): Promise<void>;
         beforeScript(): Promise<void>;
-        createExecutionReport(canaryStatus: any, canaryError: any, metricsPublished: any, startTime?: Date, endTime?: Date, resetTime?: number, setupTime?: number, launchTime?: number): Promise<void>;
-        afterCanary(canaryStatus: any, canaryError: any, startTime?: Date, endTime?: Date, resetTime?: number, setupTime?: number, launchTime?: number): Promise<string>;
+        createExecutionReport(
+            canaryStatus: any,
+            canaryError: any,
+            metricsPublished: any,
+            startTime?: Date,
+            endTime?: Date,
+            resetTime?: number,
+            setupTime?: number,
+            launchTime?: number,
+        ): Promise<void>;
+        afterCanary(
+            canaryStatus: any,
+            canaryError: any,
+            startTime?: Date,
+            endTime?: Date,
+            resetTime?: number,
+            setupTime?: number,
+            launchTime?: number,
+        ): Promise<string>;
         getErrorString(error: any): any;
-        getReturnValue(canaryStatus: any, canaryError: any, startTime?: Date, endTime?: Date, resetTime?: number, setupTime?: number, launchTime?: number): string;
+        getReturnValue(
+            canaryStatus: any,
+            canaryError: any,
+            startTime?: Date,
+            endTime?: Date,
+            resetTime?: number,
+            setupTime?: number,
+            launchTime?: number,
+        ): string;
     }
-    import localPuppeteer = require("puppeteer");
-    import RequestResponseLogHelper_1 = require("RequestResponseLogHelper");
+    import localPuppeteer = require('puppeteer');
+    import RequestResponseLogHelper_1 = require('RequestResponseLogHelper');
     import RequestResponseLogHelper = RequestResponseLogHelper_1.RequestResponseLogHelper;
-    import SyntheticsMetricEmitter_1 = require("SyntheticsMetricEmitter");
+    import SyntheticsMetricEmitter_1 = require('SyntheticsMetricEmitter');
     import SyntheticsMetricEmitter = SyntheticsMetricEmitter_1.SyntheticsMetricEmitter;
-    import { SyntheticsReport } from "SyntheticsReport";
-    import { RequestsResult } from "SyntheticsReport";
-    import { SyntheticsConfiguration } from "SyntheticsConfiguration";
+    import { SyntheticsReport } from 'SyntheticsReport';
+    import { RequestsResult } from 'SyntheticsReport';
+    import { SyntheticsConfiguration } from 'SyntheticsConfiguration';
 }

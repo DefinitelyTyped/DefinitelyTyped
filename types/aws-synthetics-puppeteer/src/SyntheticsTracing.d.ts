@@ -167,5 +167,5 @@ declare module 'SyntheticsTracing' {
         getSegmentById(id: any): any;
         resetSegments(): void;
     }
-    import AWSXRaySDKClient = require("aws-xray-sdk-core");
+    import AWSXRaySDKClient = require('aws-xray-sdk-core');
 }

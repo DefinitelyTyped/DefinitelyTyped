@@ -27,6 +27,6 @@ declare module 'HttpRequestCapturer' {
         addHelperHeaders(stepId: any, requestOptions: any, body: any, stepConfig: any): void;
         getHttpTimings(timings: any): HttpTimingsResult;
     }
-    import { SyntheticsConfiguration } from "SyntheticsConfiguration";
-    import { HttpTimingsResult } from "HttpRequestsReport";
+    import { SyntheticsConfiguration } from 'SyntheticsConfiguration';
+    import { HttpTimingsResult } from 'HttpRequestsReport';
 }

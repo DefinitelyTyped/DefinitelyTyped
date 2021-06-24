@@ -5,13 +5,26 @@ declare module 'SyntheticsMetricEmitter' {
         _syntheticsConfiguration: SyntheticsConfiguration;
         configure(namespace: any, syntheticsConfiguration: any): void;
         setNamespace(namespace: any): void;
-        getAwsAccountLevelMetricParameters(namespace: any, metricName: any, value: any, unit: any, date: any): {
+        getAwsAccountLevelMetricParameters(
+            namespace: any,
+            metricName: any,
+            value: any,
+            unit: any,
+            date: any,
+        ): {
             MetricName: any;
             Timestamp: any;
             Unit: any;
             Value: any;
         };
-        getCanaryLevelMetricParameters(namespace: any, metricName: any, value: any, unit: any, date: any, canaryName: any): {
+        getCanaryLevelMetricParameters(
+            namespace: any,
+            metricName: any,
+            value: any,
+            unit: any,
+            date: any,
+            canaryName: any,
+        ): {
             MetricName: any;
             Dimensions: {
                 Name: string;
@@ -21,7 +34,15 @@ declare module 'SyntheticsMetricEmitter' {
             Unit: any;
             Value: any;
         };
-        getCanaryStepLevelMetricParameters(namespace: any, metricName: any, value: any, unit: any, date: any, canaryName: any, stepName: any): {
+        getCanaryStepLevelMetricParameters(
+            namespace: any,
+            metricName: any,
+            value: any,
+            unit: any,
+            date: any,
+            canaryName: any,
+            stepName: any,
+        ): {
             MetricName: any;
             Dimensions: {
                 Name: string;
@@ -32,7 +53,16 @@ declare module 'SyntheticsMetricEmitter' {
             Value: any;
         };
         putMetric(params: any): Promise<void>;
-        publishResult(canaryName: any, result: any, startDateTimeInUTC: Date, endDateTimeInUTC: Date, timestamp: Date, stepName: any, requestsResult: any, stepConfiguration: any): Promise<boolean>;
+        publishResult(
+            canaryName: any,
+            result: any,
+            startDateTimeInUTC: Date,
+            endDateTimeInUTC: Date,
+            timestamp: Date,
+            stepName: any,
+            requestsResult: any,
+            stepConfiguration: any,
+        ): Promise<boolean>;
     }
-    import { SyntheticsConfiguration } from "SyntheticsConfiguration";
+    import { SyntheticsConfiguration } from 'SyntheticsConfiguration';
 }
