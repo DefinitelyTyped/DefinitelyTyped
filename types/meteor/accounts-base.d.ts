@@ -1,6 +1,6 @@
-import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-declare module 'meteor/accounts-base' {
+import { Meteor } from 'meteor/meteor';
+declare module "meteor/accounts-base" {
     interface URLS {
         resetPassword: (token: string) => string;
         verifyEmail: (token: string) => string;
@@ -21,15 +21,12 @@ declare module 'meteor/accounts-base' {
 
         function userId(): string | null;
 
-        function createUser(
-            options: {
-                username?: string;
-                email?: string;
-                password?: string;
-                profile?: Object;
-            },
-            callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
-        ): string;
+        function createUser(options: {
+            username?: string;
+            email?: string;
+            password?: string;
+            profile?: Object;
+        }, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): string;
 
         function config(options: {
             sendVerificationEmail?: boolean;
@@ -40,19 +37,15 @@ declare module 'meteor/accounts-base' {
             passwordResetTokenExpirationInDays?: number;
             passwordEnrollTokenExpirationInDays?: number;
             ambiguousErrorMessages?: boolean;
-            defaultFieldSelector?: { [key: string]: 0 | 1 };
+            defaultFieldSelector?: {[key: string]: 0 | 1}
         }): void;
 
-        function onLogin(
-            func: Function,
-        ): {
-            stop: () => void;
+        function onLogin(func: Function): {
+            stop: () => void
         };
 
-        function onLoginFailure(
-            func: Function,
-        ): {
-            stop: () => void;
+        function onLoginFailure(func: Function): {
+            stop: () => void
         };
 
         function loginServicesConfigured(): boolean;
@@ -61,29 +54,15 @@ declare module 'meteor/accounts-base' {
     }
 
     module Accounts {
-        function changePassword(
-            oldPassword: string,
-            newPassword: string,
-            callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
-        ): void;
+        function changePassword(oldPassword: string, newPassword: string, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
-        function forgotPassword(
-            options: {
-                email?: string;
-            },
-            callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
-        ): void;
+        function forgotPassword(options: {
+            email?: string;
+        }, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
-        function resetPassword(
-            token: string,
-            newPassword: string,
-            callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
-        ): void;
+        function resetPassword(token: string, newPassword: string, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
-        function verifyEmail(
-            token: string,
-            callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
-        ): void;
+        function verifyEmail(token: string, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
         function onEmailVerificationLink(callback: Function): void;
 
@@ -141,23 +120,17 @@ declare module 'meteor/accounts-base' {
 
         function setUsername(userId: string, newUsername: string): void;
 
-        function setPassword(
-            userId: string,
-            newPassword: string,
-            options?: {
-                logout?: Object;
-            },
-        ): void;
+        function setPassword(userId: string, newPassword: string, options?: {
+            logout?: Object;
+        }): void;
 
         function validateNewUser(func: Function): boolean;
 
-        function validateLoginAttempt(
-            func: Function,
-        ): {
-            stop: () => void;
+        function validateLoginAttempt(func: Function): {
+            stop: () => void
         };
 
-        function _hashPassword(password: string): { digest: string; algorithm: string };
+        function _hashPassword(password: string): { digest: string; algorithm: string; };
 
         interface IValidateLoginAttemptCbOpts {
             type: string;
@@ -175,7 +148,7 @@ declare module 'meteor/accounts-base' {
     }
 
     module Accounts {
-        function onLogout(func: (options: { user: Meteor.User; connection: Meteor.Connection }) => void): void;
+        function onLogout(func: (options: { user: Meteor.User, connection: Meteor.Connection; }) => void): void;
     }
 
     module Accounts {
@@ -250,9 +223,9 @@ declare module 'meteor/accounts-base' {
         type Password =
             | string
             | {
-                  digest: string;
-                  algorithm: 'sha-256';
-              };
+                digest: string;
+                algorithm: 'sha-256';
+            };
 
         /**
          *
@@ -269,19 +242,15 @@ declare module 'meteor/accounts-base' {
         type StampedLoginToken = {
             token: string;
             when: Date;
-        };
+        }
         type HashedStampedLoginToken = {
             hashedToken: string;
             when: Date;
-        };
+        }
 
         function _generateStampedLoginToken(): StampedLoginToken;
         function _hashStampedToken(token: StampedLoginToken): HashedStampedLoginToken;
-        function _insertHashedLoginToken<T>(
-            userId: string,
-            token: HashedStampedLoginToken,
-            query?: Mongo.Selector<T> | Mongo.ObjectID | string,
-        ): void;
+        function _insertHashedLoginToken<T>(userId: string, token: HashedStampedLoginToken, query?: Mongo.Selector<T> | Mongo.ObjectID | string): void;
         function _hashLoginToken(token: string): string;
     }
 }
