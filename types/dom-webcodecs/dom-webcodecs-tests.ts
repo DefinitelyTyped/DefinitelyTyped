@@ -269,7 +269,7 @@ new ImageDecoder({ type: "image/jpeg" });
 
 const imageDecoder = new ImageDecoder(imageDecoderInit);
 
-declare const context2d: OffscreenCanvasRenderingContext2D
+declare const context2d: OffscreenCanvasRenderingContext2D;
 imageDecoder.decode().then((result: ImageDecodeResult) => {
     const imageDecodeImage: VideoFrame = result.image;
     // $ExpectType number
@@ -661,7 +661,7 @@ videoEncoder.encode(videoFrame, { keyFrame: true });
 //////////////////////////////////////////////////
 // videoFrame-texImage.any.js
 
-declare const gl: WebGL2RenderingContext
+declare const gl: WebGL2RenderingContext;
 if (!gl) throw new Error("missing context");
 gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, videoFrame);
 gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.RGBA, gl.UNSIGNED_BYTE, videoFrame);
