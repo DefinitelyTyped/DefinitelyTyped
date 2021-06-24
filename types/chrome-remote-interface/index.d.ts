@@ -64,9 +64,21 @@ declare namespace CDP {
         on(event: string, callback: (params: object, sessionId?: string) => void): void;
         on(event: 'ready' | 'disconnect', callback: () => void): void;
 
+        Browser: ProtocolProxyApi.BrowserApi;
+        Debugger: ProtocolProxyApi.DebuggerApi;
+        DOM: ProtocolProxyApi.DOMApi;
+        DOMDebugger: ProtocolProxyApi.DOMDebuggerApi;
+        Emulation: ProtocolProxyApi.EmulationApi;
+        Input: ProtocolProxyApi.InputApi;
+        IO: ProtocolProxyApi.IOApi;
+        Log: ProtocolProxyApi.LogApi;
         Network: ProtocolProxyApi.NetworkApi;
         Page: ProtocolProxyApi.PageApi;
+        Performance: ProtocolProxyApi.PerformanceApi;
+        Profiler: ProtocolProxyApi.ProfilerApi;
         Runtime: ProtocolProxyApi.RuntimeApi;
+        Security: ProtocolProxyApi.SecurityApi;
+        Target: ProtocolProxyApi.TargetApi;
     }
 }
 
