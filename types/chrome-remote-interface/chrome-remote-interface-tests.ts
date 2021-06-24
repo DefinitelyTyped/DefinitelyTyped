@@ -6,6 +6,11 @@ import CDP = require('chrome-remote-interface');
         const cdpPort = { port: 9223 };
         client = await CDP(cdpPort);
         client.on('disconnect', () => {});
+        client.on('Network.requestWillBeSent', (params) => {
+            params.documentURL;
+        });
+        client.on('Debugger.resumed', () => {});
+        client.on('Network.requestWillBeSent.123', (params) => {});
         client.on('event', (message) => {
             if (message.method === 'Network.requestWillBeSent') {}
         });

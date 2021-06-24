@@ -6,6 +6,7 @@
 // Minimum TypeScript Version: 3.8
 
 import type ProtocolProxyApi from 'devtools-protocol/types/protocol-proxy-api';
+import type ProtocolMappingApi from 'devtools-protocol/types/protocol-mapping';
 
 declare namespace CDP {
     interface BaseOptions {
@@ -49,7 +50,10 @@ declare namespace CDP {
     interface Client {
         close: () => Promise<void>;
         on(event: 'event', callback: (message: EventMessage) => void): void;
-        // TODO Event: '<domain>.<method>' | '<domain>.<method>.<sessionId>'
+        // '<domain>.<method>'
+        on<T extends keyof ProtocolMappingApi.Events>(event: T, callback: (params: ProtocolMappingApi.Events[T][0], sessionId?: string) => void): void;
+        // '<domain>.<method>.<sessionId>'
+        on(event: string, callback: (params: object, sessionId?: string) => void): void;
         on(event: 'ready' | 'disconnect', callback: () => void): void;
 
         Network: ProtocolProxyApi.NetworkApi;
