@@ -52,6 +52,9 @@
             ],
             "d3-force": [
                 "d3-force/v2"
+            ],
+            "d3-format": [
+                "d3-format/v2"
             ]
         },
         "types": [],
