@@ -744,7 +744,7 @@ export interface Theme {
 }
 
 export interface UndoManager {
-    add(level?: {}, event?: DocumentEvent): {};
+    add(level?: {}, event?: Event): {};
 
     beforeChange(): void;
 
