@@ -201,7 +201,7 @@ declare namespace CDP {
 
     // '<domain>.<event>' i.e. Page.loadEventFired
     type EventPromises<T extends ProtocolMappingApi.Events> = {
-        [Property in keyof T]: T[Property] extends any[] ? Promise<T[Property][0]> : never;
+        [Property in keyof T]: T[Property] extends [any] ? Promise<T[Property][0]> : Promise<void>;
     };
 }
 
