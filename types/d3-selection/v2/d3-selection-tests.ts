@@ -783,8 +783,6 @@ tr = d3Selection.select('body')
     .append('table')
     .selectAll()
     .data(matrix)
-    // $ExpectError
-    .data<number[]>([{test: 1}, {test: 2}]) // fails, using this data statement instead, would fail because of its type parameter not being met by input
     .enter().append('tr');
 
 let li: d3Selection.Selection<HTMLLIElement, number, HTMLElement, any>;
