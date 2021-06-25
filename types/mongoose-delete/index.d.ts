@@ -1,4 +1,4 @@
-// Type definitions for mongoose-delete 0.5.3
+// Type definitions for mongoose-delete 0.5
 // Project: https://github.com/dsanel/mongoose-delete
 // Definitions by: Mochamad Arifin <https://github.com/ndunks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
