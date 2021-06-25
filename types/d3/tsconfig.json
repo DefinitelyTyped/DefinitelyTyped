@@ -97,6 +97,9 @@
             ],
             "d3-timer": [
                 "d3-timer/v2"
+            ],
+            "d3-transition": [
+                "d3-transition/v2"
             ]
         },
         "types": [],
