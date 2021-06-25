@@ -306,6 +306,10 @@ declare module "jsdom" {
         HTMLDataElement: typeof HTMLDataElement;
         HTMLDataListElement: typeof HTMLDataListElement;
         HTMLDetailsElement: typeof HTMLDetailsElement;
+        HTMLDialogElement: {
+            new(): HTMLDialogElement;
+            readonly prototype: HTMLDialogElement;
+        };
         HTMLDirectoryElement: typeof HTMLDirectoryElement;
         HTMLFieldSetElement: typeof HTMLFieldSetElement;
         HTMLFontElement: typeof HTMLFontElement;
