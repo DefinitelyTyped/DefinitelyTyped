@@ -41,6 +41,16 @@ declare class IncomingForm {
     onPart(part: Part): void;
 
     handlePart(part: Part): void;
+        
+    /*
+     * The amount of bytes received for this form so far.
+     */
+    bytesReceived: number;
+    
+    /*
+     * The expected number of bytes in this form.
+     */
+    bytesExpected: number | null;
 }
 
 export = IncomingForm;
