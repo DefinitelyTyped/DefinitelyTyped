@@ -8,12 +8,18 @@ import ConsumableStream = require('consumable-stream');
 import AGSimpleBroker = require('ag-simple-broker');
 
 import AGServerSocket = require('./serversocket');
+import AGAction = require('./action');
+
+declare const MIDDLEWARE_HANDSHAKE = 'handshake';
+declare const MIDDLEWARE_INBOUND_RAW = 'inboundRaw';
+declare const MIDDLEWARE_INBOUND = 'inbound';
+declare const MIDDLEWARE_OUTBOUND = 'outbound';
 
 declare class AGServer extends AsyncStreamEmitter<any> {
-    readonly MIDDLEWARE_HANDSHAKE: 'handshake';
-    readonly MIDDLEWARE_INBOUND_RAW: 'inboundRaw';
-    readonly MIDDLEWARE_INBOUND: 'inbound';
-    readonly MIDDLEWARE_OUTBOUND: 'outbound';
+    readonly MIDDLEWARE_HANDSHAKE: typeof MIDDLEWARE_HANDSHAKE;
+    readonly MIDDLEWARE_INBOUND_RAW: typeof MIDDLEWARE_INBOUND_RAW;
+    readonly MIDDLEWARE_INBOUND: typeof MIDDLEWARE_INBOUND;
+    readonly MIDDLEWARE_OUTBOUND: typeof MIDDLEWARE_OUTBOUND;
     readonly SYMBOL_MIDDLEWARE_HANDSHAKE_STREAM: symbol;
 
     options: AGServer.AGServerOptions;
@@ -88,10 +94,10 @@ declare class AGServer extends AsyncStreamEmitter<any> {
     listener(eventName: 'disconnection'): ConsumableStream<AGServer.DisconnectionData>;
     listener(eventName: 'closure'): ConsumableStream<AGServer.ClosureData>;
 
-    setMiddleware(type: 'handshake', middleware: AGServer.handshakeMiddlewareFunction): void;
-    setMiddleware(type: 'inboundRaw', middleware: AGServer.inboundRawMiddlewareFunction): void;
-    setMiddleware(type: 'inbound', middleware: AGServer.inboundMiddlewareFunction): void;
-    setMiddleware(type: 'outbound', middleware: AGServer.outboundMiddlewareFunction): void;
+    setMiddleware(type: typeof MIDDLEWARE_HANDSHAKE, middleware: AGServer.handshakeMiddlewareFunction): void;
+    setMiddleware(type: typeof MIDDLEWARE_INBOUND_RAW, middleware: AGServer.inboundRawMiddlewareFunction): void;
+    setMiddleware(type: typeof MIDDLEWARE_INBOUND, middleware: AGServer.inboundMiddlewareFunction): void;
+    setMiddleware(type: typeof MIDDLEWARE_OUTBOUND, middleware: AGServer.outboundMiddlewareFunction): void;
 
     removeMiddleware(type: AGServer.Middlewares): void;
 
@@ -271,12 +277,22 @@ declare namespace AGServer {
         [additionalOptions: string]: any;
     }
 
-    type handshakeMiddlewareFunction = (stream: WritableConsumableStream<any>) => void;
-    type inboundRawMiddlewareFunction = (stream: WritableConsumableStream<any>) => void;
-    type inboundMiddlewareFunction = (stream: WritableConsumableStream<any>) => void;
-    type outboundMiddlewareFunction = (stream: WritableConsumableStream<any>) => void;
+    type handshakeMiddlewareFunction = (
+        stream: WritableConsumableStream<AGAction.AGActionHandshakeWS | AGAction.AGActionHandshakeSC>,
+    ) => void;
+    type inboundRawMiddlewareFunction = (stream: WritableConsumableStream<AGAction.AGActionMessage>) => void;
+    type inboundMiddlewareFunction = (
+        stream: WritableConsumableStream<
+            | AGAction.AGActionTransmit
+            | AGAction.AGActionInvoke
+            | AGAction.AGActionSubscribe
+            | AGAction.AGActionPublishIn
+            | AGAction.AGActionAuthenticate
+        >,
+    ) => void;
+    type outboundMiddlewareFunction = (stream: WritableConsumableStream<AGAction.AGActionPublishOut>) => void;
 
-    type Middlewares = 'handshake' | 'inboundRaw' | 'inbound' | 'outbound';
+    type Middlewares = typeof MIDDLEWARE_HANDSHAKE | typeof MIDDLEWARE_INBOUND_RAW | typeof MIDDLEWARE_INBOUND | typeof MIDDLEWARE_OUTBOUND;
 
     interface CodecEngine {
         decode: (input: any) => any;
