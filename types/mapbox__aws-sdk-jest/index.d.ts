@@ -3,6 +3,7 @@
 // Definitions by: stevensnoeijen <https://github.com/stevensnoeijen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 /// <reference types="jest" />
 
 declare module 'aws-sdk' {
