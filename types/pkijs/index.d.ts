@@ -633,9 +633,9 @@ declare module "pkijs/src/CryptoEngine" {
          */
         constructor(parameters?: any);
 
-        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
-        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
-        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
         exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
         exportKey(format: "raw" | "pkcs8" | "spki", key: CryptoKey): Promise<ArrayBuffer>;
         exportKey(format: string, key: CryptoKey): Promise<JsonWebKey | ArrayBuffer>;
@@ -653,20 +653,20 @@ declare module "pkijs/src/CryptoEngine" {
         convert(inputFormat: string, outputFormat: string, keyData: BufferSource | JsonWebKey, algorithm: Algorithm, extractable: boolean, keyUsages: string[]): PromiseLike<BufferSource | JsonWebKey>;
 
         generateKey(algorithm: string, extractable: boolean, keyUsages: string[]): Promise<CryptoKeyPair | CryptoKey>;
-        generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams | DhKeyGenParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKeyPair>;
+        generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKeyPair>;
         generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
-        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        sign(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+        sign(algorithm: string | RsaPssParams | EcdsaParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
         unwrapKey(format: string, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier, unwrappedKeyAlgorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
-        verify(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, signature: BufferSource, data: BufferSource): Promise<boolean>;
+        verify(algorithm: string | RsaPssParams | EcdsaParams, key: CryptoKey, signature: BufferSource, data: BufferSource): Promise<boolean>;
         wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier): Promise<ArrayBuffer>;
-        decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
-        deriveBits(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
-        deriveKey(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+        deriveBits(algorithm: string | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
+        deriveKey(algorithm: string | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
         digest(algorithm: AlgorithmIdentifier, data: BufferSource): Promise<ArrayBuffer>;
-        encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+        encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams |  AesGcmParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
     }
 }
 
