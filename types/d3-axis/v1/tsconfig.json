@@ -17,6 +17,9 @@
             "d3-axis": [
                 "d3-axis/v1"
             ],
+            "d3-format": [
+                "d3-format/v1"
+            ],
             "d3-selection": [
                 "d3-selection/v1"
             ]

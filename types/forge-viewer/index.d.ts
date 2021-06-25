@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.44
+// Type definitions for non-npm package Forge Viewer 7.45
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -438,11 +438,11 @@ declare namespace Autodesk {
           setBookmarks(bookmarks: BubbleNode[]): void;
           setCamera(camera: any): void;
           setCameraGlobal(camera: any): void;
-          setNodes(bubbleNodes: BubbleNode[], diffConfig: any): void;
+          setNodes(bubbleNodes: BubbleNode[], diffConfig: any): Promise<Model[]>;
           startBimWalk(): void;
           stopBimWalk(): void;
           show(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
-          switchView(bubbleNodes: BubbleNode[], diffConfig: any): void;
+          switchView(bubbleNodes: BubbleNode[], diffConfig: any): Promise<Model[]>;
           unload(bubbleNode: BubbleNode): void;
           unloadAll(filter?: (item: any) => boolean): void;
           unloadUnderlayRaster(bubbleNode: BubbleNode): void;
@@ -679,8 +679,16 @@ declare namespace Autodesk {
             clearThemingColors(): void;
             fetchTopology(maxSizeMB: number): Promise<object>;
             getBoundingBox(): THREE.Box3;
-            getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
-            getBulkProperties2(dbIds: number[], options?: object, successCallback?: (r: PropertyResult[]) => void, errorCallback?: (s: any, m: any, d: any) => void): void;
+            getBulkProperties(dbIds: number[], options?: {
+              propFilter?: string[];
+              ignoreHidden?: boolean;
+             }, successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
+            getBulkProperties2(dbIds: number[], options?: {
+              propFilter?: string[];
+              categoryFilter?: string[];
+              ignoreHidden?: boolean;
+              needExternalId?: boolean;
+            }, successCallback?: (r: PropertyResult[]) => void, errorCallback?: (s: any, m: any, d: any) => void): void;
             getData(): any;
             getFragmentList(): Private.FragmentList;
             getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
@@ -1673,6 +1681,7 @@ declare namespace Autodesk {
                 scene: THREE.Scene;
                 sceneAfter: THREE.Scene;
                 selector: any;
+                showGhosting: boolean;
                 use2dInstancing: boolean;
                 visibilityManager: VisibilityManager;
 
@@ -2165,7 +2174,11 @@ declare namespace Autodesk {
           render(nodeId: string|string[], sensorType: string,
             sensorValueCallback: (device: SurfaceShadingPoint, sensorType: string) => number,
             confidenceSize?: number): void;
-          updateShading(sensorValueCallback: (device: SurfaceShadingPoint, sensorType: string) => number): void;
+          updateShading(sensorValueCallback: (device: SurfaceShadingPoint, sensorType: string) => number, heatmapConfig: {
+            confidence?: number;
+            powerParameter?: number;
+            alpha?: number;
+          }): void;
         }
 
         class SurfaceShadingData extends SurfaceShadingGroup {
@@ -2190,6 +2203,7 @@ declare namespace Autodesk {
         }
 
         class SurfaceShadingNode {
+          bounds: THREE.Box3;
           dbIds: number[];
           fragIds: number[];
           id: string;
@@ -2648,7 +2662,13 @@ declare namespace Autodesk {
         datavizDotOverlay: any;
         deviceDepthOcclusion: boolean;
 
-        constructor(viewer: Viewing.Viewer3D, options?: any);
+        constructor(viewer: Viewing.Viewer3D, options?: {
+          type: string;
+          width?: number;
+          slicingPosition?: number;
+          placementPosition?: number;
+          minOpacity?: number;
+        });
 
         addViewables(data: DataVisualization.Core.ViewableData): void;
         clearHighlightedViewables(): void;
@@ -2668,7 +2688,12 @@ declare namespace Autodesk {
         removeSurfaceShading(): void;
         renderSurfaceShading(nodeIds: string|string[],
           sensorType: string,
-          valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint, sensorType: string) => number, confidenceSize?: number): void;
+          valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint, sensorType: string) => number,
+          heatmapConfig?: {
+            confidence?: number;
+            powerParameter?: number;
+            alpha?: number;
+          }): void;
         setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.Core.SurfaceShadingData,
           options?: {
             type: 'PlanarHeatmap',
@@ -2681,7 +2706,12 @@ declare namespace Autodesk {
         showHideViewables(visible: boolean, occlusion: boolean): void;
         showTextures(): void;
         updateSurfaceShading(valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint,
-          sensorType: string) => number): void;
+          sensorType: string) => number,
+          heatmapConfig?: {
+            confidence?: number;
+            powerParameter?: number;
+            alpha?: number;
+          }): void;
       }
 
       class Edit2D extends Viewing.Extension {

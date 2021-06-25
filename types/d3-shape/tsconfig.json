@@ -14,8 +14,11 @@
             "../"
         ],
         "paths": {
+            "d3-hierarchy": [
+                "d3-hierarchy/v2"
+            ],
             "d3-path": [
-                "d3-path/v1"
+                "d3-path/v2"
             ]
         },
         "types": [],
