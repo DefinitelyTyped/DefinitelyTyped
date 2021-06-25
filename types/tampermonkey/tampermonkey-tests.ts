@@ -311,8 +311,15 @@ const highlightNotification: Tampermonkey.NotificationDetails = {
     ondone: textNotification.ondone
 };
 
+const silentNotification: Tampermonkey.NotificationDetails = {
+    silent: true,
+    onclick: textNotification.onclick,
+    ondone: textNotification.ondone
+};
+
 GM_notification(textNotification);
 GM_notification(highlightNotification);
+GM_notification(silentNotification);
 GM_notification(textNotification, textNotification.ondone);
 
 GM_notification(
