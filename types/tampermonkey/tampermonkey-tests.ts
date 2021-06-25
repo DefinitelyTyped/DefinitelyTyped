@@ -167,6 +167,9 @@ GM_xmlhttpRequest<RequestContext>({
     url: 'http://example.com/',
     headers: { 'User-Agent': 'greasemonkey' },
     data: 'foo=1&bar=2',
+    cookie: 'secret=42',
+    nocache: true,
+    revalidate: true,
     binary: false,
     timeout: 10,
     context: {
@@ -177,7 +180,7 @@ GM_xmlhttpRequest<RequestContext>({
     responseType: 'json',
     overrideMimeType: 'text/plain',
     anonymous: false,
-    username: 'guest',
+    user: 'guest',
     password: 'abc123',
     onabort() {},
     onerror(response) {
@@ -311,15 +314,8 @@ const highlightNotification: Tampermonkey.NotificationDetails = {
     ondone: textNotification.ondone
 };
 
-const silentNotification: Tampermonkey.NotificationDetails = {
-    silent: true,
-    onclick: textNotification.onclick,
-    ondone: textNotification.ondone
-};
-
 GM_notification(textNotification);
 GM_notification(highlightNotification);
-GM_notification(silentNotification);
 GM_notification(textNotification, textNotification.ondone);
 
 GM_notification(
