@@ -65,6 +65,6 @@ declare global {
         HTMLImports: HTMLImportsPolyfill;
         WebComponents: Polyfill;
 
-        customElements: CustomElementRegistry;
+        readonly customElements: CustomElementRegistry;
     }
 }
