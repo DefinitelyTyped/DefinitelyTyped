@@ -197,6 +197,7 @@ export interface RGBColorFactory extends Function {
      *
      * @param color A permissible color space instance.
      */
+    // tslint:disable-next-line:unified-signatures
     (color: ColorSpaceObject | ColorCommonInstance): RGBColor;
     /**
      * Prototype of the factory, which can be used for instanceof testing
@@ -278,6 +279,7 @@ export interface HSLColorFactory extends Function {
      *
      * @param color A permissible color space instance.
      */
+    // tslint:disable-next-line:unified-signatures
     (color: ColorSpaceObject | ColorCommonInstance): HSLColor;
     /**
      * Prototype of the factory, which can be used for instanceof testing
@@ -360,6 +362,7 @@ export interface LabColorFactory extends Function {
      *
      * @param color A permissible color space instance.
      */
+    // tslint:disable-next-line:unified-signatures
     (color: ColorSpaceObject | ColorCommonInstance): LabColor;
     /**
      * Prototype of the factory, which can be used for instanceof testing
@@ -454,6 +457,7 @@ export interface HCLColorFactory extends Function {
      *
      * @param color A permissible color space instance.
      */
+    // tslint:disable-next-line:unified-signatures
     (color: ColorSpaceObject | ColorCommonInstance): HCLColor;
     /**
      * Prototype of the factory, which can be used for instanceof testing
@@ -489,6 +493,7 @@ export interface LCHColorFactory {
      *
      * @param color A permissible color space instance.
      */
+    // tslint:disable-next-line:unified-signatures
     (color: ColorSpaceObject | ColorCommonInstance): HCLColor;
 }
 
@@ -566,6 +571,7 @@ export interface CubehelixColorFactory extends Function {
      *
      * @param color A permissible color space instance.
      */
+    // tslint:disable-next-line:unified-signatures
     (color: ColorSpaceObject | ColorCommonInstance): CubehelixColor;
     /**
      * Prototype of the factory, which can be used for instanceof testing
