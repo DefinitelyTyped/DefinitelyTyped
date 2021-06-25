@@ -94,6 +94,9 @@
             ],
             "d3-time-format": [
                 "d3-time-format/v3"
+            ],
+            "d3-timer": [
+                "d3-timer/v2"
             ]
         },
         "types": [],
