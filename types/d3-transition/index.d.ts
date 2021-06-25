@@ -147,18 +147,24 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
     /**
      * For each selected element, selects the first child element that matches the specified selector string, if any, and returns a transition on the resulting selection.
      * The selector may be specified either as a selector string or a function.
-     * If a function, it is evaluated for each selected element, in order, being passed the current datum (d), the current index (i), and the current group (nodes), with this as the current DOM element.
-     * The new transition has the same id, name and timing as this transition; however, if a transition with the same id already exists on a selected element, the existing transition is returned for that element.
-     * This method is equivalent to deriving the selection for this transition via transition.selection, creating a subselection via selection.selectChild, and then creating a new transition via selection.transition.
+     * If a function, it is evaluated for each selected element, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element.
+     * The new transition has the same id, name and timing as this transition;
+     * however, if a transition with the same id already exists on a selected element, the existing transition is returned for that element.
+     * This method is equivalent to deriving the selection for this transition via transition.selection,
+     * creating a subselection via selection.selectChild, and then creating a new transition via selection.transition.
      */
     selectChild<DescElement extends BaseType, OldDatum>(selector?: string | ValueFn<GElement, Datum, DescElement>): Transition<DescElement, OldDatum, GElement, Datum>;
 
     /**
      * For each selected element, selects all children that match the specified selector string, if any, and returns a transition on the resulting selection.
      * The selector may be specified either as a selector string or a function.
-     * If a function, it is evaluated for each selected element, in order, being passed the current datum (d), the current index (i), and the current group (nodes), with this as the current DOM element.
-     * The new transition has the same id, name and timing as this transition; however, if a transition with the same id already exists on a selected element, the existing transition is returned for that element.
-     * This method is equivalent to deriving the selection for this transition via transition.selection, creating a subselection via selection.selectChildren, and then creating a new transition via selection.transition.
+     * If a function, it is evaluated for each selected element, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element.
+     * The new transition has the same id, name and timing as this transition;
+     * however, if a transition with the same id already exists on a selected element, the existing transition is returned for that element.
+     * This method is equivalent to deriving the selection for this transition via transition.selection,
+     * creating a subselection via selection.selectChildren, and then creating a new transition via selection.transition.
      */
     selectChildren<DescElement extends BaseType, OldDatum>(selector?: string | ValueFn<GElement, Datum, DescElement>): Transition<DescElement, OldDatum, GElement, Datum>;
 
