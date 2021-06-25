@@ -61,7 +61,13 @@ declare module 'Synthetics' {
          * You could also .reset() Synthetics in the middle of an invocation if you liked.
          */
         reset(): Promise<void>;
-        createCanaryArn(awsPartition: string, region: string, awsAccountId: string, canaryName: string, canaryId?: string): string;
+        createCanaryArn(
+            awsPartition: string,
+            region: string,
+            awsAccountId: string,
+            canaryName: string,
+            canaryId?: string,
+        ): string;
         setEventAndContext(event: any, context: any): Promise<void>;
         setVerboseLogging(verboseLogging: boolean): void;
         getCanaryName(): string;
