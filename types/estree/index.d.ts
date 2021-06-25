@@ -551,6 +551,7 @@ export interface ExportDefaultDeclaration extends BaseModuleDeclaration {
 
 export interface ExportAllDeclaration extends BaseModuleDeclaration {
   type: "ExportAllDeclaration";
+  exported: Identifier | null;
   source: Literal;
 }
 
