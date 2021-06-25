@@ -43,6 +43,36 @@
             ],
             "d3-dsv": [
                 "d3-dsv/v2"
+            ],
+            "d3-ease": [
+                "d3-ease/v2"
+            ],
+            "d3-fetch": [
+                "d3-fetch/v2"
+            ],
+            "d3-force": [
+                "d3-force/v2"
+            ],
+            "d3-format": [
+                "d3-format/v2"
+            ],
+            "d3-geo": [
+                "d3-geo/v2"
+            ],
+            "d3-hierarchy": [
+                "d3-hierarchy/v2"
+            ],
+            "d3-interpolate": [
+                "d3-interpolate/v2"
+            ],
+            "d3-path": [
+                "d3-path/v2"
+            ],
+            "d3-polygon": [
+                "d3-polygon/v2"
+            ],
+            "d3-quadtree": [
+                "d3-quadtree/v2"
             ]
         },
         "types": [],
