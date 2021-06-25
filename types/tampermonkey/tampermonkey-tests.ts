@@ -300,6 +300,7 @@ const textNotification: Tampermonkey.NotificationDetails = {
     title: 'Notification title',
     image: 'https://tampermonkey.net/favicon.ico',
     timeout: 5000,
+    silent: true,
     onclick() {
         GM_log(`Notification with id ${this.id} is clicked`);
     },
@@ -314,15 +315,8 @@ const highlightNotification: Tampermonkey.NotificationDetails = {
     ondone: textNotification.ondone
 };
 
-const silentNotification: Tampermonkey.NotificationDetails = {
-    silent: true,
-    onclick: textNotification.onclick,
-    ondone: textNotification.ondone
-};
-
 GM_notification(textNotification);
 GM_notification(highlightNotification);
-GM_notification(silentNotification);
 GM_notification(textNotification, textNotification.ondone);
 
 GM_notification(
