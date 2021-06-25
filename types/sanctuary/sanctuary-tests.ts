@@ -68,3 +68,5 @@ S.fromLeft(1)(S.Right('a'));
 
 // $ExpectType number
 S.fromRight(1)(S.Left('a'));
+
+S.lift2(S.sub)(S.I)((value: number) => value % 10)(15)
