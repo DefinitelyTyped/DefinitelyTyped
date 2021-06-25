@@ -229,14 +229,14 @@ paragraphsTransition = firstDivTransition.selectAll<HTMLParagraphElement, Paragr
 
 let one = document.querySelector("#one");
 let two = document.querySelector("#two");
-let t1 = selectAll([one, two]).data([1, 2]).transition().delay((d) => { return d * 10; });
+let t1 = selectAll([one, two]).data([1, 2]).transition().delay((d) => d * 10);
 let t2 = t1.selectChild("child");
 
 // selectChildren() ---------------------------------------------------------------
 
 one = document.querySelector("#one");
 two = document.querySelector("#two");
-t1 = selectAll([one, two]).data([1, 2]).transition().delay((d) => { return d * 10; });
+t1 = selectAll([one, two]).data([1, 2]).transition().delay((d) => d * 10);
 t2 = t1.selectChildren("child");
 
 // filter () -----------------------------------------------------------------
