@@ -21,7 +21,7 @@
                 "d3-scale-chromatic/v2"
             ],
             "d3-scale": [
-                "d3-scale/v2"
+                "d3-scale/v3"
             ]
         },
         "types": [],
