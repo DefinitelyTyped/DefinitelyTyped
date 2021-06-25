@@ -73,6 +73,9 @@
             ],
             "d3-quadtree": [
                 "d3-quadtree/v2"
+            ],
+            "d3-random": [
+                "d3-random/v2"
             ]
         },
         "types": [],
