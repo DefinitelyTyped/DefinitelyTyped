@@ -89,6 +89,9 @@
             "d3-shape": [
                 "d3-shape/v2"
             ],
+            "d3-time": [
+                "d3-time/v2"
+            ],
             "d3-time-format": [
                 "d3-time-format/v3"
             ]
