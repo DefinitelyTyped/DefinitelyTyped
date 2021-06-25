@@ -1,8 +1,9 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
 declare module 'RequestResponseLogHelper' {
     /**
      * Handles the fine grained configuration and creation of string representations of request and response payloads
      */
-    export class RequestResponseLogHelper {
+    class RequestResponseLogHelper {
         request: {
             url: boolean;
             resourceType: boolean;

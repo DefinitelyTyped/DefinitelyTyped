@@ -1,9 +1,10 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
 declare module 'HttpRequestsReport' {
     /**
      * This class handles the creation of http requests report.
      * This report is generated and uploaded to S3 bucket by Synthetics.
      */
-    export class HttpCallResult {
+    class HttpCallResult {
         requestNum: number;
         requestUrl: string;
         request: HttpRequestResult;
@@ -23,7 +24,7 @@ declare module 'HttpRequestsReport' {
         step: any;
         getStep(): any;
     }
-    export class HttpRequestResult {
+    class HttpRequestResult {
         static buildRequestResult(options: any, requestBody: any, syntheticsConfiguration: any): HttpRequestResult;
         headers: any;
         path: any;
@@ -58,7 +59,7 @@ declare module 'HttpRequestsReport' {
         withBodySize(bodySize: any): HttpRequestResult;
         getBodySize(): number;
     }
-    export class HttpResponseResult {
+    class HttpResponseResult {
         headers: any;
         content: {
             body: string;
@@ -91,7 +92,7 @@ declare module 'HttpRequestsReport' {
         getContentEncoding(): string;
         getContentType(): string;
     }
-    export class HttpTimingsResult {
+    class HttpTimingsResult {
         startedAt: any;
         endedAt: any;
         dnsLookUpTimeInMs: any;
@@ -117,7 +118,7 @@ declare module 'HttpRequestsReport' {
         getContentTransferTime(): any;
         getTotalDuration(): any;
     }
-    export class HttpRequestUrl {
+    class HttpRequestUrl {
         static buildRequestUrl(options: any, urlObj: any): HttpRequestUrl;
         constructor(protocol: any, hostname: any, path: any);
         protocol: any;

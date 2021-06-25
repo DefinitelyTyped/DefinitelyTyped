@@ -1,3 +1,4 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
 declare module 'SyntheticsScreenshot' {
     function _exports(dir?: string): SyntheticsScreenshot;
     export = _exports;
@@ -19,14 +20,13 @@ declare module 'SyntheticsScreenshot' {
         take(page: any, stepName?: string, suffix?: string): Promise<ScreenshotResult>;
         /**
          *  Adds screenshot result to map {StepName: [ScreenshotResults]} and
-         *  @returns {ScreenshotResult} - fileName and page url of screenshot
+         *  @returns fileName and page url of screenshot
          */
         addScreenshotResult(stepName: any, fileName: any, pageUrl: any): ScreenshotResult;
         /**
          * Get all screenshots captured during the execution of this step.
          * If two steps have same name, it will get screenshots for both of them.
          * @param stepName
-         * @returns {ScreenshotResult[]}
          */
         getScreenshotResult(stepName: any): ScreenshotResult[];
     }

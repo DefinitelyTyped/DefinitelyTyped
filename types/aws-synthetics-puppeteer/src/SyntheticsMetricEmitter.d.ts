@@ -1,5 +1,6 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
 declare module 'SyntheticsMetricEmitter' {
-    export class SyntheticsMetricEmitter {
+    class SyntheticsMetricEmitter {
         _namespace: string;
         _awsCloudWatchClient: any;
         _syntheticsConfiguration: SyntheticsConfiguration;
@@ -26,10 +27,10 @@ declare module 'SyntheticsMetricEmitter' {
             canaryName: any,
         ): {
             MetricName: any;
-            Dimensions: {
+            Dimensions: Array<{
                 Name: string;
                 Value: any;
-            }[];
+            }>;
             Timestamp: any;
             Unit: any;
             Value: any;
@@ -44,10 +45,10 @@ declare module 'SyntheticsMetricEmitter' {
             stepName: any,
         ): {
             MetricName: any;
-            Dimensions: {
+            Dimensions: Array<{
                 Name: string;
                 Value: any;
-            }[];
+            }>;
             Timestamp: any;
             Unit: any;
             Value: any;

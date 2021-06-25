@@ -1,3 +1,4 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
 declare module 'SyntheticsUploader' {
     export = uploader;
     const uploader: SyntheticsUploader;
@@ -26,17 +27,17 @@ declare module 'SyntheticsUploader' {
         /**
          *  Uploads screenshots to S3 and returns an Array of error messages.
          *  @param artifacts - {Object.<SyntheticsResult> | Array.<SyntheticsResult>} - A single Object or an array of objects of ScreenshotResult.
-         *  @returns {Promise<Array.<String>> - Array of error messages}
+         *  @returns Array of error messages
          */
-        uploadScreenshots(screenshotResults: any): Promise<Array<string>>;
+        uploadScreenshots(screenshotResults: any): Promise<string[]>;
         /**
          *  Uploads artifacts to S3 and returns an Array of error messages.
          *  @param artifacts - {String | Array.<String> | Object.<SyntheticsResult> | Array.<SyntheticsResult>} - A single path or an array of paths to a directory or
          *  individual artifact,
          *  OR A single Object or an array of objects of ScreenshotResult.
-         *  @returns {Promise<Array.<String>> - Array of error messages}
+         *  @returns Array of error messages
          */
-        uploadArtifacts(artifacts: any): Promise<Array<string>>;
+        uploadArtifacts(artifacts: any): Promise<string[]>;
         uploadAndDeleteFiles(filePaths: any): Promise<any[]>;
         uploadFilesToS3(files: any): Promise<{
             numFilesUploaded: number;

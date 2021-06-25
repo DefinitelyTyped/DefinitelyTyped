@@ -1,3 +1,4 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
 declare module 'HttpRequestCapturer' {
     const _exports: HttpRequestCapturer;
     export = _exports;

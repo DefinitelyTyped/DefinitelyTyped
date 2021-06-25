@@ -1,3 +1,4 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
 declare module 'Synthetics' {
     const _exports: Synthetics;
     export = _exports;
@@ -47,7 +48,6 @@ declare module 'Synthetics' {
         /**
          * Use as a builder pattern for setting the request/response logging flags
          * Example: setRequestResponseLogHelper().withLogRequestHeaders(true).withLogResponseHeaders(true);
-         * @returns {RequestResponseLogHelper}
          */
         setRequestResponseLogHelper(): RequestResponseLogHelper;
         getRequestResponseLogHelper(): RequestResponseLogHelper;
@@ -73,15 +73,14 @@ declare module 'Synthetics' {
         getUrl(): string;
         /**
          * Returns global syntheticsConfiguration instance.
-         * @returns Object.<syntheticsConfiguration>
          */
         getConfiguration(): SyntheticsConfiguration;
         /**
          *  Takes screenshot of current page and uploads it to S3
-         *  @returns {ScreenshotResult} - fileName and page url of screenshot
+         *  @returns fileName and page url of screenshot
          */
-        takeScreenshot(stepName: any, suffix: any): any;
-        getScreenshotResult(stepName: any): import('SyntheticsReport').ScreenshotResult[];
+        takeScreenshot(stepName: any, suffix: any): ScreenshotResult;
+        getScreenshotResult(stepName: any): ScreenshotResult[];
         addReport(report: any): void;
         /**
          * Execute the provided step, wrapping it with start/succeed/fail logging, screen shots, metrics
@@ -97,7 +96,6 @@ declare module 'Synthetics' {
          * @param stepName
          * @param functionToExecute
          * @param stepConfig Optional Step config key-value pairs
-         * @returns {Promise<*>}
          */
         executeStep(stepName: any, functionToExecute: any, stepConfig?: any): Promise<any>;
         publishStepResult(
@@ -111,20 +109,17 @@ declare module 'Synthetics' {
         /**
          * Log step start with current url, take step start screen shot
          * @param stepName
-         * @returns {Promise<void>}
          */
         startStep(stepName: any, stepConfiguration: any, canaryStepResult: any): Promise<void>;
         /**
          * Log step succeeded with current url, take step succeeded screen shot
          * @param stepName
-         * @returns {Promise<void>}
          */
         succeedStep(stepName: any, stepConfiguration: any): Promise<void>;
         /**
          * Log step failed with current url and exception, take step failed screen shot
          * @param stepName
          * @param error
-         * @returns {Promise<void>}
          */
         failStep(stepName: any, error: any, stepConfiguration: any): Promise<void>;
         getHttpRequestOptions(requestOptions: any): any;
@@ -143,8 +138,7 @@ declare module 'Synthetics' {
          *        See https://nodejs.org/api/http.html#http_http_request_url_options_callback.
          *        Pass request data using aditional 'body' parameter in options
          * @param callback Function is invoked with response <http.IncomingMessage> received from http call.
-         * @param stepConfig {Object} Optional Step config key-value pairs
-         * @returns {Promise<void>}
+         * @param stepConfig Optional Step config key-value pairs
          */
         executeHttpStep(stepName: any, requestOptions: any, callback?: any, stepConfig?: any): Promise<void>;
         completeHttpStep(
@@ -222,7 +216,6 @@ declare module 'Synthetics' {
     import RequestResponseLogHelper = RequestResponseLogHelper_1.RequestResponseLogHelper;
     import * as SyntheticsMetricEmitter_1 from 'SyntheticsMetricEmitter';
     import SyntheticsMetricEmitter = SyntheticsMetricEmitter_1.SyntheticsMetricEmitter;
-    import { SyntheticsReport } from 'SyntheticsReport';
-    import { RequestsResult } from 'SyntheticsReport';
+    import { SyntheticsReport, RequestsResult, ScreenshotResult } from 'SyntheticsReport';
     import { SyntheticsConfiguration } from 'SyntheticsConfiguration';
 }

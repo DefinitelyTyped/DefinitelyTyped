@@ -1,3 +1,4 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
 declare module 'BrokenLinkCheckerReport' {
     export = BrokenLinkCheckerReport;
     /**
@@ -5,20 +6,20 @@ declare module 'BrokenLinkCheckerReport' {
      * This report can be published and added to Synthetics report.
      */
     class BrokenLinkCheckerReport {
-        links: {};
-        brokenLinks: any[];
+        links: Record<string, SyntheticsLink>;
+        brokenLinks: string[];
         totalLinksChecked: number;
         totalBrokenLinks: number;
         /**
          * Adds a link to BrokenLinkCheckerResult.
-         * @param {Object.<SyntheticsResult>} syntheticsLink
-         * @param {boolean} isBrokenLink (optional)- If not passed, defaults to consider link as broken if status code is not available or status code >= 400
-         * @returns {void}
+         * @param syntheticsLink
+         * @param isBrokenLink (optional)- If not passed, defaults to consider link as broken if status code is not available or status code >= 400
          */
-        addLink(syntheticsLink: any, isBrokenLink: boolean): void;
-        getLinks(): {};
+        addLink(syntheticsLink: SyntheticsLink, isBrokenLink?: boolean): void;
+        getLinks(): Record<string, SyntheticsLink>;
         getTotalBrokenLinks(): number;
         getTotalLinksChecked(): number;
         reset(): void;
     }
+    import SyntheticsLink = require('SyntheticsLink');
 }

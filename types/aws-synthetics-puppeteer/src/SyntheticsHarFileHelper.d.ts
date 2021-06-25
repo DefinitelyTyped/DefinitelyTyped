@@ -1,5 +1,6 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
 declare module 'SyntheticsHarFileHelper' {
-    export var harHeaderScript: string;
-    export var harCssOverrideScript: string;
-    export var harCloudFrontDNSByRegion: {};
+    let harHeaderScript: string;
+    let harCssOverrideScript: string;
+    let harCloudFrontDNSByRegion: {};
 }

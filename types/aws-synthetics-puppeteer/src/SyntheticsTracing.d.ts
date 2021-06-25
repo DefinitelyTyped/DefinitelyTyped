@@ -1,3 +1,4 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
 declare module 'SyntheticsTracing' {
     const _exports: SyntheticsTracing;
     export = _exports;
@@ -26,7 +27,7 @@ declare module 'SyntheticsTracing' {
          * already created.  Reset all the this._* variables that should be reset between Lambda invocations.
          */
         reset(): Promise<void>;
-        logAndThrow(message: any, err: any): void;
+        logAndThrow(message: string, err: any): void;
         /**
          * Configures the AWSXRaySDKClient with plugin AWS::CloudWatchSynthetics::Canary origin.
          * Used for creating new Segments and closing them
@@ -34,74 +35,90 @@ declare module 'SyntheticsTracing' {
          * canaryName - required
          * canaryArn - required
          * canaryRunId - required
-         *
-         * returns - XRaySDKClient configured for CloudWatch Synthetics
          */
         createXRaySDKClient(canaryName: any, canaryArn: any, canaryRunId: any): Promise<void>;
-        setLogger(logger: any): void;
-        setCaptureAWSAllowlist(source: any): void;
-        appendCaptureAWSAllowlist(source: any): void;
+        setLogger(logger: AWSXRaySDKClient.Logger): void;
+        setCaptureAWSAllowlist(source: string | object): void;
+        appendCaptureAWSAllowlist(source: string | object): void;
         /**
          * Configures the AWS SDK client for the service specified
          * to automatically capture segment information for each call made
-         * @param {AWS.Service} service - An instance of an AWS.Service to wrap.
-         * @returns {AWS.Service} instrumented service that was passed in
+         * @param service - An instance of an AWS.Service to wrap.
+         * @returns instrumented service that was passed in
          */
-        captureAWSClient(service: any): any;
+        captureAWSClient(service: AWS.Service): AWS.Service;
         /**
          * Configures the AWS SDK to automatically capture segment information
          * for each call made.
          * All created clients will automatically be captured.
          * To capture individual clients see 'captureAWSClient'
-         * @param {AWS} awssdk - The Javascript AWS SDK.
-         * @returns {AWS}
+         * @param awssdk - The Javascript AWS SDK.
+         * @returns awssdk that was passed in
          * @see https://github.com/aws/aws-sdk-js
          */
-        captureAWS(awssdk: any): any;
+        captureAWS(awssdk: typeof AWS): typeof AWS;
         /**
          * Wraps the http/https.request() and .get() calls to automatically capture information for the segment.
          * Returns an instance of the HTTP or HTTPS module that is patched.
-         * @param {http|https} module - The built in Node.js HTTP or HTTPS module.
-         * @param {boolean} downstreamXRayEnabled - when true, adds a "traced:true" property to the subsegment
+         * @param module - The built in Node.js HTTP or HTTPS module.
+         * @param downstreamXRayEnabled - when true, adds a "traced:true" property to the subsegment
          *   so the AWS X-Ray service expects a corresponding segment from the downstream service.
-         * @param {function} subsegmentCallback - a callback that is called with the subsegment, the Node.js
+         * @param subsegmentCallback - a callback that is called with the subsegment, the Node.js
          *   http.ClientRequest, and the Node.js http.IncomingMessage to allow custom annotations and metadata
          *   to be added to the subsegment.
-         * @returns {http|https}
+         * @returns the module that was passed in
          */
-        captureHTTPs(module: any | any, downstreamXRayEnabled: boolean, subsegmentCallback: Function): any | any;
+        captureHTTPs(
+            module: any,
+            downstreamXRayEnabled: boolean,
+            subsegmentCallback: (
+                subsegment: AWSXRaySDKClient.Subsegment,
+                request: http.ClientRequest,
+                response?: http.IncomingMessage,
+                error?: Error,
+            ) => void,
+        ): any;
         /**
          * Wraps the http/https.request() and .get() calls to automatically capture information for the segment.
          * This patches the built-in HTTP and HTTPS modules globally. If using a 3rd party HTTP library,
          * it should still use HTTP under the hood. Be sure to patch globally before requiring the 3rd party library.
          * 3rd party library compatibility is best effort. Some incompatibility issues may arise.
-         * @param {http|https} module - The built in Node.js HTTP or HTTPS module.
-         * @param {boolean} downstreamXRayEnabled - when true, adds a "traced:true" property to the subsegment
+         * @param module - The built in Node.js HTTP or HTTPS module.
+         * @param downstreamXRayEnabled - when true, adds a "traced:true" property to the subsegment
          *   so the AWS X-Ray service expects a corresponding segment from the downstream service.
-         * @param {function} subsegmentCallback - a callback that is called with the subsegment, the Node.js
+         * @param subsegmentCallback - a callback that is called with the subsegment, the Node.js
          *   http.ClientRequest, the Node.js http.IncomingMessage (if a response was received) and any error issued,
          *   allowing custom annotations and metadata to be added to the subsegment.
          */
-        captureHTTPsGlobal(module: any | any, downstreamXRayEnabled: boolean, subsegmentCallback: Function): void;
+        captureHTTPsGlobal(
+            module: any,
+            downstreamXRayEnabled: boolean,
+            subsegmentCallback: (
+                subsegment: AWSXRaySDKClient.Subsegment,
+                request: http.ClientRequest,
+                response?: http.IncomingMessage,
+                error?: Error,
+            ) => void,
+        ): void;
         /**
          * Creates an AWS.XRay client with the specified role arn, region, and endpoint
          *
-         *  @param {roleArn} optional - IAM Role Arn to send traces to
+         *  @param roleArn optional - IAM Role Arn to send traces to
          *     If roleArn is not specified, the current canary execution Role Arn
          *     will be used
-         *  @param {region} optional - AWS SDK region to send traces to
+         *  @param region optional - AWS SDK region to send traces to
          *     (e.g. "us-east-1")
          *     If region is not specified, the current region will be used
-         *  @param {endpoint} optional - AWS X-Ray endpoint to send traces to
+         *  @param endpoint optional - AWS X-Ray endpoint to send traces to
          *     (e.g. "https://xray.us-east-1.amazonaws.com/")
          *     If endpoint is not specified, the default endpoint for the region
          *     will be used
          *
          * returns - AWS.XRay client configured as specified
          */
-        createAWSXRayClient(roleArn: any, region: any, endpoint: any): Promise<any>;
+        createAWSXRayClient(roleArn?: string, region?: string, endpoint?: string): Promise<any>;
         activeTracing(): boolean;
-        setActiveTracing(activeTracing: any): Promise<void>;
+        setActiveTracing(activeTracing: boolean): Promise<void>;
         /**
          * Configures tracing source properties for canary name, canary arn, and canary run id
          *
@@ -110,25 +127,25 @@ declare module 'SyntheticsTracing' {
          * canaryRunId: "98203495-6546-2343-230203020102",
          *
          */
-        configureTracing(canaryName: any, canaryArn: any, canaryRunId: any): void;
+        configureTracing(canaryName: string, canaryArn: string, canaryRunId: string): void;
         /**
          * Set the AWS X-Ray client configuration for role arn, region, and endpoint.
          * Useful for sending traces to a different account.
          * If the X-Ray client already exists, re-creates the X-Ray client in use.
          *
-         *  @param {roleArn} optional - IAM Role Arn to send traces to
+         *  @param roleArn optional - IAM Role Arn to send traces to
          *     If roleArn is not specified, the current canary execution Role Arn
          *     will be used
-         *  @param {region} optional - AWS SDK region to send traces to
+         *  @param region optional - AWS SDK region to send traces to
          *     (e.g. "us-east-1")
          *     If region is not specified, the current region will be used
-         *  @param {endpoint} optional - AWS X-Ray endpoint to send traces to
+         *  @param endpoint optional - AWS X-Ray endpoint to send traces to
          *     (e.g. "https://xray.us-east-1.amazonaws.com/")
          *     If endpoint is not specified, the default endpoint for the region
          *     will be used
          *
          */
-        setXRayClientConfiguration(roleArn: any, region: any, endpoint: any): Promise<void>;
+        setXRayClientConfiguration(roleArn?: string, region?: string, endpoint?: string): Promise<void>;
         /**
          * Creates a new Segment and SubSegment that could be used for tracing a request/response
          * Keeps track of subsegments and segments created to be closed later.
@@ -139,7 +156,7 @@ declare module 'SyntheticsTracing' {
          *
          * returns - SubSegment for a call that has a parent Segment with CloudWatch Synthetics canary annotations
          */
-        createSubSegment(name: any): AWSXRaySDKClient.Subsegment;
+        createSubSegment(name: string): AWSXRaySDKClient.Subsegment;
         /**
          * Closes the subsegment and its parent segment
          * Sends the subsegment and parent segment.
@@ -149,23 +166,25 @@ declare module 'SyntheticsTracing' {
          * Called addError, addErrorFlag, addThrottleFlag, and addFaultFlag
          * before making this call to close the segment.
          */
-        closeSubSegment(subsegment: any): void;
+        closeSubSegment(subsegment: AWSXRaySDKClient.Subsegment): void;
         setExecutionError(err: any): void;
         getExecutionError(): any;
-        sendTraceSegment(xRayClient: any, segment: any): void;
+        sendTraceSegment(xRayClient: any, segment: AWSXRaySDKClient.Segment): void;
         /**
          * Returns an Amazon Trace Id (X-AMZN-TRACE-ID) formatted header for an existing segment
          * Sampled is set to true.
-         **/
-        getAmazonTraceIdHeader(segment: any): string;
+         */
+        getAmazonTraceIdHeader(segment: AWSXRaySDKClient.Segment): string;
         /**
          * Returns the open segment matching the traceHeader or null if there is no match
-         **/
-        getSubSegment(traceHeader: any): any;
-        addSegmentById(id: any, segment: any): void;
-        removeSegmentById(id: any): boolean;
-        getSegmentById(id: any): any;
+         */
+        getSubSegment(traceHeader: string): AWSXRaySDKClient.Segment;
+        addSegmentById(id: string, segment: AWSXRaySDKClient.Segment): void;
+        removeSegmentById(id: string): boolean;
+        getSegmentById(id: string): AWSXRaySDKClient.Segment;
         resetSegments(): void;
     }
     import * as AWSXRaySDKClient from 'aws-xray-sdk-core';
+    import * as AWS from 'aws-sdk';
+    import * as http from 'http';
 }

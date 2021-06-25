@@ -1,5 +1,6 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
+/// <reference types="node" />
 declare module 'SyntheticsLogger' {
-    /// <reference types="node" />
     const _exports: SyntheticsLogger;
     export = _exports;
     class SyntheticsLogger {

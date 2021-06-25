@@ -1,8 +1,9 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
 declare module 'SyntheticsConfiguration' {
     /**
      * Class to configure parameters in Synthetics
      */
-    export class SyntheticsConfiguration {
+    class SyntheticsConfiguration {
         reset(): void;
         screenshotConfiguration: {
             screenshotOnStepStart: boolean;

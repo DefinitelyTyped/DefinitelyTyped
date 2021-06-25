@@ -1,3 +1,4 @@
+// tslint:disable:no-single-declare-module js installs to root of node_modules
 declare module 'SyntheticsLink' {
     export = SyntheticsLink;
     /**
@@ -5,9 +6,9 @@ declare module 'SyntheticsLink' {
      * An instance of SyntheticsLink can be added to broken link checker report using addLink(instanceOfSyntheticsLink).
      */
     class SyntheticsLink {
-        constructor(url: any);
+        constructor(url: string);
         linkNum: number;
-        url: any;
+        url: string;
         text: string;
         parentUrl: string;
         status: {
@@ -16,9 +17,9 @@ declare module 'SyntheticsLink' {
         };
         failureReason: string;
         screenshots: any[];
-        withLinkNum(linkNum: any): SyntheticsLink;
-        withUrl(url: any): SyntheticsLink;
-        withText(text: any): SyntheticsLink;
+        withLinkNum(linkNum: number): SyntheticsLink;
+        withUrl(url: string): SyntheticsLink;
+        withText(text: string): SyntheticsLink;
         withParentUrl(parentUrl: any): SyntheticsLink;
         withStatusCode(statusCode: any): SyntheticsLink;
         withStatusText(statusText: any): SyntheticsLink;
@@ -26,7 +27,7 @@ declare module 'SyntheticsLink' {
         withScreenshotResult(screenshotResults: any): SyntheticsLink;
         addScreenshotResult(screenshotResult: any): void;
         getLinkNum(): number;
-        getUrl(): any;
+        getUrl(): string;
         getText(): string;
         getParentUrl(): string;
         getStatusCode(): string;
