@@ -15,7 +15,7 @@
         ],
         "paths": {
             "d3-timer": [
-                "d3-timer/v1"
+                "d3-timer/v2"
             ]
         },
         "types": [],
