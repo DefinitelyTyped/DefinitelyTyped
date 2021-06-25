@@ -18,8 +18,8 @@ declare module 'Synthetics' {
         ARN_SERVICE_NAME: string;
         USER_AGENT_SERVICE_NAME_PREFIX: string;
         _canaryArn: string;
-        _canaryName: any;
-        _canaryId: any;
+        _canaryName: string;
+        _canaryId: string;
         _canaryRunId: any;
         _canaryUserAgentString: string;
         _s3BaseFilePath: any;
@@ -51,21 +51,21 @@ declare module 'Synthetics' {
          */
         setRequestResponseLogHelper(): RequestResponseLogHelper;
         getRequestResponseLogHelper(): RequestResponseLogHelper;
-        setLogLevel(logLevel: any): void;
+        setLogLevel(logLevel: number): void;
         getLogLevel(): number;
         getStepErrors(): any[];
-        addUserAgent(page: any, userAgentString: any): Promise<void>;
+        addUserAgent(page: localPuppeteer.Page, userAgentString: string): Promise<void>;
         /**
          * On Lambda warm starts, we might have the same NodeJS process running with this same instantiated class
          * already created. Reset all the this._* variables that should be reset between Lambda invocations.
          * You could also .reset() Synthetics in the middle of an invocation if you liked.
          */
         reset(): Promise<void>;
-        createCanaryArn(awsPartition: any, region: any, awsAccountId: any, canaryName: any, canaryId: any): string;
+        createCanaryArn(awsPartition: string, region: string, awsAccountId: string, canaryName: string, canaryId?: string): string;
         setEventAndContext(event: any, context: any): Promise<void>;
-        setVerboseLogging(verboseLogging: any): void;
-        getCanaryName(): any;
-        getCanaryId(): any;
+        setVerboseLogging(verboseLogging: boolean): void;
+        getCanaryName(): string;
+        getCanaryId(): string;
         getCanaryArn(): string;
         getCanaryUserAgentString(): string;
         getRuntimeVersion(): string;
@@ -79,8 +79,8 @@ declare module 'Synthetics' {
          *  Takes screenshot of current page and uploads it to S3
          *  @returns fileName and page url of screenshot
          */
-        takeScreenshot(stepName: any, suffix: any): ScreenshotResult;
-        getScreenshotResult(stepName: any): ScreenshotResult[];
+        takeScreenshot(stepName: string, suffix?: string): ScreenshotResult;
+        getScreenshotResult(stepName: string): ScreenshotResult[];
         addReport(report: any): void;
         /**
          * Execute the provided step, wrapping it with start/succeed/fail logging, screen shots, metrics
@@ -93,35 +93,32 @@ declare module 'Synthetics' {
          * log pass/fail, screen shot pass/fail,
          * emit pass/fail metrics, events, and step duration metrics,
          * then return returnValue on success and throw exception on fail
-         * @param stepName
-         * @param functionToExecute
          * @param stepConfig Optional Step config key-value pairs
          */
-        executeStep(stepName: any, functionToExecute: any, stepConfig?: any): Promise<any>;
+        executeStep(stepName: string, functionToExecute: () => Promise<void>, stepConfig?: any): Promise<any>;
         publishStepResult(
             result: any,
             startTime: Date,
             endTime: Date,
-            stepName: any,
+            stepName: string,
             canaryStepResult: any,
             stepConfiguration: any,
         ): Promise<void>;
         /**
          * Log step start with current url, take step start screen shot
-         * @param stepName
          */
-        startStep(stepName: any, stepConfiguration: any, canaryStepResult: any): Promise<void>;
+        startStep(stepName: string, stepConfiguration: any, canaryStepResult: any): Promise<void>;
         /**
          * Log step succeeded with current url, take step succeeded screen shot
          * @param stepName
          */
-        succeedStep(stepName: any, stepConfiguration: any): Promise<void>;
+        succeedStep(stepName: string, stepConfiguration: any): Promise<void>;
         /**
          * Log step failed with current url and exception, take step failed screen shot
          * @param stepName
          * @param error
          */
-        failStep(stepName: any, error: any, stepConfiguration: any): Promise<void>;
+        failStep(stepName: string, error: any, stepConfiguration: any): Promise<void>;
         getHttpRequestOptions(requestOptions: any): any;
         /**
          * Execute HTTP step using provided request configuration with start/succeed/fail logging and metrics
@@ -140,10 +137,10 @@ declare module 'Synthetics' {
          * @param callback Function is invoked with response <http.IncomingMessage> received from http call.
          * @param stepConfig Optional Step config key-value pairs
          */
-        executeHttpStep(stepName: any, requestOptions: any, callback?: any, stepConfig?: any): Promise<void>;
+        executeHttpStep(stepName: string | null, requestOptions?: any, callback?: any, stepConfig?: any): Promise<void>;
         completeHttpStep(
-            stepName: any,
-            stepId: any,
+            stepName: string,
+            stepId: string,
             stepStatus: any,
             failureReason: any,
             stepStartTime: any,
@@ -175,7 +172,7 @@ declare module 'Synthetics' {
             result: any,
             startTime: Date,
             endTime: Date,
-            stepName: any,
+            stepName: string,
             stepConfiguration: any,
         ): Promise<boolean>;
         uploadArtifacts(artifacts: any): Promise<void>;
@@ -200,7 +197,7 @@ declare module 'Synthetics' {
             setupTime?: number,
             launchTime?: number,
         ): Promise<string>;
-        getErrorString(error: any): any;
+        getErrorString(error: Error | string): string;
         getReturnValue(
             canaryStatus: any,
             canaryError: any,
