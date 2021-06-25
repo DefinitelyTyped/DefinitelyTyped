@@ -22,6 +22,9 @@
             ],
             "d3-geo": [
                 "d3-geo/v2"
+            ],
+            "d3-random": [
+                "d3-random/v2"
             ]
         },
         "types": [],
