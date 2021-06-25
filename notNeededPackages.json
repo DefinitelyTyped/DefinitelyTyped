@@ -5198,6 +5198,10 @@
             "libraryName": "vuex-i18n",
             "asOfVersion": "1.13.0"
         },
+        "w3c-clipboard": {
+            "libraryName": "w3c-clipboard",
+            "asOfVersion": "1.0.0"
+        },
         "w3c-permissions": {
             "libraryName": "typescript",
             "asOfVersion": "2.0.0"
