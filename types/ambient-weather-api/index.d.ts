@@ -25,10 +25,10 @@ declare class AmbientWeatherApi {
     disconnect(): void;
 
     /** Subscribe to updates from your devices. */
-    subscribe(apiKeyOrApiKeys: string | string[]): void;
+    subscribe(apiKeyOrApiKeys: string | ReadonlyArray<string>): void;
 
     /** Unsubscribe from updates from your devices. */
-    unsubscribe(apiKeyOrApiKeys: string | string[]): void;
+    unsubscribe(apiKeyOrApiKeys: string | ReadonlyArray<string>): void;
 
     on(eventname: 'connect', callback: () => void): void;
     on(eventname: 'subscribed', callback: (data: { devices: AmbientWeatherApi.Device[] }) => void): void;
