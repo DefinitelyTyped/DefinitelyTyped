@@ -10,19 +10,41 @@ import * as React from 'react';
 import { ViewProps } from 'react-native';
 
 export interface OnLoadData {
+    audioTracks:        Track[];
     canPlayFastForward: boolean;
-    canPlayReverse: boolean;
+    canPlayReverse:     boolean;
     canPlaySlowForward: boolean;
     canPlaySlowReverse: boolean;
-    canStepBackward: boolean;
-    canStepForward: boolean;
-    currentTime: number;
-    duration: number;
-    naturalSize: {
-        height: number;
-        width: number;
-        orientation: 'portrait' | 'landscape';
-    };
+    canStepBackward:    boolean;
+    canStepForward:     boolean;
+    currentTime:        number;
+    duration:           number;
+    naturalSize:        NaturalSize;
+    textTracks:         Track[];
+    trackId:            string;
+    videoTracks?:        VideoTrack[];
+}
+
+export interface Track {
+    bitrate?: string;
+    index:    number;
+    language: string;
+    title:    string;
+    type:     string;
+}
+
+export interface NaturalSize {
+    height:      number;
+    orientation: string;
+    width:       number;
+}
+
+export interface VideoTrack {
+    bitrate: number;
+    codecs:  string;
+    height:  number;
+    trackId: string;
+    width:   number;
 }
 
 export interface OnProgressData {
