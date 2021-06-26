@@ -186,6 +186,11 @@ export interface Quadtree<T> {
 /**
  * Creates a new, empty quadtree with an empty extent and the default x- and y-accessors.
  * If data is specified, adds the specified array of data to the quadtree.
- * If x and y are also specified, sets the x- and y- accessors to the specified functions before adding the specified array of data to the quadtree.
  */
-export function quadtree<T = [number, number]>(data?: T[], x?: (d: T) => number, y?: (d: T) => number): Quadtree<T>;
+export function quadtree<T = [number, number]>(data?: T[]): Quadtree<T>;
+/**
+ * Creates a new, empty quadtree with an empty extent and the default x- and y-accessors.
+ * Adds the specified array of data to the quadtree.
+ * Sets the x- and y- accessors to the specified functions before adding the specified array of data to the quadtree.
+ */
+export function quadtree<T = [number, number]>(data: T[], x: (d: T) => number, y: (d: T) => number): Quadtree<T>;
