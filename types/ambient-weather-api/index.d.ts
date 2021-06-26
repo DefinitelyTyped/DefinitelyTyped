@@ -1,4 +1,4 @@
-// Type definitions for ambient-weather-api 0.0.6
+// Type definitions for ambient-weather-api 0.0
 // Project: https://github.com/owise1/ambient-weather-api#readme
 // Definitions by: Alex Wayne <https://github.com/AlexJWayne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,11 +11,11 @@ declare class AmbientWeatherApi {
 
     /** Get data for a single device. */
     deviceData(
-      macAddress: string,
-      options?: {
-        endDate?: string;
-        limit?: number;
-      }
+        macAddress: string,
+        options?: {
+            endDate?: string;
+            limit?: number;
+        },
     ): Promise<AmbientWeatherApi.DeviceData[]>;
 
     /** Connect to the realtime API. */
@@ -30,11 +30,11 @@ declare class AmbientWeatherApi {
     /** Unsubscribe from updates from your devices. */
     unsubscribe(apiKeyOrApiKeys: string | string[]): void;
 
-    on(eventname: "connect", callback: () => void): void;
-    on(eventname: "subscribed", callback: (data: { devices: AmbientWeatherApi.Device[] }) => void): void;
+    on(eventname: 'connect', callback: () => void): void;
+    on(eventname: 'subscribed', callback: (data: { devices: AmbientWeatherApi.Device[] }) => void): void;
     on(
-      eventname: "data",
-      callback: (data: AmbientWeatherApi.DeviceData & { device: AmbientWeatherApi.Device }) => void
+        eventname: 'data',
+        callback: (data: AmbientWeatherApi.DeviceData & { device: AmbientWeatherApi.Device }) => void,
     ): void;
 }
 
@@ -48,25 +48,25 @@ declare namespace AmbientWeatherApi {
         macAddress: string;
         lastData: DeviceData;
         info: DeviceInfo;
-      }
+    }
 
-      interface DeviceInfo {
+    interface DeviceInfo {
         name: string;
         coords: DeviceLocation;
-      }
+    }
 
-      interface DeviceLocation {
+    interface DeviceLocation {
         geo: {
-            type: "Point";
+            type: 'Point';
             coordinates: [number, number];
         };
         elevation: number;
         location: string;
         address: string;
         coords: GeoLocationCoordinate;
-      }
+    }
 
-      interface GeoLocationCoordinate {
+    interface GeoLocationCoordinate {
         lat: number;
         lon: number;
     }
@@ -278,7 +278,7 @@ declare namespace AmbientWeatherApi {
         dailyrainin?: number;
 
         /** 24 Hour Rain, in */
-        "24hourrainin"?: number;
+        '24hourrainin'?: number;
 
         /** Weekly Rain, in */
         weeklyrainin?: number;

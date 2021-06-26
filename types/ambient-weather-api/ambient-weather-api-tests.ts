@@ -2,19 +2,19 @@ import AmbientWeatherApi, { Device, DeviceData } from 'ambient-weather-api';
 
 const api = new AmbientWeatherApi({
     apiKey: 'Put your AW apiKey here',
-    applicationKey: 'Put your AW applicationKey here'
+    applicationKey: 'Put your AW applicationKey here',
 });
 
 async function getDevicesAndData() {
     // list the user's devices
     const devices = await api.userDevices();
 
-    devices.forEach(async (device) => {
+    devices.forEach(async device => {
         const mac: string = device.macAddress;
         const name: string = device.info.name;
 
         const data1: DeviceData[] = await api.deviceData(device.macAddress);
-        data1.forEach((data) => {
+        data1.forEach(data => {
             const tempAtDate = `${data.date} - ${data.tempf} °F`;
         });
 
@@ -32,7 +32,7 @@ function realtime() {
     const apiKey = 'Put your AW apiKey here';
     const api = new AmbientWeatherApi({
         apiKey,
-        applicationKey: 'Put your AW applicationKey here'
+        applicationKey: 'Put your AW applicationKey here',
     });
 
     api.connect();
