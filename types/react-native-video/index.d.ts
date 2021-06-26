@@ -10,41 +10,40 @@ import * as React from 'react';
 import { ViewProps } from 'react-native';
 
 export interface OnLoadData {
-    audioTracks:        Track[];
+    audioTracks: Track[];
     canPlayFastForward: boolean;
-    canPlayReverse:     boolean;
+    canPlayReverse: boolean;
     canPlaySlowForward: boolean;
     canPlaySlowReverse: boolean;
-    canStepBackward:    boolean;
-    canStepForward:     boolean;
-    currentTime:        number;
-    duration:           number;
-    naturalSize:        NaturalSize;
-    textTracks:         Track[];
-    trackId:            string;
-    videoTracks?:        VideoTrack[];
+    canStepBackward: boolean;
+    canStepForward: boolean;
+    currentTime: number;
+    duration: number;
+    naturalSize: NaturalSize;
+    textTracks: Track[];
+    trackId: string;
+    videoTracks?: VideoTrack[];
 }
-
 export interface Track {
     bitrate?: string;
-    index:    number;
+    index: number;
     language: string;
-    title:    string;
-    type:     string;
+    title: string;
+    type: string;
 }
 
 export interface NaturalSize {
-    height:      number;
+    height: number;
     orientation: string;
-    width:       number;
+    width: number;
 }
 
 export interface VideoTrack {
     bitrate: number;
-    codecs:  string;
-    height:  number;
+    codecs: string;
+    height: number;
     trackId: string;
-    width:   number;
+    width: number;
 }
 
 export interface OnProgressData {
@@ -87,13 +86,13 @@ export interface OnBufferData {
 }
 
 export interface DRMSettings {
-  type: DRMType;
-  licenseServer?: string;
-  headers?: { [key: string]: string };
-  contentId?: string;
-  certificateUrl?: string;
-  base64Certificate?: boolean;
-  getLicense?(): Promise<string>;
+    type: DRMType;
+    licenseServer?: string;
+    headers?: { [key: string]: string };
+    contentId?: string;
+    certificateUrl?: string;
+    base64Certificate?: boolean;
+    getLicense?(): Promise<string>;
 }
 
 export const TextTrackType: {
@@ -122,10 +121,10 @@ export enum FilterType {
 }
 
 export enum DRMType {
-  WIDEVINE = 'widevine',
-  PLAYREADY = 'playready',
-  CLEARKEY = 'clearkey',
-  FAIRPLAY = 'fairplay',
+    WIDEVINE = 'widevine',
+    PLAYREADY = 'playready',
+    CLEARKEY = 'clearkey',
+    FAIRPLAY = 'fairplay',
 }
 
 export interface VideoProperties extends ViewProps {
@@ -153,11 +152,11 @@ export interface VideoProperties extends ViewProps {
 
     /* Wrapper component */
     // Opaque type returned by require('./video.mp4')
-    source: { uri?: string, headers?: {[key: string]: string }, type?: string } | number;
+    source: { uri?: string; headers?: { [key: string]: string }; type?: string } | number;
     minLoadRetryCount?: number;
     maxBitRate?: number;
-    resizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
-    posterResizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
+    resizeMode?: 'stretch' | 'contain' | 'cover' | 'none'; // via Image#resizeMode
+    posterResizeMode?: 'stretch' | 'contain' | 'cover' | 'none'; // via Image#resizeMode
     poster?: string;
     repeat?: boolean;
     automaticallyWaitsToMinimizeStalling?: boolean;
