@@ -12,7 +12,7 @@
 export as namespace d3;
 
 /**
- * Version number in format _Major.Minor.BugFix_, like 6.0.0.
+ * Version number in format _Major.Minor.BugFix_, like 7.0.0.
  */
 export const version: string;
 
