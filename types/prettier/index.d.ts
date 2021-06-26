@@ -7,6 +7,7 @@
 //                 Christopher Quadflieg <https://github.com/Shinigami92>
 //                 Kevin Deisz <https://github.com/kddeisz>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
+//                 JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -360,7 +361,7 @@ export interface SupportOptionRange {
 
 export type SupportOptionType = 'int' | 'boolean' | 'choice' | 'path';
 
-export type CoreCategoryType = 'Config' | 'Editor' | 'Format' | 'Other' | 'Output' | 'Global' | 'Special'
+export type CoreCategoryType = 'Config' | 'Editor' | 'Format' | 'Other' | 'Output' | 'Global' | 'Special';
 
 export interface BaseSupportOption<Type extends SupportOptionType> {
     readonly name?: string;
