@@ -173,7 +173,7 @@ canvasArc(arcDefaultDatum);
 // use with svg
 
 const pArc: Selection<SVGPathElement, ArcDatum, any, any> = select<SVGPathElement, ArcDatum>('.arc-paths'); // mock
-const wrongArc1: Selection<SVGCircleElement, ArcDatum, any, any> = select<SVGCircleElement, ArcDatum>('.arc-paths'); // mock
+const wrongArc1: Selection<SVGTextElement, ArcDatum, any, any> = select<SVGTextElement, ArcDatum>('.arc-paths'); // mock
 const wrongArc2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.arc-paths'); // mock
 
 pArc.attr('d', svgArc);
@@ -1319,7 +1319,7 @@ const symbolDatum: SymbolDatum = {
 };
 
 const pSymbol: Selection<SVGPathElement, SymbolDatum, any, any> = select<SVGPathElement, SymbolDatum>('.symbol-path'); // mock
-const wrongSymbol1: Selection<SVGCircleElement, SymbolDatum, any, any> = select<SVGCircleElement, SymbolDatum>('.symbol-path'); // mock
+const wrongSymbol1: Selection<SVGTextElement, SymbolDatum, any, any> = select<SVGTextElement, SymbolDatum>('.symbol-path'); // mock
 const wrongSymbol2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.symbol-path'); // mock
 
 pSymbol.attr('d', svgSymbol);
