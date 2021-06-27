@@ -980,8 +980,8 @@ declare const defaultLinkDatum: d3Shape.DefaultLinkObject;
 
 const pLink: Selection<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, any, any> =
     select<SVGPathElement, HierarchyPointLink<TreeNodeDatum>>('.link-paths'); // mock
-const wrongLink1: Selection<SVGCircleElement, HierarchyPointLink<TreeNodeDatum>, any, any> =
-    select<SVGCircleElement, HierarchyPointLink<TreeNodeDatum>>('.link-paths'); // mock
+const wrongLink1: Selection<SVGTextElement, HierarchyPointLink<TreeNodeDatum>, any, any> =
+    select<SVGTextElement, HierarchyPointLink<TreeNodeDatum>>('.link-paths'); // mock
 const wrongLink2: Selection<SVGPathElement, d3Shape.DefaultLinkObject, any, any> =
     select<SVGPathElement, d3Shape.DefaultLinkObject>('.link-paths'); // mock
 
