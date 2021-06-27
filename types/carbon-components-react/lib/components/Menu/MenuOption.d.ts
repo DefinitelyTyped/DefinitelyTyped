@@ -13,7 +13,7 @@ type ExcludedPropKeys =
     | "ref"
     | "tabIndex";
 
-export interface ContextMenuOptionProps extends Omit<ReactLIAttr, ExcludedPropKeys> {
+export interface MenuOptionProps extends Omit<ReactLIAttr, ExcludedPropKeys> {
     disabled?: boolean;
     indented?: boolean; // set by context menu parent component
     kind?: "danger" | "default";
@@ -24,6 +24,6 @@ export interface ContextMenuOptionProps extends Omit<ReactLIAttr, ExcludedPropKe
     shortcut?: React.ReactNode;
 }
 
-declare const ContextMenuOption: React.FC<ContextMenuOptionProps>;
+declare const MenuOption: React.FC<MenuOptionProps>;
 
-export default ContextMenuOption;
+export default MenuOption;
