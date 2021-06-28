@@ -85,7 +85,7 @@ declare module 'Synthetics' {
          *  Takes screenshot of current page and uploads it to S3
          *  @returns fileName and page url of screenshot
          */
-        takeScreenshot(stepName: string, suffix?: string): ScreenshotResult;
+        takeScreenshot(stepName: string, suffix?: string): Promise<ScreenshotResult>;
         getScreenshotResult(stepName: string): ScreenshotResult[];
         addReport(report: any): void;
         /**
