@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-declare module "meteor/ddp" {
+declare module 'meteor/ddp' {
     module DDP {
         interface DDPStatic {
             subscribe(name: string, ...rest: any[]): Meteor.SubscriptionHandle;
@@ -38,7 +38,7 @@ declare module "meteor/ddp" {
 
         /** The state for a single invocation of a method, referenced by this inside a method definition. */
         interface MethodInvocation {
-            new(options: MethodInvocationOptions): MethodInvocation;
+            new (options: MethodInvocationOptions): MethodInvocation;
             /**
              * Call inside a method invocation.  Allow subsequent method from this client to begin running in a new fiber.
              */
@@ -58,7 +58,7 @@ declare module "meteor/ddp" {
             isSimulation: boolean;
             /**
              * Access inside a method invocation. The [connection](#meteor_onconnection) that this method was received on. `null` if the method is not associated with a connection, eg. a server initiated method call. Calls to methods made from a server method which was in turn initiated from the client share the same `connection`.
-            */
+             */
             connection: Meteor.Connection;
         }
     }

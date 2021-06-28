@@ -1,127 +1,150 @@
-
 // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
 declare type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
 
 declare module Mongo {
-
-    type BsonType = 1 | "double" |
-        2 | "string" |
-        3 | "object" |
-        4 | "array" |
-        5 | "binData" |
-        6 | "undefined" |
-        7 | "objectId" |
-        8 | "bool" |
-        9 | "date" |
-        10 | "null" |
-        11 | "regex" |
-        12 | "dbPointer" |
-        13 | "javascript" |
-        14 | "symbol" |
-        15 | "javascriptWithScope" |
-        16 | "int" |
-        17 | "timestamp" |
-        18 | "long" |
-        19 | "decimal" |
-        -1 | "minKey" |
-        127 | "maxKey" | "number"
+    type BsonType =
+        | 1
+        | 'double'
+        | 2
+        | 'string'
+        | 3
+        | 'object'
+        | 4
+        | 'array'
+        | 5
+        | 'binData'
+        | 6
+        | 'undefined'
+        | 7
+        | 'objectId'
+        | 8
+        | 'bool'
+        | 9
+        | 'date'
+        | 10
+        | 'null'
+        | 11
+        | 'regex'
+        | 12
+        | 'dbPointer'
+        | 13
+        | 'javascript'
+        | 14
+        | 'symbol'
+        | 15
+        | 'javascriptWithScope'
+        | 16
+        | 'int'
+        | 17
+        | 'timestamp'
+        | 18
+        | 'long'
+        | 19
+        | 'decimal'
+        | -1
+        | 'minKey'
+        | 127
+        | 'maxKey'
+        | 'number';
 
     type FieldExpression<T> = {
-        $eq?: T,
-        $gt?: T,
-        $gte?: T,
-        $lt?: T,
-        $lte?: T,
-        $in?: T[],
-        $nin?: T[],
-        $ne?: T,
-        $exists?: boolean,
-        $type?: BsonType[] | BsonType,
-        $not?: FieldExpression<T>,
-        $expr?: FieldExpression<T>,
-        $jsonSchema?: any,
-        $mod?: number[],
-        $regex?: RegExp | string,
-        $options?: string,
-        $text?: { $search: string, $language?: string, $caseSensitive?: boolean, $diacriticSensitive?: boolean },
-        $where?: string | Function,
-        $geoIntersects?: any,
-        $geoWithin?: any,
-        $near?: any,
-        $nearSphere?: any,
-        $all?: T[],
-        $elemMatch?: T extends {} ? Query<T> : FieldExpression<T>,
-        $size?: number,
-        $bitsAllClear?: any,
-        $bitsAllSet?: any,
-        $bitsAnyClear?: any,
-        $bitsAnySet?: any,
-        $comment?: string
-    }
+        $eq?: T;
+        $gt?: T;
+        $gte?: T;
+        $lt?: T;
+        $lte?: T;
+        $in?: T[];
+        $nin?: T[];
+        $ne?: T;
+        $exists?: boolean;
+        $type?: BsonType[] | BsonType;
+        $not?: FieldExpression<T>;
+        $expr?: FieldExpression<T>;
+        $jsonSchema?: any;
+        $mod?: number[];
+        $regex?: RegExp | string;
+        $options?: string;
+        $text?: { $search: string; $language?: string; $caseSensitive?: boolean; $diacriticSensitive?: boolean };
+        $where?: string | Function;
+        $geoIntersects?: any;
+        $geoWithin?: any;
+        $near?: any;
+        $nearSphere?: any;
+        $all?: T[];
+        $elemMatch?: T extends {} ? Query<T> : FieldExpression<T>;
+        $size?: number;
+        $bitsAllClear?: any;
+        $bitsAllSet?: any;
+        $bitsAnyClear?: any;
+        $bitsAnySet?: any;
+        $comment?: string;
+    };
 
-    type Flatten<T> = T extends any[] ? T[0] : T
+    type Flatten<T> = T extends any[] ? T[0] : T;
 
     type Query<T> = {
-        [P in keyof T]?: Flatten<T[P]> | RegExp | FieldExpression<Flatten<T[P]>>
+        [P in keyof T]?: Flatten<T[P]> | RegExp | FieldExpression<Flatten<T[P]>>;
     } & {
-        $or?: Query<T>[],
-        $and?: Query<T>[],
-        $nor?: Query<T>[]
-    } & Dictionary<any>
+        $or?: Query<T>[];
+        $and?: Query<T>[];
+        $nor?: Query<T>[];
+    } & Dictionary<any>;
 
     type QueryWithModifiers<T> = {
-        $query: Query<T>,
-        $comment?: string,
-        $explain?: any,
-        $hint?: any,
-        $maxScan?: any,
-        $max?: any,
-        $maxTimeMS?: any,
-        $min?: any,
-        $orderby?: any,
-        $returnKey?: any,
-        $showDiskLoc?: any,
-        $natural?: any
-    }
+        $query: Query<T>;
+        $comment?: string;
+        $explain?: any;
+        $hint?: any;
+        $maxScan?: any;
+        $max?: any;
+        $maxTimeMS?: any;
+        $min?: any;
+        $orderby?: any;
+        $returnKey?: any;
+        $showDiskLoc?: any;
+        $natural?: any;
+    };
 
-    type Selector<T> = Query<T> | QueryWithModifiers<T>
+    type Selector<T> = Query<T> | QueryWithModifiers<T>;
 
-    type Dictionary<T> = { [key: string]: T }
-    type PartialMapTo<T, M> = Partial<Record<keyof T, M>>
+    type Dictionary<T> = { [key: string]: T };
+    type PartialMapTo<T, M> = Partial<Record<keyof T, M>>;
     type OnlyArrays<T> = T extends any[] ? T : never;
-    type OnlyElementsOfArrays<T> = T extends any[] ? Partial<T[0]> : never
+    type OnlyElementsOfArrays<T> = T extends any[] ? Partial<T[0]> : never;
     type ElementsOf<T> = {
-        [P in keyof T]?: OnlyElementsOfArrays<T[P]>
-    }
+        [P in keyof T]?: OnlyElementsOfArrays<T[P]>;
+    };
     type PushModifier<T> = {
         [P in keyof T]?:
-        OnlyElementsOfArrays<T[P]> |
-        { $each?: T[P], $position?: number, $slice?: number, $sort?: 1 | -1 | Dictionary<number> }
-    }
+            | OnlyElementsOfArrays<T[P]>
+            | { $each?: T[P]; $position?: number; $slice?: number; $sort?: 1 | -1 | Dictionary<number> };
+    };
     type ArraysOrEach<T> = {
-        [P in keyof T]?: OnlyElementsOfArrays<T[P]> | { $each: T[P] }
-    }
-    type CurrentDateModifier = { $type: "timestamp" | "date" } | true
-    type Modifier<T> = T | {
-        $currentDate?: Partial<Record<keyof T, CurrentDateModifier>> & Dictionary<CurrentDateModifier>,
-        $inc?: PartialMapTo<T, number> & Dictionary<number>,
-        $min?: PartialMapTo<T, Date | number> & Dictionary<Date | number>,
-        $max?: PartialMapTo<T, Date | number> & Dictionary<Date | number>,
-        $mul?: PartialMapTo<T, number> & Dictionary<number>,
-        $rename?: PartialMapTo<T, string> & Dictionary<string>,
-        $set?: Partial<T> & Dictionary<any>,
-        $setOnInsert?: Partial<T> & Dictionary<any>,
-        $unset?: PartialMapTo<T, string | boolean | 1 | 0> & Dictionary<any>,
-        $addToSet?: ArraysOrEach<T> & Dictionary<any>,
-        $push?: PushModifier<T> & Dictionary<any>,
-        $pull?: ElementsOf<T> & Dictionary<any>,
-        $pullAll?: Partial<T> & Dictionary<any>,
-        $pop?: PartialMapTo<T, 1 | -1> & Dictionary<1 | -1>,
-    }
+        [P in keyof T]?: OnlyElementsOfArrays<T[P]> | { $each: T[P] };
+    };
+    type CurrentDateModifier = { $type: 'timestamp' | 'date' } | true;
+    type Modifier<T> =
+        | T
+        | {
+              $currentDate?: Partial<Record<keyof T, CurrentDateModifier>> & Dictionary<CurrentDateModifier>;
+              $inc?: PartialMapTo<T, number> & Dictionary<number>;
+              $min?: PartialMapTo<T, Date | number> & Dictionary<Date | number>;
+              $max?: PartialMapTo<T, Date | number> & Dictionary<Date | number>;
+              $mul?: PartialMapTo<T, number> & Dictionary<number>;
+              $rename?: PartialMapTo<T, string> & Dictionary<string>;
+              $set?: Partial<T> & Dictionary<any>;
+              $setOnInsert?: Partial<T> & Dictionary<any>;
+              $unset?: PartialMapTo<T, string | boolean | 1 | 0> & Dictionary<any>;
+              $addToSet?: ArraysOrEach<T> & Dictionary<any>;
+              $push?: PushModifier<T> & Dictionary<any>;
+              $pull?: ElementsOf<T> & Dictionary<any>;
+              $pullAll?: Partial<T> & Dictionary<any>;
+              $pop?: PartialMapTo<T, 1 | -1> & Dictionary<1 | -1>;
+          };
 
     type OptionalId<TSchema> = UnionOmit<TSchema, '_id'> & { _id?: any };
 
-    interface SortSpecifier { }
+    interface SortSpecifier {}
     interface FieldSpecifier {
         [id: string]: Number;
     }
@@ -141,9 +164,13 @@ declare module Mongo {
         reactive?: boolean;
         /**  Overrides `transform` on the  [`Collection`](#collections) for this cursor.  Pass `null` to disable transformation. */
         transform?: Transform<T>;
-    }
+    };
 
-    type DispatchTransform<Transform, T, U> = Transform extends (...args: any) => any ? ReturnType<Transform> : Transform extends null ? T : U;
+    type DispatchTransform<Transform, T, U> = Transform extends (...args: any) => any
+        ? ReturnType<Transform>
+        : Transform extends null
+        ? T
+        : U;
 
     var Collection: CollectionStatic;
     interface CollectionStatic {
@@ -151,21 +178,24 @@ declare module Mongo {
          * Constructor for a Collection
          * @param name The name of the collection. If null, creates an unmanaged (unsynchronized) local collection.
          */
-        new <T, U = T>(name: string | null, options?: {
-            /** The server connection that will manage this collection. Uses the default connection if not specified. Pass the return value of calling `DDP.connect` to specify a different server. Pass `null` to specify no connection. Unmanaged (`name` is null) collections cannot specify a connection. */
-            connection?: Object | null;
-            /** The method of generating the `_id` fields of new documents in this collection.  Possible values:
-             * - **`'STRING'`**: random strings
-             * - **`'MONGO'`**:  random [`Mongo.ObjectID`](#mongo_object_id) values
-             * 
-             * The default id generation technique is `'STRING'`.
-             */
-            idGeneration?: string;
-            /** An optional transformation function. Documents will be passed through this function before being returned from `fetch` or `findOne`, and before being passed to callbacks of `observe`, `map`, `forEach`, `allow`, and `deny`. Transforms are *not* applied for the callbacks of `observeChanges` or to cursors returned from publish functions. */
-            transform?: (doc: T) => U;
-            /** Set to `false` to skip setting up the mutation methods that enable insert/update/remove from client code. Default `true`. */
-            defineMutationMethods?: boolean;
-        }): Collection<T, U>;
+        new <T, U = T>(
+            name: string | null,
+            options?: {
+                /** The server connection that will manage this collection. Uses the default connection if not specified. Pass the return value of calling `DDP.connect` to specify a different server. Pass `null` to specify no connection. Unmanaged (`name` is null) collections cannot specify a connection. */
+                connection?: Object | null;
+                /** The method of generating the `_id` fields of new documents in this collection.  Possible values:
+                 * - **`'STRING'`**: random strings
+                 * - **`'MONGO'`**:  random [`Mongo.ObjectID`](#mongo_object_id) values
+                 *
+                 * The default id generation technique is `'STRING'`.
+                 */
+                idGeneration?: string;
+                /** An optional transformation function. Documents will be passed through this function before being returned from `fetch` or `findOne`, and before being passed to callbacks of `observe`, `map`, `forEach`, `allow`, and `deny`. Transforms are *not* applied for the callbacks of `observeChanges` or to cursors returned from publish functions. */
+                transform?: (doc: T) => U;
+                /** Set to `false` to skip setting up the mutation methods that enable insert/update/remove from client code. Default `true`. */
+                defineMutationMethods?: boolean;
+            },
+        ): Collection<T, U>;
     }
     interface Collection<T, U = T> {
         allow<Fn extends Transform<T> = undefined>(options: {
@@ -191,17 +221,23 @@ declare module Mongo {
          * Find the documents in a collection that match the selector.
          * @param selector A query describing the documents to find
          */
-        find<O extends Options<T>>(selector?: Selector<T> | ObjectID | string, options?: O): Cursor<T, DispatchTransform<O['transform'], T, U>>;
-        /** 
-         * Finds the first document that matches the selector, as ordered by sort and skip options. Returns `undefined` if no matching document is found. 
+        find<O extends Options<T>>(
+            selector?: Selector<T> | ObjectID | string,
+            options?: O,
+        ): Cursor<T, DispatchTransform<O['transform'], T, U>>;
+        /**
+         * Finds the first document that matches the selector, as ordered by sort and skip options. Returns `undefined` if no matching document is found.
          * @param selector A query describing the documents to find
          */
         findOne(selector?: Selector<T> | ObjectID | string): U | undefined;
-        /** 
-         * Finds the first document that matches the selector, as ordered by sort and skip options. Returns `undefined` if no matching document is found. 
+        /**
+         * Finds the first document that matches the selector, as ordered by sort and skip options. Returns `undefined` if no matching document is found.
          * @param selector A query describing the documents to find
          */
-        findOne<O extends Omit<Options<T>, 'limit'>>(selector?: Selector<T> | ObjectID | string, options?: O): DispatchTransform<O['transform'], T, U> | undefined;
+        findOne<O extends Omit<Options<T>, 'limit'>>(
+            selector?: Selector<T> | ObjectID | string,
+            options?: O,
+        ): DispatchTransform<O['transform'], T, U> | undefined;
         /**
          * Insert a document in the collection.  Returns its unique _id.
          * @param doc The document to insert. May not yet have an _id attribute, in which case Meteor will generate one for you.
@@ -228,34 +264,54 @@ declare module Mongo {
          * @param modifier Specifies how to modify the documents
          * @param callback If present, called with an error object as the first argument and, if no error, the number of affected documents as the second.
          */
-        update(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
-            /** True to modify all matching documents; false to only modify one of the matching documents (the default). */
-            multi?: boolean;
-            /** True to insert a document if no matching documents are found. */
-            upsert?: boolean;
-            /** Used in combination with MongoDB [filtered positional operator](https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/) to specify which elements to modify in an array field. */
-            arrayFilters?: { [identifier: string]: any }[];
-        }, callback?: Function): number;
+        update(
+            selector: Selector<T> | ObjectID | string,
+            modifier: Modifier<T>,
+            options?: {
+                /** True to modify all matching documents; false to only modify one of the matching documents (the default). */
+                multi?: boolean;
+                /** True to insert a document if no matching documents are found. */
+                upsert?: boolean;
+                /** Used in combination with MongoDB [filtered positional operator](https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/) to specify which elements to modify in an array field. */
+                arrayFilters?: { [identifier: string]: any }[];
+            },
+            callback?: Function,
+        ): number;
         /**
          * Modify one or more documents in the collection, or insert one if no matching documents were found. Returns an object with keys `numberAffected` (the number of documents modified)  and `insertedId` (the unique _id of the document that was inserted, if any).
          * @param selector Specifies which documents to modify
          * @param modifier Specifies how to modify the documents
          * @param callback If present, called with an error object as the first argument and, if no error, the number of affected documents as the second.
          */
-        upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
-            /** True to modify all matching documents; false to only modify one of the matching documents (the default). */
-            multi?: boolean;
-        }, callback?: Function): {
-            numberAffected?: number; insertedId?: string;
+        upsert(
+            selector: Selector<T> | ObjectID | string,
+            modifier: Modifier<T>,
+            options?: {
+                /** True to modify all matching documents; false to only modify one of the matching documents (the default). */
+                multi?: boolean;
+            },
+            callback?: Function,
+        ): {
+            numberAffected?: number;
+            insertedId?: string;
         };
-        _ensureIndex(keys: {
-            [key: string]: number | string
-        } | string, options?: {
-            [key: string]: any
-        }): void;
-        _dropIndex(keys: {
-            [key: string]: number | string
-        } | string): void;
+        _ensureIndex(
+            keys:
+                | {
+                      [key: string]: number | string;
+                  }
+                | string,
+            options?: {
+                [key: string]: any;
+            },
+        ): void;
+        _dropIndex(
+            keys:
+                | {
+                      [key: string]: number | string;
+                  }
+                | string,
+        ): void;
     }
 
     var Cursor: CursorStatic;
@@ -313,7 +369,10 @@ declare module Mongo {
          * Watch a query. Receive callbacks as the result set changes. Only the differences between the old and new documents are passed to the callbacks.
          * @param callbacks Functions to call to deliver the result set as it changes
          */
-        observeChanges(callbacks: ObserveChangesCallbacks<T>, options?: { nonMutatingCallbacks?: boolean }): Meteor.LiveQueryHandle;
+        observeChanges(
+            callbacks: ObserveChangesCallbacks<T>,
+            options?: { nonMutatingCallbacks?: boolean },
+        ): Meteor.LiveQueryHandle;
     }
 
     var ObjectID: ObjectIDStatic;
@@ -323,7 +382,7 @@ declare module Mongo {
 
          * @param hexString The 24-character hexadecimal contents of the ObjectID to create
          */
-        new(hexString?: string): ObjectID;
+        new (hexString?: string): ObjectID;
     }
     interface ObjectID {
         toHexString(): string;

@@ -4,11 +4,11 @@ declare module HTTP {
         data?: any;
         query?: string;
         params?: {
-            [id: string]: string
+            [id: string]: string;
         };
         auth?: string;
         headers?: {
-            [id: string]: string
+            [id: string]: string;
         };
         timeout?: number;
         followRedirects?: boolean;
@@ -17,7 +17,7 @@ declare module HTTP {
     interface HTTPResponse {
         statusCode?: number;
         headers?: {
-            [id: string]: string
+            [id: string]: string;
         };
         content?: string;
         data?: any;
@@ -25,7 +25,12 @@ declare module HTTP {
 
     type AsyncCallback = (error: Meteor.Error | null, result?: HTTPResponse) => void;
 
-    function call(method: string, url: string, options?: HTTP.HTTPRequest, asyncCallback?: AsyncCallback): HTTP.HTTPResponse;
+    function call(
+        method: string,
+        url: string,
+        options?: HTTP.HTTPRequest,
+        asyncCallback?: AsyncCallback,
+    ): HTTP.HTTPResponse;
 
     function del(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: AsyncCallback): HTTP.HTTPResponse;
 
@@ -35,16 +40,21 @@ declare module HTTP {
 
     function put(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: AsyncCallback): HTTP.HTTPResponse;
 
-    function call(method: string, url: string, options?: {
-        content?: string;
-        data?: Object;
-        query?: string;
-        params?: Object;
-        auth?: string;
-        headers?: Object;
-        timeout?: number;
-        followRedirects?: boolean;
-        npmRequestOptions?: Object;
-        beforeSend?: Function;
-    }, asyncCallback?: AsyncCallback): HTTP.HTTPResponse;
+    function call(
+        method: string,
+        url: string,
+        options?: {
+            content?: string;
+            data?: Object;
+            query?: string;
+            params?: Object;
+            auth?: string;
+            headers?: Object;
+            timeout?: number;
+            followRedirects?: boolean;
+            npmRequestOptions?: Object;
+            beforeSend?: Function;
+        },
+        asyncCallback?: AsyncCallback,
+    ): HTTP.HTTPResponse;
 }

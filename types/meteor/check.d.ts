@@ -1,32 +1,47 @@
-declare module "meteor/check" {
+declare module 'meteor/check' {
     /**
      * The namespace for all Match types and methods.
      */
     module Match {
-        interface Matcher<T> { _meteorCheckMatcherBrand: void }
+        interface Matcher<T> {
+            _meteorCheckMatcherBrand: void;
+        }
         export type Pattern =
-            typeof String |
-            typeof Number |
-            typeof Boolean |
-            typeof Object |
-            typeof Function |
-            (new (...args: any[]) => any) |
-            undefined | null | string | number | boolean |
-            [Pattern] |
-            {[key: string]: Pattern} |
-            Matcher<any>;
-        export type PatternMatch<T extends Pattern> =
-            T extends Matcher<infer U> ? U :
-            T extends typeof String ? string :
-            T extends typeof Number ? number :
-            T extends typeof Boolean ? boolean :
-            T extends typeof Object ? object :
-            T extends typeof Function ? Function :
-            T extends undefined | null | string | number | boolean ? T :
-            T extends new (...args: any[]) => infer U ? U :
-            T extends [Pattern] ? PatternMatch<T[0]>[] :
-            T extends {[key: string]: Pattern} ? {[K in keyof T]: PatternMatch<T[K]>} :
-            unknown;
+            | typeof String
+            | typeof Number
+            | typeof Boolean
+            | typeof Object
+            | typeof Function
+            | (new (...args: any[]) => any)
+            | undefined
+            | null
+            | string
+            | number
+            | boolean
+            | [Pattern]
+            | { [key: string]: Pattern }
+            | Matcher<any>;
+        export type PatternMatch<T extends Pattern> = T extends Matcher<infer U>
+            ? U
+            : T extends typeof String
+            ? string
+            : T extends typeof Number
+            ? number
+            : T extends typeof Boolean
+            ? boolean
+            : T extends typeof Object
+            ? object
+            : T extends typeof Function
+            ? Function
+            : T extends undefined | null | string | number | boolean
+            ? T
+            : T extends new (...args: any[]) => infer U
+            ? U
+            : T extends [Pattern]
+            ? PatternMatch<T[0]>[]
+            : T extends { [key: string]: Pattern }
+            ? { [K in keyof T]: PatternMatch<T[K]> }
+            : unknown;
 
         /** Matches any value. */
         var Any: Matcher<any>;
@@ -40,7 +55,7 @@ declare module "meteor/check" {
         function Optional<T extends Pattern>(pattern: T): Matcher<PatternMatch<T> | undefined>;
 
         /** Matches an Object with the given keys; the value may also have other keys with arbitrary values. */
-        function ObjectIncluding<T extends {[key: string]: Pattern}>(dico: T): Matcher<PatternMatch<T>>;
+        function ObjectIncluding<T extends { [key: string]: Pattern }>(dico: T): Matcher<PatternMatch<T>>;
 
         /** Matches any value that matches at least one of the provided patterns. */
         function OneOf<T extends Pattern[]>(...patterns: T): Matcher<PatternMatch<T[number]>>;

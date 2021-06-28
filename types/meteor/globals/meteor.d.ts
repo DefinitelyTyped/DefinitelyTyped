@@ -16,8 +16,9 @@ declare module Meteor {
     /** Settings **/
     interface Settings {
         public: {
-            [id: string]: any
-        }, [id: string]: any
+            [id: string]: any;
+        };
+        [id: string]: any;
     }
     /**
      * `Meteor.settings` contains deployment-specific configuration options. You can initialize settings by passing the `--settings` option (which takes the name of a file containing JSON data) to `meteor run` or `meteor deploy`. When running your server directly (e.g. from a bundle), you instead specify settings by putting the JSON directly into the `METEOR_SETTINGS` environment variable. If the settings object contains a key named `public`, then `Meteor.settings.public` will be available on the client as well as the server.  All other properties of `Meteor.settings` are only defined on the server.  You can rely on `Meteor.settings` and `Meteor.settings.public` being defined objects (not undefined) on both client and server even if there are no settings specified.  Changes to `Meteor.settings.public` at runtime will be picked up by new client connections.
@@ -81,7 +82,7 @@ declare module Meteor {
          * @param details Optional. Additional information about the error,
          * like a textual stack trace.
          */
-         new (error: string | number, reason?: string, details?: string): Error;
+        new (error: string | number, reason?: string, details?: string): Error;
     }
     interface Error extends global_Error {
         error: string | number;
@@ -119,7 +120,7 @@ declare module Meteor {
      * Defines functions that can be invoked over the network by clients.
      * @param methods Dictionary whose keys are method names and values are functions.
      */
-    function methods(methods: {[key: string]: (this: MethodThisType, ...args: any[]) => any}): void;
+    function methods(methods: { [key: string]: (this: MethodThisType, ...args: any[]) => any }): void;
 
     /**
      * Invokes a method passing any number of arguments.
@@ -137,7 +138,8 @@ declare module Meteor {
             returnStubValue?: boolean;
             throwStubExceptions?: boolean;
         },
-        asyncCallback?: (error: global_Error | Meteor.Error | undefined, result?: Result) => void): any;
+        asyncCallback?: (error: global_Error | Meteor.Error | undefined, result?: Result) => void,
+    ): any;
     /** Method **/
 
     /** Url **/
@@ -148,7 +150,7 @@ declare module Meteor {
          */
         (path?: string, options?: absoluteUrlOptions): string;
         defaultOptions: absoluteUrlOptions;
-    }
+    };
 
     interface absoluteUrlOptions {
         /** Create an HTTPS URL. */
@@ -189,8 +191,8 @@ declare module Meteor {
     /** Timeout **/
 
     /** utils **/
-    /** 
-     * Run code when a client or a server starts. 
+    /**
+     * Run code when a client or a server starts.
      * @param func A function to run on startup.
      */
     function startup(func: Function): void;
@@ -243,34 +245,65 @@ declare module Meteor {
         loginStyle?: string;
     }
 
-    function loginWithMeteorDeveloperAccount(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithMeteorDeveloperAccount(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
+    ): void;
 
-    function loginWithFacebook(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithFacebook(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
+    ): void;
 
-    function loginWithGithub(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithGithub(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
+    ): void;
 
-    function loginWithGoogle(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithGoogle(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
+    ): void;
 
-    function loginWithMeetup(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithMeetup(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
+    ): void;
 
-    function loginWithTwitter(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithTwitter(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
+    ): void;
 
-    function loginWithWeibo(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithWeibo(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
+    ): void;
 
     function loggingIn(): boolean;
 
-    function loginWith<ExternalService>(options?: {
-        requestPermissions?: ReadonlyArray<string>;
-        requestOfflineToken?: boolean;
-        loginUrlParameters?: Object;
-        userEmail?: string;
-        loginStyle?: string;
-        redirectUrl?: string;
-    }, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWith<ExternalService>(
+        options?: {
+            requestPermissions?: ReadonlyArray<string>;
+            requestOfflineToken?: boolean;
+            loginUrlParameters?: Object;
+            userEmail?: string;
+            loginStyle?: string;
+            redirectUrl?: string;
+        },
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
+    ): void;
 
-    function loginWithPassword(user: Object | string, password: string, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithPassword(
+        user: Object | string,
+        password: string,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
+    ): void;
 
-    function loginWithToken(token: string, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithToken(
+        token: string,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
+    ): void;
 
     function loggingOut(): boolean;
 
@@ -344,7 +377,11 @@ declare module Meteor {
      * @param name If String, name of the record set.  If Object, publications Dictionary of publish functions by name. If `null`, the set has no name, and the record set is automatically sent to all connected clients.
      * @param func Function called on the server each time a client subscribes. Inside the function, `this` is the publish handler object, described below. If the client passed arguments to `subscribe`, the function is called with the same arguments.
      */
-    function publish(name: string | null, func: (this: Subscription, ...args: any[]) => void, options?: { is_auto: boolean }): void;
+    function publish(
+        name: string | null,
+        func: (this: Subscription, ...args: any[]) => void,
+        options?: { is_auto: boolean },
+    ): void;
 
     function _debug(...args: any[]): void;
 }
@@ -371,7 +408,7 @@ declare interface Subscription {
      * @param error The error to pass to the client.
      */
     error(error: Error): void;
-    /** 
+    /**
      * Call inside the publish function. Registers a callback function to run when the subscription is stopped.
      * @param func The callback function
      */
