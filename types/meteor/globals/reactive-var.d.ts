@@ -1,6 +1,6 @@
 declare var ReactiveVar: ReactiveVarStatic;
 declare interface ReactiveVarStatic {
-    new <T>(initialValue: T, equalsFunc?: Function): ReactiveVar<T>;
+    new <T>(initialValue: T, equalsFunc?: (oldValue: T, newValue: T) => boolean): ReactiveVar<T>;
 }
 declare interface ReactiveVar<T> {
     get(): T;

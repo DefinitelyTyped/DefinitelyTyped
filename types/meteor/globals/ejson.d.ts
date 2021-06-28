@@ -25,7 +25,7 @@ declare module EJSON {
     function fromJSONValue(val: JSONable): any;
 
     function isBinary(x: Object): boolean;
-    var newBinary: any;
+    function newBinary(size: number): Uint8Array;
 
     function parse(str: string): EJSON;
 
