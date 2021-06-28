@@ -1,2 +1,0 @@
-plugins/fitcolumn.d.ts
-plugins/rowshader.d.ts
