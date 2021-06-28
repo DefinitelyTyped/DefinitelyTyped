@@ -149,6 +149,7 @@ const defaultLocale = getDefaultLocale();
     excludeScrollbar={false}
     enableTabLoop={false}
     yearDropdownItemNumber={1}
+    calendarStartDay={1}
 >
     <div />
     <span />
