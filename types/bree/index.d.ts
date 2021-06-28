@@ -3,10 +3,6 @@
 // Definitions by: Taylor Schley <https://github.com/shadogate15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ This declaration specifies that the class constructor function
- *~ is the exported object from the file
- */
-
 /// <reference types="node"/>
 
 import EventEmitter = require('events');
@@ -52,17 +48,17 @@ interface JobOptions {
 }
 
 interface BreeOptions {
-        logger?: object;
-        root?: string | boolean;
-        timeout?: number | boolean;
-        interval?: number;
-        jobs?: Array<string | (() => void) | JobOptions>;
-        hasSeconds?: boolean;
-        cronValidate?: object;
-        closeWorkerAfterMs?: number;
-        defaultExtension?: string;
-        worker?: object;
-        outputWorkerMetadate?: boolean;
-        errorHandler?: (error: any, workerMetadata: any) => void;
-        workerMessageHandler?: (message: any, workerMetadata: any) => void;
+    logger?: object;
+    root?: string | boolean;
+    timeout?: number | boolean;
+    interval?: number;
+    jobs?: Array<string | (() => void) | JobOptions>;
+    hasSeconds?: boolean;
+    cronValidate?: object;
+    closeWorkerAfterMs?: number;
+    defaultExtension?: string;
+    worker?: object;
+    outputWorkerMetadate?: boolean;
+    errorHandler?: (error: any, workerMetadata: any) => void;
+    workerMessageHandler?: (message: any, workerMetadata: any) => void;
 }
