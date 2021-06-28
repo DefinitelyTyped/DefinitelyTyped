@@ -32,11 +32,18 @@
  *
  * @return A player instance
  */
-declare function videojs(id: string | Element, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
+declare function videojs(
+    id: string | Element,
+    options?: videojs.PlayerOptions,
+    ready?: videojs.ReadyCallback,
+): videojs.Player;
 export default videojs;
 export as namespace videojs;
 
 declare namespace videojs {
+    interface ReadyCallback {
+        (this: Player): void;
+    }
     /**
      * Adding languages so that they're available to all players.
      * Example: `addLanguage('es', { 'Hello': 'Hola' });`
@@ -1688,7 +1695,7 @@ declare namespace videojs {
          *
          * @return Returns itself; method can be chained.
          */
-        ready(callback: (this: Player) => void): this;
+        ready(callback: ReadyCallback): this;
 
         /**
          * Remove an attribute from the `Component`s element.

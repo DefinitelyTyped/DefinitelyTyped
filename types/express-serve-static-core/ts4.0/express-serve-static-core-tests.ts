@@ -55,13 +55,6 @@ app.route('/:foo/:bar').get<{ foo: string; bar: number }>(req => {
     req.params.baz; // $ExpectError
 });
 
-// Optional params currently not supported
-// TODO: support optional params - https://github.com/DefinitelyTyped/DefinitelyTyped/pull/51262#discussion_r638786417
-app.get('/:foo/:bar?', req => {
-    req.params.foo; // $ExpectType string
-    req.params['bar?']; // $ExpectType string
-});
-
 // Query can be a custom type
 app.get<{}, any, any, { q: string }>('/:foo', req => {
     req.query.q; // $ExpectType string
