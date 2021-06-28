@@ -53,6 +53,15 @@ export interface BorderProps {
     borderRadius?: string | number;
 }
 
+export interface InnerBorderProps {
+    innerBorder?: string;
+    innerBorderBottom?: string;
+    innerBorderLeft?: string;
+    innerBorderTop?: string;
+    innerBorderRight?: string;
+    innerBorderRadius?: string | number;
+}
+
 export interface ClassNameProps {
     cssClass?: string;
     mjClass?: string;
@@ -197,14 +206,14 @@ export interface MjmlCarouselImageProps {
 
 export class MjmlCarouselImage extends React.Component<MjmlCarouselImageProps & ClassNameProps & HrefProps> { }
 
-// mj-carousel
 export interface MjmlColumnProps {
     width?: string | number;
     verticalAlign?: React.CSSProperties['verticalAlign'];
     backgroundColor?: React.CSSProperties['backgroundColor'];
+    innerBackgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlColumn extends React.Component<MjmlColumnProps & PaddingProps & ClassNameProps & BorderProps> { }
+export class MjmlColumn extends React.Component<MjmlColumnProps & PaddingProps & ClassNameProps & BorderProps & InnerBorderProps> { }
 
 // mj-divider
 export interface MjmlDividerProps {
