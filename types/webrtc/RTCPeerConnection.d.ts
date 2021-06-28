@@ -46,7 +46,6 @@ interface RTCIceTransport {
     readonly gatheringState: RTCIceGatheringState;
     getLocalCandidates(): RTCIceCandidate[];
     getRemoteCandidates(): RTCIceCandidate[];
-    getSelectedCandidatePair(): RTCIceCandidatePair | null;
     getLocalParameters(): RTCIceParameters | null;
     getRemoteParameters(): RTCIceParameters | null;
     onstatechange: IceTransportEventHandler;
@@ -243,7 +242,7 @@ interface RTCDataChannel extends EventTarget {
     onopen: DataChannelEventHandler<Event>;
     onmessage: DataChannelEventHandler<MessageEvent>;
     onbufferedamountlow: DataChannelEventHandler<Event>;
-    onerror: DataChannelEventHandler<RTCErrorEvent>;
+    // onerror: DataChannelEventHandler<RTCErrorEvent>;
     onclose: DataChannelEventHandler<Event>;
 }
 
@@ -335,7 +334,7 @@ interface RTCPeerConnection extends EventTarget {
         successCallback: () => void,
         failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
     getStats(selector: MediaStreamTrack | null,
-        successCallback: RTCStatsCallback,
+        successCallback: (report: RTCStatsReport) => void,
         failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
 }
 interface RTCPeerConnectionStatic {
