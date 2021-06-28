@@ -1,6 +1,6 @@
 /**
  * Open WebSocket connection.
- * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback
+ * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback/
  * @param url - Request URL.
  * @param callback - Logic to execute with socket.
  * @returns HTTP response to connection request.
@@ -16,7 +16,7 @@ export function connect(url: string, callback: Executor): Response;
 
 /**
  * Open WebSocket connection.
- * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback
+ * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback/
  * @param url - Request URL.
  * @param params - Request parameters.
  * @param callback - Logic to execute with socket.
@@ -81,14 +81,14 @@ export interface Response {
 
 /**
  * Created socket.
- * https://k6.io/docs/javascript-api/k6-ws/socket
+ * https://k6.io/docs/javascript-api/k6-ws/socket/
  */
 export abstract class Socket {
     protected __brand: never;
 
     /**
      * Close connection.
-     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-close
+     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-close/
      * @param code - WebSocket status code.
      * @example
      * socket.close();
@@ -97,7 +97,7 @@ export abstract class Socket {
 
     /**
      * Listen to event.
-     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-on-event-callback
+     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-on-event-callback/
      * @param event - Event type.
      * @param handler - Event handler.
      * @example
@@ -112,7 +112,7 @@ export abstract class Socket {
 
     /**
      * Send ping.
-     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-ping
+     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-ping/
      * @example
      * socket.ping();
      */
@@ -120,7 +120,7 @@ export abstract class Socket {
 
     /**
      * Send data.
-     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-send-data
+     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-send-data/
      * @param data - Data to send.
      * @example
      * socket.send(JSON.stringify({ data: 'hola' }));
@@ -128,8 +128,27 @@ export abstract class Socket {
     send(data: string): void;
 
     /**
+     * Send data.
+     * @param data - Data to send.
+     * @example
+     * const binFile = open('./file.pdf', 'b');
+     * export default function () {
+     *   ws.connect('http://wshost/', function(socket) {
+     *     socket.on('open', function() {
+     *       socket.sendBinary(binFile);
+     *     });
+     *     socket.on('binaryMessage', function(msg) {
+     *       // msg is an ArrayBuffer, so we can wrap it in a typed array directly.
+     *       new Uint8Array(msg);
+     *     });
+     *   });
+     * }
+     */
+    sendBinary(data: ArrayBuffer): void;
+
+    /**
      * Call a function repeatedly, while the WebSocket connection is open.
-     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-setinterval-callback-interval
+     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-setinterval-callback-interval/
      * @param handler - The function to call every `interval` milliseconds.
      * @param interval - Milliseconds between two calls to `callback`.
      * @example
@@ -143,7 +162,7 @@ export abstract class Socket {
     /**
      * Call a function at a later time,
      * if the WebSocket connection is still open then.
-     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-settimeout-callback-delay
+     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-settimeout-callback-delay/
      * @param handler - The function to call when `delay` has expired.
      * @param delay - Delay in milliseconds.
      * @example
@@ -157,7 +176,7 @@ export abstract class Socket {
 /**
  * Event type.
  */
-export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong';
+export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong' | 'binaryMessage';
 
 /**
  * Timer handler.
@@ -178,6 +197,8 @@ export type EventHandler<ET extends EventType> = ET extends 'close'
     ? ErrorEventHandler
     : ET extends 'message'
     ? MessageEventHandler
+    : ET extends 'binaryMessage'
+    ? BinaryMessageEventHandler
     : ET extends 'open'
     ? OpenEventHandler
     : ET extends 'ping'
@@ -208,6 +229,14 @@ export interface ErrorEventHandler {
 export interface MessageEventHandler {
     /** @param message - Message. */
     (message: string): void;
+}
+
+/**
+ * BinaryMessage event handler.
+ */
+ export interface BinaryMessageEventHandler {
+    /** @param message - Message. */
+    (message: ArrayBuffer): void;
 }
 
 /**
@@ -246,12 +275,12 @@ export abstract class WebSocketError {
 
 /**
  * This module provides a WebSocket client implementing the WebSocket protocol.
- * https://k6.io/docs/javascript-api/k6-ws
+ * https://k6.io/docs/javascript-api/k6-ws/
  */
 declare namespace ws {
     /**
      * Open WebSocket connection.
-     * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback
+     * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback/
      * @param url - Request URL.
      * @param callback - Logic to execute with socket.
      * @returns HTTP response to connection request.
@@ -267,7 +296,7 @@ declare namespace ws {
 
     /**
      * Open WebSocket connection.
-     * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback
+     * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback/
      * @param url - Request URL.
      * @param params - Request parameters.
      * @param callback - Logic to execute with socket.

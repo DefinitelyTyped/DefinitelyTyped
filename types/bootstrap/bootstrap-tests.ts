@@ -1,4 +1,5 @@
 import Alert from "bootstrap/js/dist/alert";
+import BaseComponent from "bootstrap/js/dist/base-component";
 import Button from "bootstrap/js/dist/button";
 import Carousel from "bootstrap/js/dist/carousel";
 import Collapse from "bootstrap/js/dist/collapse";
@@ -13,6 +14,10 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
 // $ExpectType typeof Alert
 Alert;
+// $ExpectType typeof BaseComponent
+BaseComponent;
+// $ExpectType string
+BaseComponent.VERSION;
 // $ExpectType typeof Button
 Button;
 // $ExpectType typeof Carousel

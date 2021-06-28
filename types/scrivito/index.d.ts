@@ -1,56 +1,68 @@
-// Type definitions for scrivito 1.21
+// Type definitions for scrivito 1.22
 // Project: https://www.scrivito.com/
 // Definitions by:  Julian Krieger <https://github.com/juliankrieger>
 //                  Eric Eifler <https://github.com/eric-the-viking>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
-import * as React from 'react';
+import * as React from "react";
 
 /**
  * Attribute definitions
  */
 type Attribute =
-    'boolean' |
-    'date' |
-    'datetime' |
-    'enum' |
-    'multienum' |
-    'html' |
-    'string' |
-    'stringlist' |
-    'integer' |
-    'float' |
-    'binary' |
-    'link' |
-    'linklist' |
-    'reference' |
-    'referencelist' |
-    'widgetlist';
+    | "boolean"
+    | "date"
+    | "datetime"
+    | "enum"
+    | "multienum"
+    | "html"
+    | "string"
+    | "stringlist"
+    | "integer"
+    | "float"
+    | "binary"
+    | "link"
+    | "linklist"
+    | "reference"
+    | "referencelist"
+    | "widgetlist";
 
 interface AttributeOptions {
-    values?: any[];
+    values?: string[];
     only?: string | string[];
 }
 
 type AttributeWithOptions = [Attribute, AttributeOptions];
 
-interface OptimizeDefinition {
-    width: number | string;
-    height: number | string;
-    fit: "resize" | "crop";
-    // Fix this being able to be filled when using fit = resize
+interface OptimizeFor {
+    width?: number | string;
+    height?: number | string;
+}
+
+interface OptimizeForFit extends OptimizeFor {
+    fit: "crop";
     crop: "center" | "top" | "left" | "right" | "bottom";
 }
+
+interface OptimizeForResize extends OptimizeFor {
+    fit: "resize";
+}
+
+type OptimizeDefinition = OptimizeForFit | OptimizeForResize;
 
 /**
  * Binary definitions
  */
 
+interface UploadOptions {
+    filename: string;
+    contentType?: string;
+}
+
 export class Binary {
     private constructor();
-    static upload(source: Blob | File, options: { filename: string, contentType?: string }): FutureBinary;
-    static uplload(source: File, options?: { filename?: string, contentType?: string }): FutureBinary;
+    static upload(source: Blob | File, options: UploadOptions): FutureBinary;
     contentLength(): number;
     contentType(): string;
     copy(options?: { filename?: string; contentType?: string }): FutureBinary;
@@ -73,25 +85,25 @@ export class FutureBinary {
  */
 interface CSSImageStyleBackgroundProps {
     image: Obj | Binary | string;
-    attachment?: React.CSSProperties['backgroundAttachment'];
-    clip?: React.CSSProperties['backgroundClip'];
-    color?: React.CSSProperties['backgroundColor'];
-    origin?: React.CSSProperties['backgroundOrigin'];
-    position?: React.CSSProperties['backgroundPosition'];
-    repeat?: React.CSSProperties['backgroundRepeat'];
-    size?: React.CSSProperties['backgroundSize'];
+    attachment?: React.CSSProperties["backgroundAttachment"];
+    clip?: React.CSSProperties["backgroundClip"];
+    color?: React.CSSProperties["backgroundColor"];
+    origin?: React.CSSProperties["backgroundOrigin"];
+    position?: React.CSSProperties["backgroundPosition"];
+    repeat?: React.CSSProperties["backgroundRepeat"];
+    size?: React.CSSProperties["backgroundSize"];
 }
 
-type CSSPropsWithoutBackground =
-    Omit<React.CSSProperties,
-        'background' |
-        'backgroundAttachment' |
-        'backgroundClip' |
-        'backgroundColor' |
-        'backgroundPosition' |
-        'backgroundRepeat' |
-        'backgroundSize'
-    >;
+type CSSPropsWithoutBackground = Omit<
+    React.CSSProperties,
+    | "background"
+    | "backgroundAttachment"
+    | "backgroundClip"
+    | "backgroundColor"
+    | "backgroundPosition"
+    | "backgroundRepeat"
+    | "backgroundSize"
+>;
 
 interface BackgroundImageBackgroundProp {
     background: CSSImageStyleBackgroundProps | CSSImageStyleBackgroundProps[];
@@ -102,17 +114,18 @@ interface BackgroundImageTagProps {
     style: CSSPropsWithoutBackground & BackgroundImageBackgroundProp;
     className?: string;
 }
-export class BackgroundImageTag extends React.Component<BackgroundImageTagProps, any> { }
+export class BackgroundImageTag extends React.Component<BackgroundImageTagProps, any> {}
 
 interface ChildListTagProps {
     parent?: Obj;
     tag?: string;
     renderChild?: (child: Obj) => React.ReactElement;
+    className?: string;
 }
 
-export class ChildListTag extends React.Component<ChildListTagProps, any> { }
+export class ChildListTag extends React.Component<ChildListTagProps, any> {}
 
-interface ContentTagProps extends React.HTMLAttributes<any> {
+interface ContentTagProps extends Omit<React.AllHTMLAttributes<any>, "content"> {
     attribute: string;
     content?: Obj | Widget;
     tag?: string;
@@ -120,37 +133,39 @@ interface ContentTagProps extends React.HTMLAttributes<any> {
     widgetProps?: object;
 }
 
-export class ContentTag extends React.Component<ContentTagProps, any> { }
+export class ContentTag extends React.Component<ContentTagProps, any> {}
 
-export class CurrentPage extends React.Component<{}, any> { }
+export class CurrentPage extends React.Component<{}, any> {}
 
 interface ImageTagProps extends React.HTMLAttributes<HTMLImageElement> {
-    attribute: string;
+    attribute?: string;
     content: Binary | Obj | Widget;
     alt?: string;
 }
 
-export class ImageTag extends React.Component<ImageTagProps, any> { }
+export class ImageTag extends React.Component<ImageTagProps, any> {}
 
-export class InPlaceEditingOff extends React.Component<any, any> { }
+export class InPlaceEditingOff extends React.Component<any, any> {}
 
 interface LinkTagProps extends React.HTMLAttributes<HTMLAnchorElement> {
     to: Obj | Link;
     params?: object;
     onClick?: (event: React.MouseEvent) => void;
 }
-export class LinkTag extends React.Component<LinkTagProps, any> { }
+export class LinkTag extends React.Component<LinkTagProps, any> {}
 
-export class NotFoundErrorPage extends React.Component<{}, any> { }
+export class NotFoundErrorPage extends React.Component<{}, any> {}
 
-export class RestoreInPlaceEditing extends React.Component<{}, any> { }
+export class RestoreInPlaceEditing extends React.Component<{}, any> {}
 
 interface WidgetTagProps extends React.HTMLAttributes<any> {
     tag?: string;
     [key: string]: any;
 }
 
-export class WidgetTag extends React.Component<WidgetTagProps, any> { }
+export class WidgetTag extends React.Component<WidgetTagProps, any> {}
+
+type Priority = "foreground" | "background";
 
 /**
  * Config definitions
@@ -165,10 +180,10 @@ interface ConfigOptions {
     // Hard to type
     constraintsValidation?: (constraints: any) => any;
     endpoint?: string;
-    priority?: 'foreground' | 'background';
+    priority?: Priority;
     adoptUi?: boolean;
     baseUrlForSite?: (siteId: string) => string | undefined;
-    siteForUrl?: (url: string) => {siteId: string, baseUrl: string} | undefined;
+    siteForUrl?: (url: string) => { siteId: string; baseUrl: string } | undefined;
 }
 
 /**
@@ -185,7 +200,7 @@ interface AttributeProps {
     description?: string;
     values?: AttributeValue[];
     options?: {
-        toolbar: string[]
+        toolbar: string[];
     };
 }
 
@@ -200,15 +215,18 @@ interface PropertiesGroup {
     properties?: string[];
 }
 
-export type ValidationReturnType = { message: string, severity: string } | string | undefined;
+export type ValidationReturnType = { message: string; severity: string } | string | undefined;
 
-type AttributeValidationCallback = (current: any, options?: { obj?: Obj, widget?: Widget, content: any, name: string }) => ValidationReturnType;
+type AttributeValidationCallback = (
+    current: any,
+    options?: { obj?: Obj; widget?: Widget; content: any; name: string },
+) => ValidationReturnType;
 
 export type AttributeBasedValidation = [string, AttributeValidationCallback];
 
 export type ClassBasedValidation = (target: Widget | Obj) => ValidationReturnType;
 
-export type Validation = (AttributeBasedValidation | ClassBasedValidation);
+export type Validation = AttributeBasedValidation | ClassBasedValidation;
 
 interface EditingConfig {
     title?: string;
@@ -221,6 +239,7 @@ interface EditingConfig {
     propertiesGroups?: PropertiesGroup[];
     hideInSelectionDialogs?: boolean;
     initialContent?: Record<string, any>;
+    initialize?: (instance: Obj) => void;
     initializeCopy?: (originalInstance: Obj) => void;
     validations?: Validation[];
 }
@@ -288,9 +307,28 @@ interface CreateAttributes {
     [key: string]: any;
 }
 
-type ObjSearchOperator = 'equals' | 'contains' | 'containsPrefix' | 'equals' | 'startsWith' | 'isLessThan' | 'isGreaterThan' | 'linksTo' | 'refersTo';
+type ObjSearchOperator =
+    | "equals"
+    | "contains"
+    | "containsPrefix"
+    | "equals"
+    | "startsWith"
+    | "isLessThan"
+    | "isGreaterThan"
+    | "linksTo"
+    | "refersTo";
 
-type ObjSearchSingleAttribute = '*' | 'id' | '_createdAt' | '_lastChanged' | '_objClass' | '_path' | '_permalink' | '_restriction' | 'MetadataCollection' | string;
+type ObjSearchSingleAttribute =
+    | "*"
+    | "id"
+    | "_createdAt"
+    | "_lastChanged"
+    | "_objClass"
+    | "_path"
+    | "_permalink"
+    | "_restriction"
+    | "MetadataCollection"
+    | string;
 
 type ObjSearchValue = string | Date | number | Obj | any[];
 
@@ -300,7 +338,7 @@ interface ObjSearchAttributeBasedBoost {
     [key: string]: number;
 }
 
-type OrderParam = ObjSearchSingleAttribute | [ObjSearchSingleAttribute, 'asc' | 'desc'];
+type OrderParam = ObjSearchSingleAttribute | [ObjSearchSingleAttribute, "asc" | "desc"];
 
 interface ObjFacetValue {
     count: () => number;
@@ -309,40 +347,60 @@ interface ObjFacetValue {
 }
 
 export interface ObjSearch {
-    and: (attribute: ObjSearchAttribute, operator: ObjSearchOperator, value: ObjSearchValue, boost?: ObjSearchAttributeBasedBoost) => ObjSearch;
-    andNot: (attribute: ObjSearchAttribute, operator: Extract<ObjSearchOperator, 'equals' | 'startsWith' | 'isGreaterThan' | 'isLessThan'>, value: ObjSearchValue) => ObjSearch;
-    boost: (attribute: ObjSearchAttribute, operator: ObjSearchOperator, value: ObjSearchValue, factor: number) => ObjSearch;
+    and: (
+        attribute: ObjSearchAttribute,
+        operator: ObjSearchOperator,
+        value: ObjSearchValue,
+        boost?: ObjSearchAttributeBasedBoost,
+    ) => ObjSearch;
+    andNot: (
+        attribute: ObjSearchAttribute,
+        operator: Extract<ObjSearchOperator, "equals" | "startsWith" | "isGreaterThan" | "isLessThan">,
+        value: ObjSearchValue,
+    ) => ObjSearch;
+    boost: (
+        attribute: ObjSearchAttribute,
+        operator: ObjSearchOperator,
+        value: ObjSearchValue,
+        factor: number,
+    ) => ObjSearch;
     count: () => number;
-    facet: (attribute: ObjSearchSingleAttribute, option?: { limit: number, includeObjs: number }) => ObjFacetValue;
+    facet: (attribute: ObjSearchSingleAttribute, option?: { limit: number; includeObjs: number }) => ObjFacetValue;
     first: () => Obj | null;
     offset: (offSet: number) => ObjSearch;
-    order: (attributeOrAttributes: OrderParam | OrderParam[], direction: 'asc' | 'desc') => ObjSearch;
-    suggest: (prefix: string, options?: { limit: number, attributes: ObjSearchSingleAttribute[] }) => string[];
+    order: (attributeOrAttributes: OrderParam | OrderParam[], direction: "asc" | "desc") => ObjSearch;
+    suggest: (prefix: string, options?: { limit: number; attributes: ObjSearchSingleAttribute[] }) => string[];
     take: (count?: number) => Obj[];
     toArray: () => Obj[];
 }
 
 export class Obj {
-    constructor(arg: object);
+    private constructor(arg: object);
 
     private readonly _createdAt: Date;
     private readonly _firstPublishedAt: Date;
     private readonly _lastChanged: Date;
-    private _objClass: string;
-    private _path: string;
-    private _permalink: string;
+    private readonly _objClass: string;
+    private readonly _path: string;
+    private readonly _permalink: string;
     private readonly _publishedAt: Date;
     private readonly _siteId: string | null;
+    private readonly _language: string;
 
     // Static methods
-    static all(): any;
-    static create(attributes: CreateAttributes): Obj | Widget;
-    static createFromFile(file: File, attributes: CreateAttributes): void;
+    static all(): ObjSearch;
+    static create(attributes?: CreateAttributes): Obj;
+    static createFromFile(file: File, attributes: CreateAttributes): Promise<Obj>;
     static get(id: string): Obj | null;
     static getByPath(path: string): Obj | null;
     static getByPermalink(permalink: string): Obj | null;
     static root(): Obj | null;
-    static where(attribute: ObjSearchSingleAttribute, operator: ObjSearchOperator, value: ObjSearchValue, boost?: any): ObjSearch;
+    static where(
+        attribute: ObjSearchSingleAttribute,
+        operator: ObjSearchOperator,
+        value: ObjSearchValue,
+        boost?: any,
+    ): ObjSearch;
     static onSite(siteId: string): SiteContext;
     static onAllSites(): SiteContext;
 
@@ -362,8 +420,8 @@ export class Obj {
     isBinary(): boolean;
     isRestricted(): boolean;
     lastChanged(): Date | null;
-    metadata(): any;
-    modification(): null | 'new' | 'edited' | 'deleted';
+    metadata(): MetadataCollection;
+    modification(): null | "new" | "edited" | "deleted";
     objClass(): string;
     parent(): Obj | null;
     path(): string | null;
@@ -380,9 +438,10 @@ export class Obj {
     onAllSites(): SiteContext;
     onSite(siteId: string): SiteContext;
     siteId(): string | null;
+    language(): string | null;
 }
 
-type ExtractableTextAttributes = 'string' | 'html' | 'widgetlist' | 'blob:text';
+type ExtractableTextAttributes = "string" | "html" | "widgetlist" | "blob:text";
 
 interface SiteContext {
     all(): ObjSearch;
@@ -399,12 +458,13 @@ interface ObjClassOptions {
     attributes: Record<string, Attribute | AttributeWithOptions>;
     extractTextAttributes?: string[];
     extend?: ObjClass;
+    onlyChildren: string | string[];
+    onlyInside: string | string[];
 }
 
 export type ObjClass = typeof Obj;
 
-declare abstract class AbstractObjClass {
-}
+declare abstract class AbstractObjClass {}
 
 /**
  * Widget definitions
@@ -435,8 +495,7 @@ interface WidgetClassOptions {
 
 type WidgetClass = typeof Widget;
 
-declare abstract class AbstractWidgetClass {
-}
+declare abstract class AbstractWidgetClass {}
 
 /**
  * scrivito top-level definitions
@@ -453,8 +512,8 @@ interface ObjComponentProps {
     [key: string]: any;
 }
 
-type WidgetComponent = React.FC<WidgetComponentProps>;
-type ObjComponent = React.FC<ObjComponentProps>;
+type WidgetComponent = React.ComponentType<WidgetComponentProps>;
+type ObjComponent = React.ComponentType<ObjComponentProps>;
 
 export interface AuthGroupsOptions {
     [groupName: string]: string;
@@ -490,12 +549,25 @@ interface MenuInsertParameters {
     enabled?: boolean;
 }
 
-type MenuModifyParameters = Pick<MenuInsertParameters, 'id' | 'group' | 'icon' | 'position' | 'title'>;
+type MenuModifyParameters = Pick<MenuInsertParameters, "id" | "group" | "icon" | "position" | "title">;
 
 interface Menu {
     insert: (params: MenuInsertParameters) => void;
     remove: (id: string) => void;
     modify: (params: MenuModifyParameters) => void;
+}
+
+export type ValidationResultSeverity = "error" | "warning" | "info";
+
+export interface ValidationResult {
+    message: string;
+    severity: ValidationResultSeverity;
+}
+
+declare class Workspace {
+    private constructor();
+    id(): string;
+    title(): string;
 }
 
 export function canWrite(): boolean;
@@ -511,37 +583,44 @@ export function getClass(name: string): ObjClass | WidgetClass | null;
 export function isEditorLoggedIn(): boolean;
 export function isInPlaceEditingActive(): boolean;
 export function load<T>(functionToLoad: () => T): Promise<T>;
-export function navigateTo(target: (() => Obj | Link) | Obj | Link, options?: { hash?: string, params?: any }): void;
+export function navigateTo(target: (() => Obj | Link) | Obj | Link, options?: { hash?: string; params?: any }): void;
 export function openDialog(name: string): void;
 export function preload(preloadDump: any): Promise<{ dumpLoaded: boolean }>;
 export function provideComponent(className: string, component: WidgetComponent | ObjComponent): void;
 export function provideEditingConfig(name: string, editingConfig: EditingConfig): void;
 export function provideAuthGroups(options: AuthGroupsOptions): void;
-
 export function createObjClass(options: ObjClassOptions): Obj;
 export function createWidgetClass(options: WidgetClassOptions): AbstractWidgetClass;
 export function provideObjClass(name: string, contentClassOrOptions: ObjClassOptions | AbstractObjClass): ObjClass;
-export function provideWidgetClass(name: string, contentClassOrOptions: WidgetClassOptions | AbstractWidgetClass): WidgetClass;
-
+export function provideWidgetClass(
+    name: string,
+    contentClassOrOptions: WidgetClassOptions | AbstractWidgetClass,
+): WidgetClass;
 export function registerComponent(name: string, component: WidgetComponent | ObjComponent): void;
-export function renderPage(page: any, renderFunction: () => void): Promise<{ result: Obj, preloadDump: any }>;
+export function renderPage(page: Obj, renderFunction: () => void): Promise<{ result: Obj; preloadDump: any }>;
 export function setVisitorIdToken(idToken: string): void;
 export function updateContent(): void;
 export function updateMenuExtensions(): void;
 export function urlFor(target: Obj | Binary | Link, options?: { query?: string; hash?: string }): string;
 export function useHistory(history: History): void;
-export function validationResults(model: Obj | Widget, attribute: string): object[];
+export function validationResultsFor(model: Obj | Widget, attribute: string): ValidationResult[];
 export function isComparisonActive(): boolean;
 export function currentWorkspaceId(): string;
+export function currentWorkspace(): Workspace;
 export function currentEditor(): Editor | null;
 export function configureObjClassForContentType(mapping?: { [key: string]: string }): void;
 
-// Fix automatic exports
+// utility types
+
+type AttributeKeys<T extends WidgetClassOptions | ObjClassOptions> = {
+    [Property in keyof T["attributes"]]: any;
+};
 
 export type {
     AttributeOptions,
     AttributeProps,
     AttributeValue,
+    AttributeKeys,
     BackgroundImageBackgroundProp,
     BackgroundImageTagProps,
     ChildListTagProps,
@@ -564,7 +643,8 @@ export type {
     WidgetClassOptions,
     WidgetComponentProps,
     WidgetTagProps,
-    SiteContext
+    SiteContext,
 };
 
-export { };
+// Disables automatic exports
+export {};

@@ -1,13 +1,10 @@
-declare module 'node:perf_hooks' {
-    export * from 'perf_hooks';
-}
-
 declare module 'perf_hooks' {
-    import { AsyncResource } from 'node:async_hooks';
+    import { AsyncResource } from 'async_hooks';
 
     type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
 
-    interface PerformanceEntry {
+    class PerformanceEntry {
+        protected constructor();
         /**
          * The total number of milliseconds elapsed for this entry.
          * This value will not be meaningful for all Performance Entry types.
@@ -45,7 +42,7 @@ declare module 'perf_hooks' {
         readonly flags?: number;
     }
 
-    interface PerformanceNodeTiming extends PerformanceEntry {
+    class PerformanceNodeTiming extends PerformanceEntry {
         /**
          * The high resolution millisecond timestamp at which the Node.js process completed bootstrap.
          */
@@ -88,6 +85,15 @@ declare module 'perf_hooks' {
         utilization: number;
     }
 
+    /**
+     * @param util1 The result of a previous call to eventLoopUtilization()
+     * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
+     */
+    type EventLoopUtilityFunction = (
+        util1?: EventLoopUtilization,
+        util2?: EventLoopUtilization,
+    ) => EventLoopUtilization;
+
     interface Performance {
         /**
          * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
@@ -120,7 +126,7 @@ declare module 'perf_hooks' {
          * @param startMark
          * @param endMark
          */
-        measure(name: string, startMark: string, endMark: string): void;
+        measure(name: string, startMark?: string, endMark?: string): void;
 
         /**
          * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
@@ -148,11 +154,8 @@ declare module 'perf_hooks' {
          * eventLoopUtilization is similar to CPU utilization except that it is calculated using high precision wall-clock time.
          * It represents the percentage of time the event loop has spent outside the event loop's event provider (e.g. epoll_wait).
          * No other CPU idle time is taken into consideration.
-         *
-         * @param util1 The result of a previous call to eventLoopUtilization()
-         * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
          */
-        eventLoopUtilization(util1?: EventLoopUtilization, util2?: EventLoopUtilization): EventLoopUtilization;
+        eventLoopUtilization: EventLoopUtilityFunction;
     }
 
     interface PerformanceObserverEntryList {
@@ -219,27 +222,7 @@ declare module 'perf_hooks' {
         resolution?: number;
     }
 
-    interface EventLoopDelayMonitor {
-        /**
-         * Enables the event loop delay sample timer. Returns `true` if the timer was started, `false` if it was already started.
-         */
-        enable(): boolean;
-        /**
-         * Disables the event loop delay sample timer. Returns `true` if the timer was stopped, `false` if it was already stopped.
-         */
-        disable(): boolean;
-
-        /**
-         * Resets the collected histogram data.
-         */
-        reset(): void;
-
-        /**
-         * Returns the value at the given percentile.
-         * @param percentile A percentile value between 1 and 100.
-         */
-        percentile(percentile: number): number;
-
+    interface Histogram {
         /**
          * A `Map` object detailing the accumulated percentile distribution.
          */
@@ -269,7 +252,59 @@ declare module 'perf_hooks' {
          * The standard deviation of the recorded event loop delays.
          */
         readonly stddev: number;
+
+        /**
+         * Resets the collected histogram data.
+         */
+        reset(): void;
+
+        /**
+         * Returns the value at the given percentile.
+         * @param percentile A percentile value between 1 and 100.
+         */
+        percentile(percentile: number): number;
     }
 
-    function monitorEventLoopDelay(options?: EventLoopMonitorOptions): EventLoopDelayMonitor;
+    interface IntervalHistogram extends Histogram {
+        /**
+         * Enables the event loop delay sample timer. Returns `true` if the timer was started, `false` if it was already started.
+         */
+        enable(): boolean;
+        /**
+         * Disables the event loop delay sample timer. Returns `true` if the timer was stopped, `false` if it was already stopped.
+         */
+        disable(): boolean;
+    }
+
+    interface RecordableHistogram extends Histogram {
+        record(val: number | bigint): void;
+
+        /**
+         * Calculates the amount of time (in nanoseconds) that has passed since the previous call to recordDelta() and records that amount in the histogram.
+         */
+        recordDelta(): void;
+    }
+
+    function monitorEventLoopDelay(options?: EventLoopMonitorOptions): IntervalHistogram;
+
+    interface CreateHistogramOptions {
+        /**
+         * The minimum recordable value. Must be an integer value greater than 0.
+         * @default 1
+         */
+        min?: number | bigint;
+
+        /**
+         * The maximum recordable value. Must be an integer value greater than min.
+         * @default Number.MAX_SAFE_INTEGER
+         */
+        max?: number | bigint;
+        /**
+         * The number of accuracy digits. Must be a number between 1 and 5.
+         * @default 3
+         */
+        figures?: number;
+    }
+
+    function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
 }

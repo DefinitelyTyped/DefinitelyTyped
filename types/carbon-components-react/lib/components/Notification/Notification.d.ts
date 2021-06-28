@@ -39,12 +39,14 @@ export declare const NotificationTextDetails: React.FC<NotificationTextDetailsPr
 
 export interface ToastNotificationProps extends Omit<ReactDivAttr, "title"> {
     caption?: React.ReactNode,
+    closeOnEscape?: boolean; // v11 only
     hideCloseButton?: boolean,
     iconDescription?: string,
     kind?: NotificationKind; // required but has default value
     lowContrast?: boolean,
     notificationType?: NotificationType,
-    onCloseButtonClick?(e: React.MouseEvent<HTMLButtonElement>): void,
+    onClose?(evt: React.MouseEvent<HTMLButtonElement>): boolean;
+    onCloseButtonClick?(evt: React.MouseEvent<HTMLButtonElement>): void,
     statusIconDescription?: string,
     subtitle?: React.ReactNode,
     timeout?: number;
@@ -57,11 +59,14 @@ export declare const ToastNotification: React.FC<ToastNotificationProps>;
 
 export interface InlineNotificationProps extends Omit<ReactDivAttr, "title"> {
     actions?: React.ReactNode;
+    closeOnEscape?: boolean; // v11 only
+    hasFocus?: boolean; // v11 only
     hideCloseButton?: boolean;
     iconDescription?: string;
     kind: NotificationKind;
     lowContrast?: boolean,
     notificationType?: NotificationType,
+    onClose?(evt: React.MouseEvent<HTMLButtonElement>): boolean;
     onCloseButtonClick?(e: React.MouseEvent<HTMLButtonElement>): void,
     statusIconDescription?: string,
     subtitle?: React.ReactNode,

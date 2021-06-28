@@ -1,4 +1,4 @@
-// Type definitions for social-logos 2.1
+// Type definitions for social-logos 2.3
 // Project: https://github.com/Automattic/social-logos#readme
 // Definitions by: Todd Dukart <https://github.com/tdukart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -27,7 +27,9 @@ export type SocialIcon =
     | 'instagram'
     | 'linkedin'
     | 'mail'
+    | 'medium-alt'
     | 'medium'
+    | 'patreon'
     | 'pinterest-alt'
     | 'pinterest'
     | 'pocket'
@@ -40,6 +42,8 @@ export type SocialIcon =
     | 'squarespace'
     | 'stumbleupon'
     | 'telegram'
+    | 'tiktok-alt'
+    | 'tiktok'
     | 'tumblr-alt'
     | 'tumblr'
     | 'twitch'

@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-color module 2.0
+// Type definitions for D3JS d3-color module 3.0
 // Project: https://github.com/d3/d3-color/, https://d3js.org/d3-color
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,7 +8,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 3.0.1
 
 // ---------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -197,6 +197,7 @@ export interface RGBColorFactory extends Function {
      *
      * @param color A permissible color space instance.
      */
+    // tslint:disable-next-line:unified-signatures
     (color: ColorSpaceObject | ColorCommonInstance): RGBColor;
     /**
      * Prototype of the factory, which can be used for instanceof testing
@@ -278,6 +279,7 @@ export interface HSLColorFactory extends Function {
      *
      * @param color A permissible color space instance.
      */
+    // tslint:disable-next-line:unified-signatures
     (color: ColorSpaceObject | ColorCommonInstance): HSLColor;
     /**
      * Prototype of the factory, which can be used for instanceof testing
@@ -360,6 +362,7 @@ export interface LabColorFactory extends Function {
      *
      * @param color A permissible color space instance.
      */
+    // tslint:disable-next-line:unified-signatures
     (color: ColorSpaceObject | ColorCommonInstance): LabColor;
     /**
      * Prototype of the factory, which can be used for instanceof testing
@@ -454,6 +457,7 @@ export interface HCLColorFactory extends Function {
      *
      * @param color A permissible color space instance.
      */
+    // tslint:disable-next-line:unified-signatures
     (color: ColorSpaceObject | ColorCommonInstance): HCLColor;
     /**
      * Prototype of the factory, which can be used for instanceof testing
@@ -489,6 +493,7 @@ export interface LCHColorFactory {
      *
      * @param color A permissible color space instance.
      */
+    // tslint:disable-next-line:unified-signatures
     (color: ColorSpaceObject | ColorCommonInstance): HCLColor;
 }
 
@@ -566,6 +571,7 @@ export interface CubehelixColorFactory extends Function {
      *
      * @param color A permissible color space instance.
      */
+    // tslint:disable-next-line:unified-signatures
     (color: ColorSpaceObject | ColorCommonInstance): CubehelixColor;
     /**
      * Prototype of the factory, which can be used for instanceof testing

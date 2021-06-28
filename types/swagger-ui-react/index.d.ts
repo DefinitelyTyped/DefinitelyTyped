@@ -30,6 +30,7 @@ export interface SwaggerUIProps {
     plugins?: Plugin[];
     supportedSubmitMethods?: string[];
     deepLinking?: boolean;
+    showMutatedRequest?: boolean;
 }
 
 declare class SwaggerUI extends React.PureComponent<SwaggerUIProps> {}

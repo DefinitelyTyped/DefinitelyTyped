@@ -1,13 +1,6 @@
-// Type definitions for codemirror
-// Project: https://github.com/codemirror/CodeMirror
-// Definitions by: ficristo <https://github.com/ficristo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import '../../';
 
-// See docs https://codemirror.net/doc/manual.html#addon_closebrackets
-
-import * as CodeMirror from 'codemirror';
-
-declare module 'codemirror' {
+declare module '../../' {
     interface AutoCloseBrackets {
         /**
          * String containing pairs of matching characters.

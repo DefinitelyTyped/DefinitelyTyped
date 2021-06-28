@@ -27,6 +27,6 @@ ts.request(
     { ch: 0, line: 0 },
 );
 
-ts.complete(cm.getDoc());
+ts.complete(cm);
 
-ts.showType(cm.getDoc());
+ts.showType(cm);

@@ -1,4 +1,4 @@
-// Type definitions for @carbon/icons-react 10.28
+// Type definitions for @carbon/icons-react 10.31
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,24 +7,48 @@
 /** 6344 icons in total */
 
 export interface CarbonIconProps
-  extends Omit<
-    React.SVGProps<React.ReactSVGElement>,
-    "ref" | "tabIndex" | "aria-hidden"
-  > {
-  "aria-hidden"?: string;
-  "aria-label"?: string;
-  "aria-labelledby"?: string;
-  height?: number;
-  preserveAspectRatio?: string;
-  tabIndex?: string;
-  title?: string;
-  viewBox?: string;
-  width?: number;
-  xmlns?: string;
+    extends Omit<React.SVGProps<React.ReactSVGElement>, "ref" | "tabIndex" | "aria-hidden"> {
+    "aria-hidden"?: string;
+    "aria-label"?: string;
+    "aria-labelledby"?: string;
+    height?: number;
+    preserveAspectRatio?: string;
+    tabIndex?: string;
+    title?: string;
+    viewBox?: string;
+    width?: number;
+    xmlns?: string;
 }
 
-export type CarbonIconType = React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
+export type CarbonIconType = React.ForwardRefExoticComponent<CarbonIconProps & React.RefAttributes<SVGSVGElement>>;
+
+export interface CarbonIconNextProps
+    extends Omit<React.SVGProps<React.ReactSVGElement>, "ref" | "tabIndex" | "aria-hidden"> {
+    /** @default "http://www.w3.org/2000/svg" */
+    xmlns?: string;
+
+    /** @default "xMidYMid meet" */
+    preserveAspectRatio?: string;
+
+    /**
+     * @default 32
+     * size is set to `16` if value is `glyph` or `glyphpx`
+     */
+
+    size?: 16 | 20 | 24 | 32 | "16" | "20" | "24" | "32" | "glyph" | "glyphpx";
+
+    width?: number | string;
+    height?: number | string;
+    "aria-hidden"?: string;
+    "aria-label"?: string;
+    "aria-labelledby"?: string;
+    tabIndex?: string;
+    title?: string;
+    viewBox?: string;
+}
+
+export type CarbonIconNextType = React.ForwardRefExoticComponent<
+    CarbonIconNextProps & React.RefAttributes<SVGSVGElement>
 >;
 
 export const WatsonHealth3DCursor32: CarbonIconType;

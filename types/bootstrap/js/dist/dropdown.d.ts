@@ -2,7 +2,7 @@ import * as Popper from "@popperjs/core";
 import BaseComponent from "./base-component";
 
 declare class Dropdown extends BaseComponent {
-    constructor(element: Element, options?: Partial<Dropdown.Options>);
+    constructor(element: string | Element, options?: Partial<Dropdown.Options>);
 
     /**
      * Toggles the dropdown menu of a given navbar or tabbed navigation.
@@ -28,7 +28,7 @@ declare class Dropdown extends BaseComponent {
      * Static method which allows you to get the dropdown instance associated
      * with a DOM element.
      */
-    static getInstance(element: Element, options?: Partial<Dropdown.Options>): Dropdown;
+    static getInstance(element: Element, options?: Partial<Dropdown.Options>): Dropdown | null;
 
     static jQueryInterface: Dropdown.jQueryInterface;
 

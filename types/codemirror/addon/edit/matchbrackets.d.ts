@@ -1,13 +1,6 @@
-// Type definitions for codemirror
-// Project: https://github.com/marijnh/CodeMirror
-// Definitions by: Sixin Li <https://github.com/sixinli>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import '../../';
 
-// See docs https://codemirror.net/doc/manual.html#addon_matchbrackets
-
-import * as CodeMirror from 'codemirror';
-
-declare module 'codemirror' {
+declare module '../../' {
     interface MatchBrackets {
         /**
          * Only use the character after the start position, never the one before it.

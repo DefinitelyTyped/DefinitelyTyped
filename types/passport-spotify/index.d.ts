@@ -1,4 +1,4 @@
-// Type definitions for passport-spotify 1.1
+// Type definitions for passport-spotify 2.0
 // Project: https://github.com/jmperez/passport-spotify#readme
 // Definitions by: Rishi Kodali <https://github.com/rishikodali>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -46,18 +46,18 @@ export type VerifyCallback = (error?: Error | null, user?: object, info?: object
 export type VerifyFunction = (
     accessToken: string,
     refreshToken: string,
+    expires_in: number,
     profile: Profile,
-    done: VerifyCallback,
-    expires_in?: number,
+    done: VerifyCallback
 ) => void;
 
 export type VerifyFunctionWithRequest = (
     req: Request,
     accessToken: string,
     refreshToken: string,
+    expires_in: number,
     profile: Profile,
-    done: VerifyCallback,
-    expires_in?: number,
+    done: VerifyCallback
 ) => void;
 
 export class Strategy {

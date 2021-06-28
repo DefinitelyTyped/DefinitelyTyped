@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.26
+// Type definitions for luxon 1.27
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -12,4 +12,6 @@
 //                 Carson Full <https://github.com/carsonf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './src/luxon';
+export * from "./src/luxon";
+
+export as namespace luxon;

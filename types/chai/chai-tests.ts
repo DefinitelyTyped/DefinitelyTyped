@@ -556,6 +556,7 @@ function empty() {
 
 function property() {
     expect('test').to.have.property('length');
+    expect('test').to.have.property(Symbol.for('length'));
     'test'.should.have.property('length');
     expect(4).to.not.have.property('length');
     (4).should.not.have.property('length');
@@ -594,6 +595,7 @@ function nestedProperty() {
 
 function property2() {
     expect('test').to.have.property('length', 4);
+    expect('test').to.have.property(Symbol.for('length'), 4);
     'test'.should.have.property('length', 4);
     expect('asd').to.have.property('constructor', String);
     'asd'.should.have.property('constructor', String);
@@ -640,6 +642,7 @@ function own() {
 
 function ownProperty() {
     expect('test').to.have.ownProperty('length');
+    expect('test').to.have.ownProperty(Symbol.for('length'));
     'test'.should.have.ownProperty('length');
     expect('test').to.haveOwnProperty('length');
     'test'.should.haveOwnProperty('length');
@@ -652,10 +655,36 @@ function ownProperty() {
 
     expect({length: 12}).to.not.have.ownProperty('length', 'blah');
     ({length: 12}).should.not.have.ownProperty('length', 'blah');
+
+    expect('test').to.have.own.property('length');
+    expect('test').to.have.own.property(Symbol.for('length'));
+    'test'.should.have.own.property('length');
+    expect({length: 12}).to.have.own.property('length');
+    ({length: 12}).should.have.own.property('length');
+    expect({length: 12}).to.have.own.property('length', 12);
+    ({length: 12}).should.have.own.property('length', 12);
+    expect({length: 12}).to.have.own.property('length', 12, 'blah');
+    ({length: 12}).should.have.own.property('length', 12, 'blah');
+
+    expect({length: 12}).to.not.have.own.property('length', 'blah');
+    ({length: 12}).should.not.have.own.property('length', 'blah');
+
+    expect('test').to.have.an.own.property('length');
+    'test'.should.have.an.own.property('length');
+    expect({length: 12}).to.have.an.own.property('length');
+    ({length: 12}).should.have.an.own.property('length');
+    expect({length: 12}).to.have.an.own.property('length', 12);
+    ({length: 12}).should.have.an.own.property('length', 12);
+    expect({length: 12}).to.have.an.own.property('length', 12, 'blah');
+    ({length: 12}).should.have.an.own.property('length', 12, 'blah');
+
+    expect({length: 12}).to.not.have.an.own.property('length', 'blah');
+    ({length: 12}).should.not.have.an.own.property('length', 'blah');
 }
 
 function ownPropertyDescriptor() {
     expect('test').to.have.ownPropertyDescriptor('length');
+    expect('test').to.have.ownPropertyDescriptor(Symbol.for('length'));
     expect('test').to.have.ownPropertyDescriptor('length', {
         enumerable: false,
         configurable: false,
@@ -686,6 +715,7 @@ function ownPropertyDescriptor() {
     });
     'test'.should.haveOwnPropertyDescriptor('length').to.have.property('enumerable', false);
     'test'.should.haveOwnPropertyDescriptor('length').to.contain.keys('value');
+    'test'.should.have.an.ownPropertyDescriptor('length');
 }
 
 function string() {
@@ -829,6 +859,9 @@ function chaining() {
 
     expect(tea).to.be.a('object').and.have.property('name', 'chai');
     tea.should.be.a('object').and.have.property('name', 'chai');
+
+    expect({b: 2}).to.have.a.property('b');
+    expect([1, 2, 3]).to.have.a.lengthOf(3);
 }
 
 function exxtensible() {
@@ -1318,6 +1351,10 @@ function increaseDecreaseChange() {
     inc.should.not.decrease(obj, 'val');
     dec.should.not.increase(obj, 'val');
     same.should.not.change(obj, 'val');
+
+    const myObj = {val: 1};
+    const addTwo = () => { myObj.val += 2; };
+    expect(addTwo).to.increase(myObj, 'val').by(2);
 }
 
 function oneOf() {
@@ -1332,6 +1369,8 @@ function oneOf() {
     expect('z').to.not.be.oneOf(['w', 'x', 'y']);
     expect('z').to.not.be.oneOf(['x', 'y', ['z']]);
     expect(obj).to.not.be.oneOf([{z: 3}]);
+
+    expect('Today is sunny').to.contain.oneOf(['sunny', 'cloudy']);
 }
 
 function testInspectType() {

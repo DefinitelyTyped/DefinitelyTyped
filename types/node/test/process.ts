@@ -1,6 +1,6 @@
-import * as p from 'node:process';
-import assert = require('node:assert');
-import EventEmitter = require('node:events');
+import * as p from 'process';
+import assert = require('assert');
+import EventEmitter = require('events');
 
 {
     let eventEmitter: EventEmitter;
@@ -78,6 +78,7 @@ import EventEmitter = require('node:events');
     const heapUsed: number = usage.heapUsed;
     const external: number = usage.external;
     const arrayBuffers: number = usage.arrayBuffers;
+    const rssFast: number = process.memoryUsage.rss();
 }
 {
     let strDict: NodeJS.Dict<string>;
@@ -114,3 +115,7 @@ import EventEmitter = require('node:events');
     // Emits: (node:56338) [MY_WARNING] Warning: Something happened!
     // This is some additional information
 }
+
+const hrtimeBigint: bigint = process.hrtime.bigint();
+
+process.allowedNodeEnvironmentFlags.has('asdf');

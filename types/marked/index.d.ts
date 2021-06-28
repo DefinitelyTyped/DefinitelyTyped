@@ -526,7 +526,7 @@ declare namespace marked {
          * Each token is passed by reference so updates are persisted when passed to the parser.
          * The return value of the function is ignored.
          */
-        walkTokens?: (callback: (token: Token) => void) => any;
+        walkTokens?: (token: Token) => void;
         /**
          * Generate closing slash for self-closing tags (<br/> instead of <br>)
          */

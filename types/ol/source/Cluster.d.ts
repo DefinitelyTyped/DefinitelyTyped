@@ -68,6 +68,15 @@ export default class Cluster extends VectorSource {
     on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    on(type: 'featuresloadend', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
+    once(type: 'featuresloadend', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
+    un(type: 'featuresloadend', listener: (evt: VectorSourceEvent<Geometry>) => void): void;
+    on(type: 'featuresloaderror', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
+    once(type: 'featuresloaderror', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
+    un(type: 'featuresloaderror', listener: (evt: VectorSourceEvent<Geometry>) => void): void;
+    on(type: 'featuresloadstart', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
+    once(type: 'featuresloadstart', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
+    un(type: 'featuresloadstart', listener: (evt: VectorSourceEvent<Geometry>) => void): void;
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;

@@ -9,7 +9,7 @@ declare namespace Aws {
         useDotenv?: boolean;
         frameworkVersion?: string;
         enableLocalInstallationFallback?: boolean;
-        variablesResolutionMode?: '20210219';
+        variablesResolutionMode?: '20210219' | '20210326';
         unresolvedVariablesNotificationMode?: 'warn' | 'error';
         disabledDeprecations?: string[];
         configValidationMode?: 'warn' | 'error' | 'off';
@@ -50,11 +50,11 @@ declare namespace Aws {
         deploymentPrefix?: string;
         /** @deprecated in favor of `iam.role` */
         role?: string;
-        /** @deprecated in favor of `iam.permissionsBoundary` */
+        /** @deprecated in favor of `iam.role.permissionsBoundary` */
         rolePermissionsBoundary?: string;
-        /** @deprecated in favor of `iam.statements` */
+        /** @deprecated in favor of `iam.role.statements` */
         iamRoleStatements?: IamRoleStatement[];
-        /** @deprecated in favor of `iam.managedPolicies` */
+        /** @deprecated in favor of `iam.role.managedPolicies` */
         iamManagedPolicies?: string[];
         /** @deprecated in favor of `iam.deploymentRole` */
         cfnRole?: string;
@@ -81,11 +81,16 @@ declare namespace Aws {
     }
 
     interface IamSettings {
-        role?: string;
+        role?: string | IamRole;
+        deploymentRole?: string;
+    }
+
+    interface IamRole {
+        name?: string;
         permissionBoundary?: string;
         statements?: IamRoleStatement[];
         managedPolicies?: string[];
-        deploymentRole?: string;
+        tags?: Tags;
     }
 
     interface Tags {
@@ -352,8 +357,8 @@ declare namespace Aws {
     }
 
     interface S3Rule {
-        prefix: string;
-        suffix: string;
+        prefix?: string;
+        suffix?: string;
     }
 
     interface S3 {
@@ -608,7 +613,7 @@ declare namespace Aws {
 
     interface Output {
         Description?: string;
-        Value: any;
+        Value?: any;
         Export?: {
             Name: any;
         };

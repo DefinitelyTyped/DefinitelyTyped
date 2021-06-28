@@ -8,6 +8,7 @@ import { Object } from './object';
 import { Tree } from './tree';
 import { TreeEntry } from './tree-entry';
 import { Diff } from './diff';
+import { Error } from './error';
 
 export interface HistoryEventEmitter extends EventEmitter {
     start(): void;
@@ -26,6 +27,15 @@ export class Commit {
     static createWithSignature(repo: Repository, commitContent: string, signature: string, signatureField: string): Promise<Oid>;
 
     amend(updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree | Oid): Promise<Oid>;
+    amendWithSignature(
+        updateRef: string,
+        author: Signature,
+        committer: Signature,
+        messageEncoding: string,
+        message: string,
+        tree: Tree | Oid,
+        onSignature: (data: string) => Promise<{code: Error.CODE, field?: string, signedData: string}> | {code: Error.CODE, field?: string, signedData: string}
+    ): Promise<Oid>;
     author(): Signature;
     committer(): Signature;
 
@@ -121,4 +131,9 @@ export class Commit {
      *
      */
     body(): string;
+
+    getSignature(field?: string): Promise<{
+        signature: string
+        signedData: string
+    }>;
 }

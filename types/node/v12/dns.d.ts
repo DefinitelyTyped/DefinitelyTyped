@@ -1,7 +1,3 @@
-declare module 'node:dns' {
-    export * from 'dns';
-}
-
 declare module 'dns' {
     // Supported getaddrinfo flags.
     const ADDRCONFIG: number;

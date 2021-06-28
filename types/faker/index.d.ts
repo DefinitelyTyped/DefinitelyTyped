@@ -1,14 +1,15 @@
 // Type definitions for faker 5.5
 // Project: http://marak.com/faker.js/
-// Definitions by: Ben Swartz <https://github.com/bensw>,
-//                 Bas Pennings <https://github.com/basp>,
-//                 Yuki Kokubun <https://github.com/Kuniwak>,
-//                 Matt Bishop <https://github.com/mattbishop>,
+// Definitions by: Ben Swartz <https://github.com/bensw>
+//                 Bas Pennings <https://github.com/basp>
+//                 Yuki Kokubun <https://github.com/Kuniwak>
+//                 Matt Bishop <https://github.com/mattbishop>
 //                 Leonardo Testa <https://github.com/testica>
 //                 Sebastian Pettersson <https://github.com/TastefulElk>
 //                 Daniel Montesinos <https://github.com/damonpam>
 //                 Shinya Ohyanagi <https://github.com/heavenshell>
 //                 Piotr Kuczynski <https://github.com/pkuczynski>
+//                 Jérémie Parker <https://github.com/p-j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
@@ -21,7 +22,8 @@ declare namespace Faker {
         address: {
             zipCodeByState(state: string): string;
             zipCode(format?: string): string;
-            city(format?: number): string;
+            city(format?: string): string;
+            cityName(): string;
             cityPrefix(): string;
             citySuffix(): string;
             streetName(): string;
@@ -39,7 +41,11 @@ declare namespace Faker {
             direction(useAbbr?: boolean): string;
             cardinalDirection(useAbbr?: boolean): string;
             ordinalDirection(useAbbr?: boolean): string;
-            nearbyGPSCoordinate(coordinate?: ReadonlyArray<string>, radius?: number, isMetric?: boolean): string[];
+            nearbyGPSCoordinate(
+                coordinate?: ReadonlyArray<number | string>,
+                radius?: number,
+                isMetric?: boolean,
+            ): string[];
             timeZone(): string;
         };
 
@@ -78,7 +84,7 @@ declare namespace Faker {
         datatype: {
             number(max?: number): number;
             number(options?: { min?: number; max?: number; precision?: number }): number;
-            float(max?: number): number;
+            float(precision?: number): number;
             float(options?: { min?: number; max?: number; precision?: number }): number;
             datetime(max?: number): Date;
             datetime(options?: { min?: number; max?: number }): Date;
@@ -192,6 +198,7 @@ declare namespace Faker {
             domainWord(): string;
             ip(): string;
             ipv6(): string;
+            port(): number;
             userAgent(): string;
             color(baseRed255?: number, baseGreen255?: number, baseBlue255?: number): string;
             mac(sep?: string): string;

@@ -5,10 +5,10 @@ What this does is:
 - Generate type definitions from it
 - Write to `inspector.d.ts`
 
-For example, to bump `inspector.d.ts` to what's exposed in v8.4:
+For example, to bump `inspector.d.ts` to what's exposed in v15.0.0:
 ```sh
 # cwd = types/node
-ts-node -P scripts/generate-inspector/tsconfig.json scripts/generate-inspector v8.4.0
+ts-node -P scripts/generate-inspector/tsconfig.json scripts/generate-inspector v15.0.0
 ```
 
 Inspector type definitions should be updated every time the V8 version is bumped in a Node.js release.

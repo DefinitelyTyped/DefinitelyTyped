@@ -6,6 +6,8 @@ import Control from './Control';
 export interface Options {
     duration?: number;
     className?: string;
+    zoomInClassName?: string;
+    zoomOutClassName?: string;
     zoomInLabel?: string | HTMLElement;
     zoomOutLabel?: string | HTMLElement;
     zoomInTipLabel?: string;

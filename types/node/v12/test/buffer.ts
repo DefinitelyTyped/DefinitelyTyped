@@ -7,7 +7,7 @@ import {
     constants,
     kMaxLength,
     kStringMaxLength,
-} from 'node:buffer';
+} from 'buffer';
 
 const utf8Buffer = new Buffer('test');
 const base64Buffer = new Buffer('', 'base64');

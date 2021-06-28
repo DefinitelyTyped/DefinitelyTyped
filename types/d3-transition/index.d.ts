@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-transition module 2.0
+// Type definitions for D3JS d3-transition module 3.0
 // Project: https://github.com/d3/d3-transition/, https://d3js.org/d3-transition
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,9 +6,8 @@
 //                 Robert Moura <https://github.com/robertmoura>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 3.0.1
 
 import { ArrayLike, BaseType, Selection, ValueFn } from 'd3-selection';
 
@@ -144,6 +143,30 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * (or a pseudo-array, such as a NodeList), or the empty array if there are no matching elements.
      */
     selectAll<DescElement extends BaseType, OldDatum>(selector: ValueFn<GElement, Datum, DescElement[] | ArrayLike<DescElement>>): Transition<DescElement, OldDatum, GElement, Datum>;
+
+    /**
+     * For each selected element, selects the first child element that matches the specified selector string, if any, and returns a transition on the resulting selection.
+     * The selector may be specified either as a selector string or a function.
+     * If a function, it is evaluated for each selected element, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element.
+     * The new transition has the same id, name and timing as this transition;
+     * however, if a transition with the same id already exists on a selected element, the existing transition is returned for that element.
+     * This method is equivalent to deriving the selection for this transition via transition.selection,
+     * creating a subselection via selection.selectChild, and then creating a new transition via selection.transition.
+     */
+    selectChild<DescElement extends BaseType, OldDatum>(selector?: string | ValueFn<GElement, Datum, DescElement>): Transition<DescElement, OldDatum, GElement, Datum>;
+
+    /**
+     * For each selected element, selects all children that match the specified selector string, if any, and returns a transition on the resulting selection.
+     * The selector may be specified either as a selector string or a function.
+     * If a function, it is evaluated for each selected element, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element.
+     * The new transition has the same id, name and timing as this transition;
+     * however, if a transition with the same id already exists on a selected element, the existing transition is returned for that element.
+     * This method is equivalent to deriving the selection for this transition via transition.selection,
+     * creating a subselection via selection.selectChildren, and then creating a new transition via selection.transition.
+     */
+    selectChildren<DescElement extends BaseType, OldDatum>(selector?: string | ValueFn<GElement, Datum, DescElement>): Transition<DescElement, OldDatum, GElement, Datum>;
 
     /**
      * Return the selection corresponding to this transition.

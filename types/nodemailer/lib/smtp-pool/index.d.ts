@@ -43,10 +43,10 @@ declare namespace SMTPPool {
 /**
  * Creates a SMTP pool transport object for Nodemailer
  */
-declare class SMTPPool extends EventEmitter implements Transport {
+declare class SMTPPool extends EventEmitter implements Transport<SMTPPool.SentMessageInfo> {
     options: SMTPPool.Options;
 
-    mailer: Mail;
+    mailer: Mail<SMTPPool.SentMessageInfo>;
     logger: shared.Logger;
 
     name: string;
@@ -60,7 +60,7 @@ declare class SMTPPool extends EventEmitter implements Transport {
     getSocket(options: SMTPPool.Options, callback: (err: Error | null, socketOptions: any) => void): void;
 
     /** Sends an e-mail using the selected settings */
-    send(mail: MailMessage, callback: (err: Error | null, info: SMTPPool.SentMessageInfo) => void): void;
+    send(mail: MailMessage<SMTPPool.SentMessageInfo>, callback: (err: Error | null, info: SMTPPool.SentMessageInfo) => void): void;
 
     /** Closes all connections in the pool. If there is a message being sent, the connection is closed later */
     close(): void;

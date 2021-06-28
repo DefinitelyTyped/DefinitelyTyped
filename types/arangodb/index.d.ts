@@ -659,7 +659,7 @@ declare namespace ArangoDB {
         document(
             selectors: ReadonlyArray<string | DocumentLike>
         ): Array<Document<T>>;
-        exists(name: string): boolean;
+        exists(name: string): DocumentMetadata | false;
         firstExample(example: Partial<Document<T>>): Document<T> | null;
         getResponsibleShard(document: DocumentLike): string;
         insert(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
@@ -1803,6 +1803,8 @@ declare module "@arangodb/crypto" {
     function genRandomAlphaNumbers(length: number): string;
     function genRandomNumbers(length: number): string;
     function genRandomSalt(length: number): string;
+    function genRandomBytes(length: number): Buffer;
+    function uuidv4(): string;
     function jwtEncode(
         key: string,
         message: string,

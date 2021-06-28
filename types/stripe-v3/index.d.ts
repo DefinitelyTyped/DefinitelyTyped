@@ -907,7 +907,7 @@ declare namespace stripe {
         }
 
         interface StripePaymentRequest {
-            canMakePayment(): Promise<{ applePay?: boolean } | null>;
+            canMakePayment(): Promise<{ applePay?: boolean, googlePay?: boolean } | null>;
             show(): void;
             update(options: StripePaymentRequestUpdateOptions): void;
             on(event: 'token', handler: (response: StripeTokenPaymentResponse) => void): void;

@@ -1,2 +1,2 @@
-extensions/global.d.ts
-extensions/pause.d.ts
+plugins/global-bind/mousetrap-global-bind.d.ts
+plugins/pause/mousetrap-pause.d.ts

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Cloud Memorystore for Memcached API v1beta2 1.0
+// Type definitions for non-npm package Cloud Memorystore for Memcached API v1 1.0
 // Project: https://cloud.google.com/memorystore/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>

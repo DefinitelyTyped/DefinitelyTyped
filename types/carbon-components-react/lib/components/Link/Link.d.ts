@@ -4,7 +4,8 @@ import { ReactAnchorAttr } from "../../../typings/shared";
 export interface LinkProps extends ReactAnchorAttr { // this is a <p> element when disabled but accounting for it is useless
     disabled?: boolean,
     inline?: boolean,
-    size?: "sm" | "lg",
+    renderIcon?: React.ComponentType;
+    size?: "sm" | "md" | "lg",
     visited?: boolean,
 }
 

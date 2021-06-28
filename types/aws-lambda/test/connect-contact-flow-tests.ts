@@ -13,6 +13,7 @@ const contactFlowHandler: ConnectContactFlowHandler = async (event, context, cal
     let channel: ConnectContactFlowChannel;
     let initiationMethod: ConnectContactFlowInitiationMethod;
     let queue: ConnectContactFlowQueue | null;
+    let audio: ConnectContactFlowEvent['Details']['ContactData']['MediaStreams']['Customer']['Audio'];
 
     strOrUndefined = event.Details.ContactData.Attributes[num];
     channel = event.Details.ContactData.Channel;
@@ -21,14 +22,25 @@ const contactFlowHandler: ConnectContactFlowHandler = async (event, context, cal
     str = event.Details.ContactData.InitialContactId;
     initiationMethod = event.Details.ContactData.InitiationMethod;
     str = event.Details.ContactData.InstanceARN;
-    strOrUndefined = event.Details.ContactData.MediaStreams.Customer.Audio.StartFragmentNumber;
-    strOrUndefined = event.Details.ContactData.MediaStreams.Customer.Audio.StartTimestamp;
-    strOrUndefined = event.Details.ContactData.MediaStreams.Customer.Audio.StreamARN;
     str = event.Details.ContactData.PreviousContactId;
     queue = event.Details.ContactData.Queue;
     endpoint = event.Details.ContactData.SystemEndpoint;
     strOrUndefined = event.Details.Parameters[num];
     str = event.Name;
+
+    audio = null;
+    audio = {
+        StartFragmentNumber: '12345678901234567890123456789012345678901234567',
+        StartTimestamp: '1234567890123',
+        StreamARN: 'arn:aws:kinesisvideo:[region]:[account]:stream/.../...'
+    };
+    audio = {
+        StartFragmentNumber: '12345678901234567890123456789012345678901234567',
+        StartTimestamp: '1234567890123',
+        StopFragmentNumber: '12345678901234567890123456789012345678901234568',
+        StopTimestamp: '1234567890124',
+        StreamARN: 'arn:aws:kinesisvideo:[region]:[account]:stream/.../...'
+    };
 
     let result: ConnectContactFlowResult;
 

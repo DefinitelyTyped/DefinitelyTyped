@@ -51,9 +51,9 @@ declare namespace gapi.client.people {
       }
 
       interface Response {
-        connections: Person[];
-        nextPageToken: string;
-        nextSyncToken: string;
+        connections?: Person[];
+        nextPageToken?: string;
+        nextSyncToken?: string;
       }
     }
   }
@@ -70,9 +70,9 @@ declare namespace gapi.client.people {
     }
 
     interface ListResponse {
-      otherContacts: Person[],
+      otherContacts?: Person[],
       nextPageToken?: string,
-      nextSyncToken: string,
+      nextSyncToken?: string,
     }
 
     function search(parameters: SearchContactsParameters): HttpRequest<SearchContactsResponse>;

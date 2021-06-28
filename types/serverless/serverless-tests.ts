@@ -467,6 +467,28 @@ const awsServerless: Aws.Serverless = {
                         existing: false
                     }
                 }, {
+                    s3: {
+                        bucket: 'testbucket',
+                        event: 'testevent',
+                        rules: [
+                            {
+                                prefix: 'testprefix',
+                            }
+                        ],
+                        existing: false
+                    }
+                }, {
+                    s3: {
+                        bucket: 'testbucket',
+                        event: 'testevent',
+                        rules: [
+                            {
+                                suffix: 'testsuffix',
+                            }
+                        ],
+                        existing: false
+                    }
+                }, {
                     schedule: '1',
                 }, {
                     sns: {
@@ -641,6 +663,12 @@ const awsServerless: Aws.Serverless = {
                 },
                 Condition: 'testcondition',
             },
+            testFunctionLambdaFunctionQualifiedArn: {
+                Description: 'testDescription',
+                Export: {
+                    Name: 'testFunctionLambdaFunctionQualifiedArn',
+                },
+            },
         },
     },
 };
@@ -675,6 +703,56 @@ const bunchOfConfigs: Aws.Serverless[] = [
             '*'
         ],
         provider: { name: 'aws' },
+        functions: {}
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            iam: {
+                role: {
+                    name: 'aws',
+                    permissionBoundary: 'testpermissionsBoundary',
+                    managedPolicies: ['testmanagedPolicies'],
+                    statements: [
+                        {
+                            Effect: 'Allow',
+                            Sid: 'testSid',
+                            Condition: {
+                                testcondition: 'testconditionvalue'
+                            },
+                            Action: 'testAction',
+                            NotAction: 'testNotAction',
+                            Resource: 'testResource',
+                            NotResource: 'testNotResource'
+                        }
+                    ],
+                    tags: {
+                        testtagkey: 'testtagvalue'
+                    }
+                }
+            }
+        },
+        functions: {}
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            iam: {
+                role: 'testrole',
+            }
+        },
+        functions: {}
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            iam: {
+                deploymentRole: 'testdeploymentRole'
+            }
+        },
         functions: {}
     }
 ];

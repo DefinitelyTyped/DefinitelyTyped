@@ -17,7 +17,8 @@ export type TagTypeName =
 export declare const types: TagTypeName[];
 
 interface SharedProps {
-    size?: "sm";
+    disabled?: boolean;
+    size?: "sm" | "md";
     type?: TagTypeName,
 }
 

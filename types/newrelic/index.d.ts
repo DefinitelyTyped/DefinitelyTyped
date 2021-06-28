@@ -81,6 +81,23 @@ export function addCustomAttribute(key: string, value: string | number | boolean
 export function addCustomAttributes(atts: { [key: string]: string | number | boolean }): void;
 
 /**
+ * Add a custom attribute to the the currently executing span.
+ *
+ * Some attributes are reserved (see CUSTOM_BLACKLIST in the docs for the current, very short list), and
+ * as with most API methods, this must be called in the context of an active segment/span.
+ *
+ * Most recently set value wins.
+ */
+ export function addCustomSpanAttribute(key: string, value: string | number | boolean): void;
+
+ /**
+  * Adds all custom attributes in an object to the the currently executing span.
+  *
+  * See documentation for `addCustomSpanAttribute` for more information on setting custom attributes.
+  */
+ export function addCustomSpanAttributes(atts: { [key: string]: string | number | boolean }): void;
+
+/**
  * Send errors to New Relic that you've already handled yourself.
  *
  * NOTE: Errors that are recorded using this method do _not_ obey the `ignore_status_codes` configuration.

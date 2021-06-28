@@ -1,6 +1,6 @@
-import * as dgram from 'node:dgram';
-import * as net from 'node:net';
-import * as dns from 'node:dns';
+import * as dgram from 'dgram';
+import * as net from 'net';
+import * as dns from 'dns';
 
 {
     let ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {

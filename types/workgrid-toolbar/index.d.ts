@@ -1,4 +1,4 @@
-// Type definitions for non-npm package workgrid-toolbar 1.1
+// Type definitions for non-npm package workgrid-toolbar 1.3
 // Project: https://github.com/jguardino-workgrid/workgrid-toolbar
 // Definitions by: J Guardino <https://github.com/jguardino-workgrid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,6 +20,7 @@ export interface WorkgridToolbarOptions {
     toolbarId?: string | null;
     version?: string | null;
     cssRules?: string[];
+    msIdToken?: string | null;
 }
 
 export function showWorkgridToolbar(options: WorkgridToolbarOptions): void;

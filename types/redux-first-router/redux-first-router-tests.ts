@@ -127,7 +127,7 @@ const action: ReduxFirstRouterAction = {
 };
 redirect(action); // $ExpectType Action
 
-// $ExpectType Store<CombinedState<State>, AnyAction> || Store<{ readonly [$CombinedState]?: undefined; } & State, AnyAction>
+// $ExpectType Store<CombinedState<State>, AnyAction> || Store<EmptyObject & State, AnyAction>
 store;
 
 store.getState().location.routesMap; // $ExpectType RoutesMap<Keys, State>

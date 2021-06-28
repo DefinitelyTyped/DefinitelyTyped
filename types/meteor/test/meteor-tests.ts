@@ -557,6 +557,18 @@ Meteor.loginWithGithub({
 
 Meteor.loggingOut(); // $ExpectType boolean
 
+Meteor.user();
+Meteor.user({});
+Meteor.user({ fields: {} });
+Meteor.user({ fields: { _id: 1 } });
+Meteor.user({ fields: { profile: 0 } });
+
+Accounts.user();
+Accounts.user({});
+Accounts.user({ fields: {} });
+Accounts.user({ fields: { _id: 1 } });
+Accounts.user({ fields: { profile: 0 } });
+
 /**
  * From Accounts, Accounts.ui.config section
  */
@@ -1052,6 +1064,7 @@ if (Meteor.isServer) {
     const stampedToken = Accounts._generateStampedLoginToken(); // $ExpectType StampedLoginToken
     const hashedStampedToken = Accounts._hashStampedToken(stampedToken); // $ExpectType HashedStampedLoginToken
     Accounts._insertHashedLoginToken('testUserId', hashedStampedToken); // $ExpectType void
+    Accounts._insertHashedLoginToken<{_id: string}>('testUserId', hashedStampedToken, {_id: {$exists: true}}); // $ExpectType void
 
     const hashedToken = Accounts._hashLoginToken(stampedToken.token); // $ExpectType string
 }

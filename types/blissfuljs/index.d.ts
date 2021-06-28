@@ -21,7 +21,6 @@ declare namespace BlissNS {
         classProps: Object;
 
         create(tag: "a"): HTMLAnchorElement;
-        create(tag: "applet"): HTMLAppletElement;
         create(tag: "area"):HTMLAreaElement;
         create(tag: "audio"): HTMLAudioElement;
         create(tag: "base"): HTMLBaseElement;
@@ -74,7 +73,6 @@ declare namespace BlissNS {
         create<T>(options: Object): BlissDecoratedElement<T>;
 
         create(tag: "a", options: Object): HTMLAnchorElement;
-        create(tag: "applet", options: Object): HTMLAppletElement;
         create(tag: "area", options: Object): HTMLAreaElement;
         create(tag: "audio", options: Object): HTMLAudioElement;
         create(tag: "base", options: Object): HTMLBaseElement;
@@ -270,7 +268,6 @@ declare namespace BlissNS {
         insertAdjacentElement(position: string, insertedElement: Element): Element;
         insertAdjacentHTML(where: string, html: string): T;
         insertAdjacentText(where: string, text: string): T;
-        msGetInputContext(): MSInputMethodContext;
         scrollIntoView(top?: boolean): T;
         setActive(): T;
         addEventListener(type: "MSContentZoom", listener: (ev: UIEvent) => any, useCapture?: boolean): T;
@@ -363,12 +360,10 @@ declare namespace BlissNS {
         getAttributeNode(name: string): Attr;
         getAttributeNodeNS(namespaceURI: string, localName: string): Attr;
         getBoundingClientRect(): ClientRect;
-        getClientRects(): ClientRectList;
         getElementsByTagName(name: "a"): NodeListOf<HTMLAnchorElement>;
         getElementsByTagName(name: "abbr"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "acronym"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "address"): NodeListOf<HTMLElement>;
-        getElementsByTagName(name: "applet"): NodeListOf<HTMLAppletElement>;
         getElementsByTagName(name: "area"): NodeListOf<HTMLAreaElement>;
         getElementsByTagName(name: "article"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "aside"): NodeListOf<HTMLElement>;

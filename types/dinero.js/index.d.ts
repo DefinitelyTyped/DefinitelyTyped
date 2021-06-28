@@ -1,9 +1,9 @@
-// Type definitions for dinero.js 1.6
+// Type definitions for dinero.js 1.8
 // Project: https://sarahdayan.github.io/dinero.js
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 David Acosta <https://github.com/juandaco>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 export as namespace Dinero;
 
@@ -72,7 +72,8 @@ declare namespace DineroFactory {
         | 'HALF_UP'
         | 'HALF_DOWN'
         | 'HALF_TOWARDS_ZERO'
-        | 'HALF_AWAY_FROM_ZERO';
+        | 'HALF_AWAY_FROM_ZERO'
+        | 'DOWN';
 
     interface ExchangeRatesApiOptions {
         endpoint: string | Promise<{[key: string]: any}>;
