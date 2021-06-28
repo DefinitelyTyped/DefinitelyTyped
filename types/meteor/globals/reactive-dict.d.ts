@@ -1,3 +1,4 @@
+
 declare var ReactiveDict: ReactiveDictStatic;
 declare interface ReactiveDictStatic {
     new (name?: string, initialValue?: EJSONable): ReactiveDict;
