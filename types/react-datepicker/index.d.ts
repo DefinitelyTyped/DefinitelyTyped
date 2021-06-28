@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 3.1
+// Type definitions for react-datepicker 4.1.0
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -16,7 +16,7 @@
 //                 Walter Kennedy <https://github.com/wthefourth>
 //                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 4.2.4
 
 import * as React from 'react';
 import * as Popper from 'popper.js';
