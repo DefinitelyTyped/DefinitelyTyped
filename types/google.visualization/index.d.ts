@@ -1033,6 +1033,14 @@ declare namespace google {
             draw(data: DataTable | DataView, options: PieChartOptions): void;
         }
 
+        export interface PieChartLegend {
+            alignment?: ChartLegendAlignment;
+            maxLines?: number;
+            position?: 'bottom' | 'labeled' | 'left' | 'none' | 'right' | 'top';
+            textStyle?: ChartTextStyle;
+            numberFormat?: string;
+        }
+
         // https://developers.google.com/chart/interactive/docs/gallery/piechart#configuration-options
         export interface PieChartOptions {
             backgroundColor?: string | ChartStrokeFill;
@@ -1043,7 +1051,7 @@ declare namespace google {
             fontName?: string;
             height?: number;
             is3D?: boolean;
-            legend?: ChartLegend | 'none';
+            legend?: PieChartLegend | 'none';
             pieHole?: number;
             pieSliceBorderColor?: string;
             pieSliceText?: string;
