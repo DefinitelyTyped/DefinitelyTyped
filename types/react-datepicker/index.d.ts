@@ -185,6 +185,7 @@ export interface ReactDatePickerProps {
     excludeScrollbar?: boolean;
     enableTabLoop?: boolean;
     yearItemNumber?: number;
+    calendarStartDay?: number;
 }
 
 declare class ReactDatePicker extends React.Component<ReactDatePickerProps> {
