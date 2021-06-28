@@ -58,8 +58,8 @@ fs.writeFileSync("test/globals/README.md", readmeText, "UTF-8");
 
 const files = configObject.files;
 
-const otherFiles = fs.readFileSync('OTHER_FILES.txt', 'UTF-8');
-files.push(...otherFiles.split(/\r?\n/));
+const indexFile = fs.readFileSync('index.d.ts', 'UTF-8');
+files.push(...Array.from(indexFile.matchAll(/\/\/ <reference path="\.\/(.*)" \/>/g), m => m[1]));
 
 for (let outFile of files) {
     let m = /^(test\/)?globals\/(.*)$/.exec(outFile);
