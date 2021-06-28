@@ -1,5 +1,6 @@
+import VoilabPdfTable = require('..');
+
 export = VoilabPdfTablePluginRowShader;
-export as namespace VoilabPdfTablePluginRowShader;
 
 declare namespace VoilabPdfTablePluginRowShader {
     interface VoilabPdfTablePluginRowShaderConf {

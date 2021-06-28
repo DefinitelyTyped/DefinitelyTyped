@@ -1,5 +1,6 @@
+import VoilabPdfTable = require('..');
+
 export = VoilabPdfTablePluginFitColumn;
-export as namespace VoilabPdfTablePluginFitColumn;
 
 declare namespace VoilabPdfTablePluginFitColumn {
     interface VoilabPdfTablePluginFitColumnConf<T> {

@@ -6,7 +6,6 @@
 /// <reference types="pdfkit" />
 
 export = VoilabPdfTable;
-export as namespace VoilabPdfTable;
 
 declare class VoilabPdfTable<T = any> {
     // tslint:disable-next-line:no-misused-new
