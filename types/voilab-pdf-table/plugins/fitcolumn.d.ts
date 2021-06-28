@@ -16,4 +16,3 @@ interface VoilabPdfTablePluginFitColumn<T = any> {
 }
 
 declare const VoilabPdfTablePluginFitColumn: VoilabPdfTablePluginFitColumn;
-

@@ -52,19 +52,41 @@ declare class VoilabPdfTable<T = any> {
     onColumnAdded(cb: (table: this, column: VoilabPdfTable.VoilabPdfTableColumn<T>) => void): this;
 
     /** Add action before a cell background is added */
-    onCellBackgroundAdd(cb: (table: this, column: VoilabPdfTable.VoilabPdfTableColumn<T>, row: T, index: number, isHeader: boolean) => void): this;
+    onCellBackgroundAdd(
+        cb: (
+            table: this,
+            column: VoilabPdfTable.VoilabPdfTableColumn<T>,
+            row: T,
+            index: number,
+            isHeader: boolean,
+        ) => void,
+    ): this;
 
     /** Add action after a cell background is added */
-    onCellBackgroundAdded(cb: (table: this, column: VoilabPdfTable.VoilabPdfTableColumn<T>, row: T, index: number, isHeader: boolean) => void): this;
+    onCellBackgroundAdded(
+        cb: (
+            table: this,
+            column: VoilabPdfTable.VoilabPdfTableColumn<T>,
+            row: T,
+            index: number,
+            isHeader: boolean,
+        ) => void,
+    ): this;
 
     /** Add action before a cell border is added */
-    onCellBorderAdd(cb: (table: this, column: VoilabPdfTable.VoilabPdfTableColumn<T>, row: T, isHeader: boolean) => void): this;
+    onCellBorderAdd(
+        cb: (table: this, column: VoilabPdfTable.VoilabPdfTableColumn<T>, row: T, isHeader: boolean) => void,
+    ): this;
 
     /** Add action after a cell border is added */
-    onCellBorderAdded(cb: (table: this, column: VoilabPdfTable.VoilabPdfTableColumn<T>, row: T, isHeader: boolean) => void): this;
+    onCellBorderAdded(
+        cb: (table: this, column: VoilabPdfTable.VoilabPdfTableColumn<T>, row: T, isHeader: boolean) => void,
+    ): this;
 
     /** Add action after a column's property is changed */
-    onColumnPropertyChanged(cb: (table: this, column: VoilabPdfTable.VoilabPdfTableColumn<T>, prop: string, oldValue: any) => void): this;
+    onColumnPropertyChanged(
+        cb: (table: this, column: VoilabPdfTable.VoilabPdfTableColumn<T>, prop: string, oldValue: any) => void,
+    ): this;
 
     /** Add a plugin */
     addPlugin(arg0: VoilabPdfTable.VoilabPdfTablePlugin<T>): this;
@@ -85,10 +107,10 @@ declare class VoilabPdfTable<T = any> {
     setColumnsDefaults(defaults: Partial<VoilabPdfTable.VoilabPdfTableColumnDefaults<T>>): this;
 
     /** Add multiple columns */
-    addColumns(columns: Array<VoilabPdfTable.VoilabPdfTableColumn<T>>): this;
+    addColumns(columns: ReadonlyArray<VoilabPdfTable.VoilabPdfTableColumn<T>>): this;
 
     /** Set columns in one shot */
-    setColumns(columns: Array<VoilabPdfTable.VoilabPdfTableColumn<T>>, add?: boolean): this;
+    setColumns(columns: ReadonlyArray<VoilabPdfTable.VoilabPdfTableColumn<T>>, add?: boolean): this;
 
     /** Get all table columns */
     getColumns(withHidden?: boolean): Array<VoilabPdfTable.VoilabPdfTableColumn<T>>;
@@ -116,12 +138,16 @@ declare class VoilabPdfTable<T = any> {
 
     /** Get column param */
     getColumnParam<K extends keyof VoilabPdfTable.VoilabPdfTableColumn<T>>(
-        columnId: keyof T, param: K,
+        columnId: keyof T,
+        param: K,
     ): VoilabPdfTable.VoilabPdfTableColumn<T>[K];
 
     /** Set a specific definition for a column */
     setColumnParam<K extends keyof VoilabPdfTable.VoilabPdfTableColumn<T>>(
-        columnId: keyof T, key: K, value: VoilabPdfTable.VoilabPdfTableColumn<T>[K], silent?: boolean,
+        columnId: keyof T,
+        key: K,
+        value: VoilabPdfTable.VoilabPdfTableColumn<T>[K],
+        silent?: boolean,
     ): this;
 
     /** Add content to the table */
@@ -145,41 +171,41 @@ declare namespace VoilabPdfTable {
         };
     }
 
-    type VoilabPdfTableColumn<T> = (
-        {
-            id: keyof T
-            renderer?: (table: VoilabPdfTable<T>, row: T, draw: boolean) => void
-            cellAdded?: (table: VoilabPdfTable<T>, row: T, draw: boolean) => void
-            hidden?: boolean
-            border?: string
-            borderOpacity?: number
-            width?: number
-            height?: number
-            valign?: number
-            align?: 'left' | 'center' | 'right'
-            fill?: boolean
-            cache?: boolean
-            padding?: [number] | [number, number] | [number, number, number, number]
-        } & (
-            {
-                header: string
-                headerRenderer?: (table: VoilabPdfTable<T>, header: VoilabPdfTableHeader<T>, draw: boolean) => void
-                headerCellAdded?: (table: VoilabPdfTable<T>, header: VoilabPdfTableHeader<T>, draw: boolean) => void
-                headerBorder?: string
-                headerBorderOpacity?: number
-                headerFill?: boolean
-                headerHeight?: number
-            } | {
-                header?: never,
-                headerRenderer?: never
-                headerCellAdded?: never
-                headerBorder?: never
-                headerBorderOpacity?: never
-                headerFill?: never
-                headerHeight?: never
-            }
-        )
-    ) & PDFKit.Mixins.TextOptions;
+    type VoilabPdfTableColumn<T> = ({
+        id: keyof T;
+        renderer?: (table: VoilabPdfTable<T>, row: T, draw: boolean) => void;
+        cellAdded?: (table: VoilabPdfTable<T>, row: T, draw: boolean) => void;
+        hidden?: boolean;
+        border?: string;
+        borderOpacity?: number;
+        width?: number;
+        height?: number;
+        valign?: number;
+        align?: 'left' | 'center' | 'right';
+        fill?: boolean;
+        cache?: boolean;
+        padding?: [number] | [number, number] | [number, number, number, number];
+    } & (
+        | {
+              header: string;
+              headerRenderer?: (table: VoilabPdfTable<T>, header: VoilabPdfTableHeader<T>, draw: boolean) => void;
+              headerCellAdded?: (table: VoilabPdfTable<T>, header: VoilabPdfTableHeader<T>, draw: boolean) => void;
+              headerBorder?: string;
+              headerBorderOpacity?: number;
+              headerFill?: boolean;
+              headerHeight?: number;
+          }
+        | {
+              header?: never;
+              headerRenderer?: never;
+              headerCellAdded?: never;
+              headerBorder?: never;
+              headerBorderOpacity?: never;
+              headerFill?: never;
+              headerHeight?: never;
+          }
+    )) &
+        PDFKit.Mixins.TextOptions;
 
     type DistributiveOmit<T, K extends keyof T> = T extends unknown ? Omit<T, K> : never;
 
