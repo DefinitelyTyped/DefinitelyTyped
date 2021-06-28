@@ -1,11 +1,7 @@
-declare module 'node:http' {
-    export * from 'http';
-}
-
 declare module 'http' {
-    import * as stream from 'node:stream';
-    import { URL } from 'node:url';
-    import { Socket, Server as NetServer } from 'node:net';
+    import * as stream from 'stream';
+    import { URL } from 'url';
+    import { Socket, Server as NetServer } from 'net';
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
@@ -81,6 +77,7 @@ declare module 'http' {
     }
 
     interface ClientRequestArgs {
+        abort?: AbortSignal;
         protocol?: string | null;
         host?: string | null;
         hostname?: string | null;
@@ -110,7 +107,7 @@ declare module 'http' {
         ServerResponse?: typeof ServerResponse;
         /**
          * Optionally overrides the value of
-         * [`--max-http-header-size`][] for requests received by this server, i.e.
+         * `--max-http-header-size` for requests received by this server, i.e.
          * the maximum length of request headers in bytes.
          * @default 8192
          */
@@ -159,7 +156,8 @@ declare module 'http' {
 
     // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
     class OutgoingMessage extends stream.Writable {
-        upgrading: boolean;
+        readonly req: IncomingMessage;
+
         chunkedEncoding: boolean;
         shouldKeepAlive: boolean;
         useChunkedEncodingByDefault: boolean;
@@ -168,17 +166,17 @@ declare module 'http' {
          * @deprecated Use `writableEnded` instead.
          */
         finished: boolean;
-        headersSent: boolean;
+        readonly headersSent: boolean;
         /**
-         * @deprecate Use `socket` instead.
+         * @deprecated Use `socket` instead.
          */
-        connection: Socket | null;
-        socket: Socket | null;
+        readonly connection: Socket | null;
+        readonly socket: Socket | null;
 
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): this;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
@@ -377,7 +375,8 @@ declare module 'http' {
          */
         timeout?: number;
         /**
-         * Scheduling strategy to apply when picking the next free socket to use. Default: 'fifo'.
+         * Scheduling strategy to apply when picking the next free socket to use.
+         * @default `lifo`
          */
         scheduling?: 'fifo' | 'lifo';
     }
@@ -422,7 +421,14 @@ declare module 'http' {
 
     /**
      * Read-only property specifying the maximum allowed size of HTTP headers in bytes.
-     * Defaults to 16KB. Configurable using the [`--max-http-header-size`][] CLI option.
+     * Defaults to 16KB. Configurable using the `--max-http-header-size` CLI option.
      */
     const maxHeaderSize: number;
+
+    /**
+     *
+     * This utility function converts a URL object into an ordinary options object as
+     * expected by the `http.request()` and `https.request()` APIs.
+     */
+    function urlToHttpOptions(url: URL): ClientRequestArgs;
 }

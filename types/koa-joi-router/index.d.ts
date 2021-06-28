@@ -1,4 +1,4 @@
-// Type definitions for koa-joi-router 5.2
+// Type definitions for koa-joi-router 8.0
 // Project: https://github.com/koajs/joi-router
 // Definitions by: Matthew Bull <https://github.com/wingsbob>
 //                 Dave Welsh <https://github.com/move-zig>
@@ -41,7 +41,7 @@ declare namespace createRouter {
           query?: Joi.SchemaLike;
           params?: Joi.SchemaLike;
           body?: Joi.SchemaLike;
-          maxBody?: number;
+          maxBody?: number | string;
           failure?: number;
           type?: 'form'|'json'|'multipart';
           formOptions?: CoBody.Options;
@@ -49,6 +49,7 @@ declare namespace createRouter {
           multipartOptions?: CoBody.Options;
           output?: {[status: string]: OutputValidation};
           continueOnError?: boolean;
+          validateOptions?: Joi.ValidationOptions;
       };
       meta?: any;
     }

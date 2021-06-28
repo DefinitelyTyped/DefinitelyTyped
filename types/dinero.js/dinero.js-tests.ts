@@ -87,6 +87,7 @@ string = dinero.toFormat('0,0 dollar', 'HALF_EVEN');
 number = dinero.toUnit();
 number = dinero.toRoundedUnit(1);
 number = dinero.toRoundedUnit(1, 'HALF_EVEN');
+number = dinero.toRoundedUnit(1, 'DOWN');
 dineroObject = dinero.toObject();
 dineroObject = dinero.toJSON();
 dineroArr = Dinero.normalizePrecision([

@@ -29,7 +29,7 @@ declare namespace I18n {
     let nullPlaceholder: (placeholder: string, message: string, options?: InterpolateOptions) => string | null | undefined;
 
     let translations: { [locale: string]: object };
-    let locales: { [key: string]: string | string[] | ((locale: string) => string | string[]) };
+    let locales: { [key: string]: string | string[] | ((locale: string) => string | string[]), get: (locale: string) => string[] };
     let pluralization: { [locale: string]: (count: number) => string[] };
 
     function reset(): void;

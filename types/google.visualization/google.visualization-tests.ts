@@ -72,7 +72,10 @@ function test_calendarChart() {
     var options = {
         title: "Test Calendar",
         height: 350,
-        colorAxis: { colors: ['red', 'white', 'green'], values: [-250, 0, 250] }
+        colorAxis: { colors: ['red', 'white', 'green'], values: [-250, 0, 250] },
+        calendar: {
+            yearLabel: { color: 'black', bold: true, italic: false }
+        }
     };
 
     var container = document.getElementById('chart_div');

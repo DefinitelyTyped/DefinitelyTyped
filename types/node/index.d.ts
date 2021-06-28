@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 14.14
+// Type definitions for non-npm package Node.js 15.12
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -6,7 +6,6 @@
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Benjamin Toueg <https://github.com/btoueg>
-//                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Chigozirim C. <https://github.com/smac89>
 //                 David Junger <https://github.com/touffy>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
@@ -51,9 +50,9 @@
 
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
-//          - ~/index.d.ts        - Definitions specific to TypeScript 2.8
-//          - ~/ts3.5/index.d.ts  - Definitions specific to TypeScript 3.5
+//          - ~/index.d.ts        - Definitions specific to TypeScript 3.7
+//          - ~/ts3.6/index.d.ts  - Definitions specific to TypeScript 3.6
 
-// NOTE: Augmentations for TypeScript 3.5 and later should use individual files for overrides
-//       within the respective ~/ts3.5 (or later) folder. However, this is disallowed for versions
-//       prior to TypeScript 3.5, so the older definitions will be found here.
+// NOTE: Augmentations for TypeScript 3.6 and later should use individual files for overrides
+//       within the respective ~/ts3.6 (or later) folder. However, this is disallowed for versions
+//       prior to TypeScript 3.6, so the older definitions will be found here.

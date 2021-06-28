@@ -4,6 +4,7 @@ import {
     Cell,
     CellProps,
     Column,
+    DefaultSortTypes,
     FilterProps,
     FilterValue,
     HeaderGroup,
@@ -822,3 +823,11 @@ const Component = (props: {}) => {
 };
 
 ReactDOM.render(<Component />, document.getElementById('root'));
+
+declare function checkDefaultSortType(sortType: DefaultSortTypes): void;
+
+checkDefaultSortType('alphanumeric');
+checkDefaultSortType('datetime');
+checkDefaultSortType('basic');
+checkDefaultSortType('string');
+checkDefaultSortType('number');

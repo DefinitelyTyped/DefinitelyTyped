@@ -22,7 +22,7 @@ declare namespace FTP {
         cwd?: string;
         additionalLftpCommands?: string;
         requireSSHKey?: boolean;
-        sshKeyPath?: boolean;
+        sshKeyPath?: string;
     }
 
     interface MirrorOptions {

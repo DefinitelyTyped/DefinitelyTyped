@@ -23,7 +23,7 @@ import {
     TextureEncoding,
     Material,
 } from '../../../src/Three';
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass';
 import { SSRrShader, SSRrDepthShader } from '../shaders/SSRrShader';
 import { CopyShader } from '../shaders/CopyShader';
 
@@ -87,7 +87,7 @@ export class SSRrPass extends Pass {
     depthRenderMaterial: ShaderMaterial;
     copyMaterial: ShaderMaterial;
 
-    fsQuad: Pass.FullScreenQuad;
+    fsQuad: FullScreenQuad;
 
     originalClearColor: Color;
 

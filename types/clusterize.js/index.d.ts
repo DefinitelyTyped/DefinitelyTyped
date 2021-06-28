@@ -1,6 +1,7 @@
-// Type definitions for clusterize.js 0.17
+// Type definitions for clusterize.js 0.18
 // Project: https://github.com/NeXTs/Clusterize.js
 // Definitions by: Pr1st0n <https://github.com/Pr1st0n>
+//                 Goran Jovanovic <https://github.com/gjovanovicst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Clusterize {
@@ -17,9 +18,9 @@ declare class Clusterize {
 }
 
 declare namespace Clusterize {
-    interface Options {
-        scrollId: string;
-        contentId: string;
+    type Setup = { scrollId: string; contentId: string } | { scrollElem: HTMLElement; contentElem: HTMLElement };
+
+    type Options = Setup & {
         rows?: string[];
         tag?: string;
         rows_in_block?: number;
@@ -29,7 +30,7 @@ declare namespace Clusterize {
         no_data_class?: string;
         keep_parity?: boolean;
         callbacks?: Callbacks;
-    }
+    };
 
     interface Callbacks {
         clusterWillChange?: () => void;

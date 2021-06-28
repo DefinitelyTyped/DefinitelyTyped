@@ -58,16 +58,19 @@ export interface LiteralNode {
 export interface HexNode {
     type: 'hex';
     value: string;
+    length?: PxNode | EmNode | PercentNode;
 }
 
 export interface RgbNode {
     type: 'rgb';
     value: [string, string, string];
+    length?: PxNode | EmNode | PercentNode;
 }
 
 export interface RgbaNode {
     type: 'rgba';
     value: [string, string, string, string?];
+    length?: PxNode | EmNode | PercentNode;
 }
 
 export interface ShapeNode {

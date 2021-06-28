@@ -539,3 +539,5 @@ class MySimple extends jspb.Message {
 const myMessage: MySimple = new MySimple();
 const myClonedMessage: MySimple = myMessage.clone();
 const myClonedMessage2: MySimple = myMessage.cloneMessage()
+
+const myTimestamp = google_protobuf_timestamp_pb.Timestamp.fromDate(new Date());

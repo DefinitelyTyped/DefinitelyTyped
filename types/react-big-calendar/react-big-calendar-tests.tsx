@@ -22,7 +22,8 @@ import {
     ViewProps,
     Day,
     TimeGrid,
-    Week
+    Week,
+    HeaderProps
 } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
@@ -164,6 +165,9 @@ class CalendarResource {
                 event: Event,
                 agenda: {
                     event: EventAgenda,
+                },
+                work_week: {
+                  event: Event
                 },
                 toolbar: Toolbar,
                 eventWrapper: EventWrapper,
@@ -311,6 +315,7 @@ class CalendarResource {
                         },
                         toolbar: Toolbar,
                         eventWrapper: EventWrapper,
+                        header: CustomHeader
                     }}
                     dayPropGetter={customDayPropGetter}
                     slotPropGetter={customSlotPropGetter}
@@ -367,6 +372,14 @@ class EventAgenda extends React.Component<EventProps<CalendarEvent>> {
             </div>
         );
     }
+}
+
+class CustomHeader extends React.Component<HeaderProps> {
+  render() {
+    return (
+      <div>Custom header</div>
+    );
+  }
 }
 
 const customDayPropGetter = (date: Date) => {

@@ -1,18 +1,23 @@
-// Type definitions for bump-regex 2.9
+// Type definitions for bump-regex 4.1
 // Project: https://github.com/stevelacy/bump-regex
 // Definitions by: silkentrance <https://github.com/silkentrance>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function BumpRegex(opts: string|BumpRegex.Options, cb: BumpRegex.Callback): any;
+declare function bump(opts: string | bump.Options, cb: bump.Callback): any;
 
-declare namespace BumpRegex {
-    type Callback = (err: string|Error|null, opts?: Result) => void;
+declare namespace bump {
+    type Callback = (err: string | Error | null, opts?: Result) => void;
 
     interface Options {
         key?: string;
         type?: 'major' | 'minor' | 'patch' | 'prerelease';
         case?: boolean;
         keys?: string[];
+        /**
+         * Keep the metadata of the old version after bumping
+         * @default false
+         */
+        keepmetadata?: boolean;
         global?: boolean;
         version?: string;
         preid?: string;
@@ -26,4 +31,4 @@ declare namespace BumpRegex {
     }
 }
 
-export = BumpRegex;
+export = bump;

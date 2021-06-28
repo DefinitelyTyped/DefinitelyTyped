@@ -3720,6 +3720,15 @@ declare module _ {
          * @param defaultValue Default if not found.
          * @returns The item on the `object` or the `defaultValue`
          **/
+        get(
+            object: null | undefined,
+            path: string | string[]
+        ): undefined;
+        get<U>(
+            object: null | undefined,
+            path: string | string[],
+            defaultValue?: U
+        ): U;
         get<V extends Collection<any>>(
             object: V,
             path: string | string[]

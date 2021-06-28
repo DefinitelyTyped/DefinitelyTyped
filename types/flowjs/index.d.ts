@@ -59,8 +59,8 @@ declare namespace flowjs {
         chunkRetryInterval?: number;
         progressCallbacksInterval?: number;
         speedSmoothingFactor?: number;
-        successStatuses?: string[];
-        permanentErrors?: string[];
+        successStatuses?: number[];
+        permanentErrors?: number[];
     }
 
     interface FlowFile {

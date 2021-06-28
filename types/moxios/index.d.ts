@@ -144,6 +144,15 @@ declare let moxios: {
     stubRequest(urlOrRegExp: string | RegExp, response: Item): void;
 
     /**
+     * Stub a response to be used to respond to a request matching a URL or RegExp
+     *
+     * @param method An axios command
+     * @param urlOrRegExp A URL or RegExp to test against
+     * @param response The response to use when a match is made
+     */
+    stubRequest(method: string, urlOrRegExp: string | RegExp, response: Item): void;
+
+    /**
      * Stub a response to be used one or more times to respond to a request matching a
      * method and a URL or RegExp.
      *

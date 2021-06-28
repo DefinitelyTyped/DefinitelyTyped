@@ -19,17 +19,17 @@ import StreamTransport = require('./lib/stream-transport');
 
 export type SendMailOptions = Mail.Options;
 
+export type Transporter<T = any> = Mail<T>;
+
 export type SentMessageInfo = any;
 
-export type Transporter = Mail;
-
-export interface Transport {
-    mailer?: Transporter;
+export interface Transport<T = any> {
+    mailer?: Transporter<T>;
 
     name: string;
     version: string;
 
-    send(mail: MailMessage, callback: (err: Error | null, info: SentMessageInfo) => void): void;
+    send(mail: MailMessage<T>, callback: (err: Error | null, info: T) => void): void;
 
     verify?(callback: (err: Error | null, success: true) => void): void;
     verify?(): Promise<true>;
@@ -53,25 +53,25 @@ export interface TestAccount {
 export function createTransport(
     transport?: SMTPTransport | SMTPTransport.Options | string,
     defaults?: SMTPTransport.Options,
-): Transporter;
-export function createTransport(transport: SMTPPool | SMTPPool.Options, defaults?: SMTPPool.Options): Transporter;
+): Transporter<SMTPTransport.SentMessageInfo>;
+export function createTransport(transport: SMTPPool | SMTPPool.Options, defaults?: SMTPPool.Options): Transporter<SMTPPool.SentMessageInfo>;
 export function createTransport(
     transport: SendmailTransport | SendmailTransport.Options,
     defaults?: SendmailTransport.Options,
-): Transporter;
+): Transporter<SendmailTransport.SentMessageInfo>;
 export function createTransport(
     transport: StreamTransport | StreamTransport.Options,
     defaults?: StreamTransport.Options,
-): Transporter;
+): Transporter<StreamTransport.SentMessageInfo>;
 export function createTransport(
     transport: JSONTransport | JSONTransport.Options,
     defaults?: JSONTransport.Options,
-): Transporter;
+): Transporter<JSONTransport.SentMessageInfo>;
 export function createTransport(
     transport: SESTransport | SESTransport.Options,
     defaults?: SESTransport.Options,
-): Transporter;
-export function createTransport(transport: Transport | TransportOptions, defaults?: TransportOptions): Transporter;
+): Transporter<SESTransport.SentMessageInfo>;
+export function createTransport<T>(transport: Transport<T> | TransportOptions, defaults?: TransportOptions): Transporter<T>;
 
 export function createTestAccount(
     apiUrl: string,

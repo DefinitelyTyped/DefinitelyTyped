@@ -138,6 +138,7 @@ interface JSONInputProperties {
     error?: error;
     colors?: colors;
     style?: style;
+    theme?: string;
 }
 
 declare class JSONInput extends React.Component<JSONInputProperties> {

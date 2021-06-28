@@ -1,8 +1,11 @@
-// Type definitions for svg-spritemap-webpack-plugin 3.9
+// Type definitions for svg-spritemap-webpack-plugin 4.0
 // Project: https://github.com/cascornelissen/svg-spritemap-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
+
+/// <reference types="node" />
+
 import { Compiler, WebpackPluginInstance } from 'webpack';
 
 declare namespace SVGSpritemapPlugin {

@@ -1,8 +1,3 @@
-declare module 'node:events' {
-    import EventEmitter = require('events');
-    export = EventEmitter;
-}
-
 declare module 'events' {
     interface NodeEventTarget {
         once(event: string | symbol, listener: (...args: any[]) => void): this;

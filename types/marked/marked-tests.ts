@@ -25,7 +25,11 @@ let options: marked.MarkedOptions = {
     smartypants: false,
     tokenizer,
     renderer: new marked.Renderer(),
-    walkTokens: (callback: (token: marked.Token) => void) => {},
+    walkTokens: (token) => {
+        if (token.type === 'heading') {
+            token.depth += 1;
+        }
+    },
 };
 
 options.highlight = (code: string, lang: string, callback: (error: any | undefined, code?: string) => void) => {

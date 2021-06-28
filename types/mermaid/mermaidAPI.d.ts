@@ -126,6 +126,12 @@ declare namespace mermaidAPI {
          * default: true
          */
         useMaxWidth?: boolean;
+
+        /**
+         * This will display arrows that start and begin at the same node as right angles, rather than a curve
+         * Default value: false
+         */
+        rightAngles?: boolean;
     }
 
     interface GanttConfig {
@@ -203,6 +209,10 @@ declare namespace mermaidAPI {
 
         theme?: Theme;
 
+        maxTextSize?: number;
+
+        fontFamily?: string;
+
         /**
          * logLevel , decides the amount of logging to be used.
          * default: LogLevel.Fatal
@@ -221,6 +231,12 @@ declare namespace mermaidAPI {
          * default: false
          */
         arrowMarkerAbsolute?: boolean;
+
+        secure?: Array<keyof Config>;
+
+        deterministicIds?: boolean;
+
+        deterministicIDSeed?: string;
 
         /**
          * ### flowchart

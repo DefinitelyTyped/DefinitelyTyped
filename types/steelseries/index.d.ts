@@ -37,7 +37,7 @@ export function setAlpha(hex: string, alpha: number): string;
 
 export function getColorFromFraction(sourceColor: rgbaColor, destinationColor: rgbaColor, range: number, fraction: number, returnRawData?: boolean): rgbaColor|number[];
 
-interface Section {
+export interface Section {
     start: number;
     stop: number;
     color: string;

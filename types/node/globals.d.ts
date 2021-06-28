@@ -37,9 +37,9 @@ interface ImportMeta {
  ------------------------------------------------*/
 
 // For backwards compability
-interface NodeRequire extends NodeJS.Require {}
-interface RequireResolve extends NodeJS.RequireResolve {}
-interface NodeModule extends NodeJS.Module {}
+interface NodeRequire extends NodeJS.Require { }
+interface RequireResolve extends NodeJS.RequireResolve { }
+interface NodeModule extends NodeJS.Module { }
 
 declare var process: NodeJS.Process;
 declare var console: Console;
@@ -311,6 +311,41 @@ declare class Buffer extends Uint8Array {
     values(): IterableIterator<number>;
 }
 
+//#region borrowed
+// from https://github.com/microsoft/TypeScript/blob/38da7c600c83e7b31193a62495239a0fe478cb67/lib/lib.webworker.d.ts#L633 until moved to separate lib
+/** A controller object that allows you to abort one or more DOM requests as and when desired. */
+interface AbortController {
+    /**
+     * Returns the AbortSignal object associated with this object.
+     */
+
+    readonly signal: AbortSignal;
+    /**
+     * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
+     */
+    abort(): void;
+}
+
+/** A signal object that allows you to communicate with a DOM request (such as a Fetch) and abort it if required via an AbortController object. */
+interface AbortSignal {
+    /**
+     * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
+     */
+    readonly aborted: boolean;
+}
+
+declare var AbortController: {
+    prototype: AbortController;
+    new(): AbortController;
+};
+
+declare var AbortSignal: {
+    prototype: AbortSignal;
+    new(): AbortSignal;
+    // TODO: Add abort() static
+};
+//#endregion borrowed
+
 /*----------------------------------------------*
 *                                               *
 *               GLOBAL INTERFACES               *
@@ -340,7 +375,7 @@ declare namespace NodeJS {
          * Specifies the maximum number of characters to
          * include when formatting. Set to `null` or `Infinity` to show all elements.
          * Set to `0` or negative to show no characters.
-         * @default Infinity
+         * @default 10000
          */
         maxStringLength?: number | null;
         breakLength?: number;
@@ -466,6 +501,8 @@ declare namespace NodeJS {
     interface ReadWriteStream extends ReadableStream, WritableStream { }
 
     interface Global {
+        AbortController: typeof AbortController;
+        AbortSignal: typeof AbortSignal;
         Array: typeof Array;
         ArrayBuffer: typeof ArrayBuffer;
         Boolean: typeof Boolean;
@@ -587,6 +624,10 @@ declare namespace NodeJS {
         '.node': (m: Module, filename: string) => any;
     }
     interface Module {
+        /**
+         * `true` if the module is running during the Node.js preload
+         */
+        isPreloading: boolean;
         exports: any;
         require: Require;
         id: string;

@@ -76,7 +76,7 @@
       });
 
       request.execute(function(resp) {
-        var connections = resp.connections;
+        var connections = resp.connections || [];
         appendPre('Connections:');
 
         if (connections.length > 0) {
@@ -97,7 +97,7 @@
       });
 
       request.execute(function(resp) {
-        var otherContacts = resp.otherContacts;
+        var otherContacts = resp.otherContacts || [];
         appendPre('Other contacts:');
 
         if (otherContacts.length > 0) {

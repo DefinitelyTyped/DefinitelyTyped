@@ -1,4 +1,4 @@
-import { DataFactory, DatasetCore, DatasetCoreFactory, Quad, Term } from 'rdf-js';
+import { BlankNode, DataFactory, DatasetCore, DatasetCoreFactory, NamedNode, Quad, Term } from 'rdf-js';
 import { GraphPointer } from 'clownface';
 
 declare namespace ValidationReport {
@@ -7,21 +7,21 @@ declare namespace ValidationReport {
     }
 
     interface ValidationResult {
-        term: Term;
+        term: BlankNode | NamedNode;
         dataset: DatasetCore;
         cf: GraphPointer;
         readonly message: Term[];
-        readonly path: Term | null;
-        readonly focusNode: Term | null;
-        readonly severity: Term | null;
-        readonly sourceConstraintComponent: Term | null;
-        readonly sourceShape: Term | null;
+        readonly path: BlankNode | NamedNode | null;
+        readonly focusNode: BlankNode | NamedNode | null;
+        readonly severity: NamedNode | null;
+        readonly sourceConstraintComponent: BlankNode | NamedNode | null;
+        readonly sourceShape: BlankNode | NamedNode | null;
     }
 }
 
 declare class ValidationReport {
     constructor(resultQuads: Quad[], options: ValidationReport.Options);
-    term: Term;
+    term: BlankNode | NamedNode;
     dataset: DatasetCore;
     conforms: boolean;
     results: ValidationReport.ValidationResult[];

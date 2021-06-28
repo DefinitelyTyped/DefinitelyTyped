@@ -6,11 +6,14 @@ indy.openBlobStorageWriter("default", {
 });
 indy.openBlobStorageReader("default", {
     base_dir: "dir",
-    uri_pattern: "uri_pattern",
 });
 
 const walletConfig: indy.WalletConfig = { id: "wallet" };
 const walletCredentials: indy.WalletCredentials = { key: "key" };
+const importExportConfig: indy.WalletExportImportConfig = {
+    key: 'export_key',
+    path: 'some-path',
+};
 const credDef: indy.CredDef = {
     id: "id",
     schemaId: "schemaId",
@@ -132,6 +135,8 @@ const ledgerReadReply: indy.LedgerReadReplyResponse = {
 
 indy.createWallet(walletConfig, walletCredentials);
 indy.openWallet(walletConfig, walletCredentials);
+indy.exportWallet(10, importExportConfig);
+indy.importWallet(walletConfig, walletCredentials, importExportConfig);
 indy.createKey(1, { seed: "seed" });
 indy.cryptoSign(1, "verkey", Buffer.from("message"));
 indy.cryptoVerify("verkey", Buffer.from("message"), Buffer.from("signature"));
@@ -225,7 +230,7 @@ indy.proverStoreCredential(
 indy.proverGetCredential(10, "outCredId");
 indy.generateNonce();
 indy.proverGetCredentialsForProofReq(10, proofReq);
-indy.proverSearchCredentialsForProofReq(10, proofReq, [{}]);
+indy.proverSearchCredentialsForProofReq(10, proofReq, {});
 indy.proverFetchCredentialsForProofReq(10, "attr1_referent", 100);
 indy.proverCloseCredentialsSearchForProofReq(10);
 indy.verifierVerifyProof(

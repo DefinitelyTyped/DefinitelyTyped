@@ -362,6 +362,17 @@ declare namespace sharp {
         normalize(normalize?: boolean): Sharp;
 
         /**
+         * Perform contrast limiting adaptive histogram equalization (CLAHE)
+         *
+         * This will, in general, enhance the clarity of the image by bringing out
+         * darker details. Please read more about CLAHE here:
+         * https://en.wikipedia.org/wiki/Adaptive_histogram_equalization#Contrast_Limited_AHE
+         *
+         * @param options clahe options
+         */
+        clahe(options: ClaheOptions): Sharp;
+
+        /**
          * Convolve the image with the specified kernel.
          * @param kernel the specified kernel
          * @throws {Error} Invalid parameters
@@ -714,6 +725,8 @@ declare namespace sharp {
         icc?: string;
         /** Object keyed by IFD0, IFD1 etc. of key/value string pairs to write as EXIF data. (optional, default {}) */
         exif?: Record<string, any>;
+        /** Number of pixels per inch (DPI) */
+        density?: number;
     }
 
     interface Metadata {
@@ -995,6 +1008,15 @@ declare namespace sharp {
         offset?: number;
     }
 
+    interface ClaheOptions {
+      /** width of the region */
+      width: number;
+      /** height of the region */
+      height: number;
+      /** max slope of the cumulative contrast. (optional, default 3) */
+      maxSlope?: number;
+    }
+
     interface ThresholdOptions {
         /** convert to single channel greyscale. (optional, default true) */
         greyscale?: boolean;
@@ -1021,6 +1043,12 @@ declare namespace sharp {
         raw?: Raw;
         /** Set to true to avoid premultipling the image below. Equivalent to the --premultiplied vips option. */
         premultiplied?: boolean;
+        /**
+         * Do not process input images where the number of pixels (width x height) exceeds this limit.
+         * Assumes image dimensions contained in the input metadata can be trusted.
+         * An integral Number of pixels, zero or false to remove limit, true to use default limit of 268402689 (0x3FFF x 0x3FFF). (optional, default 268402689)
+         */
+        limitInputPixels?: number | boolean;
     }
 
     interface TileOptions {

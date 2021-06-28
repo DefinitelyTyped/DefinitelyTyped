@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
+        "@types/socket.io-client": "1.4.36",
         "redux": "^3.6.0"
     }
 }

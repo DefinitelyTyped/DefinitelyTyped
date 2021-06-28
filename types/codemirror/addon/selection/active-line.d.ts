@@ -1,13 +1,6 @@
-// Type definitions for codemirror
-// Project: https://github.com/codemirror/CodeMirror
-// Definitions by: ficristo <https://github.com/ficristo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import '../../';
 
-// See docs https://codemirror.net/doc/manual.html#active-line
-
-import * as CodeMirror from 'codemirror';
-
-declare module 'codemirror' {
+declare module '../../' {
     interface StyleActiveLine {
         /**
          * Controls whether single-line selections, or just cursor selections, are styled. Defaults to false (only cursor selections).

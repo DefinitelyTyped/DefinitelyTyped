@@ -12,6 +12,7 @@ export interface SideNavProps extends ReactAttr, InternationalProps<SideNavTrans
     isFixedNav?: boolean;
     isPersistent?: boolean;
     isRail?: boolean;
+    onOverlayClick?(evt: React.MouseEvent<HTMLDivElement>): void;
     onToggle?(event: React.FocusEvent<HTMLElement>, focus: boolean): void;
 }
 

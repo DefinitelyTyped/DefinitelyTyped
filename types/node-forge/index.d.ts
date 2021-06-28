@@ -1,4 +1,4 @@
-// Type definitions for node-forge 0.9.1
+// Type definitions for node-forge 0.10.0
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal       <https://github.com/westy92>
 //                 Kay Schecker        <https://github.com/flynetworks>
@@ -17,6 +17,7 @@
 //                 Ligia Frangello     <https://github.com/frangello>
 //                 Dmitry Avezov       <https://github.com/avezov>
 //                 Jose Fuentes        <https://github.com/j-fuentes>
+//                 Anya Reyes          <https://github.com/darkade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -32,12 +33,63 @@ declare module "node-forge" {
     type Encoding = "raw" | "utf8";
 
     namespace jsbn {
+        interface RandomGenerator {
+            nextBytes(bytes: number[]): void;
+        }
         class BigInteger {
+            static ZERO: BigInteger;
+            static ONE: BigInteger;
+            constructor(a: null);
+            constructor(a: number, c: RandomGenerator);
+            constructor(a: number, b: number, c: RandomGenerator);
+            constructor(a: string, b?: number);
+            constructor(a: number[], b?: number);
+            constructor(a: BigInteger);
             data: number[];
             t: number;
             s: number;
-            toString(): string;
+            am(i: number, x: number, w: BigInteger, j: number, c: number, n: number): number;
+            toString(b?: number): string;
             bitLength(): number;
+            negate(): BigInteger;
+            abs(): BigInteger;
+            compareTo(a: BigInteger): number;
+            bitLength(): number;
+            mod(a: BigInteger): BigInteger;
+            modPowInt(e: number, m: BigInteger): BigInteger;
+            clone(): BigInteger;
+            intValue(): number;
+            byteValue(): number;
+            shortValue(): number;
+            signum(): number;
+            toByteArray(): number[];
+            equals(a: BigInteger): boolean;
+            min(a: BigInteger): BigInteger;
+            max(a: BigInteger): BigInteger;
+            and(a: BigInteger): BigInteger;
+            or(a: BigInteger): BigInteger;
+            xor(a: BigInteger): BigInteger;
+            andNot(a: BigInteger): BigInteger;
+            not(): BigInteger;
+            shiftLeft(n: number): BigInteger;
+            shiftRight(n: number): BigInteger;
+            getLowestSetBit(): number;
+            bitCount(): number;
+            testBit(n: number): boolean;
+            clearBit(n: number): BigInteger
+            flipBit(n: number): BigInteger
+            add(a: BigInteger): BigInteger;
+            subtract(a: BigInteger): BigInteger;
+            multiply(a: BigInteger): BigInteger;
+            square(): BigInteger;
+            divide(a: BigInteger): BigInteger;
+            remainder(a: BigInteger): BigInteger;
+            divideAndRemainder(a: BigInteger): BigInteger[]; // Array of 2 items
+            pow(e: number): BigInteger;
+            modPow(e: BigInteger, m: BigInteger): BigInteger;
+            gcd(a: BigInteger): BigInteger;
+            modInverse(m: BigInteger): BigInteger;
+            isProbablePrime(t: number): boolean;
         }
     }
 
@@ -392,7 +444,13 @@ declare module "node-forge" {
 
         function createCaStore(certs?: ReadonlyArray<Certificate | pki.PEM>): CAStore;
 
-        function verifyCertificateChain(caStore: CAStore, chain: Certificate[], customVerifyCallback?: (verified: boolean | string, depth: number, chain: Certificate[]) => boolean): boolean;
+        function verifyCertificateChain(
+            caStore: CAStore,
+            chain: Certificate[],
+            options?: ((verified: boolean | string, depth: number, certs: Certificate[]) => boolean) | {
+                verify?: (verified: boolean | string, depth: number, certs: Certificate[]) => boolean,
+                validityCheckDate?: Date | null
+            }): boolean;
 
         function pemToDer(pem: PEM): util.ByteStringBuffer;
 
@@ -691,12 +749,14 @@ declare module "node-forge" {
             content?: string | util.ByteBuffer;
             contentInfo?: { value: any[] };
 
+            certificates: pki.Certificate[];
+
             addCertificate(certificate: pki.Certificate | string): void;
             addSigner(options: {
-                key: string;
+                key: pki.rsa.PrivateKey | string;
                 certificate: pki.Certificate | string;
                 digestAlgorithm: string;
-                authenticatedAttributes: { type: string; value?: string }[];
+                authenticatedAttributes?: { type: string; value?: string }[];
             }): void;
             sign(options?:{
                 detached?: boolean
@@ -714,6 +774,10 @@ declare module "node-forge" {
         }
 
         function createEnvelopedData(): PkcsEnvelopedData;
+
+        function messageToPem(msg: PkcsSignedData, maxline?: number): string;
+
+        function messageFromPem(pem: pki.PEM): PkcsEnvelopedData | PkcsSignedData;
     }
 
     namespace pkcs5 {
@@ -756,7 +820,7 @@ declare module "node-forge" {
 
     namespace hmac {
 
-      type Algorithm = "sha1" | "md5" | "sha256";
+      type Algorithm = "sha1" | "md5" | "sha256" | "sha512";
 
       interface HMAC {
           digest(): util.ByteBuffer;

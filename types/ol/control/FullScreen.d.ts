@@ -8,6 +8,8 @@ export interface Options {
     className?: string;
     label?: string | Text | HTMLElement;
     labelActive?: string | Text | HTMLElement;
+    activeClassName?: string;
+    inactiveClassName?: string;
     tipLabel?: string;
     keys?: boolean;
     target?: HTMLElement | string;

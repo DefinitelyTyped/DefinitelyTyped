@@ -1,4 +1,4 @@
-// Type definitions for open-graph-scraper 4.7
+// Type definitions for open-graph-scraper 4.8
 // Project: https://github.com/jshemas/openGraphScraper#readme
 // Definitions by: Florian Imdahl <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -228,6 +228,12 @@ declare namespace run {
         require_valid_protocol?: boolean;
     }
 
+    interface CustomMetaTag {
+        multiple?: boolean;
+        property: string;
+        fieldName: string;
+    }
+
     interface Options {
         /** By default, OGS will only send back the first image/video it finds (default: `false`). */
         allMedia?: boolean;
@@ -262,6 +268,8 @@ declare namespace run {
         url: string;
         /** Sets the options used by `validator.js` for testing the URL. */
         urlValidatorSettings?: URLValidatorSettings;
+        /** Here you can define custom meta tags you want to scrape. */
+        customMetaTags?: CustomMetaTag[];
     }
 }
 

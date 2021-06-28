@@ -1164,7 +1164,7 @@ declare namespace google {
             cssClassNames?: CssClassNames;
             firstRowNumber?: number;
             frozenColumns?: number;
-            height?: string;
+            height?: string | number;
             page?: string;
             pageSize?: number;
             pagingButtons?: number | 'both' | 'prev' | 'next' | 'auto';
@@ -1175,7 +1175,7 @@ declare namespace google {
             sortAscending?: boolean;
             sortColumn?: number;
             startPage?: number;
-            width?: string;
+            width?: string | number;
         }
 
         export interface CssClassNames {
@@ -1396,6 +1396,7 @@ declare namespace google {
                 underMonthSpace?: number;
                 underYearSpace?: number;
                 unusedMonthOutlineColor?: ChartStrokeOpacity;
+                yearLabel?: ChartTextStyle;
             };
             colorAxis?: {
                 colors?: string[];

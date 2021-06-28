@@ -167,68 +167,37 @@ export class SourceCode {
     // Inherited methods from TokenStore
     // ---------------------------------
 
-    getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): AST.Token | ESTree.Comment | null;
+    getTokenByRangeStart(offset: number, options?: { includeComments: false }): AST.Token | null;
+    getTokenByRangeStart(offset: number, options: { includeComments: boolean }): AST.Token | ESTree.Comment | null;
 
-    getFirstToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | ESTree.Comment | null;
+    getFirstToken: SourceCode.UnaryNodeCursorWithSkipOptions;
 
-    getFirstTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): Array<AST.Token | ESTree.Comment>;
+    getFirstTokens: SourceCode.UnaryNodeCursorWithCountOptions;
 
-    getLastToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | ESTree.Comment | null;
+    getLastToken: SourceCode.UnaryNodeCursorWithSkipOptions;
 
-    getLastTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): Array<AST.Token | ESTree.Comment>;
+    getLastTokens: SourceCode.UnaryNodeCursorWithCountOptions;
 
-    getTokenBefore(
-        node: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithSkipOptions,
-    ): AST.Token | ESTree.Comment | null;
+    getTokenBefore: SourceCode.UnaryCursorWithSkipOptions;
 
-    getTokensBefore(
-        node: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithCountOptions,
-    ): Array<AST.Token | ESTree.Comment>;
+    getTokensBefore: SourceCode.UnaryCursorWithCountOptions;
 
-    getTokenAfter(
-        node: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithSkipOptions,
-    ): AST.Token | ESTree.Comment | null;
+    getTokenAfter: SourceCode.UnaryCursorWithSkipOptions;
 
-    getTokensAfter(
-        node: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithCountOptions,
-    ): Array<AST.Token | ESTree.Comment>;
+    getTokensAfter: SourceCode.UnaryCursorWithCountOptions;
 
-    getFirstTokenBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithSkipOptions,
-    ): AST.Token | ESTree.Comment | null;
+    getFirstTokenBetween: SourceCode.BinaryCursorWithSkipOptions;
 
-    getFirstTokensBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithCountOptions,
-    ): Array<AST.Token | ESTree.Comment>;
+    getFirstTokensBetween: SourceCode.BinaryCursorWithCountOptions;
 
-    getLastTokenBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithSkipOptions,
-    ): AST.Token | ESTree.Comment | null;
+    getLastTokenBetween: SourceCode.BinaryCursorWithSkipOptions;
 
-    getLastTokensBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithCountOptions,
-    ): Array<AST.Token | ESTree.Comment>;
+    getLastTokensBetween: SourceCode.BinaryCursorWithCountOptions;
 
-    getTokensBetween(
-        left: ESTree.Node | AST.Token | ESTree.Comment,
-        right: ESTree.Node | AST.Token | ESTree.Comment,
-        padding?: SourceCode.CursorWithCountOptions,
-    ): Array<AST.Token | ESTree.Comment>;
+    getTokensBetween: SourceCode.BinaryCursorWithCountOptions;
 
-    getTokens(node: ESTree.Node, beforeCount?: number, afterCount?: number): AST.Token[];
-    getTokens(node: ESTree.Node, options: SourceCode.CursorWithCountOptions): Array<AST.Token | ESTree.Comment>;
+    getTokens: ((node: ESTree.Node, beforeCount?: number, afterCount?: number) => AST.Token[]) &
+        SourceCode.UnaryNodeCursorWithCountOptions;
 
     commentsExistBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
@@ -257,25 +226,205 @@ export namespace SourceCode {
         [nodeType: string]: string[];
     }
 
-    type FilterPredicate = (tokenOrComment: AST.Token | ESTree.Comment) => boolean;
+    interface UnaryNodeCursorWithSkipOptions {
+        <T extends AST.Token>(
+            node: ESTree.Node,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; skip?: number },
+        ): T | null;
+        <T extends AST.Token | ESTree.Comment>(
+            node: ESTree.Node,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): T | null;
+        (
+            node: ESTree.Node,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; skip?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token | null;
+        (
+            node: ESTree.Node,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): AST.Token | ESTree.Comment | null;
+    }
 
-    type CursorWithSkipOptions =
-        | number
-        | FilterPredicate
-        | {
-              includeComments?: boolean;
-              filter?: FilterPredicate;
-              skip?: number;
-          };
+    interface UnaryNodeCursorWithCountOptions {
+        <T extends AST.Token>(
+            node: ESTree.Node,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; count?: number },
+        ): T[];
+        <T extends AST.Token | ESTree.Comment>(
+            node: ESTree.Node,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): T[];
+        (
+            node: ESTree.Node,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; count?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token[];
+        (
+            node: ESTree.Node,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): Array<AST.Token | ESTree.Comment>;
+    }
 
-    type CursorWithCountOptions =
-        | number
-        | FilterPredicate
-        | {
-              includeComments?: boolean;
-              filter?: FilterPredicate;
-              count?: number;
-          };
+    interface UnaryCursorWithSkipOptions {
+        <T extends AST.Token>(
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; skip?: number },
+        ): T | null;
+        <T extends AST.Token | ESTree.Comment>(
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): T | null;
+        (
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; skip?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token | null;
+        (
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): AST.Token | ESTree.Comment | null;
+    }
+
+    interface UnaryCursorWithCountOptions {
+        <T extends AST.Token>(
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; count?: number },
+        ): T[];
+        <T extends AST.Token | ESTree.Comment>(
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): T[];
+        (
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; count?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token[];
+        (
+            node: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): Array<AST.Token | ESTree.Comment>;
+    }
+
+    interface BinaryCursorWithSkipOptions {
+        <T extends AST.Token>(
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; skip?: number },
+        ): T | null;
+        <T extends AST.Token | ESTree.Comment>(
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): T | null;
+        (
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; skip?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token | null;
+        (
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                skip?: number;
+            },
+        ): AST.Token | ESTree.Comment | null;
+    }
+
+    interface BinaryCursorWithCountOptions {
+        <T extends AST.Token>(
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options:
+                | ((token: AST.Token) => token is T)
+                | { filter: (token: AST.Token) => token is T; includeComments?: false; count?: number },
+        ): T[];
+        <T extends AST.Token | ESTree.Comment>(
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): T[];
+        (
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options?:
+                | { filter?: (token: AST.Token) => boolean; includeComments?: false; count?: number }
+                | ((token: AST.Token) => boolean)
+                | number,
+        ): AST.Token[];
+        (
+            left: ESTree.Node | AST.Token | ESTree.Comment,
+            right: ESTree.Node | AST.Token | ESTree.Comment,
+            options: {
+                filter?: (token: AST.Token | ESTree.Comment) => boolean;
+                includeComments: boolean;
+                count?: number;
+            },
+        ): Array<AST.Token | ESTree.Comment>;
+    }
 }
 
 //#endregion
@@ -434,6 +583,8 @@ export namespace Rule {
         getDeclaredVariables(node: ESTree.Node): Scope.Variable[];
 
         getFilename(): string;
+
+        getCwd(): string;
 
         getScope(): Scope.Scope;
 
@@ -691,6 +842,7 @@ export namespace ESLint {
         // Cache-related
         cache?: boolean;
         cacheLocation?: string;
+        cacheStrategy?: "content" | "metadata";
     }
 
     interface LintResult {
@@ -765,6 +917,7 @@ export namespace CLIEngine {
         cache?: boolean;
         cacheFile?: string;
         cacheLocation?: string;
+        cacheStrategy?: "content" | "metadata";
         configFile?: string;
         cwd?: string;
         envs?: string[];

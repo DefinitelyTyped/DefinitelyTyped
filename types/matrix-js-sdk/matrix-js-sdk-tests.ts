@@ -4,7 +4,7 @@
  *
  * Huan <zixia@zixia.net> Feb 2020
  */
-import sdk from 'matrix-js-sdk';
+import sdk, { MatrixEvent } from 'matrix-js-sdk';
 
 const myUserId      = "@example:localhost";
 const myAccessToken = "QGV4YW1wbGU6bG9jYWxob3N0.qPEvLuYfNBjxikiCjP";
@@ -51,6 +51,7 @@ if (room) {
         event.getUnsigned();  // $ExpectType any
         event.isRedacted();  // $ExpectType boolean
         event.isRedaction();  // $ExpectType boolean
+        event.getContent(); // $ExpectType EventContentTypeMessage
     }
     eventTimelineSet.getTimelines();  // $ExpectType EventTimeline[]
     const timelineWindow = new sdk.TimelineWindow(matrixClient, eventTimelineSet);  // $ExpectType TimelineWindow
@@ -60,3 +61,28 @@ if (room) {
 matrixClient.store.getGroups();  // $ExpectType Group[]
 matrixClient.getScheduler();  // $ExpectType MatrixScheduler | null
 matrixClient.store.getRoomSummaries();  // $ExpectType RoomSummary[]
+
+interface CustomEventContent {
+    data: string;
+}
+const customEvent = new MatrixEvent<CustomEventContent, 'com.custom.type'>({
+    content: {
+        data: "data string",
+    },
+    origin_server_ts: 0,
+    sender: "senderid",
+    type: "com.custom.type",
+    room_id: "",
+    event_id: "",
+});
+customEvent.getContent(); // $ExpectType CustomEventContent
+
+const customEventNameEvent = new MatrixEvent<{}, 'com.custom.type'>({
+    content: "data string",
+    origin_server_ts: 0,
+    sender: "senderid",
+    type: "com.custom.type",
+    room_id: "",
+    event_id: "",
+});
+customEventNameEvent.getType(); // $ExpectType "com.custom.type"

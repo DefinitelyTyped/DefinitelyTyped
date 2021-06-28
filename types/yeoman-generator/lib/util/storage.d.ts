@@ -89,6 +89,17 @@ declare class Storage {
     save(): void;
 
     /**
+     * Merges the specified `content` into the storage.
+     *
+     * @param content
+     * The content to merge into the storage.
+     *
+     * @returns
+     * The content of the storage.
+     */
+    merge(content: Record<string, any>): Record<string, any>;
+
+    /**
      * Assigns a key to a value and schedules a save.
      *
      * @param key The key under which the value is stored.

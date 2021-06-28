@@ -202,6 +202,9 @@ declare module 'twit' {
                 };
                 display_text_range?: [number, number];
                 entities: Entities;
+                extended_entities?: {
+                    media: MediaEntity[];
+                };
                 favorite_count?: number;
                 favorited?: boolean;
                 filter_level: 'none' | 'low' | 'medium';

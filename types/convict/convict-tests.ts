@@ -53,6 +53,18 @@ convict({
     },
 });
 
+interface Foo {
+    a: string;
+    b?: number;
+}
+// $ExpectType Config<{ foo: Foo; }>
+convict({
+    foo: {
+        format(val): asserts val is Foo {},
+        default: { a: "a" },
+    },
+});
+
 convict.addFormats({
     prime: {
         validate(val) {

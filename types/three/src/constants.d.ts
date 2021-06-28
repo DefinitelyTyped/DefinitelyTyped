@@ -2,12 +2,12 @@ export const REVISION: string;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
 export enum MOUSE {
-    LEFT,
-    MIDDLE,
-    RIGHT,
-    ROTATE,
-    DOLLY,
-    PAN,
+    LEFT = 0,
+    MIDDLE = 1,
+    RIGHT = 2,
+    ROTATE = 0,
+    DOLLY = 1,
+    PAN = 2,
 }
 
 export enum TOUCH {

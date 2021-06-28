@@ -55,6 +55,10 @@ declare namespace DOMPurify {
         FORBID_TAGS?: string[];
         FORCE_BODY?: boolean;
         KEEP_CONTENT?: boolean;
+        /**
+         * change the default namespace from HTML to something different
+         */
+        NAMESPACE?: string;
         RETURN_DOM?: boolean;
         RETURN_DOM_FRAGMENT?: boolean;
         /**

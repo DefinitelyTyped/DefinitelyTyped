@@ -1,9 +1,9 @@
-import * as childProcess from 'node:child_process';
-import * as net from 'node:net';
-import * as fs from 'node:fs';
-import assert = require('node:assert');
-import { promisify } from 'node:util';
-import { Writable, Readable, Pipe } from 'node:stream';
+import * as childProcess from 'child_process';
+import * as net from 'net';
+import * as fs from 'fs';
+import assert = require('assert');
+import { promisify } from 'util';
+import { Writable, Readable, Pipe } from 'stream';
 
 {
     childProcess.exec("echo test");

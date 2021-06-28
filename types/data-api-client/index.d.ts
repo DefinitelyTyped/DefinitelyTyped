@@ -21,6 +21,11 @@ interface iParams {
     sslEnabled?: boolean;
     options?: ClientConfiguration;
     region?: string;
+    engine?: 'mysql' | 'pg';
+    formatOptions?: {
+        deserializeDate?: boolean;
+        treatAsLocalDate?: boolean;
+    };
 }
 
 interface Transaction {

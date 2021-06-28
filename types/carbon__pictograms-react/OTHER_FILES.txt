@@ -7,6 +7,12 @@ es/advanced--fraud--protection/index.d.ts
 es/advanced--threats/index.d.ts
 es/advocate/index.d.ts
 es/agriculture/index.d.ts
+es/ai--ethics/index.d.ts
+es/ai--trust/index.d.ts
+es/ai--privacy/index.d.ts
+es/ai--transparency/index.d.ts
+es/ai--explainability/index.d.ts
+es/ai--robustness/index.d.ts
 es/air--conditioner/index.d.ts
 es/airplane/index.d.ts
 es/alarm/index.d.ts
@@ -27,6 +33,7 @@ es/apple/index.d.ts
 es/application/index.d.ts
 es/application--security/index.d.ts
 es/archive/index.d.ts
+es/argentina--obelisk/index.d.ts
 es/art--tools--01/index.d.ts
 es/asia--australia/index.d.ts
 es/assets/index.d.ts
@@ -38,6 +45,7 @@ es/automation--decision/index.d.ts
 es/automobile/index.d.ts
 es/baby--bottle/index.d.ts
 es/backpack/index.d.ts
+es/badge/index.d.ts
 es/bag/index.d.ts
 es/bangalore/index.d.ts
 es/barcelona/index.d.ts
@@ -54,6 +62,7 @@ es/blockchain/index.d.ts
 es/bluepages/index.d.ts
 es/boston--zakim-bridge/index.d.ts
 es/box--plot/index.d.ts
+es/broom/index.d.ts
 es/budapest/index.d.ts
 es/bug--virus--malware/index.d.ts
 es/build/index.d.ts
@@ -101,6 +110,8 @@ es/chart--t-SNE/index.d.ts
 es/cheese/index.d.ts
 es/cherries/index.d.ts
 es/chicago/index.d.ts
+es/chile--easter-island/index.d.ts
+es/chile--hand-of-the-desert/index.d.ts
 es/chip--circuit/index.d.ts
 es/chip--credit/index.d.ts
 es/chip--debit/index.d.ts
@@ -134,6 +145,7 @@ es/cloud-pak--for-applications/index.d.ts
 es/cloud-pak--for-data/index.d.ts
 es/cloud-pak--for-integration/index.d.ts
 es/cloud-pak--for-multicloud-management/index.d.ts
+es/cloud-pak--for-network-automation/index.d.ts
 es/cloud-pak--for-security/index.d.ts
 es/cloud-pak--system/index.d.ts
 es/cloudy/index.d.ts
@@ -149,8 +161,10 @@ es/cognos--analytics/index.d.ts
 es/collaboration/index.d.ts
 es/college/index.d.ts
 es/color--contrast/index.d.ts
+es/colombia--cathedral-of-las-lajas/index.d.ts
 es/commercial--financing--01/index.d.ts
 es/commercial--financing--02/index.d.ts
+es/compost--bin/index.d.ts
 es/concept--expansion/index.d.ts
 es/concept--insights/index.d.ts
 es/condition--builder/index.d.ts
@@ -219,6 +233,7 @@ es/dublin--brewery/index.d.ts
 es/dublin--castle/index.d.ts
 es/duplicate--file/index.d.ts
 es/earth/index.d.ts
+es/ecuador--quito/index.d.ts
 es/education/index.d.ts
 es/electric/index.d.ts
 es/electric--car/index.d.ts
@@ -249,6 +264,7 @@ es/face--satisfied/index.d.ts
 es/face--very--dissatisfied/index.d.ts
 es/face--very--satisfied/index.d.ts
 es/factory/index.d.ts
+es/fairness/index.d.ts
 es/farm--01/index.d.ts
 es/farm--02/index.d.ts
 es/farmer--01/index.d.ts
@@ -327,6 +343,8 @@ es/hills/index.d.ts
 es/home--front/index.d.ts
 es/home--garage/index.d.ts
 es/home--profile/index.d.ts
+es/hong-kong/index.d.ts
+es/hong-kong--cityscape/index.d.ts
 es/hospital/index.d.ts
 es/hpi/index.d.ts
 es/humid/index.d.ts
@@ -345,6 +363,7 @@ es/id--badge/index.d.ts
 es/idea/index.d.ts
 es/ideate/index.d.ts
 es/identity--trust--assessment/index.d.ts
+es/india--south-asia/index.d.ts
 es/infrastructure-security/index.d.ts
 es/innovate/index.d.ts
 es/insights/index.d.ts
@@ -352,6 +371,7 @@ es/inspect--data/index.d.ts
 es/integration/index.d.ts
 es/intelligence/index.d.ts
 es/intercom/index.d.ts
+es/invoice/index.d.ts
 es/iot--munich/index.d.ts
 es/it--infrastructure-software/index.d.ts
 es/java/index.d.ts
@@ -380,6 +400,7 @@ es/locked--network--02/index.d.ts
 es/london/index.d.ts
 es/london--big-ben/index.d.ts
 es/love/index.d.ts
+es/luggage/index.d.ts
 es/lungs/index.d.ts
 es/machine--learning--01/index.d.ts
 es/machine--learning--02/index.d.ts
@@ -478,6 +499,7 @@ es/person--07/index.d.ts
 es/person--08/index.d.ts
 es/person--09/index.d.ts
 es/personality--insights/index.d.ts
+es/peru--machu-picchu/index.d.ts
 es/petri--culture/index.d.ts
 es/pill--bottle--01/index.d.ts
 es/php--language/index.d.ts
@@ -520,6 +542,7 @@ es/random--samples/index.d.ts
 es/rank/index.d.ts
 es/receipt/index.d.ts
 es/recycle/index.d.ts
+es/recycle--bin/index.d.ts
 es/refinery/index.d.ts
 es/refresh/index.d.ts
 es/relationship--diagram/index.d.ts
@@ -555,11 +578,13 @@ es/seattle/index.d.ts
 es/secure--data/index.d.ts
 es/secure--hybrid--cloud/index.d.ts
 es/secure--profile/index.d.ts
+es/secure--search/index.d.ts
 es/security/index.d.ts
 es/security--as--a--service/index.d.ts
 es/security--hygiene/index.d.ts
 es/security--intelligence/index.d.ts
 es/security--shield/index.d.ts
+es/select--product/index.d.ts
 es/select--range/index.d.ts
 es/server--operating-systems/index.d.ts
 es/server--rack/index.d.ts
@@ -629,6 +654,7 @@ es/t-shirt/index.d.ts
 es/tablet--device/index.d.ts
 es/tablet--device--check/index.d.ts
 es/tags/index.d.ts
+es/taipei--bubble-tea/index.d.ts
 es/tape--storage/index.d.ts
 es/target/index.d.ts
 es/target--area/index.d.ts
@@ -642,6 +668,7 @@ es/telephone/index.d.ts
 es/television/index.d.ts
 es/temperature--high/index.d.ts
 es/temperature--low/index.d.ts
+es/temporary-badge/index.d.ts
 es/tennis/index.d.ts
 es/test--tubes/index.d.ts
 es/text--to--speech/index.d.ts
@@ -691,6 +718,7 @@ es/unify--endpoint--management/index.d.ts
 es/university/index.d.ts
 es/unlock--01/index.d.ts
 es/unlock--02/index.d.ts
+es/uruguay--palacio-salvo/index.d.ts
 es/upload--01/index.d.ts
 es/upload--02/index.d.ts
 es/user/index.d.ts
@@ -701,6 +729,7 @@ es/user--interface/index.d.ts
 es/user--profile/index.d.ts
 es/user--search/index.d.ts
 es/vancouver/index.d.ts
+es/venezuela--national-pantheon-of-venezuela/index.d.ts
 es/video--01/index.d.ts
 es/video--02/index.d.ts
 es/video--chat/index.d.ts
@@ -749,6 +778,12 @@ lib/advanced--fraud--protection/index.d.ts
 lib/advanced--threats/index.d.ts
 lib/advocate/index.d.ts
 lib/agriculture/index.d.ts
+lib/ai--ethics/index.d.ts
+lib/ai--trust/index.d.ts
+lib/ai--privacy/index.d.ts
+lib/ai--transparency/index.d.ts
+lib/ai--explainability/index.d.ts
+lib/ai--robustness/index.d.ts
 lib/air--conditioner/index.d.ts
 lib/airplane/index.d.ts
 lib/alarm/index.d.ts
@@ -769,6 +804,7 @@ lib/apple/index.d.ts
 lib/application/index.d.ts
 lib/application--security/index.d.ts
 lib/archive/index.d.ts
+lib/argentina--obelisk/index.d.ts
 lib/art--tools--01/index.d.ts
 lib/asia--australia/index.d.ts
 lib/assets/index.d.ts
@@ -780,6 +816,7 @@ lib/automation--decision/index.d.ts
 lib/automobile/index.d.ts
 lib/baby--bottle/index.d.ts
 lib/backpack/index.d.ts
+lib/badge/index.d.ts
 lib/bag/index.d.ts
 lib/bangalore/index.d.ts
 lib/barcelona/index.d.ts
@@ -796,6 +833,7 @@ lib/blockchain/index.d.ts
 lib/bluepages/index.d.ts
 lib/boston--zakim-bridge/index.d.ts
 lib/box--plot/index.d.ts
+lib/broom/index.d.ts
 lib/budapest/index.d.ts
 lib/bug--virus--malware/index.d.ts
 lib/build/index.d.ts
@@ -843,6 +881,8 @@ lib/chart--t-SNE/index.d.ts
 lib/cheese/index.d.ts
 lib/cherries/index.d.ts
 lib/chicago/index.d.ts
+lib/chile--easter-island/index.d.ts
+lib/chile--hand-of-the-desert/index.d.ts
 lib/chip--circuit/index.d.ts
 lib/chip--credit/index.d.ts
 lib/chip--debit/index.d.ts
@@ -876,6 +916,7 @@ lib/cloud-pak--for-applications/index.d.ts
 lib/cloud-pak--for-data/index.d.ts
 lib/cloud-pak--for-integration/index.d.ts
 lib/cloud-pak--for-multicloud-management/index.d.ts
+lib/cloud-pak--for-network-automation/index.d.ts
 lib/cloud-pak--for-security/index.d.ts
 lib/cloud-pak--system/index.d.ts
 lib/cloudy/index.d.ts
@@ -891,8 +932,10 @@ lib/cognos--analytics/index.d.ts
 lib/collaboration/index.d.ts
 lib/college/index.d.ts
 lib/color--contrast/index.d.ts
+lib/colombia--cathedral-of-las-lajas/index.d.ts
 lib/commercial--financing--01/index.d.ts
 lib/commercial--financing--02/index.d.ts
+lib/compost--bin/index.d.ts
 lib/concept--expansion/index.d.ts
 lib/concept--insights/index.d.ts
 lib/condition--builder/index.d.ts
@@ -961,6 +1004,7 @@ lib/dublin--brewery/index.d.ts
 lib/dublin--castle/index.d.ts
 lib/duplicate--file/index.d.ts
 lib/earth/index.d.ts
+lib/ecuador--quito/index.d.ts
 lib/education/index.d.ts
 lib/electric/index.d.ts
 lib/electric--car/index.d.ts
@@ -991,6 +1035,7 @@ lib/face--satisfied/index.d.ts
 lib/face--very--dissatisfied/index.d.ts
 lib/face--very--satisfied/index.d.ts
 lib/factory/index.d.ts
+lib/fairness/index.d.ts
 lib/farm--01/index.d.ts
 lib/farm--02/index.d.ts
 lib/farmer--01/index.d.ts
@@ -1069,6 +1114,8 @@ lib/hills/index.d.ts
 lib/home--front/index.d.ts
 lib/home--garage/index.d.ts
 lib/home--profile/index.d.ts
+lib/hong-kong/index.d.ts
+lib/hong-kong--cityscape/index.d.ts
 lib/hospital/index.d.ts
 lib/hpi/index.d.ts
 lib/humid/index.d.ts
@@ -1087,6 +1134,7 @@ lib/id--badge/index.d.ts
 lib/idea/index.d.ts
 lib/ideate/index.d.ts
 lib/identity--trust--assessment/index.d.ts
+lib/india--south-asia/index.d.ts
 lib/infrastructure-security/index.d.ts
 lib/innovate/index.d.ts
 lib/insights/index.d.ts
@@ -1094,6 +1142,7 @@ lib/inspect--data/index.d.ts
 lib/integration/index.d.ts
 lib/intelligence/index.d.ts
 lib/intercom/index.d.ts
+lib/invoice/index.d.ts
 lib/iot--munich/index.d.ts
 lib/it--infrastructure-software/index.d.ts
 lib/java/index.d.ts
@@ -1122,6 +1171,7 @@ lib/locked--network--02/index.d.ts
 lib/london/index.d.ts
 lib/london--big-ben/index.d.ts
 lib/love/index.d.ts
+lib/luggage/index.d.ts
 lib/lungs/index.d.ts
 lib/machine--learning--01/index.d.ts
 lib/machine--learning--02/index.d.ts
@@ -1220,6 +1270,7 @@ lib/person--07/index.d.ts
 lib/person--08/index.d.ts
 lib/person--09/index.d.ts
 lib/personality--insights/index.d.ts
+lib/peru--machu-picchu/index.d.ts
 lib/petri--culture/index.d.ts
 lib/pill--bottle--01/index.d.ts
 lib/php--language/index.d.ts
@@ -1262,6 +1313,7 @@ lib/random--samples/index.d.ts
 lib/rank/index.d.ts
 lib/receipt/index.d.ts
 lib/recycle/index.d.ts
+lib/recycle--bin/index.d.ts
 lib/refinery/index.d.ts
 lib/refresh/index.d.ts
 lib/relationship--diagram/index.d.ts
@@ -1297,11 +1349,13 @@ lib/seattle/index.d.ts
 lib/secure--data/index.d.ts
 lib/secure--hybrid--cloud/index.d.ts
 lib/secure--profile/index.d.ts
+lib/secure--search/index.d.ts
 lib/security/index.d.ts
 lib/security--as--a--service/index.d.ts
 lib/security--hygiene/index.d.ts
 lib/security--intelligence/index.d.ts
 lib/security--shield/index.d.ts
+lib/select--product/index.d.ts
 lib/select--range/index.d.ts
 lib/server--operating-systems/index.d.ts
 lib/server--rack/index.d.ts
@@ -1371,6 +1425,7 @@ lib/t-shirt/index.d.ts
 lib/tablet--device/index.d.ts
 lib/tablet--device--check/index.d.ts
 lib/tags/index.d.ts
+lib/taipei--bubble-tea/index.d.ts
 lib/tape--storage/index.d.ts
 lib/target/index.d.ts
 lib/target--area/index.d.ts
@@ -1384,6 +1439,7 @@ lib/telephone/index.d.ts
 lib/television/index.d.ts
 lib/temperature--high/index.d.ts
 lib/temperature--low/index.d.ts
+lib/temporary-badge/index.d.ts
 lib/tennis/index.d.ts
 lib/test--tubes/index.d.ts
 lib/text--to--speech/index.d.ts
@@ -1433,6 +1489,7 @@ lib/unify--endpoint--management/index.d.ts
 lib/university/index.d.ts
 lib/unlock--01/index.d.ts
 lib/unlock--02/index.d.ts
+lib/uruguay--palacio-salvo/index.d.ts
 lib/upload--01/index.d.ts
 lib/upload--02/index.d.ts
 lib/user/index.d.ts
@@ -1443,6 +1500,7 @@ lib/user--interface/index.d.ts
 lib/user--profile/index.d.ts
 lib/user--search/index.d.ts
 lib/vancouver/index.d.ts
+lib/venezuela--national-pantheon-of-venezuela/index.d.ts
 lib/video--01/index.d.ts
 lib/video--02/index.d.ts
 lib/video--chat/index.d.ts

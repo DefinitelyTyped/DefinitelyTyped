@@ -1,4 +1,4 @@
-// Type definitions for react-paginate 6.2
+// Type definitions for react-paginate 7.1
 // Project: https://github.com/AdeleD/react-paginate
 // Definitions by: Simon Hartcher <https://github.com/deevus>
 //                 Wouter Hardeman <https://github.com/wouterhardeman>
@@ -60,6 +60,11 @@ export interface ReactPaginateProps {
     onPageChange?(selectedItem: { selected: number }): void;
 
     /**
+     * The method to call when an active page is clicked. Exposes the active page object as an argument.
+     */
+    onPageActive?(selectedItem: { selected: number }): void;
+
+    /**
      * The initial page selected.
      */
     initialPage?: number;
@@ -88,6 +93,11 @@ export interface ReactPaginateProps {
      * The classname on tag `a` of each page element.
      */
     pageLinkClassName?: string;
+
+    /**
+     * Function to set the text on page links. Defaults to `(page) => page`
+     */
+    pageLabelBuilder?: (page: number) => string;
 
     /**
      * The classname for the active page.
@@ -130,9 +140,20 @@ export interface ReactPaginateProps {
     hrefBuilder?(pageIndex: number): void;
 
     /**
+     * @deprecated The extraAriaContext prop is deprecated. You should now use the ariaLabelBuilder instead.
      * Extra context to add to the aria-label HTML attribute.
      */
     extraAriaContext?: string;
+
+    /**
+     * The method is called to generate the `aria-label` attribute value on each page link
+     */
+    ariaLabelBuilder?: (pageIndex: number, selected: boolean) => string;
+
+    /**
+     * The event to listen onto before changing the selected page. Default is: "onClick".
+     */
+    eventListener?: string;
 }
 
 declare const ReactPaginate: React.ComponentClass<ReactPaginateProps>;

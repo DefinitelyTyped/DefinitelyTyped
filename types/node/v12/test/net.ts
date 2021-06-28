@@ -1,5 +1,5 @@
-import * as net from 'node:net';
-import { LookupOneOptions } from 'node:dns';
+import * as net from 'net';
+import { LookupOneOptions } from 'dns';
 
 {
     const connectOpts: net.NetConnectOpts = {

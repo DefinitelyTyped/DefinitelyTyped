@@ -510,7 +510,7 @@ declare namespace P {
              * The default shape is { level: number }.
              * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
              */
-            level?: (level: string, number: number) => object;
+            level?: (label: string, number: number) => object;
             /**
              * Changes the shape of the bindings.
              * The default shape is { pid, hostname }.

@@ -1,3 +1,4 @@
+import RBush from 'rbush';
 import Collection from './Collection';
 import Control from './control/Control';
 import { Coordinate } from './coordinate';
@@ -5,6 +6,7 @@ import { EventsKey } from './events';
 import BaseEvent from './events/Event';
 import { Extent } from './extent';
 import { FeatureLike } from './Feature';
+import SimpleGeometry from './geom/SimpleGeometry';
 import Interaction from './interaction/Interaction';
 import BaseLayer from './layer/Base';
 import LayerGroup from './layer/Group';
@@ -28,10 +30,6 @@ export interface AtPixelOptions {
     hitTolerance?: number;
     checkWrapped?: boolean;
 }
-export interface DeclutterItems {
-    items: any[];
-    opacity: number;
-}
 /**
  * State of the current frame. Only pixelRatio, time and viewState should
  * be used in applications.
@@ -42,8 +40,8 @@ export interface FrameState {
     viewState: State;
     animate: boolean;
     coordinateToPixelTransform: Transform;
+    declutterTree: RBush<any>;
     extent: Extent;
-    declutterItems: DeclutterItems[];
     index: number;
     layerStatesArray: State_1[];
     layerIndex: number;
@@ -117,7 +115,7 @@ export default class PluggableMap extends BaseObject {
      */
     forEachFeatureAtPixel<S, T>(
         pixel: Pixel,
-        callback: (this: S, p0: FeatureLike, p1: Layer<Source>) => T,
+        callback: (p0: FeatureLike, p1: Layer<Source>, p2: SimpleGeometry) => T,
         opt_options?: AtPixelOptions,
     ): T | undefined;
     /**
@@ -203,6 +201,7 @@ export default class PluggableMap extends BaseObject {
      * associated with the map.
      */
     getOverlays(): Collection<Overlay>;
+    getOwnerDocument(): Document;
     /**
      * Get the pixel for a coordinate.  This takes a coordinate in the user
      * projection and returns the corresponding pixel.

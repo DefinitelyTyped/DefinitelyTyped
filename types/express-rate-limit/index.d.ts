@@ -53,7 +53,7 @@ declare namespace rateLimit {
 
     interface Options {
         /**
-         * The funciton to handle requests once `max` is exceeded. It receives the request and response objects.
+         * The function to handle requests once `max` is exceeded. It receives the request and response objects.
          * The "next" param is available if you need to pass to the next middleware. The `req.rateLimit` object
          * has `limit`, `current`, and `remaining` number of requests, and if the store provides it, a `resetTime`
          * Date object.
@@ -63,7 +63,7 @@ declare namespace rateLimit {
 
         /**
          * Enable headers for request limit (`X-RateLimit-Limit`) and current usage (`X-RateLimit-Remaining`) on all
-         * responses andtime to wait before retrying (`Retry-After`) when `max` is exceeded. Defaults to `true`.
+         * responses and time to wait before retrying (`Retry-After`) when `max` is exceeded. Defaults to `true`.
          */
         headers?: boolean;
 

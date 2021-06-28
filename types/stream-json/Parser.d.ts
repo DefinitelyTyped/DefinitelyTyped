@@ -1,8 +1,9 @@
-import { Transform, TransformOptions } from 'stream';
+import { TransformOptions } from 'stream';
+import Utf8Stream = require('./utils/Utf8Stream');
 
 export = Parser;
 
-declare class Parser extends Transform {
+declare class Parser extends Utf8Stream {
     constructor(options?: Parser.ParserOptions);
 }
 

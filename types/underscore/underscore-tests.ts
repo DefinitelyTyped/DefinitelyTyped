@@ -477,6 +477,14 @@ _(explicitNumberDictionary).each((value, key, collection) => {
 // get
 
 {
+    // null as object
+    // $ExpectType undefined
+    _.get(null, 'a');
+
+    // null as object, with default value
+    // $ExpectType number
+    _.get(null, 'a', numberValue);
+
     // no default value
     // $ExpectType number | undefined
     _.get({ a: numberValue }, 'a');
@@ -497,6 +505,14 @@ _(explicitNumberDictionary).each((value, key, collection) => {
     // $ExpectType number
     _.get({ a: numberValue }, ['b'], numberValue);
 
+    // oop style with null as object
+    // $ExpectType undefined
+    _(null).get(['b']);
+
+    // oop style with null as object and default value
+    // $ExpectType number
+    _(null).get(['b'], numberValue);
+
     // oop style without default value
     // $ExpectType number | undefined
     _({ a: numberValue }).get(['b']);
@@ -504,6 +520,14 @@ _(explicitNumberDictionary).each((value, key, collection) => {
     // oop style with default value
     // $ExpectType string | number
     _({ a: numberValue }).get(['a'], stringValue);
+
+    // chained with null as object
+    // $ExpectType _Chain<undefined, undefined>
+    _.chain(null).get(['a']);
+
+    // chained with null as object and default value
+    // $ExpectType _Chain<number, number>
+    _.chain(null).get(['a'], numberValue);
 
     // chained without default value
     // $ExpectType _Chain<string | number | undefined, string | number | undefined>

@@ -19,8 +19,10 @@ export class Connection {
     getDocPresence(collection: string, id: string): Presence;
 }
 export type Doc<T = any> = ShareDB.Doc<T>;
+export type Snapshot<T = any> = ShareDB.Snapshot<T>;
 export type Query<T = any> = ShareDB.Query<T>;
 export type Presence<T = any> = ShareDB.Presence<T>;
+export type LocalPresence<T = any> = ShareDB.LocalPresence<T>;
 export type Error = ShareDB.Error;
 export type Op = ShareDB.Op;
 export type AddNumOp = ShareDB.AddNumOp;

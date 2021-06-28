@@ -23,7 +23,6 @@ export interface MeshLambertMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number;
     wireframeLinecap?: string;
     wireframeLinejoin?: string;
-    skinning?: boolean;
     morphTargets?: boolean;
     morphNormals?: boolean;
 }
@@ -130,11 +129,6 @@ export class MeshLambertMaterial extends Material {
      * @default 'round'
      */
     wireframeLinejoin: string;
-
-    /**
-     * @default false
-     */
-    skinning: boolean;
 
     /**
      * @default false
