@@ -16,7 +16,7 @@
 //                 Walter Kennedy <https://github.com/wthefourth>
 //                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2.4
+// TypeScript Version: 4.2
 
 import * as React from 'react';
 import * as Popper from 'popper.js';
