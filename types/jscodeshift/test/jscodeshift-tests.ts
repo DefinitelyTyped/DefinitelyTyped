@@ -134,3 +134,6 @@ testUtils.defineTest(
 
 // Can define a test
 testUtils.defineInlineTest(() => {}, { opt: true }, "import test from 'test';", "import test from './test';");
+
+// Can run inline test
+testUtils.runInlineTest(() => {}, { opt: true }, "import test from 'test';", "import test from './test';", {});
