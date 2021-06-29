@@ -161,12 +161,10 @@ interface ElementStyle extends ItemStyle {
 }
 
 // remove indexers
-// https://stackoverflow.com/questions/58216298/how-to-omit-keystring-any-from-a-type-in-typescript
+// https://stackoverflow.com/questions/51465182/how-to-remove-index-signature-using-mapped-types
 type KnownKeys<T> = {
-    [K in keyof T]: string extends K ? never : number extends K ? never : K;
-} extends { [_ in keyof T]: infer U }
-    ? U
-    : never;
+    [K in keyof T as string extends K ? never : number extends K ? never : K]: T[K];
+};
 
 type WithClassProp<T, K = T | undefined | false | null> = T & { class?: K | K[] };
 type ProgressBarProps<T> = T extends ProgressBarElement ? ProgressBarEventProps & { style?: ProgressBarStyle } : {};
@@ -176,7 +174,7 @@ type LayoutProps<T> = T extends LayoutElement ? Partial<Blessed.Widgets.LayoutOp
 
 // remove {[key: string]: any} indexer defined in Blessed.Widgets.IOptions.
 // 'blessed' doesn't exist in a DOM so it probably doesn't make sense to allow any property
-type FilterOptions<T extends Record<any, any>> = Partial<Omit<Pick<T, KnownKeys<T>>, "style" | "children">>;
+type FilterOptions<T extends Record<any, any>> = Partial<Omit<KnownKeys<T>, "style" | "children">>;
 
 type ModifiedBlessedOptions<T> = FilterOptions<T> & { children?: React.ReactNode; style?: ElementStyle } & EventProps;
 
