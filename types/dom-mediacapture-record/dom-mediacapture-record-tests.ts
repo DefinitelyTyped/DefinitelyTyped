@@ -38,7 +38,7 @@ recorder.stop();
 recorder.start(1000);
 recorder.pause();
 recorder.requestData();
-const state: RecordingState = recorder.state;
+const state: 'inactive' | 'recording' | 'paused' = recorder.state;
 const isRecording = state === 'recording';
 const isAudioVariableBitrate = recorder.audioBitrateMode === 'vbr';
 
