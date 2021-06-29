@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-middleware 4.1
+// Type definitions for webpack-dev-middleware 5.0
 // Project: https://github.com/webpack/webpack-dev-middleware
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 //                 reduckted <https://github.com/reduckted>
@@ -6,14 +6,16 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Ma Tianqi <https://github.com/tqma113>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
-import * as webpack from 'webpack';
-import { NextHandleFunction } from 'connect';
+import * as webpack from "webpack";
+import { IncomingMessage, NextHandleFunction } from "connect";
+import { ServerResponse } from "http";
 
 export = WebpackDevMiddleware;
 
 declare function WebpackDevMiddleware(
-    compiler: webpack.Compiler,
+    compiler: webpack.Compiler | webpack.MultiCompiler,
     options?: WebpackDevMiddleware.Options,
 ): WebpackDevMiddleware.WebpackDevMiddleware & NextHandleFunction;
 
@@ -34,15 +36,13 @@ declare namespace WebpackDevMiddleware {
          */
         methods?: string[];
         /** This property allows a user to pass custom HTTP headers on each request. eg. { "X-Custom-Header": "yes" } */
-        headers?: {
-            [name: string]: string;
-        };
+        headers?: Record<string, string> | HeadersHandle;
         /** The public path that the middleware is bound to */
         publicPath?: string;
         /** Instructs the module to enable or disable the server-side rendering mode */
         serverSideRender?: boolean;
         /** Stats options object or preset name. */
-        stats?: webpack.Stats.ToJsonOptions;
+        stats?: webpack.Configuration['stats'];
         /**
          * Set the default file system which will be used by webpack as primary destination of generated files
          */
@@ -76,6 +76,15 @@ declare namespace WebpackDevMiddleware {
         invalidate(callback?: Callback): void;
         /** A function executed once the middleware has stopped watching. */
         close(callback?: () => void): void;
+        /**
+         * Get filename from URL.
+         * @param url URL for the requested file.
+         */
+        getFilenameFromUrl(url: string): string | undefined;
         context: Context;
+    }
+
+    interface HeadersHandle {
+        (req: IncomingMessage, res: ServerResponse, context: Context): Record<string, string> | void;
     }
 }

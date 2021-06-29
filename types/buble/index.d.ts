@@ -1,6 +1,7 @@
-// Type definitions for buble 0.19
+// Type definitions for buble 0.20
 // Project: https://github.com/bublejs/buble
 // Definitions by: Hugo Alliaume <https://github.com/Kocal>
+//                 Ye-hyoung Kang <https://github.com/pastelmind>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -32,24 +33,24 @@ export interface TransformOptions {
     transforms?: {
         arrow?: boolean;
         classes?: boolean;
-        collections?: boolean;
         computedProperty?: boolean;
         conciseMethodProperty?: boolean;
-        constLoop?: boolean;
         dangerousForOf?: boolean;
         dangerousTaggedTemplateString?: boolean;
         defaultParameter?: boolean;
         destructuring?: boolean;
+        exponentiation?: boolean;
         forOf?: boolean;
         generator?: boolean;
         letConst?: boolean;
         modules?: boolean;
         numericLiteral?: boolean;
+        objectRestSpread?: boolean;
         parameterDestructuring?: boolean;
         reservedProperties?: boolean;
         spreadRest?: boolean;
-        stickyRegExp?: boolean;
         templateString?: boolean;
+        trailingFunctionCommas?: boolean;
         unicodeRegExp?: boolean;
     };
 

@@ -1,3 +1,4 @@
+// Type definitions for ECharts v4.7.0
 declare namespace echarts {
     namespace EChartOption {
         interface BaseTooltip {
@@ -194,7 +195,7 @@ declare namespace echarts {
              *
              * @default 'item'
              */
-            trigger?: 'item' | 'axis' | 'none';
+            trigger?: "item" | "axis" | "none";
 
             /**
              * `axisPointer` is a tool for displaying reference line
@@ -251,7 +252,7 @@ declare namespace echarts {
              *
              * @default 'mousemove|click'
              */
-            triggerOn?: 'mousemove' | 'click' | 'mousemove|click' | 'none';
+            triggerOn?: "mousemove" | "click" | "mousemove|click" | "none";
 
             /**
              * Delay time for showing tooltip, in ms.
@@ -292,7 +293,7 @@ declare namespace echarts {
              *
              * @default 'html'
              */
-            renderMode?: 'html';
+            renderMode?: "html";
 
             /**
              * Whether confine tooltip content in the view rect
@@ -312,13 +313,34 @@ declare namespace echarts {
              * @default 0.4
              */
             transitionDuration?: number;
+
+            /**
+             * Since v4.7.0
+             *
+             * Whether to append the tooltip DOM element as a child of the <body> of the HTML page,
+             * when using renderMode 'html'.
+             * By default false, means that the tooltip DOM element will be one of a descendant
+             * of its echarts DOM container.
+             * But that means that the tooltip might be cut when overflow the container
+             * if some of the ancestors DOM element of the echarts container are styled with overflow: hidden.
+             * This case could also be resolved by setting tooltip.confine, but it might not suitable for all scenarios.
+             * Here we provide appendToBody: true to auto append the tooltip element to <body>,
+             * which is a common way to resolve this kind of issue.
+             * But true is not set as a default value because to void to bring break change
+             * for some cases where tooltip is deeply customized and to void some unexpected bad cases.
+             *
+             * Note that it also works when CSS transform used.
+             *
+             * @default false
+             */
+            appendToBody?: boolean;
         }
 
         namespace Tooltip {
             namespace Position {
                 type Type = Position.Str | Position.Obj | (number | string)[] | Position.Fn;
 
-                type Str = 'inside' | 'top' | 'left' | 'right' | 'bottom';
+                type Str = "inside" | "top" | "left" | "right" | "bottom";
 
                 interface Obj {
                     top?: string | number;
@@ -369,7 +391,7 @@ declare namespace echarts {
             }
 
             interface Format {
-                componentType?: 'series';
+                componentType?: "series";
 
                 // Series type
                 seriesType?: string;
@@ -425,8 +447,8 @@ declare namespace echarts {
             }
             interface AxisPointer {
                 show?: boolean;
-                type?: 'line' | 'shadow' | 'none' | 'cross';
-                axis?: 'auto' | 'x' | 'y' | 'radius' | 'angle';
+                type?: "line" | "shadow" | "none" | "cross";
+                axis?: "auto" | "x" | "y" | "radius" | "angle";
                 snap?: boolean;
                 z?: number;
                 label?: BasicComponents.CartesianAxis.PointerLabel;

@@ -16,7 +16,10 @@ declare function PinoHttp(opts?: PinoHttp.Options, stream?: DestinationStream): 
 declare function PinoHttp(stream?: DestinationStream): PinoHttp.HttpLogger;
 
 declare namespace PinoHttp {
-    type HttpLogger = (req: IncomingMessage, res: ServerResponse, next?: () => void) => void;
+    interface HttpLogger {
+        (req: IncomingMessage, res: ServerResponse, next?: () => void): void;
+        logger: Logger;
+    }
     type ReqId = number | string | object;
 
     /**

@@ -279,7 +279,7 @@ export interface Router {
      * @param    options an options object
      * @returns  returns the route name if creation is successful.
      */
-    mount(options: RouteOptions): string | boolean;
+    mount(options: MountOptions): string | boolean;
 
     /**
      * unmounts a route.

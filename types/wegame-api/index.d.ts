@@ -1,4 +1,4 @@
-// Type definitions for non-npm package wegame 2.7
+// Type definitions for non-npm package wegame 2.8
 // Project: https://developers.weixin.qq.com/minigame/dev/index.html
 // Definitions by: J.C <https://github.com/jcyuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1139,60 +1139,85 @@ declare class Camera {
     destroy(): void;
 }
 
-/**
- * banner 广告组件。banner 广告组件是一个原生组件，层级比上屏 Canvas 高，会覆盖在上屏 Canvas 上。banner 广告组件默认是隐藏的，需要调用 BannerAd.show() 将其显示。banner 广告会根据开发者设置的宽度进行等比缩放，缩放后的尺寸将通过 BannerAd.onResize() 事件中提供。
- */
-declare class BannerAd {
+declare class AdObject {
     /**
      * 广告单元 id
      */
     adUnitId: string;
     /**
-     * banner 广告组件的样式。style 上的属性的值仅为开发者设置的值，banner 广告会根据开发者设置的宽度进行等比缩放，缩放后的真实尺寸需要通过 BannerAd.onResize() 事件获得。
-     */
-    style: wx.types.AdStyle;
-
-    /**
-     * 显示 banner 广告。
+     * 显示广告。
      */
     show(): Promise<void>;
     /**
-     * 隐藏 banner 广告
-     */
-    hide(): void;
-    /**
-     * 销毁 banner 广告
+     * 销毁广告
      */
     destroy(): void;
     /**
-     * 监听 banner 广告缩放
-     */
-    onResize(callback: (res: { width: number, height: number }) => void): void;
-    /**
-     * 取消监听隐藏 banner 广告缩放
-     */
-    offResize(callback: (res: { width: number, height: number }) => void): void;
-    /**
-     * 监听banner 广告加载事件
+     * 监听广告加载事件
      */
     onLoad(callback: () => void): void;
     /**
-     * 取消监听banner 广告加载事件
+     * 取消监听广告加载事件
      */
     offLoad(callback: () => void): void;
     /**
-     * 监听banner 广告错误事件
+     * 监听广告错误事件
      */
     onError(callback: (res: { errMsg: string }) => void): void;
     /**
-     * 取消监听banner 广告错误事件
+     * 取消监听广告错误事件
      */
     offError(callback: (res: { errMsg: string }) => void): void;
 }
 
-declare class InterstitialAd extends BannerAd {
+declare class ResizableAdObject extends AdObject {
     /**
-     * 加载视频广告
+     * 隐藏广告
+     */
+    hide(): void;
+    /**
+     * 监听广告缩放
+     */
+    onResize(callback: (res: { width: number, height: number }) => void): void;
+    /**
+     * 取消监听广告缩放事件
+     */
+    offResize(callback: (res: { width: number, height: number }) => void): void;
+}
+
+/**
+ * banner 广告组件。banner 广告组件是一个原生组件，层级比普通组件高。banner 广告组件默认是隐藏的，需要调用 BannerAd.show() 将其显示。banner 广告会根据开发者设置的宽度进行等比缩放，缩放后的尺寸将通过 BannerAd.onResize() 事件中提供。
+ */
+declare class BannerAd extends ResizableAdObject {
+    /**
+     * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 Banner 广告不会自动刷新）
+     */
+    adIntervals?: number;
+    /**
+     * banner 广告组件的样式。style 上的属性的值仅为开发者设置的值，banner 广告会根据开发者设置的宽度进行等比缩放，缩放后的真实尺寸需要通过 BannerAd.onResize() 事件获得。
+     */
+    style: wx.types.AdStyle & {
+        /**
+         * banner 广告组件经过缩放后真实的宽度
+         */
+        realWidth: number;
+        /**
+         * banner 广告组件经过缩放后真实的高度
+         */
+        realHeight: number;
+    };
+}
+
+/**
+ * 激励视频广告组件。激励视频广告组件是一个原生组件，层级比普通组件高。激励视频广告是一个单例（小游戏端是全局单例，小程序端是页面内单例，在小程序端的单例对象不允许跨页面使用），默认是隐藏的，需要调用 RewardedVideoAd.show() 将其显示。
+ */
+declare class RewardedVideoAd extends AdObject {
+    /**
+     * 是否启用多例模式，默认为false
+     */
+    multiton: boolean;
+    /**
+     * 加载广告
      */
     load(): Promise<void>;
     /**
@@ -1205,7 +1230,87 @@ declare class InterstitialAd extends BannerAd {
     offClose(callback: (res: { isEnded: boolean }) => void): void;
 }
 
-declare class RewardedVideoAd extends InterstitialAd {
+/**
+ * 插屏广告组件。插屏广告组件是一个原生组件，层级比普通组件高。插屏广告组件每次创建都会返回一个全新的实例（小程序端的插屏广告实例不允许跨页面使用），默认是隐藏的，需要调用 InterstitialAd.show() 将其显示。
+ */
+declare class InterstitialAd extends AdObject {
+    /**
+     * 加载广告
+     */
+    load(): Promise<void>;
+    /**
+     * 监听用户点击 关闭广告 按钮的事件
+     */
+    onClose(callback: (res: { isEnded: boolean }) => void): void;
+    /**
+     * 监听用户点击 关闭广告 按钮的事件
+     */
+    offClose(callback: (res: { isEnded: boolean }) => void): void;
+}
+
+/**
+ * grid(格子) 广告组件。grid(格子) 广告组件是一个原生组件，层级比普通组件高。grid(格子) 广告组件默认是隐藏的，需要调用 GridAd.show() 将其显示。grid(格子) 广告会根据开发者设置的宽度进行等比缩放，缩放后的尺寸将通过 GridAd.onResize() 事件中提供。
+ */
+declare class GridAd extends ResizableAdObject {
+    /**
+     * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 Banner 广告不会自动刷新）
+     */
+    adIntervals?: number;
+    /**
+     * grid(格子) 广告广告组件的主题，提供 white black 两种主题选择。
+     */
+    adTheme: string;
+    /**
+     * grid(格子) 广告组件的格子个数，可设置爱5，8两种格子个数样式，默认值为5
+     */
+    gridCount: number;
+    /**
+     * grid(格子) 广告广告组件的样式。style 上的属性的值仅为开发者设置的grid(格子) 广告) 广告会根据开发者设置的宽度进行等比缩放，缩放后的真实尺寸需要通过 GridAd.onResize() 事件获得。
+     */
+    style: wx.types.AdStyle & {
+        /**
+         * grid(格子) 广告组件经过缩放后真实的宽度
+         */
+        realWidth: number;
+        /**
+         * grid(格子) 广告组件经过缩放后真实的高度
+         */
+        realHeight: number;
+    };
+}
+
+/**
+ * 原生模板广告组件。原生模板广告组件是一个原生组件，层级比普通组件高。原生模板广告组件默认是隐藏的，需要调用 CustomAd.show() 将其显示。如果宽度可配置，原生模板广告会根据开发者设置的宽度进行等比缩放。
+ */
+declare class CustomAd extends AdObject {
+    /**
+     * 原生模板广告组件的样式
+     */
+    style: wx.types.CustomAdStyle;
+    /**
+     * 查询原生模板广告展示状态。
+     */
+    isShow(): boolean;
+    /**
+     * 隐藏原生模板广告。（某些模板广告无法隐藏）
+     */
+    hide(): void;
+    /**
+     * 监听原生模板广告隐藏事件, 某些模板如矩阵格子模板用户点击关闭时也会触发该事件。
+     */
+    onHide(callback: () => void): void;
+    /**
+     * 取消监听原生模板广告隐藏事件
+     */
+    offHide(callback: () => void): void;
+    /**
+     * 监听用户点击 关闭广告 按钮的事件
+     */
+    onClose(callback: (res: { isEnded: boolean }) => void): void;
+    /**
+     * 监听用户点击 关闭广告 按钮的事件
+     */
+    offClose(callback: (res: { isEnded: boolean }) => void): void;
 }
 
 // --定时器
@@ -1691,7 +1796,7 @@ declare namespace wx {
              */
             filePath?: string;
             /**
-             *     HTTP 请求的 Header，Header 中不能设置 Referer
+             * HTTP 请求的 Header，Header 中不能设置 Referer
              */
             header?: { [key: string]: string };
             /**
@@ -2012,25 +2117,32 @@ declare namespace wx {
              */
             left: number;
             /**
-             * banner 广告组件的左上角纵坐标
+             * 广告组件的左上角纵坐标
              */
             top: number;
             /**
-             * banner 广告组件的宽度。最小 300，最大至 屏幕宽度（屏幕宽度可以通过 wx.getSystemInfoSync() 获取）。
+             * 广告组件的宽度。最小 300，最大至 屏幕宽度（屏幕宽度可以通过 wx.getSystemInfoSync() 获取）。
              */
             width: number;
             /**
-             * banner 广告组件的高度
+             * 广告组件的高度
              */
             height: number;
+        }
+
+        interface CustomAdStyle {
             /**
-             * banner 广告组件经过缩放后真实的宽度
+             * 原生模板广告组件的左上角横坐标
              */
-            realWidth: number;
+            left: number;
             /**
-             * banner 广告组件经过缩放后真实的高度
+             * 原生模板广告组件的左上角纵坐标
              */
-            realHeight: number;
+            top: number;
+            /**
+             * (只对小程序适用) 原生模板广告组件是否固定屏幕位置（不跟随屏幕滚动）
+             */
+            fixed?: boolean;
         }
     }
 
@@ -2441,7 +2553,7 @@ declare namespace wx {
          */
         type?: "wgs84" | "gcj02",
         /**
-         * 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度    >= 1.6.0
+         * 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度 >= 1.6.0
          */
         altitude?: boolean,
         success?: (res: {
@@ -2828,7 +2940,7 @@ declare namespace wx {
         /**
          * 要打开的小程序版本。仅在当前小程序为开发版或体验版时此参数有效。如果当前小程序是正式版，则打开的小程序必定是正式版。默认值release
          * develop    开发版
-         * trial    体验版
+         * trial      体验版
          * release    正式版
          */
         envVersion?: "develop" | "trial" | "release"
@@ -3835,7 +3947,8 @@ declare namespace wx {
 
     // --广告
     /**
-     * 创建 banner 广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.0.4 后再使用该 API。同时，开发者工具上暂不支持调试该 API，请直接在真机上进行调试。
+     * 创建 banner 广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.0.4 后再使用该 API。每次调用该方法创建 banner 广告都会返回一个全新的实例。
+     * 基础库 2.0.4 开始支持，低版本需做兼容处理。
      */
     function createBannerAd(param: {
         /**
@@ -3843,21 +3956,30 @@ declare namespace wx {
          */
         adUnitId: string,
         /**
+         * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 Banner 广告不会自动刷新）
+         */
+        adIntervals?: number,
+        /**
          * banner 广告组件的样式
          */
         style: types.AdStyle
     }): BannerAd;
     /**
-     * 创建激励视频广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.0.4 后再使用该 API。同时，开发者工具上暂不支持调试该 API，请直接在真机上进行调试。
+     * 创建激励视频广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号后再使用该 API（小游戏端要求 >= 2.0.4， 小程序端要求 >= 2.6.0）。调用该方法创建的激励视频广告是一个单例（小游戏端是全局单例，小程序端是页面内单例，在小程序端的单例对象不允许跨页面使用）。
+     * 基础库 2.0.4 开始支持，低版本需做兼容处理。
      */
     function createRewardedVideoAd(param: {
         /**
          * 广告单元 id
          */
-        adUnitId: string
+        adUnitId: string;
+        /**
+         * 是否启用多例模式，默认为false
+         */
+        multiton?: boolean;
     }): RewardedVideoAd;
     /**
-     * 创建插屏广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号后再使用该 API。每次调用该方法创建插屏广告都会返回一个全新的实例（小程序端的插屏广告实例不允许跨页面使用）。
+     * 插屏广告组件。插屏广告组件是一个原生组件，层级比普通组件高。插屏广告组件每次创建都会返回一个全新的实例（小程序端的插屏广告实例不允许跨页面使用），默认是隐藏的，需要调用 InterstitialAd.show() 将其显示。
      */
     function createInterstitialAd(param: {
         /**
@@ -3865,6 +3987,49 @@ declare namespace wx {
          */
         adUnitId: string
     }): InterstitialAd;
+    /**
+     * 创建 grid(格子) 广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.9.2 后再使用该 API。每次调用该方法创建 grid(格子) 广告都会返回一个全新的实例。
+     * 基础库 2.9.2 开始支持，低版本需做兼容处理
+     */
+    function createGridAd(param: {
+        /**
+         * 广告单元 id
+         */
+        adUnitId: string;
+        /**
+         * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 grid(格子) 广告不会自动刷新）
+         */
+        adIntervals?: number;
+        /**
+         * grid(格子) 广告组件的样式
+         */
+        style: types.AdStyle;
+        /**
+         * grid(格子) 广告广告组件的主题，提供 white black 两种主题选择。
+         */
+        adTheme: 'white' | 'black';
+        /**
+         * grid(格子) 广告组件的格子个数，可设置为5，8两种格子个数样式，默认值为5
+         */
+        gridCount?: 5 | 8;
+    }): GridAd;
+    /**
+     * 创建原生模板广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.11.1 后再使用该 API。每次调用该方法创建原生模板广告都会返回一个全新的实例。
+     */
+    function createCustomAd(param: {
+        /**
+         * 广告单元 id
+         */
+        adUnitId: string;
+        /**
+         * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 grid(格子) 广告不会自动刷新）
+         */
+        adIntervals?: number;
+        /**
+         * 原生模板广告组件的样式
+         */
+        style: types.CustomAdStyle;
+    }): CustomAd;
 
     // --虚拟支付
     /**
@@ -3934,23 +4099,23 @@ declare namespace wx {
         success?: () => void,
         /**
          * @param res.errCode 有如下值：
-         *      -1    系统失败
-         *      -2    支付取消
-         *      -15001    虚拟支付接口错误码，缺少参数
-         *      -15002    虚拟支付接口错误码，参数不合法
-         *      -15003    虚拟支付接口错误码，订单重复
-         *      -15004    虚拟支付接口错误码，后台错误
-         *      -15006    虚拟支付接口错误码，appId 权限被封禁
-         *      -15006    虚拟支付接口错误码，货币类型不支持
-         *      -15007    虚拟支付接口错误码，订单已支付
-         *       1    虚拟支付接口错误码，用户取消支付
-         *       2    虚拟支付接口错误码，客户端错误, 判断到小程序在用户处于支付中时,又发起了一笔支付请求
-         *       3    虚拟支付接口错误码，Android 独有错误：用户使用 Google Play 支付，而手机未安装 Google Play
-         *       4    虚拟支付接口错误码，用户操作系统支付状态异常
-         *       5    虚拟支付接口错误码，操作系统错误
-         *       6    虚拟支付接口错误码，其他错误
-         *       1000    参数错误
-         *       1003    米大师 Portal 错误
+         *      -1      系统失败
+         *      -2      支付取消
+         *      -15001  虚拟支付接口错误码，缺少参数
+         *      -15002  虚拟支付接口错误码，参数不合法
+         *      -15003  虚拟支付接口错误码，订单重复
+         *      -15004  虚拟支付接口错误码，后台错误
+         *      -15006  虚拟支付接口错误码，appId 权限被封禁
+         *      -15006  虚拟支付接口错误码，货币类型不支持
+         *      -15007  虚拟支付接口错误码，订单已支付
+         *       1      虚拟支付接口错误码，用户取消支付
+         *       2      虚拟支付接口错误码，客户端错误, 判断到小程序在用户处于支付中时,又发起了一笔支付请求
+         *       3      虚拟支付接口错误码，Android 独有错误：用户使用 Google Play 支付，而手机未安装 Google Play
+         *       4      虚拟支付接口错误码，用户操作系统支付状态异常
+         *       5      虚拟支付接口错误码，操作系统错误
+         *       6      虚拟支付接口错误码，其他错误
+         *       1000   参数错误
+         *       1003   米大师 Portal 错误
          */
         fail?: (res: { errMsg: string, errCode: number }) => void,
         complete?: () => void

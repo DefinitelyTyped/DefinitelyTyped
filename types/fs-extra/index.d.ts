@@ -229,9 +229,9 @@ export function realpath(path: PathLike, cache?: { [path: string]: string }): Pr
 /* tslint:disable:unified-signatures */
 export namespace realpath {
     const native: {
-        (path: PathLike, options: fs.BaseEncodingOptions | BufferEncoding | undefined | null): Promise<string>;
-        (path: PathLike, options: fs.BufferEncodingOption): Promise<Buffer>;
-        (path: PathLike, options: fs.BaseEncodingOptions | string | undefined | null): Promise<string | Buffer>;
+        (path: PathLike, options: { encoding: BufferEncoding | null } | BufferEncoding | undefined | null): Promise<string>;
+        (path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+        (path: PathLike, options: { encoding: BufferEncoding | null } | string | undefined | null): Promise<string | Buffer>;
         (path: PathLike): Promise<string>;
     } & typeof fs.realpath.native;
 }
@@ -241,12 +241,20 @@ export function rename(oldPath: PathLike, newPath: PathLike, callback: (err: Nod
 export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
 
 /**
+ * Asynchronously removes files and directories (modeled on the standard POSIX
+ * `rm` utility).
+ *
+ * Only available in node >= v14.14.0
+ */
+export function rm(path: PathLike, options?: { force?: boolean, maxRetries?: number, recursive?: boolean, retryDelay?: number }): Promise<void>;
+
+/**
  * Asynchronous rmdir - removes the directory specified in {path}
  *
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function rmdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function rmdir(path: PathLike): Promise<void>;
+export function rmdir(path: PathLike, options?: fs.RmDirOptions): Promise<void>;
 
 export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
 export function stat(path: PathLike): Promise<Stats>;

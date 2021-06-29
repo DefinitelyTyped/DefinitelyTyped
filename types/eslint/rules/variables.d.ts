@@ -1,4 +1,4 @@
-import { Linter } from '../index';
+import { Linter } from "../index";
 
 export interface Variables extends Linter.RulesRecord {
     /**
@@ -7,14 +7,16 @@ export interface Variables extends Linter.RulesRecord {
      * @since 1.0.0-rc-1
      * @see https://eslint.org/docs/rules/init-declarations
      */
-    'init-declarations': Linter.RuleEntry<[
-        'always'
-    ]> | Linter.RuleEntry<[
-        'never',
-        Partial<{
-            ignoreForLoopInit: boolean;
-        }>
-    ]>;
+    "init-declarations":
+        | Linter.RuleEntry<["always"]>
+        | Linter.RuleEntry<
+              [
+                  "never",
+                  Partial<{
+                      ignoreForLoopInit: boolean;
+                  }>,
+              ]
+          >;
 
     /**
      * Rule to disallow deleting variables.
@@ -25,7 +27,7 @@ export interface Variables extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/no-delete-var
      */
-    'no-delete-var': Linter.RuleEntry<[]>;
+    "no-delete-var": Linter.RuleEntry<[]>;
 
     /**
      * Rule to disallow labels that share a name with a variable.
@@ -33,7 +35,7 @@ export interface Variables extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/no-label-var
      */
-    'no-label-var': Linter.RuleEntry<[]>;
+    "no-label-var": Linter.RuleEntry<[]>;
 
     /**
      * Rule to disallow specified global variables.
@@ -41,12 +43,17 @@ export interface Variables extends Linter.RulesRecord {
      * @since 2.3.0
      * @see https://eslint.org/docs/rules/no-restricted-globals
      */
-    'no-restricted-globals': Linter.RuleEntry<[
-        ...Array<string | {
-            name: string;
-            message?: string;
-        }>
-    ]>;
+    "no-restricted-globals": Linter.RuleEntry<
+        [
+            ...Array<
+                | string
+                | {
+                      name: string;
+                      message?: string;
+                  }
+            >
+        ]
+    >;
 
     /**
      * Rule to disallow variable declarations from shadowing variables declared in the outer scope.
@@ -54,19 +61,21 @@ export interface Variables extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/no-shadow
      */
-    'no-shadow': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            builtinGlobals: boolean;
-            /**
-             * @default 'functions'
-             */
-            hoist: 'functions' | 'all' | 'never';
-            allow: string[];
-        }>
-    ]>;
+    "no-shadow": Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                builtinGlobals: boolean;
+                /**
+                 * @default 'functions'
+                 */
+                hoist: "functions" | "all" | "never";
+                allow: string[];
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow identifiers from shadowing restricted names.
@@ -77,7 +86,7 @@ export interface Variables extends Linter.RulesRecord {
      * @since 0.1.4
      * @see https://eslint.org/docs/rules/no-shadow-restricted-names
      */
-    'no-shadow-restricted-names': Linter.RuleEntry<[]>;
+    "no-shadow-restricted-names": Linter.RuleEntry<[]>;
 
     /**
      * Rule to disallow the use of undeclared variables unless mentioned in `global` comments.
@@ -88,14 +97,16 @@ export interface Variables extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/no-undef
      */
-    'no-undef': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            typeof: boolean;
-        }>
-    ]>;
+    "no-undef": Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                typeof: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow initializing variables to `undefined`.
@@ -103,7 +114,7 @@ export interface Variables extends Linter.RulesRecord {
      * @since 0.0.6
      * @see https://eslint.org/docs/rules/no-undef-init
      */
-    'no-undef-init': Linter.RuleEntry<[]>;
+    "no-undef-init": Linter.RuleEntry<[]>;
 
     /**
      * Rule to disallow the use of `undefined` as an identifier.
@@ -111,7 +122,7 @@ export interface Variables extends Linter.RulesRecord {
      * @since 0.7.1
      * @see https://eslint.org/docs/rules/no-undefined
      */
-    'no-undefined': Linter.RuleEntry<[]>;
+    "no-undefined": Linter.RuleEntry<[]>;
 
     /**
      * Rule to disallow unused variables.
@@ -122,29 +133,31 @@ export interface Variables extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/no-unused-vars
      */
-    'no-unused-vars': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default 'all'
-             */
-            vars: 'all' | 'local';
-            varsIgnorePattern: string;
-            /**
-             * @default 'after-used'
-             */
-            args: 'after-used' | 'all' | 'none';
-            /**
-             * @default false
-             */
-            ignoreRestSiblings: boolean;
-            argsIgnorePattern: string;
-            /**
-             * @default 'none'
-             */
-            caughtErrors: 'none' | 'all';
-            caughtErrorsIgnorePattern: string;
-        }>
-    ]>;
+    "no-unused-vars": Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default 'all'
+                 */
+                vars: "all" | "local";
+                varsIgnorePattern: string;
+                /**
+                 * @default 'after-used'
+                 */
+                args: "after-used" | "all" | "none";
+                /**
+                 * @default false
+                 */
+                ignoreRestSiblings: boolean;
+                argsIgnorePattern: string;
+                /**
+                 * @default 'none'
+                 */
+                caughtErrors: "none" | "all";
+                caughtErrorsIgnorePattern: string;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow the use of variables before they are defined.
@@ -152,20 +165,23 @@ export interface Variables extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/no-use-before-define
      */
-    'no-use-before-define': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default true
-             */
-            functions: boolean;
-            /**
-             * @default true
-             */
-            classes: boolean;
-            /**
-             * @default true
-             */
-            variables: boolean;
-        }> | 'nofunc'
-    ]>;
+    "no-use-before-define": Linter.RuleEntry<
+        [
+            | Partial<{
+                  /**
+                   * @default true
+                   */
+                  functions: boolean;
+                  /**
+                   * @default true
+                   */
+                  classes: boolean;
+                  /**
+                   * @default true
+                   */
+                  variables: boolean;
+              }>
+            | "nofunc",
+        ]
+    >;
 }

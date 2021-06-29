@@ -4,7 +4,7 @@
 //                 Jokcy <https://github.com/Jokcy>
 //                 ZSkycat <https://github.com/ZSkycat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 /// <reference types="node" />
 

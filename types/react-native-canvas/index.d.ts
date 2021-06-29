@@ -54,6 +54,7 @@ export interface CanvasRenderingContext2D {
     shadowOffsetY: number;
     strokeStyle: string;
     textAlign: string;
+    textBaseline: string;
     arc: (x: number, y: number, r: number, sAngle: number, eAngle: number, counterClockwise?: boolean) => void;
     arcTo: (x1: number, y1: number, x2: number, y2: number, r: number) => void;
     beginPath: () => void;
@@ -131,7 +132,7 @@ export interface CanvasRenderingContext2D {
 export default class Canvas extends React.Component<CanvasProps> {
     width: number;
     height: number;
-    toDataURL: () => Promise<string>;
+    toDataURL: (type?: string, encoderOptions?: number) => Promise<string>;
     getContext: (context: string) => CanvasRenderingContext2D;
 }
 

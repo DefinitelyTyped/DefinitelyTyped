@@ -1807,7 +1807,7 @@ declare module "../index" {
          *   'vegetables': ['carrot']
          * };
          *
-         * _.merge(object, other, customizer);
+         * _.mergeWith(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
         mergeWith<TObject, TSource>(object: TObject, source: TSource, customizer: MergeWithCustomizer): TObject & TSource;

@@ -1,11 +1,7 @@
-declare module 'node:https' {
-    export * from 'https';
-}
-
 declare module 'https' {
-    import * as tls from 'node:tls';
-    import * as http from 'node:http';
-    import { URL } from 'node:url';
+    import * as tls from 'tls';
+    import * as http from 'http';
+    import { URL } from 'url';
 
     type ServerOptions = tls.SecureContextOptions & tls.TlsOptions & http.ServerOptions;
 

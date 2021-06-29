@@ -1,36 +1,32 @@
-// Type definitions for codemirror
-// Project: https://github.com/marijnh/CodeMirror
-// Definitions by: Nikolaj Kappler <https://github.com/nkappler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import '../../';
 
-// See docs https://codemirror.net/doc/manual.html#addon_panel
-
-import * as CodeMirror from 'codemirror';
-
-declare module 'codemirror' {
+declare module '../../' {
     interface Panel {
-        /**Removes the panel from the editor */
+        /** Removes the panel from the editor */
         clear(): void;
-        /**Notifies panel that height of DOM node has changed */
+        /** Notifies panel that height of DOM node has changed */
         changed(height?: number): void;
     }
 
     interface ShowPanelOptions {
-        /**Controls the position of the newly added panel. The following values are recognized:
+        /**
+         * Controls the position of the newly added panel. The following values are recognized:
          * `top` (default): Adds the panel at the very top.
-         *  `after-top`: Adds the panel at the bottom of the top panels.
-         *  `bottom`: Adds the panel at the very bottom.
-         *  `before-bottom`: Adds the panel at the top of the bottom panels.
+         * `after-top`: Adds the panel at the bottom of the top panels.
+         * `bottom`: Adds the panel at the very bottom.
+         * `before-bottom`: Adds the panel at the top of the bottom panels.
          */
         position?: 'top' | 'after-top' | 'bottom' | 'before-bottom';
-        /**The new panel will be added before the given panel. */
+        /** The new panel will be added before the given panel. */
         before?: Panel;
-        /**The new panel will be added after the given panel. */
+        /** The new panel will be added after the given panel. */
         after?: Panel;
-        /**The new panel will replace the given panel. */
+        /** The new panel will replace the given panel. */
         replace?: Panel;
-        /**Whether to scroll the editor to keep the text's vertical position stable, when adding a panel above it. Defaults to false. */
+        /** Whether to scroll the editor to keep the text's vertical position stable, when adding a panel above it. Defaults to false. */
         stable?: boolean;
+        /** The initial height of the panel. Defaults to the offsetHeight of the node. */
+        height?: number;
     }
 
     interface Editor {

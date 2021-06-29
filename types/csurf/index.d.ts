@@ -26,7 +26,7 @@ declare function csurf(options?: {
 declare namespace csurf {
     interface CookieOptions extends express.CookieOptions {
         /**
-         * @defautl '_csrf'
+         * @default '_csrf'
          */
         key?: string;
     }

@@ -102,7 +102,7 @@ export interface ThreeDSecureVerifyOptions {
     mobilePhoneNumber?: string;
     billingAddress?: ThreeDSecureBillingAddress;
     additionalInformation?: ThreeDSecureAdditionalInformation;
-    addFrame: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void;
+    addFrame?: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void;
     removeFrame?: () => void;
 }
 

@@ -39,7 +39,7 @@ export interface HostedFieldsField {
  */
 export interface HostedFieldFieldOptions {
     cardholderName?: HostedFieldsField;
-    cvv: HostedFieldsField;
+    cvv?: HostedFieldsField;
     expirationDate?: HostedFieldsField;
     expirationMonth?: HostedFieldsField;
     expirationYear?: HostedFieldsField;
@@ -138,6 +138,7 @@ export interface HostedFieldsAccountDetails {
     cardType: string;
     expirationMonth: string;
     expirationYear: string;
+    cardholderName: string;
     lastTwo: string;
     lastFour: string;
 }

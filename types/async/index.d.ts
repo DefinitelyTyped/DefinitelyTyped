@@ -344,27 +344,32 @@ export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks
 export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, callback?: AsyncResultCallback<R, E>): void;
 export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
 
-export interface RetryOptions {
+export interface RetryOptions<E> {
     times?: number;
     interval?: number | ((retryCount: number) => number);
-    errorFilter?: (error: Error) => boolean;
+    errorFilter?: (error: E) => boolean;
 }
 export function retry<T, E = Error>(
-    opts?: number | RetryOptions,
-    task?: (callback: AsyncResultCallback<T, E>, results: any) => void,
-): Promise<void>;
+    task: (() => Promise<T>) | ((callback: AsyncResultCallback<T, E>) => void),
+): Promise<T>;
 export function retry<T, E = Error>(
-    opts?: number | RetryOptions,
-    task?: (callback: AsyncResultCallback<T, E>, results: any) => void,
-    callback?: AsyncResultCallback<any, E>,
+    opts: number | RetryOptions<E>,
+    task: (() => Promise<T>) | ((callback: AsyncResultCallback<T, E>) => void),
+): Promise<T>;
+export function retry<T, E = Error>(
+    task: (() => Promise<T>) | ((callback: AsyncResultCallback<T, E>) => void),
+    callback: AsyncResultCallback<T, E>,
+): void;
+export function retry<T, E = Error>(
+    opts: number | RetryOptions<E>,
+    task: (() => Promise<T>) | ((callback: AsyncResultCallback<T, E>) => void),
+    callback: AsyncResultCallback<T, E>,
 ): void;
 
 export function retryable<T, E = Error>(task: AsyncFunction<T, E>): AsyncFunction<T, E>;
 export function retryable<T, E = Error>(
-    opts:
-        | number
-        | RetryOptions & {arity?: number},
-     task: AsyncFunction<T, E>
+    opts: number | (RetryOptions<E> & { arity?: number }),
+    task: AsyncFunction<T, E>,
 ): AsyncFunction<T, E>;
 export function apply<E = Error>(fn: Function, ...args: any[]): AsyncFunction<any, E>;
 export function nextTick(callback: Function, ...args: any[]): void;

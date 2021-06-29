@@ -279,7 +279,7 @@ const sessionFixture = () => {
 
     const basicBook = Book.create({ title: 'book', publisher: 1 });
 
-    type basicBookKeys = Exclude<keyof typeof basicBook, keyof Model>; // $ExpectType "title" | "coverArt" | "publisher" | "authors" || basicBookKeys
+    type basicBookKeys = Exclude<keyof typeof basicBook, keyof Model>; // $ExpectType "title" | "coverArt" | "publisher" | "authors" || keyof BookFields
     const basicBookTitle = basicBook.title; // $ExpectType string
     const authors = basicBook.authors; // $ExpectType MutableQuerySet<Person, {}>
     const unknownPropertyError = basicBook.customProp; // $ExpectError
@@ -292,7 +292,7 @@ const sessionFixture = () => {
         customProp
     });
 
-    type customBookKeys = Exclude<keyof typeof extendedBook, keyof Model>; // $ExpectType "title" | "coverArt" | "publisher" | "authors" | "customProp" || customBookKeys
+    type customBookKeys = Exclude<keyof typeof extendedBook, keyof Model>; // $ExpectType "title" | "coverArt" | "publisher" | "authors" | "customProp" || keyof BookFields | "customProp"
     const extendedBookTitle = extendedBook.title; // $ExpectType string
     const instanceCustomProp = extendedBook.customProp; // $ExpectType { foo: number; bar: boolean; }
 })();

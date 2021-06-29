@@ -1,7 +1,0 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "no-bad-reference": false,
-        "no-outside-dependencies": false
-    }
-}

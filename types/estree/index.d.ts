@@ -37,7 +37,7 @@ interface BaseNode extends BaseNodeWithoutComments {
 
 export type Node =
     Identifier | Literal | Program | Function | SwitchCase | CatchClause |
-    VariableDeclarator | Statement | Expression | Property |
+    VariableDeclarator | Statement | Expression | PrivateIdentifier | Property | PropertyDefinition |
     AssignmentProperty | Super | TemplateElement | SpreadElement | Pattern |
     ClassBody | Class | MethodDefinition | ModuleDeclaration | ModuleSpecifier;
 
@@ -251,14 +251,27 @@ export interface ObjectExpression extends BaseExpression {
   properties: Array<Property | SpreadElement>;
 }
 
+export interface PrivateIdentifier extends BaseNode {
+    type: "PrivateIdentifier";
+    name: string;
+}
+
 export interface Property extends BaseNode {
   type: "Property";
-  key: Expression;
+  key: Expression | PrivateIdentifier;
   value: Expression | Pattern; // Could be an AssignmentProperty
   kind: "init" | "get" | "set";
   method: boolean;
   shorthand: boolean;
   computed: boolean;
+}
+
+export interface PropertyDefinition extends BaseNode {
+    type: "PropertyDefinition";
+    key: Expression | PrivateIdentifier;
+    value?: Expression | null;
+    computed: boolean;
+    static: boolean;
 }
 
 export interface FunctionExpression extends BaseFunction, BaseExpression {
@@ -332,7 +345,7 @@ export interface NewExpression extends BaseCallExpression {
 export interface MemberExpression extends BaseExpression, BasePattern {
   type: "MemberExpression";
   object: Expression | Super;
-  property: Expression;
+  property: Expression | PrivateIdentifier;
   computed: boolean;
   optional: boolean;
 }
@@ -360,7 +373,7 @@ export interface Identifier extends BaseNode, BaseExpression, BasePattern {
   name: string;
 }
 
-export type Literal = SimpleLiteral | RegExpLiteral;
+export type Literal = SimpleLiteral | RegExpLiteral | BigIntLiteral;
 
 export interface SimpleLiteral extends BaseNode, BaseExpression {
   type: "Literal";
@@ -375,6 +388,13 @@ export interface RegExpLiteral extends BaseNode, BaseExpression {
     pattern: string;
     flags: string;
   };
+  raw?: string;
+}
+
+export interface BigIntLiteral extends BaseNode, BaseExpression {
+  type: "Literal";
+  value?: bigint | null;
+  bigint: string;
   raw?: string;
 }
 
@@ -477,12 +497,12 @@ interface BaseClass extends BaseNode {
 
 export interface ClassBody extends BaseNode {
   type: "ClassBody";
-  body: Array<MethodDefinition>;
+  body: Array<MethodDefinition | PropertyDefinition>;
 }
 
 export interface MethodDefinition extends BaseNode {
   type: "MethodDefinition";
-  key: Expression;
+  key: Expression | PrivateIdentifier;
   value: FunctionExpression;
   kind: "constructor" | "method" | "get" | "set";
   computed: boolean;

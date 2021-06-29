@@ -18,7 +18,14 @@ export interface Mjml2HtmlOptions {
     filePath?: string;
 }
 
-export function render(email: React.ReactElement, options?: Mjml2HtmlOptions): { html: string; errors: Error[] };
+export interface MjmlError {
+    line: number;
+    message: string;
+    tagName: string;
+    formattedMessage: string;
+}
+
+export function render(email: React.ReactElement, options?: Mjml2HtmlOptions): { html: string; errors: MjmlError[] };
 
 // Components
 
@@ -46,8 +53,18 @@ export interface BorderProps {
     borderRadius?: string | number;
 }
 
+export interface InnerBorderProps {
+    innerBorder?: string;
+    innerBorderBottom?: string;
+    innerBorderLeft?: string;
+    innerBorderTop?: string;
+    innerBorderRight?: string;
+    innerBorderRadius?: string | number;
+}
+
 export interface ClassNameProps {
     cssClass?: string;
+    mjClass?: string;
 }
 
 export interface HrefProps {
@@ -189,14 +206,14 @@ export interface MjmlCarouselImageProps {
 
 export class MjmlCarouselImage extends React.Component<MjmlCarouselImageProps & ClassNameProps & HrefProps> { }
 
-// mj-carousel
 export interface MjmlColumnProps {
     width?: string | number;
     verticalAlign?: React.CSSProperties['verticalAlign'];
     backgroundColor?: React.CSSProperties['backgroundColor'];
+    innerBackgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlColumn extends React.Component<MjmlColumnProps & PaddingProps & ClassNameProps & BorderProps> { }
+export class MjmlColumn extends React.Component<MjmlColumnProps & PaddingProps & ClassNameProps & BorderProps & InnerBorderProps> { }
 
 // mj-divider
 export interface MjmlDividerProps {
@@ -318,7 +335,7 @@ export interface MjmlSocialProps {
     containerBackgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlSocial extends React.Component<MjmlSocialProps & PaddingProps> { }
+export class MjmlSocial extends React.Component<MjmlSocialProps & PaddingProps & ClassNameProps> { }
 
 export interface MjmlSocialElementProps {
     borderRadius?: string | number;

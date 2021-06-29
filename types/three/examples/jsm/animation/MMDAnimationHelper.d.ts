@@ -1,4 +1,17 @@
-import { AnimationClip, Audio, Camera, Mesh, Object3D, SkinnedMesh } from '../../../src/Three';
+import {
+    AnimationClip,
+    Audio,
+    Camera,
+    Mesh,
+    Object3D,
+    Quaternion,
+    SkinnedMesh,
+    Bone,
+    AnimationMixer,
+} from '../../../src/Three';
+
+import { CCDIKSolver } from './CCDIKSolver';
+import { MMDPhysics } from './MMDPhysics';
 
 export interface MMDAnimationHelperParameter {
     sync?: boolean;
@@ -22,9 +35,18 @@ export interface MMDAnimationHelperPoseParameter {
     grant?: boolean;
 }
 
+export interface MMDAnimationHelperMixer {
+    looped: boolean;
+    mixer?: AnimationMixer;
+    ikSolver: CCDIKSolver;
+    grantSolver: GrantSolver;
+    physics?: MMDPhysics;
+    duration?: number;
+}
+
 export class MMDAnimationHelper {
     constructor(params?: MMDAnimationHelperParameter);
-    meshes: Mesh[];
+    meshes: SkinnedMesh[];
     camera: Camera | null;
     cameraTarget: Object3D;
     audio: Audio;
@@ -41,6 +63,7 @@ export class MMDAnimationHelper {
         physics: boolean;
         cameraAnimation: boolean;
     };
+    objects: WeakMap<SkinnedMesh | Camera | AudioManager, MMDAnimationHelperMixer>;
     onBeforePhysics: (mesh: SkinnedMesh) => void;
     sharedPhysics: boolean;
     masterPhysics: null;
@@ -75,4 +98,6 @@ export class GrantSolver {
     grants: object[];
 
     update(): this;
+    updateOne(gran: object[]): this;
+    addGrantRotation(bone: Bone, q: Quaternion, ratio: number): this;
 }

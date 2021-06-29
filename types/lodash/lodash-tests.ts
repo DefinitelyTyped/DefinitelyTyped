@@ -5270,7 +5270,7 @@ fp.now(); // $ExpectType number
 
     fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never>
     fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never>
-    fp.get([Symbol.iterator], []); // $ExpectType any
+    fp.get([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
     fp.get(1)("abc"); // $ExpectType string
     fp.get("1")("abc"); // $ExpectType any
     fp.get("a", { a: { b: true } }); // $ExpectType { b: boolean; }

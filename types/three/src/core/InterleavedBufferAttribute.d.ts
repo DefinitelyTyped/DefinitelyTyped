@@ -1,6 +1,7 @@
 import { BufferAttribute } from './BufferAttribute';
 import { InterleavedBuffer } from './InterleavedBuffer';
 import { Matrix4 } from './../math/Matrix4';
+import { Matrix } from './../math/Matrix3';
 /**
  * see {@link https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBufferAttribute.js|src/core/InterleavedBufferAttribute.js}
  */
@@ -29,16 +30,16 @@ export class InterleavedBufferAttribute {
     applyMatrix4(m: Matrix4): this;
     clone(data?: object): BufferAttribute;
     getX(index: number): number;
-    setX(index: number, x: number): InterleavedBufferAttribute;
+    setX(index: number, x: number): this;
     getY(index: number): number;
-    setY(index: number, y: number): InterleavedBufferAttribute;
+    setY(index: number, y: number): this;
     getZ(index: number): number;
-    setZ(index: number, z: number): InterleavedBufferAttribute;
+    setZ(index: number, z: number): this;
     getW(index: number): number;
-    setW(index: number, z: number): InterleavedBufferAttribute;
-    setXY(index: number, x: number, y: number): InterleavedBufferAttribute;
-    setXYZ(index: number, x: number, y: number, z: number): InterleavedBufferAttribute;
-    setXYZW(index: number, x: number, y: number, z: number, w: number): InterleavedBufferAttribute;
+    setW(index: number, z: number): this;
+    setXY(index: number, x: number, y: number): this;
+    setXYZ(index: number, x: number, y: number, z: number): this;
+    setXYZW(index: number, x: number, y: number, z: number, w: number): this;
     toJSON(
         data?: object,
     ): {
@@ -48,4 +49,6 @@ export class InterleavedBufferAttribute {
         offset: number;
         normalized: boolean;
     };
+    applyNormalMatrix(matrix: Matrix): this;
+    transformDirection(matrix: Matrix): this;
 }

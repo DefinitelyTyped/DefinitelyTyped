@@ -8,7 +8,9 @@
 //                 Veniamin Krol <https://github.com/vkrol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var grecaptcha: ReCaptchaV2.ReCaptcha;
+declare var grecaptcha: ReCaptchaV2.ReCaptcha & {
+  enterprise: ReCaptchaV2.ReCaptcha;
+};
 
 declare namespace ReCaptchaV2 {
   interface ReCaptcha {

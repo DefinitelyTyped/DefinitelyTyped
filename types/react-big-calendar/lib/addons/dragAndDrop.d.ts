@@ -2,8 +2,8 @@ import { Calendar, CalendarProps, Components, Event, stringOrDate } from '../../
 import * as React from 'react';
 
 export interface withDragAndDropProps<TEvent extends object = Event, TResource extends object = object> {
-  onEventDrop?: (args: { event: TEvent, start: stringOrDate, end: stringOrDate, allDay: boolean }) => void;
-  onEventResize?: (args: { event: TEvent, start: stringOrDate, end: stringOrDate, allDay: boolean }) => void;
+  onEventDrop?: (args: { event: TEvent, start: stringOrDate, end: stringOrDate, isAllDay: boolean }) => void;
+  onEventResize?: (args: { event: TEvent, start: stringOrDate, end: stringOrDate, isAllDay: boolean }) => void;
   onDragStart?: (args: { event: TEvent, action: 'resize' | 'move', direction: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT' }) => void;
   onDragOver?: (event: React.DragEvent) => void;
   onDropFromOutside?: (args: { start: stringOrDate, end: stringOrDate, allDay: boolean}) => void;

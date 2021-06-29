@@ -9,7 +9,6 @@ import {
     Polygon,
     Topology,
 } from 'topojson-specification';
-
 import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import { ProjectionLike } from '../proj';

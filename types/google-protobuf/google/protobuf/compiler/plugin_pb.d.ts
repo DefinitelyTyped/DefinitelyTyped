@@ -90,6 +90,11 @@ export class CodeGeneratorResponse extends jspb.Message {
   getError(): string | undefined;
   setError(value: string): CodeGeneratorResponse;
 
+  hasSupportedFeatures(): boolean;
+  clearSupportedFeatures(): CodeGeneratorResponse;
+  getSupportedFeatures(): number | undefined;
+  setSupportedFeatures(value: number): CodeGeneratorResponse;
+
   clearFileList(): CodeGeneratorResponse;
   getFileList(): Array<CodeGeneratorResponse.File>;
   setFileList(value: Array<CodeGeneratorResponse.File>): CodeGeneratorResponse;
@@ -108,7 +113,13 @@ export class CodeGeneratorResponse extends jspb.Message {
 export namespace CodeGeneratorResponse {
   export type AsObject = {
     error?: string,
+    supportedFeatures?: number,
     fileList: Array<File.AsObject>,
+  }
+
+  export enum Feature {
+    FEATURE_NONE = 0,
+    FEATURE_PROTO3_OPTIONAL = 1,
   }
 
   export class File extends jspb.Message {

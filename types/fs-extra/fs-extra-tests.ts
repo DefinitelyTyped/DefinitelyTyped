@@ -299,3 +299,28 @@ fs.realpath('src', (err, resolved) => {
 fs.realpath.native('src');
 // $ExpectType Promise<Buffer>
 fs.realpath.native('src', 'buffer');
+// $ExpectType Promise<string>
+fs.realpath.native('src', { encoding: 'utf-8' });
+// $ExpectType Promise<Buffer>
+fs.realpath.native('src', { encoding: 'buffer' });
+// $ExpectType Promise<string>
+fs.realpath.native('src', { encoding: null });
+
+async function rmTest() {
+    // $ExpectType void
+    await fs.rm('path');
+    // $ExpectType void
+    await fs.rm('path', {
+        force: true,
+        maxRetries: 1,
+        recursive: true,
+        retryDelay: 200,
+    });
+}
+
+async function rmDirTest() {
+    // $ExpectType void
+    await fs.rmdir('dir');
+    // $ExpectType void
+    await fs.rmdir('dir', { maxRetries: 1, recursive: true, retryDelay: 200 });
+}

@@ -8,7 +8,7 @@ export interface TimePickerProps extends Omit<ReactInputAttr, "id" | "size"> {
     invalidText?: React.ReactNode,
     labelText?: React.ReactNode,
     light?: boolean,
-    size?: "sm" | "xl",
+    size?: "sm" | "md" | "lg" | "xl",
 }
 
 declare class TimePicker extends React.Component<TimePickerProps> { }

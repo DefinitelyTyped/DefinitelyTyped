@@ -3,6 +3,7 @@
 // Definitions by: Ryan Clark <https://github.com/rynclark>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 /// <reference types="node" />
 
 import { Plugin, ProgressPlugin } from 'webpack';

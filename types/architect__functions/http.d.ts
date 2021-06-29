@@ -126,6 +126,17 @@ export interface HttpProxyOptions {
 
 export type HttpProxy = (options: HttpProxyOptions) => HttpHandler;
 
+export interface StaticOptions {
+    stagePath: string;
+}
+
+export interface Helpers {
+    bodyParser: (req: HttpRequest) => Record<string, any>;
+    interpolate: (req: HttpRequest) => HttpRequest;
+    static: (asset: string, options?: StaticOptions) => string;
+    url: (url: string) => string;
+}
+
 export interface ArcHttp {
     /**
      * https://arc.codes/docs/en/reference/runtime/node#arc.http.async
@@ -135,6 +146,10 @@ export interface ArcHttp {
      * https://arc.codes/docs/en/reference/runtime/node#arc.http.express
      */
     express: HttpExpress;
+    /**
+     * https://github.com/architect/functions/blob/3f11406b651f2854371906ad5f9eb9c300433032/src/http/index.js#L21-L26
+     */
+    helpers: Helpers;
     /**
      * https://arc.codes/docs/en/reference/runtime/node#arc.http.proxy
      */

@@ -1,13 +1,15 @@
 import { Coordinate } from '../../coordinate';
 import { EventsKey } from '../../events';
 import BaseEvent from '../../events/Event';
-import Feature, { FeatureLike } from '../../Feature';
+import Feature from '../../Feature';
 import Geometry from '../../geom/Geometry';
 import Layer from '../../layer/Layer';
 import { Pixel } from '../../pixel';
 import { FrameState } from '../../PluggableMap';
 import Source from '../../source/Source';
 import { UniformValue } from '../../webgl/Helper';
+import { HitMatch } from '../Map';
+import { FeatureCallback } from '../vector';
 import WebGLLayerRenderer, { PostProcessesOptions } from './Layer';
 
 /**
@@ -28,6 +30,7 @@ export interface FeatureCacheItem {
     geometry: Geometry;
 }
 export interface Options {
+    className?: string;
     attributes?: CustomAttribute[];
     vertexShader: string;
     fragmentShader: string;
@@ -46,9 +49,9 @@ export default class WebGLPointsLayerRenderer extends WebGLLayerRenderer {
         coordinate: Coordinate,
         frameState: FrameState,
         hitTolerance: number,
-        callback: (p0: FeatureLike, p1: Layer<Source>) => T,
-        declutteredFeatures: FeatureLike[],
-    ): T;
+        callback: FeatureCallback<T>,
+        matches: HitMatch<T>[],
+    ): T | undefined;
     getDataAtPixel(pixel: Pixel, frameState: FrameState, hitTolerance: number): Uint8ClampedArray | Uint8Array;
     /**
      * Perform action necessary to get the layer rendered after new fonts have loaded

@@ -46,7 +46,6 @@ interface RTCIceTransport {
     readonly gatheringState: RTCIceGatheringState;
     getLocalCandidates(): RTCIceCandidate[];
     getRemoteCandidates(): RTCIceCandidate[];
-    getSelectedCandidatePair(): RTCIceCandidatePair | null;
     getLocalParameters(): RTCIceParameters | null;
     getRemoteParameters(): RTCIceParameters | null;
     onstatechange: IceTransportEventHandler;
@@ -94,7 +93,7 @@ interface RTCRtpEncodingParameters {
     //ssrc: number;
     //rtx: RTCRtpRtxParameters;
     //fec: RTCRtpFecParameters;
-    dtx?: RTCDtxStatus;
+    // dtx?: RTCDtxStatus;
     //active: boolean;
     //priority: RTCPriorityType;
     //maxBitrate: number;
@@ -131,7 +130,7 @@ interface RTCRtpParameters {
     //headerExtensions: RTCRtpHeaderExtensionParameters[];
     //rtcp: RTCRtcpParameters;
     //codecs: RTCRtpCodecParameters[];
-    degradationPreference?: RTCDegradationPreference; // default = 'balanced'
+    // degradationPreference?: RTCDegradationPreference; // default = 'balanced'
 }
 
 // https://www.w3.org/TR/webrtc/#dom-rtcrtpcontributingsource
@@ -235,7 +234,7 @@ interface RTCDataChannel extends EventTarget {
     readonly readyState: RTCDataChannelState;
     readonly bufferedAmount: number;
     bufferedAmountLowThreshold: number;
-    binaryType: string;
+    // binaryType: string;
 
     close(): void;
     send(data: string | Blob | ArrayBuffer | ArrayBufferView): void;
@@ -243,7 +242,7 @@ interface RTCDataChannel extends EventTarget {
     onopen: DataChannelEventHandler<Event>;
     onmessage: DataChannelEventHandler<MessageEvent>;
     onbufferedamountlow: DataChannelEventHandler<Event>;
-    onerror: DataChannelEventHandler<RTCErrorEvent>;
+    // onerror: DataChannelEventHandler<RTCErrorEvent>;
     onclose: DataChannelEventHandler<Event>;
 }
 
@@ -335,7 +334,7 @@ interface RTCPeerConnection extends EventTarget {
         successCallback: () => void,
         failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
     getStats(selector: MediaStreamTrack | null,
-        successCallback: RTCStatsCallback,
+        successCallback: (report: RTCStatsReport) => void,
         failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
 }
 interface RTCPeerConnectionStatic {

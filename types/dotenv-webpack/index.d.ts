@@ -4,7 +4,9 @@
 //                 Dave Cardwell <https://github.com/davecardwell>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
+/// <reference types="node" />
 import { Compiler } from 'webpack';
 
 /**

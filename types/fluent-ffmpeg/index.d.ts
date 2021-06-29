@@ -147,6 +147,7 @@ declare namespace Ffmpeg {
         channel_layout?: string;
         bits_per_sample?: number;
         disposition?: FfprobeStreamDisposition;
+        rotation?: string | number;
     }
 
     interface FfprobeStreamDisposition {

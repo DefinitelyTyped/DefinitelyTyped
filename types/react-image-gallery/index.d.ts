@@ -25,6 +25,10 @@ export interface ReactImageGalleryItem {
     }): void;
     description?: string;
     original: string;
+    originalHeight?: number;
+    originalWidth?: number;
+    thumbnailHeight?: number;
+    thumbnailWidth?: number;
     fullscreen?: string;
     originalAlt?: string;
     originalTitle?: string;

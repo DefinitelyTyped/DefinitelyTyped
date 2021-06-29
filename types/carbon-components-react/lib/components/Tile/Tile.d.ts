@@ -22,22 +22,27 @@ export declare class ClickableTile extends React.Component<ClickableTileProps> {
 
 // SelectableTile
 
-type SelectedTileExcludedAttributes = "onChange" | "onClick" | "onKeyDown";
-
-export interface SelectableTileProps extends Omit<ReactLabelAttr, SelectedTileExcludedAttributes> {
+export interface SelectableTileProps extends Omit<ReactLabelAttr, "onChange"> {
+    disabled?: boolean;
+    /**
+     * @deprecated
+     */
     handleClick?(e: React.MouseEvent<HTMLLabelElement>): void,
+    /**
+     * @deprecated
+     */
     handleKeyDown?(e: React.KeyboardEvent<HTMLLabelElement>): void,
     /**
      * @deprecated
      */
     iconDescription?: string,
     light?: boolean,
-    onChange(e: React.KeyboardEvent<HTMLLabelElement> | React.MouseEvent<HTMLLabelElement>): void,
+    onChange?(e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLLabelElement> | React.KeyboardEvent<HTMLLabelElement>): void,
     selected?: boolean,
     value: string | number,
 }
 
-export declare class SelectableTile extends React.Component<SelectableTileProps> { }
+export declare const SelectableTile: React.FC<SelectableTileProps>;
 
 // ExpandableTile
 

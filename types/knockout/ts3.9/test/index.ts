@@ -630,6 +630,13 @@ function testUnwrapUnion() {
 
 }
 
+function testPeekUnion() {
+
+    var possibleObs: KnockoutObservable<number> | number = 0;
+    var num = ko.utils.peekObservable(possibleObs);
+
+}
+
 function test_tasks() {
     // Schedule an empty task
     ko.tasks.schedule(function () {

@@ -1,34 +1,27 @@
-// Type definitions for split2 2.1.0
+// Type definitions for split2 3.2
 // Project: https://github.com/mcollina/split2
 // Definitions by: TANAKA Koichi <https://github.com/mugeso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-declare module "split2" {
-    import { Transform, TransformOptions } from 'stream';
 
-    type Matcher = string|RegExp;
-    type Mapper = split.Mapper;
-    type Options = split.Options;
+import { Transform, TransformOptions } from "stream";
 
-    function split(): Transform;
-    function split(matcher: Matcher): Transform;
-    function split(mapper: Mapper): Transform;
-    function split(options: Options): Transform;
-    function split(matcher: Matcher, mapper: Mapper): Transform;
-    function split(matcher: Matcher, options: Options): Transform;
-    function split(mapper: Mapper, options: Options): Transform;
-    function split(matcher: Matcher, mapper: Mapper, options: Options): Transform;
+declare function split(matcher: split.Matcher, Mapper: split.Mapper, options?: split.Options): Transform;
+declare function split(mapper: split.Mapper, options?: split.Options): Transform;
+// tslint:disable-next-line unified-signatures
+declare function split(matcher: split.Matcher, options?: split.Options): Transform;
+declare function split(options?: split.Options): Transform;
 
-    namespace split {
-        export interface Mapper {
-            (line: string): any;
-        }
-
-        export interface Options extends TransformOptions {
-           maxLength?: number;
-        }
+declare namespace split {
+    interface Mapper {
+        (line: string): any;
     }
 
-    export = split;
+    interface Options extends TransformOptions {
+        maxLength?: number;
+    }
+    type Matcher = string | RegExp;
 }
+
+export = split;

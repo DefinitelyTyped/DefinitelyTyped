@@ -1,14 +1,13 @@
 import * as React from "react";
 
-// export interface HeaderType {
-//     key?: string;
-//     header?: React.ReactNode;
-// }
+export interface DataTableSkeletonHeader {
+    key?: string;
+}
 
 export interface DataTableSkeletonProps extends React.TableHTMLAttributes<HTMLTableElement> {
     compact?: boolean;
     columnCount?: number;
-    // headers?: ReadonlyArray<string> | ReadonlyArray<ShapeOf<HeaderType>>; // doesn't seem to be used anymore but prop type is still there so leaving this commented out.
+    headers?: readonly DataTableSkeletonHeader[];
     rowCount?: number;
     showHeader?: boolean;
     showToolbar?: boolean;

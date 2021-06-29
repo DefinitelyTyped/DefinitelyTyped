@@ -532,6 +532,18 @@ Meteor.loginWithGithub({
 
 Meteor.loggingOut(); // $ExpectType boolean
 
+Meteor.user();
+Meteor.user({});
+Meteor.user({ fields: {} });
+Meteor.user({ fields: { _id: 1 } });
+Meteor.user({ fields: { profile: 0 } });
+
+Accounts.user();
+Accounts.user({});
+Accounts.user({ fields: {} });
+Accounts.user({ fields: { _id: 1 } });
+Accounts.user({ fields: { profile: 0 } });
+
 /**
  * From Accounts, Accounts.ui.config section
  */

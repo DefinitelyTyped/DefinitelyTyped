@@ -6,7 +6,7 @@ import {
     executionAsyncResource,
     HookCallbacks,
     AsyncLocalStorage,
-} from 'node:async_hooks';
+} from 'async_hooks';
 
 {
     const hooks: HookCallbacks = {
@@ -55,6 +55,10 @@ import {
       triggerAsyncId: 0,
       requireManualDestroy: true
     });
+
+    const asyncResource = new AsyncResource('');
+    // $ExpectType AsyncResource
+    asyncResource.emitDestroy();
 }
 
 {

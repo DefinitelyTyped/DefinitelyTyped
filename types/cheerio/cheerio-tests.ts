@@ -45,6 +45,27 @@ $ = cheerio.load(html, {
     recognizeSelfClosing: true,
 });
 
+const [$ele1] = Array.from($('.class'));
+
+/**
+ * Start and end indicies for all tags
+ */
+
+const indicesHTML = `<div id="fruits"><!-- This is a pear -->Pear</div>`;
+
+const indicesHTMLRoot = cheerio.load(indicesHTML, {
+  withStartIndices: true,
+  withEndIndices: true,
+});
+
+const tagEl = indicesHTMLRoot('*')[0] as cheerio.TagElement;
+const commentEl = tagEl.firstChild as cheerio.CommentElement;
+const textEl = tagEl.lastChild as cheerio.TextElement;
+
+tagEl.endIndex! - tagEl.startIndex!;
+commentEl.endIndex! - commentEl.startIndex!;
+textEl.endIndex! - textEl.startIndex!;
+
 /**
  * Selectors
  */
@@ -346,9 +367,13 @@ cheerio.html($el);
 cheerio.version;
 
 const doSomething = (element: cheerio.Element): void => {
-    if (element.type !== 'text' && element.type !== 'comment') {
+    if (element.type !== 'text' && element.type !== 'comment' && element.type !== 'script' && element.type !== 'style') {
         // $ExpectType { [attr: string]: string; }
         element.attribs;
+        // $ExpectType { [attr: string]: string; }
+        element['x-attribsNamespace'];
+        // $ExpectType { [attr: string]: string; }
+        element['x-prefixNamespace'];
         // $ExpectType Element[]
         element.children;
     }
@@ -357,8 +382,13 @@ const doSomething = (element: cheerio.Element): void => {
     let a = element.firstChild;
     // $ExpectError
     let b = element.lastChild;
-    // $ExpectType TextElement | TagElement | CommentElement | null
-    let c = element.next;
-    // $ExpectType TextElement | TagElement | CommentElement | null
-    let d = element.prev;
+
+    if (element.next) {
+        // $ExpectType "text" | "tag" | "script" | "style" | "comment"
+        let d = element.next.type;
+    }
+    if (element.prev) {
+        // $ExpectType "text" | "tag" | "script" | "style" | "comment"
+        let d = element.prev.type;
+    }
 };

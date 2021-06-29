@@ -1,10 +1,5 @@
-declare module 'node:stream' {
-    import Stream = require('stream');
-    export = Stream;
-}
-
 declare module 'stream' {
-    import EventEmitter = require('node:events');
+    import EventEmitter = require('events');
 
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;

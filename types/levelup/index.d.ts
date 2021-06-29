@@ -131,7 +131,7 @@ interface LevelUpConstructor {
         db: DB,
         cb?: ErrorCallback): LevelUp<DB>;
 
-    errors: /*typeof levelerrors*/ any; // ? level-errors is not in DT
+    errors: Record<string, Error>;
 }
 
 export interface LevelUpChain<K = any, V = any> {
@@ -143,7 +143,7 @@ export interface LevelUpChain<K = any, V = any> {
     write(): Promise<this>;
 }
 
-export const errors: /*typeof levelerrors*/ any; // ? level-errors is not in DT
+export const errors: LevelUpConstructor["errors"];
 
 declare const LevelUp: LevelUpConstructor;
 export default LevelUp;

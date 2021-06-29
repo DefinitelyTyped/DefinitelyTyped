@@ -326,7 +326,7 @@ declare const CPU_UNLOCK: CPU_UNLOCK;
 declare const PIXEL: PIXEL;
 declare const ACCESS_KEY: ACCESS_KEY;
 
-declare const PIXEL_CPU_COST: 5000;
+declare const PIXEL_CPU_COST: 10000;
 
 declare const CONTROLLER_LEVELS: { [level: number]: number };
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, { [level: number]: number }>;
@@ -1172,7 +1172,7 @@ interface Creep extends RoomObject {
      *
      * The target has to be within 3 squares range of the creep.
      *
-     * @param target The target object to be attacked.
+     * @param target The target construction site to be built.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_RCL_NOT_ENOUGH
      */
     build(target: ConstructionSite): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES | ERR_RCL_NOT_ENOUGH;
@@ -1410,7 +1410,11 @@ interface Deposit extends RoomObject {
      */
     id: Id<this>;
     /**
-     * The amount of game ticks until the next harvest action is possible.
+     * The deposit type, one of the following constants:
+     * * `RESOURCE_MIST`
+     * * `RESOURCE_BIOMASS`
+     * * `RESOURCE_METAL`
+     * * `RESOURCE_SILICON`
      */
     depositType: DepositConstant;
     /**
@@ -3130,7 +3134,7 @@ interface Market {
      * @param resource One of the RESOURCE_* constants. If undefined, returns history data for all resources. Optional
      * @returns An array of objects with resource info.
      */
-    getHistory(resource?: ResourceConstant): PriceHistory[];
+    getHistory(resource?: MarketResourceConstant): PriceHistory[];
     /**
      * Retrieve info for specific market order.
      * @param orderId The order ID.
@@ -5578,6 +5582,10 @@ interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
      * Shows the timer for a not yet deployed stronghold, undefined otherwise.
      */
     ticksToDeploy: number;
+    /**
+     * If the core is in process of spawning a new creep, this object will contain a `StructureSpawn.Spawning` object, or `null` otherwise.
+     */
+    spawning: Spawning | null;
 }
 
 interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore> {}

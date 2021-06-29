@@ -16,7 +16,6 @@ import styled, {
     StyledComponent,
     ThemedStyledComponentsModule,
     FlattenSimpleInterpolation,
-    SimpleInterpolation,
     FlattenInterpolation,
 } from 'styled-components';
 import {} from 'styled-components/cssprop';
@@ -329,6 +328,9 @@ const AttrsWithOnlyNewProps = styled.h2.attrs({ as: 'h1' })`
 
 const AttrsInputExtra = styled(AttrsInput).attrs({ autoComplete: 'off' })``;
 <AttrsInputExtra />;
+
+const Button = styled('button').attrs((a) => ({ type: a.type ?? 'button' }))``;
+const SomeButton: React.FC = () => <Button type="submit">I am a button</Button>;
 
 /**
  * withConfig
@@ -643,6 +645,8 @@ interface ExternalAsComponentProps {
 }
 const ExternalAsComponent: React.FC<ExternalAsComponentProps> = () => null;
 const WrappedExternalAsComponent = styled(ExternalAsComponent)``;
+const testRequiredProp = <WrappedExternalAsComponent />; // $ExpectError
+const testRequiredPropWhenForwardedAs = <WrappedExternalAsComponent forwardedAs="h2" />; // $ExpectError
 const ForwardedAsWithWrappedExternalTest = (
     <>
         <WrappedExternalAsComponent forwardedAs="h2" type="primitive" />
@@ -653,6 +657,20 @@ const ForwardedAsWithNestedAsExternalTest = (
     <>
         <ForwardedAsNestedComponent as={ExternalAsComponent} forwardedAs="h2" type="primitive" />
         <ForwardedAsNestedComponent as={ExternalAsComponent} forwardedAs={WithComponentH2} type="complex" />
+    </>
+);
+
+interface OtherExternalComponentProps {
+    requiredProp: 'test';
+}
+
+const OtherExternalComponent: React.FC<OtherExternalComponentProps> = () => null;
+const HasAttributesOfAsOrForwardedAsComponent = (
+    <>
+        <WrappedExternalAsComponent as="a" type="primitive" href="/" />
+        <WrappedExternalAsComponent forwardedAs="a" type="complex" href="/" />
+        <WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" />
+        <WrappedExternalAsComponent forwardedAs={OtherExternalComponent} type="complex" requiredProp="test" />
     </>
 );
 
@@ -677,7 +695,8 @@ class Test2Container extends React.Component<Test2ContainerProps> {
     }
 }
 
-const containerTest = <StyledTestContainer as={Test2Container} type="foo" />;
+const containerTest = <StyledTestContainer as={Test2Container} type="foo" size="big"/>;
+const containerTestTwo = <StyledTestContainer forwardedAs={Test2Container} type="foo" size="big" />;
 
 // 4.0 refs
 

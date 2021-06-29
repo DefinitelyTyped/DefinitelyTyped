@@ -5,7 +5,7 @@
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 //                 Teramoto Daiki <https://github.com/teramotodaiki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 4.4
 
 /// <reference lib="dom" />
 
@@ -15,12 +15,10 @@ interface IdleDeadline {
 }
 
 interface IdleRequestOptions {
-    timeout: number;
+    timeout?: number;
 }
 
 type IdleCallbackHandle = number;
-
-type IdleRequestCallback = (deadline: IdleDeadline) => void;
 
 interface Window {
     requestIdleCallback(callback: IdleRequestCallback, options?: IdleRequestOptions): IdleCallbackHandle;

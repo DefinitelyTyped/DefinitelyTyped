@@ -2,6 +2,7 @@
 // Project: https://github.com/laptransang/react-router-guard#readme
 // Definitions by: TSL <https://github.com/laptransang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import * as React from 'react';
 import * as H from 'history';

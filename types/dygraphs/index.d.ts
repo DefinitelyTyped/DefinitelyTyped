@@ -1238,7 +1238,7 @@ export default class Dygraph {
      * high] tuples, one for each y-axis.
      * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#yAxisExtremes}
      */
-    yAxisExtremes(): [number, number];
+    yAxisExtremes(): Array<[number, number]>;
 
     /**
      * Convert from data coordinates to canvas/div X/Y coordinates.

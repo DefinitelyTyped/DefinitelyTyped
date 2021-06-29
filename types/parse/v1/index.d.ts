@@ -926,11 +926,11 @@ declare namespace Parse {
 
         // Read preference describes how MongoDB driver route read operations to the members of a replica set.
         enum ReadPreferenceOption {
-            Primary = 'PRIMARY',
-            PrimaryPreferred = 'PRIMARY_PREFERRED',
-            Secondary = 'SECONDARY',
-            SecondaryPreferred = 'SECONDARY_PREFERRED',
-            Nearest = 'NEAREST',
+            Primary = "PRIMARY",
+            PrimaryPreferred = "PRIMARY_PREFERRED",
+            Secondary = "SECONDARY",
+            SecondaryPreferred = "SECONDARY_PREFERRED",
+            Nearest = "NEAREST",
         }
 
         interface BeforeFindRequest extends TriggerRequest {
@@ -1155,16 +1155,16 @@ declare namespace Parse {
     function setAsyncStorage(AsyncStorage: any): void;
 }
 
-declare module 'parse/node' {
+declare module "parse/node" {
     export = Parse;
 }
 
-declare module 'parse' {
-    import * as parse from 'parse/node';
+declare module "parse" {
+    import * as parse from "parse/node";
     export = parse;
 }
 
-declare module 'parse/react-native' {
-    import * as parse from 'parse/node';
+declare module "parse/react-native" {
+    import * as parse from "parse/node";
     export = parse;
 }

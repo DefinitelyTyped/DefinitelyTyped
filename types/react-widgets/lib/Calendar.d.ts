@@ -1,8 +1,8 @@
-import { ComponentClass } from 'react';
-import { ReactWidgetsCommonProps, AutoFocus } from './CommonProps';
+import { ComponentClass } from "react";
+import { ReactWidgetsCommonProps, AutoFocus } from "./CommonProps";
 
 declare namespace Calendar {
-    type CalendarView = 'month' | 'year' | 'decade' | 'century';
+    type CalendarView = "month" | "year" | "decade" | "century";
 
     interface CalendarProps extends ReactWidgetsCommonProps, AutoFocus {
         /**

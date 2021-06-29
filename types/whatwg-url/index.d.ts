@@ -1,9 +1,9 @@
-// Type definitions for whatwg-url 8.0
+// Type definitions for whatwg-url 8.2
 // Project: https://github.com/jsdom/whatwg-url#readme
 // Definitions by: Alexander Marks <https://github.com/aomarks>
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.6
 
 /// <reference types="node"/>
 
@@ -27,25 +27,54 @@ export type IPv6Address = [number, number, number, number, number, number, numbe
 export class URL {
     constructor(url: string, base?: string | URL);
 
-    href: string;
-    readonly origin: string;
-    protocol: string;
-    username: string;
-    password: string;
-    host: string;
-    hostname: string;
-    port: string;
-    pathname: string;
-    search: string;
-    readonly searchParams: URLSearchParams;
-    hash: string;
+    get href(): string;
+    set href(V: string);
+
+    get origin(): string;
+
+    get protocol(): string;
+    set protocol(V: string);
+
+    get username(): string;
+    set username(V: string);
+
+    get password(): string;
+    set password(V: string);
+
+    get host(): string;
+    set host(V: string);
+
+    get hostname(): string;
+    set hostname(V: string);
+
+    get port(): string;
+    set port(V: string);
+
+    get pathname(): string;
+    set pathname(V: string);
+
+    get search(): string;
+    set search(V: string);
+
+    get searchParams(): URLSearchParams;
+
+    get hash(): string;
+    set hash(V: string);
 
     toJSON(): string;
+
+    readonly [Symbol.toStringTag]: "URL";
 }
 
 /** https://url.spec.whatwg.org/#interface-urlsearchparams */
 export class URLSearchParams {
-    constructor(init?: Array<[string, string]> | Iterable<[string, string]> | { [name: string]: string } | string);
+    constructor(
+        init?:
+            | ReadonlyArray<readonly [name: string, value: string]>
+            | Iterable<readonly [name: string, value: string]>
+            | { readonly [name: string]: string }
+            | string,
+    );
 
     append(name: string, value: string): void;
     delete(name: string): void;
@@ -55,11 +84,23 @@ export class URLSearchParams {
     set(name: string, value: string): void;
     sort(): void;
 
-    [Symbol.iterator](): IterableIterator<[string, string]>;
+    keys(): IterableIterator<string>;
+    values(): IterableIterator<string>;
+    entries(): IterableIterator<[name: string, value: string]>;
+    forEach<THIS_ARG = void>(
+        callback: (this: THIS_ARG, value: string, name: string, searchParams: this) => void,
+        thisArg?: THIS_ARG,
+    ): void;
+
+    readonly [Symbol.toStringTag]: "URLSearchParams";
+    [Symbol.iterator](): IterableIterator<[name: string, value: string]>;
 }
 
 /** https://url.spec.whatwg.org/#concept-url-parser */
-export function parseURL(input: string, options?: { baseURL?: string; encodingOverride?: string }): URLRecord | null;
+export function parseURL(
+    input: string,
+    options?: { readonly baseURL?: string; readonly encodingOverride?: string },
+): URLRecord | null;
 
 /** https://url.spec.whatwg.org/#concept-basic-url-parser */
 export function basicURLParse(
@@ -74,27 +115,27 @@ export function basicURLParse(
 
 /** https://url.spec.whatwg.org/#scheme-start-state */
 export type StateOverride =
-    | 'scheme start'
-    | 'scheme'
-    | 'no scheme'
-    | 'special relative or authority'
-    | 'path or authority'
-    | 'relative'
-    | 'relative slash'
-    | 'special authority slashes'
-    | 'special authority ignore slashes'
-    | 'authority'
-    | 'host'
-    | 'hostname'
-    | 'port'
-    | 'file'
-    | 'file slash'
-    | 'file host'
-    | 'path start'
-    | 'path'
-    | 'cannot-be-a-base-URL path'
-    | 'query'
-    | 'fragment';
+    | "scheme start"
+    | "scheme"
+    | "no scheme"
+    | "special relative or authority"
+    | "path or authority"
+    | "relative"
+    | "relative slash"
+    | "special authority slashes"
+    | "special authority ignore slashes"
+    | "authority"
+    | "host"
+    | "hostname"
+    | "port"
+    | "file"
+    | "file slash"
+    | "file host"
+    | "path start"
+    | "path"
+    | "cannot-be-a-base-URL path"
+    | "query"
+    | "fragment";
 
 /** https://url.spec.whatwg.org/#concept-url-serializer */
 export function serializeURL(urlRecord: URLRecord, excludeFragment?: boolean): string;
@@ -118,4 +159,4 @@ export function setThePassword(urlRecord: URLRecord, password: string): void;
 export function cannotHaveAUsernamePasswordPort(urlRecord: URLRecord): boolean;
 
 /** https://url.spec.whatwg.org/#percent-decode */
-export function percentDecode(buffer: Buffer): Buffer;
+export function percentDecode(buffer: Extract<NodeJS.TypedArray, ArrayLike<number>>): Buffer;

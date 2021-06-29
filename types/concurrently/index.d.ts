@@ -1,4 +1,4 @@
-// Type definitions for concurrently 6.0
+// Type definitions for concurrently 6.2
 // Project: https://github.com/kimmobrunfeldt/concurrently#readme
 // Definitions by: Michael B. <https://github.com/Blasz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -25,6 +25,8 @@ declare namespace concurrently {
         index: number;
         /** process exit code */
         exitCode: number;
+        /** indicates if the process was killed as a result of `killOthers` */
+        killed: boolean;
     }
     interface Options {
         /**

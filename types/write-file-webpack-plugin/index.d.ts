@@ -2,6 +2,7 @@
 // Project: https://github.com/gajus/write-file-webpack-plugin#readme
 // Definitions by: Nathan Hardy <https://github.com/nhardy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import webpack = require("webpack");
 

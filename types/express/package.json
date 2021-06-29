@@ -2,5 +2,9 @@
   "private": true,
   "dependencies": {
     "@types/express-serve-static-core": "^4.17.18"
+  },
+  "types": "index",
+  "typesVersions": {
+    "<=4.0": { "*": ["ts4.0/*"] }
   }
 }

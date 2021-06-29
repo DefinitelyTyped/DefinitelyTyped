@@ -2,7 +2,7 @@
 // Project: https://github.com/ztoben/assets-webpack-plugin
 // Definitions by: Michael Strobel <https://github.com/kryops>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { Compiler } from 'webpack';
 

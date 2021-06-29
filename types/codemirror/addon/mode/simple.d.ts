@@ -1,15 +1,19 @@
-import 'codemirror';
+import '../../';
 
-declare module 'codemirror' {
+declare module '../../' {
     // Based on https://codemirror.net/demo/simplemode.html
     interface Rule {
         regex?: string | RegExp;
-        token?: string | Array<string> | null;
+        token?: string | string[] | null;
         sol?: boolean;
         next?: string;
         push?: string;
         pop?: boolean;
-        mode?: any;
+        mode?: {
+            spec: string | ModeSpec<any>;
+            end?: RegExp;
+            persistent?: boolean;
+        };
         indent?: boolean;
         dedent?: boolean;
         dedentIfLineStart?: boolean;
@@ -17,6 +21,7 @@ declare module 'codemirror' {
 
     function defineSimpleMode<K extends string>(
         name: string,
-        mode: { [P in K]: P extends 'meta' ? Record<string, any> : Array<Rule> } & { start: Array<Rule> },
+        // tslint:disable-next-line:no-unnecessary-generics
+        mode: { [P in K]: P extends 'meta' ? Record<string, any> : Rule[] } & { start: Rule[] },
     ): void;
 }

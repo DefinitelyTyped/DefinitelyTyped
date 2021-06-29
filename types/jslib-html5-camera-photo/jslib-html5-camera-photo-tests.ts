@@ -45,6 +45,16 @@ cameraPhoto
         /* ... */
     });
 
+// example of resultion with non-numeric width and height
+cameraPhoto
+    .startCamera(FACING_MODES.ENVIRONMENT, { width: { ideal: 3840 }, height: { ideal: 2160 } })
+    .then(stream => {
+        /* ... */
+    })
+    .catch(error => {
+        /* ... */
+    });
+
 // It will try the best to get the maximum resolution with the specified facingMode
 cameraPhoto
     .startCameraMaxResolution(FACING_MODES.ENVIRONMENT)
@@ -98,3 +108,7 @@ cameraPhoto
     .catch(error => {
         /* ... */
     });
+
+if (cameraPhoto.mediaDevices) {
+    cameraPhoto.mediaDevices.getUserMedia();
+}

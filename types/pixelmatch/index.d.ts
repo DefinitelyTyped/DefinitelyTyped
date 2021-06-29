@@ -13,7 +13,7 @@ declare function Pixelmatch(
     /** Image data of the second image to compare. Note: image dimensions must be equal. */
     img2: Buffer | Uint8Array | Uint8ClampedArray,
     /** Image data to write the diff to, or null if don't need a diff image. */
-    output: Buffer | Uint8Array | null,
+    output: Buffer | Uint8Array | Uint8ClampedArray | null,
     /** Width of the images. Note that all three images need to have the same dimensions. */
     width: number,
     /** Height of the images. Note that all three images need to have the same dimensions. */

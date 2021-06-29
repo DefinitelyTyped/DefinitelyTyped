@@ -45,7 +45,7 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      *
      * @default 'authorize'
      */
-    intent?: 'authorize' | 'capture' | 'sale';
+    intent?: 'authorize' | 'capture' | 'sale' | 'tokenize';
 
     /**
      * If a currency is passed in createPayment, it must match the currency passed here.

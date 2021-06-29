@@ -2,7 +2,7 @@
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/custom-templated-path-webpack-plugin/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.7
 
 import { Plugin, compilation } from 'webpack';
 

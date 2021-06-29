@@ -1,4 +1,9 @@
-declare module 'node:path' {
+declare module 'path/posix' {
+    import path = require('path');
+    export = path;
+}
+
+declare module 'path/win32' {
     import path = require('path');
     export = path;
 }

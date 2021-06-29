@@ -149,6 +149,9 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     /* Displays a button to clear the input when there are selections. */
     clearButton?: boolean;
 
+    /* ClassName to Apply */
+    className?: string;
+
     /* The initial value displayed in the text input. */
     defaultInputValue?: string;
 
@@ -313,7 +316,14 @@ export interface AsyncTypeaheadProps<T extends TypeaheadModel> extends Typeahead
     useCache?: boolean;
 }
 
-export class AsyncTypeahead<T extends TypeaheadModel> extends React.Component<AsyncTypeaheadProps<T>> {}
+export class AsyncTypeahead<T extends TypeaheadModel> extends React.Component<AsyncTypeaheadProps<T>> {
+    blur: () => void;
+    clear: () => void;
+    focus: () => void;
+    getInput: () => HTMLInputElement;
+    hideMenu: () => void;
+    toggleMenu: () => void;
+}
 
 /* ---------------------------------------------------------------------------
         TypeaheadInputSingle & TypeaheadInputMulti Props and Component

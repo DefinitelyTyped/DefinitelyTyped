@@ -91,6 +91,9 @@ provider.request(
     },
 );
 
+// Test provider's 'getServerlessDeploymentBucketName'
+provider.getServerlessDeploymentBucketName().then(bucketName => {});
+
 // Test ApiGateway validator
 getHttp(
     {
@@ -122,6 +125,7 @@ const awsServerless: Aws.Serverless = {
     },
     frameworkVersion: 'testFrameworkVersion',
     configValidationMode: 'error',
+    variablesResolutionMode: '20210219',
     provider: {
         name: 'aws',
         runtime: 'testRuntime',
@@ -325,6 +329,7 @@ const awsServerless: Aws.Serverless = {
     package: {
         include: ['testinclude'],
         exclude: ['testexclude'],
+        patterns: ['!testpatternexclude', 'testpatterninclude'],
         excludeDevDependencies: false,
         artifact: 'testartifact',
         individually: true
@@ -358,6 +363,7 @@ const awsServerless: Aws.Serverless = {
             package: {
                 include: ['testinclude'],
                 exclude: ['testexclude'],
+                patterns: ['!testpatternexclude', 'testpatterninclude'],
                 excludeDevDependencies: false,
                 artifact: 'testartifact',
                 individually: true
@@ -455,6 +461,28 @@ const awsServerless: Aws.Serverless = {
                         rules: [
                             {
                                 prefix: 'testprefix',
+                                suffix: 'testsuffix',
+                            }
+                        ],
+                        existing: false
+                    }
+                }, {
+                    s3: {
+                        bucket: 'testbucket',
+                        event: 'testevent',
+                        rules: [
+                            {
+                                prefix: 'testprefix',
+                            }
+                        ],
+                        existing: false
+                    }
+                }, {
+                    s3: {
+                        bucket: 'testbucket',
+                        event: 'testevent',
+                        rules: [
+                            {
                                 suffix: 'testsuffix',
                             }
                         ],
@@ -635,6 +663,12 @@ const awsServerless: Aws.Serverless = {
                 },
                 Condition: 'testcondition',
             },
+            testFunctionLambdaFunctionQualifiedArn: {
+                Description: 'testDescription',
+                Export: {
+                    Name: 'testFunctionLambdaFunctionQualifiedArn',
+                },
+            },
         },
     },
 };
@@ -669,6 +703,56 @@ const bunchOfConfigs: Aws.Serverless[] = [
             '*'
         ],
         provider: { name: 'aws' },
+        functions: {}
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            iam: {
+                role: {
+                    name: 'aws',
+                    permissionBoundary: 'testpermissionsBoundary',
+                    managedPolicies: ['testmanagedPolicies'],
+                    statements: [
+                        {
+                            Effect: 'Allow',
+                            Sid: 'testSid',
+                            Condition: {
+                                testcondition: 'testconditionvalue'
+                            },
+                            Action: 'testAction',
+                            NotAction: 'testNotAction',
+                            Resource: 'testResource',
+                            NotResource: 'testNotResource'
+                        }
+                    ],
+                    tags: {
+                        testtagkey: 'testtagvalue'
+                    }
+                }
+            }
+        },
+        functions: {}
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            iam: {
+                role: 'testrole',
+            }
+        },
+        functions: {}
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            iam: {
+                deploymentRole: 'testdeploymentRole'
+            }
+        },
         functions: {}
     }
 ];

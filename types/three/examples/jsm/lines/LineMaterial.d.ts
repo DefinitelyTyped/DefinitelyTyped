@@ -23,4 +23,5 @@ export class LineMaterial extends ShaderMaterial {
     readonly isLineMaterial: true;
     linewidth: number;
     resolution: Vector2;
+    alphaToCoverage: boolean;
 }

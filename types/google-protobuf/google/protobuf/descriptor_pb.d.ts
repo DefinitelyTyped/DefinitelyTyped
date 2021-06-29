@@ -324,6 +324,11 @@ export class FieldDescriptorProto extends jspb.Message {
   getOptions(): FieldOptions | undefined;
   setOptions(value?: FieldOptions): FieldDescriptorProto;
 
+  hasProto3Optional(): boolean;
+  clearProto3Optional(): FieldDescriptorProto;
+  getProto3Optional(): boolean | undefined;
+  setProto3Optional(value: boolean): FieldDescriptorProto;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): FieldDescriptorProto.AsObject;
   static toObject(includeInstance: boolean, msg: FieldDescriptorProto): FieldDescriptorProto.AsObject;
@@ -346,6 +351,7 @@ export namespace FieldDescriptorProto {
     oneofIndex?: number,
     jsonName?: string,
     options?: FieldOptions.AsObject,
+    proto3Optional?: boolean,
   }
 
   export enum Type {

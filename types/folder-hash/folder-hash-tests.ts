@@ -1,8 +1,8 @@
-import { hashElement, HashElementOptions } from 'folder-hash';
+import { defaults, hashElement, HashElementOptions } from "folder-hash";
 
 const testAsync = async () => {
     // $ExpectType HashElementNode
-    const result1 = await hashElement('./whatever');
+    const result1 = await hashElement("./whatever");
 
     // $ExpectType string
     result1.hash;
@@ -20,43 +20,48 @@ const testAsync = async () => {
     }
 
     // $ExpectType HashElementNode
-    await hashElement('./whatever', {});
+    await hashElement("./whatever", {});
 
     const stringOptions: HashElementOptions = {
-        algo: 'sha1',
-        encoding: 'hex',
+        algo: "sha1",
+        encoding: "hex",
         folders: {
-            exclude: ['1'],
-            include: ['2'],
+            exclude: ["1"],
+            include: ["2"],
             matchBasename: false,
             matchPath: false,
             ignoreRootName: true,
             ignoreBasename: true,
         },
         files: {
-            exclude: ['1'],
-            include: ['2'],
+            exclude: ["1"],
+            include: ["2"],
             matchBasename: false,
             matchPath: false,
             ignoreRootName: true,
             ignoreBasename: true,
+        },
+        symbolicLinks: {
+            include: true,
+            ignoreBasename: true,
+            ignoreRootName: true,
         },
     };
 
     const functionOptions: HashElementOptions = {
-        algo: 'sha1',
-        encoding: 'binary',
+        algo: "sha1",
+        encoding: "binary",
         folders: {
-            exclude: () => ['1'],
-            include: () => ['2'],
+            exclude: () => ["1"],
+            include: () => ["2"],
             matchBasename: false,
             matchPath: false,
             ignoreRootName: true,
             ignoreBasename: true,
         },
         files: {
-            exclude: () => ['1'],
-            include: () => ['2'],
+            exclude: () => ["1"],
+            include: () => ["2"],
             matchBasename: false,
             matchPath: false,
             ignoreRootName: true,
@@ -64,17 +69,17 @@ const testAsync = async () => {
         },
     };
     // $ExpectType HashElementNode
-    await hashElement('./whatever', stringOptions);
+    await hashElement("./whatever", stringOptions);
     // $ExpectType HashElementNode
-    await hashElement('./whatever', functionOptions);
+    await hashElement("./whatever", functionOptions);
 
     // $ExpectType HashElementNode
-    await hashElement('./whatever', 'directory', stringOptions);
+    await hashElement("./whatever", "directory", stringOptions);
     // $ExpectType HashElementNode
-    await hashElement('./whatever', 'directory', functionOptions);
+    await hashElement("./whatever", "directory", functionOptions);
 
     // $ExpectType void
-    hashElement('./whatever', 'directory', stringOptions, (error, result) => {
+    hashElement("./whatever", "directory", stringOptions, (error, result) => {
         // $ExpectType Error | undefined
         error;
 
@@ -82,7 +87,15 @@ const testAsync = async () => {
         result;
     });
     // $ExpectType void
-    hashElement('./whatever', 'directory', functionOptions, (error, result) => {
+    hashElement("./whatever", "directory", functionOptions, (error, result) => {
+        // $ExpectType Error | undefined
+        error;
+
+        // $ExpectType HashElementNode | undefined
+        result;
+    });
+
+    hashElement("./whatever", "directory", defaults, (error, result) => {
         // $ExpectType Error | undefined
         error;
 

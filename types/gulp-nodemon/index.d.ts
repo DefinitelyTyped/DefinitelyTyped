@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
+import * as Gulp from "gulp";
 
 declare namespace nodemon {
 
@@ -72,6 +72,7 @@ declare namespace nodemon {
         args?: string[];
         nodeArgs?: string[];
         scriptPosition?: number;
+        done?: Gulp.TaskFunctionCallback;
     }
 
     interface EventEmitter extends NodeJS.EventEmitter {

@@ -2,7 +2,7 @@
 // Project: https://github.com/webpack-contrib/compression-webpack-plugin
 // Definitions by: Anton Kandybo <https://github.com/dublicator>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.7
 
 import { Plugin } from 'webpack';
 import { ZlibOptions as ZlibCompressionOptions } from 'zlib';

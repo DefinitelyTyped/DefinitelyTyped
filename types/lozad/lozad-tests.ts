@@ -11,7 +11,8 @@ const observer = lozad('.lozad', {
     },
     loaded(el) {
         console.log('loaded element');
-    }
+    },
+    enableAutoReload: true,
 });
 observer.observe();
 

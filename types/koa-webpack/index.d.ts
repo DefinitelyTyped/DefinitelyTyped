@@ -5,7 +5,7 @@
 //                 miZyind <https://github.com/miZyind>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import Koa = require('koa');
 import webpack = require('webpack');

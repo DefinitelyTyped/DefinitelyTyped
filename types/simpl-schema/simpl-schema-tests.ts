@@ -67,11 +67,22 @@ const schema: SimpleSchemaDefinition = {
 
 const StringSchema = new SimpleSchema(schema);
 
-StringSchema.validate({
+const testData = {
     basicString: 'Test',
     limitedString: 'pro',
     regExpString: 'id',
-}, {keys: ['basicString']});
+};
+
+const testOptions = {keys: ['basicString']};
+
+StringSchema.validate(testData);
+
+StringSchema.validate(testData, testOptions);
+
+// Static versions
+SimpleSchema.validate(testData, StringSchema);
+
+SimpleSchema.validate(testData, StringSchema, testOptions);
 
 StringSchema.validator();
 
@@ -118,6 +129,11 @@ new SimpleSchema({
     shortInteger: SimpleSchema.Integer,
     shortDate: Date,
     shortArray: Array,
+    arrayOfString: [String],
+    arrayOfNumber: [Number],
+    arrayOfInteger: [SimpleSchema.Integer],
+    arrayOfSchema: [StringSchema],
+    oneOfTest: SimpleSchema.oneOf(String, SimpleSchema.Integer, Number, Boolean, /regextest/),
     subSchema: StringSchemaWithOptions
 });
 
@@ -131,6 +147,14 @@ StringSchema.extend({
 });
 
 SimpleSchema.extendOptions(['autoform']);
+
+SimpleSchema.setDefaultMessages({
+    messages: {
+        en: {
+            required: '{{{label}}} is required',
+        },
+    },
+});
 
 const objectKeysTestSchema = new SimpleSchema({});
 

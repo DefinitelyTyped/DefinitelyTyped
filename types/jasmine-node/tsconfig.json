@@ -13,6 +13,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "jasmine": [ "jasmine/v1" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

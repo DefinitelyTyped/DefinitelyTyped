@@ -110,7 +110,7 @@ const SomeComponent = Ember.Object.extend({
     store: Ember.inject.service('store'),
 
     lookUpUsers() {
-        assertType<User>(this.get('store').findRecord('user', 123));
+        assertType<DS.PromiseObject<User>>(this.get('store').findRecord('user', 123));
         assertType<DS.PromiseArray<User>>(this.get('store').findAll('user'));
     },
 });

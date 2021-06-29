@@ -1,6 +1,7 @@
-// Type definitions for react-notifications-component 2.4
+// Type definitions for react-notifications-component 3.1
 // Project: https://github.com/teodosii/react-notifications-component
 // Definitions by: Sarhad Salam <https://github.com/SarhadSalam>
+//                 Andrés Ignacio Torres <https://github.com/aitorres>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
@@ -27,7 +28,7 @@ export interface ReactNotificationOptions {
     message?: string | React.ReactNode | React.FunctionComponent;
     content?: React.ComponentClass | React.FunctionComponent | React.ReactNode;
     type?: 'success' | 'danger' | 'info' | 'default' | 'warning';
-    container: 'top-left' | 'top-right' | 'top-center' | 'center' | 'bottom-left' | 'bottom-right' | 'bottom-center';
+    container: 'top-full' | 'top-left' | 'top-right' | 'top-center' | 'center' | 'bottom-full' | 'bottom-left' | 'bottom-right' | 'bottom-center';
     insert?: 'top' | 'bottom';
     dismiss?: DismissOptions;
     animationIn?: string[];
@@ -35,7 +36,10 @@ export interface ReactNotificationOptions {
     slidingEnter?: TransitionOptions;
     slidingExit?: TransitionOptions;
     touchRevert?: TransitionOptions;
-    touchSlidingExit?: TransitionOptions;
+    touchSlidingExit?: {
+        fade?: TransitionOptions;
+        swipe?: TransitionOptions;
+    };
     width?: number;
 }
 

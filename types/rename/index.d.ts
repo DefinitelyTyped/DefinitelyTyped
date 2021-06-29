@@ -3,17 +3,19 @@
 // Definitions by: Aankhen <https://github.com/Aankhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = Rename;
+export = rename;
 
-declare function Rename(filepath: string | Rename.FileObject, transformer: Rename.Transformer): Rename.FilePath;
+declare function rename(filepath: string | rename.FileObject, transformer: rename.Transformer): rename.FilePath;
 
-declare namespace Rename {
-    interface FileObject { // using package's terminology
+declare namespace rename {
+    interface FileObject {
+        // using package's terminology
         dirname?: string;
         basename?: string;
         extname?: string;
         path?: string;
-        hash?: string;          // not populated by package
+        hash?: string; // not populated by package
+        origin?: string;
     }
 
     interface Specification {
@@ -30,7 +32,14 @@ declare namespace Rename {
     type Transformer = ((spec: FileObject) => FilePath)
         | FilePath;
 
-    function parse(filename: string): FileObject;
+    interface ParsedFileObject {
+        dirname: string;
+        extname: string;
+        basename: string;
+        origin: string;
+    }
+
+    function parse(filename: string | Partial<ParsedFileObject>): ParsedFileObject;
 
     function stringify(obj: FileObject): string;
 }

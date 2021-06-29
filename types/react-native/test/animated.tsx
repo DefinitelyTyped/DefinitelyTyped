@@ -71,6 +71,11 @@ function TestAnimatedAPI() {
         outputRange: [0, 200],
     });
 
+    const id = v200.addListener(() => {});
+    v200.removeListener(id);
+    v200.removeAllListeners();
+    v200.hasListeners();
+
     Animated.timing(v2, {
         toValue: v1.interpolate({ inputRange: [0, 1], outputRange: [0, 200] }),
         useNativeDriver: false,

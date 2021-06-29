@@ -9,6 +9,7 @@
 //                  divyun <https://github.com/divyun>
 //                  elviswolcott <https://github.com/elviswolcott>
 //                  mohitpubnub <https://github.com/mohitpubnub>
+//                  Salet <https://github.com/Salet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
 // TypeScript Version: 3.5
@@ -102,6 +103,10 @@ declare class Pubnub {
     addListener(params: Pubnub.ListenerParameters): void;
 
     removeListener(params: Pubnub.ListenerParameters): void;
+
+    getSubscribedChannels(): string[];
+
+    getSubscribedChannelGroups(): string[];
 
     // presence
 
@@ -642,10 +647,8 @@ declare namespace Pubnub {
         publisher: string;
         subscription?: string;
         timetoken: string;
-        message: {
-            event: string;
-            data: MessageAction;
-        };
+        event: string;
+        data: MessageAction;
     }
 
     interface FileEvent {
@@ -805,6 +808,8 @@ declare namespace Pubnub {
         start?: string | number; // timetoken
         end?: string | number; // timetoken
         withMessageActions?: boolean;
+        includeMessageType?: boolean;
+        includeUUID?: boolean;
         includeMeta?: boolean;
         includeMessageActions?: boolean;
     }
@@ -815,6 +820,8 @@ declare namespace Pubnub {
                 channel: string;
                 message: any;
                 timetoken: string | number;
+                messageType?: string | number;
+                uuid?: string;
                 meta?: {
                     [key: string]: any;
                 };

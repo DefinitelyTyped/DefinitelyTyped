@@ -6,6 +6,7 @@
 //                 Bartosz Kotrys <https://github.com/bkotrys>
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Tyler Lindell <https://github.com/tylerlindell>
+//                 Henri Kinnunen <https://github.com/hequ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference lib="dom" />
 export as namespace auth0;
@@ -310,7 +311,7 @@ export class WebAuth {
      *
      * @see {@link https://auth0.github.io/auth0.js/WebAuth.html#renderCaptcha}
      */
-    renderCaptcha(element: HTMLElement, options?: CatpchaConfiguration, callback?: Auth0Callback<any>): void;
+    renderCaptcha(element: HTMLElement, options?: CatpchaConfiguration, callback?: Auth0Callback<any>): Captcha;
 }
 
 export class Redirect {
@@ -325,13 +326,13 @@ export class Redirect {
     loginWithCredentials(
         options: {
             /** url that the Auth0 will redirect after Auth with the Authorization Response */
-            redirectUri?: string,
+            redirectUri?: string;
             /** type of the response used. It can be any of the values `code` and `token` */
-            responseType?: string,
+            responseType?: string;
             /** how the AuthN response is encoded and redirected back to the client. */
-            responseMode?: "query" | "fragment",
+            responseMode?: "query" | "fragment";
             /** scopes to be requested during AuthN. e.g. `openid email` */
-            scope: string,
+            scope: string;
         },
         callback: Auth0Callback<any>,
     ): void;
@@ -342,11 +343,13 @@ export class Redirect {
     signupAndLogin(
         options: {
             /** user email address */
-            email: string,
+            email: string;
             /** user password */
-            password: string,
+            password: string;
             /** name of the connection where the user will be created */
-            connection: string,
+            connection: string;
+            /** allow userMetadata to be passed to signUp */
+            userMetadata?: unknown;
         },
         callback: Auth0Callback<any>,
     ): void;
@@ -376,16 +379,16 @@ export class Popup {
          * the url hash.
          * @default window.location.hash
          */
-        hash: string,
+        hash: string;
         /** value originally sent in `state` parameter to {@link authorize} to mitigate XSRF */
-        state?: string,
+        state?: string;
         /** value originally sent in `nonce` parameter to {@link authorize} to prevent replay attacks */
-        nonce?: string,
+        nonce?: string;
         /**
          * makes parseHash perform or skip `id_token` verification.
          * We **strongly** recommend validating the `id_token` yourself if you disable the verification.
          */
-        _idTokenVerification?: string,
+        _idTokenVerification?: string;
     }): void;
 
     /**
@@ -395,44 +398,44 @@ export class Popup {
     authorize(
         options: {
             /** your Auth0 domain */
-            domain: string,
+            domain: string;
             /** your Auth0 client identifier obtained when creating the client in the Auth0 Dashboard */
-            clientId?: string,
+            clientId?: string;
             /**
              * identity provider whose login page will be displayed in the popup.
              * If omitted the hosted login page is used.
              * {@link https://auth0.com/docs/identityproviders}
              */
-            connection?: string,
+            connection?: string;
             /** url that the Auth0 will redirect after Auth with the Authorization Response */
-            redirectUri: string,
+            redirectUri: string;
             /**
              * type of the response used by OAuth 2.0 flow.
              * It can be any space separated list of the values `code`, `token`, `id_token`.
              * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
              */
-            responseType: string,
+            responseType: string;
             /**
              * how the Auth response is encoded and redirected back to the client.
              * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
              */
-            responseMode?: "query" | "fragment" | "form_post",
+            responseMode?: "query" | "fragment" | "form_post";
             /**
              * value used to mitigate XSRF attacks.
              * {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
              */
-            state?: string,
+            state?: string;
             /**
              * value used to mitigate replay attacks when using Implicit Grant.
              * {@link https://auth0.com/docs/api-auth/tutorials/nonce}
              */
-            nonce?: string,
+            nonce?: string;
             /** scopes to be requested during Auth. e.g. `openid email` */
-            scope?: string,
+            scope?: string;
             /** identifier of the resource server who will consume the access token issued after Auth */
-            audience?: string,
+            audience?: string;
             /** determines if Auth0 should render the relay page or not and the caller is responsible of handling the response. */
-            owp?: boolean,
+            owp?: boolean;
         },
         callback: Auth0Callback<Auth0Result>,
     ): void;
@@ -446,13 +449,13 @@ export class Popup {
     loginWithCredentials(
         options: {
             /** url that the Auth0 will redirect after Auth with the Authorization Response */
-            redirectUri?: string,
+            redirectUri?: string;
             /** type of the response used. */
-            responseType?: "code" | "token",
+            responseType?: "code" | "token";
             /** how the AuthN response is encoded and redirected back to the client. */
-            responseMode?: "query" | "fragment",
+            responseMode?: "query" | "fragment";
             /** scopes to be requested during AuthN. e.g. `openid email` */
-            scope?: string,
+            scope?: string;
         },
         callback: Auth0Callback<any>,
     ): void;
@@ -462,15 +465,15 @@ export class Popup {
      */
     passwordlessVerify(
         options: {
-            type: "sms" | "email",
+            type: "sms" | "email";
             /**  only if type = sms */
-            phoneNumber?: string,
+            phoneNumber?: string;
             /** only if type = email */
-            email?: string,
+            email?: string;
             /** the connection name */
-            connection: string,
+            connection: string;
             /** the TOTP code */
-            verificationCode: string,
+            verificationCode: string;
         },
         callback: Auth0Callback<any>,
     ): void;
@@ -484,11 +487,13 @@ export class Popup {
     signupAndLogin(
         options: {
             /** user email address */
-            email: string,
+            email: string;
             /** user password */
-            password: string,
+            password: string;
             /** name of the connection where the user will be created */
-            connection: string,
+            connection: string;
+            /** allow userMetadata to be passed to signUp */
+            userMetadata?: unknown;
         },
         callback: Auth0Callback<any>,
     ): void;
@@ -550,9 +555,9 @@ export interface AuthOptions {
     leeway?: number;
     jwksURI?: string;
     overrides?: {
-      __tenant?: string;
-      __token_issuer?: string;
-      __jwks_uri?: string;
+        __tenant?: string;
+        __token_issuer?: string;
+        __jwks_uri?: string;
     };
     plugins?: any;
     popupOrigin?: string;
@@ -568,6 +573,13 @@ export interface AuthOptions {
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
     __tryLocalStorageFirst?: boolean;
+}
+
+export type DoneCallback = (err?: Auth0Error) => void;
+
+export interface Captcha {
+    reload: (done: DoneCallback) => void;
+    getValue: () => string;
 }
 
 export interface CatpchaConfiguration {
@@ -601,10 +613,10 @@ export interface CaptchaTemplates {
 }
 
 export interface Auth0Challenge {
-    type: 'code';
+    type: "code";
     image: string;
     required: boolean;
-    provider: 'auth0' | 'recaptcha_v2';
+    provider: "auth0" | "recaptcha_v2";
     [other: string]: unknown;
 }
 
@@ -618,38 +630,38 @@ export interface PasswordlessAuthOptions {
 /**
  * These are error codes defined by the auth0-js lib.
  */
-export type LibErrorCodes = 'timeout' | 'request_error' | 'invalid_token';
+export type LibErrorCodes = "timeout" | "request_error" | "invalid_token";
 
 /**
  * The user was not logged in at Auth0, so silent authentication is not possible.
  */
-export type LoginRequiredErrorCode = 'login_required';
+export type LoginRequiredErrorCode = "login_required";
 
 /**
  * The user was logged in at Auth0 and has authorized the application, but needs to
  * be redirected elsewhere before authentication can be completed; for example, when
  * using a redirect rule.
  */
-export type InteractionRequiredErrorCode = 'interaction_required';
+export type InteractionRequiredErrorCode = "interaction_required";
 
 /**
  * The user was logged in at Auth0, but needs to give consent to authorize the application.
  */
-export type ConsentRequiredErrorCode = 'consent_required';
+export type ConsentRequiredErrorCode = "consent_required";
 
 /**
  * These are error codes defined by the OpenID Connect specification.
  */
 export type SpecErrorCodes =
-    LoginRequiredErrorCode |
-    InteractionRequiredErrorCode |
-    ConsentRequiredErrorCode |
-    'account_selection_required' |
-    'invalid_request_uri' |
-    'invalid_request_object' |
-    'request_not_supported' |
-    'request_uri_not_supported' |
-    'registration_not_supported';
+    | LoginRequiredErrorCode
+    | InteractionRequiredErrorCode
+    | ConsentRequiredErrorCode
+    | "account_selection_required"
+    | "invalid_request_uri"
+    | "invalid_request_object"
+    | "request_not_supported"
+    | "request_uri_not_supported"
+    | "registration_not_supported";
 
 export interface Auth0Error {
     error: LibErrorCodes | SpecErrorCodes | string;
@@ -818,7 +830,7 @@ export interface AuthorizeUrlOptions {
      * Supported values are `query`, `fragment` and `form_post`
      * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
      */
-    responseMode?: 'query' | 'fragment' | 'form_post';
+    responseMode?: "query" | "fragment" | "form_post";
     /**
      * value used to mitigate XSRF attacks.
      * {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
@@ -909,7 +921,7 @@ export interface DbSignUpOptions {
     username?: string;
     scope?: string;
     /** additional signup attributes used for creating the user. Will be stored in `user_metadata` */
-    userMetadata?: any;
+    userMetadata?: unknown;
 }
 
 /** result of the signup request */

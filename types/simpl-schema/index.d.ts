@@ -145,13 +145,33 @@ interface SimpleSchemaValidationError {
   [key: string]: number | string;
 }
 
+type IntegerSchema = "SimpleSchema.Integer";
+
 export type SimpleSchemaDefinition = {
-    [key: string]: SchemaDefinition
-      | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor
+    [key: string]:
+      | SchemaDefinition
+      | BooleanConstructor
+      | StringConstructor
+      | NumberConstructor
+      | DateConstructor
       | ArrayConstructor
-      | string | RegExp
-      | SimpleSchema
+      | IntegerSchema
+      | [StringConstructor]
+      | [NumberConstructor]
+      | [IntegerSchema]
+      | [SimpleSchema]
+      | string
+      | RegExp
+      | SimpleSchema;
   } | any[];
+
+type SimpleSchemaCreateFunc = (options: { label: string; regExp: string }) => string;
+
+interface SimpleSchemaMessageType {
+  [key: string]: string | SimpleSchemaCreateFunc;
+}
+
+type SimpleSchemaMessagesDict = Record<string, SimpleSchemaMessageType>;
 
 export class SimpleSchema {
   constructor(schema: SimpleSchemaDefinition, options?: SimpleSchemaOptions);
@@ -161,7 +181,7 @@ export class SimpleSchema {
   addValidator(validator: Validator): void;
   pick(...fields: string[]): SimpleSchema;
   omit(...fields: string[]): SimpleSchema;
-  oneOf(...types: Array<(SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor)>): SimpleSchema;
+  static oneOf(...types: Array<(RegExp | SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor | IntegerSchema)>): SimpleSchema;
   clean(doc: any, options?: CleanOption): any;
   schema(key: string): SchemaDefinition;
   schema(): SchemaDefinition[];
@@ -170,13 +190,14 @@ export class SimpleSchema {
   keyIsInBlackBox(key: string): boolean;
   labels(labels: { [key: string]: string }): void;
   label(key: any): any;
-  static Integer: RegExp;
+  static Integer: IntegerSchema;
   messages(messages: any): any;
   messageForError(type: any, key: any, def: any, value: any): string;
   allowsKey(key: any): string;
   newContext(): ValidationContext;
   objectKeys(keyPrefix?: any): any[];
   validate(obj: any, options?: ValidationOption): void;
+  static validate(obj: any, schema: SimpleSchema, options?: ValidationOption): void;
   validator(options?: ValidationOption): (obj: any) => boolean;
   extend(otherSchema: SimpleSchema | SimpleSchemaDefinition): SimpleSchema;
   static extendOptions(options: ReadonlyArray<string>): void;
@@ -212,6 +233,7 @@ export class SimpleSchema {
       FAILED_REGULAR_EXPRESSION: string;
       KEY_NOT_IN_SCHEMA: string;
   };
+  static setDefaultMessages(messages: {messages: SimpleSchemaMessagesDict}): void;
 }
 
 interface ValidationOption {

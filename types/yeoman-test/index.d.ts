@@ -132,6 +132,14 @@ export function registerDependencies(env: Env, dependencies: Dependency[]): void
 export function run(GeneratorOrNamespace: string | Constructor<Generator>, settings?: RunContextSettings): RunContext;
 
 /**
+ * Create a RunContext
+ * @param  GeneratorOrNamespace - Generator constructor or namespace
+ * @param  settings - Generator settings
+ * @param  envOptions - Environment options
+ */
+export function create(GeneratorOrNamespace: string | Constructor<Generator>, settings?: RunContextSettings, envOptions?: Environment.Options): RunContext;
+
+/**
  * Provides settings for creating a `RunContext`.
  */
 export interface RunContextSettings {
@@ -217,6 +225,145 @@ export interface RunResult extends RunResultOptions {
      * Dumps the name of each file to the console.
      */
     dumpFilenames(): void;
+
+    /**
+     * Assert that a file exists
+     * @param path     - path to a file
+     * @example
+     * result.assertFile('templates/user.hbs');
+     *
+     * @also
+     *
+     * Assert that each files in the array exists
+     * @param paths    - an array of paths to files
+     * @example
+     * result.assertFile(['templates/user.hbs', 'templates/user/edit.hbs']);
+     */
+    assertFile(path: string | string[]): void;
+
+    /**
+     * Assert that a file doesn't exist
+     * @param file     - path to a file
+     * @example
+     * result.assertNoFile('templates/user.hbs');
+     *
+     * @also
+     *
+     * Assert that each of an array of files doesn't exist
+     * @param pairs    - an array of paths to files
+     * @example
+     * result.assertNoFile(['templates/user.hbs', 'templates/user/edit.hbs']);
+     */
+    assertNoFile(file: string | string[]): void;
+
+    /**
+     * Assert that a file's content matches a regex or string
+     * @param file     - path to a file
+     * @param reg      - regex / string that will be used to search the file
+     * @example
+     * result.assertFileContent('models/user.js', /App\.User = DS\.Model\.extend/);
+     * result.assertFileContent('models/user.js', 'App.User = DS.Model.extend');
+     *
+     * @also
+     *
+     * Assert that each file in an array of file-regex pairs matches its corresponding regex
+     * @param pairs    - an array of arrays, where each subarray is a [String, RegExp] pair
+     * @example
+     * var arg = [
+     *   [ 'models/user.js', /App\.User = DS\.Model\.extend/ ],
+     *   [ 'controllers/user.js', /App\.UserController = Ember\.ObjectController\.extend/ ]
+     * ]
+     * result.assertFileContent(arg);
+     */
+    assertFileContent(file: string, reg: string | RegExp): void;
+    assertFileContent(pairs: Array<[string, string | RegExp]>): void;
+
+    /**
+     * Assert that a file's content is the same as the given string
+     * @param file            - path to a file
+     * @param expectedContent - the expected content of the file
+     * @example
+     * result.assertEqualsFileContent(
+     *   'data.js',
+     *   'const greeting = "Hello";\nexport default { greeting }'
+     * );
+     *
+     * @also
+     *
+     * Assert that each file in an array of file-string pairs equals its corresponding string
+     * @param pairs           - an array of arrays, where each subarray is a [String, String] pair
+     * @example
+     * result.assertEqualsFileContent([
+     *   ['data.js', 'const greeting = "Hello";\nexport default { greeting }'],
+     *   ['user.js', 'export default {\n  name: 'Coleman',\n  age: 0\n}']
+     * ]);
+     */
+    assertEqualsFileContent(file: string, expectedContent: string): void;
+    assertEqualsFileContent(pairs: Array<[string, string]>): void;
+
+    /**
+     * Assert that a file's content does not match a regex / string
+     * @param file     - path to a file
+     * @param reg      - regex / string that will be used to search the file
+     * @example
+     * result.assertNoFileContent('models/user.js', /App\.User = DS\.Model\.extend/);
+     * result.assertNoFileContent('models/user.js', 'App.User = DS.Model.extend');
+     *
+     * @also
+     *
+     * Assert that each file in an array of file-regex pairs does not match its corresponding regex
+     * @param pairs    - an array of arrays, where each subarray is a [String, RegExp] pair
+     * var arg = [
+     *   [ 'models/user.js', /App\.User \ DS\.Model\.extend/ ],
+     *   [ 'controllers/user.js', /App\.UserController = Ember\.ObjectController\.extend/ ]
+     * ]
+     * result.assertNoFileContent(arg);
+     */
+    assertNoFileContent(file: string, reg: RegExp | string): void;
+    assertNoFileContent(pairs: Array<[string, string | RegExp]>): void;
+
+    /**
+     * Assert that two strings are equal after standardization of newlines
+     * @param value    - a string
+     * @param expected - the expected value of the string
+     * @example
+     * result.assertTextEqual('I have a yellow cat', 'I have a yellow cat');
+     */
+    assertTextEqual(value: string, expected: string): void;
+
+    /**
+     * Assert an object contains the provided keys
+     * @param obj      Object that should match the given pattern
+     * @param content  An object of key/values the object should contains
+     */
+    assertObjectContent(obj: object, content: { [key: string]: any }): void;
+
+    /**
+     * Assert an object does not contain the provided keys
+     * @param obj Object that should not match the given pattern
+     * @param content An object of key/values the object should not contain
+     */
+    assertNoObjectContent(obj: object, content: { [key: string]: any }): void;
+
+    /**
+     * Assert a JSON file contains the provided keys
+     * @param filename
+     * @param content An object of key/values the file should contains
+     */
+    assertJsonFileContent(filename: string, content: { [key: string]: any }): void;
+
+    /**
+     * Assert a JSON file does not contain the provided keys
+     * @param filename
+     * @param content An object of key/values the file should not contain
+     */
+    assertNoJsonFileContent(filename: string, content: { [key: string]: any }): void;
+
+    /**
+     * Reverts to old cwd.
+     * @returns this
+     */
+    restore(): this;
 }
 
 /**
@@ -293,13 +440,20 @@ export interface RunContext extends RunContextConstructor, EventEmitter, Promise
     cd(dirPath: string): this;
 
     /**
+     * Register an callback to prepare the destination folder.
+     * @param [cb]  - callback who'll receive the folder path as argument
+     * @return this - run context instance
+     */
+    doInDir(cb: (folderPath: string) => void): this;
+
+    /**
      * Cleanup a temporary directory and change the CWD into it
      *
      * This method is called automatically when creating a RunContext. Only use it if you need
      * to use the callback.
      *
-     * @param [cb] - callback who'll receive the folder path as argument
-     * @return run context instance
+     * @param [cb]  - callback who'll receive the folder path as argument
+     * @return this - run context instance
      */
     inTmpDir(cb: (folderPath: string) => void): this;
 
@@ -354,6 +508,12 @@ export interface RunContext extends RunContextConstructor, EventEmitter, Promise
      * @param namespaces - The namespaces of the mocked generators.
      */
     withMockedGenerators(namespaces: string[]): this;
+
+    /**
+     * Run the generator on the environment and returns the promise.
+     * @return Promise
+     */
+    run(): Promise<RunResult>;
 }
 
 export {};

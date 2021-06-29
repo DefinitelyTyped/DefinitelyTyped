@@ -186,8 +186,8 @@ declare namespace Chai {
         own: Own;
         any: KeyFilter;
         all: KeyFilter;
-        a: TypeComparison;
-        an: TypeComparison;
+        a: Assertion;
+        an: Assertion;
         include: Include;
         includes: Include;
         contain: Include;
@@ -240,7 +240,7 @@ declare namespace Chai {
         extensible: Assertion;
         sealed: Assertion;
         frozen: Assertion;
-        oneOf(list: ReadonlyArray<any>, message?: string): Assertion;
+        oneOf: OneOf;
     }
 
     interface LanguageChains {
@@ -267,11 +267,13 @@ declare namespace Chai {
         greaterThan: NumberComparer;
         least: NumberComparer;
         gte: NumberComparer;
+        greaterThanOrEqual: NumberComparer;
         below: NumberComparer;
         lt: NumberComparer;
         lessThan: NumberComparer;
         most: NumberComparer;
         lte: NumberComparer;
+        lessThanOrEqual: NumberComparer;
         within(start: number, finish: number, message?: string): Assertion;
         within(start: Date, finish: Date, message?: string): Assertion;
     }
@@ -339,13 +341,13 @@ declare namespace Chai {
     }
 
     interface Property {
-        (name: string, value: any, message?: string): Assertion;
-        (name: string, message?: string): Assertion;
+        (name: string | symbol, value: any, message?: string): Assertion;
+        (name: string | symbol, message?: string): Assertion;
     }
 
     interface OwnPropertyDescriptor {
-        (name: string, descriptor: PropertyDescriptor, message?: string): Assertion;
-        (name: string, message?: string): Assertion;
+        (name: string | symbol, descriptor: PropertyDescriptor, message?: string): Assertion;
+        (name: string | symbol, message?: string): Assertion;
     }
 
     interface Length extends LanguageChains, NumericComparison {
@@ -360,6 +362,11 @@ declare namespace Chai {
         members: Members;
         any: KeyFilter;
         all: KeyFilter;
+        oneOf: OneOf;
+    }
+
+    interface OneOf {
+        (list: ReadonlyArray<unknown>, message?: string): Assertion;
     }
 
     interface Match {
@@ -389,7 +396,11 @@ declare namespace Chai {
     }
 
     interface PropertyChange {
-        (object: Object, property?: string, message?: string): Assertion;
+        (object: Object, property?: string, message?: string): DeltaAssertion;
+    }
+
+    interface DeltaAssertion extends Assertion {
+        by(delta: number, msg?: string): Assertion;
     }
 
     export interface Assert {
@@ -496,7 +507,7 @@ declare namespace Chai {
         notStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is deeply equal (==) to expected.
+         * Asserts that actual is deeply equal to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -506,7 +517,7 @@ declare namespace Chai {
         deepEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is not deeply equal (==) to expected.
+         * Asserts that actual is not deeply equal to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -516,7 +527,7 @@ declare namespace Chai {
         notDeepEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is deeply strict equal (===) to expected.
+         * Alias to deepEqual
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.

@@ -57,6 +57,18 @@ type Defaultize<P, D> = P extends any
 
 type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D } ? Defaultize<P, D> : P;
 
+type MakeAttrsOptional<C extends string | React.ComponentType<any>, O extends object, A extends keyof any> = Omit<
+    ReactDefaultizedProps<
+        C,
+        React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never>
+    > &
+        O,
+    A
+> &
+    Partial<
+        Pick<React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never> & O, A>
+    >;
+
 export type StyledComponentProps<
     // The Component from whose props are derived
     C extends string | React.ComponentType<any>,
@@ -65,30 +77,16 @@ export type StyledComponentProps<
     // The other props added by the template
     O extends object,
     // The props that are made optional by .attrs
-    A extends keyof any
+    A extends keyof any,
+    // The Component passed with "as" prop
+    AsC extends string | React.ComponentType<any> = C,
+    // The Component passed with "forwardedAs" prop
+    FAsC extends string | React.ComponentType<any> = C
 > =
     // Distribute O if O is a union type
     O extends object
         ? WithOptionalTheme<
-              Omit<
-                  ReactDefaultizedProps<
-                      C,
-                      React.ComponentPropsWithRef<
-                          C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
-                      >
-                  > &
-                      O,
-                  A
-              > &
-                  Partial<
-                      Pick<
-                          React.ComponentPropsWithRef<
-                              C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
-                          > &
-                              O,
-                          A
-                      >
-                  >,
+              MakeAttrsOptional<C, O, A> & MakeAttrsOptional<AsC, O, A> & MakeAttrsOptional<FAsC, O, A>,
               T
           > &
               WithChildrenIfReactComponentClass<C>
@@ -109,8 +107,9 @@ type StyledComponentPropsWithAs<
     T extends object,
     O extends object,
     A extends keyof any,
-    F extends string | React.ComponentType<any> = C
-> = StyledComponentProps<C, T, O, A> & { as?: C; forwardedAs?: F };
+    AsC extends string | React.ComponentType<any> = C,
+    FAsC extends string | React.ComponentType<any> = C
+> = StyledComponentProps<C, T, O, A, AsC, FAsC> & { as?: AsC; forwardedAs?: FAsC };
 
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> = InterpolationValue | InterpolationFunction<P> | FlattenInterpolation<P>;
@@ -172,9 +171,9 @@ export interface StyledComponentBase<
     (props: StyledComponentProps<C, T, O, A> & { as?: never; forwardedAs?: never }): React.ReactElement<
         StyledComponentProps<C, T, O, A>
     >;
-    <AsC extends string | React.ComponentType<any> = C, FAsC extends string | React.ComponentType<any> = AsC>(
-        props: StyledComponentPropsWithAs<AsC, T, O, A, FAsC>,
-    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A, FAsC>>;
+    <AsC extends string | React.ComponentType<any> = C, FAsC extends string | React.ComponentType<any> = C>(
+        props: StyledComponentPropsWithAs<C, T, O, A, AsC, FAsC>,
+    ): React.ReactElement<StyledComponentPropsWithAs<C, T, O, A, AsC, FAsC>>;
 
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC,

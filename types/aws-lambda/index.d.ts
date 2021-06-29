@@ -3,7 +3,6 @@
 // Definitions by: James Darbyshire <https://github.com/darbio>
 //                 Michael Skarum <https://github.com/skarum>
 //                 Stef Heyenrath <https://github.com/StefH>
-//                 Toby Hede <https://github.com/tobyhede>
 //                 Rich Buggy <https://github.com/buggy>
 //                 Yoriki Yamaguchi <https://github.com/y13i>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
@@ -38,6 +37,7 @@
 //                 Ivan Martos <https://github.com/ivanmartos>
 //                 Zach Anthony <https://github.com/zach-anthony>
 //                 Peter Savnik <https://github.com/savnik>
+//                 Sven Milewski <https://github.com/svenmilewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

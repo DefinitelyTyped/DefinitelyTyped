@@ -1,9 +1,8 @@
-// Type definitions for sanitize-html 1.27
+// Type definitions for sanitize-html 2.3
 // Project: https://github.com/punkave/sanitize-html
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Afshin Darian <https://github.com/afshin>
 //                 Rinze de Laat <https://github.com/biermeester>
-//                 Will Gibson <https://github.com/WillGibson>
 //                 A penguin <https://github.com/sirMerr>
 //                 Johan Davidsson <https://github.com/johandavidson>
 //                 Jianrong Yu <https://github.com/YuJianrong>
@@ -32,13 +31,13 @@ declare namespace sanitize {
 
   // tslint:disable-next-line:interface-name
   interface IDefaults {
-    allowedAttributes: { [index: string]: AllowedAttribute[] };
+    allowedAttributes: Record<string, AllowedAttribute[]>;
     allowedSchemes: string[];
     allowedSchemesByTag: { [index: string]: string[] };
     allowedSchemesAppliedToAttributes: string[];
     allowedTags: string[];
     allowProtocolRelative: boolean;
-    disallowedTagsMode: string;
+    disallowedTagsMode: DisallowedTagsModes;
     enforceHtmlBoundary: boolean;
     selfClosing: string[];
   }
@@ -53,7 +52,7 @@ declare namespace sanitize {
 
   // tslint:disable-next-line:interface-name
   interface IOptions {
-    allowedAttributes?: { [index: string]: AllowedAttribute[] } | boolean;
+    allowedAttributes?: Record<string, AllowedAttribute[]> | false;
     allowedStyles?: { [index: string]: { [index: string]: RegExp[] } };
     allowedClasses?: { [index: string]: string[] | boolean };
     allowedIframeDomains?: string[];
@@ -63,10 +62,11 @@ declare namespace sanitize {
     allowedSchemesByTag?: { [index: string]: string[] } | boolean;
     allowedSchemesAppliedToAttributes?: string[];
     allowProtocolRelative?: boolean;
-    allowedTags?: string[] | boolean;
+    allowedTags?: string[] | false;
     allowVulnerableTags?: boolean;
     textFilter?: (text: string, tagName: string) => string;
     exclusiveFilter?: (frame: IFrame) => boolean;
+    nestingLimit?: number;
     nonTextTags?: string[];
     selfClosing?: string[];
     transformTags?: { [tagName: string]: string | Transformer };
@@ -81,7 +81,7 @@ declare namespace sanitize {
     enforceHtmlBoundary?: boolean;
   }
 
-  let defaults: IDefaults;
+  const defaults: IDefaults;
 
   function simpleTransform(tagName: string, attribs: Attributes, merge?: boolean): Transformer;
 }

@@ -412,12 +412,12 @@ declare namespace ReactReconciler {
         /**
          * This method should make the `instance` visible, undoing what `hideInstance` did.
          */
-        unhideInstance?(instance: Instance): void;
+        unhideInstance?(instance: Instance, props: Props): void;
 
         /**
          * Same as `unhideInstance`, but for nodes created by `createTextInstance`.
          */
-        unhideTextInstance?(textInstance: TextInstance): void;
+        unhideTextInstance?(textInstance: TextInstance, text: string): void;
 
         /**
          * This method should mutate the `container` root node and remove all children from it.

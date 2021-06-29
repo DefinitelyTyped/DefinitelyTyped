@@ -2,6 +2,7 @@
 // Project: https://github.com/styleguidist/mini-html-webpack-plugin
 // Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 import { compilation, Plugin } from 'webpack';
 
 /**

@@ -135,6 +135,7 @@ export class Blob {
     readonly type: string;
     readonly size: number;
     slice(start?: number, end?: number): Blob;
+    text(): Promise<string>;
 }
 
 export class Body {

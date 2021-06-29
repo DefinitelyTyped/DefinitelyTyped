@@ -22,6 +22,7 @@ import { StatusFile } from './status-file';
 import { StatusOptions } from './status-options';
 import { DiffLine } from './diff-line';
 import { Treebuilder } from './tree-builder';
+import { Error } from './error';
 
 export interface RepositoryInitOptions {
     description: string;
@@ -147,6 +148,15 @@ export class Repository {
      */
     getHeadCommit(): Promise<Commit>;
     createCommit(updateRef: string, author: Signature, committer: Signature, message: string, Tree: Tree | Oid | string, parents: Array<string | Commit | Oid>, callback?: Function): Promise<Oid>;
+    createCommitWithSignature(
+        updateRef: string,
+        author: Signature,
+        committer: Signature,
+        message: string,
+        Tree: Tree | Oid | string,
+        parents: Array<string | Commit | Oid>,
+        onSignature: (data: string) => Promise<{code: Error.CODE, field?: string, signedData: string}> | {code: Error.CODE, field?: string, signedData: string}
+    ): Promise<Oid>;
     /**
      * Creates a new commit on HEAD from the list of passed in files
      */

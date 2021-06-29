@@ -1,20 +1,36 @@
-import { find, findSync, FindResult } from 'find-in-files';
+import { find, findSync } from 'find-in-files';
 
-const main = async () => {
-    // FindResult interface should be exported
-    const files: FindResult = await find(/foo/, 'foo', /foo/);
-    // Third argument is optional
+(async () => {
+    // $ExpectType FindResult
+    await find(/foo/, 'foo', /foo/);
+    // $ExpectType FindResult
     await find(/foo/, 'foo');
-    // First argument can be a string
+    // $ExpectType FindResult
     await find('foo', 'foo');
-    // Sync version
+    // $ExpectType FindResult
     findSync('foo', 'foo');
-
-    // Incorrect param
-    // $ExpectError
-    await find(3, 'foo', /foo/);
-
-    return files;
-};
-
-export default main;
+    // $ExpectType FindResult
+    await find(/version/, './node_modules/find-in-files');
+    // $ExpectType FindResult
+    await find('version', './node_modules/find-in-files');
+    // $ExpectType FindResult
+    await find(
+        {
+            term: 'version',
+            flags: 'gi',
+        },
+        './node_modules/find-in-files',
+    );
+    // $ExpectType FindResult
+    findSync(/version/, './node_modules/find-in-files');
+    // $ExpectType FindResult
+    findSync('version', './node_modules/find-in-files');
+    // $ExpectType FindResult
+    findSync(
+        {
+            term: 'version',
+            flags: 'gi',
+        },
+        './node_modules/find-in-files',
+    );
+})();

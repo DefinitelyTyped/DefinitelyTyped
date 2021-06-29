@@ -2,7 +2,7 @@
 // Project: https://github.com/pirelenito/git-revision-webpack-plugin
 // Definitions by: Anders Kaseorg <https://github.com/andersk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { Compiler, WebpackPluginInstance } from 'webpack';
 

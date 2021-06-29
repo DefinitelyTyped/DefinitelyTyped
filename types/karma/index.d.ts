@@ -1,4 +1,4 @@
-// Type definitions for karma 6.1
+// Type definitions for karma 6.3
 // Project: https://github.com/karma-runner/karma, http://karma-runner.github.io
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 James Garbutt <https://github.com/43081j>
@@ -10,25 +10,13 @@
 /// <reference types="node" />
 
 // See Karma public API https://karma-runner.github.io/latest/dev/public-api.html
-import https = require('https');
-import { Appender } from 'log4js';
-import { EventEmitter } from 'events';
-import * as constants from './lib/constants';
-import { VERSION } from './lib/constants';
+import https = require("https");
+import { Appender } from "log4js";
+import { EventEmitter } from "events";
+import * as constants from "./lib/constants";
+import { VERSION } from "./lib/constants";
 
 export { constants, VERSION };
-/**
- * `start` method is deprecated since 0.13. It will be removed in 0.14.
- * Please use
- * <code>
- *     server = new Server(config, [done])
- *     server.start()
- * </code>
- * instead.
- *
- * @deprecated
- */
-export const server: DeprecatedServer;
 export const runner: Runner;
 export const stopper: Stopper;
 
@@ -48,13 +36,10 @@ export namespace launcher {
     }
 }
 
-/** @deprecated */
-export interface DeprecatedServer {
-    /** @deprecated */
-    start(options?: any, callback?: ServerCallback): void;
-}
-
 export interface Runner {
+    run(options?: Config, callback?: ServerCallback): void;
+    /** @deprecated */
+    // tslint:disable-next-line:unified-signatures to correctly show deprecated overload
     run(options?: ConfigOptions | ConfigFile, callback?: ServerCallback): void;
 }
 
@@ -62,6 +47,9 @@ export interface Stopper {
     /**
      * This function will signal a running server to stop. The equivalent of karma stop.
      */
+    stop(options?: Config, callback?: ServerCallback): void;
+    /** @deprecated */
+    // tslint:disable-next-line:unified-signatures to correctly show deprecated overload
     stop(options?: ConfigOptions, callback?: ServerCallback): void;
 }
 
@@ -74,16 +62,26 @@ export interface TestResults {
 }
 
 export class Server extends EventEmitter {
+    constructor(options?: Config, callback?: ServerCallback);
+    /** @deprecated */
+    // tslint:disable-next-line:unified-signatures to correctly show deprecated overload
     constructor(options?: ConfigOptions | ConfigFile, callback?: ServerCallback);
     /**
      * Start the server
      */
-    start(): void;
+    start(): Promise<void>;
+
+    /**
+     * Stop the server
+     */
+    stop(): Promise<void>;
+
     /**
      * Get properties from the injector
      * @param token
      */
     get(token: string): any;
+
     /**
      * Force a refresh of the file list
      */
@@ -94,13 +92,7 @@ export class Server extends EventEmitter {
     /**
      * Listen to the 'run_complete' event.
      */
-    on(event: 'run_complete', listener: (browsers: any, results: TestResults) => void): this;
-
-    /**
-     * Backward-compatibility with karma-intellij bundled with WebStorm.
-     * Deprecated since version 0.13, to be removed in 0.14
-     */
-    // static start(): void;
+    on(event: "run_complete", listener: (browsers: any, results: TestResults) => void): this;
 }
 
 export type ServerCallback = (exitCode: number) => void;
@@ -139,21 +131,21 @@ export interface ConfigFile {
  * - `Safari` - launcher requires karma-safari-launcher plugin
  */
 export type AutomatedBrowsers =
-    | 'Chrome'
-    | 'ChromeCanary'
-    | 'ChromeHeadless'
-    | 'PhantomJS'
-    | 'Firefox'
-    | 'FirefoxHeadless'
-    | 'FirefoxDeveloper'
-    | 'FirefoxDeveloperHeadless'
-    | 'FirefoxAurora'
-    | 'FirefoxAuroraHeadless'
-    | 'FirefoxNightly'
-    | 'FirefoxNightlyHeadless'
-    | 'Opera'
-    | 'IE'
-    | 'Safari';
+    | "Chrome"
+    | "ChromeCanary"
+    | "ChromeHeadless"
+    | "PhantomJS"
+    | "Firefox"
+    | "FirefoxHeadless"
+    | "FirefoxDeveloper"
+    | "FirefoxDeveloperHeadless"
+    | "FirefoxAurora"
+    | "FirefoxAuroraHeadless"
+    | "FirefoxNightly"
+    | "FirefoxNightlyHeadless"
+    | "Opera"
+    | "IE"
+    | "Safari";
 
 export interface CustomHeaders {
     /** Regular expression string to match files */
@@ -208,9 +200,9 @@ export type PluginName = string;
 // tslint:disable-next-line:ban-types support for constructor function and classes
 export type ConstructorFn = Function | (new (...params: any[]) => any);
 export type FactoryFn = (...params: any[]) => any;
-export type ConstructorFnType = ['type', ConstructorFn];
-export type FactoryFnType = ['factory', FactoryFn];
-export type ValueType = ['value', any];
+export type ConstructorFnType = ["type", ConstructorFn];
+export type FactoryFnType = ["factory", FactoryFn];
+export type ValueType = ["value", any];
 export type InlinePluginType = FactoryFnType | ConstructorFnType | ValueType;
 export type InlinePluginDef = Record<PluginName, InlinePluginType>;
 
@@ -639,7 +631,7 @@ export interface ClientOptions {
 }
 
 /** type to use when including a file */
-export type FilePatternTypes = 'css' | 'html' | 'js' | 'module' | 'dom';
+export type FilePatternTypes = "css" | "html" | "js" | "module" | "dom";
 
 export interface FilePattern {
     /**
@@ -687,7 +679,7 @@ export interface CustomLauncher {
 
 export interface BrowserConsoleLogOptions {
     /** the desired log-level, where level log always is logged */
-    level?: 'log' | 'error' | 'warn' | 'info' | 'debug';
+    level?: "log" | "error" | "warn" | "info" | "debug";
     /**
      * The format is a string where `%b`, `%t`, `%T`, and `%m` are replaced with the browser string,
      * log type in lower-case, log type in uppercase, and log message, respectively.
@@ -700,6 +692,33 @@ export interface BrowserConsoleLogOptions {
     terminal?: boolean;
 }
 
+interface ParseOptions {
+    /**
+     * When true, the return value of the function is a Promise of Config instead of Config.
+     * Should be set to true to support async Karma configuration file.
+     *
+     * @deprecated Will become a default in the next major release.
+     */
+    promiseConfig?: boolean;
+
+    /**
+     * When true, function will throw error or return rejected Promise instead of calling process.exit(1).
+     *
+     * @deprecated Will become a default in the next major release.
+     */
+    throwErrors?: boolean;
+}
+
 export namespace config {
     function parseConfig(configFilePath: string, cliOptions: ConfigOptions): Config;
+    function parseConfig(
+        configFilePath: string | null | undefined,
+        cliOptions: ConfigOptions,
+        parseOptions?: ParseOptions & { promiseConfig: true },
+    ): Promise<Config>;
+    function parseConfig(
+        configFilePath: string | null | undefined,
+        cliOptions: ConfigOptions,
+        parseOptions?: ParseOptions,
+    ): Config;
 }
