@@ -98,10 +98,12 @@ export type RequestHandlerParams<
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
     | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
-type GetRouteParameter<RouteAfterColon extends string> = RouteAfterColon extends `${infer Char}${infer Rest}`
+type GetRouteParameter<RouteAfterColon extends string, Depth extends never[] = []> = Depth['length'] extends 10
+    ? never
+    : RouteAfterColon extends `${infer Char}${infer Rest}`
     ? Char extends '/' | '-' | '.'
         ? ''
-        : `${Char}${GetRouteParameter<Rest>}`
+        : `${Char}${GetRouteParameter<Rest, [...Depth, never]>}`
     : RouteAfterColon;
 
 // prettier-ignore
@@ -110,11 +112,16 @@ export type RouteParameters<Route extends string> = string extends Route
     : Route extends `${string}(${string}`
         ? ParamsDictionary //TODO: handling for regex parameters
         : Route extends `${string}:${infer Rest}`
-            ? (GetRouteParameter<Rest> extends `${infer ParamName}?`
-                ? { [P in ParamName]?: string }
-                : { [P in GetRouteParameter<Rest>]: string }) &
-                (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
-            : { };
+            ? (
+            GetRouteParameter<Rest> extends never
+                ? ParamsDictionary
+                : GetRouteParameter<Rest> extends `${infer ParamName}?`
+                    ? { [P in ParamName]?: string }
+                    : { [P in GetRouteParameter<Rest>]: string }
+            ) &
+            (Rest extends `${GetRouteParameter<Rest>}${infer Next}`
+                ? RouteParameters<Next> : unknown)
+            : {};
 
 export interface IRouterMatcher<
     T,
