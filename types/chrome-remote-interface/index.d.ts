@@ -1,4 +1,4 @@
-// Type definitions for chrome-remote-interface 0.30
+// Type definitions for chrome-remote-interface 0.31
 // Project: https://github.com/cyrus-and/chrome-remote-interface
 // Definitions by: Khairul Azhar Kasmiran <https://github.com/kazarmy>
 //                 Seth Westphal <https://github.com/westy92>
