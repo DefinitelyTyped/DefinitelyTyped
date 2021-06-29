@@ -184,6 +184,12 @@ declare namespace PDFKit.Mixins {
         features?: OpenTypeFeatures[];
         /** Sets a list as unordered, ordered or lettered */
         listType?: 'bullet' | 'numbered' | 'lettered';
+        /** The radius of bullet points in a list. Works only with listType: 'bullet' */
+        bulletRadius?: number;
+        /** The indent of bullet points in a list */
+        bulletIndent?: number;
+        /** The indent of text in a list */
+        textIndent?: number;
     }
 
     interface PDFText {
