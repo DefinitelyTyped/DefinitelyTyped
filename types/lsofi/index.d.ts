@@ -3,5 +3,5 @@
 // Definitions by: oof2win2 <https://github.com/oof2win2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function lsofi(port: number): Promise<number|null>;
+declare function lsofi(port: number): Promise<number | null>;
 export = lsofi;
