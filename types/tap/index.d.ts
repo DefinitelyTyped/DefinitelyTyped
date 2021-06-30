@@ -22,6 +22,11 @@ declare class DeprecatedAssertionSynonyms {
     assert: Assertions.Basic;
 
     /**
+     * @deprecated use teardown() instead.
+     */
+    tearDown(fn: () => void | Promise<void>): void;
+
+    /**
      * @deprecated use notOk() instead.
      */
     false: Assertions.Basic;
@@ -323,8 +328,8 @@ declare class DeprecatedAssertionSynonyms {
 declare namespace Assertions {
     type Basic = (obj: any, message?: string, extra?: Options.Assert) => boolean;
     interface Throws {
-        (fn?: (...args: any[]) => any, expectedError?: Error, message?: string, extra?: Options.Assert): boolean;
-        (fn?: (...args: any[]) => any, messageOrExpectedError?: string | Error, extra?: Options.Assert): boolean;
+        (fn?: (...args: any[]) => any, expectedError?: any, message?: string, extra?: Options.Assert): boolean;
+        (fn?: (...args: any[]) => any, expectedError?: any, extra?: Options.Assert): boolean;
     }
     type DoesNotThrow = (fn?: (...args: any[]) => any, message?: string, extra?: Options.Assert) => boolean;
     type Equal = (found: any, wanted: any, message?: string, extra?: Options.Assert) => boolean;
@@ -387,7 +392,6 @@ declare global {
              * @see {@link https://node-tap.org/docs/api/test-lifecycle-events}
              * @param fn
              */
-            tearDown(fn: () => void | Promise<void>): void;
             teardown(fn: () => void | Promise<void>): void;
 
             /**
@@ -404,6 +408,11 @@ declare global {
              * Call the end() method on all child tests, and then on this one.
              */
             endAll(): void;
+
+            /**
+             * Automatically end() the test on the next turn of the event loop after its internal queue is drained.
+             */
+            autoend(value: boolean): void;
 
             /**
              * When an uncaught exception is raised in the context of a test,
@@ -688,7 +697,7 @@ declare global {
              */
             rejects(
                 promiseOrFn: Promise<any> | ((...args: any[]) => Promise<any>),
-                expectedError: Error,
+                expectedError: any,
                 message?: string,
                 extra?: Options.Assert,
             ): Promise<void>;

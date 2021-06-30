@@ -1,19 +1,23 @@
-import * as brazil from 'svg-maps__brazil';
+import * as brazil from '@svg-maps/brazil';
 
 const SVGMapContainer: brazil.Map = {
-  viewBox: 'viewBox',
-  locations: [{
-    path: 'path',
-    id: 'id',
-    name: 'name'
-  }],
-  label: 'label'
+    viewBox: 'viewBox',
+    locations: [
+        {
+            path: 'path',
+            id: 'id',
+            name: 'name',
+        },
+    ],
+    label: 'label',
 };
 
 const SVGMapContainerNoOptional: brazil.Map = {
-  viewBox: 'vieweBox',
-  locations: [{
-  path: 'path',
-  id: 'id',
-  }],
+    viewBox: 'viewBox',
+    locations: [
+        {
+            path: 'path',
+            id: 'id',
+        },
+    ],
 };

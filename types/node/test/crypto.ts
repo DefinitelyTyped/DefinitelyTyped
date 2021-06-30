@@ -396,6 +396,72 @@ import { promisify } from 'util';
 }
 
 {
+    crypto.generateKey(
+        'hmac',
+        {
+            length: 123,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 128,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 192,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 256,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+}
+
+{
+    const generateKeyPromisified = promisify(crypto.generateKey);
+
+    const resHmac: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'hmac',
+        {
+            length: 123,
+        },
+    );
+
+    const resAes128: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 128,
+        },
+    );
+
+    const resAes192: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 192,
+        },
+    );
+
+    const resAes256: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 256,
+        },
+    );
+}
+
+{
     const rsaRes: {
         publicKey: Buffer;
         privateKey: string;

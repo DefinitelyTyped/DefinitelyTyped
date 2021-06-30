@@ -2555,6 +2555,7 @@ colors.rose[500];
 colors.fuchsia[500];
 colors.violet[500];
 colors.lightBlue[500];
+colors.sky[500];
 colors.cyan[500];
 colors.teal[500];
 colors.emerald[500];

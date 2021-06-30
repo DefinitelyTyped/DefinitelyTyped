@@ -28,6 +28,7 @@ interface ButtonBaseIsolatedProps {
     dangerDescription?: string;
     hasIconOnly?: boolean;
     iconDescription?: string;
+    isExpressive?: boolean;
     isSelected?: boolean;
     // trying to type this just causes problems around inference, overload selection, and anon fn vs typed component references.
     // if anon render props type is desired, import ButtonRenderIconRenderProps.

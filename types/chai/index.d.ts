@@ -507,7 +507,7 @@ declare namespace Chai {
         notStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is deeply equal (==) to expected.
+         * Asserts that actual is deeply equal to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -517,7 +517,7 @@ declare namespace Chai {
         deepEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is not deeply equal (==) to expected.
+         * Asserts that actual is not deeply equal to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -527,7 +527,7 @@ declare namespace Chai {
         notDeepEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is deeply strict equal (===) to expected.
+         * Alias to deepEqual
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.

@@ -3,18 +3,15 @@
 // Definitions by: Julien CROUZET <https://github.com/jucrouzet>
 //                 Eana Hufwe <https://github.com/blueset>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.4
 
 interface Navigator {
-    readonly mediaSession?: MediaSession;
+    readonly mediaSession: MediaSession;
 }
 
 interface Window {
     MediaSession?: MediaSession;
 }
-
-type MediaSessionPlaybackState = 'none' | 'paused' | 'playing';
-
-type MediaSessionAction = 'play' | 'pause' | 'seekbackward' | 'seekforward' | 'seekto' | 'previoustrack' | 'nexttrack' | 'skipad' | 'stop';
 
 interface SetPositionState {
     (playbackState?: MediaPositionState): void;
@@ -31,7 +28,7 @@ interface MediaSession {
     setActionHandler(action: MediaSessionAction, listener: ((details: MediaSessionActionDetails) => void) | null): void;
 
     // Set/unset position state
-    setPositionState?: SetPositionState;
+    setPositionState: SetPositionState;
 }
 
 interface MediaImage {
@@ -54,8 +51,7 @@ interface MediaMetadataInit {
     artwork?: MediaImage[];
 }
 
-declare class MediaMetadata {
-    constructor(init?: MediaMetadataInit);
+interface MediaMetadata {
     // Media's title.
     title: string;
     // Media's artist.
@@ -65,6 +61,11 @@ declare class MediaMetadata {
     // Media's artwork.
     artwork: ReadonlyArray<MediaImage>;
 }
+
+declare var MediaMetadata: {
+    prototype: MediaMetadata;
+    new(init?: MediaMetadataInit): MediaMetadata;
+};
 
 interface MediaPositionState {
     // Duration of media in seconds
@@ -82,11 +83,11 @@ interface MediaSessionActionDetails {
     action: MediaSessionAction;
 
     // This MAY be provided when the action is seekbackward or seekforward. Stores number of seconds to move the playback time by.
-    seekOffset?: number;
+    seekOffset?: number | null;
 
     // MUST be provided when action is seekto. Stores the time in seconds to move the playback time to.
-    seekTime?: number;
+    seekTime?: number | null;
 
     // MAY be provided when action is seekto. Stores true if the action is being called multiple times as part of a sequence and this is not the last call in that sequence.
-    fastSeek?: boolean;
+    fastSeek?: boolean | null;
 }

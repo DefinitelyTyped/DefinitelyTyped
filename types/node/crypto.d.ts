@@ -376,6 +376,8 @@ declare module 'crypto' {
         type?: 'pkcs1' | 'spki';
     }
 
+    function generateKey(type: 'hmac' | 'aes', options: {length: number}, callback: (err: Error | null, key: KeyObject) => void): void;
+
     function createPrivateKey(key: PrivateKeyInput | string | Buffer): KeyObject;
     function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject): KeyObject;
     function createSecretKey(key: NodeJS.ArrayBufferView): KeyObject;

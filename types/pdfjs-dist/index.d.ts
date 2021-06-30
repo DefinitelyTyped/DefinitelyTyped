@@ -394,6 +394,12 @@ interface PDFViewerParams {
     viewer?: HTMLElement;
 }
 
+interface GetTextContentParams {
+    normalizeWhitespace?: boolean;
+    disableCombineTextItems?: boolean;
+    includeMarkedContent?: boolean;
+}
+
 /**
  * RenderTask is basically a promise but adds a cancel function to termiate it.
  **/
@@ -451,7 +457,7 @@ interface PDFPageProxy {
     /**
      * A promise that is resolved with the string that is the text content frm the page.
      **/
-    getTextContent(): Promise<TextContent>;
+    getTextContent(params?: GetTextContentParams): Promise<TextContent>;
 
     /**
      * marked as future feature

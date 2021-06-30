@@ -11,6 +11,7 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Ivan Sieder <https://github.com/ivansieder>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Nandor Kraszlan <https://github.com/nandi95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -62,7 +63,7 @@ export interface SignOptions {
     jwtid?: string;
     mutatePayload?: boolean;
     noTimestamp?: boolean;
-    header?: object;
+    header?: JwtHeader;
     encoding?: string;
 }
 
@@ -98,24 +99,48 @@ export type VerifyErrors =
     | JsonWebTokenError
     | NotBeforeError
     | TokenExpiredError;
-export type VerifyCallback = (
+export type VerifyCallback<T = JwtPayload> = (
     err: VerifyErrors | null,
-    decoded: object | undefined,
+    decoded: T | undefined,
 ) => void;
 
 export type SignCallback = (
     err: Error | null, encoded: string | undefined
 ) => void;
 
+// standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1
 export interface JwtHeader {
-    alg: string;
+    alg: string | Algorithm;
     typ?: string;
+    cty?: string;
+    crit?: Array<string | Exclude<keyof JwtHeader, 'crit'>>;
     kid?: string;
     jku?: string;
-    x5u?: string;
+    x5u?: string | string[];
+    'x5t#S256'?: string;
     x5t?: string;
+    x5c?: string | string[];
 }
 
+// standard claims https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
+export interface JwtPayload {
+    [key: string]: any;
+    iss?: string;
+    sub?: string;
+    aud?: string | string[];
+    exp?: number;
+    nbf?: number;
+    iat?: number;
+    jti?: string;
+}
+
+export interface Jwt {
+    header: JwtHeader;
+    payload: JwtPayload;
+    signature: string;
+}
+
+// https://github.com/auth0/node-jsonwebtoken#algorithms-supported
 export type Algorithm =
     "HS256" | "HS384" | "HS512" |
     "RS256" | "RS384" | "RS512" |
@@ -177,7 +202,8 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): object | string;
+export function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt | string;
+export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): JwtPayload | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -196,6 +222,12 @@ export function verify(
 export function verify(
     token: string,
     secretOrPublicKey: Secret | GetPublicKeyOrSecret,
+    options?: VerifyOptions & { complete: true },
+    callback?: VerifyCallback<Jwt>,
+): void;
+export function verify(
+    token: string,
+    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     options?: VerifyOptions,
     callback?: VerifyCallback,
 ): void;
@@ -206,5 +238,5 @@ export function verify(
  * [options] - Options for decoding
  * returns - The decoded Token
  */
-export function decode(token: string, options: DecodeOptions & { json: true } | DecodeOptions & { complete: true }): null | { [key: string]: any };
-export function decode(token: string, options?: DecodeOptions): null | { [key: string]: any } | string;
+export function decode(token: string, options: DecodeOptions & { json: true } | DecodeOptions & { complete: true }): null | Jwt;
+export function decode(token: string, options?: DecodeOptions): null | JwtPayload | string;
