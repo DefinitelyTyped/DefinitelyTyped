@@ -33,7 +33,9 @@ const invisibleConfig: NeteaseCaptcha.Config = {
         console.log(error, data);
     },
     onReady: (instance: NeteaseCaptcha.Instance) => {
-        instance?.verify?.()
+        if (instance.verify) {
+            instance.verify();
+        }
     }
 };
 
