@@ -9,8 +9,8 @@ declare module Meteor {
     var isServer: boolean;
     /** True if running in production environment. */
     var isProduction: boolean;
-    /** 
-     * `Meteor.release` is a string containing the name of the release with which the project was built (for example, `"1.2.3"`). It is `undefined` if the project was built using a git checkout of 
+    /**
+     * `Meteor.release` is a string containing the name of the release with which the project was built (for example, `"1.2.3"`). It is `undefined` if the project was built using a git checkout of
      * Meteor.
      */
     var release: string;
@@ -24,10 +24,10 @@ declare module Meteor {
         [id: string]: any;
     }
     /**
-     * `Meteor.settings` contains deployment-specific configuration options. You can initialize settings by passing the `--settings` option (which takes the name of a file containing JSON data) to 
-     * `meteor run` or `meteor deploy`. When running your server directly (e.g. from a bundle), you instead specify settings by putting the JSON directly into the `METEOR_SETTINGS` environment 
-     * variable. If the settings object contains a key named `public`, then `Meteor.settings.public` will be available on the client as well as the server.  All other properties of `Meteor.settings` 
-     * are only defined on the server.  You can rely on `Meteor.settings` and `Meteor.settings.public` being defined objects (not undefined) on both client and server even if there are no settings 
+     * `Meteor.settings` contains deployment-specific configuration options. You can initialize settings by passing the `--settings` option (which takes the name of a file containing JSON data) to
+     * `meteor run` or `meteor deploy`. When running your server directly (e.g. from a bundle), you instead specify settings by putting the JSON directly into the `METEOR_SETTINGS` environment
+     * variable. If the settings object contains a key named `public`, then `Meteor.settings.public` will be available on the client as well as the server.  All other properties of `Meteor.settings`
+     * are only defined on the server.  You can rely on `Meteor.settings` and `Meteor.settings.public` being defined objects (not undefined) on both client and server even if there are no settings
      * specified. Changes to `Meteor.settings.public` at runtime will be picked up by new client connections.
      */
     var settings: Settings;
@@ -112,9 +112,9 @@ declare module Meteor {
         isSimulation: boolean;
         /** The id of the user that made this method call, or `null` if no user was logged in. */
         userId: string | null;
-        /** 
-         * Access inside a method invocation. The connection that this method was received on. `null` if the method is not associated with a connection, eg. a server initiated method call. Calls to 
-         * methods made from a server method which was in turn initiated from the client share the same `connection`. 
+        /**
+         * Access inside a method invocation. The connection that this method was received on. `null` if the method is not associated with a connection, eg. a server initiated method call. Calls to
+         * methods made from a server method which was in turn initiated from the client share the same `connection`.
          */
         connection: Connection | null;
         /**
@@ -153,9 +153,9 @@ declare module Meteor {
     /** Method **/
 
     /** Url **/
-    /** 
-     * Generate an absolute URL pointing to the application. The server reads from the `ROOT_URL` environment variable to determine where it is running. This is taken care of automatically for apps 
-     * deployed to Galaxy, but must be provided when using `meteor build`. 
+    /**
+     * Generate an absolute URL pointing to the application. The server reads from the `ROOT_URL` environment variable to determine where it is running. This is taken care of automatically for apps
+     * deployed to Galaxy, but must be provided when using `meteor build`.
      */
     var absoluteUrl: {
         /**
@@ -387,9 +387,9 @@ declare module Meteor {
     /** Connection **/
     /**
      * Publish a record set.
-     * @param name If String, name of the record set.  If Object, publications Dictionary of publish functions by name. If `null`, the set has no name, and the record set is automatically sent to all 
+     * @param name If String, name of the record set.  If Object, publications Dictionary of publish functions by name. If `null`, the set has no name, and the record set is automatically sent to all
      * connected clients.
-     * @param func Function called on the server each time a client subscribes. Inside the function, `this` is the publish handler object, described below. If the client passed arguments to 
+     * @param func Function called on the server each time a client subscribes. Inside the function, `this` is the publish handler object, described below. If the client passed arguments to
      * `subscribe`, the function is called with the same arguments.
      */
     function publish(
@@ -413,14 +413,14 @@ declare interface Subscription {
      * Call inside the publish function. Informs the subscriber that a document in the record set has been modified.
      * @param collection The name of the collection that contains the changed document.
      * @param id The changed document's ID.
-     * @param fields The fields in the document that have changed, together with their new values.  If a field is not present in `fields` it was left unchanged; if it is present in `fields` and has a 
+     * @param fields The fields in the document that have changed, together with their new values.  If a field is not present in `fields` it was left unchanged; if it is present in `fields` and has a
      * value of `undefined` it was removed from the document.  If `_id` is present it is ignored.
      */
     changed(collection: string, id: string, fields: Object): void;
     /** Access inside the publish function. The incoming connection for this subscription. */
     connection: Meteor.Connection;
     /**
-     * Call inside the publish function.  Stops this client's subscription, triggering a call on the client to the `onStop` callback passed to `Meteor.subscribe`, if any. If `error` is not a 
+     * Call inside the publish function.  Stops this client's subscription, triggering a call on the client to the `onStop` callback passed to `Meteor.subscribe`, if any. If `error` is not a
      * `Meteor.Error`, it will be sanitized.
      * @param error The error to pass to the client.
      */
@@ -431,7 +431,7 @@ declare interface Subscription {
      */
     onStop(func: Function): void;
     /**
-     * Call inside the publish function.  Informs the subscriber that an initial, complete snapshot of the record set has been sent.  This will trigger a call on the client to the `onReady` callback 
+     * Call inside the publish function.  Informs the subscriber that an initial, complete snapshot of the record set has been sent.  This will trigger a call on the client to the `onReady` callback
      * passed to  `Meteor.subscribe`, if any.
      */
     ready(): void;

@@ -4,9 +4,9 @@ import { Meteor } from 'meteor/meteor';
 declare module 'meteor/mongo' {
     // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
     type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
-    
-    module Mongo {
 
+    module Mongo {
+        // prettier-ignore
         type BsonType = 1 | "double" |
             2 | "string" |
             3 | "object" |
@@ -163,9 +163,9 @@ declare module 'meteor/mongo' {
             new <T, U = T>(
                 name: string | null,
                 options?: {
-                    /** 
-                     * The server connection that will manage this collection. Uses the default connection if not specified. Pass the return value of calling `DDP.connect` to specify a different 
-                     * server. Pass `null` to specify no connection. Unmanaged (`name` is null) collections cannot specify a connection. 
+                    /**
+                     * The server connection that will manage this collection. Uses the default connection if not specified. Pass the return value of calling `DDP.connect` to specify a different
+                     * server. Pass `null` to specify no connection. Unmanaged (`name` is null) collections cannot specify a connection.
                      */
                     connection?: Object | null;
                     /** The method of generating the `_id` fields of new documents in this collection.  Possible values:
@@ -175,9 +175,9 @@ declare module 'meteor/mongo' {
                      * The default id generation technique is `'STRING'`.
                      */
                     idGeneration?: string;
-                    /** 
-                     * An optional transformation function. Documents will be passed through this function before being returned from `fetch` or `findOne`, and before being passed to callbacks of 
-                     * `observe`, `map`, `forEach`, `allow`, and `deny`. Transforms are *not* applied for the callbacks of `observeChanges` or to cursors returned from publish functions. 
+                    /**
+                     * An optional transformation function. Documents will be passed through this function before being returned from `fetch` or `findOne`, and before being passed to callbacks of
+                     * `observe`, `map`, `forEach`, `allow`, and `deny`. Transforms are *not* applied for the callbacks of `observeChanges` or to cursors returned from publish functions.
                      */
                     transform?: (doc: T) => U;
                     /** Set to `false` to skip setting up the mutation methods that enable insert/update/remove from client code. Default `true`. */
@@ -243,12 +243,12 @@ declare module 'meteor/mongo' {
              */
             insert(doc: OptionalId<T>, callback?: Function): string;
             /**
-             * Returns the [`Collection`](http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html) object corresponding to this collection from the 
+             * Returns the [`Collection`](http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html) object corresponding to this collection from the
              * [npm `mongodb` driver module](https://www.npmjs.com/package/mongodb) which is wrapped by `Mongo.Collection`.
              */
             rawCollection(): MongoCollection<T>;
             /**
-             * Returns the [`Db`](http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html) object corresponding to this collection's database connection from the 
+             * Returns the [`Db`](http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html) object corresponding to this collection's database connection from the
              * [npm `mongodb` driver module](https://www.npmjs.com/package/mongodb) which is wrapped by `Mongo.Collection`.
              */
             rawDatabase(): MongoDb;
@@ -272,16 +272,16 @@ declare module 'meteor/mongo' {
                     multi?: boolean;
                     /** True to insert a document if no matching documents are found. */
                     upsert?: boolean;
-                    /** 
-                     * Used in combination with MongoDB [filtered positional operator](https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/) to specify which elements to 
-                     * modify in an array field. 
+                    /**
+                     * Used in combination with MongoDB [filtered positional operator](https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/) to specify which elements to
+                     * modify in an array field.
                      */
                     arrayFilters?: { [identifier: string]: any }[];
                 },
                 callback?: Function,
             ): number;
             /**
-             * Modify one or more documents in the collection, or insert one if no matching documents were found. Returns an object with keys `numberAffected` (the number of documents modified) and 
+             * Modify one or more documents in the collection, or insert one if no matching documents were found. Returns an object with keys `numberAffected` (the number of documents modified) and
              * `insertedId` (the unique _id of the document that was inserted, if any).
              * @param selector Specifies which documents to modify
              * @param modifier Specifies how to modify the documents
