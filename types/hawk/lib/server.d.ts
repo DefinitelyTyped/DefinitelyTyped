@@ -108,7 +108,7 @@ export function authenticateBewit(
     req: http.IncomingMessage,
     credentialsFunc: CredentialsFunc,
     options?: AuthenticateBewitOptions,
-): AuthenticatedBewit;
+): Promise<AuthenticatedBewit>;
 
 export function authenticateMessage(
     host: string,

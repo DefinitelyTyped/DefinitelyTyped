@@ -182,6 +182,8 @@ interface CommandLineSwitches {
     hashMethod?: string;
     /** Set charset for list files (-scs) */
     listFileCharset?: string;
+    /** Set charset for console input/output */
+    charset?: string;
     /** Set output log level (-bb) */
     logLevel?: string;
     /** Set Output directory (-o) */

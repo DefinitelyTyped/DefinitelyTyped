@@ -47,3 +47,17 @@ export const DropdownItemLink = React.forwardRef<HTMLLIElement, HashLinkProps>((
 const CustomLink = genericHashLink(DropdownItemLink);
 
 <CustomLink smooth to="#some-element-id" />;
+
+const providedElementId = {
+    elementId: '#foo',
+    to: '',
+};
+
+<NavHashLink {...providedElementId}/>;
+
+const providedTimeout = {
+    timeout: 100,
+    to: '/url',
+};
+
+<NavHashLink {...providedTimeout}/>;

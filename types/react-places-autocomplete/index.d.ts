@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 //
-/// <reference types="googlemaps" />
+/// <reference types="google.maps" />
 import * as React from 'react';
 
 export type AutocompletePrediction = google.maps.places.AutocompletePrediction;

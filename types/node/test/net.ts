@@ -24,6 +24,7 @@ import { LookupOneOptions } from 'dns';
 
     server.listen({
         ipv6Only: true,
+        signal: new AbortSignal(),
     });
 
     // close callback parameter can be either nothing (undefined) or an error

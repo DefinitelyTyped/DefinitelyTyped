@@ -20,8 +20,11 @@ export interface FeatureFlagsProps {
     flags?: FeatureFlagRecord;
 }
 
-export declare const FeatureFlags: React.FC<FeatureFlagsProps>;
+declare const FeatureFlagContext: React.Context<FeatureFlagScope>;
+declare const FeatureFlags: React.FC<FeatureFlagsProps>;
+declare function useFeatureFlag(flag: string): boolean;
+declare function useFeatureFlags(): FeatureFlagScope;
 
-export declare function useFeatureFlag(flag: string): boolean;
-
-export declare function useFeatureFlags(): FeatureFlagScope;
+export {
+    FeatureFlags, FeatureFlagContext, useFeatureFlags, useFeatureFlag
+};

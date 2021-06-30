@@ -67,7 +67,9 @@ export type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame)
 export type XRPlaneSet = Set<XRPlane>;
 export type XRAnchorSet = Set<XRAnchor>;
 
-export type XREventHandler = EventHandlerNonNull;
+export interface XREventHandler {
+    (event: Event): any;
+}
 
 // tslint:disable-next-line no-empty-interface
 export interface XRLayer extends EventTarget {}

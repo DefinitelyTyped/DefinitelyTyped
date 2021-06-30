@@ -1,4 +1,4 @@
-import { VSCodeEvent } from './events';
+import { VSCodeEvent } from "./events";
 
 declare global {
     const onDidReceiveKernelMessage: VSCodeEvent<any>;

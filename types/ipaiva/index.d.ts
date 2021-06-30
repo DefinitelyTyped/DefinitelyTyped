@@ -1,4 +1,4 @@
-// Type definitions for ipaiva 0.1
+// Type definitions for ipaiva 0.2
 // Project: https://github.com/ipaiva-studio
 // Definitions by: ipaiva <https://github.com/ipaiva-studio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,8 +13,12 @@ declare module 'ipaiva' {
         placeholder?: string;
     }
 
+    interface TextEditor {
+        on(event: 'completed', fn: (content: string) => void): this;
+    }
+
     export namespace textEditor {
-        export function create(elem: HTMLElement, options?: TextEditorOptions): void;
+        export function create(elem: HTMLElement, options?: TextEditorOptions): TextEditor;
     }
 
     export namespace window {
@@ -27,7 +31,7 @@ declare module 'ipaiva' {
     export namespace library {
         type OnDidPickCallback = (callback: { url: string }) => void;
         interface OnDidPickOption {
-            type?: 'image' | 'video' | 'audio';
+            type: 'image' | 'video' | 'audio';
         }
 
         function onDidPick(callback: OnDidPickCallback, option?: OnDidPickOption): void;
@@ -36,10 +40,18 @@ declare module 'ipaiva' {
     export namespace Crate {
         interface Package {
             name: string;
+            version: string;
         }
+
+        interface NodeData {
+            [key: string]: string | number | boolean | object;
+        }
+
+        type Props = Record<string, any>;
 
         interface Design {
             main?: string;
+            data?: NodeData;
             options?: DesignOptions;
             dependencies?: any;
             transformer?: Transformer;
@@ -47,6 +59,14 @@ declare module 'ipaiva' {
             controls?: DesignControls;
             nodeEvents?: DesignNodeEvents;
             preCreate?(option: PreCreateOption): PreCreateOption;
+            overrideRenderProperties?(props: Props): Props;
+
+            /**
+             * extract options
+             *
+             * @param options DesignOptions
+             */
+            extractOptions?(options: DesignOptions): DesignOptions;
         }
 
         interface Render {}

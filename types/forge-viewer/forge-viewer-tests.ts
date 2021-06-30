@@ -34,7 +34,8 @@ Autodesk.Viewing.Initializer(options, async () => {
     fragListTests(model);
     instanceTreeTests(model);
     modelTests(model);
-    await propertyDbTests(model);
+    showHideTests(viewer);
+    await bulkPropertiesTests(model);
     await compGeomTests(viewer);
     await dataVizTests(viewer);
     await dataVizPlanarTests(viewer);
@@ -42,6 +43,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     await measureTests(viewer);
     await pixelCompareTests(viewer);
     await propertyTests(viewer);
+    await propertyDbTests(model);
     await searchTests(viewer);
 });
 
@@ -104,6 +106,26 @@ function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
     const up = new THREE.Vector3(0, 0, 1);
 
     viewer.navigation.setCameraUpVector(up);
+}
+
+async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        const instanceTree = model.getInstanceTree();
+        const ids: number[] = [];
+
+        instanceTree.enumNodeChildren(instanceTree.getRootId(), (dbId) => {
+            if (instanceTree.getChildCount(dbId) === 0) {
+                ids.push(dbId);
+            }
+        });
+
+        model.getBulkProperties(ids, {
+            propFilter: [ "Name"] },
+            (propResults) => {
+                resolve();
+            }
+        );
+    });
 }
 
 async function compGeomTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
@@ -321,6 +343,11 @@ async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number
             reject(err);
         });
     });
+}
+
+function showHideTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    viewer.hideAll();
+    viewer.showAll();
 }
 
 function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {

@@ -61,6 +61,7 @@ const GTA5MapTypeOption1 = {
 
 map = new naver.maps.Map('map', {
     center: new naver.maps.LatLng(74.92514151088395, -127.880859375),
+    useStyleMap: true,
     zoom: 2,
     mapTypes: new naver.maps.MapTypeRegistry({
         Atlas: new naver.maps.ImageMapType(GTA5MapTypeOption1)

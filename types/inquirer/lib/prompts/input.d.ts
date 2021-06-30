@@ -76,7 +76,7 @@ declare class InputPrompt<TQuestion extends Question = Question> extends Prompt<
     /**
      * Handles the `keypress`-event of the prompt.
      */
-    protected onKeyPress(): void;
+    protected onKeypress(): void;
 }
 
 export = InputPrompt;

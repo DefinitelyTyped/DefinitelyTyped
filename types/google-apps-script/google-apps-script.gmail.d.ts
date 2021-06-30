@@ -181,6 +181,10 @@ declare namespace GoogleAppsScript {
        */
       name?: string;
       /**
+       * True if the email should be sent from a generic no-reply email address to discourage recipients from responding to emails; this option is only possible for Google Workspace accounts, not Gmail users.
+       */
+      noReply?: boolean;
+      /**
        * An email address to use as the default reply-to address (default: the user's email address).
        */
       replyTo?: string;

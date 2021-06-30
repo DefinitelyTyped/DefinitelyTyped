@@ -11,7 +11,8 @@ export interface SearchProps extends Omit<ReactInputAttr, ExcludedAttributes> {
      * @deprecated
      */
     placeHolderText?: string,
-    size?: "sm" | "lg" | "xl",
+    renderIcon?: React.ReactNode;
+    size?: "sm" | "md" | "lg" | "xl",
     /**
      * @deprecated
      */

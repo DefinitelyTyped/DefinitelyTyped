@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 4.1
+// Type definitions for @yaireo/tagify 4.3
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -71,7 +71,7 @@ declare namespace Tagify {
         maxItems?: number;
 
         /**
-         * Custom class name for the dropdown suggestions select box.
+         * Custom class name for the dropdown suggestions list.
          * @default Empty string.
          */
         classname?: string;
@@ -610,6 +610,12 @@ declare namespace Tagify {
         addTagOnBlur?: boolean;
 
         /**
+         * Automatically converts pasted text into tags.
+         * @default true
+         */
+        pasteAsTags?: boolean;
+
+        /**
          * Callbacks that are invoked when the event specified by the key
          * occurs.
          */
@@ -682,6 +688,7 @@ declare namespace Tagify {
          * When the backspace key is pressed:
          * `true` - remove last tag
          * `edit` - edit last tag
+         * `false` - do nothing (useful for outside style)
          * @default true
          */
         backspace?: boolean | 'edit';
@@ -1164,42 +1171,27 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     dropdown: {
         /**
          * Refilters the list of items in the dropdown.
-         *
-         * Note that this must be called with the this context set to the tagify
-         * instance, use `call` or `apply` for that.
-         *
          * @param filterValue Filter the whitelist by this value (optional).
          */
-        refilter(this: Tagify<T>, filterValue?: string): void;
+        refilter(filterValue?: string): void;
 
         /**
          * Shows the suggestions select box.
-         *
-         * Note that this must be called with the this context set to the tagify
-         * instance, use `call` or `apply` for that.
-         *
          * @param filterValue Filter the whitelist by this value (optional).
          */
-        show(this: Tagify<T>, filterValue?: string): void;
+        show(filterValue?: string): void;
 
         /**
          * Hide the suggestions select box.
-         *
-         * Note that this must be called with the this context set to the tagify
-         * instance, use `call` or `apply` for that.
-         *
          * @param force Whether the dropdown menu should be hidden even when it
          * would need to be prevented.
          */
-        hide(this: Tagify<T>, force?: boolean): void;
+        hide(force?: boolean): void;
 
         /**
          * Add all whitelist items as tags and close the suggestion dropdown.
-         *
-         * Note that this must be called with the this context set to the tagify
-         * instance, use `call` or `apply` for that.
          */
-        selectAll(this: Tagify<T>): void;
+        selectAll(): void;
     };
 
     /**
@@ -1211,6 +1203,11 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * List with the currently available options for the dropdown.
      */
     suggestedListItems?: T[];
+
+    /**
+     * Get or dynamically set whitelist.
+     */
+    whitelist: string[] | T[];
 
     /**
      * Array with tag data of the currently selected tags.

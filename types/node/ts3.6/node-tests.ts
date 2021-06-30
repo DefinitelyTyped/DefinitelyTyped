@@ -5,6 +5,7 @@ import '../test/cluster';
 import '../test/constants';
 import '../test/crypto';
 import '../test/dgram';
+import '../test/diagnostic_channel';
 import '../test/dns';
 import '../test/events';
 import '../test/fs';
@@ -27,16 +28,15 @@ import '../test/string_decoder';
 import '../test/tls';
 import '../test/tty';
 import '../test/util';
+import '../test/util_types';
 import '../test/v8';
 import '../test/vm';
 import '../test/wasi';
 import '../test/worker_threads';
 import '../test/zlib';
 
-import assert = require('assert');
 import * as fs from 'fs';
 import * as url from 'url';
-import * as util from 'util';
 import * as http from 'http';
 import * as https from 'https';
 import * as net from 'net';
@@ -348,52 +348,4 @@ const importObject = { wasi_unstable: wasi.wasiImport };
     const s2: string = s.trimRight();
     const s3: string = s.trimStart();
     const s4: string = s.trimEnd();
-}
-
-//////////////////////////////////////////////////////////
-/// Global Tests : https://nodejs.org/api/global.html  ///
-//////////////////////////////////////////////////////////
-{
-    const hrtimeBigint: bigint = process.hrtime.bigint();
-
-    process.allowedNodeEnvironmentFlags.has('asdf');
-}
-
-// Util Tests
-{
-    const value: BigInt64Array | BigUint64Array | number = [] as any;
-    if (util.types.isBigInt64Array(value)) {
-        // $ExpectType BigInt64Array
-        const b = value;
-    } else if (util.types.isBigUint64Array(value)) {
-        // $ExpectType BigUint64Array
-        const b = value;
-    } else {
-        // $ExpectType number
-        const b = value;
-    }
-
-    const arg1UnknownError: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: unknown, result: number) => void): void => { });
-    const arg1AnyError: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: any, result: number) => void): void => { });
-}
-
-// FS Tests
-{
-    const bigStats: fs.BigIntStats = fs.statSync('.', { bigint: true });
-    const bigIntStat: bigint = bigStats.atimeNs;
-    const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.random() > 0.5 });
-}
-
-// Global Tests
-
-{
-    const a = Buffer.alloc(1000);
-    a.writeBigInt64BE(123n);
-    a.writeBigInt64LE(123n);
-    a.writeBigUInt64BE(123n);
-    a.writeBigUInt64LE(123n);
-    let b: bigint = a.readBigInt64BE(123);
-    b = a.readBigInt64LE(123);
-    b = a.readBigUInt64LE(123);
-    b = a.readBigUInt64BE(123);
 }

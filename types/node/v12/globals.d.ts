@@ -21,16 +21,16 @@ interface Console {
      */
     countReset(label?: string): void;
     /**
-     * The `console.debug()` function is an alias for {@link console.log()}.
+     * The `console.debug()` function is an alias for {@link console.log}.
      */
     debug(message?: any, ...optionalParams: any[]): void;
     /**
-     * Uses {@link util.inspect()} on `obj` and prints the resulting string to `stdout`.
+     * Uses {@link util.inspect} on `obj` and prints the resulting string to `stdout`.
      * This function bypasses any custom `inspect()` function defined on `obj`.
      */
     dir(obj: any, options?: NodeJS.InspectOptions): void;
     /**
-     * This method calls {@link console.log()} passing it the arguments received. Please note that this method does not produce any XML formatting
+     * This method calls {@link console.log} passing it the arguments received. Please note that this method does not produce any XML formatting
      */
     dirxml(...data: any[]): void;
     /**
@@ -43,7 +43,7 @@ interface Console {
      */
     group(...label: any[]): void;
     /**
-     * The `console.groupCollapsed()` function is an alias for {@link console.group()}.
+     * The `console.groupCollapsed()` function is an alias for {@link console.group}.
      */
     groupCollapsed(...label: any[]): void;
     /**
@@ -51,7 +51,7 @@ interface Console {
      */
     groupEnd(): void;
     /**
-     * The {@link console.info()} function is an alias for {@link console.log()}.
+     * The {@link console.info} function is an alias for {@link console.log}.
      */
     info(message?: any, ...optionalParams: any[]): void;
     /**
@@ -68,19 +68,19 @@ interface Console {
      */
     time(label?: string): void;
     /**
-     * Stops a timer that was previously started by calling {@link console.time()} and prints the result to `stdout`.
+     * Stops a timer that was previously started by calling {@link console.time} and prints the result to `stdout`.
      */
     timeEnd(label?: string): void;
     /**
-     * For a timer that was previously started by calling {@link console.time()}, prints the elapsed time and other `data` arguments to `stdout`.
+     * For a timer that was previously started by calling {@link console.time}, prints the elapsed time and other `data` arguments to `stdout`.
      */
     timeLog(label?: string, ...data: any[]): void;
     /**
-     * Prints to `stderr` the string 'Trace :', followed by the {@link util.format()} formatted message and stack trace to the current position in the code.
+     * Prints to `stderr` the string 'Trace :', followed by the {@link util.format} formatted message and stack trace to the current position in the code.
      */
     trace(message?: any, ...optionalParams: any[]): void;
     /**
-     * The {@link console.warn()} function is an alias for {@link console.error()}.
+     * The {@link console.warn} function is an alias for {@link console.error}.
      */
     warn(message?: any, ...optionalParams: any[]): void;
 

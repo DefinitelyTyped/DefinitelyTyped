@@ -1,4 +1,6 @@
 import * as path from 'path';
+import * as win32Path from 'path/win32';
+import * as posixPath from 'path/posix';
 
 path.normalize('/foo/bar//baz/asdf/quux/..');
 
@@ -165,3 +167,7 @@ path.win32.format({
 });
 // returns
 //    'C:\home\user\dir\file.txt'
+
+// ensure aliases exist
+win32Path.join();
+posixPath.join();

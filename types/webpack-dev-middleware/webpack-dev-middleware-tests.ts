@@ -44,22 +44,28 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
     },
 });
 
+// $ExpectType string | undefined
+webpackDevMiddlewareInstance.getFilenameFromUrl("/");
+
 // return value
 const app = express();
 app.use([webpackDevMiddlewareInstance]);
 
+webpackDevMiddlewareInstance.waitUntilValid();
 webpackDevMiddlewareInstance.waitUntilValid(stats => {
     if (stats) {
         console.log('Package is in a valid state:' + stats.toJson());
     }
 });
 
+webpackDevMiddlewareInstance.invalidate();
 webpackDevMiddlewareInstance.invalidate(stats => {
     if (stats) {
         console.log(stats.toJson());
     }
 });
 
+webpackDevMiddlewareInstance.close();
 webpackDevMiddlewareInstance.close(() => {
     console.log('closed');
 });

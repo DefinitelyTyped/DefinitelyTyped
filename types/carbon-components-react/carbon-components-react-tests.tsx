@@ -16,7 +16,13 @@ import {
     HeaderMenu,
     HeaderMenuItem,
     FileUploader,
+    Link,
     NumberInput,
+    NumberInputOnChangeDataVariant,
+    NumberInputOnChangeDefaultVariant,
+    NumberInputOnClickDataVariant,
+    NumberInputOnClickDefaultVariant,
+    NumberInputOnClickInputVariant,
     Row,
     SecondaryButton,
     Slider,
@@ -44,15 +50,16 @@ import {
     StructuredListRow,
     StructuredListInput,
     StructuredListCell,
+    StructuredListSkeleton,
     ButtonRenderIconRenderProps,
     Modal,
     InlineLoading,
     DataTableSkeleton,
     TableCell,
     unstable_Heading as UnstableHeading,
-    unstable_Section as UnstableSection
-} from 'carbon-components-react';
-import Link from 'carbon-components-react/lib/components/UIShell/Link';
+    unstable_Section as UnstableSection,
+} from "carbon-components-react";
+import UIShellLink from 'carbon-components-react/lib/components/UIShell/Link';
 import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
 
 // test components for "as" props
@@ -501,19 +508,33 @@ const t5 = (
 }
 
 // UIShell - Link
+{
+    const uisLinkT1 = <UIShellLink href="#test">Test</UIShellLink>;
+    const uisLinkT2 = <UIShellLink<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src"/>;
+    const uisLinkT3 = (
+        <UIShellLink<TestCompProps> element={TestComp1} someProp={2}>
+            ASDF
+        </UIShellLink>
+    );
+    const uisLinkT4 = (
+        <UIShellLink<TestCompProps> element={TestComp2} someProp={2}>
+            ASDF
+        </UIShellLink>
+    );
 
-const uisLinkT1 = <Link href="#test">Test</Link>;
-const uisLinkT2 = <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src" />;
-const uisLinkT3 = (
-    <Link<TestCompProps> element={TestComp1} someProp={2}>
-        ASDF
-    </Link>
-);
-const uisLinkT4 = (
-    <Link<TestCompProps> element={TestComp2} someProp={2}>
-        ASDF
-    </Link>
-);
+    interface TestCompPropsOverwrite {
+        element?: 'overwriteTest'; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
+        someProp: string;
+    }
+
+    const TestComp3 = (props: TestCompPropsOverwrite) => <div/>;
+
+    const uisLinkT5 = (
+        <UIShellLink<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">
+            Testing Overwrite
+        </UIShellLink>
+    );
+}
 
 // UI Shell - HeaderContainer
 const uisHeaderContainerAnonRender = (
@@ -563,23 +584,6 @@ const uisHeaderMenuCompRenderNotMatchingOptionalProps = (
 
 const uisHeaderMenuItemRequiredChild = <HeaderMenuItem>Required Child</HeaderMenuItem>;
 
-//
-// UIShell Link
-//
-
-interface TestCompPropsOverwrite {
-    element?: 'overwriteTest'; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
-    someProp: string;
-}
-
-const TestComp3 = (props: TestCompPropsOverwrite) => <div />;
-
-const uisLinkT5 = (
-    <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">
-        Testing Overwrite
-    </Link>
-);
-
 // DatePickerInput
 const datePickerInputWithHideLabel = (
     <DatePickerInput hideLabel={true} id="my-date-picker-input" labelText="my-label-text" />
@@ -609,21 +613,41 @@ const dropdownItemCanBeElement = (
     />
 );
 
+//
+// Link
+//
+{
+    const LinkIcon1: React.FC = (props) => <div/>;
+    const LinkIcon2: React.FC<{ someProp?: number }> = (props) => <div/>;
+
+    const linkT1 = (
+        <Link href="href" inline renderIcon={LinkIcon1}>Text</Link>
+    );
+    const linkT2 = (
+        <Link href="href" renderIcon={LinkIcon2}>Text</Link>
+    );
+}
+
 // Popover
 {
+    const popoverContentDivRef = React.useRef<HTMLDivElement | null>(null);
     const popoverT1 = (
         <Popover open align="bottom" caret>
-            <PopoverContent>Content</PopoverContent>
+            <PopoverContent ref={popoverContentDivRef}>Content</PopoverContent>
         </Popover>
     );
+
+    const popoverContentFieldSetRef = React.useRef<HTMLFieldSetElement | null>(null);
     const popoverIntrinsicT1 = (
         <Popover open={false}>
-            <PopoverContent as="fieldset" disabled form="test">Content</PopoverContent>
+            <PopoverContent as="fieldset" disabled form="test" ref={popoverContentFieldSetRef}>Content</PopoverContent>
         </Popover>
     );
+
+    const popoverContentCustomRef = React.useRef<{ someFn: () => void } | null>(null);
     const popoverCustomComponentT1 = (
         <Popover open>
-            <PopoverContent as={TestComp2} someProp={2}>Content</PopoverContent>
+            <PopoverContent as={TestComp2} someProp={2} ref={popoverContentCustomRef}>Content</PopoverContent>
         </Popover>
     );
 }
@@ -706,6 +730,10 @@ const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue 
             </StructuredListBody>
         </StructuredListWrapper>
     );
+
+    const structuredListSkeletonT1 = (
+        <StructuredListSkeleton />
+    );
 }
 
 // Tag
@@ -747,8 +775,58 @@ const passwordInputWithRef = <TextInput.PasswordInput id="my-id" ref={inputRef} 
 const controlledPasswordInputWithRef = <TextInput.ControlledPasswordInput id="my-id" ref={inputRef} labelText="" />;
 
 // NumberInput
-const numberInput = <NumberInput id="my-id" value={12} />;
-const emptyNumberInput = <NumberInput id="empty-id" value="" />;
+{
+    const numberInput = <NumberInput id="my-id" value={12} />;
+    const emptyNumberInput = <NumberInput id="empty-id" value="" />;
+
+    const numberInputOnChangeT1 = (
+        <NumberInput
+            id="id"
+            onChange={((evt, { direction, value }) => evt.preventDefault()) as NumberInputOnChangeDataVariant}
+            value=""
+        />
+    );
+
+    const numberInputOnChangeT2 = (
+        <NumberInput id="id" onChange={(evt, direction, value) => {
+            if (direction === "down") {
+                evt.preventDefault();
+            }
+        }} value="" />
+    );
+
+    const numberInputOnChangeT3 = (
+        <NumberInput
+            id="id"
+            onChange={((evt, direction, value) => evt.preventDefault()) as NumberInputOnChangeDefaultVariant}
+            value=""
+        />
+    );
+
+    const numberInputOnClickT1 = (
+        <NumberInput
+            id="id"
+            onClick={((evt, direction, value) => evt.preventDefault()) as NumberInputOnClickDefaultVariant}
+            value=""
+        />
+    );
+
+    const numberInputOnClickT2 = (
+        <NumberInput
+            id="id"
+            onClick={((evt, { direction, value }) => evt.preventDefault()) as NumberInputOnClickDataVariant}
+            value=""
+        />
+    );
+
+    const numberInputOnClickT3 = (
+        <NumberInput
+            id="id"
+            onClick={((evt) => evt.currentTarget.checked) as NumberInputOnClickInputVariant}
+            value=""
+        />
+    );
+}
 
 // FileUploader
 const fileUploaderHasOnChange = <FileUploader onChange={e => {}} />;

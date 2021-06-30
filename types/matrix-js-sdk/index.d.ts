@@ -1,4 +1,4 @@
-// Type definitions for matrix-js-sdk 9.2
+// Type definitions for matrix-js-sdk 11.0
 // Project: https://github.com/matrix-org/matrix-js-sdk
 // Definitions by: Huan LI (李卓桓) <https://github.com/huan>
 //                 André Vitor L. Matos <https://github.com/andrevmatos>
@@ -288,6 +288,10 @@ export interface LoginPayload {
      */
     well_known?: any;
 }
+export interface RequestTokenPayload {
+    sid: string;
+    submit_url?: string;
+}
 export interface IncludeEventContext {
     before_limit?: number;
     after_limit?: number;
@@ -540,33 +544,33 @@ export class MatrixClient extends EventEmitter {
     register(
         username: string, password: string, sessionId?: string,
         auth?: object, bindThreepids?: object, guestAccessToken?: string,
-        inhibitLogin?: string, callback?: MatrixCallback,
+        inhibitLogin?: boolean, callback?: MatrixCallback,
     ): Promise<LoginPayload>;
-    registerGuest(opts?: object, callback?: MatrixCallback): Promise<void>;
-    registerRequest(data: object, kind?: string, callback?: MatrixCallback): Promise<object>;
+    registerGuest(opts?: object, callback?: MatrixCallback): Promise<LoginPayload>;
+    registerRequest(data: object, kind?: string, callback?: MatrixCallback): Promise<LoginPayload>;
     removeRoomFromGroup(groupId: string, roomId: string): Promise<void>;
     removeRoomFromGroupSummary(groupId: string, roomId: string): Promise<void>;
     removeUserFromGroup(groupId: string, userId: string): Promise<void>;
     removeUserFromGroupSummary(groupId: string, userId: string): Promise<void>;
-    requestAdd3pidEmailToken(email: string, clientSecret: string, sendAttempt: number, nextLink: string): Promise<string>;
+    requestAdd3pidEmailToken(email: string, clientSecret: string, sendAttempt: number, nextLink: string): Promise<RequestTokenPayload>;
     requestAdd3pidMsisdnToken(
         phoneCountry: string, phoneNumber: string, clientSecret: string, sendAttempt: number, nextLink: string,
-    ): Promise<string>;
+    ): Promise<RequestTokenPayload>;
     requestEmailToken(
         email: string, clientSecret: string, sendAttempt: number, nextLink: string, callback?: MatrixCallback,
-    ): Promise<string>;
+    ): Promise<RequestTokenPayload>;
     requestPasswordEmailToken(
         email: string, clientSecret: string, sendAttempt: number, nextLink: string, callback?: MatrixCallback,
-    ): Promise<string>;
+    ): Promise<RequestTokenPayload>;
     requestPasswordMsisdnToken(
         phoneCountry: string, phoneNumber: string, clientSecret: string, sendAttempt: number, nextLink: string,
-    ): Promise<string>;
+    ): Promise<RequestTokenPayload>;
     requestRegisterEmailToken(
         email: string, clientSecret: string, sendAttempt: number, nextLink: string,
-    ): Promise<string>;
+    ): Promise<RequestTokenPayload>;
     requestRegisterMsisdnToken(
         phoneCountry: string, phoneNumber: string, clientSecret: string, sendAttempt: number, nextLink: string,
-    ): Promise<string>;
+    ): Promise<RequestTokenPayload>;
     requestVerification(
         userId: string, devices: string[],
     ): Promise<CryptoVerificationBase>;

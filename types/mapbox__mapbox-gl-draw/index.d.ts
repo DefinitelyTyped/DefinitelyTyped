@@ -193,7 +193,7 @@ declare namespace MapboxDraw {
 
         onUncombineFeature(this: DrawCustomModeThis, state: CustomModeState): void;
 
-        toDisplayFeature(
+        toDisplayFeatures(
             this: DrawCustomModeThis,
             state: CustomModeState,
             geojson: GeoJSON,

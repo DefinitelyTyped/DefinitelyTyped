@@ -178,6 +178,8 @@ export class ODBCStatement {
     executeNonQuery(cb: (err: Error, res: any[]) => void): void;
     executeNonQuery(params?: any[]): Promise<void>;
 
+    executeNonQuerySync(params?: any[]): number;
+
     prepare(sql: string, cb: (err: Error, result: any[]) => void): void;
 
     bind(ary: any[], cb: (err: Error) => void): void;

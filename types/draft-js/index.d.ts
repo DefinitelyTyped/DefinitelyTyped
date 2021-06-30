@@ -14,6 +14,7 @@
 //                 Munif Tanjim <https://github.com/MunifTanjim>
 //                 Ben Salili-James <https://github.com/benhjames>
 //                 Peter Dekkers <https://github.com/PeterDekkers>
+//                 Ankit Ranjan <https://github.com/ankitr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -842,6 +843,7 @@ declare namespace Draft {
                 createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;
                 getEntity(key: string): EntityInstance;
                 getEntityMap(): any;
+                getAllEntities(): Immutable.OrderedMap<string, DraftEntityInstance>;
                 getLastCreatedEntityKey(): string;
                 mergeEntityData(key: string, toMerge: { [key: string]: any }): ContentState;
                 replaceEntityData(key: string, toMerge: { [key: string]: any }): ContentState;

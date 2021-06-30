@@ -7,9 +7,11 @@ import ViewCollection from "../../viewcollection";
 import BalloonPanelView from "./balloonpanelview";
 
 export default class ContextualBalloon extends Plugin {
-    positionLimiter: Options["limiter"];
+    static readonly pluginName: 'ContextualBalloon';
+
+    readonly positionLimiter: Options["limiter"];
     readonly view: BalloonPanelView;
-    readonly visibleView: View | null;
+    visibleView: View | null;
 
     add(data: {
         stackId?: string;

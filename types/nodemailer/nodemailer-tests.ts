@@ -86,7 +86,7 @@ function nodemailer_test() {
 
 // createTransport type
 
-function create_transport(): nodemailer.Transporter {
+function create_transport(): nodemailer.Transporter<SMTPTransport.SentMessageInfo> {
     const smtpConfig: SMTPTransport.Options = {
         host: 'smtp.example.com',
         port: 587,
@@ -955,7 +955,7 @@ function sendmail_test() {
 // line ending transforms using windows-style newlines
 
 function sendmail_line_endings_windows_test() {
-    function process_le(mail: MailMessage) {
+    function process_le(mail: MailMessage<SendmailTransport.SentMessageInfo>) {
         const input = mail.message.createReadStream();
         input.pipe(new LeWindows());
     }
@@ -964,7 +964,7 @@ function sendmail_line_endings_windows_test() {
 // line ending transforms using unix-style newlines
 
 function sendmail_line_endings_unix_test() {
-    function process_le(mail: MailMessage) {
+    function process_le(mail: MailMessage<SendmailTransport.SentMessageInfo>) {
         const input = mail.message.createReadStream();
         input.pipe(new LeUnix());
     }
@@ -1160,19 +1160,31 @@ function plugin_transport_example_test() {
     interface Options extends MailOptions, nodemailer.TransportOptions {
         transportOptions: 'bar';
     }
-    interface SentMessageInfo {
-        SentMessageInfo: 'baz';
-    }
 
-    class Transport implements nodemailer.Transport {
+    interface TestTransportInfo {
+        messageId: string;
+    }
+    class Transport implements nodemailer.Transport<TestTransportInfo> {
         name = 'minimal';
         version = '0.1.0';
         constructor(options: Options) {}
-        send(mail: MailMessage, callback: (err: Error | null, info: SentMessageInfo) => void): void {
+        send(mail: MailMessage<TestTransportInfo>, callback: (err: Error | null, info: TestTransportInfo) => void): void {
             const input = mail.message.createReadStream();
             input.pipe(process.stdout);
             input.on('end', () => {
-                callback(null, { SentMessageInfo: 'baz' });
+                callback(null, { messageId: 'baz'});
+            });
+        }
+    }
+    class AnyTransport implements nodemailer.Transport {
+        name = 'minimal';
+        version = '0.1.0';
+        constructor(options: Options) {}
+        send(mail: MailMessage, callback: (err: Error | null, info: any) => void): void {
+            const input = mail.message.createReadStream();
+            input.pipe(process.stdout);
+            input.on('end', () => {
+                callback(null, { messageId: 'baz'});
             });
         }
     }

@@ -438,6 +438,13 @@ declare module 'http2' {
         paddingStrategy?: number;
         peerMaxConcurrentStreams?: number;
         settings?: Settings;
+        /**
+         * Specifies a timeout in milliseconds that
+         * a server should wait when an [`'unknownProtocol'`][] is emitted. If the
+         * socket has not been destroyed by that time the server will destroy it.
+         * @default 100000
+         */
+        unknownProtocolTimeout?: number;
 
         selectPadding?(frameLen: number, maxFrameLen: number): number;
         createConnection?(authority: url.URL, option: SessionOptions): stream.Duplex;
@@ -466,7 +473,16 @@ declare module 'http2' {
         origins?: string[];
     }
 
-    export interface Http2Server extends net.Server {
+    interface HTTP2ServerCommon {
+        setTimeout(msec?: number, callback?: () => void): this;
+        /**
+         * Throws ERR_HTTP2_INVALID_SETTING_VALUE for invalid settings values.
+         * Throws ERR_INVALID_ARG_TYPE for invalid settings argument.
+         */
+        updateSettings(settings: Settings): void;
+    }
+
+    export interface Http2Server extends net.Server, HTTP2ServerCommon {
         addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
@@ -514,11 +530,9 @@ declare module 'http2' {
         prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        setTimeout(msec?: number, callback?: () => void): this;
     }
 
-    export interface Http2SecureServer extends tls.Server {
+    export interface Http2SecureServer extends tls.Server, HTTP2ServerCommon {
         addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
@@ -572,8 +586,6 @@ declare module 'http2' {
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        setTimeout(msec?: number, callback?: () => void): this;
     }
 
     export class Http2ServerRequest extends stream.Readable {

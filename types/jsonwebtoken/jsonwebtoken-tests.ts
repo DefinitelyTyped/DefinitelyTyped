@@ -142,6 +142,46 @@ jwt.verify(token, cert, { ignoreExpiration: true }, (err, decoded) => {
     // if ignoreExpration == false and token is expired, err == expired token
 });
 
+cert = fs.readFileSync("public.pem"); // get public key
+jwt.verify(token, cert, (_err, payload) => {
+    if (payload) {
+        // $ExpectType JwtPayload
+        payload;
+    }
+});
+
+cert = fs.readFileSync("public.pem"); // get public key
+jwt.verify(token, cert, {}, (_err, payload) => {
+    if (payload) {
+        // $ExpectType JwtPayload
+        payload;
+    }
+});
+
+cert = fs.readFileSync("public.pem"); // get public key
+jwt.verify(token, cert, { complete: true }, (_err, payload) => {
+    if (payload) {
+        // $ExpectType Jwt
+        payload;
+    }
+});
+
+cert = fs.readFileSync("public.pem"); // get public key
+const verified = jwt.verify(token, cert);
+
+if (typeof verified !== 'string') {
+    // $ExpectType JwtPayload
+    verified;
+}
+
+cert = fs.readFileSync("public.pem"); // get public key
+const verified2 = jwt.verify(token, cert, { complete: true });
+
+if (typeof verified2 !== 'string') {
+    // $ExpectType Jwt
+    verified2;
+}
+
 /**
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
@@ -160,12 +200,12 @@ decoded = jwt.decode(token, { complete: false, json: false });
 
 decoded = jwt.decode(token, { json: true });
 if (decoded) {
-    // $ExpectType { [key: string]: any; }
+    // $ExpectType JwtPayload
     decoded;
 }
 
-decoded = jwt.decode(token, { complete: true });
-if (decoded) {
-  // $ExpectType { [key: string]: any; }
-  decoded;
+const decoded2 = jwt.decode(token, { complete: true });
+if (decoded2) {
+  // $ExpectType Jwt
+  decoded2;
 }

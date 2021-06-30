@@ -6,20 +6,18 @@
 //                 Christoph Wagner <https://github.com/IgelCampus>
 //                 Gio Freitas <https://github.com/giofreitas>
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
-//                 Stéphane Roucheray <https://github.com/sroucheray>
 //                 Adam Eisenreich <https://github.com/AkxeOne>
 //                 Mei Qingguang <https://github.com/meikidd>
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 KuanYu Chu <https://github.com/ckybonist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 // The Video.js API allows you to interact with the video through
 // Javascript, whether the browser is playing the video through HTML5
 // video, Flash, or any other supported playback technologies.
 
 /**
- * Doubles as the main function for users to create a inplayer instance and also
+ * Doubles as the main function for users to create a player instance and also
  * the main library object.
  * The `videojs` function can be used to initialize or retrieve a player.
  *
@@ -34,11 +32,18 @@
  *
  * @return A player instance
  */
-declare function videojs(id: any, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
+declare function videojs(
+    id: string | Element,
+    options?: videojs.PlayerOptions,
+    ready?: videojs.ReadyCallback,
+): videojs.Player;
 export default videojs;
 export as namespace videojs;
 
 declare namespace videojs {
+    interface ReadyCallback {
+        (this: Player): void;
+    }
     /**
      * Adding languages so that they're available to all players.
      * Example: `addLanguage('es', { 'Hello': 'Hola' });`
@@ -216,7 +221,7 @@ declare namespace videojs {
      *
      * @return    an array of hooks, or an empty array if there are none.
      */
-    function hooks(type: string, fn?: (() => any) | Array<() => any>): void;
+    function hooks(type: string, fn?: (() => any) | Array<() => any>): Array<() => any>;
 
     /**
      * Returns whether the url passed is a cross domain request or not.
@@ -1690,7 +1695,7 @@ declare namespace videojs {
          *
          * @return Returns itself; method can be chained.
          */
-        ready(callback: (this: Player) => void): this;
+        ready(callback: ReadyCallback): this;
 
         /**
          * Remove an attribute from the `Component`s element.
@@ -6345,6 +6350,18 @@ export interface VideoJsPlayer extends videojs.Component {
     duration(): number;
 
     /**
+     * Get or set a flag indicating whether or not this player should fill out its container.
+     *
+     * @param [bool] Should be `true` if the player should fill its container; otherwise it should be false.
+     *
+     * @return Will be `true` if this player should fill its container;
+     * otherwise, will be `false`.
+     */
+
+    fill(bool: boolean): void;
+    fill(): boolean;
+
+    /**
      * A getter/setter/toggler for the vjs-fluid `className` on the `Player`.
      *
      * @param [bool]
@@ -6927,6 +6944,7 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     textTrackSettings?: videojs.TextTrackSettingsOptions;
     controls?: boolean;
     defaultVolume?: number;
+    fill?: boolean;
     fluid?: boolean;
     height?: number;
     html5?: any;
@@ -6954,4 +6972,10 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
 
 export interface VideoJsPlayerPluginOptions {
     [pluginName: string]: any;
+}
+
+declare global {
+    interface Window {
+        HELP_IMPROVE_VIDEOJS: boolean;
+    }
 }

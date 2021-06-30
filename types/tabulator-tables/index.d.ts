@@ -8,6 +8,19 @@
 // tslint:disable:jsdoc-format
 // tslint:disable:no-trailing-whitespace
 
+/*
+ * This file doesn't have a default export because adding one would cause
+ * issues with existing codebases. Because of this, importing these type
+ * definitions with
+ *     import Tabulator from 'tabulator-tables';
+ * may cause the following error:
+ *     Module Usage (Error node_modules @types tabulator tables index.d.ts'
+ *     is not a module)
+ * To fix this issue, add the following to your index.d.ts (creating one if
+ * necessary):
+ *     declare module "tabulator-tables" { export = Tabulator; }
+ */
+
 declare namespace Tabulator {
     interface Options
         extends OptionsGeneral,

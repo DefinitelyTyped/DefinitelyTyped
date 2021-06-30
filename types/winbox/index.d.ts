@@ -1,4 +1,4 @@
-// Type definitions for winbox 0.1
+// Type definitions for winbox 0.2
 // Project: https://nextapps-de.github.io/winbox/
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -63,10 +63,13 @@ declare namespace WinBox {
         index?: number;
         left?: string | number;
         max?: boolean;
+        minheight?: string | number;
+        minwidth?: string | number;
         modal?: boolean;
         mount?: Node;
         right?: string | number;
         root?: Node;
+        splitscreen?: boolean;
         title?: string;
         top?: string | number;
         url?: string;

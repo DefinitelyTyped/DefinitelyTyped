@@ -1,4 +1,4 @@
-import PushNotification from "react-native-push-notification";
+import PushNotification, { Importance } from "react-native-push-notification";
 
 PushNotification.configure({
     onNotification: ({ finish, action, data }) => {
@@ -35,6 +35,6 @@ PushNotification.removeDeliveredNotifications(["id"]);
 PushNotification.invokeApp({ message: "" });
 PushNotification.getChannels(channels => {});
 PushNotification.channelExists("chanel_id", exists => {});
-PushNotification.createChannel({ channelId: "id", channelName: "name", playSound: false }, created => {});
+PushNotification.createChannel({ channelId: "id", channelName: "name", importance: Importance.DEFAULT, playSound: false }, created => {});
 PushNotification.channelBlocked("chanel_id", blocked => {});
 PushNotification.deleteChannel("id");

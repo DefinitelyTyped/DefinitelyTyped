@@ -25,8 +25,9 @@ export class WebGLRenderTarget extends EventDispatcher {
     uuid: string;
     width: number;
     height: number;
-    scissor: Vector4;
+    depth: number;
 
+    scissor: Vector4;
     /**
      * @default false
      */

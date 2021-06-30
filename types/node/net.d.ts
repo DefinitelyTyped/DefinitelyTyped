@@ -1,6 +1,6 @@
 declare module 'net' {
     import * as stream from 'stream';
-    import EventEmitter = require('events');
+    import { Abortable, EventEmitter } from 'events';
     import * as dns from 'dns';
 
     type LookupFunction = (
@@ -168,7 +168,7 @@ declare module 'net' {
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
 
-    interface ListenOptions {
+    interface ListenOptions extends Abortable {
         port?: number;
         host?: string;
         backlog?: number;

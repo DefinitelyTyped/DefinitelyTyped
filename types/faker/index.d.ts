@@ -84,7 +84,7 @@ declare namespace Faker {
         datatype: {
             number(max?: number): number;
             number(options?: { min?: number; max?: number; precision?: number }): number;
-            float(max?: number): number;
+            float(precision?: number): number;
             float(options?: { min?: number; max?: number; precision?: number }): number;
             datetime(max?: number): Date;
             datetime(options?: { min?: number; max?: number }): Date;

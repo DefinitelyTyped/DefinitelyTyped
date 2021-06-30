@@ -24,7 +24,7 @@ const arrayBuffer = new Uint8Array([10, 12]).buffer;
 // randomBytes
 randomBytes(); // $ExpectError
 randomBytes('turmeric'); // $ExpectError
-binary = randomBytes(100);
+const ab: ArrayBuffer = randomBytes(100);
 randomBytes(100, 5); // $ExpectError
 
 // hmac

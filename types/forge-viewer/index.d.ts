@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.42
+// Type definitions for non-npm package Forge Viewer 7.45
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -336,6 +336,7 @@ declare namespace Autodesk {
         const GEOMETRY_LOADED_EVENT = 'geometryLoaded';
         const GEOMETRY_DOWNLOAD_COMPLETE_EVENT = 'geometryDownloadComplete';
         const HIDE_EVENT = 'hide';
+        const HIDE_ALL_EVENT = 'hideAll';
         const HYPERLINK_EVENT = 'hyperlink';
         const ISOLATE_EVENT = 'isolate';
         const LAYER_VISIBILITY_CHANGED_EVENT = 'layerVisibilityChanged';
@@ -360,6 +361,8 @@ declare namespace Autodesk {
         const RESTORE_DEFAULT_SETTINGS_EVENT = 'restoreDefaultSettings';
         const SELECTION_CHANGED_EVENT = 'selection';
         const SHOW_EVENT = 'show';
+        const SHOW_ALL_EVENT = 'showAll';
+        const SHOW_PROPERTIES_EVENT = 'showProperties';
         const TEXTURES_LOADED_EVENT = 'texturesLoaded';
         const TOOL_CHANGE_EVENT = 'toolChanged';
         const TOOLBAR_CREATED_EVENT = 'toolbarCreated';
@@ -370,6 +373,13 @@ declare namespace Autodesk {
         const WEBGL_CONTEXT_LOST_EVENT = 'webGlContextLost';
 
         let HTTP_REQUEST_HEADERS: any;
+
+        enum TOOLBAR {
+          NAVTOOLSID = 'navTools',
+          MODELTOOLSID = 'modelTools',
+          SETTINGSTOOLSID = 'settingsTools',
+          MEASURETOOLSID = 'measureTools'
+        }
 
         interface ViewerEventArgs {
           target?: Viewer3D;
@@ -397,6 +407,7 @@ declare namespace Autodesk {
           useDynamicGlobalOffset?: boolean;
           viewerConfig?: any;
           viewerStartOptions?: any;
+          viewerUnits?: string;
         }
 
         class AggregatedView {
@@ -427,11 +438,11 @@ declare namespace Autodesk {
           setBookmarks(bookmarks: BubbleNode[]): void;
           setCamera(camera: any): void;
           setCameraGlobal(camera: any): void;
-          setNodes(bubbleNodes: BubbleNode[], diffConfig: any): void;
+          setNodes(bubbleNodes: BubbleNode[], diffConfig: any): Promise<Model[]>;
           startBimWalk(): void;
           stopBimWalk(): void;
           show(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
-          switchView(bubbleNodes: BubbleNode[], diffConfig: any): void;
+          switchView(bubbleNodes: BubbleNode[], diffConfig: any): Promise<Model[]>;
           unload(bubbleNode: BubbleNode): void;
           unloadAll(filter?: (item: any) => boolean): void;
           unloadUnderlayRaster(bubbleNode: BubbleNode): void;
@@ -462,6 +473,7 @@ declare namespace Autodesk {
           findPropertyDbPath(): string;
           findViewableParent(): BubbleNode;
           getDefaultGeometry(): any;
+          getDocument(): Document;
           getInputFileType(): string;
           getLodNode(): boolean;
           getModelName(): string;
@@ -667,8 +679,16 @@ declare namespace Autodesk {
             clearThemingColors(): void;
             fetchTopology(maxSizeMB: number): Promise<object>;
             getBoundingBox(): THREE.Box3;
-            getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
-            getBulkProperties2(dbIds: number[], options?: object, successCallback?: (r: PropertyResult[]) => void, errorCallback?: (s: any, m: any, d: any) => void): void;
+            getBulkProperties(dbIds: number[], options?: {
+              propFilter?: string[];
+              ignoreHidden?: boolean;
+             }, successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
+            getBulkProperties2(dbIds: number[], options?: {
+              propFilter?: string[];
+              categoryFilter?: string[];
+              ignoreHidden?: boolean;
+              needExternalId?: boolean;
+            }, successCallback?: (r: PropertyResult[]) => void, errorCallback?: (s: any, m: any, d: any) => void): void;
             getData(): any;
             getFragmentList(): Private.FragmentList;
             getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
@@ -1072,6 +1092,7 @@ declare namespace Autodesk {
             getAllModels(): Model[];
             getUnderlayRaster(bubbleNode: BubbleNode): Model[];
             hide(node: number|number[], model?: Model): void;
+            hideAll(): void;
             show(node: number|number[], model?: Model): void;
             showAll(): void;
             toggleVisibility(dbId: number, model?: Model): void;
@@ -1185,7 +1206,7 @@ declare namespace Autodesk {
             appendOrderedElementToViewer(layerOrderId: string): void;
             hitTest(x: number, y: number, ignoreTransparent: boolean): Private.HitTestResult;
             refresh(clear: boolean): void;
-            addEventListener(type: string, callback: (event: any) => void): any;
+            addEventListener(type: string, callback: (event: any) => void, options?: any): any;
             hasEventListener(type: string, callback: (event: any) => void): any;
             removeEventListener(type: string, callback: (event: any) => void): any;
             dispatchEvent(event: object): void;
@@ -1207,7 +1228,7 @@ declare namespace Autodesk {
 
             addPanel(panel: UI.DockingPanel): boolean;
             createDebugSubmenu(button: UI.Button): void;
-            createViewerOptionsMenu(model: Model): void;
+            createViewerOptionsMenu(): void;
             createUI(model: Model): void;
             onFullScreenModeEvent(event: object): void;
             onProgressBarUpdate(event: object): void;
@@ -1215,10 +1236,12 @@ declare namespace Autodesk {
             addOptionList(parent: Element, label: string, optionList: string[], initialIndex: number, onchange: (index: number) => void, saveKey: boolean): void;
             showViewer3dOptions(show: boolean): void;
             showRenderingOptions(show: boolean): void;
-            showLayerManager(show: boolean): void;
+            /** @deprecated */
+            showLayerManager(): void;
             initHotkeys(model: Model): void;
             setModelStructurePanel(modelStructurePanel: any/*Autodesk.Viewing.UI.ModelStructurePanel*/): void;
-            setLayersPanel(layersPanel: any/*Autodesk.Viewing.UI.LayersPanel*/): void;
+            /** @deprecated */
+            setLayersPanel(): void;
             setPropertyPanel(propertyPanel: any/*Autodesk.Viewing.UI.PropertyPanel*/): void;
             getPropertyPanel(createDefault?: boolean): any/*Autodesk.Viewing.UI.PropertyPanel*/;
             setSettingsPanel(settingsPanel: any/*Autodesk.Viewing.UI.SettingsPanel*/): void;
@@ -1641,7 +1664,8 @@ declare namespace Autodesk {
                     messageKey: string,
                     messageDefaultValue?: string,
                     buttonText?: string,
-                    checkboxChecked?: boolean
+                    checkboxChecked?: boolean,
+                    position?: string
                 }, closeCallback?: (event: any) => void, buttonCallback?: (event: any) => void, checkboxCallback?: (event: any) => void): void;
 
                 function dismiss(): boolean;
@@ -1657,6 +1681,7 @@ declare namespace Autodesk {
                 scene: THREE.Scene;
                 sceneAfter: THREE.Scene;
                 selector: any;
+                showGhosting: boolean;
                 use2dInstancing: boolean;
                 visibilityManager: VisibilityManager;
 
@@ -1838,24 +1863,24 @@ declare namespace Autodesk {
             areDefaultPropertiesShown(): void;
             displayCategory(category: object, parent: HTMLElement, options: DisplayCategoryOptions): HTMLElement[];
             displayProperty(property: object, parent: HTMLElement, options: DisplayCategoryOptions): HTMLElement[];
-            getCategoryClass(category: object): string;
-            getPropertyClass(property: object): string;
+            getCategoryClass(): string;
+            getPropertyClass(): string;
             hasProperties(): boolean;
-            highlight(text: string, options: object): void;
+            highlight(text: string): void;
             isCategoryCollapsed(category: object): boolean;
-            onCategoryClick(category: object, event: Event): void;
-            onCategoryDoubleClick(category: object, event: Event): void;
-            onCategoryIconClick(category: object, event: Event): void;
-            onCategoryRightClick(category: object, event: Event): void;
-            onPropertyClick(property: object, event: Event): void;
-            onPropertyDoubleClick(property: object, event: Event): void;
-            onPropertyIconClick(property: object, event: Event): void;
-            onPropertyRightClick(property: object, event: Event): void;
+            onCategoryClick(category: object): void;
+            onCategoryDoubleClick(): void;
+            onCategoryIconClick(category: object): void;
+            onCategoryRightClick(): void;
+            onPropertyClick(): void;
+            onPropertyDoubleClick(): void;
+            onPropertyIconClick(property: object): void;
+            onPropertyRightClick(): void;
             removeAllProperties(): void;
-            removeProperty(name: string, value: string, category: string, options?: object): boolean;
+            removeProperty(name: string, value: string, category: string): boolean;
             setAggregatedProperties(propSet: PropertySet): void;
             setCategoryCollapsed(category: object, collapsed: boolean): void;
-            setProperties(properties: Array<{displayName: string, displayValue: any}>, options?: object): void;
+            setProperties(properties: Array<{displayName: string, displayValue: any}>): void;
             showDefaultProperties(): void;
             showNoProperties(): void;
           }
@@ -2102,11 +2127,11 @@ declare namespace Autodesk {
 
           constructor(model: Viewing.Model);
 
-          generateSurfaceShadingData(devices: object[], levels?: LevelRoomsMap): Promise<SurfaceShadingData>;
+          generateSurfaceShadingData(devices: RoomDevice[], levels?: LevelRoomsMap, nodeName?: string): Promise<SurfaceShadingData>;
           getImmediateChildNodesByName(name: string, parentId?: number): number[];
           getLevel(room: Room): string;
-          getLevelRoomsMap(keepRoomDetail?: boolean): Promise<LevelRoomsMap>;
-          getRoomList(): Promise<Room[]>;
+          getLevelRoomsMap(keepRoomDetail?: boolean, nodeName?: string): Promise<LevelRoomsMap>;
+          getRoomList(nodeName?: string): Promise<Room[]>;
         }
 
         class Room {
@@ -2149,7 +2174,11 @@ declare namespace Autodesk {
           render(nodeId: string|string[], sensorType: string,
             sensorValueCallback: (device: SurfaceShadingPoint, sensorType: string) => number,
             confidenceSize?: number): void;
-          updateShading(sensorValueCallback: (device: SurfaceShadingPoint, sensorType: string) => number): void;
+          updateShading(sensorValueCallback: (device: SurfaceShadingPoint, sensorType: string) => number, heatmapConfig: {
+            confidence?: number;
+            powerParameter?: number;
+            alpha?: number;
+          }): void;
         }
 
         class SurfaceShadingData extends SurfaceShadingGroup {
@@ -2174,6 +2203,7 @@ declare namespace Autodesk {
         }
 
         class SurfaceShadingNode {
+          bounds: THREE.Box3;
           dbIds: number[];
           fragIds: number[];
           id: string;
@@ -2632,7 +2662,13 @@ declare namespace Autodesk {
         datavizDotOverlay: any;
         deviceDepthOcclusion: boolean;
 
-        constructor(viewer: Viewing.Viewer3D, options?: any);
+        constructor(viewer: Viewing.Viewer3D, options?: {
+          type: string;
+          width?: number;
+          slicingPosition?: number;
+          placementPosition?: number;
+          minOpacity?: number;
+        });
 
         addViewables(data: DataVisualization.Core.ViewableData): void;
         clearHighlightedViewables(): void;
@@ -2652,7 +2688,12 @@ declare namespace Autodesk {
         removeSurfaceShading(): void;
         renderSurfaceShading(nodeIds: string|string[],
           sensorType: string,
-          valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint, sensorType: string) => number, confidenceSize?: number): void;
+          valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint, sensorType: string) => number,
+          heatmapConfig?: {
+            confidence?: number;
+            powerParameter?: number;
+            alpha?: number;
+          }): void;
         setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.Core.SurfaceShadingData,
           options?: {
             type: 'PlanarHeatmap',
@@ -2665,7 +2706,12 @@ declare namespace Autodesk {
         showHideViewables(visible: boolean, occlusion: boolean): void;
         showTextures(): void;
         updateSurfaceShading(valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint,
-          sensorType: string) => number): void;
+          sensorType: string) => number,
+          heatmapConfig?: {
+            confidence?: number;
+            powerParameter?: number;
+            alpha?: number;
+          }): void;
       }
 
       class Edit2D extends Viewing.Extension {

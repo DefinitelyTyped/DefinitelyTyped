@@ -21,7 +21,6 @@ export interface MeshBasicMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number;
     wireframeLinecap?: string;
     wireframeLinejoin?: string;
-    skinning?: boolean;
     morphTargets?: boolean;
 }
 
@@ -102,11 +101,6 @@ export class MeshBasicMaterial extends Material {
      * @default 'round'
      */
     wireframeLinejoin: string;
-
-    /**
-     * @default false
-     */
-    skinning: boolean;
 
     /**
      * @default false

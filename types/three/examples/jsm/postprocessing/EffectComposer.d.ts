@@ -3,6 +3,9 @@ import { Clock, WebGLRenderer, WebGLRenderTarget } from '../../../src/Three';
 import { Pass } from './Pass';
 import { ShaderPass } from './ShaderPass';
 
+export { FullScreenQuad } from './Pass';
+export { Pass };
+
 export class EffectComposer {
     constructor(renderer: WebGLRenderer, renderTarget?: WebGLRenderTarget);
     renderer: WebGLRenderer;

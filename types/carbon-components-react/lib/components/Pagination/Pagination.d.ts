@@ -18,13 +18,11 @@ export interface PaginationProps extends Omit<ReactDivAttr, ExcludedAttributes> 
     itemText?(min: number, max: number): string,
     onChange(data: { page: number, pageSize: number }): void,
     page?: number,
-    /**
-     * @deprecated
-     */
     pageInputDisabled?: boolean,
     pageNumberText?: string,
     pageRangeText?(current: number, total: number): string,
     pageSize?: number,
+    pageSizeInputDisabled?: boolean;
     pageSizes: readonly number[] | readonly PaginationPageSize[],
     pageText?(page: number): string,
     pagesUnknown?: boolean,

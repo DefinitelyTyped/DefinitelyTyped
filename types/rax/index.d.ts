@@ -409,6 +409,12 @@ declare namespace Rax {
     forceUpdate(callBack?: () => void): void;
 
     render(): RaxNode;
+
+    refs: {
+      [key: string]: RaxInstance
+    };
+
+    context: any;
   }
 
   class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> {}

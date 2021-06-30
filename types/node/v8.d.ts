@@ -184,4 +184,15 @@ declare module 'v8' {
      * Uses a `DefaultDeserializer` with default options to read a JS value from a buffer.
      */
     function deserialize(data: NodeJS.TypedArray): any;
+
+    /**
+     * Begins writing coverage report based on the `NODE_V8_COVERAGE` env var.
+     * Noop is the env var is not set.
+     */
+    function takeCoverage(): void;
+
+    /**
+     * Stops writing coverage report.
+     */
+    function stopCoverage(): void;
 }

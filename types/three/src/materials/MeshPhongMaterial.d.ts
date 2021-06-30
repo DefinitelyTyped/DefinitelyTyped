@@ -36,7 +36,6 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number;
     wireframeLinecap?: string;
     wireframeLinejoin?: string;
-    skinning?: boolean;
     morphTargets?: boolean;
     morphNormals?: boolean;
     flatShading?: boolean;
@@ -194,11 +193,6 @@ export class MeshPhongMaterial extends Material {
      * @default 'round'
      */
     wireframeLinejoin: string;
-
-    /**
-     * @default false
-     */
-    skinning: boolean;
 
     /**
      * @default false

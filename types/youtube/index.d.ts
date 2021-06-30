@@ -204,15 +204,11 @@ declare namespace YT
     /**
      * Which type of content loads in the player.
      */
-    export type ListType = ListTypePlayer | ListTypeSearch | ListTypeUserUploads;
-
-    /**
-     * The requested video should be shown in the player.
-     */
-    export type ListTypePlayer = "player";
+    export type ListType = ListTypeSearch | ListTypeUserUploads | ListTypePlaylist;
 
     /**
      * A search area should be shown in the player.
+     * @deprecated
      */
     export type ListTypeSearch = "search";
 
@@ -220,6 +216,11 @@ declare namespace YT
      * The user's uploads should load in the player.
      */
     export type ListTypeUserUploads = "user_uploads";
+
+    /**
+     * A playlist should be shown in the player.
+     */
+    export type ListTypePlaylist = "playlist";
 
     /**
      * Whether a single video should be looped.
@@ -470,6 +471,11 @@ declare namespace YT
         cc_load_policy?: ClosedCaptionsLoadPolicy;
 
         /**
+         * Default caption language as an ISO 639-1 two-letter language code.
+         */
+        cc_lang_pref?: string;
+
+        /**
          * Player progress bar color
          */
         color?: ProgressBarColor;
@@ -511,9 +517,8 @@ declare namespace YT
 
         /**
          * Identifies content that will load.
-         * If listType is search, this is the search query.
-         * If listType is user_uploads, this is the YouTube user.
-         * If listType is playlist, this is the playlist ID, prepended by 'PL'.
+         * If the listType parameter value is user_uploads, then the list parameter value identifies the YouTube channel whose uploaded videos will be loaded.
+         * If the listType parameter value is playlist, then the list parameter value specifies a YouTube playlist ID.
          */
         list?: string;
 
