@@ -379,8 +379,8 @@ declare module Mongo {
 }
 
 declare interface MongoConnection {
-    db: MongoDb;
-    client: MongoClient;
+    db: any;
+    client: any;
 }
 
 declare function defaultRemoteCollectionDriver(): {
