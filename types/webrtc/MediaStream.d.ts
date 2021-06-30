@@ -156,9 +156,9 @@ interface MediaTrackSettings {
 }
 
 interface MediaStreamError {
-    //name: string;
-    //message: string;
-    //constraintName: string;
+    readonly name: string;
+    readonly message: string | null;
+    readonly constraintName: string | null;
 }
 
 interface NavigatorGetUserMedia {

@@ -14,10 +14,12 @@ const defaultLocale = getDefaultLocale();
     ariaLabelledBy=""
     ariaRequired=""
     ariaLabelClose=""
+    ariaRequired=""
     autoComplete=""
     autoFocus
     calendarClassName=""
     calendarContainer={props => <div />}
+    calendarStartDay={0}
     className=""
     clearButtonTitle=""
     clearButtonClassName=""
