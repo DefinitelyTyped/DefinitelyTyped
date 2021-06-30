@@ -34,7 +34,10 @@ declare module Match {
     /** Matches a signed 32-bit integer. Doesn’t match `Infinity`, `-Infinity`, or `NaN`. */
     var Integer: Matcher<number>;
 
-    /** Matches either `undefined`, `null`, or pattern. If used in an object, matches only if the key is not set as opposed to the value being set to `undefined` or `null`. This set of conditions was chosen because `undefined` arguments to Meteor Methods are converted to `null` when sent over the wire. */
+    /** 
+     * Matches either `undefined`, `null`, or pattern. If used in an object, matches only if the key is not set as opposed to the value being set to `undefined` or `null`. This set of conditions was 
+     * chosen because `undefined` arguments to Meteor Methods are converted to `null` when sent over the wire. 
+     */
     function Maybe<T extends Pattern>(pattern: T): Matcher<PatternMatch<T> | undefined | null>;
 
     /** Behaves like `Match.Maybe` except it doesn’t accept `null`. If used in an object, the behavior is identical to `Match.Maybe`. */
@@ -46,7 +49,10 @@ declare module Match {
     /** Matches any value that matches at least one of the provided patterns. */
     function OneOf<T extends Pattern[]>(...patterns: T): Matcher<PatternMatch<T[number]>>;
 
-    /** Calls the function condition with the value as the argument. If condition returns true, this matches. If condition throws a `Match.Error` or returns false, this fails. If condition throws any other error, that error is thrown from the call to `check` or `Match.test`. */
+    /** 
+     * Calls the function condition with the value as the argument. If condition returns true, this matches. If condition throws a `Match.Error` or returns false, this fails. If condition throws any 
+     * other error, that error is thrown from the call to `check` or `Match.test`. 
+     */
     function Where(condition: (val: any) => boolean): Matcher<any>;
 
     /**

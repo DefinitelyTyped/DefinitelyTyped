@@ -48,7 +48,6 @@
 /// <reference path="./random.d.ts" />
 /// <reference path="./globals/random.d.ts" />
 /// <reference path="./react-meteor-data.d.ts" />
-/// <reference path="./globals/react-meteor-data.d.ts" />
 /// <reference path="./reactive-dict.d.ts" />
 /// <reference path="./globals/reactive-dict.d.ts" />
 /// <reference path="./reactive-var.d.ts" />
