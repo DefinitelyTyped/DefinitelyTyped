@@ -86,11 +86,26 @@ const defaultLocale = getDefaultLocale();
     placeholderText=""
     popperClassName=""
     popperContainer={props => <div />}
-    popperModifiers={{
-        flip: {
-            enabled: false,
+    popperModifiers={[
+        {
+            name: 'offset',
+            enabled: true,
+            phase: 'main',
+            fn: ({ state }) => state,
+            options: {
+                offset: [1, 2],
+            },
         },
-    }}
+        {
+            name: 'arrow',
+            enabled: true,
+            phase: 'main',
+            fn: ({ state }) => state,
+            options: {
+                element: null,
+            },
+        },
+    ]}
     popperPlacement="bottom-start"
     popperProps={{}}
     preventOpenOnFocus
@@ -166,7 +181,7 @@ const defaultLocale = getDefaultLocale();
 
 <DatePicker formatWeekDay={() => <div />} onChange={() => null} />;
 
-function handleRef(ref: DatePicker | null) {
+function handleRef(ref: DatePicker<'offset' | 'arrow'>) {
     if (ref) {
         ref.setBlur();
         ref.setFocus();
