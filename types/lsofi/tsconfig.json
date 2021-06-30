@@ -1,6 +1,5 @@
 {
 	"compilerOptions": {
-		"esModuleInterop": true,
 		"module": "commonjs",
 		"noEmit": true,
 		"forceConsistentCasingInFileNames": true,
@@ -10,8 +9,7 @@
 		],
 		"types": [],
 		"lib": [
-			"ES6",
-			"DOM"
+			"ES6"
 		],
 		"noImplicitAny": true,
 		"noImplicitThis": true,
