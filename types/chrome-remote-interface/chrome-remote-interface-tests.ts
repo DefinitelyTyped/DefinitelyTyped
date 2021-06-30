@@ -18,7 +18,9 @@ import CDP = require('chrome-remote-interface');
         await Network.enable({});
         await Page.enable();
         await Page.navigate({ url: 'https://github.com' });
-        // TODO await Page.loadEventFired();
+        const loadEvent = await client['Page.loadEventFired'](); // instead of: await Page.loadEventFired();
+        loadEvent.timestamp;
+        await client['Page.interstitialHidden'](); // instead of: await Page.interstitialHidden();
         await Runtime.enable();
         const loc = await Runtime.evaluate({ expression: 'window.location.toString()' });
         const targets = await CDP.List(cdpPort);
@@ -87,7 +89,9 @@ CDP.Activate({id: 'CC46FBFA-3BDA-493B-B2E4-2BE6EB0D97EC'}, (err) => {
 
 (() => {
     CDP.Protocol((err, protocol) => {
-        if (!err) {}
+        if (!err) {
+            CDP({ protocol });
+        }
     });
 })();
 
