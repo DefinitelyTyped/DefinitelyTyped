@@ -173,10 +173,13 @@ canvasArc(arcDefaultDatum);
 // use with svg
 
 const pArc: Selection<SVGPathElement, ArcDatum, any, any> = select<SVGPathElement, ArcDatum>('.arc-paths'); // mock
+const svgArc2: d3Shape.Arc<SVGEllipseElement, ArcDatum> = d3Shape.arc<SVGEllipseElement, ArcDatum>();
 const wrongArc1: Selection<SVGCircleElement, ArcDatum, any, any> = select<SVGCircleElement, ArcDatum>('.arc-paths'); // mock
 const wrongArc2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.arc-paths'); // mock
 
 pArc.attr('d', svgArc);
+// $ExpectError
+wrongArc1.attr('d', svgArc2); // fails, incompatible this contexts
 // $ExpectError
 wrongArc2.attr('d', svgArc); // fails, incompatible datum types
 
@@ -1189,6 +1192,9 @@ defaultLinkRadial(defaultLinkDatum);
 // vertical/horizontal
 
 pLink.attr('d', svgLink);
+declare const svgLink2: d3Shape.Link<SVGEllipseElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>;
+// $ExpectError
+wrongLink1.attr('d', svgLink2); // fails, incompatible this contexts
 // $ExpectError
 wrongLink2.attr('d', svgLink); // fails, incompatible datum types
 
@@ -1200,6 +1206,9 @@ pathStringMaybe = svgLink(linkDatum); // fails, wrong this type for invocation
 // radial
 
 pLink.attr('d', svgLinkRadial);
+declare const svgLinkRadial2: d3Shape.LinkRadial<SVGEllipseElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>;
+// $ExpectError
+wrongLink1.attr('d', svgLinkRadial2); // fails, incompatible this contexts
 // $ExpectError
 wrongLink2.attr('d', svgLinkRadial); // fails, incompatible datum types
 
@@ -1317,6 +1326,9 @@ const wrongSymbol1: Selection<SVGCircleElement, SymbolDatum, any, any> = select<
 const wrongSymbol2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.symbol-path'); // mock
 
 pSymbol.attr('d', svgSymbol);
+declare const svgSymbol2: d3Shape.Symbol<SVGEllipseElement, SymbolDatum>;
+// $ExpectError
+wrongSymbol1.attr('d', svgSymbol2); // fails, incompatible this contexts
 // $ExpectError
 wrongSymbol2.attr('d', svgSymbol); // fails, incompatible datum types
 
