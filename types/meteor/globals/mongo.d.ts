@@ -1,50 +1,27 @@
 // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
 declare type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
 declare module Mongo {
-    type BsonType =
-        | 1
-        | 'double'
-        | 2
-        | 'string'
-        | 3
-        | 'object'
-        | 4
-        | 'array'
-        | 5
-        | 'binData'
-        | 6
-        | 'undefined'
-        | 7
-        | 'objectId'
-        | 8
-        | 'bool'
-        | 9
-        | 'date'
-        | 10
-        | 'null'
-        | 11
-        | 'regex'
-        | 12
-        | 'dbPointer'
-        | 13
-        | 'javascript'
-        | 14
-        | 'symbol'
-        | 15
-        | 'javascriptWithScope'
-        | 16
-        | 'int'
-        | 17
-        | 'timestamp'
-        | 18
-        | 'long'
-        | 19
-        | 'decimal'
-        | -1
-        | 'minKey'
-        | 127
-        | 'maxKey'
-        | 'number';
+    type BsonType = 1 | "double" |
+        2 | "string" |
+        3 | "object" |
+        4 | "array" |
+        5 | "binData" |
+        6 | "undefined" |
+        7 | "objectId" |
+        8 | "bool" |
+        9 | "date" |
+        10 | "null" |
+        11 | "regex" |
+        12 | "dbPointer" |
+        13 | "javascript" |
+        14 | "symbol" |
+        15 | "javascriptWithScope" |
+        16 | "int" |
+        17 | "timestamp" |
+        18 | "long" |
+        19 | "decimal" |
+        -1 | "minKey" |
+        127 | "maxKey" | "number";
 
     type FieldExpression<T> = {
         $eq?: T;
@@ -246,11 +223,11 @@ declare module Mongo {
         /**
          * Returns the [`Collection`](http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html) object corresponding to this collection from the [npm `mongodb` driver module](https://www.npmjs.com/package/mongodb) which is wrapped by `Mongo.Collection`.
          */
-        rawCollection(): MongoCollection<T>;
+        rawCollection(): any;
         /**
          * Returns the [`Db`](http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html) object corresponding to this collection's database connection from the [npm `mongodb` driver module](https://www.npmjs.com/package/mongodb) which is wrapped by `Mongo.Collection`.
          */
-        rawDatabase(): MongoDb;
+        rawDatabase(): any;
         /**
          * Remove documents from the collection
          * @param selector Specifies which documents to remove
