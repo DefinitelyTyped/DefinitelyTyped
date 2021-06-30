@@ -94,11 +94,6 @@ export interface HasSideEffectOptions {
      * If `true` then it considers implicit type conversion as the node which has side effects.
      */
     considerImplicitTypeConversion?: boolean;
-
-    /**
-     * The keys to traverse nodes. Use `context.getSourceCode().visitorKeys`
-     */
-    visitorKeys?: VisitorKeys;
 }
 
 /**
