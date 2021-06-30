@@ -3,6 +3,8 @@
 // Definitions by: Kyle McLean <https://github.com/kylemclean>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export as namespace WAValidator;
+
 export function validate(address: string, currencyNameOrSymbol?: string, opts?: ValidateOpts | string): boolean;
 export function getCurrencies(): Currency[];
 export function findCurrency(symbol: string): Currency | null;

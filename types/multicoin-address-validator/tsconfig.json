@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "multicoin-address-validator-tests.ts"
+        "test/multicoin-address-validator-module.test.ts",
+        "test/multicoin-address-validator-global.test.ts"
     ]
 }
