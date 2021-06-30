@@ -124,11 +124,19 @@ export type HostedFieldsFieldDataFields = {
     [key in HostedFieldsHostedFieldsFieldName]: HostedFieldsHostedFieldsFieldData;
 };
 
-export interface HostedFieldsStateObject {
+export interface HostedFieldsState {
     cards: HostedFieldsHostedFieldsCard[];
-    emittedBy: HostedFieldsHostedFieldsFieldName;
     fields: HostedFieldsFieldDataFields;
 }
+
+export interface HostedFieldsEvent extends HostedFieldsState {
+    emittedBy: HostedFieldsHostedFieldsFieldName;
+}
+
+/**
+ * @deprecated Turned into an alias. Use `HostedFieldsEvent` instead
+ */
+export type HostedFieldsStateObject = HostedFieldsEvent;
 
 export type HostedFieldEventType = 'blur' | 'focus' | 'empty' | 'notEmpty'
     | 'cardTypeChange' | 'validityChange' | 'inputSubmitRequest';
@@ -233,8 +241,8 @@ export interface HostedFields {
      */
     VERSION: string;
 
-    on(event: HostedFieldEventType, handler: (event: HostedFieldsStateObject) => void): void;
-    off(event: HostedFieldEventType, handler: (event: HostedFieldsStateObject) => void): void;
+    on(event: HostedFieldEventType, handler: (event: HostedFieldsEvent) => void): void;
+    off(event: HostedFieldEventType, handler: (event: HostedFieldsEvent) => void): void;
 
     teardown(callback?: callback): void;
     teardown(): Promise<void>;
@@ -356,7 +364,7 @@ export interface HostedFields {
      *   return state.fields[key].isValid;
      * });
      */
-    getState(): any;
+    getState(): HostedFieldsState;
 
     /**
      * Programmatically focus a {@link module:braintree-web/hosted-fields-field field}.     *
