@@ -3,13 +3,25 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 export = fileExists;
 
-declare function fileExists(filepath: string, callback?: (err: Error | null, exists: boolean) => void): void;
-declare function fileExists(filepath: string, options?: fileExists.Options, callback?: (err: Error | null, exists: boolean) => void): void;
+type FilePathType = string | Buffer | URL;
+
+// Promise APIs
+declare function fileExists(filepath: FilePathType, options?: fileExists.Options): Promise<boolean>;
+
+// Callback APIs
+declare function fileExists(filepath: FilePathType, callback: (err: Error | null, exists: boolean) => void): void;
+declare function fileExists(
+    filepath: FilePathType,
+    options: fileExists.Options,
+    callback: (err: Error | null, exists: boolean) => void,
+): void;
 
 declare namespace fileExists {
-    function sync(filepath: string, options?: Options): boolean;
+    function sync(filepath: FilePathType, options?: Options): boolean;
 
     interface Options {
         root?: string;
