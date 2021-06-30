@@ -11,7 +11,7 @@ import { AttributionLike } from './Source';
 
 export interface Options {
     attributions?: AttributionLike;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
     imageExtent?: Extent;
     imageLoadFunction?: LoadFunction;
     imageSmoothing?: boolean;
