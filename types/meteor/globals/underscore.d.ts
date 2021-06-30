@@ -1,2 +1,2 @@
-declare import * as _ from 'underscore';
-declare export { _ };
+import * as _ from 'underscore';
+export { _ };

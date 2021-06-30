@@ -1,7 +1,5 @@
-
 // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
 declare type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
-
 declare module Mongo {
     type BsonType =
         | 1
@@ -201,24 +199,14 @@ declare module Mongo {
     interface Collection<T, U = T> {
         allow<Fn extends Transform<T> = undefined>(options: {
             insert?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
-            update?: (
-                userId: string,
-                doc: DispatchTransform<Fn, T, U>,
-                fieldNames: string[],
-                modifier: any,
-            ) => boolean;
+            update?: (userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean;
             remove?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
             fetch?: string[];
             transform?: Fn;
         }): boolean;
         deny<Fn extends Transform<T> = undefined>(options: {
             insert?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
-            update?: (
-                userId: string,
-                doc: DispatchTransform<Fn, T, U>,
-                fieldNames: string[],
-                modifier: any,
-            ) => boolean;
+            update?: (userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean;
             remove?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
             fetch?: string[];
             transform?: Fn;

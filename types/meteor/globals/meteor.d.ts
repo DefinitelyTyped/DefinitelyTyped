@@ -111,7 +111,7 @@ declare module Meteor {
          * Set the logged in user.
          * @param userId The value that should be returned by `userId` on this connection.
          */
-        setUserId(userId: string): void;
+        setUserId(userId: string | null): void;
         /** Call inside a method invocation. Allow subsequent method from this client to begin running in a new fiber. */
         unblock(): void;
     }

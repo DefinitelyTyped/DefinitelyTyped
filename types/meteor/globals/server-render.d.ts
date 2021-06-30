@@ -18,4 +18,4 @@ declare interface Sink {
 }
 
 declare type Callback = (sink: Sink) => Promise<any> | any;
-declare export function onPageLoad<T extends Callback>(callback: T): T;
+declare function onPageLoad<T extends Callback>(callback: T): T;

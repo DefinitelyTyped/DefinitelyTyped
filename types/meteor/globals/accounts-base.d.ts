@@ -73,10 +73,7 @@ declare module Accounts {
         callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
 
-    function verifyEmail(
-        token: string,
-        callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
-    ): void;
+    function verifyEmail(token: string, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
     function onEmailVerificationLink(callback: Function): void;
 
@@ -134,13 +131,7 @@ declare module Accounts {
 
     function setUsername(userId: string, newUsername: string): void;
 
-    function setPassword(
-        userId: string,
-        newPassword: string,
-        options?: {
-            logout?: Object;
-        },
-    ): void;
+    function setPassword(userId: string, newPassword: string, options?: { logout?: Object }): void;
 
     function validateNewUser(func: Function): boolean;
 

@@ -1,5 +1,5 @@
-declare import * as http from 'http';
-declare import * as connect from 'connect';
+import * as http from 'http';
+import * as connect from 'connect';
 declare interface StaticFiles {
     [key: string]: {
         content?: string;

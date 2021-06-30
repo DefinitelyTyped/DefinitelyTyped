@@ -4,52 +4,30 @@ import { Meteor } from 'meteor/meteor';
 declare module 'meteor/mongo' {
     // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
     type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
-
+    
     module Mongo {
-        type BsonType =
-            | 1
-            | 'double'
-            | 2
-            | 'string'
-            | 3
-            | 'object'
-            | 4
-            | 'array'
-            | 5
-            | 'binData'
-            | 6
-            | 'undefined'
-            | 7
-            | 'objectId'
-            | 8
-            | 'bool'
-            | 9
-            | 'date'
-            | 10
-            | 'null'
-            | 11
-            | 'regex'
-            | 12
-            | 'dbPointer'
-            | 13
-            | 'javascript'
-            | 14
-            | 'symbol'
-            | 15
-            | 'javascriptWithScope'
-            | 16
-            | 'int'
-            | 17
-            | 'timestamp'
-            | 18
-            | 'long'
-            | 19
-            | 'decimal'
-            | -1
-            | 'minKey'
-            | 127
-            | 'maxKey'
-            | 'number';
+
+        type BsonType = 1 | "double" |
+            2 | "string" |
+            3 | "object" |
+            4 | "array" |
+            5 | "binData" |
+            6 | "undefined" |
+            7 | "objectId" |
+            8 | "bool" |
+            9 | "date" |
+            10 | "null" |
+            11 | "regex" |
+            12 | "dbPointer" |
+            13 | "javascript" |
+            14 | "symbol" |
+            15 | "javascriptWithScope" |
+            16 | "int" |
+            17 | "timestamp" |
+            18 | "long" |
+            19 | "decimal" |
+            -1 | "minKey" |
+            127 | "maxKey" | "number";
 
         type FieldExpression<T> = {
             $eq?: T;

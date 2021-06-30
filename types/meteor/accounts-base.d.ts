@@ -137,13 +137,7 @@ declare module 'meteor/accounts-base' {
 
         function setUsername(userId: string, newUsername: string): void;
 
-        function setPassword(
-            userId: string,
-            newPassword: string,
-            options?: {
-                logout?: Object;
-            },
-        ): void;
+        function setPassword(userId: string, newPassword: string, options?: { logout?: Object }): void;
 
         function validateNewUser(func: Function): boolean;
 
