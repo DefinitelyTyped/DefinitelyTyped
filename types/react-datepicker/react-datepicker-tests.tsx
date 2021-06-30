@@ -14,7 +14,6 @@ const defaultLocale = getDefaultLocale();
     ariaLabelledBy=""
     ariaRequired=""
     ariaLabelClose=""
-    ariaRequired=""
     autoComplete=""
     autoFocus
     calendarClassName=""
@@ -27,7 +26,6 @@ const defaultLocale = getDefaultLocale();
     closeOnScroll={e => e.target === document}
     customInput={<input />}
     customInputRef=""
-    calendarStartDay={1}
     chooseDayAriaLabelPrefix=""
     customTimeInput={<input />}
     dateFormat=""
