@@ -11,7 +11,7 @@ export class RequestSigner {
     region: any;
     isCodeCommitGit: any;
 
-    matchHost(host?: string): string;
+    matchHost(host?: string): string[];
     isSingleRegion(): boolean;
     createHost(): string;
     prepareRequest(): void;

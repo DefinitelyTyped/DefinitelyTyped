@@ -38,7 +38,15 @@ export interface Profile extends passport.Profile {
     profileUrl: string;
 
     _raw: string;
-    _json: any;
+    _json: {
+        sub: string;
+        name: string;
+        given_name: string;
+        picture: string;
+        email: string;
+        email_verified: boolean;
+        locale: string;
+    };
 }
 
 export type VerifyCallback = (err?: string | Error | null, user?: Express.User, info?: any) => void;

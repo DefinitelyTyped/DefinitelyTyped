@@ -6,7 +6,6 @@
 //                 Christoph Wagner <https://github.com/IgelCampus>
 //                 Gio Freitas <https://github.com/giofreitas>
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
-//                 Stéphane Roucheray <https://github.com/sroucheray>
 //                 Adam Eisenreich <https://github.com/AkxeOne>
 //                 Mei Qingguang <https://github.com/meikidd>
 //                 Joe Flateau <https://github.com/joeflateau>
@@ -33,11 +32,18 @@
  *
  * @return A player instance
  */
-declare function videojs(id: string | Element, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
+declare function videojs(
+    id: string | Element,
+    options?: videojs.PlayerOptions,
+    ready?: videojs.ReadyCallback,
+): videojs.Player;
 export default videojs;
 export as namespace videojs;
 
 declare namespace videojs {
+    interface ReadyCallback {
+        (this: Player): void;
+    }
     /**
      * Adding languages so that they're available to all players.
      * Example: `addLanguage('es', { 'Hello': 'Hola' });`
@@ -215,7 +221,7 @@ declare namespace videojs {
      *
      * @return    an array of hooks, or an empty array if there are none.
      */
-    function hooks(type: string, fn?: (() => any) | Array<() => any>): void;
+    function hooks(type: string, fn?: (() => any) | Array<() => any>): Array<() => any>;
 
     /**
      * Returns whether the url passed is a cross domain request or not.
@@ -1689,7 +1695,7 @@ declare namespace videojs {
          *
          * @return Returns itself; method can be chained.
          */
-        ready(callback: (this: Player) => void): this;
+        ready(callback: ReadyCallback): this;
 
         /**
          * Remove an attribute from the `Component`s element.

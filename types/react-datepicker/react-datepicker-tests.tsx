@@ -12,12 +12,13 @@ const defaultLocale = getDefaultLocale();
     ariaDescribedBy=""
     ariaInvalid=""
     ariaLabelledBy=""
-    ariaRequired=""
     ariaLabelClose=""
+    ariaRequired=""
     autoComplete=""
     autoFocus
     calendarClassName=""
     calendarContainer={props => <div />}
+    calendarStartDay={0}
     className=""
     clearButtonTitle=""
     clearButtonClassName=""
@@ -25,7 +26,6 @@ const defaultLocale = getDefaultLocale();
     closeOnScroll={e => e.target === document}
     customInput={<input />}
     customInputRef=""
-    calendarStartDay={1}
     chooseDayAriaLabelPrefix=""
     customTimeInput={<input />}
     dateFormat=""
@@ -99,6 +99,7 @@ const defaultLocale = getDefaultLocale();
     readOnly
     ref={handleRef}
     renderCustomHeader={({
+        monthDate,
         date,
         changeYear,
         changeMonth,

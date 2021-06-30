@@ -396,6 +396,72 @@ import { promisify } from 'util';
 }
 
 {
+    crypto.generateKey(
+        'hmac',
+        {
+            length: 123,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 128,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 192,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 256,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+}
+
+{
+    const generateKeyPromisified = promisify(crypto.generateKey);
+
+    const resHmac: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'hmac',
+        {
+            length: 123,
+        },
+    );
+
+    const resAes128: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 128,
+        },
+    );
+
+    const resAes192: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 192,
+        },
+    );
+
+    const resAes256: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 256,
+        },
+    );
+}
+
+{
     const rsaRes: {
         publicKey: Buffer;
         privateKey: string;
@@ -829,7 +895,11 @@ import { promisify } from 'util';
 
 {
     const sig: Buffer = crypto.sign('md5', Buffer.from(''), 'mykey');
+
+    crypto.sign('md5', Buffer.from(''), 'mykey', (error: Error | null, data: Buffer) => { });
+
     const correct: boolean = crypto.verify('md5', sig, 'mykey', sig);
+    crypto.verify('md5', sig, 'mykey', sig, (error: Error | null, result: boolean) => { });
 }
 
 {
@@ -1034,4 +1104,25 @@ import { promisify } from 'util';
 
     crypto.checkPrimeSync(123n); // $ExpectType boolean
     crypto.checkPrimeSync(123n, { checks: 123 }); // $ExpectType boolean
+}
+
+{
+    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
+        for (const keyObject of [publicKey, privateKey]) {
+            if (keyObject.asymmetricKeyDetails) {
+                if (keyObject.asymmetricKeyDetails.modulusLength) {
+                    const modulusLength: number = keyObject.asymmetricKeyDetails.modulusLength;
+                }
+                if (keyObject.asymmetricKeyDetails.publicExponent) {
+                    const publicExponent: bigint = keyObject.asymmetricKeyDetails.publicExponent;
+                }
+                if (keyObject.asymmetricKeyDetails.divisorLength) {
+                    const divisorLength: number = keyObject.asymmetricKeyDetails.divisorLength;
+                }
+                if (keyObject.asymmetricKeyDetails.namedCurve) {
+                    const namedCurve: string = keyObject.asymmetricKeyDetails.namedCurve;
+                }
+            }
+        }
+    });
 }

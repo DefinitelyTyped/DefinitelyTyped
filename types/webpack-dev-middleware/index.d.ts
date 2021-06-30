@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-middleware 4.3
+// Type definitions for webpack-dev-middleware 5.0
 // Project: https://github.com/webpack/webpack-dev-middleware
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 //                 reduckted <https://github.com/reduckted>

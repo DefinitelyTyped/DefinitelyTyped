@@ -4212,6 +4212,10 @@ interface TextOptions extends IObjectOptions {
      * @type {Number}
      */
     deltaY?: number;
+    /**
+     * Text input direction. supporting RTL languages.
+     */
+    direction?: 'ltr' | 'rtl';
     text?: string;
     /**
      * List of properties to consider when checking if cache needs refresh

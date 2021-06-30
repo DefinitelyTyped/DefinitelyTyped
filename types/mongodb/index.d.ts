@@ -34,6 +34,7 @@
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Wyatt Johnson <https://github.com/wyattjoh>
+//                 Boris Figovsky <https://github.com/borfig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -483,7 +484,6 @@ export interface MongoClientOptions
         SSLOptions,
         TLSOptions,
         HighAvailabilityOptions,
-        WriteConcern,
         UnifiedTopologyOptions {
     /**
      * The logging level (error/warn/info/debug)
@@ -1444,6 +1444,7 @@ export class Db extends EventEmitter {
 
 export interface CommonOptions extends WriteConcern {
     session?: ClientSession;
+    writeConcern?: WriteConcern | string;
 }
 
 /**

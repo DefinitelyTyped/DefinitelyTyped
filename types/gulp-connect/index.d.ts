@@ -68,7 +68,7 @@ export interface ConnectAppOptions {
 }
 
 /** Create a gulp-connect server with the given options */
-export function server(options?: ConnectAppOptions): ConnectAppOptions;
+export function server(options?: ConnectAppOptions, startedCallback?: () => unknown): ConnectAppOptions;
 
 /** Reload all gulp-connect servers that have livereload enabled */
 export function reload(): any;

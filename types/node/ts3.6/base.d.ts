@@ -3,8 +3,8 @@
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
 //          - ~/index.d.ts        - Definitions specific to TypeScript 3.7 and above
-//          - ~/ts3.5/base.d.ts   - Definitions specific to TypeScript 3.6 and earlier
-//          - ~/ts3.5/index.d.ts  - Definitions specific to TypeScript 3.6 and earlier with assert pulled in
+//          - ~/ts3.6/base.d.ts   - Definitions specific to TypeScript 3.6 and earlier
+//          - ~/ts3.6/index.d.ts  - Definitions specific to TypeScript 3.6 and earlier with assert pulled in
 
 // Reference required types from the default lib:
 /// <reference lib="es2018" />
@@ -61,8 +61,8 @@
 /// <reference path="../worker_threads.d.ts" />
 /// <reference path="../zlib.d.ts" />
 
-// TypeScript 3.5-specific augmentations:
+// TypeScript 3.6-specific augmentations:
 /// <reference path="../globals.global.d.ts" />
 
-// TypeScript 3.5-specific augmentations:
+// TypeScript 3.6-specific augmentations:
 /// <reference path="../wasi.d.ts" />

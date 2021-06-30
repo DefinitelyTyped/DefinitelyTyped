@@ -191,7 +191,7 @@ function streamPipelineFinished() {
     let cancel = finished(process.stdin, (err?: Error | null) => {});
     cancel();
 
-    cancel = finished(process.stdin, { readable: false }, (err?: Error | null) => {});
+    cancel = finished(process.stdin, { readable: false, signal: new AbortSignal() }, (err?: Error | null) => {});
     cancel();
 
     pipeline(process.stdin, process.stdout, (err?: Error | null) => {});

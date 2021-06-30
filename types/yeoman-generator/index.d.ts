@@ -1,4 +1,4 @@
-// Type definitions for yeoman-generator 5.0
+// Type definitions for yeoman-generator 5.2
 // Project: https://github.com/yeoman/generator, http://yeoman.io
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
@@ -227,6 +227,44 @@ declare namespace Generator {
         path: string;
     }
 
+    type GeneratorFeaturesUniqueBy = 'argument' | 'namespacep';
+
+    /**
+     * Represents generators feature
+     */
+    interface GeneratorFeatures {
+        /**
+         * uniqueBy calculation method (undefined/argument/namespace)
+         */
+        uniqueBy?: GeneratorFeaturesUniqueBy;
+
+        /**
+         * The Generator instance unique identifier.
+         * The Environment will ignore duplicated identifiers.
+         */
+        unique?: string;
+
+        /**
+         * Only queue methods that matches a priority
+         */
+        tasksMatchingPriority?: boolean;
+
+        /**
+         * Tasks methods starts with prefix. Allows api methods (non tasks) without prefix.
+         */
+         taskPrefix?: string;
+
+        /**
+         * Enable customCommitTask()
+         */
+         customCommitTask?: boolean;
+
+         /**
+          * Enable customInstallTask()
+          */
+         customInstallTask?: boolean;
+    }
+
     /**
      * Provides options for queues.
      */
@@ -310,7 +348,7 @@ declare namespace Generator {
  * Every generator should extend this base class.
  */
 declare class Generator<T extends Generator.GeneratorOptions = Generator.GeneratorOptions> extends EventEmitter {
-    constructor(args: string | string[], options: T);
+    constructor(args: string | string[], options: T, features?: Generator.GeneratorFeatures);
 
     /**
      * The current Environment being run.

@@ -131,6 +131,7 @@ export interface ReactDatePickerProps {
     previousYearButtonLabel?: string;
     readOnly?: boolean;
     renderCustomHeader?(params: {
+        monthDate: Date;
         date: Date;
         changeYear(year: number): void;
         changeMonth(month: number): void;

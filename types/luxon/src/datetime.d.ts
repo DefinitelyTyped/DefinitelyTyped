@@ -19,7 +19,7 @@ export type ToRelativeUnit =
     | 'minutes'
     | 'seconds';
 
-export interface ToRelativeOptions extends ToRelativeCalendarOptions {
+export interface ToRelativeOptions extends Omit<ToRelativeCalendarOptions, 'unit'> {
     /**
      * @default long
      */
@@ -32,6 +32,11 @@ export interface ToRelativeOptions extends ToRelativeCalendarOptions {
      * @default 0
      */
     padding?: number;
+    /**
+     * A single unit or an array of units. If an array is supplied, the method will pick the best one
+     * to use from the array. If omitted, the method will pick the unit from a default set.
+     */
+    unit?: ToRelativeUnit | ToRelativeUnit[];
 }
 
 export interface ToRelativeCalendarOptions {

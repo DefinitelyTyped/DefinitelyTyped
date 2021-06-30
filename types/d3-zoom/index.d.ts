@@ -1,4 +1,4 @@
-// Type definitions for d3JS d3-zoom module 2.0
+// Type definitions for d3JS d3-zoom module 3.0
 // Project: https://github.com/d3/d3-zoom/, https://d3js.org/d3-zoom
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,9 +6,8 @@
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 3.0.0
 
 import { Selection, TransitionLike, ValueFn } from 'd3-selection';
 import { ZoomView } from 'd3-interpolate';
@@ -463,7 +462,12 @@ export interface D3ZoomEvent<ZoomRefElement extends ZoomedElementBaseType, Datum
  *
  * For details see {@link https://github.com/d3/d3-zoom#zoom-transforms}
  */
-export interface ZoomTransform {
+export class ZoomTransform {
+    /**
+     * Returns a transform with scale k and translation (x, y).
+     */
+    constructor(k: number, x: number, y: number);
+
     /**
      * The translation amount tx along the x-axis.
      * This property should be considered read-only; instead of mutating a transform,
