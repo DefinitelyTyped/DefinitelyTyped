@@ -306,7 +306,7 @@ Sfdc.canvas.onReady(() => {}); // $ExpectType void
 
 // $ExpectType void
 Sfdc.canvas.client.ctx(response => {
-    response; // $ExpectType Response<Context>
+    response; // $ExpectType Response<string | Context>
 }, CLIENT);
 
 // $ExpectType void

@@ -17,8 +17,15 @@ declare namespace Sfdc {
         }
 
         interface Response<T> {
-            readonly status: number;
+            readonly seq: number;
+            readonly parentVersion: string;
+            readonly clientVersion: string;
             readonly payload: T;
+            readonly status: number;
+            readonly statusText: string;
+            readonly responseHeaders: string;
+            readonly type: string;
+            readonly targetModule: string;
         }
 
         enum ApplicationOptions {
@@ -355,7 +362,7 @@ declare namespace Sfdc {
                 readonly payload: unknown;
             }
 
-            function ctx(callback: (msg: Response<Context>) => void, client: Client): void;
+            function ctx(callback: (msg: Response<Context | string>) => void, client: Client): void;
 
             function ajax(url: string, settings: AjaxSettings): void;
 
