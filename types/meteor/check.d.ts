@@ -50,7 +50,10 @@ declare module 'meteor/check' {
         /** Matches any value that matches at least one of the provided patterns. */
         function OneOf<T extends Pattern[]>(...patterns: T): Matcher<PatternMatch<T[number]>>;
 
-        /** Calls the function condition with the value as the argument. If condition returns true, this matches. If condition throws a `Match.Error` or returns false, this fails. If condition throws any other error, that error is thrown from the call to `check` or `Match.test`. */
+        /** 
+         * Calls the function condition with the value as the argument. If condition returns true, this matches. If condition throws a `Match.Error` or returns false, this fails. If condition throws 
+         * any other error, that error is thrown from the call to `check` or `Match.test`. 
+         */
         function Where(condition: (val: any) => boolean): Matcher<any>;
 
         /**
