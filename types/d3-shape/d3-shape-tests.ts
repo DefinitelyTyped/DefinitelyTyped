@@ -178,8 +178,6 @@ const wrongArc2: Selection<SVGPathElement, { test: string }, any, any> = select<
 
 pArc.attr('d', svgArc);
 // $ExpectError
-wrongArc1.attr('d', svgArc); // fails, incompatible this contexts
-// $ExpectError
 wrongArc2.attr('d', svgArc); // fails, incompatible datum types
 
 // $ExpectError
@@ -1192,8 +1190,6 @@ defaultLinkRadial(defaultLinkDatum);
 
 pLink.attr('d', svgLink);
 // $ExpectError
-wrongLink1.attr('d', svgLink); // fails, incompatible this contexts
-// $ExpectError
 wrongLink2.attr('d', svgLink); // fails, incompatible datum types
 
 pathStringMaybe = link(linkDatum);
@@ -1204,8 +1200,6 @@ pathStringMaybe = svgLink(linkDatum); // fails, wrong this type for invocation
 // radial
 
 pLink.attr('d', svgLinkRadial);
-// $ExpectError
-wrongLink1.attr('d', svgLinkRadial); // fails, incompatible this contexts
 // $ExpectError
 wrongLink2.attr('d', svgLinkRadial); // fails, incompatible datum types
 
@@ -1323,8 +1317,6 @@ const wrongSymbol1: Selection<SVGCircleElement, SymbolDatum, any, any> = select<
 const wrongSymbol2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.symbol-path'); // mock
 
 pSymbol.attr('d', svgSymbol);
-// $ExpectError
-wrongSymbol1.attr('d', svgSymbol); // fails, incompatible this contexts
 // $ExpectError
 wrongSymbol2.attr('d', svgSymbol); // fails, incompatible datum types
 
