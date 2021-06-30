@@ -4,10 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { AST, Scope, SourceCode } from 'eslint';
-import { VisitorKeys } from 'eslint-visitor-keys';
-import { Comment, Node, SourceLocation } from 'estree';
+import * as ESTree from 'estree';
 
-type CommentOrToken = Comment | AST.Token;
+type CommentOrToken = ESTree.Comment | AST.Token;
 
 /**
  * Find the variable of a given name.
@@ -15,7 +14,7 @@ type CommentOrToken = Comment | AST.Token;
  * @param nameOrNode The variable name to find. If this is a Node object then it should be an Identifier node.
  * @returns The found variable or null.
  */
-export function findVariable(initialScope: Scope.Scope, nameOrNode: string | Node): Scope.Variable | null;
+export function findVariable(initialScope: Scope.Scope, nameOrNode: string | ESTree.Identifier): Scope.Variable | null;
 
 /**
  * Get the location of the given function node for reporting.
@@ -23,7 +22,10 @@ export function findVariable(initialScope: Scope.Scope, nameOrNode: string | Nod
  * @param sourceCode The source code object to get tokens.
  * @returns The location of the function node for reporting.
  */
-export function getFunctionHeadLocation(node: Node, sourceCode: SourceCode): SourceLocation;
+export function getFunctionHeadLocation(
+    node: ESTree.ArrowFunctionExpression | ESTree.FunctionDeclaration | ESTree.FunctionExpression,
+    sourceCode: SourceCode,
+): ESTree.SourceLocation;
 
 /**
  * Get the name and kind of the given function node.
@@ -31,7 +33,7 @@ export function getFunctionHeadLocation(node: Node, sourceCode: SourceCode): Sou
  * @param sourceCode The source code object to get the code of computed property keys.
  * @returns The name and kind of the function node.
  */
-export function getFunctionNameWithKind(node: Node, sourceCode?: SourceCode): string;
+export function getFunctionNameWithKind(node: ESTree.Node, sourceCode?: SourceCode): string;
 
 /**
  * Get the innermost scope which contains a given location.
@@ -39,7 +41,7 @@ export function getFunctionNameWithKind(node: Node, sourceCode?: SourceCode): st
  * @param node The location to search.
  * @returns The innermost scope.
  */
-export function getInnermostScope(initialScope: Scope.Scope, node: Node): Scope.Scope;
+export function getInnermostScope(initialScope: Scope.Scope, node: ESTree.Node): Scope.Scope;
 
 /**
  * Get the property name from a MemberExpression node or a Property node.
@@ -49,7 +51,10 @@ export function getInnermostScope(initialScope: Scope.Scope, node: Node): Scope.
  * @remarks
  * If the node is a computed property node and a scope was given, this checks the computed property name by the `getStringIfConstant` function with the scope, and returns the value of it.
  */
-export function getPropertyName(node: Node, initialScope?: Scope.Scope): string | null;
+export function getPropertyName(
+    node: ESTree.MemberExpression | ESTree.MethodDefinition | ESTree.Property | ESTree.PropertyDefinition,
+    initialScope?: Scope.Scope,
+): string | null;
 
 export type StaticValue = StaticValueProvided | StaticValueOptional;
 
@@ -68,7 +73,7 @@ export interface StaticValueOptional {
  * @param [initialScope] The scope to start finding variable. Optional. If this scope was given, this tries to resolve identifier references which are in the given node as much as possible.
  * @returns The static value of the node, or `null`.
  */
-export function getStaticValue(node: Node, initialScope?: Scope.Scope | null): StaticValue | null;
+export function getStaticValue(node: ESTree.Node, initialScope?: Scope.Scope): StaticValue | null;
 
 /**
  * Get the value of a given node if it's a literal or a template literal.
@@ -79,7 +84,7 @@ export function getStaticValue(node: Node, initialScope?: Scope.Scope | null): S
  * If the node is an Identifier node and scope was given, this checks the variable of the identifier,
  * and returns the value of it if the variable is a constant.
  */
-export function getStringIfConstant(node: Node, initialScope?: Scope.Scope | null): string | null;
+export function getStringIfConstant(node: ESTree.Node, initialScope?: Scope.Scope): string | null;
 
 /**
  * Options for `hasSideEffect`, optionally.
@@ -103,7 +108,7 @@ export interface HasSideEffectOptions {
  * @param options The option object.
  * @returns `true` if the node has a certain side effect.
  */
-export function hasSideEffect(node: Node, sourceCode: SourceCode, options?: HasSideEffectOptions): boolean;
+export function hasSideEffect(node: ESTree.Node, sourceCode: SourceCode, options?: HasSideEffectOptions): boolean;
 
 /**
  * Check whether a given node is parenthesized or not.
@@ -112,14 +117,14 @@ export function hasSideEffect(node: Node, sourceCode: SourceCode, options?: HasS
  * @param sourceCode The source code object to get tokens.
  * @returns `true` if the node is parenthesized the given times.
  */
-export function isParenthesized(times: number, node: Node, sourceCode: SourceCode): boolean;
+export function isParenthesized(times: number, node: ESTree.Node, sourceCode: SourceCode): boolean;
 /**
  * Check whether a given node is parenthesized or not.
  * @param node The AST node to check.
  * @param sourceCode The source code object to get tokens.
  * @returns `true` if the node is parenthesized.
  */
-export function isParenthesized(node: Node, sourceCode: SourceCode): boolean;
+export function isParenthesized(node: ESTree.Node, sourceCode: SourceCode): boolean;
 
 export interface PunctuatorToken<Value extends string> extends AST.Token {
     type: 'Punctuator';
@@ -221,7 +226,7 @@ export function isClosingBraceToken(node: CommentOrToken): node is ClosingBraceT
  * @param node The comment or token to check.
  * @returns `true` if the token is a comment token.
  */
-export function isCommentToken(node: CommentOrToken): node is Comment;
+export function isCommentToken(node: CommentOrToken): node is ESTree.Comment;
 
 /**
  * Checks if the given token is an not arrow token.
@@ -298,7 +303,7 @@ export function isNotClosingBraceToken(node: CommentOrToken): boolean;
  * @param node The comment or token to check.
  * @returns `true` if the token is not a comment token.
  */
- export function isNotCommentToken(node: CommentOrToken): boolean;
+export function isNotCommentToken(node: CommentOrToken): boolean;
 
 export * from './patternMatcher';
 export * from './referenceTracker';

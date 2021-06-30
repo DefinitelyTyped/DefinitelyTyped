@@ -1,9 +1,12 @@
 import { AST, Scope, SourceCode } from 'eslint';
 import * as utils from 'eslint-utils';
-import { Comment, Node } from 'estree';
+import * as ESTree from 'estree';
 
-declare const commentOrToken: Comment | AST.Token;
-declare const node: Node;
+declare const commentOrToken: ESTree.Comment | AST.Token;
+declare const identifier: ESTree.Identifier;
+declare const functionLike: ESTree.ArrowFunctionExpression | ESTree.FunctionDeclaration | ESTree.FunctionExpression;
+declare const propertyLike: ESTree.MemberExpression | ESTree.MethodDefinition | ESTree.Property | ESTree.PropertyDefinition;
+declare const node: ESTree.Node;
 declare const scope: Scope.Scope;
 declare const sourceCode: SourceCode;
 
@@ -11,10 +14,10 @@ declare const sourceCode: SourceCode;
 utils.findVariable(scope, 'name');
 
 // $ExpectType Variable | null
-utils.findVariable(scope, node);
+utils.findVariable(scope, identifier);
 
 // $ExpectType SourceLocation
-utils.getFunctionHeadLocation(node, sourceCode);
+utils.getFunctionHeadLocation(functionLike, sourceCode);
 
 // $ExpectType string
 utils.getFunctionNameWithKind(node, undefined);
@@ -29,13 +32,13 @@ utils.getFunctionNameWithKind(node);
 utils.getInnermostScope(scope, node);
 
 // $ExpectType string | null
-utils.getPropertyName(node);
+utils.getPropertyName(propertyLike);
 
 // $ExpectType string | null
-utils.getPropertyName(node, undefined);
+utils.getPropertyName(propertyLike, undefined);
 
 // $ExpectType string | null
-utils.getPropertyName(node, scope);
+utils.getPropertyName(propertyLike, scope);
 
 const staticValue = utils.getStaticValue(node);
 
@@ -47,23 +50,19 @@ if (staticValue) {
         // $ExpectType undefined
         staticValue.value;
     } else {
-        // $ExpectType any
+        // $ExpectType unknown
         staticValue.value;
     }
 }
 
 // ExpectType is different in TS 4.1 vs. 4.3
 const values: Array<utils.StaticValue | null> = [
-    utils.getStaticValue(node, null),
     utils.getStaticValue(node, undefined),
     utils.getStaticValue(node, scope),
 ];
 
 // $ExpectType string | null
 utils.getStringIfConstant(node);
-
-// $ExpectType string | null
-utils.getStringIfConstant(node, null);
 
 // $ExpectType string | null
 utils.getStringIfConstant(node, undefined);
@@ -81,12 +80,6 @@ utils.hasSideEffect(node, sourceCode, {});
 utils.hasSideEffect(node, sourceCode, {
     considerGetters: true,
     considerImplicitTypeConversion: true,
-    visitorKeys: {
-        [utils.ReferenceTracker.CALL]: [],
-        [utils.ReferenceTracker.CONSTRUCT]: ['abc'],
-        [utils.ReferenceTracker.ESM]: undefined,
-        [utils.ReferenceTracker.READ]: ['abc', 'def'],
-    },
 });
 
 // $ExpectType boolean

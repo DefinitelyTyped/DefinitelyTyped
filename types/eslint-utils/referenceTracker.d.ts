@@ -31,7 +31,7 @@ export const ESM: unique symbol;
 export const READ: unique symbol;
 
 export interface TrackedReferences {
-    info: any;
+    entry: unknown;
     node: Node;
     path: string[];
     type: symbol;
