@@ -27,4 +27,3 @@ export function runInlineTest(
   expectedOutput: string,
   testOptions?: TestOptions
 ): string;
-
