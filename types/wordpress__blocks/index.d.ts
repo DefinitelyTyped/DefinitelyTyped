@@ -272,8 +272,7 @@ export namespace AttributeSource {
         | {
               type: 'string';
               default?: string;
-          }
-    );
+          });
 
     interface Children {
         source: 'children';
@@ -331,8 +330,7 @@ export namespace AttributeSource {
         | {
               type: 'string';
               default?: string;
-          }
-    );
+          });
 }
 
 export type BlockAttribute<T> =
