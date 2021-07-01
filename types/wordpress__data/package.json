@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
+        "@wordpress/data": "^5.1.2",
         "redux": "^4.0.1"
     }
 }

@@ -12,6 +12,7 @@ import { AnyAction as Action, combineReducers, Reducer } from 'redux';
  * Re-exports
  */
 export { Action, combineReducers };
+export * from './redux-store';
 
 //
 // Core functionality
