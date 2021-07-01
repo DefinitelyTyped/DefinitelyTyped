@@ -9,7 +9,7 @@ import { Writable, Readable, Pipe } from 'stream';
     childProcess.exec("echo test");
     childProcess.exec("echo test", { windowsHide: true });
     childProcess.spawn("echo");
-    childProcess.spawn("echo", { windowsHide: true, signal: new AbortSignal(), killSignal: "SIGABRT" });
+    childProcess.spawn("echo", { windowsHide: true, signal: new AbortSignal(), killSignal: "SIGABRT", timeout: 123 });
     childProcess.spawn("echo", ["test"], { windowsHide: true });
     childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
     childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, "inherit", undefined, "pipe"] });
@@ -55,7 +55,8 @@ import { Writable, Readable, Pipe } from 'stream';
         execPath: '',
         execArgv: ['asda'],
         signal: new AbortSignal(),
-        killSignal: "SIGABRT"
+        killSignal: "SIGABRT",
+        timeout: 123,
     });
     const ipc: Pipe = forked.channel!;
     const hasRef: boolean = ipc.hasRef();

@@ -1,4 +1,4 @@
-import { FileHandle, open as openAsync, watch as watchAsync } from 'fs/promises';
+import { FileHandle, open as openAsync, writeFile as writeFileAsync, watch as watchAsync  } from 'fs/promises';
 import * as fs from 'fs';
 import * as util from 'util';
 import assert = require('assert');
@@ -368,6 +368,14 @@ async () => {
         fd: handle,
     });
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
+};
+
+async () => {
+    await writeFileAsync('test', 'test');
+    await writeFileAsync('test',  Buffer.from('test'));
+    await writeFileAsync('test',  ['test', 'test2']);
+    await writeFileAsync('test',  async function *() { yield 'yeet'; }());
+    await writeFileAsync('test', process.stdin);
 };
 
 {

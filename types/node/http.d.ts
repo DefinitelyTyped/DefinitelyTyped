@@ -229,6 +229,11 @@ declare module 'http' {
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
+        /**
+         * Returns an array containing the unique names of the current outgoing raw headers.
+         * Header names are returned with their exact casing being set.
+         */
+        getRawHeaderNames(): string[];
 
         addListener(event: 'abort', listener: () => void): this;
         addListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
