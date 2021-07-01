@@ -213,9 +213,9 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     /* Whether or not multiple selections are allowed. */
     multiple?: boolean;
 
-	/* Override default new selection text*/
+	/* Override default new selection text. */
     newSelectionPrefix?: JSX.Element | string;
-	
+
     /* Invoked when the input is blurred. Receives an event. */
     onBlur?: (e: Event) => void;
 
