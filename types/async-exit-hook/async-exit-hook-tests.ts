@@ -8,7 +8,7 @@ exitHook(callback => {
     }, 1000);
 });
 
-// You can hook uncaught errors with uncaughtExceptionHandler(), consequently adding 
+// You can hook uncaught errors with uncaughtExceptionHandler(), consequently adding
 // async support to uncaught errors (normally uncaught errors result in a synchronous exit).
 exitHook.uncaughtExceptionHandler(err => {
     console.error(err);
