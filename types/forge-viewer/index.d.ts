@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.45
+// Type definitions for non-npm package Forge Viewer 7.46
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -314,6 +314,7 @@ declare namespace Autodesk {
         const AGGREGATE_FIT_TO_VIEW_EVENT = 'aggregateFitToView';
         const AGGREGATE_ISOLATION_CHANGED_EVENT = 'aggregateIsolation';
         const AGGREGATE_SELECTION_CHANGED_EVENT = 'aggregateSelection';
+        const ANIM_ENDED = 'animEnded';
         const ANIMATION_READY_EVENT = 'animationReady';
         const CAMERA_CHANGE_EVENT = 'cameraChanged';
         const CAMERA_TRANSITION_COMPLETED = 'cameraTransitionCompleted';
@@ -351,6 +352,7 @@ declare namespace Autodesk {
         const NAVIGATION_MODE_CHANGED_EVENT = 'navigationModeChanged';
         const OBJECT_TREE_CREATED_EVENT = 'objectTreeCreated';
         const OBJECT_TREE_UNAVAILABLE_EVENT = 'objectTreeUnavailable';
+        const OBJECT_UNDER_MOUSE_CHANGED = 'hoverObjectChanged';
         const PREF_CHANGED_EVENT = 'prefChanged';
         const PREF_RESET_EVENT = 'prefReset';
         const PROGRESS_UPDATE_EVENT = 'progressUpdate';
@@ -366,6 +368,8 @@ declare namespace Autodesk {
         const TEXTURES_LOADED_EVENT = 'texturesLoaded';
         const TOOL_CHANGE_EVENT = 'toolChanged';
         const TOOLBAR_CREATED_EVENT = 'toolbarCreated';
+        const TRANSITION_STARTED = 'transitionStarted';
+        const TRANSITION_ENDED = 'transitionEnded';
         const VIEWER_INITIALIZED = 'viewerInitialized';
         const VIEWER_RESIZE_EVENT = 'viewerResize';
         const VIEWER_STATE_RESTORED_EVENT = 'viewerStateRestored';
@@ -745,6 +749,9 @@ declare namespace Autodesk {
             isSVF2(): boolean;
             pageToModel(): void;
             pointInClip(): void;
+            remapDbIdFor2D(dbId: number): number;
+            reverseMapDbId(dbId: number): number;
+            reverseMapDbIdFor2D(dbId: number): number;
             search(text: string, onSuccessCallback: (dbIds: number[]) => void, onErrorCallback: (err?: any) => void, attributeNames?: string[], options?: { searchHidden: boolean }): void;
             setData(data: object): void;
             setDoNotCut(materialsManager: Private.MaterialManager, doNotCut: boolean): void;
