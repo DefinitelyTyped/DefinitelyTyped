@@ -12,22 +12,30 @@ type EventFilterFunction = (...args: any[]) => boolean;
 /**
  * Adds a basic hook which gets called on all exits.
  *
- * @param hook Function which will be called on exit. If a `done` function is present as a parameter, the program will not exit until the `done` function gets called, allowing asynchronous actions to take place.
+ * @param hook Function which will be called on exit.
+ * If a `done` function is present as a parameter, the program will not exit until
+ * the `done` function gets called, allowing asynchronous actions to take place.
  */
 declare function AsyncExitHook(hook: BaseHookFunction): void;
 
-declare module AsyncExitHook {
+declare namespace AsyncExitHook {
     /**
      * Adds a hook which gets called specifically on uncaught exceptions.
      *
-     * @param hook Function which will be called on exit optionally containing the uncaught exception error. If a `done` function is present as a parameter, the program will not exit until the `done` function gets called, allowing asynchronous actions to take place.
+     * @param hook Function which will be called on exit
+     * optionally containing the uncaught exception error.
+     * If a `done` function is present as a parameter, the program will not exit until
+     * the `done` function gets called, allowing asynchronous actions to take place.
      */
     function uncaughtExceptionHandler(hook: ExceptionHookFunction): void;
 
     /**
      * Adds a hook which gets called specifically on unhandled promise rejections.
      *
-     * @param hook Function which will be called on exit optionally containing the unhandled promise rejection error. If a `done` function is present as a parameter, the program will not exit until the `done` function gets called, allowing asynchronous actions to take place.
+     * @param hook Function which will be called on exit
+     * optionally containing the unhandled promise rejection error.
+     * If a `done` function is present as a parameter, the program will not exit until
+     * the `done` function gets called, allowing asynchronous actions to take place.
      */
     function unhandledRejectionHandler(hook: ExceptionHookFunction): void;
 
