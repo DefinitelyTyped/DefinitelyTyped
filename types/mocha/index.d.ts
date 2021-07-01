@@ -343,13 +343,6 @@ declare namespace Mocha {
         function canonicalize(value: any, stack: any[], typeHint: string): any;
 
         /**
-         * Lookup file names at the given `path`.
-         *
-         * @see https://mochajs.org/api/Mocha.utils.html#.exports.lookupFiles
-         */
-        function lookupFiles(filepath: string, extensions?: string[], recursive?: boolean): string[];
-
-        /**
          * Generate an undefined error with a message warning the user.
          *
          * @see https://mochajs.org/api/module-utils.html#.undefinedError
