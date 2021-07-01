@@ -15,8 +15,7 @@ interface FalsyRoot {
 }
 
 // Promise APIs
-declare function fileExists(filepath: FilePathType): Promise<boolean>;
-declare function fileExists(filepath: FilePathType, options: FalsyRoot): Promise<boolean>;
+declare function fileExists(filepath: FilePathType, options?: FalsyRoot): Promise<boolean>;
 declare function fileExists(filepath: string, options: fileExists.Options): Promise<boolean>;
 
 // Callback APIs
