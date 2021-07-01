@@ -749,6 +749,9 @@ declare namespace Autodesk {
             isSVF2(): boolean;
             pageToModel(): void;
             pointInClip(): void;
+            remapDbIdFor2D(dbId: number): number;
+            reverseMapDbId(dbId: number): number;
+            reverseMapDbIdFor2D(dbId: number): number;
             search(text: string, onSuccessCallback: (dbIds: number[]) => void, onErrorCallback: (err?: any) => void, attributeNames?: string[], options?: { searchHidden: boolean }): void;
             setData(data: object): void;
             setDoNotCut(materialsManager: Private.MaterialManager, doNotCut: boolean): void;
