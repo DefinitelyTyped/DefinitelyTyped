@@ -10,6 +10,13 @@ interface SampleDataType {
     price: number;
     qty: number;
 }
+const tableWithoutT = new VoilabPdfTable(doc);
+tableWithoutT.onBodyAdd((tbl, data) => {
+    tbl; // $ExpectType VoilabPdfTable<VoilabPdfTableDefaultType>
+    data; // $ExpectType VoilabPdfTableDefaultType[]
+    data[0].a; // $ExpectType string | number | undefined
+    data[0].b; // $ExpectType string | number | undefined
+});
 
 const tableWithoutConf = new VoilabPdfTable<SampleDataType>(doc);
 const table = new VoilabPdfTable<SampleDataType>(doc, {

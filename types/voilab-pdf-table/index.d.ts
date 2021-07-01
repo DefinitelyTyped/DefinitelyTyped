@@ -7,7 +7,11 @@
 
 export = VoilabPdfTable;
 
-declare class VoilabPdfTable<T = any> {
+interface VoilabPdfTableDefaultType {
+    [key: string]: string | number | undefined;
+}
+
+declare class VoilabPdfTable<T = VoilabPdfTableDefaultType> {
     // tslint:disable-next-line:no-misused-new
     constructor(pdf: PDFKit.PDFDocument, conf?: VoilabPdfTable.VoilabPdfTableConfig<T>);
 
