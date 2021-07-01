@@ -205,7 +205,7 @@ declare namespace CDP {
     };
 
     type EventCallbacks<T extends ProtocolMappingApi.Events> = {
-        [Property in keyof T]: (callback: (params: T[Property] extends [any] ? T[Property][0] : undefined, sessionId?: string) => void) => () => void;
+        [Property in keyof T]: (callback: (params: T[Property] extends [any] ? T[Property][0] : undefined, sessionId?: string) => void) => () => CDP.Client;
     };
 }
 
