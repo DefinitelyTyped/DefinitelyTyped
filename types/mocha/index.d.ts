@@ -91,6 +91,13 @@ declare class Mocha {
     grep(re: string | RegExp): this;
 
     /**
+     * Whether to activate dry-run mode.
+     *
+     * @param dryRun Whether to activate dry-run mode. Defaults to `true`.
+     */
+    dryRun(dryRun?: boolean): this;
+
+    /**
      * Invert `.grep()` matches.
      *
      * @see https://mochajs.org/api/mocha#invert
