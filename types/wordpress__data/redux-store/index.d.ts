@@ -1,6 +1,3 @@
-import type {
-    WPDataReduxStoreConfig,
-    WPDataStore
-} from '@wordpress/data/src/types';
+import type { WPDataReduxStoreConfig, WPDataStore } from '../';
 
 export function createReduxStore(key: string, options: WPDataReduxStoreConfig): WPDataStore;

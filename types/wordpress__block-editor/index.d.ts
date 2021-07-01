@@ -9,7 +9,7 @@ import { dispatch, select } from '@wordpress/data';
 
 export * from './components';
 export * from './utils';
-export { storeConfig } from './store';
+export { store, storeConfig } from './store';
 export { SETTINGS_DEFAULTS } from './store/defaults';
 
 declare module '@wordpress/data' {
