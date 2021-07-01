@@ -17,7 +17,7 @@ const items: CustomItem[] = [
     },
 ];
 
-QuickPicker.open<CustomItem>({
+QuickPicker.open({
     item: {
         foo: 'bar',
         bar: 1,
