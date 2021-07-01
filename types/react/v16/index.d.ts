@@ -6,7 +6,6 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Benoit Benezech <https://github.com/bbenezech>
 //                 Patricio Zavolinsky <https://github.com/pzavolinsky>
-//                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Josh Rutherford <https://github.com/theruther4d>
