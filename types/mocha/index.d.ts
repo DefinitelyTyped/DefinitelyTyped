@@ -1383,6 +1383,17 @@ declare namespace Mocha {
         readonly STATE_STOPPED: 'stopped';
     }
 
+    interface RunnerOptions {
+        /** Whether to delay execution of root suite until ready. */
+        delay?: boolean;
+
+        /** Whether to report tests without running them. */
+        dryRun?: boolean;
+
+        /** Whether to clean references to test fns and hooks when a suite is done. */
+        cleanReferencesAfterRun?: boolean;
+    }
+
     /**
      * Initialize a `Runner` for the given `suite`.
      *
@@ -1400,7 +1411,13 @@ declare namespace Mocha {
 
         static readonly constants: RunnerConstants;
 
-        constructor(suite: Suite, delay: boolean);
+        /**
+         * Initialize a `Runner` at the Root Suite, which represents a hierarchy of Suites and Tests.
+         *
+         * @param suite Root suite
+         * @param optionsOrDelay Options. If boolean (deprecated), whether or not to delay execution of root suite until ready.
+         */
+        constructor(suite: Suite, optionsOrDelay?: RunnerOptions | boolean);
 
         suite: Suite;
         started: boolean;
