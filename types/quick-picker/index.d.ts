@@ -7,6 +7,7 @@ import * as React from 'react';
 import { TextStyle, ViewStyle } from 'react-native';
 
 export default class QuickPicker extends React.Component {
+    // tslint:disable-next-line
     static open: <T = ItemType>(options: QuickPickerOpenOptions<T>) => void;
     static close: () => void;
 }
@@ -20,7 +21,6 @@ type ItemType = {
     readonly label: string;
 };
 
-// tslint:disable-next-line
 type PickerMode = 'date' | 'time' | 'datetime' | 'countdown';
 
 // tslint:disable-next-line
