@@ -2249,70 +2249,92 @@ declare namespace Mocha {
      * Options to pass to Mocha.
      */
     interface MochaOptions {
-        /** Test interfaces ("bdd", "tdd", "exports", etc.). */
-        ui?: Interface;
+        /** Propagate uncaught errors? */
+        allowUncaught?: boolean;
 
-        /**
-         * Reporter constructor, built-in reporter name, or reporter module path. Defaults to
-         * `"spec"`.
-         */
-        reporter?: string | ReporterConstructor;
-
-        /** Options to pass to the reporter. */
-        reporterOptions?: any;
-
-        /** Array of accepted globals. */
-        globals?: string[];
-
-        /** timeout in milliseconds or time string like '1s'. */
-        timeout?: number | string;
-
-        /** number of times to retry failed tests. */
-        retries?: number;
+        /** Force `done` callback or promise? */
+        asyncOnly?: boolean;
 
         /** bail on the first test failure. */
         bail?: boolean;
 
-        /** milliseconds to wait before considering a test slow. */
-        slow?: number;
-
-        /** check for global variable leaks. */
+        /** Check for global variable leaks? */
         checkLeaks?: boolean;
-
-        /** display the full stack trace on failure. */
-        fullStackTrace?: boolean;
-
-        /** string or regexp to filter tests with. */
-        grep?: string | RegExp;
-
-        /** Enable growl support. */
-        growl?: boolean;
 
         /** Color TTY output from reporter */
         color?: boolean;
 
-        /** Use inline diffs rather than +/-. */
+        /** Delay root suite execution? */
+        delay?: boolean;
+
+        /** Show diff on failure? */
+        diff?: boolean;
+
+        /** Report tests without running them? */
+        dryRun?: boolean;
+
+        /** Test filter given string. */
+        fgrep?: string;
+
+        /** Tests marked `only` fail the suite? */
+        forbidOnly?: boolean;
+
+        /** Pending tests fail the suite? */
+        forbidPending?: boolean;
+
+        /** Full stacktrace upon failure? */
+        fullTrace?: boolean;
+
+        /** Variables expected in global scope. */
+        globals?: string[];
+
+        /** Test filter given regular expression. */
+        grep?: string | RegExp;
+
+        /** Enable desktop notifications? */
+        growl?: boolean;
+
+        /** Display inline diffs? */
         inlineDiffs?: boolean;
 
-        /** Do not show diffs at all. */
-        hideDiff?: boolean;
+        /** Invert test filter matches? */
+        invert?: boolean;
 
-        /** Run job in parallel */
+        /** Disable syntax highlighting? */
+        noHighlighting?: boolean;
+
+        /** Reporter name or constructor. */
+        reporter?: string | ReporterConstructor;
+
+        /** Reporter settings object. */
+        reporterOptions?: any;
+
+        /** Number of times to retry failed tests. */
+        retries?: number;
+
+        /** Slow threshold value. */
+        slow?: number;
+
+        /** Timeout threshold value. */
+        timeout?: number | string;
+
+        /** Interface name. */
+        ui?: Interface;
+
+        /** Run jobs in parallel */
         parallel?: boolean;
 
-        /** Max number of worker processes for parallel runs */
+        /** Max number of worker processes for parallel runs. */
         jobs?: number;
 
-        /** Assigns hooks to the root suite */
+        /** Hooks to bootstrap the root suite with. */
         rootHooks?: RootHookObject;
 
-        asyncOnly?: boolean;
-        delay?: boolean;
-        forbidOnly?: boolean;
-        forbidPending?: boolean;
-        noHighlighting?: boolean;
-        allowUncaught?: boolean;
-        fullTrace?: boolean;
+        /** Pathname of `rootHooks` plugin for parallel runs. */
+        require?: string[];
+
+        /** Should be `true` if `Mocha` process is running in a worker process. */
+        isWorker?: boolean;
     }
 
     interface MochaInstanceOptions extends MochaOptions {
