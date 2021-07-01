@@ -1998,6 +1998,13 @@ declare namespace React {
         | 'strict-origin-when-cross-origin'
         | 'unsafe-url';
 
+    type HTMLAttributeAnchorTarget =
+        | '_self'
+        | '_blank'
+        | '_parent'
+        | '_top'
+        | (string & {});
+
     interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
         download?: any;
         href?: string;
@@ -2005,7 +2012,7 @@ declare namespace React {
         media?: string;
         ping?: string;
         rel?: string;
-        target?: string;
+        target?: HTMLAttributeAnchorTarget;
         type?: string;
         referrerPolicy?: HTMLAttributeReferrerPolicy;
     }
