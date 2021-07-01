@@ -31,7 +31,7 @@ fileExists(new URL('file:///etc/fstab'), { anotherKey: 'this is fine' }, (err, e
 });
 
 // $ExpectType void
-fileExists("tmp", { root: '/' }, (err, exists) => {
+fileExists('tmp', { root: '/' }, (err, exists) => {
     err; // $ExpectType Error | null
     exists; // $ExpectType boolean
 });
@@ -46,6 +46,15 @@ fileExists(Buffer.from('/index.html'), { root: '' }); // $ExpectType Promise<boo
 fileExists(Buffer.from('/index.html'), {}); // $ExpectType Promise<boolean>
 fileExists(new URL('file:///etc/fstab'), { otherKey: '', thisIsFine: '/' }); // $ExpectType Promise<boolean>
 fileExists('index.html', { root: '/' }); // $ExpectType Promise<boolean>
+fileExists('index.html', { root: '/', otherKeys: 'get-ignored' }); // $ExpectType Promise<boolean>
+fileExists('index.html', { root: '/', otherKeys: ['are', 'ignored'] }); // $ExpectType Promise<boolean>
+
+// $ExpectType Promise<boolean>
+fileExists('index.html', {
+    root: '/',
+    otherKeys: ['are', 'ignored'],
+    thereCanBe: ['more', null, 'than', undefined, 'one'],
+});
 
 // $ExpectType boolean
 fileExists.sync('/index.html');

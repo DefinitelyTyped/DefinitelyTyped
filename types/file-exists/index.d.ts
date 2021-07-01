@@ -36,5 +36,6 @@ declare namespace fileExists {
 
     interface Options {
         root?: string;
+        [ignoredValues: string]: any;
     }
 }
