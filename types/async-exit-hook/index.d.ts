@@ -44,7 +44,7 @@ declare module AsyncExitHook {
     function unhookEvent(event: string | symbol): void;
     
     /**
-    * Adds a event/code/function filter for the basic exit hook. 
+    * Adds a event/code/function filter for the base exit hook. 
     * 
     * @param event The event name emitted to listen to (`process.emit(event)`).
     * @param code The exit code emitted to listen to (`process.emit(event, code)`).
