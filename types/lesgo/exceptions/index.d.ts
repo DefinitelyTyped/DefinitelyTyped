@@ -1,1 +1,3 @@
-export * from "./LesgoException";
+import LesgoException from './LesgoException';
+
+export { LesgoException };
