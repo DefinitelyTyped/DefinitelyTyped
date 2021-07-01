@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/edit-post 3.5
+// Type definitions for @wordpress/edit-post 4.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/edit-post/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -163,7 +163,7 @@ export function initializeEditor(
     postId: string | number,
     settings?: Partial<EditorSettings>,
     // FIXME: it is unclear what this is
-    initialEdits?: object
+    initialEdits?: object,
 ): void;
 
 /**
@@ -184,12 +184,10 @@ export function reinitializeEditor(
     target: Element,
     settings?: Partial<EditorSettings>,
     // FIXME: it is unclear what this is
-    initialEdits?: object
+    initialEdits?: object,
 ): void;
 
-export {
-    default as PluginBlockSettingsMenuItem,
-} from './components/block-settings-menu/plugin-block-settings-menu-item';
+export { default as PluginBlockSettingsMenuItem } from './components/block-settings-menu/plugin-block-settings-menu-item';
 export { default as PluginDocumentSettingPanel } from './components/sidebar/plugin-document-setting-panel';
 export { default as PluginMoreMenuItem } from './components/header/plugin-more-menu-item';
 export { default as PluginPostPublishPanel } from './components/sidebar/plugin-post-publish-panel';

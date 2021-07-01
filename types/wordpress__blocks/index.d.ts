@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/blocks 6.4
+// Type definitions for @wordpress/blocks 9.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
@@ -272,7 +272,8 @@ export namespace AttributeSource {
         | {
               type: 'string';
               default?: string;
-          });
+          }
+    );
 
     interface Children {
         source: 'children';
@@ -330,7 +331,8 @@ export namespace AttributeSource {
         | {
               type: 'string';
               default?: string;
-          });
+          }
+    );
 }
 
 export type BlockAttribute<T> =
