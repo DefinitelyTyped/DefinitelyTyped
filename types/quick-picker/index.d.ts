@@ -196,3 +196,5 @@ interface QuickPickerOpenOptions<T = ItemType> {
      */
     readonly useNativeDriver?: boolean;
 }
+
+export { QuickPickerOpenOptions, ItemType };
