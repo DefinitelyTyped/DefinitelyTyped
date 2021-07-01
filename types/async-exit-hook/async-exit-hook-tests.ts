@@ -1,4 +1,4 @@
-import exitHook, { uncaughtExceptionHandler, hookEvent } from "./";
+import * as exitHook from "./";
 
 // you can add async hooks by accepting a callback
 exitHook(callback => {
@@ -10,13 +10,13 @@ exitHook(callback => {
 
 // You can hook uncaught errors with uncaughtExceptionHandler(), consequently adding 
 // async support to uncaught errors (normally uncaught errors result in a synchronous exit).
-uncaughtExceptionHandler(err => {
+exitHook.uncaughtExceptionHandler(err => {
     console.error(err);
 });
 
 // You can add multiple uncaught error handlers
 // Add the second parameter (callback) to indicate async hooks
-uncaughtExceptionHandler((err, callback) => {
+exitHook.uncaughtExceptionHandler((err, callback) => {
     console.error(err);
 
     setTimeout(() => {
@@ -27,12 +27,12 @@ uncaughtExceptionHandler((err, callback) => {
 
 // Custom signal
 // Arguments are `signal, exitCode` (SIGBREAK is already handled, this is an example)
-hookEvent('SIGBREAK', 21);
+exitHook.hookEvent('SIGBREAK', 21);
 
 // process event: `message` with a filter
 // filter gets all arguments passed to *handler*: `process.on(message, *handler*)`
 // Exits on process event `message` with msg `customShutdownMessage` only
-hookEvent('message', 0, msg => msg !== 'customShutdownMessage');
+exitHook.hookEvent('message', 0, msg => msg !== 'customShutdownMessage');
 
 // All async hooks will work with uncaught errors when you have specified an uncaughtExceptionHandler
 throw new Error('awesome');
