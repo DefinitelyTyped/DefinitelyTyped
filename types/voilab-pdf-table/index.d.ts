@@ -3,7 +3,7 @@
 // Definitions by: Daniel Sousa <https://github.com/danielb7390>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="pdfkit" />
+import 'pdfkit';
 
 export = VoilabPdfTable;
 
