@@ -2,8 +2,9 @@
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
+//                 Dennis Snell <https://github.com/dmsnell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 3.8
 
 import { ComponentType, Consumer, Provider } from 'react';
 import { AnyAction as Action, combineReducers, Reducer } from 'redux';
@@ -12,13 +13,17 @@ import { AnyAction as Action, combineReducers, Reducer } from 'redux';
  * Re-exports
  */
 export { Action, combineReducers };
-export * from './redux-store';
 
 //
 // Core functionality
 //
 export type SelectorMap = Record<string, <T = unknown>(...args: readonly any[]) => T>;
 export type DispatcherMap = Record<string, <T = void>(...args: readonly any[]) => T>;
+
+//
+// Redux store
+//
+export function createReduxStore(key: string, options: WPDataReduxStoreConfig): WPDataStore;
 
 /**
  * Subscribe to any changes to the store
@@ -164,13 +169,13 @@ export function createRegistryControl<R extends DataRegistry, T>(
     registryControl: (registry: R) => (args: { [k: string]: any }) => T,
 ): R;
 
-export type WPDataFunctionOrGeneratorArray = Array< Function | Generator >;
-export type WPDataFunctionArray = Array< Function >;
+export type WPDataFunctionOrGeneratorArray = Array<() => void | Generator>;
+export type WPDataFunctionArray = Array<() => void>;
 
 export interface WPDataAttachedStore {
 	getSelectors: () => WPDataFunctionArray;
 	getActions: () => WPDataFunctionArray;
-	subscribe: ( listener: () => void ) => () => void;
+	subscribe: (listener: () => void) => () => void;
 }
 
 export interface WPDataStore {
@@ -182,11 +187,11 @@ export interface WPDataStore {
 	/**
 	 * Store configuration object.
 	 */
-	instantiate: ( registry: WPDataRegistry ) => WPDataAttachedStore;
+	instantiate: (registry: WPDataRegistry) => WPDataAttachedStore;
 }
 
 export interface WPDataReduxStoreConfig {
-	reducer: ( state: any, action: any ) => any;
+	reducer: (state: any, action: any) => any;
 	actions?: WPDataFunctionOrGeneratorArray;
 	resolvers?: WPDataFunctionOrGeneratorArray;
 	selectors?: WPDataFunctionArray;
@@ -194,5 +199,5 @@ export interface WPDataReduxStoreConfig {
 }
 
 export interface WPDataRegistry {
-	register: ( store: WPDataStore ) => void;
+	register: (store: WPDataStore) => void;
 }
