@@ -3,7 +3,7 @@ import { Loader, LoadingManager, ShapePath, BufferGeometry, Vector3, Shape } fro
 export interface SVGResultPaths extends ShapePath {
     userData?: {
         [key: string]: any;
-    };
+    } | undefined;
 }
 
 export interface SVGResult {

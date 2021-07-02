@@ -12,8 +12,8 @@ export class Mesh<
 
     geometry: TGeometry;
     material: TMaterial;
-    morphTargetInfluences?: number[];
-    morphTargetDictionary?: { [key: string]: number };
+    morphTargetInfluences?: number[] | undefined;
+    morphTargetDictionary?: { [key: string]: number } | undefined;
     readonly isMesh: true;
     type: string;
 
