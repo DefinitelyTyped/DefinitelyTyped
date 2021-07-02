@@ -34,7 +34,32 @@ export function isPossiblePhoneNumber(value: string): boolean;
  */
 export function isValidPhoneNumber(value?: string): boolean;
 
-export function parsePhoneNumber(input: string): PhoneNumber | undefined;
+export interface ParsePhoneNumberOptions {
+    /**
+     * Default country for parsing national numbers. Instead of passing options.defaultCountry
+     * one could pass defaultCountry argument directly.
+     */
+    defaultCountry?: string;
+
+    /**
+     * Default calling code for parsing national numbers. Some numbering plans
+     * are for "non-geographic numbering plans" and they don't have a country code,
+     * so defaultCountry can't be specified for them.
+     */
+    defaultCallingCode?: string;
+    /**
+     * By default, the parsing function will attempt to extract a phone number
+     * from an input string even in cases like "Support: (213) 373-4253 (robot)",
+     * which mimicks the behavior of the original Google's libphonenumber library,
+     * and is the default behavior for legacy reasons. However, if "strict" input
+     * validation is required, one can pass extract: false flag to demand that the
+     * whole input string be a viable phone number.
+     * @default true
+     */
+    extract?: boolean;
+}
+
+export function parsePhoneNumber(input: string, options?: string | ParsePhoneNumberOptions): PhoneNumber | undefined;
 
 /**
  * Returns a list of supported countries.
@@ -193,7 +218,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * If an initial value is passed, and initialValueFormat property is not set, then the initial value
      * is formatted in international format.
      */
-    initialValueFormat?: "national";
+    initialValueFormat?: 'national';
 
     /**
      * If `country` property is passed along with `international={true}` property
