@@ -15,25 +15,25 @@ export type Scale = ObjectOrArray<number | string>;
 export interface styleFn {
     (...args: any[]): any;
 
-    config?: object;
-    propNames?: string[];
-    cache?: object;
+    config?: object | undefined;
+    propNames?: string[] | undefined;
+    cache?: object | undefined;
 }
 
 export interface ConfigStyle {
     /** The CSS property to use in the returned style object (overridden by `properties` if present). */
-    property?: keyof CSS.Properties;
+    property?: keyof CSS.Properties | undefined;
     /**
      * An array of multiple properties (e.g. `['marginLeft', 'marginRight']`) to which this style's value will be
      * assigned (overrides `property` when present).
      */
-    properties?: Array<keyof CSS.Properties>;
+    properties?: Array<keyof CSS.Properties> | undefined;
     /** A string referencing a key in the `theme` object. */
-    scale?: string;
+    scale?: string | undefined;
     /** A fallback scale object for when there isn't one defined in the `theme` object. */
-    defaultScale?: Scale;
+    defaultScale?: Scale | undefined;
     /** A function to transform the raw value based on the scale. */
-    transform?: (value: any, scale?: Scale) => any;
+    transform?: ((value: any, scale?: Scale) => any) | undefined;
 }
 
 export interface Config {

@@ -21,32 +21,32 @@ interface Descriptor {
     /**
      * A hash containing methods (functions) of any future created instance.
      */
-    methods?: {};
+    methods?: {} | undefined;
     /**
      * Initialization function(s) which will be called per each newly created
      * instance.
      */
-    initializers?: Init[];
+    initializers?: Init[] | undefined;
     /**
      * Properties which will shallowly copied into any future created instance.
      */
-    properties?: {};
+    properties?: {} | undefined;
     /**
      * Properties which will be mixed to the new and any other stamp which this stamp will be composed with.
      */
-    staticProperties?: {};
+    staticProperties?: {} | undefined;
     /** Deeply merged properties of object instances */
-    deepProperties?: {};
+    deepProperties?: {} | undefined;
     /** ES5 Property Descriptors applied to object instances */
-    propertyDescriptors?: {};
+    propertyDescriptors?: {} | undefined;
     /** Deeply merged properties of Stamps */
-    staticDeepProperties?: {};
+    staticDeepProperties?: {} | undefined;
     /** ES5 Property Descriptors applied to Stamps */
-    staticPropertyDescriptors?: {};
+    staticPropertyDescriptors?: {} | undefined;
     /** A configuration object to be shallowly assigned to Stamps */
-    configuration?: {};
+    configuration?: {} | undefined;
     /** A configuration object to be deeply merged to Stamps */
-    deepConfiguration?: {};
+    deepConfiguration?: {} | undefined;
 }
 
 /** Any composable object (stamp or descriptor) */
@@ -76,61 +76,61 @@ interface Options {
     /**
      * A hash containing methods (functions) of any future created instance.
      */
-    methods?: {};
+    methods?: {} | undefined;
     /**
      * Initialization function(s) which will be called per each newly created
      * instance.
      */
-    init?: Init | Init[];
+    init?: Init | Init[] | undefined;
     /**
      * Initialization function(s) which will be called per each newly created
      * instance.
      */
-    initializers?: Init | Init[];
+    initializers?: Init | Init[] | undefined;
     /**
      * Properties which will shallowly copied into any future created instance.
      */
-    props?: {};
+    props?: {} | undefined;
     /**
      * Properties which will shallowly copied into any future created instance.
      */
-    properties?: {};
+    properties?: {} | undefined;
     /**
      * A hash containing references to the object. This hash will be shallow mixed into any future created instance.
      */
-    refs?: {};
+    refs?: {} | undefined;
     /**
      * Properties which will be mixed to the new and any other stamp which this
      * stamp will be composed with.
      */
-    staticProperties?: {};
+    staticProperties?: {} | undefined;
     /**
      * Properties which will be mixed to the new and any other stamp which this
      * stamp will be composed with.
      */
-    statics?: {};
+    statics?: {} | undefined;
     /** Deeply merged properties of object instances */
-    deepProperties?: {};
+    deepProperties?: {} | undefined;
     /** Deeply merged properties of object instances */
-    deepProps?: {};
+    deepProps?: {} | undefined;
     /** ES5 Property Descriptors applied to object instances */
-    propertyDescriptors?: {};
+    propertyDescriptors?: {} | undefined;
     /** Deeply merged properties of Stamps */
-    staticDeepProperties?: {};
+    staticDeepProperties?: {} | undefined;
     /** Deeply merged properties of Stamps */
-    deepStatics?: {};
+    deepStatics?: {} | undefined;
     /** ES5 Property Descriptors applied to Stamps */
-    staticPropertyDescriptors?: {};
+    staticPropertyDescriptors?: {} | undefined;
     /** A configuration object to be shallowly assigned to Stamps */
-    configuration?: {};
+    configuration?: {} | undefined;
     /** A configuration object to be shallowly assigned to Stamps */
-    conf?: {};
+    conf?: {} | undefined;
     /** A configuration object to be deeply merged to Stamps */
-    deepConfiguration?: {};
+    deepConfiguration?: {} | undefined;
     /** A configuration object to be deeply merged to Stamps */
-    deepConf?: {};
+    deepConf?: {} | undefined;
     /** Callback functions to execute each time a composition occurs */
-    composers?: Composer[];
+    composers?: Composer[] | undefined;
 }
 
 /** Stampit Composable for main stampit() function */
