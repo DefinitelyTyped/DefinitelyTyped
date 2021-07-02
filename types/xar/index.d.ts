@@ -18,7 +18,7 @@ export interface TOCHeader {
 export type Compression = 'none' | 'gzip';
 
 export interface PackOptions {
-    compression?: Compression;
+    compression?: Compression | undefined;
 }
 
 export type ExtractCallback = (error: Error | null, file: Record<string, any>, content?: string) => void;
