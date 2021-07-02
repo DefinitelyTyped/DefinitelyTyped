@@ -67,6 +67,18 @@ declare namespace WechatMiniprogram {
         /** 接口调用成功的回调函数 */
         success?: AddCustomLayerSuccessCallback
     }
+    interface AddFileToFavoritesOption {
+        /** 要收藏的文件地址，必须为本地路径或临时路径 */
+        filePath: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: AddFileToFavoritesCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: AddFileToFavoritesFailCallback
+        /** 自定义文件名，若留空则使用filePath中的文件名 */
+        fileName?: string
+        /** 接口调用成功的回调函数 */
+        success?: AddFileToFavoritesSuccessCallback
+    }
     interface AddGroundOverlayOption {
         /** 图片覆盖的经纬度范围 */
         bounds: MapBounds
@@ -232,6 +244,18 @@ declare namespace WechatMiniprogram {
         fail?: AddServiceFailCallback
         /** 接口调用成功的回调函数 */
         success?: AddServiceSuccessCallback
+    }
+    interface AddVideoToFavoritesOption {
+        /** 要收藏的视频地址，必须为本地路径或临时路径 */
+        videoPath: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: AddVideoToFavoritesCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: AddVideoToFavoritesFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: AddVideoToFavoritesSuccessCallback
+        /** 缩略图路径，若留空则使用视频首帧 */
+        thumbPath?: string
     }
     /** 广播自定义参数 */
     interface AdvertiseReqObj {
@@ -1018,7 +1042,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         count?: number
         /** 接口调用失败的回调函数 */
         fail?: ChooseMediaFailCallback
-        /** 拍摄视频最长拍摄时间，单位秒。时间范围为 3s 至 30s 之间 */
+        /** 拍摄视频最长拍摄时间，单位秒。时间范围为 3s 至 60s 之间。不限制相册。 */
         maxDuration?: number
         /** 文件类型
          *
@@ -1693,6 +1717,46 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 接口调用成功的回调函数 */
         success?: EnableAlertBeforeUnloadSuccessCallback
     }
+    /** 文件读取结果。res.entries 是一个对象，key是文件路径，value是一个对象 FileItem ，表示该文件的读取结果。每个 FileItem 包含 data （文件内容） 和 errMsg （错误信息） 属性。 */
+    interface EntriesResult {
+        /** 文件路径 */
+        [path: string]: ZipFileItem
+    }
+    /** 要读取的压缩包内的文件列表（当传入"all" 时表示读取压缩包内所有文件） */
+    interface EntryItem {
+        /** 压缩包内文件路径 */
+        path: string
+        /** 指定读取文件的字符编码，如果不传 encoding，则以 ArrayBuffer 格式读取文件的二进制内容
+         *
+         * 可选值：
+         * - 'ascii': ;
+         * - 'base64': ;
+         * - 'binary': ;
+         * - 'hex': ;
+         * - 'ucs2': 以小端序读取;
+         * - 'ucs-2': 以小端序读取;
+         * - 'utf16le': 以小端序读取;
+         * - 'utf-16le': 以小端序读取;
+         * - 'utf-8': ;
+         * - 'utf8': ;
+         * - 'latin1': ; */
+        encoding?:
+            | 'ascii'
+            | 'base64'
+            | 'binary'
+            | 'hex'
+            | 'ucs2'
+            | 'ucs-2'
+            | 'utf16le'
+            | 'utf-16le'
+            | 'utf-8'
+            | 'utf8'
+            | 'latin1'
+        /** 指定文件的长度，如果不指定，则读到文件末尾。有效范围：[1, fileLength]。单位：byte */
+        length?: number
+        /** 从文件指定位置开始读，如果不指定，则从文件头开始读。读取的范围应该是左闭右开区间 [position, position+length)。有效范围：[0, fileLength - 1]。单位：byte */
+        position?: number
+    }
     interface ExitFullScreenOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: ExitFullScreenCompleteCallback
@@ -1700,6 +1764,14 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         fail?: ExitFullScreenFailCallback
         /** 接口调用成功的回调函数 */
         success?: ExitFullScreenSuccessCallback
+    }
+    interface ExitMiniProgramOption {
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: ExitMiniProgramCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: ExitMiniProgramFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: ExitMiniProgramSuccessCallback
     }
     interface ExitPictureInPictureOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -2107,6 +2179,8 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         complete?: GetCenterLocationCompleteCallback
         /** 接口调用失败的回调函数 */
         fail?: GetCenterLocationFailCallback
+        /** 图标路径，支持网络路径、本地路径、代码包路径 */
+        iconPath?: string
         /** 接口调用成功的回调函数 */
         success?: GetCenterLocationSuccessCallback
     }
@@ -2115,6 +2189,31 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         latitude: number
         /** 经度 */
         longitude: number
+        errMsg: string
+    }
+    interface GetChannelsLiveInfoOption {
+        /** 视频号 id */
+        finderUserName: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: GetChannelsLiveInfoCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: GetChannelsLiveInfoFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: GetChannelsLiveInfoSuccessCallback
+    }
+    interface GetChannelsLiveInfoSuccessCallbackResult {
+        /** 直播描述 */
+        description: string
+        /** 直播 feedId */
+        feedId: string
+        /** 直播封面 */
+        headUrl: string
+        /** 直播名称 */
+        nickname: string
+        /** 直播 nonceId */
+        nonceId: string
+        /** 直播状态，1未开播，2直播中，3直播结束，4直播准备中 */
+        status: number
         errMsg: string
     }
     interface GetClipboardDataOption {
@@ -2282,6 +2381,25 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         width: number
         errMsg: string
     }
+    interface GetLatestUserKeyOption {
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: GetLatestUserKeyCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: GetLatestUserKeyFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: GetLatestUserKeySuccessCallback
+    }
+    interface GetLatestUserKeySuccessCallbackResult {
+        /** 用户加密密钥 */
+        encryptKey: string
+        /** 密钥过期时间 */
+        expireTime: number
+        /** 密钥初始向量 */
+        iv: string
+        /** 密钥版本 */
+        version: number
+        errMsg: string
+    }
     interface GetLocationOption {
         /** 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度
          *
@@ -2328,7 +2446,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         errMsg: string
     }
     interface GetLogManagerOption {
-        /** 取值为0/1，取值为0表示是否会把 `App`、`Page` 的生命周期函数和 `wx` 命名空间下的函数调用写入日志，取值为1则不会。默认值是 0
+        /** 取值为0/1，取值为0表示会把 `App`、`Page` 的生命周期函数和 `wx` 命名空间下的函数调用写入日志，取值为1则不会。默认值是 0
          *
          * 最低基础库： `2.3.2` */
         level?: number
@@ -3210,6 +3328,14 @@ innerAudioContext.onError((res) => {
         /** 接口调用成功的回调函数 */
         success?: LoadFontFaceSuccessCallback
     }
+    interface LocalInfo {
+        /** 接收消息的 socket 的地址 */
+        address: string
+        /** 使用的协议族，为 IPv4 或者 IPv6 */
+        family: string
+        /** 端口号 */
+        port: number
+    }
     interface LoginOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: LoginCompleteCallback
@@ -3238,7 +3364,7 @@ innerAudioContext.onError((res) => {
         fail?: MakeBluetoothPairFailCallback
         /** 接口调用成功的回调函数 */
         success?: MakeBluetoothPairSuccessCallback
-        /** 超时时间 */
+        /** 超时时间，单位ms */
         timeout?: number
     }
     interface MakePhoneCallOption {
@@ -3755,9 +3881,9 @@ innerAudioContext.onError((res) => {
          *
          * 最低基础库： `1.2.0` */
         horizontalAccuracy: number
-        /** 纬度，范围为 -90~90，负数表示南纬 */
+        /** 纬度，范围为 -90~90，负数表示南纬。使用 gcj02 国测局坐标系 */
         latitude: number
-        /** 经度，范围为 -180~180，负数表示西经 */
+        /** 经度，范围为 -180~180，负数表示西经。使用 gcj02 国测局坐标系 */
         longitude: number
         /** 速度，单位 m/s */
         speed: number
@@ -3857,6 +3983,16 @@ innerAudioContext.onError((res) => {
         /** 还在实时语音通话中的成员 openId 名单 */
         openIdList: string[]
     }
+    interface OnVoIPChatStateChangedCallbackResult {
+        /** 事件码 */
+        code: number
+        /** 附加信息 */
+        data: IAnyObject
+        /** 错误码 */
+        errCode: number
+        /** 调用结果 */
+        errMsg: string
+    }
     interface OnVoIPVideoMembersChangedCallbackResult {
         /** 错误码 */
         errCode: number
@@ -3906,6 +4042,14 @@ innerAudioContext.onError((res) => {
         cardId: string
         /** 由 [wx.addCard](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/card/wx.addCard.html) 的返回对象中的加密 code 通过解密后得到，解密请参照：[code 解码接口](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1499332673_Unm7V) */
         code: string
+    }
+    interface OpenChannelsLiveOption {
+        /** 直播 feedId，通过 getChannelsLiveInfo 接口获取 */
+        feedId: string
+        /** 视频号 id */
+        finderUserName: string
+        /** 直播 nonceId，通过 getChannelsLiveInfo 接口获取 */
+        nonceId: string
     }
     interface OpenDocumentOption {
         /** 文件路径 (本地路径) ，可通过 downloadFile 获得 */
@@ -4355,13 +4499,13 @@ innerAudioContext.onError((res) => {
         /** 被写入的缓存区的对象，即接口入参的 arrayBuffer */
         arrayBuffer: ArrayBuffer
         /** 实际读取的字节数 */
-        bytesRead: string
+        bytesRead: number
     }
     interface ReadSuccessCallbackResult {
         /** 被写入的缓存区的对象，即接口入参的 arrayBuffer */
         arrayBuffer: ArrayBuffer
         /** 实际读取的字节数 */
-        bytesRead: string
+        bytesRead: number
         errMsg: string
     }
     interface ReadSyncOption {
@@ -4375,6 +4519,49 @@ innerAudioContext.onError((res) => {
         offset?: number
         /** 文件读取的起始位置，如不传或传 null，则会从当前文件指针的位置读取。如果 position 是正整数，则文件指针位置会保持不变并从 position 读取文件。 */
         position?: number
+    }
+    interface ReadZipEntryOption {
+        /** 要读取的压缩包内的文件列表（当传入"all" 时表示读取压缩包内所有文件） */
+        entries: EntryItem[] | 'all'
+        /** 要读取的压缩包的路径 (本地路径) */
+        filePath: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: ReadZipEntryCompleteCallback
+        /** 统一指定读取文件的字符编码，只在 entries 值为"all"时有效。如果 entries 值为"all"且不传 encoding，则以 ArrayBuffer 格式读取文件的二进制内容
+         *
+         * 可选值：
+         * - 'ascii': ;
+         * - 'base64': ;
+         * - 'binary': ;
+         * - 'hex': ;
+         * - 'ucs2': 以小端序读取;
+         * - 'ucs-2': 以小端序读取;
+         * - 'utf16le': 以小端序读取;
+         * - 'utf-16le': 以小端序读取;
+         * - 'utf-8': ;
+         * - 'utf8': ;
+         * - 'latin1': ; */
+        encoding?:
+            | 'ascii'
+            | 'base64'
+            | 'binary'
+            | 'hex'
+            | 'ucs2'
+            | 'ucs-2'
+            | 'utf16le'
+            | 'utf-16le'
+            | 'utf-8'
+            | 'utf8'
+            | 'latin1'
+        /** 接口调用失败的回调函数 */
+        fail?: ReadZipEntryFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: ReadZipEntrySuccessCallback
+    }
+    interface ReadZipEntrySuccessCallbackResult {
+        /** 文件读取结果。res.entries 是一个对象，key是文件路径，value是一个对象 FileItem ，表示该文件的读取结果。每个 FileItem 包含 data （文件内容） 和 errMsg （错误信息） 属性。 */
+        entries: EntriesResult
+        errMsg: string
     }
     interface ReaddirFailCallbackResult {
         /** 错误信息
@@ -4434,7 +4621,7 @@ innerAudioContext.onError((res) => {
          * - 'wav': wav 格式;
          * - 'PCM': pcm 格式; */
         format?: 'mp3' | 'aac' | 'wav' | 'PCM'
-        /** 指定帧大小，单位 KB。传入 frameSize 后，每录制指定帧大小的内容后，会回调录制的文件内容，不指定则不会回调。暂仅支持 mp3 格式。 */
+        /** 指定帧大小，单位 KB。传入 frameSize 后，每录制指定帧大小的内容后，会回调录制的文件内容，不指定则不会回调。暂仅支持 mp3、pcm 格式。 */
         frameSize?: number
         /** 录音通道数
          *
@@ -4442,7 +4629,7 @@ innerAudioContext.onError((res) => {
          * - 1: 1 个通道;
          * - 2: 2 个通道; */
         numberOfChannels?: 1 | 2
-        /** 采样率
+        /** 采样率（pc不支持）
          *
          * 可选值：
          * - 8000: 8000 采样率;
@@ -4516,7 +4703,7 @@ innerAudioContext.onError((res) => {
         /** 上边界 */
         top: number
     }
-    /** 消息来源的结构化信息 */
+    /** 发送端地址信息 */
     interface RemoteInfo {
         /** 发送消息的 socket 的地址 */
         address: string
@@ -5120,6 +5307,27 @@ wx.createSelectorQuery()
         /** 设置是否显示滚动条 */
         showScrollbar: boolean
     }
+    interface SearchContactsOption {
+        /** 需要查找的号码，长度>=8位才匹配 */
+        phoneNumber: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: SearchContactsCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: SearchContactsFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: SearchContactsSuccessCallback
+    }
+    /** 手机号 */
+    interface SearchContactsResult {
+        /** 联系人姓名 */
+        name: string
+        /** 手机号 */
+        phoneNumber: string
+    }
+    interface SearchContactsSuccessCallbackOption {
+        /** 手机号 */
+        result: SearchContactsResult[]
+    }
     interface SeekBackgroundAudioOption {
         /** 音乐位置，单位：秒 */
         position: number
@@ -5289,6 +5497,8 @@ wx.createSelectorQuery()
         complete?: SetLocMarkerIconCompleteCallback
         /** 接口调用失败的回调函数 */
         fail?: SetLocMarkerIconFailCallback
+        /** 图标路径，支持网络路径、本地路径、代码包路径 */
+        iconPath?: string
         /** 接口调用成功的回调函数 */
         success?: SetLocMarkerIconSuccessCallback
     }
@@ -5449,6 +5659,18 @@ wx.createSelectorQuery()
         zoom: number
         errMsg: string
     }
+    interface ShareFileMessageOption {
+        /** 要分享的文件地址，必须为本地路径或临时路径 */
+        filePath: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: ShareFileMessageCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: ShareFileMessageFailCallback
+        /** 自定义文件名，若留空则使用filePath中的文件名 */
+        fileName?: string
+        /** 接口调用成功的回调函数 */
+        success?: ShareFileMessageSuccessCallback
+    }
     interface ShareToWeRunOption {
         /** 运动数据列表 */
         recordList: WxaSportRecord[]
@@ -5458,6 +5680,18 @@ wx.createSelectorQuery()
         fail?: ShareToWeRunFailCallback
         /** 接口调用成功的回调函数 */
         success?: ShareToWeRunSuccessCallback
+    }
+    interface ShareVideoMessageOption {
+        /** 要分享的视频地址，必须为本地路径或临时路径 */
+        videoPath: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: ShareVideoMessageCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: ShareVideoMessageFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: ShareVideoMessageSuccessCallback
+        /** 缩略图路径，若留空则使用视频首帧 */
+        thumbPath?: string
     }
     interface ShowActionSheetOption {
         /** 按钮的文字数组，数组长度最大为 6 */
@@ -6300,6 +6534,20 @@ wx.getSetting({
          * 最低基础库： `2.11.0` */
         theme?: 'dark' | 'light'
     }
+    interface TCPSocketConnectOption {
+        /** 套接字要连接的地址 */
+        address: string
+        /** 套接字要连接的端口 */
+        port: number
+    }
+    interface TCPSocketOnMessageCallbackResult {
+        /** 接收端地址信息 */
+        localInfo: LocalInfo
+        /** 收到的消息 */
+        message: ArrayBuffer
+        /** 发送端地址信息 */
+        remoteInfo: RemoteInfo
+    }
     interface TakePhotoOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: TakePhotoCompleteCallback
@@ -6444,9 +6692,11 @@ wx.getSetting({
         errMsg: string
     }
     interface UDPSocketOnMessageCallbackResult {
+        /** 接收端地址信息，2.18.0 起支持 */
+        localInfo: LocalInfo
         /** 收到的消息 */
         message: ArrayBuffer
-        /** 消息来源的结构化信息 */
+        /** 发送端地址信息 */
         remoteInfo: RemoteInfo
     }
     interface UDPSocketSendOption {
@@ -7001,6 +7251,13 @@ wx.getSetting({
         typeId: string
         /** 小程序app内跳转url */
         url: string
+    }
+    /** 文件路径 */
+    interface ZipFileItem {
+        /** 文件内容 */
+        data: string | ArrayBuffer
+        /** 错误信息 */
+        errMsg: string
     }
     interface Animation {
         /** [Object Animation.export()](https://developers.weixin.qq.com/miniprogram/dev/api/ui/animation/Animation.export.html)
@@ -9142,64 +9399,6 @@ ctx.draw()
          * | - | - |
          * | bad file descriptor | 无效的文件描述符 | */ errCode: number
     }
-    interface Console {
-        /** [console.debug()](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/console.debug.html)
-         *
-         * 向调试面板中打印 debug 日志 */
-        debug(
-            /** 日志内容，可以有任意多个。 */
-            ...args: any[]
-        ): void
-        /** [console.error()](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/console.error.html)
-         *
-         * 向调试面板中打印 error 日志 */
-        error(
-            /** 日志内容，可以有任意多个。 */
-            ...args: any[]
-        ): void
-        /** [console.group(string label)](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/console.group.html)
-         *
-         * 在调试面板中创建一个新的分组。随后输出的内容都会被添加一个缩进，表示该内容属于当前分组。调用 [console.groupEnd](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/console.groupEnd.html)之后分组结束。
-         *
-         * **注意**
-         *
-         *
-         * 仅在工具中有效，在 vConsole 中为空函数实现。 */
-        group(
-            /** 分组标记，可选。 */
-            label?: string
-        ): void
-        /** [console.groupEnd()](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/console.groupEnd.html)
-         *
-         * 结束由 [console.group](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/console.group.html) 创建的分组
-         *
-         * **注意**
-         *
-         *
-         * 仅在工具中有效，在 vConsole 中为空函数实现。 */
-        groupEnd(): void
-        /** [console.info()](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/console.info.html)
-         *
-         * 向调试面板中打印 info 日志 */
-        info(
-            /** 日志内容，可以有任意多个。 */
-            ...args: any[]
-        ): void
-        /** [console.log()](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/console.log.html)
-         *
-         * 向调试面板中打印 log 日志 */
-        log(
-            /** 日志内容，可以有任意多个。 */
-            ...args: any[]
-        ): void
-        /** [console.warn()](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/console.warn.html)
-         *
-         * 向调试面板中打印 warn 日志 */
-        warn(
-            /** 日志内容，可以有任意多个。 */
-            ...args: any[]
-        ): void
-    }
     interface DownloadTask {
         /** [DownloadTask.abort()](https://developers.weixin.qq.com/miniprogram/dev/api/network/download/DownloadTask.abort.html)
          *
@@ -9377,19 +9576,19 @@ this.editorCtx.insertImage({
         undo(option?: UndoOption): void
     }
     interface EntryList {
-        /** [Array EntryList.getEntries()](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/EntryList.getEntries.html)
+        /** [Array EntryList.getEntries()](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/EntryList.getEntries.html)
          *
          * 该方法返回当前列表中的所有性能数据
          *
          * 最低基础库： `2.11.0` */
         getEntries(): any[]
-        /** [Array EntryList.getEntriesByName(string name, string entryType)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/EntryList.getEntriesByName.html)
+        /** [Array EntryList.getEntriesByName(string name, string entryType)](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/EntryList.getEntriesByName.html)
          *
          * 获取当前列表中所有名称为 [name] 且类型为 [entryType] 的性能数据
          *
          * 最低基础库： `2.11.0` */
         getEntriesByName(name: string, entryType?: string): any[]
-        /** [Array EntryList.getEntriesByType(string entryType)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/EntryList.getEntriesByType.html)
+        /** [Array EntryList.getEntriesByType(string entryType)](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/EntryList.getEntriesByType.html)
          *
          * 获取当前列表中所有类型为 [entryType] 的性能数据
          *
@@ -9444,34 +9643,162 @@ this.editorCtx.insertImage({
     }
     interface FileSystemManager {
         /** [Array.&lt;string&gt; FileSystemManager.readdirSync(string dirPath)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.readdirSync.html)
-         *
-         * [FileSystemManager.readdir](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.readdir.html) 的同步版本 */
+*
+* [FileSystemManager.readdir](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.readdir.html) 的同步版本
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.readdir({
+  dirPath: `${wx.env.USER_DATA_PATH}/example`,
+  success(res) {
+    console.log(res.files)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  const res = fs.readdirSync(`${wx.env.USER_DATA_PATH}/example`)
+  console.log(res)
+} catch(e) {
+  console.error(e)
+}
+``` */
         readdirSync(
             /** 要读取的目录路径 (本地路径) */
             dirPath: string
         ): string[]
         /** [FileSystemManager.access(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.access.html)
-         *
-         * 判断文件/目录是否存在 */
+*
+* 判断文件/目录是否存在
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+// 判断文件/目录是否存在
+fs.access({
+  path: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  success(res) {
+    // 文件存在
+    console.log(res)
+  },
+  fail(res) {
+    // 文件不存在或其他错误
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  fs.accessSync(`${wx.env.USER_DATA_PATH}/hello.txt`)
+} catch(e) {
+  console.error(e)
+}
+``` */
         access(option: AccessOption): void
         /** [FileSystemManager.accessSync(string path)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.accessSync.html)
-         *
-         * [FileSystemManager.access](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.access.html) 的同步版本 */
+*
+* [FileSystemManager.access](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.access.html) 的同步版本
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+// 判断文件/目录是否存在
+fs.access({
+  path: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  success(res) {
+    // 文件存在
+    console.log(res)
+  },
+  fail(res) {
+    // 文件不存在或其他错误
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  fs.accessSync(`${wx.env.USER_DATA_PATH}/hello.txt`)
+} catch(e) {
+  console.error(e)
+}
+``` */
         accessSync(
             /** 要判断是否存在的文件/目录路径 (本地路径) */
             path: string
         ): void
         /** [FileSystemManager.appendFile(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.appendFile.html)
-         *
-         * 在文件结尾追加内容
-         *
-         * 最低基础库： `2.1.0` */
+*
+* 在文件结尾追加内容
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+
+fs.appendFile({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  data: 'some text',
+  encoding: 'utf8',
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  fs.appendFileSync(`${wx.env.USER_DATA_PATH}/hello.txt`, 'some text', 'utf8')
+} catch(e) {
+  console.error(e)
+}
+```
+*
+* 最低基础库： `2.1.0` */
         appendFile(option: AppendFileOption): void
         /** [FileSystemManager.appendFileSync(string filePath, string|ArrayBuffer data, string encoding)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.appendFileSync.html)
-         *
-         * [FileSystemManager.appendFile](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.appendFile.html) 的同步版本
-         *
-         * 最低基础库： `2.1.0` */
+*
+* [FileSystemManager.appendFile](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.appendFile.html) 的同步版本
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+
+fs.appendFile({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  data: 'some text',
+  encoding: 'utf8',
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  fs.appendFileSync(`${wx.env.USER_DATA_PATH}/hello.txt`, 'some text', 'utf8')
+} catch(e) {
+  console.error(e)
+}
+```
+*
+* 最低基础库： `2.1.0` */
         appendFileSync(
             /** 要追加内容的文件路径 (本地路径) */
             filePath: string,
@@ -9529,12 +9856,66 @@ fs.open({
 * 最低基础库： `2.16.1` */
         close(option: FileSystemManagerCloseOption): void
         /** [FileSystemManager.copyFile(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.copyFile.html)
-         *
-         * 复制文件 */
+*
+* 复制文件
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.copyFile({
+  srcPath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  destPath: `${wx.env.USER_DATA_PATH}/hello_copy.txt`
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  fs.copyFileSync(
+    `${wx.env.USER_DATA_PATH}/hello.txt`,
+    `${wx.env.USER_DATA_PATH}/hello_copy.txt`
+  )
+} catch(e) {
+  console.error(e)
+}
+``` */
         copyFile(option: CopyFileOption): void
         /** [FileSystemManager.copyFileSync(string srcPath, string destPath)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.copyFileSync.html)
-         *
-         * [FileSystemManager.copyFile](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.copyFile.html) 的同步版本 */
+*
+* [FileSystemManager.copyFile](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.copyFile.html) 的同步版本
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.copyFile({
+  srcPath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  destPath: `${wx.env.USER_DATA_PATH}/hello_copy.txt`
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  fs.copyFileSync(
+    `${wx.env.USER_DATA_PATH}/hello.txt`,
+    `${wx.env.USER_DATA_PATH}/hello_copy.txt`
+  )
+} catch(e) {
+  console.error(e)
+}
+``` */
         copyFileSync(
             /** 源文件路径，支持本地路径 */
             srcPath: string,
@@ -9605,12 +9986,60 @@ fs.open({
          * 获取该小程序下已保存的本地缓存文件列表 */
         getSavedFileList(option?: FileSystemManagerGetSavedFileListOption): void
         /** [FileSystemManager.mkdir(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.mkdir.html)
-         *
-         * 创建目录 */
+*
+* 创建目录
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.mkdir({
+  dirPath: `${wx.env.USER_DATA_PATH}/example`,
+  recursive: false
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  fs.mkdirSync(`${wx.env.USER_DATA_PATH}/example`, false)
+} catch(e) {
+  console.error(e)
+}
+``` */
         mkdir(option: MkdirOption): void
         /** [FileSystemManager.mkdirSync(string dirPath, boolean recursive)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.mkdirSync.html)
-         *
-         * [FileSystemManager.mkdir](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.mkdir.html) 的同步版本 */
+*
+* [FileSystemManager.mkdir](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.mkdir.html) 的同步版本
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.mkdir({
+  dirPath: `${wx.env.USER_DATA_PATH}/example`,
+  recursive: false
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  fs.mkdirSync(`${wx.env.USER_DATA_PATH}/example`, false)
+} catch(e) {
+  console.error(e)
+}
+``` */
         mkdirSync(
             /** 创建的目录路径 (本地路径) */
             dirPath: string,
@@ -9670,24 +10099,193 @@ fs.open({
 * 最低基础库： `2.16.1` */
         read(option: ReadOption): void
         /** [FileSystemManager.readFile(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.readFile.html)
-         *
-         * 读取本地文件内容 */
+*
+* 读取本地文件内容
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.readFile({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  encoding: 'utf8',
+  position: 0,
+  success(res) {
+    console.log(res.data)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  const res = fs.readFileSync(`${wx.env.USER_DATA_PATH}/hello.txt`, 'utf8', 0)
+  console.log(res)
+} catch(e) {
+  console.error(e)
+}
+``` */
         readFile(option: ReadFileOption): void
+        /** [FileSystemManager.readZipEntry(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.readZipEntry.html)
+*
+* 读取压缩包内的文件
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+// 读取zip内某个或多个文件
+fs.readZipEntry({
+  filePath: 'wxfile://from/to.zip',
+  entries: [{
+    path: 'some_folder/my_file.txt', // zip内文件路径
+    encoding: 'utf-8', // 指定读取文件的字符编码，如果不传 encoding，则以 ArrayBuffer 格式读取文件的二进制内容
+    position: 0, // 从文件指定位置开始读，如果不指定，则从文件头开始读。读取的范围应该是左闭右开区间 [position, position+length)。有效范围：[0, fileLength - 1]。单位：byte
+    length: 10000, // 指定文件的长度，如果不指定，则读到文件末尾。有效范围：[1, fileLength]。单位：byte
+  }, {
+    path: 'other_folder/orther_file.txt', // zip内文件路径
+  }],
+  success(res) {
+    console.log(res.entries)
+    // res.entries === {
+    //     'some_folder/my_file.txt': {
+    //         errMsg: 'readZipEntry:ok',
+    //         data: 'xxxxxx'
+    //     },
+    //     'other_folder/orther_file.txt': {
+    //         data: (ArrayBuffer)
+    //     }
+    // }
+  },
+  fail(res) {
+    console.log(res.errMsg)
+  },
+})
+
+// 读取zip内所有文件。允许指定统一的encoding。position、length则不再允许指定，分别默认为0和文件长度
+fs.readZipEntry({
+  filePath: 'wxfile://from/to.zip',
+  entries: 'all'
+  encoding: 'utf-8', // 统一指定读取文件的字符编码，如果不传 encoding，则以 ArrayBuffer 格式读取文件的二进制内容
+  success(res) {
+    console.log(res.entries)
+    // res.entries === {
+    //     'some_folder/my_file.txt': {
+    //         errMsg: 'readZipEntry:ok',
+    //         data: 'xxxxxx'
+    //     },
+    //     'other_folder/orther_file.txt': {
+    //         errMsg: 'readZipEntry:ok',
+    //         data: 'xxxxxx'
+    //     }
+    //  }
+  },
+  fail(res) {
+    console.log(res.errMsg)
+  },
+})
+```
+*
+* 最低基础库： `2.17.3` */
+        readZipEntry(option: ReadZipEntryOption): void
         /** [FileSystemManager.readdir(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.readdir.html)
-         *
-         * 读取目录内文件列表 */
+*
+* 读取目录内文件列表
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.readdir({
+  dirPath: `${wx.env.USER_DATA_PATH}/example`,
+  success(res) {
+    console.log(res.files)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  const res = fs.readdirSync(`${wx.env.USER_DATA_PATH}/example`)
+  console.log(res)
+} catch(e) {
+  console.error(e)
+}
+``` */
         readdir(option: ReaddirOption): void
         /** [FileSystemManager.removeSavedFile(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.removeSavedFile.html)
          *
          * 删除该小程序下已保存的本地缓存文件 */
         removeSavedFile(option: FileSystemManagerRemoveSavedFileOption): void
         /** [FileSystemManager.rename(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.rename.html)
-         *
-         * 重命名文件。可以把文件从 oldPath 移动到 newPath */
+*
+* 重命名文件。可以把文件从 oldPath 移动到 newPath
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.rename({
+  oldPath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  newPath: `${wx.env.USER_DATA_PATH}/hello_new.txt`,
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  const res = fs.renameSync(
+    `${wx.env.USER_DATA_PATH}/hello.txt`,
+    `${wx.env.USER_DATA_PATH}/hello_new.txt`
+  )
+  console.log(res)
+} catch(e) {
+  console.error(e)
+}
+``` */
         rename(option: RenameOption): void
         /** [FileSystemManager.renameSync(string oldPath, string newPath)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.renameSync.html)
-         *
-         * [FileSystemManager.rename](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.rename.html) 的同步版本 */
+*
+* [FileSystemManager.rename](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.rename.html) 的同步版本
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.rename({
+  oldPath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  newPath: `${wx.env.USER_DATA_PATH}/hello_new.txt`,
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  const res = fs.renameSync(
+    `${wx.env.USER_DATA_PATH}/hello.txt`,
+    `${wx.env.USER_DATA_PATH}/hello_new.txt`
+  )
+  console.log(res)
+} catch(e) {
+  console.error(e)
+}
+``` */
         renameSync(
             /** 源文件路径，支持本地路径 */
             oldPath: string,
@@ -9695,12 +10293,62 @@ fs.open({
             newPath: string
         ): void
         /** [FileSystemManager.rmdir(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.rmdir.html)
-         *
-         * 删除目录 */
+*
+* 删除目录
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.rmdir({
+  dirPath: `${wx.env.USER_DATA_PATH}/example`,
+  recursive: false,
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  const res = fs.rmdirSync(`${wx.env.USER_DATA_PATH}/example`, false)
+  console.log(res)
+} catch(e) {
+  console.error(e)
+}
+``` */
         rmdir(option: RmdirOption): void
         /** [FileSystemManager.rmdirSync(string dirPath, boolean recursive)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.rmdirSync.html)
-         *
-         * [FileSystemManager.rmdir](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.rmdir.html) 的同步版本 */
+*
+* [FileSystemManager.rmdir](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.rmdir.html) 的同步版本
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.rmdir({
+  dirPath: `${wx.env.USER_DATA_PATH}/example`,
+  recursive: false,
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  const res = fs.rmdirSync(`${wx.env.USER_DATA_PATH}/example`, false)
+  console.log(res)
+} catch(e) {
+  console.error(e)
+}
+``` */
         rmdirSync(
             /** 要删除的目录路径 (本地路径) */
             dirPath: string,
@@ -9738,19 +10386,84 @@ fs.truncate({
 * 最低基础库： `2.16.1` */
         truncate(option: TruncateOption): void
         /** [FileSystemManager.unlink(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.unlink.html)
-         *
-         * 删除文件 */
+*
+* 删除文件
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.unlink({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  const res = fs.unlinkSync(`${wx.env.USER_DATA_PATH}/hello.txt`)
+  console.log(res)
+} catch(e) {
+  console.error(e)
+}
+``` */
         unlink(option: UnlinkOption): void
         /** [FileSystemManager.unlinkSync(string filePath)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.unlinkSync.html)
-         *
-         * [FileSystemManager.unlink](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.unlink.html) 的同步版本 */
+*
+* [FileSystemManager.unlink](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.unlink.html) 的同步版本
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.unlink({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  const res = fs.unlinkSync(`${wx.env.USER_DATA_PATH}/hello.txt`)
+  console.log(res)
+} catch(e) {
+  console.error(e)
+}
+``` */
         unlinkSync(
             /** 要删除的文件路径 (本地路径) */
             filePath: string
         ): void
         /** [FileSystemManager.unzip(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.unzip.html)
-         *
-         * 解压文件 */
+*
+* 解压文件
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.unzip({
+  zipFilePath: `${wx.env.USER_DATA_PATH}/example.zip`,
+  targetPath: '${wx.env.USER_DATA_PATH}/example',
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+``` */
         unzip(option: UnzipOption): void
         /** [FileSystemManager.write(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.write.html)
 *
@@ -9781,12 +10494,72 @@ fs.open({
 * 最低基础库： `2.16.1` */
         write(option: WriteOption): void
         /** [FileSystemManager.writeFile(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.writeFile.html)
-         *
-         * 写文件 */
+*
+* 写文件
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.writeFile({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  data: 'some text or arrayBuffer',
+  encoding: 'utf8',
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  const res = fs.writeFileSync(
+    `${wx.env.USER_DATA_PATH}/hello.txt`,
+    'some text or arrayBuffer',
+    'utf8'
+  )
+  console.log(res)
+} catch(e) {
+  console.error(e)
+}
+``` */
         writeFile(option: WriteFileOption): void
         /** [FileSystemManager.writeFileSync(string filePath, string|ArrayBuffer data, string encoding)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.writeFileSync.html)
-         *
-         * [FileSystemManager.writeFile](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.writeFile.html) 的同步版本 */
+*
+* [FileSystemManager.writeFile](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.writeFile.html) 的同步版本
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.writeFile({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  data: 'some text or arrayBuffer',
+  encoding: 'utf8',
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  const res = fs.writeFileSync(
+    `${wx.env.USER_DATA_PATH}/hello.txt`,
+    'some text or arrayBuffer',
+    'utf8'
+  )
+  console.log(res)
+} catch(e) {
+  console.error(e)
+}
+``` */
         writeFileSync(
             /** 要写入的文件路径 (本地路径) */
             filePath: string,
@@ -9923,8 +10696,34 @@ console.log(fd)
             filePath?: string
         ): string
         /** [string|ArrayBuffer FileSystemManager.readFileSync(string filePath, string encoding, number position, number length)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.readFileSync.html)
-         *
-         * [FileSystemManager.readFile](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.readFile.html) 的同步版本 */
+*
+* [FileSystemManager.readFile](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.readFile.html) 的同步版本
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.readFile({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  encoding: 'utf8',
+  position: 0,
+  success(res) {
+    console.log(res.data)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+
+// 同步接口
+try {
+  const res = fs.readFileSync(`${wx.env.USER_DATA_PATH}/hello.txt`, 'utf8', 0)
+  console.log(res)
+} catch(e) {
+  console.error(e)
+}
+``` */
         readFileSync(
             /** 要读取的文件的路径 (本地路径) */
             filePath: string,
@@ -10675,7 +11474,7 @@ Page({
         /** [MapContext.getCenterLocation(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.getCenterLocation.html)
          *
          * 获取当前地图中心的经纬度。返回的是 gcj02 坐标系，可以用于 [wx.openLocation()](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.openLocation.html) */
-        getCenterLocation(option?: GetCenterLocationOption): void
+        getCenterLocation(option: GetCenterLocationOption): void
         /** [MapContext.getRegion(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.getRegion.html)
          *
          * 获取当前地图的视野范围
@@ -10812,7 +11611,7 @@ Page({
          * 设置定位点图标，支持网络路径、本地路径、代码包路径
          *
          * 最低基础库： `2.16.0` */
-        setLocMarkerIcon(option?: SetLocMarkerIconOption): void
+        setLocMarkerIcon(option: SetLocMarkerIconOption): void
         /** [MapContext.toScreenLocation(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.toScreenLocation.html)
          *
          * 获取经纬度对应的屏幕坐标，坐标原点为地图左上角。
@@ -10943,8 +11742,11 @@ Page({
              *
              * 参数 eventName 可选值：
              * - 'start': 录制开始事件。;
-             * - 'stop': 录制结束事件。返回 {tempFilePath, duration, fileSize}; */
-            eventName: 'start' | 'stop',
+             * - 'stop': 录制结束事件。返回 {tempFilePath, duration, fileSize};
+             * - 'pause': 录制暂停事件。;
+             * - 'resume': 录制继续事件。;
+             * - 'timeupdate': 录制时间更新事件。; */
+            eventName: 'start' | 'stop' | 'pause' | 'resume' | 'timeupdate',
             /** 事件触发时执行的回调函数 */
             callback: (...args: any[]) => any
         ): void
@@ -11612,31 +12414,31 @@ Page({
          * | fail no such file or directory "${filePath}" | 上级目录不存在 | */ errCode: number
     }
     interface Performance {
-        /** [Array Performance.getEntries()](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/Performance.getEntries.html)
+        /** [Array Performance.getEntries()](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/Performance.getEntries.html)
          *
          * 该方法返回当前缓冲区中的所有性能数据
          *
          * 最低基础库： `2.11.0` */
         getEntries(): any[]
-        /** [Array Performance.getEntriesByName(string name, string entryType)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/Performance.getEntriesByName.html)
+        /** [Array Performance.getEntriesByName(string name, string entryType)](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/Performance.getEntriesByName.html)
          *
          * 获取当前缓冲区中所有名称为 [name] 且类型为 [entryType] 的性能数据
          *
          * 最低基础库： `2.11.0` */
         getEntriesByName(name: string, entryType?: string): any[]
-        /** [Array Performance.getEntriesByType(string entryType)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/Performance.getEntriesByType.html)
+        /** [Array Performance.getEntriesByType(string entryType)](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/Performance.getEntriesByType.html)
          *
          * 获取当前缓冲区中所有类型为 [entryType] 的性能数据
          *
          * 最低基础库： `2.11.0` */
         getEntriesByType(entryType: string): any[]
-        /** [Performance.setBufferSize(number size)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/Performance.setBufferSize.html)
+        /** [Performance.setBufferSize(number size)](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/Performance.setBufferSize.html)
          *
          * 设置缓冲区大小， 默认缓冲 30 条性能数据
          *
          * 最低基础库： `2.11.0` */
         setBufferSize(size: number): void
-        /** [[PerformanceObserver](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/PerformanceObserver.html) Performance.createObserver(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/Performance.createObserver.html)
+        /** [[PerformanceObserver](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/PerformanceObserver.html) Performance.createObserver(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/Performance.createObserver.html)
          *
          * 创建全局性能事件监听器
          *
@@ -11644,13 +12446,13 @@ Page({
         createObserver(callback: (...args: any[]) => any): PerformanceObserver
     }
     interface PerformanceObserver {
-        /** [PerformanceObserver.disconnect()](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/PerformanceObserver.disconnect.html)
+        /** [PerformanceObserver.disconnect()](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/PerformanceObserver.disconnect.html)
          *
          * 停止监听
          *
          * 最低基础库： `2.11.0` */
         disconnect(): void
-        /** [PerformanceObserver.observe(Object options)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/PerformanceObserver.observe.html)
+        /** [PerformanceObserver.observe(Object options)](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/PerformanceObserver.observe.html)
          *
          * 开始监听
          *
@@ -12136,6 +12938,79 @@ Component({
          * 判断当前文件是否一个普通文件 */
         isFile(): boolean
     }
+    interface TCPSocket {
+        /** [TCPSocket.close()](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.close.html)
+         *
+         * 关闭连接 */
+        close(): void
+        /** [TCPSocket.connect(Object options)](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.connect.html)
+         *
+         * 在给定的套接字上启动连接 */
+        connect(options: TCPSocketConnectOption): void
+        /** [TCPSocket.offClose(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.offClose.html)
+         *
+         * 取消监听一旦 socket 完全关闭就发出该事件 */
+        offClose(
+            /** 一旦 socket 完全关闭就发出该事件的回调函数 */
+            callback?: UDPSocketOffCloseCallback
+        ): void
+        /** [TCPSocket.offConnect(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.offConnect.html)
+         *
+         * 取消监听当一个 socket 连接成功建立的时候触发该事件 */
+        offConnect(
+            /** 当一个 socket 连接成功建立的时候触发该事件的回调函数 */
+            callback?: OffConnectCallback
+        ): void
+        /** [TCPSocket.offError(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.offError.html)
+         *
+         * 取消监听当错误发生时触发 */
+        offError(
+            /** 的回调函数 */
+            callback?: UDPSocketOffErrorCallback
+        ): void
+        /** [TCPSocket.offMessage(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.offMessage.html)
+         *
+         * 取消监听当接收到数据的时触发该事件 */
+        offMessage(
+            /** 当接收到数据的时触发该事件的回调函数 */
+            callback?: TCPSocketOffMessageCallback
+        ): void
+        /** [TCPSocket.onClose(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.onClose.html)
+         *
+         * 监听一旦 socket 完全关闭就发出该事件 */
+        onClose(
+            /** 一旦 socket 完全关闭就发出该事件的回调函数 */
+            callback: UDPSocketOnCloseCallback
+        ): void
+        /** [TCPSocket.onConnect(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.onConnect.html)
+         *
+         * 监听当一个 socket 连接成功建立的时候触发该事件 */
+        onConnect(
+            /** 当一个 socket 连接成功建立的时候触发该事件的回调函数 */
+            callback: OnConnectCallback
+        ): void
+        /** [TCPSocket.onError(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.onError.html)
+         *
+         * 监听当错误发生时触发 */
+        onError(
+            /** 的回调函数 */
+            callback: UDPSocketOnErrorCallback
+        ): void
+        /** [TCPSocket.onMessage(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.onMessage.html)
+         *
+         * 监听当接收到数据的时触发该事件 */
+        onMessage(
+            /** 当接收到数据的时触发该事件的回调函数 */
+            callback: TCPSocketOnMessageCallback
+        ): void
+        /** [TCPSocket.write(String | ArrayBuffer data)](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.write.html)
+         *
+         * 在 socket 上发送数据 */
+        write(
+            /** 要发送的数据 */
+            data: string | ArrayBuffer
+        ): void
+    }
     interface TruncateSyncError {
         /** 错误信息
          *
@@ -12193,7 +13068,7 @@ Component({
          * 取消监听收到消息的事件 */
         offMessage(
             /** 收到消息的事件的回调函数 */
-            callback?: OffMessageCallback
+            callback?: UDPSocketOffMessageCallback
         ): void
         /** [UDPSocket.onClose(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.onClose.html)
          *
@@ -12227,6 +13102,15 @@ Component({
          *
          * 向指定的 IP 和 port 发送消息 */
         send(option: UDPSocketSendOption): void
+        /** [UDPSocket.setTTL(number ttl)](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.setTTL.html)
+         *
+         * 设置 IP_TTL 套接字选项，用于设置一个 IP 数据包传输时允许的最大跳步数
+         *
+         * 最低基础库： `2.18.0` */
+        setTTL(
+            /** ttl 参数可以是 0 到 255 之间 */
+            ttl: number
+        ): void
         /** [UDPSocket.write()](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.write.html)
          *
          * 用法与 send 方法相同，如果没有预先调用 connect 则与 send 无差异（注意即使调用了 connect 也需要在本接口填入地址和端口参数）
@@ -12246,25 +13130,45 @@ Component({
     interface UpdateManager {
         /** [UpdateManager.applyUpdate()](https://developers.weixin.qq.com/miniprogram/dev/api/base/update/UpdateManager.applyUpdate.html)
          *
-         * 强制小程序重启并使用新版本。在小程序新版本下载完成后（即收到 `onUpdateReady` 回调）调用。 */
+         * 强制小程序重启并使用新版本。在小程序新版本下载完成后（即收到 `onUpdateReady` 回调）调用。
+         *
+         * **示例代码**
+         *
+         *
+         * [示例代码]((UpdateManager#示例代码)) */
         applyUpdate(): void
         /** [UpdateManager.onCheckForUpdate(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/base/update/UpdateManager.onCheckForUpdate.html)
          *
-         * 监听向微信后台请求检查更新结果事件。微信在小程序冷启动时自动检查更新，不需由开发者主动触发。 */
+         * 监听向微信后台请求检查更新结果事件。微信在小程序冷启动时自动检查更新，不需由开发者主动触发。
+         *
+         * **示例代码**
+         *
+         *
+         * [示例代码]((UpdateManager#示例代码)) */
         onCheckForUpdate(
             /** 向微信后台请求检查更新结果事件的回调函数 */
             callback: OnCheckForUpdateCallback
         ): void
         /** [UpdateManager.onUpdateFailed(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/base/update/UpdateManager.onUpdateFailed.html)
          *
-         * 监听小程序更新失败事件。小程序有新版本，客户端主动触发下载（无需开发者触发），下载失败（可能是网络原因等）后回调 */
+         * 监听小程序更新失败事件。小程序有新版本，客户端主动触发下载（无需开发者触发），下载失败（可能是网络原因等）后回调
+         *
+         * **示例代码**
+         *
+         *
+         * [示例代码]((UpdateManager#示例代码)) */
         onUpdateFailed(
             /** 小程序更新失败事件的回调函数 */
             callback: OnUpdateFailedCallback
         ): void
         /** [UpdateManager.onUpdateReady(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/base/update/UpdateManager.onUpdateReady.html)
          *
-         * 监听小程序有版本更新事件。客户端主动触发下载（无需开发者触发），下载成功后回调 */
+         * 监听小程序有版本更新事件。客户端主动触发下载（无需开发者触发），下载成功后回调
+         *
+         * **示例代码**
+         *
+         *
+         * [示例代码]((UpdateManager#示例代码)) */
         onUpdateReady(
             /** 小程序有版本更新事件的回调函数 */
             callback: OnUpdateReadyCallback
@@ -12313,6 +13217,45 @@ Component({
             /** 上传进度变化事件的回调函数 */
             callback: UploadTaskOnProgressUpdateCallback
         ): void
+    }
+    interface UserCryptoManager {
+        /** [UserCryptoManager.getLatestUserKey(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/base/crypto/UserCryptoManager.getLatestUserKey.html)
+*
+* 获取最新的用户加密密钥
+*
+* **示例代码**
+*
+*
+* ```js
+const userCryptoManager = wx.getUserCryptoManager()
+userCryptoManager.getLatestUserKey({
+  success: res => {
+    const {encryptKey, iv, version, expireTime} = res
+    console.log(encryptKey, iv, version, expireTime)
+  }
+})
+```
+*
+* 最低基础库： `2.17.3` */
+        getLatestUserKey(option?: GetLatestUserKeyOption): void
+        /** [UserCryptoManager.getRandomValues(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/base/crypto/UserCryptoManager.getRandomValues.html)
+*
+* 获取密码学安全随机数
+*
+* **示例代码**
+*
+*
+* ```js
+wx.getRandomValues({
+  length: 6 // 生成 6 个字节长度的随机数,
+  success: res => {
+    console.log(wx.arrayBufferToBase64(res.randomValues)) // 转换为 base64 字符串后打印
+  }
+})
+```
+*
+* 最低基础库： `2.17.3` */
+        getRandomValues(option: GetRandomValuesOption): void
     }
     interface VideoContext {
         /** [VideoContext.exitBackgroundPlayback()](https://developers.weixin.qq.com/miniprogram/dev/api/media/video/VideoContext.exitBackgroundPlayback.html)
@@ -12612,9 +13555,16 @@ console.log(accountInfo.plugin.version) // 插件版本号， 'a.b.c' 这样的�
          *
          * 最低基础库： `2.9.4` */
         getEnterOptionsSync(): LaunchOptionsApp
-        /** [Object wx.getExptInfoSync(Array.&lt;string&gt; keys)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/report/wx.getExptInfoSync.html)
+        /** [Object wx.getExptInfoSync(Array.&lt;string&gt; keys)](https://developers.weixin.qq.com/miniprogram/dev/api/data-analysis/wx.getExptInfoSync.html)
          *
          * 给定实验参数数组，获取对应的实验参数值
+         *
+         * **提示**
+         *
+         *
+         * 假设实验参数有 `color`, `size`
+         * 调用 wx.getExptInfoSync() 会返回 `{color:'#fff',size:20}` 类似的结果
+         * 而 wx.getExptInfoSync(['color']) 则只会返回 `{color:'#fff'}`
          *
          * 最低基础库： `2.14.4` */
         getExptInfoSync(
@@ -12697,12 +13647,14 @@ try {
 }
 ``` */
         getStorageInfoSync(): GetStorageInfoSyncOption
-        /** [Object wx.getSystemInfoSync()](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/system-info/wx.getSystemInfoSync.html)
+        /** [Object wx.getSystemInfoSync()](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/wx.getSystemInfoSync.html)
 *
-* [wx.getSystemInfo](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/system-info/wx.getSystemInfo.html) 的同步版本
+* [wx.getSystemInfo](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/wx.getSystemInfo.html) 的同步版本
 *
 * **示例代码**
 *
+*
+* [在微信开发者工具中查看示例](https://developers.weixin.qq.com/s/WkUCgXmS7mqO)
 *
 * ```js
 wx.getSystemInfo({
@@ -12827,7 +13779,7 @@ wx.downloadFile({
         ): IntersectionObserver
         /** [[InterstitialAd](https://developers.weixin.qq.com/miniprogram/dev/api/ad/InterstitialAd.html) wx.createInterstitialAd(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/wx.createInterstitialAd.html)
          *
-         * 创建插屏广告组件。请通过 [wx.getSystemInfoSync()](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/system-info/wx.getSystemInfoSync.html) 返回对象的 SDKVersion 判断基础库版本号后再使用该 API。每次调用该方法创建插屏广告都会返回一个全新的实例（小程序端的插屏广告实例不允许跨页面使用）。
+         * 创建插屏广告组件。请通过 [wx.getSystemInfoSync()](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/wx.getSystemInfoSync.html) 返回对象的 SDKVersion 判断基础库版本号后再使用该 API。每次调用该方法创建插屏广告都会返回一个全新的实例（小程序端的插屏广告实例不允许跨页面使用）。
          *
          * 最低基础库： `2.6.0` */
         createInterstitialAd(option: CreateInterstitialAdOption): InterstitialAd
@@ -12897,11 +13849,11 @@ logger.warn({str: 'hello world'}, 'warn log', 100, [1, 2, 3])
     })
 
     // 移除播放器音频来源
-    mediaAudioPlaye.removeAudioSource(videoDecoder).then()
+    mediaAudioPlayer.removeAudioSource(videoDecoder).then()
     // 停止播放器
-    mediaAudioPlaye.stop().then()
+    mediaAudioPlayer.stop().then()
     // 销毁播放器
-    mediaAudioPlaye.destroy().then()
+    mediaAudioPlayer.destroy().then()
     // 设置播放器音量
     mediaAudioPlayer.volume = 0.5
   })
@@ -12921,12 +13873,41 @@ logger.warn({str: 'hello world'}, 'warn log', 100, [1, 2, 3])
          * 最低基础库： `2.9.0` */
         createMediaContainer(): MediaContainer
         /** [[MediaRecorder](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.html) wx.createMediaRecorder(Object canvas, Object options)](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/wx.createMediaRecorder.html)
-         *
-         * 创建 WebGL 画面录制器，可逐帧录制在 WebGL 上渲染的画面并导出视频文件
-         *
-         * 最低基础库： `2.11.0` */
+*
+* 创建 WebGL 画面录制器，可逐帧录制在 WebGL 上渲染的画面并导出视频文件
+*
+* **示例代码**
+*
+*
+* [在微信开发者工具中查看示例](https://developers.weixin.qq.com/s/MCz3kPmC7zpa)
+*
+* **低版本异步接口兼容**
+*
+*
+* 对基础库 2.16.1 版本前的 mediaRecorder，所有的接口都没有返回 Promise 对象，若需要兼容低版本，则可采用如下方式的写法：
+* ```javascript
+// 启动 mediaRecorder
+await new Promise(resolve => {
+  recorder.on('start', resolve)
+  recorder.start()
+})
+
+// 逐帧绘制
+while (frames--) {
+  await new Promise(resolve => recorder.requestFrame(resolve))
+  render()
+}
+
+// 绘制完成，生成视频
+const {tempFilePath} = await new Promise(resolve => {
+  recorder.on('stop', resolve)
+  recorder.stop()
+})
+```
+*
+* 最低基础库： `2.11.0` */
         createMediaRecorder(
-            /** WebGL 对象，通过 [SelectorQuery](https://developers.weixin.qq.com/miniprogram/dev/api/wxml/SelectorQuery.html) 获取到的 node 对象 */
+            /** WebGL 对象，通过 [SelectorQuery](https://developers.weixin.qq.com/miniprogram/dev/api/wxml/SelectorQuery.html) 获取到的 node 对象或通过 [wx.createOffscreenCanvas](https://developers.weixin.qq.com/miniprogram/dev/api/canvas/wx.createOffscreenCanvas.html) 创建的离屏 WebGL Canvas 对象 */
             canvas: IAnyObject,
             options: CreateMediaRecorderOption
         ): MediaRecorder
@@ -13006,7 +13987,7 @@ logger.warn({str: 'hello world'}, 'warn log', 100, [1, 2, 3])
         createOffscreenCanvas(
             option: CreateOffscreenCanvasOption
         ): OffscreenCanvas
-        /** [[Performance](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/Performance.html) wx.getPerformance()](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/wx.getPerformance.html)
+        /** [[Performance](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/Performance.html) wx.getPerformance()](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/wx.getPerformance.html)
 *
 * 获取当前小程序性能相关的信息。
 *
@@ -13026,7 +14007,7 @@ logger.warn({str: 'hello world'}, 'warn log', 100, [1, 2, 3])
 * | ---- | ----- |
 * | entryType | 指标类型 |
 * | name | 指标名称 |
-* | startTime | 指标调用开始时间 |
+* | startTime | 指标调用开始时间；appLaunch为点击图标的时间 |
 * | duration | 耗时 |
 * | path | 路径 |
 * | navigationStart | 路由真正响应开始时间 |
@@ -13092,7 +14073,7 @@ logger.warn('key3', 'value3')
 *
 * ```js
 wx.request({
-  url: 'test.php', //仅为示例，并非真实的接口地址
+  url: 'example.php', //仅为示例，并非真实的接口地址
   data: {
     x: '',
     y: ''
@@ -13115,7 +14096,7 @@ wx.request({
         ): RequestTask
         /** [[RewardedVideoAd](https://developers.weixin.qq.com/miniprogram/dev/api/ad/RewardedVideoAd.html) wx.createRewardedVideoAd(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/ad/wx.createRewardedVideoAd.html)
          *
-         * 创建激励视频广告组件。请通过 [wx.getSystemInfoSync()](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/system-info/wx.getSystemInfoSync.html) 返回对象的 SDKVersion 判断基础库版本号后再使用该 API（小游戏端要求 >= 2.0.4， 小程序端要求 >= 2.6.0）。调用该方法创建的激励视频广告是一个单例（小游戏端是全局单例，小程序端是页面内单例，在小程序端的单例对象不允许跨页面使用）。
+         * 创建激励视频广告组件。请通过 [wx.getSystemInfoSync()](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/wx.getSystemInfoSync.html) 返回对象的 SDKVersion 判断基础库版本号后再使用该 API（小游戏端要求 >= 2.0.4， 小程序端要求 >= 2.6.0）。调用该方法创建的激励视频广告是一个单例（小游戏端是全局单例，小程序端是页面内单例，在小程序端的单例对象不允许跨页面使用）。
          *
          * 最低基础库： `2.0.4` */
         createRewardedVideoAd(
@@ -13142,7 +14123,7 @@ query.exec(function(res){
         createSelectorQuery(): SelectorQuery
         /** [[SocketTask](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/SocketTask.html) wx.connectSocket(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/wx.connectSocket.html)
 *
-* 创建一个 WebSocket 连接。使用前请注意阅读[相关说明](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html)。
+* 创建一个 WebSocket 连接。使用前请注意阅读[相关说明](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html)。**推荐使用 [SocketTask](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。**
 *
 * **并发数**
 *
@@ -13163,6 +14144,12 @@ wx.connectSocket({
 })
 ``` */
         connectSocket(option: ConnectSocketOption): SocketTask
+        /** [[TCPSocket](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.html) wx.createTCPSocket()](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/wx.createTCPSocket.html)
+         *
+         * 创建一个 TCP Socket 实例。使用前请注意阅读[相关说明](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html)。
+         *
+         * 最低基础库： `2.18.0` */
+        createTCPSocket(): TCPSocket
         /** [[UDPSocket](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.html) wx.createUDPSocket()](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/wx.createUDPSocket.html)
          *
          * 创建一个 UDP Socket 实例。使用前请注意阅读[相关说明](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html)。
@@ -13172,6 +14159,11 @@ wx.connectSocket({
         /** [[UpdateManager](https://developers.weixin.qq.com/miniprogram/dev/api/base/update/UpdateManager.html) wx.getUpdateManager()](https://developers.weixin.qq.com/miniprogram/dev/api/base/update/wx.getUpdateManager.html)
          *
          * 获取**全局唯一**的版本更新管理器，用于管理小程序更新。关于小程序的更新机制，可以查看[运行机制](https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/operating-mechanism.html)文档。
+         *
+         * **示例代码**
+         *
+         *
+         * [示例代码]((UpdateManager#示例代码))
          *
          * 最低基础库： `1.9.90` */
         getUpdateManager(): UpdateManager
@@ -13202,6 +14194,12 @@ wx.chooseImage({
 })
 ``` */
         uploadFile(option: UploadFileOption): UploadTask
+        /** [[UserCryptoManager](https://developers.weixin.qq.com/miniprogram/dev/api/base/crypto/UserCryptoManager.html) wx.getUserCryptoManager()](https://developers.weixin.qq.com/miniprogram/dev/api/base/crypto/wx.getUserCryptoManager.html)
+         *
+         * 获取用户加密模块
+         *
+         * 最低基础库： `2.17.3` */
+        getUserCryptoManager(): UserCryptoManager
         /** [[VideoContext](https://developers.weixin.qq.com/miniprogram/dev/api/media/video/VideoContext.html) wx.createVideoContext(string id, Object this)](https://developers.weixin.qq.com/miniprogram/dev/api/media/video/wx.createVideoContext.html)
          *
          * 创建 [video](https://developers.weixin.qq.com/miniprogram/dev/component/video.html) 上下文 [VideoContext](https://developers.weixin.qq.com/miniprogram/dev/api/media/video/VideoContext.html) 对象。建议使用 [wx.createSelectorQuery](https://developers.weixin.qq.com/miniprogram/dev/api/wxml/wx.createSelectorQuery.html) 获取 context 对象。 */
@@ -13367,6 +14365,16 @@ wx.addCard({
         addCard<T extends AddCardOption = AddCardOption>(
             option: T
         ): PromisifySuccessResult<T, AddCardOption>
+        /** [wx.addFileToFavorites(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/favorites/wx.addFileToFavorites.html)
+         *
+         * 收藏文件
+         *
+         * 最低基础库： `2.16.1` */
+        addFileToFavorites<
+            T extends AddFileToFavoritesOption = AddFileToFavoritesOption
+        >(
+            option: T
+        ): PromisifySuccessResult<T, AddFileToFavoritesOption>
         /** [wx.addPhoneCalendar(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/calendar/wx.addPhoneCalendar.html)
          *
          * 向系统日历添加事件
@@ -13397,6 +14405,16 @@ wx.addCard({
         >(
             option: T
         ): PromisifySuccessResult<T, AddPhoneRepeatCalendarOption>
+        /** [wx.addVideoToFavorites(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/favorites/wx.addVideoToFavorites.html)
+         *
+         * 收藏视频
+         *
+         * 最低基础库： `2.16.1` */
+        addVideoToFavorites<
+            T extends AddVideoToFavoritesOption = AddVideoToFavoritesOption
+        >(
+            option: T
+        ): PromisifySuccessResult<T, AddVideoToFavoritesOption>
         /** [wx.authPrivateMessage(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.authPrivateMessage.html)
 *
 * 验证私密消息。用法详情见 [小程序私密消息使用指南](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/share/private-message.html)
@@ -13862,7 +14880,7 @@ wx.closeBluetoothAdapter({
         ): PromisifySuccessResult<T, CloseBluetoothAdapterOption>
         /** [wx.closeSocket(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/wx.closeSocket.html)
 *
-* 关闭 WebSocket 连接
+* 关闭 WebSocket 连接。**推荐使用 [SocketTask](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。**
 *
 * **示例代码**
 *
@@ -13981,6 +14999,25 @@ wx.createBLEConnection({
         >(
             option?: T
         ): PromisifySuccessResult<T, CreateBLEPeripheralServerOption>
+        /** [wx.createBufferURL(ArrayBuffer|TypedArray buffer)](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.createBufferURL.html)
+         *
+         * 根据传入的 buffer 创建一个唯一的 URL 存在内存中
+         *
+         * 最低基础库： `2.14.0` */
+        createBufferURL(
+            /** 需要存入内存的二进制数据 */
+            buffer:
+                | ArrayBuffer
+                | Int8Array
+                | Uint8Array
+                | Uint8ClampedArray
+                | Int16Array
+                | Uint16Array
+                | Int32Array
+                | Uint32Array
+                | Float32Array
+                | Float64Array
+        ): void
         /** [wx.disableAlertBeforeUnload(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.disableAlertBeforeUnload.html)
          *
          * 关闭小程序页面返回询问对话框
@@ -13993,6 +15030,16 @@ wx.createBLEConnection({
          *
          * 最低基础库： `2.12.0` */
         enableAlertBeforeUnload(option: EnableAlertBeforeUnloadOption): void
+        /** [wx.exitMiniProgram(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/navigate/wx.exitMiniProgram.html)
+         *
+         * 退出当前小程序。必须有点击行为才能调用成功。
+         *
+         * 最低基础库： `2.17.3` */
+        exitMiniProgram<
+            T extends ExitMiniProgramOption = ExitMiniProgramOption
+        >(
+            option?: T
+        ): PromisifySuccessResult<T, ExitMiniProgramOption>
         /** [wx.exitVoIPChat(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/voip/wx.exitVoIPChat.html)
          *
          * 退出（销毁）实时语音通话
@@ -14194,6 +15241,12 @@ wx.getBluetoothDevices({
         >(
             option?: T
         ): PromisifySuccessResult<T, GetBluetoothDevicesOption>
+        /** [wx.getChannelsLiveInfo(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/channels/wx.getChannelsLiveInfo.html)
+         *
+         * 获取视频号直播信息
+         *
+         * 最低基础库： `2.15.0` */
+        getChannelsLiveInfo(option: GetChannelsLiveInfoOption): void
         /** [wx.getClipboardData(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/clipboard/wx.getClipboardData.html)
 *
 * 获取系统剪贴板的内容
@@ -14294,7 +15347,10 @@ wx.getFileInfo({
         ): PromisifySuccessResult<T, WxGetFileInfoOption>
         /** [wx.getGroupEnterInfo(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/group/wx.getGroupEnterInfo.html)
 *
-* 获取群工具小程序启动信息
+* 获取微信群聊场景下的小程序启动信息。群聊场景包括群聊小程序消息卡片、群待办、群工具。可用于获取当前群的 opengid。
+* ## 注意事项
+*  - 基础库 v2.10.4 开始支持获取群工具小程序启动信息
+*  - 基础库 v2.17.3 开始支持获取群聊小程序消息卡片、群待办小程序启动信息
 *
 * **示例代码**
 *
@@ -14386,7 +15442,7 @@ wx.chooseImage({
         ): PromisifySuccessResult<T, GetImageInfoOption>
         /** [wx.getLocation(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.getLocation.html)
 *
-* 获取当前的地理位置、速度。当用户离开小程序后，此接口无法调用。开启高精度定位，接口耗时会增加，可指定 highAccuracyExpireTime 作为超时时间。地图相关使用的坐标格式应为 gcj02。
+* 获取当前的地理位置、速度。当用户离开小程序后，此接口无法调用。开启高精度定位，接口耗时会增加，可指定 highAccuracyExpireTime 作为超时时间。地图相关使用的坐标格式应为 gcj02。高频率调用会导致耗电，如有需要可使用持续定位接口 `wx.onLocationChange`。基础库 `2.17.0` 版本起 `wx.getLocation` 增加调用频率限制，[相关公告](https://developers.weixin.qq.com/community/develop/doc/000aee91a98d206bc6dbe722b51801)。
 *
 * **示例代码**
 *
@@ -14406,6 +15462,7 @@ wx.chooseImage({
 * **注意**
 *
 *
+* - `2.17.0 起 `wx.getLocation` 增加调用频率限制，[相关公告](https://developers.weixin.qq.com/community/develop/doc/000aee91a98d206bc6dbe722b51801)
 * - 工具中定位模拟使用IP定位，可能会有一定误差。且工具目前仅支持 gcj02 坐标。
 * - 使用第三方服务进行逆地址解析时，请确认第三方服务默认的坐标系，正确进行坐标转换。 */
         getLocation<T extends GetLocationOption = GetLocationOption>(
@@ -14503,7 +15560,7 @@ wx.getSavedFileList({
         >(
             option?: T
         ): PromisifySuccessResult<T, GetScreenBrightnessOption>
-        /** [wx.getSelectedTextRange(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/keyboard/wx.getSelectedTextRange.html)
+        /** [wx.getSelectedTextRange(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/keyboard/wx.getSelectedTextRange.html)
 *
 * 在input、textarea等focus之后，获取输入框的光标位置。注意：只有在focus的时候调用此接口才有效。
 *
@@ -14577,7 +15634,7 @@ wx.getSetting({
 * **示例代码**
 *
 *
-* 敏感数据有两种获取方式，一是使用 [加密数据解密算法]((open-ability/signature#加密数据解密算法)) 。
+* 敏感数据获取方式 [加密数据解密算法]((open-ability/signature#加密数据解密算法)) 。
 * 获取得到的开放数据为以下 json 结构（其中 openGId 为当前群的唯一标识）：
 *
 * ```json
@@ -14589,8 +15646,8 @@ wx.getSetting({
 * **Tips**
 *
 *
-* - 如需要展示群名称，小程序可以使用[开放数据组件](https://developers.weixin.qq.com/miniprogram/dev/component/open-data.html)
-* - 小游戏可以通过 `wx.getGroupInfo` 接口获取群名称
+* - 如需要展示群名称，小程序可以使用 [开放数据组件](https://developers.weixin.qq.com/miniprogram/dev/component/open-data.html)
+* - 小游戏可以通过 [`wx.getGroupInfo`](#) 接口获取群名称
 *
 * 最低基础库： `1.1.0` */
         getShareInfo<T extends GetShareInfoOption = GetShareInfoOption>(
@@ -14658,12 +15715,14 @@ try {
         getStorageInfo<T extends GetStorageInfoOption = GetStorageInfoOption>(
             option?: T
         ): PromisifySuccessResult<T, GetStorageInfoOption>
-        /** [wx.getSystemInfo(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/system-info/wx.getSystemInfo.html)
+        /** [wx.getSystemInfo(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/wx.getSystemInfo.html)
 *
-* 获取系统信息
+* 获取系统信息。**由于历史原因，wx.getSystemInfo 是异步的调用格式，但是是同步返回，需要异步获取系统信息请使用 [wx.getSystemInfoAsync](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/wx.getSystemInfoAsync.html)。**
 *
 * **示例代码**
 *
+*
+* [在微信开发者工具中查看示例](https://developers.weixin.qq.com/s/WkUCgXmS7mqO)
 *
 * ```js
 wx.getSystemInfo({
@@ -14696,12 +15755,14 @@ try {
         getSystemInfo<T extends GetSystemInfoOption = GetSystemInfoOption>(
             option?: T
         ): PromisifySuccessResult<T, GetSystemInfoOption>
-        /** [wx.getSystemInfoAsync(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/system-info/wx.getSystemInfoAsync.html)
+        /** [wx.getSystemInfoAsync(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/wx.getSystemInfoAsync.html)
 *
 * 异步获取系统信息。需要一定的微信客户端版本支持，在不支持的客户端上，会使用同步实现来返回。
 *
 * **示例代码**
 *
+*
+* [在微信开发者工具中查看示例](https://developers.weixin.qq.com/s/WkUCgXmS7mqO)
 *
 * ```js
 wx.getSystemInfoAsync({
@@ -14747,7 +15808,9 @@ wx.getUserInfo({
 })
 ```
 *
-* 敏感数据有两种获取方式，一是使用 [加密数据解密算法]((open-ability/signature#加密数据解密算法)) 。
+* 敏感数据有两种获取方式：
+* 1. 使用 [加密数据解密算法]((open-ability/signature#加密数据解密算法))
+* 2. 使用 [云调用直接获取开放数据]((open-ability/signature#云调用直接获取开放数据))
 * 获取得到的开放数据为以下 json 结构：
 *
 * ```json
@@ -14821,7 +15884,8 @@ Page({
 *
 * 1. `tip`：仅小程序中 `wx.getUserInfo` 接口进行调整，小游戏中不受影响；
 * 2. `tip`：开发者工具中仅 2.10.4 及以上版本可访问 `wx.getUserProfile` 接口，在真机上可参考示例代码进行判断，无需根据版本号或者 `canIUse` 进行条件。
-* 3. `tip`：`wx.getUserprofile` 返回的加密数据中不包含 `openId` 和 `unionId` 字段。
+* 3. `tip`：`wx.getUserProfile` 返回的加密数据中不包含 `openId` 和 `unionId` 字段。
+* 4. `bug`：开发者工具中 `2.10.4`~`2.16.1` 基础库版本通过 `<button open-type="getUserInfo">` 会返回真实数据，真机上此区间会按照公告返回匿名数据。
 *
 * ```html
 * <view class="container">
@@ -14956,7 +16020,7 @@ wx.getWeRunData({
         hideHomeButton<T extends HideHomeButtonOption = HideHomeButtonOption>(
             option?: T
         ): PromisifySuccessResult<T, HideHomeButtonOption>
-        /** [wx.hideKeyboard(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/keyboard/wx.hideKeyboard.html)
+        /** [wx.hideKeyboard(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/keyboard/wx.hideKeyboard.html)
 *
 * 在input、textarea等focus拉起键盘之后，手动调用此接口收起键盘
 *
@@ -15054,9 +16118,8 @@ wx.hideShareMenu({
 * 1. 字体文件返回的 contet-type 参考 [font](https://www.iana.org/assignments/media-types/media-types.xhtml#font)，格式不正确时会解析失败。
 * 2. 字体链接必须是https（ios不支持http)
 * 3. 字体链接必须是同源下的，或开启了cors支持，小程序的域名是`servicewechat.com`
-* 4. canvas等原生组件不支持使用接口添加的字体
-* 5. 工具里提示 Faild to load font可以忽略
-* 6. [2.10.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) 以前仅在调用页面生效。
+* 4. 工具里提示 Faild to load font可以忽略
+* 5. [2.10.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) 以前仅在调用页面生效。
 *
 * **示例代码**
 *
@@ -15087,7 +16150,7 @@ wx.login({
     if (res.code) {
       //发起网络请求
       wx.request({
-        url: 'https://test.com/onLogin',
+        url: 'https://example.com/onLogin',
         data: {
           code: res.code
         }
@@ -15132,7 +16195,7 @@ wx.makePhoneCall({
         navigateBack<T extends NavigateBackOption = NavigateBackOption>(
             option?: T
         ): PromisifySuccessResult<T, NavigateBackOption>
-        /** [wx.navigateBackMiniProgram(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/miniprogram-navigate/wx.navigateBackMiniProgram.html)
+        /** [wx.navigateBackMiniProgram(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/navigate/wx.navigateBackMiniProgram.html)
 *
 * 返回到上一个小程序。只有在当前小程序是被其他小程序打开时可以调用成功
 *
@@ -15144,11 +16207,11 @@ wx.makePhoneCall({
 * ```js
 wx.navigateBackMiniProgram({
   extraData: {
-  foo: 'bar'
-},
-success(res) {
-  // 返回成功
-}
+    foo: 'bar'
+  },
+  success(res) {
+    // 返回成功
+  }
 })
 ```
 *
@@ -15204,7 +16267,7 @@ Page({
         navigateTo<T extends NavigateToOption = NavigateToOption>(
             option: T
         ): PromisifySuccessResult<T, NavigateToOption>
-        /** [wx.navigateToMiniProgram(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/miniprogram-navigate/wx.navigateToMiniProgram.html)
+        /** [wx.navigateToMiniProgram(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/navigate/wx.navigateToMiniProgram.html)
 *
 * 打开另一个小程序
 *
@@ -15492,7 +16555,7 @@ wx.notifyBLECharacteristicValueChange({
             /** 接收 NFC 设备消息事件的回调函数 */
             callback: (...args: any[]) => any
         ): void
-        /** [wx.offKeyboardHeightChange(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/keyboard/wx.offKeyboardHeightChange.html)
+        /** [wx.offKeyboardHeightChange(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/keyboard/wx.offKeyboardHeightChange.html)
          *
          * 取消监听键盘高度变化事件
          *
@@ -15546,7 +16609,7 @@ wx.notifyBLECharacteristicValueChange({
             /** 实时地理位置变化事件的回调函数 */
             callback?: OffLocationChangeCallback
         ): void
-        /** [wx.offMemoryWarning(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/performance/wx.offMemoryWarning.html)
+        /** [wx.offMemoryWarning(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/memory/wx.offMemoryWarning.html)
          *
          * 取消监听内存不足告警事件。
          *
@@ -15617,6 +16680,15 @@ wx.notifyBLECharacteristicValueChange({
         offVoIPChatMembersChanged(
             /** 实时语音通话成员在线状态变化事件的回调函数 */
             callback: (...args: any[]) => any
+        ): void
+        /** [wx.offVoIPChatStateChanged(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/voip/wx.offVoIPChatStateChanged.html)
+         *
+         * 取消监听房间状态变化事件
+         *
+         * 最低基础库： `2.16.0` */
+        offVoIPChatStateChanged(
+            /** 房间状态变化事件的回调函数 */
+            callback?: OffVoIPChatStateChangedCallback
         ): void
         /** [wx.offVoIPVideoMembersChanged(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/voip/wx.offVoIPVideoMembersChanged.html)
          *
@@ -15966,7 +17038,7 @@ wx.onBluetoothDeviceFound(function(res) {
             /** 接收 NFC 设备消息事件的回调函数 */
             callback: OnHCEMessageCallback
         ): void
-        /** [wx.onKeyboardHeightChange(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/keyboard/wx.onKeyboardHeightChange.html)
+        /** [wx.onKeyboardHeightChange(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/keyboard/wx.onKeyboardHeightChange.html)
 *
 * 监听键盘高度变化
 *
@@ -16037,7 +17109,7 @@ wx.onKeyboardHeightChange(res => {
             /** 实时地理位置变化事件的回调函数 */
             callback: OnLocationChangeCallback
         ): void
-        /** [wx.onMemoryWarning(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/performance/wx.onMemoryWarning.html)
+        /** [wx.onMemoryWarning(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/memory/wx.onMemoryWarning.html)
          *
          * 监听内存不足告警事件。
          *
@@ -16094,28 +17166,28 @@ wx.onNetworkStatusChange(function (res) {
         ): void
         /** [wx.onSocketClose(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/wx.onSocketClose.html)
          *
-         * 监听 WebSocket 连接关闭事件 */
+         * 监听 WebSocket 连接关闭事件。**推荐使用 [SocketTask](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。** */
         onSocketClose(
             /** WebSocket 连接关闭事件的回调函数 */
             callback: OnSocketCloseCallback
         ): void
         /** [wx.onSocketError(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/wx.onSocketError.html)
          *
-         * 监听 WebSocket 错误事件 */
+         * 监听 WebSocket 错误事件。**推荐使用 [SocketTask](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。** */
         onSocketError(
             /** WebSocket 错误事件的回调函数 */
             callback: OnSocketErrorCallback
         ): void
         /** [wx.onSocketMessage(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/wx.onSocketMessage.html)
          *
-         * 监听 WebSocket 接受到服务器的消息事件 */
+         * 监听 WebSocket 接受到服务器的消息事件。**推荐使用 [SocketTask](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。** */
         onSocketMessage(
             /** WebSocket 接受到服务器的消息事件的回调函数 */
             callback: OnSocketMessageCallback
         ): void
         /** [wx.onSocketOpen(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/wx.onSocketOpen.html)
          *
-         * 监听 WebSocket 连接打开事件 */
+         * 监听 WebSocket 连接打开事件。**推荐使用 [SocketTask](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。** */
         onSocketOpen(
             /** WebSocket 连接打开事件的回调函数 */
             callback: OnSocketOpenCallback
@@ -16136,7 +17208,7 @@ wx.onNetworkStatusChange(function (res) {
         ): void
         /** [wx.onUnhandledRejection(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onUnhandledRejection.html)
          *
-         * 监听未处理的 Promise 拒绝事件。该事件与 `App.onUnhandledRejection` 的回调时机与参数一致。
+         * 监听未处理的 Promise 拒绝事件。该事件与 [ `App.onUnhandledRejection`](https://developers.weixin.qq.com/miniprogram/dev/reference/api/App.html#onUnhandledRejection-Object-object) 的回调时机与参数一致。
          *
          * **注意**
          *
@@ -16193,6 +17265,15 @@ wx.onUserCaptureScreen(function (res) {
         onVoIPChatSpeakersChanged(
             /** 实时语音通话成员通话状态变化事件的回调函数 */
             callback: OnVoIPChatSpeakersChangedCallback
+        ): void
+        /** [wx.onVoIPChatStateChanged(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/voip/wx.onVoIPChatStateChanged.html)
+         *
+         * 监听房间状态变化事件。
+         *
+         * 最低基础库： `2.16.0` */
+        onVoIPChatStateChanged(
+            /** 房间状态变化事件的回调函数 */
+            callback: OnVoIPChatStateChangedCallback
         ): void
         /** [wx.onVoIPVideoMembersChanged(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/voip/wx.onVoIPVideoMembersChanged.html)
          *
@@ -16284,6 +17365,12 @@ wx.openCard({
         openCard<T extends OpenCardOption = OpenCardOption>(
             option: T
         ): PromisifySuccessResult<T, OpenCardOption>
+        /** [wx.openChannelsLive(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/channels/wx.openChannelsLive.html)
+         *
+         * 打开视频号直播
+         *
+         * 最低基础库： `2.15.0` */
+        openChannelsLive(option: OpenChannelsLiveOption): void
         /** [wx.openDocument(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/wx.openDocument.html)
          *
          * 新开页面打开文档。微信客户端 `7.0.12` 版本前默认显示右上角菜单按钮，之后的版本默认不显示，需主动传入 `showMenu`。 */
@@ -16655,7 +17742,7 @@ try {
         >(
             option: T
         ): PromisifySuccessResult<T, RemoveTabBarBadgeOption>
-        /** [wx.reportAnalytics(string eventName, Object data)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/data-analysis/wx.reportAnalytics.html)
+        /** [wx.reportAnalytics(string eventName, Object data)](https://developers.weixin.qq.com/miniprogram/dev/api/data-analysis/wx.reportAnalytics.html)
 *
 * 自定义分析数据上报接口。使用前，需要在小程序管理后台自定义分析中新建事件，配置好事件名与字段。
 *
@@ -16674,7 +17761,7 @@ wx.reportAnalytics('purchase', {
             /** 上报的自定义数据，key 为配置中的字段名，value 为上报的数据。 */
             data: IAnyObject
         ): void
-        /** [wx.reportEvent(string eventId, object data)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/report/wx.reportEvent.html)
+        /** [wx.reportEvent(string eventId, object data)](https://developers.weixin.qq.com/miniprogram/dev/api/data-analysis/wx.reportEvent.html)
          *
          * 事件上报
          *
@@ -16685,7 +17772,7 @@ wx.reportAnalytics('purchase', {
             /** 可被 JSON.stringily 的对象，将一起上报至系统 */
             data?: IAnyObject
         ): void
-        /** [wx.reportMonitor(string name, number value)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/report/wx.reportMonitor.html)
+        /** [wx.reportMonitor(string name, number value)](https://developers.weixin.qq.com/miniprogram/dev/api/data-analysis/wx.reportMonitor.html)
 *
 * 自定义业务数据监控上报接口。
 *
@@ -16708,7 +17795,7 @@ wx.reportMonitor('1', 1)
             /** 上报数值，经处理后会在「小程序管理后台」上展示每分钟的上报总量 */
             value: number
         ): void
-        /** [wx.reportPerformance(Number id, Number value, String|Array dimensions)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/wx.reportPerformance.html)
+        /** [wx.reportPerformance(Number id, Number value, String|Array dimensions)](https://developers.weixin.qq.com/miniprogram/dev/api/base/performance/wx.reportPerformance.html)
 *
 * 小程序测速上报。使用前，需要在小程序管理后台配置。 详情参见[小程序测速](https://developers.weixin.qq.com/miniprogram/dev/framework/performanceReport/index.html)指南。
 *
@@ -16729,7 +17816,7 @@ wx.reportPerformance(1101, 680, 'custom')
             /** 自定义维度 (选填) */
             dimensions?: string | any[]
         ): void
-        /** [wx.requestOrderPayment(Object args)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/payment/wx.requestOrderPayment.html)
+        /** [wx.requestOrderPayment(Object args)](https://developers.weixin.qq.com/miniprogram/dev/api/payment/wx.requestOrderPayment.html)
          *
          * 创建自定义版交易组件订单，并发起支付。
          * 仅接入了[自定义版交易组件](/miniprogram/dev/framework/ministore/minishopopencomponent2/Introduction2)的小程序需要使用，普通小程序可直接使用 [`wx.requestPayment`](./wx.requestPayment)。
@@ -16746,7 +17833,7 @@ wx.reportPerformance(1101, 680, 'custom')
         >(
             args: T
         ): PromisifySuccessResult<T, RequestOrderPaymentOption>
-        /** [wx.requestPayment(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/payment/wx.requestPayment.html)
+        /** [wx.requestPayment(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/payment/wx.requestPayment.html)
 *
 * 发起微信支付。调用前需在[小程序微信公众平台](https://mp.weixin.qq.com/) -功能-微信支付入口申请接入微信支付。了解更多信息，可以参考 [微信支付开发文档](https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pages/api.shtml)：
 * - [开发指引](https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pay/transactions/chapter2_3.shtml)
@@ -16864,6 +17951,15 @@ wx.requestSubscribeMessage({
         >(
             option: T
         ): PromisifySuccessResult<T, RequestSubscribeMessageOption>
+        /** [wx.revokeBufferURL(string url)](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.revokeBufferURL.html)
+         *
+         * 根据 URL 销毁存在内存中的数据
+         *
+         * 最低基础库： `2.14.0` */
+        revokeBufferURL(
+            /** 需要销毁的二进制数据 URL */
+            url: string
+        ): void
         /** [wx.saveFile(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/wx.saveFile.html)
 *
 * 保存文件到本地。注意：**saveFile 会把临时文件移动，因此调用成功后传入的 tempFilePath 将不可用**
@@ -16893,10 +17989,25 @@ wx.chooseImage({
             option: T
         ): PromisifySuccessResult<T, WxSaveFileOption>
         /** [wx.saveFileToDisk(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/wx.saveFileToDisk.html)
-         *
-         * 保存文件系统的文件到用户磁盘，仅在 PC 端支持
-         *
-         * 最低基础库： `2.11.0` */
+*
+* 保存文件系统的文件到用户磁盘，仅在 PC 端支持
+*
+* **示例代码**
+*
+*
+* ```js
+wx.saveFileToDisk({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  success(res) {
+    console.log(res)
+  },
+  fail(res) {
+    console.error(res)
+  }
+})
+```
+*
+* 最低基础库： `2.11.0` */
         saveFileToDisk(option: SaveFileToDiskOption): void
         /** [wx.saveImageToPhotosAlbum(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/image/wx.saveImageToPhotosAlbum.html)
 *
@@ -16967,6 +18078,14 @@ wx.scanCode({
         scanCode<T extends ScanCodeOption = ScanCodeOption>(
             option: T
         ): PromisifySuccessResult<T, ScanCodeOption>
+        /** [wx.searchContacts(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/contact/wx.searchContacts.html)
+         *
+         * 查找通讯录，匹配相近的手机号
+         *
+         * 最低基础库： `2.16.1` */
+        searchContacts<T extends SearchContactsOption = SearchContactsOption>(
+            option: T
+        ): PromisifySuccessResult<T, SearchContactsOption>
         /** [wx.seekBackgroundAudio(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/background-audio/wx.seekBackgroundAudio.html)
 *
 * 控制音乐播放进度。
@@ -17015,7 +18134,7 @@ wx.startHCE({
         ): PromisifySuccessResult<T, SendHCEMessageOption>
         /** [wx.sendSocketMessage(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/wx.sendSocketMessage.html)
 *
-* 通过 WebSocket 连接发送数据。需要先 wx.connectSocket，并在 wx.onSocketOpen 回调之后才能发送。
+* 通过 WebSocket 连接发送数据。需要先 wx.connectSocket，并在 wx.onSocketOpen 回调之后才能发送。**推荐使用 [SocketTask](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。**
 *
 * **示例代码**
 *
@@ -17412,12 +18531,32 @@ wx.getWifiList()
          * @deprecated 基础库版本 [2.11.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) 起已废弃
          *  */
         setWindowSize(option: SetWindowSizeOption): void
+        /** [wx.shareFileMessage(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.shareFileMessage.html)
+         *
+         * 转发文件到聊天
+         *
+         * 最低基础库： `2.16.1` */
+        shareFileMessage<
+            T extends ShareFileMessageOption = ShareFileMessageOption
+        >(
+            option: T
+        ): PromisifySuccessResult<T, ShareFileMessageOption>
         /** [wx.shareToWeRun(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/werun/wx.shareToWeRun.html)
          *
          * 分享数据到微信运动。 */
         shareToWeRun<T extends ShareToWeRunOption = ShareToWeRunOption>(
             option: T
         ): PromisifySuccessResult<T, ShareToWeRunOption>
+        /** [wx.shareVideoMessage(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.shareVideoMessage.html)
+         *
+         * 转发视频到聊天
+         *
+         * 最低基础库： `2.16.1` */
+        shareVideoMessage<
+            T extends ShareVideoMessageOption = ShareVideoMessageOption
+        >(
+            option: T
+        ): PromisifySuccessResult<T, ShareVideoMessageOption>
         /** [wx.showActionSheet(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showActionSheet.html)
 *
 * 显示操作菜单
@@ -17521,7 +18660,7 @@ wx.showModal({
         ): PromisifySuccessResult<T, ShowRedPackageOption>
         /** [wx.showShareImageMenu(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/share/wx.showShareImageMenu.html)
          *
-         * 打开分享图片弹窗
+         * 打开分享图片弹窗，可以将图片发送给朋友、收藏或下载
          *
          * 最低基础库： `2.14.3` */
         showShareImageMenu<
@@ -18118,6 +19257,7 @@ wx.stopWifi({
 *
 *
 * ```json
+// app.json
 {
   "tabBar": {
     "list": [{
@@ -18273,6 +19413,16 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type AddCustomLayerSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type AddFileToFavoritesCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type AddFileToFavoritesFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type AddFileToFavoritesSuccessCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type AddGroundOverlayCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type AddGroundOverlayFailCallback = (res: GeneralCallbackResult) => void
@@ -18314,6 +19464,16 @@ wx.writeBLECharacteristicValue({
     type AddServiceFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type AddServiceSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type AddVideoToFavoritesCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type AddVideoToFavoritesFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type AddVideoToFavoritesSuccessCallback = (
+        res: GeneralCallbackResult
+    ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type AppendFileCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -18668,6 +19828,12 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type ExitFullScreenSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type ExitMiniProgramCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type ExitMiniProgramFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type ExitMiniProgramSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ExitPictureInPictureCompleteCallback = (
         res: GeneralCallbackResult
     ) => void
@@ -18867,6 +20033,16 @@ wx.writeBLECharacteristicValue({
         result: GetCenterLocationSuccessCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type GetChannelsLiveInfoCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type GetChannelsLiveInfoFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type GetChannelsLiveInfoSuccessCallback = (
+        result: GetChannelsLiveInfoSuccessCallbackResult
+    ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type GetClipboardDataCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type GetClipboardDataFailCallback = (res: GeneralCallbackResult) => void
@@ -18943,6 +20119,14 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type GetImageInfoSuccessCallback = (
         result: GetImageInfoSuccessCallbackResult
+    ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type GetLatestUserKeyCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type GetLatestUserKeyFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type GetLatestUserKeySuccessCallback = (
+        result: GetLatestUserKeySuccessCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type GetLocationCompleteCallback = (res: GeneralCallbackResult) => void
@@ -19419,6 +20603,8 @@ wx.writeBLECharacteristicValue({
     type OffCharacteristicWriteRequestCallback = (
         result: OnCharacteristicWriteRequestCallbackResult
     ) => void
+    /** 当一个 socket 连接成功建立的时候触发该事件的回调函数 */
+    type OffConnectCallback = (res: GeneralCallbackResult) => void
     /** 用户点击右上角菜单的「复制链接」按钮时触发的事件的回调函数 */
     type OffCopyUrlCallback = (result: OnCopyUrlCallbackResult) => void
     /** 的回调函数 */
@@ -19452,8 +20638,6 @@ wx.writeBLECharacteristicValue({
     type OffLocationChangeCallback = (
         result: OnLocationChangeCallbackResult
     ) => void
-    /** 收到消息的事件的回调函数 */
-    type OffMessageCallback = (result: UDPSocketOnMessageCallbackResult) => void
     /** 小程序要打开的页面不存在事件的回调函数 */
     type OffPageNotFoundCallback = (
         result: OnPageNotFoundCallbackResult
@@ -19475,6 +20659,10 @@ wx.writeBLECharacteristicValue({
     /** 未处理的 Promise 拒绝事件的回调函数 */
     type OffUnhandledRejectionCallback = (
         result: OnUnhandledRejectionCallbackResult
+    ) => void
+    /** 房间状态变化事件的回调函数 */
+    type OffVoIPChatStateChangedCallback = (
+        result: OnVoIPChatStateChangedCallbackResult
     ) => void
     /** 实时语音通话成员视频状态变化事件的回调函数 */
     type OffVoIPVideoMembersChangedCallback = (
@@ -19566,6 +20754,8 @@ wx.writeBLECharacteristicValue({
     type OnCompassChangeCallback = (
         result: OnCompassChangeCallbackResult
     ) => void
+    /** 当一个 socket 连接成功建立的时候触发该事件的回调函数 */
+    type OnConnectCallback = (res: GeneralCallbackResult) => void
     /** 用户点击右上角菜单的「复制链接」按钮时触发的事件的回调函数 */
     type OnCopyUrlCallback = (result: OnCopyUrlCallbackResult) => void
     /** 设备方向变化事件的回调函数 */
@@ -19685,6 +20875,10 @@ wx.writeBLECharacteristicValue({
     /** 实时语音通话成员通话状态变化事件的回调函数 */
     type OnVoIPChatSpeakersChangedCallback = (
         result: OnVoIPChatSpeakersChangedCallbackResult
+    ) => void
+    /** 房间状态变化事件的回调函数 */
+    type OnVoIPChatStateChangedCallback = (
+        result: OnVoIPChatStateChangedCallbackResult
     ) => void
     /** 实时语音通话成员视频状态变化事件的回调函数 */
     type OnVoIPVideoMembersChangedCallback = (
@@ -19854,6 +21048,14 @@ wx.writeBLECharacteristicValue({
     ) => void
     /** 接口调用成功的回调函数 */
     type ReadSuccessCallback = (result: ReadSuccessCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type ReadZipEntryCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type ReadZipEntryFailCallback = (result: ReadFileFailCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type ReadZipEntrySuccessCallback = (
+        result: ReadZipEntrySuccessCallbackResult
+    ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ReaddirCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -20073,6 +21275,14 @@ wx.writeBLECharacteristicValue({
     ) => void
     /** 回调函数，在执行 `SelectorQuery.exec` 方法后，节点信息会在 `callback` 中返回。 */
     type ScrollOffsetCallback = (result: ScrollOffsetCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type SearchContactsCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type SearchContactsFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type SearchContactsSuccessCallback = (
+        option: SearchContactsSuccessCallbackOption
+    ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type SeekBackgroundAudioCompleteCallback = (
         res: GeneralCallbackResult
@@ -20296,11 +21506,25 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type SetZoomSuccessCallback = (result: SetZoomSuccessCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type ShareFileMessageCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type ShareFileMessageFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type ShareFileMessageSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ShareToWeRunCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type ShareToWeRunFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type ShareToWeRunSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type ShareVideoMessageCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type ShareVideoMessageFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type ShareVideoMessageSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ShowActionSheetCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -20715,6 +21939,14 @@ wx.writeBLECharacteristicValue({
     type SwitchTabFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type SwitchTabSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 当接收到数据的时触发该事件的回调函数 */
+    type TCPSocketOffMessageCallback = (
+        result: TCPSocketOnMessageCallbackResult
+    ) => void
+    /** 当接收到数据的时触发该事件的回调函数 */
+    type TCPSocketOnMessageCallback = (
+        result: TCPSocketOnMessageCallbackResult
+    ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type TakePhotoCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -20758,9 +21990,12 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type TruncateSuccessCallback = (res: GeneralCallbackResult) => void
     type UDPSocketOffCloseCallback = (res: GeneralCallbackResult) => void
-    /** 错误事件的回调函数 */
     type UDPSocketOffErrorCallback = (
         result: UDPSocketOnErrorCallbackResult
+    ) => void
+    /** 收到消息的事件的回调函数 */
+    type UDPSocketOffMessageCallback = (
+        result: UDPSocketOnMessageCallbackResult
     ) => void
     type UDPSocketOnCloseCallback = (res: GeneralCallbackResult) => void
     type UDPSocketOnErrorCallback = (
@@ -20915,40 +22150,3 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type WxStopRecordSuccessCallback = (res: GeneralCallbackResult) => void
 }
-
-/** [clearInterval(number intervalID)](https://developers.weixin.qq.com/miniprogram/dev/api/base/timer/clearInterval.html)
- *
- * 取消由 setInterval 设置的定时器。 */
-declare function clearInterval(
-    /** 要取消的定时器的 ID */
-    intervalID: number
-): void
-/** [clearTimeout(number timeoutID)](https://developers.weixin.qq.com/miniprogram/dev/api/base/timer/clearTimeout.html)
- *
- * 取消由 setTimeout 设置的定时器。 */
-declare function clearTimeout(
-    /** 要取消的定时器的 ID */
-    timeoutID: number
-): void
-/** [number setInterval(function callback, number delay, any rest)](https://developers.weixin.qq.com/miniprogram/dev/api/base/timer/setInterval.html)
- *
- * 设定一个定时器。按照指定的周期（以毫秒计）来执行注册的回调函数 */
-declare function setInterval(
-    /** 回调函数 */
-    callback: (...args: any[]) => any,
-    /** 执行回调函数之间的时间间隔，单位 ms。 */
-    delay?: number,
-    /** param1, param2, ..., paramN 等附加参数，它们会作为参数传递给回调函数。 */
-    rest?: any
-): number
-/** [number setTimeout(function callback, number delay, any rest)](https://developers.weixin.qq.com/miniprogram/dev/api/base/timer/setTimeout.html)
- *
- * 设定一个定时器。在定时到期以后执行注册的回调函数 */
-declare function setTimeout(
-    /** 回调函数 */
-    callback: (...args: any[]) => any,
-    /** 延迟的时间，函数的调用会在该延迟之后发生，单位 ms。 */
-    delay?: number,
-    /** param1, param2, ..., paramN 等附加参数，它们会作为参数传递给回调函数。 */
-    rest?: any
-): number
