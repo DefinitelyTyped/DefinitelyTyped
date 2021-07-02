@@ -46,8 +46,8 @@ export interface ConnectorSearchResults<TDoc = BasicDoc> {
   error: any;
 }
 
-interface ConnectedWidget<TProvided, TExposed> {
-  getProvidedProps(props: TExposed): TProvided;
+interface ConnectedWidget {
+  getProvidedProps(props: any): any;
   getSearchParameters(searchParameters: SearchParameters): SearchState;
   getMetadata(nextWidgetsState: SearchState): any;
   transitionState(prevWidgetsState: SearchState, nextWidgetsState: SearchState): SearchState;
@@ -71,7 +71,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * searchForFacetValuesResults holds the search for facet values results.
    */
   getProvidedProps(
-    this: React.Component<TExposed> & ConnectedWidget<TProvided, TExposed>,
+    this: React.Component<TExposed> & ConnectedWidget,
     props: TExposed,
     searchState: SearchState,
     searchResults: ConnectorSearchResults<any>,
@@ -85,7 +85,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * to the refine and createURL props of stateful widgets, and returns a new state.
    */
   refine?(
-    this: React.Component<TExposed> & ConnectedWidget<TProvided, TExposed>,
+    this: React.Component<TExposed> & ConnectedWidget,
     props: TExposed,
     searchState: SearchState,
     ...args: any[]
@@ -99,7 +99,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * As such, the getSearchParameters method allows you to describe how the state and props of a widget should affect the search parameters.
    */
   getSearchParameters?(
-    this: React.Component<TExposed> & ConnectedWidget<TProvided, TExposed>,
+    this: React.Component<TExposed> & ConnectedWidget,
     searchParameters: SearchParameters,
     props: TExposed,
     searchState: SearchState
@@ -115,7 +115,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * your own filter, declare a filters property on your widget’s metadata
    */
   getMetadata?(
-    this: React.Component<TExposed> & ConnectedWidget<TProvided, TExposed>,
+    this: React.Component<TExposed> & ConnectedWidget,
     props: TExposed,
     searchState: SearchState,
     ...args: any[]
@@ -128,7 +128,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * maxFacetHits is the one set by the API which is 10.
    */
   searchForFacetValues?(
-    this: React.Component<TExposed> & ConnectedWidget<TProvided, TExposed>,
+    this: React.Component<TExposed> & ConnectedWidget,
     searchState: SearchState,
     nextRefinement?: any
   ): any;
@@ -141,7 +141,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * in their respective documentation entry.
    */
   cleanUp?(
-    this: React.Component<TExposed> & ConnectedWidget<TProvided, TExposed>,
+    this: React.Component<TExposed> & ConnectedWidget,
     props: TExposed,
     searchState: SearchState
   ): SearchState;
