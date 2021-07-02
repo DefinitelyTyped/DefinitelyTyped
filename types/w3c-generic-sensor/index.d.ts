@@ -34,7 +34,7 @@ interface SensorOptions {
 }
 
 interface MotionSensorOptions extends SensorOptions {
-    referenceFrame?: string | undefined;
+    referenceFrame?: "device" | "screen" | undefined;
 }
 
 // Accelerometer: https://www.w3.org/TR/accelerometer/
