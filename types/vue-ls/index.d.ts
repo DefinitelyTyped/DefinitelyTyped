@@ -24,9 +24,9 @@ export enum Types {
 }
 
 export interface Options {
-    namespace?: string;
-    name?: string;
-    storage?: Types;
+    namespace?: string | undefined;
+    name?: string | undefined;
+    storage?: Types | undefined;
 }
 
 export class WebStorage {
