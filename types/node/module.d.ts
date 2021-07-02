@@ -60,7 +60,7 @@ declare module 'module' {
              * @param parent The absolute parent module URL to resolve from. If none
              * is specified, the value of `import.meta.url` is used as the default.
              */
-            resolve?(specified: string, parent: string | URL): Promise<string>;
+            resolve?(specified: string, parent?: string | URL): Promise<string>;
         }
     }
 

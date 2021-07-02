@@ -19,12 +19,12 @@ declare module 'buffer' {
         prototype: Buffer;
     };
 
-    export { Buffer }
+    export { Buffer };
 
     /**
      * @experimental
      */
-     export interface BlobOptions {
+    export interface BlobOptions {
         /**
          * @default 'utf8'
          */
@@ -41,7 +41,7 @@ declare module 'buffer' {
     /**
      * @experimental
      */
-     export class Blob {
+    export class Blob {
         /**
          * Returns a promise that fulfills with an {ArrayBuffer} containing a copy of the `Blob` data.
          */
@@ -353,5 +353,5 @@ declare module 'buffer' {
 }
 
 declare module 'node:buffer' {
-   export * from 'buffer';
+    export * from 'buffer';
 }
