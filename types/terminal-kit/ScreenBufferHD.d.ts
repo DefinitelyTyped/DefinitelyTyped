@@ -14,7 +14,7 @@ declare class ScreenBufferHD extends ScreenBuffer {
 
   static loadImage(
     url: string,
-    options: { shrink?: { height: number; width: number } },
+    options: { shrink?: { height: number; width: number } | undefined },
     callback: (error: any, image: ScreenBufferHD) => void
   ): void;
 
@@ -26,11 +26,11 @@ declare class ScreenBufferHD extends ScreenBuffer {
     options?:
       | {
           attr: ScreenBuffer.Attributes | number;
-          char?: string;
+          char?: string | undefined;
         }
       | {
           attr: ScreenBufferHD.Attributes | number;
-          char?: string;
+          char?: string | undefined;
         }
   ): void;
 }
@@ -42,24 +42,24 @@ declare namespace ScreenBufferHD {
     r: number;
     g: number;
     b: number;
-    a?: number;
-    defaultColor?: boolean;
+    a?: number | undefined;
+    defaultColor?: boolean | undefined;
     bgR: number;
     bgG: number;
     bgB: number;
-    bgA?: number;
-    bgDefaultColor?: boolean;
-    bold?: boolean;
-    dim?: boolean;
-    italic?: boolean;
-    underline?: boolean;
-    blink?: boolean;
-    inverse?: boolean;
-    hidden?: boolean;
-    strike?: boolean;
-    transparency?: boolean;
-    styleTransparency?: boolean;
-    charTransparency?: boolean;
+    bgA?: number | undefined;
+    bgDefaultColor?: boolean | undefined;
+    bold?: boolean | undefined;
+    dim?: boolean | undefined;
+    italic?: boolean | undefined;
+    underline?: boolean | undefined;
+    blink?: boolean | undefined;
+    inverse?: boolean | undefined;
+    hidden?: boolean | undefined;
+    strike?: boolean | undefined;
+    transparency?: boolean | undefined;
+    styleTransparency?: boolean | undefined;
+    charTransparency?: boolean | undefined;
   }
 
   type IsBlending = false | Blending;
