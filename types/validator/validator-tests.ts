@@ -553,6 +553,9 @@ const any: any = null;
     result = validator.isAlphanumeric('sample', 'sv-SE');
     result = validator.isAlphanumeric('sample', 'tr-TR');
     result = validator.isAlphanumeric('sample', 'uk-UA');
+    result = validator.isAlphanumeric('sample', undefined, {ignore: /[\s!?]/g});
+    result = validator.isAlphanumeric('sample', 'fr-FR', {ignore: /[\s!?]/g});
+    result = validator.isAlphanumeric('sample', 'fr-FR', {ignore: ' !?'});
 
     result = validator.isAscii('sample');
 
