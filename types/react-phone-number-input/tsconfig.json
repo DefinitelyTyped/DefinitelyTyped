@@ -20,6 +20,8 @@
     },
     "files": [
         "index.d.ts",
-        "react-phone-number-input-tests.tsx"
+        "input.d.ts",
+        "react-phone-number-input-tests.tsx",
+        "bare-import-tests.tsx"
     ]
 }

@@ -25,7 +25,8 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      */
     international?: boolean;
 
-    /** If country is specified and international property is true then the phone number
+    /**
+     * If country is specified and international property is true then the phone number
      * can only be input in "international" format for that country. By default, the
      * "country calling code" part (+1 when country is US) is not included in the input
      * field. To change that, pass withCountryCallingCode property, and it will include

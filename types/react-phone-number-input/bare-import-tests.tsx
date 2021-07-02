@@ -4,7 +4,7 @@ import PhoneInput from 'react-phone-number-input/input';
 const test1 = (
     <PhoneInput
         value={'+64271231234'}
-        onChange={(value: string) => {
+        onChange={(value?: string) => {
             console.log(value);
         }}
         disabled={false}
@@ -23,7 +23,7 @@ const InputComponent = React.forwardRef<HTMLInputElement, React.InputHTMLAttribu
 const test2 = (
     <PhoneInput
         value={'+64271231234'}
-        onChange={(value: string) => {
+        onChange={(value?: string) => {
             console.log(value);
         }}
         disabled
