@@ -199,7 +199,7 @@ export function getPermalink(): string | null;
  * @returns An object containing the prefix, postName, and suffix for the permalink, or `null` if
  * the post is not viewable.
  */
-export function getPermalinkParts(): { postName: string; prefix: string; suffix?: string } | null;
+export function getPermalinkParts(): { postName: string; prefix: string; suffix?: string | undefined } | null;
 
 /**
  * Returns any post values which have been changed in the editor but not yet been saved.

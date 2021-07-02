@@ -10,8 +10,8 @@ type FileSystemEntriesCallback = (entries: FileSystemEntry[]) => void;
 type FileCallback = (file: File) => void;
 
 interface FileSystemFlags {
-    create?: boolean;
-    exclusive?: boolean;
+    create?: boolean | undefined;
+    exclusive?: boolean | undefined;
 }
 
 declare global {

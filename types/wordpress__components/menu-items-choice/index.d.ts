@@ -33,7 +33,7 @@ declare namespace MenuItemsChoice {
          * Optional keyboard sequence to trigger choice with keyboard shortcut
          * (e.g. `ctrl+s`).
          */
-        shortcut?: Shortcut.ShortcutType;
+        shortcut?: Shortcut.ShortcutType | undefined;
     }
 }
 declare const MenuItemsChoice: ComponentType<MenuItemsChoice.Props>;

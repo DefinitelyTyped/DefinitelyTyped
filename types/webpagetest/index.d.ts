@@ -17,216 +17,216 @@ type TestScriptCommand = string | { [command: string]: string | number | string[
 
 interface Options {
   /** if true, method does not make an actual request to the API Server but rather returns an object with url which contains the actual URL to make the GET request to WebPageTest API Server */
-  dryRun?: boolean;
+  dryRun?: boolean | undefined;
   /** if specified, overrides the WebPageTest server informed in the constructor only for that method call */
-  server?: string;
+  server?: string | undefined;
 }
 
 interface KeyOptions {
   /** API key (if assigned). Contact the WebPageTest server administrator for a key if required */
-  key?: string;
+  key?: string | undefined;
 }
 
 interface RequestOptions {
   /** echo request ID, useful to track asynchronous requests */
-  requestId?: string;
+  requestId?: string | undefined;
 }
 
 interface TestOptions {
   /** location to test from */
-  location?: string;
+  location?: string | undefined;
   /** connectivity profile -- requires location to be specified -- (Cable|DSL|FIOS|Dial|3G|3GFast|Native|custom) [Cable] */
-  connectivity?: string;
+  connectivity?: string | undefined;
   /** number of test runs [1] */
-  runs?: number;
+  runs?: number | undefined;
   /** skip the Repeat View test */
-  firstViewOnly?: boolean;
+  firstViewOnly?: boolean | undefined;
   /** capture video */
-  video?: boolean;
+  video?: boolean | undefined;
   /** keep the test hidden from the test log */
-  private?: boolean;
+  private?: boolean | undefined;
   /** label for the test */
-  label?: string;
+  label?: string | undefined;
   /** stop test at document complete. typically, tests run until all activity stops */
-  stopAtDocumentComplete?: boolean;
+  stopAtDocumentComplete?: boolean | undefined;
   /** disable JavaScript (IE, Chrome, Firefox) */
-  disableJavaScript?: boolean;
+  disableJavaScript?: boolean | undefined;
   /** clear SSL certificate caches */
-  clearCerts?: boolean;
+  clearCerts?: boolean | undefined;
   /** ignore SSL certificate errors, e.g. name mismatch, self-signed certificates, etc */
-  ignoreSSL?: boolean;
+  ignoreSSL?: boolean | undefined;
   /** forces all pages to load in standards mode (IE only) */
-  disableCompatibilityView?: boolean;
+  disableCompatibilityView?: boolean | undefined;
   /** capture network packet trace (tcpdump) */
-  tcpDump?: boolean;
+  tcpDump?: boolean | undefined;
   /** save response bodies for text resources */
-  saveResponseBodies?: boolean;
+  saveResponseBodies?: boolean | undefined;
   /** do not add PTST to the original browser User Agent string */
-  keepOriginalUserAgent?: boolean;
+  keepOriginalUserAgent?: boolean | undefined;
   /** DOM element to record for sub-measurement */
-  domElement?: string;
+  domElement?: string | undefined;
   /** minimum test duration in seconds */
-  minimumDuration?: number;
+  minimumDuration?: number | undefined;
   /** run the test on a specific PC (name must match exactly or the test will not run) */
-  tester?: string;
+  tester?: string | undefined;
   /** (experimental) emulate mobile browser: Chrome mobile user agent, 640x960 screen, 2x scaling and fixed viewport (Chrome only) */
-  emulateMobile?: boolean;
+  emulateMobile?: boolean | undefined;
   /** capture Developer Tools Timeline (Chrome only) */
-  timeline?: boolean;
+  timeline?: boolean | undefined;
   /** set between 1-5 to include the JS call stack. must be used in conjunction with timeline (increases overhead) (Chrome only) */
-  timelineCallStack?: boolean;
+  timelineCallStack?: boolean | undefined;
   /** capture chrome trace (about://tracing) (Chrome only) */
-  chromeTrace?: boolean;
+  chromeTrace?: boolean | undefined;
   /** capture Network Log (Chrome only) */
-  netLog?: boolean;
+  netLog?: boolean | undefined;
   /** enable data reduction on Chrome 34+ Android (Chrome only) */
-  dataReduction?: boolean;
+  dataReduction?: boolean | undefined;
   /** custom user agent string (Chrome only) */
-  userAgent?: string;
+  userAgent?: string | undefined;
   /** use a list of custom command line switches (Chrome only) */
-  commandLine?: string;
+  commandLine?: string | undefined;
   /** username for authenticating tests (http authentication) */
-  login?: string;
+  login?: string | undefined;
   /** password for authenticating tests (http authentication) */
-  password?: string;
+  password?: string | undefined;
   /** discard script and http headers in the result */
-  sensitive?: boolean;
+  sensitive?: boolean | undefined;
   /** disable saving of the http headers (as well as browser status messages and CPU utilization) */
-  disableHTTPHeaders?: boolean;
+  disableHTTPHeaders?: boolean | undefined;
   /** space-delimited list of urls to block (substring match) */
-  block?: string;
+  block?: string | undefined;
   /** space-delimited list of domains to simulate failure by re-routing to blackhole.webpagetest.org to silently drop all requests */
-  spof?: string;
+  spof?: string | undefined;
   /** execute arbitrary JavaScript at the end of a test to collect custom metrics */
-  customMetrics?: string;
+  customMetrics?: string | undefined;
   /** type of authentication: 0 = Basic, 1 = SNS [0] */
-  authenticationType?: number;
+  authenticationType?: number | undefined;
   /** e-mail address to notify with the test results */
-  notifyEmail?: string;
+  notifyEmail?: string | undefined;
   /** URL to ping when the test is complete (the test ID will be passed as an "id" parameter) */
-  pingback?: string;
+  pingback?: string | undefined;
   /** download bandwidth in Kbps (used when specifying a custom connectivity profile) */
-  bandwidthDown?: string;
+  bandwidthDown?: string | undefined;
   /** upload bandwidth in Kbps (used when specifying a custom connectivity profile) */
-  bandwidthUp?: string;
+  bandwidthUp?: string | undefined;
   /** first-hop Round Trip Time in ms (used when specifying a custom connectivity profile) */
-  latency?: string;
+  latency?: string | undefined;
   /** packet loss rate - percent of packets to drop (used when specifying a custom connectivity profile) */
-  packetLossRate?: number;
+  packetLossRate?: number | undefined;
   /** disable optimization checks (for faster testing) */
-  disableOptimization?: boolean;
+  disableOptimization?: boolean | undefined;
   /** disable screen shot capturing */
-  disableScreenshot?: boolean;
+  disableScreenshot?: boolean | undefined;
   /** save a full-resolution version of the fully loaded screen shot as a PNG */
-  fullResolutionScreenshot?: boolean;
+  fullResolutionScreenshot?: boolean | undefined;
   /** jpeg compression level (30-100) for the screen shots and video capture */
-  jpegQuality?: number;
+  jpegQuality?: number | undefined;
   /** store the video from the median run when capturing video is enabled */
-  medianVideo?: boolean;
+  medianVideo?: boolean | undefined;
   /** save the content of only the base HTML response */
-  htmlBody?: boolean;
+  htmlBody?: boolean | undefined;
   /** test name to use when submitting results to tsviewdb (for private instances that have integrated with tsviewdb) */
-  tsView?: string;
+  tsView?: string | undefined;
   /** configs to use when submitting results to tsviewdb (for private instances that have integrated with tsviewdb) */
-  tsViewConfigs?: string;
+  tsViewConfigs?: string | undefined;
   /** string to hash test to a specific test agent. tester will be picked by index among available testers */
-  affinity?: string;
+  affinity?: string | undefined;
   /** change test priority (0-9) [enforced by API key, otherwise 5] */
-  priority?: number;
+  priority?: number | undefined;
   /** block ads defined by http://adblockplus.org */
-  blockAds?: boolean;
+  blockAds?: boolean | undefined;
   /** capture video continuously (unstable/experimental, may cause tests to fail) */
-  continuousVideoCapture?: boolean;
+  continuousVideoCapture?: boolean | undefined;
   /** force SPDY version 3 (Chrome only) */
-  forceSpdy3?: boolean;
+  forceSpdy3?: boolean | undefined;
   /** force software rendering, disable GPU acceleration (Chrome only) */
-  forceSoftwareRendering?: boolean;
+  forceSoftwareRendering?: boolean | undefined;
   /** poll for results after test is scheduled at every seconds [5] */
-  pollResults?: number;
+  pollResults?: number | undefined;
   /** wait for test results informed by agent once complete listening on : [hostname:first port available above 8000] */
-  waitResults?: string;
+  waitResults?: string | undefined;
   /** timeout for polling and waiting results [no timeout] */
-  timeout?: number;
+  timeout?: number | undefined;
   /** perform lighthouse test (Chrome only, Linux agent only) */
-  lighthouse?: boolean;
+  lighthouse?: boolean | undefined;
 }
 
 interface ResultsOptions {
   /** include the breakdown of requests and bytes by mime type */
-  breakDown?: boolean;
+  breakDown?: boolean | undefined;
   /** include the breakdown of requests and bytes by domain */
-  domains?: boolean;
+  domains?: boolean | undefined;
   /** include the PageSpeed score in the response (may be slower) */
-  pageSpeed?: boolean;
+  pageSpeed?: boolean | undefined;
   /** include the request data in the response (slower and results in much larger responses) */
-  requests?: boolean;
+  requests?: boolean | undefined;
   /** set the metric used to calculate median for multiple runs tests (default: loadTime) */
-  medianMetric?: string;
+  medianMetric?: string | undefined;
   /** set the specs for performance test suite */
-  specs?: string;
+  specs?: string | undefined;
   /** set performance test suite reporter output: [dot]|spec|tap|xunit|list|progress|min|nyan|landing|json|doc|markdown|teamcity */
-  reporter?: string;
+  reporter?: string | undefined;
 }
 
 interface RunOptions {
   /** the test run number for multiple runs tests (default: 1, first test) */
-  run?: number;
+  run?: number | undefined;
   /** if true returns the repeat view (cached) data */
-  repeatView?: boolean;
+  repeatView?: boolean | undefined;
 }
 
 interface ImageOptions {
   /** returns the thumbnail of actual image */
-  thumbnail?: boolean;
+  thumbnail?: boolean | undefined;
   /** returns the base64 string representation (inline) of actual image */
-  dataURI?: boolean;
+  dataURI?: boolean | undefined;
 }
 
 interface ScreenshotOptions {
   /** returns the full resolution screenshot in PNG format if available */
-  fullResolution?: boolean;
+  fullResolution?: boolean | undefined;
   /** returns the page screenshot at the Start Render point (i.e.: when something was first displayed on screen) */
-  startRender?: boolean;
+  startRender?: boolean | undefined;
   /** returns the page screenshot at the Document Complete point (i.e.: when window.onload was fired) */
-  documentComplete?: boolean;
+  documentComplete?: boolean | undefined;
 }
 
 interface WaterfallOptions {
   /** set the chart type: waterfall or connection [waterfall] */
-  chartType?: string;
+  chartType?: string | undefined;
   /** set chart coloring by MIME type [false] */
-  colorByMime?: boolean;
+  colorByMime?: boolean | undefined;
   /** chart image width in px (300-2000) [930] */
-  chartWidth?: number;
+  chartWidth?: number | undefined;
   /** set maximum time in seconds [automatic] */
-  maxTime?: number;
+  maxTime?: number | undefined;
   /** filter requests (e.g.:1,2,3,4-9,8) [all] */
-  requests?: string;
+  requests?: string | undefined;
   /** hide CPU utilization [false] */
-  noCPU?: boolean;
+  noCPU?: boolean | undefined;
   /** hide bandwidth utilization [false] */
-  noBandwidth?: boolean;
+  noBandwidth?: boolean | undefined;
   /** hide ellipsis (...) for missing items [false] */
-  noEllipsis?: boolean;
+  noEllipsis?: boolean | undefined;
   /** hide labels for requests (URL) [false] */
-  noLabels?: boolean;
+  noLabels?: boolean | undefined;
 }
 
 interface VideoOptions {
   /** frame comparison end point: [visual]=visually complete | all=last change | doc=document complete | full=fully loaded */
-  comparisonEndPoint?: string;
+  comparisonEndPoint?: string | undefined;
 }
 
 interface ResponseOptions {
   /** the request number [1] */
-  request?: number;
+  request?: number | undefined;
 }
 
 interface ListenOptions {
   /** private key file path to use for SSL */
-  key?: string;
+  key?: string | undefined;
   /** public x509 certificate file path to use for SSL */
-  cert?: string;
+  cert?: string | undefined;
 }
 
 declare namespace WebPageTest {
