@@ -6,6 +6,7 @@ import namedNode = require('@rdfjs/to-ntriples/lib/namedNode');
 import variable = require('@rdfjs/to-ntriples/lib/variable');
 import quad = require('@rdfjs/to-ntriples/lib/quad');
 import dataset = require('@rdfjs/to-ntriples/lib/dataset');
+import term = require('@rdfjs/to-ntriples/lib/term');
 
 const rdfBlankNode: RDF.BlankNode = <any> {};
 const rdfDefaultGraph: RDF.DefaultGraph = <any> {};
@@ -13,6 +14,7 @@ const rdfNamedNode: RDF.NamedNode = <any> {};
 const rdfVariable: RDF.Variable = <any> {};
 const rdfQuad: RDF.Quad = <any> {};
 const rdfDataset: RDF.DatasetCore = <any> {};
+const rdfTerm: RDF.Term = <any> {};
 
 const blankNodeString: string = blankNode(rdfBlankNode);
 const defaultGraphString: string = defaultGraph();
@@ -28,3 +30,4 @@ ntString = toNT(rdfNamedNode);
 ntString = toNT(rdfVariable);
 ntString = toNT(rdfDataset);
 ntString = toNT(rdfQuad);
+ntString = toNT(rdfTerm);
