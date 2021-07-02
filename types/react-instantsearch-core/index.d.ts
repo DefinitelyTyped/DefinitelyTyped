@@ -46,6 +46,16 @@ export interface ConnectorSearchResults<TDoc = BasicDoc> {
   error: any;
 }
 
+interface ConnectedWidget {
+  getProvidedProps(props: any): any;
+  getSearchParameters(searchParameters: SearchParameters): SearchState;
+  getMetadata(nextWidgetsState: SearchState): any;
+  transitionState(prevWidgetsState: SearchState, nextWidgetsState: SearchState): SearchState;
+  refine(...args: any[]): void;
+  createURL(...args: any[]): string;
+  searchForFacetValues(...args: any[]): void;
+}
+
 export interface ConnectorDescription<TProvided, TExposed> {
   displayName: string;
   propTypes?: any;
@@ -61,7 +71,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * searchForFacetValuesResults holds the search for facet values results.
    */
   getProvidedProps(
-    this: React.Component<TExposed>,
+    this: React.Component<TExposed> & ConnectedWidget,
     props: TExposed,
     searchState: SearchState,
     searchResults: ConnectorSearchResults<any>,
@@ -74,7 +84,12 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * It takes in the current props of the higher-order component, the search state of all widgets, as well as all arguments passed
    * to the refine and createURL props of stateful widgets, and returns a new state.
    */
-  refine?(this: React.Component<TExposed>, props: TExposed, searchState: SearchState, ...args: any[]): SearchState;
+  refine?(
+    this: React.Component<TExposed> & ConnectedWidget,
+    props: TExposed,
+    searchState: SearchState,
+    ...args: any[]
+  ): SearchState;
 
   /**
    * This method applies the current props and state to the provided SearchParameters, and returns a new SearchParameters. The SearchParameters
@@ -84,7 +99,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * As such, the getSearchParameters method allows you to describe how the state and props of a widget should affect the search parameters.
    */
   getSearchParameters?(
-    this: React.Component<TExposed>,
+    this: React.Component<TExposed> & ConnectedWidget,
     searchParameters: SearchParameters,
     props: TExposed,
     searchState: SearchState
@@ -99,7 +114,12 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * The CurrentRefinements widget leverages this mechanism in order to allow any widget to declare the filters it has applied. If you want to add
    * your own filter, declare a filters property on your widget’s metadata
    */
-  getMetadata?(this: React.Component<TExposed>, props: TExposed, searchState: SearchState, ...args: any[]): any;
+  getMetadata?(
+    this: React.Component<TExposed> & ConnectedWidget,
+    props: TExposed,
+    searchState: SearchState,
+    ...args: any[]
+  ): any;
 
   /**
    * This method needs to be implemented if you want to have the ability to perform a search for facet values inside your widget.
@@ -107,7 +127,11 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * props of stateful widgets, and returns an object of the shape: {facetName: string, query: string, maxFacetHits?: number}. The default value for the
    * maxFacetHits is the one set by the API which is 10.
    */
-  searchForFacetValues?(this: React.Component<TExposed>, searchState: SearchState, nextRefinement?: any): any;
+  searchForFacetValues?(
+    this: React.Component<TExposed> & ConnectedWidget,
+    searchState: SearchState,
+    nextRefinement?: any
+  ): any;
 
   /**
    * This method is called when a widget is about to unmount in order to clean the searchState.
@@ -116,7 +140,11 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * searchState holds the searchState of all widgets, with the shape {[widgetId]: widgetState}. Stateful widgets describe the format of their searchState
    * in their respective documentation entry.
    */
-  cleanUp?(this: React.Component<TExposed>, props: TExposed, searchState: SearchState): SearchState;
+  cleanUp?(
+    this: React.Component<TExposed> & ConnectedWidget,
+    props: TExposed,
+    searchState: SearchState
+  ): SearchState;
 }
 
 export type ConnectorProvided<TProvided> = TProvided & {
