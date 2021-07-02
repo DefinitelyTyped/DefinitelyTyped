@@ -1,5 +1,5 @@
-import QuickPicker, { QuickPickerOpenOptions } from 'quick-picker';
-import React from 'react';
+import QuickPicker from 'quick-picker';
+import * as React from 'react';
 
 interface CustomItem {
     foo: string;
@@ -16,8 +16,6 @@ const items: CustomItem[] = [
         bar: 2,
     },
 ];
-
-const obj: QuickPickerOpenOptions = {};
 
 QuickPicker.open<CustomItem>({
     item: {
