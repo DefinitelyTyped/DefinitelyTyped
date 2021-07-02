@@ -97,6 +97,7 @@ export namespace JWE {
         fields?: object;
         contentAlg?: string;
         protect?: string | string[];
+        iv?: string | Buffer;
     }
 
     function createEncrypt(keys: JWK.Key | JWK.Key[]): Encryptor;
