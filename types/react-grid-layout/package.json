@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/react": "^17.0.13",
         "react": "^17.0.2"
     }
 }
