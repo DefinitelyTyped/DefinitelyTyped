@@ -16,8 +16,8 @@ export class Line<
     type: 'Line' | 'LineLoop' | 'LineSegments' | string;
     readonly isLine: true;
 
-    morphTargetInfluences?: number[];
-    morphTargetDictionary?: { [key: string]: number };
+    morphTargetInfluences?: number[] | undefined;
+    morphTargetDictionary?: { [key: string]: number } | undefined;
 
     computeLineDistances(): this;
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;

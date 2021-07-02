@@ -1,9 +1,10 @@
-// Type definitions for css-declaration-sorter 5.1
+// Type definitions for css-declaration-sorter 6.0
 // Project: https://github.com/Siilwyn/css-declaration-sorter#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
-import { Plugin } from 'postcss';
+import { PluginCreator } from 'postcss';
 
 /**
  * A Node.js module and PostCSS plugin to sort CSS, SCSS or Less declarations based on their property names.
@@ -60,7 +61,7 @@ declare namespace cssDeclarationSorter {
         keepOverrides?: boolean;
     }
 
-    type CssDeclarationSorter = Plugin<Options>;
+    type CssDeclarationSorter = PluginCreator<Options>;
 }
 
 declare const cssDeclarationSorter: cssDeclarationSorter.CssDeclarationSorter;

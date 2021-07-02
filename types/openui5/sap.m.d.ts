@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/f/library" {
   export interface IShellBar {
@@ -2277,6 +2277,21 @@ declare module "sap/m/library" {
     Default = "Default",
   }
   /**
+   * @SINCE 1.90.0
+   *
+   * Specifies `IconTabBar` tab overflow mode.
+   */
+  export enum TabsOverflowMode {
+    /**
+     * Default behavior: One overflow tab at the end of the header.
+     */
+    End = "End",
+    /**
+     * Two overflow tabs at both ends of the header to keep tabs order intact.
+     */
+    StartAndEnd = "StartAndEnd",
+  }
+  /**
    * @SINCE 1.56.0
    *
    * Describes the behavior of tiles when displayed on a small-screened phone (374px wide and lower).
@@ -2427,7 +2442,7 @@ declare module "sap/m/library" {
    * means we are restricted of browser or application implementation. e.g.
    * 	 - Some browsers do not let you pass more than 2022 characters in the URL
    * 	 - MAPI (Outlook) limit is 2083, max. path under Internet Explorer is 2048
-   * 	 - Different Internet Explorer versions have a different limitation (IE9 approximately 1000 characters)
+   * 	 - Different Internet Explorer versions have a different URL length limits (IE9 approximately 1000 characters)
    *
    * 	 - MS mail app under Windows 8 cuts mail links after approximately 100 characters
    * 	 - Safari gets a confirmation from user before opening a native application and can block other triggers
@@ -2435,7 +2450,7 @@ declare module "sap/m/library" {
    * 	 - Some mail applications(Outlook) do not respect all encodings (e.g. Cyrillic texts are not encoded
    * 			correctly)
    *
-   * **Note:** all the given limitation lengths are for URL encoded text (e.g a space character will be encoded
+   * **Note:** all the given maximum lengths are for URL encoded text (e.g a space character will be encoded
    * as "%20").
    *
    * It has been reported by some users that the content send through the `URLHelper` is not correctly displayed
@@ -2690,7 +2705,7 @@ declare module "sap/m/library" {
     /**
      * Adds CSS classes and styles to the given RenderManager, depending on the given configuration for background
      * color and background image. To be called by control renderers supporting the global themable background
-     * image within their root tag, before they call writeClasses() and writeStyles().
+     * image within their root tag, before they call openEnd, voidEnd, writeClasses() and writeStyles().
      */
     function addBackgroundColorStyles(
       /**
@@ -3912,6 +3927,9 @@ declare module "sap/m/App" {
    *
    * There are options for setting the background color and a background image with the use of the `backgroundColor`
    * and `backgroundImage` properties.
+   *
+   * **Note**: Keep in mind that by default (`isTopLevel` is set to `true`) `sap.m.App` traverses its parent
+   * elements and automatically sets their height to 100%.
    */
   export default class App extends NavContainer {
     /**
@@ -4108,6 +4126,19 @@ declare module "sap/m/App" {
      */
     getHomeIcon(): any;
     /**
+     * @SINCE 1.91
+     *
+     * Gets current value of property {@link #getIsTopLevel isTopLevel}.
+     *
+     * Determines whether `sap.m.App` is used as a top level control.
+     *
+     * **Note**: When the `isTopLevel` property set to `true`, `sap.m.App` traverses its parent DOM elements
+     * and sets their height to 100%.
+     *
+     * Default value is `true`.
+     */
+    getIsTopLevel(): boolean;
+    /**
      * Returns a metadata object for class sap.m.App.
      */
     static getMetadata(): ElementMetadata;
@@ -4243,6 +4274,26 @@ declare module "sap/m/App" {
       oHomeIcon?: any
     ): this;
     /**
+     * @SINCE 1.91
+     *
+     * Sets a new value for property {@link #getIsTopLevel isTopLevel}.
+     *
+     * Determines whether `sap.m.App` is used as a top level control.
+     *
+     * **Note**: When the `isTopLevel` property set to `true`, `sap.m.App` traverses its parent DOM elements
+     * and sets their height to 100%.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     */
+    setIsTopLevel(
+      /**
+       * New value for property `isTopLevel`
+       */
+      bIsTopLevel?: boolean
+    ): this;
+    /**
      * @SINCE 1.58.0
      *
      * Sets a new value for property {@link #getMobileWebAppCapable mobileWebAppCapable}.
@@ -4375,6 +4426,16 @@ declare module "sap/m/App" {
      * regardless of a changed property value to `false` at a later time.
      */
     mobileWebAppCapable?: boolean | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.91
+     *
+     * Determines whether `sap.m.App` is used as a top level control.
+     *
+     * **Note**: When the `isTopLevel` property set to `true`, `sap.m.App` traverses its parent DOM elements
+     * and sets their height to 100%.
+     */
+    isTopLevel?: boolean | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.20.0) - use {@link sap.ui.Device.orientation.attachHandler} instead.
@@ -11496,10 +11557,6 @@ declare module "sap/m/ComboBox" {
       oPicker: Popover | Dialog
     ): void;
     /**
-     * Destroys all the items in the aggregation named `items`.
-     */
-    destroyItems(): this;
-    /**
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.m.ComboBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -11673,20 +11730,6 @@ declare module "sap/m/ComboBox" {
      * Opens the control's picker popup.
      */
     open(): this;
-    /**
-     * Removes all the controls in the aggregation named `items`. Additionally unregisters them from the hosting
-     * UIArea and clears the selection.
-     */
-    removeAllItems(): Item[];
-    /**
-     * Removes an item from the aggregation named `items`.
-     */
-    removeItem(
-      /**
-       * The item to be removed or its index or ID.
-       */
-      vItem: int | string | Item
-    ): Item;
     /**
      * @SINCE 1.22.1
      *
@@ -11880,6 +11923,8 @@ declare module "sap/m/ComboBoxBase" {
 
   import Input from "sap/m/Input";
 
+  import Event from "sap/ui/base/Event";
+
   import Control from "sap/ui/core/Control";
 
   /**
@@ -11924,11 +11969,11 @@ declare module "sap/m/ComboBoxBase" {
      */
     _getGroupHeaderInvisibleText(): string;
     /**
-     * Adds an item to the aggregation named `items`.
+     * Adds some item to the aggregation {@link #getItems items}.
      */
     addItem(
       /**
-       * The item to be added; if empty, nothing is added.
+       * The item to add; if empty, nothing is inserted
        */
       oItem: Item
     ): this;
@@ -12139,6 +12184,10 @@ declare module "sap/m/ComboBoxBase" {
      */
     getPickerType(): string;
     /**
+     * Gets the flag indicating whether the list items should be recreated
+     */
+    getRecreateItems(): void;
+    /**
      * @SINCE 1.60
      *
      * Gets current value of property {@link #getShowSecondaryValues showSecondaryValues}.
@@ -12149,6 +12198,14 @@ declare module "sap/m/ComboBoxBase" {
      * Default value is `false`.
      */
     getShowSecondaryValues(): boolean;
+    /**
+     * Fires when an object gets inserted in the items aggregation
+     */
+    handleItemInsertion(): void;
+    /**
+     * Fires when an object gets removed from the items aggregation
+     */
+    handleItemRemoval(): void;
     /**
      * Determines whether the control has content or not.
      */
@@ -12173,17 +12230,17 @@ declare module "sap/m/ComboBoxBase" {
       oItem: Item
     ): int;
     /**
-     * Inserts an item into the aggregation named `items`.
+     * Inserts a item into the aggregation {@link #getItems items}.
      */
     insertItem(
       /**
-       * The item to be inserted; if empty, nothing is inserted.
+       * The item to insert; if empty, nothing is inserted
        */
       oItem: Item,
       /**
        * The `0`-based index the item should be inserted at; for a negative value of `iIndex`, the item is inserted
        * at position 0; for a value greater than the current size of the aggregation, the item is inserted at
-       * the last position.
+       * the last position
        */
       iIndex: int
     ): this;
@@ -12214,20 +12271,36 @@ declare module "sap/m/ComboBoxBase" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @SINCE 1.90
+     *
+     * Handles properties' changes of items in the aggregation named `items`.
+     */
+    onItemChange(
+      /**
+       * The change event
+       */
+      oControlEvent: Event,
+      /**
+       * Indicates whether second values should be shown
+       */
+      bShowSecondaryValues: boolean
+    ): void;
+    /**
      * Opens the control's picker popup.
      */
     open(): this;
     /**
-     * Removes all the controls in the aggregation named `items`. Additionally unregisters them from the hosting
-     * UIArea and clears the selection.
+     * Removes all the controls from the aggregation {@link #getItems items}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
      */
     removeAllItems(): Item[];
     /**
-     * Removes an item from the aggregation named `items`.
+     * Removes a item from the aggregation {@link #getItems items}.
      */
     removeItem(
       /**
-       * The item to remove or its index or ID.
+       * The item to remove or its index or id
        */
       vItem: int | string | Item
     ): Item;
@@ -12253,6 +12326,10 @@ declare module "sap/m/ComboBoxBase" {
        */
       sPickerType: string
     ): void;
+    /**
+     * Sets whether the list items should be recreated
+     */
+    setRecreateItems(): void;
     /**
      * Sets the selectable property of `sap.ui.core.Item`
      */
@@ -13418,6 +13495,15 @@ declare module "sap/m/DatePicker" {
        */
       oSpecialDate: DateTypeRange
     ): DateTypeRange;
+    /**
+     * Sets the displayFormat of the DatePicker.
+     */
+    setDisplayFormat(
+      /**
+       * new value for `displayFormat`
+       */
+      sDisplayFormat: string
+    ): this;
     /**
      * @SINCE 1.28.6
      *
@@ -16959,9 +17045,13 @@ declare module "sap/m/ExpandableText" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
+  import {
+    EmptyIndicatorMode,
+    ExpandableTextOverflowMode,
+    WrappingType,
+  } from "sap/m/library";
 
-  import { ExpandableTextOverflowMode, WrappingType } from "sap/m/library";
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
    * @SINCE 1.87
@@ -17055,6 +17145,18 @@ declare module "sap/m/ExpandableText" {
      */
     getAccessibilityInfo(): object;
     /**
+     * @SINCE 1.91
+     *
+     * Gets current value of property {@link #getEmptyIndicatorMode emptyIndicatorMode}.
+     *
+     * Specifies if an empty indicator should be displayed when there is no text.
+     *
+     * Default value is `Off`.
+     */
+    getEmptyIndicatorMode():
+      | EmptyIndicatorMode
+      | keyof typeof EmptyIndicatorMode;
+    /**
      * Gets current value of property {@link #getMaxCharacters maxCharacters}.
      *
      * Specifies the maximum number of characters from the beginning of the text field that are shown initially.
@@ -17124,6 +17226,23 @@ declare module "sap/m/ExpandableText" {
      * Default value is `Normal`.
      */
     getWrappingType(): WrappingType | keyof typeof WrappingType;
+    /**
+     * @SINCE 1.91
+     *
+     * Sets a new value for property {@link #getEmptyIndicatorMode emptyIndicatorMode}.
+     *
+     * Specifies if an empty indicator should be displayed when there is no text.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Off`.
+     */
+    setEmptyIndicatorMode(
+      /**
+       * New value for property `emptyIndicatorMode`
+       */
+      sEmptyIndicatorMode?: EmptyIndicatorMode | keyof typeof EmptyIndicatorMode
+    ): this;
     /**
      * Sets a new value for property {@link #getMaxCharacters maxCharacters}.
      *
@@ -17282,6 +17401,15 @@ declare module "sap/m/ExpandableText" {
      * Specifies the maximum number of characters from the beginning of the text field that are shown initially.
      */
     maxCharacters?: int | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.91
+     *
+     * Specifies if an empty indicator should be displayed when there is no text.
+     */
+    emptyIndicatorMode?:
+      | (EmptyIndicatorMode | keyof typeof EmptyIndicatorMode)
+      | PropertyBindingInfo;
   }
 }
 
@@ -21564,7 +21692,7 @@ declare module "sap/m/FlexItemData" {
     /**
      * Gets current value of property {@link #getAlignSelf alignSelf}.
      *
-     * Determines cross-axis alignment of individual element (not currently supported in Internet Explorer).
+     * Determines cross-axis alignment of individual element.
      *
      * Default value is `Auto`.
      */
@@ -21638,7 +21766,7 @@ declare module "sap/m/FlexItemData" {
      *
      * The minimum height of the flex item.
      *
-     * Default value is `'auto'`.
+     * Default value is `"auto"`.
      */
     getMinHeight(): CSSSize;
     /**
@@ -21648,7 +21776,7 @@ declare module "sap/m/FlexItemData" {
      *
      * The minimum width of the flex item.
      *
-     * Default value is `'auto'`.
+     * Default value is `"auto"`.
      */
     getMinWidth(): CSSSize;
     /**
@@ -21783,7 +21911,7 @@ declare module "sap/m/FlexItemData" {
 
   export interface $FlexItemDataSettings extends $LayoutDataSettings {
     /**
-     * Determines cross-axis alignment of individual element (not currently supported in Internet Explorer).
+     * Determines cross-axis alignment of individual element.
      */
     alignSelf?:
       | (FlexAlignSelf | keyof typeof FlexAlignSelf)
@@ -23976,6 +24104,13 @@ declare module "sap/m/HBox" {
   export default class HBox extends FlexBox {
     /**
      * Constructor for a new HBox.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.FlexBox#constructor
+     * sap.m.FlexBox} can be used.
      */
     constructor(
       /**
@@ -23985,6 +24120,13 @@ declare module "sap/m/HBox" {
     );
     /**
      * Constructor for a new HBox.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.FlexBox#constructor
+     * sap.m.FlexBox} can be used.
      */
     constructor(
       /**
@@ -24570,6 +24712,7 @@ declare module "sap/m/IconTabBar" {
     BackgroundDesign,
     IconTabHeaderMode,
     IconTabDensityMode,
+    TabsOverflowMode,
   } from "sap/m/library";
 
   import { IDynamicPageStickyContent } from "sap/f/library";
@@ -25022,7 +25165,7 @@ declare module "sap/m/IconTabBar" {
      *
      * Default value is `End`.
      */
-    getTabsOverflowMode(): any;
+    getTabsOverflowMode(): TabsOverflowMode | keyof typeof TabsOverflowMode;
     /**
      * @SINCE 1.22
      *
@@ -25318,7 +25461,7 @@ declare module "sap/m/IconTabBar" {
       /**
        * New value for property `tabsOverflowMode`
        */
-      sTabsOverflowMode?: any
+      sTabsOverflowMode?: TabsOverflowMode | keyof typeof TabsOverflowMode
     ): this;
     /**
      * @SINCE 1.22
@@ -25527,7 +25670,9 @@ declare module "sap/m/IconTabBar" {
      * end containing the remaining items. The `StartAndEnd` is used to keep the order of tabs intact and offers
      * two overflow tabs on both ends of the bar.
      */
-    tabsOverflowMode?: any | PropertyBindingInfo;
+    tabsOverflowMode?:
+      | (TabsOverflowMode | keyof typeof TabsOverflowMode)
+      | PropertyBindingInfo;
 
     /**
      * The items displayed in the IconTabBar.
@@ -26099,6 +26244,7 @@ declare module "sap/m/IconTabHeader" {
     BackgroundDesign,
     IconTabHeaderMode,
     IconTabDensityMode,
+    TabsOverflowMode,
   } from "sap/m/library";
 
   import IconTabFilter from "sap/m/IconTabFilter";
@@ -26371,7 +26517,7 @@ declare module "sap/m/IconTabHeader" {
      *
      * Default value is `End`.
      */
-    getTabsOverflowMode(): any;
+    getTabsOverflowMode(): TabsOverflowMode | keyof typeof TabsOverflowMode;
     /**
      * @SINCE 1.15.0
      *
@@ -26602,7 +26748,7 @@ declare module "sap/m/IconTabHeader" {
       /**
        * New value for property `tabsOverflowMode`
        */
-      sTabsOverflowMode?: any
+      sTabsOverflowMode?: TabsOverflowMode | keyof typeof TabsOverflowMode
     ): this;
     /**
      * @SINCE 1.15.0
@@ -26748,7 +26894,9 @@ declare module "sap/m/IconTabHeader" {
      * end containing the remaining items. The `StartAndEnd` is used to keep the order of tabs intact and offers
      * overflow tabs on both ends of the bar.
      */
-    tabsOverflowMode?: any | PropertyBindingInfo;
+    tabsOverflowMode?:
+      | (TabsOverflowMode | keyof typeof TabsOverflowMode)
+      | PropertyBindingInfo;
 
     /**
      * The items displayed in the IconTabHeader.
@@ -28428,10 +28576,6 @@ declare module "sap/m/Input" {
       mSettings?: $InputSettings
     );
 
-    /**
-     * Refreshes delayed items.
-     */
-    _refreshItemsDelayed(): void;
     /**
      * @SINCE 1.21.1
      *
@@ -30750,15 +30894,6 @@ declare module "sap/m/InputBase" {
      * in order for the control to be usable and well aligned.
      */
     getWidth(): CSSSize;
-    /**
-     * Handles the input event of the control
-     */
-    handleInput(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
     /**
      * indicating if a character is currently composing.
      */
@@ -41188,13 +41323,13 @@ declare module "sap/m/MessageStrip" {
    *
    * Each message can have a close button, so that it can be removed from the UI if needed.
    *
-   * With version 1.50 you can use a limited set of formatting tags for the message text by setting `enableFormattedText`.
-   * The allowed tags are:
+   * You can use a limited set of formatting tags for the message text by setting `enableFormattedText`. The
+   * allowed tags are: With version 1.50
    * 	 - <a>
-   * 	 - <br>
    * 	 - <em>
    * 	 - <strong>
-   * 	 - <u>
+   * 	 - <u>  With version 1.85
+   * 	 - <br>
    *
    * Dynamically generated Message Strip: To meet the accessibility requirements when using dynamically generated
    * Message Strip you must implement it alongside `sap.ui.core.InvisibleMessage`. This will allow screen
@@ -42670,10 +42805,6 @@ declare module "sap/m/MultiComboBox" {
       oListener?: object
     ): this;
     /**
-     * Clear the selection.
-     */
-    clearSelection(): void;
-    /**
      * Clones the `sap.m.MultiComboBox` control.
      */
     clone(
@@ -42804,21 +42935,6 @@ declare module "sap/m/MultiComboBox" {
      */
     getSelectedKeys(): string[];
     /**
-     * Inserts an item into the aggregation named `items`.
-     */
-    insertItem(
-      /**
-       * The item to insert; if empty, nothing is inserted.
-       */
-      oItem: Item,
-      /**
-       * The `0`-based index the item should be inserted at; for a negative value of `iIndex`, the item is inserted
-       * at position 0; for a value greater than the current size of the aggregation, the item is inserted at
-       * the last position.
-       */
-      iIndex: int
-    ): this;
-    /**
      * Checks whether an item is selected.
      */
     isItemSelected(
@@ -42848,22 +42964,9 @@ declare module "sap/m/MultiComboBox" {
      */
     open(): this;
     /**
-     * Removes all the items in the aggregation named `items`.
-     */
-    removeAllItems(): Item[];
-    /**
      * Removes all the controls in the association named selectedItems.
      */
     removeAllSelectedItems(): ID[];
-    /**
-     * Removes an item from the aggregation named `items`.
-     */
-    removeItem(
-      /**
-       * The item to remove or its index or id.
-       */
-      oItem: int | string | Item
-    ): Item;
     /**
      * Removes an selectedItem from the association named `selectedItems`.
      */
@@ -44880,6 +44983,13 @@ declare module "sap/m/NotificationList" {
   export default class NotificationList extends ListBase {
     /**
      * Constructor for a new NotificationList.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.ListBase#constructor
+     * sap.m.ListBase} can be used.
      */
     constructor(
       /**
@@ -44889,6 +44999,13 @@ declare module "sap/m/NotificationList" {
     );
     /**
      * Constructor for a new NotificationList.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.ListBase#constructor
+     * sap.m.ListBase} can be used.
      */
     constructor(
       /**
@@ -61806,7 +61923,7 @@ declare module "sap/m/PlanningCalendar" {
      * This API should not be used in production environment.
      *
      * **Note:** The `stickyHeader` of the `PlanningCalendar` uses the `sticky` property of `sap.m.Table`. Therefore,
-     * all features and limitations of the property in `sap.m.Table` apply to the `PlanningCalendar` as well.
+     * all features and restrictions of the property in `sap.m.Table` apply to the `PlanningCalendar` as well.
      *
      * Default value is `false`.
      */
@@ -62721,7 +62838,7 @@ declare module "sap/m/PlanningCalendar" {
      * This API should not be used in production environment.
      *
      * **Note:** The `stickyHeader` of the `PlanningCalendar` uses the `sticky` property of `sap.m.Table`. Therefore,
-     * all features and limitations of the property in `sap.m.Table` apply to the `PlanningCalendar` as well.
+     * all features and restrictions of the property in `sap.m.Table` apply to the `PlanningCalendar` as well.
      */
     stickyHeader?: boolean | PropertyBindingInfo;
 
@@ -64710,6 +64827,172 @@ declare module "sap/m/PlanningCalendarView" {
   }
 }
 
+declare module "sap/m/plugins/ColumnResizer" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import { CSSSize } from "sap/ui/core/library";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  /**
+   * @SINCE 1.91
+   *
+   * Enables column resizing for the `sap.m.Table`. This plugin can be added to the control via its `dependents`
+   * aggregation and there must only be 1 instance of the plugin per control.
+   */
+  export default class ColumnResizer extends UI5Element {
+    /**
+     * Constructor for a new ColumnResizer plugin.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the `ColumnResizer`
+       */
+      mSettings?: $ColumnResizerSettings
+    );
+    /**
+     * Constructor for a new ColumnResizer plugin.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new `ColumnResizer`, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the `ColumnResizer`
+       */
+      mSettings?: $ColumnResizerSettings
+    );
+
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:columnResize columnResize} event of this `sap.m.plugins.ColumnResizer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.plugins.ColumnResizer` itself.
+     *
+     * This event is fired when the column is resized.
+     */
+    attachColumnResize(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.plugins.ColumnResizer` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:columnResize columnResize} event of this `sap.m.plugins.ColumnResizer`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachColumnResize(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Creates a new subclass of class sap.m.plugins.ColumnResizer with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ColumnResizer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Fires event {@link #event:columnResize columnResize} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     */
+    fireColumnResize(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * The column being resized.
+         */
+        column?: UI5Element;
+        /**
+         * The new width of the column.
+         */
+        width?: CSSSize;
+      }
+    ): boolean;
+    /**
+     * Returns a metadata object for class sap.m.plugins.ColumnResizer.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Displays the resize handle for the provided column `DOM` reference.
+     */
+    startResizing(
+      /**
+       * column DOM reference
+       */
+      oDomRef: HTMLElement
+    ): void;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:columnResize columnResize} event of this `sap.m.plugins.ColumnResizer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.plugins.ColumnResizer` itself.
+     *
+     * This event is fired when the column is resized.
+     */
+    attachColumnResize(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.plugins.ColumnResizer` itself
+       */
+      oListener?: object
+    ): this;
+  }
+
+  export interface $ColumnResizerSettings extends $ElementSettings {
+    /**
+     * This event is fired when the column is resized.
+     */
+    columnResize?: Function;
+  }
+}
+
 declare module "sap/m/plugins/DataStateIndicator" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
@@ -65153,6 +65436,197 @@ declare module "sap/m/plugins/DataStateIndicator" {
      * is set to `true`.
      */
     clearFilter?: Function;
+  }
+}
+
+declare module "sap/m/plugins/PasteProvider" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { ID } from "sap/ui/core/library";
+
+  import Control from "sap/ui/core/Control";
+
+  /**
+   * @SINCE 1.91
+   *
+   * Provides cross-platform paste capabilities for the `sap.m.Button` control which allows the user to initiate
+   * a paste action.
+   */
+  export default class PasteProvider extends UI5Element {
+    /**
+     * Constructor for a new PasteProvider plugin.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the `PasteProvider`
+       */
+      mSettings?: $PasteProviderSettings
+    );
+    /**
+     * Constructor for a new PasteProvider plugin.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new `PasteProvider`, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the `PasteProvider`
+       */
+      mSettings?: $PasteProviderSettings
+    );
+
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:paste paste} event of this `sap.m.plugins.PasteProvider`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.plugins.PasteProvider` itself.
+     *
+     * This event gets fired when the user pastes content from the clipboard or when the Paste button is pressed
+     * if the clipboard access has already been granted. Pasting can be done via the paste feature of the mobile
+     * device or the standard paste keyboard shortcut while the popover is open. By default, a synthetic `Clipboard`
+     * event that represents the paste data gets dispatched for the control defined in the `pasteFor` association.
+     * To avoid this, call `preventDefault` on the event instance.
+     */
+    attachPaste(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.plugins.PasteProvider` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:paste paste} event of this `sap.m.plugins.PasteProvider`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachPaste(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Creates a new subclass of class sap.m.plugins.PasteProvider with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, PasteProvider>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Fires event {@link #event:paste paste} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     */
+    firePaste(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * Two-dimentional array of strings with data from the clipboard. The first dimension represents the rows,
+         * and the second dimension represents the cells of the tabular data.
+         */
+        data?: Array<string[]>;
+        /**
+         * The text data, with all special characters, from the clipboard.
+         */
+        text?: string;
+      }
+    ): boolean;
+    /**
+     * Returns a metadata object for class sap.m.plugins.PasteProvider.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * ID of the element which is the current target of the association {@link #getPasteFor pasteFor}, or `null`.
+     */
+    getPasteFor(): ID;
+    /**
+     * Sets the associated {@link #getPasteFor pasteFor}.
+     */
+    setPasteFor(
+      /**
+       * ID of an element which becomes the new target of this pasteFor association; alternatively, an element
+       * instance may be given
+       */
+      oPasteFor: ID | Control
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:paste paste} event of this `sap.m.plugins.PasteProvider`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.plugins.PasteProvider` itself.
+     *
+     * This event gets fired when the user pastes content from the clipboard or when the Paste button is pressed
+     * if the clipboard access has already been granted. Pasting can be done via the paste feature of the mobile
+     * device or the standard paste keyboard shortcut while the popover is open. By default, a synthetic `Clipboard`
+     * event that represents the paste data gets dispatched for the control defined in the `pasteFor` association.
+     * To avoid this, call `preventDefault` on the event instance.
+     */
+    attachPaste(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.plugins.PasteProvider` itself
+       */
+      oListener?: object
+    ): this;
+  }
+
+  export interface $PasteProviderSettings extends $ElementSettings {
+    /**
+     * Defines the control which the paste is associated with.
+     */
+    pasteFor?: Control | string;
+
+    /**
+     * This event gets fired when the user pastes content from the clipboard or when the Paste button is pressed
+     * if the clipboard access has already been granted. Pasting can be done via the paste feature of the mobile
+     * device or the standard paste keyboard shortcut while the popover is open. By default, a synthetic `Clipboard`
+     * event that represents the paste data gets dispatched for the control defined in the `pasteFor` association.
+     * To avoid this, call `preventDefault` on the event instance.
+     */
+    paste?: Function;
   }
 }
 
@@ -73852,7 +74326,7 @@ declare module "sap/m/SearchField" {
      * otherwise it will be bound to this `sap.m.SearchField` itself.
      *
      * This event is fired each time when the value of the search field is changed by the user - e.g. at each
-     * key press. Do not invalidate or re-render a focused search field, especially during the liveChange event.
+     * key press. Do not invalidate a focused search field, especially during the liveChange event.
      */
     attachLiveChange(
       /**
@@ -74557,7 +75031,7 @@ declare module "sap/m/SearchField" {
      * otherwise it will be bound to this `sap.m.SearchField` itself.
      *
      * This event is fired each time when the value of the search field is changed by the user - e.g. at each
-     * key press. Do not invalidate or re-render a focused search field, especially during the liveChange event.
+     * key press. Do not invalidate a focused search field, especially during the liveChange event.
      */
     attachLiveChange(
       /**
@@ -74735,7 +75209,7 @@ declare module "sap/m/SearchField" {
      * @SINCE 1.9.1
      *
      * This event is fired each time when the value of the search field is changed by the user - e.g. at each
-     * key press. Do not invalidate or re-render a focused search field, especially during the liveChange event.
+     * key press. Do not invalidate a focused search field, especially during the liveChange event.
      */
     liveChange?: Function;
 
@@ -79626,6 +80100,16 @@ declare module "sap/m/SelectList" {
      */
     getFirstItem(): Item | null;
     /**
+     * @SINCE 1.91
+     *
+     * Gets current value of property {@link #getHideDisabledItems hideDisabledItems}.
+     *
+     * Determines whether the disabled items are hidden from the DOM structure.
+     *
+     * Default value is `false`.
+     */
+    getHideDisabledItems(): boolean;
+    /**
      * Gets the item from the aggregation named `items` at the given 0-based index.
      */
     getItemAt(
@@ -79793,6 +80277,23 @@ declare module "sap/m/SelectList" {
        * New value for property `enabled`
        */
       bEnabled?: boolean
+    ): this;
+    /**
+     * @SINCE 1.91
+     *
+     * Sets a new value for property {@link #getHideDisabledItems hideDisabledItems}.
+     *
+     * Determines whether the disabled items are hidden from the DOM structure.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setHideDisabledItems(
+      /**
+       * New value for property `hideDisabledItems`
+       */
+      bHideDisabledItems?: boolean
     ): this;
     /**
      * @SINCE 1.38
@@ -80001,6 +80502,13 @@ declare module "sap/m/SelectList" {
       | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.91
+     *
+     * Determines whether the disabled items are hidden from the DOM structure.
+     */
+    hideDisabledItems?: boolean | PropertyBindingInfo;
+
+    /**
      * Defines the items contained within this control.
      */
     items?: Item[] | Item | AggregationBindingInfo;
@@ -80054,15 +80562,30 @@ declare module "sap/m/semantic/AddAction" {
   export default class AddAction extends SemanticButton {
     /**
      * Constructor for a new AddAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $AddActionSettings
     );
     /**
      * Constructor for a new AddAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -80070,7 +80593,8 @@ declare module "sap/m/semantic/AddAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $AddActionSettings
     );
@@ -80122,15 +80646,30 @@ declare module "sap/m/semantic/CancelAction" {
   export default class CancelAction extends SemanticButton {
     /**
      * Constructor for a new CancelAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $CancelActionSettings
     );
     /**
      * Constructor for a new CancelAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -80138,7 +80677,8 @@ declare module "sap/m/semantic/CancelAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $CancelActionSettings
     );
@@ -80190,15 +80730,30 @@ declare module "sap/m/semantic/DeleteAction" {
   export default class DeleteAction extends SemanticButton {
     /**
      * Constructor for a new DeleteAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $DeleteActionSettings
     );
     /**
      * Constructor for a new DeleteAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -80206,7 +80761,8 @@ declare module "sap/m/semantic/DeleteAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $DeleteActionSettings
     );
@@ -80901,15 +81457,30 @@ declare module "sap/m/semantic/DiscussInJamAction" {
   export default class DiscussInJamAction extends SemanticButton {
     /**
      * Constructor for a new DiscussInJamAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $DiscussInJamActionSettings
     );
     /**
      * Constructor for a new DiscussInJamAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -80917,7 +81488,8 @@ declare module "sap/m/semantic/DiscussInJamAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $DiscussInJamActionSettings
     );
@@ -80970,15 +81542,30 @@ declare module "sap/m/semantic/EditAction" {
   export default class EditAction extends SemanticButton {
     /**
      * Constructor for a new EditAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $EditActionSettings
     );
     /**
      * Constructor for a new EditAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -80986,7 +81573,8 @@ declare module "sap/m/semantic/EditAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $EditActionSettings
     );
@@ -81038,15 +81626,30 @@ declare module "sap/m/semantic/FavoriteAction" {
   export default class FavoriteAction extends SemanticToggleButton {
     /**
      * Constructor for a new FavoriteAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticToggleButton#constructor
+     * sap.m.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FavoriteActionSettings
     );
     /**
      * Constructor for a new FavoriteAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticToggleButton#constructor
+     * sap.m.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
@@ -81054,7 +81657,8 @@ declare module "sap/m/semantic/FavoriteAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FavoriteActionSettings
     );
@@ -81120,15 +81724,30 @@ declare module "sap/m/semantic/FilterAction" {
     __implements__sap_m_semantic_IFilter: boolean;
     /**
      * Constructor for a new FilterAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FilterActionSettings
     );
     /**
      * Constructor for a new FilterAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -81136,7 +81755,8 @@ declare module "sap/m/semantic/FilterAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FilterActionSettings
     );
@@ -81200,15 +81820,30 @@ declare module "sap/m/semantic/FilterSelect" {
     __implements__sap_m_semantic_IFilter: boolean;
     /**
      * Constructor for a new FilterSelect.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticSelect#constructor
+     * sap.m.semantic.SemanticSelect} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FilterSelectSettings
     );
     /**
      * Constructor for a new FilterSelect.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticSelect#constructor
+     * sap.m.semantic.SemanticSelect} can be used.
      */
     constructor(
       /**
@@ -81216,7 +81851,8 @@ declare module "sap/m/semantic/FilterSelect" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FilterSelectSettings
     );
@@ -81268,15 +81904,30 @@ declare module "sap/m/semantic/FlagAction" {
   export default class FlagAction extends SemanticToggleButton {
     /**
      * Constructor for a new FlagAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticToggleButton#constructor
+     * sap.m.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FlagActionSettings
     );
     /**
      * Constructor for a new FlagAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticToggleButton#constructor
+     * sap.m.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
@@ -81284,7 +81935,8 @@ declare module "sap/m/semantic/FlagAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FlagActionSettings
     );
@@ -81336,15 +81988,30 @@ declare module "sap/m/semantic/ForwardAction" {
   export default class ForwardAction extends SemanticButton {
     /**
      * Constructor for a new ForwardAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $ForwardActionSettings
     );
     /**
      * Constructor for a new ForwardAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -81352,7 +82019,8 @@ declare module "sap/m/semantic/ForwardAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $ForwardActionSettings
     );
@@ -82060,15 +82728,30 @@ declare module "sap/m/semantic/GroupAction" {
     __implements__sap_m_semantic_IGroup: boolean;
     /**
      * Constructor for a new GroupAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $GroupActionSettings
     );
     /**
      * Constructor for a new GroupAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -82076,7 +82759,8 @@ declare module "sap/m/semantic/GroupAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $GroupActionSettings
     );
@@ -82140,15 +82824,30 @@ declare module "sap/m/semantic/GroupSelect" {
     __implements__sap_m_semantic_IGroup: boolean;
     /**
      * Constructor for a new GroupSelect.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticSelect#constructor
+     * sap.m.semantic.SemanticSelect} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $GroupSelectSettings
     );
     /**
      * Constructor for a new GroupSelect.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticSelect#constructor
+     * sap.m.semantic.SemanticSelect} can be used.
      */
     constructor(
       /**
@@ -82156,7 +82855,8 @@ declare module "sap/m/semantic/GroupSelect" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $GroupSelectSettings
     );
@@ -82217,7 +82917,8 @@ declare module "sap/m/semantic/MainAction" {
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MainActionSettings
     );
@@ -82234,7 +82935,8 @@ declare module "sap/m/semantic/MainAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MainActionSettings
     );
@@ -82767,15 +83469,30 @@ declare module "sap/m/semantic/MessagesIndicator" {
   export default class MessagesIndicator extends SemanticButton {
     /**
      * Constructor for a new MessagesIndicator.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MessagesIndicatorSettings
     );
     /**
      * Constructor for a new MessagesIndicator.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -82783,7 +83500,8 @@ declare module "sap/m/semantic/MessagesIndicator" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MessagesIndicatorSettings
     );
@@ -82835,15 +83553,30 @@ declare module "sap/m/semantic/MultiSelectAction" {
   export default class MultiSelectAction extends SemanticToggleButton {
     /**
      * Constructor for a new MultiSelectAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticToggleButton#constructor
+     * sap.m.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MultiSelectActionSettings
     );
     /**
      * Constructor for a new MultiSelectAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticToggleButton#constructor
+     * sap.m.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
@@ -82851,7 +83584,8 @@ declare module "sap/m/semantic/MultiSelectAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MultiSelectActionSettings
     );
@@ -82913,7 +83647,8 @@ declare module "sap/m/semantic/NegativeAction" {
      */
     constructor(
       /**
-       * custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $NegativeActionSettings
     );
@@ -82930,7 +83665,8 @@ declare module "sap/m/semantic/NegativeAction" {
        */
       sId?: string,
       /**
-       * custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $NegativeActionSettings
     );
@@ -83006,15 +83742,30 @@ declare module "sap/m/semantic/OpenInAction" {
   export default class OpenInAction extends SemanticButton {
     /**
      * Constructor for a new OpenInAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $OpenInActionSettings
     );
     /**
      * Constructor for a new OpenInAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -83022,7 +83773,8 @@ declare module "sap/m/semantic/OpenInAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $OpenInActionSettings
     );
@@ -83083,7 +83835,8 @@ declare module "sap/m/semantic/PositiveAction" {
      */
     constructor(
       /**
-       * custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $PositiveActionSettings
     );
@@ -83100,7 +83853,8 @@ declare module "sap/m/semantic/PositiveAction" {
        */
       sId?: string,
       /**
-       * custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $PositiveActionSettings
     );
@@ -83176,15 +83930,30 @@ declare module "sap/m/semantic/PrintAction" {
   export default class PrintAction extends SemanticButton {
     /**
      * Constructor for a new PrintAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $PrintActionSettings
     );
     /**
      * Constructor for a new PrintAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -83192,7 +83961,8 @@ declare module "sap/m/semantic/PrintAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $PrintActionSettings
     );
@@ -83244,15 +84014,30 @@ declare module "sap/m/semantic/SaveAction" {
   export default class SaveAction extends SemanticButton {
     /**
      * Constructor for a new SaveAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SaveActionSettings
     );
     /**
      * Constructor for a new SaveAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -83260,7 +84045,8 @@ declare module "sap/m/semantic/SaveAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SaveActionSettings
     );
@@ -84742,15 +85528,30 @@ declare module "sap/m/semantic/SendEmailAction" {
   export default class SendEmailAction extends SemanticButton {
     /**
      * Constructor for a new SendEmailAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SendEmailActionSettings
     );
     /**
      * Constructor for a new SendEmailAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -84758,7 +85559,8 @@ declare module "sap/m/semantic/SendEmailAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SendEmailActionSettings
     );
@@ -84810,15 +85612,30 @@ declare module "sap/m/semantic/SendMessageAction" {
   export default class SendMessageAction extends SemanticButton {
     /**
      * Constructor for a new SendMessageAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SendMessageActionSettings
     );
     /**
      * Constructor for a new SendMessageAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -84826,7 +85643,8 @@ declare module "sap/m/semantic/SendMessageAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SendMessageActionSettings
     );
@@ -84878,15 +85696,30 @@ declare module "sap/m/semantic/ShareInJamAction" {
   export default class ShareInJamAction extends SemanticButton {
     /**
      * Constructor for a new ShareInJamAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $ShareInJamActionSettings
     );
     /**
      * Constructor for a new ShareInJamAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -84894,7 +85727,8 @@ declare module "sap/m/semantic/ShareInJamAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $ShareInJamActionSettings
     );
@@ -85102,15 +85936,30 @@ declare module "sap/m/semantic/SortAction" {
     __implements__sap_m_semantic_ISort: boolean;
     /**
      * Constructor for a new SortAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SortActionSettings
     );
     /**
      * Constructor for a new SortAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -85118,7 +85967,8 @@ declare module "sap/m/semantic/SortAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SortActionSettings
     );
@@ -85182,15 +86032,30 @@ declare module "sap/m/semantic/SortSelect" {
     __implements__sap_m_semantic_ISort: boolean;
     /**
      * Constructor for a new SortSelect.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticSelect#constructor
+     * sap.m.semantic.SemanticSelect} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SortSelectSettings
     );
     /**
      * Constructor for a new SortSelect.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticSelect#constructor
+     * sap.m.semantic.SemanticSelect} can be used.
      */
     constructor(
       /**
@@ -85198,7 +86063,8 @@ declare module "sap/m/semantic/SortSelect" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SortSelectSettings
     );
@@ -87416,6 +88282,13 @@ declare module "sap/m/SinglePlanningCalendarDayView" {
   export default class SinglePlanningCalendarDayView extends SinglePlanningCalendarView {
     /**
      * Constructor for a new `SinglePlanningCalendarDayView`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.SinglePlanningCalendarView#constructor
+     * sap.m.SinglePlanningCalendarView} can be used.
      */
     constructor(
       /**
@@ -87425,6 +88298,13 @@ declare module "sap/m/SinglePlanningCalendarDayView" {
     );
     /**
      * Constructor for a new `SinglePlanningCalendarDayView`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.SinglePlanningCalendarView#constructor
+     * sap.m.SinglePlanningCalendarView} can be used.
      */
     constructor(
       /**
@@ -87485,6 +88365,13 @@ declare module "sap/m/SinglePlanningCalendarMonthView" {
   export default class SinglePlanningCalendarMonthView extends SinglePlanningCalendarView {
     /**
      * Constructor for a new `SinglePlanningCalendarMonthView`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.SinglePlanningCalendarView#constructor
+     * sap.m.SinglePlanningCalendarView} can be used.
      */
     constructor(
       /**
@@ -87494,6 +88381,13 @@ declare module "sap/m/SinglePlanningCalendarMonthView" {
     );
     /**
      * Constructor for a new `SinglePlanningCalendarMonthView`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.SinglePlanningCalendarView#constructor
+     * sap.m.SinglePlanningCalendarView} can be used.
      */
     constructor(
       /**
@@ -87699,6 +88593,13 @@ declare module "sap/m/SinglePlanningCalendarWeekView" {
   export default class SinglePlanningCalendarWeekView extends SinglePlanningCalendarView {
     /**
      * Constructor for a new `SinglePlanningCalendarWeekView`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.SinglePlanningCalendarView#constructor
+     * sap.m.SinglePlanningCalendarView} can be used.
      */
     constructor(
       /**
@@ -87708,6 +88609,13 @@ declare module "sap/m/SinglePlanningCalendarWeekView" {
     );
     /**
      * Constructor for a new `SinglePlanningCalendarWeekView`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.SinglePlanningCalendarView#constructor
+     * sap.m.SinglePlanningCalendarView} can be used.
      */
     constructor(
       /**
@@ -87768,6 +88676,13 @@ declare module "sap/m/SinglePlanningCalendarWorkWeekView" {
   export default class SinglePlanningCalendarWorkWeekView extends SinglePlanningCalendarView {
     /**
      * Constructor for a new `SinglePlanningCalendarWorkWeekView`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.SinglePlanningCalendarView#constructor
+     * sap.m.SinglePlanningCalendarView} can be used.
      */
     constructor(
       /**
@@ -87777,6 +88692,13 @@ declare module "sap/m/SinglePlanningCalendarWorkWeekView" {
     );
     /**
      * Constructor for a new `SinglePlanningCalendarWorkWeekView`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.SinglePlanningCalendarView#constructor
+     * sap.m.SinglePlanningCalendarView} can be used.
      */
     constructor(
       /**
@@ -92514,7 +93436,7 @@ declare module "sap/m/StepInput" {
    * 	 - To enter dates and times. In this case, use the {@link sap.m.DatePicker}, {@link sap.m.DateRangeSelection},
    * 			{@link sap.m.TimePicker}, or {@link sap.m.DateTimePicker} instead.
    *
-   * **Note:** The control uses a JavaScript number to keep its value, which has a certain precision limitation.
+   * **Note:** The control uses a JavaScript number to keep its value, which has a certain precision limit.
    *
    * In general, exponential notation is used:
    * 	 - if there are more than 21 digits before the decimal point.
@@ -92525,7 +93447,7 @@ declare module "sap/m/StepInput" {
    * Also, the JavaScript number persists its precision up to 16 digits. If the user enters a number with
    * a greater precision, the value will be rounded.
    *
-   * This limitation comes from JavaScript itself and it cannot be worked around in a feasible way.
+   * This restriction comes from JavaScript itself and it cannot be worked around in a feasible way.
    *
    * **Note:** Formatting of decimal numbers is browser dependent, regardless of framework number formatting.
    */
@@ -96747,7 +97669,8 @@ declare module "sap/m/TablePersoProvider" {
     static getMetadata(): ManagedObjectMetadata;
     /**
      * Retrieves the personalization bundle.
-     *  This must return a {@link http://api.jquery.com/promise/ jQuery promise}.
+     *  This must return a {@link http://api.jquery.com/promise/ jQuery Promise}, which resolves in the desired
+     * table state.
      */
     getPersData(): void;
     /**
@@ -104358,6 +105281,13 @@ declare module "sap/m/TreeItemBase" {
   export default class TreeItemBase extends ListItemBase {
     /**
      * Constructor for a new TreeItemBase.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.ListItemBase#constructor
+     * sap.m.ListItemBase} can be used.
      */
     constructor(
       /**
@@ -104367,6 +105297,13 @@ declare module "sap/m/TreeItemBase" {
     );
     /**
      * Constructor for a new TreeItemBase.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.ListItemBase#constructor
+     * sap.m.ListItemBase} can be used.
      */
     constructor(
       /**
@@ -104465,7 +105402,7 @@ declare module "sap/m/upload/Uploader" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.62
+   * @SINCE 1.63
    *
    * A basic implementation for uploading and downloading one or multiple files.
    */
@@ -105010,7 +105947,7 @@ declare module "sap/m/upload/UploadSet" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.62
+   * @SINCE 1.63
    *
    * This control allows you to upload one or more files from your devices (desktop, tablet, or phone) and
    * attach them to your application.
@@ -106958,7 +107895,7 @@ declare module "sap/m/upload/UploadSetItem" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.62
+   * @SINCE 1.63
    *
    * Item that represents one file to be uploaded using the {@link sap.m.upload.UploadSet} control.
    */
@@ -107768,7 +108705,7 @@ declare module "sap/m/UploadCollection" {
    * The consuming application needs to take into account that the consistency checks of the model during
    * the upload of the file need to be performed, for example, if the user is editing or deleting a file.
    *
-   *  As of version 1.62, there is an {@link sap.m.upload.UploadSet} control available that is based on this
+   *  As of version 1.63, there is an {@link sap.m.upload.UploadSet} control available that is based on this
    * control. {@link sap.m.upload.UploadSet} provides enhanced handling of headers and requests, unified behavior
    * of instant and deferred uploads, as well as improved progress indication.
    */
@@ -107863,7 +108800,7 @@ declare module "sap/m/UploadCollection" {
      * otherwise it will be bound to this `sap.m.UploadCollection` itself.
      *
      * The event is triggered when files are selected in the FileUploader dialog. Applications can set parameters
-     * and headerParameters which will be dispatched to the embedded FileUploader control. Limitation: parameters
+     * and headerParameters which will be dispatched to the embedded FileUploader control. Restriction: parameters
      * and headerParameters are not supported by Internet Explorer 9.
      */
     attachChange(
@@ -108343,7 +109280,7 @@ declare module "sap/m/UploadCollection" {
         documentId?: string;
         /**
          * A FileList of individually selected files from the underlying system. See www.w3.org for the FileList
-         * Interface definition. Limitation: Internet Explorer 9 supports only single file with property file.name.
+         * Interface definition. Restriction: Internet Explorer 9 supports only single file with property file.name.
          * Since version 1.28.0.
          */
         files?: object[];
@@ -108382,8 +109319,8 @@ declare module "sap/m/UploadCollection" {
          */
         documentId?: string;
         /**
-         * A FileList of individually selected files from the underlying system. Limitation: Internet Explorer 9
-         * supports only single file with property file.name. Since version 1.28.0.
+         * A FileList of individually selected files from the underlying system. Restriction: Internet Explorer
+         * 9 supports only single file with property file.name. Since version 1.28.0.
          */
         files?: object[];
       }
@@ -108430,8 +109367,8 @@ declare module "sap/m/UploadCollection" {
          */
         fileSize?: string;
         /**
-         * A FileList of individually selected files from the underlying system. Limitation: Internet Explorer 9
-         * supports only single file with property file.name. Since 1.28.0.
+         * A FileList of individually selected files from the underlying system. Restriction: Internet Explorer
+         * 9 supports only single file with property file.name. Since 1.28.0.
          */
         files?: object[];
       }
@@ -108483,8 +109420,8 @@ declare module "sap/m/UploadCollection" {
          */
         mimeType?: string;
         /**
-         * A FileList of individually selected files from the underlying system. Limitation: Internet Explorer 9
-         * supports only single file. Since 1.28.0.
+         * A FileList of individually selected files from the underlying system. Restriction: Internet Explorer
+         * 9 supports only single file. Since 1.28.0.
          */
         files?: object[];
       }
@@ -109242,7 +110179,7 @@ declare module "sap/m/UploadCollection" {
      * otherwise it will be bound to this `sap.m.UploadCollection` itself.
      *
      * The event is triggered when files are selected in the FileUploader dialog. Applications can set parameters
-     * and headerParameters which will be dispatched to the embedded FileUploader control. Limitation: parameters
+     * and headerParameters which will be dispatched to the embedded FileUploader control. Restriction: parameters
      * and headerParameters are not supported by Internet Explorer 9.
      */
     attachChange(
@@ -109569,7 +110506,7 @@ declare module "sap/m/UploadCollection" {
 
     /**
      * The event is triggered when files are selected in the FileUploader dialog. Applications can set parameters
-     * and headerParameters which will be dispatched to the embedded FileUploader control. Limitation: parameters
+     * and headerParameters which will be dispatched to the embedded FileUploader control. Restriction: parameters
      * and headerParameters are not supported by Internet Explorer 9.
      */
     change?: Function;
@@ -110870,6 +111807,13 @@ declare module "sap/m/VBox" {
   export default class VBox extends FlexBox {
     /**
      * Constructor for a new VBox.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.FlexBox#constructor
+     * sap.m.FlexBox} can be used.
      * See:
      * 	https://www.w3.org/TR/css-flexbox-1/
      * 	https://www.w3.org/TR/css-flexbox-1/#propdef-justify-content
@@ -110884,6 +111828,13 @@ declare module "sap/m/VBox" {
     );
     /**
      * Constructor for a new VBox.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.FlexBox#constructor
+     * sap.m.FlexBox} can be used.
      * See:
      * 	https://www.w3.org/TR/css-flexbox-1/
      * 	https://www.w3.org/TR/css-flexbox-1/#propdef-justify-content
@@ -114980,13 +115931,6 @@ declare namespace sap {
     export const Support: undefined;
 
     /**
-     * @SINCE 1.90.0
-     *
-     * Specifies `IconTabBar` tab overflow mode.
-     */
-    export const TabsOverflowMode: undefined;
-
-    /**
      * @SINCE 1.20
      *
      * Hide the soft keyboard.
@@ -115060,7 +116004,7 @@ declare namespace sap {
       /**
        * Adds CSS classes and styles to the given RenderManager, depending on the given configuration for background
        * color and background image. To be called by control renderers supporting the global themable background
-       * image within their root tag, before they call writeClasses() and writeStyles().
+       * image within their root tag, before they call openEnd, voidEnd, writeClasses() and writeStyles().
        */
       function addBackgroundColorStyles(
         /**
@@ -115584,7 +116528,11 @@ declare namespace sap {
 
     "sap/m/PlanningCalendarView": undefined;
 
+    "sap/m/plugins/ColumnResizer": undefined;
+
     "sap/m/plugins/DataStateIndicator": undefined;
+
+    "sap/m/plugins/PasteProvider": undefined;
 
     "sap/m/Popover": undefined;
 

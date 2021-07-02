@@ -397,7 +397,7 @@ buffer.readObject(undefined);
 buffer.readObject(number);
 
 // $ExpectType void
-buffer.writeObject(number, jsObject);
+buffer.writeObject(jsObject, number);
 
 // $ExpectType Buffer
 buffer.readPointer();
@@ -413,7 +413,7 @@ buffer.readPointer(number, undefined);
 buffer.readPointer(number, number);
 
 // $ExpectType void
-buffer.writePointer(number, buffer);
+buffer.writePointer(buffer, number);
 
 // $ExpectType string
 buffer.readCString();
@@ -423,11 +423,11 @@ buffer.readCString(undefined);
 buffer.readCString(number);
 
 // $ExpectType void
-buffer.writeCString(number, string);
+buffer.writeCString(string, number);
 // $ExpectType void
-buffer.writeCString(number, string, undefined);
+buffer.writeCString(string, number, undefined);
 // $ExpectType void
-buffer.writeCString(number, string, string);
+buffer.writeCString(string, number, string);
 
 // $ExpectType string | number
 buffer.readInt64BE();
@@ -437,7 +437,7 @@ buffer.readInt64BE(undefined);
 buffer.readInt64BE(number);
 
 // $ExpectType void
-buffer.writeInt64BE(number, int64Like);
+buffer.writeInt64BE(int64Like, number);
 
 // $ExpectType string | number
 buffer.readUInt64BE();
@@ -447,7 +447,7 @@ buffer.readUInt64BE(undefined);
 buffer.readUInt64BE(number);
 
 // $ExpectType void
-buffer.writeUInt64BE(number, int64Like);
+buffer.writeUInt64BE(int64Like, number);
 
 // $ExpectType string | number
 buffer.readInt64LE();
@@ -457,7 +457,7 @@ buffer.readInt64LE(undefined);
 buffer.readInt64LE(number);
 
 // $ExpectType void
-buffer.writeInt64LE(number, int64Like);
+buffer.writeInt64LE(int64Like, number);
 
 // $ExpectType string | number
 buffer.readUInt64LE();
@@ -467,7 +467,7 @@ buffer.readUInt64LE(undefined);
 buffer.readUInt64LE(number);
 
 // $ExpectType void
-buffer.writeUInt64LE(number, int64Like);
+buffer.writeUInt64LE(int64Like, number);
 
 // $ExpectType Buffer
 buffer.reinterpret(number);

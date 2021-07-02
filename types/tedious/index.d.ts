@@ -522,6 +522,12 @@ export class Request extends events.EventEmitter {
      * Resumes the flow of data from the database.
      */
     resume():void;
+
+    /**
+     * Sets a timeout for this request. Default is 1500ms
+     * @param timeout time in ms
+     */
+    setTimeout(timeout: number): void;
 }
 
 export interface BulkLoadColumnOpts extends ParameterOptions {

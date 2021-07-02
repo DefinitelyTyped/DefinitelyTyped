@@ -845,23 +845,47 @@ export type MUIDataTableColumnDef = string | MUIDataTableColumn;
 
 type RenderCustomComponent<P> = (props: P) => React.ReactNode;
 
+export interface MUIDataTableCheckboxProps {
+    checked: boolean;
+    classes: {
+        checked: string;
+        disabled: string;
+        root: string;
+    };
+    color: 'primary' | 'secondary';
+    'data-description': 'row-select' | 'row-select-header' | 'table-filter' | 'table-view-col';
+    'data-index': number | null;
+    disabled: boolean;
+    indeterminante: boolean;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+}
+
 export interface MUIDataTableProps {
-    columns: MUIDataTableColumnDef[];
-    components?: Partial<{
-        ExpandButton: RenderCustomComponent<MUIDataTableExpandButton> | React.ReactNode;
-        TableBody: RenderCustomComponent<MUIDataTableBody> | React.ReactNode;
-        TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNode;
-        TableHead: RenderCustomComponent<MUIDataTableHead> | React.ReactNode;
-        TableResize: RenderCustomComponent<MUIDataTableResize> | React.ReactNode;
-        TableToolbar: RenderCustomComponent<MUIDataTableToolbar> | React.ReactNode;
-        TableToolbarSelect: RenderCustomComponent<MUIDataTableToolbarSelect> | React.ReactNode;
-        TableFilterList: RenderCustomComponent<MUIDataTableFilterList> | React.ReactNode;
-        Tooltip: React.ReactNode;
-    }>;
-    data: Array<object | number[] | string[]>;
-    options?: MUIDataTableOptions;
-    title: string | React.ReactNode;
-    innerRef?: React.RefObject<React.Component<MUIDataTableProps, MUIDataTableState> | null | undefined>;
+  columns: MUIDataTableColumnDef[];
+  components?: Partial<{
+    Checkbox: RenderCustomComponent<MUIDataTableCheckboxProps> | React.ReactNode;
+    ExpandButton: RenderCustomComponent<MUIDataTableExpandButton> | React.ReactNode;
+    TableBody: RenderCustomComponent<MUIDataTableBody> | React.ReactNode;
+    TableViewCol: RenderCustomComponent<MUIDataTableViewCol> | React.ReactNode;
+    TableFilterList: RenderCustomComponent<MUIDataTableFilterList> | React.ReactNode;
+    TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNode;
+    TableHead: RenderCustomComponent<MUIDataTableHead> | React.ReactNode;
+    TableResize: RenderCustomComponent<MUIDataTableResize> | React.ReactNode;
+    TableToolbar: RenderCustomComponent<MUIDataTableToolbar> | React.ReactNode;
+    TableToolbarSelect: RenderCustomComponent<MUIDataTableToolbarSelect> | React.ReactNode;
+    Tooltip: React.ReactNode;
+    icons: Partial<{
+      SearchIcon: React.ReactNode;
+      DownloadIcon: React.ReactNode;
+      PrintIcon: React.ReactNode;
+      ViewColumnIcon: React.ReactNode;
+      FilterIcon: React.ReactNode;
+    }>
+  }>;
+  data: Array<object | number[] | string[]>;
+  options?: MUIDataTableOptions;
+  title: string | React.ReactNode;
+  innerRef?: React.RefObject<React.Component<MUIDataTableProps, MUIDataTableState> | null | undefined>;
 }
 
 export interface MUIDataTableExpandButton {

@@ -12,7 +12,7 @@ export interface Options {
     anchorXUnits?: IconAnchorUnits;
     anchorYUnits?: IconAnchorUnits;
     color?: Color | string;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
     img?: HTMLImageElement | HTMLCanvasElement;
     offset?: number[];
     displacement?: number[];

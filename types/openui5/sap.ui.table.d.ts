@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -425,6 +425,13 @@ declare module "sap/ui/table/AnalyticalColumnMenu" {
   export default class AnalyticalColumnMenu extends ColumnMenu {
     /**
      * Constructor for a new AnalyticalColumnMenu.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.table.ColumnMenu#constructor
+     * sap.ui.table.ColumnMenu} can be used.
      */
     constructor(
       /**
@@ -434,6 +441,13 @@ declare module "sap/ui/table/AnalyticalColumnMenu" {
     );
     /**
      * Constructor for a new AnalyticalColumnMenu.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.table.ColumnMenu#constructor
+     * sap.ui.table.ColumnMenu} can be used.
      */
     constructor(
       /**
@@ -2316,6 +2330,13 @@ declare module "sap/ui/table/ColumnMenu" {
      * **Note:** Applications must not use or change the default `sap.ui.table.ColumnMenu` of a column in any
      * way or create own instances of `sap.ui.table.ColumnMenu`. To add a custom menu to a column, use the aggregation
      * `menu` with a new instance of `sap.ui.unified.Menu`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor
+     * sap.ui.unified.Menu} can be used.
      */
     constructor(
       /**
@@ -2329,6 +2350,13 @@ declare module "sap/ui/table/ColumnMenu" {
      * **Note:** Applications must not use or change the default `sap.ui.table.ColumnMenu` of a column in any
      * way or create own instances of `sap.ui.table.ColumnMenu`. To add a custom menu to a column, use the aggregation
      * `menu` with a new instance of `sap.ui.unified.Menu`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor
+     * sap.ui.unified.Menu} can be used.
      */
     constructor(
       /**
@@ -5130,6 +5158,9 @@ declare module "sap/ui/table/Table" {
      *
      * Flag whether the column header is visible or not.
      *
+     * **Caution:** Please be aware that when setting this property to `false`, a 100% accessibility of the
+     * table can't be guaranteed any more.
+     *
      * Default value is `true`.
      */
     getColumnHeaderVisible(): boolean;
@@ -5859,6 +5890,9 @@ declare module "sap/ui/table/Table" {
      * Sets a new value for property {@link #getColumnHeaderVisible columnHeaderVisible}.
      *
      * Flag whether the column header is visible or not.
+     *
+     * **Caution:** Please be aware that when setting this property to `false`, a 100% accessibility of the
+     * table can't be guaranteed any more.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -6847,6 +6881,9 @@ declare module "sap/ui/table/Table" {
 
     /**
      * Flag whether the column header is visible or not.
+     *
+     * **Caution:** Please be aware that when setting this property to `false`, a 100% accessibility of the
+     * table can't be guaranteed any more.
      */
     columnHeaderVisible?: boolean | PropertyBindingInfo;
 

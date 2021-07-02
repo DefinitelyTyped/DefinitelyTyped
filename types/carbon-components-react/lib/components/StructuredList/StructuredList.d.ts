@@ -9,6 +9,8 @@ export interface StructuredListWrapperProps extends ReactDivAttr {
      * @deprecated
      */
     border?: boolean,
+    isCondensed?: boolean;
+    isFlush?: boolean;
     selection?: boolean,
 }
 

@@ -43,7 +43,7 @@ if ('mediaSession' in navigator && navigator.mediaSession) {
 
     navigator.mediaSession.setActionHandler('seekto', (event) => {
         if (event.fastSeek === false) {
-            audio.currentTime = event.seekTime;
+            audio.currentTime = event.seekTime ?? 0;
         }
         updatePositionState();
     });

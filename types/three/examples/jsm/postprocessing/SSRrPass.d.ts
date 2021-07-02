@@ -31,11 +31,11 @@ export interface SSRrPassParams {
     renderer: WebGLRenderer;
     scene: Scene;
     camera: Camera;
-    width?: number;
-    height?: number;
+    width?: number | undefined;
+    height?: number | undefined;
     selects: Mesh[] | null;
     encoding: TextureEncoding;
-    morphTargets?: boolean;
+    morphTargets?: boolean | undefined;
 }
 
 export class SSRrPass extends Pass {

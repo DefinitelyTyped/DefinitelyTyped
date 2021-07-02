@@ -15,6 +15,10 @@ declare class CssMinimizerPlugin {
      * Apply the plugin
      */
     apply(compiler: Compiler): void;
+
+    static cssnanoMinify: CssMinimizerPlugin.MinifyFunc;
+    static cssoMinify: CssMinimizerPlugin.MinifyFunc;
+    static cleanCssMinify: CssMinimizerPlugin.MinifyFunc;
 }
 
 declare namespace CssMinimizerPlugin {

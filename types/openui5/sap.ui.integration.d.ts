@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -1117,6 +1117,31 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.91)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.integration.Host`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
+     *
+     * Fired when a message from channels like navigator.serviceWorker is received.
+     */
+    attachMessage(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Detaches event handler `fnFunction` from the {@link #event:action action} event of this `sap.ui.integration.Host`.
@@ -1124,6 +1149,23 @@ declare module "sap/ui/integration/Host" {
      * The passed function and listener object must match the ones used for event registration.
      */
     detachAction(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.91)
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:message message} event of this `sap.ui.integration.Host`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachMessage(
       /**
        * The function to be called, when the event occurs
        */
@@ -1189,6 +1231,19 @@ declare module "sap/ui/integration/Host" {
         type?: CardActionType | keyof typeof CardActionType;
       }
     ): boolean;
+    /**
+     * @EXPERIMENTAL (since 1.91)
+     *
+     * Fires event {@link #event:message message} to attached listeners.
+     */
+    fireMessage(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        data?: object;
+      }
+    ): this;
     /**
      * @EXPERIMENTAL (since 1.75)
      *
@@ -1321,6 +1376,26 @@ declare module "sap/ui/integration/Host" {
        */
       oListener?: object
     ): this;
+    /**
+     * @EXPERIMENTAL (since 1.91)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.integration.Host`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
+     *
+     * Fired when a message from channels like navigator.serviceWorker is received.
+     */
+    attachMessage(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
+       */
+      oListener?: object
+    ): this;
   }
 
   export interface $HostSettings extends $ElementSettings {
@@ -1350,6 +1425,13 @@ declare module "sap/ui/integration/Host" {
      * Fired when an action is triggered.
      */
     action?: Function;
+
+    /**
+     * @EXPERIMENTAL (since 1.91)
+     *
+     * Fired when a message from channels like navigator.serviceWorker is received.
+     */
+    message?: Function;
   }
 }
 
@@ -2577,6 +2659,8 @@ declare namespace sap {
     "sap/ui/integration/designtime/baseEditor/propertyEditor/PropertyEditorFactory": undefined;
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/selectEditor/SelectEditor": undefined;
+
+    "sap/ui/integration/designtime/baseEditor/propertyEditor/separatorEditor/SeparatorEditor": undefined;
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/stringEditor/StringEditor": undefined;
 
