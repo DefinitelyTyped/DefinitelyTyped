@@ -1,4 +1,4 @@
-// Type definitions for validator.js 13.1
+// Type definitions for validator.js 13.6
 // Project: https://github.com/validatorjs/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -11,8 +11,8 @@
 //                 Jace Warren <https://github.com/keatz55>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
 //                 Vlad Poluch <https://github.com/vlapo>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 declare namespace validator {
     const version: string;
@@ -49,6 +49,7 @@ declare namespace validator {
         | 'da-DK'
         | 'de-DE'
         | 'el-GR'
+        | 'es-AR'
         | 'es-ES'
         | 'fr-FR'
         | 'it-IT'
@@ -113,6 +114,7 @@ declare namespace validator {
         | 'da-DK'
         | 'de-DE'
         | 'el-GR'
+        | 'es-AR'
         | 'es-ES'
         | 'fr-FR'
         | 'it-IT'
@@ -179,6 +181,10 @@ declare namespace validator {
      * Check if a string is base32 encoded.
      */
     function isBase32(str: string): boolean;
+    /**
+     * check if a string is base58 encoded
+     */
+    function isBase58(str: string): boolean;
 
     interface IsBase64Options {
         /**
@@ -1098,6 +1104,11 @@ declare namespace validator {
          */
         require_host?: boolean;
         /**
+         * if set as true isURL will check if port is present in the URL
+         * @default false
+         */
+        require_port?: boolean;
+        /**
          * @default true
          */
         require_valid_protocol?: boolean;
@@ -1151,6 +1162,11 @@ declare namespace validator {
      * Check if the string contains a mixture of full and half-width chars.
      */
     function isVariableWidth(str: string): boolean;
+
+    /**
+     * Checks that the string is a [valid VAT number
+     */
+    function isVAT(str: string, countryCode: string): boolean;
 
     /**
      * Checks characters if they appear in the whitelist.
@@ -1355,3 +1371,5 @@ declare namespace validator {
     function toString(input: any): string;
 }
 export default validator;
+
+export as namespace validator;

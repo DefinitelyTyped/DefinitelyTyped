@@ -290,3 +290,7 @@ async () => {
     blob.slice(1, 2); // $ExpectType Blob
     blob.slice(1, 2, 'other'); // $ExpectType Blob
 };
+
+{
+    atob(btoa('test')); // $ExpectType string
+}

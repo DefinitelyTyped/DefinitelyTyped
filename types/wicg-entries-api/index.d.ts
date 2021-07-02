@@ -4,18 +4,6 @@
 //                 Ingvar Stepanyan <https://github.com/RReverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class BaseFileSystemEntry {
-    protected constructor();
-
-    readonly isFile: boolean;
-    readonly isDirectory: boolean;
-    readonly name: string;
-    readonly fullPath: string;
-    readonly filesystem: FileSystem;
-
-    getParent(successCallback?: FileSystemEntryCallback, errorCallback?: ErrorCallback): void;
-}
-
 type ErrorCallback = (err: DOMException) => void;
 type FileSystemEntryCallback = (entry: FileSystemEntry) => void;
 type FileSystemEntriesCallback = (entries: FileSystemEntry[]) => void;
@@ -27,9 +15,17 @@ interface FileSystemFlags {
 }
 
 declare global {
-    type FileSystemEntry = FileSystemDirectoryEntry | FileSystemFileEntry;
+    interface FileSystemEntry {
+        readonly isFile: boolean;
+        readonly isDirectory: boolean;
+        readonly name: string;
+        readonly fullPath: string;
+        readonly filesystem: FileSystem;
 
-    interface FileSystemDirectoryEntry extends BaseFileSystemEntry {
+        getParent(successCallback?: FileSystemEntryCallback, errorCallback?: ErrorCallback): void;
+    }
+
+    interface FileSystemDirectoryEntry extends FileSystemEntry {
         createReader(): FileSystemDirectoryReader;
         getFile(
             path?: string,
@@ -49,7 +45,7 @@ declare global {
         readEntries(successCallback: FileSystemEntriesCallback, errorCallback?: ErrorCallback): void;
     }
 
-    interface FileSystemFileEntry extends BaseFileSystemEntry {
+    interface FileSystemFileEntry extends FileSystemEntry {
         file(successCallback: FileCallback, errorCallback?: ErrorCallback): void;
     }
 
