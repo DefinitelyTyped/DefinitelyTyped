@@ -1,4 +1,4 @@
-// Type definitions for extract-colors 1.1.18
+// Type definitions for extract-colors 1.1
 // Project: https://github.com/Namide/extract-colors
 // Definitions by: Matt <https://github.com/punctuations>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
  * @param src String for a path of image, Image or ImageData.
  * @param options Optional parameters.
  */
-export declare function extractColors(src: string, options?: Options): Promise<Colors[]>;
+export function extractColors(src: string, options?: Options): Promise<Colors[]>;
 
 export interface Options {
     /**
@@ -78,3 +78,5 @@ interface Colors {
      */
     saturation: number;
 }
+
+export {};
