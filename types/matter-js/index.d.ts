@@ -1275,7 +1275,7 @@ declare namespace Matter {
          * @param {} object
          * @return {composite} The original composite with the objects added
          */
-        static add(composite: Composite, object: Body | Composite | Constraint): Composite;
+        static add(composite: Composite, object: Body | Composite | Constraint | MouseConstraint | Array<Body | Composite | Constraint | MouseConstraint>): Composite;
 
         /**
          * Returns all bodies in the given composite, including all bodies in its children, recursively.
@@ -3196,7 +3196,7 @@ declare namespace Matter {
          * @param body
          * @returns world
          */
-        static add(world: World, body: Body | Array<Body> | Composite | Array<Composite> | Constraint | Array<Constraint> | MouseConstraint): World;
+        static add(world: World, body: Body | Composite | Constraint | MouseConstraint | Array<Body | Composite | Constraint | MouseConstraint>): World;
 
         /**
          * An alias for Composite.addBody since World is also a Composite
