@@ -21,6 +21,7 @@ app.use(session({
 
 const store2: Store = new pgSession({
     conString: "postgres://postgres@localhost:5432/foo",
+    createTableIfMissing: true,
     ttl: 3600,
     schemaName: "someschema",
     pruneSessionInterval: false,

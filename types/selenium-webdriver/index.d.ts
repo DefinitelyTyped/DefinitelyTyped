@@ -1269,11 +1269,34 @@ export class Window {
   setRect({x, y, width, height}: Partial<IRectangle>): Promise<IRectangle>;
 
   /**
-   * Maximizes the current window.
+   * Maximizes the current window. The exact behavior of this command is
+   * specific to individual window managers, but typically involves increasing
+   * the window to the maximum available size without going full-screen.
    * @return {!Promise} A promise that will be resolved when the
    *     command has completed.
    */
   maximize(): Promise<void>;
+
+  /**
+   * Minimizes the current window. The exact behavior of this command is
+   * specific to individual window managers, but typically involves hiding
+   * the window in the system tray.
+   * @return {!Promise} A promise that will be resolved when the
+   *     command has completed.
+   */
+  minimize(): Promise<void>;
+
+  /**
+   * Invokes the "full screen" operation on the current window. The exact
+   * behavior of this command is specific to individual window managers, but
+   * this will typically increase the window size to the size of the physical
+   * display and hide the browser chrome.
+   *
+   * @return {!Promise<void>} A promise that will be resolved when the command
+   *     has completed.
+   * @see <https://fullscreen.spec.whatwg.org/#fullscreen-an-element>
+   */
+  fullsceen(): Promise<void>;
 
   // endregion
 }

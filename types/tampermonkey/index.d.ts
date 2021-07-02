@@ -80,8 +80,14 @@ declare namespace Tampermonkey {
         headers?: RequestHeaders;
         /** String to send via a POST request */
         data?: string;
+        /** A cookie to be patched into the sent cookie set */
+        cookie?: string;
         /** Send the data string in binary mode */
         binary?: boolean;
+        /** Don't cache the resource */
+        nocache?: boolean;
+        /** Revalidate maybe cached content */
+        revalidate?: boolean;
         /** Timeout in ms */
         timeout?: number;
         /** Property which will be added to the response object */
@@ -98,7 +104,7 @@ declare namespace Tampermonkey {
          */
         fetch?: boolean;
         /** Username for authentication */
-        username?: string;
+        user?: string;
         password?: string;
 
         // Events
@@ -209,6 +215,8 @@ declare namespace Tampermonkey {
         image?: string;
         /** Flag whether to highlight the tab that sends the notification */
         highlight?: boolean;
+        /** Whether to play or not play a sound */
+        silent?: boolean;
         /** Time after that the notification will be hidden. `0` = disabled */
         timeout?: number;
         /**

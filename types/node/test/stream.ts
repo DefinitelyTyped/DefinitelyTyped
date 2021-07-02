@@ -5,6 +5,7 @@ import { createGzip, constants } from 'zlib';
 import assert = require('assert');
 import { Http2ServerResponse } from 'http2';
 import { pipeline as pipelinePromise } from 'stream/promises';
+import { stdout } from 'process';
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -191,7 +192,7 @@ function streamPipelineFinished() {
     let cancel = finished(process.stdin, (err?: Error | null) => {});
     cancel();
 
-    cancel = finished(process.stdin, { readable: false }, (err?: Error | null) => {});
+    cancel = finished(process.stdin, { readable: false, signal: new AbortSignal() }, (err?: Error | null) => {});
     cancel();
 
     pipeline(process.stdin, process.stdout, (err?: Error | null) => {});
@@ -296,6 +297,9 @@ function streamPipelineAsyncTransform() {
             yield null;
         },
         err => console.error(err));
+
+    // Accepts buffer as source
+    pipeline(Buffer.from('test'), stdout);
 }
 
 async function streamPipelineAsyncPromiseTransform() {

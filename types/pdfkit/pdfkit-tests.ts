@@ -168,6 +168,14 @@ doc.image('images/test.jpeg', 320, 280, {
     scale: 0.25,
 }).text('Scale', 320, 265);
 
+doc.list([1,2,3], {listType: 'bullet', bulletRadius: 2});
+
+doc.list([1,2,3], {listType: 'bullet', bulletIndent: 2});
+
+doc.list([4,5,6], {listType: 'numbered', textIndent: 2 });
+
+doc.list([7,8,9], {listType: 'lettered'});
+
 doc.image(
     {
         /* something like a buffer */

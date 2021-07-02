@@ -616,6 +616,10 @@ declare module 'leaflet' {
              * Operation timeout
              */
             timeout?: number;
+            /**
+             * Will include credentials for CORS requests
+             */
+             withCredentials?: boolean;
         }
 
         /**

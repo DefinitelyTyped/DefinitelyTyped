@@ -1,7 +1,7 @@
 declare module 'dgram' {
     import { AddressInfo } from 'net';
     import * as dns from 'dns';
-    import EventEmitter = require('events');
+    import { EventEmitter, Abortable } from 'events';
 
     interface RemoteInfo {
         address: string;
@@ -19,7 +19,7 @@ declare module 'dgram' {
 
     type SocketType = "udp4" | "udp6";
 
-    interface SocketOptions {
+    interface SocketOptions extends Abortable {
         type: SocketType;
         reuseAddr?: boolean;
         /**

@@ -141,6 +141,11 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * Set to true to disable both the phone number <input/> and the country <select/>
      */
     disabled?: boolean;
+    /**
+     * @deprecated
+     * `displayInitialValueAsLocalNumber` property has been
+     * superceded by `initialValueFormat` property.
+     */
     displayInitialValueAsLocalNumber?: boolean;
     error?: string;
     flagComponent?: React.ComponentType<{ country: string; flagsPath: string; flags: FlagsMap }>;
@@ -183,6 +188,12 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * the user can fill in the rest of their phone number in the input field.
      */
     international?: boolean;
+
+    /**
+     * If an initial value is passed, and initialValueFormat property is not set, then the initial value
+     * is formatted in international format.
+     */
+    initialValueFormat?: "national";
 
     /**
      * If `country` property is passed along with `international={true}` property

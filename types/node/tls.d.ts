@@ -1,4 +1,5 @@
 declare module 'tls' {
+    import { X509Certificate } from 'crypto';
     import * as net from 'net';
 
     const CLIENT_RENEG_LIMIT: number;
@@ -294,6 +295,16 @@ declare module 'tls' {
          * and should not be relied on.
          */
         enableTrace(): void;
+
+        /**
+         * If there is no peer certificate, or the socket has been destroyed, `undefined` will be returned.
+         */
+        getPeerX509Certificate(): X509Certificate | undefined;
+
+        /**
+         * If there is no local certificate, or the socket has been destroyed, `undefined` will be returned.
+         */
+        getX509Certificate(): X509Certificate | undefined;
 
         /**
          * @param length number of bytes to retrieve from keying material

@@ -28,10 +28,10 @@ interface PhotoCapabilities {
 }
 
 interface PhotoSettings {
-    fillLightMode?: FillLightMode;
-    imageHeight?: number;
-    imageWidth?: number;
-    redEyeReduction?: boolean;
+    fillLightMode?: FillLightMode | undefined;
+    imageHeight?: number | undefined;
+    imageWidth?: number | undefined;
+    redEyeReduction?: boolean | undefined;
 }
 
 interface MediaSettingsRange {
@@ -57,6 +57,8 @@ interface MediaTrackCapabilities {
     sharpness: MediaSettingsRange;
 
     focusDistance: MediaSettingsRange;
+    pan: MediaSettingsRange;
+    tilt: MediaSettingsRange;
     zoom: MediaSettingsRange;
     torch: boolean;
 }
@@ -66,45 +68,49 @@ declare namespace W3C {
 }
 
 interface MediaTrackConstraintSet {
-    whiteBalanceMode?: W3C.ConstrainString;
-    exposureMode?: W3C.ConstrainString;
-    focusMode?: W3C.ConstrainString;
-    pointsOfInterest?: W3C.ConstrainPoint2D;
+    whiteBalanceMode?: W3C.ConstrainString | undefined;
+    exposureMode?: W3C.ConstrainString | undefined;
+    focusMode?: W3C.ConstrainString | undefined;
+    pointsOfInterest?: W3C.ConstrainPoint2D | undefined;
 
-    exposureCompensation?: W3C.ConstrainDouble;
-    colorTemperature?: W3C.ConstrainDouble;
-    iso?: W3C.ConstrainDouble;
+    exposureCompensation?: W3C.ConstrainDouble | undefined;
+    colorTemperature?: W3C.ConstrainDouble | undefined;
+    iso?: W3C.ConstrainDouble | undefined;
 
-    brightness?: W3C.ConstrainDouble;
-    contrast?: W3C.ConstrainDouble;
-    saturation?: W3C.ConstrainDouble;
-    sharpness?: W3C.ConstrainDouble;
+    brightness?: W3C.ConstrainDouble | undefined;
+    contrast?: W3C.ConstrainDouble | undefined;
+    saturation?: W3C.ConstrainDouble | undefined;
+    sharpness?: W3C.ConstrainDouble | undefined;
 
-    focusDistance?: W3C.ConstrainDouble;
-    zoom?: W3C.ConstrainDouble;
+    focusDistance?: W3C.ConstrainDouble | undefined;
+    zoom?: boolean | W3C.ConstrainDouble | undefined;
+    pan?: boolean | W3C.ConstrainDouble | undefined;
+    tilt?: boolean | W3C.ConstrainDouble | undefined;
 
-    torch?: W3C.ConstrainBoolean;
+    torch?: W3C.ConstrainBoolean | undefined;
 }
 
 interface MediaTrackSettings {
-    whiteBalanceMode: MeteringMode;
-    exposureMode: MeteringMode;
-    focusMode: MeteringMode;
-    pointsOfInterest: Point2D[];
+    whiteBalanceMode?: MeteringMode | undefined;
+    exposureMode?: MeteringMode | undefined;
+    focusMode?: MeteringMode | undefined;
+    pointsOfInterest?: Point2D[] | undefined;
 
-    exposureCompensation: number;
-    colorTemperature: number;
-    iso: number;
+    exposureCompensation?: number | undefined;
+    colorTemperature?: number | undefined;
+    iso?: number | undefined;
 
-    brightness: number;
-    contrast: number;
-    saturation: number;
-    sharpness: number;
+    brightness?: number | undefined;
+    contrast?: number | undefined;
+    saturation?: number | undefined;
+    sharpness?: number | undefined;
 
-    focusDistance: number;
-    zoom: number;
+    focusDistance?: number | undefined;
+    pan?: number | undefined;
+    tilt?: number | undefined;
+    zoom?: number | undefined;
 
-    torch: boolean;
+    torch?: boolean | undefined;
 }
 
 interface MediaTrackSupportedConstraints {

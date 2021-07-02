@@ -5,10 +5,10 @@ import { ComponentType, ReactNode } from 'react';
 declare namespace EditorProvider {
     interface Props {
         children: ReactNode;
-        blocks?: BlockInstance[];
-        initialEdits?: object;
-        useSubRegistry?: boolean;
-        settings?: Partial<EditorSettings>;
+        blocks?: BlockInstance[] | undefined;
+        initialEdits?: object | undefined;
+        useSubRegistry?: boolean | undefined;
+        settings?: Partial<EditorSettings> | undefined;
         post: Record<string, any>; // FIXME: fix this later on if needed
     }
 }

@@ -34,6 +34,7 @@
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Wyatt Johnson <https://github.com/wyattjoh>
+//                 Boris Figovsky <https://github.com/borfig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -483,7 +484,6 @@ export interface MongoClientOptions
         SSLOptions,
         TLSOptions,
         HighAvailabilityOptions,
-        WriteConcern,
         UnifiedTopologyOptions {
     /**
      * The logging level (error/warn/info/debug)
@@ -1444,6 +1444,7 @@ export class Db extends EventEmitter {
 
 export interface CommonOptions extends WriteConcern {
     session?: ClientSession;
+    writeConcern?: WriteConcern | string;
 }
 
 /**
@@ -1940,23 +1941,23 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
      */
     distinct<Key extends keyof WithId<TSchema>>(
         key: Key,
-        callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>,
+        callback: MongoCallback<Array<FlattenIfArray<WithId<Required<TSchema>>[Key]>>>,
     ): void;
     distinct<Key extends keyof WithId<TSchema>>(
         key: Key,
         query: FilterQuery<TSchema>,
-        callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>,
+        callback: MongoCallback<Array<FlattenIfArray<WithId<Required<TSchema>>[Key]>>>,
     ): void;
     distinct<Key extends keyof WithId<TSchema>>(
         key: Key,
         query?: FilterQuery<TSchema>,
         options?: MongoDistinctPreferences,
-    ): Promise<Array<FlattenIfArray<WithId<TSchema>[Key]>>>;
+    ): Promise<Array<FlattenIfArray<WithId<Required<TSchema>>[Key]>>>;
     distinct<Key extends keyof WithId<TSchema>>(
         key: Key,
         query: FilterQuery<TSchema>,
         options: MongoDistinctPreferences,
-        callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>,
+        callback: MongoCallback<Array<FlattenIfArray<WithId<Required<TSchema>>[Key]>>>,
     ): void;
     distinct(key: string, callback: MongoCallback<any[]>): void;
     distinct(key: string, query: FilterQuery<TSchema>, callback: MongoCallback<any[]>): void;

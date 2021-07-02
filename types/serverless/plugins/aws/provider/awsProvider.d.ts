@@ -9,7 +9,7 @@ declare namespace Aws {
         useDotenv?: boolean;
         frameworkVersion?: string;
         enableLocalInstallationFallback?: boolean;
-        variablesResolutionMode?: '20210219';
+        variablesResolutionMode?: '20210219' | '20210326';
         unresolvedVariablesNotificationMode?: 'warn' | 'error';
         disabledDeprecations?: string[];
         configValidationMode?: 'warn' | 'error' | 'off';

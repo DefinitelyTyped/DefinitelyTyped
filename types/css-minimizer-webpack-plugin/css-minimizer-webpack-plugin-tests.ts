@@ -74,6 +74,9 @@ module.exports = {
                     },
                 ],
             }),
+            new CssMinimizerPlugin({minify: CssMinimizerPlugin.cssnanoMinify}),
+            new CssMinimizerPlugin({minify: CssMinimizerPlugin.cssoMinify}),
+            new CssMinimizerPlugin({minify: CssMinimizerPlugin.cleanCssMinify}),
         ],
     },
 };

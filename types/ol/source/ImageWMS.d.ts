@@ -12,7 +12,7 @@ import WMSServerType from './WMSServerType';
 
 export interface Options {
     attributions?: AttributionLike;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
     hidpi?: boolean;
     serverType?: WMSServerType | string;
     imageLoadFunction?: LoadFunction;

@@ -13,7 +13,7 @@ import WMTSRequestEncoding from './WMTSRequestEncoding';
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
     imageSmoothing?: boolean;
     tileGrid: WMTSTileGrid;
     projection?: ProjectionLike;
@@ -21,7 +21,7 @@ export interface Options {
     requestEncoding?: WMTSRequestEncoding | string;
     layer: string;
     style: string;
-    tileClass?: ImageTile;
+    tileClass?: typeof ImageTile;
     tilePixelRatio?: number;
     format?: string;
     version?: string;

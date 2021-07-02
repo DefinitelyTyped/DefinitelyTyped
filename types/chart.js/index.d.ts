@@ -28,6 +28,7 @@
 //                 Tony Liu <https://github.com/tonybadguy>
 //                 Mathias Helminger <https://github.com/Ilmarinen100>
 //                 Mostafa Sameti <https://github.com/IVIosi>
+//                 Samar Mohan <https://github.com/samarmohan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -435,7 +436,7 @@ declare namespace Chart {
         footerMarginTop: number;
         footerSpacing: number;
         height: number;
-        labelColors: string[];
+        labelColors: ChartTooltipLabelColor[];
         labelTextColors: string[];
         legendColorBackground: string;
         opacity: number;

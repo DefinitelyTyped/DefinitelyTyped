@@ -15,7 +15,7 @@ import TileImage from './TileImage';
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
     imageSmoothing?: boolean;
     projection?: ProjectionLike;
     tilePixelRatio?: number;

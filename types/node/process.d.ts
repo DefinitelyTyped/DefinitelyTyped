@@ -59,6 +59,7 @@ declare module 'process' {
                 | 'android'
                 | 'darwin'
                 | 'freebsd'
+                | 'haiku'
                 | 'linux'
                 | 'openbsd'
                 | 'sunos'
@@ -336,7 +337,7 @@ declare module 'process' {
 
                 /**
                  * The `process.allowedNodeEnvironmentFlags` property is a special,
-                 * read-only `Set` of flags allowable within the [`NODE_OPTIONS`][]
+                 * read-only `Set` of flags allowable within the `NODE_OPTIONS`
                  * environment variable.
                  */
                 allowedNodeEnvironmentFlags: ReadonlySet<string>;

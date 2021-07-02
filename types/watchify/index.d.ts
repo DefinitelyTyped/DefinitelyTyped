@@ -57,7 +57,7 @@ declare namespace Watchify {
          * The amount of time in milliseconds to wait before emitting an "update" event after a change.
          * @default 100
          */
-        delay?: number;
+        delay?: number | undefined;
 
         /**
          * Ignores monitoring files for changes. If set to `true`, then ** /node_modules/ ** will be ignored.
@@ -71,7 +71,7 @@ declare namespace Watchify {
                   | RegExp
                   | ((...values: any[]) => boolean)
                   | Array<string | RegExp | ((...values: any[]) => boolean)>
-              );
+              ) | undefined;
 
         /**
          * Enables polling to monitor for changes. If set to `true`, then a polling interval of 100 ms is used.
@@ -80,7 +80,7 @@ declare namespace Watchify {
          * This option is useful if you're watching an NFS volume
          * Also see chokidar package: https://github.com/paulmillr/chokidar#path-filtering
          */
-        poll?: boolean | number;
+        poll?: boolean | number | undefined;
     }
 }
 
