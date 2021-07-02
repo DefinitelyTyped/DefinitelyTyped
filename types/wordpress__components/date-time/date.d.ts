@@ -6,12 +6,12 @@ declare namespace DatePicker {
          * The current date and time at initialization. Optionally pass in `null`
          * to specify no date is currently selected. Defaults to current date.
          */
-        currentDate?: string;
+        currentDate?: string | undefined;
         /**
          * Whether we use a 12-hour clock. With a 12-hour clock, an AM/PM
          * widget is displayed and the time format is assumed to be MM-DD-YYYY.
          */
-        is12Hour?: boolean;
+        is12Hour?: boolean | undefined;
         /**
          * A callback function that should return a `boolean` to signify if the
          * day is valid or not.

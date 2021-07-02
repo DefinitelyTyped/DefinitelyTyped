@@ -11,9 +11,9 @@ export default class ElanPlugin extends Observer implements WaveSurferPlugin {
 
 export interface ElanPluginParams extends PluginParams {
     /** CSS selector or HTML element where the ELAN information should be rendered. */
-    container?: string | HTMLElement;
+    container?: string | HTMLElement | undefined;
     /** The location of ELAN XML data. */
-    url?: string;
+    url?: string | undefined;
     /** If set only shows the data tiers with the TIER_ID in this map. */
-    tiers?: unknown;
+    tiers?: unknown | undefined;
 }

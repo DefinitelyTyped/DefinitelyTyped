@@ -8,7 +8,7 @@ declare namespace NavigableMenu {
          * The orientation of the menu.
          * @defaultValue "vertical"
          */
-        orientation?: 'vertical' | 'horizontal' | 'both';
+        orientation?: 'vertical' | 'horizontal' | 'both' | undefined;
     }
 }
 declare const NavigableMenu: ComponentType<NavigableMenu.Props>;
