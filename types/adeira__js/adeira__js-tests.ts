@@ -3,6 +3,14 @@ import { invariant, warning, sprintf, isObject, isObjectEmpty, isNumeric, nullth
 invariant(true, 'message');
 invariant('true', 'message'); // $ExpectError
 
+const calc = (value: number | undefined, operation: '*' | '+') => {
+    invariant(value != null, 'Expected value to be defined');
+    if (operation === '*') {
+        return value * value;
+    }
+    return value + value;
+};
+
 warning(true, 'message');
 warning('true', 'message'); // $ExpectError
 
