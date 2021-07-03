@@ -32,10 +32,12 @@ declare namespace sendMailFactory {
 
     interface MailInput {
         from: string;
+        sender?: string;
         to: string;
         cc?: string;
         bcc?: string;
         replyTo?: string;
+        inReplyTo?: string;
         returnTo?: string;
         subject: string;
         type?: string;
@@ -44,6 +46,7 @@ declare namespace sendMailFactory {
         id?: string;
         headers?: object;
         content?: string;
+        text?: string;
         html?: string;
         attachments?: Array<{
             type?: string;
@@ -58,10 +61,7 @@ declare namespace sendMailFactory {
 
 type CallbackFn = (err: Error, domain: string) => void;
 
-type SendMailFn = (
-    mail: sendMailFactory.MailInput,
-    callback: CallbackFn
-) => void;
+type SendMailFn = (mail: sendMailFactory.MailInput, callback: CallbackFn) => void;
 
 declare function sendMailFactory(options: sendMailFactory.Options): SendMailFn;
 

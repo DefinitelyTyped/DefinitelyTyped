@@ -1,12 +1,11 @@
-// Type definitions for express-brute
+// Type definitions for express-brute 1.0.1
 // Project: https://github.com/AdamPflug/express-brute
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 /// <reference types="express" />
 
-import express = require("express");
+import express = require('express');
 
 /**
  * @summary Middleware.
@@ -33,7 +32,7 @@ declare class ExpressBrute {
      * @param {Function}    next        The next middleware.
      * @return {RequestHandler} The Request handler.
      */
-    prevent(request: express.Request, response: express.Response, next: Function): express.RequestHandler;
+    prevent(request: express.Request, response: express.Response, next: express.NextFunction): express.RequestHandler;
 
     /**
      * @summary Resets the wait time between requests back to its initial value.
@@ -42,7 +41,7 @@ declare class ExpressBrute {
      * @param {Function}    next    The next middleware.
      * @return {RequestHandler} The Request handler.
      */
-    reset(ip: string, key: string, next: Function): express.RequestHandler;
+    reset(ip: string, key: string, next: express.NextFunction): express.RequestHandler;
 }
 
 declare namespace ExpressBrute {
@@ -58,6 +57,13 @@ declare namespace ExpressBrute {
         prefix: string;
     }
 
+    type FailCallback = (
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction,
+        nextValidRequestDate: Date,
+    ) => void;
+
     /**
      * @summary Options for {@link ExpressBrute#getMiddleware} class.
      * @interface
@@ -65,9 +71,9 @@ declare namespace ExpressBrute {
     export interface Middleware {
         /**
          * @summary Allows you to override the value of failCallback for this middleware.
-         * @type {Function}
+         * @type {FailCallback}
          */
-        failCallback?: Function;
+        failCallback?: FailCallback;
 
         /**
          * @summary Disregard IP address when matching requests if set to true. Defaults to false.
@@ -77,9 +83,9 @@ declare namespace ExpressBrute {
 
         /**
          * @summary Key.
-         * @type {any}
+         * @type {Function}
          */
-        key?: any;
+        key?: (req: express.Request, res: express.Response, next: express.NextFunction) => any;
     }
 
     /**
@@ -112,13 +118,13 @@ declare namespace ExpressBrute {
          */
         lifetime?: number;
         /**
-         * @summary Gets called with (req, res, next, nextValidRequestDate) when a request is rejected (default: ExpressBrute.FailForbidden)
+         * @summary Gets called with (req, res, next, nextValidRequestDate) when a request is rejected (default: `ExpressBrute.FailForbidden`)
          */
-        failCallback?: (req: express.Request, res: express.Response, next: Function, nextValidRequestDate: any) => void;
+        failCallback?: FailCallback;
         /**
          * @summary Gets called whenever an error occurs with the persistent store from which ExpressBrute cannot recover. It is passed an object containing the properties message (a description of the message), parent (the error raised by the session store), and [key, ip] or [req, res, next] depending on whether or the error occurs during reset or in the middleware itself.
          */
-        handleStoreError?: any;
+        handleStoreError?: Function;
     }
 
     /**
@@ -155,12 +161,27 @@ declare namespace ExpressBrute {
          */
         reset(key: string, callback: (error: any) => void): void;
     }
+
+    /**
+     * Terminates the request and responses with a 429 (Too Many Requests) error that has a `Retry-After` header and a JSON error message.
+     */
+    export const FailTooManyRequests: FailCallback;
+
+    /**
+     * Terminates the request and responds with a 403 (Forbidden) error that has a `Retry-After` header and a JSON error message. This is provided for compatibility with ExpressBrute versions prior to v0.5.0, for new users `FailTooManyRequests` is the preferred behavior.
+     */
+    export const FailForbidden: FailCallback;
+
+    /**
+     * Sets res.nextValidRequestDate, the `Retry-After` header and sets `res.status=429`, then calls `next()` to pass the request on to the appropriate routes.
+     */
+    export const FailMark: FailCallback;
 }
-    
-declare module "express-serve-static-core" {
+
+declare module 'express-serve-static-core' {
     export interface Request {
         brute?: {
-            reset?: (callback?: () => void) => void
+            reset?: (callback?: () => void) => void;
         };
     }
 }

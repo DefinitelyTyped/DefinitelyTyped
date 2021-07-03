@@ -66,7 +66,7 @@ connection.end(err => {
 
 connection.destroy();
 
-connection.changeUser({user: 'john'}, err => {
+connection.changeUser({ user: 'john' }, err => {
     if (err) console.error('SHOULD BE ERROR');
 });
 
@@ -85,7 +85,7 @@ connection.query('SELECT * FROM users WHERE id = ?', [userId], (err, results) =>
     // ...
 });
 
-const post = {id: 1, title: 'Hello MySQL'};
+const post = { id: 1, title: 'Hello MySQL' };
 const queryx = connection.query('INSERT INTO posts SET ?', post, (err, result) => {
     // Neat!
 });
@@ -130,15 +130,15 @@ connection.config.queryFormat = function(query, values) {
 };
 
 // $ExpectType string
-connection.config.queryFormat("UPDATE posts SET title = :title", {title: "Hello MySQL"});
+connection.config.queryFormat("UPDATE posts SET title = :title", { title: "Hello MySQL" });
 
-connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"});
-connection.query({sql: "UPDATE posts SET title = :title"}, {title: "Hello MySQL"});
-connection.query({sql: "UPDATE posts SET title = :title"}, {title: "Hello MySQL"}, (err, result) => {});
+connection.query("UPDATE posts SET title = :title", { title: "Hello MySQL" });
+connection.query({ sql: "UPDATE posts SET title = :title" }, { title: "Hello MySQL" });
+connection.query({ sql: "UPDATE posts SET title = :title" }, { title: "Hello MySQL" }, (err, result) => { });
 
-const s: stream.Readable = connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"}).stream({highWaterMark: 5});
+const s: stream.Readable = connection.query("UPDATE posts SET title = :title", { title: "Hello MySQL" }).stream({ highWaterMark: 5 });
 
-connection.query('INSERT INTO posts SET ?', {title: 'test'}, (err, result) => {
+connection.query('INSERT INTO posts SET ?', { title: 'test' }, (err, result) => {
     if (err) throw err;
 
     console.log(result.insertId);
@@ -202,9 +202,12 @@ pool.getConnection((err, connection) => {
     // connected! (unless `err` is set)
 });
 
-pool.on('connection', connection => {
+function onConnection(connection: mysql.PoolConnection) {
     connection.query('SET SESSION auto_increment_increment=1');
-});
+    pool.off('connection', onConnection);
+}
+
+pool.on('connection', onConnection);
 
 pool.getConnection((err, connection) => {
     // Use the connection
@@ -236,7 +239,7 @@ poolCluster.getConnection('MASTER', (err, connection) => {
 
 // Target Group : SLAVE1-2, Selector : order
 // If can't connect to SLAVE1, return SLAVE2. (remove SLAVE1 in the cluster)
-poolCluster.on('remove', nodeId => {
+poolCluster.once('remove', nodeId => {
     console.log(`REMOVED NODE : ${nodeId}`); // nodeId = SLAVE1
 });
 
@@ -296,10 +299,10 @@ queryF
 
 const writable = fs.createWriteStream('file.txt');
 connection.query('SELECT * FROM posts')
-    .stream({highWaterMark: 5})
+    .stream({ highWaterMark: 5 })
     .pipe(writable);
 
-connection = mysql.createConnection({multipleStatements: true});
+connection = mysql.createConnection({ multipleStatements: true });
 
 connection.query('SELECT 1; SELECT 2', (err, results) => {
     if (err) throw err;
@@ -319,7 +322,7 @@ queryH
         // index refers to the statement this result belongs to (starts at 0)
     });
 
-const options = {sql: '...', nestTables: true};
+const options = { sql: '...', nestTables: true };
 
 connection.query(options, (err, results) => {
     /* results will be an array like this now:
@@ -370,7 +373,7 @@ connection.beginTransaction(err => {
 });
 
 // Kill query after 60s
-connection.query({sql: 'SELECT COUNT(*) AS count FROM big_table', timeout: 60000}, (err, rows: any) => {
+connection.query({ sql: 'SELECT COUNT(*) AS count FROM big_table', timeout: 60000 }, (err, rows: any) => {
     if (err && err.code === 'PROTOCOL_SEQUENCE_TIMEOUT') {
         throw new Error('too long to count table rows!');
     }
@@ -410,9 +413,12 @@ connection.query('SELECT 1', (err, rows) => {
     console.log(rows.length); // 1
 });
 
-connection.on('error', err => {
+function onConnectionError(err: mysql.MysqlError) {
     console.log(err.code); // 'ER_BAD_DB_ERROR'
-});
+    connection.off('error', onConnectionError);
+}
+
+connection.on('error', onConnectionError);
 
 connection.query('USE name_of_db_that_does_not_exist');
 
@@ -420,9 +426,9 @@ connection.query('USE name_of_db_that_does_not_exist');
 connection.on('error', () => {
 });
 
-connection = mysql.createConnection({typeCast: false});
+connection = mysql.createConnection({ typeCast: false });
 
-const query1 = connection.query({sql: '...', typeCast: false}, (err: Error, results: any) => {
+const query1 = connection.query({ sql: '...', typeCast: false }, (err: Error, results: any) => {
 });
 
 connection.query({
@@ -435,13 +441,27 @@ connection.query({
     }
 });
 
-connection.query({sql: '...', values: ['test']}, (err: Error, results: any) => {
+connection.query({
+    sql: '...',
+    typeCast: (field, next: () => void) => {
+        if (field.type === 'JSON') {
+            const string = field.string();
+            if (string === null) {
+                return null;
+            }
+            return (JSON.parse(string));
+        }
+        next();
+    }
+});
+
+connection.query({ sql: '...', values: ['test'] }, (err: Error, results: any) => {
 });
 
 connection = mysql.createConnection("mysql://localhost/test?flags=-FOUND_ROWS");
-connection = mysql.createConnection({debug: true});
-connection = mysql.createConnection({debug: ['ComQueryPacket', 'RowDataPacket']});
-connection = mysql.createConnection({dateStrings: ['DATE']});
-connection = mysql.createConnection({dateStrings: true});
-connection = mysql.createConnection({flags: '-FOUND_ROWS'});
-connection = mysql.createConnection({flags: ['-FOUND_ROWS']});
+connection = mysql.createConnection({ debug: true });
+connection = mysql.createConnection({ debug: ['ComQueryPacket', 'RowDataPacket'] });
+connection = mysql.createConnection({ dateStrings: ['DATE'] });
+connection = mysql.createConnection({ dateStrings: true });
+connection = mysql.createConnection({ flags: '-FOUND_ROWS' });
+connection = mysql.createConnection({ flags: ['-FOUND_ROWS'] });

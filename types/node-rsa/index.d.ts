@@ -1,8 +1,8 @@
-// Type definitions for node-rsa 1.0
+// Type definitions for node-rsa 1.1
 // Project: https://github.com/rzcoder/node-rsa
 // Definitions by: Ali Taheri <https://github.com/alitaheri>
 //                 Christian Moniz <https://github.com/xm>
-//                 Florian Keller <https://github.com/ffflorian>
+//                 Florian Imdahl <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -90,8 +90,18 @@ declare class NodeRSA {
 
     verify(data: NodeRSA.Data, signature: Buffer): boolean;
     verify(data: Buffer, signature: Buffer, sourceEncoding?: NodeRSA.Encoding): boolean;
-    verify(data: Buffer, signature: string, sourceEncoding: NodeRSA.Encoding, signatureEncoding: NodeRSA.Encoding): boolean;
-    verify(data: NodeRSA.Data, signature: string, sourceEncoding: undefined, signatureEncoding: NodeRSA.Encoding): boolean;
+    verify(
+        data: Buffer,
+        signature: string,
+        sourceEncoding: NodeRSA.Encoding,
+        signatureEncoding: NodeRSA.Encoding,
+    ): boolean;
+    verify(
+        data: NodeRSA.Data,
+        signature: string,
+        sourceEncoding: undefined,
+        signatureEncoding: NodeRSA.Encoding,
+    ): boolean;
 }
 
 declare namespace NodeRSA {
@@ -99,45 +109,66 @@ declare namespace NodeRSA {
     type Data = string | object | any[];
 
     type FormatPem =
-        | 'private' | 'public'
-        | 'pkcs1' | 'pkcs1-pem'
-        | 'pkcs1-private' | 'pkcs1-private-pem'
-        | 'pkcs1-public' | 'pkcs1-public-pem'
-        | 'pkcs8' | 'pkcs8-pem'
-        | 'pkcs8-private' | 'pkcs8-private-pem'
-        | 'pkcs8-public' | 'pkcs8-public-pem';
+        | 'private'
+        | 'public'
+        | 'pkcs1'
+        | 'pkcs1-pem'
+        | 'pkcs1-private'
+        | 'pkcs1-private-pem'
+        | 'pkcs1-public'
+        | 'pkcs1-public-pem'
+        | 'pkcs8'
+        | 'pkcs8-pem'
+        | 'pkcs8-private'
+        | 'pkcs8-private-pem'
+        | 'pkcs8-public'
+        | 'pkcs8-public-pem'
+        | 'openssh-public'
+        | 'openssh-private';
     type FormatDer =
-        | 'pkcs1-der' | 'pkcs1-private-der' | 'pkcs1-public-der'
-        | 'pkcs8-der' | 'pkcs8-private-der' | 'pkcs8-public-der';
+        | 'pkcs1-der'
+        | 'pkcs1-private-der'
+        | 'pkcs1-public-der'
+        | 'pkcs8-der'
+        | 'pkcs8-private-der'
+        | 'pkcs8-public-der';
     type FormatComponentsPrivate =
-        | 'components' | 'components-pem' | 'components-der'
-        | 'components-private' | 'components-private-pem' | 'components-private-der';
-    type FormatComponentsPublic =
-        | 'components-public' | 'components-public-pem' | 'components-public-der';
+        | 'components'
+        | 'components-pem'
+        | 'components-der'
+        | 'components-private'
+        | 'components-private-pem'
+        | 'components-private-der';
+    type FormatComponentsPublic = 'components-public' | 'components-public-pem' | 'components-public-der';
     type Format = FormatPem | FormatDer | FormatComponentsPrivate | FormatComponentsPublic;
 
     type EncryptionScheme = 'pkcs1_oaep' | 'pkcs1';
 
-    type HashingAlgorithm =
-        | 'ripemd160'
-        | 'md4' | 'md5'
-        | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
+    type HashingAlgorithm = 'ripemd160' | 'md4' | 'md5' | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
 
     type SigningScheme = 'pkcs1' | 'pss';
 
     type SigningSchemeHash =
         | 'pkcs1-ripemd160'
-        | 'pkcs1-md4' | 'pkcs1-md5'
-        | 'pkcs1-sha' | 'pkcs1-sha1'
-        | 'pkcs1-sha224' | 'pkcs1-sha256' | 'pkcs1-sha384' | 'pkcs1-sha512'
+        | 'pkcs1-md4'
+        | 'pkcs1-md5'
+        | 'pkcs1-sha'
+        | 'pkcs1-sha1'
+        | 'pkcs1-sha224'
+        | 'pkcs1-sha256'
+        | 'pkcs1-sha384'
+        | 'pkcs1-sha512'
         | 'pss-ripemd160'
-        | 'pss-md4' | 'pss-md5'
-        | 'pss-sha' | 'pss-sha1'
-        | 'pss-sha224' | 'pss-sha256' | 'pss-sha384' | 'pss-sha512';
+        | 'pss-md4'
+        | 'pss-md5'
+        | 'pss-sha'
+        | 'pss-sha1'
+        | 'pss-sha224'
+        | 'pss-sha256'
+        | 'pss-sha384'
+        | 'pss-sha512';
 
-    type Encoding =
-        | 'ascii' | 'utf8' | 'utf16le' | 'ucs2' | 'latin1'
-        | 'base64' | 'hex' | 'binary' | 'buffer';
+    type Encoding = 'ascii' | 'utf8' | 'utf16le' | 'ucs2' | 'latin1' | 'base64' | 'hex' | 'binary' | 'buffer';
 
     interface KeyComponentsPrivate {
         n: Buffer;
@@ -177,9 +208,7 @@ declare namespace NodeRSA {
         mgf?(data: Buffer, length: number, hash: HashingAlgorithm): Buffer;
     }
 
-    type AdvancedEncryptionScheme =
-        | AdvancedEncryptionSchemePKCS1
-        | AdvancedEncryptionSchemePKCS1OAEP;
+    type AdvancedEncryptionScheme = AdvancedEncryptionSchemePKCS1 | AdvancedEncryptionSchemePKCS1OAEP;
 
     interface AdvancedSigningSchemePSS {
         scheme: 'pss';
@@ -192,9 +221,7 @@ declare namespace NodeRSA {
         hash: HashingAlgorithm;
     }
 
-    type AdvancedSigningScheme =
-        | AdvancedSigningSchemePSS
-        | AdvancedSigningSchemePKCS1;
+    type AdvancedSigningScheme = AdvancedSigningSchemePSS | AdvancedSigningSchemePKCS1;
 
     interface Options {
         /**

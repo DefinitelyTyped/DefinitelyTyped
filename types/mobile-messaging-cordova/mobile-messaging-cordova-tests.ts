@@ -33,7 +33,7 @@ MobileMessaging.saveUser({
     lastName: 'Lastname',
     middleName: 'Middle',
     gender: 'Male',
-    birthday: new Date(1987, 6, 5),
+    birthday: '1987-11-23',
     phones: ['+12345677890'],
     emails: ['some@ema.il'],
     tags: ['TestIonic'],
@@ -164,4 +164,10 @@ MobileMessaging.showDialogForError(1, () => {
     console.log("Dialog opened");
 }, () => {
     console.error("Error opening dialog");
+});
+
+MobileMessaging.showChat({
+    ios: {
+        showModally: false,
+    },
 });

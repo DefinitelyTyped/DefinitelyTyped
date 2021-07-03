@@ -142,7 +142,31 @@ const validationResult6: mailgunFactory.validation.ValidateResponse = {
 };
 
 // Generic requests
-mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] }, (error: any, body: any) => {});
 mailgun.get('/samples.mailgun.org/stats', (error: any, body: any) => {});
 const response1: Promise<any> = mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] });
 const response2: Promise<any> = mailgun.get('/samples.mailgun.org/stats');
+
+const list = mailgun.lists('example@mailgun.net');
+
+// Delete mailing list
+list.delete((error, body) => { });
+
+// Creating a mailing list with a single member
+list.members().create({ address: 'simple@example.net', name: 'Simple Example', subscribed: true });
+
+// Adding multiple members to a list
+list.members().add({
+    members: [{ address: 'Jane Doe <janedoe@example.net>', subscribed: true }, { address: 'John Doe <johndoe@example.net>', subscribed: false }]
+}, (error, data) => {  });
+
+// Listing members of a list
+list.members().list((error, members) => {  });
+
+// Updating an existing member of a list
+list.members('johndoe@example.net').update({
+    name: 'John D.',
+    subscribed: true
+}, (error, data) => {  });
+
+// Deleting a member of a list
+list.members('janedoe@example.net').delete((error, body) => {  });

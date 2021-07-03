@@ -72,3 +72,5 @@ export class WindowScroller extends PureComponent<WindowScrollerProps, WindowScr
 
     updatePosition(scrollElement?: HTMLElement): void;
 }
+
+export default WindowScroller;

@@ -7,8 +7,6 @@ import ParserBlock = require('./parser_block');
 import ParserInline = require('./parser_inline');
 
 import LinkifyIt = require('linkify-it');
-import mdurl = require('mdurl');
-import punycode = require('punycode');
 
 import Token = require('./token');
 
@@ -82,12 +80,12 @@ declare namespace MarkdownIt {
 
         /**
          * Highlighter function for fenced code blocks.
-         * Highlighter `function (str, lang)` should return escaped HTML. It can also
-         * return empty string if the source was not changed and should be escaped
-         * externaly. If result starts with <pre... internal wrapper is skipped.
+         * Highlighter `function (str, lang, attrs)` should return escaped HTML. It can
+         * also return empty string if the source was not changed and should be escaped
+         * externally. If result starts with <pre... internal wrapper is skipped.
          * @default null
          */
-        highlight?: ((str: string, lang: string) => string) | null;
+        highlight?: ((str: string, lang: string, attrs: string) => string) | null;
     }
 
     type PluginSimple = (md: MarkdownIt) => void;

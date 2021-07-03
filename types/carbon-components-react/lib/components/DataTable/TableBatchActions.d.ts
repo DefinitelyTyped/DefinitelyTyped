@@ -1,13 +1,21 @@
-import * as React from "react";
-import { InternationalProps, ReactDivAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { InternationalProps, ReactDivAttr } from '../../../typings/shared';
 
-export type TableBatchActionsTranslationKey = "carbon.table.batch.cancel" | "carbon.table.batch.items.selected" | "carbon.table.batch.item.selected";
-interface InheritedProps extends ReactDivAttr, InternationalProps<TableBatchActionsTranslationKey> { }
+export type TableBatchActionsTranslationKey =
+    | 'carbon.table.batch.cancel'
+    | 'carbon.table.batch.items.selected'
+    | 'carbon.table.batch.item.selected';
 
-export interface TableBatchActionsProps extends InheritedProps {
-    onCancel(event: React.MouseEvent<HTMLButtonElement>): void,
-    shouldShowBatchActions?: boolean,
-    totalSelected: number,
+export interface TableBatchActionsTranslationArgs {
+    totalSelected?: number;
+}
+
+export interface TableBatchActionsProps
+    extends ReactDivAttr,
+        InternationalProps<TableBatchActionsTranslationKey, TableBatchActionsTranslationArgs> {
+    onCancel(event: React.MouseEvent<HTMLButtonElement>): void;
+    shouldShowBatchActions?: boolean;
+    totalSelected: number;
 }
 
 interface TableBatchActionsFC extends React.FC<TableBatchActionsProps> {

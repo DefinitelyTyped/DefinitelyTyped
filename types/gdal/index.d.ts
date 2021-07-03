@@ -421,6 +421,7 @@ export interface GDALDrivers {
 
 export abstract class Geometry {
     static create(type: number): Geometry;
+    static fromGeoJson(geojson: object, srs?: SpatialReference): Geometry;
     static fromWKB(wkb: number, srs?: SpatialReference): Geometry;
     static fromWKT(wkt: string, srs?: SpatialReference): Geometry;
     static getConstructor(type: number): Geometry;
@@ -671,7 +672,7 @@ export class SpatialReference {
     toXML(): string;
     validate(): string;
     static fromCRSURL(input: string): SpatialReference;
-    static fromEPSG(input: string): SpatialReference;
+    static fromEPSG(input: number): SpatialReference;
     static fromEPSGA(input: number): SpatialReference;
     static fromESRI(input: string[]): SpatialReference;
     static fromMICoordSys(input: string): SpatialReference;

@@ -113,6 +113,7 @@ declare namespace naver.maps {
     overlayZoomEffect?: null | string;
     tileSpare?: number;
     tileTransition?: boolean;
+    useStyleMap?: boolean;
     zoom?: number;
     zoomControl?: boolean;
     zoomControlOptions?: any;
@@ -659,7 +660,7 @@ declare namespace naver.maps {
     mapSystemProjection: any;
     constructor(mapDiv: string | HTMLElement, mapOptions?: MapOptions);
     addPane(name: string, elementOrIndex: HTMLElement | number): void;
-    destory(): void;
+    destroy(): void;
     fitBounds(bounds: any, margin?: any): void;
     getBounds(): Bounds;
     getCenter(): Coord;

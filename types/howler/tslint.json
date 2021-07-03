@@ -3,7 +3,6 @@
     "rules": {
         "space-before-function-paren": false,
         "only-arrow-functions": false,
-        "object-literal-shorthand": false,
-        "one-line": false
+        "object-literal-shorthand": false
     }
 }

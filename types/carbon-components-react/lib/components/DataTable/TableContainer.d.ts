@@ -1,10 +1,9 @@
 import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends Omit<ReactDivAttr, "title"> { }
-
-export interface TableContainerProps extends InheritedProps {
+export interface TableContainerProps extends Omit<ReactDivAttr, "title"> {
     description?: React.ReactNode,
+    stickyHeader?: boolean,
     title?: React.ReactNode,
 }
 

@@ -265,3 +265,41 @@ const textColumns = [
 ];
 
 <BootstrapTable keyField="id" data={products} columns={textColumns} filter={filterFactory()} />;
+
+/**
+ * After filter test
+ */
+const afterFilterColumns = [
+    {
+        dataField: 'id',
+        text: 'Product ID',
+    },
+    {
+        dataField: 'name',
+        text: 'Product Name',
+        filter: textFilter({
+            placeholder: 'My Custom PlaceHolder', // custom the input placeholder
+            className: 'my-custom-text-filter', // custom classname on input
+            defaultValue: 'test', // default filtering value
+            comparator: Comparator.EQ, // default is Comparator.LIKE
+            caseSensitive: true, // default is false, and true will only work when comparator is LIKE
+            style: { backgroundColor: 'yellow' }, // your custom inline styles on input
+            delay: 1000, // how long will trigger filtering after user typing, default is 500 ms
+            onClick: e => console.log(e),
+        }),
+    },
+    {
+        dataField: 'price',
+        text: 'Product Price',
+        filter: textFilter(),
+    },
+];
+
+const afterFilter = (newResult: Product[]): void => {
+    console.log(newResult);
+};
+
+render(
+    <BootstrapTable keyField="id" data={products} columns={selectColumns} filter={filterFactory({ afterFilter })} />,
+    document.getElementById('app'),
+);

@@ -50,6 +50,14 @@ declare namespace BetterSqlite3 {
         exclusive(...params: ArgumentTypes<F>): ReturnType<F>;
     }
 
+    interface VirtualTableOptions {
+        rows: () => Generator;
+        columns: string[];
+        parameters?: string[];
+        safeIntegers?: boolean;
+        directOnly?: boolean;
+    }
+
     interface Database {
         memory: boolean;
         readonly: boolean;
@@ -57,7 +65,6 @@ declare namespace BetterSqlite3 {
         open: boolean;
         inTransaction: boolean;
 
-        // tslint:disable-next-line no-unnecessary-generics
         prepare<BindParameters extends any[] | {} = any[]>(source: string): BindParameters extends any[]
           ? Statement<BindParameters>
           : Statement<[BindParameters]>;
@@ -72,6 +79,7 @@ declare namespace BetterSqlite3 {
         close(): this;
         defaultSafeIntegers(toggleState?: boolean): this;
         backup(destinationFile: string, options?: Database.BackupOptions): Promise<Database.BackupMetadata>;
+        table(name: string, options: VirtualTableOptions): this;
     }
 
     interface DatabaseConstructor {

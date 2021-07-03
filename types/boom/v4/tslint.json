@@ -1,13 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "export-just-namespace": false,
         "max-line-length": false,
         "no-object-literal-type-assertion": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false

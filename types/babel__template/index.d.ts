@@ -1,30 +1,53 @@
-// Type definitions for @babel/template 7.0
+// Type definitions for @babel/template 7.4
 // Project: https://github.com/babel/babel/tree/master/packages/babel-template, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 
-import { ParserOptions } from "@babel/parser";
-import { Expression, File, Program, Statement } from "@babel/types";
+import { ParserOptions } from '@babel/parser';
+import { Expression, Program, Statement } from '@babel/types';
 
 export interface TemplateBuilderOptions extends ParserOptions {
     /**
-     * A set of placeholder names to automatically accept. Items in this list do not need to match the given placeholder pattern.
+     * A set of placeholder names to automatically accept.
+     * Items in this list do not need to match `placeholderPattern`.
+     *
+     * This option cannot be used when using `%%foo%%` style placeholders.
      */
-    placeholderWhitelist?: Set<string>;
+    placeholderWhitelist?: Set<string> | null;
 
     /**
-     * A pattern to search for when looking for Identifier and StringLiteral nodes that should be considered placeholders. `false` will
-     * disable placeholder searching entirely, leaving only the `placeholderWhitelist` value to find placeholders.
+     * A pattern to search for when looking for `Identifier` and `StringLiteral`
+     * nodes that should be considered as placeholders.
+     *
+     * `false` will disable placeholder searching placeholders, leaving only
+     * the `placeholderWhitelist` value to find replacements.
+     *
+     * This option cannot be used when using `%%foo%%` style placeholders.
+     *
+     * @default /^[_$A-Z0-9]+$/
      */
-    placeholderPattern?: RegExp | false;
+    placeholderPattern?: RegExp | false | null;
 
     /**
-     * Set this to `true` to preserve any comments from the `code` parameter.
+     * Set this to `true` to preserve comments from the template string
+     * into the resulting AST, or `false` to automatically discard comments.
+     *
+     * @default false
      */
-    preserveComments?: boolean;
+    preserveComments?: boolean | null;
+
+    /**
+     * Set to `true` to use `%%foo%%` style placeholders, `false` to use legacy placeholders
+     * described by `placeholderPattern` or `placeholderWhitelist`.
+     *
+     * When it is not set, it behaves as `true` if there are syntactic placeholders, otherwise as `false`.
+     *
+     * @since 7.4.0
+     */
+    syntacticPlaceholders?: boolean | null;
 }
 
 export interface TemplateBuilder<T> {
@@ -41,16 +64,21 @@ export interface TemplateBuilder<T> {
     /**
      * Building from a template literal produces an AST builder function by default.
      */
-    (tpl: TemplateStringsArray, ...args: any[]): (arg?: PublicReplacements) => T;
+    (tpl: TemplateStringsArray, ...args: unknown[]): (arg?: PublicReplacements) => T;
 
-    // Allow users to explicitly create templates that produce ASTs, skipping the need for an intermediate function.
+    /**
+     * Allow users to explicitly create templates that produce ASTs,
+     * skipping the need for an intermediate function.
+     *
+     * Does not allow `%%foo%%` style placeholders.
+     */
     ast: {
         (tpl: string, opts?: TemplateBuilderOptions): T;
-        (tpl: TemplateStringsArray, ...args: any[]): T;
+        (tpl: TemplateStringsArray, ...args: unknown[]): T;
     };
 }
 
-export type PublicReplacements = { [index: string]: any; } | any[];
+export type PublicReplacements = { [index: string]: unknown } | unknown[];
 
 export const smart: TemplateBuilder<Statement | Statement[]>;
 export const statement: TemplateBuilder<Statement>;

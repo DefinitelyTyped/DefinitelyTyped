@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Pay API 0.4
+// Type definitions for non-npm package Google Pay API 0.6
 // Project: https://developers.google.com/pay/api/web/
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
 //                 Radu Raicea <https://github.com/Radu-Raicea>,
@@ -6,8 +6,13 @@
 //                 Alexandre Couret <https://github.com/ozotek>
 //                 Sergi Ferriz <https://github.com/mumpo>
 //                 Soc Sieng <https://github.com/socsieng>
+//                 Jose L Ugia <https://github.com/JlUgia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.1
 
+/**
+ * Spec for the Google Pay APIs.
+ */
 declare namespace google.payments.api {
     /**
      * Request for payment data.
@@ -88,6 +93,12 @@ declare namespace google.payments.api {
          * This field is required.
          */
         transactionInfo: TransactionInfo;
+
+        /**
+         * Offers available for redemption that can be used with the current
+         * order.
+         */
+        offerInfo?: OfferInfo;
 
         /**
          * Whether a shipping option is required from the buyer.
@@ -236,6 +247,12 @@ declare namespace google.payments.api {
         paymentMethodData: PaymentMethodData;
 
         /**
+         * Contains the data for the offer applied by the user. This will be
+         * populated if an offer is applied to the transaction.
+         */
+        offerData?: OfferData;
+
+        /**
          * Contains the data for shipping option selected by the user.
          */
         shippingOptionData?: SelectionOptionData;
@@ -250,7 +267,7 @@ declare namespace google.payments.api {
         /**
          * Indicate the changing field that triggers the callback.
          */
-        callbackTrigger: CallbackTrigger[];
+        callbackTrigger: CallbackTrigger;
 
         /**
          * Contains limited data for user selected card information.
@@ -266,6 +283,11 @@ declare namespace google.payments.api {
          * Contains the data for shipping option selected by the user.
          */
         shippingOptionData?: SelectionOptionData;
+
+        /**
+         * Contains the data for offers applied by the user.
+         */
+        offerData?: OfferData;
     }
 
     /**
@@ -335,6 +357,16 @@ declare namespace google.payments.api {
          * is currently only for web only.
          */
         newShippingOptionParameters?: ShippingOptionParameters;
+
+        /**
+         * Contains the updated offer information. All fields in OfferInfo are
+         * allowed in the update.
+         *
+         * If this field is present it should be the full list of offer info
+         * instead of a delta of any earlier version. Note: This field is
+         * currently only for web only.
+         */
+        newOfferInfo?: OfferInfo;
 
         /**
          * Error for the last PaymentData, will be displayed to the user.
@@ -1142,6 +1174,45 @@ declare namespace google.payments.api {
     }
 
     /**
+     * Definition of merchant provided offers that may be applicable to the
+     * current order.
+     */
+    interface OfferInfo {
+        /**
+         * List of merchant provided offers applicable to the current order.
+         */
+        offers: OfferDetail[];
+    }
+
+    /**
+     * Definition for each offer to be applied to this Payment Request.
+     */
+    interface OfferDetail {
+        /**
+         * Redemption code available for this transaction. This is used to
+         * identify the offer when the user decides to apply the offer.
+         */
+        redemptionCode: string;
+
+        /**
+         * Description for the offer visible to the user to inform them about
+         * the offer. The description is displayed in buyflow and should be less
+         * than 60 characters long.
+         */
+        description: string;
+    }
+
+    /**
+     * Definition for each offer to be applied to this payment request.
+     */
+    interface OfferData {
+        /**
+         * Redemption codes of the offers applied by the user.
+         */
+        redemptionCodes: string[];
+    }
+
+    /**
      * Parameters of merchant provided shipping option. If
      * paymentDataRequest#shippingOptionRequired is set then the request must
      * also provide ShippingOptionParameters with at least one option.
@@ -1542,6 +1613,9 @@ declare namespace google.payments.api {
      *
      * Options:
      *
+     * - `OFFER`:
+     *   Callback occurs when offer info is changed.
+     *
      * - `SHIPPING_ADDRESS`:
      *   Callback occurs when shipping address is changed.
      *
@@ -1575,14 +1649,14 @@ declare namespace google.payments.api {
      *   Developer will receive callback data in
      *   [[IntermediatePaymentData.paymentMethodData|`IntermediatePaymentData.paymentMethodData`]]
      */
-    type CallbackIntent = "SHIPPING_ADDRESS" | "SHIPPING_OPTION" | "PAYMENT_AUTHORIZATION" | "PAYMENT_METHOD";
+    type CallbackIntent = "OFFER" | "SHIPPING_ADDRESS" | "SHIPPING_OPTION" | "PAYMENT_AUTHORIZATION" | "PAYMENT_METHOD";
 
     /**
      * Enum string for the callback trigger.
      *
      * Options:
      *
-     * - `OFFER_INFO`:
+     * - `OFFER`:
      *   Callback occurs after offer info is changed.
      *
      * - `SHIPPING_ADDRESS`:
@@ -1602,7 +1676,7 @@ declare namespace google.payments.api {
      *   accounts, we will call initialize again with data from the new
      *   account.
      */
-    type CallbackTrigger = "OFFER_INFO" | "SHIPPING_ADDRESS" | "SHIPPING_OPTION" | "INITIALIZE";
+    type CallbackTrigger = "OFFER" | "SHIPPING_ADDRESS" | "SHIPPING_OPTION" | "INITIALIZE";
 
     /**
      * Enum string for error reason.
@@ -1621,6 +1695,9 @@ declare namespace google.payments.api {
      *   current request. An example would be shipping option cannot be used
      *   for the selected shipping address.
      *
+     * - `OFFER_INVALID`:
+     *   Error when the provided offer info is invalid.
+     *
      * - `PAYMENT_DATA_INVALID`:
      *   Error when the provided payment data is invalid. e.g. Payment token
      *   cannot be charged.
@@ -1628,7 +1705,7 @@ declare namespace google.payments.api {
      * - `OTHER_ERROR`:
      *   A catch all for error not fitting anywhere else.
      */
-    type ErrorReason = "SHIPPING_ADDRESS_INVALID" | "SHIPPING_ADDRESS_UNSERVICEABLE" | "SHIPPING_OPTION_INVALID" | "PAYMENT_DATA_INVALID" | "OTHER_ERROR";
+    type ErrorReason = "SHIPPING_ADDRESS_INVALID" | "SHIPPING_ADDRESS_UNSERVICEABLE" | "SHIPPING_OPTION_INVALID" | "OFFER_INVALID" | "PAYMENT_DATA_INVALID" | "OTHER_ERROR";
 
     /**
      * Enum strings for the state of the transaction.
@@ -1662,14 +1739,52 @@ declare namespace google.payments.api {
         onClick: (event: Event) => void;
 
         /**
+         * Specifies the button color of the Google Pay button.
+         *
          * @default "default"
          */
         buttonColor?: ButtonColor;
 
         /**
-         * @default "long"
+         * Specifies the text to be displayed within the Google Pay button.
+         *
+         * @default "buy"
          */
         buttonType?: ButtonType;
+
+        /**
+         * Determines how the button's size should change relative to the
+         * button's parent element.
+         *
+         * @default "static"
+         */
+        buttonSizeMode?: ButtonSizeMode;
+
+        /**
+         * Specifies how to append Google Pay resources, such as `<style>` tags,
+         * in the DOM. Its default value is document.
+         *
+         * Use this property to integrate Google Pay with Web Components and the
+         * shadow DOM. Set its value to the result of
+         * [`container.getRootNode()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/getRootNode).
+         *
+         * @default document
+         */
+        buttonRootNode?: HTMLDocument | ShadowRoot;
+
+        /**
+         * The [ISO
+         * 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) code
+         * representing the desired button language.
+         *
+         * Supported locales include `en`, `ar`, `bg`, `ca`, `cs`, `da`, `de`,
+         * `el`, `es`, `et`, `fi`, `fr`, `hr`, `id`, `it`, `ja`, `ko`, `ms`,
+         * `nl`, `no`, `pl`, `pt`, `ru`, `sk`, `sl`, `sr`, `sv`, `th`, `tr`,
+         * `uk`, and `zh`.
+         *
+         * @default browser or operating system language
+         */
+        buttonLocale?: string;
     }
 
     /**
@@ -1914,18 +2029,57 @@ declare namespace google.payments.api {
     /**
      * Supported methods for presenting the Google Pay button.
      *
+     * A translated button label may appear if a language specified in the
+     * viewer's browser matches an [available
+     * language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
+     *
+     *
      * Options:
      *
+     * - `book`:
+     *   "Book with Google Pay" button.
+     *
+     * - `buy`:
+     *   "Buy with Google Pay" button.
+     *
+     * - `checkout`:
+     *   "Checkout with Google Pay" button.
+     *
+     * - `donate`:
+     *   "Donate with Google Pay" button.
+     *
+     * - `order`:
+     *   "Order with Google Pay" button.
+     *
+     * - `pay`:
+     *   "Pay with Google Pay" button.
+     *
+     * - `plain`:
+     *   "Google Pay" button without text.
+     *
+     * - `subscribe`:
+     *   "Subscribe with Google Pay" button.
+     *
      * - `long`:
-     *   "Buy with Google Pay" button. A translated button label may
-     *   appear if a language specified in the viewer's browser matches an
-     *   [available
-     *   language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
+     *   Same as "buy".
      *
      * - `short`:
-     *   Google Pay payment button without the "Buy with" text.
+     *   Same as "plain".
      */
-    type ButtonType = "long" | "short";
+    type ButtonType = "book" | "buy" | "checkout" | "donate" | "order" | "pay" | "plain" | "subscribe" | "long" | "short";
+
+    /**
+     * Supported methods for controlling the size of the Google Pay button.
+     *
+     * Options:
+     *
+     * - `static`:
+     *   Default behavior. The button has a fixed width and height.
+     *
+     * - `fill`:
+     *   The button fills its container.
+     */
+    type ButtonSizeMode = "static" | "fill";
 
     /**
      * Supported environment names to run Google Pay.

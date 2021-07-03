@@ -4227,7 +4227,7 @@ function wrapState(ComposedComponent: ComponentClass<__MaterialUI.List.Selectabl
   };
 }
 
-const SelectableList = wrapState(makeSelectable<{}>(List));
+const SelectableList = wrapState(makeSelectable(List));
 
 const ListExampleSelectable = () => (
   <Paper>
@@ -4262,6 +4262,12 @@ const ListExampleSelectable = () => (
       />
     </SelectableList>
   </Paper>
+);
+
+const DirectSelectableList = makeSelectable(List);
+
+const DirectSelectableListExample = () => (
+    <DirectSelectableList onChange={(e, v) => console.log(v)} />
 );
 
 // "http://www.material-ui.com/#/components/menu"

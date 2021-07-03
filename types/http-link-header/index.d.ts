@@ -1,11 +1,17 @@
-// Type definitions for http-link-header 1.0.2
+// Type definitions for http-link-header 1.0
 // Project: https://github.com/jhermsmeier/node-http-link-header
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 //                 Noah Loomans <https://github.com/nloomans>
 //                 Harris Lummis <https://github.com/lummish>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
+
 export = Link;
 
+/**
+ * Parse & format HTTP link headers according to RFC 8288
+ */
 declare class Link {
     /**
      * Creates a new Link by parsing a link header beginning at the provided
@@ -15,6 +21,19 @@ declare class Link {
      * @return A new Link
      */
     static parse(value: string, offset?: number): Link;
+    /**
+     * Determines whether an encoding can be
+     * natively handled with a `Buffer`
+     */
+    static isCompatibleEncoding(value: string): boolean;
+    static isSingleOccurenceAttr(attr: string): boolean;
+    static isTokenAttr(attr: string): boolean;
+    static escapeQuotes(value: string): string;
+    static formatExtendedAttribute(attr: string, data: Link.LinkData): string;
+    /**
+     * Format a given attribute and it's value
+     */
+    static formatAttribute(attr: string, value: string | Buffer | Array<string | Buffer>): string;
     /**
      * Link
      * @param value Link header to parse
@@ -46,9 +65,17 @@ declare class Link {
 }
 
 declare namespace Link {
-  interface Reference {
-      uri: string;
-      rel: string;
-      [index: string]: string;
-  }
+    interface Reference {
+        uri: string;
+        rel: string;
+        [index: string]: string;
+    }
+
+    interface LinkData {
+        /** @default 'utf-8' */
+        encoding?: string;
+        /** @default 'en' */
+        language?: string;
+        value: string | Buffer;
+    }
 }

@@ -1,6 +1,7 @@
 import { OnfleetDestination, CreateDestinationProps } from './Destinations';
 import { OnfleetMetadata } from '../metadata';
 import { OnfleetRecipient, CreateRecipientProps } from './Recipients';
+import Container = require('./Containers');
 
 declare class Task {
   autoAssign(tasks: Task.OnfleetTask[]): Promise<any>; // TODO need to confirm response
@@ -30,10 +31,7 @@ declare namespace Task {
       lastLocation: any[];
       unavailableAttachments: any[];
     };
-    container: {
-      organization: string;
-      type: string;
-    };
+    container: TaskContainer;
     creator: string;
     dependencies: string[];
     destination: OnfleetDestination;
@@ -66,6 +64,12 @@ declare namespace Task {
     trackingURL: string;
     trackingViewed: boolean;
     worker: string | null;
+    barcodes?: {
+      /** The requested barcodes */
+      required: Barcode[];
+      /** Once a task is completed for which barcodes have been captured, the capture details can be found here */
+      captured: CapturedBarcode[];
+    };
   }
 
   interface CreateTaskProps {
@@ -73,6 +77,7 @@ declare namespace Task {
     recipients: string[] | CreateRecipientProps[];
     autoAssign?: TaskAutoAssign;
     capacity?: number;
+    container?: TaskContainer;
     completeAfter?: number;
     completeBefore?: number;
     dependencies?: string[];
@@ -86,6 +91,7 @@ declare namespace Task {
     recipientNotes?: string;
     recipientSkipSMSNotifications?: boolean;
     requirements?: TaskCompletionRequirements;
+    barcodes?: Barcode[];
   }
   interface TaskAutoAssign {
     mode: string;
@@ -93,6 +99,28 @@ declare namespace Task {
     excludeWorkerIds?: string[];
     maxAssignedTaskCount?: number;
     team?: string;
+  }
+
+  interface Barcode {
+    /** Whether the worker must capture this data prior to task completion, defaults to false */
+    blockCompletion?: boolean;
+    /** Base64 representation of the data encoded within the barcode to be captured, max length of 500 characters */
+    data?: string;
+  }
+
+  interface CapturedBarcode {
+    /** The ID of the captured barcode */
+    id: string;
+    /** The symbology that was captured */
+    symbology: string;
+    /** The base64 string of the data contained in the captured barcode */
+    data: Barcode['data'];
+    /** The [ lon, lat ] coordinates where the barcode capture took place */
+    location: [number, number];
+    /** The time at which the barcode capture happened */
+    time: number;
+    /** Whether the barcode was captured as a result of a barcode request */
+    wasRequested: boolean;
   }
 
   interface TaskCompletionRequirements {
@@ -135,6 +163,23 @@ declare namespace Task {
     eta: number;
     trackingViewed: boolean;
   }
+
+  interface WorkerTaskContainer {
+    type: 'WORKER';
+    worker: string;
+  }
+
+  interface OrganizationTaskContainer {
+    type: 'ORGANIZATION';
+    organization: string;
+  }
+
+  interface TeamTaskContainer {
+    type: 'TEAM';
+    team: string;
+  }
+
+  type TaskContainer = WorkerTaskContainer | OrganizationTaskContainer | TeamTaskContainer;
 }
 
 export = Task;

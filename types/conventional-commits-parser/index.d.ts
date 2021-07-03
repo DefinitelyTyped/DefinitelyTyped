@@ -284,7 +284,7 @@ declare namespace conventionalCommitsParser {
          * @default
          * function () {}
          */
-        warn?: (message?: any) => void | boolean;
+        warn?: ((message?: any) => void) | boolean;
     }
 
     namespace Options {

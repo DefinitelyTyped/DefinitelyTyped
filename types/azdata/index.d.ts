@@ -1,7 +1,7 @@
-// Type definitions for Azure Data Studio 1.15
+// Type definitions for Azure Data Studio 1.29
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
-//                 Anthony Dresser: <https://github.com/anthonydresser>
+//                 Alan Ren: <https://github.com/alanrenmsft>
 //                 Karl Burtram: <https://github.com/kburtram>
 //                 Ken Van Hyning: <https://github.com/kenvanhyning>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,12 +13,17 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.15 Extension API
+ * Type Definition for Azure Data Studio 1.29 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
 declare module 'azdata' {
     import * as vscode from 'vscode';
+
+    /**
+     * The version of the application.
+     */
+    export const version: string;
 
     // EXPORTED NAMESPACES /////////////////////////////////////////////////
     /**
@@ -60,7 +65,7 @@ declare module 'azdata' {
          * @param providerId The ID that the provider was registered with
          * @param providerType The type of the provider
          */
-        export function getProvider<T extends DataProvider>(providerId: string, providerType: DataProviderType): DataProvider;
+        export function getProvider<T extends DataProvider>(providerId: string, providerType: DataProviderType): T;
 
         /**
          * Get all registered providers of the given type
@@ -146,7 +151,7 @@ declare module 'azdata' {
         export function getConnectionString(connectionId: string, includePassword: boolean): Thenable<string>;
 
         /**
-         * Get the credentials for an active connection
+         * Get the credentials for a connection
          * @param connectionId The id of the connection
          * @returns A dictionary containing the credentials as they would be included in the connection's options dictionary
          */
@@ -203,6 +208,40 @@ declare module 'azdata' {
          * @param connectionProfile connection profile
          */
         export function connect(connectionProfile: IConnectionProfile, saveConnection?: boolean, showDashboard?: boolean): Thenable<ConnectionResult>;
+
+        /**
+         * Supported connection event types
+         */
+        export type ConnectionEventType =
+            | 'onConnect'
+            | 'onDisconnect'
+            | 'onConnectionChanged';
+
+        /**
+         * Connection Event Lister
+         */
+        export interface ConnectionEventListener {
+            /**
+             * Connection event handler
+             * @param type Connection event type
+             * @param ownerUri Connection's owner uri
+             * @param args Connection profile
+             */
+            onConnectionEvent(type: ConnectionEventType, ownerUri: string, args: IConnectionProfile): void;
+        }
+
+        /**
+         * Register a connection event listener
+         * @param listener The connection event listener
+         */
+        export function registerConnectionEventListener(listener: ConnectionEventListener): vscode.Disposable;
+
+        /**
+         * Get connection profile by its owner uri
+         * @param ownerUri The owner uri of the connection
+         * @returns Thenable to return the connection profile matching the ownerUri
+         */
+        export function getConnection(ownerUri: string): Thenable<ConnectionProfile>;
     }
 
     /**
@@ -241,7 +280,7 @@ declare module 'azdata' {
         /**
          * Get connectionProfile from sessionId
          * @param sessionId The id of the session that the node exists on
-         * @returns The IConnecitonProfile for the session
+         * @returns The IConnectionProfile for the session
          */
         export function getSessionConnectionProfile(sessionId: string): Thenable<IConnectionProfile>;
 
@@ -298,9 +337,9 @@ declare module 'azdata' {
     // Object Explorer interfaces  -----------------------------------------------------------------------
     export interface ObjectExplorerSession {
         success: boolean;
-        sessionId: string;
+        sessionId?: string;
         rootNode: NodeInfo;
-        errorMessage: string;
+        errorMessage?: string;
     }
 
     /**
@@ -310,12 +349,12 @@ declare module 'azdata' {
     export interface NodeInfo {
         nodePath: string;
         nodeType: string;
-        nodeSubType: string;
-        nodeStatus: string;
+        nodeSubType?: string;
+        nodeStatus?: string;
         label: string;
         isLeaf: boolean;
-        metadata: ObjectMetadata;
-        errorMessage: string;
+        metadata?: ObjectMetadata;
+        errorMessage?: string;
         /**
          * Optional iconType for the object in the tree. Currently this only supports
          * an icon name or SqlThemeIcon name, rather than a path to an icon.
@@ -334,15 +373,15 @@ declare module 'azdata' {
     }
 
     export interface IConnectionProfile extends ConnectionInfo {
-        connectionName: string;
+        connectionName?: string;
         serverName: string;
-        databaseName: string;
+        databaseName?: string;
         userName: string;
         password: string;
         authenticationType: string;
         savePassword: boolean;
         groupFullName?: string;
-        groupId: string;
+        groupId?: string;
         providerName: string;
         saveProfile: boolean;
         id: string;
@@ -427,7 +466,7 @@ declare module 'azdata' {
         /**
          * database name
          */
-        databaseName: string;
+        databaseName?: string;
         /**
          * user name
          */
@@ -441,11 +480,11 @@ declare module 'azdata' {
         /**
          * The major version of the instance.
          */
-        serverMajorVersion: number;
+        serverMajorVersion?: number;
         /**
          * The minor version of the instance.
          */
-        serverMinorVersion: number;
+        serverMinorVersion?: number;
         /**
          * The build of the instance.
          */
@@ -613,6 +652,7 @@ declare module 'azdata' {
     // List Databases Request ----------------------------------------------------------------------
     export interface ListDatabasesResult {
         databaseNames: Array<string>;
+        databases?: Array<DatabaseInfo>;
     }
 
     /**
@@ -739,7 +779,7 @@ declare module 'azdata' {
     export interface MetadataProvider extends DataProvider {
         getMetadata(connectionUri: string): Thenable<ProviderMetadata>;
 
-        getDatabases(connectionUri: string): Thenable<string[]>;
+        getDatabases(connectionUri: string): Thenable<string[] | DatabaseInfo[]>;
 
         getTableInfo(connectionUri: string, metadata: ObjectMetadata): Thenable<ColumnMetadata[]>;
 
@@ -762,7 +802,7 @@ declare module 'azdata' {
     }
 
     export interface ScriptingParamDetails {
-        filePath: string;
+        filePath?: string;
         scriptCompatibilityOption: string;
         targetDatabaseEngineEdition: string;
         targetDatabaseEngineType: string;
@@ -1241,15 +1281,15 @@ declare module 'azdata' {
     }
 
     export interface ObjectExplorerExpandInfo {
-        sessionId: string;
+        sessionId?: string;
         nodePath: string;
         nodes: NodeInfo[];
-        errorMessage: string;
+        errorMessage?: string;
     }
 
     export interface ExpandNodeInfo {
         sessionId: string;
-        nodePath: string;
+        nodePath: string | undefined;
     }
 
     export interface FindNodesInfo {
@@ -1262,7 +1302,7 @@ declare module 'azdata' {
     }
 
     export interface ObjectExplorerCloseSessionInfo {
-        sessionId: string;
+        sessionId?: string;
     }
 
     export interface ObjectExplorerCloseSessionResponse {
@@ -1312,12 +1352,12 @@ declare module 'azdata' {
     }
 
     export interface IconProvider extends DataProvider {
-        getConnectionIconId(connection: IConnectionProfile, serverInfo: ServerInfo): Thenable<string>;
+        getConnectionIconId(connection: IConnectionProfile, serverInfo: ServerInfo): Thenable<string | undefined>;
     }
 
     // Admin Services interfaces  -----------------------------------------------------------------------
     export interface DatabaseInfo {
-        options: {};
+        options: { [key: string]: any };
     }
 
     export interface LoginInfo {
@@ -1773,7 +1813,7 @@ declare module 'azdata' {
         getTemplateNotebook(ownerUri: string, targetDatabase: string, jobId: string): Thenable<AgentNotebookTemplateResult>;
         createNotebook(ownerUri: string, notebook: AgentNotebookInfo, templateFilePath: string): Thenable<CreateAgentNotebookResult>;
         deleteNotebook(ownerUri: string, notebook: AgentNotebookInfo): Thenable<ResultStatus>;
-        updateNotebook(ownerUri: string, originialNotebookName: string, notebook: AgentNotebookInfo, templateFilePath: string): Thenable<UpdateAgentNotebookResult>;
+        updateNotebook(ownerUri: string, originalNotebookName: string, notebook: AgentNotebookInfo, templateFilePath: string): Thenable<UpdateAgentNotebookResult>;
         updateNotebookMaterializedName(ownerUri: string, agentNotebookHistory: AgentNotebookHistoryInfo, targetDatabase: string, name: string): Thenable<ResultStatus>;
         updateNotebookMaterializedPin(ownerUri: string, agentNotebookHistory: AgentNotebookHistoryInfo, targetDatabase: string, pin: boolean): Thenable<ResultStatus>;
         deleteMaterializedNotebook(ownerUri: string, agentNotebookHistory: AgentNotebookHistoryInfo, targetDatabase: string): Thenable<ResultStatus>;
@@ -1812,7 +1852,6 @@ declare module 'azdata' {
 
         registerOnUpdated(handler: () => any): void;
     }
-
     // DacFx interfaces  -----------------------------------------------------------------------
 
     // Security service interfaces ------------------------------------------------------------------------
@@ -1893,7 +1932,10 @@ declare module 'azdata' {
     export interface BackupConfigInfo {
         recoveryModel: string;
         defaultBackupFolder: string;
-        backupEncryptors: {};
+        backupEncryptors: {
+            encryptorType: number;
+            encryptorName: string;
+        }[];
     }
 
     export interface BackupResponse {
@@ -1915,7 +1957,7 @@ declare module 'azdata' {
 
     export interface RestoreInfo {
         options: { [key: string]: any };
-        taskExecutionMode: TaskExecutionMode;
+        taskExecutionMode?: TaskExecutionMode;
     }
 
     export interface RestoreDatabaseFileInfo {
@@ -1953,7 +1995,7 @@ declare module 'azdata' {
         sessionId: string;
         backupSetsToRestore: DatabaseFileInfo[];
         canRestore: boolean;
-        errorMessage: string;
+        errorMessage?: string;
         dbFiles: RestoreDatabaseFileInfo[];
         databaseNamesFromBackupSets: string[];
         planDetails: { [key: string]: RestorePlanDetailInfo };
@@ -2014,7 +2056,7 @@ declare module 'azdata' {
         /**
          * Event values
          */
-        values: {};
+        values: { [key: string]: any };
     }
 
     /**
@@ -2032,7 +2074,7 @@ declare module 'azdata' {
         defaultView: string;
 
         /**
-         * TSQL for creating a session
+         * T-SQL for creating a session
          */
         createStatement: string;
     }
@@ -2115,7 +2157,7 @@ declare module 'azdata' {
          * Launches a flyout dialog that will display the information on how to complete device
          * code OAuth login to the user. Only one flyout can be opened at once and each must be closed
          * by calling {@link endAutoOAuthDeviceCode}.
-         * @param providerId    ID of the provider that's requesting the flyout be opened
+         * @param providerId ID of the provider that's requesting the flyout be opened
          */
         export function beginAutoOAuthDeviceCode(providerId: string, title: string, message: string, userCode: string, uri: string): Thenable<void>;
 
@@ -2139,11 +2181,22 @@ declare module 'azdata' {
 
         /**
          * Generates a security token by asking the account's provider
-         * @param account Account to generate security token for (defaults to
+         * @param account Account to generate security token for
+         * @param resource Type of resource to get the security token for (defaults to
          * AzureResource.ResourceManagement if not given)
          * @return Promise to return the security token
+         * @deprecated use getAccountSecurityToken
          */
-        export function getSecurityToken(account: Account, resource?: AzureResource): Thenable<{}>;
+        export function getSecurityToken(account: Account, resource?: AzureResource): Thenable<{ [key: string]: any }>;
+
+        /**
+         * Generates a security token by asking the account's provider
+         * @param account The account to retrieve the security token for
+         * @param tenantId The ID of the tenant associated with this account
+         * @param resource Type of resource to get the security token for (defaults to
+         * AzureResource.ResourceManagement if not given)
+         */
+        export function getAccountSecurityToken(account: Account, tenantId: string, resource: AzureResource): Thenable<{ token: string, tokenType?: string } | undefined>;
 
         /**
          * An [event](#Event) which fires when the accounts have changed.
@@ -2171,7 +2224,7 @@ declare module 'azdata' {
         displayName: string;
 
         /**
-         * User id that identifies the account, such as "user@contoso.com".
+         * Unique user id that identifies the account.
          */
         userId: string;
     }
@@ -2222,8 +2275,38 @@ declare module 'azdata' {
     }
 
     export enum AzureResource {
+        /**
+         * Azure Resource Management (ARM)
+         */
         ResourceManagement = 0,
-        Sql = 1
+        /**
+         * SQL Azure
+         */
+        Sql = 1,
+        /**
+         * OSS RDMS
+         */
+        OssRdbms = 2,
+        /**
+         * Azure Key Vault
+         */
+        AzureKeyVault = 3,
+        /**
+         * Azure AD Graph
+         */
+        Graph = 4,
+        /**
+         * Microsoft Resource Management
+         */
+        MicrosoftResourceManagement = 5,
+        /**
+         * Azure Dev Ops
+         */
+        AzureDevOps = 6,
+        /**
+         * Microsoft Graph
+         */
+        MsGraph = 7
     }
 
     export interface DidChangeAccountsParams {
@@ -2285,8 +2368,9 @@ declare module 'azdata' {
          * @param account The account to generate a security token for
          * @param resource The resource to get the token for
          * @return Promise to return a security token object
+         * @deprecated use getAccountSecurityToken
          */
-        getSecurityToken(account: Account, resource: AzureResource): Thenable<{}>;
+        getSecurityToken(account: Account, resource: AzureResource): Thenable<{} | undefined>;
 
         /**
          * Prompts the user to enter account information.
@@ -2314,6 +2398,11 @@ declare module 'azdata' {
          * and call the end OAuth method.
          */
         autoOAuthCancelled(): Thenable<void>;
+
+        /**
+         * Clears token cache
+         */
+        clearTokenCache(): Thenable<void>;
     }
 
     // Resource provider interfaces  -----------------------------------------------------------------------
@@ -2341,7 +2430,7 @@ declare module 'azdata' {
 
     export namespace resources {
         /**
-         * Registers a resource provider that can suport
+         * Registers a resource provider that can support
          */
         export function registerResourceProvider(providerMetadata: ResourceProviderMetadata, provider: ResourceProvider): vscode.Disposable;
     }
@@ -2355,8 +2444,8 @@ declare module 'azdata' {
     }
 
     export interface FirewallRuleInfo {
-        startIpAddress: string;
-        endIpAddress: string;
+        startIpAddress?: string;
+        endIpAddress?: string;
         serverName: string;
         securityTokenMappings: {};
     }
@@ -2476,7 +2565,9 @@ declare module 'azdata' {
         export const onDidChangeToDashboard: vscode.Event<DashboardDocument>;
 
         /**
-         * Create a new model view editor
+         * Create a new ModelView editor
+         * @param title The title shown in the editor tab
+         * @param options Options to configure the editor
          */
         export function createModelViewEditor(title: string, options?: ModelViewEditorOptions): ModelViewEditor;
 
@@ -2546,37 +2637,39 @@ declare module 'azdata' {
      * Supports defining a model that can be instantiated as a view in the UI
      */
     export interface ModelBuilder {
-        navContainer(): ContainerBuilder<NavContainer, any, any>;
+        navContainer(): ContainerBuilder<NavContainer, any, any, ComponentProperties>;
         divContainer(): DivBuilder;
         flexContainer(): FlexBuilder;
         splitViewContainer(): SplitViewBuilder;
-        dom(): ComponentBuilder<DomComponent>;
         /**
          * @deprecated please use radioCardGroup component.
          */
-        card(): ComponentBuilder<CardComponent>;
-        inputBox(): ComponentBuilder<InputBoxComponent>;
-        checkBox(): ComponentBuilder<CheckBoxComponent>;
-        radioButton(): ComponentBuilder<RadioButtonComponent>;
-        webView(): ComponentBuilder<WebViewComponent>;
-        editor(): ComponentBuilder<EditorComponent>;
-        diffeditor(): ComponentBuilder<DiffEditorComponent>;
-        text(): ComponentBuilder<TextComponent>;
-        image(): ComponentBuilder<ImageComponent>;
-        button(): ComponentBuilder<ButtonComponent>;
-        dropDown(): ComponentBuilder<DropDownComponent>;
-        tree<T>(): ComponentBuilder<TreeComponent<T>>;
-        listBox(): ComponentBuilder<ListBoxComponent>;
-        table(): ComponentBuilder<TableComponent>;
-        declarativeTable(): ComponentBuilder<DeclarativeTableComponent>;
-        dashboardWidget(widgetId: string): ComponentBuilder<DashboardWidgetComponent>;
-        dashboardWebview(webviewId: string): ComponentBuilder<DashboardWebviewComponent>;
+        card(): ComponentBuilder<CardComponent, CardProperties>;
+        inputBox(): ComponentBuilder<InputBoxComponent, InputBoxProperties>;
+        checkBox(): ComponentBuilder<CheckBoxComponent, CheckBoxProperties>;
+        radioButton(): ComponentBuilder<RadioButtonComponent, RadioButtonProperties>;
+        webView(): ComponentBuilder<WebViewComponent, WebViewProperties>;
+        editor(): ComponentBuilder<EditorComponent, EditorProperties>;
+        diffeditor(): ComponentBuilder<DiffEditorComponent, DiffEditorComponent>;
+        text(): ComponentBuilder<TextComponent, TextComponentProperties>;
+        image(): ComponentBuilder<ImageComponent, ImageComponentProperties>;
+        button(): ComponentBuilder<ButtonComponent, ButtonProperties>;
+        dropDown(): ComponentBuilder<DropDownComponent, DropDownProperties>;
+        tree<T>(): ComponentBuilder<TreeComponent<T>, TreeProperties>;
+        listBox(): ComponentBuilder<ListBoxComponent, ListBoxProperties>;
+        table(): ComponentBuilder<TableComponent, TableComponentProperties>;
+        declarativeTable(): ComponentBuilder<DeclarativeTableComponent, DeclarativeTableProperties>;
+        dashboardWidget(widgetId: string): ComponentBuilder<DashboardWidgetComponent, ComponentProperties>;
+        dashboardWebview(webviewId: string): ComponentBuilder<DashboardWebviewComponent, ComponentProperties>;
         formContainer(): FormBuilder;
         groupContainer(): GroupBuilder;
         toolbarContainer(): ToolbarBuilder;
         loadingComponent(): LoadingComponentBuilder;
-        fileBrowserTree(): ComponentBuilder<FileBrowserTreeComponent>;
-        hyperlink(): ComponentBuilder<HyperlinkComponent>;
+        fileBrowserTree(): ComponentBuilder<FileBrowserTreeComponent, FileBrowserTreeProperties>;
+        hyperlink(): ComponentBuilder<HyperlinkComponent, HyperlinkComponentProperties>;
+        separator(): ComponentBuilder<SeparatorComponent, SeparatorComponentProperties>;
+        infoBox(): ComponentBuilder<InfoBoxComponent, InfoBoxComponentProperties>;
+        propertiesContainer(): ComponentBuilder<PropertiesContainerComponent, PropertiesContainerComponentProperties>;
     }
 
     export interface TreeComponentDataProvider<T> extends vscode.TreeDataProvider<T> {
@@ -2598,31 +2691,31 @@ declare module 'azdata' {
         enabled?: boolean;
     }
 
-    export interface ComponentBuilder<T extends Component> {
-        component(): T;
-        withProperties<U>(properties: U): ComponentBuilder<T>;
-        withValidation(validation: (component: T) => boolean): ComponentBuilder<T>;
+    export interface ComponentBuilder<TComponent extends Component, TPropertyBag extends ComponentProperties> {
+        component(): TComponent;
+        withProperties<U>(properties: U): ComponentBuilder<TComponent, TPropertyBag>;
+        withValidation(validation: (component: TComponent) => boolean | Thenable<boolean>): ComponentBuilder<TComponent, TPropertyBag>;
     }
-    export interface ContainerBuilder<T extends Component, TLayout, TItemLayout> extends ComponentBuilder<T> {
-        withLayout(layout: TLayout): ContainerBuilder<T, TLayout, TItemLayout>;
-        withItems(components: Array<Component>, itemLayout?: TItemLayout): ContainerBuilder<T, TLayout, TItemLayout>;
+    export interface ContainerBuilder<TComponent extends Component, TLayout, TItemLayout, TPropertyBag extends ComponentProperties> extends ComponentBuilder<TComponent, TPropertyBag> {
+        withLayout(layout: TLayout): ContainerBuilder<TComponent, TLayout, TItemLayout, TPropertyBag>;
+        withItems(components: Array<Component>, itemLayout?: TItemLayout): ContainerBuilder<TComponent, TLayout, TItemLayout, TPropertyBag>;
     }
 
-    export interface FlexBuilder extends ContainerBuilder<FlexContainer, FlexLayout, FlexItemLayout> {
+    export interface FlexBuilder extends ContainerBuilder<FlexContainer, FlexLayout, FlexItemLayout, ComponentProperties> {
     }
 
     // Building on top of flex item
-    export interface SplitViewBuilder extends ContainerBuilder<SplitViewContainer, SplitViewLayout, FlexItemLayout> {
+    export interface SplitViewBuilder extends ContainerBuilder<SplitViewContainer, SplitViewLayout, FlexItemLayout, SplitViewContainer> {
     }
 
-    export interface DivBuilder extends ContainerBuilder<DivContainer, DivLayout, DivItemLayout> {
+    export interface DivBuilder extends ContainerBuilder<DivContainer, DivLayout, DivItemLayout, DivContainerProperties> {
     }
 
-    export interface GroupBuilder extends ContainerBuilder<GroupContainer, GroupLayout, GroupItemLayout> {
+    export interface GroupBuilder extends ContainerBuilder<GroupContainer, GroupLayout, GroupItemLayout, GroupContainerProperties> {
     }
 
-    export interface ToolbarBuilder extends ContainerBuilder<ToolbarContainer, ToolbarLayout, any> {
-        withToolbarItems(components: ToolbarComponent[]): ContainerBuilder<ToolbarContainer, ToolbarLayout, any>;
+    export interface ToolbarBuilder extends ContainerBuilder<ToolbarContainer, ToolbarLayout, any, ComponentProperties> {
+        withToolbarItems(components: ToolbarComponent[]): ContainerBuilder<ToolbarContainer, ToolbarLayout, any, ComponentProperties>;
 
         /**
          * Creates a collection of child components and adds them all to this container
@@ -2639,7 +2732,7 @@ declare module 'azdata' {
         addToolbarItem(toolbarComponent: ToolbarComponent): void;
     }
 
-    export interface LoadingComponentBuilder extends ComponentBuilder<LoadingComponent> {
+    export interface LoadingComponentBuilder extends ComponentBuilder<LoadingComponent, LoadingComponentProperties> {
         /**
          * Set the component wrapped by the LoadingComponent
          * @param component The component to wrap
@@ -2647,7 +2740,7 @@ declare module 'azdata' {
         withItem(component: Component): LoadingComponentBuilder;
     }
 
-    export interface FormBuilder extends ContainerBuilder<FormContainer, FormLayout, FormItemLayout> {
+    export interface FormBuilder extends ContainerBuilder<FormContainer, FormLayout, FormItemLayout, ComponentProperties> {
         withFormItems(components: (FormComponent | FormComponentGroup)[], itemLayout?: FormItemLayout): FormBuilder;
 
         /**
@@ -2704,7 +2797,7 @@ declare module 'azdata' {
          * @param cssStyles The styles to update
          * @returns Thenable that completes once the update has been applied to the UI
          */
-        updateCssStyles(cssStyles: { [key: string]: string }): Thenable<void>;
+        updateCssStyles(cssStyles: CssStyles): Thenable<void>;
 
         /**
          * Event fired to notify that the component's validity has changed
@@ -2727,9 +2820,9 @@ declare module 'azdata' {
         focus(): Thenable<void>;
     }
 
-    export interface FormComponent {
-        component: Component;
-        title: string;
+    export interface FormComponent<T extends Component = Component> {
+        component: T;
+        title?: string;
         actions?: Component[];
         required?: boolean;
     }
@@ -2882,6 +2975,11 @@ declare module 'azdata' {
         '';
 
     /**
+     * Set of CSS key-value pairs
+     */
+    export type CssStyles = { [key: string]: string | number };
+
+    /**
      * The config for a FlexBox-based container. This supports easy
      * addition of content to a container with a flexible layout
      * and use of space.
@@ -2959,7 +3057,7 @@ declare module 'azdata' {
         /**
          * Matches the CSS style key and its available values.
          */
-        CSSStyles?: { [key: string]: string };
+        CSSStyles?: CssStyles;
     }
 
     export interface FormItemLayout {
@@ -3007,7 +3105,7 @@ declare module 'azdata' {
         /**
          * Matches the CSS style key and its available values.
          */
-        CSSStyles?: { [key: string]: string };
+        CSSStyles?: CssStyles;
     }
 
     export interface DivContainer extends Container<DivLayout, DivItemLayout>, DivContainerProperties {
@@ -3031,7 +3129,7 @@ declare module 'azdata' {
 
     export enum Orientation {
         Horizontal = 'horizontal',
-        Vertical = 'vertial'
+        Vertical = 'vertical'
     }
 
     export interface ToolbarLayout {
@@ -3139,24 +3237,37 @@ declare module 'azdata' {
          */
         ariaSelected?: boolean;
         /**
+         * Corresponds to the aria-hidden accessibility attribute for this component
+         */
+        ariaHidden?: boolean;
+        /**
          * Matches the CSS style key and its available values.
          */
-        CSSStyles?: { [key: string]: string };
+        CSSStyles?: CssStyles;
     }
 
-    export interface ComponentWithIcon {
+    export type ThemedIconPath = { light: string | vscode.Uri; dark: string | vscode.Uri };
+    export type IconPath = string | vscode.Uri | ThemedIconPath;
+
+    export interface ComponentWithIcon extends ComponentWithIconProperties { }
+
+    export interface ComponentWithIconProperties extends ComponentProperties {
         /**
-         * @deprecated This will be moved to `ComponentWithIconProperties`
+         * The path for the icon with optional dark-theme away alternative
          */
-        iconPath?: string | vscode.Uri | { light: string | vscode.Uri; dark: string | vscode.Uri };
+        iconPath?: IconPath;
         /**
-         * @deprecated This will be moved to `ComponentWithIconProperties`
+         * The height of the icon
          */
         iconHeight?: number | string;
         /**
-         * @deprecated This will be moved to `ComponentWithIconProperties`
+         * The width of the icon
          */
         iconWidth?: number | string;
+        /**
+         * The title for the icon. This title will show when hovered over
+         */
+        title?: string;
     }
 
     export interface InputBoxProperties extends ComponentProperties {
@@ -3168,13 +3279,33 @@ declare module 'azdata' {
         multiline?: boolean;
         rows?: number;
         columns?: number;
+        /**
+         * The minimum value allowed for the input. Only valid for number inputs.
+         */
         min?: number;
+        /**
+         * The maximum value allowed for the input. Only valid for number inputs.
+         */
         max?: number;
         /**
          * Whether to stop key event propagation when enter is pressed in the input box. Leaving this as false
          * means the event will propagate up to any parents that have handlers (such as validate on Dialogs)
          */
         stopEnterPropagation?: boolean;
+        /**
+         * The error message to show when custom validation fails. Note that built-in validations
+         * (such as min/max values) will use the default error messages for those validations
+         * as appropriate.
+         */
+        validationErrorMessage?: string;
+        /**
+         * Whether the input box is marked with the 'readonly' attribute
+         */
+        readOnly?: boolean;
+        /**
+         * This title will show when hovered over
+         */
+        title?: string;
     }
 
     export interface TableColumn {
@@ -3184,6 +3315,9 @@ declare module 'azdata' {
         headerCssClass?: string;
         toolTip?: string;
         type?: ColumnType;
+        /**
+         * @deprecated options property is deprecated, use specific column types to access the options directly
+         */
         options?: CheckboxColumnOption | TextColumnOption;
     }
 
@@ -3206,9 +3340,9 @@ declare module 'azdata' {
     }
 
     export enum ColumnSizingMode {
-        ForceFit = 0,    // all columns will be sized to fit in viewable space, no horiz scroll bar
-        AutoFit = 1,    // columns will be ForceFit up to a certain number; currently 3.  At 4 or more the behavior will switch to NO force fit
-        DataFit = 2        // columns use sizing based on cell data, horiz scroll bar present if more cells than visible in view area
+        ForceFit = 0, // all columns will be sized to fit in viewable space, no horizontal scroll bar
+        AutoFit = 1, // columns will be ForceFit up to a certain number; currently 3.  At 4 or more the behavior will switch to NO force fit
+        DataFit = 2 // columns use sizing based on cell data, horizontal scroll bar present if more cells than visible in view area
     }
 
     export interface TableComponentProperties extends ComponentProperties {
@@ -3234,8 +3368,19 @@ declare module 'azdata' {
     }
 
     export interface CheckBoxProperties extends ComponentProperties {
+        /**
+         * Whether the checkbox is checked.
+         */
         checked?: boolean;
+        /**
+         * The label to display next to the checkbox.
+         */
         label?: string;
+        /**
+         * Whether the component is marked with the 'required' property - making
+         * it required to be checked for component validation.
+         */
+        required?: boolean;
     }
 
     export interface TreeProperties extends ComponentProperties {
@@ -3249,7 +3394,7 @@ declare module 'azdata' {
         editableCategory = 'editableCategory'
     }
 
-    export interface RadioButtonProperties {
+    export interface RadioButtonProperties extends ComponentProperties {
         name?: string;
         label?: string;
         value?: string;
@@ -3266,7 +3411,7 @@ declare module 'azdata' {
     export interface ImageComponentProperties extends ComponentProperties, ComponentWithIcon {
     }
 
-    export interface GroupContainerProperties {
+    export interface GroupContainerProperties extends ComponentProperties {
         collapsed: boolean;
     }
 
@@ -3275,12 +3420,20 @@ declare module 'azdata' {
         url: string;
     }
 
-    export interface HyperlinkComponentProperties extends ComponentProperties, TitledComponentProperties {
+    export interface HyperlinkComponentProperties extends TitledComponentProperties {
         label: string;
         url: string;
+        /**
+         * Whether to show the 'external link' icon next to the hyperlink
+         */
+        showLinkIcon?: boolean;
     }
 
-    export interface DropDownProperties extends ComponentProperties {
+    export interface ImageComponent extends ComponentWithIcon { }
+
+    export interface ImageComponentProperties extends ComponentWithIconProperties { }
+
+    export interface DropDownProperties extends LoadingComponentProperties {
         value?: string | CategoryValue;
         values?: string[] | CategoryValue[];
         editable?: boolean;
@@ -3296,12 +3449,15 @@ declare module 'azdata' {
         categoryValues?: CategoryValue[];
     }
 
-    export interface DeclarativeTableProperties {
-        data: any[][];
+    export interface DeclarativeTableProperties extends ComponentProperties {
+        /**
+         * @deprecated Use dataValues instead.
+         */
+        data?: any[][];
         columns: DeclarativeTableColumn[];
     }
 
-    export interface ListBoxProperties {
+    export interface ListBoxProperties extends ComponentProperties {
         selectedRow?: number;
         values?: string[];
     }
@@ -3321,13 +3477,6 @@ declare module 'azdata' {
         options?: vscode.WebviewOptions;
     }
 
-    export interface DomProperties extends ComponentProperties {
-        /**
-         * Contents of the DOM component.
-         */
-        html?: string;
-    }
-
     /**
      * Editor properties for the editor component
      */
@@ -3337,13 +3486,25 @@ declare module 'azdata' {
          */
         content?: string;
         /**
-         * The languge mode for this text editor. The language mode is SQL by default.
+         * The language mode for this text editor. The language mode is SQL by default.
          */
         languageMode?: string;
         /**
          * Minimum height for editor component
          */
         minimumHeight?: number;
+
+        /**
+         * The editor Uri which will be used as a reference for VSCode Language Service.
+         * Currently this is auto-generated by the framework but can be queried after
+         * view initialization is completed
+         */
+        readonly editorUri: string;
+
+        /**
+         * Toggle for whether the editor should be automatically resized or not
+         */
+        isAutoResizable: boolean;
     }
 
     export interface ButtonProperties extends ComponentProperties, ComponentWithIcon {
@@ -3367,10 +3528,23 @@ declare module 'azdata' {
         title?: string;
     }
 
-    export interface LoadingComponentProperties {
+    export interface LoadingComponentProperties extends ComponentProperties {
+        /**
+         * Whether to show the loading spinner instead of the contained component. True by default
+         */
         loading?: boolean;
+        /**
+         * Whether to show the loading text next to the spinner
+         */
         showText?: boolean;
+        /**
+         * The text to display while loading is set to true
+         */
         loadingText?: string;
+        /**
+         * The text to display while loading is set to false. Will also be announced through screen readers
+         * once loading is completed.
+         */
         loadingCompletedText?: string;
     }
 
@@ -3392,7 +3566,7 @@ declare module 'azdata' {
         clickable?: boolean;
     }
 
-    export interface TitledComponentProperties {
+    export interface TitledComponentProperties extends ComponentProperties {
         /**
          * The title for the component. This title will show when hovered over
          */
@@ -3404,9 +3578,6 @@ declare module 'azdata' {
         onCardSelectedChanged: vscode.Event<any>;
     }
 
-    export interface DomComponent extends Component, DomProperties {
-    }
-
     export interface TextComponent extends Component, TextComponentProperties {
     }
 
@@ -3414,6 +3585,10 @@ declare module 'azdata' {
     }
 
     export interface HyperlinkComponent extends Component, HyperlinkComponentProperties {
+        /**
+         * An event called when the hyperlink is clicked
+         */
+        onDidClick: vscode.Event<void>;
     }
 
     export interface InputBoxComponent extends Component, InputBoxProperties {
@@ -3426,6 +3601,7 @@ declare module 'azdata' {
 
     export interface RadioButtonComponent extends Component, RadioButtonProperties {
         /**
+         * @deprecated use onDidChangeCheckedState event instead
          * An event called when the radio button is clicked
          */
         onDidClick: vscode.Event<any>;
@@ -3486,21 +3662,7 @@ declare module 'azdata' {
     /**
      * Editor component for displaying the text code editor
      */
-    export interface EditorComponent extends Component {
-        /**
-         * The content inside the text editor
-         */
-        content: string;
-        /**
-         * The languge mode for this text editor. The language mode is SQL by default.
-         */
-        languageMode: string;
-        /**
-         * The editor Uri which will be used as a reference for VSCode Language Service.
-         * Currently this is auto-generated by the framework but can be queried after
-         * view initialization is completed
-         */
-        readonly editorUri: string;
+    export interface EditorComponent extends Component, EditorProperties {
         /**
          * An event called when the editor content is updated
          */
@@ -3510,19 +3672,13 @@ declare module 'azdata' {
          * An event called when the editor is created
          */
         readonly onEditorCreated: vscode.Event<any>;
-
-        /**
-         * Toggle for whether the editor should be automatically resized or not
-         */
-        isAutoResizable: boolean;
-
-        /**
-         * Minimum height for editor component
-         */
-        minimumHeight: number;
     }
 
     export interface DiffEditorComponent extends Component {
+        /**
+         * Title of editor
+         */
+        title: string;
         /**
          * The content inside the left text editor
          */
@@ -3532,7 +3688,7 @@ declare module 'azdata' {
          */
         contentRight: string;
         /**
-         * The languge mode for this text editor. The language mode is SQL by default.
+         * The language mode for this text editor. The language mode is SQL by default.
          */
         languageMode: string;
         /**
@@ -3587,7 +3743,7 @@ declare module 'azdata' {
      * Component used to wrap another component that needs to be loaded, and show a loading spinner
      * while the contained component is loading
      */
-    export interface LoadingComponent extends Component {
+    export interface LoadingComponent extends Component, LoadingComponentProperties {
         /**
          * Whether to show the loading spinner instead of the contained component. True by default
          */
@@ -3597,6 +3753,70 @@ declare module 'azdata' {
          * The component displayed when the loading property is false
          */
         component: Component;
+    }
+
+    /**
+     * A component that adds a line dividing UI components such as toolbar buttons
+     */
+    export interface SeparatorComponent extends Component { }
+
+    /**
+     * The properties for the separator component
+     */
+    export interface SeparatorComponentProperties extends ComponentProperties { }
+
+    /**
+     * Component to display text with an icon representing the severity
+     */
+    export interface InfoBoxComponent extends Component, InfoBoxComponentProperties { }
+
+    export type InfoBoxStyle = 'information' | 'warning' | 'error' | 'success';
+
+    /**
+     * Properties for configuring a InfoBoxComponent
+     */
+    export interface InfoBoxComponentProperties extends ComponentProperties {
+        /**
+         * The style of the InfoBox
+         */
+        style: InfoBoxStyle;
+        /**
+         * The display text of the InfoBox
+         */
+        text: string;
+        /**
+         * Controls whether the text should be announced by the screen reader. Default value is false.
+         */
+        announceText?: boolean;
+    }
+
+    /**
+     * A property to be displayed in the PropertiesContainerComponent
+     */
+    export interface PropertiesContainerItem {
+        /**
+         * The name of the property to display
+         */
+        displayName: string;
+        /**
+         * The value of the property to display
+         */
+        value: string;
+    }
+
+    /**
+     * Component to display a list of property values.
+     */
+    export interface PropertiesContainerComponent extends Component, PropertiesContainerComponentProperties { }
+
+    /**
+     * Properties for configuring a PropertiesContainerComponent
+     */
+    export interface PropertiesContainerComponentProperties extends ComponentProperties {
+        /**
+         * The properties to display
+         */
+        propertyItems?: PropertiesContainerItem[];
     }
 
     /**
@@ -3661,6 +3881,7 @@ declare module 'azdata' {
         export function createWebViewDialog(title: string): ModalDialog;
 
         /**
+         * @deprecated please use the method createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth) instead.
          * Create a dialog with the given title
          * @param title The title of the dialog, displayed at the top
          * @param isWide Indicates whether the dialog is wide or normal
@@ -3692,14 +3913,17 @@ declare module 'azdata' {
         /**
          * Create a wizard page with the given title, for inclusion in a wizard
          * @param title The title of the page
+         * @param pageName The optional page name parameter will be used for telemetry
          */
-        export function createWizardPage(title: string): WizardPage;
+        export function createWizardPage(title: string, pageName?: string): WizardPage;
 
         /**
-         * Create a wizard with the given title and pages
+         * Create a wizard with the given title and width
          * @param title The title of the wizard
+         * @param name The name used to identify the wizard in telemetry
+         * @param width The width of the wizard, default value is 'narrow'
          */
-        export function createWizard(title: string): Wizard;
+        export function createWizard(title: string, name?: string, width?: DialogWidth): Wizard;
 
         /**
          * Used to control whether a message in a dialog/wizard is displayed as an error,
@@ -3710,6 +3934,11 @@ declare module 'azdata' {
             Warning = 1,
             Information = 2
         }
+
+        /**
+         * The width of a dialog, either from a predetermined size list or a specific size (such as px)
+         */
+        export type DialogWidth = 'narrow' | 'medium' | 'wide' | number | string;
 
         /**
          * A message shown in a dialog. If the level is not set it defaults to error.
@@ -3897,6 +4126,11 @@ declare module 'azdata' {
             title: string;
 
             /**
+             * The name used to identify the wizard in telemetry
+             */
+            name?: string;
+
+            /**
              * The wizard's pages. Pages can be added/removed while the dialog is open by using
              * the addPage and removePage methods
              */
@@ -4063,7 +4297,7 @@ declare module 'azdata' {
         /**
          * Register a query event listener
          */
-        export function registerQueryEventListener(listener: QueryEventListener): void;
+        export function registerQueryEventListener(listener: QueryEventListener): vscode.Disposable;
 
         /**
          * Get a QueryDocument object for a file URI
@@ -4085,7 +4319,7 @@ declare module 'azdata' {
         /**
          * Resource name for this editor
          * File icons might depend on file extension, language id or resource name
-         * Resource name field needs to be set explitly if file icon for a particular Model View Editor depends on editor resource name
+         * Resource name field needs to be set explicitly if file icon for a particular Model View Editor depends on editor resource name
          */
         readonly resourceName?: string;
     }
@@ -4106,7 +4340,8 @@ declare module 'azdata' {
         CapabilitiesProvider = 'CapabilitiesProvider',
         ObjectExplorerNodeProvider = 'ObjectExplorerNodeProvider',
         IconProvider = 'IconProvider',
-        SerializationProvider = 'SerializationProvider'
+        SerializationProvider = 'SerializationProvider',
+        SqlAssessmentServicesProvider = 'SqlAssessmentServicesProvider'
     }
 
     /**
@@ -4122,7 +4357,7 @@ declare module 'azdata' {
          * Note that the connection is not guaranteed to be in a connected
          * state on click.
          */
-        connectionProfile: IConnectionProfile;
+        connectionProfile?: IConnectionProfile;
     }
 
     /**
@@ -4141,7 +4376,7 @@ declare module 'azdata' {
          * Node info for objects below a specific connection. This
          * may be null for a Connection-level object
          */
-        nodeInfo: NodeInfo;
+        nodeInfo?: NodeInfo;
     }
 
     /**
@@ -4529,12 +4764,12 @@ declare module 'azdata' {
          * provider are defined in the `package.json:
          * ```json
          * {
-         *     "contributes": {
-         *         "notebook.providers": [{
-         *             "provider": "providername",
-         *             "fileExtensions": ["FILEEXT"]
-         *         }]
-         *     }
+         *    "contributes": {
+         *       "notebook.providers": [{
+         *          "provider": "providername",
+         *          "fileExtensions": ["FILEEXT"]
+         *        }]
+         *    }
          * }
          * ```
          * @param notebook provider
@@ -4550,6 +4785,10 @@ declare module 'azdata' {
 
         export interface NotebookProvider {
             readonly providerId: string;
+            /**
+             * @deprecated standardKernels will be removed in an upcoming release. Standard kernel contribution
+             * should happen via JSON for extensions. Until this is removed, notebook providers can safely return an empty array.
+             */
             readonly standardKernels: IStandardKernel[];
             getNotebookManager(notebookUri: vscode.Uri): Thenable<NotebookManager>;
             handleNotebookClosed(notebookUri: vscode.Uri): void;
@@ -4594,7 +4833,7 @@ declare module 'azdata' {
              * Starts the server. Some server types may not support or require this.
              * Should no-op if server is already started
              */
-            startServer(): Thenable<void>;
+            startServer(kernelSpec: IKernelSpec): Thenable<void>;
 
             /**
              * Stops the server. Some server types may not support or require this
@@ -4639,11 +4878,14 @@ declare module 'azdata' {
         }
 
         export interface INotebookMetadata {
-            kernelspec: IKernelInfo;
+            kernelspec?: IKernelInfo | IKernelSpec;
             language_info?: ILanguageInfo;
             tags?: string[];
         }
 
+        /**
+         * @deprecated Use IKernelSpec instead
+         */
         export interface IKernelInfo {
             name: string;
             language?: string;
@@ -4671,19 +4913,26 @@ declare module 'azdata' {
         export interface ICellContents {
             cell_type: CellType;
             source: string | string[];
-            metadata?: {
-                language?: string;
-                tags?: string[];
-                azdata_cell_guid?: string;
-            };
+            metadata?: ICellMetadata;
             execution_count?: number;
             outputs?: ICellOutput[];
         }
 
         export type CellType = 'code' | 'markdown' | 'raw';
 
+        export interface ICellMetadata {
+            language?: string;
+            tags?: string[];
+            azdata_cell_guid?: string;
+        }
+
         export interface ICellOutput {
             output_type: OutputTypeName;
+            metadata?: ICellOutputMetadata;
+        }
+
+        export interface ICellOutputMetadata {
+            azdata_chartOptions?: any;
         }
 
         /**
@@ -4713,10 +4962,6 @@ declare module 'azdata' {
              * This is dynamic and is controlled by kernels, so cannot be more specific
              */
             data: { [key: string]: any };
-            /**
-             * Optional metadata, also a mime bundle
-             */
-            metadata?: {};
         }
         export interface IDisplayData extends IDisplayResult {
             output_type: 'display_data';
@@ -4882,7 +5127,7 @@ declare module 'azdata' {
 
             /**
              * Gets the full specification for this kernel, which can be serialized to
-             * a noteobok file
+             * a notebook file
              */
             getSpec(): Thenable<IKernelSpec>;
 
@@ -5042,8 +5287,8 @@ declare module 'azdata' {
          * An arguments object for the kernel changed event.
          */
         export interface IKernelChangedArgs {
-            oldValue: IKernel | null;
-            newValue: IKernel | null;
+            oldValue: IKernel | undefined;
+            newValue: IKernel | undefined;
         }
 
         /// -------- JSON objects, and objects primarily intended not to have methods -----------
@@ -5071,7 +5316,7 @@ declare module 'azdata' {
             /**
              * The original outgoing message.
              */
-            readonly msg: IMessage;
+            readonly msg: IMessage | undefined;
 
             /**
              * A Thenable that resolves when the future is done.
@@ -5166,7 +5411,7 @@ declare module 'azdata' {
          */
         export interface IExecuteReply {
             status: 'ok' | 'error' | 'abort';
-            execution_count: number | null;
+            execution_count: number | null | undefined;
         }
 
         /**
@@ -5182,11 +5427,11 @@ declare module 'azdata' {
          * **See also:** [[IMessage]]
          */
         export interface IHeader {
-            username: string;
-            version: string;
-            session: string;
-            msg_id: string;
             msg_type: string;
+            username?: string;
+            version?: string;
+            session?: string;
+            msg_id?: string;
         }
 
         /**
@@ -5194,10 +5439,10 @@ declare module 'azdata' {
          */
         export interface IMessage {
             type: Channel;
-            header: IHeader;
-            parent_header: IHeader | {};
-            metadata: {};
             content: any;
+            header?: IHeader;
+            parent_header?: IHeader | {};
+            metadata?: {};
         }
 
         /**

@@ -10,6 +10,7 @@ const RippleTest: React.FC = () => {
     const aNumber = 10;
     const aString = 'string';
     const callback = () => {};
+    const predicate = () => true;
 
     const insets: Insets = {
         top: aNumber,
@@ -38,7 +39,6 @@ const RippleTest: React.FC = () => {
             disabled={false}
             onRippleAnimation={callback}
             accessibilityActions={[{ name: 'activate' }]}
-            accessibilityComponentType="radiobutton_checked"
             accessibilityElementsHidden
             accessibilityHint="string"
             accessibilityIgnoresInvertColors
@@ -46,7 +46,6 @@ const RippleTest: React.FC = () => {
             accessibilityLiveRegion="none"
             accessibilityRole="button"
             accessibilityState={{ disabled: false }}
-            accessibilityTraits="header"
             accessibilityValue={{
                 min: aNumber,
                 max: aNumber,
@@ -76,8 +75,8 @@ const RippleTest: React.FC = () => {
             onLayout={callback}
             onLongPress={callback}
             onMagicTap={callback}
-            onMoveShouldSetResponder={callback}
-            onMoveShouldSetResponderCapture={callback}
+            onMoveShouldSetResponder={predicate}
+            onMoveShouldSetResponderCapture={predicate}
             onPress={callback}
             onPressIn={callback}
             onPressOut={callback}
@@ -88,9 +87,9 @@ const RippleTest: React.FC = () => {
             onResponderRelease={callback}
             onResponderStart={callback}
             onResponderTerminate={callback}
-            onResponderTerminationRequest={callback}
-            onStartShouldSetResponder={callback}
-            onStartShouldSetResponderCapture={callback}
+            onResponderTerminationRequest={predicate}
+            onStartShouldSetResponder={predicate}
+            onStartShouldSetResponderCapture={predicate}
             onTouchCancel={callback}
             onTouchEnd={callback}
             onTouchEndCapture={callback}
@@ -122,5 +121,5 @@ const RippleTest: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-    wrapper: {} as any as ViewStyle,
+    wrapper: ({} as any) as ViewStyle,
 });

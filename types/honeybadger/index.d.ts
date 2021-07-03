@@ -1,6 +1,7 @@
-// Type definitions for honeybadger 1.3
+// Type definitions for honeybadger 1.4
 // Project: https://github.com/honeybadger-io/honeybadger-node
 // Definitions by: Ryan Skrzypek <https://github.com/rskrz>
+//                 Levi Bostian <https://github.com/levibostian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -34,6 +35,7 @@ declare namespace honeybadger {
     type CallbackFunction = (err: Error | null, notice: object | null) => void;
     type LambdaHandler = (event: object, context: object) => void;
     interface HoneyBadgerInstance extends EventEmitter {
+        context: any;
         configure: (options: ConfigureOptions) => void;
         notify: (err?: any, name?: any, extra?: CallbackFunction | metadata, callback?: CallbackFunction) => void;
         setContext: (context: object) => void;

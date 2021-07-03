@@ -499,7 +499,7 @@ export class VastAdsRequest {
  * UserAction request data.
  */
 export class UserActionRequestData extends RequestData {
-    constructor()
+    constructor();
 
     /**
      * Indicate request for clearing of a user action (i.e. undo like).
@@ -740,7 +740,7 @@ export class SetPlaybackRateRequestData extends RequestData {
  * SetCredentials request data.
  */
 export class SetCredentialsRequestData extends RequestData {
-    constructor()
+    constructor();
 
     /**
      * Credentials to use by receiver.
@@ -1167,7 +1167,7 @@ export class QueueInsertRequestData extends RequestData {
  * Represents a data message containing the full list of queue ids.
  */
 export class QueueIds {
-    constructor()
+    constructor();
 
     /**
      * List of queue item ids.
@@ -1290,7 +1290,7 @@ export class QueueData {
  * Represents a queue change message, such as insert, remove, and update.
  */
 export class QueueChange {
-    constructor()
+    constructor();
 
     /**
      * The actual queue change type.
@@ -1347,7 +1347,7 @@ export class PrecacheRequestData extends LoadRequestData {
     /**
      * @param data Application precache data.
      */
-    constructor(data?: string)
+    constructor(data?: string);
 
     /**
      * Application precache data.
@@ -1857,7 +1857,7 @@ export class LiveSeekableRange {
  * Represents a data message containing item information for each requested ids.
  */
 export class ItemsInfo {
-    constructor()
+    constructor();
 
     /**
      * List of changed itemIds.
@@ -2023,9 +2023,21 @@ export class ErrorData {
     customData?: any;
 
     /**
+     * Optional detailed error code from player.
+     */
+    detailedErrorCode?: DetailedErrorCode;
+
+    /**
+     * The error reason.
+     */
+    reason?: ErrorReason;
+
+    /**
      * Id of the request; used to correlate request/response.
      */
     requestId?: number;
+
+    type: ErrorType;
 }
 
 /**

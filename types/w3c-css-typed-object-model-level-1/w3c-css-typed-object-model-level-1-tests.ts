@@ -214,8 +214,8 @@
     }
 };
 
+declare const x: CSSRule;
 () => {
-    const x: CSSRule = window.getMatchedCSSRules(document.body)[0];
     if (!(x instanceof CSSStyleRule)) {
         return;
     }

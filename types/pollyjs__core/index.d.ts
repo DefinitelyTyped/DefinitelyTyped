@@ -120,6 +120,7 @@ export interface Response extends HTTPBase {
 export interface Interceptor {
     abort(): void;
     passthrough(): void;
+    stopPropagation(): void;
 }
 export type RequestRouteEvent = 'request';
 export type RecordingRouteEvent = 'beforeReplay' | 'beforePersist';

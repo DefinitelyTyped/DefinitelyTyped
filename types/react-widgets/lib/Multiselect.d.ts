@@ -1,10 +1,8 @@
-import { ComponentClass } from 'react';
+import { ComponentClass } from "react";
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from "./CommonProps";
 
 declare namespace Multiselect {
-    interface MultiselectProps
-        extends ReactWidgetsCommonDropdownProps,
-            AutoFocus {
+    interface MultiselectProps extends ReactWidgetsCommonDropdownProps, AutoFocus {
         /**
          * Enables the list option creation UI. onFilter will only the UI when actively filtering for a list item.
          * @default 'onFilter'
@@ -31,7 +29,7 @@ declare namespace Multiselect {
                 originalEvent?: any;
                 lastValue?: any[];
                 searchTerm?: string;
-            }
+            },
         ) => void;
         /**
          * This handler fires when an item has been selected from the list. It fires before the
@@ -41,7 +39,7 @@ declare namespace Multiselect {
             value: any,
             metadata: {
                 originalEvent: any;
-            }
+            },
         ) => void;
         /**
          * This handler fires when the user chooses to create a new tag, not in the data list. It is
@@ -115,7 +113,7 @@ declare namespace Multiselect {
                 action: "clear" | "input";
                 lastSearchTerm?: string;
                 originalEvent?: any;
-            }
+            },
         ) => void;
         /**
          * Whether or not the Multiselect is open. When unset (undefined) the Multiselect will
@@ -136,12 +134,7 @@ declare namespace Multiselect {
          * item (analogous to the array.filter builtin)
          * @default startsWith
          */
-        filter?:
-            | false
-            | "startsWith"
-            | "endsWith"
-            | "contains"
-            | ((dataItem: any, searchTerm: string) => boolean);
+        filter?: false | "startsWith" | "endsWith" | "contains" | ((dataItem: any, searchTerm: string) => boolean);
         /**
          * Use in conjunction with the filter prop. Filter the list without regard for case. This
          * only applies to non function values for filter.

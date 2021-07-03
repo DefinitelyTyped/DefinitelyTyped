@@ -29,7 +29,7 @@ declare class Remarkable {
      * Remarkable offers some "presets" as a convenience to quickly enable/disable
      * active syntax rules and options for common use cases.
      */
-    constructor(preset: "commonmark" | "full" | "remarkable", options?: Remarkable.Options);
+    constructor(preset: "commonmark" | "full" | "default", options?: Remarkable.Options);
 
     /**
      * `"# Remarkable rulezz!"` => `"<h1>Remarkable rulezz!</h1>"`
@@ -263,7 +263,6 @@ declare namespace Remarkable {
         /**
          * The list of tokens currently being processed.
          */
-        // tslint:disable-next-line:no-unnecessary-generics
         tokens: T[],
 
         /**

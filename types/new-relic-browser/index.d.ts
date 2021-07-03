@@ -127,6 +127,15 @@ declare namespace NewRelic {
 
     interface BrowserInteraction {
         /**
+         * Sets the text value of the HTML element that was clicked to start a browser interaction.
+         *
+         * @param value The text value of the HTML element that represents the action that started the interaction.
+         * @returns This method returns the same API object created by interaction().
+         * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/actiontext-browser-spa-api
+         */
+        actionText(value: string): BrowserInteraction;
+
+        /**
          * Times sub-components of a SPA interaction separately, including wait time and JS execution time.
          *
          * @param name This will be used as the name of the tracer. If you do not include a name,

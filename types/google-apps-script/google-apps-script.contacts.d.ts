@@ -238,7 +238,6 @@ declare namespace GoogleAppsScript {
     /**
      * An instant messaging field in a Contact.
      */
-    // tslint:disable-next-line: interface-name
     interface IMField {
       deleteIMField(): void;
       getAddress(): string;

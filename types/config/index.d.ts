@@ -4,6 +4,7 @@
 //                 Forrest Bice <https://github.com/forrestbice>
 //                 James Donald <https://github.com/jndonald3>
 //                 Alberto Vasquez <https://github.com/albertovasquez>
+//                 Christian Vaagland Tellnes <https://github.com/tellnes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -36,7 +37,7 @@ declare namespace c {
         getEnv(varName: string): string;
 
         // Return the config for the project based on directory param if not directory then return default one (config).
-        loadFileConfigs(configDir: string): any;
+        loadFileConfigs(configDir?: string): any;
 
         // Return the sources for the configurations
         getConfigSources(): IConfigSource[];

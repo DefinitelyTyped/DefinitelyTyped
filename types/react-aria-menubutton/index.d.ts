@@ -64,7 +64,7 @@ export interface ButtonProps<T extends HTMLElement>
     disabled?: boolean;
 
     /**
-     * The HTML tag for this element. Default: 'span'.
+     * The HTML tag for this element. Default: 'div'.
      */
     tag?: T["tagName"];
 }
@@ -77,12 +77,12 @@ export interface ButtonProps<T extends HTMLElement>
  * Each `Button` must be wrapped in a Wrapper, and each Wrapper can wrap only
  * one `Button`.
  */
-export class Button extends React.Component<ButtonProps<HTMLElement>> {}
+export const Button: React.ForwardRefExoticComponent<ButtonProps<HTMLElement>>;
 
 export interface MenuProps<T extends HTMLElement>
     extends React.HTMLProps<T> {
     /**
-     * The HTML tag for this element. Default: 'span'.
+     * The HTML tag for this element. Default: 'div'.
      */
     tag?: T["tagName"];
     children: JSX.Element | (({ isOpen }: { isOpen: boolean }) => JSX.Element);
@@ -108,7 +108,7 @@ export interface MenuItemProps<T extends HTMLElement>
     text?: string;
 
     /**
-     * The HTML tag for this element. Default: 'span'.
+     * The HTML tag for this element. Default: 'div'.
      */
     tag?: T["tagName"];
 }

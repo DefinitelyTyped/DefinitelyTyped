@@ -1,4 +1,4 @@
-// Type definitions for lusca 1.6
+// Type definitions for lusca 1.7
 // Project: https://github.com/krakenjs/lusca#readme
 // Definitions by: Corbin Crutchley <https://github.com/crutchcorn>
 //                 Naoto Yokoyama <https://github.com/builtinnya>
@@ -38,7 +38,7 @@ declare namespace lusca {
         preload?: boolean;
     }
 
-    type csrfOptions = csrfOptionsBase & csrfOptionsAngularOrNonAngular & csrfOptionsBlacklistOrWhitelist;
+    type csrfOptions = csrfOptionsBase & csrfOptionsAngularOrNonAngular & csrfOptionsBlocklistOrAllowlist;
 
     interface csrfOptionsBase {
         /**
@@ -78,17 +78,17 @@ declare namespace lusca {
 
     type csrfOptionsAngularOrNonAngular = csrfOptionsAngular | csrfOptionsNonAngular;
 
-    interface csrfOptionsBlacklist {
-        blacklist?: string[];
-        whitelist?: never;
+    interface csrfOptionsBlocklist {
+        blocklist?: string[];
+        allowlist?: never;
     }
 
-    interface csrfOptionsWhitelist {
-        blacklist?: never;
-        whitelist?: string[];
+    interface csrfOptionsAllowlist {
+        blocklist?: never;
+        allowlist?: string[];
     }
 
-    type csrfOptionsBlacklistOrWhitelist = csrfOptionsBlacklist | csrfOptionsWhitelist;
+    type csrfOptionsBlocklistOrAllowlist = csrfOptionsBlocklist | csrfOptionsAllowlist;
 
     interface xssProtectionOptions {
         enabled?: boolean;

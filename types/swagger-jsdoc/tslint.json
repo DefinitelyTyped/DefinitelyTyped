@@ -1,9 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
-        "no-redundant-jsdoc": false,
-        "only-arrow-functions": false,
-        "prefer-method-signature": false
+        "only-arrow-functions": false
     }
 }

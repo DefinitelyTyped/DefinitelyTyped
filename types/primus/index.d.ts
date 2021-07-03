@@ -64,6 +64,9 @@ declare class Primus extends EventEmitter {
         done: (err: Error | null) => void,
     ): this;
 
+    connections: { [id: string]: Primus.Spark };
+    connected: number;
+
     write(data: any): void;
 
     transform(type: 'incoming' | 'outgoing', fn: (packet: PrimusPacket) => void): this;

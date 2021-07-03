@@ -12,7 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@carbon/layout": ["carbon__layout"]
+            "@carbon/*": ["carbon__*"]
         }
     },
     "files": ["index.d.ts", "carbon__layout-tests.ts"]

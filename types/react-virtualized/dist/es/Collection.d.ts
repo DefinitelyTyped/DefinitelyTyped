@@ -175,3 +175,5 @@ export class Collection extends PureComponent<CollectionProps> {
         } & SizeInfo
     ): React.ReactNode[];
 }
+
+export default Collection;

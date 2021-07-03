@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-// tslint:disable:interface-name
 // Based on work by: Daniel Lytkin <https://github.com/aikoven>
 
 import * as React from 'react';

@@ -37,9 +37,9 @@ function test_serialize() {
             }
         });
     writer.addQuad(N3.DataFactory.quad(
-      N3.DataFactory.namedNode("subject-name"),
-      N3.DataFactory.namedNode("predicate-name"),
-      N3.DataFactory.literal(12)
+        N3.DataFactory.namedNode("subject-name"),
+        N3.DataFactory.namedNode("predicate-name"),
+        N3.DataFactory.literal(12)
     ));
 
     writer.end((error, result) => {
@@ -66,6 +66,23 @@ function test_doc_rdf_to_triples_1() {
         });
 }
 
+function test_doc_rdf_to_triples_and_prefixes() {
+    const parser: N3.Parser = new N3.Parser();
+    parser.parse(`@prefix c: <http://example.org/cartoons#>.
+        c:Tom a c:Cat.
+        c:Jerry a c:Mouse;
+                c:smarterThan c:Tom.`,
+        (error: Error, quad: RDF.Quad) => {
+            if (quad)
+                console.log(quad.subject, quad.predicate, quad.object, quad.graph, '.');
+            else
+                console.log("# That's all, folks!");
+        },
+        (prefix: string, prefixNode: RDF.NamedNode) => {
+            console.log("@prefix#", prefix, prefixNode.value);
+        });
+}
+
 function test_doc_rdf_to_triples_2() {
     const parser1: N3.Parser = new N3.Parser({ format: 'N-Triples' });
     const parser2: N3.Parser = new N3.Parser({ format: 'application/trig' });
@@ -85,14 +102,25 @@ function test_doc_rdf_sync_to_triples_1() {
     result.forEach((s) => console.log(s));
 }
 
+function test_doc_rdf_sync_to_triples_and_prefixes() {
+    const parser: N3.Parser = new N3.Parser();
+    const result = parser.parse(`@prefix c: <http://example.org/cartoons#>.
+      c:Tom a c:Cat.
+      c:Jerry a c:Mouse;
+      c:smarterThan c:Tom.`, null, (prefix: string, prefixNode: RDF.NamedNode) => {
+        console.log("@prefix#", prefix, prefixNode.value);
+    });
+    result.forEach((s) => console.log(s));
+}
+
 function test_doc_rdf_stream_to_triples_1() {
     interface QuadBnode extends N3.BaseQuad {
-      subject: N3.BlankNode;
-      predicate: N3.BlankNode;
-      object: N3.BlankNode;
-      graph: N3.BlankNode;
+        subject: N3.BlankNode;
+        predicate: N3.BlankNode;
+        object: N3.BlankNode;
+        graph: N3.BlankNode;
     }
-    const parser: N3.Parser<QuadBnode> = new N3.Parser<QuadBnode>({factory: N3.DataFactory});
+    const parser: N3.Parser<QuadBnode> = new N3.Parser<QuadBnode>({ factory: N3.DataFactory });
     parser.parse('abc', console.log);
 
     const streamParser: N3.StreamParser = new N3.StreamParser();
@@ -118,9 +146,9 @@ function test_doc_from_triples_to_string() {
         N3.DataFactory.namedNode('http://example.org/cartoons#Cat')
     ));
     writer.addQuad(N3.DataFactory.quad(
-      N3.DataFactory.namedNode('http://example.org/cartoons#Tom'),
-      N3.DataFactory.namedNode('http://example.org/cartoons#name'),
-      N3.DataFactory.literal('Tom'),
+        N3.DataFactory.namedNode('http://example.org/cartoons#Tom'),
+        N3.DataFactory.namedNode('http://example.org/cartoons#name'),
+        N3.DataFactory.literal('Tom'),
     ));
     writer.end((error, result: string) => { console.log(result); });
 
@@ -131,14 +159,14 @@ function test_doc_from_triples_to_string() {
 function test_doc_from_triples_to_rdf_stream() {
     const writer: N3.Writer = new N3.Writer(process.stdout, { end: false, prefixes: { c: N3.DataFactory.namedNode('http://example.org/cartoons#') } });
     writer.addQuad(N3.DataFactory.quad(
-      N3.DataFactory.namedNode('http://example.org/cartoons#Tom'),
-      N3.DataFactory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
-      N3.DataFactory.namedNode('http://example.org/cartoons#Cat'),
+        N3.DataFactory.namedNode('http://example.org/cartoons#Tom'),
+        N3.DataFactory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+        N3.DataFactory.namedNode('http://example.org/cartoons#Cat'),
     ));
     writer.addQuad(N3.DataFactory.quad(
-      N3.DataFactory.namedNode('http://example.org/cartoons#Tom'),
-      N3.DataFactory.namedNode('http://example.org/cartoons#name'),
-      N3.DataFactory.literal('Tom'),
+        N3.DataFactory.namedNode('http://example.org/cartoons#Tom'),
+        N3.DataFactory.namedNode('http://example.org/cartoons#name'),
+        N3.DataFactory.literal('Tom'),
     ));
     writer.end();
 }
@@ -200,23 +228,23 @@ function test_doc_storing() {
 
     const mickey: RDF.Quad = store.getQuads(N3.DataFactory.namedNode('http://ex.org/Mickey'), null, null, null)[0];
     if (mickey.object.termType === "Literal") {
-      console.log(mickey.object.datatype);
+        console.log(mickey.object.datatype);
     }
     console.log(mickey.subject, mickey.predicate, mickey.object, '.');
 
     const quadStream: RDF.Stream = store.match(N3.DataFactory.namedNode('http://ex.org/Mickey'));
 
     interface N3QuadGeneralized extends N3.BaseQuad {
-      subject: N3.Quad_Subject | N3.BlankNode | N3.Literal;
-      predicate: N3.Quad_Predicate | N3.BlankNode | N3.Literal;
-      object: N3.Quad_Object | N3.BlankNode | N3.Literal;
-      graph: N3.Quad_Graph | N3.BlankNode | N3.Literal;
+        subject: N3.Quad_Subject | N3.BlankNode | N3.Literal;
+        predicate: N3.Quad_Predicate | N3.BlankNode | N3.Literal;
+        object: N3.Quad_Object | N3.BlankNode | N3.Literal;
+        graph: N3.Quad_Graph | N3.BlankNode | N3.Literal;
     }
     interface RDFQuadGeneralized extends RDF.BaseQuad {
-      subject: RDF.Quad_Subject | RDF.BlankNode | RDF.Literal;
-      predicate: RDF.Quad_Predicate | RDF.BlankNode | RDF.Literal;
-      object: RDF.Quad_Object | RDF.BlankNode | RDF.Literal;
-      graph: RDF.Quad_Graph | RDF.BlankNode | RDF.Literal;
+        subject: RDF.Quad_Subject | RDF.BlankNode | RDF.Literal;
+        predicate: RDF.Quad_Predicate | RDF.BlankNode | RDF.Literal;
+        object: RDF.Quad_Object | RDF.BlankNode | RDF.Literal;
+        graph: RDF.Quad_Graph | RDF.BlankNode | RDF.Literal;
     }
     const storeGeneralized = new N3.Store<RDFQuadGeneralized, N3QuadGeneralized>();
     // storeGeneralized.
@@ -227,16 +255,16 @@ function test_store_queries() {
     const store: N3.Store = new N3.Store();
 
     const subjs: N3.Quad_Subject[] = store.getSubjects(null, null, null);
-    store.forSubjects((subj: N3.Quad_Subject) => {}, null, null, null);
+    store.forSubjects((subj: N3.Quad_Subject) => { }, null, null, null);
 
     const preds: N3.Quad_Predicate[] = store.getPredicates(null, null, null);
-    store.forPredicates((subj: N3.Quad_Predicate) => {}, null, null, null);
+    store.forPredicates((subj: N3.Quad_Predicate) => { }, null, null, null);
 
     const objs: N3.Quad_Object[] = store.getObjects(null, null, null);
-    store.forObjects((subj: N3.Quad_Object) => {}, null, null, null);
+    store.forObjects((subj: N3.Quad_Object) => { }, null, null, null);
 
     const graphs: N3.Quad_Graph[] = store.getGraphs(null, null, null);
-    store.forGraphs((subj: N3.Quad_Graph) => {}, null, null, null);
+    store.forGraphs((subj: N3.Quad_Graph) => { }, null, null, null);
 }
 
 function test_doc_utility() {
@@ -271,4 +299,41 @@ function test_parser_options() {
         format: 'N-Triples',
         blankNodePrefix: '',
     });
+}
+
+function test_term_to_and_from_id() {
+    const label: string = N3.termToId(N3.termFromId('http://www.w3.org/2000/01/rdf-schema#label', N3.DataFactory));
+}
+
+function test_lexer_sync() {
+    const lexer: N3.Lexer = new N3.Lexer();
+    const result: N3.Token[] = lexer.tokenize(`@prefix c: <http://example.org/cartoons#>.
+      c:Tom a c:Cat.
+      c:Jerry a c:Mouse;
+      c:smarterThan c:Tom.`);
+    result.forEach((s) => console.log(s));
+}
+
+function test_lexer_async() {
+    const lexer: N3.Lexer = new N3.Lexer();
+    lexer.tokenize(`@prefix c: <http://example.org/cartoons#>.
+      c:Tom a c:Cat.
+      c:Jerry a c:Mouse;
+      c:smarterThan c:Tom.`, (error: Error, token: N3.Token) => {
+        if (error) {
+            console.log(error);
+        }
+        if (token)
+            console.log(token);
+        else
+            console.log("# That's all, folks!");
+    });
+}
+
+function test_lexer_options() {
+    const options: N3.LexerOptions = {
+        lineMode: true,
+        n3: true,
+        comments: true
+    };
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PDFPageProxy } from 'pdfjs-dist';
+import { PDFPageProxy as _PDFPageProxy } from 'pdfjs-dist';
 
 export type RenderFunction = () => JSX.Element;
 
@@ -23,11 +23,6 @@ export interface TextLayerItemInternal {
     width: number;
 }
 
-export interface LoadingProcessData {
-    loaded: number;
-    total: number;
-}
-
 export interface TextItem {
     str: string;
     dir: string;
@@ -37,7 +32,20 @@ export interface TextItem {
     fontName: string;
 }
 
+export interface PDFPageProxy extends _PDFPageProxy {
+    width: number;
+    height: number;
+    originalWidth: number;
+    originalHeight: number;
+}
+
 export interface Props {
+    /**
+     * A function that behaves like ref,
+     * but it's passed to main `<canvas>` rendered by `<Page>` component.
+     */
+    canvasRef?: React.LegacyRef<HTMLCanvasElement>;
+
     /**
      * Defines custom class name(s), that will be added to rendered element.
      * @default 'react-pdf__Page'
@@ -83,14 +91,14 @@ export interface Props {
     noData?: string | React.ReactElement | RenderFunction;
 
     /**
+     * Function called when page has been clicked.
+     */
+    onClick?: (event: React.MouseEvent, page: PDFPageProxy) => void;
+
+    /**
      * Function called in case of an error while loading the page.
      */
     onLoadError?: (error: Error) => void;
-
-    /**
-     * Function called, potentially multiple times, as the loading progresses.
-     */
-    onLoadProgress?: (data: LoadingProcessData) => void;
 
     /**
      * Function called when the page is successfully loaded.
@@ -187,4 +195,4 @@ export interface Props {
     width?: number;
 }
 
-export default class Page extends React.Component<Props> { }
+export default class Page extends React.Component<Props> {}

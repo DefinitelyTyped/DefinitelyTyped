@@ -8,7 +8,6 @@ interface InputEventInit extends UIEventInit {
     isComposing?: boolean;
 }
 
-// tslint:disable-next-line no-empty-interface
 interface InputEvent extends UIEvent {
     readonly data: string | null;
     readonly isComposing: boolean;

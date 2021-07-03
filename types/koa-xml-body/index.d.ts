@@ -2,7 +2,7 @@
 // Project: https://github.com/creeperyang/koa-xml-body
 // Definitions by: Ulf Winkelvos <https://github.com/uwinkelvos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.5
 
 /* =================== USAGE ===================
 
@@ -20,7 +20,7 @@
 
 import * as Koa from "koa";
 
-import { Options as Xml2jsOptions } from "xml2js";
+import { ParserOptions as Xml2jsOptions } from "xml2js";
 
 declare module "koa" {
     interface Request {

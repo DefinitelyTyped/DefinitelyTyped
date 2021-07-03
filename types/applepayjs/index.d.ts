@@ -693,7 +693,7 @@ declare namespace ApplePayJS {
         /**
          * A further description of the shipping method.
          */
-        detail?: string;
+        detail: string;
 
         /**
          * The amount associated with this shipping method.
@@ -703,7 +703,7 @@ declare namespace ApplePayJS {
         /**
          * A client-defined identifier.
          */
-        identifier?: string;
+        identifier: string;
     }
 
     /**

@@ -2,6 +2,7 @@
 // Project: https://github.com/PeculiarVentures/PKI.js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="asn1js" />
 /// <reference types="pvutils" />
@@ -185,7 +186,7 @@ declare module "pkijs/src/Accuracy" {
 }
 
 declare module "pkijs/src/AccessDescription" {
-    import GeneralName from "pkijs/src/AccessDescription";
+    import GeneralName from "pkijs/src/GeneralName";
     /**
      * Class from RFC5280
      *
@@ -207,7 +208,7 @@ declare module "pkijs/src/AccessDescription" {
 }
 
 declare module "pkijs/src/AuthorityKeyIdentifier" {
-    import GeneralName from "pkijs/src/AccessDescription";
+    import GeneralName from "pkijs/src/GeneralName";
     import { Integer, OctetString } from "asn1js";
 
     export default class AuthorityKeyIdentifier {
@@ -308,7 +309,7 @@ declare module "pkijs/src/CertID" {
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
     import Certificate from "pkijs/src/Certificate";
 
-    interface CreateFroCertificateParams {
+    interface CreateForCertificateParams {
         hashAlgorithm: string;
         issuerCertificate: Certificate;
     }
@@ -333,10 +334,10 @@ declare module "pkijs/src/CertID" {
         /**
          * Making OCSP certificate identifier for specific certificate
          * @param {Certificate} certificate Certificate making OCSP Request for
-         * @param {CreateFroCertificateParams} parameters Additional parameters
+         * @param {CreateForCertificateParams} parameters Additional parameters
          * @returns {Promise}
          */
-        createForCertificate(certificate: Certificate, parameters: CreateFroCertificateParams): PromiseLike<void>;
+        createForCertificate(certificate: Certificate, parameters: CreateForCertificateParams): PromiseLike<void>;
 
         constructor(params?: any);
 
@@ -463,7 +464,7 @@ declare module "pkijs/src/CertificateRevocationList" {
     import RelativeDistinguishedNames from "pkijs/src/RelativeDistinguishedNames";
     import RevokedCertificate from "pkijs/src/RevokedCertificate";
     import Time from "pkijs/src/Time";
-    import Extension from "pkijs/src/Extension";
+    import Extensions from "pkijs/src/Extensions";
     import PublicKeyInfo from "pkijs/src/PublicKeyInfo";
     import Certificate from "pkijs/src/Certificate";
     import { BitString, Sequence } from "asn1js";
@@ -476,7 +477,7 @@ declare module "pkijs/src/CertificateRevocationList" {
         thisUpdate: Time;
         nextUpdate?: Time;
         revokedCertificates?: RevokedCertificate[];
-        crlExtension?: Extension[];
+        crlExtensions?: Extensions;
         signatureAlgorithm: AlgorithmIdentifier;
         signatureValue: BitString;
 
@@ -632,9 +633,9 @@ declare module "pkijs/src/CryptoEngine" {
          */
         constructor(parameters?: any);
 
-        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
-        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
-        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
         exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
         exportKey(format: "raw" | "pkcs8" | "spki", key: CryptoKey): Promise<ArrayBuffer>;
         exportKey(format: string, key: CryptoKey): Promise<JsonWebKey | ArrayBuffer>;
@@ -652,20 +653,20 @@ declare module "pkijs/src/CryptoEngine" {
         convert(inputFormat: string, outputFormat: string, keyData: BufferSource | JsonWebKey, algorithm: Algorithm, extractable: boolean, keyUsages: string[]): PromiseLike<BufferSource | JsonWebKey>;
 
         generateKey(algorithm: string, extractable: boolean, keyUsages: string[]): Promise<CryptoKeyPair | CryptoKey>;
-        generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams | DhKeyGenParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKeyPair>;
+        generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKeyPair>;
         generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
-        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        sign(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+        sign(algorithm: string | RsaPssParams | EcdsaParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
         unwrapKey(format: string, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier, unwrappedKeyAlgorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
-        verify(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, signature: BufferSource, data: BufferSource): Promise<boolean>;
+        verify(algorithm: string | RsaPssParams | EcdsaParams, key: CryptoKey, signature: BufferSource, data: BufferSource): Promise<boolean>;
         wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier): Promise<ArrayBuffer>;
-        decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
-        deriveBits(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
-        deriveKey(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+        deriveBits(algorithm: string | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
+        deriveKey(algorithm: string | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
         digest(algorithm: AlgorithmIdentifier, data: BufferSource): Promise<ArrayBuffer>;
-        encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+        encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams |  AesGcmParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
     }
 }
 
@@ -1296,6 +1297,8 @@ declare module "pkijs/src/NameConstraints" {
 declare module "pkijs/src/OCSPRequest" {
     import TBSRequest from "pkijs/src/TBSRequest";
     import Signature from "pkijs/src/Signature";
+    import Certificate from "pkijs/src/Certificate";
+    import { CreateForCertificateParams } from "pkijs/src/CertID";
 
     export default class OCSPRequest {
         tbsRequest: TBSRequest;
@@ -1320,6 +1323,20 @@ declare module "pkijs/src/OCSPRequest" {
         static schema(parameters?: any): any;
         fromSchema(schema: any): void;
         toJSON(): any;
+        /**
+         * Making OCSP Request for specific certificate
+         * @param {Certificate} certificate Certificate making OCSP Request for
+         * @param {CreateForCertificateParams} parameters Additional parameters
+         * @returns {Promise}
+         */
+        createForCertificate(certificate: Certificate, parameters: CreateForCertificateParams): PromiseLike<void>;
+         /**
+          * Make signature for current OCSP Request
+          * @param {*} privateKey Private key for "subjectPublicKeyInfo" structure
+          * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
+          * @returns {Promise}
+          */
+        sign(privateKey: any, hashAlgorithm?: string): PromiseLike<any>;
     }
 }
 
@@ -1328,7 +1345,6 @@ declare module "pkijs/src/OCSPResponse" {
     import ResponseBytes from "pkijs/src/ResponseBytes";
     import Certificate from "pkijs/src/Certificate";
     import { GetCertificateStatusResult } from "pkijs/src/BasicOCSPResponse";
-    import { CreateFroCertificateParams } from "pkijs/src/CertID";
 
     export default class OCSPResponse {
         responseStatus: Enumerated;
@@ -1346,13 +1362,6 @@ declare module "pkijs/src/OCSPResponse" {
          * @returns {*}
          */
         getCertificateStatus(certificate: Certificate, issuerCertificate: Certificate): PromiseLike<GetCertificateStatusResult>;
-        /**
-         * Making OCSP Request for specific certificate
-         * @param {Certificate} certificate Certificate making OCSP Request for
-         * @param {CreateFroCertificateParams} parameters Additional parameters
-         * @returns {Promise}
-         */
-        createForCertificate(certificate: Certificate, parameters: CreateFroCertificateParams): PromiseLike<void>;
 
         constructor(params?: any);
 
@@ -1361,6 +1370,19 @@ declare module "pkijs/src/OCSPResponse" {
         fromSchema(schema: any): void;
         toSchema(): any;
         toJSON(): any;
+        /**
+         * Make a signature for current OCSP Response
+         * @param {*} privateKey Private key for "subjectPublicKeyInfo" structure
+         * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
+         * @returns {Promise}
+         */
+        sign(privateKey: any, hashAlgorithm?: string): PromiseLike<any>;
+        /**
+         * Verify current OCSP Response
+         * @param {Certificate | null} issuerCertificate In order to decrease size of resp issuer cert could be ommited. In such case you need manually provide it.
+         * @returns {Promise}
+         */
+        verify(issuerCertificate?: Certificate): PromiseLike<any>;
     }
 }
 

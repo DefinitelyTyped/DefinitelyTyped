@@ -472,7 +472,7 @@ export function logout(callback?: (err: BranchError) => void): void;
  *
  * @param callback callback to read a user's browser-fingerprint-id
  */
-export function getBrowserFingerprint(
+export function getBrowserFingerprintId(
     callback: (err: BranchError, browser_fingerprint: FingerprintResponse) => void,
 ): void;
 

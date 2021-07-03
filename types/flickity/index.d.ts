@@ -205,6 +205,11 @@ declare namespace Flickity {
         autoPlay?: boolean | number;
 
         /**
+         * Auto-playing will pause when the user hovers over the carousel. Set pauseAutoPlayOnHover: false to disable this behavior.
+         */
+        pauseAutoPlayOnHover?: boolean;
+
+        /**
          * Changes height of carousel to fit height of selected slide.
          */
         adaptiveHeight?: boolean;

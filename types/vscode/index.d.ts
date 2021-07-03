@@ -1,16 +1,16 @@
-// Type definitions for Visual Studio Code 1.47
+// Type definitions for Visual Studio Code 1.57
 // Project: https://github.com/microsoft/vscode
-// Definitions by: Visual Studio Code Team, Microsoft <https://github.com/Microsoft>
+// Definitions by: Visual Studio Code Team, Microsoft <https://github.com/microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License.
- *  See https://github.com/Microsoft/vscode/blob/master/LICENSE.txt for license information.
+ *  See https://github.com/microsoft/vscode/blob/main/LICENSE.txt for license information.
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.47 Extension API
+ * Type Definition for Visual Studio Code 1.57 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -35,26 +35,26 @@ declare module 'vscode' {
 
         /**
          * The identifier of the actual command handler.
-         * @see [commands.registerCommand](#commands.registerCommand).
+         * @see {@link commands.registerCommand}
          */
         command: string;
 
         /**
          * A tooltip for the command, when represented in the UI.
          */
-        tooltip?: string;
+        tooltip?: string | undefined;
 
         /**
          * Arguments that the command handler should be
          * invoked with.
          */
-        arguments?: any[];
+        arguments?: any[] | undefined;
     }
 
     /**
      * Represents a line of text, such as a line of source code.
      *
-     * TextLine objects are __immutable__. When a [document](#TextDocument) changes,
+     * TextLine objects are __immutable__. When a {@link TextDocument document} changes,
      * previously retrieved lines will not represent the latest state.
      */
     export interface TextLine {
@@ -87,14 +87,14 @@ declare module 'vscode' {
 
         /**
          * Whether this line is whitespace only, shorthand
-         * for [TextLine.firstNonWhitespaceCharacterIndex](#TextLine.firstNonWhitespaceCharacterIndex) === [TextLine.text.length](#TextLine.text).
+         * for {@link TextLine.firstNonWhitespaceCharacterIndex} === {@link TextLine.text TextLine.text.length}.
          */
         readonly isEmptyOrWhitespace: boolean;
     }
 
     /**
      * Represents a text document, such as a source file. Text documents have
-     * [lines](#TextLine) and knowledge about an underlying resource like a file.
+     * {@link TextLine lines} and knowledge about an underlying resource like a file.
      */
     export interface TextDocument {
 
@@ -104,21 +104,21 @@ declare module 'vscode' {
          * *Note* that most documents use the `file`-scheme, which means they are files on disk. However, **not** all documents are
          * saved on disk and therefore the `scheme` must be checked before trying to access the underlying file or siblings on disk.
          *
-         * @see [FileSystemProvider](#FileSystemProvider)
-         * @see [TextDocumentContentProvider](#TextDocumentContentProvider)
+         * @see {@link FileSystemProvider}
+         * @see {@link TextDocumentContentProvider}
          */
         readonly uri: Uri;
 
         /**
          * The file system path of the associated resource. Shorthand
-         * notation for [TextDocument.uri.fsPath](#TextDocument.uri). Independent of the uri scheme.
+         * notation for {@link TextDocument.uri TextDocument.uri.fsPath}. Independent of the uri scheme.
          */
         readonly fileName: string;
 
         /**
          * Is this document representing an untitled file which has never been saved yet. *Note* that
-         * this does not mean the document will be saved to disk, use [`uri.scheme`](#Uri.scheme)
-         * to figure out where a document will be [saved](#FileSystemProvider), e.g. `file`, `ftp` etc.
+         * this does not mean the document will be saved to disk, use {@link Uri.scheme `uri.scheme`}
+         * to figure out where a document will be {@link FileSystemProvider saved}, e.g. `file`, `ftp` etc.
          */
         readonly isUntitled: boolean;
 
@@ -154,7 +154,7 @@ declare module 'vscode' {
         save(): Thenable<boolean>;
 
         /**
-         * The [end of line](#EndOfLine) sequence that is predominately
+         * The {@link EndOfLine end of line} sequence that is predominately
          * used in this document.
          */
         readonly eol: EndOfLine;
@@ -170,7 +170,7 @@ declare module 'vscode' {
          * document are not reflected.
          *
          * @param line A line number in [0, lineCount).
-         * @return A [line](#TextLine).
+         * @return A {@link TextLine line}.
          */
         lineAt(line: number): TextLine;
 
@@ -179,18 +179,19 @@ declare module 'vscode' {
          * that the returned object is *not* live and changes to the
          * document are not reflected.
          *
-         * The position will be [adjusted](#TextDocument.validatePosition).
+         * The position will be {@link TextDocument.validatePosition adjusted}.
          *
-         * @see [TextDocument.lineAt](#TextDocument.lineAt)
+         * @see {@link TextDocument.lineAt}
+         *
          * @param position A position.
-         * @return A [line](#TextLine).
+         * @return A {@link TextLine line}.
          */
         lineAt(position: Position): TextLine;
 
         /**
          * Converts the position to a zero-based offset.
          *
-         * The position will be [adjusted](#TextDocument.validatePosition).
+         * The position will be {@link TextDocument.validatePosition adjusted}.
          *
          * @param position A position.
          * @return A valid zero-based offset.
@@ -201,13 +202,13 @@ declare module 'vscode' {
          * Converts a zero-based offset to a position.
          *
          * @param offset A zero-based offset.
-         * @return A valid [position](#Position).
+         * @return A valid {@link Position}.
          */
         positionAt(offset: number): Position;
 
         /**
          * Get the text of this document. A substring can be retrieved by providing
-         * a range. The range will be [adjusted](#TextDocument.validateRange).
+         * a range. The range will be {@link TextDocument.validateRange adjusted}.
          *
          * @param range Include only the text included by the range.
          * @return The text inside the provided range or the entire text.
@@ -217,16 +218,16 @@ declare module 'vscode' {
         /**
          * Get a word-range at the given position. By default words are defined by
          * common separators, like space, -, _, etc. In addition, per language custom
-         * [word definitions](#LanguageConfiguration.wordPattern) can be defined. It
+         * [word definitions} can be defined. It
          * is also possible to provide a custom regular expression.
          *
          * * *Note 1:* A custom regular expression must not match the empty string and
          * if it does, it will be ignored.
          * * *Note 2:* A custom regular expression will fail to match multiline strings
          * and in the name of speed regular expressions should not match words with
-         * spaces. Use [`TextLine.text`](#TextLine.text) for more complex, non-wordy, scenarios.
+         * spaces. Use {@link TextLine.text `TextLine.text`} for more complex, non-wordy, scenarios.
          *
-         * The position will be [adjusted](#TextDocument.validatePosition).
+         * The position will be {@link TextDocument.validatePosition adjusted}.
          *
          * @param position A position.
          * @param regex Optional regular expression that describes what a word is.
@@ -255,8 +256,8 @@ declare module 'vscode' {
      * Represents a line and character position, such as
      * the position of the cursor.
      *
-     * Position objects are __immutable__. Use the [with](#Position.with) or
-     * [translate](#Position.translate) methods to derive new positions
+     * Position objects are __immutable__. Use the {@link Position.with with} or
+     * {@link Position.translate translate} methods to derive new positions
      * from an existing position.
      */
     export class Position {
@@ -349,13 +350,13 @@ declare module 'vscode' {
          * @return A position that reflects the given delta. Will return `this` position if the change
          * is not changing anything.
          */
-        translate(change: { lineDelta?: number; characterDelta?: number; }): Position;
+        translate(change: { lineDelta?: number | undefined; characterDelta?: number | undefined; }): Position;
 
         /**
          * Create a new position derived from this position.
          *
-         * @param line Value that should be used as line value, default is the [existing value](#Position.line)
-         * @param character Value that should be used as character value, default is the [existing value](#Position.character)
+         * @param line Value that should be used as line value, default is the {@link Position.line existing value}
+         * @param character Value that should be used as character value, default is the {@link Position.character existing value}
          * @return A position where line and character are replaced by the given values.
          */
         with(line?: number, character?: number): Position;
@@ -367,26 +368,26 @@ declare module 'vscode' {
          * @return A position that reflects the given change. Will return `this` position if the change
          * is not changing anything.
          */
-        with(change: { line?: number; character?: number; }): Position;
+        with(change: { line?: number | undefined; character?: number | undefined; }): Position;
     }
 
     /**
      * A range represents an ordered pair of two positions.
-     * It is guaranteed that [start](#Range.start).isBeforeOrEqual([end](#Range.end))
+     * It is guaranteed that {@link Range.start start}.isBeforeOrEqual({@link Range.end end})
      *
-     * Range objects are __immutable__. Use the [with](#Range.with),
-     * [intersection](#Range.intersection), or [union](#Range.union) methods
+     * Range objects are __immutable__. Use the {@link Range.with with},
+     * {@link Range.intersection intersection}, or {@link Range.union union} methods
      * to derive new ranges from an existing range.
      */
     export class Range {
 
         /**
-         * The start position. It is before or equal to [end](#Range.end).
+         * The start position. It is before or equal to {@link Range.end end}.
          */
         readonly start: Position;
 
         /**
-         * The end position. It is after or equal to [start](#Range.start).
+         * The end position. It is after or equal to {@link Range.start start}.
          */
         readonly end: Position;
 
@@ -433,7 +434,7 @@ declare module 'vscode' {
          * Check if `other` equals this range.
          *
          * @param other A range.
-         * @return `true` when start and end are [equal](#Position.isEqual) to
+         * @return `true` when start and end are {@link Position.isEqual equal} to
          * start and end of this range.
          */
         isEqual(other: Range): boolean;
@@ -459,8 +460,8 @@ declare module 'vscode' {
         /**
          * Derived a new range from this range.
          *
-         * @param start A position that should be used as start. The default value is the [current start](#Range.start).
-         * @param end A position that should be used as end. The default value is the [current end](#Range.end).
+         * @param start A position that should be used as start. The default value is the {@link Range.start current start}.
+         * @param end A position that should be used as end. The default value is the {@link Range.end current end}.
          * @return A range derived from this range with the given start and end position.
          * If start and end are not different `this` range will be returned.
          */
@@ -473,7 +474,7 @@ declare module 'vscode' {
          * @return A range that reflects the given change. Will return `this` range if the change
          * is not changing anything.
          */
-        with(change: { start?: Position, end?: Position }): Range;
+        with(change: { start?: Position | undefined, end?: Position | undefined }): Range;
     }
 
     /**
@@ -483,13 +484,13 @@ declare module 'vscode' {
 
         /**
          * The position at which the selection starts.
-         * This position might be before or after [active](#Selection.active).
+         * This position might be before or after {@link Selection.active active}.
          */
         anchor: Position;
 
         /**
          * The position of the cursor.
-         * This position might be before or after [anchor](#Selection.anchor).
+         * This position might be before or after {@link Selection.anchor anchor}.
          */
         active: Position;
 
@@ -512,13 +513,13 @@ declare module 'vscode' {
         constructor(anchorLine: number, anchorCharacter: number, activeLine: number, activeCharacter: number);
 
         /**
-         * A selection is reversed if [active](#Selection.active).isBefore([anchor](#Selection.anchor)).
+         * A selection is reversed if {@link Selection.active active}.isBefore({@link Selection.anchor anchor}).
          */
         isReversed: boolean;
     }
 
     /**
-     * Represents sources that can cause [selection change events](#window.onDidChangeTextEditorSelection).
+     * Represents sources that can cause {@link window.onDidChangeTextEditorSelection selection change events}.
     */
     export enum TextEditorSelectionChangeKind {
         /**
@@ -536,62 +537,62 @@ declare module 'vscode' {
     }
 
     /**
-     * Represents an event describing the change in a [text editor's selections](#TextEditor.selections).
+     * Represents an event describing the change in a {@link TextEditor.selections text editor's selections}.
      */
     export interface TextEditorSelectionChangeEvent {
         /**
-         * The [text editor](#TextEditor) for which the selections have changed.
+         * The {@link TextEditor text editor} for which the selections have changed.
          */
         readonly textEditor: TextEditor;
         /**
-         * The new value for the [text editor's selections](#TextEditor.selections).
+         * The new value for the {@link TextEditor.selections text editor's selections}.
          */
-        readonly selections: ReadonlyArray<Selection>;
+        readonly selections: readonly Selection[];
         /**
-         * The [change kind](#TextEditorSelectionChangeKind) which has triggered this
+         * The {@link TextEditorSelectionChangeKind change kind} which has triggered this
          * event. Can be `undefined`.
          */
-        readonly kind?: TextEditorSelectionChangeKind;
+        readonly kind?: TextEditorSelectionChangeKind | undefined;
     }
 
     /**
-     * Represents an event describing the change in a [text editor's visible ranges](#TextEditor.visibleRanges).
+     * Represents an event describing the change in a {@link TextEditor.visibleRanges text editor's visible ranges}.
      */
     export interface TextEditorVisibleRangesChangeEvent {
         /**
-         * The [text editor](#TextEditor) for which the visible ranges have changed.
+         * The {@link TextEditor text editor} for which the visible ranges have changed.
          */
         readonly textEditor: TextEditor;
         /**
-         * The new value for the [text editor's visible ranges](#TextEditor.visibleRanges).
+         * The new value for the {@link TextEditor.visibleRanges text editor's visible ranges}.
          */
-        readonly visibleRanges: ReadonlyArray<Range>;
+        readonly visibleRanges: readonly Range[];
     }
 
     /**
-     * Represents an event describing the change in a [text editor's options](#TextEditor.options).
+     * Represents an event describing the change in a {@link TextEditor.options text editor's options}.
      */
     export interface TextEditorOptionsChangeEvent {
         /**
-         * The [text editor](#TextEditor) for which the options have changed.
+         * The {@link TextEditor text editor} for which the options have changed.
          */
         readonly textEditor: TextEditor;
         /**
-         * The new value for the [text editor's options](#TextEditor.options).
+         * The new value for the {@link TextEditor.options text editor's options}.
          */
         readonly options: TextEditorOptions;
     }
 
     /**
-     * Represents an event describing the change of a [text editor's view column](#TextEditor.viewColumn).
+     * Represents an event describing the change of a {@link TextEditor.viewColumn text editor's view column}.
      */
     export interface TextEditorViewColumnChangeEvent {
         /**
-         * The [text editor](#TextEditor) for which the view column has changed.
+         * The {@link TextEditor text editor} for which the view column has changed.
          */
         readonly textEditor: TextEditor;
         /**
-         * The new value for the [text editor's view column](#TextEditor.viewColumn).
+         * The new value for the {@link TextEditor.viewColumn text editor's view column}.
          */
         readonly viewColumn: ViewColumn;
     }
@@ -645,48 +646,48 @@ declare module 'vscode' {
     }
 
     /**
-     * Represents a [text editor](#TextEditor)'s [options](#TextEditor.options).
+     * Represents a {@link TextEditor text editor}'s {@link TextEditor.options options}.
      */
     export interface TextEditorOptions {
 
         /**
          * The size in spaces a tab takes. This is used for two purposes:
          *  - the rendering width of a tab character;
-         *  - the number of spaces to insert when [insertSpaces](#TextEditorOptions.insertSpaces) is true.
+         *  - the number of spaces to insert when {@link TextEditorOptions.insertSpaces insertSpaces} is true.
          *
          * When getting a text editor's options, this property will always be a number (resolved).
          * When setting a text editor's options, this property is optional and it can be a number or `"auto"`.
          */
-        tabSize?: number | string;
+        tabSize?: number | string | undefined;
 
         /**
-         * When pressing Tab insert [n](#TextEditorOptions.tabSize) spaces.
+         * When pressing Tab insert {@link TextEditorOptions.tabSize n} spaces.
          * When getting a text editor's options, this property will always be a boolean (resolved).
          * When setting a text editor's options, this property is optional and it can be a boolean or `"auto"`.
          */
-        insertSpaces?: boolean | string;
+        insertSpaces?: boolean | string | undefined;
 
         /**
          * The rendering style of the cursor in this editor.
          * When getting a text editor's options, this property will always be present.
          * When setting a text editor's options, this property is optional.
          */
-        cursorStyle?: TextEditorCursorStyle;
+        cursorStyle?: TextEditorCursorStyle | undefined;
 
         /**
          * Render relative line numbers w.r.t. the current line number.
          * When getting a text editor's options, this property will always be present.
          * When setting a text editor's options, this property is optional.
          */
-        lineNumbers?: TextEditorLineNumbersStyle;
+        lineNumbers?: TextEditorLineNumbersStyle | undefined;
     }
 
     /**
      * Represents a handle to a set of decorations
-     * sharing the same [styling options](#DecorationRenderOptions) in a [text editor](#TextEditor).
+     * sharing the same {@link DecorationRenderOptions styling options} in a {@link TextEditor text editor}.
      *
      * To get an instance of a `TextEditorDecorationType` use
-     * [createTextEditorDecorationType](#window.createTextEditorDecorationType).
+     * {@link window.createTextEditorDecorationType createTextEditorDecorationType}.
      */
     export interface TextEditorDecorationType {
 
@@ -702,7 +703,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Represents different [reveal](#TextEditor.revealRange) strategies in a text editor.
+     * Represents different {@link TextEditor.revealRange reveal} strategies in a text editor.
      */
     export enum TextEditorRevealType {
         /**
@@ -725,7 +726,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Represents different positions for rendering a decoration in an [overview ruler](#DecorationRenderOptions.overviewRulerLane).
+     * Represents different positions for rendering a decoration in an {@link DecorationRenderOptions.overviewRulerLane overview ruler}.
      * The overview ruler supports three lanes.
      */
     export enum OverviewRulerLane {
@@ -758,33 +759,33 @@ declare module 'vscode' {
     }
 
     /**
-     * Represents options to configure the behavior of showing a [document](#TextDocument) in an [editor](#TextEditor).
+     * Represents options to configure the behavior of showing a {@link TextDocument document} in an {@link TextEditor editor}.
      */
     export interface TextDocumentShowOptions {
         /**
-         * An optional view column in which the [editor](#TextEditor) should be shown.
-         * The default is the [active](#ViewColumn.Active), other values are adjusted to
-         * be `Min(column, columnCount + 1)`, the [active](#ViewColumn.Active)-column is
-         * not adjusted. Use [`ViewColumn.Beside`](#ViewColumn.Beside) to open the
+         * An optional view column in which the {@link TextEditor editor} should be shown.
+         * The default is the {@link ViewColumn.Active active}, other values are adjusted to
+         * be `Min(column, columnCount + 1)`, the {@link ViewColumn.Active active}-column is
+         * not adjusted. Use {@link ViewColumn.Beside `ViewColumn.Beside`} to open the
          * editor to the side of the currently active one.
          */
-        viewColumn?: ViewColumn;
+        viewColumn?: ViewColumn | undefined;
 
         /**
-         * An optional flag that when `true` will stop the [editor](#TextEditor) from taking focus.
+         * An optional flag that when `true` will stop the {@link TextEditor editor} from taking focus.
          */
-        preserveFocus?: boolean;
+        preserveFocus?: boolean | undefined;
 
         /**
-         * An optional flag that controls if an [editor](#TextEditor)-tab will be replaced
+         * An optional flag that controls if an {@link TextEditor editor}-tab will be replaced
          * with the next editor or if it will be kept.
          */
-        preview?: boolean;
+        preview?: boolean | undefined;
 
         /**
-         * An optional selection to apply for the document in the [editor](#TextEditor).
+         * An optional selection to apply for the document in the {@link TextEditor editor}.
          */
-        selection?: Range;
+        selection?: Range | undefined;
     }
 
     /**
@@ -801,9 +802,9 @@ declare module 'vscode' {
     }
 
     /**
-     * A reference to a named icon. Currently, [File](#ThemeIcon.File), [Folder](#ThemeIcon.Folder),
-     * and [codicons](https://microsoft.github.io/vscode-codicons/dist/codicon.html) are supported.
-     * Using a theme icon is preferred over a custom icon as it gives theme authors the possibility to change the icons.
+     * A reference to a named icon. Currently, {@link ThemeIcon.File File}, {@link ThemeIcon.Folder Folder},
+     * and [ThemeIcon ids](https://code.visualstudio.com/api/references/icons-in-labels#icon-listing) are supported.
+     * Using a theme icon is preferred over a custom icon as it gives product theme authors the possibility to change the icons.
      *
      * *Note* that theme icons can also be rendered inside labels and descriptions. Places that support theme icons spell this out
      * and they use the `$(<name>)`-syntax, for instance `quickPick.label = "Hello World $(globe)"`.
@@ -820,229 +821,240 @@ declare module 'vscode' {
         static readonly Folder: ThemeIcon;
 
         /**
-         * Creates a reference to a theme icon.
-         * @param id id of the icon. The available icons are listed in https://microsoft.github.io/vscode-codicons/dist/codicon.html.
+         * The id of the icon. The available icons are listed in https://code.visualstudio.com/api/references/icons-in-labels#icon-listing.
          */
-        constructor(id: string);
+        readonly id: string;
+
+        /**
+         * The optional ThemeColor of the icon. The color is currently only used in {@link TreeItem}.
+         */
+        readonly color?: ThemeColor | undefined;
+
+        /**
+         * Creates a reference to a theme icon.
+         * @param id id of the icon. The available icons are listed in https://code.visualstudio.com/api/references/icons-in-labels#icon-listing.
+         * @param color optional `ThemeColor` for the icon. The color is currently only used in {@link TreeItem}.
+         */
+        constructor(id: string, color?: ThemeColor);
     }
 
     /**
-     * Represents theme specific rendering styles for a [text editor decoration](#TextEditorDecorationType).
+     * Represents theme specific rendering styles for a {@link TextEditorDecorationType text editor decoration}.
      */
     export interface ThemableDecorationRenderOptions {
         /**
          * Background color of the decoration. Use rgba() and define transparent background colors to play well with other decorations.
-         * Alternatively a color from the color registry can be [referenced](#ThemeColor).
+         * Alternatively a color from the color registry can be {@link ThemeColor referenced}.
          */
-        backgroundColor?: string | ThemeColor;
+        backgroundColor?: string | ThemeColor | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          */
-        outline?: string;
-
-        /**
-         * CSS styling property that will be applied to text enclosed by a decoration.
-         * Better use 'outline' for setting one or more of the individual outline properties.
-         */
-        outlineColor?: string | ThemeColor;
+        outline?: string | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          * Better use 'outline' for setting one or more of the individual outline properties.
          */
-        outlineStyle?: string;
+        outlineColor?: string | ThemeColor | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          * Better use 'outline' for setting one or more of the individual outline properties.
          */
-        outlineWidth?: string;
+        outlineStyle?: string | undefined;
+
+        /**
+         * CSS styling property that will be applied to text enclosed by a decoration.
+         * Better use 'outline' for setting one or more of the individual outline properties.
+         */
+        outlineWidth?: string | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          */
-        border?: string;
-
-        /**
-         * CSS styling property that will be applied to text enclosed by a decoration.
-         * Better use 'border' for setting one or more of the individual border properties.
-         */
-        borderColor?: string | ThemeColor;
-
-        /**
-         * CSS styling property that will be applied to text enclosed by a decoration.
-         * Better use 'border' for setting one or more of the individual border properties.
-         */
-        borderRadius?: string;
+        border?: string | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          * Better use 'border' for setting one or more of the individual border properties.
          */
-        borderSpacing?: string;
+        borderColor?: string | ThemeColor | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          * Better use 'border' for setting one or more of the individual border properties.
          */
-        borderStyle?: string;
+        borderRadius?: string | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          * Better use 'border' for setting one or more of the individual border properties.
          */
-        borderWidth?: string;
+        borderSpacing?: string | undefined;
+
+        /**
+         * CSS styling property that will be applied to text enclosed by a decoration.
+         * Better use 'border' for setting one or more of the individual border properties.
+         */
+        borderStyle?: string | undefined;
+
+        /**
+         * CSS styling property that will be applied to text enclosed by a decoration.
+         * Better use 'border' for setting one or more of the individual border properties.
+         */
+        borderWidth?: string | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          */
-        fontStyle?: string;
+        fontStyle?: string | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          */
-        fontWeight?: string;
+        fontWeight?: string | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          */
-        textDecoration?: string;
+        textDecoration?: string | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          */
-        cursor?: string;
+        cursor?: string | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          */
-        color?: string | ThemeColor;
+        color?: string | ThemeColor | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          */
-        opacity?: string;
+        opacity?: string | undefined;
 
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          */
-        letterSpacing?: string;
+        letterSpacing?: string | undefined;
 
         /**
          * An **absolute path** or an URI to an image to be rendered in the gutter.
          */
-        gutterIconPath?: string | Uri;
+        gutterIconPath?: string | Uri | undefined;
 
         /**
          * Specifies the size of the gutter icon.
          * Available values are 'auto', 'contain', 'cover' and any percentage value.
          * For further information: https://msdn.microsoft.com/en-us/library/jj127316(v=vs.85).aspx
          */
-        gutterIconSize?: string;
+        gutterIconSize?: string | undefined;
 
         /**
          * The color of the decoration in the overview ruler. Use rgba() and define transparent colors to play well with other decorations.
          */
-        overviewRulerColor?: string | ThemeColor;
+        overviewRulerColor?: string | ThemeColor | undefined;
 
         /**
          * Defines the rendering options of the attachment that is inserted before the decorated text.
          */
-        before?: ThemableDecorationAttachmentRenderOptions;
+        before?: ThemableDecorationAttachmentRenderOptions | undefined;
 
         /**
          * Defines the rendering options of the attachment that is inserted after the decorated text.
          */
-        after?: ThemableDecorationAttachmentRenderOptions;
+        after?: ThemableDecorationAttachmentRenderOptions | undefined;
     }
 
     export interface ThemableDecorationAttachmentRenderOptions {
         /**
          * Defines a text content that is shown in the attachment. Either an icon or a text can be shown, but not both.
          */
-        contentText?: string;
+        contentText?: string | undefined;
         /**
          * An **absolute path** or an URI to an image to be rendered in the attachment. Either an icon
          * or a text can be shown, but not both.
          */
-        contentIconPath?: string | Uri;
+        contentIconPath?: string | Uri | undefined;
         /**
          * CSS styling property that will be applied to the decoration attachment.
          */
-        border?: string;
+        border?: string | undefined;
         /**
          * CSS styling property that will be applied to text enclosed by a decoration.
          */
-        borderColor?: string | ThemeColor;
+        borderColor?: string | ThemeColor | undefined;
         /**
          * CSS styling property that will be applied to the decoration attachment.
          */
-        fontStyle?: string;
+        fontStyle?: string | undefined;
         /**
          * CSS styling property that will be applied to the decoration attachment.
          */
-        fontWeight?: string;
+        fontWeight?: string | undefined;
         /**
          * CSS styling property that will be applied to the decoration attachment.
          */
-        textDecoration?: string;
+        textDecoration?: string | undefined;
         /**
          * CSS styling property that will be applied to the decoration attachment.
          */
-        color?: string | ThemeColor;
+        color?: string | ThemeColor | undefined;
         /**
          * CSS styling property that will be applied to the decoration attachment.
          */
-        backgroundColor?: string | ThemeColor;
+        backgroundColor?: string | ThemeColor | undefined;
         /**
          * CSS styling property that will be applied to the decoration attachment.
          */
-        margin?: string;
+        margin?: string | undefined;
         /**
          * CSS styling property that will be applied to the decoration attachment.
          */
-        width?: string;
+        width?: string | undefined;
         /**
          * CSS styling property that will be applied to the decoration attachment.
          */
-        height?: string;
+        height?: string | undefined;
     }
 
     /**
-     * Represents rendering styles for a [text editor decoration](#TextEditorDecorationType).
+     * Represents rendering styles for a {@link TextEditorDecorationType text editor decoration}.
      */
     export interface DecorationRenderOptions extends ThemableDecorationRenderOptions {
         /**
          * Should the decoration be rendered also on the whitespace after the line text.
          * Defaults to `false`.
          */
-        isWholeLine?: boolean;
+        isWholeLine?: boolean | undefined;
 
         /**
          * Customize the growing behavior of the decoration when edits occur at the edges of the decoration's range.
          * Defaults to `DecorationRangeBehavior.OpenOpen`.
          */
-        rangeBehavior?: DecorationRangeBehavior;
+        rangeBehavior?: DecorationRangeBehavior | undefined;
 
         /**
          * The position in the overview ruler where the decoration should be rendered.
          */
-        overviewRulerLane?: OverviewRulerLane;
+        overviewRulerLane?: OverviewRulerLane | undefined;
 
         /**
          * Overwrite options for light themes.
          */
-        light?: ThemableDecorationRenderOptions;
+        light?: ThemableDecorationRenderOptions | undefined;
 
         /**
          * Overwrite options for dark themes.
          */
-        dark?: ThemableDecorationRenderOptions;
+        dark?: ThemableDecorationRenderOptions | undefined;
     }
 
     /**
-     * Represents options for a specific decoration in a [decoration set](#TextEditorDecorationType).
+     * Represents options for a specific decoration in a {@link TextEditorDecorationType decoration set}.
      */
     export interface DecorationOptions {
 
@@ -1054,41 +1066,41 @@ declare module 'vscode' {
         /**
          * A message that should be rendered when hovering over the decoration.
          */
-        hoverMessage?: MarkedString | MarkedString[];
+        hoverMessage?: MarkedString | MarkedString[] | undefined;
 
         /**
          * Render options applied to the current decoration. For performance reasons, keep the
          * number of decoration specific options small, and use decoration types wherever possible.
          */
-        renderOptions?: DecorationInstanceRenderOptions;
+        renderOptions?: DecorationInstanceRenderOptions | undefined;
     }
 
     export interface ThemableDecorationInstanceRenderOptions {
         /**
          * Defines the rendering options of the attachment that is inserted before the decorated text.
          */
-        before?: ThemableDecorationAttachmentRenderOptions;
+        before?: ThemableDecorationAttachmentRenderOptions | undefined;
 
         /**
          * Defines the rendering options of the attachment that is inserted after the decorated text.
          */
-        after?: ThemableDecorationAttachmentRenderOptions;
+        after?: ThemableDecorationAttachmentRenderOptions | undefined;
     }
 
     export interface DecorationInstanceRenderOptions extends ThemableDecorationInstanceRenderOptions {
         /**
          * Overwrite options for light themes.
          */
-        light?: ThemableDecorationInstanceRenderOptions;
+        light?: ThemableDecorationInstanceRenderOptions | undefined;
 
         /**
          * Overwrite options for dark themes.
          */
-        dark?: ThemableDecorationInstanceRenderOptions;
+        dark?: ThemableDecorationInstanceRenderOptions | undefined;
     }
 
     /**
-     * Represents an editor that is attached to a [document](#TextDocument).
+     * Represents an editor that is attached to a {@link TextDocument document}.
      */
     export interface TextEditor {
 
@@ -1123,23 +1135,23 @@ declare module 'vscode' {
          * isn't one of the main editors, e.g. an embedded editor, or when the editor
          * column is larger than three.
          */
-        viewColumn?: ViewColumn;
+        readonly viewColumn?: ViewColumn | undefined;
 
         /**
          * Perform an edit on the document associated with this text editor.
          *
-         * The given callback-function is invoked with an [edit-builder](#TextEditorEdit) which must
+         * The given callback-function is invoked with an {@link TextEditorEdit edit-builder} which must
          * be used to make edits. Note that the edit-builder is only valid while the
          * callback executes.
          *
-         * @param callback A function which can create edits using an [edit-builder](#TextEditorEdit).
+         * @param callback A function which can create edits using an {@link TextEditorEdit edit-builder}.
          * @param options The undo/redo behavior around this edit. By default, undo stops will be created before and after this edit.
          * @return A promise that resolves with a value indicating if the edits could be applied.
          */
         edit(callback: (editBuilder: TextEditorEdit) => void, options?: { undoStopBefore: boolean; undoStopAfter: boolean; }): Thenable<boolean>;
 
         /**
-         * Insert a [snippet](#SnippetString) and put the editor into snippet mode. "Snippet mode"
+         * Insert a {@link SnippetString snippet} and put the editor into snippet mode. "Snippet mode"
          * means the editor adds placeholders and additional cursors so that the user can complete
          * or accept the snippet.
          *
@@ -1149,18 +1161,20 @@ declare module 'vscode' {
          * @return A promise that resolves with a value indicating if the snippet could be inserted. Note that the promise does not signal
          * that the snippet is completely filled-in or accepted.
          */
-        insertSnippet(snippet: SnippetString, location?: Position | Range | ReadonlyArray<Position> | ReadonlyArray<Range>, options?: { undoStopBefore: boolean; undoStopAfter: boolean; }): Thenable<boolean>;
+        insertSnippet(snippet: SnippetString, location?: Position | Range | readonly Position[] | readonly Range[], options?: { undoStopBefore: boolean; undoStopAfter: boolean; }): Thenable<boolean>;
 
         /**
          * Adds a set of decorations to the text editor. If a set of decorations already exists with
-         * the given [decoration type](#TextEditorDecorationType), they will be replaced.
+         * the given {@link TextEditorDecorationType decoration type}, they will be replaced. If
+         * `rangesOrOptions` is empty, the existing decorations with the given {@link TextEditorDecorationType decoration type}
+         * will be removed.
          *
-         * @see [createTextEditorDecorationType](#window.createTextEditorDecorationType).
+         * @see {@link window.createTextEditorDecorationType createTextEditorDecorationType}.
          *
          * @param decorationType A decoration type.
-         * @param rangesOrOptions Either [ranges](#Range) or more detailed [options](#DecorationOptions).
+         * @param rangesOrOptions Either {@link Range ranges} or more detailed {@link DecorationOptions options}.
          */
-        setDecorations(decorationType: TextEditorDecorationType, rangesOrOptions: Range[] | DecorationOptions[]): void;
+        setDecorations(decorationType: TextEditorDecorationType, rangesOrOptions: readonly Range[] | readonly DecorationOptions[]): void;
 
         /**
          * Scroll as indicated by `revealType` in order to reveal the given range.
@@ -1171,17 +1185,17 @@ declare module 'vscode' {
         revealRange(range: Range, revealType?: TextEditorRevealType): void;
 
         /**
-         * ~~Show the text editor.~~
+         * Show the text editor.
          *
-         * @deprecated Use [window.showTextDocument](#window.showTextDocument) instead.
+         * @deprecated Use {@link window.showTextDocument} instead.
          *
-         * @param column The [column](#ViewColumn) in which to show this editor.
+         * @param column The {@link ViewColumn column} in which to show this editor.
          * This method shows unexpected behavior and will be removed in the next major update.
          */
         show(column?: ViewColumn): void;
 
         /**
-         * ~~Hide the text editor.~~
+         * Hide the text editor.
          *
          * @deprecated Use the command `workbench.action.closeActiveEditor` instead.
          * This method shows unexpected behavior and will be removed in the next major update.
@@ -1190,7 +1204,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Represents an end of line character sequence in a [document](#TextDocument).
+     * Represents an end of line character sequence in a {@link TextDocument document}.
      */
     export enum EndOfLine {
         /**
@@ -1206,12 +1220,12 @@ declare module 'vscode' {
     /**
      * A complex edit that will be applied in one transaction on a TextEditor.
      * This holds a description of the edits and if the edits are valid (i.e. no overlapping regions, document was not changed in the meantime, etc.)
-     * they can be applied on a [document](#TextDocument) associated with a [text editor](#TextEditor).
+     * they can be applied on a {@link TextDocument document} associated with a {@link TextEditor text editor}.
      */
     export interface TextEditorEdit {
         /**
          * Replace a certain text region with a new value.
-         * You can use \r\n or \n in `value` and they will be normalized to the current [document](#TextDocument).
+         * You can use \r\n or \n in `value` and they will be normalized to the current {@link TextDocument document}.
          *
          * @param location The range this operation should remove.
          * @param value The new text this operation should insert after removing `location`.
@@ -1220,8 +1234,8 @@ declare module 'vscode' {
 
         /**
          * Insert text at a location.
-         * You can use \r\n or \n in `value` and they will be normalized to the current [document](#TextDocument).
-         * Although the equivalent text edit can be made with [replace](#TextEditorEdit.replace), `insert` will produce a different resulting selection (it will get moved).
+         * You can use \r\n or \n in `value` and they will be normalized to the current {@link TextDocument document}.
+         * Although the equivalent text edit can be made with {@link TextEditorEdit.replace replace}, `insert` will produce a different resulting selection (it will get moved).
          *
          * @param location The position where the new text should be inserted.
          * @param value The new text this operation should insert.
@@ -1238,7 +1252,7 @@ declare module 'vscode' {
         /**
          * Set the end of line sequence.
          *
-         * @param endOfLine The new end of line for the [document](#TextDocument).
+         * @param endOfLine The new end of line for the {@link TextDocument document}.
          */
         setEndOfLine(endOfLine: EndOfLine): void;
     }
@@ -1257,7 +1271,7 @@ declare module 'vscode' {
          * as all uris should have a scheme. To avoid breakage of existing code the optional
          * `strict`-argument has been added. We *strongly* advise to use it, e.g. `Uri.parse('my:uri', true)`
          *
-         * @see [Uri.toString](#Uri.toString)
+         * @see {@link Uri.toString}
          * @param value The string value of an Uri.
          * @param strict Throw an error when `value` is empty or when no `scheme` can be parsed.
          * @return A new Uri instance.
@@ -1265,10 +1279,10 @@ declare module 'vscode' {
         static parse(value: string, strict?: boolean): Uri;
 
         /**
-         * Create an URI from a file system path. The [scheme](#Uri.scheme)
+         * Create an URI from a file system path. The {@link Uri.scheme scheme}
          * will be `file`.
          *
-         * The *difference* between `Uri#parse` and `Uri#file` is that the latter treats the argument
+         * The *difference* between {@link Uri.parse} and {@link Uri.file} is that the latter treats the argument
          * as path, not as stringified-uri. E.g. `Uri.file(path)` is *not* the same as
          * `Uri.parse('file://' + path)` because the path might contain characters that are
          * interpreted (# and ?). See the following sample:
@@ -1310,6 +1324,15 @@ declare module 'vscode' {
          * @returns A new uri which path is joined with the given fragments
          */
         static joinPath(base: Uri, ...pathSegments: string[]): Uri;
+
+        /**
+         * Create an URI from its component parts
+         *
+         * @see {@link Uri.toString}
+         * @param components The component parts of an Uri.
+         * @return A new Uri instance.
+         */
+        static from(components: { scheme: string; authority?: string | undefined; path?: string | undefined; query?: string | undefined; fragment?: string | undefined }): Uri;
 
         /**
          * Use the `file` and `parse` factory functions to create new `Uri` objects.
@@ -1354,7 +1377,7 @@ declare module 'vscode' {
          * * The resulting string shall *not* be used for display purposes but
          * for disk operations, like `readFile` et al.
          *
-         * The *difference* to the [`path`](#Uri.path)-property is the use of the platform specific
+         * The *difference* to the {@link Uri.path `path`}-property is the use of the platform specific
          * path separator and the handling of UNC paths. The sample below outlines the difference:
          * ```ts
         const u = URI.parse('file://server/c$/folder/file.txt')
@@ -1379,13 +1402,13 @@ declare module 'vscode' {
          * @return A new Uri that reflects the given change. Will return `this` Uri if the change
          *  is not changing anything.
          */
-        with(change: { scheme?: string; authority?: string; path?: string; query?: string; fragment?: string }): Uri;
+        with(change: { scheme?: string | undefined; authority?: string | undefined; path?: string | undefined; query?: string | undefined; fragment?: string | undefined }): Uri;
 
         /**
          * Returns a string representation of this Uri. The representation and normalization
          * of a URI depends on the scheme.
          *
-         * * The resulting string can be safely used with [Uri.parse](#Uri.parse).
+         * * The resulting string can be safely used with {@link Uri.parse}.
          * * The resulting string shall *not* be used for display purposes.
          *
          * *Note* that the implementation will encode _aggressive_ which often leads to unexpected,
@@ -1414,7 +1437,7 @@ declare module 'vscode' {
      * for completion items because the user continued to type.
      *
      * To get an instance of a `CancellationToken` use a
-     * [CancellationTokenSource](#CancellationTokenSource).
+     * {@link CancellationTokenSource}.
      */
     export interface CancellationToken {
 
@@ -1424,13 +1447,13 @@ declare module 'vscode' {
         isCancellationRequested: boolean;
 
         /**
-         * An [event](#Event) which fires upon cancellation.
+         * An {@link Event} which fires upon cancellation.
          */
         onCancellationRequested: Event<any>;
     }
 
     /**
-     * A cancellation source creates and controls a [cancellation token](#CancellationToken).
+     * A cancellation source creates and controls a {@link CancellationToken cancellation token}.
      */
     export class CancellationTokenSource {
 
@@ -1448,6 +1471,21 @@ declare module 'vscode' {
          * Dispose object and free resources.
          */
         dispose(): void;
+    }
+
+    /**
+     * An error type that should be used to signal cancellation of an operation.
+     *
+     * This type can be used in response to a {@link CancellationToken cancellation token}
+     * being cancelled or when an operation is being cancelled by the
+     * executor of that operation.
+     */
+    export class CancellationError extends Error {
+
+        /**
+         * Creates a new cancellation error.
+         */
+        constructor();
     }
 
     /**
@@ -1486,7 +1524,8 @@ declare module 'vscode' {
      * A function that represents an event to which you subscribe by calling it with
      * a listener function as argument.
      *
-     * @sample `item.onDidChange(function(event) { console.log("Event happened: " + event); });`
+     * @example
+     * item.onDidChange(function(event) { console.log("Event happened: " + event); });
      */
     export interface Event<T> {
 
@@ -1496,18 +1535,18 @@ declare module 'vscode' {
          *
          * @param listener The listener function will be called when the event happens.
          * @param thisArgs The `this`-argument which will be used when calling the event listener.
-         * @param disposables An array to which a [disposable](#Disposable) will be added.
+         * @param disposables An array to which a {@link Disposable} will be added.
          * @return A disposable which unsubscribes the event listener.
          */
         (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
     }
 
     /**
-     * An event emitter can be used to create and manage an [event](#Event) for others
+     * An event emitter can be used to create and manage an {@link Event} for others
      * to subscribe to. One emitter always owns one event.
      *
      * Use this class if you want to provide event from within your extension, for instance
-     * inside a [TextDocumentContentProvider](#TextDocumentContentProvider) or when providing
+     * inside a {@link TextDocumentContentProvider} or when providing
      * API to other extensions.
      */
     export class EventEmitter<T> {
@@ -1518,7 +1557,7 @@ declare module 'vscode' {
         event: Event<T>;
 
         /**
-         * Notify all subscribers of the [event](#EventEmitter.event). Failure
+         * Notify all subscribers of the {@link EventEmitter.event event}. Failure
          * of one or more listener will not fail this function call.
          *
          * @param data The event object.
@@ -1533,10 +1572,10 @@ declare module 'vscode' {
 
     /**
      * A file system watcher notifies about changes to files and folders
-     * on disk or from other [FileSystemProviders](#FileSystemProvider).
+     * on disk or from other {@link FileSystemProvider FileSystemProviders}.
      *
      * To get an instance of a `FileSystemWatcher` use
-     * [createFileSystemWatcher](#workspace.createFileSystemWatcher).
+     * {@link workspace.createFileSystemWatcher createFileSystemWatcher}.
      */
     export interface FileSystemWatcher extends Disposable {
 
@@ -1578,9 +1617,9 @@ declare module 'vscode' {
      * A text document content provider allows to add readonly documents
      * to the editor, such as source from a dll or generated html from md.
      *
-     * Content providers are [registered](#workspace.registerTextDocumentContentProvider)
-     * for a [uri-scheme](#Uri.scheme). When a uri with that scheme is to
-     * be [loaded](#workspace.openTextDocument) the content provider is
+     * Content providers are {@link workspace.registerTextDocumentContentProvider registered}
+     * for a {@link Uri.scheme uri-scheme}. When a uri with that scheme is to
+     * be {@link workspace.openTextDocument loaded} the content provider is
      * asked.
      */
     export interface TextDocumentContentProvider {
@@ -1588,19 +1627,19 @@ declare module 'vscode' {
         /**
          * An event to signal a resource has changed.
          */
-        onDidChange?: Event<Uri>;
+        onDidChange?: Event<Uri> | undefined;
 
         /**
          * Provide textual content for a given uri.
          *
          * The editor will use the returned string-content to create a readonly
-         * [document](#TextDocument). Resources allocated should be released when
-         * the corresponding document has been [closed](#workspace.onDidCloseTextDocument).
+         * {@link TextDocument document}. Resources allocated should be released when
+         * the corresponding document has been {@link workspace.onDidCloseTextDocument closed}.
          *
-         * **Note**: The contents of the created [document](#TextDocument) might not be
+         * **Note**: The contents of the created {@link TextDocument document} might not be
          * identical to the provided text due to end-of-line-sequence normalization.
          *
-         * @param uri An uri which scheme matches the scheme this provider was [registered](#workspace.registerTextDocumentContentProvider) for.
+         * @param uri An uri which scheme matches the scheme this provider was {@link workspace.registerTextDocumentContentProvider registered} for.
          * @param token A cancellation token.
          * @return A string or a thenable that resolves to such.
          */
@@ -1614,65 +1653,71 @@ declare module 'vscode' {
     export interface QuickPickItem {
 
         /**
-         * A human-readable string which is rendered prominent. Supports rendering of [theme icons](#ThemeIcon) via
+         * A human-readable string which is rendered prominent. Supports rendering of {@link ThemeIcon theme icons} via
          * the `$(<name>)`-syntax.
          */
         label: string;
 
         /**
          * A human-readable string which is rendered less prominent in the same line. Supports rendering of
-         * [theme icons](#ThemeIcon) via the `$(<name>)`-syntax.
+         * {@link ThemeIcon theme icons} via the `$(<name>)`-syntax.
          */
-        description?: string;
+        description?: string | undefined;
 
         /**
          * A human-readable string which is rendered less prominent in a separate line. Supports rendering of
-         * [theme icons](#ThemeIcon) via the `$(<name>)`-syntax.
+         * {@link ThemeIcon theme icons} via the `$(<name>)`-syntax.
          */
-        detail?: string;
+        detail?: string | undefined;
 
         /**
          * Optional flag indicating if this item is picked initially.
          * (Only honored when the picker allows multiple selections.)
          *
-         * @see [QuickPickOptions.canPickMany](#QuickPickOptions.canPickMany)
+         * @see {@link QuickPickOptions.canPickMany}
          */
-        picked?: boolean;
+        picked?: boolean | undefined;
 
         /**
          * Always show this item.
          */
-        alwaysShow?: boolean;
+        alwaysShow?: boolean | undefined;
     }
 
     /**
      * Options to configure the behavior of the quick pick UI.
      */
     export interface QuickPickOptions {
+
+        /**
+         * An optional string that represents the title of the quick pick.
+         */
+        title?: string | undefined;
+
         /**
          * An optional flag to include the description when filtering the picks.
          */
-        matchOnDescription?: boolean;
+        matchOnDescription?: boolean | undefined;
 
         /**
          * An optional flag to include the detail when filtering the picks.
          */
-        matchOnDetail?: boolean;
+        matchOnDetail?: boolean | undefined;
 
         /**
          * An optional string to show as placeholder in the input box to guide the user what to pick on.
          */
-        placeHolder?: string;
+        placeHolder?: string | undefined;
 
         /**
          * Set to `true` to keep the picker open when focus moves to another part of the editor or to another window.
          */
-        ignoreFocusOut?: boolean;
+        ignoreFocusOut?: boolean | undefined;
 
         /**
          * An optional flag to make the picker accept multiple selections, if true the result is an array of picks.
          */
-        canPickMany?: boolean;
+        canPickMany?: boolean | undefined;
 
         /**
          * An optional function that is invoked whenever an item is selected.
@@ -1681,26 +1726,26 @@ declare module 'vscode' {
     }
 
     /**
-     * Options to configure the behaviour of the [workspace folder](#WorkspaceFolder) pick UI.
+     * Options to configure the behaviour of the {@link WorkspaceFolder workspace folder} pick UI.
      */
     export interface WorkspaceFolderPickOptions {
 
         /**
          * An optional string to show as placeholder in the input box to guide the user what to pick on.
          */
-        placeHolder?: string;
+        placeHolder?: string | undefined;
 
         /**
          * Set to `true` to keep the picker open when focus moves to another part of the editor or to another window.
          */
-        ignoreFocusOut?: boolean;
+        ignoreFocusOut?: boolean | undefined;
     }
 
     /**
      * Options to configure the behaviour of a file open dialog.
      *
-     * * Note 1: A dialog can select files, folders, or both. This is not true for Windows
-     * which enforces to open either files or folder, but *not both*.
+     * * Note 1: On Windows and Linux, a file dialog cannot be both a file selector and a folder selector, so if you
+     * set both `canSelectFiles` and `canSelectFolders` to `true` on these platforms, a folder selector will be shown.
      * * Note 2: Explicitly setting `canSelectFiles` and `canSelectFolders` to `false` is futile
      * and the editor then silently adjusts the options to select files.
      */
@@ -1708,27 +1753,27 @@ declare module 'vscode' {
         /**
          * The resource the dialog shows when opened.
          */
-        defaultUri?: Uri;
+        defaultUri?: Uri | undefined;
 
         /**
          * A human-readable string for the open button.
          */
-        openLabel?: string;
+        openLabel?: string | undefined;
 
         /**
          * Allow to select files, defaults to `true`.
          */
-        canSelectFiles?: boolean;
+        canSelectFiles?: boolean | undefined;
 
         /**
          * Allow to select folders, defaults to `false`.
          */
-        canSelectFolders?: boolean;
+        canSelectFolders?: boolean | undefined;
 
         /**
          * Allow to select many files or folders.
          */
-        canSelectMany?: boolean;
+        canSelectMany?: boolean | undefined;
 
         /**
          * A set of file filters that are used by the dialog. Each entry is a human-readable label,
@@ -1740,7 +1785,7 @@ declare module 'vscode' {
          * }
          * ```
          */
-        filters?: { [name: string]: string[] };
+        filters?: { [name: string]: string[] } | undefined;
 
         /**
          * Dialog title.
@@ -1748,7 +1793,7 @@ declare module 'vscode' {
          * This parameter might be ignored, as not all operating systems display a title on open dialogs
          * (for example, macOS).
          */
-        title?: string;
+        title?: string | undefined;
     }
 
     /**
@@ -1758,12 +1803,12 @@ declare module 'vscode' {
         /**
          * The resource the dialog shows when opened.
          */
-        defaultUri?: Uri;
+        defaultUri?: Uri | undefined;
 
         /**
          * A human-readable string for the save button.
          */
-        saveLabel?: string;
+        saveLabel?: string | undefined;
 
         /**
          * A set of file filters that are used by the dialog. Each entry is a human-readable label,
@@ -1775,7 +1820,7 @@ declare module 'vscode' {
          * }
          * ```
          */
-        filters?: { [name: string]: string[] };
+        filters?: { [name: string]: string[] } | undefined;
 
         /**
          * Dialog title.
@@ -1783,16 +1828,16 @@ declare module 'vscode' {
          * This parameter might be ignored, as not all operating systems display a title on save dialogs
          * (for example, macOS).
          */
-        title?: string;
+        title?: string | undefined;
     }
 
     /**
      * Represents an action that is shown with an information, warning, or
      * error message.
      *
-     * @see [showInformationMessage](#window.showInformationMessage)
-     * @see [showWarningMessage](#window.showWarningMessage)
-     * @see [showErrorMessage](#window.showErrorMessage)
+     * @see {@link window.showInformationMessage showInformationMessage}
+     * @see {@link window.showWarningMessage showWarningMessage}
+     * @see {@link window.showErrorMessage showErrorMessage}
      */
     export interface MessageItem {
 
@@ -1808,22 +1853,22 @@ declare module 'vscode' {
          *
          * Note: this option is ignored for non-modal messages.
          */
-        isCloseAffordance?: boolean;
+        isCloseAffordance?: boolean | undefined;
     }
 
     /**
      * Options to configure the behavior of the message.
      *
-     * @see [showInformationMessage](#window.showInformationMessage)
-     * @see [showWarningMessage](#window.showWarningMessage)
-     * @see [showErrorMessage](#window.showErrorMessage)
+     * @see {@link window.showInformationMessage showInformationMessage}
+     * @see {@link window.showWarningMessage showWarningMessage}
+     * @see {@link window.showErrorMessage showErrorMessage}
      */
     export interface MessageOptions {
 
         /**
          * Indicates that this message should be modal.
          */
-        modal?: boolean;
+        modal?: boolean | undefined;
     }
 
     /**
@@ -1832,37 +1877,42 @@ declare module 'vscode' {
     export interface InputBoxOptions {
 
         /**
-         * The value to prefill in the input box.
+         * An optional string that represents the title of the input box.
          */
-        value?: string;
+        title?: string | undefined;
 
         /**
-         * Selection of the prefilled [`value`](#InputBoxOptions.value). Defined as tuple of two number where the
+         * The value to prefill in the input box.
+         */
+        value?: string | undefined;
+
+        /**
+         * Selection of the prefilled {@link InputBoxOptions.value `value`}. Defined as tuple of two number where the
          * first is the inclusive start index and the second the exclusive end index. When `undefined` the whole
          * word will be selected, when empty (start equals end) only the cursor will be set,
          * otherwise the defined range will be selected.
          */
-        valueSelection?: [number, number];
+        valueSelection?: [number, number] | undefined;
 
         /**
          * The text to display underneath the input box.
          */
-        prompt?: string;
+        prompt?: string | undefined;
 
         /**
          * An optional string to show as placeholder in the input box to guide the user what to type.
          */
-        placeHolder?: string;
+        placeHolder?: string | undefined;
 
         /**
          * Controls if a password input is shown. Password input hides the typed text.
          */
-        password?: boolean;
+        password?: boolean | undefined;
 
         /**
          * Set to `true` to keep the input box open when focus moves to another part of the editor or to another window.
          */
-        ignoreFocusOut?: boolean;
+        ignoreFocusOut?: boolean | undefined;
 
         /**
          * An optional function that will be called to validate input and to give a hint
@@ -1877,8 +1927,9 @@ declare module 'vscode' {
 
     /**
      * A relative pattern is a helper to construct glob patterns that are matched
-     * relatively to a base path. The base path can either be an absolute file path
-     * or a [workspace folder](#WorkspaceFolder).
+     * relatively to a base file path. The base path can either be an absolute file
+     * path as string or uri or a {@link WorkspaceFolder workspace folder}, which is the
+     * preferred way of creating the relative pattern.
      */
     export class RelativePattern {
 
@@ -1897,19 +1948,33 @@ declare module 'vscode' {
         pattern: string;
 
         /**
-         * Creates a new relative pattern object with a base path and pattern to match. This pattern
-         * will be matched on file paths relative to the base path.
+         * Creates a new relative pattern object with a base file path and pattern to match. This pattern
+         * will be matched on file paths relative to the base.
          *
-         * @param base A base file path to which this pattern will be matched against relatively.
-         * @param pattern A file glob pattern like `*.{ts,js}` that will be matched on file paths
-         * relative to the base path.
+         * Example:
+         * ```ts
+         * const folder = vscode.workspace.workspaceFolders?.[0];
+         * if (folder) {
+         *
+         *   // Match any TypeScript file in the root of this workspace folder
+         *   const pattern1 = new vscode.RelativePattern(folder, '*.ts');
+         *
+         *   // Match any TypeScript file in `someFolder` inside this workspace folder
+         *   const pattern2 = new vscode.RelativePattern(folder, 'someFolder/*.ts');
+         * }
+         * ```
+         *
+         * @param base A base to which this pattern will be matched against relatively. It is recommended
+         * to pass in a {@link WorkspaceFolder workspace folder} if the pattern should match inside the workspace.
+         * Otherwise, a uri or string should only be used if the pattern is for a file path outside the workspace.
+         * @param pattern A file glob pattern like `*.{ts,js}` that will be matched on paths relative to the base.
          */
-        constructor(base: WorkspaceFolder | string, pattern: string)
+        constructor(base: WorkspaceFolder | Uri | string, pattern: string)
     }
 
     /**
      * A file glob pattern to match file paths against. This can either be a glob pattern string
-     * (like `**​/*.{ts,js}` or `*.{ts,js}`) or a [relative pattern](#RelativePattern).
+     * (like `**​/*.{ts,js}` or `*.{ts,js}`) or a {@link RelativePattern relative pattern}.
      *
      * Glob patterns can have the following syntax:
      * * `*` to match one or more characters in a path segment
@@ -1920,7 +1985,7 @@ declare module 'vscode' {
      * * `[!...]` to negate a range of characters to match in a path segment (e.g., `example.[!0-9]` to match on `example.a`, `example.b`, but not `example.0`)
      *
      * Note: a backslash (`\`) is not valid within a glob pattern. If you have an existing file
-     * path to match against, consider to use the [relative pattern](#RelativePattern) support
+     * path to match against, consider to use the {@link RelativePattern relative pattern} support
      * that takes care of converting any backslash into slash. Otherwise, make sure to convert
      * any backslash to slash when creating the glob pattern.
      */
@@ -1928,51 +1993,55 @@ declare module 'vscode' {
 
     /**
      * A document filter denotes a document by different properties like
-     * the [language](#TextDocument.languageId), the [scheme](#Uri.scheme) of
-     * its resource, or a glob-pattern that is applied to the [path](#TextDocument.fileName).
+     * the {@link TextDocument.languageId language}, the {@link Uri.scheme scheme} of
+     * its resource, or a glob-pattern that is applied to the {@link TextDocument.fileName path}.
      *
-     * @sample A language filter that applies to typescript files on disk: `{ language: 'typescript', scheme: 'file' }`
-     * @sample A language filter that applies to all package.json paths: `{ language: 'json', scheme: 'untitled', pattern: '**​/package.json' }`
+     * @example <caption>A language filter that applies to typescript files on disk</caption>
+     * { language: 'typescript', scheme: 'file' }
+     *
+     * @example <caption>A language filter that applies to all package.json paths</caption>
+     * { language: 'json', scheme: 'untitled', pattern: '**​/package.json' }
      */
     export interface DocumentFilter {
 
         /**
          * A language id, like `typescript`.
          */
-        language?: string;
+        readonly language?: string | undefined;
 
         /**
-         * A Uri [scheme](#Uri.scheme), like `file` or `untitled`.
+         * A Uri {@link Uri.scheme scheme}, like `file` or `untitled`.
          */
-        scheme?: string;
+        readonly scheme?: string | undefined;
 
         /**
-         * A [glob pattern](#GlobPattern) that is matched on the absolute path of the document. Use a [relative pattern](#RelativePattern)
-         * to filter documents to a [workspace folder](#WorkspaceFolder).
+         * A {@link GlobPattern glob pattern} that is matched on the absolute path of the document. Use a {@link RelativePattern relative pattern}
+         * to filter documents to a {@link WorkspaceFolder workspace folder}.
          */
-        pattern?: GlobPattern;
+        readonly pattern?: GlobPattern | undefined;
     }
 
     /**
      * A language selector is the combination of one or many language identifiers
-     * and [language filters](#DocumentFilter).
+     * and {@link DocumentFilter language filters}.
      *
      * *Note* that a document selector that is just a language identifier selects *all*
      * documents, even those that are not saved on disk. Only use such selectors when
      * a feature works without further context, e.g. without the need to resolve related
      * 'files'.
      *
-     * @sample `let sel:DocumentSelector = { scheme: 'file', language: 'typescript' }`;
+     * @example
+     * let sel:DocumentSelector = { scheme: 'file', language: 'typescript' };
      */
-    export type DocumentSelector = DocumentFilter | string | Array<DocumentFilter | string>;
+    export type DocumentSelector = DocumentFilter | string | ReadonlyArray<DocumentFilter | string>;
 
     /**
-     * A provider result represents the values a provider, like the [`HoverProvider`](#HoverProvider),
+     * A provider result represents the values a provider, like the {@link HoverProvider `HoverProvider`},
      * may return. For once this is the actual result type `T`, like `Hover`, or a thenable that resolves
      * to that type `T`. In addition, `null` and `undefined` can be returned - either directly or from a
      * thenable.
      *
-     * The snippets below are all valid implementations of the [`HoverProvider`](#HoverProvider):
+     * The snippets below are all valid implementations of the {@link HoverProvider `HoverProvider`}:
      *
      * ```ts
      * let a: HoverProvider = {
@@ -2003,7 +2072,7 @@ declare module 'vscode' {
      *
      * Kinds are a hierarchical list of identifiers separated by `.`, e.g. `"refactor.extract.function"`.
      *
-     * Code action kinds are used by VS Code for UI elements such as the refactoring context menu. Users
+     * Code action kinds are used by the editor for UI elements such as the refactoring context menu. Users
      * can also trigger code actions with a specific kind with the `editor.action.codeAction` command.
      */
     export class CodeActionKind {
@@ -2123,28 +2192,51 @@ declare module 'vscode' {
     }
 
     /**
+     * The reason why code actions were requested.
+     */
+    export enum CodeActionTriggerKind {
+        /**
+         * Code actions were explicitly requested by the user or by an extension.
+         */
+        Invoke = 1,
+
+        /**
+         * Code actions were requested automatically.
+         *
+         * This typically happens when current selection in a file changes, but can
+         * also be triggered when file content changes.
+         */
+        Automatic = 2,
+    }
+
+    /**
      * Contains additional diagnostic information about the context in which
-     * a [code action](#CodeActionProvider.provideCodeActions) is run.
+     * a {@link CodeActionProvider.provideCodeActions code action} is run.
      */
     export interface CodeActionContext {
         /**
+         * The reason why code actions were requested.
+         */
+        readonly triggerKind: CodeActionTriggerKind;
+
+        /**
          * An array of diagnostics.
          */
-        readonly diagnostics: ReadonlyArray<Diagnostic>;
+        readonly diagnostics: readonly Diagnostic[];
 
         /**
          * Requested kind of actions to return.
          *
          * Actions not of this kind are filtered out before being shown by the [lightbulb](https://code.visualstudio.com/docs/editor/editingevolved#_code-action).
          */
-        readonly only?: CodeActionKind;
+        readonly only?: CodeActionKind | undefined;
     }
 
     /**
      * A code action represents a change that can be performed in code, e.g. to fix a problem or
      * to refactor code.
      *
-     * A CodeAction must set either [`edit`](#CodeAction.edit) and/or a [`command`](#CodeAction.command). If both are supplied, the `edit` is applied first, then the command is executed.
+     * A CodeAction must set either {@link CodeAction.edit `edit`} and/or a {@link CodeAction.command `command`}. If both are supplied, the `edit` is applied first, then the command is executed.
      */
     export class CodeAction {
 
@@ -2154,29 +2246,29 @@ declare module 'vscode' {
         title: string;
 
         /**
-         * A [workspace edit](#WorkspaceEdit) this code action performs.
+         * A {@link WorkspaceEdit workspace edit} this code action performs.
          */
-        edit?: WorkspaceEdit;
+        edit?: WorkspaceEdit | undefined;
 
         /**
-         * [Diagnostics](#Diagnostic) that this code action resolves.
+         * {@link Diagnostic Diagnostics} that this code action resolves.
          */
-        diagnostics?: Diagnostic[];
+        diagnostics?: Diagnostic[] | undefined;
 
         /**
-         * A [command](#Command) this code action executes.
+         * A {@link Command} this code action executes.
          *
-         * If this command throws an exception, VS Code displays the exception message to users in the editor at the
+         * If this command throws an exception, the editor displays the exception message to users in the editor at the
          * current cursor position.
          */
-        command?: Command;
+        command?: Command | undefined;
 
         /**
-         * [Kind](#CodeActionKind) of the code action.
+         * {@link CodeActionKind Kind} of the code action.
          *
          * Used to filter code actions.
          */
-        kind?: CodeActionKind;
+        kind?: CodeActionKind | undefined;
 
         /**
          * Marks this as a preferred action. Preferred actions are used by the `auto fix` command and can be targeted
@@ -2185,7 +2277,7 @@ declare module 'vscode' {
          * A quick fix should be marked preferred if it properly addresses the underlying error.
          * A refactoring should be marked preferred if it is the most reasonable choice of actions to take.
          */
-        isPreferred?: boolean;
+        isPreferred?: boolean | undefined;
 
         /**
          * Marks that the code action cannot currently be applied.
@@ -2197,7 +2289,7 @@ declare module 'vscode' {
          * of code action, such as refactorings.
          *
          * - If the user has a [keybinding](https://code.visualstudio.com/docs/editor/refactoring#_keybindings-for-code-actions)
-         * that auto applies a code action and only a disabled code actions are returned, VS Code will show the user an
+         * that auto applies a code action and only a disabled code actions are returned, the editor will show the user an
          * error message with `reason` in the editor.
          */
         disabled?: {
@@ -2207,13 +2299,13 @@ declare module 'vscode' {
              * This is displayed in the code actions UI.
              */
             readonly reason: string;
-        };
+        } | undefined;
 
         /**
          * Creates a new code action.
          *
-         * A code action must have at least a [title](#CodeAction.title) and [edits](#CodeAction.edit)
-         * and/or a [command](#CodeAction.command).
+         * A code action must have at least a {@link CodeAction.title title} and {@link CodeAction.edit edits}
+         * and/or a {@link CodeAction.command command}.
          *
          * @param title The title of the code action.
          * @param kind The kind of the code action.
@@ -2225,9 +2317,9 @@ declare module 'vscode' {
      * The code action interface defines the contract between extensions and
      * the [lightbulb](https://code.visualstudio.com/docs/editor/editingevolved#_code-action) feature.
      *
-     * A code action can be any command that is [known](#commands.getCommands) to the system.
+     * A code action can be any command that is {@link commands.getCommands known} to the system.
      */
-    export interface CodeActionProvider {
+    export interface CodeActionProvider<T extends CodeAction = CodeAction> {
         /**
          * Provide commands for the given document and range.
          *
@@ -2236,35 +2328,55 @@ declare module 'vscode' {
          * there is a currently active editor.
          * @param context Context carrying additional information.
          * @param token A cancellation token.
-         * @return An array of commands, quick fixes, or refactorings or a thenable of such. The lack of a result can be
-         * signaled by returning `undefined`, `null`, or an empty array.
+         *
+         * @return An array of code actions, such as quick fixes or refactorings. The lack of a result can be signaled
+         * by returning `undefined`, `null`, or an empty array.
+         *
+         * We also support returning `Command` for legacy reasons, however all new extensions should return
+         * `CodeAction` object instead.
          */
-        provideCodeActions(document: TextDocument, range: Range | Selection, context: CodeActionContext, token: CancellationToken): ProviderResult<(Command | CodeAction)[]>;
+        provideCodeActions(document: TextDocument, range: Range | Selection, context: CodeActionContext, token: CancellationToken): ProviderResult<(Command | T)[]>;
+
+        /**
+         * Given a code action fill in its {@link CodeAction.edit `edit`}-property. Changes to
+         * all other properties, like title, are ignored. A code action that has an edit
+         * will not be resolved.
+         *
+         * *Note* that a code action provider that returns commands, not code actions, cannot successfully
+         * implement this function. Returning commands is deprecated and instead code actions should be
+         * returned.
+         *
+         * @param codeAction A code action.
+         * @param token A cancellation token.
+         * @return The resolved code action or a thenable that resolves to such. It is OK to return the given
+         * `item`. When no result is returned, the given `item` will be used.
+         */
+        resolveCodeAction?(codeAction: T, token: CancellationToken): ProviderResult<T>;
     }
 
     /**
-     * Metadata about the type of code actions that a [CodeActionProvider](#CodeActionProvider) provides.
+     * Metadata about the type of code actions that a {@link CodeActionProvider} provides.
      */
     export interface CodeActionProviderMetadata {
         /**
-         * List of [CodeActionKinds](#CodeActionKind) that a [CodeActionProvider](#CodeActionProvider) may return.
+         * List of {@link CodeActionKind CodeActionKinds} that a {@link CodeActionProvider} may return.
          *
          * This list is used to determine if a given `CodeActionProvider` should be invoked or not.
          * To avoid unnecessary computation, every `CodeActionProvider` should list use `providedCodeActionKinds`. The
          * list of kinds may either be generic, such as `[CodeActionKind.Refactor]`, or list out every kind provided,
          * such as `[CodeActionKind.Refactor.Extract.append('function'), CodeActionKind.Refactor.Extract.append('constant'), ...]`.
          */
-        readonly providedCodeActionKinds?: ReadonlyArray<CodeActionKind>;
+        readonly providedCodeActionKinds?: readonly CodeActionKind[] | undefined;
 
         /**
          * Static documentation for a class of code actions.
          *
          * Documentation from the provider is shown in the code actions menu if either:
          *
-         * - Code actions of `kind` are requested by VS Code. In this case, VS Code will show the documentation that
+         * - Code actions of `kind` are requested by the editor. In this case, the editor will show the documentation that
          *   most closely matches the requested code action kind. For example, if a provider has documentation for
          *   both `Refactor` and `RefactorExtract`, when the user requests code actions for `RefactorExtract`,
-         *   VS Code will use the documentation for `RefactorExtract` instead of the documentation for `Refactor`.
+         *   the editor will use the documentation for `RefactorExtract` instead of the documentation for `Refactor`.
          *
          * - Any code actions of `kind` are returned by the provider.
          *
@@ -2283,23 +2395,23 @@ declare module 'vscode' {
             /**
              * Command that displays the documentation to the user.
              *
-             * This can display the documentation directly in VS Code or open a website using [`env.openExternal`](#env.openExternal);
+             * This can display the documentation directly in the editor or open a website using {@link env.openExternal `env.openExternal`};
              *
-             * The title of this documentation code action is taken from [`Command.title`](#Command.title)
+             * The title of this documentation code action is taken from {@link Command.title `Command.title`}
              */
             readonly command: Command;
-        }>;
+        }> | undefined;
     }
 
     /**
-     * A code lens represents a [command](#Command) that should be shown along with
+     * A code lens represents a {@link Command} that should be shown along with
      * source text, like the number of references, a way to run tests, etc.
      *
      * A code lens is _unresolved_ when no command is associated to it. For performance
      * reasons the creation of a code lens and resolving should be done to two stages.
      *
-     * @see [CodeLensProvider.provideCodeLenses](#CodeLensProvider.provideCodeLenses)
-     * @see [CodeLensProvider.resolveCodeLens](#CodeLensProvider.resolveCodeLens)
+     * @see {@link CodeLensProvider.provideCodeLenses}
+     * @see {@link CodeLensProvider.resolveCodeLens}
      */
     export class CodeLens {
 
@@ -2311,7 +2423,7 @@ declare module 'vscode' {
         /**
          * The command this code lens represents.
          */
-        command?: Command;
+        command?: Command | undefined;
 
         /**
          * `true` when there is a command associated.
@@ -2328,7 +2440,7 @@ declare module 'vscode' {
     }
 
     /**
-     * A code lens provider adds [commands](#Command) to source text. The commands will be shown
+     * A code lens provider adds {@link Command commands} to source text. The commands will be shown
      * as dedicated horizontal lines in between the source text.
      */
     export interface CodeLensProvider<T extends CodeLens = CodeLens> {
@@ -2336,12 +2448,12 @@ declare module 'vscode' {
         /**
          * An optional event to signal that the code lenses from this provider have changed.
          */
-        onDidChangeCodeLenses?: Event<void>;
+        onDidChangeCodeLenses?: Event<void> | undefined;
 
         /**
-         * Compute a list of [lenses](#CodeLens). This call should return as fast as possible and if
+         * Compute a list of {@link CodeLens lenses}. This call should return as fast as possible and if
          * computing the commands is expensive implementors should only return code lens objects with the
-         * range set and implement [resolve](#CodeLensProvider.resolveCodeLens).
+         * range set and implement {@link CodeLensProvider.resolveCodeLens resolve}.
          *
          * @param document The document in which the command was invoked.
          * @param token A cancellation token.
@@ -2352,7 +2464,7 @@ declare module 'vscode' {
 
         /**
          * This function will be called for each visible code lens, usually when scrolling and after
-         * calls to [compute](#CodeLensProvider.provideCodeLenses)-lenses.
+         * calls to {@link CodeLensProvider.provideCodeLenses compute}-lenses.
          *
          * @param codeLens Code lens that must be resolved.
          * @param token A cancellation token.
@@ -2364,13 +2476,13 @@ declare module 'vscode' {
     /**
      * Information about where a symbol is defined.
      *
-     * Provides additional metadata over normal [location](#Location) definitions, including the range of
+     * Provides additional metadata over normal {@link Location} definitions, including the range of
      * the defining symbol
      */
     export type DefinitionLink = LocationLink;
 
     /**
-     * The definition of a symbol represented as one or many [locations](#Location).
+     * The definition of a symbol represented as one or many {@link Location locations}.
      * For most programming languages there is only one location at which a symbol is
      * defined.
      */
@@ -2432,8 +2544,8 @@ declare module 'vscode' {
     }
 
     /**
-     * The declaration of a symbol representation as one or many [locations](#Location)
-     * or [location links](#LocationLink).
+     * The declaration of a symbol representation as one or many {@link Location locations}
+     * or {@link LocationLink location links}.
      */
     export type Declaration = Location | Location[] | LocationLink[];
 
@@ -2459,7 +2571,7 @@ declare module 'vscode' {
      * The MarkdownString represents human-readable text that supports formatting via the
      * markdown syntax. Standard markdown is supported, also tables, but no embedded html.
      *
-     * When created with `supportThemeIcons` then rendering of [theme icons](#ThemeIcon) via
+     * When created with `supportThemeIcons` then rendering of {@link ThemeIcon theme icons} via
      * the `$(<name>)`-syntax is supported.
      */
     export class MarkdownString {
@@ -2473,18 +2585,18 @@ declare module 'vscode' {
          * Indicates that this markdown string is from a trusted source. Only *trusted*
          * markdown supports links that execute commands, e.g. `[Run it](command:myCommandId)`.
          */
-        isTrusted?: boolean;
+        isTrusted?: boolean | undefined;
 
         /**
-         * Indicates that this markdown string can contain [ThemeIcons](#ThemeIcon), e.g. `$(zap)`.
+         * Indicates that this markdown string can contain {@link ThemeIcon ThemeIcons}, e.g. `$(zap)`.
          */
-        readonly supportThemeIcons?: boolean;
+        readonly supportThemeIcons?: boolean | undefined;
 
         /**
          * Creates a new markdown string with the given value.
          *
          * @param value Optional, initial value.
-         * @param supportThemeIcons Optional, Specifies whether [ThemeIcons](#ThemeIcon) are supported within the [`MarkdownString`](#MarkdownString).
+         * @param supportThemeIcons Optional, Specifies whether {@link ThemeIcon ThemeIcons} are supported within the {@link MarkdownString `MarkdownString`}.
          */
         constructor(value?: string, supportThemeIcons?: boolean);
 
@@ -2495,7 +2607,7 @@ declare module 'vscode' {
         appendText(value: string): MarkdownString;
 
         /**
-         * Appends the given string 'as is' to this markdown string. When [`supportThemeIcons`](#MarkdownString.supportThemeIcons) is `true`, [ThemeIcons](#ThemeIcon) in the `value` will be iconified.
+         * Appends the given string 'as is' to this markdown string. When {@link MarkdownString.supportThemeIcons `supportThemeIcons`} is `true`, {@link ThemeIcon ThemeIcons} in the `value` will be iconified.
          * @param value Markdown string.
          */
         appendMarkdown(value: string): MarkdownString;
@@ -2503,17 +2615,17 @@ declare module 'vscode' {
         /**
          * Appends the given string as codeblock using the provided language.
          * @param value A code snippet.
-         * @param language An optional [language identifier](#languages.getLanguages).
+         * @param language An optional {@link languages.getLanguages language identifier}.
          */
         appendCodeblock(value: string, language?: string): MarkdownString;
     }
 
     /**
-     * ~~MarkedString can be used to render human-readable text. It is either a markdown string
+     * MarkedString can be used to render human-readable text. It is either a markdown string
      * or a code-block that provides a language and a code snippet. Note that
-     * markdown strings will be sanitized - that means html will be escaped.~~
+     * markdown strings will be sanitized - that means html will be escaped.
      *
-     * @deprecated This type is deprecated, please use [`MarkdownString`](#MarkdownString) instead.
+     * @deprecated This type is deprecated, please use {@link MarkdownString `MarkdownString`} instead.
      */
     export type MarkedString = MarkdownString | string | { language: string; value: string };
 
@@ -2533,7 +2645,7 @@ declare module 'vscode' {
          * editor will use the range at the current position or the
          * current position itself.
          */
-        range?: Range;
+        range?: Range | undefined;
 
         /**
          * Creates a new hover object.
@@ -2581,7 +2693,7 @@ declare module 'vscode' {
         /*
          * If specified the expression overrides the extracted expression.
          */
-        readonly expression?: string;
+        readonly expression?: string | undefined;
 
         /**
          * Creates a new evaluatable expression object.
@@ -2595,13 +2707,13 @@ declare module 'vscode' {
     /**
      * The evaluatable expression provider interface defines the contract between extensions and
      * the debug hover. In this contract the provider returns an evaluatable expression for a given position
-     * in a document and VS Code evaluates this expression in the active debug session and shows the result in a debug hover.
+     * in a document and the editor evaluates this expression in the active debug session and shows the result in a debug hover.
      */
     export interface EvaluatableExpressionProvider {
 
         /**
          * Provide an evaluatable expression for the given document and position.
-         * VS Code will evaluate this expression in the active debug session and will show the result in the debug hover.
+         * The editor will evaluate this expression in the active debug session and will show the result in the debug hover.
          * The expression can be implicitly specified by the range in the underlying document or by explicitly returning an expression.
          *
          * @param document The document for which the debug hover is about to appear.
@@ -2611,6 +2723,134 @@ declare module 'vscode' {
          * signaled by returning `undefined` or `null`.
          */
         provideEvaluatableExpression(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<EvaluatableExpression>;
+    }
+
+    /**
+     * Provide inline value as text.
+     */
+    export class InlineValueText {
+        /**
+         * The document range for which the inline value applies.
+         */
+        readonly range: Range;
+        /**
+         * The text of the inline value.
+         */
+        readonly text: string;
+        /**
+         * Creates a new InlineValueText object.
+         *
+         * @param range The document line where to show the inline value.
+         * @param text The value to be shown for the line.
+         */
+        constructor(range: Range, text: string);
+    }
+
+    /**
+     * Provide inline value through a variable lookup.
+     * If only a range is specified, the variable name will be extracted from the underlying document.
+     * An optional variable name can be used to override the extracted name.
+     */
+    export class InlineValueVariableLookup {
+        /**
+         * The document range for which the inline value applies.
+         * The range is used to extract the variable name from the underlying document.
+         */
+        readonly range: Range;
+        /**
+         * If specified the name of the variable to look up.
+         */
+        readonly variableName?: string | undefined;
+        /**
+         * How to perform the lookup.
+         */
+        readonly caseSensitiveLookup: boolean;
+        /**
+         * Creates a new InlineValueVariableLookup object.
+         *
+         * @param range The document line where to show the inline value.
+         * @param variableName The name of the variable to look up.
+         * @param caseSensitiveLookup How to perform the lookup. If missing lookup is case sensitive.
+         */
+        constructor(range: Range, variableName?: string, caseSensitiveLookup?: boolean);
+    }
+
+    /**
+     * Provide an inline value through an expression evaluation.
+     * If only a range is specified, the expression will be extracted from the underlying document.
+     * An optional expression can be used to override the extracted expression.
+     */
+    export class InlineValueEvaluatableExpression {
+        /**
+         * The document range for which the inline value applies.
+         * The range is used to extract the evaluatable expression from the underlying document.
+         */
+        readonly range: Range;
+        /**
+         * If specified the expression overrides the extracted expression.
+         */
+        readonly expression?: string | undefined;
+        /**
+         * Creates a new InlineValueEvaluatableExpression object.
+         *
+         * @param range The range in the underlying document from which the evaluatable expression is extracted.
+         * @param expression If specified overrides the extracted expression.
+         */
+        constructor(range: Range, expression?: string);
+    }
+
+    /**
+     * Inline value information can be provided by different means:
+     * - directly as a text value (class InlineValueText).
+     * - as a name to use for a variable lookup (class InlineValueVariableLookup)
+     * - as an evaluatable expression (class InlineValueEvaluatableExpression)
+     * The InlineValue types combines all inline value types into one type.
+     */
+    export type InlineValue = InlineValueText | InlineValueVariableLookup | InlineValueEvaluatableExpression;
+
+    /**
+     * A value-object that contains contextual information when requesting inline values from a InlineValuesProvider.
+     */
+    export interface InlineValueContext {
+
+        /**
+         * The stack frame (as a DAP Id) where the execution has stopped.
+         */
+        readonly frameId: number;
+
+        /**
+         * The document range where execution has stopped.
+         * Typically the end position of the range denotes the line where the inline values are shown.
+         */
+        readonly stoppedLocation: Range;
+    }
+
+    /**
+     * The inline values provider interface defines the contract between extensions and the VS Code debugger inline values feature.
+     * In this contract the provider returns inline value information for a given document range
+     * and VS Code shows this information in the editor at the end of lines.
+     */
+    export interface InlineValuesProvider {
+
+        /**
+         * An optional event to signal that inline values have changed.
+         * @see {@link EventEmitter}
+         */
+        onDidChangeInlineValues?: Event<void> | undefined;
+
+        /**
+         * Provide "inline value" information for a given document and range.
+         * VS Code calls this method whenever debugging stops in the given document.
+         * The returned inline values information is rendered in the editor at the end of lines.
+         *
+         * @param document The document for which the inline values information is needed.
+         * @param viewPort The visible document range for which inline values should be computed.
+         * @param context A bag containing contextual information like the current location.
+         * @param token A cancellation token.
+         * @return An array of InlineValueDescriptors or a thenable that resolves to such. The lack of a result can be
+         * signaled by returning `undefined` or `null`.
+         */
+        provideInlineValues(document: TextDocument, viewPort: Range, context: InlineValueContext, token: CancellationToken): ProviderResult<InlineValue[]>;
     }
 
     /**
@@ -2647,15 +2887,15 @@ declare module 'vscode' {
         range: Range;
 
         /**
-         * The highlight kind, default is [text](#DocumentHighlightKind.Text).
+         * The highlight kind, default is {@link DocumentHighlightKind.Text text}.
          */
-        kind?: DocumentHighlightKind;
+        kind?: DocumentHighlightKind | undefined;
 
         /**
          * Creates a new document highlight object.
          *
          * @param range The range the highlight applies to.
-         * @param kind The highlight kind, default is [text](#DocumentHighlightKind.Text).
+         * @param kind The highlight kind, default is {@link DocumentHighlightKind.Text text}.
          */
         constructor(range: Range, kind?: DocumentHighlightKind);
     }
@@ -2746,7 +2986,7 @@ declare module 'vscode' {
         /**
          * Tags for this symbol.
          */
-        tags?: ReadonlyArray<SymbolTag>;
+        tags?: readonly SymbolTag[] | undefined;
 
         /**
          * The location of this symbol.
@@ -2764,9 +3004,9 @@ declare module 'vscode' {
         constructor(name: string, kind: SymbolKind, containerName: string, location: Location);
 
         /**
-         * ~~Creates a new symbol information object.~~
+         * Creates a new symbol information object.
          *
-         * @deprecated Please use the constructor taking a [location](#Location) object.
+         * @deprecated Please use the constructor taking a {@link Location} object.
          *
          * @param name The name of the symbol.
          * @param kind The kind of the symbol.
@@ -2802,7 +3042,7 @@ declare module 'vscode' {
         /**
          * Tags for this symbol.
          */
-        tags?: ReadonlyArray<SymbolTag>;
+        tags?: readonly SymbolTag[] | undefined;
 
         /**
          * The range enclosing this symbol not including leading/trailing whitespace but everything else, e.g. comments and code.
@@ -2811,7 +3051,7 @@ declare module 'vscode' {
 
         /**
          * The range that should be selected and reveal when this symbol is being picked, e.g. the name of a function.
-         * Must be contained by the [`range`](#DocumentSymbol.range).
+         * Must be contained by the {@link DocumentSymbol.range `range`}.
          */
         selectionRange: Range;
 
@@ -2856,7 +3096,7 @@ declare module 'vscode' {
         /**
          * A human-readable string that is shown when multiple outlines trees show for one document.
          */
-        label?: string;
+        label?: string | undefined;
     }
 
     /**
@@ -2874,7 +3114,7 @@ declare module 'vscode' {
          * strict matching.
          *
          * To improve performance implementors can implement `resolveWorkspaceSymbol` and then provide symbols with partial
-         * [location](#SymbolInformation.location)-objects, without a `range` defined. The editor will then call
+         * {@link SymbolInformation.location location}-objects, without a `range` defined. The editor will then call
          * `resolveWorkspaceSymbol` for selected symbols only, e.g. when opening a workspace symbol.
          *
          * @param query A query string, can be the empty string in which case all symbols should be returned.
@@ -2885,9 +3125,9 @@ declare module 'vscode' {
         provideWorkspaceSymbols(query: string, token: CancellationToken): ProviderResult<T[]>;
 
         /**
-         * Given a symbol fill in its [location](#SymbolInformation.location). This method is called whenever a symbol
+         * Given a symbol fill in its {@link SymbolInformation.location location}. This method is called whenever a symbol
          * is selected in the UI. Providers can implement this method and return incomplete symbols from
-         * [`provideWorkspaceSymbols`](#WorkspaceSymbolProvider.provideWorkspaceSymbols) which often helps to improve
+         * {@link WorkspaceSymbolProvider.provideWorkspaceSymbols `provideWorkspaceSymbols`} which often helps to improve
          * performance.
          *
          * @param symbol The symbol that is to be resolved. Guaranteed to be an instance of an object returned from an
@@ -2986,7 +3226,7 @@ declare module 'vscode' {
          * *Note* that the eol-sequence will be applied to the
          * whole document.
          */
-        newEol?: EndOfLine;
+        newEol?: EndOfLine | undefined;
 
         /**
          * Create a new TextEdit.
@@ -3017,19 +3257,19 @@ declare module 'vscode' {
         /**
          * A human-readable string which is rendered less prominent on the same line.
          */
-        description?: string;
+        description?: string | undefined;
 
         /**
-         * The icon path or [ThemeIcon](#ThemeIcon) for the edit.
+         * The icon path or {@link ThemeIcon} for the edit.
          */
-        iconPath?: Uri | { light: Uri; dark: Uri } | ThemeIcon;
+        iconPath?: Uri | { light: Uri; dark: Uri } | ThemeIcon | undefined;
     }
 
     /**
      * A workspace edit is a collection of textual and files changes for
      * multiple resources and documents.
      *
-     * Use the [applyEdit](#workspace.applyEdit)-function to apply a workspace edit.
+     * Use the {@link workspace.applyEdit applyEdit}-function to apply a workspace edit.
      */
     export class WorkspaceEdit {
 
@@ -3097,9 +3337,11 @@ declare module 'vscode' {
          * @param uri Uri of the new file..
          * @param options Defines if an existing file should be overwritten or be
          * ignored. When overwrite and ignoreIfExists are both set overwrite wins.
+         * When both are unset and when the file already exists then the edit cannot
+         * be applied successfully.
          * @param metadata Optional metadata for the entry.
          */
-        createFile(uri: Uri, options?: { overwrite?: boolean, ignoreIfExists?: boolean }, metadata?: WorkspaceEditEntryMetadata): void;
+        createFile(uri: Uri, options?: { overwrite?: boolean | undefined, ignoreIfExists?: boolean | undefined }, metadata?: WorkspaceEditEntryMetadata): void;
 
         /**
          * Delete a file or folder.
@@ -3107,7 +3349,7 @@ declare module 'vscode' {
          * @param uri The uri of the file that is to be deleted.
          * @param metadata Optional metadata for the entry.
          */
-        deleteFile(uri: Uri, options?: { recursive?: boolean, ignoreIfNotExists?: boolean }, metadata?: WorkspaceEditEntryMetadata): void;
+        deleteFile(uri: Uri, options?: { recursive?: boolean | undefined, ignoreIfNotExists?: boolean | undefined }, metadata?: WorkspaceEditEntryMetadata): void;
 
         /**
          * Rename a file or folder.
@@ -3118,7 +3360,7 @@ declare module 'vscode' {
          * ignored. When overwrite and ignoreIfExists are both set overwrite wins.
          * @param metadata Optional metadata for the entry.
          */
-        renameFile(oldUri: Uri, newUri: Uri, options?: { overwrite?: boolean, ignoreIfExists?: boolean }, metadata?: WorkspaceEditEntryMetadata): void;
+        renameFile(oldUri: Uri, newUri: Uri, options?: { overwrite?: boolean | undefined, ignoreIfExists?: boolean | undefined }, metadata?: WorkspaceEditEntryMetadata): void;
 
         /**
          * Get all text edits grouped by resource.
@@ -3149,7 +3391,7 @@ declare module 'vscode' {
 
         /**
          * Builder-function that appends the given string to
-         * the [`value`](#SnippetString.value) of this snippet string.
+         * the {@link SnippetString.value `value`} of this snippet string.
          *
          * @param string A value to append 'as given'. The string will be escaped.
          * @return This snippet string.
@@ -3158,7 +3400,7 @@ declare module 'vscode' {
 
         /**
          * Builder-function that appends a tabstop (`$1`, `$2` etc) to
-         * the [`value`](#SnippetString.value) of this snippet string.
+         * the {@link SnippetString.value `value`} of this snippet string.
          *
          * @param number The number of this tabstop, defaults to an auto-increment
          * value starting at 1.
@@ -3168,7 +3410,7 @@ declare module 'vscode' {
 
         /**
          * Builder-function that appends a placeholder (`${1:value}`) to
-         * the [`value`](#SnippetString.value) of this snippet string.
+         * the {@link SnippetString.value `value`} of this snippet string.
          *
          * @param value The value of this placeholder - either a string or a function
          * with which a nested snippet can be created.
@@ -3179,8 +3421,8 @@ declare module 'vscode' {
         appendPlaceholder(value: string | ((snippet: SnippetString) => any), number?: number): SnippetString;
 
         /**
-         * Builder-function that appends a choice (`${1|a,b,c}`) to
-         * the [`value`](#SnippetString.value) of this snippet string.
+         * Builder-function that appends a choice (`${1|a,b,c|}`) to
+         * the {@link SnippetString.value `value`} of this snippet string.
          *
          * @param values The values for choices - the array of strings
          * @param number The number of this tabstop, defaults to an auto-increment
@@ -3191,7 +3433,7 @@ declare module 'vscode' {
 
         /**
          * Builder-function that appends a variable (`${VAR}`) to
-         * the [`value`](#SnippetString.value) of this snippet string.
+         * the {@link SnippetString.value `value`} of this snippet string.
          *
          * @param name The name of the variable - excluding the `$`.
          * @param defaultValue The default value which is used when the variable name cannot
@@ -3289,8 +3531,8 @@ declare module 'vscode' {
 
     /**
      * Represents semantic tokens, either in a range or in an entire document.
-     * @see [provideDocumentSemanticTokens](#DocumentSemanticTokensProvider.provideDocumentSemanticTokens) for an explanation of the format.
-     * @see [SemanticTokensBuilder](#SemanticTokensBuilder) for a helper to create an instance.
+     * @see {@link DocumentSemanticTokensProvider.provideDocumentSemanticTokens provideDocumentSemanticTokens} for an explanation of the format.
+     * @see {@link SemanticTokensBuilder} for a helper to create an instance.
      */
     export class SemanticTokens {
         /**
@@ -3298,10 +3540,10 @@ declare module 'vscode' {
          *
          * This is the id that will be passed to `DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits` (if implemented).
          */
-        readonly resultId?: string;
+        readonly resultId?: string | undefined;
         /**
          * The actual tokens data.
-         * @see [provideDocumentSemanticTokens](#DocumentSemanticTokensProvider.provideDocumentSemanticTokens) for an explanation of the format.
+         * @see {@link DocumentSemanticTokensProvider.provideDocumentSemanticTokens provideDocumentSemanticTokens} for an explanation of the format.
          */
         readonly data: Uint32Array;
 
@@ -3310,7 +3552,7 @@ declare module 'vscode' {
 
     /**
      * Represents edits to semantic tokens.
-     * @see [provideDocumentSemanticTokensEdits](#DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits) for an explanation of the format.
+     * @see {@link DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits provideDocumentSemanticTokensEdits} for an explanation of the format.
      */
     export class SemanticTokensEdits {
         /**
@@ -3318,7 +3560,7 @@ declare module 'vscode' {
          *
          * This is the id that will be passed to `DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits` (if implemented).
          */
-        readonly resultId?: string;
+        readonly resultId?: string | undefined;
         /**
          * The edits to the tokens data.
          * All edits refer to the initial data state.
@@ -3330,7 +3572,7 @@ declare module 'vscode' {
 
     /**
      * Represents an edit to semantic tokens.
-     * @see [provideDocumentSemanticTokensEdits](#DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits) for an explanation of the format.
+     * @see {@link DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits provideDocumentSemanticTokensEdits} for an explanation of the format.
      */
     export class SemanticTokensEdit {
         /**
@@ -3344,7 +3586,7 @@ declare module 'vscode' {
         /**
          * The elements to insert.
          */
-        readonly data?: Uint32Array;
+        readonly data?: Uint32Array | undefined;
 
         constructor(start: number, deleteCount: number, data?: Uint32Array);
     }
@@ -3357,7 +3599,7 @@ declare module 'vscode' {
         /**
          * An optional event to signal that the semantic tokens from this provider have changed.
          */
-        onDidChangeSemanticTokens?: Event<void>;
+        onDidChangeSemanticTokens?: Event<void> | undefined;
 
         /**
          * Tokens in a file are represented as an array of integers. The position of each token is expressed relative to
@@ -3414,7 +3656,7 @@ declare module 'vscode' {
          *    [  2,5,3,0,3,  0,5,4,1,0,  3,2,7,2,0 ]
          * ```
          *
-         * @see [SemanticTokensBuilder](#SemanticTokensBuilder) for a helper to encode tokens as integers.
+         * @see {@link SemanticTokensBuilder} for a helper to encode tokens as integers.
          * *NOTE*: When doing edits, it is possible that multiple edits occur until VS Code decides to invoke the semantic tokens provider.
          * *NOTE*: If the provider cannot temporarily compute semantic tokens, it can indicate this by throwing an error with the message 'Busy'.
          */
@@ -3458,7 +3700,7 @@ declare module 'vscode' {
      */
     export interface DocumentRangeSemanticTokensProvider {
         /**
-         * @see [provideDocumentSemanticTokens](#DocumentSemanticTokensProvider.provideDocumentSemanticTokens).
+         * @see {@link DocumentSemanticTokensProvider.provideDocumentSemanticTokens provideDocumentSemanticTokens}.
          */
         provideDocumentRangeSemanticTokens(document: TextDocument, range: Range, token: CancellationToken): ProviderResult<SemanticTokens>;
     }
@@ -3559,8 +3801,8 @@ declare module 'vscode' {
          * The label of this signature.
          *
          * Either a string or inclusive start and exclusive end offsets within its containing
-         * [signature label](#SignatureInformation.label). *Note*: A label of type string must be
-         * a substring of its containing signature information's [label](#SignatureInformation.label).
+         * {@link SignatureInformation.label signature label}. *Note*: A label of type string must be
+         * a substring of its containing signature information's {@link SignatureInformation.label label}.
          */
         label: string | [number, number];
 
@@ -3568,7 +3810,7 @@ declare module 'vscode' {
          * The human-readable doc-comment of this signature. Will be shown
          * in the UI but can be omitted.
          */
-        documentation?: string | MarkdownString;
+        documentation?: string | MarkdownString | undefined;
 
         /**
          * Creates a new parameter information object.
@@ -3596,7 +3838,7 @@ declare module 'vscode' {
          * The human-readable doc-comment of this signature. Will be shown
          * in the UI but can be omitted.
          */
-        documentation?: string | MarkdownString;
+        documentation?: string | MarkdownString | undefined;
 
         /**
          * The parameters of this signature.
@@ -3606,9 +3848,9 @@ declare module 'vscode' {
         /**
          * The index of the active parameter.
          *
-         * If provided, this is used in place of [`SignatureHelp.activeSignature`](#SignatureHelp.activeSignature).
+         * If provided, this is used in place of {@link SignatureHelp.activeSignature `SignatureHelp.activeSignature`}.
          */
-        activeParameter?: number;
+        activeParameter?: number | undefined;
 
         /**
          * Creates a new signature information object.
@@ -3643,7 +3885,7 @@ declare module 'vscode' {
     }
 
     /**
-     * How a [`SignatureHelpProvider`](#SignatureHelpProvider) was triggered.
+     * How a {@link SignatureHelpProvider `SignatureHelpProvider`} was triggered.
      */
     export enum SignatureHelpTriggerKind {
         /**
@@ -3664,7 +3906,7 @@ declare module 'vscode' {
 
     /**
      * Additional information about the context in which a
-     * [`SignatureHelpProvider`](#SignatureHelpProvider.provideSignatureHelp) was triggered.
+     * {@link SignatureHelpProvider.provideSignatureHelp `SignatureHelpProvider`} was triggered.
      */
     export interface SignatureHelpContext {
         /**
@@ -3678,7 +3920,7 @@ declare module 'vscode' {
          * This is `undefined` when signature help is not triggered by typing, such as when manually invoking
          * signature help or when moving the cursor.
          */
-        readonly triggerCharacter?: string;
+        readonly triggerCharacter?: string | undefined;
 
         /**
          * `true` if signature help was already showing when it was triggered.
@@ -3689,12 +3931,12 @@ declare module 'vscode' {
         readonly isRetrigger: boolean;
 
         /**
-         * The currently active [`SignatureHelp`](#SignatureHelp).
+         * The currently active {@link SignatureHelp `SignatureHelp`}.
          *
          * The `activeSignatureHelp` has its [`SignatureHelp.activeSignature`] field updated based on
          * the user arrowing through available signatures.
          */
-        readonly activeSignatureHelp?: SignatureHelp;
+        readonly activeSignatureHelp?: SignatureHelp | undefined;
     }
 
     /**
@@ -3718,13 +3960,13 @@ declare module 'vscode' {
     }
 
     /**
-     * Metadata about a registered [`SignatureHelpProvider`](#SignatureHelpProvider).
+     * Metadata about a registered {@link SignatureHelpProvider `SignatureHelpProvider`}.
      */
     export interface SignatureHelpProviderMetadata {
         /**
          * List of characters that trigger signature help.
          */
-        readonly triggerCharacters: ReadonlyArray<string>;
+        readonly triggerCharacters: readonly string[];
 
         /**
          * List of characters that re-trigger signature help.
@@ -3732,7 +3974,7 @@ declare module 'vscode' {
          * These trigger characters are only active when signature help is already showing. All trigger characters
          * are also counted as re-trigger characters.
          */
-        readonly retriggerCharacters: ReadonlyArray<string>;
+        readonly retriggerCharacters: readonly string[];
     }
 
     /**
@@ -3782,17 +4024,17 @@ declare module 'vscode' {
     /**
      * A completion item represents a text snippet that is proposed to complete text that is being typed.
      *
-     * It is sufficient to create a completion item from just a [label](#CompletionItem.label). In that
-     * case the completion item will replace the [word](#TextDocument.getWordRangeAtPosition)
-     * until the cursor with the given label or [insertText](#CompletionItem.insertText). Otherwise the
-     * given [edit](#CompletionItem.textEdit) is used.
+     * It is sufficient to create a completion item from just a {@link CompletionItem.label label}. In that
+     * case the completion item will replace the {@link TextDocument.getWordRangeAtPosition word}
+     * until the cursor with the given label or {@link CompletionItem.insertText insertText}. Otherwise the
+     * given {@link CompletionItem.textEdit edit} is used.
      *
      * When selecting a completion item in the editor its defined or synthesized text edit will be applied
-     * to *all* cursors/selections whereas [additionalTextEdits](#CompletionItem.additionalTextEdits) will be
+     * to *all* cursors/selections whereas {@link CompletionItem.additionalTextEdits additionalTextEdits} will be
      * applied as provided.
      *
-     * @see [CompletionItemProvider.provideCompletionItems](#CompletionItemProvider.provideCompletionItems)
-     * @see [CompletionItemProvider.resolveCompletionItem](#CompletionItemProvider.resolveCompletionItem)
+     * @see {@link CompletionItemProvider.provideCompletionItems}
+     * @see {@link CompletionItemProvider.resolveCompletionItem}
      */
     export class CompletionItem {
 
@@ -3807,119 +4049,129 @@ declare module 'vscode' {
          * The kind of this completion item. Based on the kind
          * an icon is chosen by the editor.
          */
-        kind?: CompletionItemKind;
+        kind?: CompletionItemKind | undefined;
 
         /**
          * Tags for this completion item.
          */
-        tags?: ReadonlyArray<CompletionItemTag>;
+        tags?: readonly CompletionItemTag[] | undefined;
 
         /**
          * A human-readable string with additional information
          * about this item, like type or symbol information.
          */
-        detail?: string;
+        detail?: string | undefined;
 
         /**
          * A human-readable string that represents a doc-comment.
          */
-        documentation?: string | MarkdownString;
+        documentation?: string | MarkdownString | undefined;
 
         /**
          * A string that should be used when comparing this item
-         * with other items. When `falsy` the [label](#CompletionItem.label)
+         * with other items. When `falsy` the {@link CompletionItem.label label}
          * is used.
+         *
+         * Note that `sortText` is only used for the initial ordering of completion
+         * items. When having a leading word (prefix) ordering is based on how
+         * well completions match that prefix and the initial ordering is only used
+         * when completions match equally well. The prefix is defined by the
+         * {@link CompletionItem.range `range`}-property and can therefore be different
+         * for each completion.
          */
-        sortText?: string;
+        sortText?: string | undefined;
 
         /**
          * A string that should be used when filtering a set of
-         * completion items. When `falsy` the [label](#CompletionItem.label)
+         * completion items. When `falsy` the {@link CompletionItem.label label}
          * is used.
+         *
+         * Note that the filter text is matched against the leading word (prefix) which is defined
+         * by the {@link CompletionItem.range `range`}-property.
          */
-        filterText?: string;
+        filterText?: string | undefined;
 
         /**
          * Select this item when showing. *Note* that only one completion item can be selected and
          * that the editor decides which item that is. The rule is that the *first* item of those
          * that match best is selected.
          */
-        preselect?: boolean;
+        preselect?: boolean | undefined;
 
         /**
          * A string or snippet that should be inserted in a document when selecting
-         * this completion. When `falsy` the [label](#CompletionItem.label)
+         * this completion. When `falsy` the {@link CompletionItem.label label}
          * is used.
          */
-        insertText?: string | SnippetString;
+        insertText?: string | SnippetString | undefined;
 
         /**
          * A range or a insert and replace range selecting the text that should be replaced by this completion item.
          *
-         * When omitted, the range of the [current word](#TextDocument.getWordRangeAtPosition) is used as replace-range
-         * and as insert-range the start of the [current word](#TextDocument.getWordRangeAtPosition) to the
+         * When omitted, the range of the {@link TextDocument.getWordRangeAtPosition current word} is used as replace-range
+         * and as insert-range the start of the {@link TextDocument.getWordRangeAtPosition current word} to the
          * current position is used.
          *
-         * *Note 1:* A range must be a [single line](#Range.isSingleLine) and it must
-         * [contain](#Range.contains) the position at which completion has been [requested](#CompletionItemProvider.provideCompletionItems).
+         * *Note 1:* A range must be a {@link Range.isSingleLine single line} and it must
+         * {@link Range.contains contain} the position at which completion has been {@link CompletionItemProvider.provideCompletionItems requested}.
          * *Note 2:* A insert range must be a prefix of a replace range, that means it must be contained and starting at the same position.
          */
-        range?: Range | { inserting: Range; replacing: Range; };
+        range?: Range | { inserting: Range; replacing: Range; } | undefined;
 
         /**
          * An optional set of characters that when pressed while this completion is active will accept it first and
          * then type that character. *Note* that all commit characters should have `length=1` and that superfluous
          * characters will be ignored.
          */
-        commitCharacters?: string[];
+        commitCharacters?: string[] | undefined;
 
         /**
-         * Keep whitespace of the [insertText](#CompletionItem.insertText) as is. By default, the editor adjusts leading
+         * Keep whitespace of the {@link CompletionItem.insertText insertText} as is. By default, the editor adjusts leading
          * whitespace of new lines so that they match the indentation of the line for which the item is accepted - setting
          * this to `true` will prevent that.
          */
-        keepWhitespace?: boolean;
+        keepWhitespace?: boolean | undefined;
 
         /**
          * @deprecated Use `CompletionItem.insertText` and `CompletionItem.range` instead.
          *
-         * ~~An [edit](#TextEdit) which is applied to a document when selecting
+         * An {@link TextEdit edit} which is applied to a document when selecting
          * this completion. When an edit is provided the value of
-         * [insertText](#CompletionItem.insertText) is ignored.~~
+         * {@link CompletionItem.insertText insertText} is ignored.
          *
-         * ~~The [range](#Range) of the edit must be single-line and on the same
-         * line completions were [requested](#CompletionItemProvider.provideCompletionItems) at.~~
+         * The {@link Range} of the edit must be single-line and on the same
+         * line completions were {@link CompletionItemProvider.provideCompletionItems requested} at.
          */
-        textEdit?: TextEdit;
+        textEdit?: TextEdit | undefined;
 
         /**
-         * An optional array of additional [text edits](#TextEdit) that are applied when
-         * selecting this completion. Edits must not overlap with the main [edit](#CompletionItem.textEdit)
+         * An optional array of additional {@link TextEdit text edits} that are applied when
+         * selecting this completion. Edits must not overlap with the main {@link CompletionItem.textEdit edit}
          * nor with themselves.
          */
-        additionalTextEdits?: TextEdit[];
+        additionalTextEdits?: TextEdit[] | undefined;
 
         /**
-         * An optional [command](#Command) that is executed *after* inserting this completion. *Note* that
+         * An optional {@link Command} that is executed *after* inserting this completion. *Note* that
          * additional modifications to the current document should be described with the
-         * [additionalTextEdits](#CompletionItem.additionalTextEdits)-property.
+         * {@link CompletionItem.additionalTextEdits additionalTextEdits}-property.
          */
-        command?: Command;
+        command?: Command | undefined;
 
         /**
          * Creates a new completion item.
          *
-         * Completion items must have at least a [label](#CompletionItem.label) which then
+         * Completion items must have at least a {@link CompletionItem.label label} which then
          * will be used as insert text as well as for sorting and filtering.
          *
          * @param label The label of the completion.
-         * @param kind The [kind](#CompletionItemKind) of the completion.
+         * @param kind The {@link CompletionItemKind kind} of the completion.
          */
         constructor(label: string, kind?: CompletionItemKind);
     }
 
     /**
-     * Represents a collection of [completion items](#CompletionItem) to be presented
+     * Represents a collection of {@link CompletionItem completion items} to be presented
      * in the editor.
      */
     export class CompletionList<T extends CompletionItem = CompletionItem> {
@@ -3928,7 +4180,7 @@ declare module 'vscode' {
          * This list is not complete. Further typing should result in recomputing
          * this list.
          */
-        isIncomplete?: boolean;
+        isIncomplete?: boolean | undefined;
 
         /**
          * The completion items.
@@ -3945,7 +4197,7 @@ declare module 'vscode' {
     }
 
     /**
-     * How a [completion provider](#CompletionItemProvider) was triggered
+     * How a {@link CompletionItemProvider completion provider} was triggered
      */
     export enum CompletionTriggerKind {
         /**
@@ -3964,7 +4216,7 @@ declare module 'vscode' {
 
     /**
      * Contains additional information about the context in which
-     * [completion provider](#CompletionItemProvider.provideCompletionItems) is triggered.
+     * {@link CompletionItemProvider.provideCompletionItems completion provider} is triggered.
      */
     export interface CompletionContext {
         /**
@@ -3979,16 +4231,16 @@ declare module 'vscode' {
          *
          * The trigger character is already in the document when the completion provider is triggered.
          */
-        readonly triggerCharacter?: string;
+        readonly triggerCharacter?: string | undefined;
     }
 
     /**
      * The completion item provider interface defines the contract between extensions and
      * [IntelliSense](https://code.visualstudio.com/docs/editor/intellisense).
      *
-     * Providers can delay the computation of the [`detail`](#CompletionItem.detail)
-     * and [`documentation`](#CompletionItem.documentation) properties by implementing the
-     * [`resolveCompletionItem`](#CompletionItemProvider.resolveCompletionItem)-function. However, properties that
+     * Providers can delay the computation of the {@link CompletionItem.detail `detail`}
+     * and {@link CompletionItem.documentation `documentation`} properties by implementing the
+     * {@link CompletionItemProvider.resolveCompletionItem `resolveCompletionItem`}-function. However, properties that
      * are needed for the initial sorting and filtering, like `sortText`, `filterText`, `insertText`, and `range`, must
      * not be changed during resolve.
      *
@@ -4005,22 +4257,22 @@ declare module 'vscode' {
          * @param token A cancellation token.
          * @param context How the completion was triggered.
          *
-         * @return An array of completions, a [completion list](#CompletionList), or a thenable that resolves to either.
+         * @return An array of completions, a {@link CompletionList completion list}, or a thenable that resolves to either.
          * The lack of a result can be signaled by returning `undefined`, `null`, or an empty array.
          */
         provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken, context: CompletionContext): ProviderResult<T[] | CompletionList<T>>;
 
         /**
-         * Given a completion item fill in more data, like [doc-comment](#CompletionItem.documentation)
-         * or [details](#CompletionItem.detail).
+         * Given a completion item fill in more data, like {@link CompletionItem.documentation doc-comment}
+         * or {@link CompletionItem.detail details}.
          *
          * The editor will only resolve a completion item once.
          *
          * *Note* that this function is called when completion items are already showing in the UI or when an item has been
          * selected for insertion. Because of that, no property that changes the presentation (label, sorting, filtering etc)
-         * or the (primary) insert behaviour ([insertText](#CompletionItem.insertText)) can be changed.
+         * or the (primary) insert behaviour ({@link CompletionItem.insertText insertText}) can be changed.
          *
-         * This function may fill in [additionalTextEdits](#CompletionItem.additionalTextEdits). However, that means an item might be
+         * This function may fill in {@link CompletionItem.additionalTextEdits additionalTextEdits}. However, that means an item might be
          * inserted *before* resolving is done and in that case the editor will do a best effort to still apply those additional
          * text edits.
          *
@@ -4046,7 +4298,7 @@ declare module 'vscode' {
         /**
          * The uri this link points to.
          */
-        target?: Uri;
+        target?: Uri | undefined;
 
         /**
          * The tooltip text when you hover over this link.
@@ -4055,7 +4307,7 @@ declare module 'vscode' {
          * trigger the link, such as `{0} (ctrl + click)`. The specific instructions vary depending on OS,
          * user settings, and localization.
          */
-        tooltip?: string;
+        tooltip?: string | undefined;
 
         /**
          * Creates a new document link.
@@ -4078,15 +4330,15 @@ declare module 'vscode' {
          *
          * @param document The document in which the command was invoked.
          * @param token A cancellation token.
-         * @return An array of [document links](#DocumentLink) or a thenable that resolves to such. The lack of a result
+         * @return An array of {@link DocumentLink document links} or a thenable that resolves to such. The lack of a result
          * can be signaled by returning `undefined`, `null`, or an empty array.
          */
         provideDocumentLinks(document: TextDocument, token: CancellationToken): ProviderResult<T[]>;
 
         /**
-         * Given a link fill in its [target](#DocumentLink.target). This method is called when an incomplete
+         * Given a link fill in its {@link DocumentLink.target target}. This method is called when an incomplete
          * link is selected in the UI. Providers can implement this method and return incomplete links
-         * (without target) from the [`provideDocumentLinks`](#DocumentLinkProvider.provideDocumentLinks) method which
+         * (without target) from the {@link DocumentLinkProvider.provideDocumentLinks `provideDocumentLinks`} method which
          * often helps to improve performance.
          *
          * @param link The link that is to be resolved.
@@ -4157,7 +4409,7 @@ declare module 'vscode' {
     }
 
     /**
-     * A color presentation object describes how a [`color`](#Color) should be represented as text and what
+     * A color presentation object describes how a {@link Color `color`} should be represented as text and what
      * edits are required to refer to it from source code.
      *
      * For some languages one color can have multiple presentations, e.g. css can represent the color red with
@@ -4174,17 +4426,17 @@ declare module 'vscode' {
         label: string;
 
         /**
-         * An [edit](#TextEdit) which is applied to a document when selecting
-         * this presentation for the color.  When `falsy` the [label](#ColorPresentation.label)
+         * An {@link TextEdit edit} which is applied to a document when selecting
+         * this presentation for the color.  When `falsy` the {@link ColorPresentation.label label}
          * is used.
          */
-        textEdit?: TextEdit;
+        textEdit?: TextEdit | undefined;
 
         /**
-         * An optional array of additional [text edits](#TextEdit) that are applied when
-         * selecting this color presentation. Edits must not overlap with the main [edit](#ColorPresentation.textEdit) nor with themselves.
+         * An optional array of additional {@link TextEdit text edits} that are applied when
+         * selecting this color presentation. Edits must not overlap with the main {@link ColorPresentation.textEdit edit} nor with themselves.
          */
-        additionalTextEdits?: TextEdit[];
+        additionalTextEdits?: TextEdit[] | undefined;
 
         /**
          * Creates a new color presentation.
@@ -4205,13 +4457,13 @@ declare module 'vscode' {
          *
          * @param document The document in which the command was invoked.
          * @param token A cancellation token.
-         * @return An array of [color information](#ColorInformation) or a thenable that resolves to such. The lack of a result
+         * @return An array of {@link ColorInformation color information} or a thenable that resolves to such. The lack of a result
          * can be signaled by returning `undefined`, `null`, or an empty array.
          */
         provideDocumentColors(document: TextDocument, token: CancellationToken): ProviderResult<ColorInformation[]>;
 
         /**
-         * Provide [representations](#ColorPresentation) for a color.
+         * Provide {@link ColorPresentation representations} for a color.
          *
          * @param color The color to show and insert.
          * @param context A context object with additional information
@@ -4241,13 +4493,13 @@ declare module 'vscode' {
         end: number;
 
         /**
-         * Describes the [Kind](#FoldingRangeKind) of the folding range such as [Comment](#FoldingRangeKind.Comment) or
-         * [Region](#FoldingRangeKind.Region). The kind is used to categorize folding ranges and used by commands
+         * Describes the {@link FoldingRangeKind Kind} of the folding range such as {@link FoldingRangeKind.Comment Comment} or
+         * {@link FoldingRangeKind.Region Region}. The kind is used to categorize folding ranges and used by commands
          * like 'Fold all comments'. See
-         * [FoldingRangeKind](#FoldingRangeKind) for an enumeration of all kinds.
+         * {@link FoldingRangeKind} for an enumeration of all kinds.
          * If not set, the range is originated from a syntax element.
          */
-        kind?: FoldingRangeKind;
+        kind?: FoldingRangeKind | undefined;
 
         /**
          * Creates a new folding range.
@@ -4260,7 +4512,7 @@ declare module 'vscode' {
     }
 
     /**
-     * An enumeration of specific folding range kinds. The kind is an optional field of a [FoldingRange](#FoldingRange)
+     * An enumeration of specific folding range kinds. The kind is an optional field of a {@link FoldingRange}
      * and is used to distinguish specific folding ranges such as ranges originated from comments. The kind is used by commands like
      * `Fold all comments` or `Fold all regions`.
      * If the kind is not set on the range, the range originated from a syntax element other than comments, imports or region markers.
@@ -4291,6 +4543,12 @@ declare module 'vscode' {
      * [Folding](https://code.visualstudio.com/docs/editor/codebasics#_folding) in the editor.
      */
     export interface FoldingRangeProvider {
+
+        /**
+         * An optional event to signal that the folding ranges from this provider have changed.
+         */
+        onDidChangeFoldingRanges?: Event<void> | undefined;
+
         /**
          * Returns a list of folding ranges or null and undefined if the provider
          * does not want to participate or was cancelled.
@@ -4308,14 +4566,14 @@ declare module 'vscode' {
     export class SelectionRange {
 
         /**
-         * The [range](#Range) of this selection range.
+         * The {@link Range} of this selection range.
          */
         range: Range;
 
         /**
          * The parent selection range containing this range.
          */
-        parent?: SelectionRange;
+        parent?: SelectionRange | undefined;
 
         /**
          * Creates a new selection range.
@@ -4332,7 +4590,7 @@ declare module 'vscode' {
          *
          * Selection ranges should be computed individually and independent for each position. The editor will merge
          * and deduplicate ranges but providers must return hierarchies of selection ranges so that a range
-         * is [contained](#Range.contains) by its parent.
+         * is {@link Range.contains contained} by its parent.
          *
          * @param document The document in which the command was invoked.
          * @param positions The positions at which the command was invoked.
@@ -4361,12 +4619,12 @@ declare module 'vscode' {
         /**
          * Tags for this item.
          */
-        tags?: ReadonlyArray<SymbolTag>;
+        tags?: readonly SymbolTag[] | undefined;
 
         /**
          * More detail for this item, e.g. the signature of a function.
          */
-        detail?: string;
+        detail?: string | undefined;
 
         /**
          * The resource identifier of this item.
@@ -4380,7 +4638,7 @@ declare module 'vscode' {
 
         /**
          * The range that should be selected and revealed when this symbol is being picked, e.g. the name of a function.
-         * Must be contained by the [`range`](#CallHierarchyItem.range).
+         * Must be contained by the {@link CallHierarchyItem.range `range`}.
          */
         selectionRange: Range;
 
@@ -4402,7 +4660,7 @@ declare module 'vscode' {
 
         /**
          * The range at which at which the calls appears. This is relative to the caller
-         * denoted by [`this.from`](#CallHierarchyIncomingCall.from).
+         * denoted by {@link CallHierarchyIncomingCall.from `this.from`}.
          */
         fromRanges: Range[];
 
@@ -4427,8 +4685,8 @@ declare module 'vscode' {
 
         /**
          * The range at which this item is called. This is the range relative to the caller, e.g the item
-         * passed to [`provideCallHierarchyOutgoingCalls`](#CallHierarchyProvider.provideCallHierarchyOutgoingCalls)
-         * and not [`this.to`](#CallHierarchyOutgoingCall.to).
+         * passed to {@link CallHierarchyProvider.provideCallHierarchyOutgoingCalls `provideCallHierarchyOutgoingCalls`}
+         * and not {@link CallHierarchyOutgoingCall.to `this.to`}.
          */
         fromRanges: Range[];
 
@@ -4487,6 +4745,50 @@ declare module 'vscode' {
     }
 
     /**
+     * Represents a list of ranges that can be edited together along with a word pattern to describe valid range contents.
+     */
+    export class LinkedEditingRanges {
+        /**
+         * Create a new linked editing ranges object.
+         *
+         * @param ranges A list of ranges that can be edited together
+         * @param wordPattern An optional word pattern that describes valid contents for the given ranges
+         */
+        constructor(ranges: Range[], wordPattern?: RegExp);
+
+        /**
+         * A list of ranges that can be edited together. The ranges must have
+         * identical length and text content. The ranges cannot overlap.
+         */
+        readonly ranges: Range[];
+
+        /**
+         * An optional word pattern that describes valid contents for the given ranges.
+         * If no pattern is provided, the language configuration's word pattern will be used.
+         */
+        readonly wordPattern?: RegExp | undefined;
+    }
+
+    /**
+     * The linked editing range provider interface defines the contract between extensions and
+     * the linked editing feature.
+     */
+    export interface LinkedEditingRangeProvider {
+        /**
+         * For a given position in a document, returns the range of the symbol at the position and all ranges
+         * that have the same content. A change to one of the ranges can be applied to all other ranges if the new content
+         * is valid. An optional word pattern can be returned with the result to describe valid contents.
+         * If no result-specific word pattern is provided, the word pattern from the language configuration is used.
+         *
+         * @param document The document in which the provider was invoked.
+         * @param position The position at which the provider was invoked.
+         * @param token A cancellation token.
+         * @return A list of ranges that can be edited together
+         */
+        provideLinkedEditingRanges(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<LinkedEditingRanges>;
+    }
+
+    /**
      * A tuple of two characters, like a pair of
      * opening and closing brackets.
      */
@@ -4500,12 +4802,12 @@ declare module 'vscode' {
         /**
          * The line comment token, like `// this is a comment`
          */
-        lineComment?: string;
+        lineComment?: string | undefined;
 
         /**
          * The block comment character pair, like `/* block comment *&#47;`
          */
-        blockComment?: CharacterPair;
+        blockComment?: CharacterPair | undefined;
     }
 
     /**
@@ -4523,11 +4825,11 @@ declare module 'vscode' {
         /**
          * If a line matches this pattern, then **only the next line** after it should be indented once.
          */
-        indentNextLinePattern?: RegExp;
+        indentNextLinePattern?: RegExp | undefined;
         /**
          * If a line matches this pattern, then its indentation should not be changed and it should not be evaluated against the other rules.
          */
-        unIndentedLinePattern?: RegExp;
+        unIndentedLinePattern?: RegExp | undefined;
     }
 
     /**
@@ -4565,11 +4867,11 @@ declare module 'vscode' {
         /**
          * Describes text to be appended after the new line and after the indentation.
          */
-        appendText?: string;
+        appendText?: string | undefined;
         /**
          * Describes the number of characters to remove from the new line's indentation.
          */
-        removeText?: number;
+        removeText?: number | undefined;
     }
 
     /**
@@ -4583,7 +4885,11 @@ declare module 'vscode' {
         /**
          * This rule will only execute if the text after the cursor matches this regular expression.
          */
-        afterText?: RegExp;
+        afterText?: RegExp | undefined;
+        /**
+         * This rule will only execute if the text above the current line matches this regular expression.
+         */
+        previousLineText?: RegExp | undefined;
         /**
          * The action to execute.
          */
@@ -4598,12 +4904,12 @@ declare module 'vscode' {
         /**
          * The language's comment settings.
          */
-        comments?: CommentRule;
+        comments?: CommentRule | undefined;
         /**
          * The language's brackets.
          * This configuration implicitly affects pressing Enter around these brackets.
          */
-        brackets?: CharacterPair[];
+        brackets?: CharacterPair[] | undefined;
         /**
          * The language's word definition.
          * If the language supports Unicode identifiers (e.g. JavaScript), it is preferable
@@ -4611,15 +4917,15 @@ declare module 'vscode' {
          * e.g.: A regex that matches anything except known separators (and dot is allowed to occur in a floating point number):
          *   /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\?\s]+)/g
          */
-        wordPattern?: RegExp;
+        wordPattern?: RegExp | undefined;
         /**
          * The language's indentation settings.
          */
-        indentationRules?: IndentationRule;
+        indentationRules?: IndentationRule | undefined;
         /**
          * The language's rules to be evaluated when pressing Enter.
          */
-        onEnterRules?: OnEnterRule[];
+        onEnterRules?: OnEnterRule[] | undefined;
 
         /**
          * **Deprecated** Do not use.
@@ -4643,9 +4949,9 @@ declare module 'vscode' {
                 scope: string;
                 open: string;
                 lineStart: string;
-                close?: string;
-            };
-        };
+                close?: string | undefined;
+            } | undefined;
+        } | undefined;
 
         /**
          * **Deprecated** Do not use.
@@ -4656,9 +4962,9 @@ declare module 'vscode' {
             autoClosingPairs: {
                 open: string;
                 close: string;
-                notIn?: string[];
+                notIn?: string[] | undefined;
             }[];
-        };
+        } | undefined;
     }
 
     /**
@@ -4687,13 +4993,13 @@ declare module 'vscode' {
      * - *Default Settings*
      * - *Global (User) Settings*
      * - *Workspace settings*
-     * - *Workspace Folder settings* - From one of the [Workspace Folders](#workspace.workspaceFolders) under which requested resource belongs to.
+     * - *Workspace Folder settings* - From one of the {@link workspace.workspaceFolders Workspace Folders} under which requested resource belongs to.
      * - *Language settings* - Settings defined under requested language.
      *
-     * The *effective* value (returned by [`get`](#WorkspaceConfiguration.get)) is computed by overriding or merging the values in the following order.
+     * The *effective* value (returned by {@link WorkspaceConfiguration.get `get`}) is computed by overriding or merging the values in the following order.
      *
      * ```
-     * `defaultValue`
+     * `defaultValue` (if defined in `package.json` otherwise derived from the value's type)
      * `globalValue` (if defined)
      * `workspaceValue` (if defined)
      * `workspaceFolderValue` (if defined)
@@ -4776,7 +5082,7 @@ declare module 'vscode' {
          * Retrieve all information about a configuration setting. A configuration value
          * often consists of a *default* value, a global or installation-wide value,
          * a workspace-specific value, folder-specific value
-         * and language-specific values (if [WorkspaceConfiguration](#WorkspaceConfiguration) is scoped to a language).
+         * and language-specific values (if {@link WorkspaceConfiguration} is scoped to a language).
          *
          * Also provides all language ids under which the given configuration setting is defined.
          *
@@ -4789,17 +5095,17 @@ declare module 'vscode' {
         inspect<T>(section: string): {
             key: string;
 
-            defaultValue?: T;
-            globalValue?: T;
-            workspaceValue?: T,
-            workspaceFolderValue?: T,
+            defaultValue?: T | undefined;
+            globalValue?: T | undefined;
+            workspaceValue?: T | undefined,
+            workspaceFolderValue?: T | undefined,
 
-            defaultLanguageValue?: T;
-            globalLanguageValue?: T;
-            workspaceLanguageValue?: T;
-            workspaceFolderLanguageValue?: T;
+            defaultLanguageValue?: T | undefined;
+            globalLanguageValue?: T | undefined;
+            workspaceLanguageValue?: T | undefined;
+            workspaceFolderLanguageValue?: T | undefined;
 
-            languageIds?: string[];
+            languageIds?: string[] | undefined;
 
         } | undefined;
 
@@ -4808,20 +5114,20 @@ declare module 'vscode' {
          *
          * A value can be changed in
          *
-         * - [Global settings](#ConfigurationTarget.Global): Changes the value for all instances of the editor.
-         * - [Workspace settings](#ConfigurationTarget.Workspace): Changes the value for current workspace, if available.
-         * - [Workspace folder settings](#ConfigurationTarget.WorkspaceFolder): Changes the value for settings from one of the [Workspace Folders](#workspace.workspaceFolders) under which the requested resource belongs to.
+         * - {@link ConfigurationTarget.Global Global settings}: Changes the value for all instances of the editor.
+         * - {@link ConfigurationTarget.Workspace Workspace settings}: Changes the value for current workspace, if available.
+         * - {@link ConfigurationTarget.WorkspaceFolder Workspace folder settings}: Changes the value for settings from one of the {@link workspace.workspaceFolders Workspace Folders} under which the requested resource belongs to.
          * - Language settings: Changes the value for the requested languageId.
          *
          * *Note:* To remove a configuration value use `undefined`, like so: `config.update('somekey', undefined)`
          *
          * @param section Configuration name, supports _dotted_ names.
          * @param value The new value.
-         * @param configurationTarget The [configuration target](#ConfigurationTarget) or a boolean value.
-         *    - If `true` updates [Global settings](#ConfigurationTarget.Global).
-         *    - If `false` updates [Workspace settings](#ConfigurationTarget.Workspace).
-         *    - If `undefined` or `null` updates to [Workspace folder settings](#ConfigurationTarget.WorkspaceFolder) if configuration is resource specific,
-         *     otherwise to [Workspace settings](#ConfigurationTarget.Workspace).
+         * @param configurationTarget The {@link ConfigurationTarget configuration target} or a boolean value.
+         *    - If `true` updates {@link ConfigurationTarget.Global Global settings}.
+         *    - If `false` updates {@link ConfigurationTarget.Workspace Workspace settings}.
+         *    - If `undefined` or `null` updates to {@link ConfigurationTarget.WorkspaceFolder Workspace folder settings} if configuration is resource specific,
+         *     otherwise to {@link ConfigurationTarget.Workspace Workspace settings}.
          * @param overrideInLanguage Whether to update the value in the scope of requested languageId or not.
          *    - If `true` updates the value under the requested languageId.
          *    - If `undefined` updates the value under the requested languageId only if the configuration is defined for the language.
@@ -4830,7 +5136,7 @@ declare module 'vscode' {
          *    - window configuration to workspace folder
          *    - configuration to workspace or workspace folder when no workspace is opened.
          *    - configuration to workspace folder when there is no workspace folder settings.
-         *    - configuration to workspace folder when [WorkspaceConfiguration](#WorkspaceConfiguration) is not scoped to a resource.
+         *    - configuration to workspace folder when {@link WorkspaceConfiguration} is not scoped to a resource.
          */
         update(section: string, value: any, configurationTarget?: ConfigurationTarget | boolean, overrideInLanguage?: boolean): Thenable<void>;
 
@@ -4866,7 +5172,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Represents the connection of two locations. Provides additional metadata over normal [locations](#Location),
+     * Represents the connection of two locations. Provides additional metadata over normal {@link Location locations},
      * including an origin range.
      */
     export interface LocationLink {
@@ -4876,7 +5182,7 @@ declare module 'vscode' {
          * Used as the underlined span for mouse definition hover. Defaults to the word range at
          * the definition position.
          */
-        originSelectionRange?: Range;
+        originSelectionRange?: Range | undefined;
 
         /**
          * The target resource identifier of this link.
@@ -4891,7 +5197,7 @@ declare module 'vscode' {
         /**
          * The span of this link.
          */
-        targetSelectionRange?: Range;
+        targetSelectionRange?: Range | undefined;
     }
 
     /**
@@ -4902,7 +5208,7 @@ declare module 'vscode' {
         /**
          * An array of resources for which diagnostics have changed.
          */
-        readonly uris: ReadonlyArray<Uri>;
+        readonly uris: readonly Uri[];
     }
 
     /**
@@ -4999,7 +5305,7 @@ declare module 'vscode' {
         message: string;
 
         /**
-         * The severity, default is [error](#DiagnosticSeverity.Error).
+         * The severity, default is {@link DiagnosticSeverity.Error error}.
          */
         severity: DiagnosticSeverity;
 
@@ -5007,16 +5313,16 @@ declare module 'vscode' {
          * A human-readable string describing the source of this
          * diagnostic, e.g. 'typescript' or 'super lint'.
          */
-        source?: string;
+        source?: string | undefined;
 
         /**
          * A code or identifier for this diagnostic.
-         * Should be used for later processing, e.g. when providing [code actions](#CodeActionContext).
+         * Should be used for later processing, e.g. when providing {@link CodeActionContext code actions}.
          */
         code?: string | number | {
             /**
              * A code or identifier for this diagnostic.
-             * Should be used for later processing, e.g. when providing [code actions](#CodeActionContext).
+             * Should be used for later processing, e.g. when providing {@link CodeActionContext code actions}.
              */
             value: string | number;
 
@@ -5024,36 +5330,36 @@ declare module 'vscode' {
              * A target URI to open with more information about the diagnostic error.
              */
             target: Uri;
-        };
+        } | undefined;
 
         /**
          * An array of related diagnostic information, e.g. when symbol-names within
          * a scope collide all definitions can be marked via this property.
          */
-        relatedInformation?: DiagnosticRelatedInformation[];
+        relatedInformation?: DiagnosticRelatedInformation[] | undefined;
 
         /**
          * Additional metadata about the diagnostic.
          */
-        tags?: DiagnosticTag[];
+        tags?: DiagnosticTag[] | undefined;
 
         /**
          * Creates a new diagnostic object.
          *
          * @param range The range to which this diagnostic applies.
          * @param message The human-readable message.
-         * @param severity The severity, default is [error](#DiagnosticSeverity.Error).
+         * @param severity The severity, default is {@link DiagnosticSeverity.Error error}.
          */
         constructor(range: Range, message: string, severity?: DiagnosticSeverity);
     }
 
     /**
      * A diagnostics collection is a container that manages a set of
-     * [diagnostics](#Diagnostic). Diagnostics are always scopes to a
+     * {@link Diagnostic diagnostics}. Diagnostics are always scopes to a
      * diagnostics collection and a resource.
      *
      * To get an instance of a `DiagnosticCollection` use
-     * [createDiagnosticCollection](#languages.createDiagnosticCollection).
+     * {@link languages.createDiagnosticCollection createDiagnosticCollection}.
      */
     export interface DiagnosticCollection {
 
@@ -5071,19 +5377,19 @@ declare module 'vscode' {
          * @param uri A resource identifier.
          * @param diagnostics Array of diagnostics or `undefined`
          */
-        set(uri: Uri, diagnostics: ReadonlyArray<Diagnostic> | undefined): void;
+        set(uri: Uri, diagnostics: readonly Diagnostic[] | undefined): void;
 
         /**
-         * Replace all entries in this collection.
+         * Replace diagnostics for multiple resources in this collection.
          *
-         * Diagnostics of multiple tuples of the same uri will be merged, e.g
+         *  _Note_ that multiple tuples of the same uri will be merged, e.g
          * `[[file1, [d1]], [file1, [d2]]]` is equivalent to `[[file1, [d1, d2]]]`.
          * If a diagnostics item is `undefined` as in `[file1, undefined]`
          * all previous but not subsequent diagnostics are removed.
          *
          * @param entries An array of tuples, like `[[file1, [d1, d2]], [file2, [d3, d4, d5]]]`, or `undefined`.
          */
-        set(entries: ReadonlyArray<[Uri, ReadonlyArray<Diagnostic> | undefined]>): void;
+        set(entries: ReadonlyArray<[Uri, readonly Diagnostic[] | undefined]>): void;
 
         /**
          * Remove all diagnostics from this collection that belong
@@ -5105,16 +5411,16 @@ declare module 'vscode' {
          * @param callback Function to execute for each entry.
          * @param thisArg The `this` context used when invoking the handler function.
          */
-        forEach(callback: (uri: Uri, diagnostics: ReadonlyArray<Diagnostic>, collection: DiagnosticCollection) => any, thisArg?: any): void;
+        forEach(callback: (uri: Uri, diagnostics: readonly Diagnostic[], collection: DiagnosticCollection) => any, thisArg?: any): void;
 
         /**
          * Get the diagnostics for a given resource. *Note* that you cannot
          * modify the diagnostics-array returned from this call.
          *
          * @param uri A resource identifier.
-         * @returns An immutable array of [diagnostics](#Diagnostic) or `undefined`.
+         * @returns An immutable array of {@link Diagnostic diagnostics} or `undefined`.
          */
-        get(uri: Uri): ReadonlyArray<Diagnostic> | undefined;
+        get(uri: Uri): readonly Diagnostic[] | undefined;
 
         /**
          * Check if this collection contains diagnostics for a
@@ -5127,7 +5433,7 @@ declare module 'vscode' {
 
         /**
          * Dispose and free associated resources. Calls
-         * [clear](#DiagnosticCollection.clear).
+         * {@link DiagnosticCollection.clear clear}.
          */
         dispose(): void;
     }
@@ -5140,13 +5446,13 @@ declare module 'vscode' {
     export enum ViewColumn {
         /**
          * A *symbolic* editor column representing the currently active column. This value
-         * can be used when opening editors, but the *resolved* [viewColumn](#TextEditor.viewColumn)-value
+         * can be used when opening editors, but the *resolved* {@link TextEditor.viewColumn viewColumn}-value
          * of editors will always be `One`, `Two`, `Three`,... or `undefined` but never `Active`.
          */
         Active = -1,
         /**
          * A *symbolic* editor column representing the column to the side of the active one. This value
-         * can be used when opening editors, but the *resolved* [viewColumn](#TextEditor.viewColumn)-value
+         * can be used when opening editors, but the *resolved* {@link TextEditor.viewColumn viewColumn}-value
          * of editors will always be `One`, `Two`, `Three`,... or `undefined` but never `Beside`.
          */
         Beside = -2,
@@ -5192,7 +5498,7 @@ declare module 'vscode' {
      * An output channel is a container for readonly textual information.
      *
      * To get an instance of an `OutputChannel` use
-     * [createOutputChannel](#window.createOutputChannel).
+     * {@link window.createOutputChannel createOutputChannel}.
      */
     export interface OutputChannel {
 
@@ -5229,7 +5535,7 @@ declare module 'vscode' {
         show(preserveFocus?: boolean): void;
 
         /**
-         * ~~Reveal this channel in the UI.~~
+         * Reveal this channel in the UI.
          *
          * @deprecated Use the overload with just one parameter (`show(preserveFocus?: boolean): void`).
          *
@@ -5264,7 +5570,7 @@ declare module 'vscode' {
          * If role is not specified VS Code will pick the appropriate role automatically.
          * More about aria roles can be found here https://w3c.github.io/aria/#widget_roles
          */
-        role?: string;
+        role?: string | undefined;
     }
 
     /**
@@ -5290,6 +5596,14 @@ declare module 'vscode' {
     export interface StatusBarItem {
 
         /**
+         * The identifier of this item.
+         *
+         * *Note*: if no identifier was provided by the {@link window.createStatusBarItem `window.createStatusBarItem`}
+         * method, the identifier will match the {@link Extension.id extension identifier}.
+         */
+        readonly id: string;
+
+        /**
          * The alignment of this item.
          */
         readonly alignment: StatusBarAlignment;
@@ -5298,14 +5612,21 @@ declare module 'vscode' {
          * The priority of this item. Higher value means the item should
          * be shown more to the left.
          */
-        readonly priority?: number;
+        readonly priority?: number | undefined;
+
+        /**
+         * The name of the entry, like 'Python Language Indicator', 'Git Status' etc.
+         * Try to keep the length of the name short, yet descriptive enough that
+         * users can understand what the status bar item is about.
+         */
+        name: string | undefined;
 
         /**
          * The text to show for the entry. You can embed icons in the text by leveraging the syntax:
          *
          * `My text $(icon-name) contains icons like $(icon-name) this one.`
          *
-         * Where the icon-name is taken from the [codicon](https://microsoft.github.io/vscode-codicons/dist/codicon.html) icon set, e.g.
+         * Where the icon-name is taken from the ThemeIcon [icon set](https://code.visualstudio.com/api/references/icons-in-labels#icon-listing), e.g.
          * `light-bulb`, `thumbsup`, `zap` etc.
          */
         text: string;
@@ -5321,19 +5642,31 @@ declare module 'vscode' {
         color: string | ThemeColor | undefined;
 
         /**
-         * [`Command`](#Command) or identifier of a command to run on click.
+         * The background color for this entry.
          *
-         * The command must be [known](#commands.getCommands).
+         * *Note*: only `new ThemeColor('statusBarItem.errorBackground')` is
+         * supported for now. More background colors may be supported in the
+         * future.
          *
-         * Note that if this is a [`Command`](#Command) object, only the [`command`](#Command.command) and [`arguments`](#Command.arguments)
+         * *Note*: when a background color is set, the statusbar may override
+         * the `color` choice to ensure the entry is readable in all themes.
+         */
+        backgroundColor: ThemeColor | undefined;
+
+        /**
+         * {@link Command `Command`} or identifier of a command to run on click.
+         *
+         * The command must be {@link commands.getCommands known}.
+         *
+         * Note that if this is a {@link Command `Command`} object, only the {@link Command.command `command`} and {@link Command.arguments `arguments`}
          * are used by VS Code.
          */
         command: string | Command | undefined;
 
         /**
-         * Accessibility information used when screen reader interacts with this StatusBar item
+         * Accessibility information used when a screen reader interacts with this StatusBar item
          */
-        accessibilityInformation?: AccessibilityInformation;
+        accessibilityInformation?: AccessibilityInformation | undefined;
 
         /**
          * Shows the entry in the status bar.
@@ -5347,7 +5680,7 @@ declare module 'vscode' {
 
         /**
          * Dispose and free associated resources. Call
-         * [hide](#StatusBarItem.hide).
+         * {@link StatusBarItem.hide hide}.
          */
         dispose(): void;
     }
@@ -5432,6 +5765,132 @@ declare module 'vscode' {
     }
 
     /**
+     * Provides information on a line in a terminal in order to provide links for it.
+     */
+    export interface TerminalLinkContext {
+        /**
+         * This is the text from the unwrapped line in the terminal.
+         */
+        line: string;
+
+        /**
+         * The terminal the link belongs to.
+         */
+        terminal: Terminal;
+    }
+
+    /**
+     * A provider that enables detection and handling of links within terminals.
+     */
+    export interface TerminalLinkProvider<T extends TerminalLink = TerminalLink> {
+        /**
+         * Provide terminal links for the given context. Note that this can be called multiple times
+         * even before previous calls resolve, make sure to not share global objects (eg. `RegExp`)
+         * that could have problems when asynchronous usage may overlap.
+         * @param context Information about what links are being provided for.
+         * @param token A cancellation token.
+         * @return A list of terminal links for the given line.
+         */
+        provideTerminalLinks(context: TerminalLinkContext, token: CancellationToken): ProviderResult<T[]>;
+
+        /**
+         * Handle an activated terminal link.
+         * @param link The link to handle.
+         */
+        handleTerminalLink(link: T): ProviderResult<void>;
+    }
+
+    /**
+     * A link on a terminal line.
+     */
+    export interface TerminalLink {
+        /**
+         * The start index of the link on {@link TerminalLinkContext.line}.
+         */
+        startIndex: number;
+
+        /**
+         * The length of the link on {@link TerminalLinkContext.line}.
+         */
+        length: number;
+
+        /**
+         * The tooltip text when you hover over this link.
+         *
+         * If a tooltip is provided, is will be displayed in a string that includes instructions on
+         * how to trigger the link, such as `{0} (ctrl + click)`. The specific instructions vary
+         * depending on OS, user settings, and localization.
+         */
+        tooltip?: string | undefined;
+    }
+
+    /**
+     * A file decoration represents metadata that can be rendered with a file.
+     */
+    export class FileDecoration {
+
+        /**
+         * A very short string that represents this decoration.
+         */
+        badge?: string | undefined;
+
+        /**
+         * A human-readable tooltip for this decoration.
+         */
+        tooltip?: string | undefined;
+
+        /**
+         * The color of this decoration.
+         */
+        color?: ThemeColor | undefined;
+
+        /**
+         * A flag expressing that this decoration should be
+         * propagated to its parents.
+         */
+        propagate?: boolean | undefined;
+
+        /**
+         * Creates a new decoration.
+         *
+         * @param badge A letter that represents the decoration.
+         * @param tooltip The tooltip of the decoration.
+         * @param color The color of the decoration.
+         */
+        constructor(badge?: string, tooltip?: string, color?: ThemeColor);
+    }
+
+    /**
+     * The decoration provider interfaces defines the contract between extensions and
+     * file decorations.
+     */
+    export interface FileDecorationProvider {
+
+        /**
+         * An optional event to signal that decorations for one or many files have changed.
+         *
+         * *Note* that this event should be used to propagate information about children.
+         *
+         * @see {@link EventEmitter}
+         */
+        onDidChangeFileDecorations?: Event<undefined | Uri | Uri[]> | undefined;
+
+        /**
+         * Provide decorations for a given uri.
+         *
+         * *Note* that this function is only called when a file gets rendered in the UI.
+         * This means a decoration from a descendent that propagates upwards must be signaled
+         * to the editor via the {@link FileDecorationProvider.onDidChangeFileDecorations onDidChangeFileDecorations}-event.
+         *
+         * @param uri The uri of the file to provide a decoration for.
+         * @param token A cancellation token.
+         * @returns A decoration or a thenable that resolves to such.
+         */
+        provideFileDecoration(uri: Uri, token: CancellationToken): ProviderResult<FileDecoration>;
+    }
+
+
+    /**
      * In a remote window the extension kind describes if an extension
      * runs where the UI (window) runs or if an extension runs remotely.
      */
@@ -5451,7 +5910,7 @@ declare module 'vscode' {
     /**
      * Represents an extension.
      *
-     * To get an instance of an `Extension` use [getExtension](#extensions.getExtension).
+     * To get an instance of an `Extension` use {@link extensions.getExtension getExtension}.
      */
     export interface Extension<T> {
 
@@ -5467,7 +5926,7 @@ declare module 'vscode' {
 
         /**
          * The absolute file path of the directory containing this extension. Shorthand
-         * notation for [Extension.extensionUri.fsPath](#Extension.extensionUri) (independent of the uri scheme).
+         * notation for {@link Extension.extensionUri Extension.extensionUri.fsPath} (independent of the uri scheme).
          */
         readonly extensionPath: string;
 
@@ -5486,7 +5945,7 @@ declare module 'vscode' {
          * or if an extension runs where the remote extension host runs. The extension kind
          * is defined in the `package.json`-file of extensions but can also be refined
          * via the `remote.extensionKind`-setting. When no remote extension host exists,
-         * the value is [`ExtensionKind.UI`](#ExtensionKind.UI).
+         * the value is {@link ExtensionKind.UI `ExtensionKind.UI`}.
          */
         extensionKind: ExtensionKind;
 
@@ -5545,15 +6004,36 @@ declare module 'vscode' {
 
         /**
          * A memento object that stores state in the context
-         * of the currently opened [workspace](#workspace.workspaceFolders).
+         * of the currently opened {@link workspace.workspaceFolders workspace}.
          */
         readonly workspaceState: Memento;
 
         /**
          * A memento object that stores state independent
-         * of the current opened [workspace](#workspace.workspaceFolders).
+         * of the current opened {@link workspace.workspaceFolders workspace}.
          */
-        readonly globalState: Memento;
+        readonly globalState: Memento & {
+            /**
+             * Set the keys whose values should be synchronized across devices when synchronizing user-data
+             * like configuration, extensions, and mementos.
+             *
+             * Note that this function defines the whole set of keys whose values are synchronized:
+             *  - calling it with an empty array stops synchronization for this memento
+             *  - calling it with a non-empty array replaces all keys whose values are synchronized
+             *
+             * For any given set of keys this function needs to be called only once but there is no harm in
+             * repeatedly calling it.
+             *
+             * @param keys The set of keys whose values are synced.
+             */
+            setKeysForSync(keys: readonly string[]): void;
+        };
+
+        /**
+         * A storage utility for secrets. Secrets are persisted across reloads and are independent of the
+         * current opened {@link workspace.workspaceFolders workspace}.
+         */
+        readonly secrets: SecretStorage;
 
         /**
          * The uri of the directory containing the extension.
@@ -5562,7 +6042,7 @@ declare module 'vscode' {
 
         /**
          * The absolute file path of the directory containing the extension. Shorthand
-         * notation for [ExtensionContext.extensionUri.fsPath](#TextDocument.uri) (independent of the uri scheme).
+         * notation for {@link TextDocument.uri ExtensionContext.extensionUri.fsPath} (independent of the uri scheme).
          */
         readonly extensionPath: string;
 
@@ -5575,34 +6055,79 @@ declare module 'vscode' {
         /**
          * Get the absolute path of a resource contained in the extension.
          *
+         * *Note* that an absolute uri can be constructed via {@link Uri.joinPath `Uri.joinPath`} and
+         * {@link ExtensionContext.extensionUri `extensionUri`}, e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
+         *
          * @param relativePath A relative path to a resource contained in the extension.
          * @return The absolute path of the resource.
          */
         asAbsolutePath(relativePath: string): string;
 
         /**
+         * The uri of a workspace specific directory in which the extension
+         * can store private state. The directory might not exist and creation is
+         * up to the extension. However, the parent directory is guaranteed to be existent.
+         * The value is `undefined` when no workspace nor folder has been opened.
+         *
+         * Use {@link ExtensionContext.workspaceState `workspaceState`} or
+         * {@link ExtensionContext.globalState `globalState`} to store key value data.
+         *
+         * @see {@link FileSystem `workspace.fs`} for how to read and write files and folders from
+         *  an uri.
+         */
+        readonly storageUri: Uri | undefined;
+
+        /**
          * An absolute file path of a workspace specific directory in which the extension
          * can store private state. The directory might not exist on disk and creation is
          * up to the extension. However, the parent directory is guaranteed to be existent.
          *
-         * Use [`workspaceState`](#ExtensionContext.workspaceState) or
-         * [`globalState`](#ExtensionContext.globalState) to store key value data.
+         * Use {@link ExtensionContext.workspaceState `workspaceState`} or
+         * {@link ExtensionContext.globalState `globalState`} to store key value data.
+         *
+         * @deprecated Use {@link ExtensionContext.storageUri storageUri} instead.
          */
         readonly storagePath: string | undefined;
+
+        /**
+         * The uri of a directory in which the extension can store global state.
+         * The directory might not exist on disk and creation is
+         * up to the extension. However, the parent directory is guaranteed to be existent.
+         *
+         * Use {@link ExtensionContext.globalState `globalState`} to store key value data.
+         *
+         * @see {@link FileSystem `workspace.fs`} for how to read and write files and folders from
+         *  an uri.
+         */
+        readonly globalStorageUri: Uri;
 
         /**
          * An absolute file path in which the extension can store global state.
          * The directory might not exist on disk and creation is
          * up to the extension. However, the parent directory is guaranteed to be existent.
          *
-         * Use [`globalState`](#ExtensionContext.globalState) to store key value data.
+         * Use {@link ExtensionContext.globalState `globalState`} to store key value data.
+         *
+         * @deprecated Use {@link ExtensionContext.globalStorageUri globalStorageUri} instead.
          */
         readonly globalStoragePath: string;
+
+        /**
+         * The uri of a directory in which the extension can create log files.
+         * The directory might not exist on disk and creation is up to the extension. However,
+         * the parent directory is guaranteed to be existent.
+         *
+         * @see {@link FileSystem `workspace.fs`} for how to read and write files and folders from
+         *  an uri.
+         */
+        readonly logUri: Uri;
 
         /**
          * An absolute file path of a directory in which the extension can create log files.
          * The directory might not exist on disk and creation is up to the extension. However,
          * the parent directory is guaranteed to be existent.
+         *
+         * @deprecated Use {@link ExtensionContext.logUri logUri} instead.
          */
         readonly logPath: string;
 
@@ -5612,6 +6137,11 @@ declare module 'vscode' {
          * other extensions in the host run in `ExtensionMode.Release`.
          */
         readonly extensionMode: ExtensionMode;
+
+        /**
+         * The current `Extension` instance.
+         */
+        readonly extension: Extension<any>;
     }
 
     /**
@@ -5645,6 +6175,48 @@ declare module 'vscode' {
          * @param value A value. MUST not contain cyclic references.
          */
         update(key: string, value: any): Thenable<void>;
+    }
+
+    /**
+     * The event data that is fired when a secret is added or removed.
+     */
+    export interface SecretStorageChangeEvent {
+        /**
+         * The key of the secret that has changed.
+         */
+        readonly key: string;
+    }
+
+    /**
+     * Represents a storage utility for secrets, information that is
+     * sensitive.
+     */
+    export interface SecretStorage {
+        /**
+         * Retrieve a secret that was stored with key. Returns undefined if there
+         * is no password matching that key.
+         * @param key The key the secret was stored under.
+         * @returns The stored value or `undefined`.
+         */
+        get(key: string): Thenable<string | undefined>;
+
+        /**
+         * Store a secret under a given key.
+         * @param key The key to store the secret under.
+         * @param value The secret.
+         */
+        store(key: string, value: string): Thenable<void>;
+
+        /**
+         * Remove a secret from storage.
+         * @param key The key the secret was stored under.
+         */
+        delete(key: string): Thenable<void>;
+
+        /**
+         * Fires when a secret is stored or deleted.
+         */
+        onDidChange: Event<SecretStorageChangeEvent>;
     }
 
     /**
@@ -5718,35 +6290,35 @@ declare module 'vscode' {
          * Controls whether the task output is reveal in the user interface.
          * Defaults to `RevealKind.Always`.
          */
-        reveal?: TaskRevealKind;
+        reveal?: TaskRevealKind | undefined;
 
         /**
          * Controls whether the command associated with the task is echoed
          * in the user interface.
          */
-        echo?: boolean;
+        echo?: boolean | undefined;
 
         /**
          * Controls whether the panel showing the task output is taking focus.
          */
-        focus?: boolean;
+        focus?: boolean | undefined;
 
         /**
          * Controls if the task panel is used for this task only (dedicated),
          * shared between tasks (shared) or if a new panel is created on
          * every task execution (new). Defaults to `TaskInstanceKind.Shared`
          */
-        panel?: TaskPanelKind;
+        panel?: TaskPanelKind | undefined;
 
         /**
          * Controls whether to show the "Terminal will be reused by tasks, press any key to close it" message.
          */
-        showReuseMessage?: boolean;
+        showReuseMessage?: boolean | undefined;
 
         /**
          * Controls whether the terminal is cleared before executing the task.
          */
-        clear?: boolean;
+        clear?: boolean | undefined;
     }
 
     /**
@@ -5814,14 +6386,14 @@ declare module 'vscode' {
          * The current working directory of the executed program or shell.
          * If omitted the tools current workspace root is used.
          */
-        cwd?: string;
+        cwd?: string | undefined;
 
         /**
          * The additional environment of the executed program or shell. If omitted
          * the parent process' environment is used. If provided it is merged with
          * the parent process' environment.
          */
-        env?: { [key: string]: string };
+        env?: { [key: string]: string } | undefined;
     }
 
     /**
@@ -5861,7 +6433,7 @@ declare module 'vscode' {
          * The process options used when the process is executed.
          * Defaults to undefined.
          */
-        options?: ProcessExecutionOptions;
+        options?: ProcessExecutionOptions | undefined;
     }
 
     /**
@@ -5883,17 +6455,17 @@ declare module 'vscode' {
              * The characters to escape.
              */
             charsToEscape: string;
-        };
+        } | undefined;
 
         /**
          * The character used for strong quoting. The string's length must be 1.
          */
-        strong?: string;
+        strong?: string | undefined;
 
         /**
          * The character used for weak quoting. The string's length must be 1.
          */
-        weak?: string;
+        weak?: string | undefined;
     }
 
     /**
@@ -5903,7 +6475,7 @@ declare module 'vscode' {
         /**
          * The shell executable.
          */
-        executable?: string;
+        executable?: string | undefined;
 
         /**
          * The arguments to be passed to the shell executable used to run the task. Most shells
@@ -5911,25 +6483,25 @@ declare module 'vscode' {
          * argument to execute a command, `PowerShell` requires `-Command` and `cmd` requires both
          * `/d` and `/c`.
          */
-        shellArgs?: string[];
+        shellArgs?: string[] | undefined;
 
         /**
          * The shell quotes supported by this shell.
          */
-        shellQuoting?: ShellQuotingOptions;
+        shellQuoting?: ShellQuotingOptions | undefined;
 
         /**
          * The current working directory of the executed shell.
          * If omitted the tools current workspace root is used.
          */
-        cwd?: string;
+        cwd?: string | undefined;
 
         /**
          * The additional environment of the executed shell. If omitted
          * the parent process' environment is used. If provided it is merged with
          * the parent process' environment.
          */
-        env?: { [key: string]: string };
+        env?: { [key: string]: string } | undefined;
     }
 
     /**
@@ -6018,7 +6590,7 @@ declare module 'vscode' {
          * The shell options used when the command line is executed in a shell.
          * Defaults to undefined.
          */
-        options?: ShellExecutionOptions;
+        options?: ShellExecutionOptions | undefined;
     }
 
     /**
@@ -6026,15 +6598,15 @@ declare module 'vscode' {
      */
     export class CustomExecution {
         /**
-         * Constructs a CustomExecution task object. The callback will be executed the task is run, at which point the
+         * Constructs a CustomExecution task object. The callback will be executed when the task is run, at which point the
          * extension should return the Pseudoterminal it will "run in". The task should wait to do further execution until
-         * [Pseudoterminal.open](#Pseudoterminal.open) is called. Task cancellation should be handled using
-         * [Pseudoterminal.close](#Pseudoterminal.close). When the task is complete fire
-         * [Pseudoterminal.onDidClose](#Pseudoterminal.onDidClose).
-         * @param process The [Pseudoterminal](#Pseudoterminal) to be used by the task to display output.
-         * @param callback The callback that will be called when the task is started by a user.
+         * {@link Pseudoterminal.open} is called. Task cancellation should be handled using
+         * {@link Pseudoterminal.close}. When the task is complete fire
+         * {@link Pseudoterminal.onDidClose}.
+         * @param callback The callback that will be called when the task is started by a user. Any ${} style variables that
+         * were in the task definition will be resolved and passed into the callback as `resolvedDefinition`.
          */
-        constructor(callback: () => Thenable<Pseudoterminal>);
+        constructor(callback: (resolvedDefinition: TaskDefinition) => Thenable<Pseudoterminal>);
     }
 
     /**
@@ -6059,7 +6631,7 @@ declare module 'vscode' {
         /**
          * Controls whether task variables are re-evaluated on rerun.
          */
-        reevaluateOnRerun?: boolean;
+        reevaluateOnRerun?: boolean | undefined;
     }
 
     /**
@@ -6082,7 +6654,7 @@ declare module 'vscode' {
         constructor(taskDefinition: TaskDefinition, scope: WorkspaceFolder | TaskScope.Global | TaskScope.Workspace, name: string, source: string, execution?: ProcessExecution | ShellExecution | CustomExecution, problemMatchers?: string | string[]);
 
         /**
-         * ~~Creates a new task.~~
+         * Creates a new task.
          *
          * @deprecated Use the new constructors that allow specifying a scope for the task.
          *
@@ -6104,7 +6676,7 @@ declare module 'vscode' {
         /**
          * The task's scope.
          */
-        readonly scope?: TaskScope.Global | TaskScope.Workspace | WorkspaceFolder;
+        readonly scope?: TaskScope.Global | TaskScope.Workspace | WorkspaceFolder | undefined;
 
         /**
          * The task's name
@@ -6112,9 +6684,16 @@ declare module 'vscode' {
         name: string;
 
         /**
+         * A human-readable string which is rendered less prominently on a separate line in places
+         * where the task's name is displayed. Supports rendering of {@link ThemeIcon theme icons}
+         * via the `$(<name>)`-syntax.
+         */
+        detail?: string | undefined;
+
+        /**
          * The task's execution engine
          */
-        execution?: ProcessExecution | ShellExecution | CustomExecution;
+        execution?: ProcessExecution | ShellExecution | CustomExecution | undefined;
 
         /**
          * Whether the task is a background task or not.
@@ -6123,7 +6702,7 @@ declare module 'vscode' {
 
         /**
          * A human-readable string describing the source of this shell task, e.g. 'gulp'
-         * or 'npm'. Supports rendering of [theme icons](#ThemeIcon) via the `$(<name>)`-syntax.
+         * or 'npm'. Supports rendering of {@link ThemeIcon theme icons} via the `$(<name>)`-syntax.
          */
         source: string;
 
@@ -6133,7 +6712,7 @@ declare module 'vscode' {
          * Defaults to undefined meaning that the task doesn't
          * belong to any special group.
          */
-        group?: TaskGroup;
+        group?: TaskGroup | undefined;
 
         /**
          * The presentation options. Defaults to an empty literal.
@@ -6154,7 +6733,7 @@ declare module 'vscode' {
 
     /**
      * A task provider allows to add tasks to the task service.
-     * A task provider is registered via #tasks.registerTaskProvider.
+     * A task provider is registered via {@link tasks.registerTaskProvider}.
      */
     export interface TaskProvider<T extends Task = Task> {
         /**
@@ -6162,10 +6741,10 @@ declare module 'vscode' {
          * @param token A cancellation token.
          * @return an array of tasks
          */
-        provideTasks(token?: CancellationToken): ProviderResult<T[]>;
+        provideTasks(token: CancellationToken): ProviderResult<T[]>;
 
         /**
-         * Resolves a task that has no [`execution`](#Task.execution) set. Tasks are
+         * Resolves a task that has no {@link Task.execution `execution`} set. Tasks are
          * often created from information found in the `tasks.json`-file. Such tasks miss
          * the information on how to execute them and a task provider must fill in
          * the missing information in the `resolveTask`-method. This method will not be
@@ -6173,11 +6752,15 @@ declare module 'vscode' {
          * tasks are always fully resolved. A valid default implementation for the
          * `resolveTask` method is to return `undefined`.
          *
+         * Note that when filling in the properties of `task`, you _must_ be sure to
+         * use the exact same `TaskDefinition` and not create a new one. Other properties
+         * may be changed.
+         *
          * @param task The task to resolve.
          * @param token A cancellation token.
          * @return The resolved task
          */
-        resolveTask(task: T, token?: CancellationToken): ProviderResult<T>;
+        resolveTask(task: T, token: CancellationToken): ProviderResult<T>;
     }
 
     /**
@@ -6251,9 +6834,9 @@ declare module 'vscode' {
         readonly execution: TaskExecution;
 
         /**
-         * The process's exit code.
+         * The process's exit code. Will be `undefined` when the task is terminated.
          */
-        readonly exitCode: number;
+        readonly exitCode: number | undefined;
     }
 
     export interface TaskFilter {
@@ -6261,12 +6844,12 @@ declare module 'vscode' {
          * The task version as used in the tasks.json file.
          * The string support the package.json semver notation.
          */
-        version?: string;
+        version?: string | undefined;
 
         /**
          * The task type to return;
          */
-        type?: string;
+        type?: string | undefined;
     }
 
     /**
@@ -6279,7 +6862,7 @@ declare module 'vscode' {
          *
          * @param type The task kind type this provider is registered for.
          * @param provider A task provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerTaskProvider(type: string, provider: TaskProvider): Disposable;
 
@@ -6296,6 +6879,10 @@ declare module 'vscode' {
          * Executes a task that is managed by VS Code. The returned
          * task execution can be used to terminate the task.
          *
+         * @throws When running a ShellExecution or a ProcessExecution
+         * task in an environment where a new process cannot be started.
+         * In such an environment, only CustomExecution tasks can be run.
+         *
          * @param task the task to execute
          */
         export function executeTask(task: Task): Thenable<TaskExecution>;
@@ -6303,7 +6890,7 @@ declare module 'vscode' {
         /**
          * The currently active task executions or an empty array.
          */
-        export const taskExecutions: ReadonlyArray<TaskExecution>;
+        export const taskExecutions: readonly TaskExecution[];
 
         /**
          * Fires when a task starts.
@@ -6443,7 +7030,7 @@ declare module 'vscode' {
         /**
          * A code that identifies this error.
          *
-         * Possible values are names of errors, like [`FileNotFound`](#FileSystemError.FileNotFound),
+         * Possible values are names of errors, like {@link FileSystemError.FileNotFound `FileNotFound`},
          * or `Unknown` for unspecified errors.
          */
         readonly code: string;
@@ -6491,22 +7078,22 @@ declare module 'vscode' {
      * and to manage files and folders. It allows extensions to serve files from remote places,
      * like ftp-servers, and to seamlessly integrate those into the editor.
      *
-     * * *Note 1:* The filesystem provider API works with [uris](#Uri) and assumes hierarchical
+     * * *Note 1:* The filesystem provider API works with {@link Uri uris} and assumes hierarchical
      * paths, e.g. `foo:/my/path` is a child of `foo:/my/` and a parent of `foo:/my/path/deeper`.
      * * *Note 2:* There is an activation event `onFileSystem:<scheme>` that fires when a file
      * or folder is being accessed.
-     * * *Note 3:* The word 'file' is often used to denote all [kinds](#FileType) of files, e.g.
+     * * *Note 3:* The word 'file' is often used to denote all {@link FileType kinds} of files, e.g.
      * folders, symbolic links, and regular files.
      */
     export interface FileSystemProvider {
 
         /**
          * An event to signal that a resource has been created, changed, or deleted. This
-         * event should fire for resources that are being [watched](#FileSystemProvider.watch)
+         * event should fire for resources that are being {@link FileSystemProvider.watch watched}
          * by clients of this provider.
          *
          * *Note:* It is important that the metadata of the file that changed provides an
-         * updated `mtime` that advanced from the previous value in the [stat](#FileStat) and a
+         * updated `mtime` that advanced from the previous value in the {@link FileStat stat} and a
          * correct `size` value. Otherwise there may be optimizations in place that will not show
          * the change in an editor for example.
          */
@@ -6529,21 +7116,21 @@ declare module 'vscode' {
          * Retrieve metadata about a file.
          *
          * Note that the metadata for symbolic links should be the metadata of the file they refer to.
-         * Still, the [SymbolicLink](#FileType.SymbolicLink)-type must be used in addition to the actual type, e.g.
+         * Still, the {@link FileType.SymbolicLink SymbolicLink}-type must be used in addition to the actual type, e.g.
          * `FileType.SymbolicLink | FileType.Directory`.
          *
          * @param uri The uri of the file to retrieve metadata about.
          * @return The file metadata about the file.
-         * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when `uri` doesn't exist.
+         * @throws {@link FileSystemError.FileNotFound `FileNotFound`} when `uri` doesn't exist.
          */
         stat(uri: Uri): FileStat | Thenable<FileStat>;
 
         /**
-         * Retrieve all entries of a [directory](#FileType.Directory).
+         * Retrieve all entries of a {@link FileType.Directory directory}.
          *
          * @param uri The uri of the folder.
          * @return An array of name/type-tuples or a thenable that resolves to such.
-         * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when `uri` doesn't exist.
+         * @throws {@link FileSystemError.FileNotFound `FileNotFound`} when `uri` doesn't exist.
          */
         readDirectory(uri: Uri): [string, FileType][] | Thenable<[string, FileType][]>;
 
@@ -6551,9 +7138,9 @@ declare module 'vscode' {
          * Create a new directory (Note, that new files are created via `write`-calls).
          *
          * @param uri The uri of the new folder.
-         * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when the parent of `uri` doesn't exist, e.g. no mkdirp-logic required.
-         * @throws [`FileExists`](#FileSystemError.FileExists) when `uri` already exists.
-         * @throws [`NoPermissions`](#FileSystemError.NoPermissions) when permissions aren't sufficient.
+         * @throws {@link FileSystemError.FileNotFound `FileNotFound`} when the parent of `uri` doesn't exist, e.g. no mkdirp-logic required.
+         * @throws {@link FileSystemError.FileExists `FileExists`} when `uri` already exists.
+         * @throws {@link FileSystemError.NoPermissions `NoPermissions`} when permissions aren't sufficient.
          */
         createDirectory(uri: Uri): void | Thenable<void>;
 
@@ -6562,7 +7149,7 @@ declare module 'vscode' {
          *
          * @param uri The uri of the file.
          * @return An array of bytes or a thenable that resolves to such.
-         * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when `uri` doesn't exist.
+         * @throws {@link FileSystemError.FileNotFound `FileNotFound`} when `uri` doesn't exist.
          */
         readFile(uri: Uri): Uint8Array | Thenable<Uint8Array>;
 
@@ -6572,10 +7159,10 @@ declare module 'vscode' {
          * @param uri The uri of the file.
          * @param content The new content of the file.
          * @param options Defines if missing files should or must be created.
-         * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when `uri` doesn't exist and `create` is not set.
-         * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when the parent of `uri` doesn't exist and `create` is set, e.g. no mkdirp-logic required.
-         * @throws [`FileExists`](#FileSystemError.FileExists) when `uri` already exists, `create` is set but `overwrite` is not set.
-         * @throws [`NoPermissions`](#FileSystemError.NoPermissions) when permissions aren't sufficient.
+         * @throws {@link FileSystemError.FileNotFound `FileNotFound`} when `uri` doesn't exist and `create` is not set.
+         * @throws {@link FileSystemError.FileNotFound `FileNotFound`} when the parent of `uri` doesn't exist and `create` is set, e.g. no mkdirp-logic required.
+         * @throws {@link FileSystemError.FileExists `FileExists`} when `uri` already exists, `create` is set but `overwrite` is not set.
+         * @throws {@link FileSystemError.NoPermissions `NoPermissions`} when permissions aren't sufficient.
          */
         writeFile(uri: Uri, content: Uint8Array, options: { create: boolean, overwrite: boolean }): void | Thenable<void>;
 
@@ -6584,8 +7171,8 @@ declare module 'vscode' {
          *
          * @param uri The resource that is to be deleted.
          * @param options Defines if deletion of folders is recursive.
-         * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when `uri` doesn't exist.
-         * @throws [`NoPermissions`](#FileSystemError.NoPermissions) when permissions aren't sufficient.
+         * @throws {@link FileSystemError.FileNotFound `FileNotFound`} when `uri` doesn't exist.
+         * @throws {@link FileSystemError.NoPermissions `NoPermissions`} when permissions aren't sufficient.
          */
         delete(uri: Uri, options: { recursive: boolean }): void | Thenable<void>;
 
@@ -6595,10 +7182,10 @@ declare module 'vscode' {
          * @param oldUri The existing file.
          * @param newUri The new location.
          * @param options Defines if existing files should be overwritten.
-         * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when `oldUri` doesn't exist.
-         * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when parent of `newUri` doesn't exist, e.g. no mkdirp-logic required.
-         * @throws [`FileExists`](#FileSystemError.FileExists) when `newUri` exists and when the `overwrite` option is not `true`.
-         * @throws [`NoPermissions`](#FileSystemError.NoPermissions) when permissions aren't sufficient.
+         * @throws {@link FileSystemError.FileNotFound `FileNotFound`} when `oldUri` doesn't exist.
+         * @throws {@link FileSystemError.FileNotFound `FileNotFound`} when parent of `newUri` doesn't exist, e.g. no mkdirp-logic required.
+         * @throws {@link FileSystemError.FileExists `FileExists`} when `newUri` exists and when the `overwrite` option is not `true`.
+         * @throws {@link FileSystemError.NoPermissions `NoPermissions`} when permissions aren't sufficient.
          */
         rename(oldUri: Uri, newUri: Uri, options: { overwrite: boolean }): void | Thenable<void>;
 
@@ -6609,21 +7196,21 @@ declare module 'vscode' {
          * @param source The existing file.
          * @param destination The destination location.
          * @param options Defines if existing files should be overwritten.
-         * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when `source` doesn't exist.
-         * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when parent of `destination` doesn't exist, e.g. no mkdirp-logic required.
-         * @throws [`FileExists`](#FileSystemError.FileExists) when `destination` exists and when the `overwrite` option is not `true`.
-         * @throws [`NoPermissions`](#FileSystemError.NoPermissions) when permissions aren't sufficient.
+         * @throws {@link FileSystemError.FileNotFound `FileNotFound`} when `source` doesn't exist.
+         * @throws {@link FileSystemError.FileNotFound `FileNotFound`} when parent of `destination` doesn't exist, e.g. no mkdirp-logic required.
+         * @throws {@link FileSystemError.FileExists `FileExists`} when `destination` exists and when the `overwrite` option is not `true`.
+         * @throws {@link FileSystemError.NoPermissions `NoPermissions`} when permissions aren't sufficient.
          */
         copy?(source: Uri, destination: Uri, options: { overwrite: boolean }): void | Thenable<void>;
     }
 
     /**
      * The file system interface exposes the editor's built-in and contributed
-     * [file system providers](#FileSystemProvider). It allows extensions to work
+     * {@link FileSystemProvider file system providers}. It allows extensions to work
      * with files from the local disk as well as files from remote places, like the
      * remote extension host or ftp-servers.
      *
-     * *Note* that an instance of this interface is available as [`workspace.fs`](#workspace.fs).
+     * *Note* that an instance of this interface is available as {@link workspace.fs `workspace.fs`}.
      */
     export interface FileSystem {
 
@@ -6636,7 +7223,7 @@ declare module 'vscode' {
         stat(uri: Uri): Thenable<FileStat>;
 
         /**
-         * Retrieve all entries of a [directory](#FileType.Directory).
+         * Retrieve all entries of a {@link FileType.Directory directory}.
          *
          * @param uri The uri of the folder.
          * @return An array of name/type-tuples or a thenable that resolves to such.
@@ -6675,7 +7262,7 @@ declare module 'vscode' {
          * @param uri The resource that is to be deleted.
          * @param options Defines if trash can should be used and if deletion of folders is recursive
          */
-        delete(uri: Uri, options?: { recursive?: boolean, useTrash?: boolean }): Thenable<void>;
+        delete(uri: Uri, options?: { recursive?: boolean | undefined, useTrash?: boolean | undefined }): Thenable<void>;
 
         /**
          * Rename a file or folder.
@@ -6684,7 +7271,7 @@ declare module 'vscode' {
          * @param newUri The new location.
          * @param options Defines if existing files should be overwritten.
          */
-        rename(source: Uri, target: Uri, options?: { overwrite?: boolean }): Thenable<void>;
+        rename(source: Uri, target: Uri, options?: { overwrite?: boolean | undefined }): Thenable<void>;
 
         /**
          * Copy files or folders.
@@ -6693,7 +7280,22 @@ declare module 'vscode' {
          * @param destination The destination location.
          * @param options Defines if existing files should be overwritten.
          */
-        copy(source: Uri, target: Uri, options?: { overwrite?: boolean }): Thenable<void>;
+        copy(source: Uri, target: Uri, options?: { overwrite?: boolean | undefined }): Thenable<void>;
+
+        /**
+         * Check if a given file system supports writing files.
+         *
+         * Keep in mind that just because a file system supports writing, that does
+         * not mean that writes will always succeed. There may be permissions issues
+         * or other errors that prevent writing a file.
+         *
+         * @param scheme The scheme of the filesystem, for example `file` or `git`.
+         *
+         * @return `true` if the file system supports writing, `false` if it does not
+         * support writing (i.e. it is readonly), and `undefined` if VS Code does not
+         * know about the filesystem.
+         */
+        isWritableFileSystem(scheme: string): boolean | undefined;
     }
 
     /**
@@ -6720,14 +7322,14 @@ declare module 'vscode' {
          *
          * Defaults to false (scripts-disabled).
          */
-        readonly enableScripts?: boolean;
+        readonly enableScripts?: boolean | undefined;
 
         /**
          * Controls whether command uris are enabled in webview content or not.
          *
          * Defaults to false.
          */
-        readonly enableCommandUris?: boolean;
+        readonly enableCommandUris?: boolean | undefined;
 
         /**
          * Root paths from which the webview can load local (filesystem) resources using uris from `asWebviewUri`
@@ -6736,7 +7338,7 @@ declare module 'vscode' {
          *
          * Pass in an empty array to disallow access to any local resources.
          */
-        readonly localResourceRoots?: ReadonlyArray<Uri>;
+        readonly localResourceRoots?: readonly Uri[] | undefined;
 
         /**
          * Mappings of localhost ports used inside the webview.
@@ -6751,7 +7353,7 @@ declare module 'vscode' {
          * *Note* that port mappings only work for `http` or `https` urls. Websocket urls (e.g. `ws://localhost:3000`)
          * cannot be mapped to another port.
          */
-        readonly portMapping?: ReadonlyArray<WebviewPortMapping>;
+        readonly portMapping?: readonly WebviewPortMapping[] | undefined;
     }
 
     /**
@@ -6769,7 +7371,7 @@ declare module 'vscode' {
          * This should be a complete, valid html document. Changing this property causes the webview to be reloaded.
          *
          * Webviews are sandboxed from normal extension process, so all communication with the webview must use
-         * message passing. To send a message from the extension to the webview, use [`postMessage`](#Webview.postMessage).
+         * message passing. To send a message from the extension to the webview, use {@link Webview.postMessage `postMessage`}.
          * To send message from the webview back to an extension, use the `acquireVsCodeApi` function inside the webview
          * to get a handle to VS Code's api and then call `.postMessage()`:
          *
@@ -6780,8 +7382,8 @@ declare module 'vscode' {
          * </script>
          * ```
          *
-         * To load a resources from the workspace inside a webview, use the `[asWebviewUri](#Webview.asWebviewUri)` method
-         * and ensure the resource's directory is listed in [`WebviewOptions.localResourceRoots`](#WebviewOptions.localResourceRoots).
+         * To load a resources from the workspace inside a webview, use the `{@link Webview.asWebviewUri asWebviewUri}` method
+         * and ensure the resource's directory is listed in {@link WebviewOptions.localResourceRoots `WebviewOptions.localResourceRoots`}.
          *
          * Keep in mind that even though webviews are sandboxed, they still allow running scripts and loading arbitrary content,
          * so extensions must follow all standard web security best practices when working with webviews. This includes
@@ -6793,7 +7395,7 @@ declare module 'vscode' {
         /**
          * Fired when the webview content posts a message.
          *
-         * Webview content can post strings or json serilizable objects back to a VS Code extension. They cannot
+         * Webview content can post strings or json serializable objects back to a VS Code extension. They cannot
          * post `Blob`, `File`, `ImageData` and other DOM specific objects since the extension that receives the
          * message does not run in a browser environment.
          */
@@ -6805,7 +7407,17 @@ declare module 'vscode' {
          * Messages are only delivered if the webview is live (either visible or in the
          * background with `retainContextWhenHidden`).
          *
-         * @param message Body of the message. This must be a string or other json serilizable object.
+         * @param message Body of the message. This must be a string or other json serializable object.
+         *
+         *   For older versions of vscode, if an `ArrayBuffer` is included in `message`,
+         *   it will not be serialized properly and will not be received by the webview.
+         *   Similarly any TypedArrays, such as a `Uint8Array`, will be very inefficiently
+         *   serialized and will also not be recreated as a typed array inside the webview.
+         *
+         *   However if your extension targets vscode 1.57+ in the `engines` field of its
+         *   `package.json`, any `ArrayBuffer` values that appear in `message` will be more
+         *   efficiently transferred to the webview and will also be correctly recreated inside
+         *   of the webview.
          */
         postMessage(message: any): Thenable<boolean>;
 
@@ -6843,7 +7455,7 @@ declare module 'vscode' {
          *
          * Defaults to false.
          */
-        readonly enableFindWidget?: boolean;
+        readonly enableFindWidget?: boolean | undefined;
 
         /**
          * Controls if the webview panel's content (iframe) is kept around even when the panel
@@ -6861,7 +7473,7 @@ declare module 'vscode' {
          * `retainContextWhenHidden` has a high memory overhead and should only be used if
          * your panel's context cannot be quickly saved and restored.
          */
-        readonly retainContextWhenHidden?: boolean;
+        readonly retainContextWhenHidden?: boolean | undefined;
     }
 
     /**
@@ -6881,10 +7493,10 @@ declare module 'vscode' {
         /**
          * Icon for the panel shown in UI.
          */
-        iconPath?: Uri | { light: Uri; dark: Uri };
+        iconPath?: Uri | { light: Uri; dark: Uri } | undefined;
 
         /**
-         * [`Webview`](#Webview) belonging to the panel.
+         * {@link Webview `Webview`} belonging to the panel.
          */
         readonly webview: Webview;
 
@@ -6897,7 +7509,7 @@ declare module 'vscode' {
          * Editor position of the panel. This property is only set if the webview is in
          * one of the editor view columns.
          */
-        readonly viewColumn?: ViewColumn;
+        readonly viewColumn?: ViewColumn | undefined;
 
         /**
          * Whether the panel is active (focused by the user).
@@ -6985,8 +7597,10 @@ declare module 'vscode' {
      * VS Code will save off the state from `setState` of all webviews that have a serializer. When the
      * webview first becomes visible after the restart, this state is passed to `deserializeWebviewPanel`.
      * The extension can then restore the old `WebviewPanel` from this state.
+     *
+     * @param T Type of the webview's state.
      */
-    interface WebviewPanelSerializer {
+    interface WebviewPanelSerializer<T = unknown> {
         /**
          * Restore a webview panel from its serialized `state`.
          *
@@ -6998,13 +7612,136 @@ declare module 'vscode' {
          *
          * @return Thenable indicating that the webview has been fully restored.
          */
-        deserializeWebviewPanel(webviewPanel: WebviewPanel, state: any): Thenable<void>;
+        deserializeWebviewPanel(webviewPanel: WebviewPanel, state: T): Thenable<void>;
+    }
+
+    /**
+ * A webview based view.
+ */
+    export interface WebviewView {
+        /**
+         * Identifies the type of the webview view, such as `'hexEditor.dataView'`.
+         */
+        readonly viewType: string;
+
+        /**
+         * The underlying webview for the view.
+         */
+        readonly webview: Webview;
+
+        /**
+         * View title displayed in the UI.
+         *
+         * The view title is initially taken from the extension `package.json` contribution.
+         */
+        title?: string | undefined;
+
+        /**
+         * Human-readable string which is rendered less prominently in the title.
+         */
+        description?: string | undefined;
+
+        /**
+         * Event fired when the view is disposed.
+         *
+         * Views are disposed when they are explicitly hidden by a user (this happens when a user
+         * right clicks in a view and unchecks the webview view).
+         *
+         * Trying to use the view after it has been disposed throws an exception.
+         */
+        readonly onDidDispose: Event<void>;
+
+        /**
+         * Tracks if the webview is currently visible.
+         *
+         * Views are visible when they are on the screen and expanded.
+         */
+        readonly visible: boolean;
+
+        /**
+         * Event fired when the visibility of the view changes.
+         *
+         * Actions that trigger a visibility change:
+         *
+         * - The view is collapsed or expanded.
+         * - The user switches to a different view group in the sidebar or panel.
+         *
+         * Note that hiding a view using the context menu instead disposes of the view and fires `onDidDispose`.
+         */
+        readonly onDidChangeVisibility: Event<void>;
+
+        /**
+         * Reveal the view in the UI.
+         *
+         * If the view is collapsed, this will expand it.
+         *
+         * @param preserveFocus When `true` the view will not take focus.
+         */
+        show(preserveFocus?: boolean): void;
+    }
+
+    /**
+     * Additional information the webview view being resolved.
+     *
+     * @param T Type of the webview's state.
+     */
+    interface WebviewViewResolveContext<T = unknown> {
+        /**
+         * Persisted state from the webview content.
+         *
+         * To save resources, VS Code normally deallocates webview documents (the iframe content) that are not visible.
+         * For example, when the user collapse a view or switches to another top level activity in the sidebar, the
+         * `WebviewView` itself is kept alive but the webview's underlying document is deallocated. It is recreated when
+         * the view becomes visible again.
+         *
+         * You can prevent this behavior by setting `retainContextWhenHidden` in the `WebviewOptions`. However this
+         * increases resource usage and should be avoided wherever possible. Instead, you can use persisted state to
+         * save off a webview's state so that it can be quickly recreated as needed.
+         *
+         * To save off a persisted state, inside the webview call `acquireVsCodeApi().setState()` with
+         * any json serializable object. To restore the state again, call `getState()`. For example:
+         *
+         * ```js
+         * // Within the webview
+         * const vscode = acquireVsCodeApi();
+         *
+         * // Get existing state
+         * const oldState = vscode.getState() || { value: 0 };
+         *
+         * // Update state
+         * setState({ value: oldState.value + 1 })
+         * ```
+         *
+         * VS Code ensures that the persisted state is saved correctly when a webview is hidden and across
+         * editor restarts.
+         */
+        readonly state: T | undefined;
+    }
+
+    /**
+     * Provider for creating `WebviewView` elements.
+     */
+    export interface WebviewViewProvider {
+        /**
+         * Revolves a webview view.
+         *
+         * `resolveWebviewView` is called when a view first becomes visible. This may happen when the view is
+         * first loaded or when the user hides and then shows a view again.
+         *
+         * @param webviewView Webview view to restore. The provider should take ownership of this view. The
+         *    provider must set the webview's `.html` and hook up all webview events it is interested in.
+         * @param context Additional metadata about the view being resolved.
+         * @param token Cancellation token indicating that the view being provided is no longer needed.
+         *
+         * @return Optional thenable indicating that the view has been fully resolved.
+         */
+        resolveWebviewView(webviewView: WebviewView, context: WebviewViewResolveContext, token: CancellationToken): Thenable<void> | void;
     }
 
     /**
      * Provider for text based custom editors.
      *
-     * Text based custom editors use a [`TextDocument`](#TextDocument) as their data model. This considerably simplifies
+     * Text based custom editors use a {@link TextDocument `TextDocument`} as their data model. This considerably simplifies
      * implementing a custom editor as it allows VS Code to handle many common operations such as
      * undo and backup. The provider is responsible for synchronizing text changes between the webview and the `TextDocument`.
      */
@@ -7023,7 +7760,7 @@ declare module 'vscode' {
          *
          * During resolve, the provider must fill in the initial html for the content webview panel and hook up all
          * the event listeners on it that it is interested in. The provider can also hold onto the `WebviewPanel` to
-         * use later for example in a command. See [`WebviewPanel`](#WebviewPanel) for additional details.
+         * use later for example in a command. See {@link WebviewPanel `WebviewPanel`} for additional details.
          *
          * @param token A cancellation token that indicates the result is no longer needed.
          *
@@ -7033,7 +7770,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Represents a custom document used by a [`CustomEditorProvider`](#CustomEditorProvider).
+     * Represents a custom document used by a {@link CustomEditorProvider `CustomEditorProvider`}.
      *
      * Custom documents are only used within a given `CustomEditorProvider`. The lifecycle of a `CustomDocument` is
      * managed by VS Code. When no more references remain to a `CustomDocument`, it is disposed of.
@@ -7054,9 +7791,9 @@ declare module 'vscode' {
     }
 
     /**
-     * Event triggered by extensions to signal to VS Code that an edit has occurred on an [`CustomDocument`](#CustomDocument).
+     * Event triggered by extensions to signal to VS Code that an edit has occurred on an {@link CustomDocument `CustomDocument`}.
      *
-     * @see [`CustomDocumentProvider.onDidChangeCustomDocument`](#CustomDocumentProvider.onDidChangeCustomDocument).
+     * @see {@link CustomEditorProvider.onDidChangeCustomDocument `CustomEditorProvider.onDidChangeCustomDocument`}.
      */
     interface CustomDocumentEditEvent<T extends CustomDocument = CustomDocument> {
 
@@ -7088,14 +7825,14 @@ declare module 'vscode' {
          *
          * This will be shown to users in the UI for undo/redo operations.
          */
-        readonly label?: string;
+        readonly label?: string | undefined;
     }
 
     /**
-     * Event triggered by extensions to signal to VS Code that the content of a [`CustomDocument`](#CustomDocument)
+     * Event triggered by extensions to signal to VS Code that the content of a {@link CustomDocument `CustomDocument`}
      * has changed.
      *
-     * @see [`CustomDocumentProvider.onDidChangeCustomDocument`](#CustomDocumentProvider.onDidChangeCustomDocument).
+     * @see {@link CustomEditorProvider.onDidChangeCustomDocument `CustomEditorProvider.onDidChangeCustomDocument`}.
      */
     interface CustomDocumentContentChangeEvent<T extends CustomDocument = CustomDocument> {
         /**
@@ -7105,7 +7842,7 @@ declare module 'vscode' {
     }
 
     /**
-     * A backup for an [`CustomDocument`](#CustomDocument).
+     * A backup for an {@link CustomDocument `CustomDocument`}.
      */
     interface CustomDocumentBackup {
         /**
@@ -7125,7 +7862,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Additional information used to implement [`CustomEditableDocument.backup`](#CustomEditableDocument.backup).
+     * Additional information used to implement {@link CustomEditableDocument.backup `CustomEditableDocument.backup`}.
      */
     interface CustomDocumentBackupContext {
         /**
@@ -7150,16 +7887,23 @@ declare module 'vscode' {
          * If this is provided, your extension should restore the editor from the backup instead of reading the file
          * from the user's workspace.
          */
-        readonly backupId?: string;
+        readonly backupId?: string | undefined;
+
+        /**
+         * If the URI is an untitled file, this will be populated with the byte data of that file
+         *
+         * If this is provided, your extension should utilize this byte data rather than executing fs APIs on the URI passed in
+         */
+        readonly untitledDocumentData?: Uint8Array | undefined;
     }
 
     /**
      * Provider for readonly custom editors that use a custom document model.
      *
-     * Custom editors use [`CustomDocument`](#CustomDocument) as their document model instead of a [`TextDocument`](#TextDocument).
+     * Custom editors use {@link CustomDocument `CustomDocument`} as their document model instead of a {@link TextDocument `TextDocument`}.
      *
      * You should use this type of custom editor when dealing with binary files or more complex scenarios. For simple
-     * text based documents, use [`CustomTextEditorProvider`](#CustomTextEditorProvider) instead.
+     * text based documents, use {@link CustomTextEditorProvider `CustomTextEditorProvider`} instead.
      *
      * @param T Type of the custom document returned by this provider.
      */
@@ -7194,7 +7938,7 @@ declare module 'vscode' {
          *
          * During resolve, the provider must fill in the initial html for the content webview panel and hook up all
          * the event listeners on it that it is interested in. The provider can also hold onto the `WebviewPanel` to
-         * use later for example in a command. See [`WebviewPanel`](#WebviewPanel) for additional details.
+         * use later for example in a command. See {@link WebviewPanel `WebviewPanel`} for additional details.
          *
          * @param token A cancellation token that indicates the result is no longer needed.
          *
@@ -7206,11 +7950,11 @@ declare module 'vscode' {
     /**
      * Provider for editable custom editors that use a custom document model.
      *
-     * Custom editors use [`CustomDocument`](#CustomDocument) as their document model instead of a [`TextDocument`](#TextDocument).
+     * Custom editors use {@link CustomDocument `CustomDocument`} as their document model instead of a {@link TextDocument `TextDocument`}.
      * This gives extensions full control over actions such as edit, save, and backup.
      *
      * You should use this type of custom editor when dealing with binary files or more complex scenarios. For simple
-     * text based documents, use [`CustomTextEditorProvider`](#CustomTextEditorProvider) instead.
+     * text based documents, use {@link CustomTextEditorProvider `CustomTextEditorProvider`} instead.
      *
      * @param T Type of the custom document returned by this provider.
      */
@@ -7296,7 +8040,7 @@ declare module 'vscode' {
          * your extension should first check to see if any backups exist for the resource. If there is a backup, your
          * extension should load the file contents from there instead of from the resource in the workspace.
          *
-         * `backup` is triggered approximately one second after the the user stops editing the document. If the user
+         * `backup` is triggered approximately one second after the user stops editing the document. If the user
          * rapidly edits the document, `backup` will not be invoked until the editing stops.
          *
          * `backup` is not invoked when `auto save` is enabled (since auto save already persists the resource).
@@ -7357,6 +8101,9 @@ declare module 'vscode' {
 
         /**
          * The application root folder from which the editor is running.
+         *
+         * *Note* that the value is the empty string when running in an
+         * environment that has no representation of an application root folder.
          */
         export const appRoot: string;
 
@@ -7387,19 +8134,38 @@ declare module 'vscode' {
         export const sessionId: string;
 
         /**
+         * Indicates that this is a fresh install of the application.
+         * `true` if within the first day of installation otherwise `false`.
+         */
+        export const isNewAppInstall: boolean;
+
+        /**
+         * Indicates whether the users has telemetry enabled.
+         * Can be observed to determine if the extension should send telemetry.
+         */
+        export const isTelemetryEnabled: boolean;
+
+        /**
+         * An {@link Event} which fires when the user enabled or disables telemetry.
+         * `true` if the user has enabled telemetry or `false` if the user has disabled telemetry.
+         */
+        export const onDidChangeTelemetryEnabled: Event<boolean>;
+
+        /**
          * The name of a remote. Defined by extensions, popular samples are `wsl` for the Windows
          * Subsystem for Linux or `ssh-remote` for remotes using a secure shell.
          *
          * *Note* that the value is `undefined` when there is no remote extension host but that the
          * value is defined in all extension hosts (local and remote) in case a remote extension host
-         * exists. Use [`Extension#extensionKind`](#Extension.extensionKind) to know if
+         * exists. Use {@link Extension.extensionKind} to know if
          * a specific extension runs remote or not.
          */
         export const remoteName: string | undefined;
 
         /**
          * The detected default shell for the extension host, this is overridden by the
-         * `terminal.integrated.shell` setting for the extension host's platform.
+         * `terminal.integrated.shell` setting for the extension host's platform. Note that in
+         * environments that do not support a shell the value is the empty string.
          */
         export const shell: string;
 
@@ -7417,7 +8183,7 @@ declare module 'vscode' {
          * * a mail client (`mailto:`)
          * * VSCode itself (`vscode:` from `vscode.env.uriScheme`)
          *
-         * *Note* that [`showTextDocument`](#window.showTextDocument) is the right
+         * *Note* that {@link window.showTextDocument `showTextDocument`} is the right
          * way to open a text document inside the editor, not this function.
          *
          * @param target The uri that should be opened.
@@ -7444,7 +8210,7 @@ declare module 'vscode' {
          *
          * #### `vscode.env.uriScheme`
          *
-         * Creates a uri that - if opened in a browser (e.g. via `openExternal`) - will result in a registered [UriHandler](#UriHandler)
+         * Creates a uri that - if opened in a browser (e.g. via `openExternal`) - will result in a registered {@link UriHandler}
          * to trigger.
          *
          * Extensions should not make any assumptions about the resulting uri and should not alter it in anyway.
@@ -7452,7 +8218,7 @@ declare module 'vscode' {
          * argument to the server to authenticate to.
          *
          * *Note* that if the server decides to add additional query parameters to the uri (e.g. a token or secret), it
-         * will appear in the uri that is passed to the [UriHandler](#UriHandler).
+         * will appear in the uri that is passed to the {@link UriHandler}.
          *
          * **Example** of an authentication flow:
          * ```typescript
@@ -7481,9 +8247,9 @@ declare module 'vscode' {
      * Namespace for dealing with commands. In short, a command is a function with a
      * unique identifier. The function is sometimes also called _command handler_.
      *
-     * Commands can be added to the editor using the [registerCommand](#commands.registerCommand)
-     * and [registerTextEditorCommand](#commands.registerTextEditorCommand) functions. Commands
-     * can be executed [manually](#commands.executeCommand) or from a UI gesture. Those are:
+     * Commands can be added to the editor using the {@link commands.registerCommand registerCommand}
+     * and {@link commands.registerTextEditorCommand registerTextEditorCommand} functions. Commands
+     * can be executed {@link commands.executeCommand manually} or from a UI gesture. Those are:
      *
      * * palette - Use the `commands`-section in `package.json` to make a command show in
      * the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette).
@@ -7533,13 +8299,14 @@ declare module 'vscode' {
          * Registers a text editor command that can be invoked via a keyboard shortcut,
          * a menu item, an action, or directly.
          *
-         * Text editor commands are different from ordinary [commands](#commands.registerCommand) as
+         * Text editor commands are different from ordinary {@link commands.registerCommand commands} as
          * they only execute when there is an active editor when the command is called. Also, the
          * command handler of an editor command has access to the active editor and to an
-         * [edit](#TextEditorEdit)-builder.
+         * {@link TextEditorEdit edit}-builder. Note that the edit-builder is only valid while the
+         * callback executes.
          *
          * @param command A unique identifier for the command.
-         * @param callback A command handler function with access to an [editor](#TextEditor) and an [edit](#TextEditorEdit).
+         * @param callback A command handler function with access to an {@link TextEditor editor} and an {@link TextEditorEdit edit}.
          * @param thisArg The `this` context used when invoking the handler function.
          * @return Disposable which unregisters this command on disposal.
          */
@@ -7550,7 +8317,7 @@ declare module 'vscode' {
          *
          * * *Note 1:* When executing an editor command not all types are allowed to
          * be passed as arguments. Allowed are the primitive types `string`, `boolean`,
-         * `number`, `undefined`, and `null`, as well as [`Position`](#Position), [`Range`](#Range), [`Uri`](#Uri) and [`Location`](#Location).
+         * `number`, `undefined`, and `null`, as well as {@link Position `Position`}, {@link Range `Range`}, {@link Uri `Uri`} and {@link Location `Location`}.
          * * *Note 2:* There are no restrictions when executing commands that have been contributed
          * by extensions.
          *
@@ -7583,16 +8350,16 @@ declare module 'vscode' {
     }
 
     /**
-     * A uri handler is responsible for handling system-wide [uris](#Uri).
+     * A uri handler is responsible for handling system-wide {@link Uri uris}.
      *
-     * @see [window.registerUriHandler](#window.registerUriHandler).
+     * @see {@link window.registerUriHandler}.
      */
     export interface UriHandler {
 
         /**
-         * Handle the provided system-wide [uri](#Uri).
+         * Handle the provided system-wide {@link Uri}.
          *
-         * @see [window.registerUriHandler](#window.registerUriHandler).
+         * @see {@link window.registerUriHandler}.
          */
         handleUri(uri: Uri): ProviderResult<void>;
     }
@@ -7617,42 +8384,42 @@ declare module 'vscode' {
         export let visibleTextEditors: TextEditor[];
 
         /**
-         * An [event](#Event) which fires when the [active editor](#window.activeTextEditor)
+         * An {@link Event} which fires when the {@link window.activeTextEditor active editor}
          * has changed. *Note* that the event also fires when the active editor changes
          * to `undefined`.
          */
         export const onDidChangeActiveTextEditor: Event<TextEditor | undefined>;
 
         /**
-         * An [event](#Event) which fires when the array of [visible editors](#window.visibleTextEditors)
+         * An {@link Event} which fires when the array of {@link window.visibleTextEditors visible editors}
          * has changed.
          */
         export const onDidChangeVisibleTextEditors: Event<TextEditor[]>;
 
         /**
-         * An [event](#Event) which fires when the selection in an editor has changed.
+         * An {@link Event} which fires when the selection in an editor has changed.
          */
         export const onDidChangeTextEditorSelection: Event<TextEditorSelectionChangeEvent>;
 
         /**
-         * An [event](#Event) which fires when the visible ranges of an editor has changed.
+         * An {@link Event} which fires when the visible ranges of an editor has changed.
          */
         export const onDidChangeTextEditorVisibleRanges: Event<TextEditorVisibleRangesChangeEvent>;
 
         /**
-         * An [event](#Event) which fires when the options of an editor have changed.
+         * An {@link Event} which fires when the options of an editor have changed.
          */
         export const onDidChangeTextEditorOptions: Event<TextEditorOptionsChangeEvent>;
 
         /**
-         * An [event](#Event) which fires when the view column of an editor has changed.
+         * An {@link Event} which fires when the view column of an editor has changed.
          */
         export const onDidChangeTextEditorViewColumn: Event<TextEditorViewColumnChangeEvent>;
 
         /**
          * The currently opened terminals or an empty array.
          */
-        export const terminals: ReadonlyArray<Terminal>;
+        export const terminals: readonly Terminal[];
 
         /**
          * The currently active terminal or `undefined`. The active terminal is the one that
@@ -7661,20 +8428,20 @@ declare module 'vscode' {
         export const activeTerminal: Terminal | undefined;
 
         /**
-         * An [event](#Event) which fires when the [active terminal](#window.activeTerminal)
+         * An {@link Event} which fires when the {@link window.activeTerminal active terminal}
          * has changed. *Note* that the event also fires when the active terminal changes
          * to `undefined`.
          */
         export const onDidChangeActiveTerminal: Event<Terminal | undefined>;
 
         /**
-         * An [event](#Event) which fires when a terminal has been created, either through the
-         * [createTerminal](#window.createTerminal) API or commands.
+         * An {@link Event} which fires when a terminal has been created, either through the
+         * {@link window.createTerminal createTerminal} API or commands.
          */
         export const onDidOpenTerminal: Event<Terminal>;
 
         /**
-         * An [event](#Event) which fires when a terminal is disposed.
+         * An {@link Event} which fires when a terminal is disposed.
          */
         export const onDidCloseTerminal: Event<Terminal>;
 
@@ -7684,42 +8451,42 @@ declare module 'vscode' {
         export const state: WindowState;
 
         /**
-         * An [event](#Event) which fires when the focus state of the current window
+         * An {@link Event} which fires when the focus state of the current window
          * changes. The value of the event represents whether the window is focused.
          */
         export const onDidChangeWindowState: Event<WindowState>;
 
         /**
-         * Show the given document in a text editor. A [column](#ViewColumn) can be provided
-         * to control where the editor is being shown. Might change the [active editor](#window.activeTextEditor).
+         * Show the given document in a text editor. A {@link ViewColumn column} can be provided
+         * to control where the editor is being shown. Might change the {@link window.activeTextEditor active editor}.
          *
          * @param document A text document to be shown.
-         * @param column A view column in which the [editor](#TextEditor) should be shown. The default is the [active](#ViewColumn.Active), other values
-         * are adjusted to be `Min(column, columnCount + 1)`, the [active](#ViewColumn.Active)-column is not adjusted. Use [`ViewColumn.Beside`](#ViewColumn.Beside)
+         * @param column A view column in which the {@link TextEditor editor} should be shown. The default is the {@link ViewColumn.Active active}, other values
+         * are adjusted to be `Min(column, columnCount + 1)`, the {@link ViewColumn.Active active}-column is not adjusted. Use {@link ViewColumn.Beside `ViewColumn.Beside`}
          * to open the editor to the side of the currently active one.
          * @param preserveFocus When `true` the editor will not take focus.
-         * @return A promise that resolves to an [editor](#TextEditor).
+         * @return A promise that resolves to an {@link TextEditor editor}.
          */
         export function showTextDocument(document: TextDocument, column?: ViewColumn, preserveFocus?: boolean): Thenable<TextEditor>;
 
         /**
-         * Show the given document in a text editor. [Options](#TextDocumentShowOptions) can be provided
-         * to control options of the editor is being shown. Might change the [active editor](#window.activeTextEditor).
+         * Show the given document in a text editor. {@link TextDocumentShowOptions Options} can be provided
+         * to control options of the editor is being shown. Might change the {@link window.activeTextEditor active editor}.
          *
          * @param document A text document to be shown.
-         * @param options [Editor options](#TextDocumentShowOptions) to configure the behavior of showing the [editor](#TextEditor).
-         * @return A promise that resolves to an [editor](#TextEditor).
+         * @param options {@link TextDocumentShowOptions Editor options} to configure the behavior of showing the {@link TextEditor editor}.
+         * @return A promise that resolves to an {@link TextEditor editor}.
          */
         export function showTextDocument(document: TextDocument, options?: TextDocumentShowOptions): Thenable<TextEditor>;
 
         /**
          * A short-hand for `openTextDocument(uri).then(document => showTextDocument(document, options))`.
          *
-         * @see [openTextDocument](#openTextDocument)
+         * @see {@link openTextDocument}
          *
          * @param uri A resource identifier.
-         * @param options [Editor options](#TextDocumentShowOptions) to configure the behavior of showing the [editor](#TextEditor).
-         * @return A promise that resolves to an [editor](#TextEditor).
+         * @param options {@link TextDocumentShowOptions Editor options} to configure the behavior of showing the {@link TextEditor editor}.
+         * @return A promise that resolves to an {@link TextEditor editor}.
          */
         export function showTextDocument(uri: Uri, options?: TextDocumentShowOptions): Thenable<TextEditor>;
 
@@ -7755,7 +8522,7 @@ declare module 'vscode' {
         /**
          * Show an information message.
          *
-         * @see [showInformationMessage](#window.showInformationMessage)
+         * @see {@link window.showInformationMessage showInformationMessage}
          *
          * @param message The message to show.
          * @param items A set of items that will be rendered as actions in the message.
@@ -7766,7 +8533,7 @@ declare module 'vscode' {
         /**
          * Show an information message.
          *
-         * @see [showInformationMessage](#window.showInformationMessage)
+         * @see {@link window.showInformationMessage showInformationMessage}
          *
          * @param message The message to show.
          * @param options Configures the behaviour of the message.
@@ -7778,7 +8545,7 @@ declare module 'vscode' {
         /**
          * Show a warning message.
          *
-         * @see [showInformationMessage](#window.showInformationMessage)
+         * @see {@link window.showInformationMessage showInformationMessage}
          *
          * @param message The message to show.
          * @param items A set of items that will be rendered as actions in the message.
@@ -7789,7 +8556,7 @@ declare module 'vscode' {
         /**
          * Show a warning message.
          *
-         * @see [showInformationMessage](#window.showInformationMessage)
+         * @see {@link window.showInformationMessage showInformationMessage}
          *
          * @param message The message to show.
          * @param options Configures the behaviour of the message.
@@ -7801,7 +8568,7 @@ declare module 'vscode' {
         /**
          * Show a warning message.
          *
-         * @see [showInformationMessage](#window.showInformationMessage)
+         * @see {@link window.showInformationMessage showInformationMessage}
          *
          * @param message The message to show.
          * @param items A set of items that will be rendered as actions in the message.
@@ -7812,7 +8579,7 @@ declare module 'vscode' {
         /**
          * Show a warning message.
          *
-         * @see [showInformationMessage](#window.showInformationMessage)
+         * @see {@link window.showInformationMessage showInformationMessage}
          *
          * @param message The message to show.
          * @param options Configures the behaviour of the message.
@@ -7824,7 +8591,7 @@ declare module 'vscode' {
         /**
          * Show an error message.
          *
-         * @see [showInformationMessage](#window.showInformationMessage)
+         * @see {@link window.showInformationMessage showInformationMessage}
          *
          * @param message The message to show.
          * @param items A set of items that will be rendered as actions in the message.
@@ -7835,7 +8602,7 @@ declare module 'vscode' {
         /**
          * Show an error message.
          *
-         * @see [showInformationMessage](#window.showInformationMessage)
+         * @see {@link window.showInformationMessage showInformationMessage}
          *
          * @param message The message to show.
          * @param options Configures the behaviour of the message.
@@ -7847,7 +8614,7 @@ declare module 'vscode' {
         /**
          * Show an error message.
          *
-         * @see [showInformationMessage](#window.showInformationMessage)
+         * @see {@link window.showInformationMessage showInformationMessage}
          *
          * @param message The message to show.
          * @param items A set of items that will be rendered as actions in the message.
@@ -7858,7 +8625,7 @@ declare module 'vscode' {
         /**
          * Show an error message.
          *
-         * @see [showInformationMessage](#window.showInformationMessage)
+         * @see {@link window.showInformationMessage showInformationMessage}
          *
          * @param message The message to show.
          * @param options Configures the behaviour of the message.
@@ -7875,7 +8642,7 @@ declare module 'vscode' {
          * @param token A token that can be used to signal cancellation.
          * @return A promise that resolves to the selected items or `undefined`.
          */
-        export function showQuickPick(items: string[] | Thenable<string[]>, options: QuickPickOptions & { canPickMany: true; }, token?: CancellationToken): Thenable<string[] | undefined>;
+        export function showQuickPick(items: readonly string[] | Thenable<readonly string[]>, options: QuickPickOptions & { canPickMany: true; }, token?: CancellationToken): Thenable<string[] | undefined>;
 
         /**
          * Shows a selection list.
@@ -7885,7 +8652,7 @@ declare module 'vscode' {
          * @param token A token that can be used to signal cancellation.
          * @return A promise that resolves to the selection or `undefined`.
          */
-        export function showQuickPick(items: string[] | Thenable<string[]>, options?: QuickPickOptions, token?: CancellationToken): Thenable<string | undefined>;
+        export function showQuickPick(items: readonly string[] | Thenable<readonly string[]>, options?: QuickPickOptions, token?: CancellationToken): Thenable<string | undefined>;
 
         /**
          * Shows a selection list allowing multiple selections.
@@ -7895,7 +8662,7 @@ declare module 'vscode' {
          * @param token A token that can be used to signal cancellation.
          * @return A promise that resolves to the selected items or `undefined`.
          */
-        export function showQuickPick<T extends QuickPickItem>(items: T[] | Thenable<T[]>, options: QuickPickOptions & { canPickMany: true; }, token?: CancellationToken): Thenable<T[] | undefined>;
+        export function showQuickPick<T extends QuickPickItem>(items: readonly T[] | Thenable<readonly T[]>, options: QuickPickOptions & { canPickMany: true; }, token?: CancellationToken): Thenable<T[] | undefined>;
 
         /**
          * Shows a selection list.
@@ -7905,10 +8672,10 @@ declare module 'vscode' {
          * @param token A token that can be used to signal cancellation.
          * @return A promise that resolves to the selected item or `undefined`.
          */
-        export function showQuickPick<T extends QuickPickItem>(items: T[] | Thenable<T[]>, options?: QuickPickOptions, token?: CancellationToken): Thenable<T | undefined>;
+        export function showQuickPick<T extends QuickPickItem>(items: readonly T[] | Thenable<readonly T[]>, options?: QuickPickOptions, token?: CancellationToken): Thenable<T | undefined>;
 
         /**
-         * Shows a selection list of [workspace folders](#workspace.workspaceFolders) to pick from.
+         * Shows a selection list of {@link workspace.workspaceFolders workspace folders} to pick from.
          * Returns `undefined` if no folder is open.
          *
          * @param options Configures the behavior of the workspace folder list.
@@ -7923,7 +8690,7 @@ declare module 'vscode' {
          * @param options Options that control the dialog.
          * @returns A promise that resolves to the selected resources or `undefined`.
          */
-        export function showOpenDialog(options: OpenDialogOptions): Thenable<Uri[] | undefined>;
+        export function showOpenDialog(options?: OpenDialogOptions): Thenable<Uri[] | undefined>;
 
         /**
          * Shows a file save dialog to the user which allows to select a file
@@ -7932,7 +8699,7 @@ declare module 'vscode' {
          * @param options Options that control the dialog.
          * @returns A promise that resolves to the selected resource or `undefined`.
          */
-        export function showSaveDialog(options: SaveDialogOptions): Thenable<Uri | undefined>;
+        export function showSaveDialog(options?: SaveDialogOptions): Thenable<Uri | undefined>;
 
         /**
          * Opens an input box to ask the user for input.
@@ -7948,30 +8715,30 @@ declare module 'vscode' {
         export function showInputBox(options?: InputBoxOptions, token?: CancellationToken): Thenable<string | undefined>;
 
         /**
-         * Creates a [QuickPick](#QuickPick) to let the user pick an item from a list
+         * Creates a {@link QuickPick} to let the user pick an item from a list
          * of items of type T.
          *
-         * Note that in many cases the more convenient [window.showQuickPick](#window.showQuickPick)
-         * is easier to use. [window.createQuickPick](#window.createQuickPick) should be used
-         * when [window.showQuickPick](#window.showQuickPick) does not offer the required flexibility.
+         * Note that in many cases the more convenient {@link window.showQuickPick}
+         * is easier to use. {@link window.createQuickPick} should be used
+         * when {@link window.showQuickPick} does not offer the required flexibility.
          *
-         * @return A new [QuickPick](#QuickPick).
+         * @return A new {@link QuickPick}.
          */
         export function createQuickPick<T extends QuickPickItem>(): QuickPick<T>;
 
         /**
-         * Creates a [InputBox](#InputBox) to let the user enter some text input.
+         * Creates a {@link InputBox} to let the user enter some text input.
          *
-         * Note that in many cases the more convenient [window.showInputBox](#window.showInputBox)
-         * is easier to use. [window.createInputBox](#window.createInputBox) should be used
-         * when [window.showInputBox](#window.showInputBox) does not offer the required flexibility.
+         * Note that in many cases the more convenient {@link window.showInputBox}
+         * is easier to use. {@link window.createInputBox} should be used
+         * when {@link window.showInputBox} does not offer the required flexibility.
          *
-         * @return A new [InputBox](#InputBox).
+         * @return A new {@link InputBox}.
          */
         export function createInputBox(): InputBox;
 
         /**
-         * Creates a new [output channel](#OutputChannel) with the given name.
+         * Creates a new {@link OutputChannel output channel} with the given name.
          *
          * @param name Human-readable string which will be used to represent the channel in the UI.
          */
@@ -7987,13 +8754,13 @@ declare module 'vscode' {
          *
          * @return New webview panel.
          */
-        export function createWebviewPanel(viewType: string, title: string, showOptions: ViewColumn | { viewColumn: ViewColumn, preserveFocus?: boolean }, options?: WebviewPanelOptions & WebviewOptions): WebviewPanel;
+        export function createWebviewPanel(viewType: string, title: string, showOptions: ViewColumn | { viewColumn: ViewColumn, preserveFocus?: boolean | undefined }, options?: WebviewPanelOptions & WebviewOptions): WebviewPanel;
 
         /**
          * Set a message to the status bar. This is a short hand for the more powerful
-         * status bar [items](#window.createStatusBarItem).
+         * status bar {@link window.createStatusBarItem items}.
          *
-         * @param text The message to show, supports icon substitution as in status bar [items](#StatusBarItem.text).
+         * @param text The message to show, supports icon substitution as in status bar {@link StatusBarItem.text items}.
          * @param hideAfterTimeout Timeout in milliseconds after which the message will be disposed.
          * @return A disposable which hides the status bar message.
          */
@@ -8001,9 +8768,9 @@ declare module 'vscode' {
 
         /**
          * Set a message to the status bar. This is a short hand for the more powerful
-         * status bar [items](#window.createStatusBarItem).
+         * status bar {@link window.createStatusBarItem items}.
          *
-         * @param text The message to show, supports icon substitution as in status bar [items](#StatusBarItem.text).
+         * @param text The message to show, supports icon substitution as in status bar {@link StatusBarItem.text items}.
          * @param hideWhenDone Thenable on which completion (resolve or reject) the message will be disposed.
          * @return A disposable which hides the status bar message.
          */
@@ -8011,24 +8778,24 @@ declare module 'vscode' {
 
         /**
          * Set a message to the status bar. This is a short hand for the more powerful
-         * status bar [items](#window.createStatusBarItem).
+         * status bar {@link window.createStatusBarItem items}.
          *
          * *Note* that status bar messages stack and that they must be disposed when no
          * longer used.
          *
-         * @param text The message to show, supports icon substitution as in status bar [items](#StatusBarItem.text).
+         * @param text The message to show, supports icon substitution as in status bar {@link StatusBarItem.text items}.
          * @return A disposable which hides the status bar message.
          */
         export function setStatusBarMessage(text: string): Disposable;
 
         /**
-         * ~~Show progress in the Source Control viewlet while running the given callback and while
-         * its returned promise isn't resolve or rejected.~~
+         * Show progress in the Source Control viewlet while running the given callback and while
+         * its returned promise isn't resolve or rejected.
          *
          * @deprecated Use `withProgress` instead.
          *
          * @param task A callback returning a promise. Progress increments can be reported with
-         * the provided [progress](#Progress)-object.
+         * the provided {@link Progress}-object.
          * @return The thenable the task did return.
          */
         export function withScmProgress<R>(task: (progress: Progress<number>) => Thenable<R>): Thenable<R>;
@@ -8036,26 +8803,26 @@ declare module 'vscode' {
         /**
          * Show progress in the editor. Progress is shown while running the given callback
          * and while the promise it returned isn't resolved nor rejected. The location at which
-         * progress should show (and other details) is defined via the passed [`ProgressOptions`](#ProgressOptions).
+         * progress should show (and other details) is defined via the passed {@link ProgressOptions `ProgressOptions`}.
          *
          * @param task A callback returning a promise. Progress state can be reported with
-         * the provided [progress](#Progress)-object.
+         * the provided {@link Progress}-object.
          *
          * To report discrete progress, use `increment` to indicate how much work has been completed. Each call with
          * a `increment` value will be summed up and reflected as overall progress until 100% is reached (a value of
          * e.g. `10` accounts for `10%` of work done).
          * Note that currently only `ProgressLocation.Notification` is capable of showing discrete progress.
          *
-         * To monitor if the operation has been cancelled by the user, use the provided [`CancellationToken`](#CancellationToken).
+         * To monitor if the operation has been cancelled by the user, use the provided {@link CancellationToken `CancellationToken`}.
          * Note that currently only `ProgressLocation.Notification` is supporting to show a cancel button to cancel the
          * long running operation.
          *
          * @return The thenable the task-callback returned.
          */
-        export function withProgress<R>(options: ProgressOptions, task: (progress: Progress<{ message?: string; increment?: number }>, token: CancellationToken) => Thenable<R>): Thenable<R>;
+        export function withProgress<R>(options: ProgressOptions, task: (progress: Progress<{ message?: string | undefined; increment?: number | undefined }>, token: CancellationToken) => Thenable<R>): Thenable<R>;
 
         /**
-         * Creates a status bar [item](#StatusBarItem).
+         * Creates a status bar {@link StatusBarItem item}.
          *
          * @param alignment The alignment of the item.
          * @param priority The priority of the item. Higher values mean the item should be shown more to the left.
@@ -8064,7 +8831,17 @@ declare module 'vscode' {
         export function createStatusBarItem(alignment?: StatusBarAlignment, priority?: number): StatusBarItem;
 
         /**
-         * Creates a [Terminal](#Terminal) with a backing shell process. The cwd of the terminal will be the workspace
+         * Creates a status bar {@link StatusBarItem item}.
+         *
+         * @param id The unique identifier of the item.
+         * @param alignment The alignment of the item.
+         * @param priority The priority of the item. Higher values mean the item should be shown more to the left.
+         * @return A new status bar item.
+         */
+        export function createStatusBarItem(id: string, alignment?: StatusBarAlignment, priority?: number): StatusBarItem;
+
+        /**
+         * Creates a {@link Terminal} with a backing shell process. The cwd of the terminal will be the workspace
          * directory if it exists.
          *
          * @param name Optional human-readable string which will be used to represent the terminal in the UI.
@@ -8073,47 +8850,49 @@ declare module 'vscode' {
          * allows specifying shell args in
          * [command-line format](https://msdn.microsoft.com/en-au/08dfcab2-eb6e-49a4-80eb-87d4076c98c6).
          * @return A new Terminal.
+         * @throws When running in an environment where a new process cannot be started.
          */
         export function createTerminal(name?: string, shellPath?: string, shellArgs?: string[] | string): Terminal;
 
         /**
-         * Creates a [Terminal](#Terminal) with a backing shell process.
+         * Creates a {@link Terminal} with a backing shell process.
          *
          * @param options A TerminalOptions object describing the characteristics of the new terminal.
          * @return A new Terminal.
+         * @throws When running in an environment where a new process cannot be started.
          */
         export function createTerminal(options: TerminalOptions): Terminal;
 
         /**
-         * Creates a [Terminal](#Terminal) where an extension controls its input and output.
+         * Creates a {@link Terminal} where an extension controls its input and output.
          *
-         * @param options An [ExtensionTerminalOptions](#ExtensionTerminalOptions) object describing
+         * @param options An {@link ExtensionTerminalOptions} object describing
          * the characteristics of the new terminal.
          * @return A new Terminal.
          */
         export function createTerminal(options: ExtensionTerminalOptions): Terminal;
 
         /**
-         * Register a [TreeDataProvider](#TreeDataProvider) for the view contributed using the extension point `views`.
-         * This will allow you to contribute data to the [TreeView](#TreeView) and update if the data changes.
+         * Register a {@link TreeDataProvider} for the view contributed using the extension point `views`.
+         * This will allow you to contribute data to the {@link TreeView} and update if the data changes.
          *
-         * **Note:** To get access to the [TreeView](#TreeView) and perform operations on it, use [createTreeView](#window.createTreeView).
+         * **Note:** To get access to the {@link TreeView} and perform operations on it, use {@link window.createTreeView createTreeView}.
          *
          * @param viewId Id of the view contributed using the extension point `views`.
-         * @param treeDataProvider A [TreeDataProvider](#TreeDataProvider) that provides tree data for the view
+         * @param treeDataProvider A {@link TreeDataProvider} that provides tree data for the view
          */
         export function registerTreeDataProvider<T>(viewId: string, treeDataProvider: TreeDataProvider<T>): Disposable;
 
         /**
-         * Create a [TreeView](#TreeView) for the view contributed using the extension point `views`.
+         * Create a {@link TreeView} for the view contributed using the extension point `views`.
          * @param viewId Id of the view contributed using the extension point `views`.
-         * @param options Options for creating the [TreeView](#TreeView)
-         * @returns a [TreeView](#TreeView).
+         * @param options Options for creating the {@link TreeView}
+         * @returns a {@link TreeView}.
          */
         export function createTreeView<T>(viewId: string, options: TreeViewOptions<T>): TreeView<T>;
 
         /**
-         * Registers a [uri handler](#UriHandler) capable of handling system-wide [uris](#Uri).
+         * Registers a {@link UriHandler uri handler} capable of handling system-wide {@link Uri uris}.
          * In case there are multiple windows open, the topmost window will handle the uri.
          * A uri handler is scoped to the extension it is contributed from; it will only
          * be able to handle uris which are directed to the extension itself. A uri must respect
@@ -8139,7 +8918,7 @@ declare module 'vscode' {
          * Registers a webview panel serializer.
          *
          * Extensions that support reviving should have an `"onWebviewPanel:viewType"` activation event and
-         * make sure that [registerWebviewPanelSerializer](#registerWebviewPanelSerializer) is called during activation.
+         * make sure that {@link registerWebviewPanelSerializer} is called during activation.
          *
          * Only a single serializer may be registered at a time for a given `viewType`.
          *
@@ -8149,11 +8928,45 @@ declare module 'vscode' {
         export function registerWebviewPanelSerializer(viewType: string, serializer: WebviewPanelSerializer): Disposable;
 
         /**
+         * Register a new provider for webview views.
+         *
+         * @param viewId Unique id of the view. This should match the `id` from the
+         *   `views` contribution in the package.json.
+         * @param provider Provider for the webview views.
+         *
+         * @return Disposable that unregisters the provider.
+         */
+        export function registerWebviewViewProvider(viewId: string, provider: WebviewViewProvider, options?: {
+            /**
+             * Content settings for the webview created for this view.
+             */
+            readonly webviewOptions?: {
+                /**
+                 * Controls if the webview element itself (iframe) is kept around even when the view
+                 * is no longer visible.
+                 *
+                 * Normally the webview's html context is created when the view becomes visible
+                 * and destroyed when it is hidden. Extensions that have complex state
+                 * or UI can set the `retainContextWhenHidden` to make the editor keep the webview
+                 * context around, even when the webview moves to a background tab. When a webview using
+                 * `retainContextWhenHidden` becomes hidden, its scripts and other dynamic content are suspended.
+                 * When the view becomes visible again, the context is automatically restored
+                 * in the exact same state it was in originally. You cannot send messages to a
+                 * hidden webview, even with `retainContextWhenHidden` enabled.
+                 *
+                 * `retainContextWhenHidden` has a high memory overhead and should only be used if
+                 * your view's context cannot be quickly saved and restored.
+                 */
+                readonly retainContextWhenHidden?: boolean | undefined;
+            } | undefined;
+        }): Disposable;
+
+        /**
          * Register a provider for custom editors for the `viewType` contributed by the `customEditors` extension point.
          *
-         * When a custom editor is opened, VS Code fires an `onCustomEditor:viewType` activation event. Your extension
-         * must register a [`CustomTextEditorProvider`](#CustomTextEditorProvider), [`CustomReadonlyEditorProvider`](#CustomReadonlyEditorProvider),
-         * [`CustomEditorProvider`](#CustomEditorProvider)for `viewType` as part of activation.
+         * When a custom editor is opened, an `onCustomEditor:viewType` activation event is fired. Your extension
+         * must register a {@link CustomTextEditorProvider `CustomTextEditorProvider`}, {@link CustomReadonlyEditorProvider `CustomReadonlyEditorProvider`},
+         * {@link CustomEditorProvider `CustomEditorProvider`}for `viewType` as part of activation.
          *
          * @param viewType Unique identifier for the custom editor provider. This should match the `viewType` from the
          *   `customEditors` contribution point.
@@ -8166,7 +8979,7 @@ declare module 'vscode' {
             /**
              * Content settings for the webview panels created for this custom editor.
              */
-            readonly webviewOptions?: WebviewPanelOptions;
+            readonly webviewOptions?: WebviewPanelOptions | undefined;
 
             /**
              * Only applies to `CustomReadonlyEditorProvider | CustomEditorProvider`.
@@ -8174,7 +8987,7 @@ declare module 'vscode' {
              * Indicates that the provider allows multiple editor instances to be open at the same time for
              * the same resource.
              *
-             * By default, VS Code only allows one editor instance to be open at a time for each resource. If the
+             * By default, the editor only allows one editor instance to be open at a time for each resource. If the
              * user tries to open a second editor instance for the resource, the first one is instead moved to where
              * the second one was to be opened.
              *
@@ -8182,8 +8995,23 @@ declare module 'vscode' {
              * editor. In this case, the custom editor must make sure it can properly synchronize the states of all
              * editor instances for a resource so that they are consistent.
              */
-            readonly supportsMultipleEditorsPerDocument?: boolean;
+            readonly supportsMultipleEditorsPerDocument?: boolean | undefined;
         }): Disposable;
+
+        /**
+         * Register provider that enables the detection and handling of links within the terminal.
+         * @param provider The provider that provides the terminal links.
+         * @return Disposable that unregisters the provider.
+         */
+        export function registerTerminalLinkProvider(provider: TerminalLinkProvider): Disposable;
+
+        /**
+         * Register a file decoration provider.
+         *
+         * @param provider A {@link FileDecorationProvider}.
+         * @return A {@link Disposable} that unregisters the provider.
+         */
+        export function registerFileDecorationProvider(provider: FileDecorationProvider): Disposable;
 
         /**
          * The currently active color theme as configured in the settings. The active
@@ -8192,13 +9020,13 @@ declare module 'vscode' {
         export let activeColorTheme: ColorTheme;
 
         /**
-         * An [event](#Event) which fires when the active color theme is changed or has changes.
+         * An {@link Event} which fires when the active color theme is changed or has changes.
          */
         export const onDidChangeActiveColorTheme: Event<ColorTheme>;
     }
 
     /**
-     * Options for creating a [TreeView](#TreeView)
+     * Options for creating a {@link TreeView}
      */
     export interface TreeViewOptions<T> {
 
@@ -8210,18 +9038,18 @@ declare module 'vscode' {
         /**
          * Whether to show collapse all action or not.
          */
-        showCollapseAll?: boolean;
+        showCollapseAll?: boolean | undefined;
 
         /**
          * Whether the tree supports multi-select. When the tree supports multi-select and a command is executed from the tree,
          * the first argument to the command is the tree item that the command was executed on and the second argument is an
          * array containing all selected tree items.
          */
-        canSelectMany?: boolean;
+        canSelectMany?: boolean | undefined;
     }
 
     /**
-     * The event that is fired when an element in the [TreeView](#TreeView) is expanded or collapsed
+     * The event that is fired when an element in the {@link TreeView} is expanded or collapsed
      */
     export interface TreeViewExpansionEvent<T> {
 
@@ -8233,7 +9061,7 @@ declare module 'vscode' {
     }
 
     /**
-     * The event that is fired when there is a change in [tree view's selection](#TreeView.selection)
+     * The event that is fired when there is a change in {@link TreeView.selection tree view's selection}
      */
     export interface TreeViewSelectionChangeEvent<T> {
 
@@ -8245,12 +9073,12 @@ declare module 'vscode' {
     }
 
     /**
-     * The event that is fired when there is a change in [tree view's visibility](#TreeView.visible)
+     * The event that is fired when there is a change in {@link TreeView.visible tree view's visibility}
      */
     export interface TreeViewVisibilityChangeEvent {
 
         /**
-         * `true` if the [tree view](#TreeView) is visible otherwise `false`.
+         * `true` if the {@link TreeView tree view} is visible otherwise `false`.
          */
         readonly visible: boolean;
 
@@ -8277,17 +9105,17 @@ declare module 'vscode' {
         readonly selection: T[];
 
         /**
-         * Event that is fired when the [selection](#TreeView.selection) has changed
+         * Event that is fired when the {@link TreeView.selection selection} has changed
          */
         readonly onDidChangeSelection: Event<TreeViewSelectionChangeEvent<T>>;
 
         /**
-         * `true` if the [tree view](#TreeView) is visible otherwise `false`.
+         * `true` if the {@link TreeView tree view} is visible otherwise `false`.
          */
         readonly visible: boolean;
 
         /**
-         * Event that is fired when [visibility](#TreeView.visible) has changed
+         * Event that is fired when {@link TreeView.visible visibility} has changed
          */
         readonly onDidChangeVisibility: Event<TreeViewVisibilityChangeEvent>;
 
@@ -8295,13 +9123,19 @@ declare module 'vscode' {
          * An optional human-readable message that will be rendered in the view.
          * Setting the message to null, undefined, or empty string will remove the message from the view.
          */
-        message?: string;
+        message?: string | undefined;
 
         /**
          * The tree view title is initially taken from the extension package.json
          * Changes to the title property will be properly reflected in the UI in the title of the view.
          */
-        title?: string;
+        title?: string | undefined;
+
+        /**
+         * An optional human-readable description which is rendered less prominently in the title of the view.
+         * Setting the title description to null, undefined, or empty string will remove the description from the view.
+         */
+        description?: string | undefined;
 
         /**
          * Reveals the given element in the tree view.
@@ -8313,9 +9147,9 @@ declare module 'vscode' {
          * In order to expand the revealed element, set the option `expand` to `true`. To expand recursively set `expand` to the number of levels to expand.
          * **NOTE:** You can expand only to 3 levels maximum.
          *
-         * **NOTE:** The [TreeDataProvider](#TreeDataProvider) that the `TreeView` [is registered with](#window.createTreeView) with must implement [getParent](#TreeDataProvider.getParent) method to access this API.
+         * **NOTE:** The {@link TreeDataProvider} that the `TreeView` {@link window.createTreeView is registered with} with must implement {@link TreeDataProvider.getParent getParent} method to access this API.
          */
-        reveal(element: T, options?: { select?: boolean, focus?: boolean, expand?: boolean | number }): Thenable<void>;
+        reveal(element: T, options?: { select?: boolean | undefined, focus?: boolean | undefined, expand?: boolean | number | undefined }): Thenable<void>;
     }
 
     /**
@@ -8327,13 +9161,13 @@ declare module 'vscode' {
          * This will trigger the view to update the changed element/root and its children recursively (if shown).
          * To signal that root has changed, do not pass any argument or pass `undefined` or `null`.
          */
-        onDidChangeTreeData?: Event<T | undefined | null | void>;
+        onDidChangeTreeData?: Event<T | undefined | null | void> | undefined;
 
         /**
-         * Get [TreeItem](#TreeItem) representation of the `element`
+         * Get {@link TreeItem} representation of the `element`
          *
-         * @param element The element for which [TreeItem](#TreeItem) representation is asked for.
-         * @return [TreeItem](#TreeItem) representation of the element
+         * @param element The element for which {@link TreeItem} representation is asked for.
+         * @return the {@link TreeItem} representation of the element
          */
         getTreeItem(element: T): TreeItem | Thenable<TreeItem>;
 
@@ -8349,62 +9183,89 @@ declare module 'vscode' {
          * Optional method to return the parent of `element`.
          * Return `null` or `undefined` if `element` is a child of root.
          *
-         * **NOTE:** This method should be implemented in order to access [reveal](#TreeView.reveal) API.
+         * **NOTE:** This method should be implemented in order to access {@link TreeView.reveal reveal} API.
          *
          * @param element The element for which the parent has to be returned.
          * @return Parent of `element`.
          */
         getParent?(element: T): ProviderResult<T>;
+
+        /**
+         * Called on hover to resolve the {@link TreeItem.tooltip TreeItem} property if it is undefined.
+         * Called on tree item click/open to resolve the {@link TreeItem.command TreeItem} property if it is undefined.
+         * Only properties that were undefined can be resolved in `resolveTreeItem`.
+         * Functionality may be expanded later to include being called to resolve other missing
+         * properties on selection and/or on open.
+         *
+         * Will only ever be called once per TreeItem.
+         *
+         * onDidChangeTreeData should not be triggered from within resolveTreeItem.
+         *
+         * *Note* that this function is called when tree items are already showing in the UI.
+         * Because of that, no property that changes the presentation (label, description, etc.)
+         * can be changed.
+         *
+         * @param item Undefined properties of `item` should be set then `item` should be returned.
+         * @param element The object associated with the TreeItem.
+         * @param token A cancellation token.
+         * @return The resolved tree item or a thenable that resolves to such. It is OK to return the given
+         * `item`. When no result is returned, the given `item` will be used.
+         */
+        resolveTreeItem?(item: TreeItem, element: T, token: CancellationToken): ProviderResult<TreeItem>;
     }
 
     export class TreeItem {
         /**
-         * A human-readable string describing this item. When `falsy`, it is derived from [resourceUri](#TreeItem.resourceUri).
+         * A human-readable string describing this item. When `falsy`, it is derived from {@link TreeItem.resourceUri resourceUri}.
          */
-        label?: string;
+        label?: string | TreeItemLabel | undefined;
 
         /**
          * Optional id for the tree item that has to be unique across tree. The id is used to preserve the selection and expansion state of the tree item.
          *
          * If not provided, an id is generated using the tree item's label. **Note** that when labels change, ids will change and that selection and expansion state cannot be kept stable anymore.
          */
-        id?: string;
+        id?: string | undefined;
 
         /**
-         * The icon path or [ThemeIcon](#ThemeIcon) for the tree item.
-         * When `falsy`, [Folder Theme Icon](#ThemeIcon.Folder) is assigned, if item is collapsible otherwise [File Theme Icon](#ThemeIcon.File).
-         * When a file or folder [ThemeIcon](#ThemeIcon) is specified, icon is derived from the current file icon theme for the specified theme icon using [resourceUri](#TreeItem.resourceUri) (if provided).
+         * The icon path or {@link ThemeIcon} for the tree item.
+         * When `falsy`, {@link ThemeIcon.Folder Folder Theme Icon} is assigned, if item is collapsible otherwise {@link ThemeIcon.File File Theme Icon}.
+         * When a file or folder {@link ThemeIcon} is specified, icon is derived from the current file icon theme for the specified theme icon using {@link TreeItem.resourceUri resourceUri} (if provided).
          */
-        iconPath?: string | Uri | { light: string | Uri; dark: string | Uri } | ThemeIcon;
+        iconPath?: string | Uri | { light: string | Uri; dark: string | Uri } | ThemeIcon | undefined;
 
         /**
          * A human-readable string which is rendered less prominent.
-         * When `true`, it is derived from [resourceUri](#TreeItem.resourceUri) and when `falsy`, it is not shown.
+         * When `true`, it is derived from {@link TreeItem.resourceUri resourceUri} and when `falsy`, it is not shown.
          */
-        description?: string | boolean;
+        description?: string | boolean | undefined;
 
         /**
-         * The [uri](#Uri) of the resource representing this item.
+         * The {@link Uri} of the resource representing this item.
          *
-         * Will be used to derive the [label](#TreeItem.label), when it is not provided.
-         * Will be used to derive the icon from current file icon theme, when [iconPath](#TreeItem.iconPath) has [ThemeIcon](#ThemeIcon) value.
+         * Will be used to derive the {@link TreeItem.label label}, when it is not provided.
+         * Will be used to derive the icon from current file icon theme, when {@link TreeItem.iconPath iconPath} has {@link ThemeIcon} value.
          */
-        resourceUri?: Uri;
+        resourceUri?: Uri | undefined;
 
         /**
          * The tooltip text when you hover over this item.
          */
-        tooltip?: string | undefined;
+        tooltip?: string | MarkdownString | undefined;
 
         /**
-         * The [command](#Command) that should be executed when the tree item is selected.
+         * The {@link Command} that should be executed when the tree item is selected.
+         *
+         * Please use `vscode.open` or `vscode.diff` as command IDs when the tree item is opening
+         * something in the editor. Using these commands ensures that the resulting editor will
+         * appear consistent with how other built-in trees open editors.
          */
-        command?: Command;
+        command?: Command | undefined;
 
         /**
-         * [TreeItemCollapsibleState](#TreeItemCollapsibleState) of the tree item.
+         * {@link TreeItemCollapsibleState} of the tree item.
          */
-        collapsibleState?: TreeItemCollapsibleState;
+        collapsibleState?: TreeItemCollapsibleState | undefined;
 
         /**
          * Context value of the tree item. This can be used to contribute item specific actions in the tree.
@@ -8424,24 +9285,24 @@ declare module 'vscode' {
          * ```
          * This will show action `extension.deleteFolder` only for items with `contextValue` is `folder`.
          */
-        contextValue?: string;
+        contextValue?: string | undefined;
 
         /**
          * Accessibility information used when screen reader interacts with this tree item.
          * Generally, a TreeItem has no need to set the `role` of the accessibilityInformation;
          * however, there are cases where a TreeItem is not displayed in a tree-like way where setting the `role` may make sense.
          */
-        accessibilityInformation?: AccessibilityInformation;
+        accessibilityInformation?: AccessibilityInformation | undefined;
 
         /**
          * @param label A human-readable string describing this item
-         * @param collapsibleState [TreeItemCollapsibleState](#TreeItemCollapsibleState) of the tree item. Default is [TreeItemCollapsibleState.None](#TreeItemCollapsibleState.None)
+         * @param collapsibleState {@link TreeItemCollapsibleState} of the tree item. Default is {@link TreeItemCollapsibleState.None}
          */
-        constructor(label: string, collapsibleState?: TreeItemCollapsibleState);
+        constructor(label: string | TreeItemLabel, collapsibleState?: TreeItemCollapsibleState);
 
         /**
-         * @param resourceUri The [uri](#Uri) of the resource representing this item.
-         * @param collapsibleState [TreeItemCollapsibleState](#TreeItemCollapsibleState) of the tree item. Default is [TreeItemCollapsibleState.None](#TreeItemCollapsibleState.None)
+         * @param resourceUri The {@link Uri} of the resource representing this item.
+         * @param collapsibleState {@link TreeItemCollapsibleState} of the tree item. Default is {@link TreeItemCollapsibleState.None}
          */
         constructor(resourceUri: Uri, collapsibleState?: TreeItemCollapsibleState);
     }
@@ -8465,34 +9326,51 @@ declare module 'vscode' {
     }
 
     /**
+     * Label describing the {@link TreeItem Tree item}
+     */
+    export interface TreeItemLabel {
+
+        /**
+         * A human-readable string describing the {@link TreeItem Tree item}.
+         */
+        label: string;
+
+        /**
+         * Ranges in the label to highlight. A range is defined as a tuple of two number where the
+         * first is the inclusive start index and the second the exclusive end index
+         */
+        highlights?: [number, number][] | undefined;
+    }
+
+    /**
      * Value-object describing what options a terminal should use.
      */
     export interface TerminalOptions {
         /**
          * A human-readable string which will be used to represent the terminal in the UI.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * A path to a custom shell executable to be used in the terminal.
          */
-        shellPath?: string;
+        shellPath?: string | undefined;
 
         /**
          * Args for the custom shell executable. A string can be used on Windows only which allows
          * specifying shell args in [command-line format](https://msdn.microsoft.com/en-au/08dfcab2-eb6e-49a4-80eb-87d4076c98c6).
          */
-        shellArgs?: string[] | string;
+        shellArgs?: string[] | string | undefined;
 
         /**
          * A path or Uri for the current working directory to be used for the terminal.
          */
-        cwd?: string | Uri;
+        cwd?: string | Uri | undefined;
 
         /**
          * Object with environment variables that will be added to the VS Code process.
          */
-        env?: { [key: string]: string | null };
+        env?: { [key: string]: string | null | undefined } | undefined;
 
         /**
          * Whether the terminal process environment should be exactly as provided in
@@ -8501,7 +9379,7 @@ declare module 'vscode' {
          * `terminal.integrated.windows.env` on top. When this is true, the complete environment
          * must be provided as nothing will be inherited from the process or any configuration.
          */
-        strictEnv?: boolean;
+        strictEnv?: boolean | undefined;
 
         /**
          * When enabled the terminal will run the process as normal but not be surfaced to the user
@@ -8510,7 +9388,14 @@ declare module 'vscode' {
          * interaction is needed. Note that the terminals will still be exposed to all extensions
          * as normal.
          */
-        hideFromUser?: boolean;
+        hideFromUser?: boolean | undefined;
+
+        /**
+         * A message to write to the terminal on first launch, note that this is not sent to the
+         * process but, rather written directly to the terminal. This supports escape sequences such
+         * a setting text style.
+         */
+        message?: string | undefined;
     }
 
     /**
@@ -8523,7 +9408,7 @@ declare module 'vscode' {
         name: string;
 
         /**
-         * An implementation of [Pseudoterminal](#Pseudoterminal) that allows an extension to
+         * An implementation of {@link Pseudoterminal} that allows an extension to
          * control a terminal.
          */
         pty: Pseudoterminal;
@@ -8535,7 +9420,7 @@ declare module 'vscode' {
     interface Pseudoterminal {
         /**
          * An event that when fired will write data to the terminal. Unlike
-         * [Terminal.sendText](#Terminal.sendText) which sends text to the underlying child
+         * {@link Terminal.sendText} which sends text to the underlying child
          * pseudo-device (the child), this will write the text to parent pseudo-device (the
          * _terminal_ itself).
          *
@@ -8561,7 +9446,7 @@ declare module 'vscode' {
         onDidWrite: Event<string>;
 
         /**
-         * An event that when fired allows overriding the [dimensions](#Pseudoterminal.setDimensions) of the
+         * An event that when fired allows overriding the {@link Pseudoterminal.setDimensions dimensions} of the
          * terminal. Note that when set, the overridden dimensions will only take effect when they
          * are lower than the actual dimensions of the terminal (ie. there will never be a scroll
          * bar). Set to `undefined` for the terminal to go back to the regular dimensions (fit to
@@ -8584,7 +9469,7 @@ declare module 'vscode' {
          * vscode.window.createTerminal({ name: 'My terminal', pty });
          * ```
          */
-        onDidOverrideDimensions?: Event<TerminalDimensions | undefined>;
+        onDidOverrideDimensions?: Event<TerminalDimensions | undefined> | undefined;
 
         /**
          * An event that when fired will signal that the pty is closed and dispose of the terminal.
@@ -8613,7 +9498,7 @@ declare module 'vscode' {
          * vscode.window.createTerminal({ name: 'Exit example', pty });
          * ```
          */
-        onDidClose?: Event<void | number>;
+        onDidClose?: Event<void | number> | undefined;
 
         /**
          * Implement to handle when the pty is open and ready to start firing events.
@@ -8630,7 +9515,7 @@ declare module 'vscode' {
 
         /**
          * Implement to handle incoming keystrokes in the terminal or when an extension calls
-         * [Terminal.sendText](#Terminal.sendText). `data` contains the keystrokes/text serialized into
+         * {@link Terminal.sendText}. `data` contains the keystrokes/text serialized into
          * their corresponding VT sequence representation.
          *
          * @param data The incoming data.
@@ -8654,10 +9539,10 @@ declare module 'vscode' {
          * Implement to handle when the number of rows and columns that fit into the terminal panel
          * changes, for example when font size changes or when the panel is resized. The initial
          * state of a terminal's dimensions should be treated as `undefined` until this is triggered
-         * as the size of a terminal isn't know until it shows up in the user interface.
+         * as the size of a terminal isn't known until it shows up in the user interface.
          *
          * When dimensions are overridden by
-         * [onDidOverrideDimensions](#Pseudoterminal.onDidOverrideDimensions), `setDimensions` will
+         * {@link Pseudoterminal.onDidOverrideDimensions onDidOverrideDimensions}, `setDimensions` will
          * continue to be called with the regular panel dimensions, allowing the extension continue
          * to react dimension changes.
          *
@@ -8839,7 +9724,7 @@ declare module 'vscode' {
          * A human-readable string which will be used to describe the
          * operation.
          */
-        title?: string;
+        title?: string | undefined;
 
         /**
          * Controls if a cancel button should show to allow the user to
@@ -8847,29 +9732,29 @@ declare module 'vscode' {
          * `ProgressLocation.Notification` is supporting to show a cancel
          * button.
          */
-        cancellable?: boolean;
+        cancellable?: boolean | undefined;
     }
 
     /**
      * A light-weight user input UI that is initially not visible. After
      * configuring it through its properties the extension can make it
-     * visible by calling [QuickInput.show](#QuickInput.show).
+     * visible by calling {@link QuickInput.show}.
      *
      * There are several reasons why this UI might have to be hidden and
-     * the extension will be notified through [QuickInput.onDidHide](#QuickInput.onDidHide).
-     * (Examples include: an explicit call to [QuickInput.hide](#QuickInput.hide),
+     * the extension will be notified through {@link QuickInput.onDidHide}.
+     * (Examples include: an explicit call to {@link QuickInput.hide},
      * the user pressing Esc, some other input UI opening, etc.)
      *
      * A user pressing Enter or some other gesture implying acceptance
      * of the current state does not automatically hide this UI component.
      * It is up to the extension to decide whether to accept the user's input
-     * and if the UI should indeed be hidden through a call to [QuickInput.hide](#QuickInput.hide).
+     * and if the UI should indeed be hidden through a call to {@link QuickInput.hide}.
      *
      * When the extension no longer needs this input UI, it should
-     * [QuickInput.dispose](#QuickInput.dispose) it to allow for freeing up
+     * {@link QuickInput.dispose} it to allow for freeing up
      * any resources associated with it.
      *
-     * See [QuickPick](#QuickPick) and [InputBox](#InputBox) for concrete UIs.
+     * See {@link QuickPick} and {@link InputBox} for concrete UIs.
      */
     export interface QuickInput {
 
@@ -8911,12 +9796,12 @@ declare module 'vscode' {
 
         /**
          * Makes the input UI visible in its current configuration. Any other input
-         * UI will first fire an [QuickInput.onDidHide](#QuickInput.onDidHide) event.
+         * UI will first fire an {@link QuickInput.onDidHide} event.
          */
         show(): void;
 
         /**
-         * Hides this input UI. This will also fire an [QuickInput.onDidHide](#QuickInput.onDidHide)
+         * Hides this input UI. This will also fire an {@link QuickInput.onDidHide}
          * event.
          */
         hide(): void;
@@ -8925,8 +9810,8 @@ declare module 'vscode' {
          * An event signaling when this input UI is hidden.
          *
          * There are several reasons why this UI might have to be hidden and
-         * the extension will be notified through [QuickInput.onDidHide](#QuickInput.onDidHide).
-         * (Examples include: an explicit call to [QuickInput.hide](#QuickInput.hide),
+         * the extension will be notified through {@link QuickInput.onDidHide}.
+         * (Examples include: an explicit call to {@link QuickInput.hide},
          * the user pressing Esc, some other input UI opening, etc.)
          */
         onDidHide: Event<void>;
@@ -8941,14 +9826,14 @@ declare module 'vscode' {
     }
 
     /**
-     * A concrete [QuickInput](#QuickInput) to let the user pick an item from a
+     * A concrete {@link QuickInput} to let the user pick an item from a
      * list of items of type T. The items can be filtered through a filter text field and
-     * there is an option [canSelectMany](#QuickPick.canSelectMany) to allow for
+     * there is an option {@link QuickPick.canSelectMany canSelectMany} to allow for
      * selecting multiple items.
      *
-     * Note that in many cases the more convenient [window.showQuickPick](#window.showQuickPick)
-     * is easier to use. [window.createQuickPick](#window.createQuickPick) should be used
-     * when [window.showQuickPick](#window.showQuickPick) does not offer the required flexibility.
+     * Note that in many cases the more convenient {@link window.showQuickPick}
+     * is easier to use. {@link window.createQuickPick} should be used
+     * when {@link window.showQuickPick} does not offer the required flexibility.
      */
     export interface QuickPick<T extends QuickPickItem> extends QuickInput {
 
@@ -8975,7 +9860,7 @@ declare module 'vscode' {
         /**
          * Buttons for actions in the UI.
          */
-        buttons: ReadonlyArray<QuickInputButton>;
+        buttons: readonly QuickInputButton[];
 
         /**
          * An event signaling when a button was triggered.
@@ -8983,9 +9868,9 @@ declare module 'vscode' {
         readonly onDidTriggerButton: Event<QuickInputButton>;
 
         /**
-         * Items to pick from.
+         * Items to pick from. This can be read and updated by the extension.
          */
-        items: ReadonlyArray<T>;
+        items: readonly T[];
 
         /**
          * If multiple items can be selected at the same time. Defaults to false.
@@ -9005,7 +9890,7 @@ declare module 'vscode' {
         /**
          * Active items. This can be read and updated by the extension.
          */
-        activeItems: ReadonlyArray<T>;
+        activeItems: readonly T[];
 
         /**
          * An event signaling when the active items have changed.
@@ -9015,7 +9900,7 @@ declare module 'vscode' {
         /**
          * Selected items. This can be read and updated by the extension.
          */
-        selectedItems: ReadonlyArray<T>;
+        selectedItems: readonly T[];
 
         /**
          * An event signaling when the selected items have changed.
@@ -9024,11 +9909,11 @@ declare module 'vscode' {
     }
 
     /**
-     * A concrete [QuickInput](#QuickInput) to let the user input a text value.
+     * A concrete {@link QuickInput} to let the user input a text value.
      *
-     * Note that in many cases the more convenient [window.showInputBox](#window.showInputBox)
-     * is easier to use. [window.createInputBox](#window.createInputBox) should be used
-     * when [window.showInputBox](#window.showInputBox) does not offer the required flexibility.
+     * Note that in many cases the more convenient {@link window.showInputBox}
+     * is easier to use. {@link window.createInputBox} should be used
+     * when {@link window.showInputBox} does not offer the required flexibility.
      */
     export interface InputBox extends QuickInput {
 
@@ -9060,7 +9945,7 @@ declare module 'vscode' {
         /**
          * Buttons for actions in the UI.
          */
-        buttons: ReadonlyArray<QuickInputButton>;
+        buttons: readonly QuickInputButton[];
 
         /**
          * An event signaling when a button was triggered.
@@ -9079,7 +9964,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Button for an action in a [QuickPick](#QuickPick) or [InputBox](#InputBox).
+     * Button for an action in a {@link QuickPick} or {@link InputBox}.
      */
     export interface QuickInputButton {
 
@@ -9095,12 +9980,12 @@ declare module 'vscode' {
     }
 
     /**
-     * Predefined buttons for [QuickPick](#QuickPick) and [InputBox](#InputBox).
+     * Predefined buttons for {@link QuickPick} and {@link InputBox}.
      */
     export class QuickInputButtons {
 
         /**
-         * A back button for [QuickPick](#QuickPick) and [InputBox](#InputBox).
+         * A back button for {@link QuickPick} and {@link InputBox}.
          *
          * When a navigation 'back' button is needed this one should be used for consistency.
          * It comes with a predefined icon, tooltip and location.
@@ -9114,7 +9999,7 @@ declare module 'vscode' {
     }
 
     /**
-     * An event describing an individual change in the text of a [document](#TextDocument).
+     * An event describing an individual change in the text of a {@link TextDocument document}.
      */
     export interface TextDocumentContentChangeEvent {
         /**
@@ -9136,7 +10021,7 @@ declare module 'vscode' {
     }
 
     /**
-     * An event describing a transactional [document](#TextDocument) change.
+     * An event describing a transactional {@link TextDocument document} change.
      */
     export interface TextDocumentChangeEvent {
 
@@ -9148,7 +10033,7 @@ declare module 'vscode' {
         /**
          * An array of content changes.
          */
-        readonly contentChanges: ReadonlyArray<TextDocumentContentChangeEvent>;
+        readonly contentChanges: readonly TextDocumentContentChangeEvent[];
     }
 
     /**
@@ -9174,11 +10059,11 @@ declare module 'vscode' {
     }
 
     /**
-     * An event that is fired when a [document](#TextDocument) will be saved.
+     * An event that is fired when a {@link TextDocument document} will be saved.
      *
      * To make modifications to the document before it is being saved, call the
-     * [`waitUntil`](#TextDocumentWillSaveEvent.waitUntil)-function with a thenable
-     * that resolves to an array of [text edits](#TextEdit).
+     * {@link TextDocumentWillSaveEvent.waitUntil `waitUntil`}-function with a thenable
+     * that resolves to an array of {@link TextEdit text edits}.
      */
     export interface TextDocumentWillSaveEvent {
 
@@ -9193,7 +10078,7 @@ declare module 'vscode' {
         readonly reason: TextDocumentSaveReason;
 
         /**
-         * Allows to pause the event loop and to apply [pre-save-edits](#TextEdit).
+         * Allows to pause the event loop and to apply {@link TextEdit pre-save-edits}.
          * Edits of subsequent calls to this function will be applied in order. The
          * edits will be *ignored* if concurrent modifications of the document happened.
          *
@@ -9210,7 +10095,7 @@ declare module 'vscode' {
          * })
          * ```
          *
-         * @param thenable A thenable that resolves to [pre-save-edits](#TextEdit).
+         * @param thenable A thenable that resolves to {@link TextEdit pre-save-edits}.
          */
         waitUntil(thenable: Thenable<TextEdit[]>): void;
 
@@ -9228,18 +10113,18 @@ declare module 'vscode' {
      * An event that is fired when files are going to be created.
      *
      * To make modifications to the workspace before the files are created,
-     * call the [`waitUntil](#FileWillCreateEvent.waitUntil)-function with a
-     * thenable that resolves to a [workspace edit](#WorkspaceEdit).
+     * call the {@link FileWillCreateEvent.waitUntil `waitUntil`}-function with a
+     * thenable that resolves to a {@link WorkspaceEdit workspace edit}.
      */
     export interface FileWillCreateEvent {
 
         /**
          * The files that are going to be created.
          */
-        readonly files: ReadonlyArray<Uri>;
+        readonly files: readonly Uri[];
 
         /**
-         * Allows to pause the event and to apply a [workspace edit](#WorkspaceEdit).
+         * Allows to pause the event and to apply a {@link WorkspaceEdit workspace edit}.
          *
          * *Note:* This function can only be called during event dispatch and not
          * in an asynchronous manner:
@@ -9276,25 +10161,25 @@ declare module 'vscode' {
         /**
          * The files that got created.
          */
-        readonly files: ReadonlyArray<Uri>;
+        readonly files: readonly Uri[];
     }
 
     /**
      * An event that is fired when files are going to be deleted.
      *
      * To make modifications to the workspace before the files are deleted,
-     * call the [`waitUntil](#FileWillCreateEvent.waitUntil)-function with a
-     * thenable that resolves to a [workspace edit](#WorkspaceEdit).
+     * call the {@link FileWillCreateEvent.waitUntil `waitUntil}-function with a
+     * thenable that resolves to a {@link WorkspaceEdit workspace edit}.
      */
     export interface FileWillDeleteEvent {
 
         /**
          * The files that are going to be deleted.
          */
-        readonly files: ReadonlyArray<Uri>;
+        readonly files: readonly Uri[];
 
         /**
-         * Allows to pause the event and to apply a [workspace edit](#WorkspaceEdit).
+         * Allows to pause the event and to apply a {@link WorkspaceEdit workspace edit}.
          *
          * *Note:* This function can only be called during event dispatch and not
          * in an asynchronous manner:
@@ -9331,25 +10216,25 @@ declare module 'vscode' {
         /**
          * The files that got deleted.
          */
-        readonly files: ReadonlyArray<Uri>;
+        readonly files: readonly Uri[];
     }
 
     /**
      * An event that is fired when files are going to be renamed.
      *
      * To make modifications to the workspace before the files are renamed,
-     * call the [`waitUntil](#FileWillCreateEvent.waitUntil)-function with a
-     * thenable that resolves to a [workspace edit](#WorkspaceEdit).
+     * call the {@link FileWillCreateEvent.waitUntil `waitUntil}-function with a
+     * thenable that resolves to a {@link WorkspaceEdit workspace edit}.
      */
     export interface FileWillRenameEvent {
 
         /**
          * The files that are going to be renamed.
          */
-        readonly files: ReadonlyArray<{ oldUri: Uri, newUri: Uri }>;
+        readonly files: ReadonlyArray<{ readonly oldUri: Uri, readonly newUri: Uri }>;
 
         /**
-         * Allows to pause the event and to apply a [workspace edit](#WorkspaceEdit).
+         * Allows to pause the event and to apply a {@link WorkspaceEdit workspace edit}.
          *
          * *Note:* This function can only be called during event dispatch and not
          * in an asynchronous manner:
@@ -9386,22 +10271,22 @@ declare module 'vscode' {
         /**
          * The files that got renamed.
          */
-        readonly files: ReadonlyArray<{ oldUri: Uri, newUri: Uri }>;
+        readonly files: ReadonlyArray<{ readonly oldUri: Uri, readonly newUri: Uri }>;
     }
 
     /**
-     * An event describing a change to the set of [workspace folders](#workspace.workspaceFolders).
+     * An event describing a change to the set of {@link workspace.workspaceFolders workspace folders}.
      */
     export interface WorkspaceFoldersChangeEvent {
         /**
          * Added workspace folders.
          */
-        readonly added: ReadonlyArray<WorkspaceFolder>;
+        readonly added: readonly WorkspaceFolder[];
 
         /**
          * Removed workspace folders.
          */
-        readonly removed: ReadonlyArray<WorkspaceFolder>;
+        readonly removed: readonly WorkspaceFolder[];
     }
 
     /**
@@ -9413,14 +10298,14 @@ declare module 'vscode' {
         /**
          * The associated uri for this workspace folder.
          *
-         * *Note:* The [Uri](#Uri)-type was intentionally chosen such that future releases of the editor can support
+         * *Note:* The {@link Uri}-type was intentionally chosen such that future releases of the editor can support
          * workspace folders that are not stored on the local disk, e.g. `ftp://server/workspaces/foo`.
          */
         readonly uri: Uri;
 
         /**
          * The name of this workspace folder. Defaults to
-         * the basename of its [uri-path](#Uri.path)
+         * the basename of its {@link Uri.path uri-path}
          */
         readonly name: string;
 
@@ -9431,18 +10316,25 @@ declare module 'vscode' {
     }
 
     /**
-     * Namespace for dealing with the current workspace. A workspace is the representation
-     * of the folder that has been opened. There is no workspace when just a file but not a
-     * folder has been opened.
+     * Namespace for dealing with the current workspace. A workspace is the collection of one
+     * or more folders that are opened in a VS Code window (instance).
      *
-     * The workspace offers support for [listening](#workspace.createFileSystemWatcher) to fs
-     * events and for [finding](#workspace.findFiles) files. Both perform well and run _outside_
+     * It is also possible to open VS Code without a workspace. For example, when you open a
+     * new VS Code window by selecting a file from your platform's File menu, you will not be
+     * inside a workspace. In this mode, some of VS Code's capabilities are reduced but you can
+     * still open text files and edit them.
+     *
+     * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information on
+     * the concept of workspaces in VS Code.
+     *
+     * The workspace offers support for {@link workspace.createFileSystemWatcher listening} to fs
+     * events and for {@link workspace.findFiles finding} files. Both perform well and run _outside_
      * the editor-process so that they should be always used instead of nodejs-equivalents.
      */
     export namespace workspace {
 
         /**
-         * A [file system](#FileSystem) instance that allows to interact with local and remote
+         * A {@link FileSystem file system} instance that allows to interact with local and remote
          * files, e.g. `vscode.workspace.fs.readDirectory(someUri)` allows to retrieve all entries
          * of a directory or `vscode.workspace.fs.stat(anotherUri)` returns the meta data for a
          * file.
@@ -9450,22 +10342,33 @@ declare module 'vscode' {
         export const fs: FileSystem;
 
         /**
-         * ~~The folder that is open in the editor. `undefined` when no folder
-         * has been opened.~~
+         * The workspace folder that is open in VS Code. `undefined` when no workspace
+         * has been opened.
          *
-         * @deprecated Use [`workspaceFolders`](#workspace.workspaceFolders) instead.
+         * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information
+         * on workspaces in VS Code.
+         *
+         * @deprecated Use {@link workspace.workspaceFolders `workspaceFolders`} instead.
          */
         export const rootPath: string | undefined;
 
         /**
-         * List of workspace folders or `undefined` when no folder is open.
+         * List of workspace folders that are open in VS Code. `undefined` when no workspace
+         * has been opened.
+         *
+         * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information
+         * on workspaces in VS Code.
+         *
          * *Note* that the first entry corresponds to the value of `rootPath`.
          */
-        export const workspaceFolders: ReadonlyArray<WorkspaceFolder> | undefined;
+        export const workspaceFolders: readonly WorkspaceFolder[] | undefined;
 
         /**
-         * The name of the workspace. `undefined` when no folder
+         * The name of the workspace. `undefined` when no workspace
          * has been opened.
+         *
+         * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information on
+         * the concept of workspaces in VS Code.
          */
         export const name: string | undefined;
 
@@ -9481,7 +10384,7 @@ declare module 'vscode' {
          * for a workspace that is untitled and not yet saved.
          *
          * Depending on the workspace that is opened, the value will be:
-         *  * `undefined` when no workspace or  a single folder is opened
+         *  * `undefined` when no workspace is opened
          *  * the path of the workspace file as `Uri` otherwise. if the workspace
          * is untitled, the returned URI will use the `untitled:` scheme
          *
@@ -9492,6 +10395,9 @@ declare module 'vscode' {
          * ```typescript
          * vscode.commands.executeCommand('vscode.openFolder', uriOfWorkspace);
          * ```
+         *
+         * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information on
+         * the concept of workspaces in VS Code.
          *
          * **Note:** it is not advised to use `workspace.workspaceFile` to write
          * configuration data into the file. You can use `workspace.getConfiguration().update()`
@@ -9506,7 +10412,7 @@ declare module 'vscode' {
         export const onDidChangeWorkspaceFolders: Event<WorkspaceFoldersChangeEvent>;
 
         /**
-         * Returns the [workspace folder](#WorkspaceFolder) that contains a given uri.
+         * Returns the {@link WorkspaceFolder workspace folder} that contains a given uri.
          * * returns `undefined` when the given uri doesn't match any workspace folder
          * * returns the *input* when the given uri is a workspace folder itself
          *
@@ -9518,10 +10424,10 @@ declare module 'vscode' {
         /**
          * Returns a path that is relative to the workspace folder or folders.
          *
-         * When there are no [workspace folders](#workspace.workspaceFolders) or when the path
+         * When there are no {@link workspace.workspaceFolders workspace folders} or when the path
          * is not contained in them, the input is returned.
          *
-         * @param pathOrUri A path or uri. When a uri is given its [fsPath](#Uri.fsPath) is used.
+         * @param pathOrUri A path or uri. When a uri is given its {@link Uri.fsPath fsPath} is used.
          * @param includeWorkspaceFolder When `true` and when the given path is contained inside a
          * workspace folder the name of the workspace is prepended. Defaults to `true` when there are
          * multiple workspace folders and `false` otherwise.
@@ -9530,7 +10436,7 @@ declare module 'vscode' {
         export function asRelativePath(pathOrUri: string | Uri, includeWorkspaceFolder?: boolean): string;
 
         /**
-         * This method replaces `deleteCount` [workspace folders](#workspace.workspaceFolders) starting at index `start`
+         * This method replaces `deleteCount` {@link workspace.workspaceFolders workspace folders} starting at index `start`
          * by an optional set of `workspaceFoldersToAdd` on the `vscode.workspace.workspaceFolders` array. This "splice"
          * behavior can be used to add, remove and change workspace folders in a single operation.
          *
@@ -9538,7 +10444,7 @@ declare module 'vscode' {
          * one that called this method) will be terminated and restarted so that the (deprecated) `rootPath` property is
          * updated to point to the first workspace folder.
          *
-         * Use the [`onDidChangeWorkspaceFolders()`](#onDidChangeWorkspaceFolders) event to get notified when the
+         * Use the {@link onDidChangeWorkspaceFolders `onDidChangeWorkspaceFolders()`} event to get notified when the
          * workspace folders have been updated.
          *
          * **Example:** adding a new workspace folder at the end of workspace folders
@@ -9559,10 +10465,10 @@ declare module 'vscode' {
          * It is valid to remove an existing workspace folder and add it again with a different name
          * to rename that folder.
          *
-         * **Note:** it is not valid to call [updateWorkspaceFolders()](#updateWorkspaceFolders) multiple times
-         * without waiting for the [`onDidChangeWorkspaceFolders()`](#onDidChangeWorkspaceFolders) to fire.
+         * **Note:** it is not valid to call {@link updateWorkspaceFolders updateWorkspaceFolders()} multiple times
+         * without waiting for the {@link onDidChangeWorkspaceFolders `onDidChangeWorkspaceFolders()`} to fire.
          *
-         * @param start the zero-based location in the list of currently opened [workspace folders](#WorkspaceFolder)
+         * @param start the zero-based location in the list of currently opened {@link WorkspaceFolder workspace folders}
          * from which to start deleting workspace folders.
          * @param deleteCount the optional number of workspace folders to remove.
          * @param workspaceFoldersToAdd the optional variable set of workspace folders to add in place of the deleted ones.
@@ -9570,7 +10476,7 @@ declare module 'vscode' {
          * @return true if the operation was successfully started and false otherwise if arguments were used that would result
          * in invalid workspace folder state (e.g. 2 folders with the same URI).
          */
-        export function updateWorkspaceFolders(start: number, deleteCount: number | undefined | null, ...workspaceFoldersToAdd: { uri: Uri, name?: string }[]): boolean;
+        export function updateWorkspaceFolders(start: number, deleteCount: number | undefined | null, ...workspaceFoldersToAdd: { uri: Uri, name?: string | undefined }[]): boolean;
 
         /**
          * Creates a file system watcher.
@@ -9578,10 +10484,12 @@ declare module 'vscode' {
          * A glob pattern that filters the file events on their absolute path must be provided. Optionally,
          * flags to ignore certain kinds of events can be provided. To stop listening to events the watcher must be disposed.
          *
-         * *Note* that only files within the current [workspace folders](#workspace.workspaceFolders) can be watched.
+         * *Note* that only files within the current {@link workspace.workspaceFolders workspace folders} can be watched.
+         * *Note* that when watching for file changes such as '**​/*.js', notifications will not be sent when a parent folder is
+         * moved or deleted (this is a known limitation of the current implementation and may change in the future).
          *
-         * @param globPattern A [glob pattern](#GlobPattern) that is applied to the absolute paths of created, changed,
-         * and deleted files. Use a [relative pattern](#RelativePattern) to limit events to a certain [workspace folder](#WorkspaceFolder).
+         * @param globPattern A {@link GlobPattern glob pattern} that is applied to the absolute paths of created, changed,
+         * and deleted files. Use a {@link RelativePattern relative pattern} to limit events to a certain {@link WorkspaceFolder workspace folder}.
          * @param ignoreCreateEvents Ignore when files have been created.
          * @param ignoreChangeEvents Ignore when files have been changed.
          * @param ignoreDeleteEvents Ignore when files have been deleted.
@@ -9590,19 +10498,21 @@ declare module 'vscode' {
         export function createFileSystemWatcher(globPattern: GlobPattern, ignoreCreateEvents?: boolean, ignoreChangeEvents?: boolean, ignoreDeleteEvents?: boolean): FileSystemWatcher;
 
         /**
-         * Find files across all [workspace folders](#workspace.workspaceFolders) in the workspace.
+         * Find files across all {@link workspace.workspaceFolders workspace folders} in the workspace.
          *
-         * @sample `findFiles('**​/*.js', '**​/node_modules/**', 10)`
-         * @param include A [glob pattern](#GlobPattern) that defines the files to search for. The glob pattern
-         * will be matched against the file paths of resulting matches relative to their workspace. Use a [relative pattern](#RelativePattern)
-         * to restrict the search results to a [workspace folder](#WorkspaceFolder).
-         * @param exclude  A [glob pattern](#GlobPattern) that defines files and folders to exclude. The glob pattern
-         * will be matched against the file paths of resulting matches relative to their workspace. When `undefined` only default excludes will
-         * apply, when `null` no excludes will apply.
+         * @example
+         * findFiles('**​/*.js', '**​/node_modules/**', 10)
+         *
+         * @param include A {@link GlobPattern glob pattern} that defines the files to search for. The glob pattern
+         * will be matched against the file paths of resulting matches relative to their workspace. Use a {@link RelativePattern relative pattern}
+         * to restrict the search results to a {@link WorkspaceFolder workspace folder}.
+         * @param exclude  A {@link GlobPattern glob pattern} that defines files and folders to exclude. The glob pattern
+         * will be matched against the file paths of resulting matches relative to their workspace. When `undefined`, default excludes and the user's
+         * configured excludes will apply. When `null`, no excludes will apply.
          * @param maxResults An upper-bound for the result.
          * @param token A token that can be used to signal cancellation to the underlying search engine.
          * @return A thenable that resolves to an array of resource identifiers. Will return no results if no
-         * [workspace folders](#workspace.workspaceFolders) are opened.
+         * {@link workspace.workspaceFolders workspace folders} are opened.
          */
         export function findFiles(include: GlobPattern, exclude?: GlobPattern | null, maxResults?: number, token?: CancellationToken): Thenable<Uri[]>;
 
@@ -9616,7 +10526,7 @@ declare module 'vscode' {
 
         /**
          * Make changes to one or many resources or create, delete, and rename resources as defined by the given
-         * [workspace edit](#WorkspaceEdit).
+         * {@link WorkspaceEdit workspace edit}.
          *
          * All changes of a workspace edit are applied in the same order in which they have been added. If
          * multiple textual inserts are made at the same position, these strings appear in the resulting text
@@ -9633,36 +10543,36 @@ declare module 'vscode' {
         export function applyEdit(edit: WorkspaceEdit): Thenable<boolean>;
 
         /**
-         * All text documents currently known to the system.
+         * All text documents currently known to the editor.
          */
-        export const textDocuments: ReadonlyArray<TextDocument>;
+        export const textDocuments: readonly TextDocument[];
 
         /**
          * Opens a document. Will return early if this document is already open. Otherwise
-         * the document is loaded and the [didOpen](#workspace.onDidOpenTextDocument)-event fires.
+         * the document is loaded and the {@link workspace.onDidOpenTextDocument didOpen}-event fires.
          *
-         * The document is denoted by an [uri](#Uri). Depending on the [scheme](#Uri.scheme) the
+         * The document is denoted by an {@link Uri}. Depending on the {@link Uri.scheme scheme} the
          * following rules apply:
          * * `file`-scheme: Open a file on disk, will be rejected if the file does not exist or cannot be loaded.
          * * `untitled`-scheme: A new file that should be saved on disk, e.g. `untitled:c:\frodo\new.js`. The language
          * will be derived from the file name.
-         * * For all other schemes contributed [text document content providers](#TextDocumentContentProvider) and
-         * [file system providers](#FileSystemProvider) are consulted.
+         * * For all other schemes contributed {@link TextDocumentContentProvider text document content providers} and
+         * {@link FileSystemProvider file system providers} are consulted.
          *
          * *Note* that the lifecycle of the returned document is owned by the editor and not by the extension. That means an
-         * [`onDidClose`](#workspace.onDidCloseTextDocument)-event can occur at any time after opening it.
+         * {@link workspace.onDidCloseTextDocument `onDidClose`}-event can occur at any time after opening it.
          *
          * @param uri Identifies the resource to open.
-         * @return A promise that resolves to a [document](#TextDocument).
+         * @return A promise that resolves to a {@link TextDocument document}.
          */
         export function openTextDocument(uri: Uri): Thenable<TextDocument>;
 
         /**
          * A short-hand for `openTextDocument(Uri.file(fileName))`.
          *
-         * @see [openTextDocument](#openTextDocument)
+         * @see {@link openTextDocument}
          * @param fileName A name of a file on disk.
-         * @return A promise that resolves to a [document](#TextDocument).
+         * @return A promise that resolves to a {@link TextDocument document}.
          */
         export function openTextDocument(fileName: string): Thenable<TextDocument>;
 
@@ -9672,9 +10582,9 @@ declare module 'vscode' {
          * specify the *language* and/or the *content* of the document.
          *
          * @param options Options to control how the document will be created.
-         * @return A promise that resolves to a [document](#TextDocument).
+         * @return A promise that resolves to a {@link TextDocument document}.
          */
-        export function openTextDocument(options?: { language?: string; content?: string; }): Thenable<TextDocument>;
+        export function openTextDocument(options?: { language?: string | undefined; content?: string | undefined; }): Thenable<TextDocument>;
 
         /**
          * Register a text document content provider.
@@ -9683,30 +10593,30 @@ declare module 'vscode' {
          *
          * @param scheme The uri-scheme to register for.
          * @param provider A content provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerTextDocumentContentProvider(scheme: string, provider: TextDocumentContentProvider): Disposable;
 
         /**
-         * An event that is emitted when a [text document](#TextDocument) is opened or when the language id
-         * of a text document [has been changed](#languages.setTextDocumentLanguage).
+         * An event that is emitted when a {@link TextDocument text document} is opened or when the language id
+         * of a text document {@link languages.setTextDocumentLanguage has been changed}.
          *
-         * To add an event listener when a visible text document is opened, use the [TextEditor](#TextEditor) events in the
-         * [window](#window) namespace. Note that:
+         * To add an event listener when a visible text document is opened, use the {@link TextEditor} events in the
+         * {@link window} namespace. Note that:
          *
-         * - The event is emitted before the [document](#TextDocument) is updated in the
-         * [active text editor](#window.activeTextEditor)
-         * - When a [text document](#TextDocument) is already open (e.g.: open in another [visible text editor](#window.visibleTextEditors)) this event is not emitted
+         * - The event is emitted before the {@link TextDocument document} is updated in the
+         * {@link window.activeTextEditor active text editor}
+         * - When a {@link TextDocument text document} is already open (e.g.: open in another {@link window.visibleTextEditors visible text editor}) this event is not emitted
          *
          */
         export const onDidOpenTextDocument: Event<TextDocument>;
 
         /**
-         * An event that is emitted when a [text document](#TextDocument) is disposed or when the language id
-         * of a text document [has been changed](#languages.setTextDocumentLanguage).
+         * An event that is emitted when a {@link TextDocument text document} is disposed or when the language id
+         * of a text document {@link languages.setTextDocumentLanguage has been changed}.
          *
          * *Note 1:* There is no guarantee that this event fires when an editor tab is closed, use the
-         * [`onDidChangeVisibleTextEditors`](#window.onDidChangeVisibleTextEditors)-event to know when editors change.
+         * {@link window.onDidChangeVisibleTextEditors `onDidChangeVisibleTextEditors`}-event to know when editors change.
          *
          * *Note 2:* A document can be open but not shown in an editor which means this event can fire
          * for a document that has not been shown in an editor.
@@ -9714,19 +10624,19 @@ declare module 'vscode' {
         export const onDidCloseTextDocument: Event<TextDocument>;
 
         /**
-         * An event that is emitted when a [text document](#TextDocument) is changed. This usually happens
-         * when the [contents](#TextDocument.getText) changes but also when other things like the
-         * [dirty](#TextDocument.isDirty)-state changes.
+         * An event that is emitted when a {@link TextDocument text document} is changed. This usually happens
+         * when the {@link TextDocument.getText contents} changes but also when other things like the
+         * {@link TextDocument.isDirty dirty}-state changes.
          */
         export const onDidChangeTextDocument: Event<TextDocumentChangeEvent>;
 
         /**
-         * An event that is emitted when a [text document](#TextDocument) will be saved to disk.
+         * An event that is emitted when a {@link TextDocument text document} will be saved to disk.
          *
          * *Note 1:* Subscribers can delay saving by registering asynchronous work. For the sake of data integrity the editor
          * might save without firing this event. For instance when shutting down with dirty files.
          *
-         * *Note 2:* Subscribers are called sequentially and they can [delay](#TextDocumentWillSaveEvent.waitUntil) saving
+         * *Note 2:* Subscribers are called sequentially and they can {@link TextDocumentWillSaveEvent.waitUntil delay} saving
          * by registering asynchronous work. Protection against misbehaving listeners is implemented as such:
          *  * there is an overall time budget that all listeners share and if that is exhausted no further listener is called
          *  * listeners that take a long time or produce errors frequently will not be called anymore
@@ -9736,17 +10646,76 @@ declare module 'vscode' {
         export const onWillSaveTextDocument: Event<TextDocumentWillSaveEvent>;
 
         /**
-         * An event that is emitted when a [text document](#TextDocument) is saved to disk.
+         * An event that is emitted when a {@link TextDocument text document} is saved to disk.
          */
         export const onDidSaveTextDocument: Event<TextDocument>;
+
+        /**
+         * All notebook documents currently known to the editor.
+         */
+        export const notebookDocuments: readonly NotebookDocument[];
+
+        /**
+         * Open a notebook. Will return early if this notebook is already {@link notebook.notebookDocuments loaded}. Otherwise
+         * the notebook is loaded and the {@link notebook.onDidOpenNotebookDocument `onDidOpenNotebookDocument`}-event fires.
+         *
+         * *Note* that the lifecycle of the returned notebook is owned by the editor and not by the extension. That means an
+         * {@link notebook.onDidCloseNotebookDocument `onDidCloseNotebookDocument`}-event can occur at any time after.
+         *
+         * *Note* that opening a notebook does not show a notebook editor. This function only returns a notebook document which
+         * can be showns in a notebook editor but it can also be used for other things.
+         *
+         * @param uri The resource to open.
+         * @returns A promise that resolves to a {@link NotebookDocument notebook}
+         */
+        export function openNotebookDocument(uri: Uri): Thenable<NotebookDocument>;
+
+        /**
+         * Open an untitled notebook. The editor will prompt the user for a file
+         * path when the document is to be saved.
+         *
+         * @see {@link openNotebookDocument}
+         * @param notebookType The notebook type that should be used.
+         * @param content The initial contents of the notebook.
+         * @returns A promise that resolves to a {@link NotebookDocument notebook}.
+         */
+        export function openNotebookDocument(notebookType: string, content?: NotebookData): Thenable<NotebookDocument>;
+
+        /**
+         * Register a {@link NotebookSerializer notebook serializer}.
+         *
+         * A notebook serializer must be contributed through the `notebooks` extension point. When opening a notebook file, the editor will send
+         * the `onNotebook:<notebookType>` activation event, and extensions must register their serializer in return.
+         *
+         * @param notebookType A notebook.
+         * @param serializer A notebook serialzier.
+         * @param options Optional context options that define what parts of a notebook should be persisted
+         * @return A {@link Disposable} that unregisters this serializer when being disposed.
+         */
+        export function registerNotebookSerializer(notebookType: string, serializer: NotebookSerializer, options?: NotebookDocumentContentOptions): Disposable;
+
+        /**
+         * An event that is emitted when a {@link NotebookDocument notebook} is opened.
+         */
+        export const onDidOpenNotebookDocument: Event<NotebookDocument>;
+
+        /**
+         * An event that is emitted when a {@link NotebookDocument notebook} is disposed.
+         *
+         * *Note 1:* There is no guarantee that this event fires when an editor tab is closed.
+         *
+         * *Note 2:* A notebook can be open but not shown in an editor which means this event can fire
+         * for a notebook that has not been shown in an editor.
+         */
+        export const onDidCloseNotebookDocument: Event<NotebookDocument>;
 
         /**
          * An event that is emitted when files are being created.
          *
          * *Note 1:* This event is triggered by user gestures, like creating a file from the
-         * explorer, or from the [`workspace.applyEdit`](#workspace.applyEdit)-api. This event is *not* fired when
+         * explorer, or from the {@link workspace.applyEdit `workspace.applyEdit`}-api. This event is *not* fired when
          * files change on disk, e.g triggered by another application, or when using the
-         * [`workspace.fs`](#FileSystem)-api.
+         * {@link FileSystem `workspace.fs`}-api.
          *
          * *Note 2:* When this event is fired, edits to files that are are being created cannot be applied.
          */
@@ -9756,9 +10725,9 @@ declare module 'vscode' {
          * An event that is emitted when files have been created.
          *
          * *Note:* This event is triggered by user gestures, like creating a file from the
-         * explorer, or from the [`workspace.applyEdit`](#workspace.applyEdit)-api, but this event is *not* fired when
+         * explorer, or from the {@link workspace.applyEdit `workspace.applyEdit`}-api, but this event is *not* fired when
          * files change on disk, e.g triggered by another application, or when using the
-         * [`workspace.fs`](#FileSystem)-api.
+         * {@link FileSystem `workspace.fs`}-api.
          */
         export const onDidCreateFiles: Event<FileCreateEvent>;
 
@@ -9766,9 +10735,9 @@ declare module 'vscode' {
          * An event that is emitted when files are being deleted.
          *
          * *Note 1:* This event is triggered by user gestures, like deleting a file from the
-         * explorer, or from the [`workspace.applyEdit`](#workspace.applyEdit)-api, but this event is *not* fired when
+         * explorer, or from the {@link workspace.applyEdit `workspace.applyEdit`}-api, but this event is *not* fired when
          * files change on disk, e.g triggered by another application, or when using the
-         * [`workspace.fs`](#FileSystem)-api.
+         * {@link FileSystem `workspace.fs`}-api.
          *
          * *Note 2:* When deleting a folder with children only one event is fired.
          */
@@ -9778,9 +10747,9 @@ declare module 'vscode' {
          * An event that is emitted when files have been deleted.
          *
          * *Note 1:* This event is triggered by user gestures, like deleting a file from the
-         * explorer, or from the [`workspace.applyEdit`](#workspace.applyEdit)-api, but this event is *not* fired when
+         * explorer, or from the {@link workspace.applyEdit `workspace.applyEdit`}-api, but this event is *not* fired when
          * files change on disk, e.g triggered by another application, or when using the
-         * [`workspace.fs`](#FileSystem)-api.
+         * {@link FileSystem `workspace.fs`}-api.
          *
          * *Note 2:* When deleting a folder with children only one event is fired.
          */
@@ -9790,9 +10759,9 @@ declare module 'vscode' {
          * An event that is emitted when files are being renamed.
          *
          * *Note 1:* This event is triggered by user gestures, like renaming a file from the
-         * explorer, and from the [`workspace.applyEdit`](#workspace.applyEdit)-api, but this event is *not* fired when
+         * explorer, and from the {@link workspace.applyEdit `workspace.applyEdit`}-api, but this event is *not* fired when
          * files change on disk, e.g triggered by another application, or when using the
-         * [`workspace.fs`](#FileSystem)-api.
+         * {@link FileSystem `workspace.fs`}-api.
          *
          * *Note 2:* When renaming a folder with children only one event is fired.
          */
@@ -9802,9 +10771,9 @@ declare module 'vscode' {
          * An event that is emitted when files have been renamed.
          *
          * *Note 1:* This event is triggered by user gestures, like renaming a file from the
-         * explorer, and from the [`workspace.applyEdit`](#workspace.applyEdit)-api, but this event is *not* fired when
+         * explorer, and from the {@link workspace.applyEdit `workspace.applyEdit`}-api, but this event is *not* fired when
          * files change on disk, e.g triggered by another application, or when using the
-         * [`workspace.fs`](#FileSystem)-api.
+         * {@link FileSystem `workspace.fs`}-api.
          *
          * *Note 2:* When renaming a folder with children only one event is fired.
          */
@@ -9826,18 +10795,18 @@ declare module 'vscode' {
         export function getConfiguration(section?: string | undefined, scope?: ConfigurationScope | null): WorkspaceConfiguration;
 
         /**
-         * An event that is emitted when the [configuration](#WorkspaceConfiguration) changed.
+         * An event that is emitted when the {@link WorkspaceConfiguration configuration} changed.
          */
         export const onDidChangeConfiguration: Event<ConfigurationChangeEvent>;
 
         /**
-         * ~~Register a task provider.~~
+         * Register a task provider.
          *
          * @deprecated Use the corresponding function on the `tasks` namespace instead
          *
          * @param type The task kind type this provider is registered for.
          * @param provider A task provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerTaskProvider(type: string, provider: TaskProvider): Disposable;
 
@@ -9847,21 +10816,31 @@ declare module 'vscode' {
          * There can only be one provider per scheme and an error is being thrown when a scheme
          * has been claimed by another provider or when it is reserved.
          *
-         * @param scheme The uri-[scheme](#Uri.scheme) the provider registers for.
+         * @param scheme The uri-{@link Uri.scheme scheme} the provider registers for.
          * @param provider The filesystem provider.
          * @param options Immutable metadata about the provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
-        export function registerFileSystemProvider(scheme: string, provider: FileSystemProvider, options?: { readonly isCaseSensitive?: boolean, readonly isReadonly?: boolean }): Disposable;
+        export function registerFileSystemProvider(scheme: string, provider: FileSystemProvider, options?: { readonly isCaseSensitive?: boolean | undefined, readonly isReadonly?: boolean | undefined }): Disposable;
+
+        /**
+         * When true, the user has explicitly trusted the contents of the workspace.
+         */
+        export const isTrusted: boolean;
+
+        /**
+         * Event that fires when the current workspace has been trusted.
+         */
+        export const onDidGrantWorkspaceTrust: Event<void>;
     }
 
     /**
      * The configuration scope which can be a
      * a 'resource' or a languageId or both or
-     * a '[TextDocument](#TextDocument)' or
-     * a '[WorkspaceFolder](#WorkspaceFolder)'
+     * a '{@link TextDocument}' or
+     * a '{@link WorkspaceFolder}'
      */
-    export type ConfigurationScope = Uri | TextDocument | WorkspaceFolder | { uri?: Uri, languageId: string };
+    export type ConfigurationScope = Uri | TextDocument | WorkspaceFolder | { uri?: Uri | undefined, languageId: string };
 
     /**
      * An event describing the change in Configuration
@@ -9869,11 +10848,12 @@ declare module 'vscode' {
     export interface ConfigurationChangeEvent {
 
         /**
-         * Returns `true` if the given section is affected in the provided scope.
+         * Checks if the given section has changed.
+         * If scope is provided, checks if the section has changed for resources under the given scope.
          *
          * @param section Configuration name, supports _dotted_ names.
          * @param scope A scope in which to check.
-         * @return `true` if the given section is affected in the provided scope.
+         * @return `true` if the given section has changed.
          */
         affectsConfiguration(section: string, scope?: ConfigurationScope): boolean;
     }
@@ -9888,7 +10868,7 @@ declare module 'vscode' {
      *
      * The editor provides an API that makes it simple to provide such common features by having all UI and actions already in place and
      * by allowing you to participate by providing data only. For instance, to contribute a hover all you have to do is provide a function
-     * that can be called with a [TextDocument](#TextDocument) and a [Position](#Position) returning hover info. The rest, like tracking the
+     * that can be called with a {@link TextDocument} and a {@link Position} returning hover info. The rest, like tracking the
      * mouse, positioning the hover, keeping the hover stable etc. is taken care of by the editor.
      *
      * ```javascript
@@ -9899,11 +10879,11 @@ declare module 'vscode' {
      * });
      * ```
      *
-     * Registration is done using a [document selector](#DocumentSelector) which is either a language id, like `javascript` or
-     * a more complex [filter](#DocumentFilter) like `{ language: 'typescript', scheme: 'file' }`. Matching a document against such
-     * a selector will result in a [score](#languages.match) that is used to determine if and how a provider shall be used. When
-     * scores are equal the provider that came last wins. For features that allow full arity, like [hover](#languages.registerHoverProvider),
-     * the score is only checked to be `>0`, for other features, like [IntelliSense](#languages.registerCompletionItemProvider) the
+     * Registration is done using a {@link DocumentSelector document selector} which is either a language id, like `javascript` or
+     * a more complex {@link DocumentFilter filter} like `{ language: 'typescript', scheme: 'file' }`. Matching a document against such
+     * a selector will result in a {@link languages.match score} that is used to determine if and how a provider shall be used. When
+     * scores are equal the provider that came last wins. For features that allow full arity, like {@link languages.registerHoverProvider hover},
+     * the score is only checked to be `>0`, for other features, like {@link languages.registerCompletionItemProvider IntelliSense} the
      * score is used for determining the order in which providers are asked to participate.
      */
     export namespace languages {
@@ -9915,11 +10895,11 @@ declare module 'vscode' {
         export function getLanguages(): Thenable<string[]>;
 
         /**
-         * Set (and change) the [language](#TextDocument.languageId) that is associated
+         * Set (and change) the {@link TextDocument.languageId language} that is associated
          * with the given document.
          *
-         * *Note* that calling this function will trigger the [`onDidCloseTextDocument`](#workspace.onDidCloseTextDocument) event
-         * followed by the [`onDidOpenTextDocument`](#workspace.onDidOpenTextDocument) event.
+         * *Note* that calling this function will trigger the {@link workspace.onDidCloseTextDocument `onDidCloseTextDocument`} event
+         * followed by the {@link workspace.onDidOpenTextDocument `onDidOpenTextDocument`} event.
          *
          * @param document The document which language is to be changed
          * @param languageId The new language identifier.
@@ -9928,13 +10908,13 @@ declare module 'vscode' {
         export function setTextDocumentLanguage(document: TextDocument, languageId: string): Thenable<TextDocument>;
 
         /**
-         * Compute the match between a document [selector](#DocumentSelector) and a document. Values
+         * Compute the match between a document {@link DocumentSelector selector} and a document. Values
          * greater than zero mean the selector matches the document.
          *
          * A match is computed according to these rules:
-         * 1. When [`DocumentSelector`](#DocumentSelector) is an array, compute the match for each contained `DocumentFilter` or language identifier and take the maximum value.
-         * 2. A string will be desugared to become the `language`-part of a [`DocumentFilter`](#DocumentFilter), so `"fooLang"` is like `{ language: "fooLang" }`.
-         * 3. A [`DocumentFilter`](#DocumentFilter) will be matched against the document by comparing its parts with the document. The following rules apply:
+         * 1. When {@link DocumentSelector `DocumentSelector`} is an array, compute the match for each contained `DocumentFilter` or language identifier and take the maximum value.
+         * 2. A string will be desugared to become the `language`-part of a {@link DocumentFilter `DocumentFilter`}, so `"fooLang"` is like `{ language: "fooLang" }`.
+         * 3. A {@link DocumentFilter `DocumentFilter`} will be matched against the document by comparing its parts with the document. The following rules apply:
          *  1. When the `DocumentFilter` is empty (`{}`) the result is `0`
          *  2. When `scheme`, `language`, or `pattern` are defined but one doesn’t match, the result is `0`
          *  3. Matching against `*` gives a score of `5`, matching via equality or via a glob-pattern gives a score of `10`
@@ -9967,7 +10947,7 @@ declare module 'vscode' {
         export function match(selector: DocumentSelector, document: TextDocument): number;
 
         /**
-         * An [event](#Event) which fires when the global set of diagnostics changes. This is
+         * An {@link Event} which fires when the global set of diagnostics changes. This is
          * newly added and removed diagnostics.
          */
         export const onDidChangeDiagnostics: Event<DiagnosticChangeEvent>;
@@ -9976,7 +10956,7 @@ declare module 'vscode' {
          * Get all diagnostics for a given resource.
          *
          * @param resource A resource
-         * @returns An array of [diagnostics](#Diagnostic) objects or an empty array.
+         * @returns An array of {@link Diagnostic diagnostics} objects or an empty array.
          */
         export function getDiagnostics(resource: Uri): Diagnostic[];
 
@@ -9990,7 +10970,7 @@ declare module 'vscode' {
         /**
          * Create a diagnostics collection.
          *
-         * @param name The [name](#DiagnosticCollection.name) of the collection.
+         * @param name The {@link DiagnosticCollection.name name} of the collection.
          * @return A new diagnostic collection.
          */
         export function createDiagnosticCollection(name?: string): DiagnosticCollection;
@@ -9999,20 +10979,20 @@ declare module 'vscode' {
          * Register a completion provider.
          *
          * Multiple providers can be registered for a language. In that case providers are sorted
-         * by their [score](#languages.match) and groups of equal score are sequentially asked for
+         * by their {@link languages.match score} and groups of equal score are sequentially asked for
          * completion items. The process stops when one or many providers of a group return a
          * result. A failing provider (rejected promise or exception) will not fail the whole
          * operation.
          *
          * A completion item provider can be associated with a set of `triggerCharacters`. When trigger
          * characters are being typed, completions are requested but only from providers that registered
-         * the typed character. Because of that trigger characters should be different than [word characters](#LanguageConfiguration.wordPattern),
+         * the typed character. Because of that trigger characters should be different than {@link LanguageConfiguration.wordPattern word characters},
          * a common trigger character is `.` to trigger member completions.
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A completion provider.
          * @param triggerCharacters Trigger completion when the user types one of the characters.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerCompletionItemProvider(selector: DocumentSelector, provider: CompletionItemProvider, ...triggerCharacters: string[]): Disposable;
 
@@ -10026,7 +11006,7 @@ declare module 'vscode' {
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A code action provider.
          * @param metadata Metadata about the kind of code actions the provider provides.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerCodeActionsProvider(selector: DocumentSelector, provider: CodeActionProvider, metadata?: CodeActionProviderMetadata): Disposable;
 
@@ -10039,7 +11019,7 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A code lens provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerCodeLensProvider(selector: DocumentSelector, provider: CodeLensProvider): Disposable;
 
@@ -10052,7 +11032,7 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A definition provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerDefinitionProvider(selector: DocumentSelector, provider: DefinitionProvider): Disposable;
 
@@ -10065,7 +11045,7 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider An implementation provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerImplementationProvider(selector: DocumentSelector, provider: ImplementationProvider): Disposable;
 
@@ -10078,7 +11058,7 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A type definition provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerTypeDefinitionProvider(selector: DocumentSelector, provider: TypeDefinitionProvider): Disposable;
 
@@ -10091,7 +11071,7 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A declaration provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerDeclarationProvider(selector: DocumentSelector, provider: DeclarationProvider): Disposable;
 
@@ -10104,7 +11084,7 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A hover provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerHoverProvider(selector: DocumentSelector, provider: HoverProvider): Disposable;
 
@@ -10116,20 +11096,35 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider An evaluatable expression provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerEvaluatableExpressionProvider(selector: DocumentSelector, provider: EvaluatableExpressionProvider): Disposable;
+
+        /**
+         * Register a provider that returns data for the debugger's 'inline value' feature.
+         * Whenever the generic VS Code debugger has stopped in a source file, providers registered for the language of the file
+         * are called to return textual data that will be shown in the editor at the end of lines.
+         *
+         * Multiple providers can be registered for a language. In that case providers are asked in
+         * parallel and the results are merged. A failing provider (rejected promise or exception) will
+         * not cause a failure of the whole operation.
+         *
+         * @param selector A selector that defines the documents this provider is applicable to.
+         * @param provider An inline values provider.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
+         */
+        export function registerInlineValuesProvider(selector: DocumentSelector, provider: InlineValuesProvider): Disposable;
 
         /**
          * Register a document highlight provider.
          *
          * Multiple providers can be registered for a language. In that case providers are sorted
-         * by their [score](#languages.match) and groups sequentially asked for document highlights.
+         * by their {@link languages.match score} and groups sequentially asked for document highlights.
          * The process stops when a provider returns a `non-falsy` or `non-failure` result.
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A document highlight provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerDocumentHighlightProvider(selector: DocumentSelector, provider: DocumentHighlightProvider): Disposable;
 
@@ -10143,7 +11138,7 @@ declare module 'vscode' {
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A document symbol provider.
          * @param metaData metadata about the provider
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerDocumentSymbolProvider(selector: DocumentSelector, provider: DocumentSymbolProvider, metaData?: DocumentSymbolProviderMetadata): Disposable;
 
@@ -10155,7 +11150,7 @@ declare module 'vscode' {
          * a failure of the whole operation.
          *
          * @param provider A workspace symbol provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerWorkspaceSymbolProvider(provider: WorkspaceSymbolProvider): Disposable;
 
@@ -10168,7 +11163,7 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A reference provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerReferenceProvider(selector: DocumentSelector, provider: ReferenceProvider): Disposable;
 
@@ -10176,12 +11171,12 @@ declare module 'vscode' {
          * Register a rename provider.
          *
          * Multiple providers can be registered for a language. In that case providers are sorted
-         * by their [score](#languages.match) and asked in sequence. The first provider producing a result
+         * by their {@link languages.match score} and asked in sequence. The first provider producing a result
          * defines the result of the whole operation.
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A rename provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerRenameProvider(selector: DocumentSelector, provider: RenameProvider): Disposable;
 
@@ -10189,12 +11184,12 @@ declare module 'vscode' {
          * Register a semantic tokens provider for a whole document.
          *
          * Multiple providers can be registered for a language. In that case providers are sorted
-         * by their [score](#languages.match) and the best-matching provider is used. Failure
+         * by their {@link languages.match score} and the best-matching provider is used. Failure
          * of the selected provider will cause a failure of the whole operation.
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A document semantic tokens provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerDocumentSemanticTokensProvider(selector: DocumentSelector, provider: DocumentSemanticTokensProvider, legend: SemanticTokensLegend): Disposable;
 
@@ -10208,12 +11203,12 @@ declare module 'vscode' {
          * will be used.
          *
          * Multiple providers can be registered for a language. In that case providers are sorted
-         * by their [score](#languages.match) and the best-matching provider is used. Failure
+         * by their {@link languages.match score} and the best-matching provider is used. Failure
          * of the selected provider will cause a failure of the whole operation.
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A document range semantic tokens provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerDocumentRangeSemanticTokensProvider(selector: DocumentSelector, provider: DocumentRangeSemanticTokensProvider, legend: SemanticTokensLegend): Disposable;
 
@@ -10221,29 +11216,29 @@ declare module 'vscode' {
          * Register a formatting provider for a document.
          *
          * Multiple providers can be registered for a language. In that case providers are sorted
-         * by their [score](#languages.match) and the best-matching provider is used. Failure
+         * by their {@link languages.match score} and the best-matching provider is used. Failure
          * of the selected provider will cause a failure of the whole operation.
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A document formatting edit provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerDocumentFormattingEditProvider(selector: DocumentSelector, provider: DocumentFormattingEditProvider): Disposable;
 
         /**
          * Register a formatting provider for a document range.
          *
-         * *Note:* A document range provider is also a [document formatter](#DocumentFormattingEditProvider)
-         * which means there is no need to [register](#languages.registerDocumentFormattingEditProvider) a document
+         * *Note:* A document range provider is also a {@link DocumentFormattingEditProvider document formatter}
+         * which means there is no need to {@link languages.registerDocumentFormattingEditProvider register} a document
          * formatter when also registering a range provider.
          *
          * Multiple providers can be registered for a language. In that case providers are sorted
-         * by their [score](#languages.match) and the best-matching provider is used. Failure
+         * by their {@link languages.match score} and the best-matching provider is used. Failure
          * of the selected provider will cause a failure of the whole operation.
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A document range formatting edit provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerDocumentRangeFormattingEditProvider(selector: DocumentSelector, provider: DocumentRangeFormattingEditProvider): Disposable;
 
@@ -10251,14 +11246,14 @@ declare module 'vscode' {
          * Register a formatting provider that works on type. The provider is active when the user enables the setting `editor.formatOnType`.
          *
          * Multiple providers can be registered for a language. In that case providers are sorted
-         * by their [score](#languages.match) and the best-matching provider is used. Failure
+         * by their {@link languages.match score} and the best-matching provider is used. Failure
          * of the selected provider will cause a failure of the whole operation.
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider An on type formatting edit provider.
          * @param firstTriggerCharacter A character on which formatting should be triggered, like `}`.
          * @param moreTriggerCharacter More trigger characters.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerOnTypeFormattingEditProvider(selector: DocumentSelector, provider: OnTypeFormattingEditProvider, firstTriggerCharacter: string, ...moreTriggerCharacter: string[]): Disposable;
 
@@ -10266,14 +11261,14 @@ declare module 'vscode' {
          * Register a signature help provider.
          *
          * Multiple providers can be registered for a language. In that case providers are sorted
-         * by their [score](#languages.match) and called sequentially until a provider returns a
+         * by their {@link languages.match score} and called sequentially until a provider returns a
          * valid result.
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A signature help provider.
          * @param triggerCharacters Trigger signature help when the user types one of the characters, like `,` or `(`.
          * @param metadata Information about the provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerSignatureHelpProvider(selector: DocumentSelector, provider: SignatureHelpProvider, ...triggerCharacters: string[]): Disposable;
         export function registerSignatureHelpProvider(selector: DocumentSelector, provider: SignatureHelpProvider, metadata: SignatureHelpProviderMetadata): Disposable;
@@ -10287,7 +11282,7 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A document link provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerDocumentLinkProvider(selector: DocumentSelector, provider: DocumentLinkProvider): Disposable;
 
@@ -10300,7 +11295,7 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A color provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerColorProvider(selector: DocumentSelector, provider: DocumentColorProvider): Disposable;
 
@@ -10317,7 +11312,7 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A folding range provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerFoldingRangeProvider(selector: DocumentSelector, provider: FoldingRangeProvider): Disposable;
 
@@ -10330,7 +11325,7 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A selection range provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerSelectionRangeProvider(selector: DocumentSelector, provider: SelectionRangeProvider): Disposable;
 
@@ -10339,18 +11334,831 @@ declare module 'vscode' {
          *
          * @param selector A selector that defines the documents this provider is applicable to.
          * @param provider A call hierarchy provider.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerCallHierarchyProvider(selector: DocumentSelector, provider: CallHierarchyProvider): Disposable;
 
         /**
-         * Set a [language configuration](#LanguageConfiguration) for a language.
+         * Register a linked editing range provider.
+         *
+         * Multiple providers can be registered for a language. In that case providers are sorted
+         * by their {@link languages.match score} and the best-matching provider that has a result is used. Failure
+         * of the selected provider will cause a failure of the whole operation.
+         *
+         * @param selector A selector that defines the documents this provider is applicable to.
+         * @param provider A linked editing range provider.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
+         */
+        export function registerLinkedEditingRangeProvider(selector: DocumentSelector, provider: LinkedEditingRangeProvider): Disposable;
+
+        /**
+         * Set a {@link LanguageConfiguration language configuration} for a language.
          *
          * @param language A language identifier like `typescript`.
          * @param configuration Language configuration.
-         * @return A [disposable](#Disposable) that unsets this configuration.
+         * @return A {@link Disposable} that unsets this configuration.
          */
         export function setLanguageConfiguration(language: string, configuration: LanguageConfiguration): Disposable;
+
+    }
+
+    /**
+     * A notebook cell kind.
+     */
+    export enum NotebookCellKind {
+
+        /**
+         * A markup-cell is formatted source that is used for display.
+         */
+        Markup = 1,
+
+        /**
+         * A code-cell is source that can be {@link NotebookController executed} and that
+         * produces {@link NotebookCellOutput output}.
+         */
+        Code = 2
+    }
+
+    /**
+     * Represents a cell of a {@link NotebookDocument notebook}, either a {@link NotebookCellKind.Code code}-cell
+     * or {@link NotebookCellKind.Markup markup}-cell.
+     *
+     * NotebookCell instances are immutable and are kept in sync for as long as they are part of their notebook.
+     */
+    export interface NotebookCell {
+
+        /**
+         * The index of this cell in its {@link NotebookDocument.cellAt containing notebook}. The
+         * index is updated when a cell is moved within its notebook. The index is `-1`
+         * when the cell has been removed from its notebook.
+         */
+        readonly index: number;
+
+        /**
+         * The {@link NotebookDocument notebook} that contains this cell.
+         */
+        readonly notebook: NotebookDocument;
+
+        /**
+         * The kind of this cell.
+         */
+        readonly kind: NotebookCellKind;
+
+        /**
+         * The {@link TextDocument text} of this cell, represented as text document.
+         */
+        readonly document: TextDocument;
+
+        /**
+         * The metadata of this cell. Can be anything but must be JSON-stringifyable.
+         */
+        readonly metadata: { [key: string]: any };
+
+        /**
+         * The outputs of this cell.
+         */
+        readonly outputs: readonly NotebookCellOutput[];
+
+        /**
+         * The most recent {@link NotebookCellExecutionSummary excution summary} for this cell.
+         */
+        readonly executionSummary?: NotebookCellExecutionSummary | undefined;
+    }
+
+    /**
+     * Represents a notebook which itself is a sequence of {@link NotebookCell code or markup cells}. Notebook documents are
+     * created from {@link NotebookData notebook data}.
+     */
+    export interface NotebookDocument {
+
+        /**
+         * The associated uri for this notebook.
+         *
+         * *Note* that most notebooks use the `file`-scheme, which means they are files on disk. However, **not** all notebooks are
+         * saved on disk and therefore the `scheme` must be checked before trying to access the underlying file or siblings on disk.
+         *
+         * @see {@link FileSystemProvider}
+         */
+        readonly uri: Uri;
+
+        /**
+         * The type of notebook.
+         */
+        readonly notebookType: string;
+
+        /**
+         * The version number of this notebook (it will strictly increase after each
+         * change, including undo/redo).
+         */
+        readonly version: number;
+
+        /**
+         * `true` if there are unpersisted changes.
+         */
+        readonly isDirty: boolean;
+
+        /**
+         * Is this notebook representing an untitled file which has not been saved yet.
+         */
+        readonly isUntitled: boolean;
+
+        /**
+         * `true` if the notebook has been closed. A closed notebook isn't synchronized anymore
+         * and won't be re-used when the same resource is opened again.
+         */
+        readonly isClosed: boolean;
+
+        /**
+         * Arbitrary metadata for this notebook. Can be anything but must be JSON-stringifyable.
+         */
+        readonly metadata: { [key: string]: any };
+
+        /**
+         * The number of cells in the notebook.
+         */
+        readonly cellCount: number;
+
+        /**
+         * Return the cell at the specified index. The index will be adjusted to the notebook.
+         *
+         * @param index - The index of the cell to retrieve.
+         * @return A {@link NotebookCell cell}.
+         */
+        cellAt(index: number): NotebookCell;
+
+        /**
+         * Get the cells of this notebook. A subset can be retrieved by providing
+         * a range. The range will be adjuset to the notebook.
+         *
+         * @param range A notebook range.
+         * @returns The cells contained by the range or all cells.
+         */
+        getCells(range?: NotebookRange): NotebookCell[];
+
+        /**
+         * Save the document. The saving will be handled by the corresponding {@link NotebookSerializer serializer}.
+         *
+         * @return A promise that will resolve to true when the document
+         * has been saved. Will return false if the file was not dirty or when save failed.
+         */
+        save(): Thenable<boolean>;
+    }
+
+    /**
+     * The summary of a notebook cell execution.
+     */
+    export interface NotebookCellExecutionSummary {
+
+        /**
+         * The order in which the execution happened.
+         */
+        readonly executionOrder?: number | undefined;
+
+        /**
+         * If the exclusive finished successfully.
+         */
+        readonly success?: boolean | undefined;
+
+        /**
+         * The times at which execution started and ended, as unix timestamps
+         */
+        readonly timing?: { startTime: number, endTime: number } | undefined;
+    }
+
+    /**
+     * A notebook range represents an ordered pair of two cell indicies.
+     * It is guaranteed that start is less than or equal to end.
+     */
+    export class NotebookRange {
+
+        /**
+         * The zero-based start index of this range.
+         */
+        readonly start: number;
+
+        /**
+         * The exclusive end index of this range (zero-based).
+         */
+        readonly end: number;
+
+        /**
+         * `true` if `start` and `end` are equal.
+         */
+        readonly isEmpty: boolean;
+
+        /**
+         * Create a new notebook range. If `start` is not
+         * before or equal to `end`, the values will be swapped.
+         *
+         * @param start start index
+         * @param end end index.
+         */
+        constructor(start: number, end: number);
+
+        /**
+         * Derive a new range for this range.
+         *
+         * @param change An object that describes a change to this range.
+         * @return A range that reflects the given change. Will return `this` range if the change
+         * is not changing anything.
+         */
+        with(change: { start?: number | undefined, end?: number | undefined }): NotebookRange;
+    }
+
+    /**
+     * One representation of a {@link NotebookCellOutput notebook output}, defined by MIME type and data.
+     */
+    export class NotebookCellOutputItem {
+
+        /**
+         * Factory function to create a `NotebookCellOutputItem` from a string.
+         *
+         * *Note* that an UTF-8 encoder is used to create bytes for the string.
+         *
+         * @param value A string.
+         * @param mime Optional MIME type, defaults to `text/plain`.
+         * @returns A new output item object.
+         */
+        static text(value: string, mime?: string): NotebookCellOutputItem;
+
+        /**
+         * Factory function to create a `NotebookCellOutputItem` from
+         * a JSON object.
+         *
+         * *Note* that this function is not expecting "stringified JSON" but
+         * an object that can be stringified. This function will throw an error
+         * when the passed value cannot be JSON-stringified.
+         *
+         * @param value A JSON-stringifyable value.
+         * @param mime Optional MIME type, defaults to `application/json`
+         * @returns A new output item object.
+         */
+        static json(value: any, mime?: string): NotebookCellOutputItem;
+
+        /**
+         * Factory function to create a `NotebookCellOutputItem` that uses
+         * uses the `application/vnd.code.notebook.stdout` mime type.
+         *
+         * @param value A string.
+         * @returns A new output item object.
+         */
+        static stdout(value: string): NotebookCellOutputItem;
+
+        /**
+         * Factory function to create a `NotebookCellOutputItem` that uses
+         * uses the `application/vnd.code.notebook.stderr` mime type.
+         *
+         * @param value A string.
+         * @returns A new output item object.
+         */
+        static stderr(value: string): NotebookCellOutputItem;
+
+        /**
+         * Factory function to create a `NotebookCellOutputItem` that uses
+         * uses the `application/vnd.code.notebook.error` mime type.
+         *
+         * @param value An error object.
+         * @returns A new output item object.
+         */
+        static error(value: Error): NotebookCellOutputItem;
+
+        /**
+         * The mime type which determines how the {@link NotebookCellOutputItem.data `data`}-property
+         * is interpreted.
+         *
+         * Notebooks have built-in support for certain mime-types, extensions can add support for new
+         * types and override existing types.
+         */
+        mime: string;
+
+        /**
+         * The data of this output item. Must always be an array of unsigned 8-bit integers.
+         */
+        data: Uint8Array;
+
+        /**
+         * Create a new notbook cell output item.
+         *
+         * @param data The value of the output item.
+         * @param mime The mime type of the output item.
+         */
+        constructor(data: Uint8Array, mime: string);
+    }
+
+    /**
+     * Notebook cell output represents a result of executing a cell. It is a container type for multiple
+     * {@link NotebookCellOutputItem output items} where contained items represent the same result but
+     * use different MIME types.
+     */
+    export class NotebookCellOutput {
+
+        /**
+         * The output items of this output. Each item must represent the same result. _Note_ that repeated
+         * MIME types per output is invalid and that the editor will just pick one of them.
+         *
+         * ```ts
+         * new vscode.NotebookCellOutput([
+         *     vscode.NotebookCellOutputItem.text('Hello', 'text/plain'),
+         *     vscode.NotebookCellOutputItem.text('<i>Hello</i>', 'text/html'),
+         *     vscode.NotebookCellOutputItem.text('_Hello_', 'text/markdown'),
+         *     vscode.NotebookCellOutputItem.text('Hey', 'text/plain'), // INVALID: repeated type, editor will pick just one
+         * ])
+         * ```
+         */
+        items: NotebookCellOutputItem[];
+
+        /**
+         * Arbitrary metadata for this cell output. Can be anything but must be JSON-stringifyable.
+         */
+        metadata?: { [key: string]: any } | undefined;
+
+        /**
+         * Create new notebook output.
+         *
+         * @param items Notebook output items.
+         * @param metadata Optional metadata.
+         */
+        constructor(items: NotebookCellOutputItem[], metadata?: { [key: string]: any });
+    }
+
+    /**
+     * NotebookCellData is the raw representation of notebook cells. Its is part of {@link NotebookData `NotebookData`}.
+     */
+    export class NotebookCellData {
+
+        /**
+         * The {@link NotebookCellKind kind} of this cell data.
+         */
+        kind: NotebookCellKind;
+
+        /**
+         * The source value of this cell data - either source code or formatted text.
+         */
+        value: string;
+
+        /**
+         * The language identifier of the source value of this cell data. Any value from
+         * {@link languages.getLanguages `getLanguages`} is possible.
+         */
+        languageId: string;
+
+        /**
+         * The outputs of this cell data.
+         */
+        outputs?: NotebookCellOutput[] | undefined;
+
+        /**
+         * Arbitrary metadata of this cell data. Can be anything but must be JSON-stringifyable.
+         */
+        metadata?: { [key: string]: any } | undefined;
+
+        /**
+         * The execution summary of this cell data.
+         */
+        executionSummary?: NotebookCellExecutionSummary | undefined;
+
+        /**
+         * Create new cell data. Minimal cell data specifies its kind, its source value, and the
+         * language identifier of its source.
+         *
+         * @param kind The kind.
+         * @param value The source value.
+         * @param languageId The language identifier of the source value.
+         */
+        constructor(kind: NotebookCellKind, value: string, languageId: string);
+    }
+
+    /**
+     * NotebookData is the raw representation of notebooks.
+     *
+     * Extensions are responsible to create {@link NotebookData `NotebookData`} so that the editor
+     * can create a {@link NotebookDocument `NotebookDocument`}.
+     *
+     * @see {@link NotebookSerializer}
+     */
+    export class NotebookData {
+        /**
+         * The cell data of this notebook data.
+         */
+        cells: NotebookCellData[];
+
+        /**
+         * Arbitrary metadata of notebook data.
+         */
+        metadata?: { [key: string]: any } | undefined;
+
+        /**
+         * Create new notebook data.
+         *
+         * @param cells An array of cell data.
+         */
+        constructor(cells: NotebookCellData[]);
+    }
+
+    /**
+     * The notebook serializer enables the editor to open notebook files.
+     *
+     * At its core the editor only knows a {@link NotebookData notebook data structure} but not
+     * how that data structure is written to a file, nor how it is read from a file. The
+     * notebook serializer bridges this gap by deserializing bytes into notebook data and
+     * vice versa.
+     */
+    export interface NotebookSerializer {
+
+        /**
+         * Deserialize contents of a notebook file into the notebook data structure.
+         *
+         * @param content Contents of a notebook file.
+         * @param token A cancellation token.
+         * @return Notebook data or a thenable that resolves to such.
+         */
+        deserializeNotebook(content: Uint8Array, token: CancellationToken): NotebookData | Thenable<NotebookData>;
+
+        /**
+         * Serialize notebook data into file contents.
+         *
+         * @param data A notebook data structure.
+         * @param token A cancellation token.
+         * @returns An array of bytes or a thenable that resolves to such.
+         */
+        serializeNotebook(data: NotebookData, token: CancellationToken): Uint8Array | Thenable<Uint8Array>;
+    }
+
+    /**
+     * Notebook content options define what parts of a notebook are persisted. Note
+     *
+     * For instance, a notebook serializer can opt-out of saving outputs and in that case the editor doesn't mark a
+     * notebooks as {@link NotebookDocument.isDirty dirty} when its output has changed.
+     */
+    export interface NotebookDocumentContentOptions {
+        /**
+         * Controls if outputs change will trigger notebook document content change and if it will be used in the diff editor
+         * Default to false. If the content provider doesn't persisit the outputs in the file document, this should be set to true.
+         */
+        transientOutputs?: boolean | undefined;
+
+        /**
+         * Controls if a cell metadata property change will trigger notebook document content change and if it will be used in the diff editor
+         * Default to false. If the content provider doesn't persisit a metadata property in the file document, it should be set to true.
+         */
+        transientCellMetadata?: { [key: string]: boolean | undefined } | undefined;
+
+        /**
+        * Controls if a document metadata property change will trigger notebook document content change and if it will be used in the diff editor
+        * Default to false. If the content provider doesn't persisit a metadata property in the file document, it should be set to true.
+        */
+        transientDocumentMetadata?: { [key: string]: boolean | undefined } | undefined;
+    }
+
+    /**
+     * Notebook controller affinity for notebook documents.
+     *
+     * @see {@link NotebookController.updateNotebookAffinity}
+     */
+    export enum NotebookControllerAffinity {
+        /**
+         * Default affinity.
+         */
+        Default = 1,
+        /**
+         * A controller is preferred for a notebook.
+         */
+        Preferred = 2
+    }
+
+    /**
+     * A notebook controller represents an entity that can execute notebook cells. This is often referred to as a kernel.
+     *
+     * There can be multiple controllers and the editor will let users choose which controller to use for a certain notebook. The
+     * {@link NotebookController.notebookType `notebookType`}-property defines for what kind of notebooks a controller is for and
+     * the {@link NotebookController.updateNotebookAffinity `updateNotebookAffinity`}-function allows controllers to set a preference
+     * for specific notebook documents. When a controller has been selected its
+     * {@link NotebookController.onDidChangeSelectedNotebooks onDidChangeSelectedNotebooks}-event fires.
+     *
+     * When a cell is being run the editor will invoke the {@link NotebookController.executeHandler `executeHandler`} and a controller
+     * is expected to create and finalize a {@link NotebookCellExecution notebook cell execution}. However, controllers are also free
+     * to create executions by themselves.
+     */
+    export interface NotebookController {
+
+        /**
+         * The identifier of this notebook controller.
+         *
+         * _Note_ that controllers are remembered by their identifier and that extensions should use
+         * stable identifiers across sessions.
+         */
+        readonly id: string;
+
+        /**
+         * The notebook type this controller is for.
+         */
+        readonly notebookType: string;
+
+        /**
+         * An array of language identifiers that are supported by this
+         * controller. Any language identifier from {@link languages.getLanguages `getLanguages`}
+         * is possible. When falsy all languages are supported.
+         *
+         * Samples:
+         * ```js
+         * // support JavaScript and TypeScript
+         * myController.supportedLanguages = ['javascript', 'typescript']
+         *
+         * // support all languages
+         * myController.supportedLanguages = undefined; // falsy
+         * myController.supportedLanguages = []; // falsy
+         * ```
+         */
+        supportedLanguages?: string[] | undefined;
+
+        /**
+         * The human-readable label of this notebook controller.
+         */
+        label: string;
+
+        /**
+         * The human-readable description which is rendered less prominent.
+         */
+        description?: string | undefined;
+
+        /**
+         * The human-readable detail which is rendered less prominent.
+         */
+        detail?: string | undefined;
+
+        /**
+         * Whether this controller supports execution order so that the
+         * editor can render placeholders for them.
+         */
+        supportsExecutionOrder?: boolean | undefined;
+
+        /**
+         * Create a cell execution task.
+         *
+         * _Note_ that there can only be one execution per cell at a time and that an error is thrown if
+         * a cell execution is created while another is still active.
+         *
+         * This should be used in response to the {@link NotebookController.executeHandler execution handler}
+         * being called or when cell execution has been started else, e.g when a cell was already
+         * executing or when cell execution was triggered from another source.
+         *
+         * @param cell The notebook cell for which to create the execution.
+         * @returns A notebook cell execution.
+         */
+        createNotebookCellExecution(cell: NotebookCell): NotebookCellExecution;
+
+        /**
+         * The execute handler is invoked when the run gestures in the UI are selected, e.g Run Cell, Run All,
+         * Run Selection etc. The execute handler is responsible for creating and managing {@link NotebookCellExecution execution}-objects.
+         */
+        executeHandler: (cells: NotebookCell[], notebook: NotebookDocument, controller: NotebookController) => void | Thenable<void>;
+
+        /**
+         * Optional interrupt handler.
+         *
+         * By default cell execution is canceled via {@link NotebookCellExecution.token tokens}. Cancellation
+         * tokens require that a controller can keep track of its execution so that it can cancel a specific execution at a later
+         * point. Not all scenarios allow for that, eg. REPL-style controllers often work by interrupting whatever is currently
+         * running. For those cases the interrupt handler exists - it can be thought of as the equivalent of `SIGINT`
+         * or `Control+C` in terminals.
+         *
+         * _Note_ that supporting {@link NotebookCellExecution.token cancellation tokens} is preferred and that interrupt handlers should
+         * only be used when tokens cannot be supported.
+         */
+        interruptHandler?: ((notebook: NotebookDocument) => void | Thenable<void>) | undefined;
+
+        /**
+         * An event that fires whenever a controller has been selected or un-selected for a notebook document.
+         *
+         * There can be multiple controllers for a notebook and in that case a controllers needs to be _selected_. This is a user gesture
+         * and happens either explicitly or implicitly when interacting with a notebook for which a controller was _suggested_. When possible,
+         * the editor _suggests_ a controller that is most likely to be _selected_.
+         *
+         * _Note_ that controller selection is persisted (by the controllers {@link NotebookController.id id}) and restored as soon as a
+         * controller is re-created or as a notebook is {@link workspace.onDidOpenNotebookDocument opened}.
+         */
+        readonly onDidChangeSelectedNotebooks: Event<{ notebook: NotebookDocument, selected: boolean }>;
+
+        /**
+         * A controller can set affinities for specific notebook documents. This allows a controller
+         * to be presented more prominent for some notebooks.
+         *
+         * @param notebook The notebook for which a priority is set.
+         * @param affinity A controller affinity
+         */
+        updateNotebookAffinity(notebook: NotebookDocument, affinity: NotebookControllerAffinity): void;
+
+        /**
+         * Dispose and free associated resources.
+         */
+        dispose(): void;
+    }
+
+    /**
+     * A NotebookCellExecution is how {@link NotebookController notebook controller} modify a notebook cell as
+     * it is executing.
+     *
+     * When a cell execution object is created, the cell enters the {@link NotebookCellExecutionState.Pending `Pending`} state.
+     * When {@link NotebookCellExecution.start `start(...)`} is called on the execution task, it enters the {@link NotebookCellExecutionState.Executing `Executing`} state. When
+     * {@link NotebookCellExecution.end `end(...)`} is called, it enters the {@link NotebookCellExecutionState.Idle `Idle`} state.
+     */
+    export interface NotebookCellExecution {
+
+        /**
+         * The {@link NotebookCell cell} for which this execution has been created.
+         */
+        readonly cell: NotebookCell;
+
+        /**
+         * A cancellation token which will be triggered when the cell execution is canceled
+         * from the UI.
+         *
+         * _Note_ that the cancellation token will not be triggered when the {@link NotebookController controller}
+         * that created this execution uses an {@link NotebookController.interruptHandler interrupt-handler}.
+         */
+        readonly token: CancellationToken;
+
+        /**
+         * Set and unset the order of this cell execution.
+         */
+        executionOrder: number | undefined;
+
+        /**
+         * Signal that the execution has begun.
+         *
+         * @param startTime The time that execution began, in milliseconds in the Unix epoch. Used to drive the clock
+         * that shows for how long a cell has been running. If not given, the clock won't be shown.
+         */
+        start(startTime?: number): void;
+
+        /**
+         * Signal that execution has ended.
+         *
+         * @param success If true, a green check is shown on the cell status bar.
+         * If false, a red X is shown.
+         * If undefined, no check or X icon is shown.
+         * @param endTime The time that execution finished, in milliseconds in the Unix epoch.
+         */
+        end(success: boolean | undefined, endTime?: number): void;
+
+        /**
+         * Clears the output of the cell that is executing or of another cell that is affected by this execution.
+         *
+         * @param cell Cell for which output is cleared. Defaults to the {@link NotebookCellExecution.cell cell} of
+         * this execution.
+         * @return A thenable that resolves when the operation finished.
+         */
+        clearOutput(cell?: NotebookCell): Thenable<void>;
+
+        /**
+         * Replace the output of the cell that is executing or of another cell that is affected by this execution.
+         *
+         * @param out Output that replaces the current output.
+         * @param cell Cell for which output is cleared. Defaults to the {@link NotebookCellExecution.cell cell} of
+         * this execution.
+         * @return A thenable that resolves when the operation finished.
+         */
+        replaceOutput(out: NotebookCellOutput | NotebookCellOutput[], cell?: NotebookCell): Thenable<void>;
+
+        /**
+         * Append to the output of the cell that is executing or to another cell that is affected by this execution.
+         *
+         * @param out Output that is appended to the current output.
+         * @param cell Cell for which output is cleared. Defaults to the {@link NotebookCellExecution.cell cell} of
+         * this execution.
+         * @return A thenable that resolves when the operation finished.
+         */
+        appendOutput(out: NotebookCellOutput | NotebookCellOutput[], cell?: NotebookCell): Thenable<void>;
+
+        /**
+         * Replace all output items of existing cell output.
+         *
+         * @param items Output items that replace the items of existing output.
+         * @param output Output object that already exists.
+         * @return A thenable that resolves when the operation finished.
+         */
+        replaceOutputItems(items: NotebookCellOutputItem | NotebookCellOutputItem[], output: NotebookCellOutput): Thenable<void>;
+
+        /**
+         * Append output items to existing cell output.
+         *
+         * @param items Output items that are append to existing output.
+         * @param output Output object that already exists.
+         * @return A thenable that resolves when the operation finished.
+         */
+        appendOutputItems(items: NotebookCellOutputItem | NotebookCellOutputItem[], output: NotebookCellOutput): Thenable<void>;
+    }
+
+    /**
+     * Represents the alignment of status bar items.
+     */
+    export enum NotebookCellStatusBarAlignment {
+
+        /**
+         * Aligned to the left side.
+         */
+        Left = 1,
+
+        /**
+         * Aligned to the right side.
+         */
+        Right = 2
+    }
+
+    /**
+     * A contribution to a cell's status bar
+     */
+    export class NotebookCellStatusBarItem {
+        /**
+         * The text to show for the item.
+         */
+        text: string;
+
+        /**
+         * Whether the item is aligned to the left or right.
+         */
+        alignment: NotebookCellStatusBarAlignment;
+
+        /**
+         * An optional {@link Command `Command`} or identifier of a command to run on click.
+         *
+         * The command must be {@link commands.getCommands known}.
+         *
+         * Note that if this is a {@link Command `Command`} object, only the {@link Command.command `command`} and {@link Command.arguments `arguments`}
+         * are used by VS Code.
+         */
+        command?: string | Command | undefined;
+
+        /**
+         * A tooltip to show when the item is hovered.
+         */
+        tooltip?: string | undefined;
+
+        /**
+         * The priority of the item. A higher value item will be shown more to the left.
+         */
+        priority?: number | undefined;
+
+        /**
+         * Accessibility information used when a screen reader interacts with this item.
+         */
+        accessibilityInformation?: AccessibilityInformation | undefined;
+
+        /**
+         * Creates a new NotebookCellStatusBarItem.
+         * @param text The text to show for the item.
+         * @param alignment Whether the item is aligned to the left or right.
+         */
+        constructor(text: string, alignment: NotebookCellStatusBarAlignment);
+    }
+
+    /**
+     * A provider that can contribute items to the status bar that appears below a cell's editor.
+     */
+    export interface NotebookCellStatusBarItemProvider {
+        /**
+         * An optional event to signal that statusbar items have changed. The provide method will be called again.
+         */
+        onDidChangeCellStatusBarItems?: Event<void> | undefined;
+
+        /**
+         * The provider will be called when the cell scrolls into view, when its content, outputs, language, or metadata change, and when it changes execution state.
+         * @param cell The cell for which to return items.
+         * @param token A token triggered if this request should be cancelled.
+         * @return One or more {@link NotebookCellStatusBarItem cell statusbar items}
+         */
+        provideCellStatusBarItems(cell: NotebookCell, token: CancellationToken): ProviderResult<NotebookCellStatusBarItem | NotebookCellStatusBarItem[]>;
+    }
+
+    /**
+     * Namespace for notebooks.
+     *
+     * The notebooks functionality is composed of three loosly coupled components:
+     *
+     * 1. {@link NotebookSerializer} enable the editor to open, show, and save notebooks
+     * 2. {@link NotebookController} own the execution of notebooks, e.g they create output from code cells.
+     * 3. NotebookRenderer present notebook output in the editor. They run in a separate context.
+     */
+    export namespace notebooks {
+
+        /**
+         * Creates a new notebook controller.
+         *
+         * @param id Identifier of the controller. Must be unique per extension.
+         * @param notebookType A notebook type for which this controller is for.
+         * @param label The label of the controller.
+         * @param handler The execute-handler of the controller.
+         */
+        export function createNotebookController(id: string, notebookType: string, label: string, handler?: (cells: NotebookCell[], notebook: NotebookDocument, controller: NotebookController) => void | Thenable<void>): NotebookController;
+
+        /**
+         * Register a {@link NotebookCellStatusBarItemProvider cell statusbar item provider} for the given notebook type.
+         *
+         * @param notebookType The notebook type to register for.
+         * @param provider A cell status bar provider.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
+         */
+        export function registerNotebookCellStatusBarItemProvider(notebookType: string, provider: NotebookCellStatusBarItemProvider): Disposable;
     }
 
     /**
@@ -10377,7 +12185,7 @@ declare module 'vscode' {
     interface QuickDiffProvider {
 
         /**
-         * Provide a [uri](#Uri) to the original resource of any given resource uri.
+         * Provide a {@link Uri} to the original resource of any given resource uri.
          *
          * @param uri The uri of the resource open in a text editor.
          * @param token A cancellation token.
@@ -10388,79 +12196,99 @@ declare module 'vscode' {
 
     /**
      * The theme-aware decorations for a
-     * [source control resource state](#SourceControlResourceState).
+     * {@link SourceControlResourceState source control resource state}.
      */
     export interface SourceControlResourceThemableDecorations {
 
         /**
          * The icon path for a specific
-         * [source control resource state](#SourceControlResourceState).
+         * {@link SourceControlResourceState source control resource state}.
          */
-        readonly iconPath?: string | Uri;
+        readonly iconPath?: string | Uri | undefined;
     }
 
     /**
-     * The decorations for a [source control resource state](#SourceControlResourceState).
+     * The decorations for a {@link SourceControlResourceState source control resource state}.
      * Can be independently specified for light and dark themes.
      */
     export interface SourceControlResourceDecorations extends SourceControlResourceThemableDecorations {
 
         /**
-         * Whether the [source control resource state](#SourceControlResourceState) should
+         * Whether the {@link SourceControlResourceState source control resource state} should
          * be striked-through in the UI.
          */
-        readonly strikeThrough?: boolean;
+        readonly strikeThrough?: boolean | undefined;
 
         /**
-         * Whether the [source control resource state](#SourceControlResourceState) should
+         * Whether the {@link SourceControlResourceState source control resource state} should
          * be faded in the UI.
          */
-        readonly faded?: boolean;
+        readonly faded?: boolean | undefined;
 
         /**
          * The title for a specific
-         * [source control resource state](#SourceControlResourceState).
+         * {@link SourceControlResourceState source control resource state}.
          */
-        readonly tooltip?: string;
+        readonly tooltip?: string | undefined;
 
         /**
          * The light theme decorations.
          */
-        readonly light?: SourceControlResourceThemableDecorations;
+        readonly light?: SourceControlResourceThemableDecorations | undefined;
 
         /**
          * The dark theme decorations.
          */
-        readonly dark?: SourceControlResourceThemableDecorations;
+        readonly dark?: SourceControlResourceThemableDecorations | undefined;
     }
 
     /**
      * An source control resource state represents the state of an underlying workspace
-     * resource within a certain [source control group](#SourceControlResourceGroup).
+     * resource within a certain {@link SourceControlResourceGroup source control group}.
      */
     export interface SourceControlResourceState {
 
         /**
-         * The [uri](#Uri) of the underlying resource inside the workspace.
+         * The {@link Uri} of the underlying resource inside the workspace.
          */
         readonly resourceUri: Uri;
 
         /**
-         * The [command](#Command) which should be run when the resource
+         * The {@link Command} which should be run when the resource
          * state is open in the Source Control viewlet.
          */
-        readonly command?: Command;
+        readonly command?: Command | undefined;
 
         /**
-         * The [decorations](#SourceControlResourceDecorations) for this source control
+         * The {@link SourceControlResourceDecorations decorations} for this source control
          * resource state.
          */
-        readonly decorations?: SourceControlResourceDecorations;
+        readonly decorations?: SourceControlResourceDecorations | undefined;
+
+        /**
+         * Context value of the resource state. This can be used to contribute resource specific actions.
+         * For example, if a resource is given a context value as `diffable`. When contributing actions to `scm/resourceState/context`
+         * using `menus` extension point, you can specify context value for key `scmResourceState` in `when` expressions, like `scmResourceState == diffable`.
+         * ```
+         *    "contributes": {
+         *        "menus": {
+         *            "scm/resourceState/context": [
+         *                {
+         *                    "command": "extension.diff",
+         *                    "when": "scmResourceState == diffable"
+         *                }
+         *            ]
+         *        }
+         *    }
+         * ```
+         * This will show action `extension.diff` only for resources with `contextValue` is `diffable`.
+         */
+        readonly contextValue?: string | undefined;
     }
 
     /**
      * A source control resource group is a collection of
-     * [source control resource states](#SourceControlResourceState).
+     * {@link SourceControlResourceState source control resource states}.
      */
     export interface SourceControlResourceGroup {
 
@@ -10476,13 +12304,13 @@ declare module 'vscode' {
 
         /**
          * Whether this source control resource group is hidden when it contains
-         * no [source control resource states](#SourceControlResourceState).
+         * no {@link SourceControlResourceState source control resource states}.
          */
-        hideWhenEmpty?: boolean;
+        hideWhenEmpty?: boolean | undefined;
 
         /**
          * This group's collection of
-         * [source control resource states](#SourceControlResourceState).
+         * {@link SourceControlResourceState source control resource states}.
          */
         resourceStates: SourceControlResourceState[];
 
@@ -10493,7 +12321,7 @@ declare module 'vscode' {
     }
 
     /**
-     * An source control is able to provide [resource states](#SourceControlResourceState)
+     * An source control is able to provide {@link SourceControlResourceState resource states}
      * to the editor and interact with the editor in several source control related ways.
      */
     export interface SourceControl {
@@ -10514,23 +12342,23 @@ declare module 'vscode' {
         readonly rootUri: Uri | undefined;
 
         /**
-         * The [input box](#SourceControlInputBox) for this source control.
+         * The {@link SourceControlInputBox input box} for this source control.
          */
         readonly inputBox: SourceControlInputBox;
 
         /**
-         * The UI-visible count of [resource states](#SourceControlResourceState) of
+         * The UI-visible count of {@link SourceControlResourceState resource states} of
          * this source control.
          *
-         * Equals to the total number of [resource state](#SourceControlResourceState)
+         * Equals to the total number of {@link SourceControlResourceState resource state}
          * of this source control, if undefined.
          */
-        count?: number;
+        count?: number | undefined;
 
         /**
-         * An optional [quick diff provider](#QuickDiffProvider).
+         * An optional {@link QuickDiffProvider quick diff provider}.
          */
-        quickDiffProvider?: QuickDiffProvider;
+        quickDiffProvider?: QuickDiffProvider | undefined;
 
         /**
          * Optional commit template string.
@@ -10538,7 +12366,7 @@ declare module 'vscode' {
          * The Source Control viewlet will populate the Source Control
          * input with this value when appropriate.
          */
-        commitTemplate?: string;
+        commitTemplate?: string | undefined;
 
         /**
          * Optional accept input command.
@@ -10546,17 +12374,17 @@ declare module 'vscode' {
          * This command will be invoked when the user accepts the value
          * in the Source Control input.
          */
-        acceptInputCommand?: Command;
+        acceptInputCommand?: Command | undefined;
 
         /**
          * Optional status bar commands.
          *
          * These commands will be displayed in the editor's status bar.
          */
-        statusBarCommands?: Command[];
+        statusBarCommands?: Command[] | undefined;
 
         /**
-         * Create a new [resource group](#SourceControlResourceGroup).
+         * Create a new {@link SourceControlResourceGroup resource group}.
          */
         createResourceGroup(id: string, label: string): SourceControlResourceGroup;
 
@@ -10569,22 +12397,43 @@ declare module 'vscode' {
     export namespace scm {
 
         /**
-         * ~~The [input box](#SourceControlInputBox) for the last source control
-         * created by the extension.~~
+         * The {@link SourceControlInputBox input box} for the last source control
+         * created by the extension.
          *
          * @deprecated Use SourceControl.inputBox instead
          */
         export const inputBox: SourceControlInputBox;
 
         /**
-         * Creates a new [source control](#SourceControl) instance.
+         * Creates a new {@link SourceControl source control} instance.
          *
          * @param id An `id` for the source control. Something short, e.g.: `git`.
          * @param label A human-readable string for the source control. E.g.: `Git`.
          * @param rootUri An optional Uri of the root of the source control. E.g.: `Uri.parse(workspaceRoot)`.
-         * @return An instance of [source control](#SourceControl).
+         * @return An instance of {@link SourceControl source control}.
          */
         export function createSourceControl(id: string, label: string, rootUri?: Uri): SourceControl;
+    }
+
+    /**
+     * A DebugProtocolMessage is an opaque stand-in type for the [ProtocolMessage](https://microsoft.github.io/debug-adapter-protocol/specification#Base_Protocol_ProtocolMessage) type defined in the Debug Adapter Protocol.
+     */
+    export interface DebugProtocolMessage {
+        // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Base_Protocol_ProtocolMessage).
+    }
+
+    /**
+     * A DebugProtocolSource is an opaque stand-in type for the [Source](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source) type defined in the Debug Adapter Protocol.
+     */
+    export interface DebugProtocolSource {
+        // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source).
+    }
+
+    /**
+     * A DebugProtocolBreakpoint is an opaque stand-in type for the [Breakpoint](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Breakpoint) type defined in the Debug Adapter Protocol.
+     */
+    export interface DebugProtocolBreakpoint {
+        // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Breakpoint).
     }
 
     /**
@@ -10623,12 +12472,18 @@ declare module 'vscode' {
         readonly id: string;
 
         /**
-         * The debug session's type from the [debug configuration](#DebugConfiguration).
+         * The debug session's type from the {@link DebugConfiguration debug configuration}.
          */
         readonly type: string;
 
         /**
-         * The debug session's name is initially taken from the [debug configuration](#DebugConfiguration).
+         * The parent session of this debug session, if it was created as a child.
+         * @see DebugSessionOptions.parentSession
+         */
+        readonly parentSession?: DebugSession | undefined;
+
+        /**
+         * The debug session's name is initially taken from the {@link DebugConfiguration debug configuration}.
          * Any changes will be properly reflected in the UI.
          */
         name: string;
@@ -10639,7 +12494,7 @@ declare module 'vscode' {
         readonly workspaceFolder: WorkspaceFolder | undefined;
 
         /**
-         * The "resolved" [debug configuration](#DebugConfiguration) of this session.
+         * The "resolved" {@link DebugConfiguration debug configuration} of this session.
          * "Resolved" means that
          * - all variables have been substituted and
          * - platform specific attribute sections have been "flattened" for the matching platform and removed for non-matching platforms.
@@ -10650,14 +12505,23 @@ declare module 'vscode' {
          * Send a custom request to the debug adapter.
          */
         customRequest(command: string, args?: any): Thenable<any>;
+
+        /**
+         * Maps a VS Code breakpoint to the corresponding Debug Adapter Protocol (DAP) breakpoint that is managed by the debug adapter of the debug session.
+         * If no DAP breakpoint exists (either because the VS Code breakpoint was not yet registered or because the debug adapter is not interested in the breakpoint), the value `undefined` is returned.
+         *
+         * @param breakpoint A VS Code {@link Breakpoint}.
+         * @return A promise that resolves to the Debug Adapter Protocol breakpoint or `undefined`.
+         */
+        getDebugProtocolBreakpoint(breakpoint: Breakpoint): Thenable<DebugProtocolBreakpoint | undefined>;
     }
 
     /**
-     * A custom Debug Adapter Protocol event received from a [debug session](#DebugSession).
+     * A custom Debug Adapter Protocol event received from a {@link DebugSession debug session}.
      */
     export interface DebugSessionCustomEvent {
         /**
-         * The [debug session](#DebugSession) for which the custom event was received.
+         * The {@link DebugSession debug session} for which the custom event was received.
          */
         readonly session: DebugSession;
 
@@ -10675,28 +12539,28 @@ declare module 'vscode' {
     /**
      * A debug configuration provider allows to add debug configurations to the debug service
      * and to resolve launch configurations before they are used to start a debug session.
-     * A debug configuration provider is registered via #debug.registerDebugConfigurationProvider.
+     * A debug configuration provider is registered via {@link debug.registerDebugConfigurationProvider}.
      */
     export interface DebugConfigurationProvider {
         /**
-         * Provides [debug configuration](#DebugConfiguration) to the debug service. If more than one debug configuration provider is
+         * Provides {@link DebugConfiguration debug configuration} to the debug service. If more than one debug configuration provider is
          * registered for the same type, debug configurations are concatenated in arbitrary order.
          *
          * @param folder The workspace folder for which the configurations are used or `undefined` for a folderless setup.
          * @param token A cancellation token.
-         * @return An array of [debug configurations](#DebugConfiguration).
+         * @return An array of {@link DebugConfiguration debug configurations}.
          */
         provideDebugConfigurations?(folder: WorkspaceFolder | undefined, token?: CancellationToken): ProviderResult<DebugConfiguration[]>;
 
         /**
-         * Resolves a [debug configuration](#DebugConfiguration) by filling in missing values or by adding/changing/removing attributes.
+         * Resolves a {@link DebugConfiguration debug configuration} by filling in missing values or by adding/changing/removing attributes.
          * If more than one debug configuration provider is registered for the same type, the resolveDebugConfiguration calls are chained
          * in arbitrary order and the initial debug configuration is piped through the chain.
          * Returning the value 'undefined' prevents the debug session from starting.
          * Returning the value 'null' prevents the debug session from starting and opens the underlying debug configuration instead.
          *
          * @param folder The workspace folder from which the configuration originates from or `undefined` for a folderless setup.
-         * @param debugConfiguration The [debug configuration](#DebugConfiguration) to resolve.
+         * @param debugConfiguration The {@link DebugConfiguration debug configuration} to resolve.
          * @param token A cancellation token.
          * @return The resolved debug configuration or undefined or null.
          */
@@ -10704,14 +12568,14 @@ declare module 'vscode' {
 
         /**
          * This hook is directly called after 'resolveDebugConfiguration' but with all variables substituted.
-         * It can be used to resolve or verify a [debug configuration](#DebugConfiguration) by filling in missing values or by adding/changing/removing attributes.
+         * It can be used to resolve or verify a {@link DebugConfiguration debug configuration} by filling in missing values or by adding/changing/removing attributes.
          * If more than one debug configuration provider is registered for the same type, the 'resolveDebugConfigurationWithSubstitutedVariables' calls are chained
          * in arbitrary order and the initial debug configuration is piped through the chain.
          * Returning the value 'undefined' prevents the debug session from starting.
          * Returning the value 'null' prevents the debug session from starting and opens the underlying debug configuration instead.
          *
          * @param folder The workspace folder from which the configuration originates from or `undefined` for a folderless setup.
-         * @param debugConfiguration The [debug configuration](#DebugConfiguration) to resolve.
+         * @param debugConfiguration The {@link DebugConfiguration debug configuration} to resolve.
          * @param token A cancellation token.
          * @return The resolved debug configuration or undefined or null.
          */
@@ -10748,7 +12612,7 @@ declare module 'vscode' {
          * Optional options to be used when the debug adapter is started.
          * Defaults to undefined.
          */
-        readonly options?: DebugAdapterExecutableOptions;
+        readonly options?: DebugAdapterExecutableOptions | undefined;
     }
 
     /**
@@ -10761,12 +12625,12 @@ declare module 'vscode' {
          * the parent process' environment is used. If provided it is merged with
          * the parent process' environment.
          */
-        env?: { [key: string]: string };
+        env?: { [key: string]: string } | undefined;
 
         /**
          * The current working directory for the executed debug adapter.
          */
-        cwd?: string;
+        cwd?: string | undefined;
     }
 
     /**
@@ -10782,12 +12646,27 @@ declare module 'vscode' {
         /**
          * The host.
          */
-        readonly host?: string;
+        readonly host?: string | undefined;
 
         /**
          * Create a description for a debug adapter running as a socket based server.
          */
         constructor(port: number, host?: string);
+    }
+
+    /**
+     * Represents a debug adapter running as a Named Pipe (on Windows)/UNIX Domain Socket (on non-Windows) based server.
+     */
+    export class DebugAdapterNamedPipeServer {
+        /**
+         * The path to the NamedPipe/UNIX Domain Socket.
+         */
+        readonly path: string;
+
+        /**
+         * Create a description for a debug adapter running as a Named Pipe (on Windows)/UNIX Domain Socket (on non-Windows) based server.
+         */
+        constructor(path: string);
     }
 
     /**
@@ -10811,13 +12690,6 @@ declare module 'vscode' {
     }
 
     /**
-     * A DebugProtocolMessage is an opaque stand-in type for the [ProtocolMessage](https://microsoft.github.io/debug-adapter-protocol/specification#Base_Protocol_ProtocolMessage) type defined in the Debug Adapter Protocol.
-     */
-    export interface DebugProtocolMessage {
-        // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Base_Protocol_ProtocolMessage).
-    }
-
-    /**
      * A debug adapter descriptor for an inline implementation.
      */
     export class DebugAdapterInlineImplementation {
@@ -10828,15 +12700,15 @@ declare module 'vscode' {
         constructor(implementation: DebugAdapter);
     }
 
-    export type DebugAdapterDescriptor = DebugAdapterExecutable | DebugAdapterServer | DebugAdapterInlineImplementation;
+    export type DebugAdapterDescriptor = DebugAdapterExecutable | DebugAdapterServer | DebugAdapterNamedPipeServer | DebugAdapterInlineImplementation;
 
     export interface DebugAdapterDescriptorFactory {
         /**
          * 'createDebugAdapterDescriptor' is called at the start of a debug session to provide details about the debug adapter to use.
-         * These details must be returned as objects of type [DebugAdapterDescriptor](#DebugAdapterDescriptor).
+         * These details must be returned as objects of type {@link DebugAdapterDescriptor}.
          * Currently two types of debug adapters are supported:
-         * - a debug adapter executable is specified as a command path and arguments (see [DebugAdapterExecutable](#DebugAdapterExecutable)),
-         * - a debug adapter server reachable via a communication port (see [DebugAdapterServer](#DebugAdapterServer)).
+         * - a debug adapter executable is specified as a command path and arguments (see {@link DebugAdapterExecutable}),
+         * - a debug adapter server reachable via a communication port (see {@link DebugAdapterServer}).
          * If the method is not implemented the default behavior is this:
          *   createDebugAdapter(session: DebugSession, executable: DebugAdapterExecutable) {
          *      if (typeof session.configuration.debugServer === 'number') {
@@ -10844,9 +12716,9 @@ declare module 'vscode' {
          *      }
          *      return executable;
          *   }
-         * @param session The [debug session](#DebugSession) for which the debug adapter will be used.
+         * @param session The {@link DebugSession debug session} for which the debug adapter will be used.
          * @param executable The debug adapter's executable information as specified in the package.json (or undefined if no such information exists).
-         * @return a [debug adapter descriptor](#DebugAdapterDescriptor) or undefined.
+         * @return a {@link DebugAdapterDescriptor debug adapter descriptor} or undefined.
          */
         createDebugAdapterDescriptor(session: DebugSession, executable: DebugAdapterExecutable | undefined): ProviderResult<DebugAdapterDescriptor>;
     }
@@ -10886,8 +12758,8 @@ declare module 'vscode' {
          * The method 'createDebugAdapterTracker' is called at the start of a debug session in order
          * to return a "tracker" object that provides read-access to the communication between VS Code and a debug adapter.
          *
-         * @param session The [debug session](#DebugSession) for which the debug adapter tracker will be used.
-         * @return A [debug adapter tracker](#DebugAdapterTracker) or undefined.
+         * @param session The {@link DebugSession debug session} for which the debug adapter tracker will be used.
+         * @return A {@link DebugAdapterTracker debug adapter tracker} or undefined.
          */
         createDebugAdapterTracker(session: DebugSession): ProviderResult<DebugAdapterTracker>;
     }
@@ -10913,23 +12785,23 @@ declare module 'vscode' {
     }
 
     /**
-     * An event describing the changes to the set of [breakpoints](#Breakpoint).
+     * An event describing the changes to the set of {@link Breakpoint breakpoints}.
      */
     export interface BreakpointsChangeEvent {
         /**
          * Added breakpoints.
          */
-        readonly added: ReadonlyArray<Breakpoint>;
+        readonly added: readonly Breakpoint[];
 
         /**
          * Removed breakpoints.
          */
-        readonly removed: ReadonlyArray<Breakpoint>;
+        readonly removed: readonly Breakpoint[];
 
         /**
          * Changed breakpoints.
          */
-        readonly changed: ReadonlyArray<Breakpoint>;
+        readonly changed: readonly Breakpoint[];
     }
 
     /**
@@ -10947,15 +12819,15 @@ declare module 'vscode' {
         /**
          * An optional expression for conditional breakpoints.
          */
-        readonly condition?: string;
+        readonly condition?: string | undefined;
         /**
          * An optional expression that controls how many hits of the breakpoint are ignored.
          */
-        readonly hitCondition?: string;
+        readonly hitCondition?: string | undefined;
         /**
          * An optional message that gets logged when this breakpoint is hit. Embedded expressions within {} are interpolated by the debug adapter.
          */
-        readonly logMessage?: string;
+        readonly logMessage?: string | undefined;
 
         protected constructor(enabled?: boolean, condition?: string, hitCondition?: string, logMessage?: string);
     }
@@ -10991,7 +12863,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Debug console mode used by debug session, see [options](#DebugSessionOptions).
+     * Debug console mode used by debug session, see {@link DebugSessionOptions options}.
      */
     export enum DebugConsoleMode {
         /**
@@ -11007,7 +12879,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Options for [starting a debug session](#debug.startDebugging).
+     * Options for {@link debug.startDebugging starting a debug session}.
      */
     export interface DebugSessionOptions {
 
@@ -11015,32 +12887,38 @@ declare module 'vscode' {
          * When specified the newly created debug session is registered as a "child" session of this
          * "parent" debug session.
          */
-        parentSession?: DebugSession;
+        parentSession?: DebugSession | undefined;
 
         /**
          * Controls whether this session should have a separate debug console or share it
          * with the parent session. Has no effect for sessions which do not have a parent session.
          * Defaults to Separate.
          */
-        consoleMode?: DebugConsoleMode;
-    }
+        consoleMode?: DebugConsoleMode | undefined;
 
-    /**
-     * A DebugProtocolSource is an opaque stand-in type for the [Source](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source) type defined in the Debug Adapter Protocol.
-     */
-    export interface DebugProtocolSource {
-        // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source).
+        /**
+         * Controls whether this session should run without debugging, thus ignoring breakpoints.
+         * When this property is not specified, the value from the parent session (if there is one) is used.
+         */
+        noDebug?: boolean | undefined;
+
+        /**
+         * Controls if the debug session's parent session is shown in the CALL STACK view even if it has only a single child.
+         * By default, the debug session will never hide its parent.
+         * If compact is true, debug sessions with a single child are hidden in the CALL STACK view to make the tree more compact.
+         */
+        compact?: boolean | undefined;
     }
 
     /**
      * A DebugConfigurationProviderTriggerKind specifies when the `provideDebugConfigurations` method of a `DebugConfigurationProvider` is triggered.
      * Currently there are two situations: to provide the initial debug configurations for a newly created launch.json or
      * to provide dynamically generated debug configurations when the user asks for them through the UI (e.g. via the "Select and Start Debugging" command).
-     * A trigger kind is used when registering a `DebugConfigurationProvider` with #debug.registerDebugConfigurationProvider.
+     * A trigger kind is used when registering a `DebugConfigurationProvider` with {@link debug.registerDebugConfigurationProvider}.
      */
     export enum DebugConfigurationProviderTriggerKind {
         /**
-         * `DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.
+         *    `DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.
          */
         Initial = 1,
         /**
@@ -11055,14 +12933,14 @@ declare module 'vscode' {
     export namespace debug {
 
         /**
-         * The currently active [debug session](#DebugSession) or `undefined`. The active debug session is the one
+         * The currently active {@link DebugSession debug session} or `undefined`. The active debug session is the one
          * represented by the debug action floating window or the one currently shown in the drop down menu of the debug action floating window.
          * If no debug session is active, the value is `undefined`.
          */
         export let activeDebugSession: DebugSession | undefined;
 
         /**
-         * The currently active [debug console](#DebugConsole).
+         * The currently active {@link DebugConsole debug console}.
          * If no debug session is active, output sent to the debug console is not shown.
          */
         export let activeDebugConsole: DebugConsole;
@@ -11073,35 +12951,35 @@ declare module 'vscode' {
         export let breakpoints: Breakpoint[];
 
         /**
-         * An [event](#Event) which fires when the [active debug session](#debug.activeDebugSession)
+         * An {@link Event} which fires when the {@link debug.activeDebugSession active debug session}
          * has changed. *Note* that the event also fires when the active debug session changes
          * to `undefined`.
          */
         export const onDidChangeActiveDebugSession: Event<DebugSession | undefined>;
 
         /**
-         * An [event](#Event) which fires when a new [debug session](#DebugSession) has been started.
+         * An {@link Event} which fires when a new {@link DebugSession debug session} has been started.
          */
         export const onDidStartDebugSession: Event<DebugSession>;
 
         /**
-         * An [event](#Event) which fires when a custom DAP event is received from the [debug session](#DebugSession).
+         * An {@link Event} which fires when a custom DAP event is received from the {@link DebugSession debug session}.
          */
         export const onDidReceiveDebugSessionCustomEvent: Event<DebugSessionCustomEvent>;
 
         /**
-         * An [event](#Event) which fires when a [debug session](#DebugSession) has terminated.
+         * An {@link Event} which fires when a {@link DebugSession debug session} has terminated.
          */
         export const onDidTerminateDebugSession: Event<DebugSession>;
 
         /**
-         * An [event](#Event) that is emitted when the set of breakpoints is added, removed, or changed.
+         * An {@link Event} that is emitted when the set of breakpoints is added, removed, or changed.
          */
         export const onDidChangeBreakpoints: Event<BreakpointsChangeEvent>;
 
         /**
-         * Register a [debug configuration provider](#DebugConfigurationProvider) for a specific debug type.
-         * The optional [triggerKind](#DebugConfigurationProviderTriggerKind) can be used to specify when the `provideDebugConfigurations` method of the provider is triggered.
+         * Register a {@link DebugConfigurationProvider debug configuration provider} for a specific debug type.
+         * The optional {@link DebugConfigurationProviderTriggerKind triggerKind} can be used to specify when the `provideDebugConfigurations` method of the provider is triggered.
          * Currently two trigger kinds are possible: with the value `Initial` (or if no trigger kind argument is given) the `provideDebugConfigurations` method is used to provide the initial debug configurations to be copied into a newly created launch.json.
          * With the trigger kind `Dynamic` the `provideDebugConfigurations` method is used to dynamically determine debug configurations to be presented to the user (in addition to the static configurations from the launch.json).
          * Please note that the `triggerKind` argument only applies to the `provideDebugConfigurations` method: so the `resolveDebugConfiguration` methods are not affected at all.
@@ -11109,20 +12987,20 @@ declare module 'vscode' {
          * More than one provider can be registered for the same type.
          *
          * @param type The debug type for which the provider is registered.
-         * @param provider The [debug configuration provider](#DebugConfigurationProvider) to register.
-         * @param triggerKind The [trigger](#DebugConfigurationProviderTrigger) for which the 'provideDebugConfiguration' method of the provider is registered. If `triggerKind` is missing, the value `DebugConfigurationProviderTriggerKind.Initial` is assumed.
-         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         * @param provider The {@link DebugConfigurationProvider debug configuration provider} to register.
+         * @param triggerKind The {@link DebugConfigurationProviderTrigger trigger} for which the 'provideDebugConfiguration' method of the provider is registered. If `triggerKind` is missing, the value `DebugConfigurationProviderTriggerKind.Initial` is assumed.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerDebugConfigurationProvider(debugType: string, provider: DebugConfigurationProvider, triggerKind?: DebugConfigurationProviderTriggerKind): Disposable;
 
         /**
-         * Register a [debug adapter descriptor factory](#DebugAdapterDescriptorFactory) for a specific debug type.
+         * Register a {@link DebugAdapterDescriptorFactory debug adapter descriptor factory} for a specific debug type.
          * An extension is only allowed to register a DebugAdapterDescriptorFactory for the debug type(s) defined by the extension. Otherwise an error is thrown.
          * Registering more than one DebugAdapterDescriptorFactory for a debug type results in an error.
          *
          * @param debugType The debug type for which the factory is registered.
-         * @param factory The [debug adapter descriptor factory](#DebugAdapterDescriptorFactory) to register.
-         * @return A [disposable](#Disposable) that unregisters this factory when being disposed.
+         * @param factory The {@link DebugAdapterDescriptorFactory debug adapter descriptor factory} to register.
+         * @return A {@link Disposable} that unregisters this factory when being disposed.
          */
         export function registerDebugAdapterDescriptorFactory(debugType: string, factory: DebugAdapterDescriptorFactory): Disposable;
 
@@ -11130,35 +13008,41 @@ declare module 'vscode' {
          * Register a debug adapter tracker factory for the given debug type.
          *
          * @param debugType The debug type for which the factory is registered or '*' for matching all debug types.
-         * @param factory The [debug adapter tracker factory](#DebugAdapterTrackerFactory) to register.
-         * @return A [disposable](#Disposable) that unregisters this factory when being disposed.
+         * @param factory The {@link DebugAdapterTrackerFactory debug adapter tracker factory} to register.
+         * @return A {@link Disposable} that unregisters this factory when being disposed.
          */
         export function registerDebugAdapterTrackerFactory(debugType: string, factory: DebugAdapterTrackerFactory): Disposable;
 
         /**
          * Start debugging by using either a named launch or named compound configuration,
-         * or by directly passing a [DebugConfiguration](#DebugConfiguration).
+         * or by directly passing a {@link DebugConfiguration}.
          * The named configurations are looked up in '.vscode/launch.json' found in the given folder.
          * Before debugging starts, all unsaved files are saved and the launch configurations are brought up-to-date.
          * Folder specific variables used in the configuration (e.g. '${workspaceFolder}') are resolved against the given folder.
-         * @param folder The [workspace folder](#WorkspaceFolder) for looking up named configurations and resolving variables or `undefined` for a non-folder setup.
-         * @param nameOrConfiguration Either the name of a debug or compound configuration or a [DebugConfiguration](#DebugConfiguration) object.
-         * @param parentSessionOrOptions Debug session options. When passed a parent [debug session](#DebugSession), assumes options with just this parent session.
+         * @param folder The {@link WorkspaceFolder workspace folder} for looking up named configurations and resolving variables or `undefined` for a non-folder setup.
+         * @param nameOrConfiguration Either the name of a debug or compound configuration or a {@link DebugConfiguration} object.
+         * @param parentSessionOrOptions Debug session options. When passed a parent {@link DebugSession debug session}, assumes options with just this parent session.
          * @return A thenable that resolves when debugging could be successfully started.
          */
         export function startDebugging(folder: WorkspaceFolder | undefined, nameOrConfiguration: string | DebugConfiguration, parentSessionOrOptions?: DebugSession | DebugSessionOptions): Thenable<boolean>;
 
         /**
+         * Stop the given debug session or stop all debug sessions if session is omitted.
+         * @param session The {@link DebugSession debug session} to stop; if omitted all sessions are stopped.
+         */
+        export function stopDebugging(session?: DebugSession): Thenable<void>;
+
+        /**
          * Add breakpoints.
          * @param breakpoints The breakpoints to add.
         */
-        export function addBreakpoints(breakpoints: Breakpoint[]): void;
+        export function addBreakpoints(breakpoints: readonly Breakpoint[]): void;
 
         /**
          * Remove breakpoints.
          * @param breakpoints The breakpoints to remove.
          */
-        export function removeBreakpoints(breakpoints: Breakpoint[]): void;
+        export function removeBreakpoints(breakpoints: readonly Breakpoint[]): void;
 
         /**
          * Converts a "Source" descriptor object received via the Debug Adapter Protocol into a Uri that can be used to load its contents.
@@ -11176,7 +13060,7 @@ declare module 'vscode' {
 
     /**
      * Namespace for dealing with installed extensions. Extensions are represented
-     * by an [extension](#Extension)-interface which enables reflection on them.
+     * by an {@link Extension}-interface which enables reflection on them.
      *
      * Extension writers can provide APIs to other extensions by returning their API public
      * surface from the `activate`-call.
@@ -11196,8 +13080,8 @@ declare module 'vscode' {
      * }
      * ```
      * When depending on the API of another extension add an `extensionDependencies`-entry
-     * to `package.json`, and use the [getExtension](#extensions.getExtension)-function
-     * and the [exports](#Extension.exports)-property, like below:
+     * to `package.json`, and use the {@link extensions.getExtension getExtension}-function
+     * and the {@link Extension.exports exports}-property, like below:
      *
      * ```javascript
      * let mathExt = extensions.getExtension('genius.math');
@@ -11227,7 +13111,7 @@ declare module 'vscode' {
         /**
          * All extensions currently known to the system.
          */
-        export const all: ReadonlyArray<Extension<any>>;
+        export const all: readonly Extension<any>[];
 
         /**
          * An event which fires when `extensions.all` changes. This can happen when extensions are
@@ -11236,10 +13120,8 @@ declare module 'vscode' {
         export const onDidChange: Event<void>;
     }
 
-    //#region Comments
-
     /**
-     * Collapsible state of a [comment thread](#CommentThread)
+     * Collapsible state of a {@link CommentThread comment thread}
      */
     export enum CommentThreadCollapsibleState {
         /**
@@ -11254,7 +13136,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Comment mode of a [comment](#Comment)
+     * Comment mode of a {@link Comment}
      */
     export enum CommentMode {
         /**
@@ -11269,7 +13151,7 @@ declare module 'vscode' {
     }
 
     /**
-     * A collection of [comments](#Comment) representing a conversation at a particular range in a document.
+     * A collection of {@link Comment comments} representing a conversation at a particular range in a document.
      */
     export interface CommentThread {
         /**
@@ -11286,13 +13168,19 @@ declare module 'vscode' {
         /**
          * The ordered comments of the thread.
          */
-        comments: ReadonlyArray<Comment>;
+        comments: readonly Comment[];
 
         /**
          * Whether the thread should be collapsed or expanded when opening the document.
          * Defaults to Collapsed.
          */
         collapsibleState: CommentThreadCollapsibleState;
+
+        /**
+         * Whether the thread supports reply.
+         * Defaults to true.
+         */
+        canReply: boolean;
 
         /**
          * Context value of the comment thread. This can be used to contribute thread specific actions.
@@ -11312,12 +13200,12 @@ declare module 'vscode' {
          * ```
          * This will show action `extension.deleteCommentThread` only for comment threads with `contextValue` is `editable`.
          */
-        contextValue?: string;
+        contextValue?: string | undefined;
 
         /**
-         * The optional human-readable label describing the [Comment Thread](#CommentThread)
+         * The optional human-readable label describing the {@link CommentThread Comment Thread}
          */
-        label?: string;
+        label?: string | undefined;
 
         /**
          * Dispose this comment thread.
@@ -11328,7 +13216,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Author information of a [comment](#Comment)
+     * Author information of a {@link Comment}
      */
     export interface CommentAuthorInformation {
         /**
@@ -11339,11 +13227,11 @@ declare module 'vscode' {
         /**
          * The optional icon path for the author
          */
-        iconPath?: Uri;
+        iconPath?: Uri | undefined;
     }
 
     /**
-     * Reactions of a [comment](#Comment)
+     * Reactions of a {@link Comment}
      */
     export interface CommentReaction {
         /**
@@ -11377,12 +13265,12 @@ declare module 'vscode' {
         body: string | MarkdownString;
 
         /**
-         * [Comment mode](#CommentMode) of the comment
+         * {@link CommentMode Comment mode} of the comment
          */
         mode: CommentMode;
 
         /**
-         * The [author information](#CommentAuthorInformation) of the comment
+         * The {@link CommentAuthorInformation author information} of the comment
          */
         author: CommentAuthorInformation;
 
@@ -11404,18 +13292,18 @@ declare module 'vscode' {
          * ```
          * This will show action `extension.deleteComment` only for comments with `contextValue` is `editable`.
          */
-        contextValue?: string;
+        contextValue?: string | undefined;
 
         /**
-         * Optional reactions of the [comment](#Comment)
+         * Optional reactions of the {@link Comment}
          */
-        reactions?: CommentReaction[];
+        reactions?: CommentReaction[] | undefined;
 
         /**
-         * Optional label describing the [Comment](#Comment)
+         * Optional label describing the {@link Comment}
          * Label will be rendered next to authorName if exists.
          */
-        label?: string;
+        label?: string | undefined;
     }
 
     /**
@@ -11423,7 +13311,7 @@ declare module 'vscode' {
      */
     export interface CommentReply {
         /**
-         * The active [comment thread](#CommentThread)
+         * The active {@link CommentThread comment thread}
          */
         thread: CommentThread;
 
@@ -11434,7 +13322,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Commenting range provider for a [comment controller](#CommentController).
+     * Commenting range provider for a {@link CommentController comment controller}.
      */
     export interface CommentingRangeProvider {
         /**
@@ -11444,22 +13332,22 @@ declare module 'vscode' {
     }
 
     /**
-     * Represents a [comment controller](#CommentController)'s [options](#CommentController.options).
+     * Represents a {@link CommentController comment controller}'s {@link CommentController.options options}.
      */
     export interface CommentOptions {
         /**
          * An optional string to show on the comment input box when it's collapsed.
          */
-        prompt?: string;
+        prompt?: string | undefined;
 
         /**
          * An optional string to show as placeholder in the comment input box when it's focused.
          */
-        placeHolder?: string;
+        placeHolder?: string | undefined;
     }
 
     /**
-     * A comment controller is able to provide [comments](#CommentThread) support to the editor and
+     * A comment controller is able to provide {@link CommentThread comments} support to the editor and
      * provide users various ways to interact with comments.
      */
     export interface CommentController {
@@ -11476,34 +13364,34 @@ declare module 'vscode' {
         /**
          * Comment controller options
          */
-        options?: CommentOptions;
+        options?: CommentOptions | undefined;
 
         /**
-         * Optional commenting range provider. Provide a list [ranges](#Range) which support commenting to any given resource uri.
+         * Optional commenting range provider. Provide a list {@link Range ranges} which support commenting to any given resource uri.
          *
          * If not provided, users can leave comments in any document opened in the editor.
          */
-        commentingRangeProvider?: CommentingRangeProvider;
+        commentingRangeProvider?: CommentingRangeProvider | undefined;
 
         /**
-         * Create a [comment thread](#CommentThread). The comment thread will be displayed in visible text editors (if the resource matches)
+         * Create a {@link CommentThread comment thread}. The comment thread will be displayed in visible text editors (if the resource matches)
          * and Comments Panel once created.
          *
          * @param uri The uri of the document the thread has been created on.
          * @param range The range the comment thread is located within the document.
          * @param comments The ordered comments of the thread.
          */
-        createCommentThread(uri: Uri, range: Range, comments: Comment[]): CommentThread;
+        createCommentThread(uri: Uri, range: Range, comments: readonly Comment[]): CommentThread;
 
         /**
-         * Optional reaction handler for creating and deleting reactions on a [comment](#Comment).
+         * Optional reaction handler for creating and deleting reactions on a {@link Comment}.
          */
-        reactionHandler?: (comment: Comment, reaction: CommentReaction) => Promise<void>;
+        reactionHandler?: ((comment: Comment, reaction: CommentReaction) => Thenable<void>) | undefined;
 
         /**
          * Dispose this comment controller.
          *
-         * Once disposed, all [comment threads](#CommentThread) created by this comment controller will also be removed from the editor
+         * Once disposed, all {@link CommentThread comment threads} created by this comment controller will also be removed from the editor
          * and Comments Panel.
          */
         dispose(): void;
@@ -11511,16 +13399,246 @@ declare module 'vscode' {
 
     namespace comments {
         /**
-         * Creates a new [comment controller](#CommentController) instance.
+         * Creates a new {@link CommentController comment controller} instance.
          *
          * @param id An `id` for the comment controller.
          * @param label A human-readable string for the comment controller.
-         * @return An instance of [comment controller](#CommentController).
+         * @return An instance of {@link CommentController comment controller}.
          */
         export function createCommentController(id: string, label: string): CommentController;
     }
 
     //#endregion
+
+    /**
+     * Represents a session of a currently logged in user.
+     */
+    export interface AuthenticationSession {
+        /**
+         * The identifier of the authentication session.
+         */
+        readonly id: string;
+
+        /**
+         * The access token.
+         */
+        readonly accessToken: string;
+
+        /**
+         * The account associated with the session.
+         */
+        readonly account: AuthenticationSessionAccountInformation;
+
+        /**
+         * The permissions granted by the session's access token. Available scopes
+         * are defined by the {@link AuthenticationProvider}.
+         */
+        readonly scopes: readonly string[];
+    }
+
+    /**
+     * The information of an account associated with an {@link AuthenticationSession}.
+     */
+    export interface AuthenticationSessionAccountInformation {
+        /**
+         * The unique identifier of the account.
+         */
+        readonly id: string;
+
+        /**
+         * The human-readable name of the account.
+         */
+        readonly label: string;
+    }
+
+
+    /**
+     * Options to be used when getting an {@link AuthenticationSession} from an {@link AuthenticationProvider}.
+     */
+    export interface AuthenticationGetSessionOptions {
+        /**
+         * Whether login should be performed if there is no matching session.
+         *
+         * If true, a modal dialog will be shown asking the user to sign in. If false, a numbered badge will be shown
+         * on the accounts activity bar icon. An entry for the extension will be added under the menu to sign in. This
+         * allows quietly prompting the user to sign in.
+         *
+         * If there is a matching session but the extension has not been granted access to it, setting this to true
+         * will also result in an immediate modal dialog, and false will add a numbered badge to the accounts icon.
+         *
+         * Defaults to false.
+         */
+        createIfNone?: boolean | undefined;
+
+        /**
+         * Whether the existing user session preference should be cleared.
+         *
+         * For authentication providers that support being signed into multiple accounts at once, the user will be
+         * prompted to select an account to use when {@link authentication.getSession getSession} is called. This preference
+         * is remembered until {@link authentication.getSession getSession} is called with this flag.
+         *
+         * Defaults to false.
+         */
+        clearSessionPreference?: boolean | undefined;
+    }
+
+    /**
+     * Basic information about an {@link AuthenticationProvider}
+     */
+    export interface AuthenticationProviderInformation {
+        /**
+         * The unique identifier of the authentication provider.
+         */
+        readonly id: string;
+
+        /**
+         * The human-readable name of the authentication provider.
+         */
+        readonly label: string;
+    }
+
+    /**
+     * An {@link Event} which fires when an {@link AuthenticationSession} is added, removed, or changed.
+     */
+    export interface AuthenticationSessionsChangeEvent {
+        /**
+         * The {@link AuthenticationProvider} that has had its sessions change.
+         */
+        readonly provider: AuthenticationProviderInformation;
+    }
+
+    /**
+     * Options for creating an {@link AuthenticationProvider}.
+     */
+    export interface AuthenticationProviderOptions {
+        /**
+         * Whether it is possible to be signed into multiple accounts at once with this provider.
+         * If not specified, will default to false.
+        */
+        readonly supportsMultipleAccounts?: boolean | undefined;
+    }
+
+    /**
+    * An {@link Event} which fires when an {@link AuthenticationSession} is added, removed, or changed.
+    */
+    export interface AuthenticationProviderAuthenticationSessionsChangeEvent {
+        /**
+         * The {@link AuthenticationSession}s of the {@link AuthentiationProvider AuthenticationProvider} that have been added.
+        */
+        readonly added?: readonly AuthenticationSession[] | undefined;
+
+        /**
+         * The {@link AuthenticationSession}s of the {@link AuthentiationProvider AuthenticationProvider} that have been removed.
+         */
+        readonly removed?: readonly AuthenticationSession[] | undefined;
+
+        /**
+         * The {@link AuthenticationSession}s of the {@link AuthentiationProvider AuthenticationProvider} that have been changed.
+         * A session changes when its data excluding the id are updated. An example of this is a session refresh that results in a new
+         * access token being set for the session.
+         */
+        readonly changed?: readonly AuthenticationSession[] | undefined;
+    }
+
+    /**
+     * A provider for performing authentication to a service.
+     */
+    export interface AuthenticationProvider {
+        /**
+         * An {@link Event} which fires when the array of sessions has changed, or data
+         * within a session has changed.
+         */
+        readonly onDidChangeSessions: Event<AuthenticationProviderAuthenticationSessionsChangeEvent>;
+
+        /**
+         * Get a list of sessions.
+         * @param scopes An optional list of scopes. If provided, the sessions returned should match
+         * these permissions, otherwise all sessions should be returned.
+         * @returns A promise that resolves to an array of authentication sessions.
+         */
+        getSessions(scopes?: readonly string[]): Thenable<readonly AuthenticationSession[]>;
+
+        /**
+         * Prompts a user to login.
+         *
+         * If login is successful, the onDidChangeSessions event should be fired.
+         *
+         * If login fails, a rejected promise should be returned.
+         *
+         * If the provider has specified that it does not support multiple accounts,
+         * then this should never be called if there is already an existing session matching these
+         * scopes.
+         * @param scopes A list of scopes, permissions, that the new session should be created with.
+         * @returns A promise that resolves to an authentication session.
+         */
+        createSession(scopes: readonly string[]): Thenable<AuthenticationSession>;
+
+        /**
+         * Removes the session corresponding to session id.
+         *
+         * If the removal is successful, the onDidChangeSessions event should be fired.
+         *
+         * If a session cannot be removed, the provider should reject with an error message.
+         * @param sessionId The id of the session to remove.
+         */
+        removeSession(sessionId: string): Thenable<void>;
+    }
+
+
+    /**
+     * Namespace for authentication.
+     */
+    export namespace authentication {
+        /**
+         * Get an authentication session matching the desired scopes. Rejects if a provider with providerId is not
+         * registered, or if the user does not consent to sharing authentication information with
+         * the extension. If there are multiple sessions with the same scopes, the user will be shown a
+         * quickpick to select which account they would like to use.
+         *
+         * Currently, there are only two authentication providers that are contributed from built in extensions
+         * to VS Code that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+         * @param providerId The id of the provider to use
+         * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
+         * @param options The {@link GetSessionOptions} to use
+         * @returns A thenable that resolves to an authentication session
+         */
+        export function getSession(providerId: string, scopes: readonly string[], options: AuthenticationGetSessionOptions & { createIfNone: true }): Thenable<AuthenticationSession>;
+
+        /**
+         * Get an authentication session matching the desired scopes. Rejects if a provider with providerId is not
+         * registered, or if the user does not consent to sharing authentication information with
+         * the extension. If there are multiple sessions with the same scopes, the user will be shown a
+         * quickpick to select which account they would like to use.
+         *
+         * Currently, there are only two authentication providers that are contributed from built in extensions
+         * to VS Code that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+         * @param providerId The id of the provider to use
+         * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
+         * @param options The {@link GetSessionOptions} to use
+         * @returns A thenable that resolves to an authentication session if available, or undefined if there are no sessions
+         */
+        export function getSession(providerId: string, scopes: readonly string[], options?: AuthenticationGetSessionOptions): Thenable<AuthenticationSession | undefined>;
+
+        /**
+         * An {@link Event} which fires when the authentication sessions of an authentication provider have
+         * been added, removed, or changed.
+         */
+        export const onDidChangeSessions: Event<AuthenticationSessionsChangeEvent>;
+
+        /**
+         * Register an authentication provider.
+         *
+         * There can only be one provider per id and an error is being thrown when an id
+         * has already been used by another provider. Ids are case-sensitive.
+         *
+         * @param id The unique identifier of the provider.
+         * @param label The human-readable name of the provider.
+         * @param provider The authentication provider provider.
+         * @params options Additional options for the provider.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
+         */
+        export function registerAuthenticationProvider(id: string, label: string, provider: AuthenticationProvider, options?: AuthenticationProviderOptions): Disposable;
+    }
 }
 
 /**

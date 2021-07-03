@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from '../../../typings/shared';
+import * as React from "react";
+import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from "../../../typings/shared";
 
 export interface ColumnSpanDetailed {
     offset?: number;

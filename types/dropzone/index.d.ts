@@ -1,4 +1,4 @@
-// Type definitions for Dropzone 5.7.0
+// Type definitions for Dropzone 5.7.2
 // Project: http://www.dropzonejs.com/
 // Definitions by: Natan Vivo <https://github.com/nvivo>
 //                 Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
@@ -10,6 +10,7 @@
 //                 PikachuEXE <https://github.com/PikachuEXE>
 //                 Arne Deruwe <https://github.com/arnederuwe>
 //                 Chris Macklin <https://github.com/macklin-10x>
+//                 Michał Lipiński <https://github.com/falsyvalues>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -178,11 +179,21 @@ declare class Dropzone {
     constructor(container: string | HTMLElement, options?: Dropzone.DropzoneOptions);
 
     static autoDiscover: boolean;
-    static options: { [key: string]: Dropzone.DropzoneOptions | false };
+    static blacklistedBrowsers: RegExp[];
     static confirm: (question: string, accepted: () => void, rejected?: () => void) => void;
     static createElement(string: string): HTMLElement;
-    static isBrowserSupported(): boolean;
+    static dataURItoBlob(dataURI: string): Blob;
+    static discover(): Dropzone[];
+    static elementInside(element: HTMLElement, container: HTMLElement): boolean;
+    static forElement(element: string | HTMLElement): Dropzone;
+    static getElement(element: string | HTMLElement, name?: string): HTMLElement;
+    static getElements(elements: string | HTMLElement | Array<string | HTMLElement>): HTMLElement[];
     static instances: Dropzone[];
+    static isBrowserSupported(): boolean;
+    static isValidFile(file: File, acceptedFiles: string): boolean;
+    static options: { [key: string]: Dropzone.DropzoneOptions | false };
+    static optionsForElement(element: HTMLElement): Dropzone.DropzoneOptions | undefined;
+    static version: string;
 
     static ADDED: string;
     static QUEUED: string;
@@ -195,6 +206,7 @@ declare class Dropzone {
 
     element: HTMLElement;
     files: Dropzone.DropzoneFile[];
+    hiddenFileInput?: HTMLInputElement;
     listeners: Dropzone.DropzoneListener[];
     defaultOptions: Dropzone.DropzoneOptions;
     options: Dropzone.DropzoneOptions;

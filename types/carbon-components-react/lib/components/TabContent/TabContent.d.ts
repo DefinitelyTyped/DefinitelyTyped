@@ -1,9 +1,7 @@
 import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends Omit<ReactDivAttr, "hidden"> { }
-
-export interface TabContentProps extends InheritedProps {
+export interface TabContentProps extends Omit<ReactDivAttr, "hidden"> {
     selected?: boolean,
 }
 

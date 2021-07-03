@@ -151,3 +151,9 @@ class MenuWithRenderProp extends React.Component {
         );
     }
 }
+
+// Test for forwarding ref
+{
+    const buttonRef = React.useRef<HTMLElement | null>(null);
+    <Button ref={buttonRef}>Select a word</Button>;
+}

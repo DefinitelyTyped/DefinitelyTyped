@@ -1,4 +1,4 @@
-// Type definitions for jsdoc-to-markdown 6.0
+// Type definitions for jsdoc-to-markdown 7.0
 // Project: https://github.com/jsdoc2md/jsdoc-to-markdown
 // Definitions by:  Adam Zerella <https://github.com/adamzerella>
 //                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -23,7 +23,7 @@ export interface RenderOptions {
      * The initial heading depth.
      * For example, with a value of 2 the top-level markdown headings look like "## The heading".
      */
-    headingDepth?: number;
+    'heading-depth'?: number;
     /**
      * Specifies the default language used in '@example' blocks (for syntax-highlighting purposes).
      * In gfm mode, each '@example' is wrapped in a fenced-code block. Example usage: --example-lang js.
@@ -32,7 +32,7 @@ export interface RenderOptions {
      * for any '@example' by specifying the @lang subtag,
      * e.g @example @lang hbs. Specifying @example @lang off will disable code blocks for that example.
      */
-    exampleLang?: string;
+    'example-lang'?: string;
     /**
      * Use an installed package containing helper and/or partial overrides.
      */
@@ -49,27 +49,27 @@ export interface RenderOptions {
      * Format identifier names in the code style,
      * (i.e. format using backticks or <code></code>).
      */
-    nameFormat?: string;
+    'name-format'?: string;
     /**
      * By default, dmd generates github-flavoured markdown.
      * Not all markdown parsers render gfm correctly.
      * If your generated docs look incorrect on sites other than Github
      * (e.g. npmjs.org) try enabling this option to disable Github-specific syntax.
      */
-    noGfm?: boolean;
+    'no-gfm'?: boolean;
     /**
      * Put <hr> breaks between identifiers. Improves readability on bulky docs.
      */
-    seperators?: boolean;
-    moduleIndexFormat?: StyleListFormat;
-    globalIndexFormat?: StyleListFormat;
+    separators?: boolean;
+    'module-index-format'?: StyleListFormat;
+    'global-index-format'?: StyleListFormat;
     /**
      * Two options to render parameter lists: 'list' or 'table' (default).
      * Table format works well in most cases but switch to list if things begin to look crowded / squashed.
      */
-    paramListFormat?: RenderListFormat;
-    propertyListFormat?: RenderListFormat;
-    memberIndexFormat?: MemberIndexFormat;
+    'param-list-format'?: RenderListFormat;
+    'property-list-format'?: RenderListFormat;
+    'member-index-format'?: MemberIndexFormat;
 }
 
 export interface JsdocOptions {
@@ -96,7 +96,7 @@ export interface JsdocOptions {
 }
 
 /**
- * Returns markdown documentation from jsdoc-annoted source code.
+ * Returns markdown documentation from jsdoc-annotated source code.
  */
 export function render(options: RenderOptions | JsdocOptions): Promise<string>;
 

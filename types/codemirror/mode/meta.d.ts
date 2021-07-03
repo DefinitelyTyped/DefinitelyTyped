@@ -1,25 +1,19 @@
-// Type definitions for codemirror
-// Project: https://github.com/marijnh/CodeMirror
-// Definitions by: koddsson <https://github.com/koddsson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+import '../';
 
-import * as CodeMirror from 'codemirror';
-
-interface MimeType {
+export interface ModeInfo {
     name: string;
     mime?: string;
-    mimes?: string;
+    mimes?: string[];
     mode: string;
     file?: RegExp;
     ext?: string[];
     alias?: string[];
 }
 
-declare module 'codemirror' {
-    const modeInfo: MimeType[];
-    function findModeByMIME(mime: string): MimeType;
-    function findModeByExtension(ext: string): MimeType;
-    function findModeByFileName(filename: string): MimeType;
-    function findModeByName(name: string): MimeType;
+declare module '../' {
+    const modeInfo: ModeInfo[];
+    function findModeByMIME(mime: string): ModeInfo | undefined;
+    function findModeByExtension(ext: string): ModeInfo | undefined;
+    function findModeByFileName(filename: string): ModeInfo | undefined;
+    function findModeByName(name: string): ModeInfo | undefined;
 }

@@ -1,15 +1,8 @@
-import { CacheConfig } from '../util/RelayRuntimeTypes';
 import { Environment, OperationDescriptor, RequestDescriptor } from '../store/RelayStoreTypes';
 import { GraphQLResponse } from '../network/RelayNetworkTypes';
 import { RelayObservable as Observable } from '../network/RelayObservable';
 
-export function fetchQuery(
-    environment: Environment,
-    operation: OperationDescriptor,
-    options?: {
-        networkCacheConfig?: CacheConfig;
-    },
-): Observable<GraphQLResponse>;
+export function fetchQuery(environment: Environment, operation: OperationDescriptor): Observable<GraphQLResponse>;
 
 export function fetchQueryDeduped(
     environment: Environment,

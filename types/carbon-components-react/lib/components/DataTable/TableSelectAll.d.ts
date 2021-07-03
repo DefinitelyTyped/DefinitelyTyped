@@ -2,17 +2,16 @@ import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 import { InlineCheckboxProps } from "../InlineCheckbox";
 
-interface InheritedProps {
+export interface TableSelectAllProps {
     ariaLabel?: InlineCheckboxProps["ariaLabel"], // required but has default value
     checked: NonNullable<InlineCheckboxProps["checked"]>,
     className?: ReactAttr["className"],
+    disabled?: InlineCheckboxProps["disabled"],
     id: NonNullable<InlineCheckboxProps["id"]>,
     indeterminate?: InlineCheckboxProps["indeterminate"],
-    name: NonNullable<InlineCheckboxProps["name"]>
-    onSelect: NonNullable<InlineCheckboxProps["onSelect"]>,
+    name: NonNullable<InlineCheckboxProps["name"]>,
+    onSelect: InlineCheckboxProps["onClick"],
 }
-
-export interface TableSelectAllProps extends InheritedProps { }
 
 declare const TableSelectAll: React.FC<TableSelectAllProps>;
 

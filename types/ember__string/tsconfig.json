@@ -15,10 +15,7 @@
             "../"
         ],
         "paths": {
-            "@ember/template": ["ember__template"],
-            "@ember/template/*": ["ember__template/*"],
-            "@ember/string": ["ember__string"],
-            "@ember/string/*": ["ember__string/*"]
+            "@ember/*": ["ember__*"]
         },
         "types": [],
         "noEmit": true,

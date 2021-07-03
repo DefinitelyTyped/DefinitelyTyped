@@ -2,9 +2,9 @@
 // Project: https://github.com/pirelenito/git-revision-webpack-plugin
 // Definitions by: Anders Kaseorg <https://github.com/andersk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
-import { Plugin } from 'webpack';
+import { Compiler, WebpackPluginInstance } from 'webpack';
 
 declare namespace GitRevisionPlugin {
     interface Options {
@@ -17,8 +17,9 @@ declare namespace GitRevisionPlugin {
     }
 }
 
-declare class GitRevisionPlugin extends Plugin {
+declare class GitRevisionPlugin implements WebpackPluginInstance {
     constructor(options?: GitRevisionPlugin.Options);
+    apply(compiler: Compiler): void;
     version(): string;
     commithash(): string;
     branch(): string;

@@ -1,5 +1,1 @@
-lib/blankNode.d.ts
-lib/defaultGraph.d.ts
 lib/literal.d.ts
-lib/namedNode.d.ts
-lib/variable.d.ts

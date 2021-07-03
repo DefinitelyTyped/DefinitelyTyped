@@ -1,22 +1,23 @@
-// Type definitions for page v1.8.6
-// Project: http://visionmedia.github.io/page.js/
-// Definitions by: Alan Norbauer <http://alan.norbauer.com/>
+// Type definitions for page 1.11
+// Project: https://github.com/visionmedia/page.js
+// Definitions by: Alan Norbauer <https://github.com/altano/>
 //                 James Garbutt <https://github.com/43081j>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 declare namespace PageJS {
     interface Static {
+        create(options?: Partial<Options>): Static;
         /**
          * Expose Route
          * @type {Route}
          */
-        Route: Route
+        Route: Route;
         /**
          * Export Context
          * @type {Context}
          */
-        Context: Context
+        Context: Context;
         /**
          *  Defines a route mapping path to the given callback(s).
          *
@@ -84,7 +85,8 @@ declare namespace PageJS {
          */
         redirect(fromPath: string, toPath: string): void;
         /**
-         *  Calling page.redirect with only a string as the first parameter redirects to another route. Waits for the current route to push state and after replaces it with the new one leaving the browser history clean.
+         * Calling page.redirect with only a string as the first parameter redirects to another route.
+         * Waits for the current route to push state and after replaces it with the new one leaving the browser history clean.
          *
          *      page('/default', function(){
          *        // some logic to decide which route to redirect to
@@ -115,6 +117,12 @@ declare namespace PageJS {
          * Identical to page(path).
          */
         show(path: string): void;
+        /**
+         * Get or set the strict path matching mode to enable.
+         * If enabled /blog will not match "/blog/" and /blog/ will not match "/blog".
+         */
+        strict(enable: boolean): void;
+        strict(): boolean;
         /**
          * Register page's popstate / click bindings. If you're doing selective binding you'll like want to pass { click: false } to specify this yourself. The following options are available:
          *
@@ -167,6 +175,11 @@ declare namespace PageJS {
          * Equivalent to page.exit('*', callback).
          */
         exit(callback: Callback): void;
+
+        /**
+         * This is the click handler used by page to handle routing when a user clicks an anchor like `<a href="/user/profile">`
+         */
+        clickHandler(e: MouseEvent): void;
     }
 
     interface Route {
@@ -175,19 +188,19 @@ declare namespace PageJS {
          * @param {string}  path    path
          * @param {Options} options Options
          */
-        new (path: string, options?: RouteOptions): Route
+        new (path: string, options?: RouteOptions): Route;
         /**
          * Return route middleware with the given callback `fn()`.
          * @param {Callback} callback Callback
          */
-        middleware(fn: Callback): Callback
+        middleware(fn: Callback): Callback;
         /**
          * Check if this route matches `path`, if so populate `params`.
          * @param  {string}  path   path
          * @param  {{}}    params params
          * @return {boolean}       true if matched, false otherwise
          */
-        match(path: string, params?: {}): boolean
+        match(path: string, params?: {}): boolean;
     }
 
     interface RouteOptions {
@@ -195,12 +208,12 @@ declare namespace PageJS {
          * enable case-sensitive routes
          * @type {[type]}
          */
-        sensitive?: boolean
+        sensitive?: boolean;
         /**
          * enable strict matching for trailing slashes
          * @type {[type]}
          */
-        strict?: boolean
+        strict?: boolean;
     }
 
     interface Options {
@@ -221,9 +234,13 @@ declare namespace PageJS {
          */
         hashbang: boolean;
         /**
-         * remove URL encoding frfrom path components
+         * remove URL encoding from path components
          */
         decodeURLComponents: boolean;
+        /**
+         * provide a window to control (by default it will control the main window)
+         */
+        window: Window;
     }
 
     interface Callback {
@@ -239,7 +256,7 @@ declare namespace PageJS {
          * @param {string} path  path
          * @param {any}    state state
          */
-        new (path: string, state?: any): Context
+        new (path: string, state?: any): Context;
         [idx: string]: any;
         /**
          * Saves the context using replaceState(). For example this is useful for caching HTML or other resources that were loaded for when a user presses "back".
@@ -248,23 +265,27 @@ declare namespace PageJS {
         /**
          * Push state
          */
-        pushState: () => void
+        pushState: () => void;
         /**
          *  If true, marks the context as handled to prevent default 404 behaviour. For example this is useful for the routes with interminate quantity of the callbacks.
          */
         handled: boolean;
         /**
-         *  Pathname including the "base" (if any) and query string "/admin/login?foo=bar".
+         *  Pathname including the "base" (if any) and query string "/admin/login?foo=bar#zee".
          */
         canonicalPath: string;
         /**
-         *  Pathname and query string "/login?foo=bar".
+         *  Pathname and query string "/login?foo=bar#zee".
          */
         path: string;
         /**
          *  Query string void of leading ? such as "foo=bar", defaults to "".
          */
         querystring: string;
+        /**
+         *  Hash void of leading # such as "zee", defaults to "".
+         */
+        hash: string;
         /**
          *  The pathname void of query string "/login".
          */

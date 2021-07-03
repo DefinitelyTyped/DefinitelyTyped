@@ -96,7 +96,7 @@ gulp.task('connect', () => {
         express()
     ];
 
-    return connect.server({
+    connect.server({
         root: [__dirname],
         port: 8081,
         livereload: true,
@@ -112,10 +112,19 @@ gulp.task('connect', () => {
         ["/path2", express()],
     ];
 
-    return connect.server({
+    connect.server({
         root: [__dirname],
         port: 8081,
         livereload: true,
         middleware: (connect, opt) => middleware
     });
+});
+
+// Pass a callback function for when server starts listening
+gulp.task('callback-connect', () => {
+  function cb() {
+    console.log('server has started listening');
+  }
+
+  connect.server({}, cb);
 });

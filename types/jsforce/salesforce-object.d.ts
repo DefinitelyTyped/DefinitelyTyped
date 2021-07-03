@@ -34,9 +34,9 @@ export class SObject<T> {
     find<T>(query?: object | string, fields?: Object | string[] | string, callback?: Callback<Array<Record<T>>>): Query<Array<Record<T>>>;
     find<T>(query?: object | string, fields?: Object | string[] | string, options?: FindOptions, callback?: Callback<Array<Record<T>>>): Query<Array<Record<T>>>;
 
-    findOne<T>(query?: object | string, callback?: Callback<Record<T>>): Query<Record<T>>;
-    findOne<T>(query?: object | string, fields?: Object | string[] | string, callback?: Callback<Record<T>>): Query<Record<T>>;
-    findOne<T>(query?: object | string, fields?: Object | string[] | string, options?: FindOptions, callback?: Callback<Record<T>>): Query<Record<T>>;
+    findOne<T>(query?: object | string, callback?: Callback<Record<T>>): Query<Record<T> | null>;
+    findOne<T>(query?: object | string, fields?: Object | string[] | string, callback?: Callback<Record<T>>): Query<Record<T> | null>;
+    findOne<T>(query?: object | string, fields?: Object | string[] | string, options?: FindOptions, callback?: Callback<Record<T>>): Query<Record<T> | null>;
 
     approvalLayouts$: {
         /** Returns a value from the cache if it exists, otherwise calls SObject.approvalLayouts */

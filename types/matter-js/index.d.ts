@@ -1,4 +1,4 @@
-// Type definitions for Matter.js - 0.14.2
+// Type definitions for Matter.js - 0.17.1
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771>,
@@ -137,9 +137,10 @@ declare namespace Matter {
         * @param {bool} [flagInternal=false]
         * @param {number} [removeCollinear=0.01]
         * @param {number} [minimumArea=10]
+        * @param {number} [removeDuplicatePoints=0.01]
         * @return {body}
         */
-        static fromVertices(x: number, y: number, vertexSets: Array<Array<Vector>>, options?: IBodyDefinition, flagInternal?: boolean, removeCollinear?: number, minimumArea?: number): Body;
+        static fromVertices(x: number, y: number, vertexSets: Array<Array<Vector>>, options?: IBodyDefinition, flagInternal?: boolean, removeCollinear?: number, minimumArea?: number, removeDuplicatePoints?: number): Body;
     }
 
     export interface IBodyDefinition {
@@ -1133,7 +1134,7 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @return {bounds} A new bounds object
          */
-        static create (vertices: Vertices): Bounds;
+        static create(vertices: Vertices): Bounds;
         /**
          * Updates bounds using the given vertices and extends the bounds given a velocity.
          * @method update
@@ -1298,7 +1299,7 @@ declare namespace Matter {
          * @param {composite} composite
          * @return {constraint[]} All the constraints
          */
-        static allConstraints(composite: Composite): Array<Composite>;
+        static allConstraints(composite: Composite): Array<Constraint>;
 
         /**
          * Removes all bodies, constraints and composites from the given composite.
@@ -1493,7 +1494,8 @@ declare namespace Matter {
     */
     export class Composites {
         /**
-         * Creates a composite with simple car setup of bodies and constraints.
+         * This has now moved to the [car example](https://github.com/liabru/matter-js/blob/master/examples/car.js), follow that instead as this function is deprecated here.
+         * @deprecated moved to car example
          * @method car
          * @param {number} xx
          * @param {number} yy
@@ -1530,7 +1532,8 @@ declare namespace Matter {
         static mesh(composite: Composite, columns: number, rows: number, crossBrace: boolean, options: any): Composite;
 
         /**
-         * Creates a composite with a Newton's Cradle setup of bodies and constraints.
+         * This has now moved to the [newtonsCradle example](https://github.com/liabru/matter-js/blob/master/examples/newtonsCradle.js), follow that instead as this function is deprecated here.
+         * @deprecated moved to newtonsCradle example
          * @method newtonsCradle
          * @param {number} xx
          * @param {number} yy
@@ -1539,7 +1542,7 @@ declare namespace Matter {
          * @param {number} length
          * @return {composite} A new composite newtonsCradle body
          */
-        newtonsCradle(xx: number, yy: number, _number: number, size: number, length: number): Composite;
+        static newtonsCradle(xx: number, yy: number, _number: number, size: number, length: number): Composite;
 
         /**
          * Create a new composite containing bodies created in the callback in a pyramid arrangement.
@@ -1557,7 +1560,9 @@ declare namespace Matter {
         static pyramid(xx: number, yy: number, columns: number, rows: number, columnGap: number, rowGap: number, callback: Function): Composite;
 
         /**
-         * Creates a simple soft body like object.
+         * This has now moved to the [softBody example](https://github.com/liabru/matter-js/blob/master/examples/softBody.js)
+         * and the [cloth example](https://github.com/liabru/matter-js/blob/master/examples/cloth.js), follow those instead as this function is deprecated here.
+         * @deprecated moved to softBody and cloth examples
          * @method softBody
          * @param {number} xx
          * @param {number} yy
@@ -1766,6 +1771,24 @@ declare namespace Matter {
          */
         static create(options: IConstraintDefinition): Constraint;
 
+
+        /**
+         * Returns the world-space position of `constraint.pointA`, accounting for `constraint.bodyA`.
+         * @method pointAWorld
+         * @param {constraint} constraint
+         * @returns {vector} the world-space position
+         */
+        static pointAWorld(constraint: Constraint): Vector;
+
+        /**
+         * Returns the world-space position of `constraint.pointB`, accounting for `constraint.bodyB`.
+         * @method pointBWorld
+         * @param {constraint} constraint
+         * @returns {vector} the world-space position
+         */
+        static pointBWorld(constraint: Constraint): Vector;
+
+
         /**
          * The first possible `Body` that this constraint is attached to.
          *
@@ -1944,21 +1967,42 @@ declare namespace Matter {
          * A value of `0.1` gives a slow-motion effect.
          * A value of `1.2` gives a speed-up effect.
          *
-        * @property timing.timeScale
-        * @type number
-        * @default 1
-        */
+         * @property timing.timeScale
+         * @type number
+         * @default 1
+         */
         timeScale: number;
 
         /**
          * A `Number` that specifies the current simulation-time in milliseconds starting from `0`.
          * It is incremented on every `Engine.update` by the given `delta` argument.
          *
-        * @property timing.timestamp
-        * @type number
-        * @default 0
-        */
+         * @property timing.timestamp
+         * @type number
+         * @default 0
+         */
         timestamp: number;
+
+        /**
+         * A `Number` that represents the total execution time elapsed during the last `Engine.update` in milliseconds.
+         * It is updated by timing from the start of the last `Engine.update` call until it ends.
+         *
+         * This value will also include the total execution time of all event handlers directly or indirectly triggered by the engine update.
+         *
+         * @property timing.lastElapsed
+         * @type number
+         * @default 0
+         */
+        lastElapsed: number;
+
+        /**
+         * A `Number` that represents the `delta` value used in the last engine update.
+         *
+         * @property timing.lastDelta
+         * @type number
+         * @default 0
+         */
+        lastDelta: number;
     }
 
     /**
@@ -1986,7 +2030,6 @@ declare namespace Matter {
          * @param {HTMLElement} element
          * @param {object} [options]
          * @return {engine} engine
-         * @deprecated
          */
         static create(element?: HTMLElement | IEngineDefinition, options?: IEngineDefinition): Engine;
 
@@ -2028,19 +2071,21 @@ declare namespace Matter {
         static update(engine: Engine, delta?: number, correction?: number): Engine;
 
         /**
-         * An alias for `Runner.run`, see `Matter.Runner` for more information.
+         * A deprecated alias for `Runner.run`, use `Matter.Runner.run(engine)` instead and see `Matter.Runner` for more information.
+         * @deprecated use Matter.Runner.run(engine) instead
          * @method run
          * @param {engine} engine
          */
         static run(enige: Engine): void;
 
         /**
-         * An instance of a broadphase controller. The default value is a `Matter.Grid` instance created by `Engine.create`.
+         * Replaced by and now alias for `engine.grid`.
          *
-        * @property broadphase
-        * @type grid
-        * @default a Matter.Grid instance
-        */
+         * @deprecated use `engine.grid`
+         * @property broadphase
+         * @type grid
+         * @default a Matter.Grid instance
+         */
         broadphase: Grid;
         /**
          * An integer `Number` that specifies the number of constraint iterations to perform each update.
@@ -2067,6 +2112,24 @@ declare namespace Matter {
         * @default false
         */
         enableSleeping: boolean;
+
+        /**
+         * A `Matter.Grid` instance.
+         *
+         * @property grid
+         * @type grid
+         * @default a Matter.Grid instance
+         */
+        grid: Grid;
+
+
+        /**
+         * The gravity to apply on all bodies in `engine.world`.
+         *
+         * @property gravity
+         * @type object
+         */
+        gravity: Gravity;
 
         /**
          * Collision pair set for this `Engine`.
@@ -2333,13 +2396,13 @@ declare namespace Matter {
     * @class Query
     */
     export class Query {
-         /**
-         * Finds a list of collisions between body and bodies.
-         * @method collides
-         * @param {body} body
-         * @param {body[]} bodies
-         * @return {object[]} Collisions
-         */
+        /**
+        * Finds a list of collisions between body and bodies.
+        * @method collides
+        * @param {body} body
+        * @param {body[]} bodies
+        * @return {object[]} Collisions
+        */
         static collides(body: Body, bodies: Array<Body>): Array<any>;
 
         /**
@@ -2492,6 +2555,29 @@ declare namespace Matter {
          * default undefined
          */
         wireframeBackground?: string
+
+        /**
+         * Sets opacity of sleeping body if `render.options.showSleeping` is enabled
+         * @type boolean
+         * default true
+         */
+        showSleeping?: boolean;
+    }
+
+    interface IRenderLookAtObject {
+        bounds?: Bounds;
+        position?: {
+            x: number;
+            y: number;
+        };
+        min?: {
+            x: number;
+            y: number;
+        };
+        max?: {
+            x: number;
+            y: number;
+        };
     }
 
     /**
@@ -2538,6 +2624,15 @@ declare namespace Matter {
          * @param {engine} engine
          */
         static world(render: Render): void;
+        /**
+         * Positions and sizes the viewport around the given object bounds.
+         * @method lookAt
+         * @param {Render} render
+         * @param {IRenderLookAtObject | IRenderLookAtObject[]} objects
+         * @param {Vector} paddiing
+         * @param {boolean} center
+         */
+        static lookAt(render: Render, objects: IRenderLookAtObject | IRenderLookAtObject[], paddiing?: Vector, center?: boolean): void;
 
         /**
         * A back-reference to the `Matter.Render` module.
@@ -2792,7 +2887,7 @@ declare namespace Matter {
          * @param {vector} vectorC
          * @return {number} The cross product of the three vectors
          */
-        static cross3(vectorA: Vector, vectorB: Vector, vectorC: Vector):number;
+        static cross3(vectorA: Vector, vectorB: Vector, vectorC: Vector): number;
 
         /**
          * Adds the two vectors.
@@ -2838,7 +2933,7 @@ declare namespace Matter {
          * @param {vector} vectorB
          * @return {number} The dot product of the two vectors
          */
-        static dot(vectorA: Vector, vectorB: Vector): Number;
+        static dot(vectorA: Vector, vectorB: Vector): number;
 
         /**
          * Returns the magnitude (length) of a vector.
@@ -2937,7 +3032,7 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @return {vector} The average point
          */
-        static mean(vertices: Array<Vector>): Array<Vector>;
+        static mean(vertices: Array<Vector>): Vector;
 
         /**
          * Sorts the input vertices into clockwise order in place.
@@ -3079,7 +3174,7 @@ declare namespace Matter {
     }
 
     interface Gravity extends Vector {
-      scale: number;
+        scale: number;
     }
 
     /**
@@ -3148,6 +3243,9 @@ declare namespace Matter {
          */
         static create(options: IWorldDefinition): World;
 
+        /**
+         * @deprecated moved to engine.gravity
+         */
         gravity: Gravity;
         bounds: Bounds;
 
@@ -3181,6 +3279,307 @@ declare namespace Matter {
         wheelDelta: number;
         button: number;
         pixelRatio: number;
+    }
+
+    export class Common {
+
+        /**
+         * Extends the object in the first argument using the object in the second argument.
+         * @method extend
+         * @param {} obj
+         * @param {boolean} deep
+         * @return {} obj extended
+         */
+        static extend(obj: object, deep: boolean): object
+
+        /**
+         * Creates a new clone of the object, if deep is true references will also be cloned.
+         * @method clone
+         * @param {} obj
+         * @param {bool} deep
+         * @return {} obj cloned
+         */
+        static clone(obj: object, deep: boolean): object
+
+        /**
+         * Returns the list of keys for the given object.
+         * @method keys
+         * @param {} obj
+         * @return {string[]} keys
+         */
+        static keys(obj: object): Array<string>
+
+        /**
+         * Returns the list of values for the given object.
+         * @method values
+         * @param {} obj
+         * @return {array} Array of the objects property values
+         */
+        static values(obj: object): Array<any>
+
+        /**
+         * Gets a value from `base` relative to the `path` string.
+         * @method get
+         * @param {} obj The base object
+         * @param {string} path The path relative to `base`, e.g. 'Foo.Bar.baz'
+         * @param {number} [begin] Path slice begin
+         * @param {number} [end] Path slice end
+         * @return {} The object at the given path
+         */
+        static get(obj: object, path: string, begin: number, end: number): object
+
+        /**
+         * Sets a value on `base` relative to the given `path` string.
+         * @method set
+         * @param {} obj The base object
+         * @param {string} path The path relative to `base`, e.g. 'Foo.Bar.baz'
+         * @param {} val The value to set
+         * @param {number} [begin] Path slice begin
+         * @param {number} [end] Path slice end
+         * @return {} Pass through `val` for chaining
+         */
+        static set(obj: object, path: string, val: object, begin: number, end: number): Object
+
+        /**
+         * Shuffles the given array in-place.
+         * The function uses a seeded random generator.
+         * @method shuffle
+         * @param {array} array
+         * @return {array} array shuffled randomly
+         */
+        static shuffle(array: Array<any>): Array<any>
+
+        /**
+         * Randomly chooses a value from a list with equal probability.
+         * The function uses a seeded random generator.
+         * @method choose
+         * @param {array} choices
+         * @return {object} A random choice object from the array
+         */
+        static choose(choices: Array<any>): any
+
+        /**
+         * Returns true if the object is a HTMLElement, otherwise false.
+         * @method isElement
+         * @param {object} obj
+         * @return {boolean} True if the object is a HTMLElement, otherwise false
+         */
+        static isElement(obj: object): boolean
+
+        /**
+         * Returns true if the object is an array.
+         * @method isArray
+         * @param {object} obj
+         * @return {boolean} True if the object is an array, otherwise false
+         */
+        static isArray(obj: object): boolean
+
+        /**
+         * Returns true if the object is a function.
+         * @method isFunction
+         * @param {object} obj
+         * @return {boolean} True if the object is a function, otherwise false
+         */
+        static isFunction(obj: object): boolean
+
+        /**
+         * Returns true if the object is a plain object.
+         * @method isPlainObject
+         * @param {object} obj
+         * @return {boolean} True if the object is a plain object, otherwise false
+         */
+        static isPlainObject(obj: object): boolean
+
+        /**
+         * Returns true if the object is a string.
+         * @method isString
+         * @param {object} obj
+         * @return {boolean} True if the object is a string, otherwise false
+         */
+        static isString(obj: object): boolean
+
+        /**
+         * Returns the given value clamped between a minimum and maximum value.
+         * @method clamp
+         * @param {number} value
+         * @param {number} min
+         * @param {number} max
+         * @return {number} The value clamped between min and max inclusive
+         */
+        static clamp(value: number, min: number, max: number): number
+
+        /**
+         * Returns the sign of the given value.
+         * @method sign
+         * @param {number} value
+         * @return {number} -1 if negative, +1 if 0 or positive
+         */
+        static sign(value: number): number
+
+        /**
+         * Returns the current timestamp since the time origin (e.g. from page load).
+         * The result will be high-resolution including decimal places if available.
+         * @method now
+         * @return {number} the current timestamp
+         */
+        static now(): number
+
+        /**
+         * Returns a random value between a minimum and a maximum value inclusive.
+         * The function uses a seeded random generator.
+         * @method random
+         * @param {number} min
+         * @param {number} max
+         * @return {number} A random number between min and max inclusive
+         */
+        static random(min?: number, max?: number): number
+
+        /**
+         * Converts a CSS hex colour string into an integer.
+         * @method colorToNumber
+         * @param {string} colorString
+         * @return {number} An integer representing the CSS hex string
+         */
+        static colorToNumber(colorString: string): number
+
+        /**
+         * Shows a `console.log` message only if the current `Common.logLevel` allows it.
+         * The message will be prefixed with 'matter-js' to make it easily identifiable.
+         * @method log
+         * @param ...objs {} The objects to log.
+         */
+        static log(): any
+
+        /**
+         * Shows a `console.info` message only if the current `Common.logLevel` allows it.
+         * The message will be prefixed with 'matter-js' to make it easily identifiable.
+         * @method info
+         * @param ...objs {} The objects to log.
+         */
+        static info(): any
+
+        /**
+         * Shows a `console.warn` message only if the current `Common.logLevel` allows it.
+         * The message will be prefixed with 'matter-js' to make it easily identifiable.
+         * @method warn
+         * @param ...objs {} The objects to log.
+         */
+        static warn(): any
+
+        /**
+         * Returns the next unique sequential ID.
+         * @method nextId
+         * @return {number} Unique sequential ID
+         */
+        static nextId(): number
+
+        /**
+         * A cross browser compatible indexOf implementation.
+         * @method indexOf
+         * @param {array} haystack
+         * @param {object} needle
+         * @return {number} The position of needle in haystack, otherwise -1.
+         */
+        static indexOf(haystack: Array<any>, needle: object): number
+
+        /**
+         * A cross browser compatible array map implementation.
+         * @method map
+         * @param {array} list
+         * @param {function} func
+         * @return {array} Values from list transformed by func.
+         */
+        static map(list: Array<any>, funct: Function): Array<any>
+
+        /**
+         * Takes a directed graph and returns the partially ordered set of vertices in topological order.
+         * Circular dependencies are allowed.
+         * @method topologicalSort
+         * @param {object} graph
+         * @return {array} Partially ordered set of vertices in topological order.
+         */
+        static topologicalSort(graph: object): Array<any>
+
+        /**
+         * Takes _n_ functions as arguments and returns a new function that calls them in order.
+         * The arguments applied when calling the new function will also be applied to every function passed.
+         * The value of `this` refers to the last value returned in the chain that was not `undefined`.
+         * Therefore if a passed function does not return a value, the previously returned value is maintained.
+         * After all passed functions have been called the new function returns the last returned value (if any).
+         * If any of the passed functions are a chain, then the chain will be flattened.
+         * @method chain
+         * @param ...funcs {function} The functions to chain.
+         * @return {function} A new function that calls the passed functions in order.
+         */
+        static chain(): Function
+
+        /**
+         * Chains a function to excute before the original function on the given `path` relative to `base`.
+         * See also docs for `Common.chain`.
+         * @method chainPathBefore
+         * @param {} base The base object
+         * @param {string} path The path relative to `base`
+         * @param {function} func The function to chain before the original
+         * @return {function} The chained function that replaced the original
+         */
+        static chainPathBefore(base: object, path: string, func: Function): Function
+
+        /**
+         * Chains a function to excute after the original function on the given `path` relative to `base`.
+         * See also docs for `Common.chain`.
+         * @method chainPathAfter
+         * @param {} base The base object
+         * @param {string} path The path relative to `base`
+         * @param {function} func The function to chain after the original
+         * @return {function} The chained function that replaced the original
+         */
+        static chainPathAfter(base: object, path: string, func: Function): Function
+
+        /**
+         * Used to require external libraries outside of the bundle.
+         * It first looks for the `globalName` on the environment's global namespace.
+         * If the global is not found, it will fall back to using the standard `require` using the `moduleName`.
+         * @private
+         * @method _requireGlobal
+         * @param {string} globalName The global module name
+         * @param {string} moduleName The fallback CommonJS module name
+         * @return {} The loaded module
+         */
+        static _requireGlobal(globalName: string, moduleName: string): any
+
+        /**
+         * Uses `Common.warn` to log the given message one time only.
+         * @method warnOnce
+         * @param ...objs {} The objects to log.
+         */
+        static warnOnce(...objs: Record<string, any>[]): void
+
+        /**
+         * Shows a deprecated console warning when the function on the given object is called.
+         * The target function will be replaced with a new function that first shows the warning
+         * and then calls the original function.
+         * @method deprecated
+         * @param {object} obj The object or module
+         * @param {string} name The property name of the function on obj
+         * @param {string} warning The one-time message to show if the function is called
+         */
+        static deprecated(obj: Record<string, any>, prop: string, warning: string): void
+
+        /**
+         * Provide the [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module to enable
+         * concave vertex decomposition support when using `Bodies.fromVertices` e.g. `Common.setDecomp(require('poly-decomp'))`.
+         * @method setDecomp
+         * @param {} decomp The [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module.
+         */
+        static setDecomp(decomp: any): void
+
+        /**
+         * Returns the [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module provided through `Common.setDecomp`,
+         * otherwise returns the global `decomp` if set.
+         * @method getDecomp
+         * @return {} The [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module if provided.
+         */
+        static getDecomp(): any
     }
 
     export interface IEvent<T> {
@@ -3466,13 +3865,13 @@ declare namespace Matter {
         * @param eventNames
         * @param event
         */
-        static trigger(object: any, eventNames: string, event?: (e: any) => void): void;
+        static trigger(object: any, eventNames: string, event?: any): void;
 
     }
 
-    type Dependency = {name: string, range: string}
-                    | {name: string, version: string}
-                    | string;
+    type Dependency = { name: string, range: string }
+        | { name: string, version: string }
+        | string;
 
     export class Plugin {
         name: string;
@@ -3526,7 +3925,7 @@ declare namespace Matter {
          * @param module {} The module.
          * @return {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
          */
-        static isFor(plugin: Plugin, module: {name?: string, [_: string]: any}): boolean;
+        static isFor(plugin: Plugin, module: { name?: string, [_: string]: any }): boolean;
 
         /**
          * Installs the plugins by calling `plugin.install` on each plugin specified in `plugins` if passed, otherwise `module.uses`.
@@ -3545,7 +3944,7 @@ declare namespace Matter {
          * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
          */
         static use(
-            module: {uses?: (Plugin | string)[]; [_: string]: any},
+            module: { uses?: (Plugin | string)[];[_: string]: any },
             plugins: (Plugin | string)[]
         ): void;
 
@@ -3557,8 +3956,8 @@ declare namespace Matter {
          */
         static dependencies(
             module: Dependency,
-            tracked?: {[_: string]: string[]}
-        ): {[_: string]: string[]} | string | undefined
+            tracked?: { [_: string]: string[] }
+        ): { [_: string]: string[] } | string | undefined
 
         /**
          * Parses a dependency string into its components.
@@ -3569,7 +3968,7 @@ declare namespace Matter {
          * @param dependency {string} The dependency of the format `'module-name'` or `'module-name@version'`.
          * @return {object} The dependency parsed into its components.
          */
-        static dependencyParse(dependency: Dependency) : {name: string, range: string};
+        static dependencyParse(dependency: Dependency): { name: string, range: string };
 
         /**
          * Parses a version string into its components.
@@ -3585,7 +3984,7 @@ declare namespace Matter {
          * @param range {string} The version string.
          * @return {object} The version range parsed into its components.
          */
-        static versionParse(range: string) : {
+        static versionParse(range: string): {
             isRange: boolean,
             version: string,
             range: string,

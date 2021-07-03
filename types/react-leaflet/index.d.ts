@@ -1,9 +1,10 @@
-// Type definitions for react-leaflet 2.5
+// Type definitions for react-leaflet 2.8
 // Project: https://github.com/PaulLeCam/react-leaflet
 // Definitions by: Dave Leaver <https://github.com/danzel>
 //                 David Schneider <https://github.com/davschne>
 //                 Yui T. <https://github.com/yuit>
 //                 Tom Fenech <https://github.com/fenech>
+//                 Eric Myllyoja <https://github.com/MasterEric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -37,6 +38,7 @@ export interface MapEvents {
     ondrag?(event: Leaflet.LeafletEvent): void;
     ondragend?(event: Leaflet.DragEndEvent): void;
     onzoomstart?(event: Leaflet.LeafletEvent): void;
+    onzoom?(event: Leaflet.LeafletEvent): void;
     onzoomend?(event: Leaflet.LeafletEvent): void;
     onzoomlevelschange?(event: Leaflet.LeafletEvent): void;
     onresize?(event: Leaflet.ResizeEvent): void;
@@ -285,6 +287,8 @@ export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E ext
 
 export interface SVGOverlayProps extends Leaflet.ImageOverlayOptions, MapComponentProps {
     children?: Children;
+    preserveAspectRatio?: string;
+    viewBox?: string;
 }
 export class SVGOverlay<P extends SVGOverlayProps = SVGOverlayProps, E extends Leaflet.SVGOverlay = Leaflet.SVGOverlay> extends MapComponent<P, E> {
     createLeafletElement(props: P): E;
@@ -349,6 +353,7 @@ export class FeatureGroup<P extends FeatureGroupProps = FeatureGroupProps, E ext
 
 export interface GeoJSONProps extends PathProps, FeatureGroupEvents, Leaflet.GeoJSONOptions {
     data: GeoJSON.GeoJsonObject | GeoJSON.GeoJsonObject[];
+    markersInheritOptions?: boolean;
 }
 export class GeoJSON<P extends GeoJSONProps = GeoJSONProps, E extends Leaflet.GeoJSON = Leaflet.GeoJSON> extends FeatureGroup<P, E> {
     createLeafletElement(props: P): E;

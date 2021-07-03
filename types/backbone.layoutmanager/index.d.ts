@@ -39,10 +39,10 @@ declare module 'backbone' {
         insertView(selector:any, view?:any): any; // return view;
         insertViews(views:any): Layout<TModel>; // return this;
 
-        remove(): Layout<TModel>;
+        remove(): this;
         removeView(fn:any): Layout<TModel>;
 
-        render(): Layout<TModel>; // return this
+        render(): this;
         renderViews(): Layout<TModel>; // return this
         setView<U>(name: any, view: U, insert?:boolean): U; // return view
         setViews(views:any): Layout<TModel>; // return this

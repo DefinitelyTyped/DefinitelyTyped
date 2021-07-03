@@ -1,8 +1,8 @@
 import { Oid } from './oid';
 
 export interface IndexTime {
-    seconds: number;
-    nanoseconds: number;
+    seconds(): number;
+    nanoseconds(): number;
 }
 
 export class IndexEntry {

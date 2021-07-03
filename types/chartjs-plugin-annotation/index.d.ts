@@ -5,6 +5,7 @@
 // TypeScript Version: 2.4
 
 import * as Chart from 'chart.js';
+import { Moment } from 'moment';
 
 // Extend the types from chart.js
 declare module 'chart.js' {
@@ -68,12 +69,14 @@ declare namespace ChartJsAnnotation {
     onWheel?: (event: MouseEvent) => void;
   }
 
+  type ChartPointValue = number | string | Date | Moment;
+
   interface LineAnnotationOptions extends CommonAnnotationOptions {
     type: 'line';
     mode: 'horizontal' | 'vertical';
     scaleID: string;
-    value: number | string; // value or label
-    endValue?: number | string; // value or label
+    value: ChartPointValue;
+    endValue?: ChartPointValue;
 
     borderColor?: Chart.ChartColor;
     borderWidth?: number;
@@ -87,10 +90,10 @@ declare namespace ChartJsAnnotation {
     type: 'box';
     xScaleID?: string;
     yScaleID?: string;
-    xMin: number | string; // value or label
-    xMax: number | string;
-    yMin: number | string;
-    yMax: number | string;
+    xMin: ChartPointValue;
+    xMax: ChartPointValue;
+    yMin: ChartPointValue;
+    yMax: ChartPointValue;
 
     borderColor?: Chart.ChartColor;
     borderWidth?: number;

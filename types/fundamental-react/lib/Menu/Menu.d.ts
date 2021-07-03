@@ -14,12 +14,16 @@ export type MenuGroupProps = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export type MenuItemProps = {
-    addon?: string;
+    active?: boolean;
+    addonAfter?: string;
     addonBefore?: string;
     addonProps?: any;
     className?: string;
+    disabled?: boolean;
     isLink?: boolean;
-    onclick?: (...args: any[]) => any;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    selected?: boolean;
+    separator?: boolean;
     url?: string;
     urlProps?: any;
 } & React.HTMLAttributes<HTMLLIElement>;

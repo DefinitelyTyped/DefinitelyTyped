@@ -1,4 +1,4 @@
-// Type definitions for cordova-plugin-ble-central 1.2.2
+// Type definitions for cordova-plugin-ble-central 1.3.1
 // Project: https://github.com/don/cordova-plugin-ble-central
 // Definitions by: Gidon Junge <https://github.com/gjunge>
 //                 Philip Peitsch <https://github.com/peitschie>
@@ -78,6 +78,10 @@ declare namespace BLECentralPlugin {
     }
 
     export interface BLECentralPluginStatic extends BLECentralPluginCommon {
+        /* sets the pin when device requires it.
+           [iOS] setPin is not supported on iOS. */
+        setPin(pin: string, success?: () => any, failure?: (error: string|BLEError) => any): void;
+
         stopScan(): void;
         stopScan(success: () => any, failure?: () => any): void;
 
@@ -101,12 +105,20 @@ declare namespace BLECentralPlugin {
         /* Reports if bluetooth is enabled. */
         isEnabled(success: () => any , failure: (error: string) => any): void;
 
+        /* Reports if location services are enabled.
+           [iOS] isLocationEnabled is not supported on iOS. */
+        isLocationEnabled(success: () => any , failure: (error: string) => any): void;
+
         /* Calls the success callback when the peripheral is connected and the failure callback when not connected. */
         isConnected(device_id: string, success: () => any, failure?: (error: string) => any): void;
 
         /* May be used to request (on Android) a larger MTU size to be able to send more data at once
            [iOS] requestMtu is not supported on iOS. */
         requestMtu(device_id: string, mtu: number, success?: () => any, failure?: () => any): void;
+
+        /* When Connecting to a peripheral android can request for the connection priority for better communication.
+           [iOS] requestConnectionPriority is not supported on iOS. */
+        requestConnectionPriority(device_id: string, priority: "high"|"balanced"|"low", success?: () => any, failure?: () => any): void;
 
         /* Clears cached services and characteristics info for some poorly behaved devices. Uses an undocumented API,
         so it is not guaranteed to work.

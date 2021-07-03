@@ -40,7 +40,6 @@ import {
     ShadowProps,
 } from 'styled-system';
 
-// tslint:disable-next-line:strict-export-declare-modifiers
 declare const styled: (...props: any[]) => React.ComponentType;
 
 const boxStyle = variant({
@@ -60,7 +59,7 @@ interface BoxProps
         TypographyProps,
         ColorStyleProps,
         ColorProps {
-    boxStyle?: string;
+    boxStyle?: string | undefined;
 }
 
 const boxStyles = compose(

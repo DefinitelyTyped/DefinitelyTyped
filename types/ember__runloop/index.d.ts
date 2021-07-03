@@ -163,6 +163,11 @@ export interface RunNamespace {
       method: RunMethod<Target>,
       ...args: any[]
   ): EmberRunTimer;
+  next(
+    method: () => void,
+    ...args: any[]
+  ): EmberRunTimer;
+
   /**
    * Cancels a scheduled item. Must be a value returned by `run.later()`,
    * `run.once()`, `run.scheduleOnce()`, `run.next()`, `run.debounce()`, or

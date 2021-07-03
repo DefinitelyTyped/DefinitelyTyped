@@ -1,9 +1,8 @@
-// Type definitions for file-loader 4.2
+// Type definitions for file-loader 5.0
 // Project: https://github.com/webpack-contrib/file-loader
 // Definitions by: Gareth Jones <https://github.com/g-rath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
+// TypeScript Version: 3.7
 import { loader } from 'webpack';
 
 declare namespace FileLoader {
@@ -216,6 +215,13 @@ declare namespace FileLoader {
          * @default undefined
          */
         regExp?: RegExp;
+
+        /**
+         * By default, file-loader generates JS modules that use the ES modules syntax.
+         * There are some cases in which using ES modules is beneficial, like in the case of module concatenation and tree shaking.
+         * @default true
+         */
+        esModule?: boolean;
     }
 
     /**

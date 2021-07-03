@@ -235,7 +235,7 @@ mod.service('name', ($scope: ng.IScope) => {});
 mod.service('name', ['$scope', ($scope: ng.IScope) => {}]);
 mod.service({
     MyCtrl: class {},
-    MyCtrl2: () => {}, // tslint:disable-line:object-literal-shorthand
+    MyCtrl2: () => {},
     MyCtrl3: ['$fooService', ($fooService: any) => {}]
 });
 mod.constant('name', 23);
@@ -253,6 +253,30 @@ angular.module('qprovider-test', [])
         const provider: ng.IQProvider = $qProvider.errorOnUnhandledRejections(false);
         const currentValue: boolean = $qProvider.errorOnUnhandledRejections();
     }]);
+
+let $compileProvider: ng.ICompileProvider;
+let urlListRegex: RegExp;
+
+urlListRegex = $compileProvider.aHrefSanitizationWhitelist();
+$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|mailto):/);
+urlListRegex = $compileProvider.aHrefSanitizationTrustedUrlList();
+$compileProvider.aHrefSanitizationTrustedUrlList(/^\s*(https?|mailto):/);
+
+urlListRegex = $compileProvider.imgSrcSanitizationWhitelist();
+$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|mailto):/);
+urlListRegex = $compileProvider.imgSrcSanitizationTrustedUrlList();
+$compileProvider.imgSrcSanitizationTrustedUrlList(/^\s*(https?|mailto):/);
+
+let $httpProvider: ng.IHttpProvider;
+$httpProvider.xsrfWhitelistedOrigins = ['https://example.com'];
+$httpProvider.xsrfTrustedOrigins = ['https://example.com'];
+
+let $sceDelegateProvider: ng.ISCEDelegateProvider;
+let urlList: any[];
+urlList = $sceDelegateProvider.bannedResourceUrlList();
+$sceDelegateProvider.bannedResourceUrlList(['https://example.com']);
+urlList = $sceDelegateProvider.trustedResourceUrlList();
+$sceDelegateProvider.trustedResourceUrlList(['https://example.com']);
 
 // Promise signature tests
 let foo: ng.IPromise<number>;

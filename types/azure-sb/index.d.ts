@@ -135,11 +135,14 @@ export namespace Azure.ServiceBus {
     }
 
     export interface NotificationHubRegistration {
+        _: {
+            ContentRootElement: string;
+        };
         BodyTemplate?: any;
         ChannelUri?: string;
         DeviceToken?: string;
         Expiry?: Date;
-        gcmRegistrationId?: string;
+        GcmRegistrationId?: string;
         MpnsHeaders?: any;
         RegistrationId: string;
         Tags?: string;
@@ -148,6 +151,7 @@ export namespace Azure.ServiceBus {
 
     export interface NotificationHubInstallation {
         installationId: string;
+        userId?: string;
         readonly lastActiveOn?: string;
         readonly expirationTime?: string;
         readonly lastUpdate?: string;

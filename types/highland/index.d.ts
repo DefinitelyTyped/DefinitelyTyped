@@ -26,7 +26,7 @@ type Flattened<R> = {
 
 // Describes a constructor for a particular promise library
 interface PConstructor<T, P extends PromiseLike<T>> {
-    new(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): P
+    new(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): P
 }
 /**
  * Highland: the high-level streams library
@@ -1527,7 +1527,7 @@ declare namespace Highland {
          * @param {Function} f - the function to handle data
          * @api public
          */
-        pull(f: (err: Error, x: R) => void): void;
+        pull(f: (err: Error, x: R | Highland.Nil) => void): void;
 
         /**
          * Collects all values from a Stream into an Array and calls a function with

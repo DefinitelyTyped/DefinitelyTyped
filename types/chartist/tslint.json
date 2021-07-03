@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "interface-name": false,
         "max-line-length": false,
@@ -11,13 +10,11 @@
         "no-empty-interface": false,
         "no-misused-new": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "prefer-template": false,
         "semicolon": false,
         "space-before-function-paren": false

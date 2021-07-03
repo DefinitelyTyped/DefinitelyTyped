@@ -1,4 +1,4 @@
-declare module "dns" {
+declare module 'dns' {
     // Supported getaddrinfo flags.
     const ADDRCONFIG: number;
     const V4MAPPED: number;
@@ -271,7 +271,12 @@ declare module "dns" {
     const ADDRGETNETWORKPARAMS: string;
     const CANCELLED: string;
 
+    interface ResolverOptions {
+        timeout?: number;
+    }
+
     class Resolver {
+        constructor(options?: ResolverOptions);
         getServers: typeof getServers;
         setServers: typeof setServers;
         resolve: typeof resolve;
@@ -346,6 +351,7 @@ declare module "dns" {
         function setServers(servers: ReadonlyArray<string>): void;
 
         class Resolver {
+            constructor(options?: ResolverOptions);
             getServers: typeof getServers;
             resolve: typeof resolve;
             resolve4: typeof resolve4;

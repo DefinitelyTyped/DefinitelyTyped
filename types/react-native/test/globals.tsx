@@ -37,4 +37,26 @@ xmlRequest.addEventListener('load', ev => {
 
 const test = new URLSearchParams();
 
-const url = new URL("path", "http://localhost/");
+const url = new URL('path', 'http://localhost/');
+
+const blobA = new Blob();
+const textA = 'i \u2665 dogs';
+
+const blob = new Blob([blobA, textA]);
+
+const reader = new FileReader();
+
+reader.onloadend = ev => {
+    console.log(ev.target);
+    console.log(ev.loaded);
+};
+
+reader.readAsText(new Blob());
+
+fetch('https://example.org/post-image', {
+    body: { uri: 'file:///data/tmp/qwerad3.jpg' },
+    headers: {
+        'Content-Type': 'type',
+    },
+    method: 'POST',
+});

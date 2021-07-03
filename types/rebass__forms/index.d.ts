@@ -19,6 +19,7 @@ interface BoxKnownProps
         StyledSystem.SpaceProps,
         StyledSystem.LayoutProps,
         StyledSystem.FontSizeProps,
+        StyledSystem.FontWeightProps,
         StyledSystem.ColorProps,
         StyledSystem.FlexProps,
         StyledSystem.OrderProps,

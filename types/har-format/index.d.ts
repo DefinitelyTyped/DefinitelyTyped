@@ -1,6 +1,7 @@
 // Type definitions for non-npm package HAR 1.2
 // Project: https://w3c.github.io/web-performance/specs/HAR/Overview.html
 // Definitions by: Michael Mrowetz <https://github.com/micmro>
+//                 Marcell Toth <https://github.com/marcelltoth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -10,7 +11,7 @@
  */
 export interface Har {
     /** This object represents the root of exported data. */
-    "log": Log;
+    log: Log;
 }
 /**
  * This object (`log`) represents the root of exported data.
@@ -232,7 +233,7 @@ export interface Page {
     /** _non-standard_  */
     _score_gzip?: number | null;
     /** _non-standard_  */
-    "_score_keep-alive"?: number | null;
+    '_score_keep-alive'?: number | null;
     /** _non-standard_  */
     _score_minify?: number | null;
     /** _non-standard_  */
@@ -465,7 +466,7 @@ export interface Entry {
     /** _non-standard_  */
     _score_gzip?: number | string | null;
     /** _non-standard_  */
-    "_score_keep-alive"?: number | string | null;
+    '_score_keep-alive'?: number | string | null;
     /** _non-standard_  */
     _score_minify?: number | string | null;
     /** _non-standard_  */
@@ -496,6 +497,10 @@ export interface Entry {
     _was_pushed?: number | string | null;
     /** _non-standard_  */
     _initialPriority?: string | null;
+    /** _non-standard_  */
+    _renderBlocking?: string | null;
+    /** _non-standard_  */
+    _isLCP?: boolean | null;
 }
 /**
  * This object contains detailed info about performed request.
@@ -634,24 +639,48 @@ export interface QueryString {
  *
  * http://www.softwareishard.com/blog/har-12-spec/#postData
  */
-export interface PostData {
+export type PostData = PostDataCommon & (PostDataParams | PostDataText);
+
+/**
+ * The common properties of PostData
+ */
+export interface PostDataCommon {
     /** Mime type of posted data. */
     mimeType: string;
-    /**
-     * List of posted parameters (in case of URL encoded parameters).
-     *
-     * _`text` and `params` fields are mutually exclusive._
-     */
-    params: Param[];
-    /**
-     * Plain text posted data
-     *
-     * _`params` and `text` fields are mutually exclusive._
-     */
-    text: string;
     /**  A comment provided by the user or the application */
     comment?: string;
 }
+
+/**
+ * Post data with `params` specified.
+ */
+export interface PostDataParams {
+    /**
+     * List of posted parameters (in case of URL encoded parameters).
+     */
+    params: Param[];
+
+    /**
+     * _`params` and `text` fields are mutually exclusive._
+     */
+    text?: never;
+}
+
+/**
+ * Post data with `text` specified.
+ */
+export interface PostDataText {
+    /**
+     * Plain text posted data
+     */
+    text: string;
+
+    /**
+     * _`params` and `text` fields are mutually exclusive._
+     */
+    params?: never;
+}
+
 /**
  * List of posted parameters, if any (embedded in `postData` object).
  *
@@ -669,6 +698,7 @@ export interface Param {
     /**  A comment provided by the user or the application */
     comment?: string;
 }
+
 /**
  * This object describes details about response content
  * (embedded in `response` object).

@@ -1,10 +1,7 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface FileUploaderDropContainerInheritedProps extends ReactAttr<HTMLLabelElement> {
-}
-
-export interface FileUploaderDropContainerProps extends FileUploaderDropContainerInheritedProps {
+export interface FileUploaderDropContainerProps extends ReactAttr<HTMLLabelElement> {
     /**
      * Provide a custom className to be applied to the container node
      */
@@ -56,7 +53,7 @@ export interface FileUploaderDropContainerProps extends FileUploaderDropContaine
      * Event handler that is called after files are added to the uploader
      * The event handler signature looks like `onAddFiles(evt, { addedFiles })`
      */
-    onAddFiles?: (event: React.MouseEvent<HTMLElement>, content: { addedFiles: string[] }) => void;
+    onAddFiles?: (event: React.DragEvent<HTMLElement>, content: { addedFiles: File[] }) => void;
 }
 
 declare const FileUploaderDropContainer: React.FC<FileUploaderDropContainerProps>;

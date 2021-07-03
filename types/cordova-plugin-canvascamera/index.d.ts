@@ -107,13 +107,11 @@ interface CanvasCameraOptions {
     /**
      * Function, optional, default : null, callback executed before a frame has been drawn. frame contains the canvas element, the image element, the tracking data.
      */
-    // tslint:disable-next-line:prefer-method-signature
     onBeforeDraw?: (frame?: Frame) => void;
 
     /**
      * Function, optional, default : null, callback executed after a frame has been drawn. frame contains the canvas element, the image element, the tracking data.
      */
-    // tslint:disable-next-line:prefer-method-signature
     onAfterDraw?: (frame?: Frame) => void;
 }
 

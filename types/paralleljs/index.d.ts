@@ -1,5 +1,5 @@
 // Type definitions for parallel.js
-// Project: http://adambom.github.io/parallel.js/
+// Project: https://github.com/parallel-js/parallel.js#readme
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

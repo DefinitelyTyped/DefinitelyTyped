@@ -18,7 +18,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-boxplot
          */
         interface SeriesBoxplot {
-
             /**
              * @default
              * "boxplot"
@@ -147,7 +146,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-boxplot.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * boxplot color. Color is taken from
                  * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -168,7 +166,7 @@ declare namespace echarts {
                  * "#fff"
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.itemStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * boxplot border color, whose format is similar to that of
@@ -179,7 +177,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: EChartOption.Color;
 
                 /**
                  * boxplot border width. No border when it is set to be 0.
@@ -222,7 +220,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -255,12 +253,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-boxplot.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * boxplot color. Color is taken from
                      * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -281,7 +277,7 @@ declare namespace echarts {
                      * "#fff"
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * boxplot border color, whose format is similar to that
@@ -292,7 +288,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * boxplot border width.
@@ -340,7 +336,7 @@ declare namespace echarts {
                      * "rgba(0,0,0,0.4)"
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -500,7 +496,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -630,7 +625,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -805,7 +799,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -1091,12 +1085,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1142,7 +1134,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -1426,7 +1418,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -1601,7 +1592,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -1891,12 +1882,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -1942,7 +1931,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -2243,7 +2232,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -2260,7 +2248,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -2270,7 +2258,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -2311,7 +2299,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -2343,7 +2331,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -2361,7 +2348,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -2372,7 +2359,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -2413,7 +2400,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -2478,7 +2465,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
@@ -2701,7 +2687,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -2719,7 +2704,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -2730,7 +2715,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -2771,7 +2756,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -2803,7 +2788,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -2821,7 +2805,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.itemStyle.emphasis.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -2832,7 +2816,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.itemStyle.emphasis.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -2874,7 +2858,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.itemStyle.emphasis.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -2910,7 +2894,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3039,7 +3022,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -3329,12 +3312,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3380,7 +3361,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -3676,7 +3657,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -3805,7 +3785,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.label.emphasis.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -4097,12 +4077,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -4148,7 +4126,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -4560,7 +4538,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -4613,7 +4590,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
@@ -4687,7 +4663,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
@@ -4768,7 +4743,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -4787,7 +4761,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * line width.
@@ -4833,7 +4807,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -4874,7 +4848,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -4894,7 +4867,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.lineStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * line width.
@@ -4940,7 +4913,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.lineStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -5018,7 +4991,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
@@ -5026,7 +4998,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -5269,7 +5240,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -5289,7 +5259,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.0.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -5335,7 +5305,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.0.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -5379,7 +5349,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -5399,7 +5368,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.0.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -5447,7 +5416,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.0.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -5497,7 +5466,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -5573,7 +5541,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -5655,7 +5622,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -5898,7 +5864,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -5918,7 +5883,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.1.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -5964,7 +5929,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.1.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -6008,7 +5973,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -6028,7 +5992,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.1.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -6076,7 +6040,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.1.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -6126,7 +6090,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -6202,7 +6165,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -6393,7 +6355,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -6411,7 +6372,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -6540,7 +6500,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -6826,12 +6786,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -6877,7 +6835,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -7161,7 +7119,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -7290,7 +7247,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -7580,12 +7537,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -7631,7 +7586,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -7932,7 +7887,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -7949,7 +7903,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -7959,7 +7913,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -8000,7 +7954,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -8032,7 +7986,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -8050,7 +8003,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -8061,7 +8014,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -8102,7 +8055,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -8179,7 +8132,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
@@ -8187,7 +8139,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -8286,7 +8237,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -8304,7 +8254,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -8315,7 +8265,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -8357,7 +8307,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -8391,7 +8341,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -8409,7 +8358,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * border color, whose format is similar to
@@ -8420,7 +8369,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color;
 
                                 /**
                                  * border width.
@@ -8464,7 +8413,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -8505,7 +8454,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -8634,7 +8582,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -8926,12 +8874,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -8977,7 +8923,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -9274,7 +9220,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -9405,7 +9350,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -9709,12 +9654,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -9761,7 +9704,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -10071,7 +10014,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -10170,7 +10112,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -10188,7 +10129,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -10199,7 +10140,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -10241,7 +10182,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -10275,7 +10216,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -10293,7 +10233,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * border color, whose format is similar to
@@ -10304,7 +10244,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color;
 
                                 /**
                                  * border width.
@@ -10348,7 +10288,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -10389,7 +10329,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -10518,7 +10457,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -10810,12 +10749,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -10861,7 +10798,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -11158,7 +11095,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -11289,7 +11225,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -11593,12 +11529,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -11645,7 +11579,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-boxplot.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -12155,7 +12089,6 @@ declare namespace echarts {
 
         namespace SeriesBoxplot {
             interface DataObject {
-
                 /**
                  * Name of data item.
                  *
@@ -12181,7 +12114,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * boxplot color. Color is taken from
                      * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -12202,7 +12134,7 @@ declare namespace echarts {
                      * "#fff"
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.data.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * boxplot border color, whose format is similar to that
@@ -12213,7 +12145,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.data.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * boxplot border width.
@@ -12257,7 +12189,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.data.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -12290,12 +12222,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-boxplot.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-boxplot.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * boxplot color. Color is taken from
                          * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -12317,7 +12247,7 @@ declare namespace echarts {
                          * "#fff"
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.data.emphasis.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * boxplot border color, whose format is similar to
@@ -12328,7 +12258,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.data.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * boxplot border width.
@@ -12376,7 +12306,7 @@ declare namespace echarts {
                          * "rgba(0,0,0,0.4)"
                          * @see https://echarts.apache.org/en/option.html#series-boxplot.data.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.

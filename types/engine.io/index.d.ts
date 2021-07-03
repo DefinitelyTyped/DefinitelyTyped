@@ -104,7 +104,7 @@ declare namespace engine {
         /**
          * whether to let engine.io handle the OPTIONS requests. You can also pass a custom function to handle the requests (true)
          */
-        handlePreflightRequest?: boolean|((server: Server, req: http.IncomingMessage, res: http.ServerResponse) => void);
+        handlePreflightRequest?: boolean|((req: http.IncomingMessage, res: http.ServerResponse) => void);
     }
     interface ServerAttachOptions extends ServerOptions, AttachOptions {}
 

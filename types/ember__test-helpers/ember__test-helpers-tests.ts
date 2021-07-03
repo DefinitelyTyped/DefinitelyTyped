@@ -19,6 +19,8 @@ import {
     getRootElement,
     pauseTest,
     resumeTest,
+    scrollTo,
+    select,
     waitFor,
     waitUntil,
     settled,
@@ -27,7 +29,9 @@ import {
     visit,
     currentURL,
     currentRouteName,
-    setApplication
+    setApplication,
+    setupOnerror,
+    resetOnerror
 } from '@ember/test-helpers';
 
 const MyApp = Application.extend({ modulePrefix: 'my-app' });
@@ -56,6 +60,8 @@ test('DOM interactions', async () => {
     await triggerKeyEvent(messageElement, 'keydown', 'Enter', { ctrlKey: true });
     await fillIn(messageElement, 'content');
     await typeIn(messageElement, 'content');
+    await select(messageElement, 'content');
+    await scrollTo(messageElement, 0, 0);
 
     const allMessages = findAll('.message');
     for (const element of allMessages) {
@@ -76,6 +82,13 @@ test('routing helpers', async (assert) => {
 test('pause and resume', async () => {
     await pauseTest();
     setTimeout(resumeTest, 1000);
+});
+
+test('catching errors', async (assert) => {
+    setupOnerror((error) => {
+        assert.ok(error);
+    });
+    resetOnerror();
 });
 
 test('wait helpers', async (assert) => {

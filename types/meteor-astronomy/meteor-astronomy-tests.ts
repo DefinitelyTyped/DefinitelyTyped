@@ -79,6 +79,7 @@ interface UserInterface extends Meteor.User {
     phone: string;
     phoneNumber: string;
     fullName: (param: string) => string;
+    profile: UserProfileInterface;
 }
 
 const User = Class.create<UserInterface>({

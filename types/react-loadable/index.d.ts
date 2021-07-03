@@ -6,7 +6,7 @@
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Ian Mobley <https://github.com/iMobs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 /// <reference types="react" />
 
@@ -188,7 +188,7 @@ declare namespace LoadableExport {
 
 declare const LoadableExport: LoadableExport.Loadable;
 
-/* tslint:disable-next-line */
+/* tslint:disable-next-line:no-declare-current-package no-single-declare-module */
 declare module "react-loadable" {
     export = LoadableExport;
 }

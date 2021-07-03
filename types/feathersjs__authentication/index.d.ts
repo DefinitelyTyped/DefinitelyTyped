@@ -3,7 +3,7 @@
 // Definitions by:  Abraao Alves <https://github.com/AbraaoAlves>
 //                  Jan Lohage <https://github.com/j2L4e>
 //                  Nick Bolles <https://github.com/NickBolles>
-// Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import { Hook, Params } from '@feathersjs/feathers';

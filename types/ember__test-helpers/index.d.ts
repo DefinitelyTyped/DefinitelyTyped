@@ -1,4 +1,4 @@
-// Type definitions for @ember/test-helpers 1.7
+// Type definitions for @ember/test-helpers 2.0
 // Project: https://github.com/emberjs/ember-test-helpers
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
@@ -24,6 +24,8 @@ declare module '@ember/test-helpers' {
     export { default as triggerKeyEvent } from '@ember/test-helpers/dom/trigger-key-event';
     export { default as fillIn } from '@ember/test-helpers/dom/fill-in';
     export { default as typeIn } from '@ember/test-helpers/dom/type-in';
+    export { default as select } from '@ember/test-helpers/dom/select';
+    export { default as scrollTo } from '@ember/test-helpers/dom/scroll-to';
 
     // DOM Query Helpers
 
@@ -60,6 +62,7 @@ declare module '@ember/test-helpers' {
     export { default as setupApplicationContext } from '@ember/test-helpers/setup-application-context';
     export { default as teardownApplicationContext } from '@ember/test-helpers/teardown-application-context';
     export { default as validateErrorHandler } from '@ember/test-helpers/validate-error-handler';
+    export { default as setupOnerror, resetOnerror } from '@ember/test-helpers/setup-onerror';
 }
 
 declare module '@ember/test-helpers/dom/click' {
@@ -131,6 +134,18 @@ declare module '@ember/test-helpers/dom/find' {
 
 declare module '@ember/test-helpers/dom/find-all' {
     export default function(selector: string): Element[];
+}
+
+declare module '@ember/test-helpers/dom/select' {
+    import { Target } from '@ember/test-helpers';
+
+    export default function(target: Target, options: string | string[], keepPreviouslySelected?: boolean): Promise<void>;
+}
+
+declare module '@ember/test-helpers/dom/scroll-to' {
+    import { Target } from '@ember/test-helpers';
+
+    export default function(target: Target, x: number, y: number): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/get-root-element' {
@@ -221,6 +236,11 @@ declare module '@ember/test-helpers/validate-error-handler' {
     import Error from '@ember/error';
 
     export default function(callback?: (error: Error) => void): { isValid: boolean, message: string };
+}
+
+declare module '@ember/test-helpers/setup-onerror' {
+    export default function setupOnerror(handler: (error: unknown) => void): void;
+    export function resetOnerror(): void;
 }
 
 declare module '@ember/test-helpers/application' {

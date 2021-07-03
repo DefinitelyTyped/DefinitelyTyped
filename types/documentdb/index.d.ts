@@ -1,7 +1,7 @@
 // Type definitions for DocumentDB 1.10
 // Project: https://github.com/Azure/azure-documentdb-node
 // Definitions by: Noel Abrahams <https://github.com/NoelAbrahams>, Brett Gutstein <https://github.com/brettferdosi>, Chris Stone <https://github.com/ctstone>, Yifan Wu <https://github.com/yifanwu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/documentdb
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
@@ -160,7 +160,6 @@ export interface DatabaseMeta extends AbstractMeta {
 }
 
 /** Represents the meta data for a collection. */
-// tslint:disable-next-line:no-empty-interface
 export interface CollectionMeta extends Collection, AbstractMeta {
 }
 

@@ -4,40 +4,40 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-///<reference types="jasmine"/>
+import "jasmine";
 
-declare function it(expectation: string, assertion: (done: (err?: any) => void) => void, timeout?: number): void;
+declare global {
+    function it(expectation: string, assertion: (done: (err?: any) => void) => void, timeout?: number): void;
 
-declare namespace jasmine {
-    interface Env {
-        defaultTimeoutInterval: number;
-    }
+    namespace jasmine {
+        interface Env {
+            defaultTimeoutInterval: number;
+        }
 
-    interface ExecuteSpecsOptions {
-        specFolders: string[],
-        onComplete?: (runner: jasmine.Runner) => void,
-        isVerbose?: boolean,
-        showColors?: boolean,
-        teamcity?: string | boolean,
-        useRequireJs?: boolean,
-        regExpSpec: RegExp,
-        junitreport?: {
-            report: boolean,
-            savePath: string,
-            useDotNotation: boolean,
-            consolidate: boolean
-        },
-        includeStackTrace?: boolean,
-        growl?: boolean
-    }
+        interface ExecuteSpecsOptions {
+            specFolders: string[];
+            onComplete?: (runner: Runner) => void;
+            isVerbose?: boolean;
+            showColors?: boolean;
+            teamcity?: string | boolean;
+            useRequireJs?: boolean;
+            regExpSpec: RegExp;
+            junitreport?: {
+                report: boolean;
+                savePath: string;
+                useDotNotation: boolean;
+                consolidate: boolean;
+            };
+            includeStackTrace?: boolean;
+            growl?: boolean;
+        }
 
-    interface JasmineNode {
-        executeSpecsInFolder(options: ExecuteSpecsOptions): void;
-        loadHelpersInFolder(path: string, pattern: RegExp): void;
+        interface JasmineNode {
+            executeSpecsInFolder(options: ExecuteSpecsOptions): void;
+            loadHelpersInFolder(path: string, pattern: RegExp): void;
+        }
     }
 }
 
-declare module "jasmine-node" {
-    const jasmine: jasmine.JasmineNode;
-    export = jasmine;
-}
+declare const jasmine: jasmine.JasmineNode;
+export = jasmine;

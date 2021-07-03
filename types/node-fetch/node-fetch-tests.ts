@@ -65,7 +65,8 @@ function test_fetchUrlWithRequestObject() {
                 capture?: boolean
             }) => undefined,
 
-            dispatchEvent: (event: any) => false
+            dispatchEvent: (event: any) => false,
+            onabort: null,
         }
     };
     const request: Request = new Request(
@@ -116,7 +117,8 @@ function test_fetchUrlObjectWithRequestObject() {
                 capture?: boolean
             }) => undefined,
 
-            dispatchEvent: (event: any) => false
+            dispatchEvent: (event: any) => false,
+            onabort: null,
         }
     };
     const request: Request = new Request(
@@ -207,4 +209,8 @@ function test_ResponseInit() {
             timeout: response.timeout
         });
     });
+}
+
+async function test_BlobText() {
+    const someString = await new Blob(["Hello world"]).text(); // $ExpectType string
 }

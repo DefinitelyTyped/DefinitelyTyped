@@ -1,7 +1,7 @@
-declare module "cluster" {
-    import * as child from "child_process";
-    import * as events from "events";
-    import * as net from "net";
+declare module 'cluster' {
+    import * as child from 'child_process';
+    import EventEmitter = require('events');
+    import * as net from 'net';
 
     // interfaces
     interface ClusterSettings {
@@ -21,7 +21,7 @@ declare module "cluster" {
         addressType: number | "udp4" | "udp6";  // 4, 6, -1, "udp4", "udp6"
     }
 
-    class Worker extends events.EventEmitter {
+    class Worker extends EventEmitter {
         id: number;
         process: child.ChildProcess;
         send(message: any, sendHandle?: any, callback?: (error: Error | null) => void): boolean;
@@ -90,7 +90,7 @@ declare module "cluster" {
         prependOnceListener(event: "online", listener: () => void): this;
     }
 
-    interface Cluster extends events.EventEmitter {
+    interface Cluster extends EventEmitter {
         Worker: Worker;
         disconnect(callback?: () => void): void;
         fork(env?: any): Worker;

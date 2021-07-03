@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import ImageTile from '../ImageTile';
 import { ObjectEvent } from '../Object';
@@ -16,12 +16,13 @@ export interface Options {
     attributions?: AttributionLike;
     attributionsCollapsible?: boolean;
     cacheSize?: number;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
+    imageSmoothing?: boolean;
     opaque?: boolean;
     projection?: ProjectionLike;
     reprojectionErrorThreshold?: number;
     state?: State;
-    tileClass?: ImageTile;
+    tileClass?: typeof ImageTile;
     tileGrid?: TileGrid;
     tileLoadFunction?: LoadFunction;
     tilePixelRatio?: number;
@@ -37,14 +38,35 @@ export default class TileImage extends UrlTile {
     constructor(options: Options);
     protected crossOrigin: string;
     protected tileCacheForProjection: { [key: string]: TileCache };
-    protected tileClass: ImageTile;
+    protected tileClass: typeof ImageTile;
     protected tileGridForProjection: { [key: string]: TileGrid };
+    /**
+     * Return the key to be used for all tiles in the source.
+     */
+    protected getKey(): string;
     protected getTileInternal(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
+    canExpireCache(): boolean;
+    expireCache(projection: Projection, usedTiles: { [key: string]: boolean }): void;
+    getContextOptions(): object | undefined;
     getGutter(): number;
+    getGutterForProjection(projection: Projection): number;
+    getOpaque(projection: Projection): boolean;
     getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
+    getTileCacheForProjection(projection: Projection): TileCache;
+    getTileGridForProjection(projection: Projection): TileGrid;
+    /**
+     * Sets whether to render reprojection edges or not (usually for debugging).
+     */
     setRenderReprojectionEdges(render: boolean): void;
+    /**
+     * Sets the tile grid to use when reprojecting the tiles to the given
+     * projection instead of the default tile grid for the projection.
+     * This can be useful when the default tile grid cannot be created
+     * (e.g. projection has no extent defined) or
+     * for optimization reasons (custom tile size, resolutions, ...).
+     */
     setTileGridForProjection(projection: ProjectionLike, tilegrid: TileGrid): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

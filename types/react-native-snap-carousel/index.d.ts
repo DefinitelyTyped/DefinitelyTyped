@@ -32,7 +32,7 @@ export interface AdditionalParallaxProps {
     vertical?: boolean;
 }
 
-export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
+export interface CarouselProps<T> {
     // Required
 
     /**
@@ -263,45 +263,7 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
     onBeforeSnapToItem?(slideIndex: number): void;
 }
 
-export interface CarouselStatic<T> extends React.ComponentClass<CarouselProps<T>> {
-    /**
-     * Current active item (int, starts at 0)
-     */
-    currentIndex: number;
-    /**
-     * Underlying ScrollView's current content offset
-     * (int, starts at 0 if activeSlideAlignment is set to start, negative value otherwise)
-     */
-    currentScrollPosition: number;
-    /**
-     * Start the autoplay manually
-     */
-    startAutoplay(instantly?: boolean): void;
-    /**
-     * Stop the autoplay manually
-     */
-    stopAutoplay(): void;
-    /**
-     * Snap to an item manually
-     */
-    snapToItem(index: number, animated?: boolean, fireCallback?: boolean): void;
-    /**
-     * Snap to next item manually
-     */
-    snapToNext(animated?: boolean, fireCallback?: boolean): void;
-    /**
-     * Snap to previous item manually
-     */
-    snapToPrev(animated?: boolean, fireCallback?: boolean): void;
-    /**
-     * Call this when needed to work around a random FlatList bug that keeps content hidden until the carousel is scrolled
-     * (see #238). Note that the offset parameter is not required and will default to either 1 or -1 depending
-     * on the current scroll position
-     */
-    triggerRenderingHack(offset?: number): void;
-}
-
-export type CarouselProperties<T> = ScrollViewProps & CarouselProps<T> & React.Props<CarouselStatic<T>>;
+export type CarouselProperties<T> = ScrollViewProps & FlatListProps<T> & CarouselProps<T>;
 
 export interface ParallaxImageProps extends ImageProps, AdditionalParallaxProps {
     /**
@@ -439,7 +401,43 @@ export type PaginationProperties = PaginationProps & React.Props<PaginationStati
 
 export class Pagination extends React.Component<PaginationProperties> { }
 
-export default class Carousel<T> extends React.Component<CarouselProperties<T>> { }
+export default class Carousel<T> extends React.Component<CarouselProperties<T>> {
+    /**
+     * Current active item (int, starts at 0)
+     */
+    currentIndex: number;
+    /**
+     * Underlying ScrollView's current content offset
+     * (int, starts at 0 if activeSlideAlignment is set to start, negative value otherwise)
+     */
+    currentScrollPosition: number;
+    /**
+     * Start the autoplay manually
+     */
+    startAutoplay(instantly?: boolean): void;
+    /**
+     * Stop the autoplay manually
+     */
+    stopAutoplay(): void;
+    /**
+     * Snap to an item manually
+     */
+    snapToItem(index: number, animated?: boolean, fireCallback?: boolean, initial?: boolean, lockScroll?: boolean): void;
+    /**
+     * Snap to next item manually
+     */
+    snapToNext(animated?: boolean, fireCallback?: boolean): void;
+    /**
+     * Snap to previous item manually
+     */
+    snapToPrev(animated?: boolean, fireCallback?: boolean): void;
+    /**
+     * Call this when needed to work around a random FlatList bug that keeps content hidden until the carousel is scrolled
+     * (see #238). Note that the offset parameter is not required and will default to either 1 or -1 depending
+     * on the current scroll position
+     */
+    triggerRenderingHack(offset?: number): void;
+}
 
 /**
  * Get scroll interpolator's input range from an array of slide indexes

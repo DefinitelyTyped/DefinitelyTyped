@@ -16,7 +16,7 @@
       "noEmit": true,
       "forceConsistentCasingInFileNames": true,
       "paths": {
-          "@yarnpkg/lockfile": ["yarnpkg__lockfile"]
+          "@yarnpkg/*": ["yarnpkg__*"]
       }
   },
   "files": [

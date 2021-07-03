@@ -1,4 +1,6 @@
-import { getDocument, PDFDocumentProxy, PDFPromise, Util } from 'pdfjs-dist';
+import { getDocument, PDFDocumentProxy, Util, GlobalWorkerOptions, PDFWorker } from 'pdfjs-dist';
+
+GlobalWorkerOptions.workerPort = new PDFWorker();
 
 //
 // Fetch the PDF document from the URL using promises
@@ -16,7 +18,7 @@ getDocument('helloworld.pdf').promise.then(function (pdf) {
 function renderPage(pageNum: number) {
     pdfDoc.getPage(pageNum).then(function (page) {
         var scale = 1.5;
-        var viewport = page.getViewport({scale: scale});
+        var viewport = page.getViewport({ scale: scale });
 
         //
         // Prepare canvas using PDF page dimensions
@@ -31,7 +33,7 @@ function renderPage(pageNum: number) {
         // convertToViewportRectangle and normalizeRect are used in the acroforms example:
         // https://github.com/mozilla/pdf.js/blob/master/examples/acroforms/forms.js
         //
-        const rect = viewport.convertToViewportRectangle([100,100,0,0]);
+        const rect = viewport.convertToViewportRectangle([100, 100, 0, 0]);
         const normalizedRect = Util.normalizeRect(rect);
         const point = viewport.convertToViewportPoint(100, 100);
         const pdfPoint = viewport.convertToPdfPoint(100, 100);
@@ -39,11 +41,11 @@ function renderPage(pageNum: number) {
         //
         // Render PDF page into canvas context
         //
-        var renderContext = {
+        page.render({
             canvasContext: context,
-            viewport: viewport
-        };
-        page.render(renderContext);
+            viewport: viewport,
+            renderInteractiveForms: false,
+        });
     });
 }
 
@@ -55,8 +57,18 @@ function goNext() {
 }
 
 //
-// Test PDFPromise allows return value mutation
+// Test Promise allows return value mutation
 //
-var promise: PDFPromise<string> = getDocument('helloworld.pdf').promise.then(pdf => {
-    return "arbitrary string";
+var promise: Promise<string> = getDocument('helloworld.pdf').promise.then(pdf => {
+    return 'arbitrary string';
 });
+
+//
+// Test Promise allows await and catch
+//
+async function getMeta() {
+    const pdf = await getDocument('helloworld.pdf').promise;
+    const metaData = await pdf.getMetadata().catch(function(err) {
+        return null;
+    });
+}

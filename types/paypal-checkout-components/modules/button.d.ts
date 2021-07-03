@@ -1,8 +1,15 @@
 import { Environment, ButtonStyle } from './configuration';
 
-import { AuthorizationData, AuthorizationTokenizePayload, CancellationData } from './callback-data';
+import { AuthorizationData, AuthorizationResponse, CancellationData } from './callback-data';
 
-export interface Button {
+export enum FundingOption {
+    CREDIT,
+    CARD,
+    VENMO,
+    ELV
+}
+
+export interface ButtonRenderer {
     render(
         options: {
             env?: Environment;
@@ -10,13 +17,18 @@ export interface Button {
             locale?: string;
 
             payment?: () => Promise<string>;
-            onAuthorize: (data: AuthorizationData, actions: object) => Promise<AuthorizationTokenizePayload>;
+            onAuthorize: (data: AuthorizationData, actions: object) => Promise<AuthorizationResponse>;
             onCancel?: (data: CancellationData, actions: object) => void;
             onError?: (error: string) => void;
             onShippingChange?: () => void;
             onAuth?: (data: string | object) => object;
             accessToken?: () => void;
             onClose?: () => void;
+
+            funding?: {
+                allowed?: FundingOption[];
+                disallowed?: FundingOption[];
+            };
 
             sessionID?: string;
             buttonSessionID?: string;

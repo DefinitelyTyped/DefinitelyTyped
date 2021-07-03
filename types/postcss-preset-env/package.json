@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/autoprefixer": "^9.0.0",
+        "postcss": "^7.0.32"
+    }
+}

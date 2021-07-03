@@ -77,3 +77,5 @@ export class InfiniteLoader extends PureComponent<InfiniteLoaderProps> {
 
     resetLoadMoreRowsCache(autoReload?: boolean): void;
 }
+
+export default InfiniteLoader;

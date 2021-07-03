@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "joi": "^17.3.0",
+        "@types/mongoose": "~4.7"
+    }
+}

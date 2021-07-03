@@ -9,6 +9,7 @@
 //                 Marcell Toth <https://github.com/marcelltoth>
 //                 Vincenzo Chianese <https://github.com/XVincentX>
 //                 Andree Hagelstein <https://github.com/ahagelstein>
+//                 Alexander Pepper <https://github.com/apepper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -34,10 +35,10 @@ declare const URI: {
     addQuery(data: object, qryObj: object): object;
 
     build(parts: URI.URIOptions): string;
-    buildAuthority(parts: { username?: string; password?: string; hostname?: string; port?: string }): string;
-    buildHost(parts: { hostname?: string; port?: string }): string;
-    buildQuery(qry: object, duplicates?: boolean): string;
-    buildUserinfo(parts: { username?: string; password?: string }): string;
+    buildAuthority(parts: { username?: string | undefined; password?: string | undefined; hostname?: string | undefined; port?: string | undefined }): string;
+    buildHost(parts: { hostname?: string | undefined; port?: string | undefined }): string;
+    buildQuery(data: object, duplicateQueryParameters?: boolean, escapeQuerySpace?: boolean): string;
+    buildUserinfo(parts: { username?: string | undefined; password?: string | undefined }): string;
 
     commonPath(path1: string, path2: string): string;
 
@@ -56,7 +57,7 @@ declare const URI: {
      * @description Wrapper for `URITemplate#expand`. Only present after
      *              importing `urijs/src/URITemplate` explicitly.
      */
-    expand?: (template: string, vals: object) => string;
+    expand?: ((template: string, vals: object) => string) | undefined;
 
     iso8859(): void;
 
@@ -66,25 +67,25 @@ declare const URI: {
     parseAuthority(
         url: string,
         parts: {
-            username?: string;
-            password?: string;
-            hostname?: string;
-            port?: string;
+            username?: string | undefined;
+            password?: string | undefined;
+            hostname?: string | undefined;
+            port?: string | undefined;
         },
     ): string;
     parseHost(
         url: string,
         parts: {
-            hostname?: string;
-            port?: string;
+            hostname?: string | undefined;
+            port?: string | undefined;
         },
     ): string;
-    parseQuery(url: string): object;
+    parseQuery(url: string): URI.QueryDataMap;
     parseUserinfo(
         url: string,
         parts: {
-            username?: string;
-            password?: string;
+            username?: string | undefined;
+            password?: string | undefined;
         },
     ): string;
 
@@ -95,20 +96,20 @@ declare const URI: {
 
     unicode(): void;
 
-    withinString(source: string, func: (url: string) => string): string;
+    withinString(source: string, func: (url: string, start: number, end: number, source: string) => string): string;
 };
 
 declare namespace URI {
     interface URIOptions {
-        protocol?: string;
-        username?: string;
-        password?: string;
-        hostname?: string;
-        port?: string;
-        path?: string;
-        query?: string;
-        fragment?: string;
-        urn?: boolean;
+        protocol?: string | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
+        hostname?: string | undefined;
+        port?: string | undefined;
+        path?: string | undefined;
+        query?: string | undefined;
+        fragment?: string | undefined;
+        urn?: boolean | undefined;
     }
 
     interface Parts extends URIOptions {
@@ -117,17 +118,17 @@ declare namespace URI {
         preventInvalidHostname: boolean;
     }
 
-    interface QueryDataMap { [key: string]: string | string[]; }
+    interface QueryDataMap {
+        [key: string]: string | null | Array<string | null>;
+    }
 }
 
 interface URI {
     absoluteTo(path: string | URI): URI;
     addFragment(fragment: string): URI;
     addQuery(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     addQuery(qry: string, value: any): URI;
     addSearch(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     addSearch(key: string, value: any): URI;
     authority(): string;
     authority(authority: string): URI;
@@ -209,16 +210,15 @@ interface URI {
     preventInvalidHostname(val: boolean): URI;
 
     query(): string;
-    query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap)): URI;
-    query(qry: boolean): object;
+    // tslint:disable-next-line void-return
+    query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => (URI.QueryDataMap | void))): URI;
+    query(v: boolean): URI.QueryDataMap;
 
     readable(): string;
     relativeTo(path: string): URI;
     removeQuery(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     removeQuery(name: string, value: string): URI;
     removeSearch(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     removeSearch(name: string, value: string): URI;
     resource(): string;
     resource(resource: string): URI;
@@ -226,8 +226,9 @@ interface URI {
     scheme(): string;
     scheme(protocol: string): URI;
     search(): string;
-    search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap)): URI;
-    search(qry: boolean): any;
+    // tslint:disable-next-line void-return
+    search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => (URI.QueryDataMap | void))): URI;
+    search(v: boolean): URI.QueryDataMap;
     segment(): string[];
     segment(segments: string[] | string): URI;
     segment(position: number): string | undefined;

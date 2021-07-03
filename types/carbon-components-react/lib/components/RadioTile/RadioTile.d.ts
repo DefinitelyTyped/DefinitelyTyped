@@ -1,19 +1,18 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactInputAttr, ThemeProps } from "../../../typings/shared";
+import { ReactInputAttr } from "../../../typings/shared";
 import { RadioButtonValue } from "../RadioButton";
-
-type ExcludedAttributes = "onChange" | "type" | "value";
-interface InheritedProps extends Omit<ReactInputAttr, ExcludedAttributes>, ThemeProps {
-    /**
-     * @deprecated
-     */
-    iconDescription?: EmbeddedIconProps["iconDescription"],
-}
 
 export type RadioTileChangeEvent = React.ChangeEvent<HTMLInputElement> | React.KeyboardEvent<HTMLLabelElement>;
 
-export interface RadioTileProps extends InheritedProps {
+type ExcludedAttributes = "onChange" | "onKeyDown" | "type" | "value";
+
+export interface RadioTileProps extends Omit<ReactInputAttr, ExcludedAttributes> {
     defaultChecked?: boolean,
+    /**
+     * @deprecated
+     */
+    iconDescription?: string,
+    light?: boolean,
     onChange?(value: RadioTileProps["value"], name: RadioTileProps["name"], event: RadioTileChangeEvent): void,
     value: RadioButtonValue,
 }

@@ -1,4 +1,4 @@
-// Type definitions for browser-resolve 1.11
+// Type definitions for browser-resolve 2.0
 // Project: https://github.com/defunctzombie/node-browser-resolve
 // Definitions by: Mario Nebl <https://github.com/marionebl>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -26,6 +26,10 @@ declare function resolve(id: string, opts: resolve.AsyncOpts, cb: resolve.Callba
 declare namespace resolve {
     interface Opts {
         /**
+         * directory to begin resolving from
+         */
+        basedir?: string;
+        /**
          * the 'browser' property to use from package.json
          * @default 'browser'
          */
@@ -38,7 +42,15 @@ declare namespace resolve {
          * modules object with id to path mappings to consult before doing manual resolution
          * (use to provide core modules)
          */
-        modules?: any;
+        modules?: { [id: string]: string };
+        /**
+         * transform the parsed package.json contents before looking at the main field
+         */
+        packageFilter?: (info: any, pkgdir: string) => any;
+        /**
+         * require.paths array to use if nothing is found on the normal node_modules recursive walk
+         */
+        paths?: string[];
     }
 
     type AsyncOpts = resv.AsyncOpts & Opts;

@@ -48,36 +48,33 @@ declare namespace Intercom_ {
     };
   }
 
-  type IntercomCommand = 'boot'
-    | 'shutdown'
-    | 'update'
-    | 'hide'
-    | 'show'
-    | 'showMessages'
-    | 'showNewMessage'
-    | 'onHide'
-    | 'onShow'
-    | 'onUnreadCountChange'
-    | 'onActivatorClick'
-    | 'trackEvent'
-    | 'getVisitorId';
+  interface IntercomCommandSignature {
+   'boot': (settings: IntercomSettings) => void;
+   'shutdown': () => void;
+   'update': (settings?: IntercomSettings) => void;
+   'hide': () => void;
+   'show': () => void;
+   'showMessages': () => void;
+   'showNewMessage': (prepopulateMessage?: string) => void;
+   'onHide': (callback: () => void) => void;
+   'onShow': (callback: () => void) => void;
+   'onUnreadCountChange': (callback: (unreadCount: number) => void) => void;
+   'onActivatorClick': (callback: () => void) => void;
+   'trackEvent': (tag?: string, metadata?: any) => void;
+   'getVisitorId': () => string;
+   'startTour': (tourId: number) => void;
+  }
+
+  type IntercomCommand = keyof IntercomCommandSignature;
 
   interface IntercomStatic {
-    (command: 'boot', param: IntercomSettings): void;
-    (command: 'shutdown' | 'hide' | 'show' | 'showMessages'): void;
-    (command: 'update', param?: IntercomSettings): void;
-    (command: 'showNewMessage', param?: string): void;
-    (command: 'onHide' | 'onShow' | 'onActivatorClick', param?: () => void): void;
-    (command: 'trackEvent', tag?: string, metadata?: any): void;
-    (command: 'onUnreadCountChange', cb: (unreadCount: number) => void): void;
-    (command: 'getVisitorId'): string;
-    (command: IntercomCommand, param1?: any, param2?: any): void;
+    <Command extends IntercomCommand>(command: Command, ...params: Parameters<IntercomCommandSignature[Command]>): ReturnType<IntercomCommandSignature[Command]>;
     booted: boolean;
   }
 }
 
 declare var Intercom: Intercom_.IntercomStatic;
-declare var intercomSettings: Intercom_.IntercomSettings;
+declare var intercomSettings: Intercom_.IntercomSettings | undefined;
 interface Window {
-  intercomSettings: Intercom_.IntercomSettings;
+  intercomSettings?: Intercom_.IntercomSettings;
 }

@@ -1,9 +1,12 @@
-import * as React from 'react';
-import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from '../../../typings/shared';
+import * as React from "react";
+import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from "../../../typings/shared";
 
+// These are the props not spread onto the component supplied from the "as" prop (aliased BaseComponent in the src).
 interface GridBaseIsolatedProps {
+    columns?: number;
     condensed?: boolean;
     fullWidth?: boolean;
+    narrow?: boolean;
 }
 type SafeProps<P> = Omit<P, 'as' | keyof GridBaseIsolatedProps>;
 

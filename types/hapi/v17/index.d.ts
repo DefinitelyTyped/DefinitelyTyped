@@ -3317,7 +3317,6 @@ export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
 export interface PluginProperties {
 }
 
-/* tslint:disable-next-line:no-empty-interface */
 export interface ServerMethods extends Util.Dictionary<ServerMethod> {
 }
 

@@ -7,6 +7,8 @@ import {
 
 import * as ReactTestUtils from ".";
 
+export {};
+
 export interface OptionalEventProperties {
     bubbles?: boolean;
     cancelable?: boolean;
@@ -288,12 +290,14 @@ export function createRenderer(): ShallowRenderer;
  */
 // NOTES
 // - the order of these signatures matters - typescript will check the signatures in source order.
-//   If the `() => void` signature is first, it'll erroneously match a Promise returning function for users with
+//   If the `() => VoidOrUndefinedOnly` signature is first, it'll erroneously match a Promise returning function for users with
 //   `strictNullChecks: false`.
-// - the "void | undefined" types are there to forbid any non-void return values for users with `strictNullChecks: true`
+// - VoidOrUndefinedOnly is there to forbid any non-void return values for users with `strictNullChecks: true`
+declare const UNDEFINED_VOID_ONLY: unique symbol;
 // tslint:disable-next-line: void-return
-export function act(callback: () => Promise<void | undefined>): Promise<undefined>;
-export function act(callback: () => void | undefined): void;
+type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
+export function act(callback: () => Promise<void>): Promise<undefined>;
+export function act(callback: () => VoidOrUndefinedOnly): void;
 
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.

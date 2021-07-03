@@ -29,5 +29,11 @@ declare module 'karma' {
         showSpecTiming?: boolean;
         /** test would finish with error when a first fail occurs */
         failFast?: boolean;
+        /** custom prefixes to use when reporting passed/failed/skipped prefixes */
+        prefixes?: {
+            success?: string;
+            failure?: string;
+            skipped?: string;
+        };
     }
 }

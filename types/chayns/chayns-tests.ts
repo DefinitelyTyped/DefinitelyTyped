@@ -12,3 +12,13 @@ chayns.ready.then(data => {
 });
 
 chayns.dialog.alert('chayns-typings', 'Test chayns-typings!');
+
+// chayns dialog advanced date
+chayns.dialog.advancedDate({message: 'Test Dialog'}).then(value => {
+    return;
+});
+
+// chayns upload cloud image
+chayns.uploadCloudImage().then(value => {
+    return;
+});

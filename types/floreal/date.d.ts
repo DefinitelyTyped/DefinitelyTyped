@@ -1,5 +1,5 @@
 declare class FlorealDate {
-    constructor(value?: number | string);
+    constructor(value?: number | string | Date);
 
     toFullDateString(): string;
     toShortDateString(): string;
@@ -25,6 +25,9 @@ declare class FlorealDate {
     decade(): number;
     dayName(): string;
     dayTitle(): string;
+
+    toDateString: FlorealDate["toShortDateString"];
+    toString: FlorealDate["toFullDateString"];
 
     static day_names: string[];
 

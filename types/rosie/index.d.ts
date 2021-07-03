@@ -39,7 +39,7 @@ declare namespace rosie {
      * @param {object=} options
      * @return {Array.<*>}
      */
-    buildList(name: string, size: number, attributes?: any, options?: any): any[];
+    buildList<T>(name: string, size: number, attributes?: { [k in keyof T]?: T[k] | boolean }, options?: any): T[];
 
     /**
      * Locates a factory by name and calls #attributes on it.
@@ -100,6 +100,7 @@ declare namespace rosie {
     attr<K extends keyof T, D1 extends keyof T, D2 extends keyof T>(name: K, dependencies: [D1, D2], generatorFunction: (value1: T[D1], value2: T[D2]) => T[K]): IFactory<T>;
     attr<K extends keyof T, D extends keyof T>(name: K, dependencies: D[], generatorFunction: (value: T[D]) => T[K]): IFactory<T>;
     attr<K extends keyof T, D extends keyof T>(name: K, dependencies: D[], generatorFunction: any): IFactory<T>;
+    attr<K extends keyof T>(name: K, dependencies: string[], generatorFunction: (...dependencies: any[]) => T[K]): IFactory<T>;
 
       /**
       * Convenience function for defining a set of attributes on this object as

@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
 import { Size } from '../size';
@@ -25,7 +25,8 @@ export interface Config {
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
+    imageSmoothing?: boolean;
     jsonp?: boolean;
     reprojectionErrorThreshold?: number;
     tileJSON?: Config;
@@ -40,7 +41,7 @@ export default class TileJSON extends TileImage {
     protected handleTileJSONError(): void;
     protected handleTileJSONResponse(tileJSON: Config): void;
     getTileJSON(): Config;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

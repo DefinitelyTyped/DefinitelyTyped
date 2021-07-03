@@ -1,5 +1,4 @@
 // tslint:disable:member-access
-// tslint:disable:no-padding
 // tslint:disable:interface-name
 // tslint:disable:no-unnecessary-qualifier
 // tslint:disable:no-empty-interface

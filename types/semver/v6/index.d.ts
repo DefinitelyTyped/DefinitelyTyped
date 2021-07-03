@@ -5,7 +5,7 @@
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
 //                 Klaus Meinhardt <https://github.com/ajafff>
 //                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export const SEMVER_SPEC_VERSION: "2.0.0";
 

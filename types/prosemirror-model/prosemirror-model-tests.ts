@@ -2,19 +2,31 @@ import * as model from 'prosemirror-model';
 
 const fragment = new model.Fragment();
 
+const divNode = document.createElement('div');
+const parentDivNode = document.createElement('div');
+
 let domOutputSpec: model.DOMOutputSpec;
+
+domOutputSpec = divNode;
+
+domOutputSpec = 'text';
 
 domOutputSpec = ['div'];
 domOutputSpec = ['div', { class: 'foo' }];
 domOutputSpec = ['div', { class: 'foo' }, 0];
+domOutputSpec = ['div', { class: null }];
+domOutputSpec = ['div', { class: undefined }];
 domOutputSpec = ['div', 0];
 domOutputSpec = ['div', ['div', 0]];
 domOutputSpec = ['div', ['div', { class: 'foo' }]];
 domOutputSpec = ['div', ['div', { class: 'foo' }, 0]];
 
+domOutputSpec = { dom: divNode };
+domOutputSpec = { dom: divNode, contentDOM: parentDivNode };
+
 export const nodeSpec: model.NodeSpec = {
     attrs: {
-        name: { default: '' }
+        name: { default: '' },
     },
     parseDOM: [
         {
@@ -22,19 +34,19 @@ export const nodeSpec: model.NodeSpec = {
             getAttrs(dom) {
                 if (dom instanceof HTMLElement) {
                     return {
-                        name: dom.getAttribute('data-name')!
+                        name: dom.getAttribute('data-name')!,
                     };
                 }
-            }
-        }
+            },
+        },
     ],
     toDOM(node) {
         const { name } = node.attrs;
         const attrs = {
-            'data-emoji-name': name
+            'data-emoji-name': name,
         };
         return ['span', attrs, 0];
-    }
+    },
 };
 
 // Verify that non-null assertion operator can be used.
@@ -70,7 +82,7 @@ f1.descendants(() => true);
 
 const res2_1: model.Node = f1.maybeChild(0)!;
 const res2_2: number = f1.findDiffStart(f1)!;
-const res2_3: { a: number, b: number } = f1.findDiffEnd({} as any)!;
+const res2_3: { a: number; b: number } = f1.findDiffEnd(f1)!;
 const res2_4: object = f1.toJSON()!;
 
 const res3_1 = new model.ResolvedPos();
@@ -82,3 +94,9 @@ const res4_2: model.Node = res4_1.createAndFill()!;
 
 const res5_1 = new model.MarkType();
 const res5_2: model.Mark = res5_1.isInSet([])!;
+
+// ParseRule
+
+const rule: model.ParseRule = {};
+// $ExpectType boolean | null | undefined
+rule.consuming;

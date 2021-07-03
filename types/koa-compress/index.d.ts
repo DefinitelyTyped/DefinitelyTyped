@@ -38,6 +38,12 @@ declare namespace koaCompress {
         threshold?: number | string;
 
         /**
+         * An optional string, which specifies what encoders to use for requests
+         * without Accept-Encoding. Default: 'idenity'.
+         */
+        defaultEncoding?: string
+
+        /**
          * Options for brotli compression.
          */
         br?: zlib.BrotliOptions | false;

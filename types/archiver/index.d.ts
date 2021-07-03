@@ -1,6 +1,6 @@
-// Type definitions for archiver 3.1
+// Type definitions for archiver 5.1
 // Project: https://github.com/archiverjs/node-archiver
-// Definitions by:  Esri <https://github.com/archiverjs/node-archiver>
+// Definitions by:  Esri
 //                  Dolan Miu <https://github.com/dolanmiu>
 //                  Crevil <https://github.com/crevil>
 //                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -15,12 +15,19 @@ type Partial<T> = {
     [P in keyof T]?: T[P];
 };
 
+// tslint:disable-next-line:ban-types support for ConstructorFn function and classes
+type ConstructorFn<T> = Function | (new (...params: any[]) => T);
+
 declare function archiver(format: archiver.Format, options?: archiver.ArchiverOptions): archiver.Archiver;
 
 declare namespace archiver {
     type Format = 'zip' | 'tar';
 
     function create(format: string, options?: ArchiverOptions): Archiver;
+
+    /** Check if the format is already registered. */
+    function isRegisteredFormat(format: string): boolean;
+
     function registerFormat(format: string, module: Function): void;
 
     interface EntryData {
@@ -87,10 +94,10 @@ declare namespace archiver {
         pointer(): number;
         use(plugin: Function): this;
 
-        symlink(filepath: string, target: string): this;
+        symlink(filepath: string, target: string, mode?: number): this;
 
         on(event: 'error' | 'warning', listener: (error: ArchiverError) => void): this;
-        on(event: 'data', listener: (data: EntryData) => void): this;
+        on(event: 'data', listener: (data: Buffer) => void): this;
         on(event: 'progress', listener: (progress: ProgressData) => void): this;
         on(event: 'close' | 'drain' | 'finish', listener: () => void): this;
         on(event: 'pipe' | 'unpipe', listener: (src: stream.Readable) => void): this;

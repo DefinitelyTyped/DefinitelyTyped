@@ -3,6 +3,7 @@
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin } from 'webpack';
 
@@ -14,16 +15,16 @@ declare class WebpackNotifierPlugin extends Plugin {
 
 declare namespace WebpackNotifierPlugin {
     interface Options {
-        alwaysNotify?: boolean;
-        contentImage?: string;
-        excludeWarnings?: boolean;
-        skipFirstNotification?: boolean;
-        title?: string;
+        alwaysNotify?: boolean | undefined;
+        contentImage?: string | undefined;
+        excludeWarnings?: boolean | undefined;
+        skipFirstNotification?: boolean | undefined;
+        title?: string | undefined;
         /**
          * Use emoji in notifications
          * @default false
          */
-        emoji?: boolean;
+        emoji?: boolean | undefined;
     }
 
     /** @deprecated use Options */

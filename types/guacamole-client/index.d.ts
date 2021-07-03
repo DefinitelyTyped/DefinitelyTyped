@@ -1,6 +1,8 @@
 // Type definitions for guacamole-client 1.0
 // Project: https://github.com/KonstantinSimeonov/guacamole-client-typedefs
 // Definitions by: Konstantin Simeonov <https://github.com/KonstantinSimeonov>
+//                 Alex Vakrilov <https://github.com/vakrilov>
+//                 Petar Metodiev <https://github.com/PetarMetodiev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export * from './lib/Object';
@@ -34,3 +36,5 @@ export * from './lib/RawAudioPlayer';
 export * from './lib/StringReader';
 export * from './lib/StringWriter';
 export * from './lib/IntegerPool';
+export * from './lib/OutputStream';
+export * from './lib/VideoPlayer';

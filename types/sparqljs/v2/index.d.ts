@@ -244,7 +244,6 @@ export type Expression =
     | Term;
 
 // allow Expression circularly reference itself
-// tslint:disable-next-line no-empty-interface
 export interface Tuple extends Array<Expression> {}
 
 export interface BaseExpression {

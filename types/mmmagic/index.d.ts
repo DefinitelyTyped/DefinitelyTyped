@@ -5,13 +5,19 @@
 
 /// <reference types="node" />
 
+/**
+ * callback for detect() and detectFile()
+ * Result is a string, except when MAGIC_CONTINUE is set,
+ * then it is an array of string
+ */
+type DetectionCallback = ((err: Error, result: string | string[]) => void)
 
 export type bitmask = number;
 export declare class Magic {
     constructor(magicPath?: string, mask?: bitmask);
     constructor(mask?: bitmask);
-    detectFile(path: string, callback: (err: Error, result: string) => void): void;
-    detect(data: Buffer, callback: (err: Error, result: string) => void): void;
+    detectFile(path: string, callback: DetectionCallback): void;
+    detect(data: Buffer, callback: DetectionCallback): void;
 }
 export declare var MAGIC_NONE: bitmask; // no flags set
 export declare var MAGIC_DEBUG: bitmask; // turn on debugging

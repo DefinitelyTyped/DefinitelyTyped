@@ -1,7 +1,6 @@
 import ContainerDebugAdapter from "@ember/debug/container-debug-adapter";
 import EmberObject from "@ember/object";
 
-// tslint:disable-next-line:strict-export-declare-modifiers
 declare namespace DataAdapter {
     interface Column {
         name: string;

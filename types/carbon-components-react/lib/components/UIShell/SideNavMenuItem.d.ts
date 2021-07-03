@@ -1,17 +1,10 @@
-import {
-    ReactAttr,
-    ReactAnchorAttr,
-    FCReturn,
-    ForwardRefProps,
-} from '../../../typings/shared';
+import * as React from "react";
+import { ReactAnchorAttr, FCReturn, ForwardRefProps, } from "../../../typings/shared";
 import { LinkProps } from "./Link";
 
-interface InheritedProps {
-    children?: ReactAttr["children"],
-    className?: ReactAttr["className"],
-}
-
-export interface SideNavMenuItemPropsBase extends InheritedProps {
+export interface SideNavMenuItemPropsBase {
+    children?: React.ReactNode,
+    className?: string,
     isActive?: boolean,
 }
 

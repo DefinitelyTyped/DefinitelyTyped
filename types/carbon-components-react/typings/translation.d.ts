@@ -9,12 +9,14 @@ import { ListBoxSelectionTranslationKey } from '../lib/components/ListBox/ListBo
 import { NumberInputTranslationKey } from '../lib/components/NumberInput';
 import { SideNavTranslationKey } from '../lib/components/UIShell/SideNav';
 import { ProgressStepTranslationKey } from "../lib/components/ProgressIndicator";
+import { PaginationNavTranslationKey } from "../lib/components/PaginationNav";
 
 export type CarbonTranslationKey =
     DataTableTranslationKey
     | ListBoxMenuIconTranslationKey
     | ListBoxSelectionTranslationKey
     | NumberInputTranslationKey
+    | PaginationNavTranslationKey
     | ProgressStepTranslationKey
     | SideNavTranslationKey
     | TableBatchActionsTranslationKey

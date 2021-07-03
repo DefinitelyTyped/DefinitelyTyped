@@ -109,10 +109,14 @@ declare namespace ROSLIB {
          *
          * @param callback function with params:
          *   * topics - Array of topic names
-         * @param failedCallback - the callback function when the ros call failed (optional). Params:
+         *   * types - Array of message type names
+         * @param failedCallback - the callback function when the service call failed (optional). Params:
          *   * error - the error message reported by ROS
          */
-        getTopics(callback: (topics: string[]) => void, failedCallback?: (error: any) => void): void;
+        getTopics(
+            callback: (topics: { topics: string[]; types: string[] }) => void,
+            failedCallback?: (error: any) => void,
+        ): void;
 
         /**
          * Retrieves Topics in ROS as an array as specific type
@@ -217,6 +221,21 @@ declare namespace ROSLIB {
          * @param defs - array of type_def dictionary
          */
         decodeTypeDefs(defs: any): void;
+
+        /**
+         * Retrieves a detail of ROS service request.
+         *
+         * @param service name of service:
+         * @param callback - function with params:
+         *   * type - String of the service type
+         * @param failedCallback - the callback function when the service call failed (optional). Params:
+         *   * error - the error message reported by ROS
+         */
+        getServiceRequestDetails(
+            service: string,
+            callback: (type: string) => void,
+            failedCallback?: (error: any) => void,
+        ): void;
     }
 
     export class Message {

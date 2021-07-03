@@ -6,9 +6,7 @@
 //                 Klaus Meinhardt <https://github.com/ajafff>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
-
-/// <reference types="node" />
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // re-exports for index file
 

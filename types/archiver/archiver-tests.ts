@@ -1,5 +1,6 @@
 import Archiver = require('archiver');
 import * as fs from 'fs';
+import { Readable, Writable } from 'stream';
 
 const options: Archiver.ArchiverOptions = {
     statConcurrency: 1,
@@ -22,6 +23,9 @@ const options: Archiver.ArchiverOptions = {
 Archiver('zip', options);
 
 const archiver = Archiver.create('zip');
+
+const archiverAsReadable: Readable = archiver;
+const archiverAsWritable: Writable = archiver;
 
 const writeStream = fs.createWriteStream('./archiver.d.ts');
 const readStream = fs.createReadStream('./archiver.d.ts');
@@ -78,3 +82,8 @@ const fakeError = new Archiver.ArchiverError('code', 'foo');
 
 archiver.on('error', fakeHandler);
 archiver.on('warning', fakeHandler);
+
+archiver.on('data', (chunk: Buffer) => console.log(chunk));
+
+Archiver.isRegisteredFormat('zip'); // $ExpectType boolean
+archiver.symlink("directory/directory", "../../directory", 493); // $ExpectType Archiver

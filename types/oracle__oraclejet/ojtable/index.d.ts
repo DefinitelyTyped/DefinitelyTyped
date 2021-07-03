@@ -252,7 +252,6 @@ export namespace ojTable {
         [propName: string]: any;
     }> {
     }
-    // tslint:disable-next-line interface-over-type-literal
     type ColumnSelectionEnd<K> = {
         endIndex: {
             column: number;
@@ -268,7 +267,6 @@ export namespace ojTable {
             column: K;
         };
     };
-    // tslint:disable-next-line interface-over-type-literal
     type ColumnSelectionStart<K> = {
         startIndex: {
             column: number;
@@ -305,7 +303,6 @@ export namespace ojTable {
         rowKey: K;
         currentRow: CurrentRow<K>;
     };
-    // tslint:disable-next-line interface-over-type-literal
     type CurrentRow<K> = {
         rowIndex: number;
         rowKey?: K;
@@ -363,7 +360,6 @@ export namespace ojTable {
             status: ContextStatus<K>;
         };
     };
-    // tslint:disable-next-line interface-over-type-literal
     type RowSelectionEnd<K> = {
         endIndex: {
             row: number;
@@ -379,7 +375,6 @@ export namespace ojTable {
             row: K;
         };
     };
-    // tslint:disable-next-line interface-over-type-literal
     type RowSelectionStart<K> = {
         startIndex: {
             row: number;

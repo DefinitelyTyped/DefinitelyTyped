@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
 
-/// <reference types="node" />
-
 export enum level {
   error = 0,
   warn = 1,
@@ -25,15 +23,15 @@ export enum fileRotateType {
 
 export interface LoggerConfiguration {
   level: level;
-  silent?: boolean;
+  silent?: boolean | undefined;
   externalDisplayFormat?: any;
 }
 
 export interface FileConfiguration {
-  saveToFileName?: string;
-  isFileRotate?: boolean;
-  fileRotateType?: fileRotateType;
-  fileRotateMaxSize?: number;
+  saveToFileName?: string | undefined;
+  isFileRotate?: boolean | undefined;
+  fileRotateType?: fileRotateType | undefined;
+  fileRotateMaxSize?: number | undefined;
 }
 
 export interface SourcesConfiguration {

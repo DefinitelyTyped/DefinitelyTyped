@@ -27,8 +27,13 @@ export function isHotkey(
 
 export function isHotkey(
     hotkey: string | ReadonlyArray<string>,
-    options?: HotKeyOptions | KeyboardEvent,
-    event?: KeyboardEvent
+    event: KeyboardEvent
+): boolean;
+
+export function isHotkey(
+    hotkey: string | ReadonlyArray<string>,
+    options: HotKeyOptions,
+    event: KeyboardEvent
 ): boolean;
 
 export function isCodeHotkey(

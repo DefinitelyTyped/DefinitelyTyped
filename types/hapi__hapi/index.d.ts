@@ -1,4 +1,4 @@
-// Type definitions for @hapi/hapi 19.0
+// Type definitions for @hapi/hapi 20.0
 // Project: https://github.com/hapijs/hapi, https://hapijs.com
 // Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
@@ -30,7 +30,7 @@ import * as zlib from 'zlib';
 
 import { MimosOptions } from '@hapi/mimos';
 import { SealOptions, SealOptionsSub } from '@hapi/iron';
-import { ValidationOptions, SchemaMap, Schema, Root } from '@hapi/joi';
+import { ValidationOptions, SchemaMap, Schema, Root } from 'joi';
 import Podium = require('@hapi/podium');
 import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy, ClientApi, ClientOptions } from '@hapi/catbox';
 
@@ -199,6 +199,12 @@ export interface AuthCredentials {
      * If set, will only work with routes that set `access.entity` to `app`.
      */
     app?: AppCredentials;
+
+    [key: string]: unknown;
+}
+
+export interface AuthArtifacts {
+    [key: string]: unknown;
 }
 
 export type AuthMode = 'required' | 'optional' | 'try';
@@ -217,7 +223,7 @@ export type AuthMode = 'required' | 'optional' | 'try';
  */
 export interface RequestAuth {
     /** an artifact object received from the authentication strategy and used in authentication-related actions. */
-    artifacts: object;
+    artifacts: AuthArtifacts;
     /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
     credentials: AuthCredentials;
     /** the authentication error is failed and mode set to 'try'. */
@@ -260,9 +266,9 @@ export interface RequestEvents extends Podium {
      * * 'disconnect' - emitted when a request errors or aborts unexpectedly.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestevents)
      */
-    on(criteria: 'peek', listener: PeekListener): void;
+    on(criteria: 'peek', listener: PeekListener): this;
 
-    on(criteria: 'finish' | 'disconnect', listener: (data: undefined) => void): void;
+    on(criteria: 'finish' | 'disconnect', listener: (data: undefined) => void): this;
 
     /**
      * Access: read only and the public podium interface.
@@ -272,9 +278,10 @@ export interface RequestEvents extends Podium {
      * * 'disconnect' - emitted when a request errors or aborts unexpectedly.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestevents)
      */
-    once(criteria: 'peek', listener: PeekListener): void;
+    once(criteria: 'peek', listener: PeekListener): this;
+    once(criteria: 'peek'): Promise<Parameters<PeekListener>>;
 
-    once(criteria: 'finish' | 'disconnect', listener: (data: undefined) => void): void;
+    once(criteria: 'finish' | 'disconnect', listener: (data: undefined) => void): this;
 }
 
 /**
@@ -388,7 +395,7 @@ export interface RequestLog {
 }
 
 export interface RequestQuery {
-    [key: string]: string | string[];
+    [key: string]: any;
 }
 
 /**
@@ -476,7 +483,7 @@ export interface Request extends Podium {
     /**
      * An object where each key is a path parameter name with matching value as described in [Path parameters](https://github.com/hapijs/hapi/blob/master/API.md#path-parameters).
      */
-    readonly params: Util.Dictionary<string>;
+    readonly params: Util.Dictionary<any>;
 
     /**
      * An array containing all the path params values in the order they appeared in the path.
@@ -629,17 +636,18 @@ export interface ResponseEvents extends Podium {
      * 'peek' - emitted for each chunk of data written back to the client connection. The event method signature is function(chunk, encoding).
      * 'finish' - emitted when the response finished writing but before the client response connection is ended. The event method signature is function ().
      */
-    on(criteria: 'peek', listener: PeekListener): void;
+    on(criteria: 'peek', listener: PeekListener): this;
 
-    on(criteria: 'finish', listener: (data: undefined) => void): void;
+    on(criteria: 'finish', listener: (data: undefined) => void): this;
 
     /**
      * 'peek' - emitted for each chunk of data written back to the client connection. The event method signature is function(chunk, encoding).
      * 'finish' - emitted when the response finished writing but before the client response connection is ended. The event method signature is function ().
      */
-    once(criteria: 'peek', listener: PeekListener): void;
+    once(criteria: 'peek', listener: PeekListener): this;
+    once(criteria: 'peek'): Promise<Parameters<PeekListener>>;
 
-    once(criteria: 'finish', listener: (data: undefined) => void): void;
+    once(criteria: 'finish', listener: (data: undefined) => void): this;
 }
 
 /**
@@ -734,12 +742,14 @@ export interface ResponseObject extends Podium {
     bytes(length: number): ResponseObject;
 
     /**
-     * Sets the 'Content-Type' HTTP header 'charset' property where:
+     * Controls the 'Content-Type' HTTP header 'charset' property of the response.
+     *  * When invoked without any parameter, will prevent hapijs from applying its default charset normalization to 'utf-8'
+     *  * When 'charset' parameter is provided, will set the 'Content-Type' HTTP header 'charset' property where:
      * @param charset - the charset property value.
      * @return Return value: the current response object.
      * [See docs](https://hapijs.com/api/17.0.1#-responsecharsetcharset)
      */
-    charset(charset: string): ResponseObject;
+    charset(charset?: string): ResponseObject;
 
     /**
      * Sets the HTTP status code where:
@@ -970,7 +980,7 @@ export type ResponseValue = string | object;
 
 export interface AuthenticationData {
     credentials: AuthCredentials;
-    artifacts?: object;
+    artifacts?: AuthArtifacts;
 }
 
 export interface Auth {
@@ -2389,17 +2399,17 @@ export interface ServerEvents extends Podium {
      * See ['start' event](https://github.com/hapijs/hapi/blob/master/API.md#-start-event)
      * See ['stop' event](https://github.com/hapijs/hapi/blob/master/API.md#-stop-event)
      */
-    on(criteria: 'log' | ServerEventCriteria<'log'>, listener: LogEventHandler): void;
+    on(criteria: 'log' | ServerEventCriteria<'log'>, listener: LogEventHandler): this;
 
-    on(criteria: 'request' | ServerEventCriteria<'request'>, listener: RequestEventHandler): void;
+    on(criteria: 'request' | ServerEventCriteria<'request'>, listener: RequestEventHandler): this;
 
-    on(criteria: 'response' | ServerEventCriteria<'response'>, listener: ResponseEventHandler): void;
+    on(criteria: 'response' | ServerEventCriteria<'response'>, listener: ResponseEventHandler): this;
 
-    on(criteria: 'route' | ServerEventCriteria<'route'>, listener: RouteEventHandler): void;
+    on(criteria: 'route' | ServerEventCriteria<'route'>, listener: RouteEventHandler): this;
 
-    on(criteria: 'start' | ServerEventCriteria<'start'>, listener: StartEventHandler): void;
+    on(criteria: 'start' | ServerEventCriteria<'start'>, listener: StartEventHandler): this;
 
-    on(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): void;
+    on(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): this;
 
     /**
      * Same as calling [server.events.on()](https://github.com/hapijs/hapi/blob/master/API.md#server.events.on()) with the count option set to 1.
@@ -2411,17 +2421,17 @@ export interface ServerEvents extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventsoncecriteria-listener)
      */
-    once(criteria: 'log' | ServerEventCriteria<'log'>, listener: LogEventHandler): void;
+    once(criteria: 'log' | ServerEventCriteria<'log'>, listener: LogEventHandler): this;
 
-    once(criteria: 'request' | ServerEventCriteria<'request'>, listener: RequestEventHandler): void;
+    once(criteria: 'request' | ServerEventCriteria<'request'>, listener: RequestEventHandler): this;
 
-    once(criteria: 'response' | ServerEventCriteria<'response'>, listener: ResponseEventHandler): void;
+    once(criteria: 'response' | ServerEventCriteria<'response'>, listener: ResponseEventHandler): this;
 
-    once(criteria: 'route' | ServerEventCriteria<'route'>, listener: RouteEventHandler): void;
+    once(criteria: 'route' | ServerEventCriteria<'route'>, listener: RouteEventHandler): this;
 
-    once(criteria: 'start' | ServerEventCriteria<'start'>, listener: StartEventHandler): void;
+    once(criteria: 'start' | ServerEventCriteria<'start'>, listener: StartEventHandler): this;
 
-    once(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): void;
+    once(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): this;
 
     /**
      * Same as calling server.events.on() with the count option set to 1.
@@ -2438,13 +2448,13 @@ export interface ServerEvents extends Podium {
      * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumremovelistenername-listener)
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
      */
-    removeListener(name: string, listener: Podium.Listener): Podium;
+    removeListener(name: string, listener: Podium.Listener): this;
 
     /**
      * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumremovealllistenersname)
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverevents)
      */
-    removeAllListeners(name: string): Podium;
+    removeAllListeners(name: string): this;
 
     /**
      * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumhaslistenersname)
@@ -2468,7 +2478,8 @@ export type RouteRequestExtType = 'onPreAuth'
     | 'onPostAuth'
     | 'onPreHandler'
     | 'onPostHandler'
-    | 'onPreResponse';
+    | 'onPreResponse'
+    | 'onPostResponse';
 
 export type ServerRequestExtType =
     RouteRequestExtType
@@ -2698,7 +2709,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
          * The artifacts are used to bypass the default authentication strategies,
          * and are validated directly as if they were received via an authentication scheme. Defaults to no artifacts.
          */
-        artifacts?: object;
+        artifacts?: AuthArtifacts;
     };
     /**
      * sets the initial value of request.app, defaults to {}.
@@ -3384,7 +3395,6 @@ export interface PluginProperties {
 /**
  * An empty interface to allow typings of custom server.methods.
  */
-/* tslint:disable-next-line:no-empty-interface */
 export interface ServerMethods extends Util.Dictionary<ServerMethod> {
 }
 
@@ -4062,7 +4072,8 @@ export namespace Lifecycle {
         (stream.Stream) |
         (object | object[]) |
         symbol |
-        ResponseToolkit;
+        Auth |
+        ResponseObject;
 
     /**
      * Various configuration options allows defining how errors are handled. For example, when invalid payload is received or malformed cookie, instead of returning an error, the framework can be

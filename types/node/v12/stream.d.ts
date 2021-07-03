@@ -1,7 +1,7 @@
-declare module "stream" {
-    import * as events from "events";
+declare module 'stream' {
+    import EventEmitter = require('events');
 
-    class internal extends events.EventEmitter {
+    class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
     }
 
@@ -293,7 +293,10 @@ declare module "stream" {
             stream5: T,
             callback?: (err: NodeJS.ErrnoException | null) => void,
         ): T;
-        function pipeline(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>, callback?: (err: NodeJS.ErrnoException | null) => void): NodeJS.WritableStream;
+        function pipeline(
+            streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>,
+            callback?: (err: NodeJS.ErrnoException | null) => void,
+        ): NodeJS.WritableStream;
         function pipeline(
             stream1: NodeJS.ReadableStream,
             stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
@@ -310,7 +313,7 @@ declare module "stream" {
                 stream4: NodeJS.ReadWriteStream,
                 stream5: NodeJS.WritableStream,
             ): Promise<void>;
-            function __promisify__(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
+            function __promisify__(streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
             function __promisify__(
                 stream1: NodeJS.ReadableStream,
                 stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,

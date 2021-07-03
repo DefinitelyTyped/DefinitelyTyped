@@ -1,4 +1,4 @@
-import { HTMLHint, RuleSet } from "htmlhint";
+import { HTMLHint, LintResult, Rule, RuleSet } from "htmlhint";
 
 const htmlHintRules: RuleSet = {
     "tagname-lowercase": true,
@@ -14,5 +14,12 @@ const htmlHintRules: RuleSet = {
     "space-tab-mixed-disabled": "tab"
 };
 
-const result = HTMLHint.verify('<span></span>', htmlHintRules);
-const formatted = HTMLHint.format(result, { indent: 2 });
+const rule: Rule = {
+    id: 'custom-rule',
+    description: 'Custom rule',
+    link: '../custom-rule'
+};
+HTMLHint.addRule(rule);
+
+const result: LintResult[] = HTMLHint.verify('<span></span>', htmlHintRules);
+const formatted: string[] = HTMLHint.format(result, { indent: 2 });

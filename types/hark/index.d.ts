@@ -15,6 +15,7 @@ declare namespace hark {
         threshold?: number;
         play?: boolean;
         history?: number;
+        audioContext?: AudioContext;
     }
 
     interface Harker {

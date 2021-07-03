@@ -16,11 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@markedjs/html-differ": [
-                "markedjs__html-differ"
-            ],
-            "@markedjs/html-differ/*": [
-                "markedjs__html-differ/*"
+            "@markedjs/*": [
+                "markedjs__*"
             ]
         }
     },

@@ -2,7 +2,6 @@
 // Project: https://github.com/web-animations/web-animations-js, https://github.com/web-animations
 // Definitions by: Kristian Moerch <https://github.com/kritollm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
 type AnimationEffectTimingFillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type AnimationEffectTimingPlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
@@ -21,8 +20,8 @@ interface AnimationPlaybackEvent {
 }
 
 interface AnimationPlaybackEventInit extends EventInit {
-    currentTime?: number | null;
-    timelineTime?: number | null;
+    currentTime?: number | null | undefined;
+    timelineTime?: number | null | undefined;
 }
 
 declare var AnimationPlaybackEvent: {
@@ -31,10 +30,10 @@ declare var AnimationPlaybackEvent: {
 };
 
 interface AnimationKeyFrame {
-    easing?: string | string[];
-    offset?: number | Array<number | null> | null;
-    opacity?: number | number[];
-    transform?: string |  string[];
+    easing?: string | string[] | undefined;
+    offset?: number | Array<number | null> | null | undefined;
+    opacity?: number | number[] | undefined;
+    transform?: string |  string[] | undefined;
     // [key: string]: string | number | [string | number, string | number] | undefined; (duplicate string indexer in TypeScript 2.7+)
 }
 
@@ -44,15 +43,15 @@ interface AnimationTimeline {
     play(effect: KeyframeEffect): Animation;
 }
 interface AnimationEffectTiming {
-    delay?: number;
-    direction?: AnimationEffectTimingPlaybackDirection;
-    duration?: number;
-    easing?: string;
-    endDelay?: number;
-    fill?: AnimationEffectTimingFillMode;
-    iterationStart?: number;
-    iterations?: number;
-    playbackRate?: number;
+    delay?: number | undefined;
+    direction?: AnimationEffectTimingPlaybackDirection | undefined;
+    duration?: number | undefined;
+    easing?: string | undefined;
+    endDelay?: number | undefined;
+    fill?: AnimationEffectTimingFillMode | undefined;
+    iterationStart?: number | undefined;
+    iterations?: number | undefined;
+    playbackRate?: number | undefined;
 }
 
 interface AnimationEffectReadOnly {
@@ -104,7 +103,6 @@ declare class GroupEffect extends KeyframeEffect {
 }
 interface Element {
     animate(effect: AnimationKeyFrame | AnimationKeyFrame[] | null, timing: number | AnimationEffectTiming): Animation;
-    animate(keyframes: Keyframe[] | PropertyIndexedKeyframes | null, options?: number | KeyframeAnimationOptions): Animation;
     getAnimations(): Animation[];
 }
 interface Document {

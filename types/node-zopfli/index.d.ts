@@ -15,9 +15,9 @@ declare class Zopfli extends Transform {
     static createDeflate(options?: Zopfli.Options): Zopfli;
     static createZlib(options?: Zopfli.Options): Zopfli;
 
-    static gzipSync(options?: Zopfli.Options): Buffer;
-    static deflateSync(options?: Zopfli.Options): Buffer;
-    static zlibSync(options?: Zopfli.Options): Buffer;
+    static gzipSync(input: Buffer, options: Zopfli.Options): Buffer;
+    static deflateSync(input: Buffer, options: Zopfli.Options): Buffer;
+    static zlibSync(input: Buffer, options: Zopfli.Options): Buffer;
 
     static deflate(input: Buffer, options: Zopfli.Options, cb: (err: Error, out: Buffer) => void): void;
     static deflate(input: Buffer, cb: (err: Error, out: Buffer) => void): void;

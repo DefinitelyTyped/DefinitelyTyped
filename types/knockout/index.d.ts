@@ -10,7 +10,6 @@
 //                 Retsam <https://github.com/Retsam>
 //                 Rey Pena <https://github.com/ReyPena>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 interface KnockoutSubscribableFunctions<T> {
     /**
@@ -286,6 +285,7 @@ interface KnockoutObservableStatic {
     fn: KnockoutObservableFunctions<any>;
 
     <T>(value: T): KnockoutObservable<T>;
+    <T>(value: any): KnockoutObservable<T>;
     <T = any>(value: null): KnockoutObservable<T | null>
     <T = any>(): KnockoutObservable<T | undefined>
 }
@@ -532,7 +532,7 @@ interface KnockoutUtils {
 
     postJson(urlOrForm: any, data: any, options: any): void;
 
-    peekObservable<T>(value: KnockoutObservable<T>): T;
+    peekObservable<T>(value: KnockoutObservable<T> | T): T;
 
     range(min: any, max: any): any;
 

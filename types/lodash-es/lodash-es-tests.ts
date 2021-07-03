@@ -31,7 +31,7 @@ import countBy from "lodash-es/countBy";
 import create from "lodash-es/create";
 import curry from "lodash-es/curry";
 import curryRight from "lodash-es/curryRight";
-import debounce from "lodash-es/debounce";
+import debounce, { DebouncedFunc, DebounceSettings } from "lodash-es/debounce";
 import deburr from "lodash-es/deburr";
 import defaultTo from "lodash-es/defaultTo";
 import defaults from "lodash-es/defaults";
@@ -251,7 +251,7 @@ import takeRightWhile from "lodash-es/takeRightWhile";
 import takeWhile from "lodash-es/takeWhile";
 import template from "lodash-es/template";
 import templateSettings from "lodash-es/templateSettings";
-import throttle from "lodash-es/throttle";
+import throttle, { ThrottleSettings } from "lodash-es/throttle";
 import times from "lodash-es/times";
 import toArray from "lodash-es/toArray";
 import toFinite from "lodash-es/toFinite";
@@ -335,6 +335,8 @@ import {
   curry as curry1,
   curryRight as curryRight1,
   debounce as debounce1,
+  DebouncedFunc as DebouncedFunc1,
+  DebounceSettings as DebounceSettings1,
   deburr as deburr1,
   defaultTo as defaultTo1,
   defaults as defaults1,
@@ -555,6 +557,7 @@ import {
   template as template1,
   templateSettings as templateSettings1,
   throttle as throttle1,
+  ThrottleSettings as ThrottleSettings1,
   times as times1,
   toArray as toArray1,
   toFinite as toFinite1,

@@ -8,7 +8,7 @@ declare module "meteor/random" {
         // @param numberOfDigits, @returns a random hex string of the given length
         function hexString(numberOfDigits: number): string;
         // @param array, @return a random element in array
-        function choice(array: any[]): string;
+        function choice<T>(array: T[]): T | undefined;
         // @param str, @return a random char in str
         function choice(str: string): string;
     }

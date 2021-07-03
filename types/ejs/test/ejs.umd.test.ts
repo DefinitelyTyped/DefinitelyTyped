@@ -6,6 +6,9 @@
  */
 declare function expectType<T>(value: T): T;
 
+ejs.VERSION; // $ExpectType string
+ejs.name; // $ExpectType "ejs"
+
 // $ExpectType PromiseConstructorLike | undefined
 ejs.promiseImpl;
 
@@ -40,8 +43,9 @@ expectType<{
     (path: string, data?: ejs.Data, opts?: ejs.Options): Promise<string>;
 }>(ejs.renderFile);
 
-// https://github.com/mde/ejs#options
+/** @see https://github.com/mde/ejs#options */
 const renderOptions: ejs.Options = {
     beautify: true,
     filename: './index.ejs',
+    views: ['dir1', 'dir2'],
 };

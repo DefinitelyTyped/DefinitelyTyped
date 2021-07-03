@@ -120,6 +120,22 @@ declare namespace jexcel {
     //
     // Main options
     // ----------------------------------------------------------------------
+    interface SharedMethodsInitializationOptions {
+        /**
+         * Search in the table, only if directive is enabled during inialization - sets search in initialization.
+         * @param string - Search for word
+         * myTable.search([string]);
+         */
+        // tslint:disable-next-line ban-types
+        search?: Function | boolean;
+        /**
+         * Toggle table fullscreen mode or set fullscreen mode in initialization
+         * @param boolean fullscreen - define fullscreen status as true or false
+         * myTable.fullscreen([bool]);
+         */
+        // tslint:disable-next-line ban-types
+        fullscreen?: Function | boolean;
+    }
 
     interface MethodsOptions {
         /**
@@ -147,13 +163,6 @@ declare namespace jexcel {
          */
         // tslint:disable-next-line ban-types
         download?: Function;
-        /**
-         * Toggle table fullscreen mode
-         * @param boolean fullscreen - define fullscreen status as true or false
-         * myTable.fullscreen([bool]);
-         */
-        // tslint:disable-next-line ban-types
-        fullscreen?: Function;
         /** get current cell DOM @param string columnName - str compatible with excel, or as object.    myTable.getCell([string]); */
         // tslint:disable-next-line ban-types
         getCell?: Function;
@@ -278,9 +287,6 @@ declare namespace jexcel {
         /** remove all style from a cell @param string columnName - Column name, example: A1, B3, etc    myTable.resetStyle([string]); */
         // tslint:disable-next-line ban-types
         resetStyle?: Function;
-        /** search in the table, only if directive is enabled during inialization. @param string - Search for word    myTable.search([string]); */
-        // tslint:disable-next-line ban-types
-        search?: Function;
         /** Set the data from one column by number @param integer columnNumber - Column number @param array colData - Column data    myTable.setColumnData([int], [array]); */
         // tslint:disable-next-line ban-types
         setColumnData?: Function;
@@ -531,8 +537,6 @@ declare namespace jexcel {
         defaultColWidth?: number;
         /** Allow table edition: bool */
         editable?: boolean;
-        /** Fullscreen mode */
-        fullscreen?: boolean;
         /** Include header titles on download: bool */
         includeHeadersOnDownload?: boolean;
         /** Activate the table lazyloading */
@@ -568,8 +572,6 @@ declare namespace jexcel {
         rowResize?: boolean;
         /** Row properties: height.: object */
         rows?: Record<string, any>;
-        /** Allow search in the table */
-        search?: boolean;
         /** Allow selection copy: bool */
         selectionCopy?: boolean;
         /**
@@ -664,7 +666,7 @@ declare namespace jexcel {
     /**
      * @see https://bossanova.uk/jexcel/v4/docs/quick-reference
      */
-    type Options = MethodsOptions & EventsOptions & InitializationOptions & TranslationsOptions & UnDocumentOptions;
+    type Options = SharedMethodsInitializationOptions & MethodsOptions & EventsOptions & InitializationOptions & TranslationsOptions & UnDocumentOptions;
 
     interface ActionHistory {
         action: string;

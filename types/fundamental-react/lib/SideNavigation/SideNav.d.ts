@@ -7,6 +7,7 @@ export type SideNavProps = {
     condensed?: boolean;
     disableStyles?: boolean;
     selectedId?: string;
+    skipLink?: { href: string, label: string };
     onItemSelect?: (e: any, id: any) => void;
 } & React.HTMLAttributes<Element>;
 
@@ -14,6 +15,7 @@ export type SideNavListProps = {
     className?: string;
     compact?: boolean;
     condensed?: boolean;
+    groupLabel?: string;
     hasParent?: boolean;
     isUtility?: boolean;
     level?: number;
@@ -25,7 +27,9 @@ export type SideNavListProps = {
 } & React.HTMLAttributes<Element>;
 
 export type SideNavListItemProps = {
+    condensed?: boolean;
     expanded?: boolean;
+    expandSubmenuLabel?: string;
     glyph?: IconGlyph;
     id?: string;
     isSubItem?: boolean;

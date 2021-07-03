@@ -1,6 +1,7 @@
 // Type definitions for atlassian-connect-js 5.2
 // Project: https://bitbucket.org/atlassian/atlassian-connect-js#readme
 // Definitions by: Josh Parnham <https://github.com/josh->
+//                 Tobias Theobald <https://github.com/Tobi042>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace AP {
@@ -102,6 +103,137 @@ declare namespace AP {
     ): Promise<{ body: string; xhr: XMLHttpRequest }>;
 
     /**
+     * A Confluence specific JavaScript module which provides functions to interact with the macro editor.
+     */
+    namespace confluence {
+        interface ContentProperty {
+            /**
+             * the key of the property to create or update
+             */
+            key: string;
+
+            /**
+             * the value of the property - may be a String or JavaScript object.
+             */
+            value: string | object;
+
+            /**
+             * a JavaScript object that defines the version of the content property
+             */
+            version: object;
+        }
+
+        /**
+         * Save a macro with data that can be accessed when viewing the confluence page.
+         * @param macroParameters data to be saved with the macro.
+         * @param macroBody the macro body to be saved with the macro. If omitted, the existing body will remain untouched.
+         * @example
+         * AP.confluence.saveMacro({foo: 'bar'});
+         * AP.confluence.saveMacro({foo: 'bar'}, "a new macro body");
+         */
+        function saveMacro(macroParameters: object, macroBody?: string): void;
+
+        /**
+         * Closes the macro editor, if it is open.
+         *
+         * This call does not save any modified parameters to the macro, and saveMacro should be called first if necessary.
+         * @example
+         * AP.confluence.closeMacroEditor();
+         */
+        function closeMacroEditor(): void;
+
+        /**
+         * Get the data saved in the saveMacro method.
+         * @param callback to be passed the macro data.
+         * @example
+         * AP.confluence.getMacroData(function(data){
+         *   alert(data);
+         * });
+         */
+        function getMacroData(callback: (data: object) => void): void;
+
+        /**
+         * Get the body saved in the saveMacro method.
+         * @param callback callback to be passed the macro body.
+         * @example
+         * AP.confluence.getMacroBody(function(body){
+         *   alert(body);
+         * });
+         */
+        function getMacroBody(callback: (body: string) => void): void;
+
+        /**
+         * Provide handlers for property panel control events
+         *
+         * Event name components:
+         *
+         * `control-key`: "key" property provided for the custom control declared in the JSON descriptor
+         * `event-type`: type of user interaction, as described below
+         * `macro-key`: "key" property provided for the macro declared in the JSON descriptor
+         *
+         * Event types:
+         *
+         * `click`: the property panel control was clicked by the user
+         * @param eventBindings An object which specifies property panel events as keys and handler functions as values. The handler does not take any arguments.
+         * @example
+         * AP.confluence.onMacroPropertyPanelEvent({
+         *   "{event-type}.{control-key}.{macro-key}.macro.property-panel": function() {
+         *     // handle button click
+         *     AP.confluence.closeMacroPropertyPanel();
+         *   }
+         * });
+         */
+        function onMacroPropertyPanelEvent(eventBindings: Record<string, () => void>): void;
+
+        /**
+         * Closes the macro property panel, if it is open.
+         * @example
+         * AP.confluence.closeMacroPropertyPanel();
+         */
+        function closeMacroPropertyPanel(): void;
+
+        /**
+         * Provides the Content Property with the given key, on the current Content, to the callback.
+         * @param key the key of the property to retrieve
+         * @param callback callback to be passed the content property
+         * @example
+         * AP.confluence.getContentProperty('propertyKey', function(property) {
+         *   alert(property);
+         * });
+         */
+        function getContentProperty(key: string, callback: (property: ContentProperty) => void): void;
+
+        /**
+         * Sets the provided Content Property against the current Content, sending the result to the callback.
+         * @param contentProperty the content property to create or update
+         * @param callback callback to be passed the result
+         * @example
+         * AP.confluence.setContentProperty({
+         *   key: 'propertyKey',
+         *   value: 'propertyValue',
+         *   version: {
+         *     number: 2
+         *   }
+         * }, function(result) {
+         *    alert(result.property); // the updated property, if successful
+         *    alert(result.error);    // if unsuccessful, the reason for the failure
+         * });
+         */
+        function setContentProperty(contentProperty: ContentProperty, callback: (result: {property: ContentProperty} | {error: string}) => void): void;
+
+        /**
+         * Raise contentProperty.update event for the Content Property with the given key on the current Content. It also provide content property to the callback like getContentProperty does.
+         * @param key the key of the property to retrieve
+         * @param callback callback to be passed the content property
+         * @example
+         * AP.confluence.syncPropertyFromServer('propertyKey', function(property) {
+         *   alert(property);
+         * });
+         */
+        function syncPropertyFromServer(key: string, callback: (property: ContentProperty) => void): void;
+    }
+
+    /**
      * A JavaScript module which provides functions for the current product context.
      */
     namespace context {
@@ -142,6 +274,173 @@ declare namespace AP {
          * @param name the name of the cookie to remove
          */
         function erase(name: string): void;
+    }
+
+    /**
+     * A Confluence specific JavaScript module which provides functions to interact with the custom content.
+     */
+    namespace customContent {
+        type InterceptableEvent =
+            /**
+             * Add-on **must** intercept this event to provide the content body.
+             * The `confluence.customcontent.submit` event will be emitted when user clicks the save button on the custom content edit component.
+             * @example <caption>**Return a content body string** The string will be used as the content body.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * editComponent.intercept('confluence.customcontent.submit');
+             * AP.events.on('confluence.customcontent.submit', function (context) {
+             *     editComponent.submitCallback(document.querySelector("#textarea").value);
+             * });
+             * @example <caption>**Return a complete content object** Add-on can return a complete content object.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * editComponent.intercept('confluence.customcontent.submit');
+             * AP.events.on('confluence.customcontent.submit', function (context) {
+             *   editComponent.submitCallback({
+             *     "title": context.title,
+             *     "space": {"key": context.spaceKey},
+             *     "type": context.contentType,
+             *     "body": {
+             *       "storage": {
+             *         "value": "<p>New page data.</p>",
+             *         "representation": "storage"
+             *       }
+             *     }
+             *   });
+             * });
+             * @example <caption>**Return false** Add-on can also return false to cancel the submit action.
+             * Additionally you can return an extra string as the error message. It will be shown as a flag message.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * editComponent.intercept('confluence.customcontent.submit');
+             * AP.events.on('confluence.customcontent.submit', function (context) {
+             *     editComponent.submitCallback(false);
+             *     // editComponent.submitCallback(false, 'Cannot save the content');
+             * });
+             */
+            | 'confluence.customcontent.submit'
+
+            /**
+             * The `confluence.customcontent.submitSuccess` event will be emitted when Confluence successfully saved the content.
+             * If add-on didn't intercept this event, user will be redirected to the content view page.
+             * You can call `submitSuccessCallback` function to return the data:
+             * @example <caption>**Return false** Return false will prevent Confluence redirect user to the content view page.
+             * In this case, add-on can redirect user using the [JavaScript Navigator API]{@link navigator}.
+             * Additionally you can return an extra string as the error message. It will be shown as a flag message.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.submitSuccess');
+             * AP.events.on('confluence.customcontent.submitSuccess', function (newContent) {
+             *     // newContent is the saved content object
+             *     editComponent.submitSuccessCallback(false);
+             *     // editComponent.submitSuccessCallback(false, 'Some error message');
+             * });
+             * @example <caption>**Return true** User will not be redirected until **submitSuccessCallback** has been called.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.submitSuccess');
+             * AP.events.on('confluence.customcontent.submitSuccess', function (newContent) {
+             *     // newContent is the saved content object
+             *     editComponent.submitSuccessCallback(true);
+             * });
+             */
+            | 'confluence.customcontent.submitSuccess'
+
+            /**
+             * The `confluence.customcontent.submitError` event will be emitted when Confluence encountered problem when saving the content.
+             * If add-on didn't intercept this event, a flag message will be shown.
+             * You can call `submitErrorCallback` function to return the data:
+             * @example <caption>**Return false** Return `false` will prevent error message be shown.
+             * Additionally you can return an extra string as the error message. It will be shown as a flag message.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.submitError');
+             * AP.events.on('confluence.customcontent.submitError', function (errorMessage) {
+             *     editComponent.submitErrorCallback(false, 'My own error message');
+             * });
+             * @example <caption>**Return true** Error message will not be shown until submitErrorCallback has been called.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.submitError');
+             * AP.events.on('confluence.customcontent.submitError', function (errorMessage) {
+             *     editComponent.submitErrorCallback(true);
+             * });
+             */
+            | 'confluence.customcontent.submitError'
+
+            /**
+             * The `confluence.customcontent.cancel` event will be emitted when user clicks close button.
+             * If add-on didn't intercept this event, user will be redirected to the custom content list or the container page depending on the content type.
+             * You can call cancelCallback function to return the data:
+             * @example <caption>**Return false** Return `false` will prevent user being redirected.
+             * In this case, add-on can redirect user using the [JavaScript Navigator API]{@link navigator}.
+             * Additionally you can return an extra string as the error message. It will be shown as a flag message.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.cancel');
+             * AP.events.on('confluence.customcontent.cancel', function (errorMessage) {
+             *     editComponent.cancelCallback(false, 'My error message');
+             *     //  editComponent.cancelCallback(false);
+             * });
+             * @example <caption>**Return true** User will not be redirected until `cancelCallback` has been called.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.cancel');
+             * AP.events.on('confluence.customcontent.cancel', function (errorMessage) {
+             *     editComponent.cancelCallback(true);
+             * });
+             */
+            | 'confluence.customcontent.cancel';
+
+        interface EditComponent {
+            /**
+             * See docs on InterceptableEvent type
+             * @param event Event to intercept
+             * @see InterceptableEvent
+             */
+            intercept: (event: InterceptableEvent) => void;
+
+            /**
+             * Used inside an event listener for a `confluence.customcontent.submit` event to submit the content of the macro.
+             * @param contentBody can be either content body string, a complete content object or false (cancels submit action)
+             * @see InterceptableEvent
+             */
+            submitCallback: (contentBody: string | object | false) => void;
+
+            /**
+             * Used inside an event listener for a `confluence.customcontent.submitSuccess` event to do something before the user is redirected and/or
+             * to instruct Confluence on whether to redirect the user to the content page view after the content was saved successfully.
+             * If no redirect is desired, an error message can also be shown.
+             * @param doRedirect Whether to redirect the user to the content view. If false, an error can be shown.
+             * @param error The error to display if no redirect is desired
+             * @see InterceptableEvent
+             */
+            submitSuccessCallback: (doRedirect: boolean, error?: string) => void;
+
+            /**
+             * Used inside an event listener for a `confluence.customcontent.submitError` event to do something before the error is being shown and/or
+             * prevent Confluence from showing the default error message and optionally providing a custom one.
+             * @param preventDefaultErrorMessage Whether to show the default error message. If false, a custom error can be shown
+             * @param customError The error to show instead of the default Confluence one
+             * @see InterceptableEvent
+             */
+            submitErrorCallback: (preventDefaultErrorMessage: boolean, customError?: string) => void;
+
+            /**
+             * Used inside an event listener for a `confluence.customcontent.cancel` event to do something before the user is redirected and/or
+             * to instruct Confluence on whether to redirect the user to the content page view after the user clicked the "Close" button.
+             * If no redirect is desired, an error message can also be shown.
+             * @param doRedirect Whether to redirect the user to the content view. If false, an error can be shown.
+             * @param error The error to display if no redirect is desired
+             * @see InterceptableEvent
+             */
+            cancelCallback: (doRedirect: boolean, error?: string) => void;
+        }
+
+        /**
+         * Intercept edit component events of custom content.
+         * If the intercept function was invoked for an event then Confluence will wait for the data from the corresponding callback function up to 10 seconds.
+         * If add-on didn't return data, a timeout error message will be shown.
+         * @return EditComponent
+         */
+        function getEditComponent(): EditComponent;
     }
 
     /**
@@ -276,7 +575,7 @@ declare namespace AP {
 
         /**
          * Passes the custom data Object to the specified callback function.
-         * @param customData Callback method to be executed with the custom data.
+         * @param callback Callback method to be executed with the custom data.
          */
         function getCustomData(callback: (customData: object) => void): void;
 
@@ -695,89 +994,87 @@ declare namespace AP {
      * The Navigator API allows your add-on to change the current page using JavaScript.
      */
     namespace navigator {
-        enum NavigatorTargetJira {
+        type NavigatorTargetJira =
             /**
              * A specific dashboard in Jira. Takes a `dashboardId` to identify the dashboard.
              */
-            dashboard = 'dashboard',
+            'dashboard' |
 
             /**
              * A specific Issue in Jira. Takes an `issueKey` to identify the issue.
              */
-            issue = 'issue',
+            'issue' |
 
             /**
              * The module page within a specific add-on. Takes an `addonKey` and a `moduleKey` to identify the correct module.
              */
-            addonModule = 'addonModule',
+            'addonModule' |
 
             /**
              * The profile page for a Jira User. Takes a `username` or `userAccountId` to identify the user.
              */
-            userProfile = 'userProfile',
+            'userProfile' |
 
             /**
              * The admin details of a specific Jira Project. Takes a `projectKey` to identify the project. Only accessible to administrators.
              */
-            projectAdminSummary = 'projectAdminSummary',
+            'projectAdminSummary' |
 
             /**
              * The admin panel definted by a connect addon. Takes an `addonKey`, `adminPageKey`, `projectKey` and `projectId`. Only accessible to administrators.
              */
-            projectAdminTabPanel = 'projectAdminTabPanel',
+            'projectAdminTabPanel' |
 
             /**
              * A specific location contained within the site. Takes either a `relativeUrl` or `absoluteUrl` to identify the path.
              */
-            site = 'site',
-        }
+            'site';
 
-        enum NavigatorTargetConfluence {
+        type NavigatorTargetConfluence =
             /**
              * The view page for pages, blogs and custom content. Takes a `contentId` to identify the content.
              */
-            contentview = 'contentview',
+            | 'contentview'
 
             /**
              * The edit page for pages, blogs and custom content. Takes a `contentId` to identify the content.
              */
-            contentedit = 'contentedit',
+            | 'contentedit'
 
             /**
              * The space view page. Takes a `spaceKey` to identify the space.
              */
-            spaceview = 'spaceview',
+            | 'spaceview'
 
             /**
              * The space tools page. Takes a `spaceKey` to identify the space.
              */
-            spacetools = 'spacetools',
+            | 'spacetools'
 
             /**
              * The dashboard of Confluence.
              */
-            dashboard = 'dashboard',
+            | 'dashboard'
 
             /**
              * The profile page for a specific user. Takes a `username` or `userAccountId` to identify the user.
              */
-            userProfile = 'userProfile',
+            | 'userProfile'
 
             /**
              * The module page within a specific add-on. Takes an `addonKey` and a `moduleKey` to identify the correct module.
              */
-            addonModule = 'addonModule',
+            | 'addonModule'
 
             /**
              * The list/collector page for pages, blogs and custom content contained in a space. Takes a `spaceKey` and a `contentType` to identify the content type.
              */
-            contentlist = 'contentlist',
+            | 'contentlist'
 
             /**
              * A specific location contained within a site. Takes a `relativeUrl` to identify the path.
              */
-            site = 'site',
-        }
+            | 'site';
 
         interface NavigatorContext {
             /**

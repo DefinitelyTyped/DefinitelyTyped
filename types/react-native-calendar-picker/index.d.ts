@@ -1,4 +1,4 @@
-// Type definitions for react-native-calendar-picker 6.1
+// Type definitions for react-native-calendar-picker 7.0
 // Project: https://github.com/stephy/CalendarPicker
 // Definitions by: Tobias Hann <https://github.com/automatensalat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,7 +9,7 @@ import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 import { Moment, MomentInput } from 'moment';
 
 export default class CalendarPicker extends React.Component<CalendarPickerProps> {
-    handleOnPressDay(day: number): void;
+    handleOnPressDay(date: HandleOnPressDayArg): void;
     handleOnPressNext(): void;
     handleOnPressPrevious(): void;
     resetSelections(): void;
@@ -27,9 +27,13 @@ export interface CalendarPickerProps {
     selectedDayColor?: string;
     selectedDayStyle?: StyleProp<ViewStyle>;
     selectedDayTextColor?: string;
+    selectedDayTextStyle?: StyleProp<TextStyle>;
+    selectedRangeStartTextStyle?: StyleProp<TextStyle>;
+    selectedRangeEndTextStyle?: StyleProp<TextStyle>;
     selectedRangeStartStyle?: StyleProp<ViewStyle>;
     selectedRangeEndStyle?: StyleProp<ViewStyle>;
     selectedRangeStyle?: StyleProp<ViewStyle>;
+    selectedDisabledDatesTextStyle?: StyleProp<TextStyle>;
     disabledDates?: Date[] | DisabledDatesFunc;
     disabledDatesTextStyle?: StyleProp<TextStyle>;
     selectedStartDate?: Date;
@@ -40,35 +44,31 @@ export interface CalendarPickerProps {
     todayTextStyle?: StyleProp<TextStyle>;
     textStyle?: StyleProp<TextStyle>;
     customDatesStyles?: CustomDateStyle[] | CustomDatesStylesFunc;
-    /**
-     * @deprecated Use customDatesStyles & customDayHeaderStyles callbacks to style individual dates, days of week, and/or header.
-     */
-    customDatesStylesPriority?: 'dayOfWeek' | 'customDates';
     scaleFactor?: number;
     minDate?: Date;
     maxDate?: Date;
     initialDate?: Date;
     width?: number;
     height?: number;
-    swipeConfig?: SwipeConfig;
-    enableSwipe?: boolean;
+    scrollable?: boolean;
+    horizontal?: boolean;
     enableDateChange?: boolean;
     restrictMonthNavigation?: boolean;
     onDateChange?: DateChangedCallback;
     onMonthChange?: DateChangedCallback;
-    onSwipe?: SwipeCallback;
     dayShape?: 'circle' | 'square';
     headingLevel?: number;
+    selectMonthTitle?: string;
+    selectYearTitle?: string;
     previousTitleStyle?: StyleProp<TextStyle>;
     nextTitleStyle?: StyleProp<TextStyle>;
     previousComponent?: React.ReactNode;
     nextComponent?: React.ReactNode;
     dayLabelsWrapper?: StyleProp<ViewStyle>;
-    /**
-     * @deprecated Use customDatesStyles & customDayHeaderStyles callbacks to style individual dates, days of week, and/or header.
-     */
-    dayOfWeekStyles?: DayOfWeekStyle;
     monthYearHeaderWrapperStyle?: StyleProp<ViewStyle>;
+    headerWrapperStyle?: StyleProp<ViewStyle>;
+    monthTitleStyle?: StyleProp<TextStyle>;
+    yearTitleStyle?: StyleProp<TextStyle>;
     customDayHeaderStyles?: CustomDayHeaderStylesFunc;
 }
 
@@ -118,12 +118,12 @@ export interface CustomDateStyle {
     textStyle?: TextStyle;
 }
 
-export type DateChangedCallback = (date: Moment, type?: 'START_DATE' | 'END_DATE') => void;
-
-export interface SwipeConfig {
-    velocityThreshold?: number;
-    directionalOffsetThreshold?: number;
+export interface HandleOnPressDayArg {
+    day: number;
+    month: number;
+    year: number;
 }
-export type SwipeDirection = 'SWIPE_LEFT' | 'SWIPE_RIGHT' | 'SWIPE_UP' | 'SWIPE_DOWN';
 
-export type SwipeCallback = (swipeDirection: SwipeDirection) => void;
+export type DateChangedCallback = (date: Moment, type: 'START_DATE' | 'END_DATE') => void;
+
+export type MonthChangedCallback = (date: Moment) => void;

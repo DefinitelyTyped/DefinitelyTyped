@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import ImageWrapper from '../Image';
@@ -11,6 +11,7 @@ import State from './State';
 
 export interface Options {
     attributions?: AttributionLike;
+    imageSmoothing?: boolean;
     projection?: ProjectionLike;
     resolutions?: number[];
     state?: State;
@@ -29,10 +30,14 @@ export default abstract class ImageSource extends Source {
         pixelRatio: number,
         projection: Projection,
     ): ImageBase;
+    /**
+     * Handle image change events.
+     */
     protected handleImageChange(event: BaseEvent): void;
+    getContextOptions(): object | undefined;
     getImage(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageBase;
     getResolutions(): number[];
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
@@ -55,7 +60,14 @@ export default abstract class ImageSource extends Source {
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
 export class ImageSourceEvent extends BaseEvent {
-    constructor();
+    constructor(type: string, image: ImageWrapper);
+    /**
+     * The image related to the event.
+     */
     image: ImageWrapper;
 }
+/**
+ * Default image load function for image sources that use module:ol/Image~Image image
+ * instances.
+ */
 export function defaultImageLoadFunction(image: ImageWrapper, src: string): void;

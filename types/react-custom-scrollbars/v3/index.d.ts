@@ -39,6 +39,8 @@ export interface ScrollbarProps extends React.HTMLProps<Scrollbars> {
     thumbSize?: number;
     thumbMinSize?: number;
     universal?: boolean;
+
+    style?: React.CSSProperties;
 }
 
 export class Scrollbars extends React.Component<ScrollbarProps> {

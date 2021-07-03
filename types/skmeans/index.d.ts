@@ -3,12 +3,12 @@
 // Definitions by:  Adam Zerella <https://github.com/adamzerella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type CentroidValues = 'kmrand' | 'kmpp' | null;
+type CentroidValues = number[] | number[][] | 'kmrand' | 'kmpp' | null;
 
 interface Data {
     it: number;
     k: number;
-    centroids: number;
+    centroids: number[] | number[][];
     idxs: number[];
     test: (x: number, point?: (x1: number, x2: number) => number) => void;
 }

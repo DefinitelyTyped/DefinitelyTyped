@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
 import { LoadFunction } from '../Tile';
@@ -27,6 +27,7 @@ export interface Options {
     culture?: string;
     key: string;
     imagerySet: string;
+    imageSmoothing?: boolean;
     maxZoom?: number;
     reprojectionErrorThreshold?: number;
     tileLoadFunction?: LoadFunction;
@@ -47,10 +48,16 @@ export interface ResourceSet {
 }
 export default class BingMaps extends TileImage {
     constructor(options: Options);
+    /**
+     * Get the api key used for this source.
+     */
     getApiKey(): string;
+    /**
+     * Get the imagery set associated with this source.
+     */
     getImagerySet(): string;
     handleImageryMetadataResponse(response: BingMapsImageryMetadataResponse): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

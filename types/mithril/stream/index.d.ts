@@ -1,4 +1,4 @@
-// tslint:disable:rulename strict-export-declare-modifiers
+// tslint:disable:strict-export-declare-modifiers
 /** Creates an empty stream. */
 declare function Stream<T>(): Stream<T>; // tslint:disable-line no-unnecessary-generics
 /** Creates a stream with an initial value. */
@@ -27,9 +27,12 @@ declare namespace Stream {
     /** Creates a computed stream that reactively updates if any of its upstreams are updated. */
     export function combine<T>(combiner: (...streams: any[]) => T, streams: Array<Stream<any>>): Stream<T>;
     /** Combines the values of one or more streams into a single stream that is updated whenever one or more of the sources are updated */
-    export function lift<S extends any[], T>(fn: (...values: S) => T, ...streams: {[I in keyof S]: Stream<S[I]>}): Stream<T>;
+    export function lift<S extends any[], T>(
+        fn: (...values: S) => T,
+        ...streams: { [I in keyof S]: Stream<S[I]> }
+    ): Stream<T>;
     /** Creates a stream whose value is the array of values from an array of streams. */
-    export function merge<S extends any[]>(streams: {[I in keyof S]: Stream<S[I]>}): Stream<{[I in keyof S]: S[I]}>;
+    export function merge<S extends any[]>(streams: { [I in keyof S]: Stream<S[I]> }): Stream<{ [I in keyof S]: S[I] }>;
     /** Creates a new stream with the results of calling the function on every incoming stream with and accumulator and the incoming value. */
     export function scan<T, U>(fn: (acc: U, value: T) => U, acc: U, stream: Stream<T>): Stream<U>;
     /** Takes an array of pairs of streams and scan functions and merges all those streams using the given functions into a single stream. */

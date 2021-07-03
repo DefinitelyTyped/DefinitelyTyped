@@ -4,6 +4,7 @@ import {
     Cell,
     CellProps,
     Column,
+    DefaultSortTypes,
     FilterProps,
     FilterValue,
     HeaderGroup,
@@ -172,8 +173,10 @@ const EditableCell = ({
 };
 
 // Define a default UI for filtering
-function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter } }: FilterProps<Data>) {
+function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter, parent } }: FilterProps<Data>) {
     const count = preFilteredRows.length;
+
+    const foo = parent;  // $ExpectType ColumnInstance<Data> | undefined
 
     return (
         <input
@@ -314,12 +317,12 @@ fuzzyTextFilterFn.autoRemove = (val: any) => !val;
 interface Table<T extends object> {
     columns: Array<Column<T>>;
     data: T[];
-    updateMyData: any;
-    skipPageReset: boolean;
+    updateMyData?: any;
+    skipPageReset?: boolean;
 }
 
 // Be sure to pass our updateMyData and the skipPageReset option
-function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
+function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Data>) {
     const filterTypes = React.useMemo(
         () => ({
             // Add a new fuzzyTextFilterFn filter type.
@@ -330,9 +333,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                 return rows.filter(row => {
                     const rowValue = row.values[id];
                     return rowValue !== undefined
-                        ? String(rowValue)
-                              .toLowerCase()
-                              .startsWith(String(filterValue).toLowerCase())
+                        ? String(rowValue).toLowerCase().startsWith(String(filterValue).toLowerCase())
                         : true;
                 });
             },
@@ -386,6 +387,9 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
             // We also need to pass this so the page doesn't change
             // when we edit the data, undefined means using the default
             autoResetPage: !skipPageReset,
+            // Do not reset hidden columns when columns change. Allows
+            // for creating columns during render.
+            autoResetHiddenColumns: false,
         },
         useGroupBy,
         useFilters,
@@ -398,9 +402,6 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
             hooks.allColumns.push(columns => [
                 {
                     id: 'selection',
-                    // Make this column a groupByBoundary. This ensures that groupBy columns
-                    // are placed after it
-                    groupByBoundary: true,
                     // The header can use the table's getToggleAllRowsSelectedProps method
                     // to render a checkbox
                     Header: ({ getToggleAllRowsSelectedProps }: HeaderProps<Data>) => (
@@ -596,97 +597,149 @@ const Component = (props: {}) => {
         { firstName: 'surprise', lastName: 'zinc', age: 23, visits: 7, progress: 48, status: 'single' },
         { firstName: 'riddle', lastName: 'information', age: 2, visits: 63, progress: 3, status: 'complicated' },
     ];
-    const columns = React.useMemo(
-        () => [
-            {
-                id: 'selection',
-                // Make this column a groupByBoundary. This ensures that groupBy columns
-                // are placed after it
-                groupByBoundary: true,
-                // The header can use the table's getToggleAllRowsSelectedProps method
-                // to render a checkbox
-                Header: ({ getToggleAllRowsSelectedProps }: HeaderProps<Data>) => (
-                    <div>
-                        <input type="checkbox" {...getToggleAllRowsSelectedProps()} />
-                    </div>
-                ),
-                // The cell can use the individual row's getToggleRowSelectedProps method
-                // to the render a checkbox
-                Cell: ({ row }: CellProps<Data>) => (
-                    <div>
-                        <input type="checkbox" {...row.getToggleRowSelectedProps()} />
-                    </div>
-                ),
+    const columns: Array<Column<Data>> = [
+        {
+            id: 'selection',
+            // The header can use the table's getToggleAllRowsSelectedProps method
+            // to render a checkbox
+            Header: ({ getToggleAllRowsSelectedProps }: HeaderProps<Data>) => (
+                <div>
+                    <input type="checkbox" {...getToggleAllRowsSelectedProps()} />
+                </div>
+            ),
+            // The cell can use the individual row's getToggleRowSelectedProps method
+            // to the render a checkbox
+            Cell: ({ row }: CellProps<Data>) => (
+                <div>
+                    <input type="checkbox" {...row.getToggleRowSelectedProps()} />
+                </div>
+            ),
+        },
+        {
+            Header: 'Name',
+            columns: [
+                {
+                    Header: 'First Name',
+                    accessor: 'firstName',
+                    // Use a two-stage aggregator here to first
+                    // count the total rows being aggregated,
+                    // then sum any of those counts if they are
+                    // aggregated further
+                    aggregate: 'count',
+                    Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} Names`,
+                    Cell: ({ value }) => {
+                        const v = value; // $ExpectType string
+                        return value;
+                    },
+                },
+                {
+                    Header: 'Last Name',
+                    accessor: 'lastName',
+                    // Use our custom `fuzzyText` filter on this column
+                    filter: 'fuzzyText',
+                    // Use another two-stage aggregator here to
+                    // first count the UNIQUE values from the rows
+                    // being aggregated, then sum those counts if
+                    // they are aggregated further
+                    aggregate: 'uniqueCount',
+                    Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} Unique Names`,
+                },
+            ],
+        },
+        {
+            Header: 'Info',
+            columns: [
+                {
+                    Header: 'Age',
+                    accessor: 'age',
+                    Filter: SliderColumnFilter,
+                    filter: 'equals',
+                    // Aggregate the average age of visitors
+                    aggregate: 'average',
+                    Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (avg)`,
+                    disableGlobalFilter: true,
+                    Cell: ({ value }) => {
+                        const v = value; // $ExpectType number
+                        return value;
+                    },
+                },
+                {
+                    Header: 'Visits',
+                    accessor: 'visits',
+                    Filter: NumberRangeColumnFilter,
+                    filter: 'between',
+                    // Aggregate the sum of all visits
+                    aggregate: 'sum',
+                    Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (total)`,
+                },
+                {
+                    Header: 'Status',
+                    accessor: 'status',
+                    Filter: SelectColumnFilter,
+                    filter: 'includes',
+                },
+                {
+                    Header: 'Profile Progress',
+                    accessor: 'progress',
+                    Filter: SliderColumnFilter,
+                    filter: filterGreaterThan,
+                    // Use our custom roundedMedian aggregator
+                    aggregate: roundedMedian,
+                    Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (med)`,
+                },
+            ],
+        },
+    ];
+
+    // mostly the same as above but minus the grouping
+    const columns2: Array<Column<Data>> = [
+        {
+            Header: 'First Name',
+            accessor: 'firstName',
+            // Use a two-stage aggregator here to first
+            // count the total rows being aggregated,
+            // then sum any of those counts if they are
+            // aggregated further
+            aggregate: 'count',
+            Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} Names`,
+            Cell: ({ value }) => {
+                const v = value; // $ExpectType string
+                return value;
             },
-            {
-                Header: 'Name',
-                columns: [
-                    {
-                        Header: 'First Name',
-                        accessor: 'firstName',
-                        // Use a two-stage aggregator here to first
-                        // count the total rows being aggregated,
-                        // then sum any of those counts if they are
-                        // aggregated further
-                        aggregate: 'count',
-                        Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} Names`,
-                    },
-                    {
-                        Header: 'Last Name',
-                        accessor: 'lastName',
-                        // Use our custom `fuzzyText` filter on this column
-                        filter: 'fuzzyText',
-                        // Use another two-stage aggregator here to
-                        // first count the UNIQUE values from the rows
-                        // being aggregated, then sum those counts if
-                        // they are aggregated further
-                        aggregate: 'uniqueCount',
-                        Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} Unique Names`,
-                    },
-                ],
+        },
+        {
+            Header: 'Age',
+            accessor: 'age',
+            Filter: SliderColumnFilter,
+            filter: 'equals',
+            // Aggregate the average age of visitors
+            aggregate: 'average',
+            Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (avg)`,
+            disableGlobalFilter: true,
+            Cell: ({ value }) => {
+                const v = value; // $ExpectType number
+                return value;
             },
-            {
-                Header: 'Info',
-                columns: [
-                    {
-                        Header: 'Age',
-                        accessor: 'age',
-                        Filter: SliderColumnFilter,
-                        filter: 'equals',
-                        // Aggregate the average age of visitors
-                        aggregate: 'average',
-                        Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (avg)`,
-                        disableGlobalFilter: true,
-                    },
-                    {
-                        Header: 'Visits',
-                        accessor: 'visits',
-                        Filter: NumberRangeColumnFilter,
-                        filter: 'between',
-                        // Aggregate the sum of all visits
-                        aggregate: 'sum',
-                        Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (total)`,
-                    },
-                    {
-                        Header: 'Status',
-                        accessor: 'status',
-                        Filter: SelectColumnFilter,
-                        filter: 'includes',
-                    },
-                    {
-                        Header: 'Profile Progress',
-                        accessor: 'progress',
-                        Filter: SliderColumnFilter,
-                        filter: filterGreaterThan,
-                        // Use our custom roundedMedian aggregator
-                        aggregate: roundedMedian,
-                        Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (med)`,
-                    },
-                ],
+        },
+        {
+            Header: 'Visits',
+            accessor: 'visits',
+            Filter: NumberRangeColumnFilter,
+            filter: 'between',
+            // Aggregate the sum of all visits
+            aggregate: 'sum',
+            Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (total)`,
+        },
+        {
+            Header: 'Sub Rows',
+            accessor: 'subRows',
+            Cell: ({ value }) => {
+                const v = value; // $ExpectType Data[] | undefined
+                const l = value!.length; // $ExpectType number
+                return l;
             },
-        ],
-        [],
-    );
+        },
+    ];
 
     const [data, setData] = React.useState<Data[]>(() => startingData);
     const [originalData] = React.useState(data);
@@ -714,7 +767,7 @@ const Component = (props: {}) => {
         );
     };
 
-    // After data chagnes, we turn the flag back off
+    // After data changes, we turn the flag back off
     // so that if data actually changes when we're not
     // editing it, the page is reset
     React.useEffect(() => {
@@ -729,6 +782,38 @@ const Component = (props: {}) => {
         setData(originalData);
     };
 
+    const tmp = (
+        <Table
+            data={data}
+            columns={[
+                {
+                    Header: 'First Name',
+                    accessor: 'firstName',
+                    Cell: ({ value }) => {
+                        const v = value; // $ExpectType string
+                        return value;
+                    },
+                },
+            ]}
+        />
+    );
+
+    const tmp2 = (
+        <Table
+            data={data}
+            columns={[
+                {
+                    Header: 'First Name',
+                    accessor: (i: Data) => i.firstName,
+                    Cell: ({ value }: CellProps<Data>) => {
+                        const v = value; // $ExpectType any
+                        return value;
+                    },
+                },
+            ]}
+        />
+    );
+
     return (
         <>
             <button onClick={resetData}>Reset Data</button>
@@ -738,3 +823,11 @@ const Component = (props: {}) => {
 };
 
 ReactDOM.render(<Component />, document.getElementById('root'));
+
+declare function checkDefaultSortType(sortType: DefaultSortTypes): void;
+
+checkDefaultSortType('alphanumeric');
+checkDefaultSortType('datetime');
+checkDefaultSortType('basic');
+checkDefaultSortType('string');
+checkDefaultSortType('number');

@@ -1,10 +1,14 @@
 // Type definitions for imagemin-webp 5.1
 // Project: https://github.com/imagemin/imagemin-webp#readme
 // Definitions by: Brett M <https://github.com/brettm12345>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Plugin } from 'imagemin';
 
+/**
+ * WebP imagemin plugin
+ */
 declare function imageminWebp(options?: imageminWebp.Options): Plugin;
 
 declare namespace imageminWebp {
@@ -92,10 +96,6 @@ declare namespace imageminWebp {
          * A list of metadata to copy from the input to the output if present.
          */
         metadata?: Metadata | Metadata[];
-        /**
-         * Buffer to optimize.
-         */
-        buffer?: Buffer;
     }
 }
 

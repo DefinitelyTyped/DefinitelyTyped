@@ -14,10 +14,10 @@ declare namespace chrome.cast {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.AutoJoinPolicy
      */
     export enum AutoJoinPolicy {
-        CUSTOM_CONTROLLER_SCOPED = "custom_controller_scoped",
-        TAB_AND_ORIGIN_SCOPED = "tab_and_origin_scoped",
-        ORIGIN_SCOPED = "origin_scoped",
-        PAGE_SCOPED = "page_scoped"
+        CUSTOM_CONTROLLER_SCOPED = 'custom_controller_scoped',
+        TAB_AND_ORIGIN_SCOPED = 'tab_and_origin_scoped',
+        ORIGIN_SCOPED = 'origin_scoped',
+        PAGE_SCOPED = 'page_scoped',
     }
 
     /**
@@ -25,8 +25,8 @@ declare namespace chrome.cast {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.DefaultActionPolicy
      */
     export enum DefaultActionPolicy {
-        CREATE_SESSION = "create_session",
-        CAST_THIS_TAB = "cast_this_tab"
+        CREATE_SESSION = 'create_session',
+        CAST_THIS_TAB = 'cast_this_tab',
     }
 
     /**
@@ -34,11 +34,11 @@ declare namespace chrome.cast {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.Capability
      */
     export enum Capability {
-        VIDEO_OUT = "video_out",
-        AUDIO_OUT = "audio_out",
-        VIDEO_IN = "video_in",
-        AUDIO_IN = "audio_in",
-        MULTIZONE_GROUP = "multizone_group"
+        VIDEO_OUT = 'video_out',
+        AUDIO_OUT = 'audio_out',
+        VIDEO_IN = 'video_in',
+        AUDIO_IN = 'audio_in',
+        MULTIZONE_GROUP = 'multizone_group',
     }
 
     /**
@@ -46,16 +46,16 @@ declare namespace chrome.cast {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.ErrorCode
      */
     export enum ErrorCode {
-        CANCEL = "cancel",
-        TIMEOUT = "timeout",
-        API_NOT_INITIALIZED = "api_not_initialized",
-        INVALID_PARAMETER = "invalid_parameter",
-        EXTENSION_NOT_COMPATIBLE = "extension_not_compatible",
-        EXTENSION_MISSING = "extension_missing",
-        RECEIVER_UNAVAILABLE = "receiver_unavailable",
-        SESSION_ERROR = "session_error",
-        CHANNEL_ERROR = "channel_error",
-        LOAD_MEDIA_FAILED = "load_media_failed"
+        CANCEL = 'cancel',
+        TIMEOUT = 'timeout',
+        API_NOT_INITIALIZED = 'api_not_initialized',
+        INVALID_PARAMETER = 'invalid_parameter',
+        EXTENSION_NOT_COMPATIBLE = 'extension_not_compatible',
+        EXTENSION_MISSING = 'extension_missing',
+        RECEIVER_UNAVAILABLE = 'receiver_unavailable',
+        SESSION_ERROR = 'session_error',
+        CHANNEL_ERROR = 'channel_error',
+        LOAD_MEDIA_FAILED = 'load_media_failed',
     }
 
     /**
@@ -63,8 +63,8 @@ declare namespace chrome.cast {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.ReceiverAvailability
      */
     export enum ReceiverAvailability {
-        AVAILABLE = "available",
-        UNAVAILABLE = "unavailable"
+        AVAILABLE = 'available',
+        UNAVAILABLE = 'unavailable',
     }
 
     /**
@@ -72,9 +72,9 @@ declare namespace chrome.cast {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.SenderPlatform
      */
     export enum SenderPlatform {
-        CHROME = "chrome",
-        IOS = "ios",
-        ANDROID = "android"
+        CHROME = 'chrome',
+        IOS = 'ios',
+        ANDROID = 'android',
     }
 
     /**
@@ -82,10 +82,10 @@ declare namespace chrome.cast {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.ReceiverType
      */
     export enum ReceiverType {
-        CAST = "cast",
-        DIAL = "dial",
-        HANGOUT = "hangout",
-        CUSTOM = "custom"
+        CAST = 'cast',
+        DIAL = 'dial',
+        HANGOUT = 'hangout',
+        CUSTOM = 'custom',
     }
 
     /**
@@ -93,20 +93,18 @@ declare namespace chrome.cast {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.ReceiverAction
      */
     export enum ReceiverAction {
-        CAST = "cast",
-        STOP = "stop"
+        CAST = 'cast',
+        STOP = 'stop',
     }
-
-
 
     /**
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.SessionStatus
      */
     export enum SessionStatus {
-        CONNECTED = "connected",
-        DISCONNECTED = "disconnected",
-        STOPPED = "stopped"
+        CONNECTED = 'connected',
+        DISCONNECTED = 'disconnected',
+        STOPPED = 'stopped',
     }
 
     /**
@@ -129,7 +127,7 @@ declare namespace chrome.cast {
     export function initialize(
         apiConfig: chrome.cast.ApiConfig,
         successCallback: Function,
-        errorCallback: (error: chrome.cast.Error) => void
+        errorCallback: (error: chrome.cast.Error) => void,
     ): void;
 
     /**
@@ -142,36 +140,32 @@ declare namespace chrome.cast {
         successCallback: (session: chrome.cast.Session) => void,
         errorCallback: (error: chrome.cast.Error) => void,
         sessionRequest?: chrome.cast.SessionRequest,
-        label?: string
-    ): void
+        label?: string,
+    ): void;
 
     /**
      * @param {string} sessionId The id of the session to join.
      */
-    export function requestSessionById(
-        sessionId: string
-    ): void
+    export function requestSessionById(sessionId: string): void;
 
     /**
      * @param {chrome.cast.ReceiverActionListener} listener
      */
     export function addReceiverActionListener(
-        listener: (receiver: chrome.cast.Receiver, receiverAction: chrome.cast.ReceiverAction) => void
-    ): void
+        listener: (receiver: chrome.cast.Receiver, receiverAction: chrome.cast.ReceiverAction) => void,
+    ): void;
 
     /**
      * @param {chrome.cast.ReceiverActionListener} listener
      */
     export function removeReceiverActionListener(
-        listener: (receiver: chrome.cast.Receiver, receiverAction: chrome.cast.ReceiverAction) => void
-    ): void
+        listener: (receiver: chrome.cast.Receiver, receiverAction: chrome.cast.ReceiverAction) => void,
+    ): void;
 
     /**
      * @param {string} message The message to log.
      */
-    export function logMessage(
-        message: string
-    ): void
+    export function logMessage(message: string): void;
 
     /**
      * @param {!Array<chrome.cast.Receiver>} receivers
@@ -181,8 +175,8 @@ declare namespace chrome.cast {
     export function setCustomReceivers(
         receivers: Array<chrome.cast.Receiver>,
         successCallback: Function,
-        errorCallback: (error: chrome.cast.Error) => void
-    ): void
+        errorCallback: (error: chrome.cast.Error) => void,
+    ): void;
 
     /**
      * @param {!chrome.cast.Receiver} receiver
@@ -192,16 +186,14 @@ declare namespace chrome.cast {
     export function setReceiverDisplayStatus(
         receiver: chrome.cast.Receiver,
         successCallback: Function,
-        errorCallback: (error: chrome.cast.Error) => void
-    ): void
+        errorCallback: (error: chrome.cast.Error) => void,
+    ): void;
 
     /**
      * @param {string} escaped A string to unescape.
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.unescape
      */
-    export function unescape(
-        escaped: string
-    ): string
+    export function unescape(escaped: string): string;
 
     export class ApiConfig {
         /**
@@ -219,7 +211,7 @@ declare namespace chrome.cast {
             sessionListener: (session: chrome.cast.Session) => void,
             receiverListener: (receiverAvailability: chrome.cast.ReceiverAvailability) => void,
             autoJoinPolicy?: chrome.cast.AutoJoinPolicy,
-            defaultActionPolicy?: chrome.cast.DefaultActionPolicy
+            defaultActionPolicy?: chrome.cast.DefaultActionPolicy,
         );
 
         sessionRequest: chrome.cast.SessionRequest;
@@ -237,16 +229,11 @@ declare namespace chrome.cast {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Error
          */
-        constructor(
-            code: chrome.cast.ErrorCode,
-            description?: string,
-            details?: Object
-        );
+        constructor(code: chrome.cast.ErrorCode, description?: string, details?: Object);
 
         code: chrome.cast.ErrorCode;
-        description: string|null;
+        description: string | null;
         details: object;
-
     }
 
     export class Image {
@@ -258,8 +245,8 @@ declare namespace chrome.cast {
         constructor(url: string);
 
         url: string;
-        height: number|null;
-        width: number|null;
+        height: number | null;
+        width: number | null;
     }
 
     export class SenderApplication {
@@ -268,13 +255,11 @@ declare namespace chrome.cast {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.SenderApplication
          */
-        constructor(
-            platform: chrome.cast.SenderPlatform
-        );
+        constructor(platform: chrome.cast.SenderPlatform);
 
         platform: chrome.cast.SenderPlatform;
-        url: string|null;
-        packageId: string|null;
+        url: string | null;
+        packageId: string | null;
     }
 
     export class SessionRequest {
@@ -285,16 +270,12 @@ declare namespace chrome.cast {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.SessionRequest
          */
-        constructor(
-            appId: string,
-            capabilities?: Array<chrome.cast.Capability>,
-            timeout?: number
-        );
+        constructor(appId: string, capabilities?: Array<chrome.cast.Capability>, timeout?: number);
 
         appId: string;
         capabilities: Array<chrome.cast.Capability>;
         requestSessionTimeout: number;
-        language: string|null;
+        language: string | null;
     }
 
     export class Session {
@@ -312,7 +293,7 @@ declare namespace chrome.cast {
             appId: string,
             displayName: string,
             appImages: Array<chrome.cast.Image>,
-            receiver: chrome.cast.Receiver
+            receiver: chrome.cast.Receiver,
         );
 
         sessionId: string;
@@ -324,7 +305,7 @@ declare namespace chrome.cast {
         namespaces: Array<{ name: string }>;
         media: Array<chrome.cast.media.Media>;
         status: chrome.cast.SessionStatus;
-        statusText: string|null;
+        statusText: string | null;
         transportId: string;
 
         /**
@@ -335,8 +316,8 @@ declare namespace chrome.cast {
         setReceiverVolumeLevel(
             newLevel: number,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {boolean} muted
@@ -346,26 +327,20 @@ declare namespace chrome.cast {
         setReceiverMuted(
             muted: boolean,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {function()} successCallback
          * @param {function(chrome.cast.Error)} errorCallback
          */
-        leave(
-            successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+        leave(successCallback: Function, errorCallback: (error: chrome.cast.Error) => void): void;
 
         /**
          * @param {function()} successCallback
          * @param {function(chrome.cast.Error)} errorCallback
          */
-        stop(
-            successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+        stop(successCallback: Function, errorCallback: (error: chrome.cast.Error) => void): void;
 
         /**
          * @param {string} namespace
@@ -377,54 +352,40 @@ declare namespace chrome.cast {
             namespace: string,
             message: string | object,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {function(boolean)} listener
          */
-        addUpdateListener(
-            listener: (isAlive: boolean) => void
-        ): void
+        addUpdateListener(listener: (isAlive: boolean) => void): void;
 
         /**
          * @param {function(boolean)} listener
          */
-        removeUpdateListener(
-            listener: (isAlive: boolean) => void
-        ): void
+        removeUpdateListener(listener: (isAlive: boolean) => void): void;
 
         /**
          * @param {string} namespace
          * @param {function(string,string)} listener
          */
-        addMessageListener(
-            namespace: string,
-            listener: (namespace: string, message: string) => void
-        ): void
+        addMessageListener(namespace: string, listener: (namespace: string, message: string) => void): void;
 
         /**
          * @param {string} namespace
          * @param {function(string,string)} listener
          */
-        removeMessageListener(
-            namespace: string,
-            listener: (namespace: string, message: string) => void
-        ): void
+        removeMessageListener(namespace: string, listener: (namespace: string, message: string) => void): void;
 
         /**
          * @param {function(!chrome.cast.media.Media)} listener
          */
-        addMediaListener(
-            listener: (media: chrome.cast.media.Media) => void
-        ): void
+        addMediaListener(listener: (media: chrome.cast.media.Media) => void): void;
 
         /**
          * @param {function(!chrome.cast.media.Media)} listener
          */
-        removeMediaListener(
-            listener: (media: chrome.cast.media.Media) => void
-        ): void
+        removeMediaListener(listener: (media: chrome.cast.media.Media) => void): void;
 
         /**
          * @param {!chrome.cast.media.LoadRequest} loadRequest
@@ -434,8 +395,8 @@ declare namespace chrome.cast {
         loadMedia(
             loadRequest: chrome.cast.media.LoadRequest,
             successCallback: (media: chrome.cast.media.Media) => void,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {!chrome.cast.media.QueueLoadRequest} queueLoadRequest
@@ -445,8 +406,8 @@ declare namespace chrome.cast {
         queueLoad(
             queueLoadRequest: chrome.cast.media.QueueLoadRequest,
             successCallback: (media: chrome.cast.media.Media) => void,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
     }
 
     export class Receiver {
@@ -462,7 +423,7 @@ declare namespace chrome.cast {
             label: string,
             friendlyName: string,
             capabilities?: Array<chrome.cast.Capability>,
-            volume?: chrome.cast.Volume
+            volume?: chrome.cast.Volume,
         );
 
         label: string;
@@ -480,10 +441,7 @@ declare namespace chrome.cast {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.ReceiverDisplayStatus
          */
-        constructor(
-            statusText: string,
-            appImages: Array<chrome.cast.Image>
-        );
+        constructor(statusText: string, appImages: Array<chrome.cast.Image>);
 
         statusText: string;
         appImages: Array<chrome.cast.Image>;
@@ -496,18 +454,14 @@ declare namespace chrome.cast {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Volume
          */
-        constructor(
-            level?: number,
-            muted?: boolean
-        );
+        constructor(level?: number, muted?: boolean);
 
-        level: number|null;
-        muted: boolean|null;
+        level: number | null;
+        muted: boolean | null;
     }
 }
 
 declare namespace chrome.cast.media {
-
     export var DEFAULT_MEDIA_RECEIVER_APP_ID: string;
 
     /**
@@ -515,10 +469,10 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.MediaCommand
      */
     export enum MediaCommand {
-        PAUSE = "pause",
-        SEEK = "seek",
-        STREAM_VOLUME = "stream_volume",
-        STREAM_MUTE = "stream_mute"
+        PAUSE = 'pause',
+        SEEK = 'seek',
+        STREAM_VOLUME = 'stream_volume',
+        STREAM_MUTE = 'stream_mute',
     }
 
     /**
@@ -530,7 +484,7 @@ declare namespace chrome.cast.media {
         TV_SHOW,
         MOVIE,
         MUSIC_TRACK,
-        PHOTO
+        PHOTO,
     }
 
     /**
@@ -538,10 +492,10 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.PlayerState
      */
     export enum PlayerState {
-        IDLE = "IDLE",
-        PLAYING = "PLAYING",
-        PAUSED = "PAUSED",
-        BUFFERING = "BUFFERING"
+        IDLE = 'IDLE',
+        PLAYING = 'PLAYING',
+        PAUSED = 'PAUSED',
+        BUFFERING = 'BUFFERING',
     }
 
     /**
@@ -549,8 +503,8 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.ResumeState
      */
     export enum ResumeState {
-        PLAYBACK_START = "PLAYBACK_START",
-        PLAYBACK_PAUSE = "PLAYBACK_PAUSE"
+        PLAYBACK_START = 'PLAYBACK_START',
+        PLAYBACK_PAUSE = 'PLAYBACK_PAUSE',
     }
 
     /**
@@ -558,9 +512,9 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.StreamType
      */
     export enum StreamType {
-        BUFFERED = "BUFFERED",
-        LIVE = "LIVE",
-        OTHER = "OTHER"
+        BUFFERED = 'BUFFERED',
+        LIVE = 'LIVE',
+        OTHER = 'OTHER',
     }
 
     /**
@@ -568,10 +522,10 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.IdleReason
      */
     export enum IdleReason {
-        CANCELLED = "CANCELLED",
-        INTERRUPTED = "INTERRUPTED",
-        FINISHED = "FINISHED",
-        ERROR = "ERROR"
+        CANCELLED = 'CANCELLED',
+        INTERRUPTED = 'INTERRUPTED',
+        FINISHED = 'FINISHED',
+        ERROR = 'ERROR',
     }
 
     /**
@@ -579,10 +533,10 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.RepeatMode
      */
     export enum RepeatMode {
-        OFF = "REPEAT_OFF",
-        ALL = "REPEAT_ALL",
-        SINGLE = "REPEAT_SINGLE",
-        ALL_AND_SHUFFLE = "REPEAT_ALL_AND_SHUFFLE"
+        OFF = 'REPEAT_OFF',
+        ALL = 'REPEAT_ALL',
+        SINGLE = 'REPEAT_SINGLE',
+        ALL_AND_SHUFFLE = 'REPEAT_ALL_AND_SHUFFLE',
     }
 
     export class QueueItem {
@@ -591,9 +545,7 @@ declare namespace chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueItem
          */
-        constructor(
-            mediaInfo: chrome.cast.media.MediaInfo
-        );
+        constructor(mediaInfo: chrome.cast.media.MediaInfo);
 
         activeTrackIds: Array<Number>;
         autoplay: boolean;
@@ -610,9 +562,7 @@ declare namespace chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueLoadRequest
          */
-        constructor(
-            items: Array<chrome.cast.media.QueueItem>
-        );
+        constructor(items: Array<chrome.cast.media.QueueItem>);
 
         customData: Object;
         items: Array<chrome.cast.media.QueueItem>;
@@ -626,9 +576,7 @@ declare namespace chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueInsertItemsRequest
          */
-        constructor(
-            itemsToInsert: Array<chrome.cast.media.QueueItem>
-        );
+        constructor(itemsToInsert: Array<chrome.cast.media.QueueItem>);
 
         customData: Object;
         insertBefore: number;
@@ -641,9 +589,7 @@ declare namespace chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueRemoveItemsRequest
          */
-        constructor(
-            itemIdsToRemove: Array<number>
-        );
+        constructor(itemIdsToRemove: Array<number>);
 
         customData: Object;
         itemIds: Array<number>;
@@ -655,9 +601,7 @@ declare namespace chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueReorderItemsRequest
          */
-        constructor(
-            itemIdsToReorder: Array<number>
-        );
+        constructor(itemIdsToReorder: Array<number>);
 
         customData: Object;
         insertBefore: number;
@@ -670,9 +614,7 @@ declare namespace chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueUpdateItemsRequest
          */
-        constructor(
-            itemsToUpdate: Array<chrome.cast.media.QueueItem>
-        );
+        constructor(itemsToUpdate: Array<chrome.cast.media.QueueItem>);
 
         customData: Object;
         item: Array<chrome.cast.media.QueueItem>;
@@ -683,9 +625,9 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TrackType
      */
     export enum TrackType {
-        TEXT = "TEXT",
-        AUDIO = "AUDIO",
-        VIDEO = "VIDEO"
+        TEXT = 'TEXT',
+        AUDIO = 'AUDIO',
+        VIDEO = 'VIDEO',
     }
 
     /**
@@ -693,11 +635,11 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackType
      */
     export enum TextTrackType {
-        SUBTITLES = "SUBTITLES",
-        CAPTIONS = "CAPTIONS",
-        DESCRIPTIONS = "DESCRIPTIONS",
-        CHAPTERS = "CHAPTERS",
-        METADATA = "METADATA"
+        SUBTITLES = 'SUBTITLES',
+        CAPTIONS = 'CAPTIONS',
+        DESCRIPTIONS = 'DESCRIPTIONS',
+        CHAPTERS = 'CHAPTERS',
+        METADATA = 'METADATA',
     }
 
     /**
@@ -705,11 +647,11 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackEdgeType
      */
     export enum TextTrackEdgeType {
-        NONE = "NONE",
-        OUTLINE = "OUTLINE",
-        DROP_SHADOW = "DROP_SHADOW",
-        RAISED = "RAISED",
-        DEPRESSED = "DEPRESSED"
+        NONE = 'NONE',
+        OUTLINE = 'OUTLINE',
+        DROP_SHADOW = 'DROP_SHADOW',
+        RAISED = 'RAISED',
+        DEPRESSED = 'DEPRESSED',
     }
 
     /**
@@ -717,9 +659,9 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackWindowType
      */
     export enum TextTrackWindowType {
-        NONE = "NONE",
-        NORMAL = "NORMAL",
-        ROUNDED_CORNERS = "ROUNDED_CORNERS"
+        NONE = 'NONE',
+        NORMAL = 'NORMAL',
+        ROUNDED_CORNERS = 'ROUNDED_CORNERS',
     }
 
     /**
@@ -727,13 +669,13 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackFontGenericFamily
      */
     export enum TextTrackFontGenericFamily {
-        SANS_SERIF = "SANS_SERIF",
-        MONOSPACED_SANS_SERIF = "MONOSPACED_SANS_SERIF",
-        SERIF = "SERIF",
-        MONOSPACED_SERIF = "MONOSPACED_SERIF",
-        CASUAL = "CASUAL",
-        CURSIVE = "CURSIVE",
-        SMALL_CAPITALS = "SMALL_CAPITALS"
+        SANS_SERIF = 'SANS_SERIF',
+        MONOSPACED_SANS_SERIF = 'MONOSPACED_SANS_SERIF',
+        SERIF = 'SERIF',
+        MONOSPACED_SERIF = 'MONOSPACED_SERIF',
+        CASUAL = 'CASUAL',
+        CURSIVE = 'CURSIVE',
+        SMALL_CAPITALS = 'SMALL_CAPITALS',
     }
 
     /**
@@ -741,10 +683,10 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackFontStyle
      */
     export enum TextTrackFontStyle {
-        NORMAL = "NORMAL",
-        BOLD = "BOLD",
-        BOLD_ITALIC = "BOLD_ITALIC",
-        ITALIC = "ITALIC"
+        NORMAL = 'NORMAL',
+        BOLD = 'BOLD',
+        BOLD_ITALIC = 'BOLD_ITALIC',
+        ITALIC = 'ITALIC',
     }
 
     export class GetStatusRequest {
@@ -805,9 +747,7 @@ declare namespace chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.VolumeRequest
          */
-        constructor(
-            volume: chrome.cast.Volume
-        );
+        constructor(volume: chrome.cast.Volume);
 
         volume: chrome.cast.Volume;
         customData: Object;
@@ -819,9 +759,7 @@ declare namespace chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.LoadRequest
          */
-        constructor(
-            mediaInfo: chrome.cast.media.MediaInfo
-        );
+        constructor(mediaInfo: chrome.cast.media.MediaInfo);
 
         activeTrackIds: Array<number>;
         autoplay: boolean;
@@ -837,10 +775,7 @@ declare namespace chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.EditTracksInfoRequest
          */
-        constructor(
-            activeTrackIds?: Array<number>,
-            textTrackStyle?: chrome.cast.media.TextTrackStyle
-        );
+        constructor(activeTrackIds?: Array<number>, textTrackStyle?: chrome.cast.media.TextTrackStyle);
 
         activeTrackIds: Array<number>;
         textTrackStyle: chrome.cast.media.TextTrackStyle;
@@ -960,10 +895,7 @@ declare namespace chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MediaInfo
          */
-        constructor(
-            contentId: string,
-            contentType: string
-        );
+        constructor(contentId: string, contentType: string);
 
         contentId: string;
         streamType: chrome.cast.media.StreamType;
@@ -982,15 +914,12 @@ declare namespace chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.Media
          */
-        constructor(
-            sessionId: string,
-            mediaSessionId: number
-        );
+        constructor(sessionId: string, mediaSessionId: number);
 
         activeTrackIds: Array<number>;
         currentItemId: number;
         customData: Object;
-        idleReason: chrome.cast.media.IdleReason|null;
+        idleReason: chrome.cast.media.IdleReason | null;
         items: Array<chrome.cast.media.QueueItem>;
         liveSeekableRange?: chrome.cast.media.LiveSeekableRange;
         loadingItemId: number;
@@ -1015,8 +944,8 @@ declare namespace chrome.cast.media {
         getStatus(
             getStatusRequest: chrome.cast.media.GetStatusRequest,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {chrome.cast.media.PlayRequest} playRequest
@@ -1026,8 +955,8 @@ declare namespace chrome.cast.media {
         play(
             playRequest: chrome.cast.media.PlayRequest,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {chrome.cast.media.PauseRequest} pauseRequest
@@ -1037,8 +966,8 @@ declare namespace chrome.cast.media {
         pause(
             pauseRequest: chrome.cast.media.PauseRequest,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {!chrome.cast.media.SeekRequest} seekRequest
@@ -1048,8 +977,8 @@ declare namespace chrome.cast.media {
         seek(
             seekRequest: chrome.cast.media.SeekRequest,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {chrome.cast.media.StopRequest} stopRequest
@@ -1059,8 +988,8 @@ declare namespace chrome.cast.media {
         stop(
             stopRequest: chrome.cast.media.StopRequest,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {!chrome.cast.media.VolumeRequest} volumeRequest
@@ -1070,8 +999,8 @@ declare namespace chrome.cast.media {
         setVolume(
             volumeRequest: chrome.cast.media.VolumeRequest,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {!chrome.cast.media.EditTracksInfoRequest} editTracksInfoRequest
@@ -1081,36 +1010,30 @@ declare namespace chrome.cast.media {
         editTracksInfo(
             editTracksInfoRequest: chrome.cast.media.EditTracksInfoRequest,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {!chrome.cast.media.MediaCommand} command
          * @return {boolean}
          */
-        supportsCommand(
-            command: chrome.cast.media.MediaCommand
-        ): boolean
+        supportsCommand(command: chrome.cast.media.MediaCommand): boolean;
 
         /**
          * @param {function(boolean)} listener
          */
-        addUpdateListener(
-            listener: (isAlive: boolean) => void
-        ): void
+        addUpdateListener(listener: (isAlive: boolean) => void): void;
 
         /**
          * @param {function(boolean)} listener
          */
-        removeUpdateListener(
-            listener: (isAlive: boolean) => void
-        ): void
+        removeUpdateListener(listener: (isAlive: boolean) => void): void;
 
         /**
          * @return {number}
          * @suppress {deprecated} Uses currentTime member to compute estimated time.
          */
-        getEstimatedTime(): number
+        getEstimatedTime(): number;
 
         /**
          * @param {!chrome.cast.media.QueueItem} item
@@ -1120,8 +1043,8 @@ declare namespace chrome.cast.media {
         queueAppendItem(
             item: chrome.cast.media.QueueItem,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {!chrome.cast.media.QueueInsertItemsRequest} queueInsertItemsRequest
@@ -1131,8 +1054,8 @@ declare namespace chrome.cast.media {
         queueInsertItems(
             queueInsertItemsRequest: chrome.cast.media.QueueInsertItemsRequest,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {!number} itemId
@@ -1142,8 +1065,8 @@ declare namespace chrome.cast.media {
         queueJumpToItem(
             itemId: number,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {!number} itemId
@@ -1155,26 +1078,20 @@ declare namespace chrome.cast.media {
             itemId: number,
             newIndex: number,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {function()} successCallback
          * @param {function(!chrome.cast.Error)} errorCallback
          */
-        queueNext(
-            successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+        queueNext(successCallback: Function, errorCallback: (error: chrome.cast.Error) => void): void;
 
         /**
          * @param {function()} successCallback
          * @param {function(!chrome.cast.Error)} errorCallback
          */
-        queuePrev(
-            successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+        queuePrev(successCallback: Function, errorCallback: (error: chrome.cast.Error) => void): void;
 
         /**
          * @param {!number} itemId
@@ -1184,8 +1101,8 @@ declare namespace chrome.cast.media {
         queueRemoveItem(
             itemId: number,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {!chrome.cast.media.QueueReorderItemsRequest} queueReorderItemsRequest
@@ -1195,8 +1112,8 @@ declare namespace chrome.cast.media {
         queueReorderItems(
             queueReorderItemsRequest: chrome.cast.media.QueueReorderItemsRequest,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {!chrome.cast.media.RepeatMode} repeatMode
@@ -1206,8 +1123,8 @@ declare namespace chrome.cast.media {
         queueSetRepeatMode(
             repeatMode: chrome.cast.media.RepeatMode,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
 
         /**
          * @param {!chrome.cast.media.QueueUpdateItemsRequest} queueUpdateItemsRequest
@@ -1217,9 +1134,8 @@ declare namespace chrome.cast.media {
         queueUpdateItems(
             queueUpdateItemsRequest: chrome.cast.media.QueueUpdateItemsRequest,
             successCallback: Function,
-            errorCallback: (error: chrome.cast.Error) => void
-        ): void
-
+            errorCallback: (error: chrome.cast.Error) => void,
+        ): void;
     }
 
     export class Track {
@@ -1229,10 +1145,7 @@ declare namespace chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.Track
          */
-        constructor(
-            trackId: number,
-            trackType: chrome.cast.media.TrackType
-        );
+        constructor(trackId: number, trackType: chrome.cast.media.TrackType);
 
         trackId: number;
         trackContentId: string;
@@ -1268,14 +1181,9 @@ declare namespace chrome.cast.media {
     export class LiveSeekableRange {
         /**
          * @constructor
-             * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.LiveSeekableRange
+         * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.LiveSeekableRange
          */
-        constructor(
-            start?: number,
-            end?: number,
-            isMovingWindow?: boolean,
-            isLiveDone?: boolean
-        );
+        constructor(start?: number, end?: number, isMovingWindow?: boolean, isLiveDone?: boolean);
 
         start?: number;
         end?: number;

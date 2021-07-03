@@ -412,7 +412,7 @@ declare namespace Sortable {
         /**
          * Event when you move an item in the list or between lists
          */
-        onMove?: (evt: MoveEvent, originalEvent: Event) => boolean | -1 | 1;
+        onMove?: (evt: MoveEvent, originalEvent: Event) => boolean | -1 | 1 | void;
         /**
          * Called when dragging element changes position
          */

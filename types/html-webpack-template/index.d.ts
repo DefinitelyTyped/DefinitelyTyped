@@ -2,7 +2,7 @@
 // Project: https://github.com/jaketrent/html-webpack-template
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { Options as HtmlWebpackPluginOptions } from 'html-webpack-plugin';
 

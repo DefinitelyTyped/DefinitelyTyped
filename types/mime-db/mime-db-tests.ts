@@ -12,7 +12,7 @@ database['text/markdown'].extensions;
 // $ExpectType string
 database['text/markdown'].extensions![0];
 
-// $ExpectType "iana" | "apache" | "nginx" | undefined
+// $ExpectType "iana" | "apache" | "nginx" | undefined || MimeSource | undefined
 database['text/markdown'].source;
 
 // $ExpectType string | undefined

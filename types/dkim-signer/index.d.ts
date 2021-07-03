@@ -25,7 +25,7 @@ export function DKIMSign(email: Buffer | string, options: DKIMSignOptions): stri
 export function generateDKIMHeader(domainName: string, keySelector: string, headerFieldNames: string, headers: string, body: string): string;
 
 /** Generates a SHA-256 hash */
-export function sha256(str: string, encoding?: crypto.HexBase64Latin1Encoding): string;
+export function sha256(str: string, encoding?: crypto.BinaryToTextEncoding): string;
 
 /** DKIM canonicalization functions */
 export namespace DKIMCanonicalizer {

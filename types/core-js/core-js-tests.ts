@@ -313,7 +313,6 @@ b = Reflect.defineProperty(a, sym, pd);
 b = Reflect.deleteProperty(a, s);
 b = Reflect.deleteProperty(a, i);
 b = Reflect.deleteProperty(a, sym);
-iterableIteratorOfAny = Reflect.enumerate(a);
 a = Reflect.get(a, s, a);
 a = Reflect.get(a, i, a);
 a = Reflect.get(a, sym, a);

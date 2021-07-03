@@ -11,8 +11,16 @@ export default class ReprojImage extends ImageBase {
         targetResolution: number,
         pixelRatio: number,
         getImageFunction: FunctionType,
+        opt_contextOptions?: any,
     );
-    getImage(): HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
+    /**
+     * Clean up.
+     */
+    disposeInternal(): void;
+    getImage(): HTMLCanvasElement;
     getProjection(): Projection;
+    /**
+     * Load not yet loaded URI.
+     */
     load(): void;
 }

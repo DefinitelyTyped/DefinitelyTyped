@@ -86,7 +86,6 @@ declare namespace progress_stream {
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         /* tslint:disable-next-line adjacent-overload-signatures */
         once(event: string | symbol, listener: (...args: any[]) => void): this;
-        /* tslint:enable adjacent-overload-signatures unified-signatures */
     }
 
     interface Progress {

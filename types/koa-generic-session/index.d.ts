@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Koa from "koa";
+import * as Koa from 'koa';
 
 declare namespace koaSession {
     interface Session {
@@ -37,7 +37,8 @@ declare namespace koaSession {
             maxAge?: number | null;
             secure?: boolean;
             httpOnly?: boolean;
-            sameSite?: boolean | "lax" | "none" | "strict";
+            sameSite?: boolean | 'lax' | 'none' | 'strict';
+            overwrite?: boolean;
         };
         allowEmpty?: boolean;
         defer?: boolean;
@@ -55,8 +56,8 @@ declare namespace koaSession {
 
 declare module 'koa' {
     interface Context {
-        session: koaSession.Session|null;
-        sessionSave: boolean|null;
+        session: koaSession.Session | null;
+        sessionSave: boolean | null;
         regenerateSession(): Generator;
     }
 }

@@ -11,18 +11,59 @@ interface Window {
 
 /** This is the interface for the main Auth0 client. */
 interface Auth0Static {
-
-    new(options: Auth0ClientOptions): Auth0Static;
+    new (options: Auth0ClientOptions): Auth0Static;
     changePassword(options: any, callback?: (error?: Auth0Error, valid?: any) => void): void;
     decodeJwt(jwt: string): any;
-    login(options: any, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): void;
-    loginWithPopup(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): void;
-    loginWithResourceOwner(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: any) => any): void;
-    loginWithUsernamePassword(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): void;
+    login(
+        options: any,
+        callback: (
+            error?: Auth0Error,
+            profile?: Auth0UserProfile,
+            id_token?: string,
+            access_token?: string,
+            state?: string,
+        ) => any,
+    ): void;
+    loginWithPopup(
+        options: Auth0LoginOptions,
+        callback: (
+            error?: Auth0Error,
+            profile?: Auth0UserProfile,
+            id_token?: string,
+            access_token?: string,
+            state?: string,
+        ) => any,
+    ): void;
+    loginWithResourceOwner(
+        options: Auth0LoginOptions,
+        callback: (
+            error?: Auth0Error,
+            profile?: Auth0UserProfile,
+            id_token?: string,
+            access_token?: string,
+            state?: any,
+        ) => any,
+    ): void;
+    loginWithUsernamePassword(
+        options: Auth0LoginOptions,
+        callback: (
+            error?: Auth0Error,
+            profile?: Auth0UserProfile,
+            id_token?: string,
+            access_token?: string,
+            state?: string,
+        ) => any,
+    ): void;
     logout(query: string): void;
     getConnections(callback?: (error?: Auth0Error, valid?: any) => void): void;
-    refreshToken(refreshToken: string, callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any): void;
-    getDelegationToken(options: any, callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any): void;
+    refreshToken(
+        refreshToken: string,
+        callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any,
+    ): void;
+    getDelegationToken(
+        options: any,
+        callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any,
+    ): void;
     getProfile(id_token: string, callback?: (error?: Auth0Error, valid?: any) => void): Auth0UserProfile;
     getSSOData(withActiveDirectories: any, callback?: (error?: Auth0Error, valid?: any) => void): void;
     parseHash(hash: string): Auth0DecodedHash;

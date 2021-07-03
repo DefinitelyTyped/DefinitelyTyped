@@ -79,7 +79,7 @@ export interface Lexer {
      */
     formatError(token: Token, message?: string): string;
     /**
-     * Can be used by parsers like nearley to check whether a given token type can be parsed by this lexer.
+     * @deprecated since 0.5.0. Now just returns true
      */
     has(tokenType: string): boolean;
     /**

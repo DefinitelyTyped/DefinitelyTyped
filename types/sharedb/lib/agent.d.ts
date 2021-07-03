@@ -30,7 +30,7 @@ declare class Agent {
      * given client session. It is in memory only as long as the session is
      * active, and it is passed to each middleware call.
      */
-    custom: Agent.Custom;
+    custom: any;
 
     /**
      * Sends a JSON-compatible message to the client for this agent.
@@ -38,10 +38,4 @@ declare class Agent {
      * @param message
      */
     send(message: JSONObject): void;
-}
-
-declare namespace Agent {
-    interface Custom {
-        [key: string]: unknown;
-    }
 }

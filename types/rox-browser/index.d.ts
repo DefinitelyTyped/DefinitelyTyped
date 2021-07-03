@@ -1,273 +1,284 @@
-// Type definitions for rox-browser 4.8
+// Type definitions for rox-browser 5.0
 // Project: https://rollout.io
-// Definitions by: g-guirado <https://github.com/g-guirado>
+// Definitions by: dn-l <https://github.com/dn-l>
+//                 AsafRollout: <https://github.com/asafRollout>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
 /**
  *
  * Official documentation for rox-browser is available here:
- * https://support.rollout.io/docs/javascript-browser-api
+ * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api
  *
  */
 
-export interface RoxContainer {
-  [key: string]: Flag | Configuration<any> | Variant;
-}
+export = Rox;
+export as namespace Rox;
 
-/**
- * The register function should be called before the call to Rox.setup()
- *
- * https://support.rollout.io/docs/javascript-browser-api#section-register
- */
-export function register(namespace: string, roxContainer: RoxContainer): void;
+declare namespace Rox {
+  interface RoxContainer {
+    [key: string]: Flag | RoxNumber | RoxString;
+  }
 
-/**
- * Set Global Context.
- * You can think of Global Context as a default context
- *
- * https://support.rollout.io/docs/context#section-global-context
- */
-export function setContext(globalContext: unknown): void;
-
-/**
- * Initiate connection with Rox servers for the application identified by the application key.
- * The registered containers will be synced and Rox entities will get the appropriate values.
- *
- * https://support.rollout.io/docs/javascript-browser-api#section-setup
- */
-export function setup(apiKey: string, options?: RoxSetupOptions): Promise<unknown>;
-
-export interface RoxSetupOptions {
-  version?: string;
-  // https://support.rollout.io/docs/javascript-browser-api#section-configurationfetchedhandler
-  configurationFetchedHandler?(fetcherResult: RoxFetcherResult): void;
-  debugLevel?: 'verbose';
-  // https://support.rollout.io/docs/javascript-browser-api#section-using-the-impressionhandler-option
-  impressionHandler?(reporting: RoxReporting, experiment: RoxExperiment, context: unknown): void;
-  platform?: string;
-  freeze?: RoxFlagFreezeLevel;
-  disableNetworkFetch?: boolean;
-  devModeSecret?: string;
   /**
-   * Set Roxy's URL for automated tests or local development.
+   * The register function should be called before the call to Rox.setup()
    *
-   * https://support.rollout.io/docs/microservices-automated-testing-and-local-development
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_register
    */
-  roxy?: string;
-}
+  function register(namespace: string, roxContainer: RoxContainer): void;
 
-export enum RoxFetcherStatus {
-  AppliedFromEmbedded = 'APPLIED_FROM_EMBEDDED',
-  AppliedFromCache = 'APPLIED_FROM_CACHE',
-  AppliedFromNetwork = 'APPLIED_FROM_NETWORK',
-  ErrorFetchFailed = 'ERROR_FETCH_FAILED'
-}
+  function register(roxContainer: RoxContainer): void;
 
-export interface RoxFetcherResult {
-  fetcherStatus: RoxFetcherStatus;
-  creationDate: Date;
-  hasChanges: boolean;
-  errorDetails?: string;
-}
-
-export interface RoxReporting {
-  name: string;
-  value: string;
-}
-
-export interface RoxExperiment {
-  identifier: string; //  experiment id
-  name: string;
-  isArchived: boolean;
-  labels: string[]; // experiment's labels. assigned from dashboard
-}
-
-/**
- * Note that you might have to call unfreeze after setting custom properties such as email after login
- * https://support.rollout.io/docs/custom-properties
- */
-export function setCustomNumberProperty(name: string, value: number | ((context?: unknown) => number)): void;
-export function setCustomStringProperty(name: string, value: string | ((context?: unknown) => string)): void;
-export function setCustomBooleanProperty(name: string, value: boolean | ((context?: unknown) => boolean)): void;
-export function setDynamicCustomPropertyRule(
-  handler: (propName: string, context: unknown) => number | string | boolean
-): void;
-
-/**
- * Unfreeze the state of all flags in code
- * Calling this function will unfreeze all flags, and using a flag will return it’s most updated value
- *
- * https://support.rollout.io/docs/flags-update-flow#section-flag-unfreeze
- * https://support.rollout.io/docs/javascript-browser-api#section-unfreeze
- */
-export function unfreeze(namespace?: string): void;
-
-/**
- * Pulls the latest configuration and flag values down from the Rollout servers
- *
- * https://support.rollout.io/docs/javascript-browser-api#section-fetch
- */
-export function fetch(): void;
-
-/**
- * Opens the flag override view, providing a debug UI for the application's set of feature flags.
- * https://support.rollout.io/docs/javascript-browser-api#section-showoverrides
- */
-export function showOverrides(position?: RoxOverridesPosition): void;
-
-export enum RoxOverridesPosition {
-  TopLeft = 'top left',
-  TopRight = 'top right',
-  BottomLeft = 'bottom left',
-  BottomRight = 'bottom right'
-}
-
-/**
- * Default is untilForeground
- *
- * https://support.rollout.io/docs/flags-update-flow#section-flag-freeze-level
- */
-export enum RoxFlagFreezeLevel {
-  None = 'none',
-  UntilForeground = 'untilForeground',
-  UntilLaunch = 'untilLaunch'
-}
-
-export interface RoxFlagOptions {
-  freeze?: RoxFlagFreezeLevel;
-}
-
-/**
- * Creates a new Flag
- * https://support.rollout.io/docs/javascript-browser-api#section--rox-flag-
- */
-export class Flag {
-  constructor(defaultValue?: boolean, options?: RoxFlagOptions);
-
-  // The name of the Flag
-  readonly name: string;
-
-  // Default value of the Flag
-  readonly defaultValue: boolean;
-
-  // Returns true when the flag is enabled
-  isEnabled(context?: unknown): boolean;
-
-  // Unlock the Flag value from changes from the last time it was freezed
-  unfreeze(): void;
-}
-
-/**
- * Used to create and manage Rollout feature flags that determine different predefined values
- *
- * https://support.rollout.io/docs/javascript-browser-api#section--rox-variant-
- */
-export class Variant<T extends string = string> {
-  constructor(defaultValue: T, options: ReadonlyArray<T>, name?: string);
-
-  // The name of the Variant
-  readonly name: string;
-
-  // Default value of the Variant
-  readonly defaultValue: BasicType<T>;
-
-  // Returns the current value of the Variant, accounting for value overrides
-  getValue(context?: unknown): BasicType<T>;
-
-  // Unlock the Variant value from changes from the last time it was freezed
-  unfreeze(): void;
-}
-
-/**
- * manages a remote configuration setting with a value of type string, boolean, or number.
- * The constructor sets the default value for the remote configuration setting
- *
- * https://support.rollout.io/docs/javascript-browser-api#section--rox-configuration-
- */
-export class Configuration<T extends number | boolean | string> {
-  constructor(defaultValue: T);
-
-  // The name of the Configuration
-  readonly name: string;
-
-  // Default value of the Configuration
-  readonly defaultValue: BasicType<T>;
-
-  // Returns the current value of the Configuration, accounting for value overrides
-  getValue(context?: unknown): BasicType<T>;
-
-  // Unlock the Configuration value from changes from the last time it was freezed
-  unfreeze(): void;
-}
-
-/**
- * Ensure that TypeScript properly types things with a basic type.
- * For example, if T is true, returnedtype shall be boolean, not true
- */
-export type BasicType<T> = T extends boolean ? boolean : T extends number ? number : T extends string ? string : never;
-
-/**
- * Override: Should only be used for development purposes (QA - Feature dev - e2e)
- *
- * When you override an existing flag value using the Rox.overrides.setOverride method,
- * the SDK will disregard existing configuration coming from the dashboard and will
- * serialize the override on disk this value will be loaded and override the flag
- * right after you call Rox.setup. To clear the override from the cache you need to
- * call the Rox.overrides.clearOverride method
- *
- * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-
- */
-export namespace overrides {
   /**
-   * Sets an override value on a specific flag, this function accepts two parameters flag name (
-   * full flag name including namespace) and desired value (from type String).
-   * This function also saves the override value on the local device disk,
-   * so it is "remembered" for the next the SDK is loaded to production.
+   * Set Global Context.
+   * You can think of Global Context as a default context
    *
-   * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-setoverride-
-   *
-   * Note that for boolean flag we still give the value as a string.
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/feature-releases/custom-properties#_global_context
    */
-  function setOverride(nameSpacedFlagName: string, value: string): void;
+  function setContext(globalContext: unknown): void;
 
   /**
-   * Clears the override value from the flag (and the disk).
+   * Initiate connection with Rox servers for the application identified by the application key.
+   * The registered containers will be synced and Rox entities will get the appropriate values.
    *
-   * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-clearoverride-
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_setup
    */
-  function clearOverride(nameSpacedFlagName: string): void;
+  function setup(apiKey: string, options?: RoxSetupOptions): Promise<unknown>;
+
+  interface RoxSetupOptions {
+    version?: string;
+    // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_configurationfetchedhandler
+    configurationFetchedHandler?(fetcherResult: RoxFetcherResult): void;
+    debugLevel?: 'verbose';
+    // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_using_the_impressionhandler_option
+    impressionHandler?(reporting: RoxReporting, context: unknown): void;
+    platform?: string;
+    freeze?: RoxFlagFreezeLevel;
+    disableNetworkFetch?: boolean;
+    devModeSecret?: string;
+    /**
+     * Set Roxy's URL for automated tests or local development.
+     *
+     * https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/debugging/microservices-automated-testing-and-local-development
+     */
+    roxy?: string;
+    // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_dynamicpropertyrulehandler
+    dynamicPropertyRuleHandler?(propName: string, context: any): any;
+  }
+
+  enum RoxFetcherStatus {
+    AppliedFromEmbedded = 'APPLIED_FROM_EMBEDDED',
+    AppliedFromCache = 'APPLIED_FROM_CACHE',
+    AppliedFromNetwork = 'APPLIED_FROM_NETWORK',
+    ErrorFetchFailed = 'ERROR_FETCH_FAILED'
+  }
+
+  enum RoxErrorTrigger {
+    DYNAMIC_PROPERTIES_RULE = 'DYNAMIC_PROPERTIES_RULE',
+    CONFIGURATION_FETCHED_HANDLER = 'CONFIGURATION_FETCHED_HANDLER',
+    IMPRESSION_HANDLER = 'IMPRESSION_HANDLER',
+    CUSTOM_PROPERTY_GENERATOR = 'CUSTOM_PROPERTY_GENERATOR'
+  }
+
+  interface RoxFetcherResult {
+    fetcherStatus: RoxFetcherStatus;
+    creationDate: Date;
+    hasChanges: boolean;
+    errorDetails?: string;
+  }
+
+  interface RoxReporting {
+    name: string;
+    value: string;
+    targeting: boolean;
+  }
 
   /**
-   * Clears all override values
+   * Note that you might have to call unfreeze after setting custom properties such as email after login
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/feature-releases/custom-properties
    */
-  function clearAllOverrides(): void;
+  function setCustomNumberProperty(name: string, value: number | ((context?: unknown) => number)): void;
+  function setCustomStringProperty(name: string, value: string | ((context?: unknown) => string)): void;
+  function setCustomBooleanProperty(name: string, value: boolean | ((context?: unknown) => boolean)): void;
 
-  function getOriginalValue(nameSpacedFlagName: string): string;
+  // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_setuserspaceunhandlederrorhandler
+  function setUserspaceUnhandledErrorHandler(
+    handler: (errorTrigger: RoxErrorTrigger, error: Error) => void
+  ): void;
 
   /**
-   * full flag name including namespace
+   * Unfreeze the state of all flags in code
+   * Calling this function will unfreeze all flags, and using a flag will return it’s most updated value
    *
-   * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-hasoverride-
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/feature-flags/flag-freeze#_flag_unfreeze
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_unfreeze_4
    */
-  function hasOverride(nameSpacedFlagName: string): boolean;
+  function unfreeze(namespace?: string): void;
+
+  /**
+   * Pulls the latest configuration and flag values down from the Rollout servers
+   *
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_fetch
+   */
+  function fetch(): void;
+
+  /**
+   * Opens the flag override view, providing a debug UI for the application's set of feature flags.
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_showoverrides
+   */
+  function showOverrides(position?: RoxOverridesPosition): void;
+
+  enum RoxOverridesPosition {
+    TopLeft = 'top left',
+    TopRight = 'top right',
+    BottomLeft = 'bottom left',
+    BottomRight = 'bottom right'
+  }
+
+  /**
+   * Default is none
+   *
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/feature-flags/flag-freeze
+   */
+  enum RoxFlagFreezeLevel {
+    None = 'none',
+    UntilForeground = 'untilForeground',
+    UntilLaunch = 'untilLaunch'
+  }
+
+  interface RoxFlagOptions {
+    freeze?: RoxFlagFreezeLevel;
+  }
+
+  /**
+   * Creates a new Flag
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_flag
+   */
+  class Flag {
+    constructor(defaultValue?: boolean, options?: RoxFlagOptions);
+
+    // The name of the Flag
+    readonly name: string;
+
+    // Default value of the Flag
+    readonly defaultValue: boolean;
+
+    // Returns true when the flag is enabled
+    isEnabled(context?: unknown): boolean;
+
+    // Unlock the Flag value from changes from the last time it was freezed
+    unfreeze(): void;
+  }
+
+  /**
+   * Used to create and manage Rollout feature flags that determine different predefined string values
+   *
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_roxstring
+   */
+  class RoxString {
+    constructor(defaultValue: string, options?: ReadonlyArray<string>);
+
+    // The name of the RoxString
+    readonly name: string;
+
+    // Default value of the RoxString
+    readonly defaultValue: string;
+
+    // Returns the current value of the RoxString, accounting for value overrides
+    getValue(context?: unknown): string;
+
+    // Unlock the RoxString value from changes from the last time it was freezed
+    unfreeze(): void;
+  }
+
+  /**
+   * Used to create and manage Rollout feature flags that determine different predefined number values
+   *
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_roxnumber
+   */
+  class RoxNumber {
+    constructor(defaultValue: number, options?: ReadonlyArray<number>);
+
+    // The name of the RoxNumber
+    readonly name: string;
+
+    // Default value of the RoxNumber
+    readonly defaultValue: number;
+
+    // Returns the current value of the RoxNumber, accounting for value overrides
+    getValue(context?: unknown): number;
+
+    // Unlock the RoxNumber value from changes from the last time it was freezed
+    unfreeze(): void;
+  }
+
+  /**
+   * Override: Should only be used for development purposes (QA - Feature dev - e2e)
+   *
+   * When you override an existing flag value using the Rox.overrides.setOverride method,
+   * the SDK will disregard existing configuration coming from the dashboard and will
+   * serialize the override on disk this value will be loaded and override the flag
+   * right after you call Rox.setup. To clear the override from the cache you need to
+   * call the Rox.overrides.clearOverride method
+   *
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_overrides
+   */
+  namespace overrides {
+    /**
+     * Sets an override value on a specific flag, this function accepts two parameters flag name (
+     * full flag name including namespace) and desired value (from type String).
+     * This function also saves the override value on the local device disk,
+     * so it is "remembered" for the next the SDK is loaded to production.
+     *
+     * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_overrides_setoverride
+     *
+     * Note that for boolean flag we still give the value as a string.
+     */
+    function setOverride(nameSpacedFlagName: string, value: string): void;
+
+    /**
+     * Clears the override value from the flag (and the disk).
+     *
+     * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_overrides_clearoverride
+     */
+    function clearOverride(nameSpacedFlagName: string): void;
+
+    /**
+     * Clears all override values
+     */
+    function clearAllOverrides(): void;
+
+    function getOriginalValue(nameSpacedFlagName: string): string;
+
+    /**
+     * full flag name including namespace
+     *
+     * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_overrides_hasoverride
+     */
+    function hasOverride(nameSpacedFlagName: string): boolean;
+  }
+
+  /**
+   * Dynamic API is an alternative to Rollout static API for defining flags on the
+   * different container objects and accessing them from that container object.
+   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_dynamicapi
+   */
+  namespace dynamicApi {
+    /**
+     * Getting boolean value of a flag
+     */
+    function isEnabled(nameSpacedFlagName: string, defaultValue: boolean, context?: unknown): boolean;
+
+    /**
+     * Getting string value of a string flag
+     */
+    function value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
+
+    /**
+     * Getting string value of a number flag
+     */
+    function getNumber(nameSpacedFlagName: string, defaultValue: number, context?: unknown): number;
+  }
+
+  const flags: ReadonlyArray<Flag>;
 }
-
-/**
- * Dynamic API is an alternative to Rollout static API for defining flags on the
- * different container objects and accessing them from that container object.
- * https://support.rollout.io/docs/dynamic-api
- */
-export namespace dynamicApi {
-  /**
-   * Getting boolean value of a flag
-   */
-  function isEnabled(nameSpacedFlagName: string, defaultValue: boolean, context?: unknown): boolean;
-
-  /**
-   * Getting string value of a Variant flag
-   */
-  function value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
-}
-
-export const flags: ReadonlyArray<Flag>;

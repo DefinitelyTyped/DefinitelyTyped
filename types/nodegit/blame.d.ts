@@ -21,7 +21,7 @@ export class Blame {
      * @param path - to the file to get the blame of
      * @param [options] - Options for the blame
      */
-    static file(repo: Repository, path: string, options?: BlameOptions): Blame;
+    static file(repo: Repository, path: string, options?: BlameOptions): Promise<Blame>;
     /**
      * @param opts - The git_blame_options struct to initialize
      * @param version - Version of struct; pass GIT_BLAME_OPTIONS_VERSION

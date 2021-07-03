@@ -544,7 +544,6 @@ declare namespace BPMNModdle {
     interface ChoreographyTask extends ChoreographyActivity {
         messageFlowRef: MessageFlow[];
     }
-    // tslint:disable-next-line:no-empty-interface
     interface Choreography extends FlowElementsContainer, Collaboration {}
     interface GlobalChoreographyTask extends Choreography {
         initiatingParticipantRef: Participant;
@@ -618,7 +617,6 @@ declare namespace BPMNModdle {
     interface CallActivity extends Activity {
         calledElement: string;
     }
-    // tslint:disable-next-line:no-empty-interface
     interface Task extends Activity, InteractionNode {}
     interface SendTask extends Task {
         implementation: string;
@@ -1062,6 +1060,35 @@ declare namespace BPMNModdle {
             options: Option,
             done: ImportFn
         ): void;
+
+        /**
+         * Instantiates a BPMN model tree from a given xml string.
+         *
+         * @param xmlStr
+         * XML string
+         *
+         * @param options
+         * Options to pass to the underlying reader
+         */
+        fromXML(xmlStr: string, options?: Option): Promise<Definitions>;
+
+        /**
+         * Instantiates a BPMN model tree from a given xml string.
+         *
+         * @param xmlStr
+         * XML string
+         *
+         * @param typeName
+         * Name of the root element
+         *
+         * @param options
+         * Options to pass to the underlying reader
+         */
+        fromXML(
+            xmlStr: string,
+            typeName: string,
+            options: Option,
+        ): Promise<Definitions>;
     }
 }
 

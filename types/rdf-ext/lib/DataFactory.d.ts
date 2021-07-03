@@ -27,7 +27,7 @@ declare class DataFactoryExt  {
     PrefixMap: typeof PrefixMap;
   };
   static factory: typeof DataFactoryExt;
-  static namedNode(value: string): NamedNodeExt;
+  static namedNode<Iri extends string = string>(value: Iri): NamedNodeExt<Iri>;
   static blankNode(value?: string): BlankNodeExt;
   static literal(value: string, languageOrDatatype?: string | NamedNode): LiteralExt;
   static variable(value: string): VariableExt;

@@ -5,8 +5,8 @@ declare var beforeEach: (callback: () => void) => void;
 declare var after: (callback: () => void) => void;
 declare var afterEach: (callback: () => void) => void;
 
-import * as detox from "detox";
-import * as adapter from "detox/runners/mocha/adapter";
+import * as detox from 'detox';
+import * as adapter from 'detox/runners/mocha/adapter';
 
 // Normally the Detox configuration from the project's package.json like so:
 // const config = require("./package.json").detox;
@@ -16,18 +16,18 @@ declare const config: any;
 // but `this` cannot be used since it doesn't have a type signature (and therefore always implicltly any)
 declare const context: any;
 
-before(async function() {
+before(async () => {
     await detox.init(config);
 });
 
-beforeEach(async function() {
+beforeEach(async () => {
     await adapter.beforeEach(context);
 });
 
-afterEach(async function() {
+afterEach(async () => {
     await adapter.afterEach(context);
 });
 
-after(async function() {
+after(async () => {
     await detox.cleanup();
 });

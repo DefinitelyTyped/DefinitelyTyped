@@ -1,4 +1,4 @@
-declare module "trace_events" {
+declare module 'trace_events' {
     /**
      * The `Tracing` object is used to enable or disable tracing for sets of
      * categories. Instances are created using the
@@ -58,4 +58,8 @@ declare module "trace_events" {
      * any categories enabled using the `--trace-event-categories` flag.
      */
     function getEnabledCategories(): string | undefined;
+}
+
+declare module 'node:trace_events' {
+    export * from 'trace_events';
 }

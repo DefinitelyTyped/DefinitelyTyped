@@ -3,8 +3,6 @@
 // Definitions by: Jorge López <https://github.com/nokutu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 declare class Graph {
     /**
      * Creates a new Graph, optionally initializing it a nodes graph representation.

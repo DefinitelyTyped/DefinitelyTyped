@@ -2,16 +2,13 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "interface-name": false,
         "max-line-length": false,
         "no-misused-new": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "unified-signatures": false
     }

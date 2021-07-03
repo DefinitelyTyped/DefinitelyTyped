@@ -1,6 +1,7 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import { Condition } from '../events/condition';
 import BaseEvent from '../events/Event';
+import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
 import PointerInteraction from './Pointer';
 
@@ -10,7 +11,19 @@ export interface Options {
 }
 export default class DragRotateAndZoom extends PointerInteraction {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    /**
+     * Handle pointer down events.
+     */
+    handleDownEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Handle pointer drag events.
+     */
+    handleDragEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): void;
+    /**
+     * Handle pointer up events.
+     */
+    handleUpEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

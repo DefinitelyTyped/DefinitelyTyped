@@ -17,7 +17,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@frctl/fractal": ["frctl__fractal"]
+            "@frctl/*": ["frctl__*"]
         }
     },
     "files": [

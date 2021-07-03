@@ -13,7 +13,7 @@ declare function through2Concurrent(opts?: through2Concurrent.Through2Concurrent
 
 declare namespace through2Concurrent {
     interface Through2ConcurrentOptions extends DuplexOptions {
-        maxConcurrency?: number;
+        maxConcurrency?: number | undefined;
     }
 
     function obj(transform?: TransformFunction, flush?: FlushCallback): TransformStream;

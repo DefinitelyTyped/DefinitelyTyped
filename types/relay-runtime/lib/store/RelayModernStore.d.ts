@@ -42,4 +42,5 @@ export default class RelayModernStore implements Store {
     toJSON(): unknown;
     snapshot(): void;
     restore(): void;
+    scheduleGC(): void;
 }

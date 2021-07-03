@@ -37,6 +37,7 @@ declare namespace SailsIOJS {
     }
     export interface InitialConnectionHeaders {
         nosession?: boolean;
+        [key: string]: unknown;
     }
     export interface Client {
         socket: Socket;

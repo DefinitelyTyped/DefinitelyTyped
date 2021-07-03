@@ -1,12 +1,12 @@
-import { ComponentClass } from 'react';
-import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
+import { ComponentClass } from "react";
+import { ReactWidgetsCommonDropdownProps, AutoFocus } from "./CommonProps";
 
 declare namespace DropdownList {
     interface DropdownListProps extends ReactWidgetsCommonDropdownProps, AutoFocus {
         /**
          * Allow to create a new option on the data list.
          */
-        allowCreate?: boolean | 'onFilter';
+        allowCreate?: boolean | "onFilter";
         /**
          * The current value of the DropdownList. This can be an object (such as a member of the
          * data array) or a primitive value, hinted to by the valueField. The widget value does not
@@ -207,6 +207,6 @@ declare namespace DropdownList {
     }
 }
 
-interface DropdownListClass extends ComponentClass<DropdownList.DropdownListProps> { }
+interface DropdownListClass extends ComponentClass<DropdownList.DropdownListProps> {}
 declare var DropdownList: DropdownListClass;
 export = DropdownList;

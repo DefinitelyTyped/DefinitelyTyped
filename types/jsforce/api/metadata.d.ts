@@ -1,7 +1,6 @@
 import { Callback, Connection } from '../connection';
 import { EventEmitter } from 'events';
 import { Stream } from 'stream';
-import { Buffer } from 'buffer';
 
 interface DeployResult {
     id: string;
@@ -117,6 +116,13 @@ interface RetrieveResult {
 interface SaveResult {
     success: boolean;
     fullName: string;
+    errors?: SaveError | Array<SaveError>
+}
+
+interface SaveError {
+    fields: string|string[];
+    message: string;
+    statusCode: string;
 }
 
 interface UpdateMetadataInfo {

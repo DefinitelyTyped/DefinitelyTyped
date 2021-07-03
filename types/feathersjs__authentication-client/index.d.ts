@@ -1,7 +1,7 @@
 // Type definitions for @feathersjs/authentication-client 1.0
 // Project: https://feathersjs.com
 // Definitions by: Abraao Alves <https://github.com/AbraaoAlves>, Jan Lohage <https://github.com/j2L4e>
-// Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 import * as self from '@feathersjs/authentication-client';
 
@@ -17,6 +17,7 @@ export interface FeathersAuthClientConfig {
     path?: string;
     entity?: string;
     service?: string;
+    timeout?: number;
 }
 
 export interface FeathersAuthCredentials {

@@ -2,6 +2,7 @@
 // Project: https://github.com/smooth-code/loadable-components
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Luis Herranz <https://github.com/luisherranz>
+//                 Arman Sargsyan <https://github.com/Armanio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -92,32 +93,37 @@ export class ChunkExtractor {
     /**
      * Get scripts as an array of React `<script>` elements.
      */
-      getScriptElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
+    getScriptElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
 
     /**
      * Get "prefetch" and "preload" links as a string of `<link>` tags
      */
-      getLinkTags(attr?: {} | AttrFn): string;
+    getLinkTags(attr?: {} | AttrFn): string;
 
     /**
      * Get "prefetch" and "preload" links as an array of React `<link>` elements
      */
-      getLinkElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
+    getLinkElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
 
     /**
      * Get style links as a string of `<link>` tags
      */
-      getStyleTags(attr?: {} | AttrFn): string;
+    getStyleTags(attr?: {} | AttrFn): string;
+
+    /**
+     * Returns the preload assets lists.
+     */
+    getPreAssets(): Chunk[];
 
     /**
      * Get style links as an array of React `<link>` elements
      */
-      getStyleElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
+    getStyleElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
 
     /**
      * Get inline style links as a string of <link> tags (returns a promise)
      */
-      getInlineStyleTags(attr?: {} | AttrFn): Promise<string>;
+    getInlineStyleTags(attr?: {} | AttrFn): Promise<string>;
 
     /**
      * Get inline style links as an array of React <link> elements (returns a promise).

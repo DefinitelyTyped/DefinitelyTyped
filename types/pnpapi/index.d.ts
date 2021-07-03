@@ -1,8 +1,8 @@
 // Type definitions for pnpapi 0.0
 // Project: https://yarnpkg.github.io/berry/advanced/pnpapi
 // Definitions by: Maël Nison <https://github.com/arcanis>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 export interface PhysicalPackageLocator {
     name: string;
@@ -39,3 +39,11 @@ export function resolveRequest(
 ): string | null;
 
 export function setup(): void;
+
+declare global {
+    namespace NodeJS {
+        interface ProcessVersions {
+            pnp?: string;
+        }
+    }
+}

@@ -4,8 +4,22 @@ const dropzoneRenameFunction = (name: string): string => {
     return name + 'new';
 };
 
+const blacklistedBrowsers: RegExp[] = Dropzone.blacklistedBrowsers;
 Dropzone.createElement('<div id="divTest"></div>');
+const dataURItoBlob: Blob = Dropzone.dataURItoBlob('');
+const discover: Dropzone[] = Dropzone.discover();
+const elementInside: boolean = Dropzone.elementInside(document.getElementById('test'), document.getElementById('parentOfTest'));
+const dropzoneForSelector: Dropzone = Dropzone.forElement('#selector');
+const dropzoneForElement: Dropzone = Dropzone.forElement(document.getElementById('test'));
+const getElementString: HTMLElement = Dropzone.getElement('.test', 'optional description');
+const getElementNodeLike: HTMLElement = Dropzone.getElement(document.getElementById('test'));
+const getElementsString: HTMLElement[] = Dropzone.getElements('.test');
+const getElementsNodeLike: HTMLElement[] = Dropzone.getElements(document.getElementById('test'));
+const getElementsWithArray: HTMLElement[] = Dropzone.getElements(['.test', document.getElementById('test')]);
 Dropzone.isBrowserSupported();
+const isValidFile: boolean = Dropzone.isValidFile(new File([], 'test'), 'application/javascript');
+const optionsForElement: Dropzone.DropzoneOptions | undefined =  Dropzone.optionsForElement(document.getElementById('test'));
+Dropzone.version;
 Dropzone.options['divTest'] = { clickable: true };
 Dropzone.options['noDiscover'] = false;
 console.log(Dropzone.instances.length);
@@ -175,6 +189,7 @@ dropzoneWithOptionsVariations = new Dropzone('.test', {
 const dropzone = new Dropzone('.test');
 
 dropzone.element;
+dropzone.hiddenFileInput;
 dropzone.previewsContainer;
 dropzone.version;
 

@@ -1,4 +1,4 @@
-// Type definitions for irc v0.3.12
+// Type definitions for irc v0.5.2
 // Project: https://github.com/martynsmith/node-irc
 // Definitions by: phillips1012 <https://github.com/phillips1012>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -282,6 +282,18 @@ declare namespace NodeIRC {
          * @default []
          */
         channels?: string[];
+
+        /**
+         * Number of times the client will try to automatically reconnect when disconnected.
+         * @default 0
+         */
+        retryCount?: number;
+
+        /**
+         * Number of milliseconds to wait before retying to automatically reconnect when disconnected.
+         * @default 2000
+         */
+        retryDelay?: number;
 
         /**
          * Should SSL be used? Can either be true or crypto credentials.

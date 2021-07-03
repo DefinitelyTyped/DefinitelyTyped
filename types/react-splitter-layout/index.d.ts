@@ -94,4 +94,9 @@ export interface SplitterLayoutProps {
      * When percentage is set to true, the value is in percentage.
      */
     onSecondaryPaneSizeChange?: (value: number) => void;
+
+    /**
+     * Placeholder of the panel(s) inside the splitter
+     */
+    children?: any;
 }

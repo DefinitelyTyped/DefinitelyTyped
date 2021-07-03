@@ -7,7 +7,7 @@
 import * as React from "react";
 import * as moment from "moment";
 
-export class Scheduler extends React.Component<SchedulerProps, any> { }
+export default class Scheduler extends React.Component<SchedulerProps, any> { }
 
 export interface SchedulerProps {
     schedulerData: SchedulerData;

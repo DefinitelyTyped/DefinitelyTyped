@@ -77,3 +77,5 @@ export class MultiGrid extends PureComponent<MultiGridProps, MultiGridState> {
     recomputeGridSize(params?: { columnIndex?: number; rowIndex?: number }): void;
     static getDerivedStateFromProps(nextProps: MultiGridProps, prevState: MultiGridState): MultiGridState | null;
 }
+
+export default MultiGrid;

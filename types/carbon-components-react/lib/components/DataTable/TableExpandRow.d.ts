@@ -1,15 +1,13 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactAttr<HTMLTableRowElement> {
-    ariaLabel: NonNullable<React.AriaAttributes["aria-label"]>,
-}
-
-export interface TableExpandRowProps extends InheritedProps {
+export interface TableExpandRowProps extends ReactAttr<HTMLTableRowElement> {
+    ariaLabel?: string,
     expandHeader?: string,
     expandIconDescription?: string,
-    isExpanded: boolean,
-    onExpand(event: React.MouseEvent<HTMLButtonElement>): void,
+    isExpanded?: boolean,
+    onExpand?(event: React.MouseEvent<HTMLButtonElement>): void,
+    isSelected?: boolean,
 }
 
 declare const TableExpandRow: React.FC<TableExpandRowProps>;

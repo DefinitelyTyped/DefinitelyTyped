@@ -1,6 +1,5 @@
-declare module "readline" {
-    import * as events from "events";
-    import * as stream from "stream";
+declare module 'readline' {
+    import EventEmitter = require('events');
 
     interface Key {
         sequence?: string;
@@ -10,7 +9,7 @@ declare module "readline" {
         shift?: boolean;
     }
 
-    class Interface extends events.EventEmitter {
+    class Interface extends EventEmitter {
         readonly terminal: boolean;
 
         // Need direct access to line/cursor data, for use in external processes

@@ -1,17 +1,13 @@
 import * as React from "react";
-import { ReactAttr, ReactInputAttr } from "../../../typings/shared";
 import { RadioTileChangeEvent } from "../RadioTile";
 
-interface InheritedProps {
-    children?: ReactAttr["children"],
-    className?: ReactAttr["className"],
-    disabled?: ReactInputAttr["disabled"],
-    name: NonNullable<ReactInputAttr["name"]>,
-}
-
-export interface TileGroupProps extends InheritedProps {
+export interface TileGroupProps {
+    children?: React.ReactNode,
+    className?: string,
     defaultSelected?: TileGroupProps["valueSelected"],
+    disabled?: boolean,
     legend?: string,
+    name: string,
     onChange?(value: NonNullable<TileGroupProps["valueSelected"]>, name: NonNullable<TileGroupProps["name"]>, event: RadioTileChangeEvent): void,
     valueSelected?: string | number,
 }

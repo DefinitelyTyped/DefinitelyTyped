@@ -13,7 +13,7 @@ declare module 'ember-data/types/registries/model' {
 Ember.Route.extend({
     model(): any {
         return this.store.findAll('my-model');
-    }
+    },
 });
 
 Controller.extend({
@@ -21,12 +21,12 @@ Controller.extend({
         create(): any {
             this.queryParams;
             return this.store.createRecord('my-model');
-        }
-    }
+        },
+    },
 });
 
 Ember.DataAdapter.extend({
     test() {
         this.store.findRecord('my-model', 123);
-    }
+    },
 });

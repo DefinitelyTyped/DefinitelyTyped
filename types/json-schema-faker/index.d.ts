@@ -13,7 +13,7 @@ declare namespace jsf {
     function define(name: string, cb: () => void): any;
     function reset(name: string): any;
     function locate(name: string): any;
-    function generate(schema: Schema, refs?: string | Schema[]): any[];
+    function generate(schema: Schema, refs?: string | Schema[]): any;
     function resolve(schema: Schema, refs?: string | Schema[], cwd?: string): Promise<any[]>;
     function option(option: string | OptionInputObject, value?: any): any;
 

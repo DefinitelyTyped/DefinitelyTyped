@@ -15,23 +15,8 @@
             "../"
         ],
         "paths": {
-            "@ember/object": [
-                "ember__object"
-            ],
-            "@ember/object/*": [
-                "ember__object/*"
-            ],
-            "@ember/engine": [
-                "ember__engine"
-            ],
-            "@ember/engine/*": [
-                "ember__engine/*"
-            ],
-            "@ember/debug": [
-                "ember__debug"
-            ],
-            "@ember/debug/*": [
-                "ember__debug/*"
+            "@ember/*": [
+                "ember__*"
             ]
         },
         "types": [],

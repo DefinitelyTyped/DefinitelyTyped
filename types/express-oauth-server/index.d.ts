@@ -7,10 +7,17 @@
 import * as express from 'express';
 import * as OAuth2Server from 'oauth2-server';
 
+declare namespace ExpressOAuthServer {
+    interface Options extends OAuth2Server.ServerOptions {
+        useErrorHandler?: boolean;
+        continueMiddleware?: boolean;
+    }
+}
+
 declare class ExpressOAuthServer {
     server: OAuth2Server;
 
-    constructor(options: OAuth2Server.ServerOptions);
+    constructor(options: ExpressOAuthServer.Options);
 
     authenticate(options?: OAuth2Server.AuthenticateOptions): (
         request: express.Request,
