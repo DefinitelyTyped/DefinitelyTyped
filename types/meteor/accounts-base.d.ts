@@ -64,9 +64,7 @@ declare module 'meteor/accounts-base' {
         ): void;
 
         function forgotPassword(
-            options: {
-                email?: string;
-            },
+            options: { email?: string },
             callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
         ): void;
 
