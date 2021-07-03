@@ -230,12 +230,12 @@ declare module Mongo {
          * Returns the [`Collection`](http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html) object corresponding to this collection from the
          * [npm `mongodb` driver module](https://www.npmjs.com/package/mongodb) which is wrapped by `Mongo.Collection`.
          */
-        rawCollection(): Collection<T>;
+        rawCollection(): any;
         /**
          * Returns the [`Db`](http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html) object corresponding to this collection's database connection from the
          * [npm `mongodb` driver module](https://www.npmjs.com/package/mongodb) which is wrapped by `Mongo.Collection`.
          */
-        rawDatabase(): Db;
+        rawDatabase(): any;
         /**
          * Remove documents from the collection
          * @param selector Specifies which documents to remove
@@ -376,8 +376,8 @@ declare module Mongo {
 }
 
 declare interface MongoConnection {
-    db: Db;
-    client: MongoClient;
+    db: any;
+    client: any;
 }
 
 declare function defaultRemoteCollectionDriver(): {
