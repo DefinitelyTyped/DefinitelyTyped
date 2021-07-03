@@ -199,6 +199,10 @@ declare module 'meteor/meteor' {
          */
         function clearInterval(id: number): void;
 
+        /**
+         * Cancel a function call scheduled by `Meteor.setTimeout`.
+         * @param id The handle returned by `Meteor.setTimeout`
+         */
         function clearTimeout(id: number): void;
         /**
          * Defer execution of a function to run asynchronously in the background (similar to `Meteor.setTimeout(func, 0)`.

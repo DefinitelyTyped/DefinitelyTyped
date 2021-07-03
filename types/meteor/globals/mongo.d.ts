@@ -1,5 +1,6 @@
 // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
 declare type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
+
 declare module Mongo {
     // prettier-ignore
     type BsonType = 1 | "double" |
@@ -159,8 +160,8 @@ declare module Mongo {
             name: string | null,
             options?: {
                 /**
-                 * The server connection that will manage this collection. Uses the default connection if not specified. Pass the return value of calling `DDP.connect` to specify a different server.
-                 * Pass `null` to specify no connection. Unmanaged (`name` is null) collections cannot specify a connection.
+                 * The server connection that will manage this collection. Uses the default connection if not specified. Pass the return value of calling `DDP.connect` to specify a different
+                 * server. Pass `null` to specify no connection. Unmanaged (`name` is null) collections cannot specify a connection.
                  */
                 connection?: Object | null;
                 /** The method of generating the `_id` fields of new documents in this collection.  Possible values:
@@ -258,15 +259,15 @@ declare module Mongo {
                 /** True to insert a document if no matching documents are found. */
                 upsert?: boolean;
                 /**
-                 * Used in combination with MongoDB [filtered positional operator](https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/) to specify which elements to modify
-                 * in an array field.
+                 * Used in combination with MongoDB [filtered positional operator](https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/) to specify which elements to
+                 * modify in an array field.
                  */
                 arrayFilters?: { [identifier: string]: any }[];
             },
             callback?: Function,
         ): number;
         /**
-         * Modify one or more documents in the collection, or insert one if no matching documents were found. Returns an object with keys `numberAffected` (the number of documents modified)  and
+         * Modify one or more documents in the collection, or insert one if no matching documents were found. Returns an object with keys `numberAffected` (the number of documents modified) and
          * `insertedId` (the unique _id of the document that was inserted, if any).
          * @param selector Specifies which documents to modify
          * @param modifier Specifies how to modify the documents
