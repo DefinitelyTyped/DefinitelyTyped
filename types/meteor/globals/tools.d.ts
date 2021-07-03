@@ -36,7 +36,6 @@ declare function execFileAsync(
         destination?: any;
         waitForClose?: string;
     },
-    declare,
 ): any;
 declare function execFileSync(
     command: string,
@@ -48,7 +47,6 @@ declare function execFileSync(
         destination?: any;
         waitForClose?: string;
     },
-    declare,
 ): String;
 
 declare module Assets {
