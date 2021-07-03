@@ -1,4 +1,3 @@
-declare;
 /**
  * The namespace for Tracker-related methods.
  */
