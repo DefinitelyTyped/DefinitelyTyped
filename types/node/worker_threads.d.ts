@@ -280,3 +280,7 @@ declare module 'worker_threads' {
      */
     function setEnvironmentData(key: Serializable, value: Serializable): void;
 }
+
+declare module 'node:worker_threads' {
+    export * from 'worker_threads';
+}

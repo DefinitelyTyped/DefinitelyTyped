@@ -595,3 +595,7 @@ declare module 'fs/promises' {
      */
     function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<string> | AsyncIterable<Buffer>;
 }
+
+declare module 'node:fs/promises' {
+    export * from 'fs/promises';
+}

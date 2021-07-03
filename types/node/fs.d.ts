@@ -876,17 +876,6 @@ declare module 'fs' {
          */
         maxRetries?: number;
         /**
-         * @deprecated since v14.14.0 In future versions of Node.js,
-         * `fs.rmdir(path, { recursive: true })` will throw if `path` does not exist or is a file.
-         * Use `fs.rm(path, { recursive: true, force: true })` instead.
-         *
-         * If `true`, perform a recursive directory removal. In
-         * recursive mode, errors are not reported if `path` does not exist, and
-         * operations are retried on failure.
-         * @default false
-         */
-        recursive?: boolean;
-        /**
          * The amount of time in milliseconds to wait between retries.
          * This option is ignored if the `recursive` option is not `true`.
          * @default 100
@@ -933,8 +922,7 @@ declare module 'fs' {
         maxRetries?: number;
         /**
          * If `true`, perform a recursive directory removal. In
-         * recursive mode, errors are not reported if `path` does not exist, and
-         * operations are retried on failure.
+         * recursive mode, operations are retried on failure.
          * @default false
          */
         recursive?: boolean;
@@ -2236,4 +2224,8 @@ declare module 'fs' {
         bigint?: boolean;
         throwIfNoEntry?: boolean;
     }
+}
+
+declare module 'node:fs' {
+    export * from 'fs';
 }

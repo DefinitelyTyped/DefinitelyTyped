@@ -437,3 +437,7 @@ declare module 'http' {
      */
     function urlToHttpOptions(url: URL): ClientRequestArgs;
 }
+
+declare module 'node:http' {
+    export * from 'http';
+}

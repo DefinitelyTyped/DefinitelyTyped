@@ -974,3 +974,7 @@ declare module 'http2' {
         listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void
     ): ClientHttp2Session;
 }
+
+declare module 'node:http2' {
+    export * from 'http2';
+}
