@@ -19,6 +19,15 @@
     "files": [
         "index.d.ts",
         "test/lib-test.ts",
-        "test/examples.ts"
+        "test/examples.ts",
+        "test/describers/extension/base.ts",
+        "test/describers/extension/custom.ts",
+        "test/describers/extension/index.ts",
+        "test/describers/index.ts",
+        "test/describers/meta.ts",
+        "test/describers/properties.ts",
+        "test/describers/propertiesExtended.ts",
+        "test/describers/redefine.ts",
+        "test/describers/replace.ts"
     ]
 }
