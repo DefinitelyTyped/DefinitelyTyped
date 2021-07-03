@@ -80,12 +80,11 @@ app.get('/:foo/:bar(\\d:+)/:baz', req => {
     req.params.quxx; // $ExpectType string
 });
 
-// long path parameters - not supported - https://github.com/DefinitelyTyped/DefinitelyTyped/pull/53513#issuecomment-870550063
+// long path parameters - https://github.com/DefinitelyTyped/DefinitelyTyped/pull/53513#issuecomment-870550063
 app.get('/website-api/jobalarm/:jobalarmId/:subscriptionId/search', req => {
-    req.params.foo; // $ExpectType string
-    req.params.bar; // $ExpectType string
-    req.params.qux; // $ExpectType string
-    req.params.quxx; // $ExpectType string
+    req.params.jobalarmId; // $ExpectType string
+    req.params.subscriptionId; // $ExpectType string
+    req.params.foo; // $ExpectError
 });
 
 // Query can be a custom type

@@ -98,13 +98,11 @@ export type RequestHandlerParams<
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
     | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
-type GetRouteParameter<RouteAfterColon extends string, Depth extends never[] = []> = Depth['length'] extends 10
-    ? never
-    : RouteAfterColon extends `${infer Char}${infer Rest}`
-    ? Char extends '/' | '-' | '.'
-        ? ''
-        : `${Char}${GetRouteParameter<Rest, [...Depth, never]>}`
-    : RouteAfterColon;
+type RemoveTail<S extends string, Tail extends string> = S extends `${infer P}${Tail}` ? P : S;
+type GetRouteParameter<S extends string> = RemoveTail<
+    RemoveTail<RemoveTail<S, `/${string}`>, `-${string}`>,
+    `.${string}`
+>;
 
 // prettier-ignore
 export type RouteParameters<Route extends string> = string extends Route
