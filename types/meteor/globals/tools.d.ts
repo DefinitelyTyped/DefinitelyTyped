@@ -36,6 +36,7 @@ declare function execFileAsync(
         destination?: any;
         waitForClose?: string;
     },
+    declare,
 ): any;
 declare function execFileSync(
     command: string,
@@ -47,6 +48,7 @@ declare function execFileSync(
         destination?: any;
         waitForClose?: string;
     },
+    declare,
 ): String;
 
 declare module Assets {
@@ -94,13 +96,7 @@ declare namespace Package {
 declare interface PackageAPI {
     new (): PackageAPI;
     addAssets(filenames: string | string[], architecture: string | string[]): void;
-    addFiles(
-        filenames: string | string[],
-        architecture?: string | string[],
-        options?: {
-            bare?: boolean;
-        },
-    ): void;
+    addFiles(filenames: string | string[], architecture?: string | string[], options?: { bare?: boolean }): void;
     export(
         exportedObjects: string | string[],
         architecture?: string | string[],

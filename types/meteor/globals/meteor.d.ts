@@ -18,9 +18,7 @@ declare module Meteor {
 
     /** Settings **/
     interface Settings {
-        public: {
-            [id: string]: any;
-        };
+        public: { [id: string]: any };
         [id: string]: any;
     }
     /**

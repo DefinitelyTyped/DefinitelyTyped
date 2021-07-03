@@ -101,7 +101,8 @@ declare module 'meteor/tracker' {
         function autorun(
             runFunc: (computation: Computation) => void,
             options?: {
-                /** The function to run when an error
+                /**
+                 * The function to run when an error
                  * happens in the Computation. The only argument it receives is the Error
                  * thrown. Defaults to the error being logged to the console.
                  */

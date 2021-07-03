@@ -56,8 +56,8 @@ namespace MeteorTests {
             Rooms.rawDatabase()
                 .stats()
                 .then(
-                    (stats: any) => console.log('stats', stats),
-                    (error: any) => console.error('stats', error),
+                    stats => console.log('stats', stats),
+                    error => console.error('stats', error),
                 );
 
             Rooms.rawCollection()
@@ -604,7 +604,7 @@ namespace MeteorTests {
         var d6 = function () {
             return Math.floor(Math.random() * 6) + 1;
         };
-        (user as any).dexterity = d6() + d6() + d6();
+        user.dexterity = d6() + d6() + d6();
         // We still want the default hook's 'profile' behavior.
         if (options.profile) user.profile = options.profile;
         return user;

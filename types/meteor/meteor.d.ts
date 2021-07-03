@@ -23,9 +23,7 @@ declare module 'meteor/meteor' {
 
         /** Settings **/
         interface Settings {
-            public: {
-                [id: string]: any;
-            };
+            public: { [id: string]: any };
             [id: string]: any;
         }
         /**

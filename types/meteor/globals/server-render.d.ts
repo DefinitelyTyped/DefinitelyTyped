@@ -1,5 +1,5 @@
 declare interface Sink {
-    request?: any;
+    request?: http.IncomingMessage;
     arch?: string;
     head?: string;
     body?: string;
@@ -13,7 +13,7 @@ declare interface Sink {
     redirect?(location: string, code?: number): void;
     setStatusCode?(code: number): void;
     setHeader?(key: string, value: number | string | string[]): void;
-    getHeaders?(): any;
+    getHeaders?(): http.IncomingHttpHeaders;
     getCookies?(): { [key: string]: string };
 }
 

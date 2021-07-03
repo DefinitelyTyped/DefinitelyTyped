@@ -93,17 +93,13 @@ declare module 'meteor/mongo' {
         type PartialMapTo<T, M> = Partial<Record<keyof T, M>>;
         type OnlyArrays<T> = T extends any[] ? T : never;
         type OnlyElementsOfArrays<T> = T extends any[] ? Partial<T[0]> : never;
-        type ElementsOf<T> = {
-            [P in keyof T]?: OnlyElementsOfArrays<T[P]>;
-        };
+        type ElementsOf<T> = { [P in keyof T]?: OnlyElementsOfArrays<T[P]> };
         type PushModifier<T> = {
             [P in keyof T]?:
                 | OnlyElementsOfArrays<T[P]>
                 | { $each?: T[P]; $position?: number; $slice?: number; $sort?: 1 | -1 | Dictionary<number> };
         };
-        type ArraysOrEach<T> = {
-            [P in keyof T]?: OnlyElementsOfArrays<T[P]> | { $each: T[P] };
-        };
+        type ArraysOrEach<T> = { [P in keyof T]?: OnlyElementsOfArrays<T[P]> | { $each: T[P] } };
         type CurrentDateModifier = { $type: 'timestamp' | 'date' } | true;
         type Modifier<T> =
             | T
@@ -299,23 +295,8 @@ declare module 'meteor/mongo' {
                 numberAffected?: number;
                 insertedId?: string;
             };
-            _ensureIndex(
-                keys:
-                    | {
-                          [key: string]: number | string;
-                      }
-                    | string,
-                options?: {
-                    [key: string]: any;
-                },
-            ): void;
-            _dropIndex(
-                keys:
-                    | {
-                          [key: string]: number | string;
-                      }
-                    | string,
-            ): void;
+            _ensureIndex(keys: { [key: string]: number | string } | string, options?: { [key: string]: any }): void;
+            _dropIndex(keys: { [key: string]: number | string } | string): void;
         }
 
         var Cursor: CursorStatic;

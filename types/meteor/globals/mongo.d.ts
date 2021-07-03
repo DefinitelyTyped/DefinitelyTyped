@@ -1,3 +1,5 @@
+/// <reference types="mongodb" />
+
 // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
 declare type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
 
@@ -89,17 +91,13 @@ declare module Mongo {
     type PartialMapTo<T, M> = Partial<Record<keyof T, M>>;
     type OnlyArrays<T> = T extends any[] ? T : never;
     type OnlyElementsOfArrays<T> = T extends any[] ? Partial<T[0]> : never;
-    type ElementsOf<T> = {
-        [P in keyof T]?: OnlyElementsOfArrays<T[P]>;
-    };
+    type ElementsOf<T> = { [P in keyof T]?: OnlyElementsOfArrays<T[P]> };
     type PushModifier<T> = {
         [P in keyof T]?:
             | OnlyElementsOfArrays<T[P]>
             | { $each?: T[P]; $position?: number; $slice?: number; $sort?: 1 | -1 | Dictionary<number> };
     };
-    type ArraysOrEach<T> = {
-        [P in keyof T]?: OnlyElementsOfArrays<T[P]> | { $each: T[P] };
-    };
+    type ArraysOrEach<T> = { [P in keyof T]?: OnlyElementsOfArrays<T[P]> | { $each: T[P] } };
     type CurrentDateModifier = { $type: 'timestamp' | 'date' } | true;
     type Modifier<T> =
         | T
@@ -232,12 +230,12 @@ declare module Mongo {
          * Returns the [`Collection`](http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html) object corresponding to this collection from the
          * [npm `mongodb` driver module](https://www.npmjs.com/package/mongodb) which is wrapped by `Mongo.Collection`.
          */
-        rawCollection(): any;
+        rawCollection(): Collection<T>;
         /**
          * Returns the [`Db`](http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html) object corresponding to this collection's database connection from the
          * [npm `mongodb` driver module](https://www.npmjs.com/package/mongodb) which is wrapped by `Mongo.Collection`.
          */
-        rawDatabase(): any;
+        rawDatabase(): Db;
         /**
          * Remove documents from the collection
          * @param selector Specifies which documents to remove
@@ -285,23 +283,8 @@ declare module Mongo {
             numberAffected?: number;
             insertedId?: string;
         };
-        _ensureIndex(
-            keys:
-                | {
-                      [key: string]: number | string;
-                  }
-                | string,
-            options?: {
-                [key: string]: any;
-            },
-        ): void;
-        _dropIndex(
-            keys:
-                | {
-                      [key: string]: number | string;
-                  }
-                | string,
-        ): void;
+        _ensureIndex(keys: { [key: string]: number | string } | string, options?: { [key: string]: any }): void;
+        _dropIndex(keys: { [key: string]: number | string } | string): void;
     }
 
     var Cursor: CursorStatic;
@@ -393,8 +376,8 @@ declare module Mongo {
 }
 
 declare interface MongoConnection {
-    db: any;
-    client: any;
+    db: Db;
+    client: MongoClient;
 }
 
 declare function defaultRemoteCollectionDriver(): {

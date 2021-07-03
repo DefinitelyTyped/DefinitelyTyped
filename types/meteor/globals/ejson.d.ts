@@ -30,13 +30,7 @@ declare module EJSON {
 
     function clone<T>(val: T): T;
 
-    function equals(
-        a: EJSON,
-        b: EJSON,
-        options?: {
-            keyOrderSensitive?: boolean;
-        },
-    ): boolean;
+    function equals(a: EJSON, b: EJSON, options?: { keyOrderSensitive?: boolean }): boolean;
 
     function fromJSONValue(val: JSONable): any;
 

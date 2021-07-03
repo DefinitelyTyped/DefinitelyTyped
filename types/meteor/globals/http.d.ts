@@ -3,22 +3,16 @@ declare module HTTP {
         content?: string;
         data?: any;
         query?: string;
-        params?: {
-            [id: string]: string;
-        };
+        params?: { [id: string]: string };
         auth?: string;
-        headers?: {
-            [id: string]: string;
-        };
+        headers?: { [id: string]: string };
         timeout?: number;
         followRedirects?: boolean;
     }
 
     interface HTTPResponse {
         statusCode?: number;
-        headers?: {
-            [id: string]: string;
-        };
+        headers?: { [id: string]: string };
         content?: string;
         data?: any;
     }
