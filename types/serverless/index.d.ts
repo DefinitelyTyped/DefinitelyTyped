@@ -7,6 +7,7 @@
 //                 Bryan Hunter <https://github.com/bryan-hunter>
 //                 Thomas Aribart <https://github.com/thomasaribart>
 //                 Gareth Jones <https://github.com/G-Rath>
+//                 Abdullah Ali <https://github.com/AbdullahAli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require('./classes/Service');
@@ -77,7 +78,7 @@ declare class Serverless {
     getVersion(): string;
 
     cli: {
-        log(message: string): null;
+        log(message: string, entity?: string, options?: object): null;
     };
 
     providers: {};
