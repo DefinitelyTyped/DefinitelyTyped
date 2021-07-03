@@ -9,6 +9,8 @@
  * @param options Optional parameters.
  */
 export function extractColors(src: string, options?: Options): Promise<Colors[]>;
+export function extractColorsFromSrc(src: string, option?: Options): Colors[];
+export function extractColorsFromImageData(imageData: string, option?: Options): Colors[];
 
 export interface Options {
     /**
