@@ -59,7 +59,7 @@ export class Moddle {
      * var foo = moddle.create('my:Foo');
      * var bar = moddle.create('my:Bar', { id: 'BAR_1' });
      */
-    create(descriptor: Moddle.Descriptor | string, attrs?: object): Moddle.Element;
+    create(descriptor: Moddle.Descriptor | string, attrs?: { [key: string]: any }): Moddle.Element;
 
     /**
      * Returns the type representing a given descriptor
@@ -88,7 +88,7 @@ export class Moddle {
      *   any: [ foo ]
      * });
      */
-    createAny(name: string, nsUri: string, properties: object): Moddle.AnyElement;
+    createAny(name: string, nsUri: string, properties: { [key: string]: any }): Moddle.AnyElement;
 
     /**
      * Returns a registered package by uri or prefix
@@ -166,7 +166,7 @@ export interface PackageDefinition {
  * A type is a moddle element with a (package-) unique name and a list of properties.
  */
 export interface TypeDefinition {
-    meta?: object;
+    meta?: { [key: string]: any };
     name: string;
     properties?: PropertyDefinition[];
     traits?: string[];
@@ -246,7 +246,7 @@ export class Properties {
     /**
      * Define a property on the target element.
      */
-    define(target: Element, name: string, options: object): void;
+    define(target: Element, name: string, options: { [key: string]: any }): void;
 
     /**
      * Define the descriptor for an element.
