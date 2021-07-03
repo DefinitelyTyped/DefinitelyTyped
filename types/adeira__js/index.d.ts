@@ -22,4 +22,6 @@ export function sprintf(format: string, ...args: ReadonlyArray<any>): string;
 
 export function warning(condition: boolean, format: string, ...args: ReadonlyArray<any>): void;
 
+export function rangeMap<T>(n: number, fn: (i: number) => T): ReadonlyArray<T>;
+
 export {};

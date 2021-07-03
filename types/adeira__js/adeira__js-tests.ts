@@ -1,4 +1,14 @@
-import { invariant, warning, sprintf, isObject, isObjectEmpty, isNumeric, nullthrows, isBrowser } from '@adeira/js';
+import {
+    invariant,
+    warning,
+    sprintf,
+    isObject,
+    isObjectEmpty,
+    isNumeric,
+    nullthrows,
+    isBrowser,
+    rangeMap,
+} from '@adeira/js';
 
 invariant(true, 'message');
 invariant('true', 'message'); // $ExpectError
@@ -35,3 +45,7 @@ nullthrows(1);
 nullthrows('1');
 
 isBrowser();
+
+rangeMap<string>(5, i => i.toString());
+rangeMap<number>(5, i => i.toString()); // $ExpectError
+rangeMap<string>('5', i => i.toString()); // $ExpectError
