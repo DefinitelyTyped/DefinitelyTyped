@@ -527,3 +527,7 @@ declare module 'child_process' {
     function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
     function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
 }
+
+declare module 'node:child_process' {
+    export * from 'child_process';
+}

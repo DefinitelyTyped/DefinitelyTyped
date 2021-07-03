@@ -226,41 +226,41 @@ export interface ServiceMap<TProcessor, THandler> {
 }
 
 export interface ServiceOptions<TProcessor, THandler> {
-    transport?: TTransportConstructor;
-    protocol?: TProtocolConstructor;
-    processor?: { new(handler: THandler): TProcessor };
-    handler?: THandler;
+    transport?: TTransportConstructor | undefined;
+    protocol?: TProtocolConstructor | undefined;
+    processor?: { new(handler: THandler): TProcessor } | undefined;
+    handler?: THandler | undefined;
 }
 
 export interface ServerOptions<TProcessor, THandler> extends ServiceOptions<TProcessor, THandler> {
-    cors?: string[];
-    files?: string;
-    headers?: HttpHeaders;
-    services?: ServiceMap<TProcessor, THandler>;
-    tls?: tls.TlsOptions;
+    cors?: string[] | undefined;
+    files?: string | undefined;
+    headers?: HttpHeaders | undefined;
+    services?: ServiceMap<TProcessor, THandler> | undefined;
+    tls?: tls.TlsOptions | undefined;
 }
 
 export interface ConnectOptions {
-    transport?: TTransportConstructor;
-    protocol?: TProtocolConstructor;
-    path?: string;
-    headers?: HttpHeaders;
-    https?: boolean;
-    debug?: boolean;
-    max_attempts?: number;
-    retry_max_delay?: number;
-    connect_timeout?: number;
-    timeout?: number;
-    nodeOptions?: http.RequestOptions | https.RequestOptions;
+    transport?: TTransportConstructor | undefined;
+    protocol?: TProtocolConstructor | undefined;
+    path?: string | undefined;
+    headers?: HttpHeaders | undefined;
+    https?: boolean | undefined;
+    debug?: boolean | undefined;
+    max_attempts?: number | undefined;
+    retry_max_delay?: number | undefined;
+    connect_timeout?: number | undefined;
+    timeout?: number | undefined;
+    nodeOptions?: http.RequestOptions | https.RequestOptions | undefined;
 }
 
 export interface WSConnectOptions {
-    transport?: TTransportConstructor;
-    protocol?: TProtocolConstructor;
-    path?: string;
-    headers?: HttpHeaders;
-    secure?: boolean;
-    wsOptions?: WSOptions;
+    transport?: TTransportConstructor | undefined;
+    protocol?: TProtocolConstructor | undefined;
+    path?: string | undefined;
+    headers?: HttpHeaders | undefined;
+    secure?: boolean | undefined;
+    wsOptions?: WSOptions | undefined;
 }
 
 export type TClientConstructor<TClient> =

@@ -150,3 +150,7 @@ declare module 'vm' {
      */
     function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
 }
+
+declare module 'node:vm' {
+    export * from 'vm';
+}

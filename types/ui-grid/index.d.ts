@@ -494,7 +494,7 @@ declare namespace uiGrid {
          * reference to the application scope (the parent scope of the ui-grid element). Assigned in ui-grid controller
          * use gridOptions.appScopeProvider to override the default assignment of $scope.$parent with any reference
          */
-        appScope?: ng.IScope;
+        appScope?: ng.IScope | undefined;
         /**
         * returns an array of columns in the grid
         */
@@ -502,33 +502,33 @@ declare namespace uiGrid {
         /**
          * returns the total column footer height
          */
-        columnFooterHeight?: number;
+        columnFooterHeight?: number | undefined;
         /**
          * returns the total footer height gridFooter + columnFooter
          */
-        footerHeight?: number;
+        footerHeight?: number | undefined;
         /**
          * returns or sets grid height in pixels
          */
-        gridHeight?: number;
+        gridHeight?: number | undefined;
         /**
          * set to true when Grid is scrolling horizontally. Set to false via debounced method
          */
-        isScrollingHorizontally?: boolean;
+        isScrollingHorizontally?: boolean | undefined;
         /**
          * set to true when Grid is scrolling vertically. Set to false via debounced method
          */
-        isScrollingVertically?: boolean;
+        isScrollingVertically?: boolean | undefined;
         /**
          * set one of the uiGridConstants.scrollDirection values (UP, DOWN, LEFT, RIGHT, NONE),
          * which tells us which direction we are scrolling. Set to NONE via debounced method
          */
-        scrollDirection?: number;
+        scrollDirection?: number | undefined;
         
         id: number;
     }
     export interface IBuildColumnsOptions {
-        orderByColumnDefs?: boolean;
+        orderByColumnDefs?: boolean | undefined;
     }
     export interface IStyleComputation {
         ($scope: ng.IScope): string;
@@ -556,25 +556,25 @@ declare namespace uiGrid {
         /**
          * Default time in milliseconds to throttle aggregation calcuations, defaults to 500ms
          */
-        aggregationCalcThrottle?: number;
+        aggregationCalcThrottle?: number | undefined;
         /**
          * by default, the parent scope of the ui-grid element will be assigned to grid.appScope
          * this property allows you to assign any reference you want to grid.appScope
          */
-        appScopeProvider?: ng.IScope | Object;
+        appScopeProvider?: ng.IScope | Object | undefined;
         /**
          * Array of columnDef objects.  Only required property is name.
          */
-        columnDefs?: Array<IColumnDefOf<TEntity>>;
+        columnDefs?: Array<IColumnDefOf<TEntity>> | undefined;
         /**
          * The height of the footer rows (column footer and grid footer) in pixels
          */
-        columnFooterHeight?: number;
+        columnFooterHeight?: number | undefined;
         /**
          * Turn virtualization on when number of columns goes over this number, defaults to 10
          * @default 10
          */
-        columnVirtualizationThreshold?: number;
+        columnVirtualizationThreshold?: number | undefined;
         /**
          * (mandatory) Array of data to be rendered into the grid, providing the data source or data binding for
          * the grid.
@@ -609,40 +609,40 @@ declare namespace uiGrid {
          * Where you do this, you need to take care in updating the data - you can't just update `$scope.myData` to some
          * other array, you need to update $scope.gridOptions.data to point to that new array as well.
          */
-        data?: Array<TEntity> | string;
+        data?: Array<TEntity> | string | undefined;
         /**
          * True by default. When enabled, this setting displays a column
          * menu within each column.
          * @default true
          */
-        enableColumnMenus?: boolean;
+        enableColumnMenus?: boolean | undefined;
         /**
          * False by default. When enabled, this setting adds filter
          * boxes to each column header, allowing filtering within the column for the entire grid.
          * Filtering can then be disabled on individual columns using the columnDefs.
          * @default false
          */
-        enableFiltering?: boolean;
+        enableFiltering?: boolean | undefined;
         /**
         * False by default. When enabled, this adds a settings icon in the top right of the grid,
         * which floats above the column header. The menu by default gives access to show/hide columns,
         * but can be customized to show additional actions.
         * @default false
         */
-        enableGridMenu?: boolean;
+        enableGridMenu?: boolean | undefined;
         /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the horizontal scrollbar for the grid.
          * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER, uiGridConstants.scrollbars.WHEN_NEEDED
          * @default 1
          */
-        enableHorizontalScrollbar?: boolean | number;
+        enableHorizontalScrollbar?: boolean | number | undefined;
         /**
          * True by default. When enabled, a newly initialized grid will check to see if it is tall enough to display
          * at least one row of data.  If the grid is not tall enough, it will resize the DOM element to display
          * minRowsToShow number of rows.
          * @default true
          */
-        enableMinHeightCheck?: boolean;
+        enableMinHeightCheck?: boolean | undefined;
         /**
          * True by default. When enabled, this setting allows uiGrid to add
          * `$$hashKey`-type properties (similar to Angular) to elements in the `data` array. This allows
@@ -655,32 +655,32 @@ declare namespace uiGrid {
          * and are altering the data set often.
          * @default true
          */
-        enableRowHashing?: boolean;
+        enableRowHashing?: boolean | undefined;
         /**
          * True by default. When enabled, this setting adds sort
          * widgets to the column headers, allowing sorting of the data for the entire grid.
          * Sorting can then be disabled on individual columns using the columnDefs.
          * @default true
          */
-        enableSorting?: boolean;
+        enableSorting?: boolean | undefined;
         /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the vertical scrollbar for the grid.
          * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER, uiGridConstants.scrollbars.WHEN_NEEDED
          * @default 1
          */
-        enableVerticalScrollbar?: boolean | number;
+        enableVerticalScrollbar?: boolean | number | undefined;
         /**
          * Extra columns to to render outside of the viewport, which helps with smoothness of scrolling.
          * Defaults to 4
          * @default 4
          */
-        excessColumns?: number;
+        excessColumns?: number | undefined;
         /**
          * Extra rows to to render outside of the viewport, which helps with smoothness of scrolling.
          * Defaults to 4
          * @default 4
          */
-        excessRows?: number;
+        excessRows?: number | undefined;
         /**
          * Array of property names in data to ignore when auto-generating column names.  Provides the
          * inverse of columnDefs - columnDefs is a list of columns to include, excludeProperties is a list of columns
@@ -690,7 +690,7 @@ declare namespace uiGrid {
          *
          * Defaults to ['$$hashKey']
          */
-        excludeProperties?: Array<string>;
+        excludeProperties?: Array<string> | undefined;
         /**
          * Set to true if your columns are all related directly to fields in a flat object structure - i.e.
          * each of your columns associate directly with a propery one each of the entities in your data array.
@@ -702,7 +702,7 @@ declare namespace uiGrid {
          * By default false
          * @default false
          */
-        flatEntityAccess?: boolean;
+        flatEntityAccess?: boolean | undefined;
         /**
          * (optional) ui-grid/ui-grid-footer by default.  This footer shows the per-column
          * aggregation totals.
@@ -713,13 +713,13 @@ declare namespace uiGrid {
          * information.
          * @default 'ui-grid/ui-grid-footer'
          */
-        footerTemplate?: string;
+        footerTemplate?: string | undefined;
         /**
          * (optional) ui-grid/ui-grid-grid-footer by default. This template by default shows the
          * total items at the bottom of the grid, and the selected items if selection is enabled.
          * @default 'ui-grid/ui-grid-grid-footer'
          */
-        gridFooterTemplate?: string
+        gridFooterTemplate?: string | undefined
         /**
          * Null by default. When provided, this setting uses a custom header
          * template, rather than the default template. Can be set to either the name of a template file:
@@ -737,46 +737,46 @@ declare namespace uiGrid {
          * current 'ui-grid-header.html' template in github as your starting point.
          * @default null
          */
-        headerTemplate?: string;
+        headerTemplate?: string | undefined;
         /**
          * Defaults to 4
          * @default 4
          */
-        horizontalScrollThreshold?: number;
+        horizontalScrollThreshold?: number | undefined;
         /**
          * Number of rows from the end of the dataset
          * at which infinite scroll will trigger a request
          * for more data
          * @default 20
          */
-        infiniteScrollRowsFromEnd?: number;
+        infiniteScrollRowsFromEnd?: number | undefined;
         /**
          * Inform the grid of whether there are rows
          * to load when scrolling up
          * @default false
          */
-        infiniteScrollUp?: boolean;
+        infiniteScrollUp?: boolean | undefined;
         /**
          * Inform the grid of whether there are rows
          * to load scrolling down
          * @default true
          */
-        infiniteScrollDown?: boolean;
+        infiniteScrollDown?: boolean | undefined;
         /**
          * Defaults to 200
          * @default 200
          */
-        maxVisibleColumnCount?: number;
+        maxVisibleColumnCount?: number | undefined;
         /**
          * Minimum number of rows to show when the grid doesn't have a defined height. Defaults to "10".
          * @default 10
          */
-        minRowsToShow?: number;
+        minRowsToShow?: number | undefined;
         /**
          * Columns can't be smaller than this, defaults to 10 pixels
          * @default 10
          */
-        minimumColumnSize?: number;
+        minimumColumnSize?: number | undefined;
         /**
          * A callback that returns the gridApi once the grid is instantiated, which is
          * then used to interact with the grid programatically.
@@ -786,12 +786,12 @@ declare namespace uiGrid {
          * if needed
          * @param gridApi
          */
-        onRegisterApi?: (gridApi: IGridApiOf<TEntity>) => void;
+        onRegisterApi?: ((gridApi: IGridApiOf<TEntity>) => void) | undefined;
         /**
          * The height of the row in pixels, defaults to 30
          * @default 30
          */
-        rowHeight?: number;
+        rowHeight?: number | undefined;
         /**
          * 'ui-grid/ui-grid-row' by default. When provided, this setting uses a
          * custom row template.  Can be set to either the name of a template file:
@@ -806,56 +806,56 @@ declare namespace uiGrid {
          * </br>Refer to the custom row template tutorial for more information.
          * @default 'ui-grid/ui-grid-row'
          */
-        rowTemplate?: string;
+        rowTemplate?: string | undefined;
         /**
          * Default time in milliseconds to debounce scroll events, defaults to 300ms
          * @default 300
          */
-        scrollDebounce?: number;
+        scrollDebounce?: number | undefined;
         /**
          * Defaults to 4
          * @default 4
          */
-        scrollThreshold?: number;
+        scrollThreshold?: number | undefined;
         /**
          * Whether or not to show the column footer, defaults to false
          * The column footer displays column aggregates
          * @default false
          */
-        showColumnFooter?: boolean;
+        showColumnFooter?: boolean | undefined;
         /**
          * Whether or not to show the footer, defaults to false
          * The footer display Total Rows and Visible Rows (filtered rows)
          * @default false
          */
-        showGridFooter?: boolean;
+        showGridFooter?: boolean | undefined;
         /**
          * True by default. When set to false, this setting will replace the
          * standard header template with '<div></div>', resulting in no header being shown.
          * @default true
          */
-        showHeader?: boolean;
+        showHeader?: boolean | undefined;
         /**
          * Turn virtualization on when number of data elements goes over this number, defaults to 20
          * @default 20
          */
-        virtualizationThreshold?: number;
+        virtualizationThreshold?: number | undefined;
         /**
          * Disables client side filtering. When true, handle the filterChanged event and set data,
          * defaults to false
          * @default false
          */
-        useExternalFiltering?: boolean;
+        useExternalFiltering?: boolean | undefined;
         /**
          * Disables client side sorting. When true, handle the sortChanged event and do the sorting there
          * @default false
          */
-        useExternalSorting?: boolean;
+        useExternalSorting?: boolean | undefined;
         /**
          * Default time in milliseconds to throttle scroll events to, defaults to 70ms
          * @default 70
          */
-        wheelScrollThrottle?: number;
+        wheelScrollThrottle?: number | undefined;
         /**
          * This function returns the identity value uniquely identifying this row,
          * if one is not present it does not set it.
@@ -882,7 +882,7 @@ declare namespace uiGrid {
          */
         rowIdentity?(row: IGridRowOf<TEntity>): any;
 
-        fastWatch?: boolean;
+        fastWatch?: boolean | undefined;
     }
     export interface IGridCoreApi<TEntity> {
         // Methods
@@ -1163,7 +1163,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            allowCellFocus?: boolean;
+            allowCellFocus?: boolean | undefined;
         }
 
         /**
@@ -1175,7 +1175,7 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            modifierKeysToMultiSelectCells?: boolean;
+            modifierKeysToMultiSelectCells?: boolean | undefined;
         }
 
         /**
@@ -1187,7 +1187,7 @@ declare namespace uiGrid {
              * Group header rows, for example, would set this to false.
              * Defaults to true
              */
-            allowCellFocus?: boolean;
+            allowCellFocus?: boolean | undefined;
         }
 
         export interface ICellNavApi<TEntity> {
@@ -1323,13 +1323,13 @@ declare namespace uiGrid {
              * If specified, either a value or function evaluated before editing cell.
              * If falsy, then editing of cell is not allowed.
              */
-            cellEditableCondition?: any | { ($scope: ng.IScope): boolean };
+            cellEditableCondition?: any | { ($scope: ng.IScope): boolean } | undefined;
             /** A filter that you would like to apply to the values in the options list of the dropdown */
-            editDropdownFilter?: string;
+            editDropdownFilter?: string | undefined;
             /** the label for the "id" field in the editDropdownOptionsArray. Defaults to 'id' */
-            editDropdownIdLabel?: string;
+            editDropdownIdLabel?: string | undefined;
             /** an array of values in the format [ {id: xxx, value: xxx} ], which is populated into the edit dropdown */
-            editDropdownOptionsArray?: Array<IEditDropdown>;
+            editDropdownOptionsArray?: Array<IEditDropdown> | undefined;
             /**
              * a path to a property on row.entity containing an array of values in the format `[{id: xxx, value:
              * xxx}]`,
@@ -1337,9 +1337,9 @@ declare namespace uiGrid {
              * dependent on the backing row entity.  If this property is set then editDropdownOptionsArray will be
              * ignored.
              */
-            editDropdownRowEntityOptionsArrayPath?: string;
+            editDropdownRowEntityOptionsArrayPath?: string | undefined;
             /** the label of the 'value' field in the editDropdownOptionsArray.  Defaults to 'value' */
-            editDropdownValueLabel?: string;
+            editDropdownValueLabel?: string | undefined;
             /**
              * A function that should be called when any files have been chosen by the user.
              * You should use this to process the files appropriately for your application.
@@ -1370,9 +1370,9 @@ declare namespace uiGrid {
                reader.readAsText( files[0] );
            }
              */
-            editFileChooserCallback?: (gridRow: uiGrid.IGridRowOf<TEntity>,
+            editFileChooserCallback?: ((gridRow: uiGrid.IGridRowOf<TEntity>,
                                        gridCol: IGridColumnOf<TEntity>,
-                                       files: FileList) => void;
+                                       files: FileList) => void) | undefined;
             /**
              * A bindable string value that is used when binding to edit controls instead of colDef.field
              * For example if you have a complex property on an object like:
@@ -1385,18 +1385,18 @@ declare namespace uiGrid {
              colDef.field = 'state.name';
              colDef.editModelField = 'state';
              */
-            editModelField?: string;
+            editModelField?: string | undefined;
             /**
              * Cell template to be used when editing this column. Can be Url or text template.
              * Defaults to gridOptions.editableCellTemplate
              */
-            editableCellTemplate?: string;
+            editableCellTemplate?: string | undefined;
             /** Enable editing on a column */
-            enableCellEdit?: boolean;
+            enableCellEdit?: boolean | undefined;
             /** If true, then editor is invoked as soon as cell receives focus. Default false.
              * _Requires both the cellNav feature and the edit feature to be enabled_
              */
-            enableCellEditOnFocus?: boolean;
+            enableCellEditOnFocus?: boolean | undefined;
         }
 
         export interface IEditDropdown {
@@ -1412,27 +1412,27 @@ declare namespace uiGrid {
              * If specified, either a value or function to be used by all columns before editing.
              * If falsy, then editing of cell is not allowed
              */
-            cellEditableCondition?: any | { ($scope: ng.IScope): boolean };
+            cellEditableCondition?: any | { ($scope: ng.IScope): boolean } | undefined;
             /**
              * If specified, cellTemplate to use as the editor for all columns.
              * defaults to 'ui-grid/cellTextEditor'
              * @default 'ui-grid/cellTextEditor'
              */
-            editableCellTemplate?: string;
+            editableCellTemplate?: string | undefined;
             /**
              * If defined, sets the default value for the editable flag on each individual colDefs if their individual
              * enableCellEdit configuration is not defined.
              * Defaults to undefined.
              * @default undefined
              */
-            enableCellEdit?: boolean;
+            enableCellEdit?: boolean | undefined;
             /**
              * If true, then editor is invoked as soon as cell receives focus.
              * Default false.
              * _requires cellNav feature and the edit feature to be enabled_
              * @default false
              */
-            enableCellEditOnFocus?: boolean;
+            enableCellEditOnFocus?: boolean | undefined;
         }
 
         /**
@@ -1440,7 +1440,7 @@ declare namespace uiGrid {
          */
         export interface IGridRow {
             /** enable editing on row, grouping for example might disable editing on group header rows */
-            enableCellEdit?: boolean;
+            enableCellEdit?: boolean | undefined;
         }
 
         /**
@@ -1521,32 +1521,32 @@ declare namespace uiGrid {
             /**
              * Width in pixels of the expandable column. Defaults to 40
              */
-            expandableRowHeaderWidth?: number;
+            expandableRowHeaderWidth?: number | undefined;
             /**
              * Whether or not to use expandable feature.  Allows you to turn off expandable on specific grids within
              * your application, or in specific modes on this grid.
              * Defaults to true.
              */
-            enableExpandable?: boolean;
+            enableExpandable?: boolean | undefined;
             /**
              * Show a rowHeader to provide the expandable buttons. If set to false then implies you're going to use a
              * custom method for expanding and collapsing the subgrids.
              * Defaults to true.
              */
-            enableExpandableRowHeader?: boolean;
+            enableExpandableRowHeader?: boolean | undefined;
             /**
              * Height in pixels of the expanded subgrid.
              * Defaults to 150
              */
-            expandableRowHeight?: number;
+            expandableRowHeight?: number | undefined;
             /**
              * reference to the parent grid scope (the parent scope of the sub-grid element)
              */
-            expandableRowScope?: ng.IScope | Object;
+            expandableRowScope?: ng.IScope | Object | undefined;
             /**
              * Mandatory. The template for your expanded row
              */
-            expandableRowTemplate?: string;
+            expandableRowTemplate?: string | undefined;
         }
 
         /**
@@ -1600,7 +1600,7 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            isExpanded?: boolean;
+            isExpanded?: boolean | undefined;
         }
     }
 
@@ -1613,11 +1613,11 @@ declare namespace uiGrid {
              * the alignment you'd like for this specific column when exported into a pdf.
              * Can be 'left', 'right', 'center' or any other valid pdfMake alignment option.
              */
-            exporterPdfAlign?: string;
+            exporterPdfAlign?: string | undefined;
             /**
              * Suppresses export for this column. Used by selection and expandable.
              */
-            exporterSuppressExport?: boolean;
+            exporterSuppressExport?: boolean | undefined;
         }
 
         /**
@@ -1630,7 +1630,7 @@ declare namespace uiGrid {
              * @default null
              * @returns A promise to load all data from server
              */
-            exporterAllDataFn?: () => ng.IPromise<Array<TEntity>>;
+            exporterAllDataFn?: (() => ng.IPromise<Array<TEntity>>) | undefined;
             /**
              * @deprecated
              * DEPRECATED - exporterAllDataFn used to be called this, but it wasn't a promise,
@@ -1638,19 +1638,19 @@ declare namespace uiGrid {
              * use exporterAllDataFn instead.
              * @returns A promise to load all data from server
              */
-            exporterAllDataPromise?: () => ng.IPromise<Array<TEntity>>;
+            exporterAllDataPromise?: (() => ng.IPromise<Array<TEntity>>) | undefined;
             /**
              * The character to use as column separator link
              * Defaults to ','
              * @default ','
              */
-            exporterCsvColumnSeparator?: string;
+            exporterCsvColumnSeparator?: string | undefined;
             /**
              * The default filename to use when saving the downloaded csv. This will only work in some browsers.
              * Defaults to 'download.csv'
              * @default 'download.csv'
              */
-            exporterCsvFilename?: string;
+            exporterCsvFilename?: string | undefined;
             /**
              * A function to call for each field before exporting it.
              * Allows massaging of raw data into a display format, for example if you have applied filters to convert
@@ -1664,10 +1664,10 @@ declare namespace uiGrid {
              * @param value The cell value
              * @returns Formatted value
              */
-            exporterFieldCallback?: (grid: IGridInstanceOf<TEntity>,
+            exporterFieldCallback?: ((grid: IGridInstanceOf<TEntity>,
                                      row: uiGrid.IGridRowOf<TEntity>,
                                      col: IGridColumnOf<TEntity>,
-                                     value: any) => any;
+                                     value: any) => any) | undefined;
             /**
              * A function to apply to the header displayNames before exporting. Useful for internationalisation,
              * for example if you were using angular-translate you'd set this to $translate.instant.
@@ -1678,40 +1678,40 @@ declare namespace uiGrid {
              * @param displayName
              * @returns The filtered header
              */
-            exporterHeaderFilter?: (displayName: string) => string;
+            exporterHeaderFilter?: ((displayName: string) => string) | undefined;
             /**
              * Defaults to false, which leads to displayName being passed into the headerFilter.
              * If set to true, then will pass name instead.
              * @default false
              */
-            exporterHeaderFilterUseName?: boolean;
+            exporterHeaderFilterUseName?: boolean | undefined;
             /**
              * Add csv export menu items to the ui-grid grid menu, if it's present. Defaults to true.
              * @default true
              */
-            exporterMenuCsv?: boolean;
+            exporterMenuCsv?: boolean | undefined;
             /**
              * Add excel export menu items to the ui-grid grid menu, if it's present. Defaults to true.
              * @default true
              */
-            exporterMenuExcel?: boolean;
+            exporterMenuExcel?: boolean | undefined;
             /**
              * An option to determine the starting point for the menu items created by the exporter
              * @default 200
              */
-            exporterMenuItemOrder?: number;
+            exporterMenuItemOrder?: number | undefined;
             /**
              * The text to show on the exporter menu button link
              * Defaults to 'Export'
              * @default 'Export'
              */
-            exporterMenuLabel?: string;
+            exporterMenuLabel?: string | undefined;
             /**
              * Add pdf export menu items to the ui-grid grid menu, if it's present.
              * Defaults to true.
              * @default true
              */
-            exporterMenuPdf?: boolean;
+            exporterMenuPdf?: boolean | undefined;
             /**
              * Some versions of excel don't like the utf-16 BOM on the front,
              * and it comes through as ï»¿ in the first column header.
@@ -1720,7 +1720,7 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            exporterOlderExcelCompatibility?: boolean;
+            exporterOlderExcelCompatibility?: boolean | undefined;
             /**
              * A custom callback routine that changes the pdf document,
              * adding any custom styling or content that is supported by pdfMake.
@@ -1729,7 +1729,7 @@ declare namespace uiGrid {
              * In this example we add a style to the style array, so that we can use it in our footer definition.
              * @param docDefinition Document definition in pdfMake format
              */
-            exporterPdfCustomFormatter?: (docDefinition: any) => any;
+            exporterPdfCustomFormatter?: ((docDefinition: any) => any) | undefined;
             /**
              * The default style in pdfMake format
              * @todo replace with pdfmake format
@@ -1741,38 +1741,38 @@ declare namespace uiGrid {
              * Defaults to 'download.pdf'
              * @default 'download.pdf'
              */
-            exporterPdfFilename?: string;
+            exporterPdfFilename?: string | undefined;
             /**
              * The footer section for pdf exports. Can be simple text, a more complex object in pdfMake format, or it
              * can be a function, allowing page numbers and the like
              * @todo replace any with pdfmake format
              */
-            exporterPdfFooter?: string | any | { (currentPage: number, pageCount: number): string };
+            exporterPdfFooter?: string | any | { (currentPage: number, pageCount: number): string } | undefined;
             /**
              * The header section for pdf exports. Can be simple text, a more complex object in pdfMake format, or it
              * can be a function, allowing page numbers and the like
              * @todo replace any with pdfmake format
              */
-            exporterPdfHeader?: string | any | { (currentPage: number, pageCount: number): string };
+            exporterPdfHeader?: string | any | { (currentPage: number, pageCount: number): string } | undefined;
             /**
              * The maxium grid width - the current grid width will be scaled to match this,
              * with any fixed width columns being adjusted accordingly.
              * Defaults to 720 (for A4 landscape), use 670 for LETTER
              * @default 720
              */
-            exporterPdfMaxGridWidth?: number;
+            exporterPdfMaxGridWidth?: number | undefined;
             /**
              * The orientation, should be a valid pdfMake value, 'landscape' or 'portrait'
              * Defaults to landscape
              * @default 'landscape'
              */
-            exporterPdfOrientation?: string;
+            exporterPdfOrientation?: string | undefined;
             /**
              * The orientation, should be a valid pdfMake paper size, usually 'A4' or 'LETTER' pdfMake page sizes
              * Defaults to A4
              * @default 'A4'
              */
-            exporterPdfPageSize?: string;
+            exporterPdfPageSize?: string | undefined;
             /**
              * exporterPdfTableHeaderStyle
              * @todo replace any with pdfmake format
@@ -1803,13 +1803,13 @@ declare namespace uiGrid {
              * Defaults to: []
              * @default []
              */
-            exporterSuppressColumns?: Array<string>;
+            exporterSuppressColumns?: Array<string> | undefined;
             /**
              * Don't show the export menu button, implying the user will roll their own UI for calling the exporter
              * Defaults to false
              * @default false
              */
-            exporterSuppressMenu?: boolean;
+            exporterSuppressMenu?: boolean | undefined;
         }
 
         /**
@@ -1821,7 +1821,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            exporterEnableExporting?: boolean;
+            exporterEnableExporting?: boolean | undefined;
         }
 
         /**
@@ -1874,7 +1874,7 @@ declare namespace uiGrid {
          */
         export interface IColumnDef {
             /** Enable grouping on this column.  Defaults to true. */
-            enableGrouping?: boolean;
+            enableGrouping?: boolean | undefined;
             /**
              * Set the grouping for a column.
              * Note that aggregation used to be included in grouping, but is now separately set on the column via
@@ -1897,17 +1897,17 @@ declare namespace uiGrid {
                  * number, starts at 0, if less than 0 or undefined then we're aggregating in this column
                  */
                 groupPriority: number
-            };
+            } | undefined;
             /**
              * Show the aggregation menu on this column.  Defaults to true
              * @default true
              */
-            groupingShowAggregationMenu?: boolean;
+            groupingShowAggregationMenu?: boolean | undefined;
             /**
              * Show the grouping (group and ungroup items) menu on this column.  Defaults to true
              * @default true
              */
-            groupingShowGroupingMenu?: boolean;
+            groupingShowGroupingMenu?: boolean | undefined;
         }
 
         /**
@@ -1919,20 +1919,20 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            enableGrouping?: boolean;
+            enableGrouping?: boolean | undefined;
             /**
              * Enable row grouping for entire grid.
              * Defaults to true
              * @default true
              */
-            enableGroupHeaderSelection?: boolean;
+            enableGroupHeaderSelection?: boolean | undefined;
             /**
              * The string to use for the grouping header row label on rows which contain
              * a null or undefined value in the grouped column.
              * Defaults to "Null"
              * @default 'Null'
              */
-            groupingNullLabel?: string;
+            groupingNullLabel?: string | undefined;
             /**
              * Shows counts on the groupHeader rows.
              * Note that if you are using a cellFilter or a sortingAlgorithm which relies on a specific format or data
@@ -1940,7 +1940,7 @@ declare namespace uiGrid {
              * groupingShowCounts enabled. Defaults to true except on columns of type 'date'
              * @default true
              */
-            groupingShowCounts?: boolean;
+            groupingShowCounts?: boolean | undefined;
         }
 
         /**
@@ -2027,7 +2027,7 @@ declare namespace uiGrid {
             /**
              * Hash of currently expanded nodes
              */
-            expandedState?: IGridExpandedHash;
+            expandedState?: IGridExpandedHash | undefined;
         }
 
         export interface IGripGroup {
@@ -2088,7 +2088,7 @@ declare namespace uiGrid {
              * @param grid The grid we're importing into, may be useful in some way
              * @param newObjects An array of new objects that you should add to your data
              */
-            importerDataAddCallback?: (grid: IGridInstanceOf<TEntity>, newObjects: Array<TEntity>) => void;
+            importerDataAddCallback?: ((grid: IGridInstanceOf<TEntity>, newObjects: Array<TEntity>) => void) | undefined;
             /**
              * A callback function that provides custom error handling,
              * rather than the standard grid behaviour of an alert box and a console message.
@@ -2105,8 +2105,8 @@ declare namespace uiGrid {
              * @param context the context data that importer would have appended to that console message,
              *        often the file content itself or the element that is in error
              */
-            importerErrorCallback?: (grid: IGridInstanceOf<TEntity>, errorKey: string, consoleMessage: string,
-                context: any) => void;
+            importerErrorCallback?: ((grid: IGridInstanceOf<TEntity>, errorKey: string, consoleMessage: string,
+                context: any) => void) | undefined;
             /**
              * A callback function that will filter (usually translate) a single header.
              * Used when you want to match the passed in column names to the column displayName after the header filter.
@@ -2114,7 +2114,7 @@ declare namespace uiGrid {
              * @param displayName The displayName to translate
              * @returns The translated name
              */
-            importerHeaderFilter?: (displayName: string) => string;
+            importerHeaderFilter?: ((displayName: string) => string) | undefined;
             /**
              * A callback that massages the data for each object.
              * For example, you might have data stored as a code value, but display the decode.
@@ -2126,7 +2126,7 @@ declare namespace uiGrid {
              * @returns The modified object
              * @default angular.identity
              */
-            importerObjectCallback?: (grid: IGridInstanceOf<TEntity>, newObject: TEntity) => TEntity;
+            importerObjectCallback?: ((grid: IGridInstanceOf<TEntity>, newObject: TEntity) => TEntity) | undefined;
             /**
              * A callback function that will process headers using custom
              * logic.  Set this callback function if the headers that your user will provide in their
@@ -2145,14 +2145,14 @@ declare namespace uiGrid {
              * which you need to match to column.names
              * @returns array of matching column names, in the same order as the headerArray
              */
-            importerProcessHeaders?: (grid: IGridInstanceOf<TEntity>, headerArray: Array<string>) => Array<string>;
+            importerProcessHeaders?: ((grid: IGridInstanceOf<TEntity>, headerArray: Array<string>) => Array<string>) | undefined;
             /**
              * Whether or not importer is enabled.  Automatically set
              * to false if the user's browser does not support the required fileApi.
              * Otherwise defaults to true.
              * @default true
              */
-            enableImporter?: boolean;
+            enableImporter?: boolean | undefined;
             /**
              * An object on which we call `new` to create each new row before inserting it into
              * the data array.  Typically this would be a $resource entity, which means that if you're using
@@ -2161,13 +2161,13 @@ declare namespace uiGrid {
              * Defaults to a vanilla javascript object
              * @default {}
              */
-            importerNewObject?: Function;
+            importerNewObject?: Function | undefined;
             /**
              * Whether or not to show an item in the grid menu.
              * Defaults to true.
              * @default true
              */
-            importerShowMenu?: boolean;
+            importerShowMenu?: boolean | undefined;
         }
 
         /**
@@ -2202,7 +2202,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            enableInfiniteScroll?: boolean;
+            enableInfiniteScroll?: boolean | undefined;
         }
 
         /**
@@ -2309,7 +2309,7 @@ declare namespace uiGrid {
             /**
              * Enable column moving for the column
              */
-            enableColumnMoving?: boolean;
+            enableColumnMoving?: boolean | undefined;
         }
 
         /**
@@ -2322,7 +2322,7 @@ declare namespace uiGrid {
              * Defaults to true.
              * @default true
              */
-            enableColumnMoving?: boolean;
+            enableColumnMoving?: boolean | undefined;
         }
 
         export interface IGridMoveColumnsApi {
@@ -2341,7 +2341,7 @@ declare namespace uiGrid {
                  * @param scope Grid Scope
                  * @param handler Callback Function
                  */
-                columnPositionChanged?: (scope: ng.IScope, handler: columnPositionChangedHandler) => void;
+                columnPositionChanged?: ((scope: ng.IScope, handler: columnPositionChangedHandler) => void) | undefined;
             };
         }
         export interface columnPositionChangedHandler {
@@ -2358,42 +2358,42 @@ declare namespace uiGrid {
              * Enables pagination, defaults to true
              * @default true
              */
-            enablePagination?: boolean;
+            enablePagination?: boolean | undefined;
             /**
              * Enables the paginator at the bottom of the grid. Turn this off, if you want to implement your own
              * controls outside the grid
              */
-            enablePaginationControls?: boolean;
+            enablePaginationControls?: boolean | undefined;
             /**
              * Current page number, defaults to 1
              * @default 1
              */
-            paginationCurrentPage?: number;
+            paginationCurrentPage?: number | undefined;
             /**
              * Page size, defaults to the first item in paginationPageSizes, or 0 if paginationPageSizes is empty
              */
-            paginationPageSize?: number;
+            paginationPageSize?: number | undefined;
             /**
              * Array of page sizes, defaults to [250, 500, 1000]
              * @default [250, 500, 1000]
              */
-            paginationPageSizes?: Array<number>;
+            paginationPageSizes?: Array<number> | undefined;
             /**
              * A custom template for the pager, defaults to ui-grid/pagination
              * @default 'ui-grid/pagination'
              */
-            paginationTemplate?: string;
+            paginationTemplate?: string | undefined;
             /**
              * Total number of items, set automatically when client side pagination,
              * needs set by user for server side pagination
              */
-            totalItems?: number;
+            totalItems?: number | undefined;
             /**
              * Disables client side pagination. When true, handle the paginationChanged event and set data and
              * totalItems, defaults to false
              * @default false
              */
-            useExternalPagination?: boolean;
+            useExternalPagination?: boolean | undefined;
         }
         export interface IGridPaginationApi {
             // Methods
@@ -2451,17 +2451,17 @@ declare namespace uiGrid {
              * Enable pinning for the individual column.  Defaults to true
              * @default true
              */
-            enablePinning?: boolean;
+            enablePinning?: boolean | undefined;
             /**
              * Column is pinned left when grid is rendered.  Defaults to false
              * @default false
              */
-            pinnedLeft?: boolean;
+            pinnedLeft?: boolean | undefined;
             /**
              * Column is pinned right when grid is rendered.  Defaults to false
              * @default false
              */
-            pinnedRight?: boolean;
+            pinnedRight?: boolean | undefined;
         }
 
         /**
@@ -2473,7 +2473,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            enablePinning?: boolean;
+            enablePinning?: boolean | undefined;
         }
 
         export interface IGridPinningApi<TEntity> {
@@ -2524,7 +2524,7 @@ declare namespace uiGrid {
              * Enable column resizing on an individual column
              * Defaults to GridOptions.enableColumnResizing
              */
-            enableColumnResizing?: boolean;
+            enableColumnResizing?: boolean | undefined;
         }
         /**
          * Column Resizing Grid Options
@@ -2535,7 +2535,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            enableColumnResizing?: boolean;
+            enableColumnResizing?: boolean | undefined;
         }
 
         /**
@@ -2573,7 +2573,7 @@ declare namespace uiGrid {
              * If set to -1, then saves are never triggered by timer
              * (implying that the user will call flushDirtyRows() manually)
              */
-            rowEditWaitInterval?: number;
+            rowEditWaitInterval?: number | undefined;
         }
 
         export interface IGridRowEditApi<TEntity> {
@@ -2658,7 +2658,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            saveFilter?: boolean;
+            saveFilter?: boolean | undefined;
             /**
              * Save the current focused cell. On returning to this focused cell we'll also scroll.
              * This option is preferred to the saveScroll option, so is set to true by default.
@@ -2675,13 +2675,13 @@ declare namespace uiGrid {
              * Defaults to true (unless saveScroll is true)
              * @default true
              */
-            saveFocus?: boolean;
+            saveFocus?: boolean | undefined;
             /**
              * Save the grouping configuration. If set to true and the grouping feature is not enabled then does
              * nothing. Defaults to true
              * @default true
              */
-            saveGrouping?: boolean;
+            saveGrouping?: boolean | undefined;
             /**
              * Save the grouping row expanded states.
              * If set to true and the grouping feature is not enabled then does nothing.
@@ -2691,7 +2691,7 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            saveGroupingExpandedStates?: boolean;
+            saveGroupingExpandedStates?: boolean | undefined;
             /**
              * Restore the current column order.
              * Note that unless you've provided the user with some way to reorder their columns
@@ -2699,13 +2699,13 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            saveOrder?: boolean;
+            saveOrder?: boolean | undefined;
             /**
              * Save pinning state for columns.
              * Defaults to true
              * @default true
              */
-            savePinning?: boolean;
+            savePinning?: boolean | undefined;
             /**
              * A function that can be called, passing in a rowEntity, and that will return a unique id for that row.
              * This might simply return the id field from that row (if you have one),
@@ -2716,7 +2716,7 @@ declare namespace uiGrid {
              * Defaults to undefined
              * @default undefined
              */
-            saveRowIdentity?: boolean;
+            saveRowIdentity?: boolean | undefined;
             /**
              * Save the current scroll position.
              * Note that this is saved as the percentage of the grid scrolled -
@@ -2730,7 +2730,7 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            saveScroll?: boolean;
+            saveScroll?: boolean | undefined;
             /**
              * Save the currently selected rows.
              * If the saveRowIdentity callback is defined, then it will save the id of the row and select that.
@@ -2742,27 +2742,27 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            saveSelection?: boolean;
+            saveSelection?: boolean | undefined;
             /**
              * Save the current sort state for each column
              * Defaults to true
              *
              * @default true
              */
-            saveSort?: boolean;
+            saveSort?: boolean | undefined;
             /**
              * Save the treeView configuration. If set to true and the treeView feature is not enabled then does
              * nothing.
              *
              * @default true;
              */
-            saveTreeView?: boolean;
+            saveTreeView?: boolean | undefined;
             /**
              * Save whether or not columns are visible
              * Defaults to true
              * @default true
              */
-            saveVisible?: boolean;
+            saveVisible?: boolean | undefined;
             /**
              * Save the current column widths.
              * Note that unless you've provided the user with some way to resize their columns
@@ -2770,7 +2770,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            saveWidths?: boolean;
+            saveWidths?: boolean | undefined;
         }
 
         export interface IGridSaveStateApi {
@@ -2789,8 +2789,8 @@ declare namespace uiGrid {
         }
 
         export interface IGridSavedState {
-            columns?: Array<ISavedColumn>;
-            scrollFocus?: ISavedScrollFocus;
+            columns?: Array<ISavedColumn> | undefined;
+            scrollFocus?: ISavedScrollFocus | undefined;
             selection: Array<IRowVal>;
             grouping: grouping.IGridGroupingConfiguration;
             treeView: treeBase.ITreeState;
@@ -2798,17 +2798,17 @@ declare namespace uiGrid {
 
         interface ISavedColumn {
             name: string;
-            visible?: boolean;
-            width?: number;
-            sort?: ISortInfo;
-            filters?: Array<IFilterOptions>;
-            pinned?: string;
+            visible?: boolean | undefined;
+            width?: number | undefined;
+            sort?: ISortInfo | undefined;
+            filters?: Array<IFilterOptions> | undefined;
+            pinned?: string | undefined;
         }
 
         interface ISavedScrollFocus {
-            focus?: boolean;
-            colName?: string;
-            rowVal?: IRowVal;
+            focus?: boolean | undefined;
+            colName?: string | undefined;
+            rowVal?: IRowVal | undefined;
         }
 
         interface IRowVal {
@@ -2828,29 +2828,29 @@ declare namespace uiGrid {
              * GridOptions.showGridFooter must also be set to true.
              * @default true
              */
-            enableFooterTotalSelected?: boolean;
+            enableFooterTotalSelected?: boolean | undefined;
             /**
              * Enable selection by clicking anywhere on the row.
              * Defaults to false if enableRowHeaderSelection is true, otherwise defaults to false.
              */
-            enableFullRowSelection?: boolean;
+            enableFullRowSelection?: boolean | undefined;
             /**
              * Enable a row header to be used for selection
              * Defaults to true
              * @default true
              */
-            enableRowHeaderSelection?: boolean;
+            enableRowHeaderSelection?: boolean | undefined;
             /**
              * Enable row selection for entire grid.
              * Defaults to true
              */
-            enableRowSelection?: boolean;
+            enableRowSelection?: boolean | undefined;
             /**
              * Enable the select all checkbox at the top of the selectionRowHeader
              * Defaults to true
              * @default true
              */
-            enableSelectAll?: boolean;
+            enableSelectAll?: boolean | undefined;
             /**
              * If selected rows are changed in bulk, either via the API or via the selectAll checkbox,
              * then a separate event is fired.
@@ -2858,24 +2858,24 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            enableSelectionBatchEvent?: boolean;
+            enableSelectionBatchEvent?: boolean | undefined;
             /**
              * Makes it possible to specify a method that evaluates for each row and sets its "enableSelection"
              * property.
              */
-            isRowSelectable?: (row: IGridRow) => boolean;
+            isRowSelectable?: ((row: IGridRow) => boolean) | undefined;
             /**
              * Enable multiple row selection only when using the ctrlKey or shiftKey. Requires multiSelect to be true.
              * Defaults to false
              * @default false
              */
-            modifierKeysToMultiSelect?: boolean;
+            modifierKeysToMultiSelect?: boolean | undefined;
             /**
              * Enable multiple row selection for entire grid
              * Defaults to true
              * @default true
              */
-            multiSelect?: boolean;
+            multiSelect?: boolean | undefined;
             /**
              * Prevent a row from being unselected.
              * Works in conjunction with multiselect = false and gridApi.selection.selectRow() to allow you to
@@ -2884,13 +2884,13 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            noUnselect?: boolean;
+            noUnselect?: boolean | undefined;
             /**
              * can be used to set a custom width for the row header selection column
              * Defaults to 30px
              * @default 30
              */
-            selectionRowHeaderWidth?: number;
+            selectionRowHeaderWidth?: number | undefined;
         }
         /**
          * Selection related grid row
@@ -2903,7 +2903,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            enableSelection?: boolean;
+            enableSelection?: boolean | undefined;
             /**
              * Selected state of row.
              * Should be readonly.
@@ -2912,7 +2912,7 @@ declare namespace uiGrid {
              *
              * @default false
              */
-            isSelected?: boolean;
+            isSelected?: boolean | undefined;
             /**
              * Sets the isSelected property and updates the selectedCount
              * Changes to isSelected state should only be made via this function
@@ -3052,7 +3052,7 @@ declare namespace uiGrid {
              * @default undefined
              * @param aggregation Aggregation object
              */
-            customTreeAggregationFinalizerFn?: (aggregation: IGridTreeBaseAggregationObject) => void;
+            customTreeAggregationFinalizerFn?: ((aggregation: IGridTreeBaseAggregationObject) => void) | undefined;
             /**
              * A custom function that aggregates rows into some form of total.
              * Aggregations run row-by-row, the function needs to be capable of creating a running total.
@@ -3065,12 +3065,12 @@ declare namespace uiGrid {
              * @param numValue Numeric value of the field
              * @param row Row objet
              */
-            customTreeAggregationFn?: (aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
-                row: IGridRowOf<TEntity>) => void;
+            customTreeAggregationFn?: ((aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
+                row: IGridRowOf<TEntity>) => void) | undefined;
             /**
              * A custom label to use for this aggregation.  If providedm, we don't use native i18n
              */
-            treeAggregationLabel?: string;
+            treeAggregationLabel?: string | undefined;
             /**
              * Use one of the native or grid-level aggregation methods for calculating aggregations on this column.
              * Native method are in the constants file and include: SUM, COUNT, MIN, MAX, AVG.
@@ -3088,7 +3088,7 @@ declare namespace uiGrid {
              * Defaults to undefined.
              * @default undefined
              */
-            treeAggregationType?: string;
+            treeAggregationType?: string | undefined;
             /**
              * Store calculated aggregations into the entity,
              * allowing them to be displayed in the grid using a standard cellTemplate.
@@ -3106,7 +3106,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            treeAggregationUpdateEntity?: boolean;
+            treeAggregationUpdateEntity?: boolean | undefined;
         }
 
         /**
@@ -3119,13 +3119,13 @@ declare namespace uiGrid {
              * Defaults to true, grouping overrides to false
              * @default true
              */
-            showTreeExpandNoChildren?: boolean;
+            showTreeExpandNoChildren?: boolean | undefined;
             /**
              * If set to false, don't create the row header. Youll need to programatically control the expand states
              * Defaults to true
              * @default true
              */
-            showTreeRowHeader?: boolean;
+            showTreeRowHeader?: boolean | undefined;
             /**
              * Define custom aggregation functions.
              * The properties of this object will be aggregation types available for use on columnDef
@@ -3141,7 +3141,7 @@ declare namespace uiGrid {
              * Defaults to {}
              * @default {}
              */
-            treeCustomAggregations?: { [index: string]: IGridTreeBaseCustomAggregation<TEntity>; };
+            treeCustomAggregations?: { [index: string]: IGridTreeBaseCustomAggregation<TEntity>; } | undefined;
             /**
              * Number of pixels of indent for the icon at each tree level, wider indents are visually more pleasing,
              * but will make the tree row header wider
@@ -3149,11 +3149,11 @@ declare namespace uiGrid {
              *
              * @default 10
              */
-            treeIndent?: number;
+            treeIndent?: number | undefined;
             /**
              * If set to true, row header even if there are no tree nodes
              */
-            treeRowHeaderAlwaysVisible?: boolean;
+            treeRowHeaderAlwaysVisible?: boolean | undefined;
             /**
              * Base width of the tree header, provides for a single level of tree.
              * This is incremented by treeIndent for each extra level
@@ -3161,20 +3161,20 @@ declare namespace uiGrid {
              *
              * @default 30
              */
-            treeRowHeaderBaseWidth?: number;
+            treeRowHeaderBaseWidth?: number | undefined;
         }
 
         export interface IGridTreeBaseCustomAggregation<TEntity> {
             label: string;
             aggregationFn: (aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
                 row?: IGridRowOf<TEntity>) => void;
-            finalizerFn?: (aggregation: IGridTreeBaseAggregationObject) => void;
+            finalizerFn?: ((aggregation: IGridTreeBaseAggregationObject) => void) | undefined;
         }
         export interface IGridTreeBaseAggregationObject {
             count: number;
             sum: number;
             value: number;
-            rendered?: string;
+            rendered?: string | undefined;
         }
 
         export interface IGridTreeBaseApi<TEntity> {
@@ -3298,7 +3298,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            enableTreeView?: boolean;
+            enableTreeView?: boolean | undefined;
         }
 
         export interface IUiGridTreeViewConstants extends ISharedTreeConstants {
@@ -3565,35 +3565,35 @@ declare namespace uiGrid {
         /** Column definition */
         colDef: uiGrid.IColumnDefOf<TEntity>;
         /** Default sort on this column */
-        defaultSort?: ISortInfo;
+        defaultSort?: ISortInfo | undefined;
         /**
          * Column name that will be shown in the header.
          * If displayName is not provided then one is generated using the name.
          */
-        displayName?: string;
+        displayName?: string | undefined;
         /**
          * field must be provided if you wish to bind to a property in the data source.
          * Should be an angular expression that evaluates against grid.options.data array element.
          * Can be a complex expression: employee.address.city, or can be a function: employee.getFullAddress().
          * See the angular docs on binding expressions.
          */
-        field?: string;
+        field?: string | undefined;
         /** Filter on this column */
-        filter?: IFilterOptions;
+        filter?: IFilterOptions | undefined;
         /** Filters for this column. Includes 'term' property bound to filter input elements */
-        filters?: Array<IFilterOptions>;
+        filters?: Array<IFilterOptions> | undefined;
         /** Reference to grid containing the column */
         grid: IGridInstanceOf<TEntity>;
-        name?: string;
+        name?: string | undefined;
         /** Sort on this column */
-        sort?: ISortInfo;
+        sort?: ISortInfo | undefined;
         /**
          * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
          * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
          * parameters that are the row objects and the current direction of the sort
          * respectively.
          */
-        sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
+        sortingAlgorithm?: ((a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number) | undefined;
         /** Column width */
         width: number;
         /**
@@ -3665,7 +3665,7 @@ declare namespace uiGrid {
          * defaults to false
          * if set to true hides the label text in the aggregation footer, so only the value is displayed.
          */
-        aggregationHideLabel?: boolean;
+        aggregationHideLabel?: boolean | undefined;
         /**
          * The aggregation that you'd like to show in the columnFooter for this column.
          * Valid values are in uiGridConstants, and currently include:
@@ -3677,22 +3677,22 @@ declare namespace uiGrid {
          * in this case your function needs to accept the full set of visible rows,
          * and return a value that should be shown
          */
-        aggregationType?: number | Function;
+        aggregationType?: number | Function | undefined;
         /**
          * cellClass can be a string specifying the class to append to a cell
          * or it can be a function(row,rowRenderIndex, col, colRenderIndex)
          * that returns a class name
          */
-        cellClass?: string | ICellClassGetter<TEntity>;
+        cellClass?: string | ICellClassGetter<TEntity> | undefined;
         /** cellFilter is a filter to apply to the content of each cell */
-        cellFilter?: string;
+        cellFilter?: string | undefined;
         /**
          * a custom template for each cell in this column.
          * The default is ui-grid/uiGridCell.
          * If you are using the cellNav feature,
          * this template must contain a div that can receive focus.
          */
-        cellTemplate?: string;
+        cellTemplate?: string | undefined;
         /**
          * Whether or not to show a tooltip when a user hovers over the cell.
          * If set to false, no tooltip.
@@ -3703,14 +3703,14 @@ declare namespace uiGrid {
          * Defaults to false
          * @default false
          */
-        cellTooltip?: boolean | string | ICellTooltipGetter<TEntity>;
+        cellTooltip?: boolean | string | ICellTooltipGetter<TEntity> | undefined;
         /** Default object of sort information */
-        defaultSort?: ISortInfo;
+        defaultSort?: ISortInfo | undefined;
         /**
          * Column name that will be shown in the header.
          * If displayName is not provided then one is generated using the name.
          */
-        displayName?: string;
+        displayName?: string | undefined;
         /**
          * if column menus are enabled, controls the column menus for this specific column
          * (i.e. if gridOptions.enableColumnMenus, then you can control column menus using this option.
@@ -3719,68 +3719,68 @@ declare namespace uiGrid {
          * ). Defaults to true.
          * @default true
          */
-        enableColumnMenu?: boolean;
+        enableColumnMenu?: boolean | undefined;
         /**
          * Override for column menus everywhere - if set to false then you get no column menus.
          * Defaults to true
          * @default true
          */
-        enableColumnMenus?: boolean;
+        enableColumnMenus?: boolean | undefined;
         /** turn off filtering for an individual column, where you've turned on filtering for the overall grid */
-        enableFiltering?: boolean;
+        enableFiltering?: boolean | undefined;
         /**
          * When set to false, this setting prevents a user from hiding the column using the column menu or the grid
          * menu.
          * @default true
          */
-        enableHiding?: boolean;
+        enableHiding?: boolean | undefined;
         /**
          * When enabled, this setting adds sort widgets to the column header, allowing sorting of the data in the
          * individual column.
          * @default true
          */
-        enableSorting?: boolean;
+        enableSorting?: boolean | undefined;
         /**
          * field must be provided if you wish to bind to a property in the data source.
          * Should be an angular expression that evaluates against grid.options.data array element
          * Can be a complex expression: employee.address.city, or can be a function: employee.getFullAddress().
          * See the angular docs on binding expressions.
          */
-        field?: string;
+        field?: string | undefined;
         /**
          * Specify a single filter field on this column.
          * A filter consists of a condition, a term, and a placeholder:
          */
-        filter?: IFilterOptions;
+        filter?: IFilterOptions | undefined;
         /**
          * @default false
          * When true uiGrid will apply the cellFilter before applying search filters
          */
-        filterCellFiltered?: boolean;
+        filterCellFiltered?: boolean | undefined;
         /**
          * a custom template for the filter input. The default is ui-grid/ui-grid-filter
          */
-        filterHeaderTemplate?: string;
+        filterHeaderTemplate?: string | undefined;
         /** Specify multiple filter fields */
-        filters?: Array<IFilterOptions>;
+        filters?: Array<IFilterOptions> | undefined;
         /**
          * footerCellClass can be a string specifying the class to append to a cell or it can be
          * a function(row,rowRenderIndex, col, colRenderIndex) that returns a class name
          */
-        footerCellClass?: string | IHeaderFooterCellClassGetter<TEntity>;
+        footerCellClass?: string | IHeaderFooterCellClassGetter<TEntity> | undefined;
         /** footerCellFilter is a filter to apply to the content of the column footer */
-        footerCellFilter?: string;
+        footerCellFilter?: string | undefined;
         /** a custom template for the footer for this column. The default is ui-grid/uiGridFooterCell */
-        footerCellTemplate?: string;
+        footerCellTemplate?: string | undefined;
         /**
          * headerCellClass can be a string specifying the class to append to a cell or it can be
          * a function(row,rowRenderIndex, col, colRenderIndex) that returns a class name
          */
-        headerCellClass?: string | IHeaderFooterCellClassGetter<TEntity>;
+        headerCellClass?: string | IHeaderFooterCellClassGetter<TEntity> | undefined;
         /** headerCellFilter is a filter to apply to the content of the column header */
-        headerCellFilter?: string;
+        headerCellFilter?: string | undefined;
         /** a custom template for the header for this column. The default is ui-grid/uiGridHeaderCell */
-        headerCellTemplate?: string;
+        headerCellTemplate?: string | undefined;
         /**
          * Whether or not to show a tooltip when a user hovers over the header cell.
          * If set to false, no tooltip.
@@ -3791,20 +3791,20 @@ declare namespace uiGrid {
          * if a static string then shows that static string.
          * @default false
          */
-        headerTooltip?: boolean | string | IHeaderTooltipGetter<TEntity>;
+        headerTooltip?: boolean | string | IHeaderTooltipGetter<TEntity> | undefined;
         /** sets the maximum column width */
-        maxWidth?: number;
+        maxWidth?: number | undefined;
         /** used to add menu items to a column. Refer to the tutorial on this functionality */
-        menuItems?: Array<IMenuItem>;
+        menuItems?: Array<IMenuItem> | undefined;
         /** Sets the minimum column width */
-        minWidth?: number;
+        minWidth?: number | undefined;
         /**
          * (mandatory) each column should have a name,
          * although for backward compatibility with 2.x name can be omitted if field is present
          */
-        name?: string;
+        name?: string | undefined;
         /** An object of sort information */
-        sort?: ISortInfo;
+        sort?: ISortInfo | undefined;
         /**
          * @default false
          * When true uiGrid will apply the cellFilter before sorting the data
@@ -3815,7 +3815,7 @@ declare namespace uiGrid {
          * which handles the returned type.
          * You may specify one of the sortingAlgorithms found in the rowSorter service.
          */
-        sortCellFiltered?: boolean;
+        sortCellFiltered?: boolean | undefined;
         /**
          *(optional) An array of sort directions, specifying the order that they should cycle through as
          * the user repeatedly clicks on the column heading. The default is [null, uiGridConstants.ASC, uiGridConstants.DESC].
@@ -3823,20 +3823,20 @@ declare namespace uiGrid {
          * If suppressRemoveSort is also set, the unsorted state will be skipped even if it is listed here. Each direction may
          * not appear in the list more than once (e.g. [ASC, DESC, DESC] is not allowed), and the list may not be empty.*
          */
-        sortDirectionCycle?: Array<null | string>;
+        sortDirectionCycle?: Array<null | string> | undefined;
         /**
          * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
          * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
          * parameters that are the row objects and the current direction of the sort
          * respectively.
          */
-        sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
+        sortingAlgorithm?: ((a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number) | undefined;
         /**
          * When enabled, this setting hides the removeSort option in the menu,
          * and prevents users from manually removing the sort
          * @default false
          */
-        suppressRemoveSort?: boolean;
+        suppressRemoveSort?: boolean | undefined;
         /**
          * the type of the column, used in sorting. If not provided then the grid will guess the type.
          * Add this only if the grid guessing is not to your satisfaction.
@@ -3844,16 +3844,16 @@ declare namespace uiGrid {
          * One of:
          * 'string', 'boolean', 'number', 'date', 'object', 'numberStr'
          */
-        type?: string;
+        type?: string | undefined;
         /**
          * sets whether or not the column is visible
          * @default true
          */
-        visible?: boolean;
+        visible?: boolean | undefined;
         /**
          * sets the column width.  Can be either a number or a percentage, or an * for auto.
          */
-        width?: number | string;
+        width?: number | string | undefined;
     }
 
     export interface ICellClassGetter<TEntity> {
@@ -3872,24 +3872,24 @@ declare namespace uiGrid {
     }
     export interface IMenuItem {
         /** controls the title that is displayed in the menu */
-        title?: string;
+        title?: string | undefined;
         /** the icon shown alongside that title */
-        icon?: string;
+        icon?: string | undefined;
         /** the method to call when the menu is clicked */
-        action?: ($event: ng.IAngularEvent) => void;
+        action?: (($event: ng.IAngularEvent) => void) | undefined;
         /** a function to evaluate to determine whether or not to show the item */
-        shown?: () => boolean;
+        shown?: (() => boolean) | undefined;
         /** a function to evaluate to determine whether or not the item is currently selected */
-        active?: () => boolean;
+        active?: (() => boolean) | undefined;
         /** context to pass to the action function, available in this.context in your handler */
         context?: any;
         /** if set to true, the menu should stay open after the action, defaults to false */
-        leaveOpen?: boolean;
+        leaveOpen?: boolean | undefined;
     }
     export interface ISortInfo {
-        direction?: string;
-        ignoreSort?: boolean;
-        priority?: number;
+        direction?: string | undefined;
+        ignoreSort?: boolean | undefined;
+        priority?: number | undefined;
     }
 
     export interface IFilterOptions {
@@ -3899,42 +3899,42 @@ declare namespace uiGrid {
          * or you can supply a custom filter function that gets passed the
          * following arguments: [searchTerm, cellValue, row, column].
          */
-        condition?: number | ((searchTerm: string, cellValue: any, row: IGridRow, column: IGridColumn) => boolean);
+        condition?: number | ((searchTerm: string, cellValue: any, row: IGridRow, column: IGridColumn) => boolean) | undefined;
         /**
          * If set, the filter field will be pre-populated with this value
          */
-        term?: string;
+        term?: string | undefined;
         /** String that will be set to the <input>.placeholder attribute */
-        placeholder?: string;
+        placeholder?: string | undefined;
         /**
          * String that will be set to the <input>.ariaLabel attribute. This is what is read as a label to screen reader users.
          */
-        ariaLabel?: string;
+        ariaLabel?: string | undefined;
         /**
          * set this to true if you have defined a custom function in condition,
          * and your custom function doesn't require a term
          * (so it can run even when the term is null)
          */
-        noTerm?: boolean;
+        noTerm?: boolean | undefined;
         /**
          * only flag currently available is caseSensitive, set to false if you don't want case sensitive matching
          */
-        flags?: IFilterFlags;
+        flags?: IFilterFlags | undefined;
         /**
          * defaults to uiGridConstants.filter.INPUT, which gives a text box. If set to uiGridConstants.filter.SELECT
          * then a select box will be shown with options selectOptions
          */
-        type?: number | string;
+        type?: number | string | undefined;
         /**
          * options in the format [{ value: 1, label: 'male' }]. No i18n filter is provided, you need to perform the i18n
          * on the values before you provide them
          */
-        selectOptions?: Array<ISelectOption>;
+        selectOptions?: Array<ISelectOption> | undefined;
         /**
          * If set to true then the 'x' button that cancels/clears the filter will not be shown.
          * @default false
          */
-        disableCancelFilterButton?: boolean;
+        disableCancelFilterButton?: boolean | undefined;
     }
     export interface ISelectOption {
         value: number | string;
@@ -3942,6 +3942,6 @@ declare namespace uiGrid {
     }
 
     export interface IFilterFlags {
-        caseSensitive?: boolean;
+        caseSensitive?: boolean | undefined;
     }
 }

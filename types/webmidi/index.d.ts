@@ -83,12 +83,12 @@ declare namespace WebMidi {
         /**
          * The manufacturer of the port.
          */
-        manufacturer?: string;
+        manufacturer?: string | undefined;
 
         /**
          * The system name of the port.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * A descriptor property to distinguish whether the port is an input or an output
@@ -99,7 +99,7 @@ declare namespace WebMidi {
         /**
          * The version of the port.
          */
-        version?: string;
+        version?: string | undefined;
 
         /**
          * The state of the device.

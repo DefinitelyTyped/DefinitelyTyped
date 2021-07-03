@@ -10,18 +10,18 @@ declare namespace FormFileUpload {
          *
          * Further info: {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers}
          */
-        accept?: string;
+        accept?: string | undefined;
         /**
          * Whether to allow multiple selection of files or not.
          */
-        multiple?: boolean;
+        multiple?: boolean | undefined;
         /**
          * Callback function passed directly to the `input` file element.
          */
         onChange: ChangeEventHandler<HTMLInputElement>;
     }
     interface IconButtonProps extends BaseProps, Partial<Omit<IconButton.Props, 'onChange'>> {
-        render?: never;
+        render?: never | undefined;
     }
     interface RenderProps extends BaseProps {
         /**
@@ -32,7 +32,7 @@ declare namespace FormFileUpload {
          * upload files.
          */
         render(props: { openFileDialog(): void }): JSX.Element;
-        children?: never;
+        children?: never | undefined;
     }
     type Props = IconButtonProps | RenderProps;
 }

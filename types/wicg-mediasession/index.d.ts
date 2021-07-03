@@ -10,7 +10,7 @@ interface Navigator {
 }
 
 interface Window {
-    MediaSession?: MediaSession;
+    MediaSession?: MediaSession | undefined;
 }
 
 interface SetPositionState {
@@ -35,20 +35,20 @@ interface MediaImage {
     // URL from which the user agent can fetch the image’s data.
     src: string;
     // Specify the MediaImage object’s sizes. It follows the spec of sizes attribute in HTML link element.
-    sizes?: string;
+    sizes?: string | undefined;
     // A hint as to the media type of the image.
-    type?: string;
+    type?: string | undefined;
 }
 
 interface MediaMetadataInit {
     // Media's title.
-    title?: string;
+    title?: string | undefined;
     // Media's artist.
-    artist?: string;
+    artist?: string | undefined;
     // Media's album.
-    album?: string;
+    album?: string | undefined;
     // Media's artwork.
-    artwork?: MediaImage[];
+    artwork?: MediaImage[] | undefined;
 }
 
 interface MediaMetadata {
@@ -69,13 +69,13 @@ declare var MediaMetadata: {
 
 interface MediaPositionState {
     // Duration of media in seconds
-    duration?: number;
+    duration?: number | undefined;
 
     // Playback rate of media, positive for forward playback, negative for backward playback. This number should not be zero
-    playbackRate?: number;
+    playbackRate?: number | undefined;
 
     // Last reported playback position in seconds, should be positive.
-    position?: number;
+    position?: number | undefined;
 }
 
 interface MediaSessionActionDetails {
@@ -83,11 +83,11 @@ interface MediaSessionActionDetails {
     action: MediaSessionAction;
 
     // This MAY be provided when the action is seekbackward or seekforward. Stores number of seconds to move the playback time by.
-    seekOffset?: number | null;
+    seekOffset?: number | null | undefined;
 
     // MUST be provided when action is seekto. Stores the time in seconds to move the playback time to.
-    seekTime?: number | null;
+    seekTime?: number | null | undefined;
 
     // MAY be provided when action is seekto. Stores true if the action is being called multiple times as part of a sequence and this is not the last call in that sequence.
-    fastSeek?: boolean | null;
+    fastSeek?: boolean | null | undefined;
 }

@@ -155,10 +155,10 @@ const explainer1 = () => {
 const explainer2 = () => {
     class HighPassFilterData {
         cutoff: number;
-        timestamp?: number;
-        x?: number;
-        y?: number;
-        z?: number;
+        timestamp?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
+        z?: number | undefined;
 
         constructor(reading: Accelerometer | Gyroscope | Magnetometer, cutoffFrequency: number) {
             this.x = reading.x;

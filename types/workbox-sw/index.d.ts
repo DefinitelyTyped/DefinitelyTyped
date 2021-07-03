@@ -38,9 +38,9 @@ declare global {
         function setConfig(options?: WorkboxOptions): void;
 
         interface WorkboxOptions {
-            debug?: boolean;
-            modulePathCb?: ModulePathCallback;
-            modulePathPrefix?: string;
+            debug?: boolean | undefined;
+            modulePathCb?: ModulePathCallback | undefined;
+            modulePathPrefix?: string | undefined;
         }
 
         type ModulePathCallback = (moduleName: string, debug: boolean) => string;
