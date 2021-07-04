@@ -28,6 +28,12 @@ declare namespace convict {
 
         /** @deprecated use allowed instead */
         strict?: boolean;
+
+        /**
+         * If specififed, possible warnings will be passed to this function instead of being
+         * outputted to console.log, which would be the default behaviour.
+         */
+        output?(message: string): void;
     }
 
     interface Format {
