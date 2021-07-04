@@ -34,11 +34,14 @@ declare namespace bonjour {
         removeListener(event: 'up' | 'down', listener: (service: RemoteService) => void): this;
         removeAllListeners(event?: 'up' | 'down'): this;
     }
+    
+    type TXT = string | Buffer | boolean;
+    
     interface BrowserOptions {
         type?: string;
         subtypes?: string[];
         protocol?: string;
-        txt?: { [key: string]: string };
+        txt?: { [key: string]: TXT };
     }
 
     interface ServiceOptions {
@@ -48,7 +51,7 @@ declare namespace bonjour {
         type: string;
         subtypes?: string[];
         protocol?: 'udp'|'tcp';
-        txt?: { [key: string]: string };
+        txt?: { [key: string]: TXT };
         probe?: boolean;
     }
 
@@ -60,7 +63,7 @@ declare namespace bonjour {
         type: string;
         protocol: string;
         subtypes: string[];
-        txt: { [key: string]: string };
+        txt: { [key: string]: TXT };
     }
     interface RemoteService extends BaseService {
         referer: RemoteInfo;
