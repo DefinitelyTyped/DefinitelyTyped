@@ -1577,6 +1577,8 @@ declare namespace GoogleAppsScript {
     interface RichTextValue {
       copy(): RichTextValueBuilder;
       getEndIndex(): Integer;
+      getLinkUrl(): string | null;
+      getLinkUrl(startOffset: Integer, endOffset: Integer): string | null;
       getRuns(): RichTextValue[];
       getStartIndex(): Integer;
       getText(): string;
