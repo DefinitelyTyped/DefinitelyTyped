@@ -146,7 +146,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * superceded by `initialValueFormat` property.
      */
     displayInitialValueAsLocalNumber?: boolean;
-    flagComponent?: React.ComponentType<{ country: string; flagUrl: string; flags: FlagsMap }>;
+    flagComponent?: React.ComponentType<{ country: string; countryName: string, flagUrl: string; flags: FlagsMap }>;
     flags?: FlagsMap;
     /**
      * A URL template of a country flag, where "{XX}" is a two-letter country code in upper case,
