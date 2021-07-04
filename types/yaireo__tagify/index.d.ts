@@ -765,6 +765,14 @@ declare namespace Tagify {
         value: string;
     }
 
+    enum InvalidErrorMessages {
+        Empty = 'empty',
+        Exceed: 'number of tags exceeded',
+        Pattern: 'pattern mismatch',
+        Duplicate: 'already exists',
+        notAllowed: 'not allowed'
+    }
+
     /**
      * Base event data common to all events.
      * @template T Type of the tag data. See the Tagify class for more details.
@@ -953,7 +961,7 @@ declare namespace Tagify {
      */
     interface InvalidTagEventData<T extends BaseTagData = TagData> extends TagEventData<T> {
         data: T;
-        message: boolean;
+        message: InvalidErrorMessages | string | boolean;
     }
 
     /**
