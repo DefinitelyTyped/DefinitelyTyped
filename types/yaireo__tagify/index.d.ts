@@ -765,14 +765,6 @@ declare namespace Tagify {
         value: string;
     }
 
-    enum InvalidErrorMessages {
-        Empty = 'empty',
-        Exceed = 'number of tags exceeded',
-        Pattern = 'pattern mismatch',
-        Duplicate = 'already exists',
-        notAllowed = 'not allowed'
-    }
-
     /**
      * Base event data common to all events.
      * @template T Type of the tag data. See the Tagify class for more details.
@@ -954,6 +946,11 @@ declare namespace Tagify {
      * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface FocusEventData<T extends BaseTagData = TagData> extends FocusChangeEventData<T> { }
+
+    /**
+     * Possible error messages that will occur on an InvalidTagEvent
+     */
+    type InvalidErrorMessages = 'empty' | 'number of tags exceeded' | 'pattern mismatch' | 'already exists' | 'not allowed'
 
     /**
      * A tag has been added but did not pass validation.
