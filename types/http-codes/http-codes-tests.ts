@@ -1,4 +1,4 @@
-import {TOO_EARLY} from './';
+import { TOO_EARLY } from 'http-codes';
 
-const tooEarly = TOO_EARLY // $ExpectType number
-console.log(tooEarly + 5);
+const _tooEarly = TOO_EARLY; // $ExpectType number
+_tooEarly + 5;
