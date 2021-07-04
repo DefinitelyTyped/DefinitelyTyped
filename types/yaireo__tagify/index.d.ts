@@ -767,10 +767,10 @@ declare namespace Tagify {
 
     enum InvalidErrorMessages {
         Empty = 'empty',
-        Exceed: 'number of tags exceeded',
-        Pattern: 'pattern mismatch',
-        Duplicate: 'already exists',
-        notAllowed: 'not allowed'
+        Exceed = 'number of tags exceeded',
+        Pattern = 'pattern mismatch',
+        Duplicate = 'already exists',
+        notAllowed = 'not allowed'
     }
 
     /**
