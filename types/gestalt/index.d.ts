@@ -360,7 +360,7 @@ export interface CheckboxProps {
  * https://gestalt.netlify.app/ComboBox
  */
 
-interface OptionItemType {
+export interface OptionItemType {
     label: string;
     subtext?: string;
     value: string;
