@@ -950,7 +950,7 @@ declare namespace Tagify {
     /**
      * Possible error messages that will occur on an InvalidTagEvent
      */
-    type InvalidErrorMessages = 'empty' | 'number of tags exceeded' | 'pattern mismatch' | 'already exists' | 'not allowed'
+    type InvalidErrorMessages = 'empty' | 'number of tags exceeded' | 'pattern mismatch' | 'already exists' | 'not allowed';
 
     /**
      * A tag has been added but did not pass validation.
