@@ -43,6 +43,7 @@ convict({
                 doc: "The source type",
                 format: ["git", "hg", "svn"],
                 default: null,
+                nullable: true
             },
             url: {
                 doc: "The source URL",

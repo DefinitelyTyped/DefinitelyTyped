@@ -1,4 +1,4 @@
-// Type definitions for convict 6.0
+// Type definitions for convict 6.1
 // Project: https://github.com/mozilla/node-convict
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Vesa Poikajärvi <https://github.com/vesse>
@@ -88,6 +88,7 @@ declare namespace convict {
         env?: string;
         arg?: string;
         sensitive?: boolean;
+        nullable?: boolean;
         [key: string]: any;
     }
 
