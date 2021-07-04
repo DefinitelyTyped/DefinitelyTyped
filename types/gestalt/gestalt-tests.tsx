@@ -11,6 +11,7 @@ import {
     Checkbox,
     Collage,
     Column,
+    ComboBox,
     CompositeZIndex,
     Container,
     Divider,
@@ -60,7 +61,7 @@ import {
     Upsell,
     useFocusVisible,
     useReducedMotion,
-    Video,
+    Video
 } from 'gestalt';
 import * as React from 'react';
 
@@ -84,12 +85,14 @@ const CheckUseReducedMotion = () => {
     title="Claim your website"
     message="Grow distribution and track Pins linked to your website"
     link={{
-        href: "foo",
-        label: "foo",
-        accessibilityLabel: "foo",
-        onClick: (({ event }) => { event.stopPropagation(); }),
-        rel: "nofollow",
-        target: "blank"
+        href: 'foo',
+        label: 'foo',
+        accessibilityLabel: 'foo',
+        onClick: ({ event }) => {
+            event.stopPropagation();
+        },
+        rel: 'nofollow',
+        target: 'blank',
     }}
 />;
 <Avatar name="Nicolas" />;
@@ -113,9 +116,13 @@ const CheckUseReducedMotion = () => {
 // $ExpectError
 <Box aria-colspan="foo" />;
 
-<Box onDrag={(event) => { event.movementX; }} />;
+<Box
+    onDrag={event => {
+        event.movementX;
+    }}
+/>;
 // $ExpectError
-<Box onDrag={((event) => { event.__nonExistentProperty__; })} />;
+<Box onDrag={{event => event.__nonExistentProperty}} />;
 
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
 <Button text="" />;
@@ -124,6 +131,13 @@ const CheckUseReducedMotion = () => {
     <Button text={'Click me'} />
 </ButtonGroup>;
 <Card />;
+<ComboBox
+    accessibilityClearButtonLabel="combobox"
+    id="combobox"
+    label="combobox"
+    noResultText="combobox"
+    options={[{ label: 'combobox', value: 'combobox' }]}
+/>;
 <Callout
     type="info"
     iconAccessibilityLabel="Info icon"
@@ -137,7 +151,13 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 <Checkbox id={'1'} onChange={() => {}} />;
-<Collage columns={1} height={1} renderImage={({ height, index, width }) => () => {}} width={1} />;
+<Collage
+    columns={1}
+    height={1}
+    renderImage={({ height, index, width }) =>
+        () => {}}
+    width={1}
+/>;
 <Column span={1} />;
 <Container />;
 <ScrollBoundaryContainer />;
@@ -177,13 +197,7 @@ const CheckUseReducedMotion = () => {
 <Mask />;
 <Masonry comp={MasonryComponent} items={[{}]} />;
 <Modal accessibilityModalLabel="modal" onDismiss={() => {}} heading={<Text>Header</Text>} subHeading="header" />;
-<Module
-    id="foo"
-    icon="add"
-    iconAccessibilityLabel="hello"
-    title="world"
-    type='info'
-/>;
+<Module id="foo" icon="add" iconAccessibilityLabel="hello" title="world" type="info" />;
 <Module.Expandable
     id="ModuleExample1"
     accessibilityExpandLabel="Expand the module"
@@ -196,9 +210,9 @@ const CheckUseReducedMotion = () => {
         },
     ]}
     expandedIndex={1}
-    onExpandedChange={(index) => {}}
+    onExpandedChange={index => {}}
 ></Module.Expandable>;
-<PageHeader title='Home'/>;
+<PageHeader title="Home" />;
 <Pog />;
 <Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
 <Provider colorScheme={'light'} id="docsExample" />;
@@ -228,8 +242,8 @@ const CheckUseReducedMotion = () => {
     <div>Hello World</div>
 </Sticky>;
 <Switch id="id" onChange={() => {}} />;
-<Table maxHeight={1}/>;
-<Table maxHeight="75vh"/>;
+<Table maxHeight={1} />;
+<Table maxHeight="75vh" />;
 <Table>
     <Table.Header>
         <Table.Row>
@@ -336,15 +350,17 @@ const CheckUseReducedMotion = () => {
     title="Give $30, get $60 in ads credit"
     message="Earn $60 of ads credit, and give $30 of ads credit to a friend"
     dismissButton={{
-      accessibilityLabel: 'Dismiss banner',
-      onDismiss: () => {},
+        accessibilityLabel: 'Dismiss banner',
+        onDismiss: () => {},
     }}
     imageData={{
-      component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32}/>
+        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32} />,
     }}
-  >
+>
     <Upsell.Form
-        onSubmit={({ event }) => { event.preventDefault(); }}
+        onSubmit={({ event }) => {
+            event.preventDefault();
+        }}
         submitButtonText="Submit"
         submitButtonAccessibilityLabel="Submit name for ads credit"
     />

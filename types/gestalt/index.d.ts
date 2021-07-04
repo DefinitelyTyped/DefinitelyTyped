@@ -1,4 +1,4 @@
-// Type definitions for gestalt 22.6
+// Type definitions for gestalt 29.1
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -222,7 +222,7 @@ export interface ButtonProps {
     disabled?: boolean;
     href?: string;
     iconEnd?: Icons;
-    inline?: boolean;
+    fullWidth?: boolean;
     name?: string;
     onClick?: AbstractEventHandler<
         | React.MouseEvent<HTMLButtonElement>
@@ -311,6 +311,45 @@ export interface CheckboxProps {
     onClick?: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
     size?: 'sm' | 'md';
     subtext?: string;
+}
+
+/**
+ * ComboBox Props Interface
+ * https://gestalt.netlify.app/ComboBox
+ */
+
+interface OptionItemType {
+    label: string;
+    subtext?: string;
+    value: string;
+}
+
+export interface ComboBoxProps {
+    accessibilityClearButtonLabel: string;
+    id: string;
+    label: string;
+    options: OptionItemType[];
+    noResultText: string;
+    disabled?: boolean;
+    errorMessage?: Node;
+    helperText?: string;
+    inputValue?: string;
+    labelDisplay?: 'visible' | 'hidden';
+    onChange?: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
+    onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement> }) => void;
+    onFocus?: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
+    onKeyDown?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
+    onClear?: () => void;
+    onSelect?: AbstractEventHandler<
+        React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
+        {
+            item: OptionItemType | undefined | null;
+        }
+    >;
+    placeholder?: string;
+    selectedOption?: OptionItemType;
+    size?: 'md' | 'lg';
+    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
 }
 
 /**
@@ -763,6 +802,7 @@ export interface ImageProps {
     elementTiming?: string;
     naturalHeight: number;
     naturalWidth: number;
+    role?: 'img' | 'presentation';
     src: string;
     children?: React.ReactNode;
     fit?: 'cover' | 'contain' | 'none';
@@ -1033,6 +1073,7 @@ export interface RowProps {
  */
 export interface SearchFieldProps {
     accessibilityLabel: string;
+    accessibilityClearButtonLabel?: string;
     id: string;
     onChange: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
     autoComplete?: 'on' | 'off' | 'username' | 'name';
@@ -1183,6 +1224,8 @@ export interface TableHeaderProps {
 
 export interface TableHeaderCellProps extends TableCellProps {
     scope?: 'col' | 'row' | 'colgroup' | 'rowgroup';
+    colSpan?: number;
+    rowSpan?: number;
 }
 
 export interface TableRowProps {
@@ -1271,6 +1314,7 @@ export interface TapAreaProps {
     accessibilityExpanded?: boolean;
     accessibilityHaspopup?: boolean;
     accessibilityLabel?: string;
+    accessibilityCurrent?: string;
     children?: React.ReactNode;
     disabled?: boolean;
     fullHeight?: boolean;
@@ -1328,6 +1372,7 @@ export interface TextProps {
     size?: 'sm' | 'md' | 'lg';
     truncate?: boolean;
     weight?: 'bold' | 'normal';
+    lineClamp?: boolean;
 }
 
 /**
@@ -1575,6 +1620,7 @@ export const Button: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, Butt
 export class ButtonGroup extends React.Component<ButtonGroupProps, any> {}
 export class Callout extends React.Component<CalloutProps, any> {}
 export class Card extends React.Component<CardProps, any> {}
+export class ComboBox extends React.Component<ComboBoxProps, any> {}
 export const Checkbox: ReactForwardRef<HTMLInputElement, CheckboxProps>;
 export class Collage extends React.Component<CollageProps, any> {}
 export class Column extends React.Component<ColumnProps, any> {}
