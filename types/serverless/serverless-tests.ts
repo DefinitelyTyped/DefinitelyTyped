@@ -83,7 +83,7 @@ serverless.cli.log('updating stack...');
 serverless.cli.log('updating stack...', 'serverless');
 
 // Test serverless cli log with all args supplied
-serverless.cli.log('updating stack...', 'serverless', { color: 'orange' });
+serverless.cli.log('updating stack...', 'serverless', { color: 'orange', bold: true, underline: true, entity: 'serverless' });
 
 // Test provider's 'request' method
 const provider = serverless.getProvider('aws');
