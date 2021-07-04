@@ -78,7 +78,7 @@ declare class Serverless {
     getVersion(): string;
 
     cli: {
-        log(message: string, entity?: string, options?: object): null;
+        log(message: string, entity?: string, options?: { color?: string }): null;
     };
 
     providers: {};
