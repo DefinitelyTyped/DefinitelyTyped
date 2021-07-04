@@ -1,15 +1,18 @@
 import {
     ActivationCard,
     Avatar,
+    AvatarGroup,
     AvatarPair,
     Badge,
     Box,
+    BoxProps,
     Button,
     ButtonGroup,
     Callout,
     Card,
     Checkbox,
     Collage,
+    ColorSchemeProvider,
     Column,
     ComboBox,
     CompositeZIndex,
@@ -19,7 +22,6 @@ import {
     Fieldset,
     FixedZIndex,
     Flex,
-    GroupAvatar,
     Heading,
     Icon,
     IconButton,
@@ -32,10 +34,10 @@ import {
     Masonry,
     Modal,
     Module,
+    OnLinkNavigationProvider,
     PageHeader,
     Pog,
     Popover,
-    Provider,
     Pulsar,
     RadioButton,
     Row,
@@ -96,6 +98,7 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 <Avatar name="Nicolas" />;
+<AvatarGroup accessibilityLabel="test-example" collaborators={[{ name: 'nicolas' }]} />;
 <AvatarPair
     size="md"
     collaborators={[
@@ -121,8 +124,26 @@ const CheckUseReducedMotion = () => {
         event.movementX;
     }}
 />;
+<<<<<<< HEAD
 // $ExpectError
 <Box onDrag={{event => event.__nonExistentProperty}} />;
+=======
+
+<Box
+    onDrag={event => {
+        // $ExpectError
+        event.__nonExistentProperty__;
+    }}
+/>;
+
+// Test Box accepts Ref.
+() => {
+    const ref = React.useRef<HTMLDivElement>(null);
+    return <Box ref={ref} />;
+};
+// Test BoxProps can be forwarded to Box.
+(props: BoxProps) => <Box {...props} />;
+>>>>>>> ab1678b60667c1779baec9c932cfe0b993524c48
 
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
 <Button text="" />;
@@ -143,14 +164,15 @@ const CheckUseReducedMotion = () => {
     iconAccessibilityLabel="Info icon"
     title="Your business account was successfully created!"
     message="Get a badge, show up in more shopping experiences and more. Apply to the Verified Merchant Program—it’s free!"
-    primaryAction={{ href: 'https://pinterest.com', label: 'Get started' }}
-    secondaryAction={{ href: 'https://pinterest.com', label: 'Learn more' }}
+    primaryAction={{ accessibilityLabel: 'primary-callout', href: 'https://pinterest.com', label: 'Get started' }}
+    secondaryAction={{ accessibilityLabel: 'secondary-callout', href: 'https://pinterest.com', label: 'Learn more' }}
     dismissButton={{
         accessibilityLabel: 'Dismiss banner',
         onDismiss: () => {},
     }}
 />;
 <Checkbox id={'1'} onChange={() => {}} />;
+<<<<<<< HEAD
 <Collage
     columns={1}
     height={1}
@@ -158,6 +180,10 @@ const CheckUseReducedMotion = () => {
         () => {}}
     width={1}
 />;
+=======
+<Collage columns={1} height={1} renderImage={({ height, index, width }) => () => {}} width={1} />;
+<ColorSchemeProvider colorScheme="dark" id="docsExample" />;
+>>>>>>> ab1678b60667c1779baec9c932cfe0b993524c48
 <Column span={1} />;
 <Container />;
 <ScrollBoundaryContainer />;
@@ -167,11 +193,12 @@ const CheckUseReducedMotion = () => {
     <Dropdown.Section label="View options">
         <Dropdown.Item
             option={{ value: 'item 1', label: 'Custom link 1' }}
-            handleSelect={({ item }) => {}}
+            onSelect={({ item }) => {}}
             selected={undefined}
         >
             <Text>Dropdown</Text>
         </Dropdown.Item>
+        <Dropdown.Link href="#" option={{ value: 'item 2', label: 'Url Link' }}></Dropdown.Link>
     </Dropdown.Section>
 </Dropdown>;
 <Fieldset legend="Fieldset Example">
@@ -212,10 +239,18 @@ const CheckUseReducedMotion = () => {
     expandedIndex={1}
     onExpandedChange={index => {}}
 ></Module.Expandable>;
+<<<<<<< HEAD
+=======
+<OnLinkNavigationProvider
+    onNavigation={() => {
+        return undefined;
+    }}
+/>;
+>>>>>>> ab1678b60667c1779baec9c932cfe0b993524c48
 <PageHeader title="Home" />;
 <Pog />;
 <Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
-<Provider colorScheme={'light'} id="docsExample" />;
+
 <Pulsar />;
 <RadioButton id="id" onChange={() => {}} />;
 <Row gap={1}>
@@ -328,7 +363,7 @@ const CheckUseReducedMotion = () => {
 <Text />;
 <TextArea id="id" onChange={() => {}} />;
 <TextField id="email" onChange={({ value }) => value} tags={[<Tag text="Foo" />, <Tag text="Bar" />]} />;
-<GroupAvatar collaborators={[{ name: 'nicolas' }]} />;
+
 <Toast color="red" text={<>Oops! Something went wrong. Please try again later.</>} />;
 <Tooltip text="tooltip">
     <div />

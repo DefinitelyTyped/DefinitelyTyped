@@ -10,8 +10,8 @@ export as namespace wol
 export type WakeCallback = (error: Error | null, result?: boolean) => void;
 
 export interface WakeOptions {
-    address?: string;
-    port?: number;
+    address?: string | undefined;
+    port?: number | undefined;
 }
 
 export function wake(mac: string, callback: WakeCallback): Promise<boolean>;

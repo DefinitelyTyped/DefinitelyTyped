@@ -301,7 +301,7 @@ declare module 'stream' {
          */
         function addAbortSignal<T extends Stream>(signal: AbortSignal, stream: T): T;
 
-        interface FinishedOptions {
+        interface FinishedOptions extends Abortable {
             error?: boolean;
             readable?: boolean;
             writable?: boolean;
@@ -468,4 +468,9 @@ declare module 'stream' {
     }
 
     export = internal;
+}
+
+declare module 'node:stream' {
+    import stream = require('stream');
+    export = stream;
 }

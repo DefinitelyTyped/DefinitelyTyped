@@ -78,7 +78,7 @@ declare namespace prompts {
         type: PromptType | Falsy | PrevCaller<T, PromptType | Falsy>;
         name: ValueOrFunc<T>;
         message?: ValueOrFunc<string>;
-        initial?: string | number | boolean | Date;
+        initial?: InitialReturnValue | PrevCaller<T, InitialReturnValue | Promise<InitialReturnValue>>;
         style?: string | PrevCaller<T, string | Falsy>;
         format?: PrevCaller<T, void>;
         validate?: PrevCaller<T, boolean | string | Promise<boolean | string>>;
@@ -115,4 +115,6 @@ declare namespace prompts {
     type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete" | "date" | "autocompleteMultiselect";
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
+
+    type InitialReturnValue = string | number | boolean | Date;
 }

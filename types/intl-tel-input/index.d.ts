@@ -322,6 +322,12 @@ declare namespace intlTelInputUtils {
 
 declare global {
     namespace intlTelInputUtils {
+        function formatNumber(number: string, countryCode: string, format: numberFormat): string;
+        function getExampleNumber(countryCode: string, isNational: boolean, numberType: numberType): string;
+        function getNumberType(number: string, countryCode: string): numberType;
+        function getValidationError(number: string, countryCode: string): string;
+        function isValidNumber(number: string, countryCode: string): string;
+
         enum numberFormat {
             E164 = 0,
             INTERNATIONAL = 1,

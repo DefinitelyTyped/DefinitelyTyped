@@ -17,7 +17,7 @@ interface SensorErrorEventInit extends EventInit {
 
 declare class Sensor extends EventTarget {
     readonly activated: boolean;
-    readonly timestamp?: number; // Should be DOMHighResTimeStamp.
+    readonly timestamp?: number | undefined; // Should be DOMHighResTimeStamp.
     start(): void;
     stop(): void;
 
@@ -30,16 +30,16 @@ declare class Sensor extends EventTarget {
 }
 
 interface SensorOptions {
-    frequency?: number;
+    frequency?: number | undefined;
 }
 
 // Accelerometer: https://www.w3.org/TR/accelerometer/
 
 declare class Accelerometer extends Sensor {
   constructor(options?: SensorOptions);
-  readonly x?: number;
-  readonly y?: number;
-  readonly z?: number;
+  readonly x?: number | undefined;
+  readonly y?: number | undefined;
+  readonly z?: number | undefined;
 }
 
 declare class LinearAccelerationSensor extends Accelerometer {
@@ -54,28 +54,28 @@ declare class GravitySensor extends Accelerometer {
 
 declare class Gyroscope extends Sensor {
     constructor(options?: SensorOptions);
-    readonly x?: number;
-    readonly y?: number;
-    readonly z?: number;
+    readonly x?: number | undefined;
+    readonly y?: number | undefined;
+    readonly z?: number | undefined;
 }
 
 // Magnetometer: https://www.w3.org/TR/magnetometer/
 
 declare class Magnetometer extends Sensor {
     constructor(options?: SensorOptions);
-    readonly x?: number;
-    readonly y?: number;
-    readonly z?: number;
+    readonly x?: number | undefined;
+    readonly y?: number | undefined;
+    readonly z?: number | undefined;
 }
 
 declare class UncalibratedMagnetometer extends Sensor {
     constructor(options?: SensorOptions);
-    readonly x?: number;
-    readonly y?: number;
-    readonly z?: number;
-    readonly xBias?: number;
-    readonly yBias?: number;
-    readonly zBias?: number;
+    readonly x?: number | undefined;
+    readonly y?: number | undefined;
+    readonly z?: number | undefined;
+    readonly xBias?: number | undefined;
+    readonly yBias?: number | undefined;
+    readonly zBias?: number | undefined;
 }
 
 // Orientation Sensor: https://www.w3.org/TR/orientation-sensor/
@@ -83,7 +83,7 @@ declare class UncalibratedMagnetometer extends Sensor {
 type RotationMatrixType = Float32Array | Float64Array | DOMMatrix;
 
 declare class OrientationSensor extends Sensor {
-    readonly quaternion?: number[];
+    readonly quaternion?: number[] | undefined;
     populateMatrix(targetMatrix: RotationMatrixType): void;
 }
 

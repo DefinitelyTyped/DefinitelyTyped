@@ -43,7 +43,7 @@ declare class Carousel extends BaseComponent {
      * Static method which allows you to get the carousel instance associated
      * with a DOM element.
      */
-    static getInstance(element: Element, options?: Partial<Carousel.Options>): Carousel;
+    static getInstance(element: Element, options?: Partial<Carousel.Options>): Carousel | null;
 
     static jQueryInterface: Carousel.jQueryInterface;
 

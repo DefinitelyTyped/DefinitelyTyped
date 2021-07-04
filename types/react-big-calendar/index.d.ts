@@ -176,6 +176,7 @@ export interface Components<TEvent extends object = Event, TResource extends obj
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
     eventContainerWrapper?: React.ComponentType;
     dateCellWrapper?: React.ComponentType;
+    dayColumnWrapper?: React.ComponentType;
     timeSlotWrapper?: React.ComponentType;
     timeGutterHeader?: React.ComponentType;
     timeGutterWrapper?: React.ComponentType;
@@ -192,6 +193,10 @@ export interface Components<TEvent extends object = Event, TResource extends obj
     week?: {
         header?: React.ComponentType<HeaderProps>;
         event?: React.ComponentType<EventProps<TEvent>>;
+    };
+    work_week?: {
+      header?: React.ComponentType<HeaderProps>;
+      event?: React.ComponentType<EventProps<TEvent>>;
     };
     month?: {
         header?: React.ComponentType;

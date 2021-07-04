@@ -166,6 +166,9 @@ class CalendarResource {
                 agenda: {
                     event: EventAgenda,
                 },
+                work_week: {
+                  event: Event
+                },
                 toolbar: Toolbar,
                 eventWrapper: EventWrapper,
             }}

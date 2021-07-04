@@ -4,7 +4,7 @@ declare module 'child_process' {
     import * as net from 'net';
     import { Writable, Readable, Stream, Pipe } from 'stream';
 
-    type Serializable = string | object | number | boolean;
+    type Serializable = string | object | number | boolean | bigint;
     type SendHandle = net.Socket | net.Server;
 
     interface ChildProcess extends EventEmitter {
@@ -20,7 +20,7 @@ declare module 'child_process' {
             Readable | Writable | null | undefined // extra
         ];
         readonly killed: boolean;
-        readonly pid: number;
+        readonly pid?: number;
         readonly connected: boolean;
         readonly exitCode: number | null;
         readonly signalCode: NodeJS.Signals | null;
@@ -135,12 +135,23 @@ declare module 'child_process' {
 
     type SerializationType = 'json' | 'advanced';
 
-    interface MessagingOptions {
+    interface MessagingOptions extends Abortable {
         /**
          * Specify the kind of serialization used for sending messages between processes.
          * @default 'json'
          */
         serialization?: SerializationType;
+
+        /**
+         * The signal value to be used when the spawned process will be killed by the abort signal.
+         * @default 'SIGTERM'
+         */
+        killSignal?: NodeJS.Signals | number;
+
+        /**
+         * In milliseconds the maximum amount of time the process is allowed to run.
+         */
+        timeout?: number;
     }
 
     interface ProcessEnvOptions {
@@ -451,7 +462,6 @@ declare module 'child_process' {
 
     interface SpawnSyncOptions extends CommonSpawnOptions {
         input?: string | NodeJS.ArrayBufferView;
-        killSignal?: NodeJS.Signals | number;
         maxBuffer?: number;
         encoding?: BufferEncoding | 'buffer' | null;
     }
@@ -478,13 +488,16 @@ declare module 'child_process' {
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
 
-    interface ExecSyncOptions extends CommonOptions {
-        input?: string | Uint8Array;
+    interface CommonExecOptions extends ProcessEnvOptions {
+        input?: string | NodeJS.ArrayBufferView;
         stdio?: StdioOptions;
-        shell?: string;
         killSignal?: NodeJS.Signals | number;
         maxBuffer?: number;
         encoding?: BufferEncoding | 'buffer' | null;
+    }
+
+    interface ExecSyncOptions extends CommonExecOptions {
+        shell?: string;
     }
     interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
         encoding: BufferEncoding;
@@ -497,12 +510,7 @@ declare module 'child_process' {
     function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
     function execSync(command: string, options?: ExecSyncOptions): Buffer;
 
-    interface ExecFileSyncOptions extends CommonOptions {
-        input?: string | NodeJS.ArrayBufferView;
-        stdio?: StdioOptions;
-        killSignal?: NodeJS.Signals | number;
-        maxBuffer?: number;
-        encoding?: BufferEncoding;
+    interface ExecFileSyncOptions extends CommonExecOptions {
         shell?: boolean | string;
     }
     interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
@@ -518,4 +526,8 @@ declare module 'child_process' {
     function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
     function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
     function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
+}
+
+declare module 'node:child_process' {
+    export * from 'child_process';
 }

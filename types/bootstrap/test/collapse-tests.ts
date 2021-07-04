@@ -6,7 +6,7 @@ const element = new Element();
 // $ExpectType Collapse
 new Collapse(element, { parent: '.parent' });
 
-// $ExpectType Collapse
+// $ExpectType Collapse | null
 Collapse.getInstance(element);
 
 // $ExpectType string

@@ -15,6 +15,7 @@ import { SocketOptions, SocketType } from "dgram";
 import * as opentracing from "opentracing";
 import * as prometheus from "prom-client";
 
+export { opentracing };
 // Counter tracks the number of times an event has occurred
 export interface Counter {
     // Adds the given value to the counter.

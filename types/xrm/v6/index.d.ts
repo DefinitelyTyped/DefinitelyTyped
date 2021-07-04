@@ -434,7 +434,7 @@ declare namespace Xrm
             /**
              * The name
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * Type of the entity.
@@ -1845,14 +1845,14 @@ declare namespace Xrm
              *
              * @remarks Example:  encodeURIComponent( "formid={8c9f3e6f-7839-e211-831e-00155db7d98f}" );
              */
-            extraqs?: string;
+            extraqs?: string | undefined;
 
             /**
              * Controls whether the command bar is displayed.
              * Accepted values are: "true"    (The command bar is displayed.)
              *                      "false"   (The command bar is not displayed.)
              */
-            cmdbar?: string;
+            cmdbar?: string | undefined;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -1861,7 +1861,7 @@ declare namespace Xrm
              *                      "entity"  (On an entity form, only the navigation options for related
              *                                entities are available.)
              */
-            navbar?: string;
+            navbar?: string | undefined;
         }
 
         /**
@@ -1900,7 +1900,7 @@ declare namespace Xrm
              * Accepted values are: "true"    (The command bar is displayed.)
              *                      "false"   (The command bar is not displayed.)
              */
-            cmdbar?: string;
+            cmdbar?: string | undefined;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -1909,7 +1909,7 @@ declare namespace Xrm
              *                      "entity"  (On an entity form, only the navigation options for related
              *                                entities are available.)
              */
-            navbar?: string;
+            navbar?: string | undefined;
         }
 
         /**
@@ -1959,7 +1959,7 @@ declare namespace Xrm
              * The file name of the report.  For out-of-box reports, this parameter enables context-sensitive
              * help.
              */
-            helpID?: string;
+            helpID?: string | undefined;
 
             /**
              * The unique identifier, held in the report's 'reportid' attribute, in Guid format.
@@ -1992,14 +1992,14 @@ declare namespace Xrm
              *                      "entity"  (On an entity form, only the navigation options for related
              *                                entities are available.)
              */
-            navbar?: string;
+            navbar?: string | undefined;
 
             /**
              * Controls whether the command bar is displayed.
              * Accepted values are: "true"    (The command bar is displayed.)
              *                      "false"   (The command bar is not displayed.)
              */
-            cmdbar?: string;
+            cmdbar?: string | undefined;
 
             /**
              * Additional parameters can be provided to the request, by overloading

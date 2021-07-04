@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-axis module 2.1
+// Type definitions for D3JS d3-axis module 3.0
 // Project: https://github.com/d3/d3-axis/, https://d3js.org/d3-axis
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,9 +6,8 @@
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.1.0
+// Last module patch version validated against: 3.0.0
 
 import { Selection, TransitionLike } from 'd3-selection';
 
@@ -66,20 +65,14 @@ export interface Axis<Domain> {
     /**
      * Render the axis to the given context.
      *
-     * @param context A selection of SVG containers (either SVG or G elements).
+     * @param context A selection of or a transition defined on SVG containers (either SVG or G elements).
      */
-    (context: Selection<SVGSVGElement, any, any, any> | Selection<SVGGElement, any, any, any>): void;
-
-    /**
-     * Render the axis to the given context.
-     *
-     * @param context A transition defined on SVG containers (either SVG or G elements).
-     */
-    (context: TransitionLike<SVGSVGElement, any> | TransitionLike<SVGGElement, any>): void;
+    (context: Selection<SVGSVGElement, any, any, any> | Selection<SVGGElement, any, any, any> | TransitionLike<SVGSVGElement, any> | TransitionLike<SVGGElement, any>): void;
 
     /**
      * Gets the current scale underlying the axis.
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     scale<A extends AxisScale<Domain>>(): A;
 
     /**
@@ -111,6 +104,7 @@ export interface Axis<Domain> {
      * in d3-time. E.g. as obtained by passing in d3.timeMinute.every(15).
      * @param specifier An optional format specifier to customize how the tick values are formatted.
      */
+    // tslint:disable-next-line:unified-signatures
     ticks(interval: AxisTimeInterval, specifier?: string): this;
 
     /**
@@ -140,55 +134,9 @@ export interface Axis<Domain> {
      *
      * See also axis.ticks.
      *
-     * @param args An array containing a single element representing the count, i.e. number of ticks to be rendered.
-     */
-    tickArguments(args: [number]): this;
-
-    /**
-     * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
-     *
-     * This method has no effect if the scale does not implement scale.ticks, as with band and point scales.
-     * To set the tick values explicitly, use axis.tickValues. To set the tick format explicitly, use axis.tickFormat.
-     *
-     * See also axis.ticks.
-     *
-     * @param args An array containing two elements. The first element represents the count, i.e. number of ticks to be rendered. The second
-     * element is a string representing the format specifier to customize how the tick values are formatted.
-     */
-    tickArguments(args: [number, string]): this;
-
-    /**
-     * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
-     * Use with a TIME SCALE ONLY.
-     *
-     * See also axis.ticks.
-     *
-     * @param args An array containing a single element representing a time interval used to generate date-based ticks.
-     * This is typically a TimeInterval/CountableTimeInterval as defined in d3-time. E.g. as obtained by passing in d3.timeMinute.every(15).
-     */
-    tickArguments(args: [AxisTimeInterval]): this;
-
-    /**
-     * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
-     * Use with a TIME SCALE ONLY.
-     *
-     * See also axis.ticks.
-     *
-     * @param args An array containing two elements. The first element represents a time interval used to generate date-based ticks.
-     * This is typically a TimeInterval/CountableTimeInterval as defined in d3-time. E.g. as obtained by passing in d3.timeMinute.every(15).
-     * The second element is a string representing the format specifier to customize how the tick values are formatted.
-     */
-    tickArguments(args: [AxisTimeInterval, string]): this;
-
-    /**
-     * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
-     *
-     * This method has no effect if the scale does not implement scale.ticks, as with band and point scales.
-     * To set the tick values explicitly, use axis.tickValues. To set the tick format explicitly, use axis.tickFormat.
-     *
-     * See also axis.ticks.
-     *
-     * @param args An array with arguments suitable for the scale to be used for tick generation.
+     * @param args The meaning of the arguments depends on the axis’ scale type: most commonly, the arguments are a
+     * suggested count for the number of ticks (or a time interval for time scales), and an optional format specifier to
+     * customize how the tick values are formatted.
      */
     tickArguments(args: any[]): this;
 
@@ -203,9 +151,9 @@ export interface Axis<Domain> {
      * However, any tick arguments will still be passed to the scale’s tickFormat function if a
      * tick format is not also set.
      *
-     * @param values An array with values from the Domain of the scale underlying the axis.
+     * @param values An iterable with values from the Domain of the scale underlying the axis.
      */
-    tickValues(values: Domain[]): this;
+    tickValues(values: Iterable<Domain>): this;
 
     /**
      * Clears any previously-set explicit tick values and reverts back to the scale’s tick generator.

@@ -4,8 +4,9 @@
 //                 Anup Kishore <https://github.com/anup-2s>
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Alexi Maschas <https://github.com/amaschas>
+//                 Piotr Kuczynski <https://github.com/pkuczynski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /* =================== USAGE ===================
 
@@ -17,11 +18,11 @@
 
  =============================================== */
 
-import * as Koa from "koa";
+import * as Koa from 'koa';
 
-declare module "koa" {
+declare module 'koa' {
     interface Request {
-        body?: any;
+        body: string | Record<string, unknown>;
         rawBody: string;
     }
 }
@@ -34,6 +35,7 @@ declare namespace bodyParser {
          *  parser will only parse when request type hits enableTypes, default is ['json', 'form'].
          */
         enableTypes?: string[];
+
         /**
          * requested encoding. Default is utf-8 by co-body
          */

@@ -22,7 +22,7 @@ declare class Gravatar extends React.Component<Gravatar.Props> {
 }
 
 declare namespace Gravatar {
-    type DefaultImage = "404" | "mm" | "identicon" | "monsterid" | "wavatar" | "retro" | "blank";
+    type DefaultImage = "404" | "mm" | "mp" | "identicon" | "monsterid" | "wavatar" | "retro" | "blank";
     type Rating = "g" | "pg" | "r" | "x";
 
     interface Props extends Partial<JSX.IntrinsicElements['img']> {

@@ -7,10 +7,10 @@ export interface CrossDomainWindowType {
     open: (url?: string, target?: string, features?: string) => CrossDomainWindowType | null;
     close: () => void;
     focus: () => void;
-    top: CrossDomainWindowType;
-    frames: CrossDomainWindowType;
+    top: CrossDomainWindowType  | null;
+    frames: CrossDomainWindowType ;
     opener: CrossDomainWindowType | null;
-    parent: CrossDomainWindowType;
+    parent: CrossDomainWindowType  | null;
     length: number;
     postMessage: (a: string, b: string) => void;
 }

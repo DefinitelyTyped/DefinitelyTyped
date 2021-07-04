@@ -6,7 +6,6 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Benoit Benezech <https://github.com/bbenezech>
 //                 Patricio Zavolinsky <https://github.com/pzavolinsky>
-//                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Josh Rutherford <https://github.com/theruther4d>
@@ -29,6 +28,10 @@
 //                 Priyanshu Rav <https://github.com/priyanshurav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+// NOTE: Users of the upcoming React 18 release should add a reference
+// to 'react/next' in their project. See next.d.ts's top comment
+// for reference and documentation on how exactly to do it.
 
 // NOTE: Users of the `experimental` builds of React should add a reference
 // to 'react/experimental' in their project. See experimental.d.ts's top comment
@@ -1997,6 +2000,13 @@ declare namespace React {
         | 'strict-origin-when-cross-origin'
         | 'unsafe-url';
 
+    type HTMLAttributeAnchorTarget =
+        | '_self'
+        | '_blank'
+        | '_parent'
+        | '_top'
+        | (string & {});
+
     interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
         download?: any;
         href?: string;
@@ -2004,7 +2014,7 @@ declare namespace React {
         media?: string;
         ping?: string;
         rel?: string;
-        target?: string;
+        target?: HTMLAttributeAnchorTarget;
         type?: string;
         referrerPolicy?: HTMLAttributeReferrerPolicy;
     }

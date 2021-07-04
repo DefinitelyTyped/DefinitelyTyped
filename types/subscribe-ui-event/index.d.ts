@@ -24,12 +24,12 @@ export type EventType = UIEventType | TouchEventType;
 
 export interface SubscribeOptions {
     context?: any;
-    enableResizeInfo?: boolean;
-    enableScrollInfo?: boolean;
-    enableTouchInfo?: boolean;
-    eventOptions?: AddEventListenerOptions;
-    throttleRate?: number;
-    useRAF?: boolean;
+    enableResizeInfo?: boolean | undefined;
+    enableScrollInfo?: boolean | undefined;
+    enableTouchInfo?: boolean | undefined;
+    eventOptions?: AddEventListenerOptions | undefined;
+    throttleRate?: number | undefined;
+    useRAF?: boolean | undefined;
 }
 
 export interface ArgmentedEvent<T extends EventType> {

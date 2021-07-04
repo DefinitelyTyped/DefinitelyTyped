@@ -10,7 +10,7 @@ export interface MiddlewareOptions {
     verify: string;
     realm: string;
     apiKey: string;
-    useSession?: boolean;
+    useSession?: boolean | undefined;
 }
 
 export interface SteamUser {
@@ -23,18 +23,18 @@ export interface SteamUser {
         avatarfull: string;
         personastate: number;
         communityvisibilitystate: number;
-        profilestate?: number;
+        profilestate?: number | undefined;
         lastlogoff: number;
-        commentpermission?: number;
-        realname?: string;
-        primaryclanid?: string;
-        timecreated?: number;
-        gameid?: string;
-        gameserverip?: string;
-        gameextrainfo?: string;
-        loccountrycode?: string;
-        locstatecode?: string;
-        loccityid?: number;
+        commentpermission?: number | undefined;
+        realname?: string | undefined;
+        primaryclanid?: string | undefined;
+        timecreated?: number | undefined;
+        gameid?: string | undefined;
+        gameserverip?: string | undefined;
+        gameextrainfo?: string | undefined;
+        loccountrycode?: string | undefined;
+        locstatecode?: string | undefined;
+        loccityid?: number | undefined;
     };
     steamid: string;
     username: string;
@@ -49,7 +49,7 @@ export interface SteamUser {
 
 export interface SteamRequest extends Request {
     logout?(): (req: Request) => () => void;
-    user?: SteamUser;
+    user?: SteamUser | undefined;
 }
 
 export function middleware(opts: MiddlewareOptions): RequestHandler;

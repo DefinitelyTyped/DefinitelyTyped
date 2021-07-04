@@ -27,6 +27,7 @@
         "test/customer.ts",
         "test/index.ts",
         "test/merchants.ts",
+        "test/order.ts",
         "test/products.ts",
         "test/services.ts"
     ]

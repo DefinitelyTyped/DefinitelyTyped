@@ -30,12 +30,12 @@ interface AcceptDict {
     /**
      * Callback to be fired when the socket enters the [ERROR](Titanium.Network.Socket.ERROR) state.
      */
-    error?: (param0: ErrorCallbackArgs) => void;
+    error?: ((param0: ErrorCallbackArgs) => void) | undefined;
 
     /**
      * Timeout, in milliseconds, for all `write` operations.
      */
-    timeout?: number;
+    timeout?: number | undefined;
 
 }
 /**
@@ -46,12 +46,12 @@ interface AcceptedCallbackArgs {
     /**
      * Socket which represents the inbound connection.
      */
-    inbound?: Titanium.Network.Socket.TCP;
+    inbound?: Titanium.Network.Socket.TCP | undefined;
 
     /**
      * Socket which received the connection.
      */
-    socket?: Titanium.Network.Socket.TCP;
+    socket?: Titanium.Network.Socket.TCP | undefined;
 
 }
 /**
@@ -63,7 +63,7 @@ interface ActivityLifecycleCallbackObject {
     /**
      * The Activity firing the callback.
      */
-    source?: Titanium.Android.Activity;
+    source?: Titanium.Android.Activity | undefined;
 
 }
 /**
@@ -75,18 +75,18 @@ interface ActivityResult {
      * Intent that can contain data returned to the caller. Data can be attached to
      * the intent as "extras").
      */
-    intent?: Titanium.Android.Intent;
+    intent?: Titanium.Android.Intent | undefined;
 
     /**
      * Unique, automatically generated integer request code.
      */
-    requestCode?: number;
+    requestCode?: number | undefined;
 
     /**
      * Integer result code that the started activity passed to
      * [setResult](Titanium.Android.Activity.setResult).
      */
-    resultCode?: number;
+    resultCode?: number | undefined;
 
 }
 /**
@@ -97,7 +97,7 @@ interface AnimatedOptions {
      * If `true`, animate a transition for the method/value change.
      * Note that for most uses cases the default is assumed to be `false`. The exceptions tend to be <Titanium.UI.Window> methods.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
 }
 /**
@@ -107,7 +107,7 @@ interface AnimatedWithDurationOptions extends AnimatedOptions {
     /**
      * The duration in `milliseconds` for animation
      */
-    duration?: number;
+    duration?: number | undefined;
 
 }
 /**
@@ -137,27 +137,27 @@ interface BackForwardList {
     /**
      * The item immediately preceding the current item.
      */
-    backItem?: BackForwardListItem;
+    backItem?: BackForwardListItem | undefined;
 
     /**
      * The portion of the list preceding the current item.
      */
-    backList?: BackForwardListItem[];
+    backList?: BackForwardListItem[] | undefined;
 
     /**
      * The current item.
      */
-    currentItem?: BackForwardListItem;
+    currentItem?: BackForwardListItem | undefined;
 
     /**
      * The item immediately following the current item.
      */
-    forwardItem?: BackForwardListItem;
+    forwardItem?: BackForwardListItem | undefined;
 
     /**
      * The portion of the list following the current item.
      */
-    forwardList?: BackForwardListItem[];
+    forwardList?: BackForwardListItem[] | undefined;
 
 }
 /**
@@ -167,17 +167,17 @@ interface BackForwardListItem {
     /**
      * The URL of the initial request that created this item.
      */
-    initialUrl?: string;
+    initialUrl?: string | undefined;
 
     /**
      * The title of the webpage represented by this item.
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * The URL of the webpage represented by this item.
      */
-    url?: string;
+    url?: string | undefined;
 
 }
 /**
@@ -187,27 +187,27 @@ interface BarItemType {
     /**
      * A succint label associated with the bar item for the device's accessibility service.
      */
-    accessibilityLabel?: string;
+    accessibilityLabel?: string | undefined;
 
     /**
      * Whether the button is enabled initially.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
 
     /**
      * Button icon. If specified, takes precedence over `title`.
      */
-    image?: string | Titanium.Blob | Titanium.Filesystem.File;
+    image?: string | Titanium.Blob | Titanium.Filesystem.File | undefined;
 
     /**
      * Button title, used if no `image` is specified.
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * Width for this button.
      */
-    width?: number;
+    width?: number | undefined;
 
 }
 /**
@@ -218,12 +218,12 @@ interface BatchQueryError {
     /**
      * Index of the failed query
      */
-    index?: number;
+    index?: number | undefined;
 
     /**
      * partial `ResultSet`s of any successful queries before the failure
      */
-    results?: Titanium.Database.ResultSet[];
+    results?: Titanium.Database.ResultSet[] | undefined;
 
 }
 /**
@@ -233,17 +233,17 @@ interface BoundaryIdentifier {
     /**
      * Arbitrary identifier for the boundary
      */
-    identifier?: string;
+    identifier?: string | undefined;
 
     /**
      * Start point for the boundary
      */
-    point1?: Point;
+    point1?: Point | undefined;
 
     /**
      * End point for the boundary
      */
-    point2?: Point;
+    point2?: Point | undefined;
 
 }
 /**
@@ -253,17 +253,17 @@ interface CPU {
     /**
      * General description of the CPU
      */
-    model?: string;
+    model?: string | undefined;
 
     /**
      * Speed of the CPU in MHz
      */
-    speed?: number;
+    speed?: number | undefined;
 
     /**
      * A collection of timings for this logical CPU.
      */
-    times?: CPUTimes;
+    times?: CPUTimes | undefined;
 
 }
 /**
@@ -273,27 +273,27 @@ interface CPUTimes {
     /**
      * The number of milliseconds the CPU has spent in idle mode.
      */
-    idle?: number;
+    idle?: number | undefined;
 
     /**
      * The number of milliseconds the CPU has spent in irq mode.
      */
-    irq?: number;
+    irq?: number | undefined;
 
     /**
      * The number of milliseconds the CPU has spent in nice mode.
      */
-    nice?: number;
+    nice?: number | undefined;
 
     /**
      * The number of milliseconds the CPU has spent in sys mode.
      */
-    sys?: number;
+    sys?: number | undefined;
 
     /**
      * The number of milliseconds the CPU has spent in user mode.
      */
-    user?: number;
+    user?: number | undefined;
 
 }
 /**
@@ -303,17 +303,17 @@ interface CalendarPermissionResponse {
     /**
      * Error code, if any returned.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Indicates whether the request succeeded.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -323,43 +323,43 @@ interface CameraMediaItemType extends SuccessResponse {
     /**
      * Error code. Returns 0.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Simple object defining the user's selected crop rectangle, or `null` if the user has not edited the photo. `width`/`height` values are assumed to be in pixels.
      */
-    cropRect?: Dimension;
+    cropRect?: Dimension | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * The live photo object, as a <Titanium.UI.iOS.LivePhoto> and
      * `undefined` if no live photo is selected.
      */
-    livePhoto?: Titanium.UI.iOS.LivePhoto;
+    livePhoto?: Titanium.UI.iOS.LivePhoto | undefined;
 
     /**
      * The media object, as a [Blob](Titanium.Blob).
      */
-    media?: Titanium.Blob;
+    media?: Titanium.Blob | undefined;
 
     /**
      * The type of media, either `MEDIA_TYPE_PHOTO`, `MEDIA_TYPE_LIVEPHOTO` or `MEDIA_TYPE_VIDEO` defined in <Titanium.Media>.
      */
-    mediaType?: string;
+    mediaType?: string | undefined;
 
     /**
      * Simple object defining the preview image size. This will be undefined when custom camera overlay is not used. Values are assumed to be in pixels.
      */
-    previewRect?: Size;
+    previewRect?: Size | undefined;
 
     /**
      * Indicates if the operation succeeded. Returns `true`.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -369,17 +369,17 @@ interface CameraMediaMultipleItemsType extends SuccessResponse {
     /**
      * The list of selected images.
      */
-    images?: CameraMediaItemType[];
+    images?: CameraMediaItemType[] | undefined;
 
     /**
      * The list of selected live photo objects.
      */
-    livePhotos?: Titanium.UI.iOS.LivePhoto[];
+    livePhotos?: Titanium.UI.iOS.LivePhoto[] | undefined;
 
     /**
      * The list of selected videos.
      */
-    videos?: CameraMediaItemType[];
+    videos?: CameraMediaItemType[] | undefined;
 
 }
 /**
@@ -389,99 +389,99 @@ interface CameraOptionsType {
     /**
      * Specifies if the media should be editable after capture/selection.
      */
-    allowEditing?: boolean;
+    allowEditing?: boolean | undefined;
 
     /**
      * Function to call if the user presses the back button.
      */
-    androidback?: (param0: FailureResponse) => void;
+    androidback?: ((param0: FailureResponse) => void) | undefined;
 
     /**
      * Specifies if the dialog should be animated upon showing and hiding.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Controls the type of arrow and position of the popover.
      */
-    arrowDirection?: number;
+    arrowDirection?: number | undefined;
 
     /**
      * Specifies if the camera should be hidden automatically after the media capture is completed.
      */
-    autohide?: boolean;
+    autohide?: boolean | undefined;
 
     /**
      * Determines if the camera preview should rotate or not.
      */
-    autorotate?: boolean;
+    autorotate?: boolean | undefined;
 
     /**
      * Function to call if the user presses the cancel button.
      */
-    cancel?: (param0: FailureResponse) => void;
+    cancel?: ((param0: FailureResponse) => void) | undefined;
 
     /**
      * Function to call upon receiving an error.
      */
-    error?: (param0: FailureResponse) => void;
+    error?: ((param0: FailureResponse) => void) | undefined;
 
     /**
      * Show the camera in a popover.
      */
-    inPopOver?: boolean;
+    inPopOver?: boolean | undefined;
 
     /**
      * Array of media type constants to allow. Note: If you want to select live photos, iOS only  allows
      * you to select existing live photos from the gallery, capturing new live photos is not supported by
      * iOS public API, yet.
      */
-    mediaTypes?: string[];
+    mediaTypes?: string[] | undefined;
 
     /**
      * View to added as an overlay to the camera UI (on top).
      */
-    overlay?: Titanium.UI.View;
+    overlay?: Titanium.UI.View | undefined;
 
     /**
      * View to position the camera or photo gallery popover on top of.
      */
-    popoverView?: Titanium.UI.View;
+    popoverView?: Titanium.UI.View | undefined;
 
     /**
      * Specifies if the media should be saved to the photo gallery upon successful capture.
      */
-    saveToPhotoGallery?: boolean;
+    saveToPhotoGallery?: boolean | undefined;
 
     /**
      * Indicates if the built-in camera controls should be displayed.
      */
-    showControls?: boolean;
+    showControls?: boolean | undefined;
 
     /**
      * Function to call when the camera is closed after a successful capture/selection.
      */
-    success?: (param0: CameraMediaItemType) => void;
+    success?: ((param0: CameraMediaItemType) => void) | undefined;
 
     /**
      * Transformation matrix to apply to the camera or photogallery view.
      */
-    transform?: Titanium.UI.Matrix2D;
+    transform?: Titanium.UI.Matrix2D | undefined;
 
     /**
      * Maximum duration (in milliseconds) to allow video capture before completing.
      */
-    videoMaximumDuration?: number;
+    videoMaximumDuration?: number | undefined;
 
     /**
      * Constant to indicate the video quality during capture.
      */
-    videoQuality?: number;
+    videoQuality?: number | undefined;
 
     /**
      * Opens the camera with the specified camera direction.
      */
-    whichCamera?: number;
+    whichCamera?: number | undefined;
 
 }
 /**
@@ -492,7 +492,7 @@ interface ClipboardItemsType {
      * An array of key-value items to add to the clipboard. The key must a valid mime-type
      * matching the mime-type of the value.
      */
-    items?: any[];
+    items?: any[] | undefined;
 
     /**
      * The privacy options to apply to all the items on the clipboard. The available options are
@@ -509,7 +509,7 @@ interface ConnectedCallbackArgs {
     /**
      * Socket instance that has been connected.
      */
-    socket?: Titanium.Network.Socket.TCP;
+    socket?: Titanium.Network.Socket.TCP | undefined;
 
 }
 /**
@@ -524,17 +524,17 @@ interface CoverFlowImageType {
     /**
      * Display height of the image, in Apple points.
      */
-    height?: number;
+    height?: number | undefined;
 
     /**
      * Image to use, as a local file URL, `Blob`, or `File`.
      */
-    image?: string | Titanium.Blob | Titanium.Filesystem.File;
+    image?: string | Titanium.Blob | Titanium.Filesystem.File | undefined;
 
     /**
      * Display width for the image, in Apple points.
      */
-    width?: number;
+    width?: number | undefined;
 
 }
 /**
@@ -544,22 +544,22 @@ interface CreateBufferArgs {
     /**
      * The byte order of this buffer.
      */
-    byteOrder?: number;
+    byteOrder?: number | undefined;
 
     /**
      * The length of the buffer.
      */
-    length?: number;
+    length?: number | undefined;
 
     /**
      * The type of data encoding to use with `value`.
      */
-    type?: string;
+    type?: string | undefined;
 
     /**
      * An initial value which will be encoded and placed in the buffer. If value is a Number, type must also be set. (this is simply a convenient way of calling <Titanium.Codec.encodeString> or <Titanium.Codec.encodeNumber> and placing the encoded value in the returned buffer.)
      */
-    value?: string | number;
+    value?: string | number | undefined;
 
 }
 /**
@@ -569,12 +569,12 @@ interface CreateStreamArgs {
     /**
      * Mode to open the stream in.
      */
-    mode?: number;
+    mode?: number | undefined;
 
     /**
      * Object that the stream will read from or write to.
      */
-    source?: Titanium.Blob | Titanium.Buffer;
+    source?: Titanium.Blob | Titanium.Buffer | undefined;
 
 }
 /**
@@ -584,17 +584,17 @@ interface DataCreationResult {
     /**
      * The created data.
      */
-    data?: Titanium.Blob;
+    data?: Titanium.Blob | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Indicates if the data creation successful or not.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -604,12 +604,12 @@ interface DecodeNumberDict {
     /**
      * byte order to decode with.
      */
-    byteOrder?: number;
+    byteOrder?: number | undefined;
 
     /**
      * Index in the `source` buffer of the first byte of data to decode.
      */
-    position?: number;
+    position?: number | undefined;
 
     /**
      * Buffer to decode.
@@ -629,17 +629,17 @@ interface DecodeStringDict {
     /**
      * Character set to use when encoding this string to bytes.
      */
-    charset?: string;
+    charset?: string | undefined;
 
     /**
      * Number of bytes to decode.
      */
-    length?: number;
+    length?: number | undefined;
 
     /**
      * Index in the `source` buffer of the first byte of data to decode.
      */
-    position?: number;
+    position?: number | undefined;
 
     /**
      * Buffer to decode.
@@ -654,12 +654,12 @@ interface Dimension extends Size {
     /**
      * The x-axis coordinate of the position. When returned by <Titanium.UI.View.rect> the position is relative to it's parent.
      */
-    x?: number;
+    x?: number | undefined;
 
     /**
      * The y-axis coordinate of the position. When returned by <Titanium.UI.View.rect> the position is relative to it's parent.
      */
-    y?: number;
+    y?: number | undefined;
 
 }
 /**
@@ -669,12 +669,12 @@ interface DimensionWithAbsolutes extends Dimension {
     /**
      * The x-axis coordinate of the position relative to the main window.
      */
-    absoluteX?: number;
+    absoluteX?: number | undefined;
 
     /**
      * The y-axis coordinate of the position relative to the main window.
      */
-    absoluteY?: number;
+    absoluteY?: number | undefined;
 
 }
 /**
@@ -684,12 +684,12 @@ interface DocumentViewerOptions {
     /**
      * Indicates whether to animate the transition.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Anchors the options menu to the specified view.
      */
-    view?: Titanium.UI.View;
+    view?: Titanium.UI.View | undefined;
 
 }
 /**
@@ -699,7 +699,7 @@ interface EncodeNumberDict {
     /**
      * Byte order to encode with.
      */
-    byteOrder?: number;
+    byteOrder?: number | undefined;
 
     /**
      * Destination buffer.
@@ -709,7 +709,7 @@ interface EncodeNumberDict {
     /**
      * Index in the `dest` buffer of the first byte of encoded data.
      */
-    position?: number;
+    position?: number | undefined;
 
     /**
      * Number to encode.
@@ -729,7 +729,7 @@ interface EncodeStringDict {
     /**
      * Character encoding to use when encoding this string to bytes.
      */
-    charset?: string;
+    charset?: string | undefined;
 
     /**
      * Destination buffer.
@@ -739,7 +739,7 @@ interface EncodeStringDict {
     /**
      * Index in the `dest` buffer of the first byte of the encoded string.
      */
-    destPosition?: number;
+    destPosition?: number | undefined;
 
     /**
      * Source string to encode.
@@ -749,12 +749,12 @@ interface EncodeStringDict {
     /**
      * Number of characters in `source` to encode.
      */
-    sourceLength?: number;
+    sourceLength?: number | undefined;
 
     /**
      * Position in `source` to start encoding.
      */
-    sourcePosition?: number;
+    sourcePosition?: number | undefined;
 
 }
 /**
@@ -764,7 +764,7 @@ interface ErrorCallbackArgs extends FailureResponse {
     /**
      * Error code. Returns a non-zero value.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * The error code of the error (potentially system-dependent).
@@ -775,12 +775,12 @@ interface ErrorCallbackArgs extends FailureResponse {
     /**
      * Socket that experienced the error.
      */
-    socket?: Titanium.Network.Socket.TCP;
+    socket?: Titanium.Network.Socket.TCP | undefined;
 
     /**
      * Indicates if the operation succeeded. Returns `false`.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -790,17 +790,17 @@ interface ErrorResponse {
     /**
      * Error code. Returns 0 if `success` is `true`.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Indicates if the operation succeeded.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -810,17 +810,17 @@ interface EventsAuthorizationResponse {
     /**
      * Error code, if any returned.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Indicates whether the request succeeded.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -830,17 +830,17 @@ interface FailureResponse extends ErrorResponse {
     /**
      * Error code. Returns a non-zero value.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Indicates if the operation succeeded. Returns `false`.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -850,28 +850,28 @@ interface Font {
     /**
      * Specifies the font family or specific font to use.
      */
-    fontFamily?: string;
+    fontFamily?: string | undefined;
 
     /**
      * Font size, in platform-dependent units.
      */
-    fontSize?: number | string;
+    fontSize?: number | string | undefined;
 
     /**
      * Font style. Valid values are "italic" or "normal".
      */
-    fontStyle?: string;
+    fontStyle?: string | undefined;
 
     /**
      * Font weight. Valid values are "bold", "semibold", "normal", "thin",
      * "light" and "ultralight".
      */
-    fontWeight?: string;
+    fontWeight?: string | undefined;
 
     /**
      * The text style for the font.
      */
-    textStyle?: string;
+    textStyle?: string | undefined;
 
 }
 /**
@@ -883,87 +883,87 @@ interface ForwardGeocodeResponse extends ErrorResponse {
     /**
      * Estimated accuracy of the geocoding, in meters.
      */
-    accuracy?: number;
+    accuracy?: number | undefined;
 
     /**
      * Full address.
      */
-    address?: string;
+    address?: string | undefined;
 
     /**
      * City name.
      */
-    city?: string;
+    city?: string | undefined;
 
     /**
      * Error code. Returns 0 if `success` is `true`.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Country name.
      */
-    country?: string;
+    country?: string | undefined;
 
     /**
      * Country code.
      */
-    countryCode?: string;
+    countryCode?: string | undefined;
 
     /**
      * Country code. Same as `countryCode`.
      */
-    country_code?: string;
+    country_code?: string | undefined;
 
     /**
      * Display address. Identical to `address`.
      */
-    displayAddress?: string;
+    displayAddress?: string | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Latitude of the geocoded address.
      */
-    latitude?: string;
+    latitude?: string | undefined;
 
     /**
      * Longitude of the geocoded address.
      */
-    longitude?: string;
+    longitude?: string | undefined;
 
     /**
      * Postal code.
      */
-    postalCode?: string;
+    postalCode?: string | undefined;
 
     /**
      * First line of region.
      */
-    region1?: string;
+    region1?: string | undefined;
 
     /**
      * Not used.
      */
-    region2?: string;
+    region2?: string | undefined;
 
     /**
      * Street name, without street address.
      */
-    street?: string;
+    street?: string | undefined;
 
     /**
      * Street name.
      */
-    street1?: string;
+    street1?: string | undefined;
 
     /**
      * Indicates if the operation succeeded.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -974,22 +974,22 @@ interface GeocodedAddress {
     /**
      * Full address.
      */
-    address?: string;
+    address?: string | undefined;
 
     /**
      * City name.
      */
-    city?: string;
+    city?: string | undefined;
 
     /**
      * Country name.
      */
-    country?: string;
+    country?: string | undefined;
 
     /**
      * Country code.
      */
-    countryCode?: string;
+    countryCode?: string | undefined;
 
     /**
      * Country code. To be replaced by `countryCode`.
@@ -1006,37 +1006,37 @@ interface GeocodedAddress {
     /**
      * Latitude of the geocoded point.
      */
-    latitude?: number;
+    latitude?: number | undefined;
 
     /**
      * Longitude of the geocoded point.
      */
-    longitude?: number;
+    longitude?: number | undefined;
 
     /**
      * Postal code
      */
-    postalCode?: string;
+    postalCode?: string | undefined;
 
     /**
      * First line of region.
      */
-    region1?: string;
+    region1?: string | undefined;
 
     /**
      * Not used.
      */
-    region2?: string;
+    region2?: string | undefined;
 
     /**
      * Street name, without street address.
      */
-    street?: string;
+    street?: string | undefined;
 
     /**
      * Street name.
      */
-    street1?: string;
+    street1?: string | undefined;
 
     /**
      * Postal code. To be replaced by `postalCode`
@@ -1053,64 +1053,64 @@ interface GetUserNotificationSettings {
     /**
      * The current alert settings.
      */
-    alertSetting?: number;
+    alertSetting?: number | undefined;
 
     /**
      * The current alert style used to display notifications.
      */
-    alertStyle?: number;
+    alertStyle?: number | undefined;
 
     /**
      * The current authorization status for using notifications.
      */
-    authorizationStatus?: number;
+    authorizationStatus?: number | undefined;
 
     /**
      * The current badge settings.
      */
-    badgeSetting?: number;
+    badgeSetting?: number | undefined;
 
     /**
      * The current CarPlay settings.
      */
-    carPlaySetting?: number;
+    carPlaySetting?: number | undefined;
 
     /**
      * Set of categories of user notification actions required by the applicaiton to use.
      */
-    categories?: Titanium.App.iOS.UserNotificationCategory[];
+    categories?: Titanium.App.iOS.UserNotificationCategory[] | undefined;
 
     /**
      * The authorization status to play sounds for critical alerts.
      * Available in Titanium SDK 7.4.0 and later.
      */
-    criticalAlertSetting?: number;
+    criticalAlertSetting?: number | undefined;
 
     /**
      * The current lock-screen settings.
      */
-    lockScreenSetting?: number;
+    lockScreenSetting?: number | undefined;
 
     /**
      * The current notication-center settings.
      */
-    notificationCenterSetting?: number;
+    notificationCenterSetting?: number | undefined;
 
     /**
      * A Boolean value indicating the system displays a button for in-app notification settings.
      * Available in Titanium SDK 7.4.0 and later.
      */
-    providesAppNotificationSettings?: number;
+    providesAppNotificationSettings?: number | undefined;
 
     /**
      * The current sound settings.
      */
-    soundSetting?: number;
+    soundSetting?: number | undefined;
 
     /**
      * Notification types to use.
      */
-    types?: number[];
+    types?: number[] | undefined;
 
 }
 /**
@@ -1120,42 +1120,42 @@ interface Gradient {
     /**
      * Set to `true` to continue filling with the final color beyond the `endPoint`.
      */
-    backfillEnd?: boolean;
+    backfillEnd?: boolean | undefined;
 
     /**
      * Set to `true` to continue filling with the starting color beyond the `startPoint`.
      */
-    backfillStart?: boolean;
+    backfillStart?: boolean | undefined;
 
     /**
      * An array of colors, as a color name or hex triplet.
      */
-    colors?: string[] | GradientColorRef[];
+    colors?: string[] | GradientColorRef[] | undefined;
 
     /**
      * End point for the gradient.
      */
-    endPoint?: Point;
+    endPoint?: Point | undefined;
 
     /**
      * For a radial gradient, the radius at the `endPoint`.
      */
-    endRadius?: number;
+    endRadius?: number | undefined;
 
     /**
      * Start point for the gradient.
      */
-    startPoint?: Point;
+    startPoint?: Point | undefined;
 
     /**
      * For a radial gradient, the radius at the `startPoint`.
      */
-    startRadius?: number;
+    startRadius?: number | undefined;
 
     /**
      * Type of gradient, either 'linear' or 'radial'.
      */
-    type?: string;
+    type?: string | undefined;
 
 }
 /**
@@ -1165,12 +1165,12 @@ interface GradientColorRef {
     /**
      * Color value at this point in the gradient, as a color name or hex triplet.
      */
-    color?: string | Titanium.UI.Color;
+    color?: string | Titanium.UI.Color | undefined;
 
     /**
      * The color's normalized position within the gradient, ranging from 0 (start) to 1 (end).
      */
-    offset?: number;
+    offset?: number | undefined;
 
 }
 /**
@@ -1180,37 +1180,37 @@ interface HeadingData {
     /**
      * Accuracy of the compass heading, in platform-specific units.
      */
-    accuracy?: number;
+    accuracy?: number | undefined;
 
     /**
      * Declination in degrees from magnetic North.
      */
-    magneticHeading?: number;
+    magneticHeading?: number | undefined;
 
     /**
      * Timestamp for the heading data, in milliseconds.
      */
-    timestamp?: number;
+    timestamp?: number | undefined;
 
     /**
      * Declination in degrees from true North.
      */
-    trueHeading?: number;
+    trueHeading?: number | undefined;
 
     /**
      * Raw geomagnetic data for the X axis.
      */
-    x?: number;
+    x?: number | undefined;
 
     /**
      * Raw geomagnetic data for the Y axis.
      */
-    y?: number;
+    y?: number | undefined;
 
     /**
      * Raw geomagnetic data for the Z axis.
      */
-    z?: number;
+    z?: number | undefined;
 
 }
 /**
@@ -1220,22 +1220,22 @@ interface HeadingResponse extends ErrorResponse {
     /**
      * Error code.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * If `success` is true, the actual heading data.
      */
-    heading?: HeadingData;
+    heading?: HeadingData | undefined;
 
     /**
      * Indicates a successful operation.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -1245,12 +1245,12 @@ interface HorizontalInsets {
     /**
      * Left padding/inset
      */
-    left?: number;
+    left?: number | undefined;
 
     /**
      * Right padding/inset
      */
-    right?: number;
+    right?: number | undefined;
 
 }
 /**
@@ -1260,7 +1260,7 @@ interface ItemTemplate {
     /**
      * Contains an array of subview templates to be added (in order) as children to this view.
      */
-    childTemplates?: ViewTemplate[];
+    childTemplates?: ViewTemplate[] | undefined;
 
     /**
      * Contains key-value pairs of view events and their listeners that are applied to the ListItem.
@@ -1270,7 +1270,7 @@ interface ItemTemplate {
     /**
      * Contains key-value pairs of view properties and their values that are applied to the ListItem.
      */
-    properties?: Dictionary<Titanium.UI.ListItem>;
+    properties?: Dictionary<Titanium.UI.ListItem> | undefined;
 
 }
 /**
@@ -1280,12 +1280,12 @@ interface LabelLineSpacing {
     /**
      * The value in pixels that should be added to each line other than the last line. This will be applied after the multiplier
      */
-    add?: number;
+    add?: number | undefined;
 
     /**
      * The value by which each line height other than the last line will be multiplied by
      */
-    multiply?: number;
+    multiply?: number | undefined;
 
 }
 /**
@@ -1296,12 +1296,12 @@ interface LaunchOptionsType {
     /**
      * The application or service that triggered the handled URL.
      */
-    source?: string;
+    source?: string | undefined;
 
     /**
      * The url that was triggered by the application or service.
      */
-    url?: string;
+    url?: string | undefined;
 
 }
 /**
@@ -1312,13 +1312,13 @@ interface ListDataItem {
      * Contains key-value pairs of view properties and their values that are applied to the
      * `ListItem`.
      */
-    properties?: Dictionary<Titanium.UI.ListItem>;
+    properties?: Dictionary<Titanium.UI.ListItem> | undefined;
 
     /**
      * Template ID configured with the <Titanium.UI.ListView.templates> property or
      * <Titanium.UI.LIST_ITEM_TEMPLATE_DEFAULT>.
      */
-    template?: string | number;
+    template?: string | number | undefined;
 
     [index: string]: any;
 }
@@ -1329,22 +1329,22 @@ interface ListItemEventType {
     /**
      * The item ID bound to the list item that generated the event.
      */
-    itemId?: string;
+    itemId?: string | undefined;
 
     /**
      * Item index.
      */
-    itemIndex?: number;
+    itemIndex?: number | undefined;
 
     /**
      * List section if the item is contained in a list section.
      */
-    section?: Titanium.UI.ListSection;
+    section?: Titanium.UI.ListSection | undefined;
 
     /**
      * Section index.
      */
-    sectionIndex?: number;
+    sectionIndex?: number | undefined;
 
 }
 /**
@@ -1355,17 +1355,17 @@ interface ListViewAnimationProperties {
     /**
      * Whether this list change should be animated. Ignored if any `animationStyle` value is specified.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Type of animation to use for cell insertions and deletions.
      */
-    animationStyle?: number;
+    animationStyle?: number | undefined;
 
     /**
      * Specifies what position to scroll the selected cell to.
      */
-    position?: number;
+    position?: number | undefined;
 
 }
 /**
@@ -1375,12 +1375,12 @@ interface ListViewIndexEntry {
     /**
      * Section index associated with this title.
      */
-    index?: number;
+    index?: number | undefined;
 
     /**
      * Title to display in the index bar.
      */
-    title?: string;
+    title?: string | undefined;
 
 }
 /**
@@ -1390,12 +1390,12 @@ interface ListViewMarkerProps {
     /**
      * The itemIndex of the reference item.
      */
-    itemIndex?: number;
+    itemIndex?: number | undefined;
 
     /**
      * The sectionIndex of the reference item.
      */
-    sectionIndex?: number;
+    sectionIndex?: number | undefined;
 
 }
 /**
@@ -1405,7 +1405,7 @@ interface LocationAccuracyAuthorizationResponse extends ErrorResponse {
     /**
      * The level of location accuracy the app has granted.
      */
-    accuracyAuthorization?: number;
+    accuracyAuthorization?: number | undefined;
 
 }
 /**
@@ -1420,38 +1420,38 @@ interface LocationCoordinates {
     /**
      * Accuracy of the location update, in meters.
      */
-    accuracy?: number;
+    accuracy?: number | undefined;
 
     /**
      * Altitude of the location update, in meters.
      */
-    altitude?: number;
+    altitude?: number | undefined;
 
     /**
      * Vertical accuracy of the location update, in meters.
      */
-    altitudeAccuracy?: number;
+    altitudeAccuracy?: number | undefined;
 
     /**
      * The floor of the building on which the user is located.
      */
-    floor?: LocationCoordinatesFloor;
+    floor?: LocationCoordinatesFloor | undefined;
 
     /**
      * Compass heading, in degrees. May be unknown if device is not moving. On
      * iOS, a negative value indicates that the heading data is not valid.
      */
-    heading?: number;
+    heading?: number | undefined;
 
     /**
      * Latitude of the location update, in decimal degrees.
      */
-    latitude?: number;
+    latitude?: number | undefined;
 
     /**
      * Longitude of the location update, in decimal degrees.
      */
-    longitude?: number;
+    longitude?: number | undefined;
 
     /**
      * Current speed in meters/second. On iOS, a negative value indicates that the
@@ -1460,12 +1460,12 @@ interface LocationCoordinates {
      * property to <Titanium.Geolocation.ACCURACY_BEST_FOR_NAVIGATION> in order to properly
      * measure speed changes and prevent the app from returning negative values.
      */
-    speed?: number;
+    speed?: number | undefined;
 
     /**
      * Timestamp for this location update, in milliseconds.
      */
-    timestamp?: number;
+    timestamp?: number | undefined;
 
 }
 /**
@@ -1475,7 +1475,7 @@ interface LocationCoordinatesFloor {
     /**
      * The logical floor of the building.
      */
-    level?: number;
+    level?: number | undefined;
 
 }
 /**
@@ -1485,17 +1485,17 @@ interface LocationProviderDict {
     /**
      * Accuracy of the location provider, either fine (1) or coarse (2).
      */
-    accuracy?: number;
+    accuracy?: number | undefined;
 
     /**
      * Name of the location provider.
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * Power consumption for this provider, either low (1), medium (2), or high (3).
      */
-    power?: number;
+    power?: number | undefined;
 
 }
 /**
@@ -1505,12 +1505,12 @@ interface LocationResults extends ErrorResponse {
     /**
      * If `success` is true, actual location data for this update.
      */
-    coords?: LocationCoordinates;
+    coords?: LocationCoordinates | undefined;
 
     /**
      * If `success` is true, object describing the location provider generating this update.
      */
-    provider?: LocationProviderDict;
+    provider?: LocationProviderDict | undefined;
 
 }
 /**
@@ -1522,19 +1522,19 @@ interface Matrix2DCreationDict {
      * properties, where { x: 0.5, y: 0.5 } represents the center of whatever is being
      * rotated.
      */
-    anchorPoint?: Point;
+    anchorPoint?: Point | undefined;
 
     /**
      * Rotation angle, in degrees. See the [rotate](Titanium.UI.Matrix2D.rotate) method
      * for a discussion of rotation.
      */
-    rotate?: number;
+    rotate?: number | undefined;
 
     /**
      * Scale the matrix by the specified scaling factor. The same scaling factor is used
      * for both horizontal and vertical scaling.
      */
-    scale?: number;
+    scale?: number | undefined;
 
 }
 /**
@@ -1544,7 +1544,7 @@ interface Matrix3DCreationDict {
     /**
      * Scale the matrix by the specified scaling factor.
      */
-    scale?: number;
+    scale?: number | undefined;
 
 }
 /**
@@ -1556,19 +1556,19 @@ interface MatrixCreationDict {
      * properties, where { x: 0.5, y: 0.5 } represents the center of whatever is being
      * rotated.
      */
-    anchorPoint?: Point;
+    anchorPoint?: Point | undefined;
 
     /**
      * Rotation angle, in degrees. See the [rotate](Titanium.UI.2DMatrix.rotate) method
      * for a discussion of rotation.
      */
-    rotate?: number;
+    rotate?: number | undefined;
 
     /**
      * Scale the matrix by the specified scaling factor. The same scaling factor is used
      * for both horizontal and vertical scaling.
      */
-    scale?: number;
+    scale?: number | undefined;
 
 }
 /**
@@ -1583,12 +1583,12 @@ interface MediaQueryInfoType {
     /**
      * Whether or not the predicate is for an exact match.  The default is `true`.
      */
-    exact?: boolean;
+    exact?: boolean | undefined;
 
     /**
      * The value for the given predicate. See the descriptions in <MediaQueryType> for information about which properties require which values.
      */
-    value?: number | string | boolean;
+    value?: number | string | boolean | undefined;
 
 }
 /**
@@ -1598,100 +1598,100 @@ interface MediaQueryType {
     /**
      * The album artist to filter on. Value should be a String.
      */
-    albumArtist?: MediaQueryInfoType | string;
+    albumArtist?: MediaQueryInfoType | string | undefined;
 
     /**
      * The album artist persistent ID to filter on. Value should be a Number.
      */
-    albumArtistPersistentID?: MediaQueryInfoType | number;
+    albumArtistPersistentID?: MediaQueryInfoType | number | undefined;
 
     /**
      * The album persistent ID to filter on. Value should be a Number.
      */
-    albumPersistentID?: MediaQueryInfoType | number;
+    albumPersistentID?: MediaQueryInfoType | number | undefined;
 
     /**
      * The album title to filter on. Value should be a String.
      */
-    albumTitle?: MediaQueryInfoType | string;
+    albumTitle?: MediaQueryInfoType | string | undefined;
 
     /**
      * The artist to filter on. Value should be a String.
      */
-    artist?: MediaQueryInfoType | string;
+    artist?: MediaQueryInfoType | string | undefined;
 
     /**
      * The composer to filter on. Value should be a String.
      */
-    composer?: MediaQueryInfoType | string;
+    composer?: MediaQueryInfoType | string | undefined;
 
     /**
      * The composer persistent ID to filter on. Value should be a Number.
      */
-    composerPersistentID?: MediaQueryInfoType | number;
+    composerPersistentID?: MediaQueryInfoType | number | undefined;
 
     /**
      * The genre to filter on. Value should be a String.
      */
-    genre?: MediaQueryInfoType | string;
+    genre?: MediaQueryInfoType | string | undefined;
 
     /**
      * The genre persistent ID to filter on. Value should be a Number.
      */
-    genrePersistentID?: MediaQueryInfoType | number;
+    genrePersistentID?: MediaQueryInfoType | number | undefined;
 
     /**
      * A constant that specifies the ordering of the result array.
      */
-    grouping?: number;
+    grouping?: number | undefined;
 
     /**
      * Filter by whether or not the item is a protected asset.
      * Value should be a Boolean.
      */
-    hasProtectedAsset?: MediaQueryInfoType | boolean;
+    hasProtectedAsset?: MediaQueryInfoType | boolean | undefined;
 
     /**
      * Filter by whether or not the item is a cloud item.
      * Value should be a Boolean.
      */
-    isCloudItem?: MediaQueryInfoType | boolean;
+    isCloudItem?: MediaQueryInfoType | boolean | undefined;
 
     /**
      * Filter by whether or not the item is a compilation.
      * The value should be a Boolean.
      */
-    isCompilation?: MediaQueryInfoType | boolean;
+    isCompilation?: MediaQueryInfoType | boolean | undefined;
 
     /**
      * The media type to filter on.
      */
-    mediaType?: MediaQueryInfoType | number;
+    mediaType?: MediaQueryInfoType | number | undefined;
 
     /**
      * The persistent ID to filter on. Value should be a Number.
      */
-    persistentID?: MediaQueryInfoType | number;
+    persistentID?: MediaQueryInfoType | number | undefined;
 
     /**
      * The play count to filter on. Value should be a Number.
      */
-    playCount?: MediaQueryInfoType | number;
+    playCount?: MediaQueryInfoType | number | undefined;
 
     /**
      * The podcast persistent ID to filter on. Value should be a Number.
      */
-    podcastPersistentID?: MediaQueryInfoType | number;
+    podcastPersistentID?: MediaQueryInfoType | number | undefined;
 
     /**
      * The podcast title to filter on. Value should be a String.
      */
-    podcastTitle?: MediaQueryInfoType | string;
+    podcastTitle?: MediaQueryInfoType | string | undefined;
 
     /**
      * The title to filter on. Value should be a String.
      */
-    title?: MediaQueryInfoType | string;
+    title?: MediaQueryInfoType | string | undefined;
 
 }
 /**
@@ -1701,13 +1701,13 @@ interface MediaScannerResponse {
     /**
      * Path to the media file that was scanned.
      */
-    path?: string;
+    path?: string | undefined;
 
     /**
      * URI to the file if it was scanned and added to the media library, or `null`
      * if the file was not added.
      */
-    uri?: string;
+    uri?: string | undefined;
 
 }
 /**
@@ -1717,12 +1717,12 @@ interface MenuPopupShowParams {
     /**
      * Determines whether the menu popup should be opened or closed animated.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Indicates the arrow direction of the menu popup.
      */
-    arrowDirection?: number;
+    arrowDirection?: number | undefined;
 
     /**
      * The view where the menu pop is shown at.
@@ -1737,12 +1737,12 @@ interface MessageReply {
     /**
      * Error code. Returns 0 if `success` is `true`.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Reply message from watchapp.
@@ -1752,7 +1752,7 @@ interface MessageReply {
     /**
      * Indicates if the operation succeeded.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -1762,12 +1762,12 @@ interface MinMaxOptions {
     /**
      * Maximum value
      */
-    max?: number;
+    max?: number | undefined;
 
     /**
      * Minimum value
      */
-    min?: number;
+    min?: number | undefined;
 
 }
 /**
@@ -1777,12 +1777,12 @@ interface MovieSize {
     /**
      * Height of the movie.
      */
-    height?: number;
+    height?: number | undefined;
 
     /**
      * Width of the movie.
      */
-    width?: number;
+    width?: number | undefined;
 
 }
 /**
@@ -1792,37 +1792,37 @@ interface MusicLibraryOptionsType {
     /**
      * Set to `true` to allow the user to select multiple items from the library.
      */
-    allowMultipleSelections?: boolean;
+    allowMultipleSelections?: boolean | undefined;
 
     /**
      * Boolean if the dialog should be animated when showing and hiding.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Specifies that the library should be hidden automatically after media selection is completed.
      */
-    autohide?: boolean;
+    autohide?: boolean | undefined;
 
     /**
      * Function to call if the user presses the cancel button.
      */
-    cancel?: (param0: FailureResponse) => void;
+    cancel?: ((param0: FailureResponse) => void) | undefined;
 
     /**
      * Function to call upon receiving an error.
      */
-    error?: (param0: FailureResponse) => void;
+    error?: ((param0: FailureResponse) => void) | undefined;
 
     /**
      * An array of media type constants defining selectable media.
      */
-    mediaTypes?: number | number[];
+    mediaTypes?: number | number[] | undefined;
 
     /**
      * Function to call when the music library selection is made.
      */
-    success?: (param0: MusicLibraryResponseType) => void;
+    success?: ((param0: MusicLibraryResponseType) => void) | undefined;
 
 }
 /**
@@ -1833,18 +1833,18 @@ interface MusicLibraryResponseType {
     /**
      * A list of all the items chosen by the user.
      */
-    items?: Titanium.Media.Item[];
+    items?: Titanium.Media.Item[] | undefined;
 
     /**
      * A single representative of the selected items.
      */
-    representative?: Titanium.Media.Item;
+    representative?: Titanium.Media.Item | undefined;
 
     /**
      * Media types in this collection, represented as the bitwise OR of the media type
      * values for all media types represented in `items`.
      */
-    types?: number;
+    types?: number | undefined;
 
 }
 /**
@@ -1856,47 +1856,47 @@ interface NotificationParams {
      * Alert button text ('Open', by default) or home text ('Press Home to unlock', by default)
      * to display.
      */
-    alertAction?: string;
+    alertAction?: string | undefined;
 
     /**
      * Alert message to display.
      */
-    alertBody?: string;
+    alertBody?: string | undefined;
 
     /**
      * Image to display instead of `Default.png` when launching the application.
      */
-    alertLaunchImage?: string;
+    alertLaunchImage?: string | undefined;
 
     /**
      * Alert subtitle to display.
      */
-    alertSubtitle?: string;
+    alertSubtitle?: string | undefined;
 
     /**
      * Alert title to display.
      */
-    alertTitle?: string;
+    alertTitle?: string | undefined;
 
     /**
      * Notification attachments to display.
      */
-    attachments?: UserNotificationAttachment[];
+    attachments?: UserNotificationAttachment[] | undefined;
 
     /**
      * Application badge value.
      */
-    badge?: number;
+    badge?: number | undefined;
 
     /**
      * String identifier of category of actions to be displayed for an interactive notification.
      */
-    category?: string;
+    category?: string | undefined;
 
     /**
      * Date and time for the notification to occur.
      */
-    date?: Date;
+    date?: Date | undefined;
 
     /**
      * The notification identifier.
@@ -1914,27 +1914,27 @@ interface NotificationParams {
     /**
      * Interval to repeat the notification. One of `weekly`, `daily`, `yearly,` `monthly`.
      */
-    repeat?: string;
+    repeat?: string | undefined;
 
     /**
      * Path to the sound file to play when notification occurs, relative to the `Resources` folder.
      */
-    sound?: string;
+    sound?: string | undefined;
 
     /**
      * The string the notification adds to the category's summary format string.
      */
-    summaryArgument?: string;
+    summaryArgument?: string | undefined;
 
     /**
      * The number of items the notification adds to the category's summary format string.
      */
-    summaryArgumentCount?: string;
+    summaryArgumentCount?: string | undefined;
 
     /**
      * Timezone of the date configured for the notification. If not set, the system timezone is used.
      */
-    timezone?: string;
+    timezone?: string | undefined;
 
     /**
      * Data to pass to the application with the notification event.
@@ -1949,7 +1949,7 @@ interface OnLinkURLResponse {
     /**
      * The url of the link that should be navigated to.
      */
-    url?: string;
+    url?: string | undefined;
 
 }
 /**
@@ -1965,22 +1965,22 @@ interface OpenURLOptions {
     /**
      * When you include this key in the options dictionary, the method opens the URL only if the URL is a valid universal link and there is an installed app capable of opening that URL.
      */
-    UIApplicationOpenURLOptionUniversalLinksOnly?: boolean;
+    UIApplicationOpenURLOptionUniversalLinksOnly?: boolean | undefined;
 
     /**
      * contains the information passed to a document interaction controller object's annotation property.
      */
-    UIApplicationOpenURLOptionsAnnotationKey?: any[];
+    UIApplicationOpenURLOptionsAnnotationKey?: any[] | undefined;
 
     /**
      * When the value of this property is `false`, you must copy the document to maintain access to it. If the flag is not set, you also must copy the document before you can use it.
      */
-    UIApplicationOpenURLOptionsOpenInPlaceKey?: boolean;
+    UIApplicationOpenURLOptionsOpenInPlaceKey?: boolean | undefined;
 
     /**
      * The value of this key is an String containing the bundle ID of the app that made the request. If the request originated from another app belonging to your team, UIKit sets the value of this key to the ID of that app. If the team identifier of the originating app is different than the team identifier of the current app, the value of the key is nil.
      */
-    UIApplicationOpenURLOptionsSourceApplicationKey?: string;
+    UIApplicationOpenURLOptionsSourceApplicationKey?: string | undefined;
 
 }
 /**
@@ -1992,7 +1992,7 @@ interface OptionsMenuCallbackObject {
     /**
      * The relevant Menu.
      */
-    menu?: Titanium.Android.Menu;
+    menu?: Titanium.Android.Menu | undefined;
 
 }
 /**
@@ -2002,12 +2002,12 @@ interface Padding extends HorizontalInsets {
     /**
      * Bottom padding/inset
      */
-    bottom?: number;
+    bottom?: number | undefined;
 
     /**
      * Top padding/inset
      */
-    top?: number;
+    top?: number | undefined;
 
 }
 /**
@@ -2017,68 +2017,68 @@ interface ParagraphAttribute {
     /**
      * The text alignment of the receiver.
      */
-    alignment?: number;
+    alignment?: number | undefined;
 
     /**
      * A Boolean value indicating whether the system may tighten inter-character spacing
      * before truncating text.
      */
-    allowsDefaultTighteningForTruncation?: boolean;
+    allowsDefaultTighteningForTruncation?: boolean | undefined;
 
     /**
      * The indentation of the first line of the receiver.
      */
-    firstLineHeadIndent?: number | string;
+    firstLineHeadIndent?: number | string | undefined;
 
     /**
      * The indentation of the lines of lines other than the first.
      */
-    headIndent?: number | string;
+    headIndent?: number | string | undefined;
 
     /**
      * The threshold of paragraph for hyphenation.
      */
-    hyphenationFactor?: number;
+    hyphenationFactor?: number | undefined;
 
     /**
      * The mode that should be used to break lines in the receiver.
      */
-    lineBreakMode?: number;
+    lineBreakMode?: number | undefined;
 
     /**
      * The line height multiple.
      */
-    lineHeightMultiple?: number;
+    lineHeightMultiple?: number | undefined;
 
     /**
      * The distance in points between the bottom of one line fragment and the top of the next.
      */
-    lineSpacing?: number | string;
+    lineSpacing?: number | string | undefined;
 
     /**
      * The maximum line height of receiver.
      */
-    maximumLineHeight?: number | string;
+    maximumLineHeight?: number | string | undefined;
 
     /**
      * The minimum height of receiver.
      */
-    minimumLineHeight?: number | string;
+    minimumLineHeight?: number | string | undefined;
 
     /**
      * The space after the end of the paragraph.
      */
-    paragraphSpacingAfter?: number | string;
+    paragraphSpacingAfter?: number | string | undefined;
 
     /**
      * The distance between the top of paragraph and the beginning of its text content.
      */
-    paragraphSpacingBefore?: number | string;
+    paragraphSpacingBefore?: number | string | undefined;
 
     /**
      * The trailing indentation of the receiver.
      */
-    tailIndent?: number | string;
+    tailIndent?: number | string | undefined;
 
 }
 /**
@@ -2089,43 +2089,43 @@ interface PhotoGalleryOptionsType {
     /**
      * Specifies if the media should be editable after capture/selection.
      */
-    allowEditing?: boolean;
+    allowEditing?: boolean | undefined;
 
     /**
      * Specifies if the user should be able to select multiple photos.
      */
-    allowMultiple?: boolean;
+    allowMultiple?: boolean | undefined;
 
     /**
      * Specifies if the video should be transcoded (using highest quality preset) . If set to false no video transcoding will be performed.
      */
-    allowTranscoding?: boolean;
+    allowTranscoding?: boolean | undefined;
 
     /**
      * Specifies if the dialog should be animated upon showing and hiding.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Controls the type of arrow and position of the popover.
      */
-    arrowDirection?: number;
+    arrowDirection?: number | undefined;
 
     /**
      * Specifies if the photo gallery should be hidden automatically after the media
      * selection is completed.
      */
-    autohide?: boolean;
+    autohide?: boolean | undefined;
 
     /**
      * Function to call if the user presses the cancel button.
      */
-    cancel?: (param0: FailureResponse) => void;
+    cancel?: ((param0: FailureResponse) => void) | undefined;
 
     /**
      * Function to call upon receiving an error.
      */
-    error?: (param0: FailureResponse) => void;
+    error?: ((param0: FailureResponse) => void) | undefined;
 
     /**
      * Array of media type constants to allow.
@@ -2134,22 +2134,22 @@ interface PhotoGalleryOptionsType {
      * at least <Titanium.Media.MEDIA_TYPE_PHOTO> as a fallback. If you do not allow live
      * photos, they still can be selected, but will be represented as a normal static photo.
      */
-    mediaTypes?: string[];
+    mediaTypes?: string[] | undefined;
 
     /**
      * View to position the photo gallery popover on top of.
      */
-    popoverView?: Titanium.UI.View;
+    popoverView?: Titanium.UI.View | undefined;
 
     /**
      * Specifies number of media item that can be selected.
      */
-    selectionLimit?: boolean;
+    selectionLimit?: boolean | undefined;
 
     /**
      * Function to call when the photo gallery is closed after a successful selection.
      */
-    success?: ((param0: CameraMediaItemType) => void) | ((param0: CameraMediaMultipleItemsType) => void);
+    success?: ((param0: CameraMediaItemType) => void) | ((param0: CameraMediaMultipleItemsType) => void) | undefined;
 
 }
 /**
@@ -2159,12 +2159,12 @@ interface Point {
     /**
      * The x-axis coordinate of this point.
      */
-    x?: number | string;
+    x?: number | string | undefined;
 
     /**
      * The y-axis coordinate of this point.
      */
-    y?: number | string;
+    y?: number | string | undefined;
 
 }
 /**
@@ -2175,7 +2175,7 @@ interface PossibleBatchQueryError {
     /**
      * Index of the failed query
      */
-    index?: number;
+    index?: number | undefined;
 
 }
 /**
@@ -2185,23 +2185,23 @@ interface PreviewImageError extends FailureResponse {
     /**
      * Error code, if applicable.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Description of the error.
      * @deprecated
      */
-    message?: string;
+    message?: string | undefined;
 
     /**
      * Indicates if the operation succeeded. Returns `false`.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -2211,17 +2211,17 @@ interface PreviewImageOptions {
     /**
      * Function called back if the preview fails. Check the `message` property of passed back parameter.
      */
-    error?: (param0: PreviewImageError) => void;
+    error?: ((param0: PreviewImageError) => void) | undefined;
 
     /**
      * The image to preview. Must be a blob based on a file, such as from <Titanium.Filesystem.File.read>.
      */
-    image?: Titanium.Blob;
+    image?: Titanium.Blob | undefined;
 
     /**
      * Function to be called back if the preview succeeds. No info is passed.
      */
-    success?: (param0: SuccessResponse) => void;
+    success?: ((param0: SuccessResponse) => void) | undefined;
 
 }
 /**
@@ -2232,23 +2232,23 @@ interface PumpCallbackArgs extends ErrorResponse {
     /**
      * Buffer object holding the data currently being pumped to the handler method.
      */
-    buffer?: Titanium.Buffer;
+    buffer?: Titanium.Buffer | undefined;
 
     /**
      * Number of bytes being passed to this invocation of the handler, or
      * -1 in the event of an error or end of stream.
      */
-    bytesProcessed?: number;
+    bytesProcessed?: number | undefined;
 
     /**
      * Error code. Returns 0 if `success` is `true`.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Text description of the error.
@@ -2266,18 +2266,18 @@ interface PumpCallbackArgs extends ErrorResponse {
     /**
      * Stream being read from.
      */
-    source?: Titanium.IOStream;
+    source?: Titanium.IOStream | undefined;
 
     /**
      * Indicates if the operation succeeded.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
     /**
      * Total number of bytes read from the stream so far,
      * including the data passed to this current invocation of the handler.
      */
-    totalBytesProcessed?: number;
+    totalBytesProcessed?: number | undefined;
 
 }
 /**
@@ -2288,22 +2288,22 @@ interface PushNotificationConfig {
     /**
      * Callback function invoked upon receiving a new push notification.
      */
-    callback?: (param0: PushNotificationData) => void;
+    callback?: ((param0: PushNotificationData) => void) | undefined;
 
     /**
      * Callback function called when an error occurs during registration.
      */
-    error?: (param0: PushNotificationErrorArg) => void;
+    error?: ((param0: PushNotificationErrorArg) => void) | undefined;
 
     /**
      * Callback function called when the push registration is successfully completed.
      */
-    success?: (param0: PushNotificationSuccessArg) => void;
+    success?: ((param0: PushNotificationSuccessArg) => void) | undefined;
 
     /**
      * Array of `NOTIFICATION_TYPE` constants that the application would like to receive.
      */
-    types?: number[];
+    types?: number[] | undefined;
 
 }
 /**
@@ -2318,7 +2318,7 @@ interface PushNotificationData {
     /**
      * Boolean indicating if notification was received while app was in background.
      */
-    inBackground?: boolean;
+    inBackground?: boolean | undefined;
 
 }
 /**
@@ -2329,17 +2329,17 @@ interface PushNotificationErrorArg extends FailureResponse {
     /**
      * Error code. Returns a non-zero value.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Indicates if the operation succeeded. Returns `false`.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
     /**
      * The value of this string is always "remote".
      */
-    type?: string;
+    type?: string | undefined;
 
 }
 /**
@@ -2350,27 +2350,27 @@ interface PushNotificationSuccessArg extends SuccessResponse {
     /**
      * Error code. Returns 0.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * The device token which this device was registered for.
      */
-    deviceToken?: string;
+    deviceToken?: string | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Indicates if the operation succeeded. Returns `true`.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
     /**
      * The value of this string is always "remote".
      */
-    type?: string;
+    type?: string | undefined;
 
 }
 /**
@@ -2381,17 +2381,17 @@ interface ReadCallbackArgs extends ErrorResponse {
     /**
      * Number of bytes processed, or -1 in the event of an error or end of stream.
      */
-    bytesProcessed?: number;
+    bytesProcessed?: number | undefined;
 
     /**
      * Error code. Returns 0 if `success` is `true`.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Text description of the error.
@@ -2409,12 +2409,12 @@ interface ReadCallbackArgs extends ErrorResponse {
     /**
      * Stream being read.
      */
-    source?: Titanium.IOStream;
+    source?: Titanium.IOStream | undefined;
 
     /**
      * Indicates if the operation succeeded.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -2424,7 +2424,7 @@ interface ReadyStatePayload {
     /**
      * The state for which `onreadystatechange` was invoked. Set to one of `Titanium.Network.HTTPClient` ready-state constants
      */
-    readyState?: number;
+    readyState?: number | undefined;
 
 }
 /**
@@ -2460,17 +2460,17 @@ interface ReverseGeocodeResponse extends ErrorResponse {
     /**
      * Error code. Returns 0 if `success` is `true`.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * An array of reverse-geocoded addresses matching the requested location.
      */
-    places?: GeocodedAddress[];
+    places?: GeocodedAddress[] | undefined;
 
 }
 /**
@@ -2480,12 +2480,12 @@ interface RouteDescription {
     /**
      * An Array of current input ports for the session. See the `AUDIO_SESSION_PORT` constants.
      */
-    inputs?: string[];
+    inputs?: string[] | undefined;
 
     /**
      * An Array of current output ports for the session. See the `AUDIO_SESSION_PORT` constants.
      */
-    outputs?: string[];
+    outputs?: string[] | undefined;
 
 }
 /**
@@ -2495,13 +2495,13 @@ interface RowActionType {
     /**
      * The background color of the row action.
      */
-    color?: string;
+    color?: string | undefined;
 
     /**
      * The [identifier](RowActionType. identifier) of the row action. Only included in the event
      * if previously defined. Available in Titanium 6.0.0 and later.
      */
-    identifier?: string;
+    identifier?: string | undefined;
 
     /**
      * The style of the row action.
@@ -2521,7 +2521,7 @@ interface ScreenshotResult {
     /**
      * The screenshot image.
      */
-    media?: Titanium.Blob;
+    media?: Titanium.Blob | undefined;
 
 }
 /**
@@ -2536,7 +2536,7 @@ interface SearchBarToken {
     /**
      * The image of the search bar token.
      */
-    image?: string;
+    image?: string | undefined;
 
     /**
      * The text of the search bar token (displayed in the search bar).
@@ -2551,12 +2551,12 @@ interface SearchResult {
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Indicates if string found or not.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -2591,17 +2591,17 @@ interface SelectedItem {
     /**
      * Item index.
      */
-    itemIndex?: number;
+    itemIndex?: number | undefined;
 
     /**
      * List section if the item is contained in a list section.
      */
-    section?: Titanium.UI.ListSection;
+    section?: Titanium.UI.ListSection | undefined;
 
     /**
      * Section index.
      */
-    sectionIndex?: number;
+    sectionIndex?: number | undefined;
 
 }
 /**
@@ -2611,22 +2611,22 @@ interface SelectedRowObject {
     /**
      * Row index.
      */
-    index?: number;
+    index?: number | undefined;
 
     /**
      * Table view row object.
      */
-    row?: Titanium.UI.TableViewRow;
+    row?: Titanium.UI.TableViewRow | undefined;
 
     /**
      * Properties of the row. Use this property rather than `row` to access any custom row properties.
      */
-    rowData?: Dictionary<Titanium.UI.TableViewRow>;
+    rowData?: Dictionary<Titanium.UI.TableViewRow> | undefined;
 
     /**
      * Table view section object, if the clicked row is contained in a section.
      */
-    section?: Titanium.UI.TableViewSection;
+    section?: Titanium.UI.TableViewSection | undefined;
 
 }
 /**
@@ -2636,12 +2636,12 @@ interface ServiceIntentOptions {
     /**
      * One of the `START_*` constants from <Titanium.Android> to specify the "stickiness" of the Service when Android shuts down the host application.
      */
-    startMode?: number;
+    startMode?: number | undefined;
 
     /**
      * URL for the service's JavaScript.
      */
-    url?: string;
+    url?: string | undefined;
 
 }
 /**
@@ -2653,7 +2653,7 @@ interface ShortcutParams {
      * <Titanium.UI.iOS.SHORTCUT_ICON_TYPE_COMPOSE>, a local image specified by the image path or a reference to a
      * <Titanium.Contacts.Person>.
      */
-    icon?: number | string | Titanium.Contacts.Person;
+    icon?: number | string | Titanium.Contacts.Person | undefined;
 
     /**
      * The unique key for the application shortcut. Equates to the underlying `UIApplicationShortcutItemIconType` key
@@ -2663,7 +2663,7 @@ interface ShortcutParams {
     /**
      * The subtitle displayed on the application shortcut.
      */
-    subtitle?: string;
+    subtitle?: string | undefined;
 
     /**
      * The title of the application shortcut.
@@ -2683,13 +2683,13 @@ interface ShowPopoverParams {
     /**
      * Indicates whether to animate showing the popover.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Sets the arrow position of the popover relative to the attached view object's dimensions
      * when showing the popover.
      */
-    rect?: Dimension;
+    rect?: Dimension | undefined;
 
     /**
      * Attaches the popover to the specified view when showing the popover.
@@ -2704,12 +2704,12 @@ interface Size {
     /**
      * The height measurement.
      */
-    height?: number;
+    height?: number | undefined;
 
     /**
      * The width measurement.
      */
-    width?: number;
+    width?: number | undefined;
 
 }
 /**
@@ -2719,17 +2719,17 @@ interface SnapshotResult {
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * The snapshot image.
      */
-    snapshot?: Titanium.Blob;
+    snapshot?: Titanium.Blob | undefined;
 
     /**
      * Indicates if the snapshot taken.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -2743,17 +2743,17 @@ interface StringSearchOptions {
     /**
      * The direction to search from the current selection. The search will respect the writing direction of the document
      */
-    backward?: boolean;
+    backward?: boolean | undefined;
 
     /**
      * Whether or not the search should be case sensitive.
      */
-    caseSensitive?: boolean;
+    caseSensitive?: boolean | undefined;
 
     /**
      * Whether the search should start at the beginning of the document once it reaches the end.
      */
-    wraps?: boolean;
+    wraps?: boolean | undefined;
 
 }
 /**
@@ -2763,17 +2763,17 @@ interface SuccessResponse extends ErrorResponse {
     /**
      * Error code. Returns 0.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Indicates if the operation succeeded. Returns `true`.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -2788,7 +2788,7 @@ interface TabIconInsets extends Padding {
     /**
      * Left inset.
      */
-    left?: number;
+    left?: number | undefined;
 
     /**
      * Right padding/inset
@@ -2798,7 +2798,7 @@ interface TabIconInsets extends Padding {
     /**
      * Top inset.
      */
-    top?: number;
+    top?: number | undefined;
 
 }
 /**
@@ -2808,17 +2808,17 @@ interface TableViewAnimationProperties {
     /**
      * Whether this table change should be animated. Ignored if any `animationStyle` value is specified.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Type of animation to use for row insertions and deletions.
      */
-    animationStyle?: number;
+    animationStyle?: number | undefined;
 
     /**
      * Specifies what position to scroll the selected row to.
      */
-    position?: number;
+    position?: number | undefined;
 
 }
 /**
@@ -2828,12 +2828,12 @@ interface TableViewIndexEntry {
     /**
      * Row index associated with this item.
      */
-    index?: number;
+    index?: number | undefined;
 
     /**
      * Title to display in the index bar for this item.
      */
-    title?: string;
+    title?: string | undefined;
 
 }
 /**
@@ -2843,22 +2843,22 @@ interface TextFieldPadding extends Padding {
     /**
      * Bottom padding (Android only, since 6.1.0)
      */
-    bottom?: number;
+    bottom?: number | undefined;
 
     /**
      * Left padding
      */
-    left?: number;
+    left?: number | undefined;
 
     /**
      * Right padding
      */
-    right?: number;
+    right?: number | undefined;
 
     /**
      * Top padding (Android only, since 6.1.0)
      */
-    top?: number;
+    top?: number | undefined;
 
 }
 /**
@@ -2870,17 +2870,17 @@ interface ThumbnailResponse extends ErrorResponse {
     /**
      * Error code. Returns 0 if `success` is `true`.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Thumbnail image, as a `Blob`.
      */
-    image?: Titanium.Blob;
+    image?: Titanium.Blob | undefined;
 
     /**
      * Time offset for the thumbnail, in seconds.
      */
-    time?: number;
+    time?: number | undefined;
 
 }
 /**
@@ -2895,17 +2895,17 @@ interface TiMetadataItemType {
     /**
      * The key of the metadata item, e.g. "title".
      */
-    key?: string;
+    key?: string | undefined;
 
     /**
      * The key-path of the metadata item.
      */
-    keySpace?: string;
+    keySpace?: string | undefined;
 
     /**
      * The value of the metadata item. Can be represented as various types.
      */
-    value?: string | number | boolean;
+    value?: string | number | boolean | undefined;
 
 }
 /**
@@ -28774,7 +28774,7 @@ declare namespace Titanium {
                 /**
                  * The style of the feedback generator you want to create. This property is only required when using <Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_IMPACT>.
                  */
-                style?: number;
+                style?: number | undefined;
 
                 /**
                  * The type of feedback generator you want to create.
@@ -71879,7 +71879,7 @@ declare namespace Titanium {
             /**
              * View's identifier.
              */
-            id?: string;
+            id?: string | undefined;
 
             /**
              * Determines whether to keep the device screen on.
@@ -82444,12 +82444,12 @@ declare namespace Titanium {
         /**
          * The Window or TabGroup whose Activity lifecycle should be triggered on the proxy.
          */
-        lifecycleContainer?: Titanium.UI.Window | Titanium.UI.TabGroup;
+        lifecycleContainer?: Titanium.UI.Window | Titanium.UI.TabGroup | undefined;
 
         /**
          * Proxy identifier
          */
-        id?: string | number;
+        id?: string | number | undefined;
 
         /**
          * Adds the specified callback as an event listener for the named event.
@@ -83915,7 +83915,7 @@ interface UserNotificationCallbackResponse {
     /**
      * An array of identifiers used to create notifications.
      */
-    notifications?: UserNotificationDictionary[];
+    notifications?: UserNotificationDictionary[] | undefined;
 
 }
 /**
@@ -83929,42 +83929,42 @@ interface UserNotificationDictionary {
      * Alert button text ('Open', by default) or home text ('Press Home to unlock', by default)
      * type: String
      */
-    alertAction?: string;
+    alertAction?: string | undefined;
 
     /**
      * Alert message.
      */
-    alertBody?: string;
+    alertBody?: string | undefined;
 
     /**
      * Image displayed instead of `Default.png` when launching the application.
      */
-    alertLaunchImage?: string;
+    alertLaunchImage?: string | undefined;
 
     /**
      * Subtitle of the notification.
      */
-    alertSubtitle?: string;
+    alertSubtitle?: string | undefined;
 
     /**
      * Title of the notification.
      */
-    alertTitle?: string;
+    alertTitle?: string | undefined;
 
     /**
      * Application badge value.
      */
-    badge?: number;
+    badge?: number | undefined;
 
     /**
      * Category identifier of the notification.
      */
-    category?: string;
+    category?: string | undefined;
 
     /**
      * Date and time when the notification was configured to fire.
      */
-    date?: Date;
+    date?: Date | undefined;
 
     /**
      * The notification identifier.
@@ -83979,12 +83979,12 @@ interface UserNotificationDictionary {
     /**
      * Path to the sound file configured to play when the notification was fired.
      */
-    sound?: string;
+    sound?: string | undefined;
 
     /**
      * Timezone of the date when the notification was configured to fire.
      */
-    timezone?: string;
+    timezone?: string | undefined;
 
     /**
      * Custom data object.
@@ -84002,12 +84002,12 @@ interface UserNotificationSettings {
     /**
      * Set of categories of user notification actions required by the applicaiton to use.
      */
-    categories?: Titanium.App.iOS.UserNotificationCategory[];
+    categories?: Titanium.App.iOS.UserNotificationCategory[] | undefined;
 
     /**
      * Notification types to use.
      */
-    types?: number[];
+    types?: number[] | undefined;
 
 }
 /**
@@ -84017,18 +84017,18 @@ interface UserScriptParams {
     /**
      * The time when the script should be injected into the webpage.
      */
-    injectionTime?: number;
+    injectionTime?: number | undefined;
 
     /**
      * A Boolean value indicating whether the script should be injected only into the
      * main frame (true) or into all frames (false).
      */
-    mainFrameOnly?: boolean;
+    mainFrameOnly?: boolean | undefined;
 
     /**
      * A script that can be injected into a webpage.
      */
-    source?: string;
+    source?: string | undefined;
 
 }
 /**
@@ -84041,7 +84041,7 @@ interface ViewPositionOptions {
     /**
      * Position in the [children](Titanium.UI.View.children) array of the view element to replace.
      */
-    position?: number;
+    position?: number | undefined;
 
     /**
      * View to insert. Required.
@@ -84056,12 +84056,12 @@ interface ViewTemplate {
     /**
      * View's ID (or set of IDs) used for data binding. This value must be unique.
      */
-    bindId?: string;
+    bindId?: string | undefined;
 
     /**
      * Contains an array of subview templates to be added (in order) as children to this view.
      */
-    childTemplates?: ViewTemplate[];
+    childTemplates?: ViewTemplate[] | undefined;
 
     /**
      * Contains key-value pairs of view events and their listeners that are applied to this view component.
@@ -84086,17 +84086,17 @@ interface WebViewPreferencesObject {
     /**
      * A Boolean value indicating whether JavaScript can open windows without user interaction.
      */
-    javaScriptCanOpenWindowsAutomatically?: boolean;
+    javaScriptCanOpenWindowsAutomatically?: boolean | undefined;
 
     /**
      * A Boolean value indicating whether JavaScript is enabled.
      */
-    javaScriptEnabled?: boolean;
+    javaScriptEnabled?: boolean | undefined;
 
     /**
      * The minimum font size in points.
      */
-    minimumFontSize?: number;
+    minimumFontSize?: number | undefined;
 
 }
 /**
@@ -84108,17 +84108,17 @@ interface WriteCallbackArgs extends ErrorResponse {
     /**
      * Number of bytes processed, or -1 in the event of an error or end of stream.
      */
-    bytesProcessed?: number;
+    bytesProcessed?: number | undefined;
 
     /**
      * Error code. Returns 0 if `success` is `true`.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Text description of the error.
@@ -84136,12 +84136,12 @@ interface WriteCallbackArgs extends ErrorResponse {
     /**
      * Stream being written to.
      */
-    source?: Titanium.IOStream;
+    source?: Titanium.IOStream | undefined;
 
     /**
      * Indicates if the operation succeeded.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 
 }
 /**
@@ -84152,7 +84152,7 @@ interface WriteStreamCallbackArgs extends ErrorResponse {
     /**
      * Number of bytes processed, or -1 in the event of an error or end of stream.
      */
-    bytesProcessed?: number;
+    bytesProcessed?: number | undefined;
 
     /**
      * Text description of the error.
@@ -84170,12 +84170,12 @@ interface WriteStreamCallbackArgs extends ErrorResponse {
     /**
      * Stream being read from.
      */
-    fromStream?: Titanium.IOStream;
+    fromStream?: Titanium.IOStream | undefined;
 
     /**
      * Stream being written to.
      */
-    toStream?: Titanium.IOStream;
+    toStream?: Titanium.IOStream | undefined;
 
 }
 /**
@@ -84185,7 +84185,7 @@ interface YQLResponse extends ErrorResponse {
     /**
      * Error code. Returns 0 if `success` is `true`.
      */
-    code?: number;
+    code?: number | undefined;
 
     /**
      * The data payload received from the YQL.
@@ -84195,13 +84195,13 @@ interface YQLResponse extends ErrorResponse {
     /**
      * Error message, if any returned.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Error message, if any returned. Use `error` instead
      * @deprecated
      */
-    message?: string;
+    message?: string | undefined;
 
 }
 /**
@@ -84211,27 +84211,27 @@ interface closeWindowParams {
     /**
      * Animation resource to use for the incoming activity.
      */
-    activityEnterAnimation?: number;
+    activityEnterAnimation?: number | undefined;
 
     /**
      * Animation resource to use for the outgoing activity.
      */
-    activityExitAnimation?: number;
+    activityExitAnimation?: number | undefined;
 
     /**
      * Determines whether to use an animated effect when the window is closed. Defaults to `true` on Android, `false` on iOS.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * duration of the animation in milliseconds
      */
-    animationDuration?: number;
+    animationDuration?: number | undefined;
 
     /**
      * Transition type to use during a transition animation.
      */
-    animationStyle?: number;
+    animationStyle?: number | undefined;
 
 }
 /**
@@ -84241,14 +84241,14 @@ interface daysOfTheWeekDictionary {
     /**
      * The day of the week. Values are from 1 to 7, with Sunday being 1.
      */
-    daysOfWeek?: number;
+    daysOfWeek?: number | undefined;
 
     /**
      * The week number of the day of the week.
      * Values range from -53 to 53. A negative value indicates a value from the end of
      * the range. 0 indicates the week number is irrelevant.
      */
-    week?: number;
+    week?: number | undefined;
 
 }
 /**
@@ -84258,7 +84258,7 @@ interface hideParams {
     /**
      * Determines whether to animate the dialog as it is dismissed.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
 }
 /**
@@ -84270,19 +84270,19 @@ interface launchOptions {
      * If set to `true`, this key indicates that the application was launched in response to an
      * incoming location event.
      */
-    launchOptionsLocationKey?: boolean;
+    launchOptionsLocationKey?: boolean | undefined;
 
     /**
      * This key indicates that the application was launched by another
      * application with the specified bundle ID.
      */
-    source?: string;
+    source?: string | undefined;
 
     /**
      * This key indicates that the application was launched in order to open
      * the specified URL.
      */
-    url?: string;
+    url?: string | undefined;
 
 }
 /**
@@ -84292,82 +84292,82 @@ interface openWindowParams {
     /**
      * Animation resource to run on the activity being opened.
      */
-    activityEnterAnimation?: number;
+    activityEnterAnimation?: number | undefined;
 
     /**
      * Animation resource to run on the activity that is being put in background as a window is being opened above it.
      */
-    activityExitAnimation?: number;
+    activityExitAnimation?: number | undefined;
 
     /**
      * Determines whether to use an animated effect when the window is shown.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Window's bottom position, in platform-specific units.
      */
-    bottom?: number | string;
+    bottom?: number | string | undefined;
 
     /**
      * Indicates whether the window enforces modal behaviour.
      */
-    forceModal?: boolean;
+    forceModal?: boolean | undefined;
 
     /**
      * Determines if the window is fullscreen.
      */
-    fullscreen?: boolean;
+    fullscreen?: boolean | undefined;
 
     /**
      * Window's height, in platform-specific units.
      */
-    height?: number | string;
+    height?: number | string | undefined;
 
     /**
      * Window's left position, in platform-specific units.
      */
-    left?: number | string;
+    left?: number | string | undefined;
 
     /**
      * Determines whether to open the window modal in front of other windows.
      */
-    modal?: boolean;
+    modal?: boolean | undefined;
 
     /**
      * Presentation style of this modal window.
      */
-    modalStyle?: number;
+    modalStyle?: number | undefined;
 
     /**
      * Transition style of this modal window.
      */
-    modalTransitionStyle?: number;
+    modalTransitionStyle?: number | undefined;
 
     /**
      * For modal windows, hides the nav bar (`true`) or shows the nav bar (`false`).
      */
-    navBarHidden?: boolean;
+    navBarHidden?: boolean | undefined;
 
     /**
      * Window's right position, in platform-specific units.
      */
-    right?: number | string;
+    right?: number | string | undefined;
 
     /**
      * Window's top position, in platform-specific units.
      */
-    top?: number | string;
+    top?: number | string | undefined;
 
     /**
      * Transition style of this non-modal window.
      */
-    transition?: number;
+    transition?: number | undefined;
 
     /**
      * Window's width, in platform-specific units.
      */
-    width?: number | string;
+    width?: number | string | undefined;
 
 }
 /**
@@ -84377,12 +84377,12 @@ interface recurrenceEndDictionary {
     /**
      * End date of the recurrence end, or undefined if the recurrence end is count-based.
      */
-    endDate?: Date;
+    endDate?: Date | undefined;
 
     /**
      * Occurrence count of the recurrence end, or 0 if the recurrence end is date-based.
      */
-    occurrenceCount?: number;
+    occurrenceCount?: number | undefined;
 
 }
 /**
@@ -84392,18 +84392,18 @@ interface shadowDict {
     /**
      * Specifies the blur radius of the shadow.
      */
-    blurRadius?: number;
+    blurRadius?: number | undefined;
 
     /**
      * Color name or hex triplet specifying the color of the shadow.
      */
-    color?: string | Titanium.UI.Color;
+    color?: string | Titanium.UI.Color | undefined;
 
     /**
      * <Size> with the properties `width` and `height` used as the horizontal
      * and vertical offset of the shadow, respectively.
      */
-    offset?: Size;
+    offset?: Size | undefined;
 
 }
 /**
@@ -84413,22 +84413,22 @@ interface showContactsParams {
     /**
      * Determines whether to animate the show/hide of the contacts picker (iPhone, iPad only.)
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Function to call when selection is canceled.
      */
-    cancel?: (param0: any) => void;
+    cancel?: ((param0: any) => void) | undefined;
 
     /**
      * Field names to show when selecting properties. By default, shows all available.
      */
-    fields?: string[];
+    fields?: string[] | undefined;
 
     /**
      * Function to call when a person is selected. Must not be used with `selectedProperty` property.
      */
-    selectedPerson?: (param0: any) => void;
+    selectedPerson?: ((param0: any) => void) | undefined;
 
     /**
      * Function to call when a property is selected. Must not be used with `selectedPerson`
@@ -84441,7 +84441,7 @@ interface showContactsParams {
      * Since iOS 9.0, apple only returns the person object with partial information. Currently it is known to
      * at least contain the selected property and fullName.
      */
-    selectedProperty?: (param0: any) => void;
+    selectedProperty?: ((param0: any) => void) | undefined;
 
 }
 /**
@@ -84451,37 +84451,37 @@ interface showParams {
     /**
      * Determines whether to animate the dialog as it is shown.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Array of String instances.
      */
-    buttonNames?: string[];
+    buttonNames?: string[] | undefined;
 
     /**
      * String to be used as a message for the dialog.
      */
-    message?: string;
+    message?: string | undefined;
 
     /**
      * Array of String instances.
      */
-    options?: string[];
+    options?: string[] | undefined;
 
     /**
      * Positions the arrow of the option dialog relative to the attached view's dimensions.
      */
-    rect?: Dimension;
+    rect?: Dimension | undefined;
 
     /**
      * String to be used as title for the dialog.
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * View to which to attach the dialog.
      */
-    view?: Titanium.UI.View;
+    view?: Titanium.UI.View | undefined;
 
 }
 /**
@@ -84492,12 +84492,12 @@ interface textAreaSelectedParams {
     /**
      * Number of characters selected.
      */
-    length?: number;
+    length?: number | undefined;
 
     /**
      * Starting position of selected text.
      */
-    location?: number;
+    location?: number | undefined;
 
 }
 /**
@@ -84508,12 +84508,12 @@ interface textFieldSelectedParams {
     /**
      * Number of characters selected.
      */
-    length?: number;
+    length?: number | undefined;
 
     /**
      * Starting position of selected text.
      */
-    location?: number;
+    location?: number | undefined;
 
 }
 /**
@@ -84523,17 +84523,17 @@ interface titleAttributesParams {
     /**
      * Color of the window title, as a color name or hex triplet.
      */
-    color?: string | Titanium.UI.Color;
+    color?: string | Titanium.UI.Color | undefined;
 
     /**
      * Font to use for the window title.
      */
-    font?: Font;
+    font?: Font | undefined;
 
     /**
      * Shadow color and offset for the window title.
      */
-    shadow?: shadowDict;
+    shadow?: shadowDict | undefined;
 
 }
 /**
@@ -84543,12 +84543,12 @@ interface wakeLockOptions {
     /**
      * Wake lock level and flag. See [PowerManager.newWakeLock in the Android API Reference](https://developer.android.com/reference/android/os/PowerManager.html#newWakeLock(int,%20java.lang.String))
      */
-    flags?: number;
+    flags?: number | undefined;
 
     /**
      * Minimum time the device will be switched on (plus device switch-off time)
      */
-    time?: number;
+    time?: number | undefined;
 
 }
 /**
@@ -84558,22 +84558,22 @@ interface windowToolbarParam {
     /**
      * Defines if the toolbar appearance is animated.
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Background color for the toolbar, as a color name or hex triplet.
      */
-    barColor?: string | Titanium.UI.Color;
+    barColor?: string | Titanium.UI.Color | undefined;
 
     /**
      * The tintColor to apply to the tool bar.
      */
-    tintColor?: string | Titanium.UI.Color;
+    tintColor?: string | Titanium.UI.Color | undefined;
 
     /**
      * Defines if the toolbar is translucent.
      */
-    translucent?: boolean;
+    translucent?: boolean | undefined;
 
 }
 

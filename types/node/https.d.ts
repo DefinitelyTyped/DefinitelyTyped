@@ -34,3 +34,7 @@ declare module 'https' {
     function get(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     let globalAgent: Agent;
 }
+
+declare module 'node:https' {
+    export * from 'https';
+}

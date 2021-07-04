@@ -791,3 +791,7 @@ declare module 'tls' {
      */
     const rootCertificates: ReadonlyArray<string>;
 }
+
+declare module 'node:tls' {
+    export * from 'tls';
+}
