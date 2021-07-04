@@ -166,6 +166,7 @@ newConf.get("primeNumber");
 conf.validate({ strict: true });
 conf.validate({ allowed: "strict" });
 conf.validate({ allowed: "warn" });
+conf.validate({ output: console.warn });
 
 // Chaining
 
