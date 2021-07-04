@@ -52,7 +52,6 @@ const docker10 = new Docker({
     host: '192.168.1.10',
     port: 22,
     username: 'test',
-    sshAuthAgent: '/tmp/ssh-abcde/agent.12345',
 });
 
 async function foo() {
@@ -72,7 +71,7 @@ async function foo() {
 
 docker.getEvents(
     {
-        since: new Date().getTime() / 1000,
+        since: (new Date().getTime() / 1000).toString(),
         filters: `{ "event": ["pull"] }`,
     },
     (err, stream) => {
@@ -82,7 +81,7 @@ docker.getEvents(
 
 docker.getEvents(
     {
-        since: new Date().getTime() / 1000,
+        since: (new Date().getTime() / 1000).toString(),
         filters: { event: ['pull'] },
     },
     (err, stream) => {
@@ -137,14 +136,14 @@ docker.createContainer({ Tty: true }, (err, container) => {
     });
 });
 
-docker.createNetwork({Name: 'networkName'},  (err, network) => {
+docker.createNetwork({ Name: 'networkName' }, (err, network) => {
     network.remove((err, data) => {
         // NOOP
     });
 });
 
-docker.createNetwork({Name: 'networkName'}).then((network) => {
-    network.remove().then((response) => {
+docker.createNetwork({ Name: 'networkName' }).then(network => {
+    network.remove().then(response => {
         // NOOP
     });
 });
@@ -165,30 +164,39 @@ docker.pruneVolumes((err, response) => {
     // NOOP
 });
 
-docker.createService({
-    Name: 'network-name',
-    Networks: [{
-        Target: "network-target",
-        Aliases: [],
-    }],
-    TaskTemplate: {
-        ContainerSpec: {
-            Image: `my-image`,
-            Env: ['my-env']
-        }
+docker.createService(
+    {
+        Name: 'network-name',
+        Networks: [
+            {
+                Target: 'network-target',
+                Aliases: [],
+            },
+        ],
+        TaskTemplate: {
+            ContainerSpec: {
+                Image: `my-image`,
+                Env: ['my-env'],
+            },
+        },
+        Mode: {
+            Replicated: {
+                Replicas: 1,
+            },
+        },
+        EndpointSpec: {
+            Ports: [
+                {
+                    Protocol: 'tcp',
+                    TargetPort: 80,
+                },
+            ],
+        },
     },
-    Mode: {
-        Replicated: {
-            Replicas: 1
-        }
+    (err, response) => {
+        /* NOOP */
     },
-    EndpointSpec: {
-        Ports: [{
-            Protocol: "tcp",
-            TargetPort: 80
-        }]
-    }
-}, (err, response) => { /* NOOP */ });
+);
 
 const plugin = docker.getPlugin('pluginName', 'remoteName');
 plugin.configure((err, response) => {
@@ -223,7 +231,7 @@ plugin.remove((err, response) => {
     // NOOP
 });
 
-plugin.upgrade({}, (err, response) => {
+plugin.upgrade({ remote: '' }, (err, response) => {
     // NOOP
 });
 
@@ -249,7 +257,7 @@ node.inspect().then(response => {
     // NOOP
 });
 
-node.update({}, (err, response) => {
+node.update({ version: 0 }, (err, response) => {
     // NOOP
 });
 
@@ -257,7 +265,7 @@ node.update((err, response) => {
     // NOOP
 });
 
-node.update({}).then(response => {
+node.update({ version: 0 }).then(response => {
     // NOOP;
 });
 
