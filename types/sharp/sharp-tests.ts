@@ -333,17 +333,17 @@ sharp("in.gif", { animated: true }).toFile("out.webp");
 // Type support for limitInputPixels
 sharp({
     create: {
-      background: "red",
-      channels: 4,
-      height: 25000,
-      width: 25000,
+        background: "red",
+        channels: 4,
+        height: 25000,
+        width: 25000,
     },
     limitInputPixels: false,
-  })
+})
     .toFormat("png")
     .toBuffer()
     .then((largeImage) =>
-      sharp(input).composite([{ input: largeImage, limitInputPixels: false }]),
+        sharp(input).composite([{ input: largeImage, limitInputPixels: false }]),
     );
 
 // Taken from API documentation at
