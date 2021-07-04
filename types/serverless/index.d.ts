@@ -44,6 +44,13 @@ declare namespace Serverless {
         tags?: { [key: string]: string };
     }
 
+    interface LogOptions {
+        color?: string;
+        bold?: boolean;
+        underline?: boolean;
+        entity?: string;
+    }
+
     interface FunctionDefinitionHandler extends FunctionDefinition {
         handler: string;
     }
@@ -78,7 +85,7 @@ declare class Serverless {
     getVersion(): string;
 
     cli: {
-        log(message: string, entity?: string, options?: { color?: string, bold?: boolean, underline?: boolean, entity?: string }): null;
+        log(message: string, entity?: string, options?: Serverless.LogOptions): null;
     };
 
     providers: {};
