@@ -13,8 +13,12 @@ let publicKeyFromRsaPem = forge.pki.publicKeyFromPem(publicKeyRSAPem);
 let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
 let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let cert = forge.pki.createCertificate();
+cert.publicKey = keypair.publicKey;
+cert.sign(keypair.privateKey);
 forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
 let csr = forge.pki.createCertificationRequest();
+csr.publicKey = keypair.publicKey;
+csr.sign(keypair.privateKey);
 forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr));
 
 {
