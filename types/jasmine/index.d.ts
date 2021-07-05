@@ -1225,14 +1225,6 @@ declare namespace jasmine {
         print?: (...args: any[]) => void;
         showColors?: boolean;
         jasmineCorePath?: string;
-        stackFilter?: any;
-        /**
-         * A function that takes a random seed and returns the command to reproduce
-         * that seed. Use this to customize the output when using ConsoleReporter
-         * in a different command line tool.
-         */
-        randomSeedReproductionCmd?: any;
-        order?: Order;
     }
 }
 
