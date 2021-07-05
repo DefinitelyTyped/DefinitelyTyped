@@ -320,3 +320,7 @@ declare module 'dns' {
 
     export { dnsPromises as promises };
 }
+
+declare module 'node:dns' {
+    export * from 'dns';
+}

@@ -14,11 +14,11 @@ declare namespace WebpackCDNInject {
         /**
          * Defines urls to be added to document head (tag type is defined by url's file extension).
          */
-        head?: string[];
+        head?: string[] | undefined;
         /**
          * Defines urls to be added to document body (tag type is defined by url's file extension).
          */
-        body?: string[];
+        body?: string[] | undefined;
     }
 }
 

@@ -27,7 +27,7 @@ export interface Options {
      *
      * @default "data-inline"
      */
-    inlineAttribute?: string;
+    inlineAttribute?: string | undefined;
     /**
      * When true, inline images unless they have an exclusion attribute (see inlineAttribute option).
      *
@@ -39,7 +39,7 @@ export interface Options {
      *
      * @default 8
      */
-    images?: boolean | number;
+    images?: boolean | number | undefined;
     /**
      * When true, inline SVG <use> unless they have an exclusion attribute (see inlineAttribute option).
      *
@@ -51,7 +51,7 @@ export interface Options {
      *
      * @default 8
      */
-    svgs?: boolean | number;
+    svgs?: boolean | number | undefined;
     /**
      * When true, inline scripts unless they have an exclusion attribute (see inlineAttribute option).
      *
@@ -61,7 +61,7 @@ export interface Options {
      *
      * @default true
      */
-    scripts?: boolean | number;
+    scripts?: boolean | number | undefined;
     /**
      * When true, inline stylesheet links unless they have an exclusion attribute (see inlineAttribute option).
      *
@@ -71,7 +71,7 @@ export interface Options {
      *
      * @default true
      */
-    links?: boolean | number;
+    links?: boolean | number | undefined;
     /**
      * Describes the path relationship between where web-resource-inliner is running and what the relative paths in fileContent or href/src urls refer to.
      *
@@ -81,7 +81,7 @@ export interface Options {
      *
      * @default ""
      */
-    relativeTo?: string;
+    relativeTo?: string | undefined;
     /**
      * Describes the path relationship between CSS content and the context it will be loaded in.
      *
@@ -91,7 +91,7 @@ export interface Options {
      *
      * @default ""
      */
-    rebaseRelativeTo?: string;
+    rebaseRelativeTo?: string | undefined;
     /**
      * When strict is true, a missing resource will cause the inliner to halt and return an error in the callback.
      *
@@ -99,7 +99,7 @@ export interface Options {
      *
      * @default false
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
     /**
      * Allows to adjust issued requests.
      *
@@ -111,19 +111,19 @@ export interface Options {
      *
      * See the [list of available options](https://www.npmjs.com/package/request#request-options-callback).
      */
-    requestTransform?: (
+    requestTransform?: ((
         requestOptions: RequiredUriUrl & CoreOptions
-    ) => RequiredUriUrl & CoreOptions;
+    ) => RequiredUriUrl & CoreOptions) | undefined;
     /**
      * Allows to make changes to scripts before they are inlined, such as minifying.
      *
      * Callback is standard node error first, second argument is transformed value.
      */
-    scriptTransform?: (content: string, done: Callback) => any;
+    scriptTransform?: ((content: string, done: Callback) => any) | undefined;
     /**
      * Allows to make changes to links before they are inlined, such as CSS pre-and-post-processors.
      *
      * Callback is standard node error first, second argument is transformed value.
      */
-    linkTransform?: (content: string, done: Callback) => any;
+    linkTransform?: ((content: string, done: Callback) => any) | undefined;
 }

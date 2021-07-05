@@ -492,7 +492,7 @@ declare module 'crypto' {
         iterations: number,
         keylen: number,
         digest: string,
-        callback: (err: Error | null, derivedKey: Buffer) => any,
+        callback: (err: Error | null, derivedKey: Buffer) => void,
     ): void;
     function pbkdf2Sync(
         password: BinaryLike,
@@ -1327,7 +1327,7 @@ declare module 'crypto' {
      * The successfully generated `derivedKey` will be passed to the callback as an `ArrayBuffer`.
      * An error will be thrown if any of the input aguments specify invalid values or types.
      */
-    function hkdf(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => any): void;
+    function hkdf(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => void): void;
 
     /**
      * Provides a synchronous HKDF key derivation function as defined in RFC 5869.
@@ -1586,4 +1586,8 @@ declare module 'crypto' {
      * Checks the primality of the candidate.
      */
     function checkPrimeSync(value: LargeNumberLike, options?: CheckPrimeOptions): boolean;
+}
+
+declare module 'node:crypto' {
+    export * from 'crypto';
 }

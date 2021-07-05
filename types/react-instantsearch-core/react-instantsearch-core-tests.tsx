@@ -55,6 +55,7 @@ import { Hits } from 'react-instantsearch-dom';
       return {
         query,
         page,
+        refine: (value: string) => this.refine(value),
       };
     },
 

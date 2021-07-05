@@ -475,3 +475,14 @@ function stream_readable_pipe_test() {
 }
 
 addAbortSignal(new AbortSignal(), new Readable());
+
+{
+    const a = Readable.from(['test'], {
+        objectMode: true,
+    });
+}
+
+{
+    const a = new Readable();
+    a.unshift('something', 'utf8');
+}

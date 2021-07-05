@@ -4,9 +4,9 @@ import type { NavigationAction } from '../core';
 // tslint:disable-next-line strict-export-declare-modifiers
 declare type Props = {
     to: string;
-    action?: NavigationAction;
-    target?: string;
-    onPress?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent) => void;
+    action?: NavigationAction | undefined;
+    target?: string | undefined;
+    onPress?: ((e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent) => void) | undefined;
 } & (TextProps & {
     children: React.ReactNode;
 });
