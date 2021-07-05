@@ -10,7 +10,11 @@
     "strictNullChecks": true,
     "types": [],
     "noEmit": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "../",
+    "typeRoots": [
+      "../"
+    ],
   },
   "files": [
     "index.d.ts",

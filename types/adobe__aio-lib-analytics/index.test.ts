@@ -1,25 +1,29 @@
 import adobeAnalytics from '@adobe/aio-lib-analytics';
 
-const client = await adobeAnalytics.init(
-  'foo',
-  'bar',
-  'foobar'
-);
+(async () => {
 
-const report = await client.getReport({
-  rsid: 'foo',
-  globalFilters: [
-    {
-      type: 'dateRange',
-      dateRange: `2020-01-02|2021-01-02`,
+  const client = await adobeAnalytics.init(
+    'foo',
+    'bar',
+    'foobar'
+  );
+
+  const report = await client.getReport({
+    rsid: 'foo',
+    globalFilters: [
+      {
+        type: 'dateRange',
+        dateRange: `2020-01-02|2021-01-02`,
+      },
+    ],
+    metricContainer: {
+      metrics: [{ id: 'foobar' }],
     },
-  ],
-  metricContainer: {
-    metrics: [{ id: 'foobar' }],
-  },
-  dimension: 'foobar',
-  settings: {
-    limit: 20,
-    page: 2,
-  },
-})
+    dimension: 'foobar',
+    settings: {
+      limit: 20,
+      page: 2,
+    },
+  })
+
+})();
