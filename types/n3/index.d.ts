@@ -5,6 +5,7 @@
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
 //                 Joachim Van Herwegen <https://github.com/joachimvh>
 //                 Alexey Morozov <https://github.com/AlexeyMz>
+//                 Jesse Wright <https://github.com/jeswr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -149,11 +150,16 @@ export class Lexer {
     tokenize(input: string): Token[];
     tokenize(input: string | EventEmitter, callback: TokenCallback): void;
 }
+
+type BaseFormat = 'turtle' | 'trig' | 'triple' | 'quad' | 'n3'
+type RDFStar = 'star' | '*'
+type Format = `${BaseFormat}${RDFStar}`
+
 export interface ParserOptions {
-    format?: string;
+    format?: Format;
     factory?: RDF.DataFactory;
     baseIRI?: string;
-    blankNodePrefix?: string;
+    blankNodePrefix?: `_:${string}`;
 }
 
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;
@@ -173,7 +179,7 @@ export class StreamParser<Q extends BaseQuad = Quad> extends stream.Transform im
 }
 
 export interface WriterOptions {
-    format?: string;
+    format?: Format;
     prefixes?: Prefixes<RDF.NamedNode | string>;
     end?: boolean;
 }
