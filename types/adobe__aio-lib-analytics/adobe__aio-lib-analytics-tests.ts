@@ -1,7 +1,6 @@
 import adobeAnalytics from '@adobe/aio-lib-analytics';
 
 (async () => {
-
   const client = await adobeAnalytics.init(
     'foo',
     'bar',
@@ -24,6 +23,5 @@ import adobeAnalytics from '@adobe/aio-lib-analytics';
       limit: 20,
       page: 2,
     },
-  })
-
+  });
 })();

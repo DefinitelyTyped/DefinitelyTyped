@@ -1,8 +1,8 @@
-// Type definitions for @adobe/aio-lib-analytics 2.1.0
+// Type definitions for @adobe/aio-lib-analytics 2.1
 // Project: https://github.com/adobe/aio-lib-analytics
 // Definitions by: Samuel Bodin <https://github.com/bodinsamuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3
+// Minimum TypeScript Version: 3.0
 
 export interface Report {
   body: {
@@ -11,7 +11,7 @@ export interface Report {
   };
 }
 
-declare class AnalyticsCoreAPI {
+export class AnalyticsCoreAPI {
   sdk: any;
   companyId: string | undefined;
   apiKey: string | undefined;
@@ -19,9 +19,9 @@ declare class AnalyticsCoreAPI {
 
   getReport(body: {
     rsid: string;
-    globalFilters: { type: 'dateRange'; dateRange: string }[];
+    globalFilters: Array<{ type: 'dateRange'; dateRange: string }>;
     metricContainer: {
-      metrics: { id: string }[];
+      metrics: Array<{ id: string }>;
     };
     dimension: string;
     settings: {
@@ -33,11 +33,11 @@ declare class AnalyticsCoreAPI {
   getCalculatedMetrics(body?: {
     calculatedMetricFilter: any;
     expansion: any;
-    limit?: number | undefined;
+    limit?: number;
     locale: any;
     name: any;
     ownerId: any;
-    page?: number | undefined;
+    page?: number;
     rsids: string[];
     tagNames: any;
   }): Promise<unknown>;
@@ -52,8 +52,8 @@ declare class AnalyticsCoreAPI {
 
   getCollections(body?: {
     expansion: any;
-    limit?: number | undefined;
-    page?: number | undefined;
+    limit?: number;
+    page?: number;
     rsidContains: any;
     rsids: string[];
   }): Promise<unknown>;
@@ -69,9 +69,9 @@ declare class AnalyticsCoreAPI {
   getDateRanges(body?: {
     expansion: any;
     filterByIds: any;
-    limit?: number | undefined;
+    limit?: number;
     locale: any;
-    page?: number | undefined;
+    page?: number;
   }): Promise<unknown>;
 
   getDateRangeById(
@@ -122,10 +122,10 @@ declare class AnalyticsCoreAPI {
   getSegments(body?: {
     expansion: any;
     includeType: any;
-    limit?: number | undefined;
+    limit?: number;
     locale: any;
     name: any;
-    page?: number | undefined;
+    page?: number;
     rsids: string[];
     segmentFilter: any;
     tagNames: any;
