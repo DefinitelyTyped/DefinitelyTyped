@@ -868,6 +868,8 @@ declare namespace sharp {
         lossless?: boolean;
         /** CPU effort vs file size, 0 (slowest/smallest) to 8 (fastest/largest) (optional, default 5) */
         speed?: number;
+        /** set to '4:4:4' to prevent chroma subsampling otherwise defaults to '4:2:0' chroma subsampling, requires libvips v8.11.0 (optional, default '4:2:0') */
+        chromaSubsampling?: string;
     }
 
     interface HeifOptions extends OutputOptions {
