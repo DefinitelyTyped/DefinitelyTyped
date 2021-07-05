@@ -21,6 +21,8 @@ npm.load({}, function (er) {
 
     npm.commands.view(["some", "args"], true, function () {}); // silent: true
     npm.commands.view(["some", "args"], function () {});
+    npm.commands.diff(["some", "args"], () => {});
+
 
     npm.on("log", function (message: string) {
         console.log(message);
