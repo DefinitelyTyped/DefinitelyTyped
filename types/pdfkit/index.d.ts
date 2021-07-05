@@ -139,49 +139,57 @@ declare namespace PDFKit.Mixins {
     }
 
     interface TextOptions {
-        /**  Set to false to disable line wrapping all together */
+        /** Set to false to disable line wrapping all together */
         lineBreak?: boolean;
         /** The width that text should be wrapped to (by default, the page width minus the left and right margin) */
         width?: number;
-        /**  The maximum height that text should be clipped to */
+        /** The maximum height that text should be clipped to */
         height?: number;
         /** The character to display at the end of the text when it is too long. Set to true to use the default character. */
         ellipsis?: boolean | string;
-        /**  the number of columns to flow the text into */
+        /** The number of columns to flow the text into */
         columns?: number;
-        /** the amount of space between each column (1/4 inch by default) */
+        /** The amount of space between each column (1/4 inch by default) */
         columnGap?: number;
         /** The amount in PDF points (72 per inch) to indent each paragraph of text */
         indent?: number;
-        /** the amount of space between each paragraph of text */
+        /** The amount of space between each paragraph of text */
         paragraphGap?: number;
-        /** the amount of space between each line of text */
+        /** The amount of space between each line of text */
         lineGap?: number;
-        /** the amount of space between each word in the text */
+        /** The amount of space between each word in the text */
         wordSpacing?: number;
-        /** the amount of space between each character in the text */
+        /** The amount of space between each character in the text */
         characterSpacing?: number;
-        /** whether to fill the text (true by default) */
+        /** Whether to fill the text (true by default) */
         fill?: boolean;
-        /**  whether to stroke the text */
+        /** Whether to stroke the text */
         stroke?: boolean;
         /** A URL to link this text to (shortcut to create an annotation) */
         link?: string;
-        /** whether to underline the text */
+        /** Whether to underline the text */
         underline?: boolean;
-        /** whether to strike out the text */
+        /** Whether to strike out the text */
         strike?: boolean;
-        /** whether the text segment will be followed immediately by another segment. Useful for changing styling in the middle of a paragraph. */
+        /** Whether the text segment will be followed immediately by another segment. Useful for changing styling in the middle of a paragraph. */
         continued?: boolean;
-        /** whether to slant the text (angle in degrees or true) */
+        /** Whether to slant the text (angle in degrees or true) */
         oblique?: boolean | number;
-        /** the alignment of the text (center, justify, left, right) */
+        /** The alignment of the text (center, justify, left, right) */
         //TODO check this
         align?: 'center' | 'justify' | 'left' | 'right' | string;
-        /** the vertical alignment of the text with respect to its insertion point */
+        /** The vertical alignment of the text with respect to its insertion point */
         baseline?: number | 'svg-middle' | 'middle' | 'svg-central' | 'bottom' | 'ideographic' | 'alphabetic' | 'mathematical' | 'hanging' | 'top';
-        /** an array of OpenType feature tags to apply. If not provided, a set of defaults is used. */
+        /** An array of OpenType feature tags to apply. If not provided, a set of defaults is used. */
         features?: OpenTypeFeatures[];
+        /** Sets a list as unordered, ordered or lettered */
+        listType?: 'bullet' | 'numbered' | 'lettered';
+        /** The radius of bullet points in a list. Works only with listType: 'bullet' */
+        bulletRadius?: number;
+        /** The indent of bullet points in a list */
+        bulletIndent?: number;
+        /** The indent of text in a list */
+        textIndent?: number;
     }
 
     interface PDFText {

@@ -11,15 +11,15 @@ declare function outlineStroke(input: string | Buffer, params?: outlineStroke.Op
 
 declare namespace outlineStroke {
     interface Options {
-        alphaMax?: number;
-        background?: string;
-        blackOnWhite?: boolean;
-        color?: string;
-        optCurve?: boolean;
-        optTolerance?: number;
-        threshold?: number;
-        turdSize?: number;
-        turnPolicy?: string;
+        alphaMax?: number | undefined;
+        background?: string | undefined;
+        blackOnWhite?: boolean | undefined;
+        color?: string | undefined;
+        optCurve?: boolean | undefined;
+        optTolerance?: number | undefined;
+        threshold?: number | undefined;
+        turdSize?: number | undefined;
+        turnPolicy?: string | undefined;
     }
 }
 export = outlineStroke;

@@ -26,8 +26,8 @@ type IProduce = typeof Immer;
 export type InitializerFunction<S, A> = (store: Store<S, A>) => void;
 
 export interface Options<S, A> {
-    Immer?: IProduce;
-    initializer?: InitializerFunction<S, A>;
+    Immer?: IProduce | undefined;
+    initializer?: InitializerFunction<S, A> | undefined;
 }
 
 type UseGlobal<S, A> = (() => [S, A]) &

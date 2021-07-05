@@ -162,7 +162,7 @@ declare global {
         namespace Options {
             interface BufferLoad {
                 /** The file's encoding. */
-                encoding?: string;
+                encoding?: string | undefined;
 
                 /**
                  *  A function that returns a boolean indicating whether the buffer should
@@ -173,130 +173,130 @@ declare global {
 
             interface FindMarker {
                 /** Only include markers that start at the given Point. */
-                startPosition?: PointCompatible;
+                startPosition?: PointCompatible | undefined;
 
                 /** Only include markers that end at the given Point. */
-                endPosition?: PointCompatible;
+                endPosition?: PointCompatible | undefined;
 
                 /** Only include markers that start inside the given Range. */
-                startsInRange?: RangeCompatible;
+                startsInRange?: RangeCompatible | undefined;
 
                 /** Only include markers that end inside the given Range. */
-                endsInRange?: RangeCompatible;
+                endsInRange?: RangeCompatible | undefined;
 
                 /** Only include markers that contain the given Point, inclusive. */
-                containsPoint?: PointCompatible;
+                containsPoint?: PointCompatible | undefined;
 
                 /** Only include markers that contain the given Range, inclusive. */
-                containsRange?: RangeCompatible;
+                containsRange?: RangeCompatible | undefined;
 
                 /** Only include markers that start at the given row number. */
-                startRow?: number;
+                startRow?: number | undefined;
 
                 /** Only include markers that end at the given row number. */
-                endRow?: number;
+                endRow?: number | undefined;
 
                 /** Only include markers that intersect the given row number. */
-                intersectsRow?: number;
+                intersectsRow?: number | undefined;
             }
 
             interface FindDisplayMarker {
                 /** Only include markers starting at this Point in buffer coordinates. */
-                startBufferPosition?: PointCompatible;
+                startBufferPosition?: PointCompatible | undefined;
 
                 /** Only include markers ending at this Point in buffer coordinates. */
-                endBufferPosition?: PointCompatible;
+                endBufferPosition?: PointCompatible | undefined;
 
                 /** Only include markers starting at this Point in screen coordinates. */
-                startScreenPosition?: PointCompatible;
+                startScreenPosition?: PointCompatible | undefined;
 
                 /** Only include markers ending at this Point in screen coordinates. */
-                endScreenPosition?: PointCompatible;
+                endScreenPosition?: PointCompatible | undefined;
 
                 /** Only include markers starting inside this Range in buffer coordinates. */
-                startsInBufferRange?: RangeCompatible;
+                startsInBufferRange?: RangeCompatible | undefined;
 
                 /** Only include markers ending inside this Range in buffer coordinates. */
-                endsInBufferRange?: RangeCompatible;
+                endsInBufferRange?: RangeCompatible | undefined;
 
                 /** Only include markers starting inside this Range in screen coordinates. */
-                startsInScreenRange?: RangeCompatible;
+                startsInScreenRange?: RangeCompatible | undefined;
 
                 /** Only include markers ending inside this Range in screen coordinates. */
-                endsInScreenRange?: RangeCompatible;
+                endsInScreenRange?: RangeCompatible | undefined;
 
                 /** Only include markers starting at this row in buffer coordinates. */
-                startBufferRow?: number;
+                startBufferRow?: number | undefined;
 
                 /** Only include markers ending at this row in buffer coordinates. */
-                endBufferRow?: number;
+                endBufferRow?: number | undefined;
 
                 /** Only include markers starting at this row in screen coordinates. */
-                startScreenRow?: number;
+                startScreenRow?: number | undefined;
 
                 /** Only include markers ending at this row in screen coordinates. */
-                endScreenRow?: number;
+                endScreenRow?: number | undefined;
 
                 /**
                  *  Only include markers intersecting this Array of [startRow, endRow] in
                  *  buffer coordinates.
                  */
-                intersectsBufferRowRange?: [number, number];
+                intersectsBufferRowRange?: [number, number] | undefined;
 
                 /**
                  *  Only include markers intersecting this Array of [startRow, endRow] in
                  *  screen coordinates.
                  */
-                intersectsScreenRowRange?: [number, number];
+                intersectsScreenRowRange?: [number, number] | undefined;
 
                 /** Only include markers containing this Range in buffer coordinates. */
-                containsBufferRange?: RangeCompatible;
+                containsBufferRange?: RangeCompatible | undefined;
 
                 /** Only include markers containing this Point in buffer coordinates. */
-                containsBufferPosition?: PointCompatible;
+                containsBufferPosition?: PointCompatible | undefined;
 
                 /** Only include markers contained in this Range in buffer coordinates. */
-                containedInBufferRange?: RangeCompatible;
+                containedInBufferRange?: RangeCompatible | undefined;
 
                 /** Only include markers contained in this Range in screen coordinates. */
-                containedInScreenRange?: RangeCompatible;
+                containedInScreenRange?: RangeCompatible | undefined;
 
                 /** Only include markers intersecting this Range in buffer coordinates. */
-                intersectsBufferRange?: RangeCompatible;
+                intersectsBufferRange?: RangeCompatible | undefined;
 
                 /** Only include markers intersecting this Range in screen coordinates. */
-                intersectsScreenRange?: RangeCompatible;
+                intersectsScreenRange?: RangeCompatible | undefined;
             }
 
             interface CopyMarker {
                 /** Whether or not the marker should be tailed. */
-                tailed?: boolean;
+                tailed?: boolean | undefined;
 
                 /** Creates the marker in a reversed orientation. */
-                reversed?: boolean;
+                reversed?: boolean | undefined;
 
                 /** Determines the rules by which changes to the buffer invalidate the marker. */
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch";
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined;
 
                 /**
                  *  Indicates whether insertions at the start or end of the marked range should
                  *  be interpreted as happening outside the marker.
                  */
-                exclusive?: boolean;
+                exclusive?: boolean | undefined;
 
                 /**
                  *  Custom properties to be associated with the marker.
                  *  @deprecated
                  */
-                properties?: object;
+                properties?: object | undefined;
             }
 
             interface ScanContext {
                 /** The number of lines before the matched line to include in the results object. */
-                leadingContextLineCount?: number;
+                leadingContextLineCount?: number | undefined;
 
                 /** The number of lines after the matched line to include in the results object. */
-                trailingContextLineCount?: number;
+                trailingContextLineCount?: number | undefined;
             }
         }
 
@@ -407,8 +407,8 @@ declare global {
              *  Sets the range of the marker.
              *  Returns a boolean indicating whether or not the marker was updated.
              */
-            setRange(range: RangeCompatible, params?: { reversed?: boolean, exclusive?:
-                boolean }): boolean;
+            setRange(range: RangeCompatible, params?: { reversed?: boolean | undefined, exclusive?:
+                boolean | undefined }): boolean;
 
             /**
              *  Sets the head position of the marker.
@@ -481,15 +481,15 @@ declare global {
             // Marker Creation
             /** Create a marker with the given range. */
             markRange(range: RangeCompatible, options?: {
-                reversed?: boolean,
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-                exclusive?: boolean,
+                reversed?: boolean | undefined,
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
+                exclusive?: boolean | undefined,
             }): Marker;
 
             /** Create a marker at with its head at the given position with no tail. */
             markPosition(position: PointCompatible, options?: {
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-                exclusive?: boolean,
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
+                exclusive?: boolean | undefined,
             }): Marker;
 
             // Event Subscription
@@ -594,8 +594,8 @@ declare global {
                 void;
 
             /** Modifies the screen range of this marker. */
-            setScreenRange(screenRange: RangeCompatible, options?: { reversed?: boolean,
-                clipDirection?: "backward"|"forward"|"closest" }): void;
+            setScreenRange(screenRange: RangeCompatible, options?: { reversed?: boolean | undefined,
+                clipDirection?: "backward"|"forward"|"closest" | undefined }): void;
 
             /**
              *  Retrieves the screen position of the marker's start. This will always be
@@ -706,10 +706,10 @@ declare global {
             // Marker creation
             /** Create a marker with the given screen range. */
             markScreenRange(range: RangeCompatible, options?: {
-                reversed?: boolean,
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-                exclusive?: boolean,
-                clipDirection?: "backward"|"forward"|"closest"
+                reversed?: boolean | undefined,
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
+                exclusive?: boolean | undefined,
+                clipDirection?: "backward"|"forward"|"closest" | undefined
             }): DisplayMarker;
 
             /**
@@ -717,16 +717,16 @@ declare global {
              *  and no tail.
              */
             markScreenPosition(screenPosition: PointCompatible, options?: {
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-                exclusive?: boolean,
-                clipDirection?: "backward"|"forward"|"closest"
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
+                exclusive?: boolean | undefined,
+                clipDirection?: "backward"|"forward"|"closest" | undefined
             }): DisplayMarker;
 
             /** Create a marker with the given buffer range. */
             markBufferRange(range: RangeCompatible, options?: {
-                reversed?: boolean,
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-                exclusive?: boolean
+                reversed?: boolean | undefined,
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
+                exclusive?: boolean | undefined
             }): DisplayMarker;
 
             /**
@@ -734,8 +734,8 @@ declare global {
              *  and no tail.
              */
             markBufferPosition(bufferPosition: PointCompatible, options?: {
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-                exclusive?: boolean
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
+                exclusive?: boolean | undefined
             }): DisplayMarker;
 
             // Querying
@@ -1217,15 +1217,15 @@ declare global {
 
             /** Set the text in the given range. */
             setTextInRange(range: RangeCompatible, text: string, options?:
-                { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
+                { normalizeLineEndings?: boolean | undefined, undo?: "skip" | undefined }): Range;
 
             /** Insert text at the given position. */
             insert(position: PointCompatible, text: string, options?:
-                { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
+                { normalizeLineEndings?: boolean | undefined, undo?: "skip" | undefined }): Range;
 
             /** Append text to the end of the buffer. */
-            append(text: string, options?: { normalizeLineEndings?: boolean, undo?:
-                "skip" }): Range;
+            append(text: string, options?: { normalizeLineEndings?: boolean | undefined, undo?:
+                "skip" | undefined }): Range;
 
             /** Delete the text in the given range. */
             delete(range: RangeCompatible): Range;
@@ -1238,8 +1238,10 @@ declare global {
 
             // Markers
             /** Create a layer to contain a set of related markers. */
-            addMarkerLayer(options?: { maintainHistory?: boolean, persistent?: boolean }):
-                MarkerLayer;
+            addMarkerLayer(options?: {
+                maintainHistory?: boolean | undefined,
+                persistent?: boolean | undefined
+            }): MarkerLayer;
 
             /**
              *  Get a MarkerLayer by id.
@@ -1251,13 +1253,13 @@ declare global {
             getDefaultMarkerLayer(): MarkerLayer;
 
             /** Create a marker with the given range in the default marker layer. */
-            markRange(range: RangeCompatible, properties?: { reversed?: boolean,
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-                exclusive?: boolean }): Marker;
+            markRange(range: RangeCompatible, properties?: { reversed?: boolean | undefined,
+                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
+                exclusive?: boolean | undefined }): Marker;
 
             /** Create a marker at the given position with no tail in the default marker layer. */
             markPosition(position: PointCompatible, options?: { invalidate?: "never"|"surround"
-                |"overlap"|"inside"|"touch", exclusive?: boolean }): Marker;
+                |"overlap"|"inside"|"touch" | undefined, exclusive?: boolean | undefined }): Marker;
 
             /** Get all existing markers on the default marker layer. */
             getMarkers(): Marker[];
@@ -1465,7 +1467,7 @@ declare global {
             /** Create a new buffer with the given params. */
             new (params?: {
                 /** The initial string text of the buffer. */
-                text?: string
+                text?: string | undefined
                 /**
                  *  A function that returns a Boolean indicating whether the buffer should
                  *  be destroyed if its file is deleted.

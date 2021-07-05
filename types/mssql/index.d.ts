@@ -1,22 +1,23 @@
-// Type definitions for mssql 6.0.0
+// Type definitions for mssql 7.1.0
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
-//                 Vitor Buzinaro <https://github.com/buzinas>
-//                 Matt Richardson <https://github.com/mrrichar>
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
 //                 Peter Keuter <https://github.com/pkeuter>
-//                 David Gasperoni <https://github.com/mcdado>
 //                 Jeff Wooden <https://github.com/woodenconsulting>
 //                 Cahil Foley <https://github.com/cahilfoley>
 //                 Rifa Achrinza <https://github.com/achrinza>
+//                 Daniel Hensby <https://github.com/dhensby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.6
 
 /// <reference types="node" />
 
 
 import events = require('events');
 import tds = require('tedious');
+import msnodesql = require('msnodesqlv8');
+import { Pool } from 'tarn';
+import { CallbackOrPromise, PoolOptions } from 'tarn/dist/Pool';
 export interface ISqlType {
     type: ISqlTypeFactory;
 }
@@ -68,6 +69,8 @@ export declare var UDT: ISqlTypeFactoryWithNoParams;
 export declare var Geography: ISqlTypeFactoryWithNoParams;
 export declare var Geometry: ISqlTypeFactoryWithNoParams;
 export declare var Variant: ISqlTypeFactoryWithNoParams;
+
+export type Connection = tds.Connection | msnodesql.Connection;
 
 export declare var TYPES: {
     VarChar: ISqlTypeFactoryWithLength;
@@ -169,23 +172,14 @@ export interface IOptions extends tds.ConnectionOptions {
     useUTC?: boolean;
 }
 
-export interface IPool {
+export declare var pool: ConnectionPool;
+
+export interface PoolOpts<T> extends Omit<PoolOptions<T>, 'create' | 'destroy' | 'min' | 'max'> {
+    create?: CallbackOrPromise<T>;
+    destroy?: (resource: T) => any;
     min?: number;
     max?: number;
-    idleTimeoutMillis?: number;
-    maxWaitingClients?: number;
-    testOnBorrow?: boolean;
-    acquireTimeoutMillis?: number;
-    fifo?: boolean;
-    priorityRange?: number;
-    autostart?: boolean;
-    evictionRunIntervalMillis?: number;
-    numTestsPerRun?: number;
-    softIdleTimeoutMillis?: number;
-    Promise?: any;
 }
-
-export declare var pool: IPool;
 
 export interface config {
     driver?: string;
@@ -200,12 +194,13 @@ export interface config {
     stream?: boolean;
     parseJSON?: boolean;
     options?: IOptions;
-    pool?: IPool;
+    pool?: PoolOpts<Connection>;
+    arrayRowMode?: boolean;
     /**
      * Invoked before opening the connection. The parameter conn is the configured
      * tedious Connection. It can be used for attaching event handlers.
      */
-    beforeConnect?: (conn: tds.Connection) => void
+    beforeConnect?: (conn: Connection) => void
 }
 
 export declare class MSSQLError extends Error {
@@ -216,9 +211,15 @@ export declare class MSSQLError extends Error {
 }
 
 export declare class ConnectionPool extends events.EventEmitter {
-    public connected: boolean;
-    public connecting: boolean;
-    public driver: string;
+    public readonly connected: boolean;
+    public readonly connecting: boolean;
+    public readonly healthy: boolean;
+    public readonly driver: string;
+    public readonly size: number;
+    public readonly available: number;
+    public readonly pending: number;
+    public readonly borrowed: number;
+    public readonly pool: Pool<Connection>;
     public constructor(config: config, callback?: (err?: any) => void);
     public constructor(connectionString: string, callback?: (err?: any) => void);
     public query(command: string): Promise<IResult<any>>;

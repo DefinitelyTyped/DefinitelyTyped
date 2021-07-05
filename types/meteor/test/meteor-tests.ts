@@ -1064,6 +1064,7 @@ if (Meteor.isServer) {
     const stampedToken = Accounts._generateStampedLoginToken(); // $ExpectType StampedLoginToken
     const hashedStampedToken = Accounts._hashStampedToken(stampedToken); // $ExpectType HashedStampedLoginToken
     Accounts._insertHashedLoginToken('testUserId', hashedStampedToken); // $ExpectType void
+    Accounts._insertHashedLoginToken<{_id: string}>('testUserId', hashedStampedToken, {_id: {$exists: true}}); // $ExpectType void
 
     const hashedToken = Accounts._hashLoginToken(stampedToken.token); // $ExpectType string
 }

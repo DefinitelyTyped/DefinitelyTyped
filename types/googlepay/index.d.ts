@@ -95,7 +95,8 @@ declare namespace google.payments.api {
         transactionInfo: TransactionInfo;
 
         /**
-         * Offers available for redemption that can be used with current order.
+         * Offers available for redemption that can be used with the current
+         * order.
          */
         offerInfo?: OfferInfo;
 
@@ -246,7 +247,7 @@ declare namespace google.payments.api {
         paymentMethodData: PaymentMethodData;
 
         /**
-         * Contains the data for offer applied by the user. This will be
+         * Contains the data for the offer applied by the user. This will be
          * populated if an offer is applied to the transaction.
          */
         offerData?: OfferData;
@@ -1188,21 +1189,21 @@ declare namespace google.payments.api {
      */
     interface OfferDetail {
         /**
-         * Redemption code available for this transaction. This would be used to
-         * identify the offer in case the user decides to apply the offer.
+         * Redemption code available for this transaction. This is used to
+         * identify the offer when the user decides to apply the offer.
          */
         redemptionCode: string;
 
         /**
          * Description for the offer visible to the user to inform them about
-         * the offer. The description would be displayed in buyflow and should
-         * be less than 60 characters long.
+         * the offer. The description is displayed in buyflow and should be less
+         * than 60 characters long.
          */
         description: string;
     }
 
     /**
-     * Definition for each offer to be applied to this Payment Request.
+     * Definition for each offer to be applied to this payment request.
      */
     interface OfferData {
         /**
@@ -2035,14 +2036,29 @@ declare namespace google.payments.api {
      *
      * Options:
      *
+     * - `book`:
+     *   "Book with Google Pay" button.
+     *
      * - `buy`:
      *   "Buy with Google Pay" button.
+     *
+     * - `checkout`:
+     *   "Checkout with Google Pay" button.
      *
      * - `donate`:
      *   "Donate with Google Pay" button.
      *
+     * - `order`:
+     *   "Order with Google Pay" button.
+     *
+     * - `pay`:
+     *   "Pay with Google Pay" button.
+     *
      * - `plain`:
      *   "Google Pay" button without text.
+     *
+     * - `subscribe`:
+     *   "Subscribe with Google Pay" button.
      *
      * - `long`:
      *   Same as "buy".
@@ -2050,7 +2066,7 @@ declare namespace google.payments.api {
      * - `short`:
      *   Same as "plain".
      */
-    type ButtonType = "buy" | "donate" | "plain" | "long" | "short";
+    type ButtonType = "book" | "buy" | "checkout" | "donate" | "order" | "pay" | "plain" | "subscribe" | "long" | "short";
 
     /**
      * Supported methods for controlling the size of the Google Pay button.

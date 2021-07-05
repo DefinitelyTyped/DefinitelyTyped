@@ -17,7 +17,7 @@
  * `confetti` will resolve once all animations are done.
  *
  */
-declare function confetti(options?: confetti.Options): Promise<null> | null;
+declare function confetti(options?: confetti.Options): Promise<undefined> | null;
 
 declare namespace confetti {
     /**
@@ -149,4 +149,5 @@ declare namespace confetti {
     ): CreateTypes;
 }
 
+export as namespace confetti;
 export = confetti;

@@ -607,9 +607,9 @@ interface JQuery {
      * Navigates to a slide by index
      * @param methodName The name of the method
      * @param slide
-     * @param animate
+     * @param dontAnimate
      */
-    slick(methodName: "slickGoTo", slide: number, animate?: boolean): JQuery;
+    slick(methodName: "slickGoTo", slide: number, dontAnimate?: boolean): JQuery;
 
     /**
      * Navigates to the next slide

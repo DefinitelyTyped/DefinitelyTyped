@@ -95,7 +95,7 @@ export interface Element extends UnistParent {
     /**
      * Information associated with the element.
      */
-    attributes?: Attributes;
+    attributes?: Attributes | undefined;
     children: Array<ElementChildMap[keyof ElementChildMap]>;
 }
 
@@ -129,11 +129,11 @@ export interface Doctype extends UnistNode {
     /**
      * The document’s public identifier.
      */
-    public?: string;
+    public?: string | undefined;
     /**
      * The document’s system identifier.
      */
-    system?: string;
+    system?: string | undefined;
 }
 
 /**

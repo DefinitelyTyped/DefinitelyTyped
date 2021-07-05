@@ -27,7 +27,7 @@ export type RouteParamsWithQueryOverload =
 export interface Route {
     uri: string;
     methods: Array<'GET' | 'HEAD' | 'POST' | 'PATCH' | 'PUT' | 'OPTIONS' | 'DELETE'>;
-    domain?: null | string;
+    domain?: null | string | undefined;
 }
 
 export interface Config {
@@ -35,10 +35,10 @@ export interface Config {
         [key: string]: Route;
     };
     url: string;
-    port?: number | null;
+    port?: number | null | undefined;
     location?: H.Location;
     defaults: {
-        [key: string]: string | number;
+        [key: string]: string | number
     };
 }
 

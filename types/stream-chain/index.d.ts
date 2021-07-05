@@ -23,7 +23,7 @@ declare class Chain extends Duplex {
 
 declare namespace Chain {
     interface ChainOptions extends DuplexOptions {
-        skipEvents?: boolean;
+        skipEvents?: boolean | undefined;
     }
 
     function chain(fns: StreamItem[], options?: ChainOptions): Chain;

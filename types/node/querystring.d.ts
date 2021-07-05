@@ -26,3 +26,7 @@ declare module 'querystring' {
     function escape(str: string): string;
     function unescape(str: string): string;
 }
+
+declare module 'node:querystring' {
+    export * from 'querystring';
+}

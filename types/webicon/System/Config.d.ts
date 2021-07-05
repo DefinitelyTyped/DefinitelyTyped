@@ -16,90 +16,90 @@ export interface Config {
     /**
      * The icons to provide.
      */
-    icons?: IdentityMap<string, ImageIconOptions | SvgIconOptions>;
+    icons?: IdentityMap<string, ImageIconOptions | SvgIconOptions> | undefined;
 
     /**
      * An alias of the `icons`-property.
      */
-    icon?: this["icons"];
+    icon?: this["icons"] | undefined;
 
     /**
      * The svg-sets to provide.
      */
-    svgSets?: IdentityMap<string, SvgIconSetOptions | SvgCumulativeIconSetOptions>;
+    svgSets?: IdentityMap<string, SvgIconSetOptions | SvgCumulativeIconSetOptions> | undefined;
 
     /**
      * An alias of the `svgSets`-property.
      */
-    svgSet?: this["svgSets"];
+    svgSet?: this["svgSets"] | undefined;
 
     /**
      * An alias of the `svgSets`-property.
      */
-    iconSet?: this["svgSets"];
+    iconSet?: this["svgSets"] | undefined;
 
     /**
      * An alias of the `svgSets`-property.
      */
-    iconSets?: this["svgSets"];
+    iconSets?: this["svgSets"] | undefined;
 
     /**
      * A set of icon-fonts to provide.
      */
-    fonts?: IdentityMap<CssClassConfig, CssIconSetOptions>;
+    fonts?: IdentityMap<CssClassConfig, CssIconSetOptions> | undefined;
 
     /**
      * An alias of the `fonts`-property.
      */
-    font?: this["fonts"];
+    font?: this["fonts"] | undefined;
 
     /**
      * A set of sprite-icons to provide.
      */
-    sprites?: IdentityMap<CssClassConfig, CssIconSetOptions>;
+    sprites?: IdentityMap<CssClassConfig, CssIconSetOptions> | undefined;
 
     /**
      * An alias of the `sprites`-property.
      */
-    sprite?: this["sprites"];
+    sprite?: this["sprites"] | undefined;
 
     /**
      * A set of alias-names for icon-sets.
      */
-    alias?: IdentityMap<string, AliasOptions>;
+    alias?: IdentityMap<string, AliasOptions> | undefined;
 
     /**
      * An alias of the `alias`-property.
      */
-    sourceAlias?: this["alias"];
+    sourceAlias?: this["alias"] | undefined;
 
     /**
      * The default icon-set to provide.
      */
-    defaultIconSetUrl?: string | (SvgIconSetOptions | SvgCumulativeIconSetOptions);
+    defaultIconSetUrl?: string | (SvgIconSetOptions | SvgCumulativeIconSetOptions) | undefined;
 
     /**
      * An alias of the `defaultIconSetUrl`-property.
      */
-    defaultSvgSetUrl?: this["defaultIconSetUrl"];
+    defaultSvgSetUrl?: this["defaultIconSetUrl"] | undefined;
 
     /**
      * An alias of the `defaultIconSetUrl`-property.
      */
-    defaultSvgIconSetUrl?: this["defaultIconSetUrl"];
+    defaultSvgIconSetUrl?: this["defaultIconSetUrl"] | undefined;
 
     /**
      * The default icon-set to use.
      */
-    defaultSource?: string | Identifiable;
+    defaultSource?: string | Identifiable | undefined;
 
     /**
      * An alias of the `defaultSource`-property.
      */
-    default?: this["defaultSource"];
+    default?: this["defaultSource"] | undefined;
 
     /**
      * The default size for svg-icons.
      */
-    defaultSvgIconSize?: number | SizeableOptions;
+    defaultSvgIconSize?: number | SizeableOptions | undefined;
 }
