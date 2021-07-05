@@ -574,9 +574,9 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
-                ListFooterComponentStyle={{ padding: 8 }}
+                ListFooterComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 ListHeaderComponent={null}
-                ListHeaderComponentStyle={{ padding: 8 }}
+                ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 CellRendererComponent={this._cellRenderer}
                 fadingEdgeLength={200}
             />
@@ -1317,12 +1317,18 @@ const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
 const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.log('test')} />;
 const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
-const SwitchOnChangePromiseTest = () => <Switch onChange={(event?: SwitchChangeEvent) => new Promise(() => event!.value)} />;
+const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
+  const e: SwitchChangeEvent = event;
+  return new Promise(() => e.value);
+}} />;
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
 const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
 const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
-const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value?: boolean) => new Promise(() => value)} />;
+const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value) => {
+  const v: boolean = value;
+  return new Promise(() => v)
+}} />;
 
 const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>

@@ -53,7 +53,7 @@ declare class Tooltip extends BaseComponent {
      * Static method which allows you to get the tooltip instance associated
      * with a DOM element
      */
-    static getInstance(element: Element): Tooltip;
+    static getInstance(element: Element): Tooltip | null;
 
     static jQueryInterface: Tooltip.jQueryInterface;
 

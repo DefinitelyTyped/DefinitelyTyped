@@ -9,6 +9,7 @@
 //                 Michael Orlov <https://github.com/MiklerGM>
 //                 Alexander Ariutin <https://github.com/ariutin>
 //                 XieJiSS <https://github.com/XieJiSS>
+//                 Toniop <https://github.com/toniop99>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -296,6 +297,13 @@ declare namespace TelegramBot {
         chat_id?: number | string;
         message_id?: number;
         inline_message_id?: string;
+    }
+
+    interface EditMessageMediaOptions {
+        chat_id?: number | string;
+        message_id?: number;
+        inline_message_id?: string;
+        reply_markup?: InlineKeyboardMarkup;
     }
 
     interface GetUserProfilePhotosOptions {
@@ -1178,6 +1186,8 @@ declare class TelegramBot extends EventEmitter {
     editMessageText(text: string, options?: TelegramBot.EditMessageTextOptions): Promise<TelegramBot.Message | boolean>;
 
     editMessageCaption(caption: string, options?: TelegramBot.EditMessageCaptionOptions): Promise<TelegramBot.Message | boolean>;
+
+    editMessageMedia(media: TelegramBot.InputMedia, options: TelegramBot.EditMessageMediaOptions): Promise<TelegramBot.Message | boolean>;
 
     editMessageReplyMarkup(replyMarkup: TelegramBot.InlineKeyboardMarkup, options?: TelegramBot.EditMessageReplyMarkupOptions): Promise<TelegramBot.Message | boolean>;
 

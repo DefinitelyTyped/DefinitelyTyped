@@ -1,4 +1,5 @@
 gtag('config', 'GA-TRACKING_ID');
+gtag('config', 'GA-TRACKING_ID', { send_page_view: true });
 gtag('config', 'GA-TRACKING_ID', { send_page_view: false });
 
 gtag('event', 'login', {

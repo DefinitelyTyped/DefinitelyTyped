@@ -10,7 +10,7 @@ import {
     JSONRPCResponsePayload
 } from "ethereum-protocol";
 interface Web3ProviderEngineOptions {
-    pollingInterval?: number;
+    pollingInterval?: number | undefined;
     blockTracker?: any;
     blockTrackerProvider?: any;
 }

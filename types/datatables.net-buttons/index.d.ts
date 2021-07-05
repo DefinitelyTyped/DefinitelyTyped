@@ -443,6 +443,15 @@ declare namespace DataTables {
         columnText?: FunctionButtonColvisColumnText;
 
         //#endregion ColVis
+
+        //#region Buttons
+
+        /**
+         * List of buttons to be created
+         */
+        buttons?: Array<string|FunctionButtom|ButtonSettings>;
+
+        //#endregion Buttons
     }
 
     type ButtonSelectorTypes = string | number | JQuery;

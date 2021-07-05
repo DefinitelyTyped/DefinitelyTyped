@@ -131,7 +131,7 @@ export interface VideoProperties extends ViewProps {
 
     /* Wrapper component */
     // Opaque type returned by require('./video.mp4')
-    source: { uri?: string, headers?: {[key: string]: string } } | number;
+    source: { uri?: string, headers?: {[key: string]: string }, type?: string } | number;
     minLoadRetryCount?: number;
     maxBitRate?: number;
     resizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
@@ -154,6 +154,7 @@ export interface VideoProperties extends ViewProps {
     playInBackground?: boolean;
     playWhenInactive?: boolean;
     ignoreSilentSwitch?: 'ignore' | 'obey';
+    mixWithOthers?: 'inherit' | 'mix' | 'duck';
     reportBandwidth?: boolean;
     disableFocus?: boolean;
     controls?: boolean;

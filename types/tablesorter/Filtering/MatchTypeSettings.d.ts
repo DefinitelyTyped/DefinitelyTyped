@@ -7,10 +7,10 @@ export interface MatchTypeSettings {
     /**
      * The match-type for `input`-controls.
      */
-    input?: MatchType;
+    input?: MatchType | undefined;
 
     /**
      * The match-type for `select`-controls.
      */
-    select?: MatchType;
+    select?: MatchType | undefined;
 }

@@ -438,6 +438,13 @@ declare module 'http2' {
         paddingStrategy?: number;
         peerMaxConcurrentStreams?: number;
         settings?: Settings;
+        /**
+         * Specifies a timeout in milliseconds that
+         * a server should wait when an [`'unknownProtocol'`][] is emitted. If the
+         * socket has not been destroyed by that time the server will destroy it.
+         * @default 100000
+         */
+        unknownProtocolTimeout?: number;
 
         selectPadding?(frameLen: number, maxFrameLen: number): number;
         createConnection?(authority: url.URL, option: SessionOptions): stream.Duplex;
@@ -966,4 +973,8 @@ declare module 'http2' {
         options?: ClientSessionOptions | SecureClientSessionOptions,
         listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void
     ): ClientHttp2Session;
+}
+
+declare module 'node:http2' {
+    export * from 'http2';
 }

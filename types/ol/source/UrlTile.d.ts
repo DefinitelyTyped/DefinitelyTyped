@@ -31,7 +31,7 @@ export interface Options {
 export default class UrlTile extends TileSource {
     constructor(options: Options);
     protected tileLoadFunction: LoadFunction;
-    protected urls: string[];
+    protected urls: string[] | null;
     /**
      * Handle tile change events.
      */

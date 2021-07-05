@@ -13,7 +13,7 @@ export class NetworkOnly implements RouteHandlerObject {
 }
 
 export interface NetworkOnlyOptions {
-    cacheName?: string;
-    fetchOptions?: RequestInit;
-    plugins?: WorkboxPlugin[];
+    cacheName?: string | undefined;
+    fetchOptions?: RequestInit | undefined;
+    plugins?: WorkboxPlugin[] | undefined;
 }

@@ -26,6 +26,7 @@ const settings: TagifyConstructorSettings = {
     whitelist: ['good-word'],
     blacklist: ['bad-word'],
     addTagOnBlur: false,
+    pasteAsTags: false,
     callbacks: {
         add: (event) => {
             // $ExpectType TagData | undefined
@@ -416,6 +417,8 @@ if (tagify.suggestedListItems !== undefined) {
 if (typedTagify.suggestedListItems !== undefined) {
     const item: MyTagData = typedTagify.suggestedListItems[0];
 }
+
+tagify.whitelist = ['another', 'good', 'word'];
 
 // $ExpectType Tagify<TagData>
 tagify.on('add', (event) => { });
@@ -892,26 +895,13 @@ tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags[0]]);
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags]);
 tagify.setReadonly(false);
 
-// $ExpectError
 tagify.dropdown.show();
-// $ExpectError
 tagify.dropdown.show('foo');
-// $ExpectError
 tagify.dropdown.selectAll();
-// $ExpectError
 tagify.dropdown.hide();
-// $ExpectError
 tagify.dropdown.hide(true);
-// $ExpectError
 tagify.dropdown.refilter();
-
-tagify.dropdown.show.call(this);
-tagify.dropdown.show.call(this, 'foo');
-tagify.dropdown.selectAll.call(tagify);
-tagify.dropdown.hide.call(this);
-tagify.dropdown.hide.call(this, true);
-tagify.dropdown.refilter.call(this);
-tagify.dropdown.refilter.call(this, "filter value");
+tagify.dropdown.refilter('filter value');
 
 tagify.removeAllTags();
 tagify.removeAllTags({});

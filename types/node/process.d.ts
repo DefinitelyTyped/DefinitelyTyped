@@ -59,6 +59,7 @@ declare module 'process' {
                 | 'android'
                 | 'darwin'
                 | 'freebsd'
+                | 'haiku'
                 | 'linux'
                 | 'openbsd'
                 | 'sunos'
@@ -209,6 +210,33 @@ declare module 'process' {
                 detail?: string;
             }
 
+            interface ProcessConfig {
+                readonly target_defaults: {
+                    readonly cflags: any[];
+                    readonly default_configuration: string;
+                    readonly defines: string[];
+                    readonly include_dirs: string[];
+                    readonly libraries: string[];
+                };
+                readonly variables: {
+                    readonly clang: number;
+                    readonly host_arch: string;
+                    readonly node_install_npm: boolean;
+                    readonly node_install_waf: boolean;
+                    readonly node_prefix: string;
+                    readonly node_shared_openssl: boolean;
+                    readonly node_shared_v8: boolean;
+                    readonly node_shared_zlib: boolean;
+                    readonly node_use_dtrace: boolean;
+                    readonly node_use_etw: boolean;
+                    readonly node_use_openssl: boolean;
+                    readonly target_arch: string;
+                    readonly v8_no_strict_aliasing: number;
+                    readonly v8_use_snapshot: boolean;
+                    readonly visibility: string;
+                };
+            }
+
             interface Process extends EventEmitter {
                 /**
                  * Can also be a tty.WriteStream, not typed due to limitations.
@@ -265,46 +293,21 @@ declare module 'process' {
                 setgroups(groups: ReadonlyArray<string | number>): void;
                 setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
                 hasUncaughtExceptionCaptureCallback(): boolean;
-                version: string;
-                versions: ProcessVersions;
-                config: {
-                    target_defaults: {
-                        cflags: any[];
-                        default_configuration: string;
-                        defines: string[];
-                        include_dirs: string[];
-                        libraries: string[];
-                    };
-                    variables: {
-                        clang: number;
-                        host_arch: string;
-                        node_install_npm: boolean;
-                        node_install_waf: boolean;
-                        node_prefix: string;
-                        node_shared_openssl: boolean;
-                        node_shared_v8: boolean;
-                        node_shared_zlib: boolean;
-                        node_use_dtrace: boolean;
-                        node_use_etw: boolean;
-                        node_use_openssl: boolean;
-                        target_arch: string;
-                        v8_no_strict_aliasing: number;
-                        v8_use_snapshot: boolean;
-                        visibility: string;
-                    };
-                };
+                readonly version: string;
+                readonly versions: ProcessVersions;
+                readonly config: ProcessConfig;
                 kill(pid: number, signal?: string | number): true;
-                pid: number;
-                ppid: number;
+                readonly pid: number;
+                readonly ppid: number;
                 title: string;
-                arch: string;
-                platform: Platform;
+                readonly arch: string;
+                readonly platform: Platform;
                 /** @deprecated since v14.0.0 - use `require.main` instead. */
                 mainModule?: Module;
                 memoryUsage: MemoryUsageFn;
                 cpuUsage(previousValue?: CpuUsage): CpuUsage;
                 nextTick(callback: Function, ...args: any[]): void;
-                release: ProcessRelease;
+                readonly release: ProcessRelease;
                 features: {
                     inspector: boolean;
                     debug: boolean;
@@ -327,7 +330,6 @@ declare module 'process' {
                 umask(mask: string | number): number;
                 uptime(): number;
                 hrtime: HRTime;
-                domain: Domain;
 
                 // Worker
                 send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
@@ -450,12 +452,13 @@ declare module 'process' {
                 listeners(event: "removeListener"): RemoveListenerListener[];
                 listeners(event: "multipleResolves"): MultipleResolveListener[];
             }
-
-            interface Global {
-                process: Process;
-            }
         }
     }
 
+    export = process;
+}
+
+declare module 'node:process' {
+    import process = require('process');
     export = process;
 }

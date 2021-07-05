@@ -575,7 +575,7 @@ export namespace DS {
          */
         eachRelationship<T extends Model>(
             this: T,
-            callback: (name: string, details: RelationshipMeta<T>) => void,
+            callback: (name: ModelKeys<T>, details: RelationshipMeta<T>) => void,
             binding?: any
         ): void;
         /**
@@ -633,7 +633,7 @@ export namespace DS {
          * descriptor.
          */
         static eachRelationship<M extends Model = Model>(
-            callback: (name: string, details: RelationshipMeta<M>) => void,
+            callback: (name: ModelKeys<M>, details: RelationshipMeta<M>) => void,
             binding?: any
         ): void;
         /**

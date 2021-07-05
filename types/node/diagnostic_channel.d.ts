@@ -32,3 +32,7 @@ declare module 'diagnostic_channel' {
         unsubscribe(listener: ChannelListener): void;
     }
 }
+
+declare module 'node:diagnostic_channel' {
+    export * from 'diagnostic_channel';
+}

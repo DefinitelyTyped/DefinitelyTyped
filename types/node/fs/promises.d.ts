@@ -1,5 +1,6 @@
 declare module 'fs/promises' {
     import { Abortable } from 'events';
+    import { Stream } from 'stream';
     import {
         Stats,
         BigIntStats,
@@ -512,7 +513,11 @@ declare module 'fs/promises' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    function writeFile(path: PathLike | FileHandle, data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } & Abortable | BufferEncoding | null): Promise<void>;
+    function writeFile(
+        path: PathLike | FileHandle,
+        data: string | NodeJS.ArrayBufferView | Iterable<string | NodeJS.ArrayBufferView> | AsyncIterable<string | NodeJS.ArrayBufferView> | Stream,
+        options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } & Abortable | BufferEncoding | null
+        ): Promise<void>;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -589,4 +594,8 @@ declare module 'fs/promises' {
      * If `recursive` is not supplied, the default of `false` is used.
      */
     function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<string> | AsyncIterable<Buffer>;
+}
+
+declare module 'node:fs/promises' {
+    export * from 'fs/promises';
 }

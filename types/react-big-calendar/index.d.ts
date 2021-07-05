@@ -176,6 +176,7 @@ export interface Components<TEvent extends object = Event, TResource extends obj
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
     eventContainerWrapper?: React.ComponentType;
     dateCellWrapper?: React.ComponentType;
+    dayColumnWrapper?: React.ComponentType;
     timeSlotWrapper?: React.ComponentType;
     timeGutterHeader?: React.ComponentType;
     timeGutterWrapper?: React.ComponentType;
@@ -192,6 +193,10 @@ export interface Components<TEvent extends object = Event, TResource extends obj
     week?: {
         header?: React.ComponentType<HeaderProps>;
         event?: React.ComponentType<EventProps<TEvent>>;
+    };
+    work_week?: {
+      header?: React.ComponentType<HeaderProps>;
+      event?: React.ComponentType<EventProps<TEvent>>;
     };
     month?: {
         header?: React.ComponentType;
@@ -390,13 +395,13 @@ export interface Navigate {
     TODAY: 'TODAY';
     DATE: 'DATE';
 }
-export interface Views {
+export const Views: {
     MONTH: 'month';
     WEEK: 'week';
     WORK_WEEK: 'work_week';
     DAY: 'day';
     AGENDA: 'agenda';
-}
+};
 export function move(View: ViewStatic | ViewKey, options: MoveOptions): Date;
 
 export interface TimeGridProps<TEvent extends object = Event, TResource extends object = object> {

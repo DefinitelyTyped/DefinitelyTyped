@@ -18,8 +18,8 @@ export class Points<
     constructor(geometry?: TGeometry, material?: TMaterial);
 
     type: 'Points';
-    morphTargetInfluences?: number[];
-    morphTargetDictionary?: { [key: string]: number };
+    morphTargetInfluences?: number[] | undefined;
+    morphTargetDictionary?: { [key: string]: number } | undefined;
     readonly isPoints: true;
 
     /**

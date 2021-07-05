@@ -39,6 +39,7 @@ export declare const NotificationTextDetails: React.FC<NotificationTextDetailsPr
 
 export interface ToastNotificationProps extends Omit<ReactDivAttr, "title"> {
     caption?: React.ReactNode,
+    closeOnEscape?: boolean; // v11 only
     hideCloseButton?: boolean,
     iconDescription?: string,
     kind?: NotificationKind; // required but has default value
@@ -58,6 +59,8 @@ export declare const ToastNotification: React.FC<ToastNotificationProps>;
 
 export interface InlineNotificationProps extends Omit<ReactDivAttr, "title"> {
     actions?: React.ReactNode;
+    closeOnEscape?: boolean; // v11 only
+    hasFocus?: boolean; // v11 only
     hideCloseButton?: boolean;
     iconDescription?: string;
     kind: NotificationKind;

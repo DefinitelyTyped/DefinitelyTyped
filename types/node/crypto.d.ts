@@ -196,6 +196,48 @@ declare module 'crypto' {
         cipher?: string;
         passphrase?: string | Buffer;
     }
+    interface JwkKeyExportOptions {
+        format: 'jwk';
+    }
+    interface JsonWebKey {
+        crv?: string;
+        d?: string;
+        dp?: string;
+        dq?: string;
+        e?: string;
+        k?: string;
+        kty?: string;
+        n?: string;
+        p?: string;
+        q?: string;
+        qi?: string;
+        x?: string;
+        y?: string;
+        [key: string]: unknown;
+    }
+
+    interface AsymmetricKeyDetails {
+        /**
+         * Key size in bits (RSA, DSA).
+         */
+        modulusLength?: number;
+        /**
+         * Public exponent (RSA).
+         */
+        publicExponent?: bigint;
+        /**
+         * Size of q in bits (DSA).
+         */
+        divisorLength?: number;
+        /**
+         * Name of the curve (EC).
+         */
+        namedCurve?: string;
+    }
+
+    interface JwkKeyExportOptions {
+        format: 'jwk';
+    }
 
     class KeyObject {
         private constructor();
@@ -205,8 +247,16 @@ declare module 'crypto' {
          * bytes. This property is `undefined` for symmetric keys.
          */
         asymmetricKeySize?: number;
+        /**
+         * This property exists only on asymmetric keys. Depending on the type of the key,
+         * this object contains information about the key. None of the information obtained
+         * through this property can be used to uniquely identify a key or to compromise the
+         * security of the key.
+         */
+        asymmetricKeyDetails?: AsymmetricKeyDetails;
         export(options: KeyExportOptions<'pem'>): string | Buffer;
         export(options?: KeyExportOptions<'der'>): Buffer;
+        export(options?: JwkKeyExportOptions): JsonWebKey;
         symmetricKeySize?: number;
         type: KeyObjectType;
     }
@@ -330,8 +380,15 @@ declare module 'crypto' {
         type?: 'pkcs1' | 'spki';
     }
 
-    function createPrivateKey(key: PrivateKeyInput | string | Buffer): KeyObject;
-    function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject): KeyObject;
+    function generateKey(type: 'hmac' | 'aes', options: {length: number}, callback: (err: Error | null, key: KeyObject) => void): void;
+
+    interface JsonWebKeyInput {
+        key: JsonWebKey;
+        format: 'jwk';
+    }
+
+    function createPrivateKey(key: PrivateKeyInput | string | Buffer | JsonWebKeyInput): KeyObject;
+    function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject | JsonWebKeyInput): KeyObject;
     function createSecretKey(key: NodeJS.ArrayBufferView): KeyObject;
 
     function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
@@ -435,7 +492,7 @@ declare module 'crypto' {
         iterations: number,
         keylen: number,
         digest: string,
-        callback: (err: Error | null, derivedKey: Buffer) => any,
+        callback: (err: Error | null, derivedKey: Buffer) => void,
     ): void;
     function pbkdf2Sync(
         password: BinaryLike,
@@ -1171,6 +1228,12 @@ declare module 'crypto' {
         data: NodeJS.ArrayBufferView,
         key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
     ): Buffer;
+    function sign(
+        algorithm: string | null | undefined,
+        data: NodeJS.ArrayBufferView,
+        key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
+        callback: (error: Error | null, data: Buffer) => void
+    ): void;
 
     /**
      * Calculates and returns the signature for `data` using the given private key and
@@ -1186,6 +1249,13 @@ declare module 'crypto' {
         key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput,
         signature: NodeJS.ArrayBufferView,
     ): boolean;
+    function verify(
+        algorithm: string | null | undefined,
+        data: NodeJS.ArrayBufferView,
+        key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput,
+        signature: NodeJS.ArrayBufferView,
+        callback: (error: Error | null, result: boolean) => void
+    ): void;
 
     /**
      * Computes the Diffie-Hellman secret based on a privateKey and a publicKey.
@@ -1257,7 +1327,7 @@ declare module 'crypto' {
      * The successfully generated `derivedKey` will be passed to the callback as an `ArrayBuffer`.
      * An error will be thrown if any of the input aguments specify invalid values or types.
      */
-    function hkdf(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => any): void;
+    function hkdf(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => void): void;
 
     /**
      * Provides a synchronous HKDF key derivation function as defined in RFC 5869.
@@ -1516,4 +1586,8 @@ declare module 'crypto' {
      * Checks the primality of the candidate.
      */
     function checkPrimeSync(value: LargeNumberLike, options?: CheckPrimeOptions): boolean;
+}
+
+declare module 'node:crypto' {
+    export * from 'crypto';
 }

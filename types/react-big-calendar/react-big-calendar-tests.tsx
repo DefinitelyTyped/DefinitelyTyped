@@ -166,6 +166,9 @@ class CalendarResource {
                 agenda: {
                     event: EventAgenda,
                 },
+                work_week: {
+                  event: Event
+                },
                 toolbar: Toolbar,
                 eventWrapper: EventWrapper,
             }}
@@ -523,4 +526,44 @@ class MyDay extends Day {
 // Using backgroundEvents
 {
     ReactDOM.render(<Calendar backgroundEvents={getEvents()} localizer={momentLocalizer(moment)} />, document.body);
+}
+
+// defaultView initializer
+{
+    const localizer = dateFnsLocalizer(dateFnsConfig);
+
+    const MonthView = () => (
+        <Calendar
+            defaultView={Views.MONTH}
+            localizer={localizer}
+        />
+    );
+
+    const WeekView = () => (
+        <Calendar
+            defaultView={Views.WEEK}
+            localizer={localizer}
+        />
+    );
+
+    const WorkWeekView = () => (
+        <Calendar
+            defaultView={Views.WORK_WEEK}
+            localizer={localizer}
+        />
+    );
+
+    const DAYView = () => (
+        <Calendar
+            defaultView={Views.DAY}
+            localizer={localizer}
+        />
+    );
+
+    const AgendaView = () => (
+        <Calendar
+            defaultView={Views.AGENDA}
+            localizer={localizer}
+        />
+    );
 }

@@ -52,9 +52,9 @@ declare namespace zumly {
             duration: string;
             // Transition ease. Default 'ease-in-out'
             ease: string;
-        };
+        } | undefined;
         // Activate debug notifications
-        debug?: boolean;
+        debug?: boolean | undefined;
     }
 }
 

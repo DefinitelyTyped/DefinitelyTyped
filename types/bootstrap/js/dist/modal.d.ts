@@ -32,7 +32,7 @@ declare class Modal extends BaseComponent {
      * Static method which allows you to get the modal instance associated with
      * a DOM element
      */
-    static getInstance(element: Element, options?: Partial<Modal.Options>): Modal;
+    static getInstance(element: Element, options?: Partial<Modal.Options>): Modal | null;
 
     static jQueryInterface: Modal.jQueryInterface;
 

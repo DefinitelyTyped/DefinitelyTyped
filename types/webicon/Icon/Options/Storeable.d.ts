@@ -7,7 +7,7 @@ export interface Storeable extends Downloadable {
     /**
      * A value indicating whether the source is preloadable.
      */
-    preloadable?: boolean;
+    preloadable?: boolean | undefined;
 
     /**
      * Resolves the id of the underlying source.

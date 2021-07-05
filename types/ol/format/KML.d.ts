@@ -25,7 +25,7 @@ export interface Options {
     showPointNames?: boolean;
     defaultStyle?: Style[];
     writeStyles?: boolean;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
     iconUrlFunction?: IconUrlFunction;
 }
 export interface Vec2 {
