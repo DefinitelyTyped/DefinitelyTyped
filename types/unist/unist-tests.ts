@@ -42,3 +42,15 @@ const parent: Parent = {
     position,
     children: [node, text]
 };
+
+const noExtraKeysInNode: Node = {
+    type: 'noExtraKeysInNode',
+    // $ExpectError
+    extra: 'extra'
+};
+
+const noChildrenInNode: Node = {
+    type: 'noChildrenInNode',
+    // $ExpectError
+    children: []
+};
