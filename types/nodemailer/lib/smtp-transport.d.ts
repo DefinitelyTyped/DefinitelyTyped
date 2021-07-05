@@ -50,6 +50,10 @@ declare namespace SMTPTransport {
         envelope: MimeNode.Envelope;
         /** most transports should return the final Message-Id value used with this property */
         messageId: string;
+        accepted: Array<string | Mail.Address>;
+        rejected: Array<string | Mail.Address>;
+        pending: Array<string | Mail.Address>;
+        response: string;
     }
 }
 
@@ -69,10 +73,15 @@ declare class SMTPTransport extends EventEmitter implements Transport<SMTPTransp
     /** Placeholder function for creating proxy sockets. This method immediatelly returns without a socket */
     getSocket(options: SMTPTransport.Options, callback: (err: Error | null, socketOptions: object) => void): void;
 
-    getAuth(authOpts: SMTPConnection.AuthenticationTypeLogin | SMTPConnection.AuthenticationTypeOAuth2): SMTPTransport.AuthenticationType;
+    getAuth(
+        authOpts: SMTPConnection.AuthenticationTypeLogin | SMTPConnection.AuthenticationTypeOAuth2,
+    ): SMTPTransport.AuthenticationType;
 
     /** Sends an e-mail using the selected settings */
-    send(mail: MailMessage<SMTPTransport.SentMessageInfo>, callback: (err: Error | null, info: SMTPTransport.SentMessageInfo) => void): void;
+    send(
+        mail: MailMessage<SMTPTransport.SentMessageInfo>,
+        callback: (err: Error | null, info: SMTPTransport.SentMessageInfo) => void,
+    ): void;
 
     /** Verifies SMTP configuration */
     verify(callback: (err: Error | null, success: true) => void): void;
