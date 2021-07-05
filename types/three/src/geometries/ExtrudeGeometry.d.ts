@@ -66,6 +66,8 @@ export class ExtrudeGeometry extends BufferGeometry {
 
     addShapeList(shapes: Shape[], options?: any): void;
     addShape(shape: Shape, options?: any): void;
+
+    static fromJSON(data: any): ExtrudeGeometry;
 }
 
 export { ExtrudeGeometry as ExtrudeBufferGeometry };
