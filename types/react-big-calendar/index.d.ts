@@ -395,13 +395,13 @@ export interface Navigate {
     TODAY: 'TODAY';
     DATE: 'DATE';
 }
-export interface Views {
+export const Views: {
     MONTH: 'month';
     WEEK: 'week';
     WORK_WEEK: 'work_week';
     DAY: 'day';
     AGENDA: 'agenda';
-}
+};
 export function move(View: ViewStatic | ViewKey, options: MoveOptions): Date;
 
 export interface TimeGridProps<TEvent extends object = Event, TResource extends object = object> {
