@@ -1,4 +1,4 @@
-// Type definitions for npm 7.19.0
+// Type definitions for npm 7.5.0
 // Project: https://github.com/npm/cli
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
