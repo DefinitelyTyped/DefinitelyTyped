@@ -1,6 +1,8 @@
 // Type definitions for @adobe/aio-lib-analytics 2.1.0
 // Project: https://github.com/adobe/aio-lib-analytics
 // Definitions by: Samuel Bodin <https://github.com/bodinsamuel>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.3
 
 export interface Report {
   body: {
