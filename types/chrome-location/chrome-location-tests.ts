@@ -1,4 +1,4 @@
 import location = require('chrome-location');
 
-// $ExpectType string
+// $ExpectType string | null
 location;
