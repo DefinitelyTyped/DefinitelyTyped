@@ -40,18 +40,27 @@ declare module 'timers' {
         }
 
         function setTimeout<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timeout;
+        // util.promisify no rest args compability
+        // tslint:disable-next-line void-return
+        function setTimeout(callback: (args: void) => void): NodeJS.Timeout;
         namespace setTimeout {
             const __promisify__: typeof setTimeoutPromise;
         }
         function clearTimeout(timeoutId: NodeJS.Timeout): void;
 
         function setInterval<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timer;
+        // util.promisify no rest args compability
+        // tslint:disable-next-line void-return
+        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timer;
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
         }
         function clearInterval(intervalId: NodeJS.Timeout): void;
 
         function setImmediate<TArgs extends any[]>(callback: (...args: TArgs) => void, ...args: TArgs): NodeJS.Immediate;
+        // util.promisify no rest args compability
+        // tslint:disable-next-line void-return
+        function setImmediate(callback: (args: void) => void): NodeJS.Immediate;
         namespace setImmediate {
             const __promisify__: typeof setImmediatePromise;
         }

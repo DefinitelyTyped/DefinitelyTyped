@@ -73,6 +73,14 @@ import * as timers from 'timers';
     ac.abort();
 }
 
+// unresolved callback argument types
+{
+    new Promise(resolve => setTimeout(resolve, 100));
+    new Promise(resolve => setInterval(resolve, 100));
+    // tslint:disable-next-line no-unnecessary-callback-wrapper
+    new Promise(resolve => setImmediate(resolve));
+}
+
 // globals
 {
     setTimeout((a: number, b: string) => {}, 12, 1, 'test');
