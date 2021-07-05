@@ -18,6 +18,6 @@
   },
   "files": [
     "index.d.ts",
-    "index.test.ts"
+    "adobe__aio-lib-analytics-tests.ts"
   ]
 }
