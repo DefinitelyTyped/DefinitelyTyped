@@ -1,4 +1,4 @@
-// Type definitions for archiver 5.1
+// Type definitions for archiver 5.3
 // Project: https://github.com/archiverjs/node-archiver
 // Definitions by:  Esri
 //                  Dolan Miu <https://github.com/dolanmiu>
@@ -125,6 +125,7 @@ declare namespace archiver {
         comment?: string;
         forceLocalTime?: boolean;
         forceZip64?: boolean;
+        namePrependSlash?: boolean;
         store?: boolean;
         zlib?: ZlibOptions;
     }
