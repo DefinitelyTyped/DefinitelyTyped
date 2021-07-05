@@ -1,3 +1,7 @@
+// Type definitions for @adobe/aio-lib-analytics 2.1.0
+// Project: https://github.com/adobe/aio-lib-analytics
+// Definitions by: Samuel Bodin <https://github.com/bodinsamuel>
+
 export interface Report {
   body: {
     rows: any[];
