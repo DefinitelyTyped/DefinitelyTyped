@@ -3,6 +3,6 @@
 // Definitions by: Ingyu Tae <https://github.com/IngyuTae>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const exe: string;
+declare const exe: string | null;
 
 export = exe;
