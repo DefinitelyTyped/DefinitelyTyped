@@ -7,7 +7,9 @@ import {
     DataApiMixin,
     attachToForm,
     MultiCommand,
+    EditorUI,
 } from "@ckeditor/ckeditor5-core";
+import View from "@ckeditor/ckeditor5-ui/src/view";
 
 let comm: Command;
 
@@ -143,3 +145,7 @@ attachToForm(editor);
  */
 const MC = new MultiCommand(editor);
 MC.registerChildCommand(comm);
+
+/* EditorUI */
+new EditorUI(editor).componentFactory.editor === editor;
+new EditorUI(editor).componentFactory.add("", (locale) => new View(locale));
