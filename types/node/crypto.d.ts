@@ -1,6 +1,10 @@
 declare module 'crypto' {
-    import * as stream from 'stream';
-    import { PeerCertificate } from 'tls';
+    export * from 'node:crypto';
+}
+
+declare module 'node:crypto' {
+    import * as stream from 'node:stream';
+    import { PeerCertificate } from 'node:tls';
 
     interface Certificate {
         /**
@@ -1588,8 +1592,4 @@ declare module 'crypto' {
     namespace webcrypto {
         class CryptoKey {} // placeholder
     }
-}
-
-declare module 'node:crypto' {
-    export * from 'crypto';
 }

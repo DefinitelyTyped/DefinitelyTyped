@@ -1,5 +1,10 @@
 declare module 'console' {
-    import { InspectOptions } from 'util';
+    import console = require('node:console');
+    export = console;
+}
+
+declare module 'node:console' {
+    import { InspectOptions } from 'node:util';
 
     global {
         // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
@@ -126,9 +131,4 @@ declare module 'console' {
     }
 
     export = globalThis.console;
-}
-
-declare module 'node:console' {
-    import console = require('console');
-    export = console;
 }

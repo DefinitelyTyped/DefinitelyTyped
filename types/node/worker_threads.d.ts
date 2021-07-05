@@ -1,12 +1,16 @@
 declare module 'worker_threads' {
+    export * from 'node:worker_threads';
+}
+
+declare module 'node:worker_threads' {
     import { Blob } from 'node:buffer';
-    import { Context } from 'vm';
-    import { EventEmitter } from 'events';
-    import { EventLoopUtilityFunction } from 'perf_hooks';
-    import { FileHandle } from 'fs/promises';
-    import { Readable, Writable } from 'stream';
-    import { URL } from 'url';
-    import { X509Certificate } from 'crypto';
+    import { Context } from 'node:vm';
+    import { EventEmitter } from 'node:events';
+    import { EventLoopUtilityFunction } from 'node:perf_hooks';
+    import { FileHandle } from 'node:fs/promises';
+    import { Readable, Writable } from 'node:stream';
+    import { URL } from 'node:url';
+    import { X509Certificate } from 'node:crypto';
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
@@ -279,8 +283,4 @@ declare module 'worker_threads' {
      * @experimental
      */
     function setEnvironmentData(key: Serializable, value: Serializable): void;
-}
-
-declare module 'node:worker_threads' {
-    export * from 'worker_threads';
 }

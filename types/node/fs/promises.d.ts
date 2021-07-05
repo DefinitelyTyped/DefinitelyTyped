@@ -1,6 +1,10 @@
 declare module 'fs/promises' {
-    import { Abortable } from 'events';
-    import { Stream } from 'stream';
+    export * from 'node:fs/promises';
+}
+
+declare module 'node:fs/promises' {
+    import { Abortable } from 'node:events';
+    import { Stream } from 'node:stream';
     import {
         Stats,
         BigIntStats,
@@ -19,7 +23,7 @@ declare module 'fs/promises' {
         OpenMode,
         Mode,
         WatchOptions,
-    } from 'fs';
+    } from 'node:fs';
 
     interface FlagAndOpenMode {
         mode?: Mode | undefined;
@@ -541,8 +545,4 @@ declare module 'fs/promises' {
      * If `recursive` is not supplied, the default of `false` is used.
      */
     function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<string> | AsyncIterable<Buffer>;
-}
-
-declare module 'node:fs/promises' {
-    export * from 'fs/promises';
 }

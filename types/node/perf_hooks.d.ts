@@ -1,5 +1,9 @@
 declare module 'perf_hooks' {
-    import { AsyncResource } from 'async_hooks';
+    export * from 'node:perf_hooks';
+}
+
+declare module 'node:perf_hooks' {
+    import { AsyncResource } from 'node:async_hooks';
 
     type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
 
@@ -350,8 +354,4 @@ declare module 'perf_hooks' {
     }
 
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
-}
-
-declare module 'node:perf_hooks' {
-    export * from 'perf_hooks';
 }

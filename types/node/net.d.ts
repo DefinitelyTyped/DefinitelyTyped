@@ -1,7 +1,11 @@
 declare module 'net' {
-    import * as stream from 'stream';
-    import { Abortable, EventEmitter } from 'events';
-    import * as dns from 'dns';
+    export * from 'node:net';
+}
+
+declare module 'node:net' {
+    import * as stream from 'node:stream';
+    import { Abortable, EventEmitter } from 'node:events';
+    import * as dns from 'node:dns';
 
     type LookupFunction = (
         hostname: string,
@@ -361,8 +365,4 @@ declare module 'net' {
         readonly port: number;
         readonly flowlabel: number;
     }
-}
-
-declare module 'node:net' {
-    export * from 'net';
 }

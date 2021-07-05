@@ -1,5 +1,9 @@
 declare module 'readline' {
-    import { Abortable, EventEmitter } from 'events';
+    export * from 'node:readline';
+}
+
+declare module 'node:readline' {
+    import { Abortable, EventEmitter } from 'node:events';
 
     interface Key {
         sequence?: string | undefined;
@@ -189,8 +193,4 @@ declare module 'readline' {
      * Moves this WriteStream's cursor relative to its current position.
      */
     function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
-}
-
-declare module 'node:readline' {
-    export * from 'readline';
 }

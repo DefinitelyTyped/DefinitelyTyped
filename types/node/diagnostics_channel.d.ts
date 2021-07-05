@@ -1,7 +1,11 @@
+declare module 'diagnostics_channel' {
+    export * from 'node:diagnostics_channel';
+}
+
 /**
  * @experimental
  */
-declare module 'diagnostic_channel' {
+declare module 'node:diagnostics_channel' {
     /**
      * Returns wether a named channel has subscribers or not.
      */
@@ -31,8 +35,4 @@ declare module 'diagnostic_channel' {
          */
         unsubscribe(listener: ChannelListener): void;
     }
-}
-
-declare module 'node:diagnostic_channel' {
-    export * from 'diagnostic_channel';
 }

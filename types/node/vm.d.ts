@@ -1,4 +1,8 @@
 declare module 'vm' {
+    export * from 'node:vm';
+}
+
+declare module 'node:vm' {
     interface Context extends NodeJS.Dict<any> { }
     interface BaseOptions {
         /**
@@ -149,8 +153,4 @@ declare module 'vm' {
      * @experimental
      */
     function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
-}
-
-declare module 'node:vm' {
-    export * from 'vm';
 }

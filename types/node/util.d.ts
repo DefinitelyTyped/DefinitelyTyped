@@ -1,5 +1,9 @@
 declare module 'util' {
-    import * as types from 'util/types';
+    export * from 'node:util';
+}
+
+declare module 'node:util' {
+    import * as types from 'node:util/types';
 
     export interface InspectOptions {
         /**
@@ -197,12 +201,12 @@ declare module 'util' {
     }
 }
 
-declare module 'node:util' {
-    export * from 'util';
+declare module 'util/types' {
+    export * from 'util/types';
 }
 
-declare module 'util/types' {
-    import { KeyObject, webcrypto } from 'crypto';
+declare module 'node:util/types' {
+    import { KeyObject, webcrypto } from 'node:crypto';
 
     function isAnyArrayBuffer(object: unknown): object is ArrayBufferLike;
     function isArgumentsObject(object: unknown): object is IArguments;
@@ -257,8 +261,4 @@ declare module 'util/types' {
     function isWeakSet(object: unknown): object is WeakSet<object>;
     function isKeyObject(object: unknown): object is KeyObject;
     function isCryptoKey(object: unknown): object is webcrypto.CryptoKey;
-}
-
-declare module 'node:util/types' {
-    export * from 'util/types';
 }

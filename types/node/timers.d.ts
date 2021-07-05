@@ -1,6 +1,10 @@
 declare module 'timers' {
-    import { Abortable } from 'events';
-    import { setTimeout as setTimeoutPromise, setImmediate as setImmediatePromise, setInterval as setIntervalPromise } from 'timers/promises';
+    export * from 'node:timers';
+}
+
+declare module 'node:timers' {
+    import { Abortable } from 'node:events';
+    import { setTimeout as setTimeoutPromise, setImmediate as setImmediatePromise, setInterval as setIntervalPromise } from 'node:timers/promises';
 
     interface TimerOptions extends Abortable {
         /**
@@ -68,34 +72,4 @@ declare module 'timers' {
 
         function queueMicrotask(callback: () => void): void;
     }
-}
-
-declare module 'node:timers' {
-    export * from 'timers';
-}
-
-declare module 'timers/promises' {
-    import { TimerOptions } from 'timers';
-
-    /**
-     * Returns a promise that resolves after the specified delay in milliseconds.
-     * @param delay defaults to 1
-     */
-    function setTimeout<T = void>(delay?: number, value?: T, options?: TimerOptions): Promise<T>;
-
-    /**
-     * Returns a promise that resolves in the next tick.
-     */
-    function setImmediate<T = void>(value?: T, options?: TimerOptions): Promise<T>;
-
-    /**
-     *
-     * Returns an async iterator that generates values in an interval of delay ms.
-     * @param delay defaults to 1
-     */
-    function setInterval<T = void>(delay?: number, value?: T, options?: TimerOptions): AsyncIterable<T>;
-}
-
-declare module 'node:timers/promises' {
-    export * from 'timers/promises';
 }

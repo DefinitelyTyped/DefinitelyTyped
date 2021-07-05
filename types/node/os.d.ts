@@ -1,4 +1,8 @@
 declare module 'os' {
+    export * from 'node:os';
+}
+
+declare module 'node:os' {
     interface CpuInfo {
         model: string;
         speed: number;
@@ -238,8 +242,4 @@ declare module 'os' {
      * @param priority Must be in range of -20 to 19
      */
     function setPriority(pid: number, priority: number): void;
-}
-
-declare module 'node:os' {
-    export * from 'os';
 }

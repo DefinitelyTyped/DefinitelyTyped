@@ -1,7 +1,12 @@
 declare module 'http' {
-    import * as stream from 'stream';
-    import { URL } from 'url';
-    import { Socket, Server as NetServer } from 'net';
+    export * from 'node:http';
+    export { };
+}
+
+declare module 'node:http' {
+    import * as stream from 'node:stream';
+    import { URL } from 'node:url';
+    import { Socket, Server as NetServer } from 'node:net';
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
@@ -429,8 +434,4 @@ declare module 'http' {
      * Defaults to 16KB. Configurable using the `--max-http-header-size` CLI option.
      */
     const maxHeaderSize: number;
-}
-
-declare module 'node:http' {
-    export * from 'http';
 }

@@ -1,5 +1,9 @@
 declare module 'buffer' {
-    import { BinaryLike } from 'crypto';
+    export * from 'node:buffer';
+}
+
+declare module 'node:buffer' {
+    import { BinaryLike } from 'node:crypto';
 
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
@@ -353,8 +357,4 @@ declare module 'buffer' {
          */
         function btoa(input: string): string;
     }
-}
-
-declare module 'node:buffer' {
-    export * from 'buffer';
 }

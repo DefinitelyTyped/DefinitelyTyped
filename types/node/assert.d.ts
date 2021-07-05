@@ -1,4 +1,9 @@
 declare module 'assert' {
+    import assert = require('node:assert');
+    export = assert;
+}
+
+declare module 'node:assert' {
     /** An alias of `assert.ok()`. */
     function assert(value: unknown, message?: string | Error): asserts value;
     namespace assert {
@@ -120,10 +125,5 @@ declare module 'assert' {
         };
     }
 
-    export = assert;
-}
-
-declare module 'node:assert' {
-    import assert = require('assert');
     export = assert;
 }

@@ -1,6 +1,11 @@
 declare module 'process' {
-    import * as tty from 'tty';
-    import { Worker } from 'worker_threads';
+    import process = require('node:process');
+    export = process;
+}
+
+declare module 'node:process' {
+    import * as tty from 'node:tty';
+    import { Worker } from 'node:worker_threads';
 
     global {
         var process: NodeJS.Process;
@@ -454,10 +459,5 @@ declare module 'process' {
         }
     }
 
-    export = process;
-}
-
-declare module 'node:process' {
-    import process = require('process');
     export = process;
 }

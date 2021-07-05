@@ -1,7 +1,11 @@
 declare module 'dgram' {
-    import { AddressInfo } from 'net';
-    import * as dns from 'dns';
-    import { EventEmitter, Abortable } from 'events';
+    export * from 'node:dgram';
+}
+
+declare module 'node:dgram' {
+    import { AddressInfo } from 'node:net';
+    import * as dns from 'node:dns';
+    import { EventEmitter, Abortable } from 'node:events';
 
     interface RemoteInfo {
         address: string;
@@ -138,8 +142,4 @@ declare module 'dgram' {
         prependOnceListener(event: "listening", listener: () => void): this;
         prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
     }
-}
-
-declare module 'node:dgram' {
-    export * from 'dgram';
 }

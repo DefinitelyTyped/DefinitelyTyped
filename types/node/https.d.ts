@@ -1,7 +1,11 @@
 declare module 'https' {
-    import * as tls from 'tls';
-    import * as http from 'http';
-    import { URL } from 'url';
+    export * from 'node:https';
+}
+
+declare module 'node:https' {
+    import * as tls from 'node:tls';
+    import * as http from 'node:http';
+    import { URL } from 'node:url';
 
     type ServerOptions = tls.SecureContextOptions & tls.TlsOptions & http.ServerOptions;
 
@@ -33,8 +37,4 @@ declare module 'https' {
     function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     let globalAgent: Agent;
-}
-
-declare module 'node:https' {
-    export * from 'https';
 }

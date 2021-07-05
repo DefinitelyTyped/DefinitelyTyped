@@ -1,3 +1,7 @@
+declare module 'punycode' {
+    export * from 'node:punycode';
+}
+
 /**
  * @deprecated since v7.0.0
  * The version of the punycode module bundled in Node.js is being deprecated.
@@ -5,7 +9,7 @@
  * Users currently depending on the punycode module should switch to using
  * the userland-provided Punycode.js module instead.
  */
-declare module 'punycode' {
+declare module 'node:punycode' {
     /**
      * @deprecated since v7.0.0
      * The version of the punycode module bundled in Node.js is being deprecated.
@@ -72,8 +76,4 @@ declare module 'punycode' {
      * the userland-provided Punycode.js module instead.
      */
     const version: string;
-}
-
-declare module 'node:punycode' {
-    export * from 'punycode';
 }

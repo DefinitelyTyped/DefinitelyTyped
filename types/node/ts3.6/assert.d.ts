@@ -1,4 +1,4 @@
-declare module 'assert' {
+declare module 'node:assert' {
     /** An alias of `assert.ok()`. */
     function assert(value: unknown, message?: string | Error): void;
     namespace assert {

@@ -1,18 +1,22 @@
 declare module 'http2' {
-    import EventEmitter = require('events');
-    import * as fs from 'fs';
-    import * as net from 'net';
-    import * as stream from 'stream';
-    import * as tls from 'tls';
-    import * as url from 'url';
+    export * from 'node:http2';
+}
+
+declare module 'node:http2' {
+    import EventEmitter = require('node:events');
+    import * as fs from 'node:fs';
+    import * as net from 'node:net';
+    import * as stream from 'node:stream';
+    import * as tls from 'node:tls';
+    import * as url from 'node:url';
 
     import {
         IncomingHttpHeaders as Http1IncomingHttpHeaders,
         OutgoingHttpHeaders,
         IncomingMessage,
         ServerResponse,
-    } from 'http';
-    export { OutgoingHttpHeaders } from 'http';
+    } from 'node:http';
+    export { OutgoingHttpHeaders } from 'node:http';
 
     export interface IncomingHttpStatusHeader {
         ":status"?: number | undefined;
@@ -973,8 +977,4 @@ declare module 'http2' {
         options?: ClientSessionOptions | SecureClientSessionOptions,
         listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void
     ): ClientHttp2Session;
-}
-
-declare module 'node:http2' {
-    export * from 'http2';
 }
