@@ -43,6 +43,7 @@ convict({
                 doc: "The source type",
                 format: ["git", "hg", "svn"],
                 default: null,
+                nullable: true
             },
             url: {
                 doc: "The source URL",
@@ -166,6 +167,7 @@ newConf.get("primeNumber");
 conf.validate({ strict: true });
 conf.validate({ allowed: "strict" });
 conf.validate({ allowed: "warn" });
+conf.validate({ output: console.warn });
 
 // Chaining
 
