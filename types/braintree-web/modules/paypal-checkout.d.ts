@@ -16,6 +16,10 @@ export interface PayPalCheckoutCreatePaymentOptions {
     enableShippingAddress?: boolean;
     shippingAddressOverride?: paypal.Address;
     shippingAddressEditable?: boolean;
+    requestBillingAgreement?: boolean;
+    billingAgreementDetails?: {
+      description?: string;  
+    };
     billingAgreementDescription?: string;
     landingPageType?: string;
     lineItems?: paypal.LineItem[];
