@@ -31,4 +31,8 @@ const testCases: Array<PluginOption | PluginOption[]> = [
         // $ExpectError
         expandProps: true,
     }),
+    reactSvgPlugin({
+        // $ExpectError
+        expandProps: 'en',
+    }),
 ];
