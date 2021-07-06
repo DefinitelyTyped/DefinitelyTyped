@@ -4,12 +4,13 @@ import * as d3 from "d3";
 const graph = new dagre.graphlib.Graph<{extraProp: string}>();
 
 // has graph methods from dagre.d.ts
-graph.setNode("a", {});
+graph.setNode("a", {extraProp: 'test'});
 
 const node: dagre.Node<{extraProp: string}> = graph.node("a");
 
 // has extraProp in Graph"s Generic type
-const _extraProp: string = node.extraProp;
+// $ExpectType string
+node.extraProp;
 
 // intersect
 const point = {x: 0, y: 0};
@@ -22,12 +23,14 @@ const {x: _xrect, y: _yrect} = intersect.rect(node, point);
 // render
 const renderer = new render();
 
+// $ExpectType Arrows
 const arrows = renderer.arrows();
 renderer.arrows({
   ...arrows,
   arrowType: (parent: d3.Selection<any, any, any, any>, _id: string, _edge: dagre.Edge, _type: string) => { }
 });
 
+// $ExpectType Shapes
 const shapes = renderer.shapes();
 renderer.shapes({
   ...shapes,
@@ -37,27 +40,34 @@ renderer.shapes({
 const svg = d3.select("svg");
 renderer(svg, graph);
 
+// $ExpectType CreateNodes
 const createNodes = renderer.createNodes();
 renderer.createNodes((selection, _g, _shape) => selection.selectAll("g"))
   .createNodes(createNodes);
 
+// $ExpectType CreateClusters
 const createClusters = renderer.createClusters();
 renderer.createClusters((selection, _g) => selection.selectAll("g"))
   .createClusters(createClusters);
 
+// $ExpectType CreateEdgeLabels
 const createEdgeLabels = renderer.createEdgeLabels();
 renderer.createEdgeLabels((selection, _g) => selection.selectAll("g"))
   .createEdgeLabels(createEdgeLabels);
 
+// $ExpectType CreateEdgePaths
 const createEdgePaths = renderer.createEdgePaths();
 renderer.createEdgePaths((selection, _g) => selection.selectAll("g"))
   .createEdgePaths(createEdgePaths);
 
 // util
-const _isSubgraph: boolean = util.isSubgraph(graph, "a");
+// $ExpectType boolean
+util.isSubgraph(graph, "a");
 
-const _id: string = util.edgeToId({v: "a", w: "b", name: "c"});
+// $ExpectType string
+util.edgeToId({v: "a", w: "b", name: "c"});
 
+// $ExpectType void
 util.applyStyle(
   d3.select<d3.BaseType, string>("svg"),
   function(
@@ -70,6 +80,7 @@ util.applyStyle(
   }
 );
 
+// $ExpectType void
 util.applyClass(
   d3.select<d3.BaseType, string>("svg"),
   function(
@@ -83,10 +94,8 @@ util.applyClass(
   'other-class-1 other-class-2'
 );
 
-const _applyTransition:
-  d3.Selection<d3.BaseType, string, HTMLElement, any> |
-  d3.Transition<d3.BaseType, string, HTMLElement, any>
-= util.applyTransition(
+// $ExpectType Selection<BaseType, string, HTMLElement, any> | Transition<BaseType, string, HTMLElement, any>
+util.applyTransition(
   d3.select<d3.BaseType, string>("svg"),
   graph,
 );
