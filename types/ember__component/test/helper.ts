@@ -2,7 +2,7 @@ import { assertType } from './lib/assert';
 import Helper, { helper } from '@ember/component/helper';
 
 class Timestamp extends Helper {
-    timer?: ReturnType<typeof setInterval>;
+    timer?: ReturnType<typeof setInterval> | undefined;
     now = new Date();
     init() {
         super.init();
