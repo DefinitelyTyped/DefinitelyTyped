@@ -41,6 +41,7 @@ mouse.onmousedown = st => st.left;
 mouse.onmousemove = st => st.down;
 
 const tunnel = new Guacamole.WebSocketTunnel('haha');
+tunnel.connect();
 tunnel.connect('123');
 // $ExpectError
 tunnel.connect({});
@@ -111,3 +112,12 @@ i$.onblob = x => {
 
 const vp = new Guacamole.VideoPlayer();
 vp.sync();
+
+new Guacamole.Client(new Guacamole.HTTPTunnel('https://hey.hey')).sendKeyEvent(1 as 1 | 0, 10);
+new Guacamole.Client(tunnel)
+  // $ExpectError
+  .sendKeyEvent(true, 5);
+
+new Guacamole.Client(tunnel).sendMouseState(new Guacamole.Mouse.State(1, 2, false, false, false, false, true));
+// $ExpectError
+new Guacamole.Client(tunnel).sendMouseState({ left: true });

@@ -11,12 +11,12 @@ declare namespace throng {
     type ProcessCallback = (id: number) => any;
 
     type Options = {
-        signals?: string[];
-        grace?: number;
-        lifetime?: number;
-        master?: ProcessCallback;
-        count?: number;
-        workers?: WorkerCount;
+        signals?: string[] | undefined;
+        grace?: number | undefined;
+        lifetime?: number | undefined;
+        master?: ProcessCallback | undefined;
+        count?: number | undefined;
+        workers?: WorkerCount | undefined;
     } & ({start: ProcessCallback} | {worker: ProcessCallback});
 }
 

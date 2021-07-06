@@ -1,4 +1,4 @@
-// Type definitions for react-beautiful-dnd 13.0
+// Type definitions for react-beautiful-dnd 13.1
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
@@ -9,6 +9,7 @@
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Arun George <https://github.com/aruniverse>
 //                 Nick Garlis <https://github.com/nickgarlis>
+//                 Brian Powers <https://github.com/brianspowers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // Refer to https://github.com/atlassian/react-beautiful-dnd/blob/master/src/types.js
@@ -692,3 +693,7 @@ export interface DraggableProps {
 export class Draggable extends React.Component<DraggableProps> { }
 
 export function resetServerContext(): void;
+
+export const useMouseSensor: Sensor;
+export const useTouchSensor: Sensor;
+export const useKeyboardSensor: Sensor;

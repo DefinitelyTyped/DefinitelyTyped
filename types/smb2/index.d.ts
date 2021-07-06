@@ -14,11 +14,11 @@ interface SMB2Options {
 
     password: string;
 
-    port?: number;
+    port?: number | undefined;
 
-    packetConcurrency?: number;
+    packetConcurrency?: number | undefined;
 
-    autoCloseTimeout?: number;
+    autoCloseTimeout?: number | undefined;
 }
 
 interface SMB2ReadFileOptions {

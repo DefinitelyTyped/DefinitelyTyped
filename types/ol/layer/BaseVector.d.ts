@@ -28,7 +28,7 @@ export interface Options {
     source?: VectorSource<Geometry>;
     map?: PluggableMap;
     declutter?: boolean;
-    style?: StyleLike;
+    style?: StyleLike | null;
     updateWhileAnimating?: boolean;
     updateWhileInteracting?: boolean;
 }

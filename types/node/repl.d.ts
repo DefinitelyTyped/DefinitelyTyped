@@ -393,3 +393,7 @@ declare module 'repl' {
         constructor(err: Error);
     }
 }
+
+declare module 'node:repl' {
+    export * from 'repl';
+}

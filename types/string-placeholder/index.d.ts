@@ -7,10 +7,10 @@
 declare function template(str: string, data: Readonly<unknown>, options?: Readonly<Options>): string;
 
 interface Options {
-    before?: string;
-    after?: string;
-    escape?: string;
-    clean?: boolean;
+    before?: string | undefined;
+    after?: string | undefined;
+    escape?: string | undefined;
+    clean?: boolean | undefined;
 }
 
 export = template;

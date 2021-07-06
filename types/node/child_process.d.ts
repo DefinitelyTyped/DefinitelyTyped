@@ -147,6 +147,11 @@ declare module 'child_process' {
          * @default 'SIGTERM'
          */
         killSignal?: NodeJS.Signals | number;
+
+        /**
+         * In milliseconds the maximum amount of time the process is allowed to run.
+         */
+        timeout?: number;
     }
 
     interface ProcessEnvOptions {
@@ -483,13 +488,16 @@ declare module 'child_process' {
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
 
-    interface ExecSyncOptions extends CommonOptions {
-        input?: string | Uint8Array;
+    interface CommonExecOptions extends ProcessEnvOptions {
+        input?: string | NodeJS.ArrayBufferView;
         stdio?: StdioOptions;
-        shell?: string;
         killSignal?: NodeJS.Signals | number;
         maxBuffer?: number;
         encoding?: BufferEncoding | 'buffer' | null;
+    }
+
+    interface ExecSyncOptions extends CommonExecOptions {
+        shell?: string;
     }
     interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
         encoding: BufferEncoding;
@@ -502,12 +510,7 @@ declare module 'child_process' {
     function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
     function execSync(command: string, options?: ExecSyncOptions): Buffer;
 
-    interface ExecFileSyncOptions extends CommonOptions {
-        input?: string | NodeJS.ArrayBufferView;
-        stdio?: StdioOptions;
-        killSignal?: NodeJS.Signals | number;
-        maxBuffer?: number;
-        encoding?: BufferEncoding;
+    interface ExecFileSyncOptions extends CommonExecOptions {
         shell?: boolean | string;
     }
     interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
@@ -523,4 +526,8 @@ declare module 'child_process' {
     function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
     function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
     function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
+}
+
+declare module 'node:child_process' {
+    export * from 'child_process';
 }

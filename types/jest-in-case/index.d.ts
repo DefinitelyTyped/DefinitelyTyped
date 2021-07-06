@@ -7,8 +7,6 @@
 /// <reference types="jest" />
 /// <reference types="node" />
 
-declare const global: NodeJS.Global;
-
 interface Config {
     name?: string;
     only?: boolean;

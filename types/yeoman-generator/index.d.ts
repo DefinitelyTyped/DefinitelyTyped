@@ -1,4 +1,4 @@
-// Type definitions for yeoman-generator 5.0
+// Type definitions for yeoman-generator 5.2
 // Project: https://github.com/yeoman/generator, http://yeoman.io
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
@@ -31,7 +31,7 @@ declare namespace Generator {
         /**
          * The name for identifying the queue.
          */
-        queueName?: string;
+        queueName?: string | undefined;
 
         /**
          * The name of the method to execute.
@@ -56,17 +56,17 @@ declare namespace Generator {
         /**
          * Gets or sets a collection of custom priorities.
          */
-        customPriorities?: Priority[];
+        customPriorities?: Priority[] | undefined;
 
         /**
          * The environment to use for creating the generator.
          */
-        env?: Environment;
+        env?: Environment | undefined;
 
         /**
          * The destination-root to write the files to.
          */
-        destinationRoot?: string;
+        destinationRoot?: string | undefined;
     }
 
     /**
@@ -87,7 +87,7 @@ declare namespace Generator {
         /**
          * A value indicating whether to store the user's previous answer.
          */
-        store?: boolean;
+        store?: boolean | undefined;
     };
 
     /**
@@ -97,12 +97,12 @@ declare namespace Generator {
         /**
          * The storage to store the answers.
          */
-        storage?: Storage;
+        storage?: Storage | undefined;
 
         /**
          * A value indicating whether an option should be exported for this question.
          */
-        exportOption?: boolean | object;
+        exportOption?: boolean | object | undefined;
     };
 
     /**
@@ -122,22 +122,22 @@ declare namespace Generator {
         /**
          * A value indicating whether to run `npm install` or options to pass to `dargs` as arguments.
          */
-        npm?: boolean | object;
+        npm?: boolean | object | undefined;
 
         /**
          * A value indicating whether to run `bower install` or options to pass to `dargs` as arguments.
          */
-        bower?: boolean | object;
+        bower?: boolean | object | undefined;
 
         /**
          * A value indicating whether to run `yarn install` or options to pass to `dargs` as arguments.
          */
-        yarn?: boolean | object;
+        yarn?: boolean | object | undefined;
 
         /**
          * A value indicating whether messages should be logged.
          */
-        skipMessage?: boolean;
+        skipMessage?: boolean | undefined;
     }
 
     /**
@@ -147,22 +147,22 @@ declare namespace Generator {
         /**
          * Description for the argument.
          */
-        description?: string;
+        description?: string | undefined;
 
         /**
          * A value indicating whether the argument is required.
          */
-        required?: boolean;
+        required?: boolean | undefined;
 
         /**
          * A value indicating whether the argument is optional.
          */
-        optional?: boolean;
+        optional?: boolean | undefined;
 
         /**
          * The type of the argument.
          */
-        type?: typeof String | typeof Number | typeof Array | typeof Object;
+        type?: typeof String | typeof Number | typeof Array | typeof Object | undefined;
 
         /**
          * The default value of the argument.
@@ -182,7 +182,7 @@ declare namespace Generator {
         /**
          * The option name alias (example `-h` and --help`).
          */
-        alias?: string;
+        alias?: string | undefined;
 
         /**
          * The default value.
@@ -192,17 +192,17 @@ declare namespace Generator {
         /**
          * The description for the option.
          */
-        description?: string;
+        description?: string | undefined;
 
         /**
          * A value indicating whether the option should be hidden from the help output.
          */
-        hide?: boolean;
+        hide?: boolean | undefined;
 
         /**
          * The storage to persist the option
          */
-        storage?: Storage;
+        storage?: Storage | undefined;
     }
 
     /**
@@ -227,6 +227,44 @@ declare namespace Generator {
         path: string;
     }
 
+    type GeneratorFeaturesUniqueBy = 'argument' | 'namespacep';
+
+    /**
+     * Represents generators feature
+     */
+    interface GeneratorFeatures {
+        /**
+         * uniqueBy calculation method (undefined/argument/namespace)
+         */
+        uniqueBy?: GeneratorFeaturesUniqueBy | undefined;
+
+        /**
+         * The Generator instance unique identifier.
+         * The Environment will ignore duplicated identifiers.
+         */
+        unique?: string | undefined;
+
+        /**
+         * Only queue methods that matches a priority
+         */
+        tasksMatchingPriority?: boolean | undefined;
+
+        /**
+         * Tasks methods starts with prefix. Allows api methods (non tasks) without prefix.
+         */
+         taskPrefix?: string | undefined;
+
+        /**
+         * Enable customCommitTask()
+         */
+         customCommitTask?: boolean | undefined;
+
+         /**
+          * Enable customInstallTask()
+          */
+         customInstallTask?: boolean | undefined;
+    }
+
     /**
      * Provides options for queues.
      */
@@ -234,17 +272,17 @@ declare namespace Generator {
         /**
          * The name of the queue.
          */
-        queueName?: string;
+        queueName?: string | undefined;
 
         /**
          * A value indicating whether the queue should be executed only once per namespace and task-name.
          */
-        once?: boolean;
+        once?: boolean | undefined;
 
         /**
          * A value indicating whether the queue should be executed if not running yet.
          */
-        run?: boolean;
+        run?: boolean | undefined;
     }
 
     /**
@@ -254,7 +292,7 @@ declare namespace Generator {
         /**
          * A method for handling errors.
          */
-        reject?: Callback;
+        reject?: Callback | undefined;
     }
 
     /**
@@ -279,7 +317,7 @@ declare namespace Generator {
         /**
          * A method for determining whether the template should be rendered.
          */
-        when?: (templateData: TemplateData, generator: T) => boolean;
+        when?: ((templateData: TemplateData, generator: T) => boolean) | undefined;
 
         /**
          * The template file, absolute or relative to `templatePath()`.
@@ -289,17 +327,17 @@ declare namespace Generator {
         /**
          * The destination, absolute or relative to `destinationPath()`.
          */
-        destination?: string | string[];
+        destination?: string | string[] | undefined;
 
         /**
          * The `ejs` options.
          */
-        templateOptions?: TemplateOptions;
+        templateOptions?: TemplateOptions | undefined;
 
         /**
          * The `mem-fs-editor` copy-options.
          */
-        copyOptions?: CopyOptions;
+        copyOptions?: CopyOptions | undefined;
     }
 }
 
@@ -310,7 +348,7 @@ declare namespace Generator {
  * Every generator should extend this base class.
  */
 declare class Generator<T extends Generator.GeneratorOptions = Generator.GeneratorOptions> extends EventEmitter {
-    constructor(args: string | string[], options: T);
+    constructor(args: string | string[], options: T, features?: Generator.GeneratorFeatures);
 
     /**
      * The current Environment being run.

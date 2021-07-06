@@ -8,15 +8,15 @@ import { NextHandleFunction } from 'connect';
 import { IncomingMessage, ServerResponse } from 'http';
 
 export interface SwaggerParameterSchema {
-    allowMultiple?: boolean;
-    description?: string;
-    format?: string;
-    in?: string;
-    maximum?: string;
-    minimum?: string;
+    allowMultiple?: boolean | undefined;
+    description?: string | undefined;
+    format?: string | undefined;
+    in?: string | undefined;
+    maximum?: string | undefined;
+    minimum?: string | undefined;
     name: string;
-    paramType?: string;
-    required?: boolean;
+    paramType?: string | undefined;
+    required?: boolean | undefined;
     type: string;
 }
 
@@ -38,12 +38,12 @@ export interface Swagger12Request extends IncomingMessage {
         apiIndex: number;
         authorizations?: any;
         operation?: any;
-        operationPath?: string[];
+        operationPath?: string[] | undefined;
         params: SwaggerRequestParameters;
         resourceIndex: number;
         resourceListing: any;
         swaggerVersion: string;
-        useStubs?: boolean;
+        useStubs?: boolean | undefined;
     };
 }
 
@@ -54,9 +54,9 @@ export interface SwaggerRouter12OptionsControllers {
 }
 
 export interface SwaggerRouter12Options {
-    controllers?: SwaggerRouter12OptionsControllers | string | string[];
-    ignoreMissingHandlers?: boolean;
-    useStubs?: boolean;
+    controllers?: SwaggerRouter12OptionsControllers | string | string[] | undefined;
+    ignoreMissingHandlers?: boolean | undefined;
+    useStubs?: boolean | undefined;
 }
 
 export interface OperationParameter {
@@ -69,31 +69,31 @@ export interface Swagger20Security {
 }
 
 export interface Swagger20Response {
-    description?: string;
+    description?: string | undefined;
     schema?: any;
 }
 
 export interface Swagger20Operation {
-    operationId?: string;
-    parameters?: SwaggerParameterSchema[];
+    operationId?: string | undefined;
+    parameters?: SwaggerParameterSchema[] | undefined;
     responses: { [code: string]: Swagger20Response };
-    security?: Swagger20Security[];
-    summary?: string;
-    tags?: string[];
+    security?: Swagger20Security[] | undefined;
+    summary?: string | undefined;
+    tags?: string[] | undefined;
 }
 
 export interface Swagger20Request<P extends SwaggerRequestParameters> extends IncomingMessage {
     swagger: {
         apiPath: string;
-        operation?: Swagger20Operation;
-        operationPath?: string[];
-        operationParameters?: OperationParameter[];
+        operation?: Swagger20Operation | undefined;
+        operationPath?: string[] | undefined;
+        operationParameters?: OperationParameter[] | undefined;
         path: any;
         params: P;
         security: any[];
         swaggerObject: any;
         swaggerVersion: string;
-        useStubs?: boolean;
+        useStubs?: boolean | undefined;
     };
 }
 
@@ -104,16 +104,16 @@ export interface SwaggerRouter20OptionsControllers {
 }
 
 export interface SwaggerRouter20Options {
-    controllers?: SwaggerRouter20OptionsControllers | string | string[];
-    ignoreMissingHandlers?: boolean;
-    useStubs?: boolean;
+    controllers?: SwaggerRouter20OptionsControllers | string | string[] | undefined;
+    ignoreMissingHandlers?: boolean | undefined;
+    useStubs?: boolean | undefined;
 }
 
 export interface SwaggerSecurityError {
-    code?: string;
-    message?: string;
-    state?: string;
-    statusCode?: number;
+    code?: string | undefined;
+    message?: string | undefined;
+    state?: string | undefined;
+    statusCode?: number | undefined;
 }
 
 export type SwaggerSecurityCallback = (err?: SwaggerSecurityError) => void;
@@ -129,15 +129,15 @@ export interface SwaggerUi12ApiDeclarations {
 }
 
 export interface SwaggerUiOptions {
-    apiDocs?: string;
-    apiDocsPrefix?: string;
-    swaggerUi?: string;
-    swaggerUiDir?: string;
-    swaggerUiPrefix?: string;
+    apiDocs?: string | undefined;
+    apiDocsPrefix?: string | undefined;
+    swaggerUi?: string | undefined;
+    swaggerUiDir?: string | undefined;
+    swaggerUiPrefix?: string | undefined;
 }
 
 export interface SwaggerValidatorOptions {
-    validateResponse?: boolean;
+    validateResponse?: boolean | undefined;
 }
 
 export interface Middleware {

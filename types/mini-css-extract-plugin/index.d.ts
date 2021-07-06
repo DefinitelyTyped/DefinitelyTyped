@@ -1,4 +1,4 @@
-// Type definitions for mini-css-extract-plugin 1.4
+// Type definitions for mini-css-extract-plugin 2.0
 // Project: https://github.com/webpack-contrib/mini-css-extract-plugin
 // Definitions by: JounQin <https://github.com/JounQin>
 //                 Katsuya Hino <https://github.com/dobogo>
@@ -108,20 +108,6 @@ declare namespace MiniCssExtractPlugin {
          * Layer of the css execution
          */
         layer?: string;
-
-        modules?: {
-            /**
-             * Enables/disables ES modules named export for locals.
-             *
-             * Names of locals are converted to camelCase. It is not allowed to use
-             * JavaScript reserved words in CSS class names. Options `esModule` and
-             * `modules.namedExport` in css-loader and MiniCssExtractPlugin.loader
-             * must be enabled.
-             *
-             * @default false
-             */
-            namedExport?: boolean;
-        };
     }
 }
 

@@ -29,10 +29,10 @@ declare class Topo<TNode = any, TGroup = string> {
     add(
         nodes: TNode | TNode[],
         options?: {
-            group?: TGroup;
-            before?: TGroup | TGroup[];
-            after?: TGroup | TGroup[];
-            sort?: number;
+            group?: TGroup | undefined;
+            before?: TGroup | TGroup[] | undefined;
+            after?: TGroup | TGroup[] | undefined;
+            sort?: number | undefined;
         }
     ): TNode[];
 

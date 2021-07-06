@@ -57,6 +57,29 @@ app.route('/:foo/:bar').get<{ foo: string; bar: number }>(req => {
     req.params.baz; // $ExpectError
 });
 
+// Optional params
+app.get('/:foo/:bar?', req => {
+    req.params.foo; // $ExpectType string
+    req.params.bar; // $ExpectType string | undefined
+});
+
+// Different delimiters
+app.get('/:foo/:bar-:baz/:qux', req => {
+    req.params.foo; // $ExpectType string
+    req.params.bar; // $ExpectType string
+    req.params.baz; // $ExpectType string
+    req.params.qux; // $ExpectType string
+    req.params.quxx; // $ExpectError
+});
+
+// regex parameters - not supported
+app.get('/:foo/:bar(\\d:+)/:baz', req => {
+    req.params.foo; // $ExpectType string
+    req.params.bar; // $ExpectType string
+    req.params.qux; // $ExpectType string
+    req.params.quxx; // $ExpectType string
+});
+
 // Query can be a custom type
 app.get<{}, any, any, { q: string }>('/:foo', req => {
     req.query.q; // $ExpectType string
@@ -91,7 +114,7 @@ app.get('/nextrouter', (req, res, next) => {
 
 // Next can receive a 'route' parameter to fall back to next route
 app.get('/nextroute', (req, res, next) => {
-  next('route'); // $ExpectType void
+    next('route'); // $ExpectType void
 });
 
 // Default types

@@ -1,9 +1,8 @@
-// Type definitions for react-datepicker 3.1
+// Type definitions for react-datepicker 4.1
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
 //                 Greg Smith <https://github.com/smrq>,
-//                 Platon Pronko <https://github.com/Rogach>
 //                 Roy Xue <https://github.com/royxue>
 //                 Koala Human <https://github.com/KoalaHuman>
 //                 Justin Grant <https://github.com/justingrant>
@@ -39,12 +38,15 @@ interface HighlightDates {
 export interface ReactDatePickerProps {
     adjustDateOnChange?: boolean;
     allowSameDay?: boolean;
+    ariaDescribedBy?: string;
     ariaLabelClose?: string;
     ariaLabelledBy?: string;
+    ariaRequired?: string;
     autoComplete?: string;
     autoFocus?: boolean;
     calendarClassName?: string;
     calendarContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
+    calendarStartDay?: number;
     children?: React.ReactNode;
     chooseDayAriaLabelPrefix?: string;
     className?: string;
@@ -126,6 +128,7 @@ export interface ReactDatePickerProps {
     previousYearButtonLabel?: string;
     readOnly?: boolean;
     renderCustomHeader?(params: {
+        monthDate: Date;
         date: Date;
         changeYear(year: number): void;
         changeMonth(month: number): void;

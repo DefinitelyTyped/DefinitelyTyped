@@ -10,6 +10,7 @@
 
 import { EventEmitter } from 'events';
 import { AbstractLevelDOWN, AbstractIteratorOptions, AbstractBatch, ErrorCallback, AbstractOptions, ErrorValueCallback, AbstractGetOptions, AbstractIterator } from 'abstract-leveldown';
+import { LevelUPError, InitializationError, OpenError, ReadError, WriteError, NotFoundError, EncodingError } from 'level-errors';
 
 type LevelUpPut<K, V, O> =
     ((key: K, value: V, callback: ErrorCallback) => void) &
@@ -131,7 +132,15 @@ interface LevelUpConstructor {
         db: DB,
         cb?: ErrorCallback): LevelUp<DB>;
 
-    errors: Record<string, Error>;
+    errors: {
+        LevelUPError: typeof LevelUPError;
+        InitializationError: typeof InitializationError;
+        OpenError: typeof OpenError;
+        ReadError: typeof ReadError;
+        WriteError: typeof WriteError;
+        NotFoundError: typeof NotFoundError;
+        EncodingError: typeof EncodingError;
+    };
 }
 
 export interface LevelUpChain<K = any, V = any> {

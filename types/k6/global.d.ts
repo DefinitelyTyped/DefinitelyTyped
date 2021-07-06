@@ -64,11 +64,6 @@ declare global {
     // ---------------------
 
     /**
-     * Interface to system console.
-     */
-    let console: Console;
-
-    /**
      * Current VU number.
      * https://k6.io/docs/using-k6/execution-context-variables/
      */
@@ -79,32 +74,4 @@ declare global {
      * https://k6.io/docs/using-k6/execution-context-variables/
      */
     const __ITER: number;
-}
-
-interface Console {
-    /** Log debug message. */
-    debug: Logger;
-
-    /** Log error message. */
-    error: Logger;
-
-    /** Log informational message. */
-    info: Logger;
-
-    /** Log message. */
-    log: Logger;
-
-    /** Log warning message. */
-    warn: Logger;
-}
-
-/**
- * Log message procedure.
- */
-interface Logger {
-    /**
-     * @param msg - Message to log.
-     * @param fields - Arbitrary data to attach to message.
-     */
-    (msg: any, ...fields: any[]): void;
 }

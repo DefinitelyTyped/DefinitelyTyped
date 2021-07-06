@@ -2,6 +2,7 @@
 // Project: https://github.com/mailjet/mailjet-apiv3-nodejs
 // Definitions by: Nikola Andreev <https://github.com/Nikola-Andreev>
 //                Jordan Garvey <https://github.com/jordangarvey>
+//                 Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -37,7 +38,7 @@ export namespace Email {
 
     // resources
     interface PostResource {
-        id(value: number): PostResource;
+        id(value: string | number): PostResource;
 
         action(action: string): PostResource;
 
@@ -47,7 +48,7 @@ export namespace Email {
     }
 
     interface GetResource {
-        id(value: number): GetResource;
+        id(value: string | number): GetResource;
 
         action(action: string): GetResource;
 
@@ -55,7 +56,7 @@ export namespace Email {
     }
 
     interface PutResource {
-        id(value: number): PutResource;
+        id(value: string | number): PutResource;
 
         request(params: object, callback?: (error: Error, res: PutResponse) => void): Promise<PutResponse>;
     }
@@ -171,7 +172,7 @@ export namespace SMS {
 
     // resources
     interface GetResource {
-        id(value: number): GetResource;
+        id(value: string | number): GetResource;
 
         action(action: string): GetResourceAction;
 
@@ -187,7 +188,7 @@ export namespace SMS {
     }
 
     interface GetResourceAction {
-        id(value: number): GetResourceActionId;
+        id(value: string | number): GetResourceActionId;
 
         request(params?: GetParams): Promise<GetResponseAction>;
     }

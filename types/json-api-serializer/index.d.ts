@@ -103,6 +103,8 @@ declare namespace JSONAPISerializer {
 }
 
 declare class JSONAPISerializer {
+  constructor(opts?: JSONAPISerializer.Options);
+
   register(type: string, schema?: string | JSONAPISerializer.Options, opts?: JSONAPISerializer.Options): void;
 
   serialize(type: string, data: unknown, topLevelMeta?: unknown): JSONAPISerializer.JSONAPIDocument;

@@ -1,9 +1,9 @@
 import EmberObject from '@ember/object';
 
 interface TriggerActionOptions {
-    action?: string;
-    target?: EmberObject;
-    actionContext?: EmberObject;
+    action?: string | undefined;
+    target?: EmberObject | undefined;
+    actionContext?: EmberObject | undefined;
 }
 
 /**
