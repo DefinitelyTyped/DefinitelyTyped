@@ -412,9 +412,9 @@ declare namespace Sfdc {
                 readonly response_type: string;
                 readonly client_id: string;
                 readonly redirect_uri: string;
-                readonly state?: string;
-                readonly display?: string;
-                readonly scope?: string;
+                readonly state?: string | undefined;
+                readonly display?: string | undefined;
+                readonly scope?: string | undefined;
             }
 
             interface LoginContext {
