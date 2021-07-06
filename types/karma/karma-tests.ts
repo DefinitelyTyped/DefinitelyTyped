@@ -1,5 +1,5 @@
-import karma = require("karma");
-import { Server } from "karma";
+import karma = require('karma');
+import { Server } from 'karma';
 
 karma.runner.run({ port: 9876 }, (exitCode: number) => {
     console.log("Karma has exited with " + exitCode);
