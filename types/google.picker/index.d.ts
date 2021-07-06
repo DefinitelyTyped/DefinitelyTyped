@@ -190,6 +190,7 @@ declare namespace google {
             setMimeTypes(mimeTypes: string): DocsView;
 
             // Allows the user to select folders from Shared team Drives.
+            /** @deprecated - use setEnableDrives instead */
             setEnableTeamDrives(enabled: boolean): DocsView;
         }
 
@@ -240,6 +241,7 @@ declare namespace google {
             SUPPORT_DRIVES = "sdr",
 
             // Whether Shared team Drive items should be included in results.
+            /** @deprecated - use google.picker.Feature.SUPPORT_DRIVES instead */
             SUPPORT_TEAM_DRIVES = 'std'
         }
 
