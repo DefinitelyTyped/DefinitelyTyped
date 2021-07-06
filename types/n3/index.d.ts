@@ -7,7 +7,7 @@
 //                 Alexey Morozov <https://github.com/AlexeyMz>
 //                 Jesse Wright <https://github.com/jeswr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="node" />
 
@@ -152,30 +152,30 @@ export class Lexer {
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
-type Type =
+export type Type =
   // Discrete types
   | 'application' | 'example' | 'text'
   // Multipart types
-  | 'message' | 'multipart'
+  | 'message' | 'multipart';
 
-type BaseFormat = 
+export type BaseFormat =
   | 'turtle'
   | 'triG'
   | 'N-Triples'
   | 'N-Quads'
   | 'n3'
-  | 'Notation3'
+  | 'Notation3';
 
-type BaseFormatVariants = 
+export type BaseFormatVariants =
   | BaseFormat
   | Lowercase<BaseFormat>
-  | Capitalize<BaseFormat>
+  | Capitalize<BaseFormat>;
 
-type Star = '*' | 'star'
+export type Star = '*' | 'star';
 
-type Subtype = BaseFormatVariants | `${BaseFormatVariants}${Star | ''}`
+export type Subtype = BaseFormatVariants | `${BaseFormatVariants}${Star | ''}`;
 
-type MimeFormat = Subtype | `${Type}/${Subtype}`
+export type MimeFormat = Subtype | `${Type}/${Subtype}`;
 
 export interface ParserOptions {
     format?: MimeFormat;
