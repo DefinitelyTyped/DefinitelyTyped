@@ -143,6 +143,8 @@ export interface DateRangeProps extends Range, CommonCalendarProps {
     /** default: false */
     moveRangeOnFirstSelection?: boolean;
     /** default: false */
+    retainEndDateOnFirstSelection?: boolean;
+    /** default: false */
     editableDateInputs?: boolean;
 }
 
