@@ -32,9 +32,9 @@ declare namespace Spotify {
     type ErrorTypes = 'account_error' | 'authentication_error' | 'initialization_error' | 'playback_error';
 
     interface Image {
-        height?: number | null;
+        height?: number | null | undefined;
         url: string;
-        width?: number | null;
+        width?: number | null | undefined;
     }
 
     interface PlaybackContext {
@@ -88,7 +88,7 @@ declare namespace Spotify {
     interface PlayerInit {
         name: string;
         getOAuthToken(cb: (token: string) => void): void;
-        volume?: number;
+        volume?: number | undefined;
     }
 
     type ErrorListener = (err: Error) => void;

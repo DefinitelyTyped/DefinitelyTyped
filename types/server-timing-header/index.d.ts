@@ -31,7 +31,7 @@ declare namespace serverTimingMiddleware {
          * should middleware send headers (may be disabled for some environments
          * @default false
          */
-        sendHeaders?: boolean;
+        sendHeaders?: boolean | undefined;
     }
 
     class ServerTiming {
