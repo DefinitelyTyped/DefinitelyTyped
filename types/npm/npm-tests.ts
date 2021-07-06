@@ -4,7 +4,7 @@
 * Created by using code samples from https://github.com/npm/npm#using-npm-programmatically.
 */
 
-import * as npm from 'npm';
+import npm, { Config, CommandCallback } from 'npm';
 
 npm.load({}, function (er) {
     if (er) {
@@ -30,3 +30,6 @@ npm.load({}, function (er) {
 
     npm.config.set('audit', false);
 })
+
+// Ensure we can import interfaces
+declare function dummy(config: Config, commandCallback: CommandCallback): void;
