@@ -237,3 +237,7 @@ declare module 'os' {
      */
     function setPriority(pid: number, priority: number): void;
 }
+
+declare module 'node:os' {
+    export * from 'os';
+}

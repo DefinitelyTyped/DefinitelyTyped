@@ -114,3 +114,7 @@ declare module 'url' {
         [Symbol.iterator](): IterableIterator<[string, string]>;
     }
 }
+
+declare module 'node:url' {
+    export * from 'url';
+}

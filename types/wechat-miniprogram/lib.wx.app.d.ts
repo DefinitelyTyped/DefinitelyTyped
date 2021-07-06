@@ -164,7 +164,7 @@ declare namespace WechatMiniprogram.App {
         /** shareTicket，详见 [获取更多转发信息]((转发#获取更多转发信息)) */
         shareTicket: string
         /** 当场景为由从另一个小程序或公众号或App打开时，返回此字段 */
-        referrerInfo?: ReferrerInfo
+        referrerInfo?: ReferrerInfo | undefined
     }
 
     interface PageNotFoundOption {
@@ -236,7 +236,7 @@ declare namespace WechatMiniprogram.App {
          *
          * 最低基础库： 2.2.4
          */
-        allowDefault?: boolean
+        allowDefault?: boolean | undefined
     }
 
     interface GetApp {

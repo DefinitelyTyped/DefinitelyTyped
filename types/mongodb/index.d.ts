@@ -1941,23 +1941,23 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
      */
     distinct<Key extends keyof WithId<TSchema>>(
         key: Key,
-        callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>,
+        callback: MongoCallback<Array<FlattenIfArray<WithId<Required<TSchema>>[Key]>>>,
     ): void;
     distinct<Key extends keyof WithId<TSchema>>(
         key: Key,
         query: FilterQuery<TSchema>,
-        callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>,
+        callback: MongoCallback<Array<FlattenIfArray<WithId<Required<TSchema>>[Key]>>>,
     ): void;
     distinct<Key extends keyof WithId<TSchema>>(
         key: Key,
         query?: FilterQuery<TSchema>,
         options?: MongoDistinctPreferences,
-    ): Promise<Array<FlattenIfArray<WithId<TSchema>[Key]>>>;
+    ): Promise<Array<FlattenIfArray<WithId<Required<TSchema>>[Key]>>>;
     distinct<Key extends keyof WithId<TSchema>>(
         key: Key,
         query: FilterQuery<TSchema>,
         options: MongoDistinctPreferences,
-        callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>,
+        callback: MongoCallback<Array<FlattenIfArray<WithId<Required<TSchema>>[Key]>>>,
     ): void;
     distinct(key: string, callback: MongoCallback<any[]>): void;
     distinct(key: string, query: FilterQuery<TSchema>, callback: MongoCallback<any[]>): void;

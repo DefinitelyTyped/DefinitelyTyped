@@ -14,7 +14,7 @@ export interface ParsedMediaType {
 
 export interface MediaType {
     type: string;
-    parameters?: {[key: string]: string};
+    parameters?: {[key: string]: string} | undefined;
 }
 
 export interface RequestLike {

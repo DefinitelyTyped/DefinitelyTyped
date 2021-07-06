@@ -77,7 +77,7 @@ declare class WebSocket extends EventEmitter {
     send(data: any, cb?: (err?: Error) => void): void;
     send(
         data: any,
-        options: { mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean },
+        options: { mask?: boolean | undefined; binary?: boolean | undefined; compress?: boolean | undefined; fin?: boolean | undefined },
         cb?: (err?: Error) => void,
     ): void;
     terminate(): void;
@@ -208,42 +208,42 @@ declare namespace WebSocket {
     ) => void;
 
     interface ClientOptions extends SecureContextOptions {
-        protocol?: string;
-        followRedirects?: boolean;
-        handshakeTimeout?: number;
-        maxRedirects?: number;
-        perMessageDeflate?: boolean | PerMessageDeflateOptions;
-        localAddress?: string;
-        protocolVersion?: number;
-        headers?: { [key: string]: string };
-        origin?: string;
-        agent?: Agent;
-        host?: string;
-        family?: number;
+        protocol?: string | undefined;
+        followRedirects?: boolean | undefined;
+        handshakeTimeout?: number | undefined;
+        maxRedirects?: number | undefined;
+        perMessageDeflate?: boolean | PerMessageDeflateOptions | undefined;
+        localAddress?: string | undefined;
+        protocolVersion?: number | undefined;
+        headers?: { [key: string]: string } | undefined;
+        origin?: string | undefined;
+        agent?: Agent | undefined;
+        host?: string | undefined;
+        family?: number | undefined;
         checkServerIdentity?(servername: string, cert: CertMeta): boolean;
-        rejectUnauthorized?: boolean;
-        maxPayload?: number;
+        rejectUnauthorized?: boolean | undefined;
+        maxPayload?: number | undefined;
     }
 
     interface PerMessageDeflateOptions {
-        serverNoContextTakeover?: boolean;
-        clientNoContextTakeover?: boolean;
-        serverMaxWindowBits?: number;
-        clientMaxWindowBits?: number;
+        serverNoContextTakeover?: boolean | undefined;
+        clientNoContextTakeover?: boolean | undefined;
+        serverMaxWindowBits?: number | undefined;
+        clientMaxWindowBits?: number | undefined;
         zlibDeflateOptions?: {
-            flush?: number;
-            finishFlush?: number;
-            chunkSize?: number;
-            windowBits?: number;
-            level?: number;
-            memLevel?: number;
-            strategy?: number;
-            dictionary?: Buffer | Buffer[] | DataView;
-            info?: boolean;
-        };
-        zlibInflateOptions?: ZlibOptions;
-        threshold?: number;
-        concurrencyLimit?: number;
+            flush?: number | undefined;
+            finishFlush?: number | undefined;
+            chunkSize?: number | undefined;
+            windowBits?: number | undefined;
+            level?: number | undefined;
+            memLevel?: number | undefined;
+            strategy?: number | undefined;
+            dictionary?: Buffer | Buffer[] | DataView | undefined;
+            info?: boolean | undefined;
+        } | undefined;
+        zlibInflateOptions?: ZlibOptions | undefined;
+        threshold?: number | undefined;
+        concurrencyLimit?: number | undefined;
     }
 
     interface OpenEvent {
@@ -271,21 +271,21 @@ declare namespace WebSocket {
     }
 
     interface EventListenerOptions {
-        once?: boolean;
+        once?: boolean | undefined;
     }
 
     interface ServerOptions {
-        host?: string;
-        port?: number;
-        backlog?: number;
-        server?: HTTPServer | HTTPSServer;
-        verifyClient?: VerifyClientCallbackAsync | VerifyClientCallbackSync;
+        host?: string | undefined;
+        port?: number | undefined;
+        backlog?: number | undefined;
+        server?: HTTPServer | HTTPSServer | undefined;
+        verifyClient?: VerifyClientCallbackAsync | VerifyClientCallbackSync | undefined;
         handleProtocols?: any;
-        path?: string;
-        noServer?: boolean;
-        clientTracking?: boolean;
-        perMessageDeflate?: boolean | PerMessageDeflateOptions;
-        maxPayload?: number;
+        path?: string | undefined;
+        noServer?: boolean | undefined;
+        clientTracking?: boolean | undefined;
+        perMessageDeflate?: boolean | PerMessageDeflateOptions | undefined;
+        maxPayload?: number | undefined;
     }
 
     interface AddressInfo {

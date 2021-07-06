@@ -11,30 +11,30 @@ declare namespace SnazzyInfoWindow {
         'top' | 'bottom' | 'left' | 'right';
 
     interface Offset {
-        top?: string;
-        bottom?: string;
-        left?: string;
-        right?: string;
+        top?: string | undefined;
+        bottom?: string | undefined;
+        left?: string | undefined;
+        right?: string | undefined;
     }
 
     interface EdgeOffset {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface Border {
         width: string;
-        color?: string;
+        color?: string | undefined;
     }
 
     interface Shadow {
-        h?: string;
-        v?: string;
-        blur?: string;
-        spread?: string;
-        opacity?: string;
+        h?: string | undefined;
+        v?: string | undefined;
+        blur?: string | undefined;
+        spread?: string | undefined;
+        opacity?: string | undefined;
         color: string;
     }
 
@@ -84,48 +84,48 @@ declare namespace SnazzyInfoWindow {
         /**
          * The Google Maps marker associated to this info window.
          */
-        marker?: google.maps.Marker;
+        marker?: google.maps.Marker | undefined;
 
         /**
          * The text or DOM Element to insert into the info window body.
          */
-        content?: string | HTMLElement;
+        content?: string | HTMLElement | undefined;
 
         /**
          * Choose where you want the info window to be displayed, relative to the marker.
          */
-        placement?: PlacementOptions;
+        placement?: PlacementOptions | undefined;
 
         /**
          * The Google Map associated to this info window.
          * Only required if you are not using a marker.
          */
-        map?: google.maps.Map;
+        map?: google.maps.Map | undefined;
 
         /**
          * The latitude and longitude where the info window is anchored.
          * The offset will default to 0px when using this option.
          * Only required if you are not using a marker.
          */
-        position?: google.maps.LatLng | google.maps.LatLngLiteral;
+        position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined;
 
         /**
          * An optional CSS class to assign to the wrapper container of the info window.
          * Can be used for applying custom CSS to the info window.
          */
-        wrapperClass?: string;
+        wrapperClass?: string | undefined;
 
         /**
          * The max width in pixels of the info window.
          * @example 200
          */
-        maxWidth?: number;
+        maxWidth?: number | undefined;
 
         /**
          * The max height in pixels of the info window.
          * @example 200
          */
-        maxHeight?: number;
+        maxHeight?: number | undefined;
 
         /**
          * The offset from the marker.
@@ -139,7 +139,7 @@ declare namespace SnazzyInfoWindow {
          * }
          *
          */
-        offset?: Offset;
+        offset?: Offset | undefined;
 
         /**
          * The offset from the map edge in pixels which is used when panning an info window into view.
@@ -152,21 +152,21 @@ declare namespace SnazzyInfoWindow {
          *   left: 20
          * }
          */
-        edgeOffset?: EdgeOffset;
+        edgeOffset?: EdgeOffset | undefined;
 
         /**
          * The color to use for the background of the info window.
          * Possible Values: Any valid CSS color value.
          * @example '#FF0000', 'blue'
          */
-        backgroundColor?: string;
+        backgroundColor?: string | undefined;
 
         /**
          * A custom padding size around the content of the info window.
          * Possible Values: Any valid CSS size value.
          * @example '10px', '2em', '5%'
          */
-        padding?: string;
+        padding?: string | undefined;
 
         /**
          * A custom border around the info window.
@@ -178,26 +178,26 @@ declare namespace SnazzyInfoWindow {
          *   color: '#FF0000'
          * }
          */
-        border?: Border | boolean;
+        border?: Border | boolean | undefined;
 
         /**
          * A custom CSS border radius property to specify the rounded corners of the info window.
          * @example '2px 20px'
          */
-        borderRadius?: string;
+        borderRadius?: string | undefined;
 
         /**
          * The font color to use for the content inside the body of the info window.
          * Possible Values: Any valid CSS color value.
          * @example '#FF0000', 'blue'
          */
-        fontColor?: string;
+        fontColor?: string | undefined;
 
         /**
          * The font size to use for the content inside the body of the info window.
          * Possible Values: Any valid CSS font size value.
          */
-        fontSize?: string;
+        fontSize?: string | undefined;
 
         /**
          * The height of the pointer from the info window to the marker.
@@ -206,7 +206,7 @@ declare namespace SnazzyInfoWindow {
          * Possible Values: Any valid CSS size value.
          * @example '10px'
          */
-        pointer?: string | boolean;
+        pointer?: string | boolean | undefined;
 
         /**
          * The CSS properties for the shadow of the info window.
@@ -221,14 +221,14 @@ declare namespace SnazzyInfoWindow {
          *   color: '#000'
          * }
          */
-        shadow?: Shadow | boolean;
+        shadow?: Shadow | boolean | undefined;
 
         /**
          * Determines if the info window will open when the marker is clicked.
          * An internal listener is added to the Google Maps click event which calls the open() method.
          * @default true
          */
-        openOnMarkerClick?: boolean;
+        openOnMarkerClick?: boolean | undefined;
 
         /**
          * Determines if the info window will close when the map is clicked.
@@ -236,36 +236,36 @@ declare namespace SnazzyInfoWindow {
          * This will not activate on the Google Maps drag event when the user is panning the map.
          * @default true
          */
-        closeOnMapClick?: boolean;
+        closeOnMapClick?: boolean | undefined;
 
         /**
          * Determines if the info window will close when any other Snazzy Info Window is opened.
          * @default false
          */
-        closeWhenOthersOpen?: boolean;
+        closeWhenOthersOpen?: boolean | undefined;
 
         /**
          * Determines if the info window will show a close button.
          * @default true
          */
-        showCloseButton?: boolean;
+        showCloseButton?: boolean | undefined;
 
         /**
          * The text or DOM Element to replace the default close button.
          * No click handler or positioning is added to your markup if you use this option.
          */
-        closeButtonMarkup?: boolean;
+        closeButtonMarkup?: boolean | undefined;
 
         /**
          * Determines if the info window will be panned into view when opened.
          * @default true
          */
-        panOnOpen?: boolean;
+        panOnOpen?: boolean | undefined;
 
         /**
          * All callbacks are optional and can access the info window instance via this.
          */
-        callbacks?: Callbacks;
+        callbacks?: Callbacks | undefined;
     }
 }
 

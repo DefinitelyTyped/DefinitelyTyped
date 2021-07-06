@@ -7,7 +7,7 @@ export interface Calendar extends VueConstructor {
     props: {
         locale: DateLocale;
         date: Date | string;
-        initialDate?: Date;
+        initialDate?: Date | undefined;
         enableGridSwitch: boolean;
         modifiers: Modifiers;
         modifiersClassNames: ModifiersClassNames;

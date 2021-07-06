@@ -8,7 +8,7 @@ interface ContextConstructor {
 }
 export const Context: ContextConstructor;
 export interface Context {
-    parent?: Server;
+    parent?: Server | undefined;
     topScope: Scope;
     /** The primitive number type. */
     num: Prim & { name: "number" };
@@ -84,9 +84,9 @@ interface FnConstructor {
 /** Constructor for the type that implements functions. Inherits from `Obj`. The `AVal` types are used to track the input and output types of the function. */
 export const Fn: FnConstructor;
 export interface Fn extends Obj {
-    readonly args?: AVal[];
-    readonly argNames?: string[];
-    self?: Type;
+    readonly args?: AVal[] | undefined;
+    readonly argNames?: string[] | undefined;
+    self?: Type | undefined;
     readonly retval: AVal;
     /**
      * Asks the AVal if it contains a function type. Useful when
@@ -136,7 +136,7 @@ export interface IType extends ANull {
      * and even for those it may be missing (if the type was created by a type definition file,
      * or synthesized in some other way).
      */
-    originNode?: ESTree.Node;
+    originNode?: ESTree.Node | undefined;
     /** Return a string that describes the type. maxDepth indicates the depth to which inner types should be shown. */
     toString(maxDepth: number): string;
     /** Queries whether the AVal _currently_ holds the given type. */
@@ -211,13 +211,13 @@ export interface AVal extends ANull {
      * property pointing to an AST node.
      */
     gatherProperties(f: (...args: any[]) => void, depth: number): void;
-    originNode?: ESTree.Node;
+    originNode?: ESTree.Node | undefined;
     /** An object mapping the object’s known properties to AVals. Don’t manipulate this directly (ever), only use it if you have to iterate over the properties. */
     props: Partial<Readonly<{
         [key: string]: AVal;
     }>>;
     readonly types: Type[];
-    readonly propertyOf?: Obj;
+    readonly propertyOf?: Obj | undefined;
 }
 
 /**

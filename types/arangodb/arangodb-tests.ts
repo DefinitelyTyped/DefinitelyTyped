@@ -10,7 +10,7 @@ console.warnStack(new Error(), "something went wrong");
 
 interface User {
     username: string;
-    password?: string;
+    password?: string | undefined;
 }
 const coll = module.context.collection("users")!;
 coll.save({ username: "user" });

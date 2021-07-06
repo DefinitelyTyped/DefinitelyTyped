@@ -32,32 +32,32 @@ declare namespace StaticMaps {
     interface StaticMapsOptions {
         width: number;
         height: number;
-        paddingX?: number;
-        paddingY?: number;
-        tileUrl?: string;
-        tileSize?: number;
+        paddingX?: number | undefined;
+        paddingY?: number | undefined;
+        tileUrl?: string | undefined;
+        tileSize?: number | undefined;
         /**
          * Subdomains of tile server
          * @default []
          */
-        subdomains?: string[];
-        tileRequestTimeout?: number;
-        tileRequestHeader?: object;
+        subdomains?: string[] | undefined;
+        tileRequestTimeout?: number | undefined;
+        tileRequestHeader?: object | undefined;
         /**
          * Limit concurrent connections to the tiles server
          * @default 2
          */
-        tileRequestLimit?: number;
+        tileRequestLimit?: number | undefined;
         /**
          * Defines the range of zoom levels to try
          */
         zoomRange?: {
-            min?: ZoomLevel;
-            max?: ZoomLevel;
-        };
+            min?: ZoomLevel | undefined;
+            max?: ZoomLevel | undefined;
+        } | undefined;
         /** @deprecated Use zoomRange.max instead: */
-        maxZoom?: number;
-        reverseY?: boolean;
+        maxZoom?: number | undefined;
+        reverseY?: boolean | undefined;
     }
 
     interface AddMarkerOptions {
@@ -65,25 +65,25 @@ declare namespace StaticMaps {
         img: string;
         height: number;
         width: number;
-        offsetX?: number;
-        offsetY?: number;
+        offsetX?: number | undefined;
+        offsetY?: number | undefined;
     }
 
     interface AddLineOptions {
         coords: ReadonlyArray<[number, number]>;
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface AddPolygonOptions extends AddLineOptions {
-        fill?: string;
+        fill?: string | undefined;
     }
 
     interface AddMultiPolygonOptions {
         coords: ReadonlyArray<Array<[number, number]>>;
-        color?: string;
-        width?: number;
-        fill?: string;
+        color?: string | undefined;
+        width?: number | undefined;
+        fill?: string | undefined;
     }
 
     interface AddTextOptions {
@@ -91,14 +91,14 @@ declare namespace StaticMaps {
          * Anchor of the text
          * @default 'start'
          */
-        anchor?: TextAnchor;
+        anchor?: TextAnchor | undefined;
         coord: [number, number];
         text: string;
-        font?: string;
-        size?: number;
-        color?: string;
-        width?: number;
-        fill?: string;
+        font?: string | undefined;
+        size?: number | undefined;
+        color?: string | undefined;
+        width?: number | undefined;
+        fill?: string | undefined;
     }
 
     type TextAnchor =

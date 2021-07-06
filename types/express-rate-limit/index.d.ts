@@ -31,7 +31,7 @@ declare namespace rateLimit {
         readonly limit: number;
         readonly current: number;
         readonly remaining: number;
-        readonly resetTime?: Date;
+        readonly resetTime?: Date | undefined;
     }
 
     type StoreIncrementCallback = (err?: {}, hits?: number, resetTime?: Date) => void;
@@ -65,7 +65,7 @@ declare namespace rateLimit {
          * Enable headers for request limit (`X-RateLimit-Limit`) and current usage (`X-RateLimit-Remaining`) on all
          * responses and time to wait before retrying (`Retry-After`) when `max` is exceeded. Defaults to `true`.
          */
-        headers?: boolean;
+        headers?: boolean | undefined;
 
         /**
          * Enable headers conforming to the [ratelimit standardization proposal](https://tools.ietf.org/id/draft-polli-ratelimit-headers-01.html):
@@ -73,7 +73,7 @@ declare namespace rateLimit {
          * Behavior and name will likely change in future releases.
          * @default false
          */
-        draft_polli_ratelimit_headers?: boolean;
+        draft_polli_ratelimit_headers?: boolean | undefined;
 
         /**
          * Function used to generate keys. Defaults to using `req.ip`.
@@ -87,13 +87,13 @@ declare namespace rateLimit {
          * Set to `0` to disable.
          * @default 5
          */
-        max?: number | MaxValueFn;
+        max?: number | MaxValueFn | undefined;
 
         /**
          * Error message sent to user when `max` is exceeded. May be a `string`, JSON object, or any other value
          * that Express's `req.send()` supports. Defaults to `'Too many requests, please try again later.'`.
          */
-        message?: string | Buffer | Message;
+        message?: string | Buffer | Message | undefined;
 
         /**
          * Function that is called the first time `max` is exceeded. The `req.rateLimit` object has `limit`, `current`,
@@ -113,22 +113,22 @@ declare namespace rateLimit {
         /**
          * When set to `true`, failed requests (status >= 400, request canceled or errored) won't be counted. Defaults to `false`.
          */
-        skipFailedRequests?: boolean;
+        skipFailedRequests?: boolean | undefined;
 
         /**
          * When set to `true`, successful requests (status < 400) won't be counted. Defaults to `false`.
          */
-        skipSuccessfulRequests?: boolean;
+        skipSuccessfulRequests?: boolean | undefined;
 
         /**
          * HTTP status code returned when `max` is exceeded. Defaults to `429`.
          */
-        statusCode?: number;
+        statusCode?: number | undefined;
 
         /**
          * The storage to use when persisting rate limit attempts.
          */
-        store?: Store;
+        store?: Store | undefined;
 
         /**
          * Timeframe for which requests are checked/remembered. Also used in the Retry-After header when the limit is reached.
@@ -136,7 +136,7 @@ declare namespace rateLimit {
          * In some cases the units also differ (e.g. seconds vs miliseconds)
          * @default 60000
          */
-        windowMs?: number;
+        windowMs?: number | undefined;
     }
 }
 

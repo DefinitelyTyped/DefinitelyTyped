@@ -24,7 +24,7 @@ export interface Options {
     addCondition?: Condition;
     condition?: Condition;
     layers?: Layer<Source>[] | ((p0: Layer<Source>) => boolean);
-    style?: StyleLike;
+    style?: StyleLike | null;
     removeCondition?: Condition;
     toggleCondition?: Condition;
     multi?: boolean;

@@ -15,7 +15,7 @@ declare var angular: angular.IAngularStatic;
 // Support for painless dependency injection
 declare global {
     interface Function {
-        $inject?: ReadonlyArray<string>;
+        $inject?: ReadonlyArray<string> | undefined;
     }
 }
 
@@ -48,7 +48,7 @@ declare namespace angular {
     }
 
     interface IAngularBootstrapConfig {
-        strictDi?: boolean;
+        strictDi?: boolean | undefined;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -385,8 +385,8 @@ declare namespace angular {
         $invalid: boolean;
         $submitted: boolean;
         $error: { [validationErrorKey: string]: Array<INgModelController | IFormController> };
-        $name?: string;
-        $pending?: { [validationErrorKey: string]: Array<INgModelController | IFormController> };
+        $name?: string | undefined;
+        $pending?: { [validationErrorKey: string]: Array<INgModelController | IFormController> } | undefined;
         $addControl(control: INgModelController | IFormController): void;
         $getControls(): ReadonlyArray<INgModelController | IFormController>;
         $removeControl(control: INgModelController | IFormController): void;
@@ -428,7 +428,7 @@ declare namespace angular {
         $formatters: IModelFormatter[];
         $viewChangeListeners: IModelViewChangeListener[];
         $error: { [validationErrorKey: string]: boolean };
-        $name?: string;
+        $name?: string | undefined;
 
         $touched: boolean;
         $untouched: boolean;
@@ -436,7 +436,7 @@ declare namespace angular {
         $validators: IModelValidators;
         $asyncValidators: IAsyncModelValidators;
 
-        $pending?: { [validationErrorKey: string]: boolean };
+        $pending?: { [validationErrorKey: string]: boolean } | undefined;
         $pristine: boolean;
         $dirty: boolean;
         $valid: boolean;
@@ -446,22 +446,22 @@ declare namespace angular {
     // Allows tuning how model updates are done.
     // https://docs.angularjs.org/api/ng/directive/ngModelOptions
     interface INgModelOptions {
-        updateOn?: string;
-        debounce?: number | { [key: string]: number; };
-        allowInvalid?: boolean;
-        getterSetter?: boolean;
-        timezone?: string;
+        updateOn?: string | undefined;
+        debounce?: number | { [key: string]: number; } | undefined;
+        allowInvalid?: boolean | undefined;
+        getterSetter?: boolean | undefined;
+        timezone?: string | undefined;
         /**
          * Defines if the time and datetime-local types should show seconds and milliseconds.
          * The option follows the format string of date filter.
          * By default, the options is undefined which is equal to 'ss.sss' (seconds and milliseconds)
          */
-        timeSecondsFormat?: string;
+        timeSecondsFormat?: string | undefined;
         /**
          * Defines if the time and datetime-local types should strip the seconds and milliseconds
          * from the formatted value if they are zero. This option is applied after `timeSecondsFormat`
          */
-        timeStripZeroSeconds?: boolean;
+        timeStripZeroSeconds?: boolean | undefined;
     }
 
     interface IModelValidators {
@@ -481,13 +481,13 @@ declare namespace angular {
          * Setting to a non-positive or non-numeric value, removes the max depth limit
          * @default 5
          */
-        objectMaxDepth?: number;
+        objectMaxDepth?: number | undefined;
         /**
          * Specifies whether the generated error url will contain the parameters of the thrown error.
          * Disabling the parameters can be useful if the generated error url is very long.
          * @default true;
          */
-        urlErrorParamsEnabled?: boolean;
+        urlErrorParamsEnabled?: boolean | undefined;
     }
 
     interface IModelParser {
@@ -1093,7 +1093,7 @@ declare namespace angular {
         // implementation tests it as boolean, which makes more sense
         // since this is a toggler
         html5Mode(active: boolean): ILocationProvider;
-        html5Mode(mode: { enabled?: boolean; requireBase?: boolean; rewriteLinks?: boolean; }): ILocationProvider;
+        html5Mode(mode: { enabled?: boolean | undefined; requireBase?: boolean | undefined; rewriteLinks?: boolean | undefined; }): ILocationProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1317,7 +1317,7 @@ declare namespace angular {
          *
          * capacity — turns the cache into LRU cache.
          */
-        (cacheId: string, optionsMap?: { capacity?: number; }): ICacheObject;
+        (cacheId: string, optionsMap?: { capacity?: number | undefined; }): ICacheObject;
 
         /**
          * Get information about all the caches that have been created.
@@ -1488,11 +1488,11 @@ declare namespace angular {
     }
 
     interface ITemplateLinkingFunctionOptions {
-        parentBoundTranscludeFn?: ITranscludeFunction;
+        parentBoundTranscludeFn?: ITranscludeFunction | undefined;
         transcludeControllers?: {
             [controller: string]: { instance: IController }
-        };
-        futureParentElement?: JQuery;
+        } | undefined;
+        futureParentElement?: JQuery | undefined;
     }
 
     /**
@@ -1647,18 +1647,18 @@ declare namespace angular {
         /**
          * Timeout in milliseconds, or promise that should abort the request when resolved.
          */
-        timeout?: number|IPromise<any>;
+        timeout?: number|IPromise<any> | undefined;
 
         /**
          * See [XMLHttpRequest.responseType]https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#xmlhttprequest-responsetype
          */
-        responseType?: string;
+        responseType?: string | undefined;
 
         /**
          * Name of the parameter added (by AngularJS) to the request to specify the name (in the server response) of the JSON-P callback to invoke.
          * If unspecified, $http.defaults.jsonpCallbackParam will be used by default. This property is only applicable to JSON-P requests.
          */
-        jsonpCallbackParam?: string;
+        jsonpCallbackParam?: string | undefined;
     }
 
     /**
@@ -1678,12 +1678,12 @@ declare namespace angular {
          * Event listeners to be bound to the XMLHttpRequest object.
          * To bind events to the XMLHttpRequest upload object, use uploadEventHandlers. The handler will be called in the context of a $apply block.
          */
-        eventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
+        eventHandlers?: { [type: string]: EventListenerOrEventListenerObject } | undefined;
         /**
          * Event listeners to be bound to the XMLHttpRequest upload object.
          * To bind events to the XMLHttpRequest object, use eventHandlers. The handler will be called in the context of a $apply block.
          */
-        uploadEventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
+        uploadEventHandlers?: { [type: string]: EventListenerOrEventListenerObject } | undefined;
     }
 
     interface IHttpHeadersGetter {
@@ -1752,13 +1752,13 @@ declare namespace angular {
          * headers and returns its transformed (typically serialized) version.
          * @see {@link https://docs.angularjs.org/api/ng/service/$http#transforming-requests-and-responses}
          */
-        transformRequest?: IHttpRequestTransformer |IHttpRequestTransformer[];
+        transformRequest?: IHttpRequestTransformer |IHttpRequestTransformer[] | undefined;
 
         /**
          * Transform function or an array of such functions. The transform function takes the http response body and
          * headers and returns its transformed (typically deserialized) version.
          */
-        transformResponse?: IHttpResponseTransformer | IHttpResponseTransformer[];
+        transformResponse?: IHttpResponseTransformer | IHttpResponseTransformer[] | undefined;
 
         /**
          * Map of strings or functions which return strings representing HTTP headers to send to the server. If the
@@ -1766,25 +1766,25 @@ declare namespace angular {
          * The key of the map is the request verb in lower case. The "common" key applies to all requests.
          * @see {@link https://docs.angularjs.org/api/ng/service/$http#setting-http-headers}
          */
-        headers?: IHttpRequestConfigHeaders;
+        headers?: IHttpRequestConfigHeaders | undefined;
 
         /** Name of HTTP header to populate with the XSRF token. */
-        xsrfHeaderName?: string;
+        xsrfHeaderName?: string | undefined;
 
         /** Name of cookie containing the XSRF token. */
-        xsrfCookieName?: string;
+        xsrfCookieName?: string | undefined;
 
         /**
          * whether to to set the withCredentials flag on the XHR object. See [requests with credentials]https://developer.mozilla.org/en/http_access_control#section_5 for more information.
          */
-        withCredentials?: boolean;
+        withCredentials?: boolean | undefined;
 
         /**
         * A function used to the prepare string representation of request parameters (specified as an object). If
         * specified as string, it is interpreted as a function registered with the $injector. Defaults to
         * $httpParamSerializer.
         */
-        paramSerializer?: string | ((obj: any) => string);
+        paramSerializer?: string | ((obj: any) => string) | undefined;
     }
 
     interface IHttpInterceptor {
@@ -1958,12 +1958,12 @@ declare namespace angular {
          * controller if passed as a string. Empty function by default.
          * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        controller?: string | Injectable<IControllerConstructor>;
+        controller?: string | Injectable<IControllerConstructor> | undefined;
         /**
          * An identifier name for a reference to the controller. If present, the controller will be published to its scope under
          * the specified name. If not present, this will default to '$ctrl'.
          */
-        controllerAs?: string;
+        controllerAs?: string | undefined;
         /**
          * html template as a string or a function that returns an html template as a string which should be used as the
          * contents of this component. Empty string by default.
@@ -1972,7 +1972,7 @@ declare namespace angular {
          * $attrs - Current attributes object for the element
          * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        template?: string | Injectable<(...args: any[]) => string>;
+        template?: string | Injectable<(...args: any[]) => string> | undefined;
         /**
          * Path or function that returns a path to an html template that should be used as the contents of this component.
          * If templateUrl is a function, then it is injected with the following locals:
@@ -1980,23 +1980,23 @@ declare namespace angular {
          * $attrs - Current attributes object for the element
          * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        templateUrl?: string | Injectable<(...args: any[]) => string>;
+        templateUrl?: string | Injectable<(...args: any[]) => string> | undefined;
         /**
          * Define DOM attribute binding to component properties. Component properties are always bound to the component
          * controller and not to the scope.
          */
-        bindings?: {[boundProperty: string]: string};
+        bindings?: {[boundProperty: string]: string} | undefined;
         /**
          * Whether transclusion is enabled. Disabled by default.
          */
-        transclude?: boolean | {[slot: string]: string};
+        transclude?: boolean | {[slot: string]: string} | undefined;
         /**
          * Requires the controllers of other directives and binds them to this component's controller.
          * The object keys specify the property names under which the required controllers (object values) will be bound.
          * Note that the required controllers will not be available during the instantiation of the controller,
          * but they are guaranteed to be available just before the $onInit method is executed!
          */
-        require?: {[controller: string]: string};
+        require?: {[controller: string]: string} | undefined;
     }
 
     type IControllerConstructor =
@@ -2157,8 +2157,8 @@ declare namespace angular {
     }
 
     interface IDirectivePrePost<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
-        pre?: IDirectiveLinkFn<TScope, TElement, TAttributes, TController>;
-        post?: IDirectiveLinkFn<TScope, TElement, TAttributes, TController>;
+        pre?: IDirectiveLinkFn<TScope, TElement, TAttributes, TController> | undefined;
+        post?: IDirectiveLinkFn<TScope, TElement, TAttributes, TController> | undefined;
     }
 
     interface IDirectiveCompileFn<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
@@ -2176,30 +2176,30 @@ declare namespace angular {
     }
 
     interface IDirective<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
-        compile?: IDirectiveCompileFn<TScope, TElement, TAttributes, TController>;
-        controller?: string | Injectable<IControllerConstructor>;
-        controllerAs?: string;
+        compile?: IDirectiveCompileFn<TScope, TElement, TAttributes, TController> | undefined;
+        controller?: string | Injectable<IControllerConstructor> | undefined;
+        controllerAs?: string | undefined;
         /**
          * Deprecation warning: although bindings for non-ES6 class controllers are currently bound to this before
          * the controller constructor is called, this use is now deprecated. Please place initialization code that
          * relies upon bindings inside a $onInit method on the controller, instead.
          */
-        bindToController?: boolean | {[boundProperty: string]: string};
-        link?: IDirectiveLinkFn<TScope, TElement, TAttributes, TController> | IDirectivePrePost<TScope, TElement, TAttributes, TController>;
-        multiElement?: boolean;
-        priority?: number;
+        bindToController?: boolean | {[boundProperty: string]: string} | undefined;
+        link?: IDirectiveLinkFn<TScope, TElement, TAttributes, TController> | IDirectivePrePost<TScope, TElement, TAttributes, TController> | undefined;
+        multiElement?: boolean | undefined;
+        priority?: number | undefined;
         /**
          * @deprecated
          */
-        replace?: boolean;
-        require?: string | string[] | {[controller: string]: string};
-        restrict?: string;
-        scope?: boolean | {[boundProperty: string]: string};
-        template?: string | ((tElement: TElement, tAttrs: TAttributes) => string);
-        templateNamespace?: string;
-        templateUrl?: string | ((tElement: TElement, tAttrs: TAttributes) => string);
-        terminal?: boolean;
-        transclude?: boolean | 'element' | {[slot: string]: string};
+        replace?: boolean | undefined;
+        require?: string | string[] | {[controller: string]: string} | undefined;
+        restrict?: string | undefined;
+        scope?: boolean | {[boundProperty: string]: string} | undefined;
+        template?: string | ((tElement: TElement, tAttrs: TAttributes) => string) | undefined;
+        templateNamespace?: string | undefined;
+        templateUrl?: string | ((tElement: TElement, tAttrs: TAttributes) => string) | undefined;
+        terminal?: boolean | undefined;
+        transclude?: boolean | 'element' | {[slot: string]: string} | undefined;
     }
 
     /**
@@ -2327,7 +2327,7 @@ declare namespace angular {
          * By default, filters are only run once the input value changes. By marking the filter as `$stateful`, the filter will be run on every `$digest` to update the output. **This is strongly discouraged.**
          * See https://docs.angularjs.org/guide/filter#stateful-filters
          */
-        $stateful?: boolean;
+        $stateful?: boolean | undefined;
     }
     type FilterFactory = (...I: any[]) => IFilterFunction;
 }

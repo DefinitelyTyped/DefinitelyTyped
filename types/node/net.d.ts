@@ -273,6 +273,7 @@ declare module 'net' {
          * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
          */
         addAddress(address: string, type?: IPVersion): void;
+        addAddress(address: SocketAddress): void;
 
         /**
          * Adds a rule to block a range of IP addresses from start (inclusive) to end (inclusive).
@@ -282,6 +283,7 @@ declare module 'net' {
          * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
          */
         addRange(start: string, end: string, type?: IPVersion): void;
+        addRange(start: SocketAddress, end: SocketAddress): void;
 
         /**
          * Adds a rule to block a range of IP addresses specified as a subnet mask.
@@ -291,6 +293,7 @@ declare module 'net' {
          * For IPv4, this must be a value between 0 and 32. For IPv6, this must be between 0 and 128.
          * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
          */
+        addSubnet(net: SocketAddress, prefix: number): void;
         addSubnet(net: string, prefix: number, type?: IPVersion): void;
 
         /**
@@ -299,6 +302,7 @@ declare module 'net' {
          * @param address The IP address to check
          * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
          */
+        check(address: SocketAddress): boolean;
         check(address: string, type?: IPVersion): boolean;
     }
 
@@ -323,4 +327,42 @@ declare module 'net' {
     function isIP(input: string): number;
     function isIPv4(input: string): boolean;
     function isIPv6(input: string): boolean;
+
+    interface SocketAddressInitOptions {
+        /**
+         * The network address as either an IPv4 or IPv6 string.
+         * @default 127.0.0.1
+         */
+        address?: string;
+        /**
+         * @default `'ipv4'`
+         */
+        family?: IPVersion;
+        /**
+         * An IPv6 flow-label used only if `family` is `'ipv6'`.
+         * @default 0
+         */
+        flowlabel?: number;
+        /**
+         * An IP port.
+         * @default 0
+         */
+        port?: number;
+    }
+
+    // TODO: Mark as clonable if `kClone` symbol is set in node.
+    /**
+     * Immutable socket address.
+     */
+    class SocketAddress {
+        constructor(options: SocketAddressInitOptions);
+        readonly address: string;
+        readonly family: IPVersion;
+        readonly port: number;
+        readonly flowlabel: number;
+    }
+}
+
+declare module 'node:net' {
+    export * from 'net';
 }

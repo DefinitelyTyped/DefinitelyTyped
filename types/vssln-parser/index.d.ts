@@ -11,14 +11,14 @@ declare function parse(input: fs.ReadStream | string, callback: (solution: parse
 
 declare namespace parse {
   interface VsSolutionFile extends VsSolutionSection, VsSolutionSectionCollection {
-    visualStudioVersion?: string;
-    minimumVisualStudioVersion?: string;
+    visualStudioVersion?: string | undefined;
+    minimumVisualStudioVersion?: string | undefined;
     projects: VsSolutionProject[];
-    solutionConfigurationPlatforms?: VsSolutionSection;
-    projectConfigurationPlatforms?: VsSolutionSection;
-    solutionProperties?: VsSolutionSection;
-    nestedProjects?: VsSolutionSection;
-    teamFoundationVersionControl?: VsSolutionSection;
+    solutionConfigurationPlatforms?: VsSolutionSection | undefined;
+    projectConfigurationPlatforms?: VsSolutionSection | undefined;
+    solutionProperties?: VsSolutionSection | undefined;
+    nestedProjects?: VsSolutionSection | undefined;
+    teamFoundationVersionControl?: VsSolutionSection | undefined;
   }
 
   interface VsSolutionProject extends VsSolutionSection, VsSolutionSectionCollection {
@@ -27,7 +27,7 @@ declare namespace parse {
     projectGuid: string;
     typeGuid: string;
     path: string;
-    projectDependencies?: VsSolutionSection;
+    projectDependencies?: VsSolutionSection | undefined;
   }
 
   interface VsSolutionSection {
