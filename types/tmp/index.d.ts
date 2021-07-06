@@ -7,26 +7,26 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface TmpNameOptions {
-    dir?: string;
-    name?: string;
-    postfix?: string;
-    prefix?: string;
-    template?: string;
-    tmpdir?: string;
-    tries?: number;
+    dir?: string | undefined;
+    name?: string | undefined;
+    postfix?: string | undefined;
+    prefix?: string | undefined;
+    template?: string | undefined;
+    tmpdir?: string | undefined;
+    tries?: number | undefined;
 }
 
 export interface FileOptions extends TmpNameOptions {
-    detachDescriptor?: boolean;
-    discardDescriptor?: boolean;
-    keep?: boolean;
-    mode?: number;
+    detachDescriptor?: boolean | undefined;
+    discardDescriptor?: boolean | undefined;
+    keep?: boolean | undefined;
+    mode?: number | undefined;
 }
 
 export interface DirOptions extends TmpNameOptions {
-    keep?: boolean;
-    mode?: number;
-    unsafeCleanup?: boolean;
+    keep?: boolean | undefined;
+    mode?: number | undefined;
+    unsafeCleanup?: boolean | undefined;
 }
 
 export interface FileResult {

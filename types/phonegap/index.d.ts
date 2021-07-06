@@ -126,7 +126,8 @@ interface Capture {
     captureVideo(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions): void;
 }
 
-interface Connection {
+interface Connection extends EventTarget {
+    type:  "bluetooth" | "cellular" | "ethernet" | "mixed" | "none" | "other" | "unknown" | "wifi";
     UNKNOWN: number;
     ETHERNET: number;
     WIFI: number;
@@ -162,10 +163,6 @@ interface Compass {
     getCurrentHeading(compassSuccess: (heading: CompassHeading) => void , compassError: (error: CompassError) => void , compassOptions?: CompassOptions): void;
     watchHeading(compassSuccess: (heading: CompassHeading) => void , compassError: (error: CompassError) => void , compassOptions?: CompassOptions): void;
     clearWatch(watchID: number): void;
-}
-
-interface Connection {
-    type: number;
 }
 
 interface ContactAddress {
@@ -296,37 +293,37 @@ interface FileWriter {
 }
 
 interface FileSystem {
-    name: string;
-    root: DirectoryEntry;
+    readonly name: string;
+    readonly root: FileSystemDirectoryEntry;
 }
 declare var DirectoryEntry: {
-    new(name: string, root: DirectoryEntry): DirectoryEntry;
+    new(name: string, root: FileSystemDirectoryEntry): FileSystemDirectoryEntry;
 }
 
 interface FileSystemEntry {
-    isFile: boolean;
-    isDirectory: boolean;
-    name: string;
-    fullPath: string;
-    filesystem: FileSystem;
+    readonly isFile: boolean;
+    readonly isDirectory: boolean;
+    readonly name: string;
+    readonly fullPath: string;
+    readonly filesystem: FileSystem;
 
     getMetadata(onSuccess?: (arg: Metadata) => void, onError?: (arg: FileError) => void): void;
     setMetadata(onSuccess?: (arg: Metadata) => void, onError?: (arg: FileError) => void, options?: any): void;
     toURL(): string;
     remove(onSuccess?: () => void, onError?: (arg: FileError) => void): void;
-    getParent(onSuccess?: (arg: DirectoryEntry) => void, onError?: (arg: FileError) => void): void;
+    getParent(onSuccess?: (arg: FileSystemDirectoryEntry) => void, onError?: (arg: FileError) => void): void;
 }
 
 interface FileEntry extends FileSystemEntry {
-    moveTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg: DirectoryEntry) => void, onError: (arg: FileError) => void): void;
-    copyTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg: DirectoryEntry) => void, onError: (arg: FileError) => void): void;
+    moveTo(parentEntry: FileSystemDirectoryEntry, file: string, onSuccess: (arg: FileSystemDirectoryEntry) => void, onError: (arg: FileError) => void): void;
+    copyTo(parentEntry: FileSystemDirectoryEntry, file: string, onSuccess: (arg: FileSystemDirectoryEntry) => void, onError: (arg: FileError) => void): void;
     createWriter(onSuccess?: (arg: FileWriter) => void, onError?: (arg: FileError) => void): void;
     file(onSuccess?: (arg: File) => void, onError?: (arg: FileError) => void): void;
 }
 
-interface DirectoryEntry extends FileSystemEntry {
+interface FileSystemDirectoryEntry extends FileSystemEntry {
     createReader(): DirectoryReader;
-    getDirectory(path: string, options: Flags, successCallback: (result: DirectoryEntry) => void, errorCallback: (error: FileError) => void): void;
+    getDirectory(path: string, options: Flags, successCallback: (result: FileSystemDirectoryEntry) => void, errorCallback: (error: FileError) => void): void;
     getFile(path: string, options: Flags, successCallback: (result: FileEntry) => void, errorCallback: (error: FileError) => void): void;
     removeRecursively(successCallback: () => void, errorCallback: (error: FileError) => void): void;
 }
@@ -610,7 +607,7 @@ interface /*PhoneGapNavigator extends*/ Navigator {
     camera: Camera;
     capture: Capture;
     compass: Compass;
-    connection: Connection;
+    readonly connection: Connection;
     contacts: Contacts;
     device: Device;
     globalization: Globalization;

@@ -50,7 +50,6 @@ export interface PhoneNumber {
     countryCallingCode: string;
     nationalNumber: string;
     country?: string;
-    ext?: string;
     carrierCode?: string;
 }
 
@@ -147,8 +146,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * superceded by `initialValueFormat` property.
      */
     displayInitialValueAsLocalNumber?: boolean;
-    error?: string;
-    flagComponent?: React.ComponentType<{ country: string; flagsPath: string; flags: FlagsMap }>;
+    flagComponent?: React.ComponentType<{ country: string; countryName: string, flagUrl: string; flags: FlagsMap }>;
     flags?: FlagsMap;
     /**
      * A URL template of a country flag, where "{XX}" is a two-letter country code in upper case,
@@ -206,7 +204,6 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * (without "country calling code" `+1`).
      */
     internationalIcon?: React.ComponentType<object>;
-    inputClassName?: string;
     labels?: { [key: string]: string };
     /**
      * If set to true the phone number input will get trimmed if it exceeds the maximum length for the country.
@@ -221,7 +218,6 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * Is called every time the selected country changes: either programmatically or when user selects it manually from the list.
      */
     onCountryChange?: (countryCode?: string) => void;
-    showCountrySelect?: boolean;
     /**
      * By default, the caret position is being "intelligently" managed
      * while a user inputs a phone number.

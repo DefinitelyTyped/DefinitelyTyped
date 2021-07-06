@@ -7,6 +7,7 @@
 //                 Christopher Quadflieg <https://github.com/Shinigami92>
 //                 Kevin Deisz <https://github.com/kddeisz>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
+//                 JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -360,9 +361,14 @@ export interface SupportOptionRange {
 
 export type SupportOptionType = 'int' | 'boolean' | 'choice' | 'path';
 
+export type CoreCategoryType = 'Config' | 'Editor' | 'Format' | 'Other' | 'Output' | 'Global' | 'Special';
+
 export interface BaseSupportOption<Type extends SupportOptionType> {
     readonly name?: string;
     since: string;
+    /**
+     * Usually you can use {@link CoreCategoryType}
+     */
     category: string;
     /**
      * The type of the option.
@@ -387,30 +393,30 @@ export interface BaseSupportOption<Type extends SupportOptionType> {
 }
 
 export interface IntSupportOption extends BaseSupportOption<'int'> {
-    default: number;
+    default?: number;
     array?: false;
     range?: SupportOptionRange;
 }
 
 export interface IntArraySupportOption extends BaseSupportOption<'int'> {
-    default: Array<{ value: number[] }>;
+    default?: Array<{ value: number[] }>;
     array: true;
 }
 
 export interface BooleanSupportOption extends BaseSupportOption<'boolean'> {
-    default: boolean;
+    default?: boolean;
     array?: false;
     description: string;
     oppositeDescription?: string;
 }
 
 export interface BooleanArraySupportOption extends BaseSupportOption<'boolean'> {
-    default: Array<{ value: boolean[] }>;
+    default?: Array<{ value: boolean[] }>;
     array: true;
 }
 
 export interface ChoiceSupportOption<Value = any> extends BaseSupportOption<'choice'> {
-    default: Value | Array<{ since: string; value: Value }>;
+    default?: Value | Array<{ since: string; value: Value }>;
     description: string;
     choices: Array<{
         since?: string;
@@ -420,12 +426,12 @@ export interface ChoiceSupportOption<Value = any> extends BaseSupportOption<'cho
 }
 
 export interface PathSupportOption extends BaseSupportOption<'path'> {
-    default: string;
+    default?: string;
     array?: false;
 }
 
 export interface PathArraySupportOption extends BaseSupportOption<'path'> {
-    default: Array<{ value: string[] }>;
+    default?: Array<{ value: string[] }>;
     array: true;
 }
 

@@ -29,6 +29,8 @@ import { EventEmitter } from 'events';
 import { Options as RangeParserOptions, Result as RangeParserResult, Ranges as RangeParserRanges } from 'range-parser';
 import { ParsedQs } from 'qs';
 
+export {};
+
 export type Query = ParsedQs;
 
 export interface NextFunction {
@@ -96,16 +98,23 @@ export type RequestHandlerParams<
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
     | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
-export type RouteParameterNames<Route extends string> =
-    string extends Route
-        ? string
-        : Route extends `${string}:${infer Param}/${infer Rest}`
-        ? (Param | RouteParameterNames<Rest>)
-        : (Route extends `${string}:${infer LastParam}` ? LastParam : never);
+type GetRouteParameter<RouteAfterColon extends string> = RouteAfterColon extends `${infer Char}${infer Rest}`
+    ? Char extends '/' | '-' | '.'
+        ? ''
+        : `${Char}${GetRouteParameter<Rest>}`
+    : RouteAfterColon;
 
-export type RouteParameters<T extends string> = {
-    [key in RouteParameterNames<T>]: string
-};
+// prettier-ignore
+export type RouteParameters<Route extends string> = string extends Route
+    ? ParamsDictionary
+    : Route extends `${string}(${string}`
+        ? ParamsDictionary //TODO: handling for regex parameters
+        : Route extends `${string}:${infer Rest}`
+            ? (GetRouteParameter<Rest> extends `${infer ParamName}?`
+                ? { [P in ParamName]?: string }
+                : { [P in GetRouteParameter<Rest>]: string }) &
+                (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
+            : { };
 
 export interface IRouterMatcher<
     T,
@@ -319,15 +328,15 @@ export interface IRoute<Route extends string = string> {
 export interface Router extends IRouter {}
 
 export interface CookieOptions {
-    maxAge?: number;
-    signed?: boolean;
-    expires?: Date;
-    httpOnly?: boolean;
-    path?: string;
-    domain?: string;
-    secure?: boolean;
-    encode?: (val: string) => string;
-    sameSite?: boolean | 'lax' | 'strict' | 'none';
+    maxAge?: number | undefined;
+    signed?: boolean | undefined;
+    expires?: Date | undefined;
+    httpOnly?: boolean | undefined;
+    path?: string | undefined;
+    domain?: string | undefined;
+    secure?: boolean | undefined;
+    encode?: ((val: string) => string) | undefined;
+    sameSite?: boolean | 'lax' | 'strict' | 'none' | undefined;
 }
 
 export interface ByteRange {
@@ -631,8 +640,8 @@ export interface Request<
      * After middleware.init executed, Request will contain res and next properties
      * See: express/lib/middleware/init.js
      */
-    res?: Response<ResBody, Locals>;
-    next?: NextFunction;
+    res?: Response<ResBody, Locals> | undefined;
+    next?: NextFunction | undefined;
 }
 
 export interface MediaType {

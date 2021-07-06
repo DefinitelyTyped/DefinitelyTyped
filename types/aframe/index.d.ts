@@ -331,7 +331,6 @@ export interface Utils {
     };
     device: {
         isWebXRAvailable: boolean;
-        getVRDisplay(): VRDisplay[];
         checkHeadsetConnected(): boolean;
         checkHasPositionalTracking(): boolean;
         isMobile(): boolean;

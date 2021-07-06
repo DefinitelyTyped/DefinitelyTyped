@@ -149,8 +149,8 @@ declare namespace factory {
     }
 
     interface Options<T> {
-        afterBuild?: Hook<T>;
-        afterCreate?: Hook<T>;
+        afterBuild?: Hook<T> | undefined;
+        afterCreate?: Hook<T> | undefined;
     }
 
     type Hook<T> = (model: any, attrs: T[], options: any) => void;

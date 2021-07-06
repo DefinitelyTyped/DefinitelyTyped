@@ -1059,7 +1059,7 @@ const arrayOfOptionalExample: yup.InferType<typeof arrayOfOptional> = [{}];
 // augment locale
 declare module './index' {
     interface StringLocale {
-        chineseMobilePhoneNumber?: TestOptionsMessage;
+        chineseMobilePhoneNumber?: TestOptionsMessage | undefined;
     }
 
     interface StringSchema<T extends string | null | undefined = string | undefined, C = object> extends Schema<T, C> {

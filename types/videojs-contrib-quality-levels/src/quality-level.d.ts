@@ -5,9 +5,9 @@ export default class QualityLevel {
 
     readonly label: string;
 
-    readonly width?: number;
+    readonly width?: number | undefined;
 
-    readonly height?: number;
+    readonly height?: number | undefined;
 
     readonly bitrate: number;
 

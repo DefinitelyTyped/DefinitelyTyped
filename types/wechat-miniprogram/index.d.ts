@@ -20,7 +20,7 @@ declare namespace WechatMiniprogram {
     type Optional<F> = F extends (arg: infer P) => infer R ? (arg?: P) => R : F
     type OptionalInterface<T> = { [K in keyof T]: Optional<T[K]> }
     interface AsyncMethodOptionLike {
-        success?: (...args: any[]) => void
+        success?: ((...args: any[]) => void) | undefined
     }
     type PromisifySuccessResult<
         P,

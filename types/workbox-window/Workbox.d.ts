@@ -15,6 +15,6 @@ export class Workbox extends EventTargetShim {
 
 export namespace Workbox {
     interface RegisterOptions {
-        immediate?: boolean;
+        immediate?: boolean | undefined;
     }
 }

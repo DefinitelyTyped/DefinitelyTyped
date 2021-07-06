@@ -25,21 +25,21 @@ declare module 'connect-redis' {
             client: Client;
         }
         interface RedisStoreOptions {
-            client?: Client;
-            host?: string;
-            port?: number;
-            socket?: string;
-            url?: string;
-            ttl?: number | string | ((store: RedisStore, sess: session.SessionData, sid: string) => number);
-            disableTTL?: boolean;
-            disableTouch?: boolean;
-            db?: number;
-            pass?: string;
-            prefix?: string;
-            unref?: boolean;
-            serializer?: Serializer | JSON;
-            logErrors?: boolean | ((error: string) => void);
-            scanCount?: number;
+            client?: Client | undefined;
+            host?: string | undefined;
+            port?: number | undefined;
+            socket?: string | undefined;
+            url?: string | undefined;
+            ttl?: number | string | ((store: RedisStore, sess: session.SessionData, sid: string) => number) | undefined;
+            disableTTL?: boolean | undefined;
+            disableTouch?: boolean | undefined;
+            db?: number | undefined;
+            pass?: string | undefined;
+            prefix?: string | undefined;
+            unref?: boolean | undefined;
+            serializer?: Serializer | JSON | undefined;
+            logErrors?: boolean | ((error: string) => void) | undefined;
+            scanCount?: number | undefined;
         }
         interface Serializer {
             stringify: Function;

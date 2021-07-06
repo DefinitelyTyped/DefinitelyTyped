@@ -13,6 +13,6 @@ declare function duplexer3(options: duplexer3.Options, writableStream: NodeJS.Wr
 
 declare namespace duplexer3 {
     interface Options extends stream.DuplexOptions {
-        bubbleErrors?: boolean;
+        bubbleErrors?: boolean | undefined;
     }
 }

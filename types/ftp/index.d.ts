@@ -16,44 +16,44 @@ declare namespace Client {
         /**
          * The hostname or IP address of the FTP server. Default: 'localhost'
          */
-        host?: string;
+        host?: string | undefined;
         /**
          * The port of the FTP server. Default: 21
          */
-        port?: number;
+        port?: number | undefined;
         /**
          * Set to true for both control and data connection encryption, 'control' for control connection encryption only, or 'implicit' for
          * implicitly encrypted control connection (this mode is deprecated in modern times, but usually uses port 990) Default: false
          */
-        secure?: string | boolean;
+        secure?: string | boolean | undefined;
         /**
          * Additional options to be passed to tls.connect(). Default: (none)
          */
-        secureOptions?: tls.ConnectionOptions;
+        secureOptions?: tls.ConnectionOptions | undefined;
         /**
          * Username for authentication. Default: 'anonymous'
          */
-        user?: string;
+        user?: string | undefined;
         /**
          * Password for authentication. Default: 'anonymous@'
          */
-        password?: string;
+        password?: string | undefined;
         /**
          * How long (in milliseconds) to wait for the control connection to be established. Default: 10000
          */
-        connTimeout?: number;
+        connTimeout?: number | undefined;
         /**
          * How long (in milliseconds) to wait for a PASV data connection to be established. Default: 10000
          */
-        pasvTimeout?: number;
+        pasvTimeout?: number | undefined;
         /**
          * How often (in milliseconds) to send a 'dummy' (NOOP) command to keep the connection alive. Default: 10000
          */
-        keepalive?: number;
+        keepalive?: number | undefined;
         /**
          * Debug function to invoke to enable debug logging.
          */
-        debug?: (message: string) => void;
+        debug?: ((message: string) => void) | undefined;
     }
 
     export interface FilePermissions {
@@ -94,23 +94,23 @@ declare namespace Client {
         /**
          * The various permissions for this entry **(*NIX only)**
          */
-        rights?: Client.FilePermissions;
+        rights?: Client.FilePermissions | undefined;
         /**
          * The user name or ID that this entry belongs to **(*NIX only)**.
          */
-        owner?: string;
+        owner?: string | undefined;
         /**
          * The group name or ID that this entry belongs to **(*NIX only)**.
          */
-        group?: string;
+        group?: string | undefined;
         /**
          * For symlink entries, this is the symlink's target **(*NIX only)**.
          */
-        target?: string;
+        target?: string | undefined;
         /**
          * True if the sticky bit is set for this entry **(*NIX only)**.
          */
-        sticky?: boolean;
+        sticky?: boolean | undefined;
     }
 }
 

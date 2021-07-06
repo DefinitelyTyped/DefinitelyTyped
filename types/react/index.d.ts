@@ -6,7 +6,6 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Benoit Benezech <https://github.com/bbenezech>
 //                 Patricio Zavolinsky <https://github.com/pzavolinsky>
-//                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Josh Rutherford <https://github.com/theruther4d>
@@ -2001,6 +2000,13 @@ declare namespace React {
         | 'strict-origin-when-cross-origin'
         | 'unsafe-url';
 
+    type HTMLAttributeAnchorTarget =
+        | '_self'
+        | '_blank'
+        | '_parent'
+        | '_top'
+        | (string & {});
+
     interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
         download?: any;
         href?: string;
@@ -2008,7 +2014,7 @@ declare namespace React {
         media?: string;
         ping?: string;
         rel?: string;
-        target?: string;
+        target?: HTMLAttributeAnchorTarget;
         type?: string;
         referrerPolicy?: HTMLAttributeReferrerPolicy;
     }

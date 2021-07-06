@@ -6,7 +6,7 @@
 
 declare global {
     interface Function {
-        __wrapped?: boolean;
+        __wrapped?: boolean | undefined;
     }
 }
 
