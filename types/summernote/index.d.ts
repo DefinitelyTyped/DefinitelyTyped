@@ -13,45 +13,45 @@ declare global {
         type fontSizeUnitOptions = 'px' | 'pt';
 
         interface Options {
-            airMode?: boolean;
-            tabDisable?: boolean;
-            codeviewFilter?: boolean;
-            codeviewFilterRegex?: string;
-            codeviewIframeWhitelistSrc?: string[];
-            codeviewIframeFilter?: boolean;
+            airMode?: boolean | undefined;
+            tabDisable?: boolean | undefined;
+            codeviewFilter?: boolean | undefined;
+            codeviewFilterRegex?: string | undefined;
+            codeviewIframeWhitelistSrc?: string[] | undefined;
+            codeviewIframeFilter?: boolean | undefined;
             callbacks?: any; // todo
-            codemirror?: CodemirrorOptions;
-            colors?: colorsDef;
-            dialogsInBody?: boolean;
-            dialogsFade?: boolean;
-            direction?: string;
-            disableDragAndDrop?: boolean;
-            focus?: boolean;
-            fontNames?: string[];
-            fontNamesIgnoreCheck?: string[];
-            fontSizes?: string[];
-            fontSizeUnits?: fontSizeUnitOptions[];
-            height?: number;
-            hint?: HintOptions;
-            icons?: IconsOptions;
-            insertTableMaxSize?: InsertTableMaxSizeOptions;
-            keyMap?: KeyMapOptions;
-            lang?: string;
-            lineHeights?: string[];
-            minHeight?: number;
-            maxHeight?: number;
+            codemirror?: CodemirrorOptions | undefined;
+            colors?: colorsDef | undefined;
+            dialogsInBody?: boolean | undefined;
+            dialogsFade?: boolean | undefined;
+            direction?: string | undefined;
+            disableDragAndDrop?: boolean | undefined;
+            focus?: boolean | undefined;
+            fontNames?: string[] | undefined;
+            fontNamesIgnoreCheck?: string[] | undefined;
+            fontSizes?: string[] | undefined;
+            fontSizeUnits?: fontSizeUnitOptions[] | undefined;
+            height?: number | undefined;
+            hint?: HintOptions | undefined;
+            icons?: IconsOptions | undefined;
+            insertTableMaxSize?: InsertTableMaxSizeOptions | undefined;
+            keyMap?: KeyMapOptions | undefined;
+            lang?: string | undefined;
+            lineHeights?: string[] | undefined;
+            minHeight?: number | undefined;
+            maxHeight?: number | undefined;
             maximumImageFileSize?: any;
-            modules?: ModuleOptions;
-            popover?: PopoverOptions;
-            placeholder?: string;
-            shortcuts?: boolean;
-            styleTags?: styleTagsOptions[];
-            styleWithSpan?: boolean;
-            tabsize?: number;
-            tableClassName?: string;
-            textareaAutoSync?: boolean;
-            toolbar?: toolbarDef;
-            width?: number;
+            modules?: ModuleOptions | undefined;
+            popover?: PopoverOptions | undefined;
+            placeholder?: string | undefined;
+            shortcuts?: boolean | undefined;
+            styleTags?: styleTagsOptions[] | undefined;
+            styleWithSpan?: boolean | undefined;
+            tabsize?: number | undefined;
+            tableClassName?: string | undefined;
+            textareaAutoSync?: boolean | undefined;
+            toolbar?: toolbarDef | undefined;
+            width?: number | undefined;
         }
 
         type toolbarStyleGroupOptions = 'style' | 'bold' | 'italic' | 'underline' | 'clear';
@@ -94,8 +94,8 @@ declare global {
         }
 
         interface KeyMapOptions {
-            pc?: KeyMapPcOptions;
-            mac?: KeyMapMacOptions;
+            pc?: KeyMapPcOptions | undefined;
+            mac?: KeyMapMacOptions | undefined;
         }
 
         interface KeyMapPcOptions {
@@ -109,19 +109,19 @@ declare global {
         type htmlElement = string;
 
         interface HintOptions {
-            words?: string[];
-            mentions?: string[];
+            words?: string[] | undefined;
+            mentions?: string[] | undefined;
             match: RegExp;
             search: (keyword: string, callback: (plausibleItems: string[]) => void) => void;
-            template?: (item: string) => htmlElement;
-            content?: (item: string) => htmlElement | JQuery.Node;
+            template?: ((item: string) => htmlElement) | undefined;
+            content?: ((item: string) => htmlElement | JQuery.Node) | undefined;
         }
 
         interface CodemirrorOptions {
-            mode?: string;
-            htmlNode?: boolean;
-            lineNumbers?: boolean;
-            theme?: string;
+            mode?: string | undefined;
+            htmlNode?: boolean | undefined;
+            lineNumbers?: boolean | undefined;
+            theme?: string | undefined;
         }
 
         type popoverImageOptionsImagesize = 'imageSize100' | 'imageSize50' | 'imageSize25';
@@ -152,9 +152,9 @@ declare global {
         ];
 
         interface PopoverOptions {
-            image?: popoverImageDef;
-            link?: popoverLinkDef;
-            air?: popoverAirDef;
+            image?: popoverImageDef | undefined;
+            link?: popoverLinkDef | undefined;
+            air?: popoverAirDef | undefined;
         }
 
         interface ModuleOptions {

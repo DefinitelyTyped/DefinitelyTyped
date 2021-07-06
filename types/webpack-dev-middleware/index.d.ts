@@ -24,34 +24,34 @@ declare namespace WebpackDevMiddleware {
         /**
          * This property allows a user to register custom mime types or extension mappings
          */
-        mimeTypes?: MimeTypeMap;
+        mimeTypes?: MimeTypeMap | undefined;
         /**
          * If true, the option will instruct the module to write files to the configured location on disk as specified in your webpack config file
          * This option also accepts a Function value, which can be used to filter which files are written to disk
          */
-        writeToDisk?: boolean | ((filename: string) => boolean);
+        writeToDisk?: boolean | ((filename: string) => boolean) | undefined;
         /**
          * This property allows a user to pass the list of HTTP request methods accepted by the server.
          * @default [ 'GET', 'HEAD' ]
          */
-        methods?: string[];
+        methods?: string[] | undefined;
         /** This property allows a user to pass custom HTTP headers on each request. eg. { "X-Custom-Header": "yes" } */
-        headers?: Record<string, string> | HeadersHandle;
+        headers?: Record<string, string> | HeadersHandle | undefined;
         /** The public path that the middleware is bound to */
-        publicPath?: string;
+        publicPath?: string | undefined;
         /** Instructs the module to enable or disable the server-side rendering mode */
-        serverSideRender?: boolean;
+        serverSideRender?: boolean | undefined;
         /** Stats options object or preset name. */
-        stats?: webpack.Configuration['stats'];
+        stats?: webpack.Configuration['stats'] | undefined;
         /**
          * Set the default file system which will be used by webpack as primary destination of generated files
          */
-        outputFileSystem?: webpack.Compiler['outputFileSystem'];
+        outputFileSystem?: webpack.Compiler['outputFileSystem'] | undefined;
         /**
          * The index path for web server, defaults to "index.html".
          * If falsy (but not undefined), the server will not respond to requests to the root URL.
          */
-        index?: string | boolean;
+        index?: string | boolean | undefined;
     }
 
     interface MimeTypeMap {

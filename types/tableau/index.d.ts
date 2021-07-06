@@ -264,36 +264,36 @@ declare namespace tableau {
 
     interface VizCreateOptions {
         /** Undoes action on sheet, defaults to a single undo unless optional parameters is specified. */
-        hideTabs?: boolean;
+        hideTabs?: boolean | undefined;
         /** Indicates whether the toolbar is hidden or shown. */
-        hideToolbar?: boolean;
+        hideToolbar?: boolean | undefined;
         /**
          * Specifies the ID of an existing instance to make a copy (clone) of.
          * This is useful if the user wants to continue analysis of an existing visualization without losing the state of the original.
          * If the ID does not refer to an existing visualization, the cloned version is derived from the original visualization.
          */
-        instanceIdToClone?: string;
+        instanceIdToClone?: string | undefined;
         /** Can be any valid CSS size specifier. If not specified, defaults to the published height of the view. */
-        height?: string;
+        height?: string | undefined;
         /** Can be any valid CSS size specifier. If not specified, defaults to the published height of the view. */
-        width?: string;
+        width?: string | undefined;
         /**
          * Specifies a device layout for a dashboard, if it exists.
          * Values can be desktop, tablet, or phone.
          * If not specified, defaults to loading a layout based on the smallest dimension of the hosting iframe element.
          */
-        device?: string;
+        device?: string | undefined;
         /**
          * Callback function that is invoked when the Viz object first becomes interactive.
          * This is only called once, but it’s guaranteed to be called.
          * If the Viz object is already interactive, it will be called immediately, but on a separate "thread."
          */
-        onFirstInteractive?: (e: TableauEvent) => void;
+        onFirstInteractive?: ((e: TableauEvent) => void) | undefined;
         /**
          * Callback function that's invoked when the size of the Viz object is known.
          * You can use this callback to perform tasks such as resizing the elements surrounding the Viz object once the object's size has been established.
          */
-        onFirstVizSizeKnown?: (e: VizResizeEvent) => void;
+        onFirstVizSizeKnown?: ((e: VizResizeEvent) => void) | undefined;
         /**
          * Apply a filter that you specify to the view when it is first rendered.
          * For example, if you have an Academic Year filter and only want to display data for 2017,
@@ -606,20 +606,20 @@ declare namespace tableau {
 
     interface getSummaryDataOptions {
         /** Do not use aliases specified in the data source in Tableau. Default is false. */
-        ignoreAliases?: boolean;
+        ignoreAliases?: boolean | undefined;
         /** Only return data for the currently selected marks. Default is false. */
-        ignoreSelection?: boolean;
+        ignoreSelection?: boolean | undefined;
         /** The number of rows of data that you want to return. Enter 0 to return all rows. */
         maxRows: number;
     }
 
     interface getUnderlyingDataOptions {
         /** Do not use aliases specified in the data source in Tableau. Default is false. */
-        ignoreAliases?: boolean;
+        ignoreAliases?: boolean | undefined;
         /** Only return data for the currently selected marks. Default is false. */
-        ignoreSelection?: boolean;
+        ignoreSelection?: boolean | undefined;
         /** Return all the columns for the data source. Default is false. */
-        ignoreAllColumns?: boolean;
+        ignoreAllColumns?: boolean | undefined;
         /** The number of rows of data that you want to return. Enter 0 to return all rows. */
         maxRows: number;
     }

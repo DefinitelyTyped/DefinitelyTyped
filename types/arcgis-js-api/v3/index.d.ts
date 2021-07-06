@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.36
+// Type definitions for ArcGIS API for JavaScript 3.37
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -2532,7 +2532,7 @@ declare module "esri/Credential" {
   class Credential {
     /** Token expiration time specified as number of milliseconds since 1 January 1970 00:00:00 UTC. */
     expires: number;
-    /** Indicates that this credential was created to access the ArcGIS REST Admin service */
+    /** Indicates that this credential was created to access the ArcGIS REST Admin service. */
     isAdmin: boolean;
     /** The Identity Manager's  setOAuthRedirectionHandler returns an object that contains a "state" parameter. */
     oAuthState: any;
@@ -11900,7 +11900,7 @@ declare module "esri/layers/WFSLayer" {
      */
     constructor(options: esri.WFSLayerOptions);
     /**
-     * Creates a WFSLayer using the provided JSON object.
+     * Initializes a WFSLayer using the provided JSON object.
      * @param json The input JSON.
      * @param callback The function to call when the method has completed.
      */

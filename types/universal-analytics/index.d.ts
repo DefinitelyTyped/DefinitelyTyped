@@ -10,31 +10,31 @@ declare namespace ua {
     type Callback = (error: Error | null, count: number) => void;
 
     interface VisitorOptions {
-        hostname?: string;
-        path?: string;
-        https?: boolean;
-        enableBatching?: boolean;
-        batchSize?: number;
+        hostname?: string | undefined;
+        path?: string | undefined;
+        https?: boolean | undefined;
+        enableBatching?: boolean | undefined;
+        batchSize?: number | undefined;
         /**
          * Tracking ID
          */
-        tid?: string;
+        tid?: string | undefined;
         /**
          * Client ID
          */
-        cid?: string;
+        cid?: string | undefined;
         /**
          * User ID
          */
-        uid?: string;
-        debug?: boolean;
-        strictCidFormat?: boolean;
-        requestOptions?: { [key: string]: any };
-        headers?: { [key: string]: string };
+        uid?: string | undefined;
+        debug?: boolean | undefined;
+        strictCidFormat?: boolean | undefined;
+        requestOptions?: { [key: string]: any } | undefined;
+        headers?: { [key: string]: string } | undefined;
     }
 
     interface MiddlewareOptions extends VisitorOptions {
-        cookieName?: string;
+        cookieName?: string | undefined;
     }
 
     interface PageviewParams {
@@ -45,7 +45,7 @@ declare namespace ua {
          *
          * Max length: 2048 Bytes
          */
-        dp?: string;
+        dp?: string | undefined;
         /**
          * Document Host Name
          *
@@ -53,7 +53,7 @@ declare namespace ua {
          *
          * Max length: 100 Bytes
          */
-        dh?: string;
+        dh?: string | undefined;
         /**
          * Document Title
          *
@@ -61,7 +61,7 @@ declare namespace ua {
          *
          * Max length: 1500 Bytes
          */
-        dt?: string;
+        dt?: string | undefined;
         /**
          * Document location URL
          *
@@ -69,7 +69,7 @@ declare namespace ua {
          *
          * Max length: 2048 Bytes
          */
-        dl?: string;
+        dl?: string | undefined;
         [key: string]: any;
     }
 
@@ -84,7 +84,7 @@ declare namespace ua {
          *
          * Example value: `High Scores`
          */
-        cd?: string;
+        cd?: string | undefined;
         /**
          * Application Name
          *
@@ -95,7 +95,7 @@ declare namespace ua {
          *
          * Example value: `My App`
          */
-        an?: string;
+        an?: string | undefined;
         /**
          * Application Version
          *
@@ -105,7 +105,7 @@ declare namespace ua {
          *
          * Example value: `1.2`
          */
-        av?: string;
+        av?: string | undefined;
         /**
          * Application ID
          *
@@ -115,7 +115,7 @@ declare namespace ua {
          *
          * Example value: `com.company.app`
          */
-        aid?: string;
+        aid?: string | undefined;
         /**
          * Application Installer ID
          *
@@ -125,7 +125,7 @@ declare namespace ua {
          *
          * Example value: `com.platform.vending`
          */
-        aiid?: string;
+        aiid?: string | undefined;
         [key: string]: any;
     }
 
@@ -141,7 +141,7 @@ declare namespace ua {
          *
          * Example value: `Category`
          */
-        ec?: string;
+        ec?: string | undefined;
         /**
          * Event Action
          *
@@ -153,7 +153,7 @@ declare namespace ua {
          *
          * Example value: `Action`
          */
-        ea?: string;
+        ea?: string | undefined;
         /**
          * Event Label
          *
@@ -163,7 +163,7 @@ declare namespace ua {
          *
          * Example value: `Label`
          */
-        el?: string;
+        el?: string | undefined;
         /**
          * Event Value
          *
@@ -171,9 +171,9 @@ declare namespace ua {
          *
          * Example value: `55`
          */
-        ev?: string | number;
-        p?: string;
-        dp?: string;
+        ev?: string | number | undefined;
+        p?: string | undefined;
+        dp?: string | undefined;
         [key: string]: any;
     }
 
@@ -191,7 +191,7 @@ declare namespace ua {
          *
          * Example value: `OD564`
          */
-        ti?: string;
+        ti?: string | undefined;
         /**
          * Transaction Revenue
          *
@@ -200,7 +200,7 @@ declare namespace ua {
          *
          * Example value: `15.47`
          */
-        tr?: string | number;
+        tr?: string | number | undefined;
         /**
          * Transaction Shipping
          *
@@ -208,7 +208,7 @@ declare namespace ua {
          *
          * Example value: `3.50`
          */
-        ts?: string | number;
+        ts?: string | number | undefined;
         /**
          * Transaction Tax
          *
@@ -216,7 +216,7 @@ declare namespace ua {
          *
          * Example value: `11.20`
          */
-        tt?: string | number;
+        tt?: string | number | undefined;
         /**
          * Transaction Affiliation
          *
@@ -226,8 +226,8 @@ declare namespace ua {
          *
          * Example value: `Member`
          */
-        ta?: string;
-        p?: string;
+        ta?: string | undefined;
+        p?: string | undefined;
         [key: string]: any;
     }
 
@@ -239,7 +239,7 @@ declare namespace ua {
          *
          * Example value: `3.50`
          */
-        ip?: string | number;
+        ip?: string | number | undefined;
         /**
          * Item Quantity
          *
@@ -247,7 +247,7 @@ declare namespace ua {
          *
          * Example value: `4`
          */
-        iq?: string | number;
+        iq?: string | number | undefined;
         /**
          * Item Code
          *
@@ -257,7 +257,7 @@ declare namespace ua {
          *
          * Example value: `SKU47`
          */
-        ic?: string;
+        ic?: string | undefined;
         /**
          * Item Name
          *
@@ -269,7 +269,7 @@ declare namespace ua {
          *
          * Example value: `Shoe`
          */
-        in?: string;
+        in?: string | undefined;
         /**
          * Item Category
          *
@@ -279,8 +279,8 @@ declare namespace ua {
          *
          * Example value: `Blue`
          */
-        iv?: string;
-        p?: string;
+        iv?: string | undefined;
+        p?: string | undefined;
         /**
          * Transaction ID
          *
@@ -293,7 +293,7 @@ declare namespace ua {
          *
          * Example value: `OD564`
          */
-        ti?: string;
+        ti?: string | undefined;
         [key: string]: any;
     }
 
@@ -307,13 +307,13 @@ declare namespace ua {
          *
          * Example value: `DatabaseError`
          */
-        exd?: string;
+        exd?: string | undefined;
         /**
          * Is Exception Fatal?
          *
          * Specifies whether the exception was fatal.
          */
-        exf?: boolean;
+        exf?: boolean | undefined;
         [key: string]: any;
     }
 
@@ -329,7 +329,7 @@ declare namespace ua {
          *
          * Example value: `category`
          */
-        utc?: string;
+        utc?: string | undefined;
         /**
          * User timing variable name
          *
@@ -341,7 +341,7 @@ declare namespace ua {
          *
          * Example value: `lookup`
          */
-        utv?: string;
+        utv?: string | undefined;
         /**
          * User timing time
          *
@@ -351,7 +351,7 @@ declare namespace ua {
          *
          * Example value: `123`
          */
-        utt?: string | number;
+        utt?: string | number | undefined;
         /**
          * User timing label
          *
@@ -361,7 +361,7 @@ declare namespace ua {
          *
          * Example value: `label`
          */
-        utl?: string;
+        utl?: string | undefined;
         [key: string]: any;
     }
 
@@ -369,7 +369,7 @@ declare namespace ua {
         /**
          * Client ID
          */
-        cid?: string;
+        cid?: string | undefined;
     }
 
     class Visitor {

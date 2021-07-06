@@ -16,24 +16,24 @@ declare namespace StatsdClient {
         /**
          * Prefix all stats with this value (default "").
          */
-        prefix?: string;
+        prefix?: string | undefined;
 
         /**
          * Print what is being sent to stderr (default false).
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * Object of string key/value pairs which will be appended on
          * to all StatsD payloads (excluding raw payloads)
          * (default {})
          */
-        tags?: Tags;
+        tags?: Tags | undefined;
 
         /**
          * User specifically wants to use tcp (default false)
          */
-        tcp?: boolean;
+        tcp?: boolean | undefined;
 
         /**
          * Dual-use timer. Will flush metrics every interval. For UDP,
@@ -42,19 +42,19 @@ declare namespace StatsdClient {
          * the socket after socketTimeoutsToClose number of timeouts
          * have elapsed without activity.
          */
-        socketTimeout?: number;
+        socketTimeout?: number | undefined;
     }
 
     interface TcpOptions extends CommonOptions {
         /**
          * Where to send the stats (default localhost).
          */
-        host?: string;
+        host?: string | undefined;
 
         /**
          * Port to contact the statsd-daemon on (default 8125).
          */
-        port?: number;
+        port?: number | undefined;
 
         /**
          * Number of timeouts in which the socket auto-closes if it
@@ -68,29 +68,29 @@ declare namespace StatsdClient {
         /**
          * Where to send the stats (default localhost).
          */
-        host?: string;
+        host?: string | undefined;
 
         /**
          * Port to contact the statsd-daemon on (default 8125).
          */
-        port?: number;
+        port?: number | undefined;
     }
 
     interface HttpOptions extends CommonOptions {
         /**
          * Where to send the stats (default localhost).
          */
-        host?: string;
+        host?: string | undefined;
 
         /**
          * Additional headers to send (default {}).
          */
-        headers?: { [index: string]: string };
+        headers?: { [index: string]: string } | undefined;
 
         /**
          * What HTTP method to use (default "PUT").
          */
-        method?: string;
+        method?: string | undefined;
     }
 
     interface ExpressMiddlewareOptions {
@@ -98,19 +98,19 @@ declare namespace StatsdClient {
          * Metric name to use for reporting if a matching route is not
          * found (default "unknown_express_route").
          */
-        notFoundRouteName?: string;
+        notFoundRouteName?: string | undefined;
 
         /**
          * Optional callback called after reporting metrics for an
          * express route.
          */
-        onResponseEnd?: (client: StatsdClient, startTime: Date, req: express.Request, res: express.Response) => void;
+        onResponseEnd?: ((client: StatsdClient, startTime: Date, req: express.Request, res: express.Response) => void) | undefined;
 
         /**
          * Enables inclusion of per-URL response code and timing
          * metrics (default false).
          */
-        timeByUrl?: boolean;
+        timeByUrl?: boolean | undefined;
     }
 }
 

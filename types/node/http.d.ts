@@ -229,6 +229,11 @@ declare module 'http' {
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
+        /**
+         * Returns an array containing the unique names of the current outgoing raw headers.
+         * Header names are returned with their exact casing being set.
+         */
+        getRawHeaderNames(): string[];
 
         addListener(event: 'abort', listener: () => void): this;
         addListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
@@ -431,4 +436,8 @@ declare module 'http' {
      * expected by the `http.request()` and `https.request()` APIs.
      */
     function urlToHttpOptions(url: URL): ClientRequestArgs;
+}
+
+declare module 'node:http' {
+    export * from 'http';
 }

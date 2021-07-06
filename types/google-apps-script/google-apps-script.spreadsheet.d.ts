@@ -1577,6 +1577,8 @@ declare namespace GoogleAppsScript {
     interface RichTextValue {
       copy(): RichTextValueBuilder;
       getEndIndex(): Integer;
+      getLinkUrl(): string | null;
+      getLinkUrl(startOffset: Integer, endOffset: Integer): string | null;
       getRuns(): RichTextValue[];
       getStartIndex(): Integer;
       getText(): string;
@@ -1588,6 +1590,8 @@ declare namespace GoogleAppsScript {
      */
     interface RichTextValueBuilder {
       build(): RichTextValue;
+      setLinkUrl(startOffset: Integer, endOffset: Integer, linkUrl: string | null): RichTextValueBuilder;
+      setLinkUrl(linkUrl: string | null): RichTextValueBuilder;
       setText(text: string): RichTextValueBuilder;
       setTextStyle(startOffset: Integer, endOffset: Integer, textStyle: TextStyle | null): RichTextValueBuilder;
       setTextStyle(textStyle: TextStyle | null): RichTextValueBuilder;

@@ -179,7 +179,7 @@ export interface VueSelectSlotScope {
             type: 'search';
             autocomplete: VueSelectProps['autocomplete'];
             value: VueSelectData['search'];
-            'aria-activedescendant'?: string;
+            'aria-activedescendant'?: string | undefined;
         };
         events: {
             'compositionstart': () => any;

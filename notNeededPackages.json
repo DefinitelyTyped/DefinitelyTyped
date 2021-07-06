@@ -1745,6 +1745,10 @@
             "libraryName": "html-webpack-tags-plugin",
             "asOfVersion": "2.0.16"
         },
+        "html2canvas": {
+            "libraryName": "html2canvas",
+            "asOfVersion": "1.0.0"
+        },
         "http-graceful-shutdown": {
             "libraryName": "http-graceful-shutdown",
             "asOfVersion": "2.3.0"

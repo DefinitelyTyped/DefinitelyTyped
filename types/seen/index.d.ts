@@ -101,13 +101,13 @@ export class CanvasRenderContext extends RenderContext {
 
 export class CanvasStyler {
     constructor(ctx: CanvasRenderingContext2D);
-    draw(style?: { stroke?: string, 'stroke-width'?: number, 'text-anchor'?: string }): this;
-    fill(style?: { fill?: string, 'fill-opacity'?: number, 'text-anchor'?: string }): this;
+    draw(style?: { stroke?: string | undefined, 'stroke-width'?: number | undefined, 'text-anchor'?: string | undefined }): this;
+    fill(style?: { fill?: string | undefined, 'fill-opacity'?: number | undefined, 'text-anchor'?: string | undefined }): this;
 }
 
 export class CanvasTextPainter {
     constructor(ctx: CanvasRenderingContext2D);
-    fillText(m: Matrix, text: string, style?: { font: string, fill?: string, 'text-anchor'?: string }): this;
+    fillText(m: Matrix, text: string, style?: { font: string, fill?: string | undefined, 'text-anchor'?: string | undefined }): this;
 }
 
 /**
@@ -138,7 +138,7 @@ export class Drag {
     inertia: boolean;
     dispatch: Events.Dispatcher;
     defaults: { inertia: boolean };
-    constructor(elementOrId: string | HTMLElement, options?: { inertia?: boolean });
+    constructor(elementOrId: string | HTMLElement, options?: { inertia?: boolean | undefined });
     on(type: string, listener: (e: { offset: number[], offsetRelative: number[] }) => void): Events.Dispatcher;
 }
 
@@ -171,11 +171,11 @@ export class InertialMouse {
 }
 
 export interface LightOptions {
-    point?: Point;
-    color?: Color;
-    intensity?: number;
-    normal?: Point;
-    enabled?: boolean;
+    point?: Point | undefined;
+    color?: Color | undefined;
+    intensity?: number | undefined;
+    normal?: Point | undefined;
+    enabled?: boolean | undefined;
 }
 
 /**
@@ -208,11 +208,11 @@ export class LightRenderModel {
 }
 
 export interface MaterialOptions {
-    color?: Color;
-    metallic?: boolean;
-    specularColor?: Color;
-    specularExponent?: number;
-    shader?: Shader;
+    color?: Color | undefined;
+    metallic?: boolean | undefined;
+    specularColor?: Color | undefined;
+    specularExponent?: number | undefined;
+    shader?: Shader | undefined;
 }
 
 /**
@@ -287,13 +287,13 @@ export class Model extends Transformable {
 }
 
 export interface MouseEventOptions {
-    dragStart?: EventListener;
-    drag?: EventListener;
-    dragEnd?: EventListener;
-    mouseMove?: EventListener;
-    mouseDown?: EventListener;
-    mouseUp?: EventListener;
-    mouseWheel?: EventListener;
+    dragStart?: EventListener | undefined;
+    drag?: EventListener | undefined;
+    dragEnd?: EventListener | undefined;
+    mouseMove?: EventListener | undefined;
+    mouseDown?: EventListener | undefined;
+    mouseUp?: EventListener | undefined;
+    mouseWheel?: EventListener | undefined;
 }
 
 /**
@@ -431,13 +431,13 @@ export class Scene {
 }
 
 export interface SceneOptions {
-    model?: Model;
-    camera?: Camera;
-    viewport?: Viewport;
-    shader?: Shader;
-    cullBackfaces?: boolean;
-    fractionalPoints?: boolean;
-    cache?: boolean;
+    model?: Model | undefined;
+    camera?: Camera | undefined;
+    viewport?: Viewport | undefined;
+    shader?: Shader | undefined;
+    cullBackfaces?: boolean | undefined;
+    fractionalPoints?: boolean | undefined;
+    cache?: boolean | undefined;
 }
 
 export class SceneLayer extends RenderLayer {
@@ -588,7 +588,7 @@ export class Transformable {
 export class Transition {
     duration: number;
     defaults: { duration: number };
-    constructor(options?: { duration?: number });
+    constructor(options?: { duration?: number | undefined });
     firstFrame(): void;
     frame(): void;
     lastFrame(): void;
@@ -617,7 +617,7 @@ export class Zoom {
     speed: number;
     dispatch: Events.Dispatcher;
     defaults: { smooth: boolean };
-    constructor(elementOrId: string | HTMLElement, options?: { smooth?: boolean });
+    constructor(elementOrId: string | HTMLElement, options?: { smooth?: boolean | undefined });
 }
 
 export const Painters: {

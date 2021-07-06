@@ -18,13 +18,13 @@ export interface SSRPassParams {
     renderer: WebGLRenderer;
     scene: Scene;
     camera: Camera;
-    width?: number;
-    height?: number;
+    width?: number | undefined;
+    height?: number | undefined;
     selects: Mesh[] | null;
     encoding: TextureEncoding;
-    isPerspectiveCamera?: boolean;
-    isBouncing?: boolean;
-    morphTargets?: boolean;
+    isPerspectiveCamera?: boolean | undefined;
+    isBouncing?: boolean | undefined;
+    morphTargets?: boolean | undefined;
     groundReflector: Reflector | null;
 }
 

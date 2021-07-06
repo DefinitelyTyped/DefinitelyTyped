@@ -1,9 +1,9 @@
 import { PageConfig } from "./page";
 
 export interface AppConfig {
-    appEvents?: string[];
-    pageEvents?: string[];
-    noPromiseAPI?: string[] | { [name: string]: boolean };
+    appEvents?: string[] | undefined;
+    pageEvents?: string[] | undefined;
+    noPromiseAPI?: string[] | { [name: string]: boolean } | undefined;
 }
 
 export interface AppConstructor {

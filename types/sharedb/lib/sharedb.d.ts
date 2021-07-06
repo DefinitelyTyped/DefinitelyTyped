@@ -18,7 +18,7 @@ export interface Snapshot<T = any> {
     id: IDString;
     v: VersionNumber;
     type: string | null;
-    data?: T;
+    data?: T | undefined;
     m: SnapshotMeta | null;
 }
 
@@ -63,8 +63,8 @@ export type EditOp = RawOp & { op: any[]; create: undefined; del: undefined; };
 export type OTType = 'ot-text' | 'ot-json0' | 'ot-json1' | 'ot-text-tp2' | 'rich-text';
 
 export interface Type {
-    name?: string;
-    uri?: string;
+    name?: string | undefined;
+    uri?: string | undefined;
     create(initialData?: any): any;
     apply(snapshot: any, op: any): any;
     transform(op1: any, op2: any, side: 'left' | 'right'): any;
@@ -83,9 +83,9 @@ export interface Types {
 
 export type LoggerFunction = typeof console.log;
 export interface LoggerOverrides {
-    info?: LoggerFunction;
-    warn?: LoggerFunction;
-    error?: LoggerFunction;
+    info?: LoggerFunction | undefined;
+    warn?: LoggerFunction | undefined;
+    error?: LoggerFunction | undefined;
 }
 export class Logger {
     setMethods(overrides: LoggerOverrides): void;
@@ -221,24 +221,24 @@ export interface AnyDataObject {
 }
 
 export interface ServerResponseSuccess {
-    a?: RequestAction;
-    c?: CollectionName;
-    d?: DocumentID;
+    a?: RequestAction | undefined;
+    c?: CollectionName | undefined;
+    d?: DocumentID | undefined;
     extra?: any;
-    v?: VersionNumber;
-    id?: number;
-    protocol?: number;
-    protocolMinor?: number;
-    type?: string;
-    data?: AnyDataObject | AnyDataObject[];
+    v?: VersionNumber | undefined;
+    id?: number | undefined;
+    protocol?: number | undefined;
+    protocolMinor?: number | undefined;
+    type?: string | undefined;
+    data?: AnyDataObject | AnyDataObject[] | undefined;
 }
 
 export interface ServerResponseError extends ServerResponseSuccess {
     error: Error;
-    b?: BulkRequestData;
-    o?: AnyDataObject;
-    q?: RequestQuery;
-    r?: Array<[IDString, VersionNumber]>;
+    b?: BulkRequestData | undefined;
+    o?: AnyDataObject | undefined;
+    q?: RequestQuery | undefined;
+    r?: Array<[IDString, VersionNumber]> | undefined;
 }
 
 export interface Socket {

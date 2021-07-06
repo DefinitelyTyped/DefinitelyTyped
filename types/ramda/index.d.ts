@@ -1901,7 +1901,8 @@ export function takeWhile<T>(fn: (x: T) => boolean, list: readonly T[]): T[];
 export function takeWhile<T>(fn: (x: T) => boolean): (list: readonly T[]) => T[];
 
 /**
- * The function to call with x. The return value of fn will be thrown away.
+ * Runs the given function with the supplied object, then returns the object.
+ * Acts as a transducer if a transformer is given as second parameter.
  */
 export function tap<T>(fn: (a: T) => any, value: T): T;
 export function tap<T>(fn: (a: T) => any): (value: T) => T;

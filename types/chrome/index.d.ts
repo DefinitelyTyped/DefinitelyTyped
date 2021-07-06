@@ -101,14 +101,14 @@ declare namespace chrome.action {
         /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
         color: string | ColorArray;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     export interface BadgeTextDetails {
         /** Any number of characters can be passed, but only about four can fit in the space. */
         text: string;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     export type ColorArray = [number, number, number, number];
@@ -117,12 +117,12 @@ declare namespace chrome.action {
         /** The string the action should display when moused over. */
         title: string;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     export interface PopupDetails {
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number;
+        tabId?: number | undefined;
         /** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
         popup: string;
     }
@@ -131,16 +131,16 @@ declare namespace chrome.action {
 
     export interface TabIconDetails {
         /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
-        path?: string | { [index: number]: string };
+        path?: string | { [index: number]: string } | undefined;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number;
+        tabId?: number | undefined;
         /** Optional. Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'  */
-        imageData?: ImageData | { [index: number]: ImageData };
+        imageData?: ImageData | { [index: number]: ImageData } | undefined;
     }
 
     export interface TabDetails {
         /** Optional. The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned.  */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     /**
@@ -322,16 +322,16 @@ declare namespace chrome.action {
 declare namespace chrome.alarms {
     export interface AlarmCreateInfo {
         /** Optional. Length of time in minutes after which the onAlarm event should fire.  */
-        delayInMinutes?: number;
+        delayInMinutes?: number | undefined;
         /** Optional. If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once.  */
-        periodInMinutes?: number;
+        periodInMinutes?: number | undefined;
         /** Optional. Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n).  */
-        when?: number;
+        when?: number | undefined;
     }
 
     export interface Alarm {
         /** Optional. If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes.  */
-        periodInMinutes?: number;
+        periodInMinutes?: number | undefined;
         /** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
         scheduledTime: number;
         /** Name of this alarm. */
@@ -475,21 +475,21 @@ declare namespace chrome.bookmarks {
     /** A node (either a bookmark or a folder) in the bookmark tree. Child nodes are ordered within their parent folder. */
     export interface BookmarkTreeNode {
         /** Optional. The 0-based position of this node within its parent folder.  */
-        index?: number;
+        index?: number | undefined;
         /** Optional. When this node was created, in milliseconds since the epoch (new Date(dateAdded)).  */
-        dateAdded?: number;
+        dateAdded?: number | undefined;
         /** The text displayed for the node. */
         title: string;
         /** Optional. The URL navigated to when a user clicks the bookmark. Omitted for folders.   */
-        url?: string;
+        url?: string | undefined;
         /** Optional. When the contents of this folder last changed, in milliseconds since the epoch.   */
-        dateGroupModified?: number;
+        dateGroupModified?: number | undefined;
         /** The unique identifier for the node. IDs are unique within the current profile, and they remain valid even after the browser is restarted.  */
         id: string;
         /** Optional. The id of the parent folder. Omitted for the root node.   */
-        parentId?: string;
+        parentId?: string | undefined;
         /** Optional. An ordered list of children of this node.  */
-        children?: BookmarkTreeNode[];
+        children?: BookmarkTreeNode[] | undefined;
         /**
          * Optional.
          * Since Chrome 37.
@@ -512,7 +512,7 @@ declare namespace chrome.bookmarks {
     }
 
     export interface BookmarkChangeInfo {
-        url?: string;
+        url?: string | undefined;
         title: string;
     }
 
@@ -539,27 +539,27 @@ declare namespace chrome.bookmarks {
         extends chrome.events.Event<(id: string, reorderInfo: BookmarkReorderInfo) => void> { }
 
     export interface BookmarkSearchQuery {
-        query?: string;
-        url?: string;
-        title?: string;
+        query?: string | undefined;
+        url?: string | undefined;
+        title?: string | undefined;
     }
 
     export interface BookmarkCreateArg {
         /** Optional. Defaults to the Other Bookmarks folder.  */
-        parentId?: string;
-        index?: number;
-        title?: string;
-        url?: string;
+        parentId?: string | undefined;
+        index?: number | undefined;
+        title?: string | undefined;
+        url?: string | undefined;
     }
 
     export interface BookmarkDestinationArg {
-        parentId?: string;
-        index?: number;
+        parentId?: string | undefined;
+        index?: number | undefined;
     }
 
     export interface BookmarkChangesArg {
-        title?: string;
-        url?: string;
+        title?: string | undefined;
+        url?: string | undefined;
     }
 
     /** @deprecated since Chrome 38. Bookmark write operations are no longer limited by Chrome. */
@@ -768,14 +768,14 @@ declare namespace chrome.browserAction {
         /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
         color: string | ColorArray;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     export interface BadgeTextDetails {
         /** Any number of characters can be passed, but only about four can fit in the space. */
-        text?: string;
+        text?: string | undefined;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     export type ColorArray = [number, number, number, number];
@@ -784,26 +784,26 @@ declare namespace chrome.browserAction {
         /** The string the browser action should display when moused over. */
         title: string;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     export interface TabDetails {
         /** Optional. Specify the tab to get the information. If no tab is specified, the non-tab-specific information is returned.  */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     export interface TabIconDetails {
         /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
         path?: any;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number;
+        tabId?: number | undefined;
         /** Optional. Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'  */
-        imageData?: ImageData | { [index: number]: ImageData };
+        imageData?: ImageData | { [index: number]: ImageData } | undefined;
     }
 
     export interface PopupDetails {
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-        tabId?: number;
+        tabId?: number | undefined;
         /** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
         popup: string;
     }
@@ -951,11 +951,11 @@ declare namespace chrome.browserAction {
 declare namespace chrome.browsingData {
     export interface OriginTypes {
         /** Optional. Websites that have been installed as hosted applications (be careful!).  */
-        protectedWeb?: boolean;
+        protectedWeb?: boolean | undefined;
         /** Optional. Extensions and packaged applications a user has installed (be _really_ careful!).  */
-        extension?: boolean;
+        extension?: boolean | undefined;
         /** Optional. Normal websites.  */
-        unprotectedWeb?: boolean;
+        unprotectedWeb?: boolean | undefined;
     }
 
     /** Options that determine exactly what data will be removed. */
@@ -965,9 +965,9 @@ declare namespace chrome.browsingData {
          * Since Chrome 21.
          * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you really want to remove application data before adding 'protectedWeb' or 'extensions'.
          */
-        originTypes?: OriginTypes;
+        originTypes?: OriginTypes | undefined;
         /** Optional. Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript Date object). If absent, defaults to 0 (which would remove all browsing data).  */
-        since?: number;
+        since?: number | undefined;
     }
 
     /**
@@ -976,37 +976,37 @@ declare namespace chrome.browsingData {
      */
     export interface DataTypeSet {
         /** Optional. Websites' WebSQL data.  */
-        webSQL?: boolean;
+        webSQL?: boolean | undefined;
         /** Optional. Websites' IndexedDB data.  */
-        indexedDB?: boolean;
+        indexedDB?: boolean | undefined;
         /** Optional. The browser's cookies.  */
-        cookies?: boolean;
+        cookies?: boolean | undefined;
         /** Optional. Stored passwords.  */
-        passwords?: boolean;
+        passwords?: boolean | undefined;
         /** Optional. Server-bound certificates.  */
-        serverBoundCertificates?: boolean;
+        serverBoundCertificates?: boolean | undefined;
         /** Optional. The browser's download list.  */
-        downloads?: boolean;
+        downloads?: boolean | undefined;
         /** Optional. The browser's cache. Note: when removing data, this clears the entire cache: it is not limited to the range you specify.  */
-        cache?: boolean;
+        cache?: boolean | undefined;
         /** Optional. Websites' appcaches.  */
-        appcache?: boolean;
+        appcache?: boolean | undefined;
         /** Optional. Websites' file systems.  */
-        fileSystems?: boolean;
+        fileSystems?: boolean | undefined;
         /** Optional. Plugins' data.  */
-        pluginData?: boolean;
+        pluginData?: boolean | undefined;
         /** Optional. Websites' local storage data.  */
-        localStorage?: boolean;
+        localStorage?: boolean | undefined;
         /** Optional. The browser's stored form data.  */
-        formData?: boolean;
+        formData?: boolean | undefined;
         /** Optional. The browser's history.  */
-        history?: boolean;
+        history?: boolean | undefined;
         /**
          * Optional.
          * Since Chrome 39.
          * Service Workers.
          */
-        serviceWorkers?: boolean;
+        serviceWorkers?: boolean | undefined;
     }
 
     export interface SettingsCallback {
@@ -1129,11 +1129,11 @@ declare namespace chrome.browsingData {
 declare namespace chrome.commands {
     export interface Command {
         /** Optional. The name of the Extension Command  */
-        name?: string;
+        name?: string | undefined;
         /** Optional. The Extension Command description  */
-        description?: string;
+        description?: string | undefined;
         /** Optional. The shortcut active for this command, or blank if not active.  */
-        shortcut?: string;
+        shortcut?: string | undefined;
     }
 
     export interface CommandEvent extends chrome.events.Event<(command: string, tab: chrome.tabs.Tab) => void> { }
@@ -1169,18 +1169,18 @@ declare namespace chrome.contentSettings {
          * * regular: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),
          * * incognito_session_only: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings).
          */
-        scope?: ScopeEnum;
+        scope?: ScopeEnum | undefined;
     }
 
     export interface SetDetails {
         /** Optional. The resource identifier for the content type.  */
-        resourceIdentifier?: ResourceIdentifier;
+        resourceIdentifier?: ResourceIdentifier | undefined;
         /** The setting applied by this rule. See the description of the individual ContentSetting objects for the possible values. */
         setting: any;
         /** Optional. The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.  */
-        secondaryPattern?: string;
+        secondaryPattern?: string | undefined;
         /** Optional. Where to set the setting (default: regular).  */
-        scope?: ScopeEnum;
+        scope?: ScopeEnum | undefined;
         /** The pattern for the primary URL. For details on the format of a pattern, see Content Setting Patterns. */
         primaryPattern: string;
     }
@@ -1239,11 +1239,11 @@ declare namespace chrome.contentSettings {
 
     export interface GetDetails {
         /** Optional. The secondary URL for which the content setting should be retrieved. Defaults to the primary URL. Note that the meaning of a secondary URL depends on the content type, and not all content types use secondary URLs.  */
-        secondaryUrl?: string;
+        secondaryUrl?: string | undefined;
         /** Optional. A more specific identifier of the type of content for which the settings should be retrieved.  */
-        resourceIdentifier?: ResourceIdentifier;
+        resourceIdentifier?: ResourceIdentifier | undefined;
         /** Optional. Whether to check the content settings for an incognito session. (default false)  */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /** The primary URL for which the content setting should be retrieved. Note that the meaning of a primary URL depends on the content type. */
         primaryUrl: string;
     }
@@ -1337,7 +1337,7 @@ declare namespace chrome.contentSettings {
         /** The resource identifier for the given content type. */
         id: string;
         /** Optional. A human readable description of the resource.  */
-        description?: string;
+        description?: string | undefined;
     }
 
     /**
@@ -1479,13 +1479,13 @@ declare namespace chrome.contextMenus {
          * Since Chrome 35.
          * The text for the context selection, if any.
          */
-        selectionText?: string;
+        selectionText?: string | undefined;
         /**
          * Optional.
          * Since Chrome 35.
          * A flag indicating the state of a checkbox or radio item after it is clicked.
          */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /**
          * Since Chrome 35.
          * The ID of the menu item that was clicked.
@@ -1497,13 +1497,13 @@ declare namespace chrome.contextMenus {
          * The ID of the frame of the element where the context menu was
          * clicked, if it was in a frame.
          */
-        frameId?: number;
+        frameId?: number | undefined;
         /**
          * Optional.
          * Since Chrome 35.
          * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
          */
-        frameUrl?: string;
+        frameUrl?: string | undefined;
         /**
          * Since Chrome 35.
          * A flag indicating whether the element is editable (text input, textarea, etc.).
@@ -1514,13 +1514,13 @@ declare namespace chrome.contextMenus {
          * Since Chrome 35.
          * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
          */
-        mediaType?: string;
+        mediaType?: string | undefined;
         /**
          * Optional.
          * Since Chrome 35.
          * A flag indicating the state of a checkbox or radio item before it was clicked.
          */
-        wasChecked?: boolean;
+        wasChecked?: boolean | undefined;
         /**
          * Since Chrome 35.
          * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.
@@ -1531,7 +1531,7 @@ declare namespace chrome.contextMenus {
          * Since Chrome 35.
          * If the element is a link, the URL it points to.
          */
-        linkUrl?: string;
+        linkUrl?: string | undefined;
         /**
          * Optional.
          * Since Chrome 35.
@@ -1543,69 +1543,69 @@ declare namespace chrome.contextMenus {
          * Since Chrome 35.
          * Will be present for elements with a 'src' URL.
          */
-        srcUrl?: string;
+        srcUrl?: string | undefined;
     }
 
     export interface CreateProperties {
         /** Optional. Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.  */
-        documentUrlPatterns?: string[];
+        documentUrlPatterns?: string[] | undefined;
         /** Optional. The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.  */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
-        title?: string;
+        title?: string | undefined;
         /** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
-        contexts?: string[];
+        contexts?: string[] | undefined;
         /**
          * Optional.
          * Since Chrome 20.
          * Whether this context menu item is enabled or disabled. Defaults to true.
          */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
         /** Optional. Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.  */
-        targetUrlPatterns?: string[];
+        targetUrlPatterns?: string[] | undefined;
         /**
          * Optional.
          * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.
          * @param info Information sent when a context menu item is clicked.
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          */
-        onclick?: (info: OnClickData, tab: chrome.tabs.Tab) => void;
+        onclick?: ((info: OnClickData, tab: chrome.tabs.Tab) => void) | undefined;
         /** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
         parentId?: any;
         /** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
-        type?: string;
+        type?: string | undefined;
         /**
          * Optional.
          * Since Chrome 21.
          * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * Optional.
          * Since Chrome 62.
          * Whether the item is visible in the menu.
          */
-        visible?: boolean;
+        visible?: boolean | undefined;
     }
 
     export interface UpdateProperties {
-        documentUrlPatterns?: string[];
-        checked?: boolean;
-        title?: string;
-        contexts?: string[];
+        documentUrlPatterns?: string[] | undefined;
+        checked?: boolean | undefined;
+        title?: string | undefined;
+        contexts?: string[] | undefined;
         /** Optional. Since Chrome 20.  */
-        enabled?: boolean;
-        targetUrlPatterns?: string[];
-        onclick?: Function;
+        enabled?: boolean | undefined;
+        targetUrlPatterns?: string[] | undefined;
+        onclick?: Function | undefined;
         /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
         parentId?: any;
-        type?: string;
+        type?: string | undefined;
         /**
          * Optional.
          * @since Chrome 62.
          * Whether the item is visible in the menu.
          */
-        visible?: boolean;
+        visible?: boolean | undefined;
     }
 
     export interface MenuClickedEvent extends chrome.events.Event<(info: OnClickData, tab?: chrome.tabs.Tab) => void> { }
@@ -1699,7 +1699,7 @@ declare namespace chrome.cookies {
         /** True if the cookie is a host-only cookie (i.e. a request's host must exactly match the domain of the cookie). */
         hostOnly: boolean;
         /** Optional. The expiration date of the cookie as the number of seconds since the UNIX epoch. Not provided for session cookies.  */
-        expirationDate?: number;
+        expirationDate?: number | undefined;
         /** The path of the cookie. */
         path: string;
         /** True if the cookie is marked as HttpOnly (i.e. the cookie is inaccessible to client-side scripts). */
@@ -1723,51 +1723,51 @@ declare namespace chrome.cookies {
 
     export interface GetAllDetails {
         /** Optional. Restricts the retrieved cookies to those whose domains match or are subdomains of this one.  */
-        domain?: string;
+        domain?: string | undefined;
         /** Optional. Filters the cookies by name.  */
-        name?: string;
+        name?: string | undefined;
         /** Optional. Restricts the retrieved cookies to those that would match the given URL.  */
-        url?: string;
+        url?: string | undefined;
         /** Optional. The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used.  */
-        storeId?: string;
+        storeId?: string | undefined;
         /** Optional. Filters out session vs. persistent cookies.  */
-        session?: boolean;
+        session?: boolean | undefined;
         /** Optional. Restricts the retrieved cookies to those whose path exactly matches this string.  */
-        path?: string;
+        path?: string | undefined;
         /** Optional. Filters the cookies by their Secure property.  */
-        secure?: boolean;
+        secure?: boolean | undefined;
     }
 
     export interface SetDetails {
         /** Optional. The domain of the cookie. If omitted, the cookie becomes a host-only cookie.  */
-        domain?: string;
+        domain?: string | undefined;
         /** Optional. The name of the cookie. Empty by default if omitted.  */
-        name?: string;
+        name?: string | undefined;
         /** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
         url: string;
         /** Optional. The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store.  */
-        storeId?: string;
+        storeId?: string | undefined;
         /** Optional. The value of the cookie. Empty by default if omitted.  */
-        value?: string;
+        value?: string | undefined;
         /** Optional. The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted, the cookie becomes a session cookie.  */
-        expirationDate?: number;
+        expirationDate?: number | undefined;
         /** Optional. The path of the cookie. Defaults to the path portion of the url parameter.  */
-        path?: string;
+        path?: string | undefined;
         /** Optional. Whether the cookie should be marked as HttpOnly. Defaults to false.  */
-        httpOnly?: boolean;
+        httpOnly?: boolean | undefined;
         /** Optional. Whether the cookie should be marked as Secure. Defaults to false.  */
-        secure?: boolean;
+        secure?: boolean | undefined;
         /**
          * Optional. The cookie's same-site status. Defaults to "unspecified", i.e., if omitted, the cookie is set without specifying a SameSite attribute.
          * @since Chrome 51.
          */
-        sameSite?: SameSiteStatus;
+        sameSite?: SameSiteStatus | undefined;
     }
 
     export interface Details {
         name: string;
         url: string;
-        storeId?: string;
+        storeId?: string | undefined;
     }
 
     export interface CookieChangeInfo {
@@ -1869,19 +1869,19 @@ declare module chrome {
         /** Debuggee identifier. Either tabId or extensionId must be specified */
         export interface Debuggee {
             /** Optional. The id of the tab which you intend to debug.  */
-            tabId?: number;
+            tabId?: number | undefined;
             /**
              * Optional.
              * Since Chrome 27.
              * The id of the extension which you intend to debug. Attaching to an extension background page is only possible when 'silent-debugger-extension-api' flag is enabled on the target browser.
              */
-            extensionId?: string;
+            extensionId?: string | undefined;
             /**
              * Optional.
              * Since Chrome 28.
              * The opaque id of the debug target.
              */
-            targetId?: string;
+            targetId?: string | undefined;
         }
 
         /**
@@ -1898,13 +1898,13 @@ declare module chrome {
              * Since Chrome 30.
              * The tab id, defined if type == 'page'.
              */
-            tabId?: number;
+            tabId?: number | undefined;
             /**
              * Optional.
              * Since Chrome 30.
              * The extension id, defined if type = 'background_page'.
              */
-            extensionId?: string;
+            extensionId?: string | undefined;
             /** True if debugger is already attached. */
             attached: boolean;
             /** Target page title. */
@@ -1912,7 +1912,7 @@ declare module chrome {
             /** Target URL. */
             url: string;
             /** Optional. Target favicon URL.  */
-            faviconUrl?: string;
+            faviconUrl?: string | undefined;
         }
 
         export interface DebuggerDetachedEvent
@@ -1982,58 +1982,58 @@ declare module chrome {
 declare namespace chrome.declarativeContent {
     export interface PageStateUrlDetails {
         /** Optional. Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.  */
-        hostContains?: string;
+        hostContains?: string | undefined;
         /** Optional. Matches if the host name of the URL is equal to a specified string.  */
-        hostEquals?: string;
+        hostEquals?: string | undefined;
         /** Optional. Matches if the host name of the URL starts with a specified string.  */
-        hostPrefix?: string;
+        hostPrefix?: string | undefined;
         /** Optional. Matches if the host name of the URL ends with a specified string.  */
-        hostSuffix?: string;
+        hostSuffix?: string | undefined;
         /** Optional. Matches if the path segment of the URL contains a specified string.  */
-        pathContains?: string;
+        pathContains?: string | undefined;
         /** Optional. Matches if the path segment of the URL is equal to a specified string.  */
-        pathEquals?: string;
+        pathEquals?: string | undefined;
         /** Optional. Matches if the path segment of the URL starts with a specified string.  */
-        pathPrefix?: string;
+        pathPrefix?: string | undefined;
         /** Optional. Matches if the path segment of the URL ends with a specified string.  */
-        pathSuffix?: string;
+        pathSuffix?: string | undefined;
         /** Optional. Matches if the query segment of the URL contains a specified string.  */
-        queryContains?: string;
+        queryContains?: string | undefined;
         /** Optional. Matches if the query segment of the URL is equal to a specified string.  */
-        queryEquals?: string;
+        queryEquals?: string | undefined;
         /** Optional. Matches if the query segment of the URL starts with a specified string.  */
-        queryPrefix?: string;
+        queryPrefix?: string | undefined;
         /** Optional. Matches if the query segment of the URL ends with a specified string.  */
-        querySuffix?: string;
+        querySuffix?: string | undefined;
         /** Optional. Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-        urlContains?: string;
+        urlContains?: string | undefined;
         /** Optional. Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-        urlEquals?: string;
+        urlEquals?: string | undefined;
         /** Optional. Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.  */
-        urlMatches?: string;
+        urlMatches?: string | undefined;
         /** Optional. Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.  */
-        originAndPathMatches?: string;
+        originAndPathMatches?: string | undefined;
         /** Optional. Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-        urlPrefix?: string;
+        urlPrefix?: string | undefined;
         /** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-        urlSuffix?: string;
+        urlSuffix?: string | undefined;
         /** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
-        schemes?: string[];
+        schemes?: string[] | undefined;
         /** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-        ports?: (number | number[])[];
+        ports?: (number | number[])[] | undefined;
     }
 
     export class PageStateMatcherProperties {
         /** Optional. Filters URLs for various criteria. See event filtering. All criteria are case sensitive.  */
-        pageUrl?: PageStateUrlDetails;
+        pageUrl?: PageStateUrlDetails | undefined;
         /** Optional. Matches if all of the CSS selectors in the array match displayed elements in a frame with the same origin as the page's main frame. All selectors in this array must be compound selectors to speed up matching. Note that listing hundreds of CSS selectors or CSS selectors that match hundreds of times per page can still slow down web sites.  */
-        css?: string[];
+        css?: string[] | undefined;
         /**
          * Optional.
          * Since Chrome 45. Warning: this is the current Beta channel. More information available on the API documentation pages.
          * Matches if the bookmarked state of the page is equal to the specified value. Requres the bookmarks permission.
          */
-        isBookmarked?: boolean;
+        isBookmarked?: boolean | undefined;
     }
 
     /** Matches the state of a web page by various criteria. */
@@ -2046,7 +2046,7 @@ declare namespace chrome.declarativeContent {
 
     /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
     export class SetIcon {
-        constructor(options?: { imageData?: ImageData | { [size: string]: ImageData } });
+        constructor(options?: { imageData?: ImageData | { [size: string]: ImageData } | undefined });
     }
 
     /** Provides the Declarative Event API consisting of addRules, removeRules, and getRules. */
@@ -2060,14 +2060,14 @@ declare namespace chrome.declarativeContent {
 ////////////////////
 declare namespace chrome.declarativeWebRequest {
     export interface HeaderFilter {
-        nameEquals?: string;
+        nameEquals?: string | undefined;
         valueContains?: any;
-        nameSuffix?: string;
-        valueSuffix?: string;
-        valuePrefix?: string;
+        nameSuffix?: string | undefined;
+        valueSuffix?: string | undefined;
+        valuePrefix?: string | undefined;
         nameContains?: any;
-        valueEquals?: string;
-        namePrefix?: string;
+        valueEquals?: string | undefined;
+        namePrefix?: string | undefined;
     }
 
     export interface AddResponseHeader {
@@ -2081,16 +2081,16 @@ declare namespace chrome.declarativeWebRequest {
 
     export interface RemoveResponseHeader {
         name: string;
-        value?: string;
+        value?: string | undefined;
     }
 
     export interface RequestMatcher {
-        contentType?: string[];
-        url?: chrome.events.UrlFilter;
-        excludeContentType?: string[];
-        excludeResponseHeader?: HeaderFilter[];
-        resourceType?: string;
-        responseHeaders?: HeaderFilter[];
+        contentType?: string[] | undefined;
+        url?: chrome.events.UrlFilter | undefined;
+        excludeContentType?: string[] | undefined;
+        excludeResponseHeader?: HeaderFilter[] | undefined;
+        resourceType?: string | undefined;
+        responseHeaders?: HeaderFilter[] | undefined;
     }
 
     export interface IgnoreRules {
@@ -2104,14 +2104,14 @@ declare namespace chrome.declarativeWebRequest {
     }
 
     export interface ResponseCookie {
-        domain?: string;
-        name?: string;
-        expires?: string;
-        maxAge?: number;
-        value?: string;
-        path?: string;
-        httpOnly?: string;
-        secure?: string;
+        domain?: string | undefined;
+        name?: string | undefined;
+        expires?: string | undefined;
+        maxAge?: number | undefined;
+        value?: string | undefined;
+        path?: string | undefined;
+        httpOnly?: string | undefined;
+        secure?: string | undefined;
     }
 
     export interface AddResponseCookie {
@@ -2140,8 +2140,8 @@ declare namespace chrome.declarativeWebRequest {
     }
 
     export interface RequestCookie {
-        name?: string;
-        value?: string;
+        name?: string | undefined;
+        value?: string | undefined;
     }
 
     export interface RedirectByRegEx {
@@ -2236,17 +2236,17 @@ declare namespace chrome.devtools.inspectedWindow {
 
     export interface ReloadOptions {
         /** Optional. If specified, the string will override the value of the User-Agent HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the navigator.userAgent property that's returned to any scripts that are running within the inspected page.  */
-        userAgent?: string;
+        userAgent?: string | undefined;
         /** Optional. When true, the loader will ignore the cache for all inspected page resources loaded before the load event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window.  */
-        ignoreCache?: boolean;
+        ignoreCache?: boolean | undefined;
         /** Optional. If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads—for example, if the user presses Ctrl+R.  */
-        injectedScript?: string;
+        injectedScript?: string | undefined;
         /**
          * Optional.
          * If specified, this script evaluates into a function that accepts three string arguments: the source to preprocess, the URL of the source, and a function name if the source is an DOM event handler. The preprocessorerScript function should return a string to be compiled by Chrome in place of the input source. In the case that the source is a DOM event handler, the returned source must compile to a single JS function.
          * @deprecated Deprecated since Chrome 41. Please avoid using this parameter, it will be removed soon.
          */
-        preprocessorScript?: string;
+        preprocessorScript?: string | undefined;
     }
 
     export interface EvaluationExceptionInfo {
@@ -2317,11 +2317,11 @@ declare namespace chrome.devtools.inspectedWindow {
 
     export interface EvalOptions {
         /** If specified, the expression is evaluated on the iframe whose URL matches the one specified. By default, the expression is evaluated in the top frame of the inspected page. */
-        frameURL?: string;
+        frameURL?: string | undefined;
         /** Evaluate the expression in the context of the content script of the calling extension, provided that the content script is already injected into the inspected page. If not, the expression is not evaluated and the callback is invoked with the exception parameter set to an object that has the isError field set to true and the code field set to E_NOTFOUND. */
-        useContentScriptContext?: boolean;
+        useContentScriptContext?: boolean | undefined;
         /** Evaluate the expression in the context of a content script of an extension that matches the specified origin. If given, contextSecurityOrigin overrides the 'true' setting on userContentScriptContext. */
-        contextSecurityOrigin?: string;
+        contextSecurityOrigin?: string | undefined;
     }
 }
 
@@ -2571,9 +2571,9 @@ declare namespace chrome.devtools.panels {
 declare namespace chrome.documentScan {
     export interface DocumentScanOptions {
         /** Optional. The MIME types that are accepted by the caller.  */
-        mimeTypes?: string[];
+        mimeTypes?: string[] | undefined;
         /** Optional. The number of scanned images allowed (defaults to 1).  */
-        maxImages?: number;
+        maxImages?: number | undefined;
     }
 
     export interface DocumentScanCallbackArg {
@@ -2611,71 +2611,71 @@ declare namespace chrome.downloads {
 
     export interface DownloadOptions {
         /** Optional. Post body.  */
-        body?: string;
+        body?: string | undefined;
         /** Optional. Use a file-chooser to allow the user to select a filename regardless of whether filename is set or already exists.  */
-        saveAs?: boolean;
+        saveAs?: boolean | undefined;
         /** The URL to download. */
         url: string;
         /** Optional. A file path relative to the Downloads directory to contain the downloaded file, possibly containing subdirectories. Absolute paths, empty paths, and paths containing back-references ".." will cause an error. onDeterminingFilename allows suggesting a filename after the file's MIME type and a tentative filename have been determined.  */
-        filename?: string;
+        filename?: string | undefined;
         /** Optional. Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys name and either value or binaryValue, restricted to those allowed by XMLHttpRequest.  */
-        headers?: HeaderNameValuePair[];
+        headers?: HeaderNameValuePair[] | undefined;
         /** Optional. The HTTP method to use if the URL uses the HTTP[S] protocol.  */
-        method?: string;
+        method?: string | undefined;
         /** Optional. The action to take if filename already exists.  */
-        conflictAction?: string;
+        conflictAction?: string | undefined;
     }
 
     export interface DownloadDelta {
         /** The id of the DownloadItem that changed. */
         id: number;
         /** Optional. The change in danger, if any.  */
-        danger?: StringDelta;
+        danger?: StringDelta | undefined;
         /** Optional. The change in url, if any.  */
-        url?: StringDelta;
+        url?: StringDelta | undefined;
         /**
          * Optional. The change in finalUrl, if any.
          * @since Since Chrome 54.
          */
         finalUrl: StringDelta;
         /** Optional. The change in totalBytes, if any.  */
-        totalBytes?: DoubleDelta;
+        totalBytes?: DoubleDelta | undefined;
         /** Optional. The change in filename, if any.  */
-        filename?: StringDelta;
+        filename?: StringDelta | undefined;
         /** Optional. The change in paused, if any.  */
-        paused?: BooleanDelta;
+        paused?: BooleanDelta | undefined;
         /** Optional. The change in state, if any.  */
-        state?: StringDelta;
+        state?: StringDelta | undefined;
         /** Optional. The change in mime, if any.  */
-        mime?: StringDelta;
+        mime?: StringDelta | undefined;
         /** Optional. The change in fileSize, if any.  */
-        fileSize?: DoubleDelta;
+        fileSize?: DoubleDelta | undefined;
         /** Optional. The change in startTime, if any.  */
-        startTime?: StringDelta;
+        startTime?: StringDelta | undefined;
         /** Optional. The change in error, if any.  */
-        error?: StringDelta;
+        error?: StringDelta | undefined;
         /** Optional. The change in endTime, if any.  */
-        endTime?: StringDelta;
+        endTime?: StringDelta | undefined;
         /** Optional. The change in canResume, if any.  */
-        canResume?: BooleanDelta;
+        canResume?: BooleanDelta | undefined;
         /** Optional. The change in exists, if any.  */
-        exists?: BooleanDelta;
+        exists?: BooleanDelta | undefined;
     }
 
     export interface BooleanDelta {
-        current?: boolean;
-        previous?: boolean;
+        current?: boolean | undefined;
+        previous?: boolean | undefined;
     }
 
     /** Since Chrome 34. */
     export interface DoubleDelta {
-        current?: number;
-        previous?: number;
+        current?: number | undefined;
+        previous?: number | undefined;
     }
 
     export interface StringDelta {
-        current?: string;
-        previous?: string;
+        current?: string | undefined;
+        previous?: string | undefined;
     }
 
     export interface DownloadItem {
@@ -2705,9 +2705,9 @@ declare namespace chrome.downloads {
         /** The time when the download began in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.startTime))})}) */
         startTime: string;
         /** Optional. Why the download was interrupted. Several kinds of HTTP errors may be grouped under one of the errors beginning with SERVER_. Errors relating to the network begin with NETWORK_, errors relating to the process of writing the file to the file system begin with FILE_, and interruptions initiated by the user begin with USER_.  */
-        error?: string;
+        error?: string | undefined;
         /** Optional. The time when the download ended in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.endTime) console.log(new Date(item.endTime))})})  */
-        endTime?: string;
+        endTime?: string | undefined;
         /** An identifier that is persistent across browser sessions. */
         id: number;
         /** False if this download is recorded in the history, true if it is not recorded. */
@@ -2715,81 +2715,81 @@ declare namespace chrome.downloads {
         /** Absolute URL. */
         referrer: string;
         /** Optional. Estimated time when the download will complete in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.estimatedEndTime) console.log(new Date(item.estimatedEndTime))})})  */
-        estimatedEndTime?: string;
+        estimatedEndTime?: string | undefined;
         /** True if the download is in progress and paused, or else if it is interrupted and can be resumed starting from where it was interrupted. */
         canResume: boolean;
         /** Whether the downloaded file still exists. This information may be out of date because Chrome does not automatically watch for file removal. Call search() in order to trigger the check for file existence. When the existence check completes, if the file has been deleted, then an onChanged event will fire. Note that search() does not wait for the existence check to finish before returning, so results from search() may not accurately reflect the file system. Also, search() may be called as often as necessary, but will not check for file existence any more frequently than once every 10 seconds. */
         exists: boolean;
         /** Optional. The identifier for the extension that initiated this download if this download was initiated by an extension. Does not change once it is set.  */
-        byExtensionId?: string;
+        byExtensionId?: string | undefined;
         /** Optional. The localized name of the extension that initiated this download if this download was initiated by an extension. May change if the extension changes its name or if the user changes their locale.  */
-        byExtensionName?: string;
+        byExtensionName?: string | undefined;
     }
 
     export interface GetFileIconOptions {
         /** Optional. * The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size.
          */
-        size?: number;
+        size?: number | undefined;
     }
 
     export interface DownloadQuery {
         /** Optional. Set elements of this array to DownloadItem properties in order to sort search results. For example, setting orderBy=['startTime'] sorts the DownloadItem by their start time in ascending order. To specify descending order, prefix with a hyphen: '-startTime'.  */
-        orderBy?: string[];
+        orderBy?: string[] | undefined;
         /** Optional. Limits results to DownloadItem whose url matches the given regular expression.  */
-        urlRegex?: string;
+        urlRegex?: string | undefined;
         /** Optional. Limits results to DownloadItem that ended before the time in ISO 8601 format.  */
-        endedBefore?: string;
+        endedBefore?: string | undefined;
         /** Optional. Limits results to DownloadItem whose totalBytes is greater than the given integer.  */
-        totalBytesGreater?: number;
+        totalBytesGreater?: number | undefined;
         /** Optional. Indication of whether this download is thought to be safe or known to be suspicious.  */
-        danger?: string;
+        danger?: string | undefined;
         /** Optional. Number of bytes in the whole file, without considering file compression, or -1 if unknown.  */
-        totalBytes?: number;
+        totalBytes?: number | undefined;
         /** Optional. True if the download has stopped reading data from the host, but kept the connection open.  */
-        paused?: boolean;
+        paused?: boolean | undefined;
         /** Optional. Limits results to DownloadItem whose filename matches the given regular expression.  */
-        filenameRegex?: string;
+        filenameRegex?: string | undefined;
         /** Optional. This array of search terms limits results to DownloadItem whose filename or url contain all of the search terms that do not begin with a dash '-' and none of the search terms that do begin with a dash.  */
-        query?: string[];
+        query?: string[] | undefined;
         /** Optional. Limits results to DownloadItem whose totalBytes is less than the given integer.  */
-        totalBytesLess?: number;
+        totalBytesLess?: number | undefined;
         /** Optional. The id of the DownloadItem to query.  */
-        id?: number;
+        id?: number | undefined;
         /** Optional. Number of bytes received so far from the host, without considering file compression.  */
-        bytesReceived?: number;
+        bytesReceived?: number | undefined;
         /** Optional. Limits results to DownloadItem that ended after the time in ISO 8601 format.  */
-        endedAfter?: string;
+        endedAfter?: string | undefined;
         /** Optional. Absolute local path.  */
-        filename?: string;
+        filename?: string | undefined;
         /** Optional. Indicates whether the download is progressing, interrupted, or complete.  */
-        state?: string;
+        state?: string | undefined;
         /** Optional. Limits results to DownloadItem that started after the time in ISO 8601 format.  */
-        startedAfter?: string;
+        startedAfter?: string | undefined;
         /** Optional. The file's MIME type.  */
-        mime?: string;
+        mime?: string | undefined;
         /** Optional. Number of bytes in the whole file post-decompression, or -1 if unknown.  */
-        fileSize?: number;
+        fileSize?: number | undefined;
         /** Optional. The time when the download began in ISO 8601 format.  */
-        startTime?: string;
+        startTime?: string | undefined;
         /** Optional. Absolute URL.  */
-        url?: string;
+        url?: string | undefined;
         /** Optional. Limits results to DownloadItem that started before the time in ISO 8601 format.  */
-        startedBefore?: string;
+        startedBefore?: string | undefined;
         /** Optional. The maximum number of matching DownloadItem returned. Defaults to 1000. Set to 0 in order to return all matching DownloadItem. See search for how to page through results.  */
-        limit?: number;
+        limit?: number | undefined;
         /** Optional. Why a download was interrupted.  */
-        error?: number;
+        error?: number | undefined;
         /** Optional. The time when the download ended in ISO 8601 format.  */
-        endTime?: string;
+        endTime?: string | undefined;
         /** Optional. Whether the downloaded file exists;  */
-        exists?: boolean;
+        exists?: boolean | undefined;
     }
 
     export interface DownloadFilenameSuggestion {
         /** The DownloadItem's new target DownloadItem.filename, as a path relative to the user's default Downloads directory, possibly containing subdirectories. Absolute paths, empty paths, and paths containing back-references ".." will be ignored. */
         filename: string;
         /** Optional. The action to take if filename already exists.  */
-        conflictAction?: string;
+        conflictAction?: string | undefined;
     }
 
     export interface DownloadChangedEvent extends chrome.events.Event<(downloadDelta: DownloadDelta) => void> { }
@@ -3075,9 +3075,9 @@ declare namespace chrome.enterprise.networkingAttributes {
         /** The device's MAC address. */
         macAddress: string;
         /** Optional. The device's local IPv4 address (undefined if not configured). */
-        ipv4?: string;
+        ipv4?: string | undefined;
         /** Optional. The device's local IPv6 address (undefined if not configured). */
-        ipv6?: string;
+        ipv6?: string | undefined;
     }
 
     /**
@@ -3100,53 +3100,53 @@ declare namespace chrome.events {
     /** Filters URLs for various criteria. See event filtering. All criteria are case sensitive. */
     export interface UrlFilter {
         /** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
-        schemes?: string[];
+        schemes?: string[] | undefined;
         /**
          * Optional.
          * Since Chrome 23.
          * Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
          */
-        urlMatches?: string;
+        urlMatches?: string | undefined;
         /** Optional. Matches if the path segment of the URL contains a specified string.  */
-        pathContains?: string;
+        pathContains?: string | undefined;
         /** Optional. Matches if the host name of the URL ends with a specified string.  */
-        hostSuffix?: string;
+        hostSuffix?: string | undefined;
         /** Optional. Matches if the host name of the URL starts with a specified string.  */
-        hostPrefix?: string;
+        hostPrefix?: string | undefined;
         /** Optional. Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.  */
-        hostContains?: string;
+        hostContains?: string | undefined;
         /** Optional. Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-        urlContains?: string;
+        urlContains?: string | undefined;
         /** Optional. Matches if the query segment of the URL ends with a specified string.  */
-        querySuffix?: string;
+        querySuffix?: string | undefined;
         /** Optional. Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-        urlPrefix?: string;
+        urlPrefix?: string | undefined;
         /** Optional. Matches if the host name of the URL is equal to a specified string.  */
-        hostEquals?: string;
+        hostEquals?: string | undefined;
         /** Optional. Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-        urlEquals?: string;
+        urlEquals?: string | undefined;
         /** Optional. Matches if the query segment of the URL contains a specified string.  */
-        queryContains?: string;
+        queryContains?: string | undefined;
         /** Optional. Matches if the path segment of the URL starts with a specified string.  */
-        pathPrefix?: string;
+        pathPrefix?: string | undefined;
         /** Optional. Matches if the path segment of the URL is equal to a specified string.  */
-        pathEquals?: string;
+        pathEquals?: string | undefined;
         /** Optional. Matches if the path segment of the URL ends with a specified string.  */
-        pathSuffix?: string;
+        pathSuffix?: string | undefined;
         /** Optional. Matches if the query segment of the URL is equal to a specified string.  */
-        queryEquals?: string;
+        queryEquals?: string | undefined;
         /** Optional. Matches if the query segment of the URL starts with a specified string.  */
-        queryPrefix?: string;
+        queryPrefix?: string | undefined;
         /** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-        urlSuffix?: string;
+        urlSuffix?: string | undefined;
         /** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-        ports?: any[];
+        ports?: any[] | undefined;
         /**
          * Optional.
          * Since Chrome 28.
          * Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
          */
-        originAndPathMatches?: string;
+        originAndPathMatches?: string | undefined;
     }
 
     /** An object which allows the addition and removal of listeners for a Chrome event. */
@@ -3216,11 +3216,11 @@ declare namespace chrome.events {
     /** Description of a declarative rule for handling events. */
     export interface Rule {
         /** Optional. Optional priority of this rule. Defaults to 100.  */
-        priority?: number;
+        priority?: number | undefined;
         /** List of conditions that can trigger the actions. */
         conditions: any[];
         /** Optional. Optional identifier that allows referencing this rule.  */
-        id?: string;
+        id?: string | undefined;
         /** List of actions that are triggered if one of the condtions is fulfilled. */
         actions: any[];
         /**
@@ -3228,7 +3228,7 @@ declare namespace chrome.events {
          * Since Chrome 28.
          * Tags can be used to annotate rules and perform operations on sets of rules.
          */
-        tags?: string[];
+        tags?: string[] | undefined;
     }
 }
 
@@ -3246,11 +3246,11 @@ declare namespace chrome.extension {
          * Chrome 54+
          * Find a view according to a tab id. If this field is omitted, returns all views.
          */
-        tabId?: number;
+        tabId?: number | undefined;
         /** Optional. The window to restrict the search to. If omitted, returns all views.  */
-        windowId?: number;
+        windowId?: number | undefined;
         /** Optional. The type of view to get. If omitted, returns all views (including background pages and tabs). Valid values: 'tab', 'notification', 'popup'.  */
-        type?: string;
+        type?: string | undefined;
     }
 
     export interface LastError {
@@ -3353,14 +3353,14 @@ declare namespace chrome.fileBrowserHandler {
          * List of file extensions that the selected file can have. The list is also used to specify what files to be shown in the select file dialog. Files with the listed extensions are only shown in the dialog. Extensions should not include the leading '.'. Example: ['jpg', 'png']
          * Since Chrome 23.
          */
-        allowedFileExtensions?: string[];
+        allowedFileExtensions?: string[] | undefined;
         /** Suggested name for the file. */
         suggestedName: string;
     }
 
     export interface SelectionResult {
         /** Optional. Selected file entry. It will be null if a file hasn't been selected.  */
-        entry?: Object | null;
+        entry?: Object | null | undefined;
         /** Whether the file has been selected. */
         success: boolean;
     }
@@ -3368,7 +3368,7 @@ declare namespace chrome.fileBrowserHandler {
     /** Event details payload for fileBrowserHandler.onExecute event. */
     export interface FileHandlerExecuteEventDetails {
         /** Optional. The ID of the tab that raised this event. Tab IDs are unique within a browser session.  */
-        tab_id?: number;
+        tab_id?: number | undefined;
         /** Array of Entry instances representing files that are targets of this action (selected in ChromeOS file browser). */
         entries: any[];
     }
@@ -3416,7 +3416,7 @@ declare namespace chrome.fileSystemProvider {
         /** Whether watching should include all child entries recursively. It can be true for directories only. */
         recursive: boolean;
         /** Optional. Tag used by the last notification for the watcher.  */
-        lastTag?: string;
+        lastTag?: string | undefined;
     }
 
     export interface EntryMetadata {
@@ -3429,9 +3429,9 @@ declare namespace chrome.fileSystemProvider {
         /** The last modified time of this entry. */
         modificationTime: Date;
         /** Optional. Mime type for the entry.  */
-        mimeType?: string;
+        mimeType?: string | undefined;
         /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event.  */
-        thumbnail?: string;
+        thumbnail?: string | undefined;
     }
 
     export interface FileSystemInfo {
@@ -3456,7 +3456,7 @@ declare namespace chrome.fileSystemProvider {
          * Whether the file system supports the tag field for observing directories.
          * @since Since Chrome 45. Warning: this is the current Beta channel.
          */
-        supportsNotifyTag?: boolean;
+        supportsNotifyTag?: boolean | undefined;
         /**
          * List of watchers.
          * @since Since Chrome 45. Warning: this is the current Beta channel.
@@ -3479,7 +3479,7 @@ declare namespace chrome.fileSystemProvider {
         /** The identifier of the action. Any string or CommonActionId for common actions. */
         id: string;
         /** Optional. The title of the action. It may be ignored for common actions.  */
-        title?: string;
+        title?: string | undefined;
     }
 
     /** @since Since Chrome 45. Warning: this is the current Beta channel. */
@@ -3500,19 +3500,19 @@ declare namespace chrome.fileSystemProvider {
         /** A human-readable name for the file system. */
         displayName: string;
         /** Optional. Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files).  */
-        writable?: boolean;
+        writable?: boolean | undefined;
         /**
          * Optional.
          * The maximum number of files that can be opened at once. If not specified, or 0, then not limited.
          * @since Since Chrome 41.
          */
-        openedFilesLimit?: number;
+        openedFilesLimit?: number | undefined;
         /**
          * Optional.
          * Whether the file system supports the tag field for observed directories.
          * @since Since Chrome 45. Warning: this is the current Beta channel.
          */
-        supportsNotifyTag?: boolean;
+        supportsNotifyTag?: boolean | undefined;
     }
 
     export interface UnmountOptions {
@@ -3537,9 +3537,9 @@ declare namespace chrome.fileSystemProvider {
         /** The type of the change which happened to the observed entry. If it is DELETED, then the observed entry will be automatically removed from the list of observed entries. */
         changeType: string;
         /** Optional. List of changes to entries within the observed directory (including the entry itself)  */
-        changes?: NotificationChange[];
+        changes?: NotificationChange[] | undefined;
         /** Optional. Tag for the notification. Required if the file system was mounted with the supportsNotifyTag option. Note, that this flag is necessary to provide notifications about changes which changed even when the system was shutdown.  */
-        tag?: string;
+        tag?: string | undefined;
     }
 
     export interface RequestedEventOptions {
@@ -3857,7 +3857,7 @@ declare namespace chrome.fontSettings {
         /** The generic font family for the font. */
         genericFamily: string;
         /** Optional. The script for the font. If omitted, the global script font setting is affected.  */
-        script?: string;
+        script?: string | undefined;
     }
 
     export interface FullFontDetails {
@@ -3866,7 +3866,7 @@ declare namespace chrome.fontSettings {
         /** The level of control this extension has over the setting. */
         levelOfControl: string;
         /** Optional. The script code for which the font setting has changed.  */
-        script?: string;
+        script?: string | undefined;
         /** The font ID. See the description in getFont. */
         fontId: string;
     }
@@ -4013,7 +4013,7 @@ declare namespace chrome.gcm {
         /** The ID of the message. It must be unique for each message in scope of the applications. See the Cloud Messaging documentation for advice for picking and handling an ID. */
         messageId: string;
         /** Optional. Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The maximum and a default value of time-to-live is 86400 seconds (1 day). */
-        timeToLive?: number;
+        timeToLive?: number | undefined;
         /** Message data to send to the server. Case-insensitive goog. and google, as well as case-sensitive collapse_key are disallowed as key prefixes. Sum of all key/value pairs should not exceed gcm.MAX_MESSAGE_SIZE. */
         data: Object;
     }
@@ -4026,19 +4026,19 @@ declare namespace chrome.gcm {
          * The sender who issued the message.
          * @since Since Chrome 41.
          */
-        from?: string;
+        from?: string | undefined;
         /**
          * Optional.
          * The collapse key of a message. See Collapsible Messages section of Cloud Messaging documentation for details.
          */
-        collapseKey?: string;
+        collapseKey?: string | undefined;
     }
 
     export interface GcmError {
         /** The error message describing the problem. */
         errorMessage: string;
         /** Optional. The ID of the message with this error, if error is related to a specific message. */
-        messageId?: string;
+        messageId?: string | undefined;
         /** Additional details related to the error, when available. */
         detail: Object;
     }
@@ -4100,7 +4100,7 @@ declare namespace chrome.history {
         /** The transition type for this visit from its referrer. */
         transition: string;
         /** Optional. When this visit occurred, represented in milliseconds since the epoch. */
-        visitTime?: number;
+        visitTime?: number | undefined;
         /** The unique identifier for this visit. */
         visitId: string;
         /** The visit ID of the referrer. */
@@ -4112,15 +4112,15 @@ declare namespace chrome.history {
     /** An object encapsulating one result of a history query. */
     export interface HistoryItem {
         /** Optional. The number of times the user has navigated to this page by typing in the address. */
-        typedCount?: number;
+        typedCount?: number | undefined;
         /** Optional. The title of the page when it was last loaded. */
-        title?: string;
+        title?: string | undefined;
         /** Optional. The URL navigated to by a user. */
-        url?: string;
+        url?: string | undefined;
         /** Optional. When this page was last loaded, represented in milliseconds since the epoch. */
-        lastVisitTime?: number;
+        lastVisitTime?: number | undefined;
         /** Optional. The number of times the user has navigated to this page. */
-        visitCount?: number;
+        visitCount?: number | undefined;
         /** The unique identifier for the item. */
         id: string;
     }
@@ -4129,11 +4129,11 @@ declare namespace chrome.history {
         /** A free-text query to the history service. Leave empty to retrieve all pages. */
         text: string;
         /** Optional. The maximum number of results to retrieve. Defaults to 100. */
-        maxResults?: number;
+        maxResults?: number | undefined;
         /** Optional. Limit results to those visited after this date, represented in milliseconds since the epoch. */
-        startTime?: number;
+        startTime?: number | undefined;
         /** Optional. Limit results to those visited before this date, represented in milliseconds since the epoch. */
-        endTime?: number;
+        endTime?: number | undefined;
     }
 
     export interface Url {
@@ -4152,7 +4152,7 @@ declare namespace chrome.history {
         /** True if all history was removed. If true, then urls will be empty. */
         allHistory: boolean;
         /** Optional. */
-        urls?: string[];
+        urls?: string[] | undefined;
     }
 
     export interface HistoryVisitedEvent extends chrome.events.Event<(result: HistoryItem) => void> { }
@@ -4282,7 +4282,7 @@ declare namespace chrome.identity {
          * Optional.
          * A status of the primary account signed into a profile whose ProfileUserInfo should be returned. Defaults to SYNC account status.
          */
-        accountStatus?: AccountStatus;
+        accountStatus?: AccountStatus | undefined;
     }
 
     export interface TokenDetails {
@@ -4290,21 +4290,21 @@ declare namespace chrome.identity {
          * Optional.
          * Fetching a token may require the user to sign-in to Chrome, or approve the application's requested scopes. If the interactive flag is true, getAuthToken will prompt the user as necessary. When the flag is false or omitted, getAuthToken will return failure any time a prompt would be required.
          */
-        interactive?: boolean;
+        interactive?: boolean | undefined;
         /**
          * Optional.
          * The account ID whose token should be returned. If not specified, the primary account for the profile will be used.
          * account is only supported when the "enable-new-profile-management" flag is set.
          * @since Chrome 37.
          */
-        account?: AccountInfo;
+        account?: AccountInfo | undefined;
         /**
          * Optional.
          * A list of OAuth2 scopes to request.
          * When the scopes field is present, it overrides the list of scopes specified in manifest.json.
          * @since Chrome 37.
          */
-        scopes?: string[];
+        scopes?: string[] | undefined;
     }
 
     export interface UserInfo {
@@ -4328,7 +4328,7 @@ declare namespace chrome.identity {
          * Since some auth flows may immediately redirect to a result URL, launchWebAuthFlow hides its web view until the first navigation either redirects to the final URL, or finishes loading a page meant to be displayed.
          * If the interactive flag is true, the window will be displayed when a page load completes. If the flag is false or omitted, launchWebAuthFlow will return with an error if the initial navigation does not complete the flow.
          */
-        interactive?: boolean;
+        interactive?: boolean | undefined;
     }
 
     export interface SignInChangeEvent extends chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void> { }
@@ -4463,31 +4463,31 @@ declare namespace chrome.input.ime {
          * Optional.
          * Whether or not the SHIFT key is pressed.
          */
-        shiftKey?: boolean;
+        shiftKey?: boolean | undefined;
         /**
          * Optional.
          * Whether or not the ALT key is pressed.
          */
-        altKey?: boolean;
+        altKey?: boolean | undefined;
         /**
          * Optional.
          * Whether or not the ALTGR key is pressed.
          * @since Chrome 79.
          */
-        altgrKey?: boolean;
+        altgrKey?: boolean | undefined;
         /**
          * Optional.
          * The ID of the request.
          * @deprecated since Chrome 79.
          */
-        requestId?: string;
+        requestId?: string | undefined;
         /** Value of the key being pressed */
         key: string;
         /**
          * Optional.
          * Whether or not the CTRL key is pressed.
          */
-        ctrlKey?: boolean;
+        ctrlKey?: boolean | undefined;
         /** One of keyup or keydown. */
         type: string;
         /**
@@ -4495,7 +4495,7 @@ declare namespace chrome.input.ime {
          * The extension ID of the sender of this keyevent.
          * @since Chrome 34.
          */
-        extensionId?: string;
+        extensionId?: string | undefined;
         /**
          * Optional.
          * Value of the physical key being pressed. The value is not affected by current keyboard layout or modifier state.
@@ -4507,13 +4507,13 @@ declare namespace chrome.input.ime {
          * The deprecated HTML keyCode, which is system- and implementation-dependent numerical code signifying the unmodified identifier associated with the key pressed.
          * @since Chrome 37.
          */
-        keyCode?: number;
+        keyCode?: number | undefined;
         /**
          * Optional.
          * Whether or not the CAPS_LOCK is enabled.
          * @since Chrome 29.
          */
-        capsLock?: boolean;
+        capsLock?: boolean | undefined;
     }
 
     /** Describes an input Context */
@@ -4547,15 +4547,15 @@ declare namespace chrome.input.ime {
         /** String that will be passed to callbacks referencing this MenuItem. */
         id: string;
         /** Optional. Text displayed in the menu for this item. */
-        label?: string;
+        label?: string | undefined;
         /** Optional. The type of menu item. */
-        style?: string;
+        style?: string | undefined;
         /** Optional. Indicates this item is visible. */
-        visible?: boolean;
+        visible?: boolean | undefined;
         /** Indicates this item should be drawn with a check. */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /** Indicates this item is enabled. */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
     }
 
     export interface ImeParameters {
@@ -4588,22 +4588,22 @@ declare namespace chrome.input.ime {
          * Optional.
          * The id to add these candidates under
          */
-        parentId?: number;
+        parentId?: number | undefined;
         /**
          * Optional.
          * Short string displayed to next to the candidate, often the shortcut key or index
          */
-        label?: string;
+        label?: string | undefined;
         /**
          * Optional.
          * Additional text describing the candidate
          */
-        annotation?: string;
+        annotation?: string | undefined;
         /**
          * Optional.
          * The usage or detail description of word.
          */
-        usage?: CandidateUsage;
+        usage?: CandidateUsage | undefined;
     }
 
     export interface CandidatesParameters {
@@ -4628,13 +4628,13 @@ declare namespace chrome.input.ime {
         /** Text to set */
         text: string;
         /** Optional. List of segments and their associated types. */
-        segments?: CompositionParameterSegment[];
+        segments?: CompositionParameterSegment[] | undefined;
         /** Position in the text of the cursor. */
         cursor: number;
         /** Optional. Position in the text that the selection starts at. */
-        selectionStart?: number;
+        selectionStart?: number | undefined;
         /** Optional. Position in the text that the selection ends at. */
-        selectionEnd?: number;
+        selectionEnd?: number | undefined;
     }
 
     export interface MenuItemParameters {
@@ -4652,7 +4652,7 @@ declare namespace chrome.input.ime {
     export interface AssistiveWindowProperties {
         type: AssistiveWindowType;
         visible: boolean;
-        announceString?: string;
+        announceString?: string | undefined;
     }
 
     export interface CandidateWindowParameterProperties {
@@ -4660,38 +4660,38 @@ declare namespace chrome.input.ime {
          * Optional.
          * True to show the cursor, false to hide it.
          */
-        cursorVisible?: boolean;
+        cursorVisible?: boolean | undefined;
         /**
          * Optional.
          * True if the candidate window should be rendered vertical, false to make it horizontal.
          */
-        vertical?: boolean;
+        vertical?: boolean | undefined;
         /**
          * Optional.
          * The number of candidates to display per page.
          */
-        pageSize?: number;
+        pageSize?: number | undefined;
         /**
          * Optional.
          * True to display the auxiliary text, false to hide it.
          */
-        auxiliaryTextVisible?: boolean;
+        auxiliaryTextVisible?: boolean | undefined;
         /**
          * Optional.
          * Text that is shown at the bottom of the candidate window.
          */
-        auxiliaryText?: string;
+        auxiliaryText?: string | undefined;
         /**
          * Optional.
          * True to show the Candidate window, false to hide it.
          */
-        visible?: boolean;
+        visible?: boolean | undefined;
         /**
          * Optional.
          * Where to display the candidate window.
          * @since Chrome 28.
          */
-        windowPosition?: string;
+        windowPosition?: string | undefined;
     }
 
     export interface CandidateWindowParameter {
@@ -4831,7 +4831,7 @@ declare namespace chrome.input.ime {
             contextID: number;
             buttonID: chrome.input.ime.AssistiveWindowButton;
             windowType: chrome.input.ime.AssistiveWindowType;
-            announceString?: string;
+            announceString?: string | undefined;
             highlighted: boolean;
         },
         callback?: () => void,
@@ -4966,9 +4966,9 @@ declare namespace chrome.management {
          * A reason the item is disabled.
          * @since Chrome 17.
          */
-        disabledReason?: string;
+        disabledReason?: string | undefined;
         /** Optional. The launch url (only present for apps). */
-        appLaunchUrl?: string;
+        appLaunchUrl?: string | undefined;
         /**
          * The description of this extension, app, or theme.
          * @since Chrome 9.
@@ -4983,7 +4983,7 @@ declare namespace chrome.management {
          * Optional.
          * A list of icon information. Note that this just reflects what was declared in the manifest, and the actual image at that url may be larger or smaller than what was declared, so you might consider using explicit width and height attributes on img tags referencing these images. See the manifest documentation on icons for more details.
          */
-        icons?: IconInfo[];
+        icons?: IconInfo[] | undefined;
         /**
          * Returns a list of host based permissions.
          * @since Chrome 9.
@@ -4996,7 +4996,7 @@ declare namespace chrome.management {
          * The URL of the homepage of this extension, app, or theme.
          * @since Chrome 11.
          */
-        homepageUrl?: string;
+        homepageUrl?: string | undefined;
         /**
          * Whether this extension can be disabled or uninstalled by the user.
          * @since Chrome 12.
@@ -5021,7 +5021,7 @@ declare namespace chrome.management {
          * The update URL of this extension, app, or theme.
          * @since Chrome 16.
          */
-        updateUrl?: string;
+        updateUrl?: string | undefined;
         /**
          * The type of this extension, app, or theme.
          * @since Chrome 23.
@@ -5046,13 +5046,13 @@ declare namespace chrome.management {
          * The app launch type (only present for apps).
          * @since Chrome 37.
          */
-        launchType?: string;
+        launchType?: string | undefined;
         /**
          * Optional.
          * The currently available launch types (only present for apps).
          * @since Chrome 37.
          */
-        availableLaunchTypes?: string[];
+        availableLaunchTypes?: string[] | undefined;
     }
 
     /** Information about an icon belonging to an extension, app, or theme. */
@@ -5068,7 +5068,7 @@ declare namespace chrome.management {
          * Optional.
          * Whether or not a confirm-uninstall dialog should prompt the user. Defaults to false for self uninstalls. If an extension uninstalls another extension, this parameter is ignored and the dialog is always shown.
          */
-        showConfirmDialog?: boolean;
+        showConfirmDialog?: boolean | undefined;
     }
 
     export interface ManagementDisabledEvent extends chrome.events.Event<(info: ExtensionInfo) => void> { }
@@ -5313,15 +5313,15 @@ declare namespace chrome.networking.config {
         /** Currently only WiFi supported. */
         Type: string;
         /** Optional. A unique identifier of the network. */
-        GUID?: string;
+        GUID?: string | undefined;
         /** Optional. A hex-encoded byte sequence. */
-        HexSSID?: string;
+        HexSSID?: string | undefined;
         /** Optional. The decoded SSID of the network (default encoding is UTF-8). To filter for non-UTF-8 SSIDs, use HexSSID instead. */
-        SSID?: string;
+        SSID?: string | undefined;
         /** Optional. The basic service set identification (BSSID) uniquely identifying the basic service set. BSSID is represented as a human readable, hex-encoded string with bytes separated by colons, e.g. 45:67:89:ab:cd:ef. */
-        BSSID?: string;
+        BSSID?: string | undefined;
         /** Optional. Identifier indicating the security type of the network. Valid values are None, WEP-PSK, WPA-PSK and WPA-EAP. */
-        Security?: string;
+        Security?: string | undefined;
     }
 
     export interface CaptivePorttalDetectedEvent extends chrome.events.Event<(networkInfo: NetworkInfo) => void> { }
@@ -5364,7 +5364,7 @@ declare namespace chrome.networking.config {
 declare namespace chrome.notifications {
     export interface ButtonOptions {
         title: string;
-        iconUrl?: string;
+        iconUrl?: string | undefined;
     }
 
     export interface ItemOptions {
@@ -5376,63 +5376,63 @@ declare namespace chrome.notifications {
 
     export interface NotificationOptions {
         /** Optional. Which type of notification to display. Required for notifications.create method. */
-        type?: string;
+        type?: string | undefined;
         /**
          * Optional.
          * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
          * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Required for notifications.create method.
          */
-        iconUrl?: string;
+        iconUrl?: string | undefined;
         /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
-        title?: string;
+        title?: string | undefined;
         /** Optional. Main notification content. Required for notifications.create method. */
-        message?: string;
+        message?: string | undefined;
         /**
          * Optional.
          * Alternate notification content with a lower-weight font.
          * @since Chrome 31.
          */
-        contextMessage?: string;
+        contextMessage?: string | undefined;
         /** Optional. Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest. Zero is default. */
-        priority?: number;
+        priority?: number | undefined;
         /** Optional. A timestamp associated with the notification, in milliseconds past the epoch (e.g. Date.now() + n). */
-        eventTime?: number;
+        eventTime?: number | undefined;
         /** Optional. Text and icons for up to two notification action buttons. */
-        buttons?: ButtonOptions[];
+        buttons?: ButtonOptions[] | undefined;
         /** Optional. Items for multi-item notifications. */
-        items?: ItemOptions[];
+        items?: ItemOptions[] | undefined;
         /**
          * Optional.
          * Current progress ranges from 0 to 100.
          * @since Chrome 30.
          */
-        progress?: number;
+        progress?: number | undefined;
         /**
          * Optional.
          * Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
          * @since Chrome 32.
          */
-        isClickable?: boolean;
+        isClickable?: boolean | undefined;
         /**
          * Optional.
          * A URL to the app icon mask. URLs have the same restrictions as iconUrl. The app icon mask should be in alpha channel, as only the alpha channel of the image will be considered.
          * @since Chrome 38.
          */
-        appIconMaskUrl?: string;
+        appIconMaskUrl?: string | undefined;
         /** Optional. A URL to the image thumbnail for image-type notifications. URLs have the same restrictions as iconUrl. */
-        imageUrl?: string;
+        imageUrl?: string | undefined;
         /**
          * Indicates that the notification should remain visible on screen until the user activates or dismisses the notification.
          * This defaults to false.
          * @since Chrome 50
          */
-        requireInteraction?: boolean;
+        requireInteraction?: boolean | undefined;
         /**
          * Optional.
          * Indicates that no sounds or vibrations should be made when the notification is being shown. This defaults to false.
          * @since Chrome 70
          */
-        silent?: boolean;
+        silent?: boolean | undefined;
     }
 
     export interface NotificationClosedEvent
@@ -5550,7 +5550,7 @@ declare namespace chrome.omnibox {
          * Whether the suggest result can be deleted by the user.
          * @since Chrome 63.
          */
-        deletable?: boolean;
+        deletable?: boolean | undefined;
     }
 
     export interface Suggestion {
@@ -5631,12 +5631,12 @@ declare namespace chrome.pageAction {
          * Optional.
          * @deprecated This argument is ignored.
          */
-        iconIndex?: number;
+        iconIndex?: number | undefined;
         /**
          * Optional.
          * Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        imageData?: ImageData | { [index: number]: ImageData };
+        imageData?: ImageData | { [index: number]: ImageData } | undefined;
         /**
          * Optional.
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
@@ -5728,12 +5728,12 @@ declare namespace chrome.permissions {
          * Optional.
          * List of named permissions (does not include hosts or origins). Anything listed here must appear in the optional_permissions list in the manifest.
          */
-        permissions?: string[];
+        permissions?: string[] | undefined;
         /**
          * Optional.
          * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional_permissions list in the manifest. For example, if http://*.example.com/ or http://* appears in optional_permissions, you can request an origin of http://help.example.com/. Any path is ignored.
          */
-        origins?: string[];
+        origins?: string[] | undefined;
     }
 
     export interface PermissionsRemovedEvent {
@@ -5820,7 +5820,7 @@ declare namespace chrome.platformKeys {
          * Optional.
          * If given, the selectClientCertificates operates on this list. Otherwise, obtains the list of all certificates from the platform's certificate stores that are available to this extensions. Entries that the extension doesn't have permission for or which doesn't match the request, are removed.
          */
-        clientCerts?: ArrayBuffer[];
+        clientCerts?: ArrayBuffer[] | undefined;
         /** If true, the filtered list is presented to the user to manually select a certificate and thereby granting the extension access to the certificate(s) and key(s). Only the selected certificate(s) will be returned. If is false, the list is reduced to all certificates that the extension has been granted access to (automatically or manually). */
         interactive: boolean;
     }
@@ -5925,7 +5925,7 @@ declare namespace chrome.printerProvider {
         /** Printer's human readable name. */
         name: string;
         /** Optional. Printer's human readable description. */
-        description?: string;
+        description?: string | undefined;
     }
 
     export interface PrinterCapabilities {
@@ -6046,19 +6046,19 @@ declare namespace chrome.proxy {
     /** An object holding proxy auto-config information. Exactly one of the fields should be non-empty. */
     export interface PacScript {
         /** Optional. URL of the PAC file to be used. */
-        url?: string;
+        url?: string | undefined;
         /** Optional. If true, an invalid PAC script will prevent the network stack from falling back to direct connections. Defaults to false. */
-        mandatory?: boolean;
+        mandatory?: boolean | undefined;
         /** Optional. A PAC script. */
-        data?: string;
+        data?: string | undefined;
     }
 
     /** An object encapsulating a complete proxy configuration. */
     export interface ProxyConfig {
         /** Optional. The proxy rules describing this configuration. Use this for 'fixed_servers' mode. */
-        rules?: ProxyRules;
+        rules?: ProxyRules | undefined;
         /** Optional. The proxy auto-config (PAC) script for this configuration. Use this for 'pac_script' mode. */
-        pacScript?: PacScript;
+        pacScript?: PacScript | undefined;
         /**
          * 'direct' = Never use a proxy
          * 'auto_detect' = Auto detect proxy settings
@@ -6074,25 +6074,25 @@ declare namespace chrome.proxy {
         /** The URI of the proxy server. This must be an ASCII hostname (in Punycode format). IDNA is not supported, yet. */
         host: string;
         /** Optional. The scheme (protocol) of the proxy server itself. Defaults to 'http'. */
-        scheme?: string;
+        scheme?: string | undefined;
         /** Optional. The port of the proxy server. Defaults to a port that depends on the scheme. */
-        port?: number;
+        port?: number | undefined;
     }
 
     /** An object encapsulating the set of proxy rules for all protocols. Use either 'singleProxy' or (a subset of) 'proxyForHttp', 'proxyForHttps', 'proxyForFtp' and 'fallbackProxy'. */
     export interface ProxyRules {
         /** Optional. The proxy server to be used for FTP requests. */
-        proxyForFtp?: ProxyServer;
+        proxyForFtp?: ProxyServer | undefined;
         /** Optional. The proxy server to be used for HTTP requests. */
-        proxyForHttp?: ProxyServer;
+        proxyForHttp?: ProxyServer | undefined;
         /** Optional. The proxy server to be used for everthing else or if any of the specific proxyFor... is not specified. */
-        fallbackProxy?: ProxyServer;
+        fallbackProxy?: ProxyServer | undefined;
         /** Optional. The proxy server to be used for all per-URL requests (that is http, https, and ftp). */
-        singleProxy?: ProxyServer;
+        singleProxy?: ProxyServer | undefined;
         /** Optional. The proxy server to be used for HTTPS requests. */
-        proxyForHttps?: ProxyServer;
+        proxyForHttps?: ProxyServer | undefined;
         /** Optional. List of servers to connect to without a proxy server. */
-        bypassList?: string[];
+        bypassList?: string[] | undefined;
     }
 
     export interface ErrorDetails {
@@ -6124,11 +6124,11 @@ declare namespace chrome.search {
 
     export interface QueryInfo {
         /** Location where search results should be displayed. CURRENT_TAB is the default.  */
-        disposition?: Disposition;
+        disposition?: Disposition | undefined;
         /** Location where search results should be displayed. tabIdcannot be used with disposition. */
-        tabId?: number;
+        tabId?: number | undefined;
         /** String to query with the default search provider. */
-        text?: string;
+        text?: string | undefined;
     }
 
     /**
@@ -6168,16 +6168,16 @@ declare namespace chrome.serial {
         /** The device's system path. This should be passed as the path argument to chrome.serial.connect in order to connect to this device. */
         path: string;
         /** Optional. A PCI or USB vendor ID if one can be determined for the underlying device. */
-        vendorId?: number;
+        vendorId?: number | undefined;
         /** Optional. A USB product ID if one can be determined for the underlying device. */
-        productId?: number;
+        productId?: number | undefined;
         /** Optional. A human-readable display name for the underlying device if one can be queried from the host driver. */
-        displayName?: number;
+        displayName?: number | undefined;
     }
 
     export interface ConnectionInfo {
         /** The id of the serial port connection. */
-        connectionId?: number;
+        connectionId?: number | undefined;
         /** Flag indicating whether the connection is blocked from firing onReceive events. */
         paused: boolean;
         /** See ConnectionOptions.persistent */
@@ -6187,52 +6187,52 @@ declare namespace chrome.serial {
         /** See ConnectionOptions.bufferSize */
         bufferSize: number;
         /** See ConnectionOptions.receiveTimeout */
-        receiveTimeout?: number;
+        receiveTimeout?: number | undefined;
         /** See ConnectionOptions.sendTimeout */
-        sendTimeout?: number;
+        sendTimeout?: number | undefined;
         /** Optional. See ConnectionOptions.bitrate.
          * This field may be omitted or inaccurate if a non-standard bitrate is in use, or if an error occurred while querying the underlying device. */
-        bitrate?: number;
+        bitrate?: number | undefined;
         /** Optional. See ConnectionOptions.dataBits. This field may be omitted if an error occurred while querying the underlying device. */
-        dataBits?: typeof DataBits[keyof typeof DataBits];
+        dataBits?: typeof DataBits[keyof typeof DataBits] | undefined;
         /** Optional. See ConnectionOptions.parityBit. This field may be omitted if an error occurred while querying the underlying device. */
-        parityBit?: typeof ParityBit[keyof typeof ParityBit];
+        parityBit?: typeof ParityBit[keyof typeof ParityBit] | undefined;
         /** Optional. See ConnectionOptions.stopBits. This field may be omitted if an error occurred while querying the underlying device. */
-        stopBits?: typeof StopBits[keyof typeof StopBits];
+        stopBits?: typeof StopBits[keyof typeof StopBits] | undefined;
         /** Optional. Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false. */
-        ctsFlowControl?: boolean;
+        ctsFlowControl?: boolean | undefined;
     }
 
     export interface ConnectionOptions {
         /** Optional. Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle: https://developer.chrome.com/apps/app_lifecycle).
          *  The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections. */
-        peristent?: boolean;
+        peristent?: boolean | undefined;
         /** Optional. An application-defined string to associate with the connection. */
-        name?: string;
+        name?: string | undefined;
         /** Optional. The size of the buffer used to receive data. The default value is 4096. */
-        bufferSize?: number;
+        bufferSize?: number | undefined;
         /** Optional. The requested bitrate of the connection to be opened.
          * For compatibility with the widest range of hardware, this number should match one of commonly-available bitrates,
          * such as 110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200.
          * There is no guarantee, of course, that the device connected to the serial port will support the requested bitrate, even if the port itself supports that bitrate.
          * 9600 will be passed by default. */
-        bitrate?: number;
+        bitrate?: number | undefined;
         /** Optional. "eight" will be passed by default. */
-        dataBits?: typeof DataBits[keyof typeof DataBits];
+        dataBits?: typeof DataBits[keyof typeof DataBits] | undefined;
         /** Optional. "no" will be passed by default. */
-        parityBit?: typeof ParityBit[keyof typeof ParityBit];
+        parityBit?: typeof ParityBit[keyof typeof ParityBit] | undefined;
         /** Optional. "one" will be passed by default. */
-        stopBits?: typeof StopBits[keyof typeof StopBits];
+        stopBits?: typeof StopBits[keyof typeof StopBits] | undefined;
         /** Optional. Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false. */
-        ctsFlowControl?: boolean;
+        ctsFlowControl?: boolean | undefined;
         /** Optional. The maximum amount of time (in milliseconds) to wait for new data before raising an onReceiveError event with a "timeout" error.
          * If zero, receive timeout errors will not be raised for the connection.
          * Defaults to 0. */
-        receiveTimeout?: number;
+        receiveTimeout?: number | undefined;
         /** Optional. The maximum amount of time (in milliseconds) to wait for a send operation to complete before calling the callback with a "timeout" error.
          * If zero, send timeout errors will not be triggered.
          * Defaults to 0. */
-        sendTimeout?: number;
+        sendTimeout?: number | undefined;
     }
 
     /**
@@ -6444,12 +6444,12 @@ declare namespace chrome.runtime {
 
     export interface LastError {
         /** Optional. Details about the error which occurred.  */
-        message?: string;
+        message?: string | undefined;
     }
 
     export interface ConnectInfo {
-        name?: string;
-        includeTlsChannelId?: boolean;
+        name?: string | undefined;
+        includeTlsChannelId?: boolean | undefined;
     }
 
     export interface InstalledDetails {
@@ -6462,18 +6462,18 @@ declare namespace chrome.runtime {
          * Optional.
          * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
          */
-        previousVersion?: string;
+        previousVersion?: string | undefined;
         /**
          * Optional.
          * Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'.
          * @since Chrome 29.
          */
-        id?: string;
+        id?: string | undefined;
     }
 
     export interface MessageOptions {
         /** Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the connection event. */
-        includeTlsChannelId?: boolean;
+        includeTlsChannelId?: boolean | undefined;
     }
 
     /**
@@ -6482,33 +6482,33 @@ declare namespace chrome.runtime {
      */
     export interface MessageSender {
         /** The ID of the extension or app that opened the connection, if any. */
-        id?: string;
+        id?: string | undefined;
         /** The tabs.Tab which opened the connection, if any. This property will only be present when the connection was opened from a tab (including content scripts), and only if the receiver is an extension, not an app. */
-        tab?: chrome.tabs.Tab;
+        tab?: chrome.tabs.Tab | undefined;
         /** The name of the native application that opened the connection, if any.
          * @since Chrome 74
          */
-        nativeApplication?: string;
+        nativeApplication?: string | undefined;
         /**
          * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set.
          * @since Chrome 41.
          */
-        frameId?: number;
+        frameId?: number | undefined;
         /**
          * The URL of the page or frame that opened the connection. If the sender is in an iframe, it will be iframe's URL not the URL of the page which hosts it.
          * @since Chrome 28.
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * The TLS channel ID of the page or frame that opened the connection, if requested by the extension or app, and if available.
          * @since Chrome 32.
          */
-        tlsChannelId?: string;
+        tlsChannelId?: string | undefined;
         /**
          * The origin of the page or frame that opened the connection. It can vary from the url property (e.g., about:blank) or can be opaque (e.g., sandboxed iframes). This is useful for identifying if the origin can be trusted if we can't immediately tell from the URL.
          * @since Chrome 80.
          */
-        origin?: string;
+        origin?: string | undefined;
     }
 
     /**
@@ -6544,7 +6544,7 @@ declare namespace chrome.runtime {
          * Optional.
          * This property will only be present on ports passed to onConnect/onConnectExternal listeners.
          */
-        sender?: MessageSender;
+        sender?: MessageSender | undefined;
         /** An object which allows the addition and removal of listeners for a Chrome event. */
         onDisconnect: PortDisconnectEvent;
         /** An object which allows the addition and removal of listeners for a Chrome event. */
@@ -6590,27 +6590,27 @@ declare namespace chrome.runtime {
     }
 
     export interface ManifestAction {
-        default_icon?: ManifestIcons;
-        default_title?: string;
-        default_popup?: string;
+        default_icon?: ManifestIcons | undefined;
+        default_title?: string | undefined;
+        default_popup?: string | undefined;
     }
 
     export interface SearchProvider {
-        name?: string;
-        keyword?: string;
-        favicon_url?: string;
+        name?: string | undefined;
+        keyword?: string | undefined;
+        favicon_url?: string | undefined;
         search_url: string;
-        encoding?: string;
-        suggest_url?: string;
-        instant_url?: string;
-        image_url?: string;
-        search_url_post_params?: string;
-        suggest_url_post_params?: string;
-        instant_url_post_params?: string;
-        image_url_post_params?: string;
-        alternate_urls?: string[];
-        prepopulated_id?: number;
-        is_default?: boolean;
+        encoding?: string | undefined;
+        suggest_url?: string | undefined;
+        instant_url?: string | undefined;
+        image_url?: string | undefined;
+        search_url_post_params?: string | undefined;
+        suggest_url_post_params?: string | undefined;
+        instant_url_post_params?: string | undefined;
+        image_url_post_params?: string | undefined;
+        alternate_urls?: string[] | undefined;
+        prepopulated_id?: number | undefined;
+        is_default?: boolean | undefined;
     }
 
     export interface Manifest {
@@ -6620,176 +6620,176 @@ declare namespace chrome.runtime {
         version: string;
 
         // Recommended
-        default_locale?: string;
-        description?: string;
-        icons?: ManifestIcons;
+        default_locale?: string | undefined;
+        description?: string | undefined;
+        icons?: ManifestIcons | undefined;
 
         // Pick one (or none)
-        browser_action?: ManifestAction;
-        page_action?: ManifestAction;
+        browser_action?: ManifestAction | undefined;
+        page_action?: ManifestAction | undefined;
 
         // Optional
         author?: any;
         automation?: any;
         background?: {
-            scripts?: string[];
-            page?: string;
-            persistent?: boolean;
-        };
-        background_page?: string;
+            scripts?: string[] | undefined;
+            page?: string | undefined;
+            persistent?: boolean | undefined;
+        } | undefined;
+        background_page?: string | undefined;
         chrome_settings_overrides?: {
-            homepage?: string;
-            search_provider?: SearchProvider;
-            startup_pages?: string[];
-        };
+            homepage?: string | undefined;
+            search_provider?: SearchProvider | undefined;
+            startup_pages?: string[] | undefined;
+        } | undefined;
         chrome_ui_overrides?: {
             bookmarks_ui?: {
-                remove_bookmark_shortcut?: boolean;
-                remove_button?: boolean;
-            };
-        };
+                remove_bookmark_shortcut?: boolean | undefined;
+                remove_button?: boolean | undefined;
+            } | undefined;
+        } | undefined;
         chrome_url_overrides?: {
-            bookmarks?: string;
-            history?: string;
-            newtab?: string;
-        };
+            bookmarks?: string | undefined;
+            history?: string | undefined;
+            newtab?: string | undefined;
+        } | undefined;
         commands?: {
             [name: string]: {
                 suggested_key?: {
-                    default?: string;
-                    windows?: string;
-                    mac?: string;
-                    chromeos?: string;
-                    linux?: string;
-                };
-                description?: string;
-                global?: boolean;
+                    default?: string | undefined;
+                    windows?: string | undefined;
+                    mac?: string | undefined;
+                    chromeos?: string | undefined;
+                    linux?: string | undefined;
+                } | undefined;
+                description?: string | undefined;
+                global?: boolean | undefined;
             };
-        };
+        } | undefined;
         content_capabilities?: {
-            matches?: string[];
-            permissions?: string[];
-        };
+            matches?: string[] | undefined;
+            permissions?: string[] | undefined;
+        } | undefined;
         content_scripts?: {
-            matches?: string[];
-            exclude_matches?: string[];
-            css?: string[];
-            js?: string[];
-            run_at?: string;
-            all_frames?: boolean;
-            match_about_blank?: boolean;
-            include_globs?: string[];
-            exclude_globs?: string[];
-        }[];
-        content_security_policy?: string;
-        converted_from_user_script?: boolean;
+            matches?: string[] | undefined;
+            exclude_matches?: string[] | undefined;
+            css?: string[] | undefined;
+            js?: string[] | undefined;
+            run_at?: string | undefined;
+            all_frames?: boolean | undefined;
+            match_about_blank?: boolean | undefined;
+            include_globs?: string[] | undefined;
+            exclude_globs?: string[] | undefined;
+        }[] | undefined;
+        content_security_policy?: string | undefined;
+        converted_from_user_script?: boolean | undefined;
         copresence?: any;
-        current_locale?: string;
-        devtools_page?: string;
+        current_locale?: string | undefined;
+        devtools_page?: string | undefined;
         event_rules?: {
-            event?: string;
+            event?: string | undefined;
             actions?: {
                 type: string;
-            }[];
-            conditions?: chrome.declarativeContent.PageStateMatcherProperties[];
-        }[];
+            }[] | undefined;
+            conditions?: chrome.declarativeContent.PageStateMatcherProperties[] | undefined;
+        }[] | undefined;
         externally_connectable?: {
-            ids?: string[];
-            matches?: string[];
-            accepts_tls_channel_id?: boolean;
-        };
+            ids?: string[] | undefined;
+            matches?: string[] | undefined;
+            accepts_tls_channel_id?: boolean | undefined;
+        } | undefined;
         file_browser_handlers?: {
-            id?: string;
-            default_title?: string;
-            file_filters?: string[];
-        }[];
+            id?: string | undefined;
+            default_title?: string | undefined;
+            file_filters?: string[] | undefined;
+        }[] | undefined;
         file_system_provider_capabilities?: {
-            configurable?: boolean;
-            watchable?: boolean;
-            multiple_mounts?: boolean;
-            source?: string;
-        };
-        homepage_url?: string;
+            configurable?: boolean | undefined;
+            watchable?: boolean | undefined;
+            multiple_mounts?: boolean | undefined;
+            source?: string | undefined;
+        } | undefined;
+        homepage_url?: string | undefined;
         import?: {
             id: string;
-            minimum_version?: string;
-        }[];
+            minimum_version?: string | undefined;
+        }[] | undefined;
         export?: {
-            whitelist?: string[];
-        };
-        incognito?: string;
+            whitelist?: string[] | undefined;
+        } | undefined;
+        incognito?: string | undefined;
         input_components?: {
-            name?: string;
-            type?: string;
-            id?: string;
-            description?: string;
-            language?: string;
-            layouts?: any[];
-        }[];
-        key?: string;
-        minimum_chrome_version?: string;
+            name?: string | undefined;
+            type?: string | undefined;
+            id?: string | undefined;
+            description?: string | undefined;
+            language?: string | undefined;
+            layouts?: any[] | undefined;
+        }[] | undefined;
+        key?: string | undefined;
+        minimum_chrome_version?: string | undefined;
         nacl_modules?: {
             path: string;
             mime_type: string;
-        }[];
+        }[] | undefined;
         oauth2?: {
             client_id: string;
-            scopes?: string[];
-        };
-        offline_enabled?: boolean;
+            scopes?: string[] | undefined;
+        } | undefined;
+        offline_enabled?: boolean | undefined;
         omnibox?: {
             keyword: string;
-        };
-        optional_permissions?: string[];
-        options_page?: string;
+        } | undefined;
+        optional_permissions?: string[] | undefined;
+        options_page?: string | undefined;
         options_ui?: {
-            page?: string;
-            chrome_style?: boolean;
-            open_in_tab?: boolean;
-        };
-        permissions?: string[];
+            page?: string | undefined;
+            chrome_style?: boolean | undefined;
+            open_in_tab?: boolean | undefined;
+        } | undefined;
+        permissions?: string[] | undefined;
         platforms?: {
-            nacl_arch?: string;
+            nacl_arch?: string | undefined;
             sub_package_path: string;
-        }[];
+        }[] | undefined;
         plugins?: {
             path: string;
-        }[];
+        }[] | undefined;
         requirements?: {
             '3D'?: {
-                features?: string[];
-            };
+                features?: string[] | undefined;
+            } | undefined;
             plugins?: {
-                npapi?: boolean;
-            };
-        };
+                npapi?: boolean | undefined;
+            } | undefined;
+        } | undefined;
         sandbox?: {
             pages: string[];
-            content_security_policy?: string;
-        };
-        short_name?: string;
+            content_security_policy?: string | undefined;
+        } | undefined;
+        short_name?: string | undefined;
         signature?: any;
         spellcheck?: {
-            dictionary_language?: string;
-            dictionary_locale?: string;
-            dictionary_format?: string;
-            dictionary_path?: string;
-        };
+            dictionary_language?: string | undefined;
+            dictionary_locale?: string | undefined;
+            dictionary_format?: string | undefined;
+            dictionary_path?: string | undefined;
+        } | undefined;
         storage?: {
             managed_schema: string;
-        };
+        } | undefined;
         system_indicator?: any;
         tts_engine?: {
             voices: {
                 voice_name: string;
-                lang?: string;
-                gender?: string;
-                event_types?: string[];
+                lang?: string | undefined;
+                gender?: string | undefined;
+                event_types?: string[] | undefined;
             }[];
-        };
-        update_url?: string;
-        version_name?: string;
-        web_accessible_resources?: string[];
+        } | undefined;
+        update_url?: string | undefined;
+        version_name?: string | undefined;
+        web_accessible_resources?: string[] | undefined;
         [key: string]: any;
     }
 
@@ -6992,29 +6992,29 @@ declare namespace chrome.scripting {
 
     export interface InjectionTarget {
         /* Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if frameIds is specified. */
-        allFrames?: boolean;
+        allFrames?: boolean | undefined;
         /* The IDs of specific frames to inject into. */
-        frameIds?: number[];
+        frameIds?: number[] | undefined;
         /* The ID of the tab into which to inject. */
         tabId: number;
     }
 
     export interface CSSInjection {
         /* A string containing the CSS to inject. Exactly one of files and css must be specified. */
-        css?: string;
+        css?: string | undefined;
         /* The path of the CSS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and css must be specified. */
-        files?: string[];
+        files?: string[] | undefined;
         /* The style origin for the injection. Defaults to 'AUTHOR'. */
-        origin?: StyleOrigin;
+        origin?: StyleOrigin | undefined;
         /* Details specifying the target into which to insert the CSS. */
         target: InjectionTarget;
     }
 
     export interface ScriptInjection {
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
-        files?: string[];
+        files?: string[] | undefined;
         /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
-        function?: () => void;
+        function?: (() => void) | undefined;
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
     }
@@ -7094,7 +7094,7 @@ declare namespace chrome.sessions {
          * Optional.
          * The maximum number of entries to be fetched in the requested list. Omit this parameter to fetch the maximum number of entries (sessions.MAX_SESSION_RESULTS).
          */
-        maxResults?: number;
+        maxResults?: number | undefined;
     }
 
     export interface Session {
@@ -7104,12 +7104,12 @@ declare namespace chrome.sessions {
          * Optional.
          * The tabs.Tab, if this entry describes a tab. Either this or sessions.Session.window will be set.
          */
-        tab?: tabs.Tab;
+        tab?: tabs.Tab | undefined;
         /**
          * Optional.
          * The windows.Window, if this entry describes a window. Either this or sessions.Session.tab will be set.
          */
-        window?: windows.Window;
+        window?: windows.Window | undefined;
     }
 
     export interface Device {
@@ -7284,7 +7284,7 @@ declare namespace chrome.socket {
 
     export interface AcceptInfo {
         resultCode: number;
-        socketId?: number;
+        socketId?: number | undefined;
     }
 
     export interface ReadInfo {
@@ -7305,10 +7305,10 @@ declare namespace chrome.socket {
 
     export interface SocketInfo {
         socketType: string;
-        localPort?: number;
-        peerAddress?: string;
-        peerPort?: number;
-        localAddress?: string;
+        localPort?: number | undefined;
+        peerAddress?: string | undefined;
+        peerPort?: number | undefined;
+        localAddress?: string | undefined;
         connected: boolean;
     }
 
@@ -7653,7 +7653,7 @@ declare namespace chrome.system.display {
          * @see(See `enableUnifiedDesktop` for details).
          * @since Chrome 59
          * */
-        isUnified?: boolean;
+        isUnified?: boolean | undefined;
 
         /**
          * requires(CrOS) Chrome OS only.
@@ -7666,20 +7666,20 @@ declare namespace chrome.system.display {
          * which must not be the same as the id passed to setDisplayProperties.
          * If set, no other property may be set.
          */
-        mirroringSourceId?: string;
+        mirroringSourceId?: string | undefined;
 
         /**
          * If set to true, makes the display primary.
          * No-op if set to false.
          */
-        isPrimary?: boolean;
+        isPrimary?: boolean | undefined;
 
         /**
          * If set, sets the display's overscan insets to the provided values.
          * Note that overscan values may not be negative or larger than a half of the screen's size.
          * Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter.
          */
-        overscan?: Insets;
+        overscan?: Insets | undefined;
 
         /**
          * If set, updates the display's rotation.
@@ -7687,7 +7687,7 @@ declare namespace chrome.system.display {
          * The rotation is set clockwise, relative to the display's vertical position.
          * It's applied after overscan parameter.
          */
-        rotation?: 0 | 90 | 180 | 270;
+        rotation?: 0 | 90 | 180 | 270 | undefined;
 
         /**
          * If set, updates the display's logical bounds origin along x-axis.
@@ -7699,19 +7699,19 @@ declare namespace chrome.system.display {
          * Note that is also invalid to set bounds origin values if isPrimary is also set
          * (as isPrimary parameter is applied first).
          */
-        boundsOriginX?: number;
+        boundsOriginX?: number | undefined;
 
         /**
          * If set, updates the display's logical bounds origin along y-axis.
          * @see[See documentation for boundsOriginX parameter.]
          */
-        boundsOriginY?: number;
+        boundsOriginY?: number | undefined;
 
         /**
          * If set, updates the display mode to the mode matching this value.
          * @since Chrome 52
          */
-        displayMode?: DisplayMode;
+        displayMode?: DisplayMode | undefined;
 
         /**
          * @since Chrome 65.
@@ -7721,7 +7721,7 @@ declare namespace chrome.system.display {
          * in a better quality zoom than just performing
          * a pixel by pixel stretch enlargement.
          */
-        displayZoomFactor?: number;
+        displayZoomFactor?: number | undefined;
     }
 
     /**
@@ -7734,7 +7734,7 @@ declare namespace chrome.system.display {
          * @see[enableUnifiedDesktop]
          * @default false
          */
-        singleUnified?: boolean;
+        singleUnified?: boolean | undefined;
     }
 
     /** Information about display properties. */
@@ -7758,8 +7758,8 @@ declare namespace chrome.system.display {
             /**
              * Year of manufacturer.
              */
-            yearOfManufacture?: string;
-        };
+            yearOfManufacture?: string | undefined;
+        } | undefined;
         /**
          * requires(CrOS) Only working properly on Chrome OS.
          * Identifier of the display that is being mirrored on the display unit.
@@ -7823,13 +7823,13 @@ declare namespace chrome.system.display {
          * **mixed**
          * The specified source display will be mirrored to the provided destination displays. All other connected displays will be extended.
          */
-        mode?: 'off' | 'normal' | 'mixed';
+        mode?: 'off' | 'normal' | 'mixed' | undefined;
     }
     export interface MirrorModeInfoMixed extends MirrorModeInfo {
         mode: 'mixed';
-        mirroringSourceId?: string;
+        mirroringSourceId?: string | undefined;
         /** The ids of the mirroring destination displays. */
-        mirroringDestinationIds?: string[];
+        mirroringDestinationIds?: string[] | undefined;
     }
 
     /**
@@ -8068,25 +8068,25 @@ declare namespace chrome.tabCapture {
 
     export interface MediaStreamConstraint {
         mandatory: object;
-        optional?: object;
+        optional?: object | undefined;
     }
 
     export interface CaptureOptions {
         /** Optional. */
-        audio?: boolean;
+        audio?: boolean | undefined;
         /** Optional. */
-        video?: boolean;
+        video?: boolean | undefined;
         /** Optional. */
-        audioConstraints?: MediaStreamConstraint;
+        audioConstraints?: MediaStreamConstraint | undefined;
         /** Optional. */
-        videoConstraints?: MediaStreamConstraint;
+        videoConstraints?: MediaStreamConstraint | undefined;
     }
 
     export interface GetMediaStreamOptions {
         /** Optional tab id of the tab which will later invoke getUserMedia() to consume the stream. If not specified then the resulting stream can be used only by the calling extension. The stream can only be used by frames in the given tab whose security origin matches the consumber tab's origin. The tab's origin must be a secure origin, e.g. HTTPS. */
-        consumerTabId?: number;
+        consumerTabId?: number | undefined;
         /** Optional tab id of the tab which will be captured. If not specified then the current active tab will be selected. Only tabs for which the extension has been granted the activeTab permission can be used as the target tab. */
-        targetTabId?: number;
+        targetTabId?: number | undefined;
     }
 
     export interface CaptureStatusChangedEvent extends chrome.events.Event<(info: CaptureInfo) => void> { }
@@ -8137,12 +8137,12 @@ declare namespace chrome.tabs {
          * "capture": Tab capture started, forcing a muted state change.
          * "extension": An extension, identified by the extensionId field, set the muted state.
          */
-        reason?: string;
+        reason?: string | undefined;
         /**
          * Optional.
          * The ID of the extension that changed the muted state. Not set if an extension was not the reason the muted state last changed.
          */
-        extensionId?: string;
+        extensionId?: string | undefined;
     }
 
     export interface Tab {
@@ -8150,7 +8150,7 @@ declare namespace chrome.tabs {
          * Optional.
          * Either loading or complete.
          */
-        status?: string;
+        status?: string | undefined;
         /** The zero-based index of the tab within its window. */
         index: number;
         /**
@@ -8158,23 +8158,23 @@ declare namespace chrome.tabs {
          * The ID of the tab that opened this tab, if any. This property is only present if the opener tab still exists.
          * @since Chrome 18.
          */
-        openerTabId?: number;
+        openerTabId?: number | undefined;
         /**
          * Optional.
          * The title of the tab. This property is only present if the extension's manifest includes the "tabs" permission.
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * Optional.
          * The URL the tab is displaying. This property is only present if the extension's manifest includes the "tabs" permission.
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * The URL the tab is navigating to, before it has committed.
          * This property is only present if the extension's manifest includes the "tabs" permission and there is a pending navigation.
          * @since Chrome 79.
          */
-        pendingUrl?: string;
+        pendingUrl?: string | undefined;
         /**
          * Whether the tab is pinned.
          * @since Chrome 9.
@@ -8196,12 +8196,12 @@ declare namespace chrome.tabs {
          * Optional.
          * The URL of the tab's favicon. This property is only present if the extension's manifest includes the "tabs" permission. It may also be an empty string if the tab is loading.
          */
-        favIconUrl?: string;
+        favIconUrl?: string | undefined;
         /**
          * Optional.
          * The ID of the tab. Tab IDs are unique within a browser session. Under some circumstances a Tab may not be assigned an ID, for example when querying foreign tabs using the sessions API, in which case a session ID may be present. Tab ID can also be set to chrome.tabs.TAB_ID_NONE for apps and devtools windows.
          */
-        id?: number;
+        id?: number | undefined;
         /** Whether the tab is in an incognito window. */
         incognito: boolean;
         /**
@@ -8214,7 +8214,7 @@ declare namespace chrome.tabs {
          * Whether the tab has produced sound over the past couple of seconds (but it might not be heard if also muted). Equivalent to whether the speaker audio indicator is showing.
          * @since Chrome 45.
          */
-        audible?: boolean;
+        audible?: boolean | undefined;
         /**
          * Whether the tab is discarded. A discarded tab is one whose content has been unloaded from memory, but is still visible in the tab strip. Its content gets reloaded the next time it's activated.
          * @since Chrome 54.
@@ -8230,22 +8230,22 @@ declare namespace chrome.tabs {
          * Current tab muted state and the reason for the last state change.
          * @since Chrome 46. Warning: this is the current Beta channel.
          */
-        mutedInfo?: MutedInfo;
+        mutedInfo?: MutedInfo | undefined;
         /**
          * Optional. The width of the tab in pixels.
          * @since Chrome 31.
          */
-        width?: number;
+        width?: number | undefined;
         /**
          * Optional. The height of the tab in pixels.
          * @since Chrome 31.
          */
-        height?: number;
+        height?: number | undefined;
         /**
          * Optional. The session ID used to uniquely identify a Tab obtained from the sessions API.
          * @since Chrome 31.
          */
-        sessionId?: string;
+        sessionId?: string | undefined;
         /**
          * The ID of the group that the tab belongs to.
          * @since Chrome 88
@@ -8265,20 +8265,20 @@ declare namespace chrome.tabs {
          * "manual": Overrides the automatic handling of zoom changes. The onZoomChange event will still be dispatched, and it is the responsibility of the extension to listen for this event and manually scale the page. This mode does not support per-origin zooming, and will thus ignore the scope zoom setting and assume per-tab.
          * "disabled": Disables all zooming in the tab. The tab will revert to the default zoom level, and all attempted zoom changes will be ignored.
          */
-        mode?: string;
+        mode?: string | undefined;
         /**
          * Optional.
          * Defines whether zoom changes will persist for the page's origin, or only take effect in this tab; defaults to per-origin when in automatic mode, and per-tab otherwise.
          * "per-origin": Zoom changes will persist in the zoomed page's origin, i.e. all other tabs navigated to that same origin will be zoomed as well. Moreover, per-origin zoom changes are saved with the origin, meaning that when navigating to other pages in the same origin, they will all be zoomed to the same zoom factor. The per-origin scope is only available in the automatic mode.
          * "per-tab": Zoom changes only take effect in this tab, and zoom changes in other tabs will not affect the zooming of this tab. Also, per-tab zoom changes are reset on navigation; navigating a tab will always load pages with their per-origin zoom factors.
          */
-        scope?: string;
+        scope?: string | undefined;
         /**
          * Optional.
          * Used to return the default zoom level for the current tab in calls to tabs.getZoomSettings.
          * @since Chrome 43.
          */
-        defaultZoomFactor?: number;
+        defaultZoomFactor?: number | undefined;
     }
 
     export interface InjectDetails {
@@ -8286,79 +8286,79 @@ declare namespace chrome.tabs {
          * Optional.
          * If allFrames is true, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's false and is only injected into the top frame.
          */
-        allFrames?: boolean;
+        allFrames?: boolean | undefined;
         /**
          * Optional. JavaScript or CSS code to inject.
          * Warning: Be careful using the code parameter. Incorrect use of it may open your extension to cross site scripting attacks.
          */
-        code?: string;
+        code?: string | undefined;
         /**
          * Optional. The soonest that the JavaScript or CSS will be injected into the tab.
          * One of: "document_start", "document_end", or "document_idle"
          * @since Chrome 20.
          */
-        runAt?: string;
+        runAt?: string | undefined;
         /** Optional. JavaScript or CSS file to inject. */
-        file?: string;
+        file?: string | undefined;
         /**
          * Optional.
          * The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
          * @since Chrome 39.
          */
-        frameId?: number;
+        frameId?: number | undefined;
         /**
          * Optional.
          * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is false.
          * @since Chrome 39.
          */
-        matchAboutBlank?: boolean;
+        matchAboutBlank?: boolean | undefined;
         /**
          * Optional. The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to "author".
          * One of: "author", or "user"
          * @since Chrome 66.
          */
-        cssOrigin?: string;
+        cssOrigin?: string | undefined;
     }
 
     export interface CreateProperties {
         /** Optional. The position the tab should take in the window. The provided value will be clamped to between zero and the number of tabs in the window. */
-        index?: number;
+        index?: number | undefined;
         /**
          * Optional.
          * The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as the newly created tab.
          * @since Chrome 18.
          */
-        openerTabId?: number;
+        openerTabId?: number | undefined;
         /**
          * Optional.
          * The URL to navigate the tab to initially. Fully-qualified URLs must include a scheme (i.e. 'http://www.google.com', not 'www.google.com'). Relative URLs will be relative to the current page within the extension. Defaults to the New Tab Page.
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * Optional. Whether the tab should be pinned. Defaults to false
          * @since Chrome 9.
          */
-        pinned?: boolean;
+        pinned?: boolean | undefined;
         /** Optional. The window to create the new tab in. Defaults to the current window. */
-        windowId?: number;
+        windowId?: number | undefined;
         /**
          * Optional.
          * Whether the tab should become the active tab in the window. Does not affect whether the window is focused (see windows.update). Defaults to true.
          * @since Chrome 16.
          */
-        active?: boolean;
+        active?: boolean | undefined;
         /**
          * Optional. Whether the tab should become the selected tab in the window. Defaults to true
          * @deprecated since Chrome 33. Please use active.
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
     }
 
     export interface MoveProperties {
         /** The position to move the window to. -1 will place the tab at the end of the window. */
         index: number;
         /** Optional. Defaults to the window the tab is currently in. */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     export interface UpdateProperties {
@@ -8366,39 +8366,39 @@ declare namespace chrome.tabs {
          * Optional. Whether the tab should be pinned.
          * @since Chrome 9.
          */
-        pinned?: boolean;
+        pinned?: boolean | undefined;
         /**
          * Optional. The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as this tab.
          * @since Chrome 18.
          */
-        openerTabId?: number;
+        openerTabId?: number | undefined;
         /** Optional. A URL to navigate the tab to. */
-        url?: string;
+        url?: string | undefined;
         /**
          * Optional. Adds or removes the tab from the current selection.
          * @since Chrome 16.
          */
-        highlighted?: boolean;
+        highlighted?: boolean | undefined;
         /**
          * Optional. Whether the tab should be active. Does not affect whether the window is focused (see windows.update).
          * @since Chrome 16.
          */
-        active?: boolean;
+        active?: boolean | undefined;
         /**
          * Optional. Whether the tab should be selected.
          * @deprecated since Chrome 33. Please use highlighted.
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
         /**
          * Optional. Whether the tab should be muted.
          * @since Chrome 45.
          */
-        muted?: boolean;
+        muted?: boolean | undefined;
         /**
          * Optional. Whether the tab should be discarded automatically by the browser when resources are low.
          * @since Chrome 54.
          */
-        autoDiscardable?: boolean;
+        autoDiscardable?: boolean | undefined;
     }
 
     export interface CaptureVisibleTabOptions {
@@ -8406,51 +8406,51 @@ declare namespace chrome.tabs {
          * Optional.
          * When format is "jpeg", controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.
          */
-        quality?: number;
+        quality?: number | undefined;
         /**
          * Optional. The format of an image.
          * One of: "jpeg", or "png"
          */
-        format?: string;
+        format?: string | undefined;
     }
 
     export interface ReloadProperties {
         /** Optional. Whether using any local cache. Default is false. */
-        bypassCache?: boolean;
+        bypassCache?: boolean | undefined;
     }
 
     export interface ConnectInfo {
         /** Optional. Will be passed into onConnect for content scripts that are listening for the connection event. */
-        name?: string;
+        name?: string | undefined;
         /**
          * Open a port to a specific frame identified by frameId instead of all frames in the tab.
          * @since Chrome 41.
          */
-        frameId?: number;
+        frameId?: number | undefined;
     }
 
     export interface MessageSendOptions {
         /** Optional. Send a message to a specific frame identified by frameId instead of all frames in the tab. */
-        frameId?: number;
+        frameId?: number | undefined;
     }
 
     export interface GroupOptions {
         /** Optional. Configurations for creating a group. Cannot be used if groupId is already specified. */
         createProperties?: {
             /** Optional. The window of the new group. Defaults to the current window. */
-            windowId?: number
-        },
+            windowId?: number | undefined
+        } | undefined,
         /** Optional. The ID of the group to add the tabs to. If not specified, a new group will be created. */
-        groupId?: number;
+        groupId?: number | undefined;
         /** TOptional. he tab ID or list of tab IDs to add to the specified group. */
-        tabIds?: number | number[];
+        tabIds?: number | number[] | undefined;
     }
 
     export interface HighlightInfo {
         /** One or more tab indices to highlight. */
         tabs: number | number[];
         /** Optional. The window that contains the tabs. */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     export interface QueryInfo {
@@ -8458,66 +8458,66 @@ declare namespace chrome.tabs {
          * Optional. Whether the tabs have completed loading.
          * One of: "loading", or "complete"
          */
-        status?: 'loading' | 'complete';
+        status?: 'loading' | 'complete' | undefined;
         /**
          * Optional. Whether the tabs are in the last focused window.
          * @since Chrome 19.
          */
-        lastFocusedWindow?: boolean;
+        lastFocusedWindow?: boolean | undefined;
         /** Optional. The ID of the parent window, or windows.WINDOW_ID_CURRENT for the current window. */
-        windowId?: number;
+        windowId?: number | undefined;
         /**
          * Optional. The type of window the tabs are in.
          * One of: "normal", "popup", "panel", "app", or "devtools"
          */
-        windowType?: 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
+        windowType?: 'normal' | 'popup' | 'panel' | 'app' | 'devtools' | undefined;
         /** Optional. Whether the tabs are active in their windows. */
-        active?: boolean;
+        active?: boolean | undefined;
         /**
          * Optional. The position of the tabs within their windows.
          * @since Chrome 18.
          */
-        index?: number;
+        index?: number | undefined;
         /** Optional. Match page titles against a pattern. */
-        title?: string;
+        title?: string | undefined;
         /** Optional. Match tabs against one or more URL patterns. Note that fragment identifiers are not matched. */
-        url?: string | string[];
+        url?: string | string[] | undefined;
         /**
          * Optional. Whether the tabs are in the current window.
          * @since Chrome 19.
          */
-        currentWindow?: boolean;
+        currentWindow?: boolean | undefined;
         /** Optional. Whether the tabs are highlighted. */
-        highlighted?: boolean;
+        highlighted?: boolean | undefined;
         /**
          * Optional.
          * Whether the tabs are discarded. A discarded tab is one whose content has been unloaded from memory, but is still visible in the tab strip. Its content gets reloaded the next time it's activated.
          * @since Chrome 54.
          */
-        discarded?: boolean;
+        discarded?: boolean | undefined;
         /**
          * Optional.
          * Whether the tabs can be discarded automatically by the browser when resources are low.
          * @since Chrome 54.
          */
-        autoDiscardable?: boolean;
+        autoDiscardable?: boolean | undefined;
         /** Optional. Whether the tabs are pinned. */
-        pinned?: boolean;
+        pinned?: boolean | undefined;
         /**
          * Optional. Whether the tabs are audible.
          * @since Chrome 45.
          */
-        audible?: boolean;
+        audible?: boolean | undefined;
         /**
          * Optional. Whether the tabs are muted.
          * @since Chrome 45.
          */
-        muted?: boolean;
+        muted?: boolean | undefined;
         /**
          * Optional. The ID of the group that the tabs are in, or chrome.tabGroups.TAB_GROUP_ID_NONE for ungrouped tabs.
          * @since Chrome 88
          */
-        groupId?: number;
+        groupId?: number | undefined;
     }
 
     export interface TabHighlightInfo {
@@ -8542,49 +8542,49 @@ declare namespace chrome.tabs {
 
     export interface TabChangeInfo {
         /** Optional. The status of the tab. Can be either loading or complete. */
-        status?: string;
+        status?: string | undefined;
         /**
          * The tab's new pinned state.
          * @since Chrome 9.
          */
-        pinned?: boolean;
+        pinned?: boolean | undefined;
         /** Optional. The tab's URL if it has changed. */
-        url?: string;
+        url?: string | undefined;
         /**
          * The tab's new audible state.
          * @since Chrome 45.
          */
-        audible?: boolean;
+        audible?: boolean | undefined;
         /**
          * The tab's new discarded state.
          * @since Chrome 54.
          */
-        discarded?: boolean;
+        discarded?: boolean | undefined;
         /**
          * The tab's new auto-discardable
          * @since Chrome 54.
          */
-        autoDiscardable?: boolean;
+        autoDiscardable?: boolean | undefined;
         /**
          * The tab's new group.
          * @since Chrome 88
          */
-        groupId?: number;
+        groupId?: number | undefined;
         /**
          * The tab's new muted state and the reason for the change.
          * @since Chrome 46. Warning: this is the current Beta channel.
          */
-        mutedInfo?: MutedInfo;
+        mutedInfo?: MutedInfo | undefined;
         /**
          * The tab's new favicon URL.
          * @since Chrome 27.
          */
-        favIconUrl?: string;
+        favIconUrl?: string | undefined;
         /**
          * The tab's new title.
          * @since Chrome 48.
          */
-        title?: string;
+        title?: string | undefined;
     }
 
     export interface TabMoveInfo {
@@ -9312,7 +9312,7 @@ declare namespace chrome.tabs {
         /** The ID of the group. Group IDs are unique within a browser session. */
         id: number;
         /** Optional. The title of the group. */
-        title?: string;
+        title?: string | undefined;
         /** The ID of the window that contains the group. */
         windowId: number;
     }
@@ -9321,27 +9321,27 @@ declare namespace chrome.tabs {
         /** The position to move the group to. Use -1 to place the group at the end of the window. */
         index: number;
         /** Optional. The window to move the group to. Defaults to the window the group is currently in. Note that groups can only be moved to and from windows with chrome.windows.WindowType type "normal". */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     export interface QueryInfo {
         /** Optional. Whether the groups are collapsed. */
-        collapsed?: boolean;
+        collapsed?: boolean | undefined;
         /** Optional. The color of the groups. */
-        color?: ColorEnum;
+        color?: ColorEnum | undefined;
         /** Optional. Match group titles against a pattern. */
-        title?: string;
+        title?: string | undefined;
         /** Optional. The ID of the window that contains the group. */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     export interface UpdateProperties {
         /** Optional. Whether the group should be collapsed. */
-        collapsed?: boolean;
+        collapsed?: boolean | undefined;
         /** Optional. The color of the group. */
-        color?: ColorEnum;
+        color?: ColorEnum | undefined;
         /** Optional. The title of the group. */
-        title?: string;
+        title?: string | undefined;
     }
 
     /**
@@ -9452,9 +9452,9 @@ declare namespace chrome.tts {
     /** An event from the TTS engine to communicate the status of an utterance. */
     export interface TtsEvent {
         /** Optional. The index of the current character in the utterance. */
-        charIndex?: number;
+        charIndex?: number | undefined;
         /** Optional. The error description, if the event type is 'error'. */
-        errorMessage?: string;
+        errorMessage?: string | undefined;
         /**
          * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
          * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
@@ -9465,64 +9465,64 @@ declare namespace chrome.tts {
     /** A description of a voice available for speech synthesis. */
     export interface TtsVoice {
         /** Optional. The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-        lang?: string;
+        lang?: string | undefined;
         /**
          * Optional. This voice's gender.
          * One of: "male", or "female"
          * @deprecated since Chrome 70. Gender is deprecated and will be ignored.
          */
-        gender?: string;
+        gender?: string | undefined;
         /** Optional. The name of the voice. */
-        voiceName?: string;
+        voiceName?: string | undefined;
         /** Optional. The ID of the extension providing this voice. */
-        extensionId?: string;
+        extensionId?: string | undefined;
         /** Optional. All of the callback event types that this voice is capable of sending. */
-        eventTypes?: string[];
+        eventTypes?: string[] | undefined;
         /**
          * Optional. If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
          * @since Chrome 33.
          */
-        remote?: boolean;
+        remote?: boolean | undefined;
     }
 
     export interface SpeakOptions {
         /** Optional. Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
-        volume?: number;
+        volume?: number | undefined;
         /**
          * Optional.
          * If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance.
          */
-        enqueue?: boolean;
+        enqueue?: boolean | undefined;
         /**
          * Optional.
          * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0.
          */
-        rate?: number;
+        rate?: number | undefined;
         /**
          * Optional. This function is called with events that occur in the process of speaking the utterance.
          * @param event The update event from the text-to-speech engine indicating the status of this utterance.
          */
-        onEvent?: (event: TtsEvent) => void;
+        onEvent?: ((event: TtsEvent) => void) | undefined;
         /**
          * Optional.
          * Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to a voice's default pitch.
          */
-        pitch?: number;
+        pitch?: number | undefined;
         /** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-        lang?: string;
+        lang?: string | undefined;
         /** Optional. The name of the voice to use for synthesis. If empty, uses any available voice. */
-        voiceName?: string;
+        voiceName?: string | undefined;
         /** Optional. The extension ID of the speech engine to use, if known. */
-        extensionId?: string;
+        extensionId?: string | undefined;
         /**
          * Optional. Gender of voice for synthesized speech.
          * One of: "male", or "female"
          */
-        gender?: string;
+        gender?: string | undefined;
         /** Optional. The TTS event types the voice must support. */
-        requiredEventTypes?: string[];
+        requiredEventTypes?: string[] | undefined;
         /** Optional. The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
-        desiredEventTypes?: string[];
+        desiredEventTypes?: string[] | undefined;
     }
 
     /** Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome. */
@@ -9567,23 +9567,23 @@ declare namespace chrome.tts {
 declare namespace chrome.ttsEngine {
     export interface SpeakOptions {
         /** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-        lang?: string;
+        lang?: string | undefined;
         /** Optional. The name of the voice to use for synthesis. */
-        voiceName?: string;
+        voiceName?: string | undefined;
         /**
          * Optional. Gender of voice for synthesized speech.
          * One of: "male", or "female"
          */
-        gender?: string;
+        gender?: string | undefined;
         /** Optional. Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
-        volume?: number;
+        volume?: number | undefined;
         /**
          * Optional.
          * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. This value is guaranteed to be between 0.1 and 10.0, inclusive. When a voice does not support this full range of rates, don't return an error. Instead, clip the rate to the range the voice supports.
          */
-        rate?: number;
+        rate?: number | undefined;
         /** Optional. Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to this voice's default pitch. */
-        pitch?: number;
+        pitch?: number | undefined;
     }
 
     export interface TtsEngineSpeakEvent
@@ -9624,7 +9624,7 @@ declare namespace chrome.types {
          * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
          * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
          */
-        scope?: string;
+        scope?: string | undefined;
     }
 
     export interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
@@ -9641,12 +9641,12 @@ declare namespace chrome.types {
          * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
          * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
          */
-        scope?: string;
+        scope?: string | undefined;
     }
 
     export interface ChromeSettingGetDetails {
         /** Optional. Whether to return the value that applies to the incognito session (default false). */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
     }
 
     /**
@@ -9670,7 +9670,7 @@ declare namespace chrome.types {
          * Whether the effective value is specific to the incognito session.
          * This property will only be present if the incognito property in the details parameter of get() was true.
          */
-        incognitoSpecific?: boolean;
+        incognitoSpecific?: boolean | undefined;
     }
 
     export interface ChromeSettingChangedEvent extends chrome.events.Event<DetailsCallback> { }
@@ -9713,9 +9713,9 @@ declare namespace chrome.vpnProvider {
         /** IP address for the VPN interface in CIDR notation. IPv4 is currently the only supported mode. */
         address: string;
         /** Optional. Broadcast address for the VPN interface. (default: deduced from IP address and mask) */
-        broadcastAddress?: string;
+        broadcastAddress?: string | undefined;
         /** Optional. MTU setting for the VPN interface. (default: 1500 bytes) */
-        mtu?: string;
+        mtu?: string | undefined;
         /**
          * Exclude network traffic to the list of IP blocks in CIDR notation from the tunnel. This can be used to bypass traffic to and from the VPN server. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
          */
@@ -9725,7 +9725,7 @@ declare namespace chrome.vpnProvider {
          */
         inclusionList: string[];
         /** Optional. A list of search domains. (default: no search domain) */
-        domainSearch?: string[];
+        domainSearch?: string[] | undefined;
         /** A list of IPs for the DNS servers. */
         dnsServer: string[];
     }
@@ -9802,7 +9802,7 @@ declare namespace chrome.wallpaper {
         /** Optional. The jpeg or png encoded wallpaper image. */
         data?: any;
         /** Optional. The URL of the wallpaper to be set. */
-        url?: string;
+        url?: string | undefined;
         /**
          * The supported wallpaper layouts.
          * One of: "STRETCH", "CENTER", or "CENTER_CROPPED"
@@ -9811,7 +9811,7 @@ declare namespace chrome.wallpaper {
         /** The file name of the saved wallpaper. */
         filename: string;
         /** Optional. True if a 128x60 thumbnail should be generated. */
-        thumbnail?: boolean;
+        thumbnail?: boolean | undefined;
     }
 
     /**
@@ -9837,7 +9837,7 @@ declare namespace chrome.webNavigation {
          * @since Chrome 22.
          * @deprecated since Chrome 49. Frames are now uniquely identified by their tab ID and frame ID; the process ID is no longer needed and therefore ignored.
          */
-        processId?: number;
+        processId?: number | undefined;
         /** The ID of the tab in which the frame is. */
         tabId: number;
         /** The ID of the frame in the given tab. */
@@ -10031,46 +10031,46 @@ declare namespace chrome.webRequest {
     /** An HTTP Header, represented as an object containing a key and either a value or a binaryValue. */
     export interface HttpHeader {
         name: string;
-        value?: string;
-        binaryValue?: ArrayBuffer;
+        value?: string | undefined;
+        binaryValue?: ArrayBuffer | undefined;
     }
 
     /** Returns value for event handlers that have the 'blocking' extraInfoSpec applied. Allows the event handler to modify network requests. */
     export interface BlockingResponse {
         /** Optional. If true, the request is cancelled. Used in onBeforeRequest, this prevents the request from being sent. */
-        cancel?: boolean;
+        cancel?: boolean | undefined;
         /**
          * Optional.
          * Only used as a response to the onBeforeRequest and onHeadersReceived events. If set, the original request is prevented from being sent/completed and is instead redirected to the given URL. Redirections to non-HTTP schemes such as data: are allowed. Redirects initiated by a redirect action use the original request method for the redirect, with one exception: If the redirect is initiated at the onHeadersReceived stage, then the redirect will be issued using the GET method.
          */
-        redirectUrl?: string;
+        redirectUrl?: string | undefined;
         /**
          * Optional.
          * Only used as a response to the onHeadersReceived event. If set, the server is assumed to have responded with these response headers instead. Only return responseHeaders if you really want to modify the headers in order to limit the number of conflicts (only one extension may modify responseHeaders for each request).
          */
-        responseHeaders?: HttpHeader[];
+        responseHeaders?: HttpHeader[] | undefined;
         /** Optional. Only used as a response to the onAuthRequired event. If set, the request is made using the supplied credentials. */
-        authCredentials?: AuthCredentials;
+        authCredentials?: AuthCredentials | undefined;
         /**
          * Optional.
          * Only used as a response to the onBeforeSendHeaders event. If set, the request is made with these request headers instead.
          */
-        requestHeaders?: HttpHeader[];
+        requestHeaders?: HttpHeader[] | undefined;
     }
 
     /** An object describing filters to apply to webRequest events. */
     export interface RequestFilter {
         /** Optional. */
-        tabId?: number;
+        tabId?: number | undefined;
         /**
          * A list of request types. Requests that cannot match any of the types will be filtered out.
          */
-        types?: ResourceType[];
+        types?: ResourceType[] | undefined;
         /** A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out. */
         urls: string[];
 
         /** Optional. */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     /**
@@ -10079,24 +10079,24 @@ declare namespace chrome.webRequest {
      */
     export interface UploadData {
         /** Optional. An ArrayBuffer with a copy of the data. */
-        bytes?: ArrayBuffer;
+        bytes?: ArrayBuffer | undefined;
         /** Optional. A string with the file's path and name. */
-        file?: string;
+        file?: string | undefined;
     }
 
     export interface WebRequestBody {
         /** Optional. Errors when obtaining request body data. */
-        error?: string;
+        error?: string | undefined;
         /**
          * Optional.
          * If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': ['value1', 'value2']}.
          */
-        formData?: { [key: string]: string[] };
+        formData?: { [key: string]: string[] } | undefined;
         /**
          * Optional.
          * If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed request body elements are contained in this array.
          */
-        raw?: UploadData[];
+        raw?: UploadData[] | undefined;
     }
 
     export interface WebAuthChallenger {
@@ -10123,7 +10123,7 @@ declare namespace chrome.webRequest {
         /** The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
          * @since Since Chrome 63.
          */
-        initiator?: string;
+        initiator?: string | undefined;
     }
 
     export interface WebRequestDetails extends ResourceRequest {
@@ -10133,7 +10133,7 @@ declare namespace chrome.webRequest {
 
     export interface WebRequestHeadersDetails extends WebRequestDetails {
         /** Optional. The HTTP request headers that are going to be sent out with this request. */
-        requestHeaders?: HttpHeader[];
+        requestHeaders?: HttpHeader[] | undefined;
     }
 
     export interface WebRequestBodyDetails extends WebRequestDetails {
@@ -10158,7 +10158,7 @@ declare namespace chrome.webRequest {
 
     export interface WebResponseHeadersDetails extends WebResponseDetails {
         /** Optional. The HTTP response headers that have been received with this response. */
-        responseHeaders?: HttpHeader[];
+        responseHeaders?: HttpHeader[] | undefined;
         method: string /** standard HTTP method i.e. GET, POST, PUT, etc. */;
     }
 
@@ -10167,7 +10167,7 @@ declare namespace chrome.webRequest {
          * Optional.
          * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
          */
-        ip?: string;
+        ip?: string | undefined;
         /** Indicates if this response was fetched from disk cache. */
         fromCache: boolean;
     }
@@ -10181,7 +10181,7 @@ declare namespace chrome.webRequest {
         /** The authentication scheme, e.g. Basic or Digest. */
         scheme: string;
         /** The authentication realm provided by the server, if there is one. */
-        realm?: string;
+        realm?: string | undefined;
         /** The server requesting authentication. */
         challenger: WebAuthChallenger;
         /** True for Proxy-Authenticate, false for WWW-Authenticate. */
@@ -10400,18 +10400,18 @@ declare namespace chrome.webstore {
 declare namespace chrome.windows {
     export interface Window {
         /** Optional. Array of tabs.Tab objects representing the current tabs in the window. */
-        tabs?: chrome.tabs.Tab[];
+        tabs?: chrome.tabs.Tab[] | undefined;
         /** Optional. The offset of the window from the top edge of the screen in pixels. Under some circumstances a Window may not be assigned top property, for example when querying closed windows from the sessions API. */
-        top?: number;
+        top?: number | undefined;
         /** Optional. The height of the window, including the frame, in pixels. Under some circumstances a Window may not be assigned height property, for example when querying closed windows from the sessions API. */
-        height?: number;
+        height?: number | undefined;
         /** Optional. The width of the window, including the frame, in pixels. Under some circumstances a Window may not be assigned width property, for example when querying closed windows from the sessions API. */
-        width?: number;
+        width?: number | undefined;
         /**
          * The state of this browser window.
          * @since Chrome 17.
          */
-        state?: windowStateEnum;
+        state?: windowStateEnum | undefined;
         /** Whether the window is currently the focused window. */
         focused: boolean;
         /**
@@ -10424,16 +10424,16 @@ declare namespace chrome.windows {
         /**
          * The type of browser window this is.
          */
-        type?: windowTypeEnum;
+        type?: windowTypeEnum | undefined;
         /** Optional. The ID of the window. Window IDs are unique within a browser session. Under some circumstances a Window may not be assigned an ID, for example when querying windows using the sessions API, in which case a session ID may be present. */
-        id?: number;
+        id?: number | undefined;
         /** Optional. The offset of the window from the left edge of the screen in pixels. Under some circumstances a Window may not be assigned left property, for example when querying closed windows from the sessions API. */
-        left?: number;
+        left?: number | undefined;
         /**
          * Optional. The session ID used to uniquely identify a Window obtained from the sessions API.
          * @since Chrome 31.
          */
-        sessionId?: string;
+        sessionId?: string | undefined;
     }
 
     export interface QueryOptions {
@@ -10442,11 +10442,11 @@ declare namespace chrome.windows {
          * If true, the windows.Window object will have a tabs property that contains a list of the tabs.Tab objects.
          * The Tab objects only contain the url, pendingUrl, title and favIconUrl properties if the extension's manifest file includes the "tabs" permission.
          */
-        populate?: boolean;
+        populate?: boolean | undefined;
         /**
          * If set, the Window returned is filtered based on its type. If unset, the default filter is set to ['normal', 'popup'].
          */
-        windowTypes?: windowTypeEnum[];
+        windowTypes?: windowTypeEnum[] | undefined;
     }
 
     export interface CreateData {
@@ -10454,77 +10454,77 @@ declare namespace chrome.windows {
          * Optional. The id of the tab for which you want to adopt to the new window.
          * @since Chrome 10.
          */
-        tabId?: number;
+        tabId?: number | undefined;
         /**
          * Optional.
          * A URL or array of URLs to open as tabs in the window. Fully-qualified URLs must include a scheme (i.e. 'http://www.google.com', not 'www.google.com'). Relative URLs will be relative to the current page within the extension. Defaults to the New Tab Page.
          */
-        url?: string | string[];
+        url?: string | string[] | undefined;
         /**
          * Optional.
          * The number of pixels to position the new window from the top edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels.
          */
-        top?: number;
+        top?: number | undefined;
         /**
          * Optional.
          * The height in pixels of the new window, including the frame. If not specified defaults to a natural height.
          */
-        height?: number;
+        height?: number | undefined;
         /**
          * Optional.
          * The width in pixels of the new window, including the frame. If not specified defaults to a natural width.
          */
-        width?: number;
+        width?: number | undefined;
         /**
          * Optional. If true, opens an active window. If false, opens an inactive window.
          * @since Chrome 12.
          */
-        focused?: boolean;
+        focused?: boolean | undefined;
         /** Optional. Whether the new window should be an incognito window. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /** Optional. Specifies what type of browser window to create. */
-        type?: createTypeEnum;
+        type?: createTypeEnum | undefined;
         /**
          * Optional.
          * The number of pixels to position the new window from the left edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels.
          */
-        left?: number;
+        left?: number | undefined;
         /**
          * Optional. The initial state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'.
          * @since Chrome 44.
          */
-        state?: windowStateEnum;
+        state?: windowStateEnum | undefined;
         /**
          * If true, the newly-created window's 'window.opener' is set to the caller and is in the same [unit of related browsing contexts](https://www.w3.org/TR/html51/browsers.html#unit-of-related-browsing-contexts) as the caller.
          * @since Chrome 64.
          */
-        setSelfAsOpener?: boolean;
+        setSelfAsOpener?: boolean | undefined;
     }
 
     export interface UpdateInfo {
         /** Optional. The offset from the top edge of the screen to move the window to in pixels. This value is ignored for panels. */
-        top?: number;
+        top?: number | undefined;
         /**
          * Optional. If true, causes the window to be displayed in a manner that draws the user's attention to the window, without changing the focused window. The effect lasts until the user changes focus to the window. This option has no effect if the window already has focus. Set to false to cancel a previous draw attention request.
          * @since Chrome 14.
          */
-        drawAttention?: boolean;
+        drawAttention?: boolean | undefined;
         /** Optional. The height to resize the window to in pixels. This value is ignored for panels. */
-        height?: number;
+        height?: number | undefined;
         /** Optional. The width to resize the window to in pixels. This value is ignored for panels. */
-        width?: number;
+        width?: number | undefined;
         /**
          * Optional. The new state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'.
          * @since Chrome 17.
          */
-        state?: windowStateEnum;
+        state?: windowStateEnum | undefined;
         /**
          * Optional. If true, brings the window to the front. If false, brings the next window in the z-order to the front.
          * @since Chrome 8.
          */
-        focused?: boolean;
+        focused?: boolean | undefined;
         /** Optional. The offset from the left edge of the screen to move the window to in pixels. This value is ignored for panels. */
-        left?: number;
+        left?: number | undefined;
     }
 
     export interface WindowEventFilter {
@@ -10804,7 +10804,7 @@ declare namespace chrome.declarativeNetRequest {
          * This does not change through redirects.
          * If this is an opaque origin, the string 'null' will be used.
          */
-        initiator?: string;
+        initiator?: string | undefined;
 
         /** Standard HTTP method. */
         method: string;
@@ -10854,17 +10854,17 @@ declare namespace chrome.declarativeNetRequest {
         /** Describes how the redirect should be performed.
          * Only valid for redirect rules.
          */
-        redirect?: Redirect;
+        redirect?: Redirect | undefined;
 
         /** The request headers to modify for the request.
          * Only valid if RuleActionType is "modifyHeaders".
          */
-        requestHeaders?: ModifyHeaderInfo[];
+        requestHeaders?: ModifyHeaderInfo[] | undefined;
 
         /** The response headers to modify for the request.
          * Only valid if RuleActionType is "modifyHeaders".
          */
-        responseHeaders?: ModifyHeaderInfo[];
+        responseHeaders?: ModifyHeaderInfo[] | undefined;
 
         /** The type of action to perform. */
         type: RuleActionType;
@@ -10874,7 +10874,7 @@ declare namespace chrome.declarativeNetRequest {
         /** Specifies whether the network request is first-party or third-party to the domain from which it originated.
          * If omitted, all requests are accepted.
          */
-        domainType?: DomainType;
+        domainType?: DomainType | undefined;
 
         /** The rule will only match network requests originating from the list of domains.
          * If the list is omitted, the rule is applied to requests from all domains.
@@ -10886,7 +10886,7 @@ declare namespace chrome.declarativeNetRequest {
          * Use punycode encoding for internationalized domains.
          * This matches against the request initiator and not the request url.
          */
-        domains?: string[];
+        domains?: string[] | undefined;
 
         /** The rule will not match network requests originating from the list of excludedDomains.
          * If the list is empty or omitted, no domains are excluded.
@@ -10898,19 +10898,19 @@ declare namespace chrome.declarativeNetRequest {
          * Use punycode encoding for internationalized domains.
          * This matches against the request initiator and not the request url.
          */
-        excludedDomains?: string[];
+        excludedDomains?: string[] | undefined;
 
         /** List of resource types which the rule won't match.
          * Only one of resourceTypes and excludedResourceTypes should be specified.
          * If neither of them is specified, all resource types except "main_frame" are blocked.
          */
-        excludedResourceTypes?: ResourceType[];
+        excludedResourceTypes?: ResourceType[] | undefined;
 
         /**
          * Whether the urlFilter or regexFilter (whichever is specified) is case sensitive.
          * Default is true.
          */
-        isUrlFilterCaseSensitive?: boolean;
+        isUrlFilterCaseSensitive?: boolean | undefined;
 
         /** Regular expression to match against the network request url.
          * This follows the RE2 syntax.
@@ -10920,14 +10920,14 @@ declare namespace chrome.declarativeNetRequest {
          * Note: The regexFilter must be composed of only ASCII characters.
          * This is matched against a url where the host is encoded in the punycode format (in case of internationalized domains) and any other non-ascii characters are url encoded in utf-8.
          */
-        regexFilter?: string;
+        regexFilter?: string | undefined;
 
         /** List of resource types which the rule can match.
          * An empty list is not allowed.
          *
          * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
          */
-        resourceTypes?: ResourceType[];
+        resourceTypes?: ResourceType[] | undefined;
 
         /** The pattern which is matched against the network request url.
          * Supported constructs:
@@ -10953,7 +10953,7 @@ declare namespace chrome.declarativeNetRequest {
          * This is matched against a url where the host is encoded in the punycode format (in case of internationalized domains) and any other non-ascii characters are url encoded in utf-8.
          * For example, when the request url is http://abc.рф?q=ф, the urlFilter will be matched against the url http://abc.xn--p1ai/?q=%D1%84.
          */
-        urlFilter?: string;
+        urlFilter?: string | undefined;
     }
 
     export interface MatchedRule {
@@ -10980,12 +10980,12 @@ declare namespace chrome.declarativeNetRequest {
 
     export interface MatchedRulesFilter {
         /** If specified, only matches rules after the given timestamp. */
-        minTimeStamp?: number;
+        minTimeStamp?: number | undefined;
 
         /** If specified, only matches rules for the given tab.
          * Matches rules not associated with any active tab if set to -1.
          */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     export interface ModifyHeaderInfo {
@@ -10998,7 +10998,7 @@ declare namespace chrome.declarativeNetRequest {
         /** The new value for the header.
          * Must be specified for append and set operations.
          */
-        value?: string;
+        value?: string | undefined;
     }
 
     export interface QueryKeyValue {
@@ -11008,56 +11008,56 @@ declare namespace chrome.declarativeNetRequest {
 
     export interface QueryTransform {
         /** The list of query key-value pairs to be added or replaced. */
-        addOrReplaceParams?: QueryKeyValue[];
+        addOrReplaceParams?: QueryKeyValue[] | undefined;
 
         /** The list of query keys to be removed. */
-        removeParams?: string[];
+        removeParams?: string[] | undefined;
     }
 
     export interface URLTransform {
         /** The new fragment for the request.
          * Should be either empty, in which case the existing fragment is cleared; or should begin with '#'.
          */
-        fragment?: string;
+        fragment?: string | undefined;
 
         /** The new host for the request. */
-        host?: string;
+        host?: string | undefined;
 
         /** The new password for the request. */
-        password?: string;
+        password?: string | undefined;
 
         /** The new path for the request.
          * If empty, the existing path is cleared.
          */
-        path?: string;
+        path?: string | undefined;
 
         /** The new port for the request.
          * If empty, the existing port is cleared.
          */
-        port?: string;
+        port?: string | undefined;
 
         /** The new query for the request.
          * Should be either empty, in which case the existing query is cleared; or should begin with '?'.
          */
-        query?: string;
+        query?: string | undefined;
 
         /** Add, remove or replace query key-value pairs. */
-        queryTransform?: QueryTransform;
+        queryTransform?: QueryTransform | undefined;
 
         /** The new scheme for the request.
          * Allowed values are "http", "https", "ftp" and "chrome-extension".
          */
-        scheme?: string;
+        scheme?: string | undefined;
 
         /** The new username for the request. */
-        username?: string;
+        username?: string | undefined;
     }
 
     export interface RegexOptions {
         /** Whether the regex specified is case sensitive.
          * Default is true.
          */
-        isCaseSensitive?: boolean;
+        isCaseSensitive?: boolean | undefined;
 
         /** The regular expresson to check. */
         regex: string;
@@ -11066,7 +11066,7 @@ declare namespace chrome.declarativeNetRequest {
          * Capturing is only required for redirect rules which specify a regexSubstition action.
          * The default is false.
          */
-        requireCapturing?: boolean;
+        requireCapturing?: boolean | undefined;
     }
 
     export interface IsRegexSupportedResult {
@@ -11075,7 +11075,7 @@ declare namespace chrome.declarativeNetRequest {
         /** Specifies the reason why the regular expression is not supported.
          * Only provided if isSupported is false.
          */
-        reason?: UnsupportedRegexReason;
+        reason?: UnsupportedRegexReason | undefined;
     }
 
     export interface TabActionCountUpdate {
@@ -11092,50 +11092,50 @@ declare namespace chrome.declarativeNetRequest {
         /** Whether to automatically display the action count for a page as the extension's badge text.
          * This preference is persisted across sessions.
          */
-        displayActionCountAsBadgeText?: boolean;
+        displayActionCountAsBadgeText?: boolean | undefined;
 
         /** Details of how the tab's action count should be adjusted. */
-        tabUpdate?: TabActionCountUpdate;
+        tabUpdate?: TabActionCountUpdate | undefined;
     }
 
     export interface Redirect {
         /** Path relative to the extension directory.
          * Should start with '/'.
          */
-        extensionPath?: string;
+        extensionPath?: string | undefined;
 
         /** Substitution pattern for rules which specify a regexFilter.
          * The first match of regexFilter within the url will be replaced with this pattern.
          * Within regexSubstitution, backslash-escaped digits (\1 to \9) can be used to insert the corresponding capture groups.
          * \0 refers to the entire matching text.
          */
-        regexSubstitution?: string;
+        regexSubstitution?: string | undefined;
 
         /** Url transformations to perform. */
-        transform?: URLTransform;
+        transform?: URLTransform | undefined;
 
         /** The redirect url.
          * Redirects to JavaScript urls are not allowed.
          */
-        url?: string;
+        url?: string | undefined;
     }
 
     export interface UpdateRuleOptions {
         /** Rules to add. */
-        addRules?: Rule[];
+        addRules?: Rule[] | undefined;
 
         /** IDs of the rules to remove.
          * Any invalid IDs will be ignored.
          */
-        removeRuleIds?: number[];
+        removeRuleIds?: number[] | undefined;
     }
 
     export interface UpdateRulesetOptions {
         /** The set of ids corresponding to a static Ruleset that should be disabled. */
-        disableRulesetIds?: string[];
+        disableRulesetIds?: string[] | undefined;
 
         /** The set of ids corresponding to a static Ruleset that should be enabled. */
-        enableRulesetIds?: string[];
+        enableRulesetIds?: string[] | undefined;
     }
 
     export interface MatchedRuleInfoDebug {

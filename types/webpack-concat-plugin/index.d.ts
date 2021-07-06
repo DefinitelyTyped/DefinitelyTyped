@@ -28,31 +28,31 @@ declare namespace ConcatPlugin {
          * or set uglifyjs options to customize the output
          * @default false
          */
-        uglify?: boolean | MinifyOptions;
+        uglify?: boolean | MinifyOptions | undefined;
         /**
          * if true, will output sourcemap
          * @default false
          */
-        sourceMap?: boolean;
+        sourceMap?: boolean | undefined;
         /**
          * it's useful when you want to inject to html-webpack-plugin manually
          * @default 'result'
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * if set, will be used as the public path of the script tag.
          * if set to false, will use relativePath.
          */
-        publicPath?: string | boolean;
+        publicPath?: string | boolean | undefined;
         /**
          * if set, will be used as the output directory of the file.
          */
-        outputPath?: string;
+        outputPath?: string | undefined;
         /**
          * if set, will be used as the output fileName
          * @default '[name].js'
          */
-        fileName?: string;
+        fileName?: string | undefined;
         /**
          * supported path patterns:
          * - normal path
@@ -65,11 +65,11 @@ declare namespace ConcatPlugin {
          * (only if html-webpack-plugin set inject option not to be false)
          * @default 'prepend'
          */
-        injectType?: 'prepend' | 'append' | 'none';
+        injectType?: 'prepend' | 'append' | 'none' | undefined;
         /** if set, will be used as the extra attributes of the script tag. */
         attributes?: {
             [key: string]: any;
-        };
+        } | undefined;
     }
 }
 

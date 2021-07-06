@@ -7,8 +7,8 @@
 import * as stream from 'stream';
 
 export interface WritableStreamBufferOptions extends stream.WritableOptions {
-    initialSize?: number;
-    incrementAmount?: number;
+    initialSize?: number | undefined;
+    incrementAmount?: number | undefined;
 }
 
 export class WritableStreamBuffer extends stream.Writable {
@@ -20,10 +20,10 @@ export class WritableStreamBuffer extends stream.Writable {
 }
 
 export interface ReadableStreamBufferOptions extends stream.ReadableOptions {
-    frequency?: number;
-    chunkSize?: number;
-    initialSize?: number;
-    incrementAmount?: number;
+    frequency?: number | undefined;
+    chunkSize?: number | undefined;
+    initialSize?: number | undefined;
+    incrementAmount?: number | undefined;
 }
 
 export class ReadableStreamBuffer extends stream.Readable {
