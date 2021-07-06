@@ -95,6 +95,11 @@ export interface ReCAPTCHAProps {
     onExpired?: () => void;
 
     /**
+     * Callback called when google script is loaded
+     */
+    asyncScriptOnLoad?: () => void;
+
+    /**
      *  Optional callback, called when reCAPTCHA encounters an error (usually network connectivity)
      *  and cannot continue until connectivity is restored. If you specify a function here, you are
      *  responsible for informing the user that they should retry.
