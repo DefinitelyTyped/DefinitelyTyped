@@ -281,7 +281,7 @@ declare namespace Tooltip {
          *
          * @default ''
          */
-        customClass?: string | (() => string);
+        customClass?: string | (() => string) | undefined;
 
         /**
          * Enable or disable the sanitization. If activated 'template' and
