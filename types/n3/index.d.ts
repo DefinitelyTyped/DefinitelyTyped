@@ -171,7 +171,7 @@ export type BaseFormatVariant =
   | Lowercase<BaseFormat>
   | Capitalize<BaseFormat>;
 
-export type Star = '*' | 'star';
+export type Star = '*' | 'star' | '-star';
 
 export type MimeSubtype = BaseFormatVariant | `${BaseFormatVariant}${Star}`;
 
