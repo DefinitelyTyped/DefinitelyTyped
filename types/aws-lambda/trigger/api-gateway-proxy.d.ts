@@ -138,18 +138,18 @@ export interface APIGatewayProxyEventV2 {
                 scopes: string[];
             },
             iam?: {
-                accessKey: string,
-                accountId: string,
-                callerId: string,
+                accessKey: string;
+                accountId: string;
+                callerId: string;
                 cognitoIdentity: {
-                    amr: string[],
-                    identityId: string,
-                    identityPoolId: string,
+                    amr: string[];
+                    identityId: string;
+                    identityPoolId: string;
                 },
-                principalOrgId: string,
-                userArn: string,
-                userId: string,
-            }
+                principalOrgId: string;
+                userArn: string;
+                userId: string;
+            },
         };
         domainName: string;
         domainPrefix: string;
