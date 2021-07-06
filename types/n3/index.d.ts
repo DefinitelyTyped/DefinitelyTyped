@@ -151,15 +151,37 @@ export class Lexer {
     tokenize(input: string | EventEmitter, callback: TokenCallback): void;
 }
 
-type BaseFormat = 'turtle' | 'trig' | 'triple' | 'quad' | 'n3'
-type RDFStar = 'star' | '*'
-type Format = `${BaseFormat}${RDFStar}`
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+type Type =
+  // Discrete types
+  | 'application' | 'example' | 'text'
+  // Multipart types
+  | 'message' | 'multipart'
+
+type BaseFormat = 
+  | 'turtle'
+  | 'triG'
+  | 'N-Triples'
+  | 'N-Quads'
+  | 'n3'
+  | 'Notation3'
+
+type BaseFormatVariants = 
+  | BaseFormat
+  | Lowercase<BaseFormat>
+  | Capitalize<BaseFormat>
+
+type Star = '*' | 'star'
+
+type Subtype = BaseFormatVariants | `${BaseFormatVariants}${Star | ''}`
+
+type MimeFormat = Subtype | `${Type}/${Subtype}`
 
 export interface ParserOptions {
-    format?: Format;
+    format?: MimeFormat;
     factory?: RDF.DataFactory;
     baseIRI?: string;
-    blankNodePrefix?: `_:${string}`;
+    blankNodePrefix?: string;
 }
 
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;
@@ -179,7 +201,7 @@ export class StreamParser<Q extends BaseQuad = Quad> extends stream.Transform im
 }
 
 export interface WriterOptions {
-    format?: Format;
+    format?: MimeFormat;
     prefixes?: Prefixes<RDF.NamedNode | string>;
     end?: boolean;
 }
