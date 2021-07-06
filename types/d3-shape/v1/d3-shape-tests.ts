@@ -29,7 +29,7 @@ interface ArcDatum {
     oRadius: number;
     sAngle: number;
     eAngle: number;
-    pAngle?: number;
+    pAngle?: number | undefined;
 }
 
 const arcDefaultDatum: d3Shape.DefaultArcObject = {
