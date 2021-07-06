@@ -6,7 +6,11 @@
 
 import npm, { Config, CommandCallback } from 'npm';
 
-npm.load({}, function (er) {
+npm.load().then(() => {
+    npm.commands['add-user'](["some", "args"], () => {});
+});
+
+npm.load(function (er) {
     if (er) {
         return console.error(er);
     }
