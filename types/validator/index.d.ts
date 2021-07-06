@@ -169,7 +169,7 @@ declare namespace validator {
         /**
          * @default undefined
          */
-        ignore?: string | RegExp;
+        ignore?: string | RegExp | undefined;
     }
 
     /**
@@ -1115,7 +1115,7 @@ declare namespace validator {
          * if set as true isURL will check if port is present in the URL
          * @default false
          */
-        require_port?: boolean;
+        require_port?: boolean | undefined;
         /**
          * @default true
          */

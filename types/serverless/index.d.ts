@@ -20,12 +20,12 @@ import ApiGatewayValidate = require('./plugins/aws/package/compile/events/apiGat
 
 declare namespace Serverless {
     interface Options {
-        function?: string;
-        watch?: boolean;
-        extraServicePath?: string;
+        function?: string | undefined;
+        watch?: boolean | undefined;
+        extraServicePath?: string | undefined;
         stage: string | null;
         region: string | null;
-        noDeploy?: boolean;
+        noDeploy?: boolean | undefined;
     }
 
     interface Config {
@@ -33,15 +33,15 @@ declare namespace Serverless {
     }
 
     interface FunctionDefinition {
-        name?: string;
-        package?: Package;
-        reservedConcurrency?: number;
-        runtime?: string;
-        timeout?: number;
-        memorySize?: number;
-        environment?: { [name: string]: string };
+        name?: string | undefined;
+        package?: Package | undefined;
+        reservedConcurrency?: number | undefined;
+        runtime?: string | undefined;
+        timeout?: number | undefined;
+        memorySize?: number | undefined;
+        environment?: { [name: string]: string } | undefined;
         events: Event[];
-        tags?: { [key: string]: string };
+        tags?: { [key: string]: string } | undefined;
     }
 
     interface LogOptions {
@@ -64,12 +64,12 @@ declare namespace Serverless {
 
     interface Package {
         /** @deprecated use `patterns` instead */
-        include?: string[];
+        include?: string[] | undefined;
         /** @deprecated use `patterns` instead */
-        exclude?: string[];
-        patterns?: string[];
-        artifact?: string;
-        individually?: boolean;
+        exclude?: string[] | undefined;
+        patterns?: string[] | undefined;
+        artifact?: string | undefined;
+        individually?: boolean | undefined;
     }
 }
 

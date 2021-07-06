@@ -361,13 +361,13 @@ declare namespace SinonChrome.plugins {
     export interface Translations {
         [key: string]: {
             message: string;
-            description?: string;
+            description?: string | undefined;
             placeholders?: {
                 [key: string]: {
                     content: string;
-                    example?: string;
+                    example?: string | undefined;
                 };
-            };
+            } | undefined;
         };
     }
     export class I18nPlugin {
@@ -451,7 +451,7 @@ declare namespace SinonChrome.runtime {
 
     export var id: string;
     export var getURL: SinonChromeStub;
-    export var lastError: { message?: string };
+    export var lastError: { message?: string | undefined };
 }
 
 declare namespace SinonChrome.sessions {
