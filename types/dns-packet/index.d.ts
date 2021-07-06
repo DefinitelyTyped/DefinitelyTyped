@@ -61,8 +61,8 @@ export interface Question {
 export interface SrvData {
     port: number;
     target: string;
-    priority?: number;
-    weight?: number;
+    priority?: number | undefined;
+    weight?: number | undefined;
 }
 
 export interface HInfoData {
@@ -73,7 +73,7 @@ export interface HInfoData {
 export interface BaseAnswer<T, D> {
     type: T;
     name: string;
-    ttl?: number;
+    ttl?: number | undefined;
     data: D;
 }
 
@@ -137,9 +137,9 @@ export interface Packet {
      * omitted if it is clear from the context of usage what type of packet
      * it is.
      */
-    type?: "query" | "response";
+    type?: "query" | "response" | undefined;
 
-    id?: number;
+    id?: number | undefined;
 
     /**
      * A bit-mask combination of zero or more of:
@@ -150,11 +150,11 @@ export interface Packet {
      * {@link AUTHENTIC_DATA},
      * {@link CHECKING_DISABLED}.
      */
-    flags?: number;
-    questions?: Question[];
-    answers?: Answer[];
-    additionals?: Answer[];
-    authorities?: Answer[];
+    flags?: number | undefined;
+    questions?: Question[] | undefined;
+    answers?: Answer[] | undefined;
+    additionals?: Answer[] | undefined;
+    authorities?: Answer[] | undefined;
 }
 
 export const AUTHORITATIVE_ANSWER: number;
