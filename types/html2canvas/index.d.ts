@@ -9,53 +9,53 @@
 
 interface Html2CanvasOptions {
     /** Whether to parse and render the element asynchronously */
-    async?: boolean;
+    async?: boolean | undefined;
     /** Whether to allow cross-origin images to taint the canvas */
-    allowTaint?: boolean;
+    allowTaint?: boolean | undefined;
     /** Canvas background color, if none is specified in DOM. Set null for transparent */
-    backgroundColor?: string | null;
+    backgroundColor?: string | null | undefined;
     /** Existing canvas element to use as a base for drawing on */
     canvas?: any;
     /** Whether to use ForeignObject rendering if the browser supports it */
-    foreignObjectRendering?: boolean;
+    foreignObjectRendering?: boolean | undefined;
     /** Predicate function which removes the matching elements from the render. */
-    ignoreElements?: (element: HTMLElement) => boolean;
+    ignoreElements?: ((element: HTMLElement) => boolean) | undefined;
     /** Timeout for loading images, in milliseconds. Setting it to 0 will result in no timeout. */
-    imageTimeout?: number;
+    imageTimeout?: number | undefined;
     /** Whether to render each letter seperately. Necessary if letter-spacing is used. */
-    letterRendering?: boolean;
+    letterRendering?: boolean | undefined;
     /** Whether to log events in the console. */
-    logging?: boolean;
+    logging?: boolean | undefined;
     /** Callback function which is called when the Document has been cloned for rendering, can be used to modify the contents that will be rendered without affecting the original source document. */
-    onclone?: { (doc: HTMLDocument): void };
+    onclone?: { (doc: HTMLDocument): void } | undefined;
     /** Url to the proxy which is to be used for loading cross-origin images. If left empty, cross-origin images won't be loaded. */
-    proxy?: string;
+    proxy?: string | undefined;
     /** Whether to cleanup the cloned DOM elements html2canvas creates temporarily */
-    removeContainer?: boolean;
+    removeContainer?: boolean | undefined;
     /** The scale to use for rendering. Defaults to the browsers device pixel ratio. */
-    scale?: number;
+    scale?: number | undefined;
     /** Use svg powered rendering where available (FF11+). */
-    svgRendering?: boolean;
+    svgRendering?: boolean | undefined;
     /** Whether to test each image if it taints the canvas before drawing them */
-    taintTest?: boolean;
+    taintTest?: boolean | undefined;
     /** Whether to attempt to load cross-origin images as CORS served, before reverting back to proxy. */
-    useCORS?: boolean;
+    useCORS?: boolean | undefined;
     /** Define the width of the canvas in pixels. If null, renders with full width of the window. */
-    width?: number;
+    width?: number | undefined;
     /** Define the heigt of the canvas in pixels. If null, renders with full height of the window. */
-    height?: number;
+    height?: number | undefined;
     /** Crop canvas x-coordinate */
-    x?: number;
+    x?: number | undefined;
     /** Crop canvas y-coordinate */
-    y?: number;
+    y?: number | undefined;
     /** The x-scroll position to used when rendering element, (for example if the Element uses position: fixed ) */
-    scrollX?: number;
+    scrollX?: number | undefined;
     /** The y-scroll position to used when rendering element, (for example if the Element uses position: fixed ) */
-    scrollY?: number;
+    scrollY?: number | undefined;
     /** Window width to use when rendering Element, which may affect things like Media queries */
-    windowWidth?: number;
+    windowWidth?: number | undefined;
     /** Window height to use when rendering Element, which may affect things like Media queries */
-    windowHeight?: number;
+    windowHeight?: number | undefined;
 }
 
 
