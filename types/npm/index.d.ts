@@ -5,10 +5,10 @@
 
 /// <reference types="node" />
 
-declare var npm: NPM.Static;
+declare var npm: npm.Static;
 export = npm;
 
-declare namespace NPM {
+declare namespace npm {
     export interface Static extends NodeJS.EventEmitter {
         config: Config;
         commands: Commands;
