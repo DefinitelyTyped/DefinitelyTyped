@@ -142,27 +142,6 @@ declare module 'fs/promises' {
         utimes(atime: string | number | Date, mtime: string | number | Date): Promise<void>;
 
         /**
-         * Asynchronously writes `buffer` to the file.
-         * The `FileHandle` must have been opened for writing.
-         * @param buffer The buffer that the data will be written to.
-         * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
-         * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
-         * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
-         */
-        write<TBuffer extends Uint8Array>(buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
-
-        /**
-         * Asynchronously writes `string` to the file.
-         * The `FileHandle` must have been opened for writing.
-         * It is unsafe to call `write()` multiple times on the same file without waiting for the `Promise`
-         * to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
-         * @param string A string to write.
-         * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
-         * @param encoding The expected string encoding.
-         */
-        write(data: string | Uint8Array, position?: number | null, encoding?: BufferEncoding | null): Promise<{ bytesWritten: number, buffer: string }>;
-
-        /**
          * Asynchronously writes data to a file, replacing the file if it already exists. The underlying file will _not_ be closed automatically.
          * The `FileHandle` must have been opened for writing.
          * It is unsafe to call `writeFile()` multiple times on the same file without waiting for the `Promise` to be resolved (or rejected).

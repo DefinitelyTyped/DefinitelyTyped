@@ -2226,9 +2226,6 @@ declare module 'fs' {
     }
 
     export interface BigIntStats extends StatsBase<bigint> {
-    }
-
-    export class BigIntStats {
         atimeNs: bigint;
         mtimeNs: bigint;
         ctimeNs: bigint;

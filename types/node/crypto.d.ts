@@ -428,6 +428,9 @@ declare module 'crypto' {
     }
 
     function createVerify(algorithm: string, options?: stream.WritableOptions): Verify;
+    /**
+     * hurr
+     */
     class Verify extends stream.Writable {
         private constructor();
 
