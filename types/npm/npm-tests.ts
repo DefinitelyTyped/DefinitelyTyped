@@ -4,7 +4,7 @@
 * Created by using code samples from https://github.com/npm/npm#using-npm-programmatically.
 */
 
-import npm, { Config, CommandCallback } from 'npm';
+import * as npm from 'npm';
 
 npm.load().then(() => {
     npm.commands['add-user'](["some", "args"], () => {});
@@ -36,4 +36,4 @@ npm.load(function (er) {
 })
 
 // Ensure we can import interfaces
-declare function dummy(config: Config, commandCallback: CommandCallback): void;
+declare function dummy(config: npm.Config, commandCallback: npm.CommandCallback): void;
