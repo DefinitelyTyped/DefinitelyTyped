@@ -152,7 +152,7 @@ export class Lexer {
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
-export type Type =
+export type MimeType =
   // Discrete types
   | 'application' | 'example' | 'text'
   // Multipart types
@@ -166,16 +166,16 @@ export type BaseFormat =
   | 'n3'
   | 'Notation3';
 
-export type BaseFormatVariants =
+export type BaseFormatVariant =
   | BaseFormat
   | Lowercase<BaseFormat>
   | Capitalize<BaseFormat>;
 
 export type Star = '*' | 'star';
 
-export type Subtype = BaseFormatVariants | `${BaseFormatVariants}${Star | ''}`;
+export type MimeSubtype = BaseFormatVariant | `${BaseFormatVariant}${Star | ''}`;
 
-export type MimeFormat = Subtype | `${Type}/${Subtype}`;
+export type MimeFormat = MimeSubtype | `${MimeType}/${MimeSubtype}`;
 
 export interface ParserOptions {
     format?: MimeFormat;
