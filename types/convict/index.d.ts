@@ -24,20 +24,20 @@ declare namespace convict {
          * any properties specified in config files that are not declared in the schema will
          * throw errors. This is to ensure that the schema and the config files are in sync.
          */
-        allowed?: ValidationMethod;
+        allowed?: ValidationMethod | undefined;
 
         /** @deprecated use allowed instead */
-        strict?: boolean;
+        strict?: boolean | undefined;
 
         /**
-         * If specififed, possible warnings will be passed to this function instead of being
+         * If specified, possible warnings will be passed to this function instead of being
          * outputted to console.log, which would be the default behaviour.
          */
-        output?(message: string): void;
+        output?: ((message: string) => void) | undefined;
     }
 
     interface Format {
-        name?: string;
+        name?: string | undefined;
         validate?(val: any, schema: SchemaObj): void;
         coerce?(val: any): any;
     }
@@ -71,7 +71,7 @@ declare namespace convict {
          * Set its default to null and if your format doesn't accept null it will throw an error.
          */
         default: T | null;
-        doc?: string;
+        doc?: string | undefined;
         /**
          * From the implementation:
          *
@@ -84,11 +84,11 @@ declare namespace convict {
          * If omitted, format will be set to the value of Object.prototype.toString.call
          * for the default value
          */
-        format?: PredefinedFormat | any[] | ((val: any) => asserts val is T) | ((val: any) => void);
-        env?: string;
-        arg?: string;
-        sensitive?: boolean;
-        nullable?: boolean;
+        format?: PredefinedFormat | any[] | ((val: any) => asserts val is T) | ((val: any) => void) | undefined;
+        env?: string | undefined;
+        arg?: string | undefined;
+        sensitive?: boolean | undefined;
+        nullable?: boolean | undefined;
         [key: string]: any;
     }
 
@@ -103,8 +103,8 @@ declare namespace convict {
     }
 
     interface Options {
-        env?: NodeJS.ProcessEnv;
-        args?: string[];
+        env?: NodeJS.ProcessEnv | undefined;
+        args?: string[] | undefined;
     }
 
     // Taken from https://twitter.com/diegohaz/status/1309489079378219009

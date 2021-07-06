@@ -63,7 +63,7 @@ export interface DefaultArcObject {
     /**
      * Optional. Pad angle of arc in radians.
      */
-    padAngle?: number;
+    padAngle?: number | undefined;
 }
 
 /**
