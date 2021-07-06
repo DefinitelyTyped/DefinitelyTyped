@@ -49,6 +49,7 @@ import {
     InteractionManager,
     Keyboard,
     KeyboardAvoidingView,
+    KeyboardEventListener,
     LayoutChangeEvent,
     Linking,
     ListRenderItemInfo,
@@ -1384,6 +1385,11 @@ const KeyboardTest = () => {
         startCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 },
         isEventFromThisApp: true,
     });
+
+    const listener: KeyboardEventListener = (event) => { event; };
+    Keyboard.addListener('keyboardDidShow', listener);
+    Keyboard.removeListener('keyboardDidShow', listener);
+    Keyboard.removeAllListeners('keyboardDidShow');
 };
 
 const PermissionsAndroidTest = () => {
