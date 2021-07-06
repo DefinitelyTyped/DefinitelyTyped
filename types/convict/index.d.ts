@@ -1,4 +1,4 @@
-// Type definitions for convict 6.0
+// Type definitions for convict 6.1
 // Project: https://github.com/mozilla/node-convict
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Vesa Poikajärvi <https://github.com/vesse>
@@ -28,6 +28,12 @@ declare namespace convict {
 
         /** @deprecated use allowed instead */
         strict?: boolean | undefined;
+
+        /**
+         * If specified, possible warnings will be passed to this function instead of being
+         * outputted to console.log, which would be the default behaviour.
+         */
+        output?: ((message: string) => void) | undefined;
     }
 
     interface Format {
@@ -82,6 +88,7 @@ declare namespace convict {
         env?: string | undefined;
         arg?: string | undefined;
         sensitive?: boolean | undefined;
+        nullable?: boolean | undefined;
         [key: string]: any;
     }
 
