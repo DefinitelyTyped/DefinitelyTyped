@@ -310,6 +310,16 @@ sharp(input)
         console.log(info);
     });
 
+sharp(input)
+    .gif()
+    .gif({})
+    .gif({pageHeight: 5, loop: 0, delay: [], force: true})
+    .toBuffer({ resolveWithObject: true })
+    .then(({ data, info }) => {
+        console.log(data);
+        console.log(info);
+    });
+
 sharp("input.jpg")
     .stats()
     .then(stats => {
