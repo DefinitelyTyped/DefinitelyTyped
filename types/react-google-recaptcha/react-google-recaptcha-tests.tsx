@@ -5,16 +5,7 @@ const basicRecapchta = <ReCAPTCHA sitekey="xxx" onChange={a => a} />;
 const invisibleRecaptcha: React.SFC = () => {
     const recaptchaRef = React.createRef<ReCAPTCHA>();
 
-    return (
-        <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey="xxx"
-            size="invisible"
-            asyncScriptOnLoad={() => {
-                console.log('test');
-            }}
-        />
-    );
+    return <ReCAPTCHA ref={recaptchaRef} sitekey="xxx" size="invisible" asyncScriptOnLoad={() => {}} />;
 };
 
 const basicRecapchta2 = <ReCAPTCHA2 sitekey="xxx" onChange={a => a} />;
