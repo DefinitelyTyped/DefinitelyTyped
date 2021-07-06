@@ -173,7 +173,7 @@ export type BaseFormatVariant =
 
 export type Star = '*' | 'star';
 
-export type MimeSubtype = BaseFormatVariant | `${BaseFormatVariant}${Star | ''}`;
+export type MimeSubtype = BaseFormatVariant | `${BaseFormatVariant}${Star}`;
 
 export type MimeFormat = MimeSubtype | `${MimeType}/${MimeSubtype}`;
 
