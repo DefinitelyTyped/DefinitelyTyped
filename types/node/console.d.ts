@@ -4,7 +4,7 @@ declare module 'console' {
     global {
         // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
         interface Console {
-            Console: console.ConsoleConstructor;
+            Console: NodeJS.ConsoleConstructor;
             /**
              * A simple assertion test that verifies whether `value` is truthy.
              * If it is not, an `AssertionError` is thrown.
@@ -106,29 +106,28 @@ declare module 'console' {
             timeStamp(label?: string): void;
         }
 
-        namespace console {
+        var console: Console;
+
+        namespace NodeJS {
             interface ConsoleConstructorOptions {
-                stdout: NodeJS.WritableStream;
-                stderr?: NodeJS.WritableStream;
-                ignoreErrors?: boolean;
-                colorMode?: boolean | 'auto';
-                inspectOptions?: InspectOptions;
+                stdout: WritableStream;
+                stderr?: WritableStream | undefined;
+                ignoreErrors?: boolean | undefined;
+                colorMode?: boolean | 'auto' | undefined;
+                inspectOptions?: InspectOptions | undefined;
             }
 
             interface ConsoleConstructor {
                 prototype: Console;
-                new(stdout: NodeJS.WritableStream, stderr?: NodeJS.WritableStream, ignoreErrors?: boolean): Console;
+                new(stdout: WritableStream, stderr?: WritableStream, ignoreErrors?: boolean): Console;
                 new(options: ConsoleConstructorOptions): Console;
             }
-        }
 
-        var console: Console;
+            interface Global {
+                console: typeof console;
+            }
+        }
     }
 
-    export = globalThis.console;
-}
-
-declare module 'node:console' {
-    import console = require('console');
     export = console;
 }
