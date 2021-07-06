@@ -1317,7 +1317,7 @@ declare namespace braintree {
             token: string;
         };
         authorizationAdjustments?: AuthorizationAdjustment[];
-        authorizationExpiresAt?: Date;
+        authorizationExpiresAt?: string;
         avsErrorResponseCode: string;
         avsPostalCodeResponseCode: string;
         avsStreetAddressResponseCode: string;
