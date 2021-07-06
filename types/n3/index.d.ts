@@ -168,8 +168,7 @@ export type BaseFormat =
 
 export type BaseFormatVariant =
   | BaseFormat
-  | Lowercase<BaseFormat>
-  | Capitalize<BaseFormat>;
+  | Lowercase<BaseFormat>;
 
 export type Star = '*' | 'star' | '-star';
 
