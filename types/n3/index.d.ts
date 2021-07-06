@@ -159,11 +159,11 @@ export type MimeType =
   | 'message' | 'multipart';
 
 export type BaseFormat =
-  | 'turtle'
-  | 'triG'
+  | 'Turtle'
+  | 'TriG'
   | 'N-Triples'
   | 'N-Quads'
-  | 'n3'
+  | 'N3'
   | 'Notation3';
 
 export type BaseFormatVariant =
