@@ -125,6 +125,7 @@ declare namespace archiver {
         comment?: string | undefined;
         forceLocalTime?: boolean | undefined;
         forceZip64?: boolean | undefined;
+        namePrependSlash?: boolean | undefined;
         store?: boolean | undefined;
         zlib?: ZlibOptions | undefined;
     }

@@ -51,6 +51,7 @@ export interface SubparserOptions {
     dest?: string | undefined;
     help?: string | undefined;
     metavar?: string | undefined;
+    required?: boolean | undefined;
 }
 
 export interface SubArgumentParserOptions extends ArgumentParserOptions {
