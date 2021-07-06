@@ -4,7 +4,7 @@ import { BaseTriggerEvent, StringMap } from './_common';
 export interface BasePostConfirmationTriggerEvent<T extends string> extends BaseTriggerEvent<T> {
   request: {
       userAttributes: StringMap;
-      clientMetadata?: StringMap;
+      clientMetadata?: StringMap | undefined;
   };
 }
 

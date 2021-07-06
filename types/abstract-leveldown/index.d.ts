@@ -14,12 +14,12 @@ export type ErrorValueCallback<V> = (err: Error | undefined, value: V) => void;
 export type ErrorKeyValueCallback<K, V> = (err: Error | undefined, key: K, value: V) => void;
 
 export interface AbstractOpenOptions extends AbstractOptions {
-  createIfMissing?: boolean;
-  errorIfExists?: boolean;
+  createIfMissing?: boolean | undefined;
+  errorIfExists?: boolean | undefined;
 }
 
 export interface AbstractGetOptions extends AbstractOptions {
-  asBuffer?: boolean;
+  asBuffer?: boolean | undefined;
 }
 
 export interface AbstractLevelDOWN<K = any, V = any> extends AbstractOptions {
@@ -56,16 +56,16 @@ export interface AbstractLevelDOWNConstructor {
 }
 
 export interface AbstractIteratorOptions<K = any> extends AbstractOptions {
-  gt?: K;
-  gte?: K;
-  lt?: K;
-  lte?: K;
-  reverse?: boolean;
-  limit?: number;
-  keys?: boolean;
-  values?: boolean;
-  keyAsBuffer?: boolean;
-  valueAsBuffer?: boolean;
+  gt?: K | undefined;
+  gte?: K | undefined;
+  lt?: K | undefined;
+  lte?: K | undefined;
+  reverse?: boolean | undefined;
+  limit?: number | undefined;
+  keys?: boolean | undefined;
+  values?: boolean | undefined;
+  keyAsBuffer?: boolean | undefined;
+  valueAsBuffer?: boolean | undefined;
 }
 
 export type AbstractBatch<K = any, V = any> = PutBatch<K, V> | DelBatch<K, V>;
