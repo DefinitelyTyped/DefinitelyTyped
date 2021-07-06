@@ -21,7 +21,14 @@ export type SendMailOptions = Mail.Options;
 
 export type Transporter<T = any> = Mail<T>;
 
-export type SentMessageInfo = any;
+export type SentMessageInfo = {
+    messageId: string;
+    envelop: { from: string; to: string[] };
+    accepted: string[];
+    rejected: string[];
+    pending: string[];
+    response: string;
+};
 
 export interface Transport<T = any> {
     mailer?: Transporter<T>;
