@@ -6,9 +6,9 @@
 
 declare namespace FontFaceObserver {
     interface FontVariant {
-        weight?: number | string;
-        style?: string;
-        stretch?: string;
+        weight?: number | string | undefined;
+        style?: string | undefined;
+        stretch?: string | undefined;
     }
 }
 
