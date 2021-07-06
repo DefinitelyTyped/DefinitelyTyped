@@ -7,17 +7,19 @@
 
 import * as d3 from "d3";
 import * as dagre from "dagre";
+import * as graphlib from "graphlib";
 
 export as namespace dagreD3;
 
-export * as graphlib from "graphlib";
-
-export * as dagre from "dagre";
-
-export type Point = {
-  x: number,
-  y: number,
+export {
+  dagre as dagre,
+  graphlib as graphlib,
 };
+
+export interface Point {
+  x: number;
+  y: number;
+}
 
 export const intersect: {
   node: (node: dagre.Node, point: any) => any;
@@ -71,27 +73,27 @@ export const util: {
   ) => d3.Transition<GElement, Datum, PElement, PDatum> | d3.Selection<GElement, Datum, PElement, PDatum>,
 };
 
-export type CreateNodes = <GElement extends d3.BaseType>(
+export type CreateNodes = (
   selection: d3.Selection<SVGGElement, string, any, any>,
   g: dagre.graphlib.Graph<any>,
   shapes: Shapes,
-) => d3.Selection<GElement, any, any, any>
+) => d3.Selection<d3.BaseType, any, any, any>;
 
-export type CreateClusters = <GElement extends d3.BaseType>(
+export type CreateClusters = (
   selection: d3.Selection<SVGGElement, string, any, any>,
   g: dagre.graphlib.Graph<any>,
-) => d3.Selection<GElement, any, any, any>
+) => d3.Selection<d3.BaseType, any, any, any>;
 
-export type CreateEdgeLabels = <GElement extends d3.BaseType>(
+export type CreateEdgeLabels = (
   selection: d3.Selection<SVGGElement, string, any, any>,
   g: dagre.graphlib.Graph<any>,
-) => d3.Selection<GElement , any, any, any>
+) => d3.Selection<d3.BaseType , any, any, any>;
 
-export type CreateEdgePaths = <GElement extends d3.BaseType>(
+export type CreateEdgePaths = (
   selection: d3.Selection<SVGGElement, string, any, any>,
   g: dagre.graphlib.Graph<any>,
   arrows: Arrows,
-) => d3.Selection<GElement, any, any, any>
+) => d3.Selection<d3.BaseType, any, any, any>;
 
 export type Arrow = (
   parent: d3.Selection<any, any, any, any>,
@@ -100,9 +102,9 @@ export type Arrow = (
   type: string,
 ) => void;
 
-export type Arrows = {
+export interface Arrows {
   [arrowStyleName: string]: Arrow;
-};
+}
 
 export type Shape = <Datum, PElement extends d3.BaseType, PDatum>(
   parent: d3.Selection<any, Datum, PElement, PDatum>,
@@ -110,9 +112,9 @@ export type Shape = <Datum, PElement extends d3.BaseType, PDatum>(
   node: dagre.Node,
 ) => d3.Selection<any, Datum, PElement, PDatum>;
 
-export type Shapes = {
+export interface Shapes {
  [shapeStyleName: string]: Shape;
-};
+}
 
 export interface Render {
   // see https://dagrejs.github.io/project/dagre-d3/latest/demo/user-defined.html for example usage

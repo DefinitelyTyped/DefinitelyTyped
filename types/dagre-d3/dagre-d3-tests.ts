@@ -11,7 +11,6 @@ const node: dagre.Node<{extraProp: string}> = graph.node("a");
 // has extraProp in Graph"s Generic type
 const _extraProp: string = node.extraProp;
 
-
 // intersect
 const point = {x: 0, y: 0};
 const _ = intersect.node(node, point);
@@ -61,7 +60,7 @@ const _id: string = util.edgeToId({v: "a", w: "b", name: "c"});
 
 util.applyStyle(
   d3.select<d3.BaseType, string>("svg"),
-  function (
+  function(
     this: d3.BaseType,
     _d: string,
     _index: number,
@@ -73,7 +72,7 @@ util.applyStyle(
 
 util.applyClass(
   d3.select<d3.BaseType, string>("svg"),
-  function (
+  function(
     this: d3.BaseType,
     _d: string,
     _index: number,
@@ -86,7 +85,7 @@ util.applyClass(
 
 const _applyTransition:
   d3.Selection<d3.BaseType, string, HTMLElement, any> |
-  d3.Transition<d3.BaseType, string, HTMLElement, any> 
+  d3.Transition<d3.BaseType, string, HTMLElement, any>
 = util.applyTransition(
   d3.select<d3.BaseType, string>("svg"),
   graph,
