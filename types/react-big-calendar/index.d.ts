@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.31
+// Type definitions for react-big-calendar 0.33.5
 // Project: https://github.com/jquense/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -319,6 +319,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     showAllEvents?: boolean;
     selected?: any;
     views?: ViewsProps<TEvent, TResource>;
+    doShowMoreDrillDown?: boolean;
     drilldownView?: View | null;
     getDrilldownView?: ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void) | null;
     length?: number;

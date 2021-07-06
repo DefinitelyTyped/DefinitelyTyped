@@ -269,6 +269,7 @@ class CalendarResource {
                     onShowMore={(events, date) => {
                         console.log('onShowMore fired, events: %O, date: %O', events, date);
                     }}
+                    doShowMoreDrillDown={true}
                     selectable={true}
                     step={20}
                     rtl={true}
