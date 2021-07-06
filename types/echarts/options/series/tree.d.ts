@@ -28,7 +28,7 @@ declare namespace echarts {
              * "tree"
              * @see https://echarts.apache.org/en/option.html#series-tree.type
              */
-            type?: string;
+            type?: string | undefined;
 
             /**
              * Component ID, not specified by default.
@@ -38,7 +38,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-tree.id
              */
-            id?: string;
+            id?: string | undefined;
 
             /**
              * Series name used for displaying in
@@ -50,7 +50,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-tree.name
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * `zlevel` value of all graghical elements in .
@@ -69,7 +69,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-tree.zlevel
              */
-            zlevel?: number;
+            zlevel?: number | undefined;
 
             /**
              * `z` value of all graghical elements in , which controls order
@@ -85,7 +85,7 @@ declare namespace echarts {
              * 2
              * @see https://echarts.apache.org/en/option.html#series-tree.z
              */
-            z?: number;
+            z?: number | undefined;
 
             /**
              * Distance between tree component and the left side of the container.
@@ -102,7 +102,7 @@ declare namespace echarts {
              * 12%
              * @see https://echarts.apache.org/en/option.html#series-tree.left
              */
-            left?: number | string;
+            left?: number | string | undefined;
 
             /**
              * Distance between tree component and the top side of the container.
@@ -119,7 +119,7 @@ declare namespace echarts {
              * 12%
              * @see https://echarts.apache.org/en/option.html#series-tree.top
              */
-            top?: number | string;
+            top?: number | string | undefined;
 
             /**
              * Distance between tree component and the right side of the container.
@@ -132,7 +132,7 @@ declare namespace echarts {
              * 12%
              * @see https://echarts.apache.org/en/option.html#series-tree.right
              */
-            right?: number | string;
+            right?: number | string | undefined;
 
             /**
              * Distance between tree component and the bottom side of the container.
@@ -145,7 +145,7 @@ declare namespace echarts {
              * 12%
              * @see https://echarts.apache.org/en/option.html#series-tree.bottom
              */
-            bottom?: number | string;
+            bottom?: number | string | undefined;
 
             /**
              * Width of tree component.
@@ -153,7 +153,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-tree.width
              */
-            width?: number | string;
+            width?: number | string | undefined;
 
             /**
              * Height of tree component.
@@ -161,7 +161,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-tree.height
              */
-            height?: number | string;
+            height?: number | string | undefined;
 
             /**
              * The layout of the tree, which can be `orthogonal` and `radial`
@@ -185,7 +185,7 @@ declare namespace echarts {
              * "orthogonal"
              * @see https://echarts.apache.org/en/option.html#series-tree.layout
              */
-            layout?: string;
+            layout?: string | undefined;
 
             /**
              * The direction of the `orthogonal` layout in the tree diagram.
@@ -202,7 +202,7 @@ declare namespace echarts {
              * "LR"
              * @see https://echarts.apache.org/en/option.html#series-tree.orient
              */
-            orient?: string;
+            orient?: string | undefined;
 
             /**
              * Symbol of .
@@ -244,7 +244,7 @@ declare namespace echarts {
              * "emptyCircle"
              * @see https://echarts.apache.org/en/option.html#series-tree.symbol
              */
-            symbol?: string;
+            symbol?: string | undefined;
 
             /**
              * symbol size.
@@ -271,7 +271,7 @@ declare namespace echarts {
              * 7
              * @see https://echarts.apache.org/en/option.html#series-tree.symbolSize
              */
-            symbolSize?: any[] | Function | number;
+            symbolSize?: any[] | Function | number | undefined;
 
             /**
              * Rotate degree of symbol.
@@ -282,7 +282,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-tree.symbolRotate
              */
-            symbolRotate?: number;
+            symbolRotate?: number | undefined;
 
             /**
              * Whether to keep aspect for symbols in the form of `path://`.
@@ -290,7 +290,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-tree.symbolKeepAspect
              */
-            symbolKeepAspect?: boolean;
+            symbolKeepAspect?: boolean | undefined;
 
             /**
              * Offset of symbol relative to original position.
@@ -312,7 +312,7 @@ declare namespace echarts {
              * [0, 0]
              * @see https://echarts.apache.org/en/option.html#series-tree.symbolOffset
              */
-            symbolOffset?: any[];
+            symbolOffset?: any[] | undefined;
 
             /**
              * Whether to enable mouse zooming and translating.
@@ -324,7 +324,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-tree.roam
              */
-            roam?: boolean | string;
+            roam?: boolean | string | undefined;
 
             /**
              * Subtree collapses and expands interaction, `default true`.
@@ -350,7 +350,7 @@ declare namespace echarts {
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-tree.expandAndCollapse
              */
-            expandAndCollapse?: boolean;
+            expandAndCollapse?: boolean | undefined;
 
             /**
              * The initial level (depth) of the tree.
@@ -370,7 +370,7 @@ declare namespace echarts {
              * 2
              * @see https://echarts.apache.org/en/option.html#series-tree.initialTreeDepth
              */
-            initialTreeDepth?: number;
+            initialTreeDepth?: number | undefined;
 
             /**
              * The style of each node in the tree, where \[itemStyle.color\]
@@ -400,7 +400,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle.color
                  */
-                color?: EChartOption.Color;
+                color?: EChartOption.Color | undefined;
 
                 /**
                  * border color, whose format is similar to that of `color`.
@@ -410,7 +410,7 @@ declare namespace echarts {
                  * "#c23531"
                  * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle.borderColor
                  */
-                borderColor?: EChartOption.Color;
+                borderColor?: EChartOption.Color | undefined;
 
                 /**
                  * border width. No border when it is set to be 0.
@@ -420,7 +420,7 @@ declare namespace echarts {
                  * 1.5
                  * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle.borderWidth
                  */
-                borderWidth?: number;
+                borderWidth?: number | undefined;
 
                 /**
                  * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
@@ -431,7 +431,7 @@ declare namespace echarts {
                  * "solid"
                  * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle.borderType
                  */
-                borderType?: string;
+                borderType?: string | undefined;
 
                 /**
                  * Size of shadow blur.
@@ -445,7 +445,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle.shadowBlur
                  */
-                shadowBlur?: number;
+                shadowBlur?: number | undefined;
 
                 /**
                  * Shadow color. Support same format as `color`.
@@ -453,7 +453,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle.shadowColor
                  */
-                shadowColor?: EChartOption.Color;
+                shadowColor?: EChartOption.Color | undefined;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -461,7 +461,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle.shadowOffsetX
                  */
-                shadowOffsetX?: number;
+                shadowOffsetX?: number | undefined;
 
                 /**
                  * Offset distance on the vertical direction of shadow.
@@ -469,7 +469,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle.shadowOffsetY
                  */
-                shadowOffsetY?: number;
+                shadowOffsetY?: number | undefined;
 
                 /**
                  * Opacity of the component.
@@ -479,8 +479,8 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle.opacity
                  */
-                opacity?: number;
-            };
+                opacity?: number | undefined;
+            } | undefined;
 
             /**
              * `label` describes the style of the text corresponding to each
@@ -498,7 +498,7 @@ declare namespace echarts {
                  * "true"
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.show
                  */
-                show?: boolean;
+                show?: boolean | undefined;
 
                 /**
                  * Label position.
@@ -535,7 +535,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.position
                  */
-                position?: any[] | string;
+                position?: any[] | string | undefined;
 
                 /**
                  * Distance to the host graphic element.
@@ -550,7 +550,7 @@ declare namespace echarts {
                  * 5
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.distance
                  */
-                distance?: number;
+                distance?: number | undefined;
 
                 /**
                  * Rotate label, from -90 degree to 90, positive value represents
@@ -563,7 +563,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.rotate
                  */
-                rotate?: number;
+                rotate?: number | undefined;
 
                 /**
                  * Whether to move text slightly.
@@ -573,7 +573,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.offset
                  */
-                offset?: any[];
+                offset?: any[] | undefined;
 
                 /**
                  * Data label formatter, which supports string template and
@@ -617,7 +617,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.formatter
                  */
-                formatter?: Function | string;
+                formatter?: Function | string | undefined;
 
                 /**
                  * text color.
@@ -630,7 +630,7 @@ declare namespace echarts {
                  * ""#fff""
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.color
                  */
-                color?: string;
+                color?: string | undefined;
 
                 /**
                  * font style
@@ -646,7 +646,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.fontStyle
                  */
-                fontStyle?: string;
+                fontStyle?: string | undefined;
 
                 /**
                  * font thick weight
@@ -664,7 +664,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.fontWeight
                  */
-                fontWeight?: string | number;
+                fontWeight?: string | number | undefined;
 
                 /**
                  * font family
@@ -676,7 +676,7 @@ declare namespace echarts {
                  * "sans-serif"
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.fontFamily
                  */
-                fontFamily?: string;
+                fontFamily?: string | undefined;
 
                 /**
                  * font size
@@ -686,7 +686,7 @@ declare namespace echarts {
                  * 12
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.fontSize
                  */
-                fontSize?: number;
+                fontSize?: number | undefined;
 
                 /**
                  * Horizontal alignment of text, automatic by default.
@@ -705,7 +705,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.align
                  */
-                align?: string;
+                align?: string | undefined;
 
                 /**
                  * Vertical alignment of text, automatic by default.
@@ -724,7 +724,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.verticalAlign
                  */
-                verticalAlign?: string;
+                verticalAlign?: string | undefined;
 
                 /**
                  * Line height of the text fregment.
@@ -737,7 +737,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.lineHeight
                  */
-                lineHeight?: number;
+                lineHeight?: number | undefined;
 
                 /**
                  * Background color of the text fregment.
@@ -759,7 +759,7 @@ declare namespace echarts {
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.backgroundColor
                  */
-                backgroundColor?: object | string;
+                backgroundColor?: object | string | undefined;
 
                 /**
                  * Border color of the text fregment.
@@ -772,7 +772,7 @@ declare namespace echarts {
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.borderColor
                  */
-                borderColor?: string;
+                borderColor?: string | undefined;
 
                 /**
                  * Border width of the text fregment.
@@ -780,7 +780,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.borderWidth
                  */
-                borderWidth?: number;
+                borderWidth?: number | undefined;
 
                 /**
                  * Border radius of the text fregment.
@@ -788,7 +788,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.borderRadius
                  */
-                borderRadius?: number;
+                borderRadius?: number | undefined;
 
                 /**
                  * Padding of the text fregment, for example:
@@ -804,7 +804,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.padding
                  */
-                padding?: any[] | number;
+                padding?: any[] | number | undefined;
 
                 /**
                  * Shadow color of the text block.
@@ -814,7 +814,7 @@ declare namespace echarts {
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: string | undefined;
 
                 /**
                  * Show blur of the text block.
@@ -822,7 +822,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.shadowBlur
                  */
-                shadowBlur?: number;
+                shadowBlur?: number | undefined;
 
                 /**
                  * Shadow X offset of the text block.
@@ -830,7 +830,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.shadowOffsetX
                  */
-                shadowOffsetX?: number;
+                shadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text block.
@@ -838,7 +838,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.shadowOffsetY
                  */
-                shadowOffsetY?: number;
+                shadowOffsetY?: number | undefined;
 
                 /**
                  * Width of the text block.
@@ -862,7 +862,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.width
                  */
-                width?: number | string;
+                width?: number | string | undefined;
 
                 /**
                  * Height of the text block.
@@ -878,7 +878,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.height
                  */
-                height?: number | string;
+                height?: number | string | undefined;
 
                 /**
                  * Storke color of the text.
@@ -891,7 +891,7 @@ declare namespace echarts {
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.textBorderColor
                  */
-                textBorderColor?: string;
+                textBorderColor?: string | undefined;
 
                 /**
                  * Storke line width of the text.
@@ -899,7 +899,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.textBorderWidth
                  */
-                textBorderWidth?: number;
+                textBorderWidth?: number | undefined;
 
                 /**
                  * Shadow color of the text itself.
@@ -909,7 +909,7 @@ declare namespace echarts {
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.textShadowColor
                  */
-                textShadowColor?: string;
+                textShadowColor?: string | undefined;
 
                 /**
                  * Shadow blue of the text itself.
@@ -917,7 +917,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.textShadowBlur
                  */
-                textShadowBlur?: number;
+                textShadowBlur?: number | undefined;
 
                 /**
                  * Shadow X offset of the text itself.
@@ -925,7 +925,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.textShadowOffsetX
                  */
-                textShadowOffsetX?: number;
+                textShadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text itself.
@@ -933,7 +933,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.textShadowOffsetY
                  */
-                textShadowOffsetY?: number;
+                textShadowOffsetY?: number | undefined;
 
                 /**
                  * "Rich text styles" can be defined in this `rich` property.
@@ -964,7 +964,7 @@ declare namespace echarts {
                          * ""#fff""
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -980,7 +980,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -998,7 +998,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string | number;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -1010,7 +1010,7 @@ declare namespace echarts {
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -1020,7 +1020,7 @@ declare namespace echarts {
                          * 12
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -1039,7 +1039,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -1058,7 +1058,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -1071,7 +1071,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -1093,7 +1093,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -1106,7 +1106,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
@@ -1114,7 +1114,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
@@ -1122,7 +1122,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -1139,7 +1139,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -1149,7 +1149,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
@@ -1157,7 +1157,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
@@ -1165,7 +1165,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
@@ -1173,7 +1173,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -1200,7 +1200,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -1217,7 +1217,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -1230,7 +1230,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
@@ -1238,7 +1238,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -1248,7 +1248,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
@@ -1256,7 +1256,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
@@ -1264,7 +1264,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
@@ -1272,10 +1272,10 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
                     };
-                };
-            };
+                } | undefined;
+            } | undefined;
 
             /**
              * Defines the style of the tree edge.
@@ -1292,7 +1292,7 @@ declare namespace echarts {
                  * ""#ccc""
                  * @see https://echarts.apache.org/en/option.html#series-tree.lineStyle.color
                  */
-                color?: string;
+                color?: string | undefined;
 
                 /**
                  * The width of the tree edge.
@@ -1302,7 +1302,7 @@ declare namespace echarts {
                  * 1.5
                  * @see https://echarts.apache.org/en/option.html#series-tree.lineStyle.width
                  */
-                width?: number;
+                width?: number | undefined;
 
                 /**
                  * The curvature of the tree edge.
@@ -1312,7 +1312,7 @@ declare namespace echarts {
                  * 0.5
                  * @see https://echarts.apache.org/en/option.html#series-tree.lineStyle.curveness
                  */
-                curveness?: number;
+                curveness?: number | undefined;
 
                 /**
                  * Size of shadow blur.
@@ -1326,7 +1326,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.lineStyle.shadowBlur
                  */
-                shadowBlur?: number;
+                shadowBlur?: number | undefined;
 
                 /**
                  * Shadow color. Support same format as `color`.
@@ -1334,7 +1334,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.lineStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: string | undefined;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1342,7 +1342,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.lineStyle.shadowOffsetX
                  */
-                shadowOffsetX?: number;
+                shadowOffsetX?: number | undefined;
 
                 /**
                  * Offset distance on the vertical direction of shadow.
@@ -1350,8 +1350,8 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.lineStyle.shadowOffsetY
                  */
-                shadowOffsetY?: number;
-            };
+                shadowOffsetY?: number | undefined;
+            } | undefined;
 
             /**
              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis
@@ -1377,7 +1377,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle.color
                      */
-                    color?: EChartOption.Color;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -1387,7 +1387,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: EChartOption.Color;
+                    borderColor?: EChartOption.Color | undefined;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -1395,7 +1395,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
@@ -1406,7 +1406,7 @@ declare namespace echarts {
                      * "solid"
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle.borderType
                      */
-                    borderType?: string;
+                    borderType?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -1420,7 +1420,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
@@ -1428,7 +1428,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: EChartOption.Color;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -1436,7 +1436,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
@@ -1444,7 +1444,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -1454,8 +1454,8 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle.opacity
                      */
-                    opacity?: number;
-                };
+                    opacity?: number | undefined;
+                } | undefined;
 
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.lineStyle
@@ -1469,7 +1469,7 @@ declare namespace echarts {
                      * ""#ccc""
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.lineStyle.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * The width of the tree edge.
@@ -1479,7 +1479,7 @@ declare namespace echarts {
                      * 1.5
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.lineStyle.width
                      */
-                    width?: number;
+                    width?: number | undefined;
 
                     /**
                      * The curvature of the tree edge.
@@ -1489,7 +1489,7 @@ declare namespace echarts {
                      * 0.5
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.lineStyle.curveness
                      */
-                    curveness?: number;
+                    curveness?: number | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -1503,7 +1503,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.lineStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
@@ -1511,7 +1511,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -1519,7 +1519,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.lineStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
@@ -1527,8 +1527,8 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.lineStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
-                };
+                    shadowOffsetY?: number | undefined;
+                } | undefined;
 
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label
@@ -1540,7 +1540,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -1577,7 +1577,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
@@ -1592,7 +1592,7 @@ declare namespace echarts {
                      * 5
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
@@ -1605,7 +1605,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -1615,7 +1615,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -1660,7 +1660,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * text color.
@@ -1673,7 +1673,7 @@ declare namespace echarts {
                      * ""#fff""
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -1689,7 +1689,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -1707,7 +1707,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.fontWeight
                      */
-                    fontWeight?: string | number;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -1719,7 +1719,7 @@ declare namespace echarts {
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -1729,7 +1729,7 @@ declare namespace echarts {
                      * 12
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -1748,7 +1748,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -1767,7 +1767,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -1780,7 +1780,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -1802,7 +1802,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -1815,7 +1815,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
@@ -1823,7 +1823,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
@@ -1831,7 +1831,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -1847,7 +1847,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -1857,7 +1857,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
@@ -1865,7 +1865,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
@@ -1873,7 +1873,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
@@ -1881,7 +1881,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -1906,7 +1906,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -1922,7 +1922,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -1935,7 +1935,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
@@ -1943,7 +1943,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -1953,7 +1953,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
@@ -1961,7 +1961,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
@@ -1969,7 +1969,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
@@ -1977,7 +1977,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
@@ -2008,7 +2008,7 @@ declare namespace echarts {
                              * ""#fff""
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -2024,7 +2024,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -2042,7 +2042,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string | number;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -2054,7 +2054,7 @@ declare namespace echarts {
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -2064,7 +2064,7 @@ declare namespace echarts {
                              * 12
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -2083,7 +2083,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -2102,7 +2102,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -2115,7 +2115,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -2138,7 +2138,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -2151,7 +2151,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
@@ -2159,7 +2159,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
@@ -2167,7 +2167,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -2185,7 +2185,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -2195,7 +2195,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
@@ -2203,7 +2203,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
@@ -2211,7 +2211,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
@@ -2219,7 +2219,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -2246,7 +2246,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -2263,7 +2263,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -2276,7 +2276,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
@@ -2284,7 +2284,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -2294,7 +2294,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
@@ -2302,7 +2302,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
@@ -2310,7 +2310,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
@@ -2318,11 +2318,11 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
-                };
-            };
+                    } | undefined;
+                } | undefined;
+            } | undefined;
 
             /**
              * Leaf node special configuration, such as the above tree diagram
@@ -2348,7 +2348,7 @@ declare namespace echarts {
                      * "true"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -2385,7 +2385,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
@@ -2400,7 +2400,7 @@ declare namespace echarts {
                      * 5
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
@@ -2413,7 +2413,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -2423,7 +2423,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -2468,7 +2468,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * text color.
@@ -2481,7 +2481,7 @@ declare namespace echarts {
                      * ""#fff""
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -2497,7 +2497,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -2515,7 +2515,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.fontWeight
                      */
-                    fontWeight?: string | number;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -2527,7 +2527,7 @@ declare namespace echarts {
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -2537,7 +2537,7 @@ declare namespace echarts {
                      * 12
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -2556,7 +2556,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -2575,7 +2575,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -2588,7 +2588,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -2610,7 +2610,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -2623,7 +2623,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
@@ -2631,7 +2631,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
@@ -2639,7 +2639,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -2655,7 +2655,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -2665,7 +2665,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
@@ -2673,7 +2673,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
@@ -2681,7 +2681,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
@@ -2689,7 +2689,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -2714,7 +2714,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -2730,7 +2730,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -2743,7 +2743,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
@@ -2751,7 +2751,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -2761,7 +2761,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
@@ -2769,7 +2769,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
@@ -2777,7 +2777,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
@@ -2785,7 +2785,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
@@ -2816,7 +2816,7 @@ declare namespace echarts {
                              * ""#fff""
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -2832,7 +2832,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -2850,7 +2850,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string | number;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -2862,7 +2862,7 @@ declare namespace echarts {
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -2872,7 +2872,7 @@ declare namespace echarts {
                              * 12
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -2891,7 +2891,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -2910,7 +2910,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -2923,7 +2923,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -2946,7 +2946,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -2959,7 +2959,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
@@ -2967,7 +2967,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
@@ -2975,7 +2975,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -2993,7 +2993,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -3003,7 +3003,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
@@ -3011,7 +3011,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
@@ -3019,7 +3019,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
@@ -3027,7 +3027,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -3054,7 +3054,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -3071,7 +3071,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -3084,7 +3084,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
@@ -3092,7 +3092,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -3102,7 +3102,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
@@ -3110,7 +3110,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
@@ -3118,7 +3118,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
@@ -3126,10 +3126,10 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
-                };
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * The style of the leaf node in the tree.
@@ -3156,7 +3156,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle.color
                      */
-                    color?: EChartOption.Color;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -3166,7 +3166,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle.borderColor
                      */
-                    borderColor?: EChartOption.Color;
+                    borderColor?: EChartOption.Color | undefined;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -3174,7 +3174,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
@@ -3185,7 +3185,7 @@ declare namespace echarts {
                      * "solid"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle.borderType
                      */
-                    borderType?: string;
+                    borderType?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -3199,7 +3199,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
@@ -3207,7 +3207,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle.shadowColor
                      */
-                    shadowColor?: EChartOption.Color;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -3215,7 +3215,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
@@ -3223,7 +3223,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -3233,8 +3233,8 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle.opacity
                      */
-                    opacity?: number;
-                };
+                    opacity?: number | undefined;
+                } | undefined;
 
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis
@@ -3250,7 +3250,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -3287,7 +3287,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
@@ -3302,7 +3302,7 @@ declare namespace echarts {
                          * 5
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
@@ -3315,7 +3315,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -3325,7 +3325,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * Data label formatter, which supports string template
@@ -3372,7 +3372,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.formatter
                          */
-                        formatter?: Function | string;
+                        formatter?: Function | string | undefined;
 
                         /**
                          * text color.
@@ -3385,7 +3385,7 @@ declare namespace echarts {
                          * ""#fff""
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -3401,7 +3401,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -3419,7 +3419,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.fontWeight
                          */
-                        fontWeight?: string | number;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -3431,7 +3431,7 @@ declare namespace echarts {
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -3441,7 +3441,7 @@ declare namespace echarts {
                          * 12
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -3460,7 +3460,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -3479,7 +3479,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -3492,7 +3492,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -3514,7 +3514,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -3527,7 +3527,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
@@ -3535,7 +3535,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
@@ -3543,7 +3543,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -3560,7 +3560,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -3570,7 +3570,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
@@ -3578,7 +3578,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
@@ -3586,7 +3586,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
@@ -3594,7 +3594,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -3621,7 +3621,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -3638,7 +3638,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -3651,7 +3651,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
@@ -3659,7 +3659,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -3669,7 +3669,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
@@ -3677,7 +3677,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
@@ -3685,7 +3685,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
@@ -3693,7 +3693,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
@@ -3724,7 +3724,7 @@ declare namespace echarts {
                                  * ""#fff""
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -3740,7 +3740,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -3758,7 +3758,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string | number;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -3770,7 +3770,7 @@ declare namespace echarts {
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -3780,7 +3780,7 @@ declare namespace echarts {
                                  * 12
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -3801,7 +3801,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -3822,7 +3822,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -3836,7 +3836,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -3860,7 +3860,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -3873,7 +3873,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
@@ -3881,7 +3881,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
@@ -3889,7 +3889,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -3908,7 +3908,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -3918,7 +3918,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
@@ -3926,7 +3926,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
@@ -3934,7 +3934,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
@@ -3942,7 +3942,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -3973,7 +3973,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -3991,7 +3991,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -4004,7 +4004,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
@@ -4012,7 +4012,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -4022,7 +4022,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
@@ -4030,7 +4030,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
@@ -4038,7 +4038,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
@@ -4046,10 +4046,10 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
-                    };
+                        } | undefined;
+                    } | undefined;
 
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle
@@ -4072,7 +4072,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle.color
                          */
-                        color?: EChartOption.Color;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4083,7 +4083,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: EChartOption.Color;
+                        borderColor?: EChartOption.Color | undefined;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -4091,7 +4091,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
@@ -4102,7 +4102,7 @@ declare namespace echarts {
                          * "solid"
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle.borderType
                          */
-                        borderType?: string;
+                        borderType?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -4116,7 +4116,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
@@ -4124,7 +4124,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: EChartOption.Color;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -4132,7 +4132,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
@@ -4140,7 +4140,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -4150,10 +4150,10 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle.opacity
                          */
-                        opacity?: number;
-                    };
-                };
-            };
+                        opacity?: number | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
 
             /**
              * [series-tree.data](https://echarts.apache.org/en/option.html#series-tree.data)
@@ -4164,7 +4164,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-tree.data
              */
-            data?: SeriesTree.DataObject[];
+            data?: SeriesTree.DataObject[] | undefined;
 
             /**
              * tooltip settings in this series.
@@ -4172,12 +4172,12 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-tree.tooltip
              */
-            tooltip?: BaseTooltip;
+            tooltip?: BaseTooltip | undefined;
         }
 
         namespace SeriesTree {
             interface DataObject {
-                children?: DataObject[];
+                children?: DataObject[] | undefined;
 
                 /**
                  * The name of the tree node, used to identify each node.
@@ -4185,7 +4185,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.name
                  */
-                name?: string;
+                name?: string | undefined;
 
                 /**
                  * The value of the node, displayed in the tooltip.
@@ -4193,7 +4193,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.value
                  */
-                value?: number;
+                value?: number | undefined;
 
                 /**
                  * The style of the node.
@@ -4220,7 +4220,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle.color
                      */
-                    color?: EChartOption.Color;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -4230,7 +4230,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle.borderColor
                      */
-                    borderColor?: EChartOption.Color;
+                    borderColor?: EChartOption.Color | undefined;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -4238,7 +4238,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
@@ -4249,7 +4249,7 @@ declare namespace echarts {
                      * "solid"
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle.borderType
                      */
-                    borderType?: string;
+                    borderType?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -4263,7 +4263,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
@@ -4271,7 +4271,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle.shadowColor
                      */
-                    shadowColor?: EChartOption.Color;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -4279,7 +4279,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
@@ -4287,7 +4287,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -4297,8 +4297,8 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle.opacity
                      */
-                    opacity?: number;
-                };
+                    opacity?: number | undefined;
+                } | undefined;
 
                 /**
                  * The label of the node.
@@ -4313,7 +4313,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -4350,7 +4350,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
@@ -4365,7 +4365,7 @@ declare namespace echarts {
                      * 5
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
@@ -4378,7 +4378,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -4388,7 +4388,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * text color.
@@ -4401,7 +4401,7 @@ declare namespace echarts {
                      * ""#fff""
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -4417,7 +4417,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -4435,7 +4435,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.fontWeight
                      */
-                    fontWeight?: string | number;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -4447,7 +4447,7 @@ declare namespace echarts {
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -4457,7 +4457,7 @@ declare namespace echarts {
                      * 12
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -4476,7 +4476,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -4495,7 +4495,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -4508,7 +4508,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -4530,7 +4530,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -4543,7 +4543,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
@@ -4551,7 +4551,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
@@ -4559,7 +4559,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -4575,7 +4575,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -4585,7 +4585,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
@@ -4593,7 +4593,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
@@ -4601,7 +4601,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
@@ -4609,7 +4609,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -4634,7 +4634,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -4650,7 +4650,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -4663,7 +4663,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
@@ -4671,7 +4671,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -4681,7 +4681,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
@@ -4689,7 +4689,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
@@ -4697,7 +4697,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
@@ -4705,7 +4705,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
@@ -4736,7 +4736,7 @@ declare namespace echarts {
                              * ""#fff""
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -4752,7 +4752,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -4770,7 +4770,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string | number;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -4782,7 +4782,7 @@ declare namespace echarts {
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -4792,7 +4792,7 @@ declare namespace echarts {
                              * 12
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -4811,7 +4811,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -4830,7 +4830,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -4843,7 +4843,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -4866,7 +4866,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -4879,7 +4879,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
@@ -4887,7 +4887,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
@@ -4895,7 +4895,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -4913,7 +4913,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -4923,7 +4923,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
@@ -4931,7 +4931,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
@@ -4939,7 +4939,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
@@ -4947,7 +4947,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -4974,7 +4974,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -4991,7 +4991,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -5004,7 +5004,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
@@ -5012,7 +5012,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -5022,7 +5022,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
@@ -5030,7 +5030,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
@@ -5038,7 +5038,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
@@ -5046,10 +5046,10 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
-                };
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis
@@ -5065,7 +5065,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -5102,7 +5102,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
@@ -5117,7 +5117,7 @@ declare namespace echarts {
                          * 5
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
@@ -5130,7 +5130,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -5140,7 +5140,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * text color.
@@ -5153,7 +5153,7 @@ declare namespace echarts {
                          * ""#fff""
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -5169,7 +5169,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -5187,7 +5187,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string | number;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -5199,7 +5199,7 @@ declare namespace echarts {
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -5209,7 +5209,7 @@ declare namespace echarts {
                          * 12
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -5228,7 +5228,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -5247,7 +5247,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -5260,7 +5260,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -5282,7 +5282,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -5295,7 +5295,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
@@ -5303,7 +5303,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
@@ -5311,7 +5311,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -5328,7 +5328,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -5338,7 +5338,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
@@ -5346,7 +5346,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
@@ -5354,7 +5354,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
@@ -5362,7 +5362,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -5389,7 +5389,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -5406,7 +5406,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -5419,7 +5419,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
@@ -5427,7 +5427,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -5437,7 +5437,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
@@ -5445,7 +5445,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
@@ -5453,7 +5453,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
@@ -5461,7 +5461,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
@@ -5492,7 +5492,7 @@ declare namespace echarts {
                                  * ""#fff""
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -5508,7 +5508,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -5526,7 +5526,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string | number;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -5538,7 +5538,7 @@ declare namespace echarts {
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -5548,7 +5548,7 @@ declare namespace echarts {
                                  * 12
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -5569,7 +5569,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -5590,7 +5590,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -5604,7 +5604,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -5628,7 +5628,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -5641,7 +5641,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
@@ -5649,7 +5649,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
@@ -5657,7 +5657,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -5676,7 +5676,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -5686,7 +5686,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
@@ -5694,7 +5694,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
@@ -5702,7 +5702,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
@@ -5710,7 +5710,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -5741,7 +5741,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -5759,7 +5759,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -5772,7 +5772,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
@@ -5780,7 +5780,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -5790,7 +5790,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
@@ -5798,7 +5798,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
@@ -5806,7 +5806,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
@@ -5814,10 +5814,10 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
-                    };
+                        } | undefined;
+                    } | undefined;
 
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle
@@ -5840,7 +5840,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle.color
                          */
-                        color?: EChartOption.Color;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * border color, whose format is similar to that of
@@ -5851,7 +5851,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: EChartOption.Color;
+                        borderColor?: EChartOption.Color | undefined;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -5859,7 +5859,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
@@ -5870,7 +5870,7 @@ declare namespace echarts {
                          * "solid"
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle.borderType
                          */
-                        borderType?: string;
+                        borderType?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -5884,7 +5884,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
@@ -5892,7 +5892,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: EChartOption.Color;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -5900,7 +5900,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
@@ -5908,7 +5908,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -5918,9 +5918,9 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle.opacity
                          */
-                        opacity?: number;
-                    };
-                };
+                        opacity?: number | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * tooltip settings in this series data.
@@ -5928,7 +5928,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.tooltip
                  */
-                tooltip?: BaseTooltip;
+                tooltip?: BaseTooltip | undefined;
 
                 /**
                  * Whether to enable animation.
@@ -5938,7 +5938,7 @@ declare namespace echarts {
                  * "true"
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.animation
                  */
-                animation?: boolean;
+                animation?: boolean | undefined;
 
                 /**
                  * Whether to set graphic number threshold to animation.
@@ -5950,7 +5950,7 @@ declare namespace echarts {
                  * 2000
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.animationThreshold
                  */
-                animationThreshold?: number;
+                animationThreshold?: number | undefined;
 
                 /**
                  * Duration of the first animation, which supports callback
@@ -5963,7 +5963,7 @@ declare namespace echarts {
                  * 1000
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.animationDuration
                  */
-                animationDuration?: Function | number;
+                animationDuration?: Function | number | undefined;
 
                 /**
                  * Easing method used for the first animation.
@@ -5976,7 +5976,7 @@ declare namespace echarts {
                  * "linear"
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.animationEasing
                  */
-                animationEasing?: string;
+                animationEasing?: string | undefined;
 
                 /**
                  * Delay before updating the first animation, which supports
@@ -5994,7 +5994,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.animationDelay
                  */
-                animationDelay?: Function | number;
+                animationDelay?: Function | number | undefined;
 
                 /**
                  * Time for animation to complete, which supports callback function
@@ -6007,7 +6007,7 @@ declare namespace echarts {
                  * 300
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.animationDurationUpdate
                  */
-                animationDurationUpdate?: Function | number;
+                animationDurationUpdate?: Function | number | undefined;
 
                 /**
                  * Easing method used for animation.
@@ -6017,7 +6017,7 @@ declare namespace echarts {
                  * "cubicOut"
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.animationEasingUpdate
                  */
-                animationEasingUpdate?: string;
+                animationEasingUpdate?: string | undefined;
 
                 /**
                  * Delay before updating animation, which supports callback
@@ -6034,7 +6034,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.animationDelayUpdate
                  */
-                animationDelayUpdate?: Function | number;
+                animationDelayUpdate?: Function | number | undefined;
             }
         }
     }
