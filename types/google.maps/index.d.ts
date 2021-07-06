@@ -2014,7 +2014,7 @@ declare namespace google.maps {
      */
     geocode(
         request: google.maps.GeocoderRequest,
-        callback:
+        callback?:
             ((a: google.maps.GeocoderResult[]|null,
               b: google.maps.GeocoderStatus) => void)|
         null): Promise<google.maps.GeocoderResponse>;
@@ -3642,7 +3642,7 @@ declare namespace google.maps {
      * The unique identifier that represents a single instance of a Google Map.
      * You can create Map IDs and update a style associated with a Map ID at any
      * time in the Google Cloud Console <a
-     * href="https://console.cloud.google.com/google/maps-apis/client-maps">Maps
+     * href="https://console.cloud.google.com/google/maps-apis/studio/maps">Maps
      * Management page</a> without changing embedded JSON styling in your
      * application code.
      */
