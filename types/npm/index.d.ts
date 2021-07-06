@@ -1,4 +1,4 @@
-// Type definitions for npm 7.5.0
+// Type definitions for npm 7.19.0
 // Project: https://github.com/npm/cli
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -25,10 +25,7 @@ export interface NPM extends NodeJS.EventEmitter {
     cache: string;
     tmp: string;
 
-
-    load(cli: ConfigOptions): void;
-    load(callback: SimpleCallback<Config>): void;
-    load(cli: ConfigOptions, callback: SimpleCallback<Config>): void;
+    load(callback?: SimpleCallback<void>): Promise<void>;
 
     deref(command: string): string;
 }
@@ -58,7 +55,7 @@ export interface Commands {
     /** https://docs.npmjs.com/cli/v7/commands/npm-diff */
     diff: CommandFunction;
     /** https://docs.npmjs.com/cli/v7/commands/npm-dist-tag */
-    "dist-tag": CommandFunction;
+    'dist-tag': CommandFunction;
     /** https://docs.npmjs.com/cli/v7/commands/npm-doctor */
     doctor: CommandFunction;
     /** https://docs.npmjs.com/cli/v7/commands/npm-exec */
@@ -70,9 +67,9 @@ export interface Commands {
     /** https://docs.npmjs.com/cli/v7/commands/npm-hook */
     hook: CommandFunction;
     /** https://docs.npmjs.com/cli/v7/commands/npm-install-ci-test */
-    "install-ci-test": CommandFunction;
+    'install-ci-test': CommandFunction;
     /** https://docs.npmjs.com/cli/v7/commands/npm-install-test */
-    "install-test": CommandFunction;
+    'install-test': CommandFunction;
     /** https://docs.npmjs.com/cli/v7/commands/npm-logout */
     logout: CommandFunction;
     /** https://docs.npmjs.com/cli/v7/commands/npm-org */
@@ -82,7 +79,7 @@ export interface Commands {
     /** https://docs.npmjs.com/cli/v7/commands/npm-profile */
     profile: CommandFunction;
     /** https://docs.npmjs.com/cli/v7/commands/npm-set-script */
-    "set-script": CommandFunction;
+    'set-script': CommandFunction;
     /** https://docs.npmjs.com/cli/v7/commands/npm-team */
     team: CommandFunction;
     /** https://docs.npmjs.com/cli/v7/commands/npm-token */
@@ -102,7 +99,7 @@ export interface Commands {
     shrinkwrap: CommandFunction;
 
     help: CommandFunction;
-    "help-search": CommandFunction;
+    'help-search': CommandFunction;
     ls: CommandFunction;
     search: CommandFunction;
     init: CommandFunction;
@@ -132,43 +129,43 @@ export interface Commands {
     stop: CommandFunction;
     start: CommandFunction;
     restart: CommandFunction;
-    "run-script": CommandFunction;
+    'run-script': CommandFunction;
     completion: CommandFunction;
 
     //Aliases
-    rm: CommandFunction;               // uninstall
-    r: CommandFunction;                // uninstall
-    un: CommandFunction;               // uninstall
-    unlink: CommandFunction;           // uninstall
-    remove: CommandFunction;           // uninstall
-    rb: CommandFunction;               // rebuild
-    list: CommandFunction;             // ls
-    la: CommandFunction;               // ls
-    ll: CommandFunction;               // ls
-    i: CommandFunction;                // install
-    isntall: CommandFunction;          // install
-    up: CommandFunction;               // update
-    c: CommandFunction;                // config
-    find: CommandFunction;             // search
-    s: CommandFunction;                // search
-    se: CommandFunction;               // search
-    author: CommandFunction;           // owner
-    home: CommandFunction;             // docs
-    issues: CommandFunction;           // bugs
-    unstar: CommandFunction;           // star
-    apihelp: CommandFunction;          // help
-    long: CommandFunction;             // adduser
-    "add-user": CommandFunction;       // adduser
-    tst: CommandFunction;              // test
-    t: CommandFunction;                // test
-    "find-dupes": CommandFunction;     // dedupe
-    ddp: CommandFunction;              // dedupe
+    rm: CommandFunction; // uninstall
+    r: CommandFunction; // uninstall
+    un: CommandFunction; // uninstall
+    unlink: CommandFunction; // uninstall
+    remove: CommandFunction; // uninstall
+    rb: CommandFunction; // rebuild
+    list: CommandFunction; // ls
+    la: CommandFunction; // ls
+    ll: CommandFunction; // ls
+    i: CommandFunction; // install
+    isntall: CommandFunction; // install
+    up: CommandFunction; // update
+    c: CommandFunction; // config
+    find: CommandFunction; // search
+    s: CommandFunction; // search
+    se: CommandFunction; // search
+    author: CommandFunction; // owner
+    home: CommandFunction; // docs
+    issues: CommandFunction; // bugs
+    unstar: CommandFunction; // star
+    apihelp: CommandFunction; // help
+    long: CommandFunction; // adduser
+    'add-user': CommandFunction; // adduser
+    tst: CommandFunction; // test
+    t: CommandFunction; // test
+    'find-dupes': CommandFunction; // dedupe
+    ddp: CommandFunction; // dedupe
     /**
      * Alias for `dist-tag`
      *
      * https://docs.npmjs.com/cli/v7/commands/npm-dist-tag
      */
-    "dist-tags": CommandFunction;
+    'dist-tags': CommandFunction;
     /**
      * Alias for `exec`
      *
@@ -194,14 +191,12 @@ export interface Commands {
      */
     it: CommandFunction;
 
-
     // plumbing
     build: CommandFunction;
     unbuild: CommandFunction;
     xmas: CommandFunction;
     substack: CommandFunction;
     visnup: CommandFunction;
-
 }
 export interface CommandFunction {
     (args: string[], callback: CommandCallback): void;
@@ -264,8 +259,8 @@ export interface ConfigDefs {
 }
 
 export interface ConfigOptions {
-    "always-auth"?: boolean;
-    "bin-links"?: boolean;
+    'always-auth'?: boolean;
+    'bin-links'?: boolean;
     browser?: string;
 
     ca?: any; // string | string[]
@@ -273,12 +268,12 @@ export interface ConfigOptions {
 
     cache?: string;
 
-    "cache-lock-stale"?: number;
-    "cache-lock-retries"?: number;
-    "cache-lock-wait"?: number;
+    'cache-lock-stale'?: number;
+    'cache-lock-retries'?: number;
+    'cache-lock-wait'?: number;
 
-    "cache-max"?: number;
-    "cache-min"?: number;
+    'cache-max'?: number;
+    'cache-min'?: number;
 
     cert?: string;
 
@@ -287,69 +282,69 @@ export interface ConfigOptions {
     description?: boolean;
     dev?: boolean;
     editor?: string;
-    "engine-strict"?: boolean;
+    'engine-strict'?: boolean;
     force?: boolean;
 
-    "fetch-retries"?: number;
-    "fetch-retry-factor"?: number;
-    "fetch-retry-mintimeout"?: number;
-    "fetch-retry-maxtimeout"?: number;
+    'fetch-retries'?: number;
+    'fetch-retry-factor'?: number;
+    'fetch-retry-mintimeout'?: number;
+    'fetch-retry-maxtimeout'?: number;
 
     git?: string;
-    "git-tag-version"?: boolean;
+    'git-tag-version'?: boolean;
 
     global?: boolean;
     globalconfig?: string;
     group?: any; // number | string
     heading?: string;
-    "ignore-scripts"?: boolean;
-    "init-module"?: string;
-    "init.author.name"?: string;
-    "init.author.email"?: string;
-    "init.author.url"?: string;
-    "init.version"?: string;
-    "init.license"?: string;
+    'ignore-scripts'?: boolean;
+    'init-module'?: string;
+    'init.author.name'?: string;
+    'init.author.email'?: string;
+    'init.author.url'?: string;
+    'init.version'?: string;
+    'init.license'?: string;
     json?: boolean;
     key?: string;
     link?: boolean;
-    "local-address"?: string;
+    'local-address'?: string;
     loglevel?: string;
     logstream?: NodeJS.ReadWriteStream;
     long?: boolean;
     message?: string;
-    "node-version"?: string;
+    'node-version'?: string;
     npat?: boolean;
-    "onload-script"?: boolean;
+    'onload-script'?: boolean;
     optional?: boolean;
     parseable?: boolean;
     prefix?: string;
     production?: boolean;
-    "proprietary-attribs"?: boolean;
+    'proprietary-attribs'?: boolean;
     proxy?: any; // boolean | string
-    "https-proxy"?: string;
-    "user-agent"?: string;
-    "rebuild-bundle"?: boolean;
+    'https-proxy'?: string;
+    'user-agent'?: string;
+    'rebuild-bundle'?: boolean;
     registry?: string;
     rollback?: boolean;
     save?: boolean;
-    "save-bundle"?: boolean;
-    "save-dev"?: boolean;
-    "save-exact"?: boolean;
-    "save-optional"?: boolean;
-    "save-prefix"?: string;
+    'save-bundle'?: boolean;
+    'save-dev'?: boolean;
+    'save-exact'?: boolean;
+    'save-optional'?: boolean;
+    'save-prefix'?: string;
     scope?: string;
     searchopts?: string;
     searchexclude?: string;
     searchsort?: string;
     shell?: string;
     shrinkwrap?: boolean;
-    "sign-git-tag"?: boolean;
+    'sign-git-tag'?: boolean;
     spin?: any; // boolean | string ("always")
-    "strict-ssl"?: boolean;
+    'strict-ssl'?: boolean;
     tag?: string;
     tmp?: string;
     unicode?: boolean;
-    "unsafe-perm"?: boolean;
+    'unsafe-perm'?: boolean;
     usage?: boolean;
     user?: any; // string | number
     userconfig?: string;
@@ -362,20 +357,20 @@ export interface ConfigOptions {
 }
 
 export interface ConfigTypes {
-    "always-auth": typeof Boolean;
-    "bin-links": typeof Boolean;
+    'always-auth': typeof Boolean;
+    'bin-links': typeof Boolean;
     browser: any[];
 
     ca: any[];
     cafile: typeof String;
     cache: typeof String;
 
-    "cache-lock-stale": typeof Number;
-    "cache-lock-retries": typeof Number;
-    "cache-lock-wait": typeof Number;
+    'cache-lock-stale': typeof Number;
+    'cache-lock-retries': typeof Number;
+    'cache-lock-wait': typeof Number;
 
-    "cache-max": typeof Number;
-    "cache-min": typeof Number;
+    'cache-max': typeof Number;
+    'cache-min': typeof Number;
 
     cert: typeof String;
 
@@ -384,69 +379,69 @@ export interface ConfigTypes {
     description: typeof Boolean;
     dev: typeof Boolean;
     editor: typeof String;
-    "engine-strict": typeof Boolean;
+    'engine-strict': typeof Boolean;
     force: typeof Boolean;
 
-    "fetch-retries": typeof Number;
-    "fetch-retry-factor": typeof Number;
-    "fetch-retry-mintimeout": typeof Number;
-    "fetch-retry-maxtimeout": typeof Number;
+    'fetch-retries': typeof Number;
+    'fetch-retry-factor': typeof Number;
+    'fetch-retry-mintimeout': typeof Number;
+    'fetch-retry-maxtimeout': typeof Number;
 
     git: typeof String;
-    "git-tag-version": typeof Boolean;
+    'git-tag-version': typeof Boolean;
 
     global: typeof Boolean;
     globalconfig: typeof String;
     group: any[];
     heading: typeof String;
-    "ignore-scripts": typeof Boolean;
-    "init-module": typeof String;
-    "init.author.name": typeof String;
-    "init.author.email": typeof String;
-    "init.author.url": typeof String;
-    "init.version": typeof String;
-    "init.license": typeof String;
+    'ignore-scripts': typeof Boolean;
+    'init-module': typeof String;
+    'init.author.name': typeof String;
+    'init.author.email': typeof String;
+    'init.author.url': typeof String;
+    'init.version': typeof String;
+    'init.license': typeof String;
     json: typeof Boolean;
     key: any[];
     link: typeof Boolean;
-    "local-address": typeof String;
+    'local-address': typeof String;
     loglevel: any[];
     logstream: any; // typeof stream.Stream
     long: typeof Boolean;
     message: typeof String;
-    "node-version": any[];
+    'node-version': any[];
     npat: typeof Boolean;
-    "onload-script": any[];
+    'onload-script': any[];
     optional: typeof Boolean;
     parseable: typeof Boolean;
     prefix: typeof String;
     production: typeof Boolean;
-    "proprietary-attribs": typeof Boolean;
+    'proprietary-attribs': typeof Boolean;
     proxy: any[];
-    "https-proxy": any[];
-    "user-agent": typeof String;
-    "rebuild-bundle": Boolean;
+    'https-proxy': any[];
+    'user-agent': typeof String;
+    'rebuild-bundle': Boolean;
     registry: any[];
     rollback: typeof Boolean;
     save: typeof Boolean;
-    "save-bundle": typeof Boolean;
-    "save-dev": typeof Boolean;
-    "save-exact": typeof Boolean;
-    "save-optional": typeof Boolean;
-    "save-prefix": typeof String;
+    'save-bundle': typeof Boolean;
+    'save-dev': typeof Boolean;
+    'save-exact': typeof Boolean;
+    'save-optional': typeof Boolean;
+    'save-prefix': typeof String;
     scope: typeof String;
     searchopts: typeof String;
     searchexclude: any[];
     searchsort: any[];
     shell: typeof String;
     shrinkwrap: typeof Boolean;
-    "sign-git-tag": typeof Boolean;
+    'sign-git-tag': typeof Boolean;
     spin: any[];
-    "strict-ssl": typeof Boolean;
+    'strict-ssl': typeof Boolean;
     tag: typeof String;
     tmp: typeof String;
     unicode: typeof Boolean;
-    "unsafe-perm": typeof Boolean;
+    'unsafe-perm': typeof Boolean;
     usage: typeof Boolean;
     user: any; // String | Number
     userconfig: typeof String;
@@ -466,22 +461,22 @@ export interface ConfigShorthands {
     noreg: any[];
     N: any[];
     reg: any[];
-    "no-reg": any[];
+    'no-reg': any[];
     silent: any[];
     verbose: any[];
     quiet: any[];
     q: any[];
     h: any[];
     H: any[];
-    "?": any[];
+    '?': any[];
     help: any[];
     v: any[];
     f: any[];
     gangster: any[];
     gangsta: any[];
     desc: any[];
-    "no-desc": any[];
-    "local": any[];
+    'no-desc': any[];
+    local: any[];
     l: any[];
     m: any[];
     p: any[];
