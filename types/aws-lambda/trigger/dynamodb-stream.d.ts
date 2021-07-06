@@ -4,38 +4,38 @@ export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, void>;
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_AttributeValue.html
 export interface AttributeValue {
-    B?: string;
-    BS?: string[];
-    BOOL?: boolean;
-    L?: AttributeValue[];
-    M?: { [id: string]: AttributeValue };
-    N?: string;
-    NS?: string[];
-    NULL?: boolean;
-    S?: string;
-    SS?: string[];
+    B?: string | undefined;
+    BS?: string[] | undefined;
+    BOOL?: boolean | undefined;
+    L?: AttributeValue[] | undefined;
+    M?: { [id: string]: AttributeValue } | undefined;
+    N?: string | undefined;
+    NS?: string[] | undefined;
+    NULL?: boolean | undefined;
+    S?: string | undefined;
+    SS?: string[] | undefined;
 }
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_StreamRecord.html
 export interface StreamRecord {
-    ApproximateCreationDateTime?: number;
-    Keys?: { [key: string]: AttributeValue };
-    NewImage?: { [key: string]: AttributeValue };
-    OldImage?: { [key: string]: AttributeValue };
-    SequenceNumber?: string;
-    SizeBytes?: number;
-    StreamViewType?: 'KEYS_ONLY' | 'NEW_IMAGE' | 'OLD_IMAGE' | 'NEW_AND_OLD_IMAGES';
+    ApproximateCreationDateTime?: number | undefined;
+    Keys?: { [key: string]: AttributeValue } | undefined;
+    NewImage?: { [key: string]: AttributeValue } | undefined;
+    OldImage?: { [key: string]: AttributeValue } | undefined;
+    SequenceNumber?: string | undefined;
+    SizeBytes?: number | undefined;
+    StreamViewType?: 'KEYS_ONLY' | 'NEW_IMAGE' | 'OLD_IMAGE' | 'NEW_AND_OLD_IMAGES' | undefined;
 }
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_Record.html
 export interface DynamoDBRecord {
-    awsRegion?: string;
-    dynamodb?: StreamRecord;
-    eventID?: string;
-    eventName?: 'INSERT' | 'MODIFY' | 'REMOVE';
-    eventSource?: string;
-    eventSourceARN?: string;
-    eventVersion?: string;
+    awsRegion?: string | undefined;
+    dynamodb?: StreamRecord | undefined;
+    eventID?: string | undefined;
+    eventName?: 'INSERT' | 'MODIFY' | 'REMOVE' | undefined;
+    eventSource?: string | undefined;
+    eventSourceARN?: string | undefined;
+    eventVersion?: string | undefined;
     userIdentity?: any;
 }
 

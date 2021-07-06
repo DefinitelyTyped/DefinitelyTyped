@@ -8,8 +8,8 @@ type DetectPortCallback = (err: Error, _port: number) => void;
 
 interface PortConfig {
     port: number;
-    hostname?: string;
-    callback?: DetectPortCallback;
+    hostname?: string | undefined;
+    callback?: DetectPortCallback | undefined;
 }
 
 interface DetectPort {

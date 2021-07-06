@@ -56,7 +56,7 @@ convict({
 
 interface Foo {
     a: string;
-    b?: number;
+    b?: number | undefined;
 }
 // $ExpectType Config<{ foo: Foo; }>
 convict({

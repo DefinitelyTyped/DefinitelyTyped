@@ -20,7 +20,7 @@ declare var MediaRecorderErrorEvent: {
 
 interface BlobEventInit extends EventInit {
     data: Blob;
-    timecode?: number;
+    timecode?: number | undefined;
 }
 
 interface BlobEvent extends Event {
@@ -36,11 +36,11 @@ declare var BlobEvent: {
 type BitrateMode = 'vbr' | 'cbr';
 
 interface MediaRecorderOptions {
-    mimeType?: string;
-    audioBitsPerSecond?: number;
-    videoBitsPerSecond?: number;
-    bitsPerSecond?: number;
-    audioBitrateMode?: BitrateMode;
+    mimeType?: string | undefined;
+    audioBitsPerSecond?: number | undefined;
+    videoBitsPerSecond?: number | undefined;
+    bitsPerSecond?: number | undefined;
+    audioBitrateMode?: BitrateMode | undefined;
 }
 
 interface MediaRecorderEventMap {
