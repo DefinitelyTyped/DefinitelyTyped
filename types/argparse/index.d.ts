@@ -51,6 +51,7 @@ export interface SubparserOptions {
     dest?: string;
     help?: string;
     metavar?: string;
+    required?: boolean;
 }
 
 export interface SubArgumentParserOptions extends ArgumentParserOptions {
