@@ -17,7 +17,7 @@ export interface Options {
      *
      * @default null
      */
-    file?: string;
+    file?: string | undefined;
 
     /**
      * A string to pass to compile.
@@ -26,7 +26,7 @@ export interface Options {
      *
      * @default null
      */
-    data?: string;
+    data?: string | undefined;
 
     /**
      * Handles when the @import directive is encountered.
@@ -35,14 +35,14 @@ export interface Options {
      *
      * @default undefined
      */
-    importer?: Importer | Importer[];
+    importer?: Importer | Importer[] | undefined;
 
     /**
      * Holds a collection of custom functions that may be invoked by the sass files being compiled.
      *
      * @default undefined
      */
-    functions?: { [key: string]: (...args: types.SassType[]) => types.SassType | void };
+    functions?: { [key: string]: (...args: types.SassType[]) => types.SassType | void } | undefined;
 
     /**
      * An array of paths that should be looked in to attempt to resolve your @import declarations.
@@ -50,42 +50,42 @@ export interface Options {
      *
      * @default []
      */
-    includePaths?: string[];
+    includePaths?: string[] | undefined;
 
     /**
      * Enable Sass Indented Syntax for parsing the data string or file.
      *
      * @default false
      */
-    indentedSyntax?: boolean;
+    indentedSyntax?: boolean | undefined;
 
     /**
      * Used to determine whether to use space or tab character for indentation.
      *
      * @default 'space'
      */
-    indentType?: 'space' | 'tab';
+    indentType?: 'space' | 'tab' | undefined;
 
     /**
      * Used to determine the number of spaces or tabs to be used for indentation.
      *
      * @default 2
      */
-    indentWidth?: number;
+    indentWidth?: number | undefined;
 
     /**
      * Used to determine which sequence to use for line breaks.
      *
      * @default 'lf'
      */
-    linefeed?: 'cr' | 'crlf' | 'lf' | 'lfcr';
+    linefeed?: 'cr' | 'crlf' | 'lf' | 'lfcr' | undefined;
 
     /**
      * Disable the inclusion of source map information in the output file.
      *
      * @default false
      */
-    omitSourceMapUrl?: boolean;
+    omitSourceMapUrl?: boolean | undefined;
 
     /**
      * Specify the intended location of the output file.
@@ -93,42 +93,42 @@ export interface Options {
      *
      * @default null
      */
-    outFile?: string;
+    outFile?: string | undefined;
 
     /**
      * Determines the output format of the final CSS style.
      *
      * @default 'expanded'
      */
-    outputStyle?: 'compressed' | 'expanded';
+    outputStyle?: 'compressed' | 'expanded' | undefined;
 
     /**
      * Enables the outputting of a source map.
      *
      * @default undefined
      */
-    sourceMap?: boolean | string;
+    sourceMap?: boolean | string | undefined;
 
     /**
      * Includes the contents in the source map information.
      *
      * @default false
      */
-    sourceMapContents?: boolean;
+    sourceMapContents?: boolean | undefined;
 
     /**
      * Embeds the source map as a data URI.
      *
      * @default false
      */
-    sourceMapEmbed?: boolean;
+    sourceMapEmbed?: boolean | undefined;
 
     /**
      * The value will be emitted as `sourceRoot` in the source map information.
      *
      * @default undefined
      */
-    sourceMapRoot?: string;
+    sourceMapRoot?: string | undefined;
 }
 
 export interface SassException extends Error {
@@ -176,7 +176,7 @@ export interface Result {
     /**
      * The source map.
      */
-    map?: Buffer;
+    map?: Buffer | undefined;
     stats: {
         /**
          * The path to the scss file, or `data` if the source was not a file.
