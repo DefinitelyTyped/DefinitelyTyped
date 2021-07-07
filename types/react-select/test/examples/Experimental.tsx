@@ -8,14 +8,14 @@ interface DateOption {
     date: Date;
     value: Date;
     label: string;
-    display?: string;
+    display?: string | undefined;
 }
 
 interface DateOption {
     date: Date;
     value: Date;
     label: string;
-    display?: string;
+    display?: string | undefined;
 }
 
 const createOptionForDate = (date: Date) => {
