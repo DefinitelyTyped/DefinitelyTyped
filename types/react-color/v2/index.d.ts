@@ -12,31 +12,31 @@
 
 export interface HEXColor {
     hex: string;
-    source?: string;
+    source?: string | undefined;
 }
 
 export interface HSLColor {
-    a?: number;
+    a?: number | undefined;
     h: number;
     l: number;
     s: number;
-    source?: string;
+    source?: string | undefined;
 }
 
 export interface RGBColor {
-    a?: number;
+    a?: number | undefined;
     b: number;
     g: number;
     r: number;
-    source?: string;
+    source?: string | undefined;
 }
 
 export interface HSVColor {
-    a?: number;
+    a?: number | undefined;
     h: number;
     s: number;
     v: number;
-    source?: string;
+    source?: string | undefined;
 }
 
 export type Color = string | HEXColor | HSLColor | RGBColor | HSVColor;
@@ -53,7 +53,7 @@ export interface ColorState {
 export interface RenderersProps {
     renderers?: {
         canvas: any;
-    };
+    } | undefined;
 }
 
 export type ColorChangeHandler<T = HSLColor|HSVColor|RGBColor> = (color: T) => void;
