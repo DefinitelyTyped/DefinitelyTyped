@@ -82,7 +82,7 @@ declare namespace Flexmonster {
                 title?: string | undefined;
                 message?: string | undefined;
                 type?: string | undefined;
-                buttons?: Array<{ label: string; handler?: (() => void) | undefined;}> | undefined;
+                buttons?: Array<{ label: string; handler?: (() => void) | undefined; }> | undefined;
                 blocking?:
                 boolean | undefined;
             }): void;
