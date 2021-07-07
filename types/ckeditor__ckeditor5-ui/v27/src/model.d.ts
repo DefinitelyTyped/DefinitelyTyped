@@ -1,35 +1,13 @@
 import { DomEventData } from "@ckeditor/ckeditor5-engine";
-import { Locale } from "@ckeditor/ckeditor5-utils";
-import { DomEmitter } from "@ckeditor/ckeditor5-utils/src/dom/emittermixin";
-import {
-  Emitter,
-  EmitterMixinDelegateChain,
-} from "@ckeditor/ckeditor5-utils/src/emittermixin";
+import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
-import {
-  BindChain,
-  Observable,
-} from "@ckeditor/ckeditor5-utils/src/observablemixin";
+import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
-import Template, { TemplateDefinition } from "./template";
-import ViewCollection from "./viewcollection";
 
-export default class View implements DomEmitter, Observable {
-    element: HTMLElement | null;
-    readonly isRendered: boolean;
-    readonly locale?: Locale;
-    template: Template;
+export default class Model implements Emitter, Observable {
+    constructor(attributes?: Record<string, unknown>, properties?: Record<string, unknown>);
 
-    constructor(locale?: Locale);
-    bindTemplate: BindChain;
-    createCollection(views?: Iterable<View>): ViewCollection;
-    deregisterChild(children: View | Iterable<View>): void;
-    destroy(): void;
-    extendTemplate(definition: TemplateDefinition): void;
-    registerChild(children: View | Iterable<View>): void;
-    render(): void;
-    setTemplate(definition: TemplateDefinition | View | Node): void;
-    t: Locale["t"];
+    readonly [x: string]: any;
 
     set(option: Record<string, unknown>): void;
     set(name: string, value: unknown): void;
@@ -37,11 +15,11 @@ export default class View implements DomEmitter, Observable {
     unbind(...unbindProperties: string[]): void;
     decorate(methodName: string): void;
 
-    on: (
+    on(
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
-    ) => void;
+    ): void;
     once(
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
