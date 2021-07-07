@@ -67,7 +67,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default 0
      */
-    defaultValue?: this["value"] extends T ? never : T | undefined;
+    defaultValue?: (this["value"] extends T ? never : T) | undefined;
 
     /**
      * If `true` the thumbs can't be moved.
