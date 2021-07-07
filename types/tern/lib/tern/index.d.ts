@@ -8,18 +8,18 @@ export type ConstructorOptions = CtorOptions & (SyncConstructorOptions | ASyncCo
 
 export interface CtorOptions {
     /** The definition objects to load into the server’s environment. */
-    defs?: Def[];
+    defs?: Def[] | undefined;
     /** The ECMAScript version to parse. Should be either 5 or 6. Default is 6. */
-    ecmaVersion?: 5 | 6;
+    ecmaVersion?: 5 | 6 | undefined;
     /** Indicates the maximum amount of milliseconds to wait for an asynchronous getFile before giving up on it. Defaults to 1000. */
-    fetchTimeout?: number;
+    fetchTimeout?: number | undefined;
     /** Specifies the set of plugins that the server should load. The property names of the object name the plugins, and their values hold options that will be passed to them. */
-    plugins?: { [key: string]: object };
+    plugins?: { [key: string]: object } | undefined;
 }
 
 export interface SyncConstructorOptions {
     /** Indicates whether `getFile` is asynchronous. Default is `false`. */
-    async?: false;
+    async?: false | undefined;
     /**
      * Provides a way for the server to try and fetch the content of files.
      * Depending on the `async` option, this is either a function that takes a filename and returns a string (when not `async`), or
@@ -95,7 +95,7 @@ export interface Server {
      * When the server hasn’t been configured to be asynchronous, the callback will be called before request returns.
      */
     request<Q extends Query, D extends Document>(
-        doc: D & { query?: Q },
+        doc: D & { query?: Q | undefined },
         callback: (
             error: string | null,
             response: (D extends { query: undefined } ? {} : D extends { query: Query } ? QueryResult<Q> : {}) | undefined
@@ -151,9 +151,9 @@ export interface Def {
 }
 
 export interface Document {
-    query?: Query;
-    files?: File[];
-    timeout?: number;
+    query?: Query | undefined;
+    files?: File[] | undefined;
+    timeout?: number | undefined;
 }
 
 export interface File {
@@ -161,14 +161,14 @@ export interface File {
     text: string;
     scope: Scope;
     ast: ESTree.Program;
-    type?: "full" | "part" | "delete";
+    type?: "full" | "part" | "delete" | undefined;
     asLineChar?(nodePosition: number): Position;
 }
 
 export interface BaseQuery {
     type: string;
-    lineCharPositions?: boolean;
-    docFormat?: "full";
+    lineCharPositions?: boolean | undefined;
+    docFormat?: "full" | undefined;
 }
 
 export interface BaseQueryWithFile extends BaseQuery {
@@ -188,34 +188,34 @@ export interface CompletionsQuery extends BaseQueryWithFile {
     /** Specify the location to complete at. */
     end: number | Position;
     /** Whether to include the types of the completions in the result data. Default `false` */
-    types?: boolean;
+    types?: boolean | undefined;
     /** Whether to include the distance (in scopes for variables, in prototypes for properties) between the completions and the origin position in the result data. Default `false` */
-    depths?: boolean;
+    depths?: boolean | undefined;
     /** Whether to include documentation strings in the result data. Default `false` */
-    docs?: boolean;
+    docs?: boolean | undefined;
     /** Whether to include urls in the result data. Default `false` */
-    urls?: boolean;
+    urls?: boolean | undefined;
     /** Whether to include origin files (if found) in the result data. Default `false` */
-    origins?: boolean;
+    origins?: boolean | undefined;
     /** When on, only completions that match the current word at the given point will be returned. Turn this off to get all results, so that you can filter on the client side. Default `true` */
-    filter?: boolean;
+    filter?: boolean | undefined;
     /** Whether to use a case-insensitive compare between the current word and potential completions. Default `false` */
-    caseInsensitive?: boolean;
+    caseInsensitive?: boolean | undefined;
     /** When completing a property and no completions are found, Tern will use some heuristics to try and return some properties anyway. Set this to `false` to turn that off. Default `true` */
-    guess?: boolean;
+    guess?: boolean | undefined;
     /** Determines whether the result set will be sorted. Default `true` */
-    sort?: boolean;
+    sort?: boolean | undefined;
     /**
      * When disabled, only the text before the given position is considered part of the word. When enabled (the default),
      * the whole variable name that the cursor is on will be included. Default `true`
      */
-    expandWordForward?: boolean;
+    expandWordForward?: boolean | undefined;
     /** Whether to ignore the properties of `Object.prototype` unless they have been spelled out by at least two characters. Default `true` */
-    omitObjectPrototype?: boolean;
+    omitObjectPrototype?: boolean | undefined;
     /** Whether to include JavaScript keywords when completing something that is not a property. Default `false` */
-    includeKeywords?: boolean;
+    includeKeywords?: boolean | undefined;
     /** If completions should be returned when inside a literal. Default `true` */
-    inLiteral?: boolean;
+    inLiteral?: boolean | undefined;
 }
 
 export interface CompletionsQueryResult {
@@ -234,11 +234,11 @@ export interface CompletionsQueryResult {
      */
     completions: string[] | Array<{
         name: string,
-        type?: string,
-        depth?: number,
-        doc?: string,
-        url?: string,
-        origin?: string
+        type?: string | undefined,
+        depth?: number | undefined,
+        doc?: string | undefined,
+        url?: string | undefined,
+        origin?: string | undefined
     }>;
 }
 
@@ -249,20 +249,20 @@ export interface TypeQuery extends BaseQueryWithFile {
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
-    start?: number | Position;
+    start?: number | Position | undefined;
     /**
      * Set to `true` when you are interested in a function type.
      * This will cause function types to win when something has multiple types.
      * Default `false`
      */
-    preferFunction?: boolean;
+    preferFunction?: boolean | undefined;
     /**
      * Determines how deep the type string must be expanded.
      * Nested objects will only display property types up to this depth,
      * and be represented by their type name or a representation showing
      * only property names below it. Default `0`
      */
-    depth?: number;
+    depth?: number | undefined;
 }
 
 export interface TypeQueryResult {
@@ -271,15 +271,15 @@ export interface TypeQueryResult {
     /** Whether the given type was guessed, or should be considered reliable. */
     guess: boolean;
     /** The name associated with the type. */
-    name?: string;
+    name?: string | undefined;
     /** When the inspected expression was an identifier or a property access, this will hold the name of the variable or property. */
-    exprName?: string;
+    exprName?: string | undefined;
     /** If the type had documentation associated with it, these will also be returned. */
-    doc?: string;
+    doc?: string | undefined;
     /** If the type had urls associated with it, these will also be returned. */
-    url?: string;
+    url?: string | undefined;
     /** If the type had origin information associated with it, these will also be returned. */
-    origin?: string;
+    origin?: string | undefined;
 }
 
 /**
@@ -303,26 +303,26 @@ export interface DefinitionQuery extends BaseQueryWithFile {
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
-    start?: number | Position;
+    start?: number | Position | undefined;
 }
 
 export interface DefinitionQueryResult {
     /** The start position of the expression. */
-    start?: number | Position;
+    start?: number | Position | undefined;
     /** The end position of the expression. */
-    end?: number | Position;
+    end?: number | Position | undefined;
     /** The file in which the definition was defined. */
-    file?: string;
+    file?: string | undefined;
     /** A slice of the code in front of the definition Can be used to find a definition’s location in a modified file. */
-    context?: string;
+    context?: string | undefined;
     /** The offset from the start of the context to the actual definition. Can be used to find a definition’s location in a modified file. */
-    contextOffset?: number;
+    contextOffset?: number | undefined;
     /** If the definition had documentation associated with it, these will also be returned. */
-    doc?: string;
+    doc?: string | undefined;
     /** If the definition had urls associated with it, these will also be returned. */
-    url?: string;
+    url?: string | undefined;
     /** If the definition had origin information associated with it, these will also be returned. */
-    origin?: string;
+    origin?: string | undefined;
 }
 
 /** Get the documentation string and URL for a given expression, if any. */
@@ -332,16 +332,16 @@ export interface DocumentationQuery extends BaseQueryWithFile {
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
-    start?: number | Position;
+    start?: number | Position | undefined;
 }
 
 export interface DocumentationQueryResult {
     /** The documentation string of the definition or value, if any. */
-    doc?: string;
+    doc?: string | undefined;
     /** The url of the definition or value, if any. */
-    url?: string;
+    url?: string | undefined;
     /** The origin of the definition or value, if any. */
-    origin?: string;
+    origin?: string | undefined;
 }
 
 /** Used to find all references to a given variable or property. */
@@ -351,7 +351,7 @@ export interface RefsQuery extends BaseQueryWithFile {
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
-    start?: number | Position;
+    start?: number | Position | undefined;
 }
 
 export interface RefsQueryResult {
@@ -363,7 +363,7 @@ export interface RefsQueryResult {
         end: number | Position
     }>;
     /** for variables: a type property holding either "global" or "local". */
-    type?: "global" | "local";
+    type?: "global" | "local" | undefined;
 }
 
 /** Rename a variable in a scope-aware way. */
@@ -373,7 +373,7 @@ export interface RenameQuery extends BaseQueryWithFile {
     /** Specify the location of the variable. */
     end: number | Position;
     /** Specify the location of the variable. */
-    start?: number | Position;
+    start?: number | Position | undefined;
     /** The new name of the variable */
     newName: string;
 }
@@ -397,9 +397,9 @@ export interface PropertiesQuery extends BaseQuery {
     /** Get a list of all known object property names (for any object). */
     type: "properties";
     /** Causes the server to only return properties that start with the given string. */
-    prefix?: string;
+    prefix?: string | undefined;
     /** Whether the result should be sorted. Default `true` */
-    sort?: boolean;
+    sort?: boolean | undefined;
 }
 
 export interface PropertiesQueryResult {
@@ -411,8 +411,8 @@ export interface PropertiesQueryResult {
 export interface FilesQuery extends BaseQuery {
     /** Get the files that the server currently holds in its set of analyzed files. */
     type: "files";
-    docFormat?: never;
-    lineCharPositions?: never;
+    docFormat?: never | undefined;
+    lineCharPositions?: never | undefined;
 }
 
 export interface FilesQueryResult {
@@ -467,7 +467,7 @@ export function registerPlugin(name: string, init: (server: Server, options?: Co
 
 export interface Desc<T extends Query["type"]> {
     run(Server: Server, query: QueryRegistry[T]["query"], file?: File): QueryRegistry[T]["result"];
-    takesFile?: boolean;
+    takesFile?: boolean | undefined;
 }
 
 /**

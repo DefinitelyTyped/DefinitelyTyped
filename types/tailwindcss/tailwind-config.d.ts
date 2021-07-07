@@ -74,9 +74,9 @@ export type TailwindStandardNegativeSpacing = {
 
 export interface TailwindAnimationConfig {
     [key: string]: {
-        transform?: string;
-        opacity?: string;
-        animationTimingFunction?: string;
+        transform?: string | undefined;
+        opacity?: string | undefined;
+        animationTimingFunction?: string | undefined;
     };
 }
 
@@ -112,21 +112,21 @@ export interface TailwindPurgeConfig {
     /**
      * @see https://tailwindcss.com/docs/optimizing-for-production#enabling-manually
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * @see https://tailwindcss.com/docs/optimizing-for-production#preserving-html-elements
      */
-    preserveHtmlElements?: boolean;
+    preserveHtmlElements?: boolean | undefined;
     /**
      * Purge specific layers
      * @see https://tailwindcss.com/docs/optimizing-for-production#purging-specific-layers
      */
-    layers?: TailwindValidLayers[];
+    layers?: TailwindValidLayers[] | undefined;
     /**
      * Remove all unused styles
      * @see https://tailwindcss.com/docs/optimizing-for-production#removing-all-unused-styles
      */
-    mode?: 'all';
+    mode?: 'all' | undefined;
 }
 
 export interface TailwindConfig {

@@ -40,7 +40,7 @@ export interface CommonProps<
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > {
     clearValue: () => void;
-    className?: string;
+    className?: string | undefined;
     cx: (state: ClassNamesState | undefined, className: string | undefined) => string;
     /**
      * Get the styles of a particular part of the select. Pass in the name of the
@@ -65,36 +65,36 @@ export interface CommonProps<
 export interface SelectOptionActionMeta<OptionType extends OptionTypeBase> {
     action: 'select-option';
     option: OptionType | undefined;
-    name?: string;
+    name?: string | undefined;
 }
 
 export interface DeselectOptionActionMeta<OptionType extends OptionTypeBase> {
     action: 'deselect-option';
     option: OptionType | undefined;
-    name?: string;
+    name?: string | undefined;
 }
 
 export interface RemoveValueActionMeta<OptionType extends OptionTypeBase> {
     action: 'remove-value';
     removedValue: OptionType;
-    name?: string;
+    name?: string | undefined;
 }
 
 export interface PopValueActionMeta<OptionType extends OptionTypeBase> {
     action: 'pop-value';
     removedValue: OptionType;
-    name?: string;
+    name?: string | undefined;
 }
 
 export interface ClearActionMeta<OptionType extends OptionTypeBase> {
     action: 'clear';
     removedValues: OptionType[];
-    name?: string;
+    name?: string | undefined;
 }
 
 export interface CreateOptionActionMeta {
     action: 'create-option';
-    name?: string;
+    name?: string | undefined;
 }
 
 export type ActionMeta<OptionType extends OptionTypeBase> =

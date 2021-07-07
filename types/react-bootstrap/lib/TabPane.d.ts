@@ -3,12 +3,12 @@ import { TransitionCallbacks } from 'react-bootstrap';
 
 declare namespace TabPane {
     export interface TabPaneProps extends TransitionCallbacks, React.HTMLProps<TabPane> {
-        animation?: boolean | React.ComponentClass<any>;
-        'aria-labelledby'?: string;
-        bsClass?: string;
+        animation?: boolean | React.ComponentClass<any> | undefined;
+        'aria-labelledby'?: string | undefined;
+        bsClass?: string | undefined;
         eventKey?: any;
-        mountOnEnter?: boolean;
-        unmountOnExit?: boolean;
+        mountOnEnter?: boolean | undefined;
+        unmountOnExit?: boolean | undefined;
     }
 }
 declare class TabPane extends React.Component<TabPane.TabPaneProps> { }

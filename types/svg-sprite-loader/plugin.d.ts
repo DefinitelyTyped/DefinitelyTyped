@@ -9,8 +9,8 @@ declare class SVGSpriteLoaderPlugin extends Plugin {
 declare namespace SVGSpriteLoaderPlugin {
   interface Options {
     /** Render plain sprite without styles and usages */
-    plainSprite?: boolean;
+    plainSprite?: boolean | undefined;
     /** Custom tag attributes for the svg */
-    spriteAttrs?: {[key: string]: any};
+    spriteAttrs?: {[key: string]: any} | undefined;
   }
 }

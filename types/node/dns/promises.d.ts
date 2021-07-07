@@ -95,3 +95,7 @@ declare module "dns/promises" {
         setServers: typeof setServers;
     }
 }
+
+declare module 'node:dns/promises' {
+    export * from 'dns/promises';
+}

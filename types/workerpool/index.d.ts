@@ -84,12 +84,12 @@ export interface WorkerPoolOptions {
      * The minimum number of workers that must be initialized and kept available.
      * Setting this to 'max' will create maxWorkers default workers.
      */
-    minWorkers?: number | 'max';
+    minWorkers?: number | 'max' | undefined;
     /**
      * The default number of maxWorkers is the number of CPU's minus one.
      * When the number of CPU's could not be determined (for example in older browsers), maxWorkers is set to 3.
      */
-    maxWorkers?: number;
+    maxWorkers?: number | undefined;
 
     /**
      * - In case of `'auto'` (default), workerpool will automatically pick a suitable type of worker:
@@ -100,12 +100,12 @@ export interface WorkerPoolOptions {
      * - In case of `'thread'`, `worker_threads` will be used. If `worker_threads` are not available, an error is thrown.
      *   Only available in a node.js environment.
      */
-    workerType?: 'auto' | 'web' | 'process' | 'thread';
+    workerType?: 'auto' | 'web' | 'process' | 'thread' | undefined;
 
     /** 2nd argument to pass to childProcess.fork() */
-    forkArgs?: string[];
+    forkArgs?: string[] | undefined;
 
-    forkOpts?: cp.ForkOptions;
+    forkOpts?: cp.ForkOptions | undefined;
 }
 
 /**

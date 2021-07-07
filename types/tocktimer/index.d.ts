@@ -10,12 +10,12 @@ declare namespace t {
         /**
          * Defaults to 10 milliseconds. How often, in milliseconds, that the clock will tick.
          */
-        interval?: number;
+        interval?: number | undefined;
 
         /**
          * Defaults to false. If true, the clock will count down from a given time, otherwise it will count up from 0:00.
          */
-        countdown?: boolean;
+        countdown?: boolean | undefined;
 
         /**
          * Callback function executed on each tick

@@ -28,6 +28,7 @@
 //                 Tony Liu <https://github.com/tonybadguy>
 //                 Mathias Helminger <https://github.com/Ilmarinen100>
 //                 Mostafa Sameti <https://github.com/IVIosi>
+//                 Samar Mohan <https://github.com/samarmohan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -116,13 +117,13 @@ declare class PluginServiceStatic {
 interface Meta {
     type: Chart.ChartType;
     data: MetaData[];
-    dataset?: Chart.ChartDataSets;
+    dataset?: Chart.ChartDataSets | undefined;
     controller: { [key: string]: any; };
-    hidden?: boolean;
-    total?: string;
-    xAxisID?: string;
-    yAxisID?: string;
-    "$filler"?: { [key: string]: any; };
+    hidden?: boolean | undefined;
+    total?: string | undefined;
+    xAxisID?: string | undefined;
+    yAxisID?: string | undefined;
+    "$filler"?: { [key: string]: any; } | undefined;
 }
 
 interface MetaData {
@@ -134,7 +135,7 @@ interface MetaData {
     _view: Model;
     _xScale: Chart.ChartScales;
     _yScale: Chart.ChartScales;
-    hidden?: boolean;
+    hidden?: boolean | undefined;
 }
 
 // NOTE: This model is generic with a bunch of optional properties to represent all types of chart models.
@@ -142,22 +143,22 @@ interface MetaData {
 // might always have values depending on the chart type.
 interface Model {
     backgroundColor: string;
-    borderAlign?: Chart.BorderAlignment;
+    borderAlign?: Chart.BorderAlignment | undefined;
     borderColor: string;
-    borderWidth?: number;
-    circumference?: number;
+    borderWidth?: number | undefined;
+    circumference?: number | undefined;
     controlPointNextX: number;
     controlPointNextY: number;
     controlPointPreviousX: number;
     controlPointPreviousY: number;
-    endAngle?: number;
+    endAngle?: number | undefined;
     hitRadius: number;
-    innerRadius?: number;
-    outerRadius?: number;
+    innerRadius?: number | undefined;
+    outerRadius?: number | undefined;
     pointStyle: string;
     radius: string;
-    skip?: boolean;
-    startAngle?: number;
+    skip?: boolean | undefined;
+    startAngle?: number | undefined;
     steppedLine?: undefined;
     tension: number;
     x: number;
@@ -211,32 +212,32 @@ declare namespace Chart {
     }
 
     interface ChartLegendItem {
-        text?: string;
-        fillStyle?: string;
-        hidden?: boolean;
-        index?: number;
-        lineCap?: 'butt' | 'round' | 'square';
-        lineDash?: number[];
-        lineDashOffset?: number;
-        lineJoin?: 'bevel' | 'round' | 'miter';
-        lineWidth?: number;
-        strokeStyle?: string;
-        pointStyle?: PointStyle;
+        text?: string | undefined;
+        fillStyle?: string | undefined;
+        hidden?: boolean | undefined;
+        index?: number | undefined;
+        lineCap?: 'butt' | 'round' | 'square' | undefined;
+        lineDash?: number[] | undefined;
+        lineDashOffset?: number | undefined;
+        lineJoin?: 'bevel' | 'round' | 'miter' | undefined;
+        lineWidth?: number | undefined;
+        strokeStyle?: string | undefined;
+        pointStyle?: PointStyle | undefined;
     }
 
     interface ChartLegendLabelItem extends ChartLegendItem {
-        datasetIndex?: number;
+        datasetIndex?: number | undefined;
     }
 
     interface ChartTooltipItem {
-        label?: string;
-        value?: string;
-        xLabel?: string | number;
-        yLabel?: string | number;
-        datasetIndex?: number;
-        index?: number;
-        x?: number;
-        y?: number;
+        label?: string | undefined;
+        value?: string | undefined;
+        xLabel?: string | number | undefined;
+        yLabel?: string | number | undefined;
+        datasetIndex?: number | undefined;
+        index?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     }
 
     interface ChartTooltipLabelColor {
@@ -266,26 +267,26 @@ declare namespace Chart {
     }
 
     interface ChartPoint {
-        x?: number | string | Date | Moment;
-        y?: number | string | Date | Moment;
-        r?: number;
-        t?: number | string | Date | Moment;
+        x?: number | string | Date | Moment | undefined;
+        y?: number | string | Date | Moment | undefined;
+        r?: number | undefined;
+        t?: number | string | Date | Moment | undefined;
     }
 
     interface ChartConfiguration {
-        type?: ChartType | string;
-        data?: ChartData;
-        options?: ChartOptions;
-        plugins?: PluginServiceRegistrationOptions[];
+        type?: ChartType | string | undefined;
+        data?: ChartData | undefined;
+        options?: ChartOptions | undefined;
+        plugins?: PluginServiceRegistrationOptions[] | undefined;
     }
 
     interface ChartData {
-        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[]>;
-        datasets?: ChartDataSets[];
+        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[]> | undefined;
+        datasets?: ChartDataSets[] | undefined;
     }
 
     interface RadialChartOptions extends ChartOptions {
-        scale?: RadialLinearScale;
+        scale?: RadialLinearScale | undefined;
     }
 
     interface ChartSize {
@@ -294,122 +295,122 @@ declare namespace Chart {
     }
 
     interface ChartOptions {
-        responsive?: boolean;
-        responsiveAnimationDuration?: number;
-        aspectRatio?: number;
-        maintainAspectRatio?: boolean;
-        events?: string[];
+        responsive?: boolean | undefined;
+        responsiveAnimationDuration?: number | undefined;
+        aspectRatio?: number | undefined;
+        maintainAspectRatio?: boolean | undefined;
+        events?: string[] | undefined;
         legendCallback?(chart: Chart): string;
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
         onClick?(event?: MouseEvent, activeElements?: Array<{}>): any;
         onResize?(this: Chart, newSize: ChartSize): void;
-        title?: ChartTitleOptions;
-        legend?: ChartLegendOptions;
-        tooltips?: ChartTooltipOptions;
-        hover?: ChartHoverOptions;
-        animation?: ChartAnimationOptions;
-        elements?: ChartElementsOptions;
-        layout?: ChartLayoutOptions;
-        scale?: RadialLinearScale;
-        scales?: ChartScales | LinearScale | LogarithmicScale | TimeScale;
-        showLines?: boolean;
-        spanGaps?: boolean;
-        cutoutPercentage?: number;
-        circumference?: number;
-        rotation?: number;
-        devicePixelRatio?: number;
-        plugins?: ChartPluginsOptions;
-        defaultColor?: ChartColor;
+        title?: ChartTitleOptions | undefined;
+        legend?: ChartLegendOptions | undefined;
+        tooltips?: ChartTooltipOptions | undefined;
+        hover?: ChartHoverOptions | undefined;
+        animation?: ChartAnimationOptions | undefined;
+        elements?: ChartElementsOptions | undefined;
+        layout?: ChartLayoutOptions | undefined;
+        scale?: RadialLinearScale | undefined;
+        scales?: ChartScales | LinearScale | LogarithmicScale | TimeScale | undefined;
+        showLines?: boolean | undefined;
+        spanGaps?: boolean | undefined;
+        cutoutPercentage?: number | undefined;
+        circumference?: number | undefined;
+        rotation?: number | undefined;
+        devicePixelRatio?: number | undefined;
+        plugins?: ChartPluginsOptions | undefined;
+        defaultColor?: ChartColor | undefined;
     }
 
     interface ChartFontOptions {
-        defaultFontColor?: ChartColor;
-        defaultFontFamily?: string;
-        defaultFontSize?: number;
-        defaultFontStyle?: string;
+        defaultFontColor?: ChartColor | undefined;
+        defaultFontFamily?: string | undefined;
+        defaultFontSize?: number | undefined;
+        defaultFontStyle?: string | undefined;
     }
 
     interface ChartTitleOptions {
-        display?: boolean;
-        position?: PositionType;
-        fullWidth?: boolean;
-        fontSize?: number;
-        fontFamily?: string;
-        fontColor?: ChartColor;
-        fontStyle?: string;
-        padding?: number;
-        lineHeight?: number | string;
-        text?: string | string[];
+        display?: boolean | undefined;
+        position?: PositionType | undefined;
+        fullWidth?: boolean | undefined;
+        fontSize?: number | undefined;
+        fontFamily?: string | undefined;
+        fontColor?: ChartColor | undefined;
+        fontStyle?: string | undefined;
+        padding?: number | undefined;
+        lineHeight?: number | string | undefined;
+        text?: string | string[] | undefined;
     }
 
     interface ChartLegendOptions {
-        align?: 'center' | 'end' | 'start';
-        display?: boolean;
-        position?: PositionType;
-        fullWidth?: boolean;
+        align?: 'center' | 'end' | 'start' | undefined;
+        display?: boolean | undefined;
+        position?: PositionType | undefined;
+        fullWidth?: boolean | undefined;
         onClick?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         onHover?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         onLeave?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
-        labels?: ChartLegendLabelOptions;
-        reverse?: boolean;
-        rtl?: boolean;
-        textDirection?: string;
+        labels?: ChartLegendLabelOptions | undefined;
+        reverse?: boolean | undefined;
+        rtl?: boolean | undefined;
+        textDirection?: string | undefined;
     }
 
     interface ChartLegendLabelOptions {
-        boxWidth?: number;
-        fontSize?: number;
-        fontStyle?: string;
-        fontColor?: ChartColor;
-        fontFamily?: string;
-        padding?: number;
+        boxWidth?: number | undefined;
+        fontSize?: number | undefined;
+        fontStyle?: string | undefined;
+        fontColor?: ChartColor | undefined;
+        fontFamily?: string | undefined;
+        padding?: number | undefined;
         generateLabels?(chart: Chart): ChartLegendLabelItem[];
         filter?(legendItem: ChartLegendLabelItem, data: ChartData): any;
-        usePointStyle?: boolean;
+        usePointStyle?: boolean | undefined;
     }
 
     interface ChartTooltipOptions {
-        axis?: 'x'|'y'|'xy';
-        enabled?: boolean;
-        custom?: (tooltipModel: ChartTooltipModel) => void;
-        mode?: InteractionMode;
-        intersect?: boolean;
-        backgroundColor?: ChartColor;
-        titleAlign?: TextAlignment;
-        titleFontFamily?: string;
-        titleFontSize?: number;
-        titleFontStyle?: string;
-        titleFontColor?: ChartColor;
-        titleSpacing?: number;
-        titleMarginBottom?: number;
-        bodyAlign?: TextAlignment;
-        bodyFontFamily?: string;
-        bodyFontSize?: number;
-        bodyFontStyle?: string;
-        bodyFontColor?: ChartColor;
-        bodySpacing?: number;
-        footerAlign?: TextAlignment;
-        footerFontFamily?: string;
-        footerFontSize?: number;
-        footerFontStyle?: string;
-        footerFontColor?: ChartColor;
-        footerSpacing?: number;
-        footerMarginTop?: number;
-        xPadding?: number;
-        yPadding?: number;
-        caretSize?: number;
-        cornerRadius?: number;
-        multiKeyBackground?: string;
-        callbacks?: ChartTooltipCallback;
+        axis?: 'x'|'y'|'xy' | undefined;
+        enabled?: boolean | undefined;
+        custom?: ((tooltipModel: ChartTooltipModel) => void) | undefined;
+        mode?: InteractionMode | undefined;
+        intersect?: boolean | undefined;
+        backgroundColor?: ChartColor | undefined;
+        titleAlign?: TextAlignment | undefined;
+        titleFontFamily?: string | undefined;
+        titleFontSize?: number | undefined;
+        titleFontStyle?: string | undefined;
+        titleFontColor?: ChartColor | undefined;
+        titleSpacing?: number | undefined;
+        titleMarginBottom?: number | undefined;
+        bodyAlign?: TextAlignment | undefined;
+        bodyFontFamily?: string | undefined;
+        bodyFontSize?: number | undefined;
+        bodyFontStyle?: string | undefined;
+        bodyFontColor?: ChartColor | undefined;
+        bodySpacing?: number | undefined;
+        footerAlign?: TextAlignment | undefined;
+        footerFontFamily?: string | undefined;
+        footerFontSize?: number | undefined;
+        footerFontStyle?: string | undefined;
+        footerFontColor?: ChartColor | undefined;
+        footerSpacing?: number | undefined;
+        footerMarginTop?: number | undefined;
+        xPadding?: number | undefined;
+        yPadding?: number | undefined;
+        caretSize?: number | undefined;
+        cornerRadius?: number | undefined;
+        multiKeyBackground?: string | undefined;
+        callbacks?: ChartTooltipCallback | undefined;
         filter?(item: ChartTooltipItem, data: ChartData): boolean;
         itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem, data?: ChartData): number;
-        position?: string;
-        caretPadding?: number;
-        displayColors?: boolean;
-        borderColor?: ChartColor;
-        borderWidth?: number;
-        rtl?: boolean;
-        textDirection?: string;
+        position?: string | undefined;
+        caretPadding?: number | undefined;
+        displayColors?: boolean | undefined;
+        borderColor?: ChartColor | undefined;
+        borderWidth?: number | undefined;
+        rtl?: boolean | undefined;
+        textDirection?: string | undefined;
     }
 
     interface ChartTooltipModel {
@@ -435,7 +436,7 @@ declare namespace Chart {
         footerMarginTop: number;
         footerSpacing: number;
         height: number;
-        labelColors: string[];
+        labelColors: ChartTooltipLabelColor[];
         labelTextColors: string[];
         legendColorBackground: string;
         opacity: number;
@@ -481,197 +482,197 @@ declare namespace Chart {
     type ChartTooltipPositioner = (elements: any[], eventPosition: Point) => Point;
 
     interface ChartHoverOptions {
-        mode?: InteractionMode;
-        animationDuration?: number;
-        intersect?: boolean;
-        axis?: 'x' | 'y' | 'xy';
+        mode?: InteractionMode | undefined;
+        animationDuration?: number | undefined;
+        intersect?: boolean | undefined;
+        axis?: 'x' | 'y' | 'xy' | undefined;
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
     }
 
     interface ChartAnimationObject {
-        currentStep?: number;
-        numSteps?: number;
-        easing?: Easing;
+        currentStep?: number | undefined;
+        numSteps?: number | undefined;
+        easing?: Easing | undefined;
         render?(arg: any): void;
         onAnimationProgress?(arg: any): void;
         onAnimationComplete?(arg: any): void;
     }
 
     interface ChartAnimationOptions {
-        duration?: number;
-        easing?: Easing;
+        duration?: number | undefined;
+        easing?: Easing | undefined;
         onProgress?(chart: any): void;
         onComplete?(chart: any): void;
-        animateRotate?: boolean;
-        animateScale?: boolean;
+        animateRotate?: boolean | undefined;
+        animateScale?: boolean | undefined;
     }
 
     interface ChartElementsOptions {
-        point?: ChartPointOptions;
-        line?: ChartLineOptions;
-        arc?: ChartArcOptions;
-        rectangle?: ChartRectangleOptions;
+        point?: ChartPointOptions | undefined;
+        line?: ChartLineOptions | undefined;
+        arc?: ChartArcOptions | undefined;
+        rectangle?: ChartRectangleOptions | undefined;
     }
 
     interface ChartArcOptions {
-        angle?: number | Scriptable<number>;
-        backgroundColor?: ChartDataSets["backgroundColor"];
-        borderAlign?: BorderAlignment | Scriptable<BorderAlignment>;
-        borderColor?: ChartColor | Scriptable<ChartColor>;
-        borderWidth?: number | Scriptable<number>;
+        angle?: number | Scriptable<number> | undefined;
+        backgroundColor?: ChartDataSets["backgroundColor"] | undefined;
+        borderAlign?: BorderAlignment | Scriptable<BorderAlignment> | undefined;
+        borderColor?: ChartColor | Scriptable<ChartColor> | undefined;
+        borderWidth?: number | Scriptable<number> | undefined;
     }
 
     type CubicInterpolationMode = 'default' | 'monotone';
     type FillMode = 'zero' | 'top' | 'bottom' | boolean;
 
     interface ChartLineOptions {
-        cubicInterpolationMode?: CubicInterpolationMode | Scriptable<CubicInterpolationMode>;
-        tension?: number | Scriptable<number>;
-        backgroundColor?: ChartDataSets["backgroundColor"];
-        borderWidth?: number | Scriptable<number>;
-        borderColor?: ChartColor | Scriptable<ChartColor>;
-        borderCapStyle?: string | Scriptable<string>;
-        borderDash?: any[] | Scriptable<any[]>;
-        borderDashOffset?: number | Scriptable<number>;
-        borderJoinStyle?: string | Scriptable<string>;
-        capBezierPoints?: boolean | Scriptable<boolean>;
-        fill?: FillMode | Scriptable<FillMode>;
-        stepped?: boolean | Scriptable<boolean>;
+        cubicInterpolationMode?: CubicInterpolationMode | Scriptable<CubicInterpolationMode> | undefined;
+        tension?: number | Scriptable<number> | undefined;
+        backgroundColor?: ChartDataSets["backgroundColor"] | undefined;
+        borderWidth?: number | Scriptable<number> | undefined;
+        borderColor?: ChartColor | Scriptable<ChartColor> | undefined;
+        borderCapStyle?: string | Scriptable<string> | undefined;
+        borderDash?: any[] | Scriptable<any[]> | undefined;
+        borderDashOffset?: number | Scriptable<number> | undefined;
+        borderJoinStyle?: string | Scriptable<string> | undefined;
+        capBezierPoints?: boolean | Scriptable<boolean> | undefined;
+        fill?: FillMode | Scriptable<FillMode> | undefined;
+        stepped?: boolean | Scriptable<boolean> | undefined;
     }
 
     interface ChartPointOptions {
-        radius?: number | Scriptable<number>;
-        pointStyle?: PointStyle | Scriptable<PointStyle>;
-        rotation?: number | Scriptable<number>;
-        backgroundColor?: ChartDataSets["backgroundColor"];
-        borderWidth?: number | Scriptable<number>;
-        borderColor?: ChartColor | Scriptable<ChartColor>;
-        hitRadius?: number | Scriptable<number>;
-        hoverRadius?: number | Scriptable<number>;
-        hoverBorderWidth?: number | Scriptable<number>;
+        radius?: number | Scriptable<number> | undefined;
+        pointStyle?: PointStyle | Scriptable<PointStyle> | undefined;
+        rotation?: number | Scriptable<number> | undefined;
+        backgroundColor?: ChartDataSets["backgroundColor"] | undefined;
+        borderWidth?: number | Scriptable<number> | undefined;
+        borderColor?: ChartColor | Scriptable<ChartColor> | undefined;
+        hitRadius?: number | Scriptable<number> | undefined;
+        hoverRadius?: number | Scriptable<number> | undefined;
+        hoverBorderWidth?: number | Scriptable<number> | undefined;
     }
 
     interface ChartRectangleOptions {
-        backgroundColor?: ChartDataSets["backgroundColor"];
-        borderWidth?: number | Scriptable<number>;
-        borderColor?: ChartColor | Scriptable<ChartColor>;
-        borderSkipped?: string | Scriptable<string>;
+        backgroundColor?: ChartDataSets["backgroundColor"] | undefined;
+        borderWidth?: number | Scriptable<number> | undefined;
+        borderColor?: ChartColor | Scriptable<ChartColor> | undefined;
+        borderSkipped?: string | Scriptable<string> | undefined;
     }
 
     interface ChartLayoutOptions {
-        padding?: ChartLayoutPaddingObject | number;
+        padding?: ChartLayoutPaddingObject | number | undefined;
     }
 
     interface ChartLayoutPaddingObject {
-        top?: number;
-        right?: number;
-        bottom?: number;
-        left?: number;
+        top?: number | undefined;
+        right?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
     }
 
     interface GridLineOptions {
-        display?: boolean;
-        circular?: boolean;
-        color?: ChartColor;
-        borderDash?: number[];
-        borderDashOffset?: number;
-        lineWidth?: number | number[];
-        drawBorder?: boolean;
-        drawOnChartArea?: boolean;
-        drawTicks?: boolean;
-        tickMarkLength?: number;
-        zeroLineWidth?: number;
-        zeroLineColor?: ChartColor;
-        zeroLineBorderDash?: number[];
-        zeroLineBorderDashOffset?: number;
-        offsetGridLines?: boolean;
-        z?: number;
+        display?: boolean | undefined;
+        circular?: boolean | undefined;
+        color?: ChartColor | undefined;
+        borderDash?: number[] | undefined;
+        borderDashOffset?: number | undefined;
+        lineWidth?: number | number[] | undefined;
+        drawBorder?: boolean | undefined;
+        drawOnChartArea?: boolean | undefined;
+        drawTicks?: boolean | undefined;
+        tickMarkLength?: number | undefined;
+        zeroLineWidth?: number | undefined;
+        zeroLineColor?: ChartColor | undefined;
+        zeroLineBorderDash?: number[] | undefined;
+        zeroLineBorderDashOffset?: number | undefined;
+        offsetGridLines?: boolean | undefined;
+        z?: number | undefined;
     }
 
     interface ScaleTitleOptions {
-        display?: boolean;
-        labelString?: string;
-        lineHeight?: number | string;
-        fontColor?: ChartColor;
-        fontFamily?: string;
-        fontSize?: number;
-        fontStyle?: string;
-        padding?: ChartLayoutPaddingObject | number;
+        display?: boolean | undefined;
+        labelString?: string | undefined;
+        lineHeight?: number | string | undefined;
+        fontColor?: ChartColor | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: number | undefined;
+        fontStyle?: string | undefined;
+        padding?: ChartLayoutPaddingObject | number | undefined;
     }
 
     interface TickOptions extends NestedTickOptions {
-        minor?: NestedTickOptions | false;
-        major?: MajorTickOptions | false;
+        minor?: NestedTickOptions | false | undefined;
+        major?: MajorTickOptions | false | undefined;
     }
 
     interface NestedTickOptions {
-        autoSkip?: boolean;
-        autoSkipPadding?: number;
-        backdropColor?: ChartColor;
-        backdropPaddingX?: number;
-        backdropPaddingY?: number;
-        beginAtZero?: boolean;
+        autoSkip?: boolean | undefined;
+        autoSkipPadding?: number | undefined;
+        backdropColor?: ChartColor | undefined;
+        backdropPaddingX?: number | undefined;
+        backdropPaddingY?: number | undefined;
+        beginAtZero?: boolean | undefined;
         /**
          * If the callback returns null or undefined the associated grid line will be hidden.
          */
         callback?(value: number | string, index: number, values: number[] | string[]): string | number | null | undefined;
-        display?: boolean;
-        fontColor?: ChartColor;
-        fontFamily?: string;
-        fontSize?: number;
-        fontStyle?: string;
-        labelOffset?: number;
-        lineHeight?: number;
+        display?: boolean | undefined;
+        fontColor?: ChartColor | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: number | undefined;
+        fontStyle?: string | undefined;
+        labelOffset?: number | undefined;
+        lineHeight?: number | undefined;
         max?: any;
-        maxRotation?: number;
-        maxTicksLimit?: number;
+        maxRotation?: number | undefined;
+        maxTicksLimit?: number | undefined;
         min?: any;
-        minRotation?: number;
-        mirror?: boolean;
-        padding?: number;
-        precision?: number;
-        reverse?: boolean;
+        minRotation?: number | undefined;
+        mirror?: boolean | undefined;
+        padding?: number | undefined;
+        precision?: number | undefined;
+        reverse?: boolean | undefined;
         /**
          * The number of ticks to examine when deciding how many labels will fit.
          * Setting a smaller value will be faster, but may be less accurate
          * when there is large variability in label length.
          * Deault: `ticks.length`
          */
-        sampleSize?: number;
-        showLabelBackdrop?: boolean;
-        source?: 'auto' | 'data' | 'labels';
-        stepSize?: number;
-        suggestedMax?: number;
-        suggestedMin?: number;
+        sampleSize?: number | undefined;
+        showLabelBackdrop?: boolean | undefined;
+        source?: 'auto' | 'data' | 'labels' | undefined;
+        stepSize?: number | undefined;
+        suggestedMax?: number | undefined;
+        suggestedMin?: number | undefined;
     }
 
     interface MajorTickOptions extends NestedTickOptions {
-        enabled?: boolean;
+        enabled?: boolean | undefined;
     }
 
     interface AngleLineOptions {
-        display?: boolean;
-        color?: ChartColor;
-        lineWidth?: number;
-        borderDash?: number[];
-        borderDashOffset?: number;
+        display?: boolean | undefined;
+        color?: ChartColor | undefined;
+        lineWidth?: number | undefined;
+        borderDash?: number[] | undefined;
+        borderDashOffset?: number | undefined;
     }
 
     interface PointLabelOptions {
         callback?(arg: any): any;
-        fontColor?: ChartColor;
-        fontFamily?: string;
-        fontSize?: number;
-        fontStyle?: string;
-        lineHeight?: number|string;
+        fontColor?: ChartColor | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: number | undefined;
+        fontStyle?: string | undefined;
+        lineHeight?: number|string | undefined;
     }
 
     interface LinearTickOptions extends TickOptions {
-        maxTicksLimit?: number;
-        stepSize?: number;
-        precision?: number;
-        suggestedMin?: number;
-        suggestedMax?: number;
+        maxTicksLimit?: number | undefined;
+        stepSize?: number | undefined;
+        precision?: number | undefined;
+        suggestedMin?: number | undefined;
+        suggestedMax?: number | undefined;
     }
 
     // tslint:disable-next-line no-empty-interface
@@ -681,87 +682,96 @@ declare namespace Chart {
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
     type Scriptable<T> = (ctx: {
-        chart?: Chart;
-        dataIndex?: number;
-        dataset?: ChartDataSets
-        datasetIndex?: number;
+        chart?: Chart | undefined;
+        dataIndex?: number | undefined;
+        dataset?: ChartDataSets | undefined
+        datasetIndex?: number | undefined;
     }) => T;
 
     interface ChartDataSets {
-        cubicInterpolationMode?: CubicInterpolationMode | Scriptable<CubicInterpolationMode>;
-        backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
-        barPercentage?: number;
-        barThickness?: number | "flex";
-        borderAlign?: BorderAlignment | BorderAlignment[] | Scriptable<BorderAlignment>;
-        borderWidth?: BorderWidth | BorderWidth[] | Scriptable<BorderWidth>;
-        borderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
-        borderCapStyle?: 'butt' | 'round' | 'square';
-        borderDash?: number[];
-        borderDashOffset?: number;
-        borderJoinStyle?: 'bevel' | 'round' | 'miter';
-        borderSkipped?: PositionType | PositionType[] | Scriptable<PositionType>;
-        categoryPercentage?: number;
-        data?: Array<number | null | undefined | number[]> | ChartPoint[];
-        fill?: boolean | number | string;
-        hitRadius?: number | number[] | Scriptable<number>;
-        hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
-        hoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
-        hoverBorderWidth?: number | number[] | Scriptable<number>;
-        hoverRadius?: number;
-        label?: string;
-        lineTension?: number;
-        maxBarThickness?: number;
-        minBarLength?: number;
-        steppedLine?: 'before' | 'after' | 'middle' | boolean;
-        order?: number;
-        pointBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
-        pointBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
-        pointBorderWidth?: number | number[] | Scriptable<number>;
-        pointRadius?: number | number[] | Scriptable<number>;
-        pointRotation?: number | number[] | Scriptable<number>;
-        pointHoverRadius?: number | number[] | Scriptable<number>;
-        pointHitRadius?: number | number[] | Scriptable<number>;
-        pointHoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
-        pointHoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
-        pointHoverBorderWidth?: number | number[] | Scriptable<number>;
-        pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement> | Scriptable<PointStyle | HTMLImageElement | HTMLCanvasElement>;
-        radius?: number | number[] | Scriptable<number>;
-        rotation?: number | number[] | Scriptable<number>;
-        xAxisID?: string;
-        yAxisID?: string;
-        type?: ChartType | string;
-        hidden?: boolean;
-        hideInLegendAndTooltip?: boolean;
-        showLine?: boolean;
-        stack?: string;
-        spanGaps?: boolean;
-        weight?: number;
+        cubicInterpolationMode?: CubicInterpolationMode | Scriptable<CubicInterpolationMode> | undefined;
+        backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
+        barPercentage?: number | undefined;
+        barThickness?: number | "flex" | undefined;
+        borderAlign?: BorderAlignment | BorderAlignment[] | Scriptable<BorderAlignment> | undefined;
+        borderWidth?: BorderWidth | BorderWidth[] | Scriptable<BorderWidth> | undefined;
+        borderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
+        borderCapStyle?: 'butt' | 'round' | 'square' | undefined;
+        borderDash?: number[] | undefined;
+        borderDashOffset?: number | undefined;
+        borderJoinStyle?: 'bevel' | 'round' | 'miter' | undefined;
+        borderSkipped?: PositionType | PositionType[] | Scriptable<PositionType> | undefined;
+        categoryPercentage?: number | undefined;
+        data?: Array<number | null | undefined | number[]> | ChartPoint[] | undefined;
+        fill?: boolean | number | string | undefined;
+        hitRadius?: number | number[] | Scriptable<number> | undefined;
+        hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
+        hoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
+        hoverBorderWidth?: number | number[] | Scriptable<number> | undefined;
+        hoverRadius?: number | undefined;
+        label?: string | undefined;
+        lineTension?: number | undefined;
+        maxBarThickness?: number | undefined;
+        minBarLength?: number | undefined;
+        steppedLine?: 'before' | 'after' | 'middle' | boolean | undefined;
+        order?: number | undefined;
+        pointBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
+        pointBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
+        pointBorderWidth?: number | number[] | Scriptable<number> | undefined;
+        pointRadius?: number | number[] | Scriptable<number> | undefined;
+        pointRotation?: number | number[] | Scriptable<number> | undefined;
+        pointHoverRadius?: number | number[] | Scriptable<number> | undefined;
+        pointHitRadius?: number | number[] | Scriptable<number> | undefined;
+        pointHoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
+        pointHoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
+        pointHoverBorderWidth?: number | number[] | Scriptable<number> | undefined;
+        pointStyle?: PointStyle
+            | HTMLImageElement
+            | HTMLCanvasElement
+            | Array<PointStyle
+            | HTMLImageElement
+            | HTMLCanvasElement>
+            | Scriptable<PointStyle
+            | HTMLImageElement
+            | HTMLCanvasElement>
+            | undefined;
+        radius?: number | number[] | Scriptable<number> | undefined;
+        rotation?: number | number[] | Scriptable<number> | undefined;
+        xAxisID?: string | undefined;
+        yAxisID?: string | undefined;
+        type?: ChartType | string | undefined;
+        hidden?: boolean | undefined;
+        hideInLegendAndTooltip?: boolean | undefined;
+        showLine?: boolean | undefined;
+        stack?: string | undefined;
+        spanGaps?: boolean | undefined;
+        weight?: number | undefined;
     }
 
     interface ChartScales {
-        type?: ScaleType | string;
-        display?: boolean;
-        position?: PositionType | string;
-        gridLines?: GridLineOptions;
-        scaleLabel?: ScaleTitleOptions;
-        ticks?: TickOptions;
-        xAxes?: ChartXAxe[];
-        yAxes?: ChartYAxe[];
+        type?: ScaleType | string | undefined;
+        display?: boolean | undefined;
+        position?: PositionType | string | undefined;
+        gridLines?: GridLineOptions | undefined;
+        scaleLabel?: ScaleTitleOptions | undefined;
+        ticks?: TickOptions | undefined;
+        xAxes?: ChartXAxe[] | undefined;
+        yAxes?: ChartYAxe[] | undefined;
     }
 
     interface CommonAxe {
-        bounds?: string;
-        type?: ScaleType | string;
-        display?: boolean | string;
-        id?: string;
-        labels?: string[];
-        stacked?: boolean;
-        position?: string;
-        ticks?: TickOptions;
-        gridLines?: GridLineOptions;
-        scaleLabel?: ScaleTitleOptions;
-        time?: TimeScale;
-        offset?: boolean;
+        bounds?: string | undefined;
+        type?: ScaleType | string | undefined;
+        display?: boolean | string | undefined;
+        id?: string | undefined;
+        labels?: string[] | undefined;
+        stacked?: boolean | undefined;
+        position?: string | undefined;
+        ticks?: TickOptions | undefined;
+        gridLines?: GridLineOptions | undefined;
+        scaleLabel?: ScaleTitleOptions | undefined;
+        time?: TimeScale | undefined;
+        offset?: boolean | undefined;
         beforeUpdate?(scale?: any): void;
         beforeSetDimension?(scale?: any): void;
         beforeDataLimits?(scale?: any): void;
@@ -779,7 +789,7 @@ declare namespace Chart {
     }
 
     interface ChartXAxe extends CommonAxe {
-        distribution?: 'linear' | 'series';
+        distribution?: 'linear' | 'series' | undefined;
     }
 
     // tslint:disable-next-line no-empty-interface
@@ -787,52 +797,52 @@ declare namespace Chart {
     }
 
     interface LinearScale extends ChartScales {
-        ticks?: LinearTickOptions;
+        ticks?: LinearTickOptions | undefined;
     }
 
     interface LogarithmicScale extends ChartScales {
-        ticks?: LogarithmicTickOptions;
+        ticks?: LogarithmicTickOptions | undefined;
     }
 
     interface TimeDisplayFormat {
-        millisecond?: string;
-        second?: string;
-        minute?: string;
-        hour?: string;
-        day?: string;
-        week?: string;
-        month?: string;
-        quarter?: string;
-        year?: string;
+        millisecond?: string | undefined;
+        second?: string | undefined;
+        minute?: string | undefined;
+        hour?: string | undefined;
+        day?: string | undefined;
+        week?: string | undefined;
+        month?: string | undefined;
+        quarter?: string | undefined;
+        year?: string | undefined;
     }
 
     interface DateAdapterOptions {
-        date?: object;
+        date?: object | undefined;
     }
 
     interface TimeScale extends ChartScales {
-        adapters?: DateAdapterOptions;
-        displayFormats?: TimeDisplayFormat;
-        isoWeekday?: boolean;
-        max?: string;
-        min?: string;
-        parser?: string | ((arg: any) => any);
-        round?: TimeUnit;
-        tooltipFormat?: string;
-        unit?: TimeUnit;
-        unitStepSize?: number;
-        stepSize?: number;
-        minUnit?: TimeUnit;
+        adapters?: DateAdapterOptions | undefined;
+        displayFormats?: TimeDisplayFormat | undefined;
+        isoWeekday?: boolean | undefined;
+        max?: string | undefined;
+        min?: string | undefined;
+        parser?: string | ((arg: any) => any) | undefined;
+        round?: TimeUnit | undefined;
+        tooltipFormat?: string | undefined;
+        unit?: TimeUnit | undefined;
+        unitStepSize?: number | undefined;
+        stepSize?: number | undefined;
+        minUnit?: TimeUnit | undefined;
     }
 
     interface RadialLinearScale {
-        animate?: boolean;
-        position?: PositionType;
-        angleLines?: AngleLineOptions;
-        pointLabels?: PointLabelOptions;
-        ticks?: LinearTickOptions;
-        display?: boolean;
-        gridLines?: GridLineOptions;
+        animate?: boolean | undefined;
+        position?: PositionType | undefined;
+        angleLines?: AngleLineOptions | undefined;
+        pointLabels?: PointLabelOptions | undefined;
+        ticks?: LinearTickOptions | undefined;
+        display?: boolean | undefined;
+        gridLines?: GridLineOptions | undefined;
     }
 
     interface Point {
@@ -841,7 +851,7 @@ declare namespace Chart {
     }
 
     interface PluginServiceGlobalRegistration {
-        id?: string;
+        id?: string | undefined;
     }
 
     interface PluginServiceRegistrationOptions {
@@ -895,15 +905,15 @@ declare namespace Chart {
     }
 
     interface ChartUpdateProps {
-        duration?: number;
-        lazy?: boolean;
-        easing?: Easing;
+        duration?: number | undefined;
+        lazy?: boolean | undefined;
+        easing?: Easing | undefined;
     }
 
     interface ChartRenderProps {
-        duration?: number;
-        lazy?: boolean;
-        easing?: Easing;
+        duration?: number | undefined;
+        lazy?: boolean | undefined;
+        easing?: Easing | undefined;
     }
 
     // Model used with the doughnut chart

@@ -109,7 +109,7 @@ app.use("rde", (req, res) => {
 
 app.use("rde2", (req, res) => {
     interface Circular {
-        self?: Circular;
+        self?: Circular | undefined;
     }
     const co: Circular = {};
     co.self = co;

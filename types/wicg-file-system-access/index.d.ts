@@ -29,17 +29,17 @@ declare class BaseFileSystemHandle {
 
 declare global {
 interface FilePickerAcceptType {
-    description?: string;
+    description?: string | undefined;
     accept: Record<string, string | string[]>;
 }
 
 interface FilePickerOptions {
-    types?: FilePickerAcceptType[];
-    excludeAcceptAllOption?: boolean;
+    types?: FilePickerAcceptType[] | undefined;
+    excludeAcceptAllOption?: boolean | undefined;
 }
 
 interface OpenFilePickerOptions extends FilePickerOptions {
-    multiple?: boolean;
+    multiple?: boolean | undefined;
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -52,33 +52,33 @@ type FileSystemPermissionMode = 'read' | 'readwrite';
 
 interface FileSystemPermissionDescriptor extends PermissionDescriptor {
     handle: FileSystemHandle;
-    mode?: FileSystemPermissionMode;
+    mode?: FileSystemPermissionMode | undefined;
 }
 
 interface FileSystemHandlePermissionDescriptor {
-    mode?: FileSystemPermissionMode;
+    mode?: FileSystemPermissionMode | undefined;
 }
 
 type FileSystemHandleKind = 'file' | 'directory';
 
 interface FileSystemCreateWritableOptions {
-    keepExistingData?: boolean;
+    keepExistingData?: boolean | undefined;
 }
 
 interface FileSystemGetFileOptions {
-    create?: boolean;
+    create?: boolean | undefined;
 }
 
 interface FileSystemGetDirectoryOptions {
-    create?: boolean;
+    create?: boolean | undefined;
 }
 
 interface FileSystemRemoveOptions {
-    recursive?: boolean;
+    recursive?: boolean | undefined;
 }
 
 type WriteParams =
-    | { type: 'write'; position?: number; data: BufferSource | Blob | string }
+    | { type: 'write'; position?: number | undefined; data: BufferSource | Blob | string }
     | { type: 'seek'; position: number }
     | { type: 'truncate'; size: number };
 
@@ -134,7 +134,7 @@ interface StorageManager {
 }
 
 function showOpenFilePicker(
-    options?: OpenFilePickerOptions & { multiple?: false },
+    options?: OpenFilePickerOptions & { multiple?: false | undefined },
 ): Promise<[FileSystemFileHandle]>;
 function showOpenFilePicker(options?: OpenFilePickerOptions): Promise<FileSystemFileHandle[]>;
 function showSaveFilePicker(options?: SaveFilePickerOptions): Promise<FileSystemFileHandle>;
@@ -143,14 +143,14 @@ function showDirectoryPicker(options?: DirectoryPickerOptions): Promise<FileSyst
 // Old methods available on Chromium 85 instead of the ones above.
 
 interface ChooseFileSystemEntriesOptionsAccepts {
-    description?: string;
-    mimeTypes?: string[];
-    extensions?: string[];
+    description?: string | undefined;
+    mimeTypes?: string[] | undefined;
+    extensions?: string[] | undefined;
 }
 
 interface ChooseFileSystemEntriesFileOptions {
-    accepts?: ChooseFileSystemEntriesOptionsAccepts[];
-    excludeAcceptAllOption?: boolean;
+    accepts?: ChooseFileSystemEntriesOptionsAccepts[] | undefined;
+    excludeAcceptAllOption?: boolean | undefined;
 }
 
 /**
@@ -158,8 +158,8 @@ interface ChooseFileSystemEntriesFileOptions {
  */
 function chooseFileSystemEntries(
     options?: ChooseFileSystemEntriesFileOptions & {
-        type?: 'open-file';
-        multiple?: false;
+        type?: 'open-file' | undefined;
+        multiple?: false | undefined;
     },
 ): Promise<FileSystemFileHandle>;
 /**
@@ -167,7 +167,7 @@ function chooseFileSystemEntries(
  */
 function chooseFileSystemEntries(
     options: ChooseFileSystemEntriesFileOptions & {
-        type?: 'open-file';
+        type?: 'open-file' | undefined;
         multiple: true;
     },
 ): Promise<FileSystemFileHandle[]>;
@@ -209,6 +209,6 @@ interface FileSystemHandlePermissionDescriptor {
     /**
      * @deprecated Old property just for Chromium <=85. Use `mode: ...` in the new API.
      */
-    writable?: boolean;
+    writable?: boolean | undefined;
 }
 }

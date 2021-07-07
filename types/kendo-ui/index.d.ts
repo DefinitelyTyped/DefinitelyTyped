@@ -793,7 +793,7 @@ declare namespace kendo.data {
         insert(index: number, model: kendo.data.SchedulerEvent): kendo.data.SchedulerEvent;
         insert(index: number, model: Object): kendo.data.SchedulerEvent;
         remove(model: kendo.data.SchedulerEvent): void;
-        expand(start: Date, end: Date): kendo.data.SchedulerEvent;
+        expand(start: Date, end: Date): kendo.data.SchedulerEvent[];
     }
 
     class GanttDataSource extends DataSource {

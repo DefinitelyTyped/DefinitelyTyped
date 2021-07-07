@@ -1745,6 +1745,10 @@
             "libraryName": "html-webpack-tags-plugin",
             "asOfVersion": "2.0.16"
         },
+        "html2canvas": {
+            "libraryName": "html2canvas",
+            "asOfVersion": "1.0.0"
+        },
         "http-graceful-shutdown": {
             "libraryName": "http-graceful-shutdown",
             "asOfVersion": "2.3.0"
@@ -5425,6 +5429,10 @@
         "xumm-api": {
             "libraryName": "xumm-sdk",
             "asOfVersion": "0.1.4"
+        },
+        "y18n": {
+            "libraryName": "y18n",
+            "asOfVersion": "5.0.0"
         },
         "yaml": {
             "libraryName": "yaml",

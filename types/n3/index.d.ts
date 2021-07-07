@@ -5,8 +5,9 @@
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
 //                 Joachim Van Herwegen <https://github.com/joachimvh>
 //                 Alexey Morozov <https://github.com/AlexeyMz>
+//                 Jesse Wright <https://github.com/jeswr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="node" />
 
@@ -149,8 +150,34 @@ export class Lexer {
     tokenize(input: string): Token[];
     tokenize(input: string | EventEmitter, callback: TokenCallback): void;
 }
+
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+export type MimeType =
+  // Discrete types
+  | 'application' | 'example' | 'text'
+  // Multipart types
+  | 'message' | 'multipart';
+
+export type BaseFormat =
+  | 'Turtle'
+  | 'TriG'
+  | 'N-Triples'
+  | 'N-Quads'
+  | 'N3'
+  | 'Notation3';
+
+export type BaseFormatVariant =
+  | BaseFormat
+  | Lowercase<BaseFormat>;
+
+export type Star = '*' | 'star' | '-star';
+
+export type MimeSubtype = BaseFormatVariant | `${BaseFormatVariant}${Star}`;
+
+export type MimeFormat = MimeSubtype | `${MimeType}/${MimeSubtype}`;
+
 export interface ParserOptions {
-    format?: string;
+    format?: MimeFormat;
     factory?: RDF.DataFactory;
     baseIRI?: string;
     blankNodePrefix?: string;
@@ -173,7 +200,7 @@ export class StreamParser<Q extends BaseQuad = Quad> extends stream.Transform im
 }
 
 export interface WriterOptions {
-    format?: string;
+    format?: MimeFormat;
     prefixes?: Prefixes<RDF.NamedNode | string>;
     end?: boolean;
 }

@@ -6,13 +6,13 @@ declare module 'https' {
     type ServerOptions = tls.SecureContextOptions & tls.TlsOptions & http.ServerOptions;
 
     type RequestOptions = http.RequestOptions & tls.SecureContextOptions & {
-        rejectUnauthorized?: boolean; // Defaults to true
-        servername?: string; // SNI TLS Extension
+        rejectUnauthorized?: boolean | undefined; // Defaults to true
+        servername?: string | undefined; // SNI TLS Extension
     };
 
     interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
-        rejectUnauthorized?: boolean;
-        maxCachedSessions?: number;
+        rejectUnauthorized?: boolean | undefined;
+        maxCachedSessions?: number | undefined;
     }
 
     class Agent extends http.Agent {

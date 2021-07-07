@@ -38,26 +38,26 @@ export type ESLintConfig = Pick<eslint.Linter.Config, "extends" | "settings">;
 
 export type Options = {
     /** Some paths are ignored by default, including paths in .gitignore and .eslintignore. Additional ignores can be added here */
-    ignores?: string[];
+    ignores?: string[] | undefined;
     /** Enable rules specific to the Node.js versions within the configured range */
-    nodeVersion?: string | boolean;
+    nodeVersion?: string | boolean | undefined;
     /** Format code with Prettier */
-    prettier?: boolean;
+    prettier?: boolean | undefined;
     /**
      *  Print the ESLint configuration for the given file
      */
-    printConfig?: string;
+    printConfig?: string | undefined;
     /** Set it to false to enforce no-semicolon style. */
-    semicolon?: boolean;
+    semicolon?: boolean | undefined;
     /** Set it to true to get 2-space indentation or specify the number of spaces. */
-    space?: boolean | number;
+    space?: boolean | number | undefined;
     /**
      * Use {@link https://github.com/benmosher/eslint-plugin-import/tree/master/resolvers/webpack}
      * to resolve import search paths. This is enabled automatically if a `webpack.config.js` file is found.
      * Set this to a boolean to explicitly enable or disable the resolver.
      * @default false
      */
-    webpack?: boolean | object;
+    webpack?: boolean | object | undefined;
 } & CLIEngineOptions &
     ESLintConfig &
     ESLintOptions;

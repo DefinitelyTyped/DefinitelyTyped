@@ -28,21 +28,21 @@ declare namespace set {
          * Note that this option cannot be used if `options.separator` is set to `/`.
          * @default true
          */
-        preservePaths?: boolean;
+        preservePaths?: boolean | undefined;
         /**
          * Custom separator to use for splitting object paths.
          * @default `.`
          */
-        separator?: string;
+        separator?: string | undefined;
         /**
          * Custom `.split()` function to use.
          */
-        split?: SplitFunc;
+        split?: SplitFunc | undefined;
         /**
          * Allows you to update plain object values, instead of overwriting them.
          * @default  `undefined`
          */
-        merge?: boolean | MergeFunc;
+        merge?: boolean | MergeFunc | undefined;
     }
 
     type InputType = string | symbol | ReadonlyArray<string | symbol>;
