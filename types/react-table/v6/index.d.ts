@@ -16,7 +16,7 @@ export type AccessorFunction<D = any> = (row: D) => any;
 export type Accessor<D = any> = string | string[] | AccessorFunction<D>;
 export type Aggregator = (values: any, rows: any) => any;
 export type TableCellRenderer = ((cellInfo: CellInfo, column: any) => React.ReactNode) | React.ReactNode;
-export type FilterRender = (params: { column: Column, filter: any, onChange: ReactTableFunction, key?: string }) => React.ReactElement;
+export type FilterRender = (params: { column: Column, filter: any, onChange: ReactTableFunction, key?: string | undefined }) => React.ReactElement;
 export type PivotRenderer = ((cellInfo: CellInfo) => React.ReactNode) | (() => any) | string | React.ReactNode;
 
 export type ComponentPropsGetter0 = (finalState: any, rowInfo: undefined, column: undefined, instance?: any) => object | undefined;
@@ -42,7 +42,7 @@ export interface Resize {
 export interface Filter {
     id: string;
     value: any;
-    pivotId?: string;
+    pivotId?: string | undefined;
 }
 
 export interface SortingRule {
@@ -60,7 +60,7 @@ export interface TableProps<D = any, ResolvedData = D> extends
     /** Default: [] */
     data: D[];
 
-    resolveData?: (data: D[]) => ResolvedData[];
+    resolveData?: ((data: D[]) => ResolvedData[]) | undefined;
 
     /** Default: false */
     loading: boolean;
@@ -170,7 +170,7 @@ export interface TableProps<D = any, ResolvedData = D> extends
     column: Partial<GlobalColumn>;
 
     /** Array of all Available Columns */
-    columns?: Array<Column<ResolvedData>>;
+    columns?: Array<Column<ResolvedData>> | undefined;
 
     /** Expander defaults. */
     expanderDefaults: Partial<ExpanderDefaults>;
@@ -560,31 +560,31 @@ export interface Column<D = any> extends
      * @example {"a": {"b": {"c": $}}}
      * @example (row) => row.propertyName
      */
-    accessor?: Accessor<D>;
+    accessor?: Accessor<D> | undefined;
 
     /**
      * Conditional - A unique ID is required if the accessor is not a string or if you would like to override the column name used in server-side calls
      * @example 'myProperty'
      */
-    id?: string;
+    id?: string | undefined;
 
     /**
      * No description
      * @example (values, rows) => _.round(_.mean(values))
      * @example (values, rows) => _.sum(values)
      */
-    aggregate?: Aggregator;
+    aggregate?: Aggregator | undefined;
 
     /**
      * Default: undefined - A hardcoded width for the column. This overrides both min and max width options
      */
-    width?: number;
+    width?: number | undefined;
 
     /**
      * Default: undefined - A maximum width for this column.
      * @default undefined
      */
-    maxWidth?: number;
+    maxWidth?: number | undefined;
 
     /**
      * Turns this column into a special column for specifying expander and pivot column options.
@@ -593,17 +593,17 @@ export interface Column<D = any> extends
      * Adding a column with the `expander` option set will allow you to rearrange expander and pivot column orderings in the table.
      * It will also let you specify rendering of the header (and header group if this special column is placed in the `columns` option of another column) and the rendering of the expander itself.
      */
-    expander?: boolean;
+    expander?: boolean | undefined;
 
     /** Header Groups only */
-    columns?: Array<Column<D>>;
+    columns?: Array<Column<D>> | undefined;
 
     /**
      * Turns this column into a special column for specifying pivot position in your column definitions.
      * The `pivotDefaults` options will be applied on top of this column's options.
      * It will also let you specify rendering of the header (and header group if this special column is placed in the `columns` option of another column)
      */
-    pivot?: boolean;
+    pivot?: boolean | undefined;
 }
 
 export interface ColumnRenderProps<D = any> {
@@ -616,7 +616,7 @@ export interface ColumnRenderProps<D = any> {
 
 export interface RowRenderProps extends Partial<RowInfo> {
     /** Whenever the current row is expanded */
-    isExpanded?: boolean;
+    isExpanded?: boolean | undefined;
 
     /** The current cell value */
     value?: any;
