@@ -531,7 +531,11 @@ declare module 'fs/promises' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    function appendFile(path: PathLike | FileHandle, data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode | undefined, flag?: OpenMode | undefined } | BufferEncoding | null): Promise<void>;
+    function appendFile(
+        path: PathLike | FileHandle,
+        data: string | Uint8Array,
+        options?: BaseEncodingOptions & { mode?: Mode | undefined, flag?: OpenMode | undefined } | BufferEncoding | null
+    ): Promise<void>;
 
     /**
      * Asynchronously reads the entire contents of a file.

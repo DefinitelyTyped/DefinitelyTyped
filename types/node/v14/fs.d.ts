@@ -1151,7 +1151,11 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdir(path: PathLike, options: { encoding: "buffer"; withFileTypes?: false | undefined } | "buffer", callback: (err: NodeJS.ErrnoException | null, files: Buffer[]) => void): void;
+    export function readdir(
+        path: PathLike,
+        options: { encoding: "buffer"; withFileTypes?: false | undefined } | "buffer",
+        callback: (err: NodeJS.ErrnoException | null, files: Buffer[]) => void
+    ): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -1558,7 +1562,11 @@ declare module 'fs' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    export function readFile(path: PathLike | number, options: { encoding?: null | undefined; flag?: string | undefined; } | undefined | null, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
+    export function readFile(
+        path: PathLike | number,
+        options: { encoding?: null | undefined; flag?: string | undefined; } | undefined | null,
+        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void
+    ): void;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -1568,7 +1576,11 @@ declare module 'fs' {
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    export function readFile(path: PathLike | number, options: { encoding: BufferEncoding; flag?: string | undefined; } | string, callback: (err: NodeJS.ErrnoException | null, data: string) => void): void;
+    export function readFile(
+        path: PathLike | number,
+        options: { encoding: BufferEncoding; flag?: string | undefined; } | string,
+        callback: (err: NodeJS.ErrnoException | null, data: string) => void
+    ): void;
 
     /**
      * Asynchronously reads the entire contents of a file.

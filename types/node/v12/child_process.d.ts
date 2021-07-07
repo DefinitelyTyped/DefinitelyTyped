@@ -397,7 +397,10 @@ declare module 'child_process' {
         ): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
         function __promisify__(file: string, options: ExecFileOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
         function __promisify__(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, options: ({ encoding?: string | null | undefined } & ExecFileOptions) | undefined | null): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        function __promisify__(
+            file: string,
+            options: ({ encoding?: string | null | undefined } & ExecFileOptions) | undefined | null
+        ): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
         function __promisify__(
             file: string,
             args: ReadonlyArray<string> | undefined | null,

@@ -612,7 +612,11 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readlink(path: PathLike, options: { encoding?: string | null | undefined } | string | undefined | null, callback: (err: NodeJS.ErrnoException | null, linkString: string | Buffer) => void): void;
+    function readlink(
+        path: PathLike,
+        options: { encoding?: string | null | undefined } | string | undefined | null,
+        callback: (err: NodeJS.ErrnoException | null, linkString: string | Buffer) => void
+    ): void;
 
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
@@ -688,7 +692,11 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function realpath(path: PathLike, options: { encoding?: string | null | undefined } | string | undefined | null, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void): void;
+    function realpath(
+        path: PathLike,
+        options: { encoding?: string | null | undefined } | string | undefined | null,
+        callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void
+    ): void;
 
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -725,7 +733,11 @@ declare module 'fs' {
             callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
         ): void;
         function native(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void): void;
-        function native(path: PathLike, options: { encoding?: string | null | undefined } | string | undefined | null, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void): void;
+        function native(
+            path: PathLike,
+            options: { encoding?: string | null | undefined } | string | undefined | null,
+            callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void
+        ): void;
         function native(path: PathLike, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void): void;
     }
 
@@ -877,7 +889,11 @@ declare module 'fs' {
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function mkdtemp(prefix: string, options: { encoding?: BufferEncoding | null | undefined } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException | null, folder: string) => void): void;
+    function mkdtemp(
+        prefix: string,
+        options: { encoding?: BufferEncoding | null | undefined } | BufferEncoding | undefined | null,
+        callback: (err: NodeJS.ErrnoException | null, folder: string) => void
+    ): void;
 
     /**
      * Asynchronously creates a unique temporary directory.
@@ -891,7 +907,11 @@ declare module 'fs' {
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function mkdtemp(prefix: string, options: { encoding?: string | null | undefined } | string | undefined | null, callback: (err: NodeJS.ErrnoException | null, folder: string | Buffer) => void): void;
+    function mkdtemp(
+        prefix: string,
+        options: { encoding?: string | null | undefined } | string | undefined | null,
+        callback: (err: NodeJS.ErrnoException | null, folder: string | Buffer) => void
+    ): void;
 
     /**
      * Asynchronously creates a unique temporary directory.
@@ -1346,7 +1366,11 @@ declare module 'fs' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | number, options: { encoding?: null | undefined; flag?: string | undefined; } | undefined | null, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
+    function readFile(
+        path: PathLike | number,
+        options: { encoding?: null | undefined; flag?: string | undefined; } | undefined | null,
+        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void
+    ): void;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -1593,7 +1617,11 @@ declare module 'fs' {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    function watch(filename: PathLike, options: { encoding: "buffer", persistent?: boolean | undefined, recursive?: boolean | undefined } | "buffer", listener?: (event: string, filename: Buffer) => void): FSWatcher;
+    function watch(
+        filename: PathLike,
+        options: { encoding: "buffer", persistent?: boolean | undefined, recursive?: boolean | undefined } | "buffer",
+        listener?: (event: string, filename: Buffer) => void
+    ): FSWatcher;
 
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -2456,7 +2484,11 @@ declare module 'fs' {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'w'` is used.
          */
-        function writeFile(path: PathLike | FileHandle, data: any, options?: { encoding?: string | null | undefined, mode?: string | number | undefined, flag?: string | number | undefined } | string | null): Promise<void>;
+        function writeFile(
+            path: PathLike | FileHandle,
+            data: any,
+            options?: { encoding?: string | null | undefined, mode?: string | number | undefined, flag?: string | number | undefined } | string | null
+        ): Promise<void>;
 
         /**
          * Asynchronously append data to a file, creating the file if it does not exist.
@@ -2470,7 +2502,11 @@ declare module 'fs' {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'a'` is used.
          */
-        function appendFile(path: PathLike | FileHandle, data: any, options?: { encoding?: string | null | undefined, mode?: string | number | undefined, flag?: string | number | undefined } | string | null): Promise<void>;
+        function appendFile(
+            path: PathLike | FileHandle,
+            data: any,
+            options?: { encoding?: string | null | undefined, mode?: string | number | undefined, flag?: string | number | undefined } | string | null
+        ): Promise<void>;
 
         /**
          * Asynchronously reads the entire contents of a file.
