@@ -19,52 +19,52 @@ declare namespace DockerModem {
 
     interface KeyObject {
         pem: string | Buffer;
-        passphrase?: string;
+        passphrase?: string | undefined;
     }
 
     interface ConstructorOptions {
-        socketPath?: string;
-        host?: string;
-        port?: number | string;
-        username?: string;
-        ca?: string | string[] | Buffer | Buffer[];
-        cert?: string | string[] | Buffer | Buffer[];
-        key?: string | string[] | Buffer | Buffer[] | KeyObject[];
-        protocol?: 'https' | 'http' | 'ssh';
-        sshOptions?: ConnectConfig;
-        timeout?: number;
-        version?: string;
-        connectionTimeout?: number;
-        checkServerIdentity?: boolean;
-        agent?: Agent;
-        headers?: OutgoingHttpHeaders;
-        Promise?: typeof Promise;
+        socketPath?: string | undefined;
+        host?: string | undefined;
+        port?: number | string | undefined;
+        username?: string | undefined;
+        ca?: string | string[] | Buffer | Buffer[] | undefined;
+        cert?: string | string[] | Buffer | Buffer[] | undefined;
+        key?: string | string[] | Buffer | Buffer[] | KeyObject[] | undefined;
+        protocol?: 'https' | 'http' | 'ssh' | undefined;
+        sshOptions?: ConnectConfig | undefined;
+        timeout?: number | undefined;
+        version?: string | undefined;
+        connectionTimeout?: number | undefined;
+        checkServerIdentity?: boolean | undefined;
+        agent?: Agent | undefined;
+        headers?: OutgoingHttpHeaders | undefined;
+        Promise?: typeof Promise | undefined;
     }
 
     interface DialOptions {
         path: string;
-        method?: string;
-        headers?: OutgoingHttpHeaders;
-        allowEmpty?: boolean;
+        method?: string | undefined;
+        headers?: OutgoingHttpHeaders | undefined;
+        allowEmpty?: boolean | undefined;
         options?: {
-            _query?: object;
+            _query?: object | undefined;
             _body?: any;
             [key: string]: any;
-        };
+        } | undefined;
         authconfig?: {
-            key?: string;
-            base64?: string;
+            key?: string | undefined;
+            base64?: string | undefined;
             [key: string]: any;
-        };
+        } | undefined;
         registryconfig?: {
-            base64?: string;
+            base64?: string | undefined;
             [key: string]: any;
-        };
-        file?: string | Buffer | NodeJS.ReadableStream;
-        hijack?: boolean;
-        openStdin?: boolean;
-        isStream?: boolean;
-        statusCodes?: StatusCodes;
+        } | undefined;
+        file?: string | Buffer | NodeJS.ReadableStream | undefined;
+        hijack?: boolean | undefined;
+        openStdin?: boolean | undefined;
+        isStream?: boolean | undefined;
+        statusCodes?: StatusCodes | undefined;
     }
 
     interface StatusCodes {
