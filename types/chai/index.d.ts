@@ -1482,6 +1482,17 @@ declare namespace Chai {
         includeMembers<T>(superset: T[], subset: T[], message?: string): void;
 
         /**
+         * Asserts that subset isn’t included in superset in any order.
+         * Uses a strict equality check (===). Duplicates are ignored.
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential not contained set of values.
+         * @param message   Message to display on error.
+         */
+        notIncludeMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
          * Asserts that subset is included in superset using deep equality checking.
          * Order is not take into account.
          *
