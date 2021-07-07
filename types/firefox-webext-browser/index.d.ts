@@ -3622,11 +3622,13 @@ declare namespace browser.runtime {
      * @param sendResponse Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object. If you have more than one `onMessage` listener in the same document, then only one may send a response. This function becomes invalid when the event listener returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep the message channel open to the other end until `sendResponse` is called).
      * @returns Return true from the event listener if you wish to call `sendResponse` after the event listener returns.
      */
-    const onMessage: WebExtEvent<(
-        message: any,
-        sender: MessageSender,
-        sendResponse: (response?: any) => void
-    ) => boolean | Promise<any> | void>;
+    const onMessage: WebExtEvent<
+        (
+            message: any,
+            sender: MessageSender,
+            sendResponse: (response?: any) => void
+        ) => boolean | Promise<any> | void
+    >;
 
     /**
      * Fired when a message is sent from another extension/app. Cannot be used in a content script.
@@ -3634,11 +3636,13 @@ declare namespace browser.runtime {
      * @param sendResponse Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object. If you have more than one `onMessage` listener in the same document, then only one may send a response. This function becomes invalid when the event listener returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep the message channel open to the other end until `sendResponse` is called).
      * @returns Return true from the event listener if you wish to call `sendResponse` after the event listener returns.
      */
-    const onMessageExternal: WebExtEvent<(
-        message: any,
-        sender: MessageSender,
-        sendResponse: (response?: any) => void
-    ) => boolean | Promise<any> | void>;
+    const onMessageExternal: WebExtEvent<
+        (
+            message: any,
+            sender: MessageSender,
+            sendResponse: (response?: any) => void
+        ) => boolean | Promise<any> | void
+    >;
 
     /**
      * Fired when an app or the device that it runs on needs to be restarted. The app should close all its windows at its earliest convenient time to let the restart to happen. If the app does nothing, a restart will be enforced after a 24-hour grace period has passed. Currently, this event is only fired for Chrome OS kiosk apps.
@@ -3735,10 +3739,9 @@ declare namespace browser.storage {
      * @param changes Object mapping each key that changed to its corresponding `storage.StorageChange` for that item.
      * @param areaName The name of the storage area (`"sync"`, `"local"` or `"managed"`) the changes are for.
      */
-    const onChanged: WebExtEvent<(
-        changes: { [key: string]: StorageChange },
-        areaName: string
-    ) => void>;
+    const onChanged: WebExtEvent<
+        (changes: { [key: string]: StorageChange }, areaName: string) => void
+    >;
 }
 
 /**
@@ -6993,16 +6996,14 @@ declare namespace browser.omnibox {
      * User has changed what is typed into the omnibox.
      * @param suggest A callback passed to the onInputChanged event used for sending suggestions back to the browser.
      */
-    const onInputChanged: WebExtEvent<(
-        text: string,
-        suggest: (suggestResults: SuggestResult[]) => void
-    ) => void>;
+    const onInputChanged: WebExtEvent<
+        (text: string, suggest: (suggestResults: SuggestResult[]) => void) => void
+    >;
 
     /** User has accepted what is typed into the omnibox. */
-    const onInputEntered: WebExtEvent<(
-        text: string,
-        disposition: OnInputEnteredDisposition
-    ) => void>;
+    const onInputEntered: WebExtEvent<
+        (text: string, disposition: OnInputEnteredDisposition) => void
+    >;
 
     /** User has ended the keyword input session without accepting the input. */
     const onInputCancelled: WebExtEvent<() => void>;
@@ -7027,9 +7028,7 @@ declare namespace browser.pkcs11 {
     function uninstallModule(name: string): Promise<void>;
 
     /** Enumerate a module's slots, each with their name and whether a token is present */
-    function getModuleSlots(
-        name: string
-    ): Promise<{
+    function getModuleSlots(name: string): Promise<{
         name: string;
         token?: {
             name: string;
