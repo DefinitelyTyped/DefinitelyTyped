@@ -7,6 +7,27 @@ export default async () => {
     try {
         const client = await Ari.connect('http://ari.js:8088', 'user', 'secret');
 
+        // Listen to WebSocket events.
+        client.on('WebSocketConnected', () => {
+            console.log('WebSocket connected');
+        });
+        client.on('WebSocketReconnecting', err => {
+            console.log('WebSocket reconnecting', err);
+        });
+        client.on('WebSocketMaxRetries', err => {
+            console.log('WebSocket reconnection maximum retries reached', err);
+        });
+
+        // Listen to API loading error events.
+        client.on('APILoadError', err => {
+            console.log('An error occurred while loading API', err);
+        });
+
+        // Listen to WebSocket ping responses.
+        client.on('pong', () => {
+            console.log('WebSocket pong received');
+        });
+        
         // Use once to start the application
         client.on('StasisStart', async (event, incoming) => {
             // Handle DTMF events
