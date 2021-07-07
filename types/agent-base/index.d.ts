@@ -15,16 +15,16 @@ declare namespace Agent {
     ) => void;
 
     interface AgentOptions {
-        timeout?: number;
-        host?: string;
-        port?: number;
+        timeout?: number | undefined;
+        host?: string | undefined;
+        port?: number | undefined;
         [key: string]: any;
     }
 
     interface Agent extends EventEmitter {
         _promisifiedCallback: boolean;
         timeout: number | null;
-        options?: AgentOptions;
+        options?: AgentOptions | undefined;
         callback: AgentCallback;
         addRequest: (req?: any, opts?: any) => void;
         freeSocket: (socket: any, opts: any) => void;

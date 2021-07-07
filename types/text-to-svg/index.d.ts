@@ -131,47 +131,47 @@ declare namespace TextToSVG {
          * Horizontal position of the beginning of the text.
          * @default 0
          */
-        x?: number | null;
+        x?: number | null | undefined;
 
         /**
          * Vertical position of the baseline of the text.
          * @default 0
          */
-        y?: number | null;
+        y?: number | null | undefined;
 
         /**
          * Size of the text.
          * @default 72
          */
-        fontSize?: number | null;
+        fontSize?: number | null | undefined;
 
         /**
          * If true takes kerning information into account.
          * @default true
          */
-        kerning?: boolean | null;
+        kerning?: boolean | null | undefined;
 
         /**
          * Letter-spacing value in em.
          */
-        letterSpacing?: number | null;
+        letterSpacing?: number | null | undefined;
 
         /**
          * Tracking value in (em / 1000).
          */
-        tracking?: number | null;
+        tracking?: number | null | undefined;
 
         /**
          * @default "left baseline"
          */
-        anchor?: Anchor | null;
+        anchor?: Anchor | null | undefined;
     }
 
     interface GenerationOptions extends FontOptions {
         /**
          * Key-value pairs of attributes for `<path>` element.
          */
-        attributes?: { [key: string]: string } | null;
+        attributes?: { [key: string]: string } | null | undefined;
     }
 
     type LoadCallback = (error: Error | null, textToSVG: TextToSVG | null) => void;

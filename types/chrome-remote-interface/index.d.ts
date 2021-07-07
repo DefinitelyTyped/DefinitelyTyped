@@ -197,11 +197,15 @@ declare namespace CDP {
         Tracing: ProtocolProxyApi.TracingApi;
         WebAudio: ProtocolProxyApi.WebAudioApi;
         WebAuthn: ProtocolProxyApi.WebAuthnApi;
-    } & EventPromises<ProtocolMappingApi.Events>;
+    } & EventPromises<ProtocolMappingApi.Events> & EventCallbacks<ProtocolMappingApi.Events>;
 
     // '<domain>.<event>' i.e. Page.loadEventFired
     type EventPromises<T extends ProtocolMappingApi.Events> = {
         [Property in keyof T]: () => T[Property] extends [any] ? Promise<T[Property][0]> : Promise<void>;
+    };
+
+    type EventCallbacks<T extends ProtocolMappingApi.Events> = {
+        [Property in keyof T]: (callback: (params: T[Property] extends [any] ? T[Property][0] : undefined, sessionId?: string) => void) => () => Client;
     };
 }
 

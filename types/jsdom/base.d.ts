@@ -76,7 +76,7 @@ declare module "jsdom" {
          * referrer just affects the value read from document.referrer.
          * It defaults to no referrer (which reflects as the empty string).
          */
-        referrer?: string;
+        referrer?: string | undefined;
 
         /**
          * userAgent affects the value read from navigator.userAgent, as well as the User-Agent header sent while fetching subresources.
@@ -84,7 +84,7 @@ declare module "jsdom" {
          * @default
          * `Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}`
          */
-        userAgent?: string;
+        userAgent?: string | undefined;
 
         /**
          * `includeNodeLocations` preserves the location info produced by the HTML parser,
@@ -95,11 +95,11 @@ declare module "jsdom" {
          *
          * @default false
          */
-        includeNodeLocations?: boolean;
-        runScripts?: "dangerously" | "outside-only";
-        resources?: "usable" | ResourceLoader;
-        virtualConsole?: VirtualConsole;
-        cookieJar?: CookieJar;
+        includeNodeLocations?: boolean | undefined;
+        runScripts?: "dangerously" | "outside-only" | undefined;
+        resources?: "usable" | ResourceLoader | undefined;
+        virtualConsole?: VirtualConsole | undefined;
+        cookieJar?: CookieJar | undefined;
 
         /**
          * jsdom does not have the capability to render visual content, and will act like a headless browser by default.
@@ -110,7 +110,7 @@ declare module "jsdom" {
          *
          * @default false
          */
-        pretendToBeVisual?: boolean;
+        pretendToBeVisual?: boolean | undefined;
         beforeParse?(window: DOMWindow): void;
     }
 
@@ -121,14 +121,14 @@ declare module "jsdom" {
          * and the same-origin restrictions and referrer used while fetching subresources.
          * It will default to a file URL corresponding to the given filename, instead of to "about:blank".
          */
-        url?: string;
+        url?: string | undefined;
 
         /**
          * contentType affects the value read from document.contentType, and how the document is parsed: as HTML or as XML.
          * Values that are not "text/html" or an XML mime type will throw. It will default to "application/xhtml+xml" if
          * the given filename ends in .xhtml or .xml; otherwise it will continue to default to "text/html".
          */
-        contentType?: string;
+        contentType?: string | undefined;
     }
 
     interface ConstructorOptions extends BaseOptions {
@@ -138,13 +138,13 @@ declare module "jsdom" {
          * and the same-origin restrictions and referrer used while fetching subresources.
          * It defaults to "about:blank".
          */
-        url?: string;
+        url?: string | undefined;
 
         /**
          * contentType affects the value read from document.contentType, and how the document is parsed: as HTML or as XML.
          * Values that are not "text/html" or an XML mime type will throw. It defaults to "text/html".
          */
-        contentType?: string;
+        contentType?: string | undefined;
 
         /**
          * The maximum size in code units for the separate storage areas used by localStorage and sessionStorage.
@@ -153,7 +153,7 @@ declare module "jsdom" {
          *
          * @default 5_000_000
          */
-        storageQuota?: number;
+        storageQuota?: number | undefined;
     }
 
     interface VirtualConsoleSendToOptions {
@@ -161,21 +161,21 @@ declare module "jsdom" {
     }
 
     interface ReconfigureSettings {
-        windowTop?: DOMWindow;
-        url?: string;
+        windowTop?: DOMWindow | undefined;
+        url?: string | undefined;
     }
 
     interface FetchOptions {
-        cookieJar?: CookieJar;
-        referrer?: string;
-        accept?: string;
-        element?: HTMLScriptElement | HTMLLinkElement | HTMLIFrameElement | HTMLImageElement;
+        cookieJar?: CookieJar | undefined;
+        referrer?: string | undefined;
+        accept?: string | undefined;
+        element?: HTMLScriptElement | HTMLLinkElement | HTMLIFrameElement | HTMLImageElement | undefined;
     }
 
     interface ResourceLoaderConstructorOptions {
-        strictSSL?: boolean;
-        proxy?: string;
-        userAgent?: string;
+        strictSSL?: boolean | undefined;
+        proxy?: string | undefined;
+        userAgent?: string | undefined;
     }
 
     interface DOMWindow extends Omit<Window, "top" | "self" | "window"> {

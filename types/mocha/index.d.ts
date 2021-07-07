@@ -1047,12 +1047,12 @@ declare namespace Mocha {
 
         namespace XUnit {
             interface MochaOptions extends Mocha.MochaOptions {
-                reporterOptions?: ReporterOptions;
+                reporterOptions?: ReporterOptions | undefined;
             }
 
             interface ReporterOptions {
-                output?: string;
-                suiteName?: string;
+                output?: string | undefined;
+                suiteName?: string | undefined;
             }
         }
 
@@ -1075,15 +1075,15 @@ declare namespace Mocha {
 
         namespace Progress {
             interface MochaOptions extends Mocha.MochaOptions {
-                reporterOptions?: ReporterOptions;
+                reporterOptions?: ReporterOptions | undefined;
             }
 
             interface ReporterOptions {
-                open?: string;
-                complete?: string;
-                incomplete?: string;
-                close?: string;
-                verbose?: boolean;
+                open?: string | undefined;
+                complete?: string | undefined;
+                incomplete?: string | undefined;
+                close?: string | undefined;
+                verbose?: boolean | undefined;
             }
         }
 
@@ -1142,14 +1142,14 @@ declare namespace Mocha {
         sync: boolean;
         timedOut: boolean;
         pending: boolean;
-        duration?: number;
-        parent?: Suite;
-        state?: "failed" | "passed";
+        duration?: number | undefined;
+        parent?: Suite | undefined;
+        state?: "failed" | "passed" | undefined;
         timer?: any;
-        ctx?: Context;
-        callback?: Done;
-        allowUncaught?: boolean;
-        file?: string;
+        ctx?: Context | undefined;
+        callback?: Done | undefined;
+        allowUncaught?: boolean | undefined;
+        file?: string | undefined;
 
         /**
          * Get test timeout.
@@ -1313,8 +1313,8 @@ declare namespace Mocha {
     class Context {
         private _runnable;
 
-        test?: Runnable;
-        currentTest?: Test;
+        test?: Runnable | undefined;
+        currentTest?: Test | undefined;
 
         /**
          * Get the context `Runnable`.
@@ -1424,15 +1424,15 @@ declare namespace Mocha {
         started: boolean;
         total: number;
         failures: number;
-        asyncOnly?: boolean;
-        allowUncaught?: boolean;
-        fullStackTrace?: boolean;
-        forbidOnly?: boolean;
-        forbidPending?: boolean;
-        checkLeaks?: boolean;
-        test?: Test;
-        currentRunnable?: Runnable;
-        stats?: Stats; // added by reporters
+        asyncOnly?: boolean | undefined;
+        allowUncaught?: boolean | undefined;
+        fullStackTrace?: boolean | undefined;
+        forbidOnly?: boolean | undefined;
+        forbidPending?: boolean | undefined;
+        checkLeaks?: boolean | undefined;
+        test?: Test | undefined;
+        currentRunnable?: Runnable | undefined;
+        stats?: Stats | undefined; // added by reporters
 
         /**
          * Removes all event handlers set during a run on this instance.
@@ -1785,7 +1785,7 @@ declare namespace Mocha {
         suites: Suite[];
         tests: Test[];
         pending: boolean;
-        file?: string;
+        file?: string | undefined;
         root: boolean;
         delayed: boolean;
         parent: Suite | undefined;
@@ -2178,7 +2178,7 @@ declare namespace Mocha {
         private _error;
 
         type: "hook";
-        originalTitle?: string; // added by Runner
+        originalTitle?: string | undefined; // added by Runner
 
         /**
          * Get the test `err`.
@@ -2210,20 +2210,20 @@ declare namespace Mocha {
        * In serial mode, run after all tests end, once only.
        * In parallel mode, run after all tests end, for each file.
        */
-      afterAll?: Func | AsyncFunc | Func[] | AsyncFunc[];
+      afterAll?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
       /**
        * In serial mode (Mocha's default), before all tests begin, once only.
        * In parallel mode, run before all tests begin, for each file.
        */
-      beforeAll?: Func | AsyncFunc | Func[] | AsyncFunc[];
+      beforeAll?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
       /**
        * In both modes, run after every test.
        */
-      afterEach?: Func | AsyncFunc | Func[] | AsyncFunc[];
+      afterEach?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
       /**
        * In both modes, run before each test.
        */
-      beforeEach?: Func | AsyncFunc | Func[] | AsyncFunc[];
+      beforeEach?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
     }
 
     /**
@@ -2233,8 +2233,8 @@ declare namespace Mocha {
      */
     class Test extends Runnable {
         type: "test";
-        speed?: "slow" | "medium" | "fast"; // added by reporters
-        err?: Error; // added by reporters
+        speed?: "slow" | "medium" | "fast" | undefined; // added by reporters
+        err?: Error | undefined; // added by reporters
         clone(): Test;
     }
 
@@ -2247,9 +2247,9 @@ declare namespace Mocha {
         passes: number;
         pending: number;
         failures: number;
-        start?: Date;
-        end?: Date;
-        duration?: number;
+        start?: Date | undefined;
+        end?: Date | undefined;
+        duration?: number | undefined;
     }
 
     type TestInterface = (suite: Suite) => void;
@@ -2275,95 +2275,95 @@ declare namespace Mocha {
      */
     interface MochaOptions {
         /** Propagate uncaught errors? */
-        allowUncaught?: boolean;
+        allowUncaught?: boolean | undefined;
 
         /** Force `done` callback or promise? */
-        asyncOnly?: boolean;
+        asyncOnly?: boolean | undefined;
 
         /** bail on the first test failure. */
-        bail?: boolean;
+        bail?: boolean | undefined;
 
         /** Check for global variable leaks? */
-        checkLeaks?: boolean;
+        checkLeaks?: boolean | undefined;
 
         /** Color TTY output from reporter */
-        color?: boolean;
+        color?: boolean | undefined;
 
         /** Delay root suite execution? */
-        delay?: boolean;
+        delay?: boolean | undefined;
 
         /** Show diff on failure? */
-        diff?: boolean;
+        diff?: boolean | undefined;
 
         /** Report tests without running them? */
-        dryRun?: boolean;
+        dryRun?: boolean | undefined;
 
         /** Test filter given string. */
-        fgrep?: string;
+        fgrep?: string | undefined;
 
         /** Tests marked `only` fail the suite? */
-        forbidOnly?: boolean;
+        forbidOnly?: boolean | undefined;
 
         /** Pending tests fail the suite? */
-        forbidPending?: boolean;
+        forbidPending?: boolean | undefined;
 
         /** Full stacktrace upon failure? */
-        fullTrace?: boolean;
+        fullTrace?: boolean | undefined;
 
         /** Variables expected in global scope. */
-        globals?: string[];
+        globals?: string[] | undefined;
 
         /** Test filter given regular expression. */
-        grep?: string | RegExp;
+        grep?: string | RegExp | undefined;
 
         /** Enable desktop notifications? */
-        growl?: boolean;
+        growl?: boolean | undefined;
 
         /** Display inline diffs? */
-        inlineDiffs?: boolean;
+        inlineDiffs?: boolean | undefined;
 
         /** Invert test filter matches? */
-        invert?: boolean;
+        invert?: boolean | undefined;
 
         /** Disable syntax highlighting? */
-        noHighlighting?: boolean;
+        noHighlighting?: boolean | undefined;
 
         /** Reporter name or constructor. */
-        reporter?: string | ReporterConstructor;
+        reporter?: string | ReporterConstructor | undefined;
 
         /** Reporter settings object. */
-        reporterOptions?: any;
+        reporterOptions?: any | undefined;
 
         /** Number of times to retry failed tests. */
-        retries?: number;
+        retries?: number | undefined;
 
         /** Slow threshold value. */
-        slow?: number;
+        slow?: number | undefined;
 
         /** Timeout threshold value. */
-        timeout?: number | string;
+        timeout?: number | string | undefined;
 
         /** Interface name. */
-        ui?: Interface;
+        ui?: Interface | undefined;
 
         /** Run jobs in parallel */
-        parallel?: boolean;
+        parallel?: boolean | undefined;
 
         /** Max number of worker processes for parallel runs. */
-        jobs?: number;
+        jobs?: number | undefined;
 
         /** Hooks to bootstrap the root suite with. */
-        rootHooks?: RootHookObject;
+        rootHooks?: RootHookObject | undefined;
 
         /** Pathname of `rootHooks` plugin for parallel runs. */
-        require?: string[];
+        require?: string[] | undefined;
 
         /** Should be `true` if `Mocha` process is running in a worker process. */
-        isWorker?: boolean;
+        isWorker?: boolean | undefined;
     }
 
     interface MochaInstanceOptions extends MochaOptions {
-        files?: string[];
+        files?: string[] | undefined;
     }
 
     /**
@@ -2852,16 +2852,16 @@ declare module "mocha/lib/interfaces/common" {
             title: string;
 
             /** Suite function */
-            fn?: (this: Mocha.Suite) => void;
+            fn?: ((this: Mocha.Suite) => void) | undefined;
 
             /** Is suite pending? */
-            pending?: boolean;
+            pending?: boolean | undefined;
 
             /** Filepath where this Suite resides */
-            file?: string;
+            file?: string | undefined;
 
             /** Is suite exclusive? */
-            isOnly?: boolean;
+            isOnly?: boolean | undefined;
         }
 
         interface SuiteFunctions {

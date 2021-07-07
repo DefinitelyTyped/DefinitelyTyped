@@ -10,15 +10,15 @@ export interface SESMailHeader {
 
 export interface SESMailCommonHeaders {
     returnPath: string;
-    from?: string[];
+    from?: string[] | undefined;
     date: string;
-    to?: string[];
-    cc?: string[];
-    bcc?: string[];
-    sender?: string[];
-    replyTo?: string[];
+    to?: string[] | undefined;
+    cc?: string[] | undefined;
+    bcc?: string[] | undefined;
+    sender?: string[] | undefined;
+    replyTo?: string[] | undefined;
     messageId: string;
-    subject?: string;
+    subject?: string | undefined;
 }
 
 export interface SESMail {
@@ -37,7 +37,7 @@ export interface SESReceiptStatus {
 
 export interface SESReceiptS3Action {
     type: 'S3';
-    topicArn?: string;
+    topicArn?: string | undefined;
     bucketName: string;
     objectKey: string;
 }
@@ -49,7 +49,7 @@ export interface SESReceiptSnsAction {
 
 export interface SESReceiptBounceAction {
     type: 'Bounce';
-    topicArn?: string;
+    topicArn?: string | undefined;
     smtpReplyCode: string;
     statusCode: string;
     message: string;
@@ -58,19 +58,19 @@ export interface SESReceiptBounceAction {
 
 export interface SESReceiptLambdaAction {
     type: 'Lambda';
-    topicArn?: string;
+    topicArn?: string | undefined;
     functionArn: string;
     invocationType: string;
 }
 
 export interface SESReceiptStopAction {
     type: 'Stop';
-    topicArn?: string;
+    topicArn?: string | undefined;
 }
 
 export interface SESReceiptWorkMailAction {
     type: 'WorkMail';
-    topicArn?: string;
+    topicArn?: string | undefined;
     organizationArn: string;
 }
 
@@ -83,7 +83,7 @@ export interface SESReceipt {
     spfVerdict: SESReceiptStatus;
     dkimVerdict: SESReceiptStatus;
     dmarcVerdict: SESReceiptStatus;
-    dmarcPolicy?: 'none' | 'quarantine' | 'reject';
+    dmarcPolicy?: 'none' | 'quarantine' | 'reject' | undefined;
     action: SESReceiptS3Action | SESReceiptSnsAction | SESReceiptBounceAction | SESReceiptLambdaAction | SESReceiptStopAction | SESReceiptWorkMailAction;
 }
 

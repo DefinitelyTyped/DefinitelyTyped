@@ -38,12 +38,12 @@ declare namespace Uploadcare {
         file: {
             upload: (
                 readStream: ReadStream,
-                options: { store?: boolean },
+                options: { store?: boolean | undefined },
                 callback: (err: Error, res: { file: string }) => void
             ) => void;
             fromUrl: (
                 url: string,
-                options: { store?: boolean },
+                options: { store?: boolean | undefined },
                 callback: (err: Error, res: File) => void
             ) => void;
         };

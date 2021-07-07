@@ -71,27 +71,27 @@ declare namespace _ {
         /**
         * The "escape" delimiter.
         **/
-        escape?: RegExp;
+        escape?: RegExp | undefined;
 
         /**
         * The "evaluate" delimiter.
         **/
-        evaluate?: RegExp;
+        evaluate?: RegExp | undefined;
 
         /**
         * An object to import into the template as local variables.
         **/
-        imports?: Dictionary<any>;
+        imports?: Dictionary<any> | undefined;
 
         /**
         * The "interpolate" delimiter.
         **/
-        interpolate?: RegExp;
+        interpolate?: RegExp | undefined;
 
         /**
         * Used to reference the data object in the template text.
         **/
-        variable?: string;
+        variable?: string | undefined;
     }
 
     /**
@@ -9673,17 +9673,17 @@ declare namespace _ {
         /**
          * Specify invoking on the leading edge of the timeout.
          */
-        leading?: boolean;
+        leading?: boolean | undefined;
 
         /**
          * The maximum time func is allowed to be delayed before it’s invoked.
          */
-        maxWait?: number;
+        maxWait?: number | undefined;
 
         /**
          * Specify invoking on the trailing edge of the timeout.
          */
-        trailing?: boolean;
+        trailing?: boolean | undefined;
     }
 
     interface LoDashStatic {
@@ -10240,12 +10240,12 @@ declare namespace _ {
         /**
          * If you'd like to disable the leading-edge call, pass this as false.
          */
-        leading?: boolean;
+        leading?: boolean | undefined;
 
         /**
          * If you'd like to disable the execution on the trailing-edge, pass false.
          */
-        trailing?: boolean;
+        trailing?: boolean | undefined;
     }
 
     interface LoDashStatic {
@@ -14831,7 +14831,7 @@ declare namespace _ {
         /**
          * The sourceURL of the template's compiled source.
          */
-        sourceURL?: string;
+        sourceURL?: string | undefined;
     }
 
     interface TemplateExecutor {
@@ -14976,11 +14976,11 @@ declare namespace _ {
     //_.trunc
     interface TruncOptions {
         /** The maximum string length. */
-        length?: number;
+        length?: number | undefined;
         /** The string to indicate text is omitted. */
-        omission?: string;
+        omission?: string | undefined;
         /** The separator pattern to truncate to. */
-        separator?: string|RegExp;
+        separator?: string|RegExp | undefined;
     }
 
     interface LoDashStatic {
@@ -15531,7 +15531,7 @@ declare namespace _ {
 
     //_.mixin
     interface MixinOptions {
-        chain?: boolean;
+        chain?: boolean | undefined;
     }
 
     interface LoDashStatic {

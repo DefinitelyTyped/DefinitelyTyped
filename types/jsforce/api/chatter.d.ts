@@ -5,7 +5,7 @@ import { Stream } from 'stream';
 interface BatchRequestParams extends RequestParams {
     method: string;
     url: string;
-    richInput?: string;
+    richInput?: string | undefined;
 }
 
 interface BatchRequestResult {
@@ -21,7 +21,7 @@ interface BatchRequestResults {
 interface RequestParams {
     method: string;
     url: string;
-    body?: string;
+    body?: string | undefined;
 }
 
 export class RequestResult {

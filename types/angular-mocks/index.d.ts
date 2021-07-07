@@ -148,7 +148,7 @@ declare module 'angular' {
     // https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#accessible-members-up-top
     <T, TBinding>(
       componentName: string,
-      locals: { $scope?: IScope; [key: string]: any },
+      locals: { $scope?: IScope | undefined; [key: string]: any },
       bindings?: TBinding,
       ident?: string
     ): T;
@@ -600,59 +600,59 @@ declare module 'angular' {
        * [Event.bubbles](https://developer.mozilla.org/docs/Web/API/Event/bubbles).
        * Not applicable to all events.
        */
-      bubbles?: boolean;
+      bubbles?: boolean | undefined;
       /**
        * [Event.cancelable](https://developer.mozilla.org/docs/Web/API/Event/cancelable).
        * Not applicable to all events.
        */
-      cancelable?: boolean;
+      cancelable?: boolean | undefined;
       /**
        * [charCode](https://developer.mozilla.org/docs/Web/API/KeyboardEvent/charcode)
        * for keyboard events (keydown, keypress, and keyup).
        */
-      charcode?: number;
+      charcode?: number | undefined;
       /**
        * [data](https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent/data) for
        * [CompositionEvents](https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent).
        */
-      data?: string;
+      data?: string | undefined;
       /**
        * The elapsedTime for
        * [TransitionEvent](https://developer.mozilla.org/docs/Web/API/TransitionEvent)
        * and [AnimationEvent](https://developer.mozilla.org/docs/Web/API/AnimationEvent).
        */
-      elapsedTime?: number;
+      elapsedTime?: number | undefined;
       /**
        * [keyCode](https://developer.mozilla.org/docs/Web/API/KeyboardEvent/keycode)
        * for keyboard events (keydown, keypress, and keyup).
        */
-      keycode?: number;
+      keycode?: number | undefined;
       /**
        * An array of possible modifier keys (ctrl, alt, shift, meta) for
        * [MouseEvent](https://developer.mozilla.org/docs/Web/API/MouseEvent) and
        * keyboard events (keydown, keypress, and keyup).
        */
-      keys?: Array<'ctrl' | 'alt' | 'shift' | 'meta'>;
+      keys?: Array<'ctrl' | 'alt' | 'shift' | 'meta'> | undefined;
       /**
        * The [relatedTarget](https://developer.mozilla.org/docs/Web/API/MouseEvent/relatedTarget)
        * for [MouseEvent](https://developer.mozilla.org/docs/Web/API/MouseEvent).
        */
-      relatedTarget?: Node;
+      relatedTarget?: Node | undefined;
       /**
        * [which](https://developer.mozilla.org/docs/Web/API/KeyboardEvent/which)
        * for keyboard events (keydown, keypress, and keyup).
        */
-      which?: number;
+      which?: number | undefined;
       /**
        * x-coordinates for [MouseEvent](https://developer.mozilla.org/docs/Web/API/MouseEvent)
        * and [TouchEvent](https://developer.mozilla.org/docs/Web/API/TouchEvent).
        */
-      x?: number;
+      x?: number | undefined;
       /**
        * y-coordinates for [MouseEvent](https://developer.mozilla.org/docs/Web/API/MouseEvent)
        * and [TouchEvent](https://developer.mozilla.org/docs/Web/API/TouchEvent).
        */
-      y?: number;
+      y?: number | undefined;
     }
   }
 }
