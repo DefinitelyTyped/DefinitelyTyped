@@ -948,17 +948,21 @@ declare namespace Tagify {
     interface FocusEventData<T extends BaseTagData = TagData> extends FocusChangeEventData<T> { }
 
     /**
-     * Possible error messages that will occur on an InvalidTagEvent
-     */
-    type InvalidErrorMessages = 'empty' | 'number of tags exceeded' | 'pattern mismatch' | 'already exists' | 'not allowed';
-
-    /**
      * A tag has been added but did not pass validation.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface InvalidTagEventData<T extends BaseTagData = TagData> extends TagEventData<T> {
         data: T;
-        message: InvalidErrorMessages | string | boolean;
+        /**
+         * Message indicating the type of error. Can be either a boolean to indicate success,
+         * or a message code. Common message codes are:
+         * - `empty` - When the new tag is empty.
+         * - `number of tags exceeded` - When the new tag cannot be added because doing so would exceed the maximum number of allowed tags.
+         * - `pattern mismatch` - When the new tag does not conform to the specified (regex) pattern.
+         * - `already exists` - When a tag with the same name as the new tag exists already and duplicates are not allowed.
+         * - `not allowed` -  When the new tag is not allowed for any other reason.
+         */
+        message: string | boolean;
     }
 
     /**
