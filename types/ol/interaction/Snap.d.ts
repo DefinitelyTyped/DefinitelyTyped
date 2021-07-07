@@ -20,8 +20,8 @@ export interface Options {
 }
 export interface Result {
     snapped: boolean;
-    vertex: Coordinate;
-    vertexPixel: Pixel;
+    vertex: Coordinate | null;
+    vertexPixel: Pixel | null;
 }
 export interface SegmentData {
     feature: Feature<Geometry>;

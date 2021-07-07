@@ -1,5 +1,5 @@
-// Type definitions for headroom.js 0.11
-// Project: http://wicky.nillia.ms/headroom.js
+// Type definitions for headroom.js 0.12
+// Project: https://github.com/WickyNilliams/headroom.js
 // Definitions by: Jakub Olek <https://github.com/hakubo>
 //                 Juninho Cruz <https://github.com/juninhocruzg3>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -13,9 +13,13 @@ export as namespace Headroom;
  * Shows header when scrolling up
  */
 declare class Headroom {
-    constructor(element: HTMLElement | Node, options?: headroom.HeadroomOptions);
+    constructor(element: HTMLElement | Node, options?: Headroom.HeadroomOptions);
 
-    static options: headroom.HeadroomOptions;
+    /**
+     *  Default options
+     */
+    static readonly options: Headroom.HeadroomOptions;
+
     static cutsTheMustard: boolean;
 
     /** initialise */
@@ -37,7 +41,7 @@ declare class Headroom {
     unfreeze(): void;
 }
 
-declare namespace headroom {
+declare namespace Headroom {
     interface HeadroomOptions {
         /**
          * vertical offset in px before element is first unpinned

@@ -35,8 +35,8 @@ declare namespace merge2 {
     type StreamType = NodeJS.ReadableStream | Merge2Stream;
 
     interface Options {
-        end?: boolean;
-        objectMode?: boolean;
+        end?: boolean | undefined;
+        objectMode?: boolean | undefined;
     }
 
     interface Merge2Stream extends PassThrough {

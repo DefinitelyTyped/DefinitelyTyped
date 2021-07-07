@@ -4,6 +4,10 @@ import Projection from './Projection';
 export const EXTENT: Extent;
 export const HALF_SIZE: number;
 /**
+ * Maximum safe value in y direction
+ */
+export const MAX_SAFE_Y: number;
+/**
  * Projections equal to EPSG:3857.
  */
 export const PROJECTIONS: Projection[];

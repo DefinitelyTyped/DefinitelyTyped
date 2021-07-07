@@ -24,7 +24,7 @@ export interface Options {
     addCondition?: Condition;
     condition?: Condition;
     layers?: Layer<Source>[] | ((p0: Layer<Source>) => boolean);
-    style?: StyleLike;
+    style?: StyleLike | null;
     removeCondition?: Condition;
     toggleCondition?: Condition;
     multi?: boolean;
@@ -87,7 +87,7 @@ export default class Select extends Interaction {
     once(type: 'select', listener: (evt: SelectEvent) => void): EventsKey;
     un(type: 'select', listener: (evt: SelectEvent) => void): void;
 }
-declare class SelectEvent extends BaseEvent {
+export class SelectEvent extends BaseEvent {
     constructor(
         type: SelectEventType,
         selected: Feature<Geometry>[],

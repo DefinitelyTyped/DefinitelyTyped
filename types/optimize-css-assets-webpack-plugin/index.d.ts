@@ -3,7 +3,7 @@
 // Definitions by: Armando Meziat <https://github.com/odnamrataizem>
 //                 Spencer Miskoviak <https://github.com/skovy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { WebpackPluginInstance as Plugin, Compiler } from 'webpack';
 

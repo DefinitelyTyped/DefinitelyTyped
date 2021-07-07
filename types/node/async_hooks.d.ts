@@ -1,13 +1,6 @@
 /**
  * Async Hooks module: https://nodejs.org/api/async_hooks.html
  */
-declare module 'node:async_hooks' {
-    export * from 'async_hooks';
-}
-
-/**
- * Async Hooks module: https://nodejs.org/api/async_hooks.html
- */
 declare module 'async_hooks' {
     /**
      * Returns the asyncId of the current execution context.
@@ -92,7 +85,7 @@ declare module 'async_hooks' {
     interface AsyncResourceOptions {
       /**
        * The ID of the execution context that created this async event.
-       * Default: `executionAsyncId()`
+       * @default executionAsyncId()
        */
       triggerAsyncId?: number;
 
@@ -101,7 +94,7 @@ declare module 'async_hooks' {
        * This usually does not need to be set (even if `emitDestroy` is called
        * manually), unless the resource's `asyncId` is retrieved and the
        * sensitive API's `emitDestroy` is called with it.
-       * Default: `false`
+       * @default false
        */
       requireManualDestroy?: boolean;
     }
@@ -127,7 +120,7 @@ declare module 'async_hooks' {
          * @param fn The function to bind to the current execution context.
          * @param type An optional name to associate with the underlying `AsyncResource`.
          */
-        static bind<Func extends (...args: any[]) => any>(fn: Func, type?: string): Func & { asyncResource: AsyncResource };
+        static bind<Func extends (this: ThisArg, ...args: any[]) => any, ThisArg>(fn: Func, type?: string, thisArg?: ThisArg): Func & { asyncResource: AsyncResource };
 
         /**
          * Binds the given function to execute to this `AsyncResource`'s scope.
@@ -151,7 +144,7 @@ declare module 'async_hooks' {
         /**
          * Call AsyncHooks destroy callbacks.
          */
-        emitDestroy(): void;
+        emitDestroy(): this;
 
         /**
          * @return the unique ID assigned to this AsyncResource instance.
@@ -230,4 +223,8 @@ declare module 'async_hooks' {
          */
         enterWith(store: T): void;
     }
+}
+
+declare module 'node:async_hooks' {
+    export * from 'async_hooks';
 }

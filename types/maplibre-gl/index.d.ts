@@ -1070,7 +1070,7 @@ declare namespace mapboxgl {
          * let popup = new mapboxgl.Popup()
          * popup.toggleClassName('toggleClass')
          */
-        toggleClassName(className: string): void;
+        toggleClassName(className: string): boolean;
     }
 
     export interface PopupOptions {

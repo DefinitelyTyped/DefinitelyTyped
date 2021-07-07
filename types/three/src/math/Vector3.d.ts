@@ -73,7 +73,7 @@ export class Vector3 implements Vector {
     /**
      * Clones this vector.
      */
-    clone(): Vector3;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.

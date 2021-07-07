@@ -1,7 +1,3 @@
-declare module 'node:os' {
-    export * from 'os';
-}
-
 declare module 'os' {
     interface CpuInfo {
         model: string;
@@ -216,7 +212,7 @@ declare module 'os' {
     /**
      * Returns a string identifying the kernel version.
      * On POSIX systems, the operating system release is determined by calling
-     * [uname(3)][]. On Windows, `pRtlGetVersion` is used, and if it is not available,
+     * uname(3). On Windows, `pRtlGetVersion` is used, and if it is not available,
      * `GetVersionExW()` will be used. See
      * https://en.wikipedia.org/wiki/Uname#Examples for more information.
      */
@@ -240,4 +236,8 @@ declare module 'os' {
      * @param priority Must be in range of -20 to 19
      */
     function setPriority(pid: number, priority: number): void;
+}
+
+declare module 'node:os' {
+    export * from 'os';
 }

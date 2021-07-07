@@ -1,7 +1,3 @@
-declare module 'node:vm' {
-    export * from 'vm';
-}
-
 declare module 'vm' {
     interface Context extends NodeJS.Dict<any> { }
     interface BaseOptions {
@@ -17,7 +13,7 @@ declare module 'vm' {
         lineOffset?: number;
         /**
          * Specifies the column number offset that is displayed in stack traces produced by this script.
-         * Default: `0`
+         * @default 0
          */
         columnOffset?: number;
     }
@@ -99,6 +95,10 @@ declare module 'vm' {
              */
             wasm?: boolean;
         };
+        /**
+         * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
+         */
+        microtaskMode?: 'afterEvaluate';
     }
 
     type MeasureMemoryMode = 'summary' | 'detailed';
@@ -149,4 +149,8 @@ declare module 'vm' {
      * @experimental
      */
     function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
+}
+
+declare module 'node:vm' {
+    export * from 'vm';
 }

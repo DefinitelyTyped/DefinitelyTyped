@@ -19,7 +19,7 @@ export class Spherical {
     theta: number;
 
     set(radius: number, phi: number, theta: number): this;
-    clone(): Spherical;
+    clone(): this;
     copy(other: Spherical): this;
     makeSafe(): this;
     setFromVector3(v: Vector3): this;

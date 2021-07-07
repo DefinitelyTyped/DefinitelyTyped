@@ -881,11 +881,11 @@ let cameraOpts: mapboxgl.CameraOptions = {
     bearing: 0,
     pitch: 0,
     zoom: 0,
+    padding,
 };
 let cameraForBoundsOpts: mapboxgl.CameraForBoundsOptions = {
     offset: pointlike,
     maxZoom: 10,
-    padding,
     ...cameraOpts,
 };
 
@@ -1500,7 +1500,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'symbol-avoid-edges': false,
     'symbol-z-order': eitherType('viewport-y', 'source'),
     'icon-allow-overlap': eitherType(false, styleFunction, expression),
-    'icon-ignore-placement': false,
+    'icon-ignore-placement': eitherType(false, expression),
     'icon-optional': false,
     'icon-rotation-alignment': eitherType('map', 'viewport', 'auto'),
     'icon-size': eitherType(0, styleFunction, expression),
@@ -1521,7 +1521,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'text-max-width': eitherType(0, styleFunction, expression),
     'text-line-height': eitherType(0, expression),
     'text-letter-spacing': eitherType(0, expression),
-    'text-justify': eitherType('left', 'center', 'right', expression),
+    'text-justify': eitherType('auto', 'left', 'center', 'right', expression),
     'text-anchor': eitherType('center', styleFunction, expression),
     'text-max-angle': eitherType(0, expression),
     'text-rotate': eitherType(0, styleFunction, expression),

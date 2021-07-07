@@ -363,6 +363,7 @@ declare namespace jsrsasign.KJUR.jws {
                 jti?: string;
                 sub?: string[];
                 verifyAt?: string | number;
+                gracePeriod?: number;
             },
         ): boolean;
 

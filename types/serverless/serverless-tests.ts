@@ -73,6 +73,18 @@ class BadVariablePlugin implements Plugin {
     };
 }
 
+// Test serverless cli log with no message
+serverless.cli.log(); // $ExpectError
+
+// Test serverless cli log with no entity
+serverless.cli.log('updating stack...');
+
+// Test serverless cli log with no options
+serverless.cli.log('updating stack...', 'serverless');
+
+// Test serverless cli log with all args supplied
+serverless.cli.log('updating stack...', 'serverless', { color: 'orange', bold: true, underline: true, entity: 'serverless' });
+
 // Test provider's 'request' method
 const provider = serverless.getProvider('aws');
 provider.request('AccessAnalyzer', 'createAnalyzer');
@@ -90,6 +102,9 @@ provider.request(
         region: 'us-east-1',
     },
 );
+
+// Test provider's 'getServerlessDeploymentBucketName'
+provider.getServerlessDeploymentBucketName().then(bucketName => {});
 
 // Test ApiGateway validator
 getHttp(
@@ -122,6 +137,7 @@ const awsServerless: Aws.Serverless = {
     },
     frameworkVersion: 'testFrameworkVersion',
     configValidationMode: 'error',
+    variablesResolutionMode: '20210219',
     provider: {
         name: 'aws',
         runtime: 'testRuntime',
@@ -166,7 +182,7 @@ const awsServerless: Aws.Serverless = {
                 testrestapiresource: 'testrestapiresource'
             },
             websocketApiId: 'testwebsocketApiId',
-            apiKeySourceType: 'testapiKeySourceType',
+            apiKeySourceType: 'HEADER',
             minimumCompressionSize: 1,
             description: 'testdescription',
             binaryMediaTypes: ['testbinaryMediaTypes']
@@ -308,13 +324,13 @@ const awsServerless: Aws.Serverless = {
                 accessLogging: false,
                 format: 'testformat',
                 executionLogging: false,
-                level: 'testlevel',
+                level: 'ERROR',
                 fullExecutionData: false,
                 role: 'testrole',
                 roleManagedExternally: false,
             },
             websocket: {
-                level: 'testlevel'
+                level: 'INFO'
             },
             httpApi: {
                 format: 'testformat'
@@ -325,6 +341,7 @@ const awsServerless: Aws.Serverless = {
     package: {
         include: ['testinclude'],
         exclude: ['testexclude'],
+        patterns: ['!testpatternexclude', 'testpatterninclude'],
         excludeDevDependencies: false,
         artifact: 'testartifact',
         individually: true
@@ -358,12 +375,13 @@ const awsServerless: Aws.Serverless = {
             package: {
                 include: ['testinclude'],
                 exclude: ['testexclude'],
+                patterns: ['!testpatternexclude', 'testpatterninclude'],
                 excludeDevDependencies: false,
                 artifact: 'testartifact',
                 individually: true
             },
             layers: ['testlayers'],
-            tracing: 'testtracing',
+            tracing: 'PassThrough',
             condition: 'testcondition',
             dependsOn: ['testdependson'],
             destinations: {
@@ -455,6 +473,28 @@ const awsServerless: Aws.Serverless = {
                         rules: [
                             {
                                 prefix: 'testprefix',
+                                suffix: 'testsuffix',
+                            }
+                        ],
+                        existing: false
+                    }
+                }, {
+                    s3: {
+                        bucket: 'testbucket',
+                        event: 'testevent',
+                        rules: [
+                            {
+                                prefix: 'testprefix',
+                            }
+                        ],
+                        existing: false
+                    }
+                }, {
+                    s3: {
+                        bucket: 'testbucket',
+                        event: 'testevent',
+                        rules: [
+                            {
                                 suffix: 'testsuffix',
                             }
                         ],
@@ -635,6 +675,12 @@ const awsServerless: Aws.Serverless = {
                 },
                 Condition: 'testcondition',
             },
+            testFunctionLambdaFunctionQualifiedArn: {
+                Description: 'testDescription',
+                Export: {
+                    Name: 'testFunctionLambdaFunctionQualifiedArn',
+                },
+            },
         },
     },
 };
@@ -643,6 +689,85 @@ const awsServerless: Aws.Serverless = {
 // e.g. ${self:custom.vpc.${self:provider.stage}}
 awsServerless.provider.vpc = 'serverless reference';
 awsServerless.functions![0].vpc = 'serverless reference';
+
+const bunchOfConfigs: Aws.Serverless[] = [
+    {
+        service: 'users',
+        provider: { name: 'aws' },
+        functions: {}
+    },
+    {
+        service: 'users',
+        useDotenv: true,
+        provider: { name: 'aws' },
+        functions: {}
+    },
+    {
+        service: 'users',
+        configValidationMode: 'off',
+        unresolvedVariablesNotificationMode: 'error',
+        provider: { name: 'aws' },
+        functions: {}
+    },
+    {
+        service: 'users',
+        disabledDeprecations: [
+            '*'
+        ],
+        provider: { name: 'aws' },
+        functions: {}
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            iam: {
+                role: {
+                    name: 'aws',
+                    permissionBoundary: 'testpermissionsBoundary',
+                    managedPolicies: ['testmanagedPolicies'],
+                    statements: [
+                        {
+                            Effect: 'Allow',
+                            Sid: 'testSid',
+                            Condition: {
+                                testcondition: 'testconditionvalue'
+                            },
+                            Action: 'testAction',
+                            NotAction: 'testNotAction',
+                            Resource: 'testResource',
+                            NotResource: 'testNotResource'
+                        }
+                    ],
+                    tags: {
+                        testtagkey: 'testtagvalue'
+                    }
+                }
+            }
+        },
+        functions: {}
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            iam: {
+                role: 'testrole',
+            }
+        },
+        functions: {}
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            iam: {
+                deploymentRole: 'testdeploymentRole'
+            }
+        },
+        functions: {}
+    }
+];
 
 // Test Aws Class
 const aws = new Aws(serverless, options);

@@ -1,4 +1,4 @@
-// Type definitions for proper-url-join 2.0
+// Type definitions for proper-url-join 2.1
 // Project: https://github.com/moxystudio/js-proper-url-join
 // Definitions by: Jules Sam. Randolph <https://github.com/jsamr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,13 +12,13 @@ export interface Options {
      *
      * **Default**: `true`
      */
-    leadingSlash?: boolean;
+    leadingSlash?: boolean | 'keep';
     /**
      * Add a trailing slash.
      *
      * **Default**: `false`
      */
-    trailingSlash?: boolean;
+    trailingSlash?: boolean | 'keep';
     /**
      * Protocol relative URLs.
      *

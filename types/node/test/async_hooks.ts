@@ -6,7 +6,7 @@ import {
     executionAsyncResource,
     HookCallbacks,
     AsyncLocalStorage,
-} from 'node:async_hooks';
+} from 'async_hooks';
 
 {
     const hooks: HookCallbacks = {
@@ -59,6 +59,14 @@ import {
     let res = AsyncResource.bind((x: number) => x)(42);
     const asyncResource = new AsyncResource('');
     res = asyncResource.bind((x: number) => x)(42);
+    // $ExpectType AsyncResource
+    asyncResource.emitDestroy();
+
+    AsyncResource.bind(function() {
+        this.a; // $ExpectType number
+    }, 'test', {
+        a: 1,
+    });
 }
 
 {

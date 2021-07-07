@@ -1777,7 +1777,7 @@ declare namespace PlayerFramework {
         * Sets the MSMediaKeys to be used for decrypting media data.
         * @param mediaKeys The media keys to use for decrypting media data.
         **/
-        msSetMediaKeys(mediaKeys: MSMediaKeys): void;
+        msSetMediaKeys(mediaKeys: any): void;
         /**
         * Sets the media protection manager for a given media pipeline.
         * @param mediaProtectionManager

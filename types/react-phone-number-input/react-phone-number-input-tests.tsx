@@ -83,6 +83,7 @@ CountrySelect.defaultProps = {
 
 const test3 = (
     <PhoneInput
+        initialValueFormat={'national'}
         value={'+64271231234'}
         onChange={(value: string) => {
             console.log(value);
@@ -94,5 +95,6 @@ const test3 = (
         inputComponent={InputComponent}
         numberInputProps={{ type: 'tel' }}
         smartCaret={false}
+        flagComponent={(props: {country: string, flagUrl: string}) => <span>country: {props.country}, flagUrl: {props.flagUrl}</span>}
     />
 );

@@ -8,7 +8,8 @@ app.listen(3000, () => {
 
 app.get('/:foo', req => {
     req.params.foo; // $ExpectType string
-    req.params[0]; // $ExpectType string
+    req.params.bar; // $ExpectError
+    req.params[0]; // $ExpectError
     // $ExpectType string | false | null
     req.is(['application/json', 'application/xml']);
     // $ExpectType string | false | null
@@ -19,7 +20,8 @@ app.get('/:foo', req => {
 
 app.route('/:foo').get(req => {
     req.params.foo; // $ExpectType string
-    req.params[0]; // $ExpectType string
+    req.params.bar; // $ExpectError
+    req.params[0]; // $ExpectError
     // $ExpectType string | false | null
     req.is(['application/json', 'application/xml']);
     // $ExpectType string | false | null
@@ -41,7 +43,7 @@ app.route('/*').get<express.ParamsArray>(req => {
 });
 
 // Params can be a custom type
-// NB. out-of-the-box all params are strings, however, other types are allowed to accomadate request validation/coersion middleware
+// NB. out-of-the-box all params are strings, however, other types are allowed to accommodate request validation/coercion middleware
 app.get<{ foo: string; bar: number }>('/:foo/:bar', req => {
     req.params.foo; // $ExpectType string
     req.params.bar; // $ExpectType number
@@ -53,6 +55,29 @@ app.route('/:foo/:bar').get<{ foo: string; bar: number }>(req => {
     req.params.foo; // $ExpectType string
     req.params.bar; // $ExpectType number
     req.params.baz; // $ExpectError
+});
+
+// Optional params
+app.get('/:foo/:bar?', req => {
+    req.params.foo; // $ExpectType string
+    req.params.bar; // $ExpectType string | undefined
+});
+
+// Different delimiters
+app.get('/:foo/:bar-:baz/:qux', req => {
+    req.params.foo; // $ExpectType string
+    req.params.bar; // $ExpectType string
+    req.params.baz; // $ExpectType string
+    req.params.qux; // $ExpectType string
+    req.params.quxx; // $ExpectError
+});
+
+// regex parameters - not supported
+app.get('/:foo/:bar(\\d:+)/:baz', req => {
+    req.params.foo; // $ExpectType string
+    req.params.bar; // $ExpectType string
+    req.params.qux; // $ExpectType string
+    req.params.quxx; // $ExpectType string
 });
 
 // Query can be a custom type
@@ -87,9 +112,14 @@ app.get('/nextrouter', (req, res, next) => {
     next('router'); // $ExpectType void
 });
 
+// Next can receive a 'route' parameter to fall back to next route
+app.get('/nextroute', (req, res, next) => {
+    next('route'); // $ExpectType void
+});
+
 // Default types
 app.post('/', (req, res) => {
-    req.params[0]; // $ExpectType string
+    req.params[0]; // $ExpectError
 
     req.body; // $ExpectType any
     res.send('ok'); // $ExpectType Response<any, Record<string, any>, number>
@@ -97,6 +127,22 @@ app.post('/', (req, res) => {
 
 // Default types - under route
 app.route('/').post((req, res) => {
+    req.params[0]; // $ExpectError
+
+    req.body; // $ExpectType any
+    res.send('ok'); // $ExpectType Response<any, Record<string, any>, number>
+});
+
+// Default types - not using RouteParameters
+app.post('/' as string, (req, res) => {
+    req.params[0]; // $ExpectType string
+
+    req.body; // $ExpectType any
+    res.send('ok'); // $ExpectType Response<any, Record<string, any>, number>
+});
+
+// Default types - not using RouteParameters - under route
+app.route('/' as string).post((req, res) => {
     req.params[0]; // $ExpectType string
 
     req.body; // $ExpectType any

@@ -67,7 +67,7 @@ declare namespace hyphen {
         hyphenChar?: string;
 
         /**
-         * The minimum length for a word to get hyphenated. Can't be less than 5.
+         * The minimum length for a word to get hyphenated.
          * @default 5
          */
         minWordLength?: number;

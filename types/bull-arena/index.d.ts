@@ -7,6 +7,7 @@
 
 import { RequestHandler } from "express";
 import { ClientOpts } from "redis";
+import { Redis } from "ioredis";
 
 declare function Arena(
     options: BullArena.MiddlewareOptions,
@@ -65,7 +66,7 @@ declare namespace BullArena {
     }
 
     interface RedisClientConnectionOptions {
-        redis: ClientOpts;
+        redis: ClientOpts | Redis;
     }
 }
 

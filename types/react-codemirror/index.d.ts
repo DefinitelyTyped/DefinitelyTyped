@@ -3,7 +3,7 @@
 // Definitions by: Vicky Lai <https://github.com/velveret>
 //                 Rudi Chen <https://github.com/rudi-c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.8
 
 /// <reference types="react"/>
 /// <reference types="codemirror"/>

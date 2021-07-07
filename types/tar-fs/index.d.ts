@@ -18,29 +18,29 @@ export type Pack = tarStream.Pack;
 export type Extract = tarStream.Extract;
 
 export interface Options {
-    ignore?: (name: string) => boolean;
-    filter?: (name: string) => boolean;
-    map?: (header: Headers) => Headers;
-    mapStream?: (fileStream: ReadStream, header: Headers) => ReadStream;
-    dmode?: number;
-    fmode?: number;
-    readable?: boolean;
-    writable?: boolean;
-    strict?: boolean;
+    ignore?: ((name: string) => boolean) | undefined;
+    filter?: ((name: string) => boolean) | undefined;
+    map?: ((header: Headers) => Headers) | undefined;
+    mapStream?: ((fileStream: ReadStream, header: Headers) => ReadStream) | undefined;
+    dmode?: number | undefined;
+    fmode?: number | undefined;
+    readable?: boolean | undefined;
+    writable?: boolean | undefined;
+    strict?: boolean | undefined;
 }
 
 export interface PackOptions extends Options {
-    entries?: string[];
-    dereference?: boolean;
-    finalize?: boolean;
-    finish?: (pack: tarStream.Pack) => void;
-    pack?: tarStream.Pack;
+    entries?: string[] | undefined;
+    dereference?: boolean | undefined;
+    finalize?: boolean | undefined;
+    finish?: ((pack: tarStream.Pack) => void) | undefined;
+    pack?: tarStream.Pack | undefined;
 }
 
 export interface ExtractOptions extends Options {
-    ignore?: (name: string, header?: Headers) => boolean;
-    filter?: (name: string, header?: Headers) => boolean;
-    strip?: number;
+    ignore?: ((name: string, header?: Headers) => boolean) | undefined;
+    filter?: ((name: string, header?: Headers) => boolean) | undefined;
+    strip?: number | undefined;
 }
 
 export interface Headers {

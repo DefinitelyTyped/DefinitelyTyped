@@ -11,6 +11,7 @@
 // Minimum TypeScript Version: 3.5
 
 import * as React from 'react';
+import { ComponentNameToClassKey } from '@material-ui/core/styles/overrides';
 
 export type Display = boolean | 'true' | 'false' | 'excluded';
 export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' | 'custom';
@@ -205,6 +206,11 @@ export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
     label?: string;
 }
 
+export interface CustomHeadLabelRenderOptions extends MUIDataTableColumnState {
+    index: number;
+    colPos: number;
+}
+
 export interface MUIDataTableColumnOptions {
     /**
      * Function that returns a string or React component.
@@ -232,7 +238,7 @@ export interface MUIDataTableColumnOptions {
      * Used for creating a custom header to a column.
      * This method only affects the display in the table's header, other areas of the table (such as the View Columns popover), will use the column's label.
      */
-    customHeadLabelRender?: (dataIndex: number, rowIndex: number) => string | React.ReactNode;
+    customHeadLabelRender?: (options: CustomHeadLabelRenderOptions) => string | React.ReactNode;
     /**
      * These options only affect the filter chips that display after filter are selected.
      * To modify the filters themselves, see filterOptions.
@@ -839,22 +845,47 @@ export type MUIDataTableColumnDef = string | MUIDataTableColumn;
 
 type RenderCustomComponent<P> = (props: P) => React.ReactNode;
 
+export interface MUIDataTableCheckboxProps {
+    checked: boolean;
+    classes: {
+        checked: string;
+        disabled: string;
+        root: string;
+    };
+    color: 'primary' | 'secondary';
+    'data-description': 'row-select' | 'row-select-header' | 'table-filter' | 'table-view-col';
+    'data-index': number | null;
+    disabled: boolean;
+    indeterminante: boolean;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+}
+
 export interface MUIDataTableProps {
-    columns: MUIDataTableColumnDef[];
-    components?: Partial<{
-        ExpandButton: RenderCustomComponent<MUIDataTableExpandButton> | React.ReactNode;
-        TableBody: RenderCustomComponent<MUIDataTableBody> | React.ReactNode;
-        TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNode;
-        TableHead: RenderCustomComponent<MUIDataTableHead> | React.ReactNode;
-        TableResize: RenderCustomComponent<MUIDataTableResize> | React.ReactNode;
-        TableToolbar: RenderCustomComponent<MUIDataTableToolbar> | React.ReactNode;
-        TableToolbarSelect: RenderCustomComponent<MUIDataTableToolbarSelect> | React.ReactNode;
-        TableFilterList: RenderCustomComponent<MUIDataTableFilterList> | React.ReactNode;
-        Tooltip: React.ReactNode;
-    }>;
-    data: Array<object | number[] | string[]>;
-    options?: MUIDataTableOptions;
-    title: string | React.ReactNode;
+  columns: MUIDataTableColumnDef[];
+  components?: Partial<{
+    Checkbox: RenderCustomComponent<MUIDataTableCheckboxProps> | React.ReactNode;
+    ExpandButton: RenderCustomComponent<MUIDataTableExpandButton> | React.ReactNode;
+    TableBody: RenderCustomComponent<MUIDataTableBody> | React.ReactNode;
+    TableViewCol: RenderCustomComponent<MUIDataTableViewCol> | React.ReactNode;
+    TableFilterList: RenderCustomComponent<MUIDataTableFilterList> | React.ReactNode;
+    TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNode;
+    TableHead: RenderCustomComponent<MUIDataTableHead> | React.ReactNode;
+    TableResize: RenderCustomComponent<MUIDataTableResize> | React.ReactNode;
+    TableToolbar: RenderCustomComponent<MUIDataTableToolbar> | React.ReactNode;
+    TableToolbarSelect: RenderCustomComponent<MUIDataTableToolbarSelect> | React.ReactNode;
+    Tooltip: React.ReactNode;
+    icons: Partial<{
+      SearchIcon: React.ReactNode;
+      DownloadIcon: React.ReactNode;
+      PrintIcon: React.ReactNode;
+      ViewColumnIcon: React.ReactNode;
+      FilterIcon: React.ReactNode;
+    }>
+  }>;
+  data: Array<object | number[] | string[]>;
+  options?: MUIDataTableOptions;
+  title: string | React.ReactNode;
+  innerRef?: React.RefObject<React.Component<MUIDataTableProps, MUIDataTableState> | null | undefined>;
 }
 
 export interface MUIDataTableExpandButton {
@@ -1110,3 +1141,171 @@ export const DebounceTableSearch: React.ComponentType<DebouncedMUIDataTableSearc
 export function debounceSearchRender(debounceWait?: number): MUIDataTableOptions['customSearchRender'];
 
 export default MUIDataTable;
+
+declare module '@material-ui/core/styles/overrides' {
+    interface ComponentNameToClassKey {
+        MUIDataTable:
+            | 'root'
+            | 'caption'
+            | 'liveAnnounce'
+            | 'paper'
+            | 'responsiveScroll'
+            | 'tableRoot'
+            ;
+
+        MUIDataTableBody:
+            | 'root'
+            | 'emptyTitle'
+            | 'lastSimpleCell'
+            | 'lastStackedCell'
+            ;
+
+        MUIDataTableBodyCell:
+            | 'root'
+            | 'cellHide'
+            | 'cellStackedSmall'
+            | 'responsiveStackedSmall'
+            | 'responsiveStackedSmallParent'
+            | 'simpleCell'
+            | 'simpleHeader'
+            | 'stackedCommon'
+            | 'stackedCommonAlways'
+            | 'stackedHeader'
+            | 'stackedParent'
+            | 'stackedParentAlways'
+            ;
+
+        MUIDataTableBodyRow:
+            | 'root'
+            | 'hoverCursor'
+            | 'responsiveSimple'
+            | 'responsiveStacked'
+            ;
+
+        MUIDataTableFilter:
+            | 'root'
+            | 'checkbox'
+            | 'checkboxFormControl'
+            | 'checkboxFormControlLabel'
+            | 'checkboxFormGroup'
+            | 'checkboxIcon'
+            | 'checkboxListTitle'
+            | 'checked'
+            | 'filtersSelected'
+            | 'gridListTile'
+            | 'header'
+            | 'noMargin'
+            | 'reset'
+            | 'resetLink'
+            | 'title'
+            ;
+
+        MUIDataTableFilterList: 'root' | 'chip';
+
+        MUIDataTableFooter: 'root';
+
+        MUIDataTableHead:
+            | 'main'
+            | 'responsiveSimple'
+            | 'responsiveStacked'
+            | 'responsiveStackedAlways'
+            ;
+
+        MUIDataTableHeadCell:
+            | 'root'
+            | 'contentWrapper'
+            | 'data'
+            | 'dragCursor'
+            | 'fixedHeader'
+            | 'hintIconAlone'
+            | 'hintIconWithSortIcon'
+            | 'mypopper'
+            | 'sortAction'
+            | 'sortActive'
+            | 'sortLabelRoot'
+            | 'toolButton'
+            | 'tooltip'
+            ;
+
+        MUIDataTableHeadRow: 'root';
+
+        MUIDataTableJumpToPage:
+            | 'root'
+            | 'caption'
+            | 'input'
+            | 'select'
+            | 'selectIcon'
+            | 'selectRoot'
+            ;
+
+        MUIDataTablePagination:
+            | 'root'
+            | '@media screen and (max-width: 400px)'
+            | 'navContainer'
+            | 'selectRoot'
+            | 'tableCellContainer'
+            | 'toolbar'
+            ;
+
+        MUIDataTableResize: 'root' | 'resizer';
+
+        MUIDataTableSearch:
+            | 'clearIcon'
+            | 'main'
+            | 'searchIcon'
+            | 'searchText'
+            ;
+
+        MUIDataTableSelectCell:
+            | 'root'
+            | 'checkboxRoot'
+            | 'checked'
+            | 'disabled'
+            | 'expandDisabled'
+            | 'expanded'
+            | 'fixedHeader'
+            | 'fixedLeft'
+            | 'headerCell'
+            | 'hide'
+            | 'icon'
+            ;
+
+        MUIDataTableToolbar:
+            | 'root'
+            | '@media screen and (max-width: 480px)'
+            | "[theme.breakpoints.down('sm')]"
+            | "[theme.breakpoints.down('xs')]"
+            | 'actions'
+            | 'filterCloseIcon'
+            | 'filterPaper'
+            | 'fullWidthActions'
+            | 'fullWidthLeft'
+            | 'fullWidthRoot'
+            | 'fullWidthTitleText'
+            | 'icon'
+            | 'iconActive'
+            | 'left'
+            | 'searchIcon'
+            | 'titleRoot'
+            | 'titleText'
+            ;
+
+        MUIDataTableToolbarSelect:
+            | 'root'
+            | 'deleteIcon'
+            | 'iconButton'
+            | 'title'
+            ;
+
+        MUIDataTableViewCol:
+            | 'root'
+            | 'checkbox'
+            | 'checkboxRoot'
+            | 'checked'
+            | 'formControl'
+            | 'formGroup'
+            | 'label'
+            | 'title'
+            ;
+    }
+}

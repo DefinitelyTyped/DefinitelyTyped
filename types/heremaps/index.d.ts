@@ -737,6 +737,45 @@ declare namespace H {
                 READY,
             }
         }
+
+        /**
+         * This namespace provides GeoJSON functionality.
+         */
+        namespace geojson {
+            /**
+             * This class represents a GeoJSON reader responsible for fetching and interpreting GeoJSON data.
+             * It creates an instance of H.map.Object that can be displayed on the map (for more details see GeoJSON documentation {@link https://geojson.org}).
+             * Auxiliary data that accompanies geometries (the contents of the field properties) is bound to the map object and
+             * can be fetched with the method getData() on that object. See H.map.Object#getData.
+             * Note that you can load a GeoJSON file even from a different domain, if that domain supports Cross-Origin Resource Sharing.
+             */
+            class Reader extends H.data.AbstractReader {
+                /**
+                 * Constructor
+                 * @param opt_url {string=}
+                 * @param opt_options {H.data.geojson.Reader.Options=}
+                 */
+                constructor(opt_url?: string, opt_options?: H.data.geojson.Reader.Options);
+
+                /**
+                 * This method launches the parsing process on the provided data.
+                 * @param data {*=} A string or object containing the data to parse
+                 */
+                parseData(data: any): void;
+            }
+
+            namespace Reader {
+                /**
+                 * This type encapsulates configuration (initialization) properties for a H.data.geojson.Reader.
+                 * @property style {Function=} - The optional URL of the data file.
+                 * @property disableLegacyMode {boolean=} - An object providing additional reader configuration parameters.
+                 */
+                interface Options {
+                    style?: (mapObject: H.map.Object) => void;
+                    disableLegacyMode?: boolean;
+                }
+            }
+        }
     }
 
     /***** geo *****/

@@ -2933,6 +2933,10 @@ export interface revokeKey_reasonForRevocation {
  * @see module:packet.List
  */
 export namespace packet {
+    type AnyPacket = Compressed | Literal | Marker | OnePassSignature | PublicKey | PublicKeyEncryptedSessionKey |
+        PublicSubkey | SecretKey | SecretSubkey | Signature | SymEncryptedAEADProtected | SymEncryptedIntegrityProtected |
+        SymEncryptedSessionKey | SymmetricallyEncrypted | Trust | UserAttribute | Userid;
+
     /**
      * Allocate a new packet
      * @param tag property name from {@link module:enums.packet}
@@ -3199,24 +3203,24 @@ export namespace packet {
         /**
          * Creates a new PacketList with all packets from the given types
          */
-        filterByTag(): void;
+        filterByTag(...tags: enums.packet[]): List;
 
         /**
          * Traverses packet tree and returns first matching packet
          * @param type The packet type
          * @returns
          */
-        findPacket(type: enums.packet): List | undefined;
+        findPacket(type: enums.packet): AnyPacket | undefined;
 
         /**
          * Returns array of found indices by tag
          */
-        indexOfTag(): void;
+        indexOfTag(...tags: enums.packet[]): number[];
 
         /**
          * Concatenates packetlist or array of packets
          */
-        concat(): void;
+        concat(packets?: List): void;
 
         /**
          * Allocate a new packetlist from structured packetlist clone

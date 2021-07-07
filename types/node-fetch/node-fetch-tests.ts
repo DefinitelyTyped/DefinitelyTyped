@@ -56,16 +56,17 @@ function test_fetchUrlWithRequestObject() {
             aborted: false,
 
             addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean,
-                once?: boolean,
-                passive?: boolean
+                capture?: boolean | undefined,
+                once?: boolean | undefined,
+                passive?: boolean | undefined
             }) => undefined,
 
             removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean
+                capture?: boolean | undefined
             }) => undefined,
 
-            dispatchEvent: (event: any) => false
+            dispatchEvent: (event: any) => false,
+            onabort: null,
         }
     };
     const request: Request = new Request(
@@ -107,16 +108,17 @@ function test_fetchUrlObjectWithRequestObject() {
             aborted: false,
 
             addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean,
-                once?: boolean,
-                passive?: boolean
+                capture?: boolean | undefined,
+                once?: boolean | undefined,
+                passive?: boolean | undefined
             }) => undefined,
 
             removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean
+                capture?: boolean | undefined
             }) => undefined,
 
-            dispatchEvent: (event: any) => false
+            dispatchEvent: (event: any) => false,
+            onabort: null,
         }
     };
     const request: Request = new Request(
@@ -207,4 +209,8 @@ function test_ResponseInit() {
             timeout: response.timeout
         });
     });
+}
+
+async function test_BlobText() {
+    const someString = await new Blob(["Hello world"]).text(); // $ExpectType string
 }

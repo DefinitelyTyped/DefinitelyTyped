@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/apps-script/
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 motemen <https://github.com/motemen/>
+//                 Alexander Kuzmenko <https://github.com/eightalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -1477,8 +1478,8 @@ declare namespace GoogleAppsScript {
       setFormulaR1C1(formula: string): Range;
       setFormulas(formulas: string[][]): Range;
       setFormulasR1C1(formulas: string[][]): Range;
-      setHorizontalAlignment(alignment: "left" | "center" | "normal" | null): Range;
-      setHorizontalAlignments(alignments: ("left" | "center" | "normal" | null)[][]): Range;
+      setHorizontalAlignment(alignment: "left" | "center" | "normal" | "right" | null): Range;
+      setHorizontalAlignments(alignments: ("left" | "center" | "normal" | "right" | null)[][]): Range;
       setNote(note: string | null): Range;
       setNotes(notes: (string | null)[][]): Range;
       setNumberFormat(numberFormat: string): Range;
@@ -1542,7 +1543,7 @@ declare namespace GoogleAppsScript {
       setFontWeight(fontWeight: FontWeight | null): RangeList;
       setFormula(formula: string): RangeList;
       setFormulaR1C1(formula: string): RangeList;
-      setHorizontalAlignment(alignment: "left" | "center" | "normal" | null): RangeList;
+      setHorizontalAlignment(alignment: "left" | "center" | "normal" | "right" | null): RangeList;
       setNote(note: string | null): RangeList;
       setNumberFormat(numberFormat: string): RangeList;
       setShowHyperlink(showHyperlink: boolean): RangeList;
@@ -1576,6 +1577,8 @@ declare namespace GoogleAppsScript {
     interface RichTextValue {
       copy(): RichTextValueBuilder;
       getEndIndex(): Integer;
+      getLinkUrl(): string | null;
+      getLinkUrl(startOffset: Integer, endOffset: Integer): string | null;
       getRuns(): RichTextValue[];
       getStartIndex(): Integer;
       getText(): string;
@@ -1587,6 +1590,8 @@ declare namespace GoogleAppsScript {
      */
     interface RichTextValueBuilder {
       build(): RichTextValue;
+      setLinkUrl(startOffset: Integer, endOffset: Integer, linkUrl: string | null): RichTextValueBuilder;
+      setLinkUrl(linkUrl: string | null): RichTextValueBuilder;
       setText(text: string): RichTextValueBuilder;
       setTextStyle(startOffset: Integer, endOffset: Integer, textStyle: TextStyle | null): RichTextValueBuilder;
       setTextStyle(textStyle: TextStyle | null): RichTextValueBuilder;

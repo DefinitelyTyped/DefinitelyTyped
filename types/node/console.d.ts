@@ -1,14 +1,10 @@
-declare module 'node:console' {
-    export = console;
-}
-
 declare module 'console' {
-    import { InspectOptions } from 'node:util';
+    import { InspectOptions } from 'util';
 
     global {
         // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
         interface Console {
-            Console: NodeJS.ConsoleConstructor;
+            Console: console.ConsoleConstructor;
             /**
              * A simple assertion test that verifies whether `value` is truthy.
              * If it is not, an `AssertionError` is thrown.
@@ -29,16 +25,16 @@ declare module 'console' {
              */
             countReset(label?: string): void;
             /**
-             * The `console.debug()` function is an alias for {@link console.log()}.
+             * The `console.debug()` function is an alias for {@link console.log}.
              */
             debug(message?: any, ...optionalParams: any[]): void;
             /**
-             * Uses {@link util.inspect()} on `obj` and prints the resulting string to `stdout`.
+             * Uses {@link util.inspect} on `obj` and prints the resulting string to `stdout`.
              * This function bypasses any custom `inspect()` function defined on `obj`.
              */
             dir(obj: any, options?: InspectOptions): void;
             /**
-             * This method calls {@link console.log()} passing it the arguments received. Please note that this method does not produce any XML formatting
+             * This method calls {@link console.log} passing it the arguments received. Please note that this method does not produce any XML formatting
              */
             dirxml(...data: any[]): void;
             /**
@@ -51,7 +47,7 @@ declare module 'console' {
              */
             group(...label: any[]): void;
             /**
-             * The `console.groupCollapsed()` function is an alias for {@link console.group()}.
+             * The `console.groupCollapsed()` function is an alias for {@link console.group}.
              */
             groupCollapsed(...label: any[]): void;
             /**
@@ -59,7 +55,7 @@ declare module 'console' {
              */
             groupEnd(): void;
             /**
-             * The {@link console.info()} function is an alias for {@link console.log()}.
+             * The {@link console.info} function is an alias for {@link console.log}.
              */
             info(message?: any, ...optionalParams: any[]): void;
             /**
@@ -76,19 +72,19 @@ declare module 'console' {
              */
             time(label?: string): void;
             /**
-             * Stops a timer that was previously started by calling {@link console.time()} and prints the result to `stdout`.
+             * Stops a timer that was previously started by calling {@link console.time} and prints the result to `stdout`.
              */
             timeEnd(label?: string): void;
             /**
-             * For a timer that was previously started by calling {@link console.time()}, prints the elapsed time and other `data` arguments to `stdout`.
+             * For a timer that was previously started by calling {@link console.time}, prints the elapsed time and other `data` arguments to `stdout`.
              */
             timeLog(label?: string, ...data: any[]): void;
             /**
-             * Prints to `stderr` the string 'Trace :', followed by the {@link util.format()} formatted message and stack trace to the current position in the code.
+             * Prints to `stderr` the string 'Trace :', followed by the {@link util.format} formatted message and stack trace to the current position in the code.
              */
             trace(message?: any, ...optionalParams: any[]): void;
             /**
-             * The {@link console.warn()} function is an alias for {@link console.error()}.
+             * The {@link console.warn} function is an alias for {@link console.error}.
              */
             warn(message?: any, ...optionalParams: any[]): void;
 
@@ -110,12 +106,10 @@ declare module 'console' {
             timeStamp(label?: string): void;
         }
 
-        var console: Console;
-
-        namespace NodeJS {
+        namespace console {
             interface ConsoleConstructorOptions {
-                stdout: WritableStream;
-                stderr?: WritableStream;
+                stdout: NodeJS.WritableStream;
+                stderr?: NodeJS.WritableStream;
                 ignoreErrors?: boolean;
                 colorMode?: boolean | 'auto';
                 inspectOptions?: InspectOptions;
@@ -123,15 +117,18 @@ declare module 'console' {
 
             interface ConsoleConstructor {
                 prototype: Console;
-                new(stdout: WritableStream, stderr?: WritableStream, ignoreErrors?: boolean): Console;
+                new(stdout: NodeJS.WritableStream, stderr?: NodeJS.WritableStream, ignoreErrors?: boolean): Console;
                 new(options: ConsoleConstructorOptions): Console;
             }
-
-            interface Global {
-                console: typeof console;
-            }
         }
+
+        var console: Console;
     }
 
+    export = globalThis.console;
+}
+
+declare module 'node:console' {
+    import console = require('console');
     export = console;
 }

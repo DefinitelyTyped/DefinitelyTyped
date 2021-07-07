@@ -97,6 +97,7 @@ const op: semver.Operator = '';
 // declare const arr: any[];
 // declare const exp: RegExp;
 let strArr: ReadonlyArray<string> | null;
+let prereleaseIdAttr: ReadonlyArray<string | number> | null;
 let strNumArr: ReadonlyArray<string | number>;
 declare const numArr: string[];
 let comparatorResult: -1 | 0 | 1;
@@ -134,7 +135,7 @@ strn = semver.inc(str, 'prerelease', 'beta');
 num = semver.major(str, loose);
 num = semver.minor(str, loose);
 num = semver.patch(str, loose);
-strArr = semver.prerelease(str, loose);
+prereleaseIdAttr = semver.prerelease(str, loose);
 
 // Comparison
 bool = semver.gt(v1, v2, loose);

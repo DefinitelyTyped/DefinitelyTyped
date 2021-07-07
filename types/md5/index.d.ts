@@ -21,9 +21,9 @@ declare function md5(message: string | Buffer | number[] | Uint8Array, options?:
 
 declare namespace md5 {
     interface Options {
-        asBytes?: boolean;
-        asString?: boolean;
-        encoding?: 'binary' | string;
+        asBytes?: boolean | undefined;
+        asString?: boolean | undefined;
+        encoding?: 'binary' | string | undefined;
     }
 }
 

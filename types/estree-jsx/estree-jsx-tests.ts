@@ -43,6 +43,14 @@ declare let children: Array<JSXText | JSXExpressionContainer | JSXSpreadChild | 
 declare let string: string;
 declare let boolean: boolean;
 
+// JSXNamespacedName
+const namespacedNameNamespace: JSXIdentifier = namespacedName.namespace;
+const namespacedNameName: JSXIdentifier = namespacedName.name;
+
+// JSXMemberExpression
+const memberRxpressionObject: JSXMemberExpression | JSXIdentifier = memberExpression.object;
+const memberRxpressionProperty: JSXIdentifier = memberExpression.property;
+
 // JSXExpressionContainer
 const expOrEmpty: ESTree.Expression | JSXEmptyExpression = expressionContainer.expression;
 

@@ -1,8 +1,6 @@
 declare module 'fs/promises' {
-    export * from 'node:fs/promises';
-}
-
-declare module 'node:fs/promises' {
+    import { Abortable } from 'events';
+    import { Stream } from 'stream';
     import {
         Stats,
         BigIntStats,
@@ -20,7 +18,8 @@ declare module 'node:fs/promises' {
         BufferEncodingOption,
         OpenMode,
         Mode,
-    } from 'node:fs';
+        WatchOptions,
+    } from 'fs';
 
     interface FileHandle {
         /**
@@ -147,7 +146,7 @@ declare module 'node:fs/promises' {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'w'` is used.
          */
-        writeFile(data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } | BufferEncoding | null): Promise<void>;
+        writeFile(data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } & Abortable | BufferEncoding | null): Promise<void>;
 
         /**
          * See `fs.writev` promisified version.
@@ -514,7 +513,11 @@ declare module 'node:fs/promises' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    function writeFile(path: PathLike | FileHandle, data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } | BufferEncoding | null): Promise<void>;
+    function writeFile(
+        path: PathLike | FileHandle,
+        data: string | NodeJS.ArrayBufferView | Iterable<string | NodeJS.ArrayBufferView> | AsyncIterable<string | NodeJS.ArrayBufferView> | Stream,
+        options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } & Abortable | BufferEncoding | null
+        ): Promise<void>;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -537,7 +540,7 @@ declare module 'node:fs/promises' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | FileHandle, options?: { encoding?: null, flag?: OpenMode } | null): Promise<Buffer>;
+    function readFile(path: PathLike | FileHandle, options?: { encoding?: null, flag?: OpenMode } & Abortable | null): Promise<Buffer>;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -546,7 +549,7 @@ declare module 'node:fs/promises' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | FileHandle, options: { encoding: BufferEncoding, flag?: OpenMode } | BufferEncoding): Promise<string>;
+    function readFile(path: PathLike | FileHandle, options: { encoding: BufferEncoding, flag?: OpenMode } & Abortable | BufferEncoding): Promise<string>;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -555,7 +558,44 @@ declare module 'node:fs/promises' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | FileHandle, options?: BaseEncodingOptions & { flag?: OpenMode } | BufferEncoding | null): Promise<string | Buffer>;
+    function readFile(path: PathLike | FileHandle, options?: BaseEncodingOptions & Abortable & { flag?: OpenMode } | BufferEncoding | null): Promise<string | Buffer>;
 
     function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
+
+    /**
+     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
+     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
+     * If `encoding` is not supplied, the default of `'utf8'` is used.
+     * If `persistent` is not supplied, the default of `true` is used.
+     * If `recursive` is not supplied, the default of `false` is used.
+     */
+    function watch(filename: PathLike, options: WatchOptions & { encoding: "buffer" } | "buffer"): AsyncIterable<Buffer>;
+
+    /**
+     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
+     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
+     * If `encoding` is not supplied, the default of `'utf8'` is used.
+     * If `persistent` is not supplied, the default of `true` is used.
+     * If `recursive` is not supplied, the default of `false` is used.
+     */
+    function watch(
+        filename: PathLike,
+        options?: WatchOptions | BufferEncoding
+    ): AsyncIterable<string>;
+
+    /**
+     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
+     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
+     * If `encoding` is not supplied, the default of `'utf8'` is used.
+     * If `persistent` is not supplied, the default of `true` is used.
+     * If `recursive` is not supplied, the default of `false` is used.
+     */
+    function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<string> | AsyncIterable<Buffer>;
+}
+
+declare module 'node:fs/promises' {
+    export * from 'fs/promises';
 }

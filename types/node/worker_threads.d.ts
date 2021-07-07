@@ -1,13 +1,12 @@
-declare module 'node:worker_threads' {
-    export * from 'worker_threads';
-}
-
 declare module 'worker_threads' {
-    import { Context } from 'node:vm';
-    import EventEmitter = require('node:events');
-    import { Readable, Writable } from 'node:stream';
-    import { URL } from 'node:url';
-    import { FileHandle } from 'node:fs/promises';
+    import { Blob } from 'node:buffer';
+    import { Context } from 'vm';
+    import { EventEmitter } from 'events';
+    import { EventLoopUtilityFunction } from 'perf_hooks';
+    import { FileHandle } from 'fs/promises';
+    import { Readable, Writable } from 'stream';
+    import { URL } from 'url';
+    import { X509Certificate } from 'crypto';
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
@@ -21,7 +20,11 @@ declare module 'worker_threads' {
         readonly port2: MessagePort;
     }
 
-    type TransferListItem = ArrayBuffer | MessagePort | FileHandle;
+    interface WorkerPerformance {
+        eventLoopUtilization: EventLoopUtilityFunction;
+    }
+
+    type TransferListItem = ArrayBuffer | MessagePort | FileHandle | X509Certificate | Blob;
 
     class MessagePort extends EventEmitter {
         close(): void;
@@ -91,6 +94,9 @@ declare module 'worker_threads' {
          * Additional data to send in the first worker message.
          */
         transferList?: TransferListItem[];
+        /**
+         * @default true
+         */
         trackUnmanagedFds?: boolean;
     }
 
@@ -120,6 +126,7 @@ declare module 'worker_threads' {
         readonly stderr: Readable;
         readonly threadId: number;
         readonly resourceLimits?: ResourceLimits;
+        readonly performance: WorkerPerformance;
 
         /**
          * @param filename  The path to the Worker’s main script or module.
@@ -139,11 +146,11 @@ declare module 'worker_threads' {
 
         /**
          * Returns a readable stream for a V8 snapshot of the current state of the Worker.
-         * See [`v8.getHeapSnapshot()`][] for more details.
+         * See `v8.getHeapSnapshot()` for more details.
          *
          * If the Worker thread is no longer running, which may occur before the
-         * [`'exit'` event][] is emitted, the returned `Promise` will be rejected
-         * immediately with an [`ERR_WORKER_NOT_RUNNING`][] error
+         * `'exit'` event is emitted, the returned `Promise` will be rejected
+         * immediately with an `ERR_WORKER_NOT_RUNNING` error
          */
         getHeapSnapshot(): Promise<Readable>;
 
@@ -204,6 +211,22 @@ declare module 'worker_threads' {
         off(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
+    interface BroadcastChannel extends NodeJS.RefCounted {}
+
+    /**
+     * See https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel
+     */
+    class BroadcastChannel {
+        readonly name: string;
+        onmessage: (message: unknown) => void;
+        onmessageerror: (message: unknown) => void;
+
+        constructor(name: string);
+
+        close(): void;
+        postMessage(message: unknown): void;
+    }
+
     /**
      * Mark an object as not transferable.
      * If `object` occurs in the transfer list of a `port.postMessage()` call, it will be ignored.
@@ -239,4 +262,25 @@ declare module 'worker_threads' {
      * `MessagePort`’s queue.
      */
     function receiveMessageOnPort(port: MessagePort): { message: any } | undefined;
+
+    type Serializable = string | object | number | boolean | bigint;
+
+    /**
+     * @param key Any arbitrary, cloneable JavaScript value that can be used as a {Map} key.
+     * @experimental
+     */
+    function getEnvironmentData(key: Serializable): Serializable;
+
+    /**
+     * @param key Any arbitrary, cloneable JavaScript value that can be used as a {Map} key.
+     * @param value Any arbitrary, cloneable JavaScript value that will be cloned
+     * and passed automatically to all new `Worker` instances. If `value` is passed
+     * as `undefined`, any previously set value for the `key` will be deleted.
+     * @experimental
+     */
+    function setEnvironmentData(key: Serializable, value: Serializable): void;
+}
+
+declare module 'node:worker_threads' {
+    export * from 'worker_threads';
 }

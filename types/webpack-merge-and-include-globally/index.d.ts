@@ -2,6 +2,7 @@
 // Project: https://github.com/markshapiro/webpack-merge-and-include-globally#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin, compilation } from 'webpack';
 
@@ -33,28 +34,36 @@ declare namespace MergeIntoFile {
     interface Options {
         /**
          * array of entry points (strings) for which this plugin should run only
-         * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#hash}
+         * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#chunks}
+         * @default undefined
          */
-        chunks?: string[];
+        chunks?: string[] | undefined;
         /**
          * encoding of node.js reading
+         * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#encoding}
          * @default 'utf-8'
          */
-        encoding?: string;
-        files?: FilesMap | SourceDestinationMaps;
+        encoding?: string | undefined;
+        files?: FilesMap | SourceDestinationMaps | undefined;
         /**
          * set true to append version hash before file extension.
          * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#hash}
          * @default false
          */
-        hash?: boolean;
+        hash?: boolean | undefined;
         /**
          * Object that maps resulting file names to transform methods that will be applied on merged content before saving. Use to minify / uglify the result.
          * {@linkhttps://github.com/markshapiro/webpack-merge-and-include-globally#transform}
          */
         transform?: {
             [key: string]: (code: string) => string;
-        };
+        } | undefined;
+        /**
+         * string used between files when joining them together
+         * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#separator}
+         * @default '\n'
+         */
+        separator?: string | undefined;
     }
 }
 

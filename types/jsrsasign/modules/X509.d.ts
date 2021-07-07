@@ -188,7 +188,7 @@ declare namespace jsrsasign {
 
         /**
          * verifies signature value by public key
-         * @param pubKey public key object
+         * @param pubKey public key object or hexadecimal string of X.509 certificate
          * @return true if signature value is valid otherwise false
          * @description
          * This method verifies signature value of hexadecimal string of
@@ -199,7 +199,7 @@ declare namespace jsrsasign {
          * x.readCertPEM(pemCert);
          * x.verifySignature(pubKey) → true, false or raising exception
          */
-        verifySignature(pubKey: RSAKey | KJUR.crypto.DSA | KJUR.crypto.ECDSA): boolean;
+        verifySignature(pubKey: string | RSAKey | KJUR.crypto.DSA | KJUR.crypto.ECDSA | ECCPrivateKey): boolean;
 
         /**
          * set array of X.509v3 extesion information such as extension OID, criticality and value index.

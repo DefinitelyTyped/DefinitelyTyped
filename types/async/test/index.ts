@@ -341,31 +341,26 @@ async.auto<A>({
     (err, results) => { console.log('finished auto'); }
 );
 
-async.retry(); // $ExpectType Promise<void>
-async.retry(3); // $ExpectType Promise<void>
-// $ExpectType Promise<void>
-async.retry(
-    3,
-    (callback, results) => {},
-);
-// $ExpectType void
-async.retry(
-    { times: 3, interval: 200 },
-    (callback, results) => {},
-    (err, result) => {},
-);
-// $ExpectType void
-async.retry(
-    { times: 3, interval: retryCount => 200 * retryCount },
-    (callback, results) => {},
-    (err, result) => {},
-);
-// $ExpectType void
-async.retry(
-    { times: 3, interval: 200, errorFilter: err => true },
-    (callback, results) => {},
-    (err, result) => {},
-);
+async.retry(); // $ExpectError
+async.retry(3); // $ExpectError
+
+async.retry(async () => 2); // $ExpectType Promise<number>
+async.retry<number>(async () => 2); // $ExpectType Promise<number>
+
+// dtslint doesn't seem to handle $ExpectType Promise<unknown>, expects Promise<{}>
+const xx: Promise<number> = async.retry(cb => { cb(null, 2); });
+async.retry<number>(cb => { cb(null, 2); }); // $ExpectType Promise<number>
+
+async.retry(1, async () => 2); // $ExpectType Promise<number>
+async.retry<number>(1, async () => 2); // $ExpectType Promise<number>
+
+async.retry<number>(1, cb => { cb(null, 2); }); // $ExpectType Promise<number>
+async.retry<number>({ times: 3, interval: 200 }, cb => { cb(null, 2); }); // $ExpectType Promise<number>
+async.retry<number>(cb => { cb(null, 2); }, (err: Error, r: number) => {}); // $ExpectType void
+async.retry<number>(1, cb => { cb(null, 2); }, (err: Error, r: number) => {}); // $ExpectType void
+async.retry<number>({ times: 3, interval: 200 }, cb => { cb(null, 2); }, (err: Error, r: number) => {}); // $ExpectType void
+async.retry<number>({ interval: rc => 200 * rc }, cb => { cb(null, 2); }, (err: Error, r: number) => {}); // $ExpectType void
+async.retry<number, string>({ errorFilter: (x: string) => true }, cb => { cb("oh no"); }); // $ExpectType Promise<number>
 
 async.retryable(
     (callback) => {},

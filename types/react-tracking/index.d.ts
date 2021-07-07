@@ -1,4 +1,4 @@
-// Type definitions for react-tracking 7.0
+// Type definitions for react-tracking 8.1
 // Project: https://github.com/NYTimes/react-tracking
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Christopher Pappas <https://github.com/damassi>
@@ -6,9 +6,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface TrackingProp<P = {}> {
+    /**
+     * This function tracks an event, along with related data.
+     */
     trackEvent(data: Partial<P>): void;
 
     /**
@@ -17,7 +20,14 @@ export interface TrackingProp<P = {}> {
     getTrackingData(): {};
 }
 
-type Falsy = false | null | undefined | '';
+export interface TrackingHook<P = {}> extends TrackingProp<P> {
+    /**
+     * This component will pass any tracking data as context to tracking calls made in any components within its subtree.
+     */
+    Track: TrackingComponent<P>;
+}
+
+type Falsy = false | null | undefined | "";
 
 export interface Options<T> {
     /**
@@ -52,6 +62,16 @@ export interface Options<T> {
     process?(ownTrackingData: T): T | Falsy;
 }
 
+export interface DecoratorOptions<T> extends Options<T> {
+    /**
+     * When set to `true`, adding a ref to the wrapped component will actually return the instance of the underlying
+     * component.
+     *
+     * Default is `false`.
+     */
+    forwardRef?: boolean;
+}
+
 export type TrackingInfo<T, P, S> = T | ((props: P, state: S, args: any[any], [value, err]: [any, any]) => T | Falsy);
 
 // Duplicated from ES6 lib to remove the `void` typing, otherwise `track` can’t be used as a HOC function that passes
@@ -60,7 +80,7 @@ type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFuncti
 type MethodDecorator = <T>(
     target: object,
     propertyKey: string | symbol,
-    descriptor: TypedPropertyDescriptor<T>
+    descriptor: TypedPropertyDescriptor<T>,
 ) => TypedPropertyDescriptor<T>;
 export type Decorator = ClassDecorator & MethodDecorator;
 
@@ -74,8 +94,11 @@ export const ReactTrackingContext: TrackingContext;
 
 /**
  * A React hook used to tap into the tracking context.
+ *
+ * @param trackingData represents the data to be tracked (or a function returning that data)
+ * @param options Additional options
  */
-export function useTracking<P = {}>(): TrackingProp<P>;
+export function useTracking<P = {}>(trackingData?: Partial<P>, options?: Partial<Options<P>>): TrackingHook<P>;
 
 /**
  * This is the type of the `track` function. It’s declared as an interface so that consumers can extend the typing and
@@ -84,8 +107,16 @@ export function useTracking<P = {}>(): TrackingProp<P>;
  * For examples of such extensions see: https://github.com/artsy/reaction/blob/master/src/utils/track.ts
  */
 export interface Track<T = any, P = any, S = any> {
-    <K extends keyof T>(trackingInfo?: TrackingInfo<Pick<T, K>, P, S>, options?: Options<Partial<T>>): Decorator;
+    <K extends keyof T>(
+        trackingInfo?: TrackingInfo<Pick<T, K>, P, S>,
+        options?: DecoratorOptions<Partial<T>>,
+    ): Decorator;
 }
+
+/**
+ * This component will pass any tracking data as context to tracking calls made in any components within its subtree.
+ */
+export type TrackingComponent<P = {}> = React.FC;
 
 export const track: Track;
 export default track;

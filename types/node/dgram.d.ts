@@ -1,11 +1,7 @@
-declare module 'node:dgram' {
-    export * from 'dgram';
-}
-
 declare module 'dgram' {
-    import { AddressInfo } from 'node:net';
-    import * as dns from 'node:dns';
-    import EventEmitter = require('node:events');
+    import { AddressInfo } from 'net';
+    import * as dns from 'dns';
+    import { EventEmitter, Abortable } from 'events';
 
     interface RemoteInfo {
         address: string;
@@ -23,7 +19,7 @@ declare module 'dgram' {
 
     type SocketType = "udp4" | "udp6";
 
-    interface SocketOptions {
+    interface SocketOptions extends Abortable {
         type: SocketType;
         reuseAddr?: boolean;
         /**
@@ -142,4 +138,8 @@ declare module 'dgram' {
         prependOnceListener(event: "listening", listener: () => void): this;
         prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
     }
+}
+
+declare module 'node:dgram' {
+    export * from 'dgram';
 }

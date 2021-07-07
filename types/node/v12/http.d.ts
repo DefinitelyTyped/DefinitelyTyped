@@ -1,11 +1,7 @@
-declare module 'node:http' {
-    export * from 'http';
-}
-
 declare module 'http' {
-    import * as stream from 'node:stream';
-    import { URL } from 'node:url';
-    import { Socket, Server as NetServer } from 'node:net';
+    import * as stream from 'stream';
+    import { URL } from 'url';
+    import { Socket, Server as NetServer } from 'net';
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders {
@@ -36,6 +32,7 @@ declare module 'http' {
         'content-type'?: string;
         'cookie'?: string;
         'date'?: string;
+        'etag'?: string;
         'expect'?: string;
         'expires'?: string;
         'forwarded'?: string;
@@ -335,6 +332,10 @@ declare module 'http' {
          * Socket timeout in milliseconds. This will set the timeout after the socket is connected.
          */
         timeout?: number;
+        /**
+         * Scheduling strategy to apply when picking the next free socket to use. Default: 'fifo'.
+         */
+        scheduling?: 'fifo' | 'lifo';
     }
 
     class Agent {

@@ -1,4 +1,4 @@
-// Type definitions for slice-ansi 4.0
+// Type definitions for slice-ansi 5.0
 // Project: https://github.com/chalk/slice-ansi#readme
 // Definitions by: Dan Imhoff <https://github.com/dwieeb>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -10,6 +10,4 @@
  * @param beginSlice Zero-based index at which to begin the slice
  * @param [endSlice] Zero-based index at which to end the slice
  */
-declare function sliceAnsi(input: string, beginSlice: number, endSlice?: number): string;
-
-export = sliceAnsi;
+export default function sliceAnsi(input: string, beginSlice: number, endSlice?: number): string;

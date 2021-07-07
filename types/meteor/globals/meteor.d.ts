@@ -31,7 +31,7 @@ declare module Meteor {
         services?: any;
     }
 
-    function user(): User | null;
+    function user(options?: { fields?: Mongo.FieldSpecifier }): User | null;
 
     function userId(): string | null;
     var users: Mongo.Collection<User>;

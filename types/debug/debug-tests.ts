@@ -33,3 +33,8 @@ extendedWithCustomDelimiter("Testing this is an IDebugger, too.");
 debug2.log = console.log.bind(console);
 const anotherLogger = debug2("DefinitelyTyped:error");
 anotherLogger("This should be printed to stdout");
+
+// $ExpectType string | number
+debug1.selectColor("DefinitelyTyped:log");
+// $ExpectType string | number
+debug2.selectColor("DefinitelyTyped:log");

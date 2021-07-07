@@ -1,3 +1,7 @@
+import * as Prism from 'prismjs';
+import * as components from 'prismjs/components';
+import loadLanguages = require('prismjs/components/');
+
 const element = document.createElement("code");
 const container = document.querySelector("div");
 const callback = (element: Element) => console.log(element);
@@ -81,3 +85,17 @@ Prism.languages.insertBefore('javascript', 'function-variable', {
         alias: ['function-variable', 'method', 'function', 'property-access']
     }
 });
+
+// $ExpectType Record<string, any>
+components.core;
+// $ExpectType Record<string, any>
+components.languages;
+// $ExpectType Record<string, any>
+components.plugins;
+// $ExpectType Record<string, any>
+components.themes;
+
+loadLanguages();
+loadLanguages('typescript');
+loadLanguages(['javascript', 'typescript']);
+loadLanguages.silent = true;

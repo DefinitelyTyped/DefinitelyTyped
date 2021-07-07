@@ -92,15 +92,15 @@ export interface ComputedPropertyGetterObj<T> {
 export interface ComputedPropertySetterObj<T> {
     set(this: any, key: string, value: T): T;
 }
-export type ComputedPropertyObj<T> =
-    | ComputedPropertyGetterObj<T>
-    | ComputedPropertySetterObj<T>
-    | (ComputedPropertyGetterObj<T> & ComputedPropertySetterObj<T>);
+export type ComputedPropertyObj<Get, Set> =
+    | ComputedPropertyGetterObj<Get>
+    | ComputedPropertySetterObj<Set>
+    | (ComputedPropertyGetterObj<Get> & ComputedPropertySetterObj<Set>);
 
 export type ComputedPropertyGetter<T> = ComputedPropertyGetterFunction<T> | ComputedPropertyGetterObj<T>;
 export type ComputedPropertySetter<T> = ComputedPropertySetterFunction<T> | ComputedPropertySetterObj<T>;
 
-export type ComputedPropertyCallback<T> = ComputedPropertyGetterFunction<T> | ComputedPropertyObj<T>;
+export type ComputedPropertyCallback<Get, Set = Get> = ComputedPropertyGetterFunction<Get> | ComputedPropertyObj<Get, Set>;
 
 export type ObserverMethod<Target, Sender> =
     | keyof Target

@@ -1,13 +1,26 @@
-declare module 'node:perf_hooks' {
-    export * from 'perf_hooks';
-}
-
 declare module 'perf_hooks' {
-    import { AsyncResource } from 'node:async_hooks';
+    import { AsyncResource } from 'async_hooks';
 
     type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
 
-    interface PerformanceEntry {
+    interface NodeGCPerformanceDetail {
+        /**
+         * When `performanceEntry.entryType` is equal to 'gc', `the performance.kind` property identifies
+         * the type of garbage collection operation that occurred.
+         * See perf_hooks.constants for valid values.
+         */
+        readonly kind?: number;
+
+        /**
+         * When `performanceEntry.entryType` is equal to 'gc', the `performance.flags`
+         * property contains additional information about garbage collection operation.
+         * See perf_hooks.constants for valid values.
+         */
+        readonly flags?: number;
+    }
+
+    class PerformanceEntry {
+        protected constructor();
         /**
          * The total number of milliseconds elapsed for this entry.
          * This value will not be meaningful for all Performance Entry types.
@@ -30,22 +43,10 @@ declare module 'perf_hooks' {
          */
         readonly entryType: EntryType;
 
-        /**
-         * When `performanceEntry.entryType` is equal to 'gc', `the performance.kind` property identifies
-         * the type of garbage collection operation that occurred.
-         * See perf_hooks.constants for valid values.
-         */
-        readonly kind?: number;
-
-        /**
-         * When `performanceEntry.entryType` is equal to 'gc', the `performance.flags`
-         * property contains additional information about garbage collection operation.
-         * See perf_hooks.constants for valid values.
-         */
-        readonly flags?: number;
+        readonly details?: NodeGCPerformanceDetail | unknown; // TODO: Narrow this based on entry type.
     }
 
-    interface PerformanceNodeTiming extends PerformanceEntry {
+    class PerformanceNodeTiming extends PerformanceEntry {
         /**
          * The high resolution millisecond timestamp at which the Node.js process completed bootstrap.
          */
@@ -88,6 +89,55 @@ declare module 'perf_hooks' {
         utilization: number;
     }
 
+    /**
+     * @param util1 The result of a previous call to eventLoopUtilization()
+     * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
+     */
+    type EventLoopUtilityFunction = (
+        util1?: EventLoopUtilization,
+        util2?: EventLoopUtilization,
+    ) => EventLoopUtilization;
+
+    interface MarkOptions {
+        /**
+         * Additional optional detail to include with the mark.
+         */
+        detail?: unknown;
+        /**
+         * An optional timestamp to be used as the mark time.
+         * @default `performance.now()`.
+         */
+        startTime?: number;
+    }
+
+    interface MeasureOptions {
+        /**
+         * Additional optional detail to include with the mark.
+         */
+        detail?: unknown;
+        /**
+         * Duration between start and end times.
+         */
+        duration?: number;
+        /**
+         * Timestamp to be used as the end time, or a string identifying a previously recorded mark.
+         */
+        end?: number | string;
+        /**
+         * Timestamp to be used as the start time, or a string identifying a previously recorded mark.
+         */
+        start?: number | string;
+    }
+
+    interface TimerifyOptions {
+        /**
+         * A histogram object created using
+         * `perf_hooks.createHistogram()` that will record runtime durations in
+         * nanoseconds.
+         */
+        histogram?: RecordableHistogram;
+    }
+
     interface Performance {
         /**
          * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
@@ -103,7 +153,7 @@ declare module 'perf_hooks' {
          * Performance marks are used to mark specific significant moments in the Performance Timeline.
          * @param name
          */
-        mark(name?: string): void;
+        mark(name?: string, options?: MarkOptions): void;
 
         /**
          * Creates a new PerformanceMeasure entry in the Performance Timeline.
@@ -120,7 +170,8 @@ declare module 'perf_hooks' {
          * @param startMark
          * @param endMark
          */
-        measure(name: string, startMark: string, endMark: string): void;
+        measure(name: string, startMark?: string, endMark?: string): void;
+        measure(name: string, options: MeasureOptions): void;
 
         /**
          * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
@@ -142,17 +193,14 @@ declare module 'perf_hooks' {
          * A PerformanceObserver must be subscribed to the 'function' event type in order for the timing details to be accessed.
          * @param fn
          */
-        timerify<T extends (...optionalParams: any[]) => any>(fn: T): T;
+        timerify<T extends (...params: any[]) => any>(fn: T, options?: TimerifyOptions): T;
 
         /**
          * eventLoopUtilization is similar to CPU utilization except that it is calculated using high precision wall-clock time.
          * It represents the percentage of time the event loop has spent outside the event loop's event provider (e.g. epoll_wait).
          * No other CPU idle time is taken into consideration.
-         *
-         * @param util1 The result of a previous call to eventLoopUtilization()
-         * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
          */
-        eventLoopUtilization(util1?: EventLoopUtilization, util2?: EventLoopUtilization): EventLoopUtilization;
+        eventLoopUtilization: EventLoopUtilityFunction;
     }
 
     interface PerformanceObserverEntryList {
@@ -185,12 +233,10 @@ declare module 'perf_hooks' {
         disconnect(): void;
 
         /**
-         * Subscribes the PerformanceObserver instance to notifications of new PerformanceEntry instances identified by options.entryTypes.
+         * Subscribes the PerformanceObserver instance to notifications of new PerformanceEntry instances identified by options.entryTypes or options.type.
          * When options.buffered is false, the callback will be invoked once for every PerformanceEntry instance.
-         * Property buffered defaults to false.
-         * @param options
          */
-        observe(options: { entryTypes: ReadonlyArray<EntryType>; buffered?: boolean }): void;
+        observe(options: { entryTypes: ReadonlyArray<EntryType> } | { type: EntryType }): void;
     }
 
     namespace constants {
@@ -219,27 +265,7 @@ declare module 'perf_hooks' {
         resolution?: number;
     }
 
-    interface EventLoopDelayMonitor {
-        /**
-         * Enables the event loop delay sample timer. Returns `true` if the timer was started, `false` if it was already started.
-         */
-        enable(): boolean;
-        /**
-         * Disables the event loop delay sample timer. Returns `true` if the timer was stopped, `false` if it was already stopped.
-         */
-        disable(): boolean;
-
-        /**
-         * Resets the collected histogram data.
-         */
-        reset(): void;
-
-        /**
-         * Returns the value at the given percentile.
-         * @param percentile A percentile value between 1 and 100.
-         */
-        percentile(percentile: number): number;
-
+    interface Histogram {
         /**
          * A `Map` object detailing the accumulated percentile distribution.
          */
@@ -269,7 +295,63 @@ declare module 'perf_hooks' {
          * The standard deviation of the recorded event loop delays.
          */
         readonly stddev: number;
+
+        /**
+         * Resets the collected histogram data.
+         */
+        reset(): void;
+
+        /**
+         * Returns the value at the given percentile.
+         * @param percentile A percentile value between 1 and 100.
+         */
+        percentile(percentile: number): number;
     }
 
-    function monitorEventLoopDelay(options?: EventLoopMonitorOptions): EventLoopDelayMonitor;
+    interface IntervalHistogram extends Histogram {
+        /**
+         * Enables the event loop delay sample timer. Returns `true` if the timer was started, `false` if it was already started.
+         */
+        enable(): boolean;
+        /**
+         * Disables the event loop delay sample timer. Returns `true` if the timer was stopped, `false` if it was already stopped.
+         */
+        disable(): boolean;
+    }
+
+    interface RecordableHistogram extends Histogram {
+        record(val: number | bigint): void;
+
+        /**
+         * Calculates the amount of time (in nanoseconds) that has passed since the previous call to recordDelta() and records that amount in the histogram.
+         */
+        recordDelta(): void;
+    }
+
+    function monitorEventLoopDelay(options?: EventLoopMonitorOptions): IntervalHistogram;
+
+    interface CreateHistogramOptions {
+        /**
+         * The minimum recordable value. Must be an integer value greater than 0.
+         * @default 1
+         */
+        min?: number | bigint;
+
+        /**
+         * The maximum recordable value. Must be an integer value greater than min.
+         * @default Number.MAX_SAFE_INTEGER
+         */
+        max?: number | bigint;
+        /**
+         * The number of accuracy digits. Must be a number between 1 and 5.
+         * @default 3
+         */
+        figures?: number;
+    }
+
+    function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
+}
+
+declare module 'node:perf_hooks' {
+    export * from 'perf_hooks';
 }

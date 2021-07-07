@@ -58,5 +58,5 @@ declare namespace QueryString {
 
     function stringify(obj: any, options?: IStringifyOptions): string;
     function parse(str: string, options?: IParseOptions & { decoder?: never }): ParsedQs;
-    function parse(str: string, options?: IParseOptions): { [key: string]: unknown };
+    function parse(str: string | Record<string, string>, options?: IParseOptions): { [key: string]: unknown };
 }

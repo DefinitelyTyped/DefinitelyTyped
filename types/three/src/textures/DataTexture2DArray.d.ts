@@ -1,9 +1,8 @@
 import { Texture } from './Texture';
-import { TypedArray } from '../polyfills';
 import { TextureFilter } from '../constants';
 
 export class DataTexture2DArray extends Texture {
-    constructor(data: TypedArray, width: number, height: number, depth: number);
+    constructor(data?: BufferSource, width?: number, height?: number, depth?: number);
 
     /**
      * @default THREE.NearestFilter

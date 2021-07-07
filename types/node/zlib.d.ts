@@ -1,9 +1,5 @@
-declare module 'node:zlib' {
-    export * from 'zlib';
-}
-
 declare module 'zlib' {
-    import * as stream from 'node:stream';
+    import * as stream from 'stream';
 
     interface ZlibOptions {
         /**
@@ -362,4 +358,8 @@ declare module 'zlib' {
     const Z_UNKNOWN: number;
     /** @deprecated */
     const Z_DEFLATED: number;
+}
+
+declare module 'node:zlib' {
+    export * from 'zlib';
 }

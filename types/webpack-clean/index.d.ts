@@ -2,6 +2,7 @@
 // Project: https://github.com/allexcd/webpack-clean#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin } from 'webpack';
 
@@ -11,18 +12,18 @@ declare namespace WebpackCleanPlugin {
          * directory to be resolved to
          * @default null;
          */
-        basePath?: string | null;
+        basePath?: string | null | undefined;
         /**
          * specify if the .map files should be automatically removed
          * @default false
          */
-        removeMaps?: boolean;
+        removeMaps?: boolean | undefined;
         /**
          * specify if the files should be force deleted in case of compile errors.
          * If forceDelete is not enabled, the compile errors will be logged to stdout but the deletion of the files will not take place
          * @default false
          */
-        forceDelete?: boolean;
+        forceDelete?: boolean | undefined;
     }
 }
 

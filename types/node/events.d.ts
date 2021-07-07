@@ -1,8 +1,3 @@
-declare module 'node:events' {
-    import EventEmitter = require('events');
-    export = EventEmitter;
-}
-
 declare module 'events' {
     interface EventEmitterOptions {
         /**
@@ -19,16 +14,24 @@ declare module 'events' {
         addEventListener(event: string, listener: (...args: any[]) => void, opts?: { once: boolean }): any;
     }
 
+    interface StaticEventEmitterOptions {
+        signal?: AbortSignal;
+    }
+
     interface EventEmitter extends NodeJS.EventEmitter {}
     class EventEmitter {
         constructor(options?: EventEmitterOptions);
 
-        static once(emitter: NodeEventTarget, event: string | symbol): Promise<any[]>;
-        static once(emitter: DOMEventTarget, event: string): Promise<any[]>;
-        static on(emitter: NodeJS.EventEmitter, event: string): AsyncIterableIterator<any>;
+        static once(emitter: NodeEventTarget, event: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(emitter: DOMEventTarget, event: string, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static on(emitter: NodeJS.EventEmitter, event: string, options?: StaticEventEmitterOptions): AsyncIterableIterator<any>;
 
         /** @deprecated since v4.0.0 */
         static listenerCount(emitter: NodeJS.EventEmitter, event: string | symbol): number;
+        /**
+         * Returns a list listener for a specific emitter event name.
+         */
+        static getEventListener(emitter: DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
 
         /**
          * This symbol shall be used to install a listener for only monitoring `'error'`
@@ -54,6 +57,13 @@ declare module 'events' {
     namespace EventEmitter {
         // Should just be `export { EventEmitter }`, but that doesn't work in TypeScript 3.4
         export { internal as EventEmitter };
+
+        export interface Abortable {
+            /**
+             * When provided the corresponding `AbortController` can be used to cancel an asynchronous action.
+             */
+            signal?: AbortSignal;
+        }
     }
 
     global {
@@ -80,4 +90,9 @@ declare module 'events' {
     }
 
     export = EventEmitter;
+}
+
+declare module 'node:events' {
+    import events = require('events');
+    export = events;
 }

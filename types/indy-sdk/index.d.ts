@@ -1,7 +1,8 @@
-// Type definitions for indy-sdk 1.15
+// Type definitions for indy-sdk 1.16
 // Project: https://github.com/hyperledger/indy-sdk/tree/master/wrappers/nodejs
 // Definitions by: Timo Glastra <https://github.com/TimoGlastra>
 //                 Jakub Kočí <https://github.com/jakubkoci>
+//                 Karim Stekelenburg <https://github.com/karimStekelenburg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -10,6 +11,12 @@ export function createWallet(config: WalletConfig, credentials: WalletCredential
 export function openWallet(config: WalletConfig, credentials: OpenWalletCredentials): Promise<WalletHandle>;
 export function closeWallet(wh: WalletHandle): Promise<void>;
 export function deleteWallet(config: WalletConfig, credentials: WalletCredentials): Promise<void>;
+export function importWallet(
+    config: WalletConfig,
+    credentials: WalletCredentials,
+    importConfig: WalletExportImportConfig,
+): Promise<void>;
+export function exportWallet(wh: WalletHandle, exportConfig: WalletExportImportConfig): Promise<void>;
 export function createAndStoreMyDid(wh: WalletHandle, did: DidConfig): Promise<[Did, Verkey]>;
 export function keyForLocalDid(wh: WalletHandle, did: Did): Promise<Verkey>;
 export function cryptoAnonCrypt(recipientVk: Verkey, messageRaw: Buffer): Promise<Buffer>;
@@ -74,6 +81,12 @@ export function buildCredDefRequest(submitterDid: Did, credDef: CredDef): Promis
 export function buildGetCredDefRequest(submitterDid: Did | null, credDefId: CredDefId): Promise<LedgerRequest>;
 export function parseGetCredDefResponse(response: LedgerResponse): Promise<[CredDefId, CredDef]>;
 export function signRequest(wh: WalletHandle, submitterDid: Did, request: LedgerRequest): Promise<SignedLedgerRequest>;
+export function signAndSubmitRequest(
+    poolHandle: PoolHandle,
+    walletHandle: WalletHandle,
+    submitterDid: Did,
+    request: LedgerRequest,
+): Promise<LedgerResponse>;
 export function submitRequest(poolHandle: PoolHandle, request: LedgerRequest): Promise<LedgerResponse>;
 
 export function buildGetTxnAuthorAgreementRequest(submitterDid: Did | null): Promise<LedgerRequest>;
@@ -118,7 +131,7 @@ export function issuerCreateCredential(
     credReq: CredReq,
     credValues: CredValues,
     revRegId: RevRegId | null,
-    blobStorageReaderHandle: BlobStorageReaderHandle,
+    blobStorageReaderHandle: BlobStorageReaderHandle | 0,
 ): Promise<[Cred, CredRevocId, RevocRegDelta]>;
 // TODO: issuerRevokeCredential
 // TODO: issuerMergeRevocationRegistryDeltas
@@ -134,11 +147,11 @@ export function proverCreateCredentialReq(
 ): Promise<[CredReq, CredReqMetadata]>;
 export function proverStoreCredential(
     wh: WalletHandle,
-    credentialId: CredentialId,
+    credentialId: CredentialId | null,
     credReqMetadata: CredReqMetadata,
     cred: Cred,
     credDef: CredDef,
-    revRegDef: null,
+    revRegDef: RevRegDef | null,
 ): Promise<CredentialId>;
 // TODO: proverGetCredentials
 export function proverGetCredential(wh: WalletHandle, credId: string): Promise<IndyCredentialInfo>;
@@ -149,7 +162,7 @@ export function proverGetCredentialsForProofReq(wh: WalletHandle, proofRequest: 
 export function proverSearchCredentialsForProofReq(
     wh: WalletHandle,
     proofRequest: IndyProofRequest,
-    extraQuery: Array<{ [key: string]: WalletQuery }>,
+    extraQuery: ReferentWalletQuery | null,
 ): Promise<SearchHandle>;
 export function proverFetchCredentialsForProofReq(
     sh: SearchHandle,
@@ -180,19 +193,14 @@ export function verifierVerifyProof(
 // -------------------------------------------- //
 // --------------- BLOB STORAGE --------------- //
 // -------------------------------------------- //
-export function openBlobStorageWriter(
-    type: string,
-    tailsWriterConfig: { base_dir: string; uri_pattern: string },
-): Promise<BlobReaderHandle>;
-export function openBlobStorageReader(
-    type: string,
-    tailsWriterConfig: { base_dir: string; uri_pattern: string },
-): Promise<BlobReaderHandle>;
+export function openBlobStorageWriter(type: string, tailsWriterConfig: TailsWriterConfig): Promise<BlobWriterHandle>;
+export function openBlobStorageReader(type: string, tailsReaderConfig: TailsReaderConfig): Promise<BlobReaderHandle>;
 
 export type WalletHandle = number;
 export type SearchHandle = number;
 export type PoolHandle = number;
 export type BlobReaderHandle = number;
+export type BlobWriterHandle = number;
 export type Did = string;
 export type Verkey = string;
 export type ByteArray = number[];
@@ -203,6 +211,18 @@ export type KeyDerivationMethod = 'ARGON2I_MOD' | 'ARGON2I_INT' | 'RAW';
 
 // TODO: Maybe we can make this a bit more specific?
 export type WalletQuery = Record<string, unknown>;
+
+export interface ReferentWalletQuery {
+    [key: string]: WalletQuery;
+}
+
+export interface TailsReaderConfig {
+    base_dir: string;
+}
+export interface TailsWriterConfig {
+    base_dir: string;
+    uri_pattern: string;
+}
 
 export interface WalletRecordOptions {
     retrieveType?: boolean;
@@ -238,6 +258,11 @@ export interface OpenWalletCredentials extends WalletCredentials {
     rekey_derivation_method?: KeyDerivationMethod;
 }
 
+export interface WalletExportImportConfig {
+    key: string;
+    path: string;
+}
+
 export interface DidConfig {
     did?: string;
     seed?: string;
@@ -257,12 +282,55 @@ export interface SignedLedgerRequest extends LedgerRequest {
     signature: string;
 }
 
-export interface LedgerResponse {
-    op: string;
+export interface LedgerRejectResponse {
+    op: 'REJECT';
+    reqId: number;
+    reason: string;
+    identifier: string;
+}
+
+export interface LedgerReplyResponse {
+    op: 'REPLY';
+    result: Record<string, unknown>;
+}
+
+export interface LedgerReadReplyResponse extends LedgerReplyResponse {
     result: {
+        type: string;
+        identifier: string;
+        dest: string;
+        reqId: number;
+        seqNo: number;
+        txnTime: number;
+        state_proof: Record<string, unknown>;
+        // contains request specific data
         data: unknown;
     };
 }
+
+export interface LedgerWriteReplyResponse extends LedgerReplyResponse {
+    result: {
+        ver: string;
+        txnMetadata: {
+            txnTime: number;
+            seqNo: number;
+            txnId: string;
+        };
+        auditPath: string[];
+        reqSignature: {
+            type: string;
+            values: Array<{ from: string; value: string }>;
+        };
+        rootHash: string;
+        txn: {
+            type: string;
+            // ... TODO: add other txn fields ...
+            [key: string]: unknown;
+        };
+    };
+}
+
+export type LedgerResponse = LedgerRejectResponse | LedgerReadReplyResponse | LedgerWriteReplyResponse;
 
 export interface Schema {
     id: SchemaId;
@@ -270,6 +338,7 @@ export interface Schema {
     name: string;
     version: string;
     ver: string;
+    seqNo: number;
 }
 
 export interface CredDef {
@@ -367,6 +436,10 @@ export interface CredentialDefs {
 }
 
 export interface RevRegsDefs {
+    [key: string]: unknown;
+}
+
+export interface RevRegDef {
     [key: string]: unknown;
 }
 

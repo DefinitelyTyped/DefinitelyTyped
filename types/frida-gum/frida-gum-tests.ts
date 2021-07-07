@@ -135,6 +135,10 @@ Stalker.follow(Process.getCurrentThreadId(), {
     data: ptr(42)
 });
 
+const basicBlockStartAddress = ptr("0x400000");
+Stalker.invalidate(basicBlockStartAddress);
+Stalker.invalidate(Process.getCurrentThreadId(), basicBlockStartAddress);
+
 const obj = new ObjC.Object(ptr("0x42"));
 
 // $ExpectType Object

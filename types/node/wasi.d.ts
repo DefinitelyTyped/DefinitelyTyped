@@ -1,7 +1,3 @@
-declare module 'node:wasi' {
-    export * from 'wasi';
-}
-
 declare module 'wasi' {
     interface WASIOptions {
         /**
@@ -62,7 +58,7 @@ declare module 'wasi' {
          * invoke the `__wasi_unstable_reactor_start()` export. If neither of those exports
          * is present on `instance`, then `start()` does nothing.
          *
-         * `start()` requires that `instance` exports a [`WebAssembly.Memory`][] named
+         * `start()` requires that `instance` exports a `WebAssembly.Memory` named
          * `memory`. If `instance` does not have a `memory` export an exception is thrown.
          *
          * If `start()` is called more than once, an exception is thrown.
@@ -73,7 +69,7 @@ declare module 'wasi' {
          * Attempt to initialize `instance` as a WASI reactor by invoking its `_initialize()` export, if it is present.
          * If `instance` contains a `_start()` export, then an exception is thrown.
          *
-         * `start()` requires that `instance` exports a [`WebAssembly.Memory`][] named
+         * `start()` requires that `instance` exports a `WebAssembly.Memory` named
          * `memory`. If `instance` does not have a `memory` export an exception is thrown.
          *
          * If `initialize()` is called more than once, an exception is thrown.
@@ -83,8 +79,12 @@ declare module 'wasi' {
         /**
          * Is an object that implements the WASI system call API. This object
          * should be passed as the `wasi_snapshot_preview1` import during the instantiation of a
-         * [`WebAssembly.Instance`][].
+         * `WebAssembly.Instance`.
          */
         readonly wasiImport: NodeJS.Dict<any>; // TODO: Narrow to DOM types
     }
+}
+
+declare module 'node:wasi' {
+    export * from 'wasi';
 }

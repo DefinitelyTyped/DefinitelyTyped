@@ -1,6 +1,5 @@
 import { Texture } from './Texture';
 import { Mapping, Wrapping, TextureFilter, PixelFormat, TextureDataType, TextureEncoding } from '../constants';
-import { TypedArray } from '../polyfills';
 
 export class DataTexture extends Texture {
     /**
@@ -18,7 +17,7 @@ export class DataTexture extends Texture {
      * @param [encoding=THREE.LinearEncoding]
      */
     constructor(
-        data: TypedArray,
+        data: BufferSource,
         width: number,
         height: number,
         format?: PixelFormat,

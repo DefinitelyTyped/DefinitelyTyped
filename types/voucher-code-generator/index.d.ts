@@ -10,10 +10,10 @@ export function generate(config?: generatorConfig): string[];
 
 /*~ You can declare types that are available via importing the module */
 export interface generatorConfig {
-    length?: number;
-    count?: number;
-    charset?: string;
-    prefix?: string;
-    postfix?: string;
-    pattern?: string;
+    length?: number | undefined;
+    count?: number | undefined;
+    charset?: string | undefined;
+    prefix?: string | undefined;
+    postfix?: string | undefined;
+    pattern?: string | undefined;
 }

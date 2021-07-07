@@ -1,4 +1,4 @@
-// Type definitions for d3JS d3-zoom module 2.0
+// Type definitions for d3JS d3-zoom module 3.0
 // Project: https://github.com/d3/d3-zoom/, https://d3js.org/d3-zoom
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,9 +6,8 @@
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 3.0.0
 
 import { Selection, TransitionLike, ValueFn } from 'd3-selection';
 import { ZoomView } from 'd3-interpolate';
@@ -231,10 +230,10 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * The scale factor transform.k is multiplied by 2Δ; for example, a Δ of +1 doubles the scale factor, Δ of -1 halves the scale factor.
      *
      * @param delta Wheel delta function which is invoked in the wheel event handler of each element to which the zoom behavior was applied,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
+     * in order, being passed the wheel event that triggered the handler,
      * with this as the current DOM element. The function returns a numeric value.
      */
-    wheelDelta(delta: ValueFn<ZoomRefElement, Datum, number>): this;
+    wheelDelta(delta: ((event: WheelEvent) => number) | number): this;
 
     /**
      * Return the current extent accessor, which defaults to [[0, 0], [width, height]] where width is the client width of the element and height is its client height;
@@ -356,6 +355,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     /**
      * Returns the current interpolation factory, which defaults to d3.interpolateZoom to implement smooth zooming.
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     interpolate<InterpolationFactory extends (a: ZoomView, b: ZoomView) => ((t: number) => ZoomView)>(): InterpolationFactory;
 
     /**
@@ -415,6 +415,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
  * The first generic refers to the type of reference element to which the zoom behavior is attached.
  * The second generic refers to the type of the datum of the reference element.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function zoom<ZoomRefElement extends ZoomedElementBaseType, Datum>(): ZoomBehavior<ZoomRefElement, Datum>;
 
 // --------------------------------------------------------------------------
@@ -463,7 +464,12 @@ export interface D3ZoomEvent<ZoomRefElement extends ZoomedElementBaseType, Datum
  *
  * For details see {@link https://github.com/d3/d3-zoom#zoom-transforms}
  */
-export interface ZoomTransform {
+export class ZoomTransform {
+    /**
+     * Returns a transform with scale k and translation (x, y).
+     */
+    constructor(k: number, x: number, y: number);
+
     /**
      * The translation amount tx along the x-axis.
      * This property should be considered read-only; instead of mutating a transform,

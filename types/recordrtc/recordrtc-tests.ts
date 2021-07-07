@@ -2,9 +2,7 @@ import RecordRTC, { Options } from 'recordrtc';
 
 const opts: Options = {};
 
-navigator.getUserMedia(
-    { audio: true, video: true },
-    stream => {
+navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
         const instance = new RecordRTC(stream, {
             type: 'video',
             disableLogs: true,
@@ -26,6 +24,16 @@ navigator.getUserMedia(
 
         // $ExpectType string
         instance.getState();
+
+        // $ExpectType { onRecordingStopped: (callback: () => void) => void; }
+        instance.setRecordingDuration(1);
+
+        const fiveMinutes = 5 * 1000 * 60;
+        // $ExpectType void
+        instance.setRecordingDuration(fiveMinutes, () => {});
+
+        // $ExpectType void
+        instance.setRecordingDuration(fiveMinutes).onRecordingStopped(() => {});
     },
     console.error,
 );

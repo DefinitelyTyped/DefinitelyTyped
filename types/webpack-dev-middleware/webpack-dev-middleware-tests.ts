@@ -3,6 +3,7 @@ import webpack = require('webpack');
 import webpackDevMiddleware = require('webpack-dev-middleware');
 
 const compiler = webpack({});
+const multiCompiler = webpack([{}]);
 const compilerWithPublicPath = webpack({
     output: {
         publicPath: '/assets/',
@@ -11,6 +12,8 @@ const compilerWithPublicPath = webpack({
 
 // options
 let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(multiCompiler);
 
 webpackDevMiddlewareInstance = webpackDevMiddleware(compilerWithPublicPath, {});
 
@@ -30,22 +33,39 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
     index: 'index.html',
 });
 
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    writeToDisk: () => false,
+    stats: true,
+});
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    stats: {
+        all: true,
+    },
+});
+
+// $ExpectType string | undefined
+webpackDevMiddlewareInstance.getFilenameFromUrl("/");
+
 // return value
 const app = express();
 app.use([webpackDevMiddlewareInstance]);
 
+webpackDevMiddlewareInstance.waitUntilValid();
 webpackDevMiddlewareInstance.waitUntilValid(stats => {
     if (stats) {
         console.log('Package is in a valid state:' + stats.toJson());
     }
 });
 
+webpackDevMiddlewareInstance.invalidate();
 webpackDevMiddlewareInstance.invalidate(stats => {
     if (stats) {
         console.log(stats.toJson());
     }
 });
 
+webpackDevMiddlewareInstance.close();
 webpackDevMiddlewareInstance.close(() => {
     console.log('closed');
 });
@@ -66,3 +86,15 @@ function bar(_: webpack.Watching) {}
 if (webpackDevMiddlewareInstance.context.watching) {
     bar(webpackDevMiddlewareInstance.context.watching);
 }
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    headers: () => {
+        return { "X-nonsense-1": "yes", "X-nonsense-2": "no" };
+    },
+});
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    headers: (req, res) => {
+        res.setHeader("X-nonsense-1", "yes");
+        res.setHeader("X-nonsense-2", "no");
+    },
+});

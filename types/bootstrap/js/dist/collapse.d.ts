@@ -3,7 +3,7 @@
 import BaseComponent from './base-component';
 
 declare class Collapse extends BaseComponent {
-    constructor(element: Element, options?: Partial<Collapse.Options>);
+    constructor(element: string | Element, options?: Partial<Collapse.Options>);
 
     /**
      * Toggles a collapsible element to shown or hidden. Returns to the caller
@@ -30,7 +30,7 @@ declare class Collapse extends BaseComponent {
      * Static method which allows you to get the collapse instance associated
      * with a DOM element.
      */
-    static getInstance(element: Element, options?: Partial<Collapse.Options>): Collapse;
+    static getInstance(element: Element, options?: Partial<Collapse.Options>): Collapse | null;
 
     static jQueryInterface: Collapse.jQueryInterface;
 

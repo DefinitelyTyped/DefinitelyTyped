@@ -11,7 +11,9 @@ export interface Options {
     collapsed?: boolean;
     tipLabel?: string;
     label?: string | HTMLElement;
+    expandClassName?: string;
     collapseLabel?: string | HTMLElement;
+    collapseClassName?: string;
     render?: (p0: MapEvent) => void;
 }
 export default class Attribution extends Control {

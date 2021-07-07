@@ -2,8 +2,8 @@
 // Project: https://github.com/palmerabollo/node-isbn#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { AxiosRequestConfig } from 'axios';
+/// <reference types="node" />
+import { AxiosRequestConfig } from "axios";
 
 declare namespace isbn {
     interface Isbn {
@@ -23,25 +23,28 @@ declare namespace isbn {
          *  .resolve(...)
          * ```
          */
-        provider(providers: string[]): this;
+        provider(providers: Providers): this;
 
         /**
          * Resolves book info, given an isbn
          * @param isbn
          */
         resolve(isbn: string, options: AxiosRequestConfig, callback?: ResolveCallback): void;
-        resolve(isnb: string, options?: AxiosRequestConfig): Promise<Book>;
+        resolve(isbn: string, options?: AxiosRequestConfig): Promise<Book>;
         resolve(isbn: string, callback: ResolveCallback): void;
     }
 
     const PROVIDER_NAMES: {
-        GOOGLE: 'google';
-        OPENLIBRARY: 'openlibrary';
-        WORLDCAT: 'worldcat';
-        ISBNDB: 'isbndb';
+        GOOGLE: "google";
+        OPENLIBRARY: "openlibrary";
+        WORLDCAT: "worldcat";
+        ISBNDB: "isbndb";
     };
 
-    type BookLanguage = 'en' | 'es' | 'fr' | 'unknown';
+    type Provider = typeof PROVIDER_NAMES[keyof typeof PROVIDER_NAMES];
+    type Providers = Provider[];
+
+    type BookLanguage = "en" | "es" | "fr" | "unknown";
 
     interface ResolveCallback {
         (error: Error | null, book: Book): void;
@@ -60,7 +63,7 @@ declare namespace isbn {
         language: BookLanguage;
         pageCount?: number;
         previewLink: string;
-        printType: 'BOOK';
+        printType: "BOOK";
         publishedDate: string;
         publisher: string;
         title: string;

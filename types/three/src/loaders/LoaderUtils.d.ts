@@ -1,7 +1,5 @@
-import { TypedArray } from '../polyfills';
-
 export interface LoaderUtils {
-    decodeText(array: TypedArray): string;
+    decodeText(array: BufferSource): string;
     extractUrlBase(url: string): string;
 }
 

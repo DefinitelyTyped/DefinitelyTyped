@@ -20,6 +20,10 @@ export interface ClientConstructOpts {
      * API version in 'yyyy-mm-dd' format, see https://developers.coinbase.com/api/v2#changelog
      */
     version?: string;
+    /**
+     * Override security certificates
+     */
+    caFile?: string[];
 }
 
 export interface CreateAccountOpts {
@@ -321,6 +325,22 @@ export interface Price {
     ];
 }
 
+/**
+ * Pagination
+ * Buys, sells, and transactions are paginated, returning 25 items per call
+ * The callback receives a pagination object which can be used to fetch the page of data
+ */
+export interface Pagination {
+    ending_before?: string;
+    starting_after?: string;
+    previous_ending_before?: string;
+    next_starting_after?: string;
+    limit?: number;
+    order?: 'asc' | 'desc';
+    previous_uri?: string;
+    next_uri?: string;
+}
+
 export type ResourceType = "account" | "transaction" | "address" | "user" | "buy" | "sell" | "deposit" | "withdrawal" | "payment_method";
 
 /**
@@ -331,6 +351,16 @@ export interface Resource {
      * Resource type
      */
     resource: ResourceType;
+
+    /**
+     * ISO timestamp (sometimes needs additional permissions)
+     */
+    created_at?: string;
+
+     /**
+      * ISO timestamp (sometimes needs additional permissions)
+      */
+    updated_at?: string;
 }
 
 export class User implements Resource {
@@ -343,16 +373,6 @@ export class User implements Resource {
      * Resource ID
      */
     id: string;
-
-    /**
-     * ISO timestamp (sometimes needs additional permissions)
-     */
-    created_at?: string;
-
-    /**
-     * ISO timestamp (sometimes needs additional permissions)
-     */
-    updated_at?: string;
 
     /**
      * REST endpoint
@@ -474,7 +494,10 @@ export class Address implements Resource {
      * List transactions that have been sent to a specific address.
      * Scope: wallet:transactions:read
      */
-    getTransactions(opts: {}, cb: (error: Error | null, result: Transaction[]) => void): void;
+    getTransactions(
+        pagination: Pagination | null,
+        cb: (error: Error | null, result: Transaction[], pagination: Pagination) => void
+    ): void;
 }
 
 export type AccountType = "wallet" | "fiat" | "multisig" | "vault" | "multisig_vault";
@@ -600,7 +623,10 @@ export class Account implements Resource {
      * Lists account’s transactions.
      * Scope: wallet:transactions:read
      */
-    getTransactions(opts: {}, cb: (error: Error | null, result: Transaction[]) => void): void;
+    getTransactions(
+        pagination: Pagination | null,
+        cb: (error: Error | null, result: Transaction[], pagination: Pagination) => void
+    ): void;
 
     /**
      * Show an individual transaction for an account
@@ -645,7 +671,10 @@ export class Account implements Resource {
      * Lists buys for an account.
      * Scope: wallet:buys:read
      */
-    getBuys(opts: null, cb: (error: Error | null, result: Buy[]) => void): void;
+    getBuys(
+        pagination: Pagination | null,
+        cb: (error: Error | null, result: Buy[], pagination: Pagination) => void
+    ): void;
 
     /**
      * Show an individual buy.
@@ -678,7 +707,10 @@ export class Account implements Resource {
      * Lists sells for an account.
      * Scope: wallet:sells:read
      */
-    getSells(opts: null, cb: (error: Error | null, result: Sell[]) => void): void;
+    getSells(
+        pagination: Pagination | null,
+        cb: (error: Error | null, result: Sell[], pagination: Pagination) => void
+    ): void;
 
     /**
      * Show an individual sell.
@@ -756,7 +788,7 @@ export interface ResourceRef {
 }
 
 export type TransactionType = "send" | "request" | "transfer" | "buy" | "sell" | "fiat_deposit" | "fiat_withdrawal" | "exchange_deposit"
-    | "exchange_withdrawal" | "vault_withdrawal";
+    | "exchange_withdrawal" | "vault_withdrawal" | "trade";
 
 export type TransactionStatus = "pending" | "completed" | "failed" | "expired" | "canceled" | "waiting_for_signature" | "waiting_for_clearing";
 
@@ -833,6 +865,48 @@ export class Transaction implements Resource {
      * Associated OAuth2 application
      */
     application?: any;
+
+    /**
+     * ISO timestamp
+     */
+    created_at: string;
+
+    /**
+     * ISO timestamp
+     */
+    updated_at: string;
+
+    /**
+     * Reference to Coinbase client
+     */
+    client: Client;
+
+    /**
+     * If record is a buy, includes reference to Buy resource
+     */
+    buy?: {
+        id: string;
+        resource: "buy";
+        resource_path: string;
+    };
+
+    /**
+     * If record is a sell, includes reference to Sell resource
+     */
+    sell?: {
+        id: string;
+        resource: "sell";
+        resource_path: string;
+    };
+
+    /**
+     * If record is a trade, includes reference to Trade resource
+     */
+    trade?: {
+        id: string;
+        resource: "trade";
+        resource_path: string;
+    };
 
     /**
      * Lets the recipient of a money request complete the request by sending money to the user who requested the money.
@@ -956,6 +1030,11 @@ export class Buy implements Resource {
     updated_at: string;
 
     /**
+     * Reference to Coinbase client
+     */
+    client: Client;
+
+    /**
      * Completes a buy that is created in commit: false state.
      * If the exchange rate has changed since the buy was created, this call will fail with the error “The exchange rate updated while you
      * were waiting. The new total is shown below”. The buy’s total will also be updated. You can repeat the `commit` call to accept the new
@@ -1071,6 +1150,11 @@ export class Sell implements Resource {
      * ISO timestamp
      */
     updated_at: string;
+
+    /**
+     * Reference to Coinbase client
+     */
+    client: Client;
 
     /**
      * Completes a sell that is created in commit: false state.

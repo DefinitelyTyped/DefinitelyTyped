@@ -13,7 +13,7 @@ export interface CartoDBLayerInfo {
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
-    crossOrigin?: string;
+    crossOrigin?: null | string;
     projection?: ProjectionLike;
     maxZoom?: number;
     minZoom?: number;
@@ -21,6 +21,7 @@ export interface Options {
     config?: any;
     map?: string;
     account: string;
+    transition?: number;
 }
 export default class CartoDB extends XYZ {
     constructor(options: Options);

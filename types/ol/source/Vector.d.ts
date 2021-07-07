@@ -191,6 +191,15 @@ export default class VectorSource<GeomType extends Geometry = Geometry> extends 
     on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    on(type: 'featuresloadend', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
+    once(type: 'featuresloadend', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
+    un(type: 'featuresloadend', listener: (evt: VectorSourceEvent<Geometry>) => void): void;
+    on(type: 'featuresloaderror', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
+    once(type: 'featuresloaderror', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
+    un(type: 'featuresloaderror', listener: (evt: VectorSourceEvent<Geometry>) => void): void;
+    on(type: 'featuresloadstart', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
+    once(type: 'featuresloadstart', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
+    un(type: 'featuresloadstart', listener: (evt: VectorSourceEvent<Geometry>) => void): void;
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
@@ -199,9 +208,13 @@ export default class VectorSource<GeomType extends Geometry = Geometry> extends 
     un(type: 'removefeature', listener: (evt: VectorSourceEvent<Geometry>) => void): void;
 }
 export class VectorSourceEvent<GeomType extends Geometry = Geometry> extends BaseEvent {
-    constructor(type: string, opt_feature?: Feature<GeomType>);
+    constructor(type: string, opt_feature?: Feature<GeomType>, opt_features?: Feature<GeomType>[]);
     /**
-     * The feature being added or removed.
+     * The added or removed feature for the ADDFEATURE and REMOVEFEATURE events, undefined otherwise.
      */
     feature: Feature<GeomType>;
+    /**
+     * The loaded features for the FEATURESLOADED event, undefined otherwise.
+     */
+    features: Feature<GeomType>[];
 }

@@ -86,8 +86,9 @@ export interface PopValueActionMeta<OptionType extends OptionTypeBase> {
     name?: string;
 }
 
-export interface ClearActionMeta {
+export interface ClearActionMeta<OptionType extends OptionTypeBase> {
     action: 'clear';
+    removedValues: OptionType[];
     name?: string;
 }
 
@@ -101,7 +102,7 @@ export type ActionMeta<OptionType extends OptionTypeBase> =
     | DeselectOptionActionMeta<OptionType>
     | RemoveValueActionMeta<OptionType>
     | PopValueActionMeta<OptionType>
-    | ClearActionMeta
+    | ClearActionMeta<OptionType>
     | CreateOptionActionMeta;
 
 export type Action = ActionMeta<OptionTypeBase>['action'];

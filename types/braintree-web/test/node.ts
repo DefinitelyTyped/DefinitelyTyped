@@ -519,6 +519,17 @@ braintree.client.create(
                 }
             });
         });
+
+        // Vault Manager
+        braintree.vaultManager.create({ client: clientInstance }, (createErr, vaultManagerInstance) => {
+            vaultManagerInstance.fetchPaymentMethods()
+                .then((payload: braintree.FetchPaymentMethodsPayload[]) => {
+                    payload.forEach(paymentMethod => console.log(paymentMethod.nonce));
+                })
+                .catch((error: braintree.BraintreeError) => {
+                    console.error('Error!', error);
+                });
+        });
     },
 );
 

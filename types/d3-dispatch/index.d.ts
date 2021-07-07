@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-dispatch module 2.0
+// Type definitions for D3JS d3-dispatch module 3.0
 // Project: https://github.com/d3/d3-dispatch/, https://d3js.org/d3-dispatch
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -7,7 +7,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 3.0.1
 
 export interface Dispatch<T extends object> {
     /**
@@ -42,28 +42,18 @@ export interface Dispatch<T extends object> {
     /**
      * Returns the callback for the specified typenames, if any.
      * If multiple typenames are specified, the first matching callback is returned.
-     *
-     * @param types An event typename.
-     * @param callback A callback.
      */
     on(typenames: string): ((this: T, ...args: any[]) => void) | undefined;
     /**
-     * Removes the callback for the specified typenames.
-     * To remove all callbacks for a given name `foo`, say `dispatch.on(".foo", null).`
-     *
-     * @param types An event typename.
+     * Adds or removes the callback for the specified typenames.
+     * If a callback function is specified, it is registered for the specified (fully-qualified) typenames.
+     * If a callback was already registered for the given typenames, the existing callback is removed before the new callback is added.
+     * The specified typenames is a string, such as start or end.foo.
+     * The type may be optionally followed by a period (.) and a name; the optional name allows multiple callbacks to be registered to receive events of the same type, such as start.foo and start.bar.
+     * To specify multiple typenames, separate typenames with spaces, such as start end or start.foo start.bar.
+     * To remove all callbacks for a given name foo, say dispatch.on(".foo", null).
      */
-    on(typenames: string, callback: null): this;
-    /**
-     * Adds the callback for the specified typenames.
-     * The callback is registered for the specified (fully-qualified) typenames.
-     * If a callback was already registered for the given typenames,
-     * the existing callback is removed before the new callback is added.
-     *
-     * @param types An event typename.
-     * @param callback A callback.
-     */
-    on(typenames: string, callback: (this: T, ...args: any[]) => void): this;
+    on(typenames: string, callback: null | ((this: T, ...args: any[]) => void)): this;
 }
 
 /**
@@ -72,4 +62,5 @@ export interface Dispatch<T extends object> {
  * @param types The event types.
  * @throws "illegal type" on empty string or duplicated event types.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function dispatch<T extends object>(...types: string[]): Dispatch<T>;

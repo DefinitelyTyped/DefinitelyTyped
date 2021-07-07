@@ -2,16 +2,16 @@
 // Project: https://github.com/blakmatrix/node-zendesk
 // Definitions by: jgeth <https://github.com/jgeth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 4.0
 
 /// <reference types="node"/>
 
-import { PathLike } from 'fs';
+import { PathLike } from "fs";
 
 export type ZendeskCallback<TResponse, TResult> = (
     error: Error | undefined,
     response: TResponse,
-    result: TResult
+    result: TResult,
 ) => void;
 
 export interface Client {
@@ -81,36 +81,54 @@ export namespace Attachments {
         request(httpMethod: string, fields: unknown, config: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
         request(httpMethod: string, fields: unknown, config: unknown): Promise<unknown>;
 
+        show(attachmentId: number, cb: ZendeskCallback<unknown, ShowResponseModel>): unknown;
+        show(attachmentId: number): Promise<ShowResponseModel>;
+
         upload(
             file: PathLike,
             fileOptions: {
                 filename: string;
                 token?: string;
             },
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, UploadResponseModel>,
         ): void;
         upload(
             file: PathLike,
             fileOptions: {
                 filename: string;
                 token?: string;
-            }
-        ): Promise<void>;
+            },
+        ): Promise<UploadResponseModel>;
     }
 
-    interface Photo extends PersistableModel {
-        url: string;
-        file_name: string;
-        content_url: string;
-        content_type: string;
-        size: number;
-        width: number;
-        height: number;
-        inline: boolean;
+    /**
+     * @see {@link https://developer.zendesk.com/rest_api/docs/support/attachments#json-format}
+     */
+    interface Attachment extends PersistableModel {
+        readonly content_type?: string;
+        readonly content_url?: string;
+        readonly deleted?: boolean;
+        readonly file_name?: string;
+        readonly inline?: boolean;
+        readonly mapped_content_url?: string;
+        readonly size?: number;
+        readonly url?: string;
     }
 
-    interface Model extends Photo {
-        thumbnails: ReadonlyArray<Photo>;
+    interface Model extends Attachment {
+        thumbnails?: ReadonlyArray<Attachment>;
+    }
+
+    interface ShowResponseModel {
+        attachment: Attachment;
+    }
+
+    interface UploadResponseModel {
+        upload: {
+            attachment?: Attachment;
+            attachments?: Attachment[];
+            token: string;
+        };
     }
 }
 
@@ -125,16 +143,12 @@ export namespace JobStatuses {
             jobStatusId: ZendeskID,
             interval: number,
             maxAttempts: number,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): unknown;
-        watch(
-            jobStatusId: ZendeskID,
-            interval: number,
-            maxAttempts: number
-        ): Promise<unknown>;
+        watch(jobStatusId: ZendeskID, interval: number, maxAttempts: number): Promise<unknown>;
     }
 
-    type Status = 'queued' | 'working' | 'failed' | 'completed' | 'killed';
+    type Status = "queued" | "working" | "failed" | "completed" | "killed";
 
     interface Result extends PersistableModel {
         readonly action: string;
@@ -164,12 +178,9 @@ export namespace Macros {
         applyTicket(
             ticketId: ZendeskID,
             macroId: number,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): ApplyTicketResponsePayload;
-        applyTicket(
-            ticketId: ZendeskID,
-            macroId: number
-        ): Promise<ApplyTicketResponsePayload>;
+        applyTicket(ticketId: ZendeskID, macroId: number): Promise<ApplyTicketResponsePayload>;
     }
 
     interface ApplyTicketResponsePayload {
@@ -243,12 +254,9 @@ export namespace Requests {
         getComment(
             requestId: ZendeskID,
             commentId: ZendeskID,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): Comments.ResponsePayload;
-        getComment(
-            requestId: ZendeskID,
-            commentId: ZendeskID
-        ): Promise<Comments.ResponsePayload>;
+        getComment(requestId: ZendeskID, commentId: ZendeskID): Promise<Comments.ResponsePayload>;
 
         /** Inherited */
         requestAll(httpMethod: string, fields: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
@@ -361,7 +369,7 @@ export namespace Requests {
             readonly metadata?: Tickets.Comments.Metadata;
         }
 
-        type RequestType = 'Comment' | 'VoiceComment';
+        type RequestType = "Comment" | "VoiceComment";
 
         namespace CommentsUsers {
             interface ResponseModel extends PersistableModel {
@@ -439,12 +447,9 @@ export namespace Tickets {
         merge(
             ticketId: ZendeskID,
             mergingTickets: MergePayload,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): JobStatuses.ResponsePayload;
-        merge(
-            ticketId: ZendeskID,
-            mergingTickets: MergePayload
-        ): Promise<JobStatuses.ResponsePayload>;
+        merge(ticketId: ZendeskID, mergingTickets: MergePayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Ticket Exports */
         export(startTime: number, cb: ZendeskCallback<unknown, unknown>): unknown;
@@ -600,18 +605,18 @@ export namespace Tickets {
         action: string;
     }
 
-    type Priority = 'urgent' | 'high' | 'normal' | 'low';
+    type Priority = "urgent" | "high" | "normal" | "low";
 
-    type Status = 'new' | 'open' | 'pending' | 'hold' | 'solved' | 'closed';
+    type Status = "new" | "open" | "pending" | "hold" | "solved" | "closed";
 
-    type TicketType = 'problem' | 'incident' | 'question' | 'task';
+    type TicketType = "problem" | "incident" | "question" | "task";
 
     interface Via {
         channel: ViaChannel;
         source: ViaSource;
     }
 
-    type ViaChannel = 'api' | 'web' | 'mobile' | 'rule' | 'system';
+    type ViaChannel = "api" | "web" | "mobile" | "rule" | "system";
 
     interface ViaSource {
         to: object;
@@ -754,11 +759,9 @@ export namespace Users {
         createOrUpdate(user: CreatePayload): Promise<ResponsePayload>;
         createOrUpdateMany(
             users: CreateManyPayload,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): JobStatuses.ResponsePayload;
-        createOrUpdateMany(
-            users: CreateManyPayload
-        ): Promise<JobStatuses.ResponsePayload>;
+        createOrUpdateMany(users: CreateManyPayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Updating Users */
         update(userId: ZendeskID, user: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
@@ -766,12 +769,9 @@ export namespace Users {
         updateMany(
             userIds: UpdateIdPayload,
             users: UpdateManyPayload,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): JobStatuses.ResponsePayload;
-        updateMany(
-            userIds: UpdateIdPayload,
-            users: UpdateManyPayload
-        ): Promise<JobStatuses.ResponsePayload>;
+        updateMany(userIds: UpdateIdPayload, users: UpdateManyPayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Suspending Users */
         suspend(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
@@ -800,13 +800,9 @@ export namespace Users {
             userId: ZendeskID,
             oldPassword: string,
             newPassword: string,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): unknown;
-        password(
-            userId: ZendeskID,
-            oldPassword: string,
-            newPassword: string
-        ): Promise<unknown>;
+        password(userId: ZendeskID, oldPassword: string, newPassword: string): Promise<unknown>;
 
         /** Users Export */
         incrementalInclude(startTime: number, include: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
@@ -926,7 +922,7 @@ export namespace Users {
         users: ReadonlyArray<ResponseModel>;
     }
 
-    type Role = 'admin' | 'agent' | 'end-user';
+    type Role = "admin" | "agent" | "end-user";
 
     /**
      * Defines an agent type
@@ -936,7 +932,7 @@ export namespace Users {
      */
     type RoleType = 0 | 1 | 2;
 
-    type TicketRestriction = 'assigned' | 'groups' | 'organization' | 'requested';
+    type TicketRestriction = "assigned" | "groups" | "organization" | "requested";
 
     /**
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/user_identities|Zendesk User Identities}
@@ -960,13 +956,9 @@ export namespace Users {
                 userId: ZendeskID,
                 identityId: ZendeskID,
                 identity: UpdatePayload,
-                cb: ZendeskCallback<unknown, unknown>
+                cb: ZendeskCallback<unknown, unknown>,
             ): ResponsePayload;
-            update(
-                userId: ZendeskID,
-                identityId: ZendeskID,
-                identity: UpdatePayload
-            ): Promise<ResponsePayload>;
+            update(userId: ZendeskID, identityId: ZendeskID, identity: UpdatePayload): Promise<ResponsePayload>;
             makePrimary(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
             makePrimary(userId: ZendeskID, identityId: ZendeskID): Promise<ListPayload>;
             verify(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
@@ -974,12 +966,9 @@ export namespace Users {
             requestVerification(
                 userId: ZendeskID,
                 identityId: ZendeskID,
-                cb: ZendeskCallback<unknown, unknown>
+                cb: ZendeskCallback<unknown, unknown>,
             ): unknown;
-            requestVerification(
-                userId: ZendeskID,
-                identityId: ZendeskID
-            ): Promise<unknown>;
+            requestVerification(userId: ZendeskID, identityId: ZendeskID): Promise<unknown>;
 
             /** Deleting Identities */
             delete(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
@@ -1025,9 +1014,9 @@ export namespace Users {
             readonly identity: ResponseModel;
         }
 
-        type IdentityType = 'agent_forwarding' | 'email' | 'facebook' | 'google' | 'phone_number' | 'sdk';
+        type IdentityType = "agent_forwarding" | "email" | "facebook" | "google" | "phone_number" | "sdk";
 
-        type DeliverableState = 'deliverable' | 'undeliverable';
+        type DeliverableState = "deliverable" | "undeliverable";
     }
 
     namespace Fields {
@@ -1048,15 +1037,7 @@ export namespace Users {
          * Types of custom fields that can be created
          * @default 'text'
          */
-        type UserFieldType =
-            | 'text'
-            | 'textarea'
-            | 'checkbox'
-            | 'date'
-            | 'integer'
-            | 'decimal'
-            | 'regexp'
-            | 'tagger';
+        type UserFieldType = "text" | "textarea" | "checkbox" | "date" | "integer" | "decimal" | "regexp" | "tagger";
 
         /**
          * Represents 'user_field'

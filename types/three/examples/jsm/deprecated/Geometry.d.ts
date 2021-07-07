@@ -337,6 +337,6 @@ export class Face3 {
      */
     materialIndex: number;
 
-    clone(): Face3;
+    clone(): this;
     copy(source: Face3): this;
 }

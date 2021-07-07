@@ -1,9 +1,5 @@
-declare module 'node:url' {
-    export * from 'url';
-}
-
 declare module 'url' {
-    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
 
     // Input to `url.format`
     interface UrlObject {
@@ -117,4 +113,8 @@ declare module 'url' {
         values(): IterableIterator<string>;
         [Symbol.iterator](): IterableIterator<[string, string]>;
     }
+}
+
+declare module 'node:url' {
+    export * from 'url';
 }

@@ -7,10 +7,10 @@ export class DataTextureLoader extends Loader {
 
     load(
         url: string,
-        onLoad: (dataTexture: DataTexture) => void,
+        onLoad: (dataTexture: DataTexture, texData: object) => void,
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: ErrorEvent) => void,
-    ): void;
+    ): DataTexture;
 
     loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<DataTexture>;
 }

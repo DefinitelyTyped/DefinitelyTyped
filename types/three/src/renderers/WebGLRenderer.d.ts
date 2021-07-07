@@ -18,7 +18,11 @@ import { ToneMapping, ShadowMapType, CullFace, TextureEncoding } from '../consta
 import { WebXRManager } from '../renderers/webxr/WebXRManager';
 import { BufferGeometry } from './../core/BufferGeometry';
 import { Texture } from '../textures/Texture';
+import { DataTexture3D } from '../textures/DataTexture3D';
 import { XRAnimationLoopCallback } from './webxr/WebXR';
+import { Vector3 } from '../math/Vector3';
+import { Box3 } from '../math/Box3';
+import { DataTexture2DArray } from '../textures/DataTexture2DArray';
 
 export interface Renderer {
     domElement: HTMLCanvasElement;
@@ -31,64 +35,64 @@ export interface WebGLRendererParameters {
     /**
      * A Canvas where the renderer draws its output.
      */
-    canvas?: HTMLCanvasElement | OffscreenCanvas;
+    canvas?: HTMLCanvasElement | OffscreenCanvas | undefined;
 
     /**
      * A WebGL Rendering Context.
      * (https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext)
      * Default is null
      */
-    context?: WebGLRenderingContext;
+    context?: WebGLRenderingContext | undefined;
 
     /**
      * shader precision. Can be "highp", "mediump" or "lowp".
      */
-    precision?: string;
+    precision?: string | undefined;
 
     /**
      * default is false.
      */
-    alpha?: boolean;
+    alpha?: boolean | undefined;
 
     /**
      * default is true.
      */
-    premultipliedAlpha?: boolean;
+    premultipliedAlpha?: boolean | undefined;
 
     /**
      * default is false.
      */
-    antialias?: boolean;
+    antialias?: boolean | undefined;
 
     /**
      * default is true.
      */
-    stencil?: boolean;
+    stencil?: boolean | undefined;
 
     /**
      * default is false.
      */
-    preserveDrawingBuffer?: boolean;
+    preserveDrawingBuffer?: boolean | undefined;
 
     /**
      * Can be "high-performance", "low-power" or "default"
      */
-    powerPreference?: string;
+    powerPreference?: string | undefined;
 
     /**
      * default is true.
      */
-    depth?: boolean;
+    depth?: boolean | undefined;
 
     /**
      * default is false.
      */
-    logarithmicDepthBuffer?: boolean;
+    logarithmicDepthBuffer?: boolean | undefined;
 
     /**
      * default is false.
      */
-    failIfMajorPerformanceCaveat?: boolean;
+    failIfMajorPerformanceCaveat?: boolean | undefined;
 }
 
 export interface WebGLDebug {
@@ -193,16 +197,6 @@ export class WebGLRenderer implements Renderer {
      */
     toneMappingExposure: number;
 
-    /**
-     * @default 8
-     */
-    maxMorphTargets: number;
-
-    /**
-     * @default 4
-     */
-    maxMorphNormals: number;
-
     info: WebGLInfo;
 
     shadowMap: WebGLShadowMap;
@@ -282,12 +276,12 @@ export class WebGLRenderer implements Renderer {
     /**
      * Sets the custom opaque sort function for the WebGLRenderLists. Pass null to use the default painterSortStable function.
      */
-    setOpaqueSort(method: () => void): void;
+    setOpaqueSort(method: (a: any, b: any) => number): void;
 
     /**
      * Sets the custom transparent sort function for the WebGLRenderLists. Pass null to use the default reversePainterSortStable function.
      */
-    setTransparentSort(method: () => void): void;
+    setTransparentSort(method: (a: any, b: any) => number): void;
 
     /**
      * Returns a THREE.Color instance with the current clear color.
@@ -374,14 +368,6 @@ export class WebGLRenderer implements Renderer {
     getActiveMipmapLevel(): number;
 
     /**
-     * Sets the given WebGLFramebuffer. This method can only be used if no render target is set via
-     * {@link WebGLRenderer#setRenderTarget .setRenderTarget}.
-     *
-     * @param value The WebGLFramebuffer.
-     */
-    setFramebuffer(value: WebGLFramebuffer): void;
-
-    /**
      * Returns the current render target. If no render target is set, null is returned.
      */
     getRenderTarget(): RenderTarget | null;
@@ -429,6 +415,22 @@ export class WebGLRenderer implements Renderer {
      * @param level Specifies the destination mipmap level of the texture.
      */
     copyTextureToTexture(position: Vector2, srcTexture: Texture, dstTexture: Texture, level?: number): void;
+
+    /**
+     * Copies the pixels of a texture in the bounds sourceBox in the desination texture starting from the given position.
+     * @param sourceBox Specifies the bounds
+     * @param position Specifies the pixel offset into the dstTexture where the copy will occur.
+     * @param srcTexture Specifies the source texture.
+     * @param dstTexture Specifies the destination texture.
+     * @param level Specifies the destination mipmap level of the texture.
+     */
+    copyTextureToTexture3D(
+        sourceBox: Box3,
+        position: Vector3,
+        srcTexture: Texture,
+        dstTexture: DataTexture3D | DataTexture2DArray,
+        level?: number,
+    ): void;
 
     /**
      * Initializes the given texture. Can be used to preload a texture rather than waiting until first render (which can cause noticeable lags due to decode and GPU upload overhead).

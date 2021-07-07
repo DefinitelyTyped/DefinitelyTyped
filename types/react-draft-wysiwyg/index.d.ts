@@ -8,8 +8,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as React from 'react';
-import * as Draft from 'draft-js';
+import * as React from "react";
+import * as Draft from "draft-js";
 
 export type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 export type SyntheticEvent = React.SyntheticEvent<{}>;
@@ -65,6 +65,11 @@ export interface EditorProps {
     wrapperId?: number;
     customDecorators?: object[];
     editorRef?(ref: object): void;
+    handleKeyCommand?(
+        command: Draft.DraftEditorCommand,
+        editorState: EditorState,
+        eventTimeStamp: number,
+    ): Draft.DraftHandleValue;
     handlePastedText?(
         text: string,
         html: string,

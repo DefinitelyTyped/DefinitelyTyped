@@ -34,6 +34,7 @@ const graphDiv = '#test';
             title: 'Percent',
             showline: false,
         },
+        uirevision: 'true',
     };
     Plotly.newPlot(graphDiv, data, layout);
 

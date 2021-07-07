@@ -18,10 +18,10 @@ async function run() {
         _id: ObjectID;
         stringField: string;
         numberField: number;
-        optionalNumberField?: number;
+        optionalNumberField?: number | undefined;
         dateField: Date;
         fruitTags: string[];
-        maybeFruitTags?: FruitTypes[];
+        maybeFruitTags?: FruitTypes[] | undefined;
         readonlyFruitTags: ReadonlyArray<string>;
         subInterfaceField: SubTestSchema;
         subInterfaceArray: SubTestSchema[];
@@ -86,7 +86,6 @@ async function run() {
         {
             updateOne: {
                 filter: {},
-                hint: 'foo-index',
                 update: {
                     $set: {
                         optionalNumberField: 123,
@@ -138,7 +137,6 @@ async function run() {
         {
             updateMany: {
                 filter: {},
-                hint: 'foo-index',
                 update: {
                     $set: {
                         optionalNumberField: 123,
@@ -185,7 +183,6 @@ async function run() {
         {
             replaceOne: {
                 filter: {},
-                hint: 'foo-index',
                 replacement: testDocument,
                 upsert: true,
             },

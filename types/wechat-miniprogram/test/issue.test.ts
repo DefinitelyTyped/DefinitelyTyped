@@ -193,7 +193,7 @@ wx.request({
 {
   interface IDialogMethod
     extends Partial<WechatMiniprogram.Component.MethodOption> {
-    f?: () => string
+    f?: (() => string) | undefined
     g: () => void
   }
   type Dialog = WechatMiniprogram.Component.Instance<{}, {}, IDialogMethod>
