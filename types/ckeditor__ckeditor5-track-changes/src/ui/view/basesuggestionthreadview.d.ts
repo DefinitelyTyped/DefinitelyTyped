@@ -25,7 +25,7 @@ export default class BaseSuggestionThreadView extends View {
             maxThreadTotalWeight: number;
             maxCommentCharsWhenCollapsed: number;
             formatDateTime: (date: Date) => string;
-            editorConfig?: EditorConfig;
+            editorConfig?: EditorConfig | undefined;
         },
     );
     focus(): void;

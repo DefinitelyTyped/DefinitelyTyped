@@ -4,12 +4,12 @@ import { DropdownBaseProps } from './Dropdown';
 
 declare namespace DropdownButton {
     export interface DropdownButtonBaseProps extends DropdownBaseProps {
-        block?: boolean;
-        bsSize?: Sizes;
-        bsStyle?: string | null;
-        navItem?: boolean;
-        noCaret?: boolean;
-        pullRight?: boolean;
+        block?: boolean | undefined;
+        bsSize?: Sizes | undefined;
+        bsStyle?: string | null | undefined;
+        navItem?: boolean | undefined;
+        noCaret?: boolean | undefined;
+        pullRight?: boolean | undefined;
         title: React.ReactNode;
     }
 

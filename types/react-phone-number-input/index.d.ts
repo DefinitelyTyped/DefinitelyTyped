@@ -49,8 +49,8 @@ export interface PhoneNumber {
     number: string;
     countryCallingCode: string;
     nationalNumber: string;
-    country?: string;
-    carrierCode?: string;
+    country?: string | undefined;
+    carrierCode?: string | undefined;
 }
 
 /**
@@ -64,25 +64,25 @@ export interface FlagsMap {
 }
 
 export interface CountrySelectComponentProps {
-    className?: string;
-    disabled?: boolean;
-    name?: string;
-    onBlur?: () => void;
-    onChange?: (value?: string) => void;
-    onFocus?: () => void;
+    className?: string | undefined;
+    disabled?: boolean | undefined;
+    name?: string | undefined;
+    onBlur?: (() => void) | undefined;
+    onChange?: ((value?: string) => void) | undefined;
+    onFocus?: (() => void) | undefined;
     /**
      * The list of all selectable countries (including "International")
      */
-    options?: Array<{ value?: string; label: string; icon: React.Component }>;
-    tabIndex?: number;
+    options?: Array<{ value?: string | undefined; label: string; icon: React.Component }> | undefined;
+    tabIndex?: number | undefined;
     /**
      * The currently selected country code
      */
-    value?: string;
+    value?: string | undefined;
     /**
      * Language translations
      */
-    labels?: { [key: string]: string };
+    labels?: { [key: string]: string } | undefined;
 }
 
 export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>, 'onChange'> {
@@ -98,19 +98,19 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
     /**
      * Set to false to remove the "International" option from country <select/>.
      */
-    addInternationalOption?: boolean;
+    addInternationalOption?: boolean | undefined;
     /**
      * If specified, only these countries will be available for selection.
      * @example ["RU", "UA", "KZ"]
      */
-    countries?: string[];
+    countries?: string[] | undefined;
 
     /**
      * If country is specified then the phone number can only be input in "national"
      * (not "international") format, and will be parsed as a phone number belonging
      * to the country. Example: country="US"
      */
-    country?: string;
+    country?: string | undefined;
 
     /**
      * Can be used to place some countries on top of the list of country <select/> options.
@@ -121,13 +121,13 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * @example
      * ["US", "CA", "AU", "|", "..."]
      */
-    countryOptionsOrder?: string[];
-    countrySelectComponent?: React.ComponentType<CountrySelectComponentProps>;
+    countryOptionsOrder?: string[] | undefined;
+    countrySelectComponent?: React.ComponentType<CountrySelectComponentProps> | undefined;
     /**
      * Country <select/> component props. Along with the usual DOM properties such as aria-label
      * and tabIndex, some custom properties are supported, such as arrowComponent and unicodeFlags.
      */
-    countrySelectProps?: object;
+    countrySelectProps?: object | undefined;
     /**
      * A two-letter country code for formatting `value`
      * when a user inputs a national phone number (example: `(213) 373-4253`).
@@ -135,19 +135,19 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * Example: "US".
      * `country` and `defaultCountry` properties are mutually exclusive.
      */
-    defaultCountry?: string;
+    defaultCountry?: string | undefined;
     /**
      * Set to true to disable both the phone number <input/> and the country <select/>
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * @deprecated
      * `displayInitialValueAsLocalNumber` property has been
      * superceded by `initialValueFormat` property.
      */
-    displayInitialValueAsLocalNumber?: boolean;
-    flagComponent?: React.ComponentType<{ country: string; countryName: string, flagUrl: string; flags: FlagsMap }>;
-    flags?: FlagsMap;
+    displayInitialValueAsLocalNumber?: boolean | undefined;
+    flagComponent?: React.ComponentType<{ country: string; countryName: string, flagUrl: string; flags: FlagsMap }> | undefined;
+    flags?: FlagsMap | undefined;
     /**
      * A URL template of a country flag, where "{XX}" is a two-letter country code in upper case,
      * or where "{xx}" is a two-letter country code in lower case. By default it points to
@@ -158,7 +158,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * time before updating this library, otherwise there's a possibility that some new country flag
      * would be missing.
      */
-    flagUrl?: string;
+    flagUrl?: string | undefined;
     /**
      * Phone number <input/> component.
      *
@@ -173,7 +173,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      */
     inputComponent?: React.ForwardRefExoticComponent<
         React.InputHTMLAttributes<HTMLInputElement> & React.RefAttributes<any>
-    >;
+    > | undefined;
 
     /**
      * If country is specified and international property is true then the phone number can only be input
@@ -185,13 +185,13 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * phone number input components that show "country calling code" part before the input field and then
      * the user can fill in the rest of their phone number in the input field.
      */
-    international?: boolean;
+    international?: boolean | undefined;
 
     /**
      * If an initial value is passed, and initialValueFormat property is not set, then the initial value
      * is formatted in international format.
      */
-    initialValueFormat?: "national";
+    initialValueFormat?: "national" | undefined;
 
     /**
      * If `country` property is passed along with `international={true}` property
@@ -203,21 +203,21 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * the phone number will be input in the "international" format for `US` (`213 373 4253`)
      * (without "country calling code" `+1`).
      */
-    internationalIcon?: React.ComponentType<object>;
-    labels?: { [key: string]: string };
+    internationalIcon?: React.ComponentType<object> | undefined;
+    labels?: { [key: string]: string } | undefined;
     /**
      * If set to true the phone number input will get trimmed if it exceeds the maximum length for the country.
      */
-    limitMaxLength?: boolean;
-    metadata?: object;
+    limitMaxLength?: boolean | undefined;
+    metadata?: object | undefined;
     /**
      * Phone number <input/> component additional props.
      */
-    numberInputProps?: object;
+    numberInputProps?: object | undefined;
     /**
      * Is called every time the selected country changes: either programmatically or when user selects it manually from the list.
      */
-    onCountryChange?: (countryCode?: string) => void;
+    onCountryChange?: ((countryCode?: string) => void) | undefined;
     /**
      * By default, the caret position is being "intelligently" managed
      * while a user inputs a phone number.
@@ -226,14 +226,14 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * This is just an "escape hatch" for any possible caret position issues.
      * @default true
      */
-    smartCaret?: boolean;
+    smartCaret?: boolean | undefined;
     /**
      * When `defaultCountry` is defined and the initial `value` corresponds to `defaultCountry`,
      * then the `value` will be formatted as a national phone number by default.
      * To format the initial `value` of `defaultCountry` as an international number instead
      * set `useNationalFormatForDefaultCountryValue` property to `true`.
      */
-    useNationalFormatForDefaultCountryValue?: boolean;
+    useNationalFormatForDefaultCountryValue?: boolean | undefined;
 }
 
 export default class PhoneInput extends React.Component<PhoneInputProps, object> {}

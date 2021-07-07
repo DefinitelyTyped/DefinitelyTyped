@@ -18,13 +18,13 @@ declare namespace focusWithin {
          * By default, the original selector is preserved.
          * @default true
          */
-        preserve?: boolean;
+        preserve?: boolean | undefined;
         /**
          * The replaceWith option defines the selector to replace `:focus-within`.
          * By default, the replacement selector is `[focus-within]`.
          * @default `[focus-within]`
          */
-        replaceWith?: string;
+        replaceWith?: string | undefined;
     }
 
     type FocusWithin = Plugin<Options>;

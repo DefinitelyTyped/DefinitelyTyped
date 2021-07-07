@@ -9,13 +9,13 @@ import { ComponentClass, InputHTMLAttributes, ReactNode } from "react";
 
 declare namespace Toggle {
     interface ToggleIcons {
-        checked?: ReactNode;
-        unchecked?: ReactNode;
+        checked?: ReactNode | undefined;
+        unchecked?: ReactNode | undefined;
     }
 
     interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
-        icons?: boolean | ToggleIcons;
-        defaultChecked?: boolean;
+        icons?: boolean | ToggleIcons | undefined;
+        defaultChecked?: boolean | undefined;
     }
 }
 

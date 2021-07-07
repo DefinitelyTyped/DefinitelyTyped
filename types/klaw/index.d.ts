@@ -22,12 +22,12 @@ declare module "klaw" {
         type QueueMethod = "shift" | "pop"
 
         interface Options extends ReadableOptions {
-            queueMethod?: QueueMethod
-            pathSorter?: (pathA: string, pathB: string) => number
+            queueMethod?: QueueMethod | undefined
+            pathSorter?: ((pathA: string, pathB: string) => number) | undefined
             fs?: any // fs or mock-fs
-            filter?: (path: string) => boolean
-            depthLimit?: number
-            preserveSymlinks?: boolean
+            filter?: ((path: string) => boolean) | undefined
+            depthLimit?: number | undefined
+            preserveSymlinks?: boolean | undefined
         }
 
         type Event = "close" | "data" | "end" | "error" | "pause" | "readable" | "resume"

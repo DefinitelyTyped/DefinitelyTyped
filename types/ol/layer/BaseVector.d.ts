@@ -14,23 +14,23 @@ import { StyleFunction, StyleLike } from '../style/Style';
 import Layer from './Layer';
 
 export interface Options {
-    className?: string;
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    renderOrder?: OrderFunction;
-    renderBuffer?: number;
-    source?: VectorSource<Geometry>;
-    map?: PluggableMap;
-    declutter?: boolean;
-    style?: StyleLike | null;
-    updateWhileAnimating?: boolean;
-    updateWhileInteracting?: boolean;
+    className?: string | undefined;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    renderOrder?: OrderFunction | undefined;
+    renderBuffer?: number | undefined;
+    source?: VectorSource<Geometry> | undefined;
+    map?: PluggableMap | undefined;
+    declutter?: boolean | undefined;
+    style?: StyleLike | null | undefined;
+    updateWhileAnimating?: boolean | undefined;
+    updateWhileInteracting?: boolean | undefined;
 }
 export default class BaseVectorLayer<
     VectorSourceType extends VectorSource | VectorTile = VectorSource | VectorTile

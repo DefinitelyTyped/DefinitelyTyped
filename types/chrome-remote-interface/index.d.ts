@@ -10,17 +10,17 @@ import type ProtocolMappingApi from 'devtools-protocol/types/protocol-mapping';
 
 declare namespace CDP {
     interface BaseOptions {
-        host?: string;
-        port?: number;
-        secure?: boolean;
-        useHostName?: boolean;
-        alterPath?: (path: string) => string;
+        host?: string | undefined;
+        port?: number | undefined;
+        secure?: boolean | undefined;
+        useHostName?: boolean | undefined;
+        alterPath?: ((path: string) => string) | undefined;
     }
 
     interface Options extends BaseOptions {
-        target?: ((targets: Target[]) => Target | number) | Target | string;
-        protocol?: Protocol;
-        local?: boolean;
+        target?: ((targets: Target[]) => Target | number) | Target | string | undefined;
+        protocol?: Protocol | undefined;
+        local?: boolean | undefined;
     }
 
     interface ActivateOptions extends BaseOptions {
@@ -32,17 +32,17 @@ declare namespace CDP {
     }
 
     interface NewOptions extends BaseOptions {
-        url?: string;
+        url?: string | undefined;
     }
 
     interface ProtocolOptions extends BaseOptions {
-        local?: boolean;
+        local?: boolean | undefined;
     }
 
     interface EventMessage {
         method: string;
         params: object;
-        sessionId?: string;
+        sessionId?: string | undefined;
     }
 
     interface Target {
@@ -76,61 +76,61 @@ declare namespace CDP {
 
     interface Domain {
         domain: string;
-        experimental?: boolean;
-        dependencies?: string[];
-        types?: TypeElement[];
+        experimental?: boolean | undefined;
+        dependencies?: string[] | undefined;
+        types?: TypeElement[] | undefined;
         commands: Command[];
-        events?: Event[];
-        description?: string;
-        deprecated?: boolean;
+        events?: Event[] | undefined;
+        description?: string | undefined;
+        deprecated?: boolean | undefined;
     }
 
     interface Command {
         name: string;
-        description?: string;
-        experimental?: boolean;
-        parameters?: Parameter[];
-        returns?: Parameter[];
-        redirect?: string;
-        deprecated?: boolean;
+        description?: string | undefined;
+        experimental?: boolean | undefined;
+        parameters?: Parameter[] | undefined;
+        returns?: Parameter[] | undefined;
+        redirect?: string | undefined;
+        deprecated?: boolean | undefined;
     }
 
     interface Parameter {
         name: string;
-        description?: string;
-        optional?: boolean;
-        $ref?: string;
-        type?: TypeEnum;
-        items?: Items;
-        enum?: string[];
-        experimental?: boolean;
-        deprecated?: boolean;
+        description?: string | undefined;
+        optional?: boolean | undefined;
+        $ref?: string | undefined;
+        type?: TypeEnum | undefined;
+        items?: Items | undefined;
+        enum?: string[] | undefined;
+        experimental?: boolean | undefined;
+        deprecated?: boolean | undefined;
     }
 
     interface Items {
-        type?: TypeEnum;
-        $ref?: string;
+        type?: TypeEnum | undefined;
+        $ref?: string | undefined;
     }
 
     type TypeEnum = "any" | "array" | "boolean" | "integer" | "number" | "object" | "string";
 
     interface Event {
         name: string;
-        description?: string;
-        parameters?: Parameter[];
-        experimental?: boolean;
-        deprecated?: boolean;
+        description?: string | undefined;
+        parameters?: Parameter[] | undefined;
+        experimental?: boolean | undefined;
+        deprecated?: boolean | undefined;
     }
 
     interface TypeElement {
         id: string;
-        description?: string;
+        description?: string | undefined;
         type: TypeEnum;
-        enum?: string[];
-        properties?: Parameter[];
-        experimental?: boolean;
-        items?: Items;
-        deprecated?: boolean;
+        enum?: string[] | undefined;
+        properties?: Parameter[] | undefined;
+        experimental?: boolean | undefined;
+        items?: Items | undefined;
+        deprecated?: boolean | undefined;
     }
 
     interface Version {

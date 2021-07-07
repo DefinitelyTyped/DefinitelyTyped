@@ -28,14 +28,14 @@ declare module 'buffer' {
         /**
          * @default 'utf8'
          */
-        encoding?: BufferEncoding;
+        encoding?: BufferEncoding | undefined;
 
         /**
          * The Blob content-type. The intent is for `type` to convey
          * the MIME media type of the data, however no validation of the type format
          * is performed.
          */
-        type?: string;
+        type?: string | undefined;
     }
 
     /**

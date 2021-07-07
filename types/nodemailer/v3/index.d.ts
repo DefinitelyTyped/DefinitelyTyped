@@ -79,15 +79,15 @@ export interface AttachmentObject {
     /**
      * filename to be reported as the name of the attached file, use of unicode is allowed
      */
-    filename?: string;
+    filename?: string | undefined;
     /**
      * optional content id for using inline images in HTML message source
      */
-    cid?: string;
+    cid?: string | undefined;
     /**
      * Pathname or URL to use streaming
      */
-    path?: string;
+    path?: string | undefined;
     /**
      * String, Buffer or a Stream contents for the attachment
      */
@@ -95,62 +95,62 @@ export interface AttachmentObject {
     /**
      * If set and content is string, then encodes the content to a Buffer using the specified encoding. Example values: base64, hex, 'binary' etc. Useful if you want to use binary attachments in a JSON formatted e-mail object.
      */
-    encoding?: string;
+    encoding?: string | undefined;
     /**
      * optional content type for the attachment, if not set will be derived from the filename property
      */
-    contentType?: string;
+    contentType?: string | undefined;
     /**
      * optional content disposition type for the attachment, defaults to 'attachment'
      */
-    contentDisposition?: string;
+    contentDisposition?: string | undefined;
 }
 
 export interface SendMailOptions {
     /**
      * The e-mail address of the sender. All e-mail addresses can be plain 'sender@server.com' or formatted 'Sender Name <sender@server.com>', see here for details
      */
-    from?: string;
+    from?: string | undefined;
     /**
      * An e-mail address that will appear on the Sender: field
      */
-    sender?: string;
+    sender?: string | undefined;
     /**
      * Comma separated list or an array of recipients e-mail addresses that will appear on the To: field
      */
-    to?: string|string[];
+    to?: string|string[] | undefined;
     /**
      * Comma separated list or an array of recipients e-mail addresses that will appear on the Cc: field
      */
-    cc?: string|string[];
+    cc?: string|string[] | undefined;
     /**
      * Comma separated list or an array of recipients e-mail addresses that will appear on the Bcc: field
      */
-    bcc?: string|string[];
+    bcc?: string|string[] | undefined;
     /**
      * An e-mail address that will appear on the Reply-To: field
      */
-    replyTo?: string;
+    replyTo?: string | undefined;
     /**
      * The message-id this message is replying
      */
-    inReplyTo?: string;
+    inReplyTo?: string | undefined;
     /**
      * Message-id list (an array or space separated string)
      */
-    references?: string|string[];
+    references?: string|string[] | undefined;
     /**
      * The subject of the e-mail
      */
-    subject?: string;
+    subject?: string | undefined;
     /**
      * The plaintext version of the message as an Unicode string, Buffer, Stream or an object {path: '...'}
      */
-    text?: string|Buffer|NodeJS.ReadableStream|AttachmentObject;
+    text?: string|Buffer|NodeJS.ReadableStream|AttachmentObject | undefined;
     /**
      * The HTML version of the message as an Unicode string, Buffer, Stream or an object {path: '...'}
      */
-    html?: string|Buffer|NodeJS.ReadableStream|AttachmentObject;
+    html?: string|Buffer|NodeJS.ReadableStream|AttachmentObject | undefined;
     /**
      * An object or array of additional header fields (e.g. {"X-Key-Name": "key value"} or [{key: "X-Key-Name", value: "val1"}, {key: "X-Key-Name", value: "val2"}])
      */
@@ -158,23 +158,23 @@ export interface SendMailOptions {
     /**
      * An array of attachment objects (see below for details)
      */
-    attachments?: AttachmentObject[];
+    attachments?: AttachmentObject[] | undefined;
     /**
      * An array of alternative text contents (in addition to text and html parts) (see below for details)
      */
-    alternatives?: AttachmentObject[];
+    alternatives?: AttachmentObject[] | undefined;
     /**
      * optional Message-Id value, random value will be generated if not set
      */
-    messageId?: string;
+    messageId?: string | undefined;
     /**
      * optional Date value, current UTC string will be used if not set
      */
-    date?: Date;
+    date?: Date | undefined;
     /**
      * optional transfer encoding for the textual parts (defaults to 'quoted-printable')
      */
-    encoding?: string;
+    encoding?: string | undefined;
 }
 
 export interface SentMessageInfo {
@@ -197,7 +197,7 @@ export interface SentMessageInfo {
     /**
      * is an array returned by Direct SMTP transport. Includes recipient addresses that were temporarily rejected together with the server response
      */
-    pending?: string[];
+    pending?: string[] | undefined;
     /**
      * is a string returned by SMTP transports and includes the last SMTP response from the server
      */

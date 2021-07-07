@@ -40,8 +40,8 @@ declare class Combiner {
 declare namespace Combiner {
     /** An offset line and column number */
     interface Offset {
-        line?: number;
-        column?: number;
+        line?: number | undefined;
+        column?: number | undefined;
     }
 
     /**

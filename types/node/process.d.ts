@@ -38,10 +38,10 @@ declare module 'process' {
 
             interface ProcessRelease {
                 name: string;
-                sourceUrl?: string;
-                headersUrl?: string;
-                libUrl?: string;
-                lts?: string;
+                sourceUrl?: string | undefined;
+                headersUrl?: string | undefined;
+                libUrl?: string | undefined;
+                lts?: string | undefined;
             }
 
             interface ProcessVersions extends Dict<string> {
@@ -89,7 +89,7 @@ declare module 'process' {
             type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<any>, value: any) => void;
 
             interface Socket extends ReadWriteStream {
-                isTTY?: true;
+                isTTY?: true | undefined;
             }
 
             // Alias for compatibility
@@ -190,24 +190,24 @@ declare module 'process' {
                  *
                  * @default 'Warning'
                  */
-                type?: string;
+                type?: string | undefined;
 
                 /**
                  * A unique identifier for the warning instance being emitted.
                  */
-                code?: string;
+                code?: string | undefined;
 
                 /**
                  * When `warning` is a `string`, `ctor` is an optional function used to limit the generated stack trace.
                  *
                  * @default process.emitWarning
                  */
-                ctor?: Function;
+                ctor?: Function | undefined;
 
                 /**
                  * Additional text to include with the error.
                  */
-                detail?: string;
+                detail?: string | undefined;
             }
 
             interface ProcessConfig {
@@ -280,7 +280,7 @@ declare module 'process' {
 
                 env: ProcessEnv;
                 exit(code?: number): never;
-                exitCode?: number;
+                exitCode?: number | undefined;
                 getgid(): number;
                 setgid(id: number | string): void;
                 getuid(): number;
@@ -303,7 +303,7 @@ declare module 'process' {
                 readonly arch: string;
                 readonly platform: Platform;
                 /** @deprecated since v14.0.0 - use `require.main` instead. */
-                mainModule?: Module;
+                mainModule?: Module | undefined;
                 memoryUsage: MemoryUsageFn;
                 cpuUsage(previousValue?: CpuUsage): CpuUsage;
                 nextTick(callback: Function, ...args: any[]): void;
@@ -332,7 +332,7 @@ declare module 'process' {
                 hrtime: HRTime;
 
                 // Worker
-                send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
+                send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean | undefined}, callback?: (error: Error | null) => void): boolean;
                 disconnect(): void;
                 connected: boolean;
 
@@ -346,7 +346,7 @@ declare module 'process' {
                 /**
                  * Only available with `--experimental-report`
                  */
-                report?: ProcessReport;
+                report?: ProcessReport | undefined;
 
                 resourceUsage(): ResourceUsage;
 

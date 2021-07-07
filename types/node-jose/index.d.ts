@@ -10,35 +10,35 @@ export function canYouSee(ks: JWK.Key | JWK.KeyStore, opts: object): JWS.Verifie
 
 export namespace JWA {
     interface DecryptEncryptOptions {
-        aad?: Buffer;
-        adata?: Buffer;
-        iv?: Buffer;
-        tag?: Buffer; // Not used in encrypt
-        mac?: Buffer; // Not used in encrypt
-        epu?: Buffer; // encryption party info
-        epv?: Buffer; // encryption party info
-        kdata?: Buffer;
-        epk?: Buffer; // ephemeral pub key used in ec
-        enc?: string; // algorithm to use in ec
-        alg?: string; // variation of enc, probably oversight in lib code
-        apu?: Buffer; // agreement party info used in ec
-        apv?: Buffer; // agreement party info used in ec
-        p2s?: Buffer; // used in pbes
-        p2c?: number; // used in pbes
+        aad?: Buffer | undefined;
+        adata?: Buffer | undefined;
+        iv?: Buffer | undefined;
+        tag?: Buffer | undefined; // Not used in encrypt
+        mac?: Buffer | undefined; // Not used in encrypt
+        epu?: Buffer | undefined; // encryption party info
+        epv?: Buffer | undefined; // encryption party info
+        kdata?: Buffer | undefined;
+        epk?: Buffer | undefined; // ephemeral pub key used in ec
+        enc?: string | undefined; // algorithm to use in ec
+        alg?: string | undefined; // variation of enc, probably oversight in lib code
+        apu?: Buffer | undefined; // agreement party info used in ec
+        apv?: Buffer | undefined; // agreement party info used in ec
+        p2s?: Buffer | undefined; // used in pbes
+        p2c?: number | undefined; // used in pbes
     }
 
     interface DeriveOptions {
-        length?: number; // key length
-        otherInfo?: Buffer; // info used in concatkdf
-        public?: Buffer; // public key used in ecdh
-        hash?: Buffer; // hash used in ecdh
-        salt?: Buffer; // salt value used in hkdf
-        info?: Buffer; // app identifier info used in hkdf
+        length?: number | undefined; // key length
+        otherInfo?: Buffer | undefined; // info used in concatkdf
+        public?: Buffer | undefined; // public key used in ecdh
+        hash?: Buffer | undefined; // hash used in ecdh
+        salt?: Buffer | undefined; // salt value used in hkdf
+        info?: Buffer | undefined; // app identifier info used in hkdf
     }
 
     interface EncryptReturn {
         data: Buffer; // The cipher text
-        tag?: Buffer; // The tag used in some algorithms
+        tag?: Buffer | undefined; // The tag used in some algorithms
     }
 
     interface SignReturn {
@@ -47,7 +47,7 @@ export namespace JWA {
     }
 
     interface SignVerifyOptions {
-        loose?: boolean;
+        loose?: boolean | undefined;
     }
 
     interface VerifyReturn {
@@ -92,12 +92,12 @@ export namespace JWA {
 
 export namespace JWE {
     interface EncryptOptions {
-        format?: 'general' | 'compact' | 'flattened';
-        zip?: boolean | 'DEF';
-        fields?: object;
-        contentAlg?: string;
-        protect?: string | string[];
-        iv?: string | Buffer;
+        format?: 'general' | 'compact' | 'flattened' | undefined;
+        zip?: boolean | 'DEF' | undefined;
+        fields?: object | undefined;
+        contentAlg?: string | undefined;
+        protect?: string | string[] | undefined;
+        iv?: string | Buffer | undefined;
     }
 
     function createEncrypt(keys: JWK.Key | JWK.Key[]): Encryptor;
@@ -187,9 +187,9 @@ export namespace JWK {
     }
 
     interface KeyStoreGetFilter {
-        kty?: string;
-        use?: KeyUse;
-        alg?: string;
+        kty?: string | undefined;
+        use?: KeyUse | undefined;
+        alg?: string | undefined;
     }
 
     interface KeyStoreGetOptions extends KeyStoreGetFilter {
@@ -267,10 +267,10 @@ export namespace JWK {
 
 export namespace JWS {
     interface SignOptions {
-        format?: 'compact' | 'flattened';
-        alg?: string;
-        compact?: boolean;
-        fields?: object;
+        format?: 'compact' | 'flattened' | undefined;
+        alg?: string | undefined;
+        compact?: boolean | undefined;
+        fields?: object | undefined;
     }
 
     function createSign(keys: JWK.Key | JWK.Key[]): Signer;
@@ -281,7 +281,7 @@ export namespace JWS {
      */
     function createVerify(
         input?: string | JWK.Key | JWK.KeyStore | object,
-        opts?: { allowEmbeddedKey?: boolean; algorithms?: string[]; handlers?: any }
+        opts?: { allowEmbeddedKey?: boolean | undefined; algorithms?: string[] | undefined; handlers?: any }
     ): Verifier;
 
     interface CreateSignResult {
@@ -317,7 +317,7 @@ export namespace JWS {
     }
 
     interface Verifier {
-        verify(input: string, opts?: { allowEmbeddedKey?: boolean }): Promise<VerificationResult>;
+        verify(input: string, opts?: { allowEmbeddedKey?: boolean | undefined }): Promise<VerificationResult>;
     }
 
     interface Exp {
@@ -325,8 +325,8 @@ export namespace JWS {
     }
 
     interface VerifyOptions {
-        allowEmbeddedKey?: boolean;
-        algorithms?: string[];
+        allowEmbeddedKey?: boolean | undefined;
+        algorithms?: string[] | undefined;
         handlers: { exp: boolean | Exp };
     }
 }

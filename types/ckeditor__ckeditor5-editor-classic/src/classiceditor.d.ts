@@ -10,8 +10,8 @@ export default class ClassicEditor extends Editor implements DataApi, EditorWith
     static create(sourceElementOrData: HTMLElement | string, config?: EditorConfig): Promise<ClassicEditor>;
 
     setData(data: string): void;
-    getData(options?: { rootName?: string; trim?: "empty" | "none" }): string;
+    getData(options?: { rootName?: string | undefined; trim?: "empty" | "none" | undefined }): string;
 
-    sourceElement?: HTMLElement;
+    sourceElement?: HTMLElement | undefined;
     updateSourceElement(): void;
 }

@@ -8,11 +8,11 @@ export interface HuePickerStylesProps {
 }
 
 export interface HuePickerProps extends CustomPickerProps {
-    height?: string;
-    width?: string;
-    direction?: "vertical" | "horizontal";
-    pointer?: ComponentType;
-    styles?: Partial<Classes<HuePickerStylesProps>>;
+    height?: string | undefined;
+    width?: string | undefined;
+    direction?: "vertical" | "horizontal" | undefined;
+    pointer?: ComponentType | undefined;
+    styles?: Partial<Classes<HuePickerStylesProps>> | undefined;
 }
 
 export default class HuePicker extends Component<HuePickerProps> { }

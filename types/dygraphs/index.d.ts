@@ -82,13 +82,13 @@ export namespace dygraphs {
          * set per-series.
          * @default none
          */
-        axis?: 'y1' | 'y2' | '';
+        axis?: 'y1' | 'y2' | '' | undefined;
 
         /**
          * A per-series color definition. Used in conjunction with, and overrides, the colors option.
          * @default (see description)
          */
-        color?: string | null;
+        color?: string | null | undefined;
 
         /**
          * A function (or array of functions) which plot each data series on the chart.
@@ -103,7 +103,7 @@ export namespace dygraphs {
          * The small dot can be replaced with a custom rendering by supplying a drawPointCallback.
          * @default false
          */
-        drawPoints?: boolean | null;
+        drawPoints?: boolean | null | undefined;
 
         /**
          * Error bars (or custom bars) for each series are drawn in the same color as the series, but
@@ -113,20 +113,20 @@ export namespace dygraphs {
          * varies at each point.
          * @default 0.15
          */
-        fillAlpha?: number | null;
+        fillAlpha?: number | null | undefined;
 
         /**
          * Should the area underneath the graph be filled? This option is not compatible with error
          * bars. This may be set on a per-series basis.
          * @default false
          */
-        fillGraph?: boolean | null;
+        fillGraph?: boolean | null | undefined;
 
         /**
          * The size in pixels of the dot drawn over highlighted points.
          * @default 3
          */
-        highlightCircleSize?: number | null;
+        highlightCircleSize?: number | null | undefined;
 
         /**
          * The size of the dot to draw on each point in pixels (see drawPoints). A dot is always
@@ -134,7 +134,7 @@ export namespace dygraphs {
          * also controls the size of those dots.
          * @default 1
          */
-        pointSize?: number | null;
+        pointSize?: number | null | undefined;
 
         /**
          * Mark this series for inclusion in the range selector. The mini plot curve will be an
@@ -144,27 +144,27 @@ export namespace dygraphs {
          * be set for all series which should be included (regardless of visibility).
          * @default null
          */
-        showInRangeSelector?: boolean | null;
+        showInRangeSelector?: boolean | null | undefined;
 
         /**
          * When set, display the graph as a step plot instead of a line plot. This option may either
          * be set for the whole graph or for single series.
          * @default false
          */
-        stepPlot?: boolean | null;
+        stepPlot?: boolean | null | undefined;
 
         /**
          * Draw a border around graph lines to make crossing lines more easily distinguishable.
          * Useful for graphs with many lines.
          * @default null
          */
-        strokeBorderWidth?: number | null;
+        strokeBorderWidth?: number | null | undefined;
 
         /**
          * Color for the line border used if strokeBorderWidth is set.
          * @default white
          */
-        strokeBorderColor?: string | null;
+        strokeBorderColor?: string | null | undefined;
 
         /**
          * A custom pattern array where the even index is a draw and odd is a space in pixels. If
@@ -173,14 +173,14 @@ export namespace dygraphs {
          * lines.
          * @default null
          */
-        strokePattern?: number[] | null;
+        strokePattern?: number[] | null | undefined;
 
         /**
          * The width of the lines connecting data points. This can be used to increase the contrast
          * or some graphs.
          * @default 1.0
          */
-        strokeWidth?: number | null;
+        strokeWidth?: number | null | undefined;
     }
 
     interface PerAxisOptions {
@@ -188,7 +188,7 @@ export namespace dygraphs {
          * Size of the font (in pixels) to use in the axis labels, both x- and y-axis.
          * @default 14
          */
-        axisLabelFontSize?: number | null;
+        axisLabelFontSize?: number | null | undefined;
 
         /**
          * Function to call to format the tick values that appear along an axis. This is usually set
@@ -202,7 +202,7 @@ export namespace dygraphs {
                   opts: (name: string) => any,
                   dygraph: Readonly<Dygraph>,
               ) => string)
-            | null;
+            | null | undefined;
 
         /**
          * Width (in pixels) of the containing divs for x- and y-axis labels. For the y-axis, this
@@ -210,26 +210,26 @@ export namespace dygraphs {
          * pixelsPerLabel, which controls the spacing between labels.
          * @default 50 (y-axis), 60 (x-axis)
          */
-        axisLabelWidth?: number | null;
+        axisLabelWidth?: number | null | undefined;
 
         /**
          * Color of the x- and y-axis lines. Accepts any value which the HTML canvas strokeStyle
          * attribute understands, e.g. 'black' or 'rgb(0, 100, 255)'.
          * @default black
          */
-        axisLineColor?: string | null;
+        axisLineColor?: string | null | undefined;
 
         /**
          * Thickness (in pixels) of the x- and y-axis lines.
          * @default 0.3
          */
-        axisLineWidth?: number | null;
+        axisLineWidth?: number | null | undefined;
 
         /**
          * The size of the line to display next to each tick mark on x- or y-axes.
          * @default 3.0
          */
-        axisTickSize?: number | null;
+        axisTickSize?: number | null | undefined;
 
         /**
          * Whether to draw the specified axis. This may be set on a per-axis basis to define the
@@ -237,14 +237,14 @@ export namespace dygraphs {
          * being drawn and reclaims the space for the chart grid/lines.
          * @default true for x and y, false for y2
          */
-        drawAxis?: boolean | null;
+        drawAxis?: boolean | null | undefined;
 
         /**
          * The color of the gridlines. This may be set on a per-axis basis to define each axis' grid
          * separately.
          * @default rgb(128,128,128)
          */
-        gridLineColor?: string | null;
+        gridLineColor?: string | null | undefined;
 
         /**
          * A custom pattern array where the even index is a draw and odd is a space in pixels. If
@@ -253,7 +253,7 @@ export namespace dygraphs {
          * gridlines.
          * @default null
          */
-        gridLinePattern?: number[] | null;
+        gridLinePattern?: number[] | null | undefined;
 
         /**
          * Thickness (in pixels) of the gridlines drawn under the chart. The vertical/horizontal
@@ -261,7 +261,7 @@ export namespace dygraphs {
          * may be set on a per-axis basis to define each axis' grid separately.
          * @default 0.3
          */
-        gridLineWidth?: number | null;
+        gridLineWidth?: number | null | undefined;
 
         /**
          * Only valid for y and y2, has no effect on x: This option defines whether the y axes should
@@ -273,7 +273,7 @@ export namespace dygraphs {
          * error.
          * @default true for y, false for y2
          */
-        independentTicks?: boolean | null;
+        independentTicks?: boolean | null | undefined;
 
         /**
          * When set for the y-axis or x-axis, the graph shows that axis in log scale. Any values less
@@ -284,7 +284,7 @@ export namespace dygraphs {
          * date-based x-axes.
          * @default false
          */
-        logscale?: boolean | null;
+        logscale?: boolean | null | undefined;
 
         /**
          * When displaying numbers in normal (not scientific) mode, large numbers will be displayed
@@ -295,14 +295,14 @@ export namespace dygraphs {
          * like 20 or 30.
          * @default 6
          */
-        maxNumberWidth?: number | null;
+        maxNumberWidth?: number | null | undefined;
 
         /**
          * Number of pixels to require between each x- and y-label. Larger values will yield a
          * sparser axis with fewer ticks. This is set on a per-axis basis.
          * @default 70 (x-axis) or 30 (y-axes)
          */
-        pixelsPerLabel?: number | null;
+        pixelsPerLabel?: number | null | undefined;
 
         /**
          * By default, dygraphs displays numbers with a fixed number of digits after the decimal
@@ -311,7 +311,7 @@ export namespace dygraphs {
          * and 1234 to be displayed as 1.23e+3.
          * @default null
          */
-        sigFigs?: number | null;
+        sigFigs?: number | null | undefined;
 
         /**
          * This lets you specify an arbitrary function to generate tick marks on an axis. The tick
@@ -321,7 +321,7 @@ export namespace dygraphs {
          * set on a per-axis basis.
          * @default dygraphs.dateTicker or dygraphs.numericTicks
          */
-        ticker?: Ticker | null;
+        ticker?: Ticker | null | undefined;
 
         /**
          * Function to provide a custom display format for the values displayed on mouseover. This
@@ -338,7 +338,7 @@ export namespace dygraphs {
                   row: number,
                   col: number,
               ) => string)
-            | null;
+            | null | undefined;
 
         /**
          * Explicitly set the vertical range of the graph to [low, high]. This may be set on a
@@ -347,27 +347,27 @@ export namespace dygraphs {
          * bound)
          * @default Full range of the input is shown
          */
-        valueRange?: [number | null, number | null] | null;
+        valueRange?: [number | null, number | null] | null | undefined;
 
         /**
          * Whether to display gridlines in the chart. This may be set on a per-axis basis to define
          * the visibility of each axis' grid separately.
          * @default true for x and y, false for y2
          */
-        drawGrid?: boolean | null;
+        drawGrid?: boolean | null | undefined;
 
         /**
          * Show K/M/B for thousands/millions/billions on y-axis.
          * @default false
          */
-        labelsKMB?: boolean | null;
+        labelsKMB?: boolean | null | undefined;
 
         /**
          * Show k/M/G for kilo/Mega/Giga on y-axis. This is different than labelsKMB in
          * that it uses base 2, not 10.
          * @default false
          */
-        labelsKMG2?: boolean | null;
+        labelsKMG2?: boolean | null | undefined;
     }
 
     interface SeriesLegendData {
@@ -432,31 +432,31 @@ export namespace dygraphs {
          * is complete.
          * @default false
          */
-        animatedZooms?: boolean | null;
+        animatedZooms?: boolean | null | undefined;
 
         /**
          * If provided, this function is called whenever the user clicks on an annotation.
          * @default null
          */
-        annotationClickHandler?: AnnotationClickHandler | null;
+        annotationClickHandler?: AnnotationClickHandler | null | undefined;
 
         /**
          * If provided, this function is called whenever the user double-clicks on an annotation.
          * @default null
          */
-        annotationDblClickHandler?: AnnotationDblClickHandler | null;
+        annotationDblClickHandler?: AnnotationDblClickHandler | null | undefined;
 
         /**
          * If provided, this function is called whenever the user mouses out of an annotation.
          * @default null
          */
-        annotationMouseOutHandler?: AnnotationMouseOutHandler | null;
+        annotationMouseOutHandler?: AnnotationMouseOutHandler | null | undefined;
 
         /**
          * If provided, this function is called whenever the user mouses over an annotation.
          * @default null
          */
-        annotationMouseOverHandler?: AnnotationMouseOverHandler | null;
+        annotationMouseOverHandler?: AnnotationMouseOverHandler | null | undefined;
 
         /**
          * Defines per-axis options. Valid keys are 'x', 'y' and 'y2'. Only some options may be set
@@ -464,27 +464,27 @@ export namespace dygraphs {
          * See also documentation on per-series and per-axis options.
          * @default null
          */
-        axes?: Partial<Record<Axis, PerAxisOptions>> | null;
+        axes?: Partial<Record<Axis, PerAxisOptions>> | null | undefined;
 
         /**
          * A function to call when the canvas is clicked.
          * @default null
          */
-        clickCallback?: ((event: MouseEvent, xval: number, points: ReadonlyArray<Point>) => void) | null;
+        clickCallback?: ((event: MouseEvent, xval: number, points: ReadonlyArray<Point>) => void) | null | undefined;
 
         /**
          * If colors is not specified, saturation of the automatically-generated
          * data series colors. (0.0-1.0)
          * @default 1.0
          */
-        colorSaturation?: number | null;
+        colorSaturation?: number | null | undefined;
 
         /**
          * If colors is not specified, value of the data series colors, as in hue/saturation/value.
          * (0.0-1.0, default 0.5)
          * @default 1.0
          */
-        colorValue?: number | null;
+        colorValue?: number | null | undefined;
 
         /**
          * List of colors for the data series. These can be of the form "#AABBCC" or
@@ -492,7 +492,7 @@ export namespace dygraphs {
          * color wheel are used. Overridden by the 'color' option.
          * @default (see description)
          */
-        colors?: string[] | null;
+        colors?: string[] | null | undefined;
 
         /**
          * Usually, when Dygraphs encounters a missing value in a data series, it interprets this as
@@ -501,21 +501,21 @@ export namespace dygraphs {
          * this to true. To explicitly include a gap with this option set, use a value of NaN.
          * @default false
          */
-        connectSeparatedPoints?: boolean | null;
+        connectSeparatedPoints?: boolean | null | undefined;
 
         /**
          * When set, parse each CSV cell as "low;middle;high". Error bars will be drawn for each
          * point between low and high, with the series itself going through middle.
          * @default false
          */
-        customBars?: boolean | null;
+        customBars?: boolean | null | undefined;
 
         /**
          * Custom DataHandler. This is an advanced customization.
          * @see http://bit.ly/151E7Aq.
          * @default (depends on data)
          */
-        dataHandler?: DataHandler | null;
+        dataHandler?: DataHandler | null | undefined;
 
         /**
          * Initially zoom in on a section of the graph. Is of the form [earliest, latest], where
@@ -523,14 +523,14 @@ export namespace dygraphs {
          * values in dateWindow must also be numbers.
          * @default Full range of the input is shown
          */
-        dateWindow?: [number, number] | null;
+        dateWindow?: [number, number] | null | undefined;
 
         /**
          * The delimiter to look for when separating fields of a CSV file. Setting this to a tab is
          * not usually necessary, since tab-delimited data is auto-detected.
          * @default ,
          */
-        delimiter?: string | null;
+        delimiter?: string | null | undefined;
 
         /**
          * Unless it's run in scientific mode (see the sigFigs option), dygraphs
@@ -541,7 +541,7 @@ export namespace dygraphs {
          * displayed in scientific notation.
          * @default 2
          */
-        digitsAfterDecimal?: number | null;
+        digitsAfterDecimal?: number | null | undefined;
 
         /**
          * Only applies when Dygraphs is used as a GViz chart. Causes string columns following a data
@@ -549,7 +549,7 @@ export namespace dygraphs {
          * used by Google's AnnotatedTimeLine chart.
          * @default false
          */
-        displayAnnotations?: boolean | null;
+        displayAnnotations?: boolean | null | undefined;
 
         /**
          * When set, draw the X axis at the Y=0 position and the Y axis at the X=0 position if those
@@ -557,21 +557,21 @@ export namespace dygraphs {
          * left graph edge as usual.
          * @default false
          */
-        drawAxesAtZero?: boolean | null;
+        drawAxesAtZero?: boolean | null | undefined;
 
         /**
          * When set, this callback gets called every time the dygraph is drawn. This includes the
          * initial draw, after zooming and repeatedly while panning.
          * @default null
          */
-        drawCallback?: ((dygraph: Readonly<Dygraph>, is_initial: boolean) => void) | null;
+        drawCallback?: ((dygraph: Readonly<Dygraph>, is_initial: boolean) => void) | null | undefined;
 
         /**
          * Draw points at the edges of gaps in the data. This improves visibility of small data
          * segments or other data irregularities.
          * @default false
          */
-        drawGapEdgePoints?: boolean | null;
+        drawGapEdgePoints?: boolean | null | undefined;
 
         /**
          * Draw a custom item when a point is highlighted. Default is a small dot matching the
@@ -590,7 +590,7 @@ export namespace dygraphs {
                   color: string,
                   pointSize: number,
               ) => void)
-            | null;
+            | null | undefined;
 
         /**
          * Draw a custom item when drawPoints is enabled. Default is a small dot matching the series
@@ -609,13 +609,13 @@ export namespace dygraphs {
                   color: string,
                   pointSize: number,
               ) => void)
-            | null;
+            | null | undefined;
 
         /**
          * Does the data contain standard deviations? Setting this to true alters the input format.
          * @default false
          */
-        errorBars?: boolean | null;
+        errorBars?: boolean | null | undefined;
 
         /**
          * Sets the data being displayed in the chart. This can only be set when calling
@@ -623,7 +623,7 @@ export namespace dygraphs {
          * formats, see the Data Formats page.
          * @default (set when constructed)
          */
-        file?: Data | null;
+        file?: Data | null | undefined;
 
         /**
          * When set, attempt to parse each cell in the CSV file as "a/b", where a and b are integers.
@@ -631,20 +631,20 @@ export namespace dygraphs {
          * below).
          * @default false
          */
-        fractions?: boolean | null;
+        fractions?: boolean | null | undefined;
 
         /**
          * Height, in pixels, of the chart. If the container div has been explicitly sized, this will
          * be ignored.
          * @default 320
          */
-        height?: number | null;
+        height?: number | null | undefined;
 
         /**
          * Whether to hide the legend when the mouse leaves the chart area.
          * @default true
          */
-        hideOverlayOnMouseOut?: boolean | null;
+        hideOverlayOnMouseOut?: boolean | null | undefined;
 
         /**
          * When set, this callback gets called every time a new point is highlighted.
@@ -652,20 +652,20 @@ export namespace dygraphs {
          */
         highlightCallback?:
             | ((event: MouseEvent, xval: number, points: ReadonlyArray<Point>, row: number, seriesName: string) => void)
-            | null;
+            | null | undefined;
 
         /**
          * Fade the background while highlighting series. 1=fully visible background (disable
          * fading), 0=hiddden background (show highlighted series only).
          * @default 0.5
          */
-        highlightSeriesBackgroundAlpha?: number | null;
+        highlightSeriesBackgroundAlpha?: number | null | undefined;
 
         /**
          * Sets the background color used to fade out the series in conjunction with 'highlightSeriesBackgroundAlpha'.
          * @default rgb(255, 255, 255)
          */
-        highlightSeriesBackgroundColor?: string | null;
+        highlightSeriesBackgroundColor?: string | null | undefined;
 
         /**
          * When set, the options from this object are applied to the timeseries closest to the mouse
@@ -673,7 +673,7 @@ export namespace dygraphs {
          * highlightSeriesOpts: { strokeWidth: 3 }.
          * @default null
          */
-        highlightSeriesOpts?: PerSeriesOptions | null;
+        highlightSeriesOpts?: PerSeriesOptions | null | undefined;
 
         /**
          * Usually, dygraphs will use the range of the data plus some padding to set the range of the
@@ -681,13 +681,13 @@ export namespace dygraphs {
          * lowest value. This can be used to avoid exaggerating the variance in the data
          * @default false
          */
-        includeZero?: boolean | null;
+        includeZero?: boolean | null | undefined;
 
         /**
          * TODO(@konigsberg): document this
          * @default ...
          */
-        interactionModel?: object | null;
+        interactionModel?: object | null | undefined;
 
         /**
          * A name for each data series, including the independent (X) series. For CSV files and
@@ -695,33 +695,33 @@ export namespace dygraphs {
          * If it is not, default values are supplied and a warning is logged.
          * @default ["X", "Y1", "Y2", ...]*
          */
-        labels?: string[] | null;
+        labels?: string[] | null | undefined;
 
         /**
          * Show data labels in an external div, rather than on the graph. This value can either be a
          * div element or a div id.
          * @default null
          */
-        labelsDiv?: HTMLElement | string | null;
+        labelsDiv?: HTMLElement | string | null | undefined;
 
         /**
          * Put <br/> between lines in the label string. Often used in conjunction
          * with labelsDiv.
          * @default false
          */
-        labelsSeparateLines?: boolean | null;
+        labelsSeparateLines?: boolean | null | undefined;
 
         /**
          * Show zero value labels in the labelsDiv.
          * @default true
          */
-        labelsShowZeroValues?: boolean | null;
+        labelsShowZeroValues?: boolean | null | undefined;
 
         /**
          * Show date/time labels according to UTC (instead of local time).
          * @default false
          */
-        labelsUTC?: boolean | null;
+        labelsUTC?: boolean | null | undefined;
 
         /**
          * When to display the legend. By default, it only appears when a user mouses over the chart.
@@ -729,14 +729,14 @@ export namespace dygraphs {
          * follows highlighted points. If set to 'never' then it will not appear at all.
          * @default onmouseover
          */
-        legend?: 'always' | 'follow' | 'onmouseover' | 'never' | null;
+        legend?: 'always' | 'follow' | 'onmouseover' | 'never' | null | undefined;
 
         /**
          * Set this to supply a custom formatter for the legend. See this comment and the
          * legendFormatter demo for usage.
          * @default null
          */
-        legendFormatter?: ((data: LegendData) => string) | null;
+        legendFormatter?: ((data: LegendData) => string) | null | undefined;
 
         /**
          * A value representing the farthest a graph may be panned, in percent of the display. For
@@ -744,84 +744,84 @@ export namespace dygraphs {
          * displayed values. null means no bounds.
          * @default null
          */
-        panEdgeFraction?: number | null;
+        panEdgeFraction?: number | null | undefined;
 
         /**
          * Defines per-graph plugins. Useful for per-graph customization
          * @default []
          */
-        plugins?: any[] | null;
+        plugins?: any[] | null | undefined;
 
         /**
          * A function to call when a data point is clicked. and the point that was clicked.
          * @default null
          */
-        pointClickCallback?: ((event: MouseEvent, point: Readonly<Point>) => void) | null;
+        pointClickCallback?: ((event: MouseEvent, point: Readonly<Point>) => void) | null | undefined;
 
         /**
          * Height, in pixels, of the range selector widget. This option can only be specified at
          * Dygraph creation time.
          * @default 40
          */
-        rangeSelectorHeight?: number | null;
+        rangeSelectorHeight?: number | null | undefined;
 
         /**
          * The range selector mini plot fill color. This can be of the form "#AABBCC" or
          * "rgb(255,100,200)" or "yellow". You can also specify null or "" to turn off fill.
          * @default #A7B1C4
          */
-        rangeSelectorPlotFillColor?: string | null;
+        rangeSelectorPlotFillColor?: string | null | undefined;
 
         /**
          * The range selector mini plot stroke color. This can be of the form "#AABBCC" or
          * "rgb(255,100,200)" or "yellow". You can also specify null or "" to turn off stroke.
          * @default #808FAB
          */
-        rangeSelectorPlotStrokeColor?: string | null;
+        rangeSelectorPlotStrokeColor?: string | null | undefined;
 
         /**
          * Number of pixels to leave blank at the right edge of the Dygraph. This makes it easier to
          * highlight the right-most data point.
          * @default 5
          */
-        rightGap?: number | null;
+        rightGap?: number | null | undefined;
 
         /**
          * Number of days over which to average data. Discussed extensively above.
          * @default 1
          */
-        rollPeriod?: number | null;
+        rollPeriod?: number | null | undefined;
 
         /**
          * Defines per-series options. Its keys match the y-axis label names, and the values are
          * dictionaries themselves that contain options specific to that series.
          * @default null
          */
-        series?: Record<string, PerSeriesOptions> | null;
+        series?: Record<string, PerSeriesOptions> | null | undefined;
 
         /**
          * Whether to show the legend upon mouseover.
          * @default true
          */
-        showLabelsOnHighlight?: boolean | null;
+        showLabelsOnHighlight?: boolean | null | undefined;
 
         /**
          * Show or hide the range selector widget.
          * @default false
          */
-        showRangeSelector?: boolean | null;
+        showRangeSelector?: boolean | null | undefined;
 
         /**
          * If the rolling average period text box should be shown.
          * @default false
          */
-        showRoller?: boolean | null;
+        showRoller?: boolean | null | undefined;
 
         /**
          * When errorBars is set, shade this many standard deviations above/below each point.
          * @default 2.0
          */
-        sigma?: number | null;
+        sigma?: number | null | undefined;
 
         /**
          * If set, stack series on top of one another rather than drawing them independently. The
@@ -830,7 +830,7 @@ export namespace dygraphs {
          * stackedGraphNaNFill for details.
          * @default false
          */
-        stackedGraph?: boolean | null;
+        stackedGraph?: boolean | null | undefined;
 
         /**
          * Controls handling of NaN values inside a stacked graph. NaN values are
@@ -840,14 +840,14 @@ export namespace dygraphs {
          * leftmost and rightmost value), and "none" (treat NaN as zero everywhere).
          * @default all
          */
-        stackedGraphNaNFill?: 'all' | 'inside' | 'none' | null;
+        stackedGraphNaNFill?: 'all' | 'inside' | 'none' | null | undefined;
 
         /**
          * Text to display above the chart. You can supply any HTML for this value, not just text. If
          * you wish to style it using CSS, use the 'dygraph-label' or 'dygraph-title' classes.
          * @default null
          */
-        title?: string | null;
+        title?: string | null | undefined;
 
         /**
          * Height of the chart title, in pixels. This also controls the default font size of the
@@ -855,7 +855,7 @@ export namespace dygraphs {
          * the chart for the title's div.
          * @default 18
          */
-        titleHeight?: number | null;
+        titleHeight?: number | null | undefined;
 
         /**
          * When set, this callback gets called before the chart is drawn. It details on how to use
@@ -864,14 +864,14 @@ export namespace dygraphs {
          */
         underlayCallback?:
             | ((context: CanvasRenderingContext2D, area: Readonly<Area>, dygraph: Readonly<Dygraph>) => void)
-            | null;
+            | null | undefined;
 
         /**
          * When set, this callback gets called every time the user stops highlighting any point by
          * mousing out of the graph.
          * @default null
          */
-        unhighlightCallback?: ((event: MouseEvent) => void) | null;
+        unhighlightCallback?: ((event: MouseEvent) => void) | null | undefined;
 
         /**
          * Which series should initially be visible? Once the Dygraph has been constructed, you can
@@ -879,14 +879,14 @@ export namespace dygraphs {
          * methods.
          * @default [true, true, ...]
          */
-        visibility?: boolean[] | null;
+        visibility?: boolean[] | null | undefined;
 
         /**
          * Width, in pixels, of the chart. If the container div has been explicitly sized, this will
          * be ignored.
          * @default 480
          */
-        width?: number | null;
+        width?: number | null | undefined;
 
         /**
          * Use in conjunction with the "fractions" option. Instead of plotting +/- N standard
@@ -894,14 +894,14 @@ export namespace dygraphs {
          * more reasonable behavior for ratios close to 0 or 1.
          * @default true
          */
-        wilsonInterval?: boolean | null;
+        wilsonInterval?: boolean | null | undefined;
 
         /**
          * Height, in pixels, of the x-axis. If not set explicitly, this is computed based on
          * axisLabelFontSize and axisTickSize.
          * @default null
          */
-        xAxisHeight?: number | null;
+        xAxisHeight?: number | null | undefined;
 
         /**
          * Height of the x-axis label, in pixels. This also controls the default font size of the
@@ -909,14 +909,14 @@ export namespace dygraphs {
          * aside below the chart for the x-axis label's div.
          * @default 18
          */
-        xLabelHeight?: number | null;
+        xLabelHeight?: number | null | undefined;
 
         /**
          * Add the specified amount of extra space (in pixels) around the X-axis value range to
          * ensure points at the edges remain visible.
          * @default 0
          */
-        xRangePad?: number | null;
+        xRangePad?: number | null | undefined;
 
         /**
          * A function which parses x-values (i.e. the dependent series). Must return a number, even
@@ -925,7 +925,7 @@ export namespace dygraphs {
          * it will parse. See code for details.
          * @default parseFloat() or Date.parse()*
          */
-        xValueParser?: ((str: string) => number) | null;
+        xValueParser?: ((str: string) => number) | null | undefined;
 
         /**
          * Text to display below the chart's x-axis. You can supply any HTML for this value, not just
@@ -933,7 +933,7 @@ export namespace dygraphs {
          * classes.
          * @default null
          */
-        xlabel?: string | null;
+        xlabel?: string | null | undefined;
 
         /**
          * Text to display to the right of the chart's secondary y-axis. This label is only displayed
@@ -942,14 +942,14 @@ export namespace dygraphs {
          * 'dygraph-y2label' instead of a 'dygraph-ylabel' class.
          * @default null
          */
-        y2label?: string | null;
+        y2label?: string | null | undefined;
 
         /**
          * Width of the div which contains the y-axis label. Since the y-axis label appears rotated
          * 90 degrees, this actually affects the height of its div.
          * @default 18
          */
-        yLabelWidth?: number | null;
+        yLabelWidth?: number | null | undefined;
 
         /**
          * If set, add the specified amount of extra space (in pixels) around the Y-axis value range
@@ -957,7 +957,7 @@ export namespace dygraphs {
          * algorithm.
          * @default null
          */
-        yRangePad?: number | null;
+        yRangePad?: number | null | undefined;
 
         /**
          * Text to display to the left of the chart's y-axis. You can supply any HTML for this value,
@@ -970,7 +970,7 @@ export namespace dygraphs {
          * the yLabelWidth option.
          * @default null
          */
-        ylabel?: string | null;
+        ylabel?: string | null | undefined;
 
         /**
          * A function to call when the zoom window is changed (either by zooming in or out). When
@@ -978,7 +978,7 @@ export namespace dygraphs {
          * be called for intermediate frames).
          * @default null
          */
-        zoomCallback?: ((minDate: number, maxDate: number, yRanges: ReadonlyArray<[number, number]>) => void) | null;
+        zoomCallback?: ((minDate: number, maxDate: number, yRanges: ReadonlyArray<[number, number]>) => void) | null | undefined;
 
         /**
          * Set this option to log timing information. The value of the option will be logged along
@@ -986,7 +986,7 @@ export namespace dygraphs {
          * @deprecated
          * @default null
          */
-        timingName?: string | null;
+        timingName?: string | null | undefined;
 
         /**
          * Overrides the pixel ratio scaling factor for the canvas's 2d context. Ordinarily, this is
@@ -995,7 +995,7 @@ export namespace dygraphs {
          * this value to something less precise, like 1, at the expense of resolution.
          * @default (devicePixelRatio / context.backingStoreRatio)
          */
-        pixelRatio?: number | null;
+        pixelRatio?: number | null | undefined;
 
         /**
          * The transparency of the veil that is drawn over the unselected portions of the range
@@ -1004,33 +1004,33 @@ export namespace dygraphs {
          * unselected portions of the mini plot will be hidden.
          * @default 0.6
          */
-        rangeSelectorAlpha?: number | null;
+        rangeSelectorAlpha?: number | null | undefined;
 
         /**
          * The width of the lines below and on both sides of the range selector mini plot.
          * @default 1
          */
-        rangeSelectorBackgroundLineWidth?: number | null;
+        rangeSelectorBackgroundLineWidth?: number | null | undefined;
 
         /**
          * The color of the lines below and on both sides of the range selector mini plot. This can be
          * of the form "#AABBCC" or "rgb(255,100,200)" or "yellow".
          * @default gray
          */
-        rangeSelectorBackgroundStrokeColor?: string | null;
+        rangeSelectorBackgroundStrokeColor?: string | null | undefined;
 
         /**
          * The width the lines in the interactive layer of the range selector.
          * @default 1
          */
-        rangeSelectorForegroundLineWidth?: number | null;
+        rangeSelectorForegroundLineWidth?: number | null | undefined;
 
         /**
          * The color of the lines in the interactive layer of the range selector. This can be of the
          * form "#AABBCC" or "rgb(255,100,200)" or "yellow".
          * @default black
          */
-        rangeSelectorForegroundStrokeColor?: number | null;
+        rangeSelectorForegroundStrokeColor?: number | null | undefined;
 
         /**
          * The top color for the range selector mini plot fill color gradient. This can be of the form
@@ -1038,13 +1038,13 @@ export namespace dygraphs {
          * null or "" to disable the gradient and fill with one single color.
          * @default white
          */
-        rangeSelectorPlotFillGradientColor?: string | null;
+        rangeSelectorPlotFillGradientColor?: string | null | undefined;
 
         /**
          * The width of the range selector mini plot line.
          * @default 1.5
          */
-        rangeSelectorPlotLineWidth?: number | null;
+        rangeSelectorPlotLineWidth?: number | null | undefined;
     }
 
     interface SeriesProperties {
@@ -1072,19 +1072,19 @@ export namespace dygraphs {
      * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#.PointType}
      */
     interface Point {
-        annotation?: Annotation;
+        annotation?: Annotation | undefined;
         idx: number;
         name: string;
-        x?: number;
-        xval?: number;
-        y_bottom?: number;
-        y_stacked?: number;
-        y_top?: number;
-        y?: number;
-        yval_minus?: number;
-        yval_plus?: number;
-        yval_stacked?: number;
-        yval?: number;
+        x?: number | undefined;
+        xval?: number | undefined;
+        y_bottom?: number | undefined;
+        y_stacked?: number | undefined;
+        y_top?: number | undefined;
+        y?: number | undefined;
+        yval_minus?: number | undefined;
+        yval_plus?: number | undefined;
+        yval_stacked?: number | undefined;
+        yval?: number | undefined;
     }
 
     interface Annotation {
@@ -1096,54 +1096,54 @@ export namespace dygraphs {
          * you specified in your CSV file, e.g. "2010-09-13".
          * You must set either x or xval.
          */
-        x?: number | string;
+        x?: number | string | undefined;
 
         /** Text that will appear on the annotation's flag. */
-        shortText?: string;
+        shortText?: string | undefined;
 
         /** A longer description of the annotation which will appear when the user hovers over it. */
-        text?: string;
+        text?: string | undefined;
 
         /**
          * Specify in place of shortText to mark the annotation with an image rather than text.
          * If you specify this, you must specify width and height.
          */
-        icon?: string;
+        icon?: string | undefined;
 
         /** Width (in pixels) of the annotation flag or icon. */
-        width?: number;
+        width?: number | undefined;
 
         /** Height (in pixels) of the annotation flag or icon. */
-        height?: number;
+        height?: number | undefined;
 
         /** CSS class to use for styling the annotation. */
-        cssClass?: string;
+        cssClass?: string | undefined;
 
         /** Height of the tick mark (in pixels) connecting the point to its flag or icon. */
-        tickHeight?: number;
+        tickHeight?: number | undefined;
 
         /** Width of the tick mark connecting the point to its flag or icon. */
-        tickWidth?: number;
+        tickWidth?: number | undefined;
 
         /** Color of the tick mark connecting the point to its flag or icon. */
-        tickColor?: string;
+        tickColor?: string | undefined;
 
         /** If true, attach annotations to the x-axis, rather than to actual points. */
-        attachAtBottom?: boolean;
+        attachAtBottom?: boolean | undefined;
 
         /** This function is called whenever the user clicks on this annotation. */
-        clickHandler?: AnnotationClickHandler;
+        clickHandler?: AnnotationClickHandler | undefined;
 
         /** This function is called whenever the user mouses over this annotation. */
-        mouseOverHandler?: AnnotationMouseOverHandler;
+        mouseOverHandler?: AnnotationMouseOverHandler | undefined;
 
         /** This function is called whenever the user mouses out of this annotation. */
-        mouseOutHandler?: AnnotationMouseOutHandler;
+        mouseOutHandler?: AnnotationMouseOutHandler | undefined;
 
         /** this function is called whenever the user double-clicks on this annotation. */
-        dblClickHandler?: AnnotationDblClickHandler;
+        dblClickHandler?: AnnotationDblClickHandler | undefined;
 
-        div?: HTMLDivElement;
+        div?: HTMLDivElement | undefined;
     }
 
     type Axis = 'x' | 'y' | 'y2';
@@ -1634,15 +1634,15 @@ export default class Dygraph {
     static PointType: {
         idx: number;
         name: string;
-        x?: number;
-        xval?: number;
-        y_bottom?: number;
-        y?: number;
-        y_stacked?: number;
-        y_top?: number;
-        yval_minus?: number;
-        yval?: number;
-        yval_plus?: number;
-        yval_stacked?: number;
+        x?: number | undefined;
+        xval?: number | undefined;
+        y_bottom?: number | undefined;
+        y?: number | undefined;
+        y_stacked?: number | undefined;
+        y_top?: number | undefined;
+        yval_minus?: number | undefined;
+        yval?: number | undefined;
+        yval_plus?: number | undefined;
+        yval_stacked?: number | undefined;
     };
 }
