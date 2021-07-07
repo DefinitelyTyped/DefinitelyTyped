@@ -1297,7 +1297,14 @@ declare namespace CanvasJS {
          * A custom formatter function which returns the text to be displayed as indexLabel on dataPoints.
          * @param e event object
          */
-        indexLabelFormatter?(e: { chart: Chart, dataSeries: ChartDataSeriesOptions, dataPoint: ChartDataPoint, index?: number | undefined, total?: number | undefined, pencent?: number | undefined }): string;
+        indexLabelFormatter?(e: {
+            chart: Chart,
+            dataSeries: ChartDataSeriesOptions,
+            dataPoint: ChartDataPoint,
+            index?: number | undefined,
+            total?: number | undefined,
+            pencent?: number | undefined
+        }): string;
         /**
          * Using this property you can define whether to render indexLabel "inside" or "outside" the dataPoint.
          * Default: "outside"

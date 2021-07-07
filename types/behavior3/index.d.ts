@@ -116,7 +116,13 @@ declare namespace b3 {
         /**
          * Initialization method.
          */
-        constructor({category, name, title, description, properties}?: {category?: string | undefined, name?: string | undefined, title?: string | undefined, description?: string | undefined, properties?: any});
+        constructor({category, name, title, description, properties}?: {
+            category?: string | undefined,
+            name?: string | undefined,
+            title?: string | undefined,
+            description?: string | undefined,
+            properties?: any
+        });
 
         /**
          * This is the main method to propagate the tick signal to this node. This

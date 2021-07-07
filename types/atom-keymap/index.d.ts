@@ -198,8 +198,10 @@ declare global {
 
             // Managing Keymap Files
             /** Load the key bindings from the given path. */
-            loadKeymap(bindingsPath: string, options?: { watch?: boolean | undefined, priority?: number | undefined }):
-                void;
+            loadKeymap(
+                bindingsPath: string,
+                options?: { watch?: boolean | undefined, priority?: number | undefined }
+            ): void;
 
             /**
              *  Cause the keymap to reload the key bindings file at the given path whenever
