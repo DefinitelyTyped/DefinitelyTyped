@@ -2332,7 +2332,7 @@ declare namespace Mocha {
         reporter?: string | ReporterConstructor | undefined;
 
         /** Reporter settings object. */
-        reporterOptions?: any | undefined;
+        reporterOptions?: any;
 
         /** Number of times to retry failed tests. */
         retries?: number | undefined;
