@@ -29,12 +29,12 @@ declare module "sap/ui/rta/api/startAdaptation" {
         /**
          * The Layer in which RTA should be started. Default: "CUSTOMER"
          */
-        layer?: string;
+        layer?: string | undefined;
         /**
          * Whether RTA is started in developerMode mode. Default: `false`
          */
-        developerMode?: boolean;
-      };
+        developerMode?: boolean | undefined;
+      } | undefined;
     },
     /**
      * Callback function that enables the modification of the default plugin list of UI adaptation. UI adaptation

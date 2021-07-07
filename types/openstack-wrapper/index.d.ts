@@ -5,12 +5,12 @@
 // TypeScript Version: 2.3
 
 export interface RequestOption {
-    uri?: string;
+    uri?: string | undefined;
     headers?: any;
     json?: any;
     timeout?: any;
-    metricRequestID?: string;
-    metricUserName?: string;
+    metricRequestID?: string | undefined;
+    metricUserName?: string | undefined;
     metricLogger?: any;
 }
 

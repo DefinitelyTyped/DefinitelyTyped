@@ -56,17 +56,17 @@ export interface BackendDeclaration {
     /**
      * Parameters to the backend
      */
-    options?: object;
+    options?: object | undefined;
     /**
      * Flag to indicate that this backend needs to have a custom preview generated. This is mainly
      * used for backends such as the react-dnd-touch-backend, where there is no default preview
      * available.
      */
-    preview?: boolean;
+    preview?: boolean | undefined;
     /**
      * The transition that this backend should be used for.
      */
-    transition?: Transition;
+    transition?: Transition | undefined;
 }
 
 /**
@@ -141,7 +141,7 @@ export const HTML5DragTransition: Transition;
  */
 export const DndProvider: FC<{
     context?: any;
-    debugMode?: boolean;
+    debugMode?: boolean | undefined;
     options: Backends;
 }>;
 

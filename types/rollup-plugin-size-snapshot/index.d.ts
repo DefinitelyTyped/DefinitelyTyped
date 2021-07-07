@@ -8,10 +8,10 @@
 import { Plugin } from 'rollup';
 
 export interface PluginSizeSnapshotOptions {
-    snapshotPath?: string;
-    matchSnapshot?: boolean;
-    threshold?: number;
-    printInfo?: boolean;
+    snapshotPath?: string | undefined;
+    matchSnapshot?: boolean | undefined;
+    threshold?: number | undefined;
+    printInfo?: boolean | undefined;
 }
 
 export function sizeSnapshot(options?: PluginSizeSnapshotOptions): Plugin;

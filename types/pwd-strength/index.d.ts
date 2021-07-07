@@ -4,38 +4,38 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PwdStrengthLanguageOptions {
-    weak?: string;
-    average?: string;
-    strong?: string;
-    secure?: string;
-    minPasswordChar?: string;
-    minPasswordChars?: string;
-    minLowerChar?: string;
-    minLowerChars?: string;
-    minUpperChar?: string;
-    minUpperChars?: string;
-    minSpecialChar?: string;
-    minSpecialChars?: string;
-    maxConsecutiveRepeatingChars?: string;
+    weak?: string | undefined;
+    average?: string | undefined;
+    strong?: string | undefined;
+    secure?: string | undefined;
+    minPasswordChar?: string | undefined;
+    minPasswordChars?: string | undefined;
+    minLowerChar?: string | undefined;
+    minLowerChars?: string | undefined;
+    minUpperChar?: string | undefined;
+    minUpperChars?: string | undefined;
+    minSpecialChar?: string | undefined;
+    minSpecialChars?: string | undefined;
+    maxConsecutiveRepeatingChars?: string | undefined;
 }
 
 interface PwdStrengthColorOptions {
-    error?: string;
-    weak?: string;
-    average?: string;
-    strong?: string;
-    secure?: string;
+    error?: string | undefined;
+    weak?: string | undefined;
+    average?: string | undefined;
+    strong?: string | undefined;
+    secure?: string | undefined;
 }
 
 interface PwdStrengthOptions {
-    debug?: boolean;
-    minUpperChars?: number;
-    minLowerChars?: number;
-    minSpecialChars?: number;
-    minPasswordLength?: number;
-    maxConsecutiveRepeatingChars?: number;
-    lang?: PwdStrengthLanguageOptions;
-    color?: PwdStrengthColorOptions;
+    debug?: boolean | undefined;
+    minUpperChars?: number | undefined;
+    minLowerChars?: number | undefined;
+    minSpecialChars?: number | undefined;
+    minPasswordLength?: number | undefined;
+    maxConsecutiveRepeatingChars?: number | undefined;
+    lang?: PwdStrengthLanguageOptions | undefined;
+    color?: PwdStrengthColorOptions | undefined;
 }
 
 interface PwdStrengthReturn {

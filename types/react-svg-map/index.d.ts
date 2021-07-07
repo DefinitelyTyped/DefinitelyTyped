@@ -8,39 +8,39 @@ import * as React from "react";
 export interface Location {
     path: string;
     id: string;
-    name?: string;
+    name?: string | undefined;
 }
 
 export interface Map {
     viewBox: string;
     locations: Location[];
-    label?: string;
+    label?: string | undefined;
 }
 
 export interface BaseMapProps {
     map: Map;
-    className?: string;
-    locationClassName?: string | ((...args: any[]) => any);
-    onLocationMouseOver?: (...args: any[]) => any;
-    onLocationMouseOut?: (...args: any[]) => any;
-    onLocationMouseMove?: (...args: any[]) => any;
-    onLocationFocus?: (...args: any[]) => any;
-    onLocationBlur?: (...args: any[]) => any;
-    childrenBefore?: React.ReactElement;
-    childrenAfter?: React.ReactElement;
+    className?: string | undefined;
+    locationClassName?: string | ((...args: any[]) => any) | undefined;
+    onLocationMouseOver?: ((...args: any[]) => any) | undefined;
+    onLocationMouseOut?: ((...args: any[]) => any) | undefined;
+    onLocationMouseMove?: ((...args: any[]) => any) | undefined;
+    onLocationFocus?: ((...args: any[]) => any) | undefined;
+    onLocationBlur?: ((...args: any[]) => any) | undefined;
+    childrenBefore?: React.ReactElement | undefined;
+    childrenAfter?: React.ReactElement | undefined;
 }
 
 export interface SVGMapProps extends BaseMapProps {
-    role?: string;
-    locationTabIndex?: string | ((...args: any[]) => any);
-    locationRole?: string;
-    onLocationClick?: (...args: any[]) => any;
-    onLocationKeyDown?: (...args: any[]) => any;
-    isLocationSelected?: (...args: any[]) => any;
+    role?: string | undefined;
+    locationTabIndex?: string | ((...args: any[]) => any) | undefined;
+    locationRole?: string | undefined;
+    onLocationClick?: ((...args: any[]) => any) | undefined;
+    onLocationKeyDown?: ((...args: any[]) => any) | undefined;
+    isLocationSelected?: ((...args: any[]) => any) | undefined;
 }
 
 export interface OnChangeMapProps extends BaseMapProps {
-    onChange?: (...args: any[]) => any;
+    onChange?: ((...args: any[]) => any) | undefined;
 }
 
 export class CheckboxSVGMap extends React.Component<OnChangeMapProps> {}

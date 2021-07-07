@@ -17,15 +17,15 @@ export type ReadableFields = Array<{
 }>;
 
 export interface PdfOptions {
-    save?: string;
-    cores?: number;
-    scale?: number;
-    antialias?: boolean;
+    save?: string | undefined;
+    cores?: number | undefined;
+    scale?: number | undefined;
+    antialias?: boolean | undefined;
 }
 
 export interface ImgPdfOptions extends PdfOptions {
-    startPage?: number;
-    endPage?: number;
+    startPage?: number | undefined;
+    endPage?: number | undefined;
 }
 
 export type Options = PdfOptions | ImgPdfOptions;

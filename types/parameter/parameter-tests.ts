@@ -3,7 +3,7 @@ import Parameter = require('parameter');
 // Type
 interface Query {
   projectId: string;
-  keyword?: string;
+  keyword?: string | undefined;
 }
 // valid type
 const queryValidatorFormat: Parameter.ParameterRules<Query> = {

@@ -195,9 +195,9 @@ export interface Type<T = any> {
     /** To invoke when `ref.set` is invoked on a buffer of this type. */
     set(buffer: Buffer, offset: number, value: T): void;
     /** The name to use during debugging for this datatype. */
-    name?: string;
+    name?: string | undefined;
     /** The alignment of this datatype when placed inside a struct. */
-    alignment?: number;
+    alignment?: number | undefined;
 }
 
 /** A Buffer that references the C NULL pointer. */
@@ -556,6 +556,6 @@ declare global {
     writeUInt64LE(input: string | number, offset?: number): void;
     reinterpret(size: number, offset?: number): Buffer;
     reinterpretUntilZeros(size: number, offset?: number): Buffer;
-    type?: Type;
+    type?: Type | undefined;
   }
 }

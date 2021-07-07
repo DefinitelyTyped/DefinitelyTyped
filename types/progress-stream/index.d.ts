@@ -22,11 +22,11 @@ declare function progress_stream(
 
 declare namespace progress_stream {
     interface Options {
-        time?: number;
-        speed?: number;
-        length?: number;
-        drain?: boolean;
-        transferred?: number;
+        time?: number | undefined;
+        speed?: number | undefined;
+        length?: number | undefined;
+        drain?: boolean | undefined;
+        transferred?: number | undefined;
     }
 
     type ProgressListener = (progress: Progress) => void;

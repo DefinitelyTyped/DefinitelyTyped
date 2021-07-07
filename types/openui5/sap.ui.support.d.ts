@@ -206,15 +206,15 @@ declare module "sap/ui/support/RuleAnalyzer" {
         /**
          * Possible values are `global`, `subtree` or `components`.
          */
-        type?: string;
+        type?: string | undefined;
         /**
          * ID of the root element that forms a subtree. Use when the scope type is `subtree`.
          */
-        parentId?: string;
+        parentId?: string | undefined;
         /**
          * List of IDs of the components to be analyzed. Use only when the scope type is `components`.
          */
-        components?: string[];
+        components?: string[] | undefined;
       },
       /**
        * This optional parameter allows for selection of subset of rules for the analysis. You can pass:
