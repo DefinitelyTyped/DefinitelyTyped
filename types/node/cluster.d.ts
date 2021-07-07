@@ -5,14 +5,14 @@ declare module 'cluster' {
     import * as net from 'net';
 
     export interface ClusterSettings {
-        execArgv?: string[]; // default: process.execArgv
-        exec?: string;
-        args?: string[];
-        silent?: boolean;
-        stdio?: any[];
-        uid?: number;
-        gid?: number;
-        inspectPort?: number | (() => number);
+        execArgv?: string[] | undefined; // default: process.execArgv
+        exec?: string | undefined;
+        args?: string[] | undefined;
+        silent?: boolean | undefined;
+        stdio?: any[] | undefined;
+        uid?: number | undefined;
+        gid?: number | undefined;
+        inspectPort?: number | (() => number) | undefined;
     }
 
     export interface Address {
@@ -105,8 +105,8 @@ declare module 'cluster' {
          * `setupPrimary` is used to change the default 'fork' behavior. Once called, the settings will be present in cluster.settings.
          */
         setupPrimary(settings?: ClusterSettings): void;
-        readonly worker?: Worker;
-        readonly workers?: NodeJS.Dict<Worker>;
+        readonly worker?: Worker | undefined;
+        readonly workers?: NodeJS.Dict<Worker> | undefined;
 
         readonly SCHED_NONE: number;
         readonly SCHED_RR: number;
