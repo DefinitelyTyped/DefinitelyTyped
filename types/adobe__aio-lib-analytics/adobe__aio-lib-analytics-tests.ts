@@ -1,4 +1,4 @@
-import adobeAnalytics from '@adobe/aio-lib-analytics';
+import * as adobeAnalytics from '@adobe/aio-lib-analytics';
 
 (async () => {
   const client = await adobeAnalytics.init(
