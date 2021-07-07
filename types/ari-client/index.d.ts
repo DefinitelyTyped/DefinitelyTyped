@@ -904,31 +904,36 @@ export interface Resource {
     /**
      * The ARI client instance.
      */
-     _client: Client;
+    _client: Client;
 
     /**
      * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
      */
+    // tslint:disable-next-line:unified-signatures
     on(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
 
     /**
      * Error emitted when the WebSocket is reconnecting.
      */
+    // tslint:disable-next-line:unified-signatures
     on(type: WebSocketReconnectingEventType, listener: (err: Error) => void): void;
 
     /**
      * Event emitted when the WebSocket is connected.
      */
+    // tslint:disable-next-line:unified-signatures
     on(type: WebSocketConnectedEventType, listener: () => void): void;
 
     /**
      * Event emitted when a WebSocket pong is received.
      */
+    // tslint:disable-next-line:unified-signatures
     on(type: PongEventType, listener: () => void): void;
 
     /**
      * Error event sent when connection to API fails.
      */
+    // tslint:disable-next-line:unified-signatures
     on(type: APILoadErrorEventType, listener: (err: Error) => void): void;
 
     /**
@@ -1180,26 +1185,31 @@ export interface Resource {
     /**
      * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
      */
+    // tslint:disable-next-line:unified-signatures
     once(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
 
     /**
      * Error emitted when the WebSocket is reconnecting.
      */
+    // tslint:disable-next-line:unified-signatures
     once(type: WebSocketReconnectingEventType, listener: (err: Error) => void): void;
 
     /**
      * Event emitted when the WebSocket is connected.
      */
+    // tslint:disable-next-line:unified-signatures
     once(type: WebSocketConnectedEventType, listener: () => void): void;
 
     /**
      * Event emitted when a WebSocket pong is received.
      */
+    // tslint:disable-next-line:unified-signatures
     once(type: PongEventType, listener: () => void): void;
 
     /**
      * Error event sent when connection to API fails.
      */
+    // tslint:disable-next-line:unified-signatures
     once(type: APILoadErrorEventType, listener: (err: Error) => void): void;
 
     /**
@@ -1460,26 +1470,31 @@ export interface Resource {
     /**
      * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
      */
+    // tslint:disable-next-line:unified-signatures
     addListener(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
 
     /**
      * Error emitted when the WebSocket is reconnecting.
      */
+    // tslint:disable-next-line:unified-signatures
     addListener(type: WebSocketReconnectingEventType, listener: (err: Error) => void): void;
 
     /**
      * Event emitted when the WebSocket is connected.
      */
+    // tslint:disable-next-line:unified-signatures
     addListener(type: WebSocketConnectedEventType, listener: () => void): void;
 
     /**
      * Event emitted when a WebSocket pong is received.
      */
+    // tslint:disable-next-line:unified-signatures
     addListener(type: PongEventType, listener: () => void): void;
 
     /**
      * Error event sent when connection to API fails.
      */
+    // tslint:disable-next-line:unified-signatures
     addListener(type: APILoadErrorEventType, listener: (err: Error) => void): void;
 
     /**
