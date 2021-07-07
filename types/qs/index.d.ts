@@ -52,6 +52,7 @@ declare namespace QueryString {
         charset?: 'utf-8' | 'iso-8859-1';
         charsetSentinel?: boolean;
         interpretNumericEntities?: boolean;
+        allowSparse?: boolean;
     }
 
     interface ParsedQs { [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[] }
