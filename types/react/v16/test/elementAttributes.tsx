@@ -35,5 +35,8 @@ const testCases = [
     <div role="none presentation" />,
     <svg role="treeitem" />,
     <a target="_blank"></a>,
-    <a target="some-frame"></a>
+    <a target="some-frame"></a>,
+    <img importance="high" />,
+    <link importance="low" />,
+    <script importance="auto"/>
 ];

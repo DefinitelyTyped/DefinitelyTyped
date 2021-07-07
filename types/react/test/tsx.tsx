@@ -402,10 +402,15 @@ imgProps.decoding = 'auto';
 imgProps.decoding = 'sync';
 imgProps.loading = 'eager';
 imgProps.loading = 'lazy';
+imgProps.importance = 'auto';
+imgProps.importance = 'high';
+imgProps.importance = 'low';
 // $ExpectError
 imgProps.loading = 'nonsense';
 // $ExpectError
 imgProps.decoding = 'nonsense';
+// $ExpectError
+imgProps.importance = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
 // $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef['ref'];

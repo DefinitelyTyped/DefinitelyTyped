@@ -2145,6 +2145,7 @@ declare namespace React {
         crossOrigin?: "anonymous" | "use-credentials" | "";
         decoding?: "async" | "auto" | "sync";
         height?: number | string;
+        importance?: "high" | "low" | "auto"
         loading?: "eager" | "lazy";
         referrerPolicy?: HTMLAttributeReferrerPolicy;
         sizes?: string;
@@ -2221,6 +2222,7 @@ declare namespace React {
         crossOrigin?: string;
         href?: string;
         hrefLang?: string;
+        importance?: "high" | "low" | "auto"
         integrity?: string;
         media?: string;
         referrerPolicy?: HTMLAttributeReferrerPolicy;
@@ -2328,6 +2330,7 @@ declare namespace React {
         charSet?: string;
         crossOrigin?: string;
         defer?: boolean;
+        importance?: "high" | "low" | "auto"
         integrity?: string;
         noModule?: boolean;
         nonce?: string;
