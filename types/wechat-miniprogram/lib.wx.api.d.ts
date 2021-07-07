@@ -3151,6 +3151,10 @@ innerAudioContext.onError((res) => {
     interface IntersectionObserverObserveCallbackResult {
         /** 目标边界 */
         boundingClientRect: BoundingClientRectResult
+        /** 节点自定义数据属性 */
+        dataset: Record<string, any>
+        /** 节点 ID */
+        id: string
         /** 相交比例 */
         intersectionRatio: number
         /** 相交区域的边界 */
@@ -6153,10 +6157,10 @@ wx.createSelectorQuery()
         success?: StatSuccessCallback
     }
     interface StatSuccessCallbackResult {
-        /** [Stats](https://developers.weixin.qq.com/miniprogram/dev/api/file/Stats.html)|Object
+        /** [Stats](https://developers.weixin.qq.com/miniprogram/dev/api/file/Stats.html)|Array.&lt;[Stats](https://developers.weixin.qq.com/miniprogram/dev/api/file/Stats.html)&gt;
          *
-         * 当 recursive 为 false 时，res.stats 是一个 Stats 对象。当 recursive 为 true 且 path 是一个目录的路径时，res.stats 是一个 Object，key 以 path 为根路径的相对路径，value 是该路径对应的 Stats 对象。 */
-        stats: Stats | IAnyObject
+         * 当 recursive 为 false 时，res.stats 是一个 Stats 对象。当 recursive 为 true 且 path 是一个目录的路径时，res.stats 是一个 Array，数组的每一项是一个对象，每个对象包含 path 和 stats。 */
+        stats: Stats | Stats[]
         errMsg: string
     }
     /** 描述文件状态的对象 */
@@ -10635,7 +10639,7 @@ console.log(stats)
 *
 * 最低基础库： `2.16.1` */
         fstatSync(option: FstatSyncOption): Stats
-        /** [[Stats](https://developers.weixin.qq.com/miniprogram/dev/api/file/Stats.html)|Object FileSystemManager.statSync(string path, boolean recursive)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.statSync.html)
+        /** [[Stats](https://developers.weixin.qq.com/miniprogram/dev/api/file/Stats.html)|Array.&lt;[Stats](https://developers.weixin.qq.com/miniprogram/dev/api/file/Stats.html)&gt; FileSystemManager.statSync(string path, boolean recursive)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.statSync.html)
          *
          * [FileSystemManager.stat](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.stat.html) 的同步版本 */
         statSync(
@@ -10645,7 +10649,7 @@ console.log(stats)
              *
              * 最低基础库： `2.3.0` */
             recursive?: boolean
-        ): Stats | IAnyObject
+        ): Stats | Stats[]
         /** [[WriteResult](https://developers.weixin.qq.com/miniprogram/dev/api/file/WriteResult.html) FileSystemManager.writeSync(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.writeSync.html)
 *
 * 同步写入文件
@@ -14147,6 +14151,13 @@ wx.connectSocket({
         /** [[TCPSocket](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/TCPSocket.html) wx.createTCPSocket()](https://developers.weixin.qq.com/miniprogram/dev/api/network/tcp/wx.createTCPSocket.html)
          *
          * 创建一个 TCP Socket 实例。使用前请注意阅读[相关说明](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html)。
+         *
+         * **连接限制**
+         *
+         *
+         * - 允许与局域网的非本机 IP 通信
+         * — 允许与配置过的服务器域名通信，详见[相关说明](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html)
+         * - 禁止与以下端口号连接：`1024 以下` `1099` `1433` `1521` `1719` `1720` `1723` `2049` `2375` `3128` `3306` `3389` `3659` `4045` `5060` `5061` `5432` `5984` `6379` `6000` `6566` `6665` `6666` `6667` `6668` `6669` `6697` `7001` `7002` `8000-8100` `8443` `8888` `9200` `9300` `10051` `10080` `11211` `27017` `27018` `27019`
          *
          * 最低基础库： `2.18.0` */
         createTCPSocket(): TCPSocket
