@@ -2640,7 +2640,7 @@ declare namespace browser.identity {
      * Gets an OAuth2 access token using the client ID and scopes specified in the oauth2 section of manifest.json.
      * @deprecated Unsupported on Firefox at this time.
      */
-    function getAuthToken(details?: _GetAuthTokenDetails): Promise<AccountInfo[]>;
+    function getAuthToken(details?: _GetAuthTokenDetails): Promise<string>;
 
     /**
      * Retrieves email address and obfuscated gaia id of the user signed into a profile.
