@@ -15,11 +15,13 @@
 //                 Walter Kennedy <https://github.com/wthefourth>
 //                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.8
+// TypeScript Version: 3.8
 
 import * as React from 'react';
-import * as Popper from 'popper.js';
+import * as Popper from '@popperjs/core';
 import { Locale } from 'date-fns';
+import { Modifier } from 'react-popper';
 
 export function registerLocale(localeName: string, localeData: {}): void;
 export function setDefaultLocale(localeName: string): void;
@@ -35,10 +37,11 @@ interface HighlightDates {
     [className: string]: Date[];
 }
 
-export interface ReactDatePickerProps {
+export interface ReactDatePickerProps<Modifiers> {
     adjustDateOnChange?: boolean;
     allowSameDay?: boolean;
     ariaDescribedBy?: string;
+    ariaInvalid?: string;
     ariaLabelClose?: string;
     ariaLabelledBy?: string;
     ariaRequired?: string;
@@ -50,6 +53,7 @@ export interface ReactDatePickerProps {
     children?: React.ReactNode;
     chooseDayAriaLabelPrefix?: string;
     className?: string;
+    clearButtonClassName?: string;
     clearButtonTitle?: string;
     closeOnScroll?: boolean | ((e: Event) => boolean);
     customInput?: React.ReactNode;
@@ -95,7 +99,7 @@ export interface ReactDatePickerProps {
     onCalendarClose?(): void;
     onCalendarOpen?(): void;
     onChange(
-        date: Date | [Date, Date] | /* for selectsRange */ null,
+        date: Date | [Date | null, Date | null] | /* for selectsRange */ null,
         event: React.SyntheticEvent<any> | undefined,
     ): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
@@ -120,7 +124,7 @@ export interface ReactDatePickerProps {
     placeholderText?: string;
     popperClassName?: string;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-    popperModifiers?: Popper.Modifiers;
+    popperModifiers?: Array<Modifier<Modifiers>>;
     popperPlacement?: Popper.Placement;
     popperProps?: {};
     preventOpenOnFocus?: boolean;
@@ -163,6 +167,7 @@ export interface ReactDatePickerProps {
     showTimeSelect?: boolean;
     showTimeSelectOnly?: boolean;
     showTwoColumnMonthYearPicker?: boolean;
+    showFourColumnMonthYearPicker?: boolean;
     showWeekNumbers?: boolean;
     showYearDropdown?: boolean;
     showYearPicker?: boolean;
@@ -190,7 +195,7 @@ export interface ReactDatePickerProps {
     yearItemNumber?: number;
 }
 
-declare class ReactDatePicker extends React.Component<ReactDatePickerProps> {
+declare class ReactDatePicker<Modifiers> extends React.Component<ReactDatePickerProps<Modifiers>> {
     readonly setBlur: () => void;
     readonly setFocus: () => void;
     readonly setOpen: (open: boolean, skipSetBlur?: boolean) => void;

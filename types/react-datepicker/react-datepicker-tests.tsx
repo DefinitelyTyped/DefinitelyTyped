@@ -10,6 +10,7 @@ const defaultLocale = getDefaultLocale();
     adjustDateOnChange
     allowSameDay
     ariaDescribedBy=""
+    ariaInvalid=""
     ariaLabelledBy=""
     ariaLabelClose=""
     ariaRequired=""
@@ -20,6 +21,7 @@ const defaultLocale = getDefaultLocale();
     calendarStartDay={0}
     className=""
     clearButtonTitle=""
+    clearButtonClassName=""
     // closeOnScroll={false} // Or as function:
     closeOnScroll={e => e.target === document}
     customInput={<input />}
@@ -65,7 +67,7 @@ const defaultLocale = getDefaultLocale();
     onBlur={event => null}
     onCalendarClose={() => null}
     onCalendarOpen={() => null}
-    onChange={(date: Date | [Date, Date] | null) => {}}
+    onChange={(date: Date | [Date | null, Date | null] | null) => {}}
     onChangeRaw={event => null}
     onClickOutside={event => null}
     onDayMouseEnter={(date: Date) => {}}
@@ -84,11 +86,26 @@ const defaultLocale = getDefaultLocale();
     placeholderText=""
     popperClassName=""
     popperContainer={props => <div />}
-    popperModifiers={{
-        flip: {
-            enabled: false,
+    popperModifiers={[
+        {
+            name: 'offset',
+            enabled: true,
+            phase: 'main',
+            fn: ({ state }) => state,
+            options: {
+                offset: [1, 2],
+            },
         },
-    }}
+        {
+            name: 'arrow',
+            enabled: true,
+            phase: 'main',
+            fn: ({ state }) => state,
+            options: {
+                element: null,
+            },
+        },
+    ]}
     popperPlacement="bottom-start"
     popperProps={{}}
     preventOpenOnFocus
@@ -118,6 +135,7 @@ const defaultLocale = getDefaultLocale();
     selected={new Date()}
     selectsEnd
     selectsStart
+    selectsRange
     shouldCloseOnSelect
     showDisabledMonthNavigation
     showMonthDropdown
@@ -130,6 +148,7 @@ const defaultLocale = getDefaultLocale();
     showTimeSelect
     showTimeSelectOnly
     showTwoColumnMonthYearPicker
+    showFourColumnMonthYearPicker
     showWeekNumbers
     showYearDropdown
     showYearPicker
@@ -162,7 +181,7 @@ const defaultLocale = getDefaultLocale();
 
 <DatePicker formatWeekDay={() => <div />} onChange={() => null} />;
 
-function handleRef(ref: DatePicker | null) {
+function handleRef(ref: DatePicker<'offset' | 'arrow'>) {
     if (ref) {
         ref.setBlur();
         ref.setFocus();
