@@ -50,6 +50,8 @@ declare namespace SMTPTransport {
         envelope: MimeNode.Envelope;
         /** most transports should return the final Message-Id value used with this property */
         messageId: string;
+        /** some transports return an array for wich resipients they accepted the transport */
+        accepted?: Array<string>;
     }
 }
 
