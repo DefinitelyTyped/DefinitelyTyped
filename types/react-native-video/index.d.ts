@@ -1,4 +1,4 @@
-// Type definitions for react-native-video 5.0
+// Type definitions for react-native-video 5.1
 // Project: https://github.com/react-native-community/react-native-video, https://github.com/brentvatne/react-native-video
 // Definitions by: HuHuanming <https://github.com/huhuanming>
 //                 Nekith <https://github.com/Nekith>
@@ -10,6 +10,7 @@ import * as React from 'react';
 import { ViewProps } from 'react-native';
 
 export interface OnLoadData {
+    audioTracks: Track[];
     canPlayFastForward: boolean;
     canPlayReverse: boolean;
     canPlaySlowForward: boolean;
@@ -18,11 +19,31 @@ export interface OnLoadData {
     canStepForward: boolean;
     currentTime: number;
     duration: number;
-    naturalSize: {
-        height: number;
-        width: number;
-        orientation: 'portrait' | 'landscape';
-    };
+    naturalSize: NaturalSize;
+    textTracks: Track[];
+    trackId: string;
+    videoTracks?: VideoTrack[];
+}
+export interface Track {
+    bitrate?: string;
+    index: number;
+    language: string;
+    title: string;
+    type: string;
+}
+
+export interface NaturalSize {
+    height: number;
+    orientation: string;
+    width: number;
+}
+
+export interface VideoTrack {
+    bitrate: number;
+    codecs: string;
+    height: number;
+    trackId: string;
+    width: number;
 }
 
 export interface OnProgressData {
@@ -65,13 +86,13 @@ export interface OnBufferData {
 }
 
 export interface DRMSettings {
-  type: DRMType;
-  licenseServer?: string;
-  headers?: { [key: string]: string };
-  contentId?: string;
-  certificateUrl?: string;
-  base64Certificate?: boolean;
-  getLicense?(): Promise<string>;
+    type: DRMType;
+    licenseServer?: string;
+    headers?: { [key: string]: string };
+    contentId?: string;
+    certificateUrl?: string;
+    base64Certificate?: boolean;
+    getLicense?(): Promise<string>;
 }
 
 export const TextTrackType: {
@@ -100,10 +121,10 @@ export enum FilterType {
 }
 
 export enum DRMType {
-  WIDEVINE = 'widevine',
-  PLAYREADY = 'playready',
-  CLEARKEY = 'clearkey',
-  FAIRPLAY = 'fairplay',
+    WIDEVINE = 'widevine',
+    PLAYREADY = 'playready',
+    CLEARKEY = 'clearkey',
+    FAIRPLAY = 'fairplay',
 }
 
 export interface VideoProperties extends ViewProps {
@@ -131,11 +152,11 @@ export interface VideoProperties extends ViewProps {
 
     /* Wrapper component */
     // Opaque type returned by require('./video.mp4')
-    source: { uri?: string, headers?: {[key: string]: string }, type?: string } | number;
+    source: { uri?: string; headers?: { [key: string]: string }; type?: string } | number;
     minLoadRetryCount?: number;
     maxBitRate?: number;
-    resizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
-    posterResizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
+    resizeMode?: 'stretch' | 'contain' | 'cover' | 'none'; // via Image#resizeMode
+    posterResizeMode?: 'stretch' | 'contain' | 'cover' | 'none'; // via Image#resizeMode
     poster?: string;
     repeat?: boolean;
     automaticallyWaitsToMinimizeStalling?: boolean;
