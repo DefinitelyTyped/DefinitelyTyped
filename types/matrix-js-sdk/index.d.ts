@@ -48,10 +48,14 @@ export class Room {
     storageToken: any;                 // A token which a data store can use to remember the state of the room.
 
     constructor(roomId: string, client: MatrixClient, myUserId: string, opts?: {
-        storageToken?: any;      // Optional. The token which a data store can use to remember the state of the room. What this means is dependent on the store implementation.
-        pendingEventOrdering?: string | undefined;   // <optional> Controls where pending messages appear in a room's timeline. If "chronological", messages will appear in the timeline
-        timelineSupport?: boolean | undefined;  // <optional> false Set to true to enable improved timeline support.
-        unstableClientRelationAggregation?: boolean | undefined;  // <optional> false Optional. Set to true to enable client-side aggregation of event relations via `EventTimelineSet#getRelationsForEvent`.
+        // Optional. The token which a data store can use to remember the state of the room. What this means is dependent on the store implementation.
+        storageToken?: any;
+        // <optional> Controls where pending messages appear in a room's timeline. If "chronological", messages will appear in the timeline
+        pendingEventOrdering?: string | undefined;
+        // <optional> false Set to true to enable improved timeline support.
+        timelineSupport?: boolean | undefined;
+        // <optional> false Optional. Set to true to enable client-side aggregation of event relations via `EventTimelineSet#getRelationsForEvent`.
+        unstableClientRelationAggregation?: boolean | undefined;
     })
 
     addAccountData(events: MatrixEvent[]): void;
@@ -724,14 +728,22 @@ export class MatrixClient extends EventEmitter {
     setRoomTopic(roomId: string, topic: string, callback?: MatrixCallback): Promise<void>;
 
     startClient(opts?: number | {
-        initialSyncLimit?: number | undefined;  // <optional> The event limit= to apply to initial sync. Default: 8.
-        includeArchivedRooms?: boolean | undefined; // <optional> True to put archived=true on the /initialSync request. Default: false.
-        resolveInvitesToProfiles?: boolean | undefined; // <optional> True to do /profile requests on every invite event if the displayname/avatar_url is not known for this user ID. Default: false.
-        pendingEventOrdering?: string | undefined;  // <optional> Controls where pending messages appear in a room's timeline. If "chronological", messages will appear in the timeline when the call to sendEvent
-        pollTimeout?: number | undefined; // <optional> The number of milliseconds to wait on /sync. Default: 30000 (30 seconds).
-        filter?: Filter | undefined;  // <optional> The filter to apply to /sync calls. This will override the opts.initialSyncLimit, which would normally result in a timeline limit filter.
-        disablePresence?: boolean | undefined;  // <optional> True to perform syncing without automatically updating presence.
-        lazyLoadMembers?: boolean | undefined;  // <optional> True to not load all membership events during initial sync but fetch them when needed by calling `loadOutOfBandMembers` This will override the filter
+        // <optional> The event limit= to apply to initial sync. Default: 8.
+        initialSyncLimit?: number | undefined;
+        // <optional> True to put archived=true on the /initialSync request. Default: false.
+        includeArchivedRooms?: boolean | undefined;
+        // <optional> True to do /profile requests on every invite event if the displayname/avatar_url is not known for this user ID. Default: false.
+        resolveInvitesToProfiles?: boolean | undefined;
+        // <optional> Controls where pending messages appear in a room's timeline. If "chronological", messages will appear in the timeline when the call to sendEvent
+        pendingEventOrdering?: string | undefined;
+        // <optional> The number of milliseconds to wait on /sync. Default: 30000 (30 seconds).
+        pollTimeout?: number | undefined;
+        // <optional> The filter to apply to /sync calls. This will override the opts.initialSyncLimit, which would normally result in a timeline limit filter.
+        filter?: Filter | undefined;
+        // <optional> True to perform syncing without automatically updating presence.
+        disablePresence?: boolean | undefined;
+        // <optional> True to not load all membership events during initial sync but fetch them when needed by calling `loadOutOfBandMembers` This will override the filter
+        lazyLoadMembers?: boolean | undefined;
     }): Promise<void>;
     stopClient(): void;
     stopPeeking(): void;
@@ -744,12 +756,18 @@ export class MatrixClient extends EventEmitter {
     upgradeRoom(roomId: string, newVersion: string): Promise<{ replacement_room: object }>;
     uploadContent(file: any, opts: {
         name?: string | undefined;
-        includeFilename?: boolean | undefined;  // <optional> if false will not send the filename, e.g for encrypted file uploads where filename leaks are undesirable. Defaults to true.
-        type?: string | undefined;  // <optional> Content-type for the upload. Defaults to file.type, or applicaton/octet-stream.
-        rawResponse?: boolean | undefined;  // <optional> Return the raw body, rather than parsing the JSON. Defaults to false (except on node.js, where it defaults to true for backwards compatibility).
-        onlyContentUri?: boolean | undefined; // <optional> Just return the content URI, rather than the whole body. Defaults to false (except on browsers, where it defaults to true for backwards compatibility).
-        callback?: ((...args: any[]) => any) | undefined;  // <optional> Deprecated. Optional. The callback to invoke on success/failure. See the promise return values for more information.
-        progressHandler?: ((...args: any[]) => any) | undefined; // <optional> Optional. Called when a chunk of data has been uploaded, with an object containing the fields `loaded` (number of bytes transferred)
+        // <optional> if false will not send the filename, e.g for encrypted file uploads where filename leaks are undesirable. Defaults to true.
+        includeFilename?: boolean | undefined;
+        // <optional> Content-type for the upload. Defaults to file.type, or applicaton/octet-stream.
+        type?: string | undefined;
+        // <optional> Return the raw body, rather than parsing the JSON. Defaults to false (except on node.js, where it defaults to true for backwards compatibility).
+        rawResponse?: boolean | undefined;
+        // <optional> Just return the content URI, rather than the whole body. Defaults to false (except on browsers, where it defaults to true for backwards compatibility).
+        onlyContentUri?: boolean | undefined;
+        // <optional> Deprecated. Optional. The callback to invoke on success/failure. See the promise return values for more information.
+        callback?: ((...args: any[]) => any) | undefined;
+        // <optional> Optional. Called when a chunk of data has been uploaded, with an object containing the fields `loaded` (number of bytes transferred)
+        progressHandler?: ((...args: any[]) => any) | undefined;
     }): Promise<string>;
     uploadKeys(): object;
     uploadKeysRequest(content: object, opts?: object, callback?: MatrixCallback): Promise<object>;

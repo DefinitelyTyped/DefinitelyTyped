@@ -248,7 +248,17 @@ declare module '@keystonejs/keystone' {
         createList(name: string, schema: ListSchema): void;
         disconnect(): Promise<void>;
         extendGraphQLSchema(schema: GraphQLExtensionSchema): void;
-        prepare(options: { apps?: BaseApp[] | undefined; cors?: {origin?: boolean | undefined; credentials?: boolean | undefined} | undefined, dev?: boolean | undefined, distDir?: string | undefined, pinoOptions?: any }): Promise<KeystonePrepareResult>;
+        prepare(options: {
+            apps?: BaseApp[] | undefined;
+            cors?: {
+                origin?: boolean | undefined;
+                credentials?: boolean | undefined
+            } | undefined,
+            dev?: boolean | undefined,
+            distDir?: string | undefined,
+            pinoOptions?: any
+        }): Promise<KeystonePrepareResult>;
+
         // tslint:disable-next-line:no-unnecessary-generics
         createContext<Context = any>(context: { schemaName?: string | undefined, authentication?: AuthenticationContext | undefined, skipAccessControl?: boolean | undefined; }): Context;
         // The return type is actually important info here. I don't believe this generic is unnecessary.

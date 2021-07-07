@@ -29,7 +29,10 @@ Collection.after.find((userId: string, selector: Mongo.Selector, options: { mult
 Collection.after.findOne((userId: string, selector: Mongo.Selector, options: { multi?: boolean | undefined; upsert?: boolean | undefined; }, doc: Model) => {});
 Collection.after.insert((userId: string, doc: Model) => {});
 Collection.after.remove((userId: string, doc: Model) => {});
-Collection.after.update((userId: string, doc: Model, fieldNames: string[], modifier: Mongo.Modifier, options: { multi?: boolean | undefined; upsert?: boolean | undefined; }) => {}, { fetchPrevious: true });
+Collection.after.update(
+    (userId: string, doc: Model, fieldNames: string[], modifier: Mongo.Modifier, options: { multi?: boolean | undefined; upsert?: boolean | undefined; }) => {},
+    { fetchPrevious: true }
+);
 Collection.after.upsert((userId: string, doc: Model, selector: Mongo.Selector, modifier: Mongo.Modifier, options: { multi?: boolean | undefined; upsert?: boolean | undefined; }) => {});
 
 cursor = Collection.direct.find({ _id: doc._id }, { sort: { createdAt: -1 }, skip: 5, limit: 5, fields: { createdAt: 1 }, reactive: true, transform: () => {} });

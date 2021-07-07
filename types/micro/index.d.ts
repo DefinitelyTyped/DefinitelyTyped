@@ -17,7 +17,11 @@ export default serve;
 
 export function send(res: ServerResponse, code: number, data?: any): Promise<void>;
 
-export function sendError(req: IncomingMessage, res: ServerResponse, info: { statusCode?: number | undefined, status?: number | undefined, message?: string | undefined, stack?: string | undefined; }): Promise<void>;
+export function sendError(
+    req: IncomingMessage,
+    res: ServerResponse,
+    info: { statusCode?: number | undefined, status?: number | undefined, message?: string | undefined, stack?: string | undefined; }
+): Promise<void>;
 
 export function createError(code: number, msg: string, orig?: Error): Error & { statusCode: number, originalError?: Error | undefined; };
 

@@ -160,7 +160,11 @@ declare global {
         /**
          * Undocumented.
          */
-        visitModel(rootObject: any, callback: Function, options?: { visitedObjects?: any; parentName?: string | undefined; ignore?: string[] | undefined; copy?: string[] | undefined; include?: string[] | undefined; }): any;
+        visitModel(
+            rootObject: any,
+            callback: Function,
+            options?: { visitedObjects?: any; parentName?: string | undefined; ignore?: string[] | undefined; copy?: string[] | undefined; include?: string[] | undefined; }
+        ): any;
     }
 
     interface KnockoutObservableArrayFunctions<T> {
