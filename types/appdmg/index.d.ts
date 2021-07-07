@@ -59,6 +59,7 @@ declare namespace appdmg {
   }
 
   interface Options {
+    source?: string;
     target: string;
     basepath: string;
     specification: Specification;
