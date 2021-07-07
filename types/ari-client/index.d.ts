@@ -173,6 +173,10 @@ export interface IndexableObject {
     [key: string]: any;
 }
 /* Event Types */
+export type WebSocketConnectedEventType = 'WebSocketConnected';
+export type WebSocketReconnectingEventType = 'WebSocketReconnecting';
+export type WebSocketMaxRetriesEventType = 'WebSocketMaxRetries';
+export type PongEventType = 'pong';
 export type APILoadErrorEventType = 'APILoadError';
 export type EventsEventType = 'Events';
 export type MessageEventType = 'Message';
@@ -219,6 +223,11 @@ export type StasisStartEventType = 'StasisStart';
 export type TextMessageReceivedEventType = 'TextMessageReceived';
 export type ChannelConnectedLineEventType = 'ChannelConnectedLine';
 export type AnyEventType =
+    | WebSocketConnectedEventType
+    | WebSocketReconnectingEventType
+    | WebSocketMaxRetriesEventType
+    | PongEventType
+    | APILoadErrorEventType
     | EventsEventType
     | MessageEventType
     | MissingParamsEventType
@@ -893,6 +902,31 @@ export interface ChannelConnectedLine extends Event {
 }
 export interface Resource {
     /**
+     * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
+     */
+    on(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
+
+    /**
+     * Error emitted when the WebSocket is reconnecting.
+     */
+    on(type: WebSocketReconnectingEventType, listener: (err: Error) => void): void;
+
+    /**
+     * Event emitted when the WebSocket is connected.
+     */
+    on(type: WebSocketConnectedEventType, listener: () => void): void;
+
+    /**
+     * Event emitted when a WebSocket pong is received.
+     */
+    on(type: PongEventType, listener: () => void): void;
+
+    /**
+     * Error event sent when connection to API fails.
+     */
+    on(type: APILoadErrorEventType, listener: (err: Error) => void): void;
+
+    /**
      * Base type for errors and events.
      */
     on(event: MessageEventType, callback: (event: Message, instances: Message) => void): void;
@@ -1137,6 +1171,31 @@ export interface Resource {
      * Channel changed Connected Line.
      */
     on(event: ChannelConnectedLineEventType, callback: (event: ChannelConnectedLine, channel: Channel) => void): void;
+
+    /**
+     * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
+     */
+    once(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
+
+    /**
+     * Error emitted when the WebSocket is reconnecting.
+     */
+    once(type: WebSocketReconnectingEventType, listener: (err: Error) => void): void;
+
+    /**
+     * Event emitted when the WebSocket is connected.
+     */
+    once(type: WebSocketConnectedEventType, listener: () => void): void;
+
+    /**
+     * Event emitted when a WebSocket pong is received.
+     */
+    once(type: PongEventType, listener: () => void): void;
+
+    /**
+     * Error event sent when connection to API fails.
+     */
+    once(type: APILoadErrorEventType, listener: (err: Error) => void): void;
 
     /**
      * Base type for errors and events.
@@ -1392,6 +1451,31 @@ export interface Resource {
      * Channel changed Connected Line.
      */
     once(event: ChannelConnectedLineEventType, callback: (event: ChannelConnectedLine, channel: Channel) => void): void;
+
+    /**
+     * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
+     */
+    addListener(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
+
+    /**
+     * Error emitted when the WebSocket is reconnecting.
+     */
+    addListener(type: WebSocketReconnectingEventType, listener: (err: Error) => void): void;
+
+    /**
+     * Event emitted when the WebSocket is connected.
+     */
+    addListener(type: WebSocketConnectedEventType, listener: () => void): void;
+
+    /**
+     * Event emitted when a WebSocket pong is received.
+     */
+    addListener(type: PongEventType, listener: () => void): void;
+
+    /**
+     * Error event sent when connection to API fails.
+     */
+    addListener(type: APILoadErrorEventType, listener: (err: Error) => void): void;
 
     /**
      * Base type for errors and events.
