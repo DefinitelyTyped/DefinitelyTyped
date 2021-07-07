@@ -8,7 +8,6 @@ Ari.connect('http://ari.js:8088', 'user', 'secret', (err, client) => {
     // Use once to start the application
     client.once('StasisStart', (event, incoming) => {
         incoming.answer(err => {
-
             // Referencing client instance of incoming channel.
             const playback = incoming._client.Playback();
 

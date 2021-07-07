@@ -27,7 +27,7 @@ export default async () => {
         client.on('pong', () => {
             console.log('WebSocket pong received');
         });
-        
+
         // Use once to start the application
         client.on('StasisStart', async (event, incoming) => {
             // Handle DTMF events
