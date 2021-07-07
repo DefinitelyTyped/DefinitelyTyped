@@ -133,14 +133,14 @@ export interface BlankTriple<Q extends RDF.BaseQuad = RDF.Quad> {
 
 export interface Token {
     type: string;
-    value?: string;
+    value?: string | undefined;
     line: number;
-    prefix?: string;
+    prefix?: string | undefined;
 }
 export interface LexerOptions {
-    lineMode?: boolean;
-    n3?: boolean;
-    comments?: boolean;
+    lineMode?: boolean | undefined;
+    n3?: boolean | undefined;
+    comments?: boolean | undefined;
 }
 
 export type TokenCallback = (error: Error, token: Token) => void;
@@ -177,10 +177,10 @@ export type MimeSubtype = BaseFormatVariant | `${BaseFormatVariant}${Star}`;
 export type MimeFormat = MimeSubtype | `${MimeType}/${MimeSubtype}`;
 
 export interface ParserOptions {
-    format?: MimeFormat;
-    factory?: RDF.DataFactory;
-    baseIRI?: string;
-    blankNodePrefix?: string;
+    format?: MimeFormat | undefined;
+    factory?: RDF.DataFactory | undefined;
+    baseIRI?: string | undefined;
+    blankNodePrefix?: string | undefined;
 }
 
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;
@@ -200,9 +200,9 @@ export class StreamParser<Q extends BaseQuad = Quad> extends stream.Transform im
 }
 
 export interface WriterOptions {
-    format?: MimeFormat;
-    prefixes?: Prefixes<RDF.NamedNode | string>;
-    end?: boolean;
+    format?: MimeFormat | undefined;
+    prefixes?: Prefixes<RDF.NamedNode | string> | undefined;
+    end?: boolean | undefined;
 }
 
 export class Writer<Q extends RDF.BaseQuad = RDF.Quad> {
@@ -263,7 +263,7 @@ export class Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad 
 }
 
 export interface StoreOptions {
-    factory?: RDF.DataFactory;
+    factory?: RDF.DataFactory | undefined;
 }
 
 export namespace Util {
