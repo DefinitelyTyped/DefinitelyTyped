@@ -1,4 +1,4 @@
-// Type definitions for non-npm package WebExtension Development in FireFox 82.0
+// Type definitions for non-npm package WebExtension Development in FireFox 90.0
 // Project: https://developer.mozilla.org/en-US/Add-ons/WebExtensions
 // Definitions by: Jasmin Bom <https://github.com/jsmnbom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -47,16 +47,15 @@ declare namespace browser._manifest {
             | {
                   /** The Content Security Policy used for extension pages. */
                   extension_pages?: string;
-                  /** The Content Security Policy used for content scripts. */
-                  content_scripts?: string;
-                  /**
-                   * An alias for content_scripts to support Chrome compatibility. Content Security Policy implementations may differ between Firefox and Chrome. If both isolated_world and content_scripts exist, the value from content_scripts will be used.
-                   */
-                  isolated_world?: string;
               };
         permissions?: PermissionOrOrigin[];
         optional_permissions?: OptionalPermissionOrOrigin[];
-        web_accessible_resources?: string[];
+        web_accessible_resources?:
+            | string[]
+            | Array<{
+                  resources: string[];
+                  matches: MatchPatternRestricted[];
+              }>;
         developer?: _WebExtensionManifestDeveloper;
         hidden?: boolean;
         page_action?: _WebExtensionManifestPageAction;
@@ -84,7 +83,7 @@ declare namespace browser._manifest {
 
     type OptionalPermissionNoPrompt = _OptionalPermissionNoPrompt;
 
-    type Permission = string | PermissionNoPrompt | OptionalPermission | 'nativeMessaging';
+    type Permission = string | PermissionNoPrompt | OptionalPermission;
 
     /** Represents a protocol handler definition. */
     interface ProtocolHandler {
@@ -226,7 +225,6 @@ declare namespace browser._manifest {
     /** @deprecated An unexpected property was found in the WebExtension manifest. */
     type UnrecognizedProperty = any;
 
-    /** @deprecated Event pages are not currently supported. This will run as a persistent background page. */
     type PersistentBackgroundProperty = boolean;
 
     /** Represents a native manifest file */
@@ -477,6 +475,7 @@ declare namespace browser._manifest {
 
     type _OptionalPermission =
         | 'browserSettings'
+        | 'browsingData'
         | 'downloads'
         | 'downloads.open'
         | 'management'
@@ -486,9 +485,9 @@ declare namespace browser._manifest {
         | 'notifications'
         | 'privacy'
         | 'proxy'
+        | 'nativeMessaging'
         | 'webNavigation'
         | 'bookmarks'
-        | 'browsingData'
         | 'devtools'
         | 'find'
         | 'history'
@@ -511,6 +510,7 @@ declare namespace browser._manifest {
         | 'bitcoin'
         | 'dat'
         | 'dweb'
+        | 'ftp'
         | 'geo'
         | 'gopher'
         | 'im'
@@ -520,6 +520,7 @@ declare namespace browser._manifest {
         | 'ircs'
         | 'magnet'
         | 'mailto'
+        | 'matrix'
         | 'mms'
         | 'news'
         | 'nntp'
@@ -620,6 +621,7 @@ declare namespace browser._manifest {
         toolbar_field?: ThemeColor;
         toolbar_field_text?: ThemeColor;
         toolbar_field_border?: ThemeColor;
+        /** @deprecated This color property is ignored in Firefox >= 89. */
         toolbar_field_separator?: ThemeColor;
         toolbar_top_separator?: ThemeColor;
         toolbar_bottom_separator?: ThemeColor;
@@ -1066,7 +1068,10 @@ declare namespace browser.browserSettings {
      */
     const contextMenuShowEvent: types.Setting;
 
-    /** This boolean setting controls whether the FTP protocol is enabled. */
+    /**
+     * Returns whether the FTP protocol is enabled. Read-only.
+     * @deprecated FTP support was removed from Firefox in bug 1574475
+     */
     const ftpProtocolEnabled: types.Setting;
 
     /** Returns the value of the overridden home page. Read-only. */
@@ -1110,6 +1115,144 @@ declare namespace browser.browserSettings {
      * This boolean setting controls whether zoom is applied on a per-site basis or to the current tab only. If privacy.resistFingerprinting is true, this setting has no effect and zoom is applied to the current tab only.
      */
     const zoomSiteSpecific: types.Setting;
+}
+
+/**
+ * Use the `browser.browsingData` API to remove browsing data from a user's local profile.
+ *
+ * Permissions: `browsingData`
+ *
+ * Not allowed in: Content scripts, Devtools pages
+ */
+declare namespace browser.browsingData {
+    /* browsingData types */
+    /** Options that determine exactly what data will be removed. */
+    interface RemovalOptions {
+        /**
+         * Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the `getTime` method of the JavaScript `Date` object). If absent, defaults to 0 (which would remove all browsing data).
+         */
+        since?: extensionTypes.Date;
+        /** Only remove data associated with these hostnames (only applies to cookies and localStorage). */
+        hostnames?: string[];
+        /** Only remove data associated with this specific cookieStoreId. */
+        cookieStoreId?: string;
+        /**
+         * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you _really_ want to remove application data before adding 'protectedWeb' or 'extensions'.
+         */
+        originTypes?: _RemovalOptionsOriginTypes;
+    }
+
+    /** A set of data types. Missing data types are interpreted as `false`. */
+    interface DataTypeSet {
+        /**
+         * The browser's cache. Note: when removing data, this clears the _entire_ cache: it is not limited to the range you specify.
+         */
+        cache?: boolean;
+        /** The browser's cookies. */
+        cookies?: boolean;
+        /** The browser's download list. */
+        downloads?: boolean;
+        /** The browser's stored form data. */
+        formData?: boolean;
+        /** The browser's history. */
+        history?: boolean;
+        /** Websites' IndexedDB data. */
+        indexedDB?: boolean;
+        /** Websites' local storage data. */
+        localStorage?: boolean;
+        /** Server-bound certificates. */
+        serverBoundCertificates?: boolean;
+        /** Stored passwords. */
+        passwords?: boolean;
+        /** Plugins' data. */
+        pluginData?: boolean;
+        /** Service Workers. */
+        serviceWorkers?: boolean;
+    }
+
+    /**
+     * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you _really_ want to remove application data before adding 'protectedWeb' or 'extensions'.
+     */
+    interface _RemovalOptionsOriginTypes {
+        /** Normal websites. */
+        unprotectedWeb?: boolean;
+        /** Websites that have been installed as hosted applications (be careful!). */
+        protectedWeb?: boolean;
+        /** Extensions and packaged applications a user has installed (be _really_ careful!). */
+        extension?: boolean;
+    }
+
+    interface _SettingsReturnResult {
+        options: RemovalOptions;
+        /**
+         * All of the types will be present in the result, with values of `true` if they are both selected to be removed and permitted to be removed, otherwise `false`.
+         */
+        dataToRemove: DataTypeSet;
+        /**
+         * All of the types will be present in the result, with values of `true` if they are permitted to be removed (e.g., by enterprise policy) and `false` if not.
+         */
+        dataRemovalPermitted: DataTypeSet;
+    }
+
+    /* browsingData functions */
+    /**
+     * Reports which types of data are currently selected in the 'Clear browsing data' settings UI. Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here.
+     */
+    function settings(): Promise<_SettingsReturnResult>;
+
+    /**
+     * Clears various types of browsing data stored in a user's profile.
+     * @param dataToRemove The set of data types to remove.
+     */
+    function remove(options: RemovalOptions, dataToRemove: DataTypeSet): Promise<void>;
+
+    /**
+     * Clears websites' appcache data.
+     * @deprecated Unsupported on Firefox at this time.
+     */
+    function removeAppcache(options: RemovalOptions): Promise<void>;
+
+    /** Clears the browser's cache. */
+    function removeCache(options: RemovalOptions): Promise<void>;
+
+    /** Clears the browser's cookies and server-bound certificates modified within a particular timeframe. */
+    function removeCookies(options: RemovalOptions): Promise<void>;
+
+    /** Clears the browser's list of downloaded files (_not_ the downloaded files themselves). */
+    function removeDownloads(options: RemovalOptions): Promise<void>;
+
+    /**
+     * Clears websites' file system data.
+     * @deprecated Unsupported on Firefox at this time.
+     */
+    function removeFileSystems(options: RemovalOptions): Promise<void>;
+
+    /** Clears the browser's stored form data (autofill). */
+    function removeFormData(options: RemovalOptions): Promise<void>;
+
+    /** Clears the browser's history. */
+    function removeHistory(options: RemovalOptions): Promise<void>;
+
+    /**
+     * Clears websites' IndexedDB data.
+     * @deprecated Unsupported on Firefox at this time.
+     */
+    function removeIndexedDB(options: RemovalOptions): Promise<void>;
+
+    /** Clears websites' local storage data. */
+    function removeLocalStorage(options: RemovalOptions): Promise<void>;
+
+    /** Clears plugins' data. */
+    function removePluginData(options: RemovalOptions): Promise<void>;
+
+    /** Clears the browser's stored passwords. */
+    function removePasswords(options: RemovalOptions): Promise<void>;
+
+    /**
+     * Clears websites' WebSQL data.
+     * @deprecated Unsupported on Firefox at this time.
+     */
+    function removeWebSQL(options: RemovalOptions): Promise<void>;
 }
 
 /**
@@ -2101,6 +2244,7 @@ declare namespace browser.extension {
 
     /**
      * Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occured lastError will be `undefined`.
+     * @deprecated Please use `runtime.lastError`.
      */
     interface _LastError {
         /** Description of the error that has taken place. */
@@ -2121,6 +2265,7 @@ declare namespace browser.extension {
     /* extension properties */
     /**
      * Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occured lastError will be `undefined`.
+     * @deprecated Please use `runtime.lastError`.
      */
     const lastError: _LastError | undefined;
 
@@ -2133,6 +2278,7 @@ declare namespace browser.extension {
     /**
      * Converts a relative path within an extension install directory to a fully-qualified URL.
      * @param path A path to a resource within an extension expressed relative to its install directory.
+     * @deprecated Please use `runtime.getURL`.
      * @returns The fully-qualified URL to the resource.
      */
     function getURL(path: string): string;
@@ -2318,7 +2464,8 @@ declare namespace browser.geckoProfiler {
         | 'fileio'
         | 'fileioall'
         | 'noiostacks'
-        | 'audiocallbacktracing';
+        | 'audiocallbacktracing'
+        | 'cpu';
 
     type Supports = 'windowLength';
 
@@ -2717,15 +2864,7 @@ declare namespace browser.networkStatus {
     type _NetworkLinkInfoStatus = 'unknown' | 'up' | 'down';
 
     /** If known, the type of network connection that is avialable. */
-    type _NetworkLinkInfoType =
-        | 'unknown'
-        | 'ethernet'
-        | 'usb'
-        | 'wifi'
-        | 'wimax'
-        | '2g'
-        | '3g'
-        | '4g';
+    type _NetworkLinkInfoType = 'unknown' | 'ethernet' | 'usb' | 'wifi' | 'wimax' | 'mobile';
 
     /* networkStatus functions */
     /** Returns the $(ref:NetworkLinkInfo} of the current network connection. */
@@ -3096,6 +3235,9 @@ declare namespace browser.privacy.network {
         maximum?: _TlsVersionRestrictionConfigMaximum;
     }
 
+    /** The mode for https-only mode. */
+    type HTTPSOnlyModeOption = 'always' | 'private_browsing' | 'never';
+
     /** The minimum TLS version supported. */
     type _TlsVersionRestrictionConfigMinimum =
         | 'TLSv1'
@@ -3130,6 +3272,11 @@ declare namespace browser.privacy.network {
      * This property controls the minimum and maximum TLS versions. This setting's value is an object of `tlsVersionRestrictionConfig`.
      */
     const tlsVersionRestriction: types.Setting;
+
+    /**
+     * Allow users to query the mode for 'HTTPS-Only Mode'. This setting's value is of type HTTPSOnlyModeOption, defaulting to `never`.
+     */
+    const httpsOnlyMode: types.Setting;
 }
 
 /**
@@ -3237,7 +3384,10 @@ declare namespace browser.proxy {
         http?: string;
         /** Use the http proxy server for all protocols. */
         httpProxyAll?: boolean;
-        /** The address of the ftp proxy, can include a port. */
+        /**
+         * The address of the ftp proxy, can include a port. Deprecated since Firefox 88.
+         * @deprecated The address of the ftp proxy, can include a port. Deprecated since Firefox 88.
+         */
         ftp?: string;
         /** The address of the ssl proxy, can include a port. */
         ssl?: string;
@@ -3366,7 +3516,7 @@ declare namespace browser.runtime {
     type PlatformOs = 'mac' | 'win' | 'android' | 'cros' | 'linux' | 'openbsd';
 
     /** The machine's processor architecture. */
-    type PlatformArch = 'arm' | 'x86-32' | 'x86-64';
+    type PlatformArch = 'aarch64' | 'arm' | 'ppc64' | 's390x' | 'sparc64' | 'x86-32' | 'x86-64';
 
     /** An object containing information about the current platform. */
     interface PlatformInfo {
@@ -5570,142 +5720,6 @@ declare namespace browser.bookmarks {
 }
 
 /**
- * Use the `browser.browsingData` API to remove browsing data from a user's local profile.
- *
- * Permissions: `browsingData`
- *
- * Not allowed in: Content scripts, Devtools pages
- */
-declare namespace browser.browsingData {
-    /* browsingData types */
-    /** Options that determine exactly what data will be removed. */
-    interface RemovalOptions {
-        /**
-         * Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the `getTime` method of the JavaScript `Date` object). If absent, defaults to 0 (which would remove all browsing data).
-         */
-        since?: extensionTypes.Date;
-        /** Only remove data associated with these hostnames (only applies to cookies and localStorage). */
-        hostnames?: string[];
-        /**
-         * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you _really_ want to remove application data before adding 'protectedWeb' or 'extensions'.
-         */
-        originTypes?: _RemovalOptionsOriginTypes;
-    }
-
-    /** A set of data types. Missing data types are interpreted as `false`. */
-    interface DataTypeSet {
-        /**
-         * The browser's cache. Note: when removing data, this clears the _entire_ cache: it is not limited to the range you specify.
-         */
-        cache?: boolean;
-        /** The browser's cookies. */
-        cookies?: boolean;
-        /** The browser's download list. */
-        downloads?: boolean;
-        /** The browser's stored form data. */
-        formData?: boolean;
-        /** The browser's history. */
-        history?: boolean;
-        /** Websites' IndexedDB data. */
-        indexedDB?: boolean;
-        /** Websites' local storage data. */
-        localStorage?: boolean;
-        /** Server-bound certificates. */
-        serverBoundCertificates?: boolean;
-        /** Stored passwords. */
-        passwords?: boolean;
-        /** Plugins' data. */
-        pluginData?: boolean;
-        /** Service Workers. */
-        serviceWorkers?: boolean;
-    }
-
-    /**
-     * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you _really_ want to remove application data before adding 'protectedWeb' or 'extensions'.
-     */
-    interface _RemovalOptionsOriginTypes {
-        /** Normal websites. */
-        unprotectedWeb?: boolean;
-        /** Websites that have been installed as hosted applications (be careful!). */
-        protectedWeb?: boolean;
-        /** Extensions and packaged applications a user has installed (be _really_ careful!). */
-        extension?: boolean;
-    }
-
-    interface _SettingsReturnResult {
-        options: RemovalOptions;
-        /**
-         * All of the types will be present in the result, with values of `true` if they are both selected to be removed and permitted to be removed, otherwise `false`.
-         */
-        dataToRemove: DataTypeSet;
-        /**
-         * All of the types will be present in the result, with values of `true` if they are permitted to be removed (e.g., by enterprise policy) and `false` if not.
-         */
-        dataRemovalPermitted: DataTypeSet;
-    }
-
-    /* browsingData functions */
-    /**
-     * Reports which types of data are currently selected in the 'Clear browsing data' settings UI. Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here.
-     */
-    function settings(): Promise<_SettingsReturnResult>;
-
-    /**
-     * Clears various types of browsing data stored in a user's profile.
-     * @param dataToRemove The set of data types to remove.
-     */
-    function remove(options: RemovalOptions, dataToRemove: DataTypeSet): Promise<void>;
-
-    /**
-     * Clears websites' appcache data.
-     * @deprecated Unsupported on Firefox at this time.
-     */
-    function removeAppcache(options: RemovalOptions): Promise<void>;
-
-    /** Clears the browser's cache. */
-    function removeCache(options: RemovalOptions): Promise<void>;
-
-    /** Clears the browser's cookies and server-bound certificates modified within a particular timeframe. */
-    function removeCookies(options: RemovalOptions): Promise<void>;
-
-    /** Clears the browser's list of downloaded files (_not_ the downloaded files themselves). */
-    function removeDownloads(options: RemovalOptions): Promise<void>;
-
-    /**
-     * Clears websites' file system data.
-     * @deprecated Unsupported on Firefox at this time.
-     */
-    function removeFileSystems(options: RemovalOptions): Promise<void>;
-
-    /** Clears the browser's stored form data (autofill). */
-    function removeFormData(options: RemovalOptions): Promise<void>;
-
-    /** Clears the browser's history. */
-    function removeHistory(options: RemovalOptions): Promise<void>;
-
-    /**
-     * Clears websites' IndexedDB data.
-     * @deprecated Unsupported on Firefox at this time.
-     */
-    function removeIndexedDB(options: RemovalOptions): Promise<void>;
-
-    /** Clears websites' local storage data. */
-    function removeLocalStorage(options: RemovalOptions): Promise<void>;
-
-    /** Clears plugins' data. */
-    function removePluginData(options: RemovalOptions): Promise<void>;
-
-    /** Clears the browser's stored passwords. */
-    function removePasswords(options: RemovalOptions): Promise<void>;
-
-    /**
-     * Clears websites' WebSQL data.
-     * @deprecated Unsupported on Firefox at this time.
-     */
-    function removeWebSQL(options: RemovalOptions): Promise<void>;
-}
-
-/**
  * Use the commands API to add keyboard shortcuts that trigger actions in your extension, for example, an action to open the browser action or send a command to the xtension.
  *
  * Manifest keys: `commands`
@@ -7529,7 +7543,8 @@ declare namespace browser.tabs {
         | 'pinned'
         | 'sharingState'
         | 'status'
-        | 'title';
+        | 'title'
+        | 'url';
 
     /** An object describing filters to apply to tabs.onUpdated events. */
     interface UpdateFilter {
@@ -8464,10 +8479,7 @@ declare namespace browser.windows {
          * The height in pixels of the new window, including the frame. If not specified defaults to a natural height.
          */
         height?: number;
-        /**
-         * If true, opens an active window. If false, opens an inactive window.
-         * @deprecated Unsupported on Firefox at this time.
-         */
+        /** If true, opens an active window. If false, opens an inactive window. */
         focused?: boolean;
         /** Whether the new window should be an incognito window. */
         incognito?: boolean;
