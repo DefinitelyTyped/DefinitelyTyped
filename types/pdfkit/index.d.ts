@@ -33,20 +33,20 @@ declare namespace PDFKit {
 
 declare namespace PDFKit.Mixins {
     interface AnnotationOption {
-        Type?: string;
+        Type?: string | undefined;
         Rect?: any;
-        Border?: Array<number>;
-        SubType?: string;
-        Contents?: string;
-        Name?: string;
-        color?: string;
-        QuadPoints?: Array<number>;
+        Border?: Array<number> | undefined;
+        SubType?: string | undefined;
+        Contents?: string | undefined;
+        Name?: string | undefined;
+        color?: string | undefined;
+        QuadPoints?: Array<number> | undefined;
 
         A?: any;
         B?: any;
         C?: any;
         L?: any;
-        DA?: string;
+        DA?: string | undefined;
     }
 
     interface PDFAnnotation {
@@ -116,18 +116,18 @@ declare namespace PDFKit.Mixins {
     }
 
     interface ImageOption {
-        width?: number;
-        height?: number;
+        width?: number | undefined;
+        height?: number | undefined;
         /** Scale percentage */
-        scale?: number;
+        scale?: number | undefined;
         /** Two elements array specifying dimensions(w,h)  */
-        fit?: [number, number];
-        cover?: [number, number];
-        align?: 'center' | 'right';
-        valign?: 'center' | 'bottom';
-        link?: AnnotationOption;
-        goTo?: AnnotationOption;
-        destination?: string;
+        fit?: [number, number] | undefined;
+        cover?: [number, number] | undefined;
+        align?: 'center' | 'right' | undefined;
+        valign?: 'center' | 'bottom' | undefined;
+        link?: AnnotationOption | undefined;
+        goTo?: AnnotationOption | undefined;
+        destination?: string | undefined;
     }
 
     interface PDFImage {
@@ -140,56 +140,56 @@ declare namespace PDFKit.Mixins {
 
     interface TextOptions {
         /** Set to false to disable line wrapping all together */
-        lineBreak?: boolean;
+        lineBreak?: boolean | undefined;
         /** The width that text should be wrapped to (by default, the page width minus the left and right margin) */
-        width?: number;
+        width?: number | undefined;
         /** The maximum height that text should be clipped to */
-        height?: number;
+        height?: number | undefined;
         /** The character to display at the end of the text when it is too long. Set to true to use the default character. */
-        ellipsis?: boolean | string;
+        ellipsis?: boolean | string | undefined;
         /** The number of columns to flow the text into */
-        columns?: number;
+        columns?: number | undefined;
         /** The amount of space between each column (1/4 inch by default) */
-        columnGap?: number;
+        columnGap?: number | undefined;
         /** The amount in PDF points (72 per inch) to indent each paragraph of text */
-        indent?: number;
+        indent?: number | undefined;
         /** The amount of space between each paragraph of text */
-        paragraphGap?: number;
+        paragraphGap?: number | undefined;
         /** The amount of space between each line of text */
-        lineGap?: number;
+        lineGap?: number | undefined;
         /** The amount of space between each word in the text */
-        wordSpacing?: number;
+        wordSpacing?: number | undefined;
         /** The amount of space between each character in the text */
-        characterSpacing?: number;
+        characterSpacing?: number | undefined;
         /** Whether to fill the text (true by default) */
-        fill?: boolean;
+        fill?: boolean | undefined;
         /** Whether to stroke the text */
-        stroke?: boolean;
+        stroke?: boolean | undefined;
         /** A URL to link this text to (shortcut to create an annotation) */
-        link?: string;
+        link?: string | undefined;
         /** Whether to underline the text */
-        underline?: boolean;
+        underline?: boolean | undefined;
         /** Whether to strike out the text */
-        strike?: boolean;
+        strike?: boolean | undefined;
         /** Whether the text segment will be followed immediately by another segment. Useful for changing styling in the middle of a paragraph. */
-        continued?: boolean;
+        continued?: boolean | undefined;
         /** Whether to slant the text (angle in degrees or true) */
-        oblique?: boolean | number;
+        oblique?: boolean | number | undefined;
         /** The alignment of the text (center, justify, left, right) */
         //TODO check this
-        align?: 'center' | 'justify' | 'left' | 'right' | string;
+        align?: 'center' | 'justify' | 'left' | 'right' | string | undefined;
         /** The vertical alignment of the text with respect to its insertion point */
-        baseline?: number | 'svg-middle' | 'middle' | 'svg-central' | 'bottom' | 'ideographic' | 'alphabetic' | 'mathematical' | 'hanging' | 'top';
+        baseline?: number | 'svg-middle' | 'middle' | 'svg-central' | 'bottom' | 'ideographic' | 'alphabetic' | 'mathematical' | 'hanging' | 'top' | undefined;
         /** An array of OpenType feature tags to apply. If not provided, a set of defaults is used. */
-        features?: OpenTypeFeatures[];
+        features?: OpenTypeFeatures[] | undefined;
         /** Sets a list as unordered, ordered or lettered */
-        listType?: 'bullet' | 'numbered' | 'lettered';
+        listType?: 'bullet' | 'numbered' | 'lettered' | undefined;
         /** The radius of bullet points in a list. Works only with listType: 'bullet' */
-        bulletRadius?: number;
+        bulletRadius?: number | undefined;
         /** The indent of bullet points in a list */
-        bulletIndent?: number;
+        bulletIndent?: number | undefined;
         /** The indent of text in a list */
-        textIndent?: number;
+        textIndent?: number | undefined;
     }
 
     interface PDFText {
@@ -233,8 +233,8 @@ declare namespace PDFKit.Mixins {
         clip(rule?: RuleValue): this;
         transform(m11: number, m12: number, m21: number, m22: number, dx: number, dy: number): this;
         translate(x: number, y: number): this;
-        rotate(angle: number, options?: { origin?: number[] }): this;
-        scale(xFactor: number, yFactor?: number, options?: { origin?: number[] }): this;
+        rotate(angle: number, options?: { origin?: number[] | undefined }): this;
+        scale(xFactor: number, yFactor?: number, options?: { origin?: number[] | undefined }): this;
     }
 
     interface PDFAcroForm {
@@ -316,39 +316,39 @@ declare module 'pdfkit/js/data' {
 
 declare namespace PDFKit {
     interface DocumentInfo {
-        Producer?: string;
-        Creator?: string;
-        CreationDate?: Date;
-        Title?: string;
-        Author?: string;
-        Keywords?: string;
-        ModDate?: Date;
+        Producer?: string | undefined;
+        Creator?: string | undefined;
+        CreationDate?: Date | undefined;
+        Title?: string | undefined;
+        Author?: string | undefined;
+        Keywords?: string | undefined;
+        ModDate?: Date | undefined;
     }
 
     interface DocumentPermissions {
-        modifying?: boolean;
-        copying?: boolean;
-        annotating?: boolean;
-        fillingForms?: boolean;
-        contentAccessibility?: boolean;
-        documentAssembly?: boolean;
-        printing?: 'lowResolution' | 'highResolution';
+        modifying?: boolean | undefined;
+        copying?: boolean | undefined;
+        annotating?: boolean | undefined;
+        fillingForms?: boolean | undefined;
+        contentAccessibility?: boolean | undefined;
+        documentAssembly?: boolean | undefined;
+        printing?: 'lowResolution' | 'highResolution' | undefined;
     }
 
     interface PDFDocumentOptions {
-        compress?: boolean;
-        info?: DocumentInfo;
-        userPassword?: string;
-        ownerPassword?: string;
-        permissions?: DocumentPermissions;
-        pdfVersion?: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
-        autoFirstPage?: boolean;
-        size?: number[] | string;
-        margin?: number;
-        margins?: { top: number; left: number; bottom: number; right: number };
-        layout?: 'portrait' | 'landscape';
+        compress?: boolean | undefined;
+        info?: DocumentInfo | undefined;
+        userPassword?: string | undefined;
+        ownerPassword?: string | undefined;
+        permissions?: DocumentPermissions | undefined;
+        pdfVersion?: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3' | undefined;
+        autoFirstPage?: boolean | undefined;
+        size?: number[] | string | undefined;
+        margin?: number | undefined;
+        margins?: { top: number; left: number; bottom: number; right: number } | undefined;
+        layout?: 'portrait' | 'landscape' | undefined;
 
-        bufferPages?: boolean;
+        bufferPages?: boolean | undefined;
     }
 
     interface PDFDocument
