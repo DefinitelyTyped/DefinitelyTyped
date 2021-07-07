@@ -4,14 +4,14 @@ import { ReactAttr, ReactDivAttr, ReactInputAttr, ReactLabelAttr } from "../../.
 // StructuredListWrapper
 
 export interface StructuredListWrapperProps extends ReactDivAttr {
-    ariaLabel?: string,
+    ariaLabel?: string | undefined,
     /**
      * @deprecated
      */
-    border?: boolean,
-    isCondensed?: boolean;
-    isFlush?: boolean;
-    selection?: boolean,
+    border?: boolean | undefined,
+    isCondensed?: boolean | undefined;
+    isFlush?: boolean | undefined;
+    selection?: boolean | undefined,
 }
 
 export declare const StructuredListWrapper: React.FC<StructuredListWrapperProps>;
@@ -33,7 +33,7 @@ export interface StructuredListInputProps extends Omit<ReactInputAttr, ExcludedL
     /**
      * @deprecated This is not used with the 2021 release flag enabled.
      */
-    defaultChecked?: boolean,
+    defaultChecked?: boolean | undefined,
     /**
      * @param event
      * @deprecated This is not used with the 2021 release flag enabled.
@@ -50,11 +50,11 @@ export declare const StructuredListInput: React.FC<StructuredListInputProps>;
 // StructuredListRow
 
 export interface StructuredListDivRowProps extends Omit<ReactDivAttr, "onKeyDown" | "tabIndex"> {
-    head?: boolean,
+    head?: boolean | undefined,
     /**
      * @deprecated
      */
-    label?: false,
+    label?: false | undefined,
 }
 
 /**
@@ -62,7 +62,7 @@ export interface StructuredListDivRowProps extends Omit<ReactDivAttr, "onKeyDown
  * 2021 release feature flag enabled.
  */
 export interface StructuredListLabelRowProps extends ReactLabelAttr {
-    head?: boolean,
+    head?: boolean | undefined,
     /**
      * @deprecated
      */
@@ -85,8 +85,8 @@ export declare const StructuredListBody: React.FC<StructuredListBodyProps>;
  *  next and stable signatures without overcomplicating the types.
  */
 export interface StructuredListCellProps extends ReactAttr {
-    head?: boolean,
-    noWrap?: boolean,
+    head?: boolean | undefined,
+    noWrap?: boolean | undefined,
 }
 
 export declare const StructuredListCell: React.FC<StructuredListCellProps>;

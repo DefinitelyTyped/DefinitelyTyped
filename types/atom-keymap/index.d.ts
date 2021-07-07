@@ -102,12 +102,12 @@ declare global {
          */
         namespace Options {
             interface BuildKeyEvent {
-                ctrl?: boolean;
-                alt?: boolean;
-                shift?: boolean;
-                cmd?: boolean;
-                which?: number;
-                target?: Element;
+                ctrl?: boolean | undefined;
+                alt?: boolean | undefined;
+                shift?: boolean | undefined;
+                cmd?: boolean | undefined;
+                which?: number | undefined;
+                target?: Element | undefined;
             }
         }
 
@@ -191,14 +191,14 @@ declare global {
 
             /** Get the key bindings for a given command and optional target. */
             findKeyBindings(params?: {
-                keystrokes?: string, // e.g. 'ctrl-x ctrl-s'
-                command?: string, // e.g. 'editor:backspace'
-                target?: Element,
+                keystrokes?: string | undefined, // e.g. 'ctrl-x ctrl-s'
+                command?: string | undefined, // e.g. 'editor:backspace'
+                target?: Element | undefined,
             }): KeyBinding[];
 
             // Managing Keymap Files
             /** Load the key bindings from the given path. */
-            loadKeymap(bindingsPath: string, options?: { watch?: boolean, priority?: number }):
+            loadKeymap(bindingsPath: string, options?: { watch?: boolean | undefined, priority?: number | undefined }):
                 void;
 
             /**
@@ -237,7 +237,7 @@ declare global {
             buildKeyupEvent(key: string, options?: Options.BuildKeyEvent): void;
 
             /** Create a new KeymapManager. */
-            new (options?: { defaultTarget?: HTMLElement }): KeymapManager;
+            new (options?: { defaultTarget?: HTMLElement | undefined }): KeymapManager;
         }
     }
 }

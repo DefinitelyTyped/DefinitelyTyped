@@ -4,21 +4,21 @@ import { ReactInputAttr } from "../../../typings/shared";
 type ExcludedAttributes = "defaultValue" | "ref" | "size" | "value";
 
 export interface SearchProps extends Omit<ReactInputAttr, ExcludedAttributes> {
-    closeButtonLabelText?: string,
-    defaultValue?: string | number,
+    closeButtonLabelText?: string | undefined,
+    defaultValue?: string | number | undefined,
     labelText: NonNullable<React.ReactNode>,
     /**
      * @deprecated
      */
-    placeHolderText?: string,
-    renderIcon?: React.ReactNode;
-    size?: "sm" | "md" | "lg" | "xl",
+    placeHolderText?: string | undefined,
+    renderIcon?: React.ReactNode | undefined;
+    size?: "sm" | "md" | "lg" | "xl" | undefined,
     /**
      * @deprecated
      */
-    small?: boolean,
-    value?: string | number,
-    light?: boolean,
+    small?: boolean | undefined,
+    value?: string | number | undefined,
+    light?: boolean | undefined,
 }
 
 declare class Search extends React.Component<SearchProps> { }

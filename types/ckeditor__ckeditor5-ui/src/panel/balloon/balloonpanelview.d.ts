@@ -6,14 +6,14 @@ import ViewCollection from "../../viewcollection";
 export default class BalloonPanelView extends View {
     class: string;
     readonly content: ViewCollection;
-    isVisible?: boolean;
-    left?: number;
-    position?: "arrow_nw" | "arrow_ne" | "arrow_sw" | "arrow_se";
-    top?: number;
-    withArrow?: boolean;
+    isVisible?: boolean | undefined;
+    left?: number | undefined;
+    position?: "arrow_nw" | "arrow_ne" | "arrow_sw" | "arrow_se" | undefined;
+    top?: number | undefined;
+    withArrow?: boolean | undefined;
 
-    static arrowHorizontalOffset?: number;
-    static arrowVerticalOffset?: number;
+    static arrowHorizontalOffset?: number | undefined;
+    static arrowVerticalOffset?: number | undefined;
     static defaultPositions: {
         northWestArrowSouthWest(targetRect: Rect, balloonReact: Rect): Position;
         northWestArrowSouthMiddleWest(targetRect: Rect, balloonReact: Rect): Position;

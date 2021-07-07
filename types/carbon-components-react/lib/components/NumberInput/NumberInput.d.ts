@@ -34,27 +34,27 @@ export type NumberInputOnClickInputVariant = (
 ) => void;
 
 export interface NumberInputProps extends Omit<ReactInputAttr, ExcludedInputPropKeys>, InternationalProps<NumberInputTranslationKey> {
-    allowEmpty?: boolean,
-    ariaLabel?: string,
-    helperText?: React.ReactNode,
-    hideLabel?: boolean,
-    hideSteppers?: boolean;
-    iconDescription?: string,
+    allowEmpty?: boolean | undefined,
+    ariaLabel?: string | undefined,
+    helperText?: React.ReactNode | undefined,
+    hideLabel?: boolean | undefined,
+    hideSteppers?: boolean | undefined;
+    iconDescription?: string | undefined,
     id: string,
-    invalid?: boolean,
-    invalidText?: React.ReactNode,
+    invalid?: boolean | undefined,
+    invalidText?: React.ReactNode | undefined,
     /**
      * @deprecated
      */
-    isMobile?: boolean,
-    label?: React.ReactNode,
-    light?: boolean,
-    onChange?: NumberInputOnChangeDataVariant | NumberInputOnChangeDefaultVariant;
-    onClick?: NumberInputOnClickDataVariant | NumberInputOnClickDefaultVariant | NumberInputOnClickInputVariant;
-    size?: "sm" | "md" | "lg" | "xl",
+    isMobile?: boolean | undefined,
+    label?: React.ReactNode | undefined,
+    light?: boolean | undefined,
+    onChange?: NumberInputOnChangeDataVariant | NumberInputOnChangeDefaultVariant | undefined;
+    onClick?: NumberInputOnClickDataVariant | NumberInputOnClickDefaultVariant | NumberInputOnClickInputVariant | undefined;
+    size?: "sm" | "md" | "lg" | "xl" | undefined,
     value: number | '',
-    warn?: boolean,
-    warnText?: React.ReactNode,
+    warn?: boolean | undefined,
+    warnText?: React.ReactNode | undefined,
 }
 
 declare class NumberInputComponent extends React.Component<NumberInputProps> { }

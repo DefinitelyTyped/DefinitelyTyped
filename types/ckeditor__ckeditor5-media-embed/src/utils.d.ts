@@ -17,7 +17,7 @@ export function createMediaFigureElement(
     writer: DowncastWriter,
     registry: MediaRegistry,
     url: string,
-    options?: { elementName?: string; useSemanticWrapper?: boolean; renderForEditingView?: boolean },
+    options?: { elementName?: string | undefined; useSemanticWrapper?: boolean | undefined; renderForEditingView?: boolean | undefined },
 ): ContainerElement;
 
 export function getSelectedMediaModelWidget(selection: Selection): Element;
