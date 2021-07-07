@@ -35,20 +35,20 @@ interface JavaApplet extends HTMLAppletElement {
     /**
      * @summary Handler if the applet status is {@link JavaAppletStatus#Error}. An error has occurred while loading the applet.
      */
-    onError?: Function;
+    onError?: Function | undefined;
     
     /**
      * @summary Handler if the applet status is {@link JavaAppletStatus#Ready}. Applet has finished loading and is ready to receive JavaScript calls.
      */
-    onLoad?: Function;
+    onLoad?: Function | undefined;
     
     /**
      * @summary Handler if the applet has stopped.
      */
-    onStop?: Function;
+    onStop?: Function | undefined;
     
     /**
      * @summary Java applet Status.
      */
-    status?: JavaAppletStatus;
+    status?: JavaAppletStatus | undefined;
 }

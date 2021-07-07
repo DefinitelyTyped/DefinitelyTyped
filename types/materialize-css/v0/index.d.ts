@@ -20,19 +20,19 @@ declare namespace Materialize {
         /**
          * A setting that changes the collapsible behavior to expandable instead of the default accordion style
          */
-        accordion?: boolean;
+        accordion?: boolean | undefined;
 
         /**
          * Callback for Collapsible section close.
          * @default `function() { alert('Closed'); }`
          */
-        onClose?: Function;
+        onClose?: Function | undefined;
 
         /**
          * Callback for Collapsible section open.
          * @default `function() { alert('Opened'); }`
          */
-        onOpen?: Function;
+        onOpen?: Function | undefined;
     }
 
     interface TooltipOptions {
@@ -43,19 +43,19 @@ declare namespace Materialize {
         /**
          * Tooltip text. Can use custom HTML if you set the html option
          */
-        tooltip?: string;
+        tooltip?: string | undefined;
         /**
          * Set the direction of the tooltip. 'top', 'right', 'bottom', 'left'.
          *
          * @default `'bottom'`
          */
-        position?: string;
+        position?: string | undefined;
         /**
          * Allow custom html inside the tooltip.
          *
          * @default `false`
          */
-        html?: boolean;
+        html?: boolean | undefined;
     }
 
     /**
@@ -66,48 +66,48 @@ declare namespace Materialize {
          * The duration of the transition enter in milliseconds.
          * @default `300`
          */
-        inDuration?: number;
+        inDuration?: number | undefined;
 
         /**
          * The duration of the transition out in milliseconds.
          * @default `225`
          */
-        outDuration?: number;
+        outDuration?: number | undefined;
 
         /**
          * If true, constrainWidth to the size of the dropdown activator.
          * @default `true`
          */
-        constrainWidth?: boolean;
+        constrainWidth?: boolean | undefined;
         /**
          * If true, the dropdown will open on hover.
          * @default `false`
          */
-        hover?: boolean;
+        hover?: boolean | undefined;
 
         /**
          * This defines the spacing from the aligned edge.
          * @default `0`
          */
-        gutter?: number;
+        gutter?: number | undefined;
 
         /**
          * If true, the dropdown will show below the activator.
          * @default `false`
          */
-        belowOrigin?: boolean;
+        belowOrigin?: boolean | undefined;
 
         /**
          * Defines the edge the menu is aligned to.
          * @default `'left'`
          */
-        alignment?: string;
+        alignment?: string | undefined;
         /**
          * If true, stops the event propagating from the dropdown origin click handler.
          *
          * @default `false`
          */
-        stopPropagation?: boolean;
+        stopPropagation?: boolean | undefined;
     }
 
     /**
@@ -118,25 +118,25 @@ declare namespace Materialize {
          * Set to false to hide slide indicators.
          * @default `true`
          */
-        indicators?: boolean;
+        indicators?: boolean | undefined;
 
         /**
          * Set height of slider.
          * @default `400`
          */
-        height?: number;
+        height?: number | undefined;
 
         /**
          * Set the duration of the transition animation in ms.
          * @default `500`
          */
-        transition?: number;
+        transition?: number | undefined;
 
         /**
          * Set the duration between transitions in ms.
          * @default `6000`
          */
-        interval?: number;
+        interval?: number | undefined;
     }
 
     /**
@@ -147,43 +147,43 @@ declare namespace Materialize {
          * Transition duration in milliseconds
          * @default `200`
          */
-        duration?: number;
+        duration?: number | undefined;
 
         /**
          * Perspective zoom. If 0, all items are the same size.
          * @default `-100`
          */
-        dist?: number;
+        dist?: number | undefined;
 
         /**
          * Set the duration of the transition animation in ms.
          * @default `500`
          */
-        shift?: number;
+        shift?: number | undefined;
 
         /**
          * Set the duration between transitions in ms.
          * @default `6000`
          */
-        padding?: number;
+        padding?: number | undefined;
 
         /**
          * Set the width of the carousel.
          * @default `false`
          */
-        fullWidth?: boolean;
+        fullWidth?: boolean | undefined;
         /**
          * Set to true to show indicators.
          *
          * @default `false`
          */
-        indicators?: boolean;
+        indicators?: boolean | undefined;
         /**
          * Don't wrap around and cycle through items.
          *
          * @default `false`
          */
-        noWrap?: boolean;
+        noWrap?: boolean | undefined;
     }
 
     /**
@@ -194,47 +194,47 @@ declare namespace Materialize {
          * Modal can be dismissed by clicking outside of the modal.
          * @default `true`
          */
-        dismissible?: boolean;
+        dismissible?: boolean | undefined;
 
         /**
          * Opacity of modal background.
          * @default `.5`
          */
-        opacity?: number;
+        opacity?: number | undefined;
 
         /**
          * Transition in duration.
          * @default `300`
          */
-        inDuration?: number;
+        inDuration?: number | undefined;
 
         /**
          * Transition out duration.
          * @default `200`
          */
-        outDuration?: number;
+        outDuration?: number | undefined;
         /**
          * Starting top style attribute
          * @default `4%`
          */
-        startingTop?: string;
+        startingTop?: string | undefined;
         /**
          * Ending top style attribute
          * @default `10%`
          */
-        endingTop?: string;
+        endingTop?: string | undefined;
 
         /**
          * Callback for Modal open.
          * @default `function() { alert('Ready'); }`
          */
-        ready?: Function;
+        ready?: Function | undefined;
 
         /**
          * Callback for Modal close.
          * @default `function() { alert('Closed'); }`
          */
-        complete?: Function;
+        complete?: Function | undefined;
     }
 
     /**
@@ -245,19 +245,19 @@ declare namespace Materialize {
          * The distance in pixels from the top of the page where the element becomes fixed.
          * @default `0`
          */
-        top?: number;
+        top?: number | undefined;
 
         /**
          * The distance in pixels from the top of the page where the elements stops being fixed.
          * @default `Infinity`
          */
-        bottom?: number;
+        bottom?: number | undefined;
 
         /**
          * The offset from the top the element will be fixed at.
          * @default `0`
          */
-        offset?: number;
+        offset?: number | undefined;
     }
 
     /**
@@ -268,16 +268,16 @@ declare namespace Materialize {
          * Offset from top.
          * @default `200`
          */
-        scrollOffset?: number;
+        scrollOffset?: number | undefined;
         /**
          * Class name to be added to the active link.
          * @default `active`
          */
-        activeClass?: string;
+        activeClass?: string | undefined;
         /**
          * Function that returns a selector to add activeClass to. The parameter is the section id
          */
-        getActiveElement?: Function;
+        getActiveElement?: Function | undefined;
     }
 
     /**
@@ -288,52 +288,52 @@ declare namespace Materialize {
          * The sideNav width.
          * @default `240`
          */
-        menuWidth?: number;
+        menuWidth?: number | undefined;
 
         /**
          * The horizontal origin.
          * @default `'left'`
          */
-        edge?: string;
+        edge?: string | undefined;
 
         /**
          * Closes sideNav on <a> clicks, useful for Angular/Meteor.
          * @default `false`
          */
-        closeOnClick?: boolean;
+        closeOnClick?: boolean | undefined;
 
         /**
          * Choose whether you can drag to open on touch screens.
          * @default `true`
          */
-        draggable?: boolean;
+        draggable?: boolean | undefined;
 
         /**
          * Execute a callback function when sideNav is opened.
          *
          * The callback provides a parameter which refers to the sideNav being opened.
          */
-        onOpen?: Function;
+        onOpen?: Function | undefined;
 
         /**
          * Execute a callback function when sideNav is closed.
          *
          * The callback provides a parameter which refers to the sideNav being closed.
          */
-        onClose?: Function;
+        onClose?: Function | undefined;
     }
 
     interface ScrollFireOptions {
         /**
          * The selector for the element that is being tracked.
          */
-        selector?: string;
+        selector?: string | undefined;
 
         /**
          * Offset to use when activating the scroll fire event
          * If this is 0, the callback will be fired when the selector element is at the very bottom of the user's window.
          */
-        offset?: number;
+        offset?: number | undefined;
 
         /**
          * The string function call that you want to make when the user scrolls to the threshold.
@@ -341,7 +341,7 @@ declare namespace Materialize {
          * Example: 'console.log("hello, world!")';
          * or callback: () => { console.log('hello world'); }
          */
-        callback?: string | (() => void);
+        callback?: string | (() => void) | undefined;
     }
 
     interface TabOptions {
@@ -350,42 +350,42 @@ declare namespace Materialize {
          *
          * The callback provides a parameter which refers to the current tab being shown.
          */
-        onShow?: Function;
+        onShow?: Function | undefined;
 
         /**
          * Set to true to enable swipeable tabs. This also uses the responsiveThreshold option.
          *
          * @default `false`
          */
-        swipeable?: boolean;
+        swipeable?: boolean | undefined;
 
         /**
          * The maximum width of the screen, in pixels, where the swipeable functionality initializes.
          *
          * @default `Infinity`
          */
-        responsiveThreshold?: number;
+        responsiveThreshold?: number | undefined;
     }
 
     interface ChipDataObject {
         tag: string;
-        image?: string;
-        id?: number;
+        image?: string | undefined;
+        id?: number | undefined;
     }
 
     interface ChipOptions {
         /**
          * Set the chip data
          */
-        data?: ChipDataObject[];
+        data?: ChipDataObject[] | undefined;
         /**
          * Set first placeholder when there are no tags
          */
-        placeholder?: string;
+        placeholder?: string | undefined;
         /**
          * Set second placeholder when adding additional tags.
          */
-        secondaryPlaceholder?: string;
+        secondaryPlaceholder?: string | undefined;
         /**
          * Set autocomplete data.
          */
@@ -393,11 +393,11 @@ declare namespace Materialize {
         /**
          * Set autocomplete limit.
          */
-        autocompleteLimit?: number;
+        autocompleteLimit?: number | undefined;
         /**
          * Set autocompleteOptions
          */
-        autocompleteOptions?: AutoCompleteOptions;
+        autocompleteOptions?: AutoCompleteOptions | undefined;
     }
 
     interface AutoCompleteOptions {
@@ -409,16 +409,16 @@ declare namespace Materialize {
          * The max amount of results that can be shown at once.
          * @default `Infinity`
          */
-        limit?: number;
+        limit?: number | undefined;
         /**
          * Callback function when value is autcompleted.
          */
-        onAutocomplete?: (val: any) => void;
+        onAutocomplete?: ((val: any) => void) | undefined;
         /**
          * The minimum length of the input for the autocomplete to start.
          * @default `1`
          */
-        minLength?: number;
+        minLength?: number | undefined;
     }
 
     interface Toast {
@@ -482,7 +482,7 @@ declare namespace Materialize {
  */
 declare namespace Pickadate {
     interface DateOptions {
-        weekdaysLetter?: string[];
+        weekdaysLetter?: string[] | undefined;
     }
 
     interface TimeOptions {
@@ -490,46 +490,46 @@ declare namespace Pickadate {
          * Set default time such as : 'now', '1:30AM', '16:30'.
          * @default `'now'`
          */
-        default?: string;
+        default?: string | undefined;
         /**
          * set default time to * milliseconds from now (using with default = 'now')
          * @default `0`
          */
-        fromnow?: number;
+        fromnow?: number | undefined;
         /**
          * Use AM/PM or 24-hour format
          * @default `false`
          */
-        twelvehour?: boolean;
+        twelvehour?: boolean | undefined;
         /**
          * text for done-button
          * @default `'OK'`
          */
-        donetext?: string;
+        donetext?: string | undefined;
         /**
          * text for clear-button
          * @default `'Clear'`
          */
-        cleartext?: string;
+        cleartext?: string | undefined;
         /**
          * Text for cancel-button
          * @default `'Cancel'`
          */
-        canceltext?: string;
+        canceltext?: string | undefined;
         /**
          * automatic close timepicker
          * @default `false`
          */
-        autoclose?: boolean;
+        autoclose?: boolean | undefined;
         /**
          * make AM PM clickable
          * @default `true`
          */
-        ampmclickable?: boolean;
+        ampmclickable?: boolean | undefined;
         /**
          * Function for after opening timepicker
          */
-        aftershow?: Function;
+        aftershow?: Function | undefined;
     }
 }
 

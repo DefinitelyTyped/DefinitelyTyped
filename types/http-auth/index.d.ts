@@ -12,16 +12,16 @@ import { EventEmitter } from 'events';
 type Qop = 'auth' | 'none';
 type Algorithm = 'MD5' | 'MD5-sess';
 
-type CheckedRequestListener = (req: http.IncomingMessage & { user?: string }, res: http.ServerResponse) => void;
+type CheckedRequestListener = (req: http.IncomingMessage & { user?: string | undefined }, res: http.ServerResponse) => void;
 type BasicChecker = (username: string, password: string, callback: (isAuthorized: boolean) => void) => void;
 type DigestChecker = (username: string, callback: (hash?: string) => void) => void;
 
 interface BasicResult<T extends boolean = boolean> {
-    user?: string;
-    pass?: T;
+    user?: string | undefined;
+    pass?: T | undefined;
 }
 type DigestResult<T extends boolean = boolean> = BasicResult<T> & {
-    stale?: true;
+    stale?: true | undefined;
 };
 type ResultEmitter = (result: BasicResult | DigestResult | Error) => void;
 
@@ -34,9 +34,9 @@ interface ClientOptions {
     uri: string;
     algorithm: Algorithm;
     response: string;
-    qop?: 'auth';
-    nc?: string;
-    cnonce?: string;
+    qop?: 'auth' | undefined;
+    nc?: string | undefined;
+    cnonce?: string | undefined;
 }
 
 interface BasicOptions {
@@ -44,43 +44,43 @@ interface BasicOptions {
      * Authentication realm, by default it is 'users'.
      * @default 'users'
      */
-    realm?: string;
+    realm?: string | undefined;
 
     /**
      * File where user details are stored.
      * - Line format is {user:pass} or {user:passHash} for basic access.
      * - Line format is {user:realm:passHash} for digest access.
      */
-    file?: string;
+    file?: string | undefined;
 
     /**
      * Message for failed authentication 401 page.
      * @default '401 Unauthorized'
      */
-    msg401?: string;
+    msg401?: string | undefined;
 
     /**
      * Message for failed authentication 407 page.
      * @default '407 Proxy authentication required
      */
-    msg407?: string;
+    msg407?: string | undefined;
 
     /**
      * Content type for failed authentication page.
      * @default 'text/plain'
      */
-    contentType?: string;
+    contentType?: string | undefined;
 
     /**
      * Set this to true, if you want to use it with http-proxy (https://github.com/http-party/node-http-proxy).
      * @default false
      */
-    proxy?: boolean;
+    proxy?: boolean | undefined;
 
     /**
      * Set this to true, if you don't want req.user to be filled with authentication info.
      */
-    skipUser?: boolean;
+    skipUser?: boolean | undefined;
 }
 
 type DigestOptions = BasicOptions & {
@@ -90,14 +90,14 @@ type DigestOptions = BasicOptions & {
      * - 'none' this option is disabling protection.
      * @default 'auth
      */
-    qop?: Qop;
+    qop?: Qop | undefined;
 
     /**
      * Algorithm that will be used only for digest access authentication.
      * 'MD5' or 'MD5-sess' can be set.
      * @default 'MD5'
      */
-    algorithm?: Algorithm;
+    algorithm?: Algorithm | undefined;
 };
 
 declare abstract class Base extends EventEmitter {

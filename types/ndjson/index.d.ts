@@ -9,7 +9,7 @@ import { ThroughStream } from "through";
 import { DuplexOptions, Transform } from "stream";
 
 export interface ParseOptions {
-    strict?: boolean;
+    strict?: boolean | undefined;
 }
 
 export function parse(opts?: ParseOptions): ThroughStream;

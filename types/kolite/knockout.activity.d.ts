@@ -12,26 +12,26 @@
 
 interface KoLiteActivityOptions {
     color?: any;
-    segments?: number;
-    space?: number;
-    length?: number;
-    width?: number;
-    speed?: number;
-    align?: string;
-    valign?: string;
-    padding?: number;
+    segments?: number | undefined;
+    space?: number | undefined;
+    length?: number | undefined;
+    width?: number | undefined;
+    speed?: number | undefined;
+    align?: string | undefined;
+    valign?: string | undefined;
+    padding?: number | undefined;
 }
 
 interface KoLiteActivity {
     (options: KoLiteActivityOptions): JQuery;
     defaults: KoLiteActivityOptions;
-    getOpacity(options: { steps?: number; segments?: number; opacity?: number; }, i: number): number;
+    getOpacity(options: { steps?: number | undefined; segments?: number | undefined; opacity?: number | undefined; }, i: number): number;
 }
 
 interface KoLiteActivityDefaultOptions {
-    activityClass?: string,
-    container?: string,
-    inactiveClass?: string
+    activityClass?: string | undefined,
+    container?: string | undefined,
+    inactiveClass?: string | undefined
 }
 
 interface KoLiteActivityBindingHandler extends KnockoutBindingHandler {

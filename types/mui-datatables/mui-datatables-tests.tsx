@@ -3,7 +3,7 @@ import * as React from 'react';
 import { createMuiTheme, Checkbox, Radio } from '@material-ui/core';
 
 interface Props extends Omit<MUIDataTableProps, 'columns'> {
-    columns?: MUIDataTableColumn[];
+    columns?: MUIDataTableColumn[] | undefined;
 }
 
 const MuiCustomTable: React.FC<Props> = props => {

@@ -24,14 +24,14 @@ declare module Meteor {
     }
     interface User {
         _id: string;
-        username?: string;
-        emails?: UserEmail[];
-        createdAt?: Date;
+        username?: string | undefined;
+        emails?: UserEmail[] | undefined;
+        createdAt?: Date | undefined;
         profile?: any;
         services?: any;
     }
 
-    function user(options?: { fields?: Mongo.FieldSpecifier }): User | null;
+    function user(options?: { fields?: Mongo.FieldSpecifier | undefined }): User | null;
 
     function userId(): string | null;
     var users: Mongo.Collection<User>;
@@ -44,8 +44,8 @@ declare module Meteor {
     }
     interface Error extends global_Error {
         error: string | number;
-        reason?: string;
-        details?: string;
+        reason?: string | undefined;
+        details?: string | undefined;
     }
     var TypedError: TypedErrorStatic;
     interface TypedErrorStatic {
@@ -74,10 +74,10 @@ declare module Meteor {
         name: string,
         args: ReadonlyArray<EJSONable | EJSONableProperty>,
         options?: {
-            wait?: boolean;
-            onResultReceived?: (error: global_Error | Meteor.Error | undefined, result?: Result) => void;
-            returnStubValue?: boolean;
-            throwStubExceptions?: boolean;
+            wait?: boolean | undefined;
+            onResultReceived?: ((error: global_Error | Meteor.Error | undefined, result?: Result) => void) | undefined;
+            returnStubValue?: boolean | undefined;
+            throwStubExceptions?: boolean | undefined;
         },
         asyncCallback?: (error: global_Error | Meteor.Error | undefined, result?: Result) => void): any;
     /** Method **/
@@ -89,9 +89,9 @@ declare module Meteor {
     }
 
     interface absoluteUrlOptions {
-      secure?: boolean;
-      replaceLocalhost?: boolean;
-      rootUrl?: string;
+      secure?: boolean | undefined;
+      replaceLocalhost?: boolean | undefined;
+      rootUrl?: string | undefined;
     }
     /** Url **/
 
@@ -137,13 +137,13 @@ declare module Meteor {
 declare module Meteor {
     /** Login **/
     interface LoginWithExternalServiceOptions {
-        requestPermissions?: ReadonlyArray<string>;
-        requestOfflineToken?: Boolean;
-        forceApprovalPrompt?: Boolean;
-        loginUrlParameters?: Object;
-        redirectUrl?: string;
-        loginHint?: string;
-        loginStyle?: string;
+        requestPermissions?: ReadonlyArray<string> | undefined;
+        requestOfflineToken?: Boolean | undefined;
+        forceApprovalPrompt?: Boolean | undefined;
+        loginUrlParameters?: Object | undefined;
+        redirectUrl?: string | undefined;
+        loginHint?: string | undefined;
+        loginStyle?: string | undefined;
     }
 
     function loginWithMeteorDeveloperAccount(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
@@ -163,12 +163,12 @@ declare module Meteor {
     function loggingIn(): boolean;
 
     function loginWith<ExternalService>(options?: {
-        requestPermissions?: ReadonlyArray<string>;
-        requestOfflineToken?: boolean;
-        loginUrlParameters?: Object;
-        userEmail?: string;
-        loginStyle?: string;
-        redirectUrl?: string;
+        requestPermissions?: ReadonlyArray<string> | undefined;
+        requestOfflineToken?: boolean | undefined;
+        loginUrlParameters?: Object | undefined;
+        userEmail?: string | undefined;
+        loginStyle?: string | undefined;
+        redirectUrl?: string | undefined;
     }, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
 
     function loginWithPassword(user: Object | string, password: string, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;

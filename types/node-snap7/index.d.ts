@@ -83,7 +83,7 @@ export declare enum Status {
 interface MultiVarRead {
     Area: Area;
     WordLen: WordLen;
-    DBNumber?: number;
+    DBNumber?: number | undefined;
     Start: number;
     Amount: number;
 }
@@ -91,7 +91,7 @@ interface MultiVarRead {
 interface MultiVarWrite {
     Area: Area;
     WordLen: WordLen;
-    DBNumber?: number;
+    DBNumber?: number | undefined;
     Start: number;
     Amount: number;
     Data: Buffer;

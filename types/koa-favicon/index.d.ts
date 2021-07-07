@@ -25,7 +25,7 @@ declare function favicon(path: string, options?: {
     /**
      * cache-control max-age directive in ms, defaulting to 1 day.
      */
-    maxage?: number;
+    maxage?: number | undefined;
 
 }): Koa.Middleware;
 

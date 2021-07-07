@@ -19,8 +19,8 @@ declare module "musicmetadata" {
 
 declare namespace MM {
     export interface Options {
-        duration?: boolean;
-        fileSize?: number;
+        duration?: boolean | undefined;
+        fileSize?: number | undefined;
     }
 
     export interface Metadata {
