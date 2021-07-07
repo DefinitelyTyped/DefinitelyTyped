@@ -24,41 +24,41 @@ declare namespace swaggerize {
         export interface ApiDefinition {
             swagger: string
             info: InfoObject
-            host?: string
-            basePath?: string
-            schemes?: string[]
-            consumes?: MimeTypes
-            produces?: MimeTypes
+            host?: string | undefined
+            basePath?: string | undefined
+            schemes?: string[] | undefined
+            consumes?: MimeTypes | undefined
+            produces?: MimeTypes | undefined
             paths: PathsObject
-            definitions?: DefinitionsObject
-            parameters?: ParametersDefinitionsObject
-            responses?: ResponsesDefinitionsObject
-            securityDefinitions?: SecurityDefinitionsObject
-            security?: SecurityRequirementObject[]
-            tags?: TagObject[]
-            externalDocs?: ExternalDocumentationObject
+            definitions?: DefinitionsObject | undefined
+            parameters?: ParametersDefinitionsObject | undefined
+            responses?: ResponsesDefinitionsObject | undefined
+            securityDefinitions?: SecurityDefinitionsObject | undefined
+            security?: SecurityRequirementObject[] | undefined
+            tags?: TagObject[] | undefined
+            externalDocs?: ExternalDocumentationObject | undefined
         }
 
         type MimeTypes = string[]
 
         export interface InfoObject {
             title: string
-            description?: string
-            termsOfService?: string
-            contact?: ContactObject
-            license?: LicenseObject
+            description?: string | undefined
+            termsOfService?: string | undefined
+            contact?: ContactObject | undefined
+            license?: LicenseObject | undefined
             version: string
         }
 
         export interface ContactObject {
-            name?: string
-            url?: string
-            email?: string
+            name?: string | undefined
+            url?: string | undefined
+            email?: string | undefined
         }
 
         export interface LicenseObject {
             name: string
-            url?: string
+            url?: string | undefined
         }
 
         export interface PathsObject {
@@ -66,30 +66,30 @@ declare namespace swaggerize {
         }
 
         export interface PathItemObject {
-            $ref?: string
-            get?: OperationObject
-            put?: OperationObject
-            post?: OperationObject
-            'delete'?: OperationObject
-            options?: OperationObject
-            head?: OperationObject
-            patch?: OperationObject
-            parameters?: Parameters
+            $ref?: string | undefined
+            get?: OperationObject | undefined
+            put?: OperationObject | undefined
+            post?: OperationObject | undefined
+            'delete'?: OperationObject | undefined
+            options?: OperationObject | undefined
+            head?: OperationObject | undefined
+            patch?: OperationObject | undefined
+            parameters?: Parameters | undefined
         }
 
         export interface OperationObject {
-            tags?: string[]
-            summary?: string
-            description?: string
-            externalDocs?: ExternalDocumentationObject
-            operationId?: string
-            consumes?: MimeTypes
-            produces?: MimeTypes
-            parameters?: Parameters
+            tags?: string[] | undefined
+            summary?: string | undefined
+            description?: string | undefined
+            externalDocs?: ExternalDocumentationObject | undefined
+            operationId?: string | undefined
+            consumes?: MimeTypes | undefined
+            produces?: MimeTypes | undefined
+            parameters?: Parameters | undefined
             responses: ResponsesObject
-            schemes?: string[]
-            deprecated?: boolean
-            security?: SecurityRequirementObject[]
+            schemes?: string[] | undefined
+            deprecated?: boolean | undefined
+            security?: SecurityRequirementObject[] | undefined
         }
 
         export interface DefinitionsObject {
@@ -109,9 +109,9 @@ declare namespace swaggerize {
 
         export interface ResponseObject {
             description: string
-            schema?: SchemaObject
-            headers?: HeadersObject
-            examples?: ExampleObject
+            schema?: SchemaObject | undefined
+            headers?: HeadersObject | undefined
+            examples?: ExampleObject | undefined
         }
 
         export interface HeadersObject {
@@ -131,7 +131,7 @@ declare namespace swaggerize {
 
         export interface SecuritySchemeObject {
             type: string
-            description?: string
+            description?: string | undefined
             name: string
             'in': string
             flow: string
@@ -150,28 +150,28 @@ declare namespace swaggerize {
 
         export interface TagObject {
             name: string
-            description?: string
-            externalDocs?: ExternalDocumentationObject
+            description?: string | undefined
+            externalDocs?: ExternalDocumentationObject | undefined
         }
 
         export interface ItemsObject {
             type: string
-            format?: string
-            items?: ItemsObject
-            collectionFormat?: string
+            format?: string | undefined
+            items?: ItemsObject | undefined
+            collectionFormat?: string | undefined
             'default'?: any
-            maximum?: number
+            maximum?: number | undefined
             exclusiveMaximum: boolean
-            minimum?: number
-            exclusiveMinimum?: boolean
-            maxLength?: number
-            minLength?: number
-            pattern?: string
-            maxItems?: number
-            minItems?: number
-            uniqueItems?: boolean
-            'enum'?: any[]
-            multipleOf?: number
+            minimum?: number | undefined
+            exclusiveMinimum?: boolean | undefined
+            maxLength?: number | undefined
+            minLength?: number | undefined
+            pattern?: string | undefined
+            maxItems?: number | undefined
+            minItems?: number | undefined
+            uniqueItems?: boolean | undefined
+            'enum'?: any[] | undefined
+            multipleOf?: number | undefined
         }
 
         export interface ParametersDefinitionsObject {
@@ -183,8 +183,8 @@ declare namespace swaggerize {
         export interface ParameterObject {
             name: string
             'in': string
-            description?: string
-            required?: boolean
+            description?: string | undefined
+            required?: boolean | undefined
         }
 
         export interface InBodyParameterObject extends ParameterObject {
@@ -192,7 +192,7 @@ declare namespace swaggerize {
         }
 
         export interface GeneralParameterObject extends ParameterObject, ItemsObject {
-            allowEmptyValue?: boolean
+            allowEmptyValue?: boolean | undefined
         }
 
         export interface ReferenceObject {
@@ -201,26 +201,26 @@ declare namespace swaggerize {
 
         export interface ExternalDocumentationObject {
             [index: string]: any
-            description?: string
+            description?: string | undefined
             url: string
         }
 
         export interface SchemaObject extends IJsonSchema {
             [index: string]: any
-            discriminator?: string
-            readOnly?: boolean
-            xml?: XMLObject
+            discriminator?: string | undefined
+            readOnly?: boolean | undefined
+            xml?: XMLObject | undefined
             externalDocs: ExternalDocumentationObject
             example: any
         }
 
         export interface XMLObject {
             [index: string]: any
-            name?: string
-            namespace?: string
-            prefix?: string
-            attribute?: boolean
-            wrapped?: boolean
+            name?: string | undefined
+            namespace?: string | undefined
+            prefix?: string | undefined
+            attribute?: boolean | undefined
+            wrapped?: boolean | undefined
         }
     }
 
@@ -245,45 +245,45 @@ declare namespace swaggerize {
 }
 
 interface IJsonSchema {
-    id?: string
-    $schema?: string
-    title?: string
-    description?: string
-    multipleOf?: number
-    maximum?: number
-    exclusiveMaximum?: boolean
-    minimum?: number
-    exclusiveMinimum?: boolean
-    maxLength?: number
-    minLength?: number
-    pattern?: string
-    additionalItems?: boolean | IJsonSchema
-    items?: IJsonSchema | IJsonSchema[]
-    maxItems?: number
-    minItems?: number
-    uniqueItems?: boolean
-    maxProperties?: number
-    minProperties?: number
-    required?: string[]
-    additionalProperties?: boolean | IJsonSchema
+    id?: string | undefined
+    $schema?: string | undefined
+    title?: string | undefined
+    description?: string | undefined
+    multipleOf?: number | undefined
+    maximum?: number | undefined
+    exclusiveMaximum?: boolean | undefined
+    minimum?: number | undefined
+    exclusiveMinimum?: boolean | undefined
+    maxLength?: number | undefined
+    minLength?: number | undefined
+    pattern?: string | undefined
+    additionalItems?: boolean | IJsonSchema | undefined
+    items?: IJsonSchema | IJsonSchema[] | undefined
+    maxItems?: number | undefined
+    minItems?: number | undefined
+    uniqueItems?: boolean | undefined
+    maxProperties?: number | undefined
+    minProperties?: number | undefined
+    required?: string[] | undefined
+    additionalProperties?: boolean | IJsonSchema | undefined
     definitions?: {
         [name: string]: IJsonSchema
-    }
+    } | undefined
     properties?: {
         [name: string]: IJsonSchema
-    }
+    } | undefined
     patternProperties?: {
         [name: string]: IJsonSchema
-    }
+    } | undefined
     dependencies?: {
         [name: string]: IJsonSchema | string[]
-    }
-    'enum'?: any[]
-    type?: string | string[]
-    allOf?: IJsonSchema[]
-    anyOf?: IJsonSchema[]
-    oneOf?: IJsonSchema[]
-    not?: IJsonSchema
+    } | undefined
+    'enum'?: any[] | undefined
+    type?: string | string[] | undefined
+    allOf?: IJsonSchema[] | undefined
+    anyOf?: IJsonSchema[] | undefined
+    oneOf?: IJsonSchema[] | undefined
+    not?: IJsonSchema | undefined
 }
 
 export = swaggerize;

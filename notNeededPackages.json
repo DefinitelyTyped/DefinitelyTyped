@@ -785,6 +785,10 @@
             "libraryName": "cuid",
             "asOfVersion": "2.0.1"
         },
+        "cuss": {
+            "libraryName": "cuss",
+            "asOfVersion": "2.0.0"
+        },
         "cycled": {
             "libraryName": "cycled",
             "asOfVersion": "1.1.0"
@@ -1561,6 +1565,10 @@
             "libraryName": "graphql-query-complexity",
             "asOfVersion": "0.2.0"
         },
+        "graphql-relay": {
+            "libraryName": "graphql-relay",
+            "asOfVersion": "0.7.0"
+        },
         "gravatar-url": {
             "libraryName": "gravatar-url",
             "asOfVersion": "3.0.0"
@@ -1736,6 +1744,10 @@
         "html-webpack-tags-plugin": {
             "libraryName": "html-webpack-tags-plugin",
             "asOfVersion": "2.0.16"
+        },
+        "html2canvas": {
+            "libraryName": "html2canvas",
+            "asOfVersion": "1.0.0"
         },
         "http-graceful-shutdown": {
             "libraryName": "http-graceful-shutdown",
@@ -3622,10 +3634,6 @@
             "libraryName": "rc-progress",
             "asOfVersion": "2.4.0"
         },
-        "rdf-js": {
-            "libraryName": "rdf-js",
-            "asOfVersion": "4.0.2"
-        },
         "rc-select": {
             "libraryName": "rc-select",
             "asOfVersion": "8.6.5"
@@ -3641,6 +3649,10 @@
         "rc-time-picker": {
             "libraryName": "rc-time-picker",
             "asOfVersion": "3.5.0"
+        },
+        "rdf-js": {
+            "libraryName": "rdf-js",
+            "asOfVersion": "4.0.2"
         },
         "rdflib": {
             "libraryName": "rdflib",
@@ -5298,6 +5310,10 @@
             "libraryName": "@wordpress/a11y",
             "asOfVersion": "2.9.0"
         },
+        "wordpress__api-fetch": {
+            "libraryName": "@wordpress/api-fetch",
+            "asOfVersion": "3.23.1"
+        },
         "wordpress__autop": {
             "libraryName": "@wordpress/autop",
             "asOfVersion": "2.7.0"
@@ -5413,6 +5429,10 @@
         "xumm-api": {
             "libraryName": "xumm-sdk",
             "asOfVersion": "0.1.4"
+        },
+        "y18n": {
+            "libraryName": "y18n",
+            "asOfVersion": "5.0.0"
         },
         "yaml": {
             "libraryName": "yaml",

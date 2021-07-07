@@ -249,75 +249,75 @@ declare namespace AuthenticationContext {
         /**
          * Endpoint at which you expect to receive tokens.Defaults to `window.location.href`.
          */
-        redirectUri?: string;
+        redirectUri?: string | undefined;
         /**
          * Azure Active Directory instance. Defaults to `https://login.microsoftonline.com/`.
          */
-        instance?: string;
+        instance?: string | undefined;
         /**
          * Your target tenant. Defaults to `common`.
          */
-        tenant?: string;
+        tenant?: string | undefined;
         /**
          * Query parameters to add to the authentication request.
          */
-        extraQueryParameter?: string;
+        extraQueryParameter?: string | undefined;
         /**
          * Unique identifier used to map the request with the response. Defaults to RFC4122 version 4 guid (128 bits).
          */
-        correlationId?: string;
+        correlationId?: string | undefined;
         /**
          * User defined function of handling the navigation to Azure AD authorization endpoint in case of login.
          */
-        displayCall?: (url: string) => void;
+        displayCall?: ((url: string) => void) | undefined;
         /**
          * Set this to true to enable login in a popup winodow instead of a full redirect. Defaults to `false`.
          */
-        popUp?: boolean;
+        popUp?: boolean | undefined;
         /**
          * Set this to the resource to request on login. Defaults to `clientId`.
          */
-        loginResource?: string;
+        loginResource?: string | undefined;
         /**
          * Set this to redirect the user to a custom login page.
          */
-        localLoginUrl?: string;
+        localLoginUrl?: string | undefined;
         /**
          * Redirects to start page after login. Defaults to `true`.
          */
-        navigateToLoginRequestUrl?: boolean;
+        navigateToLoginRequestUrl?: boolean | undefined;
         /**
          * Set this to redirect the user to a custom logout page.
          */
-        logOutUri?: string;
+        logOutUri?: string | undefined;
         /**
          * Redirects the user to postLogoutRedirectUri after logout. Defaults to `redirectUri`.
          */
-        postLogoutRedirectUri?: string;
+        postLogoutRedirectUri?: string | undefined;
         /**
          * Sets browser storage to either 'localStorage' or sessionStorage'. Defaults to `sessionStorage`.
          */
-        cacheLocation?: "localStorage" | "sessionStorage";
+        cacheLocation?: "localStorage" | "sessionStorage" | undefined;
         /**
          * Array of keywords or URIs. Adal will attach a token to outgoing requests that have these keywords or URIs.
          */
-        endpoints?: { [resource: string]: string };
+        endpoints?: { [resource: string]: string } | undefined;
         /**
          * Array of keywords or URIs. Adal will not attach a token to outgoing requests that have these keywords or URIs.
          */
-        anonymousEndpoints?: string[];
+        anonymousEndpoints?: string[] | undefined;
         /**
          * If the cached token is about to be expired in the expireOffsetSeconds (in seconds), Adal will renew the token instead of using the cached token. Defaults to 300 seconds.
          */
-        expireOffsetSeconds?: number;
+        expireOffsetSeconds?: number | undefined;
         /**
          * The number of milliseconds of inactivity before a token renewal response from AAD should be considered timed out. Defaults to 6 seconds.
          */
-        loadFrameTimeout?: number;
+        loadFrameTimeout?: number | undefined;
         /**
          * Callback to be invoked when a token is acquired.
          */
-        callback?: TokenCallback;
+        callback?: TokenCallback | undefined;
     }
 
     interface LoggingConfig {

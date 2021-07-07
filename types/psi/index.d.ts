@@ -35,7 +35,7 @@ declare namespace psi {
          * Threshold score to pass the PageSpeed test. Useful for setting a performance budget.
          * @default 70
          */
-        treshold?: number;
+        threshold?: number;
         /**
          * If passed adds links with more info about opportunities.
          * Useful for checking documentation about opportunities.

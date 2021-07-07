@@ -21,7 +21,7 @@ declare class Toast extends BaseComponent {
      * Static method which allows you to get the toast instance associated
      * with a DOM element
      */
-    static getInstance(element: Element, options?: Partial<Toast.Options>): Toast;
+    static getInstance(element: Element, options?: Partial<Toast.Options>): Toast | null;
 
     static jQueryInterface: Toast.jQueryInterface;
 

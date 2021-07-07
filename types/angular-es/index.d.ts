@@ -30,12 +30,12 @@ declare module 'angular-es' {
      */
     interface iComponent {
         selector: string,
-        controllerAs?: string,
-        require?: string,
-        template?: string,
-        templateUrl?: string,
-        transclude?: string,
-        bindings?: Object
+        controllerAs?: string | undefined,
+        require?: string | undefined,
+        template?: string | undefined,
+        templateUrl?: string | undefined,
+        transclude?: string | undefined,
+        bindings?: Object | undefined
     }
 
     /**

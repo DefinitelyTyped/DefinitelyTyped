@@ -18,7 +18,7 @@ declare class AutocompletePrompt<T> extends Base {
     /**
      * The choices currently available on the prompt
      */
-    currentChoices: Choices<Answers>;
+    currentChoices: Choices;
 
     /**
      * Flag that is true on first render

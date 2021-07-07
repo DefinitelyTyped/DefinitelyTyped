@@ -3,7 +3,7 @@ declare namespace WechatMiniprogram {
         /** 事件组件的 id */
         id: string
         /** 当前组件的类型 */
-        tagName?: string
+        tagName?: string | undefined
         /** 事件组件上由 `data-` 开头的自定义属性组成的集合 */
         dataset: DataSet
         /** 距离页面顶部的偏移量 */
@@ -23,7 +23,7 @@ declare namespace WechatMiniprogram {
         /** 页面打开到触发事件所经过的毫秒数 */
         timeStamp: number
         /** 事件冒泡路径上所有由 `mark:` 开头的自定义属性组成的集合 */
-        mark?: Mark
+        mark?: Mark | undefined
         /** 触发事件的源组件 */
         target: Target<TargetDataset>
         /** 事件绑定的当前组件 */
@@ -538,7 +538,7 @@ declare namespace WechatMiniprogram {
         TargetDataset extends IAnyObject = IAnyObject
     > = CustomEvent<
         {
-            formId?: unknown
+            formId?: unknown | undefined
             target: Target
             /** 表单中的数据，需要在表单组件中加上 name 来作为 key。 */
             value: IAnyObject
@@ -575,7 +575,7 @@ declare namespace WechatMiniprogram {
             /** 光标位置 */
             cursor: number
             /** keyCode 为键值 (目前工具还不支持返回keyCode参数) `2.1.0` 起支持 */
-            keyCode?: number
+            keyCode?: number | undefined
         },
         Mark,
         TargetDataset

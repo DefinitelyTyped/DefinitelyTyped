@@ -31,37 +31,37 @@ declare namespace cors {
          * the koa context object. It may return a string or a promise that
          * will resolve with a string.
          */
-        origin?: ((ctx: Koa.Context) => string) | ((ctx: Koa.Context) => PromiseLike<string>) | string;
+        origin?: ((ctx: Koa.Context) => string) | ((ctx: Koa.Context) => PromiseLike<string>) | string | undefined;
 
         /**
          * `Access-Control-Allow-Methods`, default is
          * 'GET,HEAD,PUT,POST,DELETE,PATCH'
          */
-        allowMethods?: string[] | string;
+        allowMethods?: string[] | string | undefined;
 
         /**
          * `Access-Control-Expose-Headers`
          */
-        exposeHeaders?: string[] | string;
+        exposeHeaders?: string[] | string | undefined;
 
         /**
          * `Access-Control-Allow-Headers`
          */
-        allowHeaders?: string[] | string;
+        allowHeaders?: string[] | string | undefined;
 
         /**
          * `Access-Control-Max-Age` in seconds
          */
-        maxAge?: number | string;
+        maxAge?: number | string | undefined;
 
         /**
          * `Access-Control-Allow-Credentials`
          */
-        credentials?: boolean;
+        credentials?: boolean | undefined;
 
         /**
          * Add set headers to `err.header` if an error is thrown
          */
-        keepHeadersOnError?: boolean;
+        keepHeadersOnError?: boolean | undefined;
     }
 }

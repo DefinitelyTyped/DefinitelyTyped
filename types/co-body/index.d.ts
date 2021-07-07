@@ -21,15 +21,15 @@ declare namespace CoBody {
     }
 
     export interface Options {
-        limit?: number | string;
-        strict?: boolean;
-        queryString?: qs.IParseOptions;
-        jsonTypes?: string[];
-        returnRawBody?: boolean;
-        formTypes?: string[];
-        textTypes?: string[];
-        encoding?: string;
-        length?: number;
+        limit?: number | string | undefined;
+        strict?: boolean | undefined;
+        queryString?: qs.IParseOptions | undefined;
+        jsonTypes?: string[] | undefined;
+        returnRawBody?: boolean | undefined;
+        formTypes?: string[] | undefined;
+        textTypes?: string[] | undefined;
+        encoding?: string | undefined;
+        length?: number | undefined;
     }
 }
 

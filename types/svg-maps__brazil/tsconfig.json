@@ -12,6 +12,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@svg-maps/*": ["svg-maps__*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

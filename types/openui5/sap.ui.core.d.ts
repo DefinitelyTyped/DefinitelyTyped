@@ -37,7 +37,7 @@ declare namespace QUnit {
   export type Assert = typeof QUnit.assert;
 }
 
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/base/assert" {
   /**
@@ -10246,7 +10246,7 @@ declare module "sap/ui/core/Component" {
      * The window before unload hook. Override this method in your Component class implementation, to handle
      * cleanup before the real unload or to prompt a question to the user, if the component should be exited.
      */
-    onWindowBeforeUnload(): string;
+    onWindowBeforeUnload(): string | undefined;
     /**
      * @SINCE 1.15.1
      *
@@ -24039,6 +24039,13 @@ declare module "sap/ui/core/mvc/HTMLView" {
      * sap.ui.core.mvc.HTMLView.create HTMLView.create} or {@link sap.ui.core.mvc.View.create View.create} with
      * type {@link sap.ui.core.mvc.ViewType.HTML HTML}. The factory simplifies asynchronous loading of a view
      * and future features might be added to the factory only.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
+     * sap.ui.core.mvc.View} can be used.
      */
     constructor(
       /**
@@ -24053,6 +24060,13 @@ declare module "sap/ui/core/mvc/HTMLView" {
      * sap.ui.core.mvc.HTMLView.create HTMLView.create} or {@link sap.ui.core.mvc.View.create View.create} with
      * type {@link sap.ui.core.mvc.ViewType.HTML HTML}. The factory simplifies asynchronous loading of a view
      * and future features might be added to the factory only.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
+     * sap.ui.core.mvc.View} can be used.
      */
     constructor(
       /**
@@ -24148,6 +24162,13 @@ declare module "sap/ui/core/mvc/JSONView" {
      * sap.ui.core.mvc.JSONView.create JSONView.create} or {@link sap.ui.core.mvc.View.create View.create} with
      * type {@link sap.ui.core.mvc.ViewType.JSON JSON}. The factory simplifies asynchronous loading of a view
      * and future features might be added to the factory only.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
+     * sap.ui.core.mvc.View} can be used.
      */
     constructor(
       /**
@@ -24162,6 +24183,13 @@ declare module "sap/ui/core/mvc/JSONView" {
      * sap.ui.core.mvc.JSONView.create JSONView.create} or {@link sap.ui.core.mvc.View.create View.create} with
      * type {@link sap.ui.core.mvc.ViewType.JSON JSON}. The factory simplifies asynchronous loading of a view
      * and future features might be added to the factory only.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
+     * sap.ui.core.mvc.View} can be used.
      */
     constructor(
       /**
@@ -24257,6 +24285,13 @@ declare module "sap/ui/core/mvc/JSView" {
   export default class JSView extends View {
     /**
      * Constructor for a new `JSView`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
+     * sap.ui.core.mvc.View} can be used.
      */
     constructor(
       /**
@@ -24266,6 +24301,13 @@ declare module "sap/ui/core/mvc/JSView" {
     );
     /**
      * Constructor for a new `JSView`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
+     * sap.ui.core.mvc.View} can be used.
      */
     constructor(
       /**
@@ -24392,6 +24434,13 @@ declare module "sap/ui/core/mvc/TemplateView" {
      * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link
      * sap.ui.templateview} or {@link sap.ui.core.mvc.View.create View.create} with type {@link sap.ui.core.mvc.ViewType.Template
      * Template}.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
+     * sap.ui.core.mvc.View} can be used.
      */
     constructor(
       /**
@@ -24405,6 +24454,13 @@ declare module "sap/ui/core/mvc/TemplateView" {
      * **Note:** Application code shouldn't call the constructor directly, but rather use the factory {@link
      * sap.ui.templateview} or {@link sap.ui.core.mvc.View.create View.create} with type {@link sap.ui.core.mvc.ViewType.Template
      * Template}.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.mvc.View#constructor
+     * sap.ui.core.mvc.View} can be used.
      */
     constructor(
       /**
@@ -30652,6 +30708,13 @@ declare module "sap/ui/core/SeparatorItem" {
   export default class SeparatorItem extends Item {
     /**
      * Constructor for a new SeparatorItem.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Item#constructor
+     * sap.ui.core.Item} can be used.
      */
     constructor(
       /**
@@ -30661,6 +30724,13 @@ declare module "sap/ui/core/SeparatorItem" {
     );
     /**
      * Constructor for a new SeparatorItem.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Item#constructor
+     * sap.ui.core.Item} can be used.
      */
     constructor(
       /**
@@ -31521,6 +31591,13 @@ declare module "sap/ui/core/tmpl/HandlebarsTemplate" {
      *
      * The set of allowed entries in the `mSettings` object depends on the concrete subclass and is described
      * there.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.tmpl.Template#constructor
+     * sap.ui.core.tmpl.Template} can be used.
      */
     constructor(
       /**
@@ -31533,6 +31610,13 @@ declare module "sap/ui/core/tmpl/HandlebarsTemplate" {
      *
      * The set of allowed entries in the `mSettings` object depends on the concrete subclass and is described
      * there.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.tmpl.Template#constructor
+     * sap.ui.core.tmpl.Template} can be used.
      */
     constructor(
       /**
@@ -41005,8 +41089,7 @@ declare module "sap/ui/model/json/JSONModel" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Serializes the current JSON data of the model into a string. Note: May not work in Internet Explorer
-     * 8 because of lacking JSON support (works only if IE 8 mode is enabled)
+     * Serializes the current JSON data of the model into a string.
      */
     getJSON(): string;
     /**
@@ -46360,10 +46443,11 @@ declare module "sap/ui/model/odata/type/Decimal" {
         precision?: int | string;
         /**
          * the maximum number of digits allowed to the right of the decimal point; the number must be less than
-         * `precision` (if given). As a special case, "variable" is supported.
+         * or equal to `precision` (if given). As a special case, "variable" is supported.
          *
          * The number of digits to the right of the decimal point may vary from zero to `scale`, and the number
-         * of digits to the left of the decimal point may vary from one to `precision` minus `scale`.
+         * of digits to the left of the decimal point may vary from one to `precision` minus `scale`. If `scale`
+         * is equal to `precision`, a single zero has to precede the decimal point.
          *
          * The number is always displayed with exactly `scale` digits to the right of the decimal point (unless
          * `scale` is "variable").
@@ -48700,7 +48784,7 @@ declare module "sap/ui/model/odata/v2/ODataContextBinding" {
         createPreliminaryContext?: boolean;
         /**
          * Whether a preliminary context will be used. When set to `true`, the model can bundle the OData calls
-         * for dependent bindings into fewer $batch requests. For more information, see {@link topic:62149734b5c24507868e722fe87a75db
+         * for dependent bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
          * Optimizing Dependent Bindings}
          */
         usePreliminaryContext?: boolean;
@@ -48840,7 +48924,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
         transitionMessagesOnly?: boolean;
         /**
          * Whether a preliminary context will be used. When set to `true`, the model can bundle the OData calls
-         * for dependent bindings into fewer $batch requests. For more information, see {@link topic:62149734b5c24507868e722fe87a75db
+         * for dependent bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
          * Optimizing Dependent Bindings}
          */
         usePreliminaryContext?: boolean;
@@ -49146,7 +49230,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         persistTechnicalMessages?: boolean;
         /**
          * Whether a preliminary context will be created/used by a binding. When set to `true`, the model can bundle
-         * the OData calls for dependent bindings into fewer $batch requests. For more information, see {@link topic:62149734b5c24507868e722fe87a75db
+         * the OData calls for dependent bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
          * Optimizing Dependent Bindings}
          */
         preliminaryContext?: boolean;
@@ -49846,7 +49930,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         select?: string;
         /**
          * Whether a preliminary context will be created. When set to `true`, the model can bundle the OData calls
-         * for dependent bindings into fewer $batch requests. For more information, see {@link topic:62149734b5c24507868e722fe87a75db
+         * for dependent bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
          * Optimizing Dependent Bindings}
          */
         preliminaryContext?: boolean;
@@ -52834,6 +52918,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * Resumes this binding. The binding can then again fire change events and trigger data service requests.
      * Before 1.53.0, this method was not supported and threw an error.
      * See:
+     * 	{@link topic:b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
      * 	sap.ui.model.Binding#resume
      * 	#suspend
      */
@@ -52860,6 +52945,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * requests. Call {@link #resume} to resume the binding. Before 1.53.0, this method was not supported and
      * threw an error.
      * See:
+     * 	{@link topic:b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
      * 	sap.ui.model.Binding#suspend
      * 	sap.ui.model.odata.v4.ODataContextBinding#hasPendingChanges
      * 	sap.ui.model.odata.v4.ODataListBinding#hasPendingChanges
@@ -53028,17 +53114,18 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * value.
      *
      * Note: After creation, the created entity is refreshed to ensure that the data specified in this list
-     * binding's $expand is available; to skip this refresh, set `bSkipRefresh` to `true`. To avoid errors you
-     * must skip this refresh when using {@link sap.ui.model.odata.v4.Context#requestSideEffects} in the same
-     * $batch to refresh the complete collection containing the newly created entity.
+     * binding's $expand is available. This refresh is done via the group ID of the binding, unless the group
+     * ID has {@link sap.ui.model.odata.v4.SubmitMode.API}, in which case '$auto' is used. To skip this refresh,
+     * set `bSkipRefresh` to `true`. To avoid errors you must skip this refresh when using {@link sap.ui.model.odata.v4.Context#requestSideEffects}
+     * in the same $batch to refresh the complete collection containing the newly created entity.
      *
      * Note: A deep create is not supported. The dependent entity has to be created using a second list binding.
      * Note that it is not supported to bind relative to a transient context.
      *
      * Note: Creating at the end is only allowed if the final length of the binding is known (see {@link #isLengthFinal}),
      * so that there is a clear position to place this entity at. This is the case if the complete collection
-     * has been read or if the system parameter `$count` is `true` and the binding has processed at least one
-     * request.
+     * has been read or if the system query option `$count` is `true` and the binding has processed at least
+     * one request.
      */
     create(
       /**
@@ -53206,6 +53293,29 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       bKeepCurrent?: boolean
     ): Context[];
     /**
+     * @SINCE 1.91.0
+     *
+     * Returns the count of elements.
+     *
+     * If known, the value represents the sum of the element count of the collection on the server and the number
+     * of transient entities created on the client. Otherwise, it is `undefined`. The value is a number of type
+     * `Edm.Int64`. Since 1.91.0, in case of data aggregation, the count is the leaf count on the server; it
+     * is only determined if the `$count` system query option is given.
+     *
+     * The count is known to the binding in the following situations:
+     * 	 The server-side count has been requested via the `$count` system query option.  A "short read"
+     * in a paged collection (the server delivered less elements than requested) indicated that the server has
+     * no more unread elements.  It has been read completely in one request, for example an embedded collection
+     * via `$expand`.
+     *
+     * The `$count` is unknown if the binding is relative but has no context.
+     *
+     * The count is bindable via the header context (see {@link #getHeaderContext}) and path `$count`.
+     *
+     * Use `getHeaderContext().requestProperty("$count")` if you want to wait for the value.
+     */
+    getCount(): number | undefined;
+    /**
      * @SINCE 1.39.0
      *
      * Returns the contexts that were requested by a control last time. Does not trigger a data request. In
@@ -53252,17 +53362,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     /**
      * @SINCE 1.45.0
      *
-     * Returns the header context which allows binding to `$count`. If known, the value of such a binding is
-     * the sum of the element count of the collection on the server and the number of transient entities created
-     * on the client. Otherwise it is `undefined`. The value is a number and its type is `Edm.Int64`.
-     *
-     * The count is known to the binding in the following situations:
-     * 	 The server-side count has been requested via the system query option `$count`.  A "short read"
-     * in a paged collection (the server delivered less elements than requested) indicated that the server has
-     * no more unread elements.  It has been read completely in one request, for example an embedded collection
-     * via `$expand`.
-     *
-     * The `$count` is unknown, if the binding is relative, but has no context.
+     * Returns the header context which allows binding to `$count`.
+     * See:
+     * 	#getCount
      */
     getHeaderContext(): Context;
     /**
@@ -53455,6 +53557,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Resumes this binding. The binding can then again fire change events and trigger data service requests.
      * Before 1.53.0, this method was not supported and threw an error.
      * See:
+     * 	{@link topic:b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
      * 	sap.ui.model.Binding#resume
      * 	#suspend
      */
@@ -53505,8 +53608,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
         group?: object;
         /**
          * A list of groupable property names used to determine group levels. They may, but don't need to, be repeated
-         * in `oAggregation.group`. Group levels cannot be combined with filtering for aggregated properties or
-         * with the system query option `$count`.
+         * in `oAggregation.group`. Group levels cannot be combined with filtering for aggregated properties.
          */
         groupLevels?: string[];
         /**
@@ -53545,6 +53647,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * requests. Call {@link #resume} to resume the binding. Before 1.53.0, this method was not supported and
      * threw an error.
      * See:
+     * 	{@link topic:b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
      * 	sap.ui.model.Binding#suspend
      * 	sap.ui.model.odata.v4.ODataContextBinding#hasPendingChanges
      * 	sap.ui.model.odata.v4.ODataListBinding#hasPendingChanges
@@ -54140,6 +54243,8 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * a computed annotation on the navigation property itself, not on the corresponding type.
      *
      * Any other segment, including an OData simple identifier, is looked up as a property of the current object.
+     * Segments which themselves represent a path, such as the keys for the "$ReferentialConstraint" and "$NavigationPropertyBinding"
+     * maps, need to use URL encoding for the slash character ("%2F"), for example "/TEAMS/$NavigationPropertyBinding/Address%2FCountries/...".
      * See:
      * 	#getObject
      */
@@ -58779,6 +58884,103 @@ declare module "sap/ui/test/actions/Press" {
   export interface $PressSettings extends $ActionSettings {}
 }
 
+declare module "sap/ui/test/actions/Scroll" {
+  import {
+    default as Action,
+    $ActionSettings,
+  } from "sap/ui/test/actions/Action";
+
+  import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.90
+   *
+   * The `Scroll` action is used to simulate a scroll interaction with a control. The control should be scrollable
+   * and use a {@link sap.ui.core.delegate.ScrollEnablement} delegate. Supported controls include: sap.uxap.ObjectPageLayout,
+   * sap.m.Dialog, sap.m.Page, sap.f.DynamicPage
+   */
+  export default class Scroll extends Action {
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor();
+
+    /**
+     * Creates a new subclass of class sap.ui.test.actions.Scroll with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.test.actions.Action.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Scroll>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.test.actions.Scroll.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
+     * Gets current value of property {@link #getX x}.
+     *
+     * Default value is `0`.
+     */
+    getX(): int;
+    /**
+     * Gets current value of property {@link #getY y}.
+     *
+     * Default value is `0`.
+     */
+    getY(): int;
+    /**
+     * Sets a new value for property {@link #getX x}.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     */
+    setX(
+      /**
+       * New value for property `x`
+       */
+      iX?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getY y}.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     */
+    setY(
+      /**
+       * New value for property `y`
+       */
+      iY?: int
+    ): this;
+  }
+
+  export interface $ScrollSettings extends $ActionSettings {
+    x?: int | PropertyBindingInfo;
+
+    y?: int | PropertyBindingInfo;
+  }
+}
+
 declare module "sap/ui/test/gherkin/dataTableUtils" {
   /**
    * @SINCE 1.40
@@ -60558,6 +60760,51 @@ declare module "sap/ui/test/matchers/PropertyStrictEquals" {
      * The value of the property that is used for matching.
      */
     value?: any | PropertyBindingInfo;
+  }
+}
+
+declare module "sap/ui/test/matchers/Sibling" {
+  /**
+   * @SINCE 1.91
+   *
+   * Checks if a control has a defined sibling. Available as a declarative matcher with the following syntax:
+   *
+   * ```javascript
+   * {
+   *     sibling: "object" // where "object" is a declarative matcher for the sibling
+   * }
+   * ```
+   */
+  export default class Sibling {
+    /**/
+    constructor(
+      /**
+       * the sibling control to check. Can be a control or a control ID. If undefined, the result will always
+       * be true.
+       */
+      vSibling: object | string,
+      /**
+       * specifies how to match
+       */
+      oOptions?: {
+        /**
+         * whether to match by relationships of the DOM references. false by default
+         */
+        useDom: boolean;
+        /**
+         * match only if control's DOM reference is before the sibling's in the DOM tree
+         */
+        prev: boolean;
+        /**
+         * match only if control's DOM reference is after the sibling's in the DOM tree,
+         */
+        next: boolean;
+        /**
+         * how many levels of ancestors to search
+         */
+        level: boolean;
+      }
+    );
   }
 }
 
@@ -67285,6 +67532,8 @@ declare namespace sap {
 
     "sap/ui/test/actions/Press": undefined;
 
+    "sap/ui/test/actions/Scroll": undefined;
+
     "sap/ui/test/gherkin/dataTableUtils": undefined;
 
     "sap/ui/test/gherkin/opa5TestHarness": undefined;
@@ -67318,6 +67567,8 @@ declare namespace sap {
     "sap/ui/test/matchers/Properties": undefined;
 
     "sap/ui/test/matchers/PropertyStrictEquals": undefined;
+
+    "sap/ui/test/matchers/Sibling": undefined;
 
     "sap/ui/test/Opa": undefined;
 

@@ -49,47 +49,47 @@ declare namespace objectHash {
         /**
          * @default 'sha1'
          */
-        algorithm?: 'sha1' | 'md5' | 'passthrough';
+        algorithm?: 'sha1' | 'md5' | 'passthrough' | undefined;
         /**
          * @default 'hex'
          */
-        encoding?: 'buffer' | 'hex' | 'binary' | 'base64';
+        encoding?: 'buffer' | 'hex' | 'binary' | 'base64' | undefined;
 
-        excludeKeys?: (key: string) => boolean;
+        excludeKeys?: ((key: string) => boolean) | undefined;
         /**
          * @default false
          */
-        excludeValues?: boolean;
+        excludeValues?: boolean | undefined;
         /**
          * @default false
          */
-        ignoreUnknown?: boolean;
+        ignoreUnknown?: boolean | undefined;
 
-        replacer?: (value: any) => any;
+        replacer?: ((value: any) => any) | undefined;
         /**
          * @default true
          */
-        respectFunctionNames?: boolean;
+        respectFunctionNames?: boolean | undefined;
         /**
          * @default true
          */
-        respectFunctionProperties?: boolean;
+        respectFunctionProperties?: boolean | undefined;
         /**
          * @default true
          */
-        respectType?: boolean;
+        respectType?: boolean | undefined;
         /**
          * @default false
          */
-        unorderedArrays?: boolean;
+        unorderedArrays?: boolean | undefined;
         /**
          * @default true
          */
-        unorderedObjects?: boolean;
+        unorderedObjects?: boolean | undefined;
         /**
          * @default true
          */
-        unorderedSets?: boolean;
+        unorderedSets?: boolean | undefined;
     }
 }
 

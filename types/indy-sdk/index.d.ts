@@ -1,7 +1,8 @@
-// Type definitions for indy-sdk 1.15
+// Type definitions for indy-sdk 1.16
 // Project: https://github.com/hyperledger/indy-sdk/tree/master/wrappers/nodejs
 // Definitions by: Timo Glastra <https://github.com/TimoGlastra>
 //                 Jakub Kočí <https://github.com/jakubkoci>
+//                 Karim Stekelenburg <https://github.com/karimStekelenburg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -10,6 +11,12 @@ export function createWallet(config: WalletConfig, credentials: WalletCredential
 export function openWallet(config: WalletConfig, credentials: OpenWalletCredentials): Promise<WalletHandle>;
 export function closeWallet(wh: WalletHandle): Promise<void>;
 export function deleteWallet(config: WalletConfig, credentials: WalletCredentials): Promise<void>;
+export function importWallet(
+    config: WalletConfig,
+    credentials: WalletCredentials,
+    importConfig: WalletExportImportConfig,
+): Promise<void>;
+export function exportWallet(wh: WalletHandle, exportConfig: WalletExportImportConfig): Promise<void>;
 export function createAndStoreMyDid(wh: WalletHandle, did: DidConfig): Promise<[Did, Verkey]>;
 export function keyForLocalDid(wh: WalletHandle, did: Did): Promise<Verkey>;
 export function cryptoAnonCrypt(recipientVk: Verkey, messageRaw: Buffer): Promise<Buffer>;
@@ -73,6 +80,31 @@ export function parseGetSchemaResponse(response: LedgerResponse): Promise<[Schem
 export function buildCredDefRequest(submitterDid: Did, credDef: CredDef): Promise<LedgerRequest>;
 export function buildGetCredDefRequest(submitterDid: Did | null, credDefId: CredDefId): Promise<LedgerRequest>;
 export function parseGetCredDefResponse(response: LedgerResponse): Promise<[CredDefId, CredDef]>;
+
+// Revocation Ledger methods
+export function buildRevocRegDefRequest(submitterDid: Did, data: RevocRegDef): Promise<LedgerRequest>;
+export function buildGetRevocRegDefRequest(submitterDid: Did | null, revRegId: RevRegId): Promise<LedgerRequest>;
+export function parseGetRevocRegDefResponse(response: LedgerResponse): Promise<[RevRegId, RevocRegDef]>;
+export function buildRevocRegEntryRequest(
+    submitterDid: Did,
+    revRegId: RevRegId,
+    revDefType: 'CL_ACCUM',
+    value: RevocRegDelta,
+): Promise<LedgerRequest>;
+export function buildGetRevocRegRequest(
+    submitterDid: Did | null,
+    revRegId: RevRegId,
+    timestamp: number,
+): Promise<LedgerRequest>;
+export function parseGetRevocRegResponse(response: LedgerResponse): Promise<[RevRegId, RevocReg, number]>;
+export function buildGetRevocRegDeltaRequest(
+    submitterDid: Did | null,
+    revRegId: RevRegId,
+    from: number | null,
+    to: number,
+): Promise<LedgerRequest>;
+export function parseGetRevocRegDeltaResponse(response: LedgerResponse): Promise<[RevRegId, RevocRegDelta, number]>;
+
 export function signRequest(wh: WalletHandle, submitterDid: Did, request: LedgerRequest): Promise<SignedLedgerRequest>;
 export function signAndSubmitRequest(
     poolHandle: PoolHandle,
@@ -116,7 +148,19 @@ export function issuerCreateAndStoreCredentialDef(
 ): Promise<[CredDefId, CredDef]>;
 // TODO: issuerRotateCredentialDefStart
 // TODO: issuerRotateCredentialDefApply
-// TODO: issuerCreateAndStoreRevocReg
+export function issuerCreateAndStoreRevocReg(
+    wh: WalletHandle,
+    issuerDid: Did,
+    revocDefType: 'CL_ACCUM' | null,
+    tag: string,
+    credDefId: CredDefId,
+    config: {
+        issuance_type?: 'ISSUANCE_BY_DEFAULT' | 'ISSUANCE_ON_DEMAND';
+        max_cred_num?: number;
+    },
+    tailsWriterHandle: BlobWriterHandle,
+): Promise<[RevRegId, RevocRegDef, RevocRegDelta]>;
+
 export function issuerCreateCredentialOffer(wh: WalletHandle, credDefId: CredDefId): Promise<CredOffer>;
 export function issuerCreateCredential(
     wh: WalletHandle,
@@ -126,8 +170,17 @@ export function issuerCreateCredential(
     revRegId: RevRegId | null,
     blobStorageReaderHandle: BlobStorageReaderHandle | 0,
 ): Promise<[Cred, CredRevocId, RevocRegDelta]>;
-// TODO: issuerRevokeCredential
-// TODO: issuerMergeRevocationRegistryDeltas
+
+export function issuerRevokeCredential(
+    wh: WalletHandle,
+    blobStorageReaderHandle: BlobStorageReaderHandle,
+    revRegId: RevRegId,
+    credRevocId: CredRevocId,
+): Promise<RevocRegDelta>;
+export function issuerMergeRevocationRegistryDeltas(
+    revRegDelta: RevocRegDelta,
+    otherRevRegDelta: RevocRegDelta,
+): Promise<RevocRegDelta>;
 
 // ---- PROVER ---- //
 export function proverCreateMasterSecret(wh: WalletHandle, masterSecretId: string): Promise<string>;
@@ -200,7 +253,7 @@ export type ByteArray = number[];
 export type SchemaId = string;
 export type CredDefId = string;
 export type CredentialId = string;
-export type KeyDerivationMethod = "ARGON2I_MOD" | "ARGON2I_INT" | "RAW";
+export type KeyDerivationMethod = 'ARGON2I_MOD' | 'ARGON2I_INT' | 'RAW';
 
 // TODO: Maybe we can make this a bit more specific?
 export type WalletQuery = Record<string, unknown>;
@@ -251,10 +304,15 @@ export interface OpenWalletCredentials extends WalletCredentials {
     rekey_derivation_method?: KeyDerivationMethod;
 }
 
+export interface WalletExportImportConfig {
+    key: string;
+    path: string;
+}
+
 export interface DidConfig {
     did?: string;
     seed?: string;
-    crypto_type?: "ed25519";
+    crypto_type?: 'ed25519';
     cid?: boolean;
     method_name?: string;
 }
@@ -271,14 +329,14 @@ export interface SignedLedgerRequest extends LedgerRequest {
 }
 
 export interface LedgerRejectResponse {
-    op: "REJECT";
+    op: 'REJECT';
     reqId: number;
     reason: string;
     identifier: string;
 }
 
 export interface LedgerReplyResponse {
-    op: "REPLY";
+    op: 'REPLY';
     result: Record<string, unknown>;
 }
 
@@ -343,6 +401,21 @@ export interface CredDef {
 
 export interface CredDefConfig {
     support_revocation?: boolean;
+}
+
+export interface RevocRegDef {
+    id: RevRegId;
+    revocDefType: 'CL_ACCUM';
+    tag: string;
+    credDefId: CredDefId;
+    value: {
+        issuanceType: 'ISSUANCE_BY_DEFAULT' | 'ISSUANCE_ON_DEMAND';
+        maxCredNum: number;
+        tailsHash: string;
+        tailsLocation: string;
+        publicKeys: string[];
+    };
+    ver: string;
 }
 
 export interface CredOffer {
@@ -468,14 +541,14 @@ export interface IndyProofRequest {
     requested_predicates: {
         [key: string]: {
             name: string;
-            p_type: ">=" | ">" | "<=" | "<";
+            p_type: '>=' | '>' | '<=' | '<';
             p_value: number;
             restrictions?: WalletQuery[];
             non_revoked?: NonRevokedInterval;
         };
     };
     non_revoked?: NonRevokedInterval;
-    ver?: "1.0" | "2.0";
+    ver?: '1.0' | '2.0';
 }
 
 export interface CredReq {
@@ -508,7 +581,22 @@ export interface Cred {
 }
 
 export type CredRevocId = string;
-export type RevocRegDelta = Record<string, unknown>;
+export interface RevocRegDelta {
+    value: {
+        prevAccum: string;
+        accum: string;
+        issued: number[];
+        revoked: number[];
+    };
+    ver: string;
+}
+
+export interface RevocReg {
+    value: {
+        accum: string;
+    };
+    ver: string;
+}
 
 export interface KeyConfig {
     seed?: string;

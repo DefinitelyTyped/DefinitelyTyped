@@ -24,7 +24,7 @@ export type Transporter<T = any> = Mail<T>;
 export type SentMessageInfo = any;
 
 export interface Transport<T = any> {
-    mailer?: Transporter<T>;
+    mailer?: Transporter<T> | undefined;
 
     name: string;
     version: string;
@@ -38,7 +38,7 @@ export interface Transport<T = any> {
 }
 
 export interface TransportOptions {
-    component?: string;
+    component?: string | undefined;
 }
 
 export interface TestAccount {

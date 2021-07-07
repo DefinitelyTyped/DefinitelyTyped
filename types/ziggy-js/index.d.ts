@@ -23,7 +23,7 @@ export type InputParams = NormalizedParams | InputValue;
 export interface Route {
     uri: string;
     methods: Array<'GET' | 'HEAD' | 'POST' | 'PATCH' | 'PUT' | 'OPTIONS' | 'DELETE'>;
-    domain?: null | string;
+    domain?: null | string | undefined;
 }
 
 export interface Config {
@@ -33,7 +33,7 @@ export interface Config {
     baseUrl: string;
     baseProtocol: 'http' | 'https';
     baseDomain: string;
-    basePort?: number | null;
+    basePort?: number | null | undefined;
     defaultParameters: {
         [_: string]: string | number;
     };

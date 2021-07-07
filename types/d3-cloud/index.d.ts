@@ -14,15 +14,15 @@ declare module 'd3' {
 
         namespace cloud {
             interface Word {
-                text?: string;
-                font?: string;
-                style?: string;
-                weight?: string | number;
-                rotate?: number;
-                size?: number;
-                padding?: number;
-                x?: number;
-                y?: number;
+                text?: string | undefined;
+                font?: string | undefined;
+                style?: string | undefined;
+                weight?: string | number | undefined;
+                rotate?: number | undefined;
+                size?: number | undefined;
+                padding?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
             }
         }
 

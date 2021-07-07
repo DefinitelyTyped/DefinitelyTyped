@@ -12,8 +12,8 @@ export interface InputStreamPosition {
 export interface Node {
   type: string;
   value: string | Node[];
-  start?: InputStreamPosition;
-  end?: InputStreamPosition;
+  start?: InputStreamPosition | undefined;
+  end?: InputStreamPosition | undefined;
 }
 
 export function parse(css: string): Node;

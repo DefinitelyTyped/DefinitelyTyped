@@ -21,62 +21,62 @@ declare function WebpackDevMiddleware(
 
 declare namespace WebpackDevMiddleware {
     interface Options {
-        filename?: string;
+        filename?: string | undefined;
         /**
          * Set the default file system which will be used by webpack as primary destination of generated files
          */
-        fs?: MemoryFileSystem;
+        fs?: MemoryFileSystem | undefined;
         /** This property allows a user to pass custom HTTP headers on each request. eg. { "X-Custom-Header": "yes" } */
         headers?: {
             [name: string]: string;
-        };
+        } | undefined;
         /**
          * The index path for web server, defaults to "index.html".
          * If falsy (but not undefined), the server will not respond to requests to the root URL.
          */
-        index?: string | boolean;
+        index?: string | boolean | undefined;
         /**
          * This option instructs the module to operate in 'lazy' mode,
          * meaning that it won't recompile when files change, but rather on each request.
          */
-        lazy?: boolean;
+        lazy?: boolean | undefined;
         /**
          * In the rare event that a user would like to provide a custom logging interface,
          * this property allows the user to assign one
          */
-        logger?: Logger;
+        logger?: Logger | undefined;
         /** This property defines the level of messages that the module will log */
-        logLevel?: 'info' | 'warn' | 'error' | 'trace' | 'debug' | 'silent';
+        logLevel?: 'info' | 'warn' | 'error' | 'trace' | 'debug' | 'silent' | undefined;
         /**
          * If true the log output of the module will be prefixed by a timestamp in the HH:mm:ss format.
          * @default false
          */
-        logTime?: boolean;
+        logTime?: boolean | undefined;
         /**
          * This property allows a user to pass the list of HTTP request methods accepted by the server.
          * @default [ 'GET', 'HEAD' ]
          */
-        methods?: string[];
+        methods?: string[] | undefined;
         /**
          * This property allows a user to register custom mime types or extension mappings
          * @default null
          */
-        mimeTypes?: MimeTypeMap | OverrideMimeTypeMap | null;
+        mimeTypes?: MimeTypeMap | OverrideMimeTypeMap | null | undefined;
         /** The public path that the middleware is bound to */
-        publicPath?: string;
+        publicPath?: string | undefined;
         /** Allows users to provide a custom reporter to handle logging within the module */
-        reporter?: Reporter | null;
+        reporter?: Reporter | null | undefined;
         /** Instructs the module to enable or disable the server-side rendering mode */
-        serverSideRender?: boolean;
+        serverSideRender?: boolean | undefined;
         /** Options for formatting statistics displayed during and after compile */
-        stats?: webpack.Options.Stats;
+        stats?: webpack.Options.Stats | undefined;
         /** The module accepts an Object containing options for file watching, which is passed directly to the compiler provided */
-        watchOptions?: webpack.Options.WatchOptions;
+        watchOptions?: webpack.Options.WatchOptions | undefined;
         /**
          * If true, the option will instruct the module to write files to the configured location on disk as specified in your webpack config file
          * This option also accepts a Function value, which can be used to filter which files are written to disk
          */
-        writeToDisk?: boolean | ((filename: string) => boolean);
+        writeToDisk?: boolean | ((filename: string) => boolean) | undefined;
     }
 
     interface MimeTypeMap {
@@ -90,7 +90,7 @@ declare namespace WebpackDevMiddleware {
 
     interface ReporterOptions {
         state: boolean;
-        stats?: webpack.Stats;
+        stats?: webpack.Stats | undefined;
         log: Logger;
     }
 

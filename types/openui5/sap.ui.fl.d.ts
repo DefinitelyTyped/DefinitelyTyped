@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -360,7 +360,7 @@ declare module "sap/ui/fl/interfaces/Delegate" {
     ): Promise<LayoutControlInfo>;
     /**
      * Provides all properties that are available at the current binding context. In OData, this will probably
-     * be all properties of the entityType.
+     * be all properties of the entityType. Technical properties, such as field control, should not be returned.
      */
     getPropertyInfo(
       /**
@@ -521,6 +521,8 @@ declare module "sap/ui/fl/interfaces/Delegate" {
 declare module "sap/ui/fl/transport/TransportDialog" {
   import { default as Dialog, $DialogSettings } from "sap/m/Dialog";
 
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
   /**
    * @deprecated (since 1.74) - The TransportDialog should be used only internally inside the `sap.ui.fl`
    * library.
@@ -532,6 +534,13 @@ declare module "sap/ui/fl/transport/TransportDialog" {
   export default class TransportDialog extends Dialog {
     /**
      * Constructor for a new transport/TransportDialog.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Dialog#constructor
+     * sap.m.Dialog} can be used.
      */
     constructor(
       /**
@@ -541,6 +550,13 @@ declare module "sap/ui/fl/transport/TransportDialog" {
     );
     /**
      * Constructor for a new transport/TransportDialog.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Dialog#constructor
+     * sap.m.Dialog} can be used.
      */
     constructor(
       /**
@@ -552,6 +568,32 @@ declare module "sap/ui/fl/transport/TransportDialog" {
        */
       mSettings?: $TransportDialogSettings
     );
+
+    /**
+     * Creates a new subclass of class sap.ui.fl.transport.TransportDialog with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.Dialog.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TransportDialog>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.fl.transport.TransportDialog.
+     */
+    static getMetadata(): ElementMetadata;
   }
 
   export interface $TransportDialogSettings extends $DialogSettings {}
@@ -1688,6 +1730,8 @@ declare namespace sap {
 
     "sap/ui/fl/FlexControllerFactory": undefined;
 
+    "sap/ui/fl/initial/_internal/changeHandlers/ChangeRegistryItem": undefined;
+
     "sap/ui/fl/initial/_internal/connectors/BackendConnector": undefined;
 
     "sap/ui/fl/initial/_internal/connectors/KeyUserConnector": undefined;
@@ -1715,8 +1759,6 @@ declare namespace sap {
     "sap/ui/fl/library": undefined;
 
     "sap/ui/fl/PreprocessorImpl": undefined;
-
-    "sap/ui/fl/registry/ChangeRegistryItem": undefined;
 
     "sap/ui/fl/registry/Settings": undefined;
 

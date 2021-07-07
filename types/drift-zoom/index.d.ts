@@ -20,41 +20,41 @@ declare class Drift {
 declare namespace Drift {
     interface Options {
         /** @default 'drift-' */
-        namespace?: string | null;
+        namespace?: string | null | undefined;
         /** @default false */
-        showWhitespaceAtEdges?: boolean;
+        showWhitespaceAtEdges?: boolean | undefined;
         /** @default false */
-        containInline?: boolean;
+        containInline?: boolean | undefined;
         /** @default 0 */
-        inlineOffsetX?: number;
+        inlineOffsetX?: number | undefined;
         /** @default 0 */
-        inlineOffsetY?: number;
+        inlineOffsetY?: number | undefined;
         /** @default document.body */
-        inlineContainer?: HTMLElement;
+        inlineContainer?: HTMLElement | undefined;
         /** @default 'data-zoom' */
-        sourceAttribute?: string;
+        sourceAttribute?: string | undefined;
         /** @default 3 */
-        zoomFactor?: number;
+        zoomFactor?: number | undefined;
         /** @default document.body */
-        paneContainer?: HTMLElement;
+        paneContainer?: HTMLElement | undefined;
         /** @default 375 */
-        inlinePane?: number;
+        inlinePane?: number | undefined;
         /** @default true */
-        handleTouch?: boolean;
-        onShow?: (() => void) | null;
-        onHide?: (() => void) | null;
+        handleTouch?: boolean | undefined;
+        onShow?: (() => void) | null | undefined;
+        onHide?: (() => void) | null | undefined;
         /** @default true */
-        injectBaseStyles?: boolean;
+        injectBaseStyles?: boolean | undefined;
         /** @default 0 */
-        hoverDelay?: number;
+        hoverDelay?: number | undefined;
         /** @default 0 */
-        touchDelay?: number;
+        touchDelay?: number | undefined;
         /** @default false */
-        hoverBoundingBox?: boolean;
+        hoverBoundingBox?: boolean | undefined;
         /** @default false */
-        touchBoundingBox?: boolean;
+        touchBoundingBox?: boolean | undefined;
         /** @default document.body */
-        boundingBoxContainer?: HTMLElement;
+        boundingBoxContainer?: HTMLElement | undefined;
     }
 }
 

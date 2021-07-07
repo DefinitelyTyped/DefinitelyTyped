@@ -16,16 +16,16 @@ declare namespace WebpackCleanupPlugin {
         /**
          * Keep some files in the output path. It accepts globbing as in [minimatch](https://github.com/isaacs/minimatch).
          */
-        exclude?: string[];
+        exclude?: string[] | undefined;
 
         /**
          * Print the list of the files that will be deleted without actually deleting them.
          */
-        preview?: boolean;
+        preview?: boolean | undefined;
 
         /**
          * Mute the console output.
          */
-        quiet?: boolean;
+        quiet?: boolean | undefined;
     }
 }

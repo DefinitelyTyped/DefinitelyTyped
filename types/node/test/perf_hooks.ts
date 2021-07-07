@@ -10,11 +10,31 @@ import {
     IntervalHistogram,
     RecordableHistogram,
     createHistogram,
+    NodeGCPerformanceDetail,
 } from 'perf_hooks';
 
 performance.mark('start');
 (() => {})();
 performance.mark('end');
+
+performance.mark('test', {
+    detail: 'something',
+    startTime: 123,
+});
+
+performance.measure('test', {
+    detail: 'something',
+    duration: 123,
+    start: 'startMark',
+    end: 'endMark',
+});
+
+performance.measure('test', {
+    detail: 'something',
+    duration: 123,
+    start: 123,
+    end: 456,
+});
 
 performance.measure('name', 'startMark', 'endMark');
 performance.measure('name', 'startMark');
@@ -28,8 +48,9 @@ const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => 
     const name: string = entries[0].name;
     const startTime: number = entries[0].startTime;
     const entryTypes: EntryType = entries[0].entryType;
-    const kind: number | undefined = entries[0].kind;
-    const flags: number | undefined = entries[0].flags;
+    const details: NodeGCPerformanceDetail = entries[0].details as NodeGCPerformanceDetail;
+    const kind: number | undefined = details.kind;
+    const flags: number | undefined = details.flags;
 
     if (kind === constants.NODE_PERFORMANCE_GC_MAJOR) {
         if (flags === constants.NODE_PERFORMANCE_GC_FLAGS_ALL_EXTERNAL_MEMORY) {
@@ -40,8 +61,10 @@ const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => 
 };
 const obs = new PerformanceObserver(performanceObserverCallback);
 obs.observe({
-    entryTypes: ['function'] as ReadonlyArray<EntryType>,
-    buffered: true,
+    entryTypes: ['gc'],
+});
+obs.observe({
+    type: 'gc'
 });
 
 const monitor: IntervalHistogram = monitorEventLoopDelay({

@@ -2,9 +2,7 @@ import RecordRTC, { Options } from 'recordrtc';
 
 const opts: Options = {};
 
-navigator.getUserMedia(
-    { audio: true, video: true },
-    stream => {
+navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
         const instance = new RecordRTC(stream, {
             type: 'video',
             disableLogs: true,

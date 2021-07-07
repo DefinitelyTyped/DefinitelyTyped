@@ -12,7 +12,7 @@ declare namespace WebpackSubresourceIntegrityPlugin {
          * Default value: true
          * When this value is falsy, the plugin doesn't run and no integrity values are calculated. It is recommended to disable the plugin in development mode.
          */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
 
         /**
          * An array of strings, each specifying the name of a hash function to be used for calculating integrity hash values. For example, ['sha256', 'sha512'].

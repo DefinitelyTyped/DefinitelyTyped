@@ -48,7 +48,7 @@ new Hapi.Server({
 declare module 'hapi' {
     interface PluginSpecificConfiguration {
         // Set this to non optional if plugin config is non optional
-        'some-plugin-name'?: {options: string;};
+        'some-plugin-name'?: {options: string;} | undefined;
     }
 }
 //- Code added in addition to docs
