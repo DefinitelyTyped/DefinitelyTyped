@@ -666,8 +666,7 @@ export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: 
 /**
  * Creates a new object out of a list key-value pairs.
  */
-export function fromPairs<V>(pairs: Array<KeyValuePair<string, V>>): { [index: string]: V };
-export function fromPairs<V>(pairs: Array<KeyValuePair<number, V>>): { [index: number]: V };
+export function fromPairs<V>(pairs: Array<KeyValuePair<string, V>> | Array<KeyValuePair<number, V>>): { [index: string]: V };
 
 /**
  * Splits a list into sublists stored in an object, based on the result of
