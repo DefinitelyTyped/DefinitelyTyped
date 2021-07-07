@@ -4271,7 +4271,7 @@ declare namespace Cesium {
         });
         static fromGltf(options: {
             url: Resource | string;
-            basePath?: string;
+            basePath?: Resource | string;
             show?: boolean;
             modelMatrix?: Matrix4;
             scale?: number;
