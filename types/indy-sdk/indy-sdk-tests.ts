@@ -1,4 +1,4 @@
-import indy from "indy-sdk";
+import indy, { RevocRegDef, RevRegDef } from "indy-sdk";
 
 indy.openBlobStorageWriter("default", {
     base_dir: "dir",
@@ -7,6 +7,21 @@ indy.openBlobStorageWriter("default", {
 indy.openBlobStorageReader("default", {
     base_dir: "dir",
 });
+
+const revRegDef: RevocRegDef = {
+    id: "10",
+    revocDefType: 'CL_ACCUM',
+    tag: "tag",
+    credDefId: "id",
+    value: {
+        issuanceType: 'ISSUANCE_BY_DEFAULT',
+        maxCredNum: 10,
+        tailsHash: 'xxxxx',
+        tailsLocation: 'xxxxx',
+        publicKeys: ['pub1', 'pub2']
+    },
+    ver: '2'
+}
 
 const walletConfig: indy.WalletConfig = { id: "wallet" };
 const walletCredentials: indy.WalletCredentials = { key: "key" };
@@ -324,14 +339,22 @@ indy.proverCreateProof(
 //     blskey: 'CnEDk9HrMnmiHXEV1WFgbVCRteYnPqsJwrTdcZaNhFVW'
 //   })
 // indy.issuerCreateAndStoreRevocReg(wh, myDid, null, 'tag1', credDefId, { max_cred_num: 5 }, writerH)
-// indy.buildRevocRegDefRequest(myDid, revRegDef)
-// indy.buildGetRevocRegDefRequest(myDid, revRegDefId)
-// indy.parseGetRevocRegDefResponse(res)
-// indy.buildRevocRegEntryRequest(myDid, revRegDefId, 'CL_ACCUM', revRegEntry)
-// indy.buildGetRevocRegRequest(myDid, revRegDefId, nowSeconds + 100)
-// indy.parseGetRevocRegResponse(res)
-// indy.buildGetRevocRegDeltaRequest(myDid, revRegDefId, nowSeconds, nowSeconds + 100)
-// indy.parseGetRevocRegDeltaResponse(res)
+indy.buildRevocRegDefRequest('myDid', revRegDef)
+indy.buildGetRevocRegDefRequest('myDid', 'revRegDefId')
+indy.parseGetRevocRegDefResponse(ledgerRejectResponse);
+indy.buildRevocRegEntryRequest('myDid', 'revRegDefId', 'CL_ACCUM', {
+    value: {
+        accum: '10',
+        issued: [10,20],
+        prevAccum: '10',
+        revoked: [10]
+    },
+    ver: '1'
+})
+indy.buildGetRevocRegRequest('myDid', 'revRegDefId', 100)
+indy.parseGetRevocRegResponse(ledgerRejectResponse)
+indy.buildGetRevocRegDeltaRequest('myDid', 'revRegDefId', 100, 100)
+indy.parseGetRevocRegDeltaResponse(ledgerRejectResponse);
 // indy.buildGetValidatorInfoRequest(myDid)
 // indy.submitAction(pool.handle, req, null, null)
 // indy.buildGetAuthRuleRequest(trusteeDid, 'NYM', 'ADD', 'role', null, '101')

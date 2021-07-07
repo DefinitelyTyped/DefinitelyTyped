@@ -80,6 +80,31 @@ export function parseGetSchemaResponse(response: LedgerResponse): Promise<[Schem
 export function buildCredDefRequest(submitterDid: Did, credDef: CredDef): Promise<LedgerRequest>;
 export function buildGetCredDefRequest(submitterDid: Did | null, credDefId: CredDefId): Promise<LedgerRequest>;
 export function parseGetCredDefResponse(response: LedgerResponse): Promise<[CredDefId, CredDef]>;
+
+// Revocation Ledger methods
+export function buildRevocRegDefRequest(submitterDid: Did, data: RevocRegDef): Promise<LedgerRequest>;
+export function buildGetRevocRegDefRequest(submitterDid: Did | null, revRegId: RevRegId): Promise<LedgerRequest>;
+export function parseGetRevocRegDefResponse(response: LedgerResponse): Promise<[RevRegId, RevocRegDef]>;
+export function buildRevocRegEntryRequest(
+    submitterDid: Did,
+    revRegId: RevRegId,
+    revDefType: 'CL_ACCUM',
+    value: RevocRegDelta,
+): Promise<LedgerRequest>;
+export function buildGetRevocRegRequest(
+    submitterDid: Did | null,
+    revRegId: RevRegId,
+    timestamp: number,
+): Promise<LedgerRequest>;
+export function parseGetRevocRegResponse(response: LedgerResponse): Promise<[RevRegId, RevocReg, number]>;
+export function buildGetRevocRegDeltaRequest(
+    submitterDid: Did | null,
+    revRegId: RevRegId,
+    from: number | null,
+    to: number,
+): Promise<LedgerRequest>;
+export function parseGetRevocRegDeltaResponse(response: LedgerResponse): Promise<[RevRegId, RevocRegDelta, number]>;
+
 export function signRequest(wh: WalletHandle, submitterDid: Did, request: LedgerRequest): Promise<SignedLedgerRequest>;
 export function signAndSubmitRequest(
     poolHandle: PoolHandle,
@@ -123,7 +148,19 @@ export function issuerCreateAndStoreCredentialDef(
 ): Promise<[CredDefId, CredDef]>;
 // TODO: issuerRotateCredentialDefStart
 // TODO: issuerRotateCredentialDefApply
-// TODO: issuerCreateAndStoreRevocReg
+export function issuerCreateAndStoreRevocReg(
+    wh: WalletHandle,
+    issuerDid: Did,
+    revocDefType: 'CL_ACCUM' | null,
+    tag: string,
+    credDefId: CredDefId,
+    config: {
+        issuance_type?: 'ISSUANCE_BY_DEFAULT' | 'ISSUANCE_ON_DEMAND';
+        max_cred_num?: number;
+    },
+    tailsWriterHandle: BlobWriterHandle,
+): Promise<[RevRegId, RevocRegDef, RevocRegDelta]>;
+
 export function issuerCreateCredentialOffer(wh: WalletHandle, credDefId: CredDefId): Promise<CredOffer>;
 export function issuerCreateCredential(
     wh: WalletHandle,
@@ -133,8 +170,17 @@ export function issuerCreateCredential(
     revRegId: RevRegId | null,
     blobStorageReaderHandle: BlobStorageReaderHandle | 0,
 ): Promise<[Cred, CredRevocId, RevocRegDelta]>;
-// TODO: issuerRevokeCredential
-// TODO: issuerMergeRevocationRegistryDeltas
+
+export function issuerRevokeCredential(
+    wh: WalletHandle,
+    blobStorageReaderHandle: BlobStorageReaderHandle,
+    revRegId: RevRegId,
+    credRevocId: CredRevocId,
+): Promise<RevocRegDelta>;
+export function issuerMergeRevocationRegistryDeltas(
+    revRegDelta: RevocRegDelta,
+    otherRevRegDelta: RevocRegDelta,
+): Promise<RevocRegDelta>;
 
 // ---- PROVER ---- //
 export function proverCreateMasterSecret(wh: WalletHandle, masterSecretId: string): Promise<string>;
@@ -357,6 +403,21 @@ export interface CredDefConfig {
     support_revocation?: boolean;
 }
 
+export interface RevocRegDef {
+    id: RevRegId;
+    revocDefType: 'CL_ACCUM';
+    tag: string;
+    credDefId: CredDefId;
+    value: {
+        issuanceType: 'ISSUANCE_BY_DEFAULT' | 'ISSUANCE_ON_DEMAND';
+        maxCredNum: number;
+        tailsHash: string;
+        tailsLocation: string;
+        publicKeys: string[];
+    };
+    ver: string;
+}
+
 export interface CredOffer {
     schema_id: SchemaId;
     cred_def_id: CredDefId;
@@ -520,7 +581,22 @@ export interface Cred {
 }
 
 export type CredRevocId = string;
-export type RevocRegDelta = Record<string, unknown>;
+export interface RevocRegDelta {
+    value: {
+        prevAccum: string;
+        accum: string;
+        issued: number[];
+        revoked: number[];
+    };
+    ver: string;
+}
+
+export interface RevocReg {
+    value: {
+        accum: string;
+    };
+    ver: string;
+}
 
 export interface KeyConfig {
     seed?: string;
