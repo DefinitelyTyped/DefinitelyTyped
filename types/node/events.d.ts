@@ -3,7 +3,7 @@ declare module 'events' {
         /**
          * Enables automatic capturing of promise rejection.
          */
-        captureRejections?: boolean;
+        captureRejections?: boolean | undefined;
     }
 
     interface NodeEventTarget {
@@ -15,7 +15,7 @@ declare module 'events' {
     }
 
     interface StaticEventEmitterOptions {
-        signal?: AbortSignal;
+        signal?: AbortSignal | undefined;
     }
 
     interface EventEmitter extends NodeJS.EventEmitter {}
@@ -62,7 +62,7 @@ declare module 'events' {
             /**
              * When provided the corresponding `AbortController` can be used to cancel an asynchronous action.
              */
-            signal?: AbortSignal;
+            signal?: AbortSignal | undefined;
         }
     }
 
