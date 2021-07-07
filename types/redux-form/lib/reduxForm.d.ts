@@ -41,10 +41,10 @@ export interface ValidateCallback<FormData, P, ErrorType> {
 }
 
 export interface AsyncValidateCallback<FormData, ErrorType> {
-    asyncErrors?: FormErrors<FormData, ErrorType>;
+    asyncErrors?: FormErrors<FormData, ErrorType> | undefined;
     initialized: boolean;
     trigger: "blur" | "submit";
-    blurredField?: string;
+    blurredField?: string | undefined;
     pristine: boolean;
     syncValidationPasses: boolean;
 }
@@ -100,20 +100,20 @@ export interface InjectedFormProps<FormData = {}, P = {}, ErrorType = string> {
 
 export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     form: string;
-    asyncBlurFields?: string[];
-    asyncChangeFields?: string[];
+    asyncBlurFields?: string[] | undefined;
+    asyncChangeFields?: string[] | undefined;
     asyncValidate?(values: FormData, dispatch: Dispatch<any>, props: DecoratedFormProps<FormData, P, ErrorType>, blurredField: string): Promise<any>;
-    destroyOnUnmount?: boolean;
-    enableReinitialize?: boolean;
-    forceUnregisterOnUnmount?: boolean;
-    getFormState?: GetFormState;
-    immutableProps?: string[];
-    initialValues?: Partial<FormData>;
-    keepDirtyOnReinitialize?: boolean;
-    updateUnregisteredFields?: boolean;
-    keepValues?: boolean;
+    destroyOnUnmount?: boolean | undefined;
+    enableReinitialize?: boolean | undefined;
+    forceUnregisterOnUnmount?: boolean | undefined;
+    getFormState?: GetFormState | undefined;
+    immutableProps?: string[] | undefined;
+    initialValues?: Partial<FormData> | undefined;
+    keepDirtyOnReinitialize?: boolean | undefined;
+    updateUnregisteredFields?: boolean | undefined;
+    keepValues?: boolean | undefined;
     onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: DecoratedFormProps<FormData, P, ErrorType>, previousValues: Partial<FormData>): void;
-    onSubmit?: FormSubmitHandler<FormData, P, ErrorType> | SubmitHandler<FormData, P, ErrorType>;
+    onSubmit?: FormSubmitHandler<FormData, P, ErrorType> | SubmitHandler<FormData, P, ErrorType> | undefined;
     onSubmitFail?(
         errors: FormErrors<FormData, ErrorType> | undefined,
         dispatch: Dispatch<any>,
@@ -121,16 +121,16 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
         props: DecoratedFormProps<FormData, P, ErrorType>
     ): void;
     onSubmitSuccess?(result: any, dispatch: Dispatch<any>, props: DecoratedFormProps<FormData, P, ErrorType>): void;
-    propNamespace?: string;
-    pure?: boolean;
+    propNamespace?: string | undefined;
+    pure?: boolean | undefined;
     shouldValidate?(params: ValidateCallback<FormData, P, ErrorType>): boolean;
     shouldError?(params: ValidateCallback<FormData, P, ErrorType>): boolean;
     shouldWarn?(params: ValidateCallback<FormData, P, ErrorType>): boolean;
     shouldAsyncValidate?(params: AsyncValidateCallback<FormData, ErrorType>): boolean;
-    submitAsSideEffect?: boolean;
-    touchOnBlur?: boolean;
-    touchOnChange?: boolean;
-    persistentSubmitErrors?: boolean;
+    submitAsSideEffect?: boolean | undefined;
+    touchOnBlur?: boolean | undefined;
+    touchOnChange?: boolean | undefined;
+    persistentSubmitErrors?: boolean | undefined;
     validate?(values: FormData, props: DecoratedFormProps<FormData, P, ErrorType>): FormErrors<FormData, ErrorType>;
     warn?(values: FormData, props: DecoratedFormProps<FormData, P, ErrorType>): FormWarnings<FormData>;
 }
@@ -142,8 +142,8 @@ export interface FormContext {
         (name?: string, value?: any, trigger?: 'blur' | 'change'): Promise<any>;
     };
     getValues: { (): any };
-    sectionPrefix?: string;
-    prefixName?: string;
+    sectionPrefix?: string | undefined;
+    prefixName?: string | undefined;
     register: (
         name: string,
         type: string,
@@ -173,7 +173,7 @@ export interface FormInstance<FormData, P> extends Component<P> {
     submit(): Promise<any>;
     valid: boolean;
     values: Partial<FormData>;
-    wrappedInstance?: HTMLElement;
+    wrappedInstance?: HTMLElement | undefined;
 }
 
 export type SubmitAction = () => void;
@@ -222,7 +222,7 @@ export type UpdateSyncErrorsAction<ErrorType> = (syncErrors?: FormErrors<ErrorTy
 export type UpdateSyncWarningsAction<ErrorType> = (syncErrors?: FormErrors<ErrorType>, error?: any) => void;
 
 export type DecoratedFormState<FormData, ErrorType> = FormState & {
-    asyncErrors?: FormErrors<FormData, ErrorType>;
+    asyncErrors?: FormErrors<FormData, ErrorType> | undefined;
     asyncValidating: boolean;
     dirty: boolean;
     error?: any;
@@ -230,9 +230,9 @@ export type DecoratedFormState<FormData, ErrorType> = FormState & {
     invalid: boolean;
     pristine: boolean;
     submitSucceeded: boolean;
-    syncErrors?: FormErrors<FormData, ErrorType>;
-    syncWarnings?: FormWarnings<any, any>,
-    triggerSubmit?: boolean;
+    syncErrors?: FormErrors<FormData, ErrorType> | undefined;
+    syncWarnings?: FormWarnings<any, any> | undefined,
+    triggerSubmit?: boolean | undefined;
     valid: boolean;
     validExceptSubmit: boolean;
     warning?: any;
@@ -283,7 +283,7 @@ export type DecoratedFormProps<FormData = {}, P = {}, ErrorType = string> =
     & Partial<ConfigProps<FormData, P, ErrorType>>
     & Partial<DecoratedFormState<FormData, ErrorType>>
     & Partial<DecoratedFormActions<ErrorType>>
-    & { _reduxForm?: WrappedReduxFormContext };
+    & { _reduxForm?: WrappedReduxFormContext | undefined };
 
 export interface DecoratedComponentClass<FormData, P> {
     new(props?: P, context?: any): FormInstance<FormData, P>;
