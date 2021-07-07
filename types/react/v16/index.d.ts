@@ -156,7 +156,7 @@ declare namespace React {
     type SFCElement<P> = FunctionComponentElement<P>;
 
     interface FunctionComponentElement<P> extends ReactElement<P, FunctionComponent<P>> {
-        ref?: 'ref' extends keyof P ? P extends { ref?: infer R | undefined } ? R : never : never | undefined | undefined | undefined;
+        ref?: ('ref' extends keyof P ? P extends { ref?: infer R | undefined } ? R : never : never) | undefined;
     }
 
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
