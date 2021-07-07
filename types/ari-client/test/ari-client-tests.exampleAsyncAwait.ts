@@ -31,7 +31,8 @@ export default async () => {
         });
 
         const play = (channel: Channel, sound: string) => {
-            const playback = client.Playback();
+            // Referencing client instance of channel.
+            const playback = channel._client.Playback();
 
             return new Promise((resolve, reject) => {
                 playback.once('PlaybackFinished', (event, playback) => {

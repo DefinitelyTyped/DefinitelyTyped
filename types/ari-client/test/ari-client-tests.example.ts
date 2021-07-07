@@ -36,7 +36,9 @@ Ari.connect('http://ari.js:8088', 'user', 'secret', (err, client) => {
     });
 
     const play = (channel: Channel, sound: string, callback?: (param: any) => void) => {
-        const playback = client.Playback();
+        // Referencing client instance of channel.
+        const playback = channel._client.Playback();
+
         playback.once('PlaybackFinished', (event, instance) => {
             if (callback) {
                 callback(null);
