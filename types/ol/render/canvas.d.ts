@@ -11,23 +11,23 @@ export interface FillState {
     fillStyle: ColorLike;
 }
 export interface FillStrokeState {
-    currentFillStyle?: ColorLike;
-    currentStrokeStyle?: ColorLike;
-    currentLineCap?: CanvasLineCap;
+    currentFillStyle?: ColorLike | undefined;
+    currentStrokeStyle?: ColorLike | undefined;
+    currentLineCap?: CanvasLineCap | undefined;
     currentLineDash: number[];
-    currentLineDashOffset?: number;
-    currentLineJoin?: CanvasLineJoin;
-    currentLineWidth?: number;
-    currentMiterLimit?: number;
-    lastStroke?: number;
-    fillStyle?: ColorLike;
-    strokeStyle?: ColorLike;
-    lineCap?: CanvasLineCap;
+    currentLineDashOffset?: number | undefined;
+    currentLineJoin?: CanvasLineJoin | undefined;
+    currentLineWidth?: number | undefined;
+    currentMiterLimit?: number | undefined;
+    lastStroke?: number | undefined;
+    fillStyle?: ColorLike | undefined;
+    strokeStyle?: ColorLike | undefined;
+    lineCap?: CanvasLineCap | undefined;
     lineDash: number[];
-    lineDashOffset?: number;
-    lineJoin?: CanvasLineJoin;
-    lineWidth?: number;
-    miterLimit?: number;
+    lineDashOffset?: number | undefined;
+    lineJoin?: CanvasLineJoin | undefined;
+    lineWidth?: number | undefined;
+    miterLimit?: number | undefined;
 }
 export interface Label {
     width: number;
@@ -38,9 +38,9 @@ export interface SerializableInstructions {
     instructions: any[];
     hitDetectionInstructions: any[];
     coordinates: number[];
-    textStates?: { [key: string]: TextState };
-    fillStates?: { [key: string]: FillState };
-    strokeStates?: { [key: string]: StrokeState };
+    textStates?: { [key: string]: TextState } | undefined;
+    fillStates?: { [key: string]: FillState } | undefined;
+    strokeStates?: { [key: string]: StrokeState } | undefined;
 }
 export interface StrokeState {
     lineCap: CanvasLineCap;
@@ -53,15 +53,15 @@ export interface StrokeState {
 }
 export interface TextState {
     font: string;
-    textAlign?: string;
+    textAlign?: string | undefined;
     textBaseline: string;
-    placement?: string;
-    maxAngle?: number;
-    overflow?: boolean;
-    backgroundFill?: Fill;
-    backgroundStroke?: Stroke;
-    scale?: Size;
-    padding?: number[];
+    placement?: string | undefined;
+    maxAngle?: number | undefined;
+    overflow?: boolean | undefined;
+    backgroundFill?: Fill | undefined;
+    backgroundStroke?: Stroke | undefined;
+    scale?: Size | undefined;
+    padding?: number[] | undefined;
 }
 export const checkedFonts: BaseObject;
 export const defaultFillStyle: ColorLike;

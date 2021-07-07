@@ -21,12 +21,12 @@ export interface GxTrackObject {
  */
 export type IconUrlFunction = (p0: string) => string;
 export interface Options {
-    extractStyles?: boolean;
-    showPointNames?: boolean;
-    defaultStyle?: Style[];
-    writeStyles?: boolean;
-    crossOrigin?: null | string;
-    iconUrlFunction?: IconUrlFunction;
+    extractStyles?: boolean | undefined;
+    showPointNames?: boolean | undefined;
+    defaultStyle?: Style[] | undefined;
+    writeStyles?: boolean | undefined;
+    crossOrigin?: null | string | undefined;
+    iconUrlFunction?: IconUrlFunction | undefined;
 }
 export interface Vec2 {
     x: number;
