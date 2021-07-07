@@ -176,7 +176,8 @@ export interface FtpFileSystem {
     writeFile?:
     ((filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void) => void)
     | ((filename: string, data: any, options: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void) => void)
-    | ((filename: string, data: any, options: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void) => void) | undefined;
+    | ((filename: string, data: any, options: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void) => void)
+    | undefined;
 
 }
 

@@ -31938,7 +31938,8 @@ export interface PlanInformation {
     /**
      * Reserved for DocuSign.
      */
-    planFeatureSets?: /* This object provides details about a feature set, or add-on product that is associated with an account. It is reserved for DocuSign internal use only. */ FeatureSet[] | undefined;
+    planFeatureSets?: /* This object provides details about a feature set, or add-on product that is associated with an account. It is reserved for DocuSign internal use only. */
+    FeatureSet[] | undefined;
     /**
      * DocuSign's id for the account plan.
      */
@@ -40001,7 +40002,8 @@ export interface TemplateRecipients {
      * (until subsequent Agents, Editors or Intermediaries recipient types are added).
      */
     intermediaries?: /* Contains information about an intermediary recipient. An intermediary is a recipient who can, but is not required to,
-        add name and email information for recipients at the same or subsequent level in the routing order, unless subsequent agents, editors or intermediaries are added. */ Intermediary[] | undefined;
+                        add name and email information for recipients at the same or subsequent level in the routing order, unless subsequent agents, editors or intermediaries are added. */
+    Intermediary[] | undefined;
     /**
      * The number of recipients in the envelope.
      */

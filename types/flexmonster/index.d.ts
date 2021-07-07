@@ -77,7 +77,15 @@ declare namespace Flexmonster {
         addCalculatedMeasure(measure: Measure): void;
         addCondition(condition: ConditionalFormat): void;
         addJSON(json: object[]): void;
-        alert(options: { title?: string | undefined; message?: string | undefined; type?: string | undefined; buttons?: Array<{ label: string; handler?: (() => void) | undefined; }> | undefined; blocking?: boolean | undefined; }): void;
+        alert(
+            options: {
+                title?: string | undefined;
+                message?: string | undefined;
+                type?: string | undefined;
+                buttons?: Array<{ label: string; handler?: (() => void) | undefined;}> | undefined;
+                blocking?:
+                boolean | undefined;
+            }): void;
         clear(): void;
         clearFilter(hierarchyName: string): void;
         clearXMLACache(proxyUrl: string, databaseId: string, callbackHandler: ((reponse: object) => void) | string, cubeId: string, measuresGroupId: string,
@@ -157,7 +165,14 @@ declare namespace Flexmonster {
             getNumberFormatPattern(format: object): string;
         } | undefined;
         highcharts?: {
-            getData(options: { type?: string | undefined; slice?: Slice | undefined; xAxisType?: string | undefined; valuesOnly?: boolean | undefined, withDrilldown?: boolean | undefined, prepareDataFunction?: ((rawData: any) => any) | undefined },
+            getData(
+                options: {
+                    type?: string | undefined; slice?: Slice | undefined;
+                    xAxisType?: string | undefined;
+                    valuesOnly?: boolean | undefined,
+                    withDrilldown?: boolean | undefined,
+                    prepareDataFunction?: ((rawData: any) => any) | undefined
+                },
                 callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
                 updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
             getAxisFormat(format: object): string;

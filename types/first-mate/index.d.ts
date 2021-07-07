@@ -55,7 +55,10 @@ export class GrammarRegistry {
     maxTokensPerLine: number;
     maxLineLength: number;
 
-    constructor(options?: { maxTokensPerLine?: number | undefined, maxLineLength?: number | undefined });
+    constructor(options?: {
+        maxTokensPerLine?: number | undefined,
+        maxLineLength?: number | undefined
+    });
 
     // Event Subscription
     /**

@@ -459,7 +459,9 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    transaction(params: { body: fhir.Bundle & { type: "transaction" }, headers?: Headers | undefined, options?: Options | undefined }): Promise<fhir.OperationOutcome | fhir.Bundle & { type: "transaction-response" }>;
+    transaction(
+        params: { body: fhir.Bundle & { type: "transaction" }, headers?: Headers | undefined, options?: Options | undefined }
+    ): Promise<fhir.OperationOutcome | fhir.Bundle & { type: "transaction-response" }>;
 
     /**
      * Return the next page of results.
@@ -562,7 +564,9 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    resourceSearch(params: { resourceType: ResourceType, searchParams: SearchParams, headers?: Headers | undefined, options?: Options | undefined }): Promise<fhir.OperationOutcome | fhir.Bundle & { type: "searchset" }>;
+    resourceSearch(
+        params: { resourceType: ResourceType, searchParams: SearchParams, headers?: Headers | undefined, options?: Options | undefined }
+    ): Promise<fhir.OperationOutcome | fhir.Bundle & { type: "searchset" }>;
 
     /**
      * Search across all FHIR resource types in the system.
@@ -655,7 +659,9 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    history(params?: { resourceType?: ResourceType | undefined, id?: string | undefined, headers?: Headers | undefined, options?: Options | undefined }): Promise<fhir.OperationOutcome | fhir.Bundle & { type: "history" }>;
+    history(
+        params?: { resourceType?: ResourceType | undefined, id?: string | undefined, headers?: Headers | undefined, options?: Options | undefined }
+    ): Promise<fhir.OperationOutcome | fhir.Bundle & { type: "history" }>;
 
     /**
      * Retrieve the change history for a particular resource FHIR id.
@@ -682,7 +688,9 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    resourceHistory(params: { resourceType: ResourceType, id: string, headers?: Headers | undefined, options?: Options | undefined }): Promise<fhir.OperationOutcome | fhir.Bundle & { type: "history" }>;
+    resourceHistory(
+        params: { resourceType: ResourceType, id: string, headers?: Headers | undefined, options?: Options | undefined }
+    ): Promise<fhir.OperationOutcome | fhir.Bundle & { type: "history" }>;
 
     /**
      * Retrieve the change history for a particular resource type.
