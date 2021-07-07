@@ -2840,7 +2840,7 @@ export type QuerySelector<T> = {
     $ne?: T | undefined;
     $nin?: T[] | undefined;
     // Logical
-    $not?: T extends string ? QuerySelector<T> | RegExp : QuerySelector<T> | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined;
+    $not?: T extends string ? QuerySelector<T> | RegExp : QuerySelector<T> | undefined;
     // Element
     /**
      * When `true`, `$exists` matches the documents that contain the field,
@@ -2851,9 +2851,9 @@ export type QuerySelector<T> = {
     // Evaluation
     $expr?: any;
     $jsonSchema?: any;
-    $mod?: T extends number ? [number, number] : never | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined;
-    $regex?: T extends string ? RegExp | string : never | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined;
-    $options?: T extends string ? string : never | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined;
+    $mod?: T extends number ? [number, number] : never | undefined;
+    $regex?: T extends string ? RegExp | string : never | undefined;
+    $options?: T extends string ? string : never | undefined;
     // Geospatial
     // TODO: define better types for geo queries
     $geoIntersects?: { $geometry: object } | undefined;
@@ -2863,9 +2863,9 @@ export type QuerySelector<T> = {
     $maxDistance?: number | undefined;
     // Array
     // TODO: define better types for $all and $elemMatch
-    $all?: T extends ReadonlyArray<infer U> ? any[] : never | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined;
-    $elemMatch?: T extends ReadonlyArray<infer U> ? object : never | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined;
-    $size?: T extends ReadonlyArray<infer U> ? number : never | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined | undefined;
+    $all?: T extends ReadonlyArray<infer U> ? any[] : never | undefined;
+    $elemMatch?: T extends ReadonlyArray<infer U> ? object : never | undefined;
+    $size?: T extends ReadonlyArray<infer U> ? number : never | undefined;
     // Bitwise
     $bitsAllClear?: BitwiseQuery | undefined;
     $bitsAllSet?: BitwiseQuery | undefined;
