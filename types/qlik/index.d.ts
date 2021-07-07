@@ -85,7 +85,7 @@ export interface NxPivotDimensioncell {
 }
 
 export interface NxPivotValuePoint {
-    qLabel?: string;
+    qLabel?: string | undefined;
     qText: string;
     qNum: number;
     qType: 'V' | 'E' | 'N' | 'T' | 'P' | 'R' | 'U';
@@ -230,11 +230,11 @@ export interface NxInfo {
 
 export interface NxCurrentSelectionItem {
     qTotal: number;
-    qIsNum?: boolean;
+    qIsNum?: boolean | undefined;
     qField: string;
-    qLocked?: boolean;
-    qOneAndOnlyOne?: boolean;
-    qTextSearch?: string;
+    qLocked?: boolean | undefined;
+    qOneAndOnlyOne?: boolean | undefined;
+    qTextSearch?: string | undefined;
     qSelectedCount: number;
     qSelected: string;
     qRangeInfo: RangeSelectInfo[];
@@ -347,29 +347,29 @@ export interface NxInlineMeasureDef {
 }
 
 export interface NxPage {
-    qLeft?: number;
-    qTop?: number;
-    qWidth?: number;
-    qHeight?: number;
+    qLeft?: number | undefined;
+    qTop?: number | undefined;
+    qWidth?: number | undefined;
+    qHeight?: number | undefined;
 }
 
 export interface HyperCubeDef {
-    qStateName?: string;
-    qDimensions?: NxDimension[];
-    qMeasures?: NxMeasure[];
-    qInterColumnSortOrder?: number[];
-    qSuppressZero?: boolean;
-    qSupressMissing?: boolean;
-    qInitialDataFetch?: NxPage[];
-    qMode?: 'S' | 'P' | 'K';
-    qNoOfLeftDims?: number;
-    qAlwaysFullyExpanded?: boolean;
-    qMaxStackedCells?: number;
-    qPopulateMissing?: boolean;
-    qShowTotalsAbove?: boolean;
-    qIndentMode?: boolean;
-    qCalcCond?: ValueExpr;
-    qSortByYValue?: -1 | 0 | 1;
+    qStateName?: string | undefined;
+    qDimensions?: NxDimension[] | undefined;
+    qMeasures?: NxMeasure[] | undefined;
+    qInterColumnSortOrder?: number[] | undefined;
+    qSuppressZero?: boolean | undefined;
+    qSupressMissing?: boolean | undefined;
+    qInitialDataFetch?: NxPage[] | undefined;
+    qMode?: 'S' | 'P' | 'K' | undefined;
+    qNoOfLeftDims?: number | undefined;
+    qAlwaysFullyExpanded?: boolean | undefined;
+    qMaxStackedCells?: number | undefined;
+    qPopulateMissing?: boolean | undefined;
+    qShowTotalsAbove?: boolean | undefined;
+    qIndentMode?: boolean | undefined;
+    qCalcCond?: ValueExpr | undefined;
+    qSortByYValue?: -1 | 0 | 1 | undefined;
 }
 
 export interface NxAutoSortByStateDef {
@@ -449,43 +449,43 @@ export type ShowFunction = (layout: Layout, cls: any, obj: any) => boolean
     | ((measure: NxMeasure) => boolean);
 
 export interface CustomPropertyCommon {
-    type?: 'string' | 'integer' | 'number' | 'array' | 'boolean' | 'items';
-    ref?: string;
-    label?: string;
-    show?: boolean | ShowFunction;
+    type?: 'string' | 'integer' | 'number' | 'array' | 'boolean' | 'items' | undefined;
+    ref?: string | undefined;
+    label?: string | undefined;
+    show?: boolean | ShowFunction | undefined;
 }
 
 export interface CustomPropertyString extends CustomPropertyCommon {
     type: 'string';
-    expression?: 'always' | 'optional' | '';
-    maxLength?: number;
-    defaultValue?: string;
+    expression?: 'always' | 'optional' | '' | undefined;
+    maxLength?: number | undefined;
+    defaultValue?: string | undefined;
 }
 
 export interface CustomPropertyInteger extends CustomPropertyCommon {
     type: 'integer';
-    component?: string;
-    min?: string;
-    max?: string;
-    defaultValue?: number;
+    component?: string | undefined;
+    min?: string | undefined;
+    max?: string | undefined;
+    defaultValue?: number | undefined;
 }
 
 export interface CustomPropertyNumber extends CustomPropertyCommon {
     type: 'number';
-    component?: string;
-    min?: string;
-    max?: string;
-    defaultValue?: number;
+    component?: string | undefined;
+    min?: string | undefined;
+    max?: string | undefined;
+    defaultValue?: number | undefined;
 }
 
 export interface CustomPropertyArray extends CustomPropertyCommon {
     type: 'array';
     component?: undefined;
-    itemTitleRef?: string;
-    allowAdd?: boolean;
-    allowRemove?: boolean;
-    addTranslation?: string;
-    allowMove?: boolean;
+    itemTitleRef?: string | undefined;
+    allowAdd?: boolean | undefined;
+    allowRemove?: boolean | undefined;
+    addTranslation?: string | undefined;
+    allowMove?: boolean | undefined;
 }
 
 export interface CustomPropertyButton extends CustomPropertyCommon {
@@ -502,19 +502,19 @@ export interface ButtonGroupOption {
 export interface CustomPropertyButtonGroup extends CustomPropertyCommon {
     type: 'string';
     component: 'buttongroup';
-    defaultValue?: string;
-    options?: ButtonGroupOption[] | (() => ButtonGroupOption[]);
+    defaultValue?: string | undefined;
+    options?: ButtonGroupOption[] | (() => ButtonGroupOption[]) | undefined;
 }
 
 export interface CustomPropertyCheckbox extends CustomPropertyCommon {
     type: 'boolean';
-    defaultValue?: boolean;
+    defaultValue?: boolean | undefined;
 }
 
 export interface CustomPropertyColorPicker extends CustomPropertyCommon {
     type: 'integer';
     component: 'color-picker';
-    defaultValue?: number;
+    defaultValue?: number | undefined;
 }
 
 export interface CustomPropertyOption {
@@ -528,51 +528,51 @@ export interface CustomPropertyDropdown extends CustomPropertyCommon {
     type: 'string';
     ref: string;
     component: 'dropdown';
-    defaultValue?: string;
-    options?: CustomPropertyOptions;
+    defaultValue?: string | undefined;
+    options?: CustomPropertyOptions | undefined;
 }
 
 export interface CustomPropertyLink extends CustomPropertyCommon {
     component: 'link';
-    url?: string;
+    url?: string | undefined;
 }
 
 export interface CustomProperyMedia extends CustomPropertyCommon {
     type: 'string';
     component: 'media';
-    layoutRef?: string;
+    layoutRef?: string | undefined;
 }
 
 export interface CustomPropertyRadio extends CustomPropertyCommon {
     type: 'string';
     component: 'radiobuttons';
-    defaultValue?: string;
-    options?: CustomPropertyOptions;
+    defaultValue?: string | undefined;
+    options?: CustomPropertyOptions | undefined;
 }
 
 export interface CustomPropertySlider extends CustomPropertyCommon {
     type: 'number';
     component: 'slider';
-    defaultValue?: number;
-    min?: number;
-    max?: number;
-    step?: number;
+    defaultValue?: number | undefined;
+    min?: number | undefined;
+    max?: number | undefined;
+    step?: number | undefined;
 }
 
 export interface CustomPropertyRangeSlider extends CustomPropertyCommon {
     type: 'array';
     component: 'slider';
-    defaultValue?: number;
-    min?: number;
-    max?: number;
-    step?: number;
+    defaultValue?: number | undefined;
+    min?: number | undefined;
+    max?: number | undefined;
+    step?: number | undefined;
 }
 
 export interface CustomPropertySwitch extends CustomPropertyCommon {
     type: 'boolean';
     component: 'switch';
-    defaultValue?: string;
-    options?: CustomPropertyOptions;
+    defaultValue?: string | undefined;
+    options?: CustomPropertyOptions | undefined;
 }
 
 export interface CustomPropertyText extends CustomPropertyCommon {
@@ -582,16 +582,16 @@ export interface CustomPropertyText extends CustomPropertyCommon {
 export interface CustomPropertyTextArea extends CustomPropertyCommon {
     type: 'string';
     component: 'textarea';
-    rows?: number;
-    maxlength?: number;
-    defaultValue?: string;
+    rows?: number | undefined;
+    maxlength?: number | undefined;
+    defaultValue?: string | undefined;
 }
 
 export interface CustomPropertyExpression extends CustomPropertyCommon {
     type: undefined;
     component: 'expression';
     expressionType: 'dimension' | 'measure' | 'StringExpr' | 'ValueExpr' | 'ValueExpression' | 'StringExpression';
-    defaultValue?: string;
+    defaultValue?: string | undefined;
 }
 
 export interface CustomPropertyItems extends CustomPropertyCommon {
@@ -615,37 +615,37 @@ export interface Definition {
     items: {
         data?: {
             uses: 'data';
-        };
+        } | undefined;
         dimensions?: {
             uses: 'dimensions';
-            ref?: string;
-            min?: number;
-            max?: number;
+            ref?: string | undefined;
+            min?: number | undefined;
+            max?: number | undefined;
             items?: {
                 [key: string]: CustomProperty;
-            }
-        };
+            } | undefined
+        } | undefined;
         measures?: {
             uses: 'measures';
-            ref?: string;
-            min?: number;
-            max?: number;
+            ref?: string | undefined;
+            min?: number | undefined;
+            max?: number | undefined;
             items?: {
                 [key: string]: CustomProperty;
-            }
-        };
+            } | undefined
+        } | undefined;
         sorting?: {
             uses: 'sorting';
             items?: {
                 [key: string]: CustomProperty;
-            }
-        };
+            } | undefined
+        } | undefined;
         settings?: {
             uses: 'settings';
             items?: {
                 [key: string]: CustomProperty;
-            }
-        };
+            } | undefined
+        } | undefined;
     };
 }
 
@@ -653,7 +653,7 @@ export interface Extension {
     initialProperties: InitialProperties;
     definition: Definition;
     paint: Paint;
-    support?: Support;
+    support?: Support | undefined;
 }
 
 export interface Patch {
@@ -712,14 +712,14 @@ export interface QDimensionCell {
     qText: string;
     qElemNumber: number;
     qState: string;
-    qNum?: number;
+    qNum?: number | undefined;
 
     select(): void;
 }
 
 export interface QMeasureCell {
     qText: string;
-    qNum?: number;
+    qNum?: number | undefined;
 
     getPercent(): number;
     getPercentOfMax(): number;
@@ -737,13 +737,13 @@ export interface QHeader {
     isOrderedBy: boolean;
     qReverseSort: boolean;
     col: number;
-    qCardinal?: number;
-    qStateCounts?: { [state: string]: number };
+    qCardinal?: number | undefined;
+    qStateCounts?: { [state: string]: number } | undefined;
     // field?: Field
-    qMin?: number;
-    qMax?: number;
-    errorCode?: number;
-    errorMessage?: number;
+    qMin?: number | undefined;
+    qMax?: number | undefined;
+    errorCode?: number | undefined;
+    errorMessage?: number | undefined;
 
     orderBy(): void;
     reverseOrder(): void;
@@ -752,7 +752,7 @@ export interface QHeader {
 
 export interface ExportDataOptions {
     format: 'OOXML' | 'CSV_C' | 'CSV_T';
-    filename?: string;
+    filename?: string | undefined;
     state: 'A' | 'P';
     download: boolean;
 }
@@ -780,8 +780,8 @@ export interface QFieldValue {
     qText: string;
     qElemNumber: number;
     qState: any; // TODO
-    qNum?: string;
-    qFrequency?: string;
+    qNum?: string | undefined;
+    qFrequency?: string | undefined;
 
     select(toggle?: boolean, softlock?: boolean): Promise<any>;
 }
@@ -792,9 +792,9 @@ export interface GetDataOptions {
 }
 
 export interface QField {
-    rows?: QFieldValue[];
-    rowCount?: number;
-    qStateCounts?: { [state: string]: number; };
+    rows?: QFieldValue[] | undefined;
+    rowCount?: number | undefined;
+    qStateCounts?: { [state: string]: number; } | undefined;
 
     clear(): Promise<any>;
     clearOther(softlock: boolean): Promise<any>;
@@ -834,7 +834,7 @@ export interface App {
     // getAppobjectList(type: 'sheet' | 'masterobject', callback: (list: ))
     getFullPropertyTree(id: string): Promise<any>;
     // getList(type: ListTypes, callback): Promise<any>;
-    getobject(elem?: HTMLElement | string, id?: string | 'CurrentSelections', options?: { noInteraction?: boolean, noSelections?: boolean }): Promise<any>;
+    getobject(elem?: HTMLElement | string, id?: string | 'CurrentSelections', options?: { noInteraction?: boolean | undefined, noSelections?: boolean | undefined }): Promise<any>;
     getobjectProperties(id: string): Promise<any>;
     getSnapshot(elem?: HTMLElement | string, id?: string): Promise<any>;
     lockAll(state?: string): Promise<any>;
@@ -855,12 +855,12 @@ export function callRepository(path: string, method: string, body: string): Prom
 export function currApp(reference: object): App;
 
 export interface GetAppConfig {
-    host?: string;
+    host?: string | undefined;
     port: string | number;
-    prefix?: string;
-    isSecure?: boolean;
-    openWithoutData?: boolean;
-    identity?: string;
+    prefix?: string | undefined;
+    isSecure?: boolean | undefined;
+    openWithoutData?: boolean | undefined;
+    identity?: string | undefined;
 }
 
 export function getAppList(callback: App[], config: GetAppConfig): void;

@@ -123,7 +123,7 @@ declare namespace OfficeRuntime {
      * [Api set: SharedRuntime 1.1]
      *
      */
-    displayInIFrame?: boolean;
+    displayInIFrame?: boolean | undefined;
     /**
      * Optional parameter that defines the height of the dialog box as a percentage of the current display.
      * For example, accepts strings such as: '50%', '50'.
@@ -131,7 +131,7 @@ declare namespace OfficeRuntime {
      * [Api set: SharedRuntime 1.1]
      *
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * Optional parameter that defines the width of dialog as a percentage of window.
      * For example, accepts strings such as: '50%', '50'.
@@ -139,28 +139,28 @@ declare namespace OfficeRuntime {
      * [Api set: SharedRuntime 1.1]
      *
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * Optional callback that runs when the dialog box sends a message to its parent.
      *
      * [Api set: SharedRuntime 1.1]
      *
      */
-    onMessage?: (message: string, dialog?: Dialog) => void;
+    onMessage?: ((message: string, dialog?: Dialog) => void) | undefined;
     /**
      * Optional callback that runs when the dialog box is closed.
      *
      * [Api set: SharedRuntime 1.1]
      *
      */
-    onClose?: () => void;
+    onClose?: (() => void) | undefined;
     /**
      * Optional callback that runs when the dialog box sends an error.
      *
      * [Api set: SharedRuntime 1.1]
      *
      */
-    onRuntimeError?: (error: Error, dialog?: Dialog) => void;
+    onRuntimeError?: ((error: Error, dialog?: Dialog) => void) | undefined;
   }
   /**
    * Contains authorization related APIs.
@@ -176,26 +176,26 @@ declare namespace OfficeRuntime {
        * If set to `true`, Office will show an interactive consent UI after it fails to silently get an access token.
        * The prompt will only allow consent to the AAD profile scope, not to any Microsoft Graph scopes.
        */
-      allowConsentPrompt?: boolean;
+      allowConsentPrompt?: boolean | undefined;
       /**
        * Allows Office to get an access token silently provided consent is present or show interactive UI to sign in the user. Default value is `false`.
        * If set to `false`, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
        * If set to `true`, Office will show an interactive sign-in UI after it fails to silently get an access token.
        */
-      allowSignInPrompt?: boolean;
+      allowSignInPrompt?: boolean | undefined;
       /**
        * Prompts the user to add their Office account (or to switch to it, if it is already added). Default value is `false`.
        *
        * @deprecated Use `allowSignInPrompt` instead.
        */
-      forceAddAccount?: boolean;
+      forceAddAccount?: boolean | undefined;
       /**
        * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has
        * been revoked. Default value is `false`.
        *
        * @deprecated Use `allowConsentPrompt` instead.
        */
-      forceConsent?: boolean;
+      forceConsent?: boolean | undefined;
       /**
        * Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor
        * authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development
@@ -203,7 +203,7 @@ declare namespace OfficeRuntime {
        * call of `getAccessToken` after Microsoft Graph has sent an error requesting the additional factor and containing the string that should
        * be used with the `authChallenge` option.
        */
-      authChallenge?: string;
+      authChallenge?: string | undefined;
       /**
        * A user-defined item of any type that is returned, unchanged, in the `asyncContext` property of the `AsyncResult` object that is passed to a callback.
        */
@@ -213,7 +213,7 @@ declare namespace OfficeRuntime {
        * Office only supports consent to Graph scopes when the add-in has been deployed by a tenant admin. This information will not be available during development.
        * Setting this option to `true` will cause Office to inform your add-in beforehand (by returning a descriptive error) if Graph access will fail.
        */
-      forMSGraphAccess?: boolean;
+      forMSGraphAccess?: boolean | undefined;
   }
   /**
    * Interface that contains authorization related APIs.

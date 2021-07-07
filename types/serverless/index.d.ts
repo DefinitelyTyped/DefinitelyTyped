@@ -45,10 +45,10 @@ declare namespace Serverless {
     }
 
     interface LogOptions {
-        color?: string;
-        bold?: boolean;
-        underline?: boolean;
-        entity?: string;
+        color?: string | undefined;
+        bold?: boolean | undefined;
+        underline?: boolean | undefined;
+        entity?: string | undefined;
     }
 
     interface FunctionDefinitionHandler extends FunctionDefinition {

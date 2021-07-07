@@ -705,15 +705,15 @@ declare module "sap/f/AvatarGroup" {
         /**
          * The `GroupType` of the control.
          */
-        groupType?: string;
+        groupType?: string | undefined;
         /**
          * Indication whether the overflow button is pressed.
          */
-        overflowButtonPressed?: boolean;
+        overflowButtonPressed?: boolean | undefined;
         /**
          * The number of currently displayed (visible) avatars.
          */
-        avatarsDisplayed?: int;
+        avatarsDisplayed?: int | undefined;
       }
     ): this;
     /**
@@ -838,24 +838,24 @@ declare module "sap/f/AvatarGroup" {
      */
     groupType?:
       | (AvatarGroupType | keyof typeof AvatarGroupType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines the display size of each avatar.
      */
     avatarDisplaySize?:
       | (AvatarSize | keyof typeof AvatarSize)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The `AvatarGroupItems` contained by the control.
      */
-    items?: AvatarGroupItem[] | AvatarGroupItem | AggregationBindingInfo;
+    items?: AvatarGroupItem[] | AvatarGroupItem | AggregationBindingInfo | undefined;
 
     /**
      * Fired when the user clicks or taps on the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -1009,12 +1009,12 @@ declare module "sap/f/AvatarGroupItem" {
     /**
      * Determines the path to the desired image or icon.
      */
-    src?: URI | PropertyBindingInfo;
+    src?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines the displayed initials.
      */
-    initials?: string | PropertyBindingInfo;
+    initials?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the fallback icon displayed in case of wrong image src and no initials set.
@@ -1023,7 +1023,7 @@ declare module "sap/f/AvatarGroupItem" {
      * 	 - If not set, a default fallback icon is displayed.
      * 	 - Accepted values are only icons from the SAP icon font.
      */
-    fallbackIcon?: string | PropertyBindingInfo;
+    fallbackIcon?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -1220,17 +1220,17 @@ declare module "sap/f/Card" {
      */
     headerPosition?:
       | (cards.HeaderPosition | keyof typeof cards.HeaderPosition)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines the header of the card.
      */
-    header?: cards.IHeader;
+    header?: cards.IHeader | undefined;
 
     /**
      * Defines the content of the card.
      */
-    content?: Control;
+    content?: Control | undefined;
   }
 }
 
@@ -1381,12 +1381,12 @@ declare module "sap/f/CardBase" {
     /**
      * Defines the width of the card.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the height of the card.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
   }
 }
 
@@ -1515,7 +1515,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Will be shown as a relative time like "5 minutes ago".
      */
-    dataTimestamp?: string | PropertyBindingInfo;
+    dataTimestamp?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.86
@@ -1523,7 +1523,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Defines the toolbar.
      */
-    toolbar?: Control;
+    toolbar?: Control | undefined;
   }
 }
 
@@ -1877,41 +1877,41 @@ declare module "sap/f/cards/Header" {
     /**
      * Defines the title.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the subtitle.
      */
-    subtitle?: string | PropertyBindingInfo;
+    subtitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the status text.
      */
-    statusText?: string | PropertyBindingInfo;
+    statusText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the shape of the icon.
      */
     iconDisplayShape?:
       | (AvatarShape | keyof typeof AvatarShape)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines the icon source.
      */
-    iconSrc?: URI | PropertyBindingInfo;
+    iconSrc?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines the initials of the icon.
      */
-    iconInitials?: string | PropertyBindingInfo;
+    iconInitials?: string | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.81)
      *
      * Defines an alt text for the avatar or icon.
      */
-    iconAlt?: string | PropertyBindingInfo;
+    iconAlt?: string | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.83)
@@ -1920,12 +1920,12 @@ declare module "sap/f/cards/Header" {
      */
     iconBackgroundColor?:
       | (AvatarColor | keyof typeof AvatarColor)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Fires when the user presses the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -2305,54 +2305,54 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * The title of the card
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * The subtitle of the card
      */
-    subtitle?: string | PropertyBindingInfo;
+    subtitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the status text.
      */
-    statusText?: string | PropertyBindingInfo;
+    statusText?: string | PropertyBindingInfo | undefined;
 
     /**
      * General unit of measurement for the header. Displayed as side information to the subtitle.
      */
-    unitOfMeasurement?: string | PropertyBindingInfo;
+    unitOfMeasurement?: string | PropertyBindingInfo | undefined;
 
     /**
      * The numeric value of the main number indicator. If the value contains more than five characters, only
      * the first five are displayed. Without rounding the number.
      */
-    number?: string | PropertyBindingInfo;
+    number?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the unit of measurement (scaling prefix) for the main indicator. Financial characters can be
      * used for currencies and counters. The International System of Units (SI) prefixes can be used. If the
      * unit contains more than three characters, only the first three characters are displayed.
      */
-    scale?: string | PropertyBindingInfo;
+    scale?: string | PropertyBindingInfo | undefined;
 
     /**
      * The direction of the trend arrow. Shows deviation for the value of the main number indicator.
      */
     trend?:
       | (DeviationIndicator | keyof typeof DeviationIndicator)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.64)
      *
      * The semantic color which represents the state of the main number indicator.
      */
-    state?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo;
+    state?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo | undefined;
 
     /**
      * Additional text which adds more details to what is shown in the numeric header.
      */
-    details?: string | PropertyBindingInfo;
+    details?: string | PropertyBindingInfo | undefined;
 
     /**
      * Additional side number indicators. For example "Deviation" and "Target". Not more than two side indicators
@@ -2361,12 +2361,12 @@ declare module "sap/f/cards/NumericHeader" {
     sideIndicators?:
       | NumericSideIndicator[]
       | NumericSideIndicator
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Fires when the user presses the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -2490,17 +2490,17 @@ declare module "sap/f/cards/NumericSideIndicator" {
     /**
      * The title of the indicator
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * The numeric value
      */
-    number?: string | PropertyBindingInfo;
+    number?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the unit of measurement (scaling prefix) for the numeric value
      */
-    unit?: string | PropertyBindingInfo;
+    unit?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -2649,7 +2649,7 @@ declare module "sap/f/dnd/GridDropInfo" {
      * The callback receives `draggedControl` as parameter and must return an object of type `{rows: ,
      * columns: }` or `null`.
      */
-    dropIndicatorSize?: Function | PropertyBindingInfo;
+    dropIndicatorSize?: Function | PropertyBindingInfo | undefined;
   }
 }
 
@@ -3146,7 +3146,7 @@ declare module "sap/f/DynamicPage" {
      * **Note:** Based on internal rules, the value of the property is not always taken into account - for example,
      * when the control`s title and header are with height larger than the given threshold.
      */
-    preserveHeaderStateOnScroll?: boolean | PropertyBindingInfo;
+    preserveHeaderStateOnScroll?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the header is expanded.
@@ -3157,7 +3157,7 @@ declare module "sap/f/DynamicPage" {
      * **Note:** As of version 1.48, you can initialize the control in collapsed header state by setting this
      * property to `false`.
      */
-    headerExpanded?: boolean | PropertyBindingInfo;
+    headerExpanded?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the user can switch between the expanded/collapsed states of the `DynamicPageHeader`
@@ -3168,12 +3168,12 @@ declare module "sap/f/DynamicPage" {
      *
      * **Note: ** This property is taken into account only if a non-empty `header` aggregation is provided.
      */
-    toggleHeaderOnTitleClick?: boolean | PropertyBindingInfo;
+    toggleHeaderOnTitleClick?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the footer is visible.
      */
-    showFooter?: boolean | PropertyBindingInfo;
+    showFooter?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.68
@@ -3182,7 +3182,7 @@ declare module "sap/f/DynamicPage" {
      */
     backgroundDesign?:
       | (PageBackgroundDesign | keyof typeof PageBackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Forces the content container of the `DynamicPage` to make room for stretchable controls in the `content`
@@ -3196,17 +3196,17 @@ declare module "sap/f/DynamicPage" {
      * 	 - It is not recommended to enable this property for controls that do not stretch in height (and appear
      * 			properly when this property is disabled).
      */
-    fitContent?: boolean | PropertyBindingInfo;
+    fitContent?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * `DynamicPage` title.
      */
-    title?: DynamicPageTitle;
+    title?: DynamicPageTitle | undefined;
 
     /**
      * `DynamicPage` header.
      */
-    header?: DynamicPageHeader;
+    header?: DynamicPageHeader | undefined;
 
     /**
      * `DynamicPage` content.
@@ -3239,12 +3239,12 @@ declare module "sap/f/DynamicPage" {
      * 	 -  In case any of the following CSS classes is applied to `DynamicPage`: `sapUiContentPadding`, `sapUiNoContentPadding`
      * 			or `sapUiResponsiveContentPadding`
      */
-    content?: Control;
+    content?: Control | undefined;
 
     /**
      * `DynamicPage` floating footer.
      */
-    footer?: IBar;
+    footer?: IBar | undefined;
 
     /**
      * @SINCE 1.61
@@ -3253,7 +3253,7 @@ declare module "sap/f/DynamicPage" {
      *
      * If not set, no landmarks will be written.
      */
-    landmarkInfo?: DynamicPageAccessibleLandmarkInfo;
+    landmarkInfo?: DynamicPageAccessibleLandmarkInfo | undefined;
 
     /**
      * @SINCE 1.65
@@ -3261,7 +3261,7 @@ declare module "sap/f/DynamicPage" {
      * Association of Controls / IDs, that provide sticky subheader content. All controls that provide this
      * content have to implement the `sap.f.IDynamicPageStickyContent` interface.
      */
-    stickySubheaderProvider?: IDynamicPageStickyContent | string;
+    stickySubheaderProvider?: IDynamicPageStickyContent | string | undefined;
   }
 }
 
@@ -3567,7 +3567,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      */
     rootRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts which describe the landmark of the root container of the corresponding `sap.f.DynamicPage` control.
@@ -3575,7 +3575,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
      */
-    rootLabel?: string | PropertyBindingInfo;
+    rootLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * Landmark role of the content container of the corresponding `sap.f.DynamicPage` control.
@@ -3584,7 +3584,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      */
     contentRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts which describe the landmark of the content container of the corresponding `sap.f.DynamicPage` control.
@@ -3592,7 +3592,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
      */
-    contentLabel?: string | PropertyBindingInfo;
+    contentLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * Landmark role of the header container of the corresponding `sap.f.DynamicPage` control.
@@ -3601,7 +3601,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      */
     headerRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts which describe the landmark of the header container of the corresponding `sap.f.DynamicPage` control.
@@ -3609,7 +3609,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
      */
-    headerLabel?: string | PropertyBindingInfo;
+    headerLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * Landmark role of the footer container of the corresponding `sap.f.DynamicPage` control.
@@ -3618,7 +3618,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      */
     footerRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts which describe the landmark of the header container of the corresponding `sap.f.DynamicPage` control.
@@ -3626,7 +3626,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
      */
-    footerLabel?: string | PropertyBindingInfo;
+    footerLabel?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -3840,7 +3840,7 @@ declare module "sap/f/DynamicPageHeader" {
     /**
      * Determines whether the header is pinnable.
      */
-    pinnable?: boolean | PropertyBindingInfo;
+    pinnable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.58
@@ -3852,12 +3852,12 @@ declare module "sap/f/DynamicPageHeader" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The content of the header.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -4138,7 +4138,7 @@ declare module "sap/f/DynamicPageTitle" {
         /**
          * Whether the title was expanded (true) or collapsed (false).
          */
-        isExpanded?: boolean;
+        isExpanded?: boolean | undefined;
       }
     ): this;
     /**
@@ -4725,7 +4725,7 @@ declare module "sap/f/DynamicPageTitle" {
      */
     primaryArea?:
       | (DynamicPageTitleArea | keyof typeof DynamicPageTitleArea)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -4745,7 +4745,7 @@ declare module "sap/f/DynamicPageTitle" {
      *
      *  When this property is set the `primaryArea` property has no effect.
      */
-    areaShrinkRatio?: DynamicPageTitleShrinkRatio | PropertyBindingInfo;
+    areaShrinkRatio?: DynamicPageTitleShrinkRatio | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.58
@@ -4757,7 +4757,7 @@ declare module "sap/f/DynamicPageTitle" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The `heading` is positioned in the `DynamicPageTitle` left area and is displayed in both expanded and
@@ -4772,7 +4772,7 @@ declare module "sap/f/DynamicPageTitle" {
      * 			control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
      * 			state.
      */
-    heading?: Control;
+    heading?: Control | undefined;
 
     /**
      * @SINCE 1.52
@@ -4788,7 +4788,7 @@ declare module "sap/f/DynamicPageTitle" {
      * 			control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
      * 			state.
      */
-    snappedHeading?: Control;
+    snappedHeading?: Control | undefined;
 
     /**
      * @SINCE 1.52
@@ -4800,7 +4800,7 @@ declare module "sap/f/DynamicPageTitle" {
      * **Note:** In order for `expandedHeading` to be taken into account, `heading` has to be empty. Combine
      * `expandedHeading` with `snappedHeading` to switch content when the header switches state.
      */
-    expandedHeading?: Control;
+    expandedHeading?: Control | undefined;
 
     /**
      * The `DynamicPageTitle` actions.
@@ -4811,7 +4811,7 @@ declare module "sap/f/DynamicPageTitle" {
      * the control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
      * state.
      */
-    actions?: Control[] | Control | AggregationBindingInfo;
+    actions?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -4827,7 +4827,7 @@ declare module "sap/f/DynamicPageTitle" {
      * 			control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
      * 			state.
      */
-    navigationActions?: Button[] | Button | AggregationBindingInfo;
+    navigationActions?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.50
@@ -4839,7 +4839,7 @@ declare module "sap/f/DynamicPageTitle" {
      * the control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
      * state.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The content that is displayed in the `DynamicPageTitle` in collapsed (snapped) state.
@@ -4848,12 +4848,12 @@ declare module "sap/f/DynamicPageTitle" {
      * the control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
      * state.
      */
-    snappedContent?: Control[] | Control | AggregationBindingInfo;
+    snappedContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The content that is displayed in the `DynamicPageTitle` in expanded state.
      */
-    expandedContent?: Control[] | Control | AggregationBindingInfo;
+    expandedContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.63
@@ -4867,21 +4867,21 @@ declare module "sap/f/DynamicPageTitle" {
      * **Note:** The content set in this aggregation overrides all the other `DynamicPageTitle` aggregations
      * and is only visible on phone mobile devices in collapsed (snapped) state of the `DynamicPageHeader`.
      */
-    snappedTitleOnMobile?: Title;
+    snappedTitleOnMobile?: Title | undefined;
 
     /**
      * @SINCE 1.52
      *
      * The breadcrumbs displayed in the `DynamicPageTitle` top-left area.
      */
-    breadcrumbs?: IBreadcrumbs;
+    breadcrumbs?: IBreadcrumbs | undefined;
 
     /**
      * @SINCE 1.78
      *
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.54
@@ -4892,7 +4892,7 @@ declare module "sap/f/DynamicPageTitle" {
      * Also fired when the developer toggles the title state by programmatically changing the scroll position
      * of the scrollbar of `DynamicPage`.
      */
-    stateChange?: Function;
+    stateChange?: Function | undefined;
   }
 }
 
@@ -5547,44 +5547,44 @@ declare module "sap/f/FlexibleColumnLayout" {
         /**
          * The page, which had been displayed before navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page, which had been displayed before navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page, which is now displayed after navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page, which is now displayed after navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Whether the "to" page (more precisely: a control with the ID of the page, which has been navigated to)
          * has not been displayed/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Determines whether was a forward navigation, triggered by to().
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Determines whether this was a back navigation, triggered by back().
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Determines whether this was a navigation to the root page, triggered by backToTop().
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Determines whether this was a navigation to a specific page, triggered by backToPage().
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * Determines how the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
       }
     ): this;
     /**
@@ -5598,44 +5598,44 @@ declare module "sap/f/FlexibleColumnLayout" {
         /**
          * The page, which had been displayed before navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page, which had been displayed before navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page, which is now displayed after navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page, which is now displayed after navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Whether the "to" page (more precisely: a control with the ID of the page, which has been navigated to)
          * has not been displayed/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Determines whether was a forward navigation, triggered by to().
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Determines whether this was a back navigation, triggered by back().
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Determines whether this was a navigation to the root page, triggered by backToTop().
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Determines whether this was a navigation to a specific page, triggered by backToPage().
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * Determines how the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
       }
     ): this;
     /**
@@ -5649,44 +5649,44 @@ declare module "sap/f/FlexibleColumnLayout" {
         /**
          * The page, which had been displayed before navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page, which had been displayed before navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page, which is now displayed after navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page, which is now displayed after navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Whether the "to" page (more precisely: a control with the ID of the page, which has been navigated to)
          * has not been displayed/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Determines whether was a forward navigation, triggered by to().
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Determines whether this was a back navigation, triggered by back().
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Determines whether this was a navigation to the root page, triggered by backToTop().
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Determines whether this was a navigation to a specific page, triggered by backToPage().
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * Determines how the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
       }
     ): this;
     /**
@@ -5703,44 +5703,44 @@ declare module "sap/f/FlexibleColumnLayout" {
         /**
          * The page, which was displayed before the current navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page, which was displayed before the current navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page, which will be displayed after the current navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page, which will be displayed after the current navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Determines whether the "to" page (more precisely: a control with the ID of the page, which is currently
          * being navigated to) has not been displayed/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Determines whether this is a forward navigation, triggered by to().
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Determines whether this is a back navigation, triggered by back().
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Determines whether this is a navigation to the root page, triggered by backToTop().
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Determines whether this was a navigation to a specific page, triggered by backToPage().
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * Determines how the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
       }
     ): boolean;
     /**
@@ -5756,15 +5756,15 @@ declare module "sap/f/FlexibleColumnLayout" {
         /**
          * Determines whether `beginColumn` resize has completed.
          */
-        beginColumn?: boolean;
+        beginColumn?: boolean | undefined;
         /**
          * Determines whether `midColumn` resize has completed.
          */
-        midColumn?: boolean;
+        midColumn?: boolean | undefined;
         /**
          * Determines whether `endColumn` resize has completed.
          */
-        endColumn?: boolean;
+        endColumn?: boolean | undefined;
       }
     ): this;
     /**
@@ -5781,44 +5781,44 @@ declare module "sap/f/FlexibleColumnLayout" {
         /**
          * The page, which was displayed before the current navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page, which was displayed before the current navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page, which will be displayed after the current navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page, which will be displayed after the current navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Determines whether the "to" page (more precisely: a control with the ID of the page, which is currently
          * being navigated to) has not been displayed/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Determines whether this is a forward navigation, triggered by to().
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Determines whether this is a back navigation, triggered by back().
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Determines whether this is a navigation to the root page, triggered by backToTop().
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Determines whether this was a navigation to a specific page, triggered by backToPage().
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * Determines how the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
       }
     ): boolean;
     /**
@@ -5835,44 +5835,44 @@ declare module "sap/f/FlexibleColumnLayout" {
         /**
          * The page, which was displayed before the current navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page, which was displayed before the current navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page, which will be displayed after the current navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page, which will be displayed after the current navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Determines whether the "to" page (more precisely: a control with the ID of the page, which is currently
          * being navigated to) has not been displayed/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Determines whether this is a forward navigation, triggered by to().
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Determines whether this is a back navigation, triggered by back().
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Determines whether this is a navigation to the root page, triggered by backToTop().
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Determines whether this was a navigation to a specific page, triggered by backToPage().
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * Determines how the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
       }
     ): boolean;
     /**
@@ -5886,7 +5886,7 @@ declare module "sap/f/FlexibleColumnLayout" {
         /**
          * The value of the `layout` property
          */
-        layout?: LayoutType | keyof typeof LayoutType;
+        layout?: LayoutType | keyof typeof LayoutType | undefined;
         /**
          * The maximum number of columns that can be displayed at once based on the available screen size and control
          * settings.
@@ -5896,15 +5896,15 @@ declare module "sap/f/FlexibleColumnLayout" {
          * 	 - 2 for browser size between 960px and 1280px
          * 	 - 1 for browser size less than 960px
          */
-        maxColumnsCount?: int;
+        maxColumnsCount?: int | undefined;
         /**
          * Indicates whether the layout changed as a result of the user clicking a layout arrow
          */
-        isNavigationArrow?: boolean;
+        isNavigationArrow?: boolean | undefined;
         /**
          * Indicates whether the maximum number of columns that can be displayed at once changed
          */
-        isResize?: boolean;
+        isResize?: boolean | undefined;
       }
     ): this;
     /**
@@ -6799,35 +6799,35 @@ declare module "sap/f/FlexibleColumnLayout" {
      *
      * For more information, see {@link sap.m.NavContainer#autoFocus}.
      */
-    autoFocus?: boolean | PropertyBindingInfo;
+    autoFocus?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the layout of the control - number of visible columns and their relative sizes.
      *
      * For more details, see {@link topic:3b9f760da5b64adf8db7f95247879086 Types of Layout} in the documentation.
      */
-    layout?: (LayoutType | keyof typeof LayoutType) | PropertyBindingInfo;
+    layout?: (LayoutType | keyof typeof LayoutType) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the type of the transition/animation to apply for the `Begin` column when `to()` is called
      * without defining the transition to use. The default is `slide`, other options are `fade`, `flip`, `show`,
      * and the names of any registered custom transitions.
      */
-    defaultTransitionNameBeginColumn?: string | PropertyBindingInfo;
+    defaultTransitionNameBeginColumn?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the type of the transition/animation to apply for the `Mid` column when `to()` is called without
      * defining the transition to use. The default is `slide`, other options are `fade`, `flip`, `show`, and
      * the names of any registered custom transitions.
      */
-    defaultTransitionNameMidColumn?: string | PropertyBindingInfo;
+    defaultTransitionNameMidColumn?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the type of the transition/animation to apply for the `End` column when `to()` is called without
      * defining the transition to use. The default is `slide`, other options are `fade`, `flip`, `show`, and
      * the names of any registered custom transitions.
      */
-    defaultTransitionNameEndColumn?: string | PropertyBindingInfo;
+    defaultTransitionNameEndColumn?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -6837,7 +6837,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.77
@@ -6845,7 +6845,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Determines whether the focus is restored to the last known when navigating back to a prevously opened
      * column, for example, upon closing of the end column and being transfered back to the mid column.
      */
-    restoreFocusOnBackNavigation?: boolean | PropertyBindingInfo;
+    restoreFocusOnBackNavigation?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The content entities between which the `FlexibleColumnLayout` navigates in the `Begin` column.
@@ -6854,7 +6854,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      * like {@link sap.m.NavContainerChild#event:BeforeShow BeforeShow}, they are documented in the pseudo interface
      * {@link sap.m.NavContainerChild sap.m.NavContainerChild}.
      */
-    beginColumnPages?: Control[] | Control | AggregationBindingInfo;
+    beginColumnPages?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The content entities between which the `FlexibleColumnLayout` navigates in the `Mid` column.
@@ -6863,7 +6863,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      * like {@link sap.m.NavContainerChild#event:BeforeShow BeforeShow}, they are documented in the pseudo interface
      * {@link sap.m.NavContainerChild sap.m.NavContainerChild}.
      */
-    midColumnPages?: Control[] | Control | AggregationBindingInfo;
+    midColumnPages?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The content entities between which the `FlexibleColumnLayout` navigates in the `End` column.
@@ -6872,22 +6872,22 @@ declare module "sap/f/FlexibleColumnLayout" {
      * like {@link sap.m.NavContainerChild#event:BeforeShow BeforeShow}, they are documented in the pseudo interface
      * {@link sap.m.NavContainerChild sap.m.NavContainerChild}.
      */
-    endColumnPages?: Control[] | Control | AggregationBindingInfo;
+    endColumnPages?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Sets the initial `Begin` column page, which is displayed on application launch.
      */
-    initialBeginColumnPage?: Control | string;
+    initialBeginColumnPage?: Control | string | undefined;
 
     /**
      * Sets the initial `Mid` column page, which is displayed on application launch.
      */
-    initialMidColumnPage?: Control | string;
+    initialMidColumnPage?: Control | string | undefined;
 
     /**
      * Sets the initial `End` column page, which is displayed on application launch.
      */
-    initialEndColumnPage?: Control | string;
+    initialEndColumnPage?: Control | string | undefined;
 
     /**
      * Fired when there is a change in the `layout` property or in the maximum number of columns that can be
@@ -6901,56 +6901,56 @@ declare module "sap/f/FlexibleColumnLayout" {
      *  **Note: **The event is suppressed while the control has zero width and will be fired the first time
      * it gets a non-zero width
      */
-    stateChange?: Function;
+    stateChange?: Function | undefined;
 
     /**
      * Fires when navigation between two pages in the `Begin` column has been triggered. The transition (if
      * any) to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    beginColumnNavigate?: Function;
+    beginColumnNavigate?: Function | undefined;
 
     /**
      * Fires when navigation between two pages in the `Begin` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
      */
-    afterBeginColumnNavigate?: Function;
+    afterBeginColumnNavigate?: Function | undefined;
 
     /**
      * Fires when navigation between two pages in the `Mid` column has been triggered. The transition (if any)
      * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    midColumnNavigate?: Function;
+    midColumnNavigate?: Function | undefined;
 
     /**
      * Fires when navigation between two pages in the `Mid` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
      */
-    afterMidColumnNavigate?: Function;
+    afterMidColumnNavigate?: Function | undefined;
 
     /**
      * Fires when navigation between two pages in the `End` column has been triggered. The transition (if any)
      * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    endColumnNavigate?: Function;
+    endColumnNavigate?: Function | undefined;
 
     /**
      * Fires when navigation between two pages in the `End` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
      */
-    afterEndColumnNavigate?: Function;
+    afterEndColumnNavigate?: Function | undefined;
 
     /**
      * @SINCE 1.76
      *
      * Fired when resize of each column has completed.
      */
-    columnResize?: Function;
+    columnResize?: Function | undefined;
   }
 }
 
@@ -7018,12 +7018,12 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
          * Determines what two-column layout type will be suggested by default: `sap.f.LayoutType.TwoColumnsBeginExpanded`
          * or `sap.f.LayoutType.TwoColumnsMidExpanded`.
          */
-        defaultTwoColumnLayoutType?: LayoutType | keyof typeof LayoutType;
+        defaultTwoColumnLayoutType?: LayoutType | keyof typeof LayoutType | undefined;
         /**
          * Determines what three-column layout type will be suggested by default: `sap.f.LayoutType.ThreeColumnsMidExpanded`
          * or `sap.f.LayoutType.ThreeColumnsEndExpanded`.
          */
-        defaultThreeColumnLayoutType?: LayoutType | keyof typeof LayoutType;
+        defaultThreeColumnLayoutType?: LayoutType | keyof typeof LayoutType | undefined;
         /**
          * Determines the maximum number of columns that will be displayed side by side.
          *
@@ -7524,19 +7524,19 @@ declare module "sap/f/GridContainer" {
         /**
          * Event that leads to the focus change.
          */
-        event?: jQuery.Event;
+        event?: jQuery.Event | undefined;
         /**
          * The navigation direction that is used to reach the border.
          */
-        direction?: NavigationDirection | keyof typeof NavigationDirection;
+        direction?: NavigationDirection | keyof typeof NavigationDirection | undefined;
         /**
          * The row index, from which the border is reached.
          */
-        row?: int;
+        row?: int | undefined;
         /**
          * The column index, from which the border is reached.
          */
-        column?: int;
+        column?: int | undefined;
       }
     ): this;
     /**
@@ -7550,7 +7550,7 @@ declare module "sap/f/GridContainer" {
         /**
          * The count of the gird columns.
          */
-        columns?: int;
+        columns?: int | undefined;
       }
     ): this;
     /**
@@ -7564,7 +7564,7 @@ declare module "sap/f/GridContainer" {
         /**
          * The name of the newly active layout.
          */
-        layout?: string;
+        layout?: string | undefined;
       }
     ): this;
     /**
@@ -7996,7 +7996,7 @@ declare module "sap/f/GridContainer" {
     /**
      * Defines the width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.81)
@@ -8005,20 +8005,20 @@ declare module "sap/f/GridContainer" {
      *
      * Allows an empty grid to be available as a drop target.
      */
-    minHeight?: CSSSize | PropertyBindingInfo;
+    minHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * If set to `true` the current range (large, medium or small) is defined by the size of the container surrounding
      * the `GridContainer`, instead of the device screen size (media Query).
      */
-    containerQuery?: boolean | PropertyBindingInfo;
+    containerQuery?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Should the items stretch to fill the rows that they occupy, or not.
      *
      * If set to `true` the items will stretch.
      */
-    snapToRow?: boolean | PropertyBindingInfo;
+    snapToRow?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.66)
@@ -8028,7 +8028,7 @@ declare module "sap/f/GridContainer" {
      *
      * **Note:** The order of the items is ignored. An item which is normally at the bottom, can appear on top.
      */
-    allowDenseFill?: boolean | PropertyBindingInfo;
+    allowDenseFill?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.66)
@@ -8039,12 +8039,12 @@ declare module "sap/f/GridContainer" {
      * **Note:** If set to `true` the properties `rowSize` for grid layout, and `minRows` and `rows` per item
      * will be ignored.
      */
-    inlineBlockLayout?: boolean | PropertyBindingInfo;
+    inlineBlockLayout?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The items contained by the control.
      */
-    items?: Control[] | Control | AggregationBindingInfo;
+    items?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The sap.f.GridContainerSettings applied if no settings are provided for a specific size.
@@ -8055,49 +8055,49 @@ declare module "sap/f/GridContainer" {
      * New instance has to be created for each of them. This is caused by the fact that one object can exist
      * in only a single aggregation.
      */
-    layout?: GridContainerSettings;
+    layout?: GridContainerSettings | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.71)
      *
      * The sap.f.GridContainerSettings applied for size "XS". Range: up to 374px.
      */
-    layoutXS?: GridContainerSettings;
+    layoutXS?: GridContainerSettings | undefined;
 
     /**
      * The sap.f.GridContainerSettings applied for size "S". Range: 375px - 599px.
      */
-    layoutS?: GridContainerSettings;
+    layoutS?: GridContainerSettings | undefined;
 
     /**
      * The sap.f.GridContainerSettings applied for size "M". Range: 600px - 1023px.
      */
-    layoutM?: GridContainerSettings;
+    layoutM?: GridContainerSettings | undefined;
 
     /**
      * The sap.f.GridContainerSettings applied for size "L". Range: 1023px - 1439px.
      */
-    layoutL?: GridContainerSettings;
+    layoutL?: GridContainerSettings | undefined;
 
     /**
      * The sap.f.GridContainerSettings applied for size "XL". Range: from 1440px.
      */
-    layoutXL?: GridContainerSettings;
+    layoutXL?: GridContainerSettings | undefined;
 
     /**
      * Fired when the currently active GridSettings change.
      */
-    layoutChange?: Function;
+    layoutChange?: Function | undefined;
 
     /**
      * Fired when the grid columns count is changed.
      */
-    columnsChange?: Function;
+    columnsChange?: Function | undefined;
 
     /**
      * Fires if the border of the visualizations is reached so that an application can react on this.
      */
-    borderReached?: Function;
+    borderReached?: Function | undefined;
   }
 }
 
@@ -8265,19 +8265,19 @@ declare module "sap/f/GridContainerItemLayoutData" {
      * for the grid. If item has more columns at some point, they will be automatically reduced to the total
      * grid columns. This is done to prevent broken layout (grid blowout) that affects all items.
      */
-    columns?: int | PropertyBindingInfo;
+    columns?: int | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the minimum number of rows, which the item should take.
      */
-    minRows?: int | PropertyBindingInfo;
+    minRows?: int | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.65)
      *
      * Specifies the number of rows, which the item should take.
      */
-    rows?: int | PropertyBindingInfo;
+    rows?: int | PropertyBindingInfo | undefined;
   }
 }
 
@@ -8521,12 +8521,12 @@ declare module "sap/f/GridContainerSettings" {
      *
      * If not defined, `sap.f.GridContainer` will position as many columns as they can fit in the container.
      */
-    columns?: int | PropertyBindingInfo;
+    columns?: int | PropertyBindingInfo | undefined;
 
     /**
      * The width of the columns. **Note:** Use only 'px' or 'rem'. Some features may not work as expected otherwise.
      */
-    columnSize?: CSSSize | PropertyBindingInfo;
+    columnSize?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Sets the minimum width of the columns. Setting this together with `maxColumnSize` will allow the columns
@@ -8534,7 +8534,7 @@ declare module "sap/f/GridContainerSettings" {
      *
      * **Note:** Will not work in combination with `columnSize`.
      */
-    minColumnSize?: CSSSize | PropertyBindingInfo;
+    minColumnSize?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Sets the maximum width of the columns. Setting this together with `minColumnSize` will allow the columns
@@ -8542,21 +8542,21 @@ declare module "sap/f/GridContainerSettings" {
      *
      * **Note:** Will not work in combination with `columnSize`.
      */
-    maxColumnSize?: CSSSize | PropertyBindingInfo;
+    maxColumnSize?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The height of the rows.
      *
      * **Note:** Use only 'px' or 'rem'. Some features may not work as expected otherwise.
      */
-    rowSize?: CSSSize | PropertyBindingInfo;
+    rowSize?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The size of the gap between columns and rows.
      *
      * **Note:** Use only 'px' or 'rem'. Some features may not work as expected otherwise.
      */
-    gap?: CSSSize | PropertyBindingInfo;
+    gap?: CSSSize | PropertyBindingInfo | undefined;
   }
 }
 
@@ -8751,19 +8751,19 @@ declare module "sap/f/GridList" {
         /**
          * Event that leads to the focus change.
          */
-        event?: jQuery.Event;
+        event?: jQuery.Event | undefined;
         /**
          * The navigation direction that is used to reach the border.
          */
-        direction?: NavigationDirection | keyof typeof NavigationDirection;
+        direction?: NavigationDirection | keyof typeof NavigationDirection | undefined;
         /**
          * The row index, from which the border is reached.
          */
-        row?: int;
+        row?: int | undefined;
         /**
          * The the column index, from which the border is reached.
          */
-        column?: int;
+        column?: int | undefined;
       }
     ): this;
     /**
@@ -8841,12 +8841,12 @@ declare module "sap/f/GridList" {
     /**
      * Defines a custom grid layout
      */
-    customLayout?: GridLayoutBase;
+    customLayout?: GridLayoutBase | undefined;
 
     /**
      * Fires if the border of the visualizations is reached so that an application can react on this.
      */
-    borderReached?: Function;
+    borderReached?: Function | undefined;
   }
 }
 
@@ -9008,7 +9008,7 @@ declare module "sap/f/GridListItem" {
     /**
      * The content of this list item
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -9355,7 +9355,7 @@ declare module "sap/f/IllustratedMessage" {
      * default description for the current illustration type is going to be displayed. The default description
      * is stored in the `sap.f` resource bundle.
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
@@ -9364,7 +9364,7 @@ declare module "sap/f/IllustratedMessage" {
      *
      * For details regarding supported HTML tags, see {@link sap.m.FormattedText}.
      */
-    enableFormattedText?: boolean | PropertyBindingInfo;
+    enableFormattedText?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
@@ -9376,7 +9376,7 @@ declare module "sap/f/IllustratedMessage" {
      */
     illustrationSize?:
       | (IllustratedMessageSize | keyof typeof IllustratedMessageSize)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
@@ -9391,7 +9391,7 @@ declare module "sap/f/IllustratedMessage" {
      * 	 - First is the the illustration set - sapIllus
      * 	 - Second is the illustration type - UnableToLoad
      */
-    illustrationType?: string | PropertyBindingInfo;
+    illustrationType?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
@@ -9401,7 +9401,7 @@ declare module "sap/f/IllustratedMessage" {
      * If there is no initial input from the app developer and the default illustration set is being used, a
      * default title is displayed corresponding to the current `illustrationType`.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
@@ -9410,7 +9410,7 @@ declare module "sap/f/IllustratedMessage" {
      *
      * **Note:** Not displayed when `illustrationSize` is set to `Base`.
      */
-    additionalContent?: Button[] | Button | AggregationBindingInfo;
+    additionalContent?: Button[] | Button | AggregationBindingInfo | undefined;
   }
 }
 
@@ -9564,21 +9564,21 @@ declare module "sap/f/Illustration" {
      *
      * Defines which illustration set should be used when building the Symbol ID.
      */
-    set?: string | PropertyBindingInfo;
+    set?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
      *
      * Defines which media/breakpoint should be used when building the Symbol ID.
      */
-    media?: string | PropertyBindingInfo;
+    media?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
      *
      * Defines which illustration type should be used when building the Symbol ID.
      */
-    type?: string | PropertyBindingInfo;
+    type?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -9784,7 +9784,7 @@ declare module "sap/f/ProductSwitch" {
         /**
          * Reference to the new item that has been selected.
          */
-        itemPressed?: ProductSwitchItem;
+        itemPressed?: ProductSwitchItem | undefined;
       }
     ): this;
     /**
@@ -9877,17 +9877,17 @@ declare module "sap/f/ProductSwitch" {
     /**
      * `ProductSwitch` content.
      */
-    items?: ProductSwitchItem[] | ProductSwitchItem | AggregationBindingInfo;
+    items?: ProductSwitchItem[] | ProductSwitchItem | AggregationBindingInfo | undefined;
 
     /**
      * Sets or retrieves the selected item from the `items` aggregation.
      */
-    selectedItem?: ProductSwitchItem | string;
+    selectedItem?: ProductSwitchItem | string | undefined;
 
     /**
      * Fires when an unselected item is pressed.
      */
-    change?: Function;
+    change?: Function | undefined;
   }
 }
 
@@ -10075,22 +10075,22 @@ declare module "sap/f/ProductSwitchItem" {
      * Defines the icon to be displayed as graphical element within the `ProductSwitchItem`. It can be an icon
      * from the SAP icon font.
      */
-    src?: URI | PropertyBindingInfo;
+    src?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Determines the title of the `ProductSwitchItem`.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the subtitle of the `ProductSwitchItem`.
      */
-    subTitle?: string | PropertyBindingInfo;
+    subTitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the `ProductSwitchItem` target URI. Supports standard hyperlink behavior.
      */
-    targetSrc?: URI | PropertyBindingInfo;
+    targetSrc?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Specifies a target where the `targetSrc` content must be open.
@@ -10098,7 +10098,7 @@ declare module "sap/f/ProductSwitchItem" {
      * Options are the standard values for window.open() supported by browsers: `_self`, `_top`, `_blank`, `_parent`,
      * `_search`. Alternatively, a frame name can be entered.
      */
-    target?: string | PropertyBindingInfo;
+    target?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -10337,14 +10337,14 @@ declare module "sap/f/routing/Targets" {
          * If you specify the "parent" property of a target, the control will not be searched in the root view but
          * in the view created by the parent (see parent documentation).
          */
-        rootView?: string;
+        rootView?: string | undefined;
         /**
          * Whether the views which are created through this `Targets` are loaded asynchronously. This option can
          * be set only when the `Targets` is used standalone without the involvement of a Router. Otherwise, the
          * async option is inherited from the Router.
          */
-        async?: boolean;
-      };
+        async?: boolean | undefined;
+      } | undefined;
       /**
        * One or multiple targets in a map.
        */
@@ -10443,19 +10443,19 @@ declare module "sap/f/routing/Targets" {
            * You always have to provide a viewType except if `oOptions.config.viewType` is set or when using {@link
            * sap.ui.core.routing.Views#setView}.
            */
-          viewType?: string;
+          viewType?: string | undefined;
           /**
            * A prefix that is prepended in front of the `viewName`.
            *
            * **Example:** `viewName` is set to "myView" and `viewPath` is set to "myApp" - the created viewName will
            * be "myApp.myView".
            */
-          viewPath?: string;
+          viewPath?: string | undefined;
           /**
            * The ID of the created view. This is is prefixed with the ID of the component set to the views instance
            * provided in `oOptions.views`. For details, see `{@link sap.ui.core.routing.Views#getView}`.
            */
-          viewId?: string;
+          viewId?: string | undefined;
           /**
            * The ID of the parent of the `controlId`.
            *
@@ -10466,26 +10466,26 @@ declare module "sap/f/routing/Targets" {
            * a `Targets` instance created by a component and you should give the ID of root view of your app to this
            * property.
            */
-          targetParent?: string;
+          targetParent?: string | undefined;
           /**
            * The ID of the control where you want to place the view created by this target. The view of the target
            * will be put into this container Control, using the controlAggregation property. You have to specify both
            * properties or the target will not be able to place itself. An example for containers are {@link sap.ui.ux3.Shell}
            * with the aggregation 'content' or a {@link sap.m.NavContainer} with the aggregation 'pages'.
            */
-          controlId?: string;
+          controlId?: string | undefined;
           /**
            * The name of an aggregation of the `controlId`, that contains views. For example, an `{@link sap.m.NavContainer}`
            * has a `pages` aggregation and an `{@link sap.ui.ux3.Shell}` it has a `content` aggregation.
            */
-          controlAggregation?: string;
+          controlAggregation?: string | undefined;
           /**
            * Defines a boolean that can be passed to specify if the aggregation should be cleared - all items will
            * be removed - before adding the View to it. When using a {@link sap.ui.ux3.Shell} this should be true.
            * For a {@link sap.m.NavContainer} it should be false. When you use the {@link sap.f.routing.Router} the
            * default will be false.
            */
-          clearControlAggregation?: boolean;
+          clearControlAggregation?: boolean | undefined;
           /**
            * A reference to another target, using the name of the target. If you display a target that has a parent,
            * the parent will also be displayed. Also the control you specify with the controlId parameter, will be
@@ -10571,7 +10571,7 @@ declare module "sap/f/routing/Targets" {
            * view will be put into the content Aggregation of the second IconTabFilter. So a parent will always be
            * created before the target referencing it.
            */
-          parent?: string;
+          parent?: string | undefined;
           /**
            * If you are having an application that has a logical order of views (eg: a create account process, first
            * provide user data, then review and confirm them). You always want to show a backwards transition if a
@@ -10618,16 +10618,16 @@ declare module "sap/f/routing/Targets" {
            * 	 -  If we navigate to 'settings' the navContainer will show a forwards navigation, since the viewLevel
            * 			is not defined and cannot be compared.
            */
-          viewLevel?: int;
+          viewLevel?: int | undefined;
           /**
            * Defines which transition of the {@link sap.m.NavContainer} is applied when navigating. If it is not defined,
            * the `NavContainer` take its default transition.
            */
-          transition?: string;
+          transition?: string | undefined;
           /**
            * Defines the `transitionParameters` of the `{@link sap.m.NavContainer}`
            */
-          transitionParameters?: string;
+          transitionParameters?: string | undefined;
         };
       };
     });
@@ -10888,7 +10888,7 @@ declare module "sap/f/SearchManager" {
         /**
          * Current search string.
          */
-        newValue?: string;
+        newValue?: string | undefined;
       }
     ): this;
     /**
@@ -10902,11 +10902,11 @@ declare module "sap/f/SearchManager" {
         /**
          * The search query string.
          */
-        query?: string;
+        query?: string | undefined;
         /**
          * Indicates if the user pressed the clear icon.
          */
-        clearButtonPressed?: boolean;
+        clearButtonPressed?: boolean | undefined;
       }
     ): this;
     /**
@@ -10920,7 +10920,7 @@ declare module "sap/f/SearchManager" {
         /**
          * Current search string of the search field.
          */
-        suggestValue?: string;
+        suggestValue?: string | undefined;
       }
     ): this;
     /**
@@ -11157,29 +11157,29 @@ declare module "sap/f/SearchManager" {
     /**
      * Defines the input value.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the text that is displayed when no value is available. The default placeholder text is the word
      * "Search" in the current local language (if supported) or in English.
      */
-    placeholder?: string | PropertyBindingInfo;
+    placeholder?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the maximum number of characters. Value '0' means the feature is switched off.
      */
-    maxLength?: int | PropertyBindingInfo;
+    maxLength?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the control is enabled.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If true, a `suggest` event is fired when user types in the input and when the input is focused. On a
      * phone device, a full screen dialog with suggestions is always shown even if the suggestions list is empty.
      */
-    enableSuggestions?: boolean | PropertyBindingInfo;
+    enableSuggestions?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * `SuggestionItems` are the items which are displayed in the suggestions list. The following properties
@@ -11192,26 +11192,26 @@ declare module "sap/f/SearchManager" {
     suggestionItems?:
       | SuggestionItem[]
       | SuggestionItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Fired when the user triggers a search.
      */
-    search?: Function;
+    search?: Function | undefined;
 
     /**
      * Fired when the value of the search field is changed by the user, for example at each key press.
      *
      * **Note:** Do not invalidate or re-render a focused search field, especially during the `liveChange` event.
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
 
     /**
      * Fired when the search field is initially focused or its value is changed by the user. This event means
      * that suggestion data should be updated, in case if suggestions are used. Use the value parameter to create
      * new suggestions for it.
      */
-    suggest?: Function;
+    suggest?: Function | undefined;
   }
 }
 
@@ -12242,7 +12242,7 @@ declare module "sap/f/semantic/MainAction" {
     /**
      * Defines `MainAction` text
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -12430,7 +12430,7 @@ declare module "sap/f/semantic/NegativeAction" {
     /**
      * Defines `NegativeAction` text. **Note:** the default text is "Reject"
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -12534,7 +12534,7 @@ declare module "sap/f/semantic/PositiveAction" {
     /**
      * Defines `PositiveAction` text. **Note:** the default text is "Accept"
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -12802,7 +12802,7 @@ declare module "sap/f/semantic/SemanticControl" {
     /**
      * Determines whether the `SemanticControl` is visible.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -14519,12 +14519,12 @@ declare module "sap/f/semantic/SemanticPage" {
      * **Note:** Please be aware, that initially collapsed header state is not supported, so `headerExpanded`
      * should not be set to `false` when initializing the control.
      */
-    headerExpanded?: boolean | PropertyBindingInfo;
+    headerExpanded?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the header is pinnable.
      */
-    headerPinnable?: boolean | PropertyBindingInfo;
+    headerPinnable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Preserves the current header state when scrolling.
@@ -14536,7 +14536,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * when the control is rendered on tablet or mobile and the title and the header are with height larger
      * than a given threshold.
      */
-    preserveHeaderStateOnScroll?: boolean | PropertyBindingInfo;
+    preserveHeaderStateOnScroll?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the user can switch between the expanded/collapsed states of the header by clicking
@@ -14545,12 +14545,12 @@ declare module "sap/f/semantic/SemanticPage" {
      * If set to `false`, the title is not clickable and the application must provide other means for expanding/collapsing
      * the header, if necessary.
      */
-    toggleHeaderOnTitleClick?: boolean | PropertyBindingInfo;
+    toggleHeaderOnTitleClick?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the footer is visible.
      */
-    showFooter?: boolean | PropertyBindingInfo;
+    showFooter?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -14571,7 +14571,7 @@ declare module "sap/f/semantic/SemanticPage" {
      */
     titlePrimaryArea?:
       | (DynamicPageTitleArea | keyof typeof DynamicPageTitleArea)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.58
@@ -14591,7 +14591,7 @@ declare module "sap/f/semantic/SemanticPage" {
      *
      *  When this property is set the `titlePrimaryArea` property has no effect.
      */
-    titleAreaShrinkRatio?: DynamicPageTitleShrinkRatio | PropertyBindingInfo;
+    titleAreaShrinkRatio?: DynamicPageTitleShrinkRatio | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.73
@@ -14602,7 +14602,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * to fill the available space. Such controls may be {@link sap.ui.table.Table} and {@link sap.ui.table.AnalyticalTable}
      * depending on their settings.
      */
-    fitContent?: boolean | PropertyBindingInfo;
+    fitContent?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The `SemanticPage` heading.
@@ -14619,7 +14619,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * 			control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * 			state.
      */
-    titleHeading?: Control;
+    titleHeading?: Control | undefined;
 
     /**
      * @SINCE 1.58
@@ -14632,7 +14632,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * Combine `titleExpandedHeading` with `titleSnappedHeading` to switch content when the header switches
      * state.
      */
-    titleExpandedHeading?: Control;
+    titleExpandedHeading?: Control | undefined;
 
     /**
      * @SINCE 1.58
@@ -14648,7 +14648,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * 			control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * 			state.
      */
-    titleSnappedHeading?: Control;
+    titleSnappedHeading?: Control | undefined;
 
     /**
      * @SINCE 1.52
@@ -14664,7 +14664,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * 			control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * 			state.
      */
-    titleBreadcrumbs?: IBreadcrumbs;
+    titleBreadcrumbs?: IBreadcrumbs | undefined;
 
     /**
      * @SINCE 1.63
@@ -14679,7 +14679,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * in the title and is only visible on phone mobile devices in collapsed (snapped) state of the `SemanticPage`
      * header.
      */
-    titleSnappedOnMobile?: Title;
+    titleSnappedOnMobile?: Title | undefined;
 
     /**
      * The content, displayed in the title, when the header is in collapsed state.
@@ -14690,14 +14690,14 @@ declare module "sap/f/semantic/SemanticPage" {
      * 			control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * 			state.
      */
-    titleSnappedContent?: Control[] | Control | AggregationBindingInfo;
+    titleSnappedContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The content,displayed in the title, when the header is in expanded state.
      *
      * **Note:** The controls will be placed in the title`s left area, under the `titleHeading` aggregation.
      */
-    titleExpandedContent?: Control[] | Control | AggregationBindingInfo;
+    titleExpandedContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -14710,7 +14710,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * 			control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * 			state.
      */
-    titleContent?: Control[] | Control | AggregationBindingInfo;
+    titleContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * A semantic-specific button which is placed in the `SemanticPage` title as first action.
@@ -14719,7 +14719,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    titleMainAction?: TitleMainAction;
+    titleMainAction?: TitleMainAction | undefined;
 
     /**
      * @SINCE 1.50
@@ -14730,7 +14730,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    editAction?: EditAction;
+    editAction?: EditAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `TextActions` area of the `SemanticPage` title.
@@ -14739,7 +14739,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    deleteAction?: DeleteAction;
+    deleteAction?: DeleteAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `TextActions` area of the `SemanticPage` title.
@@ -14748,7 +14748,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    copyAction?: CopyAction;
+    copyAction?: CopyAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `TextActions` area of the `SemanticPage` title.
@@ -14757,7 +14757,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    addAction?: AddAction;
+    addAction?: AddAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `IconActions` area of the `SemanticPage` title.
@@ -14766,7 +14766,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    flagAction?: FlagAction;
+    flagAction?: FlagAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `IconActions` area of the `SemanticPage` title.
@@ -14775,7 +14775,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    favoriteAction?: FavoriteAction;
+    favoriteAction?: FavoriteAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `IconActions` area of the `SemanticPage` title.
@@ -14784,7 +14784,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    fullScreenAction?: FullScreenAction;
+    fullScreenAction?: FullScreenAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `IconActions` area of the `SemanticPage` title.
@@ -14793,7 +14793,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    exitFullScreenAction?: ExitFullScreenAction;
+    exitFullScreenAction?: ExitFullScreenAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `IconActions` area of the `SemanticPage` title.
@@ -14802,7 +14802,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    closeAction?: CloseAction;
+    closeAction?: CloseAction | undefined;
 
     /**
      * The `titleCustomTextActions` are placed in the `TextActions` area of the `SemanticPage` title, right
@@ -14815,7 +14815,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * 	 - Buttons that are part of this aggregation will always have their `type` property set to `Transparent`
      * 			by design.
      */
-    titleCustomTextActions?: Button[] | Button | AggregationBindingInfo;
+    titleCustomTextActions?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * The `titleCustomIconActions` are placed in the `IconActions` area of the `SemanticPage` title, right
@@ -14828,12 +14828,12 @@ declare module "sap/f/semantic/SemanticPage" {
     titleCustomIconActions?:
       | OverflowToolbarButton[]
       | OverflowToolbarButton
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * The header content.
      */
-    headerContent?: Control[] | Control | AggregationBindingInfo;
+    headerContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The `SemanticPage` content.
@@ -14857,37 +14857,37 @@ declare module "sap/f/semantic/SemanticPage" {
      * Please keep in mind that the alignment is not possible when the controls are placed in a {@link sap.ui.layout.Grid}
      * or in other layout controls that use `overflow:hidden` CSS property.
      */
-    content?: Control;
+    content?: Control | undefined;
 
     /**
      * A semantic-specific button which is placed in the `FooterRight` area of the `SemanticPage` footer with
      * default text value set to `Save`.
      */
-    footerMainAction?: FooterMainAction;
+    footerMainAction?: FooterMainAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `FooterLeft` area of the `SemanticPage` footer as a
      * first action.
      */
-    messagesIndicator?: MessagesIndicator;
+    messagesIndicator?: MessagesIndicator | undefined;
 
     /**
      * A semantic-specific button which is placed in the `FooterLeft` area of the `SemanticPage` footer as a
      * second action.
      */
-    draftIndicator?: DraftIndicator;
+    draftIndicator?: DraftIndicator | undefined;
 
     /**
      * A semantic-specific button which is placed in the `FooterRight` area of the `SemanticPage` footer with
      * default text value set to `Accept`.
      */
-    positiveAction?: PositiveAction;
+    positiveAction?: PositiveAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `FooterRight` area of the `SemanticPage` footer with
      * default text value set to `Reject`.
      */
-    negativeAction?: NegativeAction;
+    negativeAction?: NegativeAction | undefined;
 
     /**
      * The `footerCustomActions` are placed in the `FooterRight` area of the `SemanticPage` footer, right after
@@ -14896,7 +14896,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * **Note:** Buttons that are part of this aggregation will always have their `type` property set to `Transparent`
      * by design.
      */
-    footerCustomActions?: Button[] | Button | AggregationBindingInfo;
+    footerCustomActions?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * A semantic-specific button which is placed in the `ShareMenu` area of the `SemanticPage` title.
@@ -14905,7 +14905,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    discussInJamAction?: DiscussInJamAction;
+    discussInJamAction?: DiscussInJamAction | undefined;
 
     /**
      * A button which is placed in the `ShareMenu` area of the `SemanticPage` title.
@@ -14914,7 +14914,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    saveAsTileAction?: Button;
+    saveAsTileAction?: Button | undefined;
 
     /**
      * A semantic-specific button which is placed in the `ShareMenu` area of the `SemanticPage` title.
@@ -14923,7 +14923,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    shareInJamAction?: ShareInJamAction;
+    shareInJamAction?: ShareInJamAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `ShareMenu` area of the `SemanticPage` title.
@@ -14932,7 +14932,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    sendMessageAction?: SendMessageAction;
+    sendMessageAction?: SendMessageAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `ShareMenu` area of the `SemanticPage` title.
@@ -14941,7 +14941,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    sendEmailAction?: SendEmailAction;
+    sendEmailAction?: SendEmailAction | undefined;
 
     /**
      * A semantic-specific button which is placed in the `ShareMenu` area of the `SemanticPage` title.
@@ -14950,7 +14950,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    printAction?: PrintAction;
+    printAction?: PrintAction | undefined;
 
     /**
      * The `customShareActions` are placed in the `ShareMenu` area of the `SemanticPage` title, right after
@@ -14960,7 +14960,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    customShareActions?: Button[] | Button | AggregationBindingInfo;
+    customShareActions?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.61
@@ -14969,7 +14969,7 @@ declare module "sap/f/semantic/SemanticPage" {
      *
      * If not set, no landmarks will be written.
      */
-    landmarkInfo?: DynamicPageAccessibleLandmarkInfo;
+    landmarkInfo?: DynamicPageAccessibleLandmarkInfo | undefined;
   }
 }
 
@@ -15874,7 +15874,7 @@ declare module "sap/f/ShellBar" {
         /**
          * Reference to the button that has been pressed
          */
-        avatar?: Avatar;
+        avatar?: Avatar | undefined;
       }
     ): this;
     /**
@@ -15888,7 +15888,7 @@ declare module "sap/f/ShellBar" {
         /**
          * Reference to the button that has been pressed
          */
-        image?: Image;
+        image?: Image | undefined;
       }
     ): this;
     /**
@@ -15902,7 +15902,7 @@ declare module "sap/f/ShellBar" {
         /**
          * Reference to the image that has been pressed
          */
-        icon?: Image;
+        icon?: Image | undefined;
       }
     ): this;
     /**
@@ -15916,7 +15916,7 @@ declare module "sap/f/ShellBar" {
         /**
          * Reference to the button that has been pressed
          */
-        button?: Button;
+        button?: Button | undefined;
       }
     ): this;
     /**
@@ -15930,7 +15930,7 @@ declare module "sap/f/ShellBar" {
         /**
          * Reference to the button that has been pressed
          */
-        button?: Button;
+        button?: Button | undefined;
       }
     ): this;
     /**
@@ -15944,7 +15944,7 @@ declare module "sap/f/ShellBar" {
         /**
          * Reference to the button that has been pressed
          */
-        button?: Button;
+        button?: Button | undefined;
       }
     ): this;
     /**
@@ -15958,7 +15958,7 @@ declare module "sap/f/ShellBar" {
         /**
          * Reference to the button that has been pressed
          */
-        button?: Button;
+        button?: Button | undefined;
       }
     ): this;
     /**
@@ -15972,7 +15972,7 @@ declare module "sap/f/ShellBar" {
         /**
          * Reference to the button that has been pressed
          */
-        button?: Button;
+        button?: Button | undefined;
       }
     ): this;
     /**
@@ -16499,67 +16499,67 @@ declare module "sap/f/ShellBar" {
     /**
      * Defines the main title of the control.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the secondary title of the control.
      */
-    secondTitle?: string | PropertyBindingInfo;
+    secondTitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the URI to the home icon, such as company or product logo.
      */
-    homeIcon?: URI | PropertyBindingInfo;
+    homeIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.67
      *
      * Defines a custom tooltip for the home icon. If not set, a default tooltip is used.
      */
-    homeIconTooltip?: string | PropertyBindingInfo;
+    homeIconTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether a hamburger menu button is displayed (as an alternative if the `menu` aggregation
      * is not used).
      */
-    showMenuButton?: boolean | PropertyBindingInfo;
+    showMenuButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether a back navigation button is displayed.
      */
-    showNavButton?: boolean | PropertyBindingInfo;
+    showNavButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the SAP CoPilot icon is displayed.
      */
-    showCopilot?: boolean | PropertyBindingInfo;
+    showCopilot?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the search button is displayed.
      */
-    showSearch?: boolean | PropertyBindingInfo;
+    showSearch?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the notifications button is displayed.
      */
-    showNotifications?: boolean | PropertyBindingInfo;
+    showNotifications?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the product switcher button is displayed.
      */
-    showProductSwitcher?: boolean | PropertyBindingInfo;
+    showProductSwitcher?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.64
      *
      * Defines the displayed number of upcoming notifications.
      */
-    notificationsNumber?: string | PropertyBindingInfo;
+    notificationsNumber?: string | PropertyBindingInfo | undefined;
 
     /**
      * The menu attached to the main title.
      */
-    menu?: Menu;
+    menu?: Menu | undefined;
 
     /**
      * @SINCE 1.67
@@ -16568,59 +16568,59 @@ declare module "sap/f/ShellBar" {
      *
      * **Note:** If `showSearch` is set to `true`, two search buttons appear.
      */
-    searchManager?: SearchManager;
+    searchManager?: SearchManager | undefined;
 
     /**
      * The profile avatar.
      */
-    profile?: Avatar;
+    profile?: Avatar | undefined;
 
     /**
      * Additional content to be displayed in the control.
      *
      * **Note:** Only controls implementing the `{@link sap.f.IShellBar}` interface are allowed.
      */
-    additionalContent?: IShellBar[] | IShellBar | AggregationBindingInfo;
+    additionalContent?: IShellBar[] | IShellBar | AggregationBindingInfo | undefined;
 
     /**
      * Fired when the `homeIcon` is pressed.
      */
-    homeIconPressed?: Function;
+    homeIconPressed?: Function | undefined;
 
     /**
      * Fired when the alternative menu button is pressed.
      */
-    menuButtonPressed?: Function;
+    menuButtonPressed?: Function | undefined;
 
     /**
      * Fired when the navigation/back button is pressed.
      */
-    navButtonPressed?: Function;
+    navButtonPressed?: Function | undefined;
 
     /**
      * Fired when the SAP CoPilot icon is pressed.
      */
-    copilotPressed?: Function;
+    copilotPressed?: Function | undefined;
 
     /**
      * Fired when the search button is pressed.
      */
-    searchButtonPressed?: Function;
+    searchButtonPressed?: Function | undefined;
 
     /**
      * Fired when the notifications button is pressed.
      */
-    notificationsPressed?: Function;
+    notificationsPressed?: Function | undefined;
 
     /**
      * Fired when the product switcher button is pressed.
      */
-    productSwitcherPressed?: Function;
+    productSwitcherPressed?: Function | undefined;
 
     /**
      * Fired when the profile avatar is pressed.
      */
-    avatarPressed?: Function;
+    avatarPressed?: Function | undefined;
   }
 }
 
