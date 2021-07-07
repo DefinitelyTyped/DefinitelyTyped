@@ -64,7 +64,7 @@ import { Popover, PopoverContent } from 'carbon-components-react/lib/components/
 
 // test components for "as" props
 interface TestCompProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
     someProp: number;
 }
 
@@ -98,7 +98,7 @@ const accordionItemTwo = (
 // AspectRatio
 //
 
-const AspectRatioCustomComp1: React.FC<{ someRandomProp: number, optionalProp?: string }> = () => <div/>;
+const AspectRatioCustomComp1: React.FC<{ someRandomProp: number, optionalProp?: string | undefined }> = () => <div/>;
 
 const aspectRatioT1 = (
     <AspectRatio>Default</AspectRatio>
@@ -134,7 +134,7 @@ const buttonDefaultT2 = (
 
 const buttonIconT1 = <Button renderIcon={SimpleButtonIcon}>With Render Icon</Button>;
 // TODO: find a way to make this fail because someProp is required by the component but it will never be provided.
-const IconWithProps: React.FC<{ someProp: number; anotherProp?: string }> = () => <div />;
+const IconWithProps: React.FC<{ someProp: number; anotherProp?: string | undefined }> = () => <div />;
 const buttonIconT2 = <Button renderIcon={IconWithProps}>With Render Icon</Button>;
 
 const buttonIconT3 = (
@@ -164,7 +164,7 @@ const buttonIntrinsicT1 = (
     </Button>
 );
 
-const ButtonCustomRenderComp1: React.FC<{ someProp: number; anotherProp?: string }> = () => <div />;
+const ButtonCustomRenderComp1: React.FC<{ someProp: number; anotherProp?: string | undefined }> = () => <div />;
 
 const buttonCustomRenderT1 = (
     <Button as={ButtonCustomRenderComp1} kind="danger" someProp={5} anotherProp="test">
@@ -217,7 +217,7 @@ interface Header1 extends DataTableHeader<Header1Key> {
 
 interface ExtraStuff {
     extra1: string;
-    extra2?: number;
+    extra2?: number | undefined;
 }
 
 const t1 = (
@@ -523,7 +523,7 @@ const t5 = (
     );
 
     interface TestCompPropsOverwrite {
-        element?: 'overwriteTest'; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
+        element?: 'overwriteTest' | undefined; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
         someProp: string;
     }
 
@@ -548,7 +548,7 @@ const uisHeaderContainerAnonRender = (
 );
 
 const HeaderCompRender1: React.FC<{ someProp: number }> = () => <div />;
-const HeaderCompRender2: React.FC<{ someProp?: number }> = () => <div />;
+const HeaderCompRender2: React.FC<{ someProp?: number | undefined }> = () => <div />;
 
 /*
  * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
@@ -618,7 +618,7 @@ const dropdownItemCanBeElement = (
 //
 {
     const LinkIcon1: React.FC = (props) => <div/>;
-    const LinkIcon2: React.FC<{ someProp?: number }> = (props) => <div/>;
+    const LinkIcon2: React.FC<{ someProp?: number | undefined }> = (props) => <div/>;
 
     const linkT1 = (
         <Link href="href" inline renderIcon={LinkIcon1}>Text</Link>
@@ -743,7 +743,7 @@ const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue 
     const TagCustomComp1: React.FC = () => <div />;
     const ChipTagIcon1 = <Tag renderIcon={TagCustomComp1} size="sm" />;
 
-    const TagCustomComp2: React.FC<{ optionalProp?: string }> = () => <div />;
+    const TagCustomComp2: React.FC<{ optionalProp?: string | undefined }> = () => <div />;
     const ChipTagIcon2 = <Tag renderIcon={TagCustomComp2} />;
 
     class TagCustomComp3 extends React.Component {}
@@ -872,7 +872,7 @@ const multiSelect = (
 interface MultiSelectObjType1 {
     id: number,
     name: string,
-    someBoolProp?: boolean
+    someBoolProp?: boolean | undefined
 }
 
 const multiSelectObjs = (

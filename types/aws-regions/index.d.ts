@@ -13,7 +13,7 @@ interface AwsRegionInfo {
 }
 
 interface ListOptions {
-    public?: boolean;
+    public?: boolean | undefined;
 }
 
 interface LookupOptionsCode {

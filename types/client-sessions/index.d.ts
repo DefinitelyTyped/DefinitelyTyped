@@ -14,7 +14,7 @@ interface CookieOptions extends cookies.IOptions {
  * a boolean indicating whether the cookie will expire when browser closes or not
  * (false by default).
  */
-  ephemeral?: boolean;
+  ephemeral?: boolean | undefined;
 }
 
 declare namespace client_sessions {
@@ -32,27 +32,27 @@ declare namespace client_sessions {
      * session cookie name.
      * Default: 'session_state'
      */
-    cookieName?: string;
+    cookieName?: string | undefined;
 
     /**
      * how long the session will stay valid in ms.
      * Default: 24 hours
      */
-    duration?: number;
+    duration?: number | undefined;
 
     /**
      * if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds.
      * Default: 5 minutes
      */
-    activeDuration?: number;
+    activeDuration?: number | undefined;
 
     /**
      * session accessor on the request object.
      * Default: 'session'
      */
-    requestKey?: string;
+    requestKey?: string | undefined;
 
-    cookie?: CookieOptions;
+    cookie?: CookieOptions | undefined;
   }
 
   interface DecodeResult {

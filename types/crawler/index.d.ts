@@ -52,17 +52,17 @@ declare namespace Crawler {
     }
 
     interface CrawlerRequestOptions {
-        uri?: string;
-        html?: string;
+        uri?: string | undefined;
+        html?: string | undefined;
         proxy?: any;
-        proxies?: any[];
-        limiter?: string;
-        encoding?: string;
-        priority?: number;
+        proxies?: any[] | undefined;
+        limiter?: string | undefined;
+        encoding?: string | undefined;
+        priority?: number | undefined;
         jquery?: any;
         jQuery?: any;
-        preRequest?: (options: CrawlerRequestOptions, doRequest: (err?: Error) => void) => void;
-        callback?: (err: Error, res: CrawlerRequestResponse, done: () => void) => void;
+        preRequest?: ((options: CrawlerRequestOptions, doRequest: (err?: Error) => void) => void) | undefined;
+        callback?: ((err: Error, res: CrawlerRequestResponse, done: () => void) => void) | undefined;
         [x: string]: any;
     }
 
@@ -75,34 +75,34 @@ declare namespace Crawler {
     }
 
     interface CreateCrawlerOptions {
-        autoWindowClose?: boolean;
-        forceUTF8?: boolean;
-        gzip?: boolean;
-        incomingEncoding?: string;
+        autoWindowClose?: boolean | undefined;
+        forceUTF8?: boolean | undefined;
+        gzip?: boolean | undefined;
+        incomingEncoding?: string | undefined;
         jquery?: any;
         jQuery?: any;
-        maxConnections?: number;
-        method?: string;
-        priority?: number;
-        priorityRange?: number;
-        rateLimit?: number;
-        referer?: false | string;
-        retries?: number;
-        retryTimeout?: number;
-        timeout?: number;
-        skipDuplicates?: boolean;
-        rotateUA?: boolean;
-        userAgent?: string | string[];
-        homogeneous?: boolean;
-        http2?: boolean;
-        debug?: boolean;
+        maxConnections?: number | undefined;
+        method?: string | undefined;
+        priority?: number | undefined;
+        priorityRange?: number | undefined;
+        rateLimit?: number | undefined;
+        referer?: false | string | undefined;
+        retries?: number | undefined;
+        retryTimeout?: number | undefined;
+        timeout?: number | undefined;
+        skipDuplicates?: boolean | undefined;
+        rotateUA?: boolean | undefined;
+        userAgent?: string | string[] | undefined;
+        homogeneous?: boolean | undefined;
+        http2?: boolean | undefined;
+        debug?: boolean | undefined;
         logger?: {
             log: (level: string, ...args: ReadonlyArray<any>) => void;
-        };
+        } | undefined;
         seenreq?: any;
-        headers?: Headers;
-        preRequest?: (options: CrawlerRequestOptions, doRequest: (err?: Error) => void) => void;
-        callback?: (err: Error, res: CrawlerRequestResponse, done: () => void) => void;
+        headers?: Headers | undefined;
+        preRequest?: ((options: CrawlerRequestOptions, doRequest: (err?: Error) => void) => void) | undefined;
+        callback?: ((err: Error, res: CrawlerRequestResponse, done: () => void) => void) | undefined;
         [x: string]: any;
     }
 }
