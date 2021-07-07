@@ -97,7 +97,7 @@ export type ColumnWithLooseAccessor<D extends object = {}> =
         | { id: IdType<D> }
         | { accessor: keyof D extends never ? IdType<D> : never }
     )
-    & { accessor?: keyof D extends never ? IdType<D> | Accessor<D> : Accessor<D> | undefined; };
+    & { accessor?: (keyof D extends never ? IdType<D> | Accessor<D> : Accessor<D>) | undefined; };
 
 export type Column<D extends object = {}> =
     | ColumnGroup<D>
