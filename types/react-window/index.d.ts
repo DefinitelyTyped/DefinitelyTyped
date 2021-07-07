@@ -428,7 +428,7 @@ export class FixedSizeGrid<T = any> extends Component<FixedSizeGridProps<T>> {
     /**
      * Scroll to the specified offsets.
      */
-    scrollTo(params: { scrollLeft: number; scrollTop: number }): void;
+    scrollTo(params: { scrollLeft?: number; scrollTop?: number }): void;
     /**
      * Scroll to the specified item.
      *
@@ -457,7 +457,7 @@ export class VariableSizeGrid<T = any> extends Component<VariableSizeGridProps<T
     /**
      * Scroll to the specified offsets.
      */
-    scrollTo(params: { scrollLeft: number; scrollTop: number }): void;
+    scrollTo(params: { scrollLeft?: number; scrollTop?: number }): void;
     /**
      * Scroll to the specified item.
      *
@@ -489,7 +489,7 @@ export class VariableSizeGrid<T = any> extends Component<VariableSizeGridProps<T
      * If you would like to delay this re-render until e.g. a state update has completed in the parent component,
      * specify a value of false for the second, optional parameter.
      */
-    resetAfterColumnIndex(index: number, shouldForceUpdate?: boolean): void;
+    resetAfterColumnIndex(index?: number, shouldForceUpdate?: boolean): void;
     /**
      * VariableSizeGrid caches offsets and measurements for each item for performance purposes.
      * This method clears that cached data for all items after (and including) the specified indices.
@@ -500,8 +500,8 @@ export class VariableSizeGrid<T = any> extends Component<VariableSizeGridProps<T
      * specify a value of false for the optional shouldForceUpdate parameter.
      */
     resetAfterIndices(params: {
-        columnIndex: number;
-        rowIndex: number;
+        columnIndex?: number;
+        rowIndex?: number;
         shouldForceUpdate?: boolean;
     }): void;
     /**
@@ -513,7 +513,7 @@ export class VariableSizeGrid<T = any> extends Component<VariableSizeGridProps<T
      * If you would like to delay this re-render until e.g. a state update has completed in the parent component,
      * specify a value of false for the second, optional parameter.
      */
-    resetAfterRowIndex(index: number, shouldForceUpdate?: boolean): void;
+    resetAfterRowIndex(index?: number, shouldForceUpdate?: boolean): void;
 }
 
 /**
