@@ -1291,7 +1291,11 @@ export class Provider extends events.EventEmitter {
     listen: Koa['listen'];
     callback: Koa['callback'];
 
-    backchannelResult(request: BackchannelAuthenticationRequest | string, result: Grant | errors.OIDCProviderError | string, opts?: { acr?: string | undefined, amr?: string[] | undefined, authTime?: number | undefined }): Promise<void>;
+    backchannelResult(
+        request: BackchannelAuthenticationRequest | string,
+        result: Grant | errors.OIDCProviderError | string,
+        opts?: { acr?: string | undefined, amr?: string[] | undefined, authTime?: number | undefined }
+    ): Promise<void>;
 
     interactionResult(
         req: http.IncomingMessage | http2.Http2ServerRequest,
