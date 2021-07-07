@@ -51,20 +51,20 @@ export class Master extends EventEmitter {
         mainFile: string,
         options: {
             clientOptions: Eris.ClientOptions;
-            shards?: number;
-            firstShardID?: number;
-            lastShardID?: number;
-            clusters?: number;
-            clusterTimeout?: number;
-            stats?: boolean;
-            statsInterval?: number;
-            name?: string;
-            guildsPerShard?: number;
+            shards?: number | undefined;
+            firstShardID?: number | undefined;
+            lastShardID?: number | undefined;
+            clusters?: number | undefined;
+            clusterTimeout?: number | undefined;
+            stats?: boolean | undefined;
+            statsInterval?: number | undefined;
+            name?: string | undefined;
+            guildsPerShard?: number | undefined;
             webhooks?: {
                 cluster?: any;
                 shard?: any;
-            };
-            debug?: boolean;
+            } | undefined;
+            debug?: boolean | undefined;
         },
     );
 

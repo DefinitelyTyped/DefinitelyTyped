@@ -17,11 +17,11 @@ export interface Header {
 }
 
 export interface Options extends RequestInit {
-  prefix?: string;
+  prefix?: string | undefined;
 
-  query?: Query;
+  query?: Query | undefined;
 
-  header?: Header;
+  header?: Header | undefined;
 
   beforeRequest?(url: TUrl, body: BodyInit): boolean | void;
 
