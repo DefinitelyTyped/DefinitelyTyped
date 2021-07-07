@@ -902,6 +902,11 @@ export interface ChannelConnectedLine extends Event {
 }
 export interface Resource {
     /**
+     * The ARI client instance.
+     */
+     _client: Client;
+
+    /**
      * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
      */
     on(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
