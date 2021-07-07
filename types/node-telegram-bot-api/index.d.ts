@@ -300,10 +300,10 @@ declare namespace TelegramBot {
     }
 
     interface EditMessageMediaOptions {
-        chat_id?: number | string;
-        message_id?: number;
-        inline_message_id?: string;
-        reply_markup?: InlineKeyboardMarkup;
+        chat_id?: number | string | undefined;
+        message_id?: number | undefined;
+        inline_message_id?: string | undefined;
+        reply_markup?: InlineKeyboardMarkup | undefined;
     }
 
     interface GetUserProfilePhotosOptions {

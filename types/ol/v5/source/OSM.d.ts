@@ -7,15 +7,15 @@ import { TileSourceEvent } from './Tile';
 import XYZ from './XYZ';
 
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: string;
-    maxZoom?: number;
-    opaque?: boolean;
-    reprojectionErrorThreshold?: number;
-    tileLoadFunction?: LoadFunction;
-    url?: string;
-    wrapX?: boolean;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: string | undefined;
+    maxZoom?: number | undefined;
+    opaque?: boolean | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    url?: string | undefined;
+    wrapX?: boolean | undefined;
 }
 export const ATTRIBUTION: string;
 export default class OSM extends XYZ {

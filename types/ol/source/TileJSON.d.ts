@@ -8,33 +8,33 @@ import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
 export interface Config {
-    name?: string;
-    description?: string;
-    version?: string;
-    attribution?: string;
-    template?: string;
-    legend?: string;
-    scheme?: string;
+    name?: string | undefined;
+    description?: string | undefined;
+    version?: string | undefined;
+    attribution?: string | undefined;
+    template?: string | undefined;
+    legend?: string | undefined;
+    scheme?: string | undefined;
     tiles: string[];
-    grids?: string[];
-    minzoom?: number;
-    maxzoom?: number;
-    bounds?: number[];
-    center?: number[];
+    grids?: string[] | undefined;
+    minzoom?: number | undefined;
+    maxzoom?: number | undefined;
+    bounds?: number[] | undefined;
+    center?: number[] | undefined;
 }
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: null | string;
-    imageSmoothing?: boolean;
-    jsonp?: boolean;
-    reprojectionErrorThreshold?: number;
-    tileJSON?: Config;
-    tileLoadFunction?: LoadFunction;
-    tileSize?: number | Size;
-    url?: string;
-    wrapX?: boolean;
-    transition?: number;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    imageSmoothing?: boolean | undefined;
+    jsonp?: boolean | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    tileJSON?: Config | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    tileSize?: number | Size | undefined;
+    url?: string | undefined;
+    wrapX?: boolean | undefined;
+    transition?: number | undefined;
 }
 export default class TileJSON extends TileImage {
     constructor(options: Options);

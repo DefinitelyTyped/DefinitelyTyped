@@ -14,22 +14,22 @@ import { StyleFunction, StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    condition?: Condition;
-    deleteCondition?: Condition;
-    insertVertexCondition?: Condition;
-    pixelTolerance?: number;
-    style?: StyleLike;
-    source?: VectorSource;
-    features?: Collection<Feature>;
-    wrapX?: boolean;
+    condition?: Condition | undefined;
+    deleteCondition?: Condition | undefined;
+    insertVertexCondition?: Condition | undefined;
+    pixelTolerance?: number | undefined;
+    style?: StyleLike | undefined;
+    source?: VectorSource | undefined;
+    features?: Collection<Feature> | undefined;
+    wrapX?: boolean | undefined;
 }
 export interface SegmentData {
-    depth?: number[];
+    depth?: number[] | undefined;
     feature: Feature;
     geometry: SimpleGeometry;
-    index?: number;
+    index?: number | undefined;
     segment: Extent[];
-    featureSegments?: SegmentData[];
+    featureSegments?: SegmentData[] | undefined;
 }
 export default class Modify extends PointerInteraction {
     constructor(options: Options);
