@@ -1,6 +1,45 @@
 import { IotData, PublishParams } from 'aws-greengrass-core-sdk';
-import { ClientException, ConnectFailedException, EventType, ExportDefinition, ExportFormat, HTTPConfig, InvalidRequestException, IoTAnalyticsConfig, IoTSiteWiseConfig, KinesisConfig, Message, MessageStoreReadErrorException, MessageStreamDefinition, MessageStreamInfo, NotEnoughMessagesException, Persistence, ReadMessagesOptions, RequestPayloadTooLargeException, ResourceNotFoundException, ResponsePayloadTooLargeException, S3ExportTaskDefinition, S3ExportTaskExecutorConfig, ServerOutOfMemoryException, ServerTimeoutException, Status, StatusConfig, StatusContext, StatusLevel, StatusMessage, StrategyOnFull, StreamManagerClient, StreamManagerException, UnauthorizedException, UnknownFailureException, UnknownOperationException, UpdateFailedException, UpdateNotAllowedException, ValidationException } from './stream-manager';
-import { deserializeJsonBytesToObj, validateAndSerializeToJsonBytes } from './stream-manager/util';
+import {
+    ClientException,
+    ConnectFailedException,
+    EventType,
+    ExportDefinition,
+    ExportFormat,
+    HTTPConfig,
+    InvalidRequestException,
+    IoTAnalyticsConfig,
+    IoTSiteWiseConfig,
+    KinesisConfig,
+    Message,
+    MessageStoreReadErrorException,
+    MessageStreamDefinition,
+    MessageStreamInfo,
+    NotEnoughMessagesException,
+    Persistence,
+    ReadMessagesOptions,
+    RequestPayloadTooLargeException,
+    ResourceNotFoundException,
+    ResponsePayloadTooLargeException,
+    S3ExportTaskDefinition,
+    S3ExportTaskExecutorConfig,
+    ServerOutOfMemoryException,
+    ServerTimeoutException,
+    Status,
+    StatusConfig,
+    StatusContext,
+    StatusLevel,
+    StatusMessage,
+    StrategyOnFull,
+    StreamManagerClient,
+    StreamManagerException,
+    UnauthorizedException,
+    UnknownFailureException,
+    UnknownOperationException,
+    UpdateFailedException,
+    UpdateNotAllowedException,
+    ValidationException
+} from 'aws-greengrass-core-sdk/stream-manager';
+import { deserializeJsonBytesToObj, validateAndSerializeToJsonBytes } from 'aws-greengrass-core-sdk/stream-manager/util';
 
 const client = new IotData();
 
@@ -20,7 +59,7 @@ client.publish(
     },
 );
 
-/** BEGIN STREAM MANAGER **/
+/* BEGIN STREAM MANAGER */
 // Exceptions
 const errors: Error[] = [
     new StreamManagerException(),
@@ -71,9 +110,10 @@ let smClient = new StreamManagerClient({
 // All properties undefined
 smClient = new StreamManagerClient({});
 
-const sequenceNumber: Promise<number> = smClient.appendMessage("streamName", Buffer.from("hello"));
-const streamDefinition = new MessageStreamDefinition();
-streamDefinition
+// $ExpectType Promise<number>
+smClient.appendMessage("streamName", Buffer.from("hello"));
+
+const streamDefinition = new MessageStreamDefinition()
     .withName("name")
     .withMaxSize(123)
     .withFlushOnWrite(true)
@@ -154,6 +194,23 @@ smClient.onError(() => undefined);
 smClient.close();
 
 // Data
+new MessageStreamInfo()
+    .withDefinition(streamDefinition)
+    .withExportStatuses([
+        new MessageStreamInfo._exportStatuses()
+            .withErrorMessage("message")
+            .withExportConfigIdentifier("id")
+            .withExportedBytesFromStream(123)
+            .withExportedMessagesCount(1)
+            .withLastExportTime(123)
+            .withLastExportedSequenceNumber(0)
+    ])
+    .withStorageStatus(new MessageStreamInfo._storageStatus()
+        .withNewestSequenceNumber(0)
+        .withOldestSequenceNumber(0)
+        .withTotalBytes(10)
+    );
+
 Status.Success;
 Status.Failure;
 Status.InProgress;
@@ -202,4 +259,4 @@ Persistence.Memory;
 
 ExportFormat.JSON_BATCHED;
 ExportFormat.RAW_NOT_BATCHED;
-/** END STREAM MANAGER */
+/* END STREAM MANAGER */

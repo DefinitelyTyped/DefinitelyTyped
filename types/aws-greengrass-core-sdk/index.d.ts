@@ -2,6 +2,7 @@
 // Project: https://github.com/aws/aws-greengrass-core-sdk-js#readme
 // Definitions by: Alister Hatt <https://github.com/ozxcorp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.8
 
 /// <reference types="node" />
 
