@@ -23,13 +23,13 @@ import {
 } from 'react-native';
 
 export interface AdditionalParallaxProps {
-    carouselRef?: React.Component<FlatListProps<any>>;
-    itemHeight?: number;
-    itemWidth?: number;
-    scrollPosition?: Animated.Value;
-    sliderHeight?: number;
-    sliderWidth?: number;
-    vertical?: boolean;
+    carouselRef?: React.Component<FlatListProps<any>> | undefined;
+    itemHeight?: number | undefined;
+    itemWidth?: number | undefined;
+    scrollPosition?: Animated.Value | undefined;
+    sliderHeight?: number | undefined;
+    sliderWidth?: number | undefined;
+    vertical?: boolean | undefined;
 }
 
 export interface CarouselProps<T> {
@@ -51,128 +51,128 @@ export interface CarouselProps<T> {
     /**
      * Reverses the direction of scroll. Uses scale transforms of -1.
      */
-    inverted?: boolean;
-    itemWidth?: number;
+    inverted?: boolean | undefined;
+    itemWidth?: number | undefined;
     /**
      * Height in pixels of carousel's items, must be the same for all of them
      * Note: Required with vertical carousel
      */
-    itemHeight?: number;
+    itemHeight?: number | undefined;
     /**
      * Width in pixels of your slider
      * Note: Required with horizontal carousel
      */
-    sliderWidth?: number;
+    sliderWidth?: number | undefined;
     /**
      * Height in pixels of the carousel itself
      * Note: Required with vertical carousel
      */
-    sliderHeight?: number;
+    sliderHeight?: number | undefined;
 
     // Behavior
 
     /**
      * From slider's center, minimum slide distance to be scrolled before being set to active
      */
-    activeSlideOffset?: number;
+    activeSlideOffset?: number | undefined;
     /**
      * Duration of time while component is hidden after mounting. NOTE: May cause rendering
      * issues on Android. Defaults to 0
      */
-    apparitionDelay?: number;
+    apparitionDelay?: number | undefined;
     /**
      * Defines a small margin for callbacks firing from scroll events.  Increase this value
      * if you experience missed callbacks. Defaults to 5
      */
-    callbackOffsetMargin?: number;
+    callbackOffsetMargin?: number | undefined;
     /**
      * Since 1.5.0, the snapping effect can now be based on momentum instead of when you're
      * releasing your finger. It means that the component will wait until the ScrollView
      * isn't moving anymore to snap
      */
-    enableMomentum?: boolean;
+    enableMomentum?: boolean | undefined;
     /**
      * If enabled, releasing the touch will scroll to the center of the nearest/active item
      */
-    enableSnap?: boolean;
+    enableSnap?: boolean | undefined;
     /**
      * Index of the first item to display
      */
-    firstItem?: number;
+    firstItem?: number | undefined;
     /**
      * Flag to indicate whether the carousel contains `<ParallaxImage />`. Parallax data
      * will not be passed to carousel items if this is false
      */
-    hasParallaxImages?: boolean;
+    hasParallaxImages?: boolean | undefined;
     /**
      * How many items should be rendered at the start?
      */
-    initialNumToRender?: number;
+    initialNumToRender?: number | undefined;
     /**
      * Prevent the user from interacting with the carousel while it is snapping. Ignored
      * if `enableMomentum` is `true`
      */
-    lockScrollWhileSnapping?: boolean;
+    lockScrollWhileSnapping?: boolean | undefined;
     /**
      * Changes default lock's timeout duration in ms.
      */
-    lockScrollTimeoutDuration?: number;
+    lockScrollTimeoutDuration?: number | undefined;
     /**
      * When momentum is disabled, this prop defines the timeframe during which multiple
      * callback calls should be "grouped" into a single one. This debounce also helps
      * smoothing the snap effect by providing a bit of inertia when touch is released..
      * Note that this will delay callback's execution.
      */
-    scrollEndDragDebounceValue?: number;
+    scrollEndDragDebounceValue?: number | undefined;
     /**
      * Allow scroll independently of user interaction on carousel. `false` as default.
      */
-    scrollEnabled?: boolean;
+    scrollEnabled?: boolean | undefined;
     /**
      * Whether to implement a shouldComponentUpdate strategy to minimize updates
      */
-    shouldOptimizeUpdates?: boolean;
+    shouldOptimizeUpdates?: boolean | undefined;
     /**
      * Delta x when swiping to trigger the snap
      */
-    swipeThreshold?: number;
+    swipeThreshold?: number | undefined;
     /**
      * Determines whether to use `ScrollView` instead of `FlatList`. May cause
      * rendering performance issues due to losing `FlatList`'s performance
      * optimizations
      */
-    useScrollView?: boolean;
+    useScrollView?: boolean | undefined;
     /*
      * Layout slides vertically instead of horizontally
      */
-    vertical?: boolean;
+    vertical?: boolean | undefined;
 
     // Loop
 
     /**
      * Enable infinite loop mode. Does not work if `enableSnap` is `false`
      */
-    loop?: boolean;
+    loop?: boolean | undefined;
     /**
      * Number of clones to render at the beginning and end of the list. Default
      * is 3
      */
-    loopClonesPerSide?: number;
+    loopClonesPerSide?: number | undefined;
 
     // Autoplay
 
     /**
      * Trigger autoplay on mount
      */
-    autoplay?: boolean;
+    autoplay?: boolean | undefined;
     /**
      * Delay before enabling autoplay on startup & after releasing the touch
      */
-    autoplayDelay?: number;
+    autoplayDelay?: number | undefined;
     /**
      * Delay in ms until navigating to the next item
      */
-    autoplayInterval?: number;
+    autoplayInterval?: number | undefined;
 
     // Style and animation
 
@@ -184,38 +184,38 @@ export interface CarouselProps<T> {
      * they will now play the custom animation you provide as soon as they become active.
      * This means you cannot use props layout, scrollInterpolator or slideInterpolatedStyle in conjunction with activeAnimationOptions
      */
-    activeAnimationOptions?: Animated.DecayAnimationConfig | Animated.TimingAnimationConfig | Animated.SpringAnimationConfig;
+    activeAnimationOptions?: Animated.DecayAnimationConfig | Animated.TimingAnimationConfig | Animated.SpringAnimationConfig | undefined;
     /**
      * Custom animation type: either 'decay, 'spring' or 'timing'.
      * Note that it will only be applied to the scale animation since opacity's animation type will always be set
      * to timing (no one wants the opacity to 'bounce' around)
      */
-    activeAnimationType?: 'decay' | 'spring' | 'timing';
+    activeAnimationType?: 'decay' | 'spring' | 'timing' | undefined;
     /**
      * Determine active slide's alignment relative to the carousel
      */
-    activeSlideAlignment?: 'start' | 'center' | 'end';
+    activeSlideAlignment?: 'start' | 'center' | 'end' | undefined;
     /**
      * Optional styles for Scrollview's global wrapper
      */
-    containerCustomStyle?: StyleProp<ViewStyle>;
+    containerCustomStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * Optional styles for Scrollview's items container
      */
-    contentContainerCustomStyle?: StyleProp<ViewStyle>;
+    contentContainerCustomStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * Value of the opacity effect applied to inactive slides
      */
-    inactiveSlideOpacity?: number;
+    inactiveSlideOpacity?: number | undefined;
     /**
      * Value of the 'scale' transform applied to inactive slides
      */
-    inactiveSlideScale?: number;
+    inactiveSlideScale?: number | undefined;
     /**
      * Value of the 'translate' transform applied to inactive slides. Not recommended with
      * `customAnimationOptions`
      */
-    inactiveSlideShift?: number;
+    inactiveSlideShift?: number | undefined;
     /**
      * Define the way items are rendered and animated.
      * Possible values are 'default', 'stack' and 'tinder'.
@@ -223,11 +223,11 @@ export interface CarouselProps<T> {
      * WARNING: setting this prop to either 'stack' or 'tinder' will activate useScrollView to prevent rendering bugs with FlatList.
      * Therefore, those layouts will probably not be suited if you have a large data set.
      */
-    layout?: 'default' | 'stack' | 'tinder';
+    layout?: 'default' | 'stack' | 'tinder' | undefined;
     /**
      * Use to increase or decrease the default card offset in both 'stack' and 'tinder' layouts.
      */
-    layoutCardOffset?: number;
+    layoutCardOffset?: number | undefined;
     /**
      * Used to define custom interpolations
      */
@@ -239,7 +239,7 @@ export interface CarouselProps<T> {
     /**
      * Optional style for each item's container (the one whose scale and opacity are animated)
      */
-    slideStyle?: StyleProp<ViewStyle>;
+    slideStyle?: StyleProp<ViewStyle> | undefined;
 
     // Callbacks
     /**
@@ -269,27 +269,27 @@ export interface ParallaxImageProps extends ImageProps, AdditionalParallaxProps 
     /**
      * Optional style for image's container
      */
-    containerStyle?: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * On screen dimensions of the image
      */
-    dimensions?: { width: number; height: number };
+    dimensions?: { width: number; height: number } | undefined;
     /**
      * Duration of fade in when object is loaded. Default of 500
      */
-    fadeDuration?: number;
+    fadeDuration?: number | undefined;
     /**
      * Speed of parallax effect. A higher value appears more 'zoomed in'
      */
-    parallaxFactor?: number;
+    parallaxFactor?: number | undefined;
     /**
      * Whether to display a loading spinner
      */
-    showSpinner?: boolean;
+    showSpinner?: boolean | undefined;
     /**
      * Color of the loading spinner if displayed
      */
-    spinnerColor?: string;
+    spinnerColor?: string | undefined;
 }
 
 export type ParallaxImageStatic = React.ComponentClass<ParallaxImageProps>;
@@ -302,15 +302,15 @@ export interface PaginationProps {
     /**
      * Length of dot animation (milliseconds)
      */
-    animatedDuration?: number;
+    animatedDuration?: number | undefined;
     /**
      * Controls "bounciness"/overshoot on dot animation
      */
-    animatedFriction?: number;
+    animatedFriction?: number | undefined;
     /**
      * Controls speed dot animation
      */
-    animatedTension?: number;
+    animatedTension?: number | undefined;
     /**
      * Number of dots to display
      */
@@ -322,62 +322,62 @@ export interface PaginationProps {
     /**
      * Opacity of the dot when tapped. The prop has no effect if tappableDots hasn't been set to true
      */
-    activeOpacity?: number;
+    activeOpacity?: number | undefined;
     /**
      * Reference to the Carousel component to which pagination is linked.
      * Needed only when setting tappableDots to true
      */
-    carouselRef?: React.Component<FlatListProps<any>>;
+    carouselRef?: React.Component<FlatListProps<any>> | undefined;
     /**
      * Style for dots' container that will be merged with the default one
      */
-    containerStyle?: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * Delay in ms, from the start of the touch, before onPressIn is called on dot
      */
-    delayPressInDot?: number;
+    delayPressInDot?: number | undefined;
     /**
      * Background color of the active dot.
      * Use this if you want to animate the change between active and inactive colors,
      * and always in conjunction with inactiveDotColor
      */
-    dotColor?: string;
+    dotColor?: string | undefined;
     /**
      * Style of each dot's container.
      * Use this if you need to specify styles that wouldn't have any effect when defined with dotStyle (such as flex)
      */
-    dotContainerStyle?: StyleProp<ViewStyle>;
+    dotContainerStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * Optional custom active dot element that will replace the default one.
      * The element will receive a prop active set to true as well as a prop index
      */
-    dotElement?: React.ReactNode;
+    dotElement?: React.ReactNode | undefined;
     /**
      * Dots' style that will be merged with the default one
      */
-    dotStyle?: StyleProp<ViewStyle>;
+    dotStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * Background color of the inactive dots.
      * Use this if you want to animate the change between active and inactive colors, and always in conjunction with dotColor
      */
-    inactiveDotColor?: string;
+    inactiveDotColor?: string | undefined;
     /**
      * Optional custom inactive dot element that will replace the default one.
      * The element will receive a prop active set to false as well as a prop index
      */
-    inactiveDotElement?: React.ReactNode;
+    inactiveDotElement?: React.ReactNode | undefined;
     /**
      * Value of the opacity effect applied to inactive dots
      */
-    inactiveDotOpacity?: number;
+    inactiveDotOpacity?: number | undefined;
     /**
      * Value of the 'scale' transform applied to inactive dots
      */
-    inactiveDotScale?: number;
+    inactiveDotScale?: number | undefined;
     /**
      * Dots' style that will be applied to inactive elements
      */
-    inactiveDotStyle?: StyleProp<ViewStyle>;
+    inactiveDotStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * Function that gives you complete control over pagination's rendering.
      * It will receive three parameters : (activeIndex, total, context).
@@ -388,11 +388,11 @@ export interface PaginationProps {
      * Make default dots tappable, e.g. your carousel will slide to the corresponding item.
      * Note that carouselRef must be specified for this to work
      */
-    tappableDots?: boolean;
+    tappableDots?: boolean | undefined;
     /**
      * Whether to layout dots vertically or horizontally
      */
-    vertical?: boolean;
+    vertical?: boolean | undefined;
 }
 
 export type PaginationStatic = React.ComponentClass<PaginationProps>;

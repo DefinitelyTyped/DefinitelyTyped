@@ -73,6 +73,18 @@ class BadVariablePlugin implements Plugin {
     };
 }
 
+// Test serverless cli log with no message
+serverless.cli.log(); // $ExpectError
+
+// Test serverless cli log with no entity
+serverless.cli.log('updating stack...');
+
+// Test serverless cli log with no options
+serverless.cli.log('updating stack...', 'serverless');
+
+// Test serverless cli log with all args supplied
+serverless.cli.log('updating stack...', 'serverless', { color: 'orange', bold: true, underline: true, entity: 'serverless' });
+
 // Test provider's 'request' method
 const provider = serverless.getProvider('aws');
 provider.request('AccessAnalyzer', 'createAnalyzer');

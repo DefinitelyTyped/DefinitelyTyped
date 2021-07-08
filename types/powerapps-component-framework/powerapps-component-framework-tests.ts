@@ -1,4 +1,4 @@
-interface TInputs { inputString?: string; }
+interface TInputs { inputString?: string | undefined; }
 interface TOutputs { testString: string; }
 
 class TestControl implements ComponentFramework.StandardControl<TInputs, TOutputs> {

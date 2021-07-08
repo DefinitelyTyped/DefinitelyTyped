@@ -118,27 +118,27 @@ declare namespace CircuitBreaker {
          * The time in milliseconds that action should be allowed to execute before timing out.
          * @default 10000 (10 seconds)
          */
-        timeout?: number;
+        timeout?: number | undefined;
 
         /**
          * The number of times the circuit can fail before opening.
          * @default 10
          * @deprecated see options.errorThresholdPercentage
          */
-        maxFailures?: number;
+        maxFailures?: number | undefined;
 
         /**
          * The time in milliseconds to wait before setting the breaker to `halfOpen` state, and trying the action again.
          * @default 30000 (30 seconds)
          */
-        resetTimeout?: number;
+        resetTimeout?: number | undefined;
 
         /**
          * Sets the duration of the statistical rolling window, in milliseconds.
          * This is how long Opossum keeps metrics for the circuit breaker to use and for publishing.
          * @default 10000
          */
-        rollingCountTimeout?: number;
+        rollingCountTimeout?: number | undefined;
 
         /**
          * Sets the number of buckets the rolling statistical window is divided into.
@@ -146,26 +146,26 @@ declare namespace CircuitBreaker {
          * statistical window will be 1,000 1 second snapshots in the statistical window.
          * @default 10
          */
-        rollingCountBuckets?: number;
+        rollingCountBuckets?: number | undefined;
 
         /**
          * The circuit name to use when reporting stats.
          * Defaults to the name of the function this circuit controls then falls back to a UUID
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * A grouping key for reporting.
          * Defaults to the computed value of `name`
          */
-        group?: string;
+        group?: string | undefined;
 
         /**
          * This property indicates whether execution latencies should be tracked and calculated as percentiles.
          * If they are disabled, all summary statistics (mean, percentiles) are returned as -1.
          * @default false
          */
-        rollingPercentilesEnabled?: boolean;
+        rollingPercentilesEnabled?: boolean | undefined;
 
         /**
          * The number of concurrent requests allowed.
@@ -173,19 +173,19 @@ declare namespace CircuitBreaker {
          * to `fire()` are rejected until at least one of the current requests completes.
          * @default MAX_SAFE_INTEGER
          */
-        capacity?: number;
+        capacity?: number | undefined;
 
         /**
          * The error percentage at which to open the circuit and start short-circuiting requests to fallback.
          * @default 50
          */
-        errorThresholdPercentage?: number;
+        errorThresholdPercentage?: number | undefined;
 
         /**
          * Whether this circuit is enabled upon construction.
          * @default true
          */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
 
         /**
          * Determines whether to allow failures without opening the circuit during a brief warmup period (`rollingCountDuration`)
@@ -193,7 +193,7 @@ declare namespace CircuitBreaker {
          * first execution times out or fails, the circuit immediately opens.
          * @default false
          */
-        allowWarmUp?: boolean;
+        allowWarmUp?: boolean | undefined;
 
         /**
          * The minimum number of requests within the rolling statistical window that must exist before
@@ -202,14 +202,14 @@ declare namespace CircuitBreaker {
          * this threshold, the circuit will remain closed.
          * @default 0
          */
-        volumeThreshold?: number;
+        volumeThreshold?: number | undefined;
 
         /**
          * An optional function that will be called when the circuit's function fails (returns a rejected Promise).
          * If this function returns truthy, the circuit's `failPure` statistics will not be incremented.
          * This is useful, for example, when you don't want HTTP 404 to trip the circuit, but still want to handle it as a failure case.
          */
-        errorFilter?: (err: any) => boolean;
+        errorFilter?: ((err: any) => boolean) | undefined;
 
         /**
          * Whether the return value of the first successful execution of the circuit's function will be cached.
@@ -217,7 +217,7 @@ declare namespace CircuitBreaker {
          * (The metrics cacheHit and cacheMiss reflect cache activity.)
          * @default false
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
     }
 
     interface Status extends EventEmitter {

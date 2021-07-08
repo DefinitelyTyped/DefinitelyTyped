@@ -1,59 +1,59 @@
 import { CreditCardTypeChangeHandler } from "./creditCard";
 
 export interface CleaveOptions {
-    creditCard?: boolean;
-    creditCardStrictMode?: boolean;
-    creditCardType?: string;
-    onCreditCardTypeChanged?: CreditCardTypeChangeHandler;
+    creditCard?: boolean | undefined;
+    creditCardStrictMode?: boolean | undefined;
+    creditCardType?: string | undefined;
+    onCreditCardTypeChanged?: CreditCardTypeChangeHandler | undefined;
 }
 
 // Phone Options
 export interface CleaveOptions {
-    phone?: boolean;
-    phoneRegionCode?: string;
+    phone?: boolean | undefined;
+    phoneRegionCode?: string | undefined;
 }
 
 // Date Options
 export interface CleaveOptions {
-    date?: boolean;
-    dateMin?: string;
-    dateMax?: string;
-    datePattern?: ReadonlyArray<string>;
+    date?: boolean | undefined;
+    dateMin?: string | undefined;
+    dateMax?: string | undefined;
+    datePattern?: ReadonlyArray<string> | undefined;
 }
 
 // Time Options
 export interface CleaveOptions {
-    time?: boolean;
-    timePattern?: ReadonlyArray<string>;
-    timeFormat?: string;
+    time?: boolean | undefined;
+    timePattern?: ReadonlyArray<string> | undefined;
+    timeFormat?: string | undefined;
 }
 
 // Numeral Options
 export type NumeralThousandsGroupStyleType = "lakh" | "thousand" | "wan" | "none";
 
 export interface CleaveOptions {
-    numeral?: boolean;
-    numeralDecimalMark?: string;
-    numeralDecimalScale?: number;
-    numeralIntegerScale?: number;
-    numeralPositiveOnly?: boolean;
-    numeralThousandsGroupStyle?: NumeralThousandsGroupStyleType;
-    stripLeadingZeroes?: boolean;
+    numeral?: boolean | undefined;
+    numeralDecimalMark?: string | undefined;
+    numeralDecimalScale?: number | undefined;
+    numeralIntegerScale?: number | undefined;
+    numeralPositiveOnly?: boolean | undefined;
+    numeralThousandsGroupStyle?: NumeralThousandsGroupStyleType | undefined;
+    stripLeadingZeroes?: boolean | undefined;
 }
 
 // Extra Options
 export interface CleaveOptions {
-    blocks?: ReadonlyArray<number>;
-    copyDelimiter?: boolean;
-    delimiter?: string;
-    delimiters?: ReadonlyArray<string>;
-    delimiterLazyShow?: boolean;
+    blocks?: ReadonlyArray<number> | undefined;
+    copyDelimiter?: boolean | undefined;
+    delimiter?: string | undefined;
+    delimiters?: ReadonlyArray<string> | undefined;
+    delimiterLazyShow?: boolean | undefined;
     initValue?: any;
-    lowercase?: boolean;
-    numericOnly?: boolean;
-    prefix?: string;
-    noImmediatePrefix?: boolean;
-    rawValueTrimPrefix?: boolean;
-    uppercase?: boolean;
+    lowercase?: boolean | undefined;
+    numericOnly?: boolean | undefined;
+    prefix?: string | undefined;
+    noImmediatePrefix?: boolean | undefined;
+    rawValueTrimPrefix?: boolean | undefined;
+    uppercase?: boolean | undefined;
     onValueChanged?(event: any): void;
 }

@@ -10,16 +10,16 @@ import * as $ from "jquery";
 
 declare namespace Dropzone {
     export interface DropzoneResizeInfo {
-        srcX?:number;
-        srcY?:number;
-        trgX?:number;
-        trgY?:number;
-        srcWidth?:number;
-        srcHeight?:number;
-        trgWidth?:number;
-        trgHeight?:number;
-        optWidth?:number;
-        optHeight?:number;
+        srcX?:number | undefined;
+        srcY?:number | undefined;
+        trgX?:number | undefined;
+        trgY?:number | undefined;
+        srcWidth?:number | undefined;
+        srcHeight?:number | undefined;
+        trgWidth?:number | undefined;
+        trgHeight?:number | undefined;
+        optWidth?:number | undefined;
+        optHeight?:number | undefined;
     }
 
     export interface DropzoneFile extends File {
@@ -28,51 +28,51 @@ declare namespace Dropzone {
         previewsContainer: HTMLElement;
         status: string;
         accepted: boolean;
-        xhr?: XMLHttpRequest;
+        xhr?: XMLHttpRequest | undefined;
     }
 
     export interface DropzoneOptions {
-        url?: string;
-        method?: string;
-        withCredentials?: boolean;
-        parallelUploads?: number;
-        uploadMultiple?: boolean;
-        maxFilesize?: number;
-        paramName?: string;
-        createImageThumbnails?: boolean;
-        maxThumbnailFilesize?: number;
-        thumbnailWidth?: number;
-        thumbnailHeight?: number;
-        filesizeBase?: number;
-        maxFiles?: number;
-        params?: {};
-        headers?: {};
-        clickable?: boolean|string|HTMLElement|(string|HTMLElement)[];
-        ignoreHiddenFiles?: boolean;
-        acceptedFiles?: string;
+        url?: string | undefined;
+        method?: string | undefined;
+        withCredentials?: boolean | undefined;
+        parallelUploads?: number | undefined;
+        uploadMultiple?: boolean | undefined;
+        maxFilesize?: number | undefined;
+        paramName?: string | undefined;
+        createImageThumbnails?: boolean | undefined;
+        maxThumbnailFilesize?: number | undefined;
+        thumbnailWidth?: number | undefined;
+        thumbnailHeight?: number | undefined;
+        filesizeBase?: number | undefined;
+        maxFiles?: number | undefined;
+        params?: {} | undefined;
+        headers?: {} | undefined;
+        clickable?: boolean|string|HTMLElement|(string|HTMLElement)[] | undefined;
+        ignoreHiddenFiles?: boolean | undefined;
+        acceptedFiles?: string | undefined;
         renameFilename?(name:string): string;
-        autoProcessQueue?: boolean;
-        autoQueue?: boolean;
-        addRemoveLinks?: boolean;
-        previewsContainer?: boolean|string|HTMLElement;
-        hiddenInputContainer?: HTMLElement;
-        capture?: string;
+        autoProcessQueue?: boolean | undefined;
+        autoQueue?: boolean | undefined;
+        addRemoveLinks?: boolean | undefined;
+        previewsContainer?: boolean|string|HTMLElement | undefined;
+        hiddenInputContainer?: HTMLElement | undefined;
+        capture?: string | undefined;
 
-        dictDefaultMessage?: string;
-        dictFallbackMessage?: string;
-        dictFallbackText?: string;
-        dictFileTooBig?: string;
-        dictInvalidFileType?: string;
-        dictResponseError?: string;
-        dictCancelUpload?: string;
-        dictCancelUploadConfirmation?: string;
-        dictRemoveFile?: string;
-        dictRemoveFileConfirmation?: string;
-        dictMaxFilesExceeded?: string;
+        dictDefaultMessage?: string | undefined;
+        dictFallbackMessage?: string | undefined;
+        dictFallbackText?: string | undefined;
+        dictFileTooBig?: string | undefined;
+        dictInvalidFileType?: string | undefined;
+        dictResponseError?: string | undefined;
+        dictCancelUpload?: string | undefined;
+        dictCancelUploadConfirmation?: string | undefined;
+        dictRemoveFile?: string | undefined;
+        dictRemoveFileConfirmation?: string | undefined;
+        dictMaxFilesExceeded?: string | undefined;
 
         accept?(file:DropzoneFile, done:(error?:string|Error) => void):void;
         init?():void;
-        forceFallback?: boolean;
+        forceFallback?: boolean | undefined;
         fallback?():void;
         resize?(file:DropzoneFile):DropzoneResizeInfo;
 
@@ -116,7 +116,7 @@ declare namespace Dropzone {
         maxfilesreached?(files:DropzoneFile[]):void;
         queuecomplete?():void;
 
-        previewTemplate?: string;
+        previewTemplate?: string | undefined;
     }
 }
 

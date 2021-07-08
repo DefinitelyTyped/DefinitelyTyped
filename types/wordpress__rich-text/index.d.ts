@@ -23,14 +23,14 @@ export interface FormatConfiguration {
     tagName: keyof HTMLElementTagNameMap & string;
     className: string | null;
     title: string;
-    keywords?: [string] | [string, string] | [string, string, string];
-    object?: boolean;
+    keywords?: [string] | [string, string] | [string, string, string] | undefined;
+    object?: boolean | undefined;
     /**
      * Maps react prop name to html attribute name.
      *
      * { className: 'class' } => <tag class={<className attr here>}></tag>
      */
-    attributes?: Record<string, string>;
+    attributes?: Record<string, string> | undefined;
     edit: ComponentType<FormatProps>;
 }
 
@@ -40,17 +40,17 @@ export interface NamedFormatConfiguration extends FormatConfiguration {
 
 export interface Format {
     type: string;
-    attributes?: Record<string, string>;
-    unregisteredAttributes?: Record<string, string>;
-    object?: boolean;
+    attributes?: Record<string, string> | undefined;
+    unregisteredAttributes?: Record<string, string> | undefined;
+    object?: boolean | undefined;
 }
 
 export interface Value {
-    activeFormats?: readonly Format[];
-    end?: number;
+    activeFormats?: readonly Format[] | undefined;
+    end?: number | undefined;
     formats: ReadonlyArray<Format[] | undefined>;
     replacements: ReadonlyArray<Format[] | undefined>;
-    start?: number;
+    start?: number | undefined;
     text: string;
 }
 
@@ -113,9 +113,9 @@ export function create(args?: { text: string }): Value;
 export function create(args?: { html: string }): Value; // tslint:disable-line:unified-signatures
 export function create(args?: {
     element: Element;
-    multilineTag?: keyof HTMLElementTagNameMap;
-    multilineWrapperTags?: ReadonlyArray<keyof HTMLElementTagNameMap>;
-    range?: Range;
+    multilineTag?: keyof HTMLElementTagNameMap | undefined;
+    multilineWrapperTags?: ReadonlyArray<keyof HTMLElementTagNameMap> | undefined;
+    range?: Range | undefined;
 }): Value; // tslint:disable-line:unified-signatures
 
 /**
@@ -300,7 +300,7 @@ export function split(value: Value, separator?: string | number, limit?: number)
  *
  * @returns HTML string.
  */
-export function toHTMLString(args: { value: Value; multilineTag?: keyof HTMLElementTagNameMap }): string;
+export function toHTMLString(args: { value: Value; multilineTag?: keyof HTMLElementTagNameMap | undefined }): string;
 
 /**
  * Toggles a format object to a Rich Text value at the current selection.

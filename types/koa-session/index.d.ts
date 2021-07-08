@@ -123,7 +123,7 @@ declare namespace session {
          * "session" will result in a cookie that expires when session/browser is closed
          * Warning: If a session cookie is stolen, this cookie will never expire
          */
-        maxAge?: number | "session";
+        maxAge?: number | "session" | undefined;
 
         /**
          * custom encode method
@@ -143,35 +143,35 @@ declare namespace session {
         /**
          * Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. default is false
          */
-        rolling?: boolean;
+        rolling?: boolean | undefined;
 
         /**
          * Renew session when session is nearly expired, so we can always keep user logged in. (default is false)
          */
-        renew?: boolean;
+        renew?: boolean | undefined;
 
         /**
          * You can store the session content in external stores(redis, mongodb or other DBs)
          */
-        store?: stores;
+        store?: stores | undefined;
 
         /**
          * External key is used the cookie by default,
          * but you can use options.externalKey to customize your own external key methods.
          */
-        externalKey?: ExternalKeys;
+        externalKey?: ExternalKeys | undefined;
 
         /**
          * If your session store requires data or utilities from context, opts.ContextStore is alse supported.
          * ContextStore must be a class which claims three instance methods demonstrated above.
          * new ContextStore(ctx) will be executed on every request.
          */
-        ContextStore?: { new(ctx: Koa.Context): stores };
+        ContextStore?: { new(ctx: Koa.Context): stores } | undefined;
 
         /**
          * If you want to add prefix for all external session id, you can use options.prefix, it will not work if options.genid present.
          */
-        prefix?: string;
+        prefix?: string | undefined;
 
         /**
          * Hook: valid session value before use it
@@ -193,7 +193,7 @@ declare namespace session {
         /**
          * set session object for key, with a maxAge (in ms)
          */
-        set(key: string, sess: Partial<Session> & { _expire?: number, _maxAge?: number }, maxAge: opts["maxAge"], data: { changed: boolean; rolling: opts["rolling"] }): any;
+        set(key: string, sess: Partial<Session> & { _expire?: number | undefined, _maxAge?: number | undefined }, maxAge: opts["maxAge"], data: { changed: boolean; rolling: opts["rolling"] }): any;
 
         /**
          * destroy session for key

@@ -614,7 +614,7 @@ declare namespace ComponentFramework {
             /**
              * The id to be set to the anchor control if any.
              */
-            id?: string;
+            id?: string | undefined;
 
             /**
              * The name of the Popup. Used as the reference to open Popups.
@@ -625,7 +625,7 @@ declare namespace ComponentFramework {
              * Indicates whether popup close on an outside mouse click.
              * When it's false, the popup will not be closed on an outside mouse click.
              */
-            closeOnOutsideClick?: boolean;
+            closeOnOutsideClick?: boolean | undefined;
 
             /**
              * The name of Popup which should be opened.
@@ -634,7 +634,7 @@ declare namespace ComponentFramework {
              * To close Popups, should be provided empty string.
              * This prop will be automatically propagated to children.
              */
-            popupToOpen?: string;
+            popupToOpen?: string | undefined;
 
             /**
              * The type of Popup, which is described in PopupType enum. Should be only one "root" Popup for each set of Popups.
@@ -672,12 +672,12 @@ declare namespace ComponentFramework {
             /**
              * Height of the alert dialog in pixels.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              * Width of the alert dialog pixels.
              */
-            width?: number;
+            width?: number | undefined;
         }
 
         /**
@@ -692,7 +692,7 @@ declare namespace ComponentFramework {
             /**
              * The confirm button label. If you do not specify the button label, OK (in user's preferred language) is used as the button label.
              */
-            confirmButtonLabel?: string;
+            confirmButtonLabel?: string | undefined;
         }
 
         /**
@@ -702,12 +702,12 @@ declare namespace ComponentFramework {
             /**
              * Height of the confirmation dialog in pixels.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              *  Width of the confirmation dialog pixels.
              */
-            width?: number;
+            width?: number | undefined;
         }
 
         /**
@@ -717,12 +717,12 @@ declare namespace ComponentFramework {
             /**
              * Confirm Dialog Title.
              */
-            title?: string;
+            title?: string | undefined;
 
             /**
              * Confirm Dialog Subtitle
              */
-            subtitle?: string;
+            subtitle?: string | undefined;
 
             /**
              * Confirm Dialog Text\Message.
@@ -732,12 +732,12 @@ declare namespace ComponentFramework {
             /**
              * The confirm button label. If you do not specify the button label, OK (in user's preferred language) is used as the button label.
              */
-            confirmButtonLabel?: string;
+            confirmButtonLabel?: string | undefined;
 
             /**
              * Cancel Button label.
              */
-            cancelButtonLabel?: string;
+            cancelButtonLabel?: string | undefined;
         }
 
         /**
@@ -757,12 +757,12 @@ declare namespace ComponentFramework {
             /**
              * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name
              */
-            createFromEntity?: EntityReference;
+            createFromEntity?: EntityReference | undefined;
 
             /**
              * ID of the entity record to display the form for.
              */
-            entityId?: string;
+            entityId?: string | undefined;
 
             /**
              * Logical name of the entity to display the form for.
@@ -772,34 +772,34 @@ declare namespace ComponentFramework {
             /**
              * ID of the form instance to be displayed.
              */
-            formId?: string;
+            formId?: string | undefined;
 
             /**
              * Height of the form window to be displayed in pixels.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              * Indicates whether to display form in a new window.
              */
-            openInNewWindow?: boolean;
+            openInNewWindow?: boolean | undefined;
 
             /**
              * Indicates whether to open a quick create form. If you do not specify this, by default false is passed.
              */
-            useQuickCreateForm?: boolean;
+            useQuickCreateForm?: boolean | undefined;
 
             /**
              * Width of the form window to be displayed in pixels.
              */
-            width?: number;
+            width?: number | undefined;
 
             /**
              * Specify one of the following values for the window position of the form on the screen:
              *   1:center
              *   2:side
              */
-            windowPosition?: number;
+            windowPosition?: number | undefined;
         }
 
         /**
@@ -811,18 +811,18 @@ declare namespace ComponentFramework {
              * Details about the error. When you specify this, the Download Log File button is available in the error message, and clicking it will let users download a text file with
              * the content specified in this attribute.
              */
-            details?: string;
+            details?: string | undefined;
 
             /**
              * If you just set errorCode, the message for the error code is automatically retrieved from the server and displayed in the error dialog. If you specify an errorCode value,
              * an error dialog with a default error message is displyed.
              */
-            errorCode?: number;
+            errorCode?: number | undefined;
 
             /**
              * The message to be displayed in the error dialog.
              */
-            message?: string;
+            message?: string | undefined;
         }
 
         namespace Types {
@@ -861,12 +861,12 @@ declare namespace ComponentFramework {
             /**
              * Height of the window to display the resultant page in pixels.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              * Width of the window to display the resultant page in pixels.
              */
-            width?: number;
+            width?: number | undefined;
         }
 
         /**
@@ -876,7 +876,7 @@ declare namespace ComponentFramework {
             /**
              * Height of the window to display the resultant page in pixels.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              * Indicates whether to open the web resource in a new window.
@@ -886,7 +886,7 @@ declare namespace ComponentFramework {
             /**
              * Width of the window to display the resultant page in pixels.
              */
-            width?: number;
+            width?: number | undefined;
         }
     }
 
@@ -1267,7 +1267,7 @@ declare namespace ComponentFramework {
         /**
          * The entity logical name. Read-only.
          */
-        etn?: string;
+        etn?: string | undefined;
 
         /**
          * The name of the entity reference. Read-only.
@@ -1288,7 +1288,7 @@ declare namespace ComponentFramework {
         /**
          * The name of the record the lookup selection references.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * The entity logical name of the record the lookup selection references.
@@ -1330,11 +1330,11 @@ declare namespace ComponentFramework {
         interface Property {
             error: boolean;
             errorMessage: string;
-            formatted?: string;
-            security?: PropertyHelper.SecurityValues;
+            formatted?: string | undefined;
+            security?: PropertyHelper.SecurityValues | undefined;
             raw: any;
             type: string;
-            attributes?: PropertyHelper.FieldPropertyMetadata.Metadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.Metadata | undefined;
         }
 
         /**
@@ -1342,28 +1342,28 @@ declare namespace ComponentFramework {
          */
         interface NumberProperty extends Property {
             raw: number | null;
-            attributes?: PropertyHelper.FieldPropertyMetadata.NumberMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.NumberMetadata | undefined;
         }
 
         /**
          * Property Interface for context.parameters.[property_key], when property manifest type is Decimal
          */
         interface DecimalNumberProperty extends NumberProperty {
-            attributes?: PropertyHelper.FieldPropertyMetadata.DecimalNumberMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.DecimalNumberMetadata | undefined;
         }
 
         /**
          * Property Interface for context.parameters.[property_key], when property manifest type is FP
          */
         interface FloatingNumberProperty extends NumberProperty {
-            attributes?: PropertyHelper.FieldPropertyMetadata.FloatingNumberMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.FloatingNumberMetadata | undefined;
         }
 
         /**
          * Property Interface for context.parameters.[property_key], when property manifest type is Whole.None
          */
         interface WholeNumberProperty extends NumberProperty {
-            attributes?: PropertyHelper.FieldPropertyMetadata.WholeNumberMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.WholeNumberMetadata | undefined;
         }
 
         /**
@@ -1371,7 +1371,7 @@ declare namespace ComponentFramework {
          */
         interface DateTimeProperty extends Property {
             raw: Date | null;
-            attributes?: PropertyHelper.FieldPropertyMetadata.DateTimeMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.DateTimeMetadata | undefined;
         }
 
         /**
@@ -1379,7 +1379,7 @@ declare namespace ComponentFramework {
          */
         interface StringProperty extends Property {
             raw: string | null;
-            attributes?: PropertyHelper.FieldPropertyMetadata.StringMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.StringMetadata | undefined;
         }
 
         /**
@@ -1395,7 +1395,7 @@ declare namespace ComponentFramework {
          */
         interface OptionSetProperty extends Property {
             raw: number | null;
-            attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata | undefined;
         }
 
         /**
@@ -1403,7 +1403,7 @@ declare namespace ComponentFramework {
          */
         interface MultiSelectOptionSetProperty extends Property {
             raw: number[] | null;
-            attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata | undefined;
         }
 
         /**
@@ -1411,7 +1411,7 @@ declare namespace ComponentFramework {
          */
         interface TwoOptionsProperty extends Property {
             raw: boolean;
-            attributes?: PropertyHelper.FieldPropertyMetadata.TwoOptionMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.TwoOptionMetadata | undefined;
         }
 
         /**
@@ -1456,7 +1456,7 @@ declare namespace ComponentFramework {
              * @param name column name to be added to the columnset
              * @param entityAlias entity alias for which the column name needs to be added
              */
-            addColumn?: (name: string, entityAlias?: string) => void;
+            addColumn?: ((name: string, entityAlias?: string) => void) | undefined;
 
             /**
              * Set of columns available in this dataset.
@@ -1673,8 +1673,8 @@ declare namespace ComponentFramework {
 
             interface WholeNumberMetadata extends NumberMetadata {
                 Format: string;
-                LanguageByCode?: Dictionary;
-                TimeZoneByCode?: Dictionary;
+                LanguageByCode?: Dictionary | undefined;
+                TimeZoneByCode?: Dictionary | undefined;
             }
 
             interface DateTimeMetadata extends Metadata {
@@ -1749,7 +1749,7 @@ declare namespace ComponentFramework {
                 /**
                  * Entity alias name so filtering can be used on linked entities.
                  */
-                entityAliasName?: string;
+                entityAliasName?: string | undefined;
             }
 
             /**
@@ -1769,7 +1769,7 @@ declare namespace ComponentFramework {
                 /**
                  * Any child filters that should be evaluated after evaluating this filter.
                  */
-                filters?: FilterExpression[];
+                filters?: FilterExpression[] | undefined;
             }
 
             /**
@@ -1830,17 +1830,17 @@ declare namespace ComponentFramework {
                 /**
                  * The column visibility state.
                  */
-                isHidden?: boolean;
+                isHidden?: boolean | undefined;
 
                 /**
                  * Is specific column the primary attrribute of the view's entity
                  */
-                isPrimary?: boolean;
+                isPrimary?: boolean | undefined;
 
                 /**
                  * Prevents the UI from making the column sortable.
                  */
-                disableSorting?: boolean;
+                disableSorting?: boolean | undefined;
             }
 
             /**

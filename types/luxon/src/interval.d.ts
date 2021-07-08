@@ -2,8 +2,8 @@ import { DateTime, DateObject, DateTimeOptions, DiffOptions, ToISOTimeOptions } 
 import { Duration, DurationInput, DurationUnit } from './duration';
 
 export interface IntervalObject {
-    start?: DateTime;
-    end?: DateTime;
+    start?: DateTime | undefined;
+    end?: DateTime | undefined;
 }
 
 export type DateInput = DateTime | DateObject | Date;
@@ -222,7 +222,7 @@ export class Interval {
     toFormat(
         dateFormat: string,
         options?: {
-            separator?: string;
+            separator?: string | undefined;
         },
     ): string;
 

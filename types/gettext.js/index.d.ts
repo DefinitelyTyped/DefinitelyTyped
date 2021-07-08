@@ -9,10 +9,10 @@ export type PluralForm = (n: number) => number;
 export type GettextStatic = (options?: GettextOptions) => Gettext;
 
 export interface GettextOptions {
-  domain?: string;
-  locale?: string;
-  plural_func?: PluralForm;
-  ctxt_delimiter?: string;
+  domain?: string | undefined;
+  locale?: string | undefined;
+  plural_func?: PluralForm | undefined;
+  ctxt_delimiter?: string | undefined;
 }
 
 export interface JsonDataHeader {

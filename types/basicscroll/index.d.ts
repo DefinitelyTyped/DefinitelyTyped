@@ -51,7 +51,7 @@ export interface Data {
      * DOM element/node.
      * @default null
      */
-    elem?: Element | null;
+    elem?: Element | null | undefined;
     /**
      * Start position.
      * @default null
@@ -66,21 +66,21 @@ export interface Data {
      * Direct mode.
      * @default false
      */
-    direct?: boolean | Element;
+    direct?: boolean | Element | undefined;
     /**
      * Track window size changes.
      * @default true
      */
-    track?: boolean;
+    track?: boolean | undefined;
     /**
      * Executes when the user scrolls and the viewport is within the given start and stop position
      */
-    inside?: CallbackFunction;
+    inside?: CallbackFunction | undefined;
     /**
      * Executes when the user scrolls and the viewport is outside the given start and stop position
      */
-    outside?: CallbackFunction;
-    props?: Props;
+    outside?: CallbackFunction | undefined;
+    props?: Props | undefined;
 }
 
 export interface Props {
@@ -89,17 +89,17 @@ export interface Props {
          * Start and end values.
          * @default null
          */
-        from?: AnimatedType;
+        from?: AnimatedType | undefined;
         /**
          * Start and end values.
          * @default null
          */
-        to?: AnimatedType;
+        to?: AnimatedType | undefined;
         /**
          * Animation timing.
          * @default 'linear'
          */
-        timing?: KnownTimings | TimingFunction;
+        timing?: KnownTimings | TimingFunction | undefined;
     };
 }
 

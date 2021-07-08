@@ -21,25 +21,25 @@ declare namespace alex {
          * an array of rules
          * @default undefined
          */
-        allow?: string[];
+        allow?: string[] | undefined;
         /**
          * When provided, only the rules specified are reported.
          * @default undefined
          */
-        deny?: string[];
+        deny?: string[] | undefined;
         /**
          * When turned on (`true`), pairs such as `he` and `she` and `garbageman` or `garbagewoman` are seen as errors.
          * When turned off (`false`, the default), such pairs are okay
          * @default false
          */
-        noBinary?: boolean;
+        noBinary?: boolean | undefined;
         /**
          * the minimum rating (including) that you want to check for.
          * If you set it to 1 (maybe) then it will warn for level 1 and 2 (likely) profanities,
          * but not for level 0 (unlikely).
          * @default 0
          */
-        profanitySureness?: 0 | 1 | 2;
+        profanitySureness?: 0 | 1 | 2 | undefined;
     }
 
     /** Check Markdown (ignoring syntax). */

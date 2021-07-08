@@ -9,12 +9,15 @@ const defaultLocale = getDefaultLocale();
 <DatePicker
     adjustDateOnChange
     allowSameDay
+    ariaDescribedBy=""
     ariaLabelledBy=""
     ariaLabelClose=""
+    ariaRequired=""
     autoComplete=""
     autoFocus
     calendarClassName=""
     calendarContainer={props => <div />}
+    calendarStartDay={0}
     className=""
     clearButtonTitle=""
     // closeOnScroll={false} // Or as function:
@@ -94,6 +97,7 @@ const defaultLocale = getDefaultLocale();
     readOnly
     ref={handleRef}
     renderCustomHeader={({
+        monthDate,
         date,
         changeYear,
         changeMonth,
@@ -149,7 +153,6 @@ const defaultLocale = getDefaultLocale();
     excludeScrollbar={false}
     enableTabLoop={false}
     yearDropdownItemNumber={1}
-    calendarStartDay={1}
 >
     <div />
     <span />

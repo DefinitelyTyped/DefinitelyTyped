@@ -7,5 +7,5 @@ export default class FormHeaderView extends View {
     class: string;
     label: string;
 
-    constructor(locale: Locale, options?: { label: string; class?: string });
+    constructor(locale: Locale, options?: { label: string; class?: string | undefined });
 }

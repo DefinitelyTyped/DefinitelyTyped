@@ -150,7 +150,7 @@ const doc7 = (
 
 const Signature = () => <text>JSX-PDF, Inc.</text>;
 
-const SignedGreeting = ({ name }: { name?: string }) => (
+const SignedGreeting = ({ name }: { name?: string | undefined }) => (
     <stack>
         {name && <Greeting name={name} />}
         <Signature />
@@ -167,7 +167,7 @@ const doc8 = (
 
 const AnonymousGreeting = () => <text>We don't know you.</text>;
 
-const SignedGreeting2 = ({ name }: { name?: string }) => (
+const SignedGreeting2 = ({ name }: { name?: string | undefined }) => (
     <stack>
         {name ? <Greeting name={name} /> : <AnonymousGreeting />}
         <Signature />
@@ -182,7 +182,7 @@ const doc9 = (
     </document>
 );
 
-const SignedGreeting3 = ({ name }: { name?: string }) => {
+const SignedGreeting3 = ({ name }: { name?: string | undefined }) => {
     const greeting = name ? <Greeting name={name} /> : <AnonymousGreeting />;
 
     return (

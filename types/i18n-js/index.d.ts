@@ -43,10 +43,10 @@ declare namespace I18n {
     type Message = string | object | ((scope: Scope) => string | object);
 
     interface TranslateOptions extends InterpolateOptions {
-        scope?: Scope;
-        message?: string;
-        defaults?: Array<{ message: Message } | { scope: Scope }>;
-        defaultValue?: Message;
+        scope?: Scope | undefined;
+        message?: string | undefined;
+        defaults?: Array<{ message: Message } | { scope: Scope }> | undefined;
+        defaultValue?: Message | undefined;
     }
     function translate(scope: Scope, options?: TranslateOptions): string;
     function t(scope: Scope, options?: TranslateOptions): string;
@@ -57,10 +57,10 @@ declare namespace I18n {
     function l(scope: Scope, value: string | number | Date, options?: InterpolateOptions): string;
 
     interface ToNumberOptions {
-        precision?: number;
-        separator?: string;
-        delimiter?: string;
-        strip_insignificant_zeros?: boolean;
+        precision?: number | undefined;
+        separator?: string | undefined;
+        delimiter?: string | undefined;
+        strip_insignificant_zeros?: boolean | undefined;
     }
     function toNumber(num: number, options?: ToNumberOptions): string;
 
@@ -68,17 +68,17 @@ declare namespace I18n {
     function toPercentage(num: number, options?: ToPercentageOptions): string;
 
     interface ToCurrencyOptions extends ToNumberOptions {
-        format?: string;
-        unit?: string;
-        sign_first?: boolean;
+        format?: string | undefined;
+        unit?: string | undefined;
+        sign_first?: boolean | undefined;
     }
     function toCurrency(num: number, options?: ToCurrencyOptions): string;
 
     function toTime(scope: Scope, value: string | number | Date): string;
 
     interface ToHumanSizeOptions extends ToNumberOptions {
-        format?: string;
-        scope?: Scope;
+        format?: string | undefined;
+        scope?: Scope | undefined;
     }
     function toHumanSize(num: number, options?: ToHumanSizeOptions): string;
 

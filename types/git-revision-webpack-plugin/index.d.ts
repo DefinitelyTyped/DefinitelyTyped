@@ -8,12 +8,12 @@ import { Compiler, WebpackPluginInstance } from 'webpack';
 
 declare namespace GitRevisionPlugin {
     interface Options {
-        lightweightTags?: boolean;
-        branch?: boolean;
-        commithashCommand?: string;
-        versionCommand?: string;
-        branchCommand?: string;
-        gitWorkTree?: string;
+        lightweightTags?: boolean | undefined;
+        branch?: boolean | undefined;
+        commithashCommand?: string | undefined;
+        versionCommand?: string | undefined;
+        branchCommand?: string | undefined;
+        gitWorkTree?: string | undefined;
     }
 }
 

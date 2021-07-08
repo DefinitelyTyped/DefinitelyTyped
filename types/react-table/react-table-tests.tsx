@@ -137,7 +137,7 @@ interface Data {
     visits: number;
     progress: number;
     status: string;
-    subRows?: Data[];
+    subRows?: Data[] | undefined;
 }
 
 // Create an editable cell renderer
@@ -318,7 +318,7 @@ interface Table<T extends object> {
     columns: Array<Column<T>>;
     data: T[];
     updateMyData?: any;
-    skipPageReset?: boolean;
+    skipPageReset?: boolean | undefined;
 }
 
 // Be sure to pass our updateMyData and the skipPageReset option

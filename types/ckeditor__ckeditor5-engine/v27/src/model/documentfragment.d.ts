@@ -26,10 +26,10 @@ export default class DocumentFragment implements Iterable<Node> {
 }
 
 interface FromJSONArg {
-    name?: string;
-    data?: string;
-    attributes?: Record<string, string> | Array<[string, string]>;
-    children?: FromJSONArg[];
+    name?: string | undefined;
+    data?: string | undefined;
+    attributes?: Record<string, string> | Array<[string, string]> | undefined;
+    children?: FromJSONArg[] | undefined;
 }
 
 export {};

@@ -8,11 +8,11 @@ import { Plugin } from "postcss";
 
 declare namespace calc {
     interface Options {
-        precision?: number;
-        preserve?: boolean;
-        warnWhenCannotResolve?: boolean;
-        mediaQueries?: boolean;
-        selectors?: boolean;
+        precision?: number | undefined;
+        preserve?: boolean | undefined;
+        warnWhenCannotResolve?: boolean | undefined;
+        mediaQueries?: boolean | undefined;
+        selectors?: boolean | undefined;
     }
 
     type Calc = Plugin<Options>;

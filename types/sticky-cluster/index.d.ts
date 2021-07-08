@@ -11,13 +11,13 @@ declare namespace stickyCluster {
     type InitializeFn = (callback: Callback) => void;
     type Callback = (server: http.Server) => void;
     interface Options {
-        concurrency?: number;
-        port?: number;
-        debug?: boolean;
-        prefix?: string;
-        env?: (index: number) => { stickycluster_worker_index: number };
-        hardShutdownDelay?: number;
-        errorHandler?: (err: any) => void;
+        concurrency?: number | undefined;
+        port?: number | undefined;
+        debug?: boolean | undefined;
+        prefix?: string | undefined;
+        env?: ((index: number) => { stickycluster_worker_index: number }) | undefined;
+        hardShutdownDelay?: number | undefined;
+        errorHandler?: ((err: any) => void) | undefined;
     }
 }
 

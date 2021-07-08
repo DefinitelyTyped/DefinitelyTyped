@@ -3,11 +3,11 @@ export interface DatabaseOptions {
     connection?: {
         user: string;
         pass: string;
-        useNewUrlParser?: boolean;
-        keepAlive?: boolean;
-        keepAliveInitialDelay?: number;
-    };
-    plugin?: object;
+        useNewUrlParser?: boolean | undefined;
+        keepAlive?: boolean | undefined;
+        keepAliveInitialDelay?: number | undefined;
+    } | undefined;
+    plugin?: object | undefined;
 }
 
 export interface Database {

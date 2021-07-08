@@ -32,7 +32,7 @@ export interface StoreConfig extends CachingConfig {
     store: 'memory' | 'none' | Store | {
         create(...args: any[]): Store;
     };
-    max?: number;
+    max?: number | undefined;
 
     /**
      * You may pass in any other arguments these will be passed on to the `create` method of your store,

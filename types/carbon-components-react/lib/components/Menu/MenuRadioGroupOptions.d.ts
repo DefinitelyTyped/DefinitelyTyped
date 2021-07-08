@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface MenuRadioGroupOptionsProps {
-    initialSelectedItem?: string;
+    initialSelectedItem?: string | undefined;
     items: readonly string[];
     onChange?(item: string): void;
 }

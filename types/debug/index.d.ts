@@ -6,6 +6,7 @@
 //                 Brasten Sager <https://github.com/brasten>
 //                 Nicolas Penin <https://github.com/npenin>
 //                 Kristian Brünn <https://github.com/kristianmitk>
+//                 Caleb Gregory <https://github.com/calebgregory>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var debug: debug.Debug & { debug: debug.Debug; default: debug.Debug };
@@ -21,6 +22,7 @@ declare namespace debug {
         enable: (namespaces: string) => void;
         enabled: (namespaces: string) => boolean;
         log: (...args: any[]) => any;
+        selectColor: (namespace: string) => string | number;
 
         names: RegExp[];
         skips: RegExp[];

@@ -23,7 +23,7 @@ declare namespace postcssPresetEnv {
          * Without any configuration options, PostCSS Preset Env enables
          * **Stage 2** features.
          */
-        stage?: number;
+        stage?: number | undefined;
 
         /**
          * The features option enables or disables specific polyfills by ID.
@@ -36,7 +36,7 @@ declare namespace postcssPresetEnv {
          * Any polyfills not explicitly enabled or disabled through `features`
          * are determined by the `stage` option.
          */
-        features?: pluginOptions.features;
+        features?: pluginOptions.features | undefined;
 
         /**
          * The browsers option determines which polyfills are required based upon
@@ -51,7 +51,7 @@ declare namespace postcssPresetEnv {
          *
          * @default default
          */
-        browsers?: string | string[];
+        browsers?: string | string[] | undefined;
 
         /**
          * The `insertAfter` keys allow you to insert other PostCSS plugins
@@ -59,7 +59,7 @@ declare namespace postcssPresetEnv {
          * PostCSS plugins that must execute before or after certain polyfills.
          * `insertAfter` support chaining one or multiple plugins.
          */
-        insertAfter?: object;
+        insertAfter?: object | undefined;
 
         /**
          * The `insertBefore` keys allow you to insert other PostCSS plugins
@@ -67,7 +67,7 @@ declare namespace postcssPresetEnv {
          * PostCSS plugins that must execute before or after certain polyfills.
          * `insertBefore` support chaining one or multiple plugins.
          */
-        insertBefore?: object;
+        insertBefore?: object | undefined;
 
         /**
          * PostCSS Preset Env includes
@@ -80,14 +80,14 @@ declare namespace postcssPresetEnv {
          *
          * Passing `autoprefixer: false` disables autoprefixer.
          */
-        autoprefixer?: boolean | AutoprefixerOptions;
+        autoprefixer?: boolean | AutoprefixerOptions | undefined;
 
         /**
          * The `preserve` option determines whether all plugins should receive
          * a `preserve` option, which may preserve or remove otherwise-polyfilled CSS.
          * By default, this option is not configured.
          */
-        preserve?: boolean;
+        preserve?: boolean | undefined;
 
         /**
          * The `importFrom` option specifies sources where variables like
@@ -95,7 +95,7 @@ declare namespace postcssPresetEnv {
          * Environment Variables can be imported from, which might be
          * CSS, JS, and JSON files, functions, and directly passed objects.
          */
-        importFrom?: string | any[];
+        importFrom?: string | any[] | undefined;
 
         /**
          * The `exportTo` option specifies destinations where variables like
@@ -103,44 +103,44 @@ declare namespace postcssPresetEnv {
          * Environment Variables can be exported to, which might be
          * CSS, JS, and JSON files, functions, and directly passed objects.
          */
-        exportTo?: string | any[];
+        exportTo?: string | any[] | undefined;
     }
 
     namespace pluginOptions {
         interface features {
-            'all-property'?: boolean | object;
-            'any-link-pseudo-class'?: boolean | object;
-            'blank-pseudo-class'?: boolean | object;
-            'break-properties'?: boolean | object;
-            'case-insensitive-attributes'?: boolean | object;
-            'color-functional-notation'?: boolean | object;
-            'color-mod-function'?: boolean | object;
-            'custom-media-queries'?: boolean | object;
-            'custom-properties'?: boolean | object;
-            'custom-selectors'?: boolean | object;
-            'dir-pseudo-class'?: boolean | object;
-            'double-position-gradients'?: boolean | object;
-            'environment-variables'?: boolean | object;
-            'focus-visible-pseudo-class'?: boolean | object;
-            'focus-within-pseudo-class'?: boolean | object;
-            'font-variant-property'?: boolean | object;
-            'gap-properties'?: boolean | object;
-            'gray-function'?: boolean | object;
-            'has-pseudo-class'?: boolean | object;
-            'hexadecimal-alpha-notation'?: boolean | object;
-            'image-set-function'?: boolean | object;
-            'lab-function'?: boolean | object;
-            'logical-properties-and-values'?: boolean | object;
-            'matches-pseudo-class'?: boolean | object;
-            'media-query-ranges'?: boolean | object;
-            'nesting-rules'?: boolean | object;
-            'not-pseudo-class'?: boolean | object;
-            'overflow-property'?: boolean | object;
-            'overflow-wrap-property'?: boolean | object;
-            'place-properties'?: boolean | object;
-            'prefers-color-scheme-query'?: boolean | object;
-            'rebeccapurple-color'?: boolean | object;
-            'system-ui-font-family'?: boolean | object;
+            'all-property'?: boolean | object | undefined;
+            'any-link-pseudo-class'?: boolean | object | undefined;
+            'blank-pseudo-class'?: boolean | object | undefined;
+            'break-properties'?: boolean | object | undefined;
+            'case-insensitive-attributes'?: boolean | object | undefined;
+            'color-functional-notation'?: boolean | object | undefined;
+            'color-mod-function'?: boolean | object | undefined;
+            'custom-media-queries'?: boolean | object | undefined;
+            'custom-properties'?: boolean | object | undefined;
+            'custom-selectors'?: boolean | object | undefined;
+            'dir-pseudo-class'?: boolean | object | undefined;
+            'double-position-gradients'?: boolean | object | undefined;
+            'environment-variables'?: boolean | object | undefined;
+            'focus-visible-pseudo-class'?: boolean | object | undefined;
+            'focus-within-pseudo-class'?: boolean | object | undefined;
+            'font-variant-property'?: boolean | object | undefined;
+            'gap-properties'?: boolean | object | undefined;
+            'gray-function'?: boolean | object | undefined;
+            'has-pseudo-class'?: boolean | object | undefined;
+            'hexadecimal-alpha-notation'?: boolean | object | undefined;
+            'image-set-function'?: boolean | object | undefined;
+            'lab-function'?: boolean | object | undefined;
+            'logical-properties-and-values'?: boolean | object | undefined;
+            'matches-pseudo-class'?: boolean | object | undefined;
+            'media-query-ranges'?: boolean | object | undefined;
+            'nesting-rules'?: boolean | object | undefined;
+            'not-pseudo-class'?: boolean | object | undefined;
+            'overflow-property'?: boolean | object | undefined;
+            'overflow-wrap-property'?: boolean | object | undefined;
+            'place-properties'?: boolean | object | undefined;
+            'prefers-color-scheme-query'?: boolean | object | undefined;
+            'rebeccapurple-color'?: boolean | object | undefined;
+            'system-ui-font-family'?: boolean | object | undefined;
         }
     }
 

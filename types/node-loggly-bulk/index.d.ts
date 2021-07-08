@@ -7,14 +7,14 @@ import { LogglyInstance, LogglyOptions } from 'loggly';
 
 export interface LogglyBulkOptions extends LogglyOptions {
     proxy?: any;
-    userAgent?: string;
-    useTagHeader?: boolean;
-    isBulk?: boolean;
+    userAgent?: string | undefined;
+    useTagHeader?: boolean | undefined;
+    isBulk?: boolean | undefined;
     bufferOptions?: {
         size: number;
         retriesInMilliSeconds: number;
-    };
-    networkErrorsOnConsole?: boolean;
+    } | undefined;
+    networkErrorsOnConsole?: boolean | undefined;
 }
 
 export interface LogglyBulkConstructor {

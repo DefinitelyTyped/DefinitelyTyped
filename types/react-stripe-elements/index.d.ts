@@ -24,18 +24,18 @@ export namespace ReactStripeElements {
     type ElementsOptions = stripe.elements.ElementsOptions;
     // From https://stripe.com/docs/stripe-js/reference#element-types
     type TokenType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'paymentRequestButton' | 'iban' | 'idealBank';
-    type TokenOptions = stripe.TokenOptions & { type?: TokenType };
+    type TokenOptions = stripe.TokenOptions & { type?: TokenType | undefined };
     type TokenResponse = stripe.TokenResponse;
     type SourceResponse = stripe.SourceResponse;
     type SourceOptions = stripe.SourceOptions;
     type HTMLStripeElement = stripe.elements.Element;
 
     interface StripeProviderOptions {
-        stripeAccount?: string;
+        stripeAccount?: string | undefined;
     }
     type StripeProviderProps =
-        | { apiKey: string; stripe?: never } & StripeProviderOptions
-        | { apiKey?: never; stripe: stripe.Stripe | null } & StripeProviderOptions;
+        | { apiKey: string; stripe?: never | undefined } & StripeProviderOptions
+        | { apiKey?: never | undefined; stripe: stripe.Stripe | null } & StripeProviderOptions;
 
     interface StripeOverrideProps {
         /*
@@ -69,7 +69,7 @@ export namespace ReactStripeElements {
     }
 
     interface InjectOptions {
-        withRef?: boolean;
+        withRef?: boolean | undefined;
     }
 
     interface InjectedStripeProps {
@@ -78,9 +78,9 @@ export namespace ReactStripeElements {
     }
 
     interface ElementProps extends ElementsOptions {
-        id?: string;
+        id?: string | undefined;
 
-        className?: string;
+        className?: string | undefined;
 
         elementRef?(ref: any): void;
 

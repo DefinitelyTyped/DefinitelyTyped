@@ -13,7 +13,7 @@ export interface CodeBlockConfig {
 }
 
 export interface CodeBlockLanguageDefinition {
-    class?: string;
+    class?: string | undefined;
     label: string;
     language: string;
 }

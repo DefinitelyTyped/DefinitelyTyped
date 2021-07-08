@@ -9,13 +9,13 @@ import { Sink, Stream, BaseQuad, Quad } from 'rdf-js';
 
 declare namespace Serializer {
     interface SerializerOptions {
-        context?: Context;
-        compact?: boolean;
-        encoding?: 'string' | 'object';
-        flatten?: boolean;
-        frame?: boolean;
-        skipContext?: boolean;
-        skipGraphProperty?: boolean;
+        context?: Context | undefined;
+        compact?: boolean | undefined;
+        encoding?: 'string' | 'object' | undefined;
+        flatten?: boolean | undefined;
+        frame?: boolean | undefined;
+        skipContext?: boolean | undefined;
+        skipGraphProperty?: boolean | undefined;
     }
 }
 

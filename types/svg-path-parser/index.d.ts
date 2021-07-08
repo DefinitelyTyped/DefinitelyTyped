@@ -22,13 +22,13 @@ export type Command = (
 export interface BaseCommand {
     code: 'm' | 'M' | 'l' | 'L' | 'h' | 'H' | 'v' | 'V' | 'c' | 'C' | 's' | 'S' | 'q' | 'Q' | 't' | 'T' | 'a' | 'A' | 'z' | 'Z';
     command: 'moveto' | 'lineto' | 'horizontal lineto' | 'vertical lineto' | 'curveto' | 'smooth curveto' | 'quadratic curveto' | 'smooth quadratic curveto' | 'elliptical arc' | 'closepath';
-    relative?: boolean;
+    relative?: boolean | undefined;
 }
 
 export interface MoveToCommand extends BaseCommand {
     code: 'm' | 'M';
     command: 'moveto';
-    relative?: boolean;
+    relative?: boolean | undefined;
     x: number;
     y: number;
 }
@@ -36,7 +36,7 @@ export interface MoveToCommand extends BaseCommand {
 export interface LineToCommand extends BaseCommand {
     code: 'l' | 'L';
     command: 'lineto';
-    relative?: boolean;
+    relative?: boolean | undefined;
     x: number;
     y: number;
 }
@@ -44,27 +44,27 @@ export interface LineToCommand extends BaseCommand {
 export interface HorizontalLineToCommand extends BaseCommand {
     code: 'h' | 'H';
     command: 'horizontal lineto';
-    relative?: boolean;
+    relative?: boolean | undefined;
     x: number;
 }
 
 export interface VerticalLineToCommand extends BaseCommand {
     code: 'v' | 'V';
     command: 'vertical lineto';
-    relative?: boolean;
+    relative?: boolean | undefined;
     y: number;
 }
 
 export interface ClosePathCommand extends BaseCommand {
     code: 'z' | 'Z';
     command: 'closepath';
-    relative?: boolean;
+    relative?: boolean | undefined;
 }
 
 export interface CurveToCommand extends BaseCommand {
     code: 'c' | 'C';
     command: 'curveto';
-    relative?: boolean;
+    relative?: boolean | undefined;
     x1: number;
     y1: number;
     x2: number;
@@ -76,7 +76,7 @@ export interface CurveToCommand extends BaseCommand {
 export interface SmoothCurveToCommand extends BaseCommand {
     code: 's' | 'S';
     command: 'smooth curveto';
-    relative?: boolean;
+    relative?: boolean | undefined;
     x2: number;
     y2: number;
     x: number;
@@ -86,7 +86,7 @@ export interface SmoothCurveToCommand extends BaseCommand {
 export interface QuadraticCurveToCommand extends BaseCommand {
     code: 'q' | 'Q';
     command: 'quadratic curveto';
-    relative?: boolean;
+    relative?: boolean | undefined;
     x1: number;
     y1: number;
     x: number;
@@ -96,7 +96,7 @@ export interface QuadraticCurveToCommand extends BaseCommand {
 export interface SmoothQuadraticCurveToCommand extends BaseCommand {
     code: 't' | 'T';
     command: 'smooth quadratic curveto';
-    relative?: boolean;
+    relative?: boolean | undefined;
     x: number;
     y: number;
 }
@@ -104,7 +104,7 @@ export interface SmoothQuadraticCurveToCommand extends BaseCommand {
 export interface EllipticalArcCommand extends BaseCommand {
     code: 'a' | 'A';
     command: 'elliptical arc';
-    relative?: boolean;
+    relative?: boolean | undefined;
     rx: number;
     ry: number;
     xAxisRotation: number;

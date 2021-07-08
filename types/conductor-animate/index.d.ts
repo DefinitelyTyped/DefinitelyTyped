@@ -14,8 +14,8 @@ interface Config {
 }
 
 interface AnimatedProps {
-    additional?: object;
-    children?: React.ReactNode | React.ReactNodeArray | null;
+    additional?: object | undefined;
+    children?: React.ReactNode | React.ReactNodeArray | null | undefined;
     id: string;
 }
 
