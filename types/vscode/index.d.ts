@@ -9259,7 +9259,7 @@ declare module 'vscode' {
          * Get {@link TreeItem} representation of the `element`
          *
          * @param element The element for which {@link TreeItem} representation is asked for.
-         * @return {@link TreeItem} representation of the element
+         * @return TreeItem representation of the element
          */
         getTreeItem(element: T): TreeItem | Thenable<TreeItem>;
 
@@ -11547,7 +11547,7 @@ declare module 'vscode' {
         /**
          * The metadata of this cell. Can be anything but must be JSON-stringifyable.
          */
-        readonly metadata: { [key: string]: any }
+        readonly metadata: { [key: string]: any };
 
         /**
          * The outputs of this cell.
