@@ -21,6 +21,7 @@ declare module 'fs/promises' {
         WatchOptions,
     } from 'fs';
 
+    // TODO: Add `EventEmitter` close
     interface FileHandle {
         /**
          * Gets the file descriptor for this file handle.
@@ -193,50 +194,6 @@ declare module 'fs/promises' {
     function open(path: PathLike, flags: string | number, mode?: Mode): Promise<FileHandle>;
 
     /**
-     * Asynchronously reads data from the file referenced by the supplied `FileHandle`.
-     * @param handle A `FileHandle`.
-     * @param buffer The buffer that the data will be written to.
-     * @param offset The offset in the buffer at which to start writing.
-     * @param length The number of bytes to read.
-     * @param position The offset from the beginning of the file from which data should be read. If
-     * `null`, data will be read from the current position.
-     */
-    function read<TBuffer extends Uint8Array>(
-        handle: FileHandle,
-        buffer: TBuffer,
-        offset?: number | null,
-        length?: number | null,
-        position?: number | null,
-    ): Promise<{ bytesRead: number, buffer: TBuffer }>;
-
-    /**
-     * Asynchronously writes `buffer` to the file referenced by the supplied `FileHandle`.
-     * It is unsafe to call `fsPromises.write()` multiple times on the same file without waiting for the `Promise`
-     * to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
-     * @param handle A `FileHandle`.
-     * @param buffer The buffer that the data will be written to.
-     * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
-     * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
-     * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
-     */
-    function write<TBuffer extends Uint8Array>(
-        handle: FileHandle,
-        buffer: TBuffer,
-        offset?: number | null,
-        length?: number | null, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
-
-    /**
-     * Asynchronously writes `string` to the file referenced by the supplied `FileHandle`.
-     * It is unsafe to call `fsPromises.write()` multiple times on the same file without waiting for the `Promise`
-     * to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
-     * @param handle A `FileHandle`.
-     * @param string A string to write.
-     * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
-     * @param encoding The expected string encoding.
-     */
-    function write(handle: FileHandle, string: string, position?: number | null, encoding?: BufferEncoding | null): Promise<{ bytesWritten: number, buffer: string }>;
-
-    /**
      * Asynchronous rename(2) - Change the name or location of a file or directory.
      * @param oldPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
@@ -253,13 +210,6 @@ declare module 'fs/promises' {
     function truncate(path: PathLike, len?: number): Promise<void>;
 
     /**
-     * Asynchronous ftruncate(2) - Truncate a file to a specified length.
-     * @param handle A `FileHandle`.
-     * @param len If not specified, defaults to `0`.
-     */
-    function ftruncate(handle: FileHandle, len?: number): Promise<void>;
-
-    /**
      * Asynchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
@@ -269,18 +219,6 @@ declare module 'fs/promises' {
      * Asynchronously removes files and directories (modeled on the standard POSIX `rm` utility).
      */
     function rm(path: PathLike, options?: RmOptions): Promise<void>;
-
-    /**
-     * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
-     * @param handle A `FileHandle`.
-     */
-    function fdatasync(handle: FileHandle): Promise<void>;
-
-    /**
-     * Asynchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
-     * @param handle A `FileHandle`.
-     */
-    function fsync(handle: FileHandle): Promise<void>;
 
     /**
      * Asynchronous mkdir(2) - create a directory.
@@ -394,13 +332,6 @@ declare module 'fs/promises' {
     function unlink(path: PathLike): Promise<void>;
 
     /**
-     * Asynchronous fchmod(2) - Change permissions of a file.
-     * @param handle A `FileHandle`.
-     * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
-     */
-    function fchmod(handle: FileHandle, mode: Mode): Promise<void>;
-
-    /**
      * Asynchronous chmod(2) - Change permissions of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
@@ -431,12 +362,6 @@ declare module 'fs/promises' {
     function lutimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
 
     /**
-     * Asynchronous fchown(2) - Change ownership of a file.
-     * @param handle A `FileHandle`.
-     */
-    function fchown(handle: FileHandle, uid: number, gid: number): Promise<void>;
-
-    /**
      * Asynchronous chown(2) - Change ownership of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
@@ -449,14 +374,6 @@ declare module 'fs/promises' {
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
     function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
-
-    /**
-     * Asynchronously change file timestamps of the file referenced by the supplied `FileHandle`.
-     * @param handle A `FileHandle`.
-     * @param atime The last access time. If a string is provided, it will be coerced to number.
-     * @param mtime The last modified time. If a string is provided, it will be coerced to number.
-     */
-    function futimes(handle: FileHandle, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
 
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -517,7 +434,7 @@ declare module 'fs/promises' {
         path: PathLike | FileHandle,
         data: string | NodeJS.ArrayBufferView | Iterable<string | NodeJS.ArrayBufferView> | AsyncIterable<string | NodeJS.ArrayBufferView> | Stream,
         options?: BaseEncodingOptions & { mode?: Mode | undefined, flag?: OpenMode | undefined } & Abortable | BufferEncoding | null
-        ): Promise<void>;
+    ): Promise<void>;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.

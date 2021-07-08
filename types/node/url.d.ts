@@ -1,4 +1,5 @@
 declare module 'url' {
+    import { ClientRequestArgs } from 'http';
     import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
 
     // Input to `url.format`
@@ -71,6 +72,12 @@ declare module 'url' {
      * @param url The path to convert to a File URL.
      */
     function pathToFileURL(url: string): URL;
+
+    /**
+     * This utility function converts a URL object into an ordinary options object as
+     * expected by the `http.request()` and `https.request()` APIs.
+     */
+    function urlToHttpOptions(url: URL): ClientRequestArgs;
 
     interface URLFormatOptions {
         auth?: boolean | undefined;
