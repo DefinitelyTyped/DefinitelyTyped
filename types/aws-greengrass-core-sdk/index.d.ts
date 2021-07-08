@@ -21,3 +21,7 @@ export class IotData {
     constructor();
     publish(params: PublishParams, callback: IotCallback): void;
 }
+
+export const GreengrassInterfaceVersion: string;
+
+export * as StreamManager from "./stream-manager";
