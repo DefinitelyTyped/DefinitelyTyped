@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import {
     GestureResponderHandlers,
     StyleProp,
@@ -77,5 +77,6 @@ export interface AutocompleteProps<T> extends TextInputProps {
 
     keyboardShouldPersistTaps?: 'always' | 'handeld' | 'never' | boolean;
 }
+declare const AutocompleteInput: FC<AutocompleteProps<any>>;
 
-export default class Autocomplete<T> extends Component<AutocompleteProps<T>> {}
+export default AutocompleteInput;
