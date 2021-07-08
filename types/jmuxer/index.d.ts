@@ -9,18 +9,18 @@ import { Duplex } from "stream";
 declare namespace JMuxer {
     interface Options {
         node: string | HTMLVideoElement;
-        mode?: 'both' | 'audio' | 'video';
-        flushingTime?: number;
-        clearBuffer?: boolean;
-        fps?: number;
-        debug?: boolean;
-        onReady?: () => void;
+        mode?: 'both' | 'audio' | 'video' | undefined;
+        flushingTime?: number | undefined;
+        clearBuffer?: boolean | undefined;
+        fps?: number | undefined;
+        debug?: boolean | undefined;
+        onReady?: (() => void) | undefined;
     }
 
     interface Feeder {
-        audio?: Uint8Array;
-        video?: Uint8Array;
-        duration?: number;
+        audio?: Uint8Array | undefined;
+        video?: Uint8Array | undefined;
+        duration?: number | undefined;
     }
 }
 

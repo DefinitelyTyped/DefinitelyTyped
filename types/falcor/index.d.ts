@@ -63,13 +63,13 @@ export abstract class DataSource {
 /////////////////////////////////////////////////////
 
 export interface ModelOptions {
-    source?: DataSource;
-    cache?: JSONGraph;
-    maxSize?: number;
-    collectRatio?: number;
-    errorSelector?: ModelErrorSelector;
-    onChange?: ModelOnChange;
-    comparator?: ModelComparator;
+    source?: DataSource | undefined;
+    cache?: JSONGraph | undefined;
+    maxSize?: number | undefined;
+    collectRatio?: number | undefined;
+    errorSelector?: ModelErrorSelector | undefined;
+    onChange?: ModelOnChange | undefined;
+    comparator?: ModelComparator | undefined;
 }
 
 /**

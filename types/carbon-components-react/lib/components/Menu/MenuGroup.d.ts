@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface MenuGroupProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
     label: string;
 }
 

@@ -45,20 +45,20 @@ export interface ResultFields {
     lastName: string | null;
     issuingState: string | null;
     // td1 only
-    optional1?: string;
-    optional2?: string;
+    optional1?: string | undefined;
+    optional2?: string | undefined;
     // td2 only
-    optional?: string;
+    optional?: string | undefined;
     // td3 only
-    personalNumber?: string;
-    personalNumberCheckDigit?: string;
+    personalNumber?: string | undefined;
+    personalNumberCheckDigit?: string | undefined;
     // french national id only
-    administrativeCode?: string;
-    administrativeCode2?: string;
+    administrativeCode?: string | undefined;
+    administrativeCode2?: string | undefined;
     // swiss driving license only
-    languageCode?: string;
-    pinCode?: string;
-    versionNumber?: string;
+    languageCode?: string | undefined;
+    pinCode?: string | undefined;
+    versionNumber?: string | undefined;
 }
 
 export interface ResultDetails {

@@ -8,7 +8,7 @@ interface Options {
     /**
      * (default: @name) executable name (e.g. 'buster-test')
      */
-    executable?: string;
+    executable?: string | undefined;
 }
 
 interface ResolveBin {

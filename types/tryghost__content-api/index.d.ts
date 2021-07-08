@@ -24,125 +24,125 @@ export interface Identification {
 }
 
 export interface Metadata {
-    meta_title?: Nullable<string>;
-    meta_description?: Nullable<string>;
+    meta_title?: Nullable<string> | undefined;
+    meta_description?: Nullable<string> | undefined;
 }
 
 export interface Excerpt {
-    excerpt?: string;
-    custom_excerpt?: string;
+    excerpt?: string | undefined;
+    custom_excerpt?: string | undefined;
 }
 
 export interface CodeInjection {
-    codeinjection_head?: Nullable<string>;
-    codeinjection_foot?: Nullable<string>;
+    codeinjection_head?: Nullable<string> | undefined;
+    codeinjection_foot?: Nullable<string> | undefined;
 }
 
 /** Metadata for Facebook */
 export interface Facebook {
-    og_image?: Nullable<string>;
-    og_title?: Nullable<string>;
-    og_description?: Nullable<string>;
+    og_image?: Nullable<string> | undefined;
+    og_title?: Nullable<string> | undefined;
+    og_description?: Nullable<string> | undefined;
 }
 
 export interface Twitter {
-    twitter_image?: Nullable<string>;
-    twitter_title?: Nullable<string>;
-    twitter_description?: Nullable<string>;
+    twitter_image?: Nullable<string> | undefined;
+    twitter_title?: Nullable<string> | undefined;
+    twitter_description?: Nullable<string> | undefined;
 }
 
 export interface SocialMedia extends Facebook, Twitter {
 }
 
 export interface Settings extends Metadata, CodeInjection, SocialMedia {
-    title?: string;
-    description?: string;
-    logo?: string;
-    icon?: string;
-    cover_image?: string;
-    facebook?: string;
-    twitter?: string;
-    lang?: string;
-    timezone?: string;
-    ghost_head?: Nullable<string>;
-    ghost_foot?: Nullable<string>;
+    title?: string | undefined;
+    description?: string | undefined;
+    logo?: string | undefined;
+    icon?: string | undefined;
+    cover_image?: string | undefined;
+    facebook?: string | undefined;
+    twitter?: string | undefined;
+    lang?: string | undefined;
+    timezone?: string | undefined;
+    ghost_head?: Nullable<string> | undefined;
+    ghost_foot?: Nullable<string> | undefined;
     navigation?: Array<{
         label: string;
         url: string;
-    }>;
+    }> | undefined;
     secondary_navigation?: Array<{
         label: string;
         url: string;
-    }>;
-    url?: string;
+    }> | undefined;
+    url?: string | undefined;
 }
 
 export interface Author extends Identification, Metadata {
-    name?: string;
-    profile_image?: Nullable<string>;
-    cover_image?: Nullable<string>;
-    bio?: Nullable<string>;
-    website?: Nullable<string>;
-    location?: Nullable<string>;
-    facebook?: Nullable<string>;
-    twitter?: Nullable<string>;
-    url?: Nullable<string>;
+    name?: string | undefined;
+    profile_image?: Nullable<string> | undefined;
+    cover_image?: Nullable<string> | undefined;
+    bio?: Nullable<string> | undefined;
+    website?: Nullable<string> | undefined;
+    location?: Nullable<string> | undefined;
+    facebook?: Nullable<string> | undefined;
+    twitter?: Nullable<string> | undefined;
+    url?: Nullable<string> | undefined;
     count?: {
         posts: number;
-    };
+    } | undefined;
 }
 
 export type TagVisibility = 'public' | 'internal';
 
 export interface Tag extends Identification, Metadata {
-    name?: string;
-    description?: Nullable<string>;
-    feature_image?: Nullable<string>;
-    visibility?: TagVisibility;
-    url?: string;
+    name?: string | undefined;
+    description?: Nullable<string> | undefined;
+    feature_image?: Nullable<string> | undefined;
+    visibility?: TagVisibility | undefined;
+    url?: string | undefined;
     count?: {
         posts: number;
-    };
+    } | undefined;
 }
 
 export interface PostOrPage extends Identification, Excerpt, CodeInjection, Metadata, SocialMedia {
     // Identification
-    uuid?: string;
-    comment_id?: string;
+    uuid?: string | undefined;
+    comment_id?: string | undefined;
 
     // Post or Page
-    title?: string;
-    html?: Nullable<string>;
-    plaintext?: Nullable<string>;
+    title?: string | undefined;
+    html?: Nullable<string> | undefined;
+    plaintext?: Nullable<string> | undefined;
 
     // Image
-    feature_image?: Nullable<string>;
-    featured?: boolean;
+    feature_image?: Nullable<string> | undefined;
+    featured?: boolean | undefined;
 
     // Dates
-    created_at?: string;
-    updated_at?: Nullable<string>;
-    published_at?: Nullable<string>;
+    created_at?: string | undefined;
+    updated_at?: Nullable<string> | undefined;
+    published_at?: Nullable<string> | undefined;
 
     // Custom Template for posts and pages
-    custom_template?: Nullable<string>;
+    custom_template?: Nullable<string> | undefined;
 
     // Post or Page
-    page?: boolean;
+    page?: boolean | undefined;
 
     // Reading time
-    reading_time?: number;
+    reading_time?: number | undefined;
 
     // Tags - Only shown when using Include param
-    tags?: Tag[];
-    primary_tag?: Nullable<Tag>;
+    tags?: Tag[] | undefined;
+    primary_tag?: Nullable<Tag> | undefined;
 
     // Authors - Only shown when using Include Param
-    authors?: Author[];
-    primary_author?: Nullable<Author>;
+    authors?: Author[] | undefined;
+    primary_author?: Nullable<Author> | undefined;
 
-    url?: string;
-    canonical_url?: Nullable<string>;
+    url?: string | undefined;
+    canonical_url?: Nullable<string> | undefined;
 }
 
 export type GhostData = PostOrPage | Author | Tag | Settings;
@@ -162,13 +162,13 @@ export type PageParam = number;
 export type OrderParam = string;
 
 export interface Params {
-    include?: ArrayOrValue<IncludeParam>;
-    fields?: ArrayOrValue<FieldParam>;
-    formats?: ArrayOrValue<FormatParam>;
-    filter?: ArrayOrValue<FilterParam>;
-    limit?: ArrayOrValue<LimitParam>;
-    page?: ArrayOrValue<PageParam>;
-    order?: ArrayOrValue<OrderParam>;
+    include?: ArrayOrValue<IncludeParam> | undefined;
+    fields?: ArrayOrValue<FieldParam> | undefined;
+    formats?: ArrayOrValue<FormatParam> | undefined;
+    filter?: ArrayOrValue<FilterParam> | undefined;
+    limit?: ArrayOrValue<LimitParam> | undefined;
+    page?: ArrayOrValue<PageParam> | undefined;
+    order?: ArrayOrValue<OrderParam> | undefined;
 }
 
 export interface BrowseFunction<T> {
@@ -213,9 +213,9 @@ export interface GhostContentAPIOptions {
     version: 'v2' | 'v3' | 'canary';
     key: string;
     /** @deprecated since version v2 */
-    host?: string;
+    host?: string | undefined;
     /** @default "ghost" */
-    ghostPath?: string;
+    ghostPath?: string | undefined;
 }
 
 export interface GhostAPI {

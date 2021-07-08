@@ -1,22 +1,22 @@
 import * as React from "react";
 
 export type CheckboxProps = {
-    checked?: boolean;
-    className?: string;
-    compact?: boolean;
-    defaultChecked?: boolean;
-    disabled?: boolean;
-    disableStyles?: boolean;
-    id?: string;
-    indeterminate?: boolean;
-    inline?: boolean;
+    checked?: boolean | undefined;
+    className?: string | undefined;
+    compact?: boolean | undefined;
+    defaultChecked?: boolean | undefined;
+    disabled?: boolean | undefined;
+    disableStyles?: boolean | undefined;
+    id?: string | undefined;
+    indeterminate?: boolean | undefined;
+    inline?: boolean | undefined;
     inputProps?: any;
-    labelClasses?: string;
+    labelClasses?: string | undefined;
     labelProps?: any;
-    name?: string;
+    name?: string | undefined;
     state?: any;
-    value?: string;
-    onChange?: (...args: any[]) => any;
+    value?: string | undefined;
+    onChange?: ((...args: any[]) => any) | undefined;
 } & { [x: string]: any };
 
 declare const Checkbox: React.FunctionComponent<CheckboxProps>;

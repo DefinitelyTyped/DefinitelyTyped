@@ -8,15 +8,15 @@ import { TouchableWithoutFeedback, Animated, ViewProps } from 'react-native';
 
 export type RippleProps = TouchableWithoutFeedback['props'] &
     Animated.AnimatedProps<ViewProps> & {
-        rippleColor?: string;
-        rippleOpacity?: number;
-        rippleDuration?: number;
-        rippleSize?: number;
-        rippleContainerBorderRadius?: number;
-        rippleCentered?: boolean;
-        rippleSequential?: boolean;
-        rippleFades?: boolean;
-        disabled?: boolean;
+        rippleColor?: string | undefined;
+        rippleOpacity?: number | undefined;
+        rippleDuration?: number | undefined;
+        rippleSize?: number | undefined;
+        rippleContainerBorderRadius?: number | undefined;
+        rippleCentered?: boolean | undefined;
+        rippleSequential?: boolean | undefined;
+        rippleFades?: boolean | undefined;
+        disabled?: boolean | undefined;
         onRippleAnimation?(animation: Animated.CompositeAnimation, callback: () => void): void;
     };
 

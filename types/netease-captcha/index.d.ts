@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Window {
-    initNECaptcha?: NeteaseCaptcha.InitFunction;
+    initNECaptcha?: NeteaseCaptcha.InitFunction | undefined;
 }
 
 declare namespace NeteaseCaptcha {
@@ -24,22 +24,22 @@ declare namespace NeteaseCaptcha {
         /**
          * Defaults to 'float' on desktop, and 'popup' on mobile. 'bind' is for invisible captcha
          */
-        mode?: 'float' | 'embed' | 'popup' | 'bind';
+        mode?: 'float' | 'embed' | 'popup' | 'bind' | undefined;
 
         /**
          * Defaults to page protocol
          */
-        protocol?: 'http' | 'https';
+        protocol?: 'http' | 'https' | undefined;
 
         /**
          * Defaults to 'auto'
          */
-        width?: number | string;
+        width?: number | string | undefined;
 
         /**
          * Defaults to 'zh-CN'
          */
-        lang?: 'zh-CN' | 'en';
+        lang?: 'zh-CN' | 'en' | undefined;
 
         onReady?(instance: Instance): void;
 

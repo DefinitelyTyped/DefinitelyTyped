@@ -11,6 +11,6 @@ import { FlexboxPropTypes } from '../utils';
  */
 export declare const Callout: React.StatelessComponent<CalloutProps>;
 export interface CalloutProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    color?: CalloutColors;
-    size?: CalloutSizes;
+    color?: CalloutColors | undefined;
+    size?: CalloutSizes | undefined;
 }

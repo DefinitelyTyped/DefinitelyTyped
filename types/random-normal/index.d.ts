@@ -8,10 +8,10 @@
  */
 interface Options {
     /** The mean of the normal distribution. Defaults to 0 */
-    mean?: number;
+    mean?: number | undefined;
 
     /** The standard deviation of the normal distribution. Defaults to 1 */
-    dev?: number;
+    dev?: number | undefined;
 }
 
 /**

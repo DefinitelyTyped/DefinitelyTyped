@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface SearchIndexOptions {
-    db?: string;
-    cacheLength?: number;
-    caseSensitive?: boolean;
-    name?: string;
-    tokenAppend?: string;
-    stopwords?: string[];
+    db?: string | undefined;
+    cacheLength?: number | undefined;
+    caseSensitive?: boolean | undefined;
+    name?: string | undefined;
+    tokenAppend?: string | undefined;
+    stopwords?: string[] | undefined;
 }
 
 interface Page {
@@ -67,12 +67,12 @@ interface Sort {
 type Score = 'TFIDF' | 'SUM' | 'PRODUCT' | 'CONCAT';
 
 interface QueryOptions {
-    BUCKETS?: string[];
-    DOCUMENTS?: boolean;
-    FACETS?: any[];
-    PAGE?: Page;
-    SCORE?: Score;
-    SORT?: Sort;
+    BUCKETS?: string[] | undefined;
+    DOCUMENTS?: boolean | undefined;
+    FACETS?: any[] | undefined;
+    PAGE?: Page | undefined;
+    SCORE?: Score | undefined;
+    SORT?: Sort | undefined;
 }
 
 interface PutOptions {

@@ -8,7 +8,7 @@ export default class SimpleUploadAdapter extends Plugin {
 }
 
 export interface SimpleUploadConfig {
-    headers?: Record<string, string>;
-    uploadUrl?: string;
-    withCredentials?: boolean;
+    headers?: Record<string, string> | undefined;
+    uploadUrl?: string | undefined;
+    withCredentials?: boolean | undefined;
 }

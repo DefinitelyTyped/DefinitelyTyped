@@ -15,33 +15,33 @@ declare namespace UnusedWebpackPlugin {
          *
          * @default []
          */
-        directories?: string[];
+        directories?: string[] | undefined;
 
         /**
          * Array of exclude patterns when looking for unused source files.
          *
          * @default []
          */
-        exclude?: string[];
+        exclude?: string[] | undefined;
 
         /**
          * Root directory that will be use to display relative paths instead of absolute ones.
          */
-        root?: string;
+        root?: string | undefined;
 
         /**
          * Whether or not the build should fail if unused files are found.
          *
          * @default false
          */
-        failOnUnused?: boolean;
+        failOnUnused?: boolean | undefined;
 
         /**
          * Whether or not to respect .gitignore file.
          *
          * @default true
          */
-        useGitIgnore?: boolean;
+        useGitIgnore?: boolean | undefined;
     }
 }
 

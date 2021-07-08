@@ -10,7 +10,7 @@ declare namespace TextareaControl {
          * The number of rows the textarea should contain.
          * @defaultValue 4
          */
-        rows?: number;
+        rows?: number | undefined;
         /**
          * The current value of the textarea.
          */

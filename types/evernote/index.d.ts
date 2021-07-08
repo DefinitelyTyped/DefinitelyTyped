@@ -10,118 +10,118 @@ import { oauth1tokenCallback, OAuth } from 'oauth';
 /* NoteStore: Data types and Constants */
 export namespace NoteStore {
     class CreateOrUpdateNotebookSharesResult {
-        updateSequenceNum?: number;
-        matchingShares?: Types.SharedNotebook[];
-        constructor(args?: { updateSequenceNum?: number; matchingShares?: Types.SharedNotebook[] });
+        updateSequenceNum?: number | undefined;
+        matchingShares?: Types.SharedNotebook[] | undefined;
+        constructor(args?: { updateSequenceNum?: number | undefined; matchingShares?: Types.SharedNotebook[] | undefined });
     }
     class InvitationShareRelationship {
-        displayName?: string;
-        recipientUserIdentity?: Types.UserIdentity;
-        privilege?: ShareRelationshipPrivilegeLevel;
-        sharerUserId?: Types.UserID;
+        displayName?: string | undefined;
+        recipientUserIdentity?: Types.UserIdentity | undefined;
+        privilege?: ShareRelationshipPrivilegeLevel | undefined;
+        sharerUserId?: Types.UserID | undefined;
         constructor(args?: {
-            displayName?: string;
-            recipientUserIdentity?: Types.UserIdentity;
-            privilege?: ShareRelationshipPrivilegeLevel;
-            sharerUserId?: Types.UserID;
+            displayName?: string | undefined;
+            recipientUserIdentity?: Types.UserIdentity | undefined;
+            privilege?: ShareRelationshipPrivilegeLevel | undefined;
+            sharerUserId?: Types.UserID | undefined;
         });
     }
     class ManageNoteSharesError {
-        identityID?: Types.IdentityID;
-        userID?: Types.UserID;
-        userException?: Errors.EDAMUserException;
-        notFoundException?: Errors.EDAMNotFoundException;
+        identityID?: Types.IdentityID | undefined;
+        userID?: Types.UserID | undefined;
+        userException?: Errors.EDAMUserException | undefined;
+        notFoundException?: Errors.EDAMNotFoundException | undefined;
         constructor(args?: {
-            identityID?: Types.IdentityID;
-            userID?: Types.UserID;
-            userException?: Errors.EDAMUserException;
-            notFoundException?: Errors.EDAMNotFoundException;
+            identityID?: Types.IdentityID | undefined;
+            userID?: Types.UserID | undefined;
+            userException?: Errors.EDAMUserException | undefined;
+            notFoundException?: Errors.EDAMNotFoundException | undefined;
         });
     }
     class ManageNoteSharesParameters {
-        noteGuid?: string;
-        membershipsToUpdate?: NoteMemberShareRelationship[];
-        invitationsToUpdate?: NoteInvitationShareRelationship[];
-        membershipsToUnshare?: Types.UserID[];
-        invitationsToUnshare?: Types.IdentityID[];
+        noteGuid?: string | undefined;
+        membershipsToUpdate?: NoteMemberShareRelationship[] | undefined;
+        invitationsToUpdate?: NoteInvitationShareRelationship[] | undefined;
+        membershipsToUnshare?: Types.UserID[] | undefined;
+        invitationsToUnshare?: Types.IdentityID[] | undefined;
         constructor(args?: {
-            noteGuid?: string;
-            membershipsToUpdate?: NoteMemberShareRelationship[];
-            invitationsToUpdate?: NoteInvitationShareRelationship[];
-            membershipsToUnshare?: Types.UserID[];
-            invitationsToUnshare?: Types.IdentityID[];
+            noteGuid?: string | undefined;
+            membershipsToUpdate?: NoteMemberShareRelationship[] | undefined;
+            invitationsToUpdate?: NoteInvitationShareRelationship[] | undefined;
+            membershipsToUnshare?: Types.UserID[] | undefined;
+            invitationsToUnshare?: Types.IdentityID[] | undefined;
         });
     }
     class ManageNoteSharesResult {
-        errors?: ManageNoteSharesError[];
-        constructor(args?: { errors?: ManageNoteSharesError[] });
+        errors?: ManageNoteSharesError[] | undefined;
+        constructor(args?: { errors?: ManageNoteSharesError[] | undefined });
     }
     class ManageNotebookSharesError {
-        userIdentity?: Types.UserIdentity;
-        userException?: Errors.EDAMUserException;
-        notFoundException?: Errors.EDAMNotFoundException;
+        userIdentity?: Types.UserIdentity | undefined;
+        userException?: Errors.EDAMUserException | undefined;
+        notFoundException?: Errors.EDAMNotFoundException | undefined;
         constructor(args?: {
-            userIdentity?: Types.UserIdentity;
-            userException?: Errors.EDAMUserException;
-            notFoundException?: Errors.EDAMNotFoundException;
+            userIdentity?: Types.UserIdentity | undefined;
+            userException?: Errors.EDAMUserException | undefined;
+            notFoundException?: Errors.EDAMNotFoundException | undefined;
         });
     }
     class ManageNotebookSharesParameters {
-        notebookGuid?: string;
-        inviteMessage?: string;
-        membershipsToUpdate?: MemberShareRelationship[];
-        invitationsToCreateOrUpdate?: InvitationShareRelationship[];
-        unshares?: Types.UserIdentity[];
+        notebookGuid?: string | undefined;
+        inviteMessage?: string | undefined;
+        membershipsToUpdate?: MemberShareRelationship[] | undefined;
+        invitationsToCreateOrUpdate?: InvitationShareRelationship[] | undefined;
+        unshares?: Types.UserIdentity[] | undefined;
         constructor(args?: {
-            notebookGuid?: string;
-            inviteMessage?: string;
-            membershipsToUpdate?: MemberShareRelationship[];
-            invitationsToCreateOrUpdate?: InvitationShareRelationship[];
-            unshares?: Types.UserIdentity[];
+            notebookGuid?: string | undefined;
+            inviteMessage?: string | undefined;
+            membershipsToUpdate?: MemberShareRelationship[] | undefined;
+            invitationsToCreateOrUpdate?: InvitationShareRelationship[] | undefined;
+            unshares?: Types.UserIdentity[] | undefined;
         });
     }
     class ManageNotebookSharesResult {
-        errors?: ManageNotebookSharesError[];
-        constructor(args?: { errors?: ManageNotebookSharesError[] });
+        errors?: ManageNotebookSharesError[] | undefined;
+        constructor(args?: { errors?: ManageNotebookSharesError[] | undefined });
     }
     class MemberShareRelationship {
-        displayName?: string;
-        recipientUserId?: Types.UserID;
-        privilege?: Types.SharedNotePrivilegeLevel;
-        restrictions?: NoteShareRelationshipRestrictions;
-        sharerUserId?: Types.UserID;
+        displayName?: string | undefined;
+        recipientUserId?: Types.UserID | undefined;
+        privilege?: Types.SharedNotePrivilegeLevel | undefined;
+        restrictions?: NoteShareRelationshipRestrictions | undefined;
+        sharerUserId?: Types.UserID | undefined;
         constructor(args?: {
-            displayName?: string;
-            recipientUserId?: Types.UserID;
-            privilege?: Types.SharedNotePrivilegeLevel;
-            restrictions?: NoteShareRelationshipRestrictions;
-            sharerUserId?: Types.UserID;
+            displayName?: string | undefined;
+            recipientUserId?: Types.UserID | undefined;
+            privilege?: Types.SharedNotePrivilegeLevel | undefined;
+            restrictions?: NoteShareRelationshipRestrictions | undefined;
+            sharerUserId?: Types.UserID | undefined;
         });
     }
     class NoteCollectionCounts {
-        notebookCounts?: Record<Types.Guid, number>;
-        tagCounts?: Record<Types.Guid, number>;
-        trashCount?: number;
+        notebookCounts?: Record<Types.Guid, number> | undefined;
+        tagCounts?: Record<Types.Guid, number> | undefined;
+        trashCount?: number | undefined;
         constructor(args?: {
-            notebookCounts?: Record<Types.Guid, number>;
-            tagCounts?: Record<Types.Guid, number>;
-            trashCount?: number;
+            notebookCounts?: Record<Types.Guid, number> | undefined;
+            tagCounts?: Record<Types.Guid, number> | undefined;
+            trashCount?: number | undefined;
         });
     }
     class NoteEmailParameters {
-        guid?: string;
-        note?: Types.Note;
-        toAddresses?: string[];
-        ccAddresses?: string[];
-        subject?: string;
-        message?: string;
+        guid?: string | undefined;
+        note?: Types.Note | undefined;
+        toAddresses?: string[] | undefined;
+        ccAddresses?: string[] | undefined;
+        subject?: string | undefined;
+        message?: string | undefined;
         constructor(args?: {
-            guid?: string;
-            note?: Types.Note;
-            toAddresses?: string[];
-            ccAddresses?: string[];
-            subject?: string;
-            message?: string;
+            guid?: string | undefined;
+            note?: Types.Note | undefined;
+            toAddresses?: string[] | undefined;
+            ccAddresses?: string[] | undefined;
+            subject?: string | undefined;
+            message?: string | undefined;
         });
     }
     class NoteFilter {
@@ -135,248 +135,248 @@ export namespace NoteStore {
         emphasized: string;
         includeAllReadableNotebooks: boolean;
         constructor(args?: {
-            order?: number;
-            ascending?: boolean;
-            words?: string;
-            notebookGuid?: string;
-            tagGuids?: string[];
-            timeZone?: string;
-            inactive?: boolean;
-            emphasized?: string;
+            order?: number | undefined;
+            ascending?: boolean | undefined;
+            words?: string | undefined;
+            notebookGuid?: string | undefined;
+            tagGuids?: string[] | undefined;
+            timeZone?: string | undefined;
+            inactive?: boolean | undefined;
+            emphasized?: string | undefined;
         });
     }
     class NoteInvitationShareRelationship {
-        displayName?: string;
-        recipientIdentityId?: Types.IdentityID;
-        privilege?: Types.SharedNotePrivilegeLevel;
-        sharerUserId?: Types.UserID;
+        displayName?: string | undefined;
+        recipientIdentityId?: Types.IdentityID | undefined;
+        privilege?: Types.SharedNotePrivilegeLevel | undefined;
+        sharerUserId?: Types.UserID | undefined;
         constructor(args?: {
-            displayName?: string;
-            recipientIdentityId?: Types.IdentityID;
-            privilege?: Types.SharedNotePrivilegeLevel;
-            sharerUserId?: Types.UserID;
+            displayName?: string | undefined;
+            recipientIdentityId?: Types.IdentityID | undefined;
+            privilege?: Types.SharedNotePrivilegeLevel | undefined;
+            sharerUserId?: Types.UserID | undefined;
         });
     }
     class NoteList {
-        startIndex?: number;
-        totalNotes?: number;
-        notes?: Types.Note[];
-        stoppedWords?: string[];
-        searchedWords?: string[];
-        updateCount?: number;
+        startIndex?: number | undefined;
+        totalNotes?: number | undefined;
+        notes?: Types.Note[] | undefined;
+        stoppedWords?: string[] | undefined;
+        searchedWords?: string[] | undefined;
+        updateCount?: number | undefined;
         constructor(args?: {
-            startIndex?: number;
-            totalNotes?: number;
-            notes?: Types.Note[];
-            stoppedWords?: string[];
-            searchedWords?: string[];
-            updateCount?: number;
+            startIndex?: number | undefined;
+            totalNotes?: number | undefined;
+            notes?: Types.Note[] | undefined;
+            stoppedWords?: string[] | undefined;
+            searchedWords?: string[] | undefined;
+            updateCount?: number | undefined;
         });
     }
     class NoteMemberShareRelationship {
-        displayName?: string;
-        recipientUserId?: Types.UserID;
-        privilege?: Types.SharedNotePrivilegeLevel;
-        restrictions?: NoteShareRelationshipRestrictions;
-        sharerUserId?: Types.UserID;
+        displayName?: string | undefined;
+        recipientUserId?: Types.UserID | undefined;
+        privilege?: Types.SharedNotePrivilegeLevel | undefined;
+        restrictions?: NoteShareRelationshipRestrictions | undefined;
+        sharerUserId?: Types.UserID | undefined;
         constructor(args?: {
-            displayName?: string;
-            recipientUserId?: Types.UserID;
-            privilege?: Types.SharedNotePrivilegeLevel;
-            restrictions?: NoteShareRelationshipRestrictions;
-            sharerUserId?: Types.UserID;
+            displayName?: string | undefined;
+            recipientUserId?: Types.UserID | undefined;
+            privilege?: Types.SharedNotePrivilegeLevel | undefined;
+            restrictions?: NoteShareRelationshipRestrictions | undefined;
+            sharerUserId?: Types.UserID | undefined;
         });
     }
     class NoteMetadata {
-        guid?: Types.Guid;
-        title?: string;
-        contentLength?: number;
-        created?: Types.Timestamp;
-        updated?: Types.Timestamp;
-        deleted?: Types.Timestamp;
-        updateSequenceNum?: number;
-        notebookGuid?: string;
-        tagGuids?: Types.Guid[];
-        attributes?: Types.NoteAttributes;
-        largestResourceMime?: string;
-        largestResourceSize?: number;
+        guid?: Types.Guid | undefined;
+        title?: string | undefined;
+        contentLength?: number | undefined;
+        created?: Types.Timestamp | undefined;
+        updated?: Types.Timestamp | undefined;
+        deleted?: Types.Timestamp | undefined;
+        updateSequenceNum?: number | undefined;
+        notebookGuid?: string | undefined;
+        tagGuids?: Types.Guid[] | undefined;
+        attributes?: Types.NoteAttributes | undefined;
+        largestResourceMime?: string | undefined;
+        largestResourceSize?: number | undefined;
         constructor(args?: {
-            guid?: Types.Guid;
-            title?: string;
-            contentLength?: number;
-            created?: Types.Timestamp;
-            updated?: Types.Timestamp;
-            deleted?: Types.Timestamp;
-            updateSequenceNum?: number;
-            notebookGuid?: string;
-            tagGuids?: Types.Guid[];
-            attributes?: Types.NoteAttributes;
-            largestResourceMime?: string;
-            largestResourceSize?: number;
+            guid?: Types.Guid | undefined;
+            title?: string | undefined;
+            contentLength?: number | undefined;
+            created?: Types.Timestamp | undefined;
+            updated?: Types.Timestamp | undefined;
+            deleted?: Types.Timestamp | undefined;
+            updateSequenceNum?: number | undefined;
+            notebookGuid?: string | undefined;
+            tagGuids?: Types.Guid[] | undefined;
+            attributes?: Types.NoteAttributes | undefined;
+            largestResourceMime?: string | undefined;
+            largestResourceSize?: number | undefined;
         });
     }
     class NoteResultSpec {
-        includeContent?: boolean;
-        includeResourcesData?: boolean;
-        includeResourcesRecognition?: boolean;
-        includeResourcesAlternateData?: boolean;
-        includeSharedNotes?: boolean;
-        includeNoteAppDataValues?: boolean;
-        includeResourceAppDataValues?: boolean;
-        includeAccountLimits?: boolean;
+        includeContent?: boolean | undefined;
+        includeResourcesData?: boolean | undefined;
+        includeResourcesRecognition?: boolean | undefined;
+        includeResourcesAlternateData?: boolean | undefined;
+        includeSharedNotes?: boolean | undefined;
+        includeNoteAppDataValues?: boolean | undefined;
+        includeResourceAppDataValues?: boolean | undefined;
+        includeAccountLimits?: boolean | undefined;
         constructor(args?: {
-            includeContent?: boolean;
-            includeResourcesData?: boolean;
-            includeResourcesRecognition?: boolean;
-            includeResourcesAlternateData?: boolean;
-            includeSharedNotes?: boolean;
-            includeNoteAppDataValues?: boolean;
-            includeResourceAppDataValues?: boolean;
-            includeAccountLimits?: boolean;
+            includeContent?: boolean | undefined;
+            includeResourcesData?: boolean | undefined;
+            includeResourcesRecognition?: boolean | undefined;
+            includeResourcesAlternateData?: boolean | undefined;
+            includeSharedNotes?: boolean | undefined;
+            includeNoteAppDataValues?: boolean | undefined;
+            includeResourceAppDataValues?: boolean | undefined;
+            includeAccountLimits?: boolean | undefined;
         });
     }
     class NoteShareRelationshipRestrictions {
-        noSetReadNote?: boolean;
-        noSetModifyNote?: boolean;
-        noSetFullAccess?: boolean;
-        constructor(args?: { noSetReadNote?: boolean; noSetModifyNote?: boolean; noSetFullAccess?: boolean });
+        noSetReadNote?: boolean | undefined;
+        noSetModifyNote?: boolean | undefined;
+        noSetFullAccess?: boolean | undefined;
+        constructor(args?: { noSetReadNote?: boolean | undefined; noSetModifyNote?: boolean | undefined; noSetFullAccess?: boolean | undefined });
     }
     class NoteShareRelationships {
-        invitations?: NoteInvitationShareRelationship[];
-        memberships?: NoteMemberShareRelationship[];
-        invitationRestrictions?: NoteShareRelationshipRestrictions;
+        invitations?: NoteInvitationShareRelationship[] | undefined;
+        memberships?: NoteMemberShareRelationship[] | undefined;
+        invitationRestrictions?: NoteShareRelationshipRestrictions | undefined;
         constructor(args?: {
-            invitations?: NoteInvitationShareRelationship[];
-            memberships?: NoteMemberShareRelationship[];
-            invitationRestrictions?: NoteShareRelationshipRestrictions;
+            invitations?: NoteInvitationShareRelationship[] | undefined;
+            memberships?: NoteMemberShareRelationship[] | undefined;
+            invitationRestrictions?: NoteShareRelationshipRestrictions | undefined;
         });
     }
     class NoteVersionId {
-        updateSequenceNum?: number;
-        updated?: Types.Timestamp;
-        saved?: Types.Timestamp;
-        title?: string;
-        lastEditorId?: Types.UserID;
+        updateSequenceNum?: number | undefined;
+        updated?: Types.Timestamp | undefined;
+        saved?: Types.Timestamp | undefined;
+        title?: string | undefined;
+        lastEditorId?: Types.UserID | undefined;
         constructor(args?: {
-            updateSequenceNum?: number;
-            updated?: Types.Timestamp;
-            saved?: Types.Timestamp;
-            title?: string;
-            lastEditorId?: Types.UserID;
+            updateSequenceNum?: number | undefined;
+            updated?: Types.Timestamp | undefined;
+            saved?: Types.Timestamp | undefined;
+            title?: string | undefined;
+            lastEditorId?: Types.UserID | undefined;
         });
     }
     class NotebookShareTemplate {
-        notebookGuid?: Types.Guid;
-        recipientThreadId?: Types.MessageThreadID;
-        recipientContacts?: Types.Contact[];
-        privilege?: Types.SharedNotebookPrivilegeLevel;
+        notebookGuid?: Types.Guid | undefined;
+        recipientThreadId?: Types.MessageThreadID | undefined;
+        recipientContacts?: Types.Contact[] | undefined;
+        privilege?: Types.SharedNotebookPrivilegeLevel | undefined;
         constructor(args?: {
-            notebookGuid?: Types.Guid;
-            recipientThreadId?: Types.MessageThreadID;
-            recipientContacts?: Types.Contact[];
-            privilege?: Types.SharedNotebookPrivilegeLevel;
+            notebookGuid?: Types.Guid | undefined;
+            recipientThreadId?: Types.MessageThreadID | undefined;
+            recipientContacts?: Types.Contact[] | undefined;
+            privilege?: Types.SharedNotebookPrivilegeLevel | undefined;
         });
     }
     class NotesMetadataList {
-        startIndex?: number;
-        totalNotes?: number;
-        notes?: NoteMetadata[];
-        stoppedWords?: string[];
-        searchedWords?: string[];
-        updateCount?: number;
+        startIndex?: number | undefined;
+        totalNotes?: number | undefined;
+        notes?: NoteMetadata[] | undefined;
+        stoppedWords?: string[] | undefined;
+        searchedWords?: string[] | undefined;
+        updateCount?: number | undefined;
         constructor(args?: {
-            startIndex?: number;
-            totalNotes?: number;
-            notes?: NoteMetadata[];
-            stoppedWords?: string[];
-            searchedWords?: string[];
-            updateCount?: number;
+            startIndex?: number | undefined;
+            totalNotes?: number | undefined;
+            notes?: NoteMetadata[] | undefined;
+            stoppedWords?: string[] | undefined;
+            searchedWords?: string[] | undefined;
+            updateCount?: number | undefined;
         });
     }
     class NotesMetadataResultSpec {
-        includeTitle?: boolean;
-        includeContentLength?: boolean;
-        includeCreated?: boolean;
-        includeUpdated?: boolean;
-        includeDeleted?: boolean;
-        includeUpdateSequenceNum?: boolean;
-        includeNotebookGuid?: boolean;
-        includeTagGuids?: boolean;
-        includeAttributes?: boolean;
-        includeLargestResourceMime?: boolean;
-        includeLargestResourceSize?: boolean;
+        includeTitle?: boolean | undefined;
+        includeContentLength?: boolean | undefined;
+        includeCreated?: boolean | undefined;
+        includeUpdated?: boolean | undefined;
+        includeDeleted?: boolean | undefined;
+        includeUpdateSequenceNum?: boolean | undefined;
+        includeNotebookGuid?: boolean | undefined;
+        includeTagGuids?: boolean | undefined;
+        includeAttributes?: boolean | undefined;
+        includeLargestResourceMime?: boolean | undefined;
+        includeLargestResourceSize?: boolean | undefined;
         constructor(args?: {
-            includeTitle?: boolean;
-            includeContentLength?: boolean;
-            includeCreated?: boolean;
-            includeUpdated?: boolean;
-            includeDeleted?: boolean;
-            includeUpdateSequenceNum?: boolean;
-            includeNotebookGuid?: boolean;
-            includeTagGuids?: boolean;
-            includeAttributes?: boolean;
-            includeLargestResourceMime?: boolean;
-            includeLargestResourceSize?: boolean;
+            includeTitle?: boolean | undefined;
+            includeContentLength?: boolean | undefined;
+            includeCreated?: boolean | undefined;
+            includeUpdated?: boolean | undefined;
+            includeDeleted?: boolean | undefined;
+            includeUpdateSequenceNum?: boolean | undefined;
+            includeNotebookGuid?: boolean | undefined;
+            includeTagGuids?: boolean | undefined;
+            includeAttributes?: boolean | undefined;
+            includeLargestResourceMime?: boolean | undefined;
+            includeLargestResourceSize?: boolean | undefined;
         });
     }
     class RelatedQuery {
-        noteGuid?: string;
-        plainText?: string;
-        filter?: NoteFilter;
-        referenceUri?: string;
-        context?: string;
-        cacheKey?: string;
+        noteGuid?: string | undefined;
+        plainText?: string | undefined;
+        filter?: NoteFilter | undefined;
+        referenceUri?: string | undefined;
+        context?: string | undefined;
+        cacheKey?: string | undefined;
         constructor(args?: {
-            noteGuid?: string;
-            plainText?: string;
-            filter?: NoteFilter;
-            referenceUri?: string;
-            context?: string;
-            cacheKey?: string;
+            noteGuid?: string | undefined;
+            plainText?: string | undefined;
+            filter?: NoteFilter | undefined;
+            referenceUri?: string | undefined;
+            context?: string | undefined;
+            cacheKey?: string | undefined;
         });
     }
     class RelatedResult {
-        notes?: Types.Note[];
-        notebooks?: Types.Notebook[];
-        tags?: Types.Tag[];
-        containingNotebooks?: Types.NotebookDescriptor[];
-        debugInfo?: string;
-        experts?: Types.UserProfile[];
-        relatedContent?: Types.RelatedContent[];
-        cacheKey?: string;
-        cacheExpires?: number;
+        notes?: Types.Note[] | undefined;
+        notebooks?: Types.Notebook[] | undefined;
+        tags?: Types.Tag[] | undefined;
+        containingNotebooks?: Types.NotebookDescriptor[] | undefined;
+        debugInfo?: string | undefined;
+        experts?: Types.UserProfile[] | undefined;
+        relatedContent?: Types.RelatedContent[] | undefined;
+        cacheKey?: string | undefined;
+        cacheExpires?: number | undefined;
         constructor(args?: {
-            notes?: Types.Note[];
-            notebooks?: Types.Notebook[];
-            tags?: Types.Tag[];
-            containingNotebooks?: Types.NotebookDescriptor[];
-            debugInfo?: string;
-            experts?: Types.UserProfile[];
-            relatedContent?: Types.RelatedContent[];
-            cacheKey?: string;
-            cacheExpires?: number;
+            notes?: Types.Note[] | undefined;
+            notebooks?: Types.Notebook[] | undefined;
+            tags?: Types.Tag[] | undefined;
+            containingNotebooks?: Types.NotebookDescriptor[] | undefined;
+            debugInfo?: string | undefined;
+            experts?: Types.UserProfile[] | undefined;
+            relatedContent?: Types.RelatedContent[] | undefined;
+            cacheKey?: string | undefined;
+            cacheExpires?: number | undefined;
         });
     }
     class RelatedResultSpec {
-        maxNotes?: number;
-        maxNotebooks?: number;
-        maxTags?: number;
-        writableNotebooksOnly?: boolean;
-        includeContainingNotebooks?: boolean;
-        includeDebugInfo?: boolean;
-        maxExperts?: number;
-        maxRelatedContent?: number;
-        relatedContentTypes?: Set<Types.RelatedContentType>;
+        maxNotes?: number | undefined;
+        maxNotebooks?: number | undefined;
+        maxTags?: number | undefined;
+        writableNotebooksOnly?: boolean | undefined;
+        includeContainingNotebooks?: boolean | undefined;
+        includeDebugInfo?: boolean | undefined;
+        maxExperts?: number | undefined;
+        maxRelatedContent?: number | undefined;
+        relatedContentTypes?: Set<Types.RelatedContentType> | undefined;
         constructor(args?: {
-            maxNotes?: number;
-            maxNotebooks?: number;
-            maxTags?: number;
-            writableNotebooksOnly?: boolean;
-            includeContainingNotebooks?: boolean;
-            includeDebugInfo?: boolean;
-            maxExperts?: number;
-            maxRelatedContent?: number;
-            relatedContentTypes?: Set<Types.RelatedContentType>;
+            maxNotes?: number | undefined;
+            maxNotebooks?: number | undefined;
+            maxTags?: number | undefined;
+            writableNotebooksOnly?: boolean | undefined;
+            includeContainingNotebooks?: boolean | undefined;
+            includeDebugInfo?: boolean | undefined;
+            maxExperts?: number | undefined;
+            maxRelatedContent?: number | undefined;
+            relatedContentTypes?: Set<Types.RelatedContentType> | undefined;
         });
     }
     enum ShareRelationshipPrivilegeLevel {
@@ -386,127 +386,127 @@ export namespace NoteStore {
         FULL_ACCESS = 30
     }
     class ShareRelationshipRestrictions {
-        noSetReadOnly?: boolean;
-        noSetReadPlusActivity?: boolean;
-        noSetModify?: boolean;
-        noSetFullAccess?: boolean;
+        noSetReadOnly?: boolean | undefined;
+        noSetReadPlusActivity?: boolean | undefined;
+        noSetModify?: boolean | undefined;
+        noSetFullAccess?: boolean | undefined;
         constructor(args?: {
-            noSetReadOnly?: boolean;
-            noSetReadPlusActivity?: boolean;
-            noSetModify?: boolean;
-            noSetFullAccess?: boolean;
+            noSetReadOnly?: boolean | undefined;
+            noSetReadPlusActivity?: boolean | undefined;
+            noSetModify?: boolean | undefined;
+            noSetFullAccess?: boolean | undefined;
         });
     }
     class ShareRelationships {
-        invitations?: InvitationShareRelationship[];
-        memberships?: MemberShareRelationship[];
-        invitationRestrictions?: ShareRelationshipRestrictions;
+        invitations?: InvitationShareRelationship[] | undefined;
+        memberships?: MemberShareRelationship[] | undefined;
+        invitationRestrictions?: ShareRelationshipRestrictions | undefined;
         constructor(args?: {
-            invitations?: InvitationShareRelationship[];
-            memberships?: MemberShareRelationship[];
-            invitationRestrictions?: ShareRelationshipRestrictions;
+            invitations?: InvitationShareRelationship[] | undefined;
+            memberships?: MemberShareRelationship[] | undefined;
+            invitationRestrictions?: ShareRelationshipRestrictions | undefined;
         });
     }
     class SharedNoteTemplate {
-        noteGuid?: Types.Guid;
-        recipientThreadId?: Types.MessageThreadID;
-        recipientContacts?: Types.Contact[];
-        privilege?: Types.SharedNotePrivilegeLevel;
+        noteGuid?: Types.Guid | undefined;
+        recipientThreadId?: Types.MessageThreadID | undefined;
+        recipientContacts?: Types.Contact[] | undefined;
+        privilege?: Types.SharedNotePrivilegeLevel | undefined;
         constructor(args?: {
-            noteGuid?: Types.Guid;
-            recipientThreadId?: Types.MessageThreadID;
-            recipientContacts?: Types.Contact[];
-            privilege?: Types.SharedNotePrivilegeLevel;
+            noteGuid?: Types.Guid | undefined;
+            recipientThreadId?: Types.MessageThreadID | undefined;
+            recipientContacts?: Types.Contact[] | undefined;
+            privilege?: Types.SharedNotePrivilegeLevel | undefined;
         });
     }
     class SyncChunk {
-        currentTime?: Types.Timestamp;
-        chunkHighUSN?: number;
-        updateCount?: number;
-        notes?: Types.Note[];
-        notebooks?: Types.Notebook[];
-        tags?: Types.Tag[];
-        searches?: Types.SavedSearch[];
-        resources?: Types.Resource[];
-        expungedNotes?: Types.Guid[];
-        expungedNotebooks?: Types.Guid[];
-        expungedTags?: Types.Guid[];
-        expungedSearches?: Types.Guid[];
-        linkedNotebooks?: Types.LinkedNotebook[];
-        expungedLinkedNotebooks?: Types.Guid[];
+        currentTime?: Types.Timestamp | undefined;
+        chunkHighUSN?: number | undefined;
+        updateCount?: number | undefined;
+        notes?: Types.Note[] | undefined;
+        notebooks?: Types.Notebook[] | undefined;
+        tags?: Types.Tag[] | undefined;
+        searches?: Types.SavedSearch[] | undefined;
+        resources?: Types.Resource[] | undefined;
+        expungedNotes?: Types.Guid[] | undefined;
+        expungedNotebooks?: Types.Guid[] | undefined;
+        expungedTags?: Types.Guid[] | undefined;
+        expungedSearches?: Types.Guid[] | undefined;
+        linkedNotebooks?: Types.LinkedNotebook[] | undefined;
+        expungedLinkedNotebooks?: Types.Guid[] | undefined;
         constructor(args?: {
-            currentTime?: Types.Timestamp;
-            chunkHighUSN?: number;
-            updateCount?: number;
-            notes?: Types.Note[];
-            notebooks?: Types.Notebook[];
-            tags?: Types.Tag[];
-            searches?: Types.SavedSearch[];
-            resources?: Types.Resource[];
-            expungedNotes?: Types.Guid[];
-            expungedNotebooks?: Types.Guid[];
-            expungedTags?: Types.Guid[];
-            expungedSearches?: Types.Guid[];
-            linkedNotebooks?: Types.LinkedNotebook[];
-            expungedLinkedNotebooks?: Types.Guid[];
+            currentTime?: Types.Timestamp | undefined;
+            chunkHighUSN?: number | undefined;
+            updateCount?: number | undefined;
+            notes?: Types.Note[] | undefined;
+            notebooks?: Types.Notebook[] | undefined;
+            tags?: Types.Tag[] | undefined;
+            searches?: Types.SavedSearch[] | undefined;
+            resources?: Types.Resource[] | undefined;
+            expungedNotes?: Types.Guid[] | undefined;
+            expungedNotebooks?: Types.Guid[] | undefined;
+            expungedTags?: Types.Guid[] | undefined;
+            expungedSearches?: Types.Guid[] | undefined;
+            linkedNotebooks?: Types.LinkedNotebook[] | undefined;
+            expungedLinkedNotebooks?: Types.Guid[] | undefined;
         });
     }
     class SyncChunkFilter {
-        includeNotes?: boolean;
-        includeNoteResources?: boolean;
-        includeNoteAttributes?: boolean;
-        includeNotebooks?: boolean;
-        includeTags?: boolean;
-        includeSearches?: boolean;
-        includeResources?: boolean;
-        includeLinkedNotebooks?: boolean;
-        includeExpunged?: boolean;
-        includeNoteApplicationDataFullMap?: boolean;
-        includeResourceApplicationDataFullMap?: boolean;
-        includeNoteResourceApplicationDataFullMap?: boolean;
-        includeSharedNotes?: boolean;
-        omitSharedNotebooks?: boolean;
-        requireNoteContentClass?: string;
-        notebookGuids?: Set<string>;
+        includeNotes?: boolean | undefined;
+        includeNoteResources?: boolean | undefined;
+        includeNoteAttributes?: boolean | undefined;
+        includeNotebooks?: boolean | undefined;
+        includeTags?: boolean | undefined;
+        includeSearches?: boolean | undefined;
+        includeResources?: boolean | undefined;
+        includeLinkedNotebooks?: boolean | undefined;
+        includeExpunged?: boolean | undefined;
+        includeNoteApplicationDataFullMap?: boolean | undefined;
+        includeResourceApplicationDataFullMap?: boolean | undefined;
+        includeNoteResourceApplicationDataFullMap?: boolean | undefined;
+        includeSharedNotes?: boolean | undefined;
+        omitSharedNotebooks?: boolean | undefined;
+        requireNoteContentClass?: string | undefined;
+        notebookGuids?: Set<string> | undefined;
         constructor(args?: {
-            includeNotes?: boolean;
-            includeNoteResources?: boolean;
-            includeNoteAttributes?: boolean;
-            includeNotebooks?: boolean;
-            includeTags?: boolean;
-            includeSearches?: boolean;
-            includeResources?: boolean;
-            includeLinkedNotebooks?: boolean;
-            includeExpunged?: boolean;
-            includeNoteApplicationDataFullMap?: boolean;
-            includeResourceApplicationDataFullMap?: boolean;
-            includeNoteResourceApplicationDataFullMap?: boolean;
-            includeSharedNotes?: boolean;
-            omitSharedNotebooks?: boolean;
-            requireNoteContentClass?: string;
-            notebookGuids?: Set<string>;
+            includeNotes?: boolean | undefined;
+            includeNoteResources?: boolean | undefined;
+            includeNoteAttributes?: boolean | undefined;
+            includeNotebooks?: boolean | undefined;
+            includeTags?: boolean | undefined;
+            includeSearches?: boolean | undefined;
+            includeResources?: boolean | undefined;
+            includeLinkedNotebooks?: boolean | undefined;
+            includeExpunged?: boolean | undefined;
+            includeNoteApplicationDataFullMap?: boolean | undefined;
+            includeResourceApplicationDataFullMap?: boolean | undefined;
+            includeNoteResourceApplicationDataFullMap?: boolean | undefined;
+            includeSharedNotes?: boolean | undefined;
+            omitSharedNotebooks?: boolean | undefined;
+            requireNoteContentClass?: string | undefined;
+            notebookGuids?: Set<string> | undefined;
         });
     }
     class SyncState {
-        currentTime?: Types.Timestamp;
-        fullSyncBefore?: Types.Timestamp;
-        updateCount?: number;
-        uploaded?: number;
-        userLastUpdated?: Types.Timestamp;
-        userMaxMessageEventId?: Types.MessageEventID;
+        currentTime?: Types.Timestamp | undefined;
+        fullSyncBefore?: Types.Timestamp | undefined;
+        updateCount?: number | undefined;
+        uploaded?: number | undefined;
+        userLastUpdated?: Types.Timestamp | undefined;
+        userMaxMessageEventId?: Types.MessageEventID | undefined;
         constructor(args?: {
-            currentTime?: Types.Timestamp;
-            fullSyncBefore?: Types.Timestamp;
-            updateCount?: number;
-            uploaded?: number;
-            userLastUpdated?: Types.Timestamp;
-            userMaxMessageEventId?: Types.MessageEventID;
+            currentTime?: Types.Timestamp | undefined;
+            fullSyncBefore?: Types.Timestamp | undefined;
+            updateCount?: number | undefined;
+            uploaded?: number | undefined;
+            userLastUpdated?: Types.Timestamp | undefined;
+            userMaxMessageEventId?: Types.MessageEventID | undefined;
         });
     }
     class UpdateNoteIfUsnMatchesResult {
-        note?: Types.Note;
-        updated?: boolean;
-        constructor(args?: { note?: Types.Note, updated?: boolean });
+        note?: Types.Note | undefined;
+        updated?: boolean | undefined;
+        constructor(args?: { note?: Types.Note | undefined, updated?: boolean | undefined });
     }
     enum UserSetting {
         RECEIVE_REMINDER_EMAIL = 1,
@@ -519,98 +519,98 @@ export namespace UserStore {
     const EDAM_VERSION_MAJOR: number;
     const EDAM_VERSION_MINOR: number;
     class AuthenticationResult {
-        currentTime?: Types.Timestamp;
-        authenticationToken?: string;
-        expiration?: Types.Timestamp;
-        user?: Types.User;
-        publicUserInfo?: PublicUserInfo;
-        noteStoreUrl?: string;
-        webApiUrlPrefix?: string;
-        secondFactorRequired?: boolean;
-        secondFactorDeliveryHint?: string;
-        urls?: UserUrls;
+        currentTime?: Types.Timestamp | undefined;
+        authenticationToken?: string | undefined;
+        expiration?: Types.Timestamp | undefined;
+        user?: Types.User | undefined;
+        publicUserInfo?: PublicUserInfo | undefined;
+        noteStoreUrl?: string | undefined;
+        webApiUrlPrefix?: string | undefined;
+        secondFactorRequired?: boolean | undefined;
+        secondFactorDeliveryHint?: string | undefined;
+        urls?: UserUrls | undefined;
         constructor(args?: {
-            currentTime?: Types.Timestamp;
-            authenticationToken?: string;
-            expiration?: Types.Timestamp;
-            user?: Types.User;
-            publicUserInfo?: PublicUserInfo;
-            noteStoreUrl?: string;
-            webApiUrlPrefix?: string;
-            secondFactorRequired?: boolean;
-            secondFactorDeliveryHint?: string;
-            urls?: UserUrls;
+            currentTime?: Types.Timestamp | undefined;
+            authenticationToken?: string | undefined;
+            expiration?: Types.Timestamp | undefined;
+            user?: Types.User | undefined;
+            publicUserInfo?: PublicUserInfo | undefined;
+            noteStoreUrl?: string | undefined;
+            webApiUrlPrefix?: string | undefined;
+            secondFactorRequired?: boolean | undefined;
+            secondFactorDeliveryHint?: string | undefined;
+            urls?: UserUrls | undefined;
         });
     }
     class BootstrapInfo {
-        profiles?: BootstrapProfile[];
-        constructor(args?: { profiles?: BootstrapProfile[] });
+        profiles?: BootstrapProfile[] | undefined;
+        constructor(args?: { profiles?: BootstrapProfile[] | undefined });
     }
     class BootstrapProfile {
-        name?: string;
-        settings?: BootstrapSettings;
-        constructor(args?: { name?: string, settings?: BootstrapSettings });
+        name?: string | undefined;
+        settings?: BootstrapSettings | undefined;
+        constructor(args?: { name?: string | undefined, settings?: BootstrapSettings | undefined });
     }
     class BootstrapSettings {
-        serviceHost?: string;
-        marketingUrl?: string;
-        supportUrl?: string;
-        accountEmailDomain?: string;
-        enableFacebookSharing?: boolean;
-        enableGiftSubscriptions?: boolean;
-        enableSupportTickets?: boolean;
-        enableSharedNotebooks?: boolean;
-        enableSingleNoteSharing?: boolean;
-        enableSponsoredAccounts?: boolean;
-        enableTwitterSharing?: boolean;
-        enableLinkedInSharing?: boolean;
-        enablePublicNotebooks?: boolean;
-        enableGoogle?: boolean;
+        serviceHost?: string | undefined;
+        marketingUrl?: string | undefined;
+        supportUrl?: string | undefined;
+        accountEmailDomain?: string | undefined;
+        enableFacebookSharing?: boolean | undefined;
+        enableGiftSubscriptions?: boolean | undefined;
+        enableSupportTickets?: boolean | undefined;
+        enableSharedNotebooks?: boolean | undefined;
+        enableSingleNoteSharing?: boolean | undefined;
+        enableSponsoredAccounts?: boolean | undefined;
+        enableTwitterSharing?: boolean | undefined;
+        enableLinkedInSharing?: boolean | undefined;
+        enablePublicNotebooks?: boolean | undefined;
+        enableGoogle?: boolean | undefined;
         constructor(args?: {
-            serviceHost?: string;
-            marketingUrl?: string;
-            supportUrl?: string;
-            accountEmailDomain?: string;
-            enableFacebookSharing?: boolean;
-            enableGiftSubscriptions?: boolean;
-            enableSupportTickets?: boolean;
-            enableSharedNotebooks?: boolean;
-            enableSingleNoteSharing?: boolean;
-            enableSponsoredAccounts?: boolean;
-            enableTwitterSharing?: boolean;
-            enableLinkedInSharing?: boolean;
-            enablePublicNotebooks?: boolean;
-            enableGoogle?: boolean;
+            serviceHost?: string | undefined;
+            marketingUrl?: string | undefined;
+            supportUrl?: string | undefined;
+            accountEmailDomain?: string | undefined;
+            enableFacebookSharing?: boolean | undefined;
+            enableGiftSubscriptions?: boolean | undefined;
+            enableSupportTickets?: boolean | undefined;
+            enableSharedNotebooks?: boolean | undefined;
+            enableSingleNoteSharing?: boolean | undefined;
+            enableSponsoredAccounts?: boolean | undefined;
+            enableTwitterSharing?: boolean | undefined;
+            enableLinkedInSharing?: boolean | undefined;
+            enablePublicNotebooks?: boolean | undefined;
+            enableGoogle?: boolean | undefined;
         });
     }
     class PublicUserInfo {
-        userId?: Types.UserID;
-        serviceLevel?: Types.ServiceLevel;
-        username?: string;
-        noteStoreUrl?: string;
-        webApiUrlPrefix?: string;
+        userId?: Types.UserID | undefined;
+        serviceLevel?: Types.ServiceLevel | undefined;
+        username?: string | undefined;
+        noteStoreUrl?: string | undefined;
+        webApiUrlPrefix?: string | undefined;
         constructor(args?: {
-            userId?: Types.UserID;
-            serviceLevel?: Types.ServiceLevel;
-            username?: string;
-            noteStoreUrl?: string;
-            webApiUrlPrefix?: string;
+            userId?: Types.UserID | undefined;
+            serviceLevel?: Types.ServiceLevel | undefined;
+            username?: string | undefined;
+            noteStoreUrl?: string | undefined;
+            webApiUrlPrefix?: string | undefined;
         });
     }
     class UserUrls {
-        noteStoreUrl?: string;
-        webApiUrlPrefix?: string;
-        userStoreUrl?: string;
-        utilityUrl?: string;
-        messageStoreUrl?: string;
-        userWebSocketUrl?: string;
+        noteStoreUrl?: string | undefined;
+        webApiUrlPrefix?: string | undefined;
+        userStoreUrl?: string | undefined;
+        utilityUrl?: string | undefined;
+        messageStoreUrl?: string | undefined;
+        userWebSocketUrl?: string | undefined;
         constructor(args?: {
-            noteStoreUrl?: string;
-            webApiUrlPrefix?: string;
-            userStoreUrl?: string;
-            utilityUrl?: string;
-            messageStoreUrl?: string;
-            userWebSocketUrl?: string;
+            noteStoreUrl?: string | undefined;
+            webApiUrlPrefix?: string | undefined;
+            userStoreUrl?: string | undefined;
+            utilityUrl?: string | undefined;
+            messageStoreUrl?: string | undefined;
+            userWebSocketUrl?: string | undefined;
         });
     }
 }
@@ -625,127 +625,127 @@ export namespace Types {
     const EDAM_NOTE_SOURCE_MAIL_CLIP: string;
     const EDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY: string;
     class AccountLimits {
-        userMailLimitDaily?: number;
-        noteSizeMax?: number;
-        resourceSizeMax?: number;
-        userLinkedNotebookMax?: number;
-        uploadLimit?: number;
-        userNoteCountMax?: number;
-        userNotebookCountMax?: number;
-        userTagCountMax?: number;
-        noteTagCountMax?: number;
-        userSavedSearchesMax?: number;
-        noteResourceCountMax?: number;
+        userMailLimitDaily?: number | undefined;
+        noteSizeMax?: number | undefined;
+        resourceSizeMax?: number | undefined;
+        userLinkedNotebookMax?: number | undefined;
+        uploadLimit?: number | undefined;
+        userNoteCountMax?: number | undefined;
+        userNotebookCountMax?: number | undefined;
+        userTagCountMax?: number | undefined;
+        noteTagCountMax?: number | undefined;
+        userSavedSearchesMax?: number | undefined;
+        noteResourceCountMax?: number | undefined;
         constructor(args?: {
-            userMailLimitDaily?: number;
-            noteSizeMax?: number;
-            resourceSizeMax?: number;
-            userLinkedNotebookMax?: number;
-            uploadLimit?: number;
-            userNoteCountMax?: number;
-            userNotebookCountMax?: number;
-            userTagCountMax?: number;
-            noteTagCountMax?: number;
-            userSavedSearchesMax?: number;
-            noteResourceCountMax?: number;
+            userMailLimitDaily?: number | undefined;
+            noteSizeMax?: number | undefined;
+            resourceSizeMax?: number | undefined;
+            userLinkedNotebookMax?: number | undefined;
+            uploadLimit?: number | undefined;
+            userNoteCountMax?: number | undefined;
+            userNotebookCountMax?: number | undefined;
+            userTagCountMax?: number | undefined;
+            noteTagCountMax?: number | undefined;
+            userSavedSearchesMax?: number | undefined;
+            noteResourceCountMax?: number | undefined;
         });
     }
     class Accounting {
-        uploadLimitEnd?: Timestamp;
-        uploadLimitNextMonth?: number;
-        premiumServiceStatus?: PremiumOrderStatus;
-        premiumOrderNumber?: string;
-        premiumCommerceService?: string;
-        premiumServiceStart?: Timestamp;
-        premiumServiceSKU?: string;
-        lastSuccessfulCharge?: Timestamp;
-        lastFailedCharge?: Timestamp;
-        lastFailedChargeReason?: string;
-        nextPaymentDue?: Timestamp;
-        premiumLockUntil?: Timestamp;
-        updated?: Timestamp;
-        premiumSubscriptionNumber?: string;
-        lastRequestedCharge?: Timestamp;
-        currency?: string;
-        unitPrice?: number;
-        businessId?: number;
-        businessName?: string;
-        businessRole?: BusinessUserRole;
-        unitDiscount?: number;
-        nextChargeDate?: Timestamp;
-        availablePoints?: number;
+        uploadLimitEnd?: Timestamp | undefined;
+        uploadLimitNextMonth?: number | undefined;
+        premiumServiceStatus?: PremiumOrderStatus | undefined;
+        premiumOrderNumber?: string | undefined;
+        premiumCommerceService?: string | undefined;
+        premiumServiceStart?: Timestamp | undefined;
+        premiumServiceSKU?: string | undefined;
+        lastSuccessfulCharge?: Timestamp | undefined;
+        lastFailedCharge?: Timestamp | undefined;
+        lastFailedChargeReason?: string | undefined;
+        nextPaymentDue?: Timestamp | undefined;
+        premiumLockUntil?: Timestamp | undefined;
+        updated?: Timestamp | undefined;
+        premiumSubscriptionNumber?: string | undefined;
+        lastRequestedCharge?: Timestamp | undefined;
+        currency?: string | undefined;
+        unitPrice?: number | undefined;
+        businessId?: number | undefined;
+        businessName?: string | undefined;
+        businessRole?: BusinessUserRole | undefined;
+        unitDiscount?: number | undefined;
+        nextChargeDate?: Timestamp | undefined;
+        availablePoints?: number | undefined;
         constructor(args?: {
-            uploadLimitEnd?: Timestamp;
-            uploadLimitNextMonth?: number;
-            premiumServiceStatus?: PremiumOrderStatus;
-            premiumOrderNumber?: string;
-            premiumCommerceService?: string;
-            premiumServiceStart?: Timestamp;
-            premiumServiceSKU?: string;
-            lastSuccessfulCharge?: Timestamp;
-            lastFailedCharge?: Timestamp;
-            lastFailedChargeReason?: string;
-            nextPaymentDue?: Timestamp;
-            premiumLockUntil?: Timestamp;
-            updated?: Timestamp;
-            premiumSubscriptionNumber?: string;
-            lastRequestedCharge?: Timestamp;
-            currency?: string;
-            unitPrice?: number;
-            businessId?: number;
-            businessName?: string;
-            businessRole?: BusinessUserRole;
-            unitDiscount?: number;
-            nextChargeDate?: Timestamp;
-            availablePoints?: number;
+            uploadLimitEnd?: Timestamp | undefined;
+            uploadLimitNextMonth?: number | undefined;
+            premiumServiceStatus?: PremiumOrderStatus | undefined;
+            premiumOrderNumber?: string | undefined;
+            premiumCommerceService?: string | undefined;
+            premiumServiceStart?: Timestamp | undefined;
+            premiumServiceSKU?: string | undefined;
+            lastSuccessfulCharge?: Timestamp | undefined;
+            lastFailedCharge?: Timestamp | undefined;
+            lastFailedChargeReason?: string | undefined;
+            nextPaymentDue?: Timestamp | undefined;
+            premiumLockUntil?: Timestamp | undefined;
+            updated?: Timestamp | undefined;
+            premiumSubscriptionNumber?: string | undefined;
+            lastRequestedCharge?: Timestamp | undefined;
+            currency?: string | undefined;
+            unitPrice?: number | undefined;
+            businessId?: number | undefined;
+            businessName?: string | undefined;
+            businessRole?: BusinessUserRole | undefined;
+            unitDiscount?: number | undefined;
+            nextChargeDate?: Timestamp | undefined;
+            availablePoints?: number | undefined;
         });
     }
     class Ad {
-        id?: number;
-        width?: number;
-        height?: number;
-        advertiserName?: string;
-        imageUrl?: string;
-        destinationUrl?: string;
-        displaySeconds?: number;
-        score?: number;
-        image?: string;
-        imageMime?: string;
-        html?: string;
-        displayFrequency?: number;
-        openInTrunk?: boolean;
+        id?: number | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        advertiserName?: string | undefined;
+        imageUrl?: string | undefined;
+        destinationUrl?: string | undefined;
+        displaySeconds?: number | undefined;
+        score?: number | undefined;
+        image?: string | undefined;
+        imageMime?: string | undefined;
+        html?: string | undefined;
+        displayFrequency?: number | undefined;
+        openInTrunk?: boolean | undefined;
         constructor(args?: {
-            id?: number;
-            width?: number;
-            height?: number;
-            advertiserName?: string;
-            imageUrl?: string;
-            destinationUrl?: string;
-            displaySeconds?: number;
-            score?: number;
-            image?: string;
-            imageMime?: string;
-            html?: string;
-            displayFrequency?: number;
-            openInTrunk?: boolean;
+            id?: number | undefined;
+            width?: number | undefined;
+            height?: number | undefined;
+            advertiserName?: string | undefined;
+            imageUrl?: string | undefined;
+            destinationUrl?: string | undefined;
+            displaySeconds?: number | undefined;
+            score?: number | undefined;
+            image?: string | undefined;
+            imageMime?: string | undefined;
+            html?: string | undefined;
+            displayFrequency?: number | undefined;
+            openInTrunk?: boolean | undefined;
         });
     }
     class BusinessInvitation {
-        businessId?: number;
-        email?: string;
-        role?: BusinessUserRole;
-        status?: BusinessInvitationStatus;
-        requesterId?: UserID;
-        fromWorkChat?: boolean;
-        created?: Timestamp;
+        businessId?: number | undefined;
+        email?: string | undefined;
+        role?: BusinessUserRole | undefined;
+        status?: BusinessInvitationStatus | undefined;
+        requesterId?: UserID | undefined;
+        fromWorkChat?: boolean | undefined;
+        created?: Timestamp | undefined;
         constructor(args?: {
-            businessId?: number;
-            email?: string;
-            role?: BusinessUserRole;
-            status?: BusinessInvitationStatus;
-            requesterId?: UserID;
-            fromWorkChat?: boolean;
-            created?: Timestamp;
+            businessId?: number | undefined;
+            email?: string | undefined;
+            role?: BusinessUserRole | undefined;
+            status?: BusinessInvitationStatus | undefined;
+            requesterId?: UserID | undefined;
+            fromWorkChat?: boolean | undefined;
+            created?: Timestamp | undefined;
         });
     }
     enum BusinessInvitationStatus {
@@ -754,41 +754,41 @@ export namespace Types {
         REDEEMED = 2
     }
     class BusinessNotebook {
-        notebookDescription?: string;
-        privilege?: SharedNotebookPrivilegeLevel;
-        recommended?: boolean;
-        constructor(args?: { notebookDescription?: string, privilege?: SharedNotebookPrivilegeLevel, recommended?: boolean });
+        notebookDescription?: string | undefined;
+        privilege?: SharedNotebookPrivilegeLevel | undefined;
+        recommended?: boolean | undefined;
+        constructor(args?: { notebookDescription?: string | undefined, privilege?: SharedNotebookPrivilegeLevel | undefined, recommended?: boolean | undefined });
     }
     class BusinessUserAttributes {
-        title?: string;
-        location?: string;
-        department?: string;
-        mobilePhone?: string;
-        linkedInProfileUrl?: string;
-        workPhone?: string;
-        companyStartDate?: Timestamp;
+        title?: string | undefined;
+        location?: string | undefined;
+        department?: string | undefined;
+        mobilePhone?: string | undefined;
+        linkedInProfileUrl?: string | undefined;
+        workPhone?: string | undefined;
+        companyStartDate?: Timestamp | undefined;
         constructor(args?: {
-            title?: string;
-            location?: string;
-            department?: string;
-            mobilePhone?: string;
-            linkedInProfileUrl?: string;
-            workPhone?: string;
-            companyStartDate?: Timestamp;
+            title?: string | undefined;
+            location?: string | undefined;
+            department?: string | undefined;
+            mobilePhone?: string | undefined;
+            linkedInProfileUrl?: string | undefined;
+            workPhone?: string | undefined;
+            companyStartDate?: Timestamp | undefined;
         });
     }
     class BusinessUserInfo {
-        businessId?: number;
-        businessName?: string;
-        role?: BusinessUserRole;
-        email?: string;
-        updated?: Timestamp;
+        businessId?: number | undefined;
+        businessName?: string | undefined;
+        role?: BusinessUserRole | undefined;
+        email?: string | undefined;
+        updated?: Timestamp | undefined;
         constructor(args?: {
-            businessId?: number;
-            businessName?: string;
-            role?: BusinessUserRole;
-            email?: string;
-            updated?: Timestamp;
+            businessId?: number | undefined;
+            businessName?: string | undefined;
+            role?: BusinessUserRole | undefined;
+            email?: string | undefined;
+            updated?: Timestamp | undefined;
         });
     }
     enum BusinessUserRole {
@@ -796,21 +796,21 @@ export namespace Types {
         NORMAL = 2
     }
     class Contact {
-        name?: string;
-        id?: string;
-        type?: ContactType;
-        photoUrl?: string;
-        photoLastUpdated?: Timestamp;
-        messagingPermit?: string;
-        messagingPermitExpires?: Timestamp;
+        name?: string | undefined;
+        id?: string | undefined;
+        type?: ContactType | undefined;
+        photoUrl?: string | undefined;
+        photoLastUpdated?: Timestamp | undefined;
+        messagingPermit?: string | undefined;
+        messagingPermitExpires?: Timestamp | undefined;
         constructor(args?: {
-            name?: string;
-            id?: string;
-            type?: ContactType;
-            photoUrl?: string;
-            photoLastUpdated?: Timestamp;
-            messagingPermit?: string;
-            messagingPermitExpires?: Timestamp;
+            name?: string | undefined;
+            id?: string | undefined;
+            type?: ContactType | undefined;
+            photoUrl?: string | undefined;
+            photoLastUpdated?: Timestamp | undefined;
+            messagingPermit?: string | undefined;
+            messagingPermitExpires?: Timestamp | undefined;
         });
     }
     enum ContactType {
@@ -822,181 +822,181 @@ export namespace Types {
         LINKEDIN = 6
     }
     class Data {
-        bodyHash?: string;
-        size?: number;
-        body?: string;
-        constructor(args?: { bodyHash?: string, size?: number, body?: string });
+        bodyHash?: string | undefined;
+        size?: number | undefined;
+        body?: string | undefined;
+        constructor(args?: { bodyHash?: string | undefined, size?: number | undefined, body?: string | undefined });
     }
     type Guid = string;
     class Identity {
-        id?: IdentityID;
-        contact?: Contact;
-        userId?: UserID;
-        deactivated?: boolean;
-        sameBusiness?: boolean;
-        blocked?: boolean;
-        userConnected?: boolean;
-        eventId?: MessageEventID;
+        id?: IdentityID | undefined;
+        contact?: Contact | undefined;
+        userId?: UserID | undefined;
+        deactivated?: boolean | undefined;
+        sameBusiness?: boolean | undefined;
+        blocked?: boolean | undefined;
+        userConnected?: boolean | undefined;
+        eventId?: MessageEventID | undefined;
         constructor(args?: {
-            id?: IdentityID;
-            contact?: Contact;
-            userId?: UserID;
-            deactivated?: boolean;
-            sameBusiness?: boolean;
-            blocked?: boolean;
-            userConnected?: boolean;
-            eventId?: MessageEventID;
+            id?: IdentityID | undefined;
+            contact?: Contact | undefined;
+            userId?: UserID | undefined;
+            deactivated?: boolean | undefined;
+            sameBusiness?: boolean | undefined;
+            blocked?: boolean | undefined;
+            userConnected?: boolean | undefined;
+            eventId?: MessageEventID | undefined;
         });
     }
     type IdentityID = number;
     type InvalidationSequenceNumber = number;
     class LazyMap {
-        keysOnly?: Set<string>;
-        fullMap?: Map<string, string>;
-        constructor(args?: { keysOnly?: Set<string>, fullMap?: Map<string, string> });
+        keysOnly?: Set<string> | undefined;
+        fullMap?: Map<string, string> | undefined;
+        constructor(args?: { keysOnly?: Set<string> | undefined, fullMap?: Map<string, string> | undefined });
     }
     class LinkedNotebook {
-        shareName?: string;
-        username?: string;
-        shardId?: string;
-        shareKey?: string;
-        uri?: string;
-        guid?: Guid;
-        updateSequenceNum?: number;
-        noteStoreUrl?: string;
-        webApiUrlPrefix?: string;
-        stack?: string;
-        businessId?: number;
+        shareName?: string | undefined;
+        username?: string | undefined;
+        shardId?: string | undefined;
+        shareKey?: string | undefined;
+        uri?: string | undefined;
+        guid?: Guid | undefined;
+        updateSequenceNum?: number | undefined;
+        noteStoreUrl?: string | undefined;
+        webApiUrlPrefix?: string | undefined;
+        stack?: string | undefined;
+        businessId?: number | undefined;
         constructor(args?: {
-            shareName?: string;
-            username?: string;
-            shardId?: string;
-            shareKey?: string;
-            uri?: string;
-            guid?: Guid;
-            updateSequenceNum?: number;
-            noteStoreUrl?: string;
-            webApiUrlPrefix?: string;
-            stack?: string;
-            businessId?: number;
+            shareName?: string | undefined;
+            username?: string | undefined;
+            shardId?: string | undefined;
+            shareKey?: string | undefined;
+            uri?: string | undefined;
+            guid?: Guid | undefined;
+            updateSequenceNum?: number | undefined;
+            noteStoreUrl?: string | undefined;
+            webApiUrlPrefix?: string | undefined;
+            stack?: string | undefined;
+            businessId?: number | undefined;
         });
     }
     type MessageEventID = number;
     type MessageThreadID = number;
     class Note {
-        guid?: Guid;
-        title?: string;
-        content?: string;
-        contentHash?: string;
-        contentLength?: number;
-        created?: number;
-        updated?: number;
-        deleted?: number;
-        active?: boolean;
-        updateSequenceNum?: number;
-        notebookGuid?: Guid;
-        tagGuids?: string[];
-        resources?: Resource[];
-        attributes?: NoteAttributes;
-        tagNames?: string[];
-        sharedNotes?: SharedNote[];
-        restrictions?: NoteRestrictions;
-        limits?: NoteLimits;
+        guid?: Guid | undefined;
+        title?: string | undefined;
+        content?: string | undefined;
+        contentHash?: string | undefined;
+        contentLength?: number | undefined;
+        created?: number | undefined;
+        updated?: number | undefined;
+        deleted?: number | undefined;
+        active?: boolean | undefined;
+        updateSequenceNum?: number | undefined;
+        notebookGuid?: Guid | undefined;
+        tagGuids?: string[] | undefined;
+        resources?: Resource[] | undefined;
+        attributes?: NoteAttributes | undefined;
+        tagNames?: string[] | undefined;
+        sharedNotes?: SharedNote[] | undefined;
+        restrictions?: NoteRestrictions | undefined;
+        limits?: NoteLimits | undefined;
         constructor(args?: {
-            guid?: Guid;
-            title?: string;
-            content?: string;
-            contentHash?: string;
-            contentLength?: number;
-            created?: number;
-            updated?: number;
-            deleted?: number;
-            active?: boolean;
-            updateSequenceNum?: number;
-            notebookGuid?: Guid;
-            tagGuids?: string[];
-            resources?: Resource[];
-            attributes?: NoteAttributes;
-            tagNames?: string[];
-            sharedNotes?: SharedNote[];
-            restrictions?: NoteRestrictions;
-            limits?: NoteLimits;
+            guid?: Guid | undefined;
+            title?: string | undefined;
+            content?: string | undefined;
+            contentHash?: string | undefined;
+            contentLength?: number | undefined;
+            created?: number | undefined;
+            updated?: number | undefined;
+            deleted?: number | undefined;
+            active?: boolean | undefined;
+            updateSequenceNum?: number | undefined;
+            notebookGuid?: Guid | undefined;
+            tagGuids?: string[] | undefined;
+            resources?: Resource[] | undefined;
+            attributes?: NoteAttributes | undefined;
+            tagNames?: string[] | undefined;
+            sharedNotes?: SharedNote[] | undefined;
+            restrictions?: NoteRestrictions | undefined;
+            limits?: NoteLimits | undefined;
         });
     }
     class NoteAttributes {
-        subjectDate?: Timestamp;
-        latitude?: number;
-        longitude?: number;
-        altitude?: number;
-        author?: string;
-        source?: string;
-        sourceURL?: string;
-        sourceApplication?: string;
-        shareDate?: Timestamp;
-        reminderOrder?: number;
-        reminderDoneTime?: Timestamp;
-        reminderTime?: Timestamp;
-        placeName?: string;
-        contentClass?: string;
-        applicationData?: LazyMap;
-        lastEditedBy?: string;
-        classifications?: Map<string, string>;
-        creatorId?: UserID;
-        lastEditorId?: UserID;
-        sharedWithBusiness?: boolean;
-        conflictSourceNoteGuid?: Guid;
-        noteTitleQuality?: number;
+        subjectDate?: Timestamp | undefined;
+        latitude?: number | undefined;
+        longitude?: number | undefined;
+        altitude?: number | undefined;
+        author?: string | undefined;
+        source?: string | undefined;
+        sourceURL?: string | undefined;
+        sourceApplication?: string | undefined;
+        shareDate?: Timestamp | undefined;
+        reminderOrder?: number | undefined;
+        reminderDoneTime?: Timestamp | undefined;
+        reminderTime?: Timestamp | undefined;
+        placeName?: string | undefined;
+        contentClass?: string | undefined;
+        applicationData?: LazyMap | undefined;
+        lastEditedBy?: string | undefined;
+        classifications?: Map<string, string> | undefined;
+        creatorId?: UserID | undefined;
+        lastEditorId?: UserID | undefined;
+        sharedWithBusiness?: boolean | undefined;
+        conflictSourceNoteGuid?: Guid | undefined;
+        noteTitleQuality?: number | undefined;
         constructor(args?: {
-            subjectDate?: Timestamp;
-            latitude?: number;
-            longitude?: number;
-            altitude?: number;
-            author?: string;
-            source?: string;
-            sourceURL?: string;
-            sourceApplication?: string;
-            shareDate?: Timestamp;
-            reminderOrder?: number;
-            reminderDoneTime?: Timestamp;
-            reminderTime?: Timestamp;
-            placeName?: string;
-            contentClass?: string;
-            applicationData?: LazyMap;
-            lastEditedBy?: string;
-            classifications?: Map<string, string>;
-            creatorId?: UserID;
-            lastEditorId?: UserID;
-            sharedWithBusiness?: boolean;
-            conflictSourceNoteGuid?: Guid;
-            noteTitleQuality?: number;
+            subjectDate?: Timestamp | undefined;
+            latitude?: number | undefined;
+            longitude?: number | undefined;
+            altitude?: number | undefined;
+            author?: string | undefined;
+            source?: string | undefined;
+            sourceURL?: string | undefined;
+            sourceApplication?: string | undefined;
+            shareDate?: Timestamp | undefined;
+            reminderOrder?: number | undefined;
+            reminderDoneTime?: Timestamp | undefined;
+            reminderTime?: Timestamp | undefined;
+            placeName?: string | undefined;
+            contentClass?: string | undefined;
+            applicationData?: LazyMap | undefined;
+            lastEditedBy?: string | undefined;
+            classifications?: Map<string, string> | undefined;
+            creatorId?: UserID | undefined;
+            lastEditorId?: UserID | undefined;
+            sharedWithBusiness?: boolean | undefined;
+            conflictSourceNoteGuid?: Guid | undefined;
+            noteTitleQuality?: number | undefined;
         });
     }
     class NoteLimits {
-        noteResourceCountMax?: number;
-        uploadLimit?: number;
-        resourceSizeMax?: number;
-        noteSizeMax?: number;
-        uploaded?: number;
+        noteResourceCountMax?: number | undefined;
+        uploadLimit?: number | undefined;
+        resourceSizeMax?: number | undefined;
+        noteSizeMax?: number | undefined;
+        uploaded?: number | undefined;
         constructor(args?: {
-            noteResourceCountMax?: number;
-            uploadLimit?: number;
-            resourceSizeMax?: number;
-            noteSizeMax?: number;
-            uploaded?: number;
+            noteResourceCountMax?: number | undefined;
+            uploadLimit?: number | undefined;
+            resourceSizeMax?: number | undefined;
+            noteSizeMax?: number | undefined;
+            uploaded?: number | undefined;
         });
     }
     class NoteRestrictions {
-        noUpdateTitle?: boolean;
-        noUpdateContent?: boolean;
-        noEmail?: boolean;
-        noShare?: boolean;
-        noSharePublicly?: boolean;
+        noUpdateTitle?: boolean | undefined;
+        noUpdateContent?: boolean | undefined;
+        noEmail?: boolean | undefined;
+        noShare?: boolean | undefined;
+        noSharePublicly?: boolean | undefined;
         constructor(args?: {
-            noUpdateTitle?: boolean;
-            noUpdateContent?: boolean;
-            noEmail?: boolean;
-            noShare?: boolean;
-            noSharePublicly?: boolean;
+            noUpdateTitle?: boolean | undefined;
+            noUpdateContent?: boolean | undefined;
+            noEmail?: boolean | undefined;
+            noShare?: boolean | undefined;
+            noSharePublicly?: boolean | undefined;
         });
     }
     enum NoteSortOrder {
@@ -1007,128 +1007,128 @@ export namespace Types {
         TITLE = 5
     }
     class Notebook {
-        guid?: Guid;
-        name?: string;
-        updateSequenceNum?: number;
-        defaultNotebook?: boolean;
-        serviceCreated?: number;
-        serviceUpdated?: number;
-        publishing?: Publishing;
-        published?: boolean;
-        stack?: string;
-        sharedNotebookIds?: number[];
-        sharedNotebooks?: SharedNotebook[];
-        businessNotebook?: BusinessNotebook;
-        contact?: User;
-        restrictions?: NotebookRestrictions;
-        recipientSettings?: NotebookRecipientSettings;
+        guid?: Guid | undefined;
+        name?: string | undefined;
+        updateSequenceNum?: number | undefined;
+        defaultNotebook?: boolean | undefined;
+        serviceCreated?: number | undefined;
+        serviceUpdated?: number | undefined;
+        publishing?: Publishing | undefined;
+        published?: boolean | undefined;
+        stack?: string | undefined;
+        sharedNotebookIds?: number[] | undefined;
+        sharedNotebooks?: SharedNotebook[] | undefined;
+        businessNotebook?: BusinessNotebook | undefined;
+        contact?: User | undefined;
+        restrictions?: NotebookRestrictions | undefined;
+        recipientSettings?: NotebookRecipientSettings | undefined;
         constructor(args?: {
-            guid?: Guid;
-            name?: string;
-            updateSequenceNum?: number;
-            defaultNotebook?: boolean;
-            serviceCreated?: number;
-            serviceUpdated?: number;
-            publishing?: Publishing;
-            published?: boolean;
-            stack?: string;
-            sharedNotebookIds?: number[];
-            sharedNotebooks?: SharedNotebook[];
-            businessNotebook?: BusinessNotebook;
-            contact?: User;
-            restrictions?: NotebookRestrictions;
-            recipientSettings?: NotebookRecipientSettings;
+            guid?: Guid | undefined;
+            name?: string | undefined;
+            updateSequenceNum?: number | undefined;
+            defaultNotebook?: boolean | undefined;
+            serviceCreated?: number | undefined;
+            serviceUpdated?: number | undefined;
+            publishing?: Publishing | undefined;
+            published?: boolean | undefined;
+            stack?: string | undefined;
+            sharedNotebookIds?: number[] | undefined;
+            sharedNotebooks?: SharedNotebook[] | undefined;
+            businessNotebook?: BusinessNotebook | undefined;
+            contact?: User | undefined;
+            restrictions?: NotebookRestrictions | undefined;
+            recipientSettings?: NotebookRecipientSettings | undefined;
         });
     }
     class NotebookDescriptor {
-        guid?: Guid;
-        notebookDisplayName?: string;
-        contactName?: string;
-        hasSharedNotebook?: boolean;
-        joinedUserCount?: number;
+        guid?: Guid | undefined;
+        notebookDisplayName?: string | undefined;
+        contactName?: string | undefined;
+        hasSharedNotebook?: boolean | undefined;
+        joinedUserCount?: number | undefined;
         constructor(args?: {
-            guid?: Guid;
-            notebookDisplayName?: string;
-            contactName?: string;
-            hasSharedNotebook?: boolean;
-            joinedUserCount?: number;
+            guid?: Guid | undefined;
+            notebookDisplayName?: string | undefined;
+            contactName?: string | undefined;
+            hasSharedNotebook?: boolean | undefined;
+            joinedUserCount?: number | undefined;
         });
     }
     class NotebookRecipientSettings {
-        reminderNotifyEmail?: boolean;
-        reminderNotifyInApp?: boolean;
-        inMyList?: boolean;
-        stack?: string;
-        constructor(args?: { reminderNotifyEmail?: boolean, reminderNotifyInApp?: boolean, inMyList?: boolean, stack?: string });
+        reminderNotifyEmail?: boolean | undefined;
+        reminderNotifyInApp?: boolean | undefined;
+        inMyList?: boolean | undefined;
+        stack?: string | undefined;
+        constructor(args?: { reminderNotifyEmail?: boolean | undefined, reminderNotifyInApp?: boolean | undefined, inMyList?: boolean | undefined, stack?: string | undefined });
     }
     class NotebookRestrictions {
-        noReadNotes?: boolean;
-        noCreateNotes?: boolean;
-        noUpdateNotes?: boolean;
-        noExpungeNotes?: boolean;
-        noShareNotes?: boolean;
-        noEmailNotes?: boolean;
-        noSendMessageToRecipients?: boolean;
-        noUpdateNotebook?: boolean;
-        noExpungeNotebook?: boolean;
-        noSetDefaultNotebook?: boolean;
-        noSetNotebookStack?: boolean;
-        noPublishToPublic?: boolean;
-        noPublishToBusinessLibrary?: boolean;
-        noCreateTags?: boolean;
-        noUpdateTags?: boolean;
-        noExpungeTags?: boolean;
-        noSetParentTag?: boolean;
-        noCreateSharedNotebooks?: boolean;
-        updateWhichSharedNotebookRestrictions?: SharedNotebookInstanceRestrictions;
-        expungeWhichSharedNotebookRestrictions?: SharedNotebookInstanceRestrictions;
-        noShareNotesWithBusiness?: boolean;
-        noRenameNotebook?: boolean;
+        noReadNotes?: boolean | undefined;
+        noCreateNotes?: boolean | undefined;
+        noUpdateNotes?: boolean | undefined;
+        noExpungeNotes?: boolean | undefined;
+        noShareNotes?: boolean | undefined;
+        noEmailNotes?: boolean | undefined;
+        noSendMessageToRecipients?: boolean | undefined;
+        noUpdateNotebook?: boolean | undefined;
+        noExpungeNotebook?: boolean | undefined;
+        noSetDefaultNotebook?: boolean | undefined;
+        noSetNotebookStack?: boolean | undefined;
+        noPublishToPublic?: boolean | undefined;
+        noPublishToBusinessLibrary?: boolean | undefined;
+        noCreateTags?: boolean | undefined;
+        noUpdateTags?: boolean | undefined;
+        noExpungeTags?: boolean | undefined;
+        noSetParentTag?: boolean | undefined;
+        noCreateSharedNotebooks?: boolean | undefined;
+        updateWhichSharedNotebookRestrictions?: SharedNotebookInstanceRestrictions | undefined;
+        expungeWhichSharedNotebookRestrictions?: SharedNotebookInstanceRestrictions | undefined;
+        noShareNotesWithBusiness?: boolean | undefined;
+        noRenameNotebook?: boolean | undefined;
         constructor(args?: {
-            noReadNotes?: boolean;
-            noCreateNotes?: boolean;
-            noUpdateNotes?: boolean;
-            noExpungeNotes?: boolean;
-            noShareNotes?: boolean;
-            noEmailNotes?: boolean;
-            noSendMessageToRecipients?: boolean;
-            noUpdateNotebook?: boolean;
-            noExpungeNotebook?: boolean;
-            noSetDefaultNotebook?: boolean;
-            noSetNotebookStack?: boolean;
-            noPublishToPublic?: boolean;
-            noPublishToBusinessLibrary?: boolean;
-            noCreateTags?: boolean;
-            noUpdateTags?: boolean;
-            noExpungeTags?: boolean;
-            noSetParentTag?: boolean;
-            noCreateSharedNotebooks?: boolean;
-            updateWhichSharedNotebookRestrictions?: SharedNotebookInstanceRestrictions;
-            expungeWhichSharedNotebookRestrictions?: SharedNotebookInstanceRestrictions;
-            noShareNotesWithBusiness?: boolean;
-            noRenameNotebook?: boolean;
+            noReadNotes?: boolean | undefined;
+            noCreateNotes?: boolean | undefined;
+            noUpdateNotes?: boolean | undefined;
+            noExpungeNotes?: boolean | undefined;
+            noShareNotes?: boolean | undefined;
+            noEmailNotes?: boolean | undefined;
+            noSendMessageToRecipients?: boolean | undefined;
+            noUpdateNotebook?: boolean | undefined;
+            noExpungeNotebook?: boolean | undefined;
+            noSetDefaultNotebook?: boolean | undefined;
+            noSetNotebookStack?: boolean | undefined;
+            noPublishToPublic?: boolean | undefined;
+            noPublishToBusinessLibrary?: boolean | undefined;
+            noCreateTags?: boolean | undefined;
+            noUpdateTags?: boolean | undefined;
+            noExpungeTags?: boolean | undefined;
+            noSetParentTag?: boolean | undefined;
+            noCreateSharedNotebooks?: boolean | undefined;
+            updateWhichSharedNotebookRestrictions?: SharedNotebookInstanceRestrictions | undefined;
+            expungeWhichSharedNotebookRestrictions?: SharedNotebookInstanceRestrictions | undefined;
+            noShareNotesWithBusiness?: boolean | undefined;
+            noRenameNotebook?: boolean | undefined;
         });
     }
     class PremiumInfo {
-        currentTime?: Timestamp;
-        premium?: boolean;
-        premiumRecurring?: boolean;
-        premiumExpirationDate?: Timestamp;
-        premiumExtendable?: boolean;
-        premiumPending?: boolean;
-        premiumCancellationPending?: boolean;
-        canPurchaseUploadAllowance?: boolean;
-        premiumUpgradable?: boolean;
+        currentTime?: Timestamp | undefined;
+        premium?: boolean | undefined;
+        premiumRecurring?: boolean | undefined;
+        premiumExpirationDate?: Timestamp | undefined;
+        premiumExtendable?: boolean | undefined;
+        premiumPending?: boolean | undefined;
+        premiumCancellationPending?: boolean | undefined;
+        canPurchaseUploadAllowance?: boolean | undefined;
+        premiumUpgradable?: boolean | undefined;
         constructor(args?: {
-            currentTime?: Timestamp;
-            premium?: boolean;
-            premiumRecurring?: boolean;
-            premiumExpirationDate?: Timestamp;
-            premiumExtendable?: boolean;
-            premiumPending?: boolean;
-            premiumCancellationPending?: boolean;
-            canPurchaseUploadAllowance?: boolean;
-            premiumUpgradable?: boolean;
+            currentTime?: Timestamp | undefined;
+            premium?: boolean | undefined;
+            premiumRecurring?: boolean | undefined;
+            premiumExpirationDate?: Timestamp | undefined;
+            premiumExtendable?: boolean | undefined;
+            premiumPending?: boolean | undefined;
+            premiumCancellationPending?: boolean | undefined;
+            canPurchaseUploadAllowance?: boolean | undefined;
+            premiumUpgradable?: boolean | undefined;
         });
     }
     enum PremiumOrderStatus {
@@ -1148,50 +1148,50 @@ export namespace Types {
         ADMIN = 9
     }
     class Publishing {
-        uri?: string;
-        order?: NoteSortOrder;
-        ascending?: boolean;
-        publicDescription?: string;
-        constructor(args?: { uri?: string, order?: NoteSortOrder, ascending?: boolean, publicDescription?: string });
+        uri?: string | undefined;
+        order?: NoteSortOrder | undefined;
+        ascending?: boolean | undefined;
+        publicDescription?: string | undefined;
+        constructor(args?: { uri?: string | undefined, order?: NoteSortOrder | undefined, ascending?: boolean | undefined, publicDescription?: string | undefined });
     }
     enum QueryFormat {
         'USER' = 1,
         'SEXP' = 2,
     }
     class RelatedContent {
-        contentId?: string;
-        title?: string;
-        url?: string;
-        sourceId?: string;
-        sourceUrl?: string;
-        sourceFaviconUrl?: string;
-        sourceName?: string;
-        date?: Timestamp;
-        teaser?: string;
-        thumbnails?: RelatedContentImage[];
-        contentType?: RelatedContentType;
-        accessType?: RelatedContentAccess;
-        visibleUrl?: string;
-        clipUrl?: string;
-        contact?: Contact;
-        authors?: string[];
+        contentId?: string | undefined;
+        title?: string | undefined;
+        url?: string | undefined;
+        sourceId?: string | undefined;
+        sourceUrl?: string | undefined;
+        sourceFaviconUrl?: string | undefined;
+        sourceName?: string | undefined;
+        date?: Timestamp | undefined;
+        teaser?: string | undefined;
+        thumbnails?: RelatedContentImage[] | undefined;
+        contentType?: RelatedContentType | undefined;
+        accessType?: RelatedContentAccess | undefined;
+        visibleUrl?: string | undefined;
+        clipUrl?: string | undefined;
+        contact?: Contact | undefined;
+        authors?: string[] | undefined;
         constructor(args?: {
-            contentId?: string;
-            title?: string;
-            url?: string;
-            sourceId?: string;
-            sourceUrl?: string;
-            sourceFaviconUrl?: string;
-            sourceName?: string;
-            date?: Timestamp;
-            teaser?: string;
-            thumbnails?: RelatedContentImage[];
-            contentType?: RelatedContentType;
-            accessType?: RelatedContentAccess;
-            visibleUrl?: string;
-            clipUrl?: string;
-            contact?: Contact;
-            authors?: string[];
+            contentId?: string | undefined;
+            title?: string | undefined;
+            url?: string | undefined;
+            sourceId?: string | undefined;
+            sourceUrl?: string | undefined;
+            sourceFaviconUrl?: string | undefined;
+            sourceName?: string | undefined;
+            date?: Timestamp | undefined;
+            teaser?: string | undefined;
+            thumbnails?: RelatedContentImage[] | undefined;
+            contentType?: RelatedContentType | undefined;
+            accessType?: RelatedContentAccess | undefined;
+            visibleUrl?: string | undefined;
+            clipUrl?: string | undefined;
+            contact?: Contact | undefined;
+            authors?: string[] | undefined;
         });
     }
     enum RelatedContentAccess {
@@ -1201,12 +1201,12 @@ export namespace Types {
         DIRECT_LINK_EMBEDDED_VIEW = 3
     }
     class RelatedContentImage {
-        url?: string;
-        width?: number;
-        height?: number;
-        pixelRatio?: number;
-        fileSize?: number;
-        constructor(args?: { url?: string, width?: number, height?: number, pixelRatio?: number, fileSize?: number });
+        url?: string | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        pixelRatio?: number | undefined;
+        fileSize?: number | undefined;
+        constructor(args?: { url?: string | undefined, width?: number | undefined, height?: number | undefined, pixelRatio?: number | undefined, fileSize?: number | undefined });
     }
     enum RelatedContentType {
         NEWS_ARTICLE = 1,
@@ -1219,82 +1219,82 @@ export namespace Types {
         SEND_DAILY_EMAIL = 2
     }
     class Resource {
-        guid?: Guid;
-        noteguid?: Guid;
-        data?: Data;
-        mime?: string;
-        width?: number;
-        height?: number;
-        duration?: number;
-        active?: boolean;
-        recognition?: Data;
-        attributes?: ResourceAttributes;
-        updateSequenceNum?: number;
-        alternateData?: Data;
+        guid?: Guid | undefined;
+        noteguid?: Guid | undefined;
+        data?: Data | undefined;
+        mime?: string | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        duration?: number | undefined;
+        active?: boolean | undefined;
+        recognition?: Data | undefined;
+        attributes?: ResourceAttributes | undefined;
+        updateSequenceNum?: number | undefined;
+        alternateData?: Data | undefined;
         constructor(args?: {
-            guid?: Guid;
-            noteguid?: Guid;
-            data?: Data;
-            mime?: string;
-            width?: number;
-            height?: number;
-            duration?: number;
-            active?: boolean;
-            recognition?: Data;
-            attributes?: ResourceAttributes;
-            updateSequenceNum?: number;
-            alternateData?: Data;
+            guid?: Guid | undefined;
+            noteguid?: Guid | undefined;
+            data?: Data | undefined;
+            mime?: string | undefined;
+            width?: number | undefined;
+            height?: number | undefined;
+            duration?: number | undefined;
+            active?: boolean | undefined;
+            recognition?: Data | undefined;
+            attributes?: ResourceAttributes | undefined;
+            updateSequenceNum?: number | undefined;
+            alternateData?: Data | undefined;
         });
     }
     class ResourceAttributes {
-        sourceURL?: string;
-        timestamp?: number;
-        latitude?: number;
-        longitude?: number;
-        altitude?: number;
-        cameraMake?: string;
-        cameraModel?: string;
-        clientWillIndex?: boolean;
-        recoType?: string;
-        fileName?: string;
-        attachment?: boolean;
-        applicationData?: LazyMap;
+        sourceURL?: string | undefined;
+        timestamp?: number | undefined;
+        latitude?: number | undefined;
+        longitude?: number | undefined;
+        altitude?: number | undefined;
+        cameraMake?: string | undefined;
+        cameraModel?: string | undefined;
+        clientWillIndex?: boolean | undefined;
+        recoType?: string | undefined;
+        fileName?: string | undefined;
+        attachment?: boolean | undefined;
+        applicationData?: LazyMap | undefined;
         constructor(args?: {
-            sourceURL?: string;
-            timestamp?: number;
-            latitude?: number;
-            longitude?: number;
-            altitude?: number;
-            cameraMake?: string;
-            cameraModel?: string;
-            clientWillIndex?: boolean;
-            recoType?: string;
-            fileName?: string;
-            attachment?: boolean;
-            applicationData?: LazyMap;
+            sourceURL?: string | undefined;
+            timestamp?: number | undefined;
+            latitude?: number | undefined;
+            longitude?: number | undefined;
+            altitude?: number | undefined;
+            cameraMake?: string | undefined;
+            cameraModel?: string | undefined;
+            clientWillIndex?: boolean | undefined;
+            recoType?: string | undefined;
+            fileName?: string | undefined;
+            attachment?: boolean | undefined;
+            applicationData?: LazyMap | undefined;
         });
     }
     class SavedSearch {
-        guid?: Guid;
-        name?: string;
-        query?: string;
-        format?: QueryFormat;
-        updateSequenceNum?: number;
-        scope?: SavedSearchScope;
+        guid?: Guid | undefined;
+        name?: string | undefined;
+        query?: string | undefined;
+        format?: QueryFormat | undefined;
+        updateSequenceNum?: number | undefined;
+        scope?: SavedSearchScope | undefined;
         constructor(args?: {
-            guid?: Guid;
-            name?: string;
-            query?: string;
-            format?: QueryFormat;
-            updateSequenceNum?: number;
-            scope?: SavedSearchScope;
+            guid?: Guid | undefined;
+            name?: string | undefined;
+            query?: string | undefined;
+            format?: QueryFormat | undefined;
+            updateSequenceNum?: number | undefined;
+            scope?: SavedSearchScope | undefined;
         });
     }
     class SavedSearchScope {
-        includeAccount?: boolean;
-        includePersonalLinkedNotebooks?: boolean;
-        includeBusinessLinkedNotebooks?: boolean;
-        constructor(args?: { includeAccount?: boolean, includePersonalLinkedNotebooks?: boolean, includeBusinessLinkedNotebooks?: boolean });
+        includeAccount?: boolean | undefined;
+        includePersonalLinkedNotebooks?: boolean | undefined;
+        includeBusinessLinkedNotebooks?: boolean | undefined;
+        constructor(args?: { includeAccount?: boolean | undefined, includePersonalLinkedNotebooks?: boolean | undefined, includeBusinessLinkedNotebooks?: boolean | undefined });
     }
     enum ServiceLevel {
         BASIC = 1,
@@ -1302,19 +1302,19 @@ export namespace Types {
         PREMIUM = 3
     }
     class SharedNote {
-        sharerUserID?: UserID;
-        recipientIdentity?: Identity;
-        privilege?: SharedNotePrivilegeLevel;
-        serviceCreated?: Timestamp;
-        serviceUpdated?: Timestamp;
-        serviceAssigned?: Timestamp;
+        sharerUserID?: UserID | undefined;
+        recipientIdentity?: Identity | undefined;
+        privilege?: SharedNotePrivilegeLevel | undefined;
+        serviceCreated?: Timestamp | undefined;
+        serviceUpdated?: Timestamp | undefined;
+        serviceAssigned?: Timestamp | undefined;
         constructor(args?: {
-            sharerUserID?: UserID;
-            recipientIdentity?: Identity;
-            privilege?: SharedNotePrivilegeLevel;
-            serviceCreated?: Timestamp;
-            serviceUpdated?: Timestamp;
-            serviceAssigned?: Timestamp;
+            sharerUserID?: UserID | undefined;
+            recipientIdentity?: Identity | undefined;
+            privilege?: SharedNotePrivilegeLevel | undefined;
+            serviceCreated?: Timestamp | undefined;
+            serviceUpdated?: Timestamp | undefined;
+            serviceAssigned?: Timestamp | undefined;
         });
     }
     enum SharedNotePrivilegeLevel {
@@ -1323,39 +1323,39 @@ export namespace Types {
         FULL_ACCESS = 2
     }
     class SharedNotebook {
-        id?: number;
-        userId?: UserID;
-        notebookGuid?: Guid;
-        email?: string;
-        recipientIdentityId?: IdentityID;
-        notebookModifiable?: boolean;
-        serviceCreated?: Timestamp;
-        serviceUpdated?: Timestamp;
-        globalId?: string;
-        username?: string;
-        privilege?: SharedNotebookPrivilegeLevel;
-        recipientSettings?: SharedNotebookRecipientSettings;
-        sharerUserId?: UserID;
-        recipientUsername?: string;
-        recipientUserId?: UserID;
-        serviceAssigned?: Timestamp;
+        id?: number | undefined;
+        userId?: UserID | undefined;
+        notebookGuid?: Guid | undefined;
+        email?: string | undefined;
+        recipientIdentityId?: IdentityID | undefined;
+        notebookModifiable?: boolean | undefined;
+        serviceCreated?: Timestamp | undefined;
+        serviceUpdated?: Timestamp | undefined;
+        globalId?: string | undefined;
+        username?: string | undefined;
+        privilege?: SharedNotebookPrivilegeLevel | undefined;
+        recipientSettings?: SharedNotebookRecipientSettings | undefined;
+        sharerUserId?: UserID | undefined;
+        recipientUsername?: string | undefined;
+        recipientUserId?: UserID | undefined;
+        serviceAssigned?: Timestamp | undefined;
         constructor(args?: {
-            id?: number;
-            userId?: UserID;
-            notebookGuid?: Guid;
-            email?: string;
-            recipientIdentityId?: IdentityID;
-            notebookModifiable?: boolean;
-            serviceCreated?: Timestamp;
-            serviceUpdated?: Timestamp;
-            globalId?: string;
-            username?: string;
-            privilege?: SharedNotebookPrivilegeLevel;
-            recipientSettings?: SharedNotebookRecipientSettings;
-            sharerUserId?: UserID;
-            recipientUsername?: string;
-            recipientUserId?: UserID;
-            serviceAssigned?: Timestamp;
+            id?: number | undefined;
+            userId?: UserID | undefined;
+            notebookGuid?: Guid | undefined;
+            email?: string | undefined;
+            recipientIdentityId?: IdentityID | undefined;
+            notebookModifiable?: boolean | undefined;
+            serviceCreated?: Timestamp | undefined;
+            serviceUpdated?: Timestamp | undefined;
+            globalId?: string | undefined;
+            username?: string | undefined;
+            privilege?: SharedNotebookPrivilegeLevel | undefined;
+            recipientSettings?: SharedNotebookRecipientSettings | undefined;
+            sharerUserId?: UserID | undefined;
+            recipientUsername?: string | undefined;
+            recipientUserId?: UserID | undefined;
+            serviceAssigned?: Timestamp | undefined;
         });
     }
     enum SharedNotebookInstanceRestrictions {
@@ -1371,9 +1371,9 @@ export namespace Types {
         BUSINESS_FULL_ACCESS = 5
     }
     class SharedNotebookRecipientSettings {
-        reminderNotifyEmail?: boolean;
-        reminderNotifyInApp?: boolean;
-        constructor(args?: { reminderNotifyEmail?: boolean, reminderNotifyInApp?: boolean });
+        reminderNotifyEmail?: boolean | undefined;
+        reminderNotifyInApp?: boolean | undefined;
+        constructor(args?: { reminderNotifyEmail?: boolean | undefined, reminderNotifyInApp?: boolean | undefined });
     }
     enum SponsoredGroupRole {
         GROUP_MEMBER = 1,
@@ -1381,134 +1381,134 @@ export namespace Types {
         GROUP_OWNER = 3
     }
     class Tag {
-        guid?: Guid;
-        name?: string;
-        parentGuid?: Guid;
-        updateSequenceNum?: number;
-        constructor(args?: { guid?: Guid, name?: string, parentGuid?: Guid, updateSequenceNum?: number });
+        guid?: Guid | undefined;
+        name?: string | undefined;
+        parentGuid?: Guid | undefined;
+        updateSequenceNum?: number | undefined;
+        constructor(args?: { guid?: Guid | undefined, name?: string | undefined, parentGuid?: Guid | undefined, updateSequenceNum?: number | undefined });
     }
     type Timestamp = number;
     class User {
-        id?: UserID;
-        username?: string;
-        email?: string;
-        name?: string;
-        timezone?: string;
-        privilege?: PrivilegeLevel;
-        serviceLevel?: ServiceLevel;
-        created?: Timestamp;
-        updated?: Timestamp;
-        deleted?: Timestamp;
-        active?: boolean;
-        shardId?: string;
-        attributes?: UserAttributes;
-        accounting?: Accounting;
-        businessUserInfo?: BusinessUserInfo;
-        photoUrl?: string;
-        photoLastUpdated?: Timestamp;
-        accountLimits?: AccountLimits;
+        id?: UserID | undefined;
+        username?: string | undefined;
+        email?: string | undefined;
+        name?: string | undefined;
+        timezone?: string | undefined;
+        privilege?: PrivilegeLevel | undefined;
+        serviceLevel?: ServiceLevel | undefined;
+        created?: Timestamp | undefined;
+        updated?: Timestamp | undefined;
+        deleted?: Timestamp | undefined;
+        active?: boolean | undefined;
+        shardId?: string | undefined;
+        attributes?: UserAttributes | undefined;
+        accounting?: Accounting | undefined;
+        businessUserInfo?: BusinessUserInfo | undefined;
+        photoUrl?: string | undefined;
+        photoLastUpdated?: Timestamp | undefined;
+        accountLimits?: AccountLimits | undefined;
         constructor(args?: {
-            id?: UserID;
-            username?: string;
-            email?: string;
-            name?: string;
-            timezone?: string;
-            privilege?: PrivilegeLevel;
-            serviceLevel?: ServiceLevel;
-            created?: Timestamp;
-            updated?: Timestamp;
-            deleted?: Timestamp;
-            active?: boolean;
-            shardId?: string;
-            attributes?: UserAttributes;
-            accounting?: Accounting;
-            businessUserInfo?: BusinessUserInfo;
-            photoUrl?: string;
-            photoLastUpdated?: Timestamp;
-            accountLimits?: AccountLimits;
+            id?: UserID | undefined;
+            username?: string | undefined;
+            email?: string | undefined;
+            name?: string | undefined;
+            timezone?: string | undefined;
+            privilege?: PrivilegeLevel | undefined;
+            serviceLevel?: ServiceLevel | undefined;
+            created?: Timestamp | undefined;
+            updated?: Timestamp | undefined;
+            deleted?: Timestamp | undefined;
+            active?: boolean | undefined;
+            shardId?: string | undefined;
+            attributes?: UserAttributes | undefined;
+            accounting?: Accounting | undefined;
+            businessUserInfo?: BusinessUserInfo | undefined;
+            photoUrl?: string | undefined;
+            photoLastUpdated?: Timestamp | undefined;
+            accountLimits?: AccountLimits | undefined;
         });
     }
     class UserAttributes {
-        defaultLocationName?: string;
-        defaultLatitude?: number;
-        defaultLongitude?: number;
-        preactivation?: boolean;
-        viewedPromotions?: string[];
-        incomingEmailAddress?: string;
-        recentMailedAddresses?: string[];
-        comments?: string;
-        dateAgreedToTermsOfService?: Timestamp;
-        maxReferrals?: number;
-        referralCount?: number;
-        refererCode?: string;
-        sentEmailDate?: Timestamp;
-        sentEmailCount?: number;
-        dailyEmailLimit?: number;
-        emailOptOutDate?: Timestamp;
-        partnerEmailOptInDate?: Timestamp;
-        preferredLanguage?: string;
-        preferredCountry?: string;
-        clipFullPage?: boolean;
-        twitterUserName?: string;
-        twitterId?: string;
-        groupName?: string;
-        recognitionLanguage?: string;
-        referralProof?: string;
-        educationalDiscount?: boolean;
-        businessAddress?: string;
-        hideSponsorBilling?: boolean;
-        taxExempt?: boolean;
-        useEmailAutoFiling?: boolean;
-        reminderEmailConfig?: ReminderEmailConfig;
-        emailAddressLastConfirmed?: Timestamp;
-        passwordUpdated?: Timestamp;
-        salesforcePushEnabled?: boolean;
+        defaultLocationName?: string | undefined;
+        defaultLatitude?: number | undefined;
+        defaultLongitude?: number | undefined;
+        preactivation?: boolean | undefined;
+        viewedPromotions?: string[] | undefined;
+        incomingEmailAddress?: string | undefined;
+        recentMailedAddresses?: string[] | undefined;
+        comments?: string | undefined;
+        dateAgreedToTermsOfService?: Timestamp | undefined;
+        maxReferrals?: number | undefined;
+        referralCount?: number | undefined;
+        refererCode?: string | undefined;
+        sentEmailDate?: Timestamp | undefined;
+        sentEmailCount?: number | undefined;
+        dailyEmailLimit?: number | undefined;
+        emailOptOutDate?: Timestamp | undefined;
+        partnerEmailOptInDate?: Timestamp | undefined;
+        preferredLanguage?: string | undefined;
+        preferredCountry?: string | undefined;
+        clipFullPage?: boolean | undefined;
+        twitterUserName?: string | undefined;
+        twitterId?: string | undefined;
+        groupName?: string | undefined;
+        recognitionLanguage?: string | undefined;
+        referralProof?: string | undefined;
+        educationalDiscount?: boolean | undefined;
+        businessAddress?: string | undefined;
+        hideSponsorBilling?: boolean | undefined;
+        taxExempt?: boolean | undefined;
+        useEmailAutoFiling?: boolean | undefined;
+        reminderEmailConfig?: ReminderEmailConfig | undefined;
+        emailAddressLastConfirmed?: Timestamp | undefined;
+        passwordUpdated?: Timestamp | undefined;
+        salesforcePushEnabled?: boolean | undefined;
         constructor(args?: {
-            defaultLocationName?: string;
-            defaultLatitude?: number;
-            defaultLongitude?: number;
-            preactivation?: boolean;
-            viewedPromotions?: string[];
-            incomingEmailAddress?: string;
-            recentMailedAddresses?: string[];
-            comments?: string;
-            dateAgreedToTermsOfService?: Timestamp;
-            maxReferrals?: number;
-            referralCount?: number;
-            refererCode?: string;
-            sentEmailDate?: Timestamp;
-            sentEmailCount?: number;
-            dailyEmailLimit?: number;
-            emailOptOutDate?: Timestamp;
-            partnerEmailOptInDate?: Timestamp;
-            preferredLanguage?: string;
-            preferredCountry?: string;
-            clipFullPage?: boolean;
-            twitterUserName?: string;
-            twitterId?: string;
-            groupName?: string;
-            recognitionLanguage?: string;
-            referralProof?: string;
-            educationalDiscount?: boolean;
-            businessAddress?: string;
-            hideSponsorBilling?: boolean;
-            taxExempt?: boolean;
-            useEmailAutoFiling?: boolean;
-            reminderEmailConfig?: ReminderEmailConfig;
-            emailAddressLastConfirmed?: Timestamp;
-            passwordUpdated?: Timestamp;
-            salesforcePushEnabled?: boolean;
+            defaultLocationName?: string | undefined;
+            defaultLatitude?: number | undefined;
+            defaultLongitude?: number | undefined;
+            preactivation?: boolean | undefined;
+            viewedPromotions?: string[] | undefined;
+            incomingEmailAddress?: string | undefined;
+            recentMailedAddresses?: string[] | undefined;
+            comments?: string | undefined;
+            dateAgreedToTermsOfService?: Timestamp | undefined;
+            maxReferrals?: number | undefined;
+            referralCount?: number | undefined;
+            refererCode?: string | undefined;
+            sentEmailDate?: Timestamp | undefined;
+            sentEmailCount?: number | undefined;
+            dailyEmailLimit?: number | undefined;
+            emailOptOutDate?: Timestamp | undefined;
+            partnerEmailOptInDate?: Timestamp | undefined;
+            preferredLanguage?: string | undefined;
+            preferredCountry?: string | undefined;
+            clipFullPage?: boolean | undefined;
+            twitterUserName?: string | undefined;
+            twitterId?: string | undefined;
+            groupName?: string | undefined;
+            recognitionLanguage?: string | undefined;
+            referralProof?: string | undefined;
+            educationalDiscount?: boolean | undefined;
+            businessAddress?: string | undefined;
+            hideSponsorBilling?: boolean | undefined;
+            taxExempt?: boolean | undefined;
+            useEmailAutoFiling?: boolean | undefined;
+            reminderEmailConfig?: ReminderEmailConfig | undefined;
+            emailAddressLastConfirmed?: Timestamp | undefined;
+            passwordUpdated?: Timestamp | undefined;
+            salesforcePushEnabled?: boolean | undefined;
         });
     }
     type UserID = number;
     class UserIdentity {
-        type?: UserIdentityType;
-        stringIdentifier?: string;
-        longIdentifier?: number;
+        type?: UserIdentityType | undefined;
+        stringIdentifier?: string | undefined;
+        longIdentifier?: number | undefined;
         constructor(args?: {
-            type?: UserIdentityType;
-            stringIdentifier?: string;
-            longIdentifier?: number;
+            type?: UserIdentityType | undefined;
+            stringIdentifier?: string | undefined;
+            longIdentifier?: number | undefined;
         });
     }
     enum UserIdentityType {
@@ -1517,25 +1517,25 @@ export namespace Types {
         IDENTITYID = 3
     }
     class UserProfile {
-        id?: UserID;
-        name?: string;
-        email?: string;
-        username?: string;
-        attributes?: BusinessUserAttributes;
-        joined?: Timestamp;
-        photoLastUpdated?: Timestamp;
-        photoUrl?: string;
-        role?: BusinessUserRole;
+        id?: UserID | undefined;
+        name?: string | undefined;
+        email?: string | undefined;
+        username?: string | undefined;
+        attributes?: BusinessUserAttributes | undefined;
+        joined?: Timestamp | undefined;
+        photoLastUpdated?: Timestamp | undefined;
+        photoUrl?: string | undefined;
+        role?: BusinessUserRole | undefined;
         constructor(args?: {
-            id?: UserID;
-            name?: string;
-            email?: string;
-            username?: string;
-            attributes?: BusinessUserAttributes;
-            joined?: Timestamp;
-            photoLastUpdated?: Timestamp;
-            photoUrl?: string;
-            role?: BusinessUserRole;
+            id?: UserID | undefined;
+            name?: string | undefined;
+            email?: string | undefined;
+            username?: string | undefined;
+            attributes?: BusinessUserAttributes | undefined;
+            joined?: Timestamp | undefined;
+            photoLastUpdated?: Timestamp | undefined;
+            photoUrl?: string | undefined;
+            role?: BusinessUserRole | undefined;
         });
     }
 }
@@ -1737,12 +1737,12 @@ export namespace Errors {
 /* Classes */
 export class Client {
     constructor(config: {
-        consumerKey?: string;
-        consumerSecret?: string;
-        sandbox?: boolean;
-        china?: boolean;
-        token?: string;
-        serviceHost?: string;
+        consumerKey?: string | undefined;
+        consumerSecret?: string | undefined;
+        sandbox?: boolean | undefined;
+        china?: boolean | undefined;
+        token?: string | undefined;
+        serviceHost?: string | undefined;
     });
     getRequestToken(callbackUrl: string, callback: oauth1tokenCallback): void;
     getAuthorizeUrl(oauthToken: string): string;

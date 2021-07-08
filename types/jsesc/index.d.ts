@@ -91,7 +91,7 @@ declare namespace jsesc {
          * });
          * // → '["Ich \\u2665 B\\xFCcher","foo \\uD834\\uDF06 bar"]'
          */
-        quotes?: "single" | "double" | "backtick";
+        quotes?: "single" | "double" | "backtick" | undefined;
 
         /**
          * The value `'decimal'` for the `numbers` option means that any numeric values are represented using decimal
@@ -123,7 +123,7 @@ declare namespace jsesc {
          * });
          * // → '0x2A'
          */
-        numbers?: "binary" | "octal" | "decimal" | "hexadecimal";
+        numbers?: "binary" | "octal" | "decimal" | "hexadecimal" | undefined;
 
         /**
          * When enabled, the output is a valid JavaScript string literal wrapped in quotes. The type of quotes can be
@@ -148,7 +148,7 @@ declare namespace jsesc {
          * // → '"Lorem ipsum \\"dolor\\" sit \'amet\' etc."'
          * // → "\"Lorem ipsum \\\"dolor\\\" sit \'amet\' etc.\""
          */
-        wrap?: boolean;
+        wrap?: boolean | undefined;
 
         /**
          * When enabled, any astral Unicode symbols in the input are escaped using
@@ -178,7 +178,7 @@ declare namespace jsesc {
          * });
          * // → 'foo \\u{1D306} bar \\u{1F4A9} baz'
          */
-        es6?: boolean;
+        es6?: boolean | undefined;
 
         /**
          * When enabled, all the symbols in the output are escaped — even printable ASCII symbols.
@@ -195,7 +195,7 @@ declare namespace jsesc {
          * // → '\\x6C\\x6F\\x6C\\x77\\x61\\x74\\"\\x66\\x6F\\x6F\\\'\\x62\\x61\\x72'
          * // → "\\x6C\\x6F\\x6C\\x77\\x61\\x74\\\"\\x66\\x6F\\x6F\\'\\x62\\x61\\x72"
          */
-        escapeEverything?: boolean;
+        escapeEverything?: boolean | undefined;
 
         /**
          * When enabled, only a limited set of symbols in the output are escaped:
@@ -224,7 +224,7 @@ declare namespace jsesc {
          * });
          * // → 'foo\\u2029bar\\nbaz©qux𝌆flops'
          */
-        minimal?: boolean;
+        minimal?: boolean | undefined;
 
         /**
          * When enabled, occurrences of [`</script` and `</style`](https://mathiasbynens.be/notes/etago) in the output
@@ -242,7 +242,7 @@ declare namespace jsesc {
          * });
          * // → 'foo<\\/script>bar'
          */
-        isScriptContext?: boolean;
+        isScriptContext?: boolean | undefined;
 
         /**
          * When enabled, the output for arrays and objects is as compact as possible; it’s not formatted nicely.
@@ -267,7 +267,7 @@ declare namespace jsesc {
          * });
          * // → '[\n\t\'Ich \u2665 B\xFCcher\',\n\t\'foo \uD834\uDF06 bar\'\n]'
          */
-        compact?: boolean;
+        compact?: boolean | undefined;
 
         /**
          * When the `compact` setting is disabled (`false`), the value of the `indent` option is used to format the
@@ -296,7 +296,7 @@ declare namespace jsesc {
          * });
          * // → '[\n  \'Ich \u2665 B\xFCcher\',\n\  t\'foo \uD834\uDF06 bar\'\n]'
          */
-        indent?: string;
+        indent?: string | undefined;
 
         /**
          * It represents the current indentation level, i.e. the number of times the value of the `indent` option is
@@ -319,7 +319,7 @@ declare namespace jsesc {
          * });
          * // → '[\n\t\t\t\'a\',\n\t\t\t\'b\',\n\t\t\t\'c\'\n\t\t]'
          */
-        indentLevel?: number;
+        indentLevel?: number | undefined;
 
         /**
          * When enabled, the output is valid JSON.
@@ -363,7 +363,7 @@ declare namespace jsesc {
          * });
          * // → '[null,null]'
          */
-        json?: boolean;
+        json?: boolean | undefined;
 
         /**
          * When enabled, any alphabetical hexadecimal digits in escape sequences as well as any hexadecimal integer
@@ -387,6 +387,6 @@ declare namespace jsesc {
          * // → '0x2a'
          * //      ^^
          */
-        lowercaseHex?: boolean;
+        lowercaseHex?: boolean | undefined;
     }
 }

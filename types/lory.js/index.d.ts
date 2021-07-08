@@ -53,72 +53,72 @@ interface LoryOptions {
     /**
      * slides scrolled at once (default: 1).
      */
-    slidesToScroll?: number;
+    slidesToScroll?: number | undefined;
 
     /**
      * enabled mouse events
      * default: false
      */
-    enableMouseEvents?: boolean;
+    enableMouseEvents?: boolean | undefined;
 
     /**
      * time in milliseconds for the animation of a valid slide attempt (default: 300).
      */
-    slideSpeed?: number;
+    slideSpeed?: number | undefined;
 
     /**
      * time in milliseconds for the animation of the rewind after the last slide (default: 600).
      */
-    rewindSpeed?: number;
+    rewindSpeed?: number | undefined;
 
     /**
      * time for the snapBack of the slider if the slide attempt was not valid (default: 200).
      */
-    snapBackSpeed?: number;
+    snapBackSpeed?: number | undefined;
 
     /**
      * cubic bezier easing functions: http://easings.net/de (default: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)').
      */
-    ease?: string;
+    ease?: string | undefined;
     
     /**
      * the slide index to show when the slider is initialized (    default: 0 )
      */
-    initialIndex?: number;
+    initialIndex?: number | undefined;
 
     /**
      * if slider reached the last slide, with next click the slider goes back to the startindex (default: false).
      */
-    rewind?: boolean;
+    rewind?: boolean | undefined;
 
     /**
      * like carousel, works with multiple slides (default: false). (do not combine with rewind)
      */
-    infinite?: boolean | number;
+    infinite?: boolean | number | undefined;
 
     /**
      * class name for slider frame
      * default: 'js_frame'
      */
-    classNameFrame?: string;
+    classNameFrame?: string | undefined;
 
     /**
      * class name for slides container
      * default: 'js_slides'
      */
-    classNameSlideContainer?: string;
+    classNameSlideContainer?: string | undefined;
 
     /**
      * class name for slider previous control
      * default: 'js_prev'
      */
-    classNamePrevCtrl?: string;
+    classNamePrevCtrl?: string | undefined;
 
     /**
      * class name for slider next control
      * default: 'js_next'
      */
-    classNameNextCtrl?: string;
+    classNameNextCtrl?: string | undefined;
 
 
     //////////////////////////////////////////////////

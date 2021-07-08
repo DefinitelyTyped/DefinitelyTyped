@@ -2,8 +2,8 @@ import { callback } from './core';
 import { Client } from './client';
 
 export interface DataCollector {
-    create(options: { client: Client; kount?: boolean; paypal?: boolean }): Promise<DataCollector>;
-    create(options: { client: Client; kount?: boolean; paypal?: boolean }, callback: callback): void;
+    create(options: { client: Client; kount?: boolean | undefined; paypal?: boolean | undefined }): Promise<DataCollector>;
+    create(options: { client: Client; kount?: boolean | undefined; paypal?: boolean | undefined }, callback: callback): void;
 
     VERSION: string;
 

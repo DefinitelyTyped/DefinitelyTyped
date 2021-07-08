@@ -135,11 +135,11 @@ export interface RecurrenceSpecDateRange {
     /**
      * Starting date in date range.
      */
-    start?: Date | string | number;
+    start?: Date | string | number | undefined;
     /**
      * Ending date in date range.
      */
-    end?: Date | string | number;
+    end?: Date | string | number | undefined;
     /**
      * Cron expression string.
      */
@@ -147,7 +147,7 @@ export interface RecurrenceSpecDateRange {
     /**
      * Timezone
      */
-    tz?: Timezone;
+    tz?: Timezone | undefined;
 }
 
 /**
@@ -157,17 +157,17 @@ export interface RecurrenceSpecObjLit {
     /**
      * Day of the month.
      */
-    date?: RecurrenceSegment;
-    dayOfWeek?: RecurrenceSegment;
-    hour?: RecurrenceSegment;
-    minute?: RecurrenceSegment;
-    month?: RecurrenceSegment;
-    second?: RecurrenceSegment;
-    year?: RecurrenceSegment;
+    date?: RecurrenceSegment | undefined;
+    dayOfWeek?: RecurrenceSegment | undefined;
+    hour?: RecurrenceSegment | undefined;
+    minute?: RecurrenceSegment | undefined;
+    month?: RecurrenceSegment | undefined;
+    second?: RecurrenceSegment | undefined;
+    year?: RecurrenceSegment | undefined;
     /**
      * Timezone
      */
-    tz?: Timezone;
+    tz?: Timezone | undefined;
 }
 
 export class Invocation {

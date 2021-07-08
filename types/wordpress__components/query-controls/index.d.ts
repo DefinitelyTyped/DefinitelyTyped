@@ -28,12 +28,12 @@ declare namespace QueryControls {
                * Maximum number of items.
                * @defaultValue 100
                */
-              maxItems?: number;
+              maxItems?: number | undefined;
               /**
                * Minimum number of items.
                * @defaultValue 1
                */
-              minItems?: number;
+              minItems?: number | undefined;
               numberOfItems: number;
               onNumberOfItemsChange(newNumber: number): void;
           }

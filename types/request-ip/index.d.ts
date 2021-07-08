@@ -9,29 +9,29 @@
 import * as http from 'http';
 
 interface RequestHeaders extends http.IncomingHttpHeaders {
-    'x-client-ip'?: string;
-    'x-forwarded-for'?: string;
-    'x-real-ip'?: string;
-    'x-cluster-client-ip'?: string;
-    'x-forwarded'?: string;
-    'forwarded-for'?: string;
-    'forwarded'?: string;
+    'x-client-ip'?: string | undefined;
+    'x-forwarded-for'?: string | undefined;
+    'x-real-ip'?: string | undefined;
+    'x-cluster-client-ip'?: string | undefined;
+    'x-forwarded'?: string | undefined;
+    'forwarded-for'?: string | undefined;
+    'forwarded'?: string | undefined;
 }
 
 interface Request {
     headers: RequestHeaders;
     connection?: {
-        remoteAddress?: string;
+        remoteAddress?: string | undefined;
         socket?: {
-            remoteAddress?: string
-        };
-    };
+            remoteAddress?: string | undefined
+        } | undefined;
+    } | undefined;
     info?: {
-        remoteAddress?: string
-    };
+        remoteAddress?: string | undefined
+    } | undefined;
     socket?: {
-        remoteAddress?: string
-    };
+        remoteAddress?: string | undefined
+    } | undefined;
 }
 
 interface Options {
@@ -45,7 +45,7 @@ export function mw(options?: Options): (req: Request, res: any, next: any) => an
 declare global {
   namespace Express {
     interface Request {
-      clientIp?: string;
+      clientIp?: string | undefined;
     }
   }
 }

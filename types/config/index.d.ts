@@ -61,7 +61,7 @@ declare namespace c {
 
     interface IConfigSource {
         name: string;
-        original?: string;
+        original?: string | undefined;
         parsed: any;
     }
 }

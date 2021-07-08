@@ -6,25 +6,25 @@
 // TypeScript Version: 2.3
 
 export interface IngestOptions {
-    enableAmazonUniqueId?: boolean;
-    dimensions?: object;
-    ingestEndpoint?: string;
-    timeout?: number;
-    batchSize?: number;
-    userAgents?: string[];
-    proxy?: string;
+    enableAmazonUniqueId?: boolean | undefined;
+    dimensions?: object | undefined;
+    ingestEndpoint?: string | undefined;
+    timeout?: number | undefined;
+    batchSize?: number | undefined;
+    userAgents?: string[] | undefined;
+    proxy?: string | undefined;
 }
 
 export interface SignalMetric {
     metric: string;
     value: number;
-    timestamp?: number;
+    timestamp?: number | undefined;
 }
 
 export interface SignalReport {
-    cumulative_counters?: SignalMetric[];
-    gauges?: SignalMetric[];
-    counters?: SignalMetric[];
+    cumulative_counters?: SignalMetric[] | undefined;
+    gauges?: SignalMetric[] | undefined;
+    counters?: SignalMetric[] | undefined;
 }
 
 export interface SignalClient {

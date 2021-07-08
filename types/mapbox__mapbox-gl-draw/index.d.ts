@@ -33,12 +33,12 @@ declare namespace MapboxDraw {
     }
 
     interface MapboxDrawControls {
-        point?: boolean;
-        line_string?: boolean;
-        polygon?: boolean;
-        trash?: boolean;
-        combine_features?: boolean;
-        uncombine_features?: boolean;
+        point?: boolean | undefined;
+        line_string?: boolean | undefined;
+        polygon?: boolean | undefined;
+        trash?: boolean | undefined;
+        combine_features?: boolean | undefined;
+        uncombine_features?: boolean | undefined;
     }
 
     interface DrawActionableState {
@@ -208,17 +208,17 @@ declare class MapboxDraw implements IControl {
     getDefaultPosition: () => string;
 
     constructor(options?: {
-        displayControlsDefault?: boolean;
-        keybindings?: boolean;
-        touchEnabled?: boolean;
-        boxSelect?: boolean;
-        clickBuffer?: number;
-        touchBuffer?: number;
-        controls?: MapboxDraw.MapboxDrawControls;
-        styles?: object[];
-        modes?: { [modeKey: string]: MapboxDraw.DrawMode | MapboxDraw.DrawCustomMode };
-        defaultMode?: string;
-        userProperties?: boolean;
+        displayControlsDefault?: boolean | undefined;
+        keybindings?: boolean | undefined;
+        touchEnabled?: boolean | undefined;
+        boxSelect?: boolean | undefined;
+        clickBuffer?: number | undefined;
+        touchBuffer?: number | undefined;
+        controls?: MapboxDraw.MapboxDrawControls | undefined;
+        styles?: object[] | undefined;
+        modes?: { [modeKey: string]: MapboxDraw.DrawMode | MapboxDraw.DrawCustomMode } | undefined;
+        defaultMode?: string | undefined;
+        userProperties?: boolean | undefined;
     });
 
     add(geojson: Feature | FeatureCollection | Geometry): string[];

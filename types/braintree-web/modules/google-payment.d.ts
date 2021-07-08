@@ -135,19 +135,19 @@ export interface GooglePayment {
      *
      */
     create(options: {
-        client?: Client;
-        authorization?: string;
-        useDeferredClient?: boolean;
-        googlePayVersion?: number;
-        googleMerchantId?: string;
+        client?: Client | undefined;
+        authorization?: string | undefined;
+        useDeferredClient?: boolean | undefined;
+        googlePayVersion?: number | undefined;
+        googleMerchantId?: string | undefined;
     }): Promise<GooglePayment>;
     create(
         options: {
-            client?: Client;
-            authorization?: string;
-            useDeferredClient?: boolean;
-            googlePayVersion?: number;
-            googleMerchantId?: string;
+            client?: Client | undefined;
+            authorization?: string | undefined;
+            useDeferredClient?: boolean | undefined;
+            googlePayVersion?: number | undefined;
+            googleMerchantId?: string | undefined;
         },
         callback?: callback,
     ): void;
@@ -226,10 +226,10 @@ export interface GooglePayment {
      * });
      */
     createPaymentDataRequest(overrides?: {
-        emailRequired?: boolean;
+        emailRequired?: boolean | undefined;
         merchantInfo?: {
             merchantId: string;
-        };
+        } | undefined;
         transactionInfo: {
             currencyCode: string;
             totalPriceStatus: string;

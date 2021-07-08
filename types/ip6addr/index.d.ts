@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ToStringOpts {
-  format?: 'auto' | 'v4' | 'v4-mapped' | 'v6';
-  zeroElide?: boolean;
-  zeroPad?: boolean;
+  format?: 'auto' | 'v4' | 'v4-mapped' | 'v6' | undefined;
+  zeroElide?: boolean | undefined;
+  zeroPad?: boolean | undefined;
 }
 
 export interface Addr {

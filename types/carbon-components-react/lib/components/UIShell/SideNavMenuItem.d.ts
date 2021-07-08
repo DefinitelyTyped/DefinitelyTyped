@@ -3,9 +3,9 @@ import { ReactAnchorAttr, FCReturn, ForwardRefProps, } from "../../../typings/sh
 import { LinkProps } from "./Link";
 
 export interface SideNavMenuItemPropsBase {
-    children?: React.ReactNode,
-    className?: string,
-    isActive?: boolean,
+    children?: React.ReactNode | undefined,
+    className?: string | undefined,
+    isActive?: boolean | undefined,
 }
 
 export type SideNavMenuItemProps<E extends object = ReactAnchorAttr> = LinkProps<E> & SideNavMenuItemPropsBase;

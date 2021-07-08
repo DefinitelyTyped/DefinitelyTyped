@@ -2,28 +2,28 @@ import { ReactDivAttr, FCProps, FCReturn } from "../../../typings/shared";
 import { CopyProps } from "../Copy";
 
 interface SharedProps {
-    children?: string,
-    copyLabel?: string,
-    copyButtonDescription?: string,
-    disabled?: boolean,
-    feedback?: string,
-    feedbackTimeout?: number;
-    hideCopyButton?: boolean,
-    light?: boolean,
-    showLessText?: string,
-    showMoreText?: string,
-    wrapText?: boolean,
+    children?: string | undefined,
+    copyLabel?: string | undefined,
+    copyButtonDescription?: string | undefined,
+    disabled?: boolean | undefined,
+    feedback?: string | undefined,
+    feedbackTimeout?: number | undefined;
+    hideCopyButton?: boolean | undefined,
+    light?: boolean | undefined,
+    showLessText?: string | undefined,
+    showMoreText?: string | undefined,
+    wrapText?: boolean | undefined,
 }
 
 export interface CodeSnippetDivProps extends SharedProps, Omit<ReactDivAttr, "children"> {
-    type?: "single" | null;
+    type?: "single" | null | undefined;
 }
 
 export interface CodeSnippetMultiProps extends SharedProps, Omit<ReactDivAttr, "children"> {
-    maxCollapsedNumberOfRows?: number;
-    maxExpandedNumberOfRows?: number;
-    minCollapsedNumberOfRows?: number;
-    minExpandedNumberOfRows?: number;
+    maxCollapsedNumberOfRows?: number | undefined;
+    maxExpandedNumberOfRows?: number | undefined;
+    minCollapsedNumberOfRows?: number | undefined;
+    minExpandedNumberOfRows?: number | undefined;
     type: "multi";
 }
 

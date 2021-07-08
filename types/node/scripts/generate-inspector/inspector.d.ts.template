@@ -89,3 +89,7 @@ declare module 'inspector' {
      */
     function waitForDebugger(): void;
 }
+
+declare module 'node:inspector' {
+    export * from 'inspector';
+}
