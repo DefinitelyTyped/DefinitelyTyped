@@ -176,10 +176,14 @@ const streamDefinition = new MessageStreamDefinition()
                 )
         ])
     );
-const createStreamResult: Promise<void> = smClient.createMessageStream(streamDefinition);
-const updateStreamResult: Promise<void> = smClient.updateMessageStream(streamDefinition);
-const deleteStreamResult: Promise<void> = smClient.deleteMessageStream("stream-name");
-const readMessagesResult: Promise<Message[]> = smClient.readMessages(
+// $ExpectType Promise<void>
+smClient.createMessageStream(streamDefinition);
+// $ExpectType Promise<void>
+smClient.updateMessageStream(streamDefinition);
+// $ExpectType Promise<void>
+smClient.deleteMessageStream("stream-name");
+// $ExpectType Promise<Message[]>
+smClient.readMessages(
     "stream-name",
     new ReadMessagesOptions()
         .withDesiredStartSequenceNumber(0)
@@ -187,8 +191,12 @@ const readMessagesResult: Promise<Message[]> = smClient.readMessages(
         .withMinMessageCount(10)
         .withReadTimeoutMillis(1000)
 );
-const listStreamsResult: Promise<string[]> = smClient.listStreams();
-const describeMessageStreamResult: Promise<MessageStreamInfo> = smClient.describeMessageStream("stream-name");
+
+// $ExpectType Promise<string[]>
+smClient.listStreams();
+// $ExpectType Promise<MessageStreamInfo>
+smClient.describeMessageStream("stream-name");
+
 smClient.onConnected(() => undefined);
 smClient.onError(() => undefined);
 smClient.close();
