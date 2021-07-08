@@ -3,7 +3,7 @@
 // Definitions by: Steve Jenkins <https://github.com/skysteve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function Trim(str: string): string;
+declare function Trim(str: string | { trim(): string }): string;
 declare namespace Trim {
     function left(str: string): string;
     function right(str: string): string;

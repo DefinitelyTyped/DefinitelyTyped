@@ -7,3 +7,5 @@ trim(original);
 trim.left(original);
 
 trim.right(original);
+
+trim({ trim: () => 'hello!' }); // $ExpectType string
