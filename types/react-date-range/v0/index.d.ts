@@ -143,7 +143,9 @@ export interface DateRangeProps extends Range, CommonCalendarProps {
     /** default: false */
     moveRangeOnFirstSelection?: boolean | undefined;
     /** default: false */
-    editableDateInputs?: boolean | undefined;
+    retainEndDateOnFirstSelection?: boolean;
+    /** default: false */
+    editableDateInputs?: boolean;
 }
 
 export class DateRange extends React.Component<DateRangeProps> { }
