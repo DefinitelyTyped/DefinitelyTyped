@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "layui-src-tests.ts"]
+    "files": ["index.d.ts", "Layui.d.ts", "misc.d.ts", "layui-src-tests.ts"]
 }
