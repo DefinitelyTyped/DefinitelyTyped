@@ -265,6 +265,16 @@ describe("Included matchers:", () => {
         await expectAsync(new Promise(() => {})).toBePending();
     });
 
+    it("async matchers - already", async () => {
+        const reason = new Error("badness");
+        await expectAsync(Promise.reject(reason)).already.toBeResolved();
+        await expectAsync(Promise.resolve(true)).already.toBeResolvedTo(false);
+        await expectAsync(Promise.resolve()).already.toBeRejected();
+        await expectAsync(Promise.reject(reason)).already.toBeRejectedWith(reason);
+        await expectAsync(Promise.reject(reason)).already.toBeRejectedWithError(Error, "malady");
+        await expectAsync(Promise.resolve()).already.toBePending();
+    });
+
     it("async matchers - not", async () => {
         const badness = new Error("badness");
         const malady = new Error("malady");
@@ -1116,7 +1126,7 @@ describe("multiple spies, when created with spyOnAllFunctions", () => {
             y: (a: number) => a,
         };
 
-        const spy = spyOnAllFunctions(obj);
+        const spy = spyOnAllFunctions(obj, true);
 
         spy.x.and.returnValue(42);
         spy.y.and.returnValue(24);

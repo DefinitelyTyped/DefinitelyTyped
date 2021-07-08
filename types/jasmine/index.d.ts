@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.7
+// Type definitions for Jasmine 3.8
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -196,8 +196,9 @@ declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: "ge
 /**
  * Installs spies on all writable and configurable properties of an object.
  * @param object The object upon which to install the `Spy`s.
+ * @param includeNonEnumerable - Whether or not to add spies to non-enumerable properties
  */
-declare function spyOnAllFunctions<T>(object: T): jasmine.SpyObj<T>;
+declare function spyOnAllFunctions<T>(object: T, includeNonEnumerable?: boolean): jasmine.SpyObj<T>;
 
 declare namespace jasmine {
     type Func = (...args: any[]) => any;
@@ -900,6 +901,11 @@ declare namespace jasmine {
         withContext(message: string): AsyncMatchers<T, U>;
 
         /**
+         * Fail as soon as possible if the actual is pending. Otherwise evaluate the matcher.
+         */
+        already: AsyncMatchers<T, U>;
+
+        /**
          * Invert the matcher following this expect.
          */
         not: AsyncMatchers<T, U>;
@@ -1160,7 +1166,7 @@ declare namespace jasmine {
     var MAX_PRETTY_PRINT_ARRAY_LENGTH: number;
 
     /**
-     * Maximum number of charasters to display when pretty printing objects.
+     * Maximum number of characters to display when pretty printing objects.
      * Characters past this number will be ellipised.
      */
     var MAX_PRETTY_PRINT_CHARS: number;
