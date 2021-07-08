@@ -7,7 +7,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * to the country. Must be a supported country code.
      * @example "US"
      */
-    country?: string;
+    country?: string | undefined;
 
     /**
      * If country is specified and international property is true then the phone number
@@ -23,7 +23,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * field and then the user can fill in the rest of their phone number digits in
      * the input field.
      */
-    international?: boolean;
+    international?: boolean | undefined;
 
     /**
      * If country is specified and international property is true then the phone number
@@ -32,7 +32,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * field. To change that, pass withCountryCallingCode property, and it will include
      * the "country calling code" part in the input field. See the demo for an example.
      */
-    withCountryCallingCode?: boolean;
+    withCountryCallingCode?: boolean | undefined;
 
     /**
      * If defaultCountry is specified then the phone number can be input both in
@@ -44,14 +44,14 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      *
      * @example "US"
      */
-    defaultCountry?: string;
+    defaultCountry?: string | undefined;
 
     /**
      * Phone number value.
      * @example undefined
      * @example "+12133734253"
      */
-    value?: string;
+    value?: string | undefined;
 
     /** Updates the value */
     onChange: (value?: string) => void;
@@ -69,7 +69,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * off one can pass smartCaret={false} property.
      * @default true
      */
-    smartCaret?: boolean;
+    smartCaret?: boolean | undefined;
 
     /**
      * When defaultCountry is defined and the initial value corresponds to defaultCountry,
@@ -78,7 +78,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * set useNationalFormatForDefaultCountryValue property to false.
      * @default true
      */
-    useNationalFormatForDefaultCountryValue?: boolean;
+    useNationalFormatForDefaultCountryValue?: boolean | undefined;
 }
 
 declare const PhoneInput: React.FC<PhoneInputProps>;
