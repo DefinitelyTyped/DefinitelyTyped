@@ -327,7 +327,7 @@ async function testPromisify() {
 (async () => {
     try {
         await fs.promises.rmdir('some/test/path');
-        await fs.promises.rmdir('some/test/path', { maxRetries: 123, retryDelay: 123 });
+        await fs.promises.rmdir('some/test/path', { maxRetries: 123, retryDelay: 123, recursive: true });
     } catch (e) { }
 
     try {
