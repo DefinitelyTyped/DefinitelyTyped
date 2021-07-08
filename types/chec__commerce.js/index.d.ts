@@ -32,9 +32,9 @@ declare class Commerce {
 
 declare namespace Commerce {
     interface CommerceConfig {
-        disableStorage?: boolean;
-        cartLifetime?: number;
-        timeoutMs?: number;
+        disableStorage?: boolean | undefined;
+        cartLifetime?: number | undefined;
+        timeoutMs?: number | undefined;
         axiosConfig?: any;
     }
 }

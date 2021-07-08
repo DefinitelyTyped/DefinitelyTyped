@@ -12,21 +12,21 @@ import * as Promise from "bluebird";
 export interface CreateDatabaseOptions {}
 
 export interface DropDatabaseOptions {
-  ifExists?: boolean;
+  ifExists?: boolean | undefined;
 }
 
 export interface CreateSequenceOptions {
-  temp?: boolean;
+  temp?: boolean | undefined;
 }
 
 export interface SwitchDatabaseOptions {
-  database?: string;
+  database?: string | undefined;
 }
 
 export interface DropSequenceOptions {
-  ifExists?: boolean;
-  cascade?: boolean;
-  restrict?: boolean;
+  ifExists?: boolean | undefined;
+  cascade?: boolean | undefined;
+  restrict?: boolean | undefined;
 }
 
 export interface ColumnConstraint {
@@ -35,7 +35,7 @@ export interface ColumnConstraint {
 }
 
 export interface ColumnConstraintOptions {
-  emitPrimaryKey?: boolean;
+  emitPrimaryKey?: boolean | undefined;
 }
 
 export class PgDriver extends DbMigrateBase {

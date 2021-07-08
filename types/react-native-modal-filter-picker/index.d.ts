@@ -26,34 +26,34 @@ export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
     options: T[];
     onSelect: (key: string) => void;
     onCancel: () => void;
-    placeholderText?: string;
-    placeholderTextColor?: string;
-    androidUnderlineColor?: string;
-    cancelButtonText?: string;
-    title?: string;
-    noResultsText?: string;
-    visible?: boolean;
-    showFilter?: boolean;
-    modal?: ModalProps;
-    selectedOption?: string;
-    listViewProps?: Partial<ListViewProps | FlatListProps<T>>;
-    renderOption?: (option: T, isSelected: boolean) => JSX.Element;
-    renderList?: () => JSX.Element;
-    renderCancelButton?: () => JSX.Element;
-    keyboardShouldPersistTaps?: 'never' | 'always' | 'handle';
-    autoFocus?: boolean;
+    placeholderText?: string | undefined;
+    placeholderTextColor?: string | undefined;
+    androidUnderlineColor?: string | undefined;
+    cancelButtonText?: string | undefined;
+    title?: string | undefined;
+    noResultsText?: string | undefined;
+    visible?: boolean | undefined;
+    showFilter?: boolean | undefined;
+    modal?: ModalProps | undefined;
+    selectedOption?: string | undefined;
+    listViewProps?: Partial<ListViewProps | FlatListProps<T>> | undefined;
+    renderOption?: ((option: T, isSelected: boolean) => JSX.Element) | undefined;
+    renderList?: (() => JSX.Element) | undefined;
+    renderCancelButton?: (() => JSX.Element) | undefined;
+    keyboardShouldPersistTaps?: 'never' | 'always' | 'handle' | undefined;
+    autoFocus?: boolean | undefined;
 
     // styling props
-    overlayStyle?: StyleProp<KeyboardAvoidingView | ViewStyle>;
-    listContainerStyle?: StyleProp<ViewStyle>;
-    filterTextInputContainerStyle?: StyleProp<ViewStyle>;
-    filterTextInputStyle?: StyleProp<TextStyle>;
-    cancelContainerStyle?: StyleProp<ViewStyle>;
-    cancelButtonStyle?: StyleProp<ViewStyle>;
-    cancelButtonTextStyle?: StyleProp<TextStyle>;
-    titleTextStyle?: StyleProp<TextStyle>;
-    optionTextStyle?: StyleProp<TextStyle>;
-    selectedOptionTextStyle?: StyleProp<TextStyle>;
+    overlayStyle?: StyleProp<KeyboardAvoidingView | ViewStyle> | undefined;
+    listContainerStyle?: StyleProp<ViewStyle> | undefined;
+    filterTextInputContainerStyle?: StyleProp<ViewStyle> | undefined;
+    filterTextInputStyle?: StyleProp<TextStyle> | undefined;
+    cancelContainerStyle?: StyleProp<ViewStyle> | undefined;
+    cancelButtonStyle?: StyleProp<ViewStyle> | undefined;
+    cancelButtonTextStyle?: StyleProp<TextStyle> | undefined;
+    titleTextStyle?: StyleProp<TextStyle> | undefined;
+    optionTextStyle?: StyleProp<TextStyle> | undefined;
+    selectedOptionTextStyle?: StyleProp<TextStyle> | undefined;
 }
 
 declare class ModalFilterPicker<T extends ModalFilterPickerOption> extends React.Component<

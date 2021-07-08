@@ -20,8 +20,8 @@ declare module "meteor/ddp" {
             connected: boolean;
             status: Status;
             retryCount: number;
-            retryTime?: number;
-            reason?: string;
+            retryTime?: number | undefined;
+            reason?: string | undefined;
         }
 
         function connect(url: string): DDPStatic;
@@ -30,7 +30,7 @@ declare module "meteor/ddp" {
     module DDPCommon {
         interface MethodInvocationOptions {
             userId: string | null;
-            setUserId?: (newUserId: string) => void;
+            setUserId?: ((newUserId: string) => void) | undefined;
             isSimulation: boolean;
             connection: Meteor.Connection;
             randomSeed: string;

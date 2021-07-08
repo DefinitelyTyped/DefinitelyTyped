@@ -35,14 +35,14 @@ declare namespace SMTPTransport {
     type AuthenticationType = AuthenticationTypeLogin | AuthenticationTypeOAuth2;
 
     interface MailOptions extends Mail.Options {
-        auth?: SMTPConnection.AuthenticationType;
-        dsn?: SMTPConnection.DSNOptions;
+        auth?: SMTPConnection.AuthenticationType | undefined;
+        dsn?: SMTPConnection.DSNOptions | undefined;
     }
 
     interface Options extends MailOptions, TransportOptions, SMTPConnection.Options {
-        service?: string;
+        service?: string | undefined;
         getSocket?(options: Options, callback: (err: Error | null, socketOptions: any) => void): void; // TODO http.ClientRequest?
-        url?: string;
+        url?: string | undefined;
     }
 
     interface SentMessageInfo {

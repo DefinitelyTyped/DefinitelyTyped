@@ -41,11 +41,11 @@ declare namespace jwt {
          */
         algorithms: string[];
         secret: secretType | SecretCallback | SecretCallbackLong;
-        userProperty?: string;
-        credentialsRequired?: boolean;
-        isRevoked?: IsRevokedCallback;
-        requestProperty?: string;
-        getToken?: GetTokenCallback;
+        userProperty?: string | undefined;
+        credentialsRequired?: boolean | undefined;
+        isRevoked?: IsRevokedCallback | undefined;
+        requestProperty?: string | undefined;
+        getToken?: GetTokenCallback | undefined;
         [property: string]: any;
     }
     interface RequestHandler extends express.RequestHandler {
@@ -69,7 +69,7 @@ declare global {
         interface User {}
 
         interface Request {
-            user?: User;
+            user?: User | undefined;
         }
     }
 }

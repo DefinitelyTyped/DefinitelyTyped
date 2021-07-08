@@ -27,13 +27,13 @@ declare namespace Mimos {
                  * Method with signature function(mime) when this mime type is found in the database,
                  * this function will run. This allows you make customizations to mime based on developer criteria.
                  */
-                predicate?: (
+                predicate?: ((
                     mime: MimosOptionsValue & {
                         [key: string]: any;
                     },
                 ) => MimosOptionsValue & {
                     [key: string]: any;
-                };
+                }) | undefined;
             };
         };
     }
@@ -42,7 +42,7 @@ declare namespace Mimos {
         /**
          * Specify the type value of result objects, defaults to key.
          */
-        type?: string;
+        type?: string | undefined;
     }
 }
 

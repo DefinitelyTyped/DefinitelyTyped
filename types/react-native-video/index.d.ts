@@ -45,7 +45,7 @@ export interface LoadError {
 export interface OnSeekData {
     currentTime: number;
     seekTime: number;
-    target?: number;
+    target?: number | undefined;
 }
 
 export interface OnPlaybackRateData {
@@ -66,11 +66,11 @@ export interface OnBufferData {
 
 export interface DRMSettings {
   type: DRMType;
-  licenseServer?: string;
-  headers?: { [key: string]: string };
-  contentId?: string;
-  certificateUrl?: string;
-  base64Certificate?: boolean;
+  licenseServer?: string | undefined;
+  headers?: { [key: string]: string } | undefined;
+  contentId?: string | undefined;
+  certificateUrl?: string | undefined;
+  base64Certificate?: boolean | undefined;
   getLicense?(): Promise<string>;
 }
 
@@ -107,15 +107,15 @@ export enum DRMType {
 }
 
 export interface VideoProperties extends ViewProps {
-    filter?: FilterType;
-    filterEnable?: boolean;
+    filter?: FilterType | undefined;
+    filterEnable?: boolean | undefined;
 
     /* Native only */
     src?: any;
-    seek?: number;
-    fullscreen?: boolean;
-    fullscreenOrientation?: 'all' | 'landscape' | 'portrait';
-    fullscreenAutorotate?: boolean;
+    seek?: number | undefined;
+    fullscreen?: boolean | undefined;
+    fullscreenOrientation?: 'all' | 'landscape' | 'portrait' | undefined;
+    fullscreenAutorotate?: boolean | undefined;
     onVideoLoadStart?(): void;
     onVideoLoad?(): void;
     onVideoBuffer?(): void;
@@ -131,41 +131,41 @@ export interface VideoProperties extends ViewProps {
 
     /* Wrapper component */
     // Opaque type returned by require('./video.mp4')
-    source: { uri?: string, headers?: {[key: string]: string }, type?: string } | number;
-    minLoadRetryCount?: number;
-    maxBitRate?: number;
-    resizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
-    posterResizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
-    poster?: string;
-    repeat?: boolean;
-    automaticallyWaitsToMinimizeStalling?: boolean;
-    paused?: boolean;
-    muted?: boolean;
-    volume?: number;
+    source: { uri?: string | undefined, headers?: {[key: string]: string } | undefined, type?: string | undefined } | number;
+    minLoadRetryCount?: number | undefined;
+    maxBitRate?: number | undefined;
+    resizeMode?: "stretch" | "contain" | "cover" | "none" | undefined; // via Image#resizeMode
+    posterResizeMode?: "stretch" | "contain" | "cover" | "none" | undefined; // via Image#resizeMode
+    poster?: string | undefined;
+    repeat?: boolean | undefined;
+    automaticallyWaitsToMinimizeStalling?: boolean | undefined;
+    paused?: boolean | undefined;
+    muted?: boolean | undefined;
+    volume?: number | undefined;
     bufferConfig?: {
-        minBufferMs?: number;
-        maxBufferMs?: number;
-        bufferForPlaybackMs?: number;
-        bufferForPlaybackAfterRebufferMs?: number;
-    };
-    stereoPan?: number;
-    rate?: number;
-    pictureInPicture?: boolean;
-    playInBackground?: boolean;
-    playWhenInactive?: boolean;
-    ignoreSilentSwitch?: 'ignore' | 'obey';
-    mixWithOthers?: 'inherit' | 'mix' | 'duck';
-    reportBandwidth?: boolean;
-    disableFocus?: boolean;
-    controls?: boolean;
-    currentTime?: number;
-    progressUpdateInterval?: number;
-    useTextureView?: boolean;
-    hideShutterView?: boolean;
-    allowsExternalPlayback?: boolean;
-    audioOnly?: boolean;
-    preventsDisplaySleepDuringVideoPlayback?: boolean;
-    drm?: DRMSettings;
+        minBufferMs?: number | undefined;
+        maxBufferMs?: number | undefined;
+        bufferForPlaybackMs?: number | undefined;
+        bufferForPlaybackAfterRebufferMs?: number | undefined;
+    } | undefined;
+    stereoPan?: number | undefined;
+    rate?: number | undefined;
+    pictureInPicture?: boolean | undefined;
+    playInBackground?: boolean | undefined;
+    playWhenInactive?: boolean | undefined;
+    ignoreSilentSwitch?: 'ignore' | 'obey' | undefined;
+    mixWithOthers?: 'inherit' | 'mix' | 'duck' | undefined;
+    reportBandwidth?: boolean | undefined;
+    disableFocus?: boolean | undefined;
+    controls?: boolean | undefined;
+    currentTime?: number | undefined;
+    progressUpdateInterval?: number | undefined;
+    useTextureView?: boolean | undefined;
+    hideShutterView?: boolean | undefined;
+    allowsExternalPlayback?: boolean | undefined;
+    audioOnly?: boolean | undefined;
+    preventsDisplaySleepDuringVideoPlayback?: boolean | undefined;
+    drm?: DRMSettings | undefined;
 
     onLoadStart?(): void;
     onLoad?(data: OnLoadData): void;
@@ -190,29 +190,29 @@ export interface VideoProperties extends ViewProps {
     onExternalPlaybackChange?(data: OnExternalPlaybackChangeData): void;
     selectedAudioTrack?: {
         type: 'system' | 'disabled' | 'title' | 'language' | 'index';
-        value?: string | number;
-    };
+        value?: string | number | undefined;
+    } | undefined;
     selectedTextTrack?: {
         type: 'system' | 'disabled' | 'title' | 'language' | 'index';
-        value?: string | number;
-    };
+        value?: string | number | undefined;
+    } | undefined;
     selectedVideoTrack?: {
         type: 'auto' | 'disabled' | 'resolution' | 'index';
-        value?: string | number;
-    };
+        value?: string | number | undefined;
+    } | undefined;
     textTracks?: Array<{
-        title?: string;
-        language?: string;
+        title?: string | undefined;
+        language?: string | undefined;
         type: 'application/x-subrip' | 'application/ttml+xml' | 'text/vtt';
         uri: string;
-    }>;
+    }> | undefined;
 
     /* Required by react-native */
-    scaleX?: number;
-    scaleY?: number;
-    translateX?: number;
-    translateY?: number;
-    rotation?: number;
+    scaleX?: number | undefined;
+    scaleY?: number | undefined;
+    translateX?: number | undefined;
+    translateY?: number | undefined;
+    rotation?: number | undefined;
 }
 
 export default class Video extends React.Component<VideoProperties> {

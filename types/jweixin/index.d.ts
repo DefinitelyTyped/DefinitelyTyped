@@ -85,7 +85,7 @@ declare namespace wx {
     type menuList = Array<menuBase | menuProtected | menuShare>;
 
     function config(conf: {
-        debug?: boolean; // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        debug?: boolean | undefined; // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: string; // 必填，公众号的唯一标识
         timestamp: number; // 必填，生成签名的时间戳
         nonceStr: string; // 必填，生成签名的随机串
@@ -138,8 +138,8 @@ declare namespace wx {
         desc: string;    // 分享描述
         link: string;    // 分享链接
         imgUrl: string;    // 分享图标
-        type?: 'music' | 'video或link' | 'link';        // 分享类型,music、video或link，不填默认为link
-        dataUrl?: string; // 如果type是music或video，则要提供数据链接，默认为空
+        type?: 'music' | 'video或link' | 'link' | undefined;        // 分享类型,music、video或link，不填默认为link
+        dataUrl?: string | undefined; // 如果type是music或video，则要提供数据链接，默认为空
         // 用户确认分享后执行的回调函数
         success(): void;
         // 用户取消分享后执行的回调函数
@@ -199,11 +199,11 @@ declare namespace wx {
     /*=============================图像接口================================*/
     interface IchooseImage extends BaseParams {
         /** 最多可以选择的图片张数，默认9 */
-        count?: number;
+        count?: number | undefined;
         /** original 原图，compressed 压缩图，默认二者都有 */
-        sizeType?: ImageSizeType[];
+        sizeType?: ImageSizeType[] | undefined;
         /** album 从相册选图，camera 使用相机，默认二者都有 */
-        sourceType?: ImageSourceType[];
+        sourceType?: ImageSourceType[] | undefined;
         /** 成功则返回图片的本地文件路径列表 tempFilePaths */
         success(res: {
             sourceType: string;    // weixin album camera

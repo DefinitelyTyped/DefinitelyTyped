@@ -9,7 +9,7 @@ import { Intersection } from '../core/Raycaster';
  */
 export class Points<
     TGeometry extends BufferGeometry = BufferGeometry,
-    TMaterial extends Material | Material[] = Material | Material[]
+    TMaterial extends Material | Material[] = Material | Material[],
 > extends Object3D {
     /**
      * @param geometry An instance of BufferGeometry.

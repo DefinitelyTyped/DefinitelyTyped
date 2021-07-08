@@ -22,7 +22,7 @@ export namespace AST {
     }
 
     interface Properties {
-        className?: string[];
+        className?: string[] | undefined;
         [key: string]: any;
     }
 

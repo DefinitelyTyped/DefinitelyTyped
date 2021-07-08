@@ -456,14 +456,14 @@ declare namespace OracleDB {
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#oracledbconstantsbinddir
          */
-        dir?: number;
+        dir?: number | undefined;
         /**
          * The number of array elements to be allocated for a PL/SQL Collection INDEX BY associative
          * array OUT or IN OUT array bind variable. For IN binds, the value of maxArraySize is ignored.
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#plsqlindexbybinds
          */
-        maxArraySize?: number;
+        maxArraySize?: number | undefined;
         /**
          * The maximum number of bytes that an OUT or IN OUT bind variable of type STRING or BUFFER can use to get data.
          *
@@ -472,14 +472,14 @@ declare namespace OracleDB {
          *
          * @default 200
          */
-        maxSize?: number;
+        maxSize?: number | undefined;
         /**
          * The node-oracledb or JavaScript data type to be bound. One of the Node-oracledb Type Constants.
          *
          * With IN or IN OUT binds the type can be explicitly set with type or it will default to the type
          * of the input data value. With OUT binds, the type defaults to oracledb.STRING whenever type is not specified.
          */
-        type?: number;
+        type?: number | undefined;
         /**
          * The input value or variable to be used for an IN or IN OUT bind variable.
          */
@@ -495,7 +495,7 @@ declare namespace OracleDB {
          *
          * @default BIND_IN
          */
-        dir?: number;
+        dir?: number | undefined;
         /**
          * Required for Strings and Buffers. Ignored for other types. Specifies the maximum number of bytes
          * allocated when processing each value of this bind variable. When data is being passed into the database,
@@ -503,11 +503,11 @@ declare namespace OracleDB {
          * maxSize should be the size of the longest value. If maxSize is too small, executeMany() will throw an
          * error that is not handled by batchErrors.
          */
-        maxSize?: number;
+        maxSize?: number | undefined;
         /**
          * The node-oracledb or JavaScript data type to be bound. One of the Node-oracledb Type Constants.
          */
-        type?: number;
+        type?: number | undefined;
     }
 
     /**
@@ -536,24 +536,24 @@ declare namespace OracleDB {
          * The action attribute for end-to-end application tracing.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
          */
-        action?: string;
+        action?: string | undefined;
         /**
          * Sets the maximum number of milliseconds that each underlying round-trip between node-oracledb and Oracle Database may take.
          * Each node-oracledb method or operation may make zero or more round-trips.
          * The callTimeout value applies to each round-trip individually, not to the sum of all round-trips.
          * Time spent processing in node-oracledb before or after the completion of each round-trip is not counted.
          */
-        callTimeout?: number;
+        callTimeout?: number | undefined;
         /**
          * The client identifier for end-to-end application tracing, use with mid-tier authentication, and with Virtual Private Databases.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
          */
-        clientId?: string;
+        clientId?: string | undefined;
         /**
          * The module attribute for end-to-end application tracing.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
          */
-        module?: string;
+        module?: string | undefined;
         /**
          * This readonly property gives a numeric representation of the Oracle database version which is useful in comparisons.
          * For version a.b.c.d.e, this property gives the number: (100000000 * a) + (1000000 * b) + (10000 * c) + (100 * d) + e.
@@ -587,7 +587,7 @@ declare namespace OracleDB {
          *
          * @since 3.1
          */
-        tag?: string;
+        tag?: string | undefined;
 
         /**
          * Stops the currently running operation on the connection.
@@ -934,52 +934,52 @@ declare namespace OracleDB {
      */
     interface SubscribeOptions {
         /** An array (bind by position) or object (bind by name) containing the bind values to use in the sql property. */
-        binds?: BindParameters;
+        binds?: BindParameters | undefined;
         /** The notification callback that will be called whenever notifications are sent by the database. */
         callback: (message: SubscriptionMessage) => void;
         /**
          * An integer mask which currently, if set, can only contain the value SUBSCR_GROUPING_CLASS_TIME.
          * If this value is set then notifications are grouped by time into a single notification.
          */
-        groupingClass?: number;
+        groupingClass?: number | undefined;
         /**
          * Either SUBSCR_GROUPING_TYPE_SUMMARY (the default) indicating notifications should be
          * grouped in a summary, or SUBSCR_GROUPING_TYPE_LAST indicating the last notification in the
          * group should be sent.
          */
-        groupingType?: number;
+        groupingType?: number | undefined;
         /**
          * If groupingClass contains SUBSCR_GROUPING_CLASS_TIME then groupingValue can be used to
          * set the number of seconds over which notifications will be grouped together, invoking callback once.
          * If groupingClass is not set, then groupingValue is ignored.
          */
-        groupingValue?: number;
+        groupingValue?: number | undefined;
         /**
          * A string containing an IPv4 or IPv6 address on which the subscription should listen to receive notifications.
          * If not specified, then the Oracle Client library will select an IP address.
          */
-        ipAddress?: string;
+        ipAddress?: string | undefined;
         /** One of the Subscribe Namespace Constants. */
-        namespace?: number;
+        namespace?: number | undefined;
         /**
          * An integer mask containing one or more of the operation type CQN_OPCODE_* constants to
          * indicate what types of database change should generation notifications.
          */
-        operations?: number;
+        operations?: number | undefined;
         /**
          * The port number on which the subscription should listen to receive notifications.
          * If not specified, then the Oracle Client library will select a port number.
          */
-        port?: number;
+        port?: number | undefined;
         /** An integer mask containing one or more of the quality of service SUBSCR_QOS_* constants. */
-        qos?: number;
+        qos?: number | undefined;
         /** The SQL query string to use for notifications. */
         sql: string;
         /**
          * The number of seconds the subscription should remain active. Once this length of time has been reached,
          * the subscription is automatically unregistered and a deregistration notification is sent.
          */
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     /**
@@ -987,20 +987,20 @@ declare namespace OracleDB {
      */
     interface SubscriptionMessage {
         /** Name of the database which sent the notification. */
-        dbName?: string;
+        dbName?: string | undefined;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
         queries?: {
             /** Array of objects specifying the queries which were affected by the Query Change notification. */
             tables: SubscriptionTables;
-        }[];
+        }[] | undefined;
         /** Indicates whether the subscription is registerd with the database. */
-        registered?: boolean;
+        registered?: boolean | undefined;
         /** Array of objects specifying the tables which were affected by the notification. */
-        tables?: SubscriptionTables[];
+        tables?: SubscriptionTables[] | undefined;
         /** Buffer containing the identifier of the transaction which spawned the notification. */
-        txId?: Buffer;
+        txId?: Buffer | undefined;
         /** Type of notification sent. One of the Subscribe Event Type Constants. */
-        type?: number;
+        type?: number | undefined;
     }
 
     /**
@@ -1023,7 +1023,7 @@ declare namespace OracleDB {
             operation: number;
             /** ROWID of the row that was affected. */
             rowid: string;
-        }[];
+        }[] | undefined;
     }
 
     /**
@@ -1031,11 +1031,11 @@ declare namespace OracleDB {
      */
     interface StatementInfo {
         /** Array of strings corresponding to the unique names of the bind variables used in the SQL statement. */
-        bindNames?: string[];
+        bindNames?: string[] | undefined;
         /** Extended metadata properties. */
-        metaData?: Array<Metadata>;
+        metaData?: Array<Metadata> | undefined;
         /** One of the SQL Statement Type Constants. */
-        statementType?: number;
+        statementType?: number | undefined;
     }
 
     /**
@@ -1047,7 +1047,7 @@ declare namespace OracleDB {
          * The Oracle database instance to connect to.
          * The string can be an Easy Connect string, or a Net Service Name from atnsnames.ora file, or the name of a local Oracle database instance.
          */
-        connectString?: string;
+        connectString?: string | undefined;
         /**
          * An alias of connectString. Only one of the properties should be used.
          * The Oracle database instance to connect to.
@@ -1055,14 +1055,14 @@ declare namespace OracleDB {
          *
          * @since 2.1
          */
-        connectionString?: string;
+        connectionString?: string | undefined;
         /**
          * Sets the name used for Edition-Based Redefinition by this connection.
          * This optional property overrides the oracledb.edition property.
          *
          * @since 2.2
          */
-        edition?: string;
+        edition?: string | undefined;
         /**
          * Determines if the standalone connection is created using Oracle Call Interface events mode.
          * This optional property overrides the oracledb.events property.
@@ -1070,7 +1070,7 @@ declare namespace OracleDB {
          * @default false
          * @since 2.2
          */
-        events?: boolean;
+        events?: boolean | undefined;
         /**
          * Determines if the connection should be established using External Authentication.
          * This optional property overrides the oracledb.externalAuth property.
@@ -1078,7 +1078,7 @@ declare namespace OracleDB {
          *
          * @default false
          */
-        externalAuth?: boolean;
+        externalAuth?: boolean | undefined;
         /**
          * Used in conjunction with tag when getting a connection from a connection pool.
          * Indicates that the tag in a connection returned from a connection pool may not match the requested tag.
@@ -1086,22 +1086,22 @@ declare namespace OracleDB {
          * @default false
          * @since 3.1
          */
-        matchAny?: boolean;
+        matchAny?: boolean | undefined;
         /**
          * The new password to use for the database user. When using newPassword, the password property should be set to the current password.
          * This allows passwords to be changed at the time of connection, in particular it can be used to connect when the old password has expired.
          *
          * @since 2.2
          */
-        newPassword?: string;
+        newPassword?: string | undefined;
         /**
          * Specifies which previously created pool in the connection pool cache to obtain the connection from. See Pool Alias.
          */
-        password?: string;
+        password?: string | undefined;
         /**
          * The password of the database user. A password is also necessary if a proxy user is specified.
          */
-        poolAlias?: string;
+        poolAlias?: string | undefined;
         /**
          * The privilege to use when establishing connection to the database.
          * This optional property should be one of the privileged connection constants.
@@ -1109,12 +1109,12 @@ declare namespace OracleDB {
          *
          * @since 2.1
          */
-        privilege?: number;
+        privilege?: number | undefined;
         /**
          * The number of statements to be cached in the statement cache of each connection.
          * This optional property may be used to override the oracledb.stmtCacheSize property.
          */
-        stmtCacheSize?: number;
+        stmtCacheSize?: number | undefined;
         /**
          * Used when getting a connection from a connection pool.
          * Indicates the tag that a connection returned from a connection pool should have.
@@ -1122,11 +1122,11 @@ declare namespace OracleDB {
          *
          * @since 3.1
          */
-        tag?: string;
+        tag?: string | undefined;
         /**
          * The database user name. Can be a simple user name or a proxy of the form alison[fred].
          */
-        user?: string;
+        user?: string | undefined;
     }
 
     interface DBError {
@@ -1159,7 +1159,7 @@ declare namespace OracleDB {
          *
          * @default false
          */
-        autoCommit?: boolean;
+        autoCommit?: boolean | undefined;
         /**
          * Determines whether additional metadata is available for queries and for REF CURSORs returned from PL/SQL blocks.
          *
@@ -1169,7 +1169,7 @@ declare namespace OracleDB {
          *
          * @default false
          */
-        extendedMetaData?: boolean;
+        extendedMetaData?: boolean | undefined;
         /**
          * This property sets the size of an internal buffer used for fetching query rows from Oracle Database.
          * Changing it may affect query performance but does not affect how many rows are returned to the application.
@@ -1185,7 +1185,7 @@ declare namespace OracleDB {
          *
          * @default 100
          */
-        fetchArraySize?: number;
+        fetchArraySize?: number | undefined;
         /**
          * Defines how query column data should be represented in JavaScript. It can be used in conjunction with,
          * or instead of, the global settings fetchAsString and fetchAsBuffer.
@@ -1202,7 +1202,7 @@ declare namespace OracleDB {
             {
                 type: number;
             }
-        >;
+        > | undefined;
         /**
          * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
          * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
@@ -1217,7 +1217,7 @@ declare namespace OracleDB {
          *
          * @default 0 (unlimited)
          */
-        maxRows?: number;
+        maxRows?: number | undefined;
         /**
          * The format of query rows fetched when using connection.execute() or connection.queryStream().
          * It affects both ResultSet and non-ResultSet queries. It can be used for top level queries and REF CURSOR output.
@@ -1233,13 +1233,13 @@ declare namespace OracleDB {
          *
          * @default ARRAY
          */
-        outFormat?: number;
+        outFormat?: number | undefined;
         /**
          * Determines whether query results should be returned as a ResultSet object or directly.
          *
          * @default false
          */
-        resultSet?: boolean;
+        resultSet?: boolean | undefined;
     }
 
     /**
@@ -1255,7 +1255,7 @@ declare namespace OracleDB {
          *
          * @default false
          */
-        autoCommit?: boolean;
+        autoCommit?: boolean | undefined;
         /**
          * This optional property allows invalid data records to be rejected while still letting valid data be processed.
          * It can only be set true for INSERT, UPDATE, DELETE or MERGE statements.
@@ -1273,13 +1273,13 @@ declare namespace OracleDB {
          *
          * @default false
          */
-        batchErrors?: boolean;
+        batchErrors?: boolean | undefined;
         /**
          * Defines the bind variable types, sizes and directions. This object is optional in some cases but it is more efficient to set it.
          *
          * It should be an array or an object, depending on the structure of the binds parameter.
          */
-        bindDefs?: Record<string, BindDefinition> | BindDefinition[];
+        bindDefs?: Record<string, BindDefinition> | BindDefinition[] | undefined;
         /**
          * When true, this optional property enables output of the number of rows affected by each input data record.
          * It can only be set true for INSERT, UPDATE, DELETE or MERGE statements.
@@ -1288,7 +1288,7 @@ declare namespace OracleDB {
          *
          * @default false
          */
-        dmlRowCounts?: boolean;
+        dmlRowCounts?: boolean | undefined;
     }
 
     /**
@@ -1559,9 +1559,9 @@ declare namespace OracleDB {
         /** Database user to retrieve the connection for. */
         user: string;
         /** Password of the specified user. */
-        password?: string;
+        password?: string | undefined;
         /** Optionally set the connection tag. */
-        tag?: string;
+        tag?: string | undefined;
     }
 
     /**
@@ -1575,7 +1575,7 @@ declare namespace OracleDB {
          * The Oracle database instance used by connections in the pool.
          * The string can be an Easy Connect string, or a Net Service Name from a tnsnames.ora file, or the name of a local Oracle database instance.
          */
-        connectString?: string;
+        connectString?: string | undefined;
         /**
          * An alias of connectString. Only one of the properties should be used.
          * The Oracle database instance used by connections in the pool.
@@ -1583,14 +1583,14 @@ declare namespace OracleDB {
          *
          * @since 2.1
          */
-        connectionString?: string;
+        connectionString?: string | undefined;
         /**
          * Sets the name used for Edition-Based Redefinition by connections in the pool.
          * This optional property overrides the oracledb.edition property.
          *
          * @since 2.2
          */
-        edition?: string;
+        edition?: string | undefined;
         /**
          * Indicate whether Oracle Call Interface events mode should be enabled for this pool.
          * This optional property overrides the oracledb.events property.
@@ -1598,7 +1598,7 @@ declare namespace OracleDB {
          * @default false
          * @since 2.2
          */
-        events?: boolean;
+        events?: boolean | undefined;
         /**
          * Indicate whether pooled connections should be established using External Authentication.
          * This optional property overrides the oracledb.externalAuth property.
@@ -1607,7 +1607,7 @@ declare namespace OracleDB {
          * @default false
          * @since 0.5
          */
-        externalAuth?: boolean;
+        externalAuth?: boolean | undefined;
         /**
          * Indicate whether connections in the pool all have the same credentials (a ‘homogeneous’ pool), or whether different credentials can be used (a ‘heterogeneous’ pool).
          * When set to false, the user name and password can be omitted from the connection.createPool() call, but will need to be given for subsequent pool.getConnection() calls.
@@ -1618,26 +1618,26 @@ declare namespace OracleDB {
          * @default true
          * @since 2.3
          */
-        homogeneous?: boolean;
+        homogeneous?: boolean | undefined;
         /**
          * The password of the database user used by connections in the pool. A password is also necessary if a proxy user is specified at pool creation.
          * If homogeneous is false, then the password may be omitted at pool creation but given in subsequent pool.getConnection() calls.
          */
-        password?: string;
+        password?: string | undefined;
         /**
          * The poolAlias is an optional property that is used to explicitly add pools to the connection pool cache.
          * If a pool alias is provided, then the new pool will be added to the connection pool cache and the poolAlias value can then be used with methods that utilize the connection pool cache, such as oracledb.getPool() and oracledb.getConnection().
          *
          * @since 1.11
          */
-        poolAlias?: string;
+        poolAlias?: string | undefined;
         /**
          * The number of connections that are opened whenever a connection request exceeds the number of currently open connections.
          * This optional property overrides the oracledb.poolIncrement property.
          *
          * @default 1
          */
-        poolIncrement?: number;
+        poolIncrement?: number | undefined;
         /**
          * The maximum number of connections to which a connection pool can grow.
          * This optional property overrides the oracledb.poolMax property.
@@ -1645,14 +1645,14 @@ declare namespace OracleDB {
          *
          * @default 4
          */
-        poolMax?: number;
+        poolMax?: number | undefined;
         /**
          * The minimum number of connections a connection pool maintains, even when there is no activity to the target database.
          * This optional property overrides the oracledb.poolMin property.
          *
          * @default 0
          */
-        poolMin?: number;
+        poolMin?: number | undefined;
         /**
          * When a pool getConnection() is called and the connection has been idle in the pool for
          * at least poolPingInterval seconds, an internal “ping” will be performed first to check the aliveness of the connection.
@@ -1660,7 +1660,7 @@ declare namespace OracleDB {
          *
          * @default 60
          */
-        poolPingInterval?: number;
+        poolPingInterval?: number | undefined;
         /**
          * The number of seconds after which idle connections (unused in the pool) may be terminated.
          * Idle connections are terminated only when the pool is accessed.
@@ -1668,7 +1668,7 @@ declare namespace OracleDB {
          *
          * @default 60
          */
-        poolTimeout?: number;
+        poolTimeout?: number | undefined;
         /**
          * The number of milliseconds after which connection requests waiting in the connection request queue are terminated.
          * If queueTimeout is set to 0, then queued connection requests are never terminated.
@@ -1676,7 +1676,7 @@ declare namespace OracleDB {
          *
          * @default 60000
          */
-        queueTimeout?: number;
+        queueTimeout?: number | undefined;
         /**
          * When sessionCallback is a Node.js function, it will be invoked for each pool.getConnection() call that will return a newly created connection in the pool.
          * It will also be called if pool.getConnection() requests a connection from the pool with a given tag, and that tag value does not match the connection’s current actual tag.
@@ -1700,22 +1700,22 @@ declare namespace OracleDB {
          */
         sessionCallback?:
             | string
-            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void);
+            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void) | undefined;
         /**
          * The number of statements to be cached in the statement cache of each connection in the pool.
          * This optional property overrides the oracledb.stmtCacheSize property.
          */
-        stmtCacheSize?: number;
+        stmtCacheSize?: number | undefined;
         /**
          * The database user name for connections in the pool. Can be a simple user name or a proxy of the form alison[fred].
          * If homogeneous is false, then the pool user name and password need to be specified only if the application wants that user to proxy the users supplied in subsequent pool.getConnection() calls.
          */
-        user?: string;
+        user?: string | undefined;
         /**
          * Further statistics can be enabled by setting the createPool() poolAttrs parameter _enableStats to true.
          * Statistics can be output to the console by calling the pool._logStats() method.
          */
-        _enableStats?: boolean;
+        _enableStats?: boolean | undefined;
     }
 
     /**
@@ -1968,13 +1968,13 @@ declare namespace OracleDB {
      */
     interface SodaCollectionNamesOptions {
         /** Limits the number of names returned. If limit is 0 or undefined, then all collection names are returned. */
-        limit?: number;
+        limit?: number | undefined;
         /**
          * Returns names that start with the given string, and all subsequent names, in alphabetic order.
          * For example, if collections with names “cat”, “dog”, and “zebra” exist, then using startsWith of “d” will return
          * “dog” and “zebra”. If startsWith is an empty string or undefined, all collection names are returned, subject to the value of limit.
          */
-        startsWith?: string;
+        startsWith?: string | undefined;
     }
 
     /**
@@ -1984,13 +1984,13 @@ declare namespace OracleDB {
         /**
          * Must be supplied if the document in intended to be inserted into a collection with client-assigned keys. It should be undefined, otherwise.
          */
-        key?: string;
+        key?: string | undefined;
         /**
          * If the document has non-JSON content, then mediaType should be set to the desired media type. Using a MIME type is recommended.
          *
          * @default application/json
          */
-        mediaType?: string;
+        mediaType?: string | undefined;
     }
 
     /**
@@ -2536,7 +2536,7 @@ declare namespace OracleDB {
          *
          * @see https://www.oracle.com/pls/topic/lookup?ctx=dblatest&id=GUID-F60F75DF-2866-4F93-BB7F-8FCE64BF67B6
          */
-        force?: boolean;
+        force?: boolean | undefined;
     }
 
     /**
@@ -2562,13 +2562,13 @@ declare namespace OracleDB {
          *
          * @default false
          */
-        unique?: boolean;
+        unique?: boolean | undefined;
         /**
          * Specifies whether or not to index NULL values for the selected columns (by appending the numeric value 1 to the list of columns to index).
          *
          * @default false
          */
-        indexNulls?: boolean;
+        indexNulls?: boolean | undefined;
     }
 
     /**
@@ -2578,11 +2578,11 @@ declare namespace OracleDB {
         /** Path to the targeted field, whose value is expected to be a scalar. */
         path: string;
         /** Name of the data type of the targeted-field value, for indexing purposes. */
-        datatype?: string;
+        datatype?: string | undefined;
         /** Specifies the maximum length of the value to index. */
-        maxlength?: number;
+        maxlength?: number | undefined;
         /** Index sorting order, for datatype varchar2 (or one of its synonyms) or number. */
-        order?: string | number;
+        order?: string | number | undefined;
     }
 
     /**
@@ -2596,9 +2596,9 @@ declare namespace OracleDB {
         /** Specifies the path to the JSON field to be indexed. */
         spatial: string;
         /** Specifies that the targeted field must be present and have a GeoJSON geometry object as its value. */
-        scalarRequired?: boolean;
+        scalarRequired?: boolean | undefined;
         /** Specifies that the targeted field need not be present or have a GeoJSON geometry object as its value. */
-        lax?: boolean;
+        lax?: boolean | undefined;
     }
 
     /**
@@ -2623,7 +2623,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sodaclientkeys
          * @see https://www.oracle.com/pls/topic/lookup?ctx=dblatest&id=GUID-49EFF3D3-9FAB-4DA6-BDE2-2650383566A3
          */
-        metaData?: SodaMetadata;
+        metaData?: SodaMetadata | undefined;
         /**
          * If mode is SODA_COLL_MAP_MODE, the collection will be stored in an externally,
          * previously created table. A future sodaCollection.drop() will not drop the collection table.
@@ -2631,7 +2631,7 @@ declare namespace OracleDB {
          *
          * Most users will leave mode undefined.
          */
-        mode?: number;
+        mode?: number | undefined;
     }
 
     /**
@@ -2643,11 +2643,11 @@ declare namespace OracleDB {
      */
     interface SodaMetadata {
         /** Name of the Oracle Database schema that owns the table or view to which the collection is mapped. */
-        schemaName?: string;
+        schemaName?: string | undefined;
         /** Name of the table to which the collection is mapped. */
-        tableName?: string;
+        tableName?: string | undefined;
         /** Name of the view to which the collection is mapped. */
-        viewName?: string;
+        viewName?: string | undefined;
         /** Object containing information related to the key column. */
         keyColumn?: {
             /**
@@ -2655,25 +2655,25 @@ declare namespace OracleDB {
              *
              * @default ID
              */
-            name?: string;
+            name?: string | undefined;
             /**
              * SQL data type of the column that stores the document key.
              *
              * @default VARCHAR2
              */
-            sqlType?: string;
+            sqlType?: string | undefined;
             /**
              * Maximum length of the key column in bytes. This component applies only to keys of type VARCHAR2.
              *
              * @default 255
              */
-            maxLength?: number;
+            maxLength?: number | undefined;
             /**
              * Method used to assign keys to objects that are inserted into the collection.
              *
              * @default UUID
              */
-            assignmentMethod?: string;
+            assignmentMethod?: string | undefined;
             /**
              * Name of the database sequence that generates keys for documents that are inserted into a collection if
              * the key assignment method is SEQUENCE.
@@ -2681,8 +2681,8 @@ declare namespace OracleDB {
              * If you specify the key assignment method as SEQUENCE then you must also specify the name of that sequence.
              * If the specified sequence does not exist then SODA creates it.
              */
-            sequenceName?: string;
-        };
+            sequenceName?: string | undefined;
+        } | undefined;
         /** Object containing information related to the content column. */
         contentColumn?: {
             /**
@@ -2690,31 +2690,31 @@ declare namespace OracleDB {
              *
              * @default JSON_DOCUMENT
              */
-            name?: string;
+            name?: string | undefined;
             /**
              * SQL data type of the column that stores the document content.
              *
              * @default BLOB
              */
-            sqlType?: string;
+            sqlType?: string | undefined;
             /**
              * Maximum length of the content column in bytes. This component applies only to content of type VARCHAR2.
              *
              * @default 4000
              */
-            maxLength?: number;
+            maxLength?: number | undefined;
             /**
              * SecureFiles LOB compression setting.
              *
              * @default NONE
              */
-            compress?: string;
+            compress?: string | undefined;
             /**
              * SecureFiles LOB cache setting.
              *
              * @default true
              */
-            cache?: boolean;
+            cache?: boolean | undefined;
             /**
              * SecureFiles LOB encryption setting.
              *
@@ -2722,14 +2722,14 @@ declare namespace OracleDB {
              *
              * @default NONE
              */
-            encrypt?: string;
+            encrypt?: string | undefined;
             /**
              * Syntax to which JavaScript Object Notation (JSON) content must conform—strict or lax.
              *
              * @default STANDARD
              */
-            validation?: string;
-        };
+            validation?: string | undefined;
+        } | undefined;
         /** Object containing information related to the version column. */
         versionColumn?: {
             /**
@@ -2737,14 +2737,14 @@ declare namespace OracleDB {
              *
              * @default VERSION
              */
-            name?: string;
+            name?: string | undefined;
             /**
              * Method used to compute version values for objects when they are inserted into a collection or replaced.
              *
              * @default SHA256
              */
-            method?: string;
-        };
+            method?: string | undefined;
+        } | undefined;
         /** Object containing information related to the last modified column. */
         lastModifiedColumn?: {
             /**
@@ -2752,7 +2752,7 @@ declare namespace OracleDB {
              *
              * @default LAST_MODIFIED
              */
-            name?: string;
+            name?: string | undefined;
             /**
              * Name of the index on the last-modified column.
              *
@@ -2766,8 +2766,8 @@ declare namespace OracleDB {
              * not to set this component if you are sure that your application does not use any read or write operations
              * that are driven by time stamps, because creating and maintaining an index carries a cost.
              */
-            index?: string;
-        };
+            index?: string | undefined;
+        } | undefined;
         /** Object containing information related to the creation time column. */
         creationTimeColumn?: {
             /**
@@ -2776,8 +2776,8 @@ declare namespace OracleDB {
              *
              * @default CREATED_ON
              */
-            name?: string;
-        };
+            name?: string | undefined;
+        } | undefined;
         /** Object containing information related to the media type column. */
         mediaTypeColumn?: {
             /**
@@ -2785,10 +2785,10 @@ declare namespace OracleDB {
              * the collection is to be heterogeneous, that is, it can store documents other than
              * JavaScript Object Notation (JSON).
              */
-            name?: string;
-        };
+            name?: string | undefined;
+        } | undefined;
         /** Specifies whether or not the collection is read-only. */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
     }
 
     /**

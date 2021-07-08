@@ -31,7 +31,7 @@ export type EventHandlerType = (args: { readonly event: React.SyntheticEvent }) 
 
 export interface OnNavigationArgs {
     href: string;
-    target?: null | 'self' | 'blank';
+    target?: null | 'self' | 'blank' | undefined;
 }
 
 export type OnNavigationType = (args: OnNavigationArgs) => EventHandlerType | null | undefined;
@@ -50,7 +50,7 @@ export interface ActivationCardProps {
     dismissButton?: {
         accessibilityLabel: string;
         onDismiss: () => void;
-    };
+    } | undefined;
     link?: {
         accessibilityLabel: string;
         href: string;
@@ -60,11 +60,11 @@ export interface ActivationCardProps {
             | React.MouseEvent<HTMLAnchorElement>
             | React.KeyboardEvent<HTMLAnchorElement>
             | React.KeyboardEvent<HTMLButtonElement>,
-            { disableOnNavigation?: () => void }
-        >;
-        rel?: 'none' | 'nofollow';
-        target?: null | 'self' | 'blank';
-    };
+            { disableOnNavigation?: (() => void) | undefined }
+        > | undefined;
+        rel?: 'none' | 'nofollow' | undefined;
+        target?: null | 'self' | 'blank' | undefined;
+    } | undefined;
 }
 
 /**
@@ -73,11 +73,11 @@ export interface ActivationCardProps {
  */
 export interface AvatarProps {
     name: string;
-    accessibilityLabel?: string;
-    outline?: boolean;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fit';
-    src?: string;
-    verified?: boolean;
+    accessibilityLabel?: string | undefined;
+    outline?: boolean | undefined;
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fit' | undefined;
+    src?: string | undefined;
+    verified?: boolean | undefined;
 }
 
 /**
@@ -86,22 +86,22 @@ export interface AvatarProps {
  */
 export interface AvatarGroupProps {
     accessibilityLabel: string;
-    collaborators: ReadonlyArray<{ name: string; src?: string }>;
+    collaborators: ReadonlyArray<{ name: string; src?: string | undefined }>;
 
-    accessibilityControls?: string;
-    accessibilityExpanded?: boolean;
-    accessibilityHaspopup?: boolean;
-    addCollaborators?: boolean;
-    href?: string;
+    accessibilityControls?: string | undefined;
+    accessibilityExpanded?: boolean | undefined;
+    accessibilityHaspopup?: boolean | undefined;
+    addCollaborators?: boolean | undefined;
+    href?: string | undefined;
     onClick?: AbstractEventHandler<
         | React.MouseEvent<HTMLButtonElement>
         | React.MouseEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLButtonElement>,
-        { disableOnNavigation?: () => void }
-    >;
-    role?: 'button' | 'link';
-    size?: 'xs' | 'sm' | 'md' | 'fit';
+        { disableOnNavigation?: (() => void) | undefined }
+    > | undefined;
+    role?: 'button' | 'link' | undefined;
+    size?: 'xs' | 'sm' | 'md' | 'fit' | undefined;
 }
 
 /**
@@ -111,9 +111,9 @@ export interface AvatarGroupProps {
 export interface AvatarPairProps {
     collaborators: ReadonlyArray<{
         name: string;
-        src?: string;
+        src?: string | undefined;
     }>;
-    size?: 'md' | 'lg' | 'fit';
+    size?: 'md' | 'lg' | 'fit' | undefined;
 }
 
 /**
@@ -122,7 +122,7 @@ export interface AvatarPairProps {
  */
 export interface BadgeProps {
     text: string;
-    position?: 'middle' | 'top';
+    position?: 'middle' | 'top' | undefined;
 }
 
 export type BoxPassthroughProps = Omit<React.ComponentProps<'div'>, 'onClick' | 'className' | 'style' | 'ref'> &
@@ -133,9 +133,9 @@ export type BoxPassthroughProps = Omit<React.ComponentProps<'div'>, 'onClick' | 
  * https://gestalt.netlify.app/Box
  */
 export interface BoxProps extends BoxPassthroughProps {
-    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
-    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch' | undefined;
+    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
     /**
      * Changes the underlying DOM element when needed for accessibility or SEO reasons. Note that currently only block-level elements are available.
      *
@@ -153,10 +153,10 @@ export interface BoxProps extends BoxPassthroughProps {
         | 'main'
         | 'nav'
         | 'section'
-        | 'summary';
-    borderStyle?: 'sm' | 'lg' | 'shadow' | 'none';
-    bottom?: boolean;
-    children?: React.ReactNode;
+        | 'summary' | undefined;
+    borderStyle?: 'sm' | 'lg' | 'shadow' | 'none' | undefined;
+    bottom?: boolean | undefined;
+    children?: React.ReactNode | undefined;
     color?:
         | 'blue'
         | 'darkGray'
@@ -178,76 +178,76 @@ export interface BoxProps extends BoxPassthroughProps {
         | 'transparent'
         | 'transparentDarkGray'
         | 'watermelon'
-        | 'white';
-    column?: UnsignedUpTo12;
-    smColumn?: UnsignedUpTo12;
-    mdColumn?: UnsignedUpTo12;
-    lgColumn?: UnsignedUpTo12;
+        | 'white' | undefined;
+    column?: UnsignedUpTo12 | undefined;
+    smColumn?: UnsignedUpTo12 | undefined;
+    mdColumn?: UnsignedUpTo12 | undefined;
+    lgColumn?: UnsignedUpTo12 | undefined;
     dangerouslySetInlineStyle?: {
         __style: {
             [key: string]: string | number | undefined;
         };
-    };
-    direction?: 'row' | 'column';
-    smDirection?: 'row' | 'column';
-    mdDirection?: 'row' | 'column';
-    lgDirection?: 'row' | 'column';
-    display?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden';
-    smDisplay?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden';
-    mdDisplay?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden';
-    lgDisplay?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden';
-    fit?: boolean;
-    flex?: 'grow' | 'shrink' | 'none';
-    height?: number | string;
-    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
-    left?: boolean;
-    margin?: SignedUpTo12 | 'auto';
-    smMargin?: SignedUpTo12 | 'auto';
-    mdMargin?: SignedUpTo12 | 'auto';
-    lgMargin?: SignedUpTo12 | 'auto';
-    marginBottom?: SignedUpTo12 | 'auto';
-    smMarginBottom?: SignedUpTo12 | 'auto';
-    mdMarginBottom?: SignedUpTo12 | 'auto';
-    lgMarginBottom?: SignedUpTo12 | 'auto';
-    marginEnd?: SignedUpTo12 | 'auto';
-    smMarginEnd?: SignedUpTo12 | 'auto';
-    mdMarginEnd?: SignedUpTo12 | 'auto';
-    lgMarginEnd?: SignedUpTo12 | 'auto';
-    marginStart?: SignedUpTo12 | 'auto';
-    smMarginStart?: SignedUpTo12 | 'auto';
-    mdMarginStart?: SignedUpTo12 | 'auto';
-    lgMarginStart?: SignedUpTo12 | 'auto';
-    marginTop?: SignedUpTo12 | 'auto';
-    smMarginTop?: SignedUpTo12 | 'auto';
-    mdMarginTop?: SignedUpTo12 | 'auto';
-    lgMarginTop?: SignedUpTo12 | 'auto';
-    maxHeight?: number | string;
-    maxWidth?: number | string;
-    minHeight?: number | string;
-    minWidth?: number | string;
-    opacity?: 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
-    overflow?: 'visible' | 'hidden' | 'scroll' | 'scrollX' | 'scrollY' | 'auto';
-    padding?: UnsignedUpTo12;
-    smPadding?: UnsignedUpTo12;
-    mdPadding?: UnsignedUpTo12;
-    lgPadding?: UnsignedUpTo12;
-    paddingX?: UnsignedUpTo12;
-    smPaddingX?: UnsignedUpTo12;
-    mdPaddingX?: UnsignedUpTo12;
-    lgPaddingX?: UnsignedUpTo12;
-    paddingY?: UnsignedUpTo12;
-    smPaddingY?: UnsignedUpTo12;
-    mdPaddingY?: UnsignedUpTo12;
-    lgPaddingY?: UnsignedUpTo12;
-    position?: 'static' | 'absolute' | 'relative' | 'fixed';
-    right?: boolean;
-    role?: string;
-    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-    top?: boolean;
-    userSelect?: 'auto' | 'none';
-    width?: number | string;
-    wrap?: boolean;
-    zIndex?: Indexable;
+    } | undefined;
+    direction?: 'row' | 'column' | undefined;
+    smDirection?: 'row' | 'column' | undefined;
+    mdDirection?: 'row' | 'column' | undefined;
+    lgDirection?: 'row' | 'column' | undefined;
+    display?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden' | undefined;
+    smDisplay?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden' | undefined;
+    mdDisplay?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden' | undefined;
+    lgDisplay?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden' | undefined;
+    fit?: boolean | undefined;
+    flex?: 'grow' | 'shrink' | 'none' | undefined;
+    height?: number | string | undefined;
+    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | undefined;
+    left?: boolean | undefined;
+    margin?: SignedUpTo12 | 'auto' | undefined;
+    smMargin?: SignedUpTo12 | 'auto' | undefined;
+    mdMargin?: SignedUpTo12 | 'auto' | undefined;
+    lgMargin?: SignedUpTo12 | 'auto' | undefined;
+    marginBottom?: SignedUpTo12 | 'auto' | undefined;
+    smMarginBottom?: SignedUpTo12 | 'auto' | undefined;
+    mdMarginBottom?: SignedUpTo12 | 'auto' | undefined;
+    lgMarginBottom?: SignedUpTo12 | 'auto' | undefined;
+    marginEnd?: SignedUpTo12 | 'auto' | undefined;
+    smMarginEnd?: SignedUpTo12 | 'auto' | undefined;
+    mdMarginEnd?: SignedUpTo12 | 'auto' | undefined;
+    lgMarginEnd?: SignedUpTo12 | 'auto' | undefined;
+    marginStart?: SignedUpTo12 | 'auto' | undefined;
+    smMarginStart?: SignedUpTo12 | 'auto' | undefined;
+    mdMarginStart?: SignedUpTo12 | 'auto' | undefined;
+    lgMarginStart?: SignedUpTo12 | 'auto' | undefined;
+    marginTop?: SignedUpTo12 | 'auto' | undefined;
+    smMarginTop?: SignedUpTo12 | 'auto' | undefined;
+    mdMarginTop?: SignedUpTo12 | 'auto' | undefined;
+    lgMarginTop?: SignedUpTo12 | 'auto' | undefined;
+    maxHeight?: number | string | undefined;
+    maxWidth?: number | string | undefined;
+    minHeight?: number | string | undefined;
+    minWidth?: number | string | undefined;
+    opacity?: 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1 | undefined;
+    overflow?: 'visible' | 'hidden' | 'scroll' | 'scrollX' | 'scrollY' | 'auto' | undefined;
+    padding?: UnsignedUpTo12 | undefined;
+    smPadding?: UnsignedUpTo12 | undefined;
+    mdPadding?: UnsignedUpTo12 | undefined;
+    lgPadding?: UnsignedUpTo12 | undefined;
+    paddingX?: UnsignedUpTo12 | undefined;
+    smPaddingX?: UnsignedUpTo12 | undefined;
+    mdPaddingX?: UnsignedUpTo12 | undefined;
+    lgPaddingX?: UnsignedUpTo12 | undefined;
+    paddingY?: UnsignedUpTo12 | undefined;
+    smPaddingY?: UnsignedUpTo12 | undefined;
+    mdPaddingY?: UnsignedUpTo12 | undefined;
+    lgPaddingY?: UnsignedUpTo12 | undefined;
+    position?: 'static' | 'absolute' | 'relative' | 'fixed' | undefined;
+    right?: boolean | undefined;
+    role?: string | undefined;
+    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
+    top?: boolean | undefined;
+    userSelect?: 'auto' | 'none' | undefined;
+    width?: number | string | undefined;
+    wrap?: boolean | undefined;
+    zIndex?: Indexable | undefined;
 }
 
 /**
@@ -256,30 +256,30 @@ export interface BoxProps extends BoxPassthroughProps {
  */
 export interface ButtonProps {
     text: string;
-    accessibilityControls?: string;
-    accessibilityExpanded?: boolean;
-    accessibilityHaspopup?: boolean;
-    accessibilityLabel?: string;
-    color?: 'gray' | 'red' | 'blue' | 'transparent' | 'semiTransparentWhite' | 'transparentWhiteText' | 'white';
-    disabled?: boolean;
-    href?: string;
-    iconEnd?: Icons;
-    inline?: boolean;
-    name?: string;
+    accessibilityControls?: string | undefined;
+    accessibilityExpanded?: boolean | undefined;
+    accessibilityHaspopup?: boolean | undefined;
+    accessibilityLabel?: string | undefined;
+    color?: 'gray' | 'red' | 'blue' | 'transparent' | 'semiTransparentWhite' | 'transparentWhiteText' | 'white' | undefined;
+    disabled?: boolean | undefined;
+    href?: string | undefined;
+    iconEnd?: Icons | undefined;
+    inline?: boolean | undefined;
+    name?: string | undefined;
     onClick?: AbstractEventHandler<
         | React.MouseEvent<HTMLButtonElement>
         | React.MouseEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLButtonElement>,
-        { disableOnNavigation?: () => void }
-    >;
-    rel?: 'none' | 'nofollow';
-    role?: 'button' | 'link';
-    selected?: boolean;
-    size?: 'sm' | 'md' | 'lg';
-    tabIndex?: -1 | 0;
-    target?: null | 'self' | 'blank';
-    type?: 'submit' | 'button';
+        { disableOnNavigation?: (() => void) | undefined }
+    > | undefined;
+    rel?: 'none' | 'nofollow' | undefined;
+    role?: 'button' | 'link' | undefined;
+    selected?: boolean | undefined;
+    size?: 'sm' | 'md' | 'lg' | undefined;
+    tabIndex?: -1 | 0 | undefined;
+    target?: null | 'self' | 'blank' | undefined;
+    type?: 'submit' | 'button' | undefined;
 }
 
 /**
@@ -287,22 +287,22 @@ export interface ButtonProps {
  * https://gestalt.netlify.app/ButtonGroup
  */
 export interface ButtonGroupProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
 
 export interface ActionData {
     accessibilityLabel: string;
-    href?: string;
+    href?: string | undefined;
     label: string;
     onClick?: AbstractEventHandler<
         | React.MouseEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLAnchorElement>
         | React.MouseEvent<HTMLButtonElement>
         | React.KeyboardEvent<HTMLButtonElement>,
-        { disableOnNavigation?: () => void }
-    >;
-    rel?: 'none' | 'nofollow';
-    target?: null | 'self' | 'blank';
+        { disableOnNavigation?: (() => void) | undefined }
+    > | undefined;
+    rel?: 'none' | 'nofollow' | undefined;
+    target?: null | 'self' | 'blank' | undefined;
 }
 
 /**
@@ -316,10 +316,10 @@ export interface CalloutProps {
     dismissButton?: {
         accessibilityLabel: string;
         onDismiss: () => void;
-    };
-    primaryAction?: ActionData;
-    secondaryAction?: ActionData;
-    title?: string;
+    } | undefined;
+    primaryAction?: ActionData | undefined;
+    secondaryAction?: ActionData | undefined;
+    title?: string | undefined;
 }
 
 /**
@@ -327,11 +327,11 @@ export interface CalloutProps {
  * https://gestalt.netlify.app/Card
  */
 export interface CardProps {
-    active?: boolean;
-    children?: React.ReactNode;
-    image?: React.ReactNode;
-    onMouseEnter?: (args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }) => void;
-    onMouseLeave?: (args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }) => void;
+    active?: boolean | undefined;
+    children?: React.ReactNode | undefined;
+    image?: React.ReactNode | undefined;
+    onMouseEnter?: ((args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }) => void) | undefined;
+    onMouseLeave?: ((args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }) => void) | undefined;
 }
 
 /**
@@ -341,18 +341,18 @@ export interface CardProps {
 export interface CheckboxProps {
     id: string;
     onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
-    checked?: boolean;
-    disabled?: boolean;
-    errorMessage?: string;
-    hasError?: boolean;
-    image?: React.ReactNode;
-    indeterminate?: boolean;
-    label?: string;
-    name?: string;
+    checked?: boolean | undefined;
+    disabled?: boolean | undefined;
+    errorMessage?: string | undefined;
+    hasError?: boolean | undefined;
+    image?: React.ReactNode | undefined;
+    indeterminate?: boolean | undefined;
+    label?: string | undefined;
+    name?: string | undefined;
 
-    onClick?: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
-    size?: 'sm' | 'md';
-    subtext?: string;
+    onClick?: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }> | undefined;
+    size?: 'sm' | 'md' | undefined;
+    subtext?: string | undefined;
 }
 
 /**
@@ -364,9 +364,9 @@ export interface CollageProps {
     height: number;
     renderImage: (args: { width: number; height: number; index: number }) => React.ReactNode;
     width: number;
-    cover?: boolean;
-    gutter?: number;
-    layoutKey?: number;
+    cover?: boolean | undefined;
+    gutter?: number | undefined;
+    layoutKey?: number | undefined;
 }
 
 /**
@@ -375,7 +375,7 @@ export interface CollageProps {
  */
 export interface ColorSchemeProviderProps {
     colorScheme: 'light' | 'dark' | 'userPreference';
-    id?: string;
+    id?: string | undefined;
 }
 
 /**
@@ -384,10 +384,10 @@ export interface ColorSchemeProviderProps {
  */
 export interface ColumnProps {
     span: UnsignedUpTo12;
-    smSpan?: UnsignedUpTo12;
-    mdSpan?: UnsignedUpTo12;
-    lgSpan?: UnsignedUpTo12;
-    children?: React.ReactNode;
+    smSpan?: UnsignedUpTo12 | undefined;
+    mdSpan?: UnsignedUpTo12 | undefined;
+    lgSpan?: UnsignedUpTo12 | undefined;
+    children?: React.ReactNode | undefined;
 }
 
 /**
@@ -395,7 +395,7 @@ export interface ColumnProps {
  * https://gestalt.netlify.app/Container
  */
 export interface ContainerProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
 
 /**
@@ -403,14 +403,14 @@ export interface ContainerProps {
  * https://gestalt.netlify.app/ScrollBoundaryContainer
  */
 export interface ScrollBoundaryContainerProps {
-    height?: number | string;
-    overflow?: 'scroll' | 'scrollX' | 'scrollY' | 'auto';
+    height?: number | string | undefined;
+    overflow?: 'scroll' | 'scrollX' | 'scrollY' | 'auto' | undefined;
 }
 
 export interface DropdownOption {
     label: string;
     value: string;
-    subtext?: string;
+    subtext?: string | undefined;
 }
 /**
  * Dropdown Props Interface
@@ -428,15 +428,15 @@ export interface DropdownProps {
     /**
      * Ref for the element that the Dropdown will attach to, will most likely be a Button
      */
-    anchor?: HTMLElement;
-    headerContent?: React.ReactNode;
+    anchor?: HTMLElement | undefined;
+    headerContent?: React.ReactNode | undefined;
     /**
      * Preferred direction for the Dropdown to open
      *
      * @default "down"
      */
-    idealDirection?: FourDirections;
-    zIndex?: Indexable;
+    idealDirection?: FourDirections | undefined;
+    zIndex?: Indexable | undefined;
 }
 
 export interface DropdownItemProps {
@@ -451,13 +451,13 @@ export interface DropdownItemProps {
     /**
      * When supplied, will display a Badge next to the item's label.
      */
-    badgeText?: string;
+    badgeText?: string | undefined;
 
     /**
      * Either the selected item info or an array of selected items,
      * used to determine when the "selected" icon appears on an item
      */
-    selected?: DropdownOption | ReadonlyArray<DropdownOption>;
+    selected?: DropdownOption | ReadonlyArray<DropdownOption> | undefined;
 }
 
 export interface DropdownLinkProps {
@@ -469,20 +469,20 @@ export interface DropdownLinkProps {
     /**
      * When supplied, will display a Badge next to the item's label.
      */
-    badgeText?: string;
+    badgeText?: string | undefined;
     /**
      * When true, adds an arrow icon to the end of the item to signal this item takes users to an external source
      * and opens the link in a new tab.
      * Do not add if the item navigates users within the app. See the Best practices for more info.
      */
-    isExternal?: boolean;
+    isExternal?: boolean | undefined;
     onClick?: AbstractEventHandler<
         | React.MouseEvent<HTMLButtonElement>
         | React.MouseEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLButtonElement>
         | React.KeyboardEvent<HTMLAnchorElement>,
-        { disableOnNavigation?: () => void }
-    >;
+        { disableOnNavigation?: (() => void) | undefined }
+    > | undefined;
 }
 
 export interface DropdownSectionProps {
@@ -497,7 +497,7 @@ export interface DropdownSectionProps {
 export interface FieldsetProps {
     children: React.ReactNode;
     legend: string;
-    legendDisplay?: 'visible' | 'hidden';
+    legendDisplay?: 'visible' | 'hidden' | undefined;
 }
 
 /**
@@ -505,28 +505,28 @@ export interface FieldsetProps {
  * https://gestalt.netlify.app/Flex
  */
 export interface FlexProps {
-    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
-    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-    children?: React.ReactNode;
-    direction?: 'row' | 'column';
-    flex?: 'grow' | 'shrink' | 'none';
-    gap?: UnsignedUpTo12;
-    height?: number | string;
-    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
-    maxHeight?: number | string;
-    maxWidth?: number | string;
-    minHeight?: number | string;
-    minWidth?: number | string;
-    width?: number | string;
-    wrap?: boolean;
+    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch' | undefined;
+    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    children?: React.ReactNode | undefined;
+    direction?: 'row' | 'column' | undefined;
+    flex?: 'grow' | 'shrink' | 'none' | undefined;
+    gap?: UnsignedUpTo12 | undefined;
+    height?: number | string | undefined;
+    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | undefined;
+    maxHeight?: number | string | undefined;
+    maxWidth?: number | string | undefined;
+    minHeight?: number | string | undefined;
+    minWidth?: number | string | undefined;
+    width?: number | string | undefined;
+    wrap?: boolean | undefined;
 }
 
 export interface FlexItemProps {
-    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-    children?: React.ReactNode;
-    flex?: 'grow' | 'shrink' | 'none';
-    minWidth?: number | string;
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    children?: React.ReactNode | undefined;
+    flex?: 'grow' | 'shrink' | 'none' | undefined;
+    minWidth?: number | string | undefined;
 }
 
 /**
@@ -534,9 +534,9 @@ export interface FlexItemProps {
  * https://gestalt.netlify.app/Heading
  */
 export interface HeaderProps {
-    accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6 | 'none';
-    align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight';
-    children?: React.ReactNode;
+    accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6 | 'none' | undefined;
+    align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight' | undefined;
+    children?: React.ReactNode | undefined;
     color?:
         | 'blue'
         | 'darkGray'
@@ -554,11 +554,11 @@ export interface HeaderProps {
         | 'purple'
         | 'red'
         | 'watermelon'
-        | 'white';
-    id?: string;
-    overflow?: 'normal' | 'breakWord';
-    size?: 'sm' | 'md' | 'lg';
-    truncate?: boolean;
+        | 'white' | undefined;
+    id?: string | undefined;
+    overflow?: 'normal' | 'breakWord' | undefined;
+    size?: 'sm' | 'md' | 'lg' | undefined;
+    truncate?: boolean | undefined;
 }
 
 export type Icons =
@@ -761,11 +761,11 @@ export interface IconProps {
         | 'purple'
         | 'red'
         | 'watermelon'
-        | 'white';
-    dangerouslySetSvgPath?: { __path: string };
-    icon?: Icons;
-    inline?: boolean;
-    size?: number | string;
+        | 'white' | undefined;
+    dangerouslySetSvgPath?: { __path: string } | undefined;
+    icon?: Icons | undefined;
+    inline?: boolean | undefined;
+    size?: number | string | undefined;
 }
 
 /**
@@ -773,31 +773,31 @@ export interface IconProps {
  * https://gestalt.netlify.app/IconButton
  */
 export interface IconButtonProps {
-    bgColor?: 'transparent' | 'darkGray' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'red';
-    accessibilityControls?: string;
-    accessibilityExpanded?: boolean;
-    accessibilityHaspopup?: boolean;
+    bgColor?: 'transparent' | 'darkGray' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'red' | undefined;
+    accessibilityControls?: string | undefined;
+    accessibilityExpanded?: boolean | undefined;
+    accessibilityHaspopup?: boolean | undefined;
     accessibilityLabel: string;
 
-    dangerouslySetSvgPath?: { __path: string };
-    disabled?: boolean;
-    href?: string;
-    icon?: Icons;
-    iconColor?: 'gray' | 'darkGray' | 'red' | 'white';
+    dangerouslySetSvgPath?: { __path: string } | undefined;
+    disabled?: boolean | undefined;
+    href?: string | undefined;
+    icon?: Icons | undefined;
+    iconColor?: 'gray' | 'darkGray' | 'red' | 'white' | undefined;
     onClick?: AbstractEventHandler<
         | React.MouseEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLAnchorElement>
         | React.MouseEvent<HTMLButtonElement>
         | React.KeyboardEvent<HTMLButtonElement>,
-        { disableOnNavigation?: () => void }
-    >;
-    padding?: 1 | 2 | 3 | 4 | 5;
-    rel?: 'none' | 'nofollow';
-    role?: 'button' | 'link';
-    selected?: boolean;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    tabIndex?: -1 | 0;
-    target?: null | 'self' | 'blank';
+        { disableOnNavigation?: (() => void) | undefined }
+    > | undefined;
+    padding?: 1 | 2 | 3 | 4 | 5 | undefined;
+    rel?: 'none' | 'nofollow' | undefined;
+    role?: 'button' | 'link' | undefined;
+    selected?: boolean | undefined;
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | undefined;
+    tabIndex?: -1 | 0 | undefined;
+    target?: null | 'self' | 'blank' | undefined;
 }
 
 /**
@@ -807,19 +807,19 @@ export interface IconButtonProps {
 export interface ImageProps {
     alt: string;
     color: string;
-    elementTiming?: string;
+    elementTiming?: string | undefined;
     naturalHeight: number;
     naturalWidth: number;
     src: string;
-    children?: React.ReactNode;
-    fit?: 'cover' | 'contain' | 'none';
-    importance?: 'high' | 'low' | 'auto';
-    loading?: 'eager' | 'lazy' | 'auto';
-    onError?: () => void;
-    onLoad?: () => void;
-    role?: 'img' | 'presentation';
-    sizes?: string;
-    srcSet?: string;
+    children?: React.ReactNode | undefined;
+    fit?: 'cover' | 'contain' | 'none' | undefined;
+    importance?: 'high' | 'low' | 'auto' | undefined;
+    loading?: 'eager' | 'lazy' | 'auto' | undefined;
+    onError?: (() => void) | undefined;
+    onLoad?: (() => void) | undefined;
+    role?: 'img' | 'presentation' | undefined;
+    sizes?: string | undefined;
+    srcSet?: string | undefined;
 }
 
 /**
@@ -828,7 +828,7 @@ export interface ImageProps {
  */
 export interface LabelProps {
     htmlFor: string;
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
 
 /**
@@ -837,7 +837,7 @@ export interface LabelProps {
  */
 export interface LayerProps {
     children: React.ReactNode;
-    zIndex?: Indexable;
+    zIndex?: Indexable | undefined;
 }
 
 /**
@@ -848,7 +848,7 @@ export interface LetterboxProps {
     contentAspectRatio: number;
     height: number;
     width: number;
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
 
 /**
@@ -857,23 +857,23 @@ export interface LetterboxProps {
  */
 export interface LinkProps {
     href: string;
-    accessibilityLabel?: string;
-    accessibilitySelected?: boolean;
-    children?: React.ReactNode;
-    hoverStyle?: 'none' | 'underline';
-    id?: string;
-    inline?: boolean;
-    onBlur?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>>;
+    accessibilityLabel?: string | undefined;
+    accessibilitySelected?: boolean | undefined;
+    children?: React.ReactNode | undefined;
+    hoverStyle?: 'none' | 'underline' | undefined;
+    id?: string | undefined;
+    inline?: boolean | undefined;
+    onBlur?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>> | undefined;
     onClick?: AbstractEventHandler<
         React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-        { disableOnNavigation?: () => void }
-    >;
-    onFocus?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>>;
-    rel?: 'none' | 'nofollow';
-    role?: 'tab';
-    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-    tapStyle?: 'none' | 'compress';
-    target?: null | 'self' | 'blank';
+        { disableOnNavigation?: (() => void) | undefined }
+    > | undefined;
+    onFocus?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>> | undefined;
+    rel?: 'none' | 'nofollow' | undefined;
+    role?: 'tab' | undefined;
+    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
+    tapStyle?: 'none' | 'compress' | undefined;
+    target?: null | 'self' | 'blank' | undefined;
 }
 
 /**
@@ -881,12 +881,12 @@ export interface LinkProps {
  * https://gestalt.netlify.app/Mask
  */
 export interface MaskProps {
-    children?: React.ReactNode;
-    height?: number | string;
-    rounding?: 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-    wash?: boolean;
-    width?: number | string;
-    willChangeTransform?: boolean;
+    children?: React.ReactNode | undefined;
+    height?: number | string | undefined;
+    rounding?: 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
+    wash?: boolean | undefined;
+    width?: number | string | undefined;
+    willChangeTransform?: boolean | undefined;
 }
 
 /**
@@ -894,19 +894,19 @@ export interface MaskProps {
  * https://gestalt.netlify.app/Masonry
  */
 export interface MasonryProps<T = any> {
-    comp: React.ComponentType<{ data: T; itemIdx?: number; isMeasuring?: boolean }>;
+    comp: React.ComponentType<{ data: T; itemIdx?: number | undefined; isMeasuring?: boolean | undefined }>;
     items: T[];
-    columnWidth?: number;
-    flexible?: boolean;
-    gutterWidth?: number;
-    layout?: 'MasonryDefaultLayout' | 'MasonryUniformRowLayout';
-    loadItems?: () => void;
+    columnWidth?: number | undefined;
+    flexible?: boolean | undefined;
+    gutterWidth?: number | undefined;
+    layout?: 'MasonryDefaultLayout' | 'MasonryUniformRowLayout' | undefined;
+    loadItems?: (() => void) | undefined;
     measurementStore?: any;
-    minCols?: number;
-    scrollContainer?: () => HTMLElement;
-    virtualBoundsBottom?: number;
-    virtualBoundsTop?: number;
-    virtualize?: boolean;
+    minCols?: number | undefined;
+    scrollContainer?: (() => HTMLElement) | undefined;
+    virtualBoundsBottom?: number | undefined;
+    virtualBoundsTop?: number | undefined;
+    virtualize?: boolean | undefined;
 }
 
 /**
@@ -921,22 +921,22 @@ export interface ModalProps {
      *
      * @default "center"
      */
-    align?: 'center' | 'left';
-    children?: React.ReactNode;
+    align?: 'center' | 'left' | undefined;
+    children?: React.ReactNode | undefined;
     /**
      * Close the modal when you click outside of it
      *
      * @default true
      */
-    closeOnOutsideClick?: boolean;
-    footer?: React.ReactNode;
-    heading?: React.ReactNode;
-    role?: 'alertdialog' | 'dialog';
-    size?: 'sm' | 'md' | 'lg' | number;
+    closeOnOutsideClick?: boolean | undefined;
+    footer?: React.ReactNode | undefined;
+    heading?: React.ReactNode | undefined;
+    role?: 'alertdialog' | 'dialog' | undefined;
+    size?: 'sm' | 'md' | 'lg' | number | undefined;
     /**
      * Only renders with `heading` strings
      */
-    subHeading?: string;
+    subHeading?: string | undefined;
 }
 
 /**
@@ -945,10 +945,10 @@ export interface ModalProps {
  */
 export interface ModuleProps {
     id: string;
-    icon?: Icons;
-    iconAccessibilityLabel?: string;
-    title?: string;
-    type?: 'error' | 'info';
+    icon?: Icons | undefined;
+    iconAccessibilityLabel?: string | undefined;
+    title?: string | undefined;
+    type?: 'error' | 'info' | undefined;
 }
 
 /**
@@ -961,14 +961,14 @@ export interface ModuleExpandableProps {
     id: string;
     items: ReadonlyArray<{
         title: string;
-        icon?: Icons;
-        summary?: ReadonlyArray<string>;
-        type?: 'info' | 'error';
-        iconAccessibilityLabel?: string;
-        children?: React.ReactNode;
+        icon?: Icons | undefined;
+        summary?: ReadonlyArray<string> | undefined;
+        type?: 'info' | 'error' | undefined;
+        iconAccessibilityLabel?: string | undefined;
+        children?: React.ReactNode | undefined;
     }>;
-    expandedIndex?: number | null;
-    onExpandedChange?: (expandedIndex: number | null) => void;
+    expandedIndex?: number | null | undefined;
+    onExpandedChange?: ((expandedIndex: number | null) => void) | undefined;
 }
 
 /**
@@ -976,7 +976,7 @@ export interface ModuleExpandableProps {
  * https://gestalt.netlify.app/OnLinkNavigationProvider
  */
 export interface OnLinkNavigationProviderProps {
-    onNavigation?: OnNavigationType;
+    onNavigation?: OnNavigationType | undefined;
 }
 
 /**
@@ -985,10 +985,10 @@ export interface OnLinkNavigationProviderProps {
  */
 export interface PageHeaderProps {
     title: string;
-    maxWidth?: number | string;
-    primaryAction?: React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip>;
-    secondaryAction?: React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip>;
-    subtext?: string;
+    maxWidth?: number | string | undefined;
+    primaryAction?: React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip> | undefined;
+    secondaryAction?: React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip> | undefined;
+    subtext?: string | undefined;
 }
 
 /**
@@ -996,17 +996,17 @@ export interface PageHeaderProps {
  * https://gestalt.netlify.app/Pog
  */
 export interface PogProps {
-    accessibilityLabel?: string;
-    active?: boolean;
-    bgColor?: 'transparent' | 'darkGray' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'red';
-    dangerouslySetSvgPath?: { __path: string };
-    focused?: boolean;
-    hovered?: boolean;
-    icon?: Icons;
-    iconColor?: 'gray' | 'darkGray' | 'red' | 'white';
-    padding?: 1 | 2 | 3 | 4 | 5;
-    selected?: boolean;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    accessibilityLabel?: string | undefined;
+    active?: boolean | undefined;
+    bgColor?: 'transparent' | 'darkGray' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'red' | undefined;
+    dangerouslySetSvgPath?: { __path: string } | undefined;
+    focused?: boolean | undefined;
+    hovered?: boolean | undefined;
+    icon?: Icons | undefined;
+    iconColor?: 'gray' | 'darkGray' | 'red' | 'white' | undefined;
+    padding?: 1 | 2 | 3 | 4 | 5 | undefined;
+    selected?: boolean | undefined;
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | undefined;
 }
 
 /**
@@ -1016,14 +1016,14 @@ export interface PogProps {
 export interface PopoverProps {
     anchor: HTMLElement; // ideally a HTMLAnchorElement
     onDismiss: () => void;
-    children?: React.ReactNode;
-    color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray';
-    id?: string;
-    idealDirection?: FourDirections;
-    positionRelativeToAnchor?: boolean;
-    shouldFocus?: boolean;
-    showCaret?: boolean;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number;
+    children?: React.ReactNode | undefined;
+    color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray' | undefined;
+    id?: string | undefined;
+    idealDirection?: FourDirections | undefined;
+    positionRelativeToAnchor?: boolean | undefined;
+    shouldFocus?: boolean | undefined;
+    showCaret?: boolean | undefined;
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number | undefined;
 }
 
 /**
@@ -1031,8 +1031,8 @@ export interface PopoverProps {
  * https://gestalt.netlify.app/Pulsar
  */
 export interface PulsarProps {
-    paused?: boolean;
-    size?: number;
+    paused?: boolean | undefined;
+    size?: number | undefined;
 }
 
 /**
@@ -1042,14 +1042,14 @@ export interface PulsarProps {
 export interface RadioButtonProps {
     id: string;
     onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
-    checked?: boolean;
-    disabled?: boolean;
-    image?: React.ReactNode;
-    label?: string;
-    name?: string;
-    size?: 'sm' | 'md';
-    subtext?: string;
-    value?: string;
+    checked?: boolean | undefined;
+    disabled?: boolean | undefined;
+    image?: React.ReactNode | undefined;
+    label?: string | undefined;
+    name?: string | undefined;
+    size?: 'sm' | 'md' | undefined;
+    subtext?: string | undefined;
+    value?: string | undefined;
 }
 
 /**
@@ -1057,21 +1057,21 @@ export interface RadioButtonProps {
  * https://gestalt.netlify.app/Row
  */
 export interface RowProps {
-    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
-    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-    children?: React.ReactNode;
-    fit?: boolean;
-    flex?: 'grow' | 'shrink' | 'none';
-    gap?: UnsignedUpTo12;
-    height?: number | string;
-    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
-    maxHeight?: number | string;
-    maxWidth?: number | string;
-    minHeight?: number | string;
-    minWidth?: number | string;
-    width?: number | string;
-    wrap?: boolean;
+    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch' | undefined;
+    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    children?: React.ReactNode | undefined;
+    fit?: boolean | undefined;
+    flex?: 'grow' | 'shrink' | 'none' | undefined;
+    gap?: UnsignedUpTo12 | undefined;
+    height?: number | string | undefined;
+    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | undefined;
+    maxHeight?: number | string | undefined;
+    maxWidth?: number | string | undefined;
+    minHeight?: number | string | undefined;
+    minWidth?: number | string | undefined;
+    width?: number | string | undefined;
+    wrap?: boolean | undefined;
 }
 
 /**
@@ -1082,15 +1082,15 @@ export interface SearchFieldProps {
     accessibilityLabel: string;
     id: string;
     onChange: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
-    autoComplete?: 'on' | 'off' | 'username' | 'name';
-    errorMessage?: string;
-    onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement> }) => void;
-    onFocus?: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
-    onKeyDown?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
-    placeholder?: string;
-    size?: 'md' | 'lg';
-    value?: string;
-    label?: string;
+    autoComplete?: 'on' | 'off' | 'username' | 'name' | undefined;
+    errorMessage?: string | undefined;
+    onBlur?: ((args: { event: React.SyntheticEvent<HTMLInputElement> }) => void) | undefined;
+    onFocus?: ((args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void) | undefined;
+    onKeyDown?: ((args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void) | undefined;
+    placeholder?: string | undefined;
+    size?: 'md' | 'lg' | undefined;
+    value?: string | undefined;
+    label?: string | undefined;
 }
 
 /**
@@ -1101,8 +1101,8 @@ export interface SegmentedControlProps {
     items: React.ReactNode[];
     onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeIndex: number }) => void;
     selectedItemIndex: number;
-    responsive?: boolean;
-    size?: 'md' | 'lg';
+    responsive?: boolean | undefined;
+    size?: 'md' | 'lg' | undefined;
 }
 
 /**
@@ -1113,14 +1113,14 @@ export interface SelectListProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLElement>; value: string }) => void;
     options: ReadonlyArray<{ label: string; value: string }>;
-    disabled?: boolean;
-    errorMessage?: string;
-    helperText?: string;
-    label?: string;
-    name?: string;
-    placeholder?: string;
-    size?: 'md' | 'lg';
-    value?: string;
+    disabled?: boolean | undefined;
+    errorMessage?: string | undefined;
+    helperText?: string | undefined;
+    label?: string | undefined;
+    name?: string | undefined;
+    placeholder?: string | undefined;
+    size?: 'md' | 'lg' | undefined;
+    value?: string | undefined;
 }
 
 /**
@@ -1132,12 +1132,12 @@ export interface SheetProps {
     accessibilityDismissButtonLabel: string;
     accessibilitySheetLabel: string;
     onDismiss: () => void;
-    children?: SheetNodeOrRenderProp;
-    closeOnOutsideClick?: boolean;
-    footer?: SheetNodeOrRenderProp;
-    heading?: string;
-    size?: 'sm' | 'md' | 'lg';
-    subHeading?: SheetNodeOrRenderProp;
+    children?: SheetNodeOrRenderProp | undefined;
+    closeOnOutsideClick?: boolean | undefined;
+    footer?: SheetNodeOrRenderProp | undefined;
+    heading?: string | undefined;
+    size?: 'sm' | 'md' | 'lg' | undefined;
+    subHeading?: SheetNodeOrRenderProp | undefined;
 }
 
 /**
@@ -1147,8 +1147,8 @@ export interface SheetProps {
 export interface SpinnerProps {
     accessibilityLabel: string;
     show: boolean;
-    delay?: boolean;
-    size?: 'sm' | 'md';
+    delay?: boolean | undefined;
+    size?: 'sm' | 'md' | undefined;
 }
 
 /**
@@ -1156,21 +1156,21 @@ export interface SpinnerProps {
  * https://gestalt.netlify.app/Stack
  */
 export interface StackProps {
-    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
-    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-    children?: React.ReactNode;
-    fit?: boolean;
-    flex?: 'grow' | 'shrink' | 'none';
-    gap?: UnsignedUpTo12;
-    height?: number | string;
-    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
-    maxHeight?: number | string;
-    maxWidth?: number | string;
-    minHeight?: number | string;
-    minWidth?: number | string;
-    width?: number | string;
-    wrap?: boolean;
+    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch' | undefined;
+    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    children?: React.ReactNode | undefined;
+    fit?: boolean | undefined;
+    flex?: 'grow' | 'shrink' | 'none' | undefined;
+    gap?: UnsignedUpTo12 | undefined;
+    height?: number | string | undefined;
+    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | undefined;
+    maxHeight?: number | string | undefined;
+    maxWidth?: number | string | undefined;
+    minHeight?: number | string | undefined;
+    minWidth?: number | string | undefined;
+    width?: number | string | undefined;
+    wrap?: boolean | undefined;
 }
 
 /**
@@ -1178,13 +1178,13 @@ export interface StackProps {
  * https://gestalt.netlify.app/Sticky
  */
 export interface StickyProps {
-    bottom?: number | string;
-    children?: React.ReactNode;
-    height?: number;
-    left?: number | string;
-    right?: number | string;
-    top?: number | string;
-    zIndex?: Indexable;
+    bottom?: number | string | undefined;
+    children?: React.ReactNode | undefined;
+    height?: number | undefined;
+    left?: number | string | undefined;
+    right?: number | string | undefined;
+    top?: number | string | undefined;
+    zIndex?: Indexable | undefined;
 }
 
 /**
@@ -1194,9 +1194,9 @@ export interface StickyProps {
 export interface SwitchProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: boolean }) => void;
-    disabled?: boolean;
-    name?: string;
-    switched?: boolean;
+    disabled?: boolean | undefined;
+    name?: string | undefined;
+    switched?: boolean | undefined;
 }
 
 /**
@@ -1204,36 +1204,36 @@ export interface SwitchProps {
  * https://gestalt.netlify.app/Table
  */
 export interface TableProps {
-    borderStyle?: 'sm' | 'none';
-    children?: React.ReactNode;
-    maxHeight?: number | string;
+    borderStyle?: 'sm' | 'none' | undefined;
+    children?: React.ReactNode | undefined;
+    maxHeight?: number | string | undefined;
 }
 
 export interface TableBodyProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
 
 export interface TableCellProps {
-    children?: React.ReactNode;
-    colSpan?: number;
-    rowSpan?: number;
+    children?: React.ReactNode | undefined;
+    colSpan?: number | undefined;
+    rowSpan?: number | undefined;
 }
 
 export interface TableFooterProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
 
 export interface TableHeaderProps {
-    children?: React.ReactNode;
-    sticky?: boolean;
+    children?: React.ReactNode | undefined;
+    sticky?: boolean | undefined;
 }
 
 export interface TableHeaderCellProps extends TableCellProps {
-    scope?: 'col' | 'row' | 'colgroup' | 'rowgroup';
+    scope?: 'col' | 'row' | 'colgroup' | 'rowgroup' | undefined;
 }
 
 export interface TableRowProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
 
 export interface TableRowExpandableProps {
@@ -1241,14 +1241,14 @@ export interface TableRowExpandableProps {
     accessibilityExpandLabel: string;
     expandedContents: React.ReactNode;
     id: string;
-    children?: React.ReactNode;
-    hoverStyle?: 'none' | 'gray';
+    children?: React.ReactNode | undefined;
+    hoverStyle?: 'none' | 'gray' | undefined;
     onExpand?: AbstractEventHandler<
         | React.MouseEvent<HTMLButtonElement>
         | React.MouseEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLButtonElement>
-    >;
+    > | undefined;
 }
 
 export interface TableSortableHeaderCellProps extends TableHeaderCellProps {
@@ -1273,11 +1273,11 @@ export interface TabsProps {
     tabs: ReadonlyArray<{
         href: string;
         text: React.ReactNode;
-        id?: string;
-        indicator?: 'dot' | number;
-        ref?: { current?: HTMLElement };
+        id?: string | undefined;
+        indicator?: 'dot' | number | undefined;
+        ref?: { current?: HTMLElement | undefined } | undefined;
     }>;
-    wrap?: boolean;
+    wrap?: boolean | undefined;
 }
 
 /**
@@ -1294,22 +1294,22 @@ export interface TagProps {
      *
      * @default false
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * Set an error state on the tag. The message is used as an accessibility label for the error icon.
      * Keep it short so it doesn't overwhelm the user.
      */
-    errorMessage?: string;
+    errorMessage?: string | undefined;
     /**
      * Callback fired when the tag is removed. Should handle state updates to stop rendering the component.
      * Required unless the tag is in a disabled state.
      */
-    onRemove?: AbstractEventHandler<React.MouseEvent<HTMLButtonElement>>;
+    onRemove?: AbstractEventHandler<React.MouseEvent<HTMLButtonElement>> | undefined;
     /**
      * Accessibility label for the icon button to remove the tag, ideally something like "Remove [Tag Name] Tag".
      * Required unless the tag is in a disabled state.
      */
-    removeIconAccessibilityLabel?: string;
+    removeIconAccessibilityLabel?: string | undefined;
 }
 
 /**
@@ -1317,34 +1317,34 @@ export interface TagProps {
  * https://gestalt.netlify.app/TapArea
  */
 export interface TapAreaProps {
-    accessibilityControls?: string;
-    accessibilityExpanded?: boolean;
-    accessibilityHaspopup?: boolean;
-    accessibilityLabel?: string;
-    children?: React.ReactNode;
-    disabled?: boolean;
-    fullHeight?: boolean;
-    fullWidth?: boolean;
-    href?: string;
-    mouseCursor?: 'copy' | 'grab' | 'grabbing' | 'move' | 'noDrop' | 'pointer' | 'zoomIn' | 'zoomOut';
-    onBlur?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>>;
-    onFocus?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>>;
-    onMouseDown?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>>;
-    onMouseEnter?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>>;
-    onMouseLeave?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>>;
+    accessibilityControls?: string | undefined;
+    accessibilityExpanded?: boolean | undefined;
+    accessibilityHaspopup?: boolean | undefined;
+    accessibilityLabel?: string | undefined;
+    children?: React.ReactNode | undefined;
+    disabled?: boolean | undefined;
+    fullHeight?: boolean | undefined;
+    fullWidth?: boolean | undefined;
+    href?: string | undefined;
+    mouseCursor?: 'copy' | 'grab' | 'grabbing' | 'move' | 'noDrop' | 'pointer' | 'zoomIn' | 'zoomOut' | undefined;
+    onBlur?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
+    onFocus?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
+    onMouseDown?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
+    onMouseEnter?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
+    onMouseLeave?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
     onTap?: AbstractEventHandler<
         | React.MouseEvent<HTMLDivElement>
         | React.KeyboardEvent<HTMLDivElement>
         | React.MouseEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLAnchorElement>,
-        { disableOnNavigation?: () => void }
-    >;
-    rel?: 'none' | 'nofollow';
-    role?: 'button' | 'link';
-    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-    tabIndex?: -1 | 0;
-    tapStyle?: 'none' | 'compress';
-    target?: null | 'self' | 'blank';
+        { disableOnNavigation?: (() => void) | undefined }
+    > | undefined;
+    rel?: 'none' | 'nofollow' | undefined;
+    role?: 'button' | 'link' | undefined;
+    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
+    tabIndex?: -1 | 0 | undefined;
+    tapStyle?: 'none' | 'compress' | undefined;
+    target?: null | 'self' | 'blank' | undefined;
 }
 
 /**
@@ -1352,8 +1352,8 @@ export interface TapAreaProps {
  * https://gestalt.netlify.app/Text
  */
 export interface TextProps {
-    align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight';
-    children?: React.ReactNode;
+    align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight' | undefined;
+    children?: React.ReactNode | undefined;
     color?:
         | 'blue'
         | 'darkGray'
@@ -1371,14 +1371,14 @@ export interface TextProps {
         | 'purple'
         | 'red'
         | 'watermelon'
-        | 'white';
-    inline?: boolean;
-    italic?: boolean;
-    overflow?: 'normal' | 'breakWord' | 'noWrap';
-    size?: 'sm' | 'md' | 'lg';
-    truncate?: boolean;
-    underline?: boolean;
-    weight?: 'bold' | 'normal';
+        | 'white' | undefined;
+    inline?: boolean | undefined;
+    italic?: boolean | undefined;
+    overflow?: 'normal' | 'breakWord' | 'noWrap' | undefined;
+    size?: 'sm' | 'md' | 'lg' | undefined;
+    truncate?: boolean | undefined;
+    underline?: boolean | undefined;
+    weight?: 'bold' | 'normal' | undefined;
 }
 
 /**
@@ -1388,25 +1388,25 @@ export interface TextProps {
 export interface TextAreaProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
-    disabled?: boolean;
-    errorMessage?: React.ReactNode;
-    helperText?: string;
-    label?: string;
-    name?: string;
-    onBlur?: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
-    onFocus?: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
-    onKeyDown?: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
-    placeholder?: string;
+    disabled?: boolean | undefined;
+    errorMessage?: React.ReactNode | undefined;
+    helperText?: string | undefined;
+    label?: string | undefined;
+    name?: string | undefined;
+    onBlur?: ((args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
+    onFocus?: ((args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
+    onKeyDown?: ((args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
+    placeholder?: string | undefined;
     /**
      * Number of text rows to display.
      * Note that tags take up more space, and will show fewer rows than specified.
      */
-    rows?: number;
+    rows?: number | undefined;
     /**
      * List of tags to display in the component
      */
-    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
-    value?: string;
+    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>> | undefined;
+    value?: string | undefined;
 }
 
 /**
@@ -1416,37 +1416,37 @@ export interface TextAreaProps {
 export interface TextFieldProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
-    autoComplete?: 'current-password' | 'on' | 'off' | 'username' | 'new-password' | 'email';
+    autoComplete?: 'current-password' | 'on' | 'off' | 'username' | 'new-password' | 'email' | undefined;
     /**
      * @default false
      */
-    disabled?: boolean;
-    errorMessage?: React.ReactNode;
+    disabled?: boolean | undefined;
+    errorMessage?: React.ReactNode | undefined;
     /**
      * More information about how to complete the form field
      */
-    helperText?: string;
-    label?: string;
-    name?: string;
-    onBlur?: (args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void;
-    onFocus?: (args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void;
-    onKeyDown?: (args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: string }) => void;
-    placeholder?: string;
+    helperText?: string | undefined;
+    label?: string | undefined;
+    name?: string | undefined;
+    onBlur?: ((args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void) | undefined;
+    onFocus?: ((args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void) | undefined;
+    onKeyDown?: ((args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: string }) => void) | undefined;
+    placeholder?: string | undefined;
     /**
      * md: 40px, lg: 48px
      *
      * @default "md"
      */
-    size?: 'md' | 'lg';
+    size?: 'md' | 'lg' | undefined;
     /**
      * List of tags to display in the component
      */
-    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
+    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>> | undefined;
     /**
      * @default "text"
      */
-    type?: 'date' | 'email' | 'number' | 'password' | 'text' | 'url';
-    value?: string;
+    type?: 'date' | 'email' | 'number' | 'password' | 'text' | 'url' | undefined;
+    value?: string | undefined;
 }
 
 /**
@@ -1454,11 +1454,11 @@ export interface TextFieldProps {
  * https://gestalt.netlify.app/Toast
  */
 export interface ToastProps {
-    button?: React.ReactNode;
-    color?: 'white' | 'red';
-    text?: string | React.ReactNode;
-    thumbnail?: React.ReactNode;
-    thumbnailShape?: 'circle' | 'rectangle' | 'square';
+    button?: React.ReactNode | undefined;
+    color?: 'white' | 'red' | undefined;
+    text?: string | React.ReactNode | undefined;
+    thumbnail?: React.ReactNode | undefined;
+    thumbnailShape?: 'circle' | 'rectangle' | 'square' | undefined;
 }
 
 /**
@@ -1468,10 +1468,10 @@ export interface ToastProps {
 export interface TooltipProps {
     children: React.ReactNode;
     text: string;
-    idealDirection?: FourDirections;
-    inline?: boolean;
-    link?: React.ReactNode;
-    zIndex?: Indexable;
+    idealDirection?: FourDirections | undefined;
+    inline?: boolean | undefined;
+    link?: React.ReactNode | undefined;
+    zIndex?: Indexable | undefined;
 }
 
 /**
@@ -1485,14 +1485,14 @@ export interface TypeaheadProps {
         label: string;
         value: string;
     }>;
-    label?: string;
-    onBlur?: (args: {
+    label?: string | undefined;
+    onBlur?: ((args: {
         event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>;
         value: string;
-    }) => void;
-    onChange?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
-    onFocus?: (args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void;
-    onSelect?: (args: {
+    }) => void) | undefined;
+    onChange?: ((args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void) | undefined;
+    onFocus?: ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void) | undefined;
+    onSelect?: ((args: {
         event: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
         item:
             | {
@@ -1501,15 +1501,15 @@ export interface TypeaheadProps {
               }
             | null
             | undefined;
-    }) => void;
-    placeholder?: string;
-    size?: 'md' | 'lg';
+    }) => void) | undefined;
+    placeholder?: string | undefined;
+    size?: 'md' | 'lg' | undefined;
     /**
      * List of tags to display in the component
      */
-    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
-    value?: string;
-    zIndex?: Indexable;
+    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>> | undefined;
+    value?: string | undefined;
+    zIndex?: Indexable | undefined;
 }
 
 /**
@@ -1521,18 +1521,18 @@ export interface UpsellProps {
     dismissButton?: {
         accessibilityLabel: string;
         onDismiss: () => void;
-    };
+    } | undefined;
     imageData?: {
         component: React.ReactElement<any, typeof Image | typeof Icon>;
-        width?: number;
+        width?: number | undefined;
         mask?: {
             rounding: 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
             wash: boolean;
-        };
-    };
-    primaryAction?: ActionData;
-    secondaryAction?: ActionData;
-    title?: string;
+        } | undefined;
+    } | undefined;
+    primaryAction?: ActionData | undefined;
+    secondaryAction?: ActionData | undefined;
+    title?: string | undefined;
 }
 
 export interface UpsellFormProps {
@@ -1544,7 +1544,7 @@ export interface UpsellFormProps {
     >;
     submitButtonText: string;
     submitButtonAccessibilityLabel: string;
-    submitButtonDisabled?: boolean;
+    submitButtonDisabled?: boolean | undefined;
 }
 
 /**
@@ -1552,44 +1552,44 @@ export interface UpsellFormProps {
  * https://gestalt.netlify.app/Video
  */
 export interface VideoProps {
-    accessibilityMaximizeLabel?: string;
-    accessibilityMinimizeLabel?: string;
-    accessibilityMuteLabel?: string;
-    accessibilityPauseLabel?: string;
-    accessibilityPlayLabel?: string;
-    accessibilityUnmuteLabel?: string;
+    accessibilityMaximizeLabel?: string | undefined;
+    accessibilityMinimizeLabel?: string | undefined;
+    accessibilityMuteLabel?: string | undefined;
+    accessibilityPauseLabel?: string | undefined;
+    accessibilityPlayLabel?: string | undefined;
+    accessibilityUnmuteLabel?: string | undefined;
     aspectRatio: number;
     captions: string;
-    playbackRate?: number;
-    playing?: boolean;
-    preload?: 'auto' | 'metadata' | 'none';
+    playbackRate?: number | undefined;
+    playing?: boolean | undefined;
+    preload?: 'auto' | 'metadata' | 'none' | undefined;
     src: string | ReadonlyArray<{ type: 'video/m3u8' | 'video/mp4' | 'video/ogg'; src: string }>;
-    volume?: number;
-    children?: Node;
-    controls?: boolean;
-    crossOrigin?: 'anonymous' | 'use-credentials';
-    loop?: boolean;
-    objectFit?: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down';
-    onDurationChange?: (args: { event: React.SyntheticEvent<HTMLVideoElement>; duration: number }) => void;
-    onEnded?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
-    onFullscreenChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { fullscreen: boolean }>;
-    onLoadedChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { loaded: number }>;
-    onPlay?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>>;
-    onPlayheadDown?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>>;
-    onPlayheadUp?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>>;
-    onPause?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>>;
-    onReady?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
-    onSeek?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
-    onTimeChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { time: number }>;
-    onVolumeChange?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>, { volume: number }>;
-    onError?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
-    onLoadStart?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
-    onPlaying?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
-    onSeeking?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
-    onStalled?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
-    onWaiting?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
-    playsInline?: boolean;
-    poster?: string;
+    volume?: number | undefined;
+    children?: Node | undefined;
+    controls?: boolean | undefined;
+    crossOrigin?: 'anonymous' | 'use-credentials' | undefined;
+    loop?: boolean | undefined;
+    objectFit?: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down' | undefined;
+    onDurationChange?: ((args: { event: React.SyntheticEvent<HTMLVideoElement>; duration: number }) => void) | undefined;
+    onEnded?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>> | undefined;
+    onFullscreenChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { fullscreen: boolean }> | undefined;
+    onLoadedChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { loaded: number }> | undefined;
+    onPlay?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>> | undefined;
+    onPlayheadDown?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>> | undefined;
+    onPlayheadUp?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>> | undefined;
+    onPause?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>> | undefined;
+    onReady?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>> | undefined;
+    onSeek?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>> | undefined;
+    onTimeChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { time: number }> | undefined;
+    onVolumeChange?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>, { volume: number }> | undefined;
+    onError?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>> | undefined;
+    onLoadStart?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>> | undefined;
+    onPlaying?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>> | undefined;
+    onSeeking?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>> | undefined;
+    onStalled?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>> | undefined;
+    onWaiting?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>> | undefined;
+    playsInline?: boolean | undefined;
+    poster?: string | undefined;
 }
 
 /**

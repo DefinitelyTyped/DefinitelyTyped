@@ -20,18 +20,18 @@ declare module '@keystonejs/app-graphql' {
     }
 
     interface GraphQLAppOptions {
-        apiPath?: string;
-        graphiqlPath?: string;
-        schemaName?: string;
+        apiPath?: string | undefined;
+        graphiqlPath?: string | undefined;
+        schemaName?: string | undefined;
         apollo?: {
-            validationRules?: [];
-            introspection?: boolean;
-        };
+            validationRules?: [] | undefined;
+            introspection?: boolean | undefined;
+        } | undefined;
     }
 
     interface PrepareMiddlewareOptions {
         keystone: Keystone;
-        dev?: boolean;
+        dev?: boolean | undefined;
     }
 
     class GraphQLApp {

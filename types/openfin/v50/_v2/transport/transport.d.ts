@@ -41,7 +41,7 @@ interface Transport {
 export declare class Message<T> {
     action: string;
     payload: T;
-    correlationId?: number;
+    correlationId?: number | undefined;
 }
 export declare class EventMessage implements Message<RuntimeEvent> {
     action: 'process-desktop-event';

@@ -27,27 +27,27 @@ export interface FreeBusy {
 // Typed as string | ParamList by default, exceptions listed below
 export type CalendarComponent = {
     type: CalendarComponentType;
-    summary?: string;
-    description?: string;
-    url?: string;
-    uid?: string;
-    location?: string;
-    start?: Date;
-    end?: Date;
-    rrule?: RRule;
-    exdate?: { [datestr: string]: Date };
-    recurrences?: CalendarComponent[];
-    class?: string;
-    transparency?: string;
-    geo?: Geo;
-    completion?: string;
-    completed?: Date;
-    categories?: string[];
-    freebusy?: FreeBusy;
-    dtstamp?: Date;
-    created?: Date;
-    lastmodified?: Date;
-    recurrenceid?: Date;
+    summary?: string | undefined;
+    description?: string | undefined;
+    url?: string | undefined;
+    uid?: string | undefined;
+    location?: string | undefined;
+    start?: Date | undefined;
+    end?: Date | undefined;
+    rrule?: RRule | undefined;
+    exdate?: { [datestr: string]: Date } | undefined;
+    recurrences?: CalendarComponent[] | undefined;
+    class?: string | undefined;
+    transparency?: string | undefined;
+    geo?: Geo | undefined;
+    completion?: string | undefined;
+    completed?: Date | undefined;
+    categories?: string[] | undefined;
+    freebusy?: FreeBusy | undefined;
+    dtstamp?: Date | undefined;
+    created?: Date | undefined;
+    lastmodified?: Date | undefined;
+    recurrenceid?: Date | undefined;
 } & { [prop: string]: string | ParamList | undefined };
 
 export interface Geo {

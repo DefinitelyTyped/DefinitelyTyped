@@ -10,15 +10,15 @@ declare namespace Jsen {
     }
 
     export interface JsenSettings {
-        missing$Ref?: boolean;
-        greedy?: boolean;
-        formats?: JsenFormats;
+        missing$Ref?: boolean | undefined;
+        greedy?: boolean | undefined;
+        formats?: JsenFormats | undefined;
         schemas?: any;
     }
 
     export interface JsenBuildSettings {
-        copy?: boolean;
-        additionalProperties?: boolean;
+        copy?: boolean | undefined;
+        additionalProperties?: boolean | undefined;
     }
 
     export interface JsenValidator {
@@ -30,7 +30,7 @@ declare namespace Jsen {
     export interface JsenValidateError {
         path: string;
         keyword: string;
-        message?: string;
+        message?: string | undefined;
     }
 
     export interface JsenUnique {

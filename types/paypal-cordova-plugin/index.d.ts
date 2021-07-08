@@ -344,36 +344,36 @@ interface PayPalConfigurationOptions {
     /**
      * Will be overridden by email used in most recent PayPal login.
      */
-    defaultUserEmail?: string;
+    defaultUserEmail?: string | undefined;
 
     /**
      * Will be overridden by phone country code used in most recent PayPal login
      */
-    defaultUserPhoneCountryCode?: string;
+    defaultUserPhoneCountryCode?: string | undefined;
 
     /**
      * Will be overridden by phone number used in most recent PayPal login.
      * @note If you set defaultUserPhoneNumber, be sure to also set defaultUserPhoneCountryCode.
      */
-    defaultUserPhoneNumber?: string;
+    defaultUserPhoneNumber?: string | undefined;
 
     /**
      * Your company name, as it should be displayed to the user
      * when requesting consent via a PayPalFuturePaymentViewController.
      */
-    merchantName?: string;
+    merchantName?: string | undefined;
 
     /**
      * URL of your company's privacy policy, which will be offered to the user
      * when requesting consent via a PayPalFuturePaymentViewController.
      */
-    merchantPrivacyPolicyURL?: string;
+    merchantPrivacyPolicyURL?: string | undefined;
 
     /**
      * URL of your company's user agreement, which will be offered to the user
      * when requesting consent via a PayPalFuturePaymentViewController.
      */
-    merchantUserAgreementURL?: string;
+    merchantUserAgreementURL?: string | undefined;
 
     /**
      * If set to false, the SDK will only support paying with PayPal, not with credit cards.
@@ -381,7 +381,7 @@ interface PayPalConfigurationOptions {
      * Future payments (via PayPalFuturePaymentViewController) always use PayPal.
      * Defaults to true.
      */
-    acceptCreditCards?: boolean;
+    acceptCreditCards?: boolean | undefined;
 
     /**
      * For single payments, options for the shipping address.
@@ -399,7 +399,7 @@ interface PayPalConfigurationOptions {
      *
      * Defaults to 0 (PayPalShippingAddressOptionNone).
      */
-    payPalShippingAddressOption?: number;
+    payPalShippingAddressOption?: number | undefined;
 
     /**
      * If set to true, then if the user pays via their PayPal account,
@@ -413,7 +413,7 @@ interface PayPalConfigurationOptions {
      *
      * Defaults to true.
      */
-    rememberUser?: boolean;
+    rememberUser?: boolean | undefined;
 
     /**
      * If not set, or if set to nil, defaults to the device's current language setting.
@@ -429,7 +429,7 @@ interface PayPalConfigurationOptions {
      * These localizations are currently included:
      * da,de,en,en_AU,en_GB,en_SV,es,es_MX,fr,he,it,ja,ko,nb,nl,pl,pt,pt_BR,ru,sv,tr,zh-Hans,zh-Hant_HK,zh-Hant_TW.
      */
-    languageOrLocale?: string;
+    languageOrLocale?: string | undefined;
 
     /**
      * Normally, the SDK blurs the screen when the app is backgrounded,
@@ -437,13 +437,13 @@ interface PayPalConfigurationOptions {
      * If your app already does its own blurring upon backgrounding, you might choose to disable this.
      * Defaults to false.
      */
-    disableBlurWhenBackgrounding?: boolean;
+    disableBlurWhenBackgrounding?: boolean | undefined;
 
     /**
      * If you will present the SDK's view controller within a popover, then set this property to true.
      * Defaults to false. (iOS only)
      */
-    presentingInPopover?: boolean;
+    presentingInPopover?: boolean | undefined;
 
     /**
      * Sandbox credentials can be difficult to type on a mobile device. Setting this flag to true will
@@ -452,17 +452,17 @@ interface PayPalConfigurationOptions {
      * This setting will have no effect if the operation mode is production.
      * Defaults to false.
      */
-    forceDefaultsInSandbox?: boolean;
+    forceDefaultsInSandbox?: boolean | undefined;
 
     /**
      * Password to use for sandbox if 'forceDefaultsInSandbox' is set.
      */
-    sandboxUserPassword?: string;
+    sandboxUserPassword?: string | undefined;
 
     /**
      * PIN to use for sandbox if 'forceDefaultsInSandbox' is set.
      */
-    sandboxUserPin?: string;
+    sandboxUserPin?: string | undefined;
 }
 
 //#endregion

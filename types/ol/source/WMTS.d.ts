@@ -11,27 +11,27 @@ import TileImage from './TileImage';
 import WMTSRequestEncoding from './WMTSRequestEncoding';
 
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: null | string;
-    imageSmoothing?: boolean;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    imageSmoothing?: boolean | undefined;
     tileGrid: WMTSTileGrid;
-    projection?: ProjectionLike;
-    reprojectionErrorThreshold?: number;
-    requestEncoding?: WMTSRequestEncoding | string;
+    projection?: ProjectionLike | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    requestEncoding?: WMTSRequestEncoding | string | undefined;
     layer: string;
     style: string;
-    tileClass?: typeof ImageTile;
-    tilePixelRatio?: number;
-    format?: string;
-    version?: string;
+    tileClass?: typeof ImageTile | undefined;
+    tilePixelRatio?: number | undefined;
+    format?: string | undefined;
+    version?: string | undefined;
     matrixSet: string;
     dimensions?: any;
-    url?: string;
-    tileLoadFunction?: LoadFunction;
-    urls?: string[];
-    wrapX?: boolean;
-    transition?: number;
+    url?: string | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    urls?: string[] | undefined;
+    wrapX?: boolean | undefined;
+    transition?: number | undefined;
 }
 export default class WMTS extends TileImage {
     constructor(options: Options);

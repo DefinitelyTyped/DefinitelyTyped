@@ -12,8 +12,8 @@ export interface LintResult {
 }
 
 export interface FormatOptions {
-    indent?: number;
-    colors?: boolean;
+    indent?: number | undefined;
+    colors?: boolean | undefined;
 }
 
 export interface Rule {

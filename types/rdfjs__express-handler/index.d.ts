@@ -24,10 +24,10 @@ interface BaseIriFromRequest {
 }
 
 interface RdfHandlerOptions {
-    factory?: DatasetCoreFactory;
-    formats?: typeof formats;
-    defaultMediaType?: string;
-    baseIriFromRequest?: boolean | BaseIriFromRequest;
+    factory?: DatasetCoreFactory | undefined;
+    formats?: typeof formats | undefined;
+    defaultMediaType?: string | undefined;
+    baseIriFromRequest?: boolean | BaseIriFromRequest | undefined;
 }
 
 interface RdfHandler {

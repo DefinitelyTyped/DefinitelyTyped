@@ -126,8 +126,8 @@ export interface IColumnMetadata {
         length: number;
         type: (() => ISqlType) | ISqlType;
         udt?: any;
-        scale?: number;
-        precision?: number;
+        scale?: number | undefined;
+        precision?: number | undefined;
         nullable: boolean;
         caseSensitive: boolean;
         identity: boolean;
@@ -164,50 +164,50 @@ export declare var ISOLATION_LEVEL: {
 }
 
 export interface IOptions extends tds.ConnectionOptions {
-    beforeConnect?: void;
-    connectionString?: string;
-    enableArithAbort?: boolean;
-    instanceName?: string;
-    trustedConnection?: boolean;
-    useUTC?: boolean;
+    beforeConnect?: void | undefined;
+    connectionString?: string | undefined;
+    enableArithAbort?: boolean | undefined;
+    instanceName?: string | undefined;
+    trustedConnection?: boolean | undefined;
+    useUTC?: boolean | undefined;
 }
 
 export declare var pool: ConnectionPool;
 
 export interface PoolOpts<T> extends Omit<PoolOptions<T>, 'create' | 'destroy' | 'min' | 'max'> {
-    create?: CallbackOrPromise<T>;
-    destroy?: (resource: T) => any;
-    min?: number;
-    max?: number;
+    create?: CallbackOrPromise<T> | undefined;
+    destroy?: ((resource: T) => any) | undefined;
+    min?: number | undefined;
+    max?: number | undefined;
 }
 
 export interface config {
-    driver?: string;
-    user?: string;
-    password?: string;
+    driver?: string | undefined;
+    user?: string | undefined;
+    password?: string | undefined;
     server: string;
-    port?: number;
-    domain?: string;
-    database?: string;
-    connectionTimeout?: number;
-    requestTimeout?: number;
-    stream?: boolean;
-    parseJSON?: boolean;
-    options?: IOptions;
-    pool?: PoolOpts<Connection>;
-    arrayRowMode?: boolean;
+    port?: number | undefined;
+    domain?: string | undefined;
+    database?: string | undefined;
+    connectionTimeout?: number | undefined;
+    requestTimeout?: number | undefined;
+    stream?: boolean | undefined;
+    parseJSON?: boolean | undefined;
+    options?: IOptions | undefined;
+    pool?: PoolOpts<Connection> | undefined;
+    arrayRowMode?: boolean | undefined;
     /**
      * Invoked before opening the connection. The parameter conn is the configured
      * tedious Connection. It can be used for attaching event handlers.
      */
-    beforeConnect?: (conn: Connection) => void
+    beforeConnect?: ((conn: Connection) => void) | undefined
 }
 
 export declare class MSSQLError extends Error {
     constructor(message: Error | string, code?: string);
     public code: string;
     public name: string;
-    public originalError?: Error;
+    public originalError?: Error | undefined;
 }
 
 export declare class ConnectionPool extends events.EventEmitter {
@@ -243,11 +243,11 @@ export declare class ConnectionPool extends events.EventEmitter {
 export declare class ConnectionError extends MSSQLError {}
 
 export interface IColumnOptions {
-    nullable?: boolean;
-    primary?: boolean;
-    identity?: boolean;
-    readOnly?: boolean;
-    length?: number
+    nullable?: boolean | undefined;
+    primary?: boolean | undefined;
+    identity?: boolean | undefined;
+    readOnly?: boolean | undefined;
+    length?: number | undefined
 }
 
 export interface IColumn extends ISqlType {
@@ -271,11 +271,11 @@ export declare class Table {
     public columns: columns;
     public rows: rows;
     public constructor(tableName?: string);
-    public schema?: string;
-    public database?: string;
-    public name?: string;
-    public path?: string;
-    public temporary?: boolean;
+    public schema?: string | undefined;
+    public database?: string | undefined;
+    public name?: string | undefined;
+    public path?: string | undefined;
+    public temporary?: boolean | undefined;
 }
 
 interface IRequestParameters {
@@ -296,13 +296,13 @@ interface IRequestParameters {
  */
 export interface IBulkOptions {
     /** Honors constraints during bulk load, using T-SQL CHECK_CONSTRAINTS. (default: false) */
-    checkConstraints?: boolean;
+    checkConstraints?: boolean | undefined;
     /** Honors insert triggers during bulk load, using the T-SQL FIRE_TRIGGERS. (default: false) */
-    fireTriggers?: boolean;
+    fireTriggers?: boolean | undefined;
     /** Honors null value passed, ignores the default values set on table, using T-SQL KEEP_NULLS. (default: false) */
-    keepNulls?: boolean;
+    keepNulls?: boolean | undefined;
     /** Places a bulk update(BU) lock on table while performing bulk load, using T-SQL TABLOCK. (default: false) */
-    tableLock?: boolean;
+    tableLock?: boolean | undefined;
 }
 
 export declare class Request extends events.EventEmitter {
@@ -346,12 +346,12 @@ export declare class Request extends events.EventEmitter {
 }
 
 export declare class RequestError extends MSSQLError {
-    public number?: number;
-    public lineNumber?: number;
-    public state?: string;
-    public class?: string;
-    public serverName?: string;
-    public procName?: string;
+    public number?: number | undefined;
+    public lineNumber?: number | undefined;
+    public state?: string | undefined;
+    public class?: string | undefined;
+    public serverName?: string | undefined;
+    public procName?: string | undefined;
 }
 
 export declare class Transaction extends events.EventEmitter {

@@ -19,7 +19,7 @@ declare var Acceleration: {
 }
 
 interface AccelerometerOptions {
-    frequency?: number;
+    frequency?: number | undefined;
 }
 
 interface Accelerometer {
@@ -29,28 +29,28 @@ interface Accelerometer {
 }
 
 interface CameraPopoverOptions {
-    x?: number;
-    y?: number;
-    width?: number;
-    height?: number;
-    arrowDir?: number;
+    x?: number | undefined;
+    y?: number | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    arrowDir?: number | undefined;
 }
 declare var CameraPopoverOptions: {
     new(x: number, y: number, width: number, height: number, arrowDir: number): CameraPopoverOptions;
 }
 
 interface CameraOptions {
-    quality?: number;
-    destinationType?: number;
-    sourceType?: number;
-    allowEdit?: boolean;
-    encodingType?: number;
-    targetWidth?: number;
-    targetHeight?: number;
-    mediaType?: number;
-    correctOrientation?: boolean;
-    saveToPhotoAlbum?: boolean;
-    popoverOptions?: CameraPopoverOptions;
+    quality?: number | undefined;
+    destinationType?: number | undefined;
+    sourceType?: number | undefined;
+    allowEdit?: boolean | undefined;
+    encodingType?: number | undefined;
+    targetWidth?: number | undefined;
+    targetHeight?: number | undefined;
+    mediaType?: number | undefined;
+    correctOrientation?: boolean | undefined;
+    saveToPhotoAlbum?: boolean | undefined;
+    popoverOptions?: CameraPopoverOptions | undefined;
 }
 
 interface CameraPictureSourceTypeObject {
@@ -95,14 +95,14 @@ interface Camera {
 }
 
 interface CaptureAudioOptions {
-    limit?: number;
-    duration?: number;
-    mode?: number;
+    limit?: number | undefined;
+    duration?: number | undefined;
+    mode?: number | undefined;
 }
 
 interface CaptureImageOptions {
-    limit?: number;
-    mode?: number;
+    limit?: number | undefined;
+    mode?: number | undefined;
 }
 
 interface MediaFile {
@@ -139,15 +139,15 @@ interface Connection extends EventTarget {
 declare var Connection: Connection;
 
 interface CompassOptions {
-    frequency?: number;
-    filter?: number;
+    frequency?: number | undefined;
+    filter?: number | undefined;
 }
 
 interface CompassHeading {
-    magneticHeading?: number;
-    trueHeading?: number;
-    headingAccuracy?: number;
-    timestamp?: number;
+    magneticHeading?: number | undefined;
+    trueHeading?: number | undefined;
+    headingAccuracy?: number | undefined;
+    timestamp?: number | undefined;
 }
 
 interface CompassError {
@@ -207,8 +207,8 @@ interface Contact {
 }
 
 interface ContactFindOptions {
-    filter?: string;
-    multiple?: boolean;
+    filter?: string | undefined;
+    multiple?: boolean | undefined;
 }
 declare var ContactFindOptions : {
     new(): ContactFindOptions;
@@ -345,11 +345,11 @@ declare var FileTransfer: {
 }
 
 interface FileUploadOptions {
-    fileKey?: string;
-    fileName?: string;
-    mimeType?: string;
+    fileKey?: string | undefined;
+    fileName?: string | undefined;
+    mimeType?: string | undefined;
     params?: any;
-    chunkedMode?: boolean;
+    chunkedMode?: boolean | undefined;
     headers?: any;
 }
 declare var FileUploadOptions: {
@@ -364,7 +364,7 @@ interface FileUploadResult {
 
 interface Flags {
     create: boolean;
-    exclusive?: boolean;
+    exclusive?: boolean | undefined;
 }
 
 /*
@@ -415,9 +415,9 @@ declare var FileTransferError: {
 }
 
 interface GeolocationOptions {
-    enableHighAccuracy?: boolean;
-    timeout?: number;
-    maximumAge?: number;
+    enableHighAccuracy?: boolean | undefined;
+    timeout?: number | undefined;
+    maximumAge?: number | undefined;
 }
 
 interface GlobalizationError {
@@ -443,8 +443,8 @@ interface GlobalizationDate {
 }
 
 interface GlobalizationDateOptions {
-    formatLength?: string;
-    selector?: string;
+    formatLength?: string | undefined;
+    selector?: string | undefined;
 }
 
 interface GlobalizationDatePattern {
@@ -455,12 +455,12 @@ interface GlobalizationDatePattern {
 }
 
 interface GlobalizationDateNameOptions {
-    type?: string;
-    item?: string;
+    type?: string | undefined;
+    item?: string | undefined;
 }
 
 interface GlobalizationNumberOptions {
-    type?: string;
+    type?: string | undefined;
 }
 
 interface GlobalizationNumberPattern {

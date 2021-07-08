@@ -10,8 +10,8 @@ import { FlexboxPropTypes } from '../utils';
  */
 export declare const Reveal: React.StatelessComponent<PaginationProps>;
 export interface PaginationProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    isTiny?: boolean;
-    isSmall?: boolean;
-    isLarge?: boolean;
-    isFullscreen?: boolean;
+    isTiny?: boolean | undefined;
+    isSmall?: boolean | undefined;
+    isLarge?: boolean | undefined;
+    isFullscreen?: boolean | undefined;
 }

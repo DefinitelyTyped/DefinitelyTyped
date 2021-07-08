@@ -47,9 +47,9 @@ declare namespace SigmaJs{
 
     interface Edge {
         [key : string] : any;
-        color?: string;
+        color?: string | undefined;
         id: string;
-        size?: number;
+        size?: number | undefined;
         source: string;
         target: string;
     }
@@ -88,11 +88,11 @@ declare namespace SigmaJs{
     }
 
     interface Image {
-        clip?: number;
-        scale?: number;
-        url?: string;
-        x?: number;
-        y?: number;
+        clip?: number | undefined;
+        scale?: number | undefined;
+        url?: string | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     }
 
     interface Miscellaneous {
@@ -101,14 +101,14 @@ declare namespace SigmaJs{
 
     interface Node {
         [key : string] : any;
-        color?: string;
+        color?: string | undefined;
         id: string;
         image?: any;
-        label?: string;
-        size?: number;
-        type?: string;
-        x?: number;
-        y?: number;
+        label?: string | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     }
 
     interface Parsers {
@@ -129,9 +129,9 @@ declare namespace SigmaJs{
     }
 
     interface RendererConfigs{
-        container?: Element;
-        id?: string;
-        type?: string;
+        container?: Element | undefined;
+        id?: string | undefined;
+        type?: string | undefined;
     }
 
     interface ShapeLibrary {
@@ -162,11 +162,11 @@ declare namespace SigmaJs{
     }
 
     interface SigmaConfigs {
-        container?: Element;
-        graph?: GraphData;
-        id?: string;
-        renderers?: Renderer[];
-        settings?: { [index: string]: any };
+        container?: Element | undefined;
+        graph?: GraphData | undefined;
+        id?: string | undefined;
+        renderers?: Renderer[] | undefined;
+        settings?: { [index: string]: any } | undefined;
     }
 
     interface SigmaFactory {
@@ -184,106 +184,106 @@ declare namespace SigmaJs{
 
     interface Settings {
         // Graph settings
-        clone?: boolean;
-        immutable?: boolean;
-        verbose?: boolean;
+        clone?: boolean | undefined;
+        immutable?: boolean | undefined;
+        verbose?: boolean | undefined;
 
         // Renderers settings
-        defaultNodeType?: string;
-        defaultEdgeType?: string;
-        defaultLabelColor?: string;
-        defaultEdgeColor?: string;
-        defaultNodeColor?: string;
-        defaultLabelSize?: string;
-        edgeColor?: string;
-        minArrowSize?: number;
-        font?: string;
-        fontStyle?: string;
-        labelAlignment?: string;
-        labelColor?: string;
-        labelSize?: string;
-        labelSizeRatio?: string;
-        labelThreshold?: number;
-        webglOversamplingRatio?: number;
+        defaultNodeType?: string | undefined;
+        defaultEdgeType?: string | undefined;
+        defaultLabelColor?: string | undefined;
+        defaultEdgeColor?: string | undefined;
+        defaultNodeColor?: string | undefined;
+        defaultLabelSize?: string | undefined;
+        edgeColor?: string | undefined;
+        minArrowSize?: number | undefined;
+        font?: string | undefined;
+        fontStyle?: string | undefined;
+        labelAlignment?: string | undefined;
+        labelColor?: string | undefined;
+        labelSize?: string | undefined;
+        labelSizeRatio?: string | undefined;
+        labelThreshold?: number | undefined;
+        webglOversamplingRatio?: number | undefined;
 
         // hovered node customizations
-        borderSize?: number;
-        defaultNodeBorderColor?: string;
-        hoverFont?: number;
-        hoverFontStyle?: string;
-        labelHoverShadow?: string;
-        labelHoverShadowColor?: string;
-        nodeHoverColor?: string;
-        defaultNodeHoverColor?: string;
-        labelHoverBGColor?: string;
-        defaultHoverLabelBGColor?: string;
-        labelHoverColor?: string;
-        defaultLabelHoverColor?: string;
-        singleHover?: boolean;
+        borderSize?: number | undefined;
+        defaultNodeBorderColor?: string | undefined;
+        hoverFont?: number | undefined;
+        hoverFontStyle?: string | undefined;
+        labelHoverShadow?: string | undefined;
+        labelHoverShadowColor?: string | undefined;
+        nodeHoverColor?: string | undefined;
+        defaultNodeHoverColor?: string | undefined;
+        labelHoverBGColor?: string | undefined;
+        defaultHoverLabelBGColor?: string | undefined;
+        labelHoverColor?: string | undefined;
+        defaultLabelHoverColor?: string | undefined;
+        singleHover?: boolean | undefined;
 
         // hovered edge customizations
-        edgeHoverColor?: string;
-        edgeHoverSizeRatio?: number;
-        defaultEdgeHoverColor?: string;
-        edgeHoverExtremities?: boolean;
+        edgeHoverColor?: string | undefined;
+        edgeHoverSizeRatio?: number | undefined;
+        defaultEdgeHoverColor?: string | undefined;
+        edgeHoverExtremities?: boolean | undefined;
 
         // Draw settings for labels, edges, and nodes
-        drawLabels?: boolean;
-        drawEdges?: boolean;
-        drawNodes?: boolean;
+        drawLabels?: boolean | undefined;
+        drawEdges?: boolean | undefined;
+        drawNodes?: boolean | undefined;
 
         // Batch edge drawing
-        batchEdgesDrawing?: boolean;
-        hideEdgesOnMove?: boolean;
-        canvasEdgesBatchSize?: number;
-        webglEdgesBatchSize?: number;
+        batchEdgesDrawing?: boolean | undefined;
+        hideEdgesOnMove?: boolean | undefined;
+        canvasEdgesBatchSize?: number | undefined;
+        webglEdgesBatchSize?: number | undefined;
 
         // Rescale settings
-        scalingMode?: string;
-        sideMargin?: number;
+        scalingMode?: string | undefined;
+        sideMargin?: number | undefined;
 
         // max/min node and edge size
-        minEdgeSize?: number;
-        maxEdgeSize?: number;
-        minNodeSize?: number;
-        maxNodeSize?: number;
+        minEdgeSize?: number | undefined;
+        maxEdgeSize?: number | undefined;
+        minNodeSize?: number | undefined;
+        maxNodeSize?: number | undefined;
 
         // Captor settings
-        touchEnabled?: boolean;
-        mouseEnabled?: boolean;
-        mouseWheelEnabled?: boolean;
-        doubleClickEnabled?: boolean;
-        eventsEnabled?: boolean;
-        zoomingRatio?: number;
-        doubleClickZoomingRatio?: number;
-        zoomMin?: number;
-        zoomMax?: number;
-        mouseZoomDuration?: number;
-        doubleClickZoomDuration?: number;
-        mouseInertiaDuration?: number;
-        mouseInertiaRatio?: number;
-        touchInertiaDuration?: number;
-        touchInertiaRatio?: number;
-        doubleClickTimeout?: number;
-        doubleTapTimeout?: number;
-        dragTimeout?: number;
+        touchEnabled?: boolean | undefined;
+        mouseEnabled?: boolean | undefined;
+        mouseWheelEnabled?: boolean | undefined;
+        doubleClickEnabled?: boolean | undefined;
+        eventsEnabled?: boolean | undefined;
+        zoomingRatio?: number | undefined;
+        doubleClickZoomingRatio?: number | undefined;
+        zoomMin?: number | undefined;
+        zoomMax?: number | undefined;
+        mouseZoomDuration?: number | undefined;
+        doubleClickZoomDuration?: number | undefined;
+        mouseInertiaDuration?: number | undefined;
+        mouseInertiaRatio?: number | undefined;
+        touchInertiaDuration?: number | undefined;
+        touchInertiaRatio?: number | undefined;
+        doubleClickTimeout?: number | undefined;
+        doubleTapTimeout?: number | undefined;
+        dragTimeout?: number | undefined;
 
         // Global settings
-        autoResize?: boolean;
+        autoResize?: boolean | undefined;
         autoRescale?: any;
-        enableCamera?: boolean;
-        enableHovering?: boolean;
-        enableEdgeHovering?: boolean;
-        edgeHoverPrecision?: number;
-        rescaleIgnoreSize?: boolean;
-        skipErrors?: boolean;
+        enableCamera?: boolean | undefined;
+        enableHovering?: boolean | undefined;
+        enableEdgeHovering?: boolean | undefined;
+        edgeHoverPrecision?: number | undefined;
+        rescaleIgnoreSize?: boolean | undefined;
+        skipErrors?: boolean | undefined;
 
         // Camera settings
-        nodesPowRatio?: number;
-        edgesPowRatio?: number;
+        nodesPowRatio?: number | undefined;
+        edgesPowRatio?: number | undefined;
 
         // Animation settings
-        animationsTime?: number;
+        animationsTime?: number | undefined;
     }
 
     interface SVG {

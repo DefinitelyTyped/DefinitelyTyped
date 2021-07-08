@@ -674,7 +674,7 @@ declare namespace ReactReconciler {
         ref: null;
         props: {
             value: T;
-            children?: ReactNode;
+            children?: ReactNode | undefined;
         };
     }
 
@@ -690,7 +690,7 @@ declare namespace ReactReconciler {
         ref: null;
         props: {
             children: (value: T) => ReactNode;
-            unstable_observedBits?: number;
+            unstable_observedBits?: number | undefined;
         };
     }
 
@@ -705,13 +705,13 @@ declare namespace ReactReconciler {
         // DEV only
         _currentRenderer?: {
             [key: string]: any;
-        } | null;
+        } | null | undefined;
         _currentRenderer2?: {
             [key: string]: any;
-        } | null;
+        } | null | undefined;
         // This value may be added by application code
         // to improve DEV tooling display names
-        displayName?: string;
+        displayName?: string | undefined;
     }
 
     interface ReactPortal {
@@ -838,35 +838,35 @@ declare namespace ReactReconciler {
         // This tells us how well the tree makes use of sCU for memoization.
         // It is reset to 0 each time we render and only updated when we don't bailout.
         // This field is only set when the enableProfilerTimer flag is enabled.
-        actualDuration?: number;
+        actualDuration?: number | undefined;
 
         // If the Fiber is currently active in the "render" phase,
         // This marks the time at which the work began.
         // This field is only set when the enableProfilerTimer flag is enabled.
-        actualStartTime?: number;
+        actualStartTime?: number | undefined;
 
         // Duration of the most recent render time for this Fiber.
         // This value is not updated when we bailout for memoization purposes.
         // This field is only set when the enableProfilerTimer flag is enabled.
-        selfBaseDuration?: number;
+        selfBaseDuration?: number | undefined;
 
         // Sum of base times for all descendants of this Fiber.
         // This value bubbles up during the "complete" phase.
         // This field is only set when the enableProfilerTimer flag is enabled.
-        treeBaseDuration?: number;
+        treeBaseDuration?: number | undefined;
 
         // Conceptual aliases
         // workInProgress : Fiber ->  alternate The alternate used for reuse happens
         // to be the same as work in progress.
         // __DEV__ only
-        _debugID?: number;
-        _debugSource?: Source | null;
-        _debugOwner?: Fiber | null;
-        _debugIsCurrentlyTiming?: boolean;
-        _debugNeedsRemount?: boolean;
+        _debugID?: number | undefined;
+        _debugSource?: Source | null | undefined;
+        _debugOwner?: Fiber | null | undefined;
+        _debugIsCurrentlyTiming?: boolean | undefined;
+        _debugNeedsRemount?: boolean | undefined;
 
         // Used to verify that the order of hooks does not change between renders.
-        _debugHookTypes?: HookType[] | null;
+        _debugHookTypes?: HookType[] | null | undefined;
     }
 
     type FiberRoot = any;
@@ -887,15 +887,15 @@ declare namespace ReactReconciler {
         rendererPackageName: string;
         // Note: this actually *does* depend on Fiber internal fields.
         // Used by "inspect clicked DOM element" in React DevTools.
-        findFiberByHostInstance?: (
+        findFiberByHostInstance?: ((
             instance: Instance | TextInstance,
-        ) => Fiber | null;
-        rendererConfig?: RendererInspectionConfig;
+        ) => Fiber | null) | undefined;
+        rendererConfig?: RendererInspectionConfig | undefined;
     }
 
     interface SuspenseHydrationCallbacks<SuspenseInstance> {
-        onHydrated?: (suspenseInstance: SuspenseInstance) => void;
-        onDeleted?: (suspenseInstance: SuspenseInstance) => void;
+        onHydrated?: ((suspenseInstance: SuspenseInstance) => void) | undefined;
+        onDeleted?: ((suspenseInstance: SuspenseInstance) => void) | undefined;
     }
 
     interface ComponentSelector {

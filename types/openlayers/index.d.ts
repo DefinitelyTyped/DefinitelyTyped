@@ -9620,14 +9620,14 @@ export interface SphereMetricOptions {
      * Projection of the geometry.  By default, the geometry is assumed to be in
      * EPSG:3857 (Web Mercator).
      */
-    projection?: ol.proj.Projection;
+    projection?: ol.proj.Projection | undefined;
 
     /**
      * Sphere radius.  By default, the radius of the earth is used (Clarke 1866
      * Authalic Sphere).
      * @api
      */
-    radius?: number;
+    radius?: number | undefined;
 }
 
 /**
@@ -10990,50 +10990,50 @@ export type SelectFilterFunction = (feature: (ol.Feature | ol.render.Feature), l
 export type Size = [number, number];
 
 export interface SourceImageOptions {
-    attributions?: ol.AttributionLike;
-    extent?: (ol.Extent);
-    logo?: (string | olx.LogoOptions);
+    attributions?: ol.AttributionLike | undefined;
+    extent?: (ol.Extent) | undefined;
+    logo?: (string | olx.LogoOptions) | undefined;
     projection: ol.ProjectionLike;
-    resolutions?: number[];
-    state?: ol.source.State;
+    resolutions?: number[] | undefined;
+    state?: ol.source.State | undefined;
 }
 
 export interface SourceSourceOptions {
-    attributions?: ol.AttributionLike;
-    logo?: (string | olx.LogoOptions);
+    attributions?: ol.AttributionLike | undefined;
+    logo?: (string | olx.LogoOptions) | undefined;
     projection: ol.ProjectionLike;
-    state?: ol.source.State;
-    wrapX?: boolean;
+    state?: ol.source.State | undefined;
+    wrapX?: boolean | undefined;
 }
 
 export interface SourceUrlTileOptions {
-    attributions?: ol.AttributionLike;
-    cacheSize?: number;
-    extent?: ol.Extent;
-    logo?: (string | olx.LogoOptions);
-    opaque?: boolean;
+    attributions?: ol.AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    extent?: ol.Extent | undefined;
+    logo?: (string | olx.LogoOptions) | undefined;
+    opaque?: boolean | undefined;
     projection: ol.ProjectionLike;
-    state?: ol.source.State;
-    tileGrid?: ol.tilegrid.TileGrid;
+    state?: ol.source.State | undefined;
+    tileGrid?: ol.tilegrid.TileGrid | undefined;
     tileLoadFunction: ol.TileLoadFunctionType;
-    tilePixelRatio?: number;
-    tileUrlFunction?: ol.TileUrlFunctionType;
-    url?: string;
-    urls?: string[];
-    wrapX?: boolean;
+    tilePixelRatio?: number | undefined;
+    tileUrlFunction?: ol.TileUrlFunctionType | undefined;
+    url?: string | undefined;
+    urls?: string[] | undefined;
+    wrapX?: boolean | undefined;
 }
 
 export interface SourceTileOptions {
-    attributions?: ol.AttributionLike;
-    cacheSize?: number;
-    extent?: ol.Extent;
-    logo?: (string | olx.LogoOptions);
-    opaque?: boolean;
-    tilePixelRatio?: number;
+    attributions?: ol.AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    extent?: ol.Extent | undefined;
+    logo?: (string | olx.LogoOptions) | undefined;
+    opaque?: boolean | undefined;
+    tilePixelRatio?: number | undefined;
     projection: ol.ProjectionLike;
-    state?: ol.source.State;
-    tileGrid?: ol.tilegrid.TileGrid;
-    wrapX?: boolean;
+    state?: ol.source.State | undefined;
+    tileGrid?: ol.tilegrid.TileGrid | undefined;
+    wrapX?: boolean | undefined;
 }
 
 export interface StyleImageOptions {
@@ -11509,31 +11509,31 @@ export namespace olx {
     namespace animation {
         interface BounceOptions {
             resolution: number;
-            start?: number;
-            duration?: number;
-            easing?: ((t: number) => number);
+            start?: number | undefined;
+            duration?: number | undefined;
+            easing?: ((t: number) => number) | undefined;
         }
 
         interface PanOptions {
             source: ol.Coordinate;
-            start?: number;
-            duration?: number;
-            easing?: ((t: number) => number);
+            start?: number | undefined;
+            duration?: number | undefined;
+            easing?: ((t: number) => number) | undefined;
         }
 
         interface RotateOptions {
-            rotation?: number;
-            anchor?: ol.Coordinate;
-            start?: number;
-            duration?: number;
-            easing?: ((t: number) => number);
+            rotation?: number | undefined;
+            anchor?: ol.Coordinate | undefined;
+            start?: number | undefined;
+            duration?: number | undefined;
+            easing?: ((t: number) => number) | undefined;
         }
 
         interface ZoomOptions {
             resolution: number;
-            start?: number;
-            duration?: number;
-            easing?: ((t: number) => number);
+            start?: number | undefined;
+            duration?: number | undefined;
+            easing?: ((t: number) => number) | undefined;
         }
 
         /**
@@ -11544,13 +11544,13 @@ export namespace olx {
          * whether the animation completed without being cancelled.
          */
         interface AnimateOptions {
-            center?: ol.Coordinate;
-            zoom?: number;
-            resolution?: number;
-            rotation?: number;
-            anchor?: ol.Coordinate;
-            duration?: number;
-            easing?: ((t: number) => number);
+            center?: ol.Coordinate | undefined;
+            zoom?: number | undefined;
+            resolution?: number | undefined;
+            rotation?: number | undefined;
+            anchor?: ol.Coordinate | undefined;
+            duration?: number | undefined;
+            easing?: ((t: number) => number) | undefined;
         }
 
         type AnimateCallback = (completed: boolean) => void;
@@ -11558,106 +11558,106 @@ export namespace olx {
 
     namespace control {
         interface AttributionOptions {
-            className?: string;
-            target?: Element;
-            collapsible?: boolean;
-            collapsed?: boolean;
-            tipLabel?: string;
-            label?: (string | Node);
-            collapseLabel?: (string | Node);
-            render?: ((event: ol.MapEvent) => any);
+            className?: string | undefined;
+            target?: Element | undefined;
+            collapsible?: boolean | undefined;
+            collapsed?: boolean | undefined;
+            tipLabel?: string | undefined;
+            label?: (string | Node) | undefined;
+            collapseLabel?: (string | Node) | undefined;
+            render?: ((event: ol.MapEvent) => any) | undefined;
         }
 
         interface ControlOptions {
-            element?: Element;
-            render?: ((event: ol.MapEvent) => any);
-            target?: (Element | string);
+            element?: Element | undefined;
+            render?: ((event: ol.MapEvent) => any) | undefined;
+            target?: (Element | string) | undefined;
         }
 
         interface DefaultsOptions {
-            attribution?: boolean;
-            attributionOptions?: AttributionOptions;
-            rotate?: boolean;
-            rotateOptions?: RotateOptions;
-            zoom?: boolean;
-            zoomOptions?: ZoomOptions;
+            attribution?: boolean | undefined;
+            attributionOptions?: AttributionOptions | undefined;
+            rotate?: boolean | undefined;
+            rotateOptions?: RotateOptions | undefined;
+            zoom?: boolean | undefined;
+            zoomOptions?: ZoomOptions | undefined;
         }
 
         interface FullScreenOptions {
-            className?: string;
-            label?: (string | Node);
-            labelActive?: (string | Node);
-            tipLabel?: string;
-            keys?: boolean;
-            target?: Element;
-            source?: (Element | string);
+            className?: string | undefined;
+            label?: (string | Node) | undefined;
+            labelActive?: (string | Node) | undefined;
+            tipLabel?: string | undefined;
+            keys?: boolean | undefined;
+            target?: Element | undefined;
+            source?: (Element | string) | undefined;
         }
 
         interface MousePositionOptions {
-            className?: string;
-            coordinateFormat?: ol.CoordinateFormatType;
+            className?: string | undefined;
+            coordinateFormat?: ol.CoordinateFormatType | undefined;
             projection: ol.ProjectionLike;
-            render?: ((event: ol.MapEvent) => any);
-            target?: Element;
-            undefinedHTML?: string;
+            render?: ((event: ol.MapEvent) => any) | undefined;
+            target?: Element | undefined;
+            undefinedHTML?: string | undefined;
         }
 
         interface OverviewMapOptions {
-            collapsed?: boolean;
-            collapseLabel?: (string | Node);
-            collapsible?: boolean;
-            label?: (string | Node);
-            layers?: (ol.layer.Layer[] | ol.Collection<ol.layer.Layer>);
-            render?: ((event: ol.MapEvent) => any);
-            target?: Element;
-            tipLabel?: string;
-            view?: ol.View;
+            collapsed?: boolean | undefined;
+            collapseLabel?: (string | Node) | undefined;
+            collapsible?: boolean | undefined;
+            label?: (string | Node) | undefined;
+            layers?: (ol.layer.Layer[] | ol.Collection<ol.layer.Layer>) | undefined;
+            render?: ((event: ol.MapEvent) => any) | undefined;
+            target?: Element | undefined;
+            tipLabel?: string | undefined;
+            view?: ol.View | undefined;
         }
 
         interface ScaleLineOptions {
-            className?: string;
-            minWidth?: number;
-            render?: ((event: ol.MapEvent) => any);
-            target?: Element;
-            units?: (ol.control.ScaleLine.Units | string);
+            className?: string | undefined;
+            minWidth?: number | undefined;
+            render?: ((event: ol.MapEvent) => any) | undefined;
+            target?: Element | undefined;
+            units?: (ol.control.ScaleLine.Units | string) | undefined;
         }
 
         interface RotateOptions {
-            className?: string;
-            label?: (string | Element);
-            tipLabel?: string;
-            duration?: number;
-            autoHide?: boolean;
-            render?: ((event: ol.MapEvent) => any);
-            resetNorth?: (() => any);
-            target?: Element;
+            className?: string | undefined;
+            label?: (string | Element) | undefined;
+            tipLabel?: string | undefined;
+            duration?: number | undefined;
+            autoHide?: boolean | undefined;
+            render?: ((event: ol.MapEvent) => any) | undefined;
+            resetNorth?: (() => any) | undefined;
+            target?: Element | undefined;
         }
 
         interface ZoomOptions {
-            duration?: number;
-            className?: string;
-            zoomInLabel?: (string | Node);
-            zoomOutLabel?: (string | Node);
-            zoomInTipLabel?: string;
-            zoomOutTipLabel?: string;
-            delta?: number;
-            target?: Element;
+            duration?: number | undefined;
+            className?: string | undefined;
+            zoomInLabel?: (string | Node) | undefined;
+            zoomOutLabel?: (string | Node) | undefined;
+            zoomInTipLabel?: string | undefined;
+            zoomOutTipLabel?: string | undefined;
+            delta?: number | undefined;
+            target?: Element | undefined;
         }
 
         interface ZoomSliderOptions {
-            className?: string;
-            duration?: number;
-            maxResolution?: number;
-            minResolution?: number;
-            render?: ((event: ol.MapEvent) => any);
+            className?: string | undefined;
+            duration?: number | undefined;
+            maxResolution?: number | undefined;
+            minResolution?: number | undefined;
+            render?: ((event: ol.MapEvent) => any) | undefined;
         }
 
         interface ZoomToExtentOptions {
-            className?: string;
-            target?: Element;
-            label?: (string | Node);
-            tipLabel?: string;
-            extent?: ol.Extent;
+            className?: string | undefined;
+            target?: Element | undefined;
+            label?: (string | Node) | undefined;
+            tipLabel?: string | undefined;
+            extent?: ol.Extent | undefined;
         }
     }
 
@@ -11669,33 +11669,33 @@ export namespace olx {
 
         interface WriteOptions {
             dataProjection: ol.ProjectionLike;
-            featureProjection?: ol.ProjectionLike;
-            rightHanded?: boolean;
-            decimals?: number;
+            featureProjection?: ol.ProjectionLike | undefined;
+            rightHanded?: boolean | undefined;
+            decimals?: number | undefined;
         }
 
         interface GeoJSONOptions {
             defaultDataProjection: ol.ProjectionLike;
             featureProjection: ol.ProjectionLike;
-            geometryName?: string;
+            geometryName?: string | undefined;
         }
 
         interface EsriJSONOptions {
-            geometryName?: string;
+            geometryName?: string | undefined;
         }
 
         interface MVTOptions {
             featureClass?: (((geom: (ol.geom.Geometry | { [k: string]: any })) => any) | ((geom: ol.geom.GeometryType, arg2: number[],
                             arg3: (number[] | number[][]),
-                            arg4: { [k: string]: any }) => any));
-            geometryName?: string;
-            layerName?: string;
-            layers?: string[];
+                            arg4: { [k: string]: any }) => any)) | undefined;
+            geometryName?: string | undefined;
+            layerName?: string | undefined;
+            layers?: string[] | undefined;
         }
 
         interface PolylineOptions {
-            factor?: number;
-            geometryLayout?: ol.geom.GeometryLayout;
+            factor?: number | undefined;
+            geometryLayout?: ol.geom.GeometryLayout | undefined;
         }
 
         interface TopoJSONOptions {
@@ -11704,71 +11704,71 @@ export namespace olx {
 
         /* tslint:disable-next-line:interface-name */
         interface IGCOptions {
-            altitudeMode?: ol.format.IGCZ;
+            altitudeMode?: ol.format.IGCZ | undefined;
         }
 
         interface KMLOptions {
-            extractStyles?: boolean;
-            showPointNames?: boolean;
-            defaultStyle?: ol.style.Style[];
-            writeStyles?: boolean;
+            extractStyles?: boolean | undefined;
+            showPointNames?: boolean | undefined;
+            defaultStyle?: ol.style.Style[] | undefined;
+            writeStyles?: boolean | undefined;
         }
 
         interface GMLOptions {
-            featureNS?: ({ [k: string]: string } | string);
-            featureType?: (string[] | string);
+            featureNS?: ({ [k: string]: string } | string) | undefined;
+            featureType?: (string[] | string) | undefined;
             srsName: string;
-            surface?: boolean;
-            curve?: boolean;
-            multiCurve?: boolean;
-            multiSurface?: boolean;
-            schemaLocation?: string;
+            surface?: boolean | undefined;
+            curve?: boolean | undefined;
+            multiCurve?: boolean | undefined;
+            multiSurface?: boolean | undefined;
+            schemaLocation?: string | undefined;
         }
 
         interface GPXOptions {
-            readExtensions?: ((feature: ol.Feature, node: Node) => any);
+            readExtensions?: ((feature: ol.Feature, node: Node) => any) | undefined;
         }
 
         interface WFSOptions {
-            featureNS?: ({ [k: string]: string } | string);
-            featureType?: (string[] | string);
-            gmlFormat?: ol.format.GMLBase;
-            schemaLocation?: string;
+            featureNS?: ({ [k: string]: string } | string) | undefined;
+            featureType?: (string[] | string) | undefined;
+            gmlFormat?: ol.format.GMLBase | undefined;
+            schemaLocation?: string | undefined;
         }
 
         interface WFSWriteGetFeatureOptions {
             featureNS: string;
             featurePrefix: string;
             featureTypes: string[];
-            srsName?: string;
-            handle?: string;
-            outputFormat?: string;
-            maxFeatures?: number;
-            geometryName?: string;
-            propertyNames?: string[];
-            startIndex?: number;
-            count?: number;
-            bbox?: ol.Extent;
-            filter?: ol.format.filter.Filter;
-            resultType?: string;
+            srsName?: string | undefined;
+            handle?: string | undefined;
+            outputFormat?: string | undefined;
+            maxFeatures?: number | undefined;
+            geometryName?: string | undefined;
+            propertyNames?: string[] | undefined;
+            startIndex?: number | undefined;
+            count?: number | undefined;
+            bbox?: ol.Extent | undefined;
+            filter?: ol.format.filter.Filter | undefined;
+            resultType?: string | undefined;
         }
 
         interface WFSWriteTransactionOptions {
             featureNS: string;
             featurePrefix: string;
             featureType: string;
-            srsName?: string;
-            handle?: string;
+            srsName?: string | undefined;
+            handle?: string | undefined;
             nativeElements: GlobalObject[];
-            gmlOptions?: GMLOptions;
+            gmlOptions?: GMLOptions | undefined;
         }
 
         interface WKTOptions {
-            splitCollection?: boolean;
+            splitCollection?: boolean | undefined;
         }
 
         interface WMSGetFeatureInfoOptions {
-            layers?: string[];
+            layers?: string[] | undefined;
         }
     }
 
@@ -11784,233 +11784,233 @@ export namespace olx {
          * Interactions for the map. Default is `true` for all options.
          */
         interface DefaultsOptions {
-            altShiftDragRotate?: boolean;
-            doubleClickZoom?: boolean;
-            constrainResolution?: boolean;
-            keyboard?: boolean;
-            mouseWheelZoom?: boolean;
-            shiftDragZoom?: boolean;
-            dragPan?: boolean;
-            pinchRotate?: boolean;
-            pinchZoom?: boolean;
-            zoomDelta?: number;
-            zoomDuration?: number;
+            altShiftDragRotate?: boolean | undefined;
+            doubleClickZoom?: boolean | undefined;
+            constrainResolution?: boolean | undefined;
+            keyboard?: boolean | undefined;
+            mouseWheelZoom?: boolean | undefined;
+            shiftDragZoom?: boolean | undefined;
+            dragPan?: boolean | undefined;
+            pinchRotate?: boolean | undefined;
+            pinchZoom?: boolean | undefined;
+            zoomDelta?: number | undefined;
+            zoomDuration?: number | undefined;
         }
 
         interface DoubleClickZoomOptions {
-            duration?: number;
-            delta?: number;
+            duration?: number | undefined;
+            delta?: number | undefined;
         }
 
         interface DragAndDropOptions {
-            formatConstructors?: Array<typeof format.Feature>;
+            formatConstructors?: Array<typeof format.Feature> | undefined;
             projection: ol.ProjectionLike;
-            target?: Element;
-            source?: ol.source.Vector;
+            target?: Element | undefined;
+            source?: ol.source.Vector | undefined;
         }
 
         interface DragBoxOptions {
-            className?: string;
-            condition?: ol.EventsConditionType;
-            minArea?: number;
-            boxEndCondition?: ol.DragBoxEndConditionType;
+            className?: string | undefined;
+            condition?: ol.EventsConditionType | undefined;
+            minArea?: number | undefined;
+            boxEndCondition?: ol.DragBoxEndConditionType | undefined;
         }
 
         interface DragPanOptions {
-            condition?: ol.EventsConditionType;
-            kinetic?: ol.Kinetic;
+            condition?: ol.EventsConditionType | undefined;
+            kinetic?: ol.Kinetic | undefined;
         }
 
         interface DragRotateAndZoomOptions {
-            condition?: ol.EventsConditionType;
-            duration?: number;
+            condition?: ol.EventsConditionType | undefined;
+            duration?: number | undefined;
         }
 
         interface DragRotateOptions {
-            condition?: ol.EventsConditionType;
-            duration?: number;
+            condition?: ol.EventsConditionType | undefined;
+            duration?: number | undefined;
         }
 
         interface DragZoomOptions {
-            className?: string;
-            condition?: ol.EventsConditionType;
-            duration?: number;
-            out?: boolean;
+            className?: string | undefined;
+            condition?: ol.EventsConditionType | undefined;
+            duration?: number | undefined;
+            out?: boolean | undefined;
         }
 
         interface DrawOptions {
-            clickTolerance?: number;
-            features?: ol.Collection<ol.Feature>;
-            source?: ol.source.Vector;
-            snapTolerance?: number;
+            clickTolerance?: number | undefined;
+            features?: ol.Collection<ol.Feature> | undefined;
+            source?: ol.source.Vector | undefined;
+            snapTolerance?: number | undefined;
             type: ol.geom.GeometryType;
-            maxPoints?: number;
-            minPoints?: number;
-            finishCondition?: ol.EventsConditionType;
-            style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
-            geometryFunction?: ol.DrawGeometryFunctionType;
-            geometryName?: string;
-            condition?: ol.EventsConditionType;
-            freehandCondition?: ol.EventsConditionType;
-            freehand?: boolean;
-            wrapX?: boolean;
-            stopClick?: boolean;
+            maxPoints?: number | undefined;
+            minPoints?: number | undefined;
+            finishCondition?: ol.EventsConditionType | undefined;
+            style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction) | undefined;
+            geometryFunction?: ol.DrawGeometryFunctionType | undefined;
+            geometryName?: string | undefined;
+            condition?: ol.EventsConditionType | undefined;
+            freehandCondition?: ol.EventsConditionType | undefined;
+            freehand?: boolean | undefined;
+            wrapX?: boolean | undefined;
+            stopClick?: boolean | undefined;
         }
 
         interface ExtentOptions {
-            extent?: ol.Extent;
-            boxStyle?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
-            pixelTolerance?: number;
-            pointerStyle?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
-            wrapX?: boolean;
+            extent?: ol.Extent | undefined;
+            boxStyle?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction) | undefined;
+            pixelTolerance?: number | undefined;
+            pointerStyle?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction) | undefined;
+            wrapX?: boolean | undefined;
         }
 
         interface TranslateOptions {
-            features?: ol.Collection<ol.Feature>;
-            layers?: (ol.layer.Layer[] | ((layer: ol.layer.Layer) => boolean));
+            features?: ol.Collection<ol.Feature> | undefined;
+            layers?: (ol.layer.Layer[] | ((layer: ol.layer.Layer) => boolean)) | undefined;
         }
 
         interface KeyboardPanOptions {
-            condition?: ol.EventsConditionType;
-            duration?: number;
-            pixelDelta?: number;
+            condition?: ol.EventsConditionType | undefined;
+            duration?: number | undefined;
+            pixelDelta?: number | undefined;
         }
 
         interface KeyboardZoomOptions {
-            duration?: number;
-            condition?: ol.EventsConditionType;
-            delta?: number;
+            duration?: number | undefined;
+            condition?: ol.EventsConditionType | undefined;
+            delta?: number | undefined;
         }
 
         interface ModifyOptions {
-            condition?: ol.EventsConditionType;
-            deleteCondition?: ol.EventsConditionType;
-            insertVertexCondition?: ol.EventsConditionType;
-            pixelTolerance?: number;
-            style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
-            features?: ol.Collection<ol.Feature>;
-            wrapX?: boolean;
-            source?: ol.source.Vector;
+            condition?: ol.EventsConditionType | undefined;
+            deleteCondition?: ol.EventsConditionType | undefined;
+            insertVertexCondition?: ol.EventsConditionType | undefined;
+            pixelTolerance?: number | undefined;
+            style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction) | undefined;
+            features?: ol.Collection<ol.Feature> | undefined;
+            wrapX?: boolean | undefined;
+            source?: ol.source.Vector | undefined;
         }
 
         interface MouseWheelZoomOptions {
-            constrainResolution?: boolean;
-            duration?: number;
-            timeout?: number;
-            useAnchor?: boolean;
+            constrainResolution?: boolean | undefined;
+            duration?: number | undefined;
+            timeout?: number | undefined;
+            useAnchor?: boolean | undefined;
         }
 
         interface PinchRotateOptions {
-            duration?: number;
-            threshold?: number;
+            duration?: number | undefined;
+            threshold?: number | undefined;
         }
 
         interface PinchZoomOptions {
-            constrainResolution?: boolean;
-            duration?: number;
+            constrainResolution?: boolean | undefined;
+            duration?: number | undefined;
         }
 
         interface PointerOptions {
-            handleDownEvent?: ((event: ol.MapBrowserPointerEvent) => boolean);
-            handleDragEvent?: ((event: ol.MapBrowserPointerEvent) => boolean);
-            handleEvent?: ((event: ol.MapBrowserPointerEvent) => boolean);
-            handleMoveEvent?: ((event: ol.MapBrowserPointerEvent) => boolean);
-            handleUpEvent?: ((event: ol.MapBrowserPointerEvent) => boolean);
+            handleDownEvent?: ((event: ol.MapBrowserPointerEvent) => boolean) | undefined;
+            handleDragEvent?: ((event: ol.MapBrowserPointerEvent) => boolean) | undefined;
+            handleEvent?: ((event: ol.MapBrowserPointerEvent) => boolean) | undefined;
+            handleMoveEvent?: ((event: ol.MapBrowserPointerEvent) => boolean) | undefined;
+            handleUpEvent?: ((event: ol.MapBrowserPointerEvent) => boolean) | undefined;
         }
 
         interface SelectOptions {
-            addCondition?: ol.EventsConditionType;
-            condition?: ol.EventsConditionType;
-            layers?: (ol.layer.Layer[] | ((layer: ol.layer.Layer) => boolean));
-            style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
-            removeCondition?: ol.EventsConditionType;
-            toggleCondition?: ol.EventsConditionType;
-            multi?: boolean;
-            features?: ol.Collection<ol.Feature>;
-            filter?: ol.SelectFilterFunction;
-            wrapX?: boolean;
-            hitTolerance?: number;
+            addCondition?: ol.EventsConditionType | undefined;
+            condition?: ol.EventsConditionType | undefined;
+            layers?: (ol.layer.Layer[] | ((layer: ol.layer.Layer) => boolean)) | undefined;
+            style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction) | undefined;
+            removeCondition?: ol.EventsConditionType | undefined;
+            toggleCondition?: ol.EventsConditionType | undefined;
+            multi?: boolean | undefined;
+            features?: ol.Collection<ol.Feature> | undefined;
+            filter?: ol.SelectFilterFunction | undefined;
+            wrapX?: boolean | undefined;
+            hitTolerance?: number | undefined;
         }
 
         /**
          * Options for snap
          */
         interface SnapOptions {
-            features?: ol.Collection<ol.Feature>;
-            edge?: boolean;
-            vertex?: boolean;
-            pixelTolerance?: number;
-            source?: ol.source.Vector;
+            features?: ol.Collection<ol.Feature> | undefined;
+            edge?: boolean | undefined;
+            vertex?: boolean | undefined;
+            pixelTolerance?: number | undefined;
+            source?: ol.source.Vector | undefined;
         }
     }
 
     namespace layer {
         interface BaseOptions {
-            opacity?: number;
-            visible?: boolean;
-            extent?: ol.Extent;
-            zIndex?: number;
-            minResolution?: number;
-            maxResolution?: number;
+            opacity?: number | undefined;
+            visible?: boolean | undefined;
+            extent?: ol.Extent | undefined;
+            zIndex?: number | undefined;
+            minResolution?: number | undefined;
+            maxResolution?: number | undefined;
         }
 
         interface LayerOptions {
-            opacity?: number;
-            source?: ol.source.Source;
-            visible?: boolean;
-            extent?: ol.Extent;
-            zIndex?: number;
-            minResolution?: number;
-            maxResolution?: number;
+            opacity?: number | undefined;
+            source?: ol.source.Source | undefined;
+            visible?: boolean | undefined;
+            extent?: ol.Extent | undefined;
+            zIndex?: number | undefined;
+            minResolution?: number | undefined;
+            maxResolution?: number | undefined;
         }
 
         interface GroupOptions {
-            opacity?: number;
-            visible?: boolean;
-            extent?: ol.Extent;
-            zIndex?: number;
-            minResolution?: number;
-            maxResolution?: number;
-            layers?: (ol.layer.Base[] | ol.Collection<ol.layer.Base>);
+            opacity?: number | undefined;
+            visible?: boolean | undefined;
+            extent?: ol.Extent | undefined;
+            zIndex?: number | undefined;
+            minResolution?: number | undefined;
+            maxResolution?: number | undefined;
+            layers?: (ol.layer.Base[] | ol.Collection<ol.layer.Base>) | undefined;
         }
 
         interface HeatmapOptions {
-            gradient?: string[];
-            radius?: number;
-            blur?: number;
-            shadow?: number;
+            gradient?: string[] | undefined;
+            radius?: number | undefined;
+            blur?: number | undefined;
+            shadow?: number | undefined;
             weight: (string | ((feature: ol.Feature) => number));
-            extent?: ol.Extent;
-            minResolution?: number;
-            maxResolution?: number;
-            opacity?: number;
+            extent?: ol.Extent | undefined;
+            minResolution?: number | undefined;
+            maxResolution?: number | undefined;
+            opacity?: number | undefined;
             source: ol.source.Vector;
-            visible?: boolean;
-            zIndex?: number;
+            visible?: boolean | undefined;
+            zIndex?: number | undefined;
         }
 
         interface ImageOptions {
-            opacity?: number;
+            opacity?: number | undefined;
             source: ol.source.Image;
-            map?: ol.Map;
-            visible?: boolean;
-            extent?: ol.Extent;
-            minResolution?: number;
-            maxResolution?: number;
-            zIndex?: number;
+            map?: ol.Map | undefined;
+            visible?: boolean | undefined;
+            extent?: ol.Extent | undefined;
+            minResolution?: number | undefined;
+            maxResolution?: number | undefined;
+            zIndex?: number | undefined;
         }
 
         interface TileOptions {
-            opacity?: number;
-            preload?: number;
+            opacity?: number | undefined;
+            preload?: number | undefined;
             source: ol.source.Tile;
-            map?: ol.Map;
-            visible?: boolean;
-            extent?: ol.Extent;
-            minResolution?: number;
-            maxResolution?: number;
-            useInterimTilesOnError?: boolean;
-            zIndex?: number;
+            map?: ol.Map | undefined;
+            visible?: boolean | undefined;
+            extent?: ol.Extent | undefined;
+            minResolution?: number | undefined;
+            maxResolution?: number | undefined;
+            useInterimTilesOnError?: boolean | undefined;
+            zIndex?: number | undefined;
         }
 
         /**
@@ -12026,38 +12026,38 @@ export namespace olx {
         type VectorRenderType = "image" | "vector";
 
         interface VectorOptions {
-            renderMode?: (VectorRenderType | string);
-            renderOrder?: (feature1: ol.Feature, feature2: ol.Feature) => number;
-            map?: ol.Map;
-            extent?: ol.Extent;
-            minResolution?: number;
-            maxResolution?: number;
-            opacity?: number;
-            renderBuffer?: number;
+            renderMode?: (VectorRenderType | string) | undefined;
+            renderOrder?: ((feature1: ol.Feature, feature2: ol.Feature) => number) | undefined;
+            map?: ol.Map | undefined;
+            extent?: ol.Extent | undefined;
+            minResolution?: number | undefined;
+            maxResolution?: number | undefined;
+            opacity?: number | undefined;
+            renderBuffer?: number | undefined;
             source: ol.source.Vector;
-            declutter?: boolean;
-            style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
-            updateWhileAnimating?: boolean;
-            updateWhileInteracting?: boolean;
-            visible?: boolean;
-            zIndex?: number;
+            declutter?: boolean | undefined;
+            style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction) | undefined;
+            updateWhileAnimating?: boolean | undefined;
+            updateWhileInteracting?: boolean | undefined;
+            visible?: boolean | undefined;
+            zIndex?: number | undefined;
         }
 
         interface VectorTileOptions {
-            renderBuffer?: number;
-            renderMode?: (ol.layer.VectorTileRenderType | string);
-            renderOrder?: (feature1: ol.Feature, feature2: ol.Feature) => number;
-            map?: ol.Map;
-            extent?: ol.Extent;
-            minResolution?: number;
-            maxResolution?: number;
-            opacity?: number;
-            source?: ol.source.VectorTile;
-            style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
-            updateWhileAnimating?: boolean;
-            updateWhileInteracting?: boolean;
-            visible?: boolean;
-            zIndex?: number;
+            renderBuffer?: number | undefined;
+            renderMode?: (ol.layer.VectorTileRenderType | string) | undefined;
+            renderOrder?: ((feature1: ol.Feature, feature2: ol.Feature) => number) | undefined;
+            map?: ol.Map | undefined;
+            extent?: ol.Extent | undefined;
+            minResolution?: number | undefined;
+            maxResolution?: number | undefined;
+            opacity?: number | undefined;
+            source?: ol.source.VectorTile | undefined;
+            style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction) | undefined;
+            updateWhileAnimating?: boolean | undefined;
+            updateWhileInteracting?: boolean | undefined;
+            visible?: boolean | undefined;
+            zIndex?: number | undefined;
         }
     }
 
@@ -12065,151 +12065,151 @@ export namespace olx {
     }
     namespace render {
         interface ToContextOptions {
-            size?: ol.Size;
-            pixelRatio?: number;
+            size?: ol.Size | undefined;
+            pixelRatio?: number | undefined;
         }
     }
     namespace source {
         interface BingMapsOptions {
-            cacheSize?: number;
-            culture?: string;
+            cacheSize?: number | undefined;
+            culture?: string | undefined;
             key: string;
             imagerySet: string;
-            maxZoom?: number;
-            reprojectionErrorThreshold?: number;
-            tileLoadFunction?: ol.TileLoadFunctionType;
-            wrapX?: boolean;
+            maxZoom?: number | undefined;
+            reprojectionErrorThreshold?: number | undefined;
+            tileLoadFunction?: ol.TileLoadFunctionType | undefined;
+            wrapX?: boolean | undefined;
         }
 
         interface ClusterOptions {
-            attributions?: ol.AttributionLike;
-            distance?: number;
-            extent?: ol.Extent;
-            geometryFunction?: ((feature: ol.Feature) => ol.geom.Point);
-            format?: ol.format.Feature;
-            logo?: string;
-            projection?: ol.ProjectionLike;
+            attributions?: ol.AttributionLike | undefined;
+            distance?: number | undefined;
+            extent?: ol.Extent | undefined;
+            geometryFunction?: ((feature: ol.Feature) => ol.geom.Point) | undefined;
+            format?: ol.format.Feature | undefined;
+            logo?: string | undefined;
+            projection?: ol.ProjectionLike | undefined;
             source: ol.source.Vector;
-            wrapX?: boolean;
+            wrapX?: boolean | undefined;
         }
 
         type TileJSON = JSON;
 
         interface TileUTFGridOptions {
-            jsonp?: boolean;
-            preemptive?: boolean;
-            tileJSON?: TileJSON;
-            url?: string;
+            jsonp?: boolean | undefined;
+            preemptive?: boolean | undefined;
+            tileJSON?: TileJSON | undefined;
+            url?: string | undefined;
         }
 
         interface TileImageOptions {
-            attributions?: ol.AttributionLike;
-            cacheSize?: number;
-            crossOrigin?: (string);
-            logo?: (string | LogoOptions);
-            opaque?: boolean;
+            attributions?: ol.AttributionLike | undefined;
+            cacheSize?: number | undefined;
+            crossOrigin?: (string) | undefined;
+            logo?: (string | LogoOptions) | undefined;
+            opaque?: boolean | undefined;
             projection: ol.ProjectionLike;
-            reprojectionErrorThreshold?: number;
-            state?: ol.source.State;
-            tileClass?: ((n: ol.ImageTile, coords: ol.TileCoord, state: ol.Tile.State, s1: string, s2: string, type: ol.TileLoadFunctionType) => any);
-            tileGrid?: ol.tilegrid.TileGrid;
-            tileLoadFunction?: ol.TileLoadFunctionType;
-            tilePixelRatio?: number;
-            tileUrlFunction?: ol.TileUrlFunctionType;
-            url?: string;
-            urls?: string[];
-            wrapX?: boolean;
-            transition?: number;
+            reprojectionErrorThreshold?: number | undefined;
+            state?: ol.source.State | undefined;
+            tileClass?: ((n: ol.ImageTile, coords: ol.TileCoord, state: ol.Tile.State, s1: string, s2: string, type: ol.TileLoadFunctionType) => any) | undefined;
+            tileGrid?: ol.tilegrid.TileGrid | undefined;
+            tileLoadFunction?: ol.TileLoadFunctionType | undefined;
+            tilePixelRatio?: number | undefined;
+            tileUrlFunction?: ol.TileUrlFunctionType | undefined;
+            url?: string | undefined;
+            urls?: string[] | undefined;
+            wrapX?: boolean | undefined;
+            transition?: number | undefined;
         }
 
         interface VectorTileOptions {
-            attributions?: ol.AttributionLike;
-            cacheSize?: number;
-            format?: ol.format.Feature;
-            logo?: (string | LogoOptions);
-            overlaps?: boolean;
+            attributions?: ol.AttributionLike | undefined;
+            cacheSize?: number | undefined;
+            format?: ol.format.Feature | undefined;
+            logo?: (string | LogoOptions) | undefined;
+            overlaps?: boolean | undefined;
             projection: ol.ProjectionLike;
-            state?: ol.source.State;
-            tileClass?: ((n: ol.VectorTile, coords: ol.TileCoord, state: ol.Tile.State, s: string, feature: ol.format.Feature, type: ol.TileLoadFunctionType) => any);
-            tileGrid?: ol.tilegrid.TileGrid;
-            tileLoadFunction?: ol.TileLoadFunctionType;
-            tileUrlFunction?: ol.TileUrlFunctionType;
-            url?: string;
-            urls?: string[];
-            wrapX?: boolean;
+            state?: ol.source.State | undefined;
+            tileClass?: ((n: ol.VectorTile, coords: ol.TileCoord, state: ol.Tile.State, s: string, feature: ol.format.Feature, type: ol.TileLoadFunctionType) => any) | undefined;
+            tileGrid?: ol.tilegrid.TileGrid | undefined;
+            tileLoadFunction?: ol.TileLoadFunctionType | undefined;
+            tileUrlFunction?: ol.TileUrlFunctionType | undefined;
+            url?: string | undefined;
+            urls?: string[] | undefined;
+            wrapX?: boolean | undefined;
         }
 
         interface ImageMapGuideOptions {
-            url?: string;
-            displayDpi?: number;
-            metersPerUnit?: number;
-            hidpi?: boolean;
-            useOverlay?: boolean;
+            url?: string | undefined;
+            displayDpi?: number | undefined;
+            metersPerUnit?: number | undefined;
+            hidpi?: boolean | undefined;
+            useOverlay?: boolean | undefined;
             projection: ol.ProjectionLike;
-            ratio?: number;
-            resolutions?: number[];
-            imageLoadFunction?: ol.ImageLoadFunctionType;
-            params?: GlobalObject;
+            ratio?: number | undefined;
+            resolutions?: number[] | undefined;
+            imageLoadFunction?: ol.ImageLoadFunctionType | undefined;
+            params?: GlobalObject | undefined;
         }
 
         interface MapQuestOptions {
-            cacheSize?: number;
+            cacheSize?: number | undefined;
             layer: string;
-            reprojectionErrorThreshold?: number;
-            tileLoadFunction?: ol.TileLoadFunctionType;
-            url?: string;
+            reprojectionErrorThreshold?: number | undefined;
+            tileLoadFunction?: ol.TileLoadFunctionType | undefined;
+            url?: string | undefined;
         }
 
         interface TileDebugOptions {
             projection: ol.ProjectionLike;
-            tileGrid?: ol.tilegrid.TileGrid;
-            wrapX?: boolean;
+            tileGrid?: ol.tilegrid.TileGrid | undefined;
+            wrapX?: boolean | undefined;
         }
 
         interface OSMOptions {
-            attributions?: ol.AttributionLike;
-            cacheSize?: number;
-            crossOrigin?: (string);
-            maxZoom?: number;
-            opaque?: boolean;
-            reprojectionErrorThreshold?: number;
-            tileLoadFunction?: ol.TileLoadFunctionType;
-            url?: string;
-            wrapX?: boolean;
+            attributions?: ol.AttributionLike | undefined;
+            cacheSize?: number | undefined;
+            crossOrigin?: (string) | undefined;
+            maxZoom?: number | undefined;
+            opaque?: boolean | undefined;
+            reprojectionErrorThreshold?: number | undefined;
+            tileLoadFunction?: ol.TileLoadFunctionType | undefined;
+            url?: string | undefined;
+            wrapX?: boolean | undefined;
         }
 
         interface ImageArcGISRestOptions {
-            attributions?: ol.Attribution[];
-            crossOrigin?: (string);
-            hidpi?: boolean;
-            logo?: (string | LogoOptions);
-            imageLoadFunction?: ol.ImageLoadFunctionType;
-            params?: { [k: string]: any };
+            attributions?: ol.Attribution[] | undefined;
+            crossOrigin?: (string) | undefined;
+            hidpi?: boolean | undefined;
+            logo?: (string | LogoOptions) | undefined;
+            imageLoadFunction?: ol.ImageLoadFunctionType | undefined;
+            params?: { [k: string]: any } | undefined;
             projection: ol.ProjectionLike;
-            ratio?: number;
-            resolutions?: number[];
-            url?: string;
+            ratio?: number | undefined;
+            resolutions?: number[] | undefined;
+            url?: string | undefined;
         }
 
         interface ImageCanvasOptions {
-            attributions?: ol.AttributionLike;
+            attributions?: ol.AttributionLike | undefined;
             canvasFunction: ol.CanvasFunctionType;
-            logo?: (string | LogoOptions);
+            logo?: (string | LogoOptions) | undefined;
             projection: ol.ProjectionLike;
-            ratio?: number;
-            resolutions?: number[];
-            state?: ol.source.State;
+            ratio?: number | undefined;
+            resolutions?: number[] | undefined;
+            state?: ol.source.State | undefined;
         }
 
         interface ImageVectorOptions {
-            attributions?: ol.AttributionLike;
-            logo?: (string | LogoOptions);
+            attributions?: ol.AttributionLike | undefined;
+            logo?: (string | LogoOptions) | undefined;
             projection: ol.ProjectionLike;
-            ratio?: number;
-            renderBuffer?: number;
-            resolutions?: number[];
+            ratio?: number | undefined;
+            renderBuffer?: number | undefined;
+            resolutions?: number[] | undefined;
             source: ol.source.Vector;
-            style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
+            style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction) | undefined;
         }
 
         /**
@@ -12217,232 +12217,232 @@ export namespace olx {
          */
         interface RasterOptions {
             sources: ol.source.Source[];
-            operation?: ol.RasterOperation;
-            lib?: GlobalObject;
-            threads?: number;
-            operationType?: ol.RasterOperationType;
+            operation?: ol.RasterOperation | undefined;
+            lib?: GlobalObject | undefined;
+            threads?: number | undefined;
+            operationType?: ol.RasterOperationType | undefined;
         }
 
         interface ImageWMSOptions {
-            attributions?: ol.AttributionLike;
-            crossOrigin?: (string);
-            hidpi?: boolean;
-            serverType?: (ol.source.wms.ServerType | string);
-            imageLoadFunction?: ol.ImageLoadFunctionType;
-            logo?: (string | LogoOptions);
+            attributions?: ol.AttributionLike | undefined;
+            crossOrigin?: (string) | undefined;
+            hidpi?: boolean | undefined;
+            serverType?: (ol.source.wms.ServerType | string) | undefined;
+            imageLoadFunction?: ol.ImageLoadFunctionType | undefined;
+            logo?: (string | LogoOptions) | undefined;
             params: { [k: string]: any };
             projection: ol.ProjectionLike;
-            ratio?: number;
-            resolutions?: number[];
-            url?: string;
+            ratio?: number | undefined;
+            resolutions?: number[] | undefined;
+            url?: string | undefined;
         }
 
         interface StamenOptions {
-            cacheSize?: number;
+            cacheSize?: number | undefined;
             layer: string;
-            minZoom?: number;
-            maxZoom?: number;
-            opaque?: boolean;
-            reprojectionErrorThreshold?: number;
-            tileLoadFunction?: ol.TileLoadFunctionType;
-            url?: string;
+            minZoom?: number | undefined;
+            maxZoom?: number | undefined;
+            opaque?: boolean | undefined;
+            reprojectionErrorThreshold?: number | undefined;
+            tileLoadFunction?: ol.TileLoadFunctionType | undefined;
+            url?: string | undefined;
         }
 
         interface ImageStaticOptions {
-            attributions?: ol.AttributionLike;
-            crossOrigin?: (string);
+            attributions?: ol.AttributionLike | undefined;
+            crossOrigin?: (string) | undefined;
             imageExtent: ol.Extent;
-            imageLoadFunction?: ol.ImageLoadFunctionType;
-            logo?: (string | LogoOptions);
+            imageLoadFunction?: ol.ImageLoadFunctionType | undefined;
+            logo?: (string | LogoOptions) | undefined;
             projection: ol.ProjectionLike;
-            imageSize?: ol.Size;
+            imageSize?: ol.Size | undefined;
             url: string;
         }
 
         interface TileArcGISRestOptions {
-            attributions?: ol.AttributionLike;
-            cacheSize?: number;
-            crossOrigin?: (string);
-            params?: { [k: string]: any };
-            logo?: (string | LogoOptions);
-            tileGrid?: ol.tilegrid.TileGrid;
-            projection?: ol.ProjectionLike;
-            reprojectionErrorThreshold?: number;
-            tileLoadFunction?: ol.TileLoadFunctionType;
-            url?: string;
-            wrapX?: boolean;
-            transition?: number;
-            urls?: string[];
+            attributions?: ol.AttributionLike | undefined;
+            cacheSize?: number | undefined;
+            crossOrigin?: (string) | undefined;
+            params?: { [k: string]: any } | undefined;
+            logo?: (string | LogoOptions) | undefined;
+            tileGrid?: ol.tilegrid.TileGrid | undefined;
+            projection?: ol.ProjectionLike | undefined;
+            reprojectionErrorThreshold?: number | undefined;
+            tileLoadFunction?: ol.TileLoadFunctionType | undefined;
+            url?: string | undefined;
+            wrapX?: boolean | undefined;
+            transition?: number | undefined;
+            urls?: string[] | undefined;
         }
 
         interface TileJSONOptions {
-            attributions?: ol.AttributionLike;
-            cacheSize?: number;
-            crossOrigin?: (string);
-            jsonp?: boolean;
-            reprojectionErrorThreshold?: number;
-            tileLoadFunction?: ol.TileLoadFunctionType;
+            attributions?: ol.AttributionLike | undefined;
+            cacheSize?: number | undefined;
+            crossOrigin?: (string) | undefined;
+            jsonp?: boolean | undefined;
+            reprojectionErrorThreshold?: number | undefined;
+            tileLoadFunction?: ol.TileLoadFunctionType | undefined;
             url: string;
-            wrapX?: boolean;
-            transition?: number;
+            wrapX?: boolean | undefined;
+            transition?: number | undefined;
         }
 
         interface TileWMSOptions {
-            attributions?: ol.AttributionLike;
-            cacheSize?: number;
+            attributions?: ol.AttributionLike | undefined;
+            cacheSize?: number | undefined;
             params: { [k: string]: any };
-            crossOrigin?: (string);
-            gutter?: number;
-            hidpi?: boolean;
-            logo?: (string | LogoOptions);
-            tileGrid?: ol.tilegrid.TileGrid;
-            projection?: ol.ProjectionLike;
-            reprojectionErrorThreshold?: number;
-            serverType?: (ol.source.wms.ServerType | string);
-            tileLoadFunction?: ol.TileLoadFunctionType;
-            url?: string;
-            urls?: string[];
-            wrapX?: boolean;
-            transition?: number;
+            crossOrigin?: (string) | undefined;
+            gutter?: number | undefined;
+            hidpi?: boolean | undefined;
+            logo?: (string | LogoOptions) | undefined;
+            tileGrid?: ol.tilegrid.TileGrid | undefined;
+            projection?: ol.ProjectionLike | undefined;
+            reprojectionErrorThreshold?: number | undefined;
+            serverType?: (ol.source.wms.ServerType | string) | undefined;
+            tileLoadFunction?: ol.TileLoadFunctionType | undefined;
+            url?: string | undefined;
+            urls?: string[] | undefined;
+            wrapX?: boolean | undefined;
+            transition?: number | undefined;
         }
 
         interface VectorOptions {
-            attributions?: ol.AttributionLike;
-            features?: (ol.Feature[] | ol.Collection<ol.Feature>);
-            format?: ol.format.Feature;
-            loader?: ol.FeatureLoader;
-            logo?: (string | LogoOptions);
-            overlaps?: boolean;
-            strategy?: ol.LoadingStrategy;
-            url?: (string | ol.FeatureUrlFunction);
-            useSpatialIndex?: boolean;
-            wrapX?: boolean;
+            attributions?: ol.AttributionLike | undefined;
+            features?: (ol.Feature[] | ol.Collection<ol.Feature>) | undefined;
+            format?: ol.format.Feature | undefined;
+            loader?: ol.FeatureLoader | undefined;
+            logo?: (string | LogoOptions) | undefined;
+            overlaps?: boolean | undefined;
+            strategy?: ol.LoadingStrategy | undefined;
+            url?: (string | ol.FeatureUrlFunction) | undefined;
+            useSpatialIndex?: boolean | undefined;
+            wrapX?: boolean | undefined;
         }
 
         interface WMTSOptions {
-            attributions?: ol.AttributionLike;
-            cacheSize?: number;
-            crossOrigin?: (string);
-            logo?: (string | LogoOptions);
+            attributions?: ol.AttributionLike | undefined;
+            cacheSize?: number | undefined;
+            crossOrigin?: (string) | undefined;
+            logo?: (string | LogoOptions) | undefined;
             tileGrid: ol.tilegrid.WMTS;
             projection: ol.ProjectionLike;
-            reprojectionErrorThreshold?: number;
-            requestEncoding?: (ol.source.WMTSRequestEncoding | string);
+            reprojectionErrorThreshold?: number | undefined;
+            requestEncoding?: (ol.source.WMTSRequestEncoding | string) | undefined;
             layer: string;
             style: string;
-            tileClass?: ((n: ol.ImageTile, coords: ol.TileCoord, state: ol.Tile.State, s1: string, s2: string, type: ol.TileLoadFunctionType) => any);
-            tilePixelRatio?: number;
-            version?: string;
-            format?: string;
+            tileClass?: ((n: ol.ImageTile, coords: ol.TileCoord, state: ol.Tile.State, s1: string, s2: string, type: ol.TileLoadFunctionType) => any) | undefined;
+            tilePixelRatio?: number | undefined;
+            version?: string | undefined;
+            format?: string | undefined;
             matrixSet: string;
-            dimensions?: GlobalObject;
-            url?: string;
-            tileLoadFunction?: ol.TileLoadFunctionType;
-            urls?: string[];
-            wrapX?: boolean;
+            dimensions?: GlobalObject | undefined;
+            url?: string | undefined;
+            tileLoadFunction?: ol.TileLoadFunctionType | undefined;
+            urls?: string[] | undefined;
+            wrapX?: boolean | undefined;
         }
 
         interface XYZOptions {
-            attributions?: ol.AttributionLike;
-            cacheSize?: number;
-            crossOrigin?: (string);
-            logo?: (string | LogoOptions);
-            opaque?: boolean;
-            projection?: ol.ProjectionLike;
-            reprojectionErrorThreshold?: number;
-            maxZoom?: number;
-            minZoom?: number;
-            tileGrid?: ol.tilegrid.TileGrid;
-            tileLoadFunction?: ol.TileLoadFunctionType;
-            tilePixelRatio?: number;
-            tileSize?: (number | ol.Size);
-            tileUrlFunction?: ol.TileUrlFunctionType;
-            url?: string;
-            urls?: string[];
-            wrapX?: boolean;
+            attributions?: ol.AttributionLike | undefined;
+            cacheSize?: number | undefined;
+            crossOrigin?: (string) | undefined;
+            logo?: (string | LogoOptions) | undefined;
+            opaque?: boolean | undefined;
+            projection?: ol.ProjectionLike | undefined;
+            reprojectionErrorThreshold?: number | undefined;
+            maxZoom?: number | undefined;
+            minZoom?: number | undefined;
+            tileGrid?: ol.tilegrid.TileGrid | undefined;
+            tileLoadFunction?: ol.TileLoadFunctionType | undefined;
+            tilePixelRatio?: number | undefined;
+            tileSize?: (number | ol.Size) | undefined;
+            tileUrlFunction?: ol.TileUrlFunctionType | undefined;
+            url?: string | undefined;
+            urls?: string[] | undefined;
+            wrapX?: boolean | undefined;
         }
 
         interface CartoDBOptions {
-            attributions?: ol.AttributionLike;
-            cacheSize?: number;
-            crossOrigin?: (string);
-            logo?: (string | LogoOptions);
+            attributions?: ol.AttributionLike | undefined;
+            cacheSize?: number | undefined;
+            crossOrigin?: (string) | undefined;
+            logo?: (string | LogoOptions) | undefined;
             projection: ol.ProjectionLike;
-            maxZoom?: number;
-            minZoom?: number;
-            wrapX?: boolean;
-            config?: GlobalObject;
-            map?: string;
+            maxZoom?: number | undefined;
+            minZoom?: number | undefined;
+            wrapX?: boolean | undefined;
+            config?: GlobalObject | undefined;
+            map?: string | undefined;
             account: string;
         }
 
         interface ZoomifyOptions {
-            attributions?: ol.AttributionLike;
-            cacheSize?: number;
-            crossOrigin?: (string);
-            logo?: (string | LogoOptions);
-            reprojectionErrorThreshold?: number;
+            attributions?: ol.AttributionLike | undefined;
+            cacheSize?: number | undefined;
+            crossOrigin?: (string) | undefined;
+            logo?: (string | LogoOptions) | undefined;
+            reprojectionErrorThreshold?: number | undefined;
             url: string;
-            tierSizeCalculation?: string;
+            tierSizeCalculation?: string | undefined;
             size: ol.Size;
         }
     }
     namespace style {
         interface CircleOptions {
-            fill?: ol.style.Fill;
+            fill?: ol.style.Fill | undefined;
             radius: number;
-            snapToPixel?: boolean;
-            stroke?: ol.style.Stroke;
-            atlasManager?: ol.style.AtlasManager;
+            snapToPixel?: boolean | undefined;
+            stroke?: ol.style.Stroke | undefined;
+            atlasManager?: ol.style.AtlasManager | undefined;
         }
 
         interface FillOptions {
-            color?: (ol.Color | ol.ColorLike);
+            color?: (ol.Color | ol.ColorLike) | undefined;
         }
 
         interface IconOptions {
-            anchor?: number[];
-            anchorOrigin?: ol.style.IconOrigin;
-            anchorXUnits?: ol.style.IconAnchorUnits;
-            anchorYUnits?: ol.style.IconAnchorUnits;
-            color?: (ol.Color | string);
-            crossOrigin?: (string);
-            img?: (HTMLImageElement | HTMLCanvasElement);
-            offset?: number[];
-            offsetOrigin?: ol.style.IconOrigin;
-            opacity?: number;
-            scale?: number;
-            snapToPixel?: boolean;
-            rotateWithView?: boolean;
-            rotation?: number;
-            size?: ol.Size;
-            imgSize?: ol.Size;
-            src?: string;
+            anchor?: number[] | undefined;
+            anchorOrigin?: ol.style.IconOrigin | undefined;
+            anchorXUnits?: ol.style.IconAnchorUnits | undefined;
+            anchorYUnits?: ol.style.IconAnchorUnits | undefined;
+            color?: (ol.Color | string) | undefined;
+            crossOrigin?: (string) | undefined;
+            img?: (HTMLImageElement | HTMLCanvasElement) | undefined;
+            offset?: number[] | undefined;
+            offsetOrigin?: ol.style.IconOrigin | undefined;
+            opacity?: number | undefined;
+            scale?: number | undefined;
+            snapToPixel?: boolean | undefined;
+            rotateWithView?: boolean | undefined;
+            rotation?: number | undefined;
+            size?: ol.Size | undefined;
+            imgSize?: ol.Size | undefined;
+            src?: string | undefined;
         }
 
         /**
          * Specify radius for regular polygons, or radius1 and radius2 for stars.
          */
         interface RegularShapeOptions {
-            fill?: ol.style.Fill;
+            fill?: ol.style.Fill | undefined;
             points: number;
-            radius?: number;
-            radius1?: number;
-            radius2?: number;
-            angle?: number;
-            snapToPixel?: boolean;
-            stroke?: ol.style.Stroke;
-            rotation?: number;
+            radius?: number | undefined;
+            radius1?: number | undefined;
+            radius2?: number | undefined;
+            angle?: number | undefined;
+            snapToPixel?: boolean | undefined;
+            stroke?: ol.style.Stroke | undefined;
+            rotation?: number | undefined;
         }
 
         interface StrokeOptions {
-            color?: ol.Color | string;
-            lineCap?: string;
-            lineJoin?: string;
-            lineDash?: number[];
-            lineDashOffset?: number;
-            miterLimit?: number;
-            width?: number;
+            color?: ol.Color | string | undefined;
+            lineCap?: string | undefined;
+            lineJoin?: string | undefined;
+            lineDash?: number[] | undefined;
+            lineDashOffset?: number | undefined;
+            miterLimit?: number | undefined;
+            width?: number | undefined;
         }
 
         /**
@@ -12454,68 +12454,68 @@ export namespace olx {
         type TextPlacement = 'point' | 'line';
 
         interface TextOptions {
-            font?: string;
-            maxAngle?: boolean;
-            offsetX?: number;
-            offsetY?: number;
-            overflow?: boolean;
-            placement?: TextPlacement;
-            scale?: number;
-            rotateWithView?: boolean;
-            rotation?: number;
-            text?: string;
-            textAlign?: string;
-            textBaseline?: string;
-            fill?: ol.style.Fill;
-            stroke?: ol.style.Stroke;
-            backgroundFill?: ol.style.Fill;
-            backgroundStroke?: ol.style.Stroke;
-            padding?: number[];
+            font?: string | undefined;
+            maxAngle?: boolean | undefined;
+            offsetX?: number | undefined;
+            offsetY?: number | undefined;
+            overflow?: boolean | undefined;
+            placement?: TextPlacement | undefined;
+            scale?: number | undefined;
+            rotateWithView?: boolean | undefined;
+            rotation?: number | undefined;
+            text?: string | undefined;
+            textAlign?: string | undefined;
+            textBaseline?: string | undefined;
+            fill?: ol.style.Fill | undefined;
+            stroke?: ol.style.Stroke | undefined;
+            backgroundFill?: ol.style.Fill | undefined;
+            backgroundStroke?: ol.style.Stroke | undefined;
+            padding?: number[] | undefined;
         }
 
         interface StyleOptions {
-            geometry?: (string | ol.geom.Geometry | ol.StyleGeometryFunction);
-            fill?: ol.style.Fill;
-            image?: ol.style.Image;
-            stroke?: ol.style.Stroke;
-            text?: ol.style.Text;
-            zIndex?: number;
+            geometry?: (string | ol.geom.Geometry | ol.StyleGeometryFunction) | undefined;
+            fill?: ol.style.Fill | undefined;
+            image?: ol.style.Image | undefined;
+            stroke?: ol.style.Stroke | undefined;
+            text?: ol.style.Text | undefined;
+            zIndex?: number | undefined;
         }
 
         interface AtlasManagerOptions {
-            initialSize?: number;
-            maxSize?: number;
-            space?: number;
+            initialSize?: number | undefined;
+            maxSize?: number | undefined;
+            space?: number | undefined;
         }
     }
     namespace tilegrid {
         interface TileGridOptions {
-            extent?: ol.Extent;
-            minZoom?: number;
-            origin?: ol.Coordinate;
-            origins?: ol.Coordinate[];
+            extent?: ol.Extent | undefined;
+            minZoom?: number | undefined;
+            origin?: ol.Coordinate | undefined;
+            origins?: ol.Coordinate[] | undefined;
             resolutions: number[];
-            tileSize?: (number | ol.Size);
-            tileSizes?: (Array<(number | ol.Size)>);
+            tileSize?: (number | ol.Size) | undefined;
+            tileSizes?: (Array<(number | ol.Size)>) | undefined;
         }
 
         interface WMTSOptions {
-            extent?: ol.Extent;
-            origin?: ol.Coordinate;
-            origins?: ol.Coordinate[];
+            extent?: ol.Extent | undefined;
+            origin?: ol.Coordinate | undefined;
+            origins?: ol.Coordinate[] | undefined;
             resolutions: number[];
             matrixIds: string[];
-            sizes?: ol.Size[];
-            tileSize?: (number | ol.Size);
-            tileSizes?: (Array<(number | ol.Size)>);
-            widths?: number[];
+            sizes?: ol.Size[] | undefined;
+            tileSize?: (number | ol.Size) | undefined;
+            tileSizes?: (Array<(number | ol.Size)>) | undefined;
+            widths?: number[] | undefined;
         }
 
         interface XYZOptions {
-            extent?: ol.Extent;
-            maxZoom?: number;
-            minZoom?: number;
-            tileSize?: (number | ol.Size);
+            extent?: ol.Extent | undefined;
+            maxZoom?: number | undefined;
+            minZoom?: number | undefined;
+            tileSize?: (number | ol.Size) | undefined;
         }
     }
 
@@ -12524,12 +12524,12 @@ export namespace olx {
     }
 
     interface DeviceOrientationOptions {
-        tracking?: boolean;
+        tracking?: boolean | undefined;
     }
 
     interface GeolocationOptions {
-        tracking?: boolean;
-        trackingOptions?: PositionOptions;
+        tracking?: boolean | undefined;
+        trackingOptions?: PositionOptions | undefined;
         projection: ol.ProjectionLike;
     }
 
@@ -12542,52 +12542,52 @@ export namespace olx {
     }
 
     interface GraticuleOptions {
-        map?: ol.Map;
-        maxLines?: number;
-        strokeStyle?: ol.style.Stroke;
-        targetSize?: number;
-        showLabels?: boolean;
-        lonLabelFormatter?: ((lon: number) => string);
-        latLabelFormatter?: ((lat: number) => string);
-        lonLabelPosition?: number;
-        latLabelPosition?: number;
-        lonLabelStyle?: ol.style.Text;
-        latLabelStyle?: ol.style.Text;
+        map?: ol.Map | undefined;
+        maxLines?: number | undefined;
+        strokeStyle?: ol.style.Stroke | undefined;
+        targetSize?: number | undefined;
+        showLabels?: boolean | undefined;
+        lonLabelFormatter?: ((lon: number) => string) | undefined;
+        latLabelFormatter?: ((lat: number) => string) | undefined;
+        lonLabelPosition?: number | undefined;
+        latLabelPosition?: number | undefined;
+        lonLabelStyle?: ol.style.Text | undefined;
+        latLabelStyle?: ol.style.Text | undefined;
     }
 
     /**
      * Object literal with config options for the map.
      */
     interface MapOptions {
-        controls?: (ol.Collection<ol.control.Control> | ol.control.Control[]);
-        pixelRatio?: number;
-        interactions?: (ol.Collection<ol.interaction.Interaction> | ol.interaction.Interaction[]);
-        keyboardEventTarget?: (Element | Document | string);
-        layers?: (ol.layer.Base[] | ol.Collection<ol.layer.Base>);
-        loadTilesWhileAnimating?: boolean;
-        loadTilesWhileInteracting?: boolean;
-        logo?: (boolean | string | LogoOptions | Element);
-        overlays?: (ol.Collection<ol.Overlay> | ol.Overlay[]);
-        renderer?: (ol.RendererType | Array<(ol.RendererType | string)> | string);
-        target?: (Element | string);
-        view?: ol.View;
-        moveTolerance?: number;
+        controls?: (ol.Collection<ol.control.Control> | ol.control.Control[]) | undefined;
+        pixelRatio?: number | undefined;
+        interactions?: (ol.Collection<ol.interaction.Interaction> | ol.interaction.Interaction[]) | undefined;
+        keyboardEventTarget?: (Element | Document | string) | undefined;
+        layers?: (ol.layer.Base[] | ol.Collection<ol.layer.Base>) | undefined;
+        loadTilesWhileAnimating?: boolean | undefined;
+        loadTilesWhileInteracting?: boolean | undefined;
+        logo?: (boolean | string | LogoOptions | Element) | undefined;
+        overlays?: (ol.Collection<ol.Overlay> | ol.Overlay[]) | undefined;
+        renderer?: (ol.RendererType | Array<(ol.RendererType | string)> | string) | undefined;
+        target?: (Element | string) | undefined;
+        view?: ol.View | undefined;
+        moveTolerance?: number | undefined;
     }
 
     /**
      * Object literal with config options for the overlay.
      */
     interface OverlayOptions {
-        id?: (number | string);
-        element?: Element;
-        offset?: number[];
-        position?: ol.Coordinate;
-        positioning?: (ol.OverlayPositioning | string);
-        stopEvent?: boolean;
-        insertFirst?: boolean;
-        autoPan?: boolean;
-        autoPanAnimation?: animation.PanOptions;
-        autoPanMargin?: number;
+        id?: (number | string) | undefined;
+        element?: Element | undefined;
+        offset?: number[] | undefined;
+        position?: ol.Coordinate | undefined;
+        positioning?: (ol.OverlayPositioning | string) | undefined;
+        stopEvent?: boolean | undefined;
+        insertFirst?: boolean | undefined;
+        autoPan?: boolean | undefined;
+        autoPanAnimation?: animation.PanOptions | undefined;
+        autoPanMargin?: number | undefined;
     }
 
     /**
@@ -12595,26 +12595,26 @@ export namespace olx {
      */
     interface ProjectionOptions {
         code: string;
-        units?: (ol.proj.Units | string);
-        extent?: ol.Extent;
-        axisOrientation?: string;
-        global?: boolean;
-        metersPerUnit?: number;
-        worldExtent?: ol.Extent;
-        getPointResolution?: ((resolution: number, coords: ol.Coordinate) => number);
+        units?: (ol.proj.Units | string) | undefined;
+        extent?: ol.Extent | undefined;
+        axisOrientation?: string | undefined;
+        global?: boolean | undefined;
+        metersPerUnit?: number | undefined;
+        worldExtent?: ol.Extent | undefined;
+        getPointResolution?: ((resolution: number, coords: ol.Coordinate) => number) | undefined;
     }
 
     namespace view {
         interface FitOptions {
-            size?: ol.Size;
-            padding?: number[];
-            constrainResolution?: boolean;
-            nearest?: boolean;
-            minResolution?: number;
-            maxZoom?: number;
-            duration?: number;
-            easing?: ((t: number) => number);
-            callback?: animation.AnimateCallback;
+            size?: ol.Size | undefined;
+            padding?: number[] | undefined;
+            constrainResolution?: boolean | undefined;
+            nearest?: boolean | undefined;
+            minResolution?: number | undefined;
+            maxZoom?: number | undefined;
+            duration?: number | undefined;
+            easing?: ((t: number) => number) | undefined;
+            callback?: animation.AnimateCallback | undefined;
         }
     }
 
@@ -12622,20 +12622,20 @@ export namespace olx {
      * Object literal with config options for the view.
      */
     interface ViewOptions {
-        center?: ol.Coordinate;
-        constrainRotation?: (boolean | number);
-        enableRotation?: boolean;
-        extent?: ol.Extent;
-        maxResolution?: number;
-        minResolution?: number;
-        maxZoom?: number;
-        minZoom?: number;
-        projection?: ol.ProjectionLike;
-        resolution?: number;
-        resolutions?: number[];
-        rotation?: number;
-        zoom?: number;
-        zoomFactor?: number;
+        center?: ol.Coordinate | undefined;
+        constrainRotation?: (boolean | number) | undefined;
+        enableRotation?: boolean | undefined;
+        extent?: ol.Extent | undefined;
+        maxResolution?: number | undefined;
+        minResolution?: number | undefined;
+        maxZoom?: number | undefined;
+        minZoom?: number | undefined;
+        projection?: ol.ProjectionLike | undefined;
+        resolution?: number | undefined;
+        resolutions?: number[] | undefined;
+        rotation?: number | undefined;
+        zoom?: number | undefined;
+        zoomFactor?: number | undefined;
     }
 
     /**
@@ -12643,8 +12643,8 @@ export namespace olx {
      * {@link ol.Map#hasFeatureAtPixel} methods.
      */
     interface AtPixelOptions {
-        layerFilter?: ((layer: ol.layer.Layer) => boolean);
-        hitTolerance?: number;
+        layerFilter?: ((layer: ol.layer.Layer) => boolean) | undefined;
+        hitTolerance?: number | undefined;
     }
 
     interface FrameState {

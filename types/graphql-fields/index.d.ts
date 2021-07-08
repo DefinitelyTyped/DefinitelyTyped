@@ -10,8 +10,8 @@ declare function graphqlFields(info: GraphQLResolveInfo, obj?: object, opts?: gr
 
 declare namespace graphqlFields {
     interface Options {
-        processArguments?: boolean;
-        excludedFields?: string[];
+        processArguments?: boolean | undefined;
+        excludedFields?: string[] | undefined;
     }
 }
 

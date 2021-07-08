@@ -24,23 +24,23 @@
         /**
          * Prefix for all routes.
          */
-        prefix?: string;
+        prefix?: string | undefined;
         /**
          * Methods which should be supported by the router.
          */
-        methods?: string[];
-        routerPath?: string;
+        methods?: string[] | undefined;
+        routerPath?: string | undefined;
         /**
          * Whether or not routing should be case-sensitive.
          */
-        sensitive?: boolean;
+        sensitive?: boolean | undefined;
         /**
          * Whether or not routes should matched strictly.
          *
          * If strict matching is enabled, the trailing slash is taken into
          * account when matching routes.
          */
-        strict?: boolean;
+        strict?: boolean | undefined;
     }
 
     interface RouterParamContext<StateT = any, CustomT = {}> {
@@ -71,24 +71,24 @@
         /**
          * throw error instead of setting status and header
          */
-        throw?: boolean;
+        throw?: boolean | undefined;
         /**
          * throw the returned value in place of the default NotImplemented error
          */
-        notImplemented?: () => any;
+        notImplemented?: (() => any) | undefined;
         /**
          * throw the returned value in place of the default MethodNotAllowed error
          */
-        methodNotAllowed?: () => any;
+        methodNotAllowed?: (() => any) | undefined;
     }
 
     interface LayerOptions {
         name: string;
-        sensitive?: boolean;
-        strict?: boolean;
-        end?: boolean;
-        prefix?: string;
-        ignoreCaptures?: boolean;
+        sensitive?: boolean | undefined;
+        strict?: boolean | undefined;
+        end?: boolean | undefined;
+        prefix?: string | undefined;
+        ignoreCaptures?: boolean | undefined;
     }
 
     interface UrlOptionsQuery {

@@ -10,27 +10,27 @@ import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
 export interface Options {
-    attributions?: AttributionLike;
-    attributionsCollapsible?: boolean;
-    cacheSize?: number;
-    crossOrigin?: null | string;
-    imageSmoothing?: boolean;
-    opaque?: boolean;
-    projection?: ProjectionLike;
-    reprojectionErrorThreshold?: number;
-    maxZoom?: number;
-    minZoom?: number;
-    maxResolution?: number;
-    tileGrid?: TileGrid;
-    tileLoadFunction?: LoadFunction;
-    tilePixelRatio?: number;
-    tileSize?: number | Size;
-    tileUrlFunction?: UrlFunction;
-    url?: string;
-    urls?: string[];
-    wrapX?: boolean;
-    transition?: number;
-    zDirection?: number;
+    attributions?: AttributionLike | undefined;
+    attributionsCollapsible?: boolean | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    imageSmoothing?: boolean | undefined;
+    opaque?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    maxZoom?: number | undefined;
+    minZoom?: number | undefined;
+    maxResolution?: number | undefined;
+    tileGrid?: TileGrid | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    tilePixelRatio?: number | undefined;
+    tileSize?: number | Size | undefined;
+    tileUrlFunction?: UrlFunction | undefined;
+    url?: string | undefined;
+    urls?: string[] | undefined;
+    wrapX?: boolean | undefined;
+    transition?: number | undefined;
+    zDirection?: number | undefined;
 }
 export default class XYZ extends TileImage {
     constructor(opt_options?: Options);

@@ -38,17 +38,17 @@ declare namespace MiniCssExtractPlugin {
         /**
          * Works like [`output.filename`](https://webpack.js.org/configuration/output/#outputfilename).
          */
-        filename?: Required<Configuration>['output']['filename'];
+        filename?: Required<Configuration>['output']['filename'] | undefined;
         /**
          * Works like [`output.chunkFilename`](https://webpack.js.org/configuration/output/#outputchunkfilename).
          */
-        chunkFilename?: Required<Configuration>['output']['chunkFilename'];
+        chunkFilename?: Required<Configuration>['output']['chunkFilename'] | undefined;
         /**
          * For projects where CSS ordering has been mitigated through consistent
          * use of scoping or naming conventions, the CSS order warnings can be
          * disabled by setting this flag to true for the plugin.
          */
-        ignoreOrder?: boolean;
+        ignoreOrder?: boolean | undefined;
         /**
          * Specify where to insert the link tag.
          *
@@ -61,14 +61,14 @@ declare namespace MiniCssExtractPlugin {
          *
          * @default function() { document.head.appendChild(linkTag); }
          */
-        insert?: string | ((linkTag: any) => void);
+        insert?: string | ((linkTag: any) => void) | undefined;
         /**
          * Specify additional html attributes to add to the link tag.
          *
          * Note: These are only applied to dynamically loaded css chunks. To modify link
          * attributes for entry CSS chunks, please use html-webpack-plugin.
          */
-        attributes?: Record<string, string>;
+        attributes?: Record<string, string> | undefined;
         /**
          * This option allows loading asynchronous chunks with a custom link type, such as
          * `<link type="text/css" ...>`.
@@ -77,37 +77,37 @@ declare namespace MiniCssExtractPlugin {
          *
          * @default 'text/css'
          */
-        linkType?: string | false | 'text/css';
+        linkType?: string | false | 'text/css' | undefined;
 
         /**
          * Use an experimental webpack API to execute modules instead of child compilers
          * @default false
          */
-        experimentalUseImportModule?: boolean;
+        experimentalUseImportModule?: boolean | undefined;
     }
     interface LoaderOptions {
         /**
          * Overrides [`output.publicPath`](https://webpack.js.org/configuration/output/#outputpublicpath).
          * @default output.publicPath
          */
-        publicPath?: string | ((resourcePath: string, context: string) => string);
+        publicPath?: string | ((resourcePath: string, context: string) => string) | undefined;
         /**
          * If false, the plugin will extract the CSS but **will not** emit the file
          * @default true
          */
-        emit?: boolean;
+        emit?: boolean | undefined;
         /**
          * By default, `mini-css-extract-plugin` generates JS modules that use the ES modules syntax.
          * There are some cases in which using ES modules is beneficial,
          * like in the case of module concatenation and tree shaking.
          * @default true
          */
-        esModule?: boolean;
+        esModule?: boolean | undefined;
 
         /**
          * Layer of the css execution
          */
-        layer?: string;
+        layer?: string | undefined;
     }
 }
 

@@ -40,11 +40,11 @@ declare module '.' {
         /**
          * @deprecated Use `hydrateRoot(container)` instead
          */
-        hydrate?: boolean;
+        hydrate?: boolean | undefined;
         /**
          * @deprecated Use `hydrateRoot(container, hydrateOptions)` instead
          */
-        hydrationOptions?: HydrationOptions;
+        hydrationOptions?: HydrationOptions | undefined;
     }
 
     interface Root {

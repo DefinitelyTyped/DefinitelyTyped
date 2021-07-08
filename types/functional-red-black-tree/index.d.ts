@@ -135,10 +135,10 @@ declare namespace createRBTree {
         remove: () => Tree<K, V>;
 
         /** The key of the iterator's current item. */
-        readonly key?: K;
+        readonly key?: K | undefined;
 
         /** The value of the iterator's current item. */
-        readonly value?: V;
+        readonly value?: V | undefined;
 
         /** Returns the position of the iterator in the sequence. */
         readonly index: number;

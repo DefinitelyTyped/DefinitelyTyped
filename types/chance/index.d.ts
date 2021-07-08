@@ -273,16 +273,16 @@ declare namespace Chance {
     }
 
     interface DateOptions {
-        string?: boolean;
-        american?: boolean;
-        year?: number;
-        month?: number;
-        day?: number;
-        min?: Date;
-        max?: Date;
+        string?: boolean | undefined;
+        american?: boolean | undefined;
+        year?: number | undefined;
+        month?: number | undefined;
+        day?: number | undefined;
+        min?: Date | undefined;
+        max?: Date | undefined;
     }
 
-    type UniqueOptions<T> = { comparator?: (array: T[], value: T) => boolean } & Options;
+    type UniqueOptions<T> = { comparator?: ((array: T[], value: T) => boolean) | undefined } & Options;
 
     interface Month {
         name: string;

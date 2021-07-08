@@ -17,15 +17,15 @@ export interface BufferPositions {
     indexPosition: number;
 }
 export interface Options {
-    className?: string;
-    uniforms?: { [key: string]: UniformValue };
-    postProcesses?: PostProcessesOptions[];
+    className?: string | undefined;
+    uniforms?: { [key: string]: UniformValue } | undefined;
+    postProcesses?: PostProcessesOptions[] | undefined;
 }
 export interface PostProcessesOptions {
-    scaleRatio?: number;
-    vertexShader?: string;
-    fragmentShader?: string;
-    uniforms?: { [key: string]: UniformValue };
+    scaleRatio?: number | undefined;
+    vertexShader?: string | undefined;
+    fragmentShader?: string | undefined;
+    uniforms?: { [key: string]: UniformValue } | undefined;
 }
 /**
  * This message will trigger the generation of a vertex and an index buffer based on the given render instructions.
@@ -36,9 +36,9 @@ export interface PostProcessesOptions {
 export interface WebGLWorkerGenerateBuffersMessage {
     type: WebGLWorkerMessageType;
     renderInstructions: ArrayBuffer;
-    vertexBuffer?: ArrayBuffer;
-    indexBuffer?: ArrayBuffer;
-    customAttributesCount?: number;
+    vertexBuffer?: ArrayBuffer | undefined;
+    indexBuffer?: ArrayBuffer | undefined;
+    customAttributesCount?: number | undefined;
 }
 export enum WebGLWorkerMessageType {
     GENERATE_BUFFERS = 'GENERATE_BUFFERS',

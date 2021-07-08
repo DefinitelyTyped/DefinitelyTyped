@@ -28,42 +28,42 @@ type Auth0LockAdditionalSignUpFieldPrefillFunction =
     (callback: Auth0LockAdditionalSignUpFieldPrefillCallback) => void;
 
 interface Auth0LockAdditionalTextSignUpField {
-    type?: "text";
-    icon?: string;
+    type?: "text" | undefined;
+    icon?: string | undefined;
     name: string;
-    options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction;
+    options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction | undefined;
     placeholder: string;
-    prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction;
-    validator?: (input: string) => { valid: boolean; hint?: string };
-    storage?: "root";
+    prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction | undefined;
+    validator?: ((input: string) => { valid: boolean; hint?: string | undefined }) | undefined;
+    storage?: "root" | undefined;
 }
 
 interface Auth0LockAdditionalSelectSignUpField {
-    type?: "select";
-    icon?: string;
+    type?: "select" | undefined;
+    icon?: string | undefined;
     name: string;
-    options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction;
+    options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction | undefined;
     placeholder: string;
-    prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction;
-    validator?: (input: string) => { valid: boolean; hint?: string };
-    storage?: "root";
+    prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction | undefined;
+    validator?: ((input: string) => { valid: boolean; hint?: string | undefined }) | undefined;
+    storage?: "root" | undefined;
 }
 
 interface Auth0LockAdditionalCheckboxSignUpField {
-    type?: "checkbox";
-    icon?: string;
+    type?: "checkbox" | undefined;
+    icon?: string | undefined;
     name: string;
     placeholder: string;
     prefill: "true" | "false";
-    validator?: (input: string) => { valid: boolean, hint?: string };
-    storage?: "root";
+    validator?: ((input: string) => { valid: boolean, hint?: string | undefined }) | undefined;
+    storage?: "root" | undefined;
 }
 
 interface Auth0LockAdditionalHiddenSignUpField {
-    type?: "hidden";
+    type?: "hidden" | undefined;
     name: string;
     value: string;
-    storage?: "root";
+    storage?: "root" | undefined;
 }
 
 type Auth0LockAdditionalSignUpField = Auth0LockAdditionalSelectSignUpField |Auth0LockAdditionalTextSignUpField |Auth0LockAdditionalCheckboxSignUpField |Auth0LockAdditionalHiddenSignUpField;
@@ -78,20 +78,20 @@ interface Auth0LockAvatarOptions {
 
 interface Auth0LockThemeButton {
     displayName: string;
-    primaryColor?: string;
-    foregroundColor?: string;
-    icon?: string;
+    primaryColor?: string | undefined;
+    foregroundColor?: string | undefined;
+    icon?: string | undefined;
 }
 interface Auth0LockThemeButtonOptions {
     [provider: string]: Auth0LockThemeButton;
 }
 
 interface Auth0LockThemeOptions {
-    authButtons?: Auth0LockThemeButtonOptions;
-    hideMainScreenTitle?: boolean;
-    labeledSubmitButton?: boolean;
-    logo?: string;
-    primaryColor?: string;
+    authButtons?: Auth0LockThemeButtonOptions | undefined;
+    hideMainScreenTitle?: boolean | undefined;
+    labeledSubmitButton?: boolean | undefined;
+    logo?: string | undefined;
+    primaryColor?: string | undefined;
 }
 
 // https://auth0.com/docs/libraries/lock/v10/sending-authentication-parameters
@@ -102,20 +102,20 @@ interface Auth0LockAuthParamsOptions {
     nonce?: any;
     protocol?: any;
     request_id?: any;
-    scope?: string;
-    state?: string;
+    scope?: string | undefined;
+    state?: string | undefined;
     [key: string]: any; // Auth0 rules can use custom params.
 }
 
 interface Auth0LockAuthOptions {
-    autoParseHash?: boolean;
-    params?: Auth0LockAuthParamsOptions;
-    redirect?: boolean;
-    redirectUrl?: string;
-    responseMode?: string;
-    responseType?: string;
-    sso?: boolean;
-    audience?: string;
+    autoParseHash?: boolean | undefined;
+    params?: Auth0LockAuthParamsOptions | undefined;
+    redirect?: boolean | undefined;
+    redirectUrl?: string | undefined;
+    responseMode?: string | undefined;
+    responseType?: string | undefined;
+    sso?: boolean | undefined;
+    audience?: string | undefined;
 }
 
 interface Auth0LockPopupOptions {
@@ -126,47 +126,47 @@ interface Auth0LockPopupOptions {
 }
 
 interface Auth0LockConstructorOptions {
-    additionalSignUpFields?: Auth0LockAdditionalSignUpField[];
-    allowedConnections?: string[];
-    allowAutocomplete?: boolean;
-    allowForgotPassword?: boolean;
-    allowLogin?: boolean;
-    allowPasswordAutocomplete?: boolean;
-    allowSignUp?: boolean;
-    allowShowPassword?: boolean;
-    assetsUrl?: string;
-    auth?: Auth0LockAuthOptions;
-    autoclose?: boolean;
-    autofocus?: boolean;
-    avatar?: Auth0LockAvatarOptions | null;
-    clientBaseUrl?: string;
-    closable?: boolean;
-    configurationBaseUrl?: string;
-    container?: string;
-    defaultADUsernameFromEmailPrefix?: boolean;
-    defaultDatabaseConnection?: string;
-    defaultEnterpriseConnection?: string;
-    flashMessage?: Auth0LockFlashMessageOptions;
-    forgotPasswordLink?: string;
-    hashCleanup?: boolean;
-    initialScreen?: "login" | "signUp" | "forgotPassword";
-    language?: string;
-    languageBaseUrl?: string;
+    additionalSignUpFields?: Auth0LockAdditionalSignUpField[] | undefined;
+    allowedConnections?: string[] | undefined;
+    allowAutocomplete?: boolean | undefined;
+    allowForgotPassword?: boolean | undefined;
+    allowLogin?: boolean | undefined;
+    allowPasswordAutocomplete?: boolean | undefined;
+    allowSignUp?: boolean | undefined;
+    allowShowPassword?: boolean | undefined;
+    assetsUrl?: string | undefined;
+    auth?: Auth0LockAuthOptions | undefined;
+    autoclose?: boolean | undefined;
+    autofocus?: boolean | undefined;
+    avatar?: Auth0LockAvatarOptions | null | undefined;
+    clientBaseUrl?: string | undefined;
+    closable?: boolean | undefined;
+    configurationBaseUrl?: string | undefined;
+    container?: string | undefined;
+    defaultADUsernameFromEmailPrefix?: boolean | undefined;
+    defaultDatabaseConnection?: string | undefined;
+    defaultEnterpriseConnection?: string | undefined;
+    flashMessage?: Auth0LockFlashMessageOptions | undefined;
+    forgotPasswordLink?: string | undefined;
+    hashCleanup?: boolean | undefined;
+    initialScreen?: "login" | "signUp" | "forgotPassword" | undefined;
+    language?: string | undefined;
+    languageBaseUrl?: string | undefined;
     languageDictionary?: any;
-    leeway?: number;
-    loginAfterSignUp?: boolean;
-    mustAcceptTerms?: boolean;
-    oidcConformant?: boolean;
-    popupOptions?: Auth0LockPopupOptions;
-    prefill?: { email?: string, username?: string};
-    rememberLastLogin?: boolean;
-    scrollGlobalMessagesIntoView?: boolean;
-    signupLink?: string;
-    socialButtonStyle?: "big" | "small";
-    theme?: Auth0LockThemeOptions;
-    usernameStyle?: string;
-    _enableImpersonation?: boolean;
-    _enableIdPInitiatedLogin?: boolean;
+    leeway?: number | undefined;
+    loginAfterSignUp?: boolean | undefined;
+    mustAcceptTerms?: boolean | undefined;
+    oidcConformant?: boolean | undefined;
+    popupOptions?: Auth0LockPopupOptions | undefined;
+    prefill?: { email?: string | undefined, username?: string | undefined} | undefined;
+    rememberLastLogin?: boolean | undefined;
+    scrollGlobalMessagesIntoView?: boolean | undefined;
+    signupLink?: string | undefined;
+    socialButtonStyle?: "big" | "small" | undefined;
+    theme?: Auth0LockThemeOptions | undefined;
+    usernameStyle?: string | undefined;
+    _enableImpersonation?: boolean | undefined;
+    _enableIdPInitiatedLogin?: boolean | undefined;
 }
 
 interface Auth0LockFlashMessageOptions {
@@ -175,30 +175,30 @@ interface Auth0LockFlashMessageOptions {
 }
 
 interface Auth0LockShowOptions {
-    allowedConnections?: string[];
-    allowForgotPassword?: boolean;
-    allowLogin?: boolean;
-    allowSignUp?: boolean;
-    auth?: Auth0LockAuthOptions;
-    initialScreen?: "login" | "signUp" | "forgotPassword";
-    flashMessage?: Auth0LockFlashMessageOptions;
-    rememberLastLogin?: boolean;
+    allowedConnections?: string[] | undefined;
+    allowForgotPassword?: boolean | undefined;
+    allowLogin?: boolean | undefined;
+    allowSignUp?: boolean | undefined;
+    auth?: Auth0LockAuthOptions | undefined;
+    initialScreen?: "login" | "signUp" | "forgotPassword" | undefined;
+    flashMessage?: Auth0LockFlashMessageOptions | undefined;
+    rememberLastLogin?: boolean | undefined;
     languageDictionary?: any;
 }
 
 interface Auth0IdTokenPayload {
-    name?: string;
-    nickname?: string;
-    picture?: string;
-    email?: string;
-    email_verified?: boolean;
+    name?: string | undefined;
+    nickname?: string | undefined;
+    picture?: string | undefined;
+    email?: string | undefined;
+    email_verified?: boolean | undefined;
     aud: string;
     exp: number;
     iat: number;
     iss: string;
     sub: string;
-    acr?: string;
-    amr?: string[];
+    acr?: string | undefined;
+    amr?: string[] | undefined;
     [key: string]: any;
 }
 
@@ -208,8 +208,8 @@ interface AuthResult {
     expiresIn: number;
     idToken: string;
     idTokenPayload: Auth0IdTokenPayload;
-    refreshToken?: string;
-    scope?: string;
+    refreshToken?: string | undefined;
+    scope?: string | undefined;
     state: string;
     tokenType: string;
 }
@@ -237,7 +237,7 @@ interface Auth0LockStatic extends Auth0LockCore {
 
 // additional options for passwordless mode
 interface Auth0LockPasswordlessConstructorOptions extends Auth0LockConstructorOptions {
-    passwordlessMethod?: string;
+    passwordlessMethod?: string | undefined;
 }
 
 interface Auth0LockPasswordlessStatic extends Auth0LockCore {

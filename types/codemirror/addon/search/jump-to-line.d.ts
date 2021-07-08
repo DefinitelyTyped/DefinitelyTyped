@@ -9,6 +9,6 @@ declare module '../../' {
     interface EditorConfiguration {
         search?: {
             bottom: boolean;
-        };
+        } | undefined;
     }
 }

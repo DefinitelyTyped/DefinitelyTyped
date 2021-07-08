@@ -13,7 +13,7 @@ export class LiveAnnouncer extends React.Component {
 
 export const LiveMessage: React.StatelessComponent<{
     'aria-live': 'assertive' | 'polite';
-    clearOnUnmount?: boolean | 'true' | 'false';
+    clearOnUnmount?: boolean | 'true' | 'false' | undefined;
     message: string;
 }>;
 

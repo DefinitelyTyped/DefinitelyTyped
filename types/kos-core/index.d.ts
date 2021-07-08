@@ -14,20 +14,20 @@ interface Util {
 
 interface WrapperConfig {
     model: KosModel;
-    autoLoad?: boolean;
-    autoReset?: boolean;
-    namespace?: string;
+    autoLoad?: boolean | undefined;
+    autoReset?: boolean | undefined;
+    namespace?: string | undefined;
 }
 
 interface Action<T = any> {
     type: string;
-    payload?: Partial<T> & { [x: string]: any };
+    payload?: Partial<T> & { [x: string]: any } | undefined;
 }
 
 export interface KosProps<T = any> {
-    dispatch?: (action: Action<T>) => void;
-    getParam?: () => any;
-    getNamespace?: () => string;
+    dispatch?: ((action: Action<T>) => void) | undefined;
+    getParam?: (() => any) | undefined;
+    getNamespace?: (() => string) | undefined;
 }
 
 export type KosDispatch = (action: Action) => void;
@@ -43,10 +43,10 @@ export interface KosModel<T = any> {
     asyncs: {
         [key: string]: (dispatch?: KosDispatch, getState?: GetKosState<T>, action?: { payload: T }) => void;
     };
-    setup?: (dispatch: KosDispatch, getState: GetKosState<T>, action: { payload: { param: any } }) => void;
-    getAsync?: (
+    setup?: ((dispatch: KosDispatch, getState: GetKosState<T>, action: { payload: { param: any } }) => void) | undefined;
+    getAsync?: ((
         key: string
-    ) => (dispatch: KosDispatch, getState?: GetKosState) => void;
+    ) => (dispatch: KosDispatch, getState?: GetKosState) => void) | undefined;
 }
 
 interface Kos {

@@ -78,5 +78,5 @@ export interface Schema {
     messages: Message[];
     options: Options;
     extends: Extend[];
-    services?: Service[];
+    services?: Service[] | undefined;
 }

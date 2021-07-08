@@ -107,16 +107,16 @@ type BodyInit_ =
     | null;
 
 declare interface RequestInit {
-    body?: BodyInit_;
-    credentials?: RequestCredentials_;
-    headers?: HeadersInit_;
-    integrity?: string;
-    keepalive?: boolean;
-    method?: string;
-    mode?: RequestMode_;
-    referrer?: string;
+    body?: BodyInit_ | undefined;
+    credentials?: RequestCredentials_ | undefined;
+    headers?: HeadersInit_ | undefined;
+    integrity?: string | undefined;
+    keepalive?: boolean | undefined;
+    method?: string | undefined;
+    mode?: RequestMode_ | undefined;
+    referrer?: string | undefined;
     window?: any;
-    signal?: AbortSignal;
+    signal?: AbortSignal | undefined;
 }
 
 declare interface Request extends Object, Body {
@@ -137,9 +137,9 @@ declare var Request: {
 declare type RequestInfo = Request | string;
 
 declare interface ResponseInit {
-    headers?: HeadersInit_;
-    status?: number;
-    statusText?: string;
+    headers?: HeadersInit_ | undefined;
+    status?: number | undefined;
+    statusText?: string | undefined;
 }
 
 declare interface Response extends Object, Body {
@@ -334,9 +334,9 @@ interface WebSocketErrorEvent extends Event {
     message: string;
 }
 interface WebSocketCloseEvent extends Event {
-    code?: number;
-    reason?: string;
-    message?: string;
+    code?: number | undefined;
+    reason?: string | undefined;
+    message?: string | undefined;
 }
 
 interface WebSocket extends EventTarget {

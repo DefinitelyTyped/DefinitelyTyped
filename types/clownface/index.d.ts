@@ -21,9 +21,9 @@ declare namespace clownface {
   type SingleOrArrayOfTermsOrLiterals<X extends Term> = SingleOrArray<TermOrLiteral<X>>;
 
   interface NodeOptions {
-    type?: 'BlankNode' | 'Literal' | 'NamedNode';
-    datatype?: Term | { toString(): string };
-    language?: string;
+    type?: 'BlankNode' | 'Literal' | 'NamedNode' | undefined;
+    datatype?: Term | { toString(): string } | undefined;
+    language?: string | undefined;
   }
 
   type ClownfaceInit<D extends DatasetCore = DatasetCore>
@@ -44,7 +44,7 @@ declare namespace clownface {
       : Iteratee<T, D>;
 
   interface OutOptions {
-    language?: string | string[];
+    language?: string | string[] | undefined;
   }
 
   interface AnyPointer<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore> {
