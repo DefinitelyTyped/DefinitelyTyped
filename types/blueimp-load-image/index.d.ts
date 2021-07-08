@@ -9,7 +9,7 @@
 declare namespace loadImage {
     type LoadImageCallback = (eventOrImage: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
     type LoadImageResult = MetaData & {
-        image: HTMLImageElement | FileReader | false;
+        image: HTMLImageElement | HTMLCanvasElement;
     };
 
     type ParseMetaDataCallback = (data: MetaData) => void;
