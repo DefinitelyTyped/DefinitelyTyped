@@ -13,6 +13,7 @@ import {
     ViewStyle,
     FlatListProps,
     TextInputProps,
+    ListViewProps,
 } from 'react-native';
 
 export interface AutocompleteProps<T> extends TextInputProps {
@@ -80,7 +81,7 @@ export interface AutocompleteProps<T> extends TextInputProps {
      * string | bool
      * Set `keyboardShouldPersistTaps` to true if RN version is <= 0.39.
      */
-    renderSeparator?: ListViewProperties['renderSeparator'] | undefined;
+    renderSeparator?: ListViewProps['renderSeparator'] | undefined;
 
     keyboardShouldPersistTaps?: 'always' | 'handeld' | 'never' | boolean;
 }
