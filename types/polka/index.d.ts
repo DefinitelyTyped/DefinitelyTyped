@@ -2,13 +2,12 @@
 // Project: https://github.com/lukeed/polka
 // Definitions by: Piotr Kuczynski <https://github.com/pkuczynski>
 //                 James Messinger <https://github.com/JamesMessinger>
+//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
 /// <reference types="node" />
 
-import { RequestHandler } from 'express';
-import { Params, ParamsDictionary, Query } from 'express-serve-static-core';
 import { IncomingMessage, Server, ServerResponse } from 'http';
 import * as Trouter from 'trouter';
 import { Url } from 'url';
@@ -17,7 +16,7 @@ declare namespace polka {
     /**
      * A middleware function
      */
-    type Middleware<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query> = RequestHandler<P, ResBody, ReqBody, ReqQuery>;
+    type Middleware = (req: Request, res: ServerResponse, next: Next) => void;
 
     /**
      * Calls the next middleware function in the chain, or throws an error.
@@ -61,7 +60,7 @@ declare namespace polka {
     /**
      * An instance of the Polka router.
      */
-    interface Polka extends Trouter<RequestHandler> {
+    interface Polka extends Trouter<Middleware> {
         /**
          * Parses the `req.url` property of the given request.
          */
@@ -71,13 +70,13 @@ declare namespace polka {
          * Attach middleware(s) and/or sub-application(s) to the server.
          * These will execute before your routes' handlers.
          */
-        use(...handlers: RequestHandler[]): this;
+        use(...handlers: Middleware[]): this;
 
         /**
          * Attach middleware(s) and/or sub-application(s) to the server.
          * These will execute before your routes' handlers.
          */
-        use(pattern: string | RegExp, ...handlers: RequestHandler[] | Polka[]): this;
+        use(pattern: string | RegExp, ...handlers: Middleware[] | Polka[]): this;
 
         /**
          * Boots (or creates) the underlying `http.Server` for the first time.
