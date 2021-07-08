@@ -13,17 +13,17 @@ import Source, { AttributionLike } from './Source';
 import State from './State';
 
 export interface Options {
-    attributions?: AttributionLike;
-    attributionsCollapsible?: boolean;
-    cacheSize?: number;
-    opaque?: boolean;
-    tilePixelRatio?: number;
-    projection?: ProjectionLike;
-    state?: State;
-    tileGrid?: TileGrid;
-    wrapX?: boolean;
-    transition?: number;
-    key?: string;
+    attributions?: AttributionLike | undefined;
+    attributionsCollapsible?: boolean | undefined;
+    cacheSize?: number | undefined;
+    opaque?: boolean | undefined;
+    tilePixelRatio?: number | undefined;
+    projection?: ProjectionLike | undefined;
+    state?: State | undefined;
+    tileGrid?: TileGrid | undefined;
+    wrapX?: boolean | undefined;
+    transition?: number | undefined;
+    key?: string | undefined;
 }
 export default class TileSource extends Source {
     constructor(options: Options);

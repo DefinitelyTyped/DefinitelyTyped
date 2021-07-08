@@ -1,5 +1,5 @@
 // tslint:disable-next-line interface-name
 export default interface ILanguageRequest {
-    languageCode?: string;
+    languageCode?: string | undefined;
     languageId: number;
 }

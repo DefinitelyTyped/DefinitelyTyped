@@ -6,7 +6,7 @@
 
 export interface TdObject {
     '@type': string;
-    '@extra'?: string;
+    '@extra'?: string | undefined;
     [key: string]: TdObject | TdObject[] | number | number[] | string | string[] | boolean | boolean[] | undefined;
 }
 
@@ -15,7 +15,7 @@ export interface TdObject {
  */
 export interface TdError {
     '@type': 'error';
-    '@extra'?: 'string';
+    '@extra'?: 'string' | undefined;
     /**
      * Error code; subject to future changes. If the error code is 406, the error message
      * must not be processed in any way and must not be displayed to the user
@@ -29,40 +29,40 @@ export interface TdOptions {
     /**
      * Callback for all incoming updates.
      */
-    onUpdate?: (update: TdObject) => any;
+    onUpdate?: ((update: TdObject) => any) | undefined;
     /**
      * Name of the TDLib instance. Currently only one instance of TdClient with a given name is allowed.
      * All but one instances with the same name will be automatically closed. Usually, the newest non-background instance is kept alive.
      * Files will be stored in an IndexedDb table with the same name.
      */
-    instanceName?: string;
+    instanceName?: string | undefined;
     /**
      * Pass true, if the instance is opened from the background.
      */
-    isBackground?: boolean;
+    isBackground?: boolean | undefined;
     /**
      * The initial verbosity level for the TDLib internal logging (0-1023).
      */
-    logVerbosityLevel?: number;
+    logVerbosityLevel?: number | undefined;
     /**
      * The initial verbosity level of the JavaScript part of the code (one of 'error', 'warning', 'info', 'log', 'debug').
      */
-    jsLogVerbosityLevel?: 'error' | 'warning' | 'info' | 'log' | 'debug';
+    jsLogVerbosityLevel?: 'error' | 'warning' | 'info' | 'log' | 'debug' | undefined;
     /**
      * Pass false to use TDLib without database and secret chats. It will significantly improve loading time, but some functionality will be unavailable.
      */
-    useDatabase?: boolean;
+    useDatabase?: boolean | undefined;
     /**
      * For debug only. PaPass false to use TDLib without database and secret chats.
      * It will significantly improve loading time, but some functionality will be unavailable.ss true
      * to open TDLib database in read-only mode
      */
-    readOnly?: boolean;
+    readOnly?: boolean | undefined;
     /**
      * For debug only. The type of the TDLib build to use. 'asmjs' for asm.js and 'wasm' for WebAssembly.
      * If mode == 'auto' WebAbassembly will be used if supported by browser, asm.js otherwise.
      */
-    mode?: 'auto' | 'asmjs' | 'wasm';
+    mode?: 'auto' | 'asmjs' | 'wasm' | undefined;
 }
 
 /**

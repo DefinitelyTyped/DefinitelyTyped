@@ -8,42 +8,42 @@
 /// <reference types="jquery"/>
 
 interface BootstrapSelectOptions {
-    actionsBox?: boolean;
-    container?: string | boolean;
-    countSelectedText?: string | Function;
-    deselectAllText?: string;
-    dropdownAlignRight?: string | boolean;
-    dropupAuto?: boolean;
-    header?: string;
-    hideDisabled?: boolean;
-    iconBase?: string;
-    liveSearch?: boolean;
-    liveSearchNormalize?: boolean;
-    liveSearchPlaceholder?: string;
-    liveSearchStyle?: string;
-    maxOptions?: number | boolean;
-    maxOptionsText?: string | Array<any> | Function;
-    mobile?: boolean;
-    multipleSeparator?: string;
-    noneSelectedText?: string;
-    noneResultsText?: string;
-    selectAllText?: string;
-    selectedTextFormat?: string;
-    selectOnTab?: boolean;
-    showContent?: boolean;
-    showIcon?: boolean;
-    showSubtext?: boolean;
-    showTick?: boolean;
-    sanitize?: boolean;
-    sanitizeFn?: (unsafeElements: Array<HTMLElement | ChildNode | Node>) => void;
-    size?: 'auto' | number | boolean;
-    style?: string;
-    styleBase?: string;
-    tickIcon?: string;
-    title?: string;
-    virtualScroll?: boolean | number;
-    width?: string | boolean;
-    windowPadding?: number | number[];
+    actionsBox?: boolean | undefined;
+    container?: string | boolean | undefined;
+    countSelectedText?: string | Function | undefined;
+    deselectAllText?: string | undefined;
+    dropdownAlignRight?: string | boolean | undefined;
+    dropupAuto?: boolean | undefined;
+    header?: string | undefined;
+    hideDisabled?: boolean | undefined;
+    iconBase?: string | undefined;
+    liveSearch?: boolean | undefined;
+    liveSearchNormalize?: boolean | undefined;
+    liveSearchPlaceholder?: string | undefined;
+    liveSearchStyle?: string | undefined;
+    maxOptions?: number | boolean | undefined;
+    maxOptionsText?: string | Array<any> | Function | undefined;
+    mobile?: boolean | undefined;
+    multipleSeparator?: string | undefined;
+    noneSelectedText?: string | undefined;
+    noneResultsText?: string | undefined;
+    selectAllText?: string | undefined;
+    selectedTextFormat?: string | undefined;
+    selectOnTab?: boolean | undefined;
+    showContent?: boolean | undefined;
+    showIcon?: boolean | undefined;
+    showSubtext?: boolean | undefined;
+    showTick?: boolean | undefined;
+    sanitize?: boolean | undefined;
+    sanitizeFn?: ((unsafeElements: Array<HTMLElement | ChildNode | Node>) => void) | undefined;
+    size?: 'auto' | number | boolean | undefined;
+    style?: string | undefined;
+    styleBase?: string | undefined;
+    tickIcon?: string | undefined;
+    title?: string | undefined;
+    virtualScroll?: boolean | number | undefined;
+    width?: string | boolean | undefined;
+    windowPadding?: number | number[] | undefined;
 }
 
 type MethodType =

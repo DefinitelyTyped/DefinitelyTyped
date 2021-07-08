@@ -14,7 +14,7 @@ interface IdleDeadline {
 }
 
 interface IdleRequestOptions {
-    timeout?: number;
+    timeout?: number | undefined;
 }
 
 type IdleCallbackHandle = number;

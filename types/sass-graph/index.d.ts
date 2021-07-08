@@ -6,8 +6,8 @@
 declare namespace SassGraph {
 
   export interface Options {
-    loadPath?: string[];
-    extensions?: string[];
+    loadPath?: string[] | undefined;
+    extensions?: string[] | undefined;
   }
 
   type Node = {

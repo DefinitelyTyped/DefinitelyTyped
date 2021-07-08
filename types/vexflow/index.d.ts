@@ -115,7 +115,7 @@ declare namespace Vex {
             license_description: string;
             manufacturer_name: string;
             font_sub_family_name: string;
-        };
+        } | undefined;
     }
 
     namespace Flow {
@@ -132,7 +132,7 @@ declare namespace Vex {
         function keyProperties(
             key: string,
             clef: string,
-            params: { octave_shift?: number },
+            params: { octave_shift?: number | undefined },
         ): {
             key: string;
             octave: number;
@@ -190,9 +190,9 @@ declare namespace Vex {
             dot_shiftY: number;
             line_above: number;
             line_below: number;
-            code_head?: string;
-            rest?: boolean;
-            position?: string;
+            code_head?: string | undefined;
+            rest?: boolean | undefined;
+            position?: string | undefined;
         };
 
         // from glyph.js:
@@ -340,10 +340,10 @@ declare namespace Vex {
         class Beam {
             constructor(notes: StemmableNote[], auto_stem?: boolean);
             setStyle(style: {
-                shadowColor?: string;
-                shadowBlur?: string;
-                fillStyle?: string;
-                strokeStyle?: string;
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
             }): Beam;
             setContext(context: IRenderContext): Beam;
             getNotes(): StemmableNote[];
@@ -364,12 +364,12 @@ declare namespace Vex {
             static generateBeams(
                 notes: StemmableNote[],
                 config?: {
-                    groups?: Fraction[];
-                    stem_direction?: number;
-                    beam_rests?: boolean;
-                    beam_middle_only?: boolean;
-                    show_stemlets?: boolean;
-                    maintain_stem_directions?: boolean;
+                    groups?: Fraction[] | undefined;
+                    stem_direction?: number | undefined;
+                    beam_rests?: boolean | undefined;
+                    beam_middle_only?: boolean | undefined;
+                    show_stemlets?: boolean | undefined;
+                    maintain_stem_directions?: boolean | undefined;
                 },
             ): Beam[];
         }
@@ -510,7 +510,7 @@ declare namespace Vex {
         }
 
         class Crescendo extends Note {
-            constructor(note_struct: { duration: number; line?: number });
+            constructor(note_struct: { duration: number; line?: number | undefined });
             static DEBUG: boolean;
             setLine(line: number): Crescendo;
             setHeight(height: number): Crescendo;
@@ -524,13 +524,13 @@ declare namespace Vex {
                 from: Note,
                 to: Note,
                 options?: {
-                    spacing?: number;
-                    thickness?: number;
-                    x_shift?: number;
+                    spacing?: number | undefined;
+                    thickness?: number | undefined;
+                    x_shift?: number | undefined;
                     y_shift: number;
                     position: Curve.Position;
                     invert: boolean;
-                    cps?: { x: number; y: number }[];
+                    cps?: { x: number; y: number }[] | undefined;
                 },
             );
             static DEBUG: boolean;
@@ -571,8 +571,8 @@ declare namespace Vex {
         class Formatter {
             static DEBUG: boolean;
             constructor(options?: {
-                softmaxFactor?: number,
-                maxIterations?: number
+                softmaxFactor?: number | undefined,
+                maxIterations?: number | undefined
             });
             static FormatAndDraw(
                 ctx: IRenderContext,
@@ -611,12 +611,12 @@ declare namespace Vex {
             format(
                 voices: Voice[],
                 justifyWidth: number,
-                options?: { align_rests?: boolean; context: IRenderContext },
+                options?: { align_rests?: boolean | undefined; context: IRenderContext },
             ): Formatter;
             formatToStave(
                 voices: Voice[],
                 stave: Stave,
-                options?: { align_rests?: boolean; context: IRenderContext },
+                options?: { align_rests?: boolean | undefined; context: IRenderContext },
             ): Formatter;
         }
 
@@ -680,7 +680,11 @@ declare namespace Vex {
             setStave(stave: Stave): Note;
 
             constructor(duration: string);
-            constructor(note_struct: { type?: string; dots?: number; duration: string }); //inconsistent name : init struct is called 'duration', should be 'params'/'options' (may be string or Object)
+            constructor(note_struct: {
+                type?: string | undefined;
+                dots?: number | undefined;
+                duration: string
+            }); //inconsistent name : init struct is called 'duration', should be 'params'/'options' (may be string or Object)
             isRest(): boolean;
             setStave(stave: Stave): void; //inconsistent type: void -> GhostNote
             addToModifierContext(): GhostNote;
@@ -689,8 +693,8 @@ declare namespace Vex {
         }
 
         class Glyph {
-            constructor(code: string, point: number, options?: { cache?: boolean; font?: IFont });
-            setOptions(options: { cache?: boolean; font?: IFont }): void;
+            constructor(code: string, point: number, options?: { cache?: boolean | undefined; font?: IFont | undefined });
+            setOptions(options: { cache?: boolean | undefined; font?: IFont | undefined }): void;
             setStave(stave: Stave): Glyph;
             setXShift(x_shift: number): Glyph;
             setYShift(y_shift: number): Glyph;
@@ -717,15 +721,15 @@ declare namespace Vex {
 
         class GraceNote extends StaveNote {
             constructor(note_struct: {
-                slash?: boolean;
-                type?: string;
-                dots?: number;
+                slash?: boolean | undefined;
+                type?: string | undefined;
+                dots?: number | undefined;
                 duration: string;
-                clef?: string;
+                clef?: string | undefined;
                 keys: string[];
-                octave_shift?: number;
-                auto_stem?: boolean;
-                stem_direction?: number;
+                octave_shift?: number | undefined;
+                auto_stem?: boolean | undefined;
+                stem_direction?: number | undefined;
             });
             static LEDGER_LINE_OFFSET: number;
             getStemExtension(): number;
@@ -879,7 +883,7 @@ declare namespace Vex {
             setDuration(duration: Fraction): void;
             preFormatted: boolean;
 
-            constructor(note_struct: { type?: string; dots?: number; duration: string });
+            constructor(note_struct: { type?: string | undefined; dots?: number | undefined; duration: string });
             getPlayNote(): any;
             setPlayNote(note: any): Note;
             isRest(): boolean;
@@ -936,30 +940,30 @@ declare namespace Vex {
 
         class NoteHead extends Note {
             constructor(head_options: {
-                x?: number;
-                y?: number;
-                note_type?: string;
+                x?: number | undefined;
+                y?: number | undefined;
+                note_type?: string | undefined;
                 duration: string;
-                displaced?: boolean;
-                stem_direction?: number;
+                displaced?: boolean | undefined;
+                stem_direction?: number | undefined;
                 line: number;
                 x_shift: number;
-                custom_glyph_code?: string;
-                style?: string;
-                slashed?: boolean;
-                glyph_font_scale?: number;
+                custom_glyph_code?: string | undefined;
+                style?: string | undefined;
+                slashed?: boolean | undefined;
+                glyph_font_scale?: number | undefined;
             });
             static DEBUG: boolean;
             getCategory(): string;
             setContext(context: IRenderContext): NoteHead;
             getWidth(): number;
             isDisplaced(): boolean;
-            getStyle(): { shadowColor?: string; shadowBlur?: string; fillStyle?: string; strokeStyle?: string };
+            getStyle(): { shadowColor?: string | undefined; shadowBlur?: string | undefined; fillStyle?: string | undefined; strokeStyle?: string | undefined };
             setStyle(style: {
-                shadowColor?: string;
-                shadowBlur?: string;
-                fillStyle?: string;
-                strokeStyle?: string;
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
             }): NoteHead;
             getGlyph(): Glyph;
             setX(x: number): NoteHead;
@@ -1161,27 +1165,27 @@ declare namespace Vex {
                 y: number,
                 width: number,
                 options?: {
-                    vertical_bar_width?: number;
-                    glyph_spacing_px?: number;
-                    num_lines?: number;
-                    fill_style?: string;
-                    spacing_between_lines_px?: number;
-                    space_above_staff_ln?: number;
-                    space_below_staff_ln?: number;
-                    top_text_position?: number;
+                    vertical_bar_width?: number | undefined;
+                    glyph_spacing_px?: number | undefined;
+                    num_lines?: number | undefined;
+                    fill_style?: string | undefined;
+                    spacing_between_lines_px?: number | undefined;
+                    space_above_staff_ln?: number | undefined;
+                    space_below_staff_ln?: number | undefined;
+                    top_text_position?: number | undefined;
                 },
             );
             options: {
-                vertical_bar_width?: number;
-                glyph_spacing_px?: number;
-                num_lines?: number;
-                fill_style?: string;
-                left_bar?: boolean;
-                right_bar?: boolean;
-                spacing_between_lines_px?: number;
-                space_above_staff_ln?: number;
-                space_below_staff_ln?: number;
-                top_text_position?: number;
+                vertical_bar_width?: number | undefined;
+                glyph_spacing_px?: number | undefined;
+                num_lines?: number | undefined;
+                fill_style?: string | undefined;
+                left_bar?: boolean | undefined;
+                right_bar?: boolean | undefined;
+                spacing_between_lines_px?: number | undefined;
+                space_above_staff_ln?: number | undefined;
+                space_below_staff_ln?: number | undefined;
+                top_text_position?: number | undefined;
             };
             resetLines(): void;
             setNoteStartX(x: number): Stave;
@@ -1205,11 +1209,11 @@ declare namespace Vex {
             setRepetitionTypeRight(type: Repetition.type, y: number): Stave;
             setVoltaType(type: Volta.type, number_t: number, y: number): Stave;
             setSection(section: string, y: number): Stave;
-            setTempo(tempo: { name?: string; duration: string; dots: boolean; bpm: number }, y: number): Stave;
+            setTempo(tempo: { name?: string | undefined; duration: string; dots: boolean; bpm: number }, y: number): Stave;
             setText(
                 text: string,
                 position: Modifier.Position,
-                options?: { shift_x?: number; shift_y?: number; justification?: TextNote.Justification },
+                options?: { shift_x?: number | undefined; shift_y?: number | undefined; justification?: TextNote.Justification | undefined },
             ): Stave;
             getHeight(): number;
             getSpacingBetweenLines(): number;
@@ -1251,8 +1255,8 @@ declare namespace Vex {
             x_shift: number;
             setContext(ctx: IRenderContext): StaveConnector;
             setType(type: StaveConnector.type): StaveConnector;
-            setText(text: string, text_options?: { shift_x?: number; shift_y?: number }): StaveConnector;
-            setFont(font: { family?: string; size?: number; weight?: string }): void; //inconsistent type: void -> StaveConnector
+            setText(text: string, text_options?: { shift_x?: number | undefined; shift_y?: number | undefined }): StaveConnector;
+            setFont(font: { family?: string | undefined; size?: number | undefined; weight?: string | undefined }): void; //inconsistent type: void -> StaveConnector
             setXShift(x_shift: number): StaveConnector;
             draw(): void;
             drawBoldDoubleLine(ctx: Object, type: StaveConnector.type, topX: number, topY: number, botY: number): void;
@@ -1286,7 +1290,7 @@ declare namespace Vex {
             setContext(context: IRenderContext): StaveHairpin;
             setPosition(position: Modifier.Position): StaveHairpin;
             setRenderOptions(options: {
-                height?: number;
+                height?: number | undefined;
                 y_shift: number;
                 left_shift_px: number;
                 right_shift_px: number;
@@ -1317,8 +1321,8 @@ declare namespace Vex {
             setNotes(notes: {
                 first_note: Note;
                 last_note: Note;
-                first_indices?: number[];
-                last_indices?: number[];
+                first_indices?: number[] | undefined;
+                last_indices?: number[] | undefined;
             }): StaveLine;
             applyLineStyle(): void;
             applyFontStyle(): void;
@@ -1393,14 +1397,14 @@ declare namespace Vex {
             x_shift: number;
 
             constructor(note_struct: {
-                type?: string;
-                dots?: number;
+                type?: string | undefined;
+                dots?: number | undefined;
                 duration: string;
-                clef?: string;
+                clef?: string | undefined;
                 keys: string[];
-                octave_shift?: number;
-                auto_stem?: boolean;
-                stem_direction?: number;
+                octave_shift?: number | undefined;
+                auto_stem?: boolean | undefined;
+                stem_direction?: number | undefined;
             });
             static DEBUG: boolean;
             static format(
@@ -1443,20 +1447,20 @@ declare namespace Vex {
             getLineForRest(): number;
             getModifierStartXY(position: Modifier.Position, index: number): { x: number; y: number };
             setStyle(style: {
-                shadowColor?: string;
-                shadowBlur?: string;
-                fillStyle?: string;
-                strokeStyle?: string;
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
             }): void; // inconsistent type: void -> StaveNote
             setStemStyle(style: {
-                shadowColor?: string;
-                shadowBlur?: string;
-                fillStyle?: string;
-                strokeStyle?: string;
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
             }): void;
             setKeyStyle(
                 index: number,
-                style: { shadowColor?: string; shadowBlur?: string; fillStyle?: string; strokeStyle?: string },
+                style: { shadowColor?: string | undefined; shadowBlur?: string | undefined; fillStyle?: string | undefined; strokeStyle?: string | undefined },
             ): StaveNote;
             setKeyLine(index: number, line: number): StaveNote;
             getKeyLine(index: number): number;
@@ -1479,13 +1483,13 @@ declare namespace Vex {
             drawFlag(): void;
             drawNoteHeads(): void;
             drawStem(struct: {
-                x_begin?: number;
-                x_end?: number;
-                y_top?: number;
-                y_bottom?: number;
-                y_extend?: number;
-                stem_extension?: number;
-                stem_direction?: number;
+                x_begin?: number | undefined;
+                x_end?: number | undefined;
+                y_top?: number | undefined;
+                y_bottom?: number | undefined;
+                y_extend?: number | undefined;
+                stem_extension?: number | undefined;
+                stem_direction?: number | undefined;
             }): void;
             draw(): void;
         }
@@ -1510,12 +1514,12 @@ declare namespace Vex {
 
         class StaveTempo extends StaveModifier {
             constructor(
-                tempo: { name?: string; duration: string; dots: number; bpm: number },
+                tempo: { name?: string | undefined; duration: string; dots: number; bpm: number },
                 x: number,
                 shift_y: number,
             );
             getCategory(): string;
-            setTempo(tempo: { name?: string; duration: string; dots: number; bpm: number }): StaveTempo;
+            setTempo(tempo: { name?: string | undefined; duration: string; dots: number; bpm: number }): StaveTempo;
             setShiftX(x: number): StaveTempo;
             setShiftY(y: number): StaveTempo;
             draw(stave: Stave, shift_x: number): StaveTempo;
@@ -1528,13 +1532,13 @@ declare namespace Vex {
             constructor(
                 text: string,
                 position: Modifier.Position,
-                options?: { shift_x?: number; shift_y?: number; justification?: TextNote.Justification },
+                options?: { shift_x?: number | undefined; shift_y?: number | undefined; justification?: TextNote.Justification | undefined },
             );
             getCategory(): string;
             setStaveText(text: string): StaveText;
             setShiftX(x: number): StaveText;
             setShiftY(y: number): StaveText;
-            setFont(font: { family?: string; size?: number; weight?: number }): void;
+            setFont(font: { family?: string | undefined; size?: number | undefined; weight?: number | undefined }): void;
             setText(text: string): void;
             draw(stave: Stave): StaveText;
         }
@@ -1556,16 +1560,16 @@ declare namespace Vex {
              *
              **/
             constructor(
-                notes: { first_note?: Note; last_note?: Note; first_indices?: number[]; last_indices?: number[] },
+                notes: { first_note?: Note | undefined; last_note?: Note | undefined; first_indices?: number[] | undefined; last_indices?: number[] | undefined },
                 text?: string,
             );
             setContext(context: IRenderContext): StaveTie;
             setFont(font: { family: string; size: number; weight: string }): StaveTie;
             setNotes(notes: {
-                first_note?: Note;
-                last_note?: Note;
-                first_indices?: number[];
-                last_indices?: number[];
+                first_note?: Note | undefined;
+                last_note?: Note | undefined;
+                first_indices?: number[] | undefined;
+                last_indices?: number[] | undefined;
             }): StaveTie;
             isPartial(): boolean;
             renderTie(params: {
@@ -1581,13 +1585,13 @@ declare namespace Vex {
 
         class Stem {
             constructor(options: {
-                x_begin?: number;
-                x_end?: number;
-                y_top?: number;
-                y_bottom?: number;
-                y_extend?: number;
-                stem_extension?: number;
-                stem_direction?: number;
+                x_begin?: number | undefined;
+                x_end?: number | undefined;
+                y_top?: number | undefined;
+                y_bottom?: number | undefined;
+                y_extend?: number | undefined;
+                stem_extension?: number | undefined;
+                stem_direction?: number | undefined;
             });
             static DEBUG: boolean;
             setNoteHeadXBounds(x_begin: number, x_end: number): Stem;
@@ -1600,12 +1604,12 @@ declare namespace Vex {
             getBoundingBox(): BoundingBox;
             getExtents(): { topY: number; baseY: number };
             setStyle(style: {
-                shadowColor?: string;
-                shadowBlur?: string;
-                fillStyle?: string;
-                strokeStyle?: string;
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
             }): void;
-            getStyle(): { shadowColor?: string; shadowBlur?: string; fillStyle?: string; strokeStyle?: string };
+            getStyle(): { shadowColor?: string | undefined; shadowBlur?: string | undefined; fillStyle?: string | undefined; strokeStyle?: string | undefined };
             applyStyle(context: IRenderContext): Stem;
             draw(): void;
 
@@ -1622,15 +1626,15 @@ declare namespace Vex {
             //TODO remove the following lines once TypeScript allows subclass overrides with type changes
             setBeam(): Note;
 
-            constructor(note_struct: { type?: string; dots?: number; duration: string });
+            constructor(note_struct: { type?: string | undefined; dots?: number | undefined; duration: string });
             static DEBUG: boolean;
             flag: Glyph;
             getAttribute(attr: string): any;
             setFlagStyle(style_struct: {
-                shadowColor?: string;
-                shadowBlur?: string;
-                fillStyle?: string;
-                strokeStyle?: string;
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
             }): void;
             getStem(): Stem;
             setStem(stem: Stem): StemmableNote;
@@ -1650,13 +1654,13 @@ declare namespace Vex {
             getYForBottomText(text_line: number): number;
             postFormat(): StemmableNote;
             drawStem(stem_struct: {
-                x_begin?: number;
-                x_end?: number;
-                y_top?: number;
-                y_bottom?: number;
-                y_extend?: number;
-                stem_extension?: number;
-                stem_direction?: number;
+                x_begin?: number | undefined;
+                x_end?: number | undefined;
+                y_top?: number | undefined;
+                y_bottom?: number | undefined;
+                y_extend?: number | undefined;
+                stem_extension?: number | undefined;
+                stem_direction?: number | undefined;
             }): void;
         }
 
@@ -1692,7 +1696,7 @@ declare namespace Vex {
         }
 
         class Stroke extends Modifier {
-            constructor(type: Stroke.Type, options?: { all_voices?: boolean });
+            constructor(type: Stroke.Type, options?: { all_voices?: boolean | undefined });
             static format(
                 strokes: Stroke[],
                 state: { left_shift: number; right_shift: number; text_line: number },
@@ -1773,10 +1777,10 @@ declare namespace Vex {
             constructor(
                 tab_struct: {
                     positions: { str: number; fret: number }[];
-                    type?: string;
-                    dots?: number;
+                    type?: string | undefined;
+                    dots?: number | undefined;
                     duration: string;
-                    stem_direction?: number;
+                    stem_direction?: number | undefined;
                 },
                 draw_stem?: boolean,
             );
@@ -1840,14 +1844,14 @@ declare namespace Vex {
                 y: number,
                 width: number,
                 options?: {
-                    vertical_bar_width?: number;
-                    glyph_spacing_px?: number;
-                    num_lines?: number;
-                    fill_style?: string;
-                    spacing_between_lines_px?: number;
-                    space_above_staff_ln?: number;
-                    space_below_staff_ln?: number;
-                    top_text_position?: number;
+                    vertical_bar_width?: number | undefined;
+                    glyph_spacing_px?: number | undefined;
+                    num_lines?: number | undefined;
+                    fill_style?: string | undefined;
+                    spacing_between_lines_px?: number | undefined;
+                    space_above_staff_ln?: number | undefined;
+                    space_below_staff_ln?: number | undefined;
+                    top_text_position?: number | undefined;
                 },
             );
             getYForGlyphs(): number;
@@ -1878,9 +1882,9 @@ declare namespace Vex {
             constructor(bracket_data: {
                 start: Note;
                 stop: Note;
-                text?: string;
-                superscript?: string;
-                position?: TextBracket.Positions;
+                text?: string | undefined;
+                superscript?: string | undefined;
+                position?: TextBracket.Positions | undefined;
             });
             static DEBUG: boolean;
             start: Note;
@@ -1902,7 +1906,7 @@ declare namespace Vex {
         }
 
         class TextDynamics extends Note {
-            constructor(text_struct: { duration: string; text: string; line?: number });
+            constructor(text_struct: { duration: string; text: string; line?: number | undefined });
             static DEBUG: boolean;
             setLine(line: number): TextDynamics;
             preFormat(): TextDynamics;
@@ -1912,14 +1916,14 @@ declare namespace Vex {
         class TextNote extends Note {
             constructor(text_struct: {
                 duration: string;
-                text?: string;
-                superscript?: boolean;
-                subscript?: boolean;
-                glyph?: string;
-                font?: { family: string; size: number; weight: string };
-                line?: number;
-                smooth?: boolean;
-                ignore_ticks?: boolean;
+                text?: string | undefined;
+                superscript?: boolean | undefined;
+                subscript?: boolean | undefined;
+                glyph?: string | undefined;
+                font?: { family: string; size: number; weight: string } | undefined;
+                line?: number | undefined;
+                smooth?: boolean | undefined;
+                ignore_ticks?: boolean | undefined;
             });
             setJustification(just: TextNote.Justification): TextNote;
             setLine(line: number): TextNote;
@@ -2042,12 +2046,12 @@ declare namespace Vex {
             constructor(
                 notes: StaveNote[],
                 options?: {
-                    location?: number;
-                    bracketed?: boolean;
+                    location?: number | undefined;
+                    bracketed?: boolean | undefined;
                     ratioed: boolean;
-                    num_notes?: number;
-                    notes_occupied?: number;
-                    y_offset?: number;
+                    num_notes?: number | undefined;
+                    notes_occupied?: number | undefined;
+                    y_offset?: number | undefined;
                 },
             );
             attach(): void;
@@ -2085,7 +2089,7 @@ declare namespace Vex {
         }
 
         class Voice {
-            constructor(time: { num_beats?: number; beat_value?: number; resolution?: number });
+            constructor(time: { num_beats?: number | undefined; beat_value?: number | undefined; resolution?: number | undefined });
             getTotalTicks(): Fraction;
             getTicksUsed(): Fraction;
             getLargestTickWidth(): number;

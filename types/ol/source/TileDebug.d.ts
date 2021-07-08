@@ -10,10 +10,10 @@ import { TileSourceEvent } from './Tile';
 import XYZ from './XYZ';
 
 export interface Options {
-    projection?: ProjectionLike;
-    tileGrid?: TileGrid;
-    wrapX?: boolean;
-    zDirection?: number;
+    projection?: ProjectionLike | undefined;
+    tileGrid?: TileGrid | undefined;
+    wrapX?: boolean | undefined;
+    zDirection?: number | undefined;
 }
 declare class LabeledTile extends Tile {
     constructor(tileCoord: TileCoord, tileSize: Size, text: string);

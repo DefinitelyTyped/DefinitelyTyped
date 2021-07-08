@@ -8,27 +8,27 @@ declare namespace ToolbarButton {
         /**
          * Anything to add into the containing element after the button.
          */
-        children?: ReactNode;
+        children?: ReactNode | undefined;
         /**
          * `className` for the button element.
          */
-        className?: string;
+        className?: string | undefined;
         /**
          * `className` for the container.
          */
-        containerClassName?: string;
+        containerClassName?: string | undefined;
         /**
          * Any additional props to pass down to `IconButton`.
          */
-        extraProps?: Partial<IconButton.Props>;
+        extraProps?: Partial<IconButton.Props> | undefined;
         /**
          * Describes whether or not the button is active.
          */
-        isActive?: boolean;
+        isActive?: boolean | undefined;
         /**
          * Subscript text to add to the button.
          */
-        subscript?: string;
+        subscript?: string | undefined;
     }
 }
 declare const ToolbarButton: ComponentType<ToolbarButton.Props>;

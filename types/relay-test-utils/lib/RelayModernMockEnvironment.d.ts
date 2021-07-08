@@ -92,8 +92,8 @@ export interface RelayMockEnvironment extends MockEnvironment, IEnvironment {
  *   with a specific error
  */
 export function createMockEnvironment(config?: {
-    handlerProvider?: HandlerProvider;
-    missingFieldHandlers?: ReadonlyArray<MissingFieldHandler>;
-    operationTracker?: OperationTracker;
-    operationLoader?: OperationLoader;
+    handlerProvider?: HandlerProvider | undefined;
+    missingFieldHandlers?: ReadonlyArray<MissingFieldHandler> | undefined;
+    operationTracker?: OperationTracker | undefined;
+    operationLoader?: OperationLoader | undefined;
 }): RelayMockEnvironment;

@@ -1,8 +1,8 @@
 export interface KeystrokeInfo {
-    altKey?: boolean;
-    ctrlKey?: boolean;
+    altKey?: boolean | undefined;
+    ctrlKey?: boolean | undefined;
     keyCode: number;
-    shiftKey?: boolean;
+    shiftKey?: boolean | undefined;
 }
 
 /**

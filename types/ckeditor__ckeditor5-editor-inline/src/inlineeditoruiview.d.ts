@@ -14,7 +14,7 @@ export default class InlineEditorUIView extends EditorUIView {
         editingView: View,
         editableElement?: HTMLElement,
         options?: {
-            shouldToolbarGroupWhenFull?: boolean;
+            shouldToolbarGroupWhenFull?: boolean | undefined;
         },
     );
 }

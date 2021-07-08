@@ -35,14 +35,14 @@ declare module 'leaflet' {
         type GoogleMutantType = 'roadmap' | 'satellite' | 'terrain' | 'hybrid';
 
         interface GoogleMutantStyler {
-            hue?: string;
-            lightness?: number;
-            saturation?: number;
-            gamma?: number;
-            invert_lightness?: boolean;
-            visibility?: string;
-            color?: string;
-            weight?: number;
+            hue?: string | undefined;
+            lightness?: number | undefined;
+            saturation?: number | undefined;
+            gamma?: number | undefined;
+            invert_lightness?: boolean | undefined;
+            visibility?: string | undefined;
+            color?: string | undefined;
+            weight?: number | undefined;
         }
 
         /**
@@ -54,45 +54,45 @@ declare module 'leaflet' {
             /**
              * https://developers.google.com/maps/documentation/javascript/style-reference#style-features
              */
-            featureType?: string;
+            featureType?: string | undefined;
 
             /**
              * https://developers.google.com/maps/documentation/javascript/style-reference#style-elements
              */
-            elementType?: string;
+            elementType?: string | undefined;
 
             /**
              * https://developers.google.com/maps/documentation/javascript/style-reference#stylers
              */
-            stylers?: GoogleMutantStyler[];
+            stylers?: GoogleMutantStyler[] | undefined;
         }
 
         interface GoogleMutantOptions extends TileLayerOptions {
-            minZoom?: number;
-            maxZoom?: number;
-            maxNativeZoom?: number;
-            tileSize?: number | Point;
-            subdomains?: string | string[];
-            errorTileUrl?: string;
+            minZoom?: number | undefined;
+            maxZoom?: number | undefined;
+            maxNativeZoom?: number | undefined;
+            tileSize?: number | Point | undefined;
+            subdomains?: string | string[] | undefined;
+            errorTileUrl?: string | undefined;
 
             /**
              * The mutant container will add its own attribution anyways.
              */
-            attribution?: string;
+            attribution?: string | undefined;
 
-            opacity?: number;
-            continuousWorld?: boolean;
-            noWrap?: boolean;
+            opacity?: number | undefined;
+            continuousWorld?: boolean | undefined;
+            noWrap?: boolean | undefined;
 
             /**
              * Google's map type. 'hybrid' is not really supported.
              */
-            type?: GoogleMutantType;
+            type?: GoogleMutantType | undefined;
 
             /**
              * Google's map styles.
              */
-            styles?: GoogleMutantStyle[];
+            styles?: GoogleMutantStyle[] | undefined;
         }
 
         function googleMutant(options?: GoogleMutantOptions): GoogleMutant;

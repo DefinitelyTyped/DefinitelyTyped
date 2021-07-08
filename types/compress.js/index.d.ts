@@ -23,11 +23,11 @@ declare class Compress {
 }
 
 interface CompressOptions {
-    quality?: number;
-    size?: number;
-    maxWidth?: number;
-    maxHeight?: number;
-    resize?: boolean;
+    quality?: number | undefined;
+    size?: number | undefined;
+    maxWidth?: number | undefined;
+    maxHeight?: number | undefined;
+    resize?: boolean | undefined;
 }
 
 interface CompressResult {

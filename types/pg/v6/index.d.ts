@@ -14,43 +14,43 @@ export declare function connect(config: ClientConfig, callback: (err: Error, cli
 export declare function end(): void;
 
 export interface ConnectionConfig {
-    user?: string;
-    database?: string;
-    password?: string;
-    port?: number;
-    host?: string;
+    user?: string | undefined;
+    database?: string | undefined;
+    password?: string | undefined;
+    port?: number | undefined;
+    host?: string | undefined;
 }
 
 export interface Defaults extends ConnectionConfig {
-    poolSize?: number;
-    poolIdleTimeout?: number;
-    reapIntervalMillis?: number;
-    binary?: boolean;
-    parseInt8?: boolean;
+    poolSize?: number | undefined;
+    poolIdleTimeout?: number | undefined;
+    reapIntervalMillis?: number | undefined;
+    binary?: boolean | undefined;
+    parseInt8?: boolean | undefined;
 }
 
 import { TlsOptions } from "tls";
 
 export interface ClientConfig extends ConnectionConfig {
-    ssl?: boolean | TlsOptions;
+    ssl?: boolean | TlsOptions | undefined;
 }
 
 export interface PoolConfig extends ClientConfig {
     // properties from module 'node-pool'
-    max?: number;
-    min?: number;
-    refreshIdle?: boolean;
-    idleTimeoutMillis?: number;
-    reapIntervalMillis?: number;
-    returnToHead?: boolean;
-    application_name?: string;
-    Promise?: PromiseConstructorLike;
+    max?: number | undefined;
+    min?: number | undefined;
+    refreshIdle?: boolean | undefined;
+    idleTimeoutMillis?: number | undefined;
+    reapIntervalMillis?: number | undefined;
+    returnToHead?: boolean | undefined;
+    application_name?: string | undefined;
+    Promise?: PromiseConstructorLike | undefined;
 }
 
 export interface QueryConfig {
-    name?: string;
+    name?: string | undefined;
     text: string;
-    values?: any[];
+    values?: any[] | undefined;
 }
 
 export interface QueryResult {

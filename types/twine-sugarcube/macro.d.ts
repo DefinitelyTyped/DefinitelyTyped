@@ -119,8 +119,8 @@ export interface MacroContext {
 
 export interface MacroDefinition {
     handler: (this: MacroContext) => void;
-    tags?: string[];
-    skipArgs?: boolean;
+    tags?: string[] | undefined;
+    skipArgs?: boolean | undefined;
 }
 
 export interface MacroAPI {

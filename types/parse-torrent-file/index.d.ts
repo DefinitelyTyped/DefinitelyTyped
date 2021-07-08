@@ -12,22 +12,22 @@ declare namespace ParseTorrentFile {
     function encode(parsed: Instance): Buffer;
 
     interface TorrentInfo {
-        'name.utf-8'?: string;
-        name?: string;
-        files?: File[];
-        'piece length'?: number;
-        pieces?: number;
-        private?: boolean;
+        'name.utf-8'?: string | undefined;
+        name?: string | undefined;
+        files?: File[] | undefined;
+        'piece length'?: number | undefined;
+        pieces?: number | undefined;
+        private?: boolean | undefined;
     }
 
     interface Torrent {
-        info?: TorrentInfo;
-        'creation date'?: number;
-        'created by'?: string;
-        comment?: Buffer;
-        'announce-list'?: string[][];
-        announce?: string;
-        'url-list'?: Buffer;
+        info?: TorrentInfo | undefined;
+        'creation date'?: number | undefined;
+        'created by'?: string | undefined;
+        comment?: Buffer | undefined;
+        'announce-list'?: string[][] | undefined;
+        announce?: string | undefined;
+        'url-list'?: Buffer | undefined;
     }
 
     interface ParsedFile {
@@ -38,21 +38,21 @@ declare namespace ParseTorrentFile {
     }
 
     interface Instance extends Object {
-        info?: TorrentInfo;
-        infoBuffer?: Buffer;
-        infoHash?: string;
-        infoHashBuffer?: Buffer;
-        name?: string;
-        private?: boolean;
-        created?: Date;
-        createdBy?: string;
-        announce?: string[];
-        urlList?: string[];
-        pieceLength?: number;
-        lastPieceLength?: number;
-        pieces?: string[];
-        length?: number;
-        files?: ParsedFile[];
+        info?: TorrentInfo | undefined;
+        infoBuffer?: Buffer | undefined;
+        infoHash?: string | undefined;
+        infoHashBuffer?: Buffer | undefined;
+        name?: string | undefined;
+        private?: boolean | undefined;
+        created?: Date | undefined;
+        createdBy?: string | undefined;
+        announce?: string[] | undefined;
+        urlList?: string[] | undefined;
+        pieceLength?: number | undefined;
+        lastPieceLength?: number | undefined;
+        pieces?: string[] | undefined;
+        length?: number | undefined;
+        files?: ParsedFile[] | undefined;
     }
 }
 

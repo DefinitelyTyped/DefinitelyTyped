@@ -14,11 +14,11 @@ declare namespace SendmailTransport {
     interface Options extends MailOptions, TransportOptions {
         sendmail: true;
         /** path to the sendmail command (defaults to ‘sendmail’) */
-        path?: string;
+        path?: string | undefined;
         /** either ‘windows’ or ‘unix’ (default). Forces all newlines in the output to either use Windows syntax <CR><LF> or Unix syntax <LF> */
-        newline?: string;
+        newline?: string | undefined;
         /** an optional array of command line options to pass to the sendmail command (ie. ["-f", "foo@blurdybloop.com"]). This overrides all default arguments except for ’-i’ and recipient list so you need to make sure you have all required arguments set (ie. the ‘-f’ flag). */
-        args?: string[];
+        args?: string[] | undefined;
     }
 
     interface SentMessageInfo {

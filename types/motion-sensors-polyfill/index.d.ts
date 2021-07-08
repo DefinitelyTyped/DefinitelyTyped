@@ -10,7 +10,7 @@ type EventHandler = (event: Event) => void;
 export class Sensor extends EventTarget {
     readonly activated: boolean;
     readonly hasReading: boolean;
-    readonly timestamp?: DOMHighResTimeStamp;
+    readonly timestamp?: DOMHighResTimeStamp | undefined;
     start(): void;
     stop(): void;
     onreading: EventHandler;
@@ -19,13 +19,13 @@ export class Sensor extends EventTarget {
 }
 
 interface SensorOptions {
-    frequency?: number;
+    frequency?: number | undefined;
 }
 
 type AccelerometerLocalCoordinateSystem = "device" | "screen";
 
 interface AccelerometerSensorOptions extends SensorOptions {
-  referenceFrame?: AccelerometerLocalCoordinateSystem; // defaults to "device". IDK how to type this
+  referenceFrame?: AccelerometerLocalCoordinateSystem | undefined; // defaults to "device". IDK how to type this
 }
 
 export class Accelerometer extends Sensor {
@@ -44,7 +44,7 @@ export class GravitySensor extends Accelerometer {
 }
 
 interface GyroscopeSensorOptions {
-    referenceFrame?: GyroscopeLocalCoordinateSystem; // defauts to "device"
+    referenceFrame?: GyroscopeLocalCoordinateSystem | undefined; // defauts to "device"
 }
 
 type GyroscopeLocalCoordinateSystem = "device" | "screen";
@@ -59,7 +59,7 @@ export class Gyroscope extends Sensor {
 type OrientationSensorLocalCoordinateSystem = "device" | "screen";
 
 interface OrientationSensorOptions extends SensorOptions {
-    referenceFrame?: OrientationSensorLocalCoordinateSystem; // defaults to "device"
+    referenceFrame?: OrientationSensorLocalCoordinateSystem | undefined; // defaults to "device"
 }
 
 type RotationMatrixType = Float32Array | Float64Array | DOMMatrix;

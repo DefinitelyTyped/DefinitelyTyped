@@ -4,19 +4,19 @@ declare namespace AMap {
             /**
              * 地图中心点坐标值
              */
-            center?: LocationValue;
+            center?: LocationValue | undefined;
             /**
              * 地图顺时针旋转角度
              */
-            rotation?: number;
+            rotation?: number | undefined;
             /**
              * 地图显示的缩放级别
              */
-            zoom?: number;
+            zoom?: number | undefined;
             /**
              * 地图显示的参考坐标系
              */
-            crs?: 'EPGS3857' | 'EPGS3395' | 'EPGS4326';
+            crs?: 'EPGS3857' | 'EPGS3395' | 'EPGS4326' | undefined;
         }
     }
     class View2D extends EventEmitter {

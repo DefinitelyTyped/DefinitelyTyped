@@ -6,13 +6,13 @@ declare namespace Overlay {
         // Optional
         animation?: any; // TODO: Add more specific type
         container?: any; // TODO: Add more specific type
-        containerPadding?: number; // TODO: Add more specific type
-        onHide?: Function;
-        placement?: string;
-        rootClose?: boolean;
-        show?: boolean;
-        target?: Function | React.ReactInstance;
-        shouldUpdatePosition?: boolean;
+        containerPadding?: number | undefined; // TODO: Add more specific type
+        onHide?: Function | undefined;
+        placement?: string | undefined;
+        rootClose?: boolean | undefined;
+        show?: boolean | undefined;
+        target?: Function | React.ReactInstance | undefined;
+        shouldUpdatePosition?: boolean | undefined;
     }
 }
 declare class Overlay extends React.Component<Overlay.OverlayProps> { }

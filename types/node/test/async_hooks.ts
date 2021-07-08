@@ -61,6 +61,12 @@ import {
     res = asyncResource.bind((x: number) => x)(42);
     // $ExpectType AsyncResource
     asyncResource.emitDestroy();
+
+    AsyncResource.bind(function() {
+        this.a; // $ExpectType number
+    }, 'test', {
+        a: 1,
+    });
 }
 
 {

@@ -13,31 +13,31 @@ declare namespace Toastify {
     }
 
     interface Options {
-        text?: string;
-        node?: Node;
-        duration?: number;
-        selector?: string;
-        destination?: string;
-        newWindow?: boolean;
-        close?: boolean;
-        gravity?: 'top' | 'bottom';
-        position?: 'left' | 'center' | 'right';
-        backgroundColor?: string;
+        text?: string | undefined;
+        node?: Node | undefined;
+        duration?: number | undefined;
+        selector?: string | undefined;
+        destination?: string | undefined;
+        newWindow?: boolean | undefined;
+        close?: boolean | undefined;
+        gravity?: 'top' | 'bottom' | undefined;
+        position?: 'left' | 'center' | 'right' | undefined;
+        backgroundColor?: string | undefined;
         /**
          * Image/icon to be shown before text
          */
-        avatar?: string;
-        className?: string;
+        avatar?: string | undefined;
+        className?: string | undefined;
         /**
          * @default true
          */
-        stopOnFocus?: boolean;
+        stopOnFocus?: boolean | undefined;
         /**
          * Invoked when the toast is dismissed
          */
-        callback?: () => void;
-        onClick?: () => void;
-        offset?: Offset;
+        callback?: (() => void) | undefined;
+        onClick?: (() => void) | undefined;
+        offset?: Offset | undefined;
     }
 }
 declare function Toastify(

@@ -61,11 +61,11 @@ export interface GraphQLOperationStatus<T> {
   load: () => void;
   loading: boolean;
   cacheKey: GraphQLCacheKey;
-  cacheValue?: GraphQLCacheValue<T>;
+  cacheValue?: GraphQLCacheValue<T> | undefined;
 }
 
 export class GraphQL {
-  constructor(options?: { cache?: GraphQLCache });
+  constructor(options?: { cache?: GraphQLCache | undefined });
 
   on(
     type: "reset",
@@ -112,9 +112,9 @@ export class GraphQL {
   reset(exceptCacheKey?: string): void;
   operate<T, V>(options: {
     operation: GraphQLOperation<V>;
-    fetchOptionsOverride?: GraphQLFetchOptionsOverride;
-    reloadOnLoad?: boolean;
-    resetOnLoad?: boolean;
+    fetchOptionsOverride?: GraphQLFetchOptionsOverride | undefined;
+    reloadOnLoad?: boolean | undefined;
+    resetOnLoad?: boolean | undefined;
   }): GraphQLOperationLoading<T>;
 
   cache: GraphQLCache;
@@ -129,11 +129,11 @@ export function ssr(
 ): void;
 
 export function useGraphQL<T, V>(options: {
-  fetchOptionsOverride?: GraphQLFetchOptionsOverride;
-  loadOnMount?: boolean;
-  loadOnReload?: boolean;
-  loadOnReset?: boolean;
-  reloadOnLoad?: boolean;
-  resetOnLoad?: boolean;
+  fetchOptionsOverride?: GraphQLFetchOptionsOverride | undefined;
+  loadOnMount?: boolean | undefined;
+  loadOnReload?: boolean | undefined;
+  loadOnReset?: boolean | undefined;
+  reloadOnLoad?: boolean | undefined;
+  resetOnLoad?: boolean | undefined;
   operation: GraphQLOperation<V>;
 }): GraphQLOperationStatus<T>;

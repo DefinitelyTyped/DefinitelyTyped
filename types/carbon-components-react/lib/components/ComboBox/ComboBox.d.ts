@@ -11,29 +11,29 @@ export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<I
     Omit<ReactInputAttr, ExcludedAttributes>,
     InternationalProps<ListBoxMenuIconTranslationKey | ListBoxSelectionTranslationKey>
 {
-    ariaLabel?: string,
-    direction?: VerticalDirection,
+    ariaLabel?: string | undefined,
+    direction?: VerticalDirection | undefined,
     downshiftProps?: any, // TODO
-    helperText?: React.ReactNode,
+    helperText?: React.ReactNode | undefined,
     id: string;
-    initialSelectedItem?: ItemType;
-    invalid?: boolean;
-    invalidText?: React.ReactNode;
+    initialSelectedItem?: ItemType | undefined;
+    invalid?: boolean | undefined;
+    invalidText?: React.ReactNode | undefined;
     items: readonly ItemType[],
-    itemToElement?: CustomElementProps extends object ? React.ComponentType<CustomElementProps> : never,
+    itemToElement?: CustomElementProps extends object ? React.ComponentType<CustomElementProps> : never | undefined,
     itemToString?(item: ItemType | null | undefined): string;
-    light?: boolean;
+    light?: boolean | undefined;
     onChange?(data: { selectedItem: ItemType | null | undefined }): void,
     onInputChange?(inputValue?: string): void,
     onToggleClick?(evt: React.MouseEvent<HTMLButtonElement>): void,
     placeholder: string,
-    selectedItem?: ItemType | null,
-    shouldFilterItem?(data: { item: ItemType, itemToString?: ComboBoxProps<ItemType>["itemToString"], inputValue?: string }): void,
-    size?: ListBoxSize,
-    titleText?: React.ReactNode,
-    type?: ListBoxProps["type"],
-    warn?: boolean;
-    warnText?: React.ReactNode;
+    selectedItem?: ItemType | null | undefined,
+    shouldFilterItem?(data: { item: ItemType, itemToString?: ComboBoxProps<ItemType>["itemToString"] | undefined, inputValue?: string | undefined }): void,
+    size?: ListBoxSize | undefined,
+    titleText?: React.ReactNode | undefined,
+    type?: ListBoxProps["type"] | undefined,
+    warn?: boolean | undefined;
+    warnText?: React.ReactNode | undefined;
 }
 
 declare function ComboBox<T = string>(props: ComboBoxProps<T>): FCReturn;

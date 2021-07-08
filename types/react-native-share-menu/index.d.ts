@@ -8,7 +8,7 @@
 export interface ShareData {
     mimeType: string;
     data: string;
-    extraData?: object;
+    extraData?: object | undefined;
 }
 
 export type ShareCallback = (share?: ShareData) => void;

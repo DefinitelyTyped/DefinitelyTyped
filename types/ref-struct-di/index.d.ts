@@ -11,46 +11,46 @@ declare var StructType: {
      */
     new <TDefinition extends struct.StructTypeObjectDefinitionBase | struct.StructTypeObjectDefinitionInferenceMarker>(
         fields: TDefinition,
-        opt?: { packed?: boolean }
+        opt?: { packed?: boolean | undefined }
     ): struct.StructType<struct.StructTypeObjectDefinitionToStructTypeDefinition<TDefinition>>;
     /**
      * Creates a new {@link struct.StructType} for the provided field definitions.
      */
     new <TDefinition extends struct.StructTypeTupleDefinitionBase | struct.StructTypeTupleDefinitionInferenceMarker>(
         fields: TDefinition,
-        opt?: { packed?: boolean }
+        opt?: { packed?: boolean | undefined }
     ): struct.StructType<struct.StructTypeTupleDefinitionToStructTypeDefinition<TDefinition>>;
     /**
      * Creates a new {@link struct.StructType} for the provided field definitions.
      */
-    new (fields?: Record<string, ref.TypeLike>, opt?: { packed?: boolean }): struct.StructType;
+    new (fields?: Record<string, ref.TypeLike>, opt?: { packed?: boolean | undefined }): struct.StructType;
     /**
      * Creates a new {@link struct.StructType} for the provided field definitions.
      */
-    new (fields?: Array<[string, ref.TypeLike]>, opt?: { packed?: boolean }): struct.StructType;
+    new (fields?: Array<[string, ref.TypeLike]>, opt?: { packed?: boolean | undefined }): struct.StructType;
 
     /**
      * Creates a new {@link struct.StructType} for the provided field definitions.
      */
     <TDefinition extends struct.StructTypeObjectDefinitionBase | struct.StructTypeObjectDefinitionInferenceMarker>(
         fields: TDefinition,
-        opt?: { packed?: boolean }
+        opt?: { packed?: boolean | undefined }
     ): struct.StructType<struct.StructTypeObjectDefinitionToStructTypeDefinition<TDefinition>>;
     /**
      * Creates a new {@link struct.StructType} for the provided field definitions.
      */
     <TDefinition extends struct.StructTypeTupleDefinitionBase | struct.StructTypeTupleDefinitionInferenceMarker>(
         fields: TDefinition,
-        opt?: { packed?: boolean }
+        opt?: { packed?: boolean | undefined }
     ): struct.StructType<struct.StructTypeTupleDefinitionToStructTypeDefinition<TDefinition>>;
     /**
      * Creates a new {@link struct.StructType} for the provided field definitions.
      */
-    (fields?: Record<string, ref.TypeLike>, opt?: { packed?: boolean }): struct.StructType;
+    (fields?: Record<string, ref.TypeLike>, opt?: { packed?: boolean | undefined }): struct.StructType;
     /**
      * Creates a new {@link struct.StructType} for the provided field definitions.
      */
-    (fields?: Array<[string, ref.TypeLike]>, opt?: { packed?: boolean }): struct.StructType;
+    (fields?: Array<[string, ref.TypeLike]>, opt?: { packed?: boolean | undefined }): struct.StructType;
 };
 
 type RefModuleLike = Pick<typeof ref, "coerceType" | "get" | "set" | "alignof" | "sizeof" | "NULL">;

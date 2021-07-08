@@ -24,7 +24,7 @@ import * as connectHistoryApiFallback from 'connect-history-api-fallback';
 
 declare namespace WebpackDevServer {
     interface ListeningApp {
-        address(): { port?: number };
+        address(): { port?: number | undefined };
     }
 
     interface ProxyConfigMap {
@@ -32,8 +32,8 @@ declare namespace WebpackDevServer {
     }
 
     type ProxyConfigArrayItem = {
-        path?: string | string[];
-        context?: string | string[] | httpProxyMiddleware.Filter;
+        path?: string | string[] | undefined;
+        context?: string | string[] | httpProxyMiddleware.Filter | undefined;
     } & httpProxyMiddleware.Options;
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
@@ -43,21 +43,21 @@ declare namespace WebpackDevServer {
          * Provides the ability to execute custom middleware after all other
          * middleware internally within the server.
          */
-        after?: (app: express.Application, server: WebpackDevServer, compiler: webpack.Compiler) => void;
+        after?: ((app: express.Application, server: WebpackDevServer, compiler: webpack.Compiler) => void) | undefined;
         /**
          * This option allows you to whitelist services that are allowed to
          * access the dev server.
          */
-        allowedHosts?: string[];
+        allowedHosts?: string[] | undefined;
         /**
          * Provides the ability to execute custom middleware prior to all
          * other middleware internally within the server.
          */
-        before?: (app: express.Application, server: WebpackDevServer, compiler: webpack.Compiler) => void;
+        before?: ((app: express.Application, server: WebpackDevServer, compiler: webpack.Compiler) => void) | undefined;
         /**
          * This option broadcasts the server via ZeroConf networking on start.
          */
-        bonjour?: boolean;
+        bonjour?: boolean | undefined;
         /**
          * When using inline mode, the console in your DevTools will show you
          * messages e.g. before reloading, before an error or when Hot Module
@@ -66,49 +66,49 @@ declare namespace WebpackDevServer {
          * 'none' and 'warning' are going to be deprecated at the next major
          * version.
          */
-        clientLogLevel?: 'silent' | 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'none' | 'warning';
+        clientLogLevel?: 'silent' | 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'none' | 'warning' | undefined;
         /**
          * Enable gzip compression for everything served.
          */
-        compress?: boolean;
+        compress?: boolean | undefined;
         /**
          * Tell the server where to serve content from. This is only necessary
          * if you want to serve static files. devServer.publicPath will be used
          * to determine where the bundles should be served from, and takes
          * precedence.
          */
-        contentBase?: boolean | string | string[] | number;
+        contentBase?: boolean | string | string[] | number | undefined;
         /**
          * Tell the server at what URL to serve `devServer.contentBase`.
          * If there was a file `assets/manifest.json`,
          * it would be served at `/serve-content-base-at-this-url/manifest.json`
          */
-        contentBasePublicPath?: string | string[];
+        contentBasePublicPath?: string | string[] | undefined;
         /**
          * When set to true this option bypasses host checking.  THIS IS NOT
          * RECOMMENDED as apps that do not check the host are vulnerable to DNS
          * rebinding attacks.
          */
-        disableHostCheck?: boolean;
+        disableHostCheck?: boolean | undefined;
         /**
          * This option lets you reduce the compilations in lazy mode.
          * By default in lazy mode, every request results in a new compilation.
          * With filename, it's possible to only compile when a certain file is requested.
          */
-        filename?: string;
+        filename?: string | undefined;
         /** Adds headers to all responses. */
         headers?: {
             [key: string]: string;
-        };
+        } | undefined;
         /**
          * When using the HTML5 History API, the index.html page will likely
          * have to be served in place of any 404 responses.
          */
-        historyApiFallback?: boolean | connectHistoryApiFallback.Options;
+        historyApiFallback?: boolean | connectHistoryApiFallback.Options | undefined;
         /**
          * Specify a host to use. By default this is localhost.
          */
-        host?: string;
+        host?: string | undefined;
         /**
          * Enable webpack's Hot Module Replacement feature.
          * Note that webpack.HotModuleReplacementPlugin is required to fully
@@ -116,52 +116,52 @@ declare namespace WebpackDevServer {
          * --hot option, this plugin will be added automatically, so you may
          * not need to add this to your webpack.config.js.
          */
-        hot?: boolean;
+        hot?: boolean | undefined;
         /**
          * Enables Hot Module Replacement (see devServer.hot) without page
          * refresh as fallback in case of build failures.
          */
-        hotOnly?: boolean;
+        hotOnly?: boolean | undefined;
         /**
          * Serve over HTTP/2 using spdy. This option is ignored for Node 10.0.0
          * and above, as spdy is broken for those versions. The dev server will
          * migrate over to Node's built-in HTTP/2 once Express supports it.
          */
-        http2?: boolean;
+        http2?: boolean | undefined;
         /**
          * By default dev-server will be served over HTTP. It can optionally be
          * served over HTTP/2 with HTTPS.
          */
-        https?: boolean | https.ServerOptions;
+        https?: boolean | https.ServerOptions | undefined;
         /**
          * The filename that is considered the index file.
          */
-        index?: string;
+        index?: string | undefined;
         /**
          * Tells devServer to inject a client. Setting devServer.injectClient
          * to true will result in always injecting a client. It is possible to
          * provide a function to inject conditionally
          */
-        injectClient?: boolean | ((compilerConfig: webpack.Compiler) => boolean);
+        injectClient?: boolean | ((compilerConfig: webpack.Compiler) => boolean) | undefined;
         /**
          * Tells devServer to inject a Hot Module Replacement. Setting
          * devServer.injectHot to true will result in always injecting. It is
          * possible to provide a function to inject conditionally
          */
-        injectHot?: boolean | ((compilerConfig: webpack.Compiler) => boolean);
+        injectHot?: boolean | ((compilerConfig: webpack.Compiler) => boolean) | undefined;
         /**
          * Toggle between the dev-server's two different modes.  By default the
          * application will be served with inline mode enabled.  This means
          * that a script will be inserted in your bundle to take care of live
          * reloading, and build messages will appear in the browser console.
          */
-        inline?: boolean;
+        inline?: boolean | undefined;
         /**
          * When lazy is enabled, the dev-server will only compile the bundle
          * when it gets requested.  This means that webpack will not watch any
          * file changes.
          */
-        lazy?: boolean;
+        lazy?: boolean | undefined;
         /**
          * By default, the dev-server will reload/refresh the page when file
          * changes are detected. devServer.hot option must be disabled or
@@ -169,7 +169,7 @@ declare namespace WebpackDevServer {
          * liveReload to take effect. Disable devServer.liveReload by setting
          * it to false
          */
-        liveReload?: boolean;
+        liveReload?: boolean | undefined;
         /**
          * The object is passed to the underlying webpack-dev-middleware. See
          * [documentation](https://github.com/webpack/webpack-dev-middleware#mimetypes)
@@ -184,23 +184,23 @@ declare namespace WebpackDevServer {
                       [key: string]: string[];
                   } & {
                       force: boolean;
-                  };
-              };
+                  } | undefined;
+              } | undefined;
         /**
          * With noInfo enabled, messages like the webpack bundle information
          * that is shown when starting up and after each save,will be hidden.
          * Errors and warnings will still be shown.
          */
-        noInfo?: boolean;
+        noInfo?: boolean | undefined;
         /**
          * Provides an option to execute a custom function when
          * webpack-dev-server starts listening for connections on a port.
          */
-        onListening?: (server: WebpackDevServer) => void;
+        onListening?: ((server: WebpackDevServer) => void) | undefined;
         /** When open is enabled, the dev server will open the browser. */
-        open?: boolean | string | object;
+        open?: boolean | string | object | undefined;
         /** Specify a page to navigate to when opening the browser. */
-        openPage?: string | string[];
+        openPage?: string | string[] | undefined;
         /**
          * Shows a full-screen overlay in the browser when there are compiler
          * errors or warnings. Disabled by default.
@@ -208,18 +208,18 @@ declare namespace WebpackDevServer {
         overlay?:
             | boolean
             | {
-                  warnings?: boolean;
-                  errors?: boolean;
-              };
+                  warnings?: boolean | undefined;
+                  errors?: boolean | undefined;
+              } | undefined;
         /**
          * When used via the CLI, a path to an SSL .pfx file. If used in
          * options, it should be the bytestream of the .pfx file.
          */
-        pfx?: string;
+        pfx?: string | undefined;
         /** The passphrase to a SSL PFX file. */
-        pfxPassphrase?: string;
+        pfxPassphrase?: string | undefined;
         /** Specify a port number to listen for requests on. */
-        port?: number;
+        port?: number | undefined;
         /**
          * Proxying some URLs can be useful when you have a separate API
          * backend development server and you want to send API requests on the
@@ -234,66 +234,66 @@ declare namespace WebpackDevServer {
          * otherwise webpack-dev-server won't pass it along to
          * http-proxy-middleware).
          */
-        proxy?: ProxyConfigMap | ProxyConfigArray;
+        proxy?: ProxyConfigMap | ProxyConfigArray | undefined;
         /**
          * When using inline mode and you're proxying dev-server, the inline
          * client script does not always know where to connect to.  It will try
          * to guess the URL of the server based on window.location, but if that
          * fails you'll need to use this.
          */
-        public?: string;
+        public?: string | undefined;
         /**
          * The bundled files will be available in the browser under this path.
          * default is '/'
          */
-        publicPath?: string;
+        publicPath?: string | undefined;
         /**
          * With quiet enabled, nothing except the initial startup information
          * will be written to the console.  This also means that errors or
          * warnings from webpack are not visible.
          */
-        quiet?: boolean;
+        quiet?: boolean | undefined;
         /**
          * Tells dev-server to use serveIndex middleware when enabled.
          *
          * serveIndex middleware generates directory listings on viewing
          * directories that don't have an index.html file.
          */
-        serveIndex?: boolean;
+        serveIndex?: boolean | undefined;
         /**
          * @deprecated This option is deprecated in favor of devServer.before
          * and will be removed in v3.0.0. Here you can access the Express app
          * object and add your own custom middleware to it.
          */
-        setup?: (app: express.Application, server: WebpackDevServer) => void;
+        setup?: ((app: express.Application, server: WebpackDevServer) => void) | undefined;
         /** The Unix socket to listen to (instead of a host). */
-        socket?: string;
+        socket?: string | undefined;
         /**
          * Tells clients connected to devServer to use provided socket host.
          */
-        sockHost?: string;
+        sockHost?: string | undefined;
         /**
          * The path at which to connect to the reloading socket. Default is
          * '/sockjs-node'
          */
-        sockPath?: string;
+        sockPath?: string | undefined;
         /**
          * Tells clients connected to devServer to use provided socket port.
          */
-        sockPort?: string | number;
+        sockPort?: string | number | undefined;
         /**
          * It is possible to configure advanced options for serving static
          * files from contentBase.
          *
          * This only works when using devServer.contentBase as a string.
          */
-        staticOptions?: serveStatic.ServeStaticOptions;
+        staticOptions?: serveStatic.ServeStaticOptions | undefined;
         /**
          * This option lets you precisely control what bundle information gets
          * displayed.  This can be a nice middle ground if you want some bundle
          * information, but not all of it.
          */
-        stats?: webpack.Configuration['stats'];
+        stats?: webpack.Configuration['stats'] | undefined;
         /**
          * transportMode is an experimental option, meaning its usage could
          * potentially change without warning.
@@ -328,19 +328,19 @@ declare namespace WebpackDevServer {
             | {
                   client: object;
                   server: object;
-              };
+              } | undefined;
         /** This option lets the browser open with your local IP. */
-        useLocalIp?: boolean;
+        useLocalIp?: boolean | undefined;
         /**
          * Tell the server to watch the files served by the
          * devServer.contentBase option. File changes will trigger a full page
          * reload.
          */
-        watchContentBase?: boolean;
+        watchContentBase?: boolean | undefined;
         /** Control options related to watching the files. */
-        watchOptions?: webpack.Configuration['watchOptions'];
+        watchOptions?: webpack.Configuration['watchOptions'] | undefined;
         /** Tells devServer to write generated assets to the disk. */
-        writeToDisk?: boolean | ((filePath: string) => boolean);
+        writeToDisk?: boolean | ((filePath: string) => boolean) | undefined;
     }
 }
 
@@ -350,7 +350,7 @@ declare module 'webpack' {
          * Can be used to configure the behaviour of webpack-dev-server when
          * the webpack config is passed to webpack-dev-server CLI.
          */
-        devServer?: WebpackDevServer.Configuration;
+        devServer?: WebpackDevServer.Configuration | undefined;
     }
 }
 

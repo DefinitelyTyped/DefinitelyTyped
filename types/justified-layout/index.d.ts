@@ -17,44 +17,44 @@ interface JustifiedLayoutOptions {
      * The width that boxes will be contained within irrelevant of padding.
      * @default 1060
      */
-    containerWidth?: number;
+    containerWidth?: number | undefined;
     /**
      * Provide a single integer to apply padding to all sides or provide an object to apply
      * individual values to each side.
      * @default 10
      */
-    containerPadding?: number | { top: number; right: number; left: number; bottom: number };
+    containerPadding?: number | { top: number; right: number; left: number; bottom: number } | undefined;
     /**
      * Provide a single integer to apply spacing both horizontally and vertically or provide an
      * object to apply individual values to each axis.
      * @default 10
      */
-    boxSpacing?: number | { horizontal: number; vertical: number };
+    boxSpacing?: number | { horizontal: number; vertical: number } | undefined;
     /**
      * It's called a target because row height is the lever we use in order to fit everything in
      * nicely. The algorithm will get as close to the target row height as it can.
      * @default 320
      */
-    targetRowHeight?: number;
+    targetRowHeight?: number | undefined;
     /**
      * How far row heights can stray from targetRowHeight. `0` would force rows to be the
      * `targetRowHeight` exactly and would likely make it impossible to justify. The value must
      * be between `0` and `1`.
      * @default 0.25
      */
-    targetRowHeightTolerance?: number;
+    targetRowHeightTolerance?: number | undefined;
     /**
      * Will stop adding rows at this number regardless of how many items still need to be laid
      * out.
      * @default Number.POSITIVE_INFINITY
      */
-    maxNumRows?: number;
+    maxNumRows?: number | undefined;
     /**
      * Provide an aspect ratio here to return everything in that aspect ratio. Makes the values
      * in your input array irrelevant. The length of the array remains relevant.
      * @default false
      */
-    forceAspectRatio?: boolean | number;
+    forceAspectRatio?: boolean | number | undefined;
     /**
      * If you'd like to insert a full width box every n rows you can specify it with this
      * parameter. The box on that row will ignore the targetRowHeight, make itself as wide as
@@ -63,18 +63,18 @@ interface JustifiedLayoutOptions {
      * see what this does.
      * @default false
      */
-    fullWidthBreakoutRowCadence?: boolean | number;
+    fullWidthBreakoutRowCadence?: boolean | number | undefined;
     /**
      * By default we'll return items at the end of a justified layout even if they don't make a
      * full row. If false they'll be omitted from the output.
      * @default true
      */
-    showWidows?: boolean;
+    showWidows?: boolean | undefined;
     /**
      * If widows are visible, how should they be laid out?
      * @default "left"
      */
-    widowLayoutStyle?: 'left' | 'justify' | 'center';
+    widowLayoutStyle?: 'left' | 'justify' | 'center' | undefined;
 }
 
 /**

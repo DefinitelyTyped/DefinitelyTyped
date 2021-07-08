@@ -2,7 +2,7 @@ import Language = require("../localisation/Language");
 
 declare namespace FeatureParser {
     interface Options {
-        language?: Language<Language.Library>;
+        language?: Language<Language.Library> | undefined;
         leftPlaceholderChar: string;
         rightPlaceholderChar: string;
     }

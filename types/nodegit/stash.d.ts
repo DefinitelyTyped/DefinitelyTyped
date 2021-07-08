@@ -29,10 +29,10 @@ export namespace Stash {
 }
 
 export interface StashApplyOptions {
-    version?: number;
-    flags?: number;
-    checkoutOptions?: CheckoutOptions;
-    progressCb?: Function;
+    version?: number | undefined;
+    flags?: number | undefined;
+    checkoutOptions?: CheckoutOptions | undefined;
+    progressCb?: Function | undefined;
     progressPayload?: any;
 }
 

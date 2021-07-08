@@ -42,8 +42,8 @@ declare module ActionCable {
 }
 
 declare interface AppInterface {
-  cable?: ActionCable.Cable;
-  network?: ActionCable.Channel;
+  cable?: ActionCable.Cable | undefined;
+  network?: ActionCable.Channel | undefined;
 }
 
 declare var App: AppInterface;

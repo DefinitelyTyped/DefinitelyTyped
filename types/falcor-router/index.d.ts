@@ -54,9 +54,9 @@ declare namespace FalcorRouter {
     type CallRouteResult = FalcorJsonGraph.PathValue | FalcorJsonGraph.InvalidPath | Array<FalcorJsonGraph.PathValue | FalcorJsonGraph.InvalidPath> | FalcorJsonGraph.JSONGraphEnvelope;
 
     interface RouterOptions {
-        debug?: boolean;
-        maxPaths?: number;
-        maxRefFollow?: number;
+        debug?: boolean | undefined;
+        maxPaths?: number | undefined;
+        maxRefFollow?: number | undefined;
     }
 }
 

@@ -5,8 +5,8 @@ import { TabBarProps, TabProps } from "react-router-navigation";
 import { TabView } from "react-native-tab-view";
 
 type Props = TabBarProps & {
-    children?: Array<React.ReactElement<TabProps>>;
-    lazy?: boolean;
+    children?: Array<React.ReactElement<TabProps>> | undefined;
+    lazy?: boolean | undefined;
 };
 
 type State = {
