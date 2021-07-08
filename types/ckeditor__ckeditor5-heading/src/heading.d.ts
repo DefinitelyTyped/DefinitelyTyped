@@ -13,9 +13,9 @@ export interface HeadingConfig {
 }
 
 export interface HeadingOption {
-    class?: string;
-    icon?: string;
+    class?: string | undefined;
+    icon?: string | undefined;
     model: string;
     title: string;
-    view?: ElementDefinition;
+    view?: ElementDefinition | undefined;
 }

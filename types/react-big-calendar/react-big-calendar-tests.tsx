@@ -22,7 +22,8 @@ import {
     ViewProps,
     Day,
     TimeGrid,
-    Week
+    Week,
+    HeaderProps
 } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
@@ -42,8 +43,8 @@ class CalendarEvent {
     start: Date;
     endDate: Date;
     desc: string;
-    resourceId?: string;
-    tooltip?: string;
+    resourceId?: string | undefined;
+    tooltip?: string | undefined;
 
     constructor(_title: string, _start: Date, _endDate: Date, _allDay?: boolean, _desc?: string, _resourceId?: string) {
         this.title = _title;
@@ -164,6 +165,9 @@ class CalendarResource {
                 event: Event,
                 agenda: {
                     event: EventAgenda,
+                },
+                work_week: {
+                  event: Event
                 },
                 toolbar: Toolbar,
                 eventWrapper: EventWrapper,
@@ -311,6 +315,7 @@ class CalendarResource {
                         },
                         toolbar: Toolbar,
                         eventWrapper: EventWrapper,
+                        header: CustomHeader
                     }}
                     dayPropGetter={customDayPropGetter}
                     slotPropGetter={customSlotPropGetter}
@@ -367,6 +372,14 @@ class EventAgenda extends React.Component<EventProps<CalendarEvent>> {
             </div>
         );
     }
+}
+
+class CustomHeader extends React.Component<HeaderProps> {
+  render() {
+    return (
+      <div>Custom header</div>
+    );
+  }
 }
 
 const customDayPropGetter = (date: Date) => {
@@ -513,4 +526,44 @@ class MyDay extends Day {
 // Using backgroundEvents
 {
     ReactDOM.render(<Calendar backgroundEvents={getEvents()} localizer={momentLocalizer(moment)} />, document.body);
+}
+
+// defaultView initializer
+{
+    const localizer = dateFnsLocalizer(dateFnsConfig);
+
+    const MonthView = () => (
+        <Calendar
+            defaultView={Views.MONTH}
+            localizer={localizer}
+        />
+    );
+
+    const WeekView = () => (
+        <Calendar
+            defaultView={Views.WEEK}
+            localizer={localizer}
+        />
+    );
+
+    const WorkWeekView = () => (
+        <Calendar
+            defaultView={Views.WORK_WEEK}
+            localizer={localizer}
+        />
+    );
+
+    const DAYView = () => (
+        <Calendar
+            defaultView={Views.DAY}
+            localizer={localizer}
+        />
+    );
+
+    const AgendaView = () => (
+        <Calendar
+            defaultView={Views.AGENDA}
+            localizer={localizer}
+        />
+    );
 }

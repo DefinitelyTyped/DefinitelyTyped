@@ -3,9 +3,9 @@ import { EventTargetLike } from './events/Target';
 
 export interface EventsKey {
     bindTo?: any;
-    boundListener?: ListenerFunction;
+    boundListener?: ListenerFunction | undefined;
     callOnce: boolean;
-    deleteIndex?: number;
+    deleteIndex?: number | undefined;
     listener: ListenerFunction;
     target: EventTargetLike;
     type: string;

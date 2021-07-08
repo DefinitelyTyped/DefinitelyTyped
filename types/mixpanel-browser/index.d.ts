@@ -19,7 +19,7 @@ export interface Dict {
 }
 
 export interface RequestOptions {
-    transport?: 'xhr' | 'sendBeacon';
+    transport?: 'xhr' | 'sendBeacon' | undefined;
 }
 
 export interface XhrHeadersDef {

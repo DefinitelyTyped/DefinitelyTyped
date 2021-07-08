@@ -72,12 +72,12 @@ declare namespace jsrsasign.KJUR.asn1.csr {
          */
         function newCSRPEM(param?: {
             subject:
-                | StringParam & { certissuer?: string; certsubject?: string }
-                | x509.X500NameParam & { certissuer?: string; certsubject?: string }
-                | { ldapstr: string } & { certissuer?: string; certsubject?: string };
+                | StringParam & { certissuer?: string | undefined; certsubject?: string | undefined }
+                | x509.X500NameParam & { certissuer?: string | undefined; certsubject?: string | undefined }
+                | { ldapstr: string } & { certissuer?: string | undefined; certsubject?: string | undefined };
             ext?: Array<{
                 subjectAltName: ArrayParam<{ dns: string }>;
-            }>;
+            }> | undefined;
             sbjpubkey: RSAKey | crypto.ECDSA | crypto.DSA | jws.JWS.JsonWebKey | { n: string; e: string } | string;
             sigalg: string;
             sbjprvkey: RSAKey | crypto.ECDSA | crypto.DSA | jws.JWS.JsonWebKey | { n: string; e: string } | string;

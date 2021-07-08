@@ -11,9 +11,9 @@ export declare class Slider extends Component<SliderProps, SliderState> {
     render(): JSX.Element;
 }
 export interface SliderProps extends React.HTMLAttributes<HTMLDivElement>, SliderCommonProps {
-    initialStart?: number;
-    fill?: SliderFillProps;
-    handle?: SliderHandleProps;
+    initialStart?: number | undefined;
+    fill?: SliderFillProps | undefined;
+    handle?: SliderHandleProps | undefined;
 }
 export interface SliderState {
     value: number;
@@ -28,11 +28,11 @@ export declare class TwoHandleSlider extends Component<TwoHandleSliderProps, Two
     render(): JSX.Element;
 }
 export interface TwoHandleSliderProps extends React.HTMLAttributes<HTMLDivElement>, SliderCommonProps {
-    initialStart?: number;
-    initialEnd?: number;
-    minHandle?: SliderHandleProps;
-    maxHandle?: SliderHandleProps;
-    fill?: SliderFillProps;
+    initialStart?: number | undefined;
+    initialEnd?: number | undefined;
+    minHandle?: SliderHandleProps | undefined;
+    maxHandle?: SliderHandleProps | undefined;
+    fill?: SliderFillProps | undefined;
 }
 export interface TwoHandleSliderState {
     minValue: number;
@@ -48,7 +48,7 @@ export declare const SliderHandle: React.StatelessComponent<SliderHandleProps>;
 export interface SliderHandleProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 export interface SliderFillProps {
-    className?: string;
+    className?: string | undefined;
 }
 /**
  * Slider fill sub-component.
@@ -58,7 +58,7 @@ export interface SliderFillProps {
  */
 export declare const SliderFill: React.StatelessComponent<SliderFillProps>;
 export interface SliderCommonProps {
-    className?: string;
-    isVertical?: boolean;
-    isDisabled?: boolean;
+    className?: string | undefined;
+    isVertical?: boolean | undefined;
+    isDisabled?: boolean | undefined;
 }

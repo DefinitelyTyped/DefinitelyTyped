@@ -1,7 +1,7 @@
 export interface CertifiedAppInfo {
     isRunning: boolean;
-    isOptedIntoCertfiedApp?: boolean;
-    isCertified?: boolean;
-    isSSLCertified?: boolean;
-    isPresentInAppDirectory?: boolean;
+    isOptedIntoCertfiedApp?: boolean | undefined;
+    isCertified?: boolean | undefined;
+    isSSLCertified?: boolean | undefined;
+    isPresentInAppDirectory?: boolean | undefined;
 }

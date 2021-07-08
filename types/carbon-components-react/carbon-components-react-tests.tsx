@@ -16,7 +16,13 @@ import {
     HeaderMenu,
     HeaderMenuItem,
     FileUploader,
+    Link,
     NumberInput,
+    NumberInputOnChangeDataVariant,
+    NumberInputOnChangeDefaultVariant,
+    NumberInputOnClickDataVariant,
+    NumberInputOnClickDefaultVariant,
+    NumberInputOnClickInputVariant,
     Row,
     SecondaryButton,
     Slider,
@@ -44,20 +50,21 @@ import {
     StructuredListRow,
     StructuredListInput,
     StructuredListCell,
+    StructuredListSkeleton,
     ButtonRenderIconRenderProps,
     Modal,
     InlineLoading,
     DataTableSkeleton,
     TableCell,
     unstable_Heading as UnstableHeading,
-    unstable_Section as UnstableSection
-} from 'carbon-components-react';
-import Link from 'carbon-components-react/lib/components/UIShell/Link';
+    unstable_Section as UnstableSection,
+} from "carbon-components-react";
+import UIShellLink from 'carbon-components-react/lib/components/UIShell/Link';
 import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
 
 // test components for "as" props
 interface TestCompProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
     someProp: number;
 }
 
@@ -91,7 +98,7 @@ const accordionItemTwo = (
 // AspectRatio
 //
 
-const AspectRatioCustomComp1: React.FC<{ someRandomProp: number, optionalProp?: string }> = () => <div/>;
+const AspectRatioCustomComp1: React.FC<{ someRandomProp: number, optionalProp?: string | undefined }> = () => <div/>;
 
 const aspectRatioT1 = (
     <AspectRatio>Default</AspectRatio>
@@ -127,7 +134,7 @@ const buttonDefaultT2 = (
 
 const buttonIconT1 = <Button renderIcon={SimpleButtonIcon}>With Render Icon</Button>;
 // TODO: find a way to make this fail because someProp is required by the component but it will never be provided.
-const IconWithProps: React.FC<{ someProp: number; anotherProp?: string }> = () => <div />;
+const IconWithProps: React.FC<{ someProp: number; anotherProp?: string | undefined }> = () => <div />;
 const buttonIconT2 = <Button renderIcon={IconWithProps}>With Render Icon</Button>;
 
 const buttonIconT3 = (
@@ -157,7 +164,7 @@ const buttonIntrinsicT1 = (
     </Button>
 );
 
-const ButtonCustomRenderComp1: React.FC<{ someProp: number; anotherProp?: string }> = () => <div />;
+const ButtonCustomRenderComp1: React.FC<{ someProp: number; anotherProp?: string | undefined }> = () => <div />;
 
 const buttonCustomRenderT1 = (
     <Button as={ButtonCustomRenderComp1} kind="danger" someProp={5} anotherProp="test">
@@ -210,7 +217,7 @@ interface Header1 extends DataTableHeader<Header1Key> {
 
 interface ExtraStuff {
     extra1: string;
-    extra2?: number;
+    extra2?: number | undefined;
 }
 
 const t1 = (
@@ -501,19 +508,33 @@ const t5 = (
 }
 
 // UIShell - Link
+{
+    const uisLinkT1 = <UIShellLink href="#test">Test</UIShellLink>;
+    const uisLinkT2 = <UIShellLink<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src"/>;
+    const uisLinkT3 = (
+        <UIShellLink<TestCompProps> element={TestComp1} someProp={2}>
+            ASDF
+        </UIShellLink>
+    );
+    const uisLinkT4 = (
+        <UIShellLink<TestCompProps> element={TestComp2} someProp={2}>
+            ASDF
+        </UIShellLink>
+    );
 
-const uisLinkT1 = <Link href="#test">Test</Link>;
-const uisLinkT2 = <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src" />;
-const uisLinkT3 = (
-    <Link<TestCompProps> element={TestComp1} someProp={2}>
-        ASDF
-    </Link>
-);
-const uisLinkT4 = (
-    <Link<TestCompProps> element={TestComp2} someProp={2}>
-        ASDF
-    </Link>
-);
+    interface TestCompPropsOverwrite {
+        element?: 'overwriteTest' | undefined; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
+        someProp: string;
+    }
+
+    const TestComp3 = (props: TestCompPropsOverwrite) => <div/>;
+
+    const uisLinkT5 = (
+        <UIShellLink<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">
+            Testing Overwrite
+        </UIShellLink>
+    );
+}
 
 // UI Shell - HeaderContainer
 const uisHeaderContainerAnonRender = (
@@ -527,7 +548,7 @@ const uisHeaderContainerAnonRender = (
 );
 
 const HeaderCompRender1: React.FC<{ someProp: number }> = () => <div />;
-const HeaderCompRender2: React.FC<{ someProp?: number }> = () => <div />;
+const HeaderCompRender2: React.FC<{ someProp?: number | undefined }> = () => <div />;
 
 /*
  * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
@@ -563,23 +584,6 @@ const uisHeaderMenuCompRenderNotMatchingOptionalProps = (
 
 const uisHeaderMenuItemRequiredChild = <HeaderMenuItem>Required Child</HeaderMenuItem>;
 
-//
-// UIShell Link
-//
-
-interface TestCompPropsOverwrite {
-    element?: 'overwriteTest'; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
-    someProp: string;
-}
-
-const TestComp3 = (props: TestCompPropsOverwrite) => <div />;
-
-const uisLinkT5 = (
-    <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">
-        Testing Overwrite
-    </Link>
-);
-
 // DatePickerInput
 const datePickerInputWithHideLabel = (
     <DatePickerInput hideLabel={true} id="my-date-picker-input" labelText="my-label-text" />
@@ -609,21 +613,41 @@ const dropdownItemCanBeElement = (
     />
 );
 
+//
+// Link
+//
+{
+    const LinkIcon1: React.FC = (props) => <div/>;
+    const LinkIcon2: React.FC<{ someProp?: number | undefined }> = (props) => <div/>;
+
+    const linkT1 = (
+        <Link href="href" inline renderIcon={LinkIcon1}>Text</Link>
+    );
+    const linkT2 = (
+        <Link href="href" renderIcon={LinkIcon2}>Text</Link>
+    );
+}
+
 // Popover
 {
+    const popoverContentDivRef = React.useRef<HTMLDivElement | null>(null);
     const popoverT1 = (
         <Popover open align="bottom" caret>
-            <PopoverContent>Content</PopoverContent>
+            <PopoverContent ref={popoverContentDivRef}>Content</PopoverContent>
         </Popover>
     );
+
+    const popoverContentFieldSetRef = React.useRef<HTMLFieldSetElement | null>(null);
     const popoverIntrinsicT1 = (
         <Popover open={false}>
-            <PopoverContent as="fieldset" disabled form="test">Content</PopoverContent>
+            <PopoverContent as="fieldset" disabled form="test" ref={popoverContentFieldSetRef}>Content</PopoverContent>
         </Popover>
     );
+
+    const popoverContentCustomRef = React.useRef<{ someFn: () => void } | null>(null);
     const popoverCustomComponentT1 = (
         <Popover open>
-            <PopoverContent as={TestComp2} someProp={2}>Content</PopoverContent>
+            <PopoverContent as={TestComp2} someProp={2} ref={popoverContentCustomRef}>Content</PopoverContent>
         </Popover>
     );
 }
@@ -706,6 +730,10 @@ const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue 
             </StructuredListBody>
         </StructuredListWrapper>
     );
+
+    const structuredListSkeletonT1 = (
+        <StructuredListSkeleton />
+    );
 }
 
 // Tag
@@ -715,7 +743,7 @@ const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue 
     const TagCustomComp1: React.FC = () => <div />;
     const ChipTagIcon1 = <Tag renderIcon={TagCustomComp1} size="sm" />;
 
-    const TagCustomComp2: React.FC<{ optionalProp?: string }> = () => <div />;
+    const TagCustomComp2: React.FC<{ optionalProp?: string | undefined }> = () => <div />;
     const ChipTagIcon2 = <Tag renderIcon={TagCustomComp2} />;
 
     class TagCustomComp3 extends React.Component {}
@@ -747,8 +775,58 @@ const passwordInputWithRef = <TextInput.PasswordInput id="my-id" ref={inputRef} 
 const controlledPasswordInputWithRef = <TextInput.ControlledPasswordInput id="my-id" ref={inputRef} labelText="" />;
 
 // NumberInput
-const numberInput = <NumberInput id="my-id" value={12} />;
-const emptyNumberInput = <NumberInput id="empty-id" value="" />;
+{
+    const numberInput = <NumberInput id="my-id" value={12} />;
+    const emptyNumberInput = <NumberInput id="empty-id" value="" />;
+
+    const numberInputOnChangeT1 = (
+        <NumberInput
+            id="id"
+            onChange={((evt, { direction, value }) => evt.preventDefault()) as NumberInputOnChangeDataVariant}
+            value=""
+        />
+    );
+
+    const numberInputOnChangeT2 = (
+        <NumberInput id="id" onChange={(evt, direction, value) => {
+            if (direction === "down") {
+                evt.preventDefault();
+            }
+        }} value="" />
+    );
+
+    const numberInputOnChangeT3 = (
+        <NumberInput
+            id="id"
+            onChange={((evt, direction, value) => evt.preventDefault()) as NumberInputOnChangeDefaultVariant}
+            value=""
+        />
+    );
+
+    const numberInputOnClickT1 = (
+        <NumberInput
+            id="id"
+            onClick={((evt, direction, value) => evt.preventDefault()) as NumberInputOnClickDefaultVariant}
+            value=""
+        />
+    );
+
+    const numberInputOnClickT2 = (
+        <NumberInput
+            id="id"
+            onClick={((evt, { direction, value }) => evt.preventDefault()) as NumberInputOnClickDataVariant}
+            value=""
+        />
+    );
+
+    const numberInputOnClickT3 = (
+        <NumberInput
+            id="id"
+            onClick={((evt) => evt.currentTarget.checked) as NumberInputOnClickInputVariant}
+            value=""
+        />
+    );
+}
 
 // FileUploader
 const fileUploaderHasOnChange = <FileUploader onChange={e => {}} />;
@@ -794,7 +872,7 @@ const multiSelect = (
 interface MultiSelectObjType1 {
     id: number,
     name: string,
-    someBoolProp?: boolean
+    someBoolProp?: boolean | undefined
 }
 
 const multiSelectObjs = (

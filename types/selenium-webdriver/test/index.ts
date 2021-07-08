@@ -379,6 +379,8 @@ function TestWebDriverWindow() {
     locationPromise = window.getPosition();
     sizePromise = window.getSize();
     voidPromise = window.maximize();
+    voidPromise = window.minimize();
+    voidPromise = window.fullsceen();
     voidPromise = window.setPosition(12, 34);
     voidPromise = window.setSize(12, 34);
 }

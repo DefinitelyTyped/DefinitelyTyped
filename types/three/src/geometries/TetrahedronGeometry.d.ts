@@ -11,6 +11,8 @@ export class TetrahedronGeometry extends PolyhedronGeometry {
      * @default 'TetrahedronGeometry'
      */
     type: string;
+
+    static fromJSON(data: any): TetrahedronGeometry;
 }
 
 export { TetrahedronGeometry as TetrahedronBufferGeometry };

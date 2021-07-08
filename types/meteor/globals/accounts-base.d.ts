@@ -5,36 +5,36 @@ declare interface URLS {
 }
 
 declare interface EmailFields {
-    from?: (user: Meteor.User) => string;
-    subject?: (user: Meteor.User) => string;
-    text?: (user: Meteor.User, url: string) => string;
-    html?: (user: Meteor.User, url: string) => string;
+    from?: ((user: Meteor.User) => string) | undefined;
+    subject?: ((user: Meteor.User) => string) | undefined;
+    text?: ((user: Meteor.User, url: string) => string) | undefined;
+    html?: ((user: Meteor.User, url: string) => string) | undefined;
 }
 
 declare module Accounts {
     var urls: URLS;
 
-    function user(options?: { fields?: Mongo.FieldSpecifier }): Meteor.User | null;
+    function user(options?: { fields?: Mongo.FieldSpecifier | undefined }): Meteor.User | null;
 
     function userId(): string | null;
 
     function createUser(options: {
-        username?: string;
-        email?: string;
-        password?: string;
-        profile?: Object;
+        username?: string | undefined;
+        email?: string | undefined;
+        password?: string | undefined;
+        profile?: Object | undefined;
     }, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): string;
 
     function config(options: {
-        sendVerificationEmail?: boolean;
-        forbidClientAccountCreation?: boolean;
-        restrictCreationByEmailDomain?: string | Function;
-        loginExpirationInDays?: number;
-        oauthSecretKey?: string;
-        passwordResetTokenExpirationInDays?: number;
-        passwordEnrollTokenExpirationInDays?: number;
-        ambiguousErrorMessages?: boolean;
-        defaultFieldSelector?: {[key: string]: 0 | 1}
+        sendVerificationEmail?: boolean | undefined;
+        forbidClientAccountCreation?: boolean | undefined;
+        restrictCreationByEmailDomain?: string | Function | undefined;
+        loginExpirationInDays?: number | undefined;
+        oauthSecretKey?: string | undefined;
+        passwordResetTokenExpirationInDays?: number | undefined;
+        passwordEnrollTokenExpirationInDays?: number | undefined;
+        ambiguousErrorMessages?: boolean | undefined;
+        defaultFieldSelector?: {[key: string]: 0 | 1} | undefined
     }): void;
 
     function onLogin(func: Function): {
@@ -54,7 +54,7 @@ declare module Accounts {
     function changePassword(oldPassword: string, newPassword: string, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
     function forgotPassword(options: {
-        email?: string;
+        email?: string | undefined;
     }, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
     function resetPassword(token: string, newPassword: string, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
@@ -75,10 +75,10 @@ declare module Accounts {
 
     var ui: {
         config(options: {
-            requestPermissions?: Object;
-            requestOfflineToken?: Object;
-            forceApprovalPrompt?: Object;
-            passwordSignupFields?: string;
+            requestPermissions?: Object | undefined;
+            requestOfflineToken?: Object | undefined;
+            forceApprovalPrompt?: Object | undefined;
+            passwordSignupFields?: string | undefined;
         }): void;
     };
 }
@@ -90,7 +90,7 @@ declare interface Header {
 declare interface EmailTemplates {
     from: string;
     siteName: string;
-    headers?: Header;
+    headers?: Header | undefined;
     resetPassword: EmailFields;
     enrollAccount: EmailFields;
     verifyEmail: EmailFields;
@@ -103,7 +103,7 @@ declare module Accounts {
 
     function removeEmail(userId: string, email: string): void;
 
-    function onCreateUser(func: (options: { profile?: {} }, user: Meteor.User) => void): void;
+    function onCreateUser(func: (options: { profile?: {} | undefined }, user: Meteor.User) => void): void;
 
     function findUserByEmail(email: string): Meteor.User | null | undefined;
 
@@ -118,7 +118,7 @@ declare module Accounts {
     function setUsername(userId: string, newUsername: string): void;
 
     function setPassword(userId: string, newPassword: string, options?: {
-        logout?: Object;
+        logout?: Object | undefined;
     }): void;
 
     function validateNewUser(func: Function): boolean;
@@ -153,22 +153,22 @@ declare module Accounts {
         /**
          * The method to call (default 'login')
          */
-        methodName?: string;
+        methodName?: string | undefined;
         /**
          * The arguments for the method
          */
-        methodArguments?: any[];
+        methodArguments?: any[] | undefined;
         /**
          * If provided, will be called with the result of the
          * method. If it throws, the client will not be logged in (and
          * its error will be passed to the callback).
          */
-        validateResult?: Function;
+        validateResult?: Function | undefined;
         /**
          * Will be called with no arguments once the user is fully
          * logged in, or with the error on error.
          */
-        userCallback?: (err?: any) => void;
+        userCallback?: ((err?: any) => void) | undefined;
     }
 
     /**

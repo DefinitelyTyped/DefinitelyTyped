@@ -13,45 +13,45 @@ declare namespace PhotoSwipe {
         /**
          * The url of this image.
          */
-        src?: string;
+        src?: string | undefined;
         /**
          * The width of this image.
          */
-        w?: number;
+        w?: number | undefined;
         /**
          * The height of this image.
          */
-        h?: number;
+        h?: number | undefined;
         /**
          * The url to small image placeholder, large image will be loaded on top
          */
-        msrc?: string;
+        msrc?: string | undefined;
 
         /**
          * HTML content instead of image.
          */
-        html?: string;
+        html?: string | undefined;
 
         /**
          * Internal property added by PhotoSwipe.
          */
-        loadError?: boolean;
+        loadError?: boolean | undefined;
 
         /**
          * Internal property added by PhotoSwipe.
          */
-        vGap?: {top: number; bottom: number};
+        vGap?: {top: number; bottom: number} | undefined;
 
         /**
          * Internal property added by PhotoSwipe.
          * This number is computed to be this item's smaller dimension divided by the larger dimension.
          */
-        fitRatio?: number;
+        fitRatio?: number | undefined;
 
         /**
          * Internal property added by PhotoSwipe.
          */
-        initialZoomLevel?: number;
+        initialZoomLevel?: number | undefined;
 
         /**
          * Internal property added by PhotoSwipe.
@@ -66,7 +66,7 @@ declare namespace PhotoSwipe {
         /**
          * Custom IDs for each slide object that are used when forming URL
          */
-        pid?: string | number;
+        pid?: string | number | undefined;
     }
 
     /**
@@ -78,7 +78,7 @@ declare namespace PhotoSwipe {
          *
          * Default 0.
          */
-        index?: number;
+        index?: number | undefined;
 
         /**
          * Function should return an object with coordinates from which initial zoom-in animation will start (or zoom-out animation will end).
@@ -89,7 +89,7 @@ declare namespace PhotoSwipe {
          *
          * Default undefined.
          */
-        getThumbBoundsFn?: (index: number) => { x: number; y: number; w: number };
+        getThumbBoundsFn?: ((index: number) => { x: number; y: number; w: number }) | undefined;
 
         /**
          * Initial zoom-in transition duration in milliseconds. Set to 0 to disable. Besides this JS option, you need also to change transition duration in PhotoSwipe CSS file:
@@ -105,7 +105,7 @@ declare namespace PhotoSwipe {
          *
          * Default 333.
          */
-        showAnimationDuration?: number;
+        showAnimationDuration?: number | undefined;
 
         /**
          * The same as the previous option, just for closing (zoom-out) transition.
@@ -113,7 +113,7 @@ declare namespace PhotoSwipe {
          *
          * Default 333.
          */
-        hideAnimationDuration?: number;
+        hideAnimationDuration?: number | undefined;
 
         /**
          * If set to false background opacity and image scale will be animated (image opacity is always 1).
@@ -122,7 +122,7 @@ declare namespace PhotoSwipe {
          *
          * Default false.
          */
-        showHideOpacity?: boolean;
+        showHideOpacity?: boolean | undefined;
 
         /**
          * Background (.pswp__bg) opacity.
@@ -131,14 +131,14 @@ declare namespace PhotoSwipe {
          *
          * Default 1.
          */
-        bgOpacity?: number;
+        bgOpacity?: number | undefined;
 
         /**
          * Spacing ratio between slides. For example, 0.12 will render as a 12% of sliding viewport width (rounded).
          *
          * Default 0.12.
          */
-        spacing?: number;
+        spacing?: number | undefined;
 
         /**
          * Allow swipe navigation to next/prev item when current item is zoomed.
@@ -146,7 +146,7 @@ declare namespace PhotoSwipe {
          *
          * Default true.
          */
-        allowPanToNext?: boolean;
+        allowPanToNext?: boolean | undefined;
 
         /**
          * Maximum zoom level when performing spread (zoom) gesture. 2 means that image can be zoomed 2x from original size.
@@ -154,7 +154,7 @@ declare namespace PhotoSwipe {
          *
          * Default 2.
          */
-        maxSpreadZoom?: number;
+        maxSpreadZoom?: number | undefined;
 
         /**
          * Function should return zoom level to which image will be zoomed after double-tap gesture, or when user clicks on zoom icon, or mouse-click on image itself.
@@ -192,7 +192,7 @@ declare namespace PhotoSwipe {
          *     }
          * }
          */
-        getDoubleTapZoom?: (isMouseClick: boolean, item: Item) => number;
+        getDoubleTapZoom?: ((isMouseClick: boolean, item: Item) => number) | undefined;
 
         /**
          * Loop slides when using swipe gesture.If set to true you'll be able to swipe from last to first image.
@@ -201,28 +201,28 @@ declare namespace PhotoSwipe {
          *
          * Default true.
          */
-        loop?: boolean;
+        loop?: boolean | undefined;
 
         /**
          * Pinch to close gallery gesture. The gallery’s background will gradually fade out as the user zooms out. When the gesture is complete, the gallery will close.
          *
          * Default true.
          */
-        pinchToClose?: boolean;
+        pinchToClose?: boolean | undefined;
 
         /**
          * Close gallery on page scroll. Option works just for devices without hardware touch support.
          *
          * Default true.
          */
-        closeOnScroll?: boolean;
+        closeOnScroll?: boolean | undefined;
 
         /**
          * Close gallery when dragging vertically and when image is not zoomed. Always false when mouse is used.
          *
          * Default true.
          */
-        closeOnVerticalDrag?: boolean;
+        closeOnVerticalDrag?: boolean | undefined;
 
         /**
          * Option allows you to predefine if mouse was used or not.
@@ -231,35 +231,35 @@ declare namespace PhotoSwipe {
          *
          * default false.
          */
-        mouseUsed?: boolean;
+        mouseUsed?: boolean | undefined;
 
         /**
          * esc keyboard key to close PhotoSwipe. Option can be changed dynamically (yourPhotoSwipeInstance.options.escKey = false;).
          *
          * Default true.
          */
-        escKey?: boolean;
+        escKey?: boolean | undefined;
 
         /**
          * Keyboard left or right arrow key navigation. Option can be changed dynamically (yourPhotoSwipeInstance.options.arrowKeys = false;).
          *
          * Default true.
          */
-        arrowKeys?: boolean;
+        arrowKeys?: boolean | undefined;
 
         /**
          * If set to false disables history module (back button to close gallery, unique URL for each slide). You can also just exclude history.js module from your build.
          *
          * Default true.
          */
-        history?: boolean;
+        history?: boolean | undefined;
 
         /**
          * Gallery unique ID. Used by History module when forming URL. For example, second picture of gallery with UID 1 will have URL: http://example.com/#&gid=1&pid=2.
          *
          * Default 1.
          */
-        galleryUID?: number;
+        galleryUID?: number | undefined;
 
         /**
          * Enables custom IDs for each slide object that are used when forming URL.
@@ -267,7 +267,7 @@ declare namespace PhotoSwipe {
          *
          * Default false.
          */
-        galleryPIDs?: boolean;
+        galleryPIDs?: boolean | undefined;
 
         /**
          * Error message when image was not loaded. %url% will be replaced by URL of image.
@@ -276,7 +276,7 @@ declare namespace PhotoSwipe {
          *
          * <div class="pswp__error-msg"><a href="%url%" target="_blank">The image</a> could not be loaded.</div>
          */
-        errorMsg?: string;
+        errorMsg?: string | undefined;
 
         /**
          * Lazy loading of nearby slides based on direction of movement.
@@ -285,26 +285,26 @@ declare namespace PhotoSwipe {
          *
          * Default [1, 1].
          */
-        preload?: number[];
+        preload?: number[] | undefined;
 
         /**
          * String with name of class that will be added to root element of PhotoSwipe (.pswp). Can contain multiple classes separated by space.
          */
-        mainClass?: string;
+        mainClass?: string | undefined;
 
         /**
          * Function that should return total number of items in gallery. Don't put very complex code here, function is executed very often.
          *
          * By default it returns length of slides array.
          */
-        getNumItemsFn?: () => number;
+        getNumItemsFn?: (() => number) | undefined;
 
         /**
          * Will set focus on PhotoSwipe element after it's open.
          *
          * Default true.
          */
-        focus?: boolean;
+        focus?: boolean | undefined;
 
         /**
          * Function should check if the element (el) is clickable.
@@ -317,14 +317,14 @@ declare namespace PhotoSwipe {
          *     return el.tagName === 'A';
          * }
          */
-        isClickableElement?: (el: HTMLElement) => boolean;
+        isClickableElement?: ((el: HTMLElement) => boolean) | undefined;
 
         /**
          * Controls whether PhotoSwipe should expand to take up the entire viewport.
          * If false, the PhotoSwipe element will take the size of the positioned parent of the template. Take a look at the FAQ for more
          * information.
          */
-        modal?: boolean;
+        modal?: boolean | undefined;
     }
 
     export interface UIFramework {

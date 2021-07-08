@@ -13,7 +13,7 @@ export interface AppSyncResolverEventHeaders {
  */
 export interface AppSyncResolverEvent<T> {
     arguments: T;
-    identity?: AppSyncIdentityIAM | AppSyncIdentityCognito;
+    identity?: AppSyncIdentityIAM | AppSyncIdentityCognito | undefined;
     source: { [key: string]: any } | null;
     request: {
         headers: AppSyncResolverEventHeaders;

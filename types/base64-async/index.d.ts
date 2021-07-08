@@ -15,6 +15,6 @@ declare namespace base64Async {
     function decode(input: string, options?: Options): Promise<Buffer>;
 
     interface Options {
-        chunkSize?: number;
+        chunkSize?: number | undefined;
     }
 }

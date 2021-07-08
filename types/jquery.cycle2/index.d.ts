@@ -49,48 +49,48 @@ declare namespace JQueryCycle2 {
     }
 
     interface Options {
-        allowWrap?: boolean;
+        allowWrap?: boolean | undefined;
         autoHeight?: any; // number or string
-        autoSelector?: string;
-        caption?: string;
-        captionTemplate?: string;
-        continueAuto?: boolean;
-        delay?: number;
-        disabledClass?: string;
-        easing?: string;
-        fx?: string;
-        hideNonActive?: boolean;
+        autoSelector?: string | undefined;
+        caption?: string | undefined;
+        captionTemplate?: string | undefined;
+        continueAuto?: boolean | undefined;
+        delay?: number | undefined;
+        disabledClass?: string | undefined;
+        easing?: string | undefined;
+        fx?: string | undefined;
+        hideNonActive?: boolean | undefined;
         loader?: any; // boolean or 'wait'
-        log?: boolean;
-        loop?: number;
-        manualSpeed?: number;
-        manualTrump?: boolean;
-        next?: string;
-        nextEvent?: string;
-        overlay?: string;
-        overlayTemplate?: string;
-        pager?: string;
-        pagerActivateClass?: string;
-        pagerEvent?: string;
-        pagerTemplate?: string;
+        log?: boolean | undefined;
+        loop?: number | undefined;
+        manualSpeed?: number | undefined;
+        manualTrump?: boolean | undefined;
+        next?: string | undefined;
+        nextEvent?: string | undefined;
+        overlay?: string | undefined;
+        overlayTemplate?: string | undefined;
+        pager?: string | undefined;
+        pagerActivateClass?: string | undefined;
+        pagerEvent?: string | undefined;
+        pagerTemplate?: string | undefined;
         pauseOnHover?: any; // boolean or string
-        paused?: boolean;
-        prev?: string;
-        prevEvent?: string;
-        progressive?: string;
-        random?: boolean;
-        reverse?: boolean;
-        slideActiveClass?: string;
+        paused?: boolean | undefined;
+        prev?: string | undefined;
+        prevEvent?: string | undefined;
+        progressive?: string | undefined;
+        random?: boolean | undefined;
+        reverse?: boolean | undefined;
+        slideActiveClass?: string | undefined;
         slideCss?: any;
-        slideClass?: string;
-        slides?: string;
-        speed?: number;
-        startingSlide?: number;
-        swipe?: boolean;
-        sync?: boolean;
-        timeout?: number;
-        tmplRegex?: string;
-        updateView?: number;
+        slideClass?: string | undefined;
+        slides?: string | undefined;
+        speed?: number | undefined;
+        startingSlide?: number | undefined;
+        swipe?: boolean | undefined;
+        sync?: boolean | undefined;
+        timeout?: number | undefined;
+        tmplRegex?: string | undefined;
+        updateView?: number | undefined;
     }
 
     interface OptionsWithState extends Options {

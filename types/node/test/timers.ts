@@ -72,3 +72,13 @@ import * as timers from 'timers';
     setImmediate(10, { signal });
     ac.abort();
 }
+
+// globals
+{
+    setTimeout((a: number, b: string) => {}, 12, 1, 'test');
+    setInterval((a: number, b: string) => {}, 12, 1, 'test');
+    setImmediate((a: number, b: string) => {}, 1, 'test');
+    queueMicrotask(() => {
+        // cool
+    });
+}

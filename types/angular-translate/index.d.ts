@@ -30,7 +30,7 @@ declare module 'angular' {
         interface IStaticFilesLoaderOptions {
             prefix: string;
             suffix: string;
-            key?: string;
+            key?: string | undefined;
         }
 
         interface IPartialLoader<T> {

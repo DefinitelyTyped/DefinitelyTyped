@@ -34,13 +34,13 @@ interface GridFile {
 }
 
 interface MulterGfsOptions {
-    filename?: ConfigFn<NodeCb<string>>;
-    identifier?: ConfigFn<NodeCb<any>>;
-    metadata?: ConfigFn<NodeCb<any>>;
-    chunkSize?: number | ConfigFn<NodeCb<number>>;
-    root?: string | ConfigFn<NodeCb<string>>;
-    log?: boolean | NodeCb<StorageLog>;
-    logLevel?: logConfig;
+    filename?: ConfigFn<NodeCb<string>> | undefined;
+    identifier?: ConfigFn<NodeCb<any>> | undefined;
+    metadata?: ConfigFn<NodeCb<any>> | undefined;
+    chunkSize?: number | ConfigFn<NodeCb<number>> | undefined;
+    root?: string | ConfigFn<NodeCb<string>> | undefined;
+    log?: boolean | NodeCb<StorageLog> | undefined;
+    logLevel?: logConfig | undefined;
 }
 
 declare class MulterGridfsStorage extends EventEmitter implements Multer.StorageEngine {

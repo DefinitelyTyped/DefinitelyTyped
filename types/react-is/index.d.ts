@@ -6,6 +6,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+// NOTE: Users of the React 18 alpha should add a reference
+// to 'react-is/alpha' in their project. See alpha.d.ts's top comment
+// for reference and documentation on how exactly to do it.
+
 export as namespace ReactIs;
 
 import {

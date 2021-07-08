@@ -262,10 +262,10 @@ function sample4() {
 }
 
 interface CircleWithLineInfos extends fabric.Circle {
-  line1?: fabric.Line;
-  line2?: fabric.Line;
-  line3?: fabric.Line;
-  line4?: fabric.Line;
+  line1?: fabric.Line | undefined;
+  line2?: fabric.Line | undefined;
+  line3?: fabric.Line | undefined;
+  line4?: fabric.Line | undefined;
 }
 
 function sample5() {
@@ -1044,4 +1044,10 @@ function sample14() {
       return false;
     }
   });
+}
+
+function sample15() {
+  const canvas = new fabric.Canvas('c');
+  const textRTL = new fabric.Text('שלום עולם', { left: 100, top: 100, direction: 'rtl', originX: 'right', textAlign: 'right' });
+  canvas.add(textRTL);
 }

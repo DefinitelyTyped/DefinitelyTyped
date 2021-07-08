@@ -34,13 +34,13 @@ export function fibonacci(options?: Options): Backoff;
 export function exponential(options?: ExponentialOptions): Backoff;
 
 export interface Options {
-    randomisationFactor?: number;
-    initialDelay?: number;
-    maxDelay?: number;
+    randomisationFactor?: number | undefined;
+    initialDelay?: number | undefined;
+    maxDelay?: number | undefined;
 }
 
 export interface ExponentialOptions extends Options {
-    factor?: number;
+    factor?: number | undefined;
 }
 
 /**

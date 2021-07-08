@@ -18,7 +18,7 @@ declare namespace imageminSvgo {
          * Pass over SVGs multiple times to ensure all optimizations are applied
          * @default true
          */
-        multipass?: boolean;
+        multipass?: boolean | undefined;
     };
 }
 

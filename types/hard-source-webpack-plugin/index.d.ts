@@ -14,21 +14,21 @@ declare class hard_source_webpack_plugin {
 }
 
 interface Options {
-    cacheDirectory?: string;
-    configHash?: string | ((webpackConfig?: webpack.Configuration) => string);
+    cacheDirectory?: string | undefined;
+    configHash?: string | ((webpackConfig?: webpack.Configuration) => string) | undefined;
     environmentHash?: {
         root: string;
         directories: string[];
         files: string[];
-    };
+    } | undefined;
     info?: {
         mode: 'none' | 'test';
         level: 'debug' | 'log' | 'info' | 'warn' | 'error';
-    };
+    } | undefined;
     cachePrune?: {
         maxAge: number;
         sizeThreshold: number;
-    };
+    } | undefined;
 }
 
 declare namespace hard_source_webpack_plugin {
@@ -40,8 +40,8 @@ declare namespace hard_source_webpack_plugin {
     namespace ExcludeModulePlugin {
         interface Option {
             test: TestElement;
-            include?: TestElement;
-            exclude?: TestElement;
+            include?: TestElement | undefined;
+            exclude?: TestElement | undefined;
         }
 
         type TestElement = RegExp | string | ((source: string) => boolean) | Option[];
@@ -82,9 +82,9 @@ declare namespace hard_source_webpack_plugin {
         // this code working on supported versions of `infer` keyword (version 2.8 higher.
         type forkFn = (modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions) => ChildProcess;
         interface Options {
-            fork?: (fork: forkFn, compiler: webpack.Compiler, webpackBin: string) => void;
-            numWorkers?: number | (() => number);
-            minModules?: number;
+            fork?: ((fork: forkFn, compiler: webpack.Compiler, webpackBin: string) => void) | undefined;
+            numWorkers?: number | (() => number) | undefined;
+            minModules?: number | undefined;
         }
     }
 }

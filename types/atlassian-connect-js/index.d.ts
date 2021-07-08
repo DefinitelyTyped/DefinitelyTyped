@@ -459,57 +459,57 @@ declare namespace AP {
             /**
              * Opens the dialog at a preset size: small, medium, large, x-large or fullscreen (with chrome).
              */
-            size?: 'small' | 'medium' | 'large' | 'x-large' | 'fullscreen';
+            size?: 'small' | 'medium' | 'large' | 'x-large' | 'fullscreen' | undefined;
 
             /**
              * if size is not set, define the width as a percentage (append a % to the number) or pixels.
              */
-            width?: number;
+            width?: number | undefined;
 
             /**
              * if size is not set, define the height as a percentage (append a % to the number) or pixels.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              * (optional) opens the dialog with heading and buttons.
              */
-            chrome?: boolean;
+            chrome?: boolean | undefined;
 
             /**
              * (optional) text to display in the header if opening a dialog with chrome.
              */
-            header?: string;
+            header?: string | undefined;
 
             /**
              * (optional) text for the submit button if opening a dialog with chrome.
              */
-            submitText?: string;
+            submitText?: string | undefined;
 
             /**
              * (optional) text for the cancel button if opening a dialog with chrome.
              */
-            cancelText?: string;
+            cancelText?: string | undefined;
 
             /**
              * (optional) custom data object that can be accessed from the actual dialog iFrame.
              */
-            customData?: object;
+            customData?: object | undefined;
 
             /**
              * (optional) if true, pressing ESC inside the dialog will close the dialog (default is true).
              */
-            closeOnEscape?: boolean;
+            closeOnEscape?: boolean | undefined;
 
             /**
              * (optional) an array of custom buttons to be added to the dialog if opening a dialog with chrome.
              */
-            buttons?: Array<{ text: string; identifier: string }>;
+            buttons?: Array<{ text: string; identifier: string }> | undefined;
 
             /**
              * (optional) Suggested actions or helpful info that will be added to the dialog if opening with chrome.
              */
-            hint?: string;
+            hint?: string | undefined;
         }
 
         interface DialogButton {
@@ -1156,7 +1156,7 @@ declare namespace AP {
              *
              * This parameter is optional and defaults to `current`.
              */
-            embeddedContentRender?: 'current' | 'version-at-save';
+            embeddedContentRender?: 'current' | 'version-at-save' | undefined;
 
             /**
              * Identifies a specific page within a site. Required for the `site` target and must begin with `/`.

@@ -61,5 +61,9 @@ declare namespace gaussian {
          * given constant
          */
         scale(x: number): number;
+        /**
+         * generates given number of samples of the distribution
+         */
+        random(x: number): number[];
     }
 }

@@ -18,7 +18,7 @@ export interface Wrapped<TEvent, TResult> {
 
 export function wrap<TEvent, TResult, THandlerName extends string = 'handler'>(
     mod: { [name in THandlerName]: Handler<TEvent, TResult> },
-    options?: { handler?: THandlerName },
+    options?: { handler?: THandlerName | undefined },
 ): Wrapped<TEvent, TResult>;
 export function wrap(mod: { lambdaFunction: string; region: string }, options?: {}): Wrapped<any, any>;
 

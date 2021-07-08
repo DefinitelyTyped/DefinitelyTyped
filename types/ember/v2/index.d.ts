@@ -117,47 +117,47 @@ declare module 'ember' {
         | ((this: Target, sender: Sender, key: keyof Sender, value: any, rev: number) => void);
 
     interface RenderOptions {
-        into?: string;
-        controller?: string;
+        into?: string | undefined;
+        controller?: string | undefined;
         model?: any;
-        outlet?: string;
-        view?: string;
+        outlet?: string | undefined;
+        view?: string | undefined;
     }
 
     interface RouteQueryParam {
-        refreshModel?: boolean;
-        replace?: boolean;
-        as?: string;
+        refreshModel?: boolean | undefined;
+        replace?: boolean | undefined;
+        as?: string | undefined;
     }
 
     interface EventDispatcherEvents {
-        touchstart?: string | null;
-        touchmove?: string | null;
-        touchend?: string | null;
-        touchcancel?: string | null;
-        keydown?: string | null;
-        keyup?: string | null;
-        keypress?: string | null;
-        mousedown?: string | null;
-        mouseup?: string | null;
-        contextmenu?: string | null;
-        click?: string | null;
-        dblclick?: string | null;
-        mousemove?: string | null;
-        focusin?: string | null;
-        focusout?: string | null;
-        mouseenter?: string | null;
-        mouseleave?: string | null;
-        submit?: string | null;
-        input?: string | null;
-        change?: string | null;
-        dragstart?: string | null;
-        drag?: string | null;
-        dragenter?: string | null;
-        dragleave?: string | null;
-        dragover?: string | null;
-        drop?: string | null;
-        dragend?: string | null;
+        touchstart?: string | null | undefined;
+        touchmove?: string | null | undefined;
+        touchend?: string | null | undefined;
+        touchcancel?: string | null | undefined;
+        keydown?: string | null | undefined;
+        keyup?: string | null | undefined;
+        keypress?: string | null | undefined;
+        mousedown?: string | null | undefined;
+        mouseup?: string | null | undefined;
+        contextmenu?: string | null | undefined;
+        click?: string | null | undefined;
+        dblclick?: string | null | undefined;
+        mousemove?: string | null | undefined;
+        focusin?: string | null | undefined;
+        focusout?: string | null | undefined;
+        mouseenter?: string | null | undefined;
+        mouseleave?: string | null | undefined;
+        submit?: string | null | undefined;
+        input?: string | null | undefined;
+        change?: string | null | undefined;
+        dragstart?: string | null | undefined;
+        drag?: string | null | undefined;
+        dragenter?: string | null | undefined;
+        dragleave?: string | null | undefined;
+        dragover?: string | null | undefined;
+        drop?: string | null | undefined;
+        dragend?: string | null | undefined;
         [event: string]: string | null | undefined;
     }
 
@@ -257,9 +257,9 @@ declare module 'ember' {
     const ClassNamesSupport: Ember.Mixin<ClassNamesSupport>;
 
     interface TriggerActionOptions {
-        action?: string;
-        target?: Ember.Object;
-        actionContext?: Ember.Object;
+        action?: string | undefined;
+        target?: Ember.Object | undefined;
+        actionContext?: Ember.Object | undefined;
     }
     /**
     Ember.TargetActionSupport is a mixin that can be included in a class to add a triggerAction method
@@ -274,7 +274,7 @@ declare module 'ember' {
     interface DeprecationOptions {
         id: string;
         until: string;
-        url?: string;
+        url?: string | undefined;
     }
 
     export namespace Ember {
@@ -335,7 +335,7 @@ declare module 'ember' {
              * `inject`) or for service lookup. Each factory is registered with
              * a full name including two parts: `type:name`.
              */
-            register(fullName: string, factory: any, options?: { singleton?: boolean; instantiate?: boolean }): any;
+            register(fullName: string, factory: any, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): any;
             /**
              * Unregister a factory.
              */
@@ -758,9 +758,9 @@ declare module 'ember' {
                 | string[]
                 | Array<{
                       [key: string]: {
-                          type?: QueryParamTypes;
-                          scope?: QueryParamScopeTypes;
-                          as?: string;
+                          type?: QueryParamTypes | undefined;
+                          scope?: QueryParamScopeTypes | undefined;
+                          as?: string | undefined;
                       };
                   }>;
             target: Object;
@@ -1076,8 +1076,8 @@ declare module 'ember' {
         }
         interface Initializer<T> {
             name: string;
-            before?: string[];
-            after?: string[];
+            before?: string[] | undefined;
+            after?: string[] | undefined;
             initialize(application: T): void;
         }
         /**
@@ -1777,7 +1777,7 @@ declare module 'ember' {
          * by type.
          */
         class Registry {
-            register(fullName: string, factory: EmberClassConstructor<any>, options?: { singleton?: boolean }): void;
+            register(fullName: string, factory: EmberClassConstructor<any>, options?: { singleton?: boolean | undefined }): void;
         }
         class Resolver extends Ember.Object {}
         /**
@@ -1828,7 +1828,7 @@ declare module 'ember' {
             /**
              * Disconnects a view that has been rendered into an outlet.
              */
-            disconnectOutlet(options: string | { outlet?: string; parentView?: string }): void;
+            disconnectOutlet(options: string | { outlet?: string | undefined; parentView?: string | undefined }): void;
 
             /**
              * A hook you can implement to convert the URL into the model for
@@ -2109,15 +2109,15 @@ declare module 'ember' {
             route(name: string, callback: (this: RouterDSL) => void): void;
             route(
                 name: string,
-                options?: { path?: string; resetNamespace?: boolean },
+                options?: { path?: string | undefined; resetNamespace?: boolean | undefined },
                 callback?: (this: RouterDSL) => void,
             ): void;
             mount(
                 name: string,
                 options?: {
-                    as?: string;
-                    path?: string;
-                    resetNamespace?: boolean;
+                    as?: string | undefined;
+                    path?: string | undefined;
+                    resetNamespace?: boolean | undefined;
                     engineInfo?: any;
                 },
             ): void;
@@ -2912,11 +2912,11 @@ declare module 'ember' {
         /**
          * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
          */
-        function warn(message: string, test: boolean, options?: { id?: string }): any;
+        function warn(message: string, test: boolean, options?: { id?: string | undefined }): any;
         /**
          * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
          */
-        function warn(message: string, options?: { id?: string }): any;
+        function warn(message: string, options?: { id?: string | undefined }): any;
         /**
          * Global helper method to create a new binding. Just pass the root object
          * along with a `to` and `from` path to create and connect the binding.

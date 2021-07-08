@@ -17,26 +17,26 @@ declare namespace acorn {
     }
 
     interface Options {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 2015 | 2016 | 2017;
-        sourceType?: 'script' | 'module';
-        onInsertedSemicolon?: (lastTokEnd: number, lastTokEndLoc?: ESTree.Position) => void;
-        onTrailingComma?: (lastTokEnd: number, lastTokEndLoc?: ESTree.Position) => void;
-        allowReserved?: boolean;
-        allowReturnOutsideFunction?: boolean;
-        allowImportExportEverywhere?: boolean;
-        allowHashBang?: boolean;
-        locations?: boolean;
-        onToken?: ((token: Token) => any) | Token[];
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 2015 | 2016 | 2017 | undefined;
+        sourceType?: 'script' | 'module' | undefined;
+        onInsertedSemicolon?: ((lastTokEnd: number, lastTokEndLoc?: ESTree.Position) => void) | undefined;
+        onTrailingComma?: ((lastTokEnd: number, lastTokEndLoc?: ESTree.Position) => void) | undefined;
+        allowReserved?: boolean | undefined;
+        allowReturnOutsideFunction?: boolean | undefined;
+        allowImportExportEverywhere?: boolean | undefined;
+        allowHashBang?: boolean | undefined;
+        locations?: boolean | undefined;
+        onToken?: ((token: Token) => any) | Token[] | undefined;
         onComment?: ((
             isBlock: boolean, text: string, start: number, end: number, startLoc?: ESTree.Position,
             endLoc?: ESTree.Position
-        ) => void) | Comment[];
-        ranges?: boolean;
-        program?: ESTree.Program;
-        sourceFile?: string;
-        directSourceFile?: string;
-        preserveParens?: boolean;
-        plugins?: PlainObject;
+        ) => void) | Comment[] | undefined;
+        ranges?: boolean | undefined;
+        program?: ESTree.Program | undefined;
+        sourceFile?: string | undefined;
+        directSourceFile?: string | undefined;
+        preserveParens?: boolean | undefined;
+        plugins?: PlainObject | undefined;
     }
 
     class Parser {
@@ -61,7 +61,7 @@ declare namespace acorn {
     class SourceLocation implements ESTree.SourceLocation {
         start: Position;
         end: Position;
-        source?: string | null;
+        source?: string | null | undefined;
 
         constructor(p: Parser, start: Position, end: Position);
     }
@@ -72,22 +72,22 @@ declare namespace acorn {
         type: string;
         start: number;
         end: number;
-        loc?: ESTree.SourceLocation;
-        sourceFile?: string;
-        range?: [number, number];
+        loc?: ESTree.SourceLocation | undefined;
+        sourceFile?: string | undefined;
+        range?: [number, number] | undefined;
 
         constructor(parser: Parser, pos: number, loc: number);
     }
 
     interface TokeTypeConfig {
         keyword: string;
-        beforeExpr?: boolean;
-        startsExpr?: boolean;
-        isLoop?: boolean;
-        isAssign?: boolean;
-        prefix?: boolean;
-        postfix?: boolean;
-        binop?: number;
+        beforeExpr?: boolean | undefined;
+        startsExpr?: boolean | undefined;
+        isLoop?: boolean | undefined;
+        isAssign?: boolean | undefined;
+        prefix?: boolean | undefined;
+        postfix?: boolean | undefined;
+        binop?: number | undefined;
     }
 
     class TokenType {
@@ -202,8 +202,8 @@ declare namespace acorn {
     interface AbstractToken {
         start: number;
         end: number;
-        loc?: SourceLocation;
-        range?: [number, number];
+        loc?: SourceLocation | undefined;
+        range?: [number, number] | undefined;
     }
 
     interface Comment extends AbstractToken {

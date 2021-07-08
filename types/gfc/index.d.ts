@@ -39,16 +39,16 @@ declare namespace gitFirstCommit {
     function sync(options?: Options<ExecSyncOptions>): string | Buffer;
     function sync(cwd: string, options?: Options<ExecSyncOptions>): string | Buffer;
 
-    type ExecOptionsWithEncoding = { encoding?: BufferEncoding | 'buffer' | null } & ExecOptions;
+    type ExecOptionsWithEncoding = { encoding?: BufferEncoding | 'buffer' | null | undefined } & ExecOptions;
 
     interface Options<TExecOptions> {
-        cwd?: string;
-        exec?: TExecOptions;
-        message?: string;
-        file?: { path: string; contents?: string } | false;
-        commit?: boolean;
-        forceFile?: boolean;
-        remote?: string;
-        push?: boolean;
+        cwd?: string | undefined;
+        exec?: TExecOptions | undefined;
+        message?: string | undefined;
+        file?: { path: string; contents?: string | undefined } | false | undefined;
+        commit?: boolean | undefined;
+        forceFile?: boolean | undefined;
+        remote?: string | undefined;
+        push?: boolean | undefined;
     }
 }

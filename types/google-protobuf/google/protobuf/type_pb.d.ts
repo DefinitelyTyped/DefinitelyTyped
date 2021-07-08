@@ -48,7 +48,7 @@ export namespace Type {
     fieldsList: Array<Field.AsObject>,
     oneofsList: Array<string>,
     optionsList: Array<Option.AsObject>,
-    sourceContext?: google_protobuf_source_context_pb.SourceContext.AsObject,
+    sourceContext?: google_protobuf_source_context_pb.SourceContext.AsObject | undefined,
     syntax: Syntax,
   }
 }
@@ -177,7 +177,7 @@ export namespace Enum {
     name: string,
     enumvalueList: Array<EnumValue.AsObject>,
     optionsList: Array<Option.AsObject>,
-    sourceContext?: google_protobuf_source_context_pb.SourceContext.AsObject,
+    sourceContext?: google_protobuf_source_context_pb.SourceContext.AsObject | undefined,
     syntax: Syntax,
   }
 }
@@ -234,7 +234,7 @@ export class Option extends jspb.Message {
 export namespace Option {
   export type AsObject = {
     name: string,
-    value?: google_protobuf_any_pb.Any.AsObject,
+    value?: google_protobuf_any_pb.Any.AsObject | undefined,
   }
 }
 

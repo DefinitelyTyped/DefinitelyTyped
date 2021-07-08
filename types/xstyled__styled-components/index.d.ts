@@ -27,9 +27,9 @@ export * from '@xstyled/system';
  * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/colorModes.js#L11}
  */
 export interface ColorModeProviderProps {
-    children?: React.ReactNode;
-    target?: HTMLElement;
-    targetSelector?: string;
+    children?: React.ReactNode | undefined;
+    target?: HTMLElement | undefined;
+    targetSelector?: string | undefined;
 }
 
 export class ColorModeProvider extends React.Component<ColorModeProviderProps> {}

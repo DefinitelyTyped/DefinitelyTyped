@@ -6,9 +6,9 @@
 import { EventEmitter } from 'events';
 
 export class AccessManager extends EventEmitter {
-    readonly expires?: Date;
+    readonly expires?: Date | undefined;
 
-    readonly identity?: string;
+    readonly identity?: string | undefined;
 
     readonly isExpired: boolean;
 

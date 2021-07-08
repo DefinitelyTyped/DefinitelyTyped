@@ -1,10 +1,11 @@
-// Type definitions for @chec/commerce.js 2.6
+// Type definitions for @chec/commerce.js 2.7
 // Project: https://github.com/chec/commerce.js#readme
 // Definitions by: Robbie Averill <https://github.com/robbieaverill>
+//                 Guy Marriott <https://github.com/ScopeyNZ>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Cart } from './features/cart';
+import { Cart, RequestMethod } from './features/cart';
 import { Categories } from './features/categories';
 import { Checkout } from './features/checkout';
 import { Customer } from './features/customer';
@@ -24,12 +25,16 @@ declare class Commerce {
     merchants: Merchants;
     products: Products;
     services: Services;
+
+    error: (response: any) => void | number[];
+    request: (endpoint: string, method?: RequestMethod, data?: object, extraHeaders?: any, returnFullResponse?: boolean) => any;
 }
 
 declare namespace Commerce {
     interface CommerceConfig {
-        disableStorage?: boolean;
-        timeoutMs?: number;
+        disableStorage?: boolean | undefined;
+        cartLifetime?: number | undefined;
+        timeoutMs?: number | undefined;
         axiosConfig?: any;
     }
 }

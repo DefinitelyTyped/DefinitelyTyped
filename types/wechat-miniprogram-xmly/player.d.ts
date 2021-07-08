@@ -19,7 +19,9 @@ type PLAY_BACK_RATE =
  * 播放器状态
  */
 type PLAY_STATE =
-    | 'ready' // 初始状态'loading'| // 加载中（1.播放，2.恢复播放，3.seek）引起的声音加载'playing'| // 播放中
+    | 'ready' // 初始状态
+    | 'loading' // 加载中（1.播放，2.恢复播放，3.seek）引起的声音加载
+    | 'playing' // 播放中
     | 'paused' // 暂停
     | 'stoped' // 停止
     | 'error'; // 播放器异常
@@ -54,10 +56,10 @@ interface Sound {
     id: number; // 音频 id
     src: string; // 播放地址（目前支持 m4a, aac, mp3, wav 格式）
     title: string; // 音频标题, 原生音频播放器中的分享功能，分享出去的卡片简介，也将使用该值。
-    coverImgUrl?: string; // 音频背景图
-    epname?: string; // 专辑名称
-    singer?: string; // 歌手名
-    duration?: number; // 音频时长(单位: 秒)
+    coverImgUrl?: string | undefined; // 音频背景图
+    epname?: string | undefined; // 专辑名称
+    singer?: string | undefined; // 歌手名
+    duration?: number | undefined; // 音频时长(单位: 秒)
 }
 
 /**

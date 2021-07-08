@@ -70,7 +70,7 @@ export abstract class Tunnel {
      *
      * @param data The data to send to the tunnel when connecting.
      */
-    connect(data: string): void;
+    connect(data?: string): void;
 
     /**
      * Disconnect from the tunnel.

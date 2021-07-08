@@ -52,42 +52,42 @@ declare namespace SerialPort {
 
     // Options Type Defs
     interface OpenOptions {
-        autoOpen?: boolean;
-        baudRate?: 115200|57600|38400|19200|9600|4800|2400|1800|1200|600|300|200|150|134|110|75|50|number;
-        dataBits?: 8|7|6|5;
-        highWaterMark?: number;
-        lock?: boolean;
-        stopBits?: 1|2;
-        parity?: 'none'|'even'|'mark'|'odd'|'space';
-        rtscts?: boolean;
-        xon?: boolean;
-        xoff?: boolean;
-        xany?: boolean;
-        binding?: BaseBinding;
+        autoOpen?: boolean | undefined;
+        baudRate?: 115200|57600|38400|19200|9600|4800|2400|1800|1200|600|300|200|150|134|110|75|50|number | undefined;
+        dataBits?: 8|7|6|5 | undefined;
+        highWaterMark?: number | undefined;
+        lock?: boolean | undefined;
+        stopBits?: 1|2 | undefined;
+        parity?: 'none'|'even'|'mark'|'odd'|'space' | undefined;
+        rtscts?: boolean | undefined;
+        xon?: boolean | undefined;
+        xoff?: boolean | undefined;
+        xany?: boolean | undefined;
+        binding?: BaseBinding | undefined;
         bindingOptions?: {
-            vmin?: number;
-            vtime?: number;
-        };
+            vmin?: number | undefined;
+            vtime?: number | undefined;
+        } | undefined;
     }
     interface UpdateOptions {
-        baudRate?: 115200|57600|38400|19200|9600|4800|2400|1800|1200|600|300|200|150|134|110|75|50|number;
+        baudRate?: 115200|57600|38400|19200|9600|4800|2400|1800|1200|600|300|200|150|134|110|75|50|number | undefined;
     }
     interface SetOptions {
-        brk?: boolean;
-        cts?: boolean;
-        dsr?: boolean;
-        dtr?: boolean;
-        rts?: boolean;
+        brk?: boolean | undefined;
+        cts?: boolean | undefined;
+        dsr?: boolean | undefined;
+        dtr?: boolean | undefined;
+        rts?: boolean | undefined;
     }
 
     interface PortInfo {
         path: string;
-        manufacturer?: string;
-        serialNumber?: string;
-        pnpId?: string;
-        locationId?: string;
-        productId?: string;
-        vendorId?: string;
+        manufacturer?: string | undefined;
+        serialNumber?: string | undefined;
+        pnpId?: string | undefined;
+        locationId?: string | undefined;
+        productId?: string | undefined;
+        vendorId?: string | undefined;
     }
 
     namespace parsers {
@@ -98,10 +98,10 @@ declare namespace SerialPort {
             constructor();
         }
         class Delimiter extends Stream.Transform {
-            constructor(options: {delimiter: string | Buffer | number[], includeDelimiter?: boolean});
+            constructor(options: {delimiter: string | Buffer | number[], includeDelimiter?: boolean | undefined});
         }
         class Readline extends Delimiter {
-            constructor(options: {delimiter: string | Buffer | number[], encoding?: 'ascii'|'utf8'|'utf16le'|'ucs2'|'base64'|'binary'|'hex', includeDelimiter?: boolean});
+            constructor(options: {delimiter: string | Buffer | number[], encoding?: 'ascii'|'utf8'|'utf16le'|'ucs2'|'base64'|'binary'|'hex' | undefined, includeDelimiter?: boolean | undefined});
         }
         class Ready extends Stream.Transform {
             constructor(options: {delimiter: string | Buffer | number[]});

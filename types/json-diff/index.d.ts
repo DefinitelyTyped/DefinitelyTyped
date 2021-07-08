@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ColorizeOptions {
-    color?: boolean;
+    color?: boolean | undefined;
 }
 
 export function diff(obj1: unknown, obj2: unknown): any;

@@ -15,13 +15,13 @@ import Text from './Text';
  */
 export type GeometryFunction = (p0: FeatureLike) => Geometry | RenderFeature | undefined;
 export interface Options {
-    geometry?: string | Geometry | GeometryFunction;
-    fill?: Fill;
-    image?: ImageStyle;
-    renderer?: RenderFunction;
-    stroke?: Stroke;
-    text?: Text;
-    zIndex?: number;
+    geometry?: string | Geometry | GeometryFunction | undefined;
+    fill?: Fill | undefined;
+    image?: ImageStyle | undefined;
+    renderer?: RenderFunction | undefined;
+    stroke?: Stroke | undefined;
+    text?: Text | undefined;
+    zIndex?: number | undefined;
 }
 /**
  * Custom renderer function. Takes two arguments:

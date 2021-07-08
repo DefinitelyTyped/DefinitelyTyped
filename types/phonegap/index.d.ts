@@ -19,7 +19,7 @@ declare var Acceleration: {
 }
 
 interface AccelerometerOptions {
-    frequency?: number;
+    frequency?: number | undefined;
 }
 
 interface Accelerometer {
@@ -29,28 +29,28 @@ interface Accelerometer {
 }
 
 interface CameraPopoverOptions {
-    x?: number;
-    y?: number;
-    width?: number;
-    height?: number;
-    arrowDir?: number;
+    x?: number | undefined;
+    y?: number | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    arrowDir?: number | undefined;
 }
 declare var CameraPopoverOptions: {
     new(x: number, y: number, width: number, height: number, arrowDir: number): CameraPopoverOptions;
 }
 
 interface CameraOptions {
-    quality?: number;
-    destinationType?: number;
-    sourceType?: number;
-    allowEdit?: boolean;
-    encodingType?: number;
-    targetWidth?: number;
-    targetHeight?: number;
-    mediaType?: number;
-    correctOrientation?: boolean;
-    saveToPhotoAlbum?: boolean;
-    popoverOptions?: CameraPopoverOptions;
+    quality?: number | undefined;
+    destinationType?: number | undefined;
+    sourceType?: number | undefined;
+    allowEdit?: boolean | undefined;
+    encodingType?: number | undefined;
+    targetWidth?: number | undefined;
+    targetHeight?: number | undefined;
+    mediaType?: number | undefined;
+    correctOrientation?: boolean | undefined;
+    saveToPhotoAlbum?: boolean | undefined;
+    popoverOptions?: CameraPopoverOptions | undefined;
 }
 
 interface CameraPictureSourceTypeObject {
@@ -95,14 +95,14 @@ interface Camera {
 }
 
 interface CaptureAudioOptions {
-    limit?: number;
-    duration?: number;
-    mode?: number;
+    limit?: number | undefined;
+    duration?: number | undefined;
+    mode?: number | undefined;
 }
 
 interface CaptureImageOptions {
-    limit?: number;
-    mode?: number;
+    limit?: number | undefined;
+    mode?: number | undefined;
 }
 
 interface MediaFile {
@@ -126,7 +126,8 @@ interface Capture {
     captureVideo(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions): void;
 }
 
-interface Connection {
+interface Connection extends EventTarget {
+    type:  "bluetooth" | "cellular" | "ethernet" | "mixed" | "none" | "other" | "unknown" | "wifi";
     UNKNOWN: number;
     ETHERNET: number;
     WIFI: number;
@@ -138,15 +139,15 @@ interface Connection {
 declare var Connection: Connection;
 
 interface CompassOptions {
-    frequency?: number;
-    filter?: number;
+    frequency?: number | undefined;
+    filter?: number | undefined;
 }
 
 interface CompassHeading {
-    magneticHeading?: number;
-    trueHeading?: number;
-    headingAccuracy?: number;
-    timestamp?: number;
+    magneticHeading?: number | undefined;
+    trueHeading?: number | undefined;
+    headingAccuracy?: number | undefined;
+    timestamp?: number | undefined;
 }
 
 interface CompassError {
@@ -162,10 +163,6 @@ interface Compass {
     getCurrentHeading(compassSuccess: (heading: CompassHeading) => void , compassError: (error: CompassError) => void , compassOptions?: CompassOptions): void;
     watchHeading(compassSuccess: (heading: CompassHeading) => void , compassError: (error: CompassError) => void , compassOptions?: CompassOptions): void;
     clearWatch(watchID: number): void;
-}
-
-interface Connection {
-    type: number;
 }
 
 interface ContactAddress {
@@ -210,8 +207,8 @@ interface Contact {
 }
 
 interface ContactFindOptions {
-    filter?: string;
-    multiple?: boolean;
+    filter?: string | undefined;
+    multiple?: boolean | undefined;
 }
 declare var ContactFindOptions : {
     new(): ContactFindOptions;
@@ -296,37 +293,37 @@ interface FileWriter {
 }
 
 interface FileSystem {
-    name: string;
-    root: DirectoryEntry;
+    readonly name: string;
+    readonly root: FileSystemDirectoryEntry;
 }
 declare var DirectoryEntry: {
-    new(name: string, root: DirectoryEntry): DirectoryEntry;
+    new(name: string, root: FileSystemDirectoryEntry): FileSystemDirectoryEntry;
 }
 
 interface FileSystemEntry {
-    isFile: boolean;
-    isDirectory: boolean;
-    name: string;
-    fullPath: string;
-    filesystem: FileSystem;
+    readonly isFile: boolean;
+    readonly isDirectory: boolean;
+    readonly name: string;
+    readonly fullPath: string;
+    readonly filesystem: FileSystem;
 
     getMetadata(onSuccess?: (arg: Metadata) => void, onError?: (arg: FileError) => void): void;
     setMetadata(onSuccess?: (arg: Metadata) => void, onError?: (arg: FileError) => void, options?: any): void;
     toURL(): string;
     remove(onSuccess?: () => void, onError?: (arg: FileError) => void): void;
-    getParent(onSuccess?: (arg: DirectoryEntry) => void, onError?: (arg: FileError) => void): void;
+    getParent(onSuccess?: (arg: FileSystemDirectoryEntry) => void, onError?: (arg: FileError) => void): void;
 }
 
 interface FileEntry extends FileSystemEntry {
-    moveTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg: DirectoryEntry) => void, onError: (arg: FileError) => void): void;
-    copyTo(parentEntry: DirectoryEntry, file: string, onSuccess: (arg: DirectoryEntry) => void, onError: (arg: FileError) => void): void;
+    moveTo(parentEntry: FileSystemDirectoryEntry, file: string, onSuccess: (arg: FileSystemDirectoryEntry) => void, onError: (arg: FileError) => void): void;
+    copyTo(parentEntry: FileSystemDirectoryEntry, file: string, onSuccess: (arg: FileSystemDirectoryEntry) => void, onError: (arg: FileError) => void): void;
     createWriter(onSuccess?: (arg: FileWriter) => void, onError?: (arg: FileError) => void): void;
     file(onSuccess?: (arg: File) => void, onError?: (arg: FileError) => void): void;
 }
 
-interface DirectoryEntry extends FileSystemEntry {
+interface FileSystemDirectoryEntry extends FileSystemEntry {
     createReader(): DirectoryReader;
-    getDirectory(path: string, options: Flags, successCallback: (result: DirectoryEntry) => void, errorCallback: (error: FileError) => void): void;
+    getDirectory(path: string, options: Flags, successCallback: (result: FileSystemDirectoryEntry) => void, errorCallback: (error: FileError) => void): void;
     getFile(path: string, options: Flags, successCallback: (result: FileEntry) => void, errorCallback: (error: FileError) => void): void;
     removeRecursively(successCallback: () => void, errorCallback: (error: FileError) => void): void;
 }
@@ -348,11 +345,11 @@ declare var FileTransfer: {
 }
 
 interface FileUploadOptions {
-    fileKey?: string;
-    fileName?: string;
-    mimeType?: string;
+    fileKey?: string | undefined;
+    fileName?: string | undefined;
+    mimeType?: string | undefined;
     params?: any;
-    chunkedMode?: boolean;
+    chunkedMode?: boolean | undefined;
     headers?: any;
 }
 declare var FileUploadOptions: {
@@ -367,7 +364,7 @@ interface FileUploadResult {
 
 interface Flags {
     create: boolean;
-    exclusive?: boolean;
+    exclusive?: boolean | undefined;
 }
 
 /*
@@ -418,9 +415,9 @@ declare var FileTransferError: {
 }
 
 interface GeolocationOptions {
-    enableHighAccuracy?: boolean;
-    timeout?: number;
-    maximumAge?: number;
+    enableHighAccuracy?: boolean | undefined;
+    timeout?: number | undefined;
+    maximumAge?: number | undefined;
 }
 
 interface GlobalizationError {
@@ -446,8 +443,8 @@ interface GlobalizationDate {
 }
 
 interface GlobalizationDateOptions {
-    formatLength?: string;
-    selector?: string;
+    formatLength?: string | undefined;
+    selector?: string | undefined;
 }
 
 interface GlobalizationDatePattern {
@@ -458,12 +455,12 @@ interface GlobalizationDatePattern {
 }
 
 interface GlobalizationDateNameOptions {
-    type?: string;
-    item?: string;
+    type?: string | undefined;
+    item?: string | undefined;
 }
 
 interface GlobalizationNumberOptions {
-    type?: string;
+    type?: string | undefined;
 }
 
 interface GlobalizationNumberPattern {
@@ -610,7 +607,7 @@ interface /*PhoneGapNavigator extends*/ Navigator {
     camera: Camera;
     capture: Capture;
     compass: Compass;
-    connection: Connection;
+    readonly connection: Connection;
     contacts: Contacts;
     device: Device;
     globalization: Globalization;

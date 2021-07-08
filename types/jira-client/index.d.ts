@@ -18,7 +18,7 @@ declare class JiraApi {
     private port: string | null;
     private apiVersion: string;
     private base: string;
-    private intermediatePath?: string;
+    private intermediatePath?: string | undefined;
     private strictSSL: boolean;
     private webhookVersion: string;
     private greenhopperVersion: string;
@@ -966,22 +966,22 @@ declare class JiraApi {
 
 declare namespace JiraApi {
     interface JiraApiOptions {
-        protocol?: string;
+        protocol?: string | undefined;
         host: string;
-        port?: string;
-        username?: string;
-        password?: string;
-        apiVersion?: string;
-        base?: string;
-        intermediatePath?: string;
-        strictSSL?: boolean;
+        port?: string | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
+        apiVersion?: string | undefined;
+        base?: string | undefined;
+        intermediatePath?: string | undefined;
+        strictSSL?: boolean | undefined;
         request?: any;
-        timeout?: number;
-        webhookVersion?: string;
-        greenhopperVersion?: string;
-        bearer?: string;
-        oauth?: OAuth;
-        ca?: string;
+        timeout?: number | undefined;
+        webhookVersion?: string | undefined;
+        greenhopperVersion?: string | undefined;
+        bearer?: string | undefined;
+        oauth?: OAuth | undefined;
+        ca?: string | undefined;
     }
 
     interface OAuth {
@@ -989,7 +989,7 @@ declare namespace JiraApi {
         consumer_secret: string;
         access_token: string;
         access_token_secret: string;
-        signature_method?: string;
+        signature_method?: string | undefined;
     }
 
     interface LinkObject {
@@ -1079,15 +1079,15 @@ declare namespace JiraApi {
 
     interface CreateIssueMetadataObject {
         /**  [optional] Array of project ids to return metadata for */
-        projectIds?: string[];
+        projectIds?: string[] | undefined;
         /**  [optional] Array of project keys to return metadata for */
-        projectKeys?: string[];
+        projectKeys?: string[] | undefined;
         /**  [optional] Array of issuetype ids to return metadata for */
-        issuetypeIds?: string[];
+        issuetypeIds?: string[] | undefined;
         /**  [optional] Array of issuetype names to return metadata for */
-        issuetypeNames?: string[];
+        issuetypeNames?: string[] | undefined;
         /**  [optional] Include additional information about issue metadata. Valid value is 'projects.issuetypes.fields' */
-        expand?: string;
+        expand?: string | undefined;
     }
 
     interface SearchUserOptions {
@@ -1102,34 +1102,34 @@ declare namespace JiraApi {
          */
         query: string;
         /** [optional - default = 0] The index of the first user to return (0-based) */
-        startAt?: number;
+        startAt?: number | undefined;
         /** [optional - default = 50] The maximum number of users to return */
-        maxResults?: number;
+        maxResults?: number | undefined;
         /** [optional - default = true] If true, then active users are included in the results */
-        includeActive?: boolean;
+        includeActive?: boolean | undefined;
         /** [optional - default = true] If true, then inactive users are included in the results */
-        includeInactive?: boolean;
+        includeInactive?: boolean | undefined;
     }
 
     interface SearchQuery {
         /** [optional - default = 0] starting index number */
-        startAt?: number;
+        startAt?: number | undefined;
         /**
          *  [optional - default = 50] The maximum number of items to
          *  return per page. To manage page size, Jira may return fewer items per
          *  page where a large number of fields are requested.
          */
-        maxResults?: number;
+        maxResults?: number | undefined;
         /** [optional] array of string names of desired fields */
-        fields?: string[];
+        fields?: string[] | undefined;
         /** [optional] array of string names of desired expand nodes */
-        expand?: string[];
+        expand?: string[] | undefined;
     }
 
     interface UriOptions {
         pathname: string;
-        query?: Query;
-        intermediatePath?: string;
+        query?: Query | undefined;
+        intermediatePath?: string | undefined;
     }
 }
 export = JiraApi;

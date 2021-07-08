@@ -20,7 +20,7 @@ declare module "meteor/ejson" {
         function clone<T>(val: T): T;
 
         function equals(a: EJSON, b: EJSON, options?: {
-            keyOrderSensitive?: boolean;
+            keyOrderSensitive?: boolean | undefined;
         }): boolean;
 
         function fromJSONValue(val: JSONable): any;
@@ -31,8 +31,8 @@ declare module "meteor/ejson" {
         function parse(str: string): EJSON;
 
         function stringify(val: EJSON, options?: {
-            indent?: boolean | number | string;
-            canonical?: boolean;
+            indent?: boolean | number | string | undefined;
+            canonical?: boolean | undefined;
         }): string;
 
         function toJSONValue(val: EJSON): JSONable;

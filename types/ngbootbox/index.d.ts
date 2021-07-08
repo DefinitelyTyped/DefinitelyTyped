@@ -7,19 +7,19 @@
 /// <reference types="bootbox" />
 
 interface NgBootboxDialog {
-    title?: string;
-    message?: string;
-    templateUrl?: string;
-    locale?: string;
-    callback?: () => any;
-    onEscape?: () => any | boolean;
-    show?: boolean;
-    backdrop?: boolean;
-    closeButton?: boolean;
-    animate?: boolean;
-    className?: string;
-    size?: string;
-    buttons?: BootboxButtonMap;
+    title?: string | undefined;
+    message?: string | undefined;
+    templateUrl?: string | undefined;
+    locale?: string | undefined;
+    callback?: (() => any) | undefined;
+    onEscape?: (() => any | boolean) | undefined;
+    show?: boolean | undefined;
+    backdrop?: boolean | undefined;
+    closeButton?: boolean | undefined;
+    animate?: boolean | undefined;
+    className?: string | undefined;
+    size?: string | undefined;
+    buttons?: BootboxButtonMap | undefined;
 }
 
 interface BootboxService {

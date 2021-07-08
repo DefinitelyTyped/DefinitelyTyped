@@ -24,34 +24,34 @@ export interface ParserOptions {
      * will be text only. For feeds and other XML content (documents that don't consist of HTML),
      * set this to true. Default: false.
      */
-    xmlMode?: boolean;
+    xmlMode?: boolean | undefined;
 
     /***
      * If set to true, entities within the document will be decoded. Defaults to false.
      */
-    decodeEntities?: boolean;
+    decodeEntities?: boolean | undefined;
 
     /***
      * If set to true, all tags will be lowercased. If xmlMode is disabled, this defaults to true.
      */
-    lowerCaseTags?: boolean;
+    lowerCaseTags?: boolean | undefined;
 
     /***
      * If set to true, all attribute names will be lowercased. This has noticeable impact on speed, so it defaults to false.
      */
-    lowerCaseAttributeNames?: boolean;
+    lowerCaseAttributeNames?: boolean | undefined;
 
     /***
      * If set to true, CDATA sections will be recognized as text even if the xmlMode option is not enabled.
      * NOTE: If xmlMode is set to true then CDATA sections will always be recognized as text.
      */
-    recognizeCDATA?: boolean;
+    recognizeCDATA?: boolean | undefined;
 
     /***
      * If set to true, self-closing tags will trigger the onclosetag event even if xmlMode is not set to true.
      * NOTE: If xmlMode is set to true then self-closing tags will always be recognized.
      */
-    recognizeSelfClosing?: boolean;
+    recognizeSelfClosing?: boolean | undefined;
 }
 /** 
  * @deprecated

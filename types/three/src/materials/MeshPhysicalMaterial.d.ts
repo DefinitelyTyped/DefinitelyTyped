@@ -4,20 +4,20 @@ import { MeshStandardMaterialParameters, MeshStandardMaterial } from './MeshStan
 import { Color } from './../math/Color';
 
 export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialParameters {
-    clearcoat?: number;
-    clearcoatMap?: Texture | null;
-    clearcoatRoughness?: number;
-    clearcoatRoughnessMap?: Texture | null;
-    clearcoatNormalScale?: Vector2;
-    clearcoatNormalMap?: Texture | null;
+    clearcoat?: number | undefined;
+    clearcoatMap?: Texture | null | undefined;
+    clearcoatRoughness?: number | undefined;
+    clearcoatRoughnessMap?: Texture | null | undefined;
+    clearcoatNormalScale?: Vector2 | undefined;
+    clearcoatNormalMap?: Texture | null | undefined;
 
-    reflectivity?: number;
-    ior?: number;
+    reflectivity?: number | undefined;
+    ior?: number | undefined;
 
-    sheen?: Color;
+    sheen?: Color | undefined;
 
-    transmission?: number;
-    transmissionMap?: Texture | null;
+    transmission?: number | undefined;
+    transmissionMap?: Texture | null | undefined;
 }
 
 export class MeshPhysicalMaterial extends MeshStandardMaterial {
@@ -87,4 +87,24 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
      * @default null
      */
     transmissionMap: Texture | null;
+
+    /**
+     * @default 0.01
+     */
+    thickness: number;
+
+    /**
+     * @default null
+     */
+    thicknessMap: Texture | null;
+
+    /**
+     * @default 0.0
+     */
+    attenuationDistance: number;
+
+    /**
+     * @default Color( 1, 1, 1 )
+     */
+    attenuationColor: Color;
 }

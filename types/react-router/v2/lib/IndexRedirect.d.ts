@@ -9,8 +9,8 @@ export default self;
 declare namespace self {
     interface IndexRedirectProps extends React.Props<self> {
         to: Router.RoutePattern;
-        query?: H.Query;
-        state?: H.LocationState;
+        query?: H.Query | undefined;
+        state?: H.LocationState | undefined;
     }
     interface IndexRedirectElement extends React.ReactElement<IndexRedirectProps> { }
     interface IndexRedirect extends React.ComponentClass<self.IndexRedirectProps> { }

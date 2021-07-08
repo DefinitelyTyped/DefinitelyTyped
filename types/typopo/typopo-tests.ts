@@ -13,4 +13,5 @@ fixTypos(text, 'sk');
 fixTypos(text, 'cs', {
     removeLines: true,
     removeWhitespacesBeforeMarkdownList: true,
+    keepMarkdownCodeBlocks: true,
 });

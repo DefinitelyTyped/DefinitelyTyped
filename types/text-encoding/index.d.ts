@@ -8,7 +8,7 @@
 
 declare namespace TextEncoding {
     interface TextEncoderOptions {
-        NONSTANDARD_allowLegacyEncoding?: boolean;
+        NONSTANDARD_allowLegacyEncoding?: boolean | undefined;
     }
     interface TextEncoderStatic {
         (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
@@ -29,11 +29,11 @@ declare namespace TextEncoding {
 }
 
 interface TextEncodeOptions {
-    stream?: boolean;
+    stream?: boolean | undefined;
 }
 
 interface TextDecoderOptions {
-    stream?: boolean;
+    stream?: boolean | undefined;
 }
 
 interface TextEncoder {

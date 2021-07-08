@@ -24,18 +24,18 @@ declare namespace SVGInjector {
          * 'once' — Only run scripts once for each SVG.
          * 'never' — Ignore scripts (default)
          */
-        evalScripts?: string;
+        evalScripts?: string | undefined;
 
         /**
          * Location of fallback pngs, if desired.
          */
-        pngFallback?: string;
+        pngFallback?: string | undefined;
 
         /**
          * Callback to run during each SVG injection. The SVG element is passed if
          * the injection was successful.
          */
-        each?: (svg: SVGElement | string) => void;
+        each?: ((svg: SVGElement | string) => void) | undefined;
     }
 }
 

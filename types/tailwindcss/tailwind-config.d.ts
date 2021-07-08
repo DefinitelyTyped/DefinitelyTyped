@@ -74,9 +74,9 @@ export type TailwindStandardNegativeSpacing = {
 
 export interface TailwindAnimationConfig {
     [key: string]: {
-        transform?: string;
-        opacity?: string;
-        animationTimingFunction?: string;
+        transform?: string | undefined;
+        opacity?: string | undefined;
+        animationTimingFunction?: string | undefined;
     };
 }
 
@@ -102,9 +102,36 @@ export interface TailwindColorConfig {
     readonly pink: TailwindColorGroup;
 }
 
+export type TailwindValidLayers = 'base' | 'components' | 'utilities' | 'screens';
+
+export interface TailwindPurgeConfig {
+    /**
+     * Array of glob paths
+     */
+    content: string[];
+    /**
+     * @see https://tailwindcss.com/docs/optimizing-for-production#enabling-manually
+     */
+    enabled?: boolean | undefined;
+    /**
+     * @see https://tailwindcss.com/docs/optimizing-for-production#preserving-html-elements
+     */
+    preserveHtmlElements?: boolean | undefined;
+    /**
+     * Purge specific layers
+     * @see https://tailwindcss.com/docs/optimizing-for-production#purging-specific-layers
+     */
+    layers?: TailwindValidLayers[] | undefined;
+    /**
+     * Remove all unused styles
+     * @see https://tailwindcss.com/docs/optimizing-for-production#removing-all-unused-styles
+     */
+    mode?: 'all' | undefined;
+}
+
 export interface TailwindConfig {
-    readonly theme: {
-        readonly extend: Omit<TailwindConfig['theme'], 'extend'>
+    theme: Partial<{
+        readonly extend: Omit<TailwindConfig['theme'], 'extend'>;
         readonly screens: {
             readonly sm: string;
             readonly md: string;
@@ -937,9 +964,9 @@ export interface TailwindConfig {
             readonly '50': string;
             readonly auto: string;
         };
-    };
-    readonly variants: {
-        readonly extend: Omit<TailwindConfig['variants'], 'extend'>
+    }>;
+    variants: Partial<{
+        readonly extend: Omit<TailwindConfig['variants'], 'extend'>;
         readonly accessibility: Variant[];
         readonly alignContent: Variant[];
         readonly alignItems: Variant[];
@@ -1058,8 +1085,8 @@ export interface TailwindConfig {
         readonly width: Variant[];
         readonly wordBreak: Variant[];
         readonly zIndex: Variant[];
-    };
-    readonly corePlugins: [
+    }>;
+    corePlugins: [
         'preflight',
         'container',
         'space',
@@ -1180,12 +1207,12 @@ export interface TailwindConfig {
         'transitionDelay',
         'animation',
     ];
-    readonly plugins: [];
-    readonly purge: [];
-    readonly presets: [];
-    readonly darkMode: false;
-    readonly variantOrder: Variant[];
-    readonly prefix: string;
-    readonly important: false;
-    readonly separator: string;
+    plugins: any[];
+    purge: string[] | TailwindPurgeConfig;
+    presets: any[];
+    darkMode: false | 'media' | 'class';
+    variantOrder: Variant[];
+    prefix: string;
+    important: boolean;
+    separator: string;
 }

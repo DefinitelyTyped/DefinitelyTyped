@@ -17,9 +17,9 @@ declare namespace gapi.client.plus {
 
     interface SearchParameters {
       query: string;
-      language?: string;
-      maxResults?: number;
-      pageToken?: string;
+      language?: string | undefined;
+      maxResults?: number | undefined;
+      pageToken?: string | undefined;
     }
     function search(parameters: SearchParameters): HttpRequest<PeopleFeed>;
 

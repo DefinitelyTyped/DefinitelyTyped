@@ -14,7 +14,7 @@ export interface LeState {
     createListener(options: {
         id: number;
         selector(state: any): {};
-        force?: boolean;
+        force?: boolean | undefined;
     }): void;
 }
 

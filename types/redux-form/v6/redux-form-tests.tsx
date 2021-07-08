@@ -141,7 +141,7 @@ const DecoratedInitializeFromStateFormClass = reduxForm<DataShape, {}, {}>({
 // You have to connect() to any reducers that you wish to connect to yourself
 const mapStateToProps = (state: any) => ({
     initialValues: { firstName: state.account.data.firstName }  // pull initial values from account reducer
-} as {initialValues?: Partial<DataShape>});
+} as {initialValues?: Partial<DataShape> | undefined});
 const ConnectedDecoratedInitializeFromStateFormClass = connect(mapStateToProps)(DecoratedInitializeFromStateFormClass);
 
 reducer({}, {

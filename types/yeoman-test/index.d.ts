@@ -147,18 +147,18 @@ export interface RunContextSettings {
      * Automatically run this generator in a tmp dir
      * @default true
      */
-    tmpdir?: boolean;
+    tmpdir?: boolean | undefined;
 
     /**
      * File path to the generator (only used if Generator is a constructor)
      */
-    resolved?: string;
+    resolved?: string | undefined;
 
     /**
      * Namespace (only used if Generator is a constructor)
      * @default 'gen:test'
      */
-    namespace?: string;
+    namespace?: string | undefined;
 }
 
 /**
