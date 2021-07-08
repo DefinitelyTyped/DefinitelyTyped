@@ -3,9 +3,9 @@ import { SelectCallback } from 'react-bootstrap';
 
 declare namespace PanelTitle {
     export interface PanelTitleProps extends React.HTMLProps<PanelTitle> {
-        componentClass?: string;
-        bsClass?: string;
-        toggle?: boolean;
+        componentClass?: string | undefined;
+        bsClass?: string | undefined;
+        toggle?: boolean | undefined;
     }
 }
 declare class PanelTitle extends React.Component<PanelTitle.PanelTitleProps> { }

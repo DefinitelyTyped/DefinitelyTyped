@@ -20,13 +20,13 @@ export interface AutocompleteProps<T> extends TextInputProps {
      * style
      * These styles will be applied to the container which surrounds the autocomplete component.
      */
-    containerStyle?: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * bool
      * Set to true to hide the suggestion list.
      */
-    hideResults?: boolean;
+    hideResults?: boolean | undefined;
 
     /**
      * array
@@ -38,19 +38,25 @@ export interface AutocompleteProps<T> extends TextInputProps {
      * object
      * Props to pass on to the underlying FlatList.
      */
-    flatListProps?: Partial<FlatListProps<T>>;
+    flatListProps?: Partial<FlatListProps<T>> | undefined;
 
     /**
      * style
      * These styles will be applied to the container which surrounds the textInput component.
      */
-    inputContainerStyle?: StyleProp<ViewStyle>;
+    inputContainerStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * style
      * These styles will be applied to the container which surrounds the result list.
      */
-    listContainerStyle?: StyleProp<ViewStyle>;
+    listContainerStyle?: StyleProp<ViewStyle> | undefined;
+
+    /**
+     * style
+     * These style will be applied to the result list.
+     */
+    listStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * function
@@ -62,7 +68,7 @@ export interface AutocompleteProps<T> extends TextInputProps {
      * function
      * onStartShouldSetResponderCapture will be passed to the result list view container (onStartShouldSetResponderCapture).
      */
-    onStartShouldSetResponderCapture?: GestureResponderHandlers['onStartShouldSetResponderCapture'];
+    onStartShouldSetResponderCapture?: GestureResponderHandlers['onStartShouldSetResponderCapture'] | undefined;
 
     /**
      * function
@@ -74,6 +80,7 @@ export interface AutocompleteProps<T> extends TextInputProps {
      * string | bool
      * Set `keyboardShouldPersistTaps` to true if RN version is <= 0.39.
      */
+    renderSeparator?: ListViewProperties['renderSeparator'] | undefined;
 
     keyboardShouldPersistTaps?: 'always' | 'handeld' | 'never' | boolean;
 }

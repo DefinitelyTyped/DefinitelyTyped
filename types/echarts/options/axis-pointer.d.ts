@@ -9,7 +9,7 @@ declare namespace echarts {
              * If specified, it can be used to refer the component
              * in option or API.
              */
-            id?: string;
+            id?: string | undefined;
 
             /**
              * axisPointers can be linked to each other.
@@ -41,7 +41,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#axisPointer.link
              */
-            link?: object[];
+            link?: object[] | undefined;
 
             /**
              * Conditions to trigger tooltip.
@@ -58,7 +58,7 @@ declare namespace echarts {
              *
              * @default 'mousemove|click'
              */
-            triggerOn?: 'mousemove' | 'click' | 'mousemove|click' | 'none';
+            triggerOn?: 'mousemove' | 'click' | 'mousemove|click' | 'none' | undefined;
         }
     }
 }

@@ -12,14 +12,14 @@ declare module 'angular' {
     export namespace jwt {
 
         interface JwtToken {
-            iss?: string;
-            sub?: string;
-            aud?: string;
-            exp?: number;
-            nbf?: number;
-            iat?: number;
-            jti?: string;
-            unique_name?: string;
+            iss?: string | undefined;
+            sub?: string | undefined;
+            aud?: string | undefined;
+            exp?: number | undefined;
+            nbf?: number | undefined;
+            iat?: number | undefined;
+            jti?: string | undefined;
+            unique_name?: string | undefined;
         }
 
         interface IJwtHelper {

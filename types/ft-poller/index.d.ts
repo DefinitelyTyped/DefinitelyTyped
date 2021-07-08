@@ -9,11 +9,11 @@ interface Options {
 
 interface Config<PollerData, ExternalData> {
     url: string;
-    defaultData?: PollerData;
-    options?: Options;
-    refreshInterval?: number;
-    autostart?: boolean;
-    parseData?: (data: ExternalData) => PollerData;
+    defaultData?: PollerData | undefined;
+    options?: Options | undefined;
+    refreshInterval?: number | undefined;
+    autostart?: boolean | undefined;
+    parseData?: ((data: ExternalData) => PollerData) | undefined;
 }
 
 declare class Poller<PollerData, ExternalData = any> {

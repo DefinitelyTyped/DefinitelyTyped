@@ -352,7 +352,7 @@ type TestL2NestedArray = Array<{
 
 type TestL1NestedArrayRollup = Array<{
     key: string;
-    value?: number; // conservatively allow for value to be undefined
+    value?: number | undefined; // conservatively allow for value to be undefined
 }>;
 
 let testL2NestedArray: TestL2NestedArray;

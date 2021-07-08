@@ -49,52 +49,52 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Task {
-        completed?: string;
-        deleted?: boolean;
-        due?: string;
-        etag?: string;
-        hidden?: boolean;
-        id?: string;
-        kind?: string;
-        links?: Tasks.Schema.TaskLinks[];
-        notes?: string;
-        parent?: string;
-        position?: string;
-        selfLink?: string;
-        status?: string;
-        title?: string;
-        updated?: string;
+        completed?: string | undefined;
+        deleted?: boolean | undefined;
+        due?: string | undefined;
+        etag?: string | undefined;
+        hidden?: boolean | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        links?: Tasks.Schema.TaskLinks[] | undefined;
+        notes?: string | undefined;
+        parent?: string | undefined;
+        position?: string | undefined;
+        selfLink?: string | undefined;
+        status?: string | undefined;
+        title?: string | undefined;
+        updated?: string | undefined;
       }
       interface TaskLinks {
-        description?: string;
-        link?: string;
-        type?: string;
+        description?: string | undefined;
+        link?: string | undefined;
+        type?: string | undefined;
       }
       interface TaskList {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        selfLink?: string;
-        title?: string;
-        updated?: string;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        selfLink?: string | undefined;
+        title?: string | undefined;
+        updated?: string | undefined;
       }
       interface TaskLists {
-        etag?: string;
-        items?: Tasks.Schema.TaskList[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: Tasks.Schema.TaskList[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface Tasks {
-        etag?: string;
-        items?: Tasks.Schema.Task[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: Tasks.Schema.Task[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
     }
   }
   interface Tasks {
-    Tasklists?: Tasks.Collection.TasklistsCollection;
-    Tasks?: Tasks.Collection.TasksCollection;
+    Tasklists?: Tasks.Collection.TasklistsCollection | undefined;
+    Tasks?: Tasks.Collection.TasksCollection | undefined;
     // Create a new instance of Task
     newTask(): Tasks.Schema.Task;
     // Create a new instance of TaskLinks

@@ -1,6 +1,6 @@
 interface SpyData {
     type: number;
-    module?: string;
+    module?: string | undefined;
     method: string | number;
     args: any[];
 }

@@ -44,8 +44,8 @@ export type VisitNode =
     | Variable;
 
 export interface EnterLeave<T> {
-    readonly enter?: T;
-    readonly leave?: T;
+    readonly enter?: T | undefined;
+    readonly leave?: T | undefined;
 }
 
 export type VisitFn<T extends VisitNode> = (
@@ -62,47 +62,47 @@ export type NodeVisitorObject<T extends VisitNode> = EnterLeave<VisitFn<T>> | Vi
 
 export type NodeVisitor =
     | EnterLeave<{
-          Argument?: VisitFn<Argument>;
-          ClientExtension?: VisitFn<ClientExtension>;
-          Condition?: VisitFn<Condition>;
-          Defer?: VisitFn<Defer>;
-          Directive?: VisitFn<Directive>;
-          Fragment?: VisitFn<Fragment>;
-          FragmentSpread?: VisitFn<FragmentSpread>;
-          InlineFragment?: VisitFn<InlineFragment>;
-          LinkedField?: VisitFn<LinkedField>;
-          Literal?: VisitFn<Literal>;
-          LocalArgumentDefinition?: VisitFn<LocalArgumentDefinition>;
-          ModuleImport?: VisitFn<ModuleImport>;
-          Request?: VisitFn<Request>;
-          Root?: VisitFn<Root>;
-          RootArgumentDefinition?: VisitFn<RootArgumentDefinition>;
-          ScalarField?: VisitFn<ScalarField>;
-          SplitOperation?: VisitFn<SplitOperation>;
-          Stream?: VisitFn<Stream>;
-          Variable?: VisitFn<Variable>;
+          Argument?: VisitFn<Argument> | undefined;
+          ClientExtension?: VisitFn<ClientExtension> | undefined;
+          Condition?: VisitFn<Condition> | undefined;
+          Defer?: VisitFn<Defer> | undefined;
+          Directive?: VisitFn<Directive> | undefined;
+          Fragment?: VisitFn<Fragment> | undefined;
+          FragmentSpread?: VisitFn<FragmentSpread> | undefined;
+          InlineFragment?: VisitFn<InlineFragment> | undefined;
+          LinkedField?: VisitFn<LinkedField> | undefined;
+          Literal?: VisitFn<Literal> | undefined;
+          LocalArgumentDefinition?: VisitFn<LocalArgumentDefinition> | undefined;
+          ModuleImport?: VisitFn<ModuleImport> | undefined;
+          Request?: VisitFn<Request> | undefined;
+          Root?: VisitFn<Root> | undefined;
+          RootArgumentDefinition?: VisitFn<RootArgumentDefinition> | undefined;
+          ScalarField?: VisitFn<ScalarField> | undefined;
+          SplitOperation?: VisitFn<SplitOperation> | undefined;
+          Stream?: VisitFn<Stream> | undefined;
+          Variable?: VisitFn<Variable> | undefined;
       }>
     | {
-          Argument?: NodeVisitorObject<Argument>;
-          ClientExtension?: VisitFn<ClientExtension>;
-          Condition?: NodeVisitorObject<Condition>;
-          Defer?: NodeVisitorObject<Defer>;
-          Directive?: NodeVisitorObject<Directive>;
-          Fragment?: NodeVisitorObject<Fragment>;
-          FragmentSpread?: NodeVisitorObject<FragmentSpread>;
-          InlineDataFragmentSpread?: NodeVisitorObject<InlineDataFragmentSpread>;
-          InlineFragment?: NodeVisitorObject<InlineFragment>;
-          LinkedField?: NodeVisitorObject<LinkedField>;
-          Literal?: NodeVisitorObject<Literal>;
-          LocalArgumentDefinition?: NodeVisitorObject<LocalArgumentDefinition>;
-          ModuleImport?: NodeVisitorObject<ModuleImport>;
-          Request?: NodeVisitorObject<Request>;
-          Root?: NodeVisitorObject<Root>;
-          RootArgumentDefinition?: NodeVisitorObject<RootArgumentDefinition>;
-          ScalarField?: NodeVisitorObject<ScalarField>;
-          SplitOperation?: NodeVisitorObject<SplitOperation>;
-          Stream?: NodeVisitorObject<Stream>;
-          Variable?: NodeVisitorObject<Variable>;
+          Argument?: NodeVisitorObject<Argument> | undefined;
+          ClientExtension?: VisitFn<ClientExtension> | undefined;
+          Condition?: NodeVisitorObject<Condition> | undefined;
+          Defer?: NodeVisitorObject<Defer> | undefined;
+          Directive?: NodeVisitorObject<Directive> | undefined;
+          Fragment?: NodeVisitorObject<Fragment> | undefined;
+          FragmentSpread?: NodeVisitorObject<FragmentSpread> | undefined;
+          InlineDataFragmentSpread?: NodeVisitorObject<InlineDataFragmentSpread> | undefined;
+          InlineFragment?: NodeVisitorObject<InlineFragment> | undefined;
+          LinkedField?: NodeVisitorObject<LinkedField> | undefined;
+          Literal?: NodeVisitorObject<Literal> | undefined;
+          LocalArgumentDefinition?: NodeVisitorObject<LocalArgumentDefinition> | undefined;
+          ModuleImport?: NodeVisitorObject<ModuleImport> | undefined;
+          Request?: NodeVisitorObject<Request> | undefined;
+          Root?: NodeVisitorObject<Root> | undefined;
+          RootArgumentDefinition?: NodeVisitorObject<RootArgumentDefinition> | undefined;
+          ScalarField?: NodeVisitorObject<ScalarField> | undefined;
+          SplitOperation?: NodeVisitorObject<SplitOperation> | undefined;
+          Stream?: NodeVisitorObject<Stream> | undefined;
+          Variable?: NodeVisitorObject<Variable> | undefined;
       };
 
 export function visit(root: VisitNode, visitor: NodeVisitor): any;

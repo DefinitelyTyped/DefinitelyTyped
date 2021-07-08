@@ -1,7 +1,7 @@
 // Type definitions for TinyMCE 4.6
 // Project: https://github.com/tinymce/tinymce, https://github.com/tinymce/tinymce-dist
 // Definitions by: Martin Duparc <https://github.com/martinduparc>
-//                 Poul Poulsen <https://github.com/ipoul>
+//                 Poul Poulsen <https://github.com/iampoul>
 //                 Nico Hartto <https://github.com/nicohartto>
 //                 Tyler Romeo <https://github.com/Parent5446>
 //                 Ashley Workman <https://github.com/CymruKakashi>
@@ -62,332 +62,332 @@ export function triggerSave(): void;
 export function get(id: string | number): Editor;
 
 export interface Settings {
-    base_url?: string;
+    base_url?: string | undefined;
 
-    table_toolbar?: string;
+    table_toolbar?: string | undefined;
 
-    table_appearance_options?: boolean;
+    table_appearance_options?: boolean | undefined;
 
-    table_clone_elements?: string;
+    table_clone_elements?: string | undefined;
 
-    table_grid?: boolean;
+    table_grid?: boolean | undefined;
 
-    table_tab_navigation?: boolean;
+    table_tab_navigation?: boolean | undefined;
 
-    table_default_attributes?: object | string;
+    table_default_attributes?: object | string | undefined;
 
-    table_default_styles?: object | string;
+    table_default_styles?: object | string | undefined;
 
-    table_sizing_mode?: 'fixed' | 'relative' | 'responsive' | 'auto';
+    table_sizing_mode?: 'fixed' | 'relative' | 'responsive' | 'auto' | undefined;
 
-    table_class_list?: object[];
+    table_class_list?: object[] | undefined;
 
-    table_cell_class_list?: object[];
+    table_cell_class_list?: object[] | undefined;
 
-    table_row_class_list?: object[];
+    table_row_class_list?: object[] | undefined;
 
-    table_advtab?: boolean;
+    table_advtab?: boolean | undefined;
 
-    table_cell_advtab?: boolean;
+    table_cell_advtab?: boolean | undefined;
 
-    table_row_advtab?: boolean;
+    table_row_advtab?: boolean | undefined;
 
-    table_resize_bars?: boolean;
+    table_resize_bars?: boolean | undefined;
 
-    table_style_by_css?: boolean;
+    table_style_by_css?: boolean | undefined;
 
-    auto_focus?: string;
+    auto_focus?: string | undefined;
 
-    cache_suffix?: string;
+    cache_suffix?: string | undefined;
 
-    content_security_policy?: string;
+    content_security_policy?: string | undefined;
 
-    external_plugins?: {};
+    external_plugins?: {} | undefined;
 
-    hidden_input?: boolean;
+    hidden_input?: boolean | undefined;
 
-    paste_data_images?: boolean;
+    paste_data_images?: boolean | undefined;
 
-    paste_as_text?: boolean;
+    paste_as_text?: boolean | undefined;
 
-    paste_enable_default_filters?: boolean;
+    paste_enable_default_filters?: boolean | undefined;
 
-    paste_filter_drop?: boolean;
+    paste_filter_drop?: boolean | undefined;
 
     paste_preprocess?(plugin: any, args: any): void;
 
     paste_postprocess?(plugin: any, args: any): void;
 
-    paste_word_valid_elements?: string;
+    paste_word_valid_elements?: string | undefined;
 
-    paste_webkit_styles?: string;
+    paste_webkit_styles?: string | undefined;
 
-    paste_retain_style_properties?: string;
+    paste_retain_style_properties?: string | undefined;
 
-    paste_merge_formats?: boolean;
+    paste_merge_formats?: boolean | undefined;
 
-    paste_convert_word_fake_lists?: boolean;
+    paste_convert_word_fake_lists?: boolean | undefined;
 
-    paste_remove_styles_if_webkit?: boolean;
+    paste_remove_styles_if_webkit?: boolean | undefined;
 
-    pagebreak_separator?: string;
+    pagebreak_separator?: string | undefined;
 
-    pagebreak_split_block?: boolean;
+    pagebreak_split_block?: boolean | undefined;
 
-    advlist_number_styles?: string;
+    advlist_number_styles?: string | undefined;
 
     init_instance_callback?(editor: Editor): void;
 
-    plugins?: string | string[];
+    plugins?: string | string[] | undefined;
 
-    selector?: string;
+    selector?: string | undefined;
 
     setup?(edtor: Editor): void;
 
-    target?: Element;
+    target?: Element | undefined;
 
-    branding?: boolean;
+    branding?: boolean | undefined;
 
     color_picker_callback?(callback: (hexColor: string) => void, value: string): void;
 
-    custom_ui_selector?: string;
+    custom_ui_selector?: string | undefined;
 
-    elementpath?: boolean;
+    elementpath?: boolean | undefined;
 
-    event_root?: boolean;
+    event_root?: boolean | undefined;
 
-    fixed_toolbar_container?: string;
+    fixed_toolbar_container?: string | undefined;
 
-    height?: number | string;
+    height?: number | string | undefined;
 
-    inline?: boolean;
+    inline?: boolean | undefined;
 
-    insert_button_items?: string;
+    insert_button_items?: string | undefined;
 
-    insert_toolbar?: string;
+    insert_toolbar?: string | undefined;
 
-    max_height?: number;
+    max_height?: number | undefined;
 
-    max_width?: number;
+    max_width?: number | undefined;
 
-    menu?: settings.Menu;
+    menu?: settings.Menu | undefined;
 
-    menubar?: string | boolean;
+    menubar?: string | boolean | undefined;
 
-    min_height?: number | string;
+    min_height?: number | string | undefined;
 
-    min_width?: number | string;
+    min_width?: number | string | undefined;
 
-    preview_styles?: boolean | string;
+    preview_styles?: boolean | string | undefined;
 
-    removed_menuitems?: string;
+    removed_menuitems?: string | undefined;
 
-    resize?: boolean | string;
+    resize?: boolean | string | undefined;
 
-    selection_toolbar?: string;
+    selection_toolbar?: string | undefined;
 
-    skin_url?: string;
+    skin_url?: string | undefined;
 
-    skin?: false | string;
+    skin?: false | string | undefined;
 
-    statusbar?: boolean;
+    statusbar?: boolean | undefined;
 
-    theme_url?: string;
+    theme_url?: string | undefined;
 
-    theme?: string;
+    theme?: string | undefined;
 
-    toolbar?: boolean | string | string[];
+    toolbar?: boolean | string | string[] | undefined;
 
-    width?: number | string;
+    width?: number | string | undefined;
 
-    body_class?: string;
+    body_class?: string | undefined;
 
-    body_id?: string;
+    body_id?: string | undefined;
 
-    content_css?: string | string[];
+    content_css?: string | string[] | undefined;
 
-    content_style?: string;
+    content_style?: string | undefined;
 
-    inline_boundaries?: boolean;
+    inline_boundaries?: boolean | undefined;
 
-    inline_boundaries_selector?: boolean;
+    inline_boundaries_selector?: boolean | undefined;
 
-    visual_anchor_class?: string;
+    visual_anchor_class?: string | undefined;
 
-    visual_table_class?: string;
+    visual_table_class?: string | undefined;
 
-    visual?: boolean;
+    visual?: boolean | undefined;
 
-    allow_conditional_comments?: boolean;
+    allow_conditional_comments?: boolean | undefined;
 
-    allow_html_in_named_anchor?: boolean;
+    allow_html_in_named_anchor?: boolean | undefined;
 
-    allow_unsafe_link_target?: boolean;
+    allow_unsafe_link_target?: boolean | undefined;
 
-    convert_fonts_to_spans?: boolean;
+    convert_fonts_to_spans?: boolean | undefined;
 
-    custom_elements?: string;
+    custom_elements?: string | undefined;
 
-    doctype?: string;
+    doctype?: string | undefined;
 
-    element_format?: string;
+    element_format?: string | undefined;
 
-    encoding?: string;
+    encoding?: string | undefined;
 
-    entities?: string;
+    entities?: string | undefined;
 
-    entity_encoding?: string;
+    entity_encoding?: string | undefined;
 
-    extended_valid_elements?: string;
+    extended_valid_elements?: string | undefined;
 
-    fix_list_elements?: boolean;
+    fix_list_elements?: boolean | undefined;
 
-    force_hex_style_colors?: boolean;
+    force_hex_style_colors?: boolean | undefined;
 
-    forced_root_block?: string;
+    forced_root_block?: string | undefined;
 
-    forced_root_block_attrs?: {};
+    forced_root_block_attrs?: {} | undefined;
 
-    invalid_elements?: string;
+    invalid_elements?: string | undefined;
 
-    invalid_styles?: string | {};
+    invalid_styles?: string | {} | undefined;
 
-    keep_styles?: boolean;
+    keep_styles?: boolean | undefined;
 
-    protect?: RegExp[];
+    protect?: RegExp[] | undefined;
 
-    remove_trailing_brs?: boolean;
+    remove_trailing_brs?: boolean | undefined;
 
-    schema?: string;
+    schema?: string | undefined;
 
-    valid_children?: string;
+    valid_children?: string | undefined;
 
-    valid_classes?: string | {};
+    valid_classes?: string | {} | undefined;
 
-    valid_elements?: string;
+    valid_elements?: string | undefined;
 
-    valid_styles?: {};
+    valid_styles?: {} | undefined;
 
-    block_formats?: string;
+    block_formats?: string | undefined;
 
-    font_formats?: string;
+    font_formats?: string | undefined;
 
-    fontsize_formats?: string;
+    fontsize_formats?: string | undefined;
 
-    formats?: {};
+    formats?: {} | undefined;
 
-    removeFormat?: Array<{}>;
+    removeFormat?: Array<{}> | undefined;
 
-    indentation?: string;
+    indentation?: string | undefined;
 
-    style_formats?: Array<{}>;
+    style_formats?: Array<{}> | undefined;
 
-    style_formats_autohide?: boolean;
+    style_formats_autohide?: boolean | undefined;
 
-    style_formats_merge?: boolean;
+    style_formats_merge?: boolean | undefined;
 
-    browser_spellcheck?: boolean;
+    browser_spellcheck?: boolean | undefined;
 
-    gecko_spellcheck?: boolean;
+    gecko_spellcheck?: boolean | undefined;
 
-    automatic_uploads?: boolean;
+    automatic_uploads?: boolean | undefined;
 
     file_browser_callback?(field_name: string, url: string, type: string, win: Window): void;
 
-    file_browser_callback_types?: string;
+    file_browser_callback_types?: string | undefined;
 
     file_picker_callback?(callback: (filename: string, metadata: {}) => void, valud: string, meta: {}): void;
 
-    file_picker_types?: string;
+    file_picker_types?: string | undefined;
 
     images_dataimg_filter?(img: HTMLImageElement): void;
 
-    images_reuse_filename?: boolean;
+    images_reuse_filename?: boolean | undefined;
 
-    images_upload_base_path?: string;
+    images_upload_base_path?: string | undefined;
 
-    images_upload_credentials?: boolean;
+    images_upload_credentials?: boolean | undefined;
 
     images_upload_handler?(blobInfo: any, success: (msg: string) => void, failure: (msg: string) => void): void;
 
-    images_upload_url?: string;
+    images_upload_url?: string | undefined;
 
-    directionality?: string;
+    directionality?: string | undefined;
 
-    language?: string;
+    language?: string | undefined;
 
-    language_url?: string;
+    language_url?: string | undefined;
 
-    allow_script_urls?: boolean;
+    allow_script_urls?: boolean | undefined;
 
-    convert_urls?: boolean;
+    convert_urls?: boolean | undefined;
 
-    document_base_url?: string;
+    document_base_url?: string | undefined;
 
-    relative_urls?: boolean;
+    relative_urls?: boolean | undefined;
 
-    remove_script_host?: boolean;
+    remove_script_host?: boolean | undefined;
 
     urlconverter_callback?(url: string, node: HTMLElement, on_save: boolean, name: string): void;
 
-    anchor_bottom?: string;
+    anchor_bottom?: string | undefined;
 
-    anchor_top?: string;
+    anchor_top?: string | undefined;
 
-    br_in_pre?: boolean;
+    br_in_pre?: boolean | undefined;
 
-    custom_undo_redo_levels?: number;
+    custom_undo_redo_levels?: number | undefined;
 
-    end_container_on_empty_block?: boolean;
+    end_container_on_empty_block?: boolean | undefined;
 
-    nowrap?: boolean;
+    nowrap?: boolean | undefined;
 
-    object_resizing?: boolean | string;
+    object_resizing?: boolean | string | undefined;
 
-    type_ahead_urls?: boolean;
+    type_ahead_urls?: boolean | undefined;
 
-    autosave_ask_before_unload?: boolean;
+    autosave_ask_before_unload?: boolean | undefined;
 
-    autosave_interval?: string;
+    autosave_interval?: string | undefined;
 
-    autosave_prefix?: string;
+    autosave_prefix?: string | undefined;
 
-    autosave_restore_when_empty?: boolean;
+    autosave_restore_when_empty?: boolean | undefined;
 
-    autosave_retention?: string;
+    autosave_retention?: string | undefined;
 
-    imagetools_cors_hosts?: string[];
+    imagetools_cors_hosts?: string[] | undefined;
 
-    imagetools_proxy?: string;
+    imagetools_proxy?: string | undefined;
 
-    imagetools_toolbar?: string;
+    imagetools_toolbar?: string | undefined;
 
-    imagetools_api_key?: string;
+    imagetools_api_key?: string | undefined;
 
-    spellchecker_rpc_url?: string;
+    spellchecker_rpc_url?: string | undefined;
 
-    spellchecker_language?: string;
+    spellchecker_language?: string | undefined;
 
-    spellchecker_languages?: string;
+    spellchecker_languages?: string | undefined;
 
-    spellchecker_dialog?: boolean;
+    spellchecker_dialog?: boolean | undefined;
 
-    spellchecker_whitelist?: string[];
+    spellchecker_whitelist?: string[] | undefined;
 
-    spellchecker_on_load?: boolean;
+    spellchecker_on_load?: boolean | undefined;
 
-    spellchecker_active?: boolean;
+    spellchecker_active?: boolean | undefined;
 }
 
 export namespace settings {
     interface Menu {
-        file?: MenuItem;
-        edit?: MenuItem;
-        insert?: MenuItem;
-        view?: MenuItem;
-        format?: MenuItem;
-        table?: MenuItem;
-        tools?: MenuItem;
+        file?: MenuItem | undefined;
+        edit?: MenuItem | undefined;
+        insert?: MenuItem | undefined;
+        view?: MenuItem | undefined;
+        format?: MenuItem | undefined;
+        table?: MenuItem | undefined;
+        tools?: MenuItem | undefined;
     }
 
     interface MenuItem {
@@ -744,7 +744,7 @@ export interface Theme {
 }
 
 export interface UndoManager {
-    add(level?: {}, event?: DocumentEvent): {};
+    add(level?: {}, event?: Event): {};
 
     beforeChange(): void;
 

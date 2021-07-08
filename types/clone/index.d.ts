@@ -28,10 +28,10 @@ declare function clone<T>(val: T, circular?: boolean, depth?: number, prototype?
 declare function clone<T>(val: T, opts: CloneOpts): T;
 
 interface CloneOpts {
-    circular?: boolean,
-    depth?: number,
+    circular?: boolean | undefined,
+    depth?: number | undefined,
     prototype?: any,
-    includeNonEnumerable?: boolean
+    includeNonEnumerable?: boolean | undefined
 }
 
 declare namespace clone {

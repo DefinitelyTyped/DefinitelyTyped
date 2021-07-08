@@ -3,7 +3,7 @@ import { SelectCallback } from 'react-bootstrap';
 
 declare namespace PanelToggle {
     export interface PanelToggleProps extends React.HTMLProps<PanelToggle> {
-        componentClass?: string;
+        componentClass?: string | undefined;
     }
 }
 declare class PanelToggle extends React.Component<PanelToggle.PanelToggleProps> { }

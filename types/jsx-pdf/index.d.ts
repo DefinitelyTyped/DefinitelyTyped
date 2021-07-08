@@ -47,9 +47,9 @@ declare global {
             qr: EleNoChidlren<Omit<PDFMake.ContentQr, 'qr'> & { content: string }>;
             svg: EleNoChidlren<{
                 content: string;
-                width?: number;
-                height?: number;
-                fit?: [number, number];
+                width?: number | undefined;
+                height?: number | undefined;
+                fit?: [number, number] | undefined;
             }>;
         }
     }

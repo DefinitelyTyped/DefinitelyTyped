@@ -25,8 +25,8 @@ declare namespace TerserPlugin {
 
     interface ExtractCommentOptions {
         condition: boolean | string | RegExp | ExtractCommentFn | object;
-        filename?: string | FormatFn;
-        banner?: boolean | string | FormatFn;
+        filename?: string | FormatFn | undefined;
+        banner?: boolean | string | FormatFn | undefined;
     }
 
     type ExtractCommentFn = (node: any, comment: any) => (boolean | object);
@@ -34,21 +34,21 @@ declare namespace TerserPlugin {
     type FormatFn = (input: string) => string;
 
     interface TerserPluginOptions {
-        test?: string | RegExp | Array<string | RegExp>;
-        include?: string | RegExp | Array<string | RegExp>;
-        exclude?: string | RegExp | Array<string | RegExp>;
-        chunkFilter?: (chunk: webpack.compilation.Chunk) => boolean;
-        cache?: boolean | string;
-        cacheKeys?: (defaultCacheKeys: any, file: any) => object;
-        parallel?: boolean | number;
-        sourceMap?: boolean;
-        minify?: (file: any, sourceMap: any) => MinifyResult;
-        terserOptions?: MinifyOptions;
+        test?: string | RegExp | Array<string | RegExp> | undefined;
+        include?: string | RegExp | Array<string | RegExp> | undefined;
+        exclude?: string | RegExp | Array<string | RegExp> | undefined;
+        chunkFilter?: ((chunk: webpack.compilation.Chunk) => boolean) | undefined;
+        cache?: boolean | string | undefined;
+        cacheKeys?: ((defaultCacheKeys: any, file: any) => object) | undefined;
+        parallel?: boolean | number | undefined;
+        sourceMap?: boolean | undefined;
+        minify?: ((file: any, sourceMap: any) => MinifyResult) | undefined;
+        terserOptions?: MinifyOptions | undefined;
         extractComments?: boolean
         | string
         | RegExp
         | ExtractCommentFn
-        | ExtractCommentOptions;
-        warningsFilter?: (warning: string, source: string | undefined, file: string) => boolean;
+        | ExtractCommentOptions | undefined;
+        warningsFilter?: ((warning: string, source: string | undefined, file: string) => boolean) | undefined;
     }
 }

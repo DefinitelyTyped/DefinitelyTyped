@@ -7,10 +7,9 @@ class AddJob implements Job<number> {
         JobLock: {}
     };
 
-    perform(...args: number[]): Promise<number> {
+    async perform(...args: number[]): Promise<number> {
         const answer = args[0] + args[1];
-        return new Promise((resolve) => { setTimeout(resolve, 1000); })
-            .then(() => answer);
+        return 42;
     }
 }
 

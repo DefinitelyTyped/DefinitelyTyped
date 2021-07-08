@@ -27,15 +27,15 @@ export function hash(str: string | ArrayBufferView): Buffer;
 export class HashStream extends Transform {}
 
 export function highlight(str: string, options?: {
-    hljs?: boolean;
-    gutter?: boolean;
-    wrap?: boolean;
-    firstLine?: number;
-    caption?: string;
-    mark?: number[];
-    tab?: string;
-    lang?: string;
-    autoDetect?: boolean;
+    hljs?: boolean | undefined;
+    gutter?: boolean | undefined;
+    wrap?: boolean | undefined;
+    firstLine?: number | undefined;
+    caption?: string | undefined;
+    mark?: number[] | undefined;
+    tab?: string | undefined;
+    lang?: string | undefined;
+    autoDetect?: boolean | undefined;
 }): string;
 
 export function htmlTag(tag: string, attrs?: string[] | ArrayLike<string> | { [x: string]: any }, text?: string | null): string;
@@ -53,7 +53,7 @@ export const Pattern: {
 
 export class Permalink {
     constructor(rule: string, options?: {
-        segments?: { [name: string]: string | RegExp; };
+        segments?: { [name: string]: string | RegExp; } | undefined;
     });
     rule: string;
     regex: RegExp;
@@ -64,17 +64,17 @@ export class Permalink {
 }
 
 export function slugize(str: string, options?: {
-    separator?: string;
-    transform?: 1 | 2;
+    separator?: string | undefined;
+    transform?: 1 | 2 | undefined;
 }): string;
 
 export interface hexoSpawnOptions extends SpawnOptions {
-    verbose?: boolean;
-    encoding?: BufferEncoding;
+    verbose?: boolean | undefined;
+    encoding?: BufferEncoding | undefined;
 }
 
 export interface hexoSpawnDisableEncodingOptions extends SpawnOptions {
-    verbose?: boolean;
+    verbose?: boolean | undefined;
     encoding: '' | false | null;
 }
 
@@ -99,11 +99,11 @@ export function spawn(command: string, options?: hexoSpawnOptions): Promise<stri
 export function stripHTML(str: string): string;
 
 export function wordWrap(str: string, options?: {
-    width?: number;
+    width?: number | undefined;
 }): string;
 
 export function truncate(str: string, options?: {
-    length?: number;
-    omission?: string;
-    separator?: string;
+    length?: number | undefined;
+    omission?: string | undefined;
+    separator?: string | undefined;
 }): string;

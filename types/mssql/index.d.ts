@@ -1,22 +1,23 @@
-// Type definitions for mssql 6.0.0
+// Type definitions for mssql 7.1.0
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
-//                 Vitor Buzinaro <https://github.com/buzinas>
-//                 Matt Richardson <https://github.com/mrrichar>
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
 //                 Peter Keuter <https://github.com/pkeuter>
-//                 David Gasperoni <https://github.com/mcdado>
 //                 Jeff Wooden <https://github.com/woodenconsulting>
 //                 Cahil Foley <https://github.com/cahilfoley>
 //                 Rifa Achrinza <https://github.com/achrinza>
+//                 Daniel Hensby <https://github.com/dhensby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.6
 
 /// <reference types="node" />
 
 
 import events = require('events');
 import tds = require('tedious');
+import msnodesql = require('msnodesqlv8');
+import { Pool } from 'tarn';
+import { CallbackOrPromise, PoolOptions } from 'tarn/dist/Pool';
 export interface ISqlType {
     type: ISqlTypeFactory;
 }
@@ -68,6 +69,8 @@ export declare var UDT: ISqlTypeFactoryWithNoParams;
 export declare var Geography: ISqlTypeFactoryWithNoParams;
 export declare var Geometry: ISqlTypeFactoryWithNoParams;
 export declare var Variant: ISqlTypeFactoryWithNoParams;
+
+export type Connection = tds.Connection | msnodesql.Connection;
 
 export declare var TYPES: {
     VarChar: ISqlTypeFactoryWithLength;
@@ -123,8 +126,8 @@ export interface IColumnMetadata {
         length: number;
         type: (() => ISqlType) | ISqlType;
         udt?: any;
-        scale?: number;
-        precision?: number;
+        scale?: number | undefined;
+        precision?: number | undefined;
         nullable: boolean;
         caseSensitive: boolean;
         identity: boolean;
@@ -161,64 +164,62 @@ export declare var ISOLATION_LEVEL: {
 }
 
 export interface IOptions extends tds.ConnectionOptions {
-    beforeConnect?: void;
-    connectionString?: string;
-    enableArithAbort?: boolean;
-    instanceName?: string;
-    trustedConnection?: boolean;
-    useUTC?: boolean;
+    beforeConnect?: void | undefined;
+    connectionString?: string | undefined;
+    enableArithAbort?: boolean | undefined;
+    instanceName?: string | undefined;
+    trustedConnection?: boolean | undefined;
+    useUTC?: boolean | undefined;
 }
 
-export interface IPool {
-    min?: number;
-    max?: number;
-    idleTimeoutMillis?: number;
-    maxWaitingClients?: number;
-    testOnBorrow?: boolean;
-    acquireTimeoutMillis?: number;
-    fifo?: boolean;
-    priorityRange?: number;
-    autostart?: boolean;
-    evictionRunIntervalMillis?: number;
-    numTestsPerRun?: number;
-    softIdleTimeoutMillis?: number;
-    Promise?: any;
-}
+export declare var pool: ConnectionPool;
 
-export declare var pool: IPool;
+export interface PoolOpts<T> extends Omit<PoolOptions<T>, 'create' | 'destroy' | 'min' | 'max'> {
+    create?: CallbackOrPromise<T> | undefined;
+    destroy?: ((resource: T) => any) | undefined;
+    min?: number | undefined;
+    max?: number | undefined;
+}
 
 export interface config {
-    driver?: string;
-    user?: string;
-    password?: string;
+    driver?: string | undefined;
+    user?: string | undefined;
+    password?: string | undefined;
     server: string;
-    port?: number;
-    domain?: string;
-    database?: string;
-    connectionTimeout?: number;
-    requestTimeout?: number;
-    stream?: boolean;
-    parseJSON?: boolean;
-    options?: IOptions;
-    pool?: IPool;
+    port?: number | undefined;
+    domain?: string | undefined;
+    database?: string | undefined;
+    connectionTimeout?: number | undefined;
+    requestTimeout?: number | undefined;
+    stream?: boolean | undefined;
+    parseJSON?: boolean | undefined;
+    options?: IOptions | undefined;
+    pool?: PoolOpts<Connection> | undefined;
+    arrayRowMode?: boolean | undefined;
     /**
      * Invoked before opening the connection. The parameter conn is the configured
      * tedious Connection. It can be used for attaching event handlers.
      */
-    beforeConnect?: (conn: tds.Connection) => void
+    beforeConnect?: ((conn: Connection) => void) | undefined
 }
 
 export declare class MSSQLError extends Error {
     constructor(message: Error | string, code?: string);
     public code: string;
     public name: string;
-    public originalError?: Error;
+    public originalError?: Error | undefined;
 }
 
 export declare class ConnectionPool extends events.EventEmitter {
-    public connected: boolean;
-    public connecting: boolean;
-    public driver: string;
+    public readonly connected: boolean;
+    public readonly connecting: boolean;
+    public readonly healthy: boolean;
+    public readonly driver: string;
+    public readonly size: number;
+    public readonly available: number;
+    public readonly pending: number;
+    public readonly borrowed: number;
+    public readonly pool: Pool<Connection>;
     public constructor(config: config, callback?: (err?: any) => void);
     public constructor(connectionString: string, callback?: (err?: any) => void);
     public query(command: string): Promise<IResult<any>>;
@@ -242,11 +243,11 @@ export declare class ConnectionPool extends events.EventEmitter {
 export declare class ConnectionError extends MSSQLError {}
 
 export interface IColumnOptions {
-    nullable?: boolean;
-    primary?: boolean;
-    identity?: boolean;
-    readOnly?: boolean;
-    length?: number
+    nullable?: boolean | undefined;
+    primary?: boolean | undefined;
+    identity?: boolean | undefined;
+    readOnly?: boolean | undefined;
+    length?: number | undefined
 }
 
 export interface IColumn extends ISqlType {
@@ -270,11 +271,11 @@ export declare class Table {
     public columns: columns;
     public rows: rows;
     public constructor(tableName?: string);
-    public schema?: string;
-    public database?: string;
-    public name?: string;
-    public path?: string;
-    public temporary?: boolean;
+    public schema?: string | undefined;
+    public database?: string | undefined;
+    public name?: string | undefined;
+    public path?: string | undefined;
+    public temporary?: boolean | undefined;
 }
 
 interface IRequestParameters {
@@ -295,13 +296,13 @@ interface IRequestParameters {
  */
 export interface IBulkOptions {
     /** Honors constraints during bulk load, using T-SQL CHECK_CONSTRAINTS. (default: false) */
-    checkConstraints?: boolean;
+    checkConstraints?: boolean | undefined;
     /** Honors insert triggers during bulk load, using the T-SQL FIRE_TRIGGERS. (default: false) */
-    fireTriggers?: boolean;
+    fireTriggers?: boolean | undefined;
     /** Honors null value passed, ignores the default values set on table, using T-SQL KEEP_NULLS. (default: false) */
-    keepNulls?: boolean;
+    keepNulls?: boolean | undefined;
     /** Places a bulk update(BU) lock on table while performing bulk load, using T-SQL TABLOCK. (default: false) */
-    tableLock?: boolean;
+    tableLock?: boolean | undefined;
 }
 
 export declare class Request extends events.EventEmitter {
@@ -345,12 +346,12 @@ export declare class Request extends events.EventEmitter {
 }
 
 export declare class RequestError extends MSSQLError {
-    public number?: number;
-    public lineNumber?: number;
-    public state?: string;
-    public class?: string;
-    public serverName?: string;
-    public procName?: string;
+    public number?: number | undefined;
+    public lineNumber?: number | undefined;
+    public state?: string | undefined;
+    public class?: string | undefined;
+    public serverName?: string | undefined;
+    public procName?: string | undefined;
 }
 
 export declare class Transaction extends events.EventEmitter {

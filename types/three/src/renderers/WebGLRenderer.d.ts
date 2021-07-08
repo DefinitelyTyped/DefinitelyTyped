@@ -35,64 +35,64 @@ export interface WebGLRendererParameters {
     /**
      * A Canvas where the renderer draws its output.
      */
-    canvas?: HTMLCanvasElement | OffscreenCanvas;
+    canvas?: HTMLCanvasElement | OffscreenCanvas | undefined;
 
     /**
      * A WebGL Rendering Context.
      * (https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext)
      * Default is null
      */
-    context?: WebGLRenderingContext;
+    context?: WebGLRenderingContext | undefined;
 
     /**
      * shader precision. Can be "highp", "mediump" or "lowp".
      */
-    precision?: string;
+    precision?: string | undefined;
 
     /**
      * default is false.
      */
-    alpha?: boolean;
+    alpha?: boolean | undefined;
 
     /**
      * default is true.
      */
-    premultipliedAlpha?: boolean;
+    premultipliedAlpha?: boolean | undefined;
 
     /**
      * default is false.
      */
-    antialias?: boolean;
+    antialias?: boolean | undefined;
 
     /**
      * default is true.
      */
-    stencil?: boolean;
+    stencil?: boolean | undefined;
 
     /**
      * default is false.
      */
-    preserveDrawingBuffer?: boolean;
+    preserveDrawingBuffer?: boolean | undefined;
 
     /**
      * Can be "high-performance", "low-power" or "default"
      */
-    powerPreference?: string;
+    powerPreference?: string | undefined;
 
     /**
      * default is true.
      */
-    depth?: boolean;
+    depth?: boolean | undefined;
 
     /**
      * default is false.
      */
-    logarithmicDepthBuffer?: boolean;
+    logarithmicDepthBuffer?: boolean | undefined;
 
     /**
      * default is false.
      */
-    failIfMajorPerformanceCaveat?: boolean;
+    failIfMajorPerformanceCaveat?: boolean | undefined;
 }
 
 export interface WebGLDebug {
@@ -276,12 +276,12 @@ export class WebGLRenderer implements Renderer {
     /**
      * Sets the custom opaque sort function for the WebGLRenderLists. Pass null to use the default painterSortStable function.
      */
-    setOpaqueSort(method: () => void): void;
+    setOpaqueSort(method: (a: any, b: any) => number): void;
 
     /**
      * Sets the custom transparent sort function for the WebGLRenderLists. Pass null to use the default reversePainterSortStable function.
      */
-    setTransparentSort(method: () => void): void;
+    setTransparentSort(method: (a: any, b: any) => number): void;
 
     /**
      * Returns a THREE.Color instance with the current clear color.

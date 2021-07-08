@@ -34,27 +34,27 @@ export interface ConnectionOptions {
      * This parameter is no longer used because the region information, if required, is included as part of the full account name.
      * It is documented here only for backward compatibility
      */
-    region?: string;
+    region?: string | undefined;
 
     /**
      * The default database to use for the session after connecting.
      */
-    database?: string;
+    database?: string | undefined;
 
     /**
      * The default schema to use for the session after connecting.
      */
-    schema?: string;
+    schema?: string | undefined;
 
     /**
      * The default virtual warehouse to use for the session after connecting. Used for performing queries, loading data, etc.
      */
-    warehouse?: string;
+    warehouse?: string | undefined;
 
     /**
      * The default security role to use for the session after connecting.
      */
-    role?: string;
+    role?: string | undefined;
 
     /**
      * By default, client connections typically time out approximately 3-4 hours after the most recent query was executed.
@@ -67,7 +67,7 @@ export interface ConnectionOptions {
      * If you set this parameter to true, make sure that your program explicitly disconnects from the server when your program
      * has finished. Do not exit without disconnecting.
      */
-    clientSessionKeepAlive?: boolean;
+    clientSessionKeepAlive?: boolean | undefined;
 
     /**
      * (Applies only when `clientSessionKeepAlive` is true)
@@ -82,9 +82,9 @@ export interface ConnectionOptions {
      * at least 4 hours, a heartbeat every 1 hour is normally sufficient to keep the connection alive. Heartbeat intervals of less
      * than 3600 seconds are rarely necessary or useful.
      */
-    clientSessionKeepAliveHeartbeatFrequency?: number;
+    clientSessionKeepAliveHeartbeatFrequency?: number | undefined;
 
-    jsTreatIntegerAsBigInt?: boolean;
+    jsTreatIntegerAsBigInt?: boolean | undefined;
 }
 
 export interface Column {
@@ -263,14 +263,14 @@ export type Connection = NodeJS.EventEmitter & {
          * ### Related Docs
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#batch-processing-results Batch Processing Results}
          */
-        streamResult?: boolean;
-        binds?: Binds;
+        streamResult?: boolean | undefined;
+        binds?: Binds | undefined;
 
         /**
          * ### Related Docs
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
-        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'>;
+        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'> | undefined;
         complete: (err: Error, stmt: Statement, rows: any[] | undefined) => void;
     }): void;
 
@@ -304,14 +304,14 @@ export enum ocspModes {
 }
 
 export interface ConfigureOptions {
-    logLevel?: 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE';
-    insecureConnect?: boolean;
+    logLevel?: 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE' | undefined;
+    insecureConnect?: boolean | undefined;
 
     /**
      * ### Related Docs
      * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#choosing-fail-open-or-fail-close-mode Choosing `Fail-Open` or `Fail-Close` Mode}
      */
-    ocspFailOpen?: boolean;
+    ocspFailOpen?: boolean | undefined;
 }
 
 /**

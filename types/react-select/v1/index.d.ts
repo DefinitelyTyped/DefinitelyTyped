@@ -109,19 +109,19 @@ export type Options<TValue = OptionValues> = Array<Option<TValue>>;
 
 export interface Option<TValue = OptionValues> {
     /** Text for rendering */
-    label?: string;
+    label?: string | undefined;
     /** Value for searching */
-    value?: TValue;
+    value?: TValue | undefined;
     /**
      * Allow this option to be cleared
      * @default true
      */
-    clearableValue?: boolean;
+    clearableValue?: boolean | undefined;
     /**
      * Do not allow this option to be selected
      * @default false
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * In the event that a custom menuRenderer is provided, Option should be able
      * to accept arbitrary key-value pairs. See react-virtualized-select.
@@ -178,40 +178,40 @@ export interface OptionComponentProps<TValue = OptionValues> {
     /**
      * Classname(s) to apply to the option component.
      */
-    className?: string;
+    className?: string | undefined;
 
     /**
      * Currently focused option.
      */
-    focusOption?: Option<TValue>;
+    focusOption?: Option<TValue> | undefined;
 
-    inputValue?: string;
-    instancePrefix?: string;
+    inputValue?: string | undefined;
+    instancePrefix?: string | undefined;
 
     /**
      * True if this option is disabled.
      */
-    isDisabled?: boolean;
+    isDisabled?: boolean | undefined;
 
     /**
      * True if this option is focused.
      */
-    isFocused?: boolean;
+    isFocused?: boolean | undefined;
 
     /**
      * True if this option is selected.
      */
-    isSelected?: boolean;
+    isSelected?: boolean | undefined;
 
     /**
      * Callback to be invoked when this option is focused.
      */
-    onFocus?: (option: Option<TValue>, event: any) => void;
+    onFocus?: ((option: Option<TValue>, event: any) => void) | undefined;
 
     /**
      * Callback to be invoked when this option is selected.
      */
-    onSelect?: (option: Option<TValue>, event: any) => void;
+    onSelect?: ((option: Option<TValue>, event: any) => void) | undefined;
 
     /**
      * Option to be rendered by this component.
@@ -221,18 +221,18 @@ export interface OptionComponentProps<TValue = OptionValues> {
     /**
      * Index of the option being rendered in the list
      */
-    optionIndex?: number;
+    optionIndex?: number | undefined;
 
     /**
      * Callback to invoke when removing an option from a multi-selection. (Not necessarily the one
      * being rendered)
      */
-    removeValue?: (value: TValue | TValue[]) => void;
+    removeValue?: ((value: TValue | TValue[]) => void) | undefined;
 
     /**
      * Callback to invoke to select an option. (Not necessarily the one being rendered)
      */
-    selectValue?: (value: TValue | TValue[]) => void;
+    selectValue?: ((value: TValue | TValue[]) => void) | undefined;
 }
 
 export interface ArrowRendererProps {
@@ -252,10 +252,10 @@ export interface ValueComponentProps<TValue = OptionValues> {
     id: string;
     instancePrefix: string;
     onClick: OnValueClickHandler<TValue> | null;
-    onRemove?: SelectValueHandler<TValue>;
+    onRemove?: SelectValueHandler<TValue> | undefined;
     placeholder: ReactSelectProps<TValue>['placeholder'];
     value: Option<TValue>;
-    values?: Array<Option<TValue>>;
+    values?: Array<Option<TValue>> | undefined;
 }
 
 export interface ReactSelectProps<TValue = OptionValues> extends React.Props<ReactSelectClass<TValue>> {
@@ -263,286 +263,286 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * text to display when `allowCreate` is true.
      * @default 'Add "{label}"?'
      */
-    addLabelText?: string;
+    addLabelText?: string | undefined;
     /**
      * renders a custom drop-down arrow to be shown in the right-hand side of the select.
      * @default undefined
      */
-    arrowRenderer?: ArrowRendererHandler | null;
+    arrowRenderer?: ArrowRendererHandler | null | undefined;
     /**
      * blurs the input element after a selection has been made. Handy for lowering the keyboard on mobile devices.
      * @default false
      */
-    autoBlur?: boolean;
+    autoBlur?: boolean | undefined;
     /**
      * autofocus the component on mount
      * @deprecated. Use autoFocus instead
      * @default false
      */
-    autofocus?: boolean;
+    autofocus?: boolean | undefined;
     /**
      * autofocus the component on mount
      * @default false
      */
-    autoFocus?: boolean;
+    autoFocus?: boolean | undefined;
     /**
      *  If enabled, the input will expand as the length of its value increases
      */
-    autosize?: boolean;
+    autosize?: boolean | undefined;
     /**
      * whether pressing backspace removes the last item when there is no input value
      * @default true
      */
-    backspaceRemoves?: boolean;
+    backspaceRemoves?: boolean | undefined;
     /**
      * Message to use for screenreaders to press backspace to remove the current item
      * {label} is replaced with the item label
      * @default "Press backspace to remove..."
      */
-    backspaceToRemoveMessage?: string;
+    backspaceToRemoveMessage?: string | undefined;
     /**
      * CSS className for the outer element
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Prefix prepended to element default className if no className is defined
      */
-    classNamePrefix?: string;
+    classNamePrefix?: string | undefined;
     /**
      * title for the "clear" control when `multi` is true
      * @default "Clear all"
      */
-    clearAllText?: string;
+    clearAllText?: string | undefined;
     /**
      * Renders a custom clear to be shown in the right-hand side of the select when clearable true
      * @default undefined
      */
-    clearRenderer?: ClearRendererHandler;
+    clearRenderer?: ClearRendererHandler | undefined;
     /**
      * title for the "clear" control
      * @default "Clear value"
      */
-    clearValueText?: string;
+    clearValueText?: string | undefined;
     /**
      * whether to close the menu when a value is selected
      * @default true
      */
-    closeOnSelect?: boolean;
+    closeOnSelect?: boolean | undefined;
     /**
      * whether it is possible to reset value. if enabled, an X button will appear at the right side.
      * @default true
      */
-    clearable?: boolean;
+    clearable?: boolean | undefined;
     /**
      * whether backspace removes an item if there is no text input
      * @default true
      */
-    deleteRemoves?: boolean;
+    deleteRemoves?: boolean | undefined;
     /**
      * delimiter to use to join multiple values
      * @default ","
      */
-    delimiter?: string;
+    delimiter?: string | undefined;
     /**
      * whether the Select is disabled or not
      * @default false
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * whether escape clears the value when the menu is closed
      * @default true
      */
-    escapeClearsValue?: boolean;
+    escapeClearsValue?: boolean | undefined;
     /**
      * method to filter a single option
      */
-    filterOption?: FilterOptionHandler<TValue>;
+    filterOption?: FilterOptionHandler<TValue> | undefined;
     /**
      * method to filter the options array
      */
-    filterOptions?: FilterOptionsHandler<TValue>;
+    filterOptions?: FilterOptionsHandler<TValue> | undefined;
     /**
      * id for the underlying HTML input element
      * @default undefined
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * whether to strip diacritics when filtering
      * @default true
      */
-    ignoreAccents?: boolean;
+    ignoreAccents?: boolean | undefined;
     /**
      * whether to perform case-insensitive filtering
      * @default true
      */
-    ignoreCase?: boolean;
+    ignoreCase?: boolean | undefined;
     /**
      * custom attributes for the Input (in the Select-control) e.g: {'data-foo': 'bar'}
      * @default {}
      */
-    inputProps?: { [key: string]: any };
+    inputProps?: { [key: string]: any } | undefined;
     /**
      * renders a custom input
      */
-    inputRenderer?: InputRendererHandler;
+    inputRenderer?: InputRendererHandler | undefined;
     /**
      * allows for synchronization of component id's on server and client.
      * @see https://github.com/JedWatson/react-select/pull/1105
      */
-    instanceId?: string;
+    instanceId?: string | undefined;
     /**
      * whether the Select is loading externally or not (such as options being loaded).
      * if true, a loading spinner will be shown at the right side.
      * @default false
      */
-    isLoading?: boolean;
+    isLoading?: boolean | undefined;
     /**
      * (legacy mode) joins multiple values into a single form field with the delimiter
      * @default false
      */
-    joinValues?: boolean;
+    joinValues?: boolean | undefined;
     /**
      * the option property to use for the label
      * @default "label"
      */
-    labelKey?: string;
+    labelKey?: string | undefined;
     /**
      * (any, start) match the start or entire string when filtering
      * @default "any"
      */
-    matchPos?: string;
+    matchPos?: string | undefined;
     /**
      * (any, label, value) which option property to filter on
      * @default "any"
      */
-    matchProp?: string;
+    matchProp?: string | undefined;
     /**
      * buffer of px between the base of the dropdown and the viewport to shift if menu doesnt fit in viewport
      * @default 0
      */
-    menuBuffer?: number;
+    menuBuffer?: number | undefined;
     /**
      * optional style to apply to the menu container
      */
-    menuContainerStyle?: React.CSSProperties;
+    menuContainerStyle?: React.CSSProperties | undefined;
     /**
      * renders a custom menu with options
      */
-    menuRenderer?: MenuRendererHandler<TValue>;
+    menuRenderer?: MenuRendererHandler<TValue> | undefined;
     /**
      * optional style to apply to the menu
      */
-    menuStyle?: React.CSSProperties;
+    menuStyle?: React.CSSProperties | undefined;
     /**
      * multi-value input
      * @default false
      */
-    multi?: boolean;
+    multi?: boolean | undefined;
     /**
      * field name, for hidden `<input>` tag
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * placeholder displayed when there are no matching search results or a falsy value to hide it
      * @default "No results found"
      */
-    noResultsText?: string | JSX.Element;
+    noResultsText?: string | JSX.Element | undefined;
     /**
      * onBlur handler: function (event) {}
      */
-    onBlur?: OnBlurHandler;
+    onBlur?: OnBlurHandler | undefined;
     /**
      * whether to clear input on blur or not
      * @default true
      */
-    onBlurResetsInput?: boolean;
+    onBlurResetsInput?: boolean | undefined;
     /**
      * whether the input value should be reset when options are selected.
      * Also input value will be set to empty if 'onSelectResetsInput=true' and
      * Select will get new value that not equal previous value.
      * @default true
      */
-    onSelectResetsInput?: boolean;
+    onSelectResetsInput?: boolean | undefined;
     /**
      * whether to clear input when closing the menu through the arrow
      * @default true
      */
-    onCloseResetsInput?: boolean;
+    onCloseResetsInput?: boolean | undefined;
     /**
      * onChange handler: function (newValue) {}
      */
-    onChange?: OnChangeHandler<TValue>;
+    onChange?: OnChangeHandler<TValue> | undefined;
     /**
      * fires when the menu is closed
      */
-    onClose?: OnCloseHandler;
+    onClose?: OnCloseHandler | undefined;
     /**
      * onFocus handler: function (event) {}
      */
-    onFocus?: OnFocusHandler;
+    onFocus?: OnFocusHandler | undefined;
     /**
      * onInputChange handler: function (inputValue) {}
      */
-    onInputChange?: OnInputChangeHandler;
+    onInputChange?: OnInputChangeHandler | undefined;
     /**
      * onInputKeyDown handler: function (keyboardEvent) {}
      */
-    onInputKeyDown?: OnInputKeyDownHandler;
+    onInputKeyDown?: OnInputKeyDownHandler | undefined;
     /**
      * fires when the menu is scrolled to the bottom; can be used to paginate options
      */
-    onMenuScrollToBottom?: OnMenuScrollToBottomHandler;
+    onMenuScrollToBottom?: OnMenuScrollToBottomHandler | undefined;
     /**
      * fires when the menu is opened
      */
-    onOpen?: OnOpenHandler;
+    onOpen?: OnOpenHandler | undefined;
     /**
      * boolean to enable opening dropdown when focused
      * @default false
      */
-    openOnClick?: boolean;
+    openOnClick?: boolean | undefined;
     /**
      * open the options menu when the input gets focus (requires searchable = true)
      * @default true
      */
-    openOnFocus?: boolean;
+    openOnFocus?: boolean | undefined;
     /**
      * className to add to each option component
      */
-    optionClassName?: string;
+    optionClassName?: string | undefined;
     /**
      * option component to render in dropdown
      */
-    optionComponent?: OptionComponentType<TValue>;
+    optionComponent?: OptionComponentType<TValue> | undefined;
     /**
      * function which returns a custom way to render the options in the menu
      */
-    optionRenderer?: OptionRendererHandler<TValue>;
+    optionRenderer?: OptionRendererHandler<TValue> | undefined;
     /**
      * array of Select options
      * @default false
      */
-    options?: Options<TValue>;
+    options?: Options<TValue> | undefined;
     /**
      * number of options to jump when using page up/down keys
      * @default 5
      */
-    pageSize?: number;
+    pageSize?: number | undefined;
     /**
      * field placeholder, displayed when there's no value
      * @default "Select..."
      */
-    placeholder?: string | JSX.Element;
+    placeholder?: string | JSX.Element | undefined;
     /**
      * whether the selected option is removed from the dropdown on multi selects
      * @default true
      */
-    removeSelected?: boolean;
+    removeSelected?: boolean | undefined;
     /**
      * applies HTML5 required attribute when needed
      * @default false
      */
-    required?: boolean;
+    required?: boolean | undefined;
     /**
      * value to use when you clear the control
      */
@@ -551,64 +551,64 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * use react-select in right-to-left direction
      * @default false
      */
-    rtl?: boolean;
+    rtl?: boolean | undefined;
     /**
      * whether the viewport will shift to display the entire menu when engaged
      * @default true
      */
-    scrollMenuIntoView?: boolean;
+    scrollMenuIntoView?: boolean | undefined;
     /**
      * whether to enable searching feature or not
      * @default true;
      */
-    searchable?: boolean;
+    searchable?: boolean | undefined;
     /**
      * whether to select the currently focused value when the  [tab]  key is pressed
      */
-    tabSelectsValue?: boolean;
+    tabSelectsValue?: boolean | undefined;
     /**
      * initial field value
      */
-    value?: Option<TValue> | Options<TValue> | string | string[] | number | number[] | boolean;
+    value?: Option<TValue> | Options<TValue> | string | string[] | number | number[] | boolean | undefined;
     /**
      * the option property to use for the value
      * @default "value"
      */
-    valueKey?: string;
+    valueKey?: string | undefined;
     /**
      * function which returns a custom way to render the value selected
      * @default false
      */
-    valueRenderer?: ValueRendererHandler<TValue>;
+    valueRenderer?: ValueRendererHandler<TValue> | undefined;
     /**
      *  optional style to apply to the control
      */
-    style?: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
 
     /**
      *  optional tab index of the control
      */
-    tabIndex?: string | number;
+    tabIndex?: string | number | undefined;
 
     /**
      *  value component to render
      */
-    valueComponent?: ValueComponentType<TValue>;
+    valueComponent?: ValueComponentType<TValue> | undefined;
 
     /**
      *  optional style to apply to the component wrapper
      */
-    wrapperStyle?: React.CSSProperties;
+    wrapperStyle?: React.CSSProperties | undefined;
 
     /**
      * onClick handler for value labels: function (value, event) {}
      */
-    onValueClick?: OnValueClickHandler<TValue>;
+    onValueClick?: OnValueClickHandler<TValue> | undefined;
 
     /**
      *  pass the value to onChange as a simple value (legacy pre 1.0 mode), defaults to false
      */
-    simpleValue?: boolean;
+    simpleValue?: boolean | undefined;
 }
 
 export interface ReactCreatableSelectProps<TValue = OptionValues> extends ReactSelectProps<TValue> {
@@ -616,51 +616,51 @@ export interface ReactCreatableSelectProps<TValue = OptionValues> extends ReactS
      * Searches for any matching option within the set of options. This function prevents
      * duplicate options from being created.
      */
-    isOptionUnique?: IsOptionUniqueHandler<TValue>;
+    isOptionUnique?: IsOptionUniqueHandler<TValue> | undefined;
 
     /**
      * Determines if the current input text represents a valid option.
      */
-    isValidNewOption?: IsValidNewOptionHandler;
+    isValidNewOption?: IsValidNewOptionHandler | undefined;
 
     /**
      * factory to create new options
      */
-    newOptionCreator?: NewOptionCreatorHandler<TValue>;
+    newOptionCreator?: NewOptionCreatorHandler<TValue> | undefined;
 
     /**
      * Creates prompt/placeholder for option text.
      */
-    promptTextCreator?: PromptTextCreatorHandler;
+    promptTextCreator?: PromptTextCreatorHandler | undefined;
 
     /**
      * Decides if a keyDown event (eg its 'keyCode') should result in the creation of a new option.
      */
-    shouldKeyDownEventCreateNewOption?: ShouldKeyDownEventCreateNewOptionHandler;
+    shouldKeyDownEventCreateNewOption?: ShouldKeyDownEventCreateNewOptionHandler | undefined;
 
     /**
      * new option click handler: function (option) {}
      */
-    onNewOptionClick?: OnNewOptionClickHandler<TValue>;
+    onNewOptionClick?: OnNewOptionClickHandler<TValue> | undefined;
 
     /**
      * true: Show new option at top of list
      * false: Show new option at bottom of list
      * @default true
      */
-    showNewOptionAtTop?: boolean;
+    showNewOptionAtTop?: boolean | undefined;
 }
 
 export interface ReactAsyncSelectProps<TValue = OptionValues> extends ReactSelectProps<TValue> {
     /**
      * Whether to auto-load the default async options set.
      */
-    autoload?: boolean;
+    autoload?: boolean | undefined;
 
     /**
      *  object to use to cache results; can be null to disable cache
      */
-    cache?: { [key: string]: any } | boolean;
+    cache?: { [key: string]: any } | boolean | undefined;
 
     /**
      *  function to call to load options asynchronously
@@ -670,11 +670,11 @@ export interface ReactAsyncSelectProps<TValue = OptionValues> extends ReactSelec
     /**
      *  replaces the placeholder while options are loading
      */
-    loadingPlaceholder?: string | JSX.Element;
+    loadingPlaceholder?: string | JSX.Element | undefined;
     /**
      *  displayed in the drop down list when the user did not type anything yet
      */
-    searchPromptText?: string;
+    searchPromptText?: string | undefined;
 }
 
 export type ReactAsyncCreatableSelectProps<TValue = OptionValues> = ReactAsyncSelectProps<TValue> &

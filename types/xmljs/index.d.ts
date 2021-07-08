@@ -26,31 +26,31 @@ interface ParserParameters {
     /**
      * Whenever or not to use a strict parser
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
     /**
      * Do not trimtext and comment nodes
      */
-    noTrim?: boolean;
+    noTrim?: boolean | undefined;
     /**
      * Do not normalize whitespaces in text
      */
-    noNormalizeWhitespaces?: boolean;
+    noNormalizeWhitespaces?: boolean | undefined;
     /**
      * Turn the tagsNames to lowercase
      */
-    lowercaseTagnames?: boolean;
+    lowercaseTagnames?: boolean | undefined;
     /**
      * Disables xml namespaces
      */
-    noNamespaces?: boolean;
+    noNamespaces?: boolean | undefined;
     /**
      * Disable position tracing of sax
      */
-    noTracing?: boolean;
+    noTracing?: boolean | undefined;
     /**
      * Allow only predefined entities
      */
-    strictEntities?: boolean;
+    strictEntities?: boolean | undefined;
 }
 
 /*~ Write your module's methods and properties in this class */

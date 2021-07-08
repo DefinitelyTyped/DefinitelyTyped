@@ -22,6 +22,6 @@ declare namespace inflate {
         /**
          * The encoding of the stream. If not given, will look in `stream.headers['content-encoding']`.
          */
-        gzip?: 'deflate' | 'gzip' | 'identity';
+        gzip?: 'deflate' | 'gzip' | 'identity' | undefined;
     }
 }

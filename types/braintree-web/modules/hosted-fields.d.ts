@@ -6,11 +6,11 @@ export interface HostedFieldsFieldMaskInput {
      * The character to use when masking the input.
      * @default '•'
      */
-    character?: string;
+    character?: string | undefined;
     /**
      * Only applicable for the credit card field. Whether or not to show the last 4 digits of the card when masking.
      */
-    showLastFour?: boolean;
+    showLastFour?: boolean | undefined;
 }
 
 /**
@@ -20,31 +20,31 @@ export interface HostedFieldsField {
     /**
      * @deprecated Now an alias for `container`.
      */
-    selector?: string;
-    container?: string | HTMLElement;
-    placeholder?: string;
-    type?: string;
-    formatInput?: boolean;
-    maskInput?: boolean | HostedFieldsFieldMaskInput;
-    select?: boolean | { options: string[] };
-    maxCardLength?: number;
-    maxlength?: number;
-    minlength?: number;
-    prefill?: string;
-    rejectUnsupportedCards?: boolean;
+    selector?: string | undefined;
+    container?: string | HTMLElement | undefined;
+    placeholder?: string | undefined;
+    type?: string | undefined;
+    formatInput?: boolean | undefined;
+    maskInput?: boolean | HostedFieldsFieldMaskInput | undefined;
+    select?: boolean | { options: string[] } | undefined;
+    maxCardLength?: number | undefined;
+    maxlength?: number | undefined;
+    minlength?: number | undefined;
+    prefill?: string | undefined;
+    rejectUnsupportedCards?: boolean | undefined;
 }
 
 /**
  * An object that has {@link module:braintree-web/hosted-fields~field field objects} for each field. Used in {@link module:braintree-web/hosted-fields~create create}.
  */
 export interface HostedFieldFieldOptions {
-    cardholderName?: HostedFieldsField;
-    cvv: HostedFieldsField;
-    expirationDate?: HostedFieldsField;
-    expirationMonth?: HostedFieldsField;
-    expirationYear?: HostedFieldsField;
+    cardholderName?: HostedFieldsField | undefined;
+    cvv?: HostedFieldsField | undefined;
+    expirationDate?: HostedFieldsField | undefined;
+    expirationMonth?: HostedFieldsField | undefined;
+    expirationYear?: HostedFieldsField | undefined;
     number: HostedFieldsField;
-    postalCode?: HostedFieldsField;
+    postalCode?: HostedFieldsField | undefined;
 }
 
 /**
@@ -180,13 +180,13 @@ export interface HostedFields {
      * }, callback);
      */
     create(options: {
-        client?: Client;
-        authorization?: string;
+        client?: Client | undefined;
+        authorization?: string | undefined;
         fields: HostedFieldFieldOptions;
         styles?: any;
     }): Promise<HostedFields>;
     create(
-        options: { client?: Client; authorization?: string; fields: HostedFieldFieldOptions; styles?: any },
+        options: { client?: Client | undefined; authorization?: string | undefined; fields: HostedFieldFieldOptions; styles?: any },
         callback: callback,
     ): void;
 
@@ -275,11 +275,11 @@ export interface HostedFields {
      * });
      */
     tokenize(options?: {
-        vault?: boolean;
-        cardholderName?: string;
+        vault?: boolean | undefined;
+        cardholderName?: string | undefined;
         billingAddress?: any;
     }): Promise<HostedFieldsTokenizePayload>;
-    tokenize(options: { vault?: boolean; cardholderName?: string; billingAddress?: any }, callback: callback): void;
+    tokenize(options: { vault?: boolean | undefined; cardholderName?: string | undefined; billingAddress?: any }, callback: callback): void;
     tokenize(callback: callback): void;
 
     /**

@@ -110,54 +110,54 @@ declare module 'angular' {
              * This option allows you to control the dialog's look, you can use built-in themes or create your own styled modals.
              * It will be appended with the "ngdialog" class e.g. className is "default-theme flat-ui" it will be class="ngdialog default-theme flat-ui".
              */
-            className?: string;
+            className?: string | undefined;
             
             /**
              * Unlike the className property, which overrides any default classes specified through the setDefaults() method (see docs), appendClassName allows for the addition of a class on top of any defaults.
              */
-            appendClassName?: string;
+            appendClassName?: string | undefined;
 
             /**
              * If true then animation for the dialog will be disabled, default false.
              */
-            disableAnimation?: boolean;
+            disableAnimation?: boolean | undefined;
 
             /**
              * If false it allows to hide overlay div behind the modals, default true.
              */
-            overlay?: boolean;
+            overlay?: boolean | undefined;
 
             /**
              * If false it allows to hide close button on modals, default true.
              */
-            showClose?: boolean;
+            showClose?: boolean | undefined;
 
             /**
              * It allows to close modals by clicking Esc button, default true.
              * This will close all open modals if there several of them open at the same time.
              */
-            closeByEscape?: boolean;
+            closeByEscape?: boolean | undefined;
 
             /**
              * It allows to close modals by clicking on overlay background, default true. If @see Hammer.js is loaded, it will listen for tap instead of click.
              */
-            closeByDocument?: boolean;
+            closeByDocument?: boolean | undefined;
 
             /**
              * Listens for $locationChangeSuccess event and closes open dialogs if true (also handles the ui.router $stateChangeSuccess event if ui.router is used)
              * default : false
              */
-            closeByNavigation?: boolean;
+            closeByNavigation?: boolean | undefined;
 
             /**
              * If true allows to use plain string as template, default false.
              */
-            plain?: boolean;
+            plain?: boolean | undefined;
 
             /**
              * Give a name for a dialog instance. It is useful for identifying specific dialog if there are multiple dialog boxes opened.
              */
-            name?: string | number;
+            name?: string | number | undefined;
 
             /**
              * Provide either the name of a function or a function to be called before the dialog is closed.
@@ -166,40 +166,40 @@ declare module 'angular' {
              *
              * more: https://github.com/likeastore/ngDialog#preclosecallback-string--function
              */
-            preCloseCallback?: string|Function;
+            preCloseCallback?: string|Function | undefined;
 
             /**
              * Pass false to disable template caching. Useful for developing purposes, default is true.
              */
-            cache?: boolean;
+            cache?: boolean | undefined;
 
             /**
              * Specify your element where to append dialog instance, accepts selector string (e.g. #yourId, .yourClass).
              * If not specified appends dialog to body as default behavior.
              */
-            appendTo?: string;
+            appendTo?: string | undefined;
 
             /**
              * When true, ensures that the focused element remains within the dialog to conform to accessibility recommendations.
              * Default value is true
              */
-            trapFocus?: boolean;
+            trapFocus?: boolean | undefined;
 
             /**
              * When true, closing the dialog restores focus to the element that launched it. Designed to improve keyboard
              * accessibility. Default value is true
              */
-            preserveFocus?: boolean;
+            preserveFocus?: boolean | undefined;
 
             /**
              * When true, automatically selects appropriate values for any unspecified accessibility attributes. Default value is true
              */
-            ariaAuto? : boolean;
+            ariaAuto? : boolean | undefined;
 
             /**
              * Specifies the value for the role attribute that should be applied to the dialog element. Default value is null (unspecified)
              */
-            ariaRole?: string;
+            ariaRole?: string | undefined;
 
             /**
              * Specifies the value for the aria-labelledby attribute that should be applied to the dialog element.
@@ -207,38 +207,38 @@ declare module 'angular' {
              *
              * If specified, the value is not validated against the DOM
              */
-            ariaLabelledById?: string;
+            ariaLabelledById?: string | undefined;
 
             /**
              * Specifies the CSS selector for the element to be referenced by the aria-labelledby attribute on the dialog element. Default value is null (unspecified)
              *
              * If specified, the first matching element is used.
              */
-            ariaLabelledBySelector?: string;
+            ariaLabelledBySelector?: string | undefined;
 
             /**
              * Specifies the value for the aria-describedby attribute that should be applied to the dialog element. Default value is null (unspecified)
              *
              * If specified, the value is not validated against the DOM.
              */
-            ariaDescribedById?: string;
+            ariaDescribedById?: string | undefined;
 
         /**
          * Specifies the CSS selector for the element to be referenced by the aria-describedby attribute on the dialog element. Default value is null (unspecified)
          *
          * If specified, the first matching element is used.
          */
-        ariaDescribedBySelector?: string;
+        ariaDescribedBySelector?: string | undefined;
 
         /**
          * Specifies the width of the dialog content element. Default value is null (unspecified)
          */
-        width?: string|number;
+        width?: string|number | undefined;
 
         /**
          * Specifies the height of the dialog content element. Default value is null (unspecified)
          */
-        height?: string|number;
+        height?: string|number | undefined;
     }
 
         /**
@@ -246,31 +246,31 @@ declare module 'angular' {
          */
         interface IDialogOpenOptions extends IDialogOptions {
             template: string;
-            controller?: string| any[] | any;
-            controllerAs?: string;
-            bindToController?: boolean;
+            controller?: string| any[] | any | undefined;
+            controllerAs?: string | undefined;
+            bindToController?: boolean | undefined;
 
             /**
              * Scope object that will be passed to dialog. If you use controller with separate $scope service this object will be passed to $scope.$parent param.
              */
-            scope?: IDialogScope;
+            scope?: IDialogScope | undefined;
 
             /**
              * An optional map of dependencies which should be injected into the controller. If any of these dependencies
              * are promises, ngDialog will wait for them all to be resolved or one to be rejected before the controller
              * is instantiated.
              */
-            resolve?: {[key : string] : string | Function};
+            resolve?: {[key : string] : string | Function} | undefined;
 
             /**
              * Any serializable data that you want to be stored in the controller's dialog scope. ($scope.ngDialogData).
              * From version 0.3.6 $scope.ngDialogData keeps references to the objects instead of copying them.
              */
-            data?: string | {} | any[];
+            data?: string | {} | any[] | undefined;
         }
 
         interface IDialogOpenConfirmOptions extends IDialogOpenOptions {
-            scope?: IDialogConfirmScope;
+            scope?: IDialogConfirmScope | undefined;
         }
     }
 }

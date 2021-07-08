@@ -12,6 +12,6 @@ import * as Stream from "stream";
 // JPEG format. See https://www.npmjs.com/package/save-pixels#requiresave-pixelsarray-type-options.
 declare function savePixels(array: NdArray, type: "png" | "gif"): Stream;
 declare function savePixels(array: NdArray, type: "canvas"): HTMLCanvasElement;
-declare function savePixels(array: NdArray, type: "jpeg" | "jpg", options?: { quality?: number }): Stream;
+declare function savePixels(array: NdArray, type: "jpeg" | "jpg", options?: { quality?: number | undefined }): Stream;
 
 export = savePixels;

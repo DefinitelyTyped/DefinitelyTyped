@@ -14,10 +14,10 @@ export const isProxying: boolean;
 export interface Options {
     host: string;
     port: number;
-    connect?: 'neither' | 'https' | 'both';
-    protocol?: 'http:' | 'https:';
-    proxyAuth?: string;
-    sockets?: number;
-    proxyHttpsOptions?: { [key: string]: any };
-    originHttpsOptions?: { [key: string]: any };
+    connect?: 'neither' | 'https' | 'both' | undefined;
+    protocol?: 'http:' | 'https:' | undefined;
+    proxyAuth?: string | undefined;
+    sockets?: number | undefined;
+    proxyHttpsOptions?: { [key: string]: any } | undefined;
+    originHttpsOptions?: { [key: string]: any } | undefined;
 }

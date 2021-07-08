@@ -3,16 +3,14 @@
 // Definitions by: AverageHelper <https://github.com/AverageHelper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+import implementation = require('./implementation');
+import getPolyfill = require('./polyfill');
+import shim = require('./shim');
 
-declare class AggregateError extends Error implements NodeJS.ErrnoException {
-    readonly errors: ReadonlyArray<unknown>;
-    readonly name: "AggregateError";
-    readonly message: string;
-
-    constructor(errors: ReadonlyArray<unknown>, message?: string);
-
-    static shim(): void;
+declare class AggregateError extends implementation {
+    static getPolyfill: typeof getPolyfill;
+    static implementation: typeof implementation;
+    static shim: typeof shim;
 }
 
 export = AggregateError;

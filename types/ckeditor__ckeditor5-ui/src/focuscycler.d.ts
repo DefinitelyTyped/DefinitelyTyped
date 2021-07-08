@@ -19,11 +19,11 @@ export default class FocusCycler {
     constructor(options?: {
         focusables: Collection<View>;
         focusTracker: FocusTracker;
-        keystrokeHandler?: KeyStrokeHandler;
+        keystrokeHandler?: KeyStrokeHandler | undefined;
         actions?: {
             focusPrevious: string | string[];
             focusNext: string | string[];
-        };
+        } | undefined;
     });
     focusFirst(): void;
     focusLast(): void;

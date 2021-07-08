@@ -79,11 +79,11 @@ export class ZipFile extends EventEmitter {
 }
 
 export interface Options {
-    autoClose?: boolean;
-    lazyEntries?: boolean;
-    decodeStrings?: boolean;
-    validateEntrySizes?: boolean;
-    strictFileNames?: boolean;
+    autoClose?: boolean | undefined;
+    lazyEntries?: boolean | undefined;
+    decodeStrings?: boolean | undefined;
+    validateEntrySizes?: boolean | undefined;
+    strictFileNames?: boolean | undefined;
 }
 
 export function open(path: string, options: Options, callback?: (err?: Error, zipfile?: ZipFile) => void): void;

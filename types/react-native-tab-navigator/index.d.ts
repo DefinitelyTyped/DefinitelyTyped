@@ -11,61 +11,61 @@ export interface TabNavigatorProps {
     /**
      * Define for rendered scene
      */
-    sceneStyle?: ViewStyle;
+    sceneStyle?: ViewStyle | undefined;
 
     /**
      * Define style for TabBar
      */
-    tabBarStyle?: ViewStyle;
+    tabBarStyle?: ViewStyle | undefined;
 
     /**
      * Define shadow style for tabBar
      */
-    tabBarShadowStyle?: ViewStyle;
+    tabBarShadowStyle?: ViewStyle | undefined;
 
     /**
      * Disable onPress opacity for Tab
      *
      * @default false
      */
-    hidesTabTouch?: boolean;
+    hidesTabTouch?: boolean | undefined;
 }
 
 interface TabNavigatorItemProps {
     /**
      * Allow font scaling for title
      */
-    allowFontScaling?: boolean;
+    allowFontScaling?: boolean | undefined;
 
     /**
      * Text for Item badge
      */
-    badgeText?: string | number;
+    badgeText?: string | number | undefined;
 
     /**
      * Return whether the item is selected
      */
-    selected?: boolean;
+    selected?: boolean | undefined;
 
     /**
      * Styling for selected Item title
      */
-    selectedTitleStyle?: TextStyle;
+    selectedTitleStyle?: TextStyle | undefined;
 
     /**
      * Styling for tab
      */
-    tabStyle?: ViewStyle;
+    tabStyle?: ViewStyle | undefined;
 
     /**
      * Item title
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * Styling for Item title
      */
-    titleStyle?: TextStyle;
+    titleStyle?: TextStyle | undefined;
 
     /**
      * onPress method for Item

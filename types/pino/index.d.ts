@@ -179,10 +179,10 @@ declare namespace P {
      */
     // TODO: use SonicBoom constructor options interface when available
     interface DestinationObjectOptions {
-        fd?: string | number;
-        dest?: string;
-        minLength?: number;
-        sync?: boolean;
+        fd?: string | number | undefined;
+        dest?: string | undefined;
+        minLength?: number | undefined;
+        sync?: boolean | undefined;
     }
 
     /**
@@ -245,59 +245,59 @@ declare namespace P {
         /**
          * Avoid error causes by circular references in the object tree. Default: `true`.
          */
-        safe?: boolean;
+        safe?: boolean | undefined;
         /**
          * The name of the logger. Default: `undefined`.
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * an object containing functions for custom serialization of objects.
          * These functions should return an JSONifiable object and they should never throw. When logging an object,
          * each top-level property matching the exact key of a serializer will be serialized using the defined serializer.
          */
-        serializers?: { [key: string]: SerializerFn };
+        serializers?: { [key: string]: SerializerFn } | undefined;
         /**
          * Enables or disables the inclusion of a timestamp in the log message. If a function is supplied, it must
          * synchronously return a JSON string representation of the time. If set to `false`, no timestamp will be included in the output.
          * See stdTimeFunctions for a set of available functions for passing in as a value for this option.
          * Caution: any sort of formatted time will significantly slow down Pino's performance.
          */
-        timestamp?: TimeFn | boolean;
+        timestamp?: TimeFn | boolean | undefined;
         /**
          * One of the supported levels or `silent` to disable logging. Any other value defines a custom level and
          * requires supplying a level value via `levelVal`. Default: 'info'.
          */
-        level?: LevelWithSilent | string;
+        level?: LevelWithSilent | string | undefined;
         /**
          * Outputs the level as a string instead of integer. Default: `false`.
          */
-        useLevelLabels?: boolean;
+        useLevelLabels?: boolean | undefined;
         /**
          * Changes the property `level` to any string value you pass in. Default: 'level'
          */
-        levelKey?: string;
+        levelKey?: string | undefined;
         /**
          * (DEPRECATED, use `levelKey`) Changes the property `level` to any string value you pass in. Default: 'level'
          */
-        changeLevelName?: string;
+        changeLevelName?: string | undefined;
         /**
          * Use this option to define additional logging levels.
          * The keys of the object correspond the namespace of the log level, and the values should be the numerical value of the level.
          */
-        customLevels?: { [key: string]: number };
+        customLevels?: { [key: string]: number } | undefined;
         /**
          * Use this option to only use defined `customLevels` and omit Pino's levels.
          * Logger's default `level` must be changed to a value in `customLevels` in order to use `useOnlyCustomLevels`
          * Warning: this option may not be supported by downstream transports.
          */
-        useOnlyCustomLevels?: boolean;
+        useOnlyCustomLevels?: boolean | undefined;
 
         /**
          * If provided, the `mixin` function is called each time one of the active logging methods
          * is called. The function must synchronously return an object. The properties of the
          * returned object will be added to the logged JSON.
          */
-        mixin?: MixinFn;
+        mixin?: MixinFn | undefined;
 
         /**
          * As an array, the redact option specifies paths that should have their values redacted from any log output.
@@ -310,25 +310,25 @@ declare namespace P {
          *      censor (String): Optional. A value to overwrite key which are to be redacted. Default: '[Redacted]'
          *      remove (Boolean): Optional. Instead of censoring the value, remove both the key and the value. Default: false
          */
-        redact?: string[] | redactOptions;
+        redact?: string[] | redactOptions | undefined;
 
         /**
          * When defining a custom log level via level, set to an integer value to define the new level. Default: `undefined`.
          */
-        levelVal?: number;
+        levelVal?: number | undefined;
         /**
          * The string key for the 'message' in the JSON object. Default: "msg".
          */
-        messageKey?: string;
+        messageKey?: string | undefined;
         /**
          * The string key to place any logged object under.
          */
-        nestedKey?: string;
+        nestedKey?: string | undefined;
         /**
          * Enables pino.pretty. This is intended for non-production configurations. This may be set to a configuration
          * object as outlined in http://getpino.io/#/docs/API?id=pretty. Default: `false`.
          */
-        prettyPrint?: boolean | PrettyOptions;
+        prettyPrint?: boolean | PrettyOptions | undefined;
         /**
          * Allows to optionally define which prettifier module to use.
          */
@@ -344,7 +344,7 @@ declare namespace P {
         /**
          * Enables logging. Default: `true`.
          */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
         /**
          * Browser only, see http://getpino.io/#/docs/browser.
          */
@@ -356,7 +356,7 @@ declare namespace P {
              * @example
              * pino.info('hi') // creates and logs {msg: 'hi', level: 30, time: <ts>}
              */
-            asObject?: boolean;
+            asObject?: boolean | undefined;
             /**
              * Instead of passing log messages to `console.log` they can be passed to a supplied function. If `write` is
              * set to a single function, all logging objects are passed to this function. If `write` is an object, it
@@ -389,13 +389,13 @@ declare namespace P {
             write?:
                 | WriteFn
                 | ({
-                      fatal?: WriteFn;
-                      error?: WriteFn;
-                      warn?: WriteFn;
-                      info?: WriteFn;
-                      debug?: WriteFn;
-                      trace?: WriteFn;
-                  } & { [logLevel: string]: WriteFn });
+                      fatal?: WriteFn | undefined;
+                      error?: WriteFn | undefined;
+                      warn?: WriteFn | undefined;
+                      info?: WriteFn | undefined;
+                      debug?: WriteFn | undefined;
+                      trace?: WriteFn | undefined;
+                  } & { [logLevel: string]: WriteFn }) | undefined;
 
             /**
              * The serializers provided to `pino` are ignored by default in the browser, including the standard
@@ -452,7 +452,7 @@ declare namespace P {
              *   }
              * })
              */
-            serialize?: boolean | string[];
+            serialize?: boolean | string[] | undefined;
 
             /**
              * Options for transmission of logs.
@@ -484,19 +484,19 @@ declare namespace P {
                  * the `send` function will be called based on the main logging `level` (set via `options.level`,
                  * defaulting to `info`).
                  */
-                level?: Level | string;
+                level?: Level | string | undefined;
                 /**
                  * Remotely record log messages.
                  *
                  * @description Called after writing the log message.
                  */
                 send: (level: Level, logEvent: LogEvent) => void;
-            };
-        };
+            } | undefined;
+        } | undefined;
         /**
          * key-value object added as child logger to each log line. If set to null the base child logger is not added
          */
-        base?: { [key: string]: any } | null;
+        base?: { [key: string]: any } | null | undefined;
 
         /**
          * An object containing functions for formatting the shape of the log lines.
@@ -510,22 +510,22 @@ declare namespace P {
              * The default shape is { level: number }.
              * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
              */
-            level?: (label: string, number: number) => object;
+            level?: ((label: string, number: number) => object) | undefined;
             /**
              * Changes the shape of the bindings.
              * The default shape is { pid, hostname }.
              * The function takes a single argument, the bindings object.
              * It will be called every time a child logger is created.
              */
-            bindings?: (bindings: Bindings) => object;
+            bindings?: ((bindings: Bindings) => object) | undefined;
             /**
              * Changes the shape of the log object.
              * This function will be called every time one of the log methods (such as .info) is called.
              * All arguments passed to the log method, except the message, will be pass to this function.
              * By default it does not change the shape of the log object.
              */
-            log?: (object: object) => object;
-        };
+            log?: ((object: object) => object) | undefined;
+        } | undefined;
 
         /**
          * An object mapping to hook functions. Hook functions allow for customizing internal logger operations.
@@ -538,8 +538,8 @@ declare namespace P {
              * log method and method is the log method itself, and level is the log level. This hook must invoke the method function by
              * using apply, like so: method.apply(this, newArgumentsArray).
              */
-            logMethod?: (args: any[], method: LogFn, level: number) => void;
-        };
+            logMethod?: ((args: any[], method: LogFn, level: number) => void) | undefined;
+        } | undefined;
     }
 
     // Re-export for backward compatibility
@@ -547,7 +547,7 @@ declare namespace P {
         /**
          * Suppress warning on first synchronous flushing.
          */
-        suppressFlushSyncWarning?: boolean;
+        suppressFlushSyncWarning?: boolean | undefined;
     };
 
     type Level = "fatal" | "error" | "warn" | "info" | "debug" | "trace";
@@ -562,8 +562,8 @@ declare namespace P {
     type LogDescriptor = Record<string, any>; // TODO replace `any` with `unknown` when TypeScript version >= 3.0
 
     interface Bindings {
-        level?: Level | string;
-        serializers?: { [key: string]: SerializerFn };
+        level?: Level | string | undefined;
+        serializers?: { [key: string]: SerializerFn } | undefined;
         [key: string]: any;
     }
 
@@ -776,7 +776,7 @@ declare namespace P {
 
     interface redactOptions {
         paths: string[];
-        censor?: string | ((v: any) => any);
-        remove?: boolean;
+        censor?: string | ((v: any) => any) | undefined;
+        remove?: boolean | undefined;
     }
 }

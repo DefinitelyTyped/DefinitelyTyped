@@ -23,7 +23,7 @@ import {
     TextureEncoding,
     Material,
 } from '../../../src/Three';
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass';
 import { SSRrShader, SSRrDepthShader } from '../shaders/SSRrShader';
 import { CopyShader } from '../shaders/CopyShader';
 
@@ -31,11 +31,11 @@ export interface SSRrPassParams {
     renderer: WebGLRenderer;
     scene: Scene;
     camera: Camera;
-    width?: number;
-    height?: number;
+    width?: number | undefined;
+    height?: number | undefined;
     selects: Mesh[] | null;
     encoding: TextureEncoding;
-    morphTargets?: boolean;
+    morphTargets?: boolean | undefined;
 }
 
 export class SSRrPass extends Pass {
@@ -87,7 +87,7 @@ export class SSRrPass extends Pass {
     depthRenderMaterial: ShaderMaterial;
     copyMaterial: ShaderMaterial;
 
-    fsQuad: Pass.FullScreenQuad;
+    fsQuad: FullScreenQuad;
 
     originalClearColor: Color;
 

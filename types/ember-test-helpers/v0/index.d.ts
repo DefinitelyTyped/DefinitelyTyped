@@ -13,9 +13,9 @@ declare module 'ember-test-helpers' {
     import RSVP from 'rsvp';
 
     interface ModuleCallbacks {
-        integration?: boolean;
-        unit?: boolean;
-        needs?: string[];
+        integration?: boolean | undefined;
+        unit?: boolean | undefined;
+        needs?: string[] | undefined;
 
         beforeSetup?(assert?: any): void;
         setup?(assert?: any): void;
@@ -87,9 +87,9 @@ declare module 'ember-test-helpers/wait' {
     import RSVP from 'rsvp';
 
     interface WaitOptions {
-        waitForTimers?: boolean;
-        waitForAJAX?: boolean;
-        waitForWaiters?: boolean;
+        waitForTimers?: boolean | undefined;
+        waitForAJAX?: boolean | undefined;
+        waitForWaiters?: boolean | undefined;
     }
 
     export default function wait(options?: WaitOptions): RSVP.Promise<void>;

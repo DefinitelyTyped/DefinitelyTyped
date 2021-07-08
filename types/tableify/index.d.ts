@@ -14,8 +14,8 @@ declare function tableify<T extends Record<string, any>>(
 declare function tableify(obj: any): string;
 declare namespace tableify {
     interface Config {
-        classes?: boolean;
-        classPrefix?: string;
+        classes?: boolean | undefined;
+        classPrefix?: string | undefined;
     }
     function defaults(config: Config): {
         <T extends Record<string, any>>(

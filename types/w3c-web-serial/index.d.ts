@@ -13,18 +13,18 @@ type FlowControlType = 'none' | 'hardware';
 /*~ https://wicg.github.io/serial/#dom-serialoptions */
 interface SerialOptions {
     baudRate: number;
-    dataBits?: number;
-    stopBits?: number;
-    parity?: ParityType;
-    bufferSize?: number;
-    flowControl?: FlowControlType;
+    dataBits?: number | undefined;
+    stopBits?: number | undefined;
+    parity?: ParityType | undefined;
+    bufferSize?: number | undefined;
+    flowControl?: FlowControlType | undefined;
 }
 
 /*~ https://wicg.github.io/serial/#dom-serialoutputsignals */
 interface SerialOutputSignals {
-    dataTerminalReady?: boolean;
-    requestToSend?: boolean;
-    break?: boolean;
+    dataTerminalReady?: boolean | undefined;
+    requestToSend?: boolean | undefined;
+    break?: boolean | undefined;
 }
 
 /*~ https://wicg.github.io/serial/#dom-serialinputsignals */
@@ -37,8 +37,8 @@ interface SerialInputSignals {
 
 /*~ https://wicg.github.io/serial/#serialportinfo-dictionary */
 interface SerialPortInfo {
-    usbVendorId?: number;
-    usbProductId?: number;
+    usbVendorId?: number | undefined;
+    usbProductId?: number | undefined;
 }
 
 /*~ https://wicg.github.io/serial/#dom-serialport */
@@ -74,13 +74,13 @@ declare class SerialPort extends EventTarget {
 
 /*~ https://wicg.github.io/serial/#dom-serialportfilter */
 interface SerialPortFilter {
-    usbVendorId?: number;
-    usbProductId?: number;
+    usbVendorId?: number | undefined;
+    usbProductId?: number | undefined;
 }
 
 /*~ https://wicg.github.io/serial/#dom-serialportrequestoptions */
 interface SerialPortRequestOptions {
-    filters?: SerialPortFilter[];
+    filters?: SerialPortFilter[] | undefined;
 }
 
 /*~ https://wicg.github.io/serial/#dom-serial */

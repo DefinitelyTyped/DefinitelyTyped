@@ -943,7 +943,7 @@ export interface Response<
      * After middleware.init executed, Response will contain req property
      * See: express/lib/middleware/init.js
      */
-    req?: Request;
+    req: Request;
 }
 
 export interface Handler extends RequestHandler {}

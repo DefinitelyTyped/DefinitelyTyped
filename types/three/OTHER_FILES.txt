@@ -273,3 +273,6 @@ examples/jsm/utils/SceneUtils.d.ts
 examples/jsm/utils/ShadowMapViewer.d.ts
 examples/jsm/utils/SkeletonUtils.d.ts
 examples/jsm/utils/UVsDebug.d.ts
+examples/jsm/webxr/OculusHandModel.d.ts
+examples/jsm/webxr/OculusHandPointerModel.d.ts
+examples/jsm/webxr/Text2D.d.ts

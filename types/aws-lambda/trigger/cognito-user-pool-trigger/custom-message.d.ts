@@ -6,7 +6,7 @@ export interface BaseCustomMessageTriggerEvent<T extends string> extends BaseTri
       userAttributes: StringMap;
       codeParameter: string;
       usernameParameter: string;
-      clientMetadata?: StringMap;
+      clientMetadata?: StringMap | undefined;
   };
   response: {
       smsMessage: string;

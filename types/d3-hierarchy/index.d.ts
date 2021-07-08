@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-hierarchy module 2.0
+// Type definitions for D3JS d3-hierarchy module 3.0
 // Project: https://github.com/d3/d3-hierarchy/, https://d3js.org/d3-hierarchy
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -7,7 +7,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 3.0.1
 
 // -----------------------------------------------------------------------
 // Hierarchy
@@ -49,17 +49,17 @@ export interface HierarchyNode<Datum> {
     /**
      * An array of child nodes, if any; undefined for leaf nodes.
      */
-    children?: this[];
+    children?: this[] | undefined;
 
     /**
      * Aggregated numeric value as calculated by `sum(value)` or `count()`, if previously invoked.
      */
-    readonly value?: number;
+    readonly value?: number | undefined;
 
     /**
      * Optional node id string set by `StratifyOperator`, if hierarchical data was created from tabular data using stratify().
      */
-    readonly id?: string;
+    readonly id?: string | undefined;
 
     /**
      * Returns the array of ancestors nodes, starting with this node, then followed by each parent up to the root.
@@ -221,6 +221,7 @@ export interface StratifyOperator<Datum> {
 /**
  * Constructs a new stratify operator with the default settings.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function stratify<Datum>(): StratifyOperator<Datum>;
 
 // -----------------------------------------------------------------------
@@ -308,6 +309,7 @@ export interface ClusterLayout<Datum> {
 /**
  * Creates a new cluster layout with default settings.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function cluster<Datum>(): ClusterLayout<Datum>;
 
 // -----------------------------------------------------------------------
@@ -365,6 +367,7 @@ export interface TreeLayout<Datum> {
 /**
  * Creates a new tree layout with default settings.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function tree<Datum>(): TreeLayout<Datum>;
 
 // -----------------------------------------------------------------------
@@ -592,6 +595,7 @@ export interface TreemapLayout<Datum> {
 /**
  * Creates a new treemap layout with default settings.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function treemap<Datum>(): TreemapLayout<Datum>;
 
 // Tiling functions ------------------------------------------------------
@@ -703,6 +707,7 @@ export interface PartitionLayout<Datum> {
 /**
  * Creates a new partition layout with the default settings.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function partition<Datum>(): PartitionLayout<Datum>;
 
 // -----------------------------------------------------------------------
@@ -814,6 +819,7 @@ export interface PackLayout<Datum> {
 /**
  * Creates a new pack layout with the default settings.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function pack<Datum>(): PackLayout<Datum>;
 
 // -----------------------------------------------------------------------
@@ -829,12 +835,12 @@ export interface PackRadius {
     /**
      * The x-coordinate of the circle’s center.
      */
-    x?: number;
+    x?: number | undefined;
 
     /**
      * The y-coordinate of the circle’s center.
      */
-    y?: number;
+    y?: number | undefined;
 }
 
 export interface PackCircle {
@@ -872,4 +878,5 @@ export function packSiblings<Datum extends PackRadius>(circles: Datum[]): Array<
  *
  * @param circles The specified array of circles to pack.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function packEnclose<Datum extends PackCircle>(circles: Datum[]): PackCircle;

@@ -38,10 +38,10 @@ declare module 'process' {
 
             interface ProcessRelease {
                 name: string;
-                sourceUrl?: string;
-                headersUrl?: string;
-                libUrl?: string;
-                lts?: string;
+                sourceUrl?: string | undefined;
+                headersUrl?: string | undefined;
+                libUrl?: string | undefined;
+                lts?: string | undefined;
             }
 
             interface ProcessVersions extends Dict<string> {
@@ -59,6 +59,7 @@ declare module 'process' {
                 | 'android'
                 | 'darwin'
                 | 'freebsd'
+                | 'haiku'
                 | 'linux'
                 | 'openbsd'
                 | 'sunos'
@@ -88,7 +89,7 @@ declare module 'process' {
             type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<any>, value: any) => void;
 
             interface Socket extends ReadWriteStream {
-                isTTY?: true;
+                isTTY?: true | undefined;
             }
 
             // Alias for compatibility
@@ -189,24 +190,51 @@ declare module 'process' {
                  *
                  * @default 'Warning'
                  */
-                type?: string;
+                type?: string | undefined;
 
                 /**
                  * A unique identifier for the warning instance being emitted.
                  */
-                code?: string;
+                code?: string | undefined;
 
                 /**
                  * When `warning` is a `string`, `ctor` is an optional function used to limit the generated stack trace.
                  *
                  * @default process.emitWarning
                  */
-                ctor?: Function;
+                ctor?: Function | undefined;
 
                 /**
                  * Additional text to include with the error.
                  */
-                detail?: string;
+                detail?: string | undefined;
+            }
+
+            interface ProcessConfig {
+                readonly target_defaults: {
+                    readonly cflags: any[];
+                    readonly default_configuration: string;
+                    readonly defines: string[];
+                    readonly include_dirs: string[];
+                    readonly libraries: string[];
+                };
+                readonly variables: {
+                    readonly clang: number;
+                    readonly host_arch: string;
+                    readonly node_install_npm: boolean;
+                    readonly node_install_waf: boolean;
+                    readonly node_prefix: string;
+                    readonly node_shared_openssl: boolean;
+                    readonly node_shared_v8: boolean;
+                    readonly node_shared_zlib: boolean;
+                    readonly node_use_dtrace: boolean;
+                    readonly node_use_etw: boolean;
+                    readonly node_use_openssl: boolean;
+                    readonly target_arch: string;
+                    readonly v8_no_strict_aliasing: number;
+                    readonly v8_use_snapshot: boolean;
+                    readonly visibility: string;
+                };
             }
 
             interface Process extends EventEmitter {
@@ -252,7 +280,7 @@ declare module 'process' {
 
                 env: ProcessEnv;
                 exit(code?: number): never;
-                exitCode?: number;
+                exitCode?: number | undefined;
                 getgid(): number;
                 setgid(id: number | string): void;
                 getuid(): number;
@@ -265,46 +293,21 @@ declare module 'process' {
                 setgroups(groups: ReadonlyArray<string | number>): void;
                 setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
                 hasUncaughtExceptionCaptureCallback(): boolean;
-                version: string;
-                versions: ProcessVersions;
-                config: {
-                    target_defaults: {
-                        cflags: any[];
-                        default_configuration: string;
-                        defines: string[];
-                        include_dirs: string[];
-                        libraries: string[];
-                    };
-                    variables: {
-                        clang: number;
-                        host_arch: string;
-                        node_install_npm: boolean;
-                        node_install_waf: boolean;
-                        node_prefix: string;
-                        node_shared_openssl: boolean;
-                        node_shared_v8: boolean;
-                        node_shared_zlib: boolean;
-                        node_use_dtrace: boolean;
-                        node_use_etw: boolean;
-                        node_use_openssl: boolean;
-                        target_arch: string;
-                        v8_no_strict_aliasing: number;
-                        v8_use_snapshot: boolean;
-                        visibility: string;
-                    };
-                };
+                readonly version: string;
+                readonly versions: ProcessVersions;
+                readonly config: ProcessConfig;
                 kill(pid: number, signal?: string | number): true;
-                pid: number;
-                ppid: number;
+                readonly pid: number;
+                readonly ppid: number;
                 title: string;
-                arch: string;
-                platform: Platform;
+                readonly arch: string;
+                readonly platform: Platform;
                 /** @deprecated since v14.0.0 - use `require.main` instead. */
-                mainModule?: Module;
+                mainModule?: Module | undefined;
                 memoryUsage: MemoryUsageFn;
                 cpuUsage(previousValue?: CpuUsage): CpuUsage;
                 nextTick(callback: Function, ...args: any[]): void;
-                release: ProcessRelease;
+                readonly release: ProcessRelease;
                 features: {
                     inspector: boolean;
                     debug: boolean;
@@ -327,16 +330,15 @@ declare module 'process' {
                 umask(mask: string | number): number;
                 uptime(): number;
                 hrtime: HRTime;
-                domain: Domain;
 
                 // Worker
-                send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
+                send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean | undefined}, callback?: (error: Error | null) => void): boolean;
                 disconnect(): void;
                 connected: boolean;
 
                 /**
                  * The `process.allowedNodeEnvironmentFlags` property is a special,
-                 * read-only `Set` of flags allowable within the [`NODE_OPTIONS`][]
+                 * read-only `Set` of flags allowable within the `NODE_OPTIONS`
                  * environment variable.
                  */
                 allowedNodeEnvironmentFlags: ReadonlySet<string>;
@@ -344,7 +346,7 @@ declare module 'process' {
                 /**
                  * Only available with `--experimental-report`
                  */
-                report?: ProcessReport;
+                report?: ProcessReport | undefined;
 
                 resourceUsage(): ResourceUsage;
 
@@ -450,12 +452,13 @@ declare module 'process' {
                 listeners(event: "removeListener"): RemoveListenerListener[];
                 listeners(event: "multipleResolves"): MultipleResolveListener[];
             }
-
-            interface Global {
-                process: Process;
-            }
         }
     }
 
+    export = process;
+}
+
+declare module 'node:process' {
+    import process = require('process');
     export = process;
 }

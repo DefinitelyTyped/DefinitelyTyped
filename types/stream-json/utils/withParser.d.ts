@@ -20,27 +20,27 @@ declare function withParser(fn: (options?: TransformOptions) => Transform, optio
 declare namespace withParser {
     interface FilterOptions extends FilterBase.FilterOptions {
         // copied from ParserOptions
-        packValues?: boolean;
-        packKeys?: boolean;
-        packStrings?: boolean;
-        packNumbers?: boolean;
-        streamValues?: boolean;
-        streamKeys?: boolean;
-        streamStrings?: boolean;
-        streamNumbers?: boolean;
-        jsonStreaming?: boolean;
+        packValues?: boolean | undefined;
+        packKeys?: boolean | undefined;
+        packStrings?: boolean | undefined;
+        packNumbers?: boolean | undefined;
+        streamValues?: boolean | undefined;
+        streamKeys?: boolean | undefined;
+        streamStrings?: boolean | undefined;
+        streamNumbers?: boolean | undefined;
+        jsonStreaming?: boolean | undefined;
     }
 
     interface StreamOptions extends StreamBase.StreamOptions {
         // copied from ParserOptions
-        packValues?: boolean;
-        packKeys?: boolean;
-        packStrings?: boolean;
-        packNumbers?: boolean;
-        streamValues?: boolean;
-        streamKeys?: boolean;
-        streamStrings?: boolean;
-        streamNumbers?: boolean;
-        jsonStreaming?: boolean;
+        packValues?: boolean | undefined;
+        packKeys?: boolean | undefined;
+        packStrings?: boolean | undefined;
+        packNumbers?: boolean | undefined;
+        streamValues?: boolean | undefined;
+        streamKeys?: boolean | undefined;
+        streamStrings?: boolean | undefined;
+        streamNumbers?: boolean | undefined;
+        jsonStreaming?: boolean | undefined;
     }
 }

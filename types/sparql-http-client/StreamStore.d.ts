@@ -5,8 +5,8 @@ import Endpoint = require("./Endpoint");
 declare namespace StreamStore {
     interface StreamStoreInit<Q extends BaseQuad = Quad> {
         endpoint: Endpoint;
-        factory?: DataFactory<Q>;
-        maxQuadsPerRequest?: number;
+        factory?: DataFactory<Q> | undefined;
+        maxQuadsPerRequest?: number | undefined;
     }
 }
 
