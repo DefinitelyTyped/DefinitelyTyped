@@ -1,4 +1,4 @@
-import { ApplicationData } from 'chromecast-caf-receiver/cast.framework.system';
+import { ApplicationData, LaunchedFrom } from 'chromecast-caf-receiver/cast.framework.system';
 import {
     MediaMetadata,
     LoadRequestData,
@@ -70,6 +70,8 @@ const breakManager: BreakManager = {
     setBreakSeekInterceptor: () => {},
     setPlayWatchedBreak: () => {},
     setVastTrackingInterceptor: () => {},
+    getBreakClipCurrentTimeSec: () => null,
+    getBreakClipDurationSec: () => null,
 };
 
 // tslint:disable-next-line
@@ -93,11 +95,13 @@ lrd.queueData = {};
 
 // tslint:disable-next-line
 const appData: ApplicationData = {
-    id: () => 'id',
-    launchingSenderId: () => 'launch-id',
-    name: () => 'name',
-    namespaces: () => ['namespace'],
-    sessionId: () => 1,
+    id: 'id',
+    launchingSenderId: 'launch-id',
+    name: 'name',
+    namespaces: ['namespace'],
+    sessionId: 1,
+    iconUrl: 'iconUrl',
+    launchedFrom: LaunchedFrom.CAST,
 };
 
 // tslint:disable-next-line
@@ -140,7 +144,7 @@ const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
 
 cast.framework.CastReceiverContext.getInstance().addEventListener(
-    [cast.framework.system.EventType.SENDER_CONNECTED, cast.framework.system.EventType.SENDER_DISCONNECTED],
+    cast.framework.system.EventType.SENDER_CONNECTED,
     () => '¡hola!',
 );
 

@@ -9,12 +9,13 @@ import {
 import * as category from './cast.framework.events.category';
 
 export import category = category;
+import { TimedMetadata } from './cast.framework';
 
 export as namespace events;
 
 /**
- * Player event types for @see{@link framework.PlayerManager}.
- * https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.events#.EventType
+ * Player event types for {@link framework.PlayerManager}.
+ * https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events#.EventType
  */
 export enum EventType {
     ALL = '*',
@@ -87,6 +88,7 @@ export enum EventType {
     REQUEST_QUEUE_GET_ITEM_RANGE = 'REQUEST_QUEUE_GET_ITEM_RANGE',
     REQUEST_QUEUE_GET_ITEMS = 'REQUEST_QUEUE_GET_ITEMS',
     REQUEST_QUEUE_GET_ITEM_IDS = 'REQUEST_QUEUE_GET_ITEM_IDS',
+    TRACKS_CHANGED = 'TRACKS_CHANGED',
     REQUEST_PRECACHE = 'REQUEST_PRECACHE',
     TIMED_METADATA_CHANGED = 'TIMED_METADATA_CHANGED',
     TIMED_METADATA_ENTER = 'TIMED_METADATA_ENTER',
@@ -141,7 +143,7 @@ export enum DetailedErrorCode {
 export type EndedReason = 'END_OF_STREAM' | 'ERROR' | 'STOPPED' | 'INTERRUPTED' | 'SKIPPED' | 'BREAK_SWITCH';
 
 /**
- * Event data for @see{@link EventType.SEGMENT_DOWNLOADED} event.
+ * Event data for {@link EventType.SEGMENT_DOWNLOADED} event.
  */
 export class SegmentDownloadedEvent extends Event {
     constructor(downloadTime?: number, size?: number);
@@ -175,7 +177,7 @@ export class RequestEvent extends Event {
 }
 
 /**
- * Event data superexport class for all events dispatched by @see{@link PlayerManager}
+ * Event data superclass for all events dispatched by {@link framework.PlayerManager}
  */
 export class Event {
     constructor(type: EventType);
@@ -186,7 +188,7 @@ export class Event {
     type: EventType;
 }
 /**
- * Event data for @see{@link EventType.MEDIA_STATUS} event.
+ * Event data for {@link EventType.MEDIA_STATUS} event.
  */
 export class MediaStatusEvent extends Event {
     constructor(type: EventType, mediaStatus?: MediaStatus);
@@ -208,13 +210,15 @@ export class MediaPauseEvent extends Event {
     ended?: boolean | undefined;
 }
 /**
- * Event data for @see{@link EventType.MEDIA_FINISHED} event.
+ * Event data for {@link EventType.MEDIA_FINISHED} event.
  */
 export class MediaFinishedEvent extends Event {
     constructor(currentMediaTime?: number, endedReason?: EndedReason);
 
     /**
-     * The time when the media finished (in seconds). For an item in a queue; this value represents the time in the currently playing queue item ( where 0 means the queue item has just started).
+     * The time when the media finished (in seconds). For an item in a queue;
+     * this value represents the time in the currently playing queue item
+     * (where 0 means the queue item has just started).
      */
     currentMediaTime?: number | undefined;
 
@@ -230,12 +234,14 @@ export class MediaElementEvent extends Event {
     constructor(type: EventType, currentMediaTime?: number);
 
     /**
-     * The time in the currently playing clip when the event was fired (in seconds). Undefined if playback has not started yet.
+     * The time in the currently playing clip when the event was fired (in seconds).
+     * Undefined if playback has not started yet.
      */
     currentMediaTime?: number | undefined;
 }
 /**
  * Event data for all events pertaining to processing a load / preload request. made to the player.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.LoadEvent
  */
 export class LoadEvent extends Event {
     constructor(type: EventType, media?: MediaInformation);
@@ -243,10 +249,10 @@ export class LoadEvent extends Event {
     /**
      * Information about the media being loaded.
      */
-    media: MediaInformation;
+    media?: MediaInformation | undefined;
 }
 /**
- * Event data for @see{@link EventType.INBAND_TRACK_ADDED} event.
+ * Event data for {@link EventType.INBAND_TRACK_ADDED} event.
  */
 export class InbandTrackAddedEvent {
     constructor(track: Track);
@@ -257,7 +263,7 @@ export class InbandTrackAddedEvent {
     track: Track;
 }
 
-/** Event data for @see{@link EventType.ID3} event. */
+/** Event data for {@link EventType.ID3} event. */
 export class Id3Event extends Event {
     constructor(segmentData: Uint8Array, timestamp: number);
 
@@ -272,63 +278,69 @@ export class Id3Event extends Event {
     timestamp: number;
 }
 /**
- * Event data for @see{@link EventType.EMSG} event.
+ * Event data for {@link EventType.EMSG} event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.EmsgEvent
  */
 export class EmsgEvent extends Event {
     constructor(emsgData: any);
 
     /**
-     * The time that the event ends (in presentation time). Undefined if using legacy Dash support.
+     * The time that the event ends (in presentation time).
      */
-    endTime: any;
+    endTime?: number | undefined;
 
     /**
-     * The duration of the event (in units of timescale). Undefined if using legacy Dash support.
+     * The duration of the event (in units of timescale).
      */
-    eventDuration: any;
+    eventDuration?: number | undefined;
 
     /**
-     * A field identifying this instance of the message. Undefined if using legacy Dash support.
+     * A field identifying this instance of the message.
      */
-    id: any;
+    id?: number | undefined;
 
     /**
-     * Body of the message. Undefined if using legacy Dash support.
+     * Body of the message, which can contain ID3 metadata if signaled by the
+     * schemeIdUri value. The schemeIdUri "https://aomedia.org/emsg/ID3" and
+     * "https://developer.apple.com/streaming/emsg-id3" will always signal ID3 metadata.
      */
-    messageData: any;
+    messageData?: Uint8Array | undefined;
 
     /**
-     * The offset that the event starts; relative to the start of the segment this is contained in (in units of timescale). Undefined if using legacy Dash support.
+     * The offset that the event starts; relative to the start of the segment
+     * this is contained in (in units of timescale).
      */
-    presentationTimeDelta: any;
+    presentationTimeDelta?: number | undefined;
 
     /**
-     * Identifies the message scheme. Undefined if using legacy Dash support.
+     * Identifies the message scheme.
      */
-    schemeIdUri: any;
+    schemeIdUri?: string | undefined;
 
     /**
-     * The segment data. This is only defined if using legacy Dash support.
+     * The entire, raw segment data encompassing the EMSG. This field is
+     * scheduled for deprecation and is recommended to instead use the provided
+     * EMSG event data fields.
      */
-    segmentData: any;
+    segmentData?: Uint8Array | undefined;
 
     /**
-     * The time that the event starts (in presentation time). Undefined if using legacy Dash support.
+     * The time that the event starts (in presentation time).
      */
-    startTime: any;
+    startTime?: number | undefined;
 
     /**
-     * Provides the timescale; in ticks per second. Undefined if using legacy Dash support.
+     * Provides the timescale; in ticks per second.
      */
-    timescale: any;
+    timescale?: number | undefined;
 
     /**
-     * Specifies the value for the event. Undefined if using legacy Dash support.
+     * Specifies the value for the event.
      */
-    value: any;
+    value?: string | undefined;
 }
 /**
- * Event data for @see{@link EventType.CLIP_ENDED} event.
+ * Event data for {@link EventType.CLIP_ENDED} event.
  */
 export class ClipEndedEvent extends Event {
     constructor(currentMediaTime: number, endedReason?: EndedReason);
@@ -345,7 +357,8 @@ export class ClipEndedEvent extends Event {
 }
 
 /**
- * Event data for @see{@link EventType.CACHE_LOADED} event.
+ * Event data for {@link EventType.CACHE_LOADED} event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.CacheLoadedEvent
  */
 export class CacheLoadedEvent extends Event {
     constructor(media?: MediaInformation);
@@ -353,7 +366,7 @@ export class CacheLoadedEvent extends Event {
     /**
      * Information about the media being cached.
      */
-    media: MediaInformation;
+    media?: MediaInformation | undefined;
 }
 
 export class CacheItemEvent extends Event {
@@ -374,6 +387,10 @@ export class BufferingEvent extends Event {
     isBuffering: boolean;
 }
 
+/**
+ * Event data for all events pertaining to breaks.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.BreaksEvent
+ */
 export class BreaksEvent extends Event {
     constructor(
         type: EventType,
@@ -409,12 +426,12 @@ export class BreaksEvent extends Event {
     /**
      * Index of break clip; which starts from 1.
      */
-    index: number;
+    index?: number | undefined;
 
     /**
      * Total number of break clips.
      */
-    total: number;
+    total?: number | undefined;
 
     /**
      * When to skip current break clip in sec; after break clip begins to play.
@@ -423,17 +440,18 @@ export class BreaksEvent extends Event {
 }
 
 /**
- * Event data for @see {@link EventType.BITRATE_CHANGED} event.
+ * Event data for {@link EventType.BITRATE_CHANGED} event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.BitrateChangedEvent
  */
 export class BitrateChangedEvent extends Event {
     constructor(totalBitrate?: number);
 
     /** The bitrate of the media (audio and video) in bits per second. */
-    totalBitrate: number;
+    totalBitrate?: number | undefined;
 }
 
 /**
- * Event data for @see{@link EventType.ERROR} event.
+ * Event data for {@link EventType.ERROR} event.
  */
 export class ErrorEvent extends Event {
     constructor(detailedErrorCode?: DetailedErrorCode, error?: any, reason?: ErrorReason);
@@ -444,7 +462,9 @@ export class ErrorEvent extends Event {
     detailedErrorCode?: DetailedErrorCode | undefined;
 
     /**
-     * The error object. This could be an Error object (e.g., if an Error was thrown in an event handler) or an object with error information (e.g., if the receiver received an invalid command).
+     * The error object. This could be an Error object (e.g., if an Error was
+     * thrown in an event handler) or an object with error information (e.g.,
+     * if the receiver received an invalid command).
      */
     error?: any;
 
@@ -455,7 +475,7 @@ export class ErrorEvent extends Event {
 }
 
 /**
- * Event data for @see{@link EventType.CUSTOM_STATE} event.
+ * Event data for {@link EventType.CUSTOM_STATE} event.
  */
 export class CustomStateEvent extends Event {
     constructor(state: any);
@@ -464,7 +484,7 @@ export class CustomStateEvent extends Event {
 }
 
 /**
- * Event data for @see{@link EventType.MEDIA_INFORMATION_CHANGED} event.
+ * Event data for {@link EventType.MEDIA_INFORMATION_CHANGED} event.
  */
 export class MediaInformationChangedEvent extends Event {
     constructor(media?: MediaInformation);
@@ -473,7 +493,7 @@ export class MediaInformationChangedEvent extends Event {
 }
 
 /**
- * Event data for @see{@link EventType.LIVE_ENDED} and @see{@link EventType.LIVE_IS_MOVING_WINDOW_CHANGED} events.
+ * Event data for {@link EventType.LIVE_ENDED} and {@link EventType.LIVE_IS_MOVING_WINDOW_CHANGED} events.
  */
 export class LiveStatusEvent extends Event {
     constructor(type: EventType, liveSeekableRange: LiveSeekableRange);
@@ -482,4 +502,25 @@ export class LiveStatusEvent extends Event {
      * Updated live status.
      */
     liveSeekableRange: LiveSeekableRange;
+}
+
+/**
+ * Event data superclass for {@link EventType.TIMED_METADATA_CHANGED},
+ * {@link EventType.TIMED_METADATA_ENTER} and {@link EventType.TIMED_METADATA_EXIT}
+ * events. This differs from Id3Event in that the metadata is held at the
+ * manifest as opposed to segment internals.
+ */
+ export class TimedMetadataEvent {
+    constructor(type: EventType, timedMetadataInfo: TimedMetadata);
+
+    /**
+     * The timed metadata information.
+     */
+    timedMetadata: TimedMetadata;
+}
+
+/**
+ * Event data for {@link EventType.TRACKS_CHANGED} event.
+ */
+ export class TracksChangedEvent extends Event {
 }
