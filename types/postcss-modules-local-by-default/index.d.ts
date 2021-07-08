@@ -8,8 +8,8 @@ import { Plugin } from "postcss";
 
 declare namespace localByDefault {
     interface Options {
-        mode?: "global" | "local" | "pure";
-        rewriteUrl?: (global: boolean, url: string) => string;
+        mode?: "global" | "local" | "pure" | undefined;
+        rewriteUrl?: ((global: boolean, url: string) => string) | undefined;
     }
 
     type LocalByDefault = Plugin<Options>;

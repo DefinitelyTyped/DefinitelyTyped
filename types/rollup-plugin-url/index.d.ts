@@ -6,14 +6,14 @@
 import { Plugin } from 'rollup';
 
 interface PluginURLOptions {
-    limit?: number;
-    include?: string[];
-    exclude?: string[];
-    publicPath?: string;
-    emitFiles?: boolean;
-    fileName?: string;
-    sourceDir?: string;
-    destDist?: string;
+    limit?: number | undefined;
+    include?: string[] | undefined;
+    exclude?: string[] | undefined;
+    publicPath?: string | undefined;
+    emitFiles?: boolean | undefined;
+    fileName?: string | undefined;
+    sourceDir?: string | undefined;
+    destDist?: string | undefined;
 }
 
 declare function url(options?: PluginURLOptions): Plugin;

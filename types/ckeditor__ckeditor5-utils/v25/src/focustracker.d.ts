@@ -50,7 +50,7 @@ export default class FocusTracker implements Observable {
         emitter: Emitter,
         event: string,
         callback: Function,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     off(event: string, callback?: Function): void;
     on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;

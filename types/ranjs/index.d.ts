@@ -531,8 +531,8 @@ declare namespace mc {
         constructor(
             logDensity: (x: number[]) => number,
             config?: {
-                dim?: number;
-                maxHistory?: number;
+                dim?: number | undefined;
+                maxHistory?: number | undefined;
             },
             initialState?: State,
         );

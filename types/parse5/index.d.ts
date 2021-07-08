@@ -67,7 +67,7 @@ export interface ParserOptions<T extends TreeAdapter = TreeAdapter> {
      *
      *  **Default:** `true`
      */
-    scriptingEnabled?: boolean;
+    scriptingEnabled?: boolean | undefined;
 
     /**
      * Enables source code location information. When enabled, each node (except the root node)
@@ -79,14 +79,14 @@ export interface ParserOptions<T extends TreeAdapter = TreeAdapter> {
      *
      * **Default:** `false`
      */
-    sourceCodeLocationInfo?: boolean;
+    sourceCodeLocationInfo?: boolean | undefined;
 
     /**
      * Specifies the resulting tree format.
      *
      * **Default:** `treeAdapters.default`
      */
-    treeAdapter?: T;
+    treeAdapter?: T | undefined;
 }
 
 export interface SerializerOptions<T extends TreeAdapter = TreeAdapter> {
@@ -95,7 +95,7 @@ export interface SerializerOptions<T extends TreeAdapter = TreeAdapter> {
      *
      * **Default:** `treeAdapters.default`
      */
-    treeAdapter?: T;
+    treeAdapter?: T | undefined;
 }
 
 /**
@@ -122,12 +122,12 @@ export interface Attribute {
     /**
      * The namespace of the attribute.
      */
-    namespace?: string;
+    namespace?: string | undefined;
 
     /**
      * The namespace-related prefix of the attribute.
      */
-    prefix?: string;
+    prefix?: string | undefined;
 }
 
 /**
@@ -217,7 +217,7 @@ export interface Element {
     /**
      * Element source code location info. Available if location info is enabled via {@link ParserOptions}.
      */
-    sourceCodeLocation?: ElementLocation;
+    sourceCodeLocation?: ElementLocation | undefined;
 
     /**
      * Child nodes.
@@ -247,7 +247,7 @@ export interface CommentNode {
     /**
      * Comment source code location info. Available if location info is enabled via {@link ParserOptions}.
      */
-    sourceCodeLocation?: Location;
+    sourceCodeLocation?: Location | undefined;
 
     /**
      * Parent node.
@@ -272,7 +272,7 @@ export interface TextNode {
     /**
      * Text node source code location info. Available if location info is enabled via {@link ParserOptions}.
      */
-    sourceCodeLocation?: Location;
+    sourceCodeLocation?: Location | undefined;
 
     /**
      * Parent node.

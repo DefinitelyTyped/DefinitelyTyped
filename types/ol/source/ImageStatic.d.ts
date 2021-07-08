@@ -10,13 +10,13 @@ import ImageSource, { ImageSourceEvent } from './Image';
 import { AttributionLike } from './Source';
 
 export interface Options {
-    attributions?: AttributionLike;
-    crossOrigin?: null | string;
-    imageExtent?: Extent;
-    imageLoadFunction?: LoadFunction;
-    imageSmoothing?: boolean;
-    projection?: ProjectionLike;
-    imageSize?: Size;
+    attributions?: AttributionLike | undefined;
+    crossOrigin?: null | string | undefined;
+    imageExtent?: Extent | undefined;
+    imageLoadFunction?: LoadFunction | undefined;
+    imageSmoothing?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    imageSize?: Size | undefined;
     url: string;
 }
 export default class Static extends ImageSource {

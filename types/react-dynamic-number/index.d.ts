@@ -16,15 +16,15 @@ export type BaseInputProps = Partial<
 >;
 
 export interface DynamicNumberProps extends BaseInputProps {
-  value?: number | '';
-  separator?: '.' | ',';
-  thousand?: boolean | ' ';
-  integer?: number;
-  fraction?: number;
-  positive?: boolean;
-  negative?: boolean;
-  placeholder?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>, modelValue: number, viewValue: string) => void;
+  value?: number | '' | undefined;
+  separator?: '.' | ',' | undefined;
+  thousand?: boolean | ' ' | undefined;
+  integer?: number | undefined;
+  fraction?: number | undefined;
+  positive?: boolean | undefined;
+  negative?: boolean | undefined;
+  placeholder?: string | undefined;
+  onChange?: ((event: React.ChangeEvent<HTMLInputElement>, modelValue: number, viewValue: string) => void) | undefined;
 }
 
 export default class DynamicNumber extends React.Component<DynamicNumberProps> {}

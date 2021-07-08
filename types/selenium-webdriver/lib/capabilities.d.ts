@@ -380,18 +380,18 @@ export interface ITimeouts {
    * Defines when, in milliseconds, to interrupt a script that is being
    * {@linkplain ./webdriver.IWebDriver#executeScript evaluated}.
    */
-  script?: number;
+  script?: number | undefined;
 
   /**
    * The timeout, in milliseconds, to apply to navigation events along with the
    * {@link PageLoadStrategy}.
    */
-  pageLoad?: number;
+  pageLoad?: number | undefined;
 
   /**
    * The maximum amount of time, in milliseconds, to spend attempting to
    * {@linkplain ./webdriver.IWebDriver#findElement locate} an element on the
    * current page.
    */
-  implicit?: number;
+  implicit?: number | undefined;
 }

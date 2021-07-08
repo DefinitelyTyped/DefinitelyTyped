@@ -7,7 +7,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -15,10 +15,15 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@ckeditor/*": [
+                "ckeditor__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "html2canvas-tests.ts"
+        "ckeditor__ckeditor5-build-inline-tests.ts"
     ]
 }

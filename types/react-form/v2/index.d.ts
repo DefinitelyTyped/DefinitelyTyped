@@ -26,28 +26,28 @@ export interface FormState {
     touched: Touched;
     errors: FormErrors;
     nestedErrors: NestedErrors;
-    dirty?: boolean;
+    dirty?: boolean | undefined;
 }
 
 export interface FormProps {
-    component?: React.ReactType<{ formApi: FormApi }>;
-    render?: (formApi: FormApi) => RenderReturn;
-    dontValidateOnMount?: boolean;
-    validateOnSubmit?: boolean;
-    defaultValues?: FormValues;
+    component?: React.ReactType<{ formApi: FormApi }> | undefined;
+    render?: ((formApi: FormApi) => RenderReturn) | undefined;
+    dontValidateOnMount?: boolean | undefined;
+    validateOnSubmit?: boolean | undefined;
+    defaultValues?: FormValues | undefined;
     onSubmit?(values: FormValues, submissionEvent: React.SyntheticEvent<any>, formApi: FormApi): void;
     preSubmit?(values: FormValues, formApi: FormApi): FormValues;
     onSubmitFailure?(errors: FormErrors, formApi: FormApi): void;
     formDidUpdate?(formState: FormState): void;
     preValidate?(values: FormValues): FormValues;
-    validateError?: ValidateValuesFunction;
-    validateWarning?: ValidateValuesFunction;
-    validateSuccess?: (values: FormValues, errors: FormErrors) => FormErrors;
+    validateError?: ValidateValuesFunction | undefined;
+    validateWarning?: ValidateValuesFunction | undefined;
+    validateSuccess?: ((values: FormValues, errors: FormErrors) => FormErrors) | undefined;
     asyncValidators?: {
         [field: string]: (value: FormValue) => Promise<any>
-    };
-    dontPreventDefault?: boolean;
-    getApi?: (formApi: FormApi) => void;
+    } | undefined;
+    dontPreventDefault?: boolean | undefined;
+    getApi?: ((formApi: FormApi) => void) | undefined;
 }
 
 export interface FormApi {
@@ -91,7 +91,7 @@ export interface FormContext {
 
 export class Form
     extends React.Component<
-        FormProps & { children?: ((props: FormFunctionProps) => RenderReturn) | RenderReturn }
+        FormProps & { children?: ((props: FormFunctionProps) => RenderReturn) | RenderReturn | undefined }
         >
     implements React.ChildContextProvider<FormContext> {
     static defaultProps: FormProps;
@@ -129,10 +129,10 @@ export interface FieldApi {
 }
 
 export interface FieldProps {
-    field?: string | string[] | React.ReactText[] | Array<(string | React.ReactText[])>;
-    showErrors?: boolean;
-    errorBefore?: boolean;
-    isForm?: boolean;
+    field?: string | string[] | React.ReactText[] | Array<(string | React.ReactText[])> | undefined;
+    showErrors?: boolean | undefined;
+    errorBefore?: boolean | undefined;
+    isForm?: boolean | undefined;
 }
 
 export type SelectOptions = Array<{
@@ -142,7 +142,7 @@ export type SelectOptions = Array<{
 
 export interface SelectProps extends FieldProps, React.SelectHTMLAttributes<HTMLSelectElement> {
     options: SelectOptions;
-    placeholder?: string;
+    placeholder?: string | undefined;
 }
 
 export const Select: React.StatelessComponent<SelectProps>;
@@ -156,7 +156,7 @@ export interface RadioGroupContext {
 
 export class RadioGroup
     extends React.Component<
-        FieldProps & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn }
+        FieldProps & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn | undefined }
         >
     implements React.ChildContextProvider<RadioGroupContext> {
     getChildContext(): {
@@ -170,9 +170,9 @@ export const Checkbox: React.StatelessComponent<FieldProps & React.InputHTMLAttr
 // Styled Fields
 
 export interface StyledProps extends FieldProps {
-    noMessage?: boolean;
-    messageBefore?: boolean;
-    touchValidation?: boolean;
+    noMessage?: boolean | undefined;
+    messageBefore?: boolean | undefined;
+    touchValidation?: boolean | undefined;
 }
 
 export const StyledCheckbox: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {label: string}>;
@@ -183,7 +183,7 @@ export const StyledRadio: React.StatelessComponent<StyledProps & React.InputHTML
 
 export class StyledRadioGroup
     extends React.Component<
-        StyledProps & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn }
+        StyledProps & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn | undefined }
         >
     implements React.ChildContextProvider<RadioGroupContext> {
     getChildContext(): {

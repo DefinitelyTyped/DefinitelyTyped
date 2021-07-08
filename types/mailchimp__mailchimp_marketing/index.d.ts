@@ -6,9 +6,9 @@
 export function setConfig(config: Config): void;
 
 export interface Config {
-    apiKey?: string;
-    accessToken?: string;
-    server?: string;
+    apiKey?: string | undefined;
+    accessToken?: string | undefined;
+    server?: string | undefined;
 }
 
 export interface SetListMemberOptions {
@@ -26,7 +26,7 @@ export enum status {
 export interface SetListMemberBody {
     email_address: string;
     status_if_new: status;
-    merge_fields?: { [key: string]: any };
+    merge_fields?: { [key: string]: any } | undefined;
 }
 
 /*~ If there are types, properties, or methods inside dotted names

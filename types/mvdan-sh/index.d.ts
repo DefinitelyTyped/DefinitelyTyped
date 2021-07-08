@@ -57,7 +57,7 @@ export interface Comment extends Node {
 
 export interface File extends Node {
     Name: string;
-    Stmts?: Stmt[];
+    Stmts?: Stmt[] | undefined;
     Last: Stmt[];
 }
 

@@ -40,7 +40,7 @@ export namespace controller {
             emitter: Emitter,
             event: string,
             callback: Function,
-            options?: { priority?: PriorityString | number },
+            options?: { priority?: PriorityString | number | undefined },
         ): void;
         off(event: string, callback?: Function): void;
         on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
@@ -74,7 +74,7 @@ export namespace controller {
             emitter: Emitter,
             event: string,
             callback: Function,
-            options?: { priority?: PriorityString | number },
+            options?: { priority?: PriorityString | number | undefined },
         ): void;
         off(event: string, callback?: Function): void;
         on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
@@ -98,8 +98,8 @@ export namespace conversion {
         constructor();
         attributeToAttribute(definition?: {
             model: string | Object;
-            view?: string | Object;
-            upcastAlso?: view.MatcherPattern | view.MatcherPattern[];
+            view?: string | Object | undefined;
+            upcastAlso?: view.MatcherPattern | view.MatcherPattern[] | undefined;
         }): void;
         attributeToElement(definition: ConverterDefinition): void;
         elementToElement(definition: ConverterDefinition): void;
@@ -177,25 +177,25 @@ export namespace conversion {
     function upcastAttributeToAttribute(config: {
         view: string | { key: string; name: string; value: string | RegExp | Function };
         model: string | { key: string; value: string | Function };
-        converterPriority?: PriorityString;
+        converterPriority?: PriorityString | undefined;
     }): Function;
 
     function upcastElementToAttribute(config: {
         view: view.MatcherPattern;
         model: string | { key: string; value: string | Function };
-        converterPriority?: PriorityString;
+        converterPriority?: PriorityString | undefined;
     }): Function;
 
     function upcastElementToElement(config: {
         view: view.MatcherPattern;
         model: string | Element | Function;
-        converterPriority?: PriorityString;
+        converterPriority?: PriorityString | undefined;
     }): Function;
 
     function upcastElementToMarker(config: {
         view: view.MatcherPattern;
         model: string | Function;
-        converterPriority?: PriorityString;
+        converterPriority?: PriorityString | undefined;
     }): Function;
 
     // engine/conversion/upcast-selection-converters
@@ -269,9 +269,9 @@ export namespace devUtils {
         function getData(
             model: model.Model,
             options?: {
-                withoutSelection?: boolean;
-                rootName?: string;
-                convertMarkers?: boolean;
+                withoutSelection?: boolean | undefined;
+                rootName?: string | undefined;
+                convertMarkers?: boolean | undefined;
             },
         ): string;
 
@@ -280,9 +280,9 @@ export namespace devUtils {
             schema: model.Schema,
             batch: model.Batch,
             options?: {
-                selectionAttributes?: Object[];
-                lastRangeBackward?: boolean;
-                context?: model.SchemaContextDefinition;
+                selectionAttributes?: Object[] | undefined;
+                lastRangeBackward?: boolean | undefined;
+                context?: model.SchemaContextDefinition | undefined;
             },
         ): model.Element | model.Text | model.DocumentFragment | Object;
 
@@ -290,10 +290,10 @@ export namespace devUtils {
             model: string,
             data: Object,
             options: {
-                rootName?: string;
-                selectionAttributes?: Object[];
-                lastRangeBackward?: boolean;
-                batchType?: string;
+                rootName?: string | undefined;
+                selectionAttributes?: Object[] | undefined;
+                lastRangeBackward?: boolean | undefined;
+                batchType?: string | undefined;
             },
         ): void;
 
@@ -315,37 +315,37 @@ export namespace devUtils {
     function getData(
         view: view.View,
         options?: {
-            withoutSelection?: boolean;
-            rootName?: boolean;
-            showType?: boolean;
-            showPriority?: boolean;
-            showAttributeElementId?: boolean;
-            renderUIElements?: boolean;
+            withoutSelection?: boolean | undefined;
+            rootName?: boolean | undefined;
+            showType?: boolean | undefined;
+            showPriority?: boolean | undefined;
+            showAttributeElementId?: boolean | undefined;
+            renderUIElements?: boolean | undefined;
         },
     ): string;
 
     function parse(
         data: string,
         options: {
-            order?: number[];
-            lastRangeBackward?: boolean;
-            rootElement?: view.Element | view.DocumentFragment;
-            sameSelectionCharacters?: boolean;
+            order?: number[] | undefined;
+            lastRangeBackward?: boolean | undefined;
+            rootElement?: view.Element | view.DocumentFragment | undefined;
+            sameSelectionCharacters?: boolean | undefined;
         },
     ): view.Text | view.Element | view.DocumentFragment | Object;
 
-    function setData(view: view.View, data: string, options: { rootName?: string }): void;
+    function setData(view: view.View, data: string, options: { rootName?: string | undefined }): void;
 
     function stringify(
         node: view.Text | view.Element | view.DocumentFragment,
         selectionOrPositionOrRange?: view.DocumentSelection | view.Position | view.Range,
         options?: {
-            showType?: boolean;
-            showPriority?: boolean;
-            showAttributeElementId?: boolean;
-            ignoreRoot?: boolean;
-            sameSelectionCharacters?: boolean;
-            renderUIElements?: boolean;
+            showType?: boolean | undefined;
+            showPriority?: boolean | undefined;
+            showAttributeElementId?: boolean | undefined;
+            ignoreRoot?: boolean | undefined;
+            sameSelectionCharacters?: boolean | undefined;
+            renderUIElements?: boolean | undefined;
         },
     ): string;
 }
@@ -458,7 +458,7 @@ export namespace model {
         function modifySelection(
             model: Model,
             selection: Selection | DocumentSelection,
-            options?: { direction?: "forward" | "backward"; unit?: "character" | "codePoint" | "word" },
+            options?: { direction?: "forward" | "backward" | undefined; unit?: "character" | "codePoint" | "word" | undefined },
         ): void;
 
         function injectSelectionPostFixer(model: Model): void;
@@ -589,7 +589,7 @@ export namespace model {
         deleteContent(
             selection: Selection | DocumentSelection,
             batch: Batch,
-            options: { leaveUnmerged?: boolean; doNotResetEntireContent?: boolean },
+            options: { leaveUnmerged?: boolean | undefined; doNotResetEntireContent?: boolean | undefined },
         ): void;
         destroy(): void;
         enqueueChange(batchOrType: Batch | "transparent" | "default", callback: Function): void;
@@ -601,7 +601,7 @@ export namespace model {
         ): void;
         modifySelection(
             selection: Selection | DocumentSelection,
-            options?: { direction?: "forward" | "backward"; unit?: "character" | "codePoint" | "word" },
+            options?: { direction?: "forward" | "backward" | undefined; unit?: "character" | "codePoint" | "word" | undefined },
         ): void;
 
         // Emitter
@@ -611,7 +611,7 @@ export namespace model {
             emitter: Emitter,
             event: string,
             callback: Function,
-            options?: { priority?: PriorityString | number },
+            options?: { priority?: PriorityString | number | undefined },
         ): void;
         off(event: string, callback?: Function): void;
         on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
@@ -817,7 +817,7 @@ export namespace model {
             emitter: Emitter,
             event: string,
             callback: Function,
-            options?: { priority?: PriorityString | number },
+            options?: { priority?: PriorityString | number | undefined },
         ): void;
         off(event: string, callback?: Function): void;
         on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
@@ -855,8 +855,8 @@ export namespace model {
 
         protected constructor(textNode: Text, offsetInText: number, length: number);
         getAncestors(options: {
-            includeSelf?: boolean;
-            parentFirst?: boolean;
+            includeSelf?: boolean | undefined;
+            parentFirst?: boolean | undefined;
         }): Array<TextProxy | Element | DocumentFragment>;
         getAttribute(key: string): any;
         getAttributeKeys(): Iterable<string>;
@@ -878,12 +878,12 @@ export namespace model {
         readonly singleCharacters: boolean;
 
         constructor(options?: {
-            direction?: "forward" | "backward";
-            boundaries?: Range;
+            direction?: "forward" | "backward" | undefined;
+            boundaries?: Range | undefined;
             startPosition: Position;
-            singleCharacters?: boolean;
-            shallow?: boolean;
-            ignoreElementEnd?: boolean;
+            singleCharacters?: boolean | undefined;
+            shallow?: boolean | undefined;
+            ignoreElementEnd?: boolean | undefined;
         });
         [Symbol.iterator](): Iterator<TreeWalkerValue>;
         next(): TreeWalkerValue;
@@ -966,11 +966,11 @@ export namespace view {
 
         class KeyEventData extends DomEventData implements KeystrokeInfo {
             // KeystrokeInfo
-            altKey?: boolean;
-            ctrlKey?: boolean;
+            altKey?: boolean | undefined;
+            ctrlKey?: boolean | undefined;
             keyCode: number;
             keystroke: number;
-            shiftKey?: boolean;
+            shiftKey?: boolean | undefined;
         }
 
         class KeyObserver extends DomEventObserver {
@@ -1081,7 +1081,7 @@ export namespace view {
             emitter: Emitter,
             event: string,
             callback: Function,
-            options?: { priority?: PriorityString | number },
+            options?: { priority?: PriorityString | number | undefined },
         ): void;
         off(event: string, callback?: Function): void;
         on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
@@ -1198,11 +1198,11 @@ export namespace view {
     type ElementDefinition =
         | string
         | {
-              attributes?: { [key: string]: string };
-              classes?: string | string[];
+              attributes?: { [key: string]: string } | undefined;
+              classes?: string | string[] | undefined;
               name: string;
-              priority?: number;
-              styles?: { [key: string]: string };
+              priority?: number | undefined;
+              styles?: { [key: string]: string } | undefined;
           };
 
     // engine/view/emptyelement
@@ -1247,14 +1247,14 @@ export namespace view {
     }
 
     type MatcherPattern =
-        | ((element: Element) => null | { name: boolean; attribute?: string[] })
+        | ((element: Element) => null | { name: boolean; attribute?: string[] | undefined })
         | string
         | RegExp
         | {
-              attributes?: { [key: string]: string | RegExp | boolean };
-              classes?: string | RegExp | Array<string | RegExp>;
-              name?: string | RegExp;
-              styles?: { [key: string]: string | RegExp };
+              attributes?: { [key: string]: string | RegExp | boolean } | undefined;
+              classes?: string | RegExp | Array<string | RegExp> | undefined;
+              name?: string | RegExp | undefined;
+              styles?: { [key: string]: string | RegExp } | undefined;
           };
 
     // engine/view/node
@@ -1269,8 +1269,8 @@ export namespace view {
 
         constructor();
         _fireChange(type: ChangeType, node: Node): void;
-        getAncestors(options: { includeSelf: boolean; parentFirst?: boolean }): Array<Element | DocumentFragment>;
-        getCommonAncestor(node: Node, options: { includeSelf?: boolean }): Element | DocumentFragment | null;
+        getAncestors(options: { includeSelf: boolean; parentFirst?: boolean | undefined }): Array<Element | DocumentFragment>;
+        getCommonAncestor(node: Node, options: { includeSelf?: boolean | undefined }): Element | DocumentFragment | null;
         getPath(): number[];
 
         is(type: "element"): this is Element;
@@ -1355,8 +1355,8 @@ export namespace view {
 
         protected constructor(textNode: Text, offsetInText: number, length: number);
         getAncestors(options: {
-            includeSelf?: boolean;
-            parentFirst?: boolean;
+            includeSelf?: boolean | undefined;
+            parentFirst?: boolean | undefined;
         }): Array<Text | Element | DocumentFragment>;
         is(type: "textProxy"): this is TextProxy;
         is(type: string): boolean;
@@ -1373,12 +1373,12 @@ export namespace view {
         readonly singleCharacters: boolean;
 
         constructor(options: {
-            boundaries?: Range;
-            startPosition?: Position;
-            direction?: TreeWalkerDirection;
-            singleCharacters?: boolean;
-            shallow?: boolean;
-            ignoreElementEnd?: boolean;
+            boundaries?: Range | undefined;
+            startPosition?: Position | undefined;
+            direction?: TreeWalkerDirection | undefined;
+            singleCharacters?: boolean | undefined;
+            shallow?: boolean | undefined;
+            ignoreElementEnd?: boolean | undefined;
         });
         [Symbol.iterator](): Iterator<TreeWalkerValue>;
         next(): TreeWalkerValue;
@@ -1428,7 +1428,7 @@ export namespace view {
             emitter: Emitter,
             event: string,
             callback: Function,
-            options?: { priority?: PriorityString | number },
+            options?: { priority?: PriorityString | number | undefined },
         ): void;
         off(event: string, callback?: Function): void;
         on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;

@@ -20,7 +20,7 @@ declare namespace Gtag {
   }
 
   interface ConfigParams {
-    send_page_view?: boolean;
+    send_page_view?: boolean | undefined;
   }
 
   interface CustomParams {
@@ -28,10 +28,10 @@ declare namespace Gtag {
   }
 
   interface ControlParams {
-    groups?: string | string[];
-    send_to?: string | string[];
-    event_callback?: () => void;
-    event_timeout?: number;
+    groups?: string | string[] | undefined;
+    send_to?: string | string[] | undefined;
+    event_callback?: (() => void) | undefined;
+    event_timeout?: number | undefined;
   }
 
   type EventNames =
@@ -60,56 +60,56 @@ declare namespace Gtag {
     | 'view_search_results';
 
   interface EventParams {
-    checkout_option?: string;
-    checkout_step?: number;
-    content_id?: string;
-    content_type?: string;
-    coupon?: string;
-    currency?: string;
-    description?: string;
-    fatal?: boolean;
-    items?: Item[];
-    method?: string;
-    number?: string;
-    promotions?: Promotion[];
-    screen_name?: string;
-    search_term?: string;
-    shipping?: Currency;
-    tax?: Currency;
-    transaction_id?: string;
-    value?: number;
-    event_label?: string;
-    event_category?: string;
+    checkout_option?: string | undefined;
+    checkout_step?: number | undefined;
+    content_id?: string | undefined;
+    content_type?: string | undefined;
+    coupon?: string | undefined;
+    currency?: string | undefined;
+    description?: string | undefined;
+    fatal?: boolean | undefined;
+    items?: Item[] | undefined;
+    method?: string | undefined;
+    number?: string | undefined;
+    promotions?: Promotion[] | undefined;
+    screen_name?: string | undefined;
+    search_term?: string | undefined;
+    shipping?: Currency | undefined;
+    tax?: Currency | undefined;
+    transaction_id?: string | undefined;
+    value?: number | undefined;
+    event_label?: string | undefined;
+    event_category?: string | undefined;
   }
 
   type Currency = string | number;
 
   interface Item {
-    brand?: string;
-    category?: string;
-    creative_name?: string;
-    creative_slot?: string;
-    id?: string;
-    location_id?: string;
-    name?: string;
-    price?: Currency;
-    quantity?: number;
+    brand?: string | undefined;
+    category?: string | undefined;
+    creative_name?: string | undefined;
+    creative_slot?: string | undefined;
+    id?: string | undefined;
+    location_id?: string | undefined;
+    name?: string | undefined;
+    price?: Currency | undefined;
+    quantity?: number | undefined;
   }
 
   interface Promotion {
-    creative_name?: string;
-    creative_slot?: string;
-    id?: string;
-    name?: string;
+    creative_name?: string | undefined;
+    creative_slot?: string | undefined;
+    id?: string | undefined;
+    name?: string | undefined;
   }
 
   type FieldNames = 'client_id' | 'session_id' | 'gclid';
 
   type ConsentArg = 'default' | 'update';
   interface ConsentParams {
-    ad_storage?: 'granted' | 'denied';
-    analytics_storage?: 'granted' | 'denied';
-    wait_for_update?: number;
-    region?: string[];
+    ad_storage?: 'granted' | 'denied' | undefined;
+    analytics_storage?: 'granted' | 'denied' | undefined;
+    wait_for_update?: number | undefined;
+    region?: string[] | undefined;
   }
 }

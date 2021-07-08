@@ -49,14 +49,14 @@ declare global {
 
         interface Request {
             /** `Multer.File` object populated by `single()` middleware. */
-            file?: Multer.File;
+            file?: Multer.File | undefined;
             /**
              * Array or dictionary of `Multer.File` object populated by `array()`,
              * `fields()`, and `any()` middleware.
              */
             files?: {
                 [fieldname: string]: Multer.File[];
-            } | Multer.File[];
+            } | Multer.File[] | undefined;
         }
     }
 }
@@ -167,7 +167,7 @@ declare namespace multer {
         /** Descriptive error message. */
         message: string;
         /** Name of the multipart form field associated with this error. */
-        field?: string;
+        field?: string | undefined;
     }
 
     /**
@@ -186,7 +186,7 @@ declare namespace multer {
          * A `StorageEngine` responsible for processing files uploaded via Multer.
          * Takes precedence over `dest`.
          */
-        storage?: StorageEngine;
+        storage?: StorageEngine | undefined;
         /**
          * The destination directory for uploaded files. If `storage` is not set
          * and `dest` is, Multer will create a `DiskStorage` instance configured
@@ -194,7 +194,7 @@ declare namespace multer {
          *
          * Ignored if `storage` is set.
          */
-        dest?: string;
+        dest?: string | undefined;
         /**
          * An object specifying various limits on incoming data. This object is
          * passed to Busboy directly, and the details of properties can be found
@@ -202,22 +202,22 @@ declare namespace multer {
          */
         limits?: {
             /** Maximum size of each form field name in bytes. (Default: 100) */
-            fieldNameSize?: number;
+            fieldNameSize?: number | undefined;
             /** Maximum size of each form field value in bytes. (Default: 1048576) */
-            fieldSize?: number;
+            fieldSize?: number | undefined;
             /** Maximum number of non-file form fields. (Default: Infinity) */
-            fields?: number;
+            fields?: number | undefined;
             /** Maximum size of each file in bytes. (Default: Infinity) */
-            fileSize?: number;
+            fileSize?: number | undefined;
             /** Maximum number of file fields. (Default: Infinity) */
-            files?: number;
+            files?: number | undefined;
             /** Maximum number of parts (non-file fields + files). (Default: Infinity) */
-            parts?: number;
+            parts?: number | undefined;
             /** Maximum number of headers. (Default: 2000) */
-            headerPairs?: number;
-        };
+            headerPairs?: number | undefined;
+        } | undefined;
         /** Preserve the full path of the original filename rather than the basename. (Default: false) */
-        preservePath?: boolean;
+        preservePath?: boolean | undefined;
         /**
          * Optional function to control which files are uploaded. This is called
          * for every file that is processed.
@@ -289,7 +289,7 @@ declare namespace multer {
             req: Request,
             file: Express.Multer.File,
             callback: (error: Error | null, destination: string) => void
-        ) => void);
+        ) => void) | undefined;
         /**
          * A function that determines the name of the uploaded file. If nothing
          * is passed, Multer will generate a 32 character pseudorandom hex string
@@ -314,7 +314,7 @@ declare namespace multer {
         /** The field name. */
         name: string;
         /** Optional maximum number of files per field to accept. (Default: Infinity) */
-        maxCount?: number;
+        maxCount?: number | undefined;
     }
 }
 

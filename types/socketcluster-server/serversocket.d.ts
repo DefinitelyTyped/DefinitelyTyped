@@ -47,7 +47,7 @@ declare class AGServerSocket extends AsyncStreamEmitter<any> {
     remoteAddress: string;
     remoteFamily: string;
     remotePort: number;
-    forwardedForAddress?: string;
+    forwardedForAddress?: string | undefined;
 
     isBufferingBatch: boolean;
     isBatching: boolean;
@@ -64,8 +64,8 @@ declare class AGServerSocket extends AsyncStreamEmitter<any> {
 
     state: 'connecting' | 'open' | 'closed';
     authState: 'authenticated' | 'unauthenticated';
-    authToken?: AGServerSocket.AuthToken;
-    signedAuthToken?: string;
+    authToken?: AGServerSocket.AuthToken | undefined;
+    signedAuthToken?: string | undefined;
 
     constructor(id: string, server: AGServer, socket: WebSocket, protocolVersion: number);
 
@@ -161,7 +161,7 @@ declare class AGServerSocket extends AsyncStreamEmitter<any> {
     disconnect(code?: number, reason?: string): void;
     terminate(): void;
 
-    send(data: any, options: { mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean }): void;
+    send(data: any, options: { mask?: boolean | undefined; binary?: boolean | undefined; compress?: boolean | undefined; fin?: boolean | undefined }): void;
 
     decode(message: any): any;
     encode(object: any): any;
@@ -204,21 +204,21 @@ declare namespace AGServerSocket {
     }
 
     interface AuthTokenOptions extends SignOptions {
-        rejectOnFailedDelivery?: boolean;
+        rejectOnFailedDelivery?: boolean | undefined;
     }
 
     interface StateChangeData {
         oldState: 'authenticated' | 'unauthenticated';
         newState: 'authenticated' | 'unauthenticated';
-        authToken?: AuthToken;
+        authToken?: AuthToken | undefined;
     }
 
     interface AuthenticateData {
-        authToken?: AuthToken;
+        authToken?: AuthToken | undefined;
     }
 
     interface DeauthenticateData {
-        oldAuthToken?: AuthToken;
+        oldAuthToken?: AuthToken | undefined;
     }
 
     interface BadAuthTokenData {
@@ -229,7 +229,7 @@ declare namespace AGServerSocket {
     interface ConnectData {
         id: string;
         pingTimeout: number;
-        authError?: Error;
+        authError?: Error | undefined;
         isAuthenticated: boolean;
     }
 
@@ -240,7 +240,7 @@ declare namespace AGServerSocket {
 
     interface SubscriptionOptions {
         channel: string;
-        waitForAuth?: boolean;
+        waitForAuth?: boolean | undefined;
         data?: any;
     }
 

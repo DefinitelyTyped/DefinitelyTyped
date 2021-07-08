@@ -13,8 +13,8 @@ declare function less(root: string, options?: less.Options): express.RequestHand
 
 declare namespace less {
     export interface Options {
-        debug?: boolean;
-        compress?: boolean;
+        debug?: boolean | undefined;
+        compress?: boolean | undefined;
     }
 }
 

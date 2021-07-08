@@ -10,7 +10,11 @@ declare namespace WechatMiniprogram.Page {
     type Options<
         TData extends DataOption,
         TCustom extends CustomOption
-    > = (TCustom & Partial<Data<TData>> & Partial<ILifetime>) &
+    > = (TCustom &
+        Partial<Data<TData>> &
+        Partial<ILifetime> & {
+            options?: Component.ComponentOptions
+        }) &
         ThisType<Instance<TData, TCustom>>
     type TrivialInstance = Instance<IAnyObject, IAnyObject>
     interface Constructor {

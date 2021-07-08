@@ -14,7 +14,7 @@ export interface ParseOptions {
      * - "throw" - throw SyntaxError in case of reserved keys
      * - "replace" - replace reserved keys, this is the default JSON.parse behaviour, unsafe
      */
-    reserved_keys?: 'ignore' | 'throw' | 'replace';
+    reserved_keys?: 'ignore' | 'throw' | 'replace' | undefined;
 
     /**
      * Create object as `Object.create(null)` instead of `{}`.
@@ -23,18 +23,18 @@ export interface ParseOptions {
      *
      * It is usually unsafe and not recommended to change this option to false in the last case.
      */
-    null_prototype?: boolean;
+    null_prototype?: boolean | undefined;
 
     /**
      * Reviver function (follows the JSON spec). This function is called for each member of the object.
      * If a member contains nested objects, the nested objects are transformed before the parent object is.
      */
-    reviver?: (key: any, value: any) => any;
+    reviver?: ((key: any, value: any) => any) | undefined;
 
     /**
      * Operation mode (default 'json5'). Set to 'json' if you want to throw on non-strict json files.
      */
-    mode?: 'json5' | 'json' | 'cjson';
+    mode?: 'json5' | 'json' | 'cjson' | undefined;
 }
 
 export interface StringifyOptions {
@@ -42,20 +42,20 @@ export interface StringifyOptions {
      * Output ascii only (default false).
      * If this option is enabled, output will not have any characters except 0x20-0x7f.
      */
-    ascii?: boolean;
+    ascii?: boolean | undefined;
 
     /**
      * This option follows JSON specification.
      * @default '\t'
      */
-    indent?: string | number | boolean;
+    indent?: string | number | boolean | undefined;
 
     /**
      * Enquoting char.
      * - If `mode` is 'json', default is "
      * - Otherwise, default is '
      */
-    quote?: '"' | "'";
+    quote?: '"' | "'" | undefined;
 
     /**
      * Whether keys quoting in objects is required or not.
@@ -63,7 +63,7 @@ export interface StringifyOptions {
      * - If `mode` is 'json', default is true
      * - Otherwise, default is false
      */
-    quote_keys?: boolean;
+    quote_keys?: boolean | undefined;
 
     /**
      * Sort all keys while stringifying.
@@ -72,14 +72,14 @@ export interface StringifyOptions {
      * You can provide your own sorting function as well.
      * @default false
      */
-    sort_keys?: boolean | ((a: any, b: any) => number);
+    sort_keys?: boolean | ((a: any, b: any) => number) | undefined;
 
     /**
      * Replacer function or array. This option follows JSON specification.
      * If a function, used to transform the results.
      * If an array, acts as a approved list for selecting the object properties that will be stringified.
      */
-    replacer?: ((key: string, value: any) => any) | Array<number | string>;
+    replacer?: ((key: string, value: any) => any) | Array<number | string> | undefined;
 
     /**
      * Don't output trailing comma. If this option is set, arrays like `[1,2,3,]` will never be generated.
@@ -87,7 +87,7 @@ export interface StringifyOptions {
      * - If `mode` is JSON, default is true
      * - Otherwise, default is false
      */
-    no_trailing_comma?: boolean;
+    no_trailing_comma?: boolean | undefined;
 
     /**
      * Operation mode. Set it to 'json' if you want correct json in the output.
@@ -97,7 +97,7 @@ export interface StringifyOptions {
      * - options.quote_keys = true
      * - '\x' literals are not used
      */
-    mode?: 'json' | 'json5' | 'cjson';
+    mode?: 'json' | 'json5' | 'cjson' | undefined;
 }
 
 /**

@@ -74,7 +74,7 @@ export namespace Transaction {
         readonly outputIndex: number;
         readonly sequenceNumber: number;
         readonly script: Script;
-        readonly output?: Output;
+        readonly output?: Output | undefined;
     }
 }
 

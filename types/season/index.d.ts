@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ParseOptions {
-    allowDuplicateKeys?: boolean;
+    allowDuplicateKeys?: boolean | undefined;
 }
 
 /** Set the cache directory to use for storing compiled CSON files. */

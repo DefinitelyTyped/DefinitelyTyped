@@ -62,7 +62,7 @@ export interface Emitter {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     /**
      * Stops listening for events. It can be used at different levels:

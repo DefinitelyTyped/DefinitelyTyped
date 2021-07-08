@@ -24,20 +24,20 @@ export interface ViewState {
     latitude: number;
     longitude: number;
     zoom: number;
-    bearing?: number;
-    pitch?: number;
-    altitude?: number;
+    bearing?: number | undefined;
+    pitch?: number | undefined;
+    altitude?: number | undefined;
 }
 
 export interface MapError {
-    error?: { message: string; status: number };
+    error?: { message: string; status: number } | undefined;
     status: number;
 }
 
 export interface MapRequest {
     url: string;
-    headers?: { [index: string]: string };
-    credentials?: string;
+    headers?: { [index: string]: string } | undefined;
+    credentials?: string | undefined;
 }
 
 export interface MapLoadEvent {
@@ -46,42 +46,42 @@ export interface MapLoadEvent {
 }
 
 export interface MapboxProps extends Partial<ViewState> {
-    container?: object;
-    gl?: object;
-    mapboxApiAccessToken?: string;
-    mapboxApiUrl?: string;
-    attributionControl?: boolean;
-    preserveDrawingBuffer?: boolean;
-    reuseMaps?: boolean;
-    transformRequest?: (url?: string, resourceType?: string) => MapRequest;
-    mapOptions?: object;
-    mapStyle?: string | object;
-    visible?: boolean;
-    onLoad?: (event: MapLoadEvent) => void;
-    onError?: (e: MapError) => void;
-    reuseMap?: boolean;
+    container?: object | undefined;
+    gl?: object | undefined;
+    mapboxApiAccessToken?: string | undefined;
+    mapboxApiUrl?: string | undefined;
+    attributionControl?: boolean | undefined;
+    preserveDrawingBuffer?: boolean | undefined;
+    reuseMaps?: boolean | undefined;
+    transformRequest?: ((url?: string, resourceType?: string) => MapRequest) | undefined;
+    mapOptions?: object | undefined;
+    mapStyle?: string | object | undefined;
+    visible?: boolean | undefined;
+    onLoad?: ((event: MapLoadEvent) => void) | undefined;
+    onError?: ((e: MapError) => void) | undefined;
+    reuseMap?: boolean | undefined;
     width: number | string;
     height: number | string;
-    viewState?: ViewState;
+    viewState?: ViewState | undefined;
 }
 
 export interface StaticMapProps extends MapboxProps {
-    onResize?: (dimensions: { width: number; height: number }) => void;
-    preventStyleDiffing?: boolean;
-    disableTokenWarning?: boolean;
-    className?: string;
-    style?: object;
+    onResize?: ((dimensions: { width: number; height: number }) => void) | undefined;
+    preventStyleDiffing?: boolean | undefined;
+    disableTokenWarning?: boolean | undefined;
+    className?: string | undefined;
+    style?: object | undefined;
     visibilityConstraints?: {
-        minZoom?: number;
-        maxZoom?: number;
-        minPitch?: number;
-        maxPitch?: number;
-    };
+        minZoom?: number | undefined;
+        maxZoom?: number | undefined;
+        minPitch?: number | undefined;
+        maxPitch?: number | undefined;
+    } | undefined;
 }
 
 export interface QueryRenderedFeaturesParams {
-    layers?: string[];
-    filter?: any[];
+    layers?: string[] | undefined;
+    filter?: any[] | undefined;
 }
 
 export class StaticMap extends React.PureComponent<StaticMapProps> {
@@ -93,12 +93,12 @@ export class StaticMap extends React.PureComponent<StaticMapProps> {
 }
 
 export interface ExtraState {
-    inTransition?: boolean;
-    isDragging?: boolean;
-    isHovering?: boolean;
-    isPanning?: boolean;
-    isRotating?: boolean;
-    isZooming?: boolean;
+    inTransition?: boolean | undefined;
+    isDragging?: boolean | undefined;
+    isHovering?: boolean | undefined;
+    isPanning?: boolean | undefined;
+    isRotating?: boolean | undefined;
+    isZooming?: boolean | undefined;
 }
 
 export interface PositionInput {
@@ -114,17 +114,17 @@ export type ContextViewportChangeHandler = (
 ) => void;
 
 export interface MapControllerOptions {
-    onViewportChange?: ContextViewportChangeHandler;
-    onStateChange?: (state: MapState) => void;
+    onViewportChange?: ContextViewportChangeHandler | undefined;
+    onStateChange?: ((state: MapState) => void) | undefined;
     eventManager?: any;
     isInteractive: boolean;
-    scrollZoom?: boolean;
-    dragPan?: boolean;
-    dragRotate?: boolean;
-    doubleClickZoom?: boolean;
-    touchZoom?: boolean;
-    touchRotate?: boolean;
-    keyboard?: boolean;
+    scrollZoom?: boolean | undefined;
+    dragPan?: boolean | undefined;
+    dragRotate?: boolean | undefined;
+    doubleClickZoom?: boolean | undefined;
+    touchZoom?: boolean | undefined;
+    touchRotate?: boolean | undefined;
+    keyboard?: boolean | undefined;
 }
 
 export interface ViewportProps {
@@ -140,18 +140,18 @@ export interface ViewportProps {
     minZoom: number;
     maxPitch: number;
     minPitch: number;
-    transitionDuration?: number | 'auto';
-    transitionInterpolator?: TransitionInterpolator;
-    transitionInterruption?: TRANSITION_EVENTS;
-    transitionEasing?: EasingFunction;
+    transitionDuration?: number | 'auto' | undefined;
+    transitionInterpolator?: TransitionInterpolator | undefined;
+    transitionInterruption?: TRANSITION_EVENTS | undefined;
+    transitionEasing?: EasingFunction | undefined;
 }
 
 export interface InteractiveState {
-    startPanLngLat?: [number, number];
-    startZoomLngLat?: [number, number];
-    startBearing?: number;
-    startPitch?: number;
-    startZoom?: number;
+    startPanLngLat?: [number, number] | undefined;
+    startZoomLngLat?: [number, number] | undefined;
+    startBearing?: number | undefined;
+    startPitch?: number | undefined;
+    startZoom?: number | undefined;
 }
 
 export type MapStateProps = Partial<ViewportProps & InteractiveState>;
@@ -161,13 +161,13 @@ export class MapState {
     getViewportProps(): ViewportProps;
     getInteractiveState(): InteractiveState;
     panStart(input: PositionInput): MapState;
-    pan(input: PositionInput & { startPos?: [number, number] }): MapState;
+    pan(input: PositionInput & { startPos?: [number, number] | undefined }): MapState;
     panEnd(): MapState;
     rotateStart(input: PositionInput): MapState;
-    rotate(input: { deltaScaleX?: number; deltaScaleY?: number }): MapState;
+    rotate(input: { deltaScaleX?: number | undefined; deltaScaleY?: number | undefined }): MapState;
     rotateEnd(): MapState;
     zoomStart(input: PositionInput): MapState;
-    zoom(input: PositionInput & { scale: number; startPos?: [number, number] }): MapState;
+    zoom(input: PositionInput & { scale: number; startPos?: [number, number] | undefined }): MapState;
     zoomEnd(): MapState;
 }
 
@@ -182,12 +182,12 @@ export interface MapControlEvent {
     offsetCenter: Center;
     target: any;
     srcEvent: any;
-    key?: number;
-    leftButton?: boolean;
-    middleButton?: boolean;
-    rightButton?: boolean;
-    pointerType?: string;
-    delta?: number;
+    key?: number | undefined;
+    leftButton?: boolean | undefined;
+    middleButton?: boolean | undefined;
+    rightButton?: boolean | undefined;
+    pointerType?: string | undefined;
+    delta?: number | undefined;
 }
 
 export interface BaseMapController {
@@ -230,8 +230,8 @@ export enum TRANSITION_EVENTS {
 export class TransitionInterpolator {}
 
 export interface LinearInterpolatorProps {
-    transitionProps?: string[];
-    around?: number[];
+    transitionProps?: string[] | undefined;
+    around?: number[] | undefined;
 }
 
 export class LinearInterpolator extends TransitionInterpolator {
@@ -239,10 +239,10 @@ export class LinearInterpolator extends TransitionInterpolator {
 }
 
 export interface FlyToInterpolatorProps {
-    curve?: number;
-    speed?: number;
-    screenSpeed?: number;
-    maxDuration?: number;
+    curve?: number | undefined;
+    speed?: number | undefined;
+    screenSpeed?: number | undefined;
+    maxDuration?: number | undefined;
 }
 
 export class FlyToInterpolator extends TransitionInterpolator {
@@ -264,47 +264,47 @@ export type ViewStateChangeHandler = (info: ViewStateChangeInfo) => void;
 export type ContextViewStateChangeHandler = (info: ContextViewStateChangeInfo) => void;
 
 export interface InteractiveMapProps extends StaticMapProps {
-    maxZoom?: number;
-    minZoom?: number;
-    maxPitch?: number;
-    minPitch?: number;
-    onViewStateChange?: ContextViewStateChangeHandler;
-    onViewportChange?: ContextViewportChangeHandler;
-    onInteractionStateChange?: (state: ExtraState) => void;
-    transitionDuration?: number | 'auto';
-    transitionInterpolator?: TransitionInterpolator;
-    transitionInterruption?: TRANSITION_EVENTS;
-    transitionEasing?: EasingFunction;
-    onTransitionStart?: () => void;
-    onTransitionInterrupt?: () => void;
-    onTransitionEnd?: () => void;
-    scrollZoom?: boolean;
-    dragPan?: boolean;
-    dragRotate?: boolean;
-    doubleClickZoom?: boolean;
-    touchZoom?: boolean;
-    touchRotate?: boolean;
-    keyboard?: boolean;
-    onHover?: (event: PointerEvent) => void;
-    onClick?: (event: PointerEvent) => void;
-    onNativeClick?: (event: PointerEvent) => void;
-    onDblClick?: (event: PointerEvent) => void;
-    onContextMenu?: (event: PointerEvent) => void;
-    onMouseDown?: (event: PointerEvent) => void;
-    onMouseMove?: (event: PointerEvent) => void;
-    onMouseUp?: (event: PointerEvent) => void;
-    onTouchStart?: (event: PointerEvent) => void;
-    onTouchMove?: (event: PointerEvent) => void;
-    onTouchEnd?: (event: PointerEvent) => void;
-    onMouseEnter?: (event: PointerEvent) => void;
-    onMouseLeave?: (event: PointerEvent) => void;
-    onMouseOut?: (event: PointerEvent) => void;
-    onWheel?: (event: PointerEvent) => void;
-    touchAction?: string;
-    clickRadius?: number;
-    interactiveLayerIds?: string[];
-    getCursor?: (state: ExtraState) => void;
-    controller?: MapController;
+    maxZoom?: number | undefined;
+    minZoom?: number | undefined;
+    maxPitch?: number | undefined;
+    minPitch?: number | undefined;
+    onViewStateChange?: ContextViewStateChangeHandler | undefined;
+    onViewportChange?: ContextViewportChangeHandler | undefined;
+    onInteractionStateChange?: ((state: ExtraState) => void) | undefined;
+    transitionDuration?: number | 'auto' | undefined;
+    transitionInterpolator?: TransitionInterpolator | undefined;
+    transitionInterruption?: TRANSITION_EVENTS | undefined;
+    transitionEasing?: EasingFunction | undefined;
+    onTransitionStart?: (() => void) | undefined;
+    onTransitionInterrupt?: (() => void) | undefined;
+    onTransitionEnd?: (() => void) | undefined;
+    scrollZoom?: boolean | undefined;
+    dragPan?: boolean | undefined;
+    dragRotate?: boolean | undefined;
+    doubleClickZoom?: boolean | undefined;
+    touchZoom?: boolean | undefined;
+    touchRotate?: boolean | undefined;
+    keyboard?: boolean | undefined;
+    onHover?: ((event: PointerEvent) => void) | undefined;
+    onClick?: ((event: PointerEvent) => void) | undefined;
+    onNativeClick?: ((event: PointerEvent) => void) | undefined;
+    onDblClick?: ((event: PointerEvent) => void) | undefined;
+    onContextMenu?: ((event: PointerEvent) => void) | undefined;
+    onMouseDown?: ((event: PointerEvent) => void) | undefined;
+    onMouseMove?: ((event: PointerEvent) => void) | undefined;
+    onMouseUp?: ((event: PointerEvent) => void) | undefined;
+    onTouchStart?: ((event: PointerEvent) => void) | undefined;
+    onTouchMove?: ((event: PointerEvent) => void) | undefined;
+    onTouchEnd?: ((event: PointerEvent) => void) | undefined;
+    onMouseEnter?: ((event: PointerEvent) => void) | undefined;
+    onMouseLeave?: ((event: PointerEvent) => void) | undefined;
+    onMouseOut?: ((event: PointerEvent) => void) | undefined;
+    onWheel?: ((event: PointerEvent) => void) | undefined;
+    touchAction?: string | undefined;
+    clickRadius?: number | undefined;
+    interactiveLayerIds?: string[] | undefined;
+    getCursor?: ((state: ExtraState) => void) | undefined;
+    controller?: MapController | undefined;
 }
 
 export class InteractiveMap extends React.PureComponent<InteractiveMapProps> {
@@ -321,22 +321,22 @@ export default InteractiveMap;
 export type EventManager = any;
 
 export interface MapContextProps {
-    viewport?: WebMercatorViewport;
-    map?: MapboxGL.Map;
+    viewport?: WebMercatorViewport | undefined;
+    map?: MapboxGL.Map | undefined;
     mapContainer: HTMLElement | null;
-    onViewStateChange?: ContextViewStateChangeHandler;
-    onViewportChange?: ContextViewportChangeHandler;
+    onViewStateChange?: ContextViewStateChangeHandler | undefined;
+    onViewportChange?: ContextViewportChangeHandler | undefined;
     isDragging: boolean;
-    eventManager?: EventManager;
+    eventManager?: EventManager | undefined;
 }
 
 export const _MapContext: React.Context<MapContextProps>;
 
 export interface BaseControlProps {
-    captureScroll?: boolean;
-    captureDrag?: boolean;
-    captureClick?: boolean;
-    captureDoubleClick?: boolean;
+    captureScroll?: boolean | undefined;
+    captureDrag?: boolean | undefined;
+    captureClick?: boolean | undefined;
+    captureDoubleClick?: boolean | undefined;
 }
 
 export class BaseControl<T extends BaseControlProps, S extends Element> extends React.PureComponent<T> {
@@ -345,69 +345,69 @@ export class BaseControl<T extends BaseControlProps, S extends Element> extends 
 }
 
 export interface PopupProps extends BaseControlProps {
-    className?: string;
+    className?: string | undefined;
     longitude: number;
     latitude: number;
-    altitude?: number;
-    offsetLeft?: number;
-    offsetTop?: number;
-    tipSize?: number;
-    closeButton?: boolean;
-    closeOnClick?: boolean;
-    anchor?: MapboxGL.Anchor;
-    dynamicPosition?: boolean;
-    sortByDepth?: boolean;
-    onClose?: () => void;
+    altitude?: number | undefined;
+    offsetLeft?: number | undefined;
+    offsetTop?: number | undefined;
+    tipSize?: number | undefined;
+    closeButton?: boolean | undefined;
+    closeOnClick?: boolean | undefined;
+    anchor?: MapboxGL.Anchor | undefined;
+    dynamicPosition?: boolean | undefined;
+    sortByDepth?: boolean | undefined;
+    onClose?: (() => void) | undefined;
 }
 
 export class Popup extends BaseControl<PopupProps, HTMLDivElement> {}
 
 export interface NavigationControlProps extends BaseControlProps {
-    className?: string;
-    onViewStateChange?: ViewStateChangeHandler;
-    onViewportChange?: ViewportChangeHandler;
-    showCompass?: boolean;
-    showZoom?: boolean;
-    zoomInLabel?: string;
-    zoomOutLabel?: string;
-    compassLabel?: string;
+    className?: string | undefined;
+    onViewStateChange?: ViewStateChangeHandler | undefined;
+    onViewportChange?: ViewportChangeHandler | undefined;
+    showCompass?: boolean | undefined;
+    showZoom?: boolean | undefined;
+    zoomInLabel?: string | undefined;
+    zoomOutLabel?: string | undefined;
+    compassLabel?: string | undefined;
 }
 
 export class NavigationControl extends BaseControl<NavigationControlProps, HTMLDivElement> {}
 
 export interface FullscreenControlProps extends BaseControlProps {
-    className?: string;
-    container?: HTMLElement | null;
+    className?: string | undefined;
+    container?: HTMLElement | null | undefined;
 }
 
 export class FullscreenControl extends BaseControl<FullscreenControlProps, HTMLDivElement> {}
 
 // https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions
 interface PositionOptions {
-    enableHighAccuracy?: boolean;
+    enableHighAccuracy?: boolean | undefined;
     timeout: number;
     maximumAge: number;
 }
 
 export interface GeolocateControlProps extends BaseControlProps {
-    className?: string;
-    label?: string;
-    positionOptions?: MapboxGL.PositionOptions;
-    fitBoundsOptions?: MapboxGL.FitBoundsOptions;
-    trackUserLocation?: boolean;
-    showUserLocation?: boolean;
-    onViewStateChange?: ViewStateChangeHandler;
-    onViewportChange?: ViewportChangeHandler;
-    onGeolocate?: (options: PositionOptions) => void;
-    style?: React.CSSProperties;
-    auto?: boolean;
+    className?: string | undefined;
+    label?: string | undefined;
+    positionOptions?: MapboxGL.PositionOptions | undefined;
+    fitBoundsOptions?: MapboxGL.FitBoundsOptions | undefined;
+    trackUserLocation?: boolean | undefined;
+    showUserLocation?: boolean | undefined;
+    onViewStateChange?: ViewStateChangeHandler | undefined;
+    onViewportChange?: ViewportChangeHandler | undefined;
+    onGeolocate?: ((options: PositionOptions) => void) | undefined;
+    style?: React.CSSProperties | undefined;
+    auto?: boolean | undefined;
 }
 
 export class GeolocateControl extends BaseControl<GeolocateControlProps, HTMLDivElement> {}
 
 export interface ScaleControlProps extends BaseControlProps {
-    maxWidth?: number;
-    unit?: 'imperial' | 'metric' | 'nautical';
+    maxWidth?: number | undefined;
+    unit?: 'imperial' | 'metric' | 'nautical' | undefined;
 }
 
 export class ScaleControl extends BaseControl<ScaleControlProps, HTMLDivElement> {}
@@ -418,20 +418,20 @@ export interface DragEvent {
 }
 
 export interface DraggableControlProps extends BaseControlProps {
-    draggable?: boolean;
-    onDrag?: (event: DragEvent) => void;
-    onDragEnd?: (event: DragEvent) => void;
-    onDragStart?: (event: DragEvent) => void;
+    draggable?: boolean | undefined;
+    onDrag?: ((event: DragEvent) => void) | undefined;
+    onDragEnd?: ((event: DragEvent) => void) | undefined;
+    onDragStart?: ((event: DragEvent) => void) | undefined;
 }
 
 export class DraggableControl<T extends DraggableControlProps> extends BaseControl<T, HTMLDivElement> {}
 
 export interface MarkerProps extends DraggableControlProps {
-    className?: string;
+    className?: string | undefined;
     longitude: number;
     latitude: number;
-    offsetLeft?: number;
-    offsetTop?: number;
+    offsetLeft?: number | undefined;
+    offsetTop?: number | undefined;
 }
 
 export class Marker extends DraggableControl<MarkerProps> {}
@@ -445,7 +445,7 @@ export interface HTMLRedrawOptions {
 
 export interface HTMLOverlayProps extends BaseControlProps {
     redraw: (opts: HTMLRedrawOptions) => void;
-    style?: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
 }
 
 export class HTMLOverlay extends BaseControl<HTMLOverlayProps, HTMLDivElement> {}
@@ -464,45 +464,45 @@ export type SVGRedrawOptions = HTMLRedrawOptions;
 
 export interface SVGOverlayProps extends BaseControlProps {
     redraw: (opts: SVGRedrawOptions) => void;
-    style?: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
 }
 
 export class SVGOverlay extends BaseControl<SVGOverlayProps, Element> {}
 
 export interface SourceProps {
-    id?: string;
+    id?: string | undefined;
     type: string;
-    url?: string;
-    tiles?: string[];
-    tileSize?: number;
-    bounds?: number[];
-    scheme?: 'xyz' | 'tms';
-    minzoom?: number;
-    maxzoom?: number;
-    attribution?: string;
-    encoding?: 'terrarium' | 'mapbox';
-    data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string;
-    buffer?: number;
-    tolerance?: number;
-    cluster?: boolean;
-    clusterRadius?: number;
-    clusterProperties?: object;
-    clusterMaxZoom?: number;
-    lineMetrics?: boolean;
-    generateId?: boolean;
-    coordinates?: number[][];
-    urls?: string[];
-    children?: React.ReactNode;
+    url?: string | undefined;
+    tiles?: string[] | undefined;
+    tileSize?: number | undefined;
+    bounds?: number[] | undefined;
+    scheme?: 'xyz' | 'tms' | undefined;
+    minzoom?: number | undefined;
+    maxzoom?: number | undefined;
+    attribution?: string | undefined;
+    encoding?: 'terrarium' | 'mapbox' | undefined;
+    data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string | undefined;
+    buffer?: number | undefined;
+    tolerance?: number | undefined;
+    cluster?: boolean | undefined;
+    clusterRadius?: number | undefined;
+    clusterProperties?: object | undefined;
+    clusterMaxZoom?: number | undefined;
+    lineMetrics?: boolean | undefined;
+    generateId?: boolean | undefined;
+    coordinates?: number[][] | undefined;
+    urls?: string[] | undefined;
+    children?: React.ReactNode | undefined;
 }
 
 export class Source extends React.PureComponent<SourceProps> {}
 
 export interface LayerProps {
-    id?: string;
+    id?: string | undefined;
     type: string;
-    source?: string;
-    beforeId?: string;
-    layout?: MapboxGL.AnyLayout;
+    source?: string | undefined;
+    beforeId?: string | undefined;
+    layout?: MapboxGL.AnyLayout | undefined;
     paint:
         | MapboxGL.BackgroundPaint
         | MapboxGL.FillPaint
@@ -513,9 +513,9 @@ export interface LayerProps {
         | MapboxGL.CirclePaint
         | MapboxGL.HeatmapPaint
         | MapboxGL.HillshadePaint;
-    filter?: any[];
-    minzoom?: number;
-    maxzoom?: number;
+    filter?: any[] | undefined;
+    minzoom?: number | undefined;
+    maxzoom?: number | undefined;
 }
 
 export class Layer extends React.PureComponent<LayerProps> {}

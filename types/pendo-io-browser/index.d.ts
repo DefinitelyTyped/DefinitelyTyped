@@ -7,30 +7,30 @@
 declare namespace pendo {
     interface Identity {
         /** visitor.id is required if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie */
-        visitor?: IdentityMetadata;
-        account?: IdentityMetadata;
+        visitor?: IdentityMetadata | undefined;
+        account?: IdentityMetadata | undefined;
     }
 
     interface Metadata {
         [key: string]: string | number | boolean;
     }
 
-    type IdentityMetadata = { id?: string; } & Metadata;
+    type IdentityMetadata = { id?: string | undefined; } & Metadata;
 
     interface InitOptions extends Identity {
-        apiKey?: string;
-        excludeAllText?: boolean;
-        excludeTitle?: boolean;
-        disablePersistence?: boolean;
+        apiKey?: string | undefined;
+        excludeAllText?: boolean | undefined;
+        excludeTitle?: boolean | undefined;
+        disablePersistence?: boolean | undefined;
         guides?: {
-            delay?: boolean;
-            disable?: boolean;
-            timeout?: number;
+            delay?: boolean | undefined;
+            disable?: boolean | undefined;
+            timeout?: number | undefined;
             tooltip?: {
-                arrowSize?: number;
-            }
-        };
-        events?: EventCallbacks;
+                arrowSize?: number | undefined;
+            } | undefined
+        } | undefined;
+        events?: EventCallbacks | undefined;
     }
 
     interface EventCallbacks {
@@ -142,12 +142,12 @@ declare namespace pendo {
         type: string;
         elementPathRule: string;
         contentType: string;
-        contentUrl?: string;
-        contentUrlCss?: string;
-        contentUrlJs?: string;
+        contentUrl?: string | undefined;
+        contentUrlCss?: string | undefined;
+        contentUrlJs?: string | undefined;
         rank: number;
         advanceMethod: "button" | "programatic" /* sic */ | "element";
-        thumbnailUrls?: string;
+        thumbnailUrls?: string | undefined;
         attributes: {
             height: number;
             width: number;

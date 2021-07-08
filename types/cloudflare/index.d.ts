@@ -29,9 +29,9 @@ declare namespace Cloudflare {
     type ResponseObjectPromise = Promise<object>;
 
     interface AuthObject {
-        email?: string;
-        key?: string;
-        token?: string;
+        email?: string | undefined;
+        key?: string | undefined;
+        token?: string | undefined;
     }
 
     interface DnsRecordWithoutPriority {
@@ -39,7 +39,7 @@ declare namespace Cloudflare {
         name: string;
         content: string;
         ttl: number;
-        proxied?: boolean;
+        proxied?: boolean | undefined;
     }
 
     interface DnsRecordWithPriority {
@@ -47,7 +47,7 @@ declare namespace Cloudflare {
         name: string;
         content: string;
         ttl: number;
-        proxied?: boolean;
+        proxied?: boolean | undefined;
         priority: number;
     }
 
@@ -127,8 +127,8 @@ declare namespace Cloudflare {
                         value: string;
                     },
                 ];
-                priority?: number;
-                status?: string;
+                priority?: number | undefined;
+                status?: string | undefined;
             },
         ): ResponseObjectPromise;
         add(zone: {
@@ -147,8 +147,8 @@ declare namespace Cloudflare {
                     value: string;
                 },
             ];
-            priority?: number;
-            status?: string;
+            priority?: number | undefined;
+            status?: string | undefined;
         }): ResponseObjectPromise;
         del(id: string): ResponseObjectPromise;
         browse(): ResponseObjectPromise;
@@ -161,16 +161,16 @@ declare namespace Cloudflare {
         add(zone: {
             name: string;
             action: { id: string };
-            jump_start?: boolean;
-            type?: "full" | "partial";
+            jump_start?: boolean | undefined;
+            type?: "full" | "partial" | undefined;
         }): ResponseObjectPromise;
         edit(
             id: string,
             zone: {
                 name: string;
                 action: { id: string };
-                jump_start?: boolean;
-                type?: "full" | "partial";
+                jump_start?: boolean | undefined;
+                type?: "full" | "partial" | undefined;
             },
         ): ResponseObjectPromise;
         read(id: string): ResponseObjectPromise;
@@ -179,10 +179,10 @@ declare namespace Cloudflare {
             params: {
                 files?:
                     | string[]
-                    | { url: string; headers: { Origin: string; "CF-IPCountry": string; "CF-Device-Type": string } };
-                tags?: string[];
-                hosts?: string[];
-                prefixes?: string[];
+                    | { url: string; headers: { Origin: string; "CF-IPCountry": string; "CF-Device-Type": string } } | undefined;
+                tags?: string[] | undefined;
+                hosts?: string[] | undefined;
+                prefixes?: string[] | undefined;
             },
         ): ResponseObjectPromise;
         browse(): ResponseObjectPromise;

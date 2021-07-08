@@ -1155,7 +1155,7 @@ function plugin_stream_test() {
 
 function plugin_transport_example_test() {
     interface MailOptions extends Mail.Options {
-        mailOption?: 'foo';
+        mailOption?: 'foo' | undefined;
     }
     interface Options extends MailOptions, nodemailer.TransportOptions {
         transportOptions: 'bar';

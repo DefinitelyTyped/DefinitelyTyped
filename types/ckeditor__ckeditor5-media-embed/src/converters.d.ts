@@ -4,8 +4,8 @@ import MediaRegistry from './mediaregistry';
 export function modelToViewUrlAttributeConverter(
     registry: MediaRegistry,
     options?: {
-        elementName?: string;
-        renderMediaPreview?: boolean;
-        renderForEditingView?: boolean;
+        elementName?: string | undefined;
+        renderMediaPreview?: boolean | undefined;
+        renderForEditingView?: boolean | undefined;
     },
 ): (dispatcher: DowncastDispatcher) => void;

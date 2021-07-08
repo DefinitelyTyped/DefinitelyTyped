@@ -7,7 +7,7 @@ import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn, ForwardRef
 
 interface PopoverBaseIsolatedProps {
     // props not given to the component specified by "as"
-    caret?: boolean;
+    caret?: boolean | undefined;
     align?:
         | "top"
         | "top-left"
@@ -20,17 +20,17 @@ interface PopoverBaseIsolatedProps {
         | "left-top"
         | "right"
         | "right-bottom"
-        | "right-top";
-    highConstrast?: boolean;
-    light?: boolean;
+        | "right-top" | undefined;
+    highConstrast?: boolean | undefined;
+    light?: boolean | undefined;
     open: boolean;
-    relative?: boolean;
+    relative?: boolean | undefined;
 }
 type SafePopoverProps<P> = Omit<P, "as" | keyof PopoverBaseIsolatedProps>;
 
 interface PopoverBaseProps extends PopoverBaseIsolatedProps {
-    children?: React.ReactNode;
-    className?: string;
+    children?: React.ReactNode | undefined;
+    className?: string | undefined;
 }
 
 export type PopoverDefaultProps = PopoverBaseProps &

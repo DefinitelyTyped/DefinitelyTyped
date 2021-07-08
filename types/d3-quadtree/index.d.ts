@@ -21,7 +21,7 @@ export interface QuadtreeLeaf<T> {
     /**
      * The next datum in this leaf, if any.
      */
-    next?: QuadtreeLeaf<T>;
+    next?: QuadtreeLeaf<T> | undefined;
 
     /**
      * The length property may be used to distinguish leaf nodes from internal nodes: it is undefined for leaf nodes, and 4 for internal nodes.

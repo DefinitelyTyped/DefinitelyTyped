@@ -12,7 +12,7 @@ declare namespace env {
 
     interface GenericMapping {
         keypath: string;
-        type?: string;
+        type?: string | undefined;
         [opt: string]: any;
     }
 
