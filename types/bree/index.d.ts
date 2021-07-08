@@ -34,31 +34,31 @@ declare class Bree extends EventEmitter {
 }
 
 interface JobOptions {
-    name?: string;
-    path?: string | (() => void);
-    timeout?: number | string | boolean;
-    interval?: number | string;
-    date?: Date;
-    cron?: string;
-    hasSeconds?: boolean;
-    cronValidate?: object;
-    closeWorkerAfterMs?: number;
-    worker?: object;
-    outputWorkerMetadate?: boolean;
+    name?: string | undefined;
+    path?: string | (() => void) | undefined;
+    timeout?: number | string | boolean | undefined;
+    interval?: number | string | undefined;
+    date?: Date | undefined;
+    cron?: string | undefined;
+    hasSeconds?: boolean | undefined;
+    cronValidate?: object | undefined;
+    closeWorkerAfterMs?: number | undefined;
+    worker?: object | undefined;
+    outputWorkerMetadate?: boolean | undefined;
 }
 
 interface BreeOptions {
-    logger?: object;
-    root?: string | boolean;
-    timeout?: number | boolean;
-    interval?: number;
-    jobs?: Array<string | (() => void) | JobOptions>;
-    hasSeconds?: boolean;
-    cronValidate?: object;
-    closeWorkerAfterMs?: number;
-    defaultExtension?: string;
-    worker?: object;
-    outputWorkerMetadate?: boolean;
-    errorHandler?: (error: any, workerMetadata: any) => void;
-    workerMessageHandler?: (message: any, workerMetadata: any) => void;
+    logger?: object | undefined;
+    root?: string | boolean | undefined;
+    timeout?: number | boolean | undefined;
+    interval?: number | undefined;
+    jobs?: Array<string | (() => void) | JobOptions> | undefined;
+    hasSeconds?: boolean | undefined;
+    cronValidate?: object | undefined;
+    closeWorkerAfterMs?: number | undefined;
+    defaultExtension?: string | undefined;
+    worker?: object | undefined;
+    outputWorkerMetadate?: boolean | undefined;
+    errorHandler?: ((error: any, workerMetadata: any) => void) | undefined;
+    workerMessageHandler?: ((message: any, workerMetadata: any) => void) | undefined;
 }

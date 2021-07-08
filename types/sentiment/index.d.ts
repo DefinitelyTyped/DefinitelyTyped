@@ -27,14 +27,14 @@ declare namespace Sentiment {
         };
         scoringStrategy?: {
             apply: (tokens: string[], cursor: number, tokenScore: number) => number;
-        };
+        } | undefined;
     }
 
     interface AnalysisOptions {
         extras?: {
             [token: string]: number;
-        };
-        language?: string;
+        } | undefined;
+        language?: string | undefined;
     }
 
     interface AnalysisResult {

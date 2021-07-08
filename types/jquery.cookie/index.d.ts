@@ -15,15 +15,15 @@ interface JQueryCookieOptions {
     /**
      * Define the path where the cookie is valid. By default the path of the cookie is the path of the page where the cookie was created (standard browser behavior). If you want to make it available for instance across the entire domain use path: '/'. Default: path of page where the cookie was created.
      */
-    path?: string;
+    path?: string | undefined;
     /**
      * Define the domain where the cookie is valid. Default: domain of page where the cookie was created.
      */
-    domain?: string;
+    domain?: string | undefined;
     /**
      * If true, the cookie transmission requires a secure protocol (https). Default: false.
      */
-    secure?: boolean;
+    secure?: boolean | undefined;
 }
 //
 // The following jsdoc comments are used to add intellisense to editors that support it. Uses snippets
@@ -36,15 +36,15 @@ interface JQueryCookieStatic {
     /**
      * By default the cookie value is encoded/decoded when writing/reading, using encodeURIComponent/decodeURIComponent. Bypass this by setting raw to true:
      */
-    raw?: boolean;
+    raw?: boolean | undefined;
     /**
      * Turn on automatic storage of JSON objects passed as the cookie value. Assumes JSON.stringify and JSON.parse
      */
-    json?: boolean;
+    json?: boolean | undefined;
     /**
      * Cookie attributes can be set globally by setting properties of the $.cookie.defaults object or individually for each call to $.cookie() by passing a plain object to the options argument. Per-call options override the default options.
      */
-    defaults?: JQueryCookieOptions;
+    defaults?: JQueryCookieOptions | undefined;
     /**
      * Gets an object of cookies as key-value pairs
      */

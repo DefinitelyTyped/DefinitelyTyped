@@ -1,7 +1,7 @@
 import * as React from "react";
 
 interface SCProps {
-    foo?: number;
+    foo?: number | undefined;
 }
 const StatelessComponent: React.SFC<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;

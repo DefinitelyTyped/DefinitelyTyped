@@ -19,8 +19,8 @@ export interface ChromePickerStylesProps {
 }
 
 export interface ChromePickerProps extends ColorPickerProps<ChromePicker> {
-    disableAlpha?: boolean;
-    styles?: Partial<Classes<ChromePickerStylesProps>>;
+    disableAlpha?: boolean | undefined;
+    styles?: Partial<Classes<ChromePickerStylesProps>> | undefined;
 }
 
 export default class ChromePicker extends Component<ChromePickerProps> { }

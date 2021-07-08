@@ -7,24 +7,24 @@
 import * as React from 'react';
 
 export interface Props {
-    classForValue?: (value: any) => any;
-    endDate?: string | number | Date;
-    gutterSize?: number;
-    horizontal?: boolean;
-    monthLabels?: string[];
-    numDays?: number;
-    onClick?: (value: any) => void;
-    onMouseLeave?: (e: any, value: any) => void;
-    onMouseOver?: (e: any, value: any) => void;
-    showMonthLabels?: boolean;
-    showOutOfRangeDays?: boolean;
-    showWeekdayLabels?: boolean;
-    startDate?: string | number | Date;
-    titleForValue?: (value: any) => any;
-    tooltipDataAttrs?: object;
-    transformDayElement?: (rect: any, value: any, index: number) => any;
+    classForValue?: ((value: any) => any) | undefined;
+    endDate?: string | number | Date | undefined;
+    gutterSize?: number | undefined;
+    horizontal?: boolean | undefined;
+    monthLabels?: string[] | undefined;
+    numDays?: number | undefined;
+    onClick?: ((value: any) => void) | undefined;
+    onMouseLeave?: ((e: any, value: any) => void) | undefined;
+    onMouseOver?: ((e: any, value: any) => void) | undefined;
+    showMonthLabels?: boolean | undefined;
+    showOutOfRangeDays?: boolean | undefined;
+    showWeekdayLabels?: boolean | undefined;
+    startDate?: string | number | Date | undefined;
+    titleForValue?: ((value: any) => any) | undefined;
+    tooltipDataAttrs?: object | undefined;
+    transformDayElement?: ((rect: any, value: any, index: number) => any) | undefined;
     values: any[];
-    weekdayLabels?: string[];
+    weekdayLabels?: string[] | undefined;
 }
 
 export default class ReactCalendarHeatmap extends React.Component<Props> {}

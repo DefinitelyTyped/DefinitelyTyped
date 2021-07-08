@@ -41,8 +41,8 @@ declare namespace feathers {
     type ServerSideParams = Params;
 
     interface Params {
-        query?: Query;
-        paginate?: false | Pick<PaginationOptions, 'max'>;
+        query?: Query | undefined;
+        paginate?: false | Pick<PaginationOptions, 'max'> | undefined;
 
         [key: string]: any; // (JL) not sure if we want this
     }
@@ -69,7 +69,7 @@ declare namespace feathers {
          * A writeable property containing the data of a create, update and patch service
          * method call.
          */
-        data?: T;
+        data?: T | undefined;
         /**
          * A writeable property with the error object that was thrown in a failed method call.
          * It is only available in error hooks.
@@ -80,7 +80,7 @@ declare namespace feathers {
          * method call. For remove, update and patch context.id can also be null when
          * modifying multiple entries. In all other cases it will be undefined.
          */
-        id?: string | number;
+        id?: string | number | undefined;
         /**
          * A read only property with the name of the service method (one of find, get,
          * create, update, patch, remove).
@@ -105,7 +105,7 @@ declare namespace feathers {
          *  - A before hook to skip the actual service method (database) call
          *  - An error hook to swallow the error and return a result instead
          */
-        result?: T;
+        result?: T | undefined;
         /**
          * A read only property and contains the service this hook currently runs on.
          */
@@ -115,12 +115,12 @@ declare namespace feathers {
          * should be sent to any client. If context.dispatch has not been set context.result
          * will be sent to the client instead.
          */
-        dispatch?: T;
+        dispatch?: T | undefined;
         /**
          * A writeable, optional property that allows to override the standard HTTP status
          * code that should be returned.
          */
-        statusCode?: number;
+        statusCode?: number | undefined;
         /**
          * A read only property with the hook type (one of before, after or error).
          */
@@ -141,7 +141,7 @@ declare namespace feathers {
         before: Partial<HookMap> | Hook | Hook[];
         after: Partial<HookMap> | Hook | Hook[];
         error: Partial<HookMap> | Hook | Hook[];
-        finally?: Partial<HookMap> | Hook | Hook[];
+        finally?: Partial<HookMap> | Hook | Hook[] | undefined;
     }
 
     // todo: figure out what to do: These methods don't actually need to be implemented, so they can be undefined at runtime. Yet making them optional gets cumbersome in strict mode.

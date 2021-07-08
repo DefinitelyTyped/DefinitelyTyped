@@ -155,7 +155,7 @@ export class Status {
      * for debugging purposes only. For user feedback, it is better to translate
      * the Guacamole status code into a message.
      */
-    message?: string;
+    message?: string | undefined;
 
     /**
      * Returns whether this status represents an error.

@@ -62,29 +62,29 @@ declare namespace FBT {
     }
 
     interface Options {
-        author?: string;
-        common?: boolean;
-        doNotExtract?: boolean;
-        preserveWhitespace?: boolean;
-        project?: string;
-        subject?: IntlVariationsGenderValues;
+        author?: string | undefined;
+        common?: boolean | undefined;
+        doNotExtract?: boolean | undefined;
+        preserveWhitespace?: boolean | undefined;
+        project?: string | undefined;
+        subject?: IntlVariationsGenderValues | undefined;
     }
 
     interface PluralOptions {
-        many?: string;
-        showCount?: 'yes' | 'no' | 'ifMany';
-        name?: string;
+        many?: string | undefined;
+        showCount?: 'yes' | 'no' | 'ifMany' | undefined;
+        name?: string | undefined;
         value?: any;
     }
 
     interface ParamOptions {
-        gender?: IntlVariationsGenderValues;
-        number?: number | true;
+        gender?: IntlVariationsGenderValues | undefined;
+        number?: number | true | undefined;
     }
 
     interface PronounOptions {
-        human?: boolean;
-        capitalize?: boolean;
+        human?: boolean | undefined;
+        capitalize?: boolean | undefined;
     }
 
     interface Props extends Options {

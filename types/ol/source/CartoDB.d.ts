@@ -11,17 +11,17 @@ export interface CartoDBLayerInfo {
     cdn_url: any;
 }
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: null | string;
-    projection?: ProjectionLike;
-    maxZoom?: number;
-    minZoom?: number;
-    wrapX?: boolean;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    projection?: ProjectionLike | undefined;
+    maxZoom?: number | undefined;
+    minZoom?: number | undefined;
+    wrapX?: boolean | undefined;
     config?: any;
-    map?: string;
+    map?: string | undefined;
     account: string;
-    transition?: number;
+    transition?: number | undefined;
 }
 export default class CartoDB extends XYZ {
     constructor(options: Options);

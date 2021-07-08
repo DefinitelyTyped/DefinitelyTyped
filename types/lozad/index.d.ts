@@ -5,9 +5,9 @@
 
 declare namespace lozad {
     interface Options {
-        enableAutoReload?: boolean;
-        rootMargin?: string;
-        threshold?: number;
+        enableAutoReload?: boolean | undefined;
+        rootMargin?: string | undefined;
+        threshold?: number | undefined;
         load?(element: Element): void;
         loaded?(element: Element): void;
     }

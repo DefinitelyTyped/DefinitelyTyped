@@ -27,7 +27,7 @@ declare namespace AMap {
             /**
              * 要加载的标准GeoJSON对象
              */
-            geoJSON?: GeoJSONObject | GeoJSONObject[];
+            geoJSON?: GeoJSONObject | GeoJSONObject[] | undefined;
             /**
              * 指定点要素的绘制方式
              * @param obj GeoJSON对象

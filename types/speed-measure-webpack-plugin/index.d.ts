@@ -45,32 +45,32 @@ declare namespace SpeedMeasurePlugin {
          * If truthy, this plugin does nothing at all.
          * @default false
          */
-        disable?: boolean;
+        disable?: boolean | undefined;
         /**
          * Determines in what format this plugin prints its measurements
          * @default 'human'
          */
-        outputFormat?: OutputFormat;
-        outputTarget?: OutputTarget;
+        outputFormat?: OutputFormat | undefined;
+        outputTarget?: OutputTarget | undefined;
         /**
          * By default, SMP derives plugin names through plugin.constructor.name.
          * For some plugins this doesn't work (or you may want to override this default).
          * This option takes an object of pluginName: PluginConstructor
          */
-        pluginNames?: Record<string, object>;
+        pluginNames?: Record<string, object> | undefined;
 
         /**
          * You can configure SMP to include the files that take the most time per loader,
          * when using outputFormat: 'humanVerbose'
          * @default 0
          */
-        loaderTopFiles?: number;
+        loaderTopFiles?: number | undefined;
 
         /**
          * This option gives you a comparison over time of the module count and time spent, per loader.
          * This option provides more data when outputFormat: "humanVerbose".
          */
-        compareLoadersBuild?: LoaderBuild;
+        compareLoadersBuild?: LoaderBuild | undefined;
 
         /**
          * By default, SMP measures loaders in groups.
@@ -81,7 +81,7 @@ declare namespace SpeedMeasurePlugin {
          * We will find solutions to these issues before removing the (experimental) flag on this option.
          * @default false
          */
-        granularLoaderData?: boolean;
+        granularLoaderData?: boolean | undefined;
     }
 }
 

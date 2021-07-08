@@ -12,7 +12,7 @@ declare module 'karma' {
         /**
          * Launcher for jsdom configuration
          */
-        jsdomLauncher?: JsdomLauncherOptions;
+        jsdomLauncher?: JsdomLauncherOptions | undefined;
     }
 
     interface JsdomLauncherOptions {

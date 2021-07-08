@@ -9,17 +9,17 @@ declare namespace LineNavigator {
          * Encoding
          * @default 'utf8'
          */
-        encoding?: string;
+        encoding?: string | undefined;
         /**
          * Size of chunk
          * @default 4096
          */
-        chunkSize?: number;
+        chunkSize?: number | undefined;
         /**
          * Return error when line is longer than chunkSize, otherwise it will be threated as several lines.
          * @default false
          */
-        throwOnLongLines?: boolean;
+        throwOnLongLines?: boolean | undefined;
     }
 
     interface FindMatch {

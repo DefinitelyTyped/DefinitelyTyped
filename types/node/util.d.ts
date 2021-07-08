@@ -10,24 +10,24 @@ declare module 'util' {
          * the getter function.
          * @default `false`
          */
-        getters?: 'get' | 'set' | boolean;
-        showHidden?: boolean;
+        getters?: 'get' | 'set' | boolean | undefined;
+        showHidden?: boolean | undefined;
         /**
          * @default 2
          */
-        depth?: number | null;
-        colors?: boolean;
-        customInspect?: boolean;
-        showProxy?: boolean;
-        maxArrayLength?: number | null;
+        depth?: number | null | undefined;
+        colors?: boolean | undefined;
+        customInspect?: boolean | undefined;
+        showProxy?: boolean | undefined;
+        maxArrayLength?: number | null | undefined;
         /**
          * Specifies the maximum number of characters to
          * include when formatting. Set to `null` or `Infinity` to show all elements.
          * Set to `0` or negative to show no characters.
          * @default 10000
          */
-        maxStringLength?: number | null;
-        breakLength?: number;
+        maxStringLength?: number | null | undefined;
+        breakLength?: number | undefined;
         /**
          * Setting this to `false` causes each object key
          * to be displayed on a new line. It will also add new lines to text that is
@@ -38,8 +38,8 @@ declare module 'util' {
          * For more information, see the example below.
          * @default `true`
          */
-        compact?: boolean | number;
-        sorted?: boolean | ((a: string, b: string) => number);
+        compact?: boolean | number | undefined;
+        sorted?: boolean | ((a: string, b: string) => number) | undefined;
     }
 
     export type Style = 'special' | 'number' | 'bigint' | 'boolean' | 'undefined' | 'null' | 'string' | 'symbol' | 'date' | 'regexp' | 'module';
@@ -168,11 +168,11 @@ declare module 'util' {
         readonly ignoreBOM: boolean;
         constructor(
           encoding?: string,
-          options?: { fatal?: boolean; ignoreBOM?: boolean }
+          options?: { fatal?: boolean | undefined; ignoreBOM?: boolean | undefined }
         );
         decode(
           input?: NodeJS.ArrayBufferView | ArrayBuffer | null,
-          options?: { stream?: boolean }
+          options?: { stream?: boolean | undefined }
         ): string;
     }
 

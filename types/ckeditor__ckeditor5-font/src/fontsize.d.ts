@@ -16,6 +16,6 @@ export interface FontSizeOption {
 }
 
 export interface FontSizeConfig {
-    options?: Array<string | number | FontSizeOption>;
-    supportAllValues?: boolean;
+    options?: Array<string | number | FontSizeOption> | undefined;
+    supportAllValues?: boolean | undefined;
 }

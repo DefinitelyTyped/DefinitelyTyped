@@ -7,11 +7,11 @@ import { StyleFunction, StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    extent?: Extent;
-    boxStyle?: StyleLike;
-    pixelTolerance?: number;
-    pointerStyle?: StyleLike;
-    wrapX?: boolean;
+    extent?: Extent | undefined;
+    boxStyle?: StyleLike | undefined;
+    pixelTolerance?: number | undefined;
+    pointerStyle?: StyleLike | undefined;
+    wrapX?: boolean | undefined;
 }
 export default class ExtentInteraction extends PointerInteraction {
     constructor(opt_options?: Options);

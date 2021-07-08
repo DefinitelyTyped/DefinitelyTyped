@@ -29,28 +29,28 @@ declare namespace HapiPino {
     }
 
     interface Options {
-        logPayload?: boolean;
-        logRouteTags?: boolean;
-        logRequestStart?: boolean | ((req: Request) => boolean);
-        logRequestComplete?: boolean | ((req: Request) => boolean);
-        stream?: NodeJS.WriteStream;
-        prettyPrint?: boolean | pino.PrettyOptions;
-        tags?: { [key in pino.Level]?: string };
-        allTags?: pino.Level;
-        serializers?: Serializers;
-        getChildBindings?: (
+        logPayload?: boolean | undefined;
+        logRouteTags?: boolean | undefined;
+        logRequestStart?: boolean | ((req: Request) => boolean) | undefined;
+        logRequestComplete?: boolean | ((req: Request) => boolean) | undefined;
+        stream?: NodeJS.WriteStream | undefined;
+        prettyPrint?: boolean | pino.PrettyOptions | undefined;
+        tags?: { [key in pino.Level]?: string } | undefined;
+        allTags?: pino.Level | undefined;
+        serializers?: Serializers | undefined;
+        getChildBindings?: ((
             req: Request,
         ) => {
-            level?: pino.Level | string;
-            serializers?: Serializers;
+            level?: pino.Level | string | undefined;
+            serializers?: Serializers | undefined;
             [key: string]: any;
-        };
-        instance?: pino.Logger;
-        logEvents?: string[] | false | null;
-        mergeHapiLogData?: boolean;
-        ignorePaths?: string[];
-        level?: pino.Level;
-        redact?: string[] | pino.redactOptions;
+        }) | undefined;
+        instance?: pino.Logger | undefined;
+        logEvents?: string[] | false | null | undefined;
+        mergeHapiLogData?: boolean | undefined;
+        ignorePaths?: string[] | undefined;
+        level?: pino.Level | undefined;
+        redact?: string[] | pino.redactOptions | undefined;
     }
 }
 

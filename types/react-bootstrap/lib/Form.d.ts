@@ -2,10 +2,10 @@ import * as React from 'react';
 
 declare namespace Form {
     export interface FormProps extends React.HTMLProps<Form> {
-        bsClass?: string;
-        componentClass?: React.ReactType;
-        horizontal?: boolean;
-        inline?: boolean;
+        bsClass?: string | undefined;
+        componentClass?: React.ReactType | undefined;
+        horizontal?: boolean | undefined;
+        inline?: boolean | undefined;
     }
 }
 declare class Form extends React.Component<Form.FormProps> { }

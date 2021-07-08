@@ -10,23 +10,23 @@ interface CoinsAllParams {
     /**
      * Order results by Order
      */
-    order?: Order;
+    order?: Order | undefined;
     /**
      * Total results per page
      */
-    per_page?: number;
+    per_page?: number | undefined;
     /**
      * Page through results
      */
-    page?: number;
+    page?: number | undefined;
     /**
      * Set to false to exclude localized languages in response.
      */
-    localization?: boolean;
+    localization?: boolean | undefined;
     /**
      * Include sparkline 7 days data
      */
-    sparkline?: boolean;
+    sparkline?: boolean | undefined;
 }
 
 interface CoinsFetchMarketChartRangeParams {
@@ -59,11 +59,11 @@ interface SimplePriceParams {
     /**
      * To include 24hr_vol.
      */
-    include_24hr_vol?: boolean;
+    include_24hr_vol?: boolean | undefined;
     /**
      * To include last_updated_at of price.
      */
-    include_last_updated_at?: boolean;
+    include_last_updated_at?: boolean | undefined;
 }
 
 interface Response {

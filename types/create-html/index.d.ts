@@ -5,25 +5,25 @@
 
 declare function createHtml(opts: {
     /** Content to insert into <body> tag. */
-    body?: string;
+    body?: string | undefined;
     /** CSS filename. */
-    css?: string | string[];
+    css?: string | string[] | undefined;
     /** Add async attribute to CSS tag. */
-    cssAsync?: string | string[];
+    cssAsync?: string | string[] | undefined;
     /** Direction of content. */
-    dir?: string;
+    dir?: string | undefined;
     /** Site favicon. */
-    favicon?: string;
+    favicon?: string | undefined;
     /** Content to insert into <head> tag. */
-    head?: string;
+    head?: string | undefined;
     /** Language of content. */
-    lang?: string;
+    lang?: string | undefined;
     /** JavaScript filename. */
-    script?: string | string[];
+    script?: string | string[] | undefined;
     /** Add async attribute to script tag. */
-    scriptAsync?: boolean;
+    scriptAsync?: boolean | undefined;
     /** Page title. */
-    title?: string;
+    title?: string | undefined;
 }): string;
 
 export = createHtml;

@@ -77,9 +77,9 @@ export namespace builders {
 
     interface Line {
         type: 'line';
-        soft?: boolean;
-        hard?: boolean;
-        literal?: boolean;
+        soft?: boolean | undefined;
+        hard?: boolean | undefined;
+        literal?: boolean | undefined;
     }
 
     interface LineSuffix {
@@ -105,8 +105,8 @@ export namespace builders {
     }
 
     interface GroupOptions {
-        shouldBreak?: boolean;
-        id?: symbol;
+        shouldBreak?: boolean | undefined;
+        id?: symbol | undefined;
     }
 
     function addAlignmentToDoc(doc: Doc, size: number, tabWidth: number): Doc;
@@ -134,11 +134,11 @@ export namespace builders {
     /** @see [hardlineWithoutBreakParent](https://github.com/prettier/prettier/blob/main/commands.md#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) */
     const hardlineWithoutBreakParent: HardlineWithoutBreakParent;
     /** @see [ifBreak](https://github.com/prettier/prettier/blob/main/commands.md#ifbreak) */
-    function ifBreak(ifBreak: Doc, noBreak?: Doc, options?: { groupId?: symbol }): IfBreak;
+    function ifBreak(ifBreak: Doc, noBreak?: Doc, options?: { groupId?: symbol | undefined }): IfBreak;
     /** @see [indent](https://github.com/prettier/prettier/blob/main/commands.md#indent) */
     function indent(doc: Doc): Indent;
     /** @see [indentIfBreak](https://github.com/prettier/prettier/blob/main/commands.md#indentifbreak) */
-    function indentIfBreak(doc: Doc, opts: { groupId: symbol; negate?: boolean }): IndentIfBreak;
+    function indentIfBreak(doc: Doc, opts: { groupId: symbol; negate?: boolean | undefined }): IndentIfBreak;
     /** @see [join](https://github.com/prettier/prettier/blob/main/commands.md#join) */
     function join(sep: Doc, docs: Doc[]): Concat;
     /** @see [label](https://github.com/prettier/prettier/blob/main/commands.md#label) */
@@ -173,8 +173,8 @@ export namespace printer {
         options: Options,
     ): {
         formatted: string;
-        cursorNodeStart?: number;
-        cursorNodeText?: string;
+        cursorNodeStart?: number | undefined;
+        cursorNodeText?: string | undefined;
     };
     interface Options {
         /**
@@ -192,8 +192,8 @@ export namespace printer {
          * @default false
          */
         useTabs: boolean;
-        parentParser?: string;
-        __embeddedInHtml?: boolean;
+        parentParser?: string | undefined;
+        __embeddedInHtml?: boolean | undefined;
     }
 }
 

@@ -11,12 +11,12 @@
 export const version: string;
 
 export interface ClientError extends Error {
-    provider?: Providers;
-    method?: string;
-    failCode?: string;
-    statusCode?: number;
-    href?: string;
-    headers?: { [headerName: string]: string };
+    provider?: Providers | undefined;
+    method?: string | undefined;
+    failCode?: string | undefined;
+    statusCode?: number | undefined;
+    href?: string | undefined;
+    headers?: { [headerName: string]: string } | undefined;
     result?: any;
 }
 
@@ -44,14 +44,14 @@ export interface AmazonProviderOptions {
     provider: 'amazon';
     keyId: string;
     key: string;
-    region?: string;
+    region?: string | undefined;
 }
 
 export interface AzureProviderOptions {
     provider: 'azure';
     storageAccount: string;
     storageAccessKey: string;
-    location?: string;
+    location?: string | undefined;
 }
 
 export interface GoogleProviderOptions {
@@ -65,12 +65,12 @@ export interface OpenstackProviderOptions {
     username: string;
     password: string;
     authUrl: string;
-    region?: string;
-    tenantId?: string;
-    version?: string;
-    keystoneAuthVersion?: string;
-    domainId?: string;
-    domainName?: string;
+    region?: string | undefined;
+    tenantId?: string | undefined;
+    version?: string | undefined;
+    keystoneAuthVersion?: string | undefined;
+    domainId?: string | undefined;
+    domainName?: string | undefined;
 }
 
 export type RackspaceRegions =
@@ -86,7 +86,7 @@ export interface RackspaceProviderOptions {
     username: string;
     apiKey: string;
     region: RackspaceRegions;
-    useInternal?: boolean;
+    useInternal?: boolean | undefined;
 }
 
 export type ProviderOptions = BaseProviderOptions & Partial<
