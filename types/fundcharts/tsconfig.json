@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
-        "module": "esnext",
+        "module": "commonjs",
         "lib": [
             "es6",
-            "dom"
+            "DOM"
         ],
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
