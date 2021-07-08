@@ -802,6 +802,8 @@ export declare class ExportFormat {
 
   static options: ExportFormatOptions;
   static optionsFlipped: ExportFormatOptionsFlipped;
+  static RAW_NOT_BATCHED: ExportFormat;
+  static JSON_BATCHED: ExportFormat;
 }
 
 export interface ExportFormatOptions {
@@ -861,7 +863,7 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap> {
   /**
      * Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
      * @returns {Number}
-     
+
      */
   get priority(): number | null;
 
@@ -878,7 +880,7 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap> {
   /**
      * The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
      * @returns {Number}
-     
+
      */
   get startSequenceNumber(): number | null;
 
@@ -895,7 +897,7 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap> {
   /**
      * Enable or disable this export. Default is false.
      * @returns {Boolean}
-     
+
      */
   get disabled(): boolean | null;
 
@@ -1164,7 +1166,7 @@ export declare class KinesisConfig extends StreamConfigBase<KinesisConfigMap> {
   /**
      * The name of the Kinesis data stream that this exporter should upload to.
      * @returns {String}
-     
+
      */
   get kinesisStreamName(): string | null;
 
@@ -1286,7 +1288,7 @@ export declare class StatusConfig {
   /**
      * Defines the verbosity of status messages in a status-stream.
      * @returns {aws-greengrass-core-sdk.StreamManager.StatusLevel}
-     
+
      */
   get statusLevel(): StatusLevel | null;
 
@@ -1383,7 +1385,7 @@ export declare class S3ExportTaskExecutorConfig {
   /**
      * The size threshold in bytes for when to use multipart uploads. Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
      * @returns {Number}
-     
+
      */
   get sizeThresholdForMultipartUploadBytes(): number | null;
 
@@ -1401,7 +1403,7 @@ export declare class S3ExportTaskExecutorConfig {
   /**
      * Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
      * @returns {Number}
-     
+
      */
   get priority(): number | null;
   /**
@@ -1418,7 +1420,7 @@ export declare class S3ExportTaskExecutorConfig {
   /**
      * Enable or disable this export. Default is false.
      * @returns {Boolean}
-     
+
      */
   get disabled(): boolean | null;
 
@@ -1436,7 +1438,7 @@ export declare class S3ExportTaskExecutorConfig {
   /**
      * Event status configuration that specifies the target status stream and verbosity.
      * @returns {aws-greengrass-core-sdk.StreamManager.StatusConfig}
-     
+
      */
   get statusConfig(): StatusConfig | null;
 
@@ -1493,7 +1495,7 @@ export declare class ExportDefinition {
   /**
      * Defines how the stream is uploaded to an HTTP endpoint.
      * @returns {aws-greengrass-core-sdk.StreamManager.HTTPConfig[]}
-     
+
      */
   get http(): HTTPConfig[] | null;
 
@@ -1511,7 +1513,7 @@ export declare class ExportDefinition {
   /**
      * Defines how the stream is uploaded to IoT Analytics.
      * @returns {aws-greengrass-core-sdk.StreamManager.IoTAnalyticsConfig[]}
-     
+
      */
   get iotAnalytics(): IoTAnalyticsConfig[] | null;
 
@@ -1529,7 +1531,7 @@ export declare class ExportDefinition {
   /**
      * Defines how the stream is uploaded to Kinesis.
      * @returns {aws-greengrass-core-sdk.StreamManager.KinesisConfig[]}
-     
+
      */
   get kinesis(): KinesisConfig[] | null;
 
@@ -1547,7 +1549,7 @@ export declare class ExportDefinition {
   /**
      * Defines how the stream is uploaded to IoT SiteWise.
      * @returns {aws-greengrass-core-sdk.StreamManager.IoTSiteWiseConfig[]}
-     
+
      */
   get IotSitewise(): IoTSiteWiseConfig[] | null;
 
@@ -1565,7 +1567,7 @@ export declare class ExportDefinition {
   /**
      * Defines the list of configs for S3 task executors.
      * @returns {aws-greengrass-core-sdk.StreamManager.S3ExportTaskExecutorConfig[]}
-     
+
      */
   get s3TaskExecutor(): S3ExportTaskExecutorConfig[] | null;
   /**
@@ -1653,7 +1655,7 @@ export declare class MessageStreamDefinition {
   /**
    * The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
    * @returns {Number}
-   
+
     */
   get maxSize(): number | null;
   /**
@@ -1770,7 +1772,7 @@ export declare class MessageStreamDefinition {
   /**
    * Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
    * @returns {aws-greengrass-core-sdk.StreamManager.ExportDefinition}
-   
+
     */
   get exportDefinition(): ExportDefinition | null;
   /**
