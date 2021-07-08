@@ -2,9 +2,9 @@ import * as React from 'react';
 
 declare namespace Grid {
     export interface GridProps extends React.HTMLProps<Grid> {
-        componentClass?: React.ReactType;
-        fluid?: boolean;
-        bsClass?: string;
+        componentClass?: React.ReactType | undefined;
+        fluid?: boolean | undefined;
+        bsClass?: string | undefined;
     }
 }
 declare class Grid extends React.Component<Grid.GridProps> { }

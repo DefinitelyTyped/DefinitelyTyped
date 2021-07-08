@@ -3,11 +3,11 @@ import { Address } from '../address';
 import { PricingPromise } from './promise';
 
 export type PlanOptions = {
-  quantity?: number;
+  quantity?: number | undefined;
 };
 
 export type AddonOptions = {
-  quantity?: number;
+  quantity?: number | undefined;
 };
 
 export type SubscriptionPricingStateTax = {

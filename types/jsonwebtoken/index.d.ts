@@ -51,49 +51,49 @@ export interface SignOptions {
      * - ES512:    ECDSA using P-521 curve and SHA-512 hash algorithm
      * - none:     No digital signature or MAC value included
      */
-    algorithm?: Algorithm;
-    keyid?: string;
+    algorithm?: Algorithm | undefined;
+    keyid?: string | undefined;
     /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
-    expiresIn?: string | number;
+    expiresIn?: string | number | undefined;
     /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
-    notBefore?: string | number;
-    audience?: string | string[];
-    subject?: string;
-    issuer?: string;
-    jwtid?: string;
-    mutatePayload?: boolean;
-    noTimestamp?: boolean;
-    header?: JwtHeader;
-    encoding?: string;
+    notBefore?: string | number | undefined;
+    audience?: string | string[] | undefined;
+    subject?: string | undefined;
+    issuer?: string | undefined;
+    jwtid?: string | undefined;
+    mutatePayload?: boolean | undefined;
+    noTimestamp?: boolean | undefined;
+    header?: JwtHeader | undefined;
+    encoding?: string | undefined;
 }
 
 export interface VerifyOptions {
-    algorithms?: Algorithm[];
-    audience?: string | RegExp | Array<string | RegExp>;
-    clockTimestamp?: number;
-    clockTolerance?: number;
+    algorithms?: Algorithm[] | undefined;
+    audience?: string | RegExp | Array<string | RegExp> | undefined;
+    clockTimestamp?: number | undefined;
+    clockTolerance?: number | undefined;
     /** return an object with the decoded `{ payload, header, signature }` instead of only the usual content of the payload. */
-    complete?: boolean;
-    issuer?: string | string[];
-    ignoreExpiration?: boolean;
-    ignoreNotBefore?: boolean;
-    jwtid?: string;
+    complete?: boolean | undefined;
+    issuer?: string | string[] | undefined;
+    ignoreExpiration?: boolean | undefined;
+    ignoreNotBefore?: boolean | undefined;
+    jwtid?: string | undefined;
     /**
      * If you want to check `nonce` claim, provide a string value here.
      * It is used on Open ID for the ID Tokens. ([Open ID implementation notes](https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes))
      */
-    nonce?: string;
-    subject?: string;
+    nonce?: string | undefined;
+    subject?: string | undefined;
     /**
      * @deprecated
      * Max age of token
      */
-    maxAge?: string;
+    maxAge?: string | undefined;
 }
 
 export interface DecodeOptions {
-    complete?: boolean;
-    json?: boolean;
+    complete?: boolean | undefined;
+    json?: boolean | undefined;
 }
 export type VerifyErrors =
     | JsonWebTokenError
@@ -111,27 +111,27 @@ export type SignCallback = (
 // standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1
 export interface JwtHeader {
     alg: string | Algorithm;
-    typ?: string;
-    cty?: string;
-    crit?: Array<string | Exclude<keyof JwtHeader, 'crit'>>;
-    kid?: string;
-    jku?: string;
-    x5u?: string | string[];
-    'x5t#S256'?: string;
-    x5t?: string;
-    x5c?: string | string[];
+    typ?: string | undefined;
+    cty?: string | undefined;
+    crit?: Array<string | Exclude<keyof JwtHeader, 'crit'>> | undefined;
+    kid?: string | undefined;
+    jku?: string | undefined;
+    x5u?: string | string[] | undefined;
+    'x5t#S256'?: string | undefined;
+    x5t?: string | undefined;
+    x5c?: string | string[] | undefined;
 }
 
 // standard claims https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
 export interface JwtPayload {
     [key: string]: any;
-    iss?: string;
-    sub?: string;
-    aud?: string | string[];
-    exp?: number;
-    nbf?: number;
-    iat?: number;
-    jti?: string;
+    iss?: string | undefined;
+    sub?: string | undefined;
+    aud?: string | string[] | undefined;
+    exp?: number | undefined;
+    nbf?: number | undefined;
+    iat?: number | undefined;
+    jti?: string | undefined;
 }
 
 export interface Jwt {

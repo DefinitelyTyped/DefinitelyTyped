@@ -8,7 +8,7 @@ export type useQueryLoaderHookType<TQuery extends OperationType> = [
 ];
 
 export type UseQueryLoaderLoadQueryOptions = LoadQueryOptions & Readonly<{
-    __environment?: IEnvironment | null,
+    __environment?: IEnvironment | null | undefined,
 }>;
 
 export function useQueryLoader<TQuery extends OperationType>(

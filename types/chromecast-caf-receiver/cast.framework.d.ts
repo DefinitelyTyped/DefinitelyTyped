@@ -785,57 +785,57 @@ export class PlaybackConfig {
     /**
      * Duration of buffered media in seconds to start buffering.
      */
-    autoPauseDuration?: number;
+    autoPauseDuration?: number | undefined;
 
     /**
      * Duration of buffered media in seconds to start/resume playback after auto-paused due to buffering.
      */
-    autoResumeDuration?: number;
+    autoResumeDuration?: number | undefined;
 
     /**
      * Minimum number of buffered segments to start/resume playback.
      */
-    autoResumeNumberOfSegments?: number;
+    autoResumeNumberOfSegments?: number | undefined;
 
     /**
      * A function to customize request to get a caption segment.
      */
-    captionsRequestHandler?: RequestHandler;
+    captionsRequestHandler?: RequestHandler | undefined;
 
     /**
      * Initial bandwidth in bits in per second.
      */
-    initialBandwidth?: number;
+    initialBandwidth?: number | undefined;
 
     /**
      * Custom license data.
      */
-    licenseCustomData?: string;
+    licenseCustomData?: string | undefined;
 
     /**
      * Handler to process license data. The handler is passed the license data; and returns the modified license data.
      */
-    licenseHandler?: BinaryHandler;
+    licenseHandler?: BinaryHandler | undefined;
 
     /**
      * A function to customize request to get a license.
      */
-    licenseRequestHandler?: RequestHandler;
+    licenseRequestHandler?: RequestHandler | undefined;
 
     /**
      * Url for acquiring the license.
      */
-    licenseUrl?: string;
+    licenseUrl?: string | undefined;
 
     /**
      * Handler to process manifest data. The handler is passed the manifest; and returns the modified manifest.
      */
-    manifestHandler?: (manifest: string) => string;
+    manifestHandler?: ((manifest: string) => string) | undefined;
 
     /**
      * A function to customize request to get a manifest.
      */
-    manifestRequestHandler?: RequestHandler;
+    manifestRequestHandler?: RequestHandler | undefined;
 
     /**
      * Preferred protection system to use for decrypting content.
@@ -845,17 +845,17 @@ export class PlaybackConfig {
     /**
      * Handler to process segment data. The handler is passed the segment data; and returns the modified segment data.
      */
-    segmentHandler?: BinaryHandler;
+    segmentHandler?: BinaryHandler | undefined;
 
     /**
      * A function to customize request information to get a media segment.
      */
-    segmentRequestHandler?: RequestHandler;
+    segmentRequestHandler?: RequestHandler | undefined;
 
     /**
      * Maximum number of times to retry a network request for a segment.
      */
-    segmentRequestRetryLimit?: number;
+    segmentRequestRetryLimit?: number | undefined;
 }
 /**
  * HTTP(s) Request/Response information.
@@ -895,12 +895,12 @@ export class CastReceiverOptions {
      * If true, the receiver will not set an idle timeout to close receiver if there is no activity.
      * Should only be used for non media apps.
      */
-    disableIdleTimeout?: boolean;
+    disableIdleTimeout?: boolean | undefined;
 
     /**
      * Sender id used for local requests. Default value is 'local'.
      */
-    localSenderId?: string;
+    localSenderId?: string | undefined;
 
     /**
      * Maximum time in seconds before closing an idle sender connection.
@@ -909,61 +909,61 @@ export class CastReceiverOptions {
      * The minimum value is 5 seconds; there is no upper bound enforced but practically it's minutes before platform TCP timeouts come into play.
      * Default value is 10 seconds.
      */
-    maxInactivity?: number;
+    maxInactivity?: number | undefined;
 
     /**
      * Optional media element to play content with. Default behavior is to use the first found media element in the page.
      */
-    mediaElement?: HTMLMediaElement;
+    mediaElement?: HTMLMediaElement | undefined;
 
     /**
      * Optional playback configuration.
      */
-    playbackConfig?: PlaybackConfig;
+    playbackConfig?: PlaybackConfig | undefined;
 
     /**
      * If this is true; the watched client stitching break will also be played.
      */
-    playWatchedBreak?: boolean;
+    playWatchedBreak?: boolean | undefined;
 
     /**
      * Preferred value for player playback rate. It is used if playback rate value is not provided in the load request.
      */
-    preferredPlaybackRate?: number;
+    preferredPlaybackRate?: number | undefined;
 
     /**
      * Preferred text track language. It is used if no active track is provided in the load request.
      */
-    preferredTextLanguage?: string;
+    preferredTextLanguage?: string | undefined;
 
     /**
      * Optional queue implementation.
      */
-    queue?: QueueBase;
+    queue?: QueueBase | undefined;
 
     /**
      * Text that represents the application status.
      * It should meet internationalization rules as may be displayed by the sender application.
      */
-    statusText?: string;
+    statusText?: string | undefined;
 
     /**
      * A bitmask of media commands supported by the application.
      * LOAD; PLAY; STOP; GET_STATUS must always be supported.
      * If this value is not provided; then PAUSE; SEEK; STREAM_VOLUME; STREAM_MUTE are assumed to be supported too.
      */
-    supportedCommands?: number;
+    supportedCommands?: number | undefined;
 
     /**
      * Indicate that MPL should be used for DASH content.
      */
-    useLegacyDashSupport?: boolean;
+    useLegacyDashSupport?: boolean | undefined;
 
     /**
      * An integer used as an internal version number.
      * This number is used only to distinguish between receiver releases and higher numbers do not necessarily have to represent newer releases.
      */
-    versionCode?: number;
+    versionCode?: number | undefined;
 }
 
 /** Manages loading of underlying libraries and initializes underlying cast receiver SDK. */

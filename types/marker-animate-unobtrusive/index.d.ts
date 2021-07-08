@@ -42,9 +42,9 @@ declare namespace jQuery.easing {
 }
 
 interface SlidingMarkerOptions extends google.maps.MarkerOptions {
-    easing?: jQuery.easing.IEasingType,
-    duration?: number,
-    animateFunctionAdapter?: (marker: google.maps.Marker, destPoint: google.maps.LatLng, easing: 'linear' | jQuery.easing.IEasingType, duration: number) => void
+    easing?: jQuery.easing.IEasingType | undefined,
+    duration?: number | undefined,
+    animateFunctionAdapter?: ((marker: google.maps.Marker, destPoint: google.maps.LatLng, easing: 'linear' | jQuery.easing.IEasingType, duration: number) => void) | undefined
 }
 
 declare class SlidingMarker extends google.maps.Marker {

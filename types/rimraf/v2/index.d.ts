@@ -21,24 +21,24 @@ declare namespace rimraf {
     let EMFILE_MAX: number;
     let BUSYTRIES_MAX: number;
     interface Options {
-        maxBusyTries?: number;
-        emfileWait?: number;
-        disableGlob?: boolean;
-        glob?: glob.IOptions | false;
+        maxBusyTries?: number | undefined;
+        emfileWait?: number | undefined;
+        disableGlob?: boolean | undefined;
+        glob?: glob.IOptions | false | undefined;
 
-        unlink?: typeof fs.unlink;
-        chmod?: typeof fs.chmod;
-        stat?: typeof fs.stat;
-        lstat?: typeof fs.lstat;
-        rmdir?: typeof fs.rmdir;
-        readdir?: typeof fs.readdir;
+        unlink?: typeof fs.unlink | undefined;
+        chmod?: typeof fs.chmod | undefined;
+        stat?: typeof fs.stat | undefined;
+        lstat?: typeof fs.lstat | undefined;
+        rmdir?: typeof fs.rmdir | undefined;
+        readdir?: typeof fs.readdir | undefined;
 
-        unlinkSync?: typeof fs.unlinkSync;
-        chmodSync?: typeof fs.chmodSync;
-        statSync?: typeof fs.statSync;
-        lstatSync?: typeof fs.lstatSync;
-        rmdirSync?: typeof fs.rmdirSync;
-        readdirSync?: typeof fs.readdirSync;
+        unlinkSync?: typeof fs.unlinkSync | undefined;
+        chmodSync?: typeof fs.chmodSync | undefined;
+        statSync?: typeof fs.statSync | undefined;
+        lstatSync?: typeof fs.lstatSync | undefined;
+        rmdirSync?: typeof fs.rmdirSync | undefined;
+        readdirSync?: typeof fs.readdirSync | undefined;
     }
 }
 export = rimraf;

@@ -14,7 +14,7 @@ export function transform(a: Operation, b: Operation, context: TransformationCon
 export function transformSets(
     operationsA: Operation[],
     operationsB: Operation[],
-    options?: { document: Document | null; useRelations?: boolean; padWithNoOps?: boolean },
+    options?: { document: Document | null; useRelations?: boolean | undefined; padWithNoOps?: boolean | undefined },
 ): {
     operationsA: Operation[];
     operationsB: Operation[];

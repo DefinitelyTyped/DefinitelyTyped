@@ -124,7 +124,7 @@ async function fakeCheckValidName(name: string, instance: UseFieldInstance<any, 
 
 type InputFieldProps = React.PropsWithChildren<{
     field: string;
-    validate?: UseFieldOptions<any, any, any, any, any, any>['validate'];
+    validate?: UseFieldOptions<any, any, any, any, any, any>['validate'] | undefined;
 }>;
 
 const InputField = React.forwardRef((props: InputFieldProps, ref) => {
@@ -199,9 +199,9 @@ interface InputFieldThirdMeta extends UseFieldInstanceMeta<string> {
 }
 
 interface InputFieldThirdProps extends InputFieldProps {
-    type?: string;
-    defaultValue?: string;
-    min?: string;
+    type?: string | undefined;
+    defaultValue?: string | undefined;
+    min?: string | undefined;
 }
 
 const InputFieldThird = React.forwardRef((props: InputFieldThirdProps, ref) => {

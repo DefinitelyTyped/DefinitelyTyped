@@ -23,25 +23,25 @@ export class Data {
 
 export namespace types {
     interface BasePlaylistConstructorProperties {
-        uri?: string;
-        version?: number;
-        independentSegments?: boolean;
-        start?: { offset: number; precise: boolean };
-        source?: string;
+        uri?: string | undefined;
+        version?: number | undefined;
+        independentSegments?: boolean | undefined;
+        start?: { offset: number; precise: boolean } | undefined;
+        source?: string | undefined;
     }
 
     class Playlist extends Data {
         isMasterPlaylist: boolean;
 
-        uri?: string;
+        uri?: string | undefined;
 
-        version?: number;
+        version?: number | undefined;
 
         independentSegments: boolean;
 
-        start?: { offset: number; precise: boolean };
+        start?: { offset: number; precise: boolean } | undefined;
 
-        source?: string;
+        source?: string | undefined;
 
         constructor(properties: BasePlaylistConstructorProperties & { isMasterPlaylist: boolean });
     }
@@ -49,7 +49,7 @@ export namespace types {
     class MasterPlaylist extends Playlist {
         variants: readonly Variant[];
 
-        currentVariant?: number;
+        currentVariant?: number | undefined;
 
         sessionDataList: readonly SessionData[];
 
@@ -57,32 +57,32 @@ export namespace types {
 
         constructor(
             properties: BasePlaylistConstructorProperties & {
-                variants?: readonly Variant[];
-                currentVariant?: number;
-                sessionDataList?: readonly SessionData[];
-                sessionKeyList?: readonly Key[];
-                source?: string;
+                variants?: readonly Variant[] | undefined;
+                currentVariant?: number | undefined;
+                sessionDataList?: readonly SessionData[] | undefined;
+                sessionKeyList?: readonly Key[] | undefined;
+                source?: string | undefined;
             },
         );
     }
 
     interface LowLatencyCompatibility {
-        canBlockReload?: boolean;
-        canSkipUntil?: boolean;
-        holdBack?: number;
-        partHoldBack?: number;
+        canBlockReload?: boolean | undefined;
+        canSkipUntil?: boolean | undefined;
+        holdBack?: number | undefined;
+        partHoldBack?: number | undefined;
     }
 
     class MediaPlaylist extends Playlist {
         targetDuration: number;
 
-        mediaSequenceBase?: number;
+        mediaSequenceBase?: number | undefined;
 
-        discontinuitySequenceBase?: number;
+        discontinuitySequenceBase?: number | undefined;
 
         endlist: boolean;
 
-        playlistType?: 'EVENT' | 'VOD';
+        playlistType?: 'EVENT' | 'VOD' | undefined;
 
         isIFrame: boolean;
 
@@ -90,29 +90,29 @@ export namespace types {
 
         prefetchSegments: readonly PrefetchSegment[];
 
-        lowLatencyCompatibility?: LowLatencyCompatibility;
+        lowLatencyCompatibility?: LowLatencyCompatibility | undefined;
 
-        partTargetDuration?: number;
+        partTargetDuration?: number | undefined;
 
-        renditionReports?: readonly RenditionReport[];
+        renditionReports?: readonly RenditionReport[] | undefined;
 
-        skip?: number;
+        skip?: number | undefined;
 
         constructor(
             properties: BasePlaylistConstructorProperties & {
                 targetDuration: number;
-                mediaSequenceBase?: number;
-                discontinuitySequenceBase?: number;
-                endlist?: boolean;
-                playlistType?: 'EVENT' | 'VOD';
-                isIFrame?: boolean;
-                segments?: readonly Segment[];
-                prefetchSegments?: readonly PrefetchSegment[];
-                source?: string;
-                lowLatencyCompatibility?: LowLatencyCompatibility;
-                partTargetDuration?: number;
-                renditionReports?: readonly RenditionReport[];
-                skip?: number;
+                mediaSequenceBase?: number | undefined;
+                discontinuitySequenceBase?: number | undefined;
+                endlist?: boolean | undefined;
+                playlistType?: 'EVENT' | 'VOD' | undefined;
+                isIFrame?: boolean | undefined;
+                segments?: readonly Segment[] | undefined;
+                prefetchSegments?: readonly PrefetchSegment[] | undefined;
+                source?: string | undefined;
+                lowLatencyCompatibility?: LowLatencyCompatibility | undefined;
+                partTargetDuration?: number | undefined;
+                renditionReports?: readonly RenditionReport[] | undefined;
+                skip?: number | undefined;
             },
         );
     }
@@ -120,19 +120,19 @@ export namespace types {
     class Variant {
         uri: string;
 
-        isIFrameOnly?: boolean;
+        isIFrameOnly?: boolean | undefined;
 
         bandwidth: number;
 
-        averageBandwidth?: number;
+        averageBandwidth?: number | undefined;
 
-        codecs?: string;
+        codecs?: string | undefined;
 
-        resolution?: { width: number; height: number };
+        resolution?: { width: number; height: number } | undefined;
 
-        frameRate?: number;
+        frameRate?: number | undefined;
 
-        hdcpLevel?: string;
+        hdcpLevel?: string | undefined;
 
         audio: ReadonlyArray<Rendition<'AUDIO'>>;
 
@@ -142,35 +142,35 @@ export namespace types {
 
         closedCaptions: ReadonlyArray<Rendition<'CLOSED-CAPTIONS'>>;
 
-        currentRenditions: { audio?: number; video?: number; subtitles?: number; closedCaptions?: number };
+        currentRenditions: { audio?: number | undefined; video?: number | undefined; subtitles?: number | undefined; closedCaptions?: number | undefined };
 
         constructor(properties: {
             uri: string;
-            isIFrameOnly?: boolean;
+            isIFrameOnly?: boolean | undefined;
             bandwidth: number;
-            averageBandwidth?: number;
-            codecs?: string;
-            resolution?: { width: number; height: number };
-            frameRate?: number;
-            hdcpLevel?: string;
-            audio?: ReadonlyArray<Rendition<'AUDIO'>>;
-            video?: ReadonlyArray<Rendition<'VIDEO'>>;
-            subtitles?: ReadonlyArray<Rendition<'SUBTITLES'>>;
-            closedCaptions?: ReadonlyArray<Rendition<'CLOSED-CAPTIONS'>>;
-            currentRenditions?: { audio?: number; video?: number; subtitles?: number; closedCaptions?: number };
+            averageBandwidth?: number | undefined;
+            codecs?: string | undefined;
+            resolution?: { width: number; height: number } | undefined;
+            frameRate?: number | undefined;
+            hdcpLevel?: string | undefined;
+            audio?: ReadonlyArray<Rendition<'AUDIO'>> | undefined;
+            video?: ReadonlyArray<Rendition<'VIDEO'>> | undefined;
+            subtitles?: ReadonlyArray<Rendition<'SUBTITLES'>> | undefined;
+            closedCaptions?: ReadonlyArray<Rendition<'CLOSED-CAPTIONS'>> | undefined;
+            currentRenditions?: { audio?: number | undefined; video?: number | undefined; subtitles?: number | undefined; closedCaptions?: number | undefined } | undefined;
         });
     }
 
     class Rendition<T> {
         type: T;
 
-        uri?: string;
+        uri?: string | undefined;
 
         groupId: string;
 
-        language?: string;
+        language?: string | undefined;
 
-        assocLanguage?: string;
+        assocLanguage?: string | undefined;
 
         name: string;
 
@@ -180,38 +180,38 @@ export namespace types {
 
         forced: boolean;
 
-        instreamId?: string;
+        instreamId?: string | undefined;
 
-        characteristics?: string;
+        characteristics?: string | undefined;
 
-        channels?: string;
+        channels?: string | undefined;
 
         constructor(properties: {
             type: T;
-            uri?: string;
+            uri?: string | undefined;
             groupId: string;
-            language?: string;
-            assocLanguage?: string;
+            language?: string | undefined;
+            assocLanguage?: string | undefined;
             name: string;
-            isDefault?: boolean;
-            autoselect?: boolean;
-            forced?: boolean;
-            instreamId?: string;
-            characteristics?: string;
-            channels?: string;
+            isDefault?: boolean | undefined;
+            autoselect?: boolean | undefined;
+            forced?: boolean | undefined;
+            instreamId?: string | undefined;
+            characteristics?: string | undefined;
+            channels?: string | undefined;
         });
     }
 
     class SessionData {
         id: string;
 
-        value?: string;
+        value?: string | undefined;
 
-        uri?: string;
+        uri?: string | undefined;
 
-        language?: string;
+        language?: string | undefined;
 
-        constructor(properties: { id: string; value?: string; uri?: string; language?: string });
+        constructor(properties: { id: string; value?: string | undefined; uri?: string | undefined; language?: string | undefined });
     }
 
     class Segment extends Data {
@@ -219,39 +219,39 @@ export namespace types {
 
         duration: number;
 
-        title?: string;
+        title?: string | undefined;
 
-        byterange?: Byterange;
+        byterange?: Byterange | undefined;
 
-        discontinuity?: boolean;
+        discontinuity?: boolean | undefined;
 
         mediaSequenceNumber: number;
 
         discontinuitySequence: number;
 
-        key?: Key;
+        key?: Key | undefined;
 
-        map?: MediaInitializationSection;
+        map?: MediaInitializationSection | undefined;
 
-        programDateTime?: Date;
+        programDateTime?: Date | undefined;
 
         dateRange: DateRange;
 
-        parts?: readonly PartialSegment[];
+        parts?: readonly PartialSegment[] | undefined;
 
         constructor(properties: {
             uri: string;
             duration: number;
-            title?: string;
-            byterange?: Byterange;
-            discontinuity?: boolean;
+            title?: string | undefined;
+            byterange?: Byterange | undefined;
+            discontinuity?: boolean | undefined;
             mediaSequenceNumber: number;
             discontinuitySequence: number;
-            key?: Key;
-            map?: MediaInitializationSection;
-            programDateTime?: Date;
-            dateRange?: DateRange;
-            parts?: readonly PartialSegment[];
+            key?: Key | undefined;
+            map?: MediaInitializationSection | undefined;
+            programDateTime?: Date | undefined;
+            dateRange?: DateRange | undefined;
+            parts?: readonly PartialSegment[] | undefined;
         });
     }
 
@@ -261,107 +261,107 @@ export namespace types {
     }
 
     class PartialSegment {
-        hint?: boolean;
+        hint?: boolean | undefined;
 
         uri: string;
 
-        duration?: number;
+        duration?: number | undefined;
 
-        independent?: boolean;
+        independent?: boolean | undefined;
 
-        byterange?: ByteRange;
+        byterange?: ByteRange | undefined;
 
-        gap?: boolean;
+        gap?: boolean | undefined;
 
         constructor(properties: {
-            hint?: boolean;
+            hint?: boolean | undefined;
             uri: string;
-            duration?: number;
-            independent?: boolean;
-            byterange?: ByteRange;
-            gap?: boolean;
+            duration?: number | undefined;
+            independent?: boolean | undefined;
+            byterange?: ByteRange | undefined;
+            gap?: boolean | undefined;
         });
     }
 
     class PrefetchSegment extends Data {
         uri: string;
 
-        discontinuity?: boolean;
+        discontinuity?: boolean | undefined;
 
         mediaSequenceNumber: number;
 
         discontinuitySequence: number;
 
-        key?: Key;
+        key?: Key | undefined;
 
         constructor(properties: {
             uri: string;
-            discontinuity?: boolean;
+            discontinuity?: boolean | undefined;
             mediaSequenceNumber: number;
             discontinuitySequence: number;
-            key?: Key;
+            key?: Key | undefined;
         });
     }
 
     class Key {
         method: string;
 
-        uri?: string;
+        uri?: string | undefined;
 
-        iv?: Buffer;
+        iv?: Buffer | undefined;
 
-        format?: string;
+        format?: string | undefined;
 
-        formatVersion?: string;
+        formatVersion?: string | undefined;
 
-        constructor(properties: { method: string; uri?: string; iv?: Buffer; format?: string; formatVersion?: string });
+        constructor(properties: { method: string; uri?: string | undefined; iv?: Buffer | undefined; format?: string | undefined; formatVersion?: string | undefined });
     }
 
     class MediaInitializationSection {
         uri: string;
 
-        byterange?: Byterange;
+        byterange?: Byterange | undefined;
 
-        constructor(properties: { uri: string; byterange?: Byterange });
+        constructor(properties: { uri: string; byterange?: Byterange | undefined });
     }
 
     class DateRange {
         id: string;
 
-        classId?: string;
+        classId?: string | undefined;
 
         start: Date;
 
-        end?: Date;
+        end?: Date | undefined;
 
-        duration?: number;
+        duration?: number | undefined;
 
-        plannedDuration?: number;
+        plannedDuration?: number | undefined;
 
-        endOnNext?: boolean;
+        endOnNext?: boolean | undefined;
 
-        attributes?: object;
+        attributes?: object | undefined;
 
         constructor(properties: {
             id: string;
-            classId?: string;
+            classId?: string | undefined;
             start: Date;
-            end?: Date;
-            duration?: number;
-            plannedDuration?: number;
-            endOnNext?: boolean;
-            attributes?: object;
+            end?: Date | undefined;
+            duration?: number | undefined;
+            plannedDuration?: number | undefined;
+            endOnNext?: boolean | undefined;
+            attributes?: object | undefined;
         });
     }
 
     class RenditionReport {
         uri: string;
 
-        lastMSN?: number;
+        lastMSN?: number | undefined;
 
-        lastPart?: number;
+        lastPart?: number | undefined;
 
-        constructor(properties: { uri: string; lastMSN?: number; lastPart?: number });
+        constructor(properties: { uri: string; lastMSN?: number | undefined; lastPart?: number | undefined });
     }
 }
 

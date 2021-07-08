@@ -22,13 +22,13 @@ export interface Context {
      * The name of the context data (optional). This is a text string that describes the data being sent.
      * Implementors of context may choose to make the name mandatory.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * An optional map of any equivalent identifiers for the context type, e.g. ISIN, CUSIP, etc. for an instrument.
      */
     id?: {
         [key: string]: string | undefined;
-    };
+    } | undefined;
     /**
      * @hidden
      * Custom properties and metadata. This can be extended in specific context object.
@@ -56,9 +56,9 @@ export interface ContactContext extends Context {
     id: {
         [key: string]: string;
     } & {
-        email?: string;
-        twitter?: string;
-        phone?: string;
+        email?: string | undefined;
+        twitter?: string | undefined;
+        phone?: string | undefined;
     };
 }
 /**
@@ -72,7 +72,7 @@ export interface InstrumentContext extends Context {
     /**
      * Optional free text name of the instrument.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The instrument data. Can contain some or all of:
      * * `ticker`: a ticker
@@ -87,14 +87,14 @@ export interface InstrumentContext extends Context {
     id: {
         [key: string]: string;
     } & {
-        ticker?: string;
-        ISIN?: string;
-        CUSIP?: string;
-        SEDOL?: string;
-        RIC?: string;
-        BBG?: string;
-        PERMID?: string;
-        FIGI?: string;
+        ticker?: string | undefined;
+        ISIN?: string | undefined;
+        CUSIP?: string | undefined;
+        SEDOL?: string | undefined;
+        RIC?: string | undefined;
+        BBG?: string | undefined;
+        PERMID?: string | undefined;
+        FIGI?: string | undefined;
     };
 }
 /**
@@ -108,7 +108,7 @@ export interface OrganizationContext extends Context {
     /**
      * Optional free text name of the organization.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The organization data. Can contain either or both
      * * `LEI`: [LEI](https://www.gleif.org/en/about-lei/introducing-the-legal-entity-identifier-lei)
@@ -117,7 +117,7 @@ export interface OrganizationContext extends Context {
     id: {
         [key: string]: string;
     } & {
-        LEI?: string;
-        PERMID?: string;
+        LEI?: string | undefined;
+        PERMID?: string | undefined;
     };
 }

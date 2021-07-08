@@ -59,7 +59,7 @@ declare namespace GoogleAppsScript {
         update(resource: Schema.Subscription, id: string): Mirror.Schema.Subscription;
       }
       interface TimelineCollection {
-        Attachments?: Mirror.Collection.Timeline.AttachmentsCollection;
+        Attachments?: Mirror.Collection.Timeline.AttachmentsCollection | undefined;
         // Gets a single timeline item by ID.
         get(id: string): Mirror.Schema.TimelineItem;
         // Inserts a new item into the timeline.
@@ -82,155 +82,155 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Account {
-        authTokens?: Mirror.Schema.AuthToken[];
-        features?: string[];
-        password?: string;
-        userData?: Mirror.Schema.UserData[];
+        authTokens?: Mirror.Schema.AuthToken[] | undefined;
+        features?: string[] | undefined;
+        password?: string | undefined;
+        userData?: Mirror.Schema.UserData[] | undefined;
       }
       interface Attachment {
-        contentType?: string;
-        contentUrl?: string;
-        id?: string;
-        isProcessingContent?: boolean;
+        contentType?: string | undefined;
+        contentUrl?: string | undefined;
+        id?: string | undefined;
+        isProcessingContent?: boolean | undefined;
       }
       interface AttachmentsListResponse {
-        items?: Mirror.Schema.Attachment[];
-        kind?: string;
+        items?: Mirror.Schema.Attachment[] | undefined;
+        kind?: string | undefined;
       }
       interface AuthToken {
-        authToken?: string;
-        type?: string;
+        authToken?: string | undefined;
+        type?: string | undefined;
       }
       interface Command {
-        type?: string;
+        type?: string | undefined;
       }
       interface Contact {
-        acceptCommands?: Mirror.Schema.Command[];
-        acceptTypes?: string[];
-        displayName?: string;
-        id?: string;
-        imageUrls?: string[];
-        kind?: string;
-        phoneNumber?: string;
-        priority?: number;
-        sharingFeatures?: string[];
-        source?: string;
-        speakableName?: string;
-        type?: string;
+        acceptCommands?: Mirror.Schema.Command[] | undefined;
+        acceptTypes?: string[] | undefined;
+        displayName?: string | undefined;
+        id?: string | undefined;
+        imageUrls?: string[] | undefined;
+        kind?: string | undefined;
+        phoneNumber?: string | undefined;
+        priority?: number | undefined;
+        sharingFeatures?: string[] | undefined;
+        source?: string | undefined;
+        speakableName?: string | undefined;
+        type?: string | undefined;
       }
       interface ContactsListResponse {
-        items?: Mirror.Schema.Contact[];
-        kind?: string;
+        items?: Mirror.Schema.Contact[] | undefined;
+        kind?: string | undefined;
       }
       interface Location {
-        accuracy?: number;
-        address?: string;
-        displayName?: string;
-        id?: string;
-        kind?: string;
-        latitude?: number;
-        longitude?: number;
-        timestamp?: string;
+        accuracy?: number | undefined;
+        address?: string | undefined;
+        displayName?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        latitude?: number | undefined;
+        longitude?: number | undefined;
+        timestamp?: string | undefined;
       }
       interface LocationsListResponse {
-        items?: Mirror.Schema.Location[];
-        kind?: string;
+        items?: Mirror.Schema.Location[] | undefined;
+        kind?: string | undefined;
       }
       interface MenuItem {
-        action?: string;
-        contextual_command?: string;
-        id?: string;
-        payload?: string;
-        removeWhenSelected?: boolean;
-        values?: Mirror.Schema.MenuValue[];
+        action?: string | undefined;
+        contextual_command?: string | undefined;
+        id?: string | undefined;
+        payload?: string | undefined;
+        removeWhenSelected?: boolean | undefined;
+        values?: Mirror.Schema.MenuValue[] | undefined;
       }
       interface MenuValue {
-        displayName?: string;
-        iconUrl?: string;
-        state?: string;
+        displayName?: string | undefined;
+        iconUrl?: string | undefined;
+        state?: string | undefined;
       }
       interface Notification {
-        collection?: string;
-        itemId?: string;
-        operation?: string;
-        userActions?: Mirror.Schema.UserAction[];
-        userToken?: string;
-        verifyToken?: string;
+        collection?: string | undefined;
+        itemId?: string | undefined;
+        operation?: string | undefined;
+        userActions?: Mirror.Schema.UserAction[] | undefined;
+        userToken?: string | undefined;
+        verifyToken?: string | undefined;
       }
       interface NotificationConfig {
-        deliveryTime?: string;
-        level?: string;
+        deliveryTime?: string | undefined;
+        level?: string | undefined;
       }
       interface Setting {
-        id?: string;
-        kind?: string;
-        value?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        value?: string | undefined;
       }
       interface Subscription {
-        callbackUrl?: string;
-        collection?: string;
-        id?: string;
-        kind?: string;
-        notification?: Mirror.Schema.Notification;
-        operation?: string[];
-        updated?: string;
-        userToken?: string;
-        verifyToken?: string;
+        callbackUrl?: string | undefined;
+        collection?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        notification?: Mirror.Schema.Notification | undefined;
+        operation?: string[] | undefined;
+        updated?: string | undefined;
+        userToken?: string | undefined;
+        verifyToken?: string | undefined;
       }
       interface SubscriptionsListResponse {
-        items?: Mirror.Schema.Subscription[];
-        kind?: string;
+        items?: Mirror.Schema.Subscription[] | undefined;
+        kind?: string | undefined;
       }
       interface TimelineItem {
-        attachments?: Mirror.Schema.Attachment[];
-        bundleId?: string;
-        canonicalUrl?: string;
-        created?: string;
-        creator?: Mirror.Schema.Contact;
-        displayTime?: string;
-        etag?: string;
-        html?: string;
-        id?: string;
-        inReplyTo?: string;
-        isBundleCover?: boolean;
-        isDeleted?: boolean;
-        isPinned?: boolean;
-        kind?: string;
-        location?: Mirror.Schema.Location;
-        menuItems?: Mirror.Schema.MenuItem[];
-        notification?: Mirror.Schema.NotificationConfig;
-        pinScore?: number;
-        recipients?: Mirror.Schema.Contact[];
-        selfLink?: string;
-        sourceItemId?: string;
-        speakableText?: string;
-        speakableType?: string;
-        text?: string;
-        title?: string;
-        updated?: string;
+        attachments?: Mirror.Schema.Attachment[] | undefined;
+        bundleId?: string | undefined;
+        canonicalUrl?: string | undefined;
+        created?: string | undefined;
+        creator?: Mirror.Schema.Contact | undefined;
+        displayTime?: string | undefined;
+        etag?: string | undefined;
+        html?: string | undefined;
+        id?: string | undefined;
+        inReplyTo?: string | undefined;
+        isBundleCover?: boolean | undefined;
+        isDeleted?: boolean | undefined;
+        isPinned?: boolean | undefined;
+        kind?: string | undefined;
+        location?: Mirror.Schema.Location | undefined;
+        menuItems?: Mirror.Schema.MenuItem[] | undefined;
+        notification?: Mirror.Schema.NotificationConfig | undefined;
+        pinScore?: number | undefined;
+        recipients?: Mirror.Schema.Contact[] | undefined;
+        selfLink?: string | undefined;
+        sourceItemId?: string | undefined;
+        speakableText?: string | undefined;
+        speakableType?: string | undefined;
+        text?: string | undefined;
+        title?: string | undefined;
+        updated?: string | undefined;
       }
       interface TimelineListResponse {
-        items?: Mirror.Schema.TimelineItem[];
-        kind?: string;
-        nextPageToken?: string;
+        items?: Mirror.Schema.TimelineItem[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface UserAction {
-        payload?: string;
-        type?: string;
+        payload?: string | undefined;
+        type?: string | undefined;
       }
       interface UserData {
-        key?: string;
-        value?: string;
+        key?: string | undefined;
+        value?: string | undefined;
       }
     }
   }
   interface Mirror {
-    Accounts?: Mirror.Collection.AccountsCollection;
-    Contacts?: Mirror.Collection.ContactsCollection;
-    Locations?: Mirror.Collection.LocationsCollection;
-    Settings?: Mirror.Collection.SettingsCollection;
-    Subscriptions?: Mirror.Collection.SubscriptionsCollection;
-    Timeline?: Mirror.Collection.TimelineCollection;
+    Accounts?: Mirror.Collection.AccountsCollection | undefined;
+    Contacts?: Mirror.Collection.ContactsCollection | undefined;
+    Locations?: Mirror.Collection.LocationsCollection | undefined;
+    Settings?: Mirror.Collection.SettingsCollection | undefined;
+    Subscriptions?: Mirror.Collection.SubscriptionsCollection | undefined;
+    Timeline?: Mirror.Collection.TimelineCollection | undefined;
     // Create a new instance of Account
     newAccount(): Mirror.Schema.Account;
     // Create a new instance of Attachment

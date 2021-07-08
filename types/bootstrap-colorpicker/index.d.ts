@@ -27,106 +27,106 @@ interface ColorPickerOptions {
      * 
      * Default: false
      */
-    format?: ColorFormat;
+    format?: ColorFormat | undefined;
 
     /**
      * If not false, sets the color to this value.
      * 
      * Default: false
      */
-    color?: string;
+    color?: string | undefined;
 
     /**
      * If not false, the picker will be contained inside this element, otherwise it will be appended to the document body.
      * 
      * Default: false
      */
-    container?: boolean;
+    container?: boolean | undefined;
 
     /**
      * Children selector for the component or element that trigger the colorpicker and which background color will change (needs an inner <i> element).
      * 
      * Default: '.add-on, .input-group-addon'
      */
-    component?: string | JQuery;
+    component?: string | JQuery | undefined;
 
     /**
      * Children selector for the input that will store the picker selected value.
      * 
      * Default: 'input'
      */
-    input?: string | JQuery;
+    input?: string | JQuery | undefined;
 
     /**
      * If true, put a '#' (number sign) before hex strings.
      * 
      * Default: true
      */
-    hexNumberSignPrefix?: boolean;
+    hexNumberSignPrefix?: boolean | undefined;
 
     /**
      * If true, the hue and alpha channel bars will be rendered horizontally, above the saturation selector.
      * 
      * Default: false
      */
-    horizontal?: boolean;
+    horizontal?: boolean | undefined;
 
     /**
      * If true, forces to show the colorpicker as an inline element.
      * 
      * Default: false
      */
-    inline?: boolean;
+    inline?: boolean | undefined;
 
     /**
      * Vertical sliders configuration (read source code if you really need to tweak this).
      */
-    sliders?: object;
+    sliders?: object | undefined;
 
     /**
      * Horizontal sliders configuration (read source code if you really need to tweak this).
      */
-    slidersHorz?: object;
+    slidersHorz?: object | undefined;
 
     /**
      * Customizes the default colorpicker HTML template.
      */
-    template?: string;
+    template?: string | undefined;
 
     /**
      *     By default, the colorpicker is aligned to the right of the input. If you need to switch it to the left, set align to 'left'.
      * 
      * Default: 'right'
      */
-    align?: ColorPickerAlignOptions;
+    align?: ColorPickerAlignOptions | undefined;
 
     /**
      * Adds this class to the colorpicker widget.
      * 
      * Default: null
      */
-    customClass?: string;
+    customClass?: string | undefined;
 
     /**
      *     List of pre selected colors (hex format). If you choose one of these colors, the alias is returned instead of the hex code.
      * 
      * Default: null
      */
-    colorSelectors?: object;
+    colorSelectors?: object | undefined;
 
     /**
      * Fallback color string that will be applied when the color failed to be parsed. If null, it will keep the current color if any.
      * 
      * Default: null
      */
-    fallbackColor?: string;
+    fallbackColor?: string | undefined;
 
     /**
      *     Fallback color format (e.g. when not specified or for alias mode, when selecting non aliased colors)
      * 
      * Default: hex
      */
-    fallbackFormat?: string;
+    fallbackFormat?: string | undefined;
 }
 
 interface Color {

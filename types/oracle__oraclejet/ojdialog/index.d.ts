@@ -9,7 +9,7 @@ export interface ojDialog extends baseComponent<ojDialogSettableProperties> {
     resizeBehavior: 'resizable' | 'none';
     role: string;
     translations: {
-        labelCloseIcon?: string;
+        labelCloseIcon?: string | undefined;
     };
     onCancelBehaviorChanged: ((event: JetElementCustomEvent<ojDialog["cancelBehavior"]>) => any) | null;
     onDialogTitleChanged: ((event: JetElementCustomEvent<ojDialog["dialogTitle"]>) => any) | null;
@@ -97,21 +97,21 @@ export namespace ojDialog {
     }
     // tslint:disable-next-line interface-over-type-literal
     type Position = {
-        my?: PositionAlign;
-        at?: PositionAlign;
-        offset?: PositionPoint;
-        of?: string | PositionPoint;
-        collision?: 'flip' | 'fit' | 'flipfit' | 'none';
+        my?: PositionAlign | undefined;
+        at?: PositionAlign | undefined;
+        offset?: PositionPoint | undefined;
+        of?: string | PositionPoint | undefined;
+        collision?: 'flip' | 'fit' | 'flipfit' | 'none' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type PositionAlign = {
-        vertical?: 'top' | 'bottom' | 'center';
-        horizontal?: 'start' | 'end' | 'left' | 'center' | 'bottom';
+        vertical?: 'top' | 'bottom' | 'center' | undefined;
+        horizontal?: 'start' | 'end' | 'left' | 'center' | 'bottom' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type PositionPoint = {
-        x?: number;
-        y?: number;
+        x?: number | undefined;
+        y?: number | undefined;
     };
 }
 export interface ojDialogEventMap extends baseComponentEventMap<ojDialogSettableProperties> {
@@ -144,7 +144,7 @@ export interface ojDialogSettableProperties extends baseComponentSettablePropert
     resizeBehavior: 'resizable' | 'none';
     role: string;
     translations: {
-        labelCloseIcon?: string;
+        labelCloseIcon?: string | undefined;
     };
 }
 export interface ojDialogSettablePropertiesLenient extends Partial<ojDialogSettableProperties> {

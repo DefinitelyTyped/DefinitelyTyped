@@ -51,142 +51,142 @@ declare namespace Recipe {
     type AnnotOptionsIcon = 'Comment' | 'Key' | 'Note' | 'Help' | 'NewParagraph' | 'Paragraph' | 'Insert';
 
     interface RecipeOptions {
-        version?: number;
-        author?: string;
-        title?: string;
-        subject?: string;
-        colorspace?: 'rgb' | 'cmyk' | 'grey';
-        keywords?: string[];
-        password?: string;
-        userPassword?: string;
-        ownerPassword?: string;
-        userProtectionFlag?: string;
-        fontSrcPath?: string | string[];
+        version?: number | undefined;
+        author?: string | undefined;
+        title?: string | undefined;
+        subject?: string | undefined;
+        colorspace?: 'rgb' | 'cmyk' | 'grey' | undefined;
+        keywords?: string[] | undefined;
+        password?: string | undefined;
+        userPassword?: string | undefined;
+        ownerPassword?: string | undefined;
+        userProtectionFlag?: string | undefined;
+        fontSrcPath?: string | string[] | undefined;
     }
 
     interface CommentOptions {
-        title?: string;
-        date?: string;
-        open?: boolean;
-        richText?: boolean;
-        flag?: CommentOptionsFlag;
+        title?: string | undefined;
+        date?: string | undefined;
+        open?: boolean | undefined;
+        richText?: boolean | undefined;
+        flag?: CommentOptionsFlag | undefined;
     }
 
     interface AnnotOptions {
-        title?: string;
-        open?: boolean;
-        richText?: boolean;
-        flag?: AnnotOptionsFlag;
-        icon?: AnnotOptionsIcon;
-        width?: number;
-        height?: number;
+        title?: string | undefined;
+        open?: boolean | undefined;
+        richText?: boolean | undefined;
+        flag?: AnnotOptionsFlag | undefined;
+        icon?: AnnotOptionsIcon | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
     }
 
     interface EncryptOptions {
-        password?: string;
-        ownerPassword?: string;
-        userProtectionFlag?: number;
+        password?: string | undefined;
+        ownerPassword?: string | undefined;
+        userProtectionFlag?: number | undefined;
     }
 
     interface ImageOptions {
-        width?: number;
-        height?: number;
-        scale?: number;
-        keepAspectRatio?: boolean;
-        opacity?: number;
-        align?: string;
+        width?: number | undefined;
+        height?: number | undefined;
+        scale?: number | undefined;
+        keepAspectRatio?: boolean | undefined;
+        opacity?: number | undefined;
+        align?: string | undefined;
     }
 
     interface InfoOptions {
-        version?: string;
-        author?: string;
-        title?: string;
-        subject?: string;
-        keywords?: string[];
+        version?: string | undefined;
+        author?: string | undefined;
+        title?: string | undefined;
+        subject?: string | undefined;
+        keywords?: string[] | undefined;
     }
 
     interface OverlayOptions {
-        scale?: number;
-        keepAspectRatio?: boolean;
-        fitWidth?: boolean;
-        fitHeight?: boolean;
+        scale?: number | undefined;
+        keepAspectRatio?: boolean | undefined;
+        fitWidth?: boolean | undefined;
+        fitHeight?: boolean | undefined;
     }
 
     interface TextBoxStyle {
-        lineWidth?: number;
-        stroke?: string | number[];
-        dash?: number[];
-        fill?: string | number[];
-        opacity?: number;
+        lineWidth?: number | undefined;
+        stroke?: string | number[] | undefined;
+        dash?: number[] | undefined;
+        fill?: string | number[] | undefined;
+        opacity?: number | undefined;
     }
 
     interface TextBox {
-        width?: number;
-        height?: number;
-        minHeight?: number;
-        padding?: number | number[];
-        lineHeight?: number;
-        textAlign?: string;
-        style?: TextBoxStyle;
+        width?: number | undefined;
+        height?: number | undefined;
+        minHeight?: number | undefined;
+        padding?: number | number[] | undefined;
+        lineHeight?: number | undefined;
+        textAlign?: string | undefined;
+        style?: TextBoxStyle | undefined;
     }
 
     interface TextOptions {
-        color?: string | number[];
-        opacity?: number;
-        rotation?: number;
-        rotationOrigin?: number[];
-        font?: string;
-        size?: number;
-        align?: string;
-        highlight?: boolean;
-        underline?: boolean;
-        strikeOut?: boolean;
-        textBox?: TextBox;
+        color?: string | number[] | undefined;
+        opacity?: number | undefined;
+        rotation?: number | undefined;
+        rotationOrigin?: number[] | undefined;
+        font?: string | undefined;
+        size?: number | undefined;
+        align?: string | undefined;
+        highlight?: boolean | undefined;
+        underline?: boolean | undefined;
+        strikeOut?: boolean | undefined;
+        textBox?: TextBox | undefined;
     }
 
     interface LineToOptions {
-        color?: string | number[];
-        stroke?: string | number[];
-        fill?: string | number[];
-        lineWidth?: number;
-        opacity?: number;
-        dash?: number[];
+        color?: string | number[] | undefined;
+        stroke?: string | number[] | undefined;
+        fill?: string | number[] | undefined;
+        lineWidth?: number | undefined;
+        opacity?: number | undefined;
+        dash?: number[] | undefined;
     }
 
     interface LineOptions {
-        color?: string | number[];
-        stroke?: string | number[];
-        lineWidth?: number;
-        dash?: number[];
+        color?: string | number[] | undefined;
+        stroke?: string | number[] | undefined;
+        lineWidth?: number | undefined;
+        dash?: number[] | undefined;
     }
 
     interface PolygonOptions {
-        color?: string | number[];
-        stroke?: string | number[];
-        fill?: string | number[];
-        lineWidth?: number;
-        opacity?: number;
-        dash?: number[];
+        color?: string | number[] | undefined;
+        stroke?: string | number[] | undefined;
+        fill?: string | number[] | undefined;
+        lineWidth?: number | undefined;
+        opacity?: number | undefined;
+        dash?: number[] | undefined;
     }
 
     interface CircleOptions {
-        color?: string | number[];
-        stroke?: string | number[];
-        fill?: string | number[];
-        lineWidth?: number;
-        opacity?: number;
-        dash?: number[];
+        color?: string | number[] | undefined;
+        stroke?: string | number[] | undefined;
+        fill?: string | number[] | undefined;
+        lineWidth?: number | undefined;
+        opacity?: number | undefined;
+        dash?: number[] | undefined;
     }
 
     interface RectangleOptions {
-        color?: string | number[];
-        stroke?: string | number[];
-        fill?: string | number[];
-        lineWidth?: number;
-        opacity?: number;
-        dash?: number[];
-        rotation?: number;
-        rotationOrigin?: number[];
+        color?: string | number[] | undefined;
+        stroke?: string | number[] | undefined;
+        fill?: string | number[] | undefined;
+        lineWidth?: number | undefined;
+        opacity?: number | undefined;
+        dash?: number[] | undefined;
+        rotation?: number | undefined;
+        rotationOrigin?: number[] | undefined;
     }
 
     interface PageInfo {

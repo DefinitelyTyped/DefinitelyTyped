@@ -22,11 +22,11 @@ export interface SameDomainWindowType {
     open: (url?: string, target?: string, features?: string) => CrossDomainWindowType | null;
     close: () => void;
     focus: () => void;
-    XMLHttpRequest?: typeof XMLHttpRequest;
+    XMLHttpRequest?: typeof XMLHttpRequest | undefined;
     document: Document;
     navigator: {
         userAgent: string;
-        mockUserAgent?: string;
+        mockUserAgent?: string | undefined;
     };
 }
 

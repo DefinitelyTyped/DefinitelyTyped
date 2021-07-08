@@ -11,7 +11,7 @@ interface RoleObject {
 interface Roles {
     [key: string]: {
         can: Array<string|RoleObject>;
-        inherits?: string[];
+        inherits?: string[] | undefined;
     };
 }
 

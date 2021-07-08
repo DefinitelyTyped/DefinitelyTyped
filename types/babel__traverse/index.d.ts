@@ -61,8 +61,8 @@ export namespace visitors {
 export default traverse;
 
 export interface TraverseOptions<S = Node> extends Visitor<S> {
-    scope?: Scope;
-    noScope?: boolean;
+    scope?: Scope | undefined;
+    noScope?: boolean | undefined;
 }
 
 export type ArrayKeys<T> = keyof { [P in keyof T as T[P] extends any[] ? P : never]: P };
@@ -140,7 +140,7 @@ export class Scope {
 
     crawl(): void;
 
-    push(opts: { id: t.LVal; init?: t.Expression; unique?: boolean; kind?: 'var' | 'let' | 'const' }): void;
+    push(opts: { id: t.LVal; init?: t.Expression | undefined; unique?: boolean | undefined; kind?: 'var' | 'let' | 'const' | undefined }): void;
 
     getProgramParent(): Scope;
 
@@ -209,13 +209,13 @@ export type VisitNodeFunction<S, P extends Node> = (this: S, path: NodePath<P>, 
 type NodeType = Node['type'] | keyof t.Aliases;
 
 export interface VisitNodeObject<S, P extends Node> {
-    enter?: VisitNodeFunction<S, P>;
-    exit?: VisitNodeFunction<S, P>;
-    denylist?: NodeType[];
+    enter?: VisitNodeFunction<S, P> | undefined;
+    exit?: VisitNodeFunction<S, P> | undefined;
+    denylist?: NodeType[] | undefined;
     /**
      * @deprecated will be removed in Babel 8
      */
-    blacklist?: NodeType[];
+    blacklist?: NodeType[] | undefined;
 }
 
 export type NodePaths<T extends Node | readonly Node[]> = T extends readonly Node[]
@@ -271,7 +271,7 @@ export class NodePath<T = Node> {
         parentPath: NodePath | null;
         parent: Node;
         container: C;
-        listKey?: string;
+        listKey?: string | undefined;
         key: K;
     }): NodePath<C[K]>;
 
@@ -538,6 +538,8 @@ export class NodePath<T = Node> {
     getCompletionRecords(): NodePath[];
 
     getSibling(key: string | number): NodePath;
+    getPrevSibling(): NodePath;
+    getNextSibling(): NodePath;
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 

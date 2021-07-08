@@ -11,8 +11,8 @@ export function parser(opt?: Options): CParser;
 export function createStream(opt?: Options): CStream;
 
 export interface Options {
-    trim?: boolean;
-    normalize?: boolean;
+    trim?: boolean | undefined;
+    normalize?: boolean | undefined;
 }
 
 export class CParser {

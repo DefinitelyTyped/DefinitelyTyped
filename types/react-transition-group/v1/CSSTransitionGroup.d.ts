@@ -4,21 +4,21 @@ import { HTMLTransitionGroupProps } from "./index";
 declare namespace CSSTransitionGroup {
     interface CSSTransitionGroupTransitionName {
         enter: string;
-        enterActive?: string;
+        enterActive?: string | undefined;
         leave: string;
-        leaveActive?: string;
-        appear?: string;
-        appearActive?: string;
+        leaveActive?: string | undefined;
+        appear?: string | undefined;
+        appearActive?: string | undefined;
     }
 
     interface CSSTransitionGroupProps extends HTMLTransitionGroupProps<CSSTransitionGroup> {
         transitionName: string | CSSTransitionGroupTransitionName;
-        transitionAppear?: boolean;
-        transitionAppearTimeout?: number;
-        transitionEnter?: boolean;
-        transitionEnterTimeout?: number;
-        transitionLeave?: boolean;
-        transitionLeaveTimeout?: number;
+        transitionAppear?: boolean | undefined;
+        transitionAppearTimeout?: number | undefined;
+        transitionEnter?: boolean | undefined;
+        transitionEnterTimeout?: number | undefined;
+        transitionLeave?: boolean | undefined;
+        transitionLeaveTimeout?: number | undefined;
     }
 }
 

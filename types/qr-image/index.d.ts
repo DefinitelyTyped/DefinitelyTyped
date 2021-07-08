@@ -39,15 +39,15 @@ export interface Bitmap {
 }
 
 export interface Options {
-    ec_level?: ec_level;    // error correction level. One of L, M, Q, H. Default M.
-    type?: image_type;        // image type. Possible values png(default), svg, pdf and eps.
-    size?: number;        // (png and svg only) for png and undefined for svg.-(png and svg only) — size of one module in pixels.
-    margin?: number;        // (only png)for png and 1 for others.-white space around QR image in modules.
-    parse_url?: boolean;    // (experimental, default false) try to optimize QR-code for URLs.
+    ec_level?: ec_level | undefined;    // error correction level. One of L, M, Q, H. Default M.
+    type?: image_type | undefined;        // image type. Possible values png(default), svg, pdf and eps.
+    size?: number | undefined;        // (png and svg only) for png and undefined for svg.-(png and svg only) — size of one module in pixels.
+    margin?: number | undefined;        // (only png)for png and 1 for others.-white space around QR image in modules.
+    parse_url?: boolean | undefined;    // (experimental, default false) try to optimize QR-code for URLs.
     /**
      * (only png) — function to customize qr bitmap before encoding to PNG
      */
-    customize?: (bitmap: Bitmap) => void;
+    customize?: ((bitmap: Bitmap) => void) | undefined;
 }
 
 export function image(text: string, level?: ec_level): NodeJS.ReadableStream;

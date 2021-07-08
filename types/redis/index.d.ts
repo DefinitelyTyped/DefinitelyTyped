@@ -41,17 +41,17 @@ export interface ClientOpts {
      * IP address of the Redis server.
      * @default 127.0.0.1
      */
-    host?: string;
+    host?: string | undefined;
     /**
      * Port of the Redis server.
      * @default 6379
      */
-    port?: number;
+    port?: number | undefined;
     /**
      * The UNIX socket string of the Redis server.
      * @default null
      */
-    path?: string;
+    path?: string | undefined;
     /**
      * The URL of the Redis server.\
      * Format:
@@ -59,8 +59,8 @@ export interface ClientOpts {
      * More info avaliable at [IANA](http://www.iana.org/assignments/uri-schemes/prov/redis).
      * @default null
      */
-    url?: string;
-    parser?: string;
+    url?: string | undefined;
+    parser?: string | undefined;
     /**
      * Set to `true`, Node Redis will return Redis number values as Strings instead of javascript Numbers.
      * Useful if you need to handle big numbers (above `Number.MAX_SAFE_INTEGER` === 2^53).
@@ -69,12 +69,12 @@ export interface ClientOpts {
      * the value of the `parser` option.
      * @default null
      */
-    string_numbers?: boolean;
+    string_numbers?: boolean | undefined;
     /**
      * If set to `true`, then all replies will be sent to callbacks as Buffers instead of Strings.
      * @default false
      */
-    return_buffers?: boolean;
+    return_buffers?: boolean | undefined;
     /**
      * If set to `true`, then replies will be sent to callbacks as Buffers.
      * This option lets you switch between Buffers and Strings on a per-command basis,
@@ -83,18 +83,18 @@ export interface ClientOpts {
      * A subscriber has to either always return Strings or Buffers.
      * @default false
      */
-    detect_buffers?: boolean;
+    detect_buffers?: boolean | undefined;
     /**
      * If set to `true`, the keep-alive functionality is enabled on the underlying socket.
      * @default true
      */
-    socket_keepalive?: boolean;
+    socket_keepalive?: boolean | undefined;
     /**
      * Initial Delay in milliseconds.
      * This will also set the initial delay for keep-alive packets being sent to Redis.
      * @default 0
      */
-    socket_initial_delay?: number;
+    socket_initial_delay?: number | undefined;
     /**
      * When a connection is established to the Redis server,
      * the server might still be loading the database from disk.
@@ -105,7 +105,7 @@ export interface ClientOpts {
      * Setting `no_ready_check` to `true` will inhibit this check.
      * @default false
      */
-    no_ready_check?: boolean;
+    no_ready_check?: boolean | undefined;
     /**
      * By default, if there is no active connection to the Redis server,
      * commands are added to a queue and are executed once the connection has been established.
@@ -114,10 +114,10 @@ export interface ClientOpts {
      * or an error will be emitted if no callback is specified.
      * @default true
      */
-    enable_offline_queue?: boolean;
-    retry_max_delay?: number;
-    connect_timeout?: number;
-    max_attempts?: number;
+    enable_offline_queue?: boolean | undefined;
+    retry_max_delay?: number | undefined;
+    connect_timeout?: number | undefined;
+    max_attempts?: number | undefined;
     /**
      * If set to `true`, all commands that were unfulfilled while the connection is lost
      * will be retried after the connection has been reestablished.
@@ -125,20 +125,20 @@ export interface ClientOpts {
      * This is especially useful if you use blocking commands.
      * @default false
      */
-    retry_unfulfilled_commands?: boolean;
-    auth_pass?: string;
+    retry_unfulfilled_commands?: boolean | undefined;
+    auth_pass?: string | undefined;
     /**
      * If set, client will run Redis auth command on connect.
      * Alias `auth_pass`.\
      * **Note**: Node Redis < 2.5 must use `auth_pass`.
      * @default null
      */
-    password?: string;
+    password?: string | undefined;
     /**
      * If set, client will run Redis **select** command on connect.
      * @default null
      */
-    db?: string | number;
+    db?: string | number | undefined;
     /**
      * You can force using IPv6 if you set the family to **IPv6**.
      * @see Node.js [net](https://nodejs.org/api/net.html)
@@ -146,12 +146,12 @@ export interface ClientOpts {
      * modules on how to use the family type.
      * @default IPv4
      */
-    family?: string;
+    family?: string | undefined;
     /**
      * If set to `true`, a client won't resubscribe after disconnecting.
      * @default false
      */
-    disable_resubscribing?: boolean;
+    disable_resubscribing?: boolean | undefined;
     /**
      * Passing an object with renamed commands to use instead of the original functions.
      * For example, if you renamed the command **KEYS** to "DO-NOT-USE"
@@ -159,7 +159,7 @@ export interface ClientOpts {
      * @see the [Redis security topics](http://redis.io/topics/security) for more info.
      * @default null
      */
-    rename_commands?: { [command: string]: string } | null;
+    rename_commands?: { [command: string]: string } | null | undefined;
     /**
      * An object containing options to pass to
      * [tls.connect](http://nodejs.org/api/tls.html#tls_tls_connect_port_host_options_callback)
@@ -175,7 +175,7 @@ export interface ClientOpts {
      * and it would be impossible to determine the existing keys in Redis if this would be prefixed.
      * @default null
      */
-    prefix?: string;
+    prefix?: string | undefined;
     /**
      * A function that receives an options object as parameter including the retry `attempt`,
      * the `total_retry_time` indicating how much time passed since the last time connected,
@@ -208,7 +208,7 @@ export interface ClientOpts {
      *   }
      * });
      */
-    retry_strategy?: RetryStrategy;
+    retry_strategy?: RetryStrategy | undefined;
 }
 
 export type Callback<T> = (err: Error | null, reply: T) => void;
@@ -1417,13 +1417,13 @@ export class RedisError extends Error {
 }
 export class ReplyError extends RedisError {
     command: string;
-    args?: unknown[];
+    args?: unknown[] | undefined;
     code: string;
 }
 export class AbortError extends RedisError {
     command: string;
-    args?: unknown[];
-    code?: string;
+    args?: unknown[] | undefined;
+    code?: string | undefined;
 }
 export class ParserError extends RedisError {
     offset: number;

@@ -3,10 +3,10 @@ import { Direction, ReactButtonAttr, TooltipAlignment } from "../../../typings/s
 
 type ExcludedAttributes = "aria-describedby" | "children" | "type";
 export interface TooltipIconProps extends Omit<ReactButtonAttr, ExcludedAttributes> {
-    align?: TooltipAlignment,
+    align?: TooltipAlignment | undefined,
     children: NonNullable<React.ReactNode>,
-    direction?: Direction, // required but has default value, should be bottom/top but the prop type has left/right
-    renderIcon?: React.ComponentType;
+    direction?: Direction | undefined, // required but has default value, should be bottom/top but the prop type has left/right
+    renderIcon?: React.ComponentType | undefined;
     tooltipText: NonNullable<React.ReactNode>;
 }
 

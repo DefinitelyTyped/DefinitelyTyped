@@ -9,11 +9,11 @@ export interface GithubPickerStylesProps {
 }
 
 export interface GithubPickerProps extends CustomPickerProps {
-    colors?: string[];
-    width?: string;
-    triangle?: "hide" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
+    colors?: string[] | undefined;
+    width?: string | undefined;
+    triangle?: "hide" | "top-left" | "top-right" | "bottom-left" | "bottom-right" | undefined;
     onSwatchHover?(color: ColorState, event: MouseEvent): void;
-    styles?: Partial<Classes<GithubPickerStylesProps>>;
+    styles?: Partial<Classes<GithubPickerStylesProps>> | undefined;
 }
 
 export default class GithubPicker extends Component<GithubPickerProps> { }
