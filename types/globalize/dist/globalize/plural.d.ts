@@ -5,7 +5,7 @@ declare module "../globalize" {
         /**
          * cardinal (default), or ordinal.
          */
-        type?: "cardinal" | "ordinal";
+        type?: "cardinal" | "ordinal" | undefined;
     }
     interface Shared {
         /**

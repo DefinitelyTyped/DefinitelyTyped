@@ -7,52 +7,52 @@ declare namespace Multiselect {
          * Enables the list option creation UI. onFilter will only the UI when actively filtering for a list item.
          * @default 'onFilter'
          */
-        allowCreate?: boolean | "onFilter";
+        allowCreate?: boolean | "onFilter" | undefined;
         /**
          * The current values of the Multiselect. The value should can null, or an array of
          * valueField values, or an array of objects (such as a few items in the data array)
          */
-        value?: any[];
+        value?: any[] | undefined;
         /**
          * Default Value.
          */
-        defaultValue?: any[];
+        defaultValue?: any[] | undefined;
         /**
          * Change event Handler that is called when the value is changed. The handler is called with
          * an array of values.
          */
-        onChange?: (
+        onChange?: ((
             dataItems: any[],
             metadata: {
                 dataItem: any;
                 action: "insert" | "remove";
                 originalEvent?: any;
-                lastValue?: any[];
-                searchTerm?: string;
+                lastValue?: any[] | undefined;
+                searchTerm?: string | undefined;
             },
-        ) => void;
+        ) => void) | undefined;
         /**
          * This handler fires when an item has been selected from the list. It fires before the
          * onChange handler, and fires regardless of whether the value has actually changed
          */
-        onSelect?: (
+        onSelect?: ((
             value: any,
             metadata: {
                 originalEvent: any;
             },
-        ) => void;
+        ) => void) | undefined;
         /**
          * This handler fires when the user chooses to create a new tag, not in the data list. It is
          * up to the widget parent to implement creation logic, a common implementation is shown
          * below, where the new tag is selected and added to the data list.
          */
-        onCreate?: (searchTerm: string) => void;
+        onCreate?: ((searchTerm: string) => void) | undefined;
         /**
          * Provide an array of possible values for the Multiselect. If an array of objects is
          * provided you should use the valueField and textField props, to specify which object
          * properties comprise the value field (such as an id) and the field used to label the item.
          */
-        data?: any[];
+        data?: any[] | undefined;
         /**
          * A dataItem field name for uniquely identifying items in the data list. A valueField is
          * required when the value prop is not itself a dataItem. A valueField is useful when
@@ -60,72 +60,72 @@ declare namespace Multiselect {
          * When a valueField is not provided, the Multiselect will use strict equality checks (===)
          * to locate the value in the data list.
          */
-        valueField?: string;
+        valueField?: string | undefined;
         /**
          * Specify which data item field to display in the Multiselect and selected item. The
          * textField prop may also also used as to find an item in the list as you type. Providing
          * an accessor function allows for computed text values.
          */
-        textField?: string | ((dataItem: any) => string);
+        textField?: string | ((dataItem: any) => string) | undefined;
         /**
          * This component is used to render each selected item. The default component renders the
          * text of the selected item (specified by textfield).
          */
-        tagComponent?: React.ReactType | string;
+        tagComponent?: React.ReactType | string | undefined;
         /**
          * An object of props that is passed directly to the underlying input component.
          */
-        inputProps?: object;
+        inputProps?: object | undefined;
         /**
          * This component is used to render each possible item in the list. The default component
          * renders the text of the selected item (specified by textfield).
          */
-        itemComponent?: React.ReactType;
+        itemComponent?: React.ReactType | undefined;
         /**
          * Determines how to group the Multiselect values. Providing a string will group the data
          * array by that property. You can also provide a 'function' which should return the group
          * value.
          */
-        groupBy?: string | ((dataItem: any) => any);
+        groupBy?: string | ((dataItem: any) => any) | undefined;
         /**
          * This component is used to render each option group, when groupBy is specified. By default
          * the groupBy value will be used.
          */
-        groupComponent?: React.ReactType;
+        groupComponent?: React.ReactType | undefined;
         /**
          * The same as an input placeholder, only works in browsers that support the placeholder
          * attribute for inputs
          */
-        placeholder?: string;
+        placeholder?: string | undefined;
         /**
          * The string value of the current search being typed into the Multiselect. When unset
          * (undefined) the Multiselect will handle the filtering internally. The defaultSearchTerm
          * prop can be used to set an initialization value for uncontrolled widgets.
          */
-        searchTerm?: string;
+        searchTerm?: string | undefined;
         /**
          * Called when the value of the text box changes either from typing or a pasted value.
          * onSearch should be used when the searchTerm prop is set.
          */
-        onSearch?: (
+        onSearch?: ((
             searchTerm: string,
             metadata: {
                 action: "clear" | "input";
-                lastSearchTerm?: string;
+                lastSearchTerm?: string | undefined;
                 originalEvent?: any;
             },
-        ) => void;
+        ) => void) | undefined;
         /**
          * Whether or not the Multiselect is open. When unset (undefined) the Multiselect will
          * handle the opening and closing internally. The defaultOpen prop can be used to set an
          * initialization value for uncontrolled widgets.
          */
-        open?: boolean;
+        open?: boolean | undefined;
         /**
          * Called when the Multiselect is about to open or close. onToggle should be used when the
          * open prop is set otherwise the widget will never open or close.
          */
-        onToggle?: (isOpen: boolean) => void;
+        onToggle?: ((isOpen: boolean) => void) | undefined;
         /**
          * Specify a filtering method used to reduce the items in the dropdown as you type. There
          * are a few built-in filtering methods that can be specified by passing the String name.
@@ -134,78 +134,78 @@ declare namespace Multiselect {
          * item (analogous to the array.filter builtin)
          * @default startsWith
          */
-        filter?: false | "startsWith" | "endsWith" | "contains" | ((dataItem: any, searchTerm: string) => boolean);
+        filter?: false | "startsWith" | "endsWith" | "contains" | ((dataItem: any, searchTerm: string) => boolean) | undefined;
         /**
          * Use in conjunction with the filter prop. Filter the list without regard for case. This
          * only applies to non function values for filter.
          * @default false
          */
-        caseSensitive?: boolean;
+        caseSensitive?: boolean | undefined;
         /**
          * Use in conjunction with the filter prop. Start filtering the list only after the value
          * has reached a minimum length.
          * @default 1
          */
-        minLength?: number;
+        minLength?: number | undefined;
         /**
          * mark whether the widget is in a busy or loading state. If true the widget will display a
          * spinner gif, useful when loading data via an ajax call.
          * @default false
          */
-        busy?: boolean;
+        busy?: boolean | undefined;
         /**
          * The speed, in milliseconds, of the dropdown animation.
          * @default 250
          */
-        duration?: number;
+        duration?: number | undefined;
         /**
          * Object hash containing display text and/or text for screen readers. Use the messages
          * object to localize widget text and increase accessibility.
          */
-        messages?: MultiselectMessages;
+        messages?: MultiselectMessages | undefined;
         /**
          * @default List
          */
-        listComponent?: React.ReactType | string;
+        listComponent?: React.ReactType | string | undefined;
         /**
          * An object of props that is passed directly to the underlying List component.
          */
-        listProps?: object;
+        listProps?: object | undefined;
         /**
          * A Transition component from react-transition-group v2.
          * The provided component will be used instead of the default SlideDownTransition for fully customizable animations.
          * The transition component is also injected with a dropUp prop indicating the direction it should open.
          */
-        popupTransition?: React.ReactType | string;
+        popupTransition?: React.ReactType | string | undefined;
 
         /**
          * Adds a css class to the input container element.
          */
-        containerClassName?: string;
+        containerClassName?: string | undefined;
     }
 
     interface MultiselectMessages {
-        open?: string | ((props: MultiselectProps) => string);
-        createOption?: string | ((props: MultiselectProps) => string);
-        tagsLabel?: string | ((props: MultiselectProps) => string);
-        selectedItems?: string | ((props: MultiselectProps) => string);
-        noneSelected?: string | ((props: MultiselectProps) => string);
-        removeLabel?: string | ((props: MultiselectProps) => string);
+        open?: string | ((props: MultiselectProps) => string) | undefined;
+        createOption?: string | ((props: MultiselectProps) => string) | undefined;
+        tagsLabel?: string | ((props: MultiselectProps) => string) | undefined;
+        selectedItems?: string | ((props: MultiselectProps) => string) | undefined;
+        noneSelected?: string | ((props: MultiselectProps) => string) | undefined;
+        removeLabel?: string | ((props: MultiselectProps) => string) | undefined;
         /**
          * The text label for creating new tags.
          * @default "(create new tag)"
          */
-        createNew?: string | ((props: MultiselectProps) => string);
+        createNew?: string | ((props: MultiselectProps) => string) | undefined;
         /**
          * Text to display when the data prop array is empty.
          * @default "There are no items in this list"
          */
-        emptyList?: string | ((props: MultiselectProps) => string);
+        emptyList?: string | ((props: MultiselectProps) => string) | undefined;
         /**
          * Text to display when the the current filter does not return any results.
          * @default "The filter returned no results"
          */
-        emptyFilter?: string | ((props: MultiselectProps) => string);
+        emptyFilter?: string | ((props: MultiselectProps) => string) | undefined;
     }
 }
 

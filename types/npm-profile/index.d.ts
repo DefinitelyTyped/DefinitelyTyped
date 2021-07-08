@@ -44,12 +44,12 @@ export type Options = fetch.Options & ProfileFetchOptions;
 
 export interface ProfileFetchOptions {
     /** passed through to prompter */
-    creds?: ProfileCredentials;
+    creds?: ProfileCredentials | undefined;
     /**
      * the hostname of the current machine, to show the user during the WebAuth flow.
      * @default os.hostname()
      */
-    hostname?: string;
+    hostname?: string | undefined;
 }
 
 export interface ProfileCredentials {
@@ -74,11 +74,11 @@ export interface ProfileData {
     created: Date | string;
     updated: Date | string;
     cidr_whitelist: null | string[];
-    fullname?: string;
-    homepage?: string;
-    freenode?: string;
-    twitter?: string;
-    github?: string;
+    fullname?: string | undefined;
+    homepage?: string | undefined;
+    freenode?: string | undefined;
+    twitter?: string | undefined;
+    github?: string | undefined;
 }
 
 export type UpdateProfileData = Partial<Omit<ProfileData, 'tfa' | 'created' | 'updated' | 'email_verified'>> &
@@ -89,8 +89,8 @@ export interface UpdateOptions {
      * This is used to change your password and is not visible (for obvious reasons) through the get() API.
      * The value should be an object with old and new properties, where the former has the user's current password and the latter has the desired new password.
      */
-    password?: PasswordUpdate;
-    tfa?: TFAStatusUpdate;
+    password?: PasswordUpdate | undefined;
+    tfa?: TFAStatusUpdate | undefined;
 }
 
 export interface PasswordUpdate {
@@ -122,7 +122,7 @@ export interface FetchProfileError extends Error {
     };
     uri: string;
     body: Uint8Array;
-    pkgid?: string;
+    pkgid?: string | undefined;
 }
 
 export interface Token {

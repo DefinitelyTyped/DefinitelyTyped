@@ -98,8 +98,8 @@ declare namespace google {
         export interface ResponseObject {
             [Response.ACTION]: Action;
             [Response.DOCUMENTS]: DocumentObject[];
-            [Response.PARENTS]?: ParentDocumentObject[];
-            [Response.VIEW]: [ViewId, undefined, { query?: string; parent?: string }];
+            [Response.PARENTS]?: ParentDocumentObject[] | undefined;
+            [Response.VIEW]: [ViewId, undefined, { query?: string | undefined; parent?: string | undefined }];
         }
 
         export interface DocumentObject {

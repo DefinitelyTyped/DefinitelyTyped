@@ -1,15 +1,15 @@
 export interface FieldInterface {
     name: string;
-    primitiveType?: string | null;
-    originalType?: string | null;
+    primitiveType?: string | null | undefined;
+    originalType?: string | null | undefined;
     path: string[];
     repetitionType: string;
-    encoding?: string;
-    compression?: string;
+    encoding?: string | undefined;
+    compression?: string | undefined;
     typeLength: number | null | undefined;
     rLevelMax: number;
     dLevelMax: number;
-    isNested?: boolean;
-    fieldCount?: number;
-    fields?: {[key: string]: FieldInterface};
+    isNested?: boolean | undefined;
+    fieldCount?: number | undefined;
+    fields?: {[key: string]: FieldInterface} | undefined;
 }

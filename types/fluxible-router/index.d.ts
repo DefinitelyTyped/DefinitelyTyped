@@ -23,10 +23,10 @@ export function handleHistory(Component: typeof React.Component, opts?: object):
 export function navigateAction(context: FluxibleContext, params: object): undefined;
 
 export class NavLinkProps {
-    href?: string;
-    routeName?: string;
-    activeStyle?: object;
-    preserveScrollPosition?: boolean;
-    className?: string;
-    type?: string;
+    href?: string | undefined;
+    routeName?: string | undefined;
+    activeStyle?: object | undefined;
+    preserveScrollPosition?: boolean | undefined;
+    className?: string | undefined;
+    type?: string | undefined;
 }

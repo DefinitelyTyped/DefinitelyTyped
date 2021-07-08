@@ -588,7 +588,7 @@ declare namespace fetchMock {
             Promise?: new (executor: (
                 resolve: (value: Response | PromiseLike<Response>) => void,
                 reject: (reason?: any) => void,
-            ) => void) => Promise<Response> | undefined;
+            ) => void) => Promise<Response> | undefined | undefined;
 
             /**
              * Reference to a custom fetch implementation.
@@ -602,19 +602,19 @@ declare namespace fetchMock {
              * Reference to the Headers constructor of a custom fetch
              * implementation.
              */
-            Headers?: new () => Headers | undefined;
+            Headers?: (new () => Headers | undefined) | undefined;
 
             /**
              * Reference to the Request constructor of a custom fetch
              * implementation.
              */
-            Request?: new (input: string | Request, init?: RequestInit) => Request | undefined;
+            Request?: (new (input: string | Request, init?: RequestInit) => Request | undefined) | undefined;
 
             /**
              * Reference to the Response constructor of a custom fetch
              * implementation.
              */
-            Response?: new () => Response | undefined;
+            Response?: (new () => Response | undefined) | undefined;
         };
     }
 

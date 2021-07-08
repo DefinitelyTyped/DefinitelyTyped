@@ -75,14 +75,14 @@ declare namespace LightningFS {
 
     interface WriteFileOpts {
         /** Encoding of Data */
-        encoding?: 'utf8';
+        encoding?: 'utf8' | undefined;
         /** Unix Octet Represenation of File Mode */
         mode: number;
     }
 
     interface DirOpts {
         /** Unix Octet Represenation of File Mode */
-        mode?: number;
+        mode?: number | undefined;
     }
 
     interface FSBackend {

@@ -16,10 +16,10 @@ declare module 'net' {
     }
 
     interface SocketConstructorOpts {
-        fd?: number;
-        allowHalfOpen?: boolean;
-        readable?: boolean;
-        writable?: boolean;
+        fd?: number | undefined;
+        allowHalfOpen?: boolean | undefined;
+        readable?: boolean | undefined;
+        writable?: boolean | undefined;
     }
 
     interface OnReadOpts {
@@ -38,17 +38,17 @@ declare module 'net' {
          * Note: this will cause the streaming functionality to not provide any data, however events like 'error', 'end', and 'close' will
          * still be emitted as normal and methods like pause() and resume() will also behave as expected.
          */
-        onread?: OnReadOpts;
+        onread?: OnReadOpts | undefined;
     }
 
     interface TcpSocketConnectOpts extends ConnectOpts {
         port: number;
-        host?: string;
-        localAddress?: string;
-        localPort?: number;
-        hints?: number;
-        family?: number;
-        lookup?: LookupFunction;
+        host?: string | undefined;
+        localAddress?: string | undefined;
+        localPort?: number | undefined;
+        hints?: number | undefined;
+        family?: number | undefined;
+        lookup?: LookupFunction | undefined;
     }
 
     interface IpcSocketConnectOpts extends ConnectOpts {
@@ -87,9 +87,9 @@ declare module 'net' {
         readonly destroyed: boolean;
         readonly localAddress: string;
         readonly localPort: number;
-        readonly remoteAddress?: string;
-        readonly remoteFamily?: string;
-        readonly remotePort?: number;
+        readonly remoteAddress?: string | undefined;
+        readonly remoteFamily?: string | undefined;
+        readonly remotePort?: number | undefined;
 
         // Extended base methods
         end(cb?: () => void): void;
@@ -169,17 +169,17 @@ declare module 'net' {
     }
 
     interface ListenOptions extends Abortable {
-        port?: number;
-        host?: string;
-        backlog?: number;
-        path?: string;
-        exclusive?: boolean;
-        readableAll?: boolean;
-        writableAll?: boolean;
+        port?: number | undefined;
+        host?: string | undefined;
+        backlog?: number | undefined;
+        path?: string | undefined;
+        exclusive?: boolean | undefined;
+        readableAll?: boolean | undefined;
+        writableAll?: boolean | undefined;
         /**
          * @default false
          */
-        ipv6Only?: boolean;
+        ipv6Only?: boolean | undefined;
     }
 
     interface ServerOpts {
@@ -187,13 +187,13 @@ declare module 'net' {
          * Indicates whether half-opened TCP connections are allowed.
          * @default false
          */
-        allowHalfOpen?: boolean;
+        allowHalfOpen?: boolean | undefined;
 
         /**
          * Indicates whether the socket should be paused on incoming connections.
          * @default false
          */
-        pauseOnConnect?: boolean;
+        pauseOnConnect?: boolean | undefined;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/net.js
@@ -307,11 +307,11 @@ declare module 'net' {
     }
 
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
@@ -333,21 +333,21 @@ declare module 'net' {
          * The network address as either an IPv4 or IPv6 string.
          * @default 127.0.0.1
          */
-        address?: string;
+        address?: string | undefined;
         /**
          * @default `'ipv4'`
          */
-        family?: IPVersion;
+        family?: IPVersion | undefined;
         /**
          * An IPv6 flow-label used only if `family` is `'ipv6'`.
          * @default 0
          */
-        flowlabel?: number;
+        flowlabel?: number | undefined;
         /**
          * An IP port.
          * @default 0
          */
-        port?: number;
+        port?: number | undefined;
     }
 
     // TODO: Mark as clonable if `kClone` symbol is set in node.

@@ -14,10 +14,10 @@ declare namespace gulpPugI18n {
     interface Options extends PugOptions {
         data?: any;
         i18n: {
-            default?: string;
-            filename?: string;
+            default?: string | undefined;
+            filename?: string | undefined;
             locales: string | ReadonlyArray<string>;
-            namespace?: string | null;
+            namespace?: string | null | undefined;
         };
     }
 }

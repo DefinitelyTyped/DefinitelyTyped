@@ -7,9 +7,9 @@
 
 declare namespace KmsJson {
     interface KmsJsonOptions {
-        awsKmsSettings?: object;
+        awsKmsSettings?: object | undefined;
         keyId: string;
-        encoding?: string;
+        encoding?: string | undefined;
     }
 }
 

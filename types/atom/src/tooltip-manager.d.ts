@@ -18,18 +18,18 @@ export interface TooltipManager {
         target: HTMLElement | JQueryCompatible,
         options:
             | {
-                  item?: object;
+                  item?: object | undefined;
               }
             | ({
-                  title?: string | (() => string);
-                  html?: boolean;
-                  keyBindingCommand?: string;
-                  keyBindingTarget?: HTMLElement;
+                  title?: string | (() => string) | undefined;
+                  html?: boolean | undefined;
+                  keyBindingCommand?: string | undefined;
+                  keyBindingTarget?: HTMLElement | undefined;
               } & {
-                  class?: string;
-                  placement?: TooltipPlacement | (() => TooltipPlacement);
-                  trigger?: 'click' | 'hover' | 'focus' | 'manual';
-                  delay?: { show: number; hide: number };
+                  class?: string | undefined;
+                  placement?: TooltipPlacement | (() => TooltipPlacement) | undefined;
+                  trigger?: 'click' | 'hover' | 'focus' | 'manual' | undefined;
+                  delay?: { show: number; hide: number } | undefined;
               }),
     ): Disposable;
 

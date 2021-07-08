@@ -21,19 +21,19 @@ declare namespace FontAwesome {
     type FontAwesomeFlip = 'horizontal' | 'vertical';
 
     interface FontAwesomeProps extends Intermediate {
-        ariaLabel?: string;
-        border?: boolean;
+        ariaLabel?: string | undefined;
+        border?: boolean | undefined;
         cssModule?: any;
-        fixedWidth?: boolean;
-        flip?: FontAwesomeFlip;
-        inverse?: boolean;
+        fixedWidth?: boolean | undefined;
+        flip?: FontAwesomeFlip | undefined;
+        inverse?: boolean | undefined;
         name: string;
-        pulse?: boolean;
-        rotate?: number;
-        size?: FontAwesomeSize;
-        spin?: boolean;
-        stack?: FontAwesomeStack;
-        tag?: string;
+        pulse?: boolean | undefined;
+        rotate?: number | undefined;
+        size?: FontAwesomeSize | undefined;
+        spin?: boolean | undefined;
+        stack?: FontAwesomeStack | undefined;
+        tag?: string | undefined;
     }
 }
 

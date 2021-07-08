@@ -70,7 +70,7 @@ declare namespace hljs {
     }
 
     export interface IAutoHighlightResult extends IHighlightResultBase {
-        second_best?: IAutoHighlightResult;
+        second_best?: IAutoHighlightResult | undefined;
     }
 
     export interface IHighlightResult extends IHighlightResultBase {
@@ -108,44 +108,44 @@ declare namespace hljs {
     // Reference:
     // https://github.com/isagalaev/highlight.js/blob/master/docs/reference.rst
     export interface IModeBase {
-        className?: string;
-        aliases?: string[];
-        begin?: (string | RegExp);
-        end?: (string | RegExp);
-        case_insensitive?: boolean;
-        beginKeyword?: string;
-        endsWithParent?: boolean;
-        lexems?: string;
-        illegal?: string;
-        excludeBegin?: boolean;
-        excludeEnd?: boolean;
-        returnBegin?: boolean;
-        returnEnd?: boolean;
-        starts?: string;
-        subLanguage?: string;
-        subLanguageMode?: string;
-        relevance?: number;
-        variants?: IMode[];
+        className?: string | undefined;
+        aliases?: string[] | undefined;
+        begin?: (string | RegExp) | undefined;
+        end?: (string | RegExp) | undefined;
+        case_insensitive?: boolean | undefined;
+        beginKeyword?: string | undefined;
+        endsWithParent?: boolean | undefined;
+        lexems?: string | undefined;
+        illegal?: string | undefined;
+        excludeBegin?: boolean | undefined;
+        excludeEnd?: boolean | undefined;
+        returnBegin?: boolean | undefined;
+        returnEnd?: boolean | undefined;
+        starts?: string | undefined;
+        subLanguage?: string | undefined;
+        subLanguageMode?: string | undefined;
+        relevance?: number | undefined;
+        variants?: IMode[] | undefined;
     }
 
     export interface IMode extends IModeBase {
         keywords?: any;
-        contains?: IMode[];
+        contains?: IMode[] | undefined;
     }
 
     export interface ICompiledMode extends IModeBase {
         compiled: boolean;
-        contains?: ICompiledMode[];
-        keywords?: object;
+        contains?: ICompiledMode[] | undefined;
+        keywords?: object | undefined;
         terminators: RegExp;
-        terminator_end?: string;
+        terminator_end?: string | undefined;
     }
 
     export interface IOptions {
-        classPrefix?: string;
-        tabReplace?: string;
-        useBR?: boolean;
-        languages?: string[];
+        classPrefix?: string | undefined;
+        tabReplace?: string | undefined;
+        useBR?: boolean | undefined;
+        languages?: string[] | undefined;
     }
 }
 

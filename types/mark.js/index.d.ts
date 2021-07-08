@@ -14,24 +14,24 @@ declare namespace Mark {
 
     interface MarkAccuracyObject {
         value: MarkAccuracy;
-        limiters?: string[];
+        limiters?: string[] | undefined;
     }
 
     interface MarkOptions {
-        element?: string;
-        className?: string;
-        exclude?: string[];
-        separateWordSearch?: boolean;
-        accuracy?: MarkAccuracy | MarkAccuracyObject;
-        diacritics?: boolean;
-        synonyms?: { [index: string]: string };
-        iframes?: boolean;
-        iframesTimeout?: number;
-        acrossElements?: boolean;
-        caseSensitive?: boolean;
-        ignoreJoiners?: boolean;
-        ignorePunctuation?: string[];
-        wildcards?: 'disabled' | 'enabled' | 'withSpaces';
+        element?: string | undefined;
+        className?: string | undefined;
+        exclude?: string[] | undefined;
+        separateWordSearch?: boolean | undefined;
+        accuracy?: MarkAccuracy | MarkAccuracyObject | undefined;
+        diacritics?: boolean | undefined;
+        synonyms?: { [index: string]: string } | undefined;
+        iframes?: boolean | undefined;
+        iframesTimeout?: number | undefined;
+        acrossElements?: boolean | undefined;
+        caseSensitive?: boolean | undefined;
+        ignoreJoiners?: boolean | undefined;
+        ignorePunctuation?: string[] | undefined;
+        wildcards?: 'disabled' | 'enabled' | 'withSpaces' | undefined;
 
         each?(element: Element): void;
 
@@ -46,18 +46,18 @@ declare namespace Mark {
 
         done?(marksTotal: number): void;
 
-        debug?: boolean;
-        log?: object;
+        debug?: boolean | undefined;
+        log?: object | undefined;
     }
 
     interface MarkRegExpOptions {
-        element?: string;
-        className?: string;
-        exclude?: string[];
-        iframes?: boolean;
-        iframesTimeout?: number;
-        acrossElements?: boolean;
-        ignoreGroups?: number;
+        element?: string | undefined;
+        className?: string | undefined;
+        exclude?: string[] | undefined;
+        iframes?: boolean | undefined;
+        iframesTimeout?: number | undefined;
+        acrossElements?: boolean | undefined;
+        ignoreGroups?: number | undefined;
         each?(element: Element): void;
         filter?(
             textNode: Element,
@@ -67,16 +67,16 @@ declare namespace Mark {
         ): boolean;
         noMatch?(term: string): void;
         done?(marksTotal: number): void;
-        debug?: boolean;
-        log?: object;
+        debug?: boolean | undefined;
+        log?: object | undefined;
     }
 
     interface MarkRangesOptions {
-        element?: string;
-        className?: string;
-        exclude?: string[];
-        iframes?: boolean;
-        iframesTimeout?: number;
+        element?: string | undefined;
+        className?: string | undefined;
+        exclude?: string[] | undefined;
+        iframes?: boolean | undefined;
+        iframesTimeout?: number | undefined;
         each?(element: Element, range: Range): void;
         filter?(
             textNode: Element,
@@ -86,21 +86,21 @@ declare namespace Mark {
         ): boolean;
         noMatch?(term: string): void;
         done?(marksTotal: number): void;
-        debug?: boolean;
-        log?: object;
+        debug?: boolean | undefined;
+        log?: object | undefined;
     }
 
     interface UnmarkOptions {
-        element?: string;
-        className?: string;
-        exclude?: string[];
-        iframes?: boolean;
-        iframesTimeout?: number;
+        element?: string | undefined;
+        className?: string | undefined;
+        exclude?: string[] | undefined;
+        iframes?: boolean | undefined;
+        iframesTimeout?: number | undefined;
 
         done?(marksTotal: number): void;
 
-        debug?: boolean;
-        log?: object;
+        debug?: boolean | undefined;
+        log?: object | undefined;
     }
 
     interface Range {

@@ -44,7 +44,7 @@ interface BaseUser {
     readonly id: string;
     user_id: string | null;
     email: string | null;
-    app_id?: string;
+    app_id?: string | undefined;
     phone: string | null;
     name: string | null;
     readonly updated_at: number;
@@ -84,12 +84,12 @@ export interface User extends BaseUser {
 }
 
 export interface CreateUpdateUser extends BaseUser {
-    companies: (Partial<Company> & { remove?: boolean })[];
+    companies: (Partial<Company> & { remove?: boolean | undefined })[];
 }
 
 export interface List {
     type: 'user.list';
     total_count: number;
     users: User[];
-    pages: { next?: string; page: number; per_page: number; total_pages: number };
+    pages: { next?: string | undefined; page: number; per_page: number; total_pages: number };
 }

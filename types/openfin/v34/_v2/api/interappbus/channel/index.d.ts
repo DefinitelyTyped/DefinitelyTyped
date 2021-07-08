@@ -5,9 +5,9 @@ import { EmitterBase } from '../../base';
 import Transport, { Message, Payload } from '../../../transport/transport';
 import { ProviderIdentity } from './channel';
 export interface Options {
-    wait?: boolean;
+    wait?: boolean | undefined;
     uuid: string;
-    name?: string;
+    name?: string | undefined;
     payload?: any;
 }
 export interface ChannelPayload {

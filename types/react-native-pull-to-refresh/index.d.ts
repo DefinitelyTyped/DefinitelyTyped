@@ -6,16 +6,16 @@
 import * as React from 'react';
 
 export interface PTRViewProps {
-    onRefresh?: () => any;
-    delay?: number; // default O
-    style?: object;
+    onRefresh?: (() => any) | undefined;
+    delay?: number | undefined; // default O
+    style?: object | undefined;
 
     // iOS only
-    offset?: number; // default 80
+    offset?: number | undefined; // default 80
 
     // android only
-    colors?: string; // default #000
-    progressBackgroundColor?: string; // default transparent
+    colors?: string | undefined; // default #000
+    progressBackgroundColor?: string | undefined; // default transparent
 }
 
 export default class PTRView extends React.Component<PTRViewProps, any> {}

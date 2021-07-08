@@ -25,8 +25,8 @@ export interface ojThematicMap<K1, K2, K3, D1, D2, D3> extends dvtBaseComponent<
         geo: object;
         propertiesKeys: {
             id: string;
-            longLabel?: string;
-            shortLabel?: string;
+            longLabel?: string | undefined;
+            shortLabel?: string | undefined;
         };
     };
     markerData: DataProvider<K3, D3> | null;
@@ -42,30 +42,30 @@ export interface ojThematicMap<K1, K2, K3, D1, D2, D3> extends dvtBaseComponent<
         insert: SVGElement;
     } | void) | null;
     styleDefaults: {
-        areaSvgStyle?: object;
+        areaSvgStyle?: object | undefined;
         dataAreaDefaults?: {
-            borderColor?: string;
-            hoverColor?: string;
-            selectedInnerColor?: string;
-            selectedOuterColor?: string;
-        };
+            borderColor?: string | undefined;
+            hoverColor?: string | undefined;
+            selectedInnerColor?: string | undefined;
+            selectedOuterColor?: string | undefined;
+        } | undefined;
         dataMarkerDefaults?: {
-            borderColor?: string;
-            borderStyle?: 'none' | 'solid';
-            borderWidth?: number;
-            color?: string;
-            height?: number;
-            labelStyle?: object;
-            opacity?: number;
-            shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
-            width?: number;
-        };
-        hoverBehaviorDelay?: number;
-        labelStyle?: object;
+            borderColor?: string | undefined;
+            borderStyle?: 'none' | 'solid' | undefined;
+            borderWidth?: number | undefined;
+            color?: string | undefined;
+            height?: number | undefined;
+            labelStyle?: object | undefined;
+            opacity?: number | undefined;
+            shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
+            width?: number | undefined;
+        } | undefined;
+        hoverBehaviorDelay?: number | undefined;
+        labelStyle?: object | undefined;
         linkDefaults?: {
-            color?: string;
-            width?: number;
-        };
+            color?: string | undefined;
+            width?: number | undefined;
+        } | undefined;
     };
     tooltip: {
         renderer: ((context: ojThematicMap.TooltipContext<K1, K2, K3, D1, D2, D3>) => ({
@@ -78,23 +78,23 @@ export interface ojThematicMap<K1, K2, K3, D1, D2, D3> extends dvtBaseComponent<
     touchResponse: 'touchStart' | 'auto';
     zooming: 'auto' | 'none';
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
     onAnimationDurationChanged: ((event: JetElementCustomEvent<ojThematicMap<K1, K2, K3, D1, D2, D3>["animationDuration"]>) => any) | null;
     onAnimationOnDisplayChanged: ((event: JetElementCustomEvent<ojThematicMap<K1, K2, K3, D1, D2, D3>["animationOnDisplay"]>) => any) | null;
@@ -193,8 +193,8 @@ export interface ojThematicMapSettableProperties<K1, K2, K3, D1, D2, D3> extends
         geo: object;
         propertiesKeys: {
             id: string;
-            longLabel?: string;
-            shortLabel?: string;
+            longLabel?: string | undefined;
+            shortLabel?: string | undefined;
         };
     };
     markerData: DataProvider<K3, D3> | null;
@@ -210,30 +210,30 @@ export interface ojThematicMapSettableProperties<K1, K2, K3, D1, D2, D3> extends
         insert: SVGElement;
     } | void) | null;
     styleDefaults: {
-        areaSvgStyle?: object;
+        areaSvgStyle?: object | undefined;
         dataAreaDefaults?: {
-            borderColor?: string;
-            hoverColor?: string;
-            selectedInnerColor?: string;
-            selectedOuterColor?: string;
-        };
+            borderColor?: string | undefined;
+            hoverColor?: string | undefined;
+            selectedInnerColor?: string | undefined;
+            selectedOuterColor?: string | undefined;
+        } | undefined;
         dataMarkerDefaults?: {
-            borderColor?: string;
-            borderStyle?: 'none' | 'solid';
-            borderWidth?: number;
-            color?: string;
-            height?: number;
-            labelStyle?: object;
-            opacity?: number;
-            shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
-            width?: number;
-        };
-        hoverBehaviorDelay?: number;
-        labelStyle?: object;
+            borderColor?: string | undefined;
+            borderStyle?: 'none' | 'solid' | undefined;
+            borderWidth?: number | undefined;
+            color?: string | undefined;
+            height?: number | undefined;
+            labelStyle?: object | undefined;
+            opacity?: number | undefined;
+            shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
+            width?: number | undefined;
+        } | undefined;
+        hoverBehaviorDelay?: number | undefined;
+        labelStyle?: object | undefined;
         linkDefaults?: {
-            color?: string;
-            width?: number;
-        };
+            color?: string | undefined;
+            width?: number | undefined;
+        } | undefined;
     };
     tooltip: {
         renderer: ((context: ojThematicMap.TooltipContext<K1, K2, K3, D1, D2, D3>) => ({
@@ -246,23 +246,23 @@ export interface ojThematicMapSettableProperties<K1, K2, K3, D1, D2, D3> extends
     touchResponse: 'touchStart' | 'auto';
     zooming: 'auto' | 'none';
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
 }
 export interface ojThematicMapSettablePropertiesLenient<K1, K2, K3, D1, D2, D3> extends Partial<ojThematicMapSettableProperties<K1, K2, K3, D1, D2, D3>> {
@@ -385,17 +385,17 @@ export interface ojThematicMapLink extends JetElement<ojThematicMapLinkSettableP
     color: string;
     endLocation: {
         id?: any;
-        location?: string;
-        x?: number;
-        y?: number;
+        location?: string | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     };
     selectable: 'auto' | 'off';
     shortDesc: string;
     startLocation: {
         id?: any;
-        location?: string;
-        x?: number;
-        y?: number;
+        location?: string | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     };
     svgClassName: string;
     svgStyle: object;
@@ -433,17 +433,17 @@ export interface ojThematicMapLinkSettableProperties extends JetSettableProperti
     color: string;
     endLocation: {
         id?: any;
-        location?: string;
-        x?: number;
-        y?: number;
+        location?: string | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     };
     selectable: 'auto' | 'off';
     shortDesc: string;
     startLocation: {
         id?: any;
-        location?: string;
-        x?: number;
-        y?: number;
+        location?: string | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     };
     svgClassName: string;
     svgStyle: object;
@@ -466,7 +466,7 @@ export interface ojThematicMapMarker extends JetElement<ojThematicMapMarkerSetta
     opacity: number;
     rotation: number;
     selectable: 'auto' | 'off';
-    shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
+    shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
     shortDesc: string;
     source: string;
     sourceHover: string;
@@ -552,7 +552,7 @@ export interface ojThematicMapMarkerSettableProperties extends JetSettableProper
     opacity: number;
     rotation: number;
     selectable: 'auto' | 'off';
-    shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
+    shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
     shortDesc: string;
     source: string;
     sourceHover: string;

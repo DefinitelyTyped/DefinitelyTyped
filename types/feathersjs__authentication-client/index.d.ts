@@ -9,15 +9,15 @@ declare const feathersAuthClient: ((config?: FeathersAuthClientConfig) => () => 
 export default feathersAuthClient;
 
 export interface FeathersAuthClientConfig {
-    storage?: Storage;
-    header?: string;
-    cookie?: string;
-    storageKey?: string;
-    jwtStrategy?: string;
-    path?: string;
-    entity?: string;
-    service?: string;
-    timeout?: number;
+    storage?: Storage | undefined;
+    header?: string | undefined;
+    cookie?: string | undefined;
+    storageKey?: string | undefined;
+    jwtStrategy?: string | undefined;
+    path?: string | undefined;
+    entity?: string | undefined;
+    service?: string | undefined;
+    timeout?: number | undefined;
 }
 
 export interface FeathersAuthCredentials {

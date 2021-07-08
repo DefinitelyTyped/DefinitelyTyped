@@ -13,12 +13,12 @@ import express = require("express");
 import koa = require("koa");
 
 interface IStrategyOptions {
-    scope?: string | Array<string>;
-    realm?: string;
-    passReqToCallback?: boolean;
+    scope?: string | Array<string> | undefined;
+    realm?: string | undefined;
+    passReqToCallback?: boolean | undefined;
 }
 interface IVerifyOptions {
-    message?: string;
+    message?: string | undefined;
     scope: string | Array<string>;
 }
 
