@@ -5,6 +5,7 @@
 // Minimum TypeScript Version: 3.8
 
 /// <reference types="node" />
+import * as StreamManager from "./stream-manager";
 
 export interface PublishParams {
     topic: string;
@@ -25,4 +26,4 @@ export class IotData {
 
 export const GreengrassInterfaceVersion: string;
 
-export * as StreamManager from "./stream-manager";
+export { StreamManager };

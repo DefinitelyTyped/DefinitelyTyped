@@ -1,8 +1,9 @@
 import { Message, ReadMessagesOptions, MessageStreamInfo, MessageStreamDefinition } from "./data";
+import * as util from "./util";
 
 export * from "./data";
 export * from "./exceptions";
-export * as util from "./util";
+export { util };
 
 export interface StreamManagerLogger {
   error(...args: never[]): void;

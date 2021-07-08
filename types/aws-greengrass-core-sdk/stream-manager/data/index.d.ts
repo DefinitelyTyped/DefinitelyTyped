@@ -14,7 +14,6 @@ export type EventTypeMap = EventTypeValue;
 
 /**
  * The type of event, which determines how to interpret the status payload.
- *
  */
 export class EventType {
   constructor(value?: EventTypeValue);
@@ -50,7 +49,6 @@ export type StatusMap = StatusValue;
 
 /**
  * The status of the event.
- *
  */
 export class Status {
   constructor(value?: StatusValue | null);
@@ -90,7 +88,6 @@ export type StatusLevelMap = StatusLevelValue;
 
 /**
  * Defines the verbosity of status messages in a status-stream.
- *
  */
 export class StatusLevel {
   constructor(value?: StatusLevelValue | null);
@@ -137,10 +134,13 @@ export class S3ExportTaskDefinition {
   /**
    * @param inputUrl The URL of the file that contains the data to upload. The file should be local on the disk.
    * @param bucket The name of the S3 bucket that this file should be uploaded to.
-   * @param key The key for the S3 object that this file should be uploaded to.
-     The string can have placeholder expressions which are resolved at upload time. Valid expressions are strings that are valid Java DateTimeFormatter strings. See https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
-     Example: myKeyNamePrefix/!{timestamp:yyyy/MM/dd}/myKeyNameSuffix.
-   * @param userMetadata User metadata. For key of a user metadata, callers should not include the internal "x-amz-meta-" prefix. Keys are case insensitive and will appear as lowercase strings on S3, even if they were originally specified with uppercase strings. Reserved key names start with "$aws-gg-" prefix.
+   * @param key The key for the S3 object that this file should be uploaded to. The string can have placeholder expressions which are
+   * resolved at upload time. Valid expressions are strings that are valid Java DateTimeFormatter strings.
+   * See https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
+   * Example: myKeyNamePrefix/!{timestamp:yyyy/MM/dd}/myKeyNameSuffix.
+   * @param userMetadata User metadata. For key of a user metadata, callers should not include the internal "x-amz-meta-"
+   * prefix. Keys are case insensitive and will appear as lowercase strings on S3, even if they were originally
+   * specified with uppercase strings. Reserved key names start with "$aws-gg-" prefix.
    */
   constructor(
     inputUrl?: string | null,
@@ -183,40 +183,52 @@ export class S3ExportTaskDefinition {
 
   /**
    * The key for the S3 object that this file should be uploaded to.
-     The string can have placeholder expressions which are resolved at upload time. Valid expressions are strings that are valid Java DateTimeFormatter strings. See https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
-     Example: myKeyNamePrefix/!{timestamp:yyyy/MM/dd}/myKeyNameSuffix.
+   * The string can have placeholder expressions which are resolved at upload time.
+   * Valid expressions are strings that are valid Java DateTimeFormatter strings.
+   * See https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
+   * Example: myKeyNamePrefix/!{timestamp:yyyy/MM/dd}/myKeyNameSuffix.
    * @returns
    */
   get key(): string;
 
   /**
    * @param value The key for the S3 object that this file should be uploaded to.
-     The string can have placeholder expressions which are resolved at upload time. Valid expressions are strings that are valid Java DateTimeFormatter strings. See https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
-     Example: myKeyNamePrefix/!{timestamp:yyyy/MM/dd}/myKeyNameSuffix.
+   * The string can have placeholder expressions which are resolved at upload time.
+   * Valid expressions are strings that are valid Java DateTimeFormatter strings.
+   * See https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
+   * Example: myKeyNamePrefix/!{timestamp:yyyy/MM/dd}/myKeyNameSuffix.
    */
   set key(value: string);
 
   /**
    * @param value The key for the S3 object that this file should be uploaded to.
-     The string can have placeholder expressions which are resolved at upload time. Valid expressions are strings that are valid Java DateTimeFormatter strings. See https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
-     Example: myKeyNamePrefix/!{timestamp:yyyy/MM/dd}/myKeyNameSuffix.
+   * The string can have placeholder expressions which are resolved at upload time.
+   * Valid expressions are strings that are valid Java DateTimeFormatter strings.
+   * See https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
+   * Example: myKeyNamePrefix/!{timestamp:yyyy/MM/dd}/myKeyNameSuffix.
    * @returns
    */
   withKey(value: string): S3ExportTaskDefinition;
 
   /**
-   * User metadata. For key of a user metadata, callers should not include the internal "x-amz-meta-" prefix. Keys are case insensitive and will appear as lowercase strings on S3, even if they were originally specified with uppercase strings. Reserved key names start with "$aws-gg-" prefix.
+   * User metadata. For key of a user metadata, callers should not include the internal "x-amz-meta-" prefix.
+   * Keys are case insensitive and will appear as lowercase strings on S3, even if they were originally specified with uppercase strings.
+   * Reserved key names start with "$aws-gg-" prefix.
    * @returns
    */
   get userMetadata(): Record<string, unknown> | null;
 
   /**
-   * @param value  User metadata. For key of a user metadata, callers should not include the internal "x-amz-meta-" prefix. Keys are case insensitive and will appear as lowercase strings on S3, even if they were originally specified with uppercase strings. Reserved key names start with "$aws-gg-" prefix.
+   * @param value User metadata. For key of a user metadata, callers should not include the internal "x-amz-meta-" prefix.
+   * Keys are case insensitive and will appear as lowercase strings on S3, even if they were originally specified with uppercase strings.
+   * Reserved key names start with "$aws-gg-" prefix.
    */
   set userMetadata(value: Record<string, unknown> | null);
 
   /**
-   * @param value User metadata. For key of a user metadata, callers should not include the internal "x-amz-meta-" prefix. Keys are case insensitive and will appear as lowercase strings on S3, even if they were originally specified with uppercase strings. Reserved key names start with "$aws-gg-" prefix.
+   * @param value User metadata. For key of a user metadata, callers should not include the internal "x-amz-meta-" prefix.
+   * Keys are case insensitive and will appear as lowercase strings on S3, even if they were originally specified with uppercase strings.
+   * Reserved key names start with "$aws-gg-" prefix.
    * @returns
    */
   withUserMetadata(value: Record<string, unknown> | null): S3ExportTaskDefinition;
@@ -228,7 +240,6 @@ export class S3ExportTaskDefinition {
 
 /**
  * Message object containing metadata and the user's payload.
- *
  */
 export class Message {
   /**
@@ -342,7 +353,6 @@ export interface MessageTypesMap {
 
 /**
  * Context associated with a status message. Describes which stream, export config, message, the status is associated with.
- *
  */
 export class StatusContext {
   /**
@@ -444,7 +454,6 @@ export interface StatusContextMap {
 
 /**
  * Status object appended to a status-stream.
- *
  */
 export class StatusMessage {
   /**
@@ -581,19 +590,20 @@ export interface StatusMessageMap {
 
 /**
  * Options for the ReadMessages API. All fields are optional.
- *
  */
 export class ReadMessagesOptions {
   /**
-   * @param desiredStartSequenceNumber The desired beginning sequence number to start reading from. If the desired sequence number is less than the current minimum of the stream, then it will instead start reading from the current minimum.
-   * @param minMessageCount The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages exception will be thrown.
-     The minimum values is 1 and the maximum value is 2147483647.
+   * @param desiredStartSequenceNumber The desired beginning sequence number to start reading from.
+   * If the desired sequence number is less than the current minimum of the stream, then it will instead start reading from the current minimum.
+   * @param minMessageCount The minimum number of messages that will be returned.
+   * If not enough messages are available for reading, then NotEnoughMessages exception will be thrown.
+   * The minimum values is 1 and the maximum value is 2147483647.
    * @param maxMessageCount The maximum number of messages that will be returned.
-     The minimum values is the value of the minimum message count and the maximum value is 2147483647.
+   * The minimum values is the value of the minimum message count and the maximum value is 2147483647.
    * @param readTimeoutMillis The time to wait for messages in milliseconds. Default is 0, meaning that the server will not wait for messages.
-     If it can fulfill the minimum messages it will return them, but otherwise NotEnoughMessages exception will be thrown.
-     If the timeout is greater than zero, then the server will wait up to that time for more messages to be appended to the stream, waiting until the minimum number of messages is reached.
-     The maximum value is the value of the client timeout.
+   * If it can fulfill the minimum messages it will return them, but otherwise NotEnoughMessages exception will be thrown.
+   * If the timeout is greater than zero, then the server will wait up to that time for more messages to be appended to the stream,
+   * waiting until the minimum number of messages is reached. The maximum value is the value of the client timeout.
    */
   constructor(
     desiredStartSequenceNumber?: number | null,
@@ -603,84 +613,90 @@ export class ReadMessagesOptions {
   );
 
   /**
-   * The desired beginning sequence number to start reading from. If the desired sequence number is less than the current minimum of the stream, then it will instead start reading from the current minimum.
+   * The desired beginning sequence number to start reading from. If the desired sequence number is less than
+   * the current minimum of the stream, then it will instead start reading from the current minimum.
    * @returns
    */
   get desiredStartSequenceNumber(): number | null;
 
   /**
-   * @param value The desired beginning sequence number to start reading from. If the desired sequence number is less than the current minimum of the stream, then it will instead start reading from the current minimum.
+   * @param value The desired beginning sequence number to start reading from. If the desired sequence number is less than
+   * the current minimum of the stream, then it will instead start reading from the current minimum.
    */
   set desiredStartSequenceNumber(value: number | null);
 
   /**
-   * @param value The desired beginning sequence number to start reading from. If the desired sequence number is less than the current minimum of the stream, then it will instead start reading from the current minimum.
+   * @param value The desired beginning sequence number to start reading from. If the desired sequence number is less than
+   * the current minimum of the stream, then it will instead start reading from the current minimum.
    * @returns
    */
   withDesiredStartSequenceNumber(value: number | null): this;
 
   /**
-     * The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages exception will be thrown.
-       The minimum values is 1 and the maximum value is 2147483647.
-     * @returns
-     */
+   * The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages
+   * exception will be thrown. The minimum values is 1 and the maximum value is 2147483647.
+   * @returns
+   */
   get minMessageCount(): number | null;
 
   /**
-   * @param value The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages exception will be thrown.
-     The minimum values is 1 and the maximum value is 2147483647.
+   * @param value The minimum number of messages that will be returned. If not enough messages are available for reading,
+   * then NotEnoughMessages exception will be thrown. The minimum values is 1 and the maximum value is 2147483647.
    */
   set minMessageCount(value: number | null);
 
   /**
-   * @param value The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages exception will be thrown.
-     The minimum values is 1 and the maximum value is 2147483647.
+   * @param value The minimum number of messages that will be returned. If not enough messages are available for reading, then
+   * NotEnoughMessages exception will be thrown. The minimum values is 1 and the maximum value is 2147483647.
    * @returns
    */
   withMinMessageCount(value: number | null): this;
 
   /**
    * The maximum number of messages that will be returned.
-     The minimum values is the value of the minimum message count and the maximum value is 2147483647.
+   * The minimum values is the value of the minimum message count and the maximum value is 2147483647.
    * @returns
    */
   get maxMessageCount(): number | null;
 
   /**
    * @param value The maximum number of messages that will be returned.
-     The minimum values is the value of the minimum message count and the maximum value is 2147483647.
+   * The minimum values is the value of the minimum message count and the maximum value is 2147483647.
    */
   set maxMessageCount(value: number | null);
 
   /**
    * @param value The maximum number of messages that will be returned.
-     The minimum values is the value of the minimum message count and the maximum value is 2147483647.
+   * The minimum values is the value of the minimum message count and the maximum value is 2147483647.
    * @returns
    */
   withMaxMessageCount(value: number | null): this;
 
   /**
    * The time to wait for messages in milliseconds. Default is 0, meaning that the server will not wait for messages.
-     If it can fulfill the minimum messages it will return them, but otherwise NotEnoughMessages exception will be thrown.
-     If the timeout is greater than zero, then the server will wait up to that time for more messages to be appended to the stream, waiting until the minimum number of messages is reached.
-     The maximum value is the value of the client timeout.
+   * If it can fulfill the minimum messages it will return them, but otherwise NotEnoughMessages exception will be thrown.
+   * If the timeout is greater than zero, then the server will wait up to that time for more messages to be appended to the stream,
+   * waiting until the minimum number of messages is reached.
+   * The maximum value is the value of the client timeout.
    * @returns
    */
   get readTimeoutMillis(): number | null;
 
   /**
    * @param value The time to wait for messages in milliseconds. Default is 0, meaning that the server will not wait for messages.
-     If it can fulfill the minimum messages it will return them, but otherwise NotEnoughMessages exception will be thrown.
-     If the timeout is greater than zero, then the server will wait up to that time for more messages to be appended to the stream, waiting until the minimum number of messages is reached.
-     The maximum value is the value of the client timeout.
+   * If it can fulfill the minimum messages it will return them, but otherwise NotEnoughMessages exception will be thrown.
+   * If the timeout is greater than zero, then the server will wait up to that time for more messages to be appended to the stream,
+   * waiting until the minimum number of messages is reached.
+   * The maximum value is the value of the client timeout.
    */
   set readTimeoutMillis(value: number | null);
 
   /**
    * @param value The time to wait for messages in milliseconds. Default is 0, meaning that the server will not wait for messages.
-     If it can fulfill the minimum messages it will return them, but otherwise NotEnoughMessages exception will be thrown.
-     If the timeout is greater than zero, then the server will wait up to that time for more messages to be appended to the stream, waiting until the minimum number of messages is reached.
-     The maximum value is the value of the client timeout.
+   * If it can fulfill the minimum messages it will return them, but otherwise NotEnoughMessages exception will be thrown.
+   * If the timeout is greater than zero, then the server will wait up to that time for more messages to be appended to the stream,
+   * waiting until the minimum number of messages is reached.
+   * The maximum value is the value of the client timeout.
    * @returns
    */
   withReadTimeoutMillis(value: number | null): this;
@@ -703,10 +719,9 @@ export interface ReadMessagesOptionsMap {
 
 /**
  * StrategyOnFull is used in the MessageStreamDefinition when creating a stream.
-   It defines the behavior when the stream has reached the maximum size.
-   RejectNewData: any append message request after the stream is full will be rejected with an exception.
-   OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
- *
+ * It defines the behavior when the stream has reached the maximum size.
+ * RejectNewData: any append message request after the stream is full will be rejected with an exception.
+ * OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
  */
 export class StrategyOnFull {
   constructor(value?: StrategyOnFullValue | null);
@@ -737,8 +752,7 @@ export interface StrategyOnFullOptionsFlipped {
 
 /**
  * Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
-   Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
- *
+ * Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
  */
 export class Persistence {
   constructor(value?: PersistenceValue | null);
@@ -769,9 +783,8 @@ export type PersistenceMap = PersistenceValue;
 
 /**
  * ExportFormat is used to define how messages are batched and formatted in the export payload.
-   RAW_NOT_BATCHED: Each message in a batch will be sent as an individual HTTP POST with the payload as the body (even if batchSize is set).
-   JSON_BATCHED: Each batch of messages will be sent as a JSON list of Message objects as the body.
- *
+ * RAW_NOT_BATCHED: Each message in a batch will be sent as an individual HTTP POST with the payload as the body (even if batchSize is set).
+ * JSON_BATCHED: Each batch of messages will be sent as a JSON list of Message objects as the body.
  */
 export class ExportFormat {
   constructor(value: ExportFormatValue);
@@ -803,48 +816,49 @@ export type ExportFormatMap = ExportFormatValue;
 declare class StreamConfigBase<TMap extends StreamConfigBaseMap> {
   /**
    * A unique identifier to identify this individual upload stream.
-     Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
    * @returns
-
    */
   get identifier(): string | null;
 
   /**
    * @param value A unique identifier to identify this individual upload stream.
-     Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
    */
   set identifier(value: string | null);
 
   /**
    * @param value A unique identifier to identify this individual upload stream.
-     Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
    */
   withIdentifier(value: string | null): this;
   /**
-   * The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
-     If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-     The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
+   * The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded,
+   * messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
    * @returns
    */
   get batchIntervalMillis(): number | null;
   /**
-     * @param value The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
-       If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-       The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-     */
+   * @param value The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded,
+   * messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
+   */
   set batchIntervalMillis(value: number | null);
   /**
-     * @param value The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
-       If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-       The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-     */
+   * @param value The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded,
+   * messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
+   */
   withBatchIntervalMillis(value: number | null): this;
 
   /**
-     * Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
-     * @returns
-
-     */
+   * Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
+   * @returns
+   */
   get priority(): number | null;
 
   /**
@@ -858,27 +872,34 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap> {
   withPriority(value: number | null): this;
 
   /**
-     * The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
-     * @returns
-
-     */
+   * The sequence number of the message to use as the starting message in the export. Default is 0.
+   * The sequence number provided should be less than the newest sequence number in the stream, i.e.,
+   * sequence number of the last messaged appended.
+   * To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+   * @returns
+   */
   get startSequenceNumber(): number | null;
 
   /**
-   * @param value The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+   * @param value The sequence number of the message to use as the starting message in the export. Default is 0.
+   * The sequence number provided should be less than the newest sequence number in the stream, i.e.,
+   * sequence number of the last messaged appended.
+   * To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
    */
   set startSequenceNumber(value: number | null);
 
   /**
-   * @param value The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+   * @param value The sequence number of the message to use as the starting message in the export. Default is 0.
+   * The sequence number provided should be less than the newest sequence number in the stream, i.e.,
+   * sequence number of the last messaged appended.
+   * To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
    */
   withStartSequenceNumber(value: number | null): this;
 
   /**
-     * Enable or disable this export. Default is false.
-     * @returns
-
-     */
+   * Enable or disable this export. Default is false.
+   * @returns
+   */
   get disabled(): boolean | null;
 
   /**
@@ -909,23 +930,27 @@ interface StreamConfigBaseMap {
 
 /**
  * This export destination is not supported! The interface may change at any time without notice and should not be relied on for any production use.
-   There are no guarantees around its correctness.
-   This configures an HTTP endpoint which sends a POST request to the provided URI. Each request contains a single message in the body of the request.
- *
+ * There are no guarantees around its correctness.
+ * This configures an HTTP endpoint which sends a POST request to the provided URI. Each request contains a single message in the body of the request.
  */
-export declare class HTTPConfig extends StreamConfigBase<HTTPConfigMap> {
+export class HTTPConfig extends StreamConfigBase<HTTPConfigMap> {
   /**
    * @param identifier A unique identifier to identify this individual upload stream.
-    Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
    * @param uri URL for HTTP endpoint which should receive the POST requests for export.
-   * @param batchSize The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
-     If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-     The minimum batch size is 1 and the maximum is 500.
-   * @param batchIntervalMillis The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
-     If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-     The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
+   * @param batchSize The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached,
+   * after which they will then be uploaded. If unspecified the default will be 500.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum batch size is 1 and the maximum is 500.
+   * @param batchIntervalMillis The time in milliseconds between the earliest un-uploaded message and the current time.
+   * If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
    * @param priority Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
-   * @param startSequenceNumber The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+   * @param startSequenceNumber The sequence number of the message to use as the starting message in the export. Default is 0.
+   * The sequence number provided should be less than the newest sequence number in the stream, i.e.,
+   * sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status
+   * of the returned MessageStreamInfo object.
    * @param disabled Enable or disable this export. Default is false.
    * @param exportFormat Defines how messages are batched and formatted in the export payload.
    */
@@ -958,24 +983,29 @@ export declare class HTTPConfig extends StreamConfigBase<HTTPConfigMap> {
   withUri(value: string | null): HTTPConfig;
 
   /**
-   * The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
-     If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-     The minimum batch size is 1 and the maximum is 500.
+   * The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached,
+   * after which they will then be uploaded.
+   * If unspecified the default will be 500.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum batch size is 1 and the maximum is 500.
    * @returns
    */
   get batchSize(): number | null;
   /**
-   * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
-     If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-     The minimum batch size is 1 and the maximum is 500.
+   * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached,
+   * after which they will then be uploaded.
+   * If unspecified the default will be 500.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum batch size is 1 and the maximum is 500.
    */
   set batchSize(value: number | null);
 
   /**
-   * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
-     If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-     The minimum batch size is 1 and the maximum is 500.
-   * @returns
+   * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached,
+   * after which they will then be uploaded.
+   * If unspecified the default will be 500.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum batch size is 1 and the maximum is 500.
    */
   withBatchSize(value: number | null): HTTPConfig;
 
@@ -1007,23 +1037,29 @@ export interface HTTPConfigMap extends StreamConfigBaseMap {
 
 /**
  * Configuration object for IoT Analytics export destination.
- *
  */
-export declare class IoTAnalyticsConfig extends StreamConfigBase<IoTAnalyticsConfigMap> {
+export class IoTAnalyticsConfig extends StreamConfigBase<IoTAnalyticsConfigMap> {
   /**
    * @param identifier A unique identifier to identify this individual upload stream.
-     Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
    * @param iotChannel The name of the IoT Analytics Channel that this exporter should upload to.
-   * @param iotMsgIdPrefix A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
-     This prefix must be less than 32 characters.
-   * @param batchSize The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 100.
-     If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-     The batch size must be between 1 and 100.
-   * @param batchIntervalMillis The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
-     If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-     The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
+   * @param iotMsgIdPrefix A string prefixed to each unique message id. After this prefix, StreamManager may append
+   * more data to make the message ID unique.
+   * This prefix must be less than 32 characters.
+   * @param batchSize The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached,
+   * after which they will then be uploaded.
+   * If unspecified the default will be 100.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The batch size must be between 1 and 100.
+   * @param batchIntervalMillis The time in milliseconds between the earliest un-uploaded message and the current time.
+   * If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
    * @param priority Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
-   * @param startSequenceNumber The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+   * @param startSequenceNumber The sequence number of the message to use as the starting message in the export.
+   * Default is 0.
+   * The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended.
+   * To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
    * @param disabled Enable or disable this export. Default is false.
    */
   constructor(
@@ -1056,46 +1092,49 @@ export declare class IoTAnalyticsConfig extends StreamConfigBase<IoTAnalyticsCon
 
   /**
    * A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
-     This prefix must be less than 32 characters.
+   * This prefix must be less than 32 characters.
    * @returns
-
    */
   get iotMsgIdPrefix(): string | null;
 
   /**
    * @param value A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
-     This prefix must be less than 32 characters.
+   * This prefix must be less than 32 characters.
    */
   set iotMsgIdPrefix(value: string | null);
 
   /**
    * @param value A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
-     This prefix must be less than 32 characters.
+   * This prefix must be less than 32 characters.
    * @returns
    */
   withIotMsgIdPrefix(value: string | null): IoTAnalyticsConfig;
 
   /**
-   * The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 100.
-     If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-     The batch size must be between 1 and 100.
+   * The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached,
+   * after which they will then be uploaded.
+   * If unspecified the default will be 100.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The batch size must be between 1 and 100.
    * @returns
-
    */
   get batchSize(): number | null;
 
   /**
-   * @param value The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 100.
-     If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-     The batch size must be between 1 and 100.
+   * @param value The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached,
+   * after which they will then be uploaded.
+   * If unspecified the default will be 100.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The batch size must be between 1 and 100.
    */
   set batchSize(value: number | null);
 
   /**
-   * @param value The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 100.
-     If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-     The batch size must be between 1 and 100.
-   * @returns
+   * @param value The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached,
+   * after which they will then be uploaded.
+   * If unspecified the default will be 100.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The batch size must be between 1 and 100.
    */
   withBatchSize(value: number | null): IoTAnalyticsConfig;
 
@@ -1110,23 +1149,27 @@ export interface IoTAnalyticsConfigMap extends StreamConfigBaseMap {
 
 /**
  * Configuration object for Kinesis data streams export destination.
- *
  */
-export declare class KinesisConfig extends StreamConfigBase<KinesisConfigMap> {
+export class KinesisConfig extends StreamConfigBase<KinesisConfigMap> {
   /**
-     * @param identifier A unique identifier to identify this individual upload stream.
-       Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-     * @param kinesisStreamName The name of the Kinesis data stream that this exporter should upload to.
-     * @param batchSize The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
-       If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-       The batch size must be between 1 and 500.
-     * @param batchIntervalMillis The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
-       If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-       The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-     * @param priority Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
-     * @param startSequenceNumber The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
-     * @param disabled Enable or disable this export. Default is false.
-     */
+   * @param identifier A unique identifier to identify this individual upload stream.
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * @param kinesisStreamName The name of the Kinesis data stream that this exporter should upload to.
+   * @param batchSize The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached,
+   * after which they will then be uploaded.
+   * If unspecified the default will be 500.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The batch size must be between 1 and 500.
+   * @param batchIntervalMillis The time in milliseconds between the earliest un-uploaded message and the current time.
+   * If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
+   * @param priority Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
+   * @param startSequenceNumber The sequence number of the message to use as the starting message in the export. Default is 0.
+   * The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended.
+   * To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+   * @param disabled Enable or disable this export. Default is false.
+   */
   constructor(
     identifier?: string | null,
     kinesisStreamName?: string | null,
@@ -1138,10 +1181,9 @@ export declare class KinesisConfig extends StreamConfigBase<KinesisConfigMap> {
   );
 
   /**
-     * The name of the Kinesis data stream that this exporter should upload to.
-     * @returns
-
-     */
+   * The name of the Kinesis data stream that this exporter should upload to.
+   * @returns
+   */
   get kinesisStreamName(): string | null;
 
   /**
@@ -1156,26 +1198,28 @@ export declare class KinesisConfig extends StreamConfigBase<KinesisConfigMap> {
   withKinesisStreamName(value: string | null): KinesisConfig;
 
   /**
-     * The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
-       If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-       The batch size must be between 1 and 500.
-     * @returns
-
-     */
+   * The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded.
+   * If unspecified the default will be 500.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The batch size must be between 1 and 500.
+   * @returns
+   */
   get batchSize(): number | null;
+
   /**
-     * @param value The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
-       If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-       The batch size must be between 1 and 500.
-     */
+   * @param value The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded.
+   * If unspecified the default will be 500.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The batch size must be between 1 and 500.
+   */
   set batchSize(value: number | null);
 
   /**
-     * @param value The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
-       If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-       The batch size must be between 1 and 500.
-     * @returns
-     */
+   * @param value The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded.
+   * If unspecified the default will be 500.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The batch size must be between 1 and 500.
+   */
   withBatchSize(value: number | null): KinesisConfig;
 
   static fromMap(d: KinesisConfigMap): KinesisConfig;
@@ -1188,22 +1232,25 @@ export interface KinesisConfigMap extends StreamConfigBaseMap {
 
 /**
  * Configuration object for IotSiteWise data streams export destination. Minimum version requirements: StreamManager server version 1.1 (or AWS IoT Greengrass Core 1.11.0)
- *
  */
-export declare class IoTSiteWiseConfig extends StreamConfigBase<IoTSiteWiseConfigMap> {
+export class IoTSiteWiseConfig extends StreamConfigBase<IoTSiteWiseConfigMap> {
   /**
-     * @param identifier A unique identifier to identify this individual upload stream.
-       Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-     * @param batchSize The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 10.
-       If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-       The minimum batch size is 1 and the maximum is 10.
-     * @param batchIntervalMillis The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
-       If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-       The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-     * @param priority Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
-     * @param startSequenceNumber The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
-     * @param disabled Enable or disable this export. Default is false.
-     */
+   * @param identifier A unique identifier to identify this individual upload stream.
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * @param batchSize The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded.
+   * If unspecified the default will be 10.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum batch size is 1 and the maximum is 10.
+   * @param batchIntervalMillis The time in milliseconds between the earliest un-uploaded message and the current time.
+   * If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
+   * @param priority Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
+   * @param startSequenceNumber The sequence number of the message to use as the starting message in the export. Default is 0.
+   * The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended.
+   * To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+   * @param disabled Enable or disable this export. Default is false.
+   */
   constructor(
     identifier?: string | null,
     batchSize?: number | null,
@@ -1214,26 +1261,27 @@ export declare class IoTSiteWiseConfig extends StreamConfigBase<IoTSiteWiseConfi
   );
 
   /**
-     * The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 10.
-       If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-       The minimum batch size is 1 and the maximum is 10.
-     * @returns
-
-     */
+   * The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded.
+   * If unspecified the default will be 10.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum batch size is 1 and the maximum is 10.
+   * @returns
+   */
   get batchSize(): number | null;
   /**
-     * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 10.
-       If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-       The minimum batch size is 1 and the maximum is 10.
-     */
+   * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded.
+   * If unspecified the default will be 10.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum batch size is 1 and the maximum is 10.
+   */
   set batchSize(value: number | null);
 
   /**
-     * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 10.
-       If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
-       The minimum batch size is 1 and the maximum is 10.
-     * @returns
-     */
+   * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded.
+   * If unspecified the default will be 10.
+   * If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
+   * The minimum batch size is 1 and the maximum is 10.
+   */
   withBatchSize(value: number | null): IoTSiteWiseConfig;
 
   static fromMap(d: IoTSiteWiseConfigMap): IoTSiteWiseConfig;
@@ -1245,21 +1293,19 @@ export interface IoTSiteWiseConfigMap extends StreamConfigBaseMap {
 
 /**
  * Configuration for status in a status-stream.
- *
  */
-export declare class StatusConfig {
+export class StatusConfig {
   /**
-     * @param statusLevel Defines the verbosity of status messages in a status-stream.
-     * @param statusStreamName The name of the stream to which status messages are appended.
-       The status-stream should be created before associating it with another stream.
-     */
+   * @param statusLevel Defines the verbosity of status messages in a status-stream.
+   * @param statusStreamName The name of the stream to which status messages are appended.
+   * The status-stream should be created before associating it with another stream.
+   */
   constructor(statusLevel?: StatusLevel | null, statusStreamName?: string | null);
 
   /**
-     * Defines the verbosity of status messages in a status-stream.
-     * @returns
-
-     */
+   * Defines the verbosity of status messages in a status-stream.
+   * @returns
+   */
   get statusLevel(): StatusLevel | null;
 
   /**
@@ -1274,24 +1320,23 @@ export declare class StatusConfig {
   withStatusLevel(value: StatusLevel | null): StatusConfig;
 
   /**
-     * The name of the stream to which status messages are appended.
-       The status-stream should be created before associating it with another stream.
-     * @returns
-
-     */
+   * The name of the stream to which status messages are appended.
+   * The status-stream should be created before associating it with another stream.
+   * @returns
+   */
   get statusStreamName(): string | null;
 
   /**
-     * @param value The name of the stream to which status messages are appended.
-       The status-stream should be created before associating it with another stream.
-     */
+   * @param value The name of the stream to which status messages are appended.
+   * The status-stream should be created before associating it with another stream.
+   */
   set statusStreamName(value: string | null);
 
   /**
-     * @param value The name of the stream to which status messages are appended.
-       The status-stream should be created before associating it with another stream.
-     * @returns
-     */
+   * @param value The name of the stream to which status messages are appended.
+   * The status-stream should be created before associating it with another stream.
+   * @returns
+   */
   withStatusStreamName(value: string | null): StatusConfig;
 
   static fromMap(d: StatusConfigMap): StatusConfig;
@@ -1310,17 +1355,17 @@ export interface StatusConfigMap {
 
 /**
  * Configuration object for S3 export tasks executor.  Minimum version requirements: StreamManager server version 1.1 (or AWS IoT Greengrass Core 1.11.0)
- *
  */
-export declare class S3ExportTaskExecutorConfig {
+export class S3ExportTaskExecutorConfig {
   /**
-     * @param identifier A unique identifier to identify this individual upload task.
-       Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-     * @param sizeThresholdForMultipartUploadBytes The size threshold in bytes for when to use multipart uploads. Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
-     * @param priority Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
-     * @param disabled Enable or disable this export. Default is false.
-     * @param statusConfig Event status configuration that specifies the target status stream and verbosity.
-     */
+   * @param identifier A unique identifier to identify this individual upload task.
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * @param sizeThresholdForMultipartUploadBytes The size threshold in bytes for when to use multipart uploads.
+   * Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
+   * @param priority Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
+   * @param disabled Enable or disable this export. Default is false.
+   * @param statusConfig Event status configuration that specifies the target status stream and verbosity.
+   */
   constructor(
     identifier?: string | null,
     sizeThresholdForMultipartUploadBytes?: number | null,
@@ -1330,49 +1375,49 @@ export declare class S3ExportTaskExecutorConfig {
   );
 
   /**
-     * A unique identifier to identify this individual upload task.
-       Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-     * @returns
-
-     */
+   * A unique identifier to identify this individual upload task.
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * @returns
+   */
   get identifier(): string | null;
 
   /**
-     * @param value A unique identifier to identify this individual upload task.
-       Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-     */
+   * @param value A unique identifier to identify this individual upload task.
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   */
   set identifier(value: string | null);
 
   /**
-     * @param value A unique identifier to identify this individual upload task.
-       Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-     * @returns
-     */
+   * @param value A unique identifier to identify this individual upload task.
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * @returns
+   */
   withIdentifier(value: string | null): this;
 
   /**
-     * The size threshold in bytes for when to use multipart uploads. Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
-     * @returns
-
-     */
+   * The size threshold in bytes for when to use multipart uploads.
+   * Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
+   * @returns
+   */
   get sizeThresholdForMultipartUploadBytes(): number | null;
 
   /**
-   * @param value The size threshold in bytes for when to use multipart uploads. Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
+   * @param value The size threshold in bytes for when to use multipart uploads.
+   * Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
    */
   set sizeThresholdForMultipartUploadBytes(value: number | null);
 
   /**
-   * @param value The size threshold in bytes for when to use multipart uploads. Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
+   * @param value The size threshold in bytes for when to use multipart uploads.
+   * Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
    * @returns
    */
   withSizeThresholdForMultipartUploadBytes(value: number | null): this;
 
   /**
-     * Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
-     * @returns
-
-     */
+   * Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
+   * @returns
+   */
   get priority(): number | null;
   /**
    * @param value Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
@@ -1386,10 +1431,9 @@ export declare class S3ExportTaskExecutorConfig {
   withPriority(value: number | null): this;
 
   /**
-     * Enable or disable this export. Default is false.
-     * @returns
-
-     */
+   * Enable or disable this export. Default is false.
+   * @returns
+   */
   get disabled(): boolean | null;
 
   /**
@@ -1404,10 +1448,9 @@ export declare class S3ExportTaskExecutorConfig {
   withDisabled(value: boolean | null): this;
 
   /**
-     * Event status configuration that specifies the target status stream and verbosity.
-     * @returns
-
-     */
+   * Event status configuration that specifies the target status stream and verbosity.
+   * @returns
+   */
   get statusConfig(): StatusConfig | null;
 
   /**
@@ -1440,9 +1483,8 @@ export interface S3ExportTaskExecutorConfigMap {
 
 /**
  * Defines how and where the stream is uploaded.
- *
  */
-export declare class ExportDefinition {
+export class ExportDefinition {
   /**
    * @param http Defines how the stream is uploaded to an HTTP endpoint.
    * @param iotAnalytics Defines how the stream is uploaded to IoT Analytics.
@@ -1459,10 +1501,9 @@ export declare class ExportDefinition {
   );
 
   /**
-     * Defines how the stream is uploaded to an HTTP endpoint.
-     * @returns
-
-     */
+   * Defines how the stream is uploaded to an HTTP endpoint.
+   * @returns
+   */
   get http(): HTTPConfig[] | null;
 
   /**
@@ -1477,10 +1518,9 @@ export declare class ExportDefinition {
   withHttp(value: HTTPConfig[] | null): this;
 
   /**
-     * Defines how the stream is uploaded to IoT Analytics.
-     * @returns
-
-     */
+   * Defines how the stream is uploaded to IoT Analytics.
+   * @returns
+   */
   get iotAnalytics(): IoTAnalyticsConfig[] | null;
 
   /**
@@ -1495,10 +1535,9 @@ export declare class ExportDefinition {
   withIotAnalytics(value: IoTAnalyticsConfig[] | null): this;
 
   /**
-     * Defines how the stream is uploaded to Kinesis.
-     * @returns
-
-     */
+   * Defines how the stream is uploaded to Kinesis.
+   * @returns
+   */
   get kinesis(): KinesisConfig[] | null;
 
   /**
@@ -1513,10 +1552,9 @@ export declare class ExportDefinition {
   withKinesis(value: KinesisConfig[] | null): this;
 
   /**
-     * Defines how the stream is uploaded to IoT SiteWise.
-     * @returns
-
-     */
+   * Defines how the stream is uploaded to IoT SiteWise.
+   * @returns
+   */
   get IotSitewise(): IoTSiteWiseConfig[] | null;
 
   /**
@@ -1531,10 +1569,9 @@ export declare class ExportDefinition {
   withIotSitewise(value: IoTSiteWiseConfig[] | null): this;
 
   /**
-     * Defines the list of configs for S3 task executors.
-     * @returns
-
-     */
+   * Defines the list of configs for S3 task executors.
+   * @returns
+   */
   get s3TaskExecutor(): S3ExportTaskExecutorConfig[] | null;
   /**
    * @param value Defines the list of configs for S3 task executors.
@@ -1566,26 +1603,25 @@ export interface ExportDefinitionMap {
 
 /**
  * Object defining a message stream used in the CreateMessageStream and UpdateMessageStream API.
- *
  */
-export declare class MessageStreamDefinition {
+export class MessageStreamDefinition {
   /**
    * @param name The unique name of the stream.
-     Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-    * @param maxSize The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
-    * @param streamSegmentSize The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
-      Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
-    * @param timeToLiveMillis Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
-      The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-    * @param strategyOnFull What to do when the maximum size of the stream is reached.
-      RejectNewData: any append message request after the stream is full will be rejected with an exception.
-      OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
-    * @param persistence Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
-      Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
-    * @param flushOnWrite This only applies when Persistence is set to File mode.
-      Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
-    * @param exportDefinition Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
-    */
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * @param maxSize The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
+   * @param streamSegmentSize The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
+   * Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
+   * @param timeToLiveMillis Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
+   * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
+   * @param strategyOnFull What to do when the maximum size of the stream is reached.
+   * RejectNewData: any append message request after the stream is full will be rejected with an exception.
+   * OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
+   * @param persistence Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
+   * Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
+   * @param flushOnWrite This only applies when Persistence is set to File mode.
+   * Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
+   * @param exportDefinition Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
+   */
   constructor(
     name?: string | null,
     maxSize?: number | null,
@@ -1599,28 +1635,26 @@ export declare class MessageStreamDefinition {
 
   /**
    * The unique name of the stream.
-     Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-    * @returns
-
-    */
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * @returns
+   */
   get name(): string | null;
   /**
    * @param value The unique name of the stream.
-     Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-    */
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   */
   set name(value: string | null);
   /**
    * @param value The unique name of the stream.
-     Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-    * @returns
-    */
+   * Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
+   * @returns
+   */
   withName(value: string | null): this;
 
   /**
    * The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
    * @returns
-
-    */
+   */
   get maxSize(): number | null;
   /**
    * @param value The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
@@ -1634,110 +1668,104 @@ export declare class MessageStreamDefinition {
 
   /**
    * The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
-     Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
-    * @returns
-
-    */
+   * Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
+   * @returns
+   */
   get streamSegmentSize(): number | null;
   /**
    * @param value The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
-     Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
-    */
+   * Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
+   */
   set streamSegmentSize(value: number | null);
   /**
    * @param value The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
-     Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
-    * @returns
-    */
+   * Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
+   * @returns
+   */
   withStreamSegmentSize(value: number | null): this;
 
   /**
    * Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
-     The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-    * @returns
-
-    */
+   * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
+   * @returns
+   */
   get timeToLiveMillis(): number | null;
   /**
    * @param value Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
-     The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-    */
+   * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
+   */
   set timeToLiveMillis(value: number | null);
   /**
    * @param value Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
-     The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-    * @returns
-    */
+   * The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
+   * @returns
+   */
   withTimeToLiveMillis(value: number | null): this;
 
   /**
    * What to do when the maximum size of the stream is reached.
-     RejectNewData: any append message request after the stream is full will be rejected with an exception.
-      OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
-    * @returns
-
-    */
+   * RejectNewData: any append message request after the stream is full will be rejected with an exception.
+   * OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
+   * @returns
+   */
   get strategyOnFull(): StrategyOnFull | null;
   /**
    * @param value What to do when the maximum size of the stream is reached.
-     RejectNewData: any append message request after the stream is full will be rejected with an exception.
-      OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
-    */
+   * RejectNewData: any append message request after the stream is full will be rejected with an exception.
+   * OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
+   */
   set strategyOnFull(value: StrategyOnFull | null);
   /**
    * @param value What to do when the maximum size of the stream is reached.
-     RejectNewData: any append message request after the stream is full will be rejected with an exception.
-      OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
-    * @returns
-    */
+   * RejectNewData: any append message request after the stream is full will be rejected with an exception.
+   * OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
+   * @returns
+   */
   withStrategyOnFull(value: StrategyOnFull | null): this;
 
   /**
    * Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
-     Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
-    * @returns
-
-    */
+   * Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
+   * @returns
+   */
   get persistence(): Persistence | null;
 
   /**
    * @param value Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
-     Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
-    */
+   * Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
+   */
   set persistence(value: Persistence | null);
   /**
    * @param value Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
-     Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
-    * @returns
-    */
+   * Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
+   * @returns
+   */
   withPersistence(value: Persistence | null): this;
 
   /**
    * This only applies when Persistence is set to File mode.
-     Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
-    * @returns
-
-    */
+   * Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
+   * @returns
+   */
   get flushOnWrite(): boolean | null;
 
   /**
    * @param value This only applies when Persistence is set to File mode.
-     Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
-    */
+   * Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
+   */
   set flushOnWrite(value: boolean | null);
 
   /**
    * @param value This only applies when Persistence is set to File mode.
-     Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
-    * @returns
-    */
+   * Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
+   * @returns
+   */
   withFlushOnWrite(value: boolean | null): this;
 
   /**
    * Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
    * @returns
-
-    */
+   */
   get exportDefinition(): ExportDefinition | null;
   /**
    * @param value Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
