@@ -35,7 +35,7 @@ declare namespace Tabula {
          * { area: "269.875,12.75,790.5,561" }
          * { area: ["269.875,12.75,790.5,561", "132.45,23.2,256.3,534"] }
          */
-        area?: string | readonly string[];
+        area?: string | readonly string[] | undefined;
 
         /**
          * X coordinates of column boundaries.
@@ -43,35 +43,35 @@ declare namespace Tabula {
          * @example
          * { columns: "10.1,20.2,30.3" }
          */
-        columns?: string;
+        columns?: string | undefined;
 
         /**
          * Print detected table areas instead of processing them.
          *
          * @default false
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * Guess the portion(s) of the page to analyze and process.
          *
          * @default true
          */
-        guess?: boolean;
+        guess?: boolean | undefined;
 
         /**
          * Suppresses all `stderr` output from the tabula-java JAR only. JavaScript errors will still be logged.
          *
          * @default false
          */
-        silent?: boolean;
+        silent?: boolean | undefined;
 
         /**
          * Force PDF not to be extracted using spreadsheet-style extraction (if there are ruling lines separating each cell, as in a PDF of an Excel spreadsheet).
          *
          * @default false
          */
-        noSpreadsheet?: boolean;
+        noSpreadsheet?: boolean | undefined;
 
         /**
          * Comma separated list of ranges, or all.
@@ -82,27 +82,27 @@ declare namespace Tabula {
          * { pages: "3" }
          * { pages: "all" }
          */
-        pages?: string;
+        pages?: string | undefined;
 
         /**
          * Force PDF to be extracted using spreadsheet-style extraction (if there are ruling lines separating each cell, as in a PDF of an Excel spreadsheet).
          *
          * @default false
          */
-        spreadsheet?: boolean;
+        spreadsheet?: boolean | undefined;
 
         /**
          * Password used to decrypt/access the document.
          *
          * @default ""
          */
-        password?: string;
+        password?: string | undefined;
 
         /**
          * Use embedded line returns in cells (only in spreadsheet mode).
          *
          * @default false
          */
-        useLineReturns?: boolean;
+        useLineReturns?: boolean | undefined;
     }
 }

@@ -17,7 +17,7 @@ import { Connection } from './lib/client';
 import * as ShareDB from './lib/sharedb';
 
 interface PubSubOptions {
-    prefix?: string;
+    prefix?: string | undefined;
 }
 interface Stream {
     id: string;
@@ -29,25 +29,25 @@ declare class sharedb extends EventEmitter {
     db: sharedb.DB;
     pubsub: sharedb.PubSub;
     extraDbs: {[extraDbName: string]: sharedb.ExtraDB};
-    milestoneDb?: sharedb.MilestoneDB;
+    milestoneDb?: sharedb.MilestoneDB | undefined;
 
     constructor(options?: {
         db?: any,
-        pubsub?: sharedb.PubSub,
-        extraDbs?: {[extraDbName: string]: sharedb.ExtraDB},
-        milestoneDb?: sharedb.MilestoneDB,
-        suppressPublish?: boolean,
-        maxSubmitRetries?: number,
+        pubsub?: sharedb.PubSub | undefined,
+        extraDbs?: {[extraDbName: string]: sharedb.ExtraDB} | undefined,
+        milestoneDb?: sharedb.MilestoneDB | undefined,
+        suppressPublish?: boolean | undefined,
+        maxSubmitRetries?: number | undefined,
 
-        presence?: boolean,
+        presence?: boolean | undefined,
         /**
          * @deprecated disableDocAction was removed in v1.0
          */
-        disableDocAction?: boolean,
+        disableDocAction?: boolean | undefined,
         /**
          * @deprecated disableSpaceDelimitedActions was removed in v1.0
          */
-        disableSpaceDelimitedActions?: boolean
+        disableSpaceDelimitedActions?: boolean | undefined
     });
     /**
      * Creates a server-side connection to ShareDB.
@@ -135,7 +135,7 @@ declare namespace sharedb {
 
     abstract class PubSub {
         private static shallowCopy(obj: any): any;
-        protected prefix?: string;
+        protected prefix?: string | undefined;
         protected nextStreamId: number;
         protected streamsCount: number;
         protected streams: {
@@ -171,8 +171,8 @@ declare namespace sharedb {
     class Connection {
         constructor(socket: ShareDB.Socket);
         get(collectionName: string, documentID: string): ShareDB.Doc;
-        createFetchQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;
-        createSubscribeQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;
+        createFetchQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[] | undefined}, callback: (err: Error, results: any) => any): ShareDB.Query;
+        createSubscribeQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[] | undefined}, callback: (err: Error, results: any) => any): ShareDB.Query;
     }
     type Doc = ShareDB.Doc;
     type Snapshot = ShareDB.Snapshot;
@@ -255,7 +255,7 @@ declare namespace sharedb {
             fields: ProjectionFields | undefined;
             channel: string;
             query: any;
-            options?: {[key: string]: any};
+            options?: {[key: string]: any} | undefined;
             db: DB | null;
             snapshotProjection: Projection | null;
         }

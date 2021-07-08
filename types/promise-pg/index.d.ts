@@ -20,7 +20,7 @@ export declare function connect(connection: pg.ClientConfig): Q.Promise<Client>;
 export declare function end(): Q.Promise<void>;
 
 export interface QueryConfig extends pg.QueryConfig {
-    buffer?: boolean;
+    buffer?: boolean | undefined;
 }
 
 export declare class Client {

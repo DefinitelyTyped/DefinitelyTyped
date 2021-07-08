@@ -6,8 +6,8 @@
 
 import { Peripheral } from 'raspi-peripheral';
 export interface Config {
-    pin?: number | string;
-    frequency?: number;
+    pin?: number | string | undefined;
+    frequency?: number | undefined;
 }
 export class PWM extends Peripheral {
     private _frequencyValue;

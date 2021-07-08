@@ -13,36 +13,36 @@ export type RangeBehaviors = RangeBehaviorsFunction | RangeBehaviorsObject;
 
 export interface RangeAddConfig {
     type: 'RANGE_ADD';
-    parentName?: string;
-    parentID?: string;
+    parentName?: string | undefined;
+    parentID?: string | undefined;
     connectionInfo?: ReadonlyArray<{
         key: string;
-        filters?: Variables;
+        filters?: Variables | undefined;
         rangeBehavior: string;
-    }>;
-    connectionName?: string;
+    }> | undefined;
+    connectionName?: string | undefined;
     edgeName: string;
-    rangeBehaviors?: RangeBehaviors;
+    rangeBehaviors?: RangeBehaviors | undefined;
 }
 
 export interface RangeDeleteConfig {
     type: 'RANGE_DELETE';
-    parentName?: string;
-    parentID?: string;
+    parentName?: string | undefined;
+    parentID?: string | undefined;
     connectionKeys?: ReadonlyArray<{
         key: string;
-        filters?: Variables;
-    }>;
-    connectionName?: string;
+        filters?: Variables | undefined;
+    }> | undefined;
+    connectionName?: string | undefined;
     deletedIDFieldName: string | ReadonlyArray<string>;
     pathToConnection: ReadonlyArray<string>;
 }
 
 export interface NodeDeleteConfig {
     type: 'NODE_DELETE';
-    parentName?: string;
-    parentID?: string;
-    connectionName?: string;
+    parentName?: string | undefined;
+    parentID?: string | undefined;
+    connectionName?: string | undefined;
     deletedIDFieldName: string;
 }
 

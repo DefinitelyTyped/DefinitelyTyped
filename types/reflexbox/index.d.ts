@@ -20,7 +20,7 @@ export interface BoxProps
         StyledSystem.TypographyProps,
         StyledSystem.ColorProps,
         StyledSystem.FlexboxProps {
-    as?: React.ElementType;
+    as?: React.ElementType | undefined;
 }
 
 export type BoxType = StyledComponent<

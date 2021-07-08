@@ -1,4 +1,4 @@
 export interface Identity {
     uuid: string;
-    name?: string;
+    name?: string | undefined;
 }

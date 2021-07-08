@@ -11,19 +11,19 @@ declare namespace busboy {
 
     interface BusboyConfig {
         headers?: any;
-        highWaterMark?: number;
-        fileHwm?: number;
-        defCharset?: string;
-        preservePath?: boolean;
+        highWaterMark?: number | undefined;
+        fileHwm?: number | undefined;
+        defCharset?: string | undefined;
+        preservePath?: boolean | undefined;
         limits?: {
-            fieldNameSize?: number;
-            fieldSize?: number;
-            fields?: number;
-            fileSize?: number;
-            files?: number;
-            parts?: number;
-            headerPairs?: number;
-        };
+            fieldNameSize?: number | undefined;
+            fieldSize?: number | undefined;
+            fields?: number | undefined;
+            fileSize?: number | undefined;
+            files?: number | undefined;
+            parts?: number | undefined;
+            headerPairs?: number | undefined;
+        } | undefined;
     }
 
     interface Busboy extends NodeJS.WritableStream {

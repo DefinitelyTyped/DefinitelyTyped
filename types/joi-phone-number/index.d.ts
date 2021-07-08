@@ -7,9 +7,9 @@ import 'joi';
 
 declare module 'joi' {
     interface PhoneNumberOptions {
-        defaultCountry?: string[] | string;
-        strict?: boolean;
-        format?: 'e164' | 'international' | 'national' | 'rfc3966';
+        defaultCountry?: string[] | string | undefined;
+        strict?: boolean | undefined;
+        format?: 'e164' | 'international' | 'national' | 'rfc3966' | undefined;
     }
 
     interface StringSchema extends AnySchema {

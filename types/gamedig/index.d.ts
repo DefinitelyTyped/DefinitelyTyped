@@ -279,23 +279,23 @@ export type Type =
     | 'zps';
 
 export interface Player {
-    name?: string;
-    ping?: number;
-    score?: number;
-    team?: string;
-    address?: string;
+    name?: string | undefined;
+    ping?: number | undefined;
+    score?: number | undefined;
+    team?: string | undefined;
+    address?: string | undefined;
 }
 
 export interface QueryOptions {
     type: Type;
     host: string;
-    port?: number;
-    maxAttempts?: number;
-    socketTimeout?: number;
-    attemptTimeout?: number;
-    givenPortOnly?: boolean;
-    debug?: boolean;
-    requestRules?: boolean;
+    port?: number | undefined;
+    maxAttempts?: number | undefined;
+    socketTimeout?: number | undefined;
+    attemptTimeout?: number | undefined;
+    givenPortOnly?: boolean | undefined;
+    debug?: boolean | undefined;
+    requestRules?: boolean | undefined;
 }
 
 export interface QueryResult {
@@ -307,7 +307,7 @@ export interface QueryResult {
     bots: Player[];
     connect: string;
     ping: number;
-    raw?: object;
+    raw?: object | undefined;
 }
 
 export function query(options: QueryOptions, callback: (error: any, state: QueryResult) => void): void;

@@ -21,6 +21,8 @@ export class LatheGeometry extends BufferGeometry {
         phiStart: number;
         phiLength: number;
     };
+
+    static fromJSON(data: any): LatheGeometry;
 }
 
 export { LatheGeometry as LatheBufferGeometry };

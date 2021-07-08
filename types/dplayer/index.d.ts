@@ -65,23 +65,23 @@ export interface DPlayerOptions {
   [key: string]: any;
 
   container: HTMLElement | null;
-  live?: boolean;
-  autoplay?: boolean;
-  theme?: string;
-  loop?: boolean;
-  lang?: Lang | string;
-  screenshot?: boolean;
-  hotkey?: boolean;
-  preload?: Preload;
-  logo?: string;
-  volume?: number;
-  mutex?: boolean;
-  video?: DPlayerVideo;
-  subtitle?: DPlayerSubTitle;
-  danmaku?: DPlayerDanmaku;
-  contextmenu?: DPlayerContextMenuItem[];
-  highlight?: DPlayerHighLightItem[];
-  apiBackend?: DPlayerAPIBackend;
+  live?: boolean | undefined;
+  autoplay?: boolean | undefined;
+  theme?: string | undefined;
+  loop?: boolean | undefined;
+  lang?: Lang | string | undefined;
+  screenshot?: boolean | undefined;
+  hotkey?: boolean | undefined;
+  preload?: Preload | undefined;
+  logo?: string | undefined;
+  volume?: number | undefined;
+  mutex?: boolean | undefined;
+  video?: DPlayerVideo | undefined;
+  subtitle?: DPlayerSubTitle | undefined;
+  danmaku?: DPlayerDanmaku | undefined;
+  contextmenu?: DPlayerContextMenuItem[] | undefined;
+  highlight?: DPlayerHighLightItem[] | undefined;
+  apiBackend?: DPlayerAPIBackend | undefined;
 }
 
 export interface DPlayerDanmakuItem {
@@ -92,8 +92,8 @@ export interface DPlayerDanmakuItem {
 
 export interface DPlayerContextMenuItem {
   text: string;
-  link?: string;
-  click?: () => void;
+  link?: string | undefined;
+  click?: (() => void) | undefined;
 }
 
 export interface DPlayerHighLightItem {
@@ -104,36 +104,36 @@ export interface DPlayerHighLightItem {
 export interface DPlayerVideoQuality {
   name: string;
   url: string;
-  type?: string;
+  type?: string | undefined;
 }
 
 export interface DPlayerVideo {
   url: string;
-  pic?: string;
-  thumbnails?: string;
-  type?: VideoType | string;
+  pic?: string | undefined;
+  thumbnails?: string | undefined;
+  type?: VideoType | string | undefined;
   customType?: any;
-  quality?: DPlayerVideoQuality[];
-  defaultQuality?: number;
+  quality?: DPlayerVideoQuality[] | undefined;
+  defaultQuality?: number | undefined;
 }
 
 export interface DPlayerSubTitle {
   url: string;
-  type?: SubTitleType;
-  fontSize?: string;
-  bottom?: string;
-  color?: string;
+  type?: SubTitleType | undefined;
+  fontSize?: string | undefined;
+  bottom?: string | undefined;
+  color?: string | undefined;
 }
 
 export interface DPlayerDanmaku {
   id: string;
   api: string;
-  token?: string;
-  maximum?: string;
-  addition?: string[];
-  user?: string;
-  bottom?: string;
-  unlimited?: boolean;
+  token?: string | undefined;
+  maximum?: string | undefined;
+  addition?: string[] | undefined;
+  user?: string | undefined;
+  bottom?: string | undefined;
+  unlimited?: boolean | undefined;
 }
 
 export interface DPlayerAPIBackend {

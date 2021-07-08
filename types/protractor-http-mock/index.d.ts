@@ -45,35 +45,35 @@ declare namespace mock {
              * Mocks directory where mock files are located.
              * Default: process.cwd()
              */
-            rootDirectory?: string;
+            rootDirectory?: string | undefined;
 
             /**
              * Path to protractor configuration file.
              * Default: protractor-conf.js
              */
-            protractorConfig?: string;
+            protractorConfig?: string | undefined;
 
             mocks?: {
                 /**
                  * Name of the folder where mocks will reside.
                  * Default: 'mocks'
                  */
-                dir?: string,
+                dir?: string | undefined,
 
                 /**
                  * Collection of default mocks to load for every test.
                  * Default: []
                  */
-                default?: ReadonlyArray<string>
-            },
+                default?: ReadonlyArray<string> | undefined
+            } | undefined,
 
             plugins?: {
                 /**
                  * Collection of default plugins to load for every test.
                  * Default: []
                  */
-                default?: ReadonlyArray<string>
-            }
+                default?: ReadonlyArray<string> | undefined
+            } | undefined
         };
 
         /**
@@ -162,14 +162,14 @@ declare namespace mock {
             request: {
                 method: "GET";
                 path: string;
-                regex?: boolean;
-                params?: Object;
-                queryString?: Object;
-                headers?: Object;
+                regex?: boolean | undefined;
+                params?: Object | undefined;
+                queryString?: Object | undefined;
+                headers?: Object | undefined;
             };
             response: {
-                status?: number;
-                delay?: number;
+                status?: number | undefined;
+                delay?: number | undefined;
                 data: TResponse;
             };
         }
@@ -181,12 +181,12 @@ declare namespace mock {
             request: {
                 method: "POST";
                 path: string;
-                regex?: boolean;
+                regex?: boolean | undefined;
                 data: TPayload;
             };
             response: {
-                status?: number;
-                delay?: number;
+                status?: number | undefined;
+                delay?: number | undefined;
                 data: TResponse;
             };
         }
@@ -198,11 +198,11 @@ declare namespace mock {
             request: {
                 method: "POST";
                 path: string;
-                regex?: boolean;
+                regex?: boolean | undefined;
             };
             response: {
-                status?: number;
-                delay?: number;
+                status?: number | undefined;
+                delay?: number | undefined;
                 data: TResponse;
             };
         }
@@ -214,11 +214,11 @@ declare namespace mock {
             request: {
                 method: "HEAD";
                 path: string;
-                regex?: boolean;
+                regex?: boolean | undefined;
             };
             response: {
-                status?: number;
-                delay?: number;
+                status?: number | undefined;
+                delay?: number | undefined;
                 data: TResponse;
             };
         }
@@ -230,11 +230,11 @@ declare namespace mock {
             request: {
                 method: "DELETE";
                 path: string;
-                regex?: boolean;
+                regex?: boolean | undefined;
             };
             response: {
-                status?: number;
-                delay?: number;
+                status?: number | undefined;
+                delay?: number | undefined;
                 data: TResponse;
             };
         }
@@ -246,11 +246,11 @@ declare namespace mock {
             request: {
                 method: "PUT";
                 path: string;
-                regex?: boolean;
+                regex?: boolean | undefined;
             };
             response: {
-                status?: number;
-                delay?: number;
+                status?: number | undefined;
+                delay?: number | undefined;
                 data: TResponse;
             };
         }
@@ -262,11 +262,11 @@ declare namespace mock {
             request: {
                 method: "PATCH";
                 path: string;
-                regex?: boolean;
+                regex?: boolean | undefined;
             };
             response: {
-                status?: number;
-                delay?: number;
+                status?: number | undefined;
+                delay?: number | undefined;
                 data: TResponse;
             };
         }
@@ -278,11 +278,11 @@ declare namespace mock {
             request: {
                 method: "JSONP";
                 path: string;
-                regex?: boolean;
+                regex?: boolean | undefined;
             };
             response: {
-                status?: number;
-                delay?: number;
+                status?: number | undefined;
+                delay?: number | undefined;
                 data: TResponse;
             };
         }

@@ -19,20 +19,20 @@ export default class DomConverter {
     readonly document: ViewDocument;
     readonly preElements: string[];
 
-    constructor(document: ViewDocument, options?: { blockFillerMode?: BlockFillerMode });
+    constructor(document: ViewDocument, options?: { blockFillerMode?: BlockFillerMode | undefined });
     bindDocumentFragments(domFragment: DocumentFragment, viewFragment: ViewDocumentFragment): void;
     bindElements(domElement: HTMLElement, viewElement: ViewElement): void;
     bindFakeSelection(domElement: HTMLElement, viewDocumentSelection: DocumentSelection): void;
     domChildrenToView(
         domElement: HTMLElement,
-        options?: { bind?: boolean; withChildren?: boolean; keepOriginalCase?: boolean },
+        options?: { bind?: boolean | undefined; withChildren?: boolean | undefined; keepOriginalCase?: boolean | undefined },
     ): Generator<Node>;
     domPositionToView(domParent: Node, domOffset: number): Position;
     domRangeToView(domRange: Range): ViewRange | null;
     domSelectionToView(domSelection: Selection): ViewSelection;
     domToView(
         domNode: Node | DocumentFragment,
-        options?: { bind?: boolean; withChildren?: boolean; keepOriginalCase?: boolean },
+        options?: { bind?: boolean | undefined; withChildren?: boolean | undefined; keepOriginalCase?: boolean | undefined },
     ): ViewNode | ViewDocumentFragment | null;
     fakeSelectionToView(domElement: HTMLElement): ViewSelection | undefined;
     findCorrespondingDomText(viewText: ViewText): Text | null;
@@ -54,13 +54,13 @@ export default class DomConverter {
     viewChildrenToDom(
         viewElement: ViewElement | ViewDocumentFragment,
         domDocument: Document,
-        options?: { bind?: boolean; withChildren?: boolean },
+        options?: { bind?: boolean | undefined; withChildren?: boolean | undefined },
     ): Generator<Node>;
     viewPositionToDom(viewPosition: Position): { parent: Node; offset: number } | null;
     viewRangeToDom(viewRange: ViewRange): Range;
     viewToDom(
         viewNode: ViewNode | ViewDocumentFragment,
         domDocument: Document,
-        options?: { bind?: boolean; withChildren?: boolean },
+        options?: { bind?: boolean | undefined; withChildren?: boolean | undefined },
     ): Node | DocumentFragment;
 }

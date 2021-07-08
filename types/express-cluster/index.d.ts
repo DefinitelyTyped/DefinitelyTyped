@@ -8,11 +8,11 @@
 import cluster = require('cluster');
 
 interface Config {
-    count?: number;
-    respawn?: boolean;
-    verbose?: boolean;
+    count?: number | undefined;
+    respawn?: boolean | undefined;
+    verbose?: boolean | undefined;
     workerListener?(): void;
-    outputStream?: NodeJS.WritableStream;
+    outputStream?: NodeJS.WritableStream | undefined;
 }
 
 type WorkerFunction = (worker: cluster.Worker) => void;

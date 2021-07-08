@@ -16,7 +16,7 @@ declare namespace imageminUpng {
          * number of colors in the result (0 = lossless, 256 = lossy).
          * @default 256
          */
-        cnum?: number;
+        cnum?: number | undefined;
     }
 }
 

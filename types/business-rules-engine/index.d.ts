@@ -11,17 +11,17 @@ export interface IErrorCustomMessage {
 }
 export interface IPropertyValidator {
     isAcceptable(s: any): boolean;
-    customMessage?: IErrorCustomMessage;
-    tagName?: string;
+    customMessage?: IErrorCustomMessage | undefined;
+    tagName?: string | undefined;
 }
 export interface IStringValidator extends IPropertyValidator {
     isAcceptable(s: string): boolean;
 }
 export interface IAsyncPropertyValidator {
     isAcceptable(s: any): Q.Promise<boolean>;
-    customMessage?: IErrorCustomMessage;
+    customMessage?: IErrorCustomMessage | undefined;
     isAsync: boolean;
-    tagName?: string;
+    tagName?: string | undefined;
 }
 export interface IAsyncStringPropertyValidator extends IAsyncPropertyValidator {
     isAcceptable(s: string): Q.Promise<boolean>;
@@ -37,12 +37,12 @@ export enum CompareOperator {
 export interface IError {
     HasError: boolean;
     ErrorMessage: string;
-    TranslateArgs?: IErrorTranslateArgs;
+    TranslateArgs?: IErrorTranslateArgs | undefined;
 }
 export interface IErrorTranslateArgs {
     TranslateId: string;
     MessageArgs: any;
-    CustomMessage?: IErrorCustomMessage;
+    CustomMessage?: IErrorCustomMessage | undefined;
 }
 export interface IOptional {
     (): boolean;
@@ -60,8 +60,8 @@ export interface IValidationResult {
     HasErrorsDirty: boolean;
     ErrorMessage: string;
     ErrorCount: number;
-    Optional?: IOptional;
-    TranslateArgs?: IErrorTranslateArgs[];
+    Optional?: IOptional | undefined;
+    TranslateArgs?: IErrorTranslateArgs[] | undefined;
 }
 export interface IValidate {
     (args: IError): void;
@@ -71,8 +71,8 @@ export interface IAsyncValidate {
 }
 export interface IValidatorFce {
     Name: string;
-    ValidationFce?: IValidate;
-    AsyncValidationFce?: IAsyncValidate;
+    ValidationFce?: IValidate | undefined;
+    AsyncValidationFce?: IAsyncValidate | undefined;
 }
 export interface IValidator {
     Validate(context: any): IValidationFailure;

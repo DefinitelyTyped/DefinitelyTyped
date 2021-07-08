@@ -1407,8 +1407,8 @@ function testObject() {
         someString: string;
     }
     interface OptionalObjectAttributes {
-        example?: boolean;
-        another?: string;
+        example?: boolean | undefined;
+        another?: string | undefined;
     }
 
     async function testSave(

@@ -13,20 +13,20 @@ import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: null | string;
-    imageSmoothing?: boolean;
-    projection?: ProjectionLike;
-    tilePixelRatio?: number;
-    reprojectionErrorThreshold?: number;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    imageSmoothing?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    tilePixelRatio?: number | undefined;
+    reprojectionErrorThreshold?: number | undefined;
     url: string;
-    tierSizeCalculation?: string;
+    tierSizeCalculation?: string | undefined;
     size: Size;
-    extent?: Extent;
-    transition?: number;
-    tileSize?: number;
-    zDirection?: number;
+    extent?: Extent | undefined;
+    transition?: number | undefined;
+    tileSize?: number | undefined;
+    zDirection?: number | undefined;
 }
 export class CustomTile extends ImageTile {
     constructor(

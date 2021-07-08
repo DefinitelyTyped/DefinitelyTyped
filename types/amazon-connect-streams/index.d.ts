@@ -134,13 +134,13 @@ declare namespace connect {
      * The window hosting the softphone session must not be closed during the course of a softphone call or the call will be disconnected.
      * If `allowFramedSoftphone` is `true`, the softphone components will be allowed to be hosted in this window or tab.
      */
-    readonly allowFramedSoftphone?: boolean;
+    readonly allowFramedSoftphone?: boolean | undefined;
 
     /** This option allows you to completely disable the built-in ringtone audio that is played when a call is incoming. */
-    readonly disableRingtone?: boolean;
+    readonly disableRingtone?: boolean | undefined;
 
     /** If the ringtone is not disabled, this allows for overriding the ringtone with any browser-supported audio file accessible by the user. */
-    readonly ringtoneUrl?: string;
+    readonly ringtoneUrl?: string | undefined;
   }
 
   interface InitCCPOptions {
@@ -154,26 +154,26 @@ declare namespace connect {
      * Amazon connect instance region. Only required for chat channel.
      * @example "us-west-2"
      */
-    readonly region?: string;
+    readonly region?: string | undefined;
 
     /**
      * Set to `false` to disable the login popup which is shown when the user's authentication expires.
      * @default true
      */
-    readonly loginPopup?: boolean;
+    readonly loginPopup?: boolean | undefined;
 
     /**
      * Set to `true` in conjunction with the `loginPopup` parameter to automatically close the login Popup window once the authentication step has completed.
      * If the login page opened in a new tab, this parameter will also auto-close that tab.
      * @default false
      */
-    readonly loginPopupAutoClose?: boolean;
+    readonly loginPopupAutoClose?: boolean | undefined;
 
     /** Allows custom URL to be used to initiate the ccp, as in the case of SAML authentication. */
-    readonly loginUrl?: string;
+    readonly loginUrl?: string | undefined;
 
     /** Allows you to specify some settings surrounding the softphone feature of Connect. */
-    readonly softphone?: SoftPhoneOptions;
+    readonly softphone?: SoftPhoneOptions | undefined;
   }
 
   /** This enumeration lists the different types of agent states. */
@@ -388,15 +388,15 @@ declare namespace connect {
 
   interface SuccessFailOptions {
     /** A callback that executes when the operation completes successfully. */
-    readonly success?: SuccessFailCallback;
+    readonly success?: SuccessFailCallback | undefined;
 
     /** A callback that executes when the operation has an error. */
-    readonly failure?: SuccessFailCallback<[string]>;
+    readonly failure?: SuccessFailCallback<[string]> | undefined;
   }
 
   interface ConnectOptions extends SuccessFailOptions {
     /** The queue ARN to associate the contact with. */
-    readonly queueARN?: string;
+    readonly queueARN?: string | undefined;
   }
 
   /**
@@ -708,7 +708,7 @@ declare namespace connect {
 
   interface GetEndpointsCallbacks {
     readonly success: SuccessFailCallback<[GetEndpointsResult]>;
-    readonly failure?: SuccessFailCallback<[string]>;
+    readonly failure?: SuccessFailCallback<[string]> | undefined;
   }
 
   interface AttributeDictionary {

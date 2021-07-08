@@ -10,13 +10,13 @@ import * as Backbone from 'backbone';
 
 declare module 'backbone' {
     interface LayoutOptions<TModel extends Model> extends ViewOptions<TModel> {
-        template?: string;
-        views?: { [viewName: string]: View<TModel> };
+        template?: string | undefined;
+        views?: { [viewName: string]: View<TModel> } | undefined;
     }
 
     interface LayoutManagerOptions {
-        manage?: boolean;
-        el?: boolean;
+        manage?: boolean | undefined;
+        el?: boolean | undefined;
     }
 
     class Layout<TModel extends Model> extends View<TModel> {

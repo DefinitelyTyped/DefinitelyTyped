@@ -11,15 +11,15 @@ export interface License {
     data: any;
 }
 export interface ParseOptions {
-    publicKeyPath?: string;
-    publicKey?: string;
-    licenseFilePath?: string;
-    licenseFile?: string;
+    publicKeyPath?: string | undefined;
+    publicKey?: string | undefined;
+    licenseFilePath?: string | undefined;
+    licenseFile?: string | undefined;
     template: string;
 }
 export interface GenerateOptions {
-    privateKeyPath?: string;
-    privateKey?: string;
+    privateKeyPath?: string | undefined;
+    privateKey?: string | undefined;
     template: string;
     data: any;
 }

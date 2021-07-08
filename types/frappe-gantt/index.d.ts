@@ -20,7 +20,7 @@ declare namespace Gantt {
         end: string;
         progress: number;
         dependencies: string;
-        custom_class?: string;
+        custom_class?: string | undefined;
     }
 
     interface EnrichedTask extends Task {
@@ -30,22 +30,22 @@ declare namespace Gantt {
     }
 
     interface Options {
-        header_height?: number;
-        column_width?: number;
-        step?: number;
-        view_modes?: viewMode[];
-        bar_height?: number;
-        bar_corner_radius?: number;
-        arrow_curve?: number;
-        padding?: number;
-        view_mode?: viewMode;
-        date_format?: string;
-        custom_popup_html?: string | ((task: EnrichedTask) => string);
-        language?: string;
-        on_click?: (task: EnrichedTask) => void;
-        on_date_change?: (task: EnrichedTask, start: Date, end: Date) => void;
-        on_progress_change?: (task: EnrichedTask, progress: number) => void;
-        on_view_change?: (mode: viewMode) => void;
+        header_height?: number | undefined;
+        column_width?: number | undefined;
+        step?: number | undefined;
+        view_modes?: viewMode[] | undefined;
+        bar_height?: number | undefined;
+        bar_corner_radius?: number | undefined;
+        arrow_curve?: number | undefined;
+        padding?: number | undefined;
+        view_mode?: viewMode | undefined;
+        date_format?: string | undefined;
+        custom_popup_html?: string | ((task: EnrichedTask) => string) | undefined;
+        language?: string | undefined;
+        on_click?: ((task: EnrichedTask) => void) | undefined;
+        on_date_change?: ((task: EnrichedTask, start: Date, end: Date) => void) | undefined;
+        on_progress_change?: ((task: EnrichedTask, progress: number) => void) | undefined;
+        on_view_change?: ((mode: viewMode) => void) | undefined;
     }
 
     type viewMode = 'Quarter Day' | 'Half Day' | 'Day' | 'Week' | 'Month';

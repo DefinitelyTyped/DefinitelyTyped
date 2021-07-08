@@ -26,7 +26,7 @@ declare namespace fetch {
     >;
 
     type TlsOptions = Pick<SecureContextOptions, 'ca' | 'cert' | 'key'> & {
-        strictSSL?: CommonConnectionOptions['rejectUnauthorized'];
+        strictSSL?: CommonConnectionOptions['rejectUnauthorized'] | undefined;
     };
 
     interface MakeFetchHappenOptions {
@@ -52,10 +52,10 @@ declare namespace fetch {
          *
          * Ref: https://github.com/npm/make-fetch-happen/#--optscachemanager
          */
-        cacheManager?: string | Cache;
+        cacheManager?: string | Cache | undefined;
 
-        cache?: RequestCache;
-        proxy?: string | NodeURL | URL;
+        cache?: RequestCache | undefined;
+        proxy?: string | NodeURL | URL | undefined;
 
         /**
          * If present, should be a comma-separated string or an array of domain
@@ -63,19 +63,19 @@ declare namespace fetch {
          *
          * This option may also be provided through `process.env.NO_PROXY`.
          */
-        noProxy?: string | string[];
+        noProxy?: string | string[] | undefined;
 
         /**
          * Passed directly to `http` and `https` request calls. Determines the
          * local address to bind to.
          */
-        localAddress?: ClientRequestArgs['localAddress'];
+        localAddress?: ClientRequestArgs['localAddress'] | undefined;
 
         /**
          * Maximum number of active concurrent sockets to use for the underlying
          * Http/Https/Proxy agents. This setting applies once per spawned agent.
          */
-        maxSockets?: AgentOptions['maxSockets'];
+        maxSockets?: AgentOptions['maxSockets'] | undefined;
 
         /**
          * An object that can be used to tune request retry settings. Retries
@@ -113,12 +113,12 @@ declare namespace fetch {
          * [`retry`](https://npm.im/retry) documentation.
          */
 
-        retry?: boolean | number | TimeoutsOptions;
+        retry?: boolean | number | TimeoutsOptions | undefined;
 
         /**
          * A function called whenever a retry is attempted.
          */
-        onRetry?: () => void;
+        onRetry?: (() => void) | undefined;
 
         /**
          * Matches the response body against the given [Subresource
@@ -129,7 +129,7 @@ declare namespace fetch {
          * `integrity` may either be a string or an
          * [`ssri`](https://npm.im/ssri) `Integrity`-like.
          */
-        integrity?: string | Integrity;
+        integrity?: string | Integrity | undefined;
     }
 
     type FetchOptions = NodeFetchOptions & TlsOptions & MakeFetchHappenOptions;

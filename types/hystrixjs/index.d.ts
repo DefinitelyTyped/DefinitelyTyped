@@ -10,20 +10,20 @@ export as namespace hystrixjs;
 export as namespace HystrixJS;
 
 export interface HystrixProperties {
-    "hystrix.force.circuit.open"?: boolean;
-    "hystrix.force.circuit.closed"?: boolean;
-    "hystrix.circuit.sleepWindowInMilliseconds"?: number;
-    "hystrix.circuit.errorThresholdPercentage"?: number;
-    "hystrix.circuit.volumeThreshold"?: number;
-    "hystrix.circuit.volumeThreshold.forceOverride"?: boolean;
-    "hystrix.circuit.volumeThreshold.override"?: number;
-    "hystrix.execution.timeoutInMilliseconds"?: number;
-    "hystrix.metrics.statistical.window.timeInMilliseconds"?: number;
-    "hystrix.metrics.statistical.window.bucketsNumber"?: number;
-    "hystrix.metrics.percentile.window.timeInMilliseconds"?: number;
-    "hystrix.metrics.percentile.window.bucketsNumber"?: number;
-    "hystrix.request.volume.rejectionThreshold"?: number;
-    "hystrix.promise.implementation"?: PromiseConstructorLike;
+    "hystrix.force.circuit.open"?: boolean | undefined;
+    "hystrix.force.circuit.closed"?: boolean | undefined;
+    "hystrix.circuit.sleepWindowInMilliseconds"?: number | undefined;
+    "hystrix.circuit.errorThresholdPercentage"?: number | undefined;
+    "hystrix.circuit.volumeThreshold"?: number | undefined;
+    "hystrix.circuit.volumeThreshold.forceOverride"?: boolean | undefined;
+    "hystrix.circuit.volumeThreshold.override"?: number | undefined;
+    "hystrix.execution.timeoutInMilliseconds"?: number | undefined;
+    "hystrix.metrics.statistical.window.timeInMilliseconds"?: number | undefined;
+    "hystrix.metrics.statistical.window.bucketsNumber"?: number | undefined;
+    "hystrix.metrics.percentile.window.timeInMilliseconds"?: number | undefined;
+    "hystrix.metrics.percentile.window.bucketsNumber"?: number | undefined;
+    "hystrix.request.volume.rejectionThreshold"?: number | undefined;
+    "hystrix.promise.implementation"?: PromiseConstructorLike | undefined;
 }
 
 export interface HystrixConfig {
@@ -289,10 +289,10 @@ export interface CommandMetrics {
 export interface MetricsProperties {
     commandKey: string;
     commandGroup: string;
-    statisticalWindowTimeInMilliSeconds?: number;
-    statisticalWindowNumberOfBuckets?: number;
-    percentileWindowTimeInMilliSeconds?: number;
-    percentileWindowNumberOfBuckets?: number;
+    statisticalWindowTimeInMilliSeconds?: number | undefined;
+    statisticalWindowNumberOfBuckets?: number | undefined;
+    percentileWindowTimeInMilliSeconds?: number | undefined;
+    percentileWindowNumberOfBuckets?: number | undefined;
 }
 
 export interface MetricsFactory {

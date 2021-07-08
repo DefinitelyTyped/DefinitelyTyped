@@ -24,6 +24,6 @@ declare class AnonymousMechanism implements Mechanism {
 
 declare namespace AnonymousMechanism {
     interface Credentials {
-        trace?: string;
+        trace?: string | undefined;
     }
 }

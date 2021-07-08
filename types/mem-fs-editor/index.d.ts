@@ -47,20 +47,20 @@ export interface Editor {
 }
 
 export interface WithGlobOptions {
-    globOptions?: GlobOptions;
+    globOptions?: GlobOptions | undefined;
 }
 
 type FilePaths = string | string[];
 
 //#region Editor#read
 export interface ReadStringOptions {
-    raw?: false;
-    defaults?: string;
+    raw?: false | undefined;
+    defaults?: string | undefined;
 }
 
 export interface ReadRawOptions {
     raw: true;
-    defaults?: ReadRawContents;
+    defaults?: ReadRawContents | undefined;
 }
 
 type ReadRawContents = Exclude<File["contents"], null>;
@@ -78,16 +78,16 @@ type WriteJsonSpace = number | string;
 
 //#region Editor#append
 export interface AppendOptions {
-    trimEnd?: boolean;
-    separator?: string;
+    trimEnd?: boolean | undefined;
+    separator?: string | undefined;
 }
 //#endregion
 
 //#region Editor#copy
 export interface CopyOptions extends WithGlobOptions {
-    ignoreNoMatch?: boolean;
-    process?: ProcessingFunction;
-    processDestinationPath?: (path: string) => string;
+    ignoreNoMatch?: boolean | undefined;
+    process?: ProcessingFunction | undefined;
+    processDestinationPath?: ((path: string) => string) | undefined;
 }
 
 export type ProcessingFunction = (contents: Buffer, path: string) => WriteContents;
