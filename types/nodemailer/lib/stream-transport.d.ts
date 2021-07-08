@@ -29,6 +29,10 @@ declare namespace StreamTransport {
         messageId: string;
         /** either stream (default) of buffer depending on the options */
         message: Buffer | Readable;
+        accepted: Array<string | Mail.Address>;
+        rejected: Array<string | Mail.Address>;
+        pending: Array<string | Mail.Address>;
+        response: string;
     }
 }
 
