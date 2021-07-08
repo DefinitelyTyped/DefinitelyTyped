@@ -15,10 +15,8 @@ export type EventTypeMap = EventTypeValue;
 /**
  * The type of event, which determines how to interpret the status payload.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
-export declare class EventType {
+export class EventType {
   constructor(value?: EventTypeValue);
 
   static fromMap(d: EventTypeMap): EventType;
@@ -53,10 +51,8 @@ export type StatusMap = StatusValue;
 /**
  * The status of the event.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
-export declare class Status {
+export class Status {
   constructor(value?: StatusValue | null);
 
   static fromMap(d: StatusMap): Status;
@@ -95,10 +91,8 @@ export type StatusLevelMap = StatusLevelValue;
 /**
  * Defines the verbosity of status messages in a status-stream.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
-export declare class StatusLevel {
+export class StatusLevel {
   constructor(value?: StatusLevelValue | null);
 
   static fromMap(d: StatusLevelMap): StatusLevel;
@@ -139,7 +133,7 @@ export interface S3ExportTaskDefinitionMap {
   userMetadata?: Record<string, unknown> | null;
 }
 
-export declare class S3ExportTaskDefinition {
+export class S3ExportTaskDefinition {
   /**
    * @param inputUrl The URL of the file that contains the data to upload. The file should be local on the disk.
    * @param bucket The name of the S3 bucket that this file should be uploaded to.
@@ -166,10 +160,10 @@ export declare class S3ExportTaskDefinition {
   set inputUrl(value: string);
 
   /**
-   * @param value {String} The URL of the file that contains the data to upload. The file should be local on the disk.
-   * @returns {aws-greengrass-core-sdk.StreamManager.S3ExportTaskDefinition}
+   * @param value The URL of the file that contains the data to upload. The file should be local on the disk.
+   * @returns
    */
-  public withInputUrl(value: string): S3ExportTaskDefinition;
+  withInputUrl(value: string): S3ExportTaskDefinition;
 
   /**
    * The name of the S3 bucket that this file should be uploaded to.
@@ -183,15 +177,15 @@ export declare class S3ExportTaskDefinition {
 
   /**
    * @param value The name of the S3 bucket that this file should be uploaded to.
-   * @returns {aws-greengrass-core-sdk.StreamManager.S3ExportTaskDefinition}
+   * @returns
    */
-  public withBucket(value: string): S3ExportTaskDefinition;
+  withBucket(value: string): S3ExportTaskDefinition;
 
   /**
    * The key for the S3 object that this file should be uploaded to.
      The string can have placeholder expressions which are resolved at upload time. Valid expressions are strings that are valid Java DateTimeFormatter strings. See https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
      Example: myKeyNamePrefix/!{timestamp:yyyy/MM/dd}/myKeyNameSuffix.
-   * @returns {string}
+   * @returns
    */
   get key(): string;
 
@@ -206,13 +200,13 @@ export declare class S3ExportTaskDefinition {
    * @param value The key for the S3 object that this file should be uploaded to.
      The string can have placeholder expressions which are resolved at upload time. Valid expressions are strings that are valid Java DateTimeFormatter strings. See https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
      Example: myKeyNamePrefix/!{timestamp:yyyy/MM/dd}/myKeyNameSuffix.
-   * @returns {aws-greengrass-core-sdk.StreamManager.S3ExportTaskDefinition}
+   * @returns
    */
-  public withKey(value: string): S3ExportTaskDefinition;
+  withKey(value: string): S3ExportTaskDefinition;
 
   /**
    * User metadata. For key of a user metadata, callers should not include the internal "x-amz-meta-" prefix. Keys are case insensitive and will appear as lowercase strings on S3, even if they were originally specified with uppercase strings. Reserved key names start with "$aws-gg-" prefix.
-   * @returns {Object}
+   * @returns
    */
   get userMetadata(): Record<string, unknown> | null;
 
@@ -223,22 +217,20 @@ export declare class S3ExportTaskDefinition {
 
   /**
    * @param value User metadata. For key of a user metadata, callers should not include the internal "x-amz-meta-" prefix. Keys are case insensitive and will appear as lowercase strings on S3, even if they were originally specified with uppercase strings. Reserved key names start with "$aws-gg-" prefix.
-   * @returns {aws-greengrass-core-sdk.StreamManager.S3ExportTaskDefinition}
+   * @returns
    */
-  public withUserMetadata(value: Record<string, unknown> | null): S3ExportTaskDefinition;
+  withUserMetadata(value: Record<string, unknown> | null): S3ExportTaskDefinition;
 
-  public static fromMap(d: S3ExportTaskDefinitionMap): S3ExportTaskDefinition;
+  static fromMap(d: S3ExportTaskDefinitionMap): S3ExportTaskDefinition;
 
-  public asMap(): S3ExportTaskDefinitionMap;
+  asMap(): S3ExportTaskDefinitionMap;
 }
 
 /**
  * Message object containing metadata and the user's payload.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
-export declare class Message {
+export class Message {
   /**
    * @param streamName The name of the stream which this message is in.
    * @param sequenceNumber The sequence number of this message within the stream.
@@ -351,10 +343,8 @@ export interface MessageTypesMap {
 /**
  * Context associated with a status message. Describes which stream, export config, message, the status is associated with.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
-export declare class StatusContext {
+export class StatusContext {
   /**
    * @param s3ExportTaskDefinition The task definition of an S3 upload task if the status is associated with it, ie, if the eventType = S3Task.
    * @param exportIdentifier The export identifier the status is associated with.
@@ -370,69 +360,69 @@ export declare class StatusContext {
 
   /**
    * The task definition of an S3 upload task if the status is associated with it, ie, if the eventType = S3Task.
-   * @returns {aws-greengrass-core-sdk.StreamManager.S3ExportTaskDefinition}
+   * @returns
    */
   get s3ExportTaskDefinition(): S3ExportTaskDefinition | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.S3ExportTaskDefinition} The task definition of an S3 upload task if the status is associated with it, ie, if the eventType = S3Task.
+   * @param value The task definition of an S3 upload task if the status is associated with it, ie, if the eventType = S3Task.
    */
   set s3ExportTaskDefinition(value: S3ExportTaskDefinition | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.S3ExportTaskDefinition} The task definition of an S3 upload task if the status is associated with it, ie, if the eventType = S3Task.
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusContext}
+   * @param value The task definition of an S3 upload task if the status is associated with it, ie, if the eventType = S3Task.
+   * @returns
    */
   withS3ExportTaskDefinition(value: S3ExportTaskDefinition | null): this;
 
   /**
    * The export identifier the status is associated with.
-   * @returns {String}
+   * @returns
    */
   get exportIdentifier(): string | null;
 
   /**
-   * @param value {String} The export identifier the status is associated with.
+   * @param value The export identifier the status is associated with.
    */
   set exportIdentifier(value: string | null);
 
   /**
-   * @param value {String} The export identifier the status is associated with.
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusContext}
+   * @param value The export identifier the status is associated with.
+   * @returns
    */
   withExportIdentifier(value: string | null): this;
 
   /**
    * The name of the stream the status is associated with.
-   * @returns {String}
+   * @returns
    */
   get streamName(): string | null;
 
   /**
-   * @param value {String} The name of the stream the status is associated with.
+   * @param value The name of the stream the status is associated with.
    */
   set streamName(value: string | null);
 
   /**
-   * @param value {String} The name of the stream the status is associated with.
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusContext}
+   * @param value The name of the stream the status is associated with.
+   * @returns
    */
   withStreamName(value: string | null): this;
 
   /**
    * The sequence number of the message the status is associated with.
-   * @returns {Number}
+   * @returns
    */
   get sequenceNumber(): number | null;
 
   /**
-   * @param value {Number} The sequence number of the message the status is associated with.
+   * @param value The sequence number of the message the status is associated with.
    */
   set sequenceNumber(value: number | null);
 
   /**
-   * @param value {Number} The sequence number of the message the status is associated with.
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusContext}
+   * @param value The sequence number of the message the status is associated with.
+   * @returns
    */
   withSequenceNumber(value: number | null): this;
 
@@ -455,10 +445,8 @@ export interface StatusContextMap {
 /**
  * Status object appended to a status-stream.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
-export declare class StatusMessage {
+export class StatusMessage {
   /**
    * @param eventType
    * @param statusLevel
@@ -477,99 +465,99 @@ export declare class StatusMessage {
   );
 
   /**
-   * @returns {aws-greengrass-core-sdk.StreamManager.EventType}
+   * @returns
    */
   get eventType(): EventType | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.EventType}
+   * @param value
    */
   set eventType(value: EventType | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.EventType}
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusMessage}
+   * @param value
+   * @returns
    */
   withEventType(value: EventType | null): this;
 
   /**
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusLevel}
+   * @returns
    */
   get statusLevel(): StatusLevel | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.StatusLevel}
+   * @param value
    */
   set statusLevel(value: StatusLevel | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.StatusLevel}
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusMessage}
+   * @param value
+   * @returns
    */
   withStatusLevel(value: StatusLevel | null): this;
 
   /**
-   * @returns {aws-greengrass-core-sdk.StreamManager.Status}
+   * @returns
    */
   get status(): Status | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.Status}
+   * @param value
    */
   set status(value: Status | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.Status}
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusMessage}
+   * @param value
+   * @returns
    */
   withStatus(value: Status | null): this;
 
   /**
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusContext}
+   * @returns
    */
   get statusContext(): StatusContext | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.StatusContext}
+   * @param value
    */
   set statusContext(value: StatusContext | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.StatusContext}
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusMessage}
+   * @param value
+   * @returns
    */
   withStatusContext(value: StatusContext | null): this;
 
   /**
    * String describing the status message.
-   * @returns {String}
+   * @returns
    */
   get message(): string | null;
 
   /**
-   * @param value {String} String describing the status message.
+   * @param value String describing the status message.
    */
   set message(value: string | null);
 
   /**
-   * @param value {String} String describing the status message.
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusMessage}
+   * @param value String describing the status message.
+   * @returns
    */
   withMessage(value: string | null): this;
 
   /**
    * The time this status was added to the status-stream (in milliseconds since epoch).
-   * @returns {Number}
+   * @returns
    */
   get timestampEpochMs(): number | null;
 
   /**
-   * @param value {Number} The time this status was added to the status-stream (in milliseconds since epoch).
+   * @param value The time this status was added to the status-stream (in milliseconds since epoch).
    */
   set timestampEpochMs(value: number | null);
   /**
-   * @param value {Number} The time this status was added to the status-stream (in milliseconds since epoch).
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusMessage}
+   * @param value The time this status was added to the status-stream (in milliseconds since epoch).
+   * @returns
    */
   withTimestampEpochMs(value: number | null): this;
 
@@ -594,17 +582,15 @@ export interface StatusMessageMap {
 /**
  * Options for the ReadMessages API. All fields are optional.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
-export declare class ReadMessagesOptions {
+export class ReadMessagesOptions {
   /**
-   * @param desiredStartSequenceNumber {Number} The desired beginning sequence number to start reading from. If the desired sequence number is less than the current minimum of the stream, then it will instead start reading from the current minimum.
-   * @param minMessageCount {Number} The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages exception will be thrown.
+   * @param desiredStartSequenceNumber The desired beginning sequence number to start reading from. If the desired sequence number is less than the current minimum of the stream, then it will instead start reading from the current minimum.
+   * @param minMessageCount The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages exception will be thrown.
      The minimum values is 1 and the maximum value is 2147483647.
-   * @param maxMessageCount {Number} The maximum number of messages that will be returned.
+   * @param maxMessageCount The maximum number of messages that will be returned.
      The minimum values is the value of the minimum message count and the maximum value is 2147483647.
-   * @param readTimeoutMillis {Number} The time to wait for messages in milliseconds. Default is 0, meaning that the server will not wait for messages.
+   * @param readTimeoutMillis The time to wait for messages in milliseconds. Default is 0, meaning that the server will not wait for messages.
      If it can fulfill the minimum messages it will return them, but otherwise NotEnoughMessages exception will be thrown.
      If the timeout is greater than zero, then the server will wait up to that time for more messages to be appended to the stream, waiting until the minimum number of messages is reached.
      The maximum value is the value of the client timeout.
@@ -618,58 +604,58 @@ export declare class ReadMessagesOptions {
 
   /**
    * The desired beginning sequence number to start reading from. If the desired sequence number is less than the current minimum of the stream, then it will instead start reading from the current minimum.
-   * @returns {Number}
+   * @returns
    */
   get desiredStartSequenceNumber(): number | null;
 
   /**
-   * @param value {Number} The desired beginning sequence number to start reading from. If the desired sequence number is less than the current minimum of the stream, then it will instead start reading from the current minimum.
+   * @param value The desired beginning sequence number to start reading from. If the desired sequence number is less than the current minimum of the stream, then it will instead start reading from the current minimum.
    */
   set desiredStartSequenceNumber(value: number | null);
 
   /**
-   * @param value {Number} The desired beginning sequence number to start reading from. If the desired sequence number is less than the current minimum of the stream, then it will instead start reading from the current minimum.
-   * @returns {aws-greengrass-core-sdk.StreamManager.ReadMessagesOptions}
+   * @param value The desired beginning sequence number to start reading from. If the desired sequence number is less than the current minimum of the stream, then it will instead start reading from the current minimum.
+   * @returns
    */
   withDesiredStartSequenceNumber(value: number | null): this;
 
   /**
      * The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages exception will be thrown.
        The minimum values is 1 and the maximum value is 2147483647.
-     * @returns {Number}
+     * @returns
      */
   get minMessageCount(): number | null;
 
   /**
-   * @param value {Number} The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages exception will be thrown.
+   * @param value The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages exception will be thrown.
      The minimum values is 1 and the maximum value is 2147483647.
    */
   set minMessageCount(value: number | null);
 
   /**
-   * @param value {Number} The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages exception will be thrown.
+   * @param value The minimum number of messages that will be returned. If not enough messages are available for reading, then NotEnoughMessages exception will be thrown.
      The minimum values is 1 and the maximum value is 2147483647.
-   * @returns {aws-greengrass-core-sdk.StreamManager.ReadMessagesOptions}
+   * @returns
    */
   withMinMessageCount(value: number | null): this;
 
   /**
    * The maximum number of messages that will be returned.
      The minimum values is the value of the minimum message count and the maximum value is 2147483647.
-   * @returns {Number}
+   * @returns
    */
   get maxMessageCount(): number | null;
 
   /**
-   * @param value {Number} The maximum number of messages that will be returned.
+   * @param value The maximum number of messages that will be returned.
      The minimum values is the value of the minimum message count and the maximum value is 2147483647.
    */
   set maxMessageCount(value: number | null);
 
   /**
-   * @param value {Number} The maximum number of messages that will be returned.
+   * @param value The maximum number of messages that will be returned.
      The minimum values is the value of the minimum message count and the maximum value is 2147483647.
-   * @returns {aws-greengrass-core-sdk.StreamManager.ReadMessagesOptions}
+   * @returns
    */
   withMaxMessageCount(value: number | null): this;
 
@@ -678,12 +664,12 @@ export declare class ReadMessagesOptions {
      If it can fulfill the minimum messages it will return them, but otherwise NotEnoughMessages exception will be thrown.
      If the timeout is greater than zero, then the server will wait up to that time for more messages to be appended to the stream, waiting until the minimum number of messages is reached.
      The maximum value is the value of the client timeout.
-   * @returns {Number}
+   * @returns
    */
   get readTimeoutMillis(): number | null;
 
   /**
-   * @param value {Number} The time to wait for messages in milliseconds. Default is 0, meaning that the server will not wait for messages.
+   * @param value The time to wait for messages in milliseconds. Default is 0, meaning that the server will not wait for messages.
      If it can fulfill the minimum messages it will return them, but otherwise NotEnoughMessages exception will be thrown.
      If the timeout is greater than zero, then the server will wait up to that time for more messages to be appended to the stream, waiting until the minimum number of messages is reached.
      The maximum value is the value of the client timeout.
@@ -691,11 +677,11 @@ export declare class ReadMessagesOptions {
   set readTimeoutMillis(value: number | null);
 
   /**
-   * @param value {Number} The time to wait for messages in milliseconds. Default is 0, meaning that the server will not wait for messages.
+   * @param value The time to wait for messages in milliseconds. Default is 0, meaning that the server will not wait for messages.
      If it can fulfill the minimum messages it will return them, but otherwise NotEnoughMessages exception will be thrown.
      If the timeout is greater than zero, then the server will wait up to that time for more messages to be appended to the stream, waiting until the minimum number of messages is reached.
      The maximum value is the value of the client timeout.
-   * @returns {aws-greengrass-core-sdk.StreamManager.ReadMessagesOptions}
+   * @returns
    */
   withReadTimeoutMillis(value: number | null): this;
 
@@ -721,10 +707,8 @@ export interface ReadMessagesOptionsMap {
    RejectNewData: any append message request after the stream is full will be rejected with an exception.
    OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
-export declare class StrategyOnFull {
+export class StrategyOnFull {
   constructor(value?: StrategyOnFullValue | null);
 
   static fromMap(d: StrategyOnFullMap): StrategyOnFull;
@@ -755,10 +739,8 @@ export interface StrategyOnFullOptionsFlipped {
  * Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
    Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
-export declare class Persistence {
+export class Persistence {
   constructor(value?: PersistenceValue | null);
 
   static fromMap(d: PersistenceMap): Persistence;
@@ -790,10 +772,8 @@ export type PersistenceMap = PersistenceValue;
    RAW_NOT_BATCHED: Each message in a batch will be sent as an individual HTTP POST with the payload as the body (even if batchSize is set).
    JSON_BATCHED: Each batch of messages will be sent as a JSON list of Message objects as the body.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
-export declare class ExportFormat {
+export class ExportFormat {
   constructor(value: ExportFormatValue);
 
   static fromMap(d: ExportFormatMap): ExportFormat;
@@ -824,19 +804,19 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap> {
   /**
    * A unique identifier to identify this individual upload stream.
      Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-   * @returns {String}
+   * @returns
 
    */
   get identifier(): string | null;
 
   /**
-   * @param value {String} A unique identifier to identify this individual upload stream.
+   * @param value A unique identifier to identify this individual upload stream.
      Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
    */
   set identifier(value: string | null);
 
   /**
-   * @param value {String} A unique identifier to identify this individual upload stream.
+   * @param value A unique identifier to identify this individual upload stream.
      Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
    */
   withIdentifier(value: string | null): this;
@@ -844,17 +824,17 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap> {
    * The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
      If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-   * @returns {Number}
+   * @returns
    */
   get batchIntervalMillis(): number | null;
   /**
-     * @param value {Number} The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+     * @param value The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
        If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
        The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
      */
   set batchIntervalMillis(value: number | null);
   /**
-     * @param value {Number} The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+     * @param value The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
        If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
        The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
      */
@@ -862,52 +842,52 @@ declare class StreamConfigBase<TMap extends StreamConfigBaseMap> {
 
   /**
      * Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
-     * @returns {Number}
+     * @returns
 
      */
   get priority(): number | null;
 
   /**
-   * @param value {Number} Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
+   * @param value Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
    */
   set priority(value: number | null);
 
   /**
-   * @param value {Number} Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
+   * @param value Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
    */
   withPriority(value: number | null): this;
 
   /**
      * The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
-     * @returns {Number}
+     * @returns
 
      */
   get startSequenceNumber(): number | null;
 
   /**
-   * @param value {Number} The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+   * @param value The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
    */
   set startSequenceNumber(value: number | null);
 
   /**
-   * @param value {Number} The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+   * @param value The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
    */
   withStartSequenceNumber(value: number | null): this;
 
   /**
      * Enable or disable this export. Default is false.
-     * @returns {Boolean}
+     * @returns
 
      */
   get disabled(): boolean | null;
 
   /**
-   * @param value {Boolean} Enable or disable this export. Default is false.
+   * @param value Enable or disable this export. Default is false.
    */
   set disabled(value: boolean | null);
 
   /**
-   * @param value {Boolean} Enable or disable this export. Default is false.
+   * @param value Enable or disable this export. Default is false.
    */
   withDisabled(value: boolean | null): this;
 
@@ -932,24 +912,22 @@ interface StreamConfigBaseMap {
    There are no guarantees around its correctness.
    This configures an HTTP endpoint which sends a POST request to the provided URI. Each request contains a single message in the body of the request.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
 export declare class HTTPConfig extends StreamConfigBase<HTTPConfigMap> {
   /**
-   * @param identifier {String} A unique identifier to identify this individual upload stream.
+   * @param identifier A unique identifier to identify this individual upload stream.
     Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-   * @param uri {String} URL for HTTP endpoint which should receive the POST requests for export.
-   * @param batchSize {Number} The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
+   * @param uri URL for HTTP endpoint which should receive the POST requests for export.
+   * @param batchSize The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
      If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      The minimum batch size is 1 and the maximum is 500.
-   * @param batchIntervalMillis {Number} The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+   * @param batchIntervalMillis The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
      If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-   * @param priority {Number} Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
-   * @param startSequenceNumber {Number} The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
-   * @param disabled {Boolean} Enable or disable this export. Default is false.
-   * @param exportFormat {aws-greengrass-core-sdk.StreamManager.ExportFormat} Defines how messages are batched and formatted in the export payload.
+   * @param priority Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
+   * @param startSequenceNumber The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+   * @param disabled Enable or disable this export. Default is false.
+   * @param exportFormat Defines how messages are batched and formatted in the export payload.
    */
   constructor(
     identifier?: string | null,
@@ -964,18 +942,18 @@ export declare class HTTPConfig extends StreamConfigBase<HTTPConfigMap> {
 
   /**
    * URL for HTTP endpoint which should receive the POST requests for export.
-   * @returns {String}
+   * @returns
    */
   get uri(): string | null;
 
   /**
-   * @param value {String} URL for HTTP endpoint which should receive the POST requests for export.
+   * @param value URL for HTTP endpoint which should receive the POST requests for export.
    */
   set uri(value: string | null);
 
   /**
-   * @param value {String} URL for HTTP endpoint which should receive the POST requests for export.
-   * @returns {aws-greengrass-core-sdk.StreamManager.HTTPConfig}
+   * @param value URL for HTTP endpoint which should receive the POST requests for export.
+   * @returns
    */
   withUri(value: string | null): HTTPConfig;
 
@@ -983,38 +961,38 @@ export declare class HTTPConfig extends StreamConfigBase<HTTPConfigMap> {
    * The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
      If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      The minimum batch size is 1 and the maximum is 500.
-   * @returns {Number}
+   * @returns
    */
   get batchSize(): number | null;
   /**
-   * @param value {Number} The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
+   * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
      If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      The minimum batch size is 1 and the maximum is 500.
    */
   set batchSize(value: number | null);
 
   /**
-   * @param value {Number} The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
+   * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
      If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      The minimum batch size is 1 and the maximum is 500.
-   * @returns {aws-greengrass-core-sdk.StreamManager.HTTPConfig}
+   * @returns
    */
   withBatchSize(value: number | null): HTTPConfig;
 
   /**
    * Defines how messages are batched and formatted in the export payload.
-   * @returns {aws-greengrass-core-sdk.StreamManager.ExportFormat}
+   * @returns
    */
   get exportFormat(): ExportFormat | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.ExportFormat} Defines how messages are batched and formatted in the export payload.
+   * @param value Defines how messages are batched and formatted in the export payload.
    */
   set exportFormat(value: ExportFormat | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.ExportFormat} Defines how messages are batched and formatted in the export payload.
-   * @returns {aws-greengrass-core-sdk.StreamManager.HTTPConfig}
+   * @param value Defines how messages are batched and formatted in the export payload.
+   * @returns
    */
   withExportFormat(value: ExportFormat | null): HTTPConfig;
 
@@ -1030,25 +1008,23 @@ export interface HTTPConfigMap extends StreamConfigBaseMap {
 /**
  * Configuration object for IoT Analytics export destination.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
 export declare class IoTAnalyticsConfig extends StreamConfigBase<IoTAnalyticsConfigMap> {
   /**
-   * @param identifier {String} A unique identifier to identify this individual upload stream.
+   * @param identifier A unique identifier to identify this individual upload stream.
      Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-   * @param iotChannel {String} The name of the IoT Analytics Channel that this exporter should upload to.
-   * @param iotMsgIdPrefix {String} A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
+   * @param iotChannel The name of the IoT Analytics Channel that this exporter should upload to.
+   * @param iotMsgIdPrefix A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
      This prefix must be less than 32 characters.
-   * @param batchSize {Number} The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 100.
+   * @param batchSize The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 100.
      If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      The batch size must be between 1 and 100.
-   * @param batchIntervalMillis {Number} The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+   * @param batchIntervalMillis The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
      If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-   * @param priority {Number} Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
-   * @param startSequenceNumber {Number} The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
-   * @param disabled {Boolean} Enable or disable this export. Default is false.
+   * @param priority Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
+   * @param startSequenceNumber The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+   * @param disabled Enable or disable this export. Default is false.
    */
   constructor(
     identifier?: string | null,
@@ -1063,39 +1039,39 @@ export declare class IoTAnalyticsConfig extends StreamConfigBase<IoTAnalyticsCon
 
   /**
    * The name of the IoT Analytics Channel that this exporter should upload to.
-   * @returns {String}
+   * @returns
    */
   get iotChannel(): string | null;
 
   /**
-   * @param value {String} The name of the IoT Analytics Channel that this exporter should upload to.
+   * @param value The name of the IoT Analytics Channel that this exporter should upload to.
    */
   set iotChannel(value: string | null);
 
   /**
-   * @param value {String} The name of the IoT Analytics Channel that this exporter should upload to.
-   * @returns {aws-greengrass-core-sdk.StreamManager.IoTAnalyticsConfig}
+   * @param value The name of the IoT Analytics Channel that this exporter should upload to.
+   * @returns
    */
   withIotChannel(value: string | null): IoTAnalyticsConfig;
 
   /**
    * A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
      This prefix must be less than 32 characters.
-   * @returns {String}
+   * @returns
 
    */
   get iotMsgIdPrefix(): string | null;
 
   /**
-   * @param value {String} A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
+   * @param value A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
      This prefix must be less than 32 characters.
    */
   set iotMsgIdPrefix(value: string | null);
 
   /**
-   * @param value {String} A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
+   * @param value A string prefixed to each unique message id. After this prefix, StreamManager may append more data to make the message ID unique.
      This prefix must be less than 32 characters.
-   * @returns {aws-greengrass-core-sdk.StreamManager.IoTAnalyticsConfig}
+   * @returns
    */
   withIotMsgIdPrefix(value: string | null): IoTAnalyticsConfig;
 
@@ -1103,23 +1079,23 @@ export declare class IoTAnalyticsConfig extends StreamConfigBase<IoTAnalyticsCon
    * The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 100.
      If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      The batch size must be between 1 and 100.
-   * @returns {Number}
+   * @returns
 
    */
   get batchSize(): number | null;
 
   /**
-   * @param value {Number} The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 100.
+   * @param value The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 100.
      If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      The batch size must be between 1 and 100.
    */
   set batchSize(value: number | null);
 
   /**
-   * @param value {Number} The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 100.
+   * @param value The maximum size of a batch to send to IoT Analytics. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 100.
      If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
      The batch size must be between 1 and 100.
-   * @returns {aws-greengrass-core-sdk.StreamManager.IoTAnalyticsConfig}
+   * @returns
    */
   withBatchSize(value: number | null): IoTAnalyticsConfig;
 
@@ -1135,23 +1111,21 @@ export interface IoTAnalyticsConfigMap extends StreamConfigBaseMap {
 /**
  * Configuration object for Kinesis data streams export destination.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
 export declare class KinesisConfig extends StreamConfigBase<KinesisConfigMap> {
   /**
-     * @param identifier {String} A unique identifier to identify this individual upload stream.
+     * @param identifier A unique identifier to identify this individual upload stream.
        Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-     * @param kinesisStreamName {String} The name of the Kinesis data stream that this exporter should upload to.
-     * @param batchSize {Number} The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
+     * @param kinesisStreamName The name of the Kinesis data stream that this exporter should upload to.
+     * @param batchSize The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
        If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
        The batch size must be between 1 and 500.
-     * @param batchIntervalMillis {Number} The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+     * @param batchIntervalMillis The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
        If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
        The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-     * @param priority {Number} Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
-     * @param startSequenceNumber {Number} The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
-     * @param disabled {Boolean} Enable or disable this export. Default is false.
+     * @param priority Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
+     * @param startSequenceNumber The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+     * @param disabled Enable or disable this export. Default is false.
      */
   constructor(
     identifier?: string | null,
@@ -1165,19 +1139,19 @@ export declare class KinesisConfig extends StreamConfigBase<KinesisConfigMap> {
 
   /**
      * The name of the Kinesis data stream that this exporter should upload to.
-     * @returns {String}
+     * @returns
 
      */
   get kinesisStreamName(): string | null;
 
   /**
-   * @param value {String} The name of the Kinesis data stream that this exporter should upload to.
+   * @param value The name of the Kinesis data stream that this exporter should upload to.
    */
   set kinesisStreamName(value: string | null);
 
   /**
-   * @param value {String} The name of the Kinesis data stream that this exporter should upload to.
-   * @returns {aws-greengrass-core-sdk.StreamManager.KinesisConfig}
+   * @param value The name of the Kinesis data stream that this exporter should upload to.
+   * @returns
    */
   withKinesisStreamName(value: string | null): KinesisConfig;
 
@@ -1185,22 +1159,22 @@ export declare class KinesisConfig extends StreamConfigBase<KinesisConfigMap> {
      * The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
        If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
        The batch size must be between 1 and 500.
-     * @returns {Number}
+     * @returns
 
      */
   get batchSize(): number | null;
   /**
-     * @param value {Number} The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
+     * @param value The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
        If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
        The batch size must be between 1 and 500.
      */
   set batchSize(value: number | null);
 
   /**
-     * @param value {Number} The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
+     * @param value The maximum size of a batch to send to Kinesis. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 500.
        If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
        The batch size must be between 1 and 500.
-     * @returns {aws-greengrass-core-sdk.StreamManager.KinesisConfig}
+     * @returns
      */
   withBatchSize(value: number | null): KinesisConfig;
 
@@ -1215,22 +1189,20 @@ export interface KinesisConfigMap extends StreamConfigBaseMap {
 /**
  * Configuration object for IotSiteWise data streams export destination. Minimum version requirements: StreamManager server version 1.1 (or AWS IoT Greengrass Core 1.11.0)
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
 export declare class IoTSiteWiseConfig extends StreamConfigBase<IoTSiteWiseConfigMap> {
   /**
-     * @param identifier {String} A unique identifier to identify this individual upload stream.
+     * @param identifier A unique identifier to identify this individual upload stream.
        Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-     * @param batchSize {Number} The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 10.
+     * @param batchSize The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 10.
        If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
        The minimum batch size is 1 and the maximum is 10.
-     * @param batchIntervalMillis {Number} The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
+     * @param batchIntervalMillis The time in milliseconds between the earliest un-uploaded message and the current time. If this time is exceeded, messages will be uploaded in the next batch. If unspecified messages will be eligible for upload immediately.
        If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
        The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-     * @param priority {Number} Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
-     * @param startSequenceNumber {Number} The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
-     * @param disabled {Boolean} Enable or disable this export. Default is false.
+     * @param priority Priority for this upload stream. Lower values are higher priority. If not specified it will have the lowest priority.
+     * @param startSequenceNumber The sequence number of the message to use as the starting message in the export. Default is 0. The sequence number provided should be less than the newest sequence number in the stream, i.e., sequence number of the last messaged appended. To find the newest sequence number, describe the stream and then check the storage status of the returned MessageStreamInfo object.
+     * @param disabled Enable or disable this export. Default is false.
      */
   constructor(
     identifier?: string | null,
@@ -1245,22 +1217,22 @@ export declare class IoTSiteWiseConfig extends StreamConfigBase<IoTSiteWiseConfi
      * The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 10.
        If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
        The minimum batch size is 1 and the maximum is 10.
-     * @returns {Number}
+     * @returns
 
      */
   get batchSize(): number | null;
   /**
-     * @param value {Number} The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 10.
+     * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 10.
        If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
        The minimum batch size is 1 and the maximum is 10.
      */
   set batchSize(value: number | null);
 
   /**
-     * @param value {Number} The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 10.
+     * @param value The maximum size of a batch to send to the destination. Messages will be queued until the batch size is reached, after which they will then be uploaded. If unspecified the default will be 10.
        If both batchSize and batchIntervalMillis are specified, then messages will be eligible for upload when either condition is met.
        The minimum batch size is 1 and the maximum is 10.
-     * @returns {aws-greengrass-core-sdk.StreamManager.IoTSiteWiseConfig}
+     * @returns
      */
   withBatchSize(value: number | null): IoTSiteWiseConfig;
 
@@ -1274,53 +1246,51 @@ export interface IoTSiteWiseConfigMap extends StreamConfigBaseMap {
 /**
  * Configuration for status in a status-stream.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
 export declare class StatusConfig {
   /**
-     * @param statusLevel {aws-greengrass-core-sdk.StreamManager.StatusLevel} Defines the verbosity of status messages in a status-stream.
-     * @param statusStreamName {String} The name of the stream to which status messages are appended.
+     * @param statusLevel Defines the verbosity of status messages in a status-stream.
+     * @param statusStreamName The name of the stream to which status messages are appended.
        The status-stream should be created before associating it with another stream.
      */
   constructor(statusLevel?: StatusLevel | null, statusStreamName?: string | null);
 
   /**
      * Defines the verbosity of status messages in a status-stream.
-     * @returns {aws-greengrass-core-sdk.StreamManager.StatusLevel}
+     * @returns
 
      */
   get statusLevel(): StatusLevel | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.StatusLevel} Defines the verbosity of status messages in a status-stream.
+   * @param value Defines the verbosity of status messages in a status-stream.
    */
   set statusLevel(value: StatusLevel | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.StatusLevel} Defines the verbosity of status messages in a status-stream.
-   * @returns {aws-greengrass-core-sdk.StreamManager.StatusConfig}
+   * @param value Defines the verbosity of status messages in a status-stream.
+   * @returns
    */
   withStatusLevel(value: StatusLevel | null): StatusConfig;
 
   /**
      * The name of the stream to which status messages are appended.
        The status-stream should be created before associating it with another stream.
-     * @returns {String}
+     * @returns
 
      */
   get statusStreamName(): string | null;
 
   /**
-     * @param value {String} The name of the stream to which status messages are appended.
+     * @param value The name of the stream to which status messages are appended.
        The status-stream should be created before associating it with another stream.
      */
   set statusStreamName(value: string | null);
 
   /**
-     * @param value {String} The name of the stream to which status messages are appended.
+     * @param value The name of the stream to which status messages are appended.
        The status-stream should be created before associating it with another stream.
-     * @returns {aws-greengrass-core-sdk.StreamManager.StatusConfig}
+     * @returns
      */
   withStatusStreamName(value: string | null): StatusConfig;
 
@@ -1341,17 +1311,15 @@ export interface StatusConfigMap {
 /**
  * Configuration object for S3 export tasks executor.  Minimum version requirements: StreamManager server version 1.1 (or AWS IoT Greengrass Core 1.11.0)
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
 export declare class S3ExportTaskExecutorConfig {
   /**
-     * @param identifier {String} A unique identifier to identify this individual upload task.
+     * @param identifier A unique identifier to identify this individual upload task.
        Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-     * @param sizeThresholdForMultipartUploadBytes {Number} The size threshold in bytes for when to use multipart uploads. Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
-     * @param priority {Number} Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
-     * @param disabled {Boolean} Enable or disable this export. Default is false.
-     * @param statusConfig {aws-greengrass-core-sdk.StreamManager.StatusConfig} Event status configuration that specifies the target status stream and verbosity.
+     * @param sizeThresholdForMultipartUploadBytes The size threshold in bytes for when to use multipart uploads. Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
+     * @param priority Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
+     * @param disabled Enable or disable this export. Default is false.
+     * @param statusConfig Event status configuration that specifies the target status stream and verbosity.
      */
   constructor(
     identifier?: string | null,
@@ -1364,92 +1332,92 @@ export declare class S3ExportTaskExecutorConfig {
   /**
      * A unique identifier to identify this individual upload task.
        Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-     * @returns {String}
+     * @returns
 
      */
   get identifier(): string | null;
 
   /**
-     * @param value {String} A unique identifier to identify this individual upload task.
+     * @param value A unique identifier to identify this individual upload task.
        Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
      */
   set identifier(value: string | null);
 
   /**
-     * @param value {String} A unique identifier to identify this individual upload task.
+     * @param value A unique identifier to identify this individual upload task.
        Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-     * @returns {aws-greengrass-core-sdk.StreamManager.S3ExportTaskExecutorConfig}
+     * @returns
      */
   withIdentifier(value: string | null): this;
 
   /**
      * The size threshold in bytes for when to use multipart uploads. Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
-     * @returns {Number}
+     * @returns
 
      */
   get sizeThresholdForMultipartUploadBytes(): number | null;
 
   /**
-   * @param value {Number} The size threshold in bytes for when to use multipart uploads. Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
+   * @param value The size threshold in bytes for when to use multipart uploads. Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
    */
   set sizeThresholdForMultipartUploadBytes(value: number | null);
 
   /**
-   * @param value {Number} The size threshold in bytes for when to use multipart uploads. Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
-   * @returns {aws-greengrass-core-sdk.StreamManager.S3ExportTaskExecutorConfig}
+   * @param value The size threshold in bytes for when to use multipart uploads. Uploads over this size will automatically use a multipart upload strategy, while uploads equal or smaller than this threshold will use a single connection to upload the whole object.
+   * @returns
    */
   withSizeThresholdForMultipartUploadBytes(value: number | null): this;
 
   /**
      * Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
-     * @returns {Number}
+     * @returns
 
      */
   get priority(): number | null;
   /**
-   * @param value {Number} Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
+   * @param value Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
    */
   set priority(value: number | null);
 
   /**
-   * @param value {Number} Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
-   * @returns {aws-greengrass-core-sdk.StreamManager.S3ExportTaskExecutorConfig}
+   * @param value Priority for this upload task. Lower values are higher priority. If not specified it will have the lowest priority.
+   * @returns
    */
   withPriority(value: number | null): this;
 
   /**
      * Enable or disable this export. Default is false.
-     * @returns {Boolean}
+     * @returns
 
      */
   get disabled(): boolean | null;
 
   /**
-   * @param value {Boolean} Enable or disable this export. Default is false.
+   * @param value Enable or disable this export. Default is false.
    */
   set disabled(value: boolean | null);
 
   /**
-   * @param value {Boolean} Enable or disable this export. Default is false.
-   * @returns {aws-greengrass-core-sdk.StreamManager.S3ExportTaskExecutorConfig}
+   * @param value Enable or disable this export. Default is false.
+   * @returns
    */
   withDisabled(value: boolean | null): this;
 
   /**
      * Event status configuration that specifies the target status stream and verbosity.
-     * @returns {aws-greengrass-core-sdk.StreamManager.StatusConfig}
+     * @returns
 
      */
   get statusConfig(): StatusConfig | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.StatusConfig} Event status configuration that specifies the target status stream and verbosity.
+   * @param value Event status configuration that specifies the target status stream and verbosity.
    */
   set statusConfig(value: StatusConfig | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.StatusConfig} Event status configuration that specifies the target status stream and verbosity.
-   * @returns {aws-greengrass-core-sdk.StreamManager.S3ExportTaskExecutorConfig}
+   * @param value Event status configuration that specifies the target status stream and verbosity.
+   * @returns
    */
   withStatusConfig(value: StatusConfig | null): this;
 
@@ -1473,16 +1441,14 @@ export interface S3ExportTaskExecutorConfigMap {
 /**
  * Defines how and where the stream is uploaded.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
 export declare class ExportDefinition {
   /**
-   * @param http {aws-greengrass-core-sdk.StreamManager.HTTPConfig[]} Defines how the stream is uploaded to an HTTP endpoint.
-   * @param iotAnalytics {aws-greengrass-core-sdk.StreamManager.IoTAnalyticsConfig[]} Defines how the stream is uploaded to IoT Analytics.
-   * @param kinesis {aws-greengrass-core-sdk.StreamManager.KinesisConfig[]} Defines how the stream is uploaded to Kinesis.
-   * @param IotSitewise {aws-greengrass-core-sdk.StreamManager.IoTSiteWiseConfig[]} Defines how the stream is uploaded to IoT SiteWise.
-   * @param s3TaskExecutor {aws-greengrass-core-sdk.StreamManager.S3ExportTaskExecutorConfig[]} Defines the list of configs for S3 task executors.
+   * @param http Defines how the stream is uploaded to an HTTP endpoint.
+   * @param iotAnalytics Defines how the stream is uploaded to IoT Analytics.
+   * @param kinesis Defines how the stream is uploaded to Kinesis.
+   * @param IotSitewise Defines how the stream is uploaded to IoT SiteWise.
+   * @param s3TaskExecutor Defines the list of configs for S3 task executors.
    */
   constructor(
     http?: HTTPConfig[] | null,
@@ -1494,90 +1460,90 @@ export declare class ExportDefinition {
 
   /**
      * Defines how the stream is uploaded to an HTTP endpoint.
-     * @returns {aws-greengrass-core-sdk.StreamManager.HTTPConfig[]}
+     * @returns
 
      */
   get http(): HTTPConfig[] | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.HTTPConfig[]} Defines how the stream is uploaded to an HTTP endpoint.
+   * @param value Defines how the stream is uploaded to an HTTP endpoint.
    */
   set http(value: HTTPConfig[] | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.HTTPConfig[]} Defines how the stream is uploaded to an HTTP endpoint.
-   * @returns {aws-greengrass-core-sdk.StreamManager.ExportDefinition}
+   * @param value Defines how the stream is uploaded to an HTTP endpoint.
+   * @returns
    */
   withHttp(value: HTTPConfig[] | null): this;
 
   /**
      * Defines how the stream is uploaded to IoT Analytics.
-     * @returns {aws-greengrass-core-sdk.StreamManager.IoTAnalyticsConfig[]}
+     * @returns
 
      */
   get iotAnalytics(): IoTAnalyticsConfig[] | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.IoTAnalyticsConfig[]} Defines how the stream is uploaded to IoT Analytics.
+   * @param value Defines how the stream is uploaded to IoT Analytics.
    */
   set iotAnalytics(value: IoTAnalyticsConfig[] | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.IoTAnalyticsConfig[]} Defines how the stream is uploaded to IoT Analytics.
-   * @returns {aws-greengrass-core-sdk.StreamManager.ExportDefinition}
+   * @param value Defines how the stream is uploaded to IoT Analytics.
+   * @returns
    */
   withIotAnalytics(value: IoTAnalyticsConfig[] | null): this;
 
   /**
      * Defines how the stream is uploaded to Kinesis.
-     * @returns {aws-greengrass-core-sdk.StreamManager.KinesisConfig[]}
+     * @returns
 
      */
   get kinesis(): KinesisConfig[] | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.KinesisConfig[]} Defines how the stream is uploaded to Kinesis.
+   * @param value Defines how the stream is uploaded to Kinesis.
    */
   set kinesis(value: KinesisConfig[] | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.KinesisConfig[]} Defines how the stream is uploaded to Kinesis.
-   * @returns {aws-greengrass-core-sdk.StreamManager.ExportDefinition}
+   * @param value Defines how the stream is uploaded to Kinesis.
+   * @returns
    */
   withKinesis(value: KinesisConfig[] | null): this;
 
   /**
      * Defines how the stream is uploaded to IoT SiteWise.
-     * @returns {aws-greengrass-core-sdk.StreamManager.IoTSiteWiseConfig[]}
+     * @returns
 
      */
   get IotSitewise(): IoTSiteWiseConfig[] | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.IoTSiteWiseConfig[]} Defines how the stream is uploaded to IoT SiteWise.
+   * @param value Defines how the stream is uploaded to IoT SiteWise.
    */
   set IotSitewise(value: IoTSiteWiseConfig[] | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.IoTSiteWiseConfig[]} Defines how the stream is uploaded to IoT SiteWise.
-   * @returns {aws-greengrass-core-sdk.StreamManager.ExportDefinition}
+   * @param value Defines how the stream is uploaded to IoT SiteWise.
+   * @returns
    */
   withIotSitewise(value: IoTSiteWiseConfig[] | null): this;
 
   /**
      * Defines the list of configs for S3 task executors.
-     * @returns {aws-greengrass-core-sdk.StreamManager.S3ExportTaskExecutorConfig[]}
+     * @returns
 
      */
   get s3TaskExecutor(): S3ExportTaskExecutorConfig[] | null;
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.S3ExportTaskExecutorConfig[]} Defines the list of configs for S3 task executors.
+   * @param value Defines the list of configs for S3 task executors.
    */
   set s3TaskExecutor(value: S3ExportTaskExecutorConfig[] | null);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.S3ExportTaskExecutorConfig[]} Defines the list of configs for S3 task executors.
-   * @returns {aws-greengrass-core-sdk.StreamManager.ExportDefinition}
+   * @param value Defines the list of configs for S3 task executors.
+   * @returns
    */
   withS3TaskExecutor(value: S3ExportTaskExecutorConfig[] | null): this;
 
@@ -1601,26 +1567,24 @@ export interface ExportDefinitionMap {
 /**
  * Object defining a message stream used in the CreateMessageStream and UpdateMessageStream API.
  *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
 export declare class MessageStreamDefinition {
   /**
-   * @param name {String} The unique name of the stream.
+   * @param name The unique name of the stream.
      Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-    * @param maxSize {Number} The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
-    * @param streamSegmentSize {Number} The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
+    * @param maxSize The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
+    * @param streamSegmentSize The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
       Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
-    * @param timeToLiveMillis {Number} Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
+    * @param timeToLiveMillis Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
       The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-    * @param strategyOnFull {aws-greengrass-core-sdk.StreamManager.StrategyOnFull} What to do when the maximum size of the stream is reached.
+    * @param strategyOnFull What to do when the maximum size of the stream is reached.
       RejectNewData: any append message request after the stream is full will be rejected with an exception.
       OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
-    * @param persistence {aws-greengrass-core-sdk.StreamManager.Persistence} Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
+    * @param persistence Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
       Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
-    * @param flushOnWrite {Boolean} This only applies when Persistence is set to File mode.
+    * @param flushOnWrite This only applies when Persistence is set to File mode.
       Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
-    * @param exportDefinition {aws-greengrass-core-sdk.StreamManager.ExportDefinition} Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
+    * @param exportDefinition Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
     */
   constructor(
     name?: string | null,
@@ -1636,73 +1600,73 @@ export declare class MessageStreamDefinition {
   /**
    * The unique name of the stream.
      Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-    * @returns {String}
+    * @returns
 
     */
   get name(): string | null;
   /**
-   * @param value {String} The unique name of the stream.
+   * @param value The unique name of the stream.
      Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
     */
   set name(value: string | null);
   /**
-   * @param value {String} The unique name of the stream.
+   * @param value The unique name of the stream.
      Must be an alphanumeric string including spaces, commas, periods, hyphens, and underscores with length between 1 and 255.
-    * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamDefinition}
+    * @returns
     */
   withName(value: string | null): this;
 
   /**
    * The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
-   * @returns {Number}
+   * @returns
 
     */
   get maxSize(): number | null;
   /**
-   * @param value {Number} The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
+   * @param value The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
    */
   set maxSize(value: number | null);
   /**
-   * @param value {Number} The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamDefinition}
+   * @param value The maximum size in bytes for the entire stream. Set to 256MB by default with a minimum of 1KB and a maximum of 8192PB.
+   * @returns
    */
   withMaxSize(value: number | null): this;
 
   /**
    * The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
      Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
-    * @returns {Number}
+    * @returns
 
     */
   get streamSegmentSize(): number | null;
   /**
-   * @param value {Number} The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
+   * @param value The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
      Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
     */
   set streamSegmentSize(value: number | null);
   /**
-   * @param value {Number} The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
+   * @param value The size of each segment of the stream. Set to 16MB by default with a minimum of 1KB and a maximum of 2GB.
      Data is only deleted segment by segment, so the segment size is the smallest amount of data which can be deleted.
-    * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamDefinition}
+    * @returns
     */
   withStreamSegmentSize(value: number | null): this;
 
   /**
    * Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
      The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-    * @returns {Number}
+    * @returns
 
     */
   get timeToLiveMillis(): number | null;
   /**
-   * @param value {Number} Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
+   * @param value Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
      The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
     */
   set timeToLiveMillis(value: number | null);
   /**
-   * @param value {Number} Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
+   * @param value Time to live for each message in milliseconds. Data may be deleted at any time after the TTL expires; deletion is not guaranteed to occur immediately when the TTL expires.
      The minimum value is 60000 milliseconds and the maximum is 9223372036854 milliseconds.
-    * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamDefinition}
+    * @returns
     */
   withTimeToLiveMillis(value: number | null): this;
 
@@ -1710,78 +1674,78 @@ export declare class MessageStreamDefinition {
    * What to do when the maximum size of the stream is reached.
      RejectNewData: any append message request after the stream is full will be rejected with an exception.
       OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
-    * @returns {aws-greengrass-core-sdk.StreamManager.StrategyOnFull}
+    * @returns
 
     */
   get strategyOnFull(): StrategyOnFull | null;
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.StrategyOnFull} What to do when the maximum size of the stream is reached.
+   * @param value What to do when the maximum size of the stream is reached.
      RejectNewData: any append message request after the stream is full will be rejected with an exception.
       OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
     */
   set strategyOnFull(value: StrategyOnFull | null);
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.StrategyOnFull} What to do when the maximum size of the stream is reached.
+   * @param value What to do when the maximum size of the stream is reached.
      RejectNewData: any append message request after the stream is full will be rejected with an exception.
       OverwriteOldestData: the oldest stream segments will be deleted until there is room for the new message.
-    * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamDefinition}
+    * @returns
     */
   withStrategyOnFull(value: StrategyOnFull | null): this;
 
   /**
    * Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
      Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
-    * @returns {aws-greengrass-core-sdk.StreamManager.Persistence}
+    * @returns
 
     */
   get persistence(): Persistence | null;
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.Persistence} Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
+   * @param value Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
      Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
     */
   set persistence(value: Persistence | null);
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.Persistence} Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
+   * @param value Stream persistence. If set to File, the file system will be used to persist messages long-term and is resilient to restarts.
      Memory should be used when performance matters more than durability as it only stores the stream in memory and never writes to the disk.
-    * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamDefinition}
+    * @returns
     */
   withPersistence(value: Persistence | null): this;
 
   /**
    * This only applies when Persistence is set to File mode.
      Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
-    * @returns {Boolean}
+    * @returns
 
     */
   get flushOnWrite(): boolean | null;
 
   /**
-   * @param value {Boolean} This only applies when Persistence is set to File mode.
+   * @param value This only applies when Persistence is set to File mode.
      Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
     */
   set flushOnWrite(value: boolean | null);
 
   /**
-   * @param value {Boolean} This only applies when Persistence is set to File mode.
+   * @param value This only applies when Persistence is set to File mode.
      Waits for the filesystem to complete the write for every message. This is safer, but slower. Default is false.
-    * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamDefinition}
+    * @returns
     */
   withFlushOnWrite(value: boolean | null): this;
 
   /**
    * Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
-   * @returns {aws-greengrass-core-sdk.StreamManager.ExportDefinition}
+   * @returns
 
     */
   get exportDefinition(): ExportDefinition | null;
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.ExportDefinition} Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
+   * @param value Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
    */
   set exportDefinition(value: ExportDefinition | null);
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.ExportDefinition} Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamDefinition}
+   * @param value Defines how and where the stream is uploaded. See the definition of the ExportDefinition object for more detail.
+   * @returns
    */
   withExportDefinition(value: ExportDefinition | null): this;
 
@@ -1804,3 +1768,5 @@ export interface MessageStreamDefinitionMap {
   flushOnWrite?: boolean | null;
   exportDefinition?: ExportDefinitionMap | null;
 }
+
+export {};
