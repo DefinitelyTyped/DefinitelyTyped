@@ -17,7 +17,7 @@ class DemoObservable implements Observable {
     foo: string;
     isFoo = true;
     bar: [boolean, boolean];
-    baz?: number;
+    baz?: number | undefined;
     constructor() {
         this.foo = 'hello';
         this.bar = [false, true];

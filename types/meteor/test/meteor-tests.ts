@@ -31,7 +31,7 @@ declare module 'meteor/meteor' {
     namespace Meteor {
         interface User {
             // One of the tests assigns a new property to the user so it has to be typed
-            dexterity?: number;
+            dexterity?: number | undefined;
         }
     }
 }
@@ -221,7 +221,7 @@ var result = Meteor.call('foo', 1, 2);
 // DA: I added the "var" keyword in there
 
 interface ChatroomsDAO {
-    _id?: string;
+    _id?: string | undefined;
 }
 
 var Chatrooms = new Mongo.Collection<ChatroomsDAO>("chatrooms");
@@ -256,7 +256,7 @@ Posts.insert({ title: "Hello world", body: "First post" });
  **/
 
 type AnimalPOD = {
-    _id?: string;
+    _id?: string | undefined;
     name: string;
     sound: string;
 }
@@ -270,7 +270,7 @@ class Animal {
 }
 
 interface AnimalDAO {
-    _id?: string;
+    _id?: string | undefined;
     name: string;
     sound: string;
     makeNoise: () => void;
@@ -295,7 +295,7 @@ if (animal) {
 
 interface ListDAO {
     _id: string;
-    list?: string;
+    list?: string | undefined;
     name: string;
 }
 

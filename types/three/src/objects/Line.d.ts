@@ -6,7 +6,7 @@ import { Intersection } from '../core/Raycaster';
 
 export class Line<
     TGeometry extends BufferGeometry = BufferGeometry,
-    TMaterial extends Material | Material[] = Material | Material[]
+    TMaterial extends Material | Material[] = Material | Material[],
 > extends Object3D {
     constructor(geometry?: TGeometry, material?: TMaterial);
 

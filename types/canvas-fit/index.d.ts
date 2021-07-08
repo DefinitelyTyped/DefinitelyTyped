@@ -25,7 +25,7 @@ interface resize {
      * Instead of filling a given element, explicitly set the width and height of the canvas.
      * Note that this value will still be scaled up according to resize.scale
      */
-    parent?: Element | (() => [number, number]);
+    parent?: Element | (() => [number, number]) | undefined;
 }
 
 /**

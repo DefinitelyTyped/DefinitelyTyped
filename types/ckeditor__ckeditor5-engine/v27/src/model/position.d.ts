@@ -47,11 +47,11 @@ export default class Position {
     getLastMatchingPosition(
         skip: (value: TreeWalkerValue) => boolean,
         options?: {
-            boundaries?: Range;
-            direction?: TreeWalkerDirection;
-            ignoreElementEnd?: boolean;
-            shallow?: boolean;
-            singleCharacters?: boolean;
+            boundaries?: Range | undefined;
+            direction?: TreeWalkerDirection | undefined;
+            ignoreElementEnd?: boolean | undefined;
+            shallow?: boolean | undefined;
+            singleCharacters?: boolean | undefined;
             startPosition: Position;
         },
     ): Position;

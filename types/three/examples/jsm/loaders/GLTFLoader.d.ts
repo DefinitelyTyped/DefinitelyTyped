@@ -111,9 +111,7 @@ export class GLTFParser {
     ) => Promise<BufferGeometry[]>;
     loadMesh: (meshIndex: number) => Promise<Group | Mesh | SkinnedMesh>;
     loadCamera: (cameraIndex: number) => Promise<Camera>;
-    loadSkin: (
-        skinIndex: number,
-    ) => Promise<{
+    loadSkin: (skinIndex: number) => Promise<{
         joints: number[];
         inverseBindMatrices?: BufferAttribute | InterleavedBufferAttribute | undefined;
     }>;
@@ -130,6 +128,8 @@ export interface GLTFLoaderPlugin {
     loadMaterial?: ((materialIndex: number) => Promise<Material> | null) | undefined;
     loadTexture?: ((textureIndex: number) => Promise<Texture> | null) | undefined;
     getMaterialType?: ((materialIndex: number) => typeof Material | null) | undefined;
-    extendMaterialParams?: ((materialIndex: number, materialParams: { [key: string]: any }) => Promise<any> | null) | undefined;
+    extendMaterialParams?:
+        | ((materialIndex: number, materialParams: { [key: string]: any }) => Promise<any> | null)
+        | undefined;
     createNodeAttachment?: ((nodeIndex: number) => Promise<Object3D> | null) | undefined;
 }

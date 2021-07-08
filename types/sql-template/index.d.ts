@@ -11,7 +11,7 @@ declare namespace SQL {
     interface Fragment {
       raw: string;
       text: string;
-      values?: any[];
+      values?: any[] | undefined;
     }
 
     type ChainFn = (values: any[], part: string) => string;

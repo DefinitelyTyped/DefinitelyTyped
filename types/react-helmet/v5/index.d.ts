@@ -34,22 +34,22 @@ export interface HelmetTags {
 }
 
 export interface HelmetProps {
-    async?: boolean;
+    async?: boolean | undefined;
     base?: any;
-    bodyAttributes?: BodyProps;
-    defaultTitle?: string;
-    defer?: boolean;
-    encodeSpecialCharacters?: boolean;
-    htmlAttributes?: HtmlProps;
-    onChangeClientState?: (newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void;
-    link?: LinkProps[];
-    meta?: MetaProps[];
-    noscript?: Array<any>;
-    script?: Array<any>;
-    style?: Array<any>;
-    title?: string;
-    titleAttributes?: Object;
-    titleTemplate?: string;
+    bodyAttributes?: BodyProps | undefined;
+    defaultTitle?: string | undefined;
+    defer?: boolean | undefined;
+    encodeSpecialCharacters?: boolean | undefined;
+    htmlAttributes?: HtmlProps | undefined;
+    onChangeClientState?: ((newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void) | undefined;
+    link?: LinkProps[] | undefined;
+    meta?: MetaProps[] | undefined;
+    noscript?: Array<any> | undefined;
+    script?: Array<any> | undefined;
+    style?: Array<any> | undefined;
+    title?: string | undefined;
+    titleAttributes?: Object | undefined;
+    titleTemplate?: string | undefined;
 }
 
 export class Helmet extends React.Component<HelmetProps> {

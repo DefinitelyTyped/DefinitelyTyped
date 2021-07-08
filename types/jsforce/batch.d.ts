@@ -15,10 +15,10 @@ export interface BatchInfo {
 
 export interface BatchResultInfo {
     id: string;
-    batchId?: string;
-    jobId?: string;
-    success?: boolean;
-    errors?: string[];
+    batchId?: string | undefined;
+    jobId?: string | undefined;
+    success?: boolean | undefined;
+    errors?: string[] | undefined;
 }
 
 export class Batch extends Writable {

@@ -8,7 +8,7 @@ interface ErrorConstructor {
      *
      * @see https://v8.dev/docs/stack-trace-api#customizing-stack-traces
      */
-    prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
+    prepareStackTrace?: ((err: Error, stackTraces: NodeJS.CallSite[]) => any) | undefined;
 
     stackTraceLimit: number;
 }
@@ -170,11 +170,11 @@ declare namespace NodeJS {
     }
 
     interface ErrnoException extends Error {
-        errno?: number;
-        code?: string;
-        path?: string;
-        syscall?: string;
-        stack?: string;
+        errno?: number | undefined;
+        code?: string | undefined;
+        path?: string | undefined;
+        syscall?: string | undefined;
+        stack?: string | undefined;
     }
 
     interface ReadableStream extends EventEmitter {
@@ -184,7 +184,7 @@ declare namespace NodeJS {
         pause(): this;
         resume(): this;
         isPaused(): boolean;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
+        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
         unpipe(destination?: WritableStream): this;
         unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
@@ -233,7 +233,7 @@ declare namespace NodeJS {
     }
 
     interface RequireResolve {
-        (id: string, options?: { paths?: string[]; }): string;
+        (id: string, options?: { paths?: string[] | undefined; }): string;
         paths(request: string): string[] | null;
     }
 

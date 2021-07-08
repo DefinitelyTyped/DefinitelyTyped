@@ -33,27 +33,31 @@ interface SensorOptions {
     frequency?: number | undefined;
 }
 
+interface MotionSensorOptions extends SensorOptions {
+    referenceFrame?: "device" | "screen" | undefined;
+}
+
 // Accelerometer: https://www.w3.org/TR/accelerometer/
 
 declare class Accelerometer extends Sensor {
-  constructor(options?: SensorOptions);
+  constructor(options?: MotionSensorOptions);
   readonly x?: number | undefined;
   readonly y?: number | undefined;
   readonly z?: number | undefined;
 }
 
 declare class LinearAccelerationSensor extends Accelerometer {
-    constructor(options?: SensorOptions);
+    constructor(options?: MotionSensorOptions);
 }
 
 declare class GravitySensor extends Accelerometer {
-    constructor(options?: SensorOptions);
+    constructor(options?: MotionSensorOptions);
 }
 
 // Gyroscope: https://www.w3.org/TR/gyroscope/
 
 declare class Gyroscope extends Sensor {
-    constructor(options?: SensorOptions);
+    constructor(options?: MotionSensorOptions);
     readonly x?: number | undefined;
     readonly y?: number | undefined;
     readonly z?: number | undefined;
@@ -62,14 +66,14 @@ declare class Gyroscope extends Sensor {
 // Magnetometer: https://www.w3.org/TR/magnetometer/
 
 declare class Magnetometer extends Sensor {
-    constructor(options?: SensorOptions);
+    constructor(options?: MotionSensorOptions);
     readonly x?: number | undefined;
     readonly y?: number | undefined;
     readonly z?: number | undefined;
 }
 
 declare class UncalibratedMagnetometer extends Sensor {
-    constructor(options?: SensorOptions);
+    constructor(options?: MotionSensorOptions);
     readonly x?: number | undefined;
     readonly y?: number | undefined;
     readonly z?: number | undefined;
@@ -88,9 +92,9 @@ declare class OrientationSensor extends Sensor {
 }
 
 declare class AbsoluteOrientationSensor extends OrientationSensor {
-    constructor(options?: SensorOptions);
+    constructor(options?: MotionSensorOptions);
 }
 
 declare class RelativeOrientationSensor extends OrientationSensor {
-    constructor(options?: SensorOptions);
+    constructor(options?: MotionSensorOptions);
 }

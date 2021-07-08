@@ -11,8 +11,8 @@ import * as angular from 'angular';
 declare module 'angular' {
     export namespace promisetracker {
         interface PromiseTrackerOptions {
-            activationDelay?: number;
-            minDuration?: number;
+            activationDelay?: number | undefined;
+            minDuration?: number | undefined;
         }
 
         interface PromiseTracker {
@@ -30,6 +30,6 @@ declare module 'angular' {
     }
 
     interface IRequestShortcutConfig {
-        tracker?: angular.promisetracker.PromiseTracker | angular.promisetracker.PromiseTracker[];
+        tracker?: angular.promisetracker.PromiseTracker | angular.promisetracker.PromiseTracker[] | undefined;
     }
 }

@@ -46,7 +46,7 @@ export type Operator = '<implicit>' | 'NOT' | 'OR' | 'AND' | 'AND NOT' | 'OR NOT
 
 export interface LeftOnlyAST {
     left: Node;
-    start?: Operator;
+    start?: Operator | undefined;
 }
 
 export interface BinaryAST {

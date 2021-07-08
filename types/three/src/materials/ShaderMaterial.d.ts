@@ -13,12 +13,14 @@ export interface ShaderMaterialParameters extends MaterialParameters {
     clipping?: boolean | undefined;
     morphTargets?: boolean | undefined;
     morphNormals?: boolean | undefined;
-    extensions?: {
-        derivatives?: boolean | undefined;
-        fragDepth?: boolean | undefined;
-        drawBuffers?: boolean | undefined;
-        shaderTextureLOD?: boolean | undefined;
-    } | undefined;
+    extensions?:
+        | {
+              derivatives?: boolean | undefined;
+              fragDepth?: boolean | undefined;
+              drawBuffers?: boolean | undefined;
+              shaderTextureLOD?: boolean | undefined;
+          }
+        | undefined;
     glslVersion?: GLSLVersion | undefined;
 }
 

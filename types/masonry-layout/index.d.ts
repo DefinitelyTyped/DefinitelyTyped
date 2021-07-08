@@ -41,30 +41,30 @@ declare class Masonry {
 
 declare namespace Masonry {
     interface HiddenOrVisibleStyleOption {
-        transform?: string;
-        opacity?: number;
+        transform?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface Options {
         // layout
-        itemSelector?: string;
+        itemSelector?: string | undefined;
         columnWidth?: any;
-        percentPosition?: boolean;
+        percentPosition?: boolean | undefined;
         gutter?: any;
-        stamp?: string;
-        fitWidth?: boolean;
-        originLeft?: boolean;
-        originTop?: boolean;
-        horizontalOrder?: boolean;
-        hiddenStyle?: HiddenOrVisibleStyleOption;
-        visibleStyle?: HiddenOrVisibleStyleOption;
+        stamp?: string | undefined;
+        fitWidth?: boolean | undefined;
+        originLeft?: boolean | undefined;
+        originTop?: boolean | undefined;
+        horizontalOrder?: boolean | undefined;
+        hiddenStyle?: HiddenOrVisibleStyleOption | undefined;
+        visibleStyle?: HiddenOrVisibleStyleOption | undefined;
 
         // setup
-        containerStyle?: {};
+        containerStyle?: {} | undefined;
         transitionDuration?: any;
-        stagger?: string | number;
-        resize?: boolean;
-        initLayout?: boolean;
+        stagger?: string | number | undefined;
+        resize?: boolean | undefined;
+        initLayout?: boolean | undefined;
     }
 }
 

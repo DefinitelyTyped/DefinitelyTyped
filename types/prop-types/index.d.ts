@@ -41,7 +41,7 @@ export interface Validator<T> {
     (props: { [key: string]: any }, propName: string, componentName: string, location: string, propFullName: string): Error | null;
     [nominalTypeHack]?: {
         type: T;
-    };
+    } | undefined;
 }
 
 export interface Requireable<T> extends Validator<T | undefined | null> {

@@ -1418,7 +1418,7 @@ declare var SPI3: SPI;
 declare interface I2CSetupOptions {
     scl: Pin;
     sda: Pin;
-    bitrate?: number;
+    bitrate?: number | undefined;
 }
 
 /**

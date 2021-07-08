@@ -15,37 +15,37 @@ declare module 'http2' {
     export { OutgoingHttpHeaders } from 'http';
 
     export interface IncomingHttpStatusHeader {
-        ":status"?: number;
+        ":status"?: number | undefined;
     }
 
     export interface IncomingHttpHeaders extends Http1IncomingHttpHeaders {
-        ":path"?: string;
-        ":method"?: string;
-        ":authority"?: string;
-        ":scheme"?: string;
+        ":path"?: string | undefined;
+        ":method"?: string | undefined;
+        ":authority"?: string | undefined;
+        ":scheme"?: string | undefined;
     }
 
     // Http2Stream
 
     export interface StreamPriorityOptions {
-        exclusive?: boolean;
-        parent?: number;
-        weight?: number;
-        silent?: boolean;
+        exclusive?: boolean | undefined;
+        parent?: number | undefined;
+        weight?: number | undefined;
+        silent?: boolean | undefined;
     }
 
     export interface StreamState {
-        localWindowSize?: number;
-        state?: number;
-        localClose?: number;
-        remoteClose?: number;
-        sumDependencyWeight?: number;
-        weight?: number;
+        localWindowSize?: number | undefined;
+        state?: number | undefined;
+        localClose?: number | undefined;
+        remoteClose?: number | undefined;
+        sumDependencyWeight?: number | undefined;
+        weight?: number | undefined;
     }
 
     export interface ServerStreamResponseOptions {
-        endStream?: boolean;
-        waitForTrailers?: boolean;
+        endStream?: boolean | undefined;
+        waitForTrailers?: boolean | undefined;
     }
 
     export interface StatOptions {
@@ -55,9 +55,9 @@ declare module 'http2' {
 
     export interface ServerStreamFileResponseOptions {
         statCheck?(stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions): void | boolean;
-        waitForTrailers?: boolean;
-        offset?: number;
-        length?: number;
+        waitForTrailers?: boolean | undefined;
+        offset?: number | undefined;
+        length?: number | undefined;
     }
 
     export interface ServerStreamFileResponseOptionsWithError extends ServerStreamFileResponseOptions {
@@ -74,12 +74,12 @@ declare module 'http2' {
          * indicating that no additional data should be received and the readable side of the Http2Stream will be closed.
          */
         readonly endAfterHeaders: boolean;
-        readonly id?: number;
+        readonly id?: number | undefined;
         readonly pending: boolean;
         readonly rstCode: number;
         readonly sentHeaders: OutgoingHttpHeaders;
-        readonly sentInfoHeaders?: OutgoingHttpHeaders[];
-        readonly sentTrailers?: OutgoingHttpHeaders;
+        readonly sentInfoHeaders?: OutgoingHttpHeaders[] | undefined;
+        readonly sentTrailers?: OutgoingHttpHeaders | undefined;
         readonly session: Http2Session;
         readonly state: StreamState;
 
@@ -237,43 +237,43 @@ declare module 'http2' {
     // Http2Session
 
     export interface Settings {
-        headerTableSize?: number;
-        enablePush?: boolean;
-        initialWindowSize?: number;
-        maxFrameSize?: number;
-        maxConcurrentStreams?: number;
-        maxHeaderListSize?: number;
-        enableConnectProtocol?: boolean;
+        headerTableSize?: number | undefined;
+        enablePush?: boolean | undefined;
+        initialWindowSize?: number | undefined;
+        maxFrameSize?: number | undefined;
+        maxConcurrentStreams?: number | undefined;
+        maxHeaderListSize?: number | undefined;
+        enableConnectProtocol?: boolean | undefined;
     }
 
     export interface ClientSessionRequestOptions {
-        endStream?: boolean;
-        exclusive?: boolean;
-        parent?: number;
-        weight?: number;
-        waitForTrailers?: boolean;
+        endStream?: boolean | undefined;
+        exclusive?: boolean | undefined;
+        parent?: number | undefined;
+        weight?: number | undefined;
+        waitForTrailers?: boolean | undefined;
     }
 
     export interface SessionState {
-        effectiveLocalWindowSize?: number;
-        effectiveRecvDataLength?: number;
-        nextStreamID?: number;
-        localWindowSize?: number;
-        lastProcStreamID?: number;
-        remoteWindowSize?: number;
-        outboundQueueSize?: number;
-        deflateDynamicTableSize?: number;
-        inflateDynamicTableSize?: number;
+        effectiveLocalWindowSize?: number | undefined;
+        effectiveRecvDataLength?: number | undefined;
+        nextStreamID?: number | undefined;
+        localWindowSize?: number | undefined;
+        lastProcStreamID?: number | undefined;
+        remoteWindowSize?: number | undefined;
+        outboundQueueSize?: number | undefined;
+        deflateDynamicTableSize?: number | undefined;
+        inflateDynamicTableSize?: number | undefined;
     }
 
     export interface Http2Session extends EventEmitter {
-        readonly alpnProtocol?: string;
+        readonly alpnProtocol?: string | undefined;
         readonly closed: boolean;
         readonly connecting: boolean;
         readonly destroyed: boolean;
-        readonly encrypted?: boolean;
+        readonly encrypted?: boolean | undefined;
         readonly localSettings: Settings;
-        readonly originSet?: string[];
+        readonly originSet?: string[] | undefined;
         readonly pendingSettingsAck: boolean;
         readonly remoteSettings: Settings;
         readonly socket: net.Socket | tls.TLSSocket;
@@ -429,29 +429,29 @@ declare module 'http2' {
     // Http2Server
 
     export interface SessionOptions {
-        maxDeflateDynamicTableSize?: number;
-        maxSessionMemory?: number;
-        maxHeaderListPairs?: number;
-        maxOutstandingPings?: number;
-        maxSendHeaderBlockLength?: number;
-        paddingStrategy?: number;
-        peerMaxConcurrentStreams?: number;
-        settings?: Settings;
+        maxDeflateDynamicTableSize?: number | undefined;
+        maxSessionMemory?: number | undefined;
+        maxHeaderListPairs?: number | undefined;
+        maxOutstandingPings?: number | undefined;
+        maxSendHeaderBlockLength?: number | undefined;
+        paddingStrategy?: number | undefined;
+        peerMaxConcurrentStreams?: number | undefined;
+        settings?: Settings | undefined;
 
         selectPadding?(frameLen: number, maxFrameLen: number): number;
         createConnection?(authority: url.URL, option: SessionOptions): stream.Duplex;
     }
 
     export interface ClientSessionOptions extends SessionOptions {
-        maxReservedRemoteStreams?: number;
-        createConnection?: (authority: url.URL, option: SessionOptions) => stream.Duplex;
+        maxReservedRemoteStreams?: number | undefined;
+        createConnection?: ((authority: url.URL, option: SessionOptions) => stream.Duplex) | undefined;
     }
 
     export interface ServerSessionOptions extends SessionOptions {
-        Http1IncomingMessage?: typeof IncomingMessage;
-        Http1ServerResponse?: typeof ServerResponse;
-        Http2ServerRequest?: typeof Http2ServerRequest;
-        Http2ServerResponse?: typeof Http2ServerResponse;
+        Http1IncomingMessage?: typeof IncomingMessage | undefined;
+        Http1ServerResponse?: typeof ServerResponse | undefined;
+        Http2ServerRequest?: typeof Http2ServerRequest | undefined;
+        Http2ServerResponse?: typeof Http2ServerResponse | undefined;
     }
 
     export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
@@ -460,8 +460,8 @@ declare module 'http2' {
     export interface ServerOptions extends ServerSessionOptions { }
 
     export interface SecureServerOptions extends SecureServerSessionOptions {
-        allowHTTP1?: boolean;
-        origins?: string[];
+        allowHTTP1?: boolean | undefined;
+        origins?: string[] | undefined;
     }
 
     export interface Http2Server extends net.Server {

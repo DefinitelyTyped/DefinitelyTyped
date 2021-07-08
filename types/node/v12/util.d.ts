@@ -172,11 +172,11 @@ declare module 'util' {
         readonly ignoreBOM: boolean;
         constructor(
           encoding?: string,
-          options?: { fatal?: boolean; ignoreBOM?: boolean }
+          options?: { fatal?: boolean | undefined; ignoreBOM?: boolean | undefined }
         );
         decode(
           input?: NodeJS.ArrayBufferView | ArrayBuffer | null,
-          options?: { stream?: boolean }
+          options?: { stream?: boolean | undefined }
         ): string;
     }
 

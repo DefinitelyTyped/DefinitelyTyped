@@ -6,9 +6,9 @@
 /// <reference types="node" />
 
 interface AsciifyOptions {
-    font?: string;
-    maxWidth?: number;
-    color?: string;
+    font?: string | undefined;
+    maxWidth?: number | undefined;
+    color?: string | undefined;
 }
 
 interface AsciifyCallback {

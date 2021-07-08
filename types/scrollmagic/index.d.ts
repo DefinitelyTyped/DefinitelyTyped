@@ -78,26 +78,26 @@ export interface StartEvent extends SceneProgressEvent<'start'> {}
 export interface ProgressEvent extends SceneProgressEvent<'progress'> {}
 
 export interface SceneConstructorOptions {
-    duration?: (() => number | string) | number | string;
-    offset?: number;
-    triggerElement?: ElementOrSelector | null;
-    triggerHook?: TriggerHook;
-    reverse?: boolean;
-    loglevel?: LogLevel;
+    duration?: (() => number | string) | number | string | undefined;
+    offset?: number | undefined;
+    triggerElement?: ElementOrSelector | null | undefined;
+    triggerHook?: TriggerHook | undefined;
+    reverse?: boolean | undefined;
+    loglevel?: LogLevel | undefined;
 }
 
 export interface PinSettings {
-    pushFollowers?: boolean;
-    spacerClass?: string;
+    pushFollowers?: boolean | undefined;
+    spacerClass?: string | undefined;
 }
 
 export interface IndicatorOptions {
-    parent?: ElementOrSelector;
-    name?: string;
-    indent?: number;
-    colorStart?: string;
-    colorEnd?: string;
-    colorTrigger?: string;
+    parent?: ElementOrSelector | undefined;
+    name?: string | undefined;
+    indent?: number | undefined;
+    colorStart?: string | undefined;
+    colorEnd?: string | undefined;
+    colorTrigger?: string | undefined;
 }
 
 export type ScrollTarget = (newScrollPos: number, ...args: any[]) => void | number | ElementOrSelector | object;
@@ -114,11 +114,11 @@ export interface ControllerInfo {
 export type InfoOption = 'size' | 'vertical' | 'scrollPos' | 'scrollDirection' | 'container' | 'isDocument';
 
 export interface ControllerConstructorOptions {
-    container?: string | Element;
-    vertical?: boolean;
-    globalSceneOptions?: SceneConstructorOptions;
-    loglevel?: number;
-    refreshInterval?: number;
+    container?: string | Element | undefined;
+    vertical?: boolean | undefined;
+    globalSceneOptions?: SceneConstructorOptions | undefined;
+    loglevel?: number | undefined;
+    refreshInterval?: number | undefined;
 }
 
 export class Scene {

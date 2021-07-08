@@ -92,15 +92,15 @@ declare namespace Chartist {
     // this definition gives some intellisense, but does not protect the user from misuse
     // TODO: come in and tidy this up and make it fit better
     interface IChartistData {
-        labels?: Array<string> | Array<number> | Array<Date>;
+        labels?: Array<string> | Array<number> | Array<Date> | undefined;
         series: Array<IChartistSeriesData> | Array<Array<IChartistSeriesData>> | Array<Array<IChartistData>> | Array<number> | Array<Array<number>>;
     }
 
     interface IChartistSeriesData {
-        name?: string;
-        value?: number;
-        data?: Array<number> | Array<{ x: number | Date, y: number }>;
-        className?: string;
+        name?: string | undefined;
+        value?: number | undefined;
+        data?: Array<number> | Array<{ x: number | Date, y: number }> | undefined;
+        className?: string | undefined;
         meta?: any;
     }
 
@@ -118,7 +118,7 @@ declare namespace Chartist {
         supportsAnimations: boolean;
         resizeListener: any;
 
-        plugins?: Array<any>; // all of these plugins seem to be functions with options, but keeping type any for now
+        plugins?: Array<any> | undefined; // all of these plugins seem to be functions with options, but keeping type any for now
 
         update(data: Object, options?: T, override?: boolean): void;
 
@@ -163,99 +163,99 @@ declare namespace Chartist {
         /**
          * If true the whole data is reversed including labels, the series order as well as the whole series data arrays.
          */
-        reverseData?: boolean;
+        reverseData?: boolean | undefined;
 
-        plugins?: Array<any>;
+        plugins?: Array<any> | undefined;
     }
 
     interface IPieChartOptions extends IChartOptions {
         /**
          * Specify a fixed width for the chart as a string (i.e. '100px' or '50%')
          */
-        width?: number | string;
+        width?: number | string | undefined;
 
         /**
          * Specify a fixed height for the chart as a string (i.e. '100px' or '50%')
          */
-        height?: number | string;
+        height?: number | string | undefined;
 
         /**
          * Padding of the chart drawing area to the container element and labels as a number or padding object {top: 5, right: 5, bottom: 5, left: 5}
          */
-        chartPadding?: IChartPadding | number;
+        chartPadding?: IChartPadding | number | undefined;
 
         /**
          * Override the class names that are used to generate the SVG structure of the chart
          */
-        classNames?: IPieChartClasses;
+        classNames?: IPieChartClasses | undefined;
 
         /**
          * The start angle of the pie chart in degrees where 0 points north. A higher value offsets the start angle clockwise.
          */
-        startAngle?: number;
+        startAngle?: number | undefined;
 
         /**
          * An optional total you can specify. By specifying a total value, the sum of the values in the series must be this total in order to draw a full pie. You can use this parameter to draw only parts of a pie or gauge charts.
          */
-        total?: number;
+        total?: number | undefined;
 
         /**
          * If specified the donut CSS classes will be used and strokes will be drawn instead of pie slices.
          */
-        donut?: boolean;
+        donut?: boolean | undefined;
 
         /**
          * If specified the donut segments will be drawn as shapes instead of strokes.
          */
-        donutSolid?: boolean;
+        donutSolid?: boolean | undefined;
 
         /**
          * Specify the donut stroke width, currently done in javascript for convenience. May move to CSS styles in the future.
          * This option can be set as number or string to specify a relative width (i.e. 100 or '30%').
          */
-        donutWidth?: number | string;
+        donutWidth?: number | string | undefined;
 
         /**
          * Specify if a label should be shown or not
          */
-        showLabel?: boolean;
+        showLabel?: boolean | undefined;
 
         /**
          * Label position offset from the standard position which is half distance of the radius. This value can be either positive or negative. Positive values will position the label away from the center.
          */
-        labelOffset?: number;
+        labelOffset?: number | undefined;
 
         /**
          * This option can be set to 'inside', 'outside' or 'center'. Positioned with 'inside' the labels will be placed on half the distance of the radius to the border of the Pie by respecting the 'labelOffset'. The 'outside' option will place the labels at the border of the pie and 'center' will place the labels in the absolute center point of the chart. The 'center' option only makes sense in conjunction with the 'labelOffset' option.
          */
-        labelPosition?: string;
+        labelPosition?: string | undefined;
 
         /**
          * An interpolation function for the label value
          */
-        labelInterpolationFnc?: Function;
+        labelInterpolationFnc?: Function | undefined;
 
         /**
          * Label direction can be 'neutral', 'explode' or 'implode'.  Default is 'neutral'.  The labels anchor will be positioned based on those settings as well as the fact if the labels are on the right or left side of the center of the chart. Usually explode is useful when labels are positioned far away from the center.
          */
-        labelDirection?: string;
+        labelDirection?: string | undefined;
 
         /**
          * If true the whole data is reversed including labels, the series order as well as the whole series data arrays.
          */
-        reverseData?: boolean;
+        reverseData?: boolean | undefined;
 
         /**
          * If true empty values will be ignored to avoid drawing unncessary slices and labels
          */
-        ignoreEmptyValues?: boolean;
+        ignoreEmptyValues?: boolean | undefined;
     }
 
     interface IChartPadding {
-        top?: number;
-        right?: number;
-        bottom?: number;
-        left?: number;
+        top?: number | undefined;
+        right?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
     }
 
     interface IChartRect {
@@ -330,8 +330,8 @@ declare namespace Chartist {
         series: number[];
         seriesIndex: number;
         value: {
-          x?: number;
-          y?: number;
+          x?: number | undefined;
+          y?: number | undefined;
         };
         x1: number;
         x2: number;
@@ -345,148 +345,148 @@ declare namespace Chartist {
         | IChartDrawBarData;
 
     interface IPieChartClasses {
-        chartPie?: string;
-        chartDonut?: string;
-        series?: string;
-        slicePie?: string;
-        sliceDonut?: string;
-        label?: string;
+        chartPie?: string | undefined;
+        chartDonut?: string | undefined;
+        series?: string | undefined;
+        slicePie?: string | undefined;
+        sliceDonut?: string | undefined;
+        label?: string | undefined;
     }
 
     interface IBarChartOptions extends IChartOptions {
-        axisX?: IBarChartAxis;
-        axisY?: IBarChartAxis;
-        width?: number | string;
-        height?: number | string;
-        high?: number;
-        low?: number;
-        ticks?: Array<string | number>;
-        onlyInteger?: boolean;
-        chartPadding?: IChartPadding;
-        seriesBarDistance?: number;
+        axisX?: IBarChartAxis | undefined;
+        axisY?: IBarChartAxis | undefined;
+        width?: number | string | undefined;
+        height?: number | string | undefined;
+        high?: number | undefined;
+        low?: number | undefined;
+        ticks?: Array<string | number> | undefined;
+        onlyInteger?: boolean | undefined;
+        chartPadding?: IChartPadding | undefined;
+        seriesBarDistance?: number | undefined;
         /**
          * Override the class names that are used to generate the SVG structure of the chart
          */
-        classNames?: IBarChartClasses;
+        classNames?: IBarChartClasses | undefined;
         /**
          * If set to true this property will cause the series bars to be stacked and form a total for each series point. This will also influence the y-axis and the overall bounds of the chart. In stacked mode the seriesBarDistance property will have no effect.
          */
-        stackBars?: boolean;
-        stackMode?: 'overlap' | 'accumulate';
+        stackBars?: boolean | undefined;
+        stackMode?: 'overlap' | 'accumulate' | undefined;
 
-        horizontalBars?: boolean;
-        distributeSeries?: boolean;
+        horizontalBars?: boolean | undefined;
+        distributeSeries?: boolean | undefined;
     }
 
     interface IBarChartAxis {
-        offset?: number;
-        position?: string;
+        offset?: number | undefined;
+        position?: string | undefined;
         labelOffset?: {
-            x?: number;
-            y?: number;
-        };
-        showLabel?: boolean;
-        showGrid?: boolean;
-        labelInterpolationFnc?: Function;
-        scaleMinSpace?: number;
-        onlyInteger?: boolean;
+            x?: number | undefined;
+            y?: number | undefined;
+        } | undefined;
+        showLabel?: boolean | undefined;
+        showGrid?: boolean | undefined;
+        labelInterpolationFnc?: Function | undefined;
+        scaleMinSpace?: number | undefined;
+        onlyInteger?: boolean | undefined;
     }
 
     interface IBarChartClasses {
-        chart?: string;
-        horizontalBars?: string;
-        label?: string;
-        labelGroup?: string;
-        series?: string;
-        bar?: string;
-        grid?: string;
-        gridGroup?: string;
-        vertical?: string;
-        horizontal?: string;
-        start?: string;
-        end?: string;
+        chart?: string | undefined;
+        horizontalBars?: string | undefined;
+        label?: string | undefined;
+        labelGroup?: string | undefined;
+        series?: string | undefined;
+        bar?: string | undefined;
+        grid?: string | undefined;
+        gridGroup?: string | undefined;
+        vertical?: string | undefined;
+        horizontal?: string | undefined;
+        start?: string | undefined;
+        end?: string | undefined;
     }
 
     interface ILineChartOptions extends IChartOptions {
-        axisX?: IChartistStepAxis | IChartistFixedScaleAxis | IChartistAutoScaleAxis;
-        axisY?: IChartistStepAxis | IChartistFixedScaleAxis | IChartistAutoScaleAxis;
-        width?: number | string;
-        height?: number | string;
-        showLine?: boolean;
-        showPoint?: boolean;
-        showArea?: boolean;
-        areaBase?: number;
-        lineSmooth?: Function | boolean;
-        low?: number;
-        high?: number;
-        ticks?: Array<string | number>;
-        chartPadding?: IChartPadding;
-        fullWidth?: boolean;
-        classNames?: ILineChartClasses;
+        axisX?: IChartistStepAxis | IChartistFixedScaleAxis | IChartistAutoScaleAxis | undefined;
+        axisY?: IChartistStepAxis | IChartistFixedScaleAxis | IChartistAutoScaleAxis | undefined;
+        width?: number | string | undefined;
+        height?: number | string | undefined;
+        showLine?: boolean | undefined;
+        showPoint?: boolean | undefined;
+        showArea?: boolean | undefined;
+        areaBase?: number | undefined;
+        lineSmooth?: Function | boolean | undefined;
+        low?: number | undefined;
+        high?: number | undefined;
+        ticks?: Array<string | number> | undefined;
+        chartPadding?: IChartPadding | undefined;
+        fullWidth?: boolean | undefined;
+        classNames?: ILineChartClasses | undefined;
         series?: {
             [key: string]: {
-                lineSmooth?: Function | boolean;
-                showLine?: boolean;
-                showPoint?: boolean;
-                showArea?: boolean;
-                areaBase?: number;
+                lineSmooth?: Function | boolean | undefined;
+                showLine?: boolean | undefined;
+                showPoint?: boolean | undefined;
+                showArea?: boolean | undefined;
+                areaBase?: number | undefined;
             }
-        }
+        } | undefined
     }
 
     interface ILineChartAxis {
-        offset?: number;
-        position?: string;
+        offset?: number | undefined;
+        position?: string | undefined;
         labelOffset?: {
-            x?: number;
-            y?: number;
-        };
-        showLabel?: boolean;
-        showGrid?: boolean;
-        labelInterpolationFnc?: Function;
+            x?: number | undefined;
+            y?: number | undefined;
+        } | undefined;
+        showLabel?: boolean | undefined;
+        showGrid?: boolean | undefined;
+        labelInterpolationFnc?: Function | undefined;
     }
 
     interface IChartistStepAxis extends ILineChartAxis {
-        type?: IStepAxisStatic;
-        ticks?: Array<string> | Array<number>;
-        stretch?: boolean;
+        type?: IStepAxisStatic | undefined;
+        ticks?: Array<string> | Array<number> | undefined;
+        stretch?: boolean | undefined;
     }
 
     interface IChartistFixedScaleAxis extends ILineChartAxis {
-        type?: IFixedScaleAxisStatic;
-        high?: number;
-        low?: number;
-        divisor?: number;
-        ticks?: Array<string> | Array<number>;
+        type?: IFixedScaleAxisStatic | undefined;
+        high?: number | undefined;
+        low?: number | undefined;
+        divisor?: number | undefined;
+        ticks?: Array<string> | Array<number> | undefined;
     }
 
     interface IChartistAutoScaleAxis extends ILineChartAxis {
-        high?: number;
-        low?: number;
-        scaleMinSpace?: number;
-        onlyInteger?: boolean;
-        referenceValue?: number;
-        type?: IAutoScaleAxisStatic;
+        high?: number | undefined;
+        low?: number | undefined;
+        scaleMinSpace?: number | undefined;
+        onlyInteger?: boolean | undefined;
+        referenceValue?: number | undefined;
+        type?: IAutoScaleAxisStatic | undefined;
     }
 
     interface ILineChartClasses {
         /**
          * Default is 'ct-chart-line'
          */
-        chart?: string;
-        label?: string;
-        labelGroup?: string;
-        series?: string;
-        line?: string;
-        point?: string;
-        area?: string;
-        grid?: string;
-        gridGroup?: string;
-        gridBackground?: string;
-        vertical?: string;
-        horizontal?: string;
-        start?: string;
-        end?: string;
+        chart?: string | undefined;
+        label?: string | undefined;
+        labelGroup?: string | undefined;
+        series?: string | undefined;
+        line?: string | undefined;
+        point?: string | undefined;
+        area?: string | undefined;
+        grid?: string | undefined;
+        gridGroup?: string | undefined;
+        gridBackground?: string | undefined;
+        vertical?: string | undefined;
+        horizontal?: string | undefined;
+        start?: string | undefined;
+        end?: string | undefined;
     }
 
     interface ICandleChartOptions extends IChartOptions {
@@ -494,97 +494,97 @@ declare namespace Chartist {
         /**
          * Options for X-Axis
          */
-        axisX?: ICandleChartAxis;
+        axisX?: ICandleChartAxis | undefined;
 
         /**
          * Options for Y-Axis
          */
-        axisY?: ICandleChartAxis;
+        axisY?: ICandleChartAxis | undefined;
 
         /**
          * Specify a fixed width for the chart as a string (i.e. '100px' or '50%')
          */
-        width?: number | string;
+        width?: number | string | undefined;
 
         /**
          * Specify a fixed height for the chart as a string (i.e. '100px' or '50%')
          */
-        height?: number | string;
+        height?: number | string | undefined;
 
         /**
          * Overriding the natural high of the chart allows you to zoom in or limit the charts highest displayed value
          */
-        hight?: number | string;
+        hight?: number | string | undefined;
 
         /**
          * Overriding the natural low of the chart allows you to zoom in or limit the charts lowest displayed value
          */
-        low?: number | string;
+        low?: number | string | undefined;
 
         /**
          * Width of candle body in pixel (IMO is 2 px best minimum value)
          */
-        candleWidth?: number | string;
+        candleWidth?: number | string | undefined;
 
         /**
          * Width of candle wick in pixel (IMO is 1 px best minimum value)
          */
-        candleWickWidth?: number | string;
+        candleWickWidth?: number | string | undefined;
 
         /**
          * Use calculated x-axis step length, depending on the number of quotes to display, as candle width. Otherwise the candleWidth is being used.
          */
-        useStepLengthAsCandleWidth?: boolean | string;
+        useStepLengthAsCandleWidth?: boolean | string | undefined;
 
         /**
          * Use 1/3 of candle body width as width for the candle wick, otherwise the candleWickWidth is being used.
          */
-        useOneThirdAsCandleWickWidth?: boolean | string;
+        useOneThirdAsCandleWickWidth?: boolean | string | undefined;
 
         /**
          * Padding of the chart drawing area to the container element and labels as a number or padding object {top: 5, right: 5, bottom: 5, left: 5}
          */
-        chartPadding?: IChartPadding | number;
+        chartPadding?: IChartPadding | number | undefined;
 
         /**
          * When set to true, the last grid line on the x-axis is not drawn and the chart elements will expand to the full available width of the chart. For the last label to be drawncorrectly you might need to add chart padding or offset the last label with a draw event handler.
          */
-        fullWidth?: boolean | string;
+        fullWidth?: boolean | string | undefined;
 
         /**
          * Override the class names that get used to generate the SVG structure of the chart
          */
-        classNames?: ICandleChartClasses;
+        classNames?: ICandleChartClasses | undefined;
     }
 
     interface ICandleChartAxis {
         /**
          * The offset of the chart drawing area to the border of the container
          */
-        offset?: number;
+        offset?: number | undefined;
         /**
          * Position where labels are placed. Can be set to `start` or `end` where `start` is equivalent to left or top on vertical axis and `end` is equivalent to right or bottom on horizontal axis.
          */
-        position?: string;
+        position?: string | undefined;
         /**
          * Allows you to correct label positioning on this axis by positive or negative x and y offset.
          */
         labelOffset?: {
-            x?: number;
-            y?: number;
-        };
+            x?: number | undefined;
+            y?: number | undefined;
+        } | undefined;
         /**
          * If labels should be shown or not
          */
-        showLabel?: boolean;
+        showLabel?: boolean | undefined;
         /**
          * If the axis grid should be drawn or not
          */
-        showGrid?: boolean;
+        showGrid?: boolean | undefined;
         /**
          * Interpolation function that allows you to intercept the value from the axis label
          */
-        labelInterpolationFnc?: Function;
+        labelInterpolationFnc?: Function | undefined;
         /**
          * Set the axis type to be used to project values on this axis. If not defined, Chartist.StepAxis will be used for the X-Axis, where the ticks option will be set to the labels in the data and the stretch option will be set to the global fullWidth option. This type can be changed to any axis constructor available (e.g. Chartist.FixedScaleAxis), where all axis options should be present here.
          */
@@ -592,19 +592,19 @@ declare namespace Chartist {
     }
 
     interface ICandleChartClasses {
-        chart?: string;
-        label?: string;
-        labelGroup?: string;
-        series?: string;
-        candlePositive?: string;
-        candleNegative?: string,
-        grid?: string,
-        gridGroup?: string,
-        gridBackground?: string,
-        vertical?: string,
-        horizontal?: string,
-        start?: string,
-        end?: string,
+        chart?: string | undefined;
+        label?: string | undefined;
+        labelGroup?: string | undefined;
+        series?: string | undefined;
+        candlePositive?: string | undefined;
+        candleNegative?: string | undefined,
+        grid?: string | undefined,
+        gridGroup?: string | undefined,
+        gridBackground?: string | undefined,
+        vertical?: string | undefined,
+        horizontal?: string | undefined,
+        start?: string | undefined,
+        end?: string | undefined,
     }
 
 
@@ -733,13 +733,13 @@ declare namespace Chartist {
     }
 
     interface IChartistAnimationOptions {
-        id?: string;
+        id?: string | undefined;
         dur: string | number;
         from: string | number;
         to: string | number;
-        easing?: IChartistEasingDefinition | string;
-        fill?: string;
-        begin?: string;
+        easing?: IChartistEasingDefinition | string | undefined;
+        fill?: string | undefined;
+        begin?: string | undefined;
     }
 
     interface IChartistEasingDefinition {
@@ -800,19 +800,19 @@ declare namespace Chartist {
     }
 
     interface IChartistInterpolationOptions {
-        fillHoles?: boolean;
+        fillHoles?: boolean | undefined;
     }
 
     interface IChartistSimpleInterpolationOptions extends IChartistInterpolationOptions {
-        divisor?: number;
+        divisor?: number | undefined;
     }
 
     interface IChartistCardinalInterpolationOptions extends IChartistInterpolationOptions {
-        tension?: number;
+        tension?: number | undefined;
     }
 
     interface IChartistStepInterpolationOptions extends IChartistInterpolationOptions {
-        postpone?: boolean;
+        postpone?: boolean | undefined;
     }
 }
 

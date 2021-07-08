@@ -4,37 +4,37 @@ declare namespace AMap {
             /**
              * 可见级别范围
              */
-            zooms?: [number, number];
+            zooms?: [number, number] | undefined;
             /**
              * 不透明度
              */
-            opacity?: number;
+            opacity?: number | undefined;
             /**
              * 高度比例系数，可控制3D视图下的楼块高度
              */
-            heightFactor?: number;
+            heightFactor?: number | undefined;
             /**
              *     是否可见
              */
-            visible?: boolean;
+            visible?: boolean | undefined;
             /**
              * 层级
              */
-            zIndex?: number;
+            zIndex?: number | undefined;
 
             // inner
-            merge?: boolean;
-            sort?: boolean;
+            merge?: boolean | undefined;
+            sort?: boolean | undefined;
         }
         interface AreaStyle {
             color1: string;
             path: LocationValue[];
-            color2?: string;
-            visible?: boolean;
-            rejectTexture?: boolean;
+            color2?: string | undefined;
+            visible?: boolean | undefined;
+            rejectTexture?: boolean | undefined;
         }
         interface Style {
-            hideWithoutStyle?: boolean;
+            hideWithoutStyle?: boolean | undefined;
             areas: AreaStyle[];
         }
     }

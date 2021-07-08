@@ -39,9 +39,9 @@ interface AttributeMeta<Model extends DS.Model> {
 }
 
 interface RelationshipMetaOptions {
-    async?: boolean;
-    inverse?: string;
-    polymorphic?: boolean;
+    async?: boolean | undefined;
+    inverse?: string | undefined;
+    polymorphic?: boolean | undefined;
     [k: string]: any;
 }
 interface RelationshipMeta<Model extends DS.Model> {
@@ -65,16 +65,16 @@ export namespace DS {
     function errorsArrayToHash(errors: any[]): {};
 
     interface RelationshipOptions<M extends Model> {
-        async?: boolean;
-        inverse?: RelationshipsFor<M> | null;
-        polymorphic?: boolean;
+        async?: boolean | undefined;
+        inverse?: RelationshipsFor<M> | null | undefined;
+        polymorphic?: boolean | undefined;
     }
 
     interface Sync {
         async: false;
     }
     interface Async {
-        async?: true;
+        async?: true | undefined;
     }
 
     type AsyncBelongsTo<T extends Model | null> = PromiseObject<T>;
@@ -123,8 +123,8 @@ export namespace DS {
     const VERSION: string;
 
     interface AttrOptions<T> {
-        defaultValue?: T extends Exclude<object, null> ? (() => T) : T | (() => T);
-        allowNull?: boolean; // TODO: restrict to boolean transform (TS 2.8)
+        defaultValue?: T extends Exclude<object, null> ? (() => T) : T | (() => T) | undefined;
+        allowNull?: boolean | undefined; // TODO: restrict to boolean transform (TS 2.8)
     }
 
     // The TransformRegistry should really only contain transforms, but historically people have just put the return type directly in.
@@ -487,12 +487,12 @@ export namespace DS {
          * Create a JSON representation of the record, using the serialization
          * strategy of the store's adapter.
          */
-        serialize(options?: { includeId?: boolean }): object;
+        serialize(options?: { includeId?: boolean | undefined }): object;
         /**
          * Use [DS.JSONSerializer](DS.JSONSerializer.html) to
          * get the JSON representation of a record.
          */
-        toJSON(options?: { includeId?: boolean }): object;
+        toJSON(options?: { includeId?: boolean | undefined }): object;
         /**
          * Fired when the record is ready to be interacted with,
          * that is either loaded from the server or created locally.
@@ -536,7 +536,7 @@ export namespace DS {
         /**
          * Same as `deleteRecord`, but saves the record immediately.
          */
-        destroyRecord(options?: { adapterOptions?: object }): RSVP.Promise<this>;
+        destroyRecord(options?: { adapterOptions?: object | undefined }): RSVP.Promise<this>;
         /**
          * Unloads the record from the store. This will cause the record to be destroyed and freed up for garbage collection.
          */
@@ -555,11 +555,11 @@ export namespace DS {
          * Save the record and persist any changes to the record to an
          * external source via the adapter.
          */
-        save(options?: { adapterOptions?: object }): RSVP.Promise<this>;
+        save(options?: { adapterOptions?: object | undefined }): RSVP.Promise<this>;
         /**
          * Reload the record from the adapter.
          */
-        reload(options?: { adapterOptions?: object }): RSVP.Promise<this>;
+        reload(options?: { adapterOptions?: object | undefined }): RSVP.Promise<this>;
         /**
          * Get the reference for the specified belongsTo relationship.
          */
@@ -1131,7 +1131,7 @@ export namespace DS {
         query<K extends keyof ModelRegistry>(
             modelName: K,
             query: object,
-            options?: { adapterOptions?: object }
+            options?: { adapterOptions?: object | undefined }
         ): AdapterPopulatedRecordArray<ModelRegistry[K]> &
             PromiseArray<ModelRegistry[K], Ember.ArrayProxy<ModelRegistry[K]>>;
         /**
@@ -1142,7 +1142,7 @@ export namespace DS {
         queryRecord<K extends keyof ModelRegistry>(
             modelName: K,
             query: object,
-            options?: { adapterOptions?: object }
+            options?: { adapterOptions?: object | undefined }
         ): RSVP.Promise<ModelRegistry[K]>;
         /**
          * `findAll` asks the adapter's `findAll` method to find the records for the
@@ -1153,9 +1153,9 @@ export namespace DS {
         findAll<K extends keyof ModelRegistry>(
             modelName: K,
             options?: {
-                reload?: boolean;
-                backgroundReload?: boolean;
-                include?: string;
+                reload?: boolean | undefined;
+                backgroundReload?: boolean | undefined;
+                include?: string | undefined;
                 adapterOptions?: any;
             }
         ): PromiseArray<ModelRegistry[K], Ember.ArrayProxy<ModelRegistry[K]>>;

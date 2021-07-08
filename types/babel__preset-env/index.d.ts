@@ -4,20 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
-    targets?: TargetsOptions;
-    bugfixes?: boolean;
-    spec?: boolean;
-    loose?: boolean;
-    modules?: ModuleOption;
-    debug?: boolean;
-    include?: PluginList;
-    exclude?: PluginList;
-    useBuiltIns?: UseBuiltInsOption;
-    corejs?: CorejsOption;
-    forceAllTransforms?: boolean;
-    configPath?: string;
-    ignoreBrowserslistConfig?: boolean;
-    shippedProposals?: boolean;
+    targets?: TargetsOptions | undefined;
+    bugfixes?: boolean | undefined;
+    spec?: boolean | undefined;
+    loose?: boolean | undefined;
+    modules?: ModuleOption | undefined;
+    debug?: boolean | undefined;
+    include?: PluginList | undefined;
+    exclude?: PluginList | undefined;
+    useBuiltIns?: UseBuiltInsOption | undefined;
+    corejs?: CorejsOption | undefined;
+    forceAllTransforms?: boolean | undefined;
+    configPath?: string | undefined;
+    ignoreBrowserslistConfig?: boolean | undefined;
+    shippedProposals?: boolean | undefined;
 }
 
 /**

@@ -1647,11 +1647,11 @@ export interface HKPOptions {
     /**
      * (optionsl) The long public key ID.
      */
-    keyId?: string;
+    keyId?: string | undefined;
     /**
      * (optional) This can be any part of the key user ID such as name or email address.
      */
-    query?: string;
+    query?: string | undefined;
 }
 
 export namespace hkp {
@@ -4914,7 +4914,7 @@ export namespace wkd {
          * @param options.rawBytes Returns Uint8Array instead of parsed key.
          * @returns The public key.
          */
-        lookup(options: { email: string; rawBytes?: boolean; }): Promise<Uint8Array | { keys: Array<key.Key>; err: Array<Error> | null }>;
+        lookup(options: { email: string; rawBytes?: boolean | undefined; }): Promise<Uint8Array | { keys: Array<key.Key>; err: Array<Error> | null }>;
     }
 }
 
@@ -5017,11 +5017,11 @@ export interface WorkerOptions {
     /**
      * number of workers to initialize
      */
-    n?: number;
+    n?: number | undefined;
     /**
      * alternative to path parameter: web workers initialized with 'openpgp.worker.js'
      */
-    workers?: any[];
+    workers?: any[] | undefined;
 }
 
 /**
@@ -5044,8 +5044,8 @@ export function getWorker(): worker.async_proxy.AsyncProxy | null;
 export function destroyWorker(): void;
 
 export interface UserID {
-    name?: string;
-    email?: string;
+    name?: string | undefined;
+    email?: string | undefined;
 }
 
 export interface KeyOptions {
@@ -5056,30 +5056,30 @@ export interface KeyOptions {
     /**
      * (optional) The passphrase used to encrypt the resulting private key
      */
-    passphrase?: string;
+    passphrase?: string | undefined;
     /**
      * (optional) number of bits for RSA keys: 2048 or 4096.
      */
-    numBits?: number;
+    numBits?: number | undefined;
     /**
      * (optional) The number of seconds after the key creation time that the key expires
      */
-    keyExpirationTime?: number;
+    keyExpirationTime?: number | undefined;
     /**
      * (optional) elliptic curve for ECC keys: elliptic curve for ECC keys:
      *                                         curve25519, p256, p384, p521, secp256k1,
      *                                         brainpoolP256r1, brainpoolP384r1, or brainpoolP512r1.
      */
-    curve?: string;
+    curve?: string | undefined;
     /**
      * (optional) override the creation date of the key and the key signatures
      */
-    date?: Date;
+    date?: Date | undefined;
     /**
      * (optional) options for each subkey, default to main key options. e.g. [ {sign: true, passphrase: '123'}]
      *            sign parameter defaults to false, and indicates whether the subkey should sign rather than encrypt
      */
-    subkeys?: { sign: true; passphrase: string }[];
+    subkeys?: { sign: true; passphrase: string }[] | undefined;
 }
 
 /**
@@ -5163,59 +5163,59 @@ export interface EncryptOptions {
     /**
      * (optional) array of keys or single key, used to encrypt the message
      */
-    publicKeys?: key.Key | any[];
+    publicKeys?: key.Key | any[] | undefined;
     /**
      * (optional) private keys for signing. If omitted message will not be signed
      */
-    privateKeys?: key.Key | any[];
+    privateKeys?: key.Key | any[] | undefined;
     /**
      * (optional) array of passwords or a single password to encrypt the message
      */
-    passwords?: string | any[];
+    passwords?: string | any[] | undefined;
     /**
      * (optional) session key in the form: { data:Uint8Array, algorithm:String }
      */
-    sessionKey?: { data: Uint8Array; algorithm: string };
+    sessionKey?: { data: Uint8Array; algorithm: string } | undefined;
     /**
      * (optional) which compression algorithm to compress the message with, defaults to what is specified in config
      */
-    compression?: enums.compression;
+    compression?: enums.compression | undefined;
     /**
      * (optional) if the return values should be ascii armored or the message/signature objects
      */
-    armor?: boolean;
+    armor?: boolean | undefined;
     /**
      * (optional) whether to return data as a stream. Defaults to the type of stream `message` was created from, if any.
      */
-    streaming?: 'web' | 'node' | false;
+    streaming?: 'web' | 'node' | false | undefined;
     /**
      * (optional) if the signature should be detached (if true, signature will be added to returned object)
      */
-    detached?: boolean;
+    detached?: boolean | undefined;
     /**
      * (optional) a detached signature to add to the encrypted message
      */
-    signature?: signature.Signature;
+    signature?: signature.Signature | undefined;
     /**
      * (optional) if the unencrypted session key should be added to returned object
      */
-    returnSessionKey?: boolean;
+    returnSessionKey?: boolean | undefined;
     /**
      * (optional) use a key ID of 0 instead of the public key IDs
      */
-    wildcard?: boolean;
+    wildcard?: boolean | undefined;
     /**
      * (optional) override the creation date of the message signature
      */
-    date?: Date;
+    date?: Date | undefined;
     /**
      * (optional) array of user IDs to sign with, one per key in `privateKeys`, e.g. [ { name:'Steve Sender', email:'steve@openpgp.org' }]
      */
-    fromUserIds?: UserID[];
+    fromUserIds?: UserID[] | undefined;
     /**
      * (optional) array of user IDs to encrypt for, one per key in `publicKeys`, e.g. [ { name:'Robert Receiver', email:'robert@openpgp.org' }]
      */
-    toUserIds?: UserID[];
+    toUserIds?: UserID[] | undefined;
 }
 
 export interface EncryptResult {
@@ -5236,13 +5236,13 @@ export interface EncryptResult {
  *          }
  */
 export function encrypt(
-    options: EncryptOptions & { armor?: true; detached?: false },
+    options: EncryptOptions & { armor?: true | undefined; detached?: false | undefined },
 ): Promise<EncryptResult & { data: string }>;
 export function encrypt(
-    options: EncryptOptions & { armor?: true; detached: true },
+    options: EncryptOptions & { armor?: true | undefined; detached: true },
 ): Promise<EncryptResult & { data: string; signature: string }>;
 export function encrypt(
-    options: EncryptOptions & { armor: false; detached?: false },
+    options: EncryptOptions & { armor: false; detached?: false | undefined },
 ): Promise<EncryptResult & { message: message.Message }>;
 export function encrypt(
     options: EncryptOptions & { armor: false; detached: true },
@@ -5265,35 +5265,35 @@ export interface DecryptOptions {
     /**
      * (optional) private keys with decrypted secret key data or session key
      */
-    privateKeys?: key.Key | key.Key[];
+    privateKeys?: key.Key | key.Key[] | undefined;
     /**
      * (optional) passwords to decrypt the message
      */
-    passwords?: string | string[];
+    passwords?: string | string[] | undefined;
     /**
      * (optional) session keys in the form: { data:Uint8Array, algorithm:String }
      */
-    sessionKeys?: { data: Uint8Array; algorithm: string } | { data: Uint8Array; algorithm: string }[];
+    sessionKeys?: { data: Uint8Array; algorithm: string } | { data: Uint8Array; algorithm: string }[] | undefined;
     /**
      * (optional) array of public keys or single key, to verify signatures
      */
-    publicKeys?: key.Key | key.Key[];
+    publicKeys?: key.Key | key.Key[] | undefined;
     /**
      * (optional) whether to return data as a string(Stream) or Uint8Array(Stream). If 'utf8' (the default), also normalize newlines.
      */
-    format?: 'utf8' | 'binary';
+    format?: 'utf8' | 'binary' | undefined;
     /**
      * (optional) whether to return data as a stream. Defaults to the type of stream `message` was created from, if any.
      */
-    streaming?: 'web' | 'node' | false;
+    streaming?: 'web' | 'node' | false | undefined;
     /**
      * (optional) detached signature for verification
      */
-    signature?: signature.Signature;
+    signature?: signature.Signature | undefined;
     /**
      * (optional) use the given date for verification instead of the current time
      */
-    date?: Date;
+    date?: Date | undefined;
 }
 
 export interface DecryptResult {
@@ -5344,23 +5344,23 @@ export interface SignOptions {
     /**
      * (optional) if the return value should be ascii armored or the message object
      */
-    armor?: boolean;
+    armor?: boolean | undefined;
     /**
      * (optional) whether to return data as a stream. Defaults to the type of stream `message` was created from, if any.
      */
-    streaming?: 'web' | 'node' | false;
+    streaming?: 'web' | 'node' | false | undefined;
     /**
      * (optional) if the return value should contain a detached signature
      */
-    detached?: boolean;
+    detached?: boolean | undefined;
     /**
      * (optional) override the creation date of the signature
      */
-    date?: Date;
+    date?: Date | undefined;
     /**
      *  (optional) array of user IDs to sign with, one per key in `privateKeys`, e.g. [ { name:'Steve Sender', email:'steve@openpgp.org' }]
      */
-    fromUserIds?: UserID[];
+    fromUserIds?: UserID[] | undefined;
 }
 
 export interface SignResult {
@@ -5383,9 +5383,9 @@ export interface SignResult {
  *          signature: Signature (if `armor` was false)
  *          }{
  */
-export function sign(options: SignOptions & { armor?: true; detached?: false }): Promise<{ data: string }>;
-export function sign(options: SignOptions & { armor: false; detached?: false }): Promise<{ message: message.Message }>;
-export function sign(options: SignOptions & { armor?: true; detached: true }): Promise<{ signature: string }>;
+export function sign(options: SignOptions & { armor?: true | undefined; detached?: false | undefined }): Promise<{ data: string }>;
+export function sign(options: SignOptions & { armor: false; detached?: false | undefined }): Promise<{ message: message.Message }>;
+export function sign(options: SignOptions & { armor?: true | undefined; detached: true }): Promise<{ signature: string }>;
 export function sign(
     options: SignOptions & { armor: false; detached: true },
 ): Promise<{ signature: signature.Signature }>;
@@ -5403,15 +5403,15 @@ export interface VerifyOptions {
     /**
      * (optional) whether to return data as a stream. Defaults to the type of stream `message` was created from, if any.
      */
-    streaming?: 'web' | 'node' | false;
+    streaming?: 'web' | 'node' | false | undefined;
     /**
      * (optional) detached signature for verification
      */
-    signature?: signature.Signature;
+    signature?: signature.Signature | undefined;
     /**
      * (optional) use the given date for verification instead of the current time
      */
-    date?: Date;
+    date?: Date | undefined;
 }
 
 export interface VerifyResult {

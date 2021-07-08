@@ -32,11 +32,11 @@ interface JCanvasSliceDef {
     /**
      * Distance between slices as a fraction of the radius
      */
-    spread?: number;
+    spread?: number | undefined;
 
-    layer?: boolean;
-    name?: string;
-    groups?: string[];
+    layer?: boolean | undefined;
+    name?: string | undefined;
+    groups?: string[] | undefined;
 }
 
 interface JCanvasTextDef {

@@ -26,9 +26,9 @@ declare class ObjectsToCsv {
     toDisk(
         filename: string,
         options?: {
-            append?: boolean;
-            bom?: boolean;
-            allColumns?: boolean;
+            append?: boolean | undefined;
+            bom?: boolean | undefined;
+            allColumns?: boolean | undefined;
         },
     ): Promise<string>;
 

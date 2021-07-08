@@ -1,8 +1,8 @@
 import { baseComponent, baseComponentEventMap, baseComponentSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
 export interface ojAccordion extends baseComponent<ojAccordionSettableProperties> {
     expanded: Array<{
-        id?: string;
-        index?: number;
+        id?: string | undefined;
+        index?: number | undefined;
     }> | null;
     multiple: boolean;
     onExpandedChanged: ((event: JetElementCustomEvent<ojAccordion["expanded"]>) => any) | null;
@@ -56,8 +56,8 @@ export interface ojAccordionEventMap extends baseComponentEventMap<ojAccordionSe
 }
 export interface ojAccordionSettableProperties extends baseComponentSettableProperties {
     expanded: string[] | number[] | Array<{
-        id?: string;
-        index?: number;
+        id?: string | undefined;
+        index?: number | undefined;
     }> | null;
     multiple: boolean;
 }

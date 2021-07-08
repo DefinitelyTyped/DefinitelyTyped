@@ -9,20 +9,20 @@ import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: null | string;
-    imageSmoothing?: boolean;
-    params?: { [key: string]: any };
-    hidpi?: boolean;
-    tileGrid?: TileGrid;
-    projection?: ProjectionLike;
-    reprojectionErrorThreshold?: number;
-    tileLoadFunction?: LoadFunction;
-    url?: string;
-    wrapX?: boolean;
-    transition?: number;
-    urls?: string[];
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    imageSmoothing?: boolean | undefined;
+    params?: { [key: string]: any } | undefined;
+    hidpi?: boolean | undefined;
+    tileGrid?: TileGrid | undefined;
+    projection?: ProjectionLike | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    url?: string | undefined;
+    wrapX?: boolean | undefined;
+    transition?: number | undefined;
+    urls?: string[] | undefined;
 }
 export default class TileArcGISRest extends TileImage {
     constructor(opt_options?: Options);

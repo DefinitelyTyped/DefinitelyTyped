@@ -17,9 +17,9 @@ declare namespace StreamTransport {
     interface Options extends MailOptions, TransportOptions {
         streamTransport: true;
         /** if true, then returns the message as a Buffer object instead of a stream */
-        buffer?: boolean;
+        buffer?: boolean | undefined;
         /** either ‘windows’ or ‘unix’ (default). Forces all newlines in the output to either use Windows syntax <CR><LF> or Unix syntax <LF> */
-        newline?: string;
+        newline?: string | undefined;
     }
 
     interface SentMessageInfo {

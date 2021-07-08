@@ -39,5 +39,5 @@ export declare class Reply<TOPIC extends string, TYPE extends string | void> imp
     topic: TOPIC;
     type: TYPE;
     uuid: string;
-    name?: string;
+    name?: string | undefined;
 }

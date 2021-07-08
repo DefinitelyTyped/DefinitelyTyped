@@ -14,13 +14,13 @@ export interface Options {
      * This is used to round the calculated fitting coefficients,
      * the output predictions, and the value of r^2.
      */
-    precision?: number;
+    precision?: number | undefined;
     /**
      * The number of terms to solve for (and therefore
      * the number of coefficients to calculate). Only
      * relevant for polynomial fitting.
      */
-    order?: number;
+    order?: number | undefined;
 }
 
 export interface Result {

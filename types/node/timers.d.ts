@@ -8,7 +8,7 @@ declare module 'timers' {
          * should not require the Node.js event loop to remain active.
          * @default true
          */
-        ref?: boolean;
+        ref?: boolean | undefined;
     }
 
     let setTimeout: typeof global.setTimeout;
