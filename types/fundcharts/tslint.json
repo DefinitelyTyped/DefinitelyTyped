@@ -4,6 +4,7 @@
         "strict-export-declare-modifiers":false,
         "array-type": false,
         "export-just-namespace":false,
-        "comment-format":false
+        "comment-format":false,
+        "npm-naming":false
     }
 }
