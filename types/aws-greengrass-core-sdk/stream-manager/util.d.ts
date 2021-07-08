@@ -4,7 +4,7 @@
  * @return byte array
  * @exception throws ValidationException
  */
-export const validateAndSerializeToJsonBytes: <T extends unknown>(o: T) => Buffer;
+export function validateAndSerializeToJsonBytes(o: unknown): Buffer;
 
 interface FromMap<T> {
   fromMap(m: any): T;
@@ -16,4 +16,6 @@ interface FromMap<T> {
  * @param type instance type
  * @return object
  */
-export const deserializeJsonBytesToObj: <T>(bytes: Buffer, type: FromMap<T>) => T;
+export function deserializeJsonBytesToObj<T>(bytes: Buffer, type: FromMap<T>): T;
+
+export {};
