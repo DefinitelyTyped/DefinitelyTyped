@@ -1,6 +1,6 @@
 // Type definitions for amazon-dax-client 1.2
 // Project: https://aws.amazon.com/dynamodb/dax/
-// Definitions by: Courtney Pitcher <https://github.com/DefinitelyTyped>
+// Definitions by: Courtney Pitcher <https://github.com/IgniparousTempest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>

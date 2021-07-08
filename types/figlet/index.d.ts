@@ -1,6 +1,6 @@
 // Type definitions for figlet 1.5
 // Project: https://github.com/patorjk/figlet.js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
+// Definitions by: Junyoung Clare Jang <https://github.com/Ailrun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace figlet {
