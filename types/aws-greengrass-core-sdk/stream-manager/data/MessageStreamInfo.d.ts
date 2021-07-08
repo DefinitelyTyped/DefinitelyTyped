@@ -2,24 +2,18 @@ import { MessageStreamDefinition, MessageStreamDefinitionMap, TypesMap, Validati
 
 /**
  * Message stream information including its definition, storage status and export status.
- *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
-export declare class MessageStreamInfo {
+export class MessageStreamInfo {
   /**
    * Stream status including oldest/newest sequence number and total bytes.
-   *
-   * @class
-   * @memberOf aws-greengrass-core-sdk.StreamManager
    */
   static _storageStatus: typeof MessageStreamInfoStorageStatus;
   static _exportStatuses: typeof MessageStreamInfoExportStatuses;
 
   /**
-   * @param definition {aws-greengrass-core-sdk.StreamManager.MessageStreamDefinition}
-   * @param storageStatus {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._storageStatus} Stream status including oldest/newest sequence number and total bytes.
-   * @param exportStatuses {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._exportStatuses[]}
+   * @param definition
+   * @param storageStatus  Stream status including oldest/newest sequence number and total bytes.
+   * @param exportStatuses
    */
   constructor(
     definition?: MessageStreamDefinition | null,
@@ -27,51 +21,38 @@ export declare class MessageStreamInfo {
     exportStatuses?: MessageStreamInfoExportStatuses[] | null,
   );
 
-  /**
-     * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamDefinition}
-     
-     */
   get definition(): MessageStreamDefinition | null;
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.MessageStreamDefinition}
+   * @param value
    */
   set definition(value: MessageStreamDefinition | null);
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.MessageStreamDefinition}
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo}
+   * @param value
    */
   withDefinition(value: MessageStreamDefinition | null): this;
 
   /**
-     * Stream status including oldest/newest sequence number and total bytes.
-     * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._storageStatus}
-     
-     */
+   * Stream status including oldest/newest sequence number and total bytes.
+   */
   get storageStatus(): MessageStreamInfoStorageStatus;
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._storageStatus} Stream status including oldest/newest sequence number and total bytes.
+   * @param value  Stream status including oldest/newest sequence number and total bytes.
    */
   set storageStatus(value: MessageStreamInfoStorageStatus);
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._storageStatus} Stream status including oldest/newest sequence number and total bytes.
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo}
+   * @param value Stream status including oldest/newest sequence number and total bytes.
    */
   withStorageStatus(value: MessageStreamInfoStorageStatus): this;
 
-  /**
-     * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._exportStatuses[]}
-     
-     */
   get exportStatuses(): MessageStreamInfoExportStatuses[];
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._exportStatuses[]}
+   * @param value
    */
   set exportStatuses(value: MessageStreamInfoExportStatuses[]);
 
   /**
-   * @param value {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._exportStatuses[]}
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo}
+   * @param value
    */
   withExportStatuses(value: MessageStreamInfoExportStatuses[]): this;
 
@@ -90,9 +71,9 @@ export declare class MessageStreamInfo {
 
 declare class MessageStreamInfoStorageStatus {
   /**
-   * @param oldestSequenceNumber {Number} The sequence number of the first message which is still accessible in the stream.
-   * @param newestSequenceNumber {Number} The sequence number of the last appended message.
-   * @param totalBytes {Number} The current total size of the stream in bytes.
+   * @param oldestSequenceNumber The sequence number of the first message which is still accessible in the stream.
+   * @param newestSequenceNumber The sequence number of the last appended message.
+   * @param totalBytes The current total size of the stream in bytes.
    */
   constructor(
     oldestSequenceNumber?: number | null,
@@ -101,50 +82,42 @@ declare class MessageStreamInfoStorageStatus {
   );
 
   /**
-         * The sequence number of the first message which is still accessible in the stream.
-         * @returns {Number}
-         
-         */
+   * The sequence number of the first message which is still accessible in the stream.
+   */
   get oldestSequenceNumber(): number | null;
   /**
-   * @param value {Number} The sequence number of the first message which is still accessible in the stream.
+   * @param value The sequence number of the first message which is still accessible in the stream.
    */
   set oldestSequenceNumber(value: number | null);
   /**
-   * @param value {Number} The sequence number of the first message which is still accessible in the stream.
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._storageStatus}
+   * @param value The sequence number of the first message which is still accessible in the stream.
    */
   withOldestSequenceNumber(value: number | null): this;
 
   /**
-         * The sequence number of the last appended message.
-         * @returns {Number}
-         
-         */
+   * The sequence number of the last appended message.
+   */
   get newestSequenceNumber(): number | null;
   /**
-   * @param value {Number} The sequence number of the last appended message.
+   * @param value The sequence number of the last appended message.
    */
   set newestSequenceNumber(value: number | null);
   /**
-   * @param value {Number} The sequence number of the last appended message.
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._storageStatus}
+   * @param value The sequence number of the last appended message.
    */
   withNewestSequenceNumber(value: number | null): this;
 
   /**
-         * The current total size of the stream in bytes.
-         * @returns {Number}
-         
-         */
+   * The current total size of the stream in bytes.
+   */
   get totalBytes(): number | null;
   /**
-   * @param value {Number} The current total size of the stream in bytes.
+   * @param value The current total size of the stream in bytes.
    */
   set totalBytes(value: number | null);
   /**
-   * @param value {Number} The current total size of the stream in bytes.
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._storageStatus}
+   * @param value The current total size of the stream in bytes.
+   * @returns
    */
   withTotalBytes(value: number | null): this;
 
@@ -165,18 +138,16 @@ export interface MessageStreamInfoStorageStatusMap {
 
 /**
  * Export status including the export identifier and the last exported sequence number for that export task.
- *
- * @class
- * @memberOf aws-greengrass-core-sdk.StreamManager
  */
 declare class MessageStreamInfoExportStatuses {
   /**
-   * @param exportConfigIdentifier {String} The unique export identifier.
-   * @param lastExportedSequenceNumber {Number} The sequence number of the last message which was successfully exported.
-   * @param lastExportTime {Number} The last time an export was attempted. Data is Unix epoch time in milliseconds.
-   * @param errorMessage {String} Error message from the last export attempt if it failed.
-   * @param exportedBytesFromStream {Number} Total bytes exported from the stream for this Export Config. It does not include the failed export attempts or messages which are skipped because of some non-retryable error.
-   * @param exportedMessagesCount {Number} Total messages exported/processed.
+   * @param exportConfigIdentifier The unique export identifier.
+   * @param lastExportedSequenceNumber The sequence number of the last message which was successfully exported.
+   * @param lastExportTime The last time an export was attempted. Data is Unix epoch time in milliseconds.
+   * @param errorMessage Error message from the last export attempt if it failed.
+   * @param exportedBytesFromStream Total bytes exported from the stream for this Export Config.
+   * It does not include the failed export attempts or messages which are skipped because of some non-retryable error.
+   * @param exportedMessagesCount Total messages exported/processed.
    */
   constructor(
     exportConfigIdentifier?: string | null,
@@ -188,99 +159,81 @@ declare class MessageStreamInfoExportStatuses {
   );
 
   /**
-         * The unique export identifier.
-         * @returns {String}
-         
-         */
+   * The unique export identifier.
+   */
   get exportConfigIdentifier(): string | null;
   /**
-   * @param value {String} The unique export identifier.
+   * @param value The unique export identifier.
    */
   set exportConfigIdentifier(value: string | null);
   /**
-   * @param value {String} The unique export identifier.
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._exportStatuses}
+   * @param value The unique export identifier.
    */
   withExportConfigIdentifier(value: string | null): this;
 
   /**
-         * The sequence number of the last message which was successfully exported.
-         * @returns {Number}
-         
-         */
+   * The sequence number of the last message which was successfully exported.
+   */
   get lastExportedSequenceNumber(): number | null;
   /**
-   * @param value {Number} The sequence number of the last message which was successfully exported.
+   * @param value The sequence number of the last message which was successfully exported.
    */
   set lastExportedSequenceNumber(value: number | null);
   /**
-   * @param value {Number} The sequence number of the last message which was successfully exported.
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._exportStatuses}
+   * @param value The sequence number of the last message which was successfully exported.
    */
   withLastExportedSequenceNumber(value: number | null): this;
 
   /**
-         * The last time an export was attempted. Data is Unix epoch time in milliseconds.
-         * @returns {Number}
-         
-         */
+   * The last time an export was attempted. Data is Unix epoch time in milliseconds.
+   */
   get lastExportTime(): number | null;
   /**
-   * @param value {Number} The last time an export was attempted. Data is Unix epoch time in milliseconds.
+   * @param value The last time an export was attempted. Data is Unix epoch time in milliseconds.
    */
   set lastExportTime(value: number | null);
   /**
-   * @param value {Number} The last time an export was attempted. Data is Unix epoch time in milliseconds.
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._exportStatuses}
+   * @param value The last time an export was attempted. Data is Unix epoch time in milliseconds.
    */
   withLastExportTime(value: number | null): this;
 
   /**
-         * Error message from the last export attempt if it failed.
-         * @returns {String}
-         
-         */
+   * Error message from the last export attempt if it failed.
+   */
   get errorMessage(): string | null;
   /**
-   * @param value {String} Error message from the last export attempt if it failed.
+   * @param value Error message from the last export attempt if it failed.
    */
   set errorMessage(value: string | null);
   /**
-   * @param value {String} Error message from the last export attempt if it failed.
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._exportStatuses}
+   * @param value Error message from the last export attempt if it failed.
    */
   withErrorMessage(value: string | null): this;
 
   /**
-         * Total bytes exported from the stream for this Export Config. It does not include the failed export attempts or messages which are skipped because of some non-retryable error.
-         * @returns {Number}
-         
-         */
+   * Total bytes exported from the stream for this Export Config. It does not include the failed export attempts or messages which are skipped because of some non-retryable error.
+   */
   get exportedBytesFromStream(): number | null;
   /**
-   * @param value {Number} Total bytes exported from the stream for this Export Config. It does not include the failed export attempts or messages which are skipped because of some non-retryable error.
+   * @param value Total bytes exported from the stream for this Export Config. It does not include the failed export attempts or messages which are skipped because of some non-retryable error.
    */
   set exportedBytesFromStream(value: number | null);
   /**
-   * @param value {Number} Total bytes exported from the stream for this Export Config. It does not include the failed export attempts or messages which are skipped because of some non-retryable error.
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._exportStatuses}
+   * @param value Total bytes exported from the stream for this Export Config. It does not include the failed export attempts or messages which are skipped because of some non-retryable error.
    */
   withExportedBytesFromStream(value: number | null): this;
 
   /**
-         * Total messages exported/processed.
-         * @returns {Number}
-         
-         */
+   * Total messages exported/processed.
+   */
   get exportedMessagesCount(): number | null;
 
   /**
-   * @param value {Number} Total messages exported/processed.
+   * @param value Total messages exported/processed.
    */
   set exportedMessagesCount(value: number | null);
   /**
-   * @param value {Number} Total messages exported/processed.
-   * @returns {aws-greengrass-core-sdk.StreamManager.MessageStreamInfo~MessageStreamInfo._exportStatuses}
+   * @param value Total messages exported/processed.
    */
   withExportedMessagesCount(value: number | null): this;
 
@@ -301,3 +254,5 @@ export interface MessageStreamInfoExportStatusesMap {
   exportedBytesFromStream?: number;
   exportedMessagesCount?: number;
 }
+
+export {};
