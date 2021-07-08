@@ -77,6 +77,6 @@ export interface AutocompleteProps<T> extends TextInputProps {
 
     keyboardShouldPersistTaps?: 'always' | 'handeld' | 'never' | boolean;
 }
-declare const AutocompleteInput: FC<AutocompleteProps<any>>;
+export const AutocompleteInput: FC<AutocompleteProps<any>>;
 
 export default AutocompleteInput;
