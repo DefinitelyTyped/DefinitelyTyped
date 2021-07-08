@@ -85,7 +85,7 @@ export function deprecatingAlias(
  */
 export function deprecatingAlias(
     dependentKey: string,
-    options?: { id?: string; until?: string }
+    options?: { id?: string | undefined; until?: string | undefined }
 ): ComputedProperty<any>;
 
 /**

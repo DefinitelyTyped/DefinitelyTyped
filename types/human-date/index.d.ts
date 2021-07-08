@@ -4,15 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface PrettyPrintOptions {
-    showTime?: boolean;
+    showTime?: boolean | undefined;
 }
 
 export interface RelativeTimeOptions {
-    futureSuffix?: string;
-    pastSuffix?: string;
-    presentText?: string;
-    returnObject?: boolean;
-    allUnits?: boolean;
+    futureSuffix?: string | undefined;
+    pastSuffix?: string | undefined;
+    presentText?: string | undefined;
+    returnObject?: boolean | undefined;
+    allUnits?: boolean | undefined;
 }
 
 export interface RelativeTimeReturns {
@@ -32,7 +32,7 @@ export function prettyPrint(
 // relativeTime
 export function relativeTime(
     arg: string | Date | number,
-    options?: RelativeTimeOptions & { returnObject?: false }
+    options?: RelativeTimeOptions & { returnObject?: false | undefined }
 ): string;
 
 export function relativeTime(

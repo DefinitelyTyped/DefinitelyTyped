@@ -23,11 +23,11 @@ export default class TreeWalker implements Iterable<TreeWalkerValue> {
     readonly singleCharacters: boolean;
 
     constructor(options: {
-        boundaries?: Range;
-        direction?: TreeWalkerDirection;
-        ignoreElementEnd?: boolean;
-        shallow?: boolean;
-        singleCharacters?: boolean;
+        boundaries?: Range | undefined;
+        direction?: TreeWalkerDirection | undefined;
+        ignoreElementEnd?: boolean | undefined;
+        shallow?: boolean | undefined;
+        singleCharacters?: boolean | undefined;
         startPosition: Position;
     });
     [Symbol.iterator](): Iterator<TreeWalkerValue>;

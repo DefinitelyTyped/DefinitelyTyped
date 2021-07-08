@@ -9,14 +9,14 @@ declare module 'perf_hooks' {
          * the type of garbage collection operation that occurred.
          * See perf_hooks.constants for valid values.
          */
-        readonly kind?: number;
+        readonly kind?: number | undefined;
 
         /**
          * When `performanceEntry.entryType` is equal to 'gc', the `performance.flags`
          * property contains additional information about garbage collection operation.
          * See perf_hooks.constants for valid values.
          */
-        readonly flags?: number;
+        readonly flags?: number | undefined;
     }
 
     class PerformanceEntry {
@@ -43,7 +43,7 @@ declare module 'perf_hooks' {
          */
         readonly entryType: EntryType;
 
-        readonly details?: NodeGCPerformanceDetail | unknown; // TODO: Narrow this based on entry type.
+        readonly details?: NodeGCPerformanceDetail | unknown | undefined; // TODO: Narrow this based on entry type.
     }
 
     class PerformanceNodeTiming extends PerformanceEntry {
@@ -102,31 +102,31 @@ declare module 'perf_hooks' {
         /**
          * Additional optional detail to include with the mark.
          */
-        detail?: unknown;
+        detail?: unknown | undefined;
         /**
          * An optional timestamp to be used as the mark time.
          * @default `performance.now()`.
          */
-        startTime?: number;
+        startTime?: number | undefined;
     }
 
     interface MeasureOptions {
         /**
          * Additional optional detail to include with the mark.
          */
-        detail?: unknown;
+        detail?: unknown | undefined;
         /**
          * Duration between start and end times.
          */
-        duration?: number;
+        duration?: number | undefined;
         /**
          * Timestamp to be used as the end time, or a string identifying a previously recorded mark.
          */
-        end?: number | string;
+        end?: number | string | undefined;
         /**
          * Timestamp to be used as the start time, or a string identifying a previously recorded mark.
          */
-        start?: number | string;
+        start?: number | string | undefined;
     }
 
     interface TimerifyOptions {
@@ -135,7 +135,7 @@ declare module 'perf_hooks' {
          * `perf_hooks.createHistogram()` that will record runtime durations in
          * nanoseconds.
          */
-        histogram?: RecordableHistogram;
+        histogram?: RecordableHistogram | undefined;
     }
 
     interface Performance {
@@ -262,7 +262,7 @@ declare module 'perf_hooks' {
          * Must be greater than zero.
          * @default 10
          */
-        resolution?: number;
+        resolution?: number | undefined;
     }
 
     interface Histogram {
@@ -335,18 +335,18 @@ declare module 'perf_hooks' {
          * The minimum recordable value. Must be an integer value greater than 0.
          * @default 1
          */
-        min?: number | bigint;
+        min?: number | bigint | undefined;
 
         /**
          * The maximum recordable value. Must be an integer value greater than min.
          * @default Number.MAX_SAFE_INTEGER
          */
-        max?: number | bigint;
+        max?: number | bigint | undefined;
         /**
          * The number of accuracy digits. Must be a number between 1 and 5.
          * @default 3
          */
-        figures?: number;
+        figures?: number | undefined;
     }
 
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;

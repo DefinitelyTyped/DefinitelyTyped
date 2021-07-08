@@ -58,12 +58,12 @@ type InferDBClear<DB> =
     LevelUpClear<AbstractClearOptions>;
 
 interface AbstractClearOptions<K = any> extends AbstractOptions {
-    gt?: K;
-    gte?: K;
-    lt?: K;
-    lte?: K;
-    reverse?: boolean;
-    limit?: number;
+    gt?: K | undefined;
+    gte?: K | undefined;
+    lt?: K | undefined;
+    lte?: K | undefined;
+    reverse?: boolean | undefined;
+    limit?: number | undefined;
 }
 
 export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any, any>> extends EventEmitter {

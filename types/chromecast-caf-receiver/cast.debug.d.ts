@@ -32,7 +32,7 @@ export class CastDebugLogger {
      * The loggerLevelByTags config is optional. If a custom tag is not configured for its logger level, all log messages will display on the
      * debug overlay.
      */
-    loggerLevelByTags?: Record<string, LoggerLevel>;
+    loggerLevelByTags?: Record<string, LoggerLevel> | undefined;
 
     /**
      * Clear log messages on the overlay provided by CastDebugLogger.

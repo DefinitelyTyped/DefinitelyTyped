@@ -328,15 +328,15 @@ export interface IRoute<Route extends string = string> {
 export interface Router extends IRouter {}
 
 export interface CookieOptions {
-    maxAge?: number;
-    signed?: boolean;
-    expires?: Date;
-    httpOnly?: boolean;
-    path?: string;
-    domain?: string;
-    secure?: boolean;
-    encode?: (val: string) => string;
-    sameSite?: boolean | 'lax' | 'strict' | 'none';
+    maxAge?: number | undefined;
+    signed?: boolean | undefined;
+    expires?: Date | undefined;
+    httpOnly?: boolean | undefined;
+    path?: string | undefined;
+    domain?: string | undefined;
+    secure?: boolean | undefined;
+    encode?: ((val: string) => string) | undefined;
+    sameSite?: boolean | 'lax' | 'strict' | 'none' | undefined;
 }
 
 export interface ByteRange {
@@ -640,8 +640,8 @@ export interface Request<
      * After middleware.init executed, Request will contain res and next properties
      * See: express/lib/middleware/init.js
      */
-    res?: Response<ResBody, Locals>;
-    next?: NextFunction;
+    res?: Response<ResBody, Locals> | undefined;
+    next?: NextFunction | undefined;
 }
 
 export interface MediaType {

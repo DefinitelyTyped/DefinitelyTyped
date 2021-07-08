@@ -7,11 +7,11 @@
 /// <reference types="jquery"/>
 
 interface TruncateOptions{
-    length?: number;
-    stripTags?: boolean;
-    words?: boolean;
-    noBreaks?: boolean;
-    ellipsis?: string;
+    length?: number | undefined;
+    stripTags?: boolean | undefined;
+    words?: boolean | undefined;
+    noBreaks?: boolean | undefined;
+    ellipsis?: string | undefined;
 }
 
 interface JQuery{

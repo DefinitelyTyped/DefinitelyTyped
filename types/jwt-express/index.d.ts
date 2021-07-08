@@ -96,52 +96,52 @@ export interface JWTExpressOptions {
     /**
      * The name of the cookie (default: 'jwt-express')
      */
-    cookie?: string;
+    cookie?: string | undefined;
 
     /**
      * Options to use when storing the cookie (default: {httpOnly: true})
      */
-    cookieOptions?: express.CookieOptions;
+    cookieOptions?: express.CookieOptions | undefined;
 
     /**
      * If true, will use cookies, otherwise will use the Authorization header (default: true)
      */
-    cookies?: boolean;
+    cookies?: boolean | undefined;
 
     /**
      * Indicates if the JWT should be refreshed and stored every request (default: true)
      */
-    refresh?: boolean;
+    refresh?: boolean | undefined;
 
     /**
      * The property of req to populate (default: 'jwt')
      */
-    reqProperty?: string;
+    reqProperty?: string | undefined;
 
     /**
      * jwt.revoke() will call this function (default: function(jwt) {})
      */
-    revoke?: (jwt: JWT) => void;
+    revoke?: ((jwt: JWT) => void) | undefined;
 
     /**
      * Options to use when signing the JWT (default: {})
      */
-    signOptions?: jsonwebtoken.SignOptions;
+    signOptions?: jsonwebtoken.SignOptions | undefined;
 
     /**
      * Milliseconds when the jwt will go stale (default: 900000 (15 minutes))
      */
-    stales?: number;
+    stales?: number | undefined;
 
     /**
      * Additional verification. Must return a boolean (default: function(jwt) {return true})
      */
-    verify?: (jwt: JWT) => boolean;
+    verify?: ((jwt: JWT) => boolean) | undefined;
 
     /**
      * Options to use when verifying the JWT (default: {})
      */
-    verifyOptions?: jsonwebtoken.VerifyOptions;
+    verifyOptions?: jsonwebtoken.VerifyOptions | undefined;
 }
 
 export interface JWTExpressError extends Error {

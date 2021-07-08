@@ -2,11 +2,11 @@ export interface ZoneOffsetOptions {
     /**
      * What style of offset to return.
      */
-    format?: 'short' | 'long';
+    format?: 'short' | 'long' | undefined;
     /**
      * What locale to return the offset name in.
      */
-    locale?: string;
+    locale?: string | undefined;
 }
 
 /**

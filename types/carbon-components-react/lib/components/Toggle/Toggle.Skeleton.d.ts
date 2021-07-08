@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
 export interface ToggleSkeletonProps extends ReactDivAttr {
-    labelText?: string,
+    labelText?: string | undefined,
 }
 
 declare class ToggleSkeleton extends React.Component<ToggleSkeletonProps> { }

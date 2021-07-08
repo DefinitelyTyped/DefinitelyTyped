@@ -17,8 +17,8 @@ declare module '@riderize/passport-strava-oauth2' {
         };
         photos?: Array<{
             value: string;
-        }>;
-        token?: string;
+        }> | undefined;
+        token?: string | undefined;
 
         _raw: string;
         _json: any;
@@ -29,9 +29,9 @@ declare module '@riderize/passport-strava-oauth2' {
         clientSecret: string;
         callbackURL: string;
 
-        authorizationURL?: string;
-        tokenURL?: string;
-        profileURL?: string;
+        authorizationURL?: string | undefined;
+        tokenURL?: string | undefined;
+        profileURL?: string | undefined;
     }
 
     interface StrategyOptionWithRequest extends StrategyOption {

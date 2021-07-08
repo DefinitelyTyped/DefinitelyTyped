@@ -19,29 +19,29 @@ declare namespace psi {
          * When using this module for a production-level build process,
          * registering for an API key from the Google Developer Console is recommended.
          */
-        key?: string;
-        nokey?: string;
+        key?: string | undefined;
+        nokey?: string | undefined;
         /**
          * Strategy to use when analyzing the page.
          * @default 'mobile'
          */
-        strategy?: 'mobile' | 'desktop';
+        strategy?: 'mobile' | 'desktop' | undefined;
         /**
          * Locale results should be generated in.
          * @default 'en_US'
          */
-        locale?: string;
+        locale?: string | undefined;
         /**
          * Threshold score to pass the PageSpeed test. Useful for setting a performance budget.
          * @default 70
          */
-        threshold?: number;
+        threshold?: number | undefined;
         /**
          * If passed adds links with more info about opportunities.
          * Useful for checking documentation about opportunities.
          * @default false
          */
-        links?: boolean;
+        links?: boolean | undefined;
     }
 
     interface Experience {

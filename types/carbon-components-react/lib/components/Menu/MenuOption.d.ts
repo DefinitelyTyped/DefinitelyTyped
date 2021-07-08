@@ -14,14 +14,14 @@ type ExcludedPropKeys =
     | "tabIndex";
 
 export interface MenuOptionProps extends Omit<ReactLIAttr, ExcludedPropKeys> {
-    disabled?: boolean;
-    indented?: boolean; // set by context menu parent component
-    kind?: "danger" | "default";
+    disabled?: boolean | undefined;
+    indented?: boolean | undefined; // set by context menu parent component
+    kind?: "danger" | "default" | undefined;
     label: string;
-    level?: number; // set by context menu parent component
+    level?: number | undefined; // set by context menu parent component
     onClick?(evt: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>): void;
-    renderIcon?: React.ComponentType;
-    shortcut?: React.ReactNode;
+    renderIcon?: React.ComponentType | undefined;
+    shortcut?: React.ReactNode | undefined;
 }
 
 declare const MenuOption: React.FC<MenuOptionProps>;

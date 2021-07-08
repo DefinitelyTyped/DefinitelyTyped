@@ -9,17 +9,17 @@ export const pdfobjectversion: "2.2.3";
 export const supportsPDFs: boolean;
 
 export interface Options {
-    id?: string;
-    page?: boolean;
-    pdfOpenParams?: Record<string, string | number | boolean>;
-    fallbackLink?: boolean;
-    width?: string;
-    height?: string;
-    assumptionMode?: boolean;
-    forcePDFJS?: boolean;
-    supportRedirect?: boolean;
-    omitInlineStyles?: boolean;
-    suppressConsole?: boolean;
-    forceIframe?: boolean;
-    PDFJS_URL?: string;
+    id?: string | undefined;
+    page?: boolean | undefined;
+    pdfOpenParams?: Record<string, string | number | boolean> | undefined;
+    fallbackLink?: boolean | undefined;
+    width?: string | undefined;
+    height?: string | undefined;
+    assumptionMode?: boolean | undefined;
+    forcePDFJS?: boolean | undefined;
+    supportRedirect?: boolean | undefined;
+    omitInlineStyles?: boolean | undefined;
+    suppressConsole?: boolean | undefined;
+    forceIframe?: boolean | undefined;
+    PDFJS_URL?: string | undefined;
 }

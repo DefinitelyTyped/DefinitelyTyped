@@ -25,7 +25,7 @@ declare class SCServerSocket extends Emitter {
 
     state: "connecting" | "open" | "closed";
     authState: "authenticated" | "unauthenticated";
-    authToken?: SCServer.AuthToken;
+    authToken?: SCServer.AuthToken | undefined;
 
     constructor(id: string, server: SCServer, socket: WebSocket);
 
@@ -60,14 +60,14 @@ declare class SCServerSocket extends Emitter {
     destroy(code?: number, data?: any): void;
     terminate(): void;
 
-    send(data: any, options: { mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean }): void;
+    send(data: any, options: { mask?: boolean | undefined; binary?: boolean | undefined; compress?: boolean | undefined; fin?: boolean | undefined }): void;
 
     decode(message: any): any;
     encode(object: any): any;
 
     sendObjectBatch(object: any): void;
     sendObjectSingle(object: any): void;
-    sendObject(object: any, options?: { batch?: boolean }): void;
+    sendObject(object: any, options?: { batch?: boolean | undefined }): void;
 
     emit(event: string, ...args: any[]): this;
     emit(event: string, data: any, callback?: SCServerSocket.EmitCallback, options?: SCServerSocket.EmitOptions): void;
@@ -96,17 +96,17 @@ declare namespace SCServerSocket {
     interface EventObject {
         event: string;
         data?: any;
-        cid?: number;
+        cid?: number | undefined;
     }
 
     interface EmitOptions {
-        useCache?: boolean;
-        stringifiedData?: string;
+        useCache?: boolean | undefined;
+        stringifiedData?: string | undefined;
     }
 
     interface StateChangeData {
         oldState: "authenticated" | "unauthenticated";
         newState: "authenticated" | "unauthenticated";
-        authToken?: SCServer.AuthToken;
+        authToken?: SCServer.AuthToken | undefined;
     }
 }

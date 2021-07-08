@@ -15,18 +15,18 @@ declare namespace ArbiterDef {
           * By default, all subscribers have a priority of 0. Higher values get higher
           * priority and are executed first. Negative values are allowed.
           */
-        priority?: number;
+        priority?: number | undefined;
 
         /**
           * A subscriber can be set to execute asynchronously, even if the message wasn't published as async.
           */
-        async?: boolean;
+        async?: boolean | undefined;
 
         /**
           * If your subscriber is not interested in any past messages that may have been
           * persisted, you can force them to be ignored.
           */
-        persist?: boolean;
+        persist?: boolean | undefined;
     }
 
     export interface PublishOptions {
@@ -35,19 +35,19 @@ declare namespace ArbiterDef {
           * receiving the message. By passing cancelable:false in the options, the publisher
           * can prevent canceling.
           */
-        cancelable?: boolean;
+        cancelable?: boolean | undefined;
 
         /**
           * If the publishers wants subscribers to be notified even if they subscribe later,
           * setting the persist flag will do that.
           */
-        persist?: boolean;
+        persist?: boolean | undefined;
 
         /**
           * If you wish to notify the subscribers but return from the publish() call before
           * the subscriber functions execute, use asynchronous mode
           */
-        async?: boolean;
+        async?: boolean | undefined;
     }
 
     export interface ArbiterStatic {

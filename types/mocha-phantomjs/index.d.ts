@@ -17,10 +17,10 @@ interface Window {
 
 interface MochaPhantomJSOptions {
     headers?: any;
-    cookies?: any[];
-    viewportSize?: number;
-    timeout?: number;
-    file?: string;
+    cookies?: any[] | undefined;
+    viewportSize?: number | undefined;
+    timeout?: number | undefined;
+    file?: string | undefined;
 }
 
 interface MochaPhantomJS {

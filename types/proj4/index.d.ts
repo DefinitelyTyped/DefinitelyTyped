@@ -10,8 +10,8 @@ declare namespace proj4 {
     interface InterfaceCoordinates {
         x: number;
         y: number;
-        z?: number;
-        m?: number;
+        z?: number | undefined;
+        m?: number | undefined;
     }
 
     interface InterfaceDatum {
@@ -41,35 +41,35 @@ declare namespace proj4 {
 
     interface ProjectionDefinition {
         title: string;
-        projName?: string;
-        ellps?: string;
-        datum?: string;
-        datumName?: string;
-        rf?: number;
-        lat0?: number;
-        lat1?: number;
-        lat2?: number;
-        lat_ts?: number;
-        long0?: number;
-        long1?: number;
-        long2?: number;
-        alpha?: number;
-        longc?: number;
-        x0?: number;
-        y0?: number;
-        k0?: number;
-        a?: number;
-        b?: number;
-        R_A?: true;
-        zone?: number;
-        utmSouth?: true;
-        datum_params?: string | number[];
-        to_meter?: number;
-        units?: string;
-        from_greenwich?: number;
-        datumCode?: string;
-        natGrids?: string;
-        axis?: string;
+        projName?: string | undefined;
+        ellps?: string | undefined;
+        datum?: string | undefined;
+        datumName?: string | undefined;
+        rf?: number | undefined;
+        lat0?: number | undefined;
+        lat1?: number | undefined;
+        lat2?: number | undefined;
+        lat_ts?: number | undefined;
+        long0?: number | undefined;
+        long1?: number | undefined;
+        long2?: number | undefined;
+        alpha?: number | undefined;
+        longc?: number | undefined;
+        x0?: number | undefined;
+        y0?: number | undefined;
+        k0?: number | undefined;
+        a?: number | undefined;
+        b?: number | undefined;
+        R_A?: true | undefined;
+        zone?: number | undefined;
+        utmSouth?: true | undefined;
+        datum_params?: string | number[] | undefined;
+        to_meter?: number | undefined;
+        units?: string | undefined;
+        from_greenwich?: number | undefined;
+        datumCode?: string | undefined;
+        natGrids?: string | undefined;
+        axis?: string | undefined;
     }
 
     const defaultDatum: string;

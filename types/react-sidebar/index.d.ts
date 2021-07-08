@@ -7,34 +7,34 @@
 import { Component } from "react";
 
 export interface SidebarProps {
-    contentClassName?: string;
-    defaultSidebarWidth?: number;
-    docked?: boolean;
-    dragToggleDistance?: number;
+    contentClassName?: string | undefined;
+    defaultSidebarWidth?: number | undefined;
+    docked?: boolean | undefined;
+    dragToggleDistance?: number | undefined;
     onSetOpen?(open: boolean): void;
-    open?: boolean;
-    overlayClassName?: string;
-    pullRight?: boolean;
-    rootClassName?: string;
-    shadow?: boolean;
-    sidebar?: React.ReactNode;
-    sidebarClassName?: string;
-    styles?: SidebarStyles;
-    transitions?: boolean;
-    touch?: boolean;
-    touchHandleWidth?: number;
-    rootId?: string;
-    sidebarId?: string;
-    contentId?: string;
-    overlayId?: string;
+    open?: boolean | undefined;
+    overlayClassName?: string | undefined;
+    pullRight?: boolean | undefined;
+    rootClassName?: string | undefined;
+    shadow?: boolean | undefined;
+    sidebar?: React.ReactNode | undefined;
+    sidebarClassName?: string | undefined;
+    styles?: SidebarStyles | undefined;
+    transitions?: boolean | undefined;
+    touch?: boolean | undefined;
+    touchHandleWidth?: number | undefined;
+    rootId?: string | undefined;
+    sidebarId?: string | undefined;
+    contentId?: string | undefined;
+    overlayId?: string | undefined;
 }
 
 export interface SidebarStyles {
-    content?: Partial<CSSStyleDeclaration>;
-    dragHandle?: Partial<CSSStyleDeclaration>;
-    overlay?: Partial<CSSStyleDeclaration>;
-    root?: Partial<CSSStyleDeclaration>;
-    sidebar?: Partial<CSSStyleDeclaration>;
+    content?: Partial<CSSStyleDeclaration> | undefined;
+    dragHandle?: Partial<CSSStyleDeclaration> | undefined;
+    overlay?: Partial<CSSStyleDeclaration> | undefined;
+    root?: Partial<CSSStyleDeclaration> | undefined;
+    sidebar?: Partial<CSSStyleDeclaration> | undefined;
 }
 
 export default class Sidebar extends Component<SidebarProps> {}

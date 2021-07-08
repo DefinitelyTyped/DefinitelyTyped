@@ -54,151 +54,151 @@ declare namespace Accessibility {
         speechToText: (destroy?: boolean) => void;
     }
     interface Options {
-        icon?: Icon;
-        hotkeys?: HotKeys;
+        icon?: Icon | undefined;
+        hotkeys?: HotKeys | undefined;
         buttons?: {
             font: SizeOrPosition;
-        };
+        } | undefined;
         guide?: {
             /** @default '#20ff69' */
-            cBorder?: string;
+            cBorder?: string | undefined;
             /** @default '#000000' */
-            cBackground?: string;
+            cBackground?: string | undefined;
             /** @default '12px' */
-            height?: string;
-        };
+            height?: string | undefined;
+        } | undefined;
         menu?: {
-            dimensions?: Dimensions;
-            fontFamily?: string;
-        };
-        labels?: Labels;
+            dimensions?: Dimensions | undefined;
+            fontFamily?: string | undefined;
+        } | undefined;
+        labels?: Labels | undefined;
         /** @default 'en-US' */
-        textToSpeechLang?: string;
+        textToSpeechLang?: string | undefined;
         /** @default 'en-US' */
-        speechToTextLang?: string;
+        speechToTextLang?: string | undefined;
         /** @default false */
-        textPixelMode?: boolean;
+        textPixelMode?: boolean | undefined;
         /** @default true */
-        textEmlMode?: boolean;
+        textEmlMode?: boolean | undefined;
         animations?: {
             /** @default true */
-            buttons?: boolean;
-        };
-        modules?: Modules;
+            buttons?: boolean | undefined;
+        } | undefined;
+        modules?: Modules | undefined;
         session?: {
             /** @default true */
-            persistent?: boolean;
-        };
+            persistent?: boolean | undefined;
+        } | undefined;
     }
 
     interface Icon {
-        position?: Position;
-        dimensions?: Dimensions;
+        position?: Position | undefined;
+        dimensions?: Dimensions | undefined;
         /** @default '9999' */
-        zIndex?: string | number;
+        zIndex?: string | number | undefined;
         /** @default '#4054b2' */
-        backgroundColor?: string;
+        backgroundColor?: string | undefined;
         /** @default '#fff' */
-        color?: string;
+        color?: string | undefined;
         /** @default 'accessible' */
-        img?: string;
+        img?: string | undefined;
         /** @default false */
-        circular?: boolean;
+        circular?: boolean | undefined;
         /** @default false */
-        circularBorder?: boolean;
+        circularBorder?: boolean | undefined;
         /** @default ['https://fonts.googleapis.com/icon?family=Material+Icons'] */
-        fontFaceSrc?: string[];
+        fontFaceSrc?: string[] | undefined;
         /** @default 'Material Icons' */
-        fontFamily?: string;
+        fontFamily?: string | undefined;
         /** @default 'Material Icons' */
-        fontClass?: string;
+        fontClass?: string | undefined;
         /** @default false */
-        useEmojis?: boolean;
+        useEmojis?: boolean | undefined;
     }
 
     interface Labels {
         /** @default 'Reset' */
-        resetTitle?: string;
+        resetTitle?: string | undefined;
         /** @default 'Close' */
-        closeTitle?: string;
+        closeTitle?: string | undefined;
         /** @default 'Accessibility Options' */
-        menuTitle?: string;
+        menuTitle?: string | undefined;
         /** @default 'increase text size' */
-        increaseText?: string;
+        increaseText?: string | undefined;
         /** @default 'decrease text size' */
-        decreaseText?: string;
+        decreaseText?: string | undefined;
         /** @default 'increase text spacing' */
-        increaseTextSpacing?: string;
+        increaseTextSpacing?: string | undefined;
         /** @default 'decrease text spacing' */
-        decreaseTextSpacing?: string;
+        decreaseTextSpacing?: string | undefined;
         /** @default 'invert colors' */
-        invertColors?: string;
+        invertColors?: string | undefined;
         /** @default 'gray hues' */
-        grayHues?: string;
+        grayHues?: string | undefined;
         /** @default 'gray hues' */
-        bigCursor?: string;
+        bigCursor?: string | undefined;
         /** @default 'reading guide' */
-        readingGuide?: string;
+        readingGuide?: string | undefined;
         /** @default 'underline links' */
-        underlineLinks?: string;
+        underlineLinks?: string | undefined;
         /** @default 'underline links' */
-        textToSpeech?: string;
+        textToSpeech?: string | undefined;
         /** @default 'speech to text' */
-        speechToText?: string;
+        speechToText?: string | undefined;
     }
 
     interface Modules {
         /** @default true */
-        increaseText?: boolean;
+        increaseText?: boolean | undefined;
         /** @default true */
-        decreaseText?: boolean;
+        decreaseText?: boolean | undefined;
         /** @default true */
-        increaseTextSpacing?: boolean;
+        increaseTextSpacing?: boolean | undefined;
         /** @default true */
-        decreaseTextSpacing?: boolean;
+        decreaseTextSpacing?: boolean | undefined;
         /** @default true */
-        invertColors?: boolean;
+        invertColors?: boolean | undefined;
         /** @default true */
-        grayHues?: boolean;
+        grayHues?: boolean | undefined;
         /** @default true */
-        bigCursor?: boolean;
+        bigCursor?: boolean | undefined;
         /** @default true */
-        readingGuide?: boolean;
+        readingGuide?: boolean | undefined;
         /** @default true */
-        underlineLinks?: boolean;
+        underlineLinks?: boolean | undefined;
         /** @default true */
-        textToSpeech?: boolean;
+        textToSpeech?: boolean | undefined;
         /** @default true */
-        speechToText?: true;
+        speechToText?: true | undefined;
     }
 
     interface HotKeys {
         /** @default false */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
         /** @default true */
-        helpTitles?: boolean;
+        helpTitles?: boolean | undefined;
         keys?: {
             [key: string]: HotKeyDefinition;
-        };
+        } | undefined;
     }
 
     type HotKeyDefinition = [number, number, string];
     interface Dimensions {
-        width?: SizeOrPosition;
-        height?: SizeOrPosition;
+        width?: SizeOrPosition | undefined;
+        height?: SizeOrPosition | undefined;
     }
 
     interface Position {
-        top?: SizeOrPosition;
-        right?: SizeOrPosition;
-        bottom?: SizeOrPosition;
-        left?: SizeOrPosition;
+        top?: SizeOrPosition | undefined;
+        right?: SizeOrPosition | undefined;
+        bottom?: SizeOrPosition | undefined;
+        left?: SizeOrPosition | undefined;
         type: string;
     }
 
     interface SizeOrPosition {
         size: number | string;
-        units?: string;
+        units?: string | undefined;
     }
 }
 export = Accessibility;

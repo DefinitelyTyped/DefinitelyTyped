@@ -49,17 +49,17 @@ export interface HierarchyNode<Datum> {
     /**
      * An array of child nodes, if any; undefined for leaf nodes.
      */
-    children?: this[];
+    children?: this[] | undefined;
 
     /**
      * Aggregated numeric value as calculated by `sum(value)` or `count()`, if previously invoked.
      */
-    readonly value?: number;
+    readonly value?: number | undefined;
 
     /**
      * Optional node id string set by `StratifyOperator`, if hierarchical data was created from tabular data using stratify().
      */
-    readonly id?: string;
+    readonly id?: string | undefined;
 
     /**
      * Returns the array of ancestors nodes, starting with this node, then followed by each parent up to the root.
@@ -835,12 +835,12 @@ export interface PackRadius {
     /**
      * The x-coordinate of the circle’s center.
      */
-    x?: number;
+    x?: number | undefined;
 
     /**
      * The y-coordinate of the circle’s center.
      */
-    y?: number;
+    y?: number | undefined;
 }
 
 export interface PackCircle {
