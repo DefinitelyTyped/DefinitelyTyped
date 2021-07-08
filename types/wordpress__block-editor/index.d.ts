@@ -3,7 +3,7 @@
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 3.8
 import { BlockIconNormalized } from '@wordpress/blocks';
 import { dispatch, select } from '@wordpress/data';
 
