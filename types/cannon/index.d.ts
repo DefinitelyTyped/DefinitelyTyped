@@ -10,8 +10,8 @@ declare module CANNON {
 
     export interface IAABBOptions {
 
-        upperBound?: Vec3;
-        lowerBound?: Vec3;
+        upperBound?: Vec3 | undefined;
+        lowerBound?: Vec3 | undefined;
 
     }
 
@@ -138,8 +138,8 @@ declare module CANNON {
 
     export interface IConstraintOptions {
 
-        collideConnected?: boolean;
-        wakeUpBodies?: boolean;
+        collideConnected?: boolean | undefined;
+        wakeUpBodies?: boolean | undefined;
 
     }
 
@@ -167,11 +167,11 @@ declare module CANNON {
 
     export interface IHingeConstraintOptions {
 
-        pivotA?: Vec3;
-        axisA?: Vec3;
-        pivotB?: Vec3;
-        axisB?: Vec3;
-        maxForce?: number;
+        pivotA?: Vec3 | undefined;
+        axisA?: Vec3 | undefined;
+        pivotB?: Vec3 | undefined;
+        axisB?: Vec3 | undefined;
+        maxForce?: number | undefined;
 
     }
 
@@ -197,7 +197,7 @@ declare module CANNON {
     }
 
     export interface ILockConstraintOptions {
-        maxForce?: number;
+        maxForce?: number | undefined;
     }
 
     export class LockConstraint extends Constraint {
@@ -205,11 +205,11 @@ declare module CANNON {
     }
 
     export interface IConeTwistConstraintOptions {
-        pivotA?: Vec3;
-        pivotB?: Vec3;
-        axisA?: Vec3;
-        axisB?: Vec3;
-        maxForce?: number;
+        pivotA?: Vec3 | undefined;
+        pivotB?: Vec3 | undefined;
+        axisA?: Vec3 | undefined;
+        axisB?: Vec3 | undefined;
+        maxForce?: number | undefined;
     }
 
     export class ConeTwistConstraint extends Constraint {
@@ -299,12 +299,12 @@ declare module CANNON {
 
     export interface IContactMaterialOptions {
 
-        friction?: number;
-        restitution?: number;
-        contactEquationStiffness?: number;
-        contactEquationRelaxation?: number;
-        frictionEquationStiffness?: number;
-        frictionEquationRelaxation?: number;
+        friction?: number | undefined;
+        restitution?: number | undefined;
+        contactEquationStiffness?: number | undefined;
+        contactEquationRelaxation?: number | undefined;
+        frictionEquationStiffness?: number | undefined;
+        frictionEquationRelaxation?: number | undefined;
 
     }
 
@@ -446,22 +446,22 @@ declare module CANNON {
     }
 
     export interface IBodyOptions {
-        position?: Vec3;
-        velocity?: Vec3;
-        angularVelocity?: Vec3;
-        quaternion?: Quaternion;
-        mass?: number;
-        material?: Material;
-        type?: number;
-        linearDamping?: number;
-        angularDamping?: number;
-        allowSleep?: boolean;
-        sleepSpeedLimit?: number;
-        sleepTimeLimit?: number;
-        collisionFilterGroup?: number;
-        collisionFilterMask?: number;
-        fixedRotation?: boolean;
-        shape?: Shape;
+        position?: Vec3 | undefined;
+        velocity?: Vec3 | undefined;
+        angularVelocity?: Vec3 | undefined;
+        quaternion?: Quaternion | undefined;
+        mass?: number | undefined;
+        material?: Material | undefined;
+        type?: number | undefined;
+        linearDamping?: number | undefined;
+        angularDamping?: number | undefined;
+        allowSleep?: boolean | undefined;
+        sleepSpeedLimit?: number | undefined;
+        sleepTimeLimit?: number | undefined;
+        collisionFilterGroup?: number | undefined;
+        collisionFilterMask?: number | undefined;
+        fixedRotation?: boolean | undefined;
+        shape?: Shape | undefined;
     }
 
     export class Body extends EventTarget {
@@ -545,47 +545,47 @@ declare module CANNON {
 
     export interface IRaycastVehicleOptions {
 
-        chassisBody?: Body;
-        indexRightAxis?: number;
-        indexLeftAxis?: number;
-        indexUpAxis?: number;
+        chassisBody?: Body | undefined;
+        indexRightAxis?: number | undefined;
+        indexLeftAxis?: number | undefined;
+        indexUpAxis?: number | undefined;
 
     }
 
     export interface IWheelInfoOptions {
 
-        chassisConnectionPointLocal?: Vec3;
-        chassisConnectionPointWorld?: Vec3;
-        directionLocal?: Vec3;
-        directionWorld?: Vec3;
-        axleLocal?: Vec3;
-        axleWorld?: Vec3;
-        suspensionRestLength?: number;
-        suspensionMaxLength?: number;
-        radius?: number;
-        suspensionStiffness?: number;
-        dampingCompression?: number;
-        dampingRelaxation?: number;
-        frictionSlip?: number;
-        steering?: number;
-        rotation?: number;
-        deltaRotation?: number;
-        rollInfluence?: number;
-        maxSuspensionForce?: number;
-        isFronmtWheel?: boolean;
-        clippedInvContactDotSuspension?: number;
-        suspensionRelativeVelocity?: number;
-        suspensionForce?: number;
-        skidInfo?: number;
-        suspensionLength?: number;
-        maxSuspensionTravel?: number;
-        useCustomSlidingRotationalSpeed?: boolean;
-        customSlidingRotationalSpeed?: number;
+        chassisConnectionPointLocal?: Vec3 | undefined;
+        chassisConnectionPointWorld?: Vec3 | undefined;
+        directionLocal?: Vec3 | undefined;
+        directionWorld?: Vec3 | undefined;
+        axleLocal?: Vec3 | undefined;
+        axleWorld?: Vec3 | undefined;
+        suspensionRestLength?: number | undefined;
+        suspensionMaxLength?: number | undefined;
+        radius?: number | undefined;
+        suspensionStiffness?: number | undefined;
+        dampingCompression?: number | undefined;
+        dampingRelaxation?: number | undefined;
+        frictionSlip?: number | undefined;
+        steering?: number | undefined;
+        rotation?: number | undefined;
+        deltaRotation?: number | undefined;
+        rollInfluence?: number | undefined;
+        maxSuspensionForce?: number | undefined;
+        isFronmtWheel?: boolean | undefined;
+        clippedInvContactDotSuspension?: number | undefined;
+        suspensionRelativeVelocity?: number | undefined;
+        suspensionForce?: number | undefined;
+        skidInfo?: number | undefined;
+        suspensionLength?: number | undefined;
+        maxSuspensionTravel?: number | undefined;
+        useCustomSlidingRotationalSpeed?: boolean | undefined;
+        customSlidingRotationalSpeed?: number | undefined;
 
-        position?: Vec3;
-        direction?: Vec3;
-        axis?: Vec3;
-        body?: Body;
+        position?: Vec3 | undefined;
+        direction?: Vec3 | undefined;
+        axis?: Vec3 | undefined;
+        body?: Body | undefined;
 
     }
 
@@ -710,13 +710,13 @@ declare module CANNON {
 
     export interface ISpringOptions {
 
-        restLength?: number;
-        stiffness?: number;
-        damping?: number;
-        worldAnchorA?: Vec3;
-        worldAnchorB?: Vec3;
-        localAnchorA?: Vec3;
-        localAnchorB?: Vec3;
+        restLength?: number | undefined;
+        stiffness?: number | undefined;
+        damping?: number | undefined;
+        worldAnchorA?: Vec3 | undefined;
+        worldAnchorB?: Vec3 | undefined;
+        localAnchorA?: Vec3 | undefined;
+        localAnchorB?: Vec3 | undefined;
 
     }
 
@@ -801,8 +801,8 @@ declare module CANNON {
 
     export interface IHightfield {
 
-        minValue?: number;
-        maxValue?: number;
+        minValue?: number | undefined;
+        maxValue?: number | undefined;
         elementSize: number;
 
     }

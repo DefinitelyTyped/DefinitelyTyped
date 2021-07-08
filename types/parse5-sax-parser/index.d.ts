@@ -26,7 +26,7 @@ declare namespace SAXParser {
         /**
          * Start tag source code location info. Available if location info is enabled via {@link SAXParserOptions}.
          */
-        sourceCodeLocation?: parse5.StartTagLocation;
+        sourceCodeLocation?: parse5.StartTagLocation | undefined;
     }
 
     interface EndTagToken {
@@ -37,7 +37,7 @@ declare namespace SAXParser {
         /**
          * End tag source code location info. Available if location info is enabled via {@link SAXParserOptions}.
          */
-        sourceCodeLocation?: parse5.Location;
+        sourceCodeLocation?: parse5.Location | undefined;
     }
 
     interface CommentToken {
@@ -48,7 +48,7 @@ declare namespace SAXParser {
         /**
          * Comment source code location info. Available if location info is enabled via {@link SAXParserOptions}.
          */
-        sourceCodeLocation?: parse5.Location;
+        sourceCodeLocation?: parse5.Location | undefined;
     }
 
     interface TextToken {
@@ -59,7 +59,7 @@ declare namespace SAXParser {
         /**
          * Text content source code location info. Available if location info is enabled via {@link SAXParserOptions}.
          */
-        sourceCodeLocation?: parse5.Location;
+        sourceCodeLocation?: parse5.Location | undefined;
     }
 
     interface DoctypeToken {
@@ -78,7 +78,7 @@ declare namespace SAXParser {
         /**
          * Document type declaration source code location info. Available if location info is enabled via {@link SAXParserOptions}.
          */
-        sourceCodeLocation?: parse5.Location;
+        sourceCodeLocation?: parse5.Location | undefined;
     }
 
     interface SAXParserOptions {
@@ -87,7 +87,7 @@ declare namespace SAXParser {
          * When enabled, each token event handler will receive {@link Location} (or {@link StartTagLocation})
          * object as its last argument.
          */
-        sourceCodeLocationInfo?: boolean;
+        sourceCodeLocationInfo?: boolean | undefined;
     }
 }
 

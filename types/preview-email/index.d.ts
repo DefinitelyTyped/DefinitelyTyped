@@ -19,34 +19,34 @@ declare namespace previewEmail {
         /**
          * a unique ID for the file name created for the preview in dir (defaults to `uuid.v4()` from `uuid`)
          */
-        id?: string;
+        id?: string | undefined;
         /**
          *  a path to a directory for saving the generated email previews (defaults to `os.tmpdir()`)
          */
-        dir?: string;
+        dir?: string | undefined;
         /**
          * an options object that is passed to open (defaults to `{ wait: false }`).
          * If set to `false` then it will not open the email automatically in the browser using open,
          * and if set to true then it will default to `{ wait: false }`
          * @default { wait: false }
          */
-        open?: OpenOptions | boolean;
+        open?: OpenOptions | boolean | undefined;
         /**
          *  file path to a pug template file (defaults to preview-email's `template.pug` by default)
          * - this is where you can pass a custom template for rendering email previews, e.g. your own stylesheet
          */
-        template?: string;
+        template?: string | undefined;
         /**
          * a function to build preview url from file path
          * - this is where you can customize the opened path to handle WSL to Windows transformation or build a http url if dir is served.
          * @default (path) => 'file://[file path]'
          */
-        urlTransform?: UrlTransform;
+        urlTransform?: UrlTransform | undefined;
     }
 
     interface OpenOptions {
         /** @default false */
-        wait?: boolean;
+        wait?: boolean | undefined;
     }
 
     /**

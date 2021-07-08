@@ -128,7 +128,7 @@ declare namespace JsHamcrest {
     interface MatcherConfig {
         matches: Matches;
         describeTo: DescribeTo;
-        describeValueTo?: DescribeValueTo;
+        describeValueTo?: DescribeValueTo | undefined;
     }
 
     /**
@@ -194,8 +194,8 @@ declare namespace JsHamcrest {
          */
         interface AssertOptions {
             message?: any;
-            pass?: (description: string) => void;
-            fail?: (description: string) => void;
+            pass?: ((description: string) => void) | undefined;
+            fail?: ((description: string) => void) | undefined;
         }
 
         /**
@@ -674,56 +674,56 @@ declare namespace JsHamcrest {
          *
          * @param params Omit to copy members to global scope
          */
-        export function JsTestDriver(params?: { scope?: {} }): void;
+        export function JsTestDriver(params?: { scope?: {} | undefined }): void;
 
         /**
          * NodeUnit (Node.js Unit Testing) integration.
          *
          * @param params Omit to copy members to "global"
          */
-        export function Nodeunit(params?: { scope?: {} }): void;
+        export function Nodeunit(params?: { scope?: {} | undefined }): void;
 
         /**
          * JsUnitTest integration.
          *
          * @param params Omit to copy members to "JsUnitTest.Unit.Testcase.prototype"
          */
-        export function JsUnitTest(params?: { scope?: {} }): void;
+        export function JsUnitTest(params?: { scope?: {} | undefined }): void;
 
         /**
          * YUITest (Yahoo UI) integration.
          *
          * @param params Omit to copy members to global scope
          */
-        export function YUITest(params?: { scope?: {} }): void;
+        export function YUITest(params?: { scope?: {} | undefined }): void;
 
         /**
          * QUnit (JQuery) integration.
          *
          * @param params Omit to copy members to global scope
          */
-        export function QUnit(params?: { scope?: {} }): void;
+        export function QUnit(params?: { scope?: {} | undefined }): void;
 
         /**
          * jsUnity integration.
          *
          * @param params Omit to copy members to "jsUnity.env.defaultScope"
          */
-        export function jsUnity(params?: { scope?: {}; attachAssertions?: boolean }): void;
+        export function jsUnity(params?: { scope?: {} | undefined; attachAssertions?: boolean | undefined }): void;
 
         /**
          * Screw.Unit integration.
          *
          * @param params Omit to copy members to "Screw.Matchers"
          */
-        export function screwunit(params?: { scope?: {} }): void;
+        export function screwunit(params?: { scope?: {} | undefined }): void;
 
         /**
          * Jasmine integration.
          *
          * @param params Omit to copy members to global scope
          */
-        export function jasmine(params?: { scope?: {} }): void;
+        export function jasmine(params?: { scope?: {} | undefined }): void;
     }
 
 

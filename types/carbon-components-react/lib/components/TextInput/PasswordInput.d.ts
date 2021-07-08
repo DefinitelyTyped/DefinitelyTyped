@@ -3,15 +3,15 @@ import { ForwardRefReturn, TooltipAlignment, TooltipPosition } from "../../../ty
 import { TextInputSharedProps } from "./props";
 
 export interface PasswordInputProps extends TextInputSharedProps {
-    hidePasswordLabel?: string,
-    inline?: boolean;
+    hidePasswordLabel?: string | undefined,
+    inline?: boolean | undefined;
     onTogglePasswordVisibility?(evt: React.MouseEvent<HTMLButtonElement>): void;
-    showPasswordLabel?: string,
-    size?: string,
-    tooltipAlignment?: TooltipAlignment;
-    tooltipPosition?: TooltipPosition;
-    warn?: boolean;
-    warnText?: React.ReactNode;
+    showPasswordLabel?: string | undefined,
+    size?: string | undefined,
+    tooltipAlignment?: TooltipAlignment | undefined;
+    tooltipPosition?: TooltipPosition | undefined;
+    warn?: boolean | undefined;
+    warnText?: React.ReactNode | undefined;
 }
 
 declare const PasswordInput: ForwardRefReturn<HTMLInputElement, PasswordInputProps>;

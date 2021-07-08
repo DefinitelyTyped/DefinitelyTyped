@@ -16,18 +16,18 @@ declare namespace staticCache {
     }
 
     interface Options {
-        dir?: string;
-        maxAge?: number;
-        cacheControl?: string;
-        buffer?: boolean;
-        gzip?: boolean;
-        usePrecompiledGzip?: boolean;
-        alias?: {};
-        prefix?: string;
-        dynamic?: boolean;
-        filter?: ((path: string) => boolean) | string[];
-        preload?: boolean;
-        files?: Files;
+        dir?: string | undefined;
+        maxAge?: number | undefined;
+        cacheControl?: string | undefined;
+        buffer?: boolean | undefined;
+        gzip?: boolean | undefined;
+        usePrecompiledGzip?: boolean | undefined;
+        alias?: {} | undefined;
+        prefix?: string | undefined;
+        dynamic?: boolean | undefined;
+        filter?: ((path: string) => boolean) | string[] | undefined;
+        preload?: boolean | undefined;
+        files?: Files | undefined;
     }
 }
 

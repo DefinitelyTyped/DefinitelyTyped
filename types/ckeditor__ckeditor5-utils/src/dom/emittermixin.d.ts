@@ -10,7 +10,7 @@ export interface Emitter extends BaseEmitter {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     on: (

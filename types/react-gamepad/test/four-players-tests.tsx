@@ -19,7 +19,7 @@ export interface State {
 }
 
 class PlayerCube extends React.Component<Props, State> {
-    private previousFrameTime?: number;
+    private previousFrameTime?: number | undefined;
     state: State;
 
     constructor(props: Props) {

@@ -114,28 +114,28 @@ export type FontConstructorOptions = FontConstructorOptionsBase &
     };
 
 export interface FontOptions {
-    empty?: boolean;
+    empty?: boolean | undefined;
     familyName: string;
     styleName: string;
-    fullName?: string;
-    postScriptName?: string;
-    designer?: string;
-    designerURL?: string;
-    manufacturer?: string;
-    manufacturerURL?: string;
-    license?: string;
-    licenseURL?: string;
-    version?: string;
-    description?: string;
-    copyright?: string;
-    trademark?: string;
+    fullName?: string | undefined;
+    postScriptName?: string | undefined;
+    designer?: string | undefined;
+    designerURL?: string | undefined;
+    manufacturer?: string | undefined;
+    manufacturerURL?: string | undefined;
+    license?: string | undefined;
+    licenseURL?: string | undefined;
+    version?: string | undefined;
+    description?: string | undefined;
+    copyright?: string | undefined;
+    trademark?: string | undefined;
     unitsPerEm: number;
     ascender: number;
     descender: number;
     createdTimestamp: number;
-    weightClass?: string;
-    widthClass?: string;
-    fsSelection?: string;
+    weightClass?: string | undefined;
+    widthClass?: string | undefined;
+    fsSelection?: string | undefined;
 }
 
 export interface FontConstructorOptionsBase {
@@ -241,17 +241,17 @@ export class Glyph {
     ): Path;
 }
 export interface GlyphOptions {
-    advanceWidth?: number;
-    index?: number;
-    font?: Font;
-    name?: string;
-    path?: Path;
-    unicode?: number;
-    unicodes?: number[];
-    xMax?: number;
-    xMin?: number;
-    yMax?: number;
-    yMin?: number;
+    advanceWidth?: number | undefined;
+    index?: number | undefined;
+    font?: Font | undefined;
+    name?: string | undefined;
+    path?: Path | undefined;
+    unicode?: number | undefined;
+    unicodes?: number[] | undefined;
+    xMax?: number | undefined;
+    xMin?: number | undefined;
+    yMax?: number | undefined;
+    yMin?: number | undefined;
 }
 
 export class GlyphNames {
@@ -271,35 +271,35 @@ export class GlyphSet {
 }
 
 export interface Post {
-    glyphNameIndex?: number[];
+    glyphNameIndex?: number[] | undefined;
     isFixedPitch: number;
     italicAngle: number;
     maxMemType1: number;
     minMemType1: number;
     maxMemType42: number;
     minMemType42: number;
-    names?: string[];
-    numberOfGlyphs?: number;
-    offset?: number[];
+    names?: string[] | undefined;
+    numberOfGlyphs?: number | undefined;
+    offset?: number[] | undefined;
     underlinePosition: number;
     underlineThickness: number;
     version: number;
 }
 
 export interface RenderOptions {
-    script?: string;
-    language?: string;
-    kerning?: boolean;
-    xScale?: number;
-    yScale?: number;
+    script?: string | undefined;
+    language?: string | undefined;
+    kerning?: boolean | undefined;
+    xScale?: number | undefined;
+    yScale?: number | undefined;
     features?: {
         [key: string]: boolean;
-    };
+    } | undefined;
 }
 
 export interface Metrics {
     leftSideBearing: number;
-    rightSideBearing?: number;
+    rightSideBearing?: number | undefined;
     xMax: number;
     xMin: number;
     yMax: number;
@@ -309,7 +309,7 @@ export interface Metrics {
 export interface Contour extends Array<Point> {}
 
 export interface Point {
-    lastPointOfContour?: boolean;
+    lastPointOfContour?: boolean | undefined;
 }
 
 /******************************************

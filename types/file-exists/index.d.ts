@@ -12,6 +12,6 @@ declare namespace fileExists {
     function sync(filepath: string, options?: Options): boolean;
 
     interface Options {
-        root?: string;
+        root?: string | undefined;
     }
 }

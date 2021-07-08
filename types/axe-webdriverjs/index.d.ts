@@ -87,7 +87,7 @@ export interface BuilderOptions {
      * Should errors be printed into console
      * @default true
      */
-    logIframeErrors?: boolean;
+    logIframeErrors?: boolean | undefined;
 }
 
 export const AxeBuilder: {

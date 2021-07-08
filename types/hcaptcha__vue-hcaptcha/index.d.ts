@@ -10,9 +10,9 @@ export default h;
 
 export interface HCaptchaProps {
   sitekey: string;
-  theme?: string;
-  size?: string;
-  tabindex?: string;
+  theme?: string | undefined;
+  size?: string | undefined;
+  tabindex?: string | undefined;
 }
 
 export interface HCaptchaMethods {

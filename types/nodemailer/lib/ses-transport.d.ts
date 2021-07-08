@@ -80,6 +80,9 @@ declare namespace SESTransport {
         /** the Message-ID header value. This value is derived from the response of SES API, so it differs from the Message-ID values used in logging. */
         messageId: string;
         response: string;
+        accepted: Array<string | Mail.Address>;
+        rejected: Array<string | Mail.Address>;
+        pending: Array<string | Mail.Address>;
     }
 }
 

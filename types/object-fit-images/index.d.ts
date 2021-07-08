@@ -9,5 +9,5 @@ export = objectFillImages;
 
 declare function objectFillImages(
     images?: string | HTMLElement | HTMLElement[] | NodeList | null,
-    options?: { watchMQ?: boolean; skipTest?: boolean },
+    options?: { watchMQ?: boolean | undefined; skipTest?: boolean | undefined },
 ): void;

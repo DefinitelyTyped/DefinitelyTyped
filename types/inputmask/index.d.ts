@@ -34,72 +34,72 @@ declare namespace Inputmask {
          *
          * @default "_"
          */
-        placeholder?: string;
+        placeholder?: string | undefined;
         /**
          * Definition of the symbols used to indicate an optional part in the mask.
          *
          * @default { start: "[", end: "]" }
          */
-        optionalmarker?: Range;
+        optionalmarker?: Range | undefined;
         /**
          * Definition of the symbols used to indicate a quantifier in the mask.
          *
          * @default { start: "{", end: "}" }
          */
-        quantifiermarker?: Range;
+        quantifiermarker?: Range | undefined;
         /**
          * Definition of the symbols used to indicate a group in the mask.
          *
          * @default { start: "(", end: ")" }
          */
-        groupmarker?: Range;
+        groupmarker?: Range | undefined;
         /**
          * Definition of the symbols used to indicate an alternator part in the mask.
          *
          * @default "|"
          */
-        alternatormarker?: string;
+        alternatormarker?: string | undefined;
         /**
          * Definition of the symbols used to escape a part in the mask.
          *
          * @default "\\"
          */
-        escapeChar?: string;
+        escapeChar?: string | undefined;
         /**
          * The mask to use.
          */
-        mask?: string | string[] | ((opts: Options) => string | string[]);
+        mask?: string | string[] | ((opts: Options) => string | string[]) | undefined;
         /**
          * Use a regular expression as a mask. When using shorthands be aware that you need to double escape or use
          * String.raw with a string literal.
          */
-        regex?: string;
+        regex?: string | undefined;
         /**
          * Execute a function when the mask is completed.
          */
-        oncomplete?: () => void;
+        oncomplete?: (() => void) | undefined;
         /**
          * Execute a function when the mask is cleared.
          */
-        onincomplete?: () => void;
+        onincomplete?: (() => void) | undefined;
         /**
          * Execute a function when the mask is cleared.
          */
-        oncleared?: () => void;
+        oncleared?: (() => void) | undefined;
         /**
          * Mask repeat function. Repeat the mask definition x-times.
          * `*` ~ forever, otherwise specify an integer
          *
          * @default 0
          */
-        repeat?: number | string;
+        repeat?: number | string | undefined;
         /**
          * Toggle to allocate as much possible or the opposite. Non-greedy repeat function. With the non-greedy option
          * set to `false`, you can specify `*` as repeat. This makes an endless repeat.
          *
          * @default false
          */
-        greedy?: boolean;
+        greedy?: boolean | undefined;
         /**
          * Automatically unmask the value when retrieved.
          *
@@ -107,101 +107,101 @@ declare namespace Inputmask {
          *
          * @default false
          */
-        autoUnmask?: boolean;
+        autoUnmask?: boolean | undefined;
         /**
          * Remove the mask before submitting the form.
          *
          * @default false
          */
-        removeMaskOnSubmit?: boolean;
+        removeMaskOnSubmit?: boolean | undefined;
         /**
          * Remove the empty mask on blur or when not empty remove the optional trailing part.
          *
          * @default true
          */
-        clearMaskOnLostFocus?: boolean;
+        clearMaskOnLostFocus?: boolean | undefined;
         /**
          * Toggle to insert or overwrite input. This option can be altered by pressing the Insert key.
          *
          * @default true
          */
-        insertMode?: boolean;
+        insertMode?: boolean | undefined;
         /**
          * Show selected caret when `insertMode = false`.
          *
          * @default true
          */
-        insertModeVisual?: boolean;
+        insertModeVisual?: boolean | undefined;
         /**
          * Clear the incomplete input on blur.
          *
          * @default false
          */
-        clearIncomplete?: boolean;
+        clearIncomplete?: boolean | undefined;
         /**
          * The alias to use.
          *
          * @default null
          */
-        alias?: string;
+        alias?: string | undefined;
         /**
          * Callback to implement autocomplete on certain keys for example.
          */
-        onKeyDown?: (
+        onKeyDown?: ((
             event: KeyboardEvent,
             buffer: string[],
             caretPos: { begin: number; end: number },
             opts: Options,
-        ) => void;
+        ) => void) | undefined;
         /**
          * Executes before masking the initial value to allow preprocessing of the initial value.
          */
-        onBeforeMask?: (initialValue: string, opts: Options) => string;
+        onBeforeMask?: ((initialValue: string, opts: Options) => string) | undefined;
         /**
          * This callback allows for preprocessing the pasted value before actually handling the value for masking.
          * This can be useful for stripping away some characters before processing. You can also disable pasting
          * a value by returning false in the `onBeforePaste` call.
          */
-        onBeforePaste?: (pastedValue: string, opts: Options) => string;
+        onBeforePaste?: ((pastedValue: string, opts: Options) => string) | undefined;
         /**
          * Executes before writing to the masked element. Use this to do some extra processing of the input. This can
          * be useful when implementing an alias, ex. decimal alias, autofill the digits when leaving the inputfield.
          */
-        onBeforeWrite?: (event: KeyboardEvent, buffer: string[], caretPos: number, opts: Options) => CommandObject;
+        onBeforeWrite?: ((event: KeyboardEvent, buffer: string[], caretPos: number, opts: Options) => CommandObject) | undefined;
         /**
          * Executes after unmasking to allow post-processing of the unmaskedvalue.
          *
          * @returns New unmasked value
          */
-        onUnMask?: (maskedValue: string, unmaskedValue: string) => string;
+        onUnMask?: ((maskedValue: string, unmaskedValue: string) => string) | undefined;
         /**
          * Shows the mask when the input gets focus.
          *
          * @default true
          */
-        showMaskOnFocus?: boolean;
+        showMaskOnFocus?: boolean | undefined;
         /**
          * Shows the mask when the input is hevered by the mouse cursor.
          *
          * @default true
          */
-        showMaskOnHover?: boolean;
+        showMaskOnHover?: boolean | undefined;
         /**
          * Callback function is executed on every keyvalidation with the key, result as the parameter.
          */
-        onKeyValidation?: (key: number, result: boolean) => void;
+        onKeyValidation?: ((key: number, result: boolean) => void) | undefined;
         /**
          * A character which can be used to skip an optional part of a mask.
          *
          * @default " "
          */
-        skipOptionalPartCharacter?: string;
+        skipOptionalPartCharacter?: string | undefined;
         /**
          * Numeric input direction. Keeps the caret at the end.
          *
          * @default false
          */
-        numericInput?: boolean;
+        numericInput?: boolean | undefined;
         /**
          * Align the input to the right
          *
@@ -210,25 +210,25 @@ declare namespace Inputmask {
          *
          * @default true
          */
-        rightAlign?: boolean;
+        rightAlign?: boolean | undefined;
         /**
          * Make escape behave like undo. (ctrl-Z) Pressing escape reverts the value to the value before focus.
          *
          * @default true
          */
-        undoOnEscape?: boolean;
+        undoOnEscape?: boolean | undefined;
         /**
          * Define the radixpoint (decimal separator)
          *
          * @default ""
          */
-        radixPoint?: string;
+        radixPoint?: string | undefined;
         /**
          * Define the groupseparator.
          *
          * @default ""
          */
-        groupSeparator?: string;
+        groupSeparator?: string | undefined;
         /**
          * Use in combination with the alternator syntax Try to keep the mask static while typing. Decisions to alter the
          * mask will be postponed if possible.
@@ -239,38 +239,38 @@ declare namespace Inputmask {
          *
          * When the option is not set, it will default to `false`, except for multiple masks it will default to `true`!
          */
-        keepStatic?: boolean | null;
+        keepStatic?: boolean | null | undefined;
         /**
          * When enabled the caret position is set after the latest valid position on TAB.
          *
          * @default true
          */
-        positionCaretOnTab?: boolean;
+        positionCaretOnTab?: boolean | undefined;
         /**
          * Allows for tabbing through the different parts of the masked field.
          *
          * @default false
          */
-        tabThrough?: boolean;
+        tabThrough?: boolean | undefined;
         /**
          * List with the supported input types
          *
          * @default ["text", "tel", "url", "password", "search"]
          */
-        supportsInputType?: string[];
+        supportsInputType?: string[] | undefined;
         /**
          * Specify keyCodes which should not be considered in the keypress event, otherwise the `preventDefault` will
          * stop their default behavior especially in FF.
          */
-        ignorables?: number[];
+        ignorables?: number[] | undefined;
         /**
          * With this call-in (hook) you can override the default implementation of the isComplete function.
          */
-        isComplete?: (buffer: string[], opts: Options) => boolean;
+        isComplete?: ((buffer: string[], opts: Options) => boolean) | undefined;
         /**
          * Hook to postValidate the result from `isValid`. Useful for validating the entry as a whole.
          */
-        postValidation?: (
+        postValidation?: ((
             buffer: string[],
             pos: number,
             char: string,
@@ -279,7 +279,7 @@ declare namespace Inputmask {
             maskset: any,
             strict: boolean,
             fromCheckval: boolean,
-        ) => boolean | CommandObject;
+        ) => boolean | CommandObject) | undefined;
         /**
          * Hook to preValidate the input. Useful for validating regardless of the definition.
          *
@@ -288,7 +288,7 @@ declare namespace Inputmask {
          * When returning a command object the actions are executed and further validation is stopped. If you want to
          * continue further validation, you need to add the `rewritePosition` action.
          */
-        preValidation?: (
+        preValidation?: ((
             buffer: string[],
             pos: number,
             char: string,
@@ -297,7 +297,7 @@ declare namespace Inputmask {
             maskset: any,
             caretPos: { begin: number; end: number },
             strict: boolean,
-        ) => boolean | CommandObject;
+        ) => boolean | CommandObject) | undefined;
         /**
          * The `staticDefinitionSymbol` option is used to indicate that the static entries in the mask can match a
          * certain definition. Especially useful with alternators so that static element in the mask can match
@@ -305,27 +305,27 @@ declare namespace Inputmask {
          *
          * @default undefined
          */
-        staticDefinitionSymbol?: string;
+        staticDefinitionSymbol?: string | undefined;
         /**
          * Just in time masking. With the `jitMasking` option you can enable jit masking. The mask will only be
          * visible for the user entered characters.
          *
          * @default false
          */
-        jitMasking?: boolean;
+        jitMasking?: boolean | undefined;
         /**
          * Return nothing from the input `value` property when the user hasn't entered anything. If this is false,
          * the mask might be returned.
          *
          * @default true
          */
-        nullable?: boolean;
+        nullable?: boolean | undefined;
         /**
          * Disable value property patching
          *
          * @default false
          */
-        noValuePatching?: boolean;
+        noValuePatching?: boolean | undefined;
         /**
          * Positioning of the caret on click.
          *
@@ -339,20 +339,20 @@ declare namespace Inputmask {
          *
          * @default "lvp"
          */
-        positionCaretOnClick?: PositionCaretOnClick;
+        positionCaretOnClick?: PositionCaretOnClick | undefined;
         /**
          * Apply casing at the mask-level.
          *
          * @default undefined
          */
-        casing?: Casing;
+        casing?: Casing | undefined;
         /**
          * Specify the inputmode - already in place for when browsers start to support them
          * https://html.spec.whatwg.org/#input-modalities:-the-inputmode-attribute
          *
          * @default "verbatim"
          */
-        inputmode?: InputMode;
+        inputmode?: InputMode | undefined;
         /**
          * Specify to use the `data-inputmask` attributes or to ignore them.
          *
@@ -360,7 +360,7 @@ declare namespace Inputmask {
          *
          * @default true
          */
-        importDataAttributes?: boolean;
+        importDataAttributes?: boolean | undefined;
         /**
          * Alter the behavior of the char shifting on entry or deletion.
          *
@@ -370,21 +370,21 @@ declare namespace Inputmask {
          *
          * @default true
          */
-        shiftPositions?: boolean;
+        shiftPositions?: boolean | undefined;
         /**
          * Use the default defined definitions from the prototype.
          *
          * @default true
          */
-        usePrototypeDefinitions?: boolean;
+        usePrototypeDefinitions?: boolean | undefined;
         /**
          * Minimum value. This needs to be in the same format as the `inputFormat` when used with the datetime alias.
          */
-        min?: string | number;
+        min?: string | number | undefined;
         /**
          * Maximum value. This needs to be in the same format as the `inputFormat` when used with the datetime alias.
          */
-        max?: string | number;
+        max?: string | number | undefined;
 
         /**
          * Number of fractionalDigits.
@@ -397,55 +397,55 @@ declare namespace Inputmask {
          *
          * @default "*"
          */
-        digits?: string | number;
+        digits?: string | number | undefined;
         /**
          * Specify wheter the digits are optional.
          *
          * @default true
          */
-        digitsOptional?: boolean;
+        digitsOptional?: boolean | undefined;
         /**
          * Enforces the decimal part when leaving the input field.
          *
          * @default false
          */
-        enforceDigitsOnBlur?: boolean;
+        enforceDigitsOnBlur?: boolean | undefined;
         /**
          * Allow to enter -.
          *
          * @default true
          */
-        allowMinus?: boolean;
+        allowMinus?: boolean | undefined;
         /**
          * Define your negationSymbol.
          *
          * @default { front: "-", back: "" }
          */
-        negationSymbol?: { front: string, back: string };
+        negationSymbol?: { front: string, back: string } | undefined;
         /**
          * Define a prefix.
          *
          * @default ""
          */
-        prefix?: string;
+        prefix?: string | undefined;
         /**
          * Define a suffix.
          *
          * @default ""
          */
-        suffix?: string;
+        suffix?: string | undefined;
         /**
          * Set the maximum value when the user types a number which is greater that the value of max.
          *
          * @default false
          */
-        SetMaxOnOverflow?: boolean;
+        SetMaxOnOverflow?: boolean | undefined;
         /**
          * Define the step the ctrl-up & ctrl-down must take.
          *
          * @default 1
          */
-        step?: number;
+        step?: number | undefined;
         /**
          * Make unmasking returning a number instead of a string.
          *
@@ -453,7 +453,7 @@ declare namespace Inputmask {
          *
          * @default false
          */
-        unmaskAsNumber?: boolean;
+        unmaskAsNumber?: boolean | undefined;
         /**
          * Indicates whether the value passed for initialization is text or a number.
          *
@@ -462,7 +462,7 @@ declare namespace Inputmask {
          *
          * @default "text"
          */
-        inputType?: "text" | "number";
+        inputType?: "text" | "number" | undefined;
         /**
          * Set the function for rounding the values when set.
          *
@@ -472,7 +472,7 @@ declare namespace Inputmask {
          *
          * @default Math.round
          */
-        roundingFN?: (input: number) => number;
+        roundingFN?: ((input: number) => number) | undefined;
         /**
          * Define shortcuts. This will allow typing 1k => 1000, 2m => 2000000
          *
@@ -480,7 +480,7 @@ declare namespace Inputmask {
          *
          * @default {k: "000", m: "000000"}
          */
-        shortcuts?: { [shortcut: string]: string } | null;
+        shortcuts?: { [shortcut: string]: string } | null | undefined;
         /**
          * Format used to input a date. This option is only effective for the datetime alias.
          *
@@ -521,18 +521,18 @@ declare namespace Inputmask {
          *
          * @default "isoDateTime"
          */
-        inputFormat?: string;
+        inputFormat?: string | undefined;
         /**
          * Format of the unmasked value. This is only effective when used with the datetime alias.
          */
-        outputFormat?: string;
+        outputFormat?: string | undefined;
 
         /**
          * Add new definitions to this inputmask.
          */
         definitions?: {
             [key: string]: Definition;
-        };
+        } | undefined;
     }
 
     interface Instance {
@@ -599,10 +599,10 @@ declare namespace Inputmask {
 
     interface Definition {
         validator: string | DefinitionValidator;
-        casing?: Casing;
-        cardinality?: number;
-        placeholder?: string;
-        definitionSymbol?: string;
+        casing?: Casing | undefined;
+        cardinality?: number | undefined;
+        placeholder?: string | undefined;
+        definitionSymbol?: string | undefined;
     }
 
     interface InsertPosition {
@@ -617,43 +617,43 @@ declare namespace Inputmask {
         /**
          * @default true
          */
-        fromIsValid?: boolean;
+        fromIsValid?: boolean | undefined;
         /**
          * @default true
          */
-        strict?: boolean;
+        strict?: boolean | undefined;
     }
 
     interface CommandObject {
         /**
          * Position to insert.
          */
-        pos?: number;
+        pos?: number | undefined;
         /**
          * Character to insert.
          */
-        c?: string;
+        c?: string | undefined;
         /**
          * Position of the caret.
          */
-        caret?: number;
+        caret?: number | undefined;
         /**
          * Position(s) to remove.
          */
-        remove?: number | number[];
+        remove?: number | number[] | undefined;
         /**
          * Position(s) to add.
          */
-        insert?: InsertPosition | InsertPosition[];
+        insert?: InsertPosition | InsertPosition[] | undefined;
         /**
          * * `true` => refresh validPositions from the complete buffer .
          * * `{ start: , end: }` => refresh from start to end.
          */
-        refreshFromBuffer?: true | { start: number, end: number };
+        refreshFromBuffer?: true | { start: number, end: number } | undefined;
         /**
          * Rewrite the maskPos within the isvalid function.
          */
-        rewritePosition?: number;
+        rewritePosition?: number | undefined;
     }
 
     interface Static {
@@ -762,7 +762,7 @@ declare global {
     const Inputmask: Inputmask.Static;
 
     interface HTMLElement {
-        inputmask?: Inputmask.Instance;
+        inputmask?: Inputmask.Instance | undefined;
     }
 
     interface JQuery {

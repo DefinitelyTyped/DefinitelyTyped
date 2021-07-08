@@ -13,7 +13,7 @@ export default class WordCount extends Plugin {
 
 export interface WordCountConfig {
     container: HTMLElement;
-    displayCharacters?: boolean;
-    displayWords?: boolean;
+    displayCharacters?: boolean | undefined;
+    displayWords?: boolean | undefined;
     onUpdate?(stats: { readonly words: number; readonly characters: number }): void;
 }

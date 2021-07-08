@@ -25,14 +25,14 @@ declare namespace dottie {
         /**
          * force overwrite defined non-object keys into objects if needed
          */
-        force?: boolean;
+        force?: boolean | undefined;
     }
 
     interface TransformOptions {
         /**
          * Use a custom delimiter for path
          */
-        delimiter?: string;
+        delimiter?: string | undefined;
     }
 
     interface Dottie {

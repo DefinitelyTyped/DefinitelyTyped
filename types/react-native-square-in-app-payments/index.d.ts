@@ -150,67 +150,67 @@ export namespace SQIPCardEntry {
          * The location that is being verified against.
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        squareLocationId?: string;
+        squareLocationId?: string | undefined;
         /**
          * Indicates the action (Charge or Store) that will be performed onto the card after retrieving the verification token.
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        buyerAction?: string;
+        buyerAction?: string | undefined;
         /**
          * Payment amount
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        amount?: number;
+        amount?: number | undefined;
         /**
          * ISO currency code of the payment amount.
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        currencyCode?: string;
+        currencyCode?: string | undefined;
         /**
          * Given name of the contact.
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        givenName?: string;
+        givenName?: string | undefined;
         /**
          * Last name of the contact.
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        familyName?: string;
+        familyName?: string | undefined;
         /**
          * The street address lines of the contact address.
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        addressLines?: string[];
+        addressLines?: string[] | undefined;
         /**
          * The city name of the contact address.
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        city?: string;
+        city?: string | undefined;
         /**
          * A 2-letter string containing the ISO 3166-1 country code of the contact address.
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        countryCode?: string;
+        countryCode?: string | undefined;
         /**
          * Email address of the contact.
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        email?: string;
+        email?: string | undefined;
         /**
          * The telephone number of the contact.
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        phone?: string;
+        phone?: string | undefined;
         /**
          * The postal code of the contact address.
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        postalCode?: string;
+        postalCode?: string | undefined;
         /**
          * The applicable administrative region (e.g., province, state) of the contact address.
          * Should be specified if calling `startCardEntryFlowWithBuyerVerification` method.
          */
-        region?: string;
+        region?: string | undefined;
     }
 
     /** Represents the result of a successful buyer verification request. */
@@ -238,29 +238,29 @@ export namespace SQIPCardEntry {
     /** Encapsulates options used to style the iOS native card entry view controller. */
     interface ThemeIOS {
         /** The text field font. */
-        font?: Font;
+        font?: Font | undefined;
         /** The background color of the card entry view controller. */
-        backgroundColor?: RGBAColor;
+        backgroundColor?: RGBAColor | undefined;
         /** The fill color for text fields. */
-        foregroundColor?: RGBAColor;
+        foregroundColor?: RGBAColor | undefined;
         /** The text field text color. */
-        textColor?: RGBAColor;
+        textColor?: RGBAColor | undefined;
         /** The text field placeholder text color. */
-        placeholderTextColor?: RGBAColor;
+        placeholderTextColor?: RGBAColor | undefined;
         /** The tint color reflected in the text field cursor and submit button background color when enabled. */
-        tintColor?: RGBAColor;
+        tintColor?: RGBAColor | undefined;
         /** The text color used to display informational messages. */
-        messageColor?: RGBAColor;
+        messageColor?: RGBAColor | undefined;
         /** The text color when the text is invalid. */
-        errorColor?: RGBAColor;
+        errorColor?: RGBAColor | undefined;
         /** The text of the entry completion button */
-        saveButtonTitle?: string;
+        saveButtonTitle?: string | undefined;
         /** The save button font. */
-        saveButtonFont?: Font;
+        saveButtonFont?: Font | undefined;
         /** The save button text color when enabled. */
-        saveButtonTextColor?: RGBAColor;
+        saveButtonTextColor?: RGBAColor | undefined;
         /** The appearance of the keyboard. */
-        keyboardAppearance?: KeyboardAppearance;
+        keyboardAppearance?: KeyboardAppearance | undefined;
     }
 
     // Callbacks
@@ -372,7 +372,7 @@ export namespace SQIPApplePay {
         /** ISO currency code of the payment amount. */
         currencyCode: string;
         /** Type of the payment summary item, PaymentTypeFinal for default */
-        paymentType?: ApplePayPaymentType;
+        paymentType?: ApplePayPaymentType | undefined;
     }
 
     // Callbacks

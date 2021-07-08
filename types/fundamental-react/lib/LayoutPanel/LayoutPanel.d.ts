@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 export type LayoutPanelHeadProps = {
-    headingLevel?: 2 | 3 | 4 | 5 | 6;
-    headingStyle?: 2 | 3 | 4 | 5 | 6;
-    title?: boolean;
+    headingLevel?: 2 | 3 | 4 | 5 | 6 | undefined;
+    headingStyle?: 2 | 3 | 4 | 5 | 6 | undefined;
+    title?: boolean | undefined;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 declare class LayoutPanel extends React.Component<React.HTMLAttributes<HTMLDivElement>> {

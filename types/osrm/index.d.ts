@@ -387,23 +387,23 @@ declare namespace OSRM {
         /**
          * The coordinates this request will use. Array with [{lon},{lat}] values, in decimal degrees.
          */
-        coordinates?: Coordinate[];
+        coordinates?: Coordinate[] | undefined;
         /**
          * Limits the search to segments with given bearing in degrees towards true north in clockwise direction. Null or array with [{value},{range}]
          */
-        bearings?: Bearing[] | null;
+        bearings?: Bearing[] | null | undefined;
         /**
          * Limits the search to given radius in meters. null or double >= 0 or unlimited (default)
          */
-        radiuses?: Radius[] | null;
+        radiuses?: Radius[] | null | undefined;
         /**
          * Hint to derive position in street network. Base64 string
          */
-        hints?: Hint[];
+        hints?: Hint[] | undefined;
         /**
          * Adds a Hint to the response which can be used in subsequent requests, see hints parameter.
          */
-        generate_hints?: boolean;
+        generate_hints?: boolean | undefined;
     }
 
     /**
@@ -415,28 +415,28 @@ declare namespace OSRM {
         /**
          * Search for alternative routes and return as well. Please note that even if an alternative route is requested, a result cannot be guaranteed. (optional, default false)
          */
-        alternatives?: boolean;
+        alternatives?: boolean | undefined;
         /**
          * Return route steps for each route leg. (optional, default false)
          */
-        steps?: boolean;
+        steps?: boolean | undefined;
         /**
          * Return annotations for each route leg for duration, nodes, distance, weight, datasources and/or speed.
          * Annotations can be false or true (no/full annotations) or an array of strings with duration, nodes, distance, weight, datasources, speed. (optional, default false)
          */
-        annotations?: boolean | string[];
+        annotations?: boolean | string[] | undefined;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
-        geometries?: GeometriesTypes;
+        geometries?: GeometriesTypes | undefined;
         /**
          * Add overview geometry either full, simplified according to highest zoom level it could be display on, or not at all (false). (optional, default simplified)
          */
-        overview?: OverviewTypes;
+        overview?: OverviewTypes | undefined;
         /**
          * Forces the route to keep going straight at waypoints and don't do a uturn even if it would be faster. Default value depends on the profile. null/true/false
          */
-        continue_straight?: boolean;
+        continue_straight?: boolean | undefined;
     }
 
     /**
@@ -450,7 +450,7 @@ declare namespace OSRM {
         /**
          * Number of nearest segments that should be returned. Must be an integer greater than or equal to 1. (optional, default 1)
          */
-        number?: number;
+        number?: number | undefined;
     }
 
     /**
@@ -462,20 +462,20 @@ declare namespace OSRM {
         /**
          * to use location with given index as source. Default is to use all.
          */
-        sources?: number[];
+        sources?: number[] | undefined;
         /**
          * to use location with given index as destination. Default is to use all.
          */
-        destinations?: number[];
+        destinations?: number[] | undefined;
         /**
          * specify which table results to return.
          */
-        annotations?: Array<('duration' | 'distance')>;
+        annotations?: Array<('duration' | 'distance')> | undefined;
         /**
          * Multiply the table duration values in the table by this number for more controlled input into a
          * route optimization solver.
          */
-        scale_factor?: number;
+        scale_factor?: number | undefined;
     }
 
     /**
@@ -491,7 +491,7 @@ declare namespace OSRM {
          * Array an array consisting of x, y, and z values representing tile coordinates like wiki.openstreetmap.org/wiki/Slippy_map_tilenames
          * and are supported by vector tile viewers like Mapbox GL JS.
          */
-        ZXY?: Tile;
+        ZXY?: Tile | undefined;
     }
 
     /**
@@ -506,28 +506,28 @@ declare namespace OSRM {
         /**
          * Return route steps for each route. (optional, default false)
          */
-        steps?: boolean;
+        steps?: boolean | undefined;
         /**
          * Return annotations for each route leg for duration, nodes, distance, weight, datasources and/or speed.
          * Annotations can be false or true (no/full annotations) or an array of strings with duration, nodes, distance, weight, datasources, speed. (optional, default false)
          */
-        annotations?: boolean | string[];
+        annotations?: boolean | string[] | undefined;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
-        geometries?: string;
+        geometries?: string | undefined;
         /**
          * Add overview geometry either full, simplified according to highest zoom level it could be display on, or not at all (false). (optional, default simplified)
          */
-        overview?: string;
+        overview?: string | undefined;
         /**
          * Timestamp of the input location (integers, UNIX-like timestamp).
          */
-        timestamps?: number[];
+        timestamps?: number[] | undefined;
         /**
          * Standard deviation of GPS precision used for map matching. If applicable use GPS accuracy (double >= 0, default 5m).
          */
-        radiuses?: number[];
+        radiuses?: number[] | undefined;
     }
 
     /**
@@ -541,32 +541,32 @@ declare namespace OSRM {
         /**
          * Return route is a roundtrip. (optional, default true)
          */
-        roundtrip?: boolean;
+        roundtrip?: boolean | undefined;
         /**
          * Return route starts at any coordinate. Can also be first. (optional, default any)
          */
-        source?: string;
+        source?: string | undefined;
         /**
          * Return route ends at any coordinate. Can also be last. (optional, default any)
          */
-        destination?: string;
+        destination?: string | undefined;
         /**
          * Return route steps for each route. (optional, default false)
          */
-        steps?: boolean;
+        steps?: boolean | undefined;
         /**
          * Return annotations for each route leg for duration, nodes, distance, weight, datasources and/or speed.
          * Annotations can be false or true (no/full annotations) or an array of strings with duration, nodes, distance, weight, datasources, speed. (optional, default false)
          */
-        annotations?: boolean | string[];
+        annotations?: boolean | string[] | undefined;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
-        geometries?: string;
+        geometries?: string | undefined;
         /**
          * Add overview geometry either full, simplified (optional, default simplified)
          */
-        overview?: string;
+        overview?: string | undefined;
     }
 
     interface RouteResults {
@@ -580,7 +580,7 @@ declare namespace OSRM {
 
     interface TableResults {
         durations: Duration[][];
-        distances?: Distance[][];
+        distances?: Distance[][] | undefined;
         sources: Waypoint[];
         destinations: Waypoint[];
     }

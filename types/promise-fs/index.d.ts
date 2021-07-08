@@ -23,7 +23,7 @@ export function access(path: PathLike, mode?: number): Promise<void>;
  * @param options An object that may contain an optional flag.
  * If a flag is not provided, it defaults to `'r'`.
  */
-export function readFile(path: PathLike | number, options?: { encoding?: null, flag?: string; } | null): Promise<Buffer>;
+export function readFile(path: PathLike | number, options?: { encoding?: null | undefined, flag?: string | undefined; } | null): Promise<Buffer>;
 
 /**
  * Asynchronously reads the entire contents of a file.
@@ -33,7 +33,7 @@ export function readFile(path: PathLike | number, options?: { encoding?: null, f
  * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
  * If a flag is not provided, it defaults to `'r'`.
  */
-export function readFile(path: PathLike | number, options: { encoding: string; flag?: string; } | string): Promise<string>;
+export function readFile(path: PathLike | number, options: { encoding: string; flag?: string | undefined; } | string): Promise<string>;
 
 /**
  * Asynchronously reads the entire contents of a file.
@@ -43,7 +43,7 @@ export function readFile(path: PathLike | number, options: { encoding: string; f
  * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
  * If a flag is not provided, it defaults to `'r'`.
  */
-export function readFile(path: PathLike | number, options?: { encoding?: string | null; flag?: string; } | string | null): Promise<string | Buffer>;
+export function readFile(path: PathLike | number, options?: { encoding?: string | null | undefined; flag?: string | undefined; } | string | null): Promise<string | Buffer>;
 
 /**
  * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -153,28 +153,28 @@ export function mkdir(path: PathLike, options?: number | string | MakeDirectoryO
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
-export function readdir(path: PathLike, options?: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null): Promise<string[]>;
+export function readdir(path: PathLike, options?: { encoding: BufferEncoding | null; withFileTypes?: false | undefined } | BufferEncoding | null): Promise<string[]>;
 
 /**
  * Asynchronous readdir(3) - read a directory.
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
-export function readdir(path: PathLike, options: "buffer" | { encoding: "buffer"; withFileTypes?: false }): Promise<Buffer[]>;
+export function readdir(path: PathLike, options: "buffer" | { encoding: "buffer"; withFileTypes?: false | undefined }): Promise<Buffer[]>;
 
 /**
  * Asynchronous readdir(3) - read a directory.
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
-export function readdir(path: PathLike, options?: { encoding?: string | null; withFileTypes?: false } | string | null): Promise<string[] | Buffer[]>;
+export function readdir(path: PathLike, options?: { encoding?: string | null | undefined; withFileTypes?: false | undefined } | string | null): Promise<string[] | Buffer[]>;
 
 /**
  * Asynchronous readdir(3) - read a directory.
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  * @param options If called with `withFileTypes: true` the result data will be an array of Dirent
  */
-export function readdir(path: PathLike, options: { encoding?: string | null; withFileTypes: true }): Promise<Dirent[]>;
+export function readdir(path: PathLike, options: { encoding?: string | null | undefined; withFileTypes: true }): Promise<Dirent[]>;
 
 /**
  * Asynchronous stat(2) - Get file status.
@@ -213,7 +213,7 @@ export function appendFile(file: PathLike | number, data: any, options?: WriteFi
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
-export function realpath(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
+export function realpath(path: PathLike, options?: { encoding?: BufferEncoding | null | undefined } | BufferEncoding | null): Promise<string>;
 
 /**
  * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -227,7 +227,7 @@ export function realpath(path: PathLike, options: { encoding: "buffer" } | "buff
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
-export function realpath(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+export function realpath(path: PathLike, options?: { encoding?: string | null | undefined } | string | null): Promise<string | Buffer>;
 
 /**
  * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
@@ -247,7 +247,7 @@ export function unlink(path: PathLike): Promise<void>;
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
-export function readlink(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
+export function readlink(path: PathLike, options?: { encoding?: BufferEncoding | null | undefined } | BufferEncoding | null): Promise<string>;
 
 /**
  * Asynchronous readlink(2) - read value of a symbolic link.
@@ -261,7 +261,7 @@ export function readlink(path: PathLike, options: { encoding: "buffer" } | "buff
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
-export function readlink(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+export function readlink(path: PathLike, options?: { encoding?: string | null | undefined } | string | null): Promise<string | Buffer>;
 
 /**
  * Asynchronous chmod(2) - Change permissions of a file.

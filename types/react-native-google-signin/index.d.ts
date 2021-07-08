@@ -11,9 +11,9 @@ import * as React from 'react';
 import { ViewProps } from 'react-native';
 
 export interface GoogleSigninButtonProps extends ViewProps {
-    size?: GoogleSigninButton.Size;
-    color?: GoogleSigninButton.Color;
-    disabled?: boolean;
+    size?: GoogleSigninButton.Size | undefined;
+    color?: GoogleSigninButton.Color | undefined;
+    disabled?: boolean | undefined;
     onPress?(): void;
 }
 
@@ -40,45 +40,45 @@ export interface HasPlayServicesParams {
      * install Play Services if on Android and they are not installed.
      * Default is true
      */
-    showPlayServicesUpdateDialog?: boolean;
+    showPlayServicesUpdateDialog?: boolean | undefined;
 }
 
 export interface ConfigureParams {
     /**
      * The Google API scopes to request access to. Default is email and profile.
      */
-    scopes?: string[];
+    scopes?: string[] | undefined;
 
     /**
      * Web client ID from Developer Console. Required for offline access
      */
-    webClientId?: string;
+    webClientId?: string | undefined;
 
     /**
      * If you want to specify the client ID of type iOS
      */
-    iosClientId?: string;
+    iosClientId?: string | undefined;
 
     /**
      * Must be true if you wish to access user APIs on behalf of the user from
      * your own server
      */
-    offlineAccess?: boolean;
+    offlineAccess?: boolean | undefined;
 
     /**
      * Specifies a hosted domain restriction
      */
-    hostedDomain?: string;
+    hostedDomain?: string | undefined;
 
     /**
      * ANDROID ONLY. Specifies if the consent prompt should be shown at each login.
      */
-    forceConsentPrompt?: boolean;
+    forceConsentPrompt?: boolean | undefined;
 
     /**
      * ANDROID ONLY. An account name that should be prioritized.
      */
-    accountName?: string;
+    accountName?: string | undefined;
 }
 
 export interface User {
@@ -90,7 +90,7 @@ export interface User {
         familyName: string | null;
         givenName: string | null;
     };
-    scopes?: string[];
+    scopes?: string[] | undefined;
     idToken: string | null;
     accessToken: string | null;
     /**
