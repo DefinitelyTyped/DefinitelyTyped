@@ -16,7 +16,6 @@
 //                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
-// TypeScript Version: 3.8
 
 import * as React from 'react';
 import * as Popper from "@popperjs/core";
