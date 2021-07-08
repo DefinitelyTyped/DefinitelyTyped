@@ -110,11 +110,14 @@ export type GetProps<C> = C extends ComponentType<infer P>
     : never;
 
 // Applies LibraryManagedAttributes (proper handling of defaultProps
-// and propTypes), as well as defines WrappedComponent.
+// and propTypes).
+export type GetLibraryManagedProps<C> = JSX.LibraryManagedAttributes<C, GetProps<C>>;
+
+// Defines WrappedComponent and derives non-react statics.
 export type ConnectedComponent<
     C extends ComponentType<any>,
     P
-> = NamedExoticComponent<JSX.LibraryManagedAttributes<C, P>> & hoistNonReactStatics.NonReactStatics<C> & {
+> = NamedExoticComponent<P> & hoistNonReactStatics.NonReactStatics<C> & {
     WrappedComponent: C;
 };
 
@@ -125,7 +128,7 @@ export type ConnectedComponent<
 export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
     <C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
         component: C
-    ) => ConnectedComponent<C, DistributiveOmit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>;
+    ) => ConnectedComponent<C, DistributiveOmit<GetLibraryManagedProps<C>, keyof Shared<TInjectedProps, GetLibraryManagedProps<C>>> & TNeedsProps>;
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during

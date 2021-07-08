@@ -93,8 +93,11 @@ export type Shared<
 export type GetProps<C> = C extends ComponentType<infer P> ? P : never;
 
 // Applies LibraryManagedAttributes (proper handling of defaultProps
-// and propTypes), as well as defines WrappedComponent.
-export type ConnectedComponentClass<C, P> = ComponentClass<JSX.LibraryManagedAttributes<C, P>> & {
+// and propTypes).
+export type GetLibraryManagedProps<C> = JSX.LibraryManagedAttributes<C, GetProps<C>>;
+
+// Defines WrappedComponent.
+export type ConnectedComponentClass<C, P> = ComponentClass<P> & {
     WrappedComponent: C;
 };
 
@@ -104,7 +107,7 @@ export type ConnectedComponentClass<C, P> = ComponentClass<JSX.LibraryManagedAtt
 export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
     <C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
         component: C
-    ) => ConnectedComponentClass<C, Omit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>;
+    ) => ConnectedComponentClass<C, Omit<GetLibraryManagedProps<C>, keyof Shared<TInjectedProps, GetLibraryManagedProps<C>>> & TNeedsProps>;
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
