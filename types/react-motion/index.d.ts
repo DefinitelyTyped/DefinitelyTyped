@@ -3,7 +3,7 @@
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 //                 Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Dimitar Nestorov <https://github.com/dimitarnestorov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import { Component, ReactElement } from 'react';

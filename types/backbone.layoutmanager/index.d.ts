@@ -1,7 +1,7 @@
 // Type definitions for Backbone.LayoutManager 0.9
 // Project: http://layoutmanager.org/
 // Definitions by: He Jiang <https://github.com/hejiang2000>
-// Definitions: https://github.com/hejiang2000/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /// <reference types="jquery" />

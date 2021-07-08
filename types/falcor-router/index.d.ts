@@ -3,7 +3,7 @@
 // Definitions by: Quramy <https://github.com/Quramy>
 //                 cdhgee <https://github.com/cdhgee>
 //                 LukeRielley <https://github.com/lukerielley>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="falcor" />

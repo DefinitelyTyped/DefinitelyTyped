@@ -7,7 +7,7 @@
 //                  Geoff Harper <https://github.com/geoff-harper>
 //                  Justin <https://github.com/justincy>
 //                  Peter Blazejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/alvaromartmart/types-openseadragon
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 declare namespace OpenSeadragon {
     class Browser {
