@@ -96,16 +96,16 @@ declare namespace Cesium {
             overrideMimeType?: string | undefined;
         }): Promise<any> | undefined;
         patch(data: any, options?: {
-                responseType?: string | undefined;
-                headers?: any;
-                overrideMimeType?: string | undefined;
-            }
+            responseType?: string | undefined;
+            headers?: any;
+            overrideMimeType?: string | undefined;
+        }
         ): Promise<any> | undefined;
         post(data: any, options?: {
-                responseType?: string | undefined;
-                headers?: any;
-                overrideMimeType?: string | undefined;
-            }
+            responseType?: string | undefined;
+            headers?: any;
+            overrideMimeType?: string | undefined;
+        }
         ): Promise<any> | undefined;
         put(data: any,
             options?: {
@@ -709,19 +709,19 @@ declare namespace Cesium {
         static fromCssColorString(color: string): Color;
         static fromHsl(hue?: number, saturation?: number, lightness?: number, alpha?: number): Color;
         static fromRandom(options?: {
-                red?: number | undefined;
-                minimumRed?: number | undefined;
-                maximumRed?: number | undefined;
-                green?: number | undefined;
-                minimumGreen?: number | undefined;
-                maximumGreen?: number | undefined;
-                blue?: number | undefined;
-                minimumBlue?: number | undefined;
-                maximumBlue?: number | undefined;
-                alpha?: number | undefined;
-                minimumAlpha?: number | undefined;
-                maximumAlpha?: number | undefined
-            }, result?: Color): Color;
+            red?: number | undefined;
+            minimumRed?: number | undefined;
+            maximumRed?: number | undefined;
+            green?: number | undefined;
+            minimumGreen?: number | undefined;
+            maximumGreen?: number | undefined;
+            blue?: number | undefined;
+            minimumBlue?: number | undefined;
+            maximumBlue?: number | undefined;
+            alpha?: number | undefined;
+            minimumAlpha?: number | undefined;
+            maximumAlpha?: number | undefined
+        }, result?: Color): Color;
         static fromRgba(rgba: number): Color;
         /**
          * Computes the linear interpolation or extrapolation at t between the provided colors.
@@ -1096,7 +1096,7 @@ declare namespace Cesium {
     }
 
     class IonImageryProvider extends ImageryProvider {
-      constructor(options: {assetId: number, accessToken?: string | undefined, server?: string | undefined})
+        constructor(options: { assetId: number, accessToken?: string | undefined, server?: string | undefined })
     }
 
     class Interval {
@@ -1407,7 +1407,7 @@ declare namespace Cesium {
         static COLUMN2ROW1: number;
         static COLUMN2ROW2: number;
         constructor(column0Row0?: number, column1Row0?: number, column2Row0?: number, column0Row1?: number, column1Row1?: number,
-                    column2Row1?: number, column0Row2?: number, column1Row2?: number, column2Row2?: number);
+            column2Row1?: number, column0Row2?: number, column1Row2?: number, column2Row2?: number);
         clone(result?: Matrix3): Matrix3;
         equals(right?: Matrix3): boolean;
         equalsEpsilon(right: Matrix3, epsilon: number): boolean;
@@ -1469,9 +1469,9 @@ declare namespace Cesium {
         static COLUMN3ROW2: number;
         static COLUMN3ROW3: number;
         constructor(column0Row0?: number, column1Row0?: number, column2Row0?: number, column3Row0?: number, column0Row1?: number,
-                    column1Row1?: number, column2Row1?: number, column3Row1?: number, column0Row2?: number, column1Row2?: number,
-                    column2Row2?: number, column3Row2?: number, column0Row3?: number, column1Row3?: number, column2Row3?: number,
-                    column3Row3?: number);
+            column1Row1?: number, column2Row1?: number, column3Row1?: number, column0Row2?: number, column1Row2?: number,
+            column2Row2?: number, column3Row2?: number, column0Row3?: number, column1Row3?: number, column2Row3?: number,
+            column3Row3?: number);
         clone(result?: Matrix4): Matrix4;
         equals(right?: Matrix4): boolean;
         equalsEpsilon(right: Matrix4, epsilon: number): boolean;
@@ -1880,7 +1880,7 @@ declare namespace Cesium {
         [ScreenSpaceEventType.MOUSE_MOVE]: { startPosition: Cartesian2, endPosition: Cartesian2 };
         [ScreenSpaceEventType.WHEEL]: number;
         [ScreenSpaceEventType.PINCH_START]: { position1: Cartesian2, position2: Cartesian2 };
-        [ScreenSpaceEventType.PINCH_MOVE]: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 }};
+        [ScreenSpaceEventType.PINCH_MOVE]: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 } };
     }
 
     class ScreenSpaceEventHandler {
@@ -1977,7 +1977,7 @@ declare namespace Cesium {
         boundingSphere3D: BoundingSphere;
         occludeePointInScaledSpace: Cartesian3;
         constructor(center: Cartesian3, vertices: Float32Array, indices: Uint16Array | Uint32Array, minimumHeight: number,
-                    maximumHeight: number, boundingSphere3D: BoundingSphere, occludeePointInScaledSpace: Cartesian3, vertexStride?: number);
+            maximumHeight: number, boundingSphere3D: BoundingSphere, occludeePointInScaledSpace: Cartesian3, vertexStride?: number);
     }
 
     abstract class TerrainProvider {
@@ -2017,8 +2017,8 @@ declare namespace Cesium {
         error: Error;
         constructor(provider: ImageryProvider | TerrainProvider, message: string, x?: number, y?: number, level?: number, timesRetried?: number, error?: Error);
         static handleError(previousError: TileProviderError, provider: ImageryProvider | TerrainProvider, event: Event<[TileProviderError]>,
-                            message: string, x: number, y: number, level: number, retryFunction: TileProviderError.RetryFunction,
-                            errorDetails?: Error): TileProviderError;
+            message: string, x: number, y: number, level: number, retryFunction: TileProviderError.RetryFunction,
+            errorDetails?: Error): TileProviderError;
         static handleSuccess(previousError: TileProviderError): void;
     }
 
@@ -2158,7 +2158,8 @@ declare namespace Cesium {
         ellipsoid: Ellipsoid;
         rectangle: Rectangle;
         projection: MapProjection;
-        constructor(options?: { ellipsoid?: Ellipsoid | undefined;
+        constructor(options?: {
+            ellipsoid?: Ellipsoid | undefined;
             numberOfLevelZeroTilesX?: number | undefined;
             numberOfLevelZeroTilesY?: number | undefined;
             rectangleSouthwestInMeters?: Cartesian2 | undefined;
@@ -2192,7 +2193,8 @@ declare namespace Cesium {
         disableDepthTestDistance?: Property | undefined;
         pixelOffsetScaleByDistance?: Property | undefined;
         heightReference?: Property | undefined;
-        constructor(options?: { image?: Property | undefined;
+        constructor(options?: {
+            image?: Property | undefined;
             show?: Property | undefined;
             scale?: Property | undefined;
             horizontalOrigin?: Property | undefined;
@@ -2380,7 +2382,8 @@ declare namespace Cesium {
         outline: Property;
         outlineColor: Property;
         outlineWidth: Property;
-        constructor(options?: { length?: Property | undefined;
+        constructor(options?: {
+            length?: Property | undefined;
             topRadius?: Property | undefined;
             bottomRadius?: Property | undefined;
             show?: Property | undefined;
@@ -2580,33 +2583,33 @@ declare namespace Cesium {
         viewFrom: Property;
         wall: WallGraphics;
         constructor(options?: {
-          id?: string | undefined;
-          name?: string | undefined;
-          availability?: TimeIntervalCollection | undefined;
-          show?: boolean | undefined;
-          description?: Property | undefined;
-          position?: CallbackProperty | PositionProperty | undefined;
-          orientation?: Property | Quaternion | undefined;
-          viewFrom?: Property | undefined;
-          parent?: Entity | undefined;
-          billboard?: BillboardGraphics | undefined;
-          box?: BoxGraphics | undefined;
-          corridor?: CorridorGraphics | undefined;
-          cylinder?: CylinderGraphics | undefined;
-          ellipse?: EllipseGraphics | undefined;
-          ellipsoid?: EllipsoidGraphics | undefined;
-          label?: LabelGraphics | undefined;
-          model?: ModelGraphics | undefined;
-          path?: PathGraphics | undefined;
-          plane?: any;
-          point?: PointGraphics | undefined;
-          polygon?: PolygonGraphics | undefined;
-          polyline?: PolylineGraphics | undefined;
-          polylineVolume?: PolylineVolumeGraphics | undefined;
-          properties?: PropertyBag | undefined;
-          rectangle?: RectangleGraphics | undefined;
-          tileset?: Cesium3DTilesetGraphics | undefined;
-          wall?: WallGraphics | undefined
+            id?: string | undefined;
+            name?: string | undefined;
+            availability?: TimeIntervalCollection | undefined;
+            show?: boolean | undefined;
+            description?: Property | undefined;
+            position?: CallbackProperty | PositionProperty | undefined;
+            orientation?: Property | Quaternion | undefined;
+            viewFrom?: Property | undefined;
+            parent?: Entity | undefined;
+            billboard?: BillboardGraphics | undefined;
+            box?: BoxGraphics | undefined;
+            corridor?: CorridorGraphics | undefined;
+            cylinder?: CylinderGraphics | undefined;
+            ellipse?: EllipseGraphics | undefined;
+            ellipsoid?: EllipsoidGraphics | undefined;
+            label?: LabelGraphics | undefined;
+            model?: ModelGraphics | undefined;
+            path?: PathGraphics | undefined;
+            plane?: any;
+            point?: PointGraphics | undefined;
+            polygon?: PolygonGraphics | undefined;
+            polyline?: PolylineGraphics | undefined;
+            polylineVolume?: PolylineVolumeGraphics | undefined;
+            properties?: PropertyBag | undefined;
+            rectangle?: RectangleGraphics | undefined;
+            tileset?: Cesium3DTilesetGraphics | undefined;
+            wall?: WallGraphics | undefined
         });
         addProperty(propertyName: string): void;
         computeModelMatrix(time: JulianDate, result?: Matrix4): Matrix4;
@@ -2616,23 +2619,23 @@ declare namespace Cesium {
     }
 
     class EntityCluster {
-      clusterBillboards: boolean;
-      clusterEvent: Event;
-      clusterLabels: boolean;
-      clusterPoints: boolean;
-      enabled: boolean;
-      minimumClusterSize: number;
-      pixelRange: number;
-      constructor(options?: {
-          enabled?: boolean | undefined;
-          pixelRange?: number | undefined;
-          minimumClusterSize?: number | undefined;
-          clusterBillboards?: boolean | undefined;
-          clusterLabels?: boolean | undefined;
-          clusterPoints?: boolean | undefined
-      });
-      destroy(): void;
-      // newClusterCallback(clusteredEntities, cluster)
+        clusterBillboards: boolean;
+        clusterEvent: Event;
+        clusterLabels: boolean;
+        clusterPoints: boolean;
+        enabled: boolean;
+        minimumClusterSize: number;
+        pixelRange: number;
+        constructor(options?: {
+            enabled?: boolean | undefined;
+            pixelRange?: number | undefined;
+            minimumClusterSize?: number | undefined;
+            clusterBillboards?: boolean | undefined;
+            clusterLabels?: boolean | undefined;
+            clusterPoints?: boolean | undefined
+        });
+        destroy(): void;
+        // newClusterCallback(clusteredEntities, cluster)
     }
 
     class EntityCollection {
@@ -2700,29 +2703,29 @@ declare namespace Cesium {
     }
 
     class GeometryUpdater {
-      readonly classificationTypeProperty: Property;
-      readonly readonlydistanceDisplayConditionProperty: Property;
-      readonly entity: Entity;
-      readonly fillEnabled: boolean;
-      readonly fillMaterialProperty: MaterialProperty;
-      readonly geometryChanged: boolean;
-      readonly hasConstantFill: boolean;
-      readonly hasConstantOutline: boolean;
-      readonly id: string;
-      readonly isClosed: boolean;
-      readonly isDynamic: boolean;
-      readonly outlineColorProperty: Property;
-      readonly outlineEnabled: boolean;
-      readonly outlineWidth: number;
-      readonly shadowsProperty: Property;
-      constructor(options: { entity: Entity; scene: Scene; geometryOptions: any; geometryPropertyName: string; observedPropertyNames: string[] });
-      createDynamicUpdater(primitives: PrimitiveCollection, groundPrimitives: PrimitiveCollection): DynamicGeometryUpdater;
-      destroy(): void;
-      isDestroyed(): boolean;
-      isFilled(time: JulianDate): boolean;
-      isOutlineVisible(time: JulianDate): boolean;
-      createFillGeometryInstance(time: JulianDate): GeometryInstance;
-      createOutlineGeometryInstance(time: JulianDate): GeometryInstance;
+        readonly classificationTypeProperty: Property;
+        readonly readonlydistanceDisplayConditionProperty: Property;
+        readonly entity: Entity;
+        readonly fillEnabled: boolean;
+        readonly fillMaterialProperty: MaterialProperty;
+        readonly geometryChanged: boolean;
+        readonly hasConstantFill: boolean;
+        readonly hasConstantOutline: boolean;
+        readonly id: string;
+        readonly isClosed: boolean;
+        readonly isDynamic: boolean;
+        readonly outlineColorProperty: Property;
+        readonly outlineEnabled: boolean;
+        readonly outlineWidth: number;
+        readonly shadowsProperty: Property;
+        constructor(options: { entity: Entity; scene: Scene; geometryOptions: any; geometryPropertyName: string; observedPropertyNames: string[] });
+        createDynamicUpdater(primitives: PrimitiveCollection, groundPrimitives: PrimitiveCollection): DynamicGeometryUpdater;
+        destroy(): void;
+        isDestroyed(): boolean;
+        isFilled(time: JulianDate): boolean;
+        isOutlineVisible(time: JulianDate): boolean;
+        createFillGeometryInstance(time: JulianDate): GeometryInstance;
+        createOutlineGeometryInstance(time: JulianDate): GeometryInstance;
     }
 
     class GeometryVisualizer extends Visualizer {
@@ -2753,7 +2756,7 @@ declare namespace Cesium {
     class KmlDataSource extends DataSource {
         refreshEvent: Event;
         unsupportedNodeEvent: Event;
-        constructor(options?: {camera?: Camera | undefined, canvas?: HTMLCanvasElement | undefined; ellipsoid?: Ellipsoid | undefined});
+        constructor(options?: { camera?: Camera | undefined, canvas?: HTMLCanvasElement | undefined; ellipsoid?: Ellipsoid | undefined });
         static load(data: Resource | string | Document | Blob,
             options?: { camera: Camera, canvas: HTMLCanvasElement; sourceUri?: string | undefined, clampToGround?: boolean | undefined; ellipsoid?: Ellipsoid | undefined }): Promise<KmlDataSource>;
         load(data: Resource | string | Document | Blob, options?: { sourceUri?: string | undefined, clampToGround?: boolean | undefined, ellipsoid?: Ellipsoid | undefined }): Promise<KmlDataSource>;
@@ -2846,27 +2849,27 @@ declare namespace Cesium {
         silhouetteSize: Property | number;
         uri: Property | string;
         constructor(options?: {
-          show?: Property | boolean | undefined;
-          uri?: Property | string | undefined;
-          scale?: Property | number | undefined;
-          minimumPixelSize?: Property | number | undefined;
-          maximumScale?: Property | number | undefined;
-          incrementallyLoadTextures?: Property | boolean | undefined;
-          runAnimations?: Property | boolean | undefined;
-          clampAnimations?: Property | boolean | undefined;
-          shadows?: Property | ShadowMode | undefined;
-          heightReference?: Property | HeightReference | undefined;
-          silhouetteColor?: Property | Color | undefined;
-          silhouetteSize?: Property | number | undefined;
-          color?: Property | Color | undefined;
-          colorBlendMode?: Property | ColorBlendMode | undefined;
-          colorBlendAmount?: Property | number | undefined;
-          imageBasedLightingFactor?: Property | Cartesian2 | undefined;
-          lightColor?: Property | Cartesian3 | undefined;
-          distanceDisplayCondition?: Property | DistanceDisplayCondition | undefined;
-          nodeTransformations?: PropertyBag | undefined;
-          articulations?: PropertyBag | undefined;
-          clippingPlanes?: Property | ClippingPlaneCollection | undefined;
+            show?: Property | boolean | undefined;
+            uri?: Property | string | undefined;
+            scale?: Property | number | undefined;
+            minimumPixelSize?: Property | number | undefined;
+            maximumScale?: Property | number | undefined;
+            incrementallyLoadTextures?: Property | boolean | undefined;
+            runAnimations?: Property | boolean | undefined;
+            clampAnimations?: Property | boolean | undefined;
+            shadows?: Property | ShadowMode | undefined;
+            heightReference?: Property | HeightReference | undefined;
+            silhouetteColor?: Property | Color | undefined;
+            silhouetteSize?: Property | number | undefined;
+            color?: Property | Color | undefined;
+            colorBlendMode?: Property | ColorBlendMode | undefined;
+            colorBlendAmount?: Property | number | undefined;
+            imageBasedLightingFactor?: Property | Cartesian2 | undefined;
+            lightColor?: Property | Cartesian3 | undefined;
+            distanceDisplayCondition?: Property | DistanceDisplayCondition | undefined;
+            nodeTransformations?: PropertyBag | undefined;
+            articulations?: PropertyBag | undefined;
+            clippingPlanes?: Property | ClippingPlaneCollection | undefined;
         });
         clone(result?: ModelGraphics): ModelGraphics;
         merge(source: ModelGraphics): ModelGraphics;
@@ -2886,13 +2889,13 @@ declare namespace Cesium {
         show: Property | boolean;
         width: Property | number;
         constructor(options?: {
-          leadTime?: Property | number | undefined;
-          trailTime?: Property | number | undefined;
-          show?: Property | boolean | undefined;
-          width?: Property | number | undefined;
-          material?: MaterialProperty | undefined;
-          resolution?: Property | number | undefined;
-          distanceDisplayCondition?: Property | undefined;
+            leadTime?: Property | number | undefined;
+            trailTime?: Property | number | undefined;
+            show?: Property | boolean | undefined;
+            width?: Property | number | undefined;
+            material?: MaterialProperty | undefined;
+            resolution?: Property | number | undefined;
+            distanceDisplayCondition?: Property | undefined;
         });
         clone(result?: PathGraphics): PathGraphics;
         merge(source: PathGraphics): PathGraphics;
@@ -2915,16 +2918,16 @@ declare namespace Cesium {
         show: Property;
         translucencyByDistance: Property;
         constructor(options?: {
-          color?: Color | undefined;
-          pixelSize?: number | undefined;
-          outlineColor?: Color | undefined;
-          outlineWidth?: number | undefined;
-          show?: boolean | undefined;
-          scaleByDistance?: Property | undefined;
-          translucencyByDistance?: Property | undefined;
-          heightReference?: HeightReference | undefined;
-          distanceDisplayCondition?: Property | undefined;
-          disableDepthTestDistance?: Property | undefined
+            color?: Color | undefined;
+            pixelSize?: number | undefined;
+            outlineColor?: Color | undefined;
+            outlineWidth?: number | undefined;
+            show?: boolean | undefined;
+            scaleByDistance?: Property | undefined;
+            translucencyByDistance?: Property | undefined;
+            heightReference?: HeightReference | undefined;
+            distanceDisplayCondition?: Property | undefined;
+            disableDepthTestDistance?: Property | undefined
         });
         clone(result?: PointGraphics): PointGraphics;
         merge(source: PointGraphics): PointGraphics;
@@ -3003,7 +3006,7 @@ declare namespace Cesium {
         gapColor: Color;
         dashLength: Property;
         dashPattern: Property;
-        constructor(options?: {color?: Color | undefined; gapColor?: Color | undefined; dashLength?: Property | undefined; dashPattern?: Property | undefined});
+        constructor(options?: { color?: Color | undefined; gapColor?: Color | undefined; dashLength?: Property | undefined; dashPattern?: Property | undefined });
     }
 
     class PolylineGeometryUpdater extends GeometryUpdater {
@@ -3391,7 +3394,7 @@ declare namespace Cesium {
             proxy?: Proxy | undefined
         });
         static tileXYToQuadKey(x: number, y: number, level: number): string;
-        static quadKeyToTileXY(quadkey: string): {x: number, y: number, level: number};
+        static quadKeyToTileXY(quadkey: string): { x: number, y: number, level: number };
     }
 
     // tslint:disable-next-line no-unnecessary-class
@@ -3475,7 +3478,7 @@ declare namespace Cesium {
         flyHome(duration: number): void;
         flyTo(options: {
             destination: Cartesian3 | Rectangle;
-            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number} | undefined;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number } | undefined;
             duration?: number | undefined;
             complete?: Camera.FlightCompleteCallback | undefined;
             cancel?: Camera.FlightCancelledCallback | undefined;
@@ -3525,7 +3528,7 @@ declare namespace Cesium {
         rotateUp(angle?: number): void;
         setView(options: {
             destination?: Cartesian3 | Rectangle | undefined;
-            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number} | undefined;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number } | undefined;
             endTransform?: Matrix4 | undefined,
             convert?: boolean | undefined,
         }): void;
@@ -3736,7 +3739,7 @@ declare namespace Cesium {
         terrainPresent: boolean;
         readonly url: string;
         constructor(resourceOrUrl: Resource | string);
-        static quadKeyToTileXY(quadkey: string): {x: number, y: number, level: number};
+        static quadKeyToTileXY(quadkey: string): { x: number, y: number, level: number };
         static tileXYToQuadKey(x: number, y: number, level: number): string;
     }
 
@@ -4367,8 +4370,8 @@ declare namespace Cesium {
             credit?: Credit | string | undefined;
         });
         static fromGltf(options: {
-            url: string;
-            basePath?: string | undefined;
+            url: Resource | string;
+            basePath?: Resource | string | undefined;
             show?: boolean | undefined;
             modelMatrix?: Matrix4 | undefined;
             scale?: number | undefined;
@@ -4489,7 +4492,8 @@ declare namespace Cesium {
         readonly faceForward: boolean;
         static VERTEX_FORMAT: VertexFormat;
         static FLAT_VERTEX_FORMAT: VertexFormat;
-        constructor(options?: { flat?: boolean | undefined;
+        constructor(options?: {
+            flat?: boolean | undefined;
             faceForward?: boolean | undefined;
             translucent?: boolean | undefined;
             closed?: boolean | undefined;
@@ -4511,7 +4515,7 @@ declare namespace Cesium {
         aspectRatio: number;
         width: number;
         static packedLength: number;
-        constructor(options?: {width: number; aspectRatio: number; near: number; far: number});
+        constructor(options?: { width: number; aspectRatio: number; near: number; far: number });
         pack(value: OrthographicFrustum, array: number[], startingIndex: number): number[];
         unpack(array: number[], startingIndex: number, result: OrthographicFrustum): OrthographicFrustum;
         clone(result?: OrthographicFrustum): OrthographicFrustum;
@@ -4526,7 +4530,7 @@ declare namespace Cesium {
         readonly infiniteProjectionMatrix: Matrix4;
         readonly fovy: number;
         static packedLength: number;
-        constructor(options?: {fov: number; aspectRatio: number; near?: number | undefined; far?: number | undefined; xOffset?: number | undefined; yOffset?: number | undefined});
+        constructor(options?: { fov: number; aspectRatio: number; near?: number | undefined; far?: number | undefined; xOffset?: number | undefined; yOffset?: number | undefined });
         pack(value: PerspectiveFrustum, array: number[], startingIndex: number): number[];
         unpack(array: number[], startingIndex: number, result: PerspectiveFrustum): PerspectiveFrustum;
         clone(result?: PerspectiveFrustum): PerspectiveFrustum;
@@ -4539,7 +4543,7 @@ declare namespace Cesium {
         top: number;
         bottom: number;
         readonly infiniteProjectionMatrix: Matrix4;
-        constructor(options?: {left: number; right: number; top: number; bottom: number; near: number; far: number});
+        constructor(options?: { left: number; right: number; top: number; bottom: number; near: number; far: number });
         clone(result?: PerspectiveOffCenterFrustum): PerspectiveOffCenterFrustum;
         equals(other?: PerspectiveOffCenterFrustum): boolean;
     }
@@ -4975,8 +4979,8 @@ declare namespace Cesium {
 
     class WebMapServiceImageryProvider extends ImageryProvider {
         readonly url: string;
-        static DefaultParameters: {service: string, version: string, request: string, styles: string, format: string};
-        static GetFeatureInfoDefaultParameters: {service: string, version: string, request: string};
+        static DefaultParameters: { service: string, version: string, request: string, styles: string, format: string };
+        static GetFeatureInfoDefaultParameters: { service: string, version: string, request: string };
         constructor(options: {
             url: string;
             layers: string;
@@ -5562,7 +5566,7 @@ declare namespace Cesium {
         destroy(): void;
         zoomTo(target: Entity | Entity[] | EntityCollection | DataSource | Promise<Entity | Entity[] | EntityCollection | DataSource>, offset?: HeadingPitchRange): Promise<boolean>;
         flyTo(target: Entity | Entity[] | EntityCollection | DataSource | Promise<Entity | Entity[] | EntityCollection | DataSource>,
-                options?: { duration?: number | undefined; maximumHeight?: number | undefined; offset?: HeadingPitchRange | undefined }): Promise<boolean>;
+            options?: { duration?: number | undefined; maximumHeight?: number | undefined; offset?: HeadingPitchRange | undefined }): Promise<boolean>;
     }
 
     namespace Viewer {
@@ -5857,9 +5861,9 @@ declare namespace Cesium {
         ALT,
     }
 
-    class LagrangePolynomialApproximation extends InterpolationAlgorithm {}
+    class LagrangePolynomialApproximation extends InterpolationAlgorithm { }
 
-    class LinearApproximation extends InterpolationAlgorithm {}
+    class LinearApproximation extends InterpolationAlgorithm { }
 
     enum MapMode2D {
         INFINITE_SCROLL,
@@ -6047,7 +6051,7 @@ declare namespace Cesium {
         function northUpEastToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function headingPitchRollToFixedFrame(origin: Cartesian3, headingPitchRoll: HeadingPitchRoll, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame, result?: Matrix4): Matrix4;
         function headingPitchRollQuaternion(origin: Cartesian3, headingPitchRoll: HeadingPitchRoll, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame,
-                                            result?: Quaternion): Quaternion;
+            result?: Quaternion): Quaternion;
         function computeTemeToPseudoFixedMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function preloadIcrfFixed(timeInterval: TimeInterval): Promise<void>;
         function computeIcrfToFixedMatrix(date: JulianDate, result?: Matrix3): Matrix3;
@@ -6080,13 +6084,13 @@ declare namespace Cesium {
         AERIAL = "Aerial",
         AERIAL_WITH_LABELS = "AerialWithLabels",
         AERIAL_WITH_LABELS_ON_DEMAND = "AerialWithLabelsOnDemand",
-        ROAD= "Road",
-        ROAD_ON_DEMAND= "RoadOnDemand",
-        CANVAS_DARK= "CanvasDark",
-        CANVAS_LIGHT= "CanvasLight",
-        CANVAS_GRAY= "CanvasGray",
-        ORDNANCE_SURVEY= "OrdnanceSurvey",
-        COLLINS_BART= "CollinsBart",
+        ROAD = "Road",
+        ROAD_ON_DEMAND = "RoadOnDemand",
+        CANVAS_DARK = "CanvasDark",
+        CANVAS_LIGHT = "CanvasLight",
+        CANVAS_GRAY = "CanvasGray",
+        ORDNANCE_SURVEY = "OrdnanceSurvey",
+        COLLINS_BART = "CollinsBart",
     }
 
     enum BlendEquation {
@@ -6315,110 +6319,136 @@ declare namespace Cesium {
     }
 
     class Resource {
-      static DEFAULT: Resource;
-      static readonly isBlobSupported: boolean;
-      readonly extension: string;
-      hasHeaders: boolean;
-      headers: any;
-      isBlobUri: boolean;
-      isCrossOriginUrl: boolean;
-      isDataUri: boolean;
-      proxy: DefaultProxy;
-      readonly queryParameters: any;
-      request: Request;
-      retryAttempts: number;
-      retryCallback: () => void;
-      readonly templateValues: any;
-      url: string;
-      static delete(options?: {
-          url: string;
-          data?: any;
-          queryParameters?: any;
-          templateValues?: any;
-          headers?: any;
-          proxy?: DefaultProxy | undefined;
-          retryCallback?: Resource.RetryCallback | undefined;
+        static DEFAULT: Resource;
+        static readonly isBlobSupported: boolean;
+        readonly extension: string;
+        hasHeaders: boolean;
+        headers: any;
+        isBlobUri: boolean;
+        isCrossOriginUrl: boolean;
+        isDataUri: boolean;
+        proxy: DefaultProxy;
+        readonly queryParameters: any;
+        request: Request;
+        retryAttempts: number;
+        retryCallback: () => void;
+        readonly templateValues: any;
+        url: string;
+        static delete(options?: {
+            url: string;
+            data?: any;
+            queryParameters?: any;
+            templateValues?: any;
+            headers?: any;
+            proxy?: DefaultProxy | undefined;
+            retryCallback?: Resource.RetryCallback | undefined;
 
-          retryAttempts?: number | undefined;
-          request?: Request | undefined;
-          responseType?: string | undefined;
-          overrideMimeType?: string | undefined
-      }): Promise<any> | undefined;
+            retryAttempts?: number | undefined;
+            request?: Request | undefined;
+            responseType?: string | undefined;
+            overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
 
-      static fetch(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined }): Promise<any> | undefined;
-      static fetchArrayBuffer(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined }): Promise<ArrayBuffer> | undefined;
-      static fetchBlob(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined }): Promise<Blob> | undefined;
-      static fetchImage(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined; preferBlob?: boolean | undefined }): Promise<any> | undefined;
-      static fetchJson(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined }): Promise<any> | undefined;
-      static fetchJsonp(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined; callbackParameterName?: string | undefined }): Promise<any> | undefined;
-      static fetchText(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined }): Promise<string> | undefined;
-      static fetchXml(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined }): Promise<XMLDocument> | undefined;
-      static head(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined }): Promise<any> | undefined;
-      static options(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined }): Promise<any> | undefined;
-      static patch(options?: {
-          url: string;
-          data?: any;
-          queryParameters?: any;
-          templateValues?: any;
-          headers?: any;
-          proxy?: DefaultProxy | undefined;
-          retryCallback?: Resource.RetryCallback | undefined;
-          retryAttempts?: number | undefined;
-          request?: Request | undefined;
-          responseType?: string | undefined;
-          overrideMimeType?: string | undefined
-      }): Promise<any> | undefined;
+        static fetch(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
+        static fetchArrayBuffer(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined
+        }): Promise<ArrayBuffer> | undefined;
+        static fetchBlob(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined
+        }): Promise<Blob> | undefined;
+        static fetchImage(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; preferBlob?: boolean | undefined
+        }): Promise<any> | undefined;
+        static fetchJson(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined
+        }): Promise<any> | undefined;
+        static fetchJsonp(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; callbackParameterName?: string | undefined
+        }): Promise<any> | undefined;
+        static fetchText(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined
+        }): Promise<string> | undefined;
+        static fetchXml(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined
+        }): Promise<XMLDocument> | undefined;
+        static head(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
+        static options(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
+        static patch(options?: {
+            url: string;
+            data?: any;
+            queryParameters?: any;
+            templateValues?: any;
+            headers?: any;
+            proxy?: DefaultProxy | undefined;
+            retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined;
+            request?: Request | undefined;
+            responseType?: string | undefined;
+            overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
 
-      static post(options?: { url: string; data?: any; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined }): Promise<any> | undefined;
-      static put(options?: { url: string; data?: any; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined }): Promise<any> | undefined;
-      constructor(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
-                    retryAttempts?: number | undefined; request?: Request | undefined });
-      addQueryParameters(params: any, useAsDefault: boolean): void;
-      addTemplateValues(template: any, useAsDefault: boolean): void;
-      appendForwardSlash(): void;
-      appendQueryParameters(params: any): void;
-      clone(result: Resource): Resource;
-      delete(options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
-      fetch(options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
-      fetchArrayBuffer(): Promise<ArrayBuffer> | undefined;
-      fetchBlob(): Promise<Blob> | undefined;
-      fetchImage(preferBlob: boolean): Promise<any> | undefined;
-      fetchJson(): Promise<any> | undefined;
-      fetchJsonp(callbackParameterName: string): Promise<any> | undefined;
-      fetchText(): Promise<string> | undefined;
-      fetchXml(): Promise<XMLDocument> | undefined;
-      getBaseUri(includeQuery: boolean): string;
-      getDerivedResource(options: {
-          url?: string | undefined;
-          queryParameters?: any;
-          templateValues?: any;
-          headers?: any;
-          proxy?: DefaultProxy | undefined;
-          retryCallback?: Resource.RetryCallback | undefined;
-          retryAttempts?: number | undefined;
-          request?: Request | undefined;
-          preserveQueryParameters?: boolean | undefined
-      }): Resource;
-      getUrlComponent(query: boolean, proxy: boolean): string;
-      head(options?: {responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined}): Promise<any> | undefined;
-      options(options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
-      patch(data: any, options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
-      post(data: any, options?: { data?: any; responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
-      put(data: any, options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
-      setQueryParameters(params: any, useAsDefault: boolean): void;
-      setTemplateValues(template: any, useAsDefault: boolean): void;
+        static post(options?: {
+            url: string; data?: any; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
+        static put(options?: {
+            url: string; data?: any; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
+        constructor(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined
+        });
+        addQueryParameters(params: any, useAsDefault: boolean): void;
+        addTemplateValues(template: any, useAsDefault: boolean): void;
+        appendForwardSlash(): void;
+        appendQueryParameters(params: any): void;
+        clone(result: Resource): Resource;
+        delete(options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        fetch(options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        fetchArrayBuffer(): Promise<ArrayBuffer> | undefined;
+        fetchBlob(): Promise<Blob> | undefined;
+        fetchImage(preferBlob: boolean): Promise<any> | undefined;
+        fetchJson(): Promise<any> | undefined;
+        fetchJsonp(callbackParameterName: string): Promise<any> | undefined;
+        fetchText(): Promise<string> | undefined;
+        fetchXml(): Promise<XMLDocument> | undefined;
+        getBaseUri(includeQuery: boolean): string;
+        getDerivedResource(options: {
+            url?: string | undefined;
+            queryParameters?: any;
+            templateValues?: any;
+            headers?: any;
+            proxy?: DefaultProxy | undefined;
+            retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined;
+            request?: Request | undefined;
+            preserveQueryParameters?: boolean | undefined
+        }): Resource;
+        getUrlComponent(query: boolean, proxy: boolean): string;
+        head(options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        options(options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        patch(data: any, options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        post(data: any, options?: { data?: any; responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        put(data: any, options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        setQueryParameters(params: any, useAsDefault: boolean): void;
+        setTemplateValues(template: any, useAsDefault: boolean): void;
     }
 
     namespace Resource {
@@ -6521,7 +6551,7 @@ declare namespace Cesium {
     }
 
     namespace buildModuleUrl {
-      function setBaseUrl(value: string): undefined;
+        function setBaseUrl(value: string): undefined;
     }
 
     enum WebGLConstants {
@@ -6582,7 +6612,7 @@ declare namespace Cesium {
         SCISSOR_TEST,
         POLYGON_OFFSET_FILL,
         SAMPLE_ALPHA_TO_COVERAGE,
-        SAMPLE_COVERAGE ,
+        SAMPLE_COVERAGE,
         NO_ERROR,
         INVALID_ENUM,
         INVALID_VALUE,
@@ -6639,7 +6669,7 @@ declare namespace Cesium {
         COMPRESSED_TEXTURE_FORMATS,
         DONT_CARE,
         FASTEST,
-        NICEST ,
+        NICEST,
         GENERATE_MIPMAP_HINT,
         BYTE,
         UNSIGNED_BYTE,
@@ -6697,7 +6727,7 @@ declare namespace Cesium {
         LINEAR,
         NEAREST_MIPMAP_NEAREST,
         LINEAR_MIPMAP_NEAREST,
-        NEAREST_MIPMAP_LINEAR ,
+        NEAREST_MIPMAP_LINEAR,
         LINEAR_MIPMAP_LINEAR,
         TEXTURE_MAG_FILTER,
         TEXTURE_MIN_FILTER,
@@ -6708,7 +6738,7 @@ declare namespace Cesium {
         TEXTURE_CUBE_MAP,
         TEXTURE_BINDING_CUBE_MAP,
         TEXTURE_CUBE_MAP_POSITIVE_X,
-        TEXTURE_CUBE_MAP_NEGATIVE_X ,
+        TEXTURE_CUBE_MAP_NEGATIVE_X,
         TEXTURE_CUBE_MAP_POSITIVE_Y,
         TEXTURE_CUBE_MAP_NEGATIVE_Y,
         TEXTURE_CUBE_MAP_POSITIVE_Z,
