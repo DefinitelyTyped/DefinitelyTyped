@@ -75,6 +75,7 @@ export interface PlotParams {
     onAnimationInterrupted?: (() => void) | undefined;
     onAutoSize?: (() => void) | undefined;
     onBeforeExport?: (() => void) | undefined;
+    onBeforeHover?: ((event: Readonly<Plotly.PlotMouseEvent>) => boolean) | undefined;
     onButtonClicked?: ((event: Readonly<Plotly.ButtonClickEvent>) => void) | undefined;
     onClick?: ((event: Readonly<Plotly.PlotMouseEvent>) => void) | undefined;
     onClickAnnotation?: ((event: Readonly<Plotly.ClickAnnotationEvent>) => void) | undefined;
@@ -95,7 +96,6 @@ export interface PlotParams {
     onTransitioning?: (() => void) | undefined;
     onTransitionInterrupted?: (() => void) | undefined;
     onUnhover?: ((event: Readonly<Plotly.PlotMouseEvent>) => void) | undefined;
-    onBeforeHover?: ((event: Readonly<Plotly.PlotMouseEvent>) => boolean) | undefined;
 }
 
 export default class Plot extends React.PureComponent<PlotParams> {}
