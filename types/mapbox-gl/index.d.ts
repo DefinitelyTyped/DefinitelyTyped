@@ -550,7 +550,7 @@ declare namespace mapboxgl {
         ): this;
         once<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
         once(type: string, listener: (ev: any) => void): this;
-        once(type: string): Promise<this>;
+        once<T extends keyof MapEventType>(type: T): Promise<MapEventType[T]>;
 
         off<T extends keyof MapLayerEventType>(
             type: T,
