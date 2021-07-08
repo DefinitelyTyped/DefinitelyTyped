@@ -1,4 +1,4 @@
-// Type definitions for gulp-sass 4.0.2
+// Type definitions for gulp-sass 5.0.0
 // Project: https://github.com/dlmanning/gulp-sass
 // Definitions by: Asana <https://asana.com>
 //                 Yuma Hashimoto <https://github.com/yuma84>
@@ -34,11 +34,17 @@ interface GulpSassOptions extends SassOptions {
     sync?: boolean | undefined;
 }
 
-interface Sass {
+interface GulpSass {
     (opts?: GulpSassOptions): NodeJS.ReadWriteStream;
     logError(error?: string): void;
     sync(options?: GulpSassOptions): NodeJS.ReadWriteStream;
 }
 
-declare var _tmp: Sass;
+type Compiler = any;
+
+interface GulpSassFactory {
+    (compiler: Compiler): GulpSass
+}
+
+declare var _tmp: GulpSassFactory;
 export = _tmp;
