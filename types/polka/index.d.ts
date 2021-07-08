@@ -100,7 +100,7 @@ declare namespace polka {
          * `server` is only created if a server was not provided via `option.server`
          * `server` will be undefined until polka.listen is invoked or if a server was provided.
          */
-        server?: Server | undefined;
+        server?: Server;
     }
 
     /**
@@ -110,7 +110,7 @@ declare namespace polka {
         /**
          * The server instance to use when `polka.listen()` is called.
          */
-        server?: Server | undefined;
+        server?: Server;
 
         /**
          * A catch-all error handler; executed whenever a middleware throws an error.
